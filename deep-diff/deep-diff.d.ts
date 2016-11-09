@@ -3,7 +3,7 @@
 // Definitions by: ZauberNerd <https://github.com/ZauberNerd/>, forabi <https://github.com/forabi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'deep-diff' {
+declare namespace deepDiff {
   export interface BaseDiff<T> {
     /**
      * indicates the kind of change; will be one of the following:
@@ -14,7 +14,7 @@ declare module 'deep-diff' {
      */
     kind: 'N' |'D' | 'E' |'A';
     /** The property path (from the left-hand-side root) */
-    path: string[];
+    path: ReadonlyArray<string>;
   }
 
   export interface NewDiff<T> extends BaseDiff<T> {
@@ -45,7 +45,7 @@ declare module 'deep-diff' {
     /** Indicates the array index where the change occurred */
     index?: number;
     /** Contains a nested change record indicating the change that occurred at the array index */
-    item?: Diff;
+    item?: Diff<T>;
     /** The property path (from the left-hand-side root) */
     path: ReadonlyArray<string> & { 0: number };
   }
@@ -61,7 +61,7 @@ declare module 'deep-diff' {
   /**
    * A function that calculates the differences between two objects
    */
-  declare type DiffFunction = <T>(
+  export type DiffFunction = <T>(
     /**
      * The left-hand operand; the origin object
      */
@@ -103,7 +103,7 @@ declare module 'deep-diff' {
       lhs: DiffableObject<T>,
       rhs: typeof lhs,
       changes: (diff: Diff<T>) => void,
-      prefilter?: Prefilter,
+      prefilter?: (path: string[], key: string) => boolean,
       path?: string[],
       key?: string,
       stack?: Diff<T>[],
@@ -115,7 +115,7 @@ declare module 'deep-diff' {
     applyDiff<T>(
       target: DiffableObject<T>,
       source: typeof target,
-      filter: (target: typeof target, source: typeof source, change: Diff<T>) => boolean,
+      filter: (target: typeof source, src: typeof source, change: Diff<T>) => boolean,
     ): void;
 
     /**
@@ -132,11 +132,15 @@ declare module 'deep-diff' {
      */
     revertChange<T>(
       target: DiffableObject<T>,
-      source: typeof source,
+      source: typeof target,
       change: Diff<T>,
     ): void;
   }
-  const deepDiff: DeepDiff;
-  export const diff: DiffFunction;
-  export default Object.assign(diff, deepDiff, { diff });
+}
+
+declare const DeepDiff: deepDiff.DeepDiff;
+
+declare module 'deep-diff' {
+  const deepDiff: deepDiff.DeepDiff;
+  export = deepDiff;
 }
