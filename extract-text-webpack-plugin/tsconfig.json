@@ -14,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "webpack-tests.ts"
+        "extract-text-webpack-plugin-tests.ts"
     ]
 }
