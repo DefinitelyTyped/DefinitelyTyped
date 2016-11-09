@@ -23,7 +23,7 @@ var rhs = {
     }
 };
 
-var differences: deepDiff.Diff<string | Object>[] = diff(lhs, rhs);
+var differences = diff(lhs, rhs);
 
 console.log(differences);
 
@@ -53,7 +53,7 @@ var rhs = {
     }
 };
 
-observableDiff<string | Object>(lhs, rhs, function (d) {
+observableDiff(lhs, rhs, function (d) {
     // Apply all changes except those to the 'name' property...
     if (d.path.length !== 1 || d.path.join('.') !== 'name') {
         applyChange(lhs, rhs, d);
