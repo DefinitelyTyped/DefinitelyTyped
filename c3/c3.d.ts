@@ -3,7 +3,7 @@
 // Definitions by: Marc Climent <https://github.com/mcliment>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../d3/d3.d.ts"/>
+import * as d3 from 'd3';
 
 declare namespace c3 {
 
@@ -22,7 +22,7 @@ declare namespace c3 {
          * If this option is not specified, the chart will be generated but not be set. Instead, we can access the element by chart.element and set it by ourselves.
          * Note: When chart is not binded, c3 starts observing if chart.element is binded by MutationObserver. In this case, polyfill is required in IE9 and IE10 becuase they do not support MutationObserver. On the other hand, if chart always will be binded, polyfill will not be required because MutationObserver will never be called.
          */
-        bindto?: string | HTMLElement | d3.Selection<any>;
+        bindto?: string | HTMLElement | d3.Selection<any, any, any, any>;
         size?: {
             /**
              * The desired width of the chart element.
@@ -345,11 +345,11 @@ declare namespace c3 {
          * Set color converter function.
          * This option should a function and the specified function receives color (e.g. '#ff0000') and d that has data parameters like id, value, index, etc. And it must return a string that represents color (e.g. '#00ff00').
          */
-        color?: (color: string, d: any) => string | d3.Rgb;
+        color?: (color: string, d: any) => string | d3.RGBColor;
         /**
          * Set color for each data.
          */
-        colors?: { [key: string]: string | d3.Rgb };
+        colors?: { [key: string]: string | d3.RGBColor };
         /**
          * Hide each data when the chart appears.
          * If true specified, all of data will be hidden. If multiple ids specified as an array, those will be hidden.
@@ -385,10 +385,10 @@ declare namespace c3 {
          * - d is the data where mouse cursor moves out. In this callback, this will be the Chart object.
          */
         onmouseout?: (d: any, element?: any) => void;
-        
+
         onselected?: (d: any, element?: any) => void;
 
-        onunselected?: (d: any, element?: any) => void; 
+        onunselected?: (d: any, element?: any) => void;
     }
 
     interface Axis {
@@ -827,7 +827,7 @@ declare namespace c3 {
             classes?: { [key: string]: string };
             categories?: Array<string>;
             axes?: { [key: string]: string };
-            colors?: { [key: string]: string | d3.Rgb };
+            colors?: { [key: string]: string | d3.RGBColor };
             type?: string;
             types?: { [key: string]: string };
             unload?: boolean | ArrayOrString;
@@ -937,7 +937,7 @@ declare namespace c3 {
              * Get and set colors of the data loaded in the chart.
              * @param colors If this argument is given, the colors of data will be updated. If not given, the current colors will be returned. The format of this argument is the same as data.colors.
              */
-            colors(colors?: { [key: string]: string | d3.Rgb }): { [key: string]: string };
+            colors(colors?: { [key: string]: string | d3.RGBColor }): { [key: string]: string };
             /**
              * Get and set axes of the data loaded in the chart.
              * @param axes If this argument is given, the axes of data will be updated. If not given, the current axes will be returned. The format of this argument is the same as data.axes.
