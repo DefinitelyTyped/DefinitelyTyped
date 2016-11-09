@@ -3,7 +3,7 @@
 // Definitions by: Greg Rosenbaum <https://github.com/GregRos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../react/index.d.ts"/>
+///<reference types="react"/>
 declare namespace ReactMarkdown {
 	import Component = React.Component;
 	import ReactChild = React.ReactChild;
