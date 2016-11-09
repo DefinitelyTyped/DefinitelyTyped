@@ -186,6 +186,7 @@ Make a PR doing the following:
 * Any other packages in DefinitelyTyped that referenced the deleted package should be updated to reference the bundled types.
     To do this, add a `package.json` with `"dependencies": { "foo": "x.y.z" }`.
 
+When a package is bundled, it no longer needs the header comment – this is only used by DefinitelyTyped, not by the TypeScript compiler.
 
 ## FAQ
 
