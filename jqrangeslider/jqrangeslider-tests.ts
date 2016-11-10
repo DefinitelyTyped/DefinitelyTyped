@@ -52,6 +52,16 @@ $("#defaultValuesExample").dateRangeSlider({
     durationIn: 1000,
     durationOut: 1000
 });
+// Enabled
+$("#disabledExample").rangeSlider({
+  enabled: false
+});
+$("#disabledExample").editRangeSlider({
+  enabled: false
+});
+$("#disabledExample").dateRangeSlider({
+  enabled: false
+});
 // Formatter - JS-way
 $("#formatterExample").rangeSlider({
     formatter: function (val) {
@@ -115,6 +125,51 @@ $("#rangeExample").rangeSlider({range: {min: 10, max: false}});
 $("#rangeExample").rangeSlider({range: false});
 $("#rangeExample").rangeSlider({range: {min: false, max: false}});
 $("#rangeExample").rangeSlider({range: {min: false}});
+// Scales
+$("#rulersExample").rangeSlider({
+  scales: [
+  // Primary scale
+  {
+    first: function(val){ return val; },
+    next: function(val){ return val + 10; },
+    stop: function(val){ return false; },
+    label: function(val){ return val; },
+    format: function(tickContainer, tickStart, tickEnd){ 
+      tickContainer.addClass("myCustomClass");
+    }
+  },
+  // Secondary scale
+  {
+    first: function(val){ return val; },
+    next: function(val){
+      if (val % 10 === 9){
+        return val + 2;
+      }
+      return val + 1;
+    },
+    stop: function(val){ return false; },
+    label: function(){ return null; }
+  }]
+});
+var monthsForScales = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+$("#dateRulersExample").dateRangeSlider({
+    bounds: {min: new Date(2012, 0, 1), max: new Date(2012, 11, 31, 12, 59, 59)},
+    defaultValues: {min: new Date(2012, 1, 10), max: new Date(2012, 4, 22)},
+    scales: [{
+        first: function(value){ return value; },
+        stop: function(value) {return false; }, // changed from original example which had 'end' because that's a typo
+        next: function(value){
+            var next = new Date(value);
+            return new Date(next.setMonth(value.getMonth() + 1));
+        },
+        label: function(value){
+            return monthsForScales[value.getMonth()];
+        },
+        format: function(tickContainer, tickStart, tickEnd){
+            tickContainer.addClass("myCustomClass");
+        }
+    }]
+});
 // Step
 $("#stepExample").rangeSlider({step: 10});
 $("#rangeExample").dateRangeSlider({
@@ -122,6 +177,13 @@ $("#rangeExample").dateRangeSlider({
         days: 2
     }
 });
+// Symmetric Positionning
+$("#symmetricExample").rangeSlider({
+  symmetricPositionning: true,
+  range: {min: 0}  
+});
+// Type
+$("#typeExample").editRangeSlider({type: "number"});
 // Value labels
 $("#valueLabelsExample").rangeSlider({valueLabels: "change"});
 $("#valueLabelsExample").dateRangeSlider({valueLabels: "change"});

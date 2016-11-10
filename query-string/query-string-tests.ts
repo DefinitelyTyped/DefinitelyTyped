@@ -2,13 +2,34 @@
 
 import qs = require('query-string');
 
-qs.stringify({ foo: 'bar' });
-qs.stringify({ foo: 'bar', bar: 'baz' });
-qs.stringify({ foo: 'bar' }, {strict: false})
 
-qs.parse('?foo=bar');
-qs.parse('#foo=bar');
-qs.parse('&foo=bar&foo=baz');
+namespace stringify_tests {
+    let result: string;
+    // test obj
+    result = qs.stringify({
+        str: 'bar',
+        strArray: ['baz'],
+        num: 123,
+        numArray: [456],
+        bool: true,
+        boolArray: [false],
+    });
 
-qs.extract('http://foo.bar/?abc=def&hij=klm');
-qs.extract('http://foo.bar/?foo=bar');
+    // test options
+    result = qs.stringify({ foo: 'bar' }, { strict: false })
+    result = qs.stringify({ foo: 'bar' }, { encode: false })
+    result = qs.stringify({ foo: 'bar' }, { strict: false, encode: false })
+}
+
+namespace parse_tests {
+    let result: { [key: string]: string | string[] };
+    result = qs.parse('?foo=bar');
+    result = qs.parse('#foo=bar');
+    result = qs.parse('&foo=bar&foo=baz');
+}
+
+namespace extract_tests {
+    let result: string;
+    result = qs.extract('http://foo.bar/?abc=def&hij=klm');
+    result = qs.extract('http://foo.bar/?foo=bar');
+}

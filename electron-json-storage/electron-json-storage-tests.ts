@@ -1,4 +1,4 @@
-/// <reference path="../github-electron/github-electron.d.ts" />
+/// <reference path="../electron/github-electron.d.ts" />
 /// <reference path="electron-json-storage.d.ts" />
 
 import electron = require('electron');

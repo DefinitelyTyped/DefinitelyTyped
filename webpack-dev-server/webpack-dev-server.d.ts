@@ -17,6 +17,7 @@ declare module "webpack-dev-server" {
         export interface Configuration {
             contentBase?: string;
             hot?: boolean;
+            https?: boolean;
             historyApiFallback?: boolean;
             compress?: boolean;
             proxy?: any;
@@ -28,7 +29,7 @@ declare module "webpack-dev-server" {
             watchOptions?: webpack.WatchOptions;
             publicPath: string;
             headers?: any;
-            stats?: webpack.compiler.StatsToJsonOptions | webpack.compiler.StatsToStringOptions;
+            stats?: webpack.compiler.StatsOptions| webpack.compiler.StatsToStringOptions;
 
             setup?(app: core.Express): void;
         }
