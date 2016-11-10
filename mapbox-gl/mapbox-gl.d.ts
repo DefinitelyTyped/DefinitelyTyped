@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS v0.24.0
+// Type definitions for Mapbox GL JS v0.26.0
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -343,28 +343,28 @@ declare namespace mapboxgl {
 	/**
 	 * Navigation
 	 */
-	export class Navigation extends Control {
+	export class NavigationControl extends Control {
 		constructor(options?: mapboxgl.ControlOptions);
 	}
 
 	/**
 	 * Geolocate
 	 */
-	export class Geolocate extends Control {
+	export class GeolocateControl extends Control {
 		constructor(options?: mapboxgl.ControlOptions);
 	}
 
 	/**
 	 * Attribution
 	 */
-	export class Attribution extends Control {
+	export class AttributionControl extends Control {
 		constructor(options?: mapboxgl.ControlOptions);
 	}
 
 	/**
 	 * Scale
 	 */
-	export class Scale extends Control {
+	export class ScaleControl extends Control {
 		constructor(options?: {position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left', maxWidth?: number, unit?: string})
 	}
 
@@ -697,6 +697,11 @@ declare namespace mapboxgl {
 		boxZoomBounds: LngLatBounds;
 	}
 
+	export class MapDataEvent {
+		type: string;
+		dataType: "source" | "style" | "tile";
+	}
+
 	/**
 	 * AnimationOptions
 	 */
@@ -741,8 +746,12 @@ declare namespace mapboxgl {
 	 * MapEvent
 	 */
 	export interface MapEvent {
+		resize?: void;
 		webglcontextlost?: {originalEvent: WebGLContextEvent};
 		webglcontextrestored?: {originalEvent: WebGLContextEvent};
+		remove?: void;
+		dataloading?: {data: mapboxgl.MapDataEvent};
+		data?: {data: mapboxgl.MapDataEvent};
 		render?: void;
 		contextmenu?: {data: mapboxgl.MapMouseEvent};
 		dblclick?: {data: mapboxgl.MapMouseEvent};
@@ -798,7 +807,8 @@ declare namespace mapboxgl {
 		stops: any[][];
 		property?: string;
 		base?: number;
-		type?: "continuous" | "interval" | "categorical";
+		type?: "identity" | "exponential" | "interval" | "categorical";
+		"colorSpace"?: "rgb" | "lab" | "interval";
 	}
 
 	export interface BackgroundLayout {
@@ -821,6 +831,8 @@ declare namespace mapboxgl {
 		"fill-translate"?: number[];
 		"fill-translate-anchor"?: "map" | "viewport";
 		"fill-pattern"?: "string";
+		"fill-extrude-height"?: number;
+		"fill-extrude-base"?: number;
 	}
 
 	export interface LineLayout {

@@ -159,6 +159,7 @@ declare module "koa" {
         constructor();
 
         // From node.d.ts
+        listen(): http.Server;
         listen(port: number, hostname?: string, backlog?: number, listeningListener?: Function): http.Server;
         listen(port: number, hostname?: string, listeningListener?: Function): http.Server;
         listen(port: number, backlog?: number, listeningListener?: Function): http.Server;

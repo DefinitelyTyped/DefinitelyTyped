@@ -102,7 +102,7 @@ function options_progress() {
 	$el.velocity({
 		opacity: 0
 	}, {
-		progress: function(elements, percentComplete, timeRemaining, timeStart) {
+		progress: function(elements, percentComplete, timeRemaining, timeStart, tweenValue) {
 			$percentComplete.html((percentComplete * 100) + "%");
 			$timeRemaining.html(timeRemaining + "ms remaining!");
 		}
