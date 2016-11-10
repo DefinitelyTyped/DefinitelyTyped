@@ -4,8 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="yargs.d.ts" />
+/// <reference path="../node/node.d.ts"/>
 
-import yargs = require('yargs');
+import * as yargs from 'yargs';
 
 // Examples taken from yargs website
 // https://github.com/chevex/yargs
@@ -272,6 +273,14 @@ function Argv$version() {
 		.version(function () { return '1.0.0'; }, '--version', 'description');
 }
 
+function Argv$wrap() {
+	var argv1 = yargs
+		.wrap(null);
+
+	var argv2 = yargs
+		.wrap(yargs.terminalWidth());
+}
+
 function Argv$locale() {
 	var argv = yargs
 		.usage('./$0 - follow ye instructions true')
@@ -340,6 +349,18 @@ function Argv$commandDirWithOptions() {
 			visit: (commandObject: any, pathToFile: string, filename: string) => { },
 			include: /.*\.js$/,
 			exclude: /.*\.spec.js$/,
+		})
+		.argv
+}
+
+// http://yargs.js.org/docs/#methods-failfn
+function Argv$fail() {
+	var argv = yargs
+		.fail(function (msg, err) {
+			if (err) throw err // preserve stack
+			console.error('You broke it!')
+			console.error(msg)
+			process.exit(1)
 		})
 		.argv
 }

@@ -135,7 +135,7 @@ declare module "cassandra-driver" {
     var LocalTime: LocalTimeStatic;
     var Long: _Long;
     var ResultSet: ResultSetStatic;
-    var ResultStream: ResultStreamStatic;
+    // var ResultStream: ResultStreamStatic;
     var Row: RowStatic;
     var TimeUuid: TimeUuidStatic;
     var Tuple: TupleStatic;
@@ -366,7 +366,6 @@ declare module "cassandra-driver" {
       buffer: Buffer;
       paused: boolean;
 
-      _read(): void;
       _valve(readNext: Function): void;
       add(chunk: Buffer): void;
     }
