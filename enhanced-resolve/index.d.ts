@@ -1,4 +1,4 @@
-// Type definitions for tapable v0.2.4
+// Type definitions for enhanced-resolve v2.3.0
 // Project: http://github.com/webpack/tapable.git
 // Definitions by: e-cloud <https://github.com/e-cloud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
