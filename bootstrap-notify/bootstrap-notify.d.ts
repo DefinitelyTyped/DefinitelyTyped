@@ -58,4 +58,5 @@ interface NotifySettings {
 interface NotifyReturn {
 	$ele: JQueryStatic;
 	close: () => void;
-	update: (command: string, update: any) => void;}
+	update: (command: string, update: any) => void;
+}
