@@ -681,6 +681,7 @@ namespace TestFindIndex {
     let array: TResult[];
     let list: _.List<TResult>;
     let predicateFn: (value: TResult, index?: number, collection?: _.List<TResult>) => boolean;
+    let fromIndex: number;
 
     {
         let result: number;
@@ -689,21 +690,25 @@ namespace TestFindIndex {
         result = _.findIndex<TResult>(array, predicateFn);
         result = _.findIndex<TResult>(array, '');
         result = _.findIndex<{a: number}, TResult>(array, {a: 42});
+        result = _.findIndex<TResult>(array, predicateFn, fromIndex);
 
         result = _.findIndex<TResult>(list);
         result = _.findIndex<TResult>(list, predicateFn);
         result = _.findIndex<TResult>(list, '');
         result = _.findIndex<{a: number}, TResult>(list, {a: 42});
+        result = _.findIndex<TResult>(list, predicateFn, fromIndex);
 
         result = _<TResult>(array).findIndex();
         result = _<TResult>(array).findIndex(predicateFn);
         result = _<TResult>(array).findIndex('');
         result = _<TResult>(array).findIndex<{a: number}>({a: 42});
+        result = _<TResult>(array).findIndex(predicateFn, fromIndex);
 
         result = _(list).findIndex();
         result = _(list).findIndex<TResult>(predicateFn);
         result = _(list).findIndex('');
         result = _(list).findIndex<{a: number}>({a: 42});
+        result = _(list).findIndex<TResult>(predicateFn, fromIndex);
     }
 
     {
@@ -713,11 +718,13 @@ namespace TestFindIndex {
         result = _<TResult>(array).chain().findIndex(predicateFn);
         result = _<TResult>(array).chain().findIndex('');
         result = _<TResult>(array).chain().findIndex<{a: number}>({a: 42});
+        result = _<TResult>(array).chain().findIndex(predicateFn, fromIndex);
 
         result = _(list).chain().findIndex();
         result = _(list).chain().findIndex<TResult>(predicateFn);
         result = _(list).chain().findIndex('');
         result = _(list).chain().findIndex<{a: number}>({a: 42});
+        result = _(list).chain().findIndex<TResult>(predicateFn, fromIndex);
     }
 }
 
@@ -727,6 +734,7 @@ namespace TestFindLastIndex {
     let list: _.List<TResult>;
 
     let predicateFn: (value: TResult, index?: number, collection?: _.List<TResult>) => boolean;
+    let fromIndex: number;
 
     {
         let result: number;
@@ -735,21 +743,25 @@ namespace TestFindLastIndex {
         result = _.findLastIndex<TResult>(array, predicateFn);
         result = _.findLastIndex<TResult>(array, '');
         result = _.findLastIndex<{a: number}, TResult>(array, {a: 42});
+        result = _.findLastIndex<TResult>(array, predicateFn, fromIndex);
 
         result = _.findLastIndex<TResult>(list);
         result = _.findLastIndex<TResult>(list, predicateFn);
         result = _.findLastIndex<TResult>(list, '');
         result = _.findLastIndex<{a: number}, TResult>(list, {a: 42});
+        result = _.findLastIndex<TResult>(list, predicateFn, fromIndex);
 
         result = _<TResult>(array).findLastIndex();
         result = _<TResult>(array).findLastIndex(predicateFn);
         result = _<TResult>(array).findLastIndex('');
         result = _<TResult>(array).findLastIndex<{a: number}>({a: 42});
+        result = _<TResult>(array).findLastIndex(predicateFn, fromIndex);
 
         result = _(list).findLastIndex();
         result = _(list).findLastIndex<TResult>(predicateFn);
         result = _(list).findLastIndex('');
         result = _(list).findLastIndex<{a: number}>({a: 42});
+        result = _(list).findLastIndex<TResult>(predicateFn, fromIndex);
     }
 
     {
@@ -759,11 +771,13 @@ namespace TestFindLastIndex {
         result = _<TResult>(array).chain().findLastIndex(predicateFn);
         result = _<TResult>(array).chain().findLastIndex('');
         result = _<TResult>(array).chain().findLastIndex<{a: number}>({a: 42});
+        result = _<TResult>(array).chain().findLastIndex(predicateFn, fromIndex);
 
         result = _(list).chain().findLastIndex();
         result = _(list).chain().findLastIndex<TResult>(predicateFn);
         result = _(list).chain().findLastIndex('');
         result = _(list).chain().findLastIndex<{a: number}>({a: 42});
+        result = _(list).chain().findLastIndex<TResult>(predicateFn, fromIndex);
     }
 }
 
@@ -3735,11 +3749,15 @@ result = <number>_.findLast([1, 2, 3, 4], function (num) {
 result = <IFoodCombined>_.findLast(foodsCombined, { 'type': 'vegetable' });
 result = <IFoodCombined>_.findLast(foodsCombined, 'organic');
 
+result = <IFoodCombined>_.findLast(foodsCombined, 'organic', 1);
+
 result = <number>_([1, 2, 3, 4]).findLast(function (num) {
     return num % 2 == 0;
 });
 result = <IFoodCombined>_(foodsCombined).findLast({ 'type': 'vegetable' });
 result = <IFoodCombined>_(foodsCombined).findLast('organic');
+
+result = <IFoodCombined>_(foodsCombined).findLast('organic', 1);
 
 // _.flatMap
 namespace TestFlatMap {
