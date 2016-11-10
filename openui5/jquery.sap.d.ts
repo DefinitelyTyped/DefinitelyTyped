@@ -1,9 +1,9 @@
-// Type definitions for OpenUI5 1.40.
+// Type definitions for OpenUI5 1.40
 // Project: http://openui5.org/
 // Definitions by: Lukas May <https://www.dscsag.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped 
 
-/// <reference path="../jquery/index.d.ts" />
+/// <reference types="jquery" />
 
 declare interface Ui5Logger {
   //Allows to add a new LogListener that will be notified for new log entries.
