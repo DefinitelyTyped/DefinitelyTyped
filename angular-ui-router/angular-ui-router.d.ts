@@ -112,7 +112,7 @@ declare namespace angular.ui {
 
     interface IUrlMatcher {
         concat(pattern: string): IUrlMatcher;
-        exec(path: string, searchParams: {}): {};
+        exec(path: string, search?: any, hash?: string, options?: any): {};
         parameters(): string[];
         format(values: {}): string;
     }
