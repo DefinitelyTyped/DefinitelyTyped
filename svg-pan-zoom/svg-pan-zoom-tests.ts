@@ -1,6 +1,6 @@
 /// <reference path="svg-pan-zoom.d.ts" />
 
-var svgPanZoomOptions : SvgPanZoom.OptionConfig = {
+var svgPanZoomOptions : SvgPanZoom.Options = {
     panEnabled: true // enable or disable panning (default enabled)
     , controlIconsEnabled: false // insert icons to give user an option in addition to mouse events to control pan/zoom (default disabled)
     , zoomEnabled: true // enable or disable zooming (default enabled)
@@ -17,9 +17,9 @@ var svgPanZoomOptions : SvgPanZoom.OptionConfig = {
     , refreshRate: 60 // in hz
 };
 
-var panZoomTiger: SvgPanZoom.ISvgPanZoom = svgPanZoom('#demo-tiger');
+var panZoomTiger: SvgPanZoom.Instance = svgPanZoom('#demo-tiger');
 
-var svgElement = document.querySelector('#demo-tiger');
+var svgElement = <SVGElement>document.querySelector('#demo-tiger');
 panZoomTiger = svgPanZoom(svgElement);
 
 panZoomTiger = svgPanZoom('#demo-tiger', {
@@ -27,24 +27,43 @@ panZoomTiger = svgPanZoom('#demo-tiger', {
     , controlIconsEnabled: false
     , zoomEnabled: true
     , dblClickZoomEnabled: true
+    , mouseWheelZoomEnabled: true
+    , preventMouseEventsDefault: true
     , zoomScaleSensitivity: 0.2
     , minZoom: 0.5
     , maxZoom: 10
     , fit: true
+    , contain: false
     , center: true
     , refreshRate: 'auto'
-    , beforeZoom: function(){}
-    , onZoom: function(){}
-    , beforePan: function(){}
-    , onPan: function(){}
+    , beforeZoom: function(oldScale, newScale){ return true; }
+    , onZoom: function(newScale){}
+    , beforePan: function(oldPan, newPan){ return {x: true, y: true}; }
+    , customEventsHandler: null
+    , eventsListenerElement: null
 });
 
+/**
+ * PAN
+ */
 // Pan to rendered point x = 50, y = 50
 panZoomTiger.pan({x: 50, y: 50});
 
 // Pan by x = 50, y = 50 of rendered pixels
 panZoomTiger.panBy({x: 50, y: 50});
 
+panZoomTiger.getPan();
+
+panZoomTiger.resetPan();
+
+panZoomTiger.enablePan();
+panZoomTiger.disablePan();
+
+panZoomTiger.isPanEnabled();
+
+/**
+ * ZOOM
+ */
 // Set zoom level to 2
 panZoomTiger.zoom(2);
 
@@ -59,19 +78,40 @@ panZoomTiger.zoomAtPointBy(1.3, {x: 50, y: 50});
 
 panZoomTiger.zoomIn();
 panZoomTiger.zoomOut();
-panZoomTiger.resetZoom();
 
-panZoomTiger.enablePan();
-panZoomTiger.disablePan();
+panZoomTiger.getZoom();
+
+panZoomTiger.resetZoom();
 
 panZoomTiger.enableZoom();
 panZoomTiger.disableZoom();
 
-panZoomTiger.fit();
+panZoomTiger.isZoomEnabled();
+
+/**
+ * controls
+ */
+panZoomTiger.enableControlIcons();
+panZoomTiger.disableControlIcons();
+panZoomTiger.isControlIconsEnabled();
+
+panZoomTiger.enableDblClickZoom();
+panZoomTiger.disableDblClickZoom();
+panZoomTiger.isDblClickZoomEnabled();
+
+panZoomTiger.enableMouseWheelZoom();
+panZoomTiger.disableMouseWheelZoom();
+panZoomTiger.isMouseWheelZoomEnabled();
+
 panZoomTiger.center();
+panZoomTiger.fit();
+panZoomTiger.contain();
 
 panZoomTiger.resize(); // update SVG cached size and controls positions
-panZoomTiger.fit(true); // dropCache and fit
-panZoomTiger.center(true); // dropCache and center
+panZoomTiger.updateBBox();
+
+panZoomTiger.fit().center(); // can chain method
+
+panZoomTiger.destroy(); // destroy instance
 
 delete panZoomTiger;
