@@ -66,6 +66,8 @@ declare module 'kafka-node' {
         fetch(payloads: Array<OffsetRequest>, cb: (error: any, data: any) => any): void;
         commit(groupId: string, payloads: Array<OffsetCommitRequest>, cb: (error: any, data: any) => any): void;
         fetchCommits(groupId: string, payloads: Array<OffsetFetchRequest>, cb: (error: any, data: any) => any): void;
+        fetchLatestOffsets(topics: Array<string>, cb: (error: any, data: any) => any): void;
+        on(eventName: string, cb: (error: any) => any): void;
     }
 
     export class KeyedMessage {
@@ -100,6 +102,8 @@ declare module 'kafka-node' {
     export interface Topic {
         topic: string;
         offset?: number;
+        encoding?: string;
+        autoCommit?: boolean;
     }
 
     export interface OffsetRequest {
