@@ -52,5 +52,6 @@ interface ClipboardEvent {
 }
 
 declare module 'clipboard' {
-    export = Clipboard;
+    const clipboard: typeof Clipboard;
+    export = clipboard;
 }
