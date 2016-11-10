@@ -88,6 +88,12 @@ declare namespace ReactSelect {
          */
         backspaceRemoves?: boolean;
         /**
+         * Message to use for screenreaders to press backspace to remove the current item
+         * {label} is replaced with the item label
+         * @default "Press backspace to remove..."
+         */
+        backspaceToRemoveMessage?: string;
+        /**
          * CSS className for the outer element
          */
         className?: string;
@@ -292,7 +298,7 @@ declare namespace ReactSelect {
         /**
          * initial field value
          */
-        value?: Option | Option[] | string | string[] | number | number[];
+        value?: Option | Option[] | string | string[] | number | number[] | boolean;
         /**
          * the option property to use for the value
          * @default "value"

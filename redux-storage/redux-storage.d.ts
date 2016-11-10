@@ -26,7 +26,7 @@ declare module "redux-storage" {
          * Save
          * @param state
          */
-        save(state: any): PromiseLike<any>
+        save(state: any): PromiseLike<any>;
     }
 
     export interface StateMerger {
@@ -66,28 +66,33 @@ declare module "redux-storage" {
 declare module "redux-storage-decorator-filter" {
     import { StorageEngine } from "redux-storage";
 
-    interface WhitelistArg {
+    interface FilterList {
         [key: number]: string | string[];
     }
 
     /**
      * Filter decorator for redux-storage to only store a subset of the whole state tree.
-     * @param engine
-     * @param whitelist
+     * @param {StorageEngine} engine the redux storage engine
+     * @param {FilterList} [whitelist=[]] keys that will be stored.
+     * @param {FilterList} [blacklist=[]] keys that won't be stored.
      * @example
+     * import filter from 'redux-storage-decorator-filter';
      * engine = filter(engine, [
-     * 'simple-key',
-     * ['nested', 'key'],
-     * ['another', 'very', 'nested', 'key']
+     *     'whitelisted-key',
+     *     ['nested', 'key'],
+     *     ['another', 'very', 'nested', 'key']
+     * ], [
+     *     'blacklisted-key',
+     *     ['nested', 'blacklisted-key']
      * ]);
      */
-    export default function(engine: StorageEngine, whitelist?: WhitelistArg): StorageEngine;
+    export default function (engine: StorageEngine, whitelist?: FilterList, blacklist?: FilterList): StorageEngine;
 }
 
 declare module "redux-storage-engine-localstorage" {
     import { StorageEngine } from "redux-storage";
 
-    export interface LocalStorageEngine extends StorageEngine {}
+    export interface LocalStorageEngine extends StorageEngine { }
 
     /**
      * Create local storage
@@ -99,7 +104,7 @@ declare module "redux-storage-engine-localstorage" {
 declare module "redux-storage-engine-reactnativeasyncstorage" {
     import { StorageEngine } from "redux-storage";
 
-    export interface ReactNativeAsyncStorageEngine extends StorageEngine {}
+    export interface ReactNativeAsyncStorageEngine extends StorageEngine { }
 
     /**
      * Create React Native Async Storage

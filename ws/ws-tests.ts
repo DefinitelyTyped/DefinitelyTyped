@@ -66,7 +66,7 @@ var WebSocketServer = WebSocket.Server;
       info: {
         origin: string
         secure: boolean
-        req: http.ServerRequest
+        req: http.IncomingMessage
       }
       , callback: (res: boolean) => void
     ): void {
@@ -80,4 +80,18 @@ var WebSocketServer = WebSocket.Server;
     wsv.on('connection', function connection(ws) {
         console.log(ws.protocol)
     })
+}
+
+{
+    new WebSocket.Server({ perMessageDeflate: false });
+    new WebSocket.Server({ perMessageDeflate: { } });
+    new WebSocket.Server({
+        perMessageDeflate: {
+            serverNoContextTakeover: true,
+            clientNoContextTakeover: true,
+            serverMaxWindowBits: 0,
+            clientMaxWindowBits: 0,
+            memLevel: 0
+        }
+    });
 }

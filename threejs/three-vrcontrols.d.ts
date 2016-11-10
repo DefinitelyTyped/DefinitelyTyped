@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./three.d.ts" />
+/// <reference path="../webvr-api/webvr-api.d.ts" />
 
 declare namespace THREE {
     export class VRControls {
@@ -16,5 +17,7 @@ declare namespace THREE {
         zeroSensor(): void;
 
         scale: number;
+
+        setVRDisplay(display: VRDisplay): void;
     }
 }

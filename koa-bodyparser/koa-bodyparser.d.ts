@@ -18,6 +18,11 @@
 declare module "koa-bodyparser" {
 
     import * as Koa from "koa";
+    module "koa" {
+        interface Request {
+            body: any;
+        }
+    }
 
     function bodyParser(opts?: {
         /**
