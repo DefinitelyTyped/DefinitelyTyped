@@ -22,7 +22,7 @@ declare module "express-serve-static-core" {
     }
 
     interface RequestHandler {
-        (req: Request, res: Response, next?: NextFunction): any;
+        (req: Request, res: Response, next: NextFunction): any;
     }
 
     interface ErrorRequestHandler {
@@ -93,6 +93,23 @@ declare module "express-serve-static-core" {
         patch: IRouterMatcher<this>;
         options: IRouterMatcher<this>;
         head: IRouterMatcher<this>;
+        
+        checkout: IRouterMatcher<this>;
+        copy: IRouterMatcher<this>;
+        lock: IRouterMatcher<this>;
+        merge: IRouterMatcher<this>;
+        mkactivity: IRouterMatcher<this>;
+        mkcol: IRouterMatcher<this>;
+        move: IRouterMatcher<this>;
+        "m-search": IRouterMatcher<this>;
+        notify: IRouterMatcher<this>;
+        purge: IRouterMatcher<this>;
+        report: IRouterMatcher<this>;
+        search: IRouterMatcher<this>;
+        subscribe: IRouterMatcher<this>;
+        trace: IRouterMatcher<this>;
+        unlock: IRouterMatcher<this>;
+        unsubscribe: IRouterMatcher<this>;
 
         use: IRouterHandler<this> & IRouterMatcher<this>;
 
@@ -114,6 +131,23 @@ declare module "express-serve-static-core" {
         patch: IRouterHandler<this>;
         options: IRouterHandler<this>;
         head: IRouterHandler<this>;
+        
+        checkout: IRouterHandler<this>;
+        copy: IRouterHandler<this>;
+        lock: IRouterHandler<this>;
+        merge: IRouterHandler<this>;
+        mkactivity: IRouterHandler<this>;
+        mkcol: IRouterHandler<this>;
+        move: IRouterHandler<this>;
+        "m-search": IRouterHandler<this>;
+        notify: IRouterHandler<this>;
+        purge: IRouterHandler<this>;
+        report: IRouterHandler<this>;
+        search: IRouterHandler<this>;
+        subscribe: IRouterHandler<this>;
+        trace: IRouterHandler<this>;
+        unlock: IRouterHandler<this>;
+        unsubscribe: IRouterHandler<this>
     }
 
     export interface Router extends IRouter { }
@@ -130,7 +164,7 @@ declare module "express-serve-static-core" {
 
     interface Errback { (err: Error): void; }
 
-    interface Request extends http.ServerRequest, Express.Request {
+    interface Request extends http.IncomingMessage, Express.Request {
 
         /**
             * Return request header.
@@ -823,6 +857,12 @@ declare module "express-serve-static-core" {
 
     interface Application extends IRouter, Express.Application {
         /**
+         * Express instance itself is a request handler, which could be invoked without
+         * third argument.
+         */
+        (req: Request, res: Response): any;
+        
+        /**
             * Initialize the server.
             *
             *   - setup default configuration
@@ -1058,27 +1098,6 @@ declare module "express-serve-static-core" {
     }
 
     interface Express extends Application {
-        /**
-            * Framework version.
-            */
-        version: string;
-
-        /**
-            * Expose mime.
-            */
-        mime: string;
-
-        (): Application;
-
-        /**
-        * Create an express application.
-        */
-        createApplication(): Application;
-
-        createServer(): Application;
-
-        application: any;
-
         request: Request;
 
         response: Response;

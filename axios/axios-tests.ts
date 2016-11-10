@@ -69,6 +69,10 @@ axios.post("http://example.com/", {
     ]
 });
 
+var config: Axios.AxiosXHRConfigBase<any> = {headers: {}};
+config.headers['X-Custom-Header'] = 'baz';
+axios.post("http://example.com/", config);
+
 var getRepoIssue = axios.get<Issue>("https://api.github.com/repos/mzabriskie/axios/issues/1");
 
 var axiosInstance = axios.create({

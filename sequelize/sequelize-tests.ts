@@ -962,22 +962,23 @@ User.create( { title : 'Chair', creator : { first_name : 'Matt', last_name : 'Ha
 User.create( { id : 1, title : 'e', Tags : [{ id : 1, name : 'c' }, { id : 2, name : 'd' }] }, { include : [User] } );
 User.create( { id : 'My own ID!' } ).then( ( i ) => i.isNewRecord );
 
-User.findOrInitialize( { where : { username : 'foo' } } ).then( ( p ) => p );
-User.findOrInitialize( { where : { username : 'foo' }, transaction : t } );
-User.findOrInitialize( { where : { username : 'foo' }, defaults : { foo : 'asd' }, transaction : t } );
+let findOrRetVal: Promise<[AnyInstance, boolean]>;
+findOrRetVal = User.findOrInitialize( { where : { username : 'foo' } } );
+findOrRetVal = User.findOrInitialize( { where : { username : 'foo' }, transaction : t } );
+findOrRetVal = User.findOrInitialize( { where : { username : 'foo' }, defaults : { foo : 'asd' }, transaction : t } );
 
-User.findOrCreate( { where : { a : 'b' }, defaults : { json : { a : { b : 'c' }, d : [1, 2, 3] } } } );
-User.findOrCreate( { where : { a : 'b' }, defaults : { json : 'a', data : 'b' } } );
+findOrRetVal = User.findOrCreate( { where : { a : 'b' }, defaults : { json : { a : { b : 'c' }, d : [1, 2, 3] } } } );
+findOrRetVal = User.findOrCreate( { where : { a : 'b' }, defaults : { json : 'a', data : 'b' } } );
 /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 User.findOrCreate( { where : { a : 'b' }, transaction : t, lock : t.LOCK.UPDATE } );
  */
-User.findOrCreate( { where : { a : 'b' }, logging : function(  ) { } } );
-User.findOrCreate( { where : { username : 'Username' }, defaults : { data : 'some data' }, transaction : t } );
-User.findOrCreate( { where : { objectId : 'asdasdasd' }, defaults : { username : 'gottlieb' } } );
-User.findOrCreate( { where : { id : undefined }, defaults : { name : Math.random().toString() } } );
-User.findOrCreate( { where : { email : 'unique.email.@d.com', companyId : Math.floor( Math.random() * 5 ) } } );
-User.findOrCreate( { where : { objectId : 1 }, defaults : { bool : false } } );
-User.findOrCreate( { where : 'c', defaults : {} } );
+findOrRetVal = User.findOrCreate( { where : { a : 'b' }, logging : function(  ) { } } );
+findOrRetVal = User.findOrCreate( { where : { username : 'Username' }, defaults : { data : 'some data' }, transaction : t } );
+findOrRetVal = User.findOrCreate( { where : { objectId : 'asdasdasd' }, defaults : { username : 'gottlieb' } } );
+findOrRetVal = User.findOrCreate( { where : { id : undefined }, defaults : { name : Math.random().toString() } } );
+findOrRetVal = User.findOrCreate( { where : { email : 'unique.email.@d.com', companyId : Math.floor( Math.random() * 5 ) } } );
+findOrRetVal = User.findOrCreate( { where : { objectId : 1 }, defaults : { bool : false } } );
+findOrRetVal = User.findOrCreate( { where : 'c', defaults : {} } );
 
 User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) } );
 

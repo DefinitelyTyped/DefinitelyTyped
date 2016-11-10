@@ -4,11 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
-
-// could not pass the Travis Test if enabled
-//type NoticeTypeOptions = "notice" | "info" | "success" | "error";
-//type StylingOptions = "brighttheme" | "jqueryui" | "bootstrap2" | "bootstrap3" | "fontawesome";
-//type StateOptions = "initializing" | "opening" | "open" | "closing" | "closed";
+type NoticeTypeOptions = "notice" | "info" | "success" | "error";
+type StylingOptions = "brighttheme" | "jqueryui" | "bootstrap2" | "bootstrap3" | "fontawesome";
+type StateOptions = "initializing" | "opening" | "open" | "closing" | "closed";
 
 interface PNotifyStack {
     dir1?: string;
@@ -137,7 +135,7 @@ interface PNotifyOptions {
     /**
      * What styling classes to use. (Can be either "brighttheme", "jqueryui", "bootstrap2", "bootstrap3", or "fontawesome".)
      */
-    styling?: string;
+    styling?: StylingOptions;
     /**
      * Additional classes to be added to the notice. (For custom styling.)
      */
@@ -182,7 +180,7 @@ interface PNotifyOptions {
     /**
      * Type of the notice. "notice", "info", "success", or "error".
      */
-    type?: string;
+    type?: NoticeTypeOptions;
     /**
      * Set icon to true to use the default icon for the selected style/type, false for no icon, or a string for your own icon class.
      */
@@ -263,7 +261,7 @@ interface PNotify {
     /**
      * The state can be "initializing", "opening", "open", "closing", and "closed"
      */
-    state?: string;
+    state?: StateOptions;
 
     /**
      * This function is for updating the notice.
