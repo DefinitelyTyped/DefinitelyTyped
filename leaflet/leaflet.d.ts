@@ -1413,8 +1413,12 @@ declare namespace L {
         createShadow(oldIcon?: HTMLElement): HTMLElement;
     }
 
+    export interface IconDefault extends Icon {
+        imagePath: string;
+    }
+     
     export namespace Icon {
-        export const Default: Icon;
+        export const Default: IconDefault;
     }
 
     export function icon(options: IconOptions): Icon;
