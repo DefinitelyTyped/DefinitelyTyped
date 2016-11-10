@@ -81,7 +81,7 @@ declare namespace Ajv {
         passContext?: boolean;
         loopRequired?: number;
         ownProperties?: boolean;
-        multipleOfPrecision?: boolean;
+        multipleOfPrecision?: boolean | number;
         errorDataPath?: string,
         messages?: boolean;
         beautify?: boolean;

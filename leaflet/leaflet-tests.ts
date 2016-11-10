@@ -207,6 +207,14 @@ tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
 tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', tileLayerOptions);
 tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
 
+let eventHandler = () => {};
+L.DomEvent.on(htmlElement, 'click', eventHandler);
+L.DomEvent.off(htmlElement, 'click', eventHandler);
+L.DomEvent.on(htmlElement, { 'click': eventHandler });
+L.DomEvent.off(htmlElement, { 'click': eventHandler }, eventHandler);
+L.DomEvent.disableScrollPropagation(htmlElement);
+L.DomEvent.disableClickPropagation(htmlElement);
+
 map = map
 	// addControl
 	// removeControl
