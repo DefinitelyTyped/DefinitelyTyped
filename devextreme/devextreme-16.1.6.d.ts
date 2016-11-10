@@ -1,4 +1,4 @@
-﻿// Type definitions for DevExtreme 16.1.7
+﻿// Type definitions for DevExtreme 16.1.6
 // Project: http://js.devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -886,7 +886,7 @@ declare module DevExpress.ui {
         validationRules?: Array<any>;
         /** Specifies the editor name to be used in the validation default messages. */
         name?: string;
-        /** An object that specifies what and when to validate, and how to apply the validation result. */
+        /** An object that specifies what and when to validate and how to apply the validation result. */
         adapter?: dxValidatorValidationAdapter;
         /** Specifies the validation group the editor will be related to. */
         validationGroup?: string;
@@ -2360,9 +2360,7 @@ declare module DevExpress.ui {
         itemOption(field: string, option: string, value: any): void;
         /** Updates the values of form item options. */
         itemOption(field: string, options: Object): void;
-        /** Gets the value of the form item option. */
-        itemOption(field: string): any;
-        /** Returns an editor instance associated with the specified formData field or name of the form item. */
+        /** Returns an editor instance associated with the specified formData field. */
         getEditor(field: string): Object;
         /** Updates the dimensions of the widget contents. */
         updateDimensions(): JQueryPromise<void>;
@@ -3000,7 +2998,7 @@ declare module DevExpress.data {
     }
     /** An object that provides access to data for the dxPivotGrid widget. */
     export class PivotGridDataSource implements EventsMixin<PivotGridDataSource> {
-        constructor(options?: PivotGridDataSourceOptions);
+        constructor(options?: PivotGridDataSource);
         /** Starts reloading data from any store and updating the data source. */
         reload(): JQueryPromise<any>;
         /** Starts updating the data source. Reloads data from the XMLA store only. */
@@ -3255,8 +3253,6 @@ declare module DevExpress.ui {
         selectAllEnabled?: boolean;
         /** Specifies whether or not an item becomes selected if a user clicks it. */
         selectByClick?: boolean;
-        /** Specifies item selection mode. */
-        selectionMode?: string;
         /** Specifies the text displayed at the "Select All" check box. */
         selectAllText?: string;
         /** Specifies the name of the data source item field whose value defines whether or not the corresponding node includes child nodes. */
@@ -3385,7 +3381,7 @@ declare module DevExpress.ui {
     export interface dxContextMenuOptions extends dxMenuBaseOptions {
         /** Holds an object that specifies options of alternative menu invocation. */
         alternativeInvocationMode?: {
-            /** Specifies whether or not an alternative invocation mode is enabled. */
+            /** Specifies whether or not the standard context menu invocation (on a right mouse click or on a long tap) is disabled. */
             enabled?: Boolean;
             /** Specifies the element used to invoke the context menu. */
             invokingElement?: any;
@@ -3717,10 +3713,7 @@ declare module DevExpress.ui {
                 confirmDeleteMessage?: string;
                 /** Specifies text to be displayed in the title of a confirmation window. Setting this option makes sense only when the edit mode is "row". */
                 confirmDeleteTitle?: string;
-                /** Specifies text for a hint that appears when a user hovers the mouse pointer over the "Cancel changes" button. Setting this option makes sense only when the mode option is set to cell and the validation capabilities are enabled.
-#####See Also#####
-- Validation Engine
-- Validation Engine - MVVM Approach */
+                /** Specifies text for a hint that appears when a user hovers the mouse pointer over the "Cancel changes" button. Setting this option makes sense only when the mode option is set to cell and the validation capabilities are enabled. */
                 validationCancelChanges?: string;
                 /** Specifies text for a button that deletes a row from a grid. Setting this option makes sense only when the allowDeleting option is set to true. */
                 deleteRow?: string;
@@ -5187,7 +5180,7 @@ declare module DevExpress.viz.charts {
         select(): void;
         /** Shows the tooltip of the point. */
         showTooltip(): void;
-        /** Allows you to obtain the label(s) of the series point. */
+        /** Allows you to obtain the label of a series point. */
         getLabel(): any;
         /** Returns the series object to which the point belongs. */
         series: BaseSeries;
@@ -6233,12 +6226,10 @@ declare module DevExpress.viz.charts {
         rotated?: boolean;
         /** Specifies the options of a chart's legend. */
         legend?: Legend;
-        /** A handler for the zoomStart event. */
         onZoomStart?: (e: {
             component: BaseChart;
             element: Element;
         }) => void;
-        /** A handler for the zoomEnd event. */
         onZoomEnd?: (e: {
             component: BaseChart;
             element: Element;
