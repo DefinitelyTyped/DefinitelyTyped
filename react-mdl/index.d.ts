@@ -377,7 +377,7 @@ declare namespace __ReactMDL {
         offset?: number;
         offsetDesktop?: number;
         offsetPhone?: number;
-        offsetTable?: number;
+        offsetTablet?: number;
         align?: string;
         phone?: number;
         tablet?: number;
