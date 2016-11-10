@@ -1,6 +1,6 @@
 // Type definitions for stompjs 2.3
 // Project: https://github.com/jmesnil/stomp-websocket
-// Definitions by: Jimi 'Dimitris' Charalampidis <https://github.com/jimic>
+// Definitions by: Jimi Charalampidis <https://github.com/jimic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
