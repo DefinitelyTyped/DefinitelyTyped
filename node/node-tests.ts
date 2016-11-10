@@ -423,6 +423,8 @@ function stream_readable_pipe_test() {
     var r = fs.createReadStream('file.txt');
     var z = zlib.createGzip({ finishFlush: zlib.Z_FINISH });
     var w = fs.createWriteStream('file.txt.gz');
+    console.log(r.bytesRead);
+    console.log(r.path);
     r.pipe(z).pipe(w);
     r.close();
 }
