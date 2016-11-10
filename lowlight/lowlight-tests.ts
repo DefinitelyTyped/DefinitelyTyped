@@ -1,5 +1,3 @@
-/// <reference path="lowlight.d.ts" />
-
 import { highlight, highlightAuto, registerLanguage } from 'lowlight';
 import * as core from 'lowlight/lib/core';
 

@@ -3,7 +3,7 @@
 // Definitions by: Gidon Junge <https://github.com/gjunge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 type RateItMode = "bg" | "font";
 interface RateItOptions {
  value? : number;
@@ -17,7 +17,7 @@ interface RateItOptions {
  starwidth?: number;
  starheight?: number;
  mode?: RateItMode;
- icon?: string;   
+ icon?: string;
 }
 
 interface JQuery {
@@ -25,19 +25,19 @@ interface JQuery {
     rateit(options: RateItOptions) : JQuery;
 
     rateit(method: 'value') : number;
-    rateit(method: 'value', param: number) : JQuery; 
+    rateit(method: 'value', param: number) : JQuery;
 
     rateit(method: 'max') : number;
-    rateit(method: 'max', param: number) : JQuery; 
+    rateit(method: 'max', param: number) : JQuery;
 
     rateit(method: 'min') : number;
-    rateit(method: 'min', param: number) : JQuery; 
+    rateit(method: 'min', param: number) : JQuery;
 
     rateit(method: 'readonly') : boolean;
-    rateit(method: 'readonly', param: boolean) : JQuery; 
+    rateit(method: 'readonly', param: boolean) : JQuery;
 
     rateit(method: 'ispreset') : boolean;
-    rateit(method: 'ispreset', param: boolean) : JQuery; 
+    rateit(method: 'ispreset', param: boolean) : JQuery;
 
     rateit(method: 'reset') : JQuery;
 

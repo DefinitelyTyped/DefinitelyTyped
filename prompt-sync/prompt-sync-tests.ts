@@ -1,6 +1,3 @@
-/// <reference path="./prompt-sync" />
-'use strict';
-
 import * as promptSync from 'prompt-sync';
 
 declare const history: promptSync.History;

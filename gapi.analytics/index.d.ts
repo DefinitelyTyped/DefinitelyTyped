@@ -3,7 +3,7 @@
 // Definitions by: César Costas <https://github.com/gatsbimantico>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../gapi/gapi.d.ts" />
+/// <reference types="gapi" />
 
 declare namespace gapi.client.analytics {}
 declare namespace gapi.client.analytics.provisioning {

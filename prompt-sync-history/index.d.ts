@@ -3,13 +3,9 @@
 // Definitions by: TANAKA Koichi <https://github.com/MugeSo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../prompt-sync/prompt-sync" />
+import {History} from 'prompt-sync';
 
-declare module 'prompt-sync-history' {
-    import {History} from 'prompt-sync';
+declare namespace history {}
+declare function history(file?:string, max?:number): History;
 
-    namespace history {}
-    function history(file?:string, max?:number): History;
-
-    export = history;
-}
+export = history;

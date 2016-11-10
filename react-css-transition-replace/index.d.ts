@@ -3,21 +3,15 @@
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../react/react-addons-css-transition-group.d.ts" />
+import * as React from "react";
+import * as CSSTransitionGroup from "react-addons-css-transition-group";
 
-declare namespace TransitionReplace {
-    import React = __React
-
-    interface CSSTransitionReplaceProps extends React.CSSTransitionGroupProps {
+declare namespace CSSTransitionReplace {
+    interface Props extends CSSTransitionGroup.CSSTransitionGroupProps {
         overflowHidden?: boolean
     }
-
-    type CSSTransitionReplace = React.ComponentClass<CSSTransitionReplaceProps>
 }
 
-declare module "react-css-transition-replace" {
-    var CSSTransitionReplace: TransitionReplace.CSSTransitionReplace
-    type CSSTransitionReplace = TransitionReplace.CSSTransitionReplace
-    export = CSSTransitionReplace
-}
+declare var CSSTransitionReplace: CSSTransitionReplace;
+type CSSTransitionReplace = React.ComponentClass<CSSTransitionReplace.Props>;
+export = CSSTransitionReplace;
