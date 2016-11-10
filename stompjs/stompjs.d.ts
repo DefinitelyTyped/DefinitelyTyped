@@ -1,6 +1,6 @@
 // Type definitions for stompjs 2.3
 // Project: https://github.com/jmesnil/stomp-websocket
-// Definitions by: Jimi <Dimitris> Charalampidis <https://github.com/jimic>
+// Definitions by: Jimi 'Dimitris' Charalampidis <https://github.com/jimic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
@@ -8,9 +8,9 @@
 declare module 'stompjs' {
 
     export const VERSIONS: {
-        V1_0: '1.0',
-        V1_1: '1.1',
-        V1_2: '1.2',
+        V1_0: string,
+        V1_1: string,
+        V1_2: string,
         supportedVersions: () => Array<string>
     };
 
