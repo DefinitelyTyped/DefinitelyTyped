@@ -1,4 +1,4 @@
-﻿// Type definitions for JQuery DataTables 1.10.7
+﻿// Type definitions for JQuery DataTables 1.10.8
 // Project: http://www.datatables.net
 // Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>, Omid Rad <https://github.com/omidkrad>, Armin Sander <https://github.com/pragmatrix/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -182,11 +182,11 @@ declare namespace DataTables {
         destroy(remove?: boolean): DataTable;
 
         /**
-        * Redraw the table.
+        * Redraw the DataTables in the current context, optionally updating ordering, searching and paging as required.
         *
-        * @param reset Reset (default) or hold the current paging position. A full re-sort and re-filter is performed when this method is called, which is why the pagination reset is the default action.
+        * @param paging This parameter is used to determine what kind of draw DataTables will perform.
         */
-        draw(reset?: boolean): DataTable;
+        draw(paging?: boolean | string): DataTable;
 
         /*
         * Look up a language token that was defined in the DataTables' language initialisation object.
@@ -374,6 +374,7 @@ declare namespace DataTables {
         length: number;
         recordsTotal: number;
         recordsDisplay: number;
+        serverSide: boolean
     }
 
     //#endregion "page-methods"
@@ -435,6 +436,11 @@ declare namespace DataTables {
         * @param b Additional API instance(s) to concatenate to the initial instance.
         */
         concat(a: Object, ...b: Object[]): DataTable;
+
+        /**
+        * Get the number of entries in an API instance's result set, regardless of multi-table grouping (e.g. any data, selected rows, etc). Since: 1.10.8
+        */
+        count(): number;
 
         /**
         * Iterate over the contents of the API result set.
@@ -911,6 +917,15 @@ declare namespace DataTables {
         id(hash?: boolean): string;
 
         /**
+        * Get the id of the selected row. Since: 1.10.8
+        *
+        * @param hash true - Append a hash (#) to the start of the row id. This can be useful for then using the id as a selector
+        * false - Do not modify the id value.
+        * @returns Row id. If the row does not have an id available 'undefined' will be returned.
+        */
+        id(hash?: boolean): string;
+
+        /**
         * Get the row index of the row column.
         */
         index(): number;
@@ -969,6 +984,15 @@ declare namespace DataTables {
         * @param fn Function to execute for every row selected.
         */
         every(fn: (rowIdx: number, tableLoop: number, rowLoop: number) => void): DataTable;
+
+        /**
+        * Get the ids of the selected rows. Since: 1.10.8
+        *
+        * @param hash true - Append a hash (#) to the start of each row id. This can be useful for then using the ids as selectors
+        * false - Do not modify the id value.
+        * @returns Api instance with the selected rows in its result set. If a row does not have an id available 'undefined' will be returned as the value.
+        */
+        ids(hash?: boolean): DataTable;
 
         /**
         * Get the row indexes of the selected rows.
@@ -1057,11 +1081,12 @@ declare namespace DataTables {
         isDataTable(table: string): boolean;
 
         /**
-        * Get all DataTables on the page
+        * Get all DataTable tables that have been initialised - optionally you can select to get only currently visible tables and / or retrieve the tables as API instances.
         *
-        * @param visible Get only visible tables
+        * @param visible As a boolean value this options is used to indicate if you want all tables on the page should be returned (false), or visible tables only (true).
+        * Since 1.10.8 this option can also be given as an object.
         */
-        tables(visible?: boolean): DataTables.DataTable[];
+        tables(visible?: boolean | ObjectTablesStatic): DataTables.DataTable[] | DataTables.DataTable;
 
         /**
         * Version number compatibility check function
@@ -1098,6 +1123,18 @@ declare namespace DataTables {
         * @param period ms
         */
         throttle(fn: Function, period?: number): Function;
+    }
+
+    interface ObjectTablesStatic {
+        /**
+        * Get only visible tables (true) or all tables regardless of visibility (false).
+        */
+        visible: boolean
+
+        /**
+        * Return a DataTables API instance for the selected tables (true) or an array (false).
+        */
+        api: boolean
     }
 
     //#endregion "Static-Methods"
@@ -1257,7 +1294,7 @@ declare namespace DataTables {
         pageLength?: number;
 
         /**
-        * Pagination button display options. Basic Types: simple, simple_numbers, full, full_numbers
+        * Pagination button display options. Basic Types: numbers (1.10.8) simple, simple_numbers, full, full_numbers
         */
         pagingType?: string;
 
@@ -1270,6 +1307,11 @@ declare namespace DataTables {
         * Display component renderer types. Since: 1.10
         */
         renderer?: string | RendererSettings;
+
+        /**
+        * Data property name that DataTables will use to set <tr> element DOM IDs. Since: 1.10.8
+        */
+        rowId?: string;
 
         /**
         * Allow the table to reduce in height when a limited number of rows are shown. Since: 1.10
