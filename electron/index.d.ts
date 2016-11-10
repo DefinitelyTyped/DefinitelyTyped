@@ -1,6 +1,6 @@
-// Type definitions for Electron v1.4.2
+// Type definitions for Electron v1.4.5
 // Project: http://electron.atom.io/
-// Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
+// Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>, aliib <https://github.com/aliib>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -2685,6 +2685,231 @@ declare namespace Electron {
 		 * Returns a boolean whether the image is a template image.
 		 */
 		isTemplateImage(): boolean;
+	}
+
+	// https://github.com/electron/electron/blob/master/docs/api/net.md
+
+	/**
+	 * The net module is a client-side API for issuing HTTP(S) requests.
+	 * It is similar to the HTTP and HTTPS modules of Node.js but uses Chromium’s native networking library instead of the Node.js
+	 * implementation, offering better support for web proxies.
+	 * The following is a non-exhaustive list of why you may consider using the net module instead of the native Node.js modules:
+	 * - Automatic management of system proxy configuration, support of the wpad protocol and proxy pac configuration files.
+	 * - Automatic tunneling of HTTPS requests.
+	 * - Support for authenticating proxies using basic, digest, NTLM, Kerberos or negotiate authentication schemes.
+	 * - Support for traffic monitoring proxies: Fiddler-like proxies used for access control and monitoring.
+	 *
+	 * The net module API has been specifically designed to mimic, as closely as possible,
+	 * the familiar Node.js API. The API components including classes, methods,
+	 * properties and event names are similar to those commonly used in Node.js.
+	 *
+	 * The net API can be used only after the application emits the ready event.
+	 * Trying to use the module before the ready event will throw an error.
+	 */
+	interface Net extends NodeJS.EventEmitter {
+		/**
+		 * @param options The ClientRequest constructor options.
+		 * @param callback A one time listener for the response event.
+		 *
+		 * @returns a ClientRequest instance using the provided options which are directly forwarded to the ClientRequest constructor.
+		 */
+		request(options : string | RequestOptions, callback?: (response: IncomingMessage) => void): ClientRequest
+	}
+
+	/**
+	 * Holds options for an HTTP requests.
+	 */
+	interface RequestOptions {
+		/**
+		 * The HTTP request method. Defaults to the GET method.
+		 */
+		method?: string;
+		/**
+		 * The request URL. Must be provided in the absolute form with the protocol
+		 * scheme specified as http or https.
+		 */
+		url?: string;
+		/**
+		 * The Session instance with which the request is associated.
+		 */
+		session?: Session;
+		/**
+		 * The name of the partition with which the request is associated.
+		 * Defaults to the empty string. The session option prevails on partition.
+		 * Thus if a session is explicitly specified, partition is ignored.
+		 */
+		partition?: string;
+		/**
+		 * The protocol scheme in the form ‘scheme:’. Currently supported values are ‘http:’ or ‘https:’.
+		 * Defaults to ‘http:’.
+		 */
+		Protocol?: 'http:' | 'https:';
+		/**
+		 * The server host provided as a concatenation of the hostname and the port number ‘hostname:port’.
+		 */
+		host?: string;
+		/**
+		 * The server host name.
+		 */
+		hostname?: string;
+		/**
+		 * The server’s listening port number.
+		 */
+		port?: number;
+		/**
+		 * The path part of the request URL.
+		 */
+		path?: string;
+		/**
+		 * A map specifying extra HTTP header name/value.
+		 */
+		headers?: { [key: string]: any };
+	}
+
+	/**
+	 * A ClientRequest object represents an HTTP request.
+	 */
+	class ClientRequest extends NodeJS.EventEmitter {
+		/**
+		 * Emitted when a HTTP response is received for the request. 
+		 */
+		on(event: 'response', listener: (response: IncomingMessage) => void): this;
+		/**
+		 * Emitted when an authenticating proxy is asking for user credentials.
+		 * The callback function is expected to be called back with user credentials.
+		 * Providing empty credentials will cancel the request and report an authentication error on the response object.
+		 */
+		on(event: 'login', listener: (authInfo: LoginAuthInfo, callback: (username?: string, password?: string) => void) => void): this;
+		/**
+		 * Emitted just after the last chunk of the request’s data has been written into the request object.
+		 */
+		on(event: 'finish', listener: () => void): this;
+		/**
+		 * Emitted when the request is aborted. The abort event will not be fired if the request is already closed.
+		 */
+		on(event: 'abort', listener: () => void): this;
+		/**
+		 * Emitted when the net module fails to issue a network request.
+		 * Typically when the request object emits an error event, a close event will subsequently follow and no response object will be provided.
+		 */
+		on(event: 'error', listener: (error: Error) => void): this;
+		/**
+		 * Emitted as the last event in the HTTP request-response transaction.
+		 * The close event indicates that no more events will be emitted on either the request or response objects.
+		 */
+		on(event: 'close', listener: () => void): this;
+		on(event: string, listener: Function): this;
+		/**
+		 * A Boolean specifying whether the request will use HTTP chunked transfer encoding or not.
+		 * Defaults to false. The property is readable and writable, however it can be set only before
+		 * the first write operation as the HTTP headers are not yet put on the wire.
+		 * Trying to set the chunkedEncoding property after the first write will throw an error.
+		 *
+		 * Using chunked encoding is strongly recommended if you need to send a large request
+		 * body as data will be streamed in small chunks instead of being internally buffered inside Electron process memory.
+		 */
+		chunkedEncoding: boolean;
+		/**
+		 * @param options If options is a String, it is interpreted as the request URL.
+		 * If it is an object, it is expected to be a RequestOptions.
+		 * @param callback A one time listener for the response event.
+		 */
+		constructor(options: string | RequestOptions, callback?: (response: IncomingMessage) => void);
+		/**
+		 * Adds an extra HTTP header. The header name will issued as it is without lowercasing.
+		 * It can be called only before first write. Calling this method after the first write will throw an error.
+		 * @param name An extra HTTP header name.
+		 * @param value An extra HTTP header value.
+		 */
+		setHeader(name: string, value: string): void;
+		/**
+		 * @param name Specify an extra header name.
+		 * @returns The value of a previously set extra header name.
+		 */
+		getHeader(name: string): string;
+		/**
+		 * Removes a previously set extra header name. This method can be called only before first write.
+		 * Trying to call it after the first write will throw an error.
+		 * @param name Specify an extra header name.
+		 */
+		removeHeader(name: string): void;
+		/**
+		 * Adds a chunk of data to the request body. The first write operation may cause the request headers to be issued on the wire.
+		 * After the first write operation, it is not allowed to add or remove a custom header.
+		 * @param chunk A chunk of the request body’s data. If it is a string, it is converted into a Buffer using the specified encoding.
+		 * @param encoding Used to convert string chunks into Buffer objects. Defaults to ‘utf-8’.
+		 * @param callback Called after the write operation ends.
+		 *
+		 */
+		write(chunk: string | Buffer, encoding?: string, callback?: Function): boolean;
+		/**
+		 * Sends the last chunk of the request data. Subsequent write or end operations will not be allowed.
+		 * The finish event is emitted just after the end operation.
+		 * @param chunk A chunk of the request body’s data. If it is a string, it is converted into a Buffer using the specified encoding.
+		 * @param encoding Used to convert string chunks into Buffer objects. Defaults to ‘utf-8’.
+		 * @param callback Called after the write operation ends.
+		 *
+		 */
+		end(chunk?: string | Buffer, encoding?: string, callback?: Function): boolean;
+		/**
+		 * Cancels an ongoing HTTP transaction. If the request has already emitted the close event, the abort operation will have no effect.
+		 * Otherwise an ongoing event will emit abort and close events.
+		 * Additionally, if there is an ongoing response object,it will emit the aborted event.
+		 */
+		abort(): void
+	}
+
+	/**
+	 * An IncomingMessage represents an HTTP response.
+	 */
+	interface IncomingMessage extends NodeJS.ReadableStream {
+		/**
+		 * The data event is the usual method of transferring response data into applicative code.
+		 */
+		on(event: 'data', listener: (chunk: Buffer) => void): this;
+		/**
+		 * Indicates that response body has ended.
+		 */
+		on(event: 'end', listener: () => void): this;
+		/**
+		 * Emitted when a request has been canceled during an ongoing HTTP transaction.
+		 */
+		on(event: 'aborted', listener: () => void): this;
+		/**
+		 * Emitted when an error was encountered while streaming response data events.
+		 * For instance, if the server closes the underlying while the response is still
+		 * streaming, an error event will be emitted on the response object and a close
+		 * event will subsequently follow on the request object.
+		 */
+		on(event: 'error', listener: (error: Error) => void): this;
+		on(event: string, listener: Function): this;
+		/**
+		 * An Integer indicating the HTTP response status code.
+		 */
+		statusCode: number;
+		/**
+		 * A String representing the HTTP status message.
+		 */
+		statusMessage: string;
+		/**
+		 * An Object representing the response HTTP headers. The headers object is formatted as follows:
+		 * - All header names are lowercased.
+		 * - Each header name produces an array-valued property on the headers object.
+		 * - Each header value is pushed into the array associated with its header name.
+		 */
+		headers: Headers;
+		/**
+		 * A String indicating the HTTP protocol version number. Typical values are ‘1.0’ or ‘1.1’.
+		 */
+		httpVersion: number;
+		/**
+		 * An integer-valued read-only property that returns the HTTP major version number.
+		 */
+		httpVersionMajor: number;
+		/**
+		 * An integer-valued read-only property that returns the HTTP minor version number.
+		 */
+		httpVersionMinor: number;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/power-monitor.md
@@ -5565,6 +5790,7 @@ declare namespace Electron {
 		globalShortcut: Electron.GlobalShortcut;
 		Menu: typeof Electron.Menu;
 		MenuItem: typeof Electron.MenuItem;
+        net: Electron.Net;
 		powerMonitor: Electron.PowerMonitor;
 		powerSaveBlocker: Electron.PowerSaveBlocker;
 		protocol: Electron.Protocol;
