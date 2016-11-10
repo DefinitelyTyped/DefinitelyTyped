@@ -292,11 +292,6 @@ declare namespace FusionCharts {
 
 }
 
-declare module 'FusionCharts' {
-    var FusionCharts: FusionCharts.FusionChartStatic;
-    export = FusionCharts;
-}
-
 declare var FusionCharts: FusionCharts.FusionChartStatic;
-
-
+export = FusionCharts;
+export as namespace FusionCharts;

@@ -1,7 +1,3 @@
-/// <reference path="./prompt-sync-history" />
-/// <reference path="../prompt-sync/prompt-sync" />
-'use strict';
-
 import * as promptHistory from 'prompt-sync-history';
 import * as PromptSync from 'prompt-sync';
 

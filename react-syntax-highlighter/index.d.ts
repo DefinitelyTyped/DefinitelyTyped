@@ -3,8 +3,6 @@
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts" />
-
 declare module 'react-syntax-highlighter' {
     import SyntaxHighlighter from 'react-syntax-highlighter/dist/light';
     export default SyntaxHighlighter;
@@ -25,8 +23,8 @@ declare module 'react-syntax-highlighter/dist/light' {
         [spread: string]: any;
     }
 
-    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps, any> { 
-        
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps, any> {
+
     }
 }
 

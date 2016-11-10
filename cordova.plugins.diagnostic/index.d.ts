@@ -3,6 +3,7 @@
 // Definitions by: Dave Alden <https://github.com/dpa99c/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="cordova" />
 
 /**
  * Checks whether device hardware features are enabled or available to the app, e.g. camera, GPS, wifi
@@ -163,8 +164,8 @@ interface Diagnostic {
 
     /**
      * ANDROID and iOS ONLY
-     * Returns true if the device setting for location is on. 
-     * On Android this returns true if Location Mode is switched on. 
+     * Returns true if the device setting for location is on.
+     * On Android this returns true if Location Mode is switched on.
      * On iOS this returns true if Location Services is switched on.
      * @param successCallback
      * @param errorCallback

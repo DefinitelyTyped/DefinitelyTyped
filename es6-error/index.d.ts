@@ -3,6 +3,4 @@
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "es6-error" {
-    export = Error
-}
+export = Error;
