@@ -1,5 +1,4 @@
 /// <reference path="webpack-dev-server.d.ts" />
-/// <reference path="../webpack/webpack.d.ts"/>
 
 import * as webpack from 'webpack';
 import * as WebpackDevServer from 'webpack-dev-server';
