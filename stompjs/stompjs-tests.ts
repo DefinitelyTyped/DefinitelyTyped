@@ -1,0 +1,89 @@
+/// <reference path="./stompjs.d.ts" />
+
+import * as Stomp from 'stompjs';
+
+let interval = Stomp.setInterval(1000, () => { });
+Stomp.clearInterval(interval);
+
+let client: Stomp.Client;
+
+client = Stomp.client('url');
+client = Stomp.client('url', Stomp.VERSIONS.supportedVersions());
+client = Stomp.client('url', Stomp.VERSIONS.V1_0);
+client = Stomp.client('url', Stomp.VERSIONS.V1_1);
+
+client = Stomp.over(new WebSocket('url'));
+client = Stomp.over(new WebSocket('url', Stomp.VERSIONS.supportedVersions()));
+client = Stomp.over(new WebSocket('url', Stomp.VERSIONS.V1_0));
+client = Stomp.over(new WebSocket('url', Stomp.VERSIONS.V1_1));
+
+client = Stomp.overTCP('host', 0);
+
+client = Stomp.overWS('url');
+
+client.connected = false;
+client.counter = 0;
+client.heartbeat = { incoming: 20000, outgoing: 20000 };
+client.maxWebSocketFrameSize = 16 * 1024;
+client.subscriptions = { 'sub-0': {}, 'sub-1': () => { } };
+client.ws = new WebSocket('url');
+
+client.debug();
+
+client.connect();
+client.connect('', () => { }, {});
+
+client.disconnect(() => { });
+client.disconnect(() => { }, {});
+
+client.send('destination');
+client.send('destination', {});
+client.send('destination', {}, 'body');
+
+client.subscribe('destination', (message) => { });
+client.subscribe('destination', (message) => { }, {});
+
+client.unsubscribe();
+
+client.begin('transaction');
+
+client.commit('transaction');
+
+client.abort('transaction');
+
+client.ack('messageID', 'subscription');
+client.nack('messageID', 'subscription', {});
+
+let message: Stomp.Message = {
+    command: 'command',
+    headers: {},
+    body: 'body',
+
+    ack({}) { },
+    nack({}) { }
+}
+
+message.ack();
+message.ack({});
+
+message.nack();
+message.nack({});
+
+let frame: Stomp.Frame;
+
+frame = new Stomp.Frame('command');
+frame = new Stomp.Frame('command', {});
+frame = new Stomp.Frame('command', {}, 'body');
+
+frame.toString();
+
+frame.sizeOfUTF8('abc');
+
+frame.unmarshall(0);
+frame.unmarshall('data');
+frame.unmarshall({});
+frame.unmarshall([{}, {}]);
+
+frame.marshall('command');
+frame.marshall('command', {});
+frame.marshall('command', {}, 'body');
