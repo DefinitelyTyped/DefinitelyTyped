@@ -58,7 +58,7 @@ inquirer.prompt([
         choices: [
             new inquirer.Separator("The usual:"),
             {
-                name: "Peperonni"
+                name: "Pepperoni"
             },
             {
                 name: "Cheese",
@@ -203,7 +203,7 @@ inquirer.prompt([
             "Make a reservation",
             new inquirer.Separator(),
             "Ask opening hours",
-            "Talk to the receptionnist"
+            "Talk to the receptionist"
         ]
     },
     {
@@ -357,8 +357,8 @@ var questions2 = [
         choices: [
             {
                 key: "p",
-                name: "Peperonni and chesse",
-                value: "PeperonniChesse"
+                name: "Pepperoni and cheese",
+                value: "PepperoniCheese"
             },
             {
                 key: "a",
@@ -421,7 +421,7 @@ inquirer.prompt([
             "Make a reservation",
             new inquirer.Separator(),
             "Ask opening hours",
-            "Talk to the receptionnist"
+            "Talk to the receptionist"
         ]
     },
     {
