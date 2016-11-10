@@ -1,6 +1,6 @@
-// Type definitions for stompjs 2.3.x
+// Type definitions for stompjs 2.3
 // Project: https://github.com/jmesnil/stomp-websocket
-// Definitions by: Jimi (Dimitris) Charalampidis <https://github.com/jimic>
+// Definitions by: Jimi <Dimitris> Charalampidis <https://github.com/jimic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
@@ -11,7 +11,7 @@ declare module 'stompjs' {
         V1_0: '1.0',
         V1_1: '1.1',
         V1_2: '1.2',
-        supportedVersions: () => '1.1,1.0'.split(',')
+        supportedVersions: () => Array<string>
     };
 
     class Client {
@@ -23,42 +23,42 @@ declare module 'stompjs' {
             outgoing: number
         };
         maxWebSocketFrameSize: number;
-        subscriptions: Object;
+        subscriptions: {};
         ws: WebSocket;
 
         debug(...args: string[]): any;
 
         connect(...args: any[]): any;
-        disconnect(disconnectCallback: () => any, headers?: Object): any;
+        disconnect(disconnectCallback: () => any, headers?: {}): any;
 
-        send(destination: string, headers?: Object, body?: string): any;
-        subscribe(destination: string, callback?: (message: Message) => any, headers?: Object): any;
+        send(destination: string, headers?: {}, body?: string): any;
+        subscribe(destination: string, callback?: (message: Message) => any, headers?: {}): any;
         unsubscribe(): any;
 
         begin(transaction: string): any;
         commit(transaction: string): any;
         abort(transaction: string): any;
 
-        ack(messageID: string, subscription: string, headers?: Object): any;
-        nack(messageID: string, subscription: string, headers?: Object): any;
+        ack(messageID: string, subscription: string, headers?: {}): any;
+        nack(messageID: string, subscription: string, headers?: {}): any;
     }
 
     export interface Message {
         command: string;
-        headers: Object;
+        headers: {};
         body: string;
 
-        ack(headers?: Object): any;
-        nack(headers?: Object): any;
+        ack(headers?: {}): any;
+        nack(headers?: {}): any;
     }
 
     export class Frame {
-        constructor(command: string, headers?: Object, body?: string);
+        constructor(command: string, headers?: {}, body?: string);
 
         toString(): string;
         sizeOfUTF8(s: string): number;
         unmarshall(datas: any): any;
-        marshall(command: string, headers?: Object, body?: string): any;
+        marshall(command: string, headers?: {}, body?: string): any;
     }
 
     export function client(url: string, protocols?: string | Array<string>): Client;
