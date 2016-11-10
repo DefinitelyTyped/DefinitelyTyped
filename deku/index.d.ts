@@ -30,7 +30,7 @@ declare namespace deku {
 		/**
 		 * Modify a DOM element given an array of actions.
 		 */
-		function update<C, A>(dispatch: Function, context: C): (DOMElement: HTMLElement, action: A) => HTMLElement;
+		function update<C, A>(dispatch: Dispatch, context: C): (DOMElement: HTMLElement, action: A) => HTMLElement;
 	}
 
 	namespace string {
