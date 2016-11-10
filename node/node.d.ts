@@ -1522,7 +1522,7 @@ declare module "child_process" {
         disconnect(): void;
         unref(): void;
         ref(): void;
-    
+
         /**
          * events.EventEmitter
          * 1. close
@@ -2150,6 +2150,8 @@ declare module "fs" {
     export interface ReadStream extends stream.Readable {
         close(): void;
         destroy(): void;
+        bytesRead: number;
+        path: string | Buffer;
 
         /**
          * events.EventEmitter
