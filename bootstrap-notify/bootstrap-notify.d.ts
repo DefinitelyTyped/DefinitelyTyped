@@ -36,10 +36,7 @@ interface NotifySettings {
 		from?: string;
 		align?: string;
 	};
-	offset?: number | {
-		x?: number;
-		y?: number;
-	};
+	offset?: number;
 	spacing?: number;
 	z_index?: number;
 	delay?: number;
