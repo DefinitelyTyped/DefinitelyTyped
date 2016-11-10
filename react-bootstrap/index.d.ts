@@ -540,6 +540,7 @@ declare namespace ReactBootstrap {
         brand?: any; // TODO: Add more specific type
         bsSize?: Sizes;
         bsStyle?: string;
+        collapseOnSelect?: boolean;
         componentClass?: React.ReactType;
         defaultNavExpanded?: boolean;
         fixedBottom?: boolean;
@@ -551,7 +552,6 @@ declare namespace ReactBootstrap {
         staticTop?: boolean;
         toggleButton?: any; // TODO: Add more specific type
         toggleNavKey?: string | number;
-        collapseOnSelect?: boolean;
     }
     interface NavbarClass extends React.ClassicComponentClass<NavbarProps> {
         Brand: typeof NavbarBrand;
