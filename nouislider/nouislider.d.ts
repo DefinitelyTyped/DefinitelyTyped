@@ -1,6 +1,6 @@
 // Type definitions for nouislider v9.0.0
 // Project: https://github.com/leongersen/noUiSlider
-// Definitions by: Guust Nieuwenhuis <https://github.com/lagaffe>
+// Definitions by: Patrick Davies <https://github.com/bleuarg>, Guust Nieuwenhuis <https://github.com/lagaffe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path="../wnumb/wnumb.d.ts"/>
 
@@ -22,10 +22,10 @@ declare namespace noUiSlider {
          */
         range: Object;
         /**
-         * noUiSlider offers several ways to handle user interaction.
-         * The range can be set to drag, and handles can move to taps.
-         * All these effects are optional, and can be enable by adding their keyword to the behaviour option.
-         * This option accepts a "-" separated list of "drag", "tap", "fixed", "snap" or "none".
+         * The connect setting can be used to control the (green) bar between the handles, or the edges of the slider.
+         * Pass an array with a boolean for every connecting element, including the edges of the slider. 
+         * The length of this array must match the handle count + 1.
+         * Setting true sets the bars between the handles, but not between the handles and the sliders edges.
          */
         connect?: boolean | boolean[];
         /**
