@@ -11,7 +11,7 @@ declare module 'stompjs' {
         V1_0: '1.0',
         V1_1: '1.1',
         V1_2: '1.2',
-        supportedVersions: () => '1.1,1.0'.split(',');
+        supportedVersions: () => '1.1,1.0'.split(',')
     };
 
     class Client {
