@@ -5,7 +5,7 @@
 
 /// <reference path="highcharts.d.ts" />
 
-declare var HighchartsExporting: (H: HighchartsStatic) => HighchartsStatic;
+declare var HighchartsExporting: (H: __Highcharts.Static) => __Highcharts.Static;
 
 declare module "highcharts/modules/exporting" {
     export = HighchartsExporting;

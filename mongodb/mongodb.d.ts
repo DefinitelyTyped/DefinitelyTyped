@@ -428,6 +428,8 @@ declare module "mongodb" {
     getTimestamp(): Date;
     // Returns the ObjectID id as a 24 byte hex string representation
     toHexString(): string;
+    // Returns the ObjectID id as a 24 byte hex string representation
+    toString(): string;
   }
 
   // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Binary.html
@@ -1170,7 +1172,7 @@ declare module "mongodb" {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#limit
     limit(value: number): Cursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#map
-    map(transform: Function): void;
+    map(transform: Function): Cursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#max
     max(max: number): Cursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#maxAwaitTimeMS

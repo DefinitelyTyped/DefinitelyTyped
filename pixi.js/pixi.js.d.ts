@@ -1103,7 +1103,7 @@ declare namespace PIXI {
 
         static uuid(): number;
         static hex2rgb(hex: number, out?: number[]): number[];
-        static hex2String(hex: number): string;
+        static hex2string(hex: number): string;
         static rgb2hex(rgb: Number[]): number;
         static canUseNewCanvasBlendModel(): boolean;
         static getNextPowerOfTwo(number: number): number;
