@@ -89,7 +89,7 @@ interface WebPage {
 	deleteCookie(cookieName: string): boolean;
 	evaluate(fn: Function, ...args: any[]): any;
 	evaluateAsync(fn: Function): void;
-	evaluateJavascript(str: string): any; // :TODO: elaborate this when documentation improves
+	evaluateJavaScript(str: string): any; // :TODO: elaborate this when documentation improves
 	getPage(windowName: string): WebPage;
 	go(index: number): void;
 	goBack(): void;

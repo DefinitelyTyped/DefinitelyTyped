@@ -203,7 +203,7 @@ declare module ol {
          * @template S
          * @api stable
          */
-        forEach<S>(f: ((self: S, item: T, index: number, array: T[]) => any), opt_this?: S): void;
+        forEach<S>(f: ((item: T, index: number, array: T[]) => any), opt_this?: S): void;
 
         /**
          * Get a reference to the underlying Array object. Warning: if the array
@@ -6361,6 +6361,13 @@ declare module ol {
             constructor(opt_options?: olx.layer.VectorOptions);
 
             /**
+             * Return the associated {@link ol.source.Vector vectorsource} of the layer.
+             * @return {ol.source.Vector} Source.
+             * @api stable
+             */
+            getSource(): ol.source.Vector;
+
+            /**
              * Get the style for features.  This returns whatever was passed to the `style`
              * option at construction or to the `setStyle` method.
              * @return {ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction}
@@ -6669,7 +6676,7 @@ declare module ol {
          * @template S,T,U
          * @api stable
          */
-        forEachFeatureAtPixel<S, T, U>(pixel: ol.Pixel, callback: ((self: S, feature: (ol.Feature | ol.render.Feature), layer: ol.layer.Layer) => T), opt_this?: S, opt_layerFilter?: ((self: U, layer: ol.layer.Layer) => boolean), opt_this2?: U): (T);
+        forEachFeatureAtPixel<S, T, U>(pixel: ol.Pixel, callback: ((feature: (ol.Feature | ol.render.Feature), layer: ol.layer.Layer) => T), opt_this?: S, opt_layerFilter?: ((layer: ol.layer.Layer) => boolean), opt_this2?: U): (T);
 
         /**
          * Detect layers that have a color value at a pixel on the viewport, and
@@ -6694,7 +6701,7 @@ declare module ol {
          * @template S,T,U
          * @api stable
          */
-        forEachLayerAtPixel<S, T, U>(pixel: ol.Pixel, callback: ((self: S, layer: ol.layer.Layer, color: ol.Color) => T), opt_this?: S, opt_layerFilter?: ((self: U, layer: ol.layer.Layer) => boolean), opt_this2?: U): (T);
+        forEachLayerAtPixel<S, T, U>(pixel: ol.Pixel, callback: ((layer: ol.layer.Layer, color: ol.Color) => T), opt_this?: S, opt_layerFilter?: ((layer: ol.layer.Layer) => boolean), opt_this2?: U): (T);
 
         /**
          * Detect if features intersect a pixel on the viewport. Layers included in the
@@ -6711,7 +6718,7 @@ declare module ol {
          * @template U
          * @api
          */
-        hasFeatureAtPixel<U>(pixel: ol.Pixel, opt_layerFilter?: ((self: U, layer: ol.layer.Layer) => boolean), opt_this?: U): boolean;
+        hasFeatureAtPixel<U>(pixel: ol.Pixel, opt_layerFilter?: ((layer: ol.layer.Layer) => boolean), opt_this?: U): boolean;
 
         /**
          * Returns the geographical coordinate for a browser event.
@@ -7760,19 +7767,19 @@ declare module ol {
 
         }
 
-        //  /**
-        //   * Register proj4. If not explicitly registered, it will be assumed that
-        //   * proj4js will be loaded in the global namespace. For example in a
-        //   * browserify ES6 environment you could use:
-        //   *
-        //   *     import ol from 'openlayers';
-        //   *     import proj4 from 'proj4';
-        //   *     ol.proj.setProj4(proj4);
-        //   *
-        //   * @param {proj4} proj4 Proj4.
-        //   * @api
-        //   */
-        //  function setProj4(proj4: proj4): void;
+         /**
+          * Register proj4. If not explicitly registered, it will be assumed that
+          * proj4js will be loaded in the global namespace. For example in a
+          * browserify ES6 environment you could use:
+          *
+          *     import ol from 'openlayers';
+          *     import proj4 from 'proj4';
+          *     ol.proj.setProj4(proj4);
+          *
+          * @param {any} proj4 Proj4.
+          * @api
+          */
+        function setProj4(proj4: any): void;
 
         /**
          * Registers transformation functions that don't alter coordinates. Those allow
@@ -7881,8 +7888,6 @@ declare module ol {
          * @param {ol.Coordinate} coordinate Coordinate.
          * @param {ol.ProjectionLike} source Source projection-like.
          * @param {ol.ProjectionLike} destination Destination projection-like.
-         * @return {ol.Coordinate} Coordinate.
-         * @api stable
          */
         function transform(coordinate: ol.Coordinate, source: ol.ProjectionLike, destination: ol.ProjectionLike): ol.Coordinate;
 
@@ -9176,7 +9181,7 @@ declare module ol {
              * @template T
              * @api
              */
-            forDataAtCoordinateAndResolution<T>(coordinate: ol.Coordinate, resolution: number, callback: ((self: T, d: any) => any), opt_this?: T, opt_request?: boolean): void;
+            forDataAtCoordinateAndResolution<T>(coordinate: ol.Coordinate, resolution: number, callback: ((d: any) => any), opt_this?: T, opt_request?: boolean): void;
 
         }
 
@@ -9371,7 +9376,7 @@ declare module ol {
              * @template T,S
              * @api stable
              */
-            forEachFeature<T, S>(callback: ((self: T, feature: ol.Feature) => S), opt_this?: T): (S);
+            forEachFeature<T, S>(callback: ((feature: ol.Feature) => S), opt_this?: T): (S);
 
             /**
              * Iterate through all features whose bounding box intersects the provided
@@ -9394,7 +9399,7 @@ declare module ol {
              * @template T,S
              * @api
              */
-            forEachFeatureInExtent<T, S>(extent: ol.Extent, callback: ((self: T, feature: ol.Feature) => S), opt_this?: T): (S);
+            forEachFeatureInExtent<T, S>(extent: ol.Extent, callback: ((feature: ol.Feature) => S), opt_this?: T): (S);
 
             /**
              * Iterate through all features whose geometry intersects the provided extent,
@@ -9413,7 +9418,7 @@ declare module ol {
              * @template T,S
              * @api
              */
-            forEachFeatureIntersectingExtent<T, S>(extent: ol.Extent, callback: ((self: T, feature: ol.Feature) => S), opt_this?: T): (S);
+            forEachFeatureIntersectingExtent<T, S>(extent: ol.Extent, callback: ((feature: ol.Feature) => S), opt_this?: T): (S);
 
             /**
              * Get the features collection associated with this source. Will be `null`
@@ -10952,7 +10957,7 @@ declare module ol {
      * @typedef {function(this:ol.source.ImageCanvas, ol.Extent, number,
      *     number, ol.Size, ol.proj.Projection): HTMLCanvasElement}
      */
-    type CanvasFunctionType = (self: ol.source.ImageCanvas, extent: ol.Extent, resolution: number, pixelRatio: number, size: ol.Size, proj: ol.proj.Projection) => HTMLCanvasElement;
+    type CanvasFunctionType = (extent: ol.Extent, resolution: number, pixelRatio: number, size: ol.Size, proj: ol.proj.Projection) => HTMLCanvasElement;
 
     /**
      * A color represented as a short array [red, green, blue, alpha].
@@ -10961,7 +10966,7 @@ declare module ol {
      * given then `1` will be used.
      * @typedef {Array.<number>|Uint8Array|Uint8ClampedArray}
      */
-    type Color = (number[] | Uint8Array | Uint8ClampedArray);
+    type Color = ([number, number, number, number] | Uint8Array | Uint8ClampedArray);
 
     /**
      * A type accepted by CanvasRenderingContext2D.fillStyle.
@@ -10975,7 +10980,7 @@ declare module ol {
      * An array of numbers representing an xy coordinate. Example: `[16, 48]`.
      * @typedef {Array.<number>}
      */
-    type Coordinate = number[];
+    type Coordinate = [number, number];
 
     /**
      * A function that takes a {@link ol.Coordinate} and transforms it into a
@@ -11029,7 +11034,7 @@ declare module ol {
      * An array of numbers representing an extent: `[minx, miny, maxx, maxy]`.
      * @typedef {Array.<number>}
      */
-    type Extent = number[];
+    type Extent = [number, number, number, number];
 
     /**
      * {@link ol.source.Vector} sources use a function of this type to load
@@ -11045,7 +11050,7 @@ declare module ol {
      * @typedef {function(this:ol.source.Vector, ol.Extent, number,
      *                    ol.proj.Projection)}
      */
-    type FeatureLoader = (self: ol.source.Vector, extent: ol.Extent, resolution: number, proj: ol.proj.Projection) => void;
+    type FeatureLoader = (extent: ol.Extent, resolution: number, proj: ol.proj.Projection) => void;
 
     /**
      * A function that returns an array of {@link ol.style.Style styles} given a
@@ -11055,7 +11060,7 @@ declare module ol {
      * @typedef {function(this: ol.Feature, number):
      *     (ol.style.Style|Array.<ol.style.Style>)}
      */
-    type FeatureStyleFunction = (self: ol.Feature, resolution: number) => (ol.style.Style | ol.style.Style[]);
+    type FeatureStyleFunction = (resolution: number) => (ol.style.Style | ol.style.Style[]);
 
     /**
      * {@link ol.source.Vector} sources use a function of this type to get the url
@@ -11103,7 +11108,7 @@ declare module ol {
      * x-coordinate, the second the y-coordinate of the pixel.
      * @typedef {Array.<number>}
      */
-    type Pixel = number[];
+    type Pixel = [number, number];
 
     /**
      * Function to perform manipulations before rendering. This function is called
@@ -11153,7 +11158,7 @@ declare module ol {
      * An array of numbers representing a size: `[width, height]`.
      * @typedef {Array.<number>}
      */
-    type Size = number[];
+    type Size = [number, number];
 
     /**
      * @typedef {{attributions: (ol.AttributionLike|undefined),
@@ -11284,7 +11289,7 @@ declare module ol {
      * grid. The order is `z`, `x`, and `y`. `z` is the zoom level.
      * @typedef {Array.<number>} ol.TileCoord
      */
-    type TileCoord = number[];
+    type TileCoord = [number, number, number];
 
     /**
      * A function that takes an {@link ol.Tile} for the tile and a `{string}` for
@@ -12612,7 +12617,7 @@ declare module olx {
          *     visible: (boolean|undefined)}}
          */
         interface VectorOptions {
-            renderOrder: (feature1: ol.Feature, feature2: ol.Feature) => number;
+            renderOrder?: (feature1: ol.Feature, feature2: ol.Feature) => number;
             map?: ol.Map;
             extent?: ol.Extent;
             minResolution?: number;
@@ -12727,7 +12732,7 @@ declare module olx {
             geometryFunction?: ((feature: ol.Feature) => ol.geom.Point);
             format?: ol.format.Feature;
             logo?: string;
-            projection: ol.ProjectionLike;
+            projection?: ol.ProjectionLike;
             source: ol.source.Vector;
             wrapX?: boolean;
         }
@@ -13080,7 +13085,7 @@ declare module olx {
             params?: { [k: string]: any };
             logo?: (string | olx.LogoOptions);
             tileGrid?: ol.tilegrid.TileGrid;
-            projection: ol.ProjectionLike;
+            projection?: ol.ProjectionLike;
             reprojectionErrorThreshold?: number;
             tileLoadFunction?: ol.TileLoadFunctionType;
             url?: string;
@@ -13246,7 +13251,7 @@ declare module olx {
             crossOrigin?: (string);
             logo?: (string | olx.LogoOptions);
             opaque?: boolean;
-            projection: ol.ProjectionLike;
+            projection?: ol.ProjectionLike;
             reprojectionErrorThreshold?: number;
             maxZoom?: number;
             minZoom?: number;
