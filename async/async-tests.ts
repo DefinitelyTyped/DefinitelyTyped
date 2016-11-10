@@ -440,10 +440,10 @@ async.dir(function (name, callback) {
 
 // each
 
-async.each<number>({
+async.each<number,Error>({
     "a": 1,
     "b": 2
-}, function(val: number, next: ErrorCallback): void {
+}, function(val: number, next: ErrorCallback<Error>): void {
 
     setTimeout(function(): void {
 
@@ -459,10 +459,10 @@ async.each<number>({
 
 });
 
-async.eachSeries<number>({
+async.eachSeries<number, Error>({
     "a": 1,
     "b": 2
-}, function(val: number, next: ErrorCallback): void {
+}, function(val: number, next: ErrorCallback<Error>): void {
 
     setTimeout(function(): void {
 
@@ -478,14 +478,14 @@ async.eachSeries<number>({
 
 });
 
-async.eachLimit<number>({
+async.eachLimit<number, Error>({
     "a": 1,
     "b": 2,
     "c": 3,
     "d": 4,
     "e": 5,
     "f": 6
-}, 2, function(val: number, next: ErrorCallback): void {
+}, 2, function(val: number, next: ErrorCallback<Error>): void {
 
     setTimeout(function(): void {
 
@@ -503,10 +503,10 @@ async.eachLimit<number>({
 
 // forEachOf/eachOf
 
-async.eachOf<number>({
+async.eachOf<number, Error>({
     "a": 1,
     "b": 2
-}, function(val: number, key: string, next: ErrorCallback): void {
+}, function(val: number, key: string, next: ErrorCallback<Error>): void {
 
     setTimeout(function(): void {
 
@@ -522,10 +522,10 @@ async.eachOf<number>({
 
 });
 
-async.forEachOfSeries<number>({
+async.forEachOfSeries<number, Error>({
     "a": 1,
     "b": 2
-}, function(val: number, key: string, next: ErrorCallback): void {
+}, function(val: number, key: string, next: ErrorCallback<Error>): void {
 
     setTimeout(function(): void {
 
@@ -541,14 +541,14 @@ async.forEachOfSeries<number>({
 
 });
 
-async.forEachOfLimit<number>({
+async.forEachOfLimit<number, Error>({
     "a": 1,
     "b": 2,
     "c": 3,
     "d": 4,
     "e": 5,
     "f": 6
-}, 2, function(val: number, key: string, next: ErrorCallback): void {
+}, 2, function(val: number, key: string, next: ErrorCallback<Error>): void {
 
     setTimeout(function(): void {
 
@@ -566,11 +566,11 @@ async.forEachOfLimit<number>({
 
 // map
 
-async.map<number, string>({
+async.map<number, string, Error>({
     "a": 1,
     "b": 2,
     "c": 3
-}, function(val: number, next: AsyncResultCallback<string>): void {
+}, function(val: number, next: AsyncResultCallback<string, Error>): void {
 
     setTimeout(function(): void {
 
@@ -586,11 +586,11 @@ async.map<number, string>({
 
 });
 
-async.mapSeries<number, string>({
+async.mapSeries<number, string, Error>({
     "a": 1,
     "b": 2,
     "c": 3
-}, function(val: number, next: AsyncResultCallback<string>): void {
+}, function(val: number, next: AsyncResultCallback<string, Error>): void {
 
     setTimeout(function(): void {
 
@@ -606,14 +606,14 @@ async.mapSeries<number, string>({
 
 });
 
-async.mapLimit<number, string>({
+async.mapLimit<number, string, Error>({
     "a": 1,
     "b": 2,
     "c": 3,
     "d": 4,
     "e": 5,
     "f": 6
-}, 2, function(val: number, next: AsyncResultCallback<string>): void {
+}, 2, function(val: number, next: AsyncResultCallback<string, Error>): void {
 
     setTimeout(function(): void {
 
@@ -631,11 +631,11 @@ async.mapLimit<number, string>({
 
 // mapValues
 
-async.mapValues<number, string>({
+async.mapValues<number, string, Error>({
     "a": 1,
     "b": 2,
     "c": 3
-}, function(val: number, key: string, next: AsyncResultCallback<string>): void {
+}, function(val: number, key: string, next: AsyncResultCallback<string, Error>): void {
 
     setTimeout(function(): void {
 
@@ -651,11 +651,11 @@ async.mapValues<number, string>({
 
 });
 
-async.mapValuesSeries<number, string>({
+async.mapValuesSeries<number, string, Error>({
     "a": 1,
     "b": 2,
     "c": 3
-}, function(val: number, key: string, next: AsyncResultCallback<string>): void {
+}, function(val: number, key: string, next: AsyncResultCallback<string, Error>): void {
 
     setTimeout(function(): void {
 
@@ -673,11 +673,11 @@ async.mapValuesSeries<number, string>({
 
 // filter/select/reject
 
-async.filter<number>({
+async.filter<number, Error>({
     "a": 1,
     "b": 2,
     "c": 3
-}, function(val: number, next: AsyncBooleanResultCallback): void {
+}, function(val: number, next: AsyncBooleanResultCallback<Error>): void {
 
     setTimeout(function(): void {
 
@@ -693,11 +693,11 @@ async.filter<number>({
 
 });
 
-async.reject<number>({
+async.reject<number, Error>({
     "a": 1,
     "b": 2,
     "c": 3
-}, function(val: number, next: AsyncBooleanResultCallback): void {
+}, function(val: number, next: AsyncBooleanResultCallback<Error>): void {
 
     setTimeout(function(): void {
 
@@ -715,11 +715,11 @@ async.reject<number>({
 
 // concat
 
-async.concat<string, string>({
+async.concat<string, string, Error>({
     "a": "1",
     "b": "2",
     "c": "3"
-}, function(item: string, next: AsyncResultCallback<string[]>): void {
+}, function(item: string, next: AsyncResultCallback<string[], Error>): void {
 
     console.log(`async.concat: ${item}`);
 
@@ -733,11 +733,11 @@ async.concat<string, string>({
 
 // detect/find
 
-async.detect<number>({
+async.detect<number, Error>({
     "a": 1,
     "b": 2,
     "c": 3
-}, function(item: number, next: AsyncBooleanResultCallback): void {
+}, function(item: number, next: AsyncBooleanResultCallback<Error>): void {
 
     console.log(`async.detect/find: ${item}`);
 
@@ -758,11 +758,11 @@ async.detect<number>({
 
 // every/all
 
-async.every<number>({
+async.every<number,Error>({
     "a": 1,
     "b": 2,
     "c": 3
-}, function(item: number, next: AsyncBooleanResultCallback): void {
+}, function(item: number, next: AsyncBooleanResultCallback<Error>): void {
 
     console.log(`async.every/all: ${item}`);
 
@@ -776,11 +776,11 @@ async.every<number>({
 
 // some/any
 
-async.some<number>({
+async.some<number, Error>({
     "a": 1,
     "b": 2,
     "c": 3
-}, function(item: number, next: AsyncBooleanResultCallback): void {
+}, function(item: number, next: AsyncBooleanResultCallback<Error>): void {
 
     console.log(`async.some/any: ${item}`);
 
