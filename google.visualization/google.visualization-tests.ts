@@ -591,3 +591,33 @@ function test_ChartAnnotations() {
         }
     };
 }
+
+
+function test_OrgChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Name');
+    data.addColumn('string', 'Manager');
+    data.addColumn('string', 'ToolTip');
+
+    // For each orgchart box, provide the name, manager, and tooltip to show.
+    data.addRows([
+        [{v:'Mike', f:'Mike<div style="color:red; font-style:italic">President</div>'}, '', 'The President'],
+        [{v:'Jim', f:'Jim<div style="color:red; font-style:italic">Vice President</div>'}, 'Mike', 'VP'],
+        ['Alice', 'Mike', ''],
+        ['Bob', 'Jim', 'Bob Sponge'],
+        ['Carol', 'Bob', '']
+    ]);
+
+    var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+    chart.draw(data, {
+        allowCollapse: true,
+        allowHtml: true,
+        nodeClass: 'node',
+        selectedNodeClass: 'selected',
+        size: 'small'
+    });
+    chart.collapse(1, true);
+    var children = chart.getChildrenIndexes(0);
+    var collapsed = chart.getCollapsedNodes();
+
+}
