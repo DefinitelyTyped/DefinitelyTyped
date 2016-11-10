@@ -3,7 +3,7 @@
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace ValidatorJS {
+declare namespace Validator {
 
     interface ParsedRule {
         attribute: Array<{ name: string, value: any }>
@@ -66,7 +66,6 @@ declare namespace ValidatorJS {
 
 }
 
-declare module "validatorjs" {
-    const Validator: ValidatorJS.ValidatorStatic
-    export = Validator
-}
+declare const Validator: Validator.ValidatorStatic
+export = Validator;
+export as namespace Validator;

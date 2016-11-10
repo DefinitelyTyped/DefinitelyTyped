@@ -3,7 +3,7 @@
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace CreditCardType {
+declare namespace creditCardType {
 
     type CardBrand = "american-express" | "diners-club" | "discover" | "jcb" | "maestro" | "master-card" | "unionpay" | "visa"
 
@@ -26,7 +26,5 @@ declare namespace CreditCardType {
     }
 }
 
-declare module "credit-card-type" {
-    const creditCardType: CreditCardType.CreditCardType
-    export = creditCardType
-}
+declare const creditCardType: creditCardType.CreditCardType
+export = creditCardType

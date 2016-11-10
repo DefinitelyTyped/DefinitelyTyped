@@ -3,11 +3,9 @@
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path='../react/react.d.ts' />
+///<reference types="react" />
 
 declare namespace ReactColor {
-    import React = __React
-
     interface HSLColor {
         a?: number
         h: number

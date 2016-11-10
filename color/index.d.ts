@@ -156,7 +156,6 @@ declare namespace Color {
     }
 }
 
-declare module "color" {
-    const Color: Color.Color
-    export = Color
-}
+declare const Color: Color.Color;
+export = Color;
+export as namespace Color;
