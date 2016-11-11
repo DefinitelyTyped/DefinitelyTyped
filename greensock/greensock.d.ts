@@ -44,7 +44,7 @@ declare type TweenConfig = {
     autoCSS?: boolean;
     callbackScope?: Object;
 }
- 
+    
 //com.greensock.core
 declare class Animation {
     static ticker: IDispatcher;
