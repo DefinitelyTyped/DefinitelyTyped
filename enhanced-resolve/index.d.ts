@@ -1,5 +1,5 @@
 // Type definitions for enhanced-resolve v2.3.0
-// Project: http://github.com/webpack/tapable.git
+// Project: http://github.com/webpack/enhanced-resolve.git
 // Definitions by: e-cloud <https://github.com/e-cloud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

@@ -3,8 +3,12 @@ import { CommonFileSystemMethod } from './common-types';
 
 declare class Storage {
     duration: number;
-    running: Object;
-    data: Object;
+    running: {
+        [name: string]: ((...args: any[]) => any)[]
+    };
+    data: {
+        [name: string]: any[]
+    };
     levels: string[][];
     count: number;
     interval: NodeJS.Timer | null;
