@@ -1,4 +1,4 @@
-// Type definitions for react-fontawesome v.1.1.0
+// Type definitions for react-fontawesome v.1.2.0
 // Project: https://github.com/danawoodman/react-fontawesome
 // Definitions by: Timur Rustamov <https://github.com/timurrustamov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -29,6 +29,8 @@ declare module "react-fontawesome" {
   }
 
   class FontAwesome extends React.Component<FontAwesomeProps, {}> {}
+
+  namespace FontAwesome {}
 
   export = FontAwesome;
 }
