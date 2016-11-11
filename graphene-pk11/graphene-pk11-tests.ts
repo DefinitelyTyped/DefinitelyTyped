@@ -55,3 +55,32 @@ else {
 }
 
 mod.finalize();
+
+// Find
+
+const session = slot.open();
+
+// Get all objects
+session.find();
+
+let object: graphene.SessionObject;
+// Get objects by params
+object = session.find({ value: new Buffer(0), label: "some" }).items(0);
+// Get objects by params and use callback for each founded object
+object = session.find({ value: new Buffer(0), label: "some" }, (obj, index) => index === 0).items(0);
+
+// Attributes
+
+// get attribute by name
+object.getAttribute("label").label;
+// get multi-attributes
+object.getAttribute({
+    label: null,
+    token: null,
+    issuer: null,
+}).label;
+
+// set 1 attribute
+object.setAttribute({ label: "new label" });
+// set * attributes
+object.setAttribute({ label: "new label", token: true });
