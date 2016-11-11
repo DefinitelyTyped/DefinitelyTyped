@@ -51,7 +51,7 @@ declare module "pkijs/src/AttributeTypeAndValue" {
          * 
          * @memberOf AttributeTypeAndValue
          */
-        isEqual(compareTo: AttributeTypeAndValue|ArrayBuffer): boolean;
+        isEqual(compareTo: AttributeTypeAndValue | ArrayBuffer): boolean;
 
         constructor(params?: any);
 
@@ -1908,6 +1908,7 @@ declare module "pkijs/src/RelativeDistinguishedNames" {
         fromSchema(schema: any): void;
         toSchema(): any;
         toJSON(): any;
+        isEqual(data: RelativeDistinguishedNames): boolean;
     }
 
 }
@@ -1962,12 +1963,14 @@ declare module "pkijs/src/ResponseBytes" {
 }
 
 declare module "pkijs/src/ResponseData" {
+    import { OctetString } from "asn1js";
     import Extension from "pkijs/src/Extension";
     import SingleResponse from "pkijs/src/SingleResponse";
 
     export default class ResponseData {
+        version: number;
         tds: ArrayBuffer;
-        responderID: any;
+        responderID: OctetString;
         producedAt: Date;
         responses: SingleResponse[];
         responseExtensions: Extension[];
@@ -2364,7 +2367,7 @@ declare module "pkijs/src/TBSRequest" {
         version?: number;
         requestorName?: GeneralName;
         requestList: Request[];
-        requestExtensions?: Extension;
+        requestExtensions?: Extension[];
         /**
          * Convert current object to asn1js object and set correct values
          * 
