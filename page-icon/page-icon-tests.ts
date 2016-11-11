@@ -1,5 +1,3 @@
-/// <reference path="./page-icon.d.ts" />
-
 import * as pageIcon from "page-icon";
 
 const siteUrl = "https://www.facebook.com/";
