@@ -4,7 +4,7 @@
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import FontAwesome = require('react-fontawesome');
+import * as FontAwesome from 'react-fontawesome';
 
 class TestComponent extends React.Component<{}, {}> {
 
