@@ -871,7 +871,7 @@ declare module "mongoose" {
     /** Hash containing current validation errors. */
     errors: Object;
     /** This documents _id. */
-    _id: mongodb.ObjectID;
+    _id: any;
     /** Boolean flag specifying if the document is new. */
     isNew: boolean;
     /** The documents schema. */

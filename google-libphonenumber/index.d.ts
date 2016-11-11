@@ -20,10 +20,11 @@ declare namespace libphonenumber {
         parse(number: string, region: string): PhoneNumber;
         isValidNumber(phoneNumber: PhoneNumber): boolean;
         isPossibleNumber(phoneNumber: PhoneNumber): boolean;
-        isValidNumberForRegion(phoneNumber: PhoneNumber): boolean;
+        isValidNumberForRegion(phoneNumber: PhoneNumber, region: string): boolean;
         getRegionCodeForNumber(phoneNumber: PhoneNumber): string;
         isNANPACountry(regionCode: string): boolean;
         format(phoneNumber: PhoneNumber, format: PhoneNumberFormat): string;
+        parseAndKeepRawInput(number: string, regionCode: string): PhoneNumber;
     }
 
     export class AsYouTypeFormatter {

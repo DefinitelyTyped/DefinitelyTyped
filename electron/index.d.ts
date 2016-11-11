@@ -2850,7 +2850,7 @@ declare namespace Electron {
 	interface StringProtocolCallback extends ProtocolCallback {
 		(str: string): void;
 		(obj: {
-			data: Buffer,
+			data: string,
 			mimeType: string,
 			charset?: string
 		}): void;

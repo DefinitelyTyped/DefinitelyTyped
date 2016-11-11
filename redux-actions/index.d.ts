@@ -12,13 +12,13 @@ declare namespace ReduxActions {
         type: string
     }
 
-    interface Action<Payload> extends BaseAction {
+    export interface Action<Payload> extends BaseAction {
         payload?: Payload
         error?: boolean
         meta?: any
     }
 
-    interface ActionMeta<Payload, Meta> extends Action<Payload> {
+    export interface ActionMeta<Payload, Meta> extends Action<Payload> {
         meta: Meta
     }
 
