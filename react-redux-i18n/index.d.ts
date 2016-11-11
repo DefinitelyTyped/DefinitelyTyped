@@ -3,12 +3,9 @@
 // Definitions by: Clément Devos <https://github.com/clementdevos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../react/react.d.ts" />
-///<reference path="../redux/redux.d.ts" />
-
 declare module 'react-redux-i18n' {
-  import R = __React;
-  import _Redux = Redux;
+  import * as react from "react"
+  import * as redux from "redux"
 
   /**
    * Helper methods
@@ -42,18 +39,18 @@ declare module 'react-redux-i18n' {
   /**
    * React components
    */
-  export class Translate extends R.Component<TranslateProps, any>{ }
-  export class Localize extends R.Component<LocalizeProps, any>{ }
+  export class Translate extends react.Component<TranslateProps, any>{ }
+  export class Localize extends react.Component<LocalizeProps, any>{ }
 
   /**
    * Reducer
    */
-  export function i18nReducer(state?: any, options?: any): _Redux.Reducer<I18nState>;
+  export function i18nReducer(state?: any, options?: any): redux.Reducer<I18nState>;
 
   /**
    * Reducer init
    */
-  export function syncTranslationWithStore(store: _Redux.Store<any>): void;
+  export function syncTranslationWithStore(store: redux.Store<any>): void;
 
   /**
    *  Redux Actions

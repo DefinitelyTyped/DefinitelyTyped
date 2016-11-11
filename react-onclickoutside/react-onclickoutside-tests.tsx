@@ -16,7 +16,7 @@ var TestStateless: StatelessComponent<TestProps> = (props: TestProps) => {
 var TestStatelessWrapped = onClickOutside(TestStateless)
 
 class Test extends Component<TestProps, any> implements ReactOnClickOutside.OnClickOutsideComponent {
-    handleClickOutside (e: MouseEvent) {}
+    handleClickOutside (e: MouseEvent<any>) {}
 
     render () {
         return (<div>Test</div>)
