@@ -1,66 +1,66 @@
-import AliasFieldPlugin = require('./AliasFieldPlugin');
+import AliasFieldPlugin = require('enhanced-resolve/lib/AliasFieldPlugin');
 
-import AliasPlugin = require('./AliasPlugin');
+import AliasPlugin = require('enhanced-resolve/lib/AliasPlugin');
 
-import AppendPlugin = require('./AppendPlugin');
+import AppendPlugin = require('enhanced-resolve/lib/AppendPlugin');
 
-import CloneBasenamePlugin = require('./CloneBasenamePlugin');
+import CloneBasenamePlugin = require('enhanced-resolve/lib/CloneBasenamePlugin');
 
-import ConcordExtensionsPlugin = require('./ConcordExtensionsPlugin');
+import ConcordExtensionsPlugin = require('enhanced-resolve/lib/ConcordExtensionsPlugin');
 
-import ConcordMainPlugin = require('./ConcordMainPlugin');
+import ConcordMainPlugin = require('enhanced-resolve/lib/ConcordMainPlugin');
 
-import ConcordModulesPlugin = require('./ConcordModulesPlugin');
+import ConcordModulesPlugin = require('enhanced-resolve/lib/ConcordModulesPlugin');
 
-import DescriptionFilePlugin = require('./DescriptionFilePlugin');
+import DescriptionFilePlugin = require('enhanced-resolve/lib/DescriptionFilePlugin');
 
-import DescriptionFileUtils = require('./DescriptionFileUtils');
+import DescriptionFileUtils = require('enhanced-resolve/lib/DescriptionFileUtils');
 
-import DirectoryExistsPlugin = require('./DirectoryExistsPlugin');
+import DirectoryExistsPlugin = require('enhanced-resolve/lib/DirectoryExistsPlugin');
 
-import FileExistsPlugin = require('./FileExistsPlugin');
+import FileExistsPlugin = require('enhanced-resolve/lib/FileExistsPlugin');
 
-import FileKindPlugin = require('./FileKindPlugin');
+import FileKindPlugin = require('enhanced-resolve/lib/FileKindPlugin');
 
-import getPaths, { basename } from './getPaths';
+import getPaths, { basename } from 'enhanced-resolve/lib/getPaths';
 
-import { globToRegExp } from './globToRegExp';
+import { globToRegExp } from 'enhanced-resolve/lib/globToRegExp';
 
-import JoinRequestPlugin = require('./JoinRequestPlugin');
+import JoinRequestPlugin = require('enhanced-resolve/lib/JoinRequestPlugin');
 
-import LogInfoPlugin = require('./LogInfoPlugin');
+import LogInfoPlugin = require('enhanced-resolve/lib/LogInfoPlugin');
 
-import MainFieldPlugin = require('./MainFieldPlugin');
+import MainFieldPlugin = require('enhanced-resolve/lib/MainFieldPlugin');
 
-import ModuleAppendPlugin = require('./ModuleAppendPlugin');
+import ModuleAppendPlugin = require('enhanced-resolve/lib/ModuleAppendPlugin');
 
-import ModuleKindPlugin = require('./ModuleKindPlugin');
+import ModuleKindPlugin = require('enhanced-resolve/lib/ModuleKindPlugin');
 
-import ModulesInHierachicDirectoriesPlugin = require('./ModulesInHierachicDirectoriesPlugin');
+import ModulesInHierachicDirectoriesPlugin = require('enhanced-resolve/lib/ModulesInHierachicDirectoriesPlugin');
 
-import ModulesInRootPlugin = require('./ModulesInRootPlugin');
+import ModulesInRootPlugin = require('enhanced-resolve/lib/ModulesInRootPlugin');
 
-import NextPlugin = require('./NextPlugin');
+import NextPlugin = require('enhanced-resolve/lib/NextPlugin');
 
-import ParsePlugin = require('./ParsePlugin');
+import ParsePlugin = require('enhanced-resolve/lib/ParsePlugin');
 
-import Resolver = require('./Resolver');
+import Resolver = require('enhanced-resolve/lib/Resolver');
 
-import ResultPlugin = require('./ResultPlugin');
+import ResultPlugin = require('enhanced-resolve/lib/ResultPlugin');
 
-import Storage from './Storage'
+import Storage from 'enhanced-resolve/lib/Storage'
 
-import SymlinkPlugin = require('./SymlinkPlugin');
+import SymlinkPlugin = require('enhanced-resolve/lib/SymlinkPlugin');
 
-import TryNextPlugin = require('./TryNextPlugin');
+import TryNextPlugin = require('enhanced-resolve/lib/TryNextPlugin');
 
-import UnsafeCachePlugin = require('./UnsafeCachePlugin');
+import UnsafeCachePlugin = require('enhanced-resolve/lib/UnsafeCachePlugin');
 
-import UseFilePlugin = require('./UseFilePlugin');
+import UseFilePlugin = require('enhanced-resolve/lib/UseFilePlugin');
 
 import resolve = require('../');
 
-import { BaseFileSystem } from './common-types'
+import { BaseFileSystem } from 'enhanced-resolve/lib/common-types'
 
 const aplugin = new AliasFieldPlugin('a', 'b', 'c');
 
@@ -74,11 +74,20 @@ const aplugin3 = new AppendPlugin('a', 'b', 'c');
 
 const cplugin = new CloneBasenamePlugin('a', 'c');
 
-const cplugin2 = new ConcordExtensionsPlugin('a', {}, 'b');
+const cplugin2 = new ConcordExtensionsPlugin('a', {
+    any: 'string',
+    right: false
+}, 'b');
 
-const cplugin3 = new ConcordMainPlugin('string', {}, 'string');
+const cplugin3 = new ConcordMainPlugin('string', {
+    any: 'string',
+    right: false
+}, 'string');
 
-const cplugin4 = new ConcordModulesPlugin('string', {}, 'string');
+const cplugin4 = new ConcordModulesPlugin('string', {
+    any: 'string',
+    right: false
+}, 'string');
 
 const dplugin = new DescriptionFilePlugin('string', 'string', 'string');
 
@@ -130,7 +139,10 @@ const splugin = new SymlinkPlugin('string', 's');
 
 const tplugin = new TryNextPlugin('string', 'ap', 's');
 
-const uplugin = new UnsafeCachePlugin('string', function (e) { return false }, {}, 's');
+const uplugin = new UnsafeCachePlugin('string', function (e) { return false }, {
+    hi: 'string',
+    hello: true
+}, 's');
 
 const uplugin2 = new UseFilePlugin('string', 'ap', 's');
 

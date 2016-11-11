@@ -1,7 +1,7 @@
 import resolve = require('enhanced-resolve');
-import { Context } from './lib/concord';
-import { ResolveResult } from './lib/common-types'
-import Resolver = require('./lib/Resolver')
+import { Context } from 'enhanced-resolve/lib/concord';
+import { ResolveResult } from 'enhanced-resolve/lib/common-types'
+import Resolver = require('enhanced-resolve/lib/Resolver')
 
 resolve('lib', 'string', function (err) { });
 
