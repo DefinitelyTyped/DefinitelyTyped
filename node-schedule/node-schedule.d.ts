@@ -217,6 +217,67 @@ declare module 'node-schedule' {
     }
 
     /**
+     * Recurrence rule specification.
+     */
+    export interface RecurrenceSpec {
+        /**
+         * Day of the month.
+         *
+         * @public
+         * @type {RecurrenceSegment}
+         */
+        date?: RecurrenceSegment;
+
+        /**
+         * Day of the week.
+         *
+         * @public
+         * @type {RecurrenceSegment}
+         */
+        dayOfWeek?: RecurrenceSegment;
+
+        /**
+         * Hour.
+         *
+         * @public
+         * @type {RecurrenceSegment}
+         */
+        hour?: RecurrenceSegment;
+
+        /**
+         * Minute.
+         *
+         * @public
+         * @type {RecurrenceSegment}
+         */
+        minute?: RecurrenceSegment;
+
+        /**
+         * Month.
+         *
+         * @public
+         * @type {RecurrenceSegment}
+         */
+        month?: RecurrenceSegment;
+
+        /**
+         * Second.
+         *
+         * @public
+         * @type {RecurrenceSegment}
+         */
+        second?: RecurrenceSegment;
+
+        /**
+         * Year.
+         *
+         * @public
+         * @type {RecurrenceSegment}
+         */
+        year?: RecurrenceSegment;
+    }
+
+    /**
      * Invocation.
      *
      * @class
@@ -268,11 +329,19 @@ declare module 'node-schedule' {
     /**
      * Create a schedule job.
      *
-     * @param {string|RecurrenceRule|Date} name     either an optional name for the new Job or scheduling information
-     * @param {RecurrenceRule|Date|string} rule     either the scheduling info or the JobCallback
-     * @param {JobCallback}                callback The callback to be executed on each invocation.
+     * @param {string}                                    name     name for the new Job
+     * @param {RecurrenceRule|RecurrenceSpec|Date|string} rule     scheduling info
+     * @param {JobCallback}                               callback callback to be executed on each invocation
      */
-    export function scheduleJob(name: string | RecurrenceRule | Date, rule: RecurrenceRule | Date | string | JobCallback, callback?: JobCallback): Job;
+    export function scheduleJob(name: string, rule: RecurrenceRule | RecurrenceSpec | Date | string, callback: JobCallback): Job;
+
+    /**
+     * Create a schedule job.
+     *
+     * @param {RecurrenceRule|RecurrenceSpec|Date|string} rule     scheduling info
+     * @param {JobCallback}                               callback callback to be executed on each invocation
+     */
+    export function scheduleJob(rule: RecurrenceRule | RecurrenceSpec | Date | string, callback: JobCallback): Job;
 
     /**
      * Changes the timing of a Job, canceling all pending invocations.
@@ -281,7 +350,7 @@ declare module 'node-schedule' {
      * @param spec {JobCallback} the new timing for this Job
      * @return {Job} if the job could be rescheduled, {null} otherwise.
      */
-    export function rescheduleJob(job: Job | string, spec: RecurrenceRule | Date | string): Job;
+    export function rescheduleJob(job: Job | string, spec: RecurrenceRule | RecurrenceSpec | Date | string): Job;
 
     /**
      * Dictionary of all Jobs, accessible by name.
