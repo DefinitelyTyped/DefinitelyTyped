@@ -170,6 +170,20 @@ declare module HelloSign {
         EVENT_CANCELED: string;
 
         /**
+         * The user sent a signature request
+         *
+         * @default signature_request_sent
+         */
+        EVENT_SENT: string;
+
+        /**
+         * The template was created or edited
+         *
+         * @default template_created
+         */
+        EVENT_TEMPLATE_CREATED: string;
+
+        /**
          * An error occurred in the iFrame
          *
          * @default error
