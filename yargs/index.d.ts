@@ -70,6 +70,8 @@ declare namespace yargs {
         command(command: string, description: string, builder: { [optionName: string]: Options }): Argv;
         command(command: string, description: string, builder: { [optionName: string]: Options }, handler: (args: Argv) => void): Argv;
         command(command: string, description: string, builder: (args: Argv) => Options, handler: (args: Argv) => void): Argv;
+        command(command: string, description: string, module: CommandModule): Argv;
+        command(module: CommandModule): Argv;
 
         commandDir(dir: string, opts?: RequireDirectoryOptions): Argv;
 
@@ -144,7 +146,7 @@ declare namespace yargs {
         count(key: string): Argv;
         count(keys: string[]): Argv;
 
-		fail(func: (msg: string, err: Error) => any): Argv;
+        fail(func: (msg: string, err: Error) => any): Argv;
 
         coerce<T, U>(key: string|string[], func: (arg: T) => U): Argv;
         coerce<T, U>(opts: { [key: string]: (arg: T) => U; }): Argv;
@@ -170,35 +172,47 @@ declare namespace yargs {
         recurse?: boolean;
         extensions?: string[];
         visit?: (commandObject: any, pathToFile?: string, filename?: string) => any;
-        include?: RegExp | ((pathToFile: string)=>boolean);
-        exclude?: RegExp | ((pathToFile: string)=>boolean);
+        include?: RegExp | ((pathToFile: string) => boolean);
+        exclude?: RegExp | ((pathToFile: string) => boolean);
     }
 
     interface Options {
-        type?: string;
-        group?: string;
-        alias?: any;
-        demand?: any;
-        required?: any;
-        require?: any;
+        alias?: string | string[];
+        array?: boolean;
+        boolean?: boolean;
+        choices?: string[];
+        coerce?: (arg: any) => any;
+        config?: boolean;
+        configParser?: (configPath: string) => Object;
+        count?: boolean;
         default?: any;
         defaultDescription?: string;
-        boolean?: boolean;
-        string?: boolean;
-        count?: boolean;
-        describe?: any;
-        description?: any;
-        desc?: any;
-        requiresArg?: any;
-        choices?: string[];
+        demand?: boolean | string;
+        desc?: string;
+        describe?: string;
+        description?: string;
         global?: boolean;
-        array?: boolean;
-        config?: boolean;
-        number?: boolean;
-        normalize?: boolean;
+        group?: string;
         nargs?: number;
+        normalize?: boolean;
+        number?: boolean;
+        require?: boolean | string;
+        required?: boolean | string;
+        requiresArg?: boolean | string;
+        skipValidation?: boolean;
+        string?: boolean;
+        type?: "array" | "boolean" | "count" | "number" | "string";
     }
 
+    interface CommandModule {
+        aliases?: string[] | string;
+        builder?: CommandBuilder;
+        command?: string[] | string;
+        describe?: string | false;
+        handler: (args: any) => void;
+    }
+
+    type CommandBuilder = {[key: string]: Options} | ((args: Argv) => Argv);
     type SyncCompletionFunction = (current: string, argv: any) => string[];
     type AsyncCompletionFunction = (current: string, argv: any, done: (completion: string[]) => void) => void;
 }
