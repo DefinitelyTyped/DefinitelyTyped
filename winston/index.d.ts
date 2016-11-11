@@ -193,6 +193,10 @@ declare namespace winston {
         new (options?: ConsoleTransportOptions): ConsoleTransportInstance;
     }
 
+    export interface DailyRotateFileTransportInstance extends TransportInstance {
+        new (options?: DailyRotateFileTransportOptions): DailyRotateFileTransportInstance;
+    }
+
     export interface FileTransportInstance extends TransportInstance {
         json: boolean;
         logstash: boolean;
