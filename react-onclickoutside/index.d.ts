@@ -3,13 +3,11 @@
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path='../react/react.d.ts' />
+import * as React from "react"
 
 declare namespace ReactOnClickOutside {
-    import React = __React
-
     interface OnClickOutsideComponent {
-        handleClickOutside(e: React.MouseEvent): void
+        handleClickOutside(e: React.MouseEvent<any>): void
     }
 
     interface OnClickOutsideProps {
