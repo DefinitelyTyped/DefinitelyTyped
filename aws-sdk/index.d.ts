@@ -1,6 +1,6 @@
 // Type definitions for aws-sdk
 // Project: https://github.com/aws/aws-sdk-js
-// Definitions by: midknight41 <https://github.com/midknight41>
+// Definitions by: midknight41 <https://github.com/midknight41>, Casper Skydt <https://github.com/CasperSkydt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/aws-sdk.d.ts
@@ -335,6 +335,56 @@ export declare class SNS {
     publish(request: Sns.PublishRequest, callback: (err: any, data: any) => void): void;
 }
 
+export class Kinesis {
+    constructor(options?: any);
+    endpoint: Endpoint;
+
+    putRecord(params: KINESIS.PutRecordParams, callback: (error: Error, data: KINESIS.PutRecordResult) => void): void;
+    putRecords(params: KINESIS.PutRecordsParams, callback: (error: Error, data: KINESIS.PutRecordsResult) => void): void;
+    increaseStreamRetentionPeriod(params: KINESIS.IncreaseStreamRetentionPeriodParams, callback: (error: Error, data: any) => void): void;
+  }
+
+  export module KINESIS {
+    export interface Record {
+        Data: Buffer | string | Blob;
+        PartitionKey: string;
+        ExplicitHashKey?: string;
+    }
+
+    export interface RecordResult {
+        SequenceNumber: string;
+        ShardId: string;
+        ErrorCode: string;
+        ErrorMessage: string;
+    }
+
+    export interface PutRecordParams extends Record {
+        StreamName: string;
+        SequenceNumberForOrdering?: string;
+    }
+
+    export interface PutRecordResult {
+        ShardId: string;
+        SequenceNumber: string;
+    }
+
+    export interface PutRecordsParams {
+        StreamName: string;
+        Records: Record[];
+    }
+
+    export interface PutRecordsResult {
+        FailedRecordCount: number;
+        Records: RecordResult[]
+    }
+
+    export interface IncreaseStreamRetentionPeriodParams {
+        RetentionPeriodHours: number;
+        StreamName: string;
+    }
+  }
+
+
 export declare class SWF {
     constructor(options?: any);
     endpoint: Endpoint;
@@ -616,8 +666,8 @@ export module CloudFormation {
         ResourceTypes?: string[];
         OnFailure?: string[];       //  cannot specify both DisableRollback and OnFailure
                                     //  DO_NOTHING | ROLLBACK | DELETE
-        StackPolicyBody?: string[];  //  cannot specify both StackPolicyBody and StackPolicyURL
-        StackPolicyURL?: string[];   //  cannot specify both StackPolicyBody and StackPolicyURL
+        StackPolicyBody?: string;  //  cannot specify both StackPolicyBody and StackPolicyURL
+        StackPolicyURL?: string;   //  cannot specify both StackPolicyBody and StackPolicyURL
         Tags?: CloudFormation.Tag[];
     }
 

@@ -28,6 +28,12 @@
             "typingsPackageName": "linq",
             "sourceRepoURL": "https://linqjs.codeplex.com/",
             "asOfVersion": "2.2.33"
+        },
+        {
+            "libraryName": "Protractor",
+            "typingsPackageName": "protractor",
+            "sourceRepoURL": "https://github.com/angular/protractor",
+            "asOfVersion": "4.0.0"
         }
     ]
 }

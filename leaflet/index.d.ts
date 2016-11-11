@@ -1185,6 +1185,38 @@ declare namespace L {
         distance: number;
     }
 
+    export namespace DomEvent {
+        export function on(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: Object): typeof DomEvent;
+
+        export function on(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
+
+        export function off(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: Object): typeof DomEvent;
+
+        export function off(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
+
+        export function stopPropagation(ev: Event): typeof DomEvent;
+
+        export function disableScrollPropagation(el: HTMLElement): typeof DomEvent;
+
+        export function disableClickPropagation(el: HTMLElement): typeof DomEvent;
+
+        export function preventDefault(ev: Event): typeof DomEvent;
+
+        export function stop(ev: Event): typeof DomEvent;
+
+        export function getMousePosition(ev: Event, container?: HTMLElement): Point;
+
+        export function getWheelDelta(ev: Event): number;
+
+        export function addListener(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: Object): typeof DomEvent;
+
+        export function addListener(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
+
+        export function removeListener(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: Object): typeof DomEvent;
+
+        export function removeListener(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
+    }
+
     interface DefaultMapPanes {
         mapPane: HTMLElement;
         tilePane: HTMLElement;

@@ -1,4 +1,3 @@
-/// <reference path="bonjour.d.ts" />
 import * as bonjour from 'bonjour';
 
 var bonjourOptions: bonjour.BonjourOptions;
