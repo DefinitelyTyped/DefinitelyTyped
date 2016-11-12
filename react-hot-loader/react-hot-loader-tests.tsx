@@ -18,7 +18,7 @@ class AppContainerTest extends React.Component<any, any> {
   public render() {
     return (
       <div>
-        <AppContainer errorReporter={ErrorReporter}>
+        <AppContainer errorReporter={ErrorReporterComponent}>
           <DummyComponent />
         </AppContainer>
       </div>
