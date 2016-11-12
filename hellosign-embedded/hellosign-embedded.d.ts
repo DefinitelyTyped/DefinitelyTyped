@@ -3,9 +3,65 @@
 // Definitions by: Brian Surowiec <https://github.com/xt0rted/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare module HelloSign {
-    interface MessageEvent {
-        event: string;
+    interface SignedMessageEvent {
+        event: 'signature_request_signed';
+        signature_id: string;
     }
+
+    interface DeclinedMessageEvent {
+        event: 'signature_request_declined';
+        signature_id: string;
+    }
+
+    interface CanceledMessageEvent {
+        event: 'signature_request_canceled';
+    }
+
+    interface SentMessageEvent {
+        event: 'signature_request_sent';
+        signature_request_id: string;
+        signature_request_info: {
+            title: string;
+            message: string;
+            signatures: Array<{
+                signature_id: string;
+                signer_email_address: string;
+                signer_name: string;
+                order: number;
+                status_code: string;
+                signed_at: number;
+                last_viewed_at: number;
+                last_reminded_at: number;
+                has_pin: boolean;
+            }>;
+            cc_email_addresses: Array<string>;
+        };
+    }
+
+    interface TemplateCreatedMessageEvent {
+        event: 'template_created';
+        template_id: string;
+        template_info: {
+            title: string;
+            message: string;
+            signer_roles: Array<{
+                name: string;
+                order: number;
+            }>;
+            cc_roles: Array<{
+                name: string;
+            }>;
+        };
+    }
+
+    interface ErrorMessageEvent {
+        event: 'error';
+        description: string;
+    }
+
+    type MessageEvent = SignedMessageEvent | DeclinedMessageEvent |
+        CanceledMessageEvent | SentMessageEvent | TemplateCreatedMessageEvent |
+        ErrorMessageEvent;
 
     interface ClientCultures {
         /**
