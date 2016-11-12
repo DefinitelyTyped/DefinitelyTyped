@@ -540,6 +540,7 @@ declare namespace ReactBootstrap {
         brand?: any; // TODO: Add more specific type
         bsSize?: Sizes;
         bsStyle?: string;
+        collapseOnSelect?: boolean;
         componentClass?: React.ReactType;
         defaultNavExpanded?: boolean;
         fixedBottom?: boolean;
