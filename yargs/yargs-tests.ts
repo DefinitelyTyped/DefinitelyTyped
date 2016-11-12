@@ -517,3 +517,34 @@ function Argv$skipValidation() {
 		.skipValidation(['arg2', 'arg3'])
 		.argv
 }
+
+function Argv$commandObject() {
+    var ya = yargs
+        .command("commandname", "description", {
+            "arg": {
+                alias: "string",
+                array: true,
+                boolean: true,
+                choices: ["a", "b", "c"],
+                coerce: f => JSON.stringify(f),
+                config: true,
+                configParser: t => t,
+                count: true,
+                default: "myvalue",
+                defaultDescription: "description",
+                demand: true,
+                desc: "desc",
+                describe: "describe",
+                description: "description",
+                global: false,
+                group: "group",
+                nargs: 1,
+                normalize: false,
+                number: true,
+                requiresArg: true,
+                skipValidation: false,
+                string: true,
+                type: "string"
+            }
+        })
+}
