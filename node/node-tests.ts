@@ -420,13 +420,19 @@ namespace util_tests {
 
 // http://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
 function stream_readable_pipe_test() {
+    var rs = fs.createReadStream(Buffer.from('file.txt'));
     var r = fs.createReadStream('file.txt');
     var z = zlib.createGzip({ finishFlush: zlib.Z_FINISH });
     var w = fs.createWriteStream('file.txt.gz');
-    console.log(r.bytesRead);
-    console.log(r.path);
+
+    assert(typeof r.bytesRead === 'number');
+    assert(typeof r.path === 'string');
+    assert(typeof rs.path === 'Buffer');
+
     r.pipe(z).pipe(w);
+
     r.close();
+    rs.close();
 }
 
 // Simplified constructors
