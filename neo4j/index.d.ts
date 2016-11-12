@@ -3,7 +3,7 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../request/request.d.ts"/>
+/// <reference path="../request/index.d.ts"/>
 
 declare module "neo4j" {
     import { Request } from "request";
