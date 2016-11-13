@@ -3,33 +3,41 @@
 // Definitions by: Frank Laub <https://github.com/flaub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react" />
+import { Component, ComponentClass, HTMLProps } from 'react';
 
-
-import { Component, ClassAttributes  } from 'react';
-
-type IconSize = "lg" | "2x" | "3x" | "4x" | "5x"
-
-interface IconProps extends ClassAttributes<Icon> {
-    name: string
-    className?: string
-    size?: IconSize
-    rotate?: "45" | "90" | "135" | "180" | "225" | "270" | "315"
-    flip?: "horizontal" | "vertical"
-    fixedWidth?: boolean
-    spin?: boolean
-    pulse?: boolean
-    stack?: "1x" | "2x"
-    inverse?: boolean
-    Component?: string | Function
+// fake intermediate interface to remove typing on size, as the typing
+// is overrided by react-fa
+interface SizeOverrideHTMLProps<T> extends HTMLProps<T> {
+    size?: any;
 }
 
-export class Icon extends Component<IconProps, {}> {}
+export type IconSize = 'lg' | '2x' | '3x' | '4x' | '5x';
+export type IconRotation = '45' | '90' | '135' | '180' | '225' | '270' | '315';
+export type IconFlip = 'horizontal' | 'vertical';
+export type IconStackSize = '1x' | '2x';
 
-interface IconStackProps extends ClassAttributes<IconStack> {
-    className?: string
-    size?: IconSize
+export interface IconProps extends SizeOverrideHTMLProps<Icon> {
+    name: string;
+    size?: IconSize;
+    spin?: boolean;
+    rotate?: IconRotation;
+    flip?: IconFlip;
+    fixedWidth?: boolean;
+    pulse?: boolean;
+    stack?: IconStackSize;
+    inverse?: boolean;
+    Component?: string | Function;
 }
-export class IconStack extends Component<IconStackProps, {}> {}
+
+export type Icon = Component<IconProps, any>;
+export const Icon: ComponentClass<IconProps>;
+
+export interface IconStackProps extends SizeOverrideHTMLProps<IconStack> {
+    size?: IconSize;
+    children?: IconProps[];
+}
+
+export type IconStack = Component<IconStackProps, any>;
+export const IconStack: ComponentClass<IconStackProps>;
 
 export default Icon;
