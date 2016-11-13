@@ -275,6 +275,29 @@ export class ReactBootstrapTest extends Component<any, any> {
                 </div>
 
                 <div style={style}>
+                  <Panel collapsible defaultExpanded header='Panel heading'>
+                    Some default panel content here.
+                    <Table fill>
+                      <thead>
+                        <tr>
+                          <th>A</th>
+                          <th>B</th>
+                          <th>C</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Item 1</td>
+                          <td>Item 2</td>
+                          <td>&hellip;</td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                    Some more panel content here.
+                  </Panel>
+                </div>
+
+                <div style={style}>
                   <Accordion>
                     <Panel header='Collapsible Group Item #1' eventKey='1'>
                       Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
