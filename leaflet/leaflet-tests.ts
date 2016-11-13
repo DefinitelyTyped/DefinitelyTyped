@@ -326,3 +326,14 @@ map = map
 	.remove()
 	.whenReady(() => {})
 	.whenReady(() => {}, {});
+
+
+const MyLayer = L.Layer.extend({
+
+});
+
+const myLayer = new MyLayer();
+
+class MyLayer2 extends L.Layer {
+
+}
