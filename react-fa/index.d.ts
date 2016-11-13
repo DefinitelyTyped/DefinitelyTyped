@@ -1,6 +1,6 @@
-// Type definitions for react-fa v4.0.0
+// Type definitions for react-fa v5.0.0
 // Project: https://github.com/andreypopp/react-fa
-// Definitions by: Frank Laub <https://github.com/flaub>
+// Definitions by: Frank Laub <https://github.com/flaub>, Pat Sissons <http://github.com/patsissons>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Component, ComponentClass, HTMLProps } from 'react';
