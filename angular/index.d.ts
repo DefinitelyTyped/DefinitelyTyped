@@ -1707,6 +1707,16 @@ declare namespace angular {
          */
         require?: {[controller: string]: string};
     }
+    
+    ///////////////////////////////////////////////////////////////////////////
+    // ComponentControllerService
+    // see https://docs.angularjs.org/api/ngMock/service/$componentController
+    ///////////////////////////////////////////////////////////////////////////
+    interface IComponentControllerService {
+      // TBinding is an interface exposed by a component as per John Papa's style guide
+      // https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#accessible-members-up-top
+      <T, TBinding>(componentName: string, locals?: { $scope: IScope, [key: string]: any }, bindings?: TBinding, ident?: string): T;
+    }
 
     type IControllerConstructor =
         (new (...args: any[]) => IController) |
