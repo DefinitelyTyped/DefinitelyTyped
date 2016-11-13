@@ -34,6 +34,12 @@
             "typingsPackageName": "protractor",
             "sourceRepoURL": "https://github.com/angular/protractor",
             "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "fast-array-diff",
+            "typingsPackageName": "fast-array-diff",
+            "sourceRepoURL": "https://github.com/YuJianrong/fast-array-diff",
+            "asOfVersion": "0.1.5"
         }
     ]
 }
