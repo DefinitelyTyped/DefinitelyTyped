@@ -3,8 +3,6 @@
 // Definitions by: Markus Olsson <https://github.com/niik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="mqtt" />
-/// <reference types="ws" />
 /// <reference types="node" />
 
 import * as mqtt from "mqtt";
