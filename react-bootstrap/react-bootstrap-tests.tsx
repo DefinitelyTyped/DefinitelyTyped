@@ -522,6 +522,13 @@ export class ReactBootstrapTest extends Component<any, any> {
                       <Navbar.Text>
                           Signed in as: <Navbar.Link href="#">Mark Otto</Navbar.Link>
                       </Navbar.Text>
+                      <Navbar.Form pullRight>
+                        <FormGroup>
+                          <FormControl type='text' placeholder='Search' />
+                        </FormGroup>
+                        {' '}
+                        <Button type='submit'>Submit</Button>
+                      </Navbar.Form>
                       <Navbar.Text pullRight>
                           Have a great day!
                       </Navbar.Text>
