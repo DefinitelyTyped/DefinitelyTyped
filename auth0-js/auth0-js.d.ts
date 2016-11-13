@@ -84,7 +84,7 @@ interface Auth0Identity {
 
 interface Auth0DecodedHash {
     access_token: string;
-    id_token: string;
+    idToken: string;
     profile: Auth0UserProfile;
     state: any;
 }
