@@ -46,7 +46,7 @@ db.getRelationshipTypes((error: any, types: any) => { });
 db.http({ method: "", path: "", headers: {}, body: "", raw: "" }, (error: any, body: any) => { });
 
 /** Transaction */
-const transaction: neo4j.neo4j.Transaction = db.beginTransaction();
+const transaction: neo4j.Transaction = db.beginTransaction();
 transaction.rollback((error: any) => { });
 transaction.commit((error: any) => { });
 transaction.renew((error: any) => { });
