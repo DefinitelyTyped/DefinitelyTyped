@@ -2194,7 +2194,7 @@ declare module "graphql/utilities/astFromValue" {
 }
 
 declare module "graphql/utilities/buildASTSchema" {
-    import { Document } from 'graphql/language/ast';
+    import { Document, Location } from 'graphql/language/ast';
     import { Source } from 'graphql/language/source';
     import { GraphQLSchema } from 'graphql/type/schema';
 
@@ -2263,6 +2263,7 @@ declare module "graphql/utilities/concatAST" {
 }
 
 declare module "graphql/utilities/extendSchema" {
+    import { Document } from 'graphql/language/ast';
     import { GraphQLSchema } from 'graphql/type/schema';
 
     /**
