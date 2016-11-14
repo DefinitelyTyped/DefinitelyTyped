@@ -2917,7 +2917,7 @@ declare namespace Electron {
 		/**
 		 * A string indicating the HTTP protocol version number. Typical values are ‘1.0’ or ‘1.1’.
 		 */
-		httpVersion: ;
+		httpVersion: string;
 		/**
 		 * An integer-valued read-only property that returns the HTTP major version number.
 		 */
