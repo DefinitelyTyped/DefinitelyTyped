@@ -1703,6 +1703,7 @@ declare module "net" {
         localPort: number;
         bytesRead: number;
         bytesWritten: number;
+        destroyed: boolean;
 
         // Extended base methods
         end(): void;
