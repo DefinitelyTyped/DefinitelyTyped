@@ -3,5 +3,5 @@
 // Definitions by: Johannes Fahrenkrug <https://github.com/jfahrenkrug>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function KeyMirror(obj: Object): Object;
+declare function KeyMirror(obj: {}): { [key: string]: string };
 export = KeyMirror;
