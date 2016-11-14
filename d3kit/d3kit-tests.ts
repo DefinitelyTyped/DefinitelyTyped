@@ -4,12 +4,12 @@
 function test_abstract_chart() {
     let el: Element,
         chart: AbstractChart,
-        options: AbstractChart.ChartOptions,
-        margins: AbstractChart.ChartMargin,
-        offsets: AbstractChart.ChartOffset,
-        defopts: AbstractChart.ChartOptions,
-        fitopts: AbstractChart.FitOptions,
-        watchop: AbstractChart.WatchOptions,
+        options: ChartOptions,
+        margins: ChartMargin,
+        offsets: ChartOffset,
+        defopts: ChartOptions,
+        fitopts: FitOptions,
+        watchop: WatchOptions,
         events: string[],
         w: number, h:number, d: [number, number], a: any, b: boolean;
 
@@ -84,10 +84,10 @@ function test_abstract_chart() {
 function test_svgchart() {
     let el: Element,
         chart: SvgChart,
-        options: AbstractChart.ChartOptions,
-        margins: AbstractChart.ChartMargin,
-        offsets: AbstractChart.ChartOffset,
-        svg: SVGElement, rootg: SVGElement, layers: d3kit.LayerOrganizer;
+        options: ChartOptions,
+        margins: ChartMargin,
+        offsets: ChartOffset,
+        svg: SVGElement, rootg: SVGElement, layers: LayerOrganizer;
 
     // create a div, append to body, return Node as type Element
     el = document.body.appendChild(document.createElement('div')) as Element;
@@ -116,9 +116,9 @@ function test_svgchart() {
 function test_canvaschart() {
     let el: Element,
         chart: CanvasChart,
-        options: AbstractChart.ChartOptions,
-        margins: AbstractChart.ChartMargin,
-        offsets: AbstractChart.ChartOffset,
+        options: ChartOptions,
+        margins: ChartMargin,
+        offsets: ChartOffset,
         context: CanvasRenderingContext2D;
 
     // create a div, append to body, return Node as type Element
@@ -148,7 +148,7 @@ function test_canvaschart() {
 function test_layer_organizer() {
     let selection: d3.Selection<d3.BaseType, any, d3.BaseType, any>,
         layer: d3.Selection<d3.BaseType, any, d3.BaseType, any>,
-        layers: d3kit.LayerOrganizer,
+        layers: LayerOrganizer,
         hasXAxis: boolean;
 
     selection = d3.select('svg');
@@ -156,8 +156,8 @@ function test_layer_organizer() {
     /**
      * Test constructor
      */
-    layers = new d3kit.LayerOrganizer(selection);        // without specifying tag
-    layers = new d3kit.LayerOrganizer(selection, 'div'); // specifying tag
+    layers = new LayerOrganizer(selection);        // without specifying tag
+    layers = new LayerOrganizer(selection, 'div'); // specifying tag
 
     /**
      * Test layer creation
