@@ -76,6 +76,8 @@ declare namespace Cy {
      */
     type Scratchpad = any;
 
+    type MinumumSpanningTree = any;
+
     /**
      * The output is a collection of node and edge elements OR single element.
      */
@@ -415,9 +417,10 @@ declare namespace Cy {
          */
         unlock(): CollectionNodes;
     }
+    /**
+     * http://js.cytoscape.org/#collection/layout
+     */
     interface CollectionLayout {
-        // http://js.cytoscape.org/#collection/layout
-
         /**
         * Run a layout on the elements in the calling collection, algorithmically positioning the nodes.
         * This function is useful for running a layout on a subset of the elements in the graph.
@@ -1233,6 +1236,9 @@ declare namespace Cy {
          */
         predecessors(selector?: Selector): CollectionEdges;
     }
+
+    type WeightFn = (edge: CollectionEdges) => number;
+
     interface SearchBreadthFirstOptions {
         /**
          * The root nodes (selector or collection) to start the search from.
@@ -1279,7 +1285,7 @@ declare namespace Cy {
          * 
          * If no weight function is defined, a constant weight of 1 is used for each edge.
          */
-        weight?: (edge: CollectionEdges) => number;
+        weight?: WeightFn;
 
         /**
          * A boolean indicating whether the algorithm should only go along edges from source to target (default false).
@@ -1307,7 +1313,7 @@ declare namespace Cy {
     interface SearchAStarOptions {
         root: Selector | Collection;
         goal: Selector | Collection;
-        weight?: (edge: CollectionEdges) => number;
+        weight?: WeightFn;
         heuristic?: (node: CollectionNodes) => number;
         directed?: boolean;
     }
@@ -1324,7 +1330,7 @@ declare namespace Cy {
      * http://js.cytoscape.org/#eles.floydWarshall
      */
     interface SearchFloydWarshallOptions {
-        weight: (edge: CollectionEdges) => number;
+        weight: WeightFn;
         directed?: boolean;
     }
     /**
@@ -1343,10 +1349,25 @@ declare namespace Cy {
         path: (fromNode: CollectionFirstNode | Selection, toNode: CollectionFirstNode | Selection) => Collection;
     }
 
+
     /**
      * http://js.cytoscape.org/#eles.bellmanFord
      */
-
+    interface SearchBellmanFordOptions {
+        /**
+        The root node (selector or collection) where the search starts.
+        */
+        "root": any;
+        /**
+         * A function that returns the positive numeric weight for this edge.
+        */
+        "weight"?: WeightFn;
+        /**
+         * Indicating whether the algorithm should only go along 
+         * edges from source to target (default false).
+         */
+        "directed": boolean;
+    }
     /**
      * http://js.cytoscape.org/#eles.bellmanFord
      */
@@ -1366,6 +1387,235 @@ declare namespace Cy {
         /* true/false. If true, pathTo and distanceTo will be undefined */
         hasNegativeWeightCycle: boolean;
     }
+
+    /**
+     * http://js.cytoscape.org/#eles.kruskal
+     */
+    type SearchKruskalOptions = WeightFn;
+    /**
+     * http://js.cytoscape.org/#eles.kruskal
+     */
+    type SearchKruskalResult = MinumumSpanningTree;
+
+    /**
+     * http://js.cytoscape.org/#eles.kargerStein
+     */
+    interface SearchKargerSteinOptions {
+        /**
+         * 
+         */
+    }
+    /**
+     * http://js.cytoscape.org/#eles.kargerStein
+     */
+    interface SearchKargerSteinResult {
+        /** Collection of edges that are in the cut */
+        cut: any;
+        /** Collection of nodes that are in the first partition */
+        partition1: any;
+        /** Collection of nodes that are in the second partition */
+        partition2: any;
+    }
+
+    /**
+     * http://js.cytoscape.org/#eles.pageRank
+     */
+    interface SearchPageRankOptions {
+        /** Numeric parameter for the algorithm. */
+        "dampingFactor"?: number;
+        /** Numeric parameter that represents the required precision. */
+        "precision": number;
+        /** Maximum number of iterations to perform. */
+        "iterations"?: number;
+    }
+    /**
+     * http://js.cytoscape.org/#eles.pageRank
+     */
+    interface SearchPageRankResult {
+        /**
+         * function that computes the rank of a given node 
+         * (either object or selector string) 
+         */
+        "rank": (node: CollectionFirstElement) => number;
+    }
+
+    /**
+     * http://js.cytoscape.org/#eles.degreeCentrality
+     */
+    interface SearchDegreeCentralityOptions extends SearchDegreeCentralityNormalizedOptions {
+        /**
+         * The root node (selector or collection) for which 
+         * the centrality calculation is made.
+         */
+        "root": any;
+    }
+    /**
+     * For options.directed: false, this function returns an object of the following form:
+     */
+    interface SearchDegreeCentralityUndirectedResult {
+        /* the degree centrality of the root node */
+        "degree": number;
+    }
+    /**
+     * For options.directed: true, this function returns an object of the following form:
+     */
+    interface SearchDegreeCentralityDirectedResult {
+        /* the indegree centrality of the root node */
+        "indegree": number;
+        /* the outdegree centrality of the root node */
+        "outdegree": number;
+    }
+
+    /**
+     * 
+     */
+    interface SearchDegreeCentralityNormalizedOptions {
+        /** function(edge) [optional] A function that returns the weight for this edge. */
+        "weight"?: WeightFn;
+        /** The alpha value for the centrality calculation, ranging on [0, 1]. 
+         * With value 0 (default), disregards edge weights and solely uses 
+         * number of edges in the centrality calculation. 
+         * With value 1, disregards number of edges and solely uses 
+         * the edge weights in the centrality calculation. */
+        "alpha"?: number;
+        /** 
+         * A boolean indicating whether the directed indegree 
+         * and outdegree centrality is calculated (true) or 
+         * whether the undirected centrality is calculated (false, default).
+         */
+        "directed"?: boolean;
+    }
+
+
+    /**
+     * http://js.cytoscape.org/#eles.closenessCentrality
+     */
+    interface SearchClosenessCentralityOptions extends
+        SearchClosenessCentralityNormalizedOptions {
+        /**
+         * The root node (selector or collection) for which 
+         * the centrality calculation is made.
+         */
+        "root": any;
+    }
+    /**
+     * http://js.cytoscape.org/#eles.closenessCentrality
+     */
+    type SearchClosenessCentralityResult = number;
+
+    /**
+     * http://js.cytoscape.org/#eles.closenessCentralityNormalized
+     */
+    interface SearchClosenessCentralityNormalizedOptions {
+        /**
+         * A function that returns the weight for this edge.
+         */
+        "weight"?: WeightFn;
+        /**
+         * A boolean indicating whether the algorithm 
+         * operates on edges in a directed manner from 
+         * source to target (true) or whether the algorithm 
+         * operates in an undirected manner (false, default).
+         */
+        "directed"?: boolean;
+        /**
+         * A boolean indicating whether the algorithm 
+         * calculates the harmonic mean (true, default) 
+         * or the arithmetic mean (false) of distances. 
+         * The harmonic mean is very useful for graphs 
+         * that are not strongly connected.
+         */
+        "harmonic"?: boolean;
+    }
+    /**
+     * 
+     */
+    interface SearchClosenessCentralityNormalizedResult {
+        /**
+         * returns the normalised closeness centrality of the specified node
+         */
+        (node: CollectionFirstNode): number;
+    }
+
+    /**
+     * http://js.cytoscape.org/#eles.betweennessCentrality
+     */
+    interface SearchBetweennessCentralityOptions {
+        /**
+         * A function that returns the weight for this edge.
+         */
+        "weight"?: WeightFn;
+        /**
+         * A boolean indicating whether the algorithm 
+         * operates on edges in a directed manner from 
+         * source to target (true) or whether the algorithm 
+         * operates in an undirected manner (false, default).
+         */
+        "directed"?: boolean;
+    }
+    /**
+     * http://js.cytoscape.org/#eles.betweennessCentrality
+     */
+    interface SearchBetweennessCentralityResult {
+        /* returns the betweenness centrality of the specified node */
+        "betweenness": (node: any) => number;
+
+        /* returns the normalised betweenness centrality of the specified node */
+        "betweennessNormalized": (node: any) => number;
+    }
+
+    /**
+     * 
+     */
+    interface SearchOptions {
+        /**
+         * 
+         */
+    }
+    /**
+     * 
+     */
+    interface SearchResult {
+        /**
+         * 
+         */
+    }
+
+    /**
+     * 
+     */
+    interface SearchOptions {
+        /**
+         * 
+         */
+    }
+    /**
+     * 
+     */
+    interface SearchResult {
+        /**
+         * 
+         */
+    }
+
+    /**
+     * 
+     */
+    interface SearchOptions {
+        /**
+         * 
+         */
+    }
+    /**
+     * 
+     */
+    interface SearchResult {
+        /**
+         * 
+         */
+    }
+
+
 
     /**
      * http://js.cytoscape.org/#collection/algorithms
@@ -1417,9 +1667,65 @@ declare namespace Cy {
         aStar(options: SearchAStarOptions): SearchAStarResult;
 
         /**
-             * http://js.cytoscape.org/#eles.bellmanFord
-             */
-        //TODO: continue here: 
+         * Perform the Bellman-Ford search algorithm on the elements in the collection. 
+         * This finds the shortest path from the starting node to all other nodes in the collection.
+         * http://js.cytoscape.org/#eles.bellmanFord
+         */
+        bellmanFord(options: SearchBellmanFordOptions): SearchBellmanFordResult;
+
+        /**
+         * Perform Kruskal's algorithm on the elements in the collection, 
+         * returning the minimum spanning tree, assuming undirected edges.
+         * http://js.cytoscape.org/#eles.kruskal
+         */
+        Kruskal(options: SearchKruskalOptions): SearchKruskalResult;
+
+        /**
+         * Finds the minimum cut in a graph using the Karger-Stein algorithm. 
+         * The optimal result is found with a high probability, 
+         * but without guarantee.
+         * http://js.cytoscape.org/#eles.kargerStein
+         */
+        kargerStein(options: SearchKargerSteinOptions): SearchKargerSteinResult;
+        /**
+         * Rank the nodes in the collection using the Page Rank algorithm.
+         * http://js.cytoscape.org/#eles.pageRank
+         */
+        pageRank(options: SearchPageRankOptions): SearchPageRankResult;
+        /**
+         * Considering only the elements in the calling collection, 
+         * calculate the degree centrality of the specified root node.
+         * http://js.cytoscape.org/#eles.degreeCentrality
+         */
+        degreeCentrality(options: SearchDegreeCentralityOptions):
+            SearchDegreeCentralityUndirectedResult | SearchDegreeCentralityUndirectedResult;
+        /**
+         * Considering only the elements in the calling collection, 
+         * calculate the normalised degree centrality of the nodes.
+         * http://js.cytoscape.org/#eles.degreeCentralityNormalized
+         */
+        degreeCentralityNormalized(options: SearchDegreeCentralityNormalizedOptions):
+            SearchDegreeCentralityUndirectedResult | SearchDegreeCentralityUndirectedResult;
+        /**
+         * Considering only the elements in the calling collection, 
+         * calculate the closeness centrality of the specified root node.
+         * http://js.cytoscape.org/#eles.closenessCentrality
+         */
+        clossenessCentrality(options: SearchClosenessCentralityOptions): SearchClosenessCentralityResult;
+        /**
+         * Considering only the elements in the calling collection, 
+         * calculate the normalised degree centrality of the nodes.
+         * http://js.cytoscape.org/#eles.degreeCentralityNormalized
+         */
+        closenessCentralityNormalized(options: SearchClosenessCentralityNormalizedOptions):
+            SearchClosenessCentralityNormalizedResult;
+        /**
+         * Considering only the elements in the calling collection, 
+         * calculate the betweenness centrality of the nodes.
+         * http://js.cytoscape.org/#eles.betweennessCentrality
+         */
+        betweennessCentrality(options: SearchBetweennessCentralityOptions):
+            SearchBetweennessCentralityResult;
     }
     interface CollectionNodesCompound {
         // http://js.cytoscape.org/#collection/compound-nodes
@@ -2055,32 +2361,104 @@ declare namespace Cy {
     interface Stylesheet {
         selector: string;
         css: Css.ElementCss;
+        json(): any;
     }
 
+    /**
+     * Style in Cytoscape.js follows CSS conventions as closely as possible. 
+     * In most cases, a property has the same name and behaviour as its corresponding CSS namesake. 
+     * However, the properties in CSS are not sufficient to specify the style of some parts of the graph. 
+     * In that case, additional properties are introduced that are unique to Cytoscape.js.
+     * 
+     * For simplicity and ease of use, specificity rules are completely ignored in stylesheets. 
+     * For a given style property for a given element, the last matching selector wins.
+     * 
+     * http://js.cytoscape.org/#style
+     */
     export namespace Css {
-        //TODO: http://js.cytoscape.org/#style
 
         type Colour = string;
 
+        /**
+         * The shape of the node’s body. 
+         * Note that each shape fits within the specified width and height, 
+         * and so you may have to adjust width and height 
+         * if you desire an equilateral shape 
+         * (i.e. width !== height for several equilateral shapes).
+         * 'polygon' is a custom polygon specified via shape-polygon-points.
+         */
         type Shape = 'rectangle' | 'roundrectangle' | 'ellipse' | 'triangle'
-            | "pentagon" | "hexagon" | "heptagon" | "octagon" | "star";
+            | "pentagon" | "hexagon" | "heptagon" | "octagon" | "star"
+            | "diamond" | "vee" | "rhomboid" | "polygon";
 
-        // TODO: How to constrain to a value?
-        type Style = "solid" | "dotted" | "dashed" | "double";
+        /**
+        * A space-separated list of numbers ranging on [-1, 1], 
+        * representing alternating x and y values (i.e. x1 y1 x2 y2, x3 y3 ...). 
+        * This represents the points in the polygon for the node’s shape. 
+        * The bounding box of the node is given by (-1, -1), (1, -1), (1, 1), (-1, 1).
+        */
+        type ShapePolygonPoints = string;
 
+        /**
+         * The line style; may be solid, dotted, dashed, or double
+         */
+        type LineStyle = "solid" | "dotted" | "dashed" | "double";
+
+        /**
+         * http://js.cytoscape.org/#style/node-body
+         */
         export interface NodeCss {
             label?: string
+            /**
+             * The width of the node’s body. 
+             * This property can take on the special value label 
+             * so the width is automatically based on the node’s label.
+             */
             width?: number
+            /**
+             * The height of the node’s body. 
+             * This property can take on the special value label 
+             * so the height is automatically based on the node’s label.
+             */
             height?: number
-            shape?: Shape
+            /**
+             * The shape of the node’s body.
+             */
+            "shape"?: Shape
+            "shape-polygon-points"?: ShapePolygonPoints;
+
             opacity?: number
+
             backgroundColor?: Colour
+            /**
+             * The colour of the node’s body.
+             */
             "background-color"?: Colour
+            /**
+             * Blackens the node’s body for values from 0 to 1; 
+             * whitens the node’s body for values from 0 to -1.
+             */
             "background-blacken"?: number
+            /**
+             * The opacity level of the node’s background colour.
+             */
             "background-opacity"?: number
+            /**
+             * The size of the node’s border.
+             */
             "border-width"?: number
-            "border-style"?: Style
+            /**
+             * The style of the node’s border.
+             */
+            "border-style"?: LineStyle
+            /**
+             * The colour of the node’s border.
+             */
             "border-color"?: Colour
+            /** 
+             * The opacity of the node’s border.
+             * A value between [0 1].
+             */
             "border-opacity"?: number
             "line-color"?: Colour
             "target-arrow-color"?: Colour
@@ -2090,6 +2468,12 @@ declare namespace Cy {
             "text-opacity"?: number
         }
 
+        /**
+         * A padding defines an addition to a node’s dimension. 
+         * For example, padding-left adds to a node’s outer (i.e. total) width. 
+         * This can be used to add spacing around the label of width: label; height: label; nodes, 
+         * or it can be used to add spacing between a compound node parent and its children.
+         */
         export interface CompoundNodeCss extends NodeCss {
             "padding-left"?: string
             "padding-right"?: string
@@ -2099,7 +2483,876 @@ declare namespace Cy {
 
         export interface ElementCss extends NodeCss, CompoundNodeCss { }
         // export interface ElementCss extends CSSStyleDeclaration { }
+
+        /**
+         * A background image may be applied to a node’s body:
+         * 
+         * http://js.cytoscape.org/#style/background-image
+         */
+        export interface BackgroundImage {
+            /** 
+             * The URL that points to the image that should be used as the node’s background.
+             * PNG, JPG, and SVG are supported formats.
+             * You may use a data URI to use embedded images, 
+             * thereby saving a HTTP request.
+             */
+            "background-image": string;
+            /** 
+             * The opacity of the background image. [0 1]
+             */
+            "background-image-opacity": number;
+            /** 
+             * Specifies the width of the image.
+             * A percent value (e.g. 50%) may be used to set 
+             * the image width relative to the node width.
+             * If used in combination with background- fit, 
+             * then this value overrides the width of the image 
+             * in calculating the fitting — thereby overriding the aspect ratio.
+             * The auto value is used by default, which uses the width of the image.
+             */
+            "background-width": number | string;
+            /** 
+             * Specifies the height of the image.
+             * A percent value (e.g. 50%) may be used to set the image 
+             * height relative to the node height.
+             * If used in combination with background- fit, 
+             * then this value overrides the height of the image in calculating 
+             * the fitting — thereby overriding the aspect ratio.
+             * The auto value is used by default, which uses the height of the image.
+             */
+            "background-height": number | string;
+            /** 
+             * How the background image is fit to the node; 
+             * may be none for original size, 
+             * contain to fit inside node, 
+             * or cover to cover the node.
+             */
+            "background-fit": "none" | "contain" | "cover";
+            /** 
+             * Whether to repeat the background image; 
+             * may be no-repeat, repeat-x, repeat-y, or repeat.
+             */
+            "background-repeat": "no-repeat" | "repeat-x" | "repeat-y" | "repeat";
+            /** 
+             * The x position of the background image, 
+             * measured in percent(e.g. 50%) or pixels (e.g. 10px).
+             */
+            "background-position-x": number | string;
+            /** 
+             * The y position of the background image, 
+             * measured in percent(e.g. 50%) or pixels (e.g. 10px).
+             */
+            "background-position-y": number | string;
+            /** 
+             * How background image clipping is handled; 
+             * may be node for clipped to node shape or none for no clipping.
+             */
+            "background-clip": "clipped" | "none";
+        }
+
+        /**
+         * These properties allow you to create pie chart backgrounds on nodes. 
+         * Note that 16 slices maximum are supported per node, 
+         * so in the properties 1 <= i <= 16. 
+         * Of course, you must specify a numerical value for each property in place of i. 
+         * Each nonzero sized slice is placed in order of i, 
+         * starting from the 12 o’clock position and working clockwise.
+         * 
+         * You may find it useful to reserve a number to a particular 
+         * colour for all nodes in your stylesheet. 
+         * Then you can specify values for pie-i-background-size 
+         * accordingly for each node via a mapper. 
+         * This would allow you to create consistently coloured 
+         * pie charts in each node of the graph based on element data.
+         * 
+         * http://js.cytoscape.org/#style/pie-chart-background
+         */
+        export interface PieChartBackground {
+            /** 
+             * The diameter of the pie, measured as a percent of node size (e.g. 100%) or an absolute length (e.g. 25px).
+             */
+            "pie-size": string;
+            /** 
+             * The colour of the node’s ith pie chart slice.
+             */
+            "pie-i-background-color": Colour;
+            /** 
+             * The size of the node’s ith pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-i-background-size": number;
+            /** 
+             * The opacity of the node’s ith pie chart slice.
+             */
+            "pie-i-background-opacity": number;
+        }
+
+        /**
+         * These properties affect the styling of an edge’s line:
+         * 
+         * http://js.cytoscape.org/#style/edge-line
+         */
+        export interface EdgeLine {
+            /** 
+             * The width of an edge’s line.
+             */
+            "width": number;
+            /** 
+             * The curving method used to separate two or more edges between two nodes; 
+             * may be 
+             *  - haystack (default, very fast, bundled straight edges for which loops and compounds are unsupported), 
+             *  - bezier(bundled curved edges), 
+             *  - unbundled - bezier(curved edges for use with manual control points), or 
+             *  - segments (a series of straight lines).
+             * Note that haystack edges work best with ellipse, rectangle, or similar nodes.
+             * Smaller node shapes, like triangle, will not be as aesthetically pleasing.
+             * Also note that edge arrows are unsupported for haystack edges.
+             */
+            "curve-style": "haystack" | "bezier" | "unbundled" | "segments";
+            /** 
+             * The colour of the edge’s line.
+             */
+            "line-color": Colour;
+            /** 
+             * The style of the edge’s line.
+             */
+            "line-style": LineStyle;
+        }
+
+        /**
+         * For automatic, bundled bezier edges (curve - style: bezier):
+         * 
+         * http://js.cytoscape.org/#style/bezier-edges
+         */
+        export interface BezierEdges {
+            /** 
+             * From the line perpendicular from source to target, 
+             * this value specifies the distance between successive bezier edges.
+             */
+            "control-point-step-size": number;
+            /** 
+             * A single value that overrides "control-point-step-size" with a manual value.
+             * Because it overrides the step size, bezier edges with the same value will overlap.
+             * Thus, it’s best to use this as a one- off value for particular edges if need be.
+             */
+            "control-point-distance": number;
+            /** 
+             * A single value that weights control points along the line from source to target.
+             * The value usually ranges on [0, 1], with 
+             * 0 towards the source node and 
+             * 1 towards the target node — 
+             * but larger or smaller values can also be used.
+             */
+            "control-point-weight": number;
+            /** 
+             * With value intersection (default), 
+             * the line from source to target for "control-point-weight" is 
+             * from the outside of the source node’s shape to the outside of 
+             * the target node’s shape.With value node- position, 
+             * the line is from the source position to the target position.
+             * The "node-position" option makes calculating edge points easier 
+             * — but it should be used carefully because you can create invalid 
+             * points that intersection would have automatically corrected.
+             */
+            "edge-distances": number;
+        }
+        /**
+         * Unbundled bezier edges
+         * For bezier edges with manual control points (curve - style: unbundled - bezier):
+         *  
+         * http://js.cytoscape.org/#style/unbundled-bezier-edges
+         */
+        export interface UnbundledBezierEdges {
+            /** 
+             * A series of values that specify for each control point the 
+             * distance perpendicular to a line formed 
+             * from source to target, e.g. -20 20 - 20.
+             */
+            "control-point-distances": string;
+            /** 
+             * A series of values that weights control points along 
+             * a line from source to target, e.g. 0.25 0.5 0.75.
+             * A value usually ranges on [0, 1], with 
+             * 0 towards the source node and 
+             * 1 towards the target node 
+             * — but larger or smaller values can also be used.
+             */
+            "control-point-weights": string;
+            /** 
+             * With value intersection (default), 
+             * the line from source to target for "control-point-weights" 
+             * is from the outside of the source node’s shape to the 
+             * outside of the target node’s shape.
+             * With value 
+             * "node-position", the line is from the source position to the target position.
+             * The "node-position" option makes calculating edge points easier 
+             * — but it should be used carefully because you can create 
+             * invalid points that intersection would have automatically corrected.
+             */
+            "edge-distances": number;
+        }
+        /**
+         * Haystack edges 
+         * Loop edges and compound parent nodes are not supported by haystack edges.
+         * Haystack edges are a more performant replacement for plain, straight line edges.
+         * 
+         * For fast, straight line edges (curve - style: haystack):
+         * http://js.cytoscape.org/#style/haystack-edges
+         */
+        export interface HaystackEdges {
+            /** 
+             * A value between 0 and 1 inclusive that indicates the relative radius used to position haystack edges on their connected nodes.The outside of the node is at 1, and the centre of the node is at 0.
+             */
+            "haystack-radius": number;
+        }
+        /**
+         * Segments edges
+         * For edges made of several straight lines (curve - style: segments):
+         * http://js.cytoscape.org/#style/segments-edges
+         */
+        export interface SegmentsEdges {
+            /** 
+             * A series of values that specify for each segment point the distance perpendicular to a line formed from source to target, e.g. -20 20 - 20.
+             */
+            "segment-distances": string;
+            /** 
+             * A series of values that weights segment points along a line from source to target, e.g. 0.25 0.5 0.75.A value usually ranges on [0, 1], with 0 towards the source node and 1 towards the target node — but larger or smaller values can also be used.
+             */
+            "segment-weights": string;
+            /** 
+             * With value 
+             *  * "intersection" (default), the line from source to target 
+             *  * for "segment-weights" is from the outside of the source node’s shape to the outside of the target node’s shape.
+             *  * With value "node-position", the line is from the source position to the target position.
+             * The "node-position" option makes calculating edge points easier 
+             * — but it should be used carefully because you can create 
+             * invalid points that intersection would have automatically corrected.
+             */
+            "edge-distances": "intersection" | "segment-weights" | "node-position";
+        }
+        export type ArrowShape = "tee" | "triangle" | "triangle-tee" |
+            "triangle-backcurve" | "square" | "circle" | "diamond" | "none";
+
+        export type ArrowFill = "filled" | "hollow";
+
+        /**
+         * Edge arrow 
+         *  * <pos>-arrow-color : The colour of the edge’s source arrow.
+         *  * <pos>-arrow-shape : The shape of the edge’s source arrow.
+         *  * <pos>-arrow-fill : The fill state of the edge’s source arrow.
+         * 
+         * For each edge arrow property above, replace <pos> with one of
+         *  * source : Pointing towards the source node, at the end of the edge.
+         *  * mid-source : Pointing towards the source node, at the middle of the edge.
+         *  * target : Pointing towards the target node, at the end of the edge.
+         *  * mid-target: Pointing towards the target node, at the middle of the edge.
+         * 
+         * Only mid arrows are supported on haystack edges.
+         * http://js.cytoscape.org/#style/edge-arrow
+         */
+        export interface EdgeArror {
+            /** The colour of the edge’s source arrow. */
+            "source-arrow-color": Colour;
+            /** The colour of the edge’s "mid-source" arrow. */
+            "mid-source-arrow-color": Colour;
+            /** The colour of the edge’s target arrow. */
+            "target-arrow-color": Colour;
+            /** The colour of the edge’s "mid-target" arrow. */
+            "mid-target-arrow-color": Colour;
+
+            /** The shape of the edge’s source arrow. */
+            "source-arrow-shape": ArrowShape;
+            /** The shape of the edge’s mid-source arrow. */
+            "mid-source-arrow-shape": ArrowShape;
+            /** The shape of the edge’s target arrow. */
+            "target-arrow-shape": ArrowShape;
+            /** The shape of the edge’s mid-target arrow. */
+            "mid-target-arrow-shape": ArrowShape;
+
+            /** The fill state of the edge’s source arrow. */
+            "source-arrow-fill": ArrowFill;
+            /** The fill state of the edge’s mid-source arrow. */
+            "mid-source-arrow-fill": ArrowFill;
+            /** The fill state of the edge’s target arrow. */
+            "target-arrow-fill": ArrowFill;
+            /** The fill state of the edge’s mid-target arrow. */
+            "mid-target-arrow-fill": ArrowFill;
+        }
+
+
+        /**
+         * http://js.cytoscape.org/#style/visibility
+         */
+        export interface Visibility {
+            /** 
+             * Whether to display the element; may be element for displayed or none for not displayed.
+             * Note that a "display: none" bezier edge does not take up space in its bundle.
+             */
+            "display": "none" | "displayed";
+            /** 
+             * Whether the element is visible; may be visible or hidden.
+             * Note that a "visibility : hidden" bezier edge still takes up space in its bundle.
+             */
+            "visibility": "none" | "visible";
+            /** 
+             * The opacity of the element, ranging from 0 to 1. 
+             * Note that the opacity of a compound node parent affects the effective opacity of its children.
+             */
+            "opacity": number;
+            /** 
+             * An integer value that affects the relative draw order of elements.
+             * In general, an element with a higher "z-index" will be drawn on top of an element with a lower "z-index".
+             * Note that edges are under nodes despite "z-index", except when necessary for compound nodes.
+             */
+            "z-index": number;
+        }
+
+        /** https://developer.mozilla.org/en-US/docs/Web/CSS/font-style */
+        export type FontStyle = "normal" | "italic" | "oblique";
+
+        /** https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight */
+        export type FontWeight = number | "normal" | "bold" | "lighter" | "bolder";
+
+        /** http://js.cytoscape.org/#style/labels */
+        export type TextTranformation = "none" | "uppercase" | "lowercase";
+
+        /**
+         * Labels
+         * Label text:
+         * 
+         * http://js.cytoscape.org/#style/labels
+         */
+        export interface Labels {
+            /** 
+             * The text to display for an element’s label.
+             */
+            "label": string;
+            /** 
+             * The text to display for an edge’s source label.
+             */
+            "source-label": string;
+            /** 
+             * The text to display for an edge’s target label.
+             */
+            "target-label": string;
+            /**
+            Basic font styling:
+            */
+            /** 
+             * The colour of the element’s label.
+             */
+            "color": Colour;
+            /** 
+             * The opacity of the label text, including its outline.
+             */
+            "text-opacity": number;
+            /** 
+             * A comma-separated list of font names to use on the label text.
+             */
+            "font-family": string;
+            /** 
+             * The size of the label text.
+             * https://developer.mozilla.org/en-US/docs/Web/CSS/font-family
+             */
+            "font-size": number;
+            /** 
+             * A CSS font style to be applied to the label text.
+             * https://developer.mozilla.org/en-US/docs/Web/CSS/font-style
+             */
+            "font-style": FontStyle;
+            /** 
+             * A CSS font weight to be applied to the label text.
+             */
+            "font-weight": FontWeight;
+            /** 
+             * A transformation to apply to the label text.
+             */
+            "text-transform": TextTranformation;
+
+            /** 
+             * Wrapping text:
+             */
+
+            /** 
+             * A wrapping style to apply to the label text; may be 
+             *  * "none" for no wrapping (including manual newlines ) or 
+             *  * "wrap" for manual and/ or autowrapping.
+             */
+            "text-wrap": "none" | "wrap";
+            /** 
+             * The maximum width for wrapped text, 
+             * applied when "text-wrap" is set to wrap.
+             * For only manual newlines (i.e.\n), set a very large 
+             * value like 1000px such that only your newline characters would apply.
+             */
+            "text-max-width": string;
+
+            /**
+             * Node label alignment:
+             */
+
+            /** 
+             * The vertical alignment of a node’s label.
+             */
+            "text-halign": "left" | "center" | "right";
+            /** 
+             * The vertical alignment of a node’s label.
+             */
+            "text-valign": "top" | "center" | "bottom";
+
+            /**
+             * Edge label alignment:
+             */
+
+            /** 
+             * For the source label of an edge, how far from the source node the label should be placed.
+             */
+            "source-text-offset": number;
+            /** 
+             * For the target label of an edge, how far from the target node the label should be placed.
+             */
+            "target-text-offset": number;
+            /**
+             * Margins:
+             */
+
+            /** 
+             * A margin that shifts the label along the x- axis.
+             */
+            "text-margin-x": number;
+            /** 
+             * A margin that shifts the label along the y- axis.
+             */
+            "text-margin-y": number;
+            /** 
+             * (For the source label of an edge.)
+             */
+            "source-text-margin-x": number;
+            /** 
+             * (For the source label of an edge.)
+             */
+            "source-text-margin-y": number;
+            /** 
+             * (For the target label of an edge.)
+             */
+            "target-text-margin-x": number;
+            /** 
+             * (For the target label of an edge.)
+             */
+            "target-text-margin-y": number;
+            /**
+             * Rotating text:
+             */
+
+            /** 
+             * A rotation angle that is applied to the label.
+             *  * For edges, the special value autorotate can be used to align the label to the edge.
+             *  * For nodes, the label is rotated along its anchor point on the node, so a label margin may help for some usecases.
+             *  * The special value none can be used to denote 0deg.
+             *  * Rotations works best with left- to - right text.
+             */
+            "text-rotation": number;
+
+            /** 
+             * (For the source label of an edge.)
+             */
+            "source-text-rotation": number;
+            /** 
+             * (For the target label of an edge.)
+             */
+            "target-text-rotation": number;
+
+            /**
+             * Outline:
+             */
+
+            /** 
+             * The colour of the outline around the element’s label text.
+             */
+            "text-outline-color": Colour;
+            /** 
+             * The opacity of the outline on label text.
+             */
+            "text-outline-opacity": number;
+            /** 
+             * The size of the outline on label text.
+             */
+            "text-outline-width": number;
+            /**
+             * Shadow:
+             */
+            /** 
+             * The shadow blur distance.
+             */
+            "text-shadow-blur": number;
+            /** 
+             * The colour of the shadow.
+             */
+            "text-shadow-color": Colour;
+            /** 
+             * The x offset relative to the text where the shadow will be displayed, can be negative.
+             * If you set blur to 0, add an offset to view your shadow.
+             */
+            "text-shadow-offset-x": number;
+            /** 
+             * The y offset relative to the text where the shadow will be displayed, can be negative.
+             * If you set blur to 0, add an offset to view your shadow.
+             */
+            "text-shadow-offset-y": number;
+            /** 
+             * The opacity of the shadow on the text; the shadow is disabled for 0 (default value).
+             */
+            "text-shadow-opacity": number;
+
+            /**
+             * Background:
+             */
+
+            /** 
+             * A colour to apply on the text background.
+             */
+            "text-background-color": Colour;
+            /** 
+             * The opacity of the label background; the background is disabled for 0 (default value).
+             */
+            "text-background-opacity": number;
+            /** 
+             * The shape to use for the label background.
+             */
+            "text-background-shape": "ractangle" | "roundrectangle";
+
+            /**
+             * Border:
+             */
+
+            /** 
+             * The width of the border around the label; the border is disabled for 0 (default value).
+             */
+            "text-border-opacity": number;
+            /** 
+             * The width of the border around the label.
+             */
+            "text-border-width": number;
+            /** 
+             * The style of the border around the label.
+             */
+            "text-border-style": LineStyle;
+            /** 
+             * The colour of the border around the label.
+             */
+            "text-border-color": Colour;
+
+            /**
+             * Interactivity:
+             */
+
+            /** 
+             * If zooming makes the effective font size of the label smaller than this, then no label is shown.Note that because of performance optimisations, the label may be shown at font sizes slightly smaller than this value.This effect is more pronounced at larger screen pixel ratios.However, it is guaranteed that the label will be shown at sizes equal to or greater than the value specified.
+             */
+            "min-zoomed-font-size": number;
+            /** 
+             * Whether events should occur on an element if the label receives an event.
+             * You may want a style applied to the text onactive so you know the text is activatable.
+             */
+            "text-events": "yes" | "no";
+
+
+        }
+
+        /**
+         * http://js.cytoscape.org/#style/events
+         */
+        export interface Events {
+            /** 
+             * Whether events should occur on an element (e.g.tap, mouseover, etc.).
+             *  * For "no", the element receives no events and events simply pass through to the core/viewport.
+             */
+            "events": "yes" | "no";
+            /** 
+             *  Whether events should occur on an element if the label receives an event.
+             * You may want a style applied to the text on active so you know the text is activatable.
+             */
+            "text-events": "yes" | "no";
+        }
+
+        /**
+         * These properties allow for the creation of overlays on top of nodes or edges, 
+         * and are often used in the :active state.
+         * http://js.cytoscape.org/#style/overlay
+         */
+        export interface Overlay {
+            /** 
+             * The colour of the overlay.
+             */
+            "overlay-color": Colour;
+            /** 
+             * The area outside of the element within which the overlay is shown.
+             */
+            "overlay-padding": number;
+            /** 
+             * The opacity of the overlay.
+             */
+            "overlay-opacity": number;
+        }
+        /**
+         * These properties allow for the creation of shadows on nodes or edges. 
+         * Note that shadow-blur could seriously impact performance on large graph.
+         * http://js.cytoscape.org/#style/shadow
+         */
+        export interface Shadow {
+            /**
+             * The shadow blur, note that if greater than 0, this could impact performance.
+             */
+            "shadow-blur": number;
+            /** 
+             * The colour of the shadow.
+             */
+            "shadow-color": Colour;
+            /** 
+             * The x offset relative to the node/edge where the shadow will be displayed, can be negative. If you set blur to 0, add an offset to view your shadow.
+             */
+            "shadow-offset-x": number;
+            /** 
+             * The y offset relative to the node/edge where the shadow will be displayed, can be negative. If you set blur to 0, add an offset to view your shadow.
+             */
+            "shadow-offset-y": number;
+            /** 
+             * The opacity of the shadow.
+             */
+            "shadow-opacity": number;
+        }
+
+        /**
+         * Transition animation 
+         */
+        export type TransitionTimingFunction = "linear" | "spring" | "cubic-bezier" | "ease" | "ease-in" | "ease-out" |
+            "ease-in-out" | "ease-in-sine" | "ease-out-sine" | "ease-in-out-sine" | "ease-in-quad" |
+            "ease-out-quad" | "ease-in-out-quad" | "ease-in-cubic" | "ease-out-cubic" |
+            "ease-in-out-cubic" | "ease-in-quart" | "ease-out-quart" | "ease-in-out-quart" |
+            "ease-in-quint" | "ease-out-quint" | "ease-in-out-quint" | "ease-in-expo" |
+            "ease-out-expo" | "ease-in-out-expo" | "ease-in-circ" | "ease-out-circ" | "ease-in-out-circ";
+
+        /**
+         * http://js.cytoscape.org/#style/transition-animation
+         */
+        export interface TransitionAnimation {
+            /** 
+             * A comma separated list of style properties to animate in this state.
+             */
+            "transition-property": string;
+            /** 
+             * The length of the transition in seconds(e.g. 0.5s).
+             */
+            "transition-duration": number;
+            /** 
+             * The length of the delay in seconds before the transition occurs (e.g. 250ms).
+             */
+            "transition-delay": number;
+            /** 
+             * An easing function that controls the animation progress curve (a visualisation of easings serves as a reference).
+             */
+            "transition-timing-function": TransitionTimingFunction;
+        }
+
+        /**
+         * Core 
+         * These properties affect UI global to the graph, and apply only to the core. 
+         * You can use the special core selector string to set these properties.
+         * http://js.cytoscape.org/#style/core
+         */
+        export interface Core {
+            /**
+             * Indicator:
+             */
+
+            /** 
+             * The colour of the indicator shown when the background is grabbed by the user.
+             */
+            "active-bg-color": Colour;
+            /** 
+             * The opacity of the active background indicator.
+             */
+            "active-bg-opacity": number;
+            /** 
+             * The size of the active background indicator.
+             */
+            "active-bg-size": number;
+            /**
+             * Selection box:
+             */
+            /** 
+             * The background colour of the selection box used for drag selection.
+             */
+            "selection-box-color": Colour;
+            /** 
+             * The colour of the border on the selection box.
+             */
+            "selection-box-border-color": Colour;
+            /** 
+             * The size of the border on the selection box.
+             */
+            "selection-box-border-width": number;
+            /** 
+             * The opacity of the selection box.
+             */
+            "selection-box-opacity": number;
+            /**
+             * Texture during viewport gestures:
+             */
+            /** 
+             * The colour of the area outside the viewport texture when initOptions.textureOnViewport === true.
+             */
+            "outside-texture-bg-color": Colour;
+            /** 
+             * The opacity of the area outside the viewport texture.
+             */
+            "outside-texture-bg-opacity": number;
+
+        }
     }
+
+    /**
+     * http://js.cytoscape.org/#events
+     */
+    namespace Events {
+        /**
+         * Events passed to handler callbacks are similar to jQuery event 
+         * objects in that they wrap native event objects, mimicking their API.
+         * 
+         * http://js.cytoscape.org/#events/event-object
+         */
+        export interface EventObject {
+            /**
+             * Fields:
+             */
+            /** 
+             * a reference to the corresponding core instance
+             */
+            "cy": Instance;
+            /** 
+             * indicates the element or core that first caused the event
+             */
+            "cyTarget": CollectionElements;
+            /** 
+             * the event type string (e.g. "tap")
+             */
+            "type": string;
+            /** 
+             * the event namespace string (e.g. "foo" for "foo.tap")
+             */
+            "namespace": string;
+            /** 
+             * additional data object passed by .trigger()
+             */
+            "data": string;
+            /** 
+             * Unix epoch time of event
+             */
+            "timeStamp": string;
+            /**
+             * Fields for only user input device events:
+             */
+            /** 
+             * indicates the model position of the event
+             */
+            "cyPosition": string;
+            /** 
+             * indicates the rendered position of the event
+             */
+            "cyRenderedPosition": string;
+            /** 
+             * the original user input device event object
+             */
+            "originalEvent": string;
+            /**
+             * Fields for only layout events:
+             */
+
+            /** 
+             * indicates the corresponding layout that triggered the event 
+             * (useful if running multiple layouts simultaneously)
+             */
+            "layout": string;
+        }
+
+        /**
+         * User input device events
+         * 
+         * http://js.cytoscape.org/#events/user-input-device-events
+         */
+        /**
+         * These are normal browser events that you can bind to via Cytoscape.js. 
+         * You can bind these events to the core and to collections.
+         */
+        export type NormalBrowserEvent =
+            "mousedown" | // when the mouse button is pressed
+            "mouseup" | // when the mouse button is released
+            "click" | // after mousedown then mouseup
+            "mouseover" | // when the cursor is put on top of the target
+            "mouseout" | // when the cursor is moved off of the target
+            "mousemove" | // when the cursor is moved somewhere on top of the target
+            "touchstart" | // when one or more fingers starts to touch the screen
+            "touchmove" | // when one or more fingers are moved on the screen
+            "touchend"; // when one or more fingers are removed from the screen
+        /**
+         * There are also some higher level events that you can use so you 
+         * don’t have to bind to different events for mouse-input 
+         * devices and for touch devices.
+         */
+        export type HighLevelInputEvent =
+            "tapstart" | "vmousedown" | // normalised tap start event (either mousedown or touchstart)
+            "tapdrag" | "vmousemove" | // normalised move event (either touchmove or mousemove)
+            "tapdragover" | // normalised over element event (either touchmove or mousemove/mouseover)
+            "tapdragout" | // normalised off of element event (either touchmove or mousemove/mouseout)
+            "tapend" | "vmouseup" | // normalised tap end event (either mouseup or touchend)
+            "tap" | "vclick" | // normalised tap event (either click, or touchstart followed by touchend without touchmove)
+            "taphold" | // normalised tap hold event
+            "cxttapstart" | // normalised right-click mousedown or two-finger tapstart
+            "cxttapend" | // normalised right-click mouseup or two-finger tapend
+            "cxttap" | // normalised right-click or two-finger tap
+            "cxtdrag" | // normalised mousemove or two-finger drag after cxttapstart but before cxttapend
+            "cxtdragover" | // when going over a node via cxtdrag
+            "cxtdragout" | // when going off a node via cxtdrag
+            "boxstart" | // when starting box selection
+            "boxend" | // when ending box selection
+            "boxselect" | // triggered on elements when selected by box selection
+            "box"; // triggered on elements when inside the box on boxend
+
+        /**
+         * These events are custom to Cytoscape.js. 
+         * You can bind to these events for collections.
+         * 
+         * http://js.cytoscape.org/#events/collection-events
+         */
+        export type CollectionEvent =
+            "add" | // when an element is added to the graph
+            "remove" | // when an element is removed from the graph
+            "select" | // when an element is selected
+            "unselect" | // when an element is unselected
+            "lock" | // when an element is locked
+            "unlock" | // when an element is unlocked
+            "grab" | // when an element is grabbed by the mouse cursor or a finger on a touch input
+            "drag" | // when an element is grabbed and then moved
+            "free" | // when an element is freed (i.e. let go from being grabbed)
+            "position" | // when an element changes position
+            "data" | // when an element’s data is changed
+            "scratch" | // when an element’s scratchpad data is changed
+            "style"; // when an element’s style is changed
+
+        /**
+         * These events are custom to Cytoscape.js, 
+         * and they occur on the core.
+         * 
+         * http://js.cytoscape.org/#events/graph-events
+         */
+        export type GraphEvent =
+            "layoutstart" | // when a layout starts running
+            "layoutready" | // when a layout has set initial positions for all the nodes (but perhaps not final positions)
+            "layoutstop" | // when a layout has finished running completely or otherwise stopped running
+            "ready" | // when a new instance of Cytoscape.js is ready to be interacted with
+            "pan" | // when the viewport is panned
+            "zoom"; // when the viewport is zoomed
+    }
+
 
     interface Renderer {
         /**
@@ -2723,11 +3976,13 @@ declare namespace Cy {
         viewport(zoom: number, pan: Position): void;
 
         /**
-         * Get whether box selection is enabled. If enabled, the user must hold left-click to initiate panning.
+         * Get whether box selection is enabled. 
+         * If enabled, the user must hold left-click to initiate panning.
          */
         boxSelectionEnabled(): boolean;
         /**
-         * Set whether box selection is enabled. If enabled, the user must hold left-click to initiate panning.
+         * Set whether box selection is enabled. 
+         * If enabled, the user must hold left-click to initiate panning.
          *
          * @param bool A truthy value enables box selection; a falsey value disables it.
          */
@@ -2744,40 +3999,47 @@ declare namespace Cy {
         height(): number;
 
         /**
-         * Get the extent of the viewport, a bounding box in model coordinates that lets you know what model positions are visible in the viewport.
+         * Get the extent of the viewport, a bounding box in model 
+         * coordinates that lets you know what model positions are visible in the viewport.
          */
         extent(): {
             x1: number, y1: number, x2: number, y2: number, w: number, h: number
         };
 
         /**
-         * Get whether nodes are automatically locked (i.e. if true, nodes are locked despite their individual state).
+         * Get whether nodes are automatically locked 
+         * (i.e. if true, nodes are locked despite their individual state).
          */
         autolock(): boolean;
         /**
-         * Set whether nodes are automatically locked (i.e. if true, nodes are locked despite their individual state).
+         * Set whether nodes are automatically locked 
+         * (i.e. if true, nodes are locked despite their individual state).
          *
          * @param bool A truthy value enables autolocking; a falsey value disables it.
          */
         autolock(bool: boolean): void;
 
         /**
-         * Get whether nodes are automatically ungrabified (i.e. if true, nodes are ungrabbale despite their individual state).
+         * Get whether nodes are automatically ungrabified 
+         * (i.e. if true, nodes are ungrabbale despite their individual state).
          */
         autoungrabify(): boolean;
         /**
-         * Set whether nodes are automatically ungrabified (i.e. if true, nodes are ungrabbale despite their individual state).
+         * Set whether nodes are automatically ungrabified 
+         * (i.e. if true, nodes are ungrabbale despite their individual state).
          *
          * @param bool A truthy value enables autolocking; a falsey value disables it.
          */
         autoungrabify(bool: boolean): void;
 
         /**
-         * Get whether nodes are automatically unselectified (i.e. if true, nodes are unselectable despite their individual state).
+         * Get whether nodes are automatically unselectified 
+         * (i.e. if true, nodes are unselectable despite their individual state).
          */
         autounselectify(): boolean;
         /**
-         * Set whether nodes are automatically unselectified (i.e. if true, nodes are unselectable despite their individual state).
+         * Set whether nodes are automatically unselectified 
+         * (i.e. if true, nodes are unselectable despite their individual state).
          *
          * @param bool A truthy value enables autolocking; a falsey value disables it.
          */
@@ -2786,16 +4048,23 @@ declare namespace Cy {
         /**
          * Force the renderer to redraw (i.e. draw a new frame).
          *
-         * This function forces the renderer to draw a new frame. It is useful for very specific edgecases, such as in certain UI plugins, but it should not be needed for most developers.
+         * This function forces the renderer to draw a new frame. 
+         * It is useful for very specific edgecases, such as in certain UI plugins, 
+         * but it should not be needed for most developers.
          */
         forceRender(): void;
 
         /**
          * Force the renderer to recalculate the viewport bounds.
          *
-         * If your code resizes the graph's dimensions or position (i.e. by changing the style of the HTML DOM element that holds the graph), you will want to call cy.resize() to have the graph resize and redraw itself.
+         * If your code resizes the graph's dimensions or position 
+         * (i.e. by changing the style of the HTML DOM element that holds the graph), 
+         * you will want to call cy.resize() to have the graph resize and redraw itself.
          *
-         * Cytoscape.js can not automatically monitor the bounding box of the viewport, as querying the DOM for those dimensions can be expensive. Although cy.resize() is automatically called for you on the window's resize event, there is no resize or style event for arbitrary DOM elements.
+         * Cytoscape.js can not automatically monitor the bounding box of the viewport, 
+         * as querying the DOM for those dimensions can be expensive. 
+         * Although cy.resize() is automatically called for you on the window's resize event, 
+         * there is no resize or style event for arbitrary DOM elements.
          */
         resize(): CollectionElements;
     }
@@ -2866,14 +4135,49 @@ declare namespace Cy {
         clearQueue(): Cy.Instance;
     }
 
+    /**
+     * http://js.cytoscape.org/#core/layout
+     */
     interface InstanceLayout {
-        //TODO: http://js.cytoscape.org/#core/layout
+        /**
+         * Run a layout, which algorithmically positions the nodes in the graph.
+         * For layouts included with Cytoscape.js, you can find their 
+         * options documented in the Layouts section. 
+         * For external layouts, please refer to their accompanying documentation.
+         * 
+         * An analogue to run a layout on a subset of the graph exists as eles.layout().
+         * http://js.cytoscape.org/#cy.layout
+         */
         layout(layout: LayoutOptions): void;
-
+        /**
+         * Get a new layout, which can be used to algorithmically 
+         * position the nodes in the graph.
+         * 
+         * You must specify options.name with the name of the layout you wish to use.
+         * 
+         * This function creates and returns a layout object. 
+         * You may want to keep a reference to the layout for more advanced usecases, 
+         * such as running multiple layouts simultaneously.
+         * Note that you must call layout.run() in order for it to affect the graph.
+         * An analogue to make a layout on a subset of the graph exists as eles.makeLayout().
+         */
+        makeLayout(options: LayoutOptions): void;
     }
 
+    /**
+     * Get the entry point to modify the visual style of the graph after initialisation.
+     * http://js.cytoscape.org/#core/style
+     */
     interface InstanceStyle {
-        //TODO: http://js.cytoscape.org/#core/style
+        /**
+         * Get the current style object.
+         */
+        style(): Stylesheet | string;
+        /**
+         * Assign a new stylesheet to replace the existing one.
+         */
+        style(sheet: StyleSheet): StyleSheet;
+
     }
 
     interface InstanceExport {
@@ -2942,6 +4246,27 @@ declare namespace Cy {
 
 
     /**
+     * The function of a layout is to set the positions on the nodes in the graph. 
+     * Layouts are extensions of Cytoscape.js such that it is possible for 
+     * anyone to write a layout without modifying the library itself.
+     * 
+     * Several layouts are included with Cytoscape.js by default, and 
+     * their options are described in the sections that follow with 
+     * the default values specified. 
+     * Note that you must set options.name to the name of the layout 
+     * to specify which one you want to run.
+     * 
+     * Each layout has its own algorithm for setting the position for each node. 
+     * This algorithm influences the overall shape of the graph and the lengths of the edges. 
+     * A layout’s algorithm can be customised by setting its options. 
+     * Therefore, edge lengths can be controlled by setting the layout options appropriately.
+     * 
+     * For force-directed (physics) layouts, 
+     * there is generally an option to set a weight to each edge to affect the relative edge lengths. 
+     * Edge length can also be affected by options like spacing factors, angles, and overlap avoidance. 
+     * Setting edge length depends on the particular layout, and 
+     * some layouts will allow for more precise edge lengths than others.
+     * 
      * http://js.cytoscape.org/#layouts
      * 
      * The default is 'grid'.
@@ -2950,6 +4275,7 @@ declare namespace Cy {
         | "grid" | "circle" | "concentric" | "breadthfirst" | "cose";
 
     interface LayoutOptions {
+        /** one of the available names */
         name: LayoutOptionTypeNames;
         /** Called on 'layoutready' */
         ready?: () => void;
