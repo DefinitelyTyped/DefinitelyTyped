@@ -803,8 +803,8 @@ declare namespace mapboxgl {
 		interactive?: boolean;
 
 		filter?: any[];
-		layout?: BackgroundLayout | FillLayout | LineLayout | SymbolLayout | RasterLayout | CircleLayout;
-		paint?: BackgroundPaint | FillPaint | LinePaint | SymbolPaint | RasterPaint | CirclePaint;
+		layout?: BackgroundLayout | FillLayout | FillExtrusionLayout | LineLayout | SymbolLayout | RasterLayout | CircleLayout;
+		paint?: BackgroundPaint | FillPaint | FillExtrusionPaint | LinePaint | SymbolPaint | RasterPaint | CirclePaint;
 	}
 
 	export interface StyleFunction {
