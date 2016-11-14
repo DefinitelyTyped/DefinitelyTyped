@@ -5,15 +5,16 @@
 
 interface HowlerGlobal {
     mute(muted: boolean): void;
-    volume(volume?: number): number;
+    volume(): number;
+    volume(volume: number): this;
     codecs(ext: string): boolean;
     unload(): void;
     usingWebAudio: boolean;
     noAudio: boolean;
     mobileAudioEnable: boolean;
     autoSuspend: boolean;
-    ctx: boolean;
-    masterGain: boolean;
+    ctx: AudioContext;
+    masterGain: GainNode;
 }
 
 declare let Howler: HowlerGlobal;
@@ -33,36 +34,73 @@ interface IHowlProperties {
     sprite?: IHowlSoundSpriteDefinition;
     rate?: number;
     pool?: number;
-    format?: string[];
-    onload?: Function;
-    onloaderror?: Function;
-    onplay?: Function;
-    onend?: Function;
-    onpause?: Function;
-    onstop?: Function;
-    onmute?: Function;
-    onvolume?: Function;
-    onrate?: Function;
-    onseek?: Function;
-    onfade?: Function;
+    format?: string[] | string;
+    onload?: () => void;
+    onloaderror?: (soundId: number, error: any) => void;
+    onplay?: (soundId: number) => void;
+    onend?: (soundId: number) => void;
+    onpause?: (soundId: number) => void;
+    onstop?: (soundId: number) => void;
+    onmute?: (soundId: number) => void;
+    onvolume?: (soundId: number) => void;
+    onrate?: (soundId: number) => void;
+    onseek?: (soundId: number) => void;
+    onfade?: (soundId: number) => void;
 }
 
 interface Howl {
     play(spriteOrId?: string|number): number; // .play() is not chainable; the other methods are
-    pause(id?: number): Howl;
-    stop(id?: number): Howl;
-    mute(muted?: boolean, id?: number): Howl;
-    volume(volume?: number, id?: number): Howl;
-    fade(from: number, to: number, duration: number, id?: number): Howl;
-    rate(rate?: number, id?: number): Howl;
-    seek(seek?: number, id?: number): Howl;
-    loop(loop?: boolean, id?: number): Howl;
-    state(): string;
+    pause(id?: number): this;
+    stop(id?: number): this;
+
+    mute(): boolean;
+    mute(muted: boolean, id?: number): this;
+
+    volume(): number;
+    volume(idOrSetVolume: number): this | number;
+    volume(volume: number, id: number): this;
+
+    fade(from: number, to: number, duration: number, id?: number): this;
+
+    rate(): number;
+    rate(idOrSetRate: number): this | number;
+    rate(rate: number, id: number): this;
+
+    seek(seek?: number, id?: number): this;
+    loop(loop?: boolean, id?: number): this;
     playing(id?: number): boolean;
     duration(id?: number): number;
-    on(event: string, callback: Function, id?: number): Howl;
-    once(event: string, callback: Function, id?: number): Howl;
-    off(event: string, callback?: Function, id?: number): Howl;
+
+
+    on(event: 'load', callback: () => void, id?: number): this;
+    on(event: 'loaderror', callback: (soundId: number, error: any) => void, id?: number): this;
+    on(event: 'play', callback: (soundId: number) => void, id?: number): this;
+    on(event: 'end', callback: (soundId: number) => void, id?: number): this;
+    on(event: 'pause', callback: (soundId: number) => void, id?: number): this;
+    on(event: 'stop', callback: (soundId: number) => void, id?: number): this;
+    on(event: 'mute', callback: (soundId: number) => void, id?: number): this;
+    on(event: 'volume', callback: (soundId: number) => void, id?: number): this;
+    on(event: 'rate', callback: (soundId: number) => void, id?: number): this;
+    on(event: 'seek', callback: (soundId: number) => void, id?: number): this;
+    on(event: 'fade', callback: (soundId: number) => void, id?: number): this;
+    on(event: string, callback: Function, id?: number): this;
+
+    once(event: 'load', callback: () => void, id?: number): this;
+    once(event: 'loaderror', callback: (soundId: number, error: any) => void, id?: number): this;
+    once(event: 'play', callback: (soundId: number) => void, id?: number): this;
+    once(event: 'end', callback: (soundId: number) => void, id?: number): this;
+    once(event: 'pause', callback: (soundId: number) => void, id?: number): this;
+    once(event: 'stop', callback: (soundId: number) => void, id?: number): this;
+    once(event: 'mute', callback: (soundId: number) => void, id?: number): this;
+    once(event: 'volume', callback: (soundId: number) => void, id?: number): this;
+    once(event: 'rate', callback: (soundId: number) => void, id?: number): this;
+    once(event: 'seek', callback: (soundId: number) => void, id?: number): this;
+    once(event: 'fade', callback: (soundId: number) => void, id?: number): this;
+    once(event: string, callback: Function, id?: number): this;
+
+    off(event: string, callback?: Function, id?: number): this;
+
+    state(): 'unloaded' | 'loading' | 'loaded';
     load(): void;
     unload(): void;
 }

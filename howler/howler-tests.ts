@@ -1,5 +1,3 @@
-///<reference path="index.d.ts"/>
-
 import * as howler from "howler";
 
 var sound = new Howl({
