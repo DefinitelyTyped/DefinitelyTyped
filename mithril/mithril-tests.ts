@@ -52,4 +52,4 @@ var todo = {
 };
 
 //initialize the application
-m.module(document, todo);
+m.mount(document, todo);

@@ -138,6 +138,8 @@ class ModernComponent extends React.Component<Props, State>
     }
 }
 
+class ModernComponentNoState extends React.Component<Props, void> {}
+
 interface SCProps {
     foo?: number;
 }
@@ -166,7 +168,7 @@ var factoryElement: React.CElement<Props, ModernComponent> =
 
 var statelessFactory: React.SFCFactory<SCProps> =
     React.createFactory(StatelessComponent);
-var statelessElement: React.SFCElement<SCProps> =
+var statelessFactoryElement: React.SFCElement<SCProps> =
     statelessFactory(props);
 
 var classicFactory: React.ClassicFactory<Props> =
@@ -182,6 +184,8 @@ var domFactoryElement: React.DOMElement<React.DOMAttributes, Element> =
 // React.createElement
 var element: React.CElement<Props, ModernComponent> =
     React.createElement(ModernComponent, props);
+var elementNoState: React.CElement<Props, ModernComponentNoState> =
+    React.createElement(ModernComponentNoState, props);
 var statelessElement: React.SFCElement<SCProps> =
     React.createElement(StatelessComponent, props);
 var classicElement: React.ClassicElement<Props> =
@@ -216,6 +220,8 @@ var clonedDOMElement: React.ReactHTMLElement<HTMLDivElement> =
 // React.render
 var component: ModernComponent =
     ReactDOM.render(element, container);
+var componentNoState: ModernComponentNoState =
+    ReactDOM.render(elementNoState, container);
 var classicComponent: React.ClassicComponent<Props, any> =
     ReactDOM.render(classicElement, container);
 var domComponent: Element =
@@ -480,7 +486,9 @@ React.createFactory(CSSTransitionGroup)({
     transitionName: "transition",
     transitionAppear: false,
     transitionEnter: true,
-    transitionLeave: true
+    transitionLeave: true,
+    id: "some-id",
+    className: "some-class"
 });
 
 React.createFactory(CSSTransitionGroup)({
@@ -528,7 +536,24 @@ var measurements = Perf.getLastMeasurements();
 Perf.printInclusive(measurements);
 Perf.printExclusive(measurements);
 Perf.printWasted(measurements);
+Perf.printOperations(measurements);
+Perf.printInclusive();
+Perf.printExclusive();
+Perf.printWasted();
+Perf.printOperations();
+
+console.log(Perf.getExclusive());
+console.log(Perf.getInclusive());
+console.log(Perf.getWasted());
+console.log(Perf.getOperations());
+console.log(Perf.getExclusive(measurements));
+console.log(Perf.getInclusive(measurements));
+console.log(Perf.getWasted(measurements));
+console.log(Perf.getOperations(measurements));
+
+// Renamed to printOperations().  Please use it instead.
 Perf.printDOM(measurements);
+Perf.printDOM();
 
 //
 // PureRenderMixin addon
@@ -547,7 +572,7 @@ var node: Element = TestUtils.renderIntoDocument(React.DOM.div());
 
 TestUtils.Simulate.click(node);
 TestUtils.Simulate.change(node);
-TestUtils.Simulate.keyDown(node, { key: "Enter" });
+TestUtils.Simulate.keyDown(node, { key: "Enter", cancelable: false });
 
 var renderer: React.ShallowRenderer =
     TestUtils.createRenderer();

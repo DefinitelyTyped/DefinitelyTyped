@@ -570,8 +570,8 @@ function test_misc() {
         $(element).datepicker("destroy");
     });
 	
-	this.observableFactory = function(): KnockoutObservable<number>{
-	    if (true) {
+	this.observableFactory = function(flag = true): KnockoutObservable<number>{
+	    if (flag) {
 			return ko.computed({
 				read:function(){ 
 					return 3; 
@@ -654,4 +654,64 @@ function testUnwrapUnion() {
     var possibleObs: KnockoutObservable<number> | number;
     var num = ko.unwrap(possibleObs);
 
+}
+
+function test_tasks() {
+    // Schedule an empty task
+    ko.tasks.schedule(function() {
+    });
+    
+    // Schedule a task with arguments and return type
+    let logSomethingTask = (message: string) => {
+        console.log("Log message");
+        return true;
+    };
+    
+    let taskHandle = ko.tasks.schedule(logSomethingTask);
+    
+    // Cancel a task
+    ko.tasks.cancel(taskHandle);
+    
+    // Process the current microtask queue on demand
+    ko.tasks.runEarly();
+    
+    // Redefine or augment how Knockout schedules the event to process and flush the queue
+    ko.tasks.scheduler = function (callback) {
+        setTimeout(callback, 0);
+    };
+}
+
+function observableEventsTests() {
+    var observable = ko.observable(1);
+    observable.subscribe(value => {
+        var num: number = value;
+    });
+    observable.subscribe(value => {
+        var num: number = value;
+    }, null, "change");
+    observable.subscribe(value => {
+        var num: number = value;
+    }, null, "beforeChange");
+}
+
+function observableArrayEventsTests() {
+    var observableArray = ko.observableArray([1, 2, 3, 4]);
+    observableArray.subscribe(array => {
+        var arr: number[] = array;
+    });
+    observableArray.subscribe(array => {
+        var arr: number[] = array;
+    }, null, "change");
+    observableArray.subscribe(array => {
+        var arr: number[] = array;
+    }, null, "beforeChange");
+    var count = 0;
+    observableArray.subscribe(changes => {
+        changes.forEach(change => {
+            if (change.status == "added")
+                count++;
+            else if (change.status == "deleted")
+                count--;
+        });
+    }, null, "arrayChange");
 }

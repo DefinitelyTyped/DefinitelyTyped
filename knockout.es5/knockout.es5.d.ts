@@ -6,12 +6,19 @@
 /// <reference path="../knockout/knockout.d.ts" />
 
 interface KnockoutStatic {
-    track(obj: any, propertyNames?: Array<string>): any;
-    untrack(obj: any, propertyNames?: Array<string>): any;
-    defineProperty(obj: any, propertyName: string, evaluator: Function): any;
-    defineProperty(obj: any, propertyName: string, options: KnockoutDefinePropertyOptions): any;
+    track<T>(obj: T, propertyNames?: Array<string>): T;
+    untrack(obj: any, propertyNames?: Array<string>): void;
+    defineProperty<T>(obj: T, propertyName: string, evaluator: Function): T;
+    defineProperty<T>(obj: T, propertyName: string, options: KnockoutDefinePropertyOptions): T;
     getObservable(obj: any, propertyName: string): KnockoutObservable<any>;
     valueHasMutated(obj: any, propertyName: string): void;
+    es5: KnockoutEs5;
+}
+
+interface KnockoutEs5 {
+    getAllObservablesForObject<T>(obj: T, createIfNotDefined?: boolean): T;
+    notifyWhenPresentOrFutureArrayValuesMutate<T>(ko: KnockoutStatic, observable: KnockoutObservable<T>): void;
+    isTracked<T>(obj: T, propertyName: string): boolean;
 }
 
 interface KnockoutDefinePropertyOptions {

@@ -1,9 +1,15 @@
-// Type definitions for Angular Material 1.0.0-rc5+ (angular.material module)
+// Type definitions for Angular Material 1.1.0-rc5+ (angular.material module)
 // Project: https://github.com/angular/material
-// Definitions by: Matt Traynham <https://github.com/mtraynham>
+// Definitions by: Alex Staroselsky <https://github.com/AlStar01>, Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
+
+declare module 'angular-material' {
+    var _: string;
+    export = _;
+}
+
 declare namespace angular.material {
 
     interface IBottomSheetOptions {
@@ -13,11 +19,12 @@ declare namespace angular.material {
         preserveScope?: boolean; // default: false
         controller?: string|Function;
         locals?: {[index: string]: any};
-        targetEvent?: MouseEvent;
-        resolve?: {[index: string]: angular.IPromise<any>}
+        clickOutsideToClose?: boolean;
+        disableBackdrop?: boolean;
+        escapeToClose?: boolean;
+        resolve?: {[index: string]: () => angular.IPromise<any>};
         controllerAs?: string;
-        bindToController?: boolean;
-        parent?: string|Element|JQuery; // default: root node
+        parent?: Function|string|Object; // default: root node
         disableParentScroll?: boolean; // default: true
     }
 
@@ -46,7 +53,7 @@ declare namespace angular.material {
         controller(controller?: string|Function): T;
         locals(locals?: {[index: string]: any}): T;
         bindToController(bindToController?: boolean): T; // default: false
-        resolve(resolve?: {[index: string]: angular.IPromise<any>}): T;
+        resolve(resolve?: {[index: string]: () => angular.IPromise<any>}): T;
         controllerAs(controllerAs?: string): T;
         parent(parent?: string|Element|JQuery): T; // default: root node
         onComplete(onComplete?: Function): T;
@@ -60,9 +67,26 @@ declare namespace angular.material {
         cancel(cancel: string): IConfirmDialog;
     }
 
+    interface IPromptDialog extends IPresetDialog<IPromptDialog> {
+        cancel(cancel: string): IPromptDialog;
+        placeholder(placeholder: string): IPromptDialog;
+        initialValue(initialValue: string): IPromptDialog;
+    }
+
+    interface IColorExpression {
+        [cssPropertyName: string]: string
+    }
+
+    interface IColorService {
+        applyThemeColors(element: Element|JQuery, colorExpression: IColorExpression): void;
+        getThemeColor(expression: string): string;
+        hasTheme(): boolean;
+    }    
+
     interface IDialogOptions {
         templateUrl?: string;
         template?: string;
+        contentElement?: string|Element;
         autoWrap?: boolean; // default: true
         targetEvent?: MouseEvent;
         openFrom?: any;
@@ -70,26 +94,28 @@ declare namespace angular.material {
         scope?: angular.IScope; // default: new child scope
         preserveScope?: boolean; // default: false
         disableParentScroll?: boolean; // default: true
-        hasBackdrop?: boolean // default: true
+        hasBackdrop?: boolean; // default: true
         clickOutsideToClose?: boolean; // default: false
         escapeToClose?: boolean; // default: true
         focusOnOpen?: boolean; // default: true
         controller?: string|Function;
         locals?: {[index: string]: any};
         bindToController?: boolean; // default: false
-        resolve?: {[index: string]: angular.IPromise<any>}
+        resolve?: {[index: string]: () => angular.IPromise<any>}
         controllerAs?: string;
         parent?: string|Element|JQuery; // default: root node
         onShowing?: Function;
         onComplete?: Function;
         onRemoving?: Function;
-        fullscreen?: boolean;
+        skipHide?: boolean;
+        fullscreen?: boolean; // default: false
     }
 
     interface IDialogService {
-        show(dialog: IDialogOptions|IAlertDialog|IConfirmDialog): angular.IPromise<any>;
+        show(dialog: IDialogOptions|IAlertDialog|IConfirmDialog|IPromptDialog): angular.IPromise<any>;
         confirm(): IConfirmDialog;
         alert(): IAlertDialog;
+        prompt(): IPromptDialog;
         hide(response?: any): angular.IPromise<any>;
         cancel(response?: any): void;
     }
@@ -116,9 +142,11 @@ declare namespace angular.material {
         close(): angular.IPromise<void>;
         isOpen(): boolean;
         isLockedOpen(): boolean;
+        onClose(onClose: Function): void;
     }
 
     interface ISidenavService {
+        (component: string, enableWait: boolean): angular.IPromise<ISidenavObject>;
         (component: string): ISidenavObject;
     }
 
@@ -132,6 +160,7 @@ declare namespace angular.material {
         hideDelay(delay: number): T;
         position(position: string): T;
         parent(parent?: string|Element|JQuery): T; // default: root node
+        toastClass(toastClass: string): T;
     }
 
     interface ISimpleToastPreset extends IToastPreset<ISimpleToastPreset> {
@@ -145,10 +174,11 @@ declare namespace angular.material {
         preserveScope?: boolean; // default: false
         hideDelay?: number; // default (ms): 3000
         position?: string; // any combination of 'bottom'/'left'/'top'/'right'/'fit'; default: 'bottom left'
+        toastClass?: string;
         controller?: string|Function;
         locals?: {[index: string]: any};
         bindToController?: boolean; // default: false
-        resolve?: {[index: string]: angular.IPromise<any>}
+        resolve?: {[index: string]: () => angular.IPromise<any>}
         controllerAs?: string;
         parent?: string|Element|JQuery; // default: root node
     }
@@ -158,7 +188,8 @@ declare namespace angular.material {
         showSimple(content: string): angular.IPromise<any>;
         simple(): ISimpleToastPreset;
         build(): IToastPreset<any>;
-        updateContent(): void;
+        updateContent(newContent: string): void;
+        updateTextContent(newContent: string): void
         hide(response?: any): void;
         cancel(response?: any): void;
     }
@@ -196,6 +227,12 @@ declare namespace angular.material {
         hues: IThemeHues;
     }
 
+    interface IBrowserColors{
+        theme: string;
+        palette: string;
+        hue: string;
+    }
+
     interface IThemeColors {
         accent: IThemePalette;
         background: IThemePalette;
@@ -225,11 +262,14 @@ declare namespace angular.material {
     }
 
     interface IThemingProvider {
-        theme(name: string, inheritFrom?: string): ITheme;
-        definePalette(name: string, palette: IPalette): IThemingProvider;
-        extendPalette(name: string, palette: IPalette): IPalette;
-        setDefaultTheme(theme: string): void;
         alwaysWatchTheme(alwaysWatch: boolean): void;
+        definePalette(name: string, palette: IPalette): IThemingProvider;
+        enableBrowserColor(browserColors: IBrowserColors): Function;
+        extendPalette(name: string, palette: IPalette): IPalette;
+        registerStyles(styles: String): void;
+        setDefaultTheme(theme: string): void;
+        setNonce(nonce: string): void;
+        theme(name: string, inheritFrom?: string): ITheme;
     }
 
     interface IDateLocaleProvider {
@@ -249,5 +289,138 @@ declare namespace angular.material {
 
     interface IMenuService {
         hide(response?: any, options?: any): angular.IPromise<any>;
+    }
+
+    interface IColorPalette {
+        red: IPalette;
+        pink: IPalette;
+        'deep-purple': IPalette;
+        indigo: IPalette;
+        blue: IPalette;
+        'light-blue': IPalette;
+        cyan: IPalette;
+        teal: IPalette;
+        green: IPalette;
+        'light-green': IPalette;
+        lime: IPalette;
+        yellow: IPalette;
+        amber: IPalette;
+        orange: IPalette;
+        'deep-orange': IPalette;
+        brown: IPalette;
+        grey: IPalette;
+        'blue-grey': IPalette;
+    }
+
+    interface IPanelConfig {
+        id?: string;
+        template?: string;
+        templateUrl?: string;
+        controller?: string|Function;
+        controllerAs?: string;
+        bindToController?: boolean; // default: true
+        locals?: {[index: string]: any};
+        resolve?: {[index: string]: () => angular.IPromise<any>}
+        attachTo?: string|JQuery|Element;
+        propagateContainerEvents?: boolean;
+        panelClass?: string;
+        zIndex?: number; // default: 80
+        position?: IPanelPosition;
+        clickOutsideToClose?: boolean; // default: false
+        escapeToClose?: boolean; // default: false
+        trapFocus?: boolean; // default: false
+        focusOnOpen?: boolean; // default: true
+        fullscreen?: boolean; // default: false
+        animation?: IPanelAnimation;
+        hasBackdrop?: boolean; // default: false
+        disableParentScroll?: boolean; // default: false
+        onDomAdded?: Function;
+        onOpenComplete?: Function;
+        onRemoving?: Function;
+        onDomRemoved?: Function;
+        origin?: string|JQuery|Element;
+        onCloseSuccess?: ((panel: IPanelRef, closeReason: string) => any);
+    }
+
+    interface IPanelRef {
+        id: string;
+        config: IPanelConfig;
+        isAttached: boolean;
+        open(): angular.IPromise<any>;
+        close(): angular.IPromise<any>;
+        attach(): angular.IPromise<any>;
+        detach(): angular.IPromise<any>;
+        show(): angular.IPromise<any>;
+        hide(): angular.IPromise<any>;
+        destroy(): void;
+        addClass(newClass: string): void;
+        removeClass(oldClass: string): void;
+        toggleClass(toggleClass: string): void;
+        updatePosition(position: IPanelPosition): void;
+        registerInterceptor(type: string, callback: () => angular.IPromise<any>): IPanelRef;
+        removeInterceptor(type: string, callback: () => angular.IPromise<any>): IPanelRef;
+        removeAllInterceptors(type?: string): IPanelRef;
+    }
+
+    interface IPanelPosition {
+        absolute(): IPanelPosition;
+        relativeTo(someElement: string|JQuery|Element): IPanelPosition;
+        top(top?: string): IPanelPosition; // default: '0'
+        bottom(bottom?: string): IPanelPosition; // default: '0'
+        start(start?: string): IPanelPosition; // default: '0'
+        end(end?: string): IPanelPosition; // default: '0'
+        left(left?: string): IPanelPosition; // default: '0'
+        right(right?: string): IPanelPosition; // default: '0'
+        centerHorizontally(): IPanelPosition;
+        centerVertically(): IPanelPosition;
+        center(): IPanelPosition;
+        addPanelPosition(xPosition: string, yPosition: string): IPanelPosition;
+        withOffsetX(offsetX: string|((panel: IPanelPosition) => string)): IPanelPosition;
+        withOffsetY(offsetY: string|((panel: IPanelPosition) => string)): IPanelPosition;
+    }
+
+    interface IPanelAnimation {
+        openFrom(from: string|Element|Event|{top: number, left: number}): IPanelAnimation;
+        closeTo(to: string|Element|{top: number, left: number}): IPanelAnimation;
+        withAnimation(cssClass: string|{open: string, close: string}): IPanelAnimation;
+    }
+
+    interface IPanelService {
+        create(opt_config: IPanelConfig): IPanelRef;
+        open(opt_config: IPanelConfig): angular.IPromise<IPanelRef>;
+        newPanelPosition(): IPanelPosition;
+        newPanelAnimation(): IPanelAnimation;
+        xPosition: {
+          CENTER: string,
+          ALIGN_START: string,
+          ALIGN_END: string,
+          OFFSET_START: string,
+          OFFSET_END: string,
+        };
+        yPosition: {
+          CENTER: string,
+          ALIGN_TOPS: string,
+          ALIGN_BOTTOMS: string,
+          ABOVE: string,
+          BELOW: string,
+        };
+        animation: {
+          SLIDE: string,
+          SCALE: string,
+          FADE: string,
+        };
+        interceptorTypes: {
+          CLOSE: string,
+        };
+        closeReasons: {
+          CLICK_OUTSIDE: string,
+          ESCAPE: string,
+        };
+        absPosition: {
+          TOP:  string,
+          RIGHT: string,
+          BOTTOM: string,
+          LEFT: string,
+        };
     }
 }

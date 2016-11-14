@@ -1,4 +1,4 @@
-// Type definitions for stick 1.5.8
+// Type definitions for stick 1.6.0
 // Project: http://kenwheeler.github.io/slick/
 // Definitions by: John Gouigouix <https://github.com/orchestra-ts/DefinitelyTyped/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -38,28 +38,35 @@ interface JQuerySlickOptions {
     arrows?: boolean;
 
     /**
-     * Set the slider to be the navigation of other slider (Class or ID Name)
+     * Set the slider to be the navigation of other slider
      * Default: null
      */
-    asNavFor?: string;
+    asNavFor?: Element | JQuery | string;
 
     /**
      * Change where the navigation arrows are attached (Selector, htmlString, Array, Element, jQuery object)
+     * `false` will prevent arrows from being created/appended
      * Default: $(element)
      */
-    appendArrows?: any;
+    appendArrows?: Element | Element[] | JQuery | string | boolean;
+
+    /**
+     * Change where the navigation dots are attached (Selector, htmlString, Array, Element, jQuery object)
+     * Default: $(element)
+     */
+    appendDots?: Element | Element[] | JQuery | string;
 
     /**
      * Allows you to select a node or customize the HTML for the "Previous" arrow.
      * Default: <button type="button" class="slick-prev">Previous</button>
      */
-    prevArrow?: string | Object;
+    prevArrow?: Element | JQuery | string;
 
     /**
      * Allows you to select a node or customize the HTML for the "Next" arrow.
      * Default: <button type="button" class="slick-next">Next</button>
      */
-    nextArrow?: string | Object;
+    nextArrow?: Element | JQuery | string;
 
     /**
      * Enables centered view with partial prev/next slides. Use with odd numbered slidesToShow counts.
@@ -90,6 +97,12 @@ interface JQuerySlickOptions {
      * Default: false
      */
     dots?: boolean;
+
+    /**
+     * Class for slide indicator dots container
+     * Default: 'slick-dots'
+     */
+    dotsClass?: string;
 
     /**
      * Enable mouse dragging
@@ -144,6 +157,12 @@ interface JQuerySlickOptions {
      * Default: false
      */
     mobileFirst?: boolean;
+
+    /**
+     * Pause Autoplay On Focus
+     * Default: true
+     */
+    pauseOnFocus?: boolean;
 
     /**
      * Pause Autoplay On Hover
@@ -238,6 +257,12 @@ interface JQuerySlickOptions {
     useCSS?: boolean;
 
     /**
+     * Enable/Disable CSS Transforms
+     * Default: true
+     */
+    useTransform?: boolean;
+
+    /**
      * Variable width slides.
      * Default: false
      */
@@ -261,6 +286,18 @@ interface JQuerySlickOptions {
      */
     rtl?: boolean;
 
+    /**
+     * Change the slider's direction to become right-to-left
+     * Default: false
+     */
+    waitForAnimate?: boolean;
+
+    /**
+     * Set the zIndex values for slides, useful for IE9 and lower
+     * Default: 1000
+     */
+    zIndex?: number;
+    
 }
 
 

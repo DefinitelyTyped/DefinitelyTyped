@@ -9,6 +9,7 @@ declare module 'kafka-node' {
     export class Client {
         constructor(connectionString: string, clientId: string, options?: ZKOptions);
         close(callback?: Function): void;
+        topicExists(topics: Array<string>, callback: Function): void;
     }
 
     export class Producer {
@@ -28,7 +29,7 @@ declare module 'kafka-node' {
     }
 
     export class Consumer {
-        constructor(client: Client, fetchRequests: Array<Topic>, options: ConsumerOptions);
+        constructor(client: Client, fetchRequests: Array<OffsetFetchRequest>, options: ConsumerOptions);
         on(eventName: string, cb: (message: string) => any): void;
         on(eventName: string, cb: (error: any) => any): void;
         addTopics(topics: Array<string>, cb: (error: any, added: boolean) => any): void;
@@ -65,6 +66,8 @@ declare module 'kafka-node' {
         fetch(payloads: Array<OffsetRequest>, cb: (error: any, data: any) => any): void;
         commit(groupId: string, payloads: Array<OffsetCommitRequest>, cb: (error: any, data: any) => any): void;
         fetchCommits(groupId: string, payloads: Array<OffsetFetchRequest>, cb: (error: any, data: any) => any): void;
+        fetchLatestOffsets(topics: Array<string>, cb: (error: any, data: any) => any): void;
+        on(eventName: string, cb: (error: any) => any): void;
     }
 
     export class KeyedMessage {
@@ -99,6 +102,8 @@ declare module 'kafka-node' {
     export interface Topic {
         topic: string;
         offset?: number;
+        encoding?: string;
+        autoCommit?: boolean;
     }
 
     export interface OffsetRequest {

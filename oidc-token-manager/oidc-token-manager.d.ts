@@ -50,8 +50,9 @@ declare namespace Oidc {
     }
 
     interface OidcTokenManagerSettings {
+        load_user_profile?: boolean;
         persist?: boolean;
-        store?: any;
+        store?: Storage;
         persistKey?: string;
         client_id?: string;
         redirect_uri?: string;
@@ -62,6 +63,14 @@ declare namespace Oidc {
         popup_redirect_uri?: string;
         silent_redirect_uri?: string;
         silent_renew?: boolean;
+        request_state_store?: Storage;
+        request_state_key?: string;
+        metadata?: any;
+        authorization_endpoint?: string;
+        jwks_uri?: string;
+        jwks?: any;
+        userinfo_endpoint?: string;
+        end_session_endpoint?: string;
     }
 
     interface PopupSettings {
@@ -106,8 +115,8 @@ declare namespace Oidc {
         addOnTokenExpired(cb: () => void): void;
         addOnSilentTokenRenewFailed(cb: () => void): void;
         removeToken(): void;
-        redirectForToken(): void;
-        redirectForLogout(): void;
+        redirectForToken(): DefaultPromise;
+        redirectForLogout(): DefaultPromise;
         processTokenCallbackAsync(queryString?: string): DefaultPromise;
         renewTokenSilentAsync(): DefaultPromise;
         processTokenCallbackSilent(hash?: string): void;

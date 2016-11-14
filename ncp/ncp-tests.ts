@@ -9,6 +9,9 @@ opts = {
 	filter: /abc/
 };
 opts = {
+    filter: (filename: string) => true
+};
+opts = {
 	transform: (read: NodeJS.ReadableStream, write: NodeJS.WritableStream) => {
 
 	}

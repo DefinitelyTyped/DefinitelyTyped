@@ -18,6 +18,11 @@
 declare module "koa-bodyparser" {
 
     import * as Koa from "koa";
+    module "koa" {
+        interface Request {
+            body: any;
+        }
+    }
 
     function bodyParser(opts?: {
         /**
@@ -60,5 +65,6 @@ declare module "koa-bodyparser" {
         onerror?: (err: Error, ctx: Koa.Context) => void;
     }): { (ctx: Koa.Context, next?: () => any): any };
 
+    namespace bodyParser {}
     export = bodyParser;
 }

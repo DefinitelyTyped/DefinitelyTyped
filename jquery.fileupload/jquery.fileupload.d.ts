@@ -17,13 +17,13 @@ interface JQueryFileInputOptions {
      * The drop target element(s), by the default the complete document.
      * Set to null to disable drag & drop support:
      */
-    dropZone?: HTMLElement;
+    dropZone?: Element | Element[] | JQuery | string;
 
     /**
      * The paste target element(s), by the default the complete document.
      * Set to null to disable paste support:
      */
-    pasteZone?: HTMLElement;
+    pasteZone?: Element | Element[] | JQuery | string;
 
     /**
      * The file input field(s), that are listened to for change events.
@@ -31,7 +31,7 @@ interface JQueryFileInputOptions {
      * of the widget element on plugin initialization.
      * Set to null to disable the change listener.
      */
-    fileInput?: HTMLElement;
+    fileInput?: Element | Element[] | JQuery | string;
 
     /**
      * By default, the file input field is replaced with a clone after
@@ -104,6 +104,9 @@ interface JQueryFileInputOptions {
      * data and set to 'redirect' if this option is empty:
      */
     redirectParamName?: string;
+
+	// The HTTP request method must be "POST" or "PUT"
+	type?: string,
 
     /**
      * Set the following option to the location of a postMessage window,
@@ -207,25 +210,25 @@ interface JQueryFileInputOptions {
     timeout?: number;
     
     active?: Function;
-    progress?: Function;
-    send?: Function;
+    progress?: (e: JQueryEventObject, data: JQueryFileUploadProgressObject) => void;
+    send?: (e: JQueryEventObject, data: JQueryFileUploadProgressObject) => void;
 
     // Other callbacks:
     submit?: Function;
-    done?: Function;
-    fail?: Function;
-    always?: Function;
-    progressall?: Function;
-    start?: Function;
-    stop?: Function;
-    change?: Function;
-    paste?: Function;
-    drop?: Function;
-    dragover?: Function;
-    chunksend?: Function;
-    chunkdone?: Function;
-    chunkfail?: Function;
-    chunkalways?: Function;
+    done?: (e: JQueryEventObject, data: JQueryFileUploadDone) => void;
+    fail?: (e: JQueryEventObject, data: JQueryFileInputOptions) => void;
+    always?: (e: JQueryEventObject, data: JQueryFileInputOptions) => void;
+    progressall?: (e: JQueryEventObject, data: JQueryFileUploadProgressAllObject) => void;
+    start?: (e: JQueryEventObject) => void;
+    stop?: (e: JQueryEventObject) => void;
+    change?: (e: JQueryEventObject, data: JQueryFileUploadChangeObject) => void;
+    paste?: (e: JQueryEventObject, data: JQueryFileUploadFilesObject) => void;
+    drop?: (e: JQueryEventObject, data: JQueryFileUploadFilesObject) => void;
+    dragover?: (e: JQueryEventObject) => void;
+    chunksend?: (e: JQueryEventObject, data: JQueryFileUploadChunkObject) => void;
+    chunkdone?: (e: JQueryEventObject, data: JQueryFileUploadChunkObject) => void;
+    chunkfail?: (e: JQueryEventObject, data: JQueryFileUploadChunkObject) => void;
+    chunkalways?: (e: JQueryEventObject, data: JQueryFileUploadChunkObject) => void;
 
     // Others 
     url?: string;
@@ -249,4 +252,41 @@ interface JQuery {
 
 interface JQuerySupport {
     fileInput?: boolean;
+}
+
+interface JQueryFileUploadChangeObject {
+    fileInput?: JQuery;
+    fileInputClone?: JQuery;
+    files: File[];
+    form?: JQuery;
+    originalFiles: File[];
+}
+
+interface JQueryFileUploadProgressAllObject {
+    loaded?: number;
+    total?: number;
+    bitrate?: number;
+}
+
+interface JQueryFileUploadXhr {
+    jqXHR: JQueryXHR;
+    result: any;
+    textStatus: string;
+}
+
+interface JQueryFileUploadFilesObject {
+    files: File[];
+}
+
+interface JQueryFileUploadChunkObject extends JQueryFileInputOptions, JQueryFileUploadXhr {
+    blob: any;
+    chunkSize: number;
+    contentRange: string;
+    errorThrown: any;
+}
+
+interface JQueryFileUploadProgressObject extends JQueryFileInputOptions, JQueryFileUploadProgressAllObject {
+}
+
+interface JQueryFileUploadDone extends JQueryFileInputOptions, JQueryFileUploadXhr {
 }

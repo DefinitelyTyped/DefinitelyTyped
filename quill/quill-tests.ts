@@ -1,10 +1,6 @@
-/// <reference path="quill.d.ts" />
-/// <reference path="../requirejs/require.d.ts"/>
-
-//export var Quill = require("quill");
+/// <reference path="./quill.d.ts" />
 
 function test_quill() {
-
     var quillEditor = new Quill('#editor', {
         modules:
         {
@@ -12,6 +8,36 @@ function test_quill() {
         },
         theme: 'snow'
     });
+}
+
+function test_deleteText() {
+    var quillEditor = new Quill('#editor');
+    quillEditor.deleteText(0, 10);
+}
+
+function test_disable() {
+    let quillEditor = new Quill('#Editor');
+    quillEditor.disable();
+}
+
+function test_enable() {
+    let quillEditor = new Quill('#Editor');
+    quillEditor.enable();
+}
+
+function test_enable_false() {
+    let quillEditor = new Quill('#Editor');
+    quillEditor.enable(false);
+}
+
+function test_getContents() {
+    var quillEditor = new Quill('#editor');
+    var delta: Quill.DeltaStatic = quillEditor.getContents();
+}
+
+function test_getLength() {
+    var quillEditor = new Quill('#editor');
+    var num: number = quillEditor.getLength();
 }
 
 function test_getText() {
@@ -29,24 +55,9 @@ function test_getText_substring() {
     var strValue: string = quillEditor.getText(0, 10);
 }
 
-function test_getLength() {
-    var quillEditor = new Quill('#editor');
-    var num: number = quillEditor.getLength();
-}
-
-function test_getContents() {
-    var quillEditor = new Quill('#editor');
-    var delta: DeltaStatic = quillEditor.getContents();
-}
-
 function test_insertText() {
     var quillEditor = new Quill('#editor');
     quillEditor.insertText(0, "Hello World");
-}
-
-function test_deleteText() {
-    var quillEditor = new Quill('#editor');
-    quillEditor.deleteText(0, 10);
 }
 
 function test_formatText() {
@@ -63,43 +74,50 @@ function test_formatText2() {
     });
 }
 
-function test_formatLine() {
+function test_formatLine1() {
+    var quillEditor = new Quill('#editor');
+    quillEditor.formatLine(1, 3, 'api');
+}
+
+function test_formatLine2() {
     var quillEditor = new Quill('#editor');
     quillEditor.formatLine(1, 3, 'align', 'right');
+}
+
+function test_formatLine3() {
+    var quillEditor = new Quill('#editor');
+    quillEditor.formatLine(1, 3, {
+            'align': 'right',
+            'bold': false,
+        });
 }
 
 function test_insertEmbed() {
     var quillEditor = new Quill('#editor');
 
-    quillEditor.insertEmbed(10, 'image', 'http://quilljs.com/images/cloud.png');
+    quillEditor.insertEmbed(10, 'image', 'http://com/images/cloud.png');
 }
 
 function test_updateContents() {
     var quillEditor = new Quill('#editor');
-    quillEditor.updateContents({
+    quillEditor.updateContents(new Delta({
         ops: [
             { retain: 6 },        // Keep 'Hello '
             { delete: 5 },        // 'World' is deleted
             { insert: 'Quill' },  // Insert 'Quill'
             { retain: 1, attributes: { bold: true } }    // Apply bold to exclamation mark
         ]
-    });
+    }));
 }
 
 function test_setContents() {
     var quillEditor = new Quill('#editor');
 
-    quillEditor.setContents([
+    quillEditor.setContents(new Delta({ ops: [
         { insert: 'Hello ' },
         { insert: 'World!', attributes: { bold: true } },
         { insert: '\n' }
-    ]);
-}
-
-function test_setHTML() {
-    var quillEditor = new Quill('#editor');
-
-    quillEditor.setHTML('<div>Hello</div>');
+    ]}));
 }
 
 function test_setText() {
@@ -113,10 +131,10 @@ function test_getSelection() {
 
     var range = quillEditor.getSelection();
     if (range) {
-        if (range.start == range.end) {
-            console.log('User cursor is at index', range.start);
+        if (range.index == range.length) {
+            console.log('User cursor is at index', range.index);
         } else {
-            var text = quillEditor.getText(range.start, range.end);
+            var text = quillEditor.getText(range.index, range.length);
             console.log('User has highlighted: ', text);
         }
     } else {
@@ -129,11 +147,6 @@ function test_setSelection() {
     quillEditor.setSelection(0, 5);
 }
 
-function test_prepareFormat() {
-    var quillEditor = new Quill('#editor');
-    quillEditor.prepareFormat('bold', true);
-}
-
 function test_focus() {
     var quillEditor = new Quill('#editor');
     quillEditor.focus();
@@ -144,14 +157,6 @@ function test_getBounds() {
     quillEditor.setText('Hello\nWorld\n');
 }
 
-function test_addModule() {
-    var quillEditor = new Quill('#editor');
-
-    var toolbar = quillEditor.addModule('toolbar', {
-        container: '#toolbar-container'
-    });
-}
-
 function test_getModule()
 {
     var quillEditor = new Quill('#editor');
@@ -159,15 +164,28 @@ function test_getModule()
     var toolbar = quillEditor.getModule('toolbar');
 }
 
-
-function test_addFormat()
-{
-    var quillEditor = new Quill('#editor');
-    quillEditor.addFormat('strike', { tag: 'S', prepare: 'strikeThrough' });
-}
-
 function test_addContainer()
 {
     var quillEditor = new Quill('#editor');
     quillEditor.addContainer('ql-custom');
+}
+
+function test_on_EventType1(){
+    var quillEditor = new Quill('#editor');
+    quillEditor.on('text-change', (newDelta, oldDelta, source)=>{
+        // happened
+    });
+
+}
+
+function test_PasteHTML()
+{
+    var quillEditor = new Quill('#editor');
+    quillEditor.pasteHTML('<h1>Quill Rocks</h1>');
+}
+
+function test_PasteHTML2()
+{
+    var quillEditor = new Quill('#editor');
+    quillEditor.pasteHTML(5, '<h1>Quill Rocks</h1>');
 }

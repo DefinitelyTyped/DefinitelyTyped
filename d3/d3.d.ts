@@ -293,16 +293,16 @@ declare namespace d3 {
             datum(): Datum;
 
             /**
-             * Set the data item for each node in the selection.
-             * @param value the constant element to use for each node
-             */
-            datum<NewDatum>(value: NewDatum): Update<NewDatum>;
-
-            /**
              * Derive the data item for each node in the selection. Useful for situations such as the HTML5 'dataset' attribute.
              * @param value the function to compute data for each node
              */
             datum<NewDatum>(value: (datum: Datum, index: number, outerIndex: number) => NewDatum): Update<NewDatum>;
+
+            /**
+             * Set the data item for each node in the selection.
+             * @param value the constant element to use for each node
+             */
+            datum<NewDatum>(value: NewDatum): Update<NewDatum>;
 
             /**
              * Reorders nodes in the selection based on the given comparator. Nodes are re-inserted into the document once sorted.
@@ -415,6 +415,9 @@ declare namespace d3 {
 
             select(name: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
             call(func: (selection: Enter<Datum>, ...args: any[]) => any, ...args: any[]): Enter<Datum>;
+
+            empty(): boolean;
+            size(): number;
         }
     }
 
@@ -1079,7 +1082,12 @@ declare namespace d3 {
     /**
      * Return the min and max simultaneously.
      */
-    export function extent<T, U extends Numeric>(array: U[], accessor: (datum: T, index: number) => U): [U | Primitive, U | Primitive];
+    export function extent<T>(array: T[], accessor: (datum: T, index: number) => Date): [Date, Date];
+
+    /**
+     * Return the min and max simultaneously.
+     */
+    export function extent<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number) => U): [U | Primitive, U | Primitive];
 
     /**
      * Compute the sum of an array of numbers.
@@ -1094,6 +1102,12 @@ declare namespace d3 {
     export function mean(array: number[]): number;
     export function mean<T>(array: T[], accessor: (datum: T, index: number) => number): number;
 
+    /**
+     * Compute the median of an array of numbers (the 0.5-quantile).
+     */
+    export function median(array: number[]): number;
+    export function median<T>(datum: T[], accessor: (datum: T, index: number) => number): number;
+
     export function quantile(array: number[], p: number): number;
 
     export function variance(array: number[]): number;
@@ -1102,8 +1116,7 @@ declare namespace d3 {
     export function deviation(array: number[]): number;
     export function deviation<T>(array: T[], accessor: (datum: T, index: number) => number): number;
 
-    export function bisectLeft(array: number[], x: number, lo?: number, hi?: number): number;
-    export function bisectLeft(array: string[], x: string, lo?: number, hi?: number): number;
+    export function bisectLeft<T>(array: T[], x: T, lo?: number, hi?: number): number;
 
     export var bisect: typeof bisectRight;
 
@@ -2915,6 +2928,8 @@ declare namespace d3 {
 
             start(): Force<Link, Node>;
 
+            tick(): Force<Link, Node>;
+
             alpha(): number;
             alpha(value: number): Force<Link, Node>;
 
@@ -2975,6 +2990,7 @@ declare namespace d3 {
 
             range(): (values: T[], index: number) => [number, number];
             range(range: (values: T[], index: number) => [number, number]): Histogram<T>;
+            range(range: [number, number]): Histogram<T>;
 
             bins(): (range: [number, number], values: T[], index: number) => number[];
             bins(count: number): Histogram<T>;
@@ -3055,6 +3071,8 @@ declare namespace d3 {
         }
 
         export interface Partition<T extends partition.Node> {
+            (root: T): T[];
+
             nodes(root: T): T[];
 
             links(nodes: T[]): partition.Link<T>[];

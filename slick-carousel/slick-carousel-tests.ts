@@ -177,7 +177,9 @@ $('.single-item-rtl').slick({
     rtl: true
 });
 
-
+$('.no-arrows-slide').slick({
+    appendArrows: false
+})
 
 // --------------------------------------------------------
 // ---------------- TEST DEFAULT OPTIONS ------------------
@@ -191,15 +193,17 @@ $("#diaporama").slick({
     arrows: true,
     asNavFor: "#slideshow",
     appendArrows: "",
+    appendDots: "",
     prevArrow: "<button type=\"button\" class=\"slick-prev\">Previous</button>",
     nextArrow: "<button type=\"button\" class=\"slick-next\">Next</button>",
     centerMode: false,
     centerPadding: "50px",
     cssEase: "ease",
-    customPaging: (slider, i) => {
+    customPaging: (slider: any, i: number) => {
         return "customPaging slider " + slider + " customPaging index " + i;
     },
     dots: false,
+    dotsClass: 'slick-dots',
     draggable: true,
     fade: false,
     focusOnSelect: false,
@@ -209,6 +213,7 @@ $("#diaporama").slick({
     initialSlide: 0,
     lazyLoad: "ondemand",
     mobileFirst: false,
+    pauseOnFocus: true,
     pauseOnHover: true,
     pauseOnDotsHover: false,
     respondTo:  "window",
@@ -224,8 +229,11 @@ $("#diaporama").slick({
     touchMove: true,
     touchThreshold: 5,
     useCSS: true,
+    useTransform: true,
     variableWidth: false,
     vertical: false,
     verticalSwiping: false,
-    rtl: false
+    rtl: false,
+    waitForAnimate: true,
+    zIndex: 1000
 });

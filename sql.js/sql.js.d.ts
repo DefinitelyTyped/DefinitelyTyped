@@ -8,6 +8,7 @@
 declare module "sql.js" {
 
     class Database {
+        constructor();
         constructor(data: Buffer);
         constructor(data: Uint8Array);
         constructor(data: number[]);
@@ -29,6 +30,10 @@ declare module "sql.js" {
         export(): Uint8Array;
 
         close(): void;
+
+        getRowsModified(): number;
+
+        create_function(name: string, func: Function): void;
     }
 
     class Statement {

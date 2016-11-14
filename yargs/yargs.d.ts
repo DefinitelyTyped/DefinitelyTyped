@@ -18,10 +18,12 @@ declare module "yargs" {
 
 			detectLocale(detect:boolean): Argv;
 
+			terminalWidth(): number;
+
 			alias(shortName: string, longName: string): Argv;
 			alias(aliases: { [shortName: string]: string }): Argv;
 			alias(aliases: { [shortName: string]: string[] }): Argv;
-			
+
 			array(key: string): Argv;
 			array(keys: string[]): Argv;
 
@@ -64,7 +66,13 @@ declare module "yargs" {
 			usage(options?: { [key: string]: Options }): Argv;
 
 			command(command: string, description: string): Argv;
-			command(command: string, description: string, fn: (args: Argv) => void): Argv;
+			command(command: string, description: string, handler: (args: Argv) => void): Argv;
+			command(command: string, description: string, builder: (args: Argv) => Options): Argv;
+			command(command: string, description: string, builder: { [optionName: string]: Options }): Argv;
+			command(command: string, description: string, builder: { [optionName: string]: Options }, handler: (args: Argv) => void): Argv;
+			command(command: string, description: string, builder: (args: Argv) => Options, handler: (args: Argv) => void): Argv;
+
+			commandDir(dir: string, opts?: RequireDirectoryOptions): Argv;
 
 			completion(cmd: string, fn?: SyncCompletionFunction): Argv;
 			completion(cmd: string, description?: string, fn?: SyncCompletionFunction): Argv;
@@ -91,9 +99,9 @@ declare module "yargs" {
 
 			strict(): Argv;
 
-			help(): string;
+			help(): Argv;
 			help(option: string, description?: string): Argv;
-			
+
 			env(prefix?: string): Argv;
 			env(enable: boolean): Argv;
 
@@ -108,13 +116,13 @@ declare module "yargs" {
 			showHelp(func?: (message: string) => any): Argv;
 
 			exitProcess(enabled:boolean): Argv;
-			
+
 			global(key: string): Argv;
 			global(keys: string[]): Argv;
-			
+
 			group(key: string, groupName: string): Argv;
 			group(keys: string[], groupName: string): Argv;
-			
+
 			nargs(key: string, count: number): Argv;
 			nargs(nargs: { [key: string]: number }): Argv;
 
@@ -129,7 +137,15 @@ declare module "yargs" {
 			count(key: string): Argv;
 			count(keys: string[]): Argv;
 
-			fail(func: (msg: string) => any): void;
+			fail(func: (msg: string, err: Error) => any): Argv;
+		}
+
+		interface RequireDirectoryOptions {
+			recurse?: boolean;
+			extensions?: string[];
+			visit?: (commandObject: any, pathToFile?: string, filename?: string) => any;
+			include?: RegExp | ((pathToFile: string)=>boolean);
+			exclude?: RegExp | ((pathToFile: string)=>boolean);
 		}
 
 		interface Options {

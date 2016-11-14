@@ -344,6 +344,13 @@ interface JQueryPromise<T> extends JQueryGenericPromise<T> {
 
     // Deprecated - given no typings
     pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise<any>;
+    
+    /**
+     * Return a Deferred's Promise object.
+     * 
+     * @param target Object onto which the promise methods have to be attached
+     */
+    promise(target?: any): JQueryPromise<T>;
 }
 
 /**
@@ -442,6 +449,7 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
  * Interface of the JQuery extension of the W3C event object
  */
 interface BaseJQueryEventObject extends Event {
+    currentTarget: Element;
     data: any;
     delegateTarget: Element;
     isDefaultPrevented(): boolean;
@@ -677,6 +685,12 @@ interface JQueryStatic {
      */
     get(url: string, data?: Object|string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
     /**
+     * Load data from the server using a HTTP GET request.
+     *
+     * @param settings The JQueryAjaxSettings to be used for the request
+     */
+    get(settings : JQueryAjaxSettings): JQueryXHR;
+    /**
      * Load JSON-encoded data from the server using a GET HTTP request.
      *
      * @param url A string containing the URL to which the request is sent.
@@ -721,7 +735,12 @@ interface JQueryStatic {
      * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
      */
     post(url: string, data?: Object|string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
-
+    /**
+     * Load data from the server using a HTTP POST request.
+     *
+     * @param settings The JQueryAjaxSettings to be used for the request
+     */
+    post(settings : JQueryAjaxSettings): JQueryXHR;
     /**
      * A multi-purpose callbacks list object that provides a powerful way to manage callback lists.
      *
@@ -1013,7 +1032,7 @@ interface JQueryStatic {
      * @param func The function to process each item against. The first argument to the function is the item, and the second argument is the index. The function should return a Boolean value.  this will be the global window object.
      * @param invert If "invert" is false, or not provided, then the function returns an array consisting of all elements for which "callback" returns true. If "invert" is true, then the function returns an array consisting of all elements for which "callback" returns false.
      */
-    grep<T>(array: T[], func: (elementOfArray: T, indexInArray: number) => boolean, invert?: boolean): T[];
+    grep<T>(array: T[], func: (elementOfArray?: T, indexInArray?: number) => boolean, invert?: boolean): T[];
 
     /**
      * Search for a specified value within an array and return its index (or -1 if not found).
@@ -1080,14 +1099,14 @@ interface JQueryStatic {
      * @param array The Array to translate.
      * @param callback The function to process each item against. The first argument to the function is the array item, the second argument is the index in array The function can return any value. Within the function, this refers to the global (window) object.
      */
-    map<T, U>(array: T[], callback: (elementOfArray: T, indexInArray: number) => U): U[];
+    map<T, U>(array: T[], callback: (elementOfArray?: T, indexInArray?: number) => U): U[];
     /**
      * Translate all items in an array or object to new array of items.
      * 
      * @param arrayOrObject The Array or Object to translate.
      * @param callback The function to process each item against. The first argument to the function is the value; the second argument is the index or key of the array or object property. The function can return any value to add to the array. A returned array will be flattened into the resulting array. Within the function, this refers to the global (window) object.
      */
-    map(arrayOrObject: any, callback: (value: any, indexOrKey: any) => any): any;
+    map(arrayOrObject: any, callback: (value?: any, indexOrKey?: any) => any): any;
 
     /**
      * Merge the contents of two arrays together into the first array.
@@ -1977,6 +1996,24 @@ interface JQuery {
     click(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
+     * Trigger the "contextmenu" event on an element.
+     */
+    contextmenu(): JQuery;
+    /**
+     * Bind an event handler to the "contextmenu" JavaScript event.
+     *
+     * @param handler A function to execute when the event is triggered.
+     */
+    contextmenu(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "contextmenu" JavaScript event.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute when the event is triggered.
+     */
+    contextmenu(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+
+    /**
      * Trigger the "dblclick" event on an element.
      */
     dblclick(): JQuery;
@@ -2603,10 +2640,10 @@ interface JQuery {
     /**
      * Insert content, specified by the parameter, after each element in the set of matched elements.
      * 
-     * param content1 HTML string, DOM element, array of elements, or jQuery object to insert after each element in the set of matched elements.
+     * param content1 HTML string, DOM element, DocumentFragment, array of elements, or jQuery object to insert after each element in the set of matched elements.
      * param content2 One or more additional DOM elements, arrays of elements, HTML strings, or jQuery objects to insert after each element in the set of matched elements.
      */
-    after(content1: JQuery|any[]|Element|Text|string, ...content2: any[]): JQuery;
+    after(content1: JQuery|any[]|Element|DocumentFragment|Text|string, ...content2: any[]): JQuery;
     /**
      * Insert content, specified by the parameter, after each element in the set of matched elements.
      * 
@@ -2617,10 +2654,10 @@ interface JQuery {
     /**
      * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
      * 
-     * param content1 DOM element, array of elements, HTML string, or jQuery object to insert at the end of each element in the set of matched elements.
+     * param content1 DOM element, DocumentFragment, array of elements, HTML string, or jQuery object to insert at the end of each element in the set of matched elements.
      * param content2 One or more additional DOM elements, arrays of elements, HTML strings, or jQuery objects to insert at the end of each element in the set of matched elements.
      */
-    append(content1: JQuery|any[]|Element|Text|string, ...content2: any[]): JQuery;
+    append(content1: JQuery|any[]|Element|DocumentFragment|Text|string, ...content2: any[]): JQuery;
     /**
      * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
      * 
@@ -2638,10 +2675,10 @@ interface JQuery {
     /**
      * Insert content, specified by the parameter, before each element in the set of matched elements.
      * 
-     * param content1 HTML string, DOM element, array of elements, or jQuery object to insert before each element in the set of matched elements.
+     * param content1 HTML string, DOM element, DocumentFragment, array of elements, or jQuery object to insert before each element in the set of matched elements.
      * param content2 One or more additional DOM elements, arrays of elements, HTML strings, or jQuery objects to insert before each element in the set of matched elements.
      */
-    before(content1: JQuery|any[]|Element|Text|string, ...content2: any[]): JQuery;
+    before(content1: JQuery|any[]|Element|DocumentFragment|Text|string, ...content2: any[]): JQuery;
     /**
      * Insert content, specified by the parameter, before each element in the set of matched elements.
      * 
@@ -2686,10 +2723,10 @@ interface JQuery {
     /**
      * Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
      * 
-     * param content1 DOM element, array of elements, HTML string, or jQuery object to insert at the beginning of each element in the set of matched elements.
+     * param content1 DOM element, DocumentFragment, array of elements, HTML string, or jQuery object to insert at the beginning of each element in the set of matched elements.
      * param content2 One or more additional DOM elements, arrays of elements, HTML strings, or jQuery objects to insert at the beginning of each element in the set of matched elements.
      */
-    prepend(content1: JQuery|any[]|Element|Text|string, ...content2: any[]): JQuery;
+    prepend(content1: JQuery|any[]|Element|DocumentFragment|Text|string, ...content2: any[]): JQuery;
     /**
      * Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
      * 
@@ -2750,8 +2787,9 @@ interface JQuery {
 
     /**
      * Retrieve all the elements contained in the jQuery set, as an array.
+     * @name toArray
      */
-    toArray(): any[];
+    toArray(): HTMLElement[];
 
     /**
      * Remove the parents of the set of matched elements from the DOM, leaving the matched elements in their place.
@@ -2807,8 +2845,9 @@ interface JQuery {
     get(index: number): HTMLElement;
     /**
      * Retrieve the elements matched by the jQuery object.
+     * @alias toArray
      */
-    get(): any[];
+    get(): HTMLElement[];
 
     /**
      * Search for a given element from among the matched elements.

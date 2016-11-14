@@ -6,35 +6,40 @@
 /// <reference path='../superagent/superagent.d.ts' />
 
 declare module "supertest" {
-  import superagent = require('superagent');
+  import * as superagent from "superagent"
 
-  type CallbackHandler = (err: any, res: supertest.Response) => void;
-
-  function supertest(app: any): supertest.SuperTest;
+  function supertest(app: any): supertest.SuperTest<supertest.Test>;
 
   namespace supertest {
-    function agent(app?: any): supertest.SuperTest;
-
-    interface SuperTest extends superagent.SuperAgent<Test> {
-    }
-
-    interface Test extends superagent.Request<Test> {
-      url: string;
-      serverAddress(app: any, path: string): string;
-      expect(status: number, callback?: CallbackHandler): Test;
-      expect(status: number, body: string, callback?: CallbackHandler): Test;
-      expect(body: string, callback?: CallbackHandler): Test;
-      expect(body: RegExp, callback?: CallbackHandler): Test;
-      expect(body: Object, callback?: CallbackHandler): Test;
-      expect(field: string, val: string, callback?: CallbackHandler): Test;
-      expect(field: string, val: RegExp, callback?: CallbackHandler): Test;
-      expect(checker: (res: Response) => any): Test;
-      end(callback?: CallbackHandler): Test;
-    }
-
     interface Response extends superagent.Response {
     }
+
+    interface Request extends superagent.Request {
+    }
+
+    type CallbackHandler = (err: any, res: Response) => void;
+    interface Test extends Request {
+      app?: any;
+      url: string;
+      serverAddress(app: any, path: string): string;
+      expect(status: number, callback?: CallbackHandler): this;
+      expect(status: number, body: any, callback?: CallbackHandler): this;
+      expect(body: string, callback?: CallbackHandler): this;
+      expect(body: RegExp, callback?: CallbackHandler): this;
+      expect(body: Object, callback?: CallbackHandler): this;
+      expect(field: string, val: string, callback?: CallbackHandler): this;
+      expect(fzield: string, val: RegExp, callback?: CallbackHandler): this;
+      expect(checker: (res: Response) => any): this;
+      end(callback?: CallbackHandler): this;
+    }
+
+    function agent(app?: any): SuperTest<Test>;
+
+    interface SuperTest<T> extends superagent.SuperAgent<T> {
+    }
+
   }
+
 
   export = supertest;
 }

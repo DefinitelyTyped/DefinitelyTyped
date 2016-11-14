@@ -1,6 +1,6 @@
 // Type definitions for React v0.14
 // Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
+// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace __React {
@@ -13,6 +13,7 @@ declare namespace __React {
 
     type Key = string | number;
     type Ref<T> = string | ((instance: T) => any);
+    type ComponentState = {} | void;
 
     interface Attributes {
         key?: Key;
@@ -31,13 +32,13 @@ declare namespace __React {
         type: SFC<P>;
     }
 
-    type CElement<P, T extends Component<P, {}>> = ComponentElement<P, T>;
-    interface ComponentElement<P, T extends Component<P, {}>> extends ReactElement<P> {
+    type CElement<P, T extends Component<P, ComponentState>> = ComponentElement<P, T>;
+    interface ComponentElement<P, T extends Component<P, ComponentState>> extends ReactElement<P> {
         type: ComponentClass<P>;
         ref?: Ref<T>;
     }
 
-    type ClassicElement<P> = CElement<P, ClassicComponent<P, {}>>;
+    type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
 
     interface DOMElement<P extends DOMAttributes, T extends Element> extends ReactElement<P> {
         type: string;
@@ -62,12 +63,12 @@ declare namespace __React {
         (props?: P & Attributes, ...children: ReactNode[]): SFCElement<P>;
     }
 
-    interface ComponentFactory<P, T extends Component<P, {}>> {
+    interface ComponentFactory<P, T extends Component<P, ComponentState>> {
         (props?: P & ClassAttributes<T>, ...children: ReactNode[]): CElement<P, T>;
     }
 
-    type CFactory<P, T extends Component<P, {}>> = ComponentFactory<P, T>;
-    type ClassicFactory<P> = CFactory<P, ClassicComponent<P, {}>>;
+    type CFactory<P, T extends Component<P, ComponentState>> = ComponentFactory<P, T>;
+    type ClassicFactory<P> = CFactory<P, ClassicComponent<P, ComponentState>>;
 
     interface DOMFactory<P extends DOMAttributes, T extends Element> {
         (props?: P & ClassAttributes<T>, ...children: ReactNode[]): DOMElement<P, T>;
@@ -101,8 +102,8 @@ declare namespace __React {
         type: string): DOMFactory<P, T>;
     function createFactory<P>(type: SFC<P>): SFCFactory<P>;
     function createFactory<P>(
-        type: ClassType<P, ClassicComponent<P, {}>, ClassicComponentClass<P>>): CFactory<P, ClassicComponent<P, {}>>;
-    function createFactory<P, T extends Component<P, {}>, C extends ComponentClass<P>>(
+        type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>): CFactory<P, ClassicComponent<P, ComponentState>>;
+    function createFactory<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>): CFactory<P, T>;
     function createFactory<P>(type: ComponentClass<P> | SFC<P>): Factory<P>;
 
@@ -115,10 +116,10 @@ declare namespace __React {
         props?: P & Attributes,
         ...children: ReactNode[]): SFCElement<P>;
     function createElement<P>(
-        type: ClassType<P, ClassicComponent<P, {}>, ClassicComponentClass<P>>,
-        props?: P & ClassAttributes<ClassicComponent<P, {}>>,
-        ...children: ReactNode[]): CElement<P, ClassicComponent<P, {}>>;
-    function createElement<P, T extends Component<P, {}>, C extends ComponentClass<P>>(
+        type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
+        props?: P & ClassAttributes<ClassicComponent<P, ComponentState>>,
+        ...children: ReactNode[]): CElement<P, ClassicComponent<P, ComponentState>>;
+    function createElement<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>,
         props?: P & ClassAttributes<T>,
         ...children: ReactNode[]): CElement<P, T>;
@@ -135,7 +136,7 @@ declare namespace __React {
         element: SFCElement<P>,
         props?: Q, // should be Q & Attributes, but then Q is inferred as {}
         ...children: ReactNode[]): SFCElement<P>;
-    function cloneElement<P extends Q, Q, T extends Component<P, {}>>(
+    function cloneElement<P extends Q, Q, T extends Component<P, ComponentState>>(
         element: CElement<P, T>,
         props?: Q, // should be Q & ClassAttributes<T>
         ...children: ReactNode[]): CElement<P, T>;
@@ -149,6 +150,7 @@ declare namespace __React {
     var DOM: ReactDOM;
     var PropTypes: ReactPropTypes;
     var Children: ReactChildren;
+    var version: string;
 
     //
     // Component API
@@ -161,7 +163,7 @@ declare namespace __React {
         constructor(props?: P, context?: any);
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
-        forceUpdate(callBack?: () => any): void;
+        forceUpdate(callback?: () => any): void;
         render(): JSX.Element;
 
         // React.Props<T> is now deprecated, which means that the `children`
@@ -171,11 +173,13 @@ declare namespace __React {
         // on the existence of `children` in `P`, then we should remove this.
         props: P & { children?: ReactNode };
         state: S;
-        context: {};
+        context: any;
         refs: {
             [key: string]: ReactInstance
         };
     }
+
+    class PureComponent<P, S> extends Component<P, S> {}
 
     interface ClassicComponent<P, S> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => any): void;
@@ -193,7 +197,7 @@ declare namespace __React {
 
     type SFC<P> = StatelessComponent<P>;
     interface StatelessComponent<P> {
-        (props?: P, context?: any): ReactElement<any>;
+        (props: P, context?: any): ReactElement<any>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: P;
@@ -201,7 +205,7 @@ declare namespace __React {
     }
 
     interface ComponentClass<P> {
-        new(props?: P, context?: any): Component<P, {}>;
+        new(props?: P, context?: any): Component<P, ComponentState>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
@@ -210,7 +214,7 @@ declare namespace __React {
     }
 
     interface ClassicComponentClass<P> extends ComponentClass<P> {
-        new(props?: P, context?: any): ClassicComponent<P, {}>;
+        new(props?: P, context?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
 
@@ -219,7 +223,7 @@ declare namespace __React {
      * a single argument, which is useful for many top-level API defs.
      * See https://github.com/Microsoft/TypeScript/issues/7234 for more info.
      */
-    type ClassType<P, T extends Component<P, {}>, C extends ComponentClass<P>> =
+    type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         C &
         (new() => T) &
         (new() => { props: P });
@@ -272,7 +276,10 @@ declare namespace __React {
         isTrusted: boolean;
         nativeEvent: Event;
         preventDefault(): void;
+        isDefaultPrevented(): boolean;
         stopPropagation(): void;
+        isPropagationStopped(): boolean;
+        persist(): void;
         target: EventTarget;
         timeStamp: Date;
         type: string;
@@ -286,7 +293,7 @@ declare namespace __React {
         data: string;
     }
 
-    interface DragEvent extends SyntheticEvent {
+    interface DragEvent extends MouseEvent {
         dataTransfer: DataTransfer;
     }
 
@@ -345,11 +352,23 @@ declare namespace __React {
         view: AbstractView;
     }
 
-    interface WheelEvent extends SyntheticEvent {
+    interface WheelEvent extends MouseEvent {
         deltaMode: number;
         deltaX: number;
         deltaY: number;
         deltaZ: number;
+    }
+
+    interface AnimationEvent extends SyntheticEvent {
+        animationName: string;
+        pseudoElement: string;
+        elapsedTime: number;
+    }
+
+    interface TransitionEvent extends SyntheticEvent {
+        propertyName: string;
+        pseudoElement: string;
+        elapsedTime: number;
     }
 
     //
@@ -372,6 +391,8 @@ declare namespace __React {
     type TouchEventHandler = EventHandler<TouchEvent>;
     type UIEventHandler = EventHandler<UIEvent>;
     type WheelEventHandler = EventHandler<WheelEvent>;
+    type AnimationEventHandler = EventHandler<AnimationEvent>;
+    type TransitionEventHandler = EventHandler<TransitionEvent>;
 
     //
     // Props / DOM Attributes
@@ -495,6 +516,14 @@ declare namespace __React {
 
         // Wheel Events
         onWheel?: WheelEventHandler;
+
+        // Animation Events
+        onAnimationStart?: AnimationEventHandler;
+        onAnimationEnd?: AnimationEventHandler;
+        onAnimationIteration?: AnimationEventHandler;
+
+        // Transition Events
+        onTransitionEnd?: TransitionEventHandler;
     }
 
     // This interface is not complete. Only properties accepting
@@ -1152,6 +1181,12 @@ declare namespace __React {
 
         imeMode?: any;
 
+        /**
+         * Defines how the browser distributes space between and around flex items
+         * along the main-axis of their container.
+         */
+        justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
+
         layoutGrid?: any;
 
         layoutGridChar?: any;
@@ -1180,7 +1215,7 @@ declare namespace __React {
         lineClamp?: number;
 
         /**
-         * Specifies the height of an inline block level element. 
+         * Specifies the height of an inline block level element.
          */
         lineHeight?: number | string;
 
@@ -1939,7 +1974,6 @@ declare namespace __React {
         hrefLang?: string;
         htmlFor?: string;
         httpEquiv?: string;
-        icon?: string;
         id?: string;
         inputMode?: string;
         integrity?: string;
@@ -2033,13 +2067,14 @@ declare namespace __React {
         results?: number;
         security?: string;
         unselectable?: boolean;
-        
+
         // Allows aria- and data- Attributes
         [key: string]: any;
     }
 
     interface SVGAttributes extends HTMLAttributes {
         clipPath?: string;
+        colorInterpolationFilters?: "auto" | "sRGB" | "linearRGB" | "inherit";
         cx?: number | string;
         cy?: number | string;
         d?: string;
@@ -2047,12 +2082,14 @@ declare namespace __React {
         dy?: number | string;
         fill?: string;
         fillOpacity?: number | string;
+        filter?: string;
         fontFamily?: string;
         fontSize?: number | string;
         fx?: number | string;
         fy?: number | string;
         gradientTransform?: string;
         gradientUnits?: string;
+        in?: string;
         markerEnd?: string;
         markerMid?: string;
         markerStart?: string;
@@ -2063,19 +2100,24 @@ declare namespace __React {
         points?: string;
         preserveAspectRatio?: string;
         r?: number | string;
+        result?: string;
         rx?: number | string;
         ry?: number | string;
         spreadMethod?: string;
+        stdDeviation?: number | string
         stopColor?: string;
         stopOpacity?: number | string;
         stroke?: string;
         strokeDasharray?: string;
-        strokeLinecap?: string;
+        strokeLinecap?: "butt" | "round" | "square" | "inherit";
+        strokeLinejoin?: "miter" | "round" | "bevel" | "inherit";
         strokeMiterlimit?: string;
         strokeOpacity?: number | string;
         strokeWidth?: number | string;
         textAnchor?: string;
         transform?: string;
+        type?: string;
+        values?: string;
         version?: string;
         viewBox?: string;
         x1?: number | string;
@@ -2233,8 +2275,10 @@ declare namespace __React {
         radialGradient: SVGFactory;
         rect: SVGFactory;
         stop: SVGFactory;
+        symbol: SVGFactory;
         text: SVGFactory;
         tspan: SVGFactory;
+        use: SVGFactory;
     }
 
     //
@@ -2450,12 +2494,41 @@ declare namespace JSX {
         circle: React.SVGProps;
         clipPath: React.SVGProps;
         defs: React.SVGProps;
+        desc: React.SVGProps;
         ellipse: React.SVGProps;
+        feBlend: React.SVGProps;
+        feColorMatrix: React.SVGProps;
+        feComponentTransfer: React.SVGProps;
+        feComposite: React.SVGProps;
+        feConvolveMatrix: React.SVGProps;
+        feDiffuseLighting: React.SVGProps;
+        feDisplacementMap: React.SVGProps;
+        feDistantLight: React.SVGProps;
+        feFlood: React.SVGProps;
+        feFuncA: React.SVGProps;
+        feFuncB: React.SVGProps;
+        feFuncG: React.SVGProps;
+        feFuncR: React.SVGProps;
+        feGaussianBlur: React.SVGProps;
+        feImage: React.SVGProps;
+        feMerge: React.SVGProps;
+        feMergeNode: React.SVGProps;
+        feMorphology: React.SVGProps;
+        feOffset: React.SVGProps;
+        fePointLight: React.SVGProps;
+        feSpecularLighting: React.SVGProps;
+        feSpotLight: React.SVGProps;
+        feTile: React.SVGProps;
+        feTurbulence: React.SVGProps;
+        filter: React.SVGProps;
+        foreignObject: React.SVGProps;
         g: React.SVGProps;
         image: React.SVGProps;
         line: React.SVGProps;
         linearGradient: React.SVGProps;
+        marker: React.SVGProps;
         mask: React.SVGProps;
+        metadata: React.SVGProps;
         path: React.SVGProps;
         pattern: React.SVGProps;
         polygon: React.SVGProps;
@@ -2463,7 +2536,12 @@ declare namespace JSX {
         radialGradient: React.SVGProps;
         rect: React.SVGProps;
         stop: React.SVGProps;
+        switch: React.SVGProps;
+        symbol: React.SVGProps;
         text: React.SVGProps;
+        textPath: React.SVGProps;
         tspan: React.SVGProps;
+        use: React.SVGProps;
+        view: React.SVGProps;
     }
 }

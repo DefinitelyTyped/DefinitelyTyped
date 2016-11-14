@@ -200,6 +200,7 @@ declare namespace Interact {
         (element: HTMLElement): Interactable;
         (element: SVGElement): Interactable;
         (element: string): Interactable;
+        (element: string, {context: Element}): Interactable;
         // returns boolean or {[key: string]: any}
         autoScroll(): any;
         autoScroll(options: boolean): InteractStatic;
@@ -242,6 +243,6 @@ declare namespace Interact {
 
 declare var interact: Interact.InteractStatic;
 
-declare module "interact" {
+declare module "interact.js" {
     export = interact;
 }

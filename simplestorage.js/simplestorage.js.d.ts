@@ -1,6 +1,6 @@
-// Type definitions for simpleStorage v0.1.3
+// Type definitions for simplestorage.js v0.2.1
 // Project: https://github.com/andris9/simpleStorage
-// Definitions by: Áxel Costas Pena <https://github.com/axelcostaspena>
+// Definitions by: Áxel Costas Pena <https://github.com/axelcostaspena>, Michael Ledin <https://github.com/mxl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace simplestoragejs {
@@ -37,6 +37,14 @@ declare namespace simplestoragejs {
          * @see https://github.com/andris9/simpleStorage#getkey
          */
         get(key: string): any;
+
+        /**
+         * Checks if there's a value with the given key in the local storage.
+         * Returns <code>true</code> if the given key exists, <code>false</code> otherwise.
+         * @param key The key to be checked.
+         * @see https://github.com/andris9/simpleStorage#haskeykey
+         */
+        hasKey(key: string): boolean;
 
         /**
          * Removes a value from local storage.
@@ -96,7 +104,7 @@ declare namespace simplestoragejs {
 
 }
 
-declare module "simpleStorage" {
+declare module "simplestorage.js" {
     export = simpleStorage;
 }
 
@@ -107,4 +115,4 @@ declare module "simpleStorage" {
  * {@link simpleStorage} is very small - about 1kB in size when minimized and gzipped.
  * @see https://github.com/andris9/simpleStorage#simplestorage
  */
-declare var simpleStorage:simplestoragejs.SimpleStorage;
+declare var simpleStorage: simplestoragejs.SimpleStorage;

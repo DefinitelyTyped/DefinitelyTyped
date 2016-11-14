@@ -1,6 +1,6 @@
-// Type definitions for joi v6.5.0
-// Project: https://github.com/spumko/joi
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Laurence Dougal Myers <https://github.com/laurence-myers>, Christopher Glantschnig <https://github.com/cglantschnig>, David Broder-Rodgers <https://github.com/DavidBR-SW>
+// Type definitions for joi v9.0.0
+// Project: https://github.com/hapijs/joi
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Laurence Dougal Myers <https://github.com/laurence-myers>, Christopher Glantschnig <https://github.com/cglantschnig>, David Broder-Rodgers <https://github.com/DavidBR-SW>, Gael Magnan de Bornier <hhttps://github.com/GaelMagnan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TODO express type of Schema in a type-parameter (.default, .valid, .example etc)
@@ -40,6 +40,10 @@ declare module 'joi' {
 		 * provides an external data set to be used in references
 		 */
 		context?: Object;
+		/**
+		 * when true, do not apply default values. Defaults to false.
+		 */
+		noDefaults?: boolean;
 	}
 
 	export interface RenameOptions {
@@ -287,6 +291,17 @@ declare module 'joi' {
 		 * @param schema - any object or joi schema to match. An undefined schema unsets that rule.
 		 */
 		empty(schema?: any) : T;
+		
+		/**
+		 * Overrides the default joi error with a custom error if the rule fails where:
+		 * @param err - the override error.
+		 *
+		 * Note that the provided error will be returned as-is, unmodified and undecorated
+		 * with any of the normal joi error properties. If validation fails and another
+		 * error is found before the error override, that error will be returned and the
+		 * override will be ignored (unless the abortEarly option has been set to false).
+		 */
+		error?(err: Error): T;
 	}
 
 	export interface BooleanSchema extends AnySchema<BooleanSchema> {
@@ -488,6 +503,13 @@ declare module 'joi' {
 		items(types: Schema[]): ArraySchema;
 
 		/**
+		 * Lists the types in sequence order for the array values where:
+		 * @param type - a joi schema object to validate against each array item in sequence order. type can be an array of values, or multiple values can be passed as individual arguments.
+		 * If a given type is .required() then there must be a matching item with the same index position in the array. Errors will contain the number of items that didn't match. Any unmatched item having a label will be mentioned explicitly.
+		 */
+		ordered(type: Schema, ...types: Schema[]): ArraySchema;
+
+		/**
 		 * Specifies the minimum number of items in the array.
 		 */
 		min(limit: number): ArraySchema;
@@ -683,16 +705,75 @@ declare module 'joi' {
 		 * Requires the string value to be in valid ISO 8601 date format.
 		 */
 		iso(): DateSchema;
+
+
+		/**
+		 * Requires the value to be a timestamp interval from Unix Time.
+		 * @param type - the type of timestamp (allowed values are unix or javascript [default])
+		 */
+		timestamp(type?: 'javascript' | 'unix'): DateSchema;
 	}
 
 	export interface FunctionSchema extends AnySchema<FunctionSchema> {
 
+		/**
+		 * Specifies the arity of the function where:
+		 * @param n - the arity expected.
+		 */
+		arity(n: number): FunctionSchema;
+
+
+		/**
+		 * Specifies the minimal arity of the function where:
+		 * @param n - the minimal arity expected.
+		 */
+		minArity(n: number): FunctionSchema;
+
+
+		/**
+		 * Specifies the minimal arity of the function where:
+		 * @param n - the minimal arity expected.
+		 */
+		maxArity(n: number): FunctionSchema;
+
+		/**
+		 * Requires the function to be a Joi reference.
+		 */
+		ref(): FunctionSchema;
 	}
 
 	export interface AlternativesSchema extends AnySchema<FunctionSchema> {
 		try(schemas: Schema[]): AlternativesSchema;
+		try(type1: Schema, type2: Schema, ...types: Schema[]): AlternativesSchema;
 		when<T>(ref: string, options: WhenOptions<T>): AlternativesSchema;
 		when<T>(ref: Reference, options: WhenOptions<T>): AlternativesSchema;
+	}
+
+	export interface Terms {
+		value: any;
+		state: {
+			key: string,
+			path: string,
+			parent: any
+		};
+		options: ValidationOptions;
+	}
+
+	export interface Rules {
+		name: string;
+		params?: ObjectSchema | { [key: string]: Schema };
+		setup?: Function;
+		validate?: Function;
+		description: string | Function;
+	}
+
+	export interface Extension {
+		name: string;
+		base?: Schema;
+		pre?: Function;
+		language?: {};
+		describe?: Function;
+		rules?: Rules[];
 	}
 
 	// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -747,15 +828,32 @@ declare module 'joi' {
 	/**
 	 * Generates a type that will match one of the provided alternative schemas
 	 */
-	export function alternatives(types: Schema[]): Schema;
-	export function alternatives(type1: Schema, type2: Schema, ...types: Schema[]): Schema;
+	export function alternatives(): AlternativesSchema;
+	export function alternatives(types: Schema[]): AlternativesSchema;
+	export function alternatives(type1: Schema, type2: Schema, ...types: Schema[]): AlternativesSchema;
+	
+	/**
+	 * Generates a placeholder schema for a schema that you would provide with the fn.
+	 * Supports the same methods of the any() type.
+	 * This is mostly useful for recursive schemas
+	 */
+	export function lazy(cb: () => Schema): Schema;
 
 	/**
 	 * Validates a value using the given schema and options.
 	 */
-	export function validate<T>(value: T, schema: Schema, callback: (err: ValidationError, value: T) => void): void;
-	export function validate<T>(value: T, schema: Object, callback: (err: ValidationError, value: T) => void): void;
-	export function validate<T>(value: T, schema: Object, options?: ValidationOptions, callback?: (err: ValidationError, value: T) => void): ValidationResult<T>;
+	export function validate<T>(value: T): ValidationResult<T>;
+	export function validate<T, R>(value: T, callback: (err: ValidationError, value: T) => R): R;
+
+	export function validate<T>(value: T, schema: Schema): ValidationResult<T>;
+	export function validate<T>(value: T, schema: Object): ValidationResult<T>;
+	export function validate<T, R>(value: T, schema: Schema, callback: (err: ValidationError, value: T) => R): R;
+	export function validate<T, R>(value: T, schema: Object, callback: (err: ValidationError, value: T) => R): R;
+
+	export function validate<T>(value: T, schema: Schema, options: ValidationOptions): ValidationResult<T>;
+	export function validate<T>(value: T, schema: Object, options: ValidationOptions): ValidationResult<T>;
+	export function validate<T, R>(value: T, schema: Schema, options: ValidationOptions, callback: (err: ValidationError, value: T) => R): R;
+	export function validate<T, R>(value: T, schema: Object, options: ValidationOptions, callback: (err: ValidationError, value: T) => R): R;
 
 	/**
 	 * Converts literal schema definition to joi schema object (or returns the same back if already a joi schema object).
@@ -771,8 +869,152 @@ declare module 'joi' {
 	 */
 	export function assert(value: any, schema: Schema, message?: string | Error): void;
 
+
+	/**
+	 * Validates a value against a schema, returns valid object, and throws if validation fails where:
+	 *
+	 * @param value - the value to validate.
+	 * @param schema - the schema object.
+	 * @param message - optional message string prefix added in front of the error message. may also be an Error object.
+	 */
+	export function attempt<T>(value: T, schema: Schema, message?: string | Error): T;
+
+
 	/**
 	 * Generates a reference to the value of the named key.
 	 */
 	export function ref(key: string, options?: ReferenceOptions): Reference;
+
+
+	/**
+	 * Checks whether or not the provided argument is a reference. It's especially useful if you want to post-process error messages.
+	 */
+	export function isRef(ref: any): boolean;
+
+
+	/**
+	 * Get a sub-schema of an existing schema based on a path. Path separator is a dot (.).
+	 */
+	export function reach(schema: Schema, path: string): Schema;
+
+
+	/**
+	 * Creates a new Joi instance customized with the extension(s) you provide included.
+	 */
+	export function extend(extention: Extension): any;
+
+	/**
+	 * Whitelists a value
+	 */
+	export function allow(value: any, ...values: any[]): Schema;
+	export function allow(values: any[]): Schema;
+
+	/**
+	 * Adds the provided values into the allowed whitelist and marks them as the only valid values allowed.
+	 */
+	export function valid(value: any, ...values: any[]): Schema;
+	export function valid(values: any[]): Schema;
+	export function only(value: any, ...values : any[]): Schema;
+	export function only(values: any[]): Schema;
+	export function equal(value: any, ...values : any[]): Schema;
+	export function equal(values: any[]): Schema;
+
+	/**
+	 * Blacklists a value
+	 */
+	export function invalid(value: any, ...values: any[]): Schema;
+	export function invalid(values: any[]): Schema;
+	export function disallow(value: any, ...values : any[]): Schema;
+	export function disallow(values: any[]): Schema;
+	export function not(value: any, ...values : any[]): Schema;
+	export function not(values: any[]): Schema;
+
+	/**
+	 * Marks a key as required which will not allow undefined as value. All keys are optional by default.
+	 */
+	export function required(): Schema;
+
+	/**
+	 * Marks a key as optional which will allow undefined as values. Used to annotate the schema for readability as all keys are optional by default.
+	 */
+	export function optional(): Schema;
+
+	/**
+	 * Marks a key as forbidden which will not allow any value except undefined. Used to explicitly forbid keys.
+	 */
+	export function forbidden(): Schema;
+
+	/**
+	 * Marks a key to be removed from a resulting object or array after validation. Used to sanitize output.
+	 */
+	export function strip(): Schema;
+
+	/**
+	 * Annotates the key
+	 */
+	export function description(desc: string): Schema;
+
+	/**
+	 * Annotates the key
+	 */
+	export function notes(notes: string): Schema;
+	export function notes(notes: string[]): Schema;
+
+	/**
+	 * Annotates the key
+	 */
+	export function tags(notes: string): Schema;
+	export function tags(notes: string[]): Schema;
+
+	/**
+	 * Attaches metadata to the key.
+	 */
+	export function meta(meta: Object): Schema;
+
+	/**
+	 * Annotates the key with an example value, must be valid.
+	 */
+	export function example(value: any): Schema;
+
+	/**
+	 * Annotates the key with an unit name.
+	 */
+	export function unit(name: string): Schema;
+
+	/**
+	 * Overrides the global validate() options for the current key and any sub-key.
+	 */
+	export function options(options: ValidationOptions): Schema;
+
+	/**
+	 * Sets the options.convert options to false which prevent type casting for the current key and any child keys.
+	 */
+	export function strict(isStrict?: boolean): Schema;
+
+	/**
+	 * Returns a new type that is the result of adding the rules of one type to another.
+	 */
+	export function concat<T>(schema: T): T;
+
+	/**
+	 * Converts the type into an alternatives type where the conditions are merged into the type definition where:
+	 */
+	export function when<U>(ref: string, options: WhenOptions<U>): AlternativesSchema;
+	export function when<U>(ref: Reference, options: WhenOptions<U>): AlternativesSchema;
+
+	/**
+	 * Overrides the key name in error messages.
+	 */
+	export function label(name: string): Schema;
+
+	/**
+	 * Outputs the original untouched value instead of the casted value.
+	 */
+	export function raw(isRaw?: boolean): Schema;
+
+	/**
+	 * Considers anything that matches the schema to be empty (undefined).
+	 * @param schema - any object or joi schema to match. An undefined schema unsets that rule.
+	 */
+	export function empty(schema?: any) : Schema;
 }

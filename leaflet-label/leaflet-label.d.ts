@@ -3,7 +3,7 @@
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../leaflet/leaflet.d.ts" />
+/// <reference path="../leaflet/leaflet-0.7.d.ts" />
 
 declare namespace L {
     export interface IconOptions {

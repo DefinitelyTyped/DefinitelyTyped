@@ -167,8 +167,8 @@ declare namespace Vex {
         }
 
         namespace Annotation {
-            const enum Justify {LEFT, CENTER, RIGHT, CENTER_STEM}
-            const enum VerticalJustify {TOP, CENTER, BOTTOM, CENTER_STEM}
+            const enum Justify {LEFT = 1, CENTER, RIGHT, CENTER_STEM}
+            const enum VerticalJustify {TOP = 1, CENTER, BOTTOM, CENTER_STEM}
             const CATEGORY : string;
         }
 
@@ -194,7 +194,7 @@ declare namespace Vex {
         }
 
         namespace Barline {
-            const enum type {SINGLE, DOUBLE, END, REPEAT_BEGIN, REPEAT_END, REPEAT_BOTH, NONE}
+            const enum type {SINGLE = 1, DOUBLE, END, REPEAT_BEGIN, REPEAT_END, REPEAT_BOTH, NONE}
         }
 
         class Barline extends StaveModifier {
@@ -365,7 +365,7 @@ declare namespace Vex {
         }
 
         namespace Curve {
-            const enum Position {NEAR_HEAD, NEAR_TOP}
+            const enum Position {NEAR_HEAD = 1, NEAR_TOP}
         }
 
         class Dot extends Modifier {
@@ -553,7 +553,7 @@ declare namespace Vex {
         }
 
         namespace Modifier {
-            const enum Position {LEFT, RIGHT, ABOVE, BELOW}
+            const enum Position {LEFT = 1, RIGHT, ABOVE, BELOW}
             const CATEGORY : string
         }
 
@@ -717,7 +717,7 @@ declare namespace Vex {
         }
 
         namespace PedalMarking {
-            const enum Styles {TEXT, BRACKET, MIXED}
+            const enum Styles {TEXT = 1, BRACKET, MIXED}
             const GLYPHS : {[name : string] : {code : string, x_shift : number, y_shift : number}};
         }
 
@@ -774,8 +774,8 @@ declare namespace Vex {
         }
 
         namespace Renderer {
-            const enum Backends {CANVAS, RAPHAEL, SVG, VML}
-            const enum LineEndType {NONE, UP, DOWN}
+            const enum Backends {CANVAS = 1, RAPHAEL, SVG, VML}
+            const enum LineEndType {NONE = 1, UP, DOWN}
         }
 
         class Repetition extends StaveModifier {
@@ -790,7 +790,7 @@ declare namespace Vex {
         }
 
         namespace Repetition {
-            const enum type { NONE, CODA_LEFT, CODA_RIGHT, SEGNO_LEFT, SEGNO_RIGHT, DC, DC_AL_CODA, DC_AL_FINE, DS, DS_AL_CODA, DS_AL_FINE, FINE }
+            const enum type { NONE = 1, CODA_LEFT, CODA_RIGHT, SEGNO_LEFT, SEGNO_RIGHT, DC, DC_AL_CODA, DC_AL_FINE, DS, DS_AL_CODA, DS_AL_FINE, FINE }
         }
 
         class Stave {
@@ -859,7 +859,7 @@ declare namespace Vex {
         }
 
         namespace StaveConnector {
-            const enum type { SINGLE_RIGHT, SINGLE_LEFT, SINGLE, DOUBLE, BRACE, BRACKET, BOLD_DOUBLE_LEFT, BOLD_DOUBLE_RIGHT, THIN_DOUBLE }
+            const enum type { SINGLE_RIGHT = 0, SINGLE_LEFT = 1, SINGLE = 1, DOUBLE = 2, BRACE = 3, BRACKET = 4, BOLD_DOUBLE_LEFT = 5, BOLD_DOUBLE_RIGHT = 6, THIN_DOUBLE = 7 }
         }
 
         class StaveHairpin {
@@ -874,7 +874,7 @@ declare namespace Vex {
         }
 
         namespace StaveHairpin {
-            const enum type { CRESC, DECRESC }
+            const enum type { CRESC = 1, DECRESC }
         }
 
         class StaveLine {
@@ -892,8 +892,8 @@ declare namespace Vex {
         }
 
         namespace StaveLine {
-            const enum TextVerticalPosition { TOP, BOTTOM }
-            const enum TextJustification { LEFT, CENTER, RIGHT }
+            const enum TextVerticalPosition { TOP = 1, BOTTOM }
+            const enum TextJustification { LEFT = 1, CENTER, RIGHT }
         }
 
         class StaveModifier {
@@ -1105,7 +1105,7 @@ declare namespace Vex {
         }
 
         namespace Stroke {
-            const enum Type {BRUSH_DOWN, BRUSH_UP, ROLL_DOWN, ROLL_UP, RASQUEDO_DOWN, RASQUEDO_UP}
+            const enum Type {BRUSH_DOWN = 1, BRUSH_UP, ROLL_DOWN, ROLL_UP, RASQUEDO_DOWN, RASQUEDO_UP}
             const CATEGORY : string;
         }
 
@@ -1212,7 +1212,7 @@ declare namespace Vex {
         }
 
         namespace TextBracket {
-            const enum Positions {TOP, BOTTOM}
+            const enum Positions {TOP = 1, BOTTOM = -1}
         }
 
         class TextDynamics extends Note {
@@ -1232,7 +1232,7 @@ declare namespace Vex {
         }
 
         namespace TextNote {
-            const enum Justification {LEFT, CENTER, RIGHT}
+            const enum Justification {LEFT = 1, CENTER, RIGHT}
             const GLYPHS : {[name : string] : {code : string, point : number, x_shift : number, y_shift : number}}
         }
 
@@ -1390,7 +1390,7 @@ declare namespace Vex {
         }
 
         namespace Voice {
-            const enum Mode {STRICT, SOFT, FULL}
+            const enum Mode {STRICT = 1, SOFT, FULL}
         }
 
         class VoiceGroup {
@@ -1407,7 +1407,7 @@ declare namespace Vex {
         }
 
         namespace Volta {
-            const enum type {NONE, BEGIN, MID, END, BEGIN_END}
+            const enum type {NONE = 1, BEGIN, MID, END, BEGIN_END}
         }
     }
 }

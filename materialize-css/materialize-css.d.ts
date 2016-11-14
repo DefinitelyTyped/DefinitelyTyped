@@ -132,10 +132,10 @@ declare namespace Materialize {
         padding?: number;
 
         /**
-         * Set the duration between transitions in ms.
-         * Default: 6000
+         * Set the width of the carousel.
+         * Default: false
          */
-        full_width?: number;
+        full_width?: boolean;
     }
 
     /**
@@ -208,37 +208,11 @@ declare namespace Materialize {
      * The scroll spy options
      */
     interface ScrollSpyOptions {
-
-        /**
-         * Throttling in miliseconds.
-         * Default: 100
-         */
-        throttle?: number;
-
         /**
          * Offset from top.
-         * Default: 0
+         * Default: 200
          */
-        offsetTop?: number;
-
-        /**
-         * Offset from right.
-         * Default: 0
-         */
-        offsetRight?: number;
-
-        /**
-         * Offset from bottom.
-         * Default: 0
-         */
-        offsetBottom?: number;
-
-        /**
-         * Offset from left.
-         * Default: 0
-         */
-        offsetLeft?: number;
-
+        scrollOffset?: number;
     }
 
     /**
@@ -319,6 +293,11 @@ declare namespace Materialize {
          * @name selector the selector for the image to fade in
          */
         fadeInImage(selector:string): void;
+
+        /**
+         * Update all text field to reinitialize all the Materialize labels on the page if dynamically adding inputs
+         */
+        updateTextFields(): void;
     }
 }
 

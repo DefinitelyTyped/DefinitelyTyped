@@ -63,6 +63,9 @@ declare namespace uri {
         normalizeQuery(): URI;
         normalizeSearch(): URI;
 
+        origin(): string;
+        origin(uri: string | URI): URI;
+
         password(): string;
         password(pw: string): URI;
         path(): string;
@@ -185,6 +188,8 @@ declare namespace uri {
         expand(template: string, vals: Object): URI;
 
         iso8859(): void;
+    
+        joinPaths(...paths: (string | URI)[]): URI;
 
         parse(url: string): {
             protocol: string;

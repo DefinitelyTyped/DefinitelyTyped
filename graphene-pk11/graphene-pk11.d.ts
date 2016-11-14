@@ -1,774 +1,454 @@
-// Type definitions for graphene-pk11 v2.0.0
+// Type definitions for graphene-pk11 v2.0.3
 // Project: https://github.com/PeculiarVentures/graphene
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference path="../pkcs11js/pkcs11js.d.ts" />
 
 /**
  * A simple layer for interacting with PKCS #11 / PKCS11 / CryptoKI for Node
- * v2.0.0
+ * v2.0.3
  */
 
 declare module "graphene-pk11" {
 
-    type Callback = (err: Error, rv: number) => void;
-    type CK_PTR = Buffer;
+    import * as pkcs11 from "pkcs11js"
 
-    class Pkcs11 {
-        lib: any;
-        /**
-         * load a library with PKCS11 interface
-         * @param {string} libFile path to PKCS11 library
-         */
-        constructor(libFile: string);
-        protected callFunction(funcName: string, args: any[]): number;
-        /**
-         * C_Initialize initializes the Cryptoki library.
-         * @param pInitArgs   if this is not NULL_PTR, it gets
-         *                    cast to CK_C_INITIALIZE_ARGS_PTR
-         *                    and dereferenced
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_Initialize(pInitArgs?: CK_PTR): number;
-        C_Initialize(pInitArgs: CK_PTR, cllback: Callback): void;
-        /**
-         * C_Finalize indicates that an application is done with the Cryptoki library.
-         * @param pReserved   reserved. Should be NULL_PTR
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_Finalize(pReserved?: CK_PTR): number;
-        C_Finalize(pReserved: CK_PTR, callback: Callback): void;
-        /**
-         * C_GetInfo returns general information about Cryptoki.
-         * @param pInfo       location that receives information
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_GetInfo(pInfo: CK_PTR): number;
-        C_GetInfo(pInfo: CK_PTR, callback: Callback): void;
-        /**
-         * C_GetSlotList obtains a list of slots in the system.
-         * @param {boolean} tokenPresent only slots with tokens?
-         * @param pSlotList receives array of slot IDs
-         * @param pulCount receives number of slots
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_GetSlotList(tokenPresent: boolean, pSlotList: CK_PTR, pulCount: CK_PTR): number;
-        C_GetSlotList(tokenPresent: boolean, pSlotList: CK_PTR, pulCount: CK_PTR, callback: Callback): void;
-        /**
-         * C_GetSlotInfo obtains information about a particular slot in
-         * the system.
-         * @param {number} slotID the ID of the slot
-         * @param {Buffer} pInfo receives the slot information
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_GetSlotInfo(slotID: number, pInfo: CK_PTR): number;
-        C_GetSlotInfo(slotID: number, pInfo: CK_PTR, callback: Callback): void;
-        /**
-         * C_GetTokenInfo obtains information about a particular token
-         * in the system.
-         * @param {number} slotID ID of the token's slot
-         * @param {Buffer} pInfo receives the token information
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_GetTokenInfo(slotID: number, pInfo: Buffer): number;
-        C_GetTokenInfo(slotID: number, pInfo: Buffer, callback: Callback): void;
-        /**
-         * C_GetMechanismList obtains a list of mechanism types
-         * supported by a token.
-         * @param {number} slotID ID of the token's slot
-         * @param {number} pMechanismList gets mech. array
-         * @param {number} pulCount gets # of mechs
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_GetMechanismList(slotID: number, pMechanismList: Buffer, pulCount: Buffer): number;
-        C_GetMechanismList(slotID: number, pMechanismList: Buffer, pulCount: Buffer, callback: Callback): void;
-        /** C_GetMechanismInfo obtains information about a particular
-         * mechanism possibly supported by a token.
-         * @param {number} slotID ID of the token's slot
-         * @param {number} type type of mechanism
-         * @param {Buffer} pInfo receives mechanism info
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_GetMechanismInfo(slotID: number, type: number, pInfo: Buffer): number;
-        C_GetMechanismInfo(slotID: number, type: number, pInfo: Buffer, callback: Callback): void;
-        /**
-         * C_InitToken initializes a token.
-         * @param {number} slotID ID of the token's slot
-         * @param {Buffer} pPin the SO's initial PIN
-         * @param {number} ulPinLen length in bytes of the PIN
-         * @param {number} pLabel 32-byte token label (blank padded)
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_InitToken(slotID: number, pPin: Buffer, ulPinLen: number, pLabel: Buffer): number;
-        C_InitToken(slotID: number, pPin: Buffer, ulPinLen: number, pLabel: Buffer, callback: Callback): void;
-        /**
-         * C_InitPIN initializes the normal user's PIN.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pPin the normal user's PIN
-         * @param {number} ulPinLen length in bytes of the PIN
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_InitPIN(hSession: number, pPin: Buffer, ulPinLen: number): number;
-        C_InitPIN(hSession: number, pPin: Buffer, ulPinLen: number, callback: Callback): void;
-        /**
-         * C_SetPIN modifies the PIN of the user who is logged in.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pOldPin the old PIN
-         * @param {number} ulOldLen length of the old PIN
-         * @param {Buffer} pNewPin the new PIN
-         * @param {number} ulNewLen length of the new PIN
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_SetPIN(hSession: any, pOldPin: Buffer, ulOldLen: number, pNewPin: Buffer, ulNewLen: number): number;
-        C_SetPIN(hSession: any, pOldPin: Buffer, ulOldLen: number, pNewPin: Buffer, ulNewLen: number, callback: Callback): void;
-        /**
-         * C_OpenSession opens a session between an application and a
-         * token.
-         * @param {number} slotID ID of the token's slot
-         * @param {number} flags from CK_SESSION_INFO
-         * @param {Buffer} pApplication passed to callback
-         * @param {Buffer} Notify callback function
-         * @param {Buffer} phSession gets session handle
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_OpenSession(slotID: number, flags: number, pApplication?: Buffer, notify?: Buffer, phSession?: Buffer): number;
-        C_OpenSession(slotID: number, flags: number, pApplication: Buffer, notify: Buffer, phSession: Buffer, callback: Callback): void;
-        /**
-         * C_CloseSession closes a session between an application and a token.
-         * @param {number} hSession the session's handle
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_CloseSession(hSession: number): number;
-        C_CloseSession(hSession: number, callback: Callback): void;
-        /**
-         * C_CloseAllSessions closes all sessions with a token.
-         * @param {number} slotID ID of the token's slot
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_CloseAllSessions(slotID: number): number;
-        C_CloseAllSessions(slotID: number, callback: Callback): void;
-        /**
-         * C_GetSessionInfo obtains information about the session.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pInfo receives session info
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_GetSessionInfo(hSession: number, pInfo: Buffer): number;
-        C_GetSessionInfo(hSession: number, pInfo: Buffer, callback: Callback): void;
-        /**
-         * C_GetOperationState obtains the state of the cryptographic operation in a session.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pOperationState gets state
-         * @param {Buffer} pulOperationStateLen gets state length
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_GetOperationState(hSession: number, pOperationState: Buffer, pulOperationStateLen: Buffer): number;
-        C_GetOperationState(hSession: number, pOperationState: Buffer, pulOperationStateLen: Buffer, callback: Callback): void;
-        /**
-         * C_SetOperationState restores the state of the cryptographic operation in a session.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pOperationState holds state
-         * @param {number} ulOperationStateLen holds holds state length
-         * @param {number} hEncryptionKey en/decryption key
-         * @param {number} hAuthenticationKey sign/verify key
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_SetOperationState(hSession: number, pOperationState: Buffer, ulOperationStateLen: number, hEncryptionKey: number, hAuthenticationKey: number): number;
-        C_SetOperationState(hSession: number, pOperationState: Buffer, ulOperationStateLen: number, hEncryptionKey: number, hAuthenticationKey: number, callback: Callback): void;
-        /**
-         * C_Login logs a user into a token.
-         * @param {number} hSession the session's handle
-         * @param {number} userType the user type
-         * @param {Buffer} pPin the user's PIN
-         * @param {number} ulPinLen the length of the PIN
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_Login(hSession: number, userType: number, pPin: Buffer, ulPinLen: number): number;
-        C_Login(hSession: number, userType: number, pPin: Buffer, ulPinLen: number, callback: Callback): void;
-        /**
-         * C_Logout logs a user out from a token.
-         * @param {number} hSession the session's handle
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_Logout(hSession: number): number;
-        C_Logout(hSession: number, callback: Callback): void;
-        /**
-         * C_CreateObject creates a new object.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pTemplate the object's template
-         * @param {number} ulCount attributes in template
-         * @param {Buffer} phObject gets new object's handle
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_CreateObject(hSession: number, pTemplate: Buffer, ulCount: number, phObject: Buffer): number;
-        C_CreateObject(hSession: number, pTemplate: Buffer, ulCount: number, phObject: Buffer, callback: Callback): void;
-        /**
-         * C_CopyObject copies an object, creating a new object for the copy.
-         * @param {number} hSession the session's handle
-         * @param {number} hObject the object's handle
-         * @param {Buffer} pTemplate template for new object
-         * @param {number} ulCount attributes in template
-         * @param {Buffer} phNewObject receives handle of copy
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_CopyObject(hSession: number, hObject: number, pTemplate: Buffer, ulCount: number, phNewObject: Buffer): number;
-        C_CopyObject(hSession: number, hObject: number, pTemplate: Buffer, ulCount: number, phNewObject: Buffer, callback: Callback): void;
-        /**
-         * C_DestroyObject destroys an object.
-         * @param {number} hSession the session's handle
-         * @param {number} hObject the object's handle
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_DestroyObject(hSession: number, hObject: number): number;
-        C_DestroyObject(hSession: number, hObject: number, callback: Callback): void;
-        /**
-         * C_GetObjectSize gets the size of an object in bytes.
-         * @param {number} hSession the session's handle
-         * @param {number} hObject the object's handle
-         * @param {Buffer} pulSize receives size of object
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_GetObjectSize(hSession: number, hObject: number, pulSize: Buffer): number;
-        C_GetObjectSize(hSession: number, hObject: number, pulSize: Buffer, callback: Callback): void;
-        /**
-         * C_GetAttributeValue obtains the value of one or more object attributes.
-         * @param {number} hSession the session's handle
-         * @param {number} hObject the object's handle
-         * @param {Buffer} pTemplate specifies attrs; gets vals
-         * @param {number} ulCount attributes in template
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_GetAttributeValue(hSession: number, hObject: number, pTemplate: Buffer, ulCount: number): number;
-        C_GetAttributeValue(hSession: number, hObject: number, pTemplate: Buffer, ulCount: number, callback: Callback): void;
-        /**
-         * C_SetAttributeValue modifies the value of one or more object attributes
-         * @param {number} hSession the session's handle
-         * @param {number} hObject the object's handle
-         * @param {Buffer} pTemplate specifies attrs and values
-         * @param {number} ulCount attributes in template
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_SetAttributeValue(hSession: number, hObject: number, pTemplate: Buffer, ulCount: number): number;
-        C_SetAttributeValue(hSession: number, hObject: number, pTemplate: Buffer, ulCount: number, callback: Callback): void;
-        /**
-         * C_FindObjectsInit initializes a search for token and session
-         * objects that match a template.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pTemplate attribute values to match
-         * @param {number} ulCount attrs in search template
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_FindObjectsInit(hSession: number, pTemplate: Buffer, ulCount: number): number;
-        C_FindObjectsInit(hSession: number, pTemplate: Buffer, ulCount: number, callback: Callback): void;
-        /**
-         * C_FindObjects continues a search for token and session
-         * objects that match a template, obtaining additional object
-         * handles.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} phObject gets obj. handles
-         * @param {number} ulMaxObjectCount max handles to get
-         * @param {Buffer} pulObjectCount actual # returned
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_FindObjects(hSession: number, phObject: Buffer, ulMaxObjectCount: number, pulObjectCount: Buffer): number;
-        C_FindObjects(hSession: number, phObject: Buffer, ulMaxObjectCount: number, pulObjectCount: Buffer, callback: Callback): void;
-        /**
-         * C_FindObjectsFinal finishes a search for token and session objects.
-         * @param {number} hSession the session's handle
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_FindObjectsFinal(hSession: number): number;
-        C_FindObjectsFinal(hSession: number, callback: Callback): void;
-        /**
-         * C_EncryptInit initializes an encryption operation.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pMechanism the encryption mechanism
-         * @param {number} hKey handle of encryption key
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_EncryptInit(hSession: number, pMechanism: Buffer, hKey: number): number;
-        C_EncryptInit(hSession: number, pMechanism: Buffer, hKey: number, callback: Callback): void;
-        /**
-         * C_Encrypt encrypts single-part data.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pData the plaintext data
-         * @param {number} ulDataLen bytes of plaintext
-         * @param {Buffer} pEncryptedData gets ciphertext
-         * @param {Buffer} pulEncryptedDataLen gets c-text size
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_Encrypt(hSession: number, pData: Buffer, ulDataLen: number, pEncryptedData: Buffer, pulEncryptedDataLen: Buffer): number;
-        C_Encrypt(hSession: number, pData: Buffer, ulDataLen: number, pEncryptedData: Buffer, pulEncryptedDataLen: Buffer, callback: Callback): void;
-        /**
-         * C_EncryptUpdate continues a multiple-part encryption operation.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pPart the plaintext data
-         * @param {number} ulPartLen plaintext data len
-         * @param {Buffer} pEncryptedPart gets ciphertext
-         * @param {Buffer} pulEncryptedPartLen gets c-text size
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_EncryptUpdate(hSession: number, pPart: Buffer, ulPartLen: number, pEncryptedPart: Buffer, pulEncryptedPartLen: Buffer): number;
-        C_EncryptUpdate(hSession: number, pPart: Buffer, ulPartLen: number, pEncryptedPart: Buffer, pulEncryptedPartLen: Buffer, callback: Callback): void;
-        /**
-         * C_EncryptFinal finishes a multiple-part encryption operation.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pLastEncryptedPart last c-text
-         * @param {Buffer} pulLastEncryptedPartLen gets last size
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_EncryptFinal(hSession: number, pLastEncryptedPart: Buffer, pulLastEncryptedPartLen: Buffer): number;
-        C_EncryptFinal(hSession: number, pLastEncryptedPart: Buffer, pulLastEncryptedPartLen: Buffer, callback: Callback): void;
-        /**
-         * C_DecryptInit initializes a decryption operation.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pMechanism the decryption mechanism
-         * @param {number} hKey handle of decryption key
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_DecryptInit(hSession: number, pMechanism: Buffer, hKey: number): any;
-        C_DecryptInit(hSession: number, pMechanism: Buffer, hKey: number, callback: Callback): void;
-        /**
-         * C_Decrypt decrypts encrypted data in a single part.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pEncryptedData ciphertext
-         * @param {number} ulEncryptedDataLen ciphertext length
-         * @param {Buffer} pData gets plaintext
-         * @param {number} pulDataLen gets p-text size
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_Decrypt(hSession: number, pEncryptedData: Buffer, ulEncryptedDataLen: number, pData: Buffer, pulDataLen: Buffer): number;
-        C_Decrypt(hSession: number, pEncryptedData: Buffer, ulEncryptedDataLen: number, pData: Buffer, pulDataLen: Buffer, callback: Callback): void;
-        /**
-         * C_DecryptUpdate continues a multiple-part decryption operation.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pEncryptedPart encrypted data
-         * @param {number} ulEncryptedPartLen input length
-         * @param {Buffer} pPart gets plaintext
-         * @param {Buffer} pulPartLen p-text size
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_DecryptUpdate(hSession: number, pEncryptedPart: Buffer, ulEncryptedPartLen: number, pPart: Buffer, pulPartLen: Buffer): number;
-        C_DecryptUpdate(hSession: number, pEncryptedPart: Buffer, ulEncryptedPartLen: number, pPart: Buffer, pulPartLen: Buffer, callback: Callback): void;
-        /**
-         * C_DecryptFinal finishes a multiple-part decryption operation.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pLastPart gets plaintext
-         * @param {Buffer} pulLastPartLen p-text size
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_DecryptFinal(hSession: number, pLastPart: Buffer, pulLastPartLen: Buffer): number;
-        C_DecryptFinal(hSession: number, pLastPart: Buffer, pulLastPartLen: Buffer, callback: Callback): void;
-        /**
-         * C_DigestInit initializes a message-digesting operation.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pMechanism the digesting mechanism
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_DigestInit(hSession: number, pMechanism: Buffer): number;
-        C_DigestInit(hSession: number, pMechanism: Buffer, callback: Callback): void;
-        /**
-         * C_Digest digests data in a single part.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pData data to be digested
-         * @param {number} ulDataLen bytes of data to digest
-         * @param {Buffer} pDigest gets the message digest
-         * @param {Buffer} pulDigestLen gets digest length
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_Digest(hSession: number, pData: Buffer, ulDataLen: number, pDigest: Buffer, pulDigestLen: Buffer): number;
-        C_Digest(hSession: number, pData: Buffer, ulDataLen: number, pDigest: Buffer, pulDigestLen: Buffer, callback: Callback): void;
-        /**
-         * C_DigestUpdate continues a multiple-part message-digesting operation.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pPart data to be digested
-         * @param {number} ulPartLen bytes of data to be digested
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_DigestUpdate(hSession: number, pPart: Buffer, ulPartLen: number): number;
-        C_DigestUpdate(hSession: number, pPart: Buffer, ulPartLen: number, callback: Callback): void;
-        /**
-         * C_DigestKey continues a multi-part message-digesting operation,
-         * by digesting the value of a secret key as part of
-         * the data already digested.
-         * @param {number} hSession the session's handle
-         * @param {number} hKey secret key to digest
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_DigestKey(hSession: number, hKey: number): number;
-        C_DigestKey(hSession: number, hKey: number, callback: Callback): void;
-        /**
-         * C_DigestFinal finishes a multiple-part message-digesting
-         * operation.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pDigest gets the message digest
-         * @param {Buffer} pulDigestLen gets byte count of digest
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_DigestFinal(hSession: number, pDigest: Buffer, pulDigestLen: Buffer): number;
-        C_DigestFinal(hSession: number, pDigest: Buffer, pulDigestLen: Buffer, callback: Callback): void;
-        /**
-         * C_SignInit initializes a signature (private key encryption)
-         * operation, where the signature is (will be) an appendix to
-         * the data, and plaintext cannot be recovered from the signature.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pMechanism the signature mechanism
-         * @param {number} hKey handle of signature key
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_SignInit(hSession: number, pMechanism: Buffer, hKey: number): number;
-        C_SignInit(hSession: number, pMechanism: Buffer, hKey: number, callback: Callback): void;
-        /**
-         * C_Sign signs (encrypts with private key) data in a single
-         * part, where the signature is (will be) an appendix to the
-         * data, and plaintext cannot be recovered from the signature.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pData the data to sign
-         * @param {number} ulDataLen count of bytes to sign
-         * @param {Buffer} pSignature gets the signature
-         * @param {Buffer} pulSignatureLen gets signature length
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_Sign(hSession: number, pData: Buffer, ulDataLen: number, pSignature: Buffer, pulSignatureLen: Buffer): number;
-        C_Sign(hSession: number, pData: Buffer, ulDataLen: number, pSignature: Buffer, pulSignatureLen: Buffer, callback: Callback): void;
-        /**
-         * C_SignUpdate continues a multiple-part signature operation,
-         * where the signature is (will be) an appendix to the data,
-         * and plaintext cannot be recovered from the signature.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pPart the data to sign
-         * @param {number} ulPartLen count of bytes to sign
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_SignUpdate(hSession: number, pPart: Buffer, ulPartLen: Buffer): number;
-        C_SignUpdate(hSession: number, pPart: Buffer, ulPartLen: Buffer, callback: Callback): void;
-        /**
-         * C_SignFinal finishes a multiple-part signature operation,
-         * returning the signature.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pSignature gets the signature
-         * @param {Buffer} pulSignatureLen gets signature length
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_SignFinal(hSession: number, pSignature: Buffer, pulSignatureLen: Buffer): number;
-        C_SignFinal(hSession: number, pSignature: Buffer, pulSignatureLen: Buffer, callback: Callback): void;
-        /**
-         * C_SignRecoverInit initializes a signature operation, where
-         * the data can be recovered from the signature.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pMechanism the signature mechanism
-         * @param {number} hKey handle of the signature key
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_SignRecoverInit(hSession: number, pMechanism: Buffer, hKey: number): number;
-        C_SignRecoverInit(hSession: number, pMechanism: Buffer, hKey: number, callback: Callback): void;
-        /**
-         * C_SignRecover signs data in a single operation, where the
-         * data can be recovered from the signature.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pData the data to sign
-         * @param {number} ulDataLen count of bytes to sign
-         * @param {Buffer} pSignature gets the signature
-         * @param {Buffer} pulSignatureLen gets signature length
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_SignRecover(hSession: number, pData: Buffer, ulDataLen: number, pSignature: Buffer, pulSignatureLen: Buffer): number;
-        C_SignRecover(hSession: number, pData: Buffer, ulDataLen: number, pSignature: Buffer, pulSignatureLen: Buffer, callback: Callback): void;
-        /**
-         * C_VerifyInit initializes a verification operation, where the
-         * signature is an appendix to the data, and plaintext cannot
-         * cannot be recovered from the signature (e.g. DSA).
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pMechanism the verification mechanism
-         * @param {number} hKey verification key
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_VerifyInit(hSession: number, pMechanism: Buffer, hKey: number): number;
-        C_VerifyInit(hSession: number, pMechanism: Buffer, hKey: number, callback: Callback): void;
-        /**
-         * C_Verify verifies a signature in a single-part operation,
-         * where the signature is an appendix to the data, and plaintext
-         * cannot be recovered from the signature.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pData signed data
-         * @param {number} ulDataLen length of signed data
-         * @param {Buffer} pSignature signature
-         * @param {number} ulSignatureLen signature length
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_Verify(hSession: number, pData: Buffer, ulDataLen: number, pSignature: Buffer, ulSignatureLen: Buffer): number;
-        C_Verify(hSession: number, pData: Buffer, ulDataLen: number, pSignature: Buffer, ulSignatureLen: Buffer, callback: Callback): void;
-        /**
-         * C_VerifyUpdate continues a multiple-part verification
-         * operation, where the signature is an appendix to the data,
-         * and plaintext cannot be recovered from the signature.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pPart signed data
-         * @param {number} ulPartLen length of signed data
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_VerifyUpdate(hSession: number, pPart: Buffer, ulPartLen: number): number;
-        C_VerifyUpdate(hSession: number, pPart: Buffer, ulPartLen: number, callback: Callback): void;
-        /**
-         * C_VerifyFinal finishes a multiple-part verification
-         * operation, checking the signature.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pSignature signature to verify
-         * @param {number} ulSignatureLen signature length
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_VerifyFinal(hSession: number, pSignature: Buffer, ulSignatureLen: number): number;
-        C_VerifyFinal(hSession: number, pSignature: Buffer, ulSignatureLen: number, callback: Callback): void;
-        /**
-         * C_VerifyRecoverInit initializes a signature verification
-         * operation, where the data is recovered from the signature.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pMechanism the verification mechanism
-         * @param {number} hKey verification key
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_VerifyRecoverInit(hSession: number, pMechanism: Buffer, hKey: number): number;
-        C_VerifyRecoverInit(hSession: number, pMechanism: Buffer, hKey: number, callback: Callback): void;
-        /**
-         * C_VerifyRecover verifies a signature in a single-part
-         * operation, where the data is recovered from the signature.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pSignature signature to verify
-         * @param {number} ulSignatureLen signature length
-         * @param {Buffer} pData gets signed data
-         * @param {Buffer} pulDataLen gets signed data len
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_VerifyRecover(hSession: number, pSignature: Buffer, ulSignatureLen: number, pData: Buffer, pulDataLen: Buffer): number;
-        C_VerifyRecover(hSession: number, pSignature: Buffer, ulSignatureLen: number, pData: Buffer, pulDataLen: Buffer, callback: Callback): void;
-        /**
-         * C_DigestEncryptUpdate continues a multiple-part digesting
-         * and encryption operation.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pPart the plaintext data
-         * @param {number} ulPartLen plaintext length
-         * @param {Buffer} pEncryptedPart gets ciphertext
-         * @param {Buffer} pulEncryptedPartLen gets c-text length
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_DigestEncryptUpdate(hSession: number, pPart: Buffer, ulPartLen: number, pEncryptedPart: Buffer, pulEncryptedPartLen: Buffer): number;
-        C_DigestEncryptUpdate(hSession: number, pPart: Buffer, ulPartLen: number, pEncryptedPart: Buffer, pulEncryptedPartLen: Buffer, callback: Callback): void;
-        /**
-         * C_DecryptDigestUpdate continues a multiple-part decryption and
-         * digesting operation.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pEncryptedPart ciphertext
-         * @param {number} ulEncryptedPartLen ciphertext length
-         * @param {Buffer} pPart gets plaintext
-         * @param {Buffer} pulPartLen gets plaintext len
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_DecryptDigestUpdate(hSession: number, pEncryptedPart: Buffer, ulEncryptedPartLen: number, pPart: Buffer, pulPartLen: Buffer): number;
-        C_DecryptDigestUpdate(hSession: number, pEncryptedPart: Buffer, ulEncryptedPartLen: number, pPart: Buffer, pulPartLen: Buffer, callback: Callback): void;
-        /**
-         * C_SignEncryptUpdate continues a multiple-part signing and
-         * encryption operation.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pPart the plaintext data
-         * @param {number} ulPartLen plaintext length
-         * @param {Buffer} pEncryptedPart gets ciphertext
-         * @param {Buffer} pulEncryptedPartLen gets c-text length
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_SignEncryptUpdate(hSession: number, pPart: Buffer, ulPartLen: number, pEncryptedPart: Buffer, pulEncryptedPartLen: Buffer): number;
-        C_SignEncryptUpdate(hSession: number, pPart: Buffer, ulPartLen: number, pEncryptedPart: Buffer, pulEncryptedPartLen: Buffer, callback: Callback): void;
-        /**
-         * C_DecryptVerifyUpdate continues a multiple-part decryption and
-         * verify operation.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pEncryptedPart ciphertext
-         * @param {number} ulEncryptedPartLen ciphertext length
-         * @param {Buffer} pPart gets plaintext
-         * @param {Buffer} pulPartLen gets p-text length
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_DecryptVerifyUpdate(hSession: number, pEncryptedPart: Buffer, ulEncryptedPartLen: number, pPart: Buffer, pulPartLen: Buffer): number;
-        C_DecryptVerifyUpdate(hSession: number, pEncryptedPart: Buffer, ulEncryptedPartLen: number, pPart: Buffer, pulPartLen: Buffer, callback: Callback): void;
-        /**
-         * C_GenerateKey generates a secret key, creating a new key object.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pMechanism key generation mech.
-         * @param {Buffer} pTemplate template for new key
-         * @param {number} ulCount # of attrs in template
-         * @param {Buffer} phKey gets handle of new key
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_GenerateKey(hSession: number, pMechanism: Buffer, pTemplate: Buffer, ulCount: number, phKey: Buffer): number;
-        C_GenerateKey(hSession: number, pMechanism: Buffer, pTemplate: Buffer, ulCount: number, phKey: Buffer, callback: Callback): any;
-        /**
-         * C_GenerateKeyPair generates a public-key/private-key pair,
-         * creating new key objects.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pMechanism key-gen mech.
-         * @param {Buffer} pPublicKeyTemplate template for public key
-         * @param {number} ulPublicKeyAttributeCount public attrs
-         * @param {Buffer} pPrivateKeyTemplate template for private key
-         * @param {number} ulPrivateKeyAttributeCount private attrs
-         * @param {Buffer} phPublicKey gets public key handle
-         * @param {Buffer} phPrivateKey gets private key handle
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_GenerateKeyPair(hSession: number, pMechanism: Buffer, pPublicKeyTemplate: Buffer, ulPublicKeyAttributeCount: number, pPrivateKeyTemplate: Buffer, ulPrivateKeyAttributeCount: number, phPublicKey: Buffer, phPrivateKey: Buffer): number;
-        C_GenerateKeyPair(hSession: number, pMechanism: Buffer, pPublicKeyTemplate: Buffer, ulPublicKeyAttributeCount: number, pPrivateKeyTemplate: Buffer, ulPrivateKeyAttributeCount: number, phPublicKey: Buffer, phPrivateKey: Buffer, callback: Callback): void;
-        /**
-         * C_WrapKey wraps (i.e., encrypts) a key.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pMechanism the wrapping mechanism
-         * @param {number} hWrappingKey wrapping key
-         * @param {number} hKey key to be wrapped
-         * @param {Buffer} pWrappedKey gets wrapped key
-         * @param {Buffer} pulWrappedKeyLen gets wrapped key size
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_WrapKey(hSession: number, pMechanism: Buffer, hWrappingKey: number, hKey: number, pWrappedKey: Buffer, pulWrappedKeyLen: Buffer): number;
-        C_WrapKey(hSession: number, pMechanism: Buffer, hWrappingKey: number, hKey: number, pWrappedKey: Buffer, pulWrappedKeyLen: Buffer, callback: Callback): void;
-        /**
-         * C_UnwrapKey unwraps (decrypts) a wrapped key, creating a new
-         * key object.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pMechanism unwrapping mech.
-         * @param {Buffer} pWrappedKey the wrapped key
-         * @param {number} ulWrappedKeyLen wrapped key len
-         * @param {Buffer} pTemplate new key template
-         * @param {number} ulAttributeCount template length
-         * @param {Buffer} pTemplate new key template
-         * @param {number} ulAttributeCount template length
-         * @param {Buffer} phKey gets new handle
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_UnwrapKey(hSession: number, pMechanism: Buffer, hUnwrappingKey: number, pWrappedKey: Buffer, ulWrappedKeyLen: number, pTemplate: Buffer, ulAttributeCount: number, phKey: Buffer): number;
-        C_UnwrapKey(hSession: number, pMechanism: Buffer, hUnwrappingKey: number, pWrappedKey: Buffer, ulWrappedKeyLen: number, pTemplate: Buffer, ulAttributeCount: number, phKey: Buffer, callback: Callback): void;
-        /**
-         * C_DeriveKey derives a key from a base key, creating a new key object.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pMechanism key deriv. mech.
-         * @param {number} hBaseKey base key
-         * @param {Buffer} pTemplate new key template
-         * @param {number} ulAttributeCount template length
-         * @param {Buffer} phKey gets new handle
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_DeriveKey(hSession: number, pMechanism: Buffer, hBaseKey: number, pTemplate: Buffer, ulAttributeCount: number, phKey: Buffer): number;
-        C_DeriveKey(hSession: number, pMechanism: Buffer, hBaseKey: number, pTemplate: Buffer, ulAttributeCount: number, phKey: Buffer, callback: Callback): void;
-        /**
-         * C_SeedRandom mixes additional seed material into the token's
-         * random number generator.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pSeed the seed material
-         * @param {number} ulSeedLen length of seed material
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_SeedRandom(hSession: number, pSeed: Buffer, ulSeedLen: number): number;
-        C_SeedRandom(hSession: number, pSeed: Buffer, ulSeedLen: number, callback: Callback): void;
-        /**
-         * C_GenerateRandom generates random data.
-         * @param {number} hSession the session's handle
-         * @param {Buffer} pRandomData receives the random data
-         * @param {number} ulRandomLen # of bytes to generate
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_GenerateRandom(hSession: number, pRandomData: Buffer, ulRandomLen: number): number;
-        C_GenerateRandom(hSession: number, pRandomData: Buffer, ulRandomLen: number, callback: Callback): void;
-        /**
-         * C_GetFunctionStatus is a legacy function; it obtains an
-         * updated status of a function running in parallel with an
-         * application.
-         * @param {number} hSession the session's handle
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_GetFunctionStatus(hSession: number): number;
-        C_GetFunctionStatus(hSession: number, callback: Callback): void;
-        /**
-         * C_CancelFunction is a legacy function; it cancels a function
-         * running in parallel.
-         * @param {number} hSession the session's handle
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_CancelFunction(hSession: number): number;
-        C_CancelFunction(hSession: number, callback: Callback): void;
-        /**
-         * C_WaitForSlotEvent waits for a slot event (token insertion,
-         * removal, etc.) to occur.
-         * @param {number} flags blocking/nonblocking flag
-         * @param {Buffer} pSlot location that receives the slot ID
-         * @param {Buffer} pRserved reserved.  Should be NULL_PTR
-         * @param {Callback} callback callback function with PKCS11 result value
-         * @returns void PKCS11 result value
-         */
-        C_WaitForSlotEvent(flags: number, pSlot: Buffer, pRserved: Buffer): number;
-        C_WaitForSlotEvent(flags: number, pSlot: Buffer, pRserved: Buffer, callback: Callback): number;
+    type Handle = Buffer;
+    type CryptoData = string | Buffer;
+
+    class Pkcs11Error extends Error {
+        code: number;
+        func: string;
+        constructor(code: number, func: string);
+    }
+
+    class BaseObject {
+        protected lib: pkcs11.PKCS11;
+        constructor(lib?: pkcs11.PKCS11);
+    }
+
+    class HandleObject extends BaseObject {
+        /**
+         * handle to pkcs11 object
+         */
+        handle: Handle;
+
+        constructor(handle: Handle, lib: pkcs11.PKCS11);
+
+        protected getInfo(): void;
+    }
+
+    class Collection<T extends BaseObject> extends BaseObject {
+
+        protected items_: Array<any>;
+        protected classType: any;
+
+        /**
+         * returns length of collection
+         */
+        length: number;
+
+        constructor(items: Array<any>, lib: pkcs11.PKCS11, classType: any);
+
+        /**
+         * returns item from collection by index
+         * @param {number} index of element in collection `[0..n]`
+         */
+        items(index: number): T;
+    }
+
+    function isString(v: any): boolean;
+    function isNumber(v: any): boolean;
+    function isBoolean(v: any): boolean;
+    function isUndefined(v: any): boolean;
+    function isNull(v: any): boolean;
+    function isEmpty(v: any): boolean;
+    function isFunction(v: any): boolean;
+    function isObject(v: any): boolean;
+    function isArray(v: any): boolean;
+    function isFlag(v: any, fv: number): boolean;
+    function dateFromString(text: string): Date;
+
+    // ========== Crypto ==========
+
+    class Cipher extends BaseObject {
+
+        session: Session;
+
+        constructor(session: Session, alg: MechanismType, key: Key, lib: pkcs11.PKCS11);
+
+        protected init(alg: MechanismType, key: Key): void;
+
+        update(data: CryptoData): Buffer;
+        final(): Buffer;
+        once(data: CryptoData, enc: Buffer): Buffer;
+        once(data: CryptoData, enc: Buffer, cb: (error: Error, data: Buffer) => void): void;
+    }
+
+    class Decipher extends BaseObject {
+
+        protected session: Session;
+        protected blockSize: number;
+
+        constructor(session: Session, alg: MechanismType, key: Key, blockSize: number, lib: pkcs11.PKCS11);
+
+        protected init(alg: MechanismType, key: Key): void;
+
+        update(data: Buffer): Buffer;
+        final(): Buffer;
+        once(data: Buffer, dec: Buffer): Buffer;
+        once(data: Buffer, dec: Buffer, cb: (error: Error, data: Buffer) => void): void;
+    }
+
+    class Digest extends BaseObject {
+
+        session: Session;
+
+        constructor(session: Session, alg: MechanismType, lib: pkcs11.PKCS11);
+
+        protected init(alg: MechanismType): void;
+
+        update(data: CryptoData): void;
+        final(): Buffer;
+        once(data: CryptoData): Buffer;
+        once(data: CryptoData, cb: (error: Error, data: Buffer) => void): void;
+    }
+
+    class Sign extends BaseObject {
+
+        session: Session;
+
+        constructor(session: Session, alg: MechanismType, key: Key, lib: pkcs11.PKCS11);
+
+        protected init(alg: MechanismType, key: Key): void;
+
+        update(data: CryptoData): void;
+        final(): Buffer;
+        once(data: CryptoData): Buffer;
+        once(data: CryptoData, cb: (error: Error, data: Buffer) => void): void;
+    }
+
+    class Verify extends BaseObject {
+
+        session: Session;
+
+        constructor(session: Session, alg: MechanismType, key: Key, lib: pkcs11.PKCS11);
+
+        protected init(alg: MechanismType, key: Key): void;
+
+        update(data: CryptoData): void;
+        final(signature: Buffer): boolean;
+        once(data: CryptoData, signature: Buffer): boolean;
+        once(data: CryptoData, signature: Buffer, cb: (error: Error, valid: boolean) => void): void;
+    }
+
+    // ========== Keys ==========
+
+    interface IParams {
+        toCKI(): any;
+    }
+
+    enum MechParams {
+        AesCBC,
+        AesCCM,
+        AesGCM,
+        RsaOAEP,
+        RsaPSS,
+        EcDH,
+    }
+
+    // AES
+
+    class AesCbcParams implements IParams, pkcs11.AesCBC {
+        /**
+         * initialization vector
+         * - must have a fixed size of 16 bytes
+         */
+        iv: Buffer;
+        /**
+         * the data
+         */
+        data: Buffer;
+        type: MechParams;
+        constructor(iv: Buffer, data?: Buffer);
+        toCKI(): Buffer;
+    }
+
+    class AesCcmParams implements IParams {
+        /**
+         * length of the data where 0 <= dataLength < 2^8L
+         */
+        dataLength: number;
+        /**
+         * the nonce
+         */
+        nonce: Buffer;
+        /**
+         * the additional authentication data
+         * - This data is authenticated but not encrypted
+         */
+        aad: Buffer;
+        /**
+         * length of authentication tag (output following cipher text) in bits.
+         * - Can be any value between 0 and 128
+         */
+        macLength: number;
+        type: MechParams;
+        constructor(dataLength: number, nonce: Buffer, aad?: Buffer, macLength?: number);
+        toCKI(): pkcs11.AesCCM;
+    }
+
+    class AesGcmParams implements IParams {
+        /**
+         * initialization vector
+         * - The length of the initialization vector can be any number between 1 and 256.
+         * 96-bit (12 byte) IV values can be processed more efficiently,
+         * so that length is recommended for situations in which efficiency is critical.
+         */
+        iv: Buffer;
+        /**
+         * pointer to additional authentication data.
+         * This data is authenticated but not encrypted.
+         */
+        aad: Buffer;
+        /**
+         * length of authentication tag (output following cipher text) in bits.
+         * Can be any value between 0 and 128. Default 128
+         */
+        tagBits: number;
+        type: MechParams;
+        constructor(iv: Buffer, aad?: Buffer, tagBits?: number);
+        toCKI(): pkcs11.AesGCM;
+    }
+
+    // EC
+
+    interface INamedCurve {
+        name: string;
+        oid: string;
+        value: Buffer;
+        size: number;
+    }
+
+    class NamedCurve {
+        static getByName(name: string): INamedCurve;
+        static getByOid(oid: string): INamedCurve;
+    }
+
+    enum EcKdf {
+        NULL,
+        SHA1,
+        SHA224,
+        SHA256,
+        SHA384,
+        SHA512,
+    }
+
+    class EcdhParams implements IParams, pkcs11.ECDH1 {
+        /**
+         * key derivation function used on the shared secret value
+         */
+        kdf: EcKdf;
+        /**
+         * some data shared between the two parties
+         */
+        sharedData: Buffer;
+        /**
+         * other party's EC public key value
+         */
+        publicData: Buffer;
+        type: MechParams;
+        /**
+         * Creates an instance of EcdhParams.
+         *
+         * @param {EcKdf} kdf key derivation function used on the shared secret value
+         * @param {Buffer} [sharedData=null] some data shared between the two parties
+         * @param {Buffer} [publicData=null] other party's EC public key value
+         */
+        constructor(kdf: EcKdf, sharedData?: Buffer, publicData?: Buffer);
+        toCKI(): pkcs11.ECDH1;
+    }
+
+    // Rsa
+
+    enum RsaMgf {
+        MGF1_SHA1,
+        MGF1_SHA224,
+        MGF1_SHA256,
+        MGF1_SHA384,
+        MGF1_SHA512,
+    }
+
+    class RsaOaepParams implements IParams {
+        hashAlgorithm: MechanismEnum;
+        mgf: RsaMgf;
+        source: number;
+        sourceData: Buffer;
+        type: MechParams;
+        constructor(hashAlg?: MechanismEnum, mgf?: RsaMgf, sourceData?: Buffer);
+        toCKI(): pkcs11.RsaOAEP;
+    }
+
+    class RsaPssParams implements IParams {
+        /**
+         * hash algorithm used in the PSS encoding;
+         * - if the signature mechanism does not include message hashing,
+         * then this value must be the mechanism used by the application to generate
+         * the message hash;
+         * - if the signature mechanism includes hashing,
+         * then this value must match the hash algorithm indicated
+         * by the signature mechanism
+         */
+        hashAlgorithm: MechanismEnum;
+        /**
+         * mask generation function to use on the encoded block
+         */
+        mgf: RsaMgf;
+        /**
+         * length, in bytes, of the salt value used in the PSS encoding;
+         * - typical values are the length of the message hash and zero
+         */
+        saltLength: number;
+        type: MechParams;
+        constructor(hashAlg?: MechanismEnum, mgf?: RsaMgf, saltLen?: number);
+        toCKI(): pkcs11.RsaPSS;
+    }
+
+    // ========== Objects ==========
+
+    enum ObjectClass {
+        DATA,
+        CERTIFICATE,
+        PUBLIC_KEY,
+        PRIVATE_KEY,
+        SECRET_KEY,
+        HW_FEATURE,
+        DOMAIN_PARAMETERS,
+        MECHANISM,
+        OTP_KEY,
+    }
+
+    class SessionObject extends HandleObject {
+        /**
+         * Session
+         */
+        session: Session;
+        /**
+         * gets the size of an object in bytes
+         *
+         * @readonly
+         * @type {number}
+         */
+        size: number;
+        class: ObjectClass;
+
+        /**
+         * Creates an instance of SessionObject.
+         *
+         * @param {SessionObject} object
+         */
+        constructor(object: SessionObject);
+        /**
+         * Creates an instance of SessionObject.
+         *
+         * @param {Handle} handle
+         * @param {Session} session
+         * @param {pkcs11.PKCS11} lib
+         */
+        constructor(handle: Handle, session: Session, lib: pkcs11.PKCS11);
+        constructor(handle: SessionObject);
+
+        /**
+         * copies an object, creating a new object for the copy
+         *
+         * @param {ITemplate} template template for the new object
+         * @returns {SessionObject}
+         */
+        copy(template: ITemplate): SessionObject;
+        /**
+         * destroys an object
+         */
+        destroy(): void;
+        getAttribute(attr: string): ITemplate;
+        getAttribute(attrs: ITemplate): ITemplate;
+        setAttribute(attrs: string, value: any): void;
+        setAttribute(attrs: ITemplate): void;
+        get(name: string): any;
+        set(name: string, value: any): void;
+        toType<T extends SessionObject>(): T;
+    }
+
+    class SessionObjectCollection extends Collection<SessionObject> {
+        session: Session;
+
+        constructor(items: Array<Handle>, session: Session, lib: pkcs11.PKCS11, classType?: any);
+
+        items(index: number): SessionObject;
+    }
+
+    class Storage extends SessionObject {
+        /**
+         * `true` if object is a token object;
+         * `false` if object is a session object. Default is `false`.
+         */
+        token: boolean;
+        /**
+         * `true` if object is a private object;
+         * `false` if object is a public object.
+         * Default value is token-specific, and may depend on the values of other attributes of the object.
+         */
+        private: boolean;
+        /**
+         * `true` if object can be modified. Default is `false`
+         */
+        modifiable: boolean;
+        /**
+         * Description of the object (default empty)
+         */
+        label: string;
+    }
+
+    /**
+     * Data objects (object class `CKO_DATA`) hold information defined by an application.
+     * Other than providing access to it, Cryptoki does not attach any special meaning to a data object
+     *
+     * @export
+     * @class Data
+     * @extends {Storage}
+     */
+    class Data extends Storage {
+        /**
+         * Description of the application that manages the object (default empty)
+         *
+         * @type {string}
+         */
+        application: string;
+        /**
+         * DER-encoding of the object identifier indicating the data object type (default empty)
+         *
+         * @type {Buffer}
+         */
+        objectId: Buffer;
+        /**
+         * Value of the object (default empty)
+         *
+         * @type {Buffer}
+         */
+        value: Buffer;
+    }
+
+    class DomainParameters extends Storage {
+        /**
+         * Type of key the domain parameters can be used to generate.
+         */
+        keyType: KeyType;
+        /**
+         * `CK_TRUE` only if domain parameters were either * generated locally (i.e., on the token)
+         * with a `C_GenerateKey` * created with a `C_CopyObject` call as a copy of domain parameters
+         * which had its `CKA_LOCAL` attribute set to `CK_TRUE`
+         */
+        local: boolean;
     }
 
     enum KeyType {
@@ -841,6 +521,638 @@ declare module "graphene-pk11" {
         TWOFISH,
     }
 
+    /**
+     * Definition for the base key object class
+     * - defines the object class `CKO_PUBLIC_KEY`, `CKO_PRIVATE_KEY` and `CKO_SECRET_KEY` for type `CK_OBJECT_CLASS`
+     * as used in the `CKA_CLASS` attribute of objects
+     */
+    class Key extends Storage {
+        /**
+         * Type of key
+         * - Must be specified when object is created with `C_CreateObject`
+         * - Must be specified when object is unwrapped with `C_UnwrapKey`
+         */
+        type: KeyType;
+        /**
+         * Key identifier for key (default empty)
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification
+         * of the attribute during the course of a `C_CopyObject` call.
+         */
+        id: Buffer;
+        /**
+         * Start date for the key (default empty)
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification
+         * of the attribute during the course of a `C_CopyObject` call.
+         */
+        startDate: Date;
+        /**
+         * End date for the key (default empty)
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification
+         * of the attribute during the course of a `C_CopyObject` call.
+         */
+        endDate: Date;
+        /**
+         * `CK_TRUE` if key supports key derivation
+         * (i.e., if other keys can be derived from this one (default `CK_FALSE`)
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification
+         * of the attribute during the course of a `C_CopyObject` call.
+         * @returns boolean
+         */
+        derive: boolean;
+        /**
+         * `CK_TRUE` only if key was either * generated locally (i.e., on the token)
+         * with a `C_GenerateKey` or `C_GenerateKeyPair` call * created with a `C_CopyObject` call
+         * as a copy of a key which had its `CKA_LOCAL` attribute set to `CK_TRUE`
+         * - Must not be specified when object is created with `C_CreateObject`.
+         * - Must not be specified when object is generated with `C_GenerateKey` or `C_GenerateKeyPair`.
+         * - Must not be specified when object is unwrapped with `C_UnwrapKey`.
+         */
+        local: boolean;
+        /**
+         * Identifier of the mechanism used to generate the key material.
+         * - Must not be specified when object is created with `C_CreateObject`.
+         * - Must not be specified when object is generated with `C_GenerateKey` or `C_GenerateKeyPair`.
+         * - Must not be specified when object is unwrapped with `C_UnwrapKey`.
+         */
+        mechanism: KeyGenMechanism;
+        allowedMechanisms: void;
+    }
+
+    /**
+     * Private key objects (object class `CKO_PRIVATE_KEY`) hold private keys
+     */
+    class PrivateKey extends Key {
+        /**
+         * DER-encoding of the key subject name (default empty)
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification of the attribute
+         * during the course of a `C_CopyObject` call.
+         */
+        subject: Buffer;
+        /**
+         * `CK_TRUE` if key is sensitive
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification of the attribute
+         * during the course of a `C_CopyObject` call.
+         * - Attribute cannot be changed once set to CK_TRUE. It becomes a read only attribute.
+         * - Default value is token-specific, and may depend on the values of other attributes.
+         */
+        sensitive: boolean;
+        /**
+         * `CK_TRUE` if key supports decryption
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification of the attribute
+         * during the course of a `C_CopyObject` call.
+         * - Default value is token-specific, and may depend on the values of other attributes.
+         */
+        decrypt: boolean;
+        /**
+         * `CK_TRUE` if key supports signatures where the signature is an appendix to the data
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification of the attribute
+         * during the course of a `C_CopyObject` call.
+         * - Default value is token-specific, and may depend on the values of other attributes.
+         */
+        sign: boolean;
+        /**
+         * `CK_TRUE` if key supports signatures where the data can be recovered from the signature
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification of the attribute
+         * during the course of a `C_CopyObject` call.
+         * - Default value is token-specific, and may depend on the values of other attributes.
+         */
+        signRecover: boolean;
+        /**
+         * `CK_TRUE` if key supports unwrapping (i.e., can be used to unwrap other keys)
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification of the attribute
+         * during the course of a `C_CopyObject` call.
+         * - Default value is token-specific, and may depend on the values of other attributes.
+         */
+        unwrap: boolean;
+        /**
+         * `CK_TRUE` if key is extractable and can be wrapped
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification of the attribute
+         * during the course of a `C_CopyObject` call.
+         * - Attribute cannot be changed once set to `CK_FALSE`. It becomes a read only attribute.
+         * - Default value is token-specific, and may depend on the values of other attributes.
+         */
+        extractable: boolean;
+        /**
+         * `CK_TRUE` if key has always had the `CKA_SENSITIVE` attribute set to `CK_TRUE`
+         * - Must not be specified when object is created with `C_CreateObject`.
+         * - Must not be specified when object is generated with `C_GenerateKey` or `C_GenerateKeyPair`.
+         * - Must not be specified when object is unwrapped with `C_UnwrapKey`.
+         */
+        alwaysSensitive: boolean;
+        /**
+         * `CK_TRUE` if key has never had the `CKA_EXTRACTABLE` attribute set to `CK_TRUE`
+         * - Must not be specified when object is created with `C_CreateObject`.
+         * - Must not be specified when object is generated with `C_GenerateKey` or `C_GenerateKeyPair`.
+         * - Must not be specified when object is unwrapped with `C_UnwrapKey`.
+         */
+        neverExtractable: boolean;
+        /**
+         * `CK_TRUE` if the key can only be wrapped with a wrapping key
+         * that has `CKA_TRUSTED` set to `CK_TRUE`. Default is `CK_FALSE`.
+         * - Attribute cannot be changed once set to `CK_TRUE`. It becomes a read only attribute.
+         */
+        wrapTrusted: boolean;
+        /**
+         * For wrapping keys. The attribute template to apply to any keys unwrapped
+         * using this wrapping key. Any user supplied template is applied after this template
+         * as if the object has already been created.
+         */
+        template: void;
+        alwaysAuthenticate: boolean;
+    }
+
+    /**
+     * Public key objects (object class CKO_PUBLIC_KEY) hold public keys
+     */
+    class PublicKey extends Key {
+        /**
+         * DER-encoding of the key subject name (default empty)
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification of the attribute
+         * during the course of a `C_CopyObject` call.
+         */
+        subject: Buffer;
+        /**
+         * `CK_TRUE` if key supports encryption
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification of the attribute
+         * during the course of a `C_CopyObject` call.
+         * - Default value is token-specific, and may depend on the values of other attributes.
+         */
+        encrypt: boolean;
+        /**
+         * `CK_TRUE` if key supports verification where the signature is an appendix to the data
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification of the attribute
+         * during the course of a `C_CopyObject` call.
+         * - Default value is token-specific, and may depend on the values of other attributes.
+         */
+        verify: boolean;
+        /**
+         * `CK_TRUE` if key supports verification where the data is recovered from the signature
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification of the attribute
+         * during the course of a `C_CopyObject` call.
+         * - Default value is token-specific, and may depend on the values of other attributes.
+         */
+        verifyRecover: boolean;
+        /**
+         * `CK_TRUE` if key supports wrapping (i.e., can be used to wrap other keys)
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification of the attribute
+         * during the course of a `C_CopyObject` call.
+         * - Default value is token-specific, and may depend on the values of other attributes.
+         */
+        wrap: boolean;
+        /**
+         * The key can be trusted for the application that it was created.
+         * - The wrapping key can be used to wrap keys with `CKA_WRAP_WITH_TRUSTED` set to `CK_TRUE`.
+         * - Can only be set to CK_TRUE by the SO user.
+         */
+        trusted: boolean;
+        /**
+         * For wrapping keys. The attribute template to match against any keys wrapped using this wrapping key.
+         * Keys that do not match cannot be wrapped.
+         */
+        template: void;
+    }
+
+    /**
+     * Secret key objects (object class `CKO_SECRET_KEY`) hold secret keys.
+     */
+    class SecretKey extends Key {
+        /**
+         * `CK_TRUE` if key is sensitive
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification of the attribute
+         * during the course of a `C_CopyObject` call.
+         * - Attribute cannot be changed once set to `CK_TRUE`. It becomes a read only attribute.
+         */
+        sensitive: boolean;
+        /**
+         * `CK_TRUE` if key supports encryption
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification of the attribute
+         * during the course of a `C_CopyObject` call.
+         * - Default value is token-specific, and may depend on the values of other attributes.
+         */
+        encrypt: boolean;
+        /**
+         * `CK_TRUE` if key supports decryption
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification of the attribute
+         * during the course of a `C_CopyObject` call.
+         * - Default value is token-specific, and may depend on the values of other attributes.
+         */
+        decrypt: boolean;
+        /**
+         * `CK_TRUE` if key supports verification (i.e., of authentication codes) where the signature is an appendix to the data
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification of the attribute
+         * during the course of a `C_CopyObject` call.
+         * - Default value is token-specific, and may depend on the values of other attributes.
+         */
+        verify: boolean;
+        /**
+         * 	`CK_TRUE` if key supports signatures (i.e., authentication codes) where the signature is an appendix to the data
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification of the attribute
+         * during the course of a `C_CopyObject` call.
+         * - Default value is token-specific, and may depend on the values of other attributes.
+         */
+        sign: boolean;
+        /**
+         * `CK_TRUE` if key supports wrapping (i.e., can be used to wrap other keys)
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification of the attribute
+         * during the course of a `C_CopyObject` call.
+         * - Default value is token-specific, and may depend on the values of other attributes.
+         */
+        wrap: boolean;
+        /**
+         * `CK_TRUE` if key supports unwrapping (i.e., can be used to unwrap other keys)
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification of the attribute
+         * during the course of a `C_CopyObject` call.
+         * - Default value is token-specific, and may depend on the values of other attributes.
+         */
+        unwrap: boolean;
+        /**
+         * `CK_TRUE` if key is extractable and can be wrapped
+         * - May be modified after object is created with a `C_SetAttributeValue` call,
+         * or in the process of copying object with a `C_CopyObject` call.
+         * However, it is possible that a particular token may not permit modification of the attribute
+         * during the course of a `C_CopyObject` call.
+         * - Attribute cannot be changed once set to `CK_FALSE`. It becomes a read only attribute.
+         * - Default value is token-specific, and may depend on the values of other attributes.
+         */
+        extractable: boolean;
+        /**
+         * `CK_TRUE` if key has always had the `CKA_SENSITIVE` attribute set to `CK_TRUE`
+         * - Must not be specified when object is created with `C_CreateObject`.
+         * - Must not be specified when object is generated with `C_GenerateKey` or `C_GenerateKeyPair`.
+         * - Must not be specified when object is unwrapped with `C_UnwrapKey`.
+         */
+        alwaysSensitive: boolean;
+        /**
+         * `CK_TRUE` if key has never had the `CKA_EXTRACTABLE` attribute set to `CK_TRUE`
+         * - Must not be specified when object is created with `C_CreateObject`.
+         * - Must not be specified when object is generated with `C_GenerateKey` or `C_GenerateKeyPair`.
+         * - Must not be specified when object is unwrapped with `C_UnwrapKey`.
+         */
+        neverExtractable: boolean;
+        /**
+         * Key checksum
+         */
+        checkValue: Buffer;
+        /**
+         * `CK_TRUE` if the key can only be wrapped with a wrapping key
+         * that has `CKA_TRUSTED` set to `CK_TRUE`. Default is `CK_FALSE`.
+         * - Attribute cannot be changed once set to `CK_TRUE`. It becomes a read only attribute.
+         */
+        wrapTrusted: boolean;
+        /**
+         * The wrapping key can be used to wrap keys with `CKA_WRAP_WITH_TRUSTED` set to `CK_TRUE`.
+         * - Can only be set to CK_TRUE by the SO user.
+         */
+        trusted: boolean;
+        /**
+         * For wrapping keys.
+         * The attribute template to match against any keys wrapped using this wrapping key.
+         * Keys that do not match cannot be wrapped.
+         */
+        wrapTemplate: void;
+        /**
+         * For wrapping keys.
+         * The attribute template to apply to any keys unwrapped using this wrapping key.
+         * Any user supplied template is applied after this template as if the object has already been created.
+         */
+        unwrapTemplate: void;
+    }
+
+    enum CertificateType {
+        X_509,
+        X_509_ATTR_CERT,
+        WTLS,
+    }
+
+    enum CertificateCategory {
+        Unspecified,
+        TokenUser,
+        Authority,
+        OtherEntity,
+    }
+
+    /**
+     * Certificate objects (object class CKO_CERTIFICATE) hold public-key or attribute certificates
+     */
+    class Certificate extends Storage {
+        /**
+         * Type of certificate
+         */
+        type: CertificateType;
+        /**
+         * The certificate can be trusted for the application that it was created.
+         */
+        trusted: boolean;
+        /**
+         * Categorization of the certificate
+         */
+        category: CertificateCategory;
+        /**
+         * Checksum
+         */
+        checkValue: Buffer;
+        /**
+         * Start date for the certificate (default empty)
+         */
+        startDate: Date;
+        /**
+         * End date for the certificate (default empty)
+         */
+        endDate: Date;
+    }
+
+    /**
+     * X.509 attribute certificate objects (certificate type `CKC_X_509_ATTR_CERT`) hold X.509 attribute certificates
+     */
+    class AttributeCertificate extends Certificate {
+        /**
+         * DER-encoding of the attribute certificate's subject field.
+         * This is distinct from the `CKA_SUBJECT` attribute contained in `CKC_X_509` certificates
+         * because the `ASN.1` syntax and encoding are different.
+         * - Must be specified when the object is created
+         */
+        owner: Buffer;
+        /**
+         * DER-encoding of the attribute certificate's issuer field.
+         * This is distinct from the `CKA_ISSUER` attribute contained in `CKC_X_509` certificates
+         * because the ASN.1 syntax and encoding are different. (default empty)
+         */
+        issuer: Buffer;
+        /**
+         * DER-encoding of the certificate serial number (default empty)
+         */
+        serialNumber: Buffer;
+        /**
+         * BER-encoding of a sequence of object identifier values corresponding
+         * to the attribute types contained in the certificate.
+         * When present, this field offers an opportunity for applications
+         * to search for a particular attribute certificate without fetching
+         * and parsing the certificate itself. (default empty)
+         */
+        types: Buffer;
+        /**
+         * BER-encoding of the certificate
+         * - Must be specified when the object is created.
+         */
+        value: Buffer;
+    }
+
+    /**
+     * WTLS certificate objects (certificate type `CKC_WTLS`) hold WTLS public key certificates
+     */
+    class WtlsCertificate extends Certificate {
+        /**
+         * WTLS-encoding (Identifier type) of the certificate subject
+         * - Must be specified when the object is created.
+         * - Can only be empty if `CKA_VALUE` is empty.
+         */
+        subject: Buffer;
+        /**
+         * WTLS-encoding (Identifier type) of the certificate issuer (default empty)
+         */
+        issuer: Buffer;
+        /**
+         * Key identifier for public/private key pair (default empty)
+         */
+        id: Buffer;
+        /**
+         * WTLS-encoding of the certificate
+         * - Must be specified when the object is created.
+         * - Must be non-empty if `CKA_URL` is empty.
+         */
+        value: Buffer;
+        /**
+         * If not empty this attribute gives the URL where the complete certificate
+         * can be obtained (default empty)
+         * - Must be non-empty if `CKA_VALUE` is empty
+         */
+        url: string;
+        /**
+         * DER-encoding of the certificate serial number (default empty)
+         */
+        serialNumber: Buffer;
+        /**
+         * SHA-1 hash of the subject public key (default empty)
+         * - Can only be empty if `CKA_URL` is empty.
+         */
+        subjetcKeyIdentifier: Buffer;
+        /**
+         * SHA-1 hash of the issuer public key (default empty)
+         * - Can only be empty if `CKA_URL` is empty.
+         */
+        authorityKeyIdentifier: Buffer;
+    }
+
+    enum JavaMIDP {
+        Unspecified,
+        Manufacturer,
+        Operator,
+        ThirdParty,
+    }
+
+    /**
+     * X.509 certificate objects (certificate type `CKC_X_509`) hold X.509 public key certificates
+     */
+    class X509Certificate extends Certificate {
+        /**
+         * DER-encoding of the certificate subject name
+         * - Must be specified when the object is created.
+         * - Must be non-empty if `CKA_URL` is empty.
+         */
+        subject: Buffer;
+        /**
+         * Key identifier for public/private key pair (default empty)
+         */
+        id: Buffer;
+        /**
+         * DER-encoding of the certificate issuer name (default empty)
+         */
+        issuer: Buffer;
+        /**
+         * HEX-encoding of the certificate serial number (default empty)
+         */
+        serialNumber: string;
+        /**
+         * BER-encoding of the certificate
+         * - Must be specified when the object is created.
+         * - Must be non-empty if `CKA_URL` is empty.
+         */
+        value: Buffer;
+        /**
+         * If not empty this attribute gives the URL where the complete certificate
+         * can be obtained (default empty)
+         * - Must be non-empty if `CKA_VALUE` is empty
+         */
+        url: string;
+        /**
+         * SHA-1 hash of the subject public key (default empty)
+         * - Can only be empty if `CKA_URL` is empty.
+         */
+        subjetcKeyIdentifier: Buffer;
+        /**
+         * SHA-1 hash of the issuer public key (default empty)
+         * - Can only be empty if `CKA_URL` is empty.
+         */
+        authorityKeyIdentifier: Buffer;
+        /**
+         * Java MIDP security domain
+         */
+        java: JavaMIDP;
+    }
+
+    interface IAlgorithm {
+        name: string;
+        params: Buffer | IParams;
+    }
+
+    type MechanismType = MechanismEnum | KeyGenMechanism | IAlgorithm | string;
+
+    enum MechanismFlag {
+        /**
+         * `True` if the mechanism is performed by the device; `false` if the mechanism is performed in software
+         */
+        HW,
+        /**
+         * `True` if the mechanism can be used with encrypt function
+         */
+        ENCRYPT,
+        /**
+         * `True` if the mechanism can be used with decrypt function
+         */
+        DECRYPT,
+        /**
+         * `True` if the mechanism can be used with digest function
+         */
+        DIGEST,
+        /**
+         * `True` if the mechanism can be used with sign function
+         */
+        SIGN,
+        /**
+         * `True` if the mechanism can be used with sign recover function
+         */
+        SIGN_RECOVER,
+        /**
+         * `True` if the mechanism can be used with verify function
+         */
+        VERIFY,
+        /**
+         * `True` if the mechanism can be used with verify recover function
+         */
+        VERIFY_RECOVER,
+        /**
+         * `True` if the mechanism can be used with geberate function
+         */
+        GENERATE,
+        /**
+         * `True` if the mechanism can be used with generate key pair function
+         */
+        GENERATE_KEY_PAIR,
+        /**
+         * `True` if the mechanism can be used with wrap function
+         */
+        WRAP,
+        /**
+         * `True` if the mechanism can be used with unwrap function
+         */
+        UNWRAP,
+        /**
+         * `True` if the mechanism can be used with derive function
+         */
+        DERIVE,
+    }
+
+    class Mechanism extends BaseObject {
+
+        protected handle: number;
+        protected slotHandle: Handle;
+
+        /**
+         * the minimum size of the key for the mechanism
+         * _whether this is measured in bits or in bytes is mechanism-dependent_
+         */
+        minKeySize: number;
+        /**
+         * the maximum size of the key for the mechanism
+         * _whether this is measured in bits or in bytes is mechanism-dependent_
+         */
+        maxKeySize: number;
+        /**
+         * bit flag specifying mechanism capabilities
+         */
+        flags: number;
+        /**
+         * returns string name from MechanismEnum
+         */
+        name: string;
+
+        constructor(handle: number, slotHandle: Handle, lib: pkcs11.PKCS11);
+
+        protected getInfo(): void;
+
+        static create(alg: MechanismType): pkcs11.Mechanism;
+        static vendor(jsonFile: string): void;
+        static vendor(name: string, value: number): void;
+    }
+
+    class MechanismCollection extends Collection<Mechanism> {
+
+        protected slotHandle: Handle;
+
+        constructor(items: Array<number>, slotHandle: Handle, lib: pkcs11.PKCS11, classType?: typeof Mechanism);
+        /**
+         * returns item from collection by index
+         * @param {number} index of element in collection `[0..n]`
+         */
+        items(index: number): Mechanism;
+    }
+
     enum MechanismEnum {
         RSA_PKCS_KEY_PAIR_GEN,
         RSA_PKCS,
@@ -860,6 +1172,10 @@ declare module "graphene-pk11" {
         DSA_KEY_PAIR_GEN,
         DSA,
         DSA_SHA1,
+        DSA_SHA224,
+        DSA_SHA256,
+        DSA_SHA384,
+        DSA_SHA512,
         DH_PKCS_KEY_PAIR_GEN,
         DH_PKCS_DERIVE,
         X9_42_DH_KEY_PAIR_GEN,
@@ -1024,10 +1340,6 @@ declare module "graphene-pk11" {
         WTLS_CLIENT_KEY_AND_MAC_DERIVE,
         KEY_WRAP_LYNKS,
         KEY_WRAP_SET_OAEP,
-        CMS_SIG,
-        KIP_DERIVE,
-        KIP_WRAP,
-        KIP_MAC,
         CAMELLIA_KEY_GEN,
         CAMELLIA_ECB,
         CAMELLIA_CBC,
@@ -1125,204 +1437,197 @@ declare module "graphene-pk11" {
         VENDOR_DEFINED,
     }
 
-    interface IParams {
-        toCKI(): Buffer;
+    enum SessionFlag {
+        /**
+         * `True` if the session is read/write; `false` if the session is read-only
+         */
+        RW_SESSION,
+        /**
+         * This flag is provided for backward compatibility, and should always be set to `true`
+         */
+        SERIAL_SESSION,
     }
 
-    interface IAlgorithm {
-        name: string;
-        params: Buffer | IParams;
+    enum UserType {
+        /**
+         * Security Officer
+         */
+        SO,
+        /**
+         * User
+         */
+        USER,
+        /**
+         * Context specific
+         */
+        CONTEXT_SPECIFIC,
     }
 
-    type MechanismType = MechanismEnum | KeyGenMechanism | IAlgorithm | string;
-
-    enum MechanismFlag {
-        /**
-         * `True` if the mechanism is performed by the device; `false` if the mechanism is performed in software
-         */
-        HW,
-        /**
-         * `True` if the mechanism can be used with encrypt function
-         */
-        ENCRYPT,
-        /**
-         * `True` if the mechanism can be used with decrypt function
-         */
-        DECRYPT,
-        /**
-         * `True` if the mechanism can be used with digest function
-         */
-        DIGEST,
-        /**
-         * `True` if the mechanism can be used with sign function
-         */
-        SIGN,
-        /**
-         * `True` if the mechanism can be used with sign recover function
-         */
-        SIGN_RECOVER,
-        /**
-         * `True` if the mechanism can be used with verify function
-         */
-        VERIFY,
-        /**
-         * `True` if the mechanism can be used with verify recover function
-         */
-        VERIFY_RECOVER,
-        /**
-         * `True` if the mechanism can be used with geberate function
-         */
-        GENERATE,
-        /**
-         * `True` if the mechanism can be used with generate key pair function
-         */
-        GENERATE_KEY_PAIR,
-        /**
-         * `True` if the mechanism can be used with wrap function
-         */
-        WRAP,
-        /**
-         * `True` if the mechanism can be used with unwrap function
-         */
-        UNWRAP,
-        /**
-         * `True` if the mechanism can be used with derive function
-         */
-        DERIVE,
+    interface IKeyPair {
+        privateKey: PrivateKey;
+        publicKey: PublicKey;
     }
-    class Mechanism extends HandleObject {
-        protected slotHandle: number;
+
+    /**
+     * provides information about a session
+     *
+     * @export
+     * @class Session
+     * @extends {core.HandleObject}
+     */
+    class Session extends HandleObject {
+
+        constructor(handle: Handle, slot: Slot, lib: pkcs11.PKCS11);
         /**
-         * the minimum size of the key for the mechanism
-         * _whether this is measured in bits or in bytes is mechanism-dependent_
+         * Slot
+         *
+         * @type {Slot}
          */
-        minKeySize: number;
+        slot: Slot;
         /**
-         * the maximum size of the key for the mechanism
-         * _whether this is measured in bits or in bytes is mechanism-dependent_
+         * the state of the session
+         *
+         * @type {number}
          */
-        maxKeySize: number;
+        state: number;
         /**
-         * bit flag specifying mechanism capabilities
+         * bit flags that define the type of session
+         *
+         * @type {number}
          */
         flags: number;
         /**
-         * returns string name from MechanismEnum
+         * an error code defined by the cryptographic device. Used for errors not covered by Cryptoki
+         *
+         * @type {number}
          */
-        name: string;
-        constructor(handle: number, slotHandle: number, lib: Pkcs11);
+        deviceError: number;
+
         protected getInfo(): void;
-        static create(alg: MechanismType): Buffer;
-        static vendor(jsonFile: string): any;
-        static vendor(name: string, value: number): any;
-    }
 
-    class MechanismCollection extends Collection<Mechanism> {
-        protected slotHandle: number;
-        constructor(items: Array<number>, slotHandle: number, lib: Pkcs11, classType?: typeof Mechanism);
         /**
-         * returns item from collection by index
-         * @param {number} index of element in collection `[0..n]`
+         * closes a session between an application and a token
          */
-        items(index: number): Mechanism;
-    }
-
-    /**
-     * Definition for the base key object class
-     * - defines the object class `CKO_PUBLIC_KEY`, `CKO_PRIVATE_KEY` and `CKO_SECRET_KEY` for type `CK_OBJECT_CLASS`
-     * as used in the `CKA_CLASS` attribute of objects
-     */
-    class Key extends Storage {
+        close(): void;
         /**
-         * Type of key
-         * - Must be specified when object is created with `C_CreateObject`
-         * - Must be specified when object is unwrapped with `C_UnwrapKey`
+         * initializes the normal user's PIN
+         * @param {string} pin the normal user's PIN
          */
-        type: KeyType;
+        initPin(pin: string): void;
         /**
-         * Key identifier for key (default empty)
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification
-         * of the attribute during the course of a `C_CopyObject` call.
+         * modifies the PIN of the user who is logged in
+         * @param {string} oldPin
+         * @param {string} newPin
          */
-        id: Buffer;
+        setPin(oldPin: string, newPin: string): void;
         /**
-         * Start date for the key (default empty)
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification
-         * of the attribute during the course of a `C_CopyObject` call.
+         * obtains a copy of the cryptographic operations state of a session, encoded as a string of bytes
          */
-        startDate: Date;
+        getOperationState(): Buffer;
         /**
-         * End date for the key (default empty)
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification
-         * of the attribute during the course of a `C_CopyObject` call.
+         * restores the cryptographic operations state of a session
+         * from a string of bytes obtained with getOperationState
+         * @param {Buffer} state the saved state
+         * @param {number} encryptionKey holds key which will be used for an ongoing encryption
+         * or decryption operation in the restored session
+         * (or 0 if no encryption or decryption key is needed,
+         * either because no such operation is ongoing in the stored session
+         * or because all the necessary key information is present in the saved state)
+         * @param {number} authenticationKey holds a handle to the key which will be used for an ongoing signature,
+         * MACing, or verification operation in the restored session
+         * (or 0 if no such key is needed, either because no such operation is ongoing in the stored session
+         * or because all the necessary key information is present in the saved state)
          */
-        endDate: Date;
+        setOperationState(state: Buffer, encryptionKey?: number, authenticationKey?: number): void;
         /**
-         * `CK_TRUE` if key supports key derivation
-         * (i.e., if other keys can be derived from this one (default `CK_FALSE`)
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification
-         * of the attribute during the course of a `C_CopyObject` call.
-         * @returns boolean
+         * logs a user into a token
+         * @param {string} pin the user's PIN.
+         * - This standard allows PIN values to contain any valid `UTF8` character,
+         * but the token may impose subset restrictions
+         * @param {} userType the user type. Default is `USER`
          */
-        derive: boolean;
+        login(pin: string, userType?: UserType): void;
         /**
-         * `CK_TRUE` only if key was either * generated locally (i.e., on the token)
-         * with a `C_GenerateKey` or `C_GenerateKeyPair` call * created with a `C_CopyObject` call
-         * as a copy of a key which had its `CKA_LOCAL` attribute set to `CK_TRUE`
-         * - Must not be specified when object is created with `C_CreateObject`.
-         * - Must not be specified when object is generated with `C_GenerateKey` or `C_GenerateKeyPair`.
-         * - Must not be specified when object is unwrapped with `C_UnwrapKey`.
+         * logs a user out from a token
          */
-        local: boolean;
+        logout(): void;
         /**
-         * Identifier of the mechanism used to generate the key material.
-         * - Must not be specified when object is created with `C_CreateObject`.
-         * - Must not be specified when object is generated with `C_GenerateKey` or `C_GenerateKeyPair`.
-         * - Must not be specified when object is unwrapped with `C_UnwrapKey`.
+         * creates a new object
+         * - Only session objects can be created during a read-only session.
+         * - Only public objects can be created unless the normal user is logged in.
+         * @param {ITemplate} template the object's template
+         * @returns {SessionObject}
          */
-        mechanism: KeyGenMechanism;
-        allowedMechanisms: void;
-    }
-
-
-    class DomainParameters extends Storage {
+        create(template: ITemplate): SessionObject;
         /**
-         * Type of key the domain parameters can be used to generate.
+         * Copies an object, creating a new object for the copy
+         * @param {SessionObject} object the copied object
+         * @param {ITemplate} template template for new object
+         * @returns {SessionObject}
          */
-        keyType: KeyType;
+        copy(object: SessionObject, template: ITemplate): SessionObject;
         /**
-         * `CK_TRUE` only if domain parameters were either * generated locally (i.e., on the token)
-         * with a `C_GenerateKey` * created with a `C_CopyObject` call as a copy of domain parameters
-         * which had its `CKA_LOCAL` attribute set to `CK_TRUE`
+         * removes all session objects matched to template
+         * - if template is null, removes all session objects
+         * - returns a number of destroied session objects
+         * @param {ITemplate} template template
          */
-        local: boolean;
-    }
-
-    /**
-     * Data objects (object class `CKO_DATA`) hold information defined by an application.
-     * Other than providing access to it, Cryptoki does not attach any special meaning to a data object
-     */
-    class Data extends Storage {
+        destroy(template: ITemplate): number;
         /**
-         * Description of the application that manages the object (default empty)
+         * @param {SessionObject} object
          */
-        application: string;
+        destroy(object: SessionObject): number;
+        destroy(): number;
         /**
-         * DER-encoding of the object identifier indicating the data object type (default empty)
+         * removes all session objects
+         * - returns a number of destroied session objects
          */
-        objectId: Buffer;
+        clear(): number;
         /**
-         * Value of the object (default empty)
+         * returns a collection of session objects mached to template
+         * @param template template
+         * @param callback optional callback function wich is called for each founded object
+         * - if callback function returns false, it breaks find function.
          */
-        value: Buffer;
+        find(callback?: (obj: SessionObject) => any): SessionObjectCollection;
+        find(template: ITemplate, callback?: (obj: SessionObject, index: number) => any): SessionObjectCollection;
+        /**
+         * Returns object from session by handle
+         * @param  {number} handle handle of object
+         * @returns T
+         */
+        getObject<T extends SessionObject>(handle: Handle): T;
+        /**
+         * generates a secret key or set of domain parameters, creating a new object.
+         * @param mechanism generation mechanism
+         * @param template template for the new key or set of domain parameters
+         */
+        generateKey(mechanism: MechanismType, template?: ITemplate): SecretKey;
+        generateKey(mechanism: MechanismType, template: ITemplate, callback: (err: Error, key: SecretKey) => void): void;
+        generateKeyPair(mechanism: MechanismType, publicTemplate: ITemplate, privateTemplate: ITemplate): IKeyPair;
+        generateKeyPair(mechanism: MechanismType, publicTemplate: ITemplate, privateTemplate: ITemplate, callback: (err: Error, keys: IKeyPair) => void): void;
+        createSign(alg: MechanismType, key: Key): Sign;
+        createVerify(alg: MechanismType, key: Key): Verify;
+        createCipher(alg: MechanismType, key: Key): Cipher;
+        createDecipher(alg: MechanismType, key: Key, blockSize?: number): Decipher;
+        createDigest(alg: MechanismType): Digest;
+        wrapKey(alg: MechanismType, wrappingKey: Key, key: Key): Buffer;
+        wrapKey(alg: MechanismType, wrappingKey: Key, key: Key, callback: (err: Error, wkey: Buffer) => void): void;
+        unwrapKey(alg: MechanismType, unwrappingKey: Key, wrappedKey: Buffer, template: ITemplate): Key;
+        unwrapKey(alg: MechanismType, unwrappingKey: Key, wrappedKey: Buffer, template: ITemplate, callback: (err: Error, key: Key) => void): void;
+        /**
+         * derives a key from a base key, creating a new key object
+         * @param {MechanismType} alg key deriv. mech
+         * @param {Key} baseKey base key
+         * @param {ITemplate} template new key template
+         */
+        deriveKey(alg: MechanismType, baseKey: Key, template: ITemplate): SecretKey;
+        deriveKey(alg: MechanismType, baseKey: Key, template: ITemplate, callback: (err: Error, key: Key) => void): void;
+        /**
+         * generates random data
+         * @param {number} size \# of bytes to generate
+         */
+        generateRandom(size: number): Buffer;
     }
 
     interface ITemplate {
@@ -1638,7 +1943,7 @@ declare module "graphene-pk11" {
         /**
          * CKA_OTP_USER_IDENTIFIER
          */
-        OtpUserId?: any;
+        otpUserId?: any;
         /**
          * CKA_OTP_SERVICE_IDENTIFIER
          */
@@ -1724,374 +2029,10 @@ declare module "graphene-pk11" {
          */
         allowedMechanisms?: any;
     }
-    class Attribute {
-        protected $value: Buffer;
-        type: number;
-        name: string;
-        convertType: string;
-        length: number;
-        value: any;
-        constructor(type: number, value?: any);
-        constructor(type: string, value?: any);
-        get(): any;
-        set(template: any): void;
-    }
+
     class Template {
-        protected attrs: Attribute[];
-        length: number;
-        constructor(template: string);
-        constructor(template: ITemplate);
-        set(v: any): Template;
-        ref(): Buffer;
-        serialize(): any;
-    }
-
-    class BaseObject {
-        protected lib: Pkcs11;
-        constructor(lib?: Pkcs11);
-    }
-    class HandleObject extends BaseObject {
-        /**
-         * handle to pkcs11 object
-         */
-        handle: number;
-        constructor(handle: number, lib: Pkcs11);
-        protected getInfo(): void;
-    }
-
-    enum ObjectClass {
-        DATA,
-        CERTIFICATE,
-        PUBLIC_KEY,
-        PRIVATE_KEY,
-        SECRET_KEY,
-        HW_FEATURE,
-        DOMAIN_PARAMETERS,
-        MECHANISM,
-        OTP_KEY,
-    }
-
-    class SessionObject extends HandleObject {
-        /**
-         * Session
-         */
-        session: Session;
-        /**
-         * gets the size of an object in bytes
-         */
-        size: number;
-        constructor(object: SessionObject);
-        constructor(handle: number, session: Session, lib: Pkcs11);
-        /**
-         * copies an object, creating a new object for the copy
-         * @param {ITemplate} template template for the new object
-         */
-        copy(template: ITemplate): SessionObject;
-        /**
-         * destroys an object
-         */
-        destroy(): void;
-        getAttribute(attr: string): ITemplate;
-        getAttribute(attrs: ITemplate): ITemplate;
-        setAttribute(attrs: string, value: any): any;
-        setAttribute(attrs: ITemplate): any;
-        protected get(name: string): any;
-        protected set(name: string, value: any): void;
-        class: ObjectClass;
-        toType<T extends SessionObject>(): T;
-    }
-
-    class SessionObjectCollection extends Collection<SessionObject> {
-        session: Session;
-        items(index: number): SessionObject;
-        constructor(items: Array<number>, session: Session, lib: Pkcs11, classType?: any);
-    }
-
-    /**
-     * Private key objects (object class `CKO_PRIVATE_KEY`) hold private keys
-     */
-    class PrivateKey extends Key {
-        /**
-         * DER-encoding of the key subject name (default empty)
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification of the attribute
-         * during the course of a `C_CopyObject` call.
-         */
-        subject: Buffer;
-        /**
-         * `CK_TRUE` if key is sensitive
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification of the attribute
-         * during the course of a `C_CopyObject` call.
-         * - Attribute cannot be changed once set to CK_TRUE. It becomes a read only attribute.
-         * - Default value is token-specific, and may depend on the values of other attributes.
-         */
-        sensitive: boolean;
-        /**
-         * `CK_TRUE` if key supports decryption
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification of the attribute
-         * during the course of a `C_CopyObject` call.
-         * - Default value is token-specific, and may depend on the values of other attributes.
-         */
-        decrypt: boolean;
-        /**
-         * `CK_TRUE` if key supports signatures where the signature is an appendix to the data
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification of the attribute
-         * during the course of a `C_CopyObject` call.
-         * - Default value is token-specific, and may depend on the values of other attributes.
-         */
-        sign: boolean;
-        /**
-         * `CK_TRUE` if key supports signatures where the data can be recovered from the signature
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification of the attribute
-         * during the course of a `C_CopyObject` call.
-         * - Default value is token-specific, and may depend on the values of other attributes.
-         */
-        signRecover: boolean;
-        /**
-         * `CK_TRUE` if key supports unwrapping (i.e., can be used to unwrap other keys)
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification of the attribute
-         * during the course of a `C_CopyObject` call.
-         * - Default value is token-specific, and may depend on the values of other attributes.
-         */
-        unwrap: boolean;
-        /**
-         * `CK_TRUE` if key is extractable and can be wrapped
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification of the attribute
-         * during the course of a `C_CopyObject` call.
-         * - Attribute cannot be changed once set to `CK_FALSE`. It becomes a read only attribute.
-         * - Default value is token-specific, and may depend on the values of other attributes.
-         */
-        extractable: boolean;
-        /**
-         * `CK_TRUE` if key has always had the `CKA_SENSITIVE` attribute set to `CK_TRUE`
-         * - Must not be specified when object is created with `C_CreateObject`.
-         * - Must not be specified when object is generated with `C_GenerateKey` or `C_GenerateKeyPair`.
-         * - Must not be specified when object is unwrapped with `C_UnwrapKey`.
-         */
-        alwaysSensitive: boolean;
-        /**
-         * `CK_TRUE` if key has never had the `CKA_EXTRACTABLE` attribute set to `CK_TRUE`
-         * - Must not be specified when object is created with `C_CreateObject`.
-         * - Must not be specified when object is generated with `C_GenerateKey` or `C_GenerateKeyPair`.
-         * - Must not be specified when object is unwrapped with `C_UnwrapKey`.
-         */
-        neverExtractable: boolean;
-        /**
-         * `CK_TRUE` if the key can only be wrapped with a wrapping key
-         * that has `CKA_TRUSTED` set to `CK_TRUE`. Default is `CK_FALSE`.
-         * - Attribute cannot be changed once set to `CK_TRUE`. It becomes a read only attribute.
-         */
-        wrapTrusted: boolean;
-        /**
-         * For wrapping keys. The attribute template to apply to any keys unwrapped
-         * using this wrapping key. Any user supplied template is applied after this template
-         * as if the object has already been created.
-         */
-        template: void;
-        alwaysAuthenticate: boolean;
-    }
-
-    /**
-     * Public key objects (object class CKO_PUBLIC_KEY) hold public keys
-     */
-    class PublicKey extends Key {
-        /**
-         * DER-encoding of the key subject name (default empty)
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification of the attribute
-         * during the course of a `C_CopyObject` call.
-         */
-        subject: Buffer;
-        /**
-         * `CK_TRUE` if key supports encryption
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification of the attribute
-         * during the course of a `C_CopyObject` call.
-         * - Default value is token-specific, and may depend on the values of other attributes.
-         */
-        encrypt: boolean;
-        /**
-         * `CK_TRUE` if key supports verification where the signature is an appendix to the data
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification of the attribute
-         * during the course of a `C_CopyObject` call.
-         * - Default value is token-specific, and may depend on the values of other attributes.
-         */
-        verify: boolean;
-        /**
-         * `CK_TRUE` if key supports verification where the data is recovered from the signature
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification of the attribute
-         * during the course of a `C_CopyObject` call.
-         * - Default value is token-specific, and may depend on the values of other attributes.
-         */
-        verifyRecover: boolean;
-        /**
-         * `CK_TRUE` if key supports wrapping (i.e., can be used to wrap other keys)
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification of the attribute
-         * during the course of a `C_CopyObject` call.
-         * - Default value is token-specific, and may depend on the values of other attributes.
-         */
-        wrap: boolean;
-        /**
-         * The key can be trusted for the application that it was created.
-         * - The wrapping key can be used to wrap keys with `CKA_WRAP_WITH_TRUSTED` set to `CK_TRUE`.
-         * - Can only be set to CK_TRUE by the SO user.
-         */
-        trusted: boolean;
-        /**
-         * For wrapping keys. The attribute template to match against any keys wrapped using this wrapping key.
-         * Keys that do not match cannot be wrapped.
-         */
-        template: void;
-    }
-
-    /**
-     * Secret key objects (object class `CKO_SECRET_KEY`) hold secret keys.
-     */
-    class SecretKey extends Key {
-        /**
-         * `CK_TRUE` if key is sensitive
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification of the attribute
-         * during the course of a `C_CopyObject` call.
-         * - Attribute cannot be changed once set to `CK_TRUE`. It becomes a read only attribute.
-         */
-        sensitive: boolean;
-        /**
-         * `CK_TRUE` if key supports encryption
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification of the attribute
-         * during the course of a `C_CopyObject` call.
-         * - Default value is token-specific, and may depend on the values of other attributes.
-         */
-        encrypt: boolean;
-        /**
-         * `CK_TRUE` if key supports decryption
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification of the attribute
-         * during the course of a `C_CopyObject` call.
-         * - Default value is token-specific, and may depend on the values of other attributes.
-         */
-        decrypt: boolean;
-        /**
-         * `CK_TRUE` if key supports verification (i.e., of authentication codes) where the signature is an appendix to the data
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification of the attribute
-         * during the course of a `C_CopyObject` call.
-         * - Default value is token-specific, and may depend on the values of other attributes.
-         */
-        verify: boolean;
-        /**
-         * 	`CK_TRUE` if key supports signatures (i.e., authentication codes) where the signature is an appendix to the data
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification of the attribute
-         * during the course of a `C_CopyObject` call.
-         * - Default value is token-specific, and may depend on the values of other attributes.
-         */
-        sign: boolean;
-        /**
-         * `CK_TRUE` if key supports wrapping (i.e., can be used to wrap other keys)
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification of the attribute
-         * during the course of a `C_CopyObject` call.
-         * - Default value is token-specific, and may depend on the values of other attributes.
-         */
-        wrap: boolean;
-        /**
-         * `CK_TRUE` if key supports unwrapping (i.e., can be used to unwrap other keys)
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification of the attribute
-         * during the course of a `C_CopyObject` call.
-         * - Default value is token-specific, and may depend on the values of other attributes.
-         */
-        unwrap: boolean;
-        /**
-         * `CK_TRUE` if key is extractable and can be wrapped
-         * - May be modified after object is created with a `C_SetAttributeValue` call,
-         * or in the process of copying object with a `C_CopyObject` call.
-         * However, it is possible that a particular token may not permit modification of the attribute
-         * during the course of a `C_CopyObject` call.
-         * - Attribute cannot be changed once set to `CK_FALSE`. It becomes a read only attribute.
-         * - Default value is token-specific, and may depend on the values of other attributes.
-         */
-        extractable: boolean;
-        /**
-         * `CK_TRUE` if key has always had the `CKA_SENSITIVE` attribute set to `CK_TRUE`
-         * - Must not be specified when object is created with `C_CreateObject`.
-         * - Must not be specified when object is generated with `C_GenerateKey` or `C_GenerateKeyPair`.
-         * - Must not be specified when object is unwrapped with `C_UnwrapKey`.
-         */
-        alwaysSensitive: boolean;
-        /**
-         * `CK_TRUE` if key has never had the `CKA_EXTRACTABLE` attribute set to `CK_TRUE`
-         * - Must not be specified when object is created with `C_CreateObject`.
-         * - Must not be specified when object is generated with `C_GenerateKey` or `C_GenerateKeyPair`.
-         * - Must not be specified when object is unwrapped with `C_UnwrapKey`.
-         */
-        neverExtractable: boolean;
-        /**
-         * Key checksum
-         */
-        checkValue: Buffer;
-        /**
-         * `CK_TRUE` if the key can only be wrapped with a wrapping key
-         * that has `CKA_TRUSTED` set to `CK_TRUE`. Default is `CK_FALSE`.
-         * - Attribute cannot be changed once set to `CK_TRUE`. It becomes a read only attribute.
-         */
-        wrapTrusted: boolean;
-        /**
-         * The wrapping key can be used to wrap keys with `CKA_WRAP_WITH_TRUSTED` set to `CK_TRUE`.
-         * - Can only be set to CK_TRUE by the SO user.
-         */
-        trusted: boolean;
-        /**
-         * For wrapping keys.
-         * The attribute template to match against any keys wrapped using this wrapping key.
-         * Keys that do not match cannot be wrapped.
-         */
-        wrapTemplate: void;
-        /**
-         * For wrapping keys.
-         * The attribute template to apply to any keys unwrapped using this wrapping key.
-         * Any user supplied template is applied after this template as if the object has already been created.
-         */
-        unwrapTemplate: void;
-    }
-
-
-    interface ISlotInfo {
-        slotDescription: string;
-        manufacturerID: string;
-        flags: number;
-        hardwareVersion: IVersion;
-        firmwareVersion: IVersion;
+        static toPkcs11(tmpl: ITemplate): pkcs11.Attribute[];
+        static fromPkcs11(tmpl: pkcs11.Template): ITemplate;
     }
 
     enum SlotFlag {
@@ -2108,203 +2049,67 @@ declare module "graphene-pk11" {
          */
         HW_SLOT,
     }
+    class Slot extends HandleObject {
 
-    interface IVersion {
-        major: number;
-        minor: number;
-    }
-    interface IModuleInfo {
-        cryptokiVersion: IVersion;
+        slotDescription: string;
         manufacturerID: string;
         flags: number;
-        libraryDescription: string;
-        libraryVersion: IVersion;
-    }
+        hardwareVersion: pkcs11.Version;
+        firmwareVersion: pkcs11.Version;
+        module: Module;
 
-    class Collection<T extends HandleObject> {
-        protected items_: Array<number>;
-        protected classType: any;
-        protected lib: Pkcs11;
-        constructor(items: Array<number>, lib: Pkcs11, classType: any);
-        /**
-         * returns length of collection
-         */
-        length: number;
-        /**
-         * returns item from collection by index
-         * @param {number} index of element in collection `[0..n]`
-         */
-        items(index: number): T;
-    }
+        constructor(handle: Handle, module: Module, lib: pkcs11.PKCS11);
 
-    enum SessionOpenFlag {
         /**
-         * session is r/w
+         * Recieve information about Slot
+         *
+         * @protected
          */
-        RW_SESSION,
-        /**
-         * no parallel
-         */
-        SERIAL_SESSION,
-    }
-    enum SessionFlag {
-        /**
-         * `True` if the session is read/write; `false` if the session is read-only
-         */
-        RW_SESSION,
-        /**
-         * This flag is provided for backward compatibility, and should always be set to `true`
-         */
-        SERIAL_SESSION,
-    }
-    enum UserType {
-        /**
-         * Security Officer
-         */
-        SO,
-        /**
-         * User
-         */
-        USER,
-        /**
-         * Context specific
-         */
-        CONTEXT_SPECIFIC,
-    }
-    interface IKeyPair {
-        privateKey: PrivateKey;
-        publicKey: PublicKey;
-    }
-    /**
-     * provides information about a session
-     */
-    class Session extends HandleObject {
-        constructor(handle: number, slot: Slot, lib: Pkcs11);
-        slot: Slot;
-        /**
-         * the state of the session
-         */
-        state: number;
-        /**
-         * bit flags that define the type of session
-         */
-        flags: number;
-        /**
-         * an error code defined by the cryptographic device. Used for errors not covered by Cryptoki
-         */
-        deviceError: number;
         protected getInfo(): void;
+
         /**
-         * closes a session between an application and a token
+         * Returns information about token
+         *
+         * @returns {Token}
          */
-        close(): void;
+        getToken(): Token;
         /**
-         * initializes the normal user's PIN
-         * @param {string} pin the normal user's PIN
+         * returns list of `MechanismInfo`
+         *
+         * @returns {MechanismCollection}
          */
-        initPin(pin: string): void;
+        getMechanisms(): MechanismCollection;
         /**
-         * modifies the PIN of the user who is logged in
-         * @param {string} oldPin
-         * @param {string} newPin
+         * initializes a token
+         *
+         * @param {string} pin the SO's initial PIN
+         * @returns {string}
          */
-        setPin(oldPin: string, newPin: string): void;
+        initToken(pin: string): string;
         /**
-         * obtains a copy of the cryptographic operations state of a session, encoded as a string of bytes
+         * opens a session between an application and a token in a particular slot
+         *
+         * @param {SessionFlag} [flags=session.SessionFlag.SERIAL_SESSION] indicates the type of session
+         * @returns {Session}
          */
-        getOperationState(): Buffer;
+        open(flags?: SessionFlag): Session;
         /**
-         * restores the cryptographic operations state of a session
-         * from a string of bytes obtained with getOperationState
-         * @param {Buffer} state the saved state
-         * @param {number} encryptionKey holds key which will be used for an ongoing encryption
-         * or decryption operation in the restored session
-         * (or 0 if no encryption or decryption key is needed,
-         * either because no such operation is ongoing in the stored session
-         * or because all the necessary key information is present in the saved state)
-         * @param {number} authenticationKey holds a handle to the key which will be used for an ongoing signature,
-         * MACing, or verification operation in the restored session
-         * (or 0 if no such key is needed, either because no such operation is ongoing in the stored session
-         * or because all the necessary key information is present in the saved state)
+         * closes all sessions an application has with a token
          */
-        setOperationState(state: Buffer, encryptionKey?: number, authenticationKey?: number): void;
-        /**
-         * logs a user into a token
-         * @param {string} pin the user's PIN.
-         * - This standard allows PIN values to contain any valid `UTF8` character,
-         * but the token may impose subset restrictions
-         * @param {} userType the user type. Default is `USER`
-         */
-        login(pin: string, userType?: UserType): void;
-        /**
-         * logs a user out from a token
-         */
-        logout(): void;
-        /**
-         * creates a new object
-         * - Only session objects can be created during a read-only session.
-         * - Only public objects can be created unless the normal user is logged in.
-         * @param {ITemplate} template the object's template
-         */
-        create(template: ITemplate): SessionObject;
-        /**
-         * removes all session objects matched to template
-         * - if template is null, removes all session objects
-         * - returns a number of destroied session objects
-         * @param {ITemplate} template template
-         */
-        destroy(template: ITemplate): number;
-        /**
-         * @param {SessionObject} object
-         */
-        destroy(object: SessionObject): number;
-        destroy(): number;
-        /**
-         * removes all session objects
-         * - returns a number of destroied session objects
-         */
-        clear(): number;
-        /**
-         * returns a collection of session objects mached to template
-         * @param template template
-         * @param callback optional callback function wich is called for each founded object
-         * - if callback function returns false, it breaks find function.
-         */
-        find(callback?: (obj: SessionObject) => void): SessionObjectCollection;
-        find(template: ITemplate, callback?: (obj: SessionObject) => void): SessionObjectCollection;
-        /**
-         * Returns object from session by handle
-         * @param  {number} handle handle of object
-         * @returns T
-         */
-        getObject<T extends SessionObject>(handle: number): T;
-        /**
-         * generates a secret key or set of domain parameters, creating a new object.
-         * @param mechanism generation mechanism
-         * @param template template for the new key or set of domain parameters
-         */
-        generateKey(mechanism: MechanismType, template?: ITemplate): SecretKey;
-        generateKey(mechanism: MechanismType, template: ITemplate, callback: (err: Error, key: SecretKey) => void): void;
-        generateKeyPair(mechanism: MechanismType, publicTemplate: ITemplate, privateTemplate: ITemplate): IKeyPair;
-        createSign(alg: MechanismType, key: Key): Sign;
-        createVerify(alg: MechanismType, key: Key): Verify;
-        createCipher(alg: MechanismType, key: Key): Cipher;
-        createDecipher(alg: MechanismType, key: Key): Decipher;
-        createDigest(alg: MechanismType): Digest;
-        wrapKey(alg: MechanismType, wrappingKey: Key, key: Key): Buffer;
-        unwrapKey(alg: MechanismType, unwrappingKey: Key, wrappedKey: Buffer, template: ITemplate): Key;
-        /**
-         * derives a key from a base key, creating a new key object
-         * @param {MechanismType} alg key deriv. mech
-         * @param {Key} baseKey base key
-         * @param {ITemplate} template new key template
-         */
-        deriveKey(alg: MechanismType, baseKey: Key, template: ITemplate): SecretKey;
-        /**
-         * generates random data
-         * @param {number} size \# of bytes to generate
-         */
-        generateRandom(size: number): Buffer;
+        closeAll(): void;
+    }
+
+    /**
+     * Collection of slots
+     *
+     * @export
+     * @class SlotCollection
+     * @extends {core.Collection<Slot>}
+     */
+    class SlotCollection extends Collection<Slot> {
+        module: Module;
+        items(index: number): Slot;
+        constructor(items: Array<Buffer>, module: Module, lib: pkcs11.PKCS11, classType?: any);
     }
 
     enum TokenFlag {
@@ -2326,7 +2131,9 @@ declare module "graphene-pk11" {
         SO_PIN_FINAL_TRY,
         SO_PIN_LOCKED,
         SO_PIN_TO_BE_CHANGED,
+        ERROR_STATE,
     }
+
     class Token extends HandleObject {
         /**
          * application-defined label, assigned during token initialization.
@@ -2400,64 +2207,29 @@ declare module "graphene-pk11" {
         /**
          * version number of hardware
          */
-        hardwareVersion: IVersion;
+        hardwareVersion: pkcs11.Version;
         /**
          * version number of firmware
          */
-        firmwareVersion: IVersion;
+        firmwareVersion: pkcs11.Version;
         /**
          * current time as a character-string of length 16,
          * represented in the format YYYYMMDDhhmmssxx
          */
         utcTime: Date;
-        constructor(handle: number, lib: Pkcs11);
+
+        constructor(handle: Handle, lib: pkcs11.PKCS11);
+
         protected getInfo(): void;
     }
 
-    class Slot extends HandleObject implements ISlotInfo {
-        slotDescription: string;
-        manufacturerID: string;
-        flags: number;
-        hardwareVersion: IVersion;
-        firmwareVersion: IVersion;
-        module: Module;
-        constructor(handle: number, module: Module, lib: Pkcs11);
-        protected getInfo(): void;
-        getToken(): Token;
-        /**
-         * returns list of `MechanismInfo`
-         */
-        getMechanisms(): MechanismCollection;
-        /**
-         * initializes a token
-         * @param {string} pin the SO's initial PIN
-         * @param {string} label label of the token
-         */
-        initToken(pin: string, label: string): void;
-        /**
-         * opens a session between an application and a token in a particular slot
-         * @parsm flags indicates the type of session
-         */
-        open(flags?: number): Session;
-        /**
-         * closes all sessions an application has with a token
-         */
-        closeAll(): void;
-    }
-
-    class SlotCollection extends Collection<Slot> {
-        module: Module;
-        items(index: number): Slot;
-        constructor(items: Array<number>, module: Module, lib: Pkcs11, classType?: any);
-    }
-
-    class Module extends BaseObject implements IModuleInfo {
+    class Module extends BaseObject {
         libFile: string;
         libName: string;
         /**
          * Cryptoki interface version
          */
-        cryptokiVersion: IVersion;
+        cryptokiVersion: pkcs11.Version;
         /**
          * blank padded manufacturer ID
          */
@@ -2473,8 +2245,8 @@ declare module "graphene-pk11" {
         /**
          * version of library
          */
-        libraryVersion: IVersion;
-        constructor(lib: Pkcs11);
+        libraryVersion: pkcs11.Version;
+        constructor(lib: pkcs11.PKCS11);
         protected getInfo(): void;
         /**
          * initializes the Cryptoki library
@@ -2496,224 +2268,11 @@ declare module "graphene-pk11" {
         getSlots(tokenPresent?: boolean): SlotCollection;
         /**
          * loads pkcs11 lib
+         * @param libFile path to PKCS11 library
+         * @param libName name of PKCS11 library
          */
         static load(libFile: string, libName?: string): Module;
     }
 
-    class Cipher {
-        session: Session;
-        lib: Pkcs11;
-        constructor(session: Session, alg: MechanismType, key: Key, lib: Pkcs11);
-        protected init(alg: MechanismType, key: Key): void;
-        update(text: string): Buffer;
-        update(data: Buffer): Buffer;
-        final(): Buffer;
-    }
 
-    class Decipher {
-        session: Session;
-        lib: Pkcs11;
-        constructor(session: Session, alg: MechanismType, key: Key, lib: Pkcs11);
-        protected init(alg: MechanismType, key: Key): void;
-        update(text: string): Buffer;
-        update(data: Buffer): Buffer;
-        final(): Buffer;
-    }
-
-    class Digest {
-        session: Session;
-        lib: Pkcs11;
-        constructor(session: Session, alg: MechanismType, lib: Pkcs11);
-        protected init(alg: MechanismType): void;
-        update(text: string): void;
-        update(data: Buffer): void;
-        final(): Buffer;
-    }
-
-    class Sign {
-        session: Session;
-        lib: Pkcs11;
-        constructor(session: Session, alg: MechanismType, key: Key, lib: Pkcs11);
-        protected init(alg: MechanismType, key: Key): void;
-        update(text: string): void;
-        update(data: Buffer): void;
-        final(): Buffer;
-    }
-
-    class Verify {
-        session: Session;
-        lib: Pkcs11;
-        constructor(session: Session, alg: MechanismType, key: Key, lib: Pkcs11);
-        protected init(alg: MechanismType, key: Key): void;
-        update(text: string): void;
-        update(data: Buffer): void;
-        final(signature: Buffer): boolean;
-    }
-
-    /**
-     * 
-     * EC
-     * 
-     */
-
-    /**
-     * EcKdf is used to indicate the Key Derivation Function (KDF)
-     * applied to derive keying data from a shared secret.
-     * The key derivation function will be used by the EC key agreement schemes.
-     */
-    enum EcKdf {
-        NULL,
-        SHA1,
-        SHA224,
-        SHA256,
-        SHA384,
-        SHA512,
-    }
-
-    class EcdhParams implements IParams {
-        /**
-         * key derivation function used on the shared secret value
-         */
-        kdf: EcKdf;
-        /**
-         * some data shared between the two parties
-         */
-        sharedData: Buffer;
-        /**
-         * other party's EC public key value
-         */
-        publicData: Buffer;
-        /**
-         * @param  {EcKdf} kdf key derivation function used on the shared secret value
-         * @param  {Buffer=null} sharedData some data shared between the two parties
-         * @param  {Buffer=null} publicData other party's EC public key value
-         */
-        constructor(kdf: EcKdf, sharedData?: Buffer, publicData?: Buffer);
-        toCKI(): Buffer;
-    }
-
-    export interface INamedCurve {
-        name: string;
-        oid: string;
-        value: Buffer;
-        size: number;
-    }
-
-    class NamedCurve {
-        static getByName(name: string): INamedCurve;
-        static getByOid(oid: string): INamedCurve;
-    }
-
-    /**
-     * 
-     * AES
-     * 
-     */
-
-    class AesCbcParams implements IParams {
-        /**
-         * initialization vector
-         * - must have a fixed size of 16 bytes
-         */
-        iv: Buffer;
-        /**
-         * the data
-         */
-        data: Buffer;
-        constructor(iv: Buffer, data: Buffer);
-        toCKI(): Buffer;
-    }
-
-    class AesCcmParams implements IParams {
-        /**
-         * length of the data where 0 <= dataLength < 2^8L
-         */
-        dataLength: number;
-        /**
-         * the nonce
-         */
-        nonce: Buffer;
-        /**
-         * the additional authentication data
-         * - This data is authenticated but not encrypted
-         */
-        aad: Buffer;
-        /**
-         * length of authentication tag (output following cipher text) in bits.
-         * - Can be any value between 0 and 128
-         */
-        macLength: number;
-        constructor(dataLength: number, nonce: Buffer, aad?: Buffer, macLength?: number);
-        toCKI(): Buffer;
-    }
-
-    class AesGcmParams implements IParams {
-        /**
-         * initialization vector
-         * - The length of the initialization vector can be any number between 1 and 256.
-         * 96-bit (12 byte) IV values can be processed more efficiently,
-         * so that length is recommended for situations in which efficiency is critical.
-         */
-        iv: Buffer;
-        /**
-         * pointer to additional authentication data.
-         * This data is authenticated but not encrypted.
-         */
-        aad: Buffer;
-        /**
-         * length of authentication tag (output following cipher text) in bits.
-         * Can be any value between 0 and 128. Default 128
-         */
-        tagBits: number;
-        constructor(iv: Buffer, aad?: Buffer, tagBits?: number);
-        toCKI(): Buffer;
-    }
-
-    /**
-     * 
-     * RSA
-     * 
-     */
-
-    enum RsaMgf {
-        MGF1_SHA1,
-        MGF1_SHA224,
-        MGF1_SHA256,
-        MGF1_SHA384,
-        MGF1_SHA512,
-    }
-
-    class RsaOaepParams implements IParams {
-        hashAlgorithm: MechanismEnum;
-        mgf: RsaMgf;
-        source: number;
-        sourceData: Buffer;
-        constructor(hashAlg?: MechanismEnum, mgf?: RsaMgf, sourceData?: Buffer);
-        toCKI(): Buffer;
-    }
-
-    class RsaPssParams implements IParams {
-        /**
-         * hash algorithm used in the PSS encoding;
-         * - if the signature mechanism does not include message hashing,
-         * then this value must be the mechanism used by the application to generate
-         * the message hash;
-         * - if the signature mechanism includes hashing,
-         * then this value must match the hash algorithm indicated
-         * by the signature mechanism
-         */
-        hashAlgorithm: MechanismEnum;
-        /**
-         * mask generation function to use on the encoded block
-         */
-        mgf: RsaMgf;
-        /**
-         * length, in bytes, of the salt value used in the PSS encoding;
-         * - typical values are the length of the message hash and zero
-         */
-        saltLength: number;
-        constructor(hashAlg?: MechanismEnum, mgf?: RsaMgf, saltLen?: number);
-        toCKI(): Buffer;
-    }
-
-}
+} 

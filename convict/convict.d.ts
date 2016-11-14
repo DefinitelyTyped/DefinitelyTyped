@@ -41,7 +41,7 @@ declare module "convict" {
             load(conf: Object): void;
             loadFile(file: string): void;
             loadFile(files: string[]): void;
-            validate(): void;
+            validate(options?: { strict?: boolean }): void;
             /**
              * Exports all the properties (that is the keys and their current values) as a {JSON} {Object}
              * @returns {Object} A {JSON} compliant {Object}

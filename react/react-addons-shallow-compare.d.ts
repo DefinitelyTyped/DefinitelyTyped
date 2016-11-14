@@ -15,5 +15,6 @@ declare namespace __React {
 }
 
 declare module "react-addons-shallow-compare" {
-    export = __React.__Addons.shallowCompare;
+    var shallowCompare: typeof __React.__Addons.shallowCompare;
+    export = shallowCompare;
 }

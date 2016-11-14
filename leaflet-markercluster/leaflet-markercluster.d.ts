@@ -3,7 +3,7 @@
 // Definitions by: Robert Imig <https://github.com/rimig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../leaflet/leaflet.d.ts" />
+/// <reference path="../leaflet/leaflet-0.7.d.ts" />
 
 declare namespace L {
     export interface MarkerClusterGroupOptions {
@@ -51,9 +51,10 @@ declare namespace L {
 
       /*
       * The maximum radius that a cluster will cover from the central marker (in pixels). Default 80.
-      * Decreasing will make more, smaller clusters.
+      * Decreasing will make more, smaller clusters. You can also use a function that accepts
+      * the current map zoom and returns the maximum cluster radius in pixels
       */
-      maxClusterRadius?: number;
+      maxClusterRadius?: number | ((zoom: number) => number);
 
       /*
       * Options to pass when creating the L.Polygon(points, options) to show the bounds of a cluster.
@@ -82,11 +83,21 @@ declare namespace L {
       * Function used to create the cluster icon
       */
       iconCreateFunction?: any;
+
+      /*
+      * Boolean to split the addLayers processing in to small intervals so that the page does not freeze.
+      */
+      chunkedLoading?: boolean;
+
+      /*
+      * Time delay (in ms) between consecutive periods of processing for addLayers. Default to 50ms.
+      */
+      chunkDelay?: number;
     }
 
     export class MarkerClusterGroup extends FeatureGroup<ILayer> {
-      initialize(): void;
-      initialize(options: MarkerClusterGroupOptions): void;
+      constructor();
+      constructor(options: MarkerClusterGroupOptions);
 
       /*
       * Bulk methods for adding and removing markers and should be favoured over the
@@ -121,5 +132,11 @@ declare namespace L {
       * Returns the array of total markers contained within that cluster.
       */
       getAllChildMarkers(): Marker[];
+
+      /*
+      * Zooms to show the given marker (spiderfying if required),
+      * calls the callback when the marker is visible on the map.
+      */
+      zoomToShowLayer(layer: any, callback: () => void): void;
     }
 }

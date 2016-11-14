@@ -1,44 +1,60 @@
-// Type definitions for Winreg v0.0.16
-// Project: https://github.com/fresc81/node-winreg/
-// Definitions by: RX14 <https://github.com/RX14>
+// Type definitions for Winreg v1.2.0
+// Project: http://fresc81.github.io/node-winreg/
+// Definitions by: RX14 <https://github.com/RX14>, BobBuehler <https://github.com/BobBuehler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Winreg: WinregStatic;
 
 interface WinregStatic {
     /**
-     * Create a new Winreg instance with the given options.
-     * @param options options object
+     * Creates a registry object, which provides access to a single registry key.
+     * Note: This class is returned by a call to ```require('winreg')```.
+     *
+     * @public
+     * @class
+     *
+     * @param {@link Options} options - the options
+     *
+     * @example
+     * var Registry = require('winreg')
+     * ,   autoStartCurrentUser = new Registry({
+     *       hive: Registry.HKCU,
+     *       key:  '\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'
+     *     });
      */
-    new (options: Winreg.Options): Winreg;
+    new (options: Winreg.Options): Winreg.Registry;
 
     /**
-     * HKEY_LOCAL_MACHINE registry hive.
+     * Registry hive key HKEY_LOCAL_MACHINE.
+     * Note: For writing to this hive your program has to run with admin privileges.
      */
     HKLM: string;
 
     /**
-     * HKEY_CURRENT_USER registry hive.
+     * Registry hive key HKEY_CURRENT_USER.
      */
     HKCU: string;
 
     /**
-     * HKEY_CLASSES_ROOT registry hive.
+     * Registry hive key HKEY_CLASSES_ROOT.
+     * Note: For writing to this hive your program has to run with admin privileges.
      */
     HKCR: string;
 
     /**
-     * HKEY_USERS registry hive.
+     * Registry hive key HKEY_USERS.
+     * Note: For writing to this hive your program has to run with admin privileges.
      */
     HKU: string;
 
     /**
-     * HKEY_CURRENT_CONFIG registry hive.
+     * Registry hive key HKEY_CURRENT_CONFIG.
+     * Note: For writing to this hive your program has to run with admin privileges.
      */
     HKCC: string;
 
     /**
-     * Array of available registry hives.
+     * Collection of available registry hive keys.
      */
     HIVES: Array<string>;
 
@@ -92,101 +108,14 @@ interface WinregStatic {
     REG_NONE: string;
 
     /**
-     * Array of available registry value types.
+     * Collection of available registry value types.
      */
     REG_TYPES: Array<string>;
-}
-
-interface Winreg {
-    /**
-     * Hostname, if set in options.
-     * @readonly
-     */
-    host: string;
 
     /**
-     * Hive ID.
-     * @readonly
+     * The name of the default value. May be used instead of the empty string literal for better readability.
      */
-    hive: string;
-
-    /**
-     * The registry key.
-     * @readonly
-     */
-    key: string;
-
-    /**
-     * The path of the registry key, including hostname (if set) and hive.
-     * @readonly
-     */
-    path: string;
-
-    /**
-     * Architecture this key belongs to.
-     * @readonly
-     */
-    arch: string;
-
-    /**
-     * A new Winreg instance of the parent key.
-     * @readonly
-     */
-    parent: Winreg;
-
-    /**
-     * Retrieves all values from this registry key.
-     *
-     * @param cb Callback with an array of RegistryItem objects, one for each value.
-     */
-    values(cb: (err: Error, result: Array<Winreg.RegistryItem>) => void): void;
-
-    /**
-     * Retrieves all subkeys of this registry key.
-     *
-     * @param cb Callback with an array of Winreg objects, one for each subkey.
-     */
-    keys(cb: (err: Error, result: Array<Winreg>) => void): void;
-
-    /**
-     * Retrieves a named value from this registry key.
-     *
-     * @param name Name of the value to retrieve.
-     * @param cb Callback with a RegistryItem object for the value.
-     */
-    get(name: string, cb: (err: Error, result: Winreg.RegistryItem) => void): void;
-
-    /**
-     * Sets a named value in this registry key. Overwrites existing value.
-     *
-     * @param name Name of the value to set.
-     * @param type Type of the value to set.
-     * @param value Value of value to set.
-     * @param cb Callback with any errors.
-     */
-    set(name: string, type: string, value: string, cb: (err: Error) => void): void;
-
-    /**
-     * Remove a named value from this registry key.
-     *
-     * @param name Name of the value to remove.
-     * @param cb Callback with any errors.
-     */
-    remove(name: string, cb: (err: Error) => void): void;
-
-    /**
-     * Create this registry key.
-     *
-     * @param cb Callback with any errors.
-     */
-    create(cb: (err: Error) => void): void;
-
-    /**
-     * Erase this registry key and its contents.
-     *
-     * @param cb Callback with any errors.
-     */
-    erase(cb: (err: Error) => void): void;
+    DEFAULT_VALUE: string;
 }
 
 declare namespace Winreg {
@@ -207,53 +136,197 @@ declare namespace Winreg {
         key?: string;
 
         /**
-         * Optional architecture of the registry.
+         * Optional registry hive architecture ('x86' or 'x64'; only valid on Windows 64 Bit Operating Systems).
          */
         arch?: string;
     }
 
     /**
-     * A single registry value record
+     * A registry object, which provides access to a single registry key.
      */
-    interface RegistryItem {
+    export interface Registry {
         /**
-         * Hostname, if set in options.
+         * The hostname.
          * @readonly
          */
         host: string;
 
         /**
-         * Hive ID.
+         * The hive id.
          * @readonly
          */
         hive: string;
 
         /**
-         * Key that the registry value belongs to.
+         * The registry key name.
          * @readonly
          */
         key: string;
 
         /**
-         * Name of the registry value.
+         * The full path to the registry key.
+         * @readonly
+         */
+        path: string;
+
+        /**
+         * The registry hive architecture ('x86' or 'x64').
+         * @readonly
+         */
+        arch: string;
+
+        /**
+         * Creates a new {@link Registry} instance that points to the parent registry key.
+         * @readonly
+         */
+        parent: Registry;
+
+        /**
+         * Retrieve all values from this registry key.
+         * @param {valuesCallback} cb - callback function
+         * @param {error=} cb.err - error object or null if successful
+         * @param {array=} cb.items - an array of {@link RegistryItem} objects
+         * @returns {Registry} this registry key object
+         */
+        values(cb: (err: Error, result: Array<Winreg.RegistryItem>) => void): Registry;
+
+        /**
+         * Retrieve all subkeys from this registry key.
+         * @param {function (err, items)} cb - callback function
+         * @param {error=} cb.err - error object or null if successful
+         * @param {array=} cb.items - an array of {@link Registry} objects
+         * @returns {Registry} this registry key object
+         */
+        keys(cb: (err: Error, result: Array<Registry>) => void): Registry;
+
+        /**
+         * Gets a named value from this registry key.
+         * @param {string} name - the value name, use {@link Registry.DEFAULT_VALUE} or an empty string for the default value
+         * @param {function (err, item)} cb - callback function
+         * @param {error=} cb.err - error object or null if successful
+         * @param {RegistryItem=} cb.item - the retrieved registry item
+         * @returns {Registry} this registry key object
+         */
+        get(name: string, cb: (err: Error, result: Winreg.RegistryItem) => void): Registry;
+
+        /**
+         * Sets a named value in this registry key, overwriting an already existing value.
+         * @param {string} name - the value name, use {@link Registry.DEFAULT_VALUE} or an empty string for the default value
+         * @param {string} type - the value type
+         * @param {string} value - the value
+         * @param {function (err)} cb - callback function
+         * @param {error=} cb.err - error object or null if successful
+         * @returns {Registry} this registry key object
+         */
+        set(name: string, type: string, value: string, cb: (err: Error) => void): Registry;
+
+        /**
+         * Remove a named value from this registry key. If name is empty, sets the default value of this key.
+         * Note: This key must be already existing.
+         * @param {string} name - the value name, use {@link Registry.DEFAULT_VALUE} or an empty string for the default value
+         * @param {function (err)} cb - callback function
+         * @param {error=} cb.err - error object or null if successful
+         * @returns {Registry} this registry key object
+         */
+        remove(name: string, cb: (err: Error) => void): Registry;
+
+        /**
+         * Remove all subkeys and values (including the default value) from this registry key.
+         * @param {function (err)} cb - callback function
+         * @param {error=} cb.err - error object or null if successful
+         * @returns {Registry} this registry key object
+         */
+        clear(cb: (err: Error) => void): Registry;
+
+        /**
+         * Alias for the clear method to keep it backward compatible.
+         * @method
+         * @deprecated Use {@link Registry#clear} or {@link Registry#destroy} in favour of this method.
+         * @param {function (err)} cb - callback function
+         * @param {error=} cb.err - error object or null if successful
+         * @returns {Registry} this registry key object
+         */
+        erase(cb: (err: Error) => void): Registry;
+
+        /**
+         * Delete this key and all subkeys from the registry.
+         * @param {function (err)} cb - callback function
+         * @param {error=} cb.err - error object or null if successful
+         * @returns {Registry} this registry key object
+         */
+        destroy(cb: (err: Error) => void): Registry;
+
+        /**
+         * Create this registry key. Note that this is a no-op if the key already exists.
+         * @param {function (err)} cb - callback function
+         * @param {error=} cb.err - error object or null if successful
+         * @returns {Registry} this registry key object
+         */
+        create(cb: (err: Error) => void): Registry;
+
+        /**
+         * Checks if this key already exists.
+         * @param {function (err, exists)} cb - callback function
+         * @param {error=} cb.err - error object or null if successful
+         * @param {boolean=} cb.exists - true if a registry key with this name already exists
+         * @returns {Registry} this registry key object
+         */
+        keyExists(cb: (err: Error, exists: boolean) => void): Registry;
+
+        /**
+         * Checks if a value with the given name already exists within this key.
+         * @param {string} name - the value name, use {@link Registry.DEFAULT_VALUE} or an empty string for the default value
+         * @param {function (err, exists)} cb - callback function
+         * @param {error=} cb.err - error object or null if successful
+         * @param {boolean=} cb.exists - true if a value with the given name was found in this key
+         * @returns {Registry} this registry key object
+         */
+        valueExists(name: string, cb: (err: Error, exists: boolean) => void): Registry;
+    }
+
+    /**
+     * A single registry value record.
+     * Objects of this type are created internally and returned by methods of {@link Registry} objects.
+     */
+    export interface RegistryItem {
+        /**
+         * The hostname.
+         * @readonly
+         */
+        host: string;
+
+        /**
+         * The hive id.
+         * @readonly
+         */
+        hive: string;
+
+        /**
+         * The registry key.
+         * @readonly
+         */
+        key: string;
+
+        /**
+         * The value name.
          * @readonly
          */
         name: string;
 
         /**
-         * Type of the registry value.
+         * The value type.
          * @readonly
          */
         type: string;
 
         /**
-         * Value of the registry value, as a string.
+         * The value.
          * @readonly
          */
         value: string;
 
         /**
-         * Architecture this value belongs to.
+         * The hive architecture.
          * @readonly
          */
         arch: string;

@@ -15,6 +15,8 @@ declare namespace JSData {
         forceTrailingSlash?: boolean;
         log?: boolean | ((message?:any, ...optionalParams:any[])=> void);
         error?: boolean | ((message?:any, ...optionalParams:any[])=> void);
+        basePath?: string;
+        verbsUseBasePath?: string;
     }
 
     interface DSHttpAdapterPromiseResolveType {
@@ -27,6 +29,9 @@ declare namespace JSData {
     interface DSHttpAdapter extends IDSAdapter {
 
         new(options?:DSHttpAdapterOptions):DSHttpAdapter;
+
+        defaults: DSHttpAdapterOptions;
+        http: any;
 
         // DSHttpAdapter uses axios so options are axios config objects.
         HTTP(options?:Object):JSDataPromise<DSHttpAdapterPromiseResolveType>;

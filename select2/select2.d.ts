@@ -29,6 +29,7 @@ interface Select2AjaxOptions {
     cache?: boolean;
     data?: (term: string, page: number, context: any) => any;
     results?: (term: any, page: number, context: any) => any;
+    processResults?:(data: any, params: any) => any;
 }
 
 interface IdTextPair {
@@ -77,7 +78,9 @@ interface Select2Options {
     */
     templateSelection?: (object: Select2SelectionObject) => any;
     templateResult?: (object: Select2SelectionObject) => any;
-	language?: string;
+    language?: string | string[] | {};
+    selectOnClose?: boolean;
+    sorter?: (data: any[]) => any[];
 }
 
 interface Select2JQueryEventObject extends JQueryEventObject {
@@ -91,13 +94,13 @@ interface Select2JQueryEventObject extends JQueryEventObject {
 }
 
 interface Select2SelectionObject {
-	loading: boolean,
-    disabled: boolean,
-    element: HTMLOptionElement,
-    id: string,
-    selected: boolean,
-    text: string,
-    title: string,
+    loading: boolean;
+    disabled: boolean;
+    element: HTMLOptionElement;
+    id: string;
+    selected: boolean;
+    text: string;
+    title: string;
 }
 
 interface JQuery {

@@ -8,14 +8,14 @@
 declare namespace angular.jwt {
 
     interface JwtToken {
-        iss: string;
-        sub: string;
-        aud: string;
-        exp: number;
-        nbf: number;
-        iat: number;
-        jti: string;
-        unique_name: string;
+        iss?: string;
+        sub?: string;
+        aud?: string;
+        exp?: number;
+        nbf?: number;
+        iat?: number;
+        jti?: string;
+        unique_name?: string;
     }
 
     interface IJwtHelper {
@@ -26,5 +26,12 @@ declare namespace angular.jwt {
 
     interface IJwtInterceptor {
         tokenGetter(...params : any[]): string;
+    }
+
+    interface IAuthManagerServiceProvider {
+        authenticate(): void;
+        unauthenticate(): void;
+        checkAuthOnRefresh(): void;
+        redirectWhenUnauthenticated(): void;
     }
 }

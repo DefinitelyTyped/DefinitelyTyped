@@ -33,7 +33,7 @@ declare module "body-parser" {
         /**
          * passed to JSON.parse().
          */
-        receiver?: (key: string, value: any) => any;
+        reviver?: (key: string, value: any) => any;
         /**
          * parse extended syntax with the qs module. (default: true)
          */
@@ -65,7 +65,7 @@ declare module "body-parser" {
             /**
              * passed to JSON.parse().
              */
-            receiver?: (key: string, value: any) => any;
+            reviver?: (key: string, value: any) => any;
         }): express.RequestHandler;
 
         export function raw(options?: {

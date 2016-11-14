@@ -10,21 +10,6 @@ interface ParentNode {
     children: HTMLCollection;
 
     /**
-     * Returns the first child that is an element, and null otherwise.
-     */
-    firstElementChild: Element;
-
-    /**
-     * Returns the last child that is an element, and null otherwise.
-     */
-    lastElementChild: Element;
-
-    /**
-     * Returns the number of children that are elements.
-     */
-    childElementCount: number;
-
-    /**
      * Returns the first element that is a descendant of node that matches relativeSelectors.
      */
     query(relativeSelectors: string): Element;
@@ -47,11 +32,11 @@ interface Element extends ParentNode {
     matches(selectors: string): boolean;
 }
 
-interface Elements extends ParentNode, Array<Element> {
+interface Elements extends ElementTraversal, ParentNode, Array<Element> {
 }
 
-interface Document extends ParentNode {
+interface Document extends ElementTraversal, ParentNode {
 }
 
-interface DocumentFragment extends ParentNode {
+interface DocumentFragment extends ElementTraversal, ParentNode {
 }

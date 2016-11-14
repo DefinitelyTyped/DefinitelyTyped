@@ -19,14 +19,14 @@ declare namespace angular.animate {
     }
 
     interface IAnimateCallbackObject {
-        eventFn?: (element: IAugmentedJQuery, doneFunction: Function, options: IAnimationOptions) => any;
-        setClass?: (element: IAugmentedJQuery, addedClasses: string, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
-        addClass?: (element: IAugmentedJQuery, addedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
-        removeClass?: (element: IAugmentedJQuery, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
-        enter?: (element: IAugmentedJQuery, doneFunction: Function, options: IAnimationOptions) => any;
-        leave?: (element: IAugmentedJQuery, doneFunction: Function, options: IAnimationOptions) => any;
-        move?: (element: IAugmentedJQuery, doneFunction: Function, options: IAnimationOptions) => any;
-        animate?: (element: IAugmentedJQuery, fromStyles: string, toStyles: string, doneFunction: Function, options: IAnimationOptions) => any;
+        eventFn?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
+        setClass?: (element: JQuery, addedClasses: string, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
+        addClass?: (element: JQuery, addedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
+        removeClass?: (element: JQuery, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
+        enter?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
+        leave?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
+        move?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
+        animate?: (element: JQuery, fromStyles: string, toStyles: string, doneFunction: Function, options: IAnimationOptions) => any;
     }
 
     interface IAnimationPromise extends IPromise<void> {}
@@ -43,7 +43,7 @@ declare namespace angular.animate {
          * @param container the container element that will capture each of the animation events that are fired on itself as well as among its children
          * @param callback the callback function that will be fired when the listener is triggered
          */
-        on(event: string, container: JQuery, callback: Function): void;
+        on(event: string, container: JQuery, callback: (element?: JQuery, phase?: string) => any): void;
 
         /**
          * Deregisters an event listener based on the event which has been associated with the provided element.
@@ -52,7 +52,7 @@ declare namespace angular.animate {
          * @param container the container element the event listener was placed on
          * @param callback the callback function that was registered as the listener
          */
-        off(event: string, container?: JQuery, callback?: Function): void;
+        off(event: string, container?: JQuery, callback?: (element?: JQuery, phase?: string) => any): void;
 
         /**
          * Associates the provided element with a host parent element to allow the element to be animated even if it exists outside of the DOM structure of the Angular application.
@@ -69,8 +69,8 @@ declare namespace angular.animate {
         * @param value If provided then set the animation on or off.
         * @returns current animation state
         */
+        enabled(value?: boolean): boolean;
         enabled(element: JQuery, value?: boolean): boolean;
-        enabled(value: boolean): boolean;
 
         /**
          * Cancels the provided animation.
@@ -184,21 +184,17 @@ declare namespace angular.animate {
      */
     interface IAnimationOptions {
         /**
-         * The ending CSS styles (a key/value object) that will be applied across the animation via a CSS transition.
-         */
-        to?: Object;
-
-        /**
-         * The starting CSS styles (a key/value object) that will be applied at the start of the animation.
-         */
-        from?: Object;
-
-        /**
          * The DOM event (e.g. enter, leave, move). When used, a generated CSS class of ng-EVENT and
          * ng-EVENT-active will be applied to the element during the animation. Multiple events can be provided when
          * spaces are used as a separator. (Note that this will not perform any DOM operation.)
          */
         event?: string;
+
+        /**
+         * Indicates that the ng-prefix will be added to the event class. Setting to false or
+         * omitting will turn ng-EVENT and ng-EVENT-active in EVENT and EVENT-active. Unused if event is omitted.
+         */
+        structural?: boolean;
 
         /**
          * The CSS easing value that will be applied to the transition or keyframe animation (or both).
@@ -208,12 +204,22 @@ declare namespace angular.animate {
         /**
          * The raw CSS transition style that will be used (e.g. 1s linear all).
          */
-        transition?: string;
+        transitionStyle?: string;
 
         /**
          * The raw CSS keyframe animation style that will be used (e.g. 1s my_animation linear).
          */
-        keyframe?: string;
+        keyframeStyle?: string;
+
+        /**
+         * The starting CSS styles (a key/value object) that will be applied at the start of the animation.
+         */
+        from?: Object;
+
+        /**
+         * The ending CSS styles (a key/value object) that will be applied across the animation via a CSS transition.
+         */
+        to?: Object;
 
         /**
          * A space separated list of CSS classes that will be added to the element and spread across the animation.
@@ -250,11 +256,16 @@ declare namespace angular.animate {
         /**
          * The numeric index representing the stagger item (e.g. a value of 5 is equal to the sixth item
          * in the stagger; therefore when a stagger option value of 0.1 is used then there will be a stagger delay of 600ms)
-         * applyClassesEarly - Whether or not the classes being added or removed will be used when detecting the animation.
-         * This is set by $animate when enter/leave/move animations are fired to ensure that the CSS classes are resolved in time.
-         * (Note that this will prevent any transitions from occuring on the classes being added and removed.)
+         *
          */
         staggerIndex?: number;
+
+        /**
+         * Whether or not the provided from and to styles will be removed once the animation is closed. This is useful for
+         * when the styles are used purely for the sake of the animation and do not have a lasting visual effect on the element
+         * (e.g. a colapse and open animation). By default this value is set to false.
+         */
+        cleanupStyles?: boolean;
     }
 
     interface IAnimateCssRunner {

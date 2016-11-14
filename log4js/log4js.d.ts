@@ -58,6 +58,16 @@ declare module "log4js" {
   export function addAppender(...appenders: any[]): void;
 
   /**
+   * Load appender
+   *
+   * @param   {string} appender type
+   * @param   {AppenderModule} the appender module. by default, require('./appenders/' + appender)
+   * @returns {void}
+   * @static
+   */
+  export function loadAppender(appenderType: string, appenderModule?: AppenderModule): void;
+  
+  /**
    * Claer configured appenders
    *
    * @returns {void}
@@ -93,6 +103,26 @@ declare module "log4js" {
   export function connectLogger(logger: Logger, options: { format?: string; level?: string; nolog?: any; }): express.Handler;
   export function connectLogger(logger: Logger, options: { format?: string; level?: Level; nolog?: any; }): express.Handler;
 
+  export var layouts: {
+    basicLayout: Layout,
+    messagePassThroughLayout: Layout,
+    patternLayout: Layout,
+    colouredLayout: Layout,
+    coloredLayout: Layout,
+    dummyLayout: Layout,
+
+    /**
+     * Register your custom layout generator
+     */
+    addLayout: (name: string, serializerGenerator: (config?: LayoutConfig) => Layout) => void,
+
+    /**
+     * Get layout. Available predified layout names: 
+     * messagePassThrough, basic, colored, coloured, pattern, dummy
+     * 
+     */
+    layout: (name: string, config: LayoutConfig) => Layout
+  }
 
   export var appenders: any;
   export var levels: {
@@ -147,6 +177,7 @@ declare module "log4js" {
   export interface AppenderConfigBase {
     type: string;
     category?: string;
+    layout?: { type: string;[key: string]: any }
   }
 
   export interface ConsoleAppenderConfig extends AppenderConfigBase {}
@@ -252,4 +283,36 @@ declare module "log4js" {
   }
 
   type AppenderConfig = CoreAppenderConfig | CustomAppenderConfig;
+  
+  export interface LogEvent {
+    /**
+     * new Date()
+     */
+    startTime: number;
+    categoryName: string;
+    data: any[];
+    level: Level;
+    logger: Logger;
+  }
+
+  export interface Appender {
+    (event: LogEvent): void;
+  }
+
+  export interface AppenderModule {
+    appender: (...args: any[]) => Appender;
+    shutdown?: (cb: (error: Error) => void) => void;
+    configure: (config: CustomAppenderConfig, options?: { [key: string]: any }) => Appender;
+  }
+
+  export interface LayoutConfig {
+    [key: string]: any;
+  }
+  export interface LayoutGenerator {
+    (config?: LayoutConfig): Layout
+  }
+
+  export interface Layout {
+    (event: LogEvent): string;
+  }
 }

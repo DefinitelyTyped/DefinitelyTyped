@@ -1,4 +1,4 @@
-﻿// Type definitions for tmp v0.0.28
+﻿﻿// Type definitions for tmp v0.0.28
 // Project: https://www.npmjs.com/package/tmp
 // Definitions by: Jared Klopper <https://github.com/optical>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

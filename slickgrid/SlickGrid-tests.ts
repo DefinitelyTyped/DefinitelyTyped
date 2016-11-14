@@ -155,8 +155,6 @@ grid.getCellCssStyles("test")[0]["number_column"];
 
 grid.getCellEditor();
 
-grid.getCellFromEvent(new Slick.Event());
-
 grid.getCellFromPoint(5, 10);
 
 grid.getCellNode(5, 10);
@@ -209,4 +207,9 @@ columns.forEach(column => {
 
 grid.onSort.subscribe((e, args) => {
     var sortCol:string = args.sortCols[0].sortCol.field;
+});
+
+grid.onMouseEnter.subscribe((e: DOMEvent, args: Slick.OnMouseEnterEventArgs<MyData>) => {
+	let cell: Slick.Cell = args.grid.getCellFromEvent(e);
+	if (!cell) { return; }
 });

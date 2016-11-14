@@ -17,8 +17,9 @@ interface StripeStatic {
 
 interface StripeTokenData {
     number: string;
-    exp_month: number;
-    exp_year: number;
+    exp_month?: number;
+    exp_year?: number;
+    exp?: string;
     cvc?: string;
     name?: string;
     address_line1?: string;
@@ -78,6 +79,8 @@ interface StripeBankTokenParams
     currency: string;
     account_number: number | string;
     routing_number?: number | string;
+    account_holder_name: string;
+    account_holder_type: string;
 }
 
 interface StripeBankTokenResponse

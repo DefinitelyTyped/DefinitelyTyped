@@ -188,6 +188,14 @@ declare namespace JQueryValidation
          * @param method The actual method implementation, returning true if an element is valid. First argument: Current value. Second argument: Validated element. Third argument: Parameters.
          */
         addMethod(name: string, method: (value: any, element: HTMLElement, params: any) => boolean, message?: string): void;
+         /**
+         * Add a custom validation method. It must consist of a name (must be a legal javascript identifier), a predicate function and a message generating function.
+         *
+         * @param name The name of the method used to identify it and referencing it; this must be a valid JavaScript identifier
+         * @param method The actual method implementation, returning true if an element is valid. First argument: Current value. Second argument: Validated element. Third argument: Parameters.
+         * @param message Message generator. First argument: Parameters. Second argument: Validated element.
+         */
+        addMethod(name: string, method: (value: any, element: HTMLElement, params: any) => boolean, message?: (params: any, element: HTMLElement) => string): void;
         /**
          * Replaces {n} placeholders with arguments.
          *
@@ -213,6 +221,8 @@ declare namespace JQueryValidation
          * Validates the form, returns true if it is valid, false otherwise.
          */
         form(): boolean;
+        
+        elementValue(element: Element): any;
 
         invalidElements(): HTMLElement[];
 

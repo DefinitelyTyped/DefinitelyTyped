@@ -49,6 +49,9 @@ declare namespace MDNS {
     interface Browser extends NodeJS.EventEmitter {
         start():any;
         stop():any;
+        on(event:string, listener:Function):this;
+        on(event:'serviceUp', listener:(info:Service)=>void):this;
+        on(event:'serviceDown', listener:(info:Service)=>void):this;
     }
 
     interface BrowserStatic {

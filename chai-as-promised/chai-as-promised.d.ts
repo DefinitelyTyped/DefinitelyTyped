@@ -36,6 +36,7 @@ declare namespace Chai {
         // From chai
         not: PromisedAssertion;
         deep: PromisedDeep;
+        all: PromisedKeyFilter;
         a: PromisedTypeComparison;
         an: PromisedTypeComparison;
         include: PromisedInclude;
@@ -129,6 +130,10 @@ declare namespace Chai {
         property: PromisedProperty;
     }
 
+    interface PromisedKeyFilter {
+        keys: PromisedKeys;
+    }
+
     interface PromisedEqual {
         (value: any, message?: string): PromisedAssertion;
     }
@@ -151,6 +156,7 @@ declare namespace Chai {
         (value: number, message?: string): PromisedAssertion;
         keys: PromisedKeys;
         members: PromisedMembers;
+        all: PromisedKeyFilter;
     }
 
     interface PromisedKeys {

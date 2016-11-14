@@ -35,7 +35,7 @@ interface SliderOptions {
      * Default: 'horizontal'
      * set the orientation. Accepts 'vertical' or 'horizontal'
      */
-    orientation?: number;
+    orientation?: string;
     /**
      * Default: 5
      * initial value. Use array to have a range slider.

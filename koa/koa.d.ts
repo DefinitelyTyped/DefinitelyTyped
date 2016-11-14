@@ -13,129 +13,171 @@
     }
 
  =============================================== */
-/// <reference path="../node/node.d.ts" />
+/// <reference path="../cookies/cookies.d.ts"/>
+/// <reference path="../node/node.d.ts"/>
 
 declare module "koa" {
-  import { EventEmitter } from "events";
-  import * as http from "http";
-  import * as net from "net";
+    import { EventEmitter } from "events";
+    import * as cookies from "cookies";
+    import * as http from "http";
+    import * as net from "net";
 
-  namespace Koa {
-    export interface Context extends Request, Response {
-        body?: any;
-        request?: Request;
-        response?: Response;
-        originalUrl?: string;
-        state?: any;
-        name?: string;
-        cookies?: any;
-        writable?: Boolean;
-        respond?: Boolean;
-        app?: Koa;
-        req?: http.IncomingMessage;
-        res?: http.ServerResponse;
+    namespace Koa {
+        export interface Context extends Request, Response {
+            app: Koa;
+            req: http.IncomingMessage;
+            res: http.ServerResponse;
+            request: Request;
+            response: Response;
+
+            cookies: cookies.ICookies;
+            originalUrl: string;
+            state: any;
+
+            name?: string;
+            respond?: boolean;
+
+            assert(test: any, ...args: any[]): void;
+            onerror(err?: any): void;
+            throw(...args: any[]): void;
+
+            toJSON(): any;
+            inspect(): any;
+        }
+
+        export interface Request {
+            app: Koa;
+            req: http.IncomingMessage;
+            res: http.ServerResponse;
+            ctx: Context;
+            response: Response;
+
+            fresh: boolean;
+            header: any;
+            headers: any;
+            host: string;
+            hostname: string;
+            href: string;
+            idempotent: boolean;
+            ip: string;
+            ips: string[];
+            method: string;
+            origin: string;
+            originalUrl: string;
+            path: string;
+            protocol: string;
+            query: any;
+            querystring: string;
+            search: string;
+            secure: boolean;
+            socket: net.Socket;
+            stale: boolean;
+            subdomains: string[];
+            type: string;
+            url: string;
+
+            charset?: string;
+            length?: number;
+
+            accepts(): string[];
+            accepts(arg: string): void | string;
+            accepts(arg: string[]): void | string;
+            accepts(...args: string[]): void | string;
+            acceptsCharsets(): string[];
+            acceptsCharsets(arg: string): void | string;
+            acceptsCharsets(arg: string[]): void | string;
+            acceptsCharsets(...args: string[]): void | string;
+            acceptsEncodings(): string[];
+            acceptsEncodings(arg: string): void | string;
+            acceptsEncodings(arg: string[]): void | string;
+            acceptsEncodings(...args: string[]): void | string;
+            acceptsLanguages(): string[];
+            acceptsLanguages(arg: string): void | string;
+            acceptsLanguages(arg: string[]): void | string;
+            acceptsLanguages(...args: string[]): void | string;
+            get(field: string): string;
+            is(): string[];
+            is(arg: string): void | string;
+            is(arg: string[]): void | string;
+            is(...args: string[]): void | string;
+
+            toJSON(): any;
+            inspect(): any;
+        }
+
+        export interface Response {
+            app: Koa;
+            req: http.IncomingMessage;
+            res: http.ServerResponse;
+            ctx: Context;
+            request: Request;
+
+            body: any;
+            etag: string;
+            header: any;
+            headers: any;
+            headerSent: boolean;
+            lastModified: Date;
+            message: string;
+            socket: net.Socket;
+            status: number;
+            type: string;
+            writable: boolean;
+
+            charset?: string;
+            length?: number;
+
+            append(field: string, val: string | string[]): void;
+            attachment(filename?: string): void;
+            get(field: string): string;
+            is(): string[];
+            is(arg: string): void | string;
+            is(arg: string[]): void | string;
+            is(...args: string[]): void | string;
+            redirect(url: string, alt?: string): void;
+            remove(field: string): void;
+            set(field: string, val: string | string[]): void;
+            set(field: any): void;
+            vary(field: string): void;
+
+            toJSON(): any;
+            inspect(): any;
+        }
+    }
+
+    class Koa extends EventEmitter {
+        context: Koa.Context;
+        env: string;
+        keys: string[];
+        proxy: boolean;
+        request: Koa.Request;
+        response: Koa.Response;
+        server: http.Server;
+        silent: boolean;
+        subdomainOffset: number;
+
+        constructor();
+
+        // From node.d.ts
+        listen(): http.Server;
+        listen(port: number, hostname?: string, backlog?: number, listeningListener?: Function): http.Server;
+        listen(port: number, hostname?: string, listeningListener?: Function): http.Server;
+        listen(port: number, backlog?: number, listeningListener?: Function): http.Server;
+        listen(port: number, listeningListener?: Function): http.Server;
+        listen(path: string, backlog?: number, listeningListener?: Function): http.Server;
+        listen(path: string, listeningListener?: Function): http.Server;
+        listen(handle: any, backlog?: number, listeningListener?: Function): http.Server;
+        listen(handle: any, listeningListener?: Function): http.Server;
+        listen(options: net.ListenOptions, listeningListener?: Function): http.Server;
+
+        callback(): (req: http.IncomingMessage, res: http.ServerResponse) => void;
         onerror(err: any): void;
+        use(middleware: (ctx: Koa.Context, next: () => Promise<any>) => any): Koa;
+
         toJSON(): any;
         inspect(): any;
-        throw(code?: any, message?: any): void;
-        assert(): void;
     }
 
-    export interface Request {
-        _querycache?: string;
-        app?: Koa;
-        req?: http.IncomingMessage;
-        res?: http.ServerResponse;
-        response?: Response;
-        ctx?: Context;
-        headers?: any;
-        header?: any;
-        method?: string;
-        length?: any;
-        url?: string;
-        origin?: string;
-        originalUrl?: string;
-        href?: string;
-        path?: string;
-        querystring?: string;
-        query?: any;
-        search?: string;
-        idempotent?: Boolean;
-        socket?: net.Socket;
-        protocol?: string;
-        host?: string;
-        hostname?: string;
-        fresh?: Boolean;
-        stale?: Boolean;
-        charset?: string;
-        secure?: Boolean;
-        ips?: Array<string>;
-        ip?: string;
-        subdomains?: Array<string>;
-        accept?: any;
-        type?: string;
-        accepts?: () => any;
-        acceptsEncodings?: () => any;
-        acceptsCharsets?: () => any;
-        acceptsLanguages?: () => any;
-        is?: (types: any) => any;
-        toJSON?: () => any;
-        inspect?: () => any;
-        get?: (field: string) => string;
-    }
-
-    export interface Response {
-        _body?: any;
-        _explicitStatus?: Boolean;
-        app?: Koa;
-        res?: http.ServerResponse;
-        req?: http.IncomingMessage;
-        ctx?: Context;
-        request?: Request;
-        socket?: net.Socket;
-        header?: any;
-        headers?: any;
-        status?: number;
-        message?: string;
-        type?: string;
-        body?: any;
-        length?: any;
-        headerSent?: Boolean;
-        lastModified?: Date;
-        etag?: string;
-        writable?: Boolean;
-        is?: (types: any) => any;
-        redirect?: (url: string, alt: string) => void;
-        attachment?: (filename?: string) => void;
-        vary?: (field: string) => void;
-        get?: (field: string) => string;
-        set?: (field: any, val: any) => void;
-        remove?: (field: string) => void;
-        append?: (field: string, val: any) => void;
-        toJSON?: () => any;
-        inspect?: () => any;
-    }
-  }
-
-  class Koa extends EventEmitter {
-      keys: Array<string>;
-      subdomainOffset: number;
-      proxy: Boolean;
-      server: http.Server;
-      env: string;
-      context: Koa.Context;
-      request: Koa.Request;
-      response: Koa.Response;
-      silent: Boolean;
-      constructor();
-      use(middleware: (ctx: Koa.Context, next: Function) => any): Koa;
-      callback(): (req: http.IncomingMessage, res: http.ServerResponse) => void;
-      listen(port: number, callback?: Function): http.Server;
-      toJSON(): any;
-      inspect(): any;
-      onerror(err: any): void;
-  }
-
-  namespace Koa {}
-  export = Koa;
+    namespace Koa {}
+    export = Koa;
 }

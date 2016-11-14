@@ -5,13 +5,19 @@
 
 declare namespace Chance {
 
+    interface Seeded {
+        seed: number;
+    }
+
+    type SeededChance = Chance & Seeded;
+
     interface ChanceStatic {
         (): Chance
-        (seed: number): Chance
+        (seed: number): SeededChance
         (generator: () => any): Chance
 
         new(): Chance;
-        new(seed: number): Chance;
+        new(seed: number): SeededChance;
         new(generator: () => any): Chance;
     }
 
@@ -114,8 +120,16 @@ declare namespace Chance {
         capitalize(str: string): string;
         mixin(desc: MixinDescriptor): any;
         pad(num: number, width: number, padChar?: string): string;
+        /**
+         * @deprecated Use pickone
+        */
         pick<T>(arr: T[]): T;
+        pickone<T>(arr: T[]): T;
+        /**
+         * @deprecated Use pickset 
+         */
         pick<T>(arr: T[], count: number): T[];
+        pickset<T>(arr: T[], count: number): T[];
         set: Setter;
         shuffle<T>(arr: T[]): T[];
 

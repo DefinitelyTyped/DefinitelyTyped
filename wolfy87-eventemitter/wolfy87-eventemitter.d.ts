@@ -9,7 +9,7 @@ declare namespace Wolfy87EventEmitter {
      * Hash Object for manipulating multiple events.
      */
     interface MultipleEvents {
-        [event:string]: any //Function | Function[]
+        [event: string]: any //Function | Function[]
     }
 
     /**
@@ -405,14 +405,14 @@ declare namespace Wolfy87EventEmitter {
          *
          * Added to mirror the node API.
          */
-        removeAllListeners(event: string): EventEmitter;
+        removeAllListeners(event?: string): EventEmitter;
 
         /**
          * Alias of removeEvent.
          *
          * Added to mirror the node API.
          */
-        removeAllListeners(event: RegExp): EventEmitter;
+        removeAllListeners(event?: RegExp): EventEmitter;
 
         /**
          * Emits an event of your choice.
@@ -506,6 +506,7 @@ declare namespace Wolfy87EventEmitter {
 
 declare module "wolfy87-eventemitter" {
     class EventEmitter extends Wolfy87EventEmitter.EventEmitter {}
+    namespace EventEmitter {}
     export = EventEmitter;
 }
 

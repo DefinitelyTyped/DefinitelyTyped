@@ -1,7 +1,9 @@
-﻿// Type definitions for sendgrid 1.1.0
+﻿// Type definitions for sendgrid v2.0.0
 // Project: https://github.com/sendgrid/sendgrid-nodejs
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference path="../smtpapi/smtpapi.d.ts" />
 
 declare namespace Sendgrid {
     //#region Options
@@ -52,7 +54,7 @@ declare namespace Sendgrid {
         date?: Date;
         headers?: { [key: string]: string };
         files?: FileHandlerOptions[];
-        smtpapi?: any;
+        smtpapi?: SmtpApi.Instance;
     }
 
     export class Email {
@@ -68,32 +70,47 @@ declare namespace Sendgrid {
         date: Date;
         headers: { [key: string]: string };
         files: FileHandler[];
-        smtpapi: any;
+        smtpapi: SmtpApi.Instance;
 
         constructor();
         constructor(options: EmailOptions);
 
-        addTo(address: string): void;
-        addHeader(type: string, value: string): void;
-        addSubstitution(type: string, value: string): void;
-        addSubstitution(type: string, value: string[]): void;
-        addSection(section: { [key: string]: string }): void;
-        addUniqueArg(uarg: { [key: string]: string }): void;
-        addCategory(category: string): void;
-        addFilter(filter: string, command: string, value: number): void;
-        addFilter(filter: string, command: string, value: string): void;
-        addFile(file: FileHandlerOptions): void;
+        new(options: EmailOptions): Email;
 
-        setFrom(address: string): void;
-        setSubject(subject: string): void;
-        setText(text: string): void;
-        setHtml(html: string): void;
-        setHeaders(headers: { [key: string]: string }): void;
-        setSubstitutions(substitutions: { [key: string]: string[] }): void;
-        setSections(sections: { [key: string]: string }): void;
-        setUniqueArgs(uargs: { [key: string]: string }): void;
-        setCategories(categories: string[]): void;
-        setFilters(filters: any): void;
+        addTo(address: string): Email;
+        addHeader(type: string, value: string): Email;
+        addSubstitution(type: string, value: string): Email;
+        addSubstitution(type: string, value: string[]): Email;
+        addSection(section: { [key: string]: string }): Email;
+        addUniqueArg(uarg: { [key: string]: string }): Email;
+        addCategory(category: string): Email;
+        addFilter(filter: string, command: string, value: number): Email;
+        addFilter(filter: string, command: string, value: string): Email;
+        addFile(file: FileHandlerOptions): Email;
+        addSmtpapiTo(to: string): Email;
+        addCc(cc: string): Email;
+        addBcc(bcc: string): Email;
+        addSendEachAt(send_each_at: number): Email;
+
+        setFrom(address: string): Email;
+        setSubject(subject: string): Email;
+        setText(text: string): Email;
+        setHtml(html: string): Email;
+        setHeaders(headers: { [key: string]: string }): Email;
+        setSubstitutions(substitutions: { [key: string]: string[] }): Email;
+        setSections(sections: { [key: string]: string }): Email;
+        setUniqueArgs(uargs: { [key: string]: string }): Email;
+        setCategories(categories: string[]): Email;
+        setFilters(filters: any): Email;
+        setSmtpapiTos(tos: string[]): Email;
+        setTos(tos: string[]): Email;
+        setFromName(fromname: string): Email;
+        setCcs(ccs: string[]): Email;
+        setBccs(bcc: string[]): Email;
+        setDate(date: string): Email;
+        setSendAt(send_at: number): Email;
+        setSendEachAt(send_each_at: number[]): Email;
+        setASMGroupID(val: number): Email;
     }
 
     //#endregion
@@ -146,18 +163,21 @@ declare namespace Sendgrid {
 
     interface Constructor {
         (api_user: string, api_key: string, options?: Options): Instance;
+        (api_key: string, option?: Options): Instance
         new (api_user: string, api_key: string, options?: Options): Instance;
+        new (api_key: string, options?: Options): Instance;
     }
 
     export interface Instance {
         version: string;
         api_user: string;
         api_key: string;
+        smtpapi: SmtpApi.Instance;
         options: OptionsExport;
         Email: typeof Email;
 
-        send(email: EmailOptions, callback: (err: Error, json: any) => any): void;
-        send(email: Email, callback: (err: Error, json: any) => any): void;
+        send(email: EmailOptions, callback: (err: Error, json: Object) => any): void;
+        send(email: Email, callback: (err: Error, json: Object) => any): void;
     }
 
     //#endregion

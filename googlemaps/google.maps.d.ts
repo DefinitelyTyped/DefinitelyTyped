@@ -1,4 +1,4 @@
-// Type definitions for Google Maps JavaScript API 3.20
+// Type definitions for Google Maps JavaScript API 3.25
 // Project: https://developers.google.com/maps/
 // Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -61,6 +61,7 @@ declare namespace google.maps {
         backgroundColor?: string;
         center?: LatLng|LatLngLiteral;
         disableDefaultUI?: boolean;
+        clickableIcons?: boolean;
         disableDoubleClickZoom?: boolean;
         draggable?: boolean;
         draggableCursor?: string;
@@ -339,6 +340,7 @@ declare namespace google.maps {
         getCursor(): string;
         getDraggable(): boolean;
         getIcon(): string|Icon|Symbol;
+        getLabel(): MarkerLabel;
         getMap(): Map|StreetViewPanorama;
         getOpacity(): number;
         getPlace(): Place;
@@ -353,6 +355,7 @@ declare namespace google.maps {
         setCursor(cursor: string): void;
         setDraggable(flag: boolean): void;
         setIcon(icon: string|Icon|Symbol): void;
+        setLabel(label: string|MarkerLabel): void;
         setMap(map: Map|StreetViewPanorama): void;
         setOpacity(opacity: number): void;
         setOptions(options: MarkerOptions): void;
@@ -391,6 +394,12 @@ declare namespace google.maps {
          */
         icon?: string|Icon|Symbol;
         /**
+         * Adds a label to the marker. The label can either be a string, or a MarkerLabel object. 
+         * Only the first character of the string will be displayed.
+         * @type {(string|MarkerLabel)}
+         */
+        label?: string|MarkerLabel;
+        /**
          * Map on which to display Marker.
          * @type {(Map|StreetViewPanorama)}
          *
@@ -419,7 +428,7 @@ declare namespace google.maps {
         /**
          * Marker position. Required.
          */
-        position: LatLng;
+        position: LatLng|LatLngLiteral;
         /** Image map region definition used for drag/click. */
         shape?: MarkerShape;
         /** Rollover text. */
@@ -468,6 +477,19 @@ declare namespace google.maps {
         url?: string;
     }
 
+    export interface MarkerLabel {
+        /** The color of the label text. Default color is black. */
+        color?: string;
+        /** The font family of the label text (equivalent to the CSS font-family property). */
+        fontFamily?: string;
+        /** The font size of the label text (equivalent to the CSS font-size property). Default size is 14px. */
+        fontSize?: string;
+        /** The font weight of the label text (equivalent to the CSS font-weight property). */
+        fontWeight?: string;
+        /** The text to be displayed in the label. Only the first character of this string will be shown. */
+        text?: string;
+    }
+    
     export interface MarkerShape {
         coords?: number[];
         type?: string;
@@ -734,7 +756,7 @@ declare namespace google.maps {
         zIndex?: number;
     }
 
-    export interface PolyMouseEvent {
+    export interface PolyMouseEvent extends MouseEvent {
         edge?: number;
         path?: number;
         vertex?: number;
@@ -900,6 +922,7 @@ declare namespace google.maps {
         formatted_address: string;
         geometry: GeocoderGeometry;
         partial_match: boolean;
+        place_id: string;
         postcode_localities: string[];
         types: string[];
     }
@@ -962,10 +985,11 @@ declare namespace google.maps {
         avoidFerries?: boolean;
         avoidHighways?: boolean;
         avoidTolls?: boolean;
-        destination?: LatLng|LatLngLiteral|string;
-        durationInTraffic?: boolean;
+        destination?: string|LatLng|Place;
+        durationInTraffic?: boolean; /* Deprecated. Use drivingOptions field instead */
+        drivingOptions?: DrivingOptions;
         optimizeWaypoints?: boolean;
-        origin?: LatLng|LatLngLiteral|string;
+        origin?: string|LatLng|Place;
         provideRouteAlternatives?: boolean;
         region?: string;
         transitOptions?: TransitOptions;
@@ -1008,6 +1032,18 @@ declare namespace google.maps {
     }
 
     export interface TransitFare { }
+
+    export interface DrivingOptions {
+        departureTime: Date;
+        trafficModel: TrafficModel
+    }
+
+    export enum TrafficModel
+    {
+        BEST_GUESS,
+        OPTIMISTIC,
+        PESSIMISTIC
+    }
 
     export interface DirectionsWaypoint {
         location: LatLng|LatLngLiteral|string;
@@ -1193,9 +1229,10 @@ declare namespace google.maps {
         avoidFerries?: boolean;
         avoidHighways?: boolean;
         avoidTolls?: boolean;
-        destinations?: LatLng[]|string[];
+        destinations?: string[]|LatLng[]|Place[];
+        drivingOptions?: DrivingOptions;
         durationInTraffic?: boolean;
-        origins?: LatLng[]|string[];
+        origins?: string[]|LatLng[]|Place[];
         region?: string;
         transitOptions?: TransitOptions;
         travelMode?: TravelMode;
@@ -1215,6 +1252,7 @@ declare namespace google.maps {
     export interface DistanceMatrixResponseElement {
         distance: Distance;
         duration: Duration;
+        duration_in_traffic: Duration;
         fare: TransitFare;
         status: DistanceMatrixElementStatus;
     }
@@ -1564,15 +1602,22 @@ declare namespace google.maps {
         setZoom(zoom: number): void;
     }
 
+    export interface FullscreenControlOptions {
+        position?: ControlPosition;
+    }
+
     export interface StreetViewPanoramaOptions {
         addressControl?: boolean;
         addressControlOptions?: StreetViewAddressControlOptions;
         clickToGo?: boolean;
-        disableDefaultUi?: boolean;
+        disableDefaultUI?: boolean;
         disableDoubleClickZoom?: boolean;
         enableCloseButton?: boolean;
+        fullscreenControl?: boolean;
+        fullscreenControlOptions?: FullscreenControlOptions;
         imageDateControl?: boolean;
         linksControl?: boolean;
+        mode?: "html4" | "html5" |"webgl";
         panControl?: boolean;
         panControlOptions?: PanControlOptions;
         pano?: string;
@@ -1581,6 +1626,7 @@ declare namespace google.maps {
         pov?: StreetViewPov;
         scrollwheel?: boolean;
         visible?: boolean;
+        zoom?: number;
         zoomControl?: boolean;
         zoomControlOptions?: ZoomControlOptions;
     }
@@ -1622,7 +1668,29 @@ declare namespace google.maps {
         worldSize?: Size;
     }
 
+    export enum StreetViewPreference {
+        BEST,
+        NEAREST
+    }
+
+    export enum StreetViewSource {
+        DEFAULT,
+        OUTDOOR
+    }
+
+    export interface StreetViewLocationRequest {
+        location: LatLng|LatLngLiteral;
+        preference?: StreetViewPreference;
+        radius?: number;
+        source?: StreetViewSource;
+    }
+
+    export interface StreetViewPanoRequest {
+        pano: string;
+    }
+
     export class StreetViewService {
+        getPanorama(request: StreetViewLocationRequest|StreetViewPanoRequest, cb: (data: StreetViewPanoramaData, status: StreetViewStatus) => void): void;
         getPanoramaById(pano: string, callback: (streetViewPanoramaData: StreetViewPanoramaData, streetViewStatus: StreetViewStatus) => void): void;
         getPanoramaByLocation(latlng: LatLng|LatLngLiteral, radius: number, callback: (streetViewPanoramaData: StreetViewPanoramaData, streetViewStatus: StreetViewStatus) => void ): void;
     }
@@ -1729,24 +1797,27 @@ declare namespace google.maps {
         toString(): string;
         /** Returns a string of the form "lat,lng". We round the lat/lng values to 6 decimal places by default. */
         toUrlValue(precision?: number): string;
+        /** Converts to JSON representation. This function is intended to be used via JSON.stringify. */
+        toJSON(): LatLngLiteral; 
     }
 
     export type LatLngLiteral = { lat: number; lng: number }
+    export type LatLngBoundsLiteral = { east: number; north: number; south: number; west: number }
 
     export class LatLngBounds {
-        constructor(sw?: LatLng, ne?: LatLng);
+        constructor(sw?: LatLng|LatLngLiteral, ne?: LatLng|LatLngLiteral);
         contains(latLng: LatLng): boolean;
-        equals(other: LatLngBounds): boolean;
+        equals(other: LatLngBounds|LatLngBoundsLiteral): boolean;
         extend(point: LatLng): LatLngBounds;
         getCenter(): LatLng;
         getNorthEast(): LatLng;
         getSouthWest(): LatLng;
-        intersects(other: LatLngBounds): boolean;
+        intersects(other: LatLngBounds|LatLngBoundsLiteral): boolean;
         isEmpty(): boolean;
         toSpan(): LatLng;
         toString(): string;
         toUrlValue(precision?: number): string;
-        union(other: LatLngBounds): LatLngBounds;
+        union(other: LatLngBounds|LatLngBoundsLiteral): LatLngBounds;
     }
 
     export class Point {
@@ -2007,7 +2078,7 @@ declare namespace google.maps {
 
         export interface PlaceResult {
             address_components: GeocoderAddressComponent[];
-            aspects: PlaceAspectRating[];
+            aspects: PlaceAspectRating[];  /* Deprecated. Will be removed May 2, 2017 */
             formatted_address: string;
             formatted_phone_number: string;
             geometry: PlaceGeometry;
@@ -2050,7 +2121,8 @@ declare namespace google.maps {
             openNow?: boolean;
             radius?: number;
             rankBy?: RankBy;
-            types?: string[];
+            types?: string[]; /* Deprecated. Will be removed February 16, 2017 */
+            type?: string;
         }
 
         export class PlacesService {
@@ -2091,7 +2163,8 @@ declare namespace google.maps {
             location?: LatLng|LatLngLiteral;
             name?: string;
             radius?: number;
-            types?: string[];
+            types?: string[];  /* Deprecated. Will be removed February 16, 2017 */
+            type?: string;
         }
 
         export enum RankBy {
@@ -2115,7 +2188,8 @@ declare namespace google.maps {
             location?: LatLng|LatLngLiteral;
             query: string;
             radius?: number;
-            types?: string[];
+            types?: string[]; /* Deprecated. Will be removed February 16, 2017 */
+            type?: string;
         }
     }
 

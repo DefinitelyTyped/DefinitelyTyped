@@ -69,6 +69,10 @@ axios.post("http://example.com/", {
     ]
 });
 
+var config: Axios.AxiosXHRConfigBase<any> = {headers: {}};
+config.headers['X-Custom-Header'] = 'baz';
+axios.post("http://example.com/", config);
+
 var getRepoIssue = axios.get<Issue>("https://api.github.com/repos/mzabriskie/axios/issues/1");
 
 var axiosInstance = axios.create({
@@ -91,3 +95,9 @@ var repoSum = (repo1: Axios.AxiosXHR<Repository>, repo2: Axios.AxiosXHR<Reposito
 };
 
 axios.all<Repository, Repository>([getRepoDetails, getRepoDetails]).then(axios.spread(repoSum));
+
+axios.defaults.baseURL = 'https://api.example.com';
+axios.defaults.headers.common['Authorization'] = "AUTH_TOKEN";
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+axiosInstance.defaults.headers.common['Authorization'] = "AUTH_TOKEN";

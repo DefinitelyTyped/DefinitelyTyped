@@ -28,7 +28,7 @@ declare module 'pty.js' {
         /** Read-only number of rows in the terminal. */
         rows: number;
         /**
-         * Read-only identifier of the spawned process associated with the slave end of the 
+         * Read-only identifier of the spawned process associated with the slave end of the
          * pseudo-terminal. This will be null if the terminal was created via [[Terminal.open]].
          */
         pid: number;
@@ -46,37 +46,37 @@ declare module 'pty.js' {
         stdin: Terminal;
         socket: net.Socket;
 
-        /** 
-         * Creates a new pseudo-terminal, spawns a child process, and associates it with the slave 
+        /**
+         * Creates a new pseudo-terminal, spawns a child process, and associates it with the slave
          * end of the pseudo-terminal.
          */
         constructor(file?: string, args?: string[], opt?: TerminalOptions);
 
         resize(cols?: number, rows?: number): void;
-        /** 
+        /**
          * Sends a signal to the spawned process associated with the slave end of the
          * pseudo-terminal (this only works if [[pid]] is not null).
          */
         kill(signal?: string): void;
         redraw(): void;
-    
+
         // NodeJS Socket-like interface (wrappers for this.socket)
-        
+
         write(data: any): boolean;
         end(data: any): void;
         pause(): void;
         resume(): void;
         setEncoding(encoding: string): void;
-        /** 
+        /**
          * Closes the master end of the pseudo-terminal, and attempts to kill the spawned process
          * associated with the slave end of the pseudo-terminal (but only if [[pid]] is not null).
          */
         destroy(): void;
 
         // NodeJS Stream interface
-    
+
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
-    
+
         // NodeJS EventEmitter interface
 
         addListener(event: string, listener: Function): this;
@@ -90,10 +90,13 @@ declare module 'pty.js' {
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
         listenerCount(type: string): number;
+        prependListener(event: string, listener: Function): this;
+        prependOnceListener(event: string, listener: Function): this;
+        eventNames(): string[];
     }
 
-    /** 
-     * Creates a new pseudo-terminal, spawns a child process, and associates it with the slave 
+    /**
+     * Creates a new pseudo-terminal, spawns a child process, and associates it with the slave
      * end of the pseudo-terminal.
      */
     export function createTerminal(file?: string, args?: string[], opt?: TerminalOptions): Terminal;
@@ -101,12 +104,12 @@ declare module 'pty.js' {
     export function fork(file?: string, args?: string[], opt?: TerminalOptions): Terminal;
     /** Alias for [[createTerminal]]. */
     export function spawn(file?: string, args?: string[], opt?: TerminalOptions): Terminal;
-    /** 
+    /**
      * Creates a new pseudo-terminal.
      * This function is not available on Windows, use [[fork]] there instead.
      */
     export function open(opt?: { cols?: number; rows?: number }): Terminal;
-    
+
     // Internal stuff that probably isn't very useful but is exported by pty.js
     export module native {
         /** Unix-only. */

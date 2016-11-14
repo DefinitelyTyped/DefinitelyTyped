@@ -194,7 +194,7 @@ declare module 'irc' {
              * @param callback
              */
             public connect(
-                retryCount?: number,
+                retryCount?: number | handlers.IRaw,
                 callback?: handlers.IRaw
             ): void;
 
@@ -227,6 +227,12 @@ declare module 'irc' {
              * @default 'nodebot'
              */
             userName?: string;
+
+            /**
+             * IRC username
+             * @default ''
+             */
+            password?: string;
 
             /**
              * IRC "real name"

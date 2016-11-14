@@ -53,8 +53,8 @@ declare namespace AltJS {
   export type Source = {[name:string]: () => SourceModel<any>};
 
   export interface SourceModel<S> {
-    local(state:any):any;
-    remote(state:any):Promise<S>;
+    local(state:any, ...args: any[]):any;
+    remote(state:any, ...args: any[]):Promise<S>;
     shouldFetch?(fetchFn:(...args:Array<any>) => boolean):void;
     loading?:(args:any) => void;
     success?:(state:S) => void;

@@ -1,4 +1,4 @@
-// Type definitions for PebbleKit JS
+// Type definitions for PebbleKit JS v4.0.0
 // Project: https://developer.pebble.com/docs/js/Pebble/
 // Definitions by: Makoto Kawasaki <https://github.com/makotokw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,6 +13,19 @@ declare namespace PebbleKit {
         type: string;
         payload?: Object;
         response?: string;
+    }
+
+    interface Layout {
+        icon: string;
+        subtitleTemplateString: string;
+    }
+
+    /**
+     * The structure of an app glance.
+     */
+    interface AppGlanceSlice {
+        expirationTime?: string;
+        layout: Layout;
     }
 
     interface AppMessageData {
@@ -56,6 +69,14 @@ declare namespace PebbleKit {
         addEventListener(type: string, callback: (e: Event) => void): void;
 
         /**
+         * Attaches an event handler to the specified events. Synonymous with addEventListener.
+         * Only applicable to Rocky.js applications.
+         * @param type      The type of the event, from the three described above.
+         * @param callback  A developer-defined function to receive any events of the type specified that occur.
+         */
+        on(type: string, callback: (e: Event) => void): void;
+
+        /**
          * Remove an existing event listener previously registered with Pebble.addEventListener().
          * @param type      The type of the event listener to be removed.
          *                  See Pebble.addEventListener() for a list of available types.
@@ -63,6 +84,16 @@ declare namespace PebbleKit {
          * @see addEventListener
          */
         removeEventListener(type: string, callback?: (e: Event) => void): void;
+
+        /**
+         * Remove an existing event handler from the specified events. Synonymous with removeEventListener.
+         * Only applicable to Rocky.js applications.
+         * @param type      The type of the event listener to be removed.
+         *                  See Pebble.addEventListener() for a list of available types.
+         * @param callback  The existing developer-defined function that was previously registered.
+         * @see addEventListener
+         */
+        off(type: string, callback?: (e: Event) => void): void;
 
         /**
          * Show a simple modal notification on the connected watch.
@@ -136,6 +167,14 @@ declare namespace PebbleKit {
          * @return string
          */
         getWatchToken(): string;
+
+        /**
+         * Triggers a reload of the app glance which first clears any existing slices and then adds the provided slices.
+         * @param appGlanceSlices
+         * @param onSuccess
+         * @param onFailure
+         */
+        appGlanceReload(appGlanceSlices: AppGlanceSlice[], onSuccess: (appGlanceSlices: AppGlanceSlice[]) => void, onFailure: (appGlanceSlices: AppGlanceSlice[]) => void): void;
 
         /**
          * to start displaying this webview

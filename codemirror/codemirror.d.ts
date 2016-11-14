@@ -181,7 +181,7 @@ declare namespace CodeMirror {
             handle: any;
             text: string;
             /** Object mapping gutter IDs to marker elements. */
-            gutterMarks: any;
+            gutterMarkers: any;
             textClass: string;
             bgClass: string;
             wrapClass: string;
@@ -220,14 +220,7 @@ declare namespace CodeMirror {
 
         /** Get an { left , top , width , height , clientWidth , clientHeight } object that represents the current scroll position, the size of the scrollable area,
         and the size of the visible area(minus scrollbars). */
-        getScrollInfo(): {
-            left: any;
-            top: any;
-            width: any;
-            height: any;
-            clientWidth: any;
-            clientHeight: any;
-        }
+        getScrollInfo(): CodeMirror.ScrollInfo;
 
         /** Scrolls the given element into view. pos is a { line , ch } position, referring to a given character, null, to refer to the cursor.
         The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
@@ -434,7 +427,7 @@ declare namespace CodeMirror {
 
         /** Replace the part of the document between from and to with the given string.
         from and to must be {line, ch} objects. to can be left off to simply insert the string at position from. */
-        replaceRange(replacement: string, from: CodeMirror.Position, to: CodeMirror.Position): void;
+        replaceRange(replacement: string, from: CodeMirror.Position, to?: CodeMirror.Position): void;
 
         /** Get the content of line n. */
         getLine(n: number): string;
@@ -607,6 +600,15 @@ declare namespace CodeMirror {
 
     interface LineHandle {
         text: string;
+    }
+
+    interface ScrollInfo {
+        left: any;
+        top: any;
+        width: any;
+        height: any;
+        clientWidth: any;
+        clientHeight: any;
     }
 
     interface TextMarker {
@@ -1064,6 +1066,12 @@ declare namespace CodeMirror {
     function defineMode(id: string, modefactory: ModeFactory<any>): void;
 
     /**
+     * id will be the id for the defined mode. Typically, you should use this second argument to defineMode as your module scope function
+     * (modes should not leak anything into the global scope!), i.e. write your whole mode inside this function.
+     */
+    function defineMode<T>(id: string, modefactory: ModeFactory<T>): void;
+
+    /**
      * The first argument is a configuration object as passed to the mode constructor function, and the second argument
      * is a mode specification as in the EditorConfiguration mode option.
      */
@@ -1118,6 +1126,115 @@ declare namespace CodeMirror {
         message?: string;
         severity?: string;
         to?: Position;
+    }
+
+    /**
+     * A function that calculates either a two-way or three-way merge between different sets of content.
+     */
+    function MergeView(element: HTMLElement, options?: MergeView.MergeViewEditorConfiguration): MergeView.MergeViewEditor;
+
+    namespace MergeView {
+      /**
+       * Options available to MergeView.
+       */
+      interface MergeViewEditorConfiguration extends EditorConfiguration {
+          /**
+           * Determines whether the original editor allows editing. Defaults to false.
+           */
+          allowEditingOriginals?: boolean;
+
+          /**
+           * When true stretches of unchanged text will be collapsed. When a number is given, this indicates the amount
+           * of lines to leave visible around such stretches (which defaults to 2). Defaults to false.
+           */
+          collapseIdentical?: boolean | number;
+
+          /**
+           * Sets the style used to connect changed chunks of code. By default, connectors are drawn. When this is set to "align",
+           * the smaller chunk is padded to align with the bigger chunk instead.
+           */
+          connect?: string;
+
+          /**
+           * Callback for when stretches of unchanged text are collapsed.
+           */
+          onCollapse?(mergeView: MergeViewEditor, line: number, size: number, mark: TextMarker): void;
+
+          /**
+           * Provides original version of the document to be shown on the right of the editor.
+           */
+          orig: any;
+
+          /**
+           * Provides original version of the document to be shown on the left of the editor.
+           * To create a 2-way (as opposed to 3-way) merge view, provide only one of origLeft and origRight.
+           */
+          origLeft?: any;
+
+          /**
+           * Provides original version of document to be shown on the right of the editor.
+           * To create a 2-way (as opposed to 3-way) merge view, provide only one of origLeft and origRight.
+           */
+          origRight?: any;
+
+          /**
+           * Determines whether buttons that allow the user to revert changes are shown. Defaults to true.
+           */
+          revertButtons?: boolean;
+
+          /**
+           * When true, changed pieces of text are highlighted. Defaults to true.
+           */
+          showDifferences?: boolean;
+      }
+
+      interface MergeViewEditor extends Editor {
+          /**
+           * Returns the editor instance.
+           */
+          editor(): Editor;
+
+          /**
+           * Left side of the merge view.
+           */
+          left: DiffView;
+          leftChunks(): MergeViewDiffChunk;
+          leftOriginal(): Editor;
+
+          /**
+           * Right side of the merge view.
+           */
+          right: DiffView;
+          rightChunks(): MergeViewDiffChunk;
+          rightOriginal(): Editor;
+
+          /**
+           * Sets whether or not the merge view should show the differences between the editor views.
+           */
+          setShowDifferences(showDifferences: boolean): void;
+      }
+
+      /**
+       * Tracks changes in chunks from oroginal to new.
+       */
+      interface MergeViewDiffChunk {
+          editFrom: number;
+          editTo: number;
+          origFrom: number;
+          origTo: number;
+      }
+
+      interface DiffView {
+          /**
+           * Forces the view to reload.
+           */
+          forceUpdate(): (mode: string) => void;
+
+          /**
+           * Sets whether or not the merge view should show the differences between the editor views.
+           */
+          setShowDifferences(showDifferences: boolean): void;
+      }
     }
 }
 

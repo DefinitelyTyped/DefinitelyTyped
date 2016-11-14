@@ -73,6 +73,8 @@ interface FancyboxOptions extends FancyboxCallback {
     prevMethod?: string;
 
     helpers?: any;
+    live?: boolean;
+    parent?: string;
 }
 
 interface FancyboxMethods {

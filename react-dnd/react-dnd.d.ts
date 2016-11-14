@@ -1,4 +1,4 @@
-// Type definitions for React DnD v1.1.4
+// Type definitions for React DnD v2.0.2
 // Project: https://github.com/gaearon/react-dnd
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,13 +11,13 @@ declare module __ReactDnd {
     // Decorated React Components
     // ----------------------------------------------------------------------
 
-    class ContextComponent<P, S> extends React.Component<P, S> {
+    interface ContextComponent<P, S> extends React.Component<P, S> {
         getDecoratedComponentInstance(): React.Component<P, S>;
         // Note: getManager is not yet documented on the React DnD docs.
         getManager(): any;
     }
 
-    class DndComponent<P, S> extends React.Component<P, S> {
+    interface DndComponent<P, S> extends React.Component<P, S> {
         getDecoratedComponentInstance(): React.Component<P, S>;
         getHandlerId(): Identifier;
     }
@@ -40,23 +40,23 @@ declare module __ReactDnd {
         spec: DragSourceSpec<P>,
         collect: DragSourceCollector,
         options?: DndOptions<P>
-    ): (componentClass: React.ComponentClass<P>) => DndComponentClass<P>;
+    ): <C extends React.ComponentClass<P> | React.StatelessComponent<P>>(componentClass: C) => C & DndComponentClass<P>;
 
     export function DropTarget<P>(
         types: Identifier | Identifier[] | ((props: P) => Identifier | Identifier[]),
         spec: DropTargetSpec<P>,
         collect: DropTargetCollector,
         options?: DndOptions<P>
-    ): (componentClass: React.ComponentClass<P>) => DndComponentClass<P>;
+    ): <C extends React.ComponentClass<P> | React.StatelessComponent<P>>(componentClass: C) => C & DndComponentClass<P>;
 
     export function DragDropContext<P>(
         backend: Backend
-    ): (componentClass: React.ComponentClass<P>) => ContextComponentClass<P>;
+    ): <C extends React.ComponentClass<P> | React.StatelessComponent<P>>(componentClass: C) => C & ContextComponentClass<P>;
 
     export function DragLayer<P>(
         collect: DragLayerCollector,
         options?: DndOptions<P>
-    ): (componentClass: React.ComponentClass<P>) => DndComponentClass<P>;
+    ): <C extends React.ComponentClass<P> | React.StatelessComponent<P>>(componentClass: C) => C & DndComponentClass<P>;
 
     type DragSourceCollector = (connect: DragSourceConnector, monitor: DragSourceMonitor) => Object;
     type DropTargetCollector = (connect: DropTargetConnector, monitor: DropTargetMonitor) => Object;
@@ -177,26 +177,4 @@ declare module __ReactDnd {
 
 declare module "react-dnd" {
     export = __ReactDnd;
-}
-
-declare module "react-dnd/modules/backends/HTML5" {
-    export enum NativeTypes { FILE, URL, TEXT }
-    export function getEmptyImage(): any; // Image
-    export default class HTML5Backend implements __ReactDnd.Backend {}
-}
-
-declare module "react-dnd/modules/backends/Test" {
-    class TestBackend {
-        setup(): void;
-        teardown(): void;
-        connectDragSource(): void;
-        connectDropTarget(): void;
-        simulateBeginDrag(sourceIds: __ReactDnd.Identifier[], options?: {}): void;
-        simulatePublishDragSource(): void;
-        simulateHover(targetIds: __ReactDnd.Identifier[], options?: {}): void;
-        simulateDrop(): void;
-        simulateEndDrag(): void;
-    }
-
-    export = TestBackend;
 }

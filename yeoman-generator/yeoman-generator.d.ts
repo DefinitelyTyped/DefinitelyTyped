@@ -22,6 +22,7 @@ declare namespace yo {
         sourceRoot(rootPath?: string): string;
         templatePath(...path: string[]): string;
         prompt(opt: IPromptOptions | IPromptOptions[], callback: (answers: any) => void): void;
+        prompt<T>(opt: IPromptOptions | IPromptOptions[]): PromiseLike<T>;
         npmInstall(packages?: string[] | string, options?: any, cb?: Function): void;
         installDependencies(options?: IInstallDependencyOptions): void;
         spawnCommand(name: string, args?: string[], options?: Object): void;
@@ -30,7 +31,7 @@ declare namespace yo {
         fs: IMemFsEditor;
     }
 
-    export class YeomanGeneratorBase implements IYeomanGenerator, NodeJS.EventEmitter {
+    export class YeomanGeneratorBase extends NodeJS.EventEmitter implements IYeomanGenerator  {
         argument(name: string, config: IArgumentConfig): void;
         composeWith(namespace: string, options: any, settings?: IComposeSetting): IYeomanGenerator;
         defaultFor(name: string): void;
@@ -59,6 +60,7 @@ declare namespace yo {
 
         async(): any;
         prompt(opt: IPromptOptions | IPromptOptions[], callback: (answers: any) => void): void;
+        prompt<T>(opt: IPromptOptions | IPromptOptions[]): PromiseLike<T>;
         log(message: string) : void;
         npmInstall(packages: string[], options?: any, cb?: Function) :void;
         installDependencies(options?: IInstallDependencyOptions): void;

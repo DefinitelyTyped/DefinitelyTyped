@@ -76,7 +76,7 @@ declare namespace SignalR {
         }
 
         interface Options {
-            queryString?: string;
+            qs?: string;
             logging?: boolean;
             useDefaultPath?: boolean;
         }

@@ -14,9 +14,9 @@ declare namespace svgjs {
 	}
 
 	export interface Element {
-		draggable(): Element
-		draggable(obj: Object):Element
-		fixed(): Element
+		draggable(): this
+		draggable(obj: Object): this
+		fixed(): this
 		beforedrag: (event: MouseEvent) => any
 		dragstart: (delta: draggable.DragDelta, event: MouseEvent) => any
 		dragmove: (delta: draggable.DragDelta, event: MouseEvent) => any

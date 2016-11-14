@@ -3,7 +3,7 @@
 // Definitions by: Qinfeng Chen <https://github.com/qinfchen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace Dagre{
+declare namespace Dagre {
     interface DagreFactory {
         graphlib: GraphLib;
         layout(graph: Graph): void;
@@ -16,7 +16,7 @@ declare namespace Dagre{
         nodes(): string[];
         node(id: any): any;
         setDefaultEdgeLabel(callback: () => void): Graph;
-        setEdge(sourceId: string, targetId: string): Graph;
+        setEdge(sourceId: string, targetId: string, options?: { [key: string]: any }): Graph;
         setGraph(options: { [key: string]: any }): Graph;
         setNode(id: string, node: { [key: string]: any }): Graph;
     }
