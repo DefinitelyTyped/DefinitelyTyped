@@ -38,9 +38,9 @@ declare namespace morris {
         gridTextFamily?: string;
         /** Set the font weight of the axis labels (default: normal). */
         gridTextWeight?: string;      
-        /** Set the stroke of the grid. */
+        /** Set the stroke of the grid. (default: 0.5)*/
         gridStrokeWidth?: number;
-        /** Set the line color of the grid. */
+        /** Set the line color of the grid. (default: #aaa) */
         gridLineColor?: string;
     }
 
