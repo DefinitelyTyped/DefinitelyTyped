@@ -1,6 +1,6 @@
 // Type definitions for CreateJS
 // Project: http://www.createjs.com/
-// Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Chris Smith <https://github.com/evilangelist>, Satoru Kimura <https://github.com/gyohk>
+// Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Chris Smith <https://github.com/evilangelist>, Satoru Kimura <https://github.com/gyohk>, Endel Dreyer <https://github.com/endel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -70,6 +70,7 @@ declare namespace createjs {
         addEventListener(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): Function;
         addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => boolean; }, useCapture?: boolean): Object;
         addEventListener(type: string, listener: { handleEvent: (eventObj: Object) => void; }, useCapture?: boolean): Object;
+        addEventListener(type: string, listener: Function, useCapture?: boolean): Function;
         dispatchEvent(eventObj: Object, target?: Object): boolean;
         dispatchEvent(eventObj: string, target?: Object): boolean;
         dispatchEvent(eventObj: Event, target?: Object): boolean;
