@@ -134,6 +134,11 @@ declare module 'xlsx' {
         r: number;
     }
 
+    export interface IRange {
+        s: ICell;
+        e: ICell;
+    }
+
     export interface IUtils {
         sheet_to_json<T>(worksheet:IWorkSheet, opts?: {
             raw?: boolean;
@@ -144,6 +149,8 @@ declare module 'xlsx' {
         sheet_to_formulae(worksheet: IWorkSheet):any;
         encode_cell(cell: ICell): any;
         encode_range(s: ICell, e: ICell): any;
+        decode_cell(address: string): ICell;
+        decode_range(range: string): IRange;
     }
 
 }
