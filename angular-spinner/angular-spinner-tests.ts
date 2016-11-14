@@ -1,4 +1,4 @@
-/// <reference path="angular-spinner.d.ts" />
+import {ISpinnerService} from 'angular-spinner';
 
 var myApp = angular.module('testModule');
 
