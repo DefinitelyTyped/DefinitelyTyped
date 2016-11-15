@@ -128,7 +128,7 @@ The `Project` link does not have to be to GitHub, but prefer linking to a source
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -149,14 +149,18 @@ and you may also add the `"jsx"` compiler option if your library needs it.
 
 DefinitelyTyped members routinely monitor for new PRs, though keep in mind that the number of other PRs may slow things down.
 
+For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/types-2.0/base64-js).
 
 #### Common mistakes
 
 * First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
 * Formatting: Either use all tabs, or always use 4 spaces. Also, always use semicolons, and use egyptian braces.
 * `interface X {}`: An empty interface is essentially the `{}` type: it places no constraints on an object.
-* `interface Foo { new(): Foo }`:
+* `interface IFoo {}`: Don't add `I` to the front of an interface name.
+* `interface Foo { new(): Foo; }`:
     This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }
+* `const Class: { new(): IClass; }`:
+    Prefer to use a class declaration `class Class { constructor(); }` instead of a new-able constant.
 * `namespace foo {}`:
     Do not add a namespace just so that the `import * as foo` syntax will work.
     If it is commonJs module with a single export, you should use the `import foo = require("foo")` syntax.
@@ -194,7 +198,7 @@ Changes to the `master` branch are also manually merged into the `types-2.0` bra
 
 #### I'm writing a definition that depends on another definition. Should I use `<reference types="" />` or an import?
 
-If the module you're referencing is an written as an external module (uses `export`), use an import.
+If the module you're referencing is an external module (uses `export`), use an import.
 If the module you're referenceing is an ambient module (uses `declare module`, or just declares globals), use `<reference types="" />`.
 
 #### What do I do about older versions of typings?
@@ -208,6 +212,10 @@ Usually you won't need this. When publishing a package we will normally automati
 A `package.json` may be included for the sake of specifying dependencies. Here's an [example](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/types-2.0/pikaday/package.json).
 We do not allow other fields, such as `"description"`, to be defined manually.
 Also, if you need to reference an older version of typings, you must do that by adding `"dependencies": { "@types/foo": "x.y.z" }` to the package.json.
+
+#### I notice some `tsconfig.json` are missing `"noImplicitAny": true` or `"strictNullChecks": true`.
+
+Then they are wrong. You can help by submitting a pull request to fix them.
 
 #### Definitions in types-2.0 seem written differently than in master.
 
