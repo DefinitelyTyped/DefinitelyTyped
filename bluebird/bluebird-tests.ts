@@ -338,6 +338,29 @@ fooOrBarProm = fooProm.caught(Promise.CancellationError, (reason: any) => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+{
+	class CustomError extends Error {
+		public customField: number;
+	}
+	fooProm = fooProm.catch(CustomError, reason => {
+		let a: number = reason.customField
+	})
+}
+
+{
+	class CustomErrorWithConstructor extends Error {
+		constructor(public arg1: boolean, public arg2: number) {
+			super();
+		};
+	}
+	fooProm = fooProm.catch(CustomErrorWithConstructor, reason => {
+		let a: boolean = reason.arg1;
+		let b: number = reason.arg2;
+	})
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 barProm = fooProm.error((reason: any) => {
 	return bar;
 });

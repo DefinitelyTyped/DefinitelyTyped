@@ -386,6 +386,9 @@ declare module "redis" {
         hscan(args:any[], callback?:ResCallbackT<any>): boolean;
         zscan(...args:any[]): boolean;
         zscan(args:any[], callback?:ResCallbackT<any>): boolean;
+
+        // Extras
+        duplicate(options?:any[], callback?:ResCallbackT<any>): RedisClient;
     }
 
     export interface Multi {
