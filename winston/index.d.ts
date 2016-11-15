@@ -405,8 +405,8 @@ declare namespace winston {
         host?: string;
         port?: number;
         auth?: {
-        username: string;
-        password: string;
+            username: string;
+            password: string;
         };
         path?: string;
     }
@@ -426,8 +426,8 @@ declare namespace winston {
         filename?: string;
         dirname?: string;
         options?: {
-        flags?: string;
-        highWaterMark?: number;
+            flags?: string;
+            highWaterMark?: number;
         };
         stream?: NodeJS.WritableStream;
     }
@@ -444,8 +444,8 @@ declare namespace winston {
         filename?: string;
         dirname?: string;
         options?: {
-        flags?: string;
-        highWaterMark?: number;
+            flags?: string;
+            highWaterMark?: number;
         };
         stream?: NodeJS.WritableStream;
     }
@@ -460,9 +460,9 @@ declare namespace winston {
     export interface WebhookTransportOptions extends GenericTransportOptions, GenericNetworkTransportOptions {
         method?: string;
         ssl?: {
-        key?: any;
-        cert?: any;
-        ca: any;
+            key?: any;
+            cert?: any;
+            ca: any;
         };
     }
 
