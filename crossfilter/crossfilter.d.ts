@@ -1,6 +1,6 @@
 // Type definitions for CrossFilter
 // Project: https://github.com/square/crossfilter
-// Definitions by: Schmulik Raskin <https://github.com/schmuli>
+// Definitions by: Schmulik Raskin <https://github.com/schmuli>, Izaak Baker <https://github.com/iebaker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace CrossFilter {
@@ -111,3 +111,8 @@ declare namespace CrossFilter {
 }
 
 declare var crossfilter: CrossFilter.CrossFilterStatic;
+declare module "crossfilter" {
+    var crossfilter: CrossFilter.CrossFilterStatic;
+    export = crossfilter;    	
+}
+

@@ -1,4 +1,4 @@
-// Type definitions for Microsoft Dynamics xRM API v7.1
+// Type definitions for Microsoft Dynamics xRM API v8.0
 // Project: http://www.microsoft.com/en-us/download/details.aspx?id=44567
 // Definitions by: David Berry <https://github.com/6ix4our/>, Matt Ngan <https://github.com/mattngan/>, Markus Mauch <https://github.com/markusmauch/>, Daryl LaBar <https://github.com/daryllabar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -868,6 +868,66 @@ declare namespace Xrm
         }
 
         /**
+         * Interface for Result value of AutoCompleteResultSet
+         */
+        export interface AutoCompleteResult {
+            /**
+             * The Identifier
+             */
+            id: string|number;
+
+            /**
+             * Url of the icon to display
+             */
+            icon?: string;
+
+            /**
+             * Display value(s) for this auto-complete option
+             */
+            fields: string[];
+        }
+
+        /**
+         * Interface for command of AutoCompleteResultSet.  This is displayed at the bottom of the auto complete view
+         */
+        export interface AutoCompleteCommand {
+            /**
+             * The Identifier
+             */
+            id: string;
+
+            /**
+             * Url of the icon to display
+             */
+            icon?: string;
+
+            /**
+             * Label to display at the bottom of the auto complete view
+             */
+            label: string;
+
+            /**
+             * Action to perform when user clicks on label
+             */
+            action(): void;
+        }
+
+        /**
+         * Interface for showAutoComplete argument
+         */
+        export interface AutoCompleteResultSet {
+            /**
+             * Results to show
+             */
+            results: AutoCompleteResult[];
+
+            /**
+             * Command to show/execute at the bottom of the results displayed
+             */
+            commands?: AutoCompleteCommand;
+        }
+
+        /**
          * Interface for a Lookup value.
          */
         export interface LookupValue
@@ -1682,6 +1742,56 @@ declare namespace Xrm
              * @return  The attribute.
              */
             getAttribute(): Attribute;
+        }
+
+        /**
+         * Interace for Auto Lookup Control
+         * This is not an Entity Lookup, but a control that supports AutoComplete/KeyPress Events (Text)
+         * NOTE * This interface is not supported for CRM mobile clients (phones or tablets) and the interactive service hub.  It is only available for Updated entities.
+         * 
+         * @sa  StandardControl
+         */
+        export interface AutoLookupControl extends StandardControl {
+            /**
+             * Use this to add a function as an event handler for the keypress event so that the function is called when you type a character in the specific text or number field.
+             * For a sample JavaScript code that uses the addOnKeyPress method to configure the auto-completion experience, see Sample: Auto-complete in CRM controls.
+             *
+             * @param   {ContextSensitiveHandler}  handler The function reference.
+             */
+            addOnKeyPress(handler: ContextSensitiveHandler): void;
+
+            /**
+             * Use this to manually fire an event handler that you created for a specific text or number field to be executed on the keypress event.
+             */
+            fireOnKeyPress(): void;
+
+            /**
+             * Gets the latest value in a control as the user types characters in a specific text or number field.
+             * This method helps you to build interactive experiences by validating data and alerting users as they type characters in a control.
+             * The getValue method is different from the attribute getValue method because the control method retrieves the value from the control
+             * as the user is typing in the control as opposed to the attribute getValue method that retrieves the value after the user commits (saves) the field.
+             */
+            getValue(): string;
+
+            /**
+             * Hides the auto-completion drop-down list configured for a specific text field
+             */
+            hideAutoComplete(): void;
+
+            /**
+             * Use this to remove an event handler for a text or number field that you added using addOnKeyPress.
+             *
+             * Remarks:  If an anonymous function is set using addOnKeyPress, it can’t be removed using this method.
+             * @param   {ContextSensitiveHandler}  handler The function reference.
+             */
+            removeOnKeyPress(handler: ContextSensitiveHandler): void;
+
+            /**
+             * Shows upt to 10 matching strings in a drop-down list as users press keys to type charactrer in a specific text field.
+             * On selecting an item in the drop-down list, the value in the text field changes to the selected item, the drop-down list disappears, and the OnChange event for the text field is invoked
+             * @param resultSet 
+             */
+            showAutoComplete(resultSet: AutoCompleteResultSet): void;
         }
 
         /**

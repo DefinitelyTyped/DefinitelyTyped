@@ -22,9 +22,23 @@ import * as vm from "vm";
 import * as string_decoder from "string_decoder";
 import * as stream from "stream";
 import * as timers from "timers";
+import * as repl from "repl";
 
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
+
+//////////////////////////////////////////////////////////
+/// Global Tests : https://nodejs.org/api/global.html  ///
+//////////////////////////////////////////////////////////
+namespace global_tests {
+    {
+        let x: NodeModule;
+        let y: NodeModule;
+        x.children.push(y);
+        x.parent = require.main;
+        require.main = y;
+    }
+}
 
 //////////////////////////////////////////////////////////
 /// Assert Tests : https://nodejs.org/api/assert.html ///
@@ -70,7 +84,7 @@ namespace assert_tests {
 
 namespace events_tests {
     let emitter: events.EventEmitter;
-    let event: string;
+    let event: string | symbol;
     let listener: Function;
     let any: any;
 
@@ -114,7 +128,7 @@ namespace events_tests {
     }
 
     {
-        let result: string[];
+        let result: (string | symbol)[];
 
         result = emitter.eventNames();
     }
@@ -165,7 +179,7 @@ namespace fs_tests {
     }
 
     {
-        var errno: string;
+        var errno: number;
         fs.readFile('testfile', (err, data) => {
             if (err && err.errno) {
                 errno = err.errno;
@@ -487,7 +501,10 @@ function simplified_stream_ctor_test() {
             chunks[0].chunk.slice(0);
             chunks[0].encoding.charAt(0);
             cb();
-        }
+        },
+        allowHalfOpen: true,
+        readableObjectMode: true,
+        writableObjectMode: true
     })
 }
 
@@ -542,6 +559,15 @@ namespace crypto_tests {
 
         assert.deepEqual(clearText2, clearText);
     }
+
+    {
+      let buffer1: Buffer = new Buffer([1, 2, 3, 4, 5]);
+      let buffer2: Buffer = new Buffer([1, 2, 3, 4, 5]);
+      let buffer3: Buffer = new Buffer([5, 4, 3, 2, 1]);
+
+      assert(crypto.timingSafeEqual(buffer1, buffer2))
+      assert(!crypto.timingSafeEqual(buffer1, buffer3))
+    }
 }
 
 //////////////////////////////////////////////////
@@ -549,17 +575,196 @@ namespace crypto_tests {
 //////////////////////////////////////////////////
 
 namespace tls_tests {
-    var ctx: tls.SecureContext = tls.createSecureContext({
-        key: "NOT REALLY A KEY",
-        cert: "SOME CERTIFICATE",
-    });
-    var blah = ctx.context;
+    {
+        var ctx: tls.SecureContext = tls.createSecureContext({
+            key: "NOT REALLY A KEY",
+            cert: "SOME CERTIFICATE",
+        });
+        var blah = ctx.context;
 
-    var connOpts: tls.ConnectionOptions = {
-        host: "127.0.0.1",
-        port: 55
-    };
-    var tlsSocket = tls.connect(connOpts);
+        var connOpts: tls.ConnectionOptions = {
+            host: "127.0.0.1",
+            port: 55
+        };
+        var tlsSocket = tls.connect(connOpts);
+    }
+
+    {
+        let _server: tls.Server;
+        let _boolean: boolean;
+        let _func1 = function(err: Error, resp: Buffer){};
+        let _func2 = function(err: Error, sessionData: any){};
+        /**
+         * events.EventEmitter
+         * 1. tlsClientError
+         * 2. newSession
+         * 3. OCSPRequest
+         * 4. resumeSession
+         * 5. secureConnection
+         **/
+
+        _server = _server.addListener("tlsClientError", (err, tlsSocket) => {
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+        _server = _server.addListener("newSession", (sessionId, sessionData, callback) => {
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
+        })
+        _server = _server.addListener("OCSPRequest", (certificate, issuer, callback) => {
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
+        })
+        _server = _server.addListener("resumeSession", (sessionId, callback) => {
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
+        })
+        _server = _server.addListener("secureConnection", (tlsSocket) => {
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+
+        let _err: Error;
+        let _tlsSocket: tls.TLSSocket;
+        let _any: any;
+        let _func: Function;
+        let _buffer: Buffer;
+        _boolean = _server.emit("tlsClientError", _err, _tlsSocket);
+        _boolean = _server.emit("newSession", _any, _any, _func1);
+        _boolean = _server.emit("OCSPRequest", _buffer, _buffer, _func);
+        _boolean = _server.emit("resumeSession", _any, _func2);
+        _boolean = _server.emit("secureConnection", _tlsSocket);
+
+        _server = _server.on("tlsClientError", (err, tlsSocket) => {
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+        _server = _server.on("newSession", (sessionId, sessionData, callback) => {
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
+        })
+        _server = _server.on("OCSPRequest", (certificate, issuer, callback) => {
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
+        })
+        _server = _server.on("resumeSession", (sessionId, callback) => {
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
+        })
+        _server = _server.on("secureConnection", (tlsSocket) => {
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+
+        _server = _server.once("tlsClientError", (err, tlsSocket) => {
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+        _server = _server.once("newSession", (sessionId, sessionData, callback) => {
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
+        })
+        _server = _server.once("OCSPRequest", (certificate, issuer, callback) => {
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
+        })
+        _server = _server.once("resumeSession", (sessionId, callback) => {
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
+        })
+        _server = _server.once("secureConnection", (tlsSocket) => {
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+
+        _server = _server.prependListener("tlsClientError", (err, tlsSocket) => {
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+        _server = _server.prependListener("newSession", (sessionId, sessionData, callback) => {
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
+        })
+        _server = _server.prependListener("OCSPRequest", (certificate, issuer, callback) => {
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
+        })
+        _server = _server.prependListener("resumeSession", (sessionId, callback) => {
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
+        })
+        _server = _server.prependListener("secureConnection", (tlsSocket) => {
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+
+        _server = _server.prependOnceListener("tlsClientError", (err, tlsSocket) => {
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+        _server = _server.prependOnceListener("newSession", (sessionId, sessionData, callback) => {
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
+        })
+        _server = _server.prependOnceListener("OCSPRequest", (certificate, issuer, callback) => {
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
+        })
+        _server = _server.prependOnceListener("resumeSession", (sessionId, callback) => {
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
+        })
+        _server = _server.prependOnceListener("secureConnection", (tlsSocket) => {
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+    }
+
+    {
+        let _TLSSocket: tls.TLSSocket;
+        let _boolean: boolean;
+        /**
+         * events.EventEmitter
+         * 1. close
+         * 2. error
+         * 3. listening
+         * 4. message
+         **/
+
+        _TLSSocket = _TLSSocket.addListener("OCSPResponse", (response) => {
+            let _response: Buffer = response;
+        })
+        _TLSSocket = _TLSSocket.addListener("secureConnect", () => { });
+
+        let _buffer: Buffer;
+        _boolean = _TLSSocket.emit("OCSPResponse", _buffer);
+        _boolean = _TLSSocket.emit("secureConnect");
+
+        _TLSSocket = _TLSSocket.on("OCSPResponse", (response) => {
+            let _response: Buffer = response;
+        })
+        _TLSSocket = _TLSSocket.on("secureConnect", () => { });
+
+        _TLSSocket = _TLSSocket.once("OCSPResponse", (response) => {
+            let _response: Buffer = response;
+        })
+        _TLSSocket = _TLSSocket.once("secureConnect", () => { });
+
+        _TLSSocket = _TLSSocket.prependListener("OCSPResponse", (response) => {
+            let _response: Buffer = response;
+        })
+        _TLSSocket = _TLSSocket.prependListener("secureConnect", () => { });
+
+        _TLSSocket = _TLSSocket.prependOnceListener("OCSPResponse", (response) => {
+            let _response: Buffer = response;
+        })
+        _TLSSocket = _TLSSocket.prependOnceListener("secureConnect", () => { });
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -650,14 +855,86 @@ namespace tty_tests {
 ////////////////////////////////////////////////////
 
 namespace dgram_tests {
-    var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
-    });
-    ds.bind();
-    ds.bind(41234);
-    var ai: dgram.AddressInfo = ds.address();
-    ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
-    });
-    ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+    {
+        var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
+        });
+        ds.bind();
+        ds.bind(41234);
+        var ai: dgram.AddressInfo = ds.address();
+        ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
+        });
+        ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+    }
+
+    {
+        let _socket: dgram.Socket;
+        let _boolean: boolean;
+        let _err: Error;
+        let _str: string;
+        let _rinfo: dgram.AddressInfo;
+        /**
+         * events.EventEmitter
+         * 1. close
+         * 2. error
+         * 3. listening
+         * 4. message
+         **/
+
+        _socket = _socket.addListener("close", () => {});
+        _socket = _socket.addListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _socket = _socket.addListener("listening", () => {});
+        _socket = _socket.addListener("message", (msg, rinfo) => {
+            let _msg: string = msg;
+            let _rinfo: dgram.AddressInfo = rinfo;
+        })
+
+        _boolean = _socket.emit("close")
+        _boolean = _socket.emit("error", _err);
+        _boolean = _socket.emit("listening");
+        _boolean = _socket.emit("message", _str, _rinfo);
+
+        _socket = _socket.on("close", () => {});
+        _socket = _socket.on("error", (err) => {
+            let _err: Error = err;
+        })
+        _socket = _socket.on("listening", () => {});
+        _socket = _socket.on("message", (msg, rinfo) => {
+            let _msg: string = msg;
+            let _rinfo: dgram.AddressInfo = rinfo;
+        })
+
+        _socket = _socket.once("close", () => {});
+        _socket = _socket.once("error", (err) => {
+            let _err: Error = err;
+        })
+        _socket = _socket.once("listening", () => {});
+        _socket = _socket.once("message", (msg, rinfo) => {
+            let _msg: string = msg;
+            let _rinfo: dgram.AddressInfo = rinfo;
+        })
+
+        _socket = _socket.prependListener("close", () => {});
+        _socket = _socket.prependListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _socket = _socket.prependListener("listening", () => {});
+        _socket = _socket.prependListener("message", (msg, rinfo) => {
+            let _msg: string = msg;
+            let _rinfo: dgram.AddressInfo = rinfo;
+        })
+
+        _socket = _socket.prependOnceListener("close", () => {});
+        _socket = _socket.prependOnceListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _socket = _socket.prependOnceListener("listening", () => {});
+        _socket = _socket.prependOnceListener("message", (msg, rinfo) => {
+            let _msg: string = msg;
+            let _rinfo: dgram.AddressInfo = rinfo;
+        })
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -937,6 +1214,69 @@ namespace readline_tests {
 
         readline.clearScreenDown(stream);
     }
+
+    {
+        let _rl: readline.ReadLine;
+        let _boolean: boolean;
+
+        _rl = _rl.addListener("close", () => { });
+        _rl = _rl.addListener("line", (input) => {
+            let _input: any = input;
+        })
+        _rl = _rl.addListener("pause", () => { });
+        _rl = _rl.addListener("resume", () => { });
+        _rl = _rl.addListener("SIGCONT", () => { });
+        _rl = _rl.addListener("SIGINT", () => { });
+        _rl = _rl.addListener("SIGTSTP", () => { });
+
+        _boolean = _rl.emit("close", () => { });
+        _boolean = _rl.emit("line", () => { });
+        _boolean = _rl.emit("pause", () => { });
+        _boolean = _rl.emit("resume", () => { });
+        _boolean = _rl.emit("SIGCONT", () => { });
+        _boolean = _rl.emit("SIGINT", () => { });
+        _boolean = _rl.emit("SIGTSTP", () => { });
+
+        _rl = _rl.on("close", () => { });
+        _rl = _rl.on("line", (input) => {
+            let _input: any = input;
+        })
+        _rl = _rl.on("pause", () => { });
+        _rl = _rl.on("resume", () => { });
+        _rl = _rl.on("SIGCONT", () => { });
+        _rl = _rl.on("SIGINT", () => { });
+        _rl = _rl.on("SIGTSTP", () => { });
+
+        _rl = _rl.once("close", () => { });
+        _rl = _rl.once("line", (input) => {
+            let _input: any = input;
+        })
+        _rl = _rl.once("pause", () => { });
+        _rl = _rl.once("resume", () => { });
+        _rl = _rl.once("SIGCONT", () => { });
+        _rl = _rl.once("SIGINT", () => { });
+        _rl = _rl.once("SIGTSTP", () => { });
+
+        _rl = _rl.prependListener("close", () => { });
+        _rl = _rl.prependListener("line", (input) => {
+            let _input: any = input;
+        })
+        _rl = _rl.prependListener("pause", () => { });
+        _rl = _rl.prependListener("resume", () => { });
+        _rl = _rl.prependListener("SIGCONT", () => { });
+        _rl = _rl.prependListener("SIGINT", () => { });
+        _rl = _rl.prependListener("SIGTSTP", () => { });
+
+        _rl = _rl.prependOnceListener("close", () => { });
+        _rl = _rl.prependOnceListener("line", (input) => {
+            let _input: any = input;
+        })
+        _rl = _rl.prependOnceListener("pause", () => { });
+        _rl = _rl.prependOnceListener("resume", () => { });
+        _rl = _rl.prependOnceListener("SIGCONT", () => { });
+        _rl = _rl.prependOnceListener("SIGINT", () => { });
+        _rl = _rl.prependOnceListener("SIGTSTP", () => { });
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -963,13 +1303,109 @@ namespace child_process_tests {
         childProcess.exec("echo test");
         childProcess.spawnSync("echo test");
     }
+    
+    {
+        let _cp: childProcess.ChildProcess;
+        let _boolean: boolean;
+
+        _cp = _cp.addListener("close", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.addListener("disconnet", () => { });
+        _cp = _cp.addListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _cp = _cp.addListener("exit", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.addListener("message", (message, sendHandle) => {
+            let _message: any = message;
+            let _sendHandle: net.Socket | net.Server = sendHandle;
+        })
+
+        _boolean = _cp.emit("close", () => { });
+        _boolean = _cp.emit("disconnet", () => { });
+        _boolean = _cp.emit("error", () => { });
+        _boolean = _cp.emit("exit", () => { });
+        _boolean = _cp.emit("message", () => { });
+
+        _cp = _cp.on("close", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.on("disconnet", () => { });
+        _cp = _cp.on("error", (err) => {
+            let _err: Error = err;
+        })
+        _cp = _cp.on("exit", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.on("message", (message, sendHandle) => {
+            let _message: any = message;
+            let _sendHandle: net.Socket | net.Server = sendHandle;
+        })
+
+        _cp = _cp.once("close", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.once("disconnet", () => { });
+        _cp = _cp.once("error", (err) => {
+            let _err: Error = err;
+        })
+        _cp = _cp.once("exit", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.once("message", (message, sendHandle) => {
+            let _message: any = message;
+            let _sendHandle: net.Socket | net.Server = sendHandle;
+        })
+
+        _cp = _cp.prependListener("close", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.prependListener("disconnet", () => { });
+        _cp = _cp.prependListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _cp = _cp.prependListener("exit", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.prependListener("message", (message, sendHandle) => {
+            let _message: any = message;
+            let _sendHandle: net.Socket | net.Server = sendHandle;
+        })
+
+        _cp = _cp.prependOnceListener("close", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.prependOnceListener("disconnet", () => { });
+        _cp = _cp.prependOnceListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _cp = _cp.prependOnceListener("exit", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.prependOnceListener("message", (message, sendHandle) => {
+            let _message: any = message;
+            let _sendHandle: net.Socket | net.Server = sendHandle;
+        })
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
 /// cluster tests: https://nodejs.org/api/cluster.html ///
 //////////////////////////////////////////////////////////////////////
 
-namespace cluster_tests 　{
+namespace cluster_tests {
     {
         cluster.fork();
         Object.keys(cluster.workers).forEach(key => {
@@ -1128,6 +1564,13 @@ namespace process_tests {
         var _p: NodeJS.Process = process;
         _p = p;
     }
+    {
+        assert(process.argv[0] === process.argv0);
+    }
+    {
+        var module: NodeModule;
+        module = process.mainModule;
+    }
 }
 
 ///////////////////////////////////////////////////////////
@@ -1150,6 +1593,262 @@ namespace net_tests {
     {
         // Make sure .listen() and .close() retuern a Server instance
         net.createServer().listen(0).close().address();
+    }
+
+    {
+        /**
+         * net.Socket - events.EventEmitter
+         *   1. close
+         *   2. connect
+         *   3. data
+         *   4. drain
+         *   5. end
+         *   6. error
+         *   7. lookup
+         *   8. timeout
+         */
+        let _socket: net.Socket;
+
+        let bool: boolean;
+        let buffer: Buffer;
+        let error: Error;
+        let str: string;
+        let num: number;
+
+        /// addListener
+
+        _socket = _socket.addListener("close", had_error => {
+            bool = had_error;
+        })
+        _socket = _socket.addListener("connect", () => { })
+        _socket = _socket.addListener("data", data => {
+            buffer = data;
+        })
+        _socket = _socket.addListener("drain", () => { })
+        _socket = _socket.addListener("end", () => { })
+        _socket = _socket.addListener("error", err => {
+            error = err;
+        })
+        _socket = _socket.addListener("lookup", (err, address, family, host) => {
+            error = err;
+
+            if (typeof family === 'string') {
+                str = family;
+            } else if (typeof family === 'number') {
+                num = family;
+            }
+
+            str = host;
+        })
+        _socket = _socket.addListener("timeout", () => { })
+
+        /// emit
+        bool = _socket.emit("close", bool);
+        bool = _socket.emit("connect");
+        bool = _socket.emit("data", buffer);
+        bool = _socket.emit("drain");
+        bool = _socket.emit("end");
+        bool = _socket.emit("error", error);
+        bool = _socket.emit("lookup", error, str, str, str);
+        bool = _socket.emit("lookup", error, str, num, str);
+        bool = _socket.emit("timeout");
+
+        /// on
+        _socket = _socket.on("close", had_error => {
+            bool = had_error;
+        })
+        _socket = _socket.on("connect", () => { })
+        _socket = _socket.on("data", data => {
+            buffer = data;
+        })
+        _socket = _socket.on("drain", () => { })
+        _socket = _socket.on("end", () => { })
+        _socket = _socket.on("error", err => {
+            error = err;
+        })
+        _socket = _socket.on("lookup", (err, address, family, host) => {
+            error = err;
+
+            if (typeof family === 'string') {
+                str = family;
+            } else if (typeof family === 'number') {
+                num = family;
+            }
+
+            str = host;
+        })
+        _socket = _socket.on("timeout", () => { })
+
+        /// once
+        _socket = _socket.once("close", had_error => {
+            bool = had_error;
+        })
+        _socket = _socket.once("connect", () => { })
+        _socket = _socket.once("data", data => {
+            buffer = data;
+        })
+        _socket = _socket.once("drain", () => { })
+        _socket = _socket.once("end", () => { })
+        _socket = _socket.once("error", err => {
+            error = err;
+        })
+        _socket = _socket.once("lookup", (err, address, family, host) => {
+            error = err;
+
+            if (typeof family === 'string') {
+                str = family;
+            } else if (typeof family === 'number') {
+                num = family;
+            }
+
+            str = host;
+        })
+        _socket = _socket.once("timeout", () => { })
+
+        /// prependListener
+        _socket = _socket.prependListener("close", had_error => {
+            bool = had_error;
+        })
+        _socket = _socket.prependListener("connect", () => { })
+        _socket = _socket.prependListener("data", data => {
+            buffer = data;
+        })
+        _socket = _socket.prependListener("drain", () => { })
+        _socket = _socket.prependListener("end", () => { })
+        _socket = _socket.prependListener("error", err => {
+            error = err;
+        })
+        _socket = _socket.prependListener("lookup", (err, address, family, host) => {
+            error = err;
+
+            if (typeof family === 'string') {
+                str = family;
+            } else if (typeof family === 'number') {
+                num = family;
+            }
+
+            str = host;
+        })
+        _socket = _socket.prependListener("timeout", () => { })
+
+        /// prependOnceListener
+        _socket = _socket.prependOnceListener("close", had_error => {
+            bool = had_error;
+        })
+        _socket = _socket.prependOnceListener("connect", () => { })
+        _socket = _socket.prependOnceListener("data", data => {
+            buffer = data;
+        })
+        _socket = _socket.prependOnceListener("drain", () => { })
+        _socket = _socket.prependOnceListener("end", () => { })
+        _socket = _socket.prependOnceListener("error", err => {
+            error = err;
+        })
+        _socket = _socket.prependOnceListener("lookup", (err, address, family, host) => {
+            error = err;
+
+            if (typeof family === 'string') {
+                str = family;
+            } else if (typeof family === 'number') {
+                num = family;
+            }
+
+            str = host;
+        })
+        _socket = _socket.prependOnceListener("timeout", () => { })
+    }
+
+    {
+        /**
+         * net.Server - events.EventEmitter
+         *   1. close
+         *   2. connection
+         *   3. error
+         *   4. listening
+         */
+        let _server: net.Server;
+
+        let _socket: net.Socket;
+        let bool: boolean;
+        let error: Error;
+
+        /// addListener
+        _server = _server.addListener("close", () => { })
+        _server = _server.addListener("connection", socket => {
+            _socket = socket
+        })
+        _server = _server.addListener("error", err => {
+            error = err;
+        })
+        _server = _server.addListener("listening", () => { })
+
+        /// emit
+        bool = _server.emit("close")
+        bool = _server.emit("connection", _socket)
+        bool = _server.emit("error", error)
+        bool = _server.emit("listening")
+
+        /// once
+        _server = _server.once("close", () => { })
+        _server = _server.once("connection", socket => {
+            _socket = socket
+        })
+        _server = _server.once("error", err => {
+            error = err;
+        })
+        _server = _server.once("listening", () => { })
+
+        /// prependListener
+        _server = _server.prependListener("close", () => { })
+        _server = _server.prependListener("connection", socket => {
+            _socket = socket
+        })
+        _server = _server.prependListener("error", err => {
+            error = err;
+        })
+        _server = _server.prependListener("listening", () => { })
+
+        /// prependOnceListener
+        _server = _server.prependOnceListener("close", () => { })
+        _server = _server.prependOnceListener("connection", socket => {
+            _socket = socket
+        })
+        _server = _server.prependOnceListener("error", err => {
+            error = err;
+        })
+        _server = _server.prependOnceListener("listening", () => { })
+
+    }
+
+}
+
+/////////////////////////////////////////////////////
+/// repl Tests : https://nodejs.org/api/repl.html ///
+/////////////////////////////////////////////////////
+
+namespace repl_tests {
+    {
+        let _server: repl.REPLServer;
+        let _boolean: boolean;
+        let _ctx: any;
+
+        _server = _server.addListener("exit", () => { });
+        _server = _server.addListener("reset", () => { });
+
+        _boolean = _server.emit("exit", () => { });
+        _boolean = _server.emit("reset", _ctx);
+
+        _server = _server.on("exit", () => { });
+        _server = _server.on("reset", () => { });
+
+        _server = _server.once("exit", () => { });
+        _server = _server.once("reset", () => { });
+
+        _server = _server.prependListener("exit", () => { });
+        _server = _server.prependListener("reset", () => { });
+
+        _server = _server.prependOnceListener("exit", () => { });
+        _server = _server.prependOnceListener("reset", () => { });
     }
 }
 

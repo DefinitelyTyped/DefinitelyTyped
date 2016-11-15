@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 2.2
+// Type definitions for Jasmine 2.5
 // Project: http://jasmine.github.io/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -65,6 +65,7 @@ declare namespace jasmine {
     function addMatchers(matchers: CustomMatcherFactories): void;
     function stringMatching(str: string): Any;
     function stringMatching(str: RegExp): Any;
+    function formatErrorMsg(domain: string, usage: string) : (msg: string) => string
 
     interface Any {
 
@@ -115,6 +116,7 @@ declare namespace jasmine {
         /** Calls to any registered callback are triggered when the clock is ticked forward via the jasmine.clock().tick function, which takes a number of milliseconds. */
         tick(ms: number): void;
         mockDate(date?: Date): void;
+        withMock(func: () => void): void;
     }
 
     interface CustomEqualityTester {
@@ -160,6 +162,7 @@ declare namespace jasmine {
         versionString(): string;
         nextSpecId(): number;
         addReporter(reporter: Reporter): void;
+        addReporter(reporter: CustomReporter): void;
         execute(): void;
         describe(description: string, specDefinitions: () => void): Suite;
         // ddescribe(description: string, specDefinitions: () => void): Suite; Not a part of jasmine. Angular team adds these
@@ -180,6 +183,12 @@ declare namespace jasmine {
         addMatchers(matchers: CustomMatcherFactories): void;
         specFilter(spec: Spec): boolean;
         throwOnExpectationFailure(value: boolean): void;
+        seed(seed: string | number): string | number;
+        provideFallbackReporter(reporter: Reporter): void;
+        throwingExpectationFailures(): boolean;
+        allowRespy(allow: boolean): void;
+        randomTests(): boolean;
+        randomizeTests(b: boolean): void;
     }
 
     interface FakeTimer {
@@ -232,6 +241,26 @@ declare namespace jasmine {
         actual: any;
         message: string;
         trace: Trace;
+    }
+
+    interface Order {
+        new (options: {random: boolean, seed: string}): any;
+        random: boolean;
+        seed: string;
+        sort<T>(items: T[]) : T[];
+    }
+
+    namespace errors {
+        class ExpectationFailed extends Error {
+            constructor();
+            stack: any;
+        }
+    }
+
+    interface TreeProcessor {
+        new (attrs: any): any;
+        execute: (done: Function) => void;
+        processTree() : any;
     }
 
     interface Trace {
@@ -301,7 +330,9 @@ declare namespace jasmine {
         toHaveBeenCalledTimes(expected: number): boolean;
         toContain(expected: any, expectationFailOutput?: any): boolean;
         toBeLessThan(expected: number, expectationFailOutput?: any): boolean;
+        toBeLessThanOrEqual(expected: number, expectationFailOutput?: any): boolean;
         toBeGreaterThan(expected: number, expectationFailOutput?: any): boolean;
+        toBeGreaterThanOrEqual(expected: number, expectationFailOutput?: any): boolean;
         toBeCloseTo(expected: number, precision?: any, expectationFailOutput?: any): boolean;
         toThrow(expected?: any): boolean;
         toThrowError(message?: string | RegExp): boolean;
@@ -322,6 +353,45 @@ declare namespace jasmine {
 
     interface MultiReporter extends Reporter {
         addReporter(reporter: Reporter): void;
+    }
+
+    interface SuiteInfo {
+        totalSpecsDefined: number;
+    }
+
+    interface CustomReportExpectation {
+        matcherName: string;
+        message: string;
+        passed: boolean;
+        stack: string;
+    }
+
+    interface FailedExpectation extends CustomReportExpectation {
+        actual: string;
+        expected: string;
+    }
+
+    interface PassedExpectation extends CustomReportExpectation {
+
+    }
+
+    interface CustomReporterResult {
+      description: string,
+      failedExpectations?: FailedExpectation[],
+      fullName: string,
+      id: string;
+      passedExpectations?: PassedExpectation[],
+      pendingReason?: string;
+      status?: string;
+    }
+
+    interface CustomReporter {
+        jasmineStarted?(suiteInfo: SuiteInfo): void;
+        suiteStarted?(result: CustomReporterResult): void;
+        specStarted?(result: CustomReporterResult): void;
+        specDone?(result: CustomReporterResult): void;
+        suiteDone?(result: CustomReporterResult): void;
+        jasmineDone?(): any;
     }
 
     interface Runner {
@@ -371,6 +441,7 @@ declare namespace jasmine {
         runs(func: SpecFunction): Spec;
         addToQueue(block: Block): void;
         addMatcherResult(result: Result): void;
+        getResult(): any;
         expect(actual: any): any;
         waits(timeout: number): Spec;
         waitsFor(latchFunction: SpecFunction, timeoutMessage?: string, timeout?: number): Spec;
@@ -380,11 +451,12 @@ declare namespace jasmine {
         finishCallback(): void;
         finish(onComplete?: () => void): void;
         after(doAfter: SpecFunction): void;
-        execute(onComplete?: () => void): any;
+        execute(onComplete?: () => void, enabled?: boolean): any;
         addBeforesAndAftersToQueue(): void;
         explodes(): void;
         spyOn(obj: any, methodName: string, ignoreMethodDoesntExist: boolean): Spy;
         removeAllSpies(): void;
+        throwOnExpectationFailure: boolean;
     }
 
     interface XSpec {
@@ -484,6 +556,10 @@ declare namespace jasmine {
         finished: boolean;
         result: any;
         messages: any;
+        runDetails: {
+            failedExpectations: ExpectationResult[];
+            order: jasmine.Order
+        }
 
         new (): any;
 

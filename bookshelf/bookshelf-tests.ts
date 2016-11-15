@@ -71,6 +71,12 @@ class Tag extends bookshelf.Model<Tag> {
 	get tableName() { return 'tags'; }
 }
 
+User.where<User>('id', 1).fetch({withRelated: ['posts.tags']}).then(function(user) {
+  console.log(user.related('posts').toJSON());
+}).catch(function(err) {
+  console.error(err);
+});
+
 new User().where('id', 1).fetch({withRelated: ['posts.tags']})
 .then(user => {
 	const posts = user.related<Post>('posts');

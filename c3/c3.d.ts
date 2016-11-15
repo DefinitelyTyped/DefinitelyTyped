@@ -385,10 +385,10 @@ declare namespace c3 {
          * - d is the data where mouse cursor moves out. In this callback, this will be the Chart object.
          */
         onmouseout?: (d: any, element?: any) => void;
-        // onselected?: any;
-        // onunselected?: any;
-        // ondragstart?: any;
-        // ondragend?: any;
+        
+        onselected?: (d: any, element?: any) => void;
+
+        onunselected?: (d: any, element?: any) => void; 
     }
 
     interface Axis {
