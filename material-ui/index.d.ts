@@ -141,7 +141,7 @@ declare namespace __MaterialUI {
             fontFamily?: string;
             palette?: ThemePalette;
             isRtl?: boolean;
-            userAgent?: string;
+            userAgent?: string | boolean;
             zIndex?: zIndex;
             baseTheme?: RawTheme;
             rawTheme?: RawTheme;
