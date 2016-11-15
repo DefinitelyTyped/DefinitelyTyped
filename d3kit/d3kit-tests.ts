@@ -3,13 +3,13 @@
 
 function test_abstract_chart() {
     let el: Element,
-        chart: AbstractChart,
-        options: ChartOptions,
-        margins: ChartMargin,
-        offsets: ChartOffset,
-        defopts: ChartOptions,
-        fitopts: FitOptions,
-        watchop: WatchOptions,
+        chart: d3kit.AbstractChart,
+        options: d3kit.ChartOptions,
+        margins: d3kit.ChartMargin,
+        offsets: d3kit.ChartOffset,
+        defopts: d3kit.ChartOptions,
+        fitopts: d3kit.FitOptions,
+        watchop: d3kit.WatchOptions,
         events: string[],
         w: number, h:number, d: [number, number], a: any, b: boolean;
 
@@ -26,16 +26,16 @@ function test_abstract_chart() {
     /**
      * Test constructor
      */
-    chart = new AbstractChart(el); // with element
-    chart = new AbstractChart('div#chart'); // with selector
-    chart = new AbstractChart(el, options); // with element+options
-    chart = new AbstractChart('div#chart', options); // with selector+options
+    chart = new d3kit.AbstractChart(el); // with element
+    chart = new d3kit.AbstractChart('div#chart'); // with selector
+    chart = new d3kit.AbstractChart(el, options); // with element+options
+    chart = new d3kit.AbstractChart('div#chart', options); // with selector+options
 
     /**
      * Test static functions
      */
-    defopts = AbstractChart.getDefaultOptions();
-    events  = AbstractChart.getCustomEventNames();
+    defopts = d3kit.AbstractChart.getDefaultOptions();
+    events  = d3kit.AbstractChart.getCustomEventNames();
 
     /**
      * Test getters
@@ -83,11 +83,11 @@ function test_abstract_chart() {
 
 function test_svgchart() {
     let el: Element,
-        chart: SvgChart,
-        options: ChartOptions,
-        margins: ChartMargin,
-        offsets: ChartOffset,
-        svg: SVGElement, rootg: SVGElement, layers: LayerOrganizer;
+        chart: d3kit.SvgChart,
+        options: d3kit.ChartOptions,
+        margins: d3kit.ChartMargin,
+        offsets: d3kit.ChartOffset,
+        svg: SVGElement, rootg: SVGElement, layers: d3kit.LayerOrganizer;
 
     // create a div, append to body, return Node as type Element
     el = document.body.appendChild(document.createElement('div')) as Element;
@@ -100,10 +100,10 @@ function test_svgchart() {
     /**
      * Test constructor
      */
-    chart = new SvgChart(el); // with element
-    chart = new SvgChart('div#chart'); // with selector
-    chart = new SvgChart(el, options); // with element+options
-    chart = new SvgChart('div#chart', options); // with selector+options
+    chart = new d3kit.SvgChart(el); // with element
+    chart = new d3kit.SvgChart('div#chart'); // with selector
+    chart = new d3kit.SvgChart(el, options); // with element+options
+    chart = new d3kit.SvgChart('div#chart', options); // with selector+options
 
     /**
      * Test properties
@@ -115,10 +115,10 @@ function test_svgchart() {
 
 function test_canvaschart() {
     let el: Element,
-        chart: CanvasChart,
-        options: ChartOptions,
-        margins: ChartMargin,
-        offsets: ChartOffset,
+        chart: d3kit.CanvasChart,
+        options: d3kit.ChartOptions,
+        margins: d3kit.ChartMargin,
+        offsets: d3kit.ChartOffset,
         context: CanvasRenderingContext2D;
 
     // create a div, append to body, return Node as type Element
@@ -132,23 +132,23 @@ function test_canvaschart() {
     /**
      * Test constructor
      */
-    chart = new CanvasChart(el); // with element
-    chart = new CanvasChart('div#chart'); // with selector
-    chart = new CanvasChart(el, options); // with element+options
-    chart = new CanvasChart('div#chart', options); // with selector+options
+    chart = new d3kit.CanvasChart(el); // with element
+    chart = new d3kit.CanvasChart('div#chart'); // with selector
+    chart = new d3kit.CanvasChart(el, options); // with element+options
+    chart = new d3kit.CanvasChart('div#chart', options); // with selector+options
 
     /**
      * Test canvas chart functions
      */
     context = chart.getContext2d();
-    options = CanvasChart.getDefaultOptions();
+    options = d3kit.CanvasChart.getDefaultOptions();
     chart.clear();
 }
 
 function test_layer_organizer() {
     let selection: d3.Selection<d3.BaseType, any, d3.BaseType, any>,
         layer: d3.Selection<d3.BaseType, any, d3.BaseType, any>,
-        layers: LayerOrganizer,
+        layers: d3kit.LayerOrganizer,
         hasXAxis: boolean;
 
     selection = d3.select('svg');
@@ -156,8 +156,8 @@ function test_layer_organizer() {
     /**
      * Test constructor
      */
-    layers = new LayerOrganizer(selection);        // without specifying tag
-    layers = new LayerOrganizer(selection, 'div'); // specifying tag
+    layers = new d3kit.LayerOrganizer(selection);        // without specifying tag
+    layers = new d3kit.LayerOrganizer(selection, 'div'); // specifying tag
 
     /**
      * Test layer creation
@@ -183,13 +183,13 @@ function test_helper() {
         aFuncxn = () => "this is a function", isFunc: boolean,
         kebabed: string, dbouncd: any, throtld: any;
 
-    dbouncd = helper.debounce(aFuncxn, 300);
-    merged1 = helper.extend(simple1, simple2);
-    merged2 = helper.deepExtend(simple1, complex);
-    aFuncxn = helper.functor(aFuncxn); // with a function argument
-    aFuncxn = helper.functor(simple1); // with a value argument
-    isObj   = helper.isObject(anObject);
-    isFunc  = helper.isFunction(aFuncxn);
-    kebabed = helper.kebabCase("a string to convert to kebab case");
-    throtld = helper.throttle(aFuncxn, 300);
+    dbouncd = d3kit.helper.debounce(aFuncxn, 300);
+    merged1 = d3kit.helper.extend(simple1, simple2);
+    merged2 = d3kit.helper.deepExtend(simple1, complex);
+    aFuncxn = d3kit.helper.functor(aFuncxn); // with a function argument
+    aFuncxn = d3kit.helper.functor(simple1); // with a value argument
+    isObj   = d3kit.helper.isObject(anObject);
+    isFunc  = d3kit.helper.isFunction(aFuncxn);
+    kebabed = d3kit.helper.kebabCase("a string to convert to kebab case");
+    throtld = d3kit.helper.throttle(aFuncxn, 300);
 }

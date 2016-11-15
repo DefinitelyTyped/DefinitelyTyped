@@ -5,9 +5,9 @@
 
 /// <reference types="d3" />
 
-declare module "d3kit";
+export as namespace d3kit;
 
-declare class AbstractChart {
+export class AbstractChart {
     container: Element;
     constructor(selector: string|Element, options?: ChartOptions);
     static getDefaultOptions(): ChartOptions;
@@ -40,19 +40,19 @@ declare class AbstractChart {
     destroy(): void;
 }
 
-declare interface ChartMargin {
+export interface ChartMargin {
     top?: number;
     right?: number;
     bottom?: number;
     left?: number;
 }
 
-declare interface ChartOffset {
+export interface ChartOffset {
     x: number;
     y: number;
 }
 
-declare interface ChartOptions {
+export interface ChartOptions {
     initialWidth?: number;
     initialHeight?: number;
     margin?: ChartMargin;
@@ -61,7 +61,7 @@ declare interface ChartOptions {
 }
 
 // from https://github.com/kristw/slimfit
-declare interface FitOptions {
+export interface FitOptions {
     mode?: string;
     width?: string|number;
     height?: string|number;
@@ -71,38 +71,38 @@ declare interface FitOptions {
 }
 
 // from https://github.com/kristw/slimfit
-declare interface WatchOptions {
+export interface WatchOptions {
     mode?: string;
     target?: any; // lazy
     interval?: number;
 }
 
-declare class SvgChart extends AbstractChart {
+export class SvgChart extends AbstractChart {
     svg: SVGElement;
     rootG: SVGElement;
     layers: LayerOrganizer;
     constructor(selector: string|Element, options?: ChartOptions);
 }
 
-declare class CanvasChart extends AbstractChart {
+export class CanvasChart extends AbstractChart {
     constructor(selector: string|Element, options?: ChartOptions);
     static getDefaultOptions(): ChartOptions;
     getContext2d(): CanvasRenderingContext2D;
     clear(): this;
 }
 
-declare class LayerOrganizer {
+export class LayerOrganizer {
     constructor(container: d3.Selection<d3.BaseType, any, d3.BaseType, any>, defaultTag?: string);
     create(layerNames: string|Array<string>|LayerConfig|Array<LayerConfig>): d3.Selection<d3.BaseType, any, d3.BaseType, any>|Array<d3.Selection<d3.BaseType, any, d3.BaseType, any>>;
     get(name: string): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
     has(name: string): boolean;
 }
 
-declare interface LayerConfig {
+export interface LayerConfig {
     [layerName: string]: string|string[]|LayerConfig|Array<LayerConfig>;
 }
 
-declare namespace helper {
+export namespace helper {
     function debounce(fn: (...args: Array<any>) => void, delay: number): (...args: Array<any>) => void;
     function deepExtend(dest: Object, ...args: Object[]): Object;
     function extend(dest: Object, ...args: Object[]): Object;
