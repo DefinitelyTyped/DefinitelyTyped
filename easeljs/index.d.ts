@@ -623,6 +623,7 @@ declare namespace createjs {
         primary: boolean;
         rawX: number;
         rawY: number;
+        relatedTarget: DisplayObject;
         stageX: number;
         stageY: number;
         mouseMoveOutside: boolean;

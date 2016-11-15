@@ -1,6 +1,6 @@
 // Type definitions for aws-sdk
 // Project: https://github.com/aws/aws-sdk-js
-// Definitions by: midknight41 <https://github.com/midknight41>
+// Definitions by: midknight41 <https://github.com/midknight41>, Casper Skydt <https://github.com/CasperSkydt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/aws-sdk.d.ts
@@ -335,6 +335,56 @@ export declare class SNS {
     publish(request: Sns.PublishRequest, callback: (err: any, data: any) => void): void;
 }
 
+export class Kinesis {
+    constructor(options?: any);
+    endpoint: Endpoint;
+
+    putRecord(params: KINESIS.PutRecordParams, callback: (error: Error, data: KINESIS.PutRecordResult) => void): void;
+    putRecords(params: KINESIS.PutRecordsParams, callback: (error: Error, data: KINESIS.PutRecordsResult) => void): void;
+    increaseStreamRetentionPeriod(params: KINESIS.IncreaseStreamRetentionPeriodParams, callback: (error: Error, data: any) => void): void;
+  }
+
+  export module KINESIS {
+    export interface Record {
+        Data: Buffer | string | Blob;
+        PartitionKey: string;
+        ExplicitHashKey?: string;
+    }
+
+    export interface RecordResult {
+        SequenceNumber: string;
+        ShardId: string;
+        ErrorCode: string;
+        ErrorMessage: string;
+    }
+
+    export interface PutRecordParams extends Record {
+        StreamName: string;
+        SequenceNumberForOrdering?: string;
+    }
+
+    export interface PutRecordResult {
+        ShardId: string;
+        SequenceNumber: string;
+    }
+
+    export interface PutRecordsParams {
+        StreamName: string;
+        Records: Record[];
+    }
+
+    export interface PutRecordsResult {
+        FailedRecordCount: number;
+        Records: RecordResult[]
+    }
+
+    export interface IncreaseStreamRetentionPeriodParams {
+        RetentionPeriodHours: number;
+        StreamName: string;
+    }
+  }
+
+
 export declare class SWF {
     constructor(options?: any);
     endpoint: Endpoint;
@@ -378,7 +428,8 @@ export declare class S3 {
     endpoint: Endpoint;
 
     getObject(params: s3.GetObjectRequest, callback?: (err: Error, data: any) => void): any;
-    putObject(params: s3.PutObjectRequest, callback: (err: Error, data: any) => void): void;
+    putObject(params: s3.PutObjectRequest, callback?: (err: Error, data: any) => void): any;
+    copyObject(params: s3.CopyObjectRequest, callback?: (err: Error, data: any) => void): any;
     deleteObject(params: s3.DeleteObjectRequest, callback: (err: Error, data: any) => void): void;
     headObject(params: s3.HeadObjectRequest, callback: (err: Error, data: any) => void): void;
     getSignedUrl(operation: string, params: any): string;
@@ -2251,6 +2302,40 @@ export declare module s3 {
         ServerSideEncryption?: string;
         StorageClass?: string;
         WebsiteRedirectLocation?: string;
+    }
+
+    export interface CopyObjectRequest {
+      Bucket: string;
+      CopySource: string;
+      Key: string;
+      ACL?: string;
+      CacheControl?: string;
+      ContentDisposition?: string;
+      ContentEncoding?: string;
+      ContentLanguage?: string;
+      ContentType?: string;
+      CopySourceIfMatch?: string;
+      CopySourceIfModifiedSince?: any;
+      CopySourceIfNoneMatch?: string;
+      CopySourceIfUnmodifiedSince?: any;
+      CopySourceSSECustomerAlgorithm?: string;
+      CopySourceSSECustomerKey?: any;
+      CopySourceSSECustomerKeyMD5?: string;
+      Expires?: any;
+      GrantFullControl?: string;
+      GrantRead?: string;
+      GrantReadACP?: string;
+      GrantWriteACP?: string;
+      Metadata?: { [key: string]: string; };
+      MetadataDirective?: string;
+      RequestPayer?: string;
+      SSECustomerAlgorithm?: string;
+      SSECustomerKey?: any;
+      SSECustomerKeyMD5?: string;
+      SSEKMSKeyId?: string;
+      ServerSideEncryption?: string;
+      StorageClass?: string;
+      WebsiteRedirectLocation?: string;
     }
 
     export interface GetObjectRequest {

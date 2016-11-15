@@ -1,10 +1,11 @@
-/// <reference path="./angular-ui-router-default.d.ts" />
+import * as angular from "angular";
+import { ui } from "angular";
 
 angular.module("test", [
 	"ui.router",
 	"ui.router.default"
 ])
-	.config(function($stateProvider: angular.ui.IStateProvider) {
+	.config(function($stateProvider: ui.IStateProvider) {
 		$stateProvider
 			.state('concrete', {
 				// no abstract or default
