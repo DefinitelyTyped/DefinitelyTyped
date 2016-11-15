@@ -2578,7 +2578,7 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly calculationMode: string;
+        calculationMode: string;
         /**
          *
          * Recalculate all currently opened workbooks in Excel.
@@ -2609,49 +2609,49 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly application: Excel.Application;
+        application: Excel.Application;
         /**
          *
          * Represents a collection of bindings that are part of the workbook. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly bindings: Excel.BindingCollection;
+        bindings: Excel.BindingCollection;
         /**
          *
          * Represents Excel application instance that contains this workbook. Read-only.
          *
          * [Api set: ExcelApi 1.2]
          */
-        readonly functions: Excel.Functions;
+        functions: Excel.Functions;
         /**
          *
          * Represents a collection of workbook scoped named items (named ranges and constants). Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly names: Excel.NamedItemCollection;
+        names: Excel.NamedItemCollection;
         /**
          *
          * Represents a collection of PivotTables associated with the workbook. Read-only.
          *
          * [Api set: ExcelApi 1.3]
          */
-        readonly pivotTables: Excel.PivotTableCollection;
+        pivotTables: Excel.PivotTableCollection;
         /**
          *
          * Represents a collection of tables associated with the workbook. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly tables: Excel.TableCollection;
+        tables: Excel.TableCollection;
         /**
          *
          * Represents a collection of worksheets associated with the workbook. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly worksheets: Excel.WorksheetCollection;
+        worksheets: Excel.WorksheetCollection;
         /**
          *
          * Gets the currently selected range from the workbook.
@@ -2669,7 +2669,7 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.2]
          */
-        readonly onSelectionChanged: OfficeExtension.EventHandlers<Excel.SelectionChangedEventArgs>;
+        onSelectionChanged: OfficeExtension.EventHandlers<Excel.SelectionChangedEventArgs>;
         toJSON(): {};
     }
     /**
@@ -2685,35 +2685,35 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly charts: Excel.ChartCollection;
+        charts: Excel.ChartCollection;
         /**
          *
          * Collection of PivotTables that are part of the worksheet. Read-only.
          *
          * [Api set: ExcelApi 1.3]
          */
-        readonly pivotTables: Excel.PivotTableCollection;
+        pivotTables: Excel.PivotTableCollection;
         /**
          *
          * Returns sheet protection object for a worksheet.
          *
          * [Api set: ExcelApi 1.2]
          */
-        readonly protection: Excel.WorksheetProtection;
+        protection: Excel.WorksheetProtection;
         /**
          *
          * Collection of tables that are part of the worksheet. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly tables: Excel.TableCollection;
+        tables: Excel.TableCollection;
         /**
          *
          * Returns a value that uniquely identifies the worksheet in a given workbook. The value of the identifier remains the same even when the worksheet is renamed or moved. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly id: string;
+        id: string;
         /**
          *
          * The display name of the worksheet.
@@ -2797,7 +2797,7 @@ declare module Excel {
      */
     class WorksheetCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<Excel.Worksheet>;
+        items: Array<Excel.Worksheet>;
         /**
          *
          * Adds a new worksheet to the workbook. The worksheet will be added at the end of existing worksheets. If you wish to activate the newly added worksheet, call ".activate() on it.
@@ -2842,14 +2842,14 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.2]
          */
-        readonly options: Excel.WorksheetProtectionOptions;
+        options: Excel.WorksheetProtectionOptions;
         /**
          *
          * Indicates if the worksheet is protected. Read-Only.
          *
          * [Api set: ExcelApi 1.2]
          */
-        readonly protected: boolean;
+        protected: boolean;
         /**
          *
          * Protects a worksheet. Fails if the worksheet has been protected.
@@ -2973,49 +2973,49 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly format: Excel.RangeFormat;
+        format: Excel.RangeFormat;
         /**
          *
          * Represents the range sort of the current range.
          *
          * [Api set: ExcelApi 1.2]
          */
-        readonly sort: Excel.RangeSort;
+        sort: Excel.RangeSort;
         /**
          *
          * The worksheet containing the current range. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly worksheet: Excel.Worksheet;
+        worksheet: Excel.Worksheet;
         /**
          *
          * Represents the range reference in A1-style. Address value will contain the Sheet reference (e.g. Sheet1!A1:B4). Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly address: string;
+        address: string;
         /**
          *
          * Represents range reference for the specified range in the language of the user. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly addressLocal: string;
+        addressLocal: string;
         /**
          *
          * Number of cells in the range. This API will return -1 if the cell count exceeds 2^31-1 (2,147,483,647). Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly cellCount: number;
+        cellCount: number;
         /**
          *
          * Represents the total number of columns in the range. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly columnCount: number;
+        columnCount: number;
         /**
          *
          * Represents if all columns of the current range are hidden.
@@ -3029,7 +3029,7 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly columnIndex: number;
+        columnIndex: number;
         /**
          *
          * Represents the formula in A1-style notation.
@@ -3057,7 +3057,7 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.2]
          */
-        readonly hidden: boolean;
+        hidden: boolean;
         /**
          *
          * Represents Excel's number format code for the given cell.
@@ -3071,7 +3071,7 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly rowCount: number;
+        rowCount: number;
         /**
          *
          * Represents if all rows of the current range are hidden.
@@ -3085,21 +3085,21 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly rowIndex: number;
+        rowIndex: number;
         /**
          *
          * Text values of the specified range. The Text value will not depend on the cell width. The # sign substitution that happens in Excel UI will not affect the text value returned by the API. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly text: Array<Array<any>>;
+        text: Array<Array<any>>;
         /**
          *
          * Represents the type of data of each cell. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly valueTypes: Array<Array<string>>;
+        valueTypes: Array<Array<string>>;
         /**
          *
          * Represents the raw values of the specified range. The data returned could be of type string, number, or a boolean. Cell that contain an error will return the error string.
@@ -3365,21 +3365,21 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.3]
          */
-        readonly rows: Excel.RangeViewCollection;
+        rows: Excel.RangeViewCollection;
         /**
          *
          * Represents the cell addresses of the RangeView.
          *
          * [Api set: ExcelApi 1.3]
          */
-        readonly cellAddresses: Array<Array<any>>;
+        cellAddresses: Array<Array<any>>;
         /**
          *
          * Returns the number of visible columns. Read-only.
          *
          * [Api set: ExcelApi 1.3]
          */
-        readonly columnCount: number;
+        columnCount: number;
         /**
          *
          * Represents the formula in A1-style notation.
@@ -3407,7 +3407,7 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.3]
          */
-        readonly index: number;
+        index: number;
         /**
          *
          * Represents Excel's number format code for the given cell.
@@ -3421,21 +3421,21 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.3]
          */
-        readonly rowCount: number;
+        rowCount: number;
         /**
          *
          * Text values of the specified range. The Text value will not depend on the cell width. The # sign substitution that happens in Excel UI will not affect the text value returned by the API. Read-only.
          *
          * [Api set: ExcelApi 1.3]
          */
-        readonly text: Array<Array<any>>;
+        text: Array<Array<any>>;
         /**
          *
          * Represents the type of data of each cell. Read-only.
          *
          * [Api set: ExcelApi 1.3]
          */
-        readonly valueTypes: Array<Array<string>>;
+        valueTypes: Array<Array<string>>;
         /**
          *
          * Represents the raw values of the specified range view. The data returned could be of type string, number, or a boolean. Cell that contain an error will return the error string.
@@ -3476,7 +3476,7 @@ declare module Excel {
      */
     class RangeViewCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<Excel.RangeView>;
+        items: Array<Excel.RangeView>;
         /**
          *
          * Gets a RangeView Row via it's index. Zero-Indexed.
@@ -3512,7 +3512,7 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.3]
          */
-        readonly key: string;
+        key: string;
         /**
          *
          * Deletes the setting.
@@ -3530,13 +3530,13 @@ declare module Excel {
     }
     /**
      *
-     * A collection of all the nameditem objects that are part of the workbook.
+     * A collection of all the nameditem objects that are part of the workbook or worksheet, depending on how it was reached.
      *
      * [Api set: ExcelApi 1.1]
      */
     class NamedItemCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<Excel.NamedItem>;
+        items: Array<Excel.NamedItem>;
         /**
          *
          * Gets a nameditem object using its name
@@ -3565,21 +3565,21 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly name: string;
+        name: string;
         /**
          *
-         * Indicates what type of reference is associated with the name. See Excel.NamedItemType for details. Read-only.
+         * Indicates the type of the value returned by the name's formula. See Excel.NamedItemType for details. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly type: string;
+        type: string;
         /**
          *
-         * Represents the formula that the name is defined to refer to. E.g. =Sheet14!$B$2:$H$12, =4.75, etc. Read-only.
+         * Represents the value computed by the name's formula. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly value: any;
+        value: any;
         /**
          *
          * Specifies whether the object is visible or not.
@@ -3594,6 +3594,13 @@ declare module Excel {
          * [Api set: ExcelApi 1.1]
          */
         getRange(): Excel.Range;
+        /**
+         *
+         * Returns the range object that is associated with the name. Returns a null object if the named item's type is not a range
+         *
+         * [Api set: ExcelApi 1.1]
+         */
+        getRangeOrNullObject(): Excel.Range;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -3618,14 +3625,14 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly id: string;
+        id: string;
         /**
          *
          * Returns the type of the binding. See Excel.BindingType for details. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly type: string;
+        type: string;
         /**
          *
          * Deletes the binding.
@@ -3664,14 +3671,14 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.2]
          */
-        readonly onDataChanged: OfficeExtension.EventHandlers<Excel.BindingDataChangedEventArgs>;
+        onDataChanged: OfficeExtension.EventHandlers<Excel.BindingDataChangedEventArgs>;
         /**
          *
          * Occurs when the selection is changed within the binding.
          *
          * [Api set: ExcelApi 1.2]
          */
-        readonly onSelectionChanged: OfficeExtension.EventHandlers<Excel.BindingSelectionChangedEventArgs>;
+        onSelectionChanged: OfficeExtension.EventHandlers<Excel.BindingSelectionChangedEventArgs>;
         toJSON(): {
             "id": string;
             "type": string;
@@ -3685,14 +3692,14 @@ declare module Excel {
      */
     class BindingCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<Excel.Binding>;
+        items: Array<Excel.Binding>;
         /**
          *
          * Returns the number of bindings in the collection. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly count: number;
+        count: number;
         /**
          *
          * Add a new binding to a particular Range.
@@ -3753,20 +3760,20 @@ declare module Excel {
     }
     /**
      *
-     * Represents a collection of all the tables that are part of the workbook.
+     * Represents a collection of all the tables that are part of the workbook or worksheet, depending on how it was reached.
      *
      * [Api set: ExcelApi 1.1]
      */
     class TableCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<Excel.Table>;
+        items: Array<Excel.Table>;
         /**
          *
          * Returns the number of tables in the workbook. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly count: number;
+        count: number;
         /**
          *
          * Create a new table. The range object or source address determines the worksheet under which the table will be added. If the table cannot be added (e.g., because the address is invalid, or the table would overlap with another table), an error will be thrown.
@@ -3816,28 +3823,28 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly columns: Excel.TableColumnCollection;
+        columns: Excel.TableColumnCollection;
         /**
          *
          * Represents a collection of all the rows in the table. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly rows: Excel.TableRowCollection;
+        rows: Excel.TableRowCollection;
         /**
          *
          * Represents the sorting for the table.
          *
          * [Api set: ExcelApi 1.2]
          */
-        readonly sort: Excel.TableSort;
+        sort: Excel.TableSort;
         /**
          *
          * The worksheet containing the current table. Read-only.
          *
          * [Api set: ExcelApi 1.2]
          */
-        readonly worksheet: Excel.Worksheet;
+        worksheet: Excel.Worksheet;
         /**
          *
          * Indicates whether the first column contains special formatting.
@@ -3858,7 +3865,7 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly id: number;
+        id: number;
         /**
          *
          * Name of the table.
@@ -3989,24 +3996,25 @@ declare module Excel {
      */
     class TableColumnCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<Excel.TableColumn>;
+        items: Array<Excel.TableColumn>;
         /**
          *
          * Returns the number of columns in the table. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly count: number;
+        count: number;
         /**
          *
          * Adds a new column to the table.
          *
          * @param index Specifies the relative position of the new column. If null or -1, the addition happens at the end. Columns with a higher index will be shifted to the side. Zero-indexed.
          * @param values A 2-dimensional array of unformatted values of the table column.
+         * @param name Specifies the name of the new column. If null, the default name will be used.
          *
-         * [Api set: ExcelApi 1.1 requires an index smaller than the total column count; 1.4 allows index to be optional (null or -1) and will append a column at the end.]
+         * [Api set: ExcelApi 1.1 requires an index smaller than the total column count; 1.4 allows index to be optional (null or -1) and will append a column at the end; 1.4 allows name parameter at creation time.]
          */
-        add(index?: number, values?: Array<Array<boolean | string | number>> | boolean | string | number): Excel.TableColumn;
+        add(index?: number, values?: Array<Array<boolean | string | number>> | boolean | string | number, name?: string): Excel.TableColumn;
         /**
          *
          * Gets a column object by Name or ID.
@@ -4046,28 +4054,28 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.2]
          */
-        readonly filter: Excel.Filter;
+        filter: Excel.Filter;
         /**
          *
          * Returns a unique key that identifies the column within the table. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly id: number;
+        id: number;
         /**
          *
          * Returns the index number of the column within the columns collection of the table. Zero-indexed. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly index: number;
+        index: number;
         /**
          *
-         * Returns the name of the table column. Read-only.
+         * Represents the name of the table column.
          *
-         * [Api set: ExcelApi 1.1]
+         * [Api set: ExcelApi 1.1 for getting the name; 1.4 for setting it.]
          */
-        readonly name: string;
+        name: string;
         /**
          *
          * Represents the raw values of the specified range. The data returned could be of type string, number, or a boolean. Cell that contain an error will return the error string.
@@ -4129,14 +4137,14 @@ declare module Excel {
      */
     class TableRowCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<Excel.TableRow>;
+        items: Array<Excel.TableRow>;
         /**
          *
          * Returns the number of rows in the table. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly count: number;
+        count: number;
         /**
          *
          * Adds one or more rows to the table. The return object will be the top of the newly added row(s).
@@ -4177,7 +4185,7 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly index: number;
+        index: number;
         /**
          *
          * Represents the raw values of the specified range. The data returned could be of type string, number, or a boolean. Cell that contain an error will return the error string.
@@ -4221,28 +4229,28 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly borders: Excel.RangeBorderCollection;
+        borders: Excel.RangeBorderCollection;
         /**
          *
          * Returns the fill object defined on the overall range. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly fill: Excel.RangeFill;
+        fill: Excel.RangeFill;
         /**
          *
          * Returns the font object defined on the overall range. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly font: Excel.RangeFont;
+        font: Excel.RangeFont;
         /**
          *
          * Returns the format protection object for a range.
          *
          * [Api set: ExcelApi 1.2]
          */
-        readonly protection: Excel.FormatProtection;
+        protection: Excel.FormatProtection;
         /**
          *
          * Gets or sets the width of all colums within the range. If the column widths are not uniform, null will be returned.
@@ -4386,7 +4394,7 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly sideIndex: string;
+        sideIndex: string;
         /**
          *
          * One of the constants of line style specifying the line style for the border. See Excel.BorderLineStyle for details.
@@ -4420,14 +4428,14 @@ declare module Excel {
      */
     class RangeBorderCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<Excel.RangeBorder>;
+        items: Array<Excel.RangeBorder>;
         /**
          *
          * Number of border objects in the collection. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly count: number;
+        count: number;
         /**
          *
          * Gets a border object using its name
@@ -4524,14 +4532,14 @@ declare module Excel {
      */
     class ChartCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<Excel.Chart>;
+        items: Array<Excel.Chart>;
         /**
          *
          * Returns the number of charts in the worksheet. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly count: number;
+        count: number;
         /**
          *
          * Creates a new chart.
@@ -4582,49 +4590,49 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly axes: Excel.ChartAxes;
+        axes: Excel.ChartAxes;
         /**
          *
          * Represents the datalabels on the chart. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly dataLabels: Excel.ChartDataLabels;
+        dataLabels: Excel.ChartDataLabels;
         /**
          *
          * Encapsulates the format properties for the chart area. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly format: Excel.ChartAreaFormat;
+        format: Excel.ChartAreaFormat;
         /**
          *
          * Represents the legend for the chart. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly legend: Excel.ChartLegend;
+        legend: Excel.ChartLegend;
         /**
          *
          * Represents either a single series or collection of series in the chart. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly series: Excel.ChartSeriesCollection;
+        series: Excel.ChartSeriesCollection;
         /**
          *
          * Represents the title of the specified chart, including the text, visibility, position and formating of the title. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly title: Excel.ChartTitle;
+        title: Excel.ChartTitle;
         /**
          *
          * The worksheet containing the current chart. Read-only.
          *
          * [Api set: ExcelApi 1.2]
          */
-        readonly worksheet: Excel.Worksheet;
+        worksheet: Excel.Worksheet;
         /**
          *
          * Represents the height, in points, of the chart object.
@@ -4729,14 +4737,14 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly fill: Excel.ChartFill;
+        fill: Excel.ChartFill;
         /**
          *
          * Represents the font attributes (font name, font size, color, etc.) for the current object. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly font: Excel.ChartFont;
+        font: Excel.ChartFont;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -4754,14 +4762,14 @@ declare module Excel {
      */
     class ChartSeriesCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<Excel.ChartSeries>;
+        items: Array<Excel.ChartSeries>;
         /**
          *
          * Returns the number of series in the collection. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly count: number;
+        count: number;
         /**
          *
          * Retrieves a series based on its position in the collection
@@ -4792,14 +4800,14 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly format: Excel.ChartSeriesFormat;
+        format: Excel.ChartSeriesFormat;
         /**
          *
          * Represents a collection of all points in the series. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly points: Excel.ChartPointsCollection;
+        points: Excel.ChartPointsCollection;
         /**
          *
          * Represents the name of a series in a chart.
@@ -4829,14 +4837,14 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly fill: Excel.ChartFill;
+        fill: Excel.ChartFill;
         /**
          *
          * Represents line formatting. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly line: Excel.ChartLineFormat;
+        line: Excel.ChartLineFormat;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -4854,14 +4862,14 @@ declare module Excel {
      */
     class ChartPointsCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<Excel.ChartPoint>;
+        items: Array<Excel.ChartPoint>;
         /**
          *
          * Returns the number of chart points in the collection. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly count: number;
+        count: number;
         /**
          *
          * Retrieve a point based on its position within the series.
@@ -4892,14 +4900,14 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly format: Excel.ChartPointFormat;
+        format: Excel.ChartPointFormat;
         /**
          *
          * Returns the value of a chart point. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly value: any;
+        value: any;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -4922,7 +4930,7 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly fill: Excel.ChartFill;
+        fill: Excel.ChartFill;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -4944,21 +4952,21 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly categoryAxis: Excel.ChartAxis;
+        categoryAxis: Excel.ChartAxis;
         /**
          *
          * Represents the series axis of a 3-dimensional chart. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly seriesAxis: Excel.ChartAxis;
+        seriesAxis: Excel.ChartAxis;
         /**
          *
          * Represents the value axis in an axis. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly valueAxis: Excel.ChartAxis;
+        valueAxis: Excel.ChartAxis;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -4982,28 +4990,28 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly format: Excel.ChartAxisFormat;
+        format: Excel.ChartAxisFormat;
         /**
          *
          * Returns a gridlines object that represents the major gridlines for the specified axis. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly majorGridlines: Excel.ChartGridlines;
+        majorGridlines: Excel.ChartGridlines;
         /**
          *
          * Returns a Gridlines object that represents the minor gridlines for the specified axis. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly minorGridlines: Excel.ChartGridlines;
+        minorGridlines: Excel.ChartGridlines;
         /**
          *
          * Represents the axis title. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly title: Excel.ChartAxisTitle;
+        title: Excel.ChartAxisTitle;
         /**
          *
          * Represents the interval between two major tick marks. Can be set to a numeric value or an empty string.  The returned value is always a number.
@@ -5060,14 +5068,14 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly font: Excel.ChartFont;
+        font: Excel.ChartFont;
         /**
          *
          * Represents chart line formatting. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly line: Excel.ChartLineFormat;
+        line: Excel.ChartLineFormat;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -5090,7 +5098,7 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly format: Excel.ChartAxisTitleFormat;
+        format: Excel.ChartAxisTitleFormat;
         /**
          *
          * Represents the axis title.
@@ -5128,7 +5136,7 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly font: Excel.ChartFont;
+        font: Excel.ChartFont;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -5150,7 +5158,7 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly format: Excel.ChartDataLabelFormat;
+        format: Excel.ChartDataLabelFormat;
         /**
          *
          * DataLabelPosition value that represents the position of the data label. See Excel.ChartDataLabelPosition for details.
@@ -5236,14 +5244,14 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly fill: Excel.ChartFill;
+        fill: Excel.ChartFill;
         /**
          *
          * Represents the font attributes (font name, font size, color, etc.) for a chart data label. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly font: Excel.ChartFont;
+        font: Excel.ChartFont;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -5266,7 +5274,7 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly format: Excel.ChartGridlinesFormat;
+        format: Excel.ChartGridlinesFormat;
         /**
          *
          * Boolean value representing if the axis gridlines are visible or not.
@@ -5296,7 +5304,7 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly line: Excel.ChartLineFormat;
+        line: Excel.ChartLineFormat;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -5318,7 +5326,7 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly format: Excel.ChartLegendFormat;
+        format: Excel.ChartLegendFormat;
         /**
          *
          * Boolean value for whether the chart legend should overlap with the main body of the chart.
@@ -5364,14 +5372,14 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly fill: Excel.ChartFill;
+        fill: Excel.ChartFill;
         /**
          *
          * Represents the font attributes such as font name, font size, color, etc. of a chart legend. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly font: Excel.ChartFont;
+        font: Excel.ChartFont;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -5394,7 +5402,7 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly format: Excel.ChartTitleFormat;
+        format: Excel.ChartTitleFormat;
         /**
          *
          * Boolean value representing if the chart title will overlay the chart or not.
@@ -5440,14 +5448,14 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly fill: Excel.ChartFill;
+        fill: Excel.ChartFill;
         /**
          *
          * Represents the font attributes (font name, font size, color, etc.) for an object. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
-        readonly font: Excel.ChartFont;
+        font: Excel.ChartFont;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -5612,21 +5620,21 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.2]
          */
-        readonly fields: Array<Excel.SortField>;
+        fields: Array<Excel.SortField>;
         /**
          *
          * Represents whether the casing impacted the last sort of the table.
          *
          * [Api set: ExcelApi 1.2]
          */
-        readonly matchCase: boolean;
+        matchCase: boolean;
         /**
          *
          * Represents Chinese character ordering method last used to sort the table.
          *
          * [Api set: ExcelApi 1.2]
          */
-        readonly method: string;
+        method: string;
         /**
          *
          * Perform a sort operation.
@@ -5725,7 +5733,7 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.2]
          */
-        readonly criteria: Excel.FilterCriteria;
+        criteria: Excel.FilterCriteria;
         /**
          *
          * Apply the given filter criteria on the given column.
@@ -5961,7 +5969,7 @@ declare module Excel {
      */
     class PivotTableCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<Excel.PivotTable>;
+        items: Array<Excel.PivotTable>;
         /**
          *
          * Gets a PivotTable by name.
@@ -5997,7 +6005,7 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.3]
          */
-        readonly worksheet: Excel.Worksheet;
+        worksheet: Excel.Worksheet;
         /**
          *
          * Name of the PivotTable.
@@ -6361,6 +6369,7 @@ declare module Excel {
         var double: string;
         var boolean: string;
         var range: string;
+        var error: string;
     }
     /**
      * [Api set: ExcelApi 1.1]
@@ -6445,14 +6454,14 @@ declare module Excel {
          *
          * [Api set: ExcelApi 1.2]
          */
-        readonly error: string;
+        error: string;
         /**
          *
          * The value of function evaluation. The value field will be populated only if no error has occurred (i.e., the Error property is not set).
          *
          * [Api set: ExcelApi 1.2]
          */
-        readonly value: T;
+        value: T;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -10229,7 +10238,7 @@ declare module Excel {
      */
     class RequestContext extends OfficeExtension.ClientRequestContext {
         constructor(url?: string);
-        readonly workbook: Workbook;
+        workbook: Workbook;
     }
     /**
      * Executes a batch script that performs actions on the Excel object model, using a new RequestContext. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
@@ -10269,6 +10278,7 @@ declare module Excel {
      */
     function run<T>(requestInfo: OfficeExtension.RequestUrlAndHeaderInfo, objects: OfficeExtension.ClientObject[], batch: (context: Excel.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
 }
+
 
 
 ////////////////////////////////////////////////////////////////
