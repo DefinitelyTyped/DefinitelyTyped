@@ -3,16 +3,16 @@
 // Definitions by: Michael Neu <https://github.com/michaelneu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "voronoi-diagram" {
+declare namespace voronoi {
 	type Point = number[];
 	type Cell = number[];
-	type Position = number[];
 
 	interface VoronoiDiagram {
 		cells: Cell[];
-		positions: Position[];
+		positions: Point[];
 	}
-
-	function voronoi(points: Point[]) : VoronoiDiagram;
-	export = voronoi;
 }
+
+declare function voronoi(points: voronoi.Point[]) : voronoi.VoronoiDiagram;
+
+export = voronoi;
