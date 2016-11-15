@@ -202,8 +202,9 @@ interface CommonWrapper<P, S> {
      * Returns the state hash for the root node of the wrapper. Optionally pass in a prop name and it will return just that value.
      * @param [key]
      */
-    state(key?: string): any;
-    state<T>(key?: string): T;
+    state(): S;
+    state(key: string): any;
+    state<T>(key: string): T;
 
     /**
      * Returns the context hash for the root node of the wrapper. Optionally pass in a prop name and it will return just that value.

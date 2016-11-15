@@ -72,6 +72,9 @@ declare namespace ValidatorJS {
     // check if the string is an email.
     isEmail(str: string, options?: IsEmailOptions): boolean;
 
+    // check if the string has a length of zero.
+    isEmpty(str: string): boolean;
+
     // check if the string is a fully qualified domain name (e.g. domain.com).
     isFQDN(str: string, options?: IsFQDNOptions): boolean;
 
@@ -405,6 +408,11 @@ declare module "validator/lib/isDivisibleBy" {
 declare module "validator/lib/isEmail" {
   const isEmail: typeof validator.isEmail;
   export = isEmail;
+}
+
+declare module "validator/lib/isEmpty" {
+  const isEmpty: typeof validator.isEmpty;
+  export = isEmpty;
 }
 
 declare module "validator/lib/isFQDN" {
