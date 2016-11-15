@@ -85,10 +85,10 @@ const typedActionHandler = ReduxActions.handleAction<TypedState, TypedPayload>(
 typedState = typedActionHandler({ value: 0 }, typedIncrementAction());
 
 const typedIncrementByActionWithMeta: (value: number) => ReduxActions.ActionMeta<TypedPayload, MetaType> =
-    ReduxActions.createAction<number, TypedPayload, MetaType>(
+    ReduxActions.createAction<TypedPayload, MetaType>(
     'INCREMENT_BY',
         amount => ({ increase: amount }),
-    amount => ({ remote: true })
+        amount => ({ remote: true })
     );
 
 const typedActionHandlerWithReduceMap = ReduxActions.handleAction<TypedState, TypedPayload>(
