@@ -1,4 +1,4 @@
-// Type definitions for azure-mobile-apps v2.0.0-beta3
+// Type definitions for azure-mobile-apps v2.1.7
 // Project: https://github.com/Azure/azure-mobile-apps-node/
 // Definitions by: Microsoft Azure <https://github.com/Azure/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,6 +10,7 @@ declare module "azure-mobile-apps" {
     interface AzureMobileApps {
         (configuration?: Azure.MobileApps.Configuration): Azure.MobileApps.Platforms.Express.MobileApp;
         table(): Azure.MobileApps.Platforms.Express.Table;
+        api(definition?: Azure.MobileApps.ApiDefinition): Azure.MobileApps.ApiDefinition;
         logger: Azure.MobileApps.Logger;
         query: Azure.MobileApps.Query;
     }
@@ -31,7 +32,7 @@ declare namespace Azure.MobileApps {
     // the additional Platforms namespace is required to avoid collisions with the main Express namespace
     export module Platforms {
         export module Express {
-            interface MobileApp {
+            interface MobileApp extends Middleware {
                 configuration: Configuration;
                 tables: Tables;
                 table(): Table;
@@ -45,15 +46,7 @@ declare namespace Azure.MobileApps {
                 import(fileOrFolder: string): void;
             }
 
-            interface Table {
-                authorize?: boolean;
-                access?: AccessType;
-                autoIncrement?: boolean;
-                dynamicSchema?: boolean;
-                name: string;
-                columns?: any;
-                schema: string;
-
+            interface Table extends TableDefinition {
                 use(...middleware: Middleware[]): Table;
                 use(middleware: Middleware[]): Table;
                 read: TableOperation;
@@ -67,10 +60,8 @@ declare namespace Azure.MobileApps {
                 (operationHandler: (context: Context) => void): Table;
                 use(...middleware: Middleware[]): Table;
                 use(middleware: Middleware[]): Table;
-                access: AccessType;
+                access?: AccessType;
             }
-
-            type AccessType = 'anonymous' | 'authenticated' | 'disabled';
 
             interface Tables {
                 configuration: Configuration;
@@ -136,6 +127,7 @@ declare namespace Azure.MobileApps {
         auth?: Configuration.Auth;
         cors?: Configuration.Cors;
         notifications?: Configuration.Notifications;
+        webhook?: Webhook;
     }
 
     export module Configuration {
@@ -152,6 +144,7 @@ declare namespace Azure.MobileApps {
             options?: { encrypt: boolean };
             schema?: string;
             dynamicSchema?: boolean;
+            filename?: string;
         }
 
         interface Auth {
@@ -167,8 +160,9 @@ declare namespace Azure.MobileApps {
         interface LoggingTransport { }
 
         interface Cors {
+            exposeHeaders: string;
             maxAge?: number;
-            origins: string[];
+            hostnames: string[];
         }
 
         interface Notifications {
@@ -188,7 +182,8 @@ declare namespace Azure.MobileApps {
     }
 
     interface QueryJs {
-        includeTotalCount?: boolean;
+        includeTotalCount(): QueryJs;
+        includeDeleted(): QueryJs;
         orderBy(properties: string): QueryJs;
         orderByDescending(properties: string): QueryJs;
         select(properties: string): QueryJs;
@@ -213,6 +208,7 @@ declare namespace Azure.MobileApps {
 
     // general
     var nh: Azure.ServiceBus.NotificationHubService;
+
     interface Context {
         query: QueryJs;
         id: string | number;
@@ -225,6 +221,7 @@ declare namespace Azure.MobileApps {
         push: typeof nh;
         logger: Logger;
         execute(): Thenable<any>;
+        next(error: string|Error): any;
     }
 
     interface ContextData {
@@ -240,15 +237,46 @@ declare namespace Azure.MobileApps {
     interface SqlParameterDefinition {
         name: string;
         value: any;
-    }
+     }		     
 
     interface TableDefinition {
+        access?: AccessType;
         authorize?: boolean;
         autoIncrement?: boolean;
-        dynamicSchema?: boolean;
-        name?: string;
         columns?: any;
+        databaseTableName?: string;
+        dynamicSchema?: boolean;
+        maxTop?: number;
+        name?: string;
+        pageSize?: number;
         schema?: string;
+        softDelete?: boolean;
+        userIdColumn?: string;
+
+        filters?: [(query: QueryJs, context: Context) => void | QueryJs];
+        transforms?: [(item: any, context: Context) => void | any];
+        hooks?: [(results: any, context: Context) => void];
+
+        perUser?: boolean;
+        recordsExpire?: Duration;
+        webhook?: Webhook | boolean;
+    }
+
+    type AccessType = 'anonymous' | 'authenticated' | 'disabled';
+    
+    interface Duration {
+        milliseconds?: number;
+        seconds?: number;
+        minutes?: number;
+        hours?: number;
+        days?: number;
+        weeks?: number;
+        months?: number;
+        years?: number;
+    }
+
+    interface Webhook {
+        url: string;
     }
 
     interface ApiDefinition {

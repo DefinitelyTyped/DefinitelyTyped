@@ -1,12 +1,12 @@
 /// <reference path="needle.d.ts" />
-
-import needle = require("needle");
+import * as needle from "needle";
 
 function Usage() {
     // using callback
     needle.get('http://ifconfig.me/all.json', function (error, response) {
         if (!error)
             console.log(response.body.ip_addr); // JSON decoding magic. :)
+            console.log(response.statusCode);
     });
 
     // using streams
@@ -15,7 +15,9 @@ function Usage() {
 }
 
 function ResponsePipeline() {
-    needle.get('http://stackoverflow.com/feeds', { compressed: true }, function (err, resp) {
+    needle.get('http://stackoverflow.com/feeds', { compressed: true, headers: {
+        Authorization: 'bearer 12dsfgsdgsgq'
+    } }, function (err, resp) {
         console.log(resp.body); // this little guy won't be a Gzipped binary blob 
         // but a nice object containing all the latest entries
     });

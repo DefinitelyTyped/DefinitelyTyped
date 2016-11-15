@@ -5,13 +5,19 @@
 
 declare namespace Chance {
 
+    interface Seeded {
+        seed: number;
+    }
+
+    type SeededChance = Chance & Seeded;
+
     interface ChanceStatic {
         (): Chance
-        (seed: number): Chance
+        (seed: number): SeededChance
         (generator: () => any): Chance
 
         new(): Chance;
-        new(seed: number): Chance;
+        new(seed: number): SeededChance;
         new(generator: () => any): Chance;
     }
 

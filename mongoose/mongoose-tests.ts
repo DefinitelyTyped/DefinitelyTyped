@@ -1,6 +1,10 @@
 /// <reference path="mongoose.d.ts" />
+/// <reference path="../lodash/lodash.d.ts"/>
 
 import * as mongoose from 'mongoose';
+
+// test compatibility with other libraries
+import * as _ from 'lodash';
 var fs = require('fs');
 
 // dummy variables
@@ -458,6 +462,20 @@ mongooseArray.unshift(2, 4, 'hi').toFixed();
 /* inherited properties */
 mongooseArray.concat();
 mongooseArray.length;
+/* practical examples */
+interface MySubEntity extends mongoose.Types.Subdocument {
+  property1: string;
+  property2: string;
+}
+interface MyEntity extends mongoose.Document {
+  sub: mongoose.Types.Array<MySubEntity>
+}
+var myEntity: MyEntity;
+var subDocArray = _.filter(myEntity.sub, function (sd) {
+  sd.property1;
+  sd.property2.toLowerCase();
+});
+
 
 /*
  * section types/documentarray.js
@@ -474,6 +492,16 @@ documentArray.toObject({}).length;
 documentArray.$shift();
 /* inherited from Native Array */
 documentArray.concat();
+/* practical example */
+interface MySubEntity1 extends mongoose.Types.Subdocument {
+  property1: string;
+  property2: string;
+}
+interface MyEntity1 extends mongoose.Document {
+  sub: mongoose.Types.DocumentArray<MySubEntity>
+}
+var newEnt: MyEntity1;
+var newSub: MySubEntity1 = newEnt.sub.create({ property1: "example", property2: "example" });
 
 /*
  * section types/buffer.js
@@ -497,6 +525,7 @@ mongoose.Types.Buffer.from([1, 2, 3]);
  */
 var objectId: mongoose.Types.ObjectId = mongoose.Types.ObjectId.createFromHexString('0x1234');
 objectId = new mongoose.Types.ObjectId(12345);
+objectId = mongoose.Types.ObjectId(12345);
 objectId.getTimestamp();
 /* practical examples */
 export interface IManagerSchema extends mongoose.MongooseDocument {
@@ -1397,4 +1426,4 @@ const extended: mongoose.Model<extended> = base.discriminator<extended>('extende
 const x = new extended({
   username: 'hi',     // required in baseSchema
   email: 'beddiw',    // required in extededSchema
-})
+});

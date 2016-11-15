@@ -8,7 +8,7 @@
 declare module "redux-devtools" {
   import * as React from 'react'
 
-  interface IDevTools {
+  export interface IDevTools {
     new (): JSX.ElementClass
     instrument(): (opts: any) => any;
   }

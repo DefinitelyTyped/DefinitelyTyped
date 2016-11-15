@@ -121,6 +121,31 @@ describe('File', () => {
 
 	});
 
+	describe('File.isVinyl()', () => {
+		it('should return true when an object is a Vinyl file', done => {
+			var file = new File();
+			File.isVinyl(file).should.equal(true);
+			done();
+		});
+
+		it('should return false when an object is not a Vinyl file', done => {
+			File.isVinyl({}).should.equal(false);
+			done();
+		});
+	});
+
+	describe('File.isCustomProp()', () => {
+		it('should return true when a File property is not managed internally', done => {
+			File.isCustomProp('foobar').should.equal(true);
+			done();
+		});
+
+		it('should return false when a File property is managed internally', done => {
+			File.isCustomProp('cwd').should.equal(false);
+			done();
+		});
+	});
+
 	describe('isBuffer()', () => {
 		it('should return true when the contents are a Buffer', done => {
 			var val = new Buffer("test");

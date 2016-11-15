@@ -5,6 +5,13 @@
 
 declare module "diff-match-patch" {
     type Diff = [number, string];
+    export class Patch {
+        diffs: Diff[];
+        start1: number;
+        start2: number;
+        length1: number;
+        length2: number;
+    }
 
     export class diff_match_patch {
         static new (): diff_match_patch;
@@ -31,6 +38,12 @@ declare module "diff-match-patch" {
         diff_levenshtein(diffs: Diff[]): number;
         diff_toDelta(diffs: Diff[]): string;
         diff_fromDelta(text1: string, delta: string): Diff[];
+
+        patch_make(text1: any, text2?: string): Patch[];
+        patch_deepCopy(patches: Patch[]): Patch[];
+        patch_apply(patches: Patch[], text: string): [string, boolean[]];
+        patch_fromText(text: string): Patch[];
+        patch_toText(patches: Patch[]): string;
     }
 
     export var DIFF_DELETE: number;

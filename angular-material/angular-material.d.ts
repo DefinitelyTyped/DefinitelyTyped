@@ -73,6 +73,16 @@ declare namespace angular.material {
         initialValue(initialValue: string): IPromptDialog;
     }
 
+    interface IColorExpression {
+        [cssPropertyName: string]: string
+    }
+
+    interface IColorService {
+        applyThemeColors(element: Element|JQuery, colorExpression: IColorExpression): void;
+        getThemeColor(expression: string): string;
+        hasTheme(): boolean;
+    }    
+
     interface IDialogOptions {
         templateUrl?: string;
         template?: string;
@@ -150,6 +160,7 @@ declare namespace angular.material {
         hideDelay(delay: number): T;
         position(position: string): T;
         parent(parent?: string|Element|JQuery): T; // default: root node
+        toastClass(toastClass: string): T;
     }
 
     interface ISimpleToastPreset extends IToastPreset<ISimpleToastPreset> {
@@ -216,6 +227,12 @@ declare namespace angular.material {
         hues: IThemeHues;
     }
 
+    interface IBrowserColors{
+        theme: string;
+        palette: string;
+        hue: string;
+    }
+
     interface IThemeColors {
         accent: IThemePalette;
         background: IThemePalette;
@@ -245,12 +262,14 @@ declare namespace angular.material {
     }
 
     interface IThemingProvider {
-        theme(name: string, inheritFrom?: string): ITheme;
-        definePalette(name: string, palette: IPalette): IThemingProvider;
-        extendPalette(name: string, palette: IPalette): IPalette;
-        setDefaultTheme(theme: string): void;
         alwaysWatchTheme(alwaysWatch: boolean): void;
+        definePalette(name: string, palette: IPalette): IThemingProvider;
+        enableBrowserColor(browserColors: IBrowserColors): Function;
+        extendPalette(name: string, palette: IPalette): IPalette;
+        registerStyles(styles: String): void;
+        setDefaultTheme(theme: string): void;
         setNonce(nonce: string): void;
+        theme(name: string, inheritFrom?: string): ITheme;
     }
 
     interface IDateLocaleProvider {
@@ -320,6 +339,7 @@ declare namespace angular.material {
         onRemoving?: Function;
         onDomRemoved?: Function;
         origin?: string|JQuery|Element;
+        onCloseSuccess?: ((panel: IPanelRef, closeReason: string) => any);
     }
 
     interface IPanelRef {
@@ -337,6 +357,9 @@ declare namespace angular.material {
         removeClass(oldClass: string): void;
         toggleClass(toggleClass: string): void;
         updatePosition(position: IPanelPosition): void;
+        registerInterceptor(type: string, callback: () => angular.IPromise<any>): IPanelRef;
+        removeInterceptor(type: string, callback: () => angular.IPromise<any>): IPanelRef;
+        removeAllInterceptors(type?: string): IPanelRef;
     }
 
     interface IPanelPosition {
@@ -352,8 +375,8 @@ declare namespace angular.material {
         centerVertically(): IPanelPosition;
         center(): IPanelPosition;
         addPanelPosition(xPosition: string, yPosition: string): IPanelPosition;
-        withOffsetX(offsetX: string): IPanelPosition;
-        withOffsetY(offsetY: string): IPanelPosition;
+        withOffsetX(offsetX: string|((panel: IPanelPosition) => string)): IPanelPosition;
+        withOffsetY(offsetY: string|((panel: IPanelPosition) => string)): IPanelPosition;
     }
 
     interface IPanelAnimation {
@@ -385,6 +408,19 @@ declare namespace angular.material {
           SLIDE: string,
           SCALE: string,
           FADE: string,
+        };
+        interceptorTypes: {
+          CLOSE: string,
+        };
+        closeReasons: {
+          CLICK_OUTSIDE: string,
+          ESCAPE: string,
+        };
+        absPosition: {
+          TOP:  string,
+          RIGHT: string,
+          BOTTOM: string,
+          LEFT: string,
         };
     }
 }
