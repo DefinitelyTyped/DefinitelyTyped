@@ -64,6 +64,7 @@ declare module "superagent" {
       charset: string;
       status: number;
       statusType: number;
+      statusText: string;
       info: boolean;
       ok: boolean;
       redirect: boolean;
