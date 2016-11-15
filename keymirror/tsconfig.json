@@ -14,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "xml2js-tests.ts"
+        "keymirror-tests.ts"
     ]
 }
