@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts"/>
-
 import * as neo4j from "neo4j";
 
 let db = new neo4j.GraphDatabase("http://localhost:7474");
