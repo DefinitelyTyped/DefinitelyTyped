@@ -2719,7 +2719,7 @@ declare namespace Electron {
 		 * @returns a ClientRequest instance using the provided options which are directly
 		 * forwarded to the ClientRequest constructor.
 		 */
-		request(options : string | RequestOptions, callback?: (response: IncomingMessage) => void): ClientRequest
+		request(options: string | RequestOptions, callback?: (response: IncomingMessage) => void): ClientRequest;
 	}
 
 	/**
@@ -5806,7 +5806,7 @@ declare namespace Electron {
 		globalShortcut: Electron.GlobalShortcut;
 		Menu: typeof Electron.Menu;
 		MenuItem: typeof Electron.MenuItem;
-        net: Electron.Net;
+		net: Electron.Net;
 		powerMonitor: Electron.PowerMonitor;
 		powerSaveBlocker: Electron.PowerSaveBlocker;
 		protocol: Electron.Protocol;
