@@ -483,8 +483,10 @@ declare namespace Xrm
     {
         /**
          * Called when the operation is successful.
+         * Currently, only the Xrm.Utility.openQuickCreate successCallback
+         * is passed a parameter so an optional parameter for it is included
          */
-        export type SuccessCallbackDelegate = ( object: any ) => void;
+        export type SuccessCallbackDelegate = ( savedEntityReference?: Page.LookupValue ) => void;
 
         /**
          * Called when the operation fails.
