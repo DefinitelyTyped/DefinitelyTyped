@@ -1,4 +1,4 @@
-// Type definitions for Fuse.js 2.2.0
+// Type definitions for Fuse.js 2.5.0
 // Project: https://github.com/krisk/Fuse
 // Definitions by: Greg Smith <https://github.com/smrq/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,7 +9,8 @@ declare class Fuse {
 }
 
 declare namespace fuse {
-	interface IFuseOptions extends ISearchOptions {
+	interface IFuseOptions {
+		id?: string;
 		caseSensitive?: boolean;
 		include?: string[];
 		shouldSort?: boolean;
@@ -18,9 +19,9 @@ declare namespace fuse {
 		getFn?: (obj: any, path: string) => any;
 		keys?: string[] | { name:string; weight:number} [];
         	verbose?:boolean;
-	}
-
-	interface ISearchOptions {
+		tokenize?: boolean;
+		tokenSeparator? : RegExp;
+		matchAllTokens?: boolean;
 		location?: number;
 		distance?: number;
 		threshold?: number;
