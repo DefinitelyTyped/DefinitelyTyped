@@ -3,8 +3,9 @@
         "module": "commonjs",
         "target": "es5",
         "noImplicitAny": false,
-        "sourceMap": false,
-        "noEmit": true
+        "strictNullChecks": true,
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "webnotifications.d.ts",
