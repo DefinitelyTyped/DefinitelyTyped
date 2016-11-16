@@ -1,11 +1,11 @@
-// Type definitions for graphql v0.7.0
+// Type definitions for graphql v0.7.2
 // Project: https://www.npmjs.com/package/graphql
-// Definitions by: TonyYang <https://github.com/TonyPythoneer>, Caleb Meredith <https://github.com/calebmer>
+// Definitions by: TonyYang <https://github.com/TonyPythoneer>, Caleb Meredith <https://github.com/calebmer>, Dominic Watson <https://github.com/intellix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*************************************
- *                                   * 
- *               MODULES             * 
+ *                                   *
+ *               MODULES             *
  *                                   *
  *************************************/
 ///////////////////////////
@@ -2150,6 +2150,9 @@ declare module "graphql/utilities/index" {
 
     // Asserts that a string is a valid GraphQL name
     export { assertValidName } from 'graphql/utilities/assertValidName';
+
+    // Compares two GraphQLSchemas and detects breaking changes.
+    export { findBreakingChanges } from 'graphql/utilities/findBreakingChanges';
 }
 
 declare module "graphql/utilities/assertValidName" {
@@ -2282,6 +2285,100 @@ declare module "graphql/utilities/extendSchema" {
         schema: GraphQLSchema,
         documentAST: Document
     ): GraphQLSchema;
+}
+
+declare module "graphql/utilities/findBreakingChanges" {
+    import {
+        getNamedType,
+        GraphQLScalarType,
+        GraphQLEnumType,
+        GraphQLInputObjectType,
+        GraphQLInterfaceType,
+        GraphQLObjectType,
+        GraphQLUnionType,
+        GraphQLNamedType,
+    } from 'graphql/type/definition';
+    import { GraphQLSchema } from 'graphql/type/schema';
+
+    export const BreakingChangeType: {
+        FIELD_CHANGED_KIND: 'FIELD_CHANGED_KIND',
+        FIELD_REMOVED: 'FIELD_REMOVED',
+        TYPE_CHANGED_KIND: 'TYPE_CHANGED_KIND',
+        TYPE_REMOVED: 'TYPE_REMOVED',
+        TYPE_REMOVED_FROM_UNION: 'TYPE_REMOVED_FROM_UNION',
+        VALUE_REMOVED_FROM_ENUM: 'VALUE_REMOVED_FROM_ENUM',
+    };
+
+    type BreakingChangeKey = 'FIELD_CHANGED_KIND'
+        | 'FIELD_REMOVED'
+        | 'TYPE_CHANGED_KIND'
+        | 'TYPE_REMOVED'
+        | 'TYPE_REMOVED_FROM_UNION'
+        | 'VALUE_REMOVED_FROM_ENUM';
+
+    export type BreakingChange = {
+        type: BreakingChangeKey;
+        description: string;
+    };
+
+    /**
+     * Given two schemas, returns an Array containing descriptions of all the types
+     * of breaking changes covered by the other functions down below.
+     */
+    export function findBreakingChanges(
+        oldSchema: GraphQLSchema,
+        newSchema: GraphQLSchema
+    ): Array<BreakingChange>
+
+    /**
+     * Given two schemas, returns an Array containing descriptions of any breaking
+     * changes in the newSchema related to removing an entire type.
+     */
+    export function findRemovedTypes(
+        oldSchema: GraphQLSchema,
+        newSchema: GraphQLSchema
+    ): Array<BreakingChange>
+
+    function typeKindName(type: GraphQLNamedType): string
+
+    /**
+     * Given two schemas, returns an Array containing descriptions of any breaking
+     * changes in the newSchema related to changing the type of a type.
+     */
+    export function findTypesThatChangedKind(
+        oldSchema: GraphQLSchema,
+        newSchema: GraphQLSchema
+    ): Array<BreakingChange>
+
+    function typeKindName(type: GraphQLNamedType): string;
+
+    /**
+     * Given two schemas, returns an Array containing descriptions of any breaking
+     * changes in the newSchema related to the fields on a type. This includes if
+     * a field has been removed from a type or if a field has changed type.
+     */
+    export function findFieldsThatChangedType(
+        oldSchema: GraphQLSchema,
+        newSchema: GraphQLSchema
+    ): Array<BreakingChange>;
+
+    /**
+     * Given two schemas, returns an Array containing descriptions of any breaking
+     * changes in the newSchema related to removing types from a union type.
+     */
+    export function findTypesRemovedFromUnions(
+        oldSchema: GraphQLSchema,
+        newSchema: GraphQLSchema
+    ): Array<BreakingChange>;
+
+    /**
+     * Given two schemas, returns an Array containing descriptions of any breaking
+     * changes in the newSchema related to removing values from an enum type.
+     */
+    export function findValuesRemovedFromEnums(
+        oldSchema: GraphQLSchema,
+        newSchema: GraphQLSchema
+    ): Array<BreakingChange>;
 }
 
 declare module "graphql/utilities/getOperationAST" {
@@ -2627,7 +2724,7 @@ declare module "graphql/utilities/valueFromAST" {
     } from 'graphql/language/ast';
 
     function valueFromAST(
-        valueAST: Value, 
+        valueAST: Value,
         type: GraphQLInputType,
         variables?: {
             [key: string]: any
