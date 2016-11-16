@@ -5,6 +5,7 @@
 
 /// <reference types="angular" />
 /// <reference types="cordova" />
+/// <reference types="cordova-plugin-file-transfer" />
 
 declare namespace ngCordova {
     export interface IFileTransferService {

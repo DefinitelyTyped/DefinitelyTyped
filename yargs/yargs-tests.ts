@@ -1,9 +1,11 @@
-﻿// Type definition tests for yargs
-// Project: https://github.com/chevex/yargs
-// Definitions by: Martin Poelstra <https://github.com/poelstra>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+﻿/// <reference types="node" />
 
-import yargs = require('yargs');
+import * as yargs from 'yargs';
+
+import * as fs from 'fs';
+import * as path from 'path';
+
+const stringVal = 'string';
 
 // Examples taken from yargs website
 // https://github.com/chevex/yargs
@@ -55,6 +57,9 @@ function divide() {
 function demand_count() {
 	var argv = yargs
 		.demand(2)
+		.demand(2, false)
+		.demand(2, 2)
+		.demand(2, 2, "message")
 		.argv;
 	console.dir(argv);
 }
@@ -202,6 +207,23 @@ function command() {
 				description:"Should i publish?"
 			}
 		})
+		.command({
+			command: "test",
+			describe: "test package",
+			builder: {
+				mateys: {
+					demand: false
+				}
+			},
+			handler: (args: any) => {
+				/* handle me mateys! */
+			}
+		})
+		.command("test", "test mateys", {
+			handler: (args: any) => {
+				/* handle me mateys! */
+			}
+		})
 		.help('help')
 		.argv;
 }
@@ -222,7 +244,7 @@ function completion_sync() {
 
 function completion_async() {
 	var argv = yargs
-		.completion('completion', (current, argv, done) => {
+		.completion('completion', (current: string, argv: any, done: (completion: string[]) => void) => {
 			setTimeout(function () {
 				done([
 					'apple',
@@ -234,9 +256,10 @@ function completion_async() {
 }
 
 function Argv$help() {
-	var yargs1 = yargs
-		.usage("$0 -operand1 number -operand2 number -operation [add|subtract]");
-	var s: string = yargs1.help();
+	var argv = yargs
+		.usage("$0 -operand1 number -operand2 number -operation [add|subtract]")
+		.help()
+		.argv;
 }
 
 function Argv$showHelpOnFail() {
@@ -267,6 +290,14 @@ function Argv$version() {
 
 	var argv4 = yargs
 		.version(function () { return '1.0.0'; }, '--version', 'description');
+}
+
+function Argv$wrap() {
+	var argv1 = yargs
+		.wrap(null);
+
+	var argv2 = yargs
+		.wrap(yargs.terminalWidth());
 }
 
 function Argv$locale() {
@@ -318,4 +349,171 @@ function Argv$reset() {
 	} else {
 		ya.showHelp();
 	}
+}
+
+// http://yargs.js.org/docs/#methods-commanddirdirectory-opts
+function Argv$commandDir() {
+	var ya = yargs
+		.commandDir('.')
+		.argv
+}
+
+
+// http://yargs.js.org/docs/#methods-commanddirdirectory-opts
+function Argv$commandDirWithOptions() {
+	var ya = yargs
+		.commandDir('.', {
+			recurse: false,
+			extensions: ['js'],
+			visit: (commandObject: any, pathToFile: string, filename: string) => { },
+			include: /.*\.js$/,
+			exclude: /.*\.spec.js$/,
+		})
+		.argv
+}
+
+function Argv$normalize() {
+	var ya = yargs
+		.normalize('path')
+		.normalize(['user', 'group'])
+		.argv
+}
+
+// From http://yargs.js.org/docs/#methods-coercekey-fn
+function Argv$coerce() {
+	var ya = yargs
+		.coerce('file', function (arg: string) {
+			return fs.readFileSync(arg, 'utf8');
+		})
+		.argv
+}
+function Argv$coerces() {
+	var ya = yargs
+		.coerce({
+			date: Date.parse,
+			json: JSON.parse
+		})
+		.argv
+}
+function Argv$coerceWithKeys() {
+	var ya = yargs
+		.coerce(['src', 'dest'], path.resolve)
+		.argv
+}
+
+// From http://yargs.js.org/docs/#methods-failfn
+function Argv$fail() {
+	var ya = yargs
+		.fail(function (msg, err) {
+			if (err) throw err // preserve stack
+			console.error('You broke it!')
+			console.error(msg)
+			process.exit(1)
+		})
+		.argv
+}
+
+function Argv$implies() {
+	var ya = yargs
+		.implies('foo', 'snuh')
+		.implies({
+			x: 'y'
+		})
+		.argv
+}
+
+function Argv$count() {
+	var ya = yargs
+		.count('size')
+		.count(['w', 'h'])
+		.argv
+}
+
+function Argv$number() {
+	var ya = yargs
+		.number('n')
+		.number(['width', 'height'])
+		.argv
+}
+
+function Argv$updateStrings() {
+	var ya = yargs
+		.command('run', 'the run command')
+		.help('help')
+		.updateStrings({
+			'Commands:': 'My Commands -->\n'
+		})
+		.wrap(null)
+		.argv
+}
+
+function Argv$default() {
+	var ya = yargs
+		.default('random', function randomValue() {
+			return Math.random() * 256;
+		})
+		.argv
+}
+
+function Argv$configObject() {
+	var ya = yargs
+		.config({foo: 1, bar: 2})
+		.argv
+}
+
+function Argv$configParseFunction() {
+	var ya = yargs
+		.config('settings', function (configPath) {
+			return JSON.parse(fs.readFileSync(configPath, 'utf-8'))
+		})
+		.config('settings', 'description', function (configPath) {
+			return JSON.parse(fs.readFileSync(configPath, 'utf-8'))
+		})
+		.argv
+}
+
+function Argv$helpDescriptionExplicit() {
+	var ya = yargs
+		.help('help', 'description', true)
+		.argv
+}
+
+function Argv$showHelpConsoleLevel() {
+	yargs.showHelp("log"); //prints to stdout using console.log()
+}
+
+function Argv$getCompletion() {
+	var ya = yargs
+		.option('foobar', {})
+		.option('foobaz', {})
+		.completion()
+		.getCompletion(['./test.js', '--foo'], function (completions) {
+			console.log(completions)
+		})
+		.argv
+}
+
+function Argv$pkgConf() {
+	var ya = yargs
+		.pkgConf(['key1', 'key2'], 'configFile.json')
+		.argv
+}
+
+function Argv$recommendCommands() {
+	var ya = yargs
+		.recommendCommands()
+		.argv
+}
+
+function Argv$showCompletionScript() {
+	var ya = yargs
+		.showCompletionScript()
+		.argv
+}
+
+function Argv$skipValidation() {
+	var ya = yargs
+		.skipValidation('arg1')
+		.skipValidation(['arg2', 'arg3'])
+		.argv
 }

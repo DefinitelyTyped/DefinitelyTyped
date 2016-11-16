@@ -13,7 +13,7 @@ interface JQuery {
 
 declare namespace MagicSuggest {
     interface Configuration {
-        /**********  CONFIGURATION PROPERTIES ************/
+        /* ********  CONFIGURATION PROPERTIES ************/
         /**
          * Restricts or allows the user to validate typed entries.
          * Defaults to true.

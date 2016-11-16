@@ -104,7 +104,7 @@ declare module 'bufferstream/postbuffer' {
 
 		 http client buffer
 		*/
-		constructor(req: http.ServerRequest);
+		constructor(req: http.IncomingMessage);
 		/*
 			set a callback to get all post data from a http server request
 		*/

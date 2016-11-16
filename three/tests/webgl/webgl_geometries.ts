@@ -116,9 +116,9 @@
         container.appendChild(renderer.domElement);
 
         stats = new Stats();
-        stats.domElement.style.position = 'absolute';
-        stats.domElement.style.top = '0px';
-        container.appendChild(stats.domElement);
+        stats.dom.style.position = 'absolute';
+        stats.dom.style.top = '0px';
+        container.appendChild(stats.dom);
 
         //
 

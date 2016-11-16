@@ -7,6 +7,7 @@
 
 export as namespace acorn;
 export = acorn;
+import * as ESTree from 'estree';
 
 declare namespace acorn {
     var version: string;

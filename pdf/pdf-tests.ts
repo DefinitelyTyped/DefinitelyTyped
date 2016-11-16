@@ -25,6 +25,16 @@ function renderPage(pageNum: number) {
 		var context = canvas.getContext('2d');
 		canvas.height = viewport.height;
 		canvas.width = viewport.width;
+		
+		//
+		// test viewport conversion methods
+		// convertToViewportRectangle and normalizeRect are used in the acroforms example:
+		// https://github.com/mozilla/pdf.js/blob/master/examples/acroforms/forms.js
+		//
+		const rect = viewport.convertToViewportRectangle([100,100,0,0]);
+		const normalizedRect = PDFJS.Util.normalizeRect(rect);
+		const point = viewport.convertToViewportPoint(100, 100);
+		const pdfPoint = viewport.convertToPdfPoint(100, 100);
 
 		//
 		// Render PDF page into canvas context

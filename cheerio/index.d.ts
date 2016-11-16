@@ -259,6 +259,7 @@ interface CheerioElement {
 
 interface CheerioAPI extends CheerioSelector {
   load(html: string, options?: CheerioOptionsInterface): CheerioStatic;
+  load(element: CheerioElement, options?: CheerioOptionsInterface): CheerioStatic;
 }
 
 declare var cheerio:CheerioAPI;

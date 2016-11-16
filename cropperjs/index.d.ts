@@ -467,4 +467,3 @@ declare class cropperjs {
 
 export = cropperjs;
 export as namespace Cropper;
-

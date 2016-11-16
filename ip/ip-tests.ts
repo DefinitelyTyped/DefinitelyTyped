@@ -19,3 +19,4 @@ var buff:any = ip.toBuffer(myIP);
 ip.toString(buff);
 ip.subnet('192.168.1.134', '255.255.255.192');
 ip.cidrSubnet('192.168.1.134/26');
+ip.cidrSubnet('192.168.1.134/26').contains('192.168.1.134');

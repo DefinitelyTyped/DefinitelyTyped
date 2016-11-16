@@ -9,6 +9,7 @@ type WebixTemplate = (...args: any[])=>string;
 type WebixCallback = (...args: any[])=>any;
 interface PromisedData {
     then(handler:(data:any)=>any):PromisedData;
+    fail(handler:(error:any)=>any):PromisedData;
 }
 
 function ajax():webix._ajax;

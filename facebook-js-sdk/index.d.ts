@@ -8,10 +8,11 @@ declare var FB: fb.FacebookStatic;
 declare namespace facebook {
 
     interface FacebookStatic {
-        // api: any;
-        // AppEvents: any;
-        // Canvas: any;
-        // Event: any;
+        api: any;
+        AppEvents: any;
+        Canvas: any;
+        Event: any;
+        
         /**
          * The method FB.getAuthResponse() is a synchronous accessor for the current authResponse.
          * The synchronous nature of this method is what sets it apart from the other login methods.
@@ -25,7 +26,7 @@ declare namespace facebook {
          *
          * @param callback function to handle the response.
          */
-        getLoginStatus(callback: (response: AuthResponse) => void): void;
+        getLoginStatus(callback: (response: AuthResponse) => void, roundtrip?: boolean ): void;
         /**
          * The method FB.init() is used to initialize and setup the SDK.
          *
@@ -49,8 +50,9 @@ declare namespace facebook {
          * @param callback function to handle the response
          */
         logout(callback: (response: AuthResponse) => void): void;
-        // ui: any;
-        // XFBML: any;
+        
+        ui: any;
+        XFBML: any;
     }
 
     interface InitParams {

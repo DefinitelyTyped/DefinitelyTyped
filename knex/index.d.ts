@@ -10,7 +10,7 @@ import * as events from "events";
 
 type Callback = Function;
 type Client = Function;
-type Value = string | number | boolean | Date | Array<string> | Array<number> | Array<Date> | Array<boolean>;
+type Value = string | number | boolean | Date | Array<string> | Array<number> | Array<Date> | Array<boolean> | Buffer | Knex.Raw;
 type ColumnName = string | Knex.Raw | Knex.QueryBuilder;
 type TableName = string | Knex.Raw | Knex.QueryBuilder;
 
@@ -29,7 +29,7 @@ interface Knex extends Knex.QueryInterface {
     client: any;
     migrate: Knex.Migrator;
     seed: any;
-    fn: any;
+    fn: Knex.FunctionHelper;
     on(eventName: string, callback: Function): Knex.QueryBuilder;
 }
 
@@ -326,8 +326,9 @@ declare namespace Knex {
     }
 
     interface Transaction extends QueryBuilder {
-        commit: any;
-        rollback: any;
+      commit: any;
+      rollback: any;
+      raw: Knex.RawBuilder;
     }
 
     //
@@ -344,39 +345,41 @@ declare namespace Knex {
         table(tableName: string, callback: (tableBuilder: AlterTableBuilder) => any): Promise<void>;
         dropTableIfExists(tableName: string): Promise<void>;
         raw(statement: string): SchemaBuilder;
+        withSchema(schemaName: string): SchemaBuilder;
     }
 
     interface TableBuilder {
-        increments(columnName?: string): ColumnBuilder;
-        bigIncrements(columnName?: string): ColumnBuilder;
-        dropColumn(columnName: string): TableBuilder;
-        dropColumns(...columnNames: string[]): TableBuilder;
-        renameColumn(from: string, to: string): ColumnBuilder;
-        integer(columnName: string): ColumnBuilder;
-        bigInteger(columnName: string): ColumnBuilder;
-        text(columnName: string, textType?: string): ColumnBuilder;
-        string(columnName: string, length?: number): ColumnBuilder;
-        float(columnName: string, precision?: number, scale?: number): ColumnBuilder;
-        decimal(columnName: string, precision?: number, scale?: number): ColumnBuilder;
-        boolean(columnName: string): ColumnBuilder;
-        date(columnName: string): ColumnBuilder;
-        dateTime(columnName: string): ColumnBuilder;
-        time(columnName: string): ColumnBuilder;
-        timestamp(columnName: string): ColumnBuilder;
-        timestamps(): ColumnBuilder;
-        binary(columnName: string): ColumnBuilder;
-        enum(columnName: string, values: Value[]): ColumnBuilder;
-        enu(columnName: string, values: Value[]): ColumnBuilder;
-        json(columnName: string): ColumnBuilder;
-        uuid(columnName: string): ColumnBuilder;
-        comment(val: string): TableBuilder;
-        specificType(columnName: string, type: string): ColumnBuilder;
-        primary(columnNames: string[]): TableBuilder;
-        index(columnNames: string[], indexName?: string, indexType?: string): TableBuilder;
-        unique(columnNames: string[], indexName?: string): TableBuilder;
-        foreign(column: string): ForeignConstraintBuilder;
-        foreign(columns: string[]): MultikeyForeignConstraintBuilder;
-        dropForeign(columnNames: string[], foreignKeyName?: string): TableBuilder;
+      increments(columnName?: string): ColumnBuilder;
+      bigIncrements(columnName?: string): ColumnBuilder;
+      dropColumn(columnName: string): TableBuilder;
+      dropColumns(...columnNames: string[]): TableBuilder;
+      renameColumn(from: string, to: string): ColumnBuilder;
+      integer(columnName: string): ColumnBuilder;
+      bigInteger(columnName: string): ColumnBuilder;
+      text(columnName: string, textType?: string): ColumnBuilder;
+      string(columnName: string, length?: number): ColumnBuilder;
+      float(columnName: string, precision?: number, scale?: number): ColumnBuilder;
+      decimal(columnName: string, precision?: number, scale?: number): ColumnBuilder;
+      boolean(columnName: string): ColumnBuilder;
+      date(columnName: string): ColumnBuilder;
+      dateTime(columnName: string): ColumnBuilder;
+      time(columnName: string): ColumnBuilder;
+      timestamp(columnName: string): ColumnBuilder;
+      timestamps(): ColumnBuilder;
+      binary(columnName: string): ColumnBuilder;
+      enum(columnName: string, values: Value[]): ColumnBuilder;
+      enu(columnName: string, values: Value[]): ColumnBuilder;
+      json(columnName: string): ColumnBuilder;
+      jsonb(columnName: string): ColumnBuilder;
+      uuid(columnName: string): ColumnBuilder;
+      comment(val: string): TableBuilder;
+      specificType(columnName: string, type: string): ColumnBuilder;
+      primary(columnNames: string[]) : TableBuilder;
+      index(columnNames: string[], indexName?: string, indexType?: string) : TableBuilder;
+      unique(columnNames: string[], indexName?: string) : TableBuilder;
+      foreign(column: string): ForeignConstraintBuilder;
+      foreign(columns: string[]): MultikeyForeignConstraintBuilder;
+      dropForeign(columnNames: string[], foreignKeyName?: string): TableBuilder;
     }
 
     interface CreateTableBuilder extends TableBuilder {
@@ -451,6 +454,9 @@ declare namespace Knex {
         Sqlite3ConnectionConfig | SocketConnectionConfig;
         pool?: PoolConfig;
         migrations?: MigratorConfig;
+        acquireConnectionTimeout?: number;
+        useNullAsDefault?: boolean;
+        searchPath?: string;
     }
 
     interface ConnectionConfig {
@@ -529,6 +535,7 @@ declare namespace Knex {
         directory?: string;
         extension?: string;
         tableName?: string;
+        disableTransactions?: boolean;
     }
 
     interface Migrator {
@@ -537,6 +544,10 @@ declare namespace Knex {
         rollback(config?: MigratorConfig): Promise<any>;
         status(config?: MigratorConfig): Promise<number>;
         currentVersion(config?: MigratorConfig): Promise<string>;
+    }
+
+    interface FunctionHelper {
+        now(): Raw;
     }
 }
 

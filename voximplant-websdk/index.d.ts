@@ -80,7 +80,7 @@ declare namespace VoxImplant {
 		TransferFailed
 	}
 
-	namespace Events {
+	namespace EventTypes {
 
 		/**
 		*	Event dispatched after login , loginWithOneTimeKey, requestOneTimeLoginKey or loginWithCode function call
@@ -184,7 +184,7 @@ declare namespace VoxImplant {
 
 	}
 
-	namespace CallEvents {
+	namespace CallEventTypes {
 
 		/**
 		*	Event dispatched after call was connected
@@ -323,7 +323,7 @@ declare namespace VoxImplant {
 		}
 	}
 
-	namespace IMEvents {
+	namespace IMEventTypes {
 
 		/**
 		*	Event dispatched when chat history received
@@ -989,27 +989,27 @@ declare namespace VoxImplant {
 
 	}
 
-	type VoxImplantEvent = Events.AuthResult | Events.ConnectionClosed | Events.ConnectionEstablished |
-		Events.ConnectionFailed | Events.IncomingCall | Events.MicAccessResult |
-		Events.NetStatsReceived | Events.PlaybackFinished | Events.SDKReady | Events.SourcesInfoUpdated;
+	type VoxImplantEvent = EventTypes.AuthResult | EventTypes.ConnectionClosed | EventTypes.ConnectionEstablished |
+		EventTypes.ConnectionFailed | EventTypes.IncomingCall | EventTypes.MicAccessResult |
+		EventTypes.NetStatsReceived | EventTypes.PlaybackFinished | EventTypes.SDKReady | EventTypes.SourcesInfoUpdated;
 
 
-	type VoxImplantCallEvent = CallEvents.Connected | CallEvents.Disconnected | CallEvents.Failed |
-		CallEvents.InfoReceived | CallEvents.MessageReceived | CallEvents.ProgressToneStart |
-		CallEvents.ProgressToneStop | CallEvents.TransferComplete | CallEvents.TransferFailed;
+	type VoxImplantCallEvent = CallEventTypes.Connected | CallEventTypes.Disconnected | CallEventTypes.Failed |
+		CallEventTypes.InfoReceived | CallEventTypes.MessageReceived | CallEventTypes.ProgressToneStart |
+		CallEventTypes.ProgressToneStop | CallEventTypes.TransferComplete | CallEventTypes.TransferFailed;
 
-	type VoxImplantIMEvent = IMEvents.ChatHistoryReceived | IMEvents.ChatRoomBanList |
-		IMEvents.ChatRoomCreated | IMEvents.ChatRoomError | IMEvents.ChatRoomHistoryReceived |
-		IMEvents.ChatRoomInfo | IMEvents.ChatRoomInvitation | IMEvents.ChatRoomInviteDeclined |
-		IMEvents.ChatRoomMessageModified | IMEvents.ChatRoomMessageNotModified | IMEvents.ChatRoomMessageReceived |
-		IMEvents.ChatRoomMessageRemoved | IMEvents.ChatRoomNewParticipant | IMEvents.ChatRoomOperation |
-		IMEvents.ChatRoomParticipantExit | IMEvents.ChatRoomParticipants | IMEvents.ChatRoomPresenceUpdate |
-		IMEvents.ChatRoomStateUpdate | IMEvents.ChatRoomSubjectChange | IMEvents.ChatRoomsDataReceived |
-		IMEvents.ChatStateUpdate | IMEvents.MessageModified | IMEvents.MessageNotModified |
-		IMEvents.MessageReceived | IMEvents.MessageRemoved | IMEvents.MessageStatus |
-		IMEvents.PresenceUpdate | IMEvents.RosterItemChange | IMEvents.RosterPresenceUpdate |
-		IMEvents.RosterReceived | IMEvents.SubscriptionRequest | IMEvents.SystemError |
-		IMEvents.UCConnected | IMEvents.UCDisconnected;
+	type VoxImplantIMEvent = IMEventTypes.ChatHistoryReceived | IMEventTypes.ChatRoomBanList |
+		IMEventTypes.ChatRoomCreated | IMEventTypes.ChatRoomError | IMEventTypes.ChatRoomHistoryReceived |
+		IMEventTypes.ChatRoomInfo | IMEventTypes.ChatRoomInvitation | IMEventTypes.ChatRoomInviteDeclined |
+		IMEventTypes.ChatRoomMessageModified | IMEventTypes.ChatRoomMessageNotModified | IMEventTypes.ChatRoomMessageReceived |
+		IMEventTypes.ChatRoomMessageRemoved | IMEventTypes.ChatRoomNewParticipant | IMEventTypes.ChatRoomOperation |
+		IMEventTypes.ChatRoomParticipantExit | IMEventTypes.ChatRoomParticipants | IMEventTypes.ChatRoomPresenceUpdate |
+		IMEventTypes.ChatRoomStateUpdate | IMEventTypes.ChatRoomSubjectChange | IMEventTypes.ChatRoomsDataReceived |
+		IMEventTypes.ChatStateUpdate | IMEventTypes.MessageModified | IMEventTypes.MessageNotModified |
+		IMEventTypes.MessageReceived | IMEventTypes.MessageRemoved | IMEventTypes.MessageStatus |
+		IMEventTypes.PresenceUpdate | IMEventTypes.RosterItemChange | IMEventTypes.RosterPresenceUpdate |
+		IMEventTypes.RosterReceived | IMEventTypes.SubscriptionRequest | IMEventTypes.SystemError |
+		IMEventTypes.UCConnected | IMEventTypes.UCDisconnected;
 
 	/**
 	*	VoxImplant SDK Configuration

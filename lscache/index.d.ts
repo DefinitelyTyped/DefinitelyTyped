@@ -1,4 +1,4 @@
-﻿// Type definitions for lscache v1.0.5
+﻿// Type definitions for lscache v1.0.7
 // Project: https://github.com/pamelafox/lscache
 // Definitions by: Chris Martinez <https://github.com/Chris-Martinezz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -36,13 +36,23 @@ interface LSCache {
     * Appends CACHE_PREFIX so lscache will partition data in to different buckets.
     * @param {string} bucket
     */
-    setBucket(bucket: string):void;
+    setBucket(bucket: string): void;
     /**
     * Resets the string being appended to CACHE_PREFIX so lscache will use the default storage behavior.
     */
     resetBucket(): void;
+    /**
+     * Test if the current browser supports localStorage
+     * @return {boolean} true if supported else false
+     */
+    supported(): boolean;
+    /**
+     * Enable/Disable warning if set fails
+     * @param {boolean} enabled
+     */
+    enableWarnings(enabled: boolean): void;
 }
-declare var lscache:LSCache;
+declare var lscache: LSCache;
 declare module 'lscache' {
     var lscache: LSCache;
     export = lscache;

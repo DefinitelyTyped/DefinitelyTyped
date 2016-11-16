@@ -6,7 +6,6 @@
 import assert = require('assert')
 import fs = require('mz/fs')
 
-
 describe('fs', function () {
 
   it('.stat()', function (done) {
@@ -72,7 +71,7 @@ describe('child_process', function () {
   describe('callback support', function () {
     it('.exec() success', function (done) {
       cp.exec('node --version', function (err, stdout) {
-        assert.equal(stdout.toString('utf8')[0], 'v')
+        assert.equal(stdout.toString()[0], 'v')
         done()
       })
     })
@@ -86,7 +85,7 @@ describe('child_process', function () {
   })
 })
 
-import crypto = require('mz/crypto')
+import * as crypto from "mz/crypto";
 
 describe('crypto', function () {
 

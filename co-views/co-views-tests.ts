@@ -1,13 +1,13 @@
-/// <reference path="../node/node.d.ts" />
-/// <reference path="co-views.d.ts" />
+/// <reference types="node" />
+/// <reference types="co-views" />
 
-import views = require('co-views');
+import * as views from 'co-views';
 
 const render = views('views', {
-    map: { 
-        html: 'swig' 
+    map: {
+        html: 'swig',
     },
-    default: 'jade'
+    default: 'jade',
 });
 
 const fileName = 'xxx'; // template file name

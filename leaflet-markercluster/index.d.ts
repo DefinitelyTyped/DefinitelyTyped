@@ -51,7 +51,7 @@ declare namespace L {
 
       /*
       * The maximum radius that a cluster will cover from the central marker (in pixels). Default 80.
-      * Decreasing will make more, smaller clusters. You can also use a function that accepts 
+      * Decreasing will make more, smaller clusters. You can also use a function that accepts
       * the current map zoom and returns the maximum cluster radius in pixels
       */
       maxClusterRadius?: number | ((zoom: number) => number);
@@ -134,9 +134,9 @@ declare namespace L {
       getAllChildMarkers(): Marker[];
 
       /*
-      * Zooms to show the given marker (spiderfying if required), 
+      * Zooms to show the given marker (spiderfying if required),
       * calls the callback when the marker is visible on the map.
-      */	  
+      */
       zoomToShowLayer(layer: any, callback: () => void): void;
     }
 }

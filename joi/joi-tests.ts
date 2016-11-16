@@ -752,6 +752,10 @@ schema = Joi.alternatives(schema, anySchema, boolSchema);
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
+schema = Joi.lazy(() => schema)
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
 Joi.validate(value, obj);
 Joi.validate(value, schema);
 Joi.validate(value, schema, validOpts);

@@ -23,7 +23,7 @@ declare namespace jquery.velocity {
 	type Properties = Object;
 	type Easing = string|number[];
 	type ElementCallback = (elements: NodeListOf<HTMLElement>) => void;
-	type ProgressCallback = (elements: NodeListOf<HTMLElement>, percentComplete: number, timeRemaining: number, timeStart: number) => void;
+	type ProgressCallback = (elements: NodeListOf<HTMLElement>, percentComplete: number, timeRemaining: number, timeStart: number, tweenValue: number) => void;
 	type EffectCall =
 		[Properties] |
 		[Properties, number] |

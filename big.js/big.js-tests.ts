@@ -11,6 +11,7 @@
   
 */
 
+import BigJS = BigJsLibrary.BigJS;
 function constructorTests() {
     var x = new Big(9)                       // '9'
     var y = new Big(x)                       // '9'
@@ -246,4 +247,18 @@ function testMultipleConstructors() {
 
 	x.div(3)     // 1.667
 	y.div(3)     // 1.6666666667
+}
+function multipleTypesAccepted(n: number | BigJS | string) {
+  var y = Big(n)
+    .minus(n)
+    .mod(n)
+    .plus(n)
+    .times(n);
+  y.cmp(n);
+  y.eq(n);
+  y.gt(n);
+  y.gte(n);
+  y.lt(n);
+  y.lte(n);
+  y.div(n)
 }

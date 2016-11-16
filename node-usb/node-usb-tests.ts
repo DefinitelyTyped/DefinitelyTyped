@@ -1,5 +1,3 @@
-/// <reference path="node-usb.d.ts"/>
-
 import * as usb from "usb";
 
 const device = new usb.Device();
@@ -8,6 +6,9 @@ device.timeout = 1;
 device.busNumber = 1;
 device.deviceAddress = 1;
 device.portNumbers = [1, 2, 3];
+
+device.__open();
+device.__claimInterface(0);
 
 device.open(true);
 device.close();

@@ -137,6 +137,7 @@ export declare class Connection extends events.EventEmitter {
 }
 export interface NotificationAlertOptions {
     title?: string;
+    subtitle?: string;
     body: string;
     "title-loc-key"?: string;
     "title-loc-args"?: string[];
@@ -356,8 +357,8 @@ export declare enum Errors {
 }
 
 //Lowercase aliases
-export {Connection as connection};
-export {Device as device};
-export {Errors as error};
-export {Feedback as feedback};
-export {Notification as notification};
+export { Connection as connection };
+export { Device as device };
+export { Errors as error };
+export { Feedback as feedback };
+export { Notification as notification };

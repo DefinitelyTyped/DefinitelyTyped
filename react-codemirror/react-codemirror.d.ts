@@ -3,11 +3,11 @@
 // Definitions by: Vicky Lai <https://github.com/velveret>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts"/>
-/// <reference path="../codemirror/codemirror.d.ts"/>
+/// <reference types="react"/>
+/// <reference types="codemirror"/>
 
 declare namespace ReactCodeMirror {
-    interface ReactCodeMirrorProps extends __React.Props<ReactCodeMirror> {
+    interface ReactCodeMirrorProps extends React.Props<ReactCodeMirror> {
         onChange?: (newValue: string) => any; // called when a change is made
         onFocusChange?: (focused: boolean) => any; // called when the editor is focused or loses focus
         onScroll?: (scrollInfo: CodeMirror.ScrollInfo) => any; // called when the editor is scrolled
@@ -18,7 +18,7 @@ declare namespace ReactCodeMirror {
         codeMirrorInstance?: CodeMirror.Editor; // the CodeMirror instance
     }
 
-    interface ReactCodeMirror extends __React.Component<ReactCodeMirrorProps, {}> {
+    interface ReactCodeMirror extends React.Component<ReactCodeMirrorProps, {}> {
         /** Focuses the CodeMirror instance. */
         focus(): void;
 
@@ -26,7 +26,7 @@ declare namespace ReactCodeMirror {
         getCodeMirror(): CodeMirror.Editor;
     }
 
-    interface ReactCodeMirrorClass extends __React.ComponentClass<ReactCodeMirrorProps> { }
+    interface ReactCodeMirrorClass extends React.ComponentClass<ReactCodeMirrorProps> { }
 }
 
 declare module "react-codemirror" {

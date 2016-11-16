@@ -6,7 +6,7 @@
 import * as Redux from 'redux';
 
 declare const promise: ReduxPromise.Promise;
-export default promise;
+export = promise;
 
 declare namespace ReduxPromise {
 	export interface Promise extends Redux.Middleware {}

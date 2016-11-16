@@ -28,4 +28,5 @@ declare function favicon(path: string, options?: {
 
 }): { (ctx: Koa.Context, next?: () => any): any };
 
+declare namespace favicon {}
 export = favicon;

@@ -33,7 +33,7 @@ interface requestAuthorization {
     }
 }
 
-interface Request extends http.ServerRequest {
+interface Request extends http.IncomingMessage {
     /**
      * builds an absolute URI for the request.
      * @private
@@ -450,6 +450,7 @@ interface ServerOptions {
     responseTimeFormatter?: (durationInMilliseconds: number) => any;
     handleUpgrades?: boolean;
     router?: Router;
+    httpsServerOptions?: any;
 }
 
 interface ClientOptions {
@@ -467,24 +468,24 @@ interface ClientOptions {
 }
 
 interface Client {
-    get: (path: string, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
-    head: (path: string, callback?: (err: any, req: Request, res: Response) => any) => any;
-    post: (path: string, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
-    put: (path: string, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
-    patch: (path: string, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
-    del: (path: string, callback?: (err: any, req: Request, res: Response) => any) => any;
+    get: (opts: string | { path?: string;[name: string]: any }, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
+    head: (opts: string | { path?: string;[name: string]: any }, callback?: (err: any, req: Request, res: Response) => any) => any;
+    post: (opts: string | { path?: string;[name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
+    put: (opts: string | { path?: string;[name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
+    patch: (opts: string | { path?: string;[name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
+    del: (opts: string | { path?: string;[name: string]: any }, callback?: (err: any, req: Request, res: Response) => any) => any;
     basicAuth: (username: string, password: string) => any;
 }
 
 interface HttpClient extends Client {
-    get: (path?: any, callback?: Function) => any;
-    head: (path?: any, callback?: Function) => any;
-    post: (opts?: any, callback?: Function) => any;
-    put: (opts?: any, callback?: Function) => any;
-    patch: (opts?: any, callback?: Function) => any;
-    del: (opts?: any, callback?: Function) => any;
+    get: (opts?: string | { path?: string;[name: string]: any }, callback?: Function) => any;
+    head: (opts?: string | { path?: string;[name: string]: any }, callback?: Function) => any;
+    post: (opts?: string | { path?: string;[name: string]: any }, callback?: Function) => any;
+    put: (opts?: string | { path?: string;[name: string]: any }, callback?: Function) => any;
+    patch: (opts?: string | { path?: string;[name: string]: any }, callback?: Function) => any;
+    del: (opts?: string | { path?: string;[name: string]: any }, callback?: Function) => any;
 }
-
+ 
 interface ThrottleOptions {
     burst?: number;
     rate?: number;

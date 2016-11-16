@@ -1,8 +1,5 @@
 // Taken straight from sqs-producer's README.md
 
-/// <reference path="./sqs-producer.d.ts"/>
-
-
 import * as Producer from "sqs-producer";
 
 var producer = Producer.create({

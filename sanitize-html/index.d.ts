@@ -7,7 +7,6 @@ export = sanitize;
 
 declare function sanitize(dirty: string, options?: sanitize.IOptions): string;
 
-
 declare namespace sanitize {
   type Attributes = { [attr: string]: string };
 
@@ -36,10 +35,10 @@ declare namespace sanitize {
 
 
   interface IOptions {
-    allowedAttributes?: { [index: string]: string[] };
-    allowedClasses?: { [index: string]: string[] };
-    allowedSchemes?: string[];
-    allowedTags?: string[];
+    allowedAttributes?: { [index: string]: string[] } | boolean;
+    allowedClasses?: { [index: string]: string[] } | boolean;
+    allowedSchemes?: string[] | boolean;
+    allowedTags?: string[] | boolean;
     exclusiveFilter?: (frame: IFrame) => boolean;
     nonTextTags?: string[];
     selfClosing?: string[];
@@ -51,9 +50,4 @@ declare namespace sanitize {
 
 
   function simpleTransform(tagName: string, attribs: Attributes, merge?: boolean): Transformer;
-}
-
-
-declare module 'sanitize-html' {
-  export = sanitize;
 }

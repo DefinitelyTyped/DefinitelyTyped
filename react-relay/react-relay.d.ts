@@ -3,8 +3,6 @@
 // Definitions by: Johannes Schickling <https://github.com/graphcool>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts"/>
-
 declare module "react-relay" {
     import * as React from "react";
 
@@ -25,7 +23,7 @@ declare module "react-relay" {
 
     /** add static getFragment method to the component constructor */
     interface RelayContainerClass<T> extends React.ComponentClass<T> {
-        getFragment: ((q: string) => string)
+        getFragment: ((q: string, v?: RelayVariables) => string)
     }
 
     interface RelayQueryRequestResolve {

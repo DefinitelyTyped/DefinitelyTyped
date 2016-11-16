@@ -27,6 +27,22 @@ declare namespace AmCharts {
     /** Clears all the charts on page, removes listeners and intervals. */
     function clear(): void;
 
+    /** Handle ready event */
+    function ready(Function): void;
+
+    /** Create chart by params. */
+    function makeChart(selector: string, params: any, delay?: number): AmChart;
+
+    /** Set a method to be called before initializing the chart.
+     * When the method is called, the chart instance is passed as an attribute.
+     * You can use this feature to preprocess chart data or do some other things you need
+     * before initializing the chart.
+     * @param {Function} handler - The method to be called.
+     * @param {string[]} types - Which chart types should call this method. Defaults to all
+     * if none is passed.
+     */
+    function addInitHandler(handler: Function, types: string[]);
+
     /** AmPieChart class creates pie/donut chart. In order to display pie chart you need to set at least three properties - dataProvider, titleField and valueField.
         @example
             var chartData = [{title:"Pie I have eaten",value:70},{title:"Pie I haven\'t eaten",value:30}];
@@ -1016,7 +1032,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             bold - specifies if text is bold (true/false),
             url - url
         */
-        addLabel(x: number, y: number, text: string, align: string, size: number, color: string, rotation: number, alpha: number, bold: boolean, url: string): void;
+        addLabel(x: number|string, y: number|string, text: string, align: string, size?: number, color?: string, rotation?: number, alpha?: number, bold?: boolean, url?: string);
         /** Adds a legend to the chart.
             By default, you don't need to create div for your legend, however if you want it to be positioned in some different way, you can create div anywhere you want and pass id or reference to your div as a second parameter.
             (NOTE: This method will not work on StockPanel.)

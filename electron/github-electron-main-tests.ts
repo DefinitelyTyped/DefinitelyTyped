@@ -137,7 +137,7 @@ app.on('ready', () => {
 	mainWindow.webContents.capturePage(image => {
 		console.log(image.toDataURL());
 	});
-	mainWindow.webContents.capturePage({width: 100, height: 200}, image => {
+	mainWindow.webContents.capturePage({x: 0, y: 0, width: 100, height: 200}, image => {
 		console.log(image.toPNG());
 	});
 });
@@ -240,12 +240,73 @@ app.setUserTasks([
 	}
 ]);
 app.setUserTasks([]);
+
+app.setJumpList([
+	{
+		type: 'custom',
+		name: 'Recent Projects',
+		items: [
+			{ type: 'file', path: 'C:\\Projects\\project1.proj' },
+			{ type: 'file', path: 'C:\\Projects\\project2.proj' }
+		]
+	},
+	{ // has a name so type is assumed to be "custom"
+		name: 'Tools',
+		items: [
+		{
+			type: 'task',
+			title: 'Tool A',
+			program: process.execPath,
+			args: '--run-tool-a',
+			iconPath: process.execPath,
+			iconIndex: 0,
+			description: 'Runs Tool A'
+		},
+		{
+			type: 'task',
+			title: 'Tool B',
+			program: process.execPath,
+			args: '--run-tool-b',
+			iconPath: process.execPath,
+			iconIndex: 0,
+			description: 'Runs Tool B'
+		}]
+	},
+	{
+		type: 'frequent'
+	},
+	{ // has no name and no type so type is assumed to be "tasks"
+		items: [
+		{
+			type: 'task',
+			title: 'New Project',
+			program: process.execPath,
+			args: '--new-project',
+			description: 'Create a new project.'
+		},
+		{
+			type: 'separator'
+		},
+		{
+			type: 'task',
+			title: 'Recover Project',
+			program: process.execPath,
+			args: '--recover-project',
+			description: 'Recover Project'
+		}]
+	}
+]);
+
 if (app.isUnityRunning()) {
 }
 if (app.isAccessibilitySupportEnabled()) {
 }
 app.setLoginItemSettings({openAtLogin: true, openAsHidden: false});
 console.log(app.getLoginItemSettings().wasOpenedAtLogin);
+app.setAboutPanelOptions({
+	applicationName: 'Test',
+	version: '1.2.3'
+});
 
 var window = new BrowserWindow();
 window.setProgressBar(0.5);
@@ -284,7 +345,6 @@ app.on('ready', () => {
 
 app.commandLine.appendSwitch('remote-debugging-port', '8315');
 app.commandLine.appendSwitch('host-rules', 'MAP * 127.0.0.1');
-app.commandLine.appendSwitch('v', -1);
 app.commandLine.appendSwitch('vmodule', 'console=0');
 
 // systemPreferences
@@ -301,6 +361,12 @@ var browserOptions = {
 if (process.platform !== 'win32' || systemPreferences.isAeroGlassEnabled()) {
 	browserOptions.transparent = true;
 	browserOptions.frame = false;
+}
+
+if (process.platform === 'win32') {
+	systemPreferences.on('color-changed', () => { console.log('color changed'); });
+	systemPreferences.on('inverted-color-scheme-changed', (_, inverted) => console.log(inverted ? 'inverted' : 'not inverted'));
+	console.log('Color for menu is', systemPreferences.getColor('menu'));
 }
 
 // Create the window.
@@ -578,6 +644,42 @@ var template = <Electron.MenuItemOptions[]>[
 						focusedWindow.webContents.toggleDevTools();
 					}
 				}
+			},
+			{
+				type: 'separator'
+			},
+			{
+				label: 'Actual Size',
+				accelerator: 'CmdOrCtrl+0',
+				click: (item, focusedWindow) => {
+					if (focusedWindow) {
+						focusedWindow.webContents.setZoomLevel(0)
+					}
+				}
+			},
+			{
+				label: 'Zoom In',
+				accelerator: 'CmdOrCtrl+Plus',
+				click: (item, focusedWindow) => {
+					if (focusedWindow) {
+						const { webContents } = focusedWindow;
+						webContents.getZoomLevel((zoomLevel) => {
+							webContents.setZoomLevel(zoomLevel + 0.5)
+						});
+					}
+				}
+			},
+			{
+				label: 'Zoom Out',
+				accelerator: 'CmdOrCtrl+-',
+				click: (item, focusedWindow) => {
+					if (focusedWindow) {
+						const { webContents } = focusedWindow;
+						webContents.getZoomLevel((zoomLevel) => {
+							webContents.setZoomLevel(zoomLevel - 0.5)
+						});
+					}
+				}
 			}
 		]
 	},
@@ -828,6 +930,8 @@ shell.openExternal('https://github.com', {
 
 shell.beep();
 
+shell.writeShortcutLink('/home/user/Desktop/shortcut.lnk', 'update', shell.readShortcutLink('/home/user/Desktop/shortcut.lnk'));
+
 // session
 // https://github.com/atom/electron/blob/master/docs/api/session.md
 
@@ -861,6 +965,7 @@ session.defaultSession.cookies.set(cookie, (error) => {
 session.defaultSession.on('will-download', (event, item, webContents) => {
 	// Set the save path, making Electron not to prompt a save dialog.
 	item.setSavePath('/tmp/save.pdf');
+	console.log(item.getSavePath());
 	console.log(item.getMimeType());
 	console.log(item.getFilename());
 	console.log(item.getTotalBytes());
@@ -947,3 +1052,15 @@ app.on('ready', function () {
 
 console.log(webContents.getAllWebContents());
 console.log(webContents.getFocusedWebContents());
+
+var win = new BrowserWindow({
+	webPreferences: {
+		offscreen: true
+	}
+});
+
+win.webContents.on('paint', (event, dirty, image) => {
+	console.log(dirty, image.getBitmap());
+});
+
+win.loadURL('http://github.com');

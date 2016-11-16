@@ -20,7 +20,7 @@ declare module 'angular' {
             clickOutsideToClose?: boolean;
             disableBackdrop?: boolean;
             escapeToClose?: boolean;
-            resolve?: { [index: string]: angular.IPromise<any> };
+            resolve?: { [index: string]: () => angular.IPromise<any> };
             controllerAs?: string;
             parent?: Function | string | Object; // default: root node
             disableParentScroll?: boolean; // default: true
@@ -51,7 +51,7 @@ declare module 'angular' {
             controller(controller?: string | Function): T;
             locals(locals?: { [index: string]: any }): T;
             bindToController(bindToController?: boolean): T; // default: false
-            resolve(resolve?: { [index: string]: angular.IPromise<any> }): T;
+            resolve(resolve?: { [index: string]: () => angular.IPromise<any> }): T;
             controllerAs(controllerAs?: string): T;
             parent(parent?: string | Element | JQuery): T; // default: root node
             onComplete(onComplete?: Function): T;
@@ -69,6 +69,16 @@ declare module 'angular' {
             cancel(cancel: string): IPromptDialog;
             placeholder(placeholder: string): IPromptDialog;
             initialValue(initialValue: string): IPromptDialog;
+        }
+
+        interface IColorExpression {
+            [cssPropertyName: string]: string;
+        }
+
+        interface IColorService {
+            applyThemeColors(element: Element|JQuery, colorExpression: IColorExpression): void;
+            getThemeColor(expression: string): string;
+            hasTheme(): boolean;
         }
 
         interface IDialogOptions {
@@ -89,7 +99,7 @@ declare module 'angular' {
             controller?: string | Function;
             locals?: { [index: string]: any };
             bindToController?: boolean; // default: false
-            resolve?: { [index: string]: angular.IPromise<any> }
+            resolve?: { [index: string]: () => angular.IPromise<any> }
             controllerAs?: string;
             parent?: string | Element | JQuery; // default: root node
             onShowing?: Function;
@@ -130,6 +140,7 @@ declare module 'angular' {
             close(): angular.IPromise<void>;
             isOpen(): boolean;
             isLockedOpen(): boolean;
+            onClose(onClose: Function): void;
         }
 
         interface ISidenavService {
@@ -147,6 +158,7 @@ declare module 'angular' {
             hideDelay(delay: number): T;
             position(position: string): T;
             parent(parent?: string | Element | JQuery): T; // default: root node
+        toastClass(toastClass: string): T;
         }
 
         interface ISimpleToastPreset extends IToastPreset<ISimpleToastPreset> {
@@ -160,10 +172,11 @@ declare module 'angular' {
             preserveScope?: boolean; // default: false
             hideDelay?: number; // default (ms): 3000
             position?: string; // any combination of 'bottom'/'left'/'top'/'right'/'fit'; default: 'bottom left'
+            toastClass?: string;
             controller?: string | Function;
             locals?: { [index: string]: any };
             bindToController?: boolean; // default: false
-            resolve?: { [index: string]: angular.IPromise<any> }
+            resolve?: { [index: string]: () => angular.IPromise<any> }
             controllerAs?: string;
             parent?: string | Element | JQuery; // default: root node
         }
@@ -173,7 +186,8 @@ declare module 'angular' {
             showSimple(content: string): angular.IPromise<any>;
             simple(): ISimpleToastPreset;
             build(): IToastPreset<any>;
-            updateContent(): void;
+            updateContent(newContent: string): void;
+            updateTextContent(newContent: string): void;
             hide(response?: any): void;
             cancel(response?: any): void;
         }
@@ -211,6 +225,12 @@ declare module 'angular' {
             hues: IThemeHues;
         }
 
+        interface IBrowserColors{
+            theme: string;
+            palette: string;
+            hue: string;
+        }
+
         interface IThemeColors {
             accent: IThemePalette;
             background: IThemePalette;
@@ -240,11 +260,13 @@ declare module 'angular' {
         }
 
         interface IThemingProvider {
-            theme(name: string, inheritFrom?: string): ITheme;
+            alwaysWatchTheme(alwaysWatch: boolean): void;
             definePalette(name: string, palette: IPalette): IThemingProvider;
+            enableBrowserColor(browserColors: IBrowserColors): Function;
             extendPalette(name: string, palette: IPalette): IPalette;
             setDefaultTheme(theme: string): void;
-            alwaysWatchTheme(alwaysWatch: boolean): void;
+            setNonce(nonce: string): void;
+            theme(name: string, inheritFrom?: string): ITheme;
         }
 
         interface IDateLocaleProvider {
@@ -288,14 +310,16 @@ declare module 'angular' {
         }
 
         interface IPanelConfig {
+            id?: string;
             template?: string;
             templateUrl?: string;
             controller?: string | Function;
             controllerAs?: string;
             bindToController?: boolean; // default: true
             locals?: { [index: string]: any };
-            resolve?: { [index: string]: angular.IPromise<any> }
+            resolve?: { [index: string]: () => angular.IPromise<any> }
             attachTo?: string | JQuery | Element;
+            propagateContainerEvents?: boolean;
             panelClass?: string;
             zIndex?: number; // default: 80
             position?: IPanelPosition;
@@ -328,22 +352,27 @@ declare module 'angular' {
             addClass(newClass: string): void;
             removeClass(oldClass: string): void;
             toggleClass(toggleClass: string): void;
-            focusOnOpen(): void;
+            updatePosition(position: IPanelPosition): void;
+            registerInterceptor(type: string, callback: () => angular.IPromise<any>): IPanelRef;
+            removeInterceptor(type: string, callback: () => angular.IPromise<any>): IPanelRef;
+            removeAllInterceptors(type?: string): IPanelRef;
         }
 
         interface IPanelPosition {
             absolute(): IPanelPosition;
             relativeTo(someElement: string | JQuery | Element): IPanelPosition;
-            top(opt_top: string): IPanelPosition; // default: '0'
-            bottom(opt_bottom: string): IPanelPosition; // default: '0'
-            left(opt_left: string): IPanelPosition; // default: '0'
-            right(opt_right: string): IPanelPosition; // default: '0'
+            top(top?: string): IPanelPosition; // default: '0'
+            bottom(bottom?: string): IPanelPosition; // default: '0'
+            start(start?: string): IPanelPosition; // default: '0'
+            end(end?: string): IPanelPosition; // default: '0'
+            left(left?: string): IPanelPosition; // default: '0'
+            right(right?: string): IPanelPosition; // default: '0'
             centerHorizontally(): IPanelPosition;
             centerVertically(): IPanelPosition;
             center(): IPanelPosition;
             addPanelPosition(xPosition: string, yPosition: string): IPanelPosition;
-            withOffsetX(offsetX: string): IPanelPosition;
-            withOffsetY(offsetY: string): IPanelPosition;
+            withOffsetX(offsetX: string | ((panel: IPanelPosition) => string)): IPanelPosition;
+            withOffsetY(offsetY: string | ((panel: IPanelPosition) => string)): IPanelPosition;
         }
 
         interface IPanelAnimation {
@@ -357,6 +386,28 @@ declare module 'angular' {
             open(opt_config: IPanelConfig): angular.IPromise<IPanelRef>;
             newPanelPosition(): IPanelPosition;
             newPanelAnimation(): IPanelAnimation;
+            xPosition: {
+                CENTER: string,
+                ALIGN_START: string,
+                ALIGN_END: string,
+                OFFSET_START: string,
+                OFFSET_END: string,
+            };
+            yPosition: {
+                CENTER: string,
+                ALIGN_TOPS: string,
+                ALIGN_BOTTOMS: string,
+                ABOVE: string,
+                BELOW: string,
+            };
+            animation: {
+                SLIDE: string,
+                SCALE: string,
+                FADE: string,
+            };
+            interceptorTypes: {
+                CLOSE: string,
+            };
         }
     }
 }

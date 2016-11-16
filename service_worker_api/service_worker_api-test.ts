@@ -1,5 +1,3 @@
-/// <reference path="service_worker_api.d.ts" />
-
 var OFFLINE_CACHE = "cache_test";
 var OFFLINE_URL = "localhost";
 
@@ -19,13 +17,11 @@ self.addEventListener('fetch', function(event: FetchEvent) {
 });
 
 self.caches.open('v1').then(function(cache: Cache) {
-    cache.matchAll('/images/').then(function(response: Array<Request>) {
+    cache.matchAll('/images/').then(function(response: Array<Response>) {
         response.forEach(function(element, index, array) {
-            cache.delete(element);
-
+            cache.delete(element.url);
         });
     });
-
 });
 
 self.addEventListener('install', function(event: InstallEvent) {
@@ -56,7 +52,11 @@ self.addEventListener('install', function(event: InstallEvent) {
 });
 
 self.addEventListener('fetch', function(event: FetchEvent) {
-    var cachedResponse = self.caches.match(event.request).catch(function() {
+    var cachedResponse = self.caches.match(event.request).then(function(response: Response) {
+      if (response) {
+          return response;
+      }
+    }).catch(function() {
         return self.fetch(event.request).then(function(response: Response) {
             return self.caches.open('v1').then(function(cache) {
                 cache.put(event.request, response.clone());
@@ -71,8 +71,8 @@ self.addEventListener('fetch', function(event: FetchEvent) {
 });
 
 self.caches.open('v1').then(function(cache) {
-    cache.match('/images/image.png').then(function(response) {
-        cache.delete(response);
+    cache.match('/images/image.png').then(function(response: Response) {
+        cache.delete(response.url);
     });
 });
 
