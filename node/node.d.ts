@@ -43,6 +43,7 @@ declare function setInterval(callback: (...args: any[]) => void, ms: number, ...
 declare function clearInterval(intervalId: NodeJS.Timer): void;
 declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
 declare function clearImmediate(immediateId: any): void;
+declare var console: NodeJS.Console;
 
 interface NodeRequireFunction {
     (id: string): any;
@@ -429,7 +430,7 @@ declare namespace NodeJS {
         clearImmediate: (immediateId: any) => void;
         clearInterval: (intervalId: NodeJS.Timer) => void;
         clearTimeout: (timeoutId: NodeJS.Timer) => void;
-        console: typeof console;
+        console: Console;
         decodeURI: typeof decodeURI;
         decodeURIComponent: typeof decodeURIComponent;
         encodeURI: typeof encodeURI;
@@ -455,6 +456,18 @@ declare namespace NodeJS {
     export interface Timer {
         ref(): void;
         unref(): void;
+    }
+    
+    export interface Console {
+        assert(test?: boolean, message?: string, ...optionalParams: any[]): void;
+        dir(value?: any, ...optionalParams: any[]): void;
+        error(message?: any, ...optionalParams: any[]): void;
+        info(message?: any, ...optionalParams: any[]): void;
+        log(message?: any, ...optionalParams: any[]): void;
+        time(timerName?: string): void;
+        timeEnd(timerName?: string): void;
+        trace(message?: any, ...optionalParams: any[]): void;
+        warn(message?: any, ...optionalParams: any[]): void;
     }
 }
 
