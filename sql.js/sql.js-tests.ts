@@ -2,6 +2,7 @@
 
 
 import fs = require("fs");
+import * as SQL from "sql.js";
 
 var DB_PATH = "data.db";
 
@@ -13,7 +14,7 @@ function createFile(path: string): void {
 // Open the database file. If it does not exist, create a blank database in memory.
 var databaseData: Buffer;
 databaseData = fs.existsSync(DB_PATH) ? fs.readFileSync(DB_PATH) : null;
-var db = new Database(databaseData);
+var db = new SQL.Database(databaseData);
 
 // Create a new table 'test_table' in the database in memory.
 var createTableStatement =
@@ -32,6 +33,8 @@ db.run(insertRecordStatement, {
 	"@id": 2,
 	"@content": "Content 2"
 });
+
+var n = db.getRowsModified();
 
 try {
 	// This query will throw exception: primary key constraint failed.
@@ -78,3 +81,14 @@ function dbAccessDone(): void {
 	// Finally, close the database connection and release the resources in memory.
 	db.close();
 }
+
+// Create a database
+var db2 = new SQL.Database();
+
+// You can also use javascript functions inside your SQL code
+// Create the js function you need
+function add(a: number, b: number): number {return a+b;}
+// Specifies the SQL function's name, the number of it's arguments, and the js function to use
+db2.create_function("add_js", add);
+// Run a query in which the function is used
+db2.run("INSERT INTO hello VALUES (add_js(7, 3), add_js('Hello ', 'world'));"); // Inserts 10 and 'Hello world'

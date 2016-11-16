@@ -8,11 +8,7 @@
 /// <reference types="node" />
 
 import * as stream from 'stream';
-
 export * from "fs";
-
-export class ReadStream extends stream.Readable { }
-export class WriteStream extends stream.Writable { }
 
 export declare function copy(src: string, dest: string, callback?: (err: Error) => void): void;
 export declare function copy(src: string, dest: string, filter: CopyFilter, callback?: (err: Error) => void): void;
@@ -73,8 +69,8 @@ export declare function ensureSymlinkSync(path: string): void;
 
 export declare function emptyDir(path: string, callback?: (err: Error) => void): void;
 export declare function emptyDirSync(path: string): boolean;
-
-export interface CopyFilterFunction {
+	
+    export interface CopyFilterFunction {
     (src: string): boolean
 }
 
@@ -85,7 +81,13 @@ export interface CopyOptions {
     preserveTimestamps?: boolean
     dereference?: boolean
     filter?: CopyFilter
+    recursive?: boolean
 }
+	
+	export interface MoveOptions {
+		clobber? : boolean;
+		limit?: number;
+	}
 
 export interface OpenOptions {
     encoding?: string;

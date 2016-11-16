@@ -68,6 +68,7 @@ export declare function getVirtualConsole(window: Window): VirtualConsole;
 export declare function createCookieJar(): CookieJar;
 export declare function nodeLocation(node: Node): any;
 export declare function reconfigureWindow(window: Window, newProps: WindowProperties): void;
+export declare function changeURL(window: Window, url: string): void;
 
 export declare function jQueryify(window: Window, jqueryUrl: string, callback: (window: Window, jquery: JQuery) => any): void;
 

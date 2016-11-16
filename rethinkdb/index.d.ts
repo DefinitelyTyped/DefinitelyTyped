@@ -35,9 +35,16 @@ export declare function branch(test: Expression<boolean>, trueBranch: Expression
 export declare class Cursor {
     hasNext(): boolean;
     each(cb: (err: Error, row: any) => void, done?: () => void): void;
+    each<T>(cb: (err: Error, row: T) => void, done?: () => void): void;
     each(cb: (err: Error, row: any) => boolean, done?: () => void): void; // returning false stops iteration
+    each<T>(cb: (err: Error, row: T) => boolean, done?: () => void): void; // returning false stops iteration
     next(cb: (err: Error, row: any) => void): void;
+    next<T>(cb: (err: Error, row: T) => void): void;
     toArray(cb: (err: Error, rows: any[]) => void): void;
+    toArray<T>(cb: (err: Error, rows: T[]) => void): void;
+    toArray(): Promise<any[]>;
+    toArray<T>(): Promise<T[]>;
+    close(cb: (err: Error) => void): void;
     close(): void;
 }
 
@@ -49,7 +56,10 @@ interface ConnectionOptions {
 }
 
 interface Connection {
+    close(cb: (err: Error) => void): void;
+    close(opts: { noreplyWait: boolean }, cb: (err: Error) => void): void;
     close(): void;
+    close(opts: { noreplyWait: boolean }): Promise<void>;
     reconnect(cb?: (err: Error, conn: Connection) => void): Promise<Connection>;
     use(dbName: string): void;
     addListener(event: string, cb: Function): void;

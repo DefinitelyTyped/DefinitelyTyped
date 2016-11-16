@@ -1,7 +1,7 @@
-// Type definitions for dat.GUI v0.5
+// Type definitions for dat.GUI v0.6.1
 // Project: https://github.com/dataarts/dat.gui
-// Definitions by: Satoru Kimura <https://github.com/gyohk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped  
+// Definitions by: Satoru Kimura <https://github.com/gyohk>, ZongJing Lu <https://github.com/sonic3d>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace dat {
     export class GUI {
@@ -23,11 +23,40 @@ declare namespace dat {
         addColor(target: Object, propName:string, rgba: number[]): GUIController; // rgb or rgba
         addColor(target: Object, propName:string, hsv:{h:number; s:number; v:number}): GUIController;
 
+        remove(controller: GUIController): void;
+        destroy(): void;
+
         addFolder(propName:string): GUI;
 
-        close(): void;
         open(): void;
-        remember(target: Object): void;
+        close(): void;
+
+        remember(target: Object, ...additionalTargets: Object[]): void;
+        getRoot(): GUI;
+
+        getSaveObject(): Object;
+        save(): void;
+        saveAs(presetName:string): void;
+        revert(gui:GUI): void;
+
+        listen(controller: GUIController): void;
+        updateDisplay(): void;
+
+        // gui properties in dat/gui/GUI.js
+        parent(): GUI;
+        scrollable(): boolean;
+        autoPlace(): boolean;
+        preset(): string;
+        preset(s: string): void;
+        width(): number;
+        width(n: number): void;
+        name(): string;
+        name(s: string): void;
+        closed(): boolean;
+        closed(b: boolean): void;
+        load(): Object;
+        useLocalStorage(): boolean;
+        useLocalStorage(b: boolean): void;
     }
 
     export interface GUIParams{
@@ -41,17 +70,28 @@ declare namespace dat {
 
     export class GUIController {
         destroy(): void;
-        fire(): GUIController;
-        getValue(): any;
-        isModified(): boolean;
-        listen(): GUIController;
-        min(n: number): GUIController;
-        remove(target: GUIController): void;
-        setValue(value: any): GUIController;
-        step(n: number): GUIController;
-        updateDisplay(): void;
 
+        // Controller
         onChange: (value?: any) => void;
         onFinishChange: (value?: any) => void;
+
+        setValue(value: any): GUIController;
+        getValue(): any;
+        updateDisplay(): void;
+        isModified(): boolean;
+
+        // NumberController
+        min(n: number): GUIController;
+        max(n: number): GUIController;
+        step(n: number): GUIController;
+
+        // FunctionController
+        fire(): GUIController;
+
+        // augmentController in dat/gui/GUI.js
+        options(option:any):GUIController;
+        name(s: string): GUIController;
+        listen(): GUIController;
+        remove(): GUIController;
     }
 }

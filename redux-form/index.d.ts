@@ -7,6 +7,8 @@ import * as React from 'react';
 import { Component, SyntheticEvent, FormEventHandler } from 'react';
 import { Dispatch, ActionCreator, Reducer } from 'redux';
 
+export const actionTypes: {[actionName:string]: string};
+
 export type FieldValue = any;
 
 export type FormData = { [fieldName: string]: FieldValue };
@@ -35,7 +37,7 @@ export interface FieldProp<T> {
      * The error for this field if its value is not passing validation. Both
      * synchronous and asynchronous validation errors will be reported here.
      */
-    error?: string;
+    error?: any;
 
     /**
      * The value for this field as supplied in initialValues to the form.
@@ -159,7 +161,7 @@ export interface ReduxFormProps<T> {
      * result from the synchronous validation function, the asynchronous
      * validation, or the rejected promise from onSubmit.
      */
-    error?: string;
+    error?: any;
 
     /**
      * The form data, in the form { field1: <Object>, field2: <Object> }. The

@@ -27,6 +27,7 @@ str = mod.inc(str, str, loose);
 num = mod.major(str, loose);
 num = mod.minor(str, loose);
 num = mod.patch(str, loose);
+strArr = mod.prerelease(str, loose);
 
 // Comparison
 bool = mod.gt(v1, v2, loose);
@@ -44,6 +45,7 @@ diff = mod.diff(v1, v2, loose);
 str = mod.validRange(str, loose);
 bool = mod.satisfies(version, str, loose);
 str = mod.maxSatisfying(versions, str, loose);
+str = mod.minSatisfying(versions, str, loose);
 bool = mod.gtr(version, str, loose);
 bool = mod.ltr(version, str, loose);
 bool = mod.outside(version, str, str, loose);

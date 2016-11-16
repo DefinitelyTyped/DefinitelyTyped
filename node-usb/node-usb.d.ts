@@ -3,7 +3,7 @@
 // Definitions by: Eric Brody <https://github.com/underscorebrody>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare module "usb" {
 
@@ -15,6 +15,9 @@ declare module "usb" {
     public deviceDescriptor: DeviceDescriptor;
     public configDescriptor: ConfigDescriptor;
     public interfaces: Array<Interface>;
+
+    __open(): void;
+    __claimInterface(addr: number): void;
 
     open(defaultConfig?: boolean): void;
     close(): void;

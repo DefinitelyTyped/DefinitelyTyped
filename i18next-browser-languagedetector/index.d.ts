@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="i18next"/>
+/// <reference types="express" />
 
 declare namespace I18next {
     interface I18nextStatic extends i18nextBrowserLanguageDetector.I18nextStatic { }
@@ -80,8 +81,6 @@ declare namespace i18nextBrowserLanguageDetector {
 }
 
 declare module "i18next-browser-languagedetector" {
-    import * as express from "express";
-    import * as i18next from "i18next";
 
     export default i18nextBrowserLanguageDetector.LngDetector;
 }

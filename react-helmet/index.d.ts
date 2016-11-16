@@ -17,6 +17,7 @@ export = Helmet;
 declare namespace ReactHelmet {
     interface HelmetProps {
         base?: any;
+        defaultTitle?: string;
         htmlAttributes?: any;
         link?: Array<any>;
         meta?: Array<any>;

@@ -55,5 +55,6 @@ MathJax.Hub.Config({
 
 MathJax.Hub.Config({
   "HTML-CSS": { linebreaks: { automatic: true } },
+  CommonHTML: { linebreaks: { automatic: true } },
          SVG: { linebreaks: { automatic: true } }
 });

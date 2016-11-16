@@ -3,7 +3,7 @@
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../redux/redux.d.ts" />
+/// <reference types="redux" />
 
 declare module "redux-storage" {
     import { Reducer, Store, Middleware } from "redux";
@@ -94,6 +94,18 @@ declare module "redux-storage-engine-localstorage" {
      * @param key localstorage key
      */
     export default function createEngine(key: string): LocalStorageEngine;
+}
+
+declare module "redux-storage-engine-reactnativeasyncstorage" {
+    import { StorageEngine } from "redux-storage";
+
+    export interface ReactNativeAsyncStorageEngine extends StorageEngine {}
+
+    /**
+     * Create React Native Async Storage
+     * @param key React Native Async Storage key
+     */
+    export default function createEngine(key: string): ReactNativeAsyncStorageEngine;
 }
 
 declare module "redux-storage-merger-immutablejs" {

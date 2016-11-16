@@ -45,6 +45,9 @@ declare namespace Parse {
         useMasterKey?: boolean;
     }
 
+    interface ScopeOptions extends SessionTokenOption, UseMasterKeyOption {
+    }
+
     interface SilentOption {
         /**
          * Set to true to avoid firing the event.
@@ -363,15 +366,15 @@ declare namespace Parse {
     }
 
     namespace Object {
-        interface DestroyOptions extends SuccessFailureOptions, WaitOption, UseMasterKeyOption { }
+        interface DestroyOptions extends SuccessFailureOptions, WaitOption, ScopeOptions { }
 
-        interface DestroyAllOptions extends SuccessFailureOptions, UseMasterKeyOption { }
+        interface DestroyAllOptions extends SuccessFailureOptions, ScopeOptions { }
 
-        interface FetchOptions extends SuccessFailureOptions, UseMasterKeyOption { }
+        interface FetchOptions extends SuccessFailureOptions, ScopeOptions { }
 
-        interface SaveOptions extends SuccessFailureOptions, SilentOption, UseMasterKeyOption, WaitOption { }
+        interface SaveOptions extends SuccessFailureOptions, SilentOption, ScopeOptions, WaitOption { }
 
-        interface SaveAllOptions extends SuccessFailureOptions, UseMasterKeyOption { }
+        interface SaveAllOptions extends SuccessFailureOptions, ScopeOptions { }
 
         interface SetOptions extends ErrorOption, SilentOption {
             promise?: any;
@@ -462,10 +465,10 @@ declare namespace Parse {
             at?: number;
         }
 
-        interface CreateOptions extends SuccessFailureOptions, WaitOption, SilentOption, UseMasterKeyOption {
+        interface CreateOptions extends SuccessFailureOptions, WaitOption, SilentOption, ScopeOptions {
         }
 
-        interface FetchOptions extends SuccessFailureOptions, SilentOption, UseMasterKeyOption { }
+        interface FetchOptions extends SuccessFailureOptions, SilentOption, ScopeOptions { }
 
         interface RemoveOptions extends SilentOption { }
 
@@ -623,11 +626,11 @@ declare namespace Parse {
     }
 
     namespace Query {
-        interface EachOptions extends SuccessFailureOptions, UseMasterKeyOption { }
-        interface CountOptions extends SuccessFailureOptions, UseMasterKeyOption { }
-        interface FindOptions extends SuccessFailureOptions, UseMasterKeyOption { }
-        interface FirstOptions extends SuccessFailureOptions, UseMasterKeyOption { }
-        interface GetOptions extends SuccessFailureOptions, UseMasterKeyOption { }
+        interface EachOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface CountOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface FindOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface FirstOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface GetOptions extends SuccessFailureOptions, ScopeOptions { }
     }
 
     /**
@@ -893,7 +896,7 @@ declare namespace Parse {
         function run<T>(name: string, data?: any, options?: RunOptions): Promise<T>;
         function useMasterKey(): void;
 
-        interface RunOptions extends SuccessFailureOptions, UseMasterKeyOption, SessionTokenOption { }
+        interface RunOptions extends SuccessFailureOptions, ScopeOptions { }
 
         /**
          * To use this Cloud Module in Cloud Code, you must require 'buffer' in your JavaScript file.
@@ -1069,7 +1072,7 @@ declare namespace Parse {
             title?: string;
         }
 
-        interface SendOptions {
+        interface SendOptions extends UseMasterKeyOption {
             success?: () => void;
             error?: (error: Error) => void;
         }

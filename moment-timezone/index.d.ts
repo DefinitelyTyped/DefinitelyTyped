@@ -3,8 +3,6 @@
 // Definitions by: Michel Salib <https://github.com/michelsalib>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="moment" />
-
 import * as moment from 'moment';
 
 export as namespace MomentTimezone;
@@ -66,7 +64,5 @@ declare module "moment" {
         zoneName() :Moment;
     }
 
-    interface MomentStatic {
-        tz: MomentTimezone.MomentTimezone;
-    }
+    const tz: MomentTimezone.MomentTimezone;
 }

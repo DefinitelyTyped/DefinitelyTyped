@@ -1,6 +1,4 @@
-
-
-﻿import SourceMap = require('source-map');
+import SourceMap = require('source-map');
 
 function testSourceMapConsumer() {
     function testConstructor() {
@@ -8,25 +6,33 @@ function testSourceMapConsumer() {
 
         // create with full RawSourceMap
         scm = new SourceMap.SourceMapConsumer({
-            version: 'foo',
+            version: 3,
             sources: ['foo', 'bar'],
             names: ['foo', 'bar'],
             sourcesContent: ['foo'],
-            mappings: 'foo'
+            mappings: 'foo',
+            file: 'sdf'
         });
 
         // create with partial RawSourceMap
         scm = new SourceMap.SourceMapConsumer({
-            version: 'foo',
+            version: 3,
             sources: ['foo', 'bar'],
             names: ['foo', 'bar'],
-            mappings: 'foo'
+            mappings: 'foo',
+            file: 'sdf'
         });
     }
 
     function testOriginalPositionFor(scm: SourceMap.SourceMapConsumer) {
         var origPos: SourceMap.MappedPosition;
         origPos = scm.originalPositionFor({ line: 42, column: 42 });
+    }
+
+    function testAllGeneratedPositionsFor(scm: SourceMap.SourceMapConsumer) {
+        var origPos: SourceMap.MappedPosition;
+        var origPoses: SourceMap.Position[];
+        origPoses = scm.allGeneratedPositionsFor(origPos);
     }
 
     function testGeneratedPositionFor(scm: SourceMap.SourceMapConsumer) {
@@ -111,6 +117,7 @@ function testSourceNode() {
         node = new SourceMap.SourceNode(42, 42, 'foo');
         node = new SourceMap.SourceNode(42, 42, 'foo', 'bar');
         node = new SourceMap.SourceNode(42, 42, 'foo', 'bar', 'slam');
+        node = new SourceMap.SourceNode(42, 42, 'foo', ['bar', 'slam']);
     }
 
     function testFromStringWithSourceMap(scm: SourceMap.SourceMapConsumer) {

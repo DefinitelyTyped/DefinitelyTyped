@@ -1,5 +1,5 @@
-
-/// <reference types="angularjs" />
+/// <reference path="actionSheet.d.ts" />
+/// <reference types="../angular/index.d.ts" />
 
 namespace ngCordova {
     'use strict';

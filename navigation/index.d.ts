@@ -111,7 +111,7 @@ declare namespace Navigation {
          * @param data The current NavigationData
          * @param asyncData The data passed asynchronously while navigating
          */
-        navigated: (data: any, asyncData?: any) => void;
+        navigated: (data: any, asyncData: any) => void;
         /**
          * Called on the new State before navigating to it
          * @param data The new NavigationData
@@ -136,6 +136,12 @@ declare namespace Navigation {
          * @param queryString A value indicating the Url value's location
          */
         urlDecode(state: State, key: string, val: string, queryString: boolean): string;
+        /**
+         * Validates the NavigationData before navigating to the new State
+         * @param data The new NavigationData
+         * @returns Validation success indicator
+         */
+        validate(data: any): boolean;
         /**
          * Truncates the crumb trail whenever a repeated or initial State is
          * encountered
@@ -176,9 +182,9 @@ declare namespace Navigation {
          */
         getHref(url: string): string;
         /**
-         * Gets a Url from the anchor 
+         * Gets a Url from the anchor or location
          */
-        getUrl(anchor: HTMLAnchorElement): string;
+        getUrl(hrefElement: HTMLAnchorElement | Location): string;
         /**
          * Removes browser history event listeners
          */
@@ -228,9 +234,9 @@ declare namespace Navigation {
          */
         getHref(url: string): string;
         /**
-         * Gets a Url from the anchor 
+         * Gets a Url from the anchor or location
          */
-        getUrl(anchor: HTMLAnchorElement): string;
+        getUrl(hrefElement: HTMLAnchorElement | Location): string;
         /**
          * Removes a listener for the hashchange event
          */
@@ -279,9 +285,9 @@ declare namespace Navigation {
          */
         getHref(url: string): string;
         /**
-         * Gets a Url from the anchor 
+         * Gets a Url from the anchor or location
          */
-        getUrl(anchor: HTMLAnchorElement): string;
+        getUrl(hrefElement: HTMLAnchorElement | Location): string;
         /**
          * Removes a listener for the popstate event
          */
@@ -380,10 +386,6 @@ declare namespace Navigation {
          */
         crumbs: Crumb[];
         /**
-         * Gets the crumb trail
-         */
-        crumbTrail: string[];
-        /**
          * Gets the next crumb
          */
         nextCrumb: Crumb;
@@ -452,12 +454,12 @@ declare namespace Navigation {
          * Registers a navigate event listener
          * @param handler The navigate event listener
          */
-        onNavigate(handler: (oldState: State, state: State, data: any) => void): void;
+        onNavigate(handler: (oldState: State, state: State, data: any, asyncData: any) => void): void;
         /**
          * Unregisters a navigate event listener
          * @param handler The navigate event listener
          */
-        offNavigate(handler: (oldState: State, state: State, data: any) => void): void;
+        offNavigate(handler: (oldState: State, state: State, data: any, asyncData: any) => void): void;
         /**
          * Navigates to a State
          * @param stateKey The key of a State

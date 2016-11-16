@@ -15,3 +15,5 @@ obj = contentType.parse(res);
 
 var str: string = contentType.format({type: 'image/svg+xml'});
 
+var media: contentType.MediaType;
+contentType.format(media);

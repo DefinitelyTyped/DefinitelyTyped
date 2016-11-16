@@ -7,33 +7,7 @@ function test_HeadersCopiedFromHeaders() {
 }
 
 function test_HeadersCopiedFromHash() {
-	var source:HeadersMap = {
-		'Content-Type': 'application/json'
-	};
-	return new Headers(source);
-}
-
-function test_HeadersCopiedFromHeaders() {
-	var source = new Headers();
-	source.append('Content-Type', 'application/json');
-	return new Headers(source);
-}
-
-function test_HeadersCopiedFromHash() {
-	var source:HeadersMap = {
-		'Content-Type': 'application/json'
-	};
-	return new Headers(source);
-}
-
-function test_HeadersCopiedFromHeaders() {
-	var source = new Headers();
-	source.append('Content-Type', 'application/json');
-	return new Headers(source);
-}
-
-function test_HeadersCopiedFromHash() {
-	var source:HeadersMap = {
+	var source: DOMStringMap = {
 		'Content-Type': 'application/json'
 	};
 	return new Headers(source);

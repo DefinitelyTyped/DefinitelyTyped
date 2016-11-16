@@ -244,7 +244,7 @@ declare namespace WebTorrent {
     /**
      * Emitted whenever a new peer is connected for this torrent. wire is an instance of bittorrent-protocol, which is a node.js-style duplex stream to the remote peer. This event can be used to specify custom BitTorrent protocol extensions.
      */
-    on(event: 'wire', callback:(wire:any)=>void): this;
+    on(event: 'wire', callback:(wire: any, addr: any) => void): this;
   }
 
   export interface InTorrentFile extends NodeJS.EventEmitter {

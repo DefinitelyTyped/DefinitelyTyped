@@ -3,7 +3,7 @@
 // Definitions by: Matteo Antony Mistretta <https://github.com/IceOnFire>, Brad Zacher <https://github.com/bradzacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../q/Q.d.ts" />
+/// <reference types="q" />
 
 declare module 'o.js' {
     interface Options {
@@ -29,7 +29,7 @@ declare module 'o.js' {
 
         get<T>(callback ?: (data : T) => void) : Q.Promise<OHandler<T>>
         save<T>(callback ?: (data : T) => void) : Q.Promise<OHandler<T>>
-        
+
         post<T>(params : any) : OHandler<T>
         patch<T>(params : any) : OHandler<T>
         put<T>(params : any) : OHandler<T>
@@ -38,7 +38,7 @@ declare module 'o.js' {
         routes<T>(path : string, callback ?: (data : T) => void) : OHandler<T>
         route<T>(path : string, callback ?: (data : T) => void) : OHandler<T>
         triggerRoute(hash : string) : OHandler<T>
-        beforeRouting(callback : (routeParams : any) => boolean) : OHandler<T> 
+        beforeRouting(callback : (routeParams : any) => boolean) : OHandler<T>
 
         isEndpoint() : boolean
         loading<T>(startFn : () => any | boolean, endFn : () => any) : OHandler<T>

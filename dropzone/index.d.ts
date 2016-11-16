@@ -95,8 +95,8 @@ interface DropzoneOptions {
 	uploadprogress?(file:DropzoneFile, progress:number, bytesSent:number):void;
 	totaluploadprogress?(totalProgress:number, totalBytes:number, totalBytesSent:number):void;
 
-	sending?(file:DropzoneFile, xhr:XMLHttpRequest, formData:{}):void;
-	sendingmultiple?(files:DropzoneFile[], xhr:XMLHttpRequest, formData:{}):void;
+	sending?(file:DropzoneFile, xhr:XMLHttpRequest, formData:FormData):void;
+	sendingmultiple?(files:DropzoneFile[], xhr:XMLHttpRequest, formData:FormData):void;
 
 	success?(file: DropzoneFile, response: Object|string): void;
 	successmultiple?(files:DropzoneFile[], responseText:string):void;
@@ -176,91 +176,91 @@ declare class Dropzone {
 
 	createThumbnailFromUrl(file:DropzoneFile, url:string, callback?:(...args:any[]) => void):any;
 
-	on(eventName:string, callback:(...args:any[]) => void):void;
+	on(eventName:string, callback:(...args:any[]) => void):Dropzone;
 
-	off(eventName:string):void;
+	off(eventName:string):Dropzone;
 
-	emit(eventName:string, ...args:any[]):void;
+	emit(eventName:string, ...args:any[]):Dropzone;
 
-	on(eventName:"drop", callback:(e:DragEvent) => any):void;
-	on(eventName:"dragstart", callback:(e:DragEvent) => any):void;
-	on(eventName:"dragend", callback:(e:DragEvent) => any):void;
-	on(eventName:"dragenter", callback:(e:DragEvent) => any):void;
-	on(eventName:"dragover", callback:(e:DragEvent) => any):void;
-	on(eventName:"dragleave", callback:(e:DragEvent) => any):void;
-	on(eventName:"paste", callback:(e:DragEvent) => any):void;
+	on(eventName:"drop", callback:(e:DragEvent) => any):Dropzone;
+	on(eventName:"dragstart", callback:(e:DragEvent) => any):Dropzone;
+	on(eventName:"dragend", callback:(e:DragEvent) => any):Dropzone;
+	on(eventName:"dragenter", callback:(e:DragEvent) => any):Dropzone;
+	on(eventName:"dragover", callback:(e:DragEvent) => any):Dropzone;
+	on(eventName:"dragleave", callback:(e:DragEvent) => any):Dropzone;
+	on(eventName:"paste", callback:(e:DragEvent) => any):Dropzone;
 
-	on(eventName:"reset"):void;
+	on(eventName:"reset"):Dropzone;
 
-	on(eventName:"addedfile", callback:(file:DropzoneFile) => any):void;
-	on(eventName:"addedfiles", callback:(files:DropzoneFile[]) => any):void;
-	on(eventName:"removedfile", callback:(file:DropzoneFile) => any):void;
-	on(eventName:"thumbnail", callback:(file:DropzoneFile, dataUrl:string) => any):void;
+	on(eventName:"addedfile", callback:(file:DropzoneFile) => any):Dropzone;
+	on(eventName:"addedfiles", callback:(files:DropzoneFile[]) => any):Dropzone;
+	on(eventName:"removedfile", callback:(file:DropzoneFile) => any):Dropzone;
+	on(eventName:"thumbnail", callback:(file:DropzoneFile, dataUrl:string) => any):Dropzone;
 
-	on(eventName:"error", callback:(file:DropzoneFile, message:string|Error) => any):void;
-	on(eventName:"errormultiple", callback:(files:DropzoneFile[], message:string|Error) => any):void;
+	on(eventName:"error", callback:(file:DropzoneFile, message:string|Error) => any):Dropzone;
+	on(eventName:"errormultiple", callback:(files:DropzoneFile[], message:string|Error) => any):Dropzone;
 
-	on(eventName:"processing", callback:(file:DropzoneFile) => any):void;
-	on(eventName:"processingmultiple", callback:(files:DropzoneFile[]) => any):void;
+	on(eventName:"processing", callback:(file:DropzoneFile) => any):Dropzone;
+	on(eventName:"processingmultiple", callback:(files:DropzoneFile[]) => any):Dropzone;
 
-	on(eventName:"uploadprogress", callback:(file:DropzoneFile, progress:number, bytesSent:number) => any):void;
-	on(eventName:"totaluploadprogress", callback:(totalProgress:number, totalBytes:number, totalBytesSent:number) => any):void;
+	on(eventName:"uploadprogress", callback:(file:DropzoneFile, progress:number, bytesSent:number) => any):Dropzone;
+	on(eventName:"totaluploadprogress", callback:(totalProgress:number, totalBytes:number, totalBytesSent:number) => any):Dropzone;
 
-	on(eventName:"sending", callback:(file:DropzoneFile, xhr:XMLHttpRequest, formData:{}) => any):void;
-	on(eventName:"sendingmultiple", callback:(files:DropzoneFile[], xhr:XMLHttpRequest, formData:{}) => any):void;
+	on(eventName:"sending", callback:(file:DropzoneFile, xhr:XMLHttpRequest, formData:FormData) => any):Dropzone;
+	on(eventName:"sendingmultiple", callback:(files:DropzoneFile[], xhr:XMLHttpRequest, formData:FormData) => any):Dropzone;
 
-	on(eventName:"success", callback:(file:DropzoneFile) => any):void;
-	on(eventName:"successmultiple", callback:(files:DropzoneFile[]) => any):void;
+	on(eventName:"success", callback:(file:DropzoneFile) => any):Dropzone;
+	on(eventName:"successmultiple", callback:(files:DropzoneFile[]) => any):Dropzone;
 
-	on(eventName:"canceled", callback:(file:DropzoneFile) => any):void;
-	on(eventName:"canceledmultiple", callback:(file:DropzoneFile[]) => any):void;
+	on(eventName:"canceled", callback:(file:DropzoneFile) => any):Dropzone;
+	on(eventName:"canceledmultiple", callback:(file:DropzoneFile[]) => any):Dropzone;
 
-	on(eventName:"complete", callback:(file:DropzoneFile) => any):void;
-	on(eventName:"completemultiple", callback:(file:DropzoneFile[]) => any):void;
+	on(eventName:"complete", callback:(file:DropzoneFile) => any):Dropzone;
+	on(eventName:"completemultiple", callback:(file:DropzoneFile[]) => any):Dropzone;
 
-	on(eventName:"maxfilesexceeded", callback:(file:DropzoneFile) => any):void;
-	on(eventName:"maxfilesreached", callback:(files:DropzoneFile[]) => any):void;
-	on(eventName:"queuecomplete"):void;
+	on(eventName:"maxfilesexceeded", callback:(file:DropzoneFile) => any):Dropzone;
+	on(eventName:"maxfilesreached", callback:(files:DropzoneFile[]) => any):Dropzone;
+	on(eventName:"queuecomplete"):Dropzone;
 
-	emit(eventName:"drop", e:DragEvent):void;
-	emit(eventName:"dragstart", e:DragEvent):void;
-	emit(eventName:"dragend", e:DragEvent):void;
-	emit(eventName:"dragenter", e:DragEvent):void;
-	emit(eventName:"dragover", e:DragEvent):void;
-	emit(eventName:"dragleave", e:DragEvent):void;
-	emit(eventName:"paste", e:DragEvent):void;
+	emit(eventName:"drop", e:DragEvent):Dropzone;
+	emit(eventName:"dragstart", e:DragEvent):Dropzone;
+	emit(eventName:"dragend", e:DragEvent):Dropzone;
+	emit(eventName:"dragenter", e:DragEvent):Dropzone;
+	emit(eventName:"dragover", e:DragEvent):Dropzone;
+	emit(eventName:"dragleave", e:DragEvent):Dropzone;
+	emit(eventName:"paste", e:DragEvent):Dropzone;
 
-	emit(eventName:"reset"):void;
+	emit(eventName:"reset"):Dropzone;
 
-	emit(eventName:"addedfile", file:DropzoneFile):void;
-	emit(eventName:"addedfiles", files:DropzoneFile[]):void;
-	emit(eventName:"removedfile", file:DropzoneFile):void;
-	emit(eventName:"thumbnail", file:DropzoneFile, dataUrl:string):void;
+	emit(eventName:"addedfile", file:DropzoneFile):Dropzone;
+	emit(eventName:"addedfiles", files:DropzoneFile[]):Dropzone;
+	emit(eventName:"removedfile", file:DropzoneFile):Dropzone;
+	emit(eventName:"thumbnail", file:DropzoneFile, dataUrl:string):Dropzone;
 
-	emit(eventName:"error", file:DropzoneFile, message:string|Error):void;
-	emit(eventName:"errormultiple", files:DropzoneFile[], message:string|Error):void;
+	emit(eventName:"error", file:DropzoneFile, message:string|Error):Dropzone;
+	emit(eventName:"errormultiple", files:DropzoneFile[], message:string|Error):Dropzone;
 
-	emit(eventName:"processing", file:DropzoneFile):void;
-	emit(eventName:"processingmultiple", files:DropzoneFile[]):void;
+	emit(eventName:"processing", file:DropzoneFile):Dropzone;
+	emit(eventName:"processingmultiple", files:DropzoneFile[]):Dropzone;
 
-	emit(eventName:"uploadprogress", file:DropzoneFile, progress:number, bytesSent:number):void;
-	emit(eventName:"totaluploadprogress", totalProgress:number, totalBytes:number, totalBytesSent:number):void;
+	emit(eventName:"uploadprogress", file:DropzoneFile, progress:number, bytesSent:number):Dropzone;
+	emit(eventName:"totaluploadprogress", totalProgress:number, totalBytes:number, totalBytesSent:number):Dropzone;
 
-	emit(eventName:"sending", file:DropzoneFile, xhr:XMLHttpRequest, formData:{}):void;
-	emit(eventName:"sendingmultiple", files:DropzoneFile[], xhr:XMLHttpRequest, formData:{}):void;
+	emit(eventName:"sending", file:DropzoneFile, xhr:XMLHttpRequest, formData:FormData):Dropzone;
+	emit(eventName:"sendingmultiple", files:DropzoneFile[], xhr:XMLHttpRequest, formData:FormData):Dropzone;
 
-	emit(eventName:"success", file:DropzoneFile):void;
-	emit(eventName:"successmultiple", files:DropzoneFile[]):void;
+	emit(eventName:"success", file:DropzoneFile):Dropzone;
+	emit(eventName:"successmultiple", files:DropzoneFile[]):Dropzone;
 
-	emit(eventName:"canceled", file:DropzoneFile):void;
-	emit(eventName:"canceledmultiple", file:DropzoneFile[]):void;
+	emit(eventName:"canceled", file:DropzoneFile):Dropzone;
+	emit(eventName:"canceledmultiple", file:DropzoneFile[]):Dropzone;
 
-	emit(eventName:"complete", file:DropzoneFile):void;
-	emit(eventName:"completemultiple", file:DropzoneFile[]):void;
+	emit(eventName:"complete", file:DropzoneFile):Dropzone;
+	emit(eventName:"completemultiple", file:DropzoneFile[]):Dropzone;
 
-	emit(eventName:"maxfilesexceeded", file:DropzoneFile):void;
-	emit(eventName:"maxfilesreached", files:DropzoneFile[]):void;
-	emit(eventName:"queuecomplete"):void;
+	emit(eventName:"maxfilesexceeded", file:DropzoneFile):Dropzone;
+	emit(eventName:"maxfilesreached", files:DropzoneFile[]):Dropzone;
+	emit(eventName:"queuecomplete"):Dropzone;
 
 }
 

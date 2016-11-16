@@ -124,24 +124,24 @@ declare class Victor
      * @param vector
      */
     multiply(vector:Victor):Victor;
-    
+
     /**
      * Multiplies both vector axis by the given scalar value
-     * 
+     *
      * @param victor
      */
     multiplyScalar(scalar: number): Victor;
 
     /**
      * Multiplies the X axis by the given scalar
-     * 
+     *
      * @param victor
      */
     multiplyScalarX(scalar: number): Victor;
 
     /**
      * Multiplies the Y axis by the given scalar
-     * 
+     *
      * @param vector
      */
     multiplyScalarY(scalar: number): Victor;
@@ -374,6 +374,4 @@ declare class Victor
 
 }
 
-declare module "victor" {
-	export = Victor;
-}
+export = Victor;

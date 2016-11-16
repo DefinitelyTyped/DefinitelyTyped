@@ -3,6 +3,10 @@
 // Definitions by: Markus Wagner <https://github.com/Ritzlgrmft/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+interface Window {
+    plugins: Plugins;
+}
+
 interface Plugins {
 	socialsharing: SocialSharingPlugin.SocialSharing;
 }

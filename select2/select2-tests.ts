@@ -34,6 +34,7 @@ $("#e5").select2({
         }
     }
 });
+
 $("#e19").select2({ maximumSelectionSize: 3 });
 $("#e10").select2({
     data: [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }]
@@ -119,6 +120,13 @@ $("#e7").select2({
     formatResult: movieFormatResult,
     formatSelection: movieFormatSelection,
     dropdownCssClass: "bigdrop"
+});
+
+function sort(elements) {
+  return elements.sort();
+}
+$("#e20").select2({
+  sorter: sort
 });
 
 $("#e8").select2();

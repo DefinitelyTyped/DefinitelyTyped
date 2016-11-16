@@ -39,15 +39,15 @@ declare namespace i18n {
         count?: number;
         context?: any;
         replace?: any;
-        lng?:string;
-        lngs?:string[];
-        fallbackLng?:string;
-        ns?:string|string[];
-        keySeparator?:string;
-        nsSeparator?:string;
-        returnObjects?:boolean;
-        joinArrays?:string;
-        postProcess?:string|any[];
+        lng?: string;
+        lngs?: string[];
+        fallbackLng?: string;
+        ns?: string | string[];
+        keySeparator?: string;
+        nsSeparator?: string;
+        returnObjects?: boolean;
+        joinArrays?: string;
+        postProcess?: string | any[];
         interpolation?: InterpolationOptions;
     }
 
@@ -56,10 +56,10 @@ declare namespace i18n {
         resources?: ResourceStore;
         lng?: string;
         fallbackLng?: string;
-        ns?: string|string[];
+        ns?: string | string[];
         defaultNS?: string;
-        fallbackNS?: string|string[];
-        whitelist?:string[];
+        fallbackNS?: string | string[];
+        whitelist?: string[];
         lowerCaseLng?: boolean;
         load?: string
         preload?: string[];
@@ -69,58 +69,69 @@ declare namespace i18n {
         contextSeparator?: string;
         saveMissing?: boolean;
         saveMissingTo?: string;
-        missingKeyHandler?: (lng:string, ns:string, key:string, fallbackValue:string) => void;
-        parseMissingKeyHandler?: (key:string) => void;
+        missingKeyHandler?: (lng: string, ns: string, key: string, fallbackValue: string) => void;
+        parseMissingKeyHandler?: (key: string) => void;
         appendNamespaceToMissingKey?: boolean;
-        postProcess?: string|any[];
+        postProcess?: string | any[];
         returnNull?: boolean;
         returnEmptyString?: boolean;
         returnObjects?: boolean;
-        returnedObjectHandler?: (key:string, value:string, options:any) => void;
+        returnedObjectHandler?: (key: string, value: string, options: any) => void;
         joinArrays?: string;
-        overloadTranslationOptionHandler?: (args:any[]) => TranslationOptions;
+        overloadTranslationOptionHandler?: (args: any[]) => TranslationOptions;
         interpolation?: InterpolationOptions;
         detection?: any;
         backend?: any;
         cache?: any;
     }
 
-    type TranslationFunction = (key:string, options?:TranslationOptions) => string;
+    type TranslationFunction = (key: string, options?: TranslationOptions) => string;
 
     interface I18n {
-        //constructor(options?:Options, callback?:(err:any, t:TranslationFunction) => void);
+        //constructor(options?: Options, callback?: (err: any, t: TranslationFunction) => void);
 
-        init(options?:Options, callback?:(err:any, t:TranslationFunction) => void):I18n;
+        init(options?: Options, callback?: (err: any, t: TranslationFunction) => void): I18n;
 
-        loadResources(callback?:(err:any) => void):void;
+        loadResources(callback?: (err: any) => void): void;
 
-        language:string;
+        language: string;
 
-        languages:string[];
+        languages: string[];
 
-        use(module:any):I18n;
+        use(module: any): I18n;
 
-        changeLanguage(lng:string, callback?:(err:any, t:TranslationFunction) => void):void;
+        changeLanguage(lng: string, callback?: (err: any, t: TranslationFunction) => void): void;
 
-        getFixedT(lng?:string, ns?:string|string[]):TranslationFunction;
+        getFixedT(lng?: string, ns?: string | string[]): TranslationFunction;
 
-        t(key:string, options?:TranslationOptions):string|any|Array<any>;
+        t(key: string, options?: TranslationOptions): string | any | Array<any>;
 
-        exists():boolean;
+        exists(): boolean;
 
-        setDefaultNamespace(ns:string):void;
+        setDefaultNamespace(ns: string): void;
 
-        loadNamespaces(ns:string[], callback?:() => void):void;
+        loadNamespaces(ns: string[], callback?: () => void): void;
 
-        loadLanguages(lngs:string[], callback?:()=>void):void;
+        loadLanguages(lngs: string[], callback?: () => void): void;
 
-        dir(lng?:string):string;
+        dir(lng?: string): string;
 
-        createInstance(options?:Options, callback?:(err:any, t:TranslationFunction) => void):I18n;
+        createInstance(options?: Options, callback?: (err: any, t: TranslationFunction) => void): I18n;
 
-        cloneInstance(options?:Options, callback?:(err:any, t:TranslationFunction) => void):I18n;
+        cloneInstance(options?: Options, callback?: (err: any, t: TranslationFunction) => void): I18n;
 
-        options: Options;
+        on(event: string, listener: () => void): void;
+        on(initialized: 'initialized', listener: (options: i18n.Options) => void): void;
+        on(loaded: 'loaded', listener: (loaded: any) => void): void;
+        on(failedLoading: 'failedLoading', listener: (lng: string, ns: string, msg: string) => void): void;
+        on(missingKey: 'missingKey', listener: (lngs: any, namespace: string, key: string, res: any) => void): void;
+        on(added: 'added', listener: (lng: string, ns: string) => void): void;
+        on(removed: 'removed', listener: (lng: string, ns: string) => void): void;
+        on(languageChanged: 'languageChanged', listener: (lng: string) => void): void;
+
+        off(event: string, listener: () => void): void;
+	
+	options: Options;
     }
 }
 

@@ -1,6 +1,6 @@
-// Type definitions for yargs
+// Type definitions for yargs 6.3.0
 // Project: https://github.com/chevex/yargs
-// Definitions by: Martin Poelstra <https://github.com/poelstra>
+// Definitions by: Martin Poelstra <https://github.com/poelstra>, Mizunashi Mana <https://github.com/mizunashi-mana>, Jeffery Grajkowski <https://github.com/pushplay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace yargs {
@@ -16,6 +16,8 @@ declare namespace yargs {
 
         detectLocale(detect: boolean): Argv;
 
+        terminalWidth(): number;
+
         alias(shortName: string, longName: string): Argv;
         alias(aliases: { [shortName: string]: string }): Argv;
         alias(aliases: { [shortName: string]: string[] }): Argv;
@@ -23,8 +25,8 @@ declare namespace yargs {
         array(key: string): Argv;
         array(keys: string[]): Argv;
 
-        default(key: string, value: any): Argv;
-        default(defaults: { [key: string]: any }): Argv;
+        default(key: string, value: any, description?: string): Argv;
+        default(defaults: { [key: string]: any }, description?: string): Argv;
 
         demand(key: string, msg: string): Argv;
         demand(key: string, required?: boolean): Argv;
@@ -32,6 +34,7 @@ declare namespace yargs {
         demand(keys: string[], required?: boolean): Argv;
         demand(positionals: number, required?: boolean): Argv;
         demand(positionals: number, msg: string): Argv;
+        demand(positionals: number, max: number, msg?: string): Argv;
 
         require(key: string, msg: string): Argv;
         require(key: string, required: boolean): Argv;
@@ -67,11 +70,16 @@ declare namespace yargs {
         command(command: string, description: string, builder: { [optionName: string]: Options }): Argv;
         command(command: string, description: string, builder: { [optionName: string]: Options }, handler: (args: Argv) => void): Argv;
         command(command: string, description: string, builder: (args: Argv) => Options, handler: (args: Argv) => void): Argv;
+        command(command: string, description: string, module: CommandModule): Argv;
+        command(module: CommandModule): Argv;
 
-        completion(cmd: string, fn?: SyncCompletionFunction): Argv;
-        completion(cmd: string, description?: string, fn?: SyncCompletionFunction): Argv;
+        commandDir(dir: string, opts?: RequireDirectoryOptions): Argv;
+
+        completion(): Argv;
         completion(cmd: string, fn?: AsyncCompletionFunction): Argv;
+        completion(cmd: string, fn?: SyncCompletionFunction): Argv;
         completion(cmd: string, description?: string, fn?: AsyncCompletionFunction): Argv;
+        completion(cmd: string, description?: string, fn?: SyncCompletionFunction): Argv;
 
         example(command: string, description: string): Argv;
 
@@ -83,18 +91,27 @@ declare namespace yargs {
         string(key: string): Argv;
         string(keys: string[]): Argv;
 
+        number(key: string): Argv;
+        number(keys: string[]): Argv;
+
         choices(choices: Object): Argv;
         choices(key: string, values: any[]): Argv;
 
-        config(key: string): Argv;
-        config(keys: string[]): Argv;
+        config(): Argv;
+        config(explicitConfigurationObject: Object): Argv;
+        config(key: string, description?: string, parseFn?: (configPath: string) => Object): Argv;
+        config(keys: string[], description?: string, parseFn?: (configPath: string) => Object): Argv;
+        config(key: string, parseFn: (configPath: string) => Object): Argv;
+        config(keys: string[], parseFn: (configPath: string) => Object): Argv;
 
         wrap(columns: number): Argv;
 
         strict(): Argv;
 
-        help(): string;
-        help(option: string, description?: string): Argv;
+        help(): Argv;
+        help(enableExplicit: boolean): Argv;
+        help(option: string, enableExplicit: boolean): Argv;
+        help(option: string, description?: string, enableExplicit?: boolean): Argv;
 
         env(prefix?: string): Argv;
         env(enable: boolean): Argv;
@@ -107,7 +124,7 @@ declare namespace yargs {
 
         showHelpOnFail(enable: boolean, message?: string): Argv;
 
-        showHelp(func?: (message: string) => any): Argv;
+        showHelp(consoleLevel?: string): Argv;
 
         exitProcess(enabled: boolean): Argv;
 
@@ -120,8 +137,6 @@ declare namespace yargs {
         nargs(key: string, count: number): Argv;
         nargs(nargs: { [key: string]: number }): Argv;
 
-        /* Undocumented */
-
         normalize(key: string): Argv;
         normalize(keys: string[]): Argv;
 
@@ -131,7 +146,34 @@ declare namespace yargs {
         count(key: string): Argv;
         count(keys: string[]): Argv;
 
-        fail(func: (msg: string) => any): void;
+		fail(func: (msg: string, err: Error) => any): Argv;
+
+        coerce<T, U>(key: string|string[], func: (arg: T) => U): Argv;
+        coerce<T, U>(opts: { [key: string]: (arg: T) => U; }): Argv;
+
+        getCompletion(args: string[], done: (completions: string[]) => void): Argv;
+
+        pkgConf(key: string, cwd?: string): Argv;
+        pkgConf(keys: string[], cwd?: string): Argv;
+
+        recommendCommands(): Argv;
+
+        showCompletionScript(): Argv;
+
+        skipValidation(key: string): Argv;
+        skipValidation(keys: string[]): Argv;
+
+        updateLocale(obj: Object): Argv;
+
+        updateStrings(obj: {[key: string]: string}): Argv;
+    }
+
+    interface RequireDirectoryOptions {
+        recurse?: boolean;
+        extensions?: string[];
+        visit?: (commandObject: any, pathToFile?: string, filename?: string) => any;
+        include?: RegExp | ((pathToFile: string)=>boolean);
+        exclude?: RegExp | ((pathToFile: string)=>boolean);
     }
 
     interface Options {
@@ -159,6 +201,15 @@ declare namespace yargs {
         nargs?: number;
     }
 
+    interface CommandModule {
+        aliases?: string[] | string;
+        builder?: CommandBuilder;
+        command?: string[] | string;
+        describe?: string | false;
+        handler: (args: any) => void;
+    }
+
+    type CommandBuilder = {[key: string]: Options} | ((args: Argv) => Argv);
     type SyncCompletionFunction = (current: string, argv: any) => string[];
     type AsyncCompletionFunction = (current: string, argv: any, done: (completion: string[]) => void) => void;
 }

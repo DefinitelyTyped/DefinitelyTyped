@@ -3,8 +3,6 @@
 // Definitions by: Piotr Witek <http://piotrwitek.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts"/>
-
 declare module 'react-big-calendar' {
     import * as React from 'react';
 

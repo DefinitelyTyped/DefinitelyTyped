@@ -1,6 +1,5 @@
-///<reference path="./backbone-fetch-cache.d.ts" />
-
-import * as Backbone from "backbone-fetch-cache";
+import * as Backbone from "backbone";
+import * as BackboneFetchCache from "backbone-fetch-cache";
 
 // static methods / properties
 

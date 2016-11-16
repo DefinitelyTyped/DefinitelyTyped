@@ -161,6 +161,13 @@ declare class Cluster {
     manager(): ClusterManager;
 
     /**
+     * Creates a manager allowing the management of a Couchbase cluster using credentials.
+     * @param username The username for your cluster.
+     * @param password The password for your cluster.
+     */
+    manager(username: string, password: string): ClusterManager;
+
+    /**
      * Open a bucket to perform operations. This will begin the handshake process immediately and operations will complete later. Subscribe to the connect event to be alerted when the connection is ready, though be aware operations can be successfully queued before this.
      * @param name The name of the bucket to open.
      */

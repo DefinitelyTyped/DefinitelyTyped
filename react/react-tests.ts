@@ -41,7 +41,7 @@ var props: Props & React.ClassAttributes<{}> = {
     foo: 42
 };
 
-var container: Element;
+var container: Element = document.createElement("div");
 
 //
 // Top-Level API
@@ -49,11 +49,12 @@ var container: Element;
 
 var ClassicComponent: React.ClassicComponentClass<Props> =
     React.createClass<Props, State>({
+        displayName: "ClassicComponent",
         getDefaultProps() {
             return {
-                hello: undefined,
+                hello: "hello",
                 world: "peace",
-                foo: undefined
+                foo: 0,
             };
         },
         getInitialState() {
@@ -120,7 +121,7 @@ class ModernComponent extends React.Component<Props, State>
                 value: this.state.inputValue
             }),
             React.DOM.input({
-                onChange: event => console.log(event.target.value)
+                onChange: event => console.log(event.target)
             }));
     }
 
@@ -150,6 +151,10 @@ StatelessComponent2.displayName = "StatelessComponent2";
 StatelessComponent2.defaultProps = {
     foo: 42
 };
+
+var StatelessComponent3: React.SFC<SCProps> =
+    // allows usage of props.children
+    props => React.DOM.div(null, props.foo, props.children);
 
 // React.createFactory
 var factory: React.CFactory<Props, ModernComponent> =
@@ -187,6 +192,10 @@ var domElement: React.ReactHTMLElement<HTMLDivElement> =
 // React.cloneElement
 var clonedElement: React.CElement<Props, ModernComponent> =
     React.cloneElement(element, { foo: 43 });
+
+React.cloneElement(element, {});
+React.cloneElement(element, {}, null);
+
 var clonedElement2: React.CElement<Props, ModernComponent> =
     // known problem: cloning with key or ref requires cast
     React.cloneElement(element, <React.ClassAttributes<ModernComponent>>{
@@ -214,8 +223,8 @@ var component: ModernComponent =
 var componentNullContainer: ModernComponent =
     ReactDOM.render(element, null);
 
-var componentElementOrNull: ModernComponent = 
-    ReactDOM.render(element, document.getElementById("anelement"));    
+var componentElementOrNull: ModernComponent =
+    ReactDOM.render(element, document.getElementById("anelement"));
 var componentNoState: ModernComponentNoState =
     ReactDOM.render(elementNoState, container);
 var componentNoStateElementOrNull: ModernComponentNoState =
@@ -240,18 +249,15 @@ domNode = ReactDOM.findDOMNode(domNode);
 
 var type: React.ComponentClass<Props> = element.type;
 var elementProps: Props = element.props;
-var key: React.Key = element.key;
-
-var t: React.ReactType;
-var name = typeof t === "string" ? t : t.displayName;
+var key = element.key;
 
 //
 // React Components
 // --------------------------------------------------------------------------
 
-var displayName: string = ClassicComponent.displayName;
-var defaultProps: Props = ClassicComponent.getDefaultProps();
-var propTypes: React.ValidationMap<Props> = ClassicComponent.propTypes;
+var displayName: string | undefined = ClassicComponent.displayName;
+var defaultProps: Props = ClassicComponent.getDefaultProps ? ClassicComponent.getDefaultProps() : <Props>{};
+var propTypes: React.ValidationMap<Props> | undefined = ClassicComponent.propTypes;
 
 //
 // Component API
@@ -282,7 +288,7 @@ class RefComponent extends React.Component<RCProps, {}> {
     }
 }
 
-var componentRef: RefComponent;
+var componentRef: RefComponent = new RefComponent();
 RefComponent.create({ ref: "componentRef" });
 // type of c should be inferred
 RefComponent.create({ ref: c => componentRef = c });
@@ -315,6 +321,10 @@ var htmlAttr: React.HTMLProps<HTMLElement> = {
         event.preventDefault();
         event.stopPropagation();
     },
+    onClickCapture: (event: React.MouseEvent<{}>) => {
+        event.preventDefault();
+        event.stopPropagation();
+    },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
     }
@@ -325,17 +335,23 @@ React.DOM.input(htmlAttr);
 
 React.DOM.svg({ viewBox: "0 0 48 48" },
     React.DOM.rect({
-      x: 22,
-      y: 10,
-      width: 4,
-      height: 28
+        x: 22,
+        y: 10,
+        width: 4,
+        height: 28
     }),
     React.DOM.rect({
-      x: 10,
-      y: 22,
-      width: 28,
-      height: 4
-    }));
+        x: 10,
+        y: 22,
+        width: 28,
+        height: 4
+    }),
+    React.DOM.path({
+        d: "M0,0V3H3V0ZM1,1V2H2V1Z",
+        fill: "#999999",
+        fillRule: "evenodd"
+    })
+);
 
 
 //
@@ -367,14 +383,25 @@ var PropTypesSpecification: React.ComponentSpec<any, any> = {
         }),
         requiredFunc: React.PropTypes.func.isRequired,
         requiredAny: React.PropTypes.any.isRequired,
-        customProp: function(props: any, propName: string, componentName: string) {
+        customProp: function(props: any, propName: string, componentName: string): Error | null {
             if (!/matchme/.test(props[propName])) {
                 return new Error("Validation failed!");
             }
             return null;
+        },
+        // https://facebook.github.io/react/warnings/dont-call-proptypes.html#fixing-the-false-positive-in-third-party-proptypes
+        percentage: (object: any, key: string, componentName: string, ...rest: any[]): Error | null => {
+            const error = React.PropTypes.number(object, key, componentName, ...rest);
+            if (error) {
+                return error;
+            }
+            if (object[key] < 0 || object[key] > 100) {
+                return new Error(`prop ${key} must be between 0 and 100`);
+            }
+            return null;
         }
     },
-    render: (): React.ReactElement<any> => {
+    render: (): React.ReactElement<any> | null => {
         return null;
     }
 };
@@ -408,14 +435,14 @@ var ContextTypesSpecification: React.ComponentSpec<any, any> = {
         }),
         requiredFunc: React.PropTypes.func.isRequired,
         requiredAny: React.PropTypes.any.isRequired,
-        customProp: function(props: any, propName: string, componentName: string) {
+        customProp: function(props: any, propName: string, componentName: string): Error | null {
             if (!/matchme/.test(props[propName])) {
                 return new Error("Validation failed!");
             }
             return null;
         }
     },
-    render: (): React.ReactElement<any> => {
+    render: (): null => {
         return null;
     }
 };
@@ -478,7 +505,7 @@ createFragment({
 // --------------------------------------------------------------------------
 React.createFactory(CSSTransitionGroup)({
     component: React.createClass({
-        render: (): React.ReactElement<any> => null
+        render: (): null => null
     }),
     childFactory: (c) => c,
     transitionName: "transition",
@@ -584,16 +611,19 @@ var foundComponents: ModernComponent[] = TestUtils.scryRenderedComponentsWithTyp
 
 // ReactTestUtils custom type guards
 
-var emptyElement: React.ReactElement<{}>;
-if (TestUtils.isElementOfType(emptyElement, StatelessComponent)) {
-    emptyElement.props.foo;
+var emptyElement1: React.ReactElement<{}> = React.createElement(ModernComponent);
+if (TestUtils.isElementOfType(emptyElement1, StatelessComponent)) {
+    emptyElement1.props.foo;
+}
+var emptyElement2: React.ReactElement<{}> = React.createElement(StatelessComponent);
+if (TestUtils.isElementOfType(emptyElement2, StatelessComponent)) {
+    emptyElement2.props.foo;
 }
 
-var anyInstance: Element | React.Component<any, any>;
-if (TestUtils.isDOMComponent(anyInstance)) {
-    anyInstance.getAttribute("className");
-} else if (TestUtils.isCompositeComponent(anyInstance)) {
-    anyInstance.props;
+if (TestUtils.isDOMComponent(container)) {
+    container.getAttribute("className");
+} else if (TestUtils.isCompositeComponent(new ModernComponent())) {
+    new ModernComponent().props;
 }
 
 //
@@ -620,4 +650,18 @@ let newObj2 = update(obj, {b: {$set: obj.b * 2}});
 
 let objShallow = {a: 5, b: 3};
 let newObjShallow = update(obj, {$merge: {b: 6, c: 7}}); // => {a: 5, b: 6, c: 7}
+}
+
+//
+// React Component classes super spread arguments
+// --------------------------------------------------------------------------
+class ConstructorSpreadArgsComponent extends React.Component<{}, {}> {
+    constructor(...args: any[]) {
+        super(...args);
+    }
+}
+class ConstructorSpreadArgsPureComponent extends React.PureComponent<{}, {}> {
+    constructor(...args: any[]) {
+        super(...args);
+    }
 }

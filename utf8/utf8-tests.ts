@@ -1,5 +1,3 @@
-/// <reference path="utf8.d.ts" />
-
 import * as utf8 from "utf8";
 
 function test_encode(): void {

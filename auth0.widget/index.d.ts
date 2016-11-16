@@ -3,7 +3,7 @@
 // Definitions by: Robert McLaws <https://github.com/advancedrei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="auth0" />
+/// <reference types="auth0-js" />
 
 
 interface Auth0WidgetStatic {

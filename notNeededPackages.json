@@ -4,6 +4,36 @@
             "libraryName": "Angular 2",
             "typingsPackageName": "angular2",
             "sourceRepoURL": "https://github.com/angular/angular"
+        },
+        {
+            "libraryName": "Moment",
+            "typingsPackageName": "moment",
+            "sourceRepoURL": "https://github.com/moment/moment",
+            "asOfVersion": "2.13.0"
+        },
+        {
+            "libraryName": "ng-table",
+            "typingsPackageName": "ng-table",
+            "sourceRepoURL": "https://github.com/esvit/ng-table",
+            "asOfVersion": "2.0.1"
+        },
+        {
+            "libraryName": "spotify-web-api-js",
+            "typingsPackageName": "spotify-web-api-js",
+            "sourceRepoURL": "https://github.com/JMPerez/spotify-web-api-js",
+            "asOfVersion": "0.21.0"
+        },
+        {
+            "libraryName": "Linq.JS",
+            "typingsPackageName": "linq",
+            "sourceRepoURL": "https://linqjs.codeplex.com/",
+            "asOfVersion": "2.2.33"
+        },
+        {
+            "libraryName": "Protractor",
+            "typingsPackageName": "protractor",
+            "sourceRepoURL": "https://github.com/angular/protractor",
+            "asOfVersion": "4.0.0"
         }
     ]
 }

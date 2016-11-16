@@ -33,13 +33,14 @@ columnDef.filter = {
     condition: 2,
     term: 'yes',
     placeholder: 'testing',
+    ariaLabel: 'testing',
     noTerm: false,
     flags: {
         caseSensitive: true
     },
     type: 1,
     selectOptions: [{value: 4, label: 'test'}],
-    disableCancelButton: false
+    disableCancelFilterButton: false
 };
 columnDef.filter.condition = (searchTerm: string, cellValue: any, row: uiGrid.IGridRow, column: uiGrid.IGridColumn): boolean => {
     return true;

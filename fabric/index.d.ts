@@ -333,7 +333,6 @@ declare namespace fabric {
     on(eventName: {[key:string] : Function}): T;
     /**
      * Fires event with an optional options object
-     * @deprecated `fire` deprecated since 1.0.7 (use `trigger` instead)
      * @param {String} eventName Event name to fire
      * @param {Object} [options] Options object
      */
@@ -341,7 +340,6 @@ declare namespace fabric {
     /**
      * Stops event observing for a particular event handler. Calling this method
      * without arguments removes all handlers for all events
-     * @deprecated `stopObserving` deprecated since 0.8.34 (use `off` instead)
      * @param eventName Event name (eg. 'after:render') or object with key/value pairs (eg. {'after:render': handler, 'selection:cleared': handler})
      * @param handler Function to be deleted from EventListeners
      */

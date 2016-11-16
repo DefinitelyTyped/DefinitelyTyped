@@ -1,5 +1,5 @@
-///<reference path='applicationinsights-js.d.ts' />
-// More samples on: https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md 
+
+// More samples on: https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md
 
 var config: Microsoft.ApplicationInsights.IConfig = {
     instrumentationKey: "<your iKey>",
