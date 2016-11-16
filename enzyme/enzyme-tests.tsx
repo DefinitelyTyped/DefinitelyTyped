@@ -201,7 +201,7 @@ namespace ShallowWrapperTest {
     }
 
     function test_state() {
-        shallowWrapper.state();
+        const state: MyComponentState = shallowWrapper.state();
         shallowWrapper.state('key');
         const tmp: String = shallowWrapper.state<String>('key');
     }

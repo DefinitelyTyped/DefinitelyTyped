@@ -1,4 +1,5 @@
 import * as React from 'react';
+import RouterContext from './RouterContext';
 import {
     QueryString, Query,
     Location, LocationDescriptor, LocationState,
@@ -48,16 +49,17 @@ declare namespace Router {
         components: RouteComponent[];
     }
 
-	interface RouterProps extends React.Props<Router> {
-	    history?: History;
-	    routes?: RouteConfig; // alias for children
-	    createElement?: (component: RouteComponent, props: Object) => any;
-	    onError?: (error: any) => any;
-	    onUpdate?: () => any;
-	    parseQueryString?: ParseQueryString;
-	    stringifyQuery?: StringifyQuery;
+    interface RouterProps extends React.Props<Router> {
+        history?: History;
+        routes?: RouteConfig; // alias for children
+        createElement?: (component: RouteComponent, props: Object) => any;
+        onError?: (error: any) => any;
+        onUpdate?: () => any;
+        parseQueryString?: ParseQueryString;
+        stringifyQuery?: StringifyQuery;
         basename?: string;
-	}
+        render?: (renderProps: React.Props<{}>) => RouterContext;
+    }
 
     interface PlainRoute {
         path?: RoutePattern;

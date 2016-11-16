@@ -27,6 +27,7 @@ import isDateFunc = require('validator/lib/isDate');
 import isDecimalFunc = require('validator/lib/isDecimal');
 import isDivisibleByFunc = require('validator/lib/isDivisibleBy');
 import isEmailFunc = require('validator/lib/isEmail');
+import isEmptyFunc = require('validator/lib/isEmpty');
 import isFQDNFunc = require('validator/lib/isFQDN');
 import isFloatFunc = require('validator/lib/isFloat');
 import isFullWidthFunc = require('validator/lib/isFullWidth');
@@ -125,6 +126,9 @@ namespace import_tests {
 
   let _isEmail = validator.isEmail;
   _isEmail = isEmailFunc;
+
+  let _isEmpty = validator.isEmpty;
+  _isEmpty = isEmptyFunc;
 
   let _isFQDN = validator.isFQDN;
   _isFQDN = isFQDNFunc;

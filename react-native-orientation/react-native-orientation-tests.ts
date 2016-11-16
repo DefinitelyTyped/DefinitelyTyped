@@ -1,5 +1,3 @@
-/// <reference path="react-native-orientation.d.ts" />
-
 import * as Orientation from 'react-native-orientation';
 
 Orientation.addOrientationListener((orientation)=>{});
