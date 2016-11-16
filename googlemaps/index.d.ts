@@ -1797,6 +1797,8 @@ declare namespace google.maps {
         toString(): string;
         /** Returns a string of the form "lat,lng". We round the lat/lng values to 6 decimal places by default. */
         toUrlValue(precision?: number): string;
+        /** Converts to JSON representation. This function is intended to be used via JSON.stringify. */
+        toJSON(): LatLngLiteral; 
     }
 
     export type LatLngLiteral = { lat: number; lng: number }

@@ -80,6 +80,7 @@ var WebSocketServer = WebSocket.Server;
         console.log(ws.protocol)
     })
 }
+
 {
     new WebSocket.Server({ perMessageDeflate: false });
     new WebSocket.Server({ perMessageDeflate: { } });

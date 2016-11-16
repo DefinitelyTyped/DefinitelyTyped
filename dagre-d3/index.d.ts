@@ -1,4 +1,4 @@
-// Type definitions for dagre-d3.core.js
+// Type definitions for dagre-d3.core.js v0.4.10
 // Project: https://github.com/cpettitt/dagre-d3
 // Definitions by: Mark Wong Siang Kai <https://github.com/markwongsk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

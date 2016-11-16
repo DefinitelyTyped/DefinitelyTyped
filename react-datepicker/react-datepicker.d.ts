@@ -6,14 +6,18 @@
 /// <reference types="react"/>
 
 declare module "react-datepicker" {
-    interface ReactDatePicker {
+    interface ReactDatePickerProps {
+        autoComplete?: string;
+        autoFocus?: boolean;
         className?: string;
+        customInput?: React.ReactNode;
         dateFormat?: string;
         dateFormatCalendar?: string;
         disabled?: boolean;
         endDate?: {};
         excludeDates?: any[];
         filterDate?():any;
+        fixedHeight?: boolean;
         id?: string;
         includeDates?: any[];
         isClearable?: boolean;
@@ -25,6 +29,7 @@ declare module "react-datepicker" {
         onChange():any;
         onChange(date?:any):any;
         onFocus?():any;
+        peekNextMonth?: boolean;
         placeholderText?: string;
         popoverAttachment?: string;
         popoverTargetAttachment?: string;
@@ -32,15 +37,20 @@ declare module "react-datepicker" {
         readOnly?: boolean;
         renderCalendarTo?: any;
         required?: boolean;
+        scrollableYearDropdown?: boolean;
         selected?: {};
+        selectsEnd?: boolean;
+        selectsStart?: boolean; 
+        showMonthDropdown?: boolean;
         showYearDropdown?: boolean;
+        showWeekNumbers?: boolean;
         startDate?: {};
         tabIndex?: number;
         tetherConstraints?: any[];
         title?: string;
         todayButton?: string;
-        fixedHeight?: boolean;
+        utcOffset?: number;
     }
-    let ReactDatePicker: React.ClassicComponentClass<ReactDatePicker>;
+    let ReactDatePicker: React.ClassicComponentClass<ReactDatePickerProps>;
     export = ReactDatePicker;
 }

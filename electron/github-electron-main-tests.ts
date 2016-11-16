@@ -9,6 +9,7 @@ import {
 	ipcMain,
 	Menu,
 	MenuItem,
+	net,
 	powerMonitor,
 	powerSaveBlocker,
 	protocol,
@@ -303,6 +304,10 @@ if (app.isAccessibilitySupportEnabled()) {
 }
 app.setLoginItemSettings({openAtLogin: true, openAsHidden: false});
 console.log(app.getLoginItemSettings().wasOpenedAtLogin);
+app.setAboutPanelOptions({
+	applicationName: 'Test',
+	version: '1.2.3'
+});
 
 var window = new BrowserWindow();
 window.setProgressBar(0.5);
@@ -357,6 +362,12 @@ var browserOptions = {
 if (process.platform !== 'win32' || systemPreferences.isAeroGlassEnabled()) {
 	browserOptions.transparent = true;
 	browserOptions.frame = false;
+}
+
+if (process.platform === 'win32') {
+	systemPreferences.on('color-changed', () => { console.log('color changed'); });
+	systemPreferences.on('inverted-color-scheme-changed', (_, inverted) => console.log(inverted ? 'inverted' : 'not inverted'));
+	console.log('Color for menu is', systemPreferences.getColor('menu'));
 }
 
 // Create the window.
@@ -721,6 +732,51 @@ Menu.buildFromTemplate([
 	{ label: 'c', position: 'endof=letters' },
 	{ label: '3', position: 'endof=numbers' }
 ]);
+
+// net
+// https://github.com/electron/electron/blob/master/docs/api/net.md
+
+app.on('ready', () => {
+	const request = net.request('https://github.com')
+	request.setHeader('Some-Custom-Header-Name', 'Some-Custom-Header-Value');
+	let header = request.getHeader('Some-Custom-Header-Name');
+	request.removeHeader('Some-Custom-Header-Name');
+	request.on('response', (response) => {
+		console.log(`Status code: ${response.statusCode}`);
+		console.log(`Status message: ${response.statusMessage}`);
+		console.log(`Headers: ${JSON.stringify(response.headers)}`);
+		console.log(`Http version: ${response.httpVersion}`);
+		console.log(`Major Http version: ${response.httpVersionMajor}`);
+		console.log(`Minor Http version: ${response.httpVersionMinor}`);
+		response.on('data', (chunk) => {
+			console.log(`BODY: ${chunk}`);
+		})
+		response.on('end', () => {
+			console.log('No more data in response.');
+		})
+		response.on('error', () => {
+			console.log('"error" event emitted');
+		});
+		response.on('aborted', () => {
+			console.log('"aborted" event emitted');
+		});
+	})
+	request.on('login', (authInfo, callback) => {
+		callback('username', 'password');
+	});
+	request.on('finish', () => {
+		console.log('"finish" event emitted');
+	});
+	request.on('abort', () => {
+		console.log('"abort" event emitted');
+	});
+	request.on('error', () => {
+		console.log('"error" event emitted');
+	});
+	request.write('Hello World!', 'utf-8', () => { });
+	request.end('Hello World!', 'utf-8', () => { });
+	request.abort();
+})
 
 // power-monitor
 // https://github.com/atom/electron/blob/master/docs/api/power-monitor.md

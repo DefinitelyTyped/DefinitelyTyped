@@ -262,3 +262,8 @@ var logger: winston.LoggerInstance = new (winston.Logger)({
     }),
   ]
 });
+
+/* Reconfigure logger */
+logger.configure({ level: 'silly' });
+
+winston.default.warn("Don't export reserved words in JavaScript!");

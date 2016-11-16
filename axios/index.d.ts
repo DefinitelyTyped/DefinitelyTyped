@@ -39,7 +39,7 @@ declare namespace Axios {
         /**
          * custom headers to be sent
          */
-        headers?: Object;
+        headers?: {[key: string]: any};
 
         /**
          * URL parameters to be sent with the request

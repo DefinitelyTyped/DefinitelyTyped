@@ -519,6 +519,12 @@ export class ReactBootstrapTest extends Component<any, any> {
                           <MenuItem eventKey='4'>Separated link</MenuItem>
                         </NavDropdown>
                       </Nav>
+                      <Navbar.Text>
+                          Signed in as: <Navbar.Link href="#">Mark Otto</Navbar.Link>
+                      </Navbar.Text>
+                      <Navbar.Text pullRight>
+                          Have a great day!
+                      </Navbar.Text>
                     </Navbar.Collapse>
                   </Navbar>
                 </div>

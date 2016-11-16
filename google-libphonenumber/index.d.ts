@@ -15,14 +15,26 @@ declare namespace libphonenumber {
     interface PhoneNumber {
     }
 
+    export module PhoneNumberUtil {
+        export enum ValidationResult {
+            IS_POSSIBLE,
+            INVALID_COUNTRY_CODE,
+            TOO_SHORT,
+            TOO_LONG
+        }
+    }
+
     export class PhoneNumberUtil {
         static getInstance(): PhoneNumberUtil
         parse(number: string, region: string): PhoneNumber;
         isValidNumber(phoneNumber: PhoneNumber): boolean;
-        isValidNumberForRegion(phoneNumber: PhoneNumber): boolean;
+        isPossibleNumber(phoneNumber: PhoneNumber): boolean;
+        isPossibleNumberWithReason(phoneNumber: PhoneNumber): PhoneNumberUtil.ValidationResult;
+        isValidNumberForRegion(phoneNumber: PhoneNumber, region: string): boolean;
         getRegionCodeForNumber(phoneNumber: PhoneNumber): string;
         isNANPACountry(regionCode: string): boolean;
         format(phoneNumber: PhoneNumber, format: PhoneNumberFormat): string;
+        parseAndKeepRawInput(number: string, regionCode: string): PhoneNumber;
     }
 
     export class AsYouTypeFormatter {
