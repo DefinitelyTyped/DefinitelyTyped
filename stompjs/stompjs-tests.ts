@@ -28,8 +28,21 @@ client.ws = new WebSocket('url');
 
 client.debug();
 
-client.connect();
-client.connect('', () => { }, {});
+client.connect({ login: 'user', passcode: 'pass' }, () => { });
+client.connect({ login: 'user', passcode: 'pass' }, () => { }, (error) => { });
+client.connect({ login: 'user', passcode: 'pass' }, (frame) => { });
+client.connect({ login: 'user', passcode: 'pass' }, (frame) => { }, (error) => { });
+client.connect({ login: 'user', passcode: 'pass', host: 'host' }, () => { });
+client.connect({ login: 'user', passcode: 'pass', host: 'host' }, (frame) => { });
+client.connect({ login: 'user', passcode: 'pass', host: 'host' }, () => { }, (error) => { });
+client.connect({ login: 'user', passcode: 'pass', host: 'host' }, (frame) => { }, (error) => { });
+
+client.connect('user', 'pass', () => { });
+client.connect('user', 'pass', () => { }, () => { });
+client.connect('user', 'pass', () => { }, (error) => { });
+client.connect('user', 'pass', () => { }, (error) => { }, 'host');
+client.connect('user', 'pass', (frame) => { }, (error) => { });
+client.connect('user', 'pass', (frame) => { }, (error) => { }, 'host');
 
 client.disconnect(() => { });
 client.disconnect(() => { }, {});
