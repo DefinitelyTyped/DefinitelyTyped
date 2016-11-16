@@ -1,4 +1,4 @@
-// Type definitions for commonjs-assert, known as "assert" on npm
+// Type definitions for assert
 // Project: https://github.com/defunctzombie/commonjs-assert
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
