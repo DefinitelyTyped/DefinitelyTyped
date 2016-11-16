@@ -16,14 +16,24 @@ declare namespace ReactAutosuggest {
     valueBeforeUpDown?: string;
   }
 
+  interface ChangeEvent {
+    newValue: string;
+    method: 'down' | 'up' | 'escape' | 'enter' | 'click' | 'type';
+  }
+
+  interface BlurEvent {
+    focusedSuggestion: any;
+  }
+
   interface InputProps extends React.HTMLAttributes<any> {
     value: string;
-    onChange: (event: React.FormEvent<any>, params?: {newValue: string, method: string}) => void;
+    onChange: (event: React.FormEvent<any>, params?: ChangeEvent) => void;
+    onBlur?: (event: React.FormEvent<any>, params?: BlurEvent) => void;
   }
 
   interface ExplicitSuggestionSelectedEventData<TSuggestion> {
-    method: string;
-    sectionIndex: number;
+    method: 'click' | 'enter';
+    sectionIndex: number | null;
     suggestion: TSuggestion;
     suggestionValue: string;
   }
@@ -32,15 +42,15 @@ declare namespace ReactAutosuggest {
   }
 
   interface Theme {
-    container: string;
-    containerOpen: string;
-    input: string;
-    sectionContainer: string;
-    sectionSuggestionsContainer: string;
-    sectionTitle: string;
-    suggestion: string;
-    suggestionFocused: string;
-    suggestionsContainer: string;
+    container?: string;
+    containerOpen?: string;
+    input?: string;
+    sectionContainer?: string;
+    sectionSuggestionsContainer?: string;
+    sectionTitle?: string;
+    suggestion?: string;
+    suggestionFocused?: string;
+    suggestionsContainer?: string;
   }
 
   interface AutosuggestProps extends React.Props<Autosuggest> {
@@ -49,6 +59,7 @@ declare namespace ReactAutosuggest {
     getSuggestionValue: (suggestion: any) => string;
     renderSuggestion: (suggestion: any, inputValues: InputValues) => JSX.Element;
     inputProps: InputProps;
+    alwaysRenderSuggestions?: boolean;
     shouldRenderSuggestions?: (value: string) => boolean;
     multiSection?: boolean;
     renderSectionTitle?: (section: any, inputValues: InputValues) => JSX.Element;
