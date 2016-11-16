@@ -1,4 +1,4 @@
-// Type definitions for express-formidable
+// Type definitions for express-formidable 1.0.0
 // Project: https://github.com/noraesae/express-formidable
 // Definitions by: Torkild Dyvik Olsen <https://github.com/tdolsen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
