@@ -1032,7 +1032,7 @@ declare namespace __MaterialUI {
         export class List extends React.Component<ListProps, {}> {
         }
 
-        interface ListItemProps extends React.HTMLAttributes<{}>, React.Props<ListItem> {
+        interface ListItemProps extends EnhancedButtonProps {
             // <EnhancedButton/> is the element that get the 'other' properties
             autoGenerateNestedIndicator?: boolean;
             disableKeyboardFocus?: boolean;
@@ -1099,7 +1099,7 @@ declare namespace __MaterialUI {
         export class Menu extends React.Component<MenuProps, {}> {
         }
 
-        interface MenuItemProps extends React.HTMLAttributes<{}>, React.Props<MenuItem> {
+        interface MenuItemProps extends List.ListItemProps {
             // <ListItem/> is the element that get the 'other' properties
             animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
             checked?: boolean;
