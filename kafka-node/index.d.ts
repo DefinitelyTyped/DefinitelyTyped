@@ -9,6 +9,7 @@
 export declare class Client {
     constructor(connectionString: string, clientId: string, options?: ZKOptions);
     close(callback?: Function): void;
+    topicExists(topics: Array<string>, callback: Function): void;
 }
 
 export declare class Producer {

@@ -393,8 +393,8 @@ declare namespace CodeMirror {
 
         /** Fired whenever a line is (re-)rendered to the DOM. Fired right after the DOM element is built, before it is added to the document.
         The handler may mess with the style of the resulting element, or add event handlers, but should not try to change the state of the editor. */
-        on(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: number, element: HTMLElement) => void ): void;
-        off(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: number, element: HTMLElement) => void ): void;
+        on(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => void ): void;
+        off(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => void ): void;
 
         /** Expose the state object, so that the Editor.state.completionActive property is reachable*/
         state: any;
@@ -1240,4 +1240,3 @@ declare namespace CodeMirror {
       }
     }
 }
-
