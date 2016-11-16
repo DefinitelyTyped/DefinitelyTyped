@@ -55,12 +55,21 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
             onChange: this.onChange.bind(this)
         };
 
+        const theme = {
+            input: 'themed-input-class',
+            container: 'themed-container-class',
+            suggestionFocused: 'active'
+        }
+
         return <Autosuggest suggestions={suggestions}
                             onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested.bind(this)}
                             getSuggestionValue={this.getSuggestionValue}
                             renderSuggestion={this.renderSuggestion}
                             onSuggestionSelected={this.onSuggestionsSelected}
-                            inputProps={inputProps}/>;
+                            alwaysRenderSuggestions={true}
+                            inputProps={inputProps}
+                            theme={theme}
+                            />;
     }
 
     protected onSuggestionsSelected(event: React.FormEvent<any>, data: ReactAutosuggest.ExplicitSuggestionSelectedEventData<Language>): void {
@@ -306,7 +315,7 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
             <span className="name">
             {
                 parts.map((part, index) => {
-                    const className = part.highlight ? 'highlight' : null;
+                    const className = part.highlight ? 'highlight' : undefined;
 
                     return <span className={className} key={index}>{part.text}</span>;
                     })
