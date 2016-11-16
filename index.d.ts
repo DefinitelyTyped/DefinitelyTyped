@@ -3342,6 +3342,10 @@ declare namespace Cy {
         }
 
 
+<<<<<<< HEAD
+=======
+        type Dictionary = { [key: string]: any };
+>>>>>>> updated versions
 
         // export interface ElementCss extends CSSStyleDeclaration { }
 

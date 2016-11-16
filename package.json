@@ -15,9 +15,11 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "typescript": "^2.1.1"
+  },
   "devDependencies": {
-    "typings": "~1.4.0"
+    "ts-node": "^1.7.0"
   },
   "repository": {
     "type": "git",
