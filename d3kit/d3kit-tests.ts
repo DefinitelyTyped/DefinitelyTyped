@@ -87,7 +87,9 @@ function test_svgchart() {
         options: d3kit.ChartOptions,
         margins: d3kit.ChartMargin,
         offsets: d3kit.ChartOffset,
-        svg: SVGElement, rootg: SVGElement, layers: d3kit.LayerOrganizer;
+        svg: d3.Selection<d3.BaseType, any, d3.BaseType, any>, 
+        rootg: d3.Selection<d3.BaseType, any, d3.BaseType, any>, 
+        layers: d3kit.LayerOrganizer;
 
     // create a div, append to body, return Node as type Element
     el = document.body.appendChild(document.createElement('div')) as Element;

@@ -1,4 +1,4 @@
-// Type definitions for d3Kit v3.1.1
+// Type definitions for d3Kit v3.1.2
 // Project: https://github.com/twitter/d3kit
 // Definitions by: Morgan Benton <https://github.com/morphatic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -78,8 +78,8 @@ export interface WatchOptions {
 }
 
 export class SvgChart extends AbstractChart {
-    svg: SVGElement;
-    rootG: SVGElement;
+    svg: d3.Selection<d3.BaseType, any, d3.BaseType, any>;
+    rootG: d3.Selection<d3.BaseType, any, d3.BaseType, any>;
     layers: LayerOrganizer;
     constructor(selector: string|Element, options?: ChartOptions);
 }
