@@ -3,6 +3,11 @@
         "module": "commonjs",
         "target": "es5",
         "noImplicitAny": false,
-        "sourceMap": false
-    }
+        "sourceMap": false,
+        "noEmit": true
+    },
+    "files": [
+        "webnotifications.d.ts",
+        "webnotifications-test.ts"
+    ]
 }
