@@ -19,7 +19,7 @@ declare namespace angular.bootstrap.calendar {
          * The action that occurs when it's clicked
          * @param args - the IEvent whose action was clicked
          */
-        onClick: (args: IEvent) => void;
+        onClick: (args: any) => void;
     }
 
     interface IEventColor {
