@@ -1,9 +1,10 @@
 // Type definitions for stripe
 // Project: https://stripe.com/
-// Definitions by: Andy Hawkins <https://github.com/a904guy/,http://a904guy.com>, Eric J. Smith <https://github.com/ejsmith/>, Amrit Kahlon <https://github.com/amritk/>
+// Definitions by: Andy Hawkins <https://github.com/a904guy/,http://a904guy.com>, Eric J. Smith <https://github.com/ejsmith/>, Amrit Kahlon <https://github.com/amritk/>, Adam Cmiel <https://github.com/adamcmiel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface StripeStatic {
+    applePay: StripeApplePay;
     setPublishableKey(key: string): void;
     validateCardNumber(cardNumber: string): boolean;
     validateExpiry(month: string, year: string): boolean;
@@ -34,11 +35,11 @@ interface StripeTokenResponse {
     id: string;
     card: StripeCardData;
     created: number;
-    currency: string;
     livemode: boolean;
     object: string;
+    type: string;
     used: boolean;
-    error: StripeError;
+    error?: StripeError;
 }
 
 interface StripeError {
@@ -51,10 +52,8 @@ interface StripeError {
 interface StripeCardData {
     object: string;
     last4: string;
-    type: string;
     exp_month: number;
     exp_year: number;
-    fingerprint: string;
     country?: string;
     name?: string;
     address_line1?: string;
@@ -87,7 +86,6 @@ interface StripeBankTokenResponse
 {
     id: string;
     bank_account: {
-        id: string;
         country: string;
         bank_name: string;
         last4: number;
@@ -99,10 +97,72 @@ interface StripeBankTokenResponse
     type: string;
     object: string;
     used: boolean;
-    error: StripeError;
+    error?: StripeError;
 }
 
 declare var Stripe: StripeStatic;
 declare module "Stripe" {
     export = StripeStatic;
+}
+
+interface StripeApplePay
+{
+    checkAvailability(resopnseHandler: (result: boolean) => void): void;
+    buildSession(data: StripeApplePayPaymentRequest,
+                 onSuccessHandler: (result: StripeApplePaySessionResult, completion: ((value: any) => void)) => void,
+                 onErrorHanlder: (error: { message: string }) => void): any;
+}
+
+type StripeApplePayBillingContactField = 'postalAddress' | 'name';
+type StripeApplePayShippingContactField = StripeApplePayBillingContactField | 'phone' | 'email';
+type StripeApplePayShipping = 'shipping' | 'delivery' | 'storePickup' | 'servicePickup';
+
+interface StripeApplePayPaymentRequest
+{
+    billingContact: StripeApplePayPaymentContact;
+    countryCode: string;
+    currencyCode: string;
+    total: StripeApplePayLineItem;
+    lineItems?: StripeApplePayLineItem[];
+    requiredBillingContactFields?: StripeApplePayBillingContactField[];
+    requiredShippingContactFields?: StripeApplePayShippingContactField[];
+    shippingContact?: StripeApplePayPaymentContact;
+    shippingMethods?: StripeApplePayShippingMethod[];
+    shippingType?: StripeApplePayShipping[];
+}
+
+// https://developer.apple.com/reference/applepayjs/1916082-applepay_js_data_types
+interface StripeApplePayLineItem
+{
+    type: 'pending' | 'final';
+    label: string;
+    amount: number;
+}
+
+interface StripeApplePaySessionResult
+{
+    token: StripeTokenResponse;
+    shippingContact?: StripeApplePayPaymentContact;
+    shippingMethod?: StripeApplePayShippingMethod;
+}
+
+interface StripeApplePayShippingMethod
+{
+    label: string;
+    detail: string;
+    amount: number;
+    identifier: string;
+}
+
+interface StripeApplePayPaymentContact
+{
+    emailAddress: string;
+    phoneNumber: string;
+    givenName: string;
+    familyName: string;
+    addressLines: string[];
+    locality: string;
+    administrativeArea: string;
+    postalCode: string;
+    countryCode: string;
 }

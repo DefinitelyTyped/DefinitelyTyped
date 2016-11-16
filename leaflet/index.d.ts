@@ -5,7 +5,43 @@
 
 /// <reference types="geojson" />
 
+type NativeMouseEvent = MouseEvent;
+
 declare namespace L {
+    export class Class {
+        static extend(props:any):any/* how to return constructor of self extended type ? */;
+        static include(props:any):any /* how to return self extended type ? */;
+        static mergeOptions(props:any): any /* how to return self extended type ? */;
+        static addInitHook(initHookFn: ()=> void): any/* how to return self extended type ? */;
+    }
+
+    export class DomUtil {
+        static get(id: string): HTMLElement;
+        static get(id: HTMLElement): HTMLElement;
+        static getStyle(el: HTMLElement, styleAttrib: string): string;
+        static create(tagName: String, className?: String, container?: HTMLElement): HTMLElement;
+        static remove(el: HTMLElement):void;
+        static empty(el: HTMLElement):void;
+        static toFront(el: HTMLElement):void;
+        static toBack(el: HTMLElement):void;
+        static hasClass(el: HTMLElement, name: String): Boolean;
+        static addClass(el: HTMLElement, name: String):void;
+        static removeClass(el: HTMLElement, name: String):void;
+        static setClass(el: HTMLElement, name: String):void;
+        static getClass(el: HTMLElement): String;
+        static setOpacity(el: HTMLElement, opacity: Number):void;
+        static testProp(props: String[]): String|boolean/*=false*/;
+        static setTransform(el: HTMLElement, offset: Point, scale?: Number):void;
+        static setPosition(el: HTMLElement, position: Point):void;
+        static getPosition(el: HTMLElement): Point
+        static disableTextSelection(): void
+        static enableTextSelection(): void
+        static disableImageDrag(): void
+        static enableImageDrag(): void
+        static preventOutline(el: HTMLElement): void
+        static restoreOutline(): void
+    }
+
     export interface CRS {
         latLngToPoint(latlng: LatLng, zoom: number): Point;
         latLngToPoint(latlng: LatLngLiteral, zoom: number): Point;
@@ -211,7 +247,7 @@ declare namespace L {
      * with an object (e.g. the user clicks on the map, causing the map to fire
      * 'click' event).
      */
-    export interface Evented {
+    export interface Evented extends Class {
         /**
          * Adds a listener function (fn) to a particular event type of the object.
          * You can optionally specify the context of the listener (object the this
@@ -1125,7 +1161,7 @@ declare namespace L {
         latlng: LatLng;
         layerPoint: Point;
         containerPoint: Point;
-        originalEvent: MouseEvent; // how can I reference the global MouseEvent?
+        originalEvent: NativeMouseEvent;
     }
 
     export interface LocationEvent extends Event {
@@ -1183,6 +1219,38 @@ declare namespace L {
 
     export interface DragEndEvent extends Event {
         distance: number;
+    }
+
+    export namespace DomEvent {
+        export function on(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: Object): typeof DomEvent;
+
+        export function on(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
+
+        export function off(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: Object): typeof DomEvent;
+
+        export function off(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
+
+        export function stopPropagation(ev: Event): typeof DomEvent;
+
+        export function disableScrollPropagation(el: HTMLElement): typeof DomEvent;
+
+        export function disableClickPropagation(el: HTMLElement): typeof DomEvent;
+
+        export function preventDefault(ev: Event): typeof DomEvent;
+
+        export function stop(ev: Event): typeof DomEvent;
+
+        export function getMousePosition(ev: Event, container?: HTMLElement): Point;
+
+        export function getWheelDelta(ev: Event): number;
+
+        export function addListener(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: Object): typeof DomEvent;
+
+        export function addListener(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
+
+        export function removeListener(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: Object): typeof DomEvent;
+
+        export function removeListener(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
     }
 
     interface DefaultMapPanes {

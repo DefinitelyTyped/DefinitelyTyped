@@ -18,29 +18,32 @@
 import * as FS from 'fs';
 import * as STREAM from 'stream';
 
-interface nameInterface {
-    name?: string;
-}
 
-interface Archiver extends STREAM.Transform {
-    pipe(writeStream: FS.WriteStream): void;
+declare function archiver(format: string, options?: archiver.Options): archiver.Archiver;
+
+declare namespace archiver {
+
+    export function create(format: string, options?: Options): Archiver;
+
+
+    export interface nameInterface {
+        name?: string;
+    }
+
+    export interface Archiver extends STREAM.Transform {
+        pipe(writeStream: FS.WriteStream): void;
         append(source: FS.ReadStream | Buffer | string, name: nameInterface): void;
 
         directory(dirpath: string, destpath: nameInterface | string): void;
         directory(dirpath: string, destpath: nameInterface | string, data: any | Function): void;
 
         bulk(mappings: any): void;
-    finalize(): void;
-}
+        finalize(): void;
+    }
 
-interface Options {
+    export interface Options {
 
-}
-
-declare function archiver(format: string, options?: Options): Archiver;
-
-declare namespace archiver {
-    function create(format: string, options?: Options): Archiver;
+    }
 }
 
 export = archiver;

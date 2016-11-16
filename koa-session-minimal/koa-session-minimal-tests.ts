@@ -1,6 +1,3 @@
-/// <reference path="../koa/koa.d.ts" />
-/// <reference path="koa-session-minimal.d.ts" />
-
 import * as Koa from "koa";
 import * as session from "koa-session-minimal";
 

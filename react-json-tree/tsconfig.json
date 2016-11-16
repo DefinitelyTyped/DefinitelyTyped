@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-json-tree-tests.ts"
+        "react-json-tree-tests.tsx"
     ]
 }
