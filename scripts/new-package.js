@@ -36,6 +36,7 @@ const tsconfig = {
     ]
 };
 write("tsconfig.json", JSON.stringify(tsconfig, undefined, 4));
+write("tslint.json", '{ "extends": "../tslint.json" }');
 function write(name, content) {
     fs_1.writeFileSync(path.join(newPackageName, name), content);
 }
