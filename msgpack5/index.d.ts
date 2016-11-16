@@ -6,46 +6,32 @@
 import stream = require('stream');
 import bl = require('bl');
   
-interface Options {
-  forceFloat64: boolean;
-  compatibilityMode: boolean;
+interface MsgPackOptions {
+  forceFloat64?: boolean;
+  compatibilityMode?: boolean;
 }
 
 declare namespace msgpack5 {
-  interface Options {
+  interface EncodeDecodeOptions {
     header?: boolean;
-    msgpack?: any;
   }
 
-  class Base extends stream.Transform {
-    protected _header: any;
-    protected _msgpack: any;
-  }  
-
-  class Encoder extends Base {
-    constructor(opts?: Options);
-    public _transform(obj: any, enc: any, done: Function): any;
-  }
-
-  class Decoder extends Base {
-    constructor(opts?: Options);
-    public _chunks: bl;
-    public _length: number;
-    public _transform(buf: any, enc: any, done: Function): any;
-  }
+  class Base extends stream.Transform {}  
+  class Encoder extends Base {}
+  class Decoder extends Base {}
 
   interface MessagePack {
     encode(obj: any): bl;
-    decode<T>(buf: Buffer): T;
-    decode<T>(buf: bl): T;
-    register(type: number, $constructor: any, encode: (obj: any) => Buffer, decode: (data: Buffer) => any): any;
-    registerEncoder(check: (obj: any) => boolean, encode: (obj: any) => Buffer): any;
-    registerDecoder(type: number, decode: (data: Buffer) => any): any;
-    encoder(opts?: Options): Encoder;
-    decoder(opts?: Options): Decoder;
+    decode(buf: Buffer): any;
+    decode(buf: bl): any;
+    register<T>(type: number, $constructor: any, encode: (obj: T) => Buffer, decode: (data: Buffer) => T): MessagePack;
+    registerEncoder<T>(check: (obj: T) => boolean, encode: (obj: T) => Buffer): MessagePack;
+    registerDecoder(type: number, decode: (data: Buffer) => any): MessagePack;
+    encoder(opts?: EncodeDecodeOptions): Encoder;
+    decoder(opts?: EncodeDecodeOptions): Decoder;
   }
 }
 
-declare function msgpack5(opts?: Options): msgpack5.MessagePack;
+declare function msgpack5(opts?: MsgPackOptions): msgpack5.MessagePack;
 
 export = msgpack5;
