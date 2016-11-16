@@ -31,6 +31,7 @@ _infrastructure/tests/build
 *.js.map
 !*.js/
 !scripts/new-package.js
+!scripts/lint.js
 
 node_modules
 

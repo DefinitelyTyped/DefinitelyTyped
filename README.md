@@ -117,6 +117,7 @@ DefinitelyTyped members routinely monitor for new PRs, though keep in mind that 
 
 For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/types-2.0/base64-js).
 
+
 #### Common mistakes
 
 * First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
@@ -151,6 +152,27 @@ Make a PR doing the following:
     - `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version.
 * Any other packages in DefinitelyTyped that referenced the deleted package should be updated to reference the bundled types.
     To do this, add a `package.json` with `"dependencies": { "foo": "x.y.z" }`.
+
+
+#### Lint
+
+To lint a package, just add a `tslint.json` to that package containing `{ "extends": "../tslint.json" }`. All new packages must be linted.
+If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. For example:
+
+```json
+{
+    "extends": "../tslint.json",
+    "rules": {
+        // This package uses the Function type, and it will take effort to fix.
+        "forbidden-types": false
+    }
+}
+```
+
+(To indicate that a lint rule truly does not apply, use `// tslint:disable:rule-name` or better, `//tslint:disable-next-line:rule-name`.)
+
+Only `.d.ts` files are linted.
+Test the linter by running `npm run lint -- package-name`. Do not use a globally installed tslint.
 
 
 ## FAQ
