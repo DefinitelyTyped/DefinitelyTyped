@@ -9,7 +9,6 @@ interface Notification {
     body: string;
 
 
-
     /**
      * The direction the popup will show
      * @readonly
@@ -41,13 +40,13 @@ interface Notification {
      */
     sound: string;
 
-    
+
     /**
      * The title shown in the notification
      * @readonly
      */
     title: string;
-    
+
 
     /**
      * The notification language
@@ -79,13 +78,19 @@ interface Notification {
      */
     requireInteraction?: boolean;
 
-
+    /**
+     * Close the Notification
+     */
     close(): void;
 
+    /**
+     * User Clicked the Notification
+     */
+    onclick: (event: Event) => void;
 
-
-    onclick: (event:Event) => void;
-
+    /**
+     * Error Occurred while creating the notification
+     */
     onerror: (error: Error) => void;
 
     /**
