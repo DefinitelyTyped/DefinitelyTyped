@@ -1047,14 +1047,14 @@ function TestPromiseClass() {
     var controlFlow: webdriver.promise.ControlFlow;
     var promise: webdriver.promise.Promise<string>;
     promise = new webdriver.promise.Promise<string>(function(
-          onFulfilled: (value: string)=>void,
-          onRejected: ()=>void) { });
+          resolve: (value: string)=>void,
+          reject: ()=>void) { });
     promise = new webdriver.promise.Promise<string>(function(
-          onFulfilled: (value: webdriver.promise.Promise<string>)=>void,
-          onRejected: ()=>void) { });
+          resolve: (value: webdriver.promise.Promise<string>)=>void,
+          reject: ()=>void) { });
     promise = new webdriver.promise.Promise<string>(function(
-          onFulfilled: (value: string)=>void,
-          onRejected: ()=>void) { }, controlFlow);
+          resolve: (value: string)=>void,
+          reject: ()=>void) { }, controlFlow);
 
     promise.cancel('Abort');
 
@@ -1071,7 +1071,9 @@ function TestPromiseClass() {
 }
 
 function TestThenableClass() {
-    var thenable: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>();
+    var thenable: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>((resolve, reject) => {
+        resolve("a");
+    });
 
     thenable.cancel('Abort');
 
@@ -1115,7 +1117,7 @@ function TestErrorCode() {
     errorCode = new webdriver.error.UnsupportedOperationError().code();
 }
 async function TestAsyncAwaitable() {
-    var thenable: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>();
+    var thenable: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>((resolve, reject) => resolve('foo'));
     var str: string = await thenable;
 }
 

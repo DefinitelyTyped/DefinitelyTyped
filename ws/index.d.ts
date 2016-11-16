@@ -135,7 +135,7 @@ declare namespace WebSocket {
 
         constructor(options?: IServerOptions, callback?: Function);
 
-        close(cb?: () => {}): void;
+        close(cb?: (err?: any) => void): void;
         handleUpgrade(request: http.IncomingMessage, socket: net.Socket,
             upgradeHead: Buffer, callback: (client: WebSocket) => void): void;
 

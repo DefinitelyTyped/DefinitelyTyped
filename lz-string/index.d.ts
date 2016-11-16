@@ -1,4 +1,4 @@
-﻿// Type definitions for lz-string v1.3.3
+﻿// Type definitions for lz-string v1.3.5
 // Project: https://github.com/pieroxy/lz-string
 // Definitions by: Roman Nikitin <https://github.com/M0ns1gn0r>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -57,5 +57,35 @@ declare namespace LZString {
         * @param compressed A string obtained from a call to compressToBase64().
         */
         decompressFromBase64(compressed: string): string;
+
+        /**
+        * produces ASCII strings representing the original string encoded in Base64 with a few 
+        * tweaks to make these URI safe. Hence, you can send them to the server without thinking 
+        * about URL encoding them. This saves bandwidth and CPU
+        *
+        * @param uncompressed A string which should be compressed.
+        */
+        compressToEncodedURIComponent(uncompressed: string): string;
+
+        /**
+        * Decompresses "valid" input string created by the method compressToEncodedURIComponent().
+        *
+        * @param compressed A string obtained from a call to compressToEncodedURIComponent().
+        */
+        decompressFromEncodedURIComponent(compressed: string): string;
+
+        /**
+        * produces an uint8Array
+        *
+        * @param uncompressed A string which should be compressed.
+        */
+        compressToUint8Array(uncompressed: string): Uint8Array;
+
+        /**
+        * Decompresses "valid" array created by the method compressToUint8Array().
+        *
+        * @param compressed A string obtained from a call to compressToUint8Array().
+        */
+        decompressFromUint8Array(compressed: Uint8Array): string;
     }
 }
