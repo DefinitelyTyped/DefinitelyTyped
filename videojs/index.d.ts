@@ -53,6 +53,7 @@ interface VideoJSPlayer {
 	addRemoteTextTrack(options : {}) : HTMLTrackElement;
 	removeRemoteTextTrack(track : HTMLTrackElement) : void;
 	poster(val?: string) : string|VideoJSPlayer;
+	playbackRate(rate?: number) : number;
 }
 
 interface VideoJSStatic {

@@ -18,6 +18,10 @@ namespace LocalForageTest {
         let newNumber: number = num;
     });
 
+    localForage.length().then((num: number) => {
+        var newNumber: number = num;
+    });
+
     localForage.key(0, (err: any, value: string) => {
         let newError: any = err;
         let newValue: string = value;
@@ -26,6 +30,10 @@ namespace LocalForageTest {
     localForage.keys((err: any, keys: Array<string>) => {
         let newError: any = err;
         let newArray: Array<string> = keys;
+    });
+
+    localForage.keys().then((keys: Array<string>) => {
+        var newArray: Array<string> = keys;
     });
 
     localForage.getItem("key",(err: any, str: string) => {
@@ -53,6 +61,20 @@ namespace LocalForageTest {
     localForage.removeItem("key").then(() => {
     });
     
+    localForage.getDriver("CustomDriver").then((result: LocalForageDriver) => {
+        var driver: LocalForageDriver = result;
+        // we need to use a variable for proper type guards before TS 2.0
+        var _support = driver._support;
+        if (typeof _support === "function") {
+            // _support = _support.bind(driver);
+            _support().then((result: boolean) => {
+                let doesSupport: boolean = result;
+            });
+        } else if (typeof _support === "boolean") {
+            let doesSupport: boolean = _support;
+        }
+    });
+
     {
         let config: boolean;
 
