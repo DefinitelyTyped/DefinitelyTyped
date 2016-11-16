@@ -1,6 +1,6 @@
 // Type definitions for react-autosuggest v3.7.3
 // Project: http://react-autosuggest.js.org/
-// Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>
+// Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>, Philip Ottesen <https://github.com/pjo256>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="react"/>
