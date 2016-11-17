@@ -3668,8 +3668,8 @@ declare module _ {
         * @param predicate Predicate function.
         * @param context `this` object in `iterator`, optional.
         */
-        findKey<T>(obj: _.Dictionary<T>, predicate: _.ObjectIterator<T, boolean>, context?: any): T
-
+        findKey<T>(obj: _.Dictionary<T>, predicate: _.ObjectIterator<T, boolean>, context?: any): string;
+		
         /**
         * Return a copy of the object, filtered to only have values for the whitelisted keys
         * (or array of valid keys).
