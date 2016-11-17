@@ -1,4 +1,4 @@
-/// <reference path="./index.d.ts"/>
+/// <reference path="./sails.io.js.d.ts"/>
 import * as SocketIO from 'socket.io-client';
 import * as SailsIOJS from 'sails.io.js';
 const io = SailsIOJS(SocketIO);

@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
+        "sails.io.js.d.ts",
         "sails.io.js-tests.ts"
     ]
 }
