@@ -429,7 +429,7 @@ interface JSTreeStaticDefaultsCheckbox {
     * @name $.jstree.defaults.checkbox.cascade
     * @plugin checkbox
     */
-    cascade: boolean;
+    cascade: string;
 
     /**
     * This setting controls if checkbox are bound to the general tree selection 
