@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "node-usb.d.ts",
-        "node-usb-tests.ts"
+        "index.d.ts",
+        "usb-tests.ts"
     ]
 }
