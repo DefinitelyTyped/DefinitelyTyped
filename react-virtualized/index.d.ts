@@ -120,4 +120,7 @@ declare module "react-virtualized" {
 
     type WindowScrollerProps = any;
     export class WindowScroller extends React.Component<WindowScrollerProps, {}> { }
+
+    type ListProps = any;
+    export class List extends React.Component<ListProps, {}> { }
 }
