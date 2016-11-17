@@ -1,7 +1,8 @@
-﻿// Type definitions for response-time 2.2.0
+﻿// Type definitions for response-time 2.3.2
 // Project: https://github.com/expressjs/response-time
-// Definitions by: Uros Smolnik <https://github.com/urossmolnik/>
+// Definitions by: Uros Smolnik <https://github.com/urossmolnik/>, TonyYang <https://github.com/TonyPythoneer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 
 /* =================== USAGE ===================
 
@@ -11,27 +12,33 @@
  =============================================== */
 
 
+/// <reference types="express" />
+/// <reference types="node" />
+
+import express = require("express");
+import http = require("http");
 
 
-import express = require('express');
+export = responseTime;
 
 /**
  * Response time header for node.js
  * Returns middleware that adds a X-Response-Time header to responses.
  */
-declare function responseTime(options?: {
-    /**
-    * The fixed number of digits to include in the output, which is always in milliseconds, defaults to 3 (ex: 2.300ms).
-    */
-    digits?: number;
-    /**
-     * The name of the header to set, defaults to X-Response-Time.
-     */
-    header?: string;
-    /**
-     * Boolean to indicate if units of measurement suffix should be added to the output, defaults to true (ex: 2.300ms vs 2.300).
-     */
-    suffix?: boolean;
-}): express.RequestHandler;
+declare function responseTime(options?: responseTime.ResponseTimeOptions):
+    (request: http.IncomingMessage, response: http.ServerResponse, callback: (err: any) => void) => any;
+declare function responseTime(fn: responseTime.ResponseTimeFunction):
+    (request: http.IncomingMessage, response: http.ServerResponse, callback: (err: any) => void) => any;
 
-export = responseTime;
+
+declare namespace responseTime {
+    export interface ResponseTimeOptions {
+        digits?: number;
+        header?: string;
+        suffix?: boolean;
+    }
+
+    export interface ResponseTimeFunction {
+        (request: http.IncomingMessage, response: http.ServerResponse, time: number ): any;
+    }
+}
