@@ -59,9 +59,7 @@ export interface QtyConverter {
     (sourceValues: number[]): number[];
 }
 
-export interface QtyFormatter {
-    (scalar: number, unit: string): string;
-}
+export type QtyFormatter = (scalar: number, unit: string) => string;
 
 export type QtyComparisonResult = -1 | 0 | 1;
 
