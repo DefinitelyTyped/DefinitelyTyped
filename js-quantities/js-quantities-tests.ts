@@ -1,4 +1,5 @@
 import "../jasmine";
+import { Qty, QtyFormatter } from ".";
 
 describe("js-quantities", function() {
   "use strict";
@@ -216,13 +217,6 @@ describe("js-quantities", function() {
       expect(Qty("   ").same(Qty("1"))).toBe(true);
     });
 
-    it("should throw error when passing a null value", function() {
-      expect(
-        function() { Qty(null); }
-      ).toThrow("Only string, number or quantity accepted as single " +
-                "initialization value");
-    });
-
     it("should throw error when passing NaN", function() {
       expect(
         function() { Qty(NaN); }
@@ -280,19 +274,6 @@ describe("js-quantities", function() {
       var qty1 = Qty("1");
       var qty2 = Qty("2");
       expect(qty1.isCompatible(qty2)).toBe(true);
-    });
-
-    it("should return false with null or undefined", function() {
-      var qty1 = Qty("1 m*kg/s");
-
-      expect(qty1.isCompatible(undefined)).toBe(false);
-      expect(qty1.isCompatible(null)).toBe(false);
-    });
-
-    it("should return false with non quantities", function() {
-      var qty1 = Qty("1 m*kg/s");
-
-      expect(qty1.isCompatible({})).toBe(false);
     });
   });
 
@@ -1046,8 +1027,8 @@ describe("js-quantities", function() {
 
   describe("format", function() {
     describe("custom formatter", function() {
-      var roundingFormatter = function(maxDecimals) {
-        return function(scalar, units) {
+      var roundingFormatter = function(maxDecimals: number) {
+        return function(scalar: number, units: string) {
           var pow = Math.pow(10, maxDecimals);
           var rounded = Math.round(scalar * pow) / pow;
 
@@ -1075,7 +1056,7 @@ describe("js-quantities", function() {
       });
 
       describe("globally set as default formatter", function() {
-        var previousFormatter;
+        var previousFormatter: QtyFormatter;
 
         beforeEach(function() {
           previousFormatter = Qty.formatter;
@@ -1162,10 +1143,6 @@ describe("js-quantities", function() {
   });
 
   describe("Qty.parse", function() {
-    it("should throw if parsed argument is not a string", function() {
-      expect(function() { Qty.parse(5); }).toThrow("Argument should be a string");
-    });
-
     it("should not throw if parsed argument is a string", function() {
       expect(function() { Qty.parse("foo"); }).not.toThrow("Argument should be a string");
     });
@@ -1236,7 +1213,7 @@ describe("js-quantities", function() {
 
     it("should not contain duplicate kind names", function() {
       var kinds = Qty.getKinds();
-      var map = {};
+      var map: { [key: string]: number } = {};
       kinds.forEach(function(kind) {
         map[kind] = 1;
       });
