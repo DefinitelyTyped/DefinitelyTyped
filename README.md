@@ -63,10 +63,8 @@ You can also directly edit the types in `node_modules/@types/foo/index.d.ts`, or
 Add to your `tsconfig.json`:
 
 ```json
-"baseUrl": ".",
-"paths": {
-    "*": ["types/*"]
-}
+"baseUrl": "types",
+"typeRoots": ["types"],
 ```
 
 (You can also use `src/types`.)
