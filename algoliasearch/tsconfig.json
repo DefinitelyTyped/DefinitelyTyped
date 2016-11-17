@@ -14,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "algoliasearch-client-js-tests.ts"
+        "algoliasearch-tests.ts"
     ]
 }

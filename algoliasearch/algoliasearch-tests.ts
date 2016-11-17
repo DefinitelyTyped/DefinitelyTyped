@@ -1,5 +1,6 @@
-
 import algoliasearch = require('algoliasearch');
+import { ClientOptions, SynonymOption, AlgoliaUserKeyOptions, SearchSynonymOptions,
+    AlgoliaSecuredApiOptions, AlgoliaIndexSettings, AlgoliaQueryParameters, AlgoliaIndex } from "algoliasearch";
 
 var _clientOptions: ClientOptions = {
     timeout : 12,
