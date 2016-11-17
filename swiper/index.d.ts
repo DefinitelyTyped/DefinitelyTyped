@@ -194,3 +194,12 @@ declare class Swiper {
     getLastSlide(): SwiperSlide;
     getFirstSlide(): SwiperSlide;
 }
+
+declare module "swiper" {
+    const swiper: {
+		new (element: Element, options?: SwiperOptions): Swiper;
+		new (element: string, options?: SwiperOptions): Swiper;
+	};
+
+    export = swiper;
+}
