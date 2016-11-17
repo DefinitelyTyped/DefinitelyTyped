@@ -7,7 +7,7 @@ declare module DbJs {
     interface ErrorListener {
         (err: Error): void;
     }
-    
+
     interface OpenOptions {
         server: string;
         version: number;
@@ -29,14 +29,14 @@ declare module DbJs {
     interface CountableQuery<T> {
         count(): ExecutableQuery<T>;
     }
-    
+
     interface KeysQuery<T> extends DescableQuery<T>, ExecutableQuery<T>, FilterableQuery<T>, DistinctableQuery<T>, MappableQuery<T>    {
-    } 
+    }
 
     interface KeyableQuery<T> {
         keys(): KeysQuery<T>;
     }
-    
+
     interface FilterQuery<T> extends KeyableQuery<T>, ExecutableQuery<T>, FilterableQuery<T>, DescableQuery<T>, DistinctableQuery<T>, ModifiableQuery<T>, LimitableQuery<T>, MappableQuery<T> {
     }
 
@@ -44,14 +44,14 @@ declare module DbJs {
         filter<TValue>(index: string, value: TValue): FilterQuery<T>;
         filter(filter: (value: T) => boolean): FilterQuery<T>;
     }
-    
-    interface DescQuery<T> extends KeyableQuery<T>, CountableQuery<T>, ExecutableQuery<T>, FilterableQuery<T>, DescableQuery<T>, ModifiableQuery<T>, MappableQuery<T> {    
+
+    interface DescQuery<T> extends KeyableQuery<T>, CountableQuery<T>, ExecutableQuery<T>, FilterableQuery<T>, DescableQuery<T>, ModifiableQuery<T>, MappableQuery<T> {
     }
 
     interface DescableQuery<T> {
         desc(): DescQuery<T>;
     }
-    
+
     interface DistinctQuery<T> extends KeyableQuery<T>, ExecutableQuery<T>, FilterableQuery<T>, DescableQuery<T>, ModifiableQuery<T>, MappableQuery<T>, CountableQuery<T> {
     }
 
@@ -71,7 +71,7 @@ declare module DbJs {
     interface MappableQuery<T> {
         map<TMap>(fn: (value: T) => TMap): Query<TMap>;
     }
-    
+
     interface Query<T> extends Promise<T>, KeyableQuery<T>, ExecutableQuery<T>, FilterableQuery<T>, DescableQuery<T>, DistinctableQuery<T>, ModifiableQuery<T>, LimitableQuery<T>, MappableQuery<T>, CountableQuery<T> {
     }
 
@@ -93,11 +93,11 @@ declare module DbJs {
         getIndexedDB(): IDBDatabase;
         close(): void;
     }
-    
+
     interface IndexAccessibleServer {
         [store: string]: TypedObjectStoreServer<any>;
     }
-    
+
     interface ObjectStoreServer {
         add<T>(table: string, entity: T): Promise<T>;
         add<T>(table: string, ...entities: T[]): Promise<T[]>;
@@ -142,11 +142,11 @@ declare module DbJs {
         query(index: string): IndexQuery<T>;
         count(key: any): Promise<number>;
     }
-    
+
     type Server = DbJs.IndexAccessibleServer & DbJs.ObjectStoreServer & DbJs.BaseServer;
 }
 
-declare module "db" {
+declare module "db.js" {
     var db: DbJs.DbJsStatic;
     export = db;
 }
