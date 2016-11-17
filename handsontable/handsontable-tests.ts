@@ -267,6 +267,7 @@ function test_HandsontableMethods() {
   hot.loadData([]);
   hot.populateFromArray(123, 123, [], 123, 123, 'foo', 'foo', 'foo', []);
   hot.propToCol('foo');
+  hot.propToCol(123);
   hot.removeCellMeta(123, 123, 'foo');
   hot.removeHook('foo', function() {});
   hot.render();
