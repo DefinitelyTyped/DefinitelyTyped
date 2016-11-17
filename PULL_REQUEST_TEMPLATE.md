@@ -4,6 +4,7 @@ Please fill in this template.
 - [ ] Test the change in your own code.
 - [ ] Follow the advice from the [readme](https://github.com/DefinitelyTyped/DefinitelyTyped#make-a-pull-request).
 - [ ] Avoid [common mistakes](https://github.com/DefinitelyTyped/DefinitelyTyped#common-mistakes).
+- [ ] Run `npm run lint -- package-name` if a `tslint.json` is present.
 
 If adding a new definition:
 - [ ] The package does not provide its own types, and you can not add them.
