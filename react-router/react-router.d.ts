@@ -524,6 +524,7 @@ declare module "react-router" {
     export type EnterHook = ReactRouter.EnterHook
     export type LeaveHook = ReactRouter.LeaveHook
     export type ParseQueryString = ReactRouter.ParseQueryString
+    export type LocationDescriptor = ReactRouter.LocationDescriptor
     export type RedirectFunction = ReactRouter.RedirectFunction
     export type RouteComponentProps<P, R> = ReactRouter.RouteComponentProps<P, R>
     export type RouteConfig = ReactRouter.RouteConfig
