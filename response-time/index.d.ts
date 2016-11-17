@@ -12,10 +12,9 @@
  =============================================== */
 
 
-/// <reference types="express" />
 /// <reference types="node" />
 
-import express = require("express");
+
 import http = require("http");
 
 
