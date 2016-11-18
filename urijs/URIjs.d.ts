@@ -52,8 +52,6 @@ declare namespace uri {
         is(qry: string): boolean;
         iso8859(): URI;
 
-        joinPaths(...paths: (string | URI)[]): URI;
-
         normalize(): URI;
         normalizeFragment(): URI;
         normalizeHash(): URI;
@@ -190,6 +188,8 @@ declare namespace uri {
         expand(template: string, vals: Object): URI;
 
         iso8859(): void;
+    
+        joinPaths(...paths: (string | URI)[]): URI;
 
         parse(url: string): {
             protocol: string;

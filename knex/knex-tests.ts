@@ -414,11 +414,14 @@ knex.transaction(function(trx) {
   console.error(error);
 });
 
+knex.schema.withSchema("public").hasTable("table") as Promise<boolean>;
+
 knex.schema.createTable('users', function (table) {
   table.increments();
   table.string('name');
   table.enu('favorite_color', ['red', 'blue', 'green']);
   table.timestamps();
+  table.timestamp('created_at').defaultTo(knex.fn.now());
 });
 
 knex.schema.renameTable('users', 'old_users');
@@ -453,6 +456,10 @@ knex.schema.raw("SET sql_mode='TRADITIONAL'")
     table.dropColumn('name');
     table.string('first_name');
     table.string('last_name');
+    table.dropUnique(["name1", "name2"], "index_name");
+    table.dropUnique(["name1", "name2"]);
+    table.dropPrimary();
+    table.dropPrimary("constraint_name");
 });
 
 knex('users')

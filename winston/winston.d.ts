@@ -25,8 +25,14 @@ declare module "winston" {
   export var level: string;
 
   export var log: LogMethod;
+                
+  export type CLILoggingLevel = 'error' | 'warn' | 'help' | 'data' | 'info' | 'debug' | 'prompt' | 'verbose' | 'input' | 'silly';
+  export type NPMLoggingLevel = 'error' | 'warn' | 'info' | 'verbose' | 'debug' | 'silly';
+  export type SyslogLoggingLevel = 'emerg' | 'alert' | 'crit' | 'error' | 'warning' | 'notice' | 'info' | 'debug';
 
+  export var silly: LeveledLogMethod;
   export var debug: LeveledLogMethod;
+  export var verbose: LeveledLogMethod;
   export var info: LeveledLogMethod;
   export var warn: LeveledLogMethod;
   export var error: LeveledLogMethod;
@@ -46,6 +52,7 @@ declare module "winston" {
   export function setLevels(target: any): any;
   export function cli(): LoggerInstance;
   export function close(): void;
+  export function configure(options: LoggerOptions): void;
 
   export interface ExceptionProcessInfo {
     pid: number;
@@ -108,7 +115,9 @@ declare module "winston" {
 
     log: LogMethod;
 
+    silly: LeveledLogMethod;
     debug: LeveledLogMethod;
+    verbose: LeveledLogMethod;
     info: LeveledLogMethod;
     warn: LeveledLogMethod;
     error: LeveledLogMethod;
@@ -124,10 +133,10 @@ declare module "winston" {
     remove(transport: TransportInstance): LoggerInstance;
     startTimer(): ProfileHandler;
     profile(id: string, msg?: string, meta?: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-
+    configure(options: LoggerOptions): void;
     setLevels(target: any): any;
     cli(): LoggerInstance;
-    
+
     level: string;
   }
 

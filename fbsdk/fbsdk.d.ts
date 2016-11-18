@@ -29,13 +29,13 @@ interface PageTabDialogParams {
 
 interface RequestsDialogParams {
     method: string; // "apprequests"
-    app_id: string;
+    app_id?: string;
     redirect_uri?: string;
     to?: string;
     message: string;
     action_type?: string; // "send" | "askfor" | "turn"
     object_id?: string;
-    filters: string /* "app_users" | "app_non_users" */ | {
+    filters: string[] | {
         name: string;
         user_ids: string[];
     };
@@ -171,23 +171,44 @@ interface FBResponseObject {
     error: any;
 }
 
+declare type LoginStatus = "connected" | "not_authorized" | "unknown";
+declare type ApiMethod = "get" | "post" | "delete";
+
+interface AuthResponse {
+    accessToken: string;
+    expiresIn: number;
+    signedRequest: string;
+    userID: string;
+}
+
+interface FBError {
+    type: string;
+    message: string;
+    code: number;
+    error_subcode?: number;
+    error_user_msg?: string;
+    error_user_title?: string;
+    fbtrace_id: string;
+}
+
 interface FBSDK{
     /* This method is used to initialize and setup the SDK. */
     init(fbInitObject : FBInitParams) : void;
 
     /* This method lets you make calls to the Graph API. */
-    api(path : string, method : string, callback : (fbResponseObject : Object) => any) :  Object;
-    api(path : string, params : Object, callback : (fbResponseObject : FBResponseObject) => any) :  Object;
-    api(path : string, method : string, params : Object, callback : (fbResponseObject : Object) => any) : Object;
+    api(path: string, callback: (response: any) => void): void;
+    api(path: string, method: ApiMethod, callback: (response: any) => void): void;
+    api(path: string, params: any, callback: (response: any) => void): void;
+    api(path: string, method: ApiMethod, params: any, callback: (response: any) => void): void;
 
     /* This method is used to trigger different forms of Facebook created UI dialogs. */
     ui(params : FBUIParams, handler : (fbResponseObject : Object) => any) : void;
 
     /* Allows you to determine if a user is logged in to Facebook and has authenticated your app */
-    getLoginStatus(handler : Function, force?: Boolean) : void;
+    getLoginStatus(handler : (fbResponseObject : FB.LoginStatusResponse) => any, force?: Boolean) : void;
 
     /* Calling FB.login prompts the user to authenticate your application using the Login Dialog. */
-    login(handler : (fbResponseObject : Object) => any, params?: FBLoginOptions): void;
+    login(handler : (fbResponseObject : FB.LoginStatusResponse) => any, params?: FBLoginOptions): void;
 
     /* Log the user out of your site and Facebook */
     logout(handler : (fbResponseObject : Object) => any) : void;
@@ -198,6 +219,7 @@ interface FBSDK{
     Event : FBSDKEvents;
     XFBML : FBSDKXFBML;
     Canvas : FBSDKCanvas;
+    Error: FBError;
 }
 
 interface Window{
@@ -206,6 +228,13 @@ interface Window{
 
 declare module "FB" {
     export = FB;
+}
+
+declare namespace FB {
+    export interface LoginStatusResponse {
+        authResponse?: AuthResponse;
+        status: LoginStatus;
+    }
 }
 
 declare var FB : FBSDK;

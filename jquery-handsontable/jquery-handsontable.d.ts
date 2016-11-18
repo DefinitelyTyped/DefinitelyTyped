@@ -293,6 +293,11 @@ declare namespace Handsontable {
         manualRowResize?: boolean;
 
         /**
+         * Turns on Manual row move, if set to a boolean or define initial row order, if set to an array of row indexes.
+         */
+        manualRowMove?: boolean;
+
+        /**
          * Setting to true enables the copyPaste plugin, which enables the copying and pasting to the clipboard.
          */
         copyPaste?: boolean;
