@@ -14,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "typescriptServices-tests.ts"
+        "tinycolor2-tests.ts"
     ]
 }

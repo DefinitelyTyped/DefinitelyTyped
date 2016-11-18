@@ -15,7 +15,10 @@
     "node": ">= 6.9.1"
   },
   "scripts": {
-    "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed"
+    "compile-scripts": "tsc -p scripts",
+    "new-package": "node scripts/new-package.js",
+    "lint": "node scripts/lint.js",
+    "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed --nProcesses 1"
   },
   "devDependencies": {
     "types-publisher": "Microsoft/types-publisher#production"

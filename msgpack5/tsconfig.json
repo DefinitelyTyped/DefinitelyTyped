@@ -1,9 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "moduleResolution": "node",
         "target": "es6",
         "noImplicitAny": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -13,7 +14,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "node-usb.d.ts",
-        "node-usb-tests.ts"
+        "index.d.ts",
+        "msgpack5-test.ts"
     ]
 }
