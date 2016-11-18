@@ -20,9 +20,9 @@ declare namespace ReactSelectClass {
 
     export interface Option {
         /** Text for rendering */
-        label: string;
+        label?: string;
         /** Value for searching */
-        value: string | number;
+        value?: string | number;
         /**
          * Allow this option to be cleared
          * @default true
