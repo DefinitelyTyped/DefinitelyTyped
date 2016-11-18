@@ -875,6 +875,7 @@ User.findAll( { order : [[User, { model : User, as : 'residents' }, 'lastName', 
 User.findAll( { include : [User], order : [[User, 'name', 'c']] } );
 User.findAll( { include : [{ all : 'HasMany', attributes : ['name'] }] } );
 User.findAll( { include : [{ all : true }, { model : User, attributes : ['id'] }] } );
+User.findAll( { include : [{ all : true, nested: true }, { model : User, attributes : ['id'] }] } );
 User.findAll( { include : [{ all : 'BelongsTo' }] } );
 User.findAll( { include : [{ all : true }] } );
 User.findAll( { where : { username : 'barfooz' }, raw : true } );
