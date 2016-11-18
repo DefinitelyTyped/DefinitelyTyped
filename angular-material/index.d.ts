@@ -76,7 +76,7 @@ declare module 'angular' {
         }
 
         interface IColorService {
-            applyThemeColors(element: Element|JQuery, colorExpression: IColorExpression): void;
+            applyThemeColors(element: Element | JQuery, colorExpression: IColorExpression): void;
             getThemeColor(expression: string): string;
             hasTheme(): boolean;
         }
@@ -224,7 +224,7 @@ declare module 'angular' {
             hues: IThemeHues;
         }
 
-        interface IBrowserColors{
+        interface IBrowserColors {
             theme: string;
             palette: string;
             hue: string;
@@ -354,6 +354,9 @@ declare module 'angular' {
             removeClass(oldClass: string): void;
             toggleClass(toggleClass: string): void;
             updatePosition(position: IPanelPosition): void;
+            registerInterceptor(type: string, callback: () => angular.IPromise<any>): IPanelRef;
+            removeInterceptor(type: string, callback: () => angular.IPromise<any>): IPanelRef;
+            removeAllInterceptors(type?: string): IPanelRef;
         }
 
         interface IPanelPosition {
@@ -369,8 +372,8 @@ declare module 'angular' {
             centerVertically(): IPanelPosition;
             center(): IPanelPosition;
             addPanelPosition(xPosition: string, yPosition: string): IPanelPosition;
-            withOffsetX(offsetX: string): IPanelPosition;
-            withOffsetY(offsetY: string): IPanelPosition;
+            withOffsetX(offsetX: string | ((panel: IPanelPosition) => string)): IPanelPosition;
+            withOffsetY(offsetY: string | ((panel: IPanelPosition) => string)): IPanelPosition;
         }
 
         interface IPanelAnimation {
@@ -402,6 +405,9 @@ declare module 'angular' {
                 SLIDE: string,
                 SCALE: string,
                 FADE: string,
+            };
+            interceptorTypes: {
+                CLOSE: string,
             };
         }
     }

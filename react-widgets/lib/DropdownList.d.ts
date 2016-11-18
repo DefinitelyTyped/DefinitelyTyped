@@ -39,7 +39,7 @@ interface DropdownListProps extends React.Props<DropdownListClass> {
      * ThetextFieldprop may also also used as to find an item in the list as you type. Providing
      * an accessor function allows for computed text values
      */
-    textField?: string;
+    textField?: string | ((dataItem: any) => string);
     /**
      * This component is used to render the selected value of the DropdownList. The default
      * component renders the text of the selected item (specified by textfield)

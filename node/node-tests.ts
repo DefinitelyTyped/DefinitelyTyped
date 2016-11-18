@@ -542,6 +542,15 @@ namespace crypto_tests {
 
 	assert.deepEqual(clearText2, clearText);
     }
+
+    {
+      let buffer1: Buffer = new Buffer([1, 2, 3, 4, 5]);
+      let buffer2: Buffer = new Buffer([1, 2, 3, 4, 5]);
+      let buffer3: Buffer = new Buffer([5, 4, 3, 2, 1]);
+
+      assert(crypto.timingSafeEqual(buffer1, buffer2))
+      assert(!crypto.timingSafeEqual(buffer1, buffer3))
+    }
 }
 
 //////////////////////////////////////////////////
