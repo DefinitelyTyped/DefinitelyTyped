@@ -44,3 +44,5 @@ var res18: moment.Moment = range.start;
 var res19: moment.Moment = range.end;
 
 var res20: Date[] = range.toArray();
+var res21: Date[] = range.toArray('days');
+var res22: Date[] = range.toArray('days', true);
