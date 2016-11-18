@@ -518,35 +518,35 @@ declare namespace Cy {
         /**
         * Get a name-value pair object containing visual style properties and their values for the element.
         */
-        style(): Css.ElementCss;
+        style(): Css.Node | Css.Edge;
         /**
          * Get a particular style property value.
          * 
          * @param name The name of the visual style property to get.
          */
-        style(name: string): Css.ElementCss;
+        style(name: string): Css.Node | Css.Edge;
 
         /**
          * Get a name-value pair object containing visual style properties and their values for the element.
          */
-        css(): Css.ElementCss;
+        css(): Css.Node | Css.Edge;
         /**
          * Get a particular style property value.
          * 
          * @param name The name of the visual style property to get.
          */
-        css(name: string): Css.ElementCss;
+        css(name: string): Css.Node | Css.Edge;
 
         /**
          * Get a name-value pair object containing visual style properties and their values for the element.
          */
-        bypass(): Css.ElementCss;
+        bypass(): Css.Node | Css.Edge;
         /**
          * Get a particular style property value.
          * 
          * @param name The name of the visual style property to get.
          */
-        bypass(name: string): Css.ElementCss;
+        bypass(name: string): Css.Node | Css.Edge;
 
 
         /**
@@ -569,7 +569,7 @@ declare namespace Cy {
          * 
          * @param props An object with name-value pairs representing properties to set on the elements.
          */
-        style(props: Css.ElementCss): CollectionElements;
+        style(props: Css.Node | Css.Edge): CollectionElements;
 
         /**
          * Set the specified visual style property for the elements.
@@ -591,7 +591,7 @@ declare namespace Cy {
          * 
          * @param props An object with name-value pairs representing properties to set on the elements.
          */
-        css(props: Css.ElementCss): CollectionElements;
+        css(props: Css.Node | Css.Edge): CollectionElements;
 
         /**
          * Set the specified visual style property for the elements.
@@ -613,7 +613,7 @@ declare namespace Cy {
          * 
          * @param props An object with name-value pairs representing properties to set on the elements.
          */
-        bypass(props: Css.ElementCss): CollectionElements;
+        bypass(props: Css.Node | Css.Edge): CollectionElements;
 
         /**
          * Removes all overridden style of the elements.
@@ -667,7 +667,7 @@ declare namespace Cy {
         animate(anis: {
             postion?: Position,
             renderedPosition?: Position,
-            style?: Css.ElementCss
+            style?: Css.Node | Css.Edge
         }, options?: {
             duration?: number,
             queue?: boolean,
@@ -2208,23 +2208,23 @@ declare namespace Cy {
         /**
          * Get a name-value pair object containing rendered visual style properties and their values for the element.
          */
-        renderedStyle(): Css.ElementCss;
+        renderedStyle(): Css.Node | Css.Edge;
         /**
          * Get a particular rendered style property value.
          * 
          * @param name The name of the visual style property to get.
          */
-        renderedStyle(name: string): Css.ElementCss;
+        renderedStyle(name: string): Css.Node | Css.Edge;
         /**
          * Get a name-value pair object containing rendered visual style properties and their values for the element.
          */
-        renderedCss(): Css.ElementCss;
+        renderedCss(): Css.Node | Css.Edge;
         /**
          * Get a particular rendered style property value.
          * 
          * @param name The name of the visual style property to get.
          */
-        renderedCss(name: string): Css.ElementCss;
+        renderedCss(name: string): Css.Node | Css.Edge;
 
         /**
          * Get whether the element is visible.
@@ -2330,7 +2330,7 @@ declare namespace Cy {
         /**
          * you should only use `style`/`css` for very special cases; use classes instead
          */
-        css?: Css.ElementCss;
+        css?: Css.Node | Css.Edge;
     }
     interface ElementDataDefinition {
         /**
@@ -2358,9 +2358,15 @@ declare namespace Cy {
         parent?: string;
     }
 
+    /**
+     * http://js.cytoscape.org/#cy.style
+     */
     interface Stylesheet {
         selector: string;
-        css: Css.ElementCss;
+        css: Css.Node | Css.Edge;
+    }
+
+    interface ElementStylesheet extends Stylesheet {
         json(): any;
     }
 
@@ -2387,7 +2393,7 @@ declare namespace Cy {
          * (i.e. width !== height for several equilateral shapes).
          * 'polygon' is a custom polygon specified via shape-polygon-points.
          */
-        type Shape = 'rectangle' | 'roundrectangle' | 'ellipse' | 'triangle'
+        type NodeShape = 'rectangle' | 'roundrectangle' | 'ellipse' | 'triangle'
             | "pentagon" | "hexagon" | "heptagon" | "octagon" | "star"
             | "diamond" | "vee" | "rhomboid" | "polygon";
 
@@ -2407,29 +2413,29 @@ declare namespace Cy {
         /**
          * http://js.cytoscape.org/#style/node-body
          */
-        export interface NodeCss {
-            label?: string
+        export interface Node extends PaddingNode {
+            "label"?: string
             /**
              * The width of the node’s body. 
              * This property can take on the special value label 
              * so the width is automatically based on the node’s label.
              */
-            width?: number
+            "width"?: number | "label";
             /**
              * The height of the node’s body. 
              * This property can take on the special value label 
              * so the height is automatically based on the node’s label.
              */
-            height?: number
+            "height"?: number | "label";
             /**
              * The shape of the node’s body.
              */
-            "shape"?: Shape
+            "shape"?: NodeShape
             "shape-polygon-points"?: ShapePolygonPoints;
 
-            opacity?: number
+            "opacity"?: number
 
-            backgroundColor?: Colour
+            "backgroundColor"?: Colour
             /**
              * The colour of the node’s body.
              */
@@ -2460,11 +2466,7 @@ declare namespace Cy {
              * A value between [0 1].
              */
             "border-opacity"?: number
-            "line-color"?: Colour
-            "target-arrow-color"?: Colour
-            "target-arrow-shape"?: Shape
-            "source-arrow-color"?: Colour
-            "source-arrow-shape"?: Shape
+
             "text-opacity"?: number
         }
 
@@ -2474,14 +2476,15 @@ declare namespace Cy {
          * This can be used to add spacing around the label of width: label; height: label; nodes, 
          * or it can be used to add spacing between a compound node parent and its children.
          */
-        export interface CompoundNodeCss extends NodeCss {
+        export interface PaddingNode {
             "padding-left"?: string
             "padding-right"?: string
             "padding-top"?: string
             "padding-bottom"?: string
         }
 
-        export interface ElementCss extends NodeCss, CompoundNodeCss { }
+
+
         // export interface ElementCss extends CSSStyleDeclaration { }
 
         /**
@@ -2496,11 +2499,11 @@ declare namespace Cy {
              * You may use a data URI to use embedded images, 
              * thereby saving a HTTP request.
              */
-            "background-image": string;
+            "background-image"?: string;
             /** 
              * The opacity of the background image. [0 1]
              */
-            "background-image-opacity": number;
+            "background-image-opacity"?: number;
             /** 
              * Specifies the width of the image.
              * A percent value (e.g. 50%) may be used to set 
@@ -2510,7 +2513,7 @@ declare namespace Cy {
              * in calculating the fitting — thereby overriding the aspect ratio.
              * The auto value is used by default, which uses the width of the image.
              */
-            "background-width": number | string;
+            "background-width"?: number | string;
             /** 
              * Specifies the height of the image.
              * A percent value (e.g. 50%) may be used to set the image 
@@ -2520,34 +2523,34 @@ declare namespace Cy {
              * the fitting — thereby overriding the aspect ratio.
              * The auto value is used by default, which uses the height of the image.
              */
-            "background-height": number | string;
+            "background-height"?: number | string;
             /** 
              * How the background image is fit to the node; 
              * may be none for original size, 
              * contain to fit inside node, 
              * or cover to cover the node.
              */
-            "background-fit": "none" | "contain" | "cover";
+            "background-fit"?: "none" | "contain" | "cover";
             /** 
              * Whether to repeat the background image; 
              * may be no-repeat, repeat-x, repeat-y, or repeat.
              */
-            "background-repeat": "no-repeat" | "repeat-x" | "repeat-y" | "repeat";
+            "background-repeat"?: "no-repeat" | "repeat-x" | "repeat-y" | "repeat";
             /** 
              * The x position of the background image, 
              * measured in percent(e.g. 50%) or pixels (e.g. 10px).
              */
-            "background-position-x": number | string;
+            "background-position-x"?: number | string;
             /** 
              * The y position of the background image, 
              * measured in percent(e.g. 50%) or pixels (e.g. 10px).
              */
-            "background-position-y": number | string;
+            "background-position-y"?: number | string;
             /** 
              * How background image clipping is handled; 
              * may be node for clipped to node shape or none for no clipping.
              */
-            "background-clip": "clipped" | "none";
+            "background-clip"?: "clipped" | "none";
         }
 
         /**
@@ -2586,6 +2589,8 @@ declare namespace Cy {
             "pie-i-background-opacity": number;
         }
 
+        export interface Edge extends EdgeLine, EdgeArror { }
+
         /**
          * These properties affect the styling of an edge’s line:
          * 
@@ -2595,7 +2600,7 @@ declare namespace Cy {
             /** 
              * The width of an edge’s line.
              */
-            "width": number;
+            "width"?: number | "label";
             /** 
              * The curving method used to separate two or more edges between two nodes; 
              * may be 
@@ -2607,15 +2612,15 @@ declare namespace Cy {
              * Smaller node shapes, like triangle, will not be as aesthetically pleasing.
              * Also note that edge arrows are unsupported for haystack edges.
              */
-            "curve-style": "haystack" | "bezier" | "unbundled" | "segments";
+            "curve-style"?: "haystack" | "bezier" | "unbundled" | "segments";
             /** 
              * The colour of the edge’s line.
              */
-            "line-color": Colour;
+            "line-color"?: Colour;
             /** 
              * The style of the edge’s line.
              */
-            "line-style": LineStyle;
+            "line-style"?: LineStyle;
         }
 
         /**
@@ -2751,31 +2756,31 @@ declare namespace Cy {
          */
         export interface EdgeArror {
             /** The colour of the edge’s source arrow. */
-            "source-arrow-color": Colour;
+            "source-arrow-color"?: Colour;
             /** The colour of the edge’s "mid-source" arrow. */
-            "mid-source-arrow-color": Colour;
+            "mid-source-arrow-color"?: Colour;
             /** The colour of the edge’s target arrow. */
-            "target-arrow-color": Colour;
+            "target-arrow-color"?: Colour;
             /** The colour of the edge’s "mid-target" arrow. */
-            "mid-target-arrow-color": Colour;
+            "mid-target-arrow-color"?: Colour;
 
             /** The shape of the edge’s source arrow. */
-            "source-arrow-shape": ArrowShape;
+            "source-arrow-shape"?: ArrowShape;
             /** The shape of the edge’s mid-source arrow. */
-            "mid-source-arrow-shape": ArrowShape;
+            "mid-source-arrow-shape"?: ArrowShape;
             /** The shape of the edge’s target arrow. */
-            "target-arrow-shape": ArrowShape;
+            "target-arrow-shape"?: ArrowShape;
             /** The shape of the edge’s mid-target arrow. */
-            "mid-target-arrow-shape": ArrowShape;
+            "mid-target-arrow-shape"?: ArrowShape;
 
             /** The fill state of the edge’s source arrow. */
-            "source-arrow-fill": ArrowFill;
+            "source-arrow-fill"?: ArrowFill;
             /** The fill state of the edge’s mid-source arrow. */
-            "mid-source-arrow-fill": ArrowFill;
+            "mid-source-arrow-fill"?: ArrowFill;
             /** The fill state of the edge’s target arrow. */
-            "target-arrow-fill": ArrowFill;
+            "target-arrow-fill"?: ArrowFill;
             /** The fill state of the edge’s mid-target arrow. */
-            "mid-target-arrow-fill": ArrowFill;
+            "mid-target-arrow-fill"?: ArrowFill;
         }
 
 
@@ -4172,7 +4177,7 @@ declare namespace Cy {
         /**
          * Get the current style object.
          */
-        style(): Stylesheet | string;
+        style(): ElementStylesheet | string;
         /**
          * Assign a new stylesheet to replace the existing one.
          */
