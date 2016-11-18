@@ -9,7 +9,7 @@ declare module "pbf" {
         buf: Uint8Array;
         pos: number;
         type: number;
-        length: number;        
+        length: number;
 
         destroy(): void;
         readFields<T>(readField: (tag: number, result?: T, pbf?: Pbf) => void, result?: T, end?: number): T;
@@ -17,7 +17,7 @@ declare module "pbf" {
         readFixed32(): number;
         readSFixed32(): number;
         readFixed64(): number;
-        readSFixed64(): number;        
+        readSFixed64(): number;
         readFloat(): number;
         readDouble(): number;
         readVarint(isSigned?: boolean): number;
@@ -50,8 +50,7 @@ declare module "pbf" {
         writeFloat(val: number): void;
         writeDouble(val: number): void;
         writeBytes(buffer: Uint8Array): void;
-        writeRawMessage<T>(fn: (obj: T, pbf?: Pbf) => void, obj?: T): void;
-        writeRawMessage<T>(fn: (obj: T, pbf?: Pbf) => void, obj?: T): void;
+        writeRawMessage<T>(fn: (obj: T, pbf?: Pbf) => void, obj?: T): void;        
         writeMessage<T>(tag: number, fn: (obj: T, pbf?: Pbf) => void, obj?: T): void;
         writePackedVarint(tag: number, arr: number[]): void;
         writePackedSVarint(tag: number, arr: number[]): void;
@@ -77,7 +76,7 @@ declare module "pbf" {
 
     var Pbf: {
         new (buffer: Uint8Array): Pbf;
-    }
+    };
 
     export = Pbf;
 
