@@ -5,9 +5,12 @@
 
 /// <reference types="node"/>
 
-declare module 'pino' {
+import stream = require('stream');
 
-    import stream = require('stream')
+declare function P(optionsOrStream?: P.LoggerOptions | stream.Writable | stream.Readable): P.Logger;
+declare function P(options: P.LoggerOptions, stream: stream.Writable | stream.Readable): P.Logger;
+
+declare namespace P {
 
     type Level = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent'
     type Headers = {[header: string]: string}
@@ -79,8 +82,6 @@ declare module 'pino' {
         LOG_VERSION: number
         stdSerializers: Serializers
     }
-
-    var p: Pino
-    export = p
-
 }
+
+export = P;
