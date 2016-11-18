@@ -145,6 +145,11 @@ declare class File {
      * Checks if a given object is a vinyl file.
      */
     public static isVinyl(obj: any): boolean;
+
+    /**
+    * Checks if a property is not managed internally.
+    */
+    public static isCustomProp(name: string): boolean;
 }
 
 export = File;

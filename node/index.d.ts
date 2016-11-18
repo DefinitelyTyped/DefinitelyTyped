@@ -817,6 +817,14 @@ declare module "cluster" {
         addListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         addListener(event: "online", listener: () => void): this;
 
+        emit(event: string, listener: Function): boolean
+        emit(event: "disconnect", listener: () => void): boolean
+        emit(event: "error", listener: (code: number, signal: string) => void): boolean
+        emit(event: "exit", listener: (code: number, signal: string) => void): boolean
+        emit(event: "listening", listener: (address: Address) => void): boolean
+        emit(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): boolean
+        emit(event: "online", listener: () => void): boolean
+
         on(event: string, listener: Function): this;
         on(event: "disconnect", listener: () => void): this;
         on(event: "error", listener: (code: number, signal: string) => void): this;
@@ -882,6 +890,15 @@ declare module "cluster" {
         addListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         addListener(event: "online", listener: (worker: Worker) => void): this;
         addListener(event: "setup", listener: (settings: any) => void): this;
+
+        emit(event: string, listener: Function): boolean;
+        emit(event: "disconnect", listener: (worker: Worker) => void): boolean;
+        emit(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): boolean;
+        emit(event: "fork", listener: (worker: Worker) => void): boolean;
+        emit(event: "listening", listener: (worker: Worker, address: Address) => void): boolean;
+        emit(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): boolean;
+        emit(event: "online", listener: (worker: Worker) => void): boolean;
+        emit(event: "setup", listener: (settings: any) => void): boolean;
 
         on(event: string, listener: Function): this;
         on(event: "disconnect", listener: (worker: Worker) => void): this;
@@ -952,6 +969,15 @@ declare module "cluster" {
     export function addListener(event: "online", listener: (worker: Worker) => void): Cluster;
     export function addListener(event: "setup", listener: (settings: any) => void): Cluster;
 
+    export function emit(event: string, listener: Function): boolean;
+    export function emit(event: "disconnect", listener: (worker: Worker) => void): boolean;
+    export function emit(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): boolean;
+    export function emit(event: "fork", listener: (worker: Worker) => void): boolean;
+    export function emit(event: "listening", listener: (worker: Worker, address: Address) => void): boolean;
+    export function emit(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): boolean;
+    export function emit(event: "online", listener: (worker: Worker) => void): boolean;
+    export function emit(event: "setup", listener: (settings: any) => void): boolean;
+
     export function on(event: string, listener: Function): Cluster;
     export function on(event: "disconnect", listener: (worker: Worker) => void): Cluster;
     export function on(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
@@ -975,7 +1001,6 @@ declare module "cluster" {
     export function setMaxListeners(n: number): Cluster;
     export function getMaxListeners(): number;
     export function listeners(event: string): Function[];
-    export function emit(event: string, ...args: any[]): boolean;
     export function listenerCount(type: string): number;
 
     export function prependListener(event: string, listener: Function): Cluster;
