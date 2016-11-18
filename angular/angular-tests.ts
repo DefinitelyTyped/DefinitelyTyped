@@ -179,25 +179,51 @@ namespace My.Namespace {
 
 // IModule Registering Test
 var mod = angular.module('tests', []);
-mod.controller('name', function ($scope: ng.IScope) { })
-mod.controller('name', ['$scope', <any>function ($scope: ng.IScope) { }])
-mod.controller(My.Namespace);
+mod.controller('name', function ($scope: ng.IScope) { });
+mod.controller('name', ['$scope', function ($scope: ng.IScope) { }]);
+mod.controller('name', class {
+    // Uncommenting the next line should lead to a type error because this signature isn't compatible
+    // with the signature of the `$onChanges` hook:
+    // $onChanges(x: number) { }
+});
+mod.controller({
+    MyCtrl: class{},
+    MyCtrl2: function() {},
+    MyCtrl3: ['$fooService', function($fooService: any) { }]
+});
 mod.directive('name', <any>function ($scope: ng.IScope) { })
 mod.directive('name', ['$scope', <any>function ($scope: ng.IScope) { }])
-mod.directive(My.Namespace);
+mod.directive({
+    myFooDir: () => ({
+        template: 'my-foo-dir.tpl.html'
+    }),
+    myBarDir: ['$fooService', ($fooService: any) => ({
+        template: 'my-bar-dir.tpl.html'
+    })]
+});
 mod.factory('name', function ($scope: ng.IScope) { })
-mod.factory('name', ['$scope', <any>function ($scope: ng.IScope) { }])
-mod.factory(My.Namespace);
+mod.factory('name', ['$scope', function ($scope: ng.IScope) { }])
+mod.factory({
+    name1: function (foo: any) { },
+    name2: ['foo', function (foo: any) { }]
+});
 mod.filter('name', function ($scope: ng.IScope) { })
-mod.filter('name', ['$scope', <any>function ($scope: ng.IScope) { }])
-mod.filter(My.Namespace);
+mod.filter('name', ['$scope', function ($scope: ng.IScope) { }])
+mod.filter({
+    name1: function (foo: any) { },
+    name2: ['foo', function (foo: any) { }]
+});
 mod.provider('name', function ($scope: ng.IScope) { return { $get: () => { } } })
 mod.provider('name', TestProvider);
 mod.provider('name', ['$scope', <any>function ($scope: ng.IScope) { }])
 mod.provider(My.Namespace);
 mod.service('name', function ($scope: ng.IScope) { })
 mod.service('name', ['$scope', <any>function ($scope: ng.IScope) { }])
-mod.service(My.Namespace);
+mod.service({
+    MyCtrl: class{},
+    MyCtrl2: function() {},
+    MyCtrl3: ['$fooService', function($fooService: any) { }]
+});
 mod.constant('name', 23);
 mod.constant('name', "23");
 mod.constant(My.Namespace);

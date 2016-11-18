@@ -27,6 +27,8 @@ import ng = angular;
 ///////////////////////////////////////////////////////////////////////////////
 declare namespace angular {
 
+    type Injectable<T extends Function> = T | (string | T)[];
+
     // not directly implemented, but ensures that constructed class implements $get
     interface IServiceProviderClass {
         new (...args: any[]): IServiceProvider;
@@ -216,50 +218,26 @@ declare namespace angular {
          * @param name Controller name, or an object map of controllers where the keys are the names and the values are the constructors.
          * @param controllerConstructor Controller constructor fn (optionally decorated with DI annotations in the array notation).
          */
-        controller(name: string, controllerConstructor: Function): IModule;
-        /**
-         * The $controller service is used by Angular to create new controllers.
-         *
-         * This provider allows controller registration via the register method.
-         *
-         * @param name Controller name, or an object map of controllers where the keys are the names and the values are the constructors.
-         * @param controllerConstructor Controller constructor fn (optionally decorated with DI annotations in the array notation).
-         */
-        controller(name: string, inlineAnnotatedConstructor: any[]): IModule;
-        controller(object: Object): IModule;
+        controller(name: string, controllerConstructor: Injectable<IControllerConstructor>): IModule;
+        controller(object: {[name: string]: Injectable<IControllerConstructor>}): IModule;
         /**
          * Register a new directive with the compiler.
          *
          * @param name Name of the directive in camel-case (i.e. ngBind which will match as ng-bind)
          * @param directiveFactory An injectable directive factory function.
          */
-        directive(name: string, directiveFactory: IDirectiveFactory): IModule;
-        /**
-         * Register a new directive with the compiler.
-         *
-         * @param name Name of the directive in camel-case (i.e. ngBind which will match as ng-bind)
-         * @param directiveFactory An injectable directive factory function.
-         */
-        directive(name: string, inlineAnnotatedFunction: any[]): IModule;
-        directive(object: Object): IModule;
+        directive(name: string, directiveFactory: Injectable<IDirectiveFactory>): IModule;
+        directive(object: {[directiveName: string]: Injectable<IDirectiveFactory>}): IModule;
         /**
          * Register a service factory, which will be called to return the service instance. This is short for registering a service where its provider consists of only a $get property, which is the given service factory function. You should use $provide.factory(getFn) if you do not need to configure your service in a provider.
          *
          * @param name The name of the instance.
          * @param $getFn The $getFn for the instance creation. Internally this is a short hand for $provide.provider(name, {$get: $getFn}).
          */
-        factory(name: string, $getFn: Function): IModule;
-        /**
-         * Register a service factory, which will be called to return the service instance. This is short for registering a service where its provider consists of only a $get property, which is the given service factory function. You should use $provide.factory(getFn) if you do not need to configure your service in a provider.
-         *
-         * @param name The name of the instance.
-         * @param inlineAnnotatedFunction The $getFn for the instance creation. Internally this is a short hand for $provide.provider(name, {$get: $getFn}).
-         */
-        factory(name: string, inlineAnnotatedFunction: any[]): IModule;
-        factory(object: Object): IModule;
-        filter(name: string, filterFactoryFunction: Function): IModule;
-        filter(name: string, inlineAnnotatedFunction: any[]): IModule;
-        filter(object: Object): IModule;
+        factory(name: string, $getFn: Injectable<Function>): IModule;
+        factory(object: {[name: string]: Injectable<Function>}): IModule;
+        filter(name: string, filterFactoryFunction: Injectable<Function>): IModule;
+        filter(object: {[name: string]: Injectable<Function>}): IModule;
         provider(name: string, serviceProviderFactory: IServiceProviderFactory): IModule;
         provider(name: string, serviceProviderConstructor: IServiceProviderClass): IModule;
         provider(name: string, inlineAnnotatedConstructor: any[]): IModule;
@@ -268,26 +246,15 @@ declare namespace angular {
         /**
          * Run blocks are the closest thing in Angular to the main method. A run block is the code which needs to run to kickstart the application. It is executed after all of the service have been configured and the injector has been created. Run blocks typically contain code which is hard to unit-test, and for this reason should be declared in isolated modules, so that they can be ignored in the unit-tests.
          */
-        run(initializationFunction: Function): IModule;
-        /**
-         * Run blocks are the closest thing in Angular to the main method. A run block is the code which needs to run to kickstart the application. It is executed after all of the service have been configured and the injector has been created. Run blocks typically contain code which is hard to unit-test, and for this reason should be declared in isolated modules, so that they can be ignored in the unit-tests.
-         */
-        run(inlineAnnotatedFunction: any[]): IModule;
+        run(initializationFunction: Injectable<Function>): IModule;
         /**
          * Register a service constructor, which will be invoked with new to create the service instance. This is short for registering a service where its provider's $get property is a factory function that returns an instance instantiated by the injector from the service constructor function.
          *
          * @param name The name of the instance.
          * @param serviceConstructor An injectable class (constructor function) that will be instantiated.
          */
-        service(name: string, serviceConstructor: Function): IModule;
-        /**
-         * Register a service constructor, which will be invoked with new to create the service instance. This is short for registering a service where its provider's $get property is a factory function that returns an instance instantiated by the injector from the service constructor function.
-         *
-         * @param name The name of the instance.
-         * @param inlineAnnotatedConstructor An injectable class (constructor function) that will be instantiated.
-         */
-        service(name: string, inlineAnnotatedConstructor: any[]): IModule;
-        service(object: Object): IModule;
+        service(name: string, serviceConstructor: Injectable<Function>): IModule;
+        service(object: {[name: string]: Injectable<Function>}): IModule;
         /**
          * Register a value service with the $injector, such as a string, a number, an array, an object or a function. This is short for registering a service where its provider's $get property is a factory function that takes no arguments and returns the value service.
 
@@ -304,8 +271,7 @@ declare namespace angular {
          * @param name The name of the service to decorate
          * @param decorator This function will be invoked when the service needs to be instantiated and should return the decorated service instance. The function is called using the injector.invoke method and is therefore fully injectable. Local injection arguments: $delegate - The original service instance, which can be monkey patched, configured, decorated or delegated to.
          */
-        decorator(name:string, decoratorConstructor: Function): IModule;
-        decorator(name:string, inlineAnnotatedConstructor: any[]): IModule;
+        decorator(name: string, decorator: Injectable<Function>): IModule;
 
         // Properties
         name: string;
@@ -615,7 +581,7 @@ declare namespace angular {
         /**
          * calling stopPropagation function will cancel further event propagation (available only for events that were $emit-ed).
          */
-        stopPropagation?: Function;
+        stopPropagation?(): void;
         /**
          * calling preventDefault sets defaultPrevented flag to true.
          */
@@ -1223,19 +1189,12 @@ declare namespace angular {
     // see http://docs.angularjs.org/api/ng.$compileProvider
     ///////////////////////////////////////////////////////////////////////////
     interface ICompileService {
-        (element: string, transclude?: ITranscludeFunction, maxPriority?: number): ITemplateLinkingFunction;
-        (element: Element, transclude?: ITranscludeFunction, maxPriority?: number): ITemplateLinkingFunction;
-        (element: JQuery, transclude?: ITranscludeFunction, maxPriority?: number): ITemplateLinkingFunction;
+        (element: string | Element | JQuery, transclude?: ITranscludeFunction, maxPriority?: number): ITemplateLinkingFunction;
     }
 
     interface ICompileProvider extends IServiceProvider {
-        directive(name: string, directiveFactory: Function): ICompileProvider;
-        directive(directivesMap: Object, directiveFactory: Function): ICompileProvider;
-        directive(name: string, inlineAnnotatedFunction: any[]): ICompileProvider;
-        directive(directivesMap: Object, inlineAnnotatedFunction: any[]): ICompileProvider;
-
-        // Undocumented, but it is there...
-        directive(directivesMap: any): ICompileProvider;
+        directive(name: string, directiveFactory: Injectable<IDirectiveFactory>): ICompileProvider;
+        directive(object: {[directiveName: string]: Injectable<IDirectiveFactory>}): ICompileProvider;
 
         component(name: string, options: IComponentOptions): ICompileProvider;
 
@@ -1245,7 +1204,8 @@ declare namespace angular {
         imgSrcSanitizationWhitelist(): RegExp;
         imgSrcSanitizationWhitelist(regexp: RegExp): ICompileProvider;
 
-        debugInfoEnabled(enabled?: boolean): any;
+        debugInfoEnabled(): boolean;
+        debugInfoEnabled(enabled: boolean): ICompileProvider;
     }
 
     interface ICloneAttachFunction {
@@ -1258,12 +1218,16 @@ declare namespace angular {
         (scope: IScope, cloneAttachFn?: ICloneAttachFunction): JQuery;
     }
 
-    // This corresponds to $transclude (and also the transclude function passed to link).
+    /**
+     * This corresponds to $transclude passed to controllers and to the transclude function passed to link functions.
+     * https://docs.angularjs.org/api/ng/service/$compile#-controller-
+     * http://teropa.info/blog/2015/06/09/transclusion.html
+     */
     interface ITranscludeFunction {
         // If the scope is provided, then the cloneAttachFn must be as well.
         (scope: IScope, cloneAttachFn: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQuery;
         // If one argument is provided, then it's assumed to be the cloneAttachFn.
-        (cloneAttachFn?: ICloneAttachFunction): JQuery;
+        (cloneAttachFn?: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQuery;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1415,12 +1379,12 @@ declare namespace angular {
          */
         url: string;
         /**
-         * Event listeners to be bound to the XMLHttpRequest object. 
+         * Event listeners to be bound to the XMLHttpRequest object.
          * To bind events to the XMLHttpRequest upload object, use uploadEventHandlers. The handler will be called in the context of a $apply block.
          */
         eventHandlers?: { [type: string]: EventListenerOrEventListenerObject };
         /**
-         * Event listeners to be bound to the XMLHttpRequest upload object. 
+         * Event listeners to be bound to the XMLHttpRequest upload object.
          * To bind events to the XMLHttpRequest object, use eventHandlers. The handler will be called in the context of a $apply block.
          */
         uploadEventHandlers?: { [type: string]: EventListenerOrEventListenerObject };
@@ -1551,7 +1515,7 @@ declare namespace angular {
          * Register service factories (names or implementations) for interceptors which are called before and after
          * each request.
          */
-        interceptors: (string|IHttpInterceptorFactory|(string|IHttpInterceptorFactory)[])[];
+        interceptors: (string | Injectable<IHttpInterceptorFactory>)[];
         useApplyAsync(): boolean;
         useApplyAsync(value: boolean): IHttpProvider;
 
@@ -1699,11 +1663,10 @@ declare namespace angular {
          * controller if passed as a string. Empty function by default.
          * Use the array form to define dependencies (necessary if strictDi is enabled and you require dependency injection)
          */
-        controller?: string | Function | (string | Function)[] | IComponentController;
+        controller?: string | Injectable<IControllerConstructor>;
         /**
-         * An identifier name for a reference to the controller. If present, the controller will be published to scope under
-         * the controllerAs name. If not present, this will default to be the same as the component name.
-         * @default "$ctrl"
+         * An identifier name for a reference to the controller. If present, the controller will be published to its scope under
+         * the specified name. If not present, this will default to '$ctrl'.
          */
         controllerAs?: string;
         /**
@@ -1714,24 +1677,24 @@ declare namespace angular {
          * $attrs - Current attributes object for the element
          * Use the array form to define dependencies (necessary if strictDi is enabled and you require dependency injection)
          */
-        template?: string | Function | (string | Function)[];
+        template?: string | Injectable<(...args: any[]) => string>;
         /**
-         * path or function that returns a path to an html template that should be used as the contents of this component.
+         * Path or function that returns a path to an html template that should be used as the contents of this component.
          * If templateUrl is a function, then it is injected with the following locals:
          * $element - Current element
          * $attrs - Current attributes object for the element
          * Use the array form to define dependencies (necessary if strictDi is enabled and you require dependency injection)
          */
-        templateUrl?: string | Function | (string | Function)[];
+        templateUrl?: string | Injectable<(...args: any[]) => string>;
         /**
          * Define DOM attribute binding to component properties. Component properties are always bound to the component
          * controller and not to the scope.
          */
-        bindings?: IComponentBindings;
+        bindings?: {[boundProperty: string]: string};
         /**
-         * Whether transclusion is enabled. Enabled by default.
+         * Whether transclusion is enabled. Disabled by default.
          */
-        transclude?: boolean | string | {[slot: string]: string};
+        transclude?: boolean | {[slot: string]: string};
         /**
          * Requires the controllers of other directives and binds them to this component's controller.
          * The object keys specify the property names under which the required controllers (object values) will be bound.
@@ -1749,18 +1712,33 @@ declare namespace angular {
         ( $element?: JQuery, $attrs?: IAttributes ): string;
     }
     
+    type IControllerConstructor =
+        (new (...args: any[]) => IController) |
+        // Instead of classes, plain functions are often used as controller constructors, especially in examples.
+        ((...args: any[]) => (void | IController));
+
     /**
-     * Components have a well-defined lifecycle Each component can implement "lifecycle hooks". These are methods that
-     * will be called at certain points in the life of the component.
-     * @url https://docs.angularjs.org/guide/component
+     * Directive controllers have a well-defined lifecycle. Each controller can implement "lifecycle hooks". These are methods that
+     * will be called by Angular at certain points in the life cycle of the directive.
+     * https://docs.angularjs.org/api/ng/service/$compile#life-cycle-hooks
+     * https://docs.angularjs.org/guide/component
      */
-    interface IComponentController {
+    interface IController {
         /**
          * Called on each controller after all the controllers on an element have been constructed and had their bindings
          * initialized (and before the pre & post linking functions for the directives on this element). This is a good
          * place to put initialization code for your controller.
          */
         $onInit?(): void;
+        /**
+         * Called on each turn of the digest cycle. Provides an opportunity to detect and act on changes.
+         * Any actions that you wish to take in response to the changes that you detect must be invoked from this hook;
+         * implementing this has no effect on when `$onChanges` is called. For example, this hook could be useful if you wish
+         * to perform a deep equality check, or to check a `Dat`e object, changes to which would not be detected by Angular's
+         * change detector and thus not trigger `$onChanges`. This hook is invoked with no arguments; if detecting changes,
+         * you must store the previous value(s) for comparison to the current values.
+         */
+        $doCheck?(): void;
         /**
          * Called whenever one-way bindings are updated. The onChangesObj is a hash whose keys are the names of the bound
          * properties that have changed, and the values are an {@link IChangesObject} object  of the form
@@ -1785,12 +1763,12 @@ declare namespace angular {
     }
 
     interface IOnChangesObject {
-        [property: string]: IChangesObject;
+        [property: string]: IChangesObject<any>;
     }
 
-    interface IChangesObject {
-        currentValue: any;
-        previousValue: any;
+    interface IChangesObject<T> {
+        currentValue: T;
+        previousValue: T;
         isFirstChange(): boolean;
     }
 
@@ -1830,16 +1808,12 @@ declare namespace angular {
              * that is passed to the link function instead.
              */
             transclude: ITranscludeFunction
-        ): void | IDirectivePrePost;
-    }
-
-    interface IDirectiveScope {
-        [property: string]: string;
+        ): void | IDirectiveLinkFn | IDirectivePrePost;
     }
 
     interface IDirective {
         compile?: IDirectiveCompileFn;
-        controller?: any;
+        controller?: string | Injectable<IControllerConstructor>;
         controllerAs?: string;
         /**
          * @deprecated
@@ -1847,10 +1821,9 @@ declare namespace angular {
          * the controller constructor is called, this use is now deprecated. Please place initialization code that
          * relies upon bindings inside a $onInit method on the controller, instead.
          */
-        bindToController?: boolean | Object;
+        bindToController?: boolean | {[boundProperty: string]: string};
         link?: IDirectiveLinkFn | IDirectivePrePost;
         multiElement?: boolean;
-        directiveName?: string;
         priority?: number;
         /**
          * @deprecated
@@ -1858,12 +1831,12 @@ declare namespace angular {
         replace?: boolean;
         require?: string | string[] | {[controller: string]: string};
         restrict?: string;
-        scope?: boolean | IDirectiveScope;
-        template?: string | Function;
+        scope?: boolean | {[boundProperty: string]: string};
+        template?: string | ((tElement: JQuery, tAttrs: IAttributes) => string);
         templateNamespace?: string;
-        templateUrl?: string | Function;
+        templateUrl?: string | ((tElement: JQuery, tAttrs: IAttributes) => string);
         terminal?: boolean;
-        transclude?: boolean | string | {[slot: string]: string};
+        transclude?: boolean | 'element' | {[slot: string]: string};
     }
 
     /**
@@ -1875,6 +1848,11 @@ declare namespace angular {
         */
     interface IAugmentedJQueryStatic extends JQueryStatic {}
     interface IAugmentedJQuery extends JQuery {}
+
+    /**
+     * Same as IController. Keeping it for compatibility with older versions of these type definitions.
+     */
+    interface IComponentController extends IController {}
 
     ///////////////////////////////////////////////////////////////////////////
     // AUTO module (angular.js)
