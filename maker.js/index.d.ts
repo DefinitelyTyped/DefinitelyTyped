@@ -5,7 +5,7 @@
 
 /// <reference types="pdfkit" />
 /// <reference types="bezier-js" />
-/// <reference types="opentype" />
+/// <reference types="opentype.js" />
 
 /**
  * Root module for Maker.js.
@@ -2173,6 +2173,6 @@ declare namespace MakerJs.models {
 declare namespace MakerJs.models {
     class Text implements IModel {
         models: IModelMap;
-        constructor(font: opentypejs.Font, text: string, fontSize: number, combine?: boolean);
+        constructor(font: opentype.Font, text: string, fontSize: number, combine?: boolean);
     }
 }
