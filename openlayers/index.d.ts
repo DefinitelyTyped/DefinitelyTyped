@@ -1255,6 +1255,7 @@ declare namespace olx {
             fill?: ol.style.Fill;
             image?: ol.style.Image;
             stroke?: ol.style.Stroke;
+            circle?: ol.style.Circle;
             text?: ol.style.Text;
             zIndex?: number;
         }
@@ -3092,6 +3093,13 @@ declare namespace ol {
           preventDefault(): void;
           stopPropagation(): void;
         }
+        class SelectEvent extends Event {
+            mapBrowserEvent: ol.MapBrowserEvent;
+        }
+        class DrawEvent extends Event {
+            feature: ol.Feature;
+            coordinate: ol.Coordinate;
+        }
     }
 
     namespace extent {
@@ -3366,16 +3374,17 @@ declare namespace ol {
             writeGeometryObject(geometry: ol.geom.Geometry, options?: olx.format.WriteOptions): JSON;
         }
 
-        class GML {
+        class GML extends GMLBase {
         }
 
-        class GML2 {
+        class GML2 extends GMLBase {
         }
 
-        class GML3 {
+        class GML3 extends GMLBase{
         }
 
-        class GMLBase {
+        class GMLBase extends ol.format.XMLFeature {
+            readFeatures(source: ol.source.Source, options?: olx.format.ReadOptions): Array<ol.Feature>;
         }
 
         class GPX {
@@ -4089,6 +4098,8 @@ declare namespace ol {
              * @param layout Layout.
              */
             setCoordinates(coordinates: Array<Array<ol.Coordinate>>, layout?: ol.geom.GeometryLayout): void;
+
+            static fromCircle(circle: ol.geom.Circle, sides?: number, angle?: number): ol.geom.Polygon;
         }
         /**
          * Abstract base class; only used for creating subclasses; do not instantiate
@@ -4207,6 +4218,8 @@ declare namespace ol {
          */
         class Draw extends ol.interaction.Pointer {
             constructor(opt_options?: olx.interaction.DrawOptions);
+
+            static createRegularPolygon(sides?: number, angle?: number): ol.interaction.DrawGeometryFunctionType;
         }
         /**
          * Events emitted by ol.interaction.Draw instances are instances of this type.
@@ -5012,10 +5025,22 @@ declare namespace ol {
              * @param Skip dispatching of removefeature events.
              */
             clear(fast?: boolean): void;
+
             /**
              * Get the extent of the features currently in the source.
              */
             getExtent(): ol.Extent;
+
+            /**
+             * Get all features whose geometry intersects the provided coordinate.
+             */
+            getFeaturesAtCoordinate(coordinate: ol.Coordinate): ol.Feature[];
+
+            /**
+             * Get a feature by its identifier (the value returned by feature.getId()). Note that the index treats 
+             * string and numeric identifiers as the same.
+             */
+            getFeatureById(id: string | number): ol.Feature;
 
             /**
              * Get all features in the provided extent. Note that this returns all features whose bounding boxes
@@ -5033,6 +5058,12 @@ declare namespace ol {
              * Get all features whose geometry intersects the provided coordinate.
              */
             getFeaturesAtCoordinate(coordinate: ol.Coordinate): ol.Feature[];
+
+            /**
+             * Remove a single feature from the source. If you want to remove all features at once, use the source.clear() 
+             * method instead.
+             */
+            removeFeature(feature: ol.Feature): void;
         }
 
         class VectorEvent extends ol.events.Event {

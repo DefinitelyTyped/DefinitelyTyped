@@ -313,6 +313,7 @@ declare module Elasticsearch {
         index: string;
         type: string;
         id: string;
+        parent?: string;
         refresh?: boolean;
     }
 

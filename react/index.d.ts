@@ -2104,7 +2104,8 @@ declare namespace React {
         stopOpacity?: number | string;
         stroke?: string;
         strokeDasharray?: string;
-        strokeLinecap?: string;
+        strokeLinecap?: "butt" | "round" | "square" | "inherit";
+        strokeLinejoin?: "miter" | "round" | "bevel" | "inherit";
         strokeMiterlimit?: string;
         strokeOpacity?: number | string;
         strokeWidth?: number | string;
