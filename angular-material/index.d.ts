@@ -71,6 +71,16 @@ declare module 'angular' {
             initialValue(initialValue: string): IPromptDialog;
         }
 
+        interface IColorExpression {
+            [cssPropertyName: string]: string
+        }
+
+        interface IColorService {
+            applyThemeColors(element: Element|JQuery, colorExpression: IColorExpression): void;
+            getThemeColor(expression: string): string;
+            hasTheme(): boolean;
+        }
+
         interface IDialogOptions {
             templateUrl?: string;
             template?: string;
@@ -214,6 +224,12 @@ declare module 'angular' {
             hues: IThemeHues;
         }
 
+        interface IBrowserColors{
+            theme: string;
+            palette: string;
+            hue: string;
+        }
+
         interface IThemeColors {
             accent: IThemePalette;
             background: IThemePalette;
@@ -243,12 +259,15 @@ declare module 'angular' {
         }
 
         interface IThemingProvider {
-            theme(name: string, inheritFrom?: string): ITheme;
+            alwaysWatchTheme(alwaysWatch: boolean): void;
             definePalette(name: string, palette: IPalette): IThemingProvider;
+            enableBrowserColor(browserColors: IBrowserColors): Function;
             extendPalette(name: string, palette: IPalette): IPalette;
+            registerStyles(styles: String): void;
             setDefaultTheme(theme: string): void;
             alwaysWatchTheme(alwaysWatch: boolean): void;
             setNonce(nonce: string): void;
+            theme(name: string, inheritFrom?: string): ITheme;
         }
 
         interface IDateLocaleProvider {
