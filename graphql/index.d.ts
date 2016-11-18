@@ -2078,7 +2078,7 @@ declare module "graphql/error/GraphQLError" {
          *
          * Enumerable, and appears in the result of JSON.stringify().
          */
-        locations: Array<{ line: number, column: number }> | void;
+        locations?: Array<{ line: number, column: number }> | void;
 
         /**
          * An array describing the JSON-path into the execution response which
@@ -2086,28 +2086,37 @@ declare module "graphql/error/GraphQLError" {
          *
          * Enumerable, and appears in the result of JSON.stringify().
          */
-        path: Array<string | number> | void;
+        path?: Array<string | number> | void;
 
         /**
          * An array of GraphQL AST Nodes corresponding to this error.
          */
-        nodes: Array<ASTNode> | void;
+        nodes?: Array<ASTNode> | void;
 
         /**
          * The source GraphQL document corresponding to this error.
          */
-        source: Source | void;
+        source?: Source | void;
 
         /**
          * An array of character offsets within the source GraphQL document
          * which correspond to this error.
          */
-        positions: Array<number> | void;
+        positions?: Array<number> | void;
 
         /**
          * The original error thrown from a field resolver during execution.
          */
-        originalError: Error;
+        originalError?: Error;
+
+        constructor(
+            message: string,
+            nodes?: Array<any>,
+            source?: Source,
+            positions?: Array<number>,
+            path?: Array<string | number>,
+            originalError?: Error,
+        );
     }
 }
 
