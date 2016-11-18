@@ -1,9 +1,7 @@
 // Type definitions for history v2.0.0
-// Project: https://github.com/rackt/history
+// Project: https://github.com/mjackson/history
 // Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Nathan Brown <https://github.com/ngbrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-// types based on https://github.com/rackt/history/blob/master/docs/Terms.md
 
 export as namespace History;
 
