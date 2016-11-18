@@ -34,7 +34,7 @@ declare module 'moment' {
 
         toString (): string;
 
-        toArray (by: Range|String, exclusive?: boolean): Date[];
+        toArray (by: Range|String, exclusive?: boolean): Moment[];
 
         valueOf (): number;
 
