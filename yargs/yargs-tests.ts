@@ -226,6 +226,33 @@ function command() {
 		})
 		.help('help')
 		.argv;
+
+	yargs
+		.command('get', 'make a get HTTP request', function (yargs) {
+			return yargs.option('url', {
+				alias: 'u',
+				default: 'http://yargs.js.org/'
+			})
+		})
+		.help()
+		.argv
+
+	yargs
+		.command(
+			'get',
+			'make a get HTTP request',
+			function (yargs) {
+				return yargs.option('u', {
+					alias: 'url',
+					describe: 'the URL to make an HTTP request to'
+				})
+			},
+			function (argv) {
+				console.dir(argv)
+			}
+		)
+		.help()
+		.argv
 }
 
 function completion_sync() {
