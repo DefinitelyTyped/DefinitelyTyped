@@ -1,19 +1,13 @@
-/**
- * howler-tests.ts
- * Created by xperiments on 02/09/14.
- */
-
 import * as howler from "howler";
 
-Howler.codecs('ogg');
-Howler.iOSAutoEnable = true;
 var sound = new Howl({
-    urls: ['sound.mp3']
-}).play();
+    src: ['sound.mp3']
+});
 
+sound.play();
 
 var sound = new Howl({
-    urls: ['sound.mp3', 'sound.ogg', 'sound.wav'],
+    src: ['sound.webm', 'sound.mp3', 'sound.wav'],
     autoplay: true,
     loop: true,
     volume: 0.5,
@@ -23,7 +17,7 @@ var sound = new Howl({
 });
 
 var sound = new Howl({
-    urls: ['sounds.mp3', 'sounds.ogg'],
+    src: ['sounds.webm', 'sounds.mp3'],
     sprite: {
         blast: [0, 1000],
         laser: [2000, 3000],
@@ -31,5 +25,32 @@ var sound = new Howl({
     }
 });
 
-// shoot the laser!
+// Shoot the laser!
 sound.play('laser');
+
+var sound = new Howl({
+    src: ['sound.webm', 'sound.mp3']
+});
+
+// Clear listener after first call.
+sound.once('load', function(){
+    sound.play();
+});
+
+// Fires when the sound finishes playing.
+sound.on('end', function(){
+    console.log('Finished!');
+});
+
+var sound = new Howl({
+    src: ['sound.webm', 'sound.mp3']
+});
+
+// Play returns a uniqe Sound ID that can be passed
+// into any method on Howl to control that specific sound.
+var id1 = sound.play();
+var id2 = sound.play();
+
+// Fade out the first sound and speed up the second.
+sound.fade(1, 0, 1000, id1);
+sound.rate(1.5, id2);

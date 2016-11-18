@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-geo module v1.3.1
+// Type definitions for D3JS d3-geo module v1.4.0
 // Project: https://github.com/d3/d3-geo/
 // Definitions by: Hugues Stefanski <https://github.com/Ledragon>, Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1412,6 +1412,31 @@ export interface GeoIdentityTranform extends GeoStreamWrapper {
      */
     fitSize(size: [number, number], object: ExtendedGeometryCollection<GeoGeometryObjects>): this;
 
+    /**
+     * Returns true if x-reflection is enabled, which defaults to false.
+     */
+    reflectX(): boolean;
+    /**
+     * Sets whether or not the x-dimension is reflected (negated) in the output.
+     *
+     * @param reflect true = reflect x-dimension, false = do not reflect x-dimension.
+     */
+    reflectX(reflect: boolean): this;
+
+    /**
+     * Returns true if y-reflection is enabled, which defaults to false.
+     */
+    reflectY(): boolean;
+    /**
+     * Sets whether or not the y-dimension is reflected (negated) in the output.
+     *
+     * This is especially useful for transforming from standard spatial reference systems,
+     * which treat positive y as pointing up, to display coordinate systems such as Canvas and SVG,
+     * which treat positive y as pointing down.
+     *
+     * @param reflect true = reflect y-dimension, false = do not reflect y-dimension.
+     */
+    reflectY(reflect: boolean): this;
 
     /**
      * Returns the current scale factor.

@@ -1,4 +1,4 @@
-// Type definitions for EventEmitter2 v0.14.4
+// Type definitions for EventEmitter2 v2.2.0
 // Project: https://github.com/asyncly/EventEmitter2
 // Definitions by: ryiwamoto <https://github.com/ryiwamoto/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -23,6 +23,11 @@ interface EventEmitter2Configuration {
      * max listeners that can be assigned to an event, default 10.
      */
     maxListeners?: number;
+    
+    /**
+     * show event name in memory leak message when more than maximum amount of listeners is assigned, default false
+     */
+    verboseMemoryLeak?: boolean;
 }
 
 declare class EventEmitter2 {

@@ -152,6 +152,10 @@ StatelessComponent2.defaultProps = {
     foo: 42
 };
 
+var StatelessComponent3: React.SFC<SCProps> =
+    // allows usage of props.children
+    props => React.DOM.div(null, props.foo, props.children);
+
 // React.createFactory
 var factory: React.CFactory<Props, ModernComponent> =
     React.createFactory(ModernComponent);
@@ -329,7 +333,10 @@ React.DOM.div(htmlAttr);
 React.DOM.span(htmlAttr);
 React.DOM.input(htmlAttr);
 
-React.DOM.svg({ viewBox: "0 0 48 48" },
+React.DOM.svg({
+        viewBox: "0 0 48 48",
+        xmlns: "http://www.w3.org/2000/svg"
+    },
     React.DOM.rect({
         x: 22,
         y: 10,

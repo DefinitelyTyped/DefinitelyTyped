@@ -177,7 +177,7 @@ declare namespace React {
         // on the existence of `children` in `P`, then we should remove this.
         props: P & { children?: ReactNode };
         state: S;
-        context: {};
+        context: any;
         refs: {
             [key: string]: ReactInstance
         };
@@ -201,7 +201,7 @@ declare namespace React {
 
     type SFC<P> = StatelessComponent<P>;
     interface StatelessComponent<P> {
-        (props: P, context?: any): ReactElement<any>;
+        (props: P & { children?: ReactNode }, context?: any): ReactElement<any>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: P;
@@ -2191,6 +2191,7 @@ declare namespace React {
         x1?: number | string;
         x2?: number | string;
         x?: number | string;
+        xChannelSelector?: string;
         xlinkActuate?: string;
         xlinkArcrole?: string;
         xlinkHref?: string;
@@ -2200,10 +2201,15 @@ declare namespace React {
         xlinkType?: string;
         xmlBase?: string;
         xmlLang?: string;
+        xmlns?: string;
+        xmlnsXlink?: string;
         xmlSpace?: string;
         y1?: number | string;
         y2?: number | string;
         y?: number | string;
+        yChannelSelector?: string;
+        z?: number | string;
+        zoomAndPan?: string;
     }
 
     //
