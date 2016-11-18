@@ -42,3 +42,5 @@ var res17: moment.Range = range.clone();
 
 var res18: moment.Moment = range.start;
 var res19: moment.Moment = range.end;
+
+var res20: Date[] = range.toArray();
