@@ -166,11 +166,72 @@ mapPixelBounds = map.getPixelBounds();
 mapPixelBounds = map.getPixelWorldBounds();
 mapPixelBounds = map.getPixelWorldBounds(12);
 
+let tileLayerOptions: L.TileLayerOptions = {};
+tileLayerOptions = {
+    minZoom: 0,
+    maxZoom: 18,
+    maxNativeZoom: 2,
+    errorTileUrl: '',
+    zoomOffset: 0,
+    tms: true,
+    zoomReverse: true,
+    detectRetina: true,
+    crossOrigin: false,
+    opacity: 1,
+    updateWhenIdle: true,
+    updateWhenZooming: true,
+    updateInterval: 500,
+    attribution: '',
+    zIndex: 1,
+    noWrap: true,
+    pane: '',
+    className: '',
+    keepBuffer: 1,
+    foo: 'bar',
+    bar: () => 'foo',
+    abc: (data: any) => 'foobar'
+};
+
+tileLayerOptions.subdomains = 'a';
+tileLayerOptions.subdomains = ['a', 'b'];
+
+tileLayerOptions.tileSize = 256;
+tileLayerOptions.tileSize = point;
+//tileLayerOptions.tileSize = pointTuple; investigate if this is valid
+
+tileLayerOptions.bounds = latLngBounds;
+tileLayerOptions.bounds = latLngBoundsLiteral;
+
+let tileLayer: L.TileLayer;
+tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
+tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', tileLayerOptions);
+tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
+
+let eventHandler = () => {};
+let domEvent: Event = {} as Event;
+L.DomEvent
+	.on(htmlElement, 'click', eventHandler)
+	.addListener(htmlElement, 'click', eventHandler)
+	.off(htmlElement, 'click', eventHandler)
+	.removeListener(htmlElement, 'click', eventHandler)
+	.on(htmlElement, {'click': eventHandler})
+	.addListener(htmlElement, {'click': eventHandler})
+	.off(htmlElement, {'click': eventHandler}, eventHandler)
+	.removeListener(htmlElement, {'click': eventHandler}, eventHandler)
+	.stopPropagation(domEvent)
+	.disableScrollPropagation(htmlElement)
+	.disableClickPropagation(htmlElement)
+	.preventDefault(domEvent)
+	.stop(domEvent);
+point = L.DomEvent.getMousePosition(domEvent);
+point = L.DomEvent.getMousePosition(domEvent, htmlElement);
+const wheelDelta: number = L.DomEvent.getWheelDelta(domEvent);
+
 map = map
 	// addControl
 	// removeControl
-	.addLayer(L.tileLayer(''))
-	.removeLayer(L.tileLayer('')) // use a different type of layer
+	.addLayer(tileLayer)
+	.removeLayer(tileLayer) // use a different type of layer
 	.eachLayer((currentLayer) => {
 		layer = currentLayer;
 	})
@@ -237,8 +298,8 @@ map = map
 	.panTo(latLngTuple, panOptions)
 	.panBy(point)
 	.panBy(pointTuple)
-	.setMaxBounds(bounds) // investigate if this really receives Bounds instead of LatLngBounds
-	.setMaxBounds(boundsLiteral)
+	.setMaxBounds(latLngBounds)
+	.setMaxBounds(latLngBoundsLiteral)
 	.setMinZoom(5)
 	.setMaxZoom(10)
 	.panInsideBounds(latLngBounds)

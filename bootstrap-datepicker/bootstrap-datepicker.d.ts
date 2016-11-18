@@ -36,6 +36,7 @@ interface DatepickerOptions {
     multidateSeparator?: string;
     orientation?: string;
     assumeNearbyYear?: any;
+    viewMode?: string;
 }
 
 interface DatepickerCustomFormatOptions {

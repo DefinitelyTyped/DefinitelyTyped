@@ -15,6 +15,8 @@ declare module Elasticsearch {
         create(params: CreateDocumentParams, callback: (err: any, response: any, status: any) => void): void;
         delete(params: DeleteDocumentParams): PromiseLike<any>;
         delete(params: DeleteDocumentParams, callback: (error: any, response: any) => void): void;
+        exists(params: ExistsParams): PromiseLike<any>;
+        exists(params: ExistsParams, callback: (error: any, response: any, status?: any) => void): void;
         get<T>(params: GetParams, callback: (error: any, response: GetResponse<T>) => void): void;
         get<T>(params: GetParams): PromiseLike<GetResponse<T>>;
         index<T>(params: IndexDocumentParams<T>): PromiseLike<any>;
@@ -95,6 +97,7 @@ declare module Elasticsearch {
         method?: string;
         body?: any;
         ignore?: number | number[];
+        filterPath?: string | string[];
     }
 
     export interface BulkIndexDocumentsParams extends GenericParams {
@@ -205,6 +208,17 @@ declare module Elasticsearch {
         _source: T;
     }
 
+    export interface ExistsParams extends GenericParams {
+        id: string;
+        index: string;
+        parent?: string;
+        preference?: string;
+        realtime?: boolean;
+        refresh?: boolean;
+        routing?: string;
+        type: string;
+    }
+
     export interface IndexDocumentParams<T> extends GenericParams {
         index: string;
         type: string;
@@ -313,6 +327,7 @@ declare module Elasticsearch {
         index: string;
         type: string;
         id: string;
+        parent?: string;
         refresh?: boolean;
     }
 

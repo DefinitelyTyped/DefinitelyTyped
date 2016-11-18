@@ -8,7 +8,7 @@
 ///<reference path="../node/node.d.ts"/>
 
 declare module "fs-extra" {
-    export * from "fs";
+	export * from "fs";
 
 	export function copy(src: string, dest: string, callback?: (err: Error) => void): void;
 	export function copy(src: string, dest: string, filter: CopyFilter, callback?: (err: Error) => void): void;
@@ -18,6 +18,9 @@ declare module "fs-extra" {
 	export function copySync(src: string, dest: string, filter: CopyFilter): void;
 	export function copySync(src: string, dest: string, options: CopyOptions): void;
 
+	export function move(src: string, dest: string, callback?: (err: Error) => void): void;
+	export function move(src: string, dest: string, options: MoveOptions, callback?: (err: Error) => void): void;
+	
 	export function createFile(file: string, callback?: (err: Error) => void): void;
 	export function createFileSync(file: string): void;
 
@@ -55,8 +58,8 @@ declare module "fs-extra" {
 	export function writeJsonSync(file: string, object: any, options?: OpenOptions): void;
 	export function writeJSONSync(file: string, object: any, options?: OpenOptions): void;
 
-    export function ensureDir(path: string, cb: (err: Error) => void): void;
-    export function ensureDirSync(path: string): void;
+	export function ensureDir(path: string, cb: (err: Error) => void): void;
+	export function ensureDirSync(path: string): void;
 
 	export function ensureFile(path: string, cb: (err: Error) => void): void;
 	export function ensureFileSync(path: string): void;
@@ -67,10 +70,10 @@ declare module "fs-extra" {
 	export function ensureSymlink(path: string, cb: (err: Error) => void): void;
 	export function ensureSymlinkSync(path: string): void;
 
-    export function emptyDir(path: string, callback?: (err: Error) => void): void;
-    export function emptyDirSync(path: string): boolean;
-
-    export interface CopyFilterFunction {
+	export function emptyDir(path: string, callback?: (err: Error) => void): void;
+	export function emptyDirSync(path: string): boolean;
+	
+	export interface CopyFilterFunction {
 		(src: string): boolean
 	}
 
@@ -82,6 +85,11 @@ declare module "fs-extra" {
         	dereference?: boolean
 		filter?: CopyFilter
         	recursive?: boolean
+	}
+	
+	export interface MoveOptions {
+		clobber? : boolean;
+		limit?: number;
 	}
 
 	export interface OpenOptions {

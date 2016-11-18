@@ -10,7 +10,7 @@
 declare module "kue" {
   import events = require('events');
   import express = require('express');
-  import redis = require('redis');
+  import redisClientFactory = require('redis');
 
   export class Queue extends events.EventEmitter {
     name: string;
@@ -18,7 +18,7 @@ declare module "kue" {
     promoter: any;
     workers: Worker[];
     shuttingDown: boolean;
-    client: redis.RedisClient;
+    client: redisClientFactory.RedisClient;
     testMode: TestMode;
 
     static singleton: Queue;
@@ -63,7 +63,7 @@ declare module "kue" {
     public id: number;
     public type: string;
     public data: any;
-    public client: redis.RedisClient;
+    public client: redisClientFactory.RedisClient;
     private _max_attempts;
 
     static priorities: Priorities;
@@ -86,7 +86,7 @@ declare module "kue" {
     delay(ms:number|Date): Job;
     removeOnComplete(param: any): void;
     backoff(param: any): void;
-    ttl(param: any): void;
+    ttl(param: any): Job;
     private _getBackoffImpl(): void;
     priority(level: string|number): Job;
     attempt(fn: Function): Job;
@@ -109,7 +109,7 @@ declare module "kue" {
   class Worker extends events.EventEmitter {
     queue: Queue;
     type: string;
-    client: redis.RedisClient;
+    client: redisClientFactory.RedisClient;
     job: Job;
 
     constructor(queue: Queue, type: string);
@@ -127,10 +127,10 @@ declare module "kue" {
 
   interface Redis {
     configureFactory(options: Object, queue: Queue): void;
-    createClient(): redis.RedisClient;
-    createClientFactory(options: Object): redis.RedisClient;
-    client(): redis.RedisClient;
-    pubsubClient(): redis.RedisClient;
+    createClient(): redisClientFactory.RedisClient;
+    createClientFactory(options: Object): redisClientFactory.RedisClient;
+    client(): redisClientFactory.RedisClient;
+    pubsubClient(): redisClientFactory.RedisClient;
     reset(): void;
   }
 

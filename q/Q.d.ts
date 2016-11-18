@@ -12,16 +12,20 @@ declare function Q<T>(promise: Q.IPromise<T>): Q.Promise<T>;
  * If value is not a promise, returns a promise that is fulfilled with value.
  */
 declare function Q<T>(value: T): Q.Promise<T>;
+/**
+ * Calling with nothing at all creates a void promise
+ */
+declare function Q(): Q.Promise<void>;
 
 declare namespace Q {
+    type IWhenable<T> = IPromise<T> | T;
     interface IPromise<T> {
-        then<U>(onFulfill?: (value: T) => U | IPromise<U>, onReject?: (error: any) => U | IPromise<U>): IPromise<U>;
+        then<U>(onFulfill?: (value: T) => IWhenable<U>, onReject?: (error: any) => IWhenable<U>): IPromise<U>;
     }
 
     interface Deferred<T> {
         promise: Promise<T>;
-        resolve(value?: T): void;
-        resolve(value?: IPromise<T>): void;
+        resolve(value?: IWhenable<T>): void;
         reject(reason: any): void;
         notify(value: any): void;
         makeNodeResolver(): (reason: any, value: T) => void;
@@ -44,21 +48,21 @@ declare namespace Q {
         /**
          * The then method from the Promises/A+ specification, with an additional progress handler.
          */
-        then<U>(onFulfill?: (value: T) => U | IPromise<U>, onReject?: (error: any) => U | IPromise<U>, onProgress?: Function): Promise<U>;
+        then<U>(onFulfill?: (value: T) => IWhenable<U>, onReject?: (error: any) => IWhenable<U>, onProgress?: Function): Promise<U>;
 
         /**
          * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason.
          *
          * This is especially useful in conjunction with all
          */
-        spread<U>(onFulfill: (...args: any[]) => IPromise<U> | U, onReject?: (reason: any) => IPromise<U> | U): Promise<U>;
+        spread<U>(onFulfill: (...args: any[]) => IWhenable<U>, onReject?: (reason: any) => IWhenable<U>): Promise<U>;
 
-        fail<U>(onRejected: (reason: any) => U | IPromise<U>): Promise<U>;
+        fail<U>(onRejected: (reason: any) => IWhenable<U>): Promise<U>;
 
         /**
          * A sugar method, equivalent to promise.then(undefined, onRejected).
          */
-        catch<U>(onRejected: (reason: any) => U | IPromise<U>): Promise<U>;
+        catch<U>(onRejected: (reason: any) => IWhenable<U>): Promise<U>;
 
         /**
          * A sugar method, equivalent to promise.then(undefined, undefined, onProgress).
@@ -173,10 +177,10 @@ declare namespace Q {
     export function when(): Promise<void>;
 
     // if no fulfill, reject, or progress provided, returned promise will be of same type
-    export function when<T>(value: T | IPromise<T>): Promise<T>;
+    export function when<T>(value: IWhenable<T>): Promise<T>;
 
     // If a non-promise value is provided, it will not reject or progress
-    export function when<T, U>(value: T | IPromise<T>, onFulfilled: (val: T) => U | IPromise<U>, onRejected?: (reason: any) => U | IPromise<U>, onProgress?: (progress: any) => any): Promise<U>;
+    export function when<T, U>(value: IWhenable<T>, onFulfilled: (val: T) => IWhenable<U>, onRejected?: (reason: any) => IWhenable<U>, onProgress?: (progress: any) => any): Promise<U>;
 
     /**
      * Currently "impossible" (and I use the term loosely) to implement due to TypeScript limitations as it is now.
@@ -184,7 +188,7 @@ declare namespace Q {
      */
     // export function try(method: Function, ...args: any[]): Promise<any>;
 
-    export function fbind<T>(method: (...args: any[]) => T | IPromise<T>, ...args: any[]): (...args: any[]) => Promise<T>;
+    export function fbind<T>(method: (...args: any[]) => IWhenable<T>, ...args: any[]): (...args: any[]) => Promise<T>;
 
     export function fcall<T>(method: (...args: any[]) => T, ...args: any[]): Promise<T>;
 
@@ -206,45 +210,45 @@ declare namespace Q {
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<A, B, C, D, E, F>(promises: [IPromise<A>, IPromise<B>, IPromise<C>, IPromise<D>, IPromise<E>, IPromise<F>]): Promise<[A, B, C, D, E, F]>;
+    export function all<A, B, C, D, E, F>(promises: IWhenable<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>, IWhenable<E>, IWhenable<F>]>): Promise<[A, B, C, D, E, F]>;
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<A, B, C, D, E>(promises: [IPromise<A>, IPromise<B>, IPromise<C>, IPromise<D>, IPromise<E>]): Promise<[A, B, C, D, E]>;
+    export function all<A, B, C, D, E>(promises: IWhenable<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>, IWhenable<E>]>): Promise<[A, B, C, D, E]>;
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<A, B, C, D>(promises: [IPromise<A>, IPromise<B>, IPromise<C>, IPromise<D>]): Promise<[A, B, C, D]>;
+    export function all<A, B, C, D>(promises: IWhenable<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>]>): Promise<[A, B, C, D]>;
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<A, B, C>(promises: [IPromise<A>, IPromise<B>, IPromise<C>]): Promise<[A, B, C]>;
+    export function all<A, B, C>(promises: IWhenable<[IWhenable<A>, IWhenable<B>, IWhenable<C>]>): Promise<[A, B, C]>;
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<A, B>(promises: [IPromise<A>, IPromise<B>]): Promise<[A, B]>;
+    export function all<A, B>(promises: IWhenable<[IWhenable<A>, IWhenable<B>]>): Promise<[A, B]>;
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<T>(promises: IPromise<T>[]): Promise<T[]>;
+    export function all<T>(promises: IWhenable<IWhenable<T>[]>): Promise<T[]>;
 
     /**
     * Returns a promise for the first of an array of promises to become settled.
     */
-    export function race<T>(promises: IPromise<T>[]): Promise<T>;
+    export function race<T>(promises: IWhenable<T>[]): Promise<T>;
 
     /**
      * Returns a promise that is fulfilled with an array of promise state snapshots, but only after all the original promises have settled, i.e. become either fulfilled or rejected.
      */
-    export function allSettled<T>(promises: IPromise<T>[]): Promise<PromiseState<T>[]>;
+    export function allSettled<T>(promises: IWhenable<IWhenable<T>[]>): Promise<PromiseState<T>[]>;
 
-    export function allResolved<T>(promises: IPromise<T>[]): Promise<Promise<T>[]>;
+    export function allResolved<T>(promises: IWhenable<IWhenable<T>[]>): Promise<Promise<T>[]>;
 
     /**
      * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason.
      * This is especially useful in conjunction with all.
      */
-    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => U | IPromise<U>, onRejected?: (reason: any) => U | IPromise<U>): Promise<U>;
+    export function spread<T, U>(promises: IWhenable<T>[], onFulfilled: (...args: T[]) => IWhenable<U>, onRejected?: (reason: any) => IWhenable<U>): Promise<U>;
 
     /**
      * Returns a promise that will have the same result as promise, except that if promise is not fulfilled or rejected before ms milliseconds, the returned promise will be rejected with an Error with the given message. If message is not supplied, the message will be "Timed out after " + ms + " ms".
@@ -291,7 +295,7 @@ declare namespace Q {
      */
     export function reject<T>(reason?: any): Promise<T>;
 
-    export function Promise<T>(resolver: (resolve: (val: T | IPromise<T>) => void , reject: (reason: any) => void , notify: (progress: any) => void ) => void ): Promise<T>;
+    export function Promise<T>(resolver: (resolve: (val: IWhenable<T>) => void , reject: (reason: any) => void , notify: (progress: any) => void ) => void ): Promise<T>;
 
     /**
      * Creates a new version of func that accepts any combination of promise and non-promise values, converting them to their fulfillment values before calling the original func. The returned version also always returns a promise: if func does a return or throw, then Q.promised(func) will return fulfilled or rejected promise, respectively.
@@ -342,14 +346,7 @@ declare namespace Q {
      * Calling resolve with a fulfilled promise causes promise to be fulfilled with the passed promise's fulfillment value.
      * Calling resolve with a non-promise value causes promise to be fulfilled with that value.
      */
-    export function resolve<T>(object: IPromise<T>): Promise<T>;
-    /**
-     * Calling resolve with a pending promise causes promise to wait on the passed promise, becoming fulfilled with its fulfillment value or rejected with its rejection reason (or staying pending forever, if the passed promise does).
-     * Calling resolve with a rejected promise causes promise to be rejected with the passed promise's rejection reason.
-     * Calling resolve with a fulfilled promise causes promise to be fulfilled with the passed promise's fulfillment value.
-     * Calling resolve with a non-promise value causes promise to be fulfilled with that value.
-     */
-    export function resolve<T>(object: T): Promise<T>;
+    export function resolve<T>(object: IWhenable<T>): Promise<T>;
 
 	/**
 	 * Resets the global "Q" variable to the value it has before Q was loaded.
