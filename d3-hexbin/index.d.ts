@@ -3,11 +3,12 @@
 // Definitions by: UNCOVER TRUTH Inc. <https://github.com/uncovertruth/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface Point {
-  [id: string]: number | string
+export interface HexbinBin<T> extends Array<T> {
+    x: number;
+    y: number;
 }
 
-export interface Hexbin {
+export interface Hexbin<T> {
     /**
      * Bins the specified array of points, returning an array of hexagonal bins.
      * For each point in the specified points array, the x- and y-accessors are
@@ -16,7 +17,7 @@ export interface Hexbin {
      * If either the x- or y-coordinate is NaN, the point is ignored and will
      * not be in any of the returned bins.
      */
-    (hexbin: Array<[number, number]> | Array<Point>): any;
+    (points: T[]): HexbinBin<T>[];
 
     /**
      * Returns the SVG path string for the hexagon centered at the origin ⟨0,0⟩.
@@ -51,7 +52,7 @@ export interface Hexbin {
      * of each point. The default value assumes each point is specified as
      * a two-element array of numbers [x, y].
      */
-    x(_: any): Hexbin;
+    x(_: (d: T) => number): Hexbin<T>;
 
     /**
      * If x is not specified, returns the current x-coordinate accessor,
@@ -67,7 +68,7 @@ export interface Hexbin {
      * a two-element array of numbers [x, y].
      *
      */
-    x(): (d?: any) => number;
+    x(): (d: T) => number;
 
     /**
      * If y is specified, sets the y-coordinate accessor to the specified
@@ -77,7 +78,7 @@ export interface Hexbin {
      * of each point. The default value assumes each point is specified as
      * a two-element array of numbers [x, y].
      */
-    y(_: any): Hexbin;
+    y(y: (d: T) => number): Hexbin<T>
 
     /**
      * If y is not specified, returns the current y-coordinate accessor,
@@ -92,7 +93,7 @@ export interface Hexbin {
      * of each point. The default value assumes each point is specified as
      * a two-element array of numbers [x, y].
      */
-    y(): (d?: any) => number;
+    y(): (d: T) => number;
 
     /**
      * If radius is specified, sets the radius of the hexagon to
@@ -102,7 +103,7 @@ export interface Hexbin {
      * the width of each hexagon is radius × 2 × sin(π / 3)
      * and the height of each hexagon radius × 3 / 2.
      */
-    radius(_: any): Hexbin;
+    radius(radius: number): Hexbin<T>;
 
     /**
      * If radius is not specified, returns the current radius,
@@ -118,7 +119,7 @@ export interface Hexbin {
      * If extent is specified, sets the hexbin generator’s extent to the
      * specified bounds [[x0, y0], [x1, y1]] and returns the hexbin generator.
      */
-    extent(_: any): Hexbin;
+    extent(extent: [[number, number], [number, number]]): Hexbin<T>;
 
     /**
      * If extent is not specified, returns the generator’s current
@@ -127,10 +128,11 @@ export interface Hexbin {
      *
      * The extent defaults to [[0, 0], [1, 1]].
      */
-    extent(): Array<[number, number]>;
+    extent(): [[number, number], [number, number]];
 }
 
 /**
  * Constructs a new default hexbin generator.
  */
-export function hexbin(): Hexbin;
+export function hexbin(): Hexbin<[number, number]>;
+export function hexbin<T>(): Hexbin<T>;
