@@ -6,7 +6,8 @@
 declare namespace ValidatorJS {
   type AlphaLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "cs-CZ" | "de-DE" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "hu-HU" | "nl-NL" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sr-RS" | "sr-RS@latin" | "tr-TR";
   type AlphanumericLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "cs-CZ" | "de-DE" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "fr-BE" | "hu-HU" | "nl-BE" | "nl-NL" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sr-RS" | "sr-RS@latin" | "tr-TR";
-
+  type MobilePhoneLocale = "ar-DZ" | "ar-SA" | "ar-SY" | "cs-CZ" | "de-DE" | "da-DK" | "el-GR" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-CA" | "en-ZA" | "en-ZM" | "es-ES" | "fi-FI" | "fr-FR" | "hu-HU" | "it-IT" | "ja-JP" | "ms-MY" | "nb-NO" | "nn-NO" | "pl-PL" | "pt-PT" | "ru-RU" | "sr-RS" | "tr-TR" | "vi-VN" | "zh-CN" | "zh-TW"
+  
   interface ValidatorStatic {
 
     // **************
@@ -17,7 +18,7 @@ declare namespace ValidatorJS {
     contains(str: string, elem: any): boolean;
 
     // check if the string matches the comparison.
-    equals(str: string, comparison: any): boolean;
+    equals(str: string, comparison: string): boolean;
 
     // check if the string is a date that's after the specified date (defaults to now).
     isAfter(str: string, date?: string): boolean;
@@ -130,7 +131,7 @@ declare namespace ValidatorJS {
     // 'en-IN', 'en-NZ', 'en-US', 'en-CA', 'en-ZA', 'en-ZM', 'es-ES', 'fi-FI', 'fr-FR', 'hu-HU',
     // 'it-IT', 'ja-JP', 'ms-MY', 'nb-NO', 'nn-NO', 'pl-PL', 'pt-PT', 'ru-RU', 'sr-RS', 'tr-TR',
     // 'vi-VN', 'zh-CN', 'zh-TW']).
-    isMobilePhone(str: string, locale: string): boolean;
+    isMobilePhone(str: string, locale: MobilePhoneLocale): boolean;
 
     // check if the string is a valid hex-encoded representation of a MongoDB ObjectId
     // (http://docs.mongodb.org/manual/reference/object-id/).
@@ -152,7 +153,7 @@ declare namespace ValidatorJS {
     isURL(str: string, options?: IsURLOptions): boolean;
 
     // check if the string is a UUID. Must be one of ['3', '4', '5', 'all'], default is all.
-    isUUID(str: string, version?: string|number): boolean;
+    isUUID(str: string, version?: string | number): boolean;
 
     // check if the string is uppercase.
     isUppercase(str: string): boolean;
@@ -161,10 +162,10 @@ declare namespace ValidatorJS {
     isVariableWidth(str: string): boolean;
 
     // checks characters if they appear in the whitelist.
-    isWhitelisted(str: string, chars: string|string[]): boolean;
+    isWhitelisted(str: string, chars: string | string[]): boolean;
 
     // check if string matches the pattern.
-    matches(str: string, pattern: RegExp|string, modifiers?: string): boolean;
+    matches(str: string, pattern: RegExp | string, modifiers?: string): boolean;
 
     // **************
     // * Sanitizers *
@@ -181,13 +182,13 @@ declare namespace ValidatorJS {
     unescape(input: string): string;
 
     // trim characters from the left-side of the input.
-    ltrim(input: any, chars?: string): string;
+    ltrim(input: string, chars?: string): string;
 
     // canonicalize an email address.
     normalizeEmail(email: string, options?: NormalizeEmailOptions): string;
 
     // trim characters from the right-side of the input.
-    rtrim(input: any, chars?: string): string;
+    rtrim(input: string, chars?: string): string;
 
     // remove characters with a numerical value < 32 and 127, mostly control characters. If keep_new_lines is true,
     // newline characters are preserved (\n and \r, hex 0xA and 0xD). Unicode-safe in JavaScript.
@@ -195,19 +196,19 @@ declare namespace ValidatorJS {
 
     // convert the input to a boolean. Everything except for '0', 'false' and '' returns true. In strict mode only '1'
     // and 'true' return true.
-    toBoolean(input: any, strict?: boolean): boolean;
+    toBoolean(input: string, strict?: boolean): boolean;
 
     // convert the input to a date, or null if the input is not a date.
-    toDate(input: any): Date; // Date or null
+    toDate(input: string): Date; // Date or null
 
     // convert the input to a float, or NaN if the input is not a float.
-    toFloat(input: any): number; // number or NaN
+    toFloat(input: string): number; // number or NaN
 
     // convert the input to an integer, or NaN if the input is not an integer.
-    toInt(input: any, radix?: number): number; // number or NaN
+    toInt(input: string, radix?: number): number; // number or NaN
 
     // trim characters (whitespace by default) from both sides of the input.
-    trim(input: any, chars?: string): string;
+    trim(input: string, chars?: string): string;
 
     // remove characters that do not appear in the whitelist. The characters are used in a RegExp and so you will
     // need to escape some chars, e.g. whitelist(input, '\\[\\]').
@@ -284,8 +285,8 @@ declare namespace ValidatorJS {
     require_host: boolean;
     require_valid_protocol?: boolean;
     allow_underscores?: boolean;
-    host_whitelist?: (string|RegExp)[];
-    host_blacklist?: (string|RegExp)[];
+    host_whitelist?: (string | RegExp)[];
+    host_blacklist?: (string | RegExp)[];
     allow_trailing_dot?: boolean;
     allow_protocol_relative_urls?: boolean;
   }
@@ -304,7 +305,7 @@ declare module "validator" {
 }
 
 // deprecated interfaces for backward compatibility, please use ValidatorJS.* instead the ones
-interface IValidatorStatic extends ValidatorJS.ValidatorStatic {}
-interface IURLoptions extends ValidatorJS.IsURLOptions {}
-interface IFQDNoptions extends ValidatorJS.IsFQDNOptions {}
-interface IEmailoptions extends ValidatorJS.NormalizeEmailOptions {}
+interface IValidatorStatic extends ValidatorJS.ValidatorStatic { }
+interface IURLoptions extends ValidatorJS.IsURLOptions { }
+interface IFQDNoptions extends ValidatorJS.IsFQDNOptions { }
+interface IEmailoptions extends ValidatorJS.NormalizeEmailOptions { }
