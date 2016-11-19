@@ -3646,7 +3646,7 @@ declare namespace THREE {
         inverse(): Quaternion;
 
         conjugate(): Quaternion;
-        dot(v: Vector3): number;
+        dot(v: Quaternion): number;
         lengthSq(): number;
 
         /**
