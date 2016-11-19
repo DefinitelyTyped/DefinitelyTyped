@@ -96,7 +96,7 @@ declare namespace vuejs {
         detached?(): void;
         beforeDestroy?(): void;
         destroyed?(): void;
-        activate?(): void;
+        activate?: (done: () => void) => void;
         directives?: { [key: string]: (DirectiveOption | Function) };
         elementDirectives?: { [key: string]: (DirectiveOption | Function) };
         filters?: { [key: string]: (Function | FilterOption) };

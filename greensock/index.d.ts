@@ -13,7 +13,38 @@ interface IDispatcher {
 
 declare type Tween = TweenLite | TweenMax;
 declare type Timeline = SimpleTimeline | TimelineLite | TimelineMax;
-
+declare type TweenConfig = {
+    [tweenProp: string]: any;
+    delay?: number;
+    ease?: Ease;
+    repeat?: number;
+    repeatDelay?: number;
+    yoyo?: boolean;
+    paused?: boolean;
+    overwrite?: string|number;
+    onComplete?: Function;
+    immediateRender?: boolean;
+    onCompleteParams?: any[];
+    onCompleteScope?: Object;
+    onRepeat?: Function;
+    onRepeatScope?: Object;
+    onReverseComplete?: Function;
+    onReverseCompleteParams?: any[];
+    onReverseCompleteScope?: Object;
+    onStart?: Function;
+    onStartParams?: any[];
+    onStartScope?: Object;
+    onUpdate?: Function;
+    onUpdateParams?: any[];
+    onUpdateScope?: Object;
+    startAt?: Object;
+    useFrames?: boolean;
+    lazy?: boolean;
+    onOverwrite?: Function;
+    autoCSS?: boolean;
+    callbackScope?: Object;
+}
+    
 //com.greensock.core
 declare class Animation {
     static ticker: IDispatcher;
@@ -86,7 +117,7 @@ declare class TweenLite extends Animation {
     static killTweensOf(target: Object, onlyActive?: boolean, vars?: Object): void;
     static lagSmoothing(threshold: number, adjustedLag: number): void;
     static set(target: Object, vars: Object): TweenLite;
-    static to(target: Object, duration: number, vars: Object): TweenLite;
+    static to(target: Object, duration: number, vars: TweenConfig): TweenLite;
 }
 
 declare class TweenMax extends TweenLite {
@@ -112,7 +143,7 @@ declare class TweenMax extends TweenLite {
     static staggerFrom(targets: any, duration: number, vars: Object, stagger: number, onCompleteAll?: Function, onCompleteAllParams?: any[], onCompleteAllScope?: any): any[];
     static staggerFromTo(targets: any, duration: number, fromVars: Object, toVars: Object, stagger: number, onCompleteAll?: Function, onCompleteAllParams?: any[], onCompleteAllScope?: any): any[];
     static staggerTo(targets: any, duration: number, vars: Object, stagger: number, onCompleteAll?: Function, onCompleteAllParams?: any[], onCompleteAllScope?: any): any[];
-    static to(target:Object, duration:number, vars:Object):TweenMax;
+    static to(target:Object, duration:number, vars:TweenConfig):TweenMax;
     updateTo(vars: Object, resetDuration?: boolean): TweenMax;
     yoyo(): boolean;
     yoyo(value?: boolean): TweenMax;
@@ -130,7 +161,7 @@ declare class TimelineLite extends SimpleTimeline {
     static exportRoot(vars?: Object, omitDelayedCalls?: boolean): TimelineLite;
     from(target: Object, duration: number, vars: Object, position?: any): TimelineLite;
     fromTo(target: Object, duration: number, fromVars: Object, toVars: Object, position?: any): TimelineLite;
-    getChildren(nested?: boolean, tweens?: boolean, timelines?: boolean, ignoreBeforeTime?: number): Tween | Timeline[];
+    getChildren(nested?: boolean, tweens?: boolean, timelines?: boolean, ignoreBeforeTime?: number): (Tween | Timeline)[];
     getLabelTime(label: string): number;
     getTweensOf(target: Object, nested?: boolean): Tween[];
     recent(): Animation;
@@ -167,109 +198,106 @@ declare class TimelineMax extends TimelineLite {
 }
 
 //com.greensock.easing
-interface Back {
-    easeIn:Ease;
-    easeInOut:Ease;
-    easeOut:Ease;
+declare class Ease {
+    constructor(func:Function, extraParams:any[], type:number, power:number);
+    public getRatio(p: number): number;
 }
-interface Bounce {
-    easeIn:Ease;
-    easeInOut:Ease;
-    easeOut:Ease;
-}
-interface Circ {
-    easeIn:Ease;
-    easeInOut:Ease;
-    easeOut:Ease;
-}
-interface Cubic {
-    easeIn:Ease;
-    easeInOut:Ease;
-    easeOut:Ease;
-}
-interface Ease {
-    getRatio(p:number):number;
-}
-interface EaseLookup {
-    find(name:string):Ease;
-}
-interface Elastic {
-    easeIn:Ease;
-    easeInOut:Ease;
-    easeOut:Ease;
-}
-interface Expo {
-    easeIn:Ease;
-    easeInOut:Ease;
-    easeOut:Ease;
-}
-interface Linear {
-    ease:Linear;
-    easeIn:Linear;
-    easeInOut:Linear;
-    easeNone:Linear;
-    easeOut:Linear;
-}
-interface Power0 {
-    easeIn:Ease;
-    easeInOut:Ease;
-    easeOut:Ease;
-}
-interface Power1 {
-    easeIn:Ease;
-    easeInOut:Ease;
-    easeOut:Ease;
-}
-interface Power2 {
-    easeIn:Ease;
-    easeInOut:Ease;
-    easeOut:Ease;
-}
-interface Power3 {
-    easeIn:Ease;
-    easeInOut:Ease;
-    easeOut:Ease;
-}
-interface Power4 {
-    easeIn:Ease;
-    easeInOut:Ease;
-    easeOut:Ease;
-}
-interface Quad {
-    easeIn:Ease;
-    easeInOut:Ease;
-    easeOut:Ease;
-}
-interface Quart {
-    easeIn:Ease;
-    easeInOut:Ease;
-    easeOut:Ease;
-}
-interface Quint {
-    easeIn:Ease;
-    easeInOut:Ease;
-    easeOut:Ease;
-}
-interface Sine {
-    easeIn:Ease;
-    easeInOut:Ease;
-    easeOut:Ease;
-}
-interface SlowMo {
-    ease:SlowMo;
 
-    new (linearRatio:number, power:number, yoyoMode:boolean):SlowMo;
-    config(linearRatio:number, power:number, yoyoMode:boolean):SlowMo;
-    getRatio(p:number):number;
+declare class EaseLookup {
+    public static find(name: string): Ease;
 }
-interface SteppedEase {
-    config(steps:number):SteppedEase;
-    getRatio(p:number):number;
+
+declare class Back extends Ease {
+    public static easeIn: Back;
+    public static easeInOut: Back;
+    public static easeOut: Back;
+    public config(overshoot: number): Elastic;
+
 }
-interface Strong {
-    easeIn:Ease;
-    easeInOut:Ease;
-    easeOut:Ease;
+declare class Bounce extends Ease {
+    public static easeIn: Bounce;
+    public static easeInOut: Bounce;
+    public static easeOut: Bounce;
+}
+declare class Circ extends Ease {
+    public static easeIn: Circ;
+    public static easeInOut: Circ;
+    public static easeOut: Circ;
+}
+declare class Cubic extends Ease {
+    public static easeIn: Cubic;
+    public static easeInOut: Cubic;
+    public static easeOut: Cubic;
+}
+
+declare class Elastic extends Ease {
+    public static easeIn: Elastic;
+    public static easeInOut: Elastic;
+    public static easeOut: Elastic;
+    public config(amplitude: number, period: number): Elastic;
+}
+
+declare class Expo extends Ease {
+    public static easeIn: Expo;
+    public static easeInOut: Expo;
+    public static easeOut: Expo;
+}
+
+declare class Linear extends Ease {
+    public static ease: Linear;
+    public static easeIn: Linear;
+    public static easeInOut: Linear;
+    public static easeNone: Linear;
+    public static easeOut: Linear;
+}
+
+declare class Quad extends Ease {
+    public static easeIn: Quad;
+    public static easeInOut: Quad;
+    public static easeOut: Quad;
+}
+
+declare class Quart extends Ease {
+    public static easeIn: Quart;
+    public static easeInOut: Quart;
+    public static easeOut: Quart;
+}
+
+declare class Quint extends Ease {
+    public static easeIn: Quint;
+    public static easeInOut: Quint;
+    public static easeOut: Quint;
+}
+
+declare class Sine extends Ease {
+    public static easeIn: Sine;
+    public static easeInOut: Sine;
+    public static easeOut: Sine;
+}
+
+declare class SlowMo extends Ease {
+    public static ease: SlowMo;
+    public config(linearRatio: number, power: number, yoyoMode: boolean): SlowMo;
+}
+
+declare class SteppedEase extends Ease {
+    constructor(staps: number);
+    public config(steps: number): SteppedEase;
+}
+
+declare type RoughEaseConfig = {
+    clamp?: boolean;
+    points?: number;
+    randomize?: boolean;
+    strength?: number;
+    taper?: string; /* one of "in" | "out" | "both" | "none" */
+    template?: Ease;
+}
+
+declare class RoughEase extends Ease {
+    public static ease: RoughEase;
+    constructor(vars: RoughEaseConfig);
+    public config(steps: number): SteppedEase;
 }
 
 //com.greensock.plugins
@@ -304,27 +332,12 @@ interface TweenPlugin {
 }
 
 //com.greensock.easing
-declare var Back:Back;
-declare var Bounce:Bounce;
-declare var Circ:Circ;
-declare var Cubic:Cubic;
-declare var Ease:Ease;
-declare var EaseLookup:EaseLookup;
-declare var Elastic:Elastic;
-declare var Expo:Expo;
-declare var Linear:Linear;
-declare var Power0:Power0;
-declare var Power1:Power1;
-declare var Power2:Power2;
-declare var Power3:Power3;
-declare var Power4:Power4;
-declare var Quad:Quad;
-declare var Quart:Quart;
-declare var Quint:Quint;
-declare var Sine:Sine;
-declare var SlowMo:SlowMo;
-declare var SteppedEase:SteppedEase;
-declare var Strong:Strong;
+declare var Power0: typeof Linear;
+declare var Power1: typeof Quad;
+declare var Power2: typeof Cubic;
+declare var Power3: typeof Quart;
+declare var Power4: typeof Quint;
+declare var Strong: typeof Quint;
 
 //com.greensock.plugins
 declare var BezierPlugin:BezierPlugin;

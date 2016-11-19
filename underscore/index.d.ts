@@ -71,6 +71,10 @@ declare module _ {
         (element: T, key: string, list: Dictionary<T>): TResult;
     }
 
+    type IterateePropertyShorthand = string | number;
+
+    type IterateeMatcherShorthand<T> = Dictionary<T>;
+
     interface MemoIterator<T, TResult> {
         (prev: TResult, curr: T, index: number, list: List<T>): TResult;
     }
@@ -149,7 +153,7 @@ declare module _ {
         **/
         map<T, TResult>(
             list: _.List<T>,
-            iterator: _.ListIterator<T, TResult>,
+            iterator: _.ListIterator<T, TResult> | _.IterateePropertyShorthand | _.IterateeMatcherShorthand<any>,
             context?: any): TResult[];
 
         /**
@@ -169,7 +173,7 @@ declare module _ {
         **/
         collect<T, TResult>(
             list: _.List<T>,
-            iterator: _.ListIterator<T, TResult>,
+            iterator: _.ListIterator<T, TResult> | _.IterateePropertyShorthand | _.IterateeMatcherShorthand<any>,
             context?: any): TResult[];
 
         /**
@@ -903,7 +907,7 @@ declare module _ {
         uniq<T, TSort>(
             array: _.List<T>,
             isSorted?: boolean,
-            iterator?: _.ListIterator<T, TSort>,
+            iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand,
             context?: any): T[];
 
         /**
@@ -919,7 +923,7 @@ declare module _ {
         **/
         unique<T, TSort>(
             array: _.List<T>,
-            iterator?: _.ListIterator<T, TSort>,
+            iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand,
             context?: any): T[];
 
         /**

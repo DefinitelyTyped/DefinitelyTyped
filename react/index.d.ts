@@ -1,6 +1,6 @@
 // Type definitions for React v0.14
 // Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
+// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = React;
@@ -176,7 +176,7 @@ declare namespace React {
         // on the existence of `children` in `P`, then we should remove this.
         props: P & { children?: ReactNode };
         state: S;
-        context: {};
+        context: any;
         refs: {
             [key: string]: ReactInstance
         };
@@ -2074,6 +2074,7 @@ declare namespace React {
 
     interface SVGAttributes<T> extends HTMLAttributes<T> {
         clipPath?: string;
+        colorInterpolationFilters?: "auto" | "sRGB" | "linearRGB" | "inherit";
         cx?: number | string;
         cy?: number | string;
         d?: string;
@@ -2081,12 +2082,14 @@ declare namespace React {
         dy?: number | string;
         fill?: string;
         fillOpacity?: number | string;
+        filter?: string;
         fontFamily?: string;
         fontSize?: number | string;
         fx?: number | string;
         fy?: number | string;
         gradientTransform?: string;
         gradientUnits?: string;
+        in?: string;
         markerEnd?: string;
         markerMid?: string;
         markerStart?: string;
@@ -2097,9 +2100,11 @@ declare namespace React {
         points?: string;
         preserveAspectRatio?: string;
         r?: number | string;
+        result?: string;
         rx?: number | string;
         ry?: number | string;
         spreadMethod?: string;
+        stdDeviation?: number | string
         stopColor?: string;
         stopOpacity?: number | string;
         stroke?: string;
@@ -2111,11 +2116,14 @@ declare namespace React {
         strokeWidth?: number | string;
         textAnchor?: string;
         transform?: string;
+        type?: string;
+        values?: string;
         version?: string;
         viewBox?: string;
         x1?: number | string;
         x2?: number | string;
         x?: number | string;
+        xChannelSelector?: string;
         xlinkActuate?: string;
         xlinkArcrole?: string;
         xlinkHref?: string;
@@ -2125,10 +2133,15 @@ declare namespace React {
         xlinkType?: string;
         xmlBase?: string;
         xmlLang?: string;
+        xmlns?: string;
+        xmlnsXlink?: string;
         xmlSpace?: string;
         y1?: number | string;
         y2?: number | string;
         y?: number | string;
+        yChannelSelector?: string;
+        z?: number | string;
+        zoomAndPan?: string;
     }
 
     //

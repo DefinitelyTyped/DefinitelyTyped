@@ -7,6 +7,17 @@
 
 
 
+export interface Subscription {
+    unsubscribe(): void;
+    closed: boolean; // Actually, `readonly` but it's avaiable in tsc starting with 2.0.0
+}
+
+export interface Observer<T, S> {
+    value?: (value: T) => void;
+    error?: (error: S) => void;
+    end?: () => void;
+}
+
 export interface Observable<T, S> {
     // Subscribe / add side effects
     onValue(callback: (value: T) => void): void;
@@ -22,6 +33,13 @@ export interface Observable<T, S> {
     flatten<U>(transformer?: (value: T) => U[]): Stream<U, S>;
     toPromise(PromiseConstructor?: any): any;
     toESObservable(): any;
+    // This method is designed to replace all other methods for subscribing
+    observe(params: Observer<T, S>): Subscription;
+    observe(
+        onValue?: (value: T) => void,
+        onError?: (error: S) => void,
+        onEnd?: () => void
+    ): Subscription;
 }
 
 export interface Stream<T, S> extends Observable<T, S> {

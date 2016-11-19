@@ -4,10 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-
+/// <reference types="pg-types" />
 
 import events = require("events");
 import stream = require("stream");
+import pgTypes = require("pg-types");
 
 export declare function connect(connection: string, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
 export declare function connect(config: ClientConfig, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
@@ -129,3 +130,5 @@ export declare class Events extends events.EventEmitter {
 declare namespace types {
     function setTypeParser<T>(typeId: number, parser: (value: string) => T): void;
 }
+
+export const types: typeof pgTypes;

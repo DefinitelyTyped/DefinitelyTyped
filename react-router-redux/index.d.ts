@@ -32,7 +32,7 @@ declare namespace ReactRouterRedux {
 
     type RouterAction = {
         type: string
-        payload?: any
+        payload?: LocationDescriptor
     }
 
     interface RouteActions {

@@ -80,16 +80,22 @@ ASSERTIONS
 - [ ] featureOf
 - [ ] collectionOf
 - [x] bbox
-- [ ] circle
-- [ ] geojsonType
-- [ ] propReduce
-- [ ] coordAll
-- [ ] tesselate
+- [x] circle
+- [x] geojsonType
+- [x] propReduce
+- [x] coordAll
+- [x] tesselate
  */
 
 declare const turf: turf.TurfStatic;
 declare const TemplateUnits: 'miles' | 'nauticalmiles' | 'degrees' | 'radians' | 'inches' | 'yards' | 'meters' | 'metres' | 'kilometers' | 'kilometres'
 declare const TemplateType: 'point'| 'points' | 'polygon' | 'polygons'
+declare interface OptionsRandom {
+    bbox?: Array<number>
+    num_vertices?: number
+    max_radial_length?: number
+}
+declare type PropReduceCallback = (memo: any, coord: GeoJSON.Feature<any> | GeoJSON.FeatureCollection<any>) => any
 declare module turf {
   interface TurfStatic {
     //////////////////////////////////////////////////////
@@ -173,6 +179,74 @@ declare module turf {
      * //=bboxPolygon
      */
     bbox(bbox: GeoJSON.Feature<any> | GeoJSON.FeatureCollection<any>): Array<number>;
+
+    /**
+     * Takes a {@link Point} and calculates the circle polygon given a radius in degrees, radians, miles, or kilometers; and steps for precision.
+     *
+     * @name circle
+     * @param {Feature<Point>} center center point
+     * @param {number} radius radius of the circle
+     * @param {number} [steps=64] number of steps
+     * @param {string} [units=kilometers] miles, kilometers, degrees, or radians
+     * @returns {Feature<Polygon>} circle polygon
+     * @example
+     * var center = point([-75.343, 39.984]);
+     * var radius = 5;
+     * var steps = 10;
+     * var units = 'kilometers';
+     *
+     * var circle = turf.circle(center, radius, steps, units);
+     *
+     * //=circle
+     */
+    circle(center: GeoJSON.Feature<GeoJSON.Point>, radius: number, steps?: number, units?: typeof TemplateUnits): GeoJSON.Feature<GeoJSON.Polygon>;
+
+
+    /**
+     * Enforce expectations about types of GeoJSON objects for Turf.
+     *
+     * @name geojsonType
+     * @param {GeoJSON} value any GeoJSON object
+     * @param {string} type expected GeoJSON type
+     * @param {string} name name of calling function
+     * @throws {Error} if value is not the expected type.
+     */
+    geojsonType(value: GeoJSON.Feature<any> | GeoJSON.FeatureCollection<any>, type: string, name: string): void
+
+    /**
+     * Reduce properties in any GeoJSON object into a single value, similar to how Array.reduce works. However, in this case we lazily run the reduction, so an array of all properties is unnecessary.
+     *
+     * @name propReduce
+     * @param {GeoJSON} layer any GeoJSON object
+     * @param {Function} callback a method that takes (memo, coord) and returns a new memo
+     * @param {*} memo the starting value of memo: can be any type.
+     * @return {*} combined value
+     */
+    propReduce(layer: GeoJSON.Feature<any> | GeoJSON.FeatureCollection<any>, callback: PropReduceCallback, memo: any): any
+
+    /**
+     * Get all coordinates from any GeoJSON object, returning an array of coordinate arrays.
+     *
+     * @name coordAll
+     * @param {GeoJSON} layer any GeoJSON object
+     * @returns {Array<Array<Number>>} coordinate position array
+     */
+    coordAll(layer: GeoJSON.Feature<any> | GeoJSON.FeatureCollection<any>): Array<Array<number>>
+
+    /**
+     * Tesselates a {@link Feature<Polygon>} into a {@link FeatureCollection<Polygon>} of triangles using [earcut](https://github.com/mapbox/earcut).
+     *
+     * @name tesselate
+     * @param {Feature<Polygon>} polygon the polygon to tesselate
+     * @returns {FeatureCollection<Polygon>} a geometrycollection feature
+     * @example
+     * var polygon = turf.random('polygon').features[0];
+     *
+     * var triangles = turf.tesselate(polygon);
+     *
+     * //=triangles
+     */
+    tesselate(poly: GeoJSON.Feature<GeoJSON.Polygon>): GeoJSON.FeatureCollection<GeoJSON.Polygon>
 
     /**
     * Takes a bbox and returns an equivalent polygon.
@@ -664,11 +738,11 @@ declare module turf {
      *
      * //=polygons
      */
-    random(type?: typeof TemplateType, count?: number, options?: {
-      bbox?: Array<number>
-      num_vertices?: number
-      max_radial_length?: number
-    }): GeoJSON.FeatureCollection<any>;
+    random(type?: 'point', count?: number, options?: OptionsRandom): GeoJSON.FeatureCollection<GeoJSON.Point>;
+    random(type?: 'points', count?: number, options?: OptionsRandom): GeoJSON.FeatureCollection<GeoJSON.Point>;
+    random(type?: 'polygon', count?: number, options?: OptionsRandom): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
+    random(type?: 'polygons', count?: number, options?: OptionsRandom): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
+    random(type?: typeof TemplateType, count?: number, options?: OptionsRandom): GeoJSON.FeatureCollection<any>;
 
     /**
      * Takes a {@link FeatureCollection} and returns a FeatureCollection with given number of {@link Feature|features} at random.
@@ -1181,27 +1255,27 @@ declare module "@turf/bbox" {
    export = bbox;
 }
 
-// declare module "@turf/circle" {
-//    const circle: typeof turf.circle;
-//    export = circle;
-// }
+declare module "@turf/circle" {
+   const circle: typeof turf.circle;
+   export = circle;
+}
 
-// declare module "@turf/geojsonType" {
-//    const geojsonType: typeof turf.geojsonType;
-//    export = geojsonType;
-// }
+declare module "@turf/geojsonType" {
+   const geojsonType: typeof turf.geojsonType;
+   export = geojsonType;
+}
 
-// declare module "@turf/propReduce" {
-//    const propReduce: typeof turf.propReduce;
-//    export = propReduce;
-// }
+declare module "@turf/propReduce" {
+   const propReduce: typeof turf.propReduce;
+   export = propReduce;
+}
 
-// declare module "@turf/coordAll" {
-//    const coordAll: typeof turf.coordAll;
-//    export = coordAll;
-// }
+declare module "@turf/coordAll" {
+   const coordAll: typeof turf.coordAll;
+   export = coordAll;
+}
 
-// declare module "@turf/tesselate" {
-//    const tesselate: typeof turf.tesselate;
-//    export = tesselate;
-// }
+declare module "@turf/tesselate" {
+   const tesselate: typeof turf.tesselate;
+   export = tesselate;
+}

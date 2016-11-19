@@ -16,6 +16,8 @@ declare namespace yargs {
 
         detectLocale(detect: boolean): Argv;
 
+        terminalWidth(): number;
+
         alias(shortName: string, longName: string): Argv;
         alias(aliases: { [shortName: string]: string }): Argv;
         alias(aliases: { [shortName: string]: string[] }): Argv;
@@ -133,7 +135,7 @@ declare namespace yargs {
         count(key: string): Argv;
         count(keys: string[]): Argv;
 
-        fail(func: (msg: string) => any): void;
+        fail(func: (msg: string, err: Error) => any): Argv;
     }
 
     interface RequireDirectoryOptions {
