@@ -643,23 +643,23 @@ declare namespace protractor {
     //endregion
 
     /**
-    * Use as: element(locator)
-    *
-    * The ElementFinder can be treated as a WebElement for most purposes, in
-    * particular, you may perform actions (i.e. click, getText) on them as you
-    * would a WebElement. ElementFinders extend Promise, and once an action
-    * is performed on an ElementFinder, the latest result from the chain can be
-    * accessed using then. Unlike a WebElement, an ElementFinder will wait for
-    * angular to settle before performing finds or actions.
-    *
-    * ElementFinder can be used to build a chain of locators that is used to find
-    * an element. An ElementFinder does not actually attempt to find the element
-    * until an action is called, which means they can be set up in helper files
-    * before the page is available.
-    *
-    * @param {webdriver.Locator} locator An element locator.
-    * @return {ElementFinder}
-    */
+     * Use as: element(locator)
+     *
+     * The ElementFinder can be treated as a WebElement for most purposes, in
+     * particular, you may perform actions (i.e. click, getText) on them as you
+     * would a WebElement. ElementFinders extend Promise, and once an action
+     * is performed on an ElementFinder, the latest result from the chain can be
+     * accessed using then. Unlike a WebElement, an ElementFinder will wait for
+     * angular to settle before performing finds or actions.
+     *
+     * ElementFinder can be used to build a chain of locators that is used to find
+     * an element. An ElementFinder does not actually attempt to find the element
+     * until an action is called, which means they can be set up in helper files
+     * before the page is available.
+     *
+     * @param {webdriver.Locator} locator An element locator.
+     * @return {ElementFinder}
+     */
     interface Element {
         (locator: webdriver.Locator): ElementFinder;
 
@@ -675,176 +675,176 @@ declare namespace protractor {
 
     interface ElementFinder extends webdriver.IWebElement, webdriver.promise.IThenable<any> {
         /**
-        * Calls to element may be chained to find elements within a parent.
-        *
-        * @alias element(locator).element(locator)
-        * @view
-        * <div class="parent">
-        *   <div class="child">
-        *     Child text
-        *     <div>{{person.phone}}</div>
-        *   </div>
-        * </div>
-        *
-        * @example
-        * // Chain 2 element calls.
-        * var child = element(by.css('.parent')).
-        *     element(by.css('.child'));
-        * expect(child.getText()).toBe('Child text\n555-123-4567');
-        *
-        * // Chain 3 element calls.
-        * var triple = element(by.css('.parent')).
-        *     element(by.css('.child')).
-        *     element(by.binding('person.phone'));
-        * expect(triple.getText()).toBe('555-123-4567');
-        *
-        * @param {webdriver.Locator} subLocator
-        * @return {ElementFinder}
-        */
+         * Calls to element may be chained to find elements within a parent.
+         *
+         * @alias element(locator).element(locator)
+         * @view
+         * <div class="parent">
+         *   <div class="child">
+         *     Child text
+         *     <div>{{person.phone}}</div>
+         *   </div>
+         * </div>
+         *
+         * @example
+         * // Chain 2 element calls.
+         * var child = element(by.css('.parent')).
+         *     element(by.css('.child'));
+         * expect(child.getText()).toBe('Child text\n555-123-4567');
+         *
+         * // Chain 3 element calls.
+         * var triple = element(by.css('.parent')).
+         *     element(by.css('.child')).
+         *     element(by.binding('person.phone'));
+         * expect(triple.getText()).toBe('555-123-4567');
+         *
+         * @param {webdriver.Locator} subLocator
+         * @return {ElementFinder}
+         */
         element(subLocator: webdriver.Locator): ElementFinder;
 
         /**
-        * Calls to element may be chained to find an array of elements within a parent.
-        *
-        * @alias element(locator).all(locator)
-        * @view
-        * <div class="parent">
-        *   <ul>
-        *     <li class="one">First</li>
-        *     <li class="two">Second</li>
-        *     <li class="three">Third</li>
-        *   </ul>
-        * </div>
-        *
-        * @example
-        * var items = element(by.css('.parent')).all(by.tagName('li'))
-        *
-        * @param {webdriver.Locator} subLocator
-        * @return {ElementArrayFinder}
-        */
+         * Calls to element may be chained to find an array of elements within a parent.
+         *
+         * @alias element(locator).all(locator)
+         * @view
+         * <div class="parent">
+         *   <ul>
+         *     <li class="one">First</li>
+         *     <li class="two">Second</li>
+         *     <li class="three">Third</li>
+         *   </ul>
+         * </div>
+         *
+         * @example
+         * var items = element(by.css('.parent')).all(by.tagName('li'))
+         *
+         * @param {webdriver.Locator} subLocator
+         * @return {ElementArrayFinder}
+         */
         all(subLocator: webdriver.Locator): ElementArrayFinder;
 
         /**
-        * Shortcut for querying the document directly with css.
-        *
-        * @alias $(cssSelector)
-        * @view
-        * <div class="count">
-        *   <span class="one">First</span>
-        *   <span class="two">Second</span>
-        * </div>
-        *
-        * @example
-        * var item = $('.count .two');
-        * expect(item.getText()).toBe('Second');
-        *
-        * @param {string} selector A css selector
-        * @return {ElementFinder} which identifies the located
-        *     {@link webdriver.WebElement}
-        */
+         * Shortcut for querying the document directly with css.
+         *
+         * @alias $(cssSelector)
+         * @view
+         * <div class="count">
+         *   <span class="one">First</span>
+         *   <span class="two">Second</span>
+         * </div>
+         *
+         * @example
+         * var item = $('.count .two');
+         * expect(item.getText()).toBe('Second');
+         *
+         * @param {string} selector A css selector
+         * @return {ElementFinder} which identifies the located
+         *     {@link webdriver.WebElement}
+         */
         $(selector: string): ElementFinder;
 
         /**
-        * Shortcut for querying the document directly with css.
-        *
-        * @alias $$(cssSelector)
-        * @view
-        * <div class="count">
-        *   <span class="one">First</span>
-        *   <span class="two">Second</span>
-        * </div>
-        *
-        * @example
-        * // The following protractor expressions are equivalent.
-        * var list = element.all(by.css('.count span'));
-        * expect(list.count()).toBe(2);
-        *
-        * list = $$('.count span');
-        * expect(list.count()).toBe(2);
-        * expect(list.get(0).getText()).toBe('First');
-        * expect(list.get(1).getText()).toBe('Second');
-        *
-        * @param {string} selector a css selector
-        * @return {ElementArrayFinder} which identifies the
-        *     array of the located {@link webdriver.WebElement}s.
-        */
+         * Shortcut for querying the document directly with css.
+         *
+         * @alias $$(cssSelector)
+         * @view
+         * <div class="count">
+         *   <span class="one">First</span>
+         *   <span class="two">Second</span>
+         * </div>
+         *
+         * @example
+         * // The following protractor expressions are equivalent.
+         * var list = element.all(by.css('.count span'));
+         * expect(list.count()).toBe(2);
+         *
+         * list = $$('.count span');
+         * expect(list.count()).toBe(2);
+         * expect(list.get(0).getText()).toBe('First');
+         * expect(list.get(1).getText()).toBe('Second');
+         *
+         * @param {string} selector a css selector
+         * @return {ElementArrayFinder} which identifies the
+         *     array of the located {@link webdriver.WebElement}s.
+         */
         $$(selector: string): ElementArrayFinder;
 
         /**
-        * Determine whether the element is present on the page.
-        *
-        * @view
-        * <span>{{person.name}}</span>
-        *
-        * @example
-        * // Element exists.
-        * expect(element(by.binding('person.name')).isPresent()).toBe(true);
-        *
-        * // Element not present.
-        * expect(element(by.binding('notPresent')).isPresent()).toBe(false);
-        *
-        * @return {ElementFinder} which resolves to whether
-        *     the element is present on the page.
-        */
+         * Determine whether the element is present on the page.
+         *
+         * @view
+         * <span>{{person.name}}</span>
+         *
+         * @example
+         * // Element exists.
+         * expect(element(by.binding('person.name')).isPresent()).toBe(true);
+         *
+         * // Element not present.
+         * expect(element(by.binding('notPresent')).isPresent()).toBe(false);
+         *
+         * @return {ElementFinder} which resolves to whether
+         *     the element is present on the page.
+         */
         isPresent(): webdriver.promise.Promise<boolean>;
 
         /**
-        * Override for WebElement.prototype.isElementPresent so that protractor waits
-        * for Angular to settle before making the check.
-        *
-        * @see ElementFinder.isPresent
-        *
-        * @param {webdriver.Locator} subLocator Locator for element to look for.
-        * @return {ElementFinder} which resolves to whether
-        *     the element is present on the page.
-        */
+         * Override for WebElement.prototype.isElementPresent so that protractor waits
+         * for Angular to settle before making the check.
+         *
+         * @see ElementFinder.isPresent
+         *
+         * @param {webdriver.Locator} subLocator Locator for element to look for.
+         * @return {ElementFinder} which resolves to whether
+         *     the element is present on the page.
+         */
         isElementPresent(subLocator: webdriver.Locator): webdriver.promise.Promise<boolean>;
 
         /**
-        * @see ElementArrayFinder.prototype.locator
-        *
-        * @return {webdriver.Locator}
-        */
+         * @see ElementArrayFinder.prototype.locator
+         *
+         * @return {webdriver.Locator}
+         */
         locator(): webdriver.Locator;
 
         /**
-        * Returns the WebElement represented by this ElementFinder.
-        * Throws the WebDriver error if the element doesn't exist.
-        *
-        * @example
-        *  The following three expressions are equivalent.
-        *  element(by.css('.parent')).getWebElement();
-        *  browser.waitForAngular(); browser.driver.findElement(by.css('.parent'));
-        *  browser.findElement(by.css('.parent'));
-        *
-        * @alias element(locator).getWebElement()
-        * @return {webdriver.WebElement}
-        */
+         * Returns the WebElement represented by this ElementFinder.
+         * Throws the WebDriver error if the element doesn't exist.
+         *
+         * @example
+         *  The following three expressions are equivalent.
+         *  element(by.css('.parent')).getWebElement();
+         *  browser.waitForAngular(); browser.driver.findElement(by.css('.parent'));
+         *  browser.findElement(by.css('.parent'));
+         *
+         * @alias element(locator).getWebElement()
+         * @return {webdriver.WebElement}
+         */
         getWebElement(): webdriver.WebElement;
 
         /**
-        * Evaluates the input as if it were on the scope of the current element.
-        * @see ElementArrayFinder.evaluate
-        *
-        * @param {string} expression
-        *
-        * @return {ElementFinder} which resolves to the evaluated expression.
-        */
+         * Evaluates the input as if it were on the scope of the current element.
+         * @see ElementArrayFinder.evaluate
+         *
+         * @param {string} expression
+         *
+         * @return {ElementFinder} which resolves to the evaluated expression.
+         */
         evaluate(expression: string): ElementFinder;
 
         /**
-        * @see ElementArrayFinder.prototype.allowAnimations.
-        * @param {string} value
-        *
-        * @return {ElementFinder} which resolves to whether animation is allowed.
-        */
+         * @see ElementArrayFinder.prototype.allowAnimations.
+         * @param {string} value
+         *
+         * @return {ElementFinder} which resolves to whether animation is allowed.
+         */
         allowAnimations(value: string): ElementFinder;
 
         /**
-        * Create a shallow copy of ElementFinder.
-        *
-        * @return {!ElementFinder} A shallow copy of this.
-        */
+         * Create a shallow copy of ElementFinder.
+         *
+         * @return {!ElementFinder} A shallow copy of this.
+         */
         clone(): ElementFinder;
     }
 
@@ -856,286 +856,286 @@ declare namespace protractor {
 
 
         /**
-        * Get an element within the ElementArrayFinder by index. The index starts at 0.
-        * Negative indices are wrapped (i.e. -i means ith element from last)
-        * This does not actually retrieve the underlying element.
-        *
-        * @alias element.all(locator).get(index)
-        * @view
-        * <ul class="items">
-        *   <li>First</li>
-        *   <li>Second</li>
-        *   <li>Third</li>
-        * </ul>
-        *
-        * @example
-        * var list = element.all(by.css('.items li'));
-        * expect(list.get(0).getText()).toBe('First');
-        * expect(list.get(1).getText()).toBe('Second');
-        *
-        * @param {number} index Element index.
-        * @return {ElementFinder} finder representing element at the given index.
-        */
+         * Get an element within the ElementArrayFinder by index. The index starts at 0.
+         * Negative indices are wrapped (i.e. -i means ith element from last)
+         * This does not actually retrieve the underlying element.
+         *
+         * @alias element.all(locator).get(index)
+         * @view
+         * <ul class="items">
+         *   <li>First</li>
+         *   <li>Second</li>
+         *   <li>Third</li>
+         * </ul>
+         *
+         * @example
+         * var list = element.all(by.css('.items li'));
+         * expect(list.get(0).getText()).toBe('First');
+         * expect(list.get(1).getText()).toBe('Second');
+         *
+         * @param {number} index Element index.
+         * @return {ElementFinder} finder representing element at the given index.
+         */
         get(index: number): ElementFinder;
 
         /**
-        * Get the first matching element for the ElementArrayFinder. This does not
-        * actually retrieve the underlying element.
-        *
-        * @alias element.all(locator).first()
-        * @view
-        * <ul class="items">
-        *   <li>First</li>
-        *   <li>Second</li>
-        *   <li>Third</li>
-        * </ul>
-        *
-        * @example
-        * var first = element.all(by.css('.items li')).first();
-        * expect(first.getText()).toBe('First');
-        *
-        * @return {ElementFinder} finder representing the first matching element
-        */
+         * Get the first matching element for the ElementArrayFinder. This does not
+         * actually retrieve the underlying element.
+         *
+         * @alias element.all(locator).first()
+         * @view
+         * <ul class="items">
+         *   <li>First</li>
+         *   <li>Second</li>
+         *   <li>Third</li>
+         * </ul>
+         *
+         * @example
+         * var first = element.all(by.css('.items li')).first();
+         * expect(first.getText()).toBe('First');
+         *
+         * @return {ElementFinder} finder representing the first matching element
+         */
         first(): ElementFinder;
 
         /**
-        * Get the last matching element for the ElementArrayFinder. This does not
-        * actually retrieve the underlying element.
-        *
-        * @alias element.all(locator).last()
-        * @view
-        * <ul class="items">
-        *   <li>First</li>
-        *   <li>Second</li>
-        *   <li>Third</li>
-        * </ul>
-        *
-        * @example
-        * var last = element.all(by.css('.items li')).last();
-        * expect(last.getText()).toBe('Third');
-        *
-        * @return {ElementFinder} finder representing the last matching element
-        */
+         * Get the last matching element for the ElementArrayFinder. This does not
+         * actually retrieve the underlying element.
+         *
+         * @alias element.all(locator).last()
+         * @view
+         * <ul class="items">
+         *   <li>First</li>
+         *   <li>Second</li>
+         *   <li>Third</li>
+         * </ul>
+         *
+         * @example
+         * var last = element.all(by.css('.items li')).last();
+         * expect(last.getText()).toBe('Third');
+         *
+         * @return {ElementFinder} finder representing the last matching element
+         */
         last(): ElementFinder;
 
         /**
-        * Count the number of elements represented by the ElementArrayFinder.
-        *
-        * @alias element.all(locator).count()
-        * @view
-        * <ul class="items">
-        *   <li>First</li>
-        *   <li>Second</li>
-        *   <li>Third</li>
-        * </ul>
-        *
-        * @example
-        * var list = element.all(by.css('.items li'));
-        * expect(list.count()).toBe(3);
-        *
-        * @return {!webdriver.promise.Promise} A promise which resolves to the
-        *     number of elements matching the locator.
-        */
+         * Count the number of elements represented by the ElementArrayFinder.
+         *
+         * @alias element.all(locator).count()
+         * @view
+         * <ul class="items">
+         *   <li>First</li>
+         *   <li>Second</li>
+         *   <li>Third</li>
+         * </ul>
+         *
+         * @example
+         * var list = element.all(by.css('.items li'));
+         * expect(list.count()).toBe(3);
+         *
+         * @return {!webdriver.promise.Promise} A promise which resolves to the
+         *     number of elements matching the locator.
+         */
         count(): webdriver.promise.Promise<number>;
 
         /**
-        * Calls the input function on each ElementFinder represented by the ElementArrayFinder.
-        *
-        * @alias element.all(locator).each(eachFunction)
-        * @view
-        * <ul class="items">
-        *   <li>First</li>
-        *   <li>Second</li>
-        *   <li>Third</li>
-        * </ul>
-        *
-        * @example
-        * element.all(by.css('.items li')).each(function(element) {
-        *   // Will print First, Second, Third.
-        *   element.getText().then(console.log);
-        * });
-        *
-        * @param {function(ElementFinder)} fn Input function
-        */
+         * Calls the input function on each ElementFinder represented by the ElementArrayFinder.
+         *
+         * @alias element.all(locator).each(eachFunction)
+         * @view
+         * <ul class="items">
+         *   <li>First</li>
+         *   <li>Second</li>
+         *   <li>Third</li>
+         * </ul>
+         *
+         * @example
+         * element.all(by.css('.items li')).each(function(element) {
+         *   // Will print First, Second, Third.
+         *   element.getText().then(console.log);
+         * });
+         *
+         * @param {function(ElementFinder)} fn Input function
+         */
         each(fn: (element: ElementFinder, index: number) => void): void;
 
         /**
-        * Apply a map function to each element within the ElementArrayFinder. The
-        * callback receives the ElementFinder as the first argument and the index as
-        * a second arg.
-        *
-        * @alias element.all(locator).map(mapFunction)
-        * @view
-        * <ul class="items">
-        *   <li class="one">First</li>
-        *   <li class="two">Second</li>
-        *   <li class="three">Third</li>
-        * </ul>
-        *
-        * @example
-        * var items = element.all(by.css('.items li')).map(function(elm, index) {
-        *   return {
-        *     index: index,
-        *     text: elm.getText(),
-        *     class: elm.getAttribute('class')
-        *   };
-        * });
-        * expect(items).toEqual([
-        *   {index: 0, text: 'First', class: 'one'},
-        *   {index: 1, text: 'Second', class: 'two'},
-        *   {index: 2, text: 'Third', class: 'three'}
-        * ]);
-        *
-        * @param {function(ElementFinder, number)} mapFn Map function that
-        *     will be applied to each element.
-        * @return {!webdriver.promise.Promise} A promise that resolves to an array
-        *     of values returned by the map function.
-        */
+         * Apply a map function to each element within the ElementArrayFinder. The
+         * callback receives the ElementFinder as the first argument and the index as
+         * a second arg.
+         *
+         * @alias element.all(locator).map(mapFunction)
+         * @view
+         * <ul class="items">
+         *   <li class="one">First</li>
+         *   <li class="two">Second</li>
+         *   <li class="three">Third</li>
+         * </ul>
+         *
+         * @example
+         * var items = element.all(by.css('.items li')).map(function(elm, index) {
+         *   return {
+         *     index: index,
+         *     text: elm.getText(),
+         *     class: elm.getAttribute('class')
+         *   };
+         * });
+         * expect(items).toEqual([
+         *   {index: 0, text: 'First', class: 'one'},
+         *   {index: 1, text: 'Second', class: 'two'},
+         *   {index: 2, text: 'Third', class: 'three'}
+         * ]);
+         *
+         * @param {function(ElementFinder, number)} mapFn Map function that
+         *     will be applied to each element.
+         * @return {!webdriver.promise.Promise} A promise that resolves to an array
+         *     of values returned by the map function.
+         */
         map<T>(mapFn: (element: ElementFinder, index: number) => T): webdriver.promise.Promise<T[]>;
         map<T, T2>(mapFn: (element: ElementFinder, index: number) => T2): webdriver.promise.Promise<T[]>;
 
         /**
-        * Apply a filter function to each element within the ElementArrayFinder. Returns
-        * a new ElementArrayFinder with all elements that pass the filter function. The
-        * filter function receives the ElementFinder as the first argument
-        * and the index as a second arg.
-        * This does not actually retrieve the underlying list of elements, so it can
-        * be used in page objects.
-        *
-        * @alias element.all(locator).filter(filterFn)
-        * @view
-        * <ul class="items">
-        *   <li class="one">First</li>
-        *   <li class="two">Second</li>
-        *   <li class="three">Third</li>
-        * </ul>
-        *
-        * @example
-        * element.all(by.css('.items li')).filter(function(elem, index) {
-        *   return elem.getText().then(function(text) {
-        *     return text === 'Third';
-        *   });
-        * }).then(function(filteredElements) {
-        *   filteredElements[0].click();
-        * });
-        *
-        * @param {function(ElementFinder, number): webdriver.WebElement.Promise} filterFn
-        *     Filter function that will test if an element should be returned.
-        *     filterFn can either return a boolean or a promise that resolves to a boolean.
-        * @return {!ElementArrayFinder} A ElementArrayFinder that represents an array
-        *     of element that satisfy the filter function.
-        */
+         * Apply a filter function to each element within the ElementArrayFinder. Returns
+         * a new ElementArrayFinder with all elements that pass the filter function. The
+         * filter function receives the ElementFinder as the first argument
+         * and the index as a second arg.
+         * This does not actually retrieve the underlying list of elements, so it can
+         * be used in page objects.
+         *
+         * @alias element.all(locator).filter(filterFn)
+         * @view
+         * <ul class="items">
+         *   <li class="one">First</li>
+         *   <li class="two">Second</li>
+         *   <li class="three">Third</li>
+         * </ul>
+         *
+         * @example
+         * element.all(by.css('.items li')).filter(function(elem, index) {
+         *   return elem.getText().then(function(text) {
+         *     return text === 'Third';
+         *   });
+         * }).then(function(filteredElements) {
+         *   filteredElements[0].click();
+         * });
+         *
+         * @param {function(ElementFinder, number): webdriver.WebElement.Promise} filterFn
+         *     Filter function that will test if an element should be returned.
+         *     filterFn can either return a boolean or a promise that resolves to a boolean.
+         * @return {!ElementArrayFinder} A ElementArrayFinder that represents an array
+         *     of element that satisfy the filter function.
+         */
         filter(filterFn: (element: ElementFinder, index: number) => any): ElementArrayFinder;
 
         /**
-        * Apply a reduce function against an accumulator and every element found
-        * using the locator (from left-to-right). The reduce function has to reduce
-        * every element into a single value (the accumulator). Returns promise of
-        * the accumulator. The reduce function receives the accumulator, current
-        * ElementFinder, the index, and the entire array of ElementFinders,
-        * respectively.
-        *
-        * @alias element.all(locator).reduce(reduceFn)
-        * @view
-        * <ul class="items">
-        *   <li class="one">First</li>
-        *   <li class="two">Second</li>
-        *   <li class="three">Third</li>
-        * </ul>
-        *
-        * @example
-        * var value = element.all(by.css('.items li')).reduce(function(acc, elem) {
-        *   return elem.getText().then(function(text) {
-        *     return acc + text + ' ';
-        *   });
-        * });
-        *
-        * expect(value).toEqual('First Second Third ');
-        *
-        * @param {function(number, ElementFinder, number, Array.<ElementFinder>)}
-        *     reduceFn Reduce function that reduces every element into a single value.
-        * @param {*} initialValue Initial value of the accumulator.
-        * @return {!webdriver.promise.Promise} A promise that resolves to the final
-        *     value of the accumulator.
-        */
+         * Apply a reduce function against an accumulator and every element found
+         * using the locator (from left-to-right). The reduce function has to reduce
+         * every element into a single value (the accumulator). Returns promise of
+         * the accumulator. The reduce function receives the accumulator, current
+         * ElementFinder, the index, and the entire array of ElementFinders,
+         * respectively.
+         *
+         * @alias element.all(locator).reduce(reduceFn)
+         * @view
+         * <ul class="items">
+         *   <li class="one">First</li>
+         *   <li class="two">Second</li>
+         *   <li class="three">Third</li>
+         * </ul>
+         *
+         * @example
+         * var value = element.all(by.css('.items li')).reduce(function(acc, elem) {
+         *   return elem.getText().then(function(text) {
+         *     return acc + text + ' ';
+         *   });
+         * });
+         *
+         * expect(value).toEqual('First Second Third ');
+         *
+         * @param {function(number, ElementFinder, number, Array.<ElementFinder>)}
+         *     reduceFn Reduce function that reduces every element into a single value.
+         * @param {*} initialValue Initial value of the accumulator.
+         * @return {!webdriver.promise.Promise} A promise that resolves to the final
+         *     value of the accumulator.
+         */
         reduce<T>(reduceFn: (acc: T, element: ElementFinder, index: number, arr: ElementFinder[]) => webdriver.promise.Promise<T>, initialValue: T): webdriver.promise.Promise<T>;
         reduce<T>(reduceFn: (acc: T, element: ElementFinder, index: number, arr: ElementFinder[]) => T, initialValue: T): webdriver.promise.Promise<T>;
 
         /**
-        * Represents the ElementArrayFinder as an array of ElementFinders.
-        *
-        * @return {Array.<ElementFinder>} Return a promise, which resolves to a list
-        *     of ElementFinders specified by the locator.
-        */
+         * Represents the ElementArrayFinder as an array of ElementFinders.
+         *
+         * @return {Array.<ElementFinder>} Return a promise, which resolves to a list
+         *     of ElementFinders specified by the locator.
+         */
         asElementFinders_(): webdriver.promise.Promise<ElementFinder[]>;
 
         /**
-        * Create a shallow copy of ElementArrayFinder.
-        *
-        * @return {!ElementArrayFinder} A shallow copy of this.
-        */
+         * Create a shallow copy of ElementArrayFinder.
+         *
+         * @return {!ElementArrayFinder} A shallow copy of this.
+         */
         clone(): ElementArrayFinder;
 
         /**
-        * Calls to ElementArrayFinder may be chained to find an array of elements
-        * using the current elements in this ElementArrayFinder as the starting point.
-        * This function returns a new ElementArrayFinder which would contain the
-        * children elements found (and could also be empty).
-        *
-        * @alias element.all(locator).all(locator)
-        * @view
-        * <div id='id1' class="parent">
-        *   <ul>
-        *     <li class="foo">1a</li>
-        *     <li class="baz">1b</li>
-        *   </ul>
-        * </div>
-        * <div id='id2' class="parent">
-        *   <ul>
-        *     <li class="foo">2a</li>
-        *     <li class="bar">2b</li>
-        *   </ul>
-        * </div>
-        *
-        * @example
-        * var foo = element.all(by.css('.parent')).all(by.css('.foo'))
-        * expect(foo.getText()).toEqual(['1a', '2a'])
-        * var baz = element.all(by.css('.parent')).all(by.css('.baz'))
-        * expect(baz.getText()).toEqual(['1b'])
-        * var nonexistent = element.all(by.css('.parent')).all(by.css('.NONEXISTENT'))
-        * expect(nonexistent.getText()).toEqual([''])
-        *
-        * @param {webdriver.Locator} subLocator
-        * @return {ElementArrayFinder}
-        */
+         * Calls to ElementArrayFinder may be chained to find an array of elements
+         * using the current elements in this ElementArrayFinder as the starting point.
+         * This function returns a new ElementArrayFinder which would contain the
+         * children elements found (and could also be empty).
+         *
+         * @alias element.all(locator).all(locator)
+         * @view
+         * <div id='id1' class="parent">
+         *   <ul>
+         *     <li class="foo">1a</li>
+         *     <li class="baz">1b</li>
+         *   </ul>
+         * </div>
+         * <div id='id2' class="parent">
+         *   <ul>
+         *     <li class="foo">2a</li>
+         *     <li class="bar">2b</li>
+         *   </ul>
+         * </div>
+         *
+         * @example
+         * var foo = element.all(by.css('.parent')).all(by.css('.foo'))
+         * expect(foo.getText()).toEqual(['1a', '2a'])
+         * var baz = element.all(by.css('.parent')).all(by.css('.baz'))
+         * expect(baz.getText()).toEqual(['1b'])
+         * var nonexistent = element.all(by.css('.parent')).all(by.css('.NONEXISTENT'))
+         * expect(nonexistent.getText()).toEqual([''])
+         *
+         * @param {webdriver.Locator} subLocator
+         * @return {ElementArrayFinder}
+         */
         all(locator: webdriver.Locator): ElementArrayFinder;
 
         /**
-        * Shorthand function for finding arrays of elements by css.
-        *
-        * @type {function(string): ElementArrayFinder}
-        */
+         * Shorthand function for finding arrays of elements by css.
+         *
+         * @type {function(string): ElementArrayFinder}
+         */
         $$(selector: string): ElementArrayFinder;
 
         /**
-        * Returns an ElementFinder representation of ElementArrayFinder. It ensures
-        * that the ElementArrayFinder resolves to one and only one underlying element.
-        *
-        * @return {ElementFinder} An ElementFinder representation
-        * @private
-        */
+         * Returns an ElementFinder representation of ElementArrayFinder. It ensures
+         * that the ElementArrayFinder resolves to one and only one underlying element.
+         *
+         * @return {ElementFinder} An ElementFinder representation
+         * @private
+         */
         toElementFinder_(): ElementFinder;
 
         /**
-        * Returns the most relevant locator.
-        *
-        * @example
-        * $('#ID1').locator() // returns by.css('#ID1')
-        * $('#ID1').$('#ID2').locator() // returns by.css('#ID2')
-        * $$('#ID1').filter(filterFn).get(0).click().locator() // returns by.css('#ID1')
-        *
-        * @return {webdriver.Locator}
-        */
+         * Returns the most relevant locator.
+         *
+         * @example
+         * $('#ID1').locator() // returns by.css('#ID1')
+         * $('#ID1').$('#ID2').locator() // returns by.css('#ID2')
+         * $$('#ID1').filter(filterFn).get(0).click().locator() // returns by.css('#ID1')
+         *
+         * @return {webdriver.Locator}
+         */
         locator(): webdriver.Locator;
 
         /**
@@ -1599,81 +1599,81 @@ declare namespace protractor {
     interface Protractor extends webdriver.WebDriver {
 
         /**
-        * The wrapped webdriver instance. Use this to interact with pages that do
-        * not contain Angular (such as a log-in screen).
-        *
-        * @type {webdriver.WebDriver}
-        */
+         * The wrapped webdriver instance. Use this to interact with pages that do
+         * not contain Angular (such as a log-in screen).
+         *
+         * @type {webdriver.WebDriver}
+         */
         driver: webdriver.WebDriver;
 
         /**
-        * Helper function for finding elements.
-        *
-        * @type {function(webdriver.Locator): ElementFinder}
-        */
+         * Helper function for finding elements.
+         *
+         * @type {function(webdriver.Locator): ElementFinder}
+         */
         element(locator: webdriver.Locator): ElementFinder;
 
         /**
-        * Shorthand function for finding elements by css.
-        *
-        * @type {function(string): ElementFinder}
-        */
+         * Shorthand function for finding elements by css.
+         *
+         * @type {function(string): ElementFinder}
+         */
         $(selector: string): ElementFinder;
 
         /**
-        * Shorthand function for finding arrays of elements by css.
-        *
-        * @type {function(string): ElementArrayFinder}
-        */
+         * Shorthand function for finding arrays of elements by css.
+         *
+         * @type {function(string): ElementArrayFinder}
+         */
         $$(selector: string): ElementArrayFinder;
 
         /**
-        * All get methods will be resolved against this base URL. Relative URLs are =
-        * resolved the way anchor tags resolve.
-        *
-        * @type {string}
-        */
+         * All get methods will be resolved against this base URL. Relative URLs are =
+         * resolved the way anchor tags resolve.
+         *
+         * @type {string}
+         */
         baseUrl: string;
 
         /**
-        * The css selector for an element on which to find Angular. This is usually
-        * 'body' but if your ng-app is on a subsection of the page it may be
-        * a subelement.
-        *
-        * @type {string}
-        */
+         * The css selector for an element on which to find Angular. This is usually
+         * 'body' but if your ng-app is on a subsection of the page it may be
+         * a subelement.
+         *
+         * @type {string}
+         */
         rootEl: string;
 
         /**
-        * If true, Protractor will not attempt to synchronize with the page before
-        * performing actions. This can be harmful because Protractor will not wait
-        * until $timeouts and $http calls have been processed, which can cause
-        * tests to become flaky. This should be used only when necessary, such as
-        * when a page continuously polls an API using $timeout.
-        *
-        * @type {boolean}
-        */
+         * If true, Protractor will not attempt to synchronize with the page before
+         * performing actions. This can be harmful because Protractor will not wait
+         * until $timeouts and $http calls have been processed, which can cause
+         * tests to become flaky. This should be used only when necessary, such as
+         * when a page continuously polls an API using $timeout.
+         *
+         * @type {boolean}
+         */
         ignoreSynchronization: boolean;
 
         /**
-        * Timeout in milliseconds to wait for pages to load when calling `get`.
-        *
-        * @type {number}
-        */
+         * Timeout in milliseconds to wait for pages to load when calling `get`.
+         *
+         * @type {number}
+         */
         getPageTimeout: number;
 
         /**
-        * An object that holds custom test parameters.
-        *
-        * @type {Object}
-        */
+         * An object that holds custom test parameters.
+         *
+         * @type {Object}
+         */
         params: any;
 
         /**
-        * The reset URL to use between page loads.
-        *
-        * @type {string}
-        */
+         * The reset URL to use between page loads.
+         *
+         * @type {string}
+         */
         resetUrl: string;
 
         /**
@@ -1800,22 +1800,22 @@ declare namespace protractor {
     // Interface for the global browser object.
     interface IBrowser extends Protractor {
         /**
-        * Fork another instance of protractor for use in interactive tests.
-        *
-        * @param {boolean} opt_useSameUrl Whether to navigate to current url on creation
-        * @param {boolean} opt_copyMockModules Whether to apply same mock modules on creation
-        * @return {Protractor} a protractor instance.
-        */
+         * Fork another instance of protractor for use in interactive tests.
+         *
+         * @param {boolean} opt_useSameUrl Whether to navigate to current url on creation
+         * @param {boolean} opt_copyMockModules Whether to apply same mock modules on creation
+         * @return {Protractor} a protractor instance.
+         */
         forkNewDriverInstance(opt_useSameUrl?: boolean, opt_copyMockModules?: boolean): Protractor;
 
         /**
-        * Get the processed configuration object that is currently being run. This will contain
-        * the specs and capabilities properties of the current runner instance.
-        *
-        * Set by the runner.
-        *
-        * @return {webdriver.promise.Promise<any>} A promise which resolves to the capabilities object.
-        */
+         * Get the processed configuration object that is currently being run. This will contain
+         * the specs and capabilities properties of the current runner instance.
+         *
+         * Set by the runner.
+         *
+         * @return {webdriver.promise.Promise<any>} A promise which resolves to the capabilities object.
+         */
         getProcessedConfig(): webdriver.promise.Promise<any>;
     }
 
