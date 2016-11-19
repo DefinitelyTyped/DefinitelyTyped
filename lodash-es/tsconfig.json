@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "lodash-tests.ts",
+        "lodash-es-tests.ts",
         "add/index.d.ts",
         "after/index.d.ts",
         "ary/index.d.ts",
