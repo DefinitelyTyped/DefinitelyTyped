@@ -1539,7 +1539,7 @@ declare module "child_process" {
         disconnect(): void;
         unref(): void;
         ref(): void;
-    
+
         /**
          * events.EventEmitter
          * 1. close
@@ -3051,7 +3051,7 @@ declare module "tls" {
     }
 
     export interface Server extends net.Server {
-        close(): Server;
+        close(callback?: Function): Server;
         address(): { port: number; family: string; address: string; };
         addContext(hostName: string, credentials: {
             key: string;
