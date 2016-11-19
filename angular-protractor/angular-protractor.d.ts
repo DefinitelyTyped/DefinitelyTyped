@@ -1212,13 +1212,14 @@ declare namespace protractor {
          * punctionation keys will be synthesized according to a standard QWERTY en-us
          * keyboard layout.
          *
-         * @param {...string} var_args The sequence of keys to
-         *     type. All arguments will be joined into a single sequence (var_args is
-         *     permitted for convenience).
+         * @param {...(number|string)} var_args The
+         *     sequence of keys to type. Number keys may be referenced numerically or
+         *     by string (1 or '1'). All arguments will be joined into a single
+         *     sequence.
          * @return {!webdriver.promise.Promise} A promise that will be resolved when all
          *     keys have been typed.
          */
-        sendKeys(...var_args: string[]): webdriver.promise.Promise<void>;
+        sendKeys(...var_args: (number|string)[]): webdriver.promise.Promise<void>;
 
         /**
          * Schedules a command to query for the tag/node name of this element.

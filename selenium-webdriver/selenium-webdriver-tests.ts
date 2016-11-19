@@ -838,6 +838,8 @@ function TestWebElement() {
     booleanPromise = element.isEnabled();
     booleanPromise = element.isSelected();
     voidPromise = element.sendKeys('A', 'B', 'C');
+    voidPromise = element.sendKeys(0, 1, 2);
+    voidPromise = element.sendKeys(0, 'A', 1, 'B', 2, 'C');
     voidPromise = element.sendKeys(stringPromise, stringPromise, stringPromise);
     voidPromise = element.submit();
     element.getId().then(function (id: typeof webdriver.WebElement.Id) { });
