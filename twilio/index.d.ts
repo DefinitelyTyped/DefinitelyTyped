@@ -6,11 +6,9 @@
 /// <reference types="express" />
 /// <reference types="node" />
 /// <reference types="q" />
-
-import * as Express from 'express';
-import * as Http from 'http';
-
-import Q = require('q');
+import Express = require("express");
+import Http = require("http");
+import Q = require("q");
 
 declare interface twilio {
   (sid?: string, tkn?: string, options?: twilio.ClientOptions): twilio.RestClient;
@@ -52,9 +50,11 @@ declare namespace twilio {
   }
 
   export interface RequestCallback { (err: any, data: any, response: Http.ClientResponse): void; }
-  export interface BaseRequestCallback { (err: any, data: any): void; }
 
-  export interface RestMethod { (args: any | BaseRequestCallback, callback?: RequestCallback): Q.Promise<any>; }
+  export interface RestMethod {
+    (callback: RequestCallback): Q.Promise<any>;
+    (args: any, callback?: RequestCallback): Q.Promise<any>;
+  }
 
   /// Resource stock interfaces
   export interface BaseMappedResource<T> {
@@ -448,7 +448,7 @@ declare namespace twilio {
   }
 
   // For interop with node middleware chains
-  export interface MiddlewareFunction { (request: Http.ServerRequest, response: Http.ServerResponse, next: Express.NextFunction): void; }
+  export interface MiddlewareFunction { (request: Http.IncomingMessage, response: Http.ServerResponse, next: Express.NextFunction): void; }
 
   export function webhook(authToken: string, options?: WebhookOptions): MiddlewareFunction;
   export function webhook(options?: WebhookOptions): MiddlewareFunction;
@@ -581,7 +581,7 @@ declare namespace twilio {
     post: RestMethod;
     create: RestMethod;
   }
-  export interface CallResource extends CreatableMappedResource<CallInstance> {
+  export interface CallResource extends CreatableMappedResource<CallInstance>, ListableResource {
     feedbackSummary: CallFeedbackSummaryResource;
   }
 

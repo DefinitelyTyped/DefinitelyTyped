@@ -61,7 +61,7 @@ declare module 'nes' {
         user?: any;
     }
 
-    export interface ServerEachSokcetOptions {
+    export interface ServerEachSocketOptions {
         subscription?: string;
         user?: any;
     }
@@ -70,7 +70,7 @@ declare module 'nes' {
         broadcast(message: any, options?: ServerBroadcastOptions): void;
         subscription(path: string, options?: ServerSubscriptionOptions): void;
         publish(path: string, message: any, options?: ServerPublishOptions): void;
-        eachSocket(each: (socket: Socket) => void, options?: ServerEachSokcetOptions): void;
+        eachSocket(each: (socket: Socket) => void, options?: ServerEachSocketOptions): void;
     }
 
     export class Request extends Hapi.Request {
@@ -82,7 +82,7 @@ declare module 'nes' {
         timeout?: number | boolean;
     }
 
-    export interface ClientConnnectOptions {
+    export interface ClientConnectOptions {
         auth?: any;
         delay?: number;
         maxDelay?: number;
@@ -107,7 +107,7 @@ declare module 'nes' {
         onConnect: () => void;
         onDisconnect: () => void;
         onUpdate: (message: any) => void;
-        connect(options: ClientConnnectOptions, callback: (err?: any) => void): void;
+        connect(options: ClientConnectOptions, callback: (err?: any) => void): void;
         connect(callback: (err?: any) => void): void;
         disconnect(): void;
         id: any;
@@ -123,7 +123,7 @@ declare module 'nes' {
 declare module 'nes/client' {
     export {
         Client,
-        ClientConnnectOptions,
+        ClientConnectOptions,
         ClientRequestOptions,
         ClientSubscribeFlags
     } from 'nes';

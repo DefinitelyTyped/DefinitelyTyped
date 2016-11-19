@@ -281,14 +281,13 @@ declare namespace PreludeLS {
     export function flip<A, B, C>(f: (x: A) => (y: B) => C, y: B): (x: A) => C;
     export function flip<A, B, C>(f: (x: A) => (y: B) => C, y: B, x: A): C;
     export function fix(f: Function): Function;
-    export function over<A, B, C>(f: (x: B) => (y: B) => C): (g: (x: A) => B) => (x: A) => (y: A) => C;
-    export function over<A, B, C>(f: (x: B, y: B) => C): (g: (x: A) => B) => (x: A, y: A) => C;
-    export function over<A, B, C>(f: (x: B) => (y: B) => C, g: (x: A) => B): (x: A) => (y: A) => C;
+
+    export function over<A, B, C>(f: (x: B) => (y: B) => C | ((x: B, y: B) => C), g: (x: A) => B, x: A, y: A): C;
+    export function over<A, B, C>(f: (x: B, y: B) => C | ((x: B) => (y: B) => C), g: (x: A) => B, x: A): (y: A) => C;
     export function over<A, B, C>(f: (x: B, y: B) => C, g: (x: A) => B): (x: A, y: A) => C;
-    export function over<A, B, C>(f: (x: B) => (y: B) => C, g: (x: A) => B, x: A): (y: A) => C;
-    export function over<A, B, C>(f: (x: B, y: B) => C, g: (x: A) => B, x: A): (y: A) => C;
-    export function over<A, B, C>(f: (x: B) => (y: B) => C, g: (x: A) => B, x: A, y: A): C;
-    export function over<A, B, C>(f: (x: B, y: B) => C, g: (x: A) => B, x: A, y: A): C;
+    export function over<A, B, C>(f: (x: B) => (y: B) => C, g: (x: A) => B): (x: A) => (y: A) => C;
+    export function over<A, B, C>(f: (x: B, y: B) => C): (g: (x: A) => B) => (x: A, y: A) => C;
+    export function over<A, B, C>(f: (x: B) => (y: B) => C): (g: (x: A) => B) => (x: A) => (y: A) => C;
 
 
     // Num

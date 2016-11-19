@@ -21,6 +21,7 @@ declare namespace TWEEN {
     interpolation(interpolation: (v:number[], k:number) => number): Tween;
     chain(...tweens:Tween[]): Tween;
     onStart(callback: (object?: any) => void): Tween;
+    onStop(callback: (object?: any) => void): Tween;
     onUpdate(callback: (object?: any) => void): Tween;
     onComplete(callback: (object?: any) => void): Tween;
     update(time: number): boolean;

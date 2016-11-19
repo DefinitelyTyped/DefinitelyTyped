@@ -23,7 +23,7 @@ declare module "react-relay" {
 
     /** add static getFragment method to the component constructor */
     interface RelayContainerClass<T> extends React.ComponentClass<T> {
-        getFragment: ((q: string) => string)
+        getFragment: ((q: string, v?: RelayVariables) => string)
     }
 
     interface RelayQueryRequestResolve {

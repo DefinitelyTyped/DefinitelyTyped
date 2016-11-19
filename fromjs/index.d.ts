@@ -32,9 +32,8 @@ declare namespace FromJS {
         contains(item: T): boolean;
         first(predicate: (item: T) => boolean): T;
         firstOrDefault(): T;
-        each(action: (item: T) => void): void;
         each<TKey>(action: (value: T, key: TKey) => void): void;
-        each(action: (item: T) => void, a: boolean): void;
+        each(action: (item: T) => void, a?: boolean): void;
         toArray(): Array<T>;
         concat(second: Array<T>): IQueryable<T>;
         sum(): T;

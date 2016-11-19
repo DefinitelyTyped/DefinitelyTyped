@@ -1,4 +1,4 @@
-// Type definitions for Toastr 2.1.1
+// Type definitions for Toastr 2.1.3
 // Project: https://github.com/CodeSeven/toastr
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -133,6 +133,10 @@ interface ToastrOptions {
 	* Set if toastr should parse containing html 
 	**/
 	allowHtml?: boolean;
+	/**
+	* Set if toastr should escape html
+	**/
+	escapeHtml?: boolean;
 }
 
 interface ToastrDisplayMethod {

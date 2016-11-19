@@ -461,7 +461,7 @@ namespace basics {
 
             var style: PIXI.TextStyle = {
                 font: '36px Arial bold italic',
-                fill: '#F7EDCA',
+                fill: PIXI.utils.hex2string(0xF7EDCA),
                 stroke: '#4a1850',
                 strokeThickness: 5,
                 dropShadow: true,
