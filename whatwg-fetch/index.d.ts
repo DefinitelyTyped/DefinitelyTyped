@@ -34,7 +34,7 @@ interface Body {
     arrayBuffer(): Promise<ArrayBuffer>;
     blob(): Promise<Blob>;
     formData(): Promise<FormData>;
-    json(): Promise<any>;
+    json<T>(): Promise<T>;
     text(): Promise<string>;
 }
 

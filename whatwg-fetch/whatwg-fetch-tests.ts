@@ -69,3 +69,39 @@ function handlePromise(promise: Promise<Response>) {
 		console.log(text);
 	});
 }
+
+function test_Body_json() {
+	interface FooBar {
+		foo: string;
+		bar: string;
+	}
+
+	fetch('http://test.com')
+		.then(response => response.json<FooBar>())
+		.then(fooBar => {
+			console.log(fooBar.foo);
+			console.log(fooBar.bar);
+		});
+
+	fetch('http://test.com')
+		.then(response => <Promise<FooBar>> response.json())
+		.then(fooBar => {
+			console.log(fooBar.foo);
+			console.log(fooBar.bar);
+		});
+
+	fetch('http://test.com')
+		.then(response => response.json() as Promise<FooBar>)
+		.then(fooBar => {
+			console.log(fooBar.foo);
+			console.log(fooBar.bar);
+		});
+
+	fetch('http://test.com')
+		.then(response => response.json())
+		.then(fooBar => {
+			// fooBar is {}, not FooBar
+			//console.log(fooBar.foo);
+			//console.log(fooBar.bar);
+		});
+}
