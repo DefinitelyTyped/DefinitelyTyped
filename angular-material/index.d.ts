@@ -158,6 +158,7 @@ declare module 'angular' {
             hideDelay(delay: number): T;
             position(position: string): T;
             parent(parent?: string | Element | JQuery): T; // default: root node
+        toastClass(toastClass: string): T;
         }
 
         interface ISimpleToastPreset extends IToastPreset<ISimpleToastPreset> {
@@ -335,6 +336,7 @@ declare module 'angular' {
             onRemoving?: Function;
             onDomRemoved?: Function;
             origin?: string | JQuery | Element;
+            onCloseSuccess?: ((panel: IPanelRef, closeReason: string) => any);
         }
 
         interface IPanelRef {
@@ -406,6 +408,16 @@ declare module 'angular' {
             };
             interceptorTypes: {
                 CLOSE: string,
+            };
+            closeReasons: {
+                CLICK_OUTSIDE: string,
+                ESCAPE: string,
+            };
+            absPosition: {
+                TOP:  string,
+                RIGHT: string,
+                BOTTOM: string,
+                LEFT: string,
             };
         }
     }

@@ -9,60 +9,48 @@ declare namespace ReduxActions {
     // FSA-compliant action.
     // See: https://github.com/acdlite/flux-standard-action
     interface BaseAction {
-        type: string
+        type: string;
     }
 
-    interface Action<Payload> extends BaseAction {
-        payload?: Payload
-        error?: boolean
-        meta?: any
+    export interface Action<Payload> extends BaseAction {
+        payload?: Payload;
+        error?: boolean;
     }
 
-    interface ActionMeta<Payload, Meta> extends Action<Payload> {
-        meta: Meta
+    export interface ActionMeta<Payload, Meta> extends Action<Payload> {
+        meta: Meta;
     }
 
-    type PayloadCreator<Input, Payload> = (...args: Input[]) => Payload;
+    interface ReducerMap<State, Payload> {
+        [actionType: string]: Reducer<State, Payload>;
+    }
 
-    type MetaCreator<Input, Payload> = (...args: Input[]) => Payload;
+    interface Reducer<State, Payload> {
+        (state: State, action: Action<Payload>): State;
+    }
 
-    type Reducer<State, Payload> = (state: State, action: Action<Payload>) => State;
+    interface ReducerMeta<State, Payload, Meta> extends Reducer<State, Payload> {
+        (state: State, action: ActionMeta<Payload, Meta>): State;
+    }
 
-    type ReducerMeta<State, Payload, Meta> = (state: State, action: ActionMeta<Payload, Meta>) => State;
-
-    type ReducerMap<State, Payload> = {
-        [actionType: string]: Reducer<State, Payload>
-    };
-
-    export function createAction(
+    export function createAction<Payload>(
         actionType: string,
-        payloadCreator?: PayloadCreator<any, any>,
-        metaCreator?: MetaCreator<any, any>
-    ): (...args: any[]) => Action<any>;
+        payloadCreator?: (...args: any[]) => Payload,
+    ): (...args: any[]) => Action<Payload>;
 
-    export function createAction<InputAndPayload>(
+    export function createAction<Payload, Meta>(
         actionType: string,
-        payloadCreator?: PayloadCreator<InputAndPayload, InputAndPayload>
-    ): (...args: InputAndPayload[]) => Action<InputAndPayload>;
-
-    export function createAction<Input, Payload>(
-        actionType: string,
-        payloadCreator?: PayloadCreator<Input, Payload>
-    ): (...args: Input[]) => Action<Payload>;
-
-    export function createAction<Input, Payload, Meta>(
-        actionType: string,
-        payloadCreator: PayloadCreator<Input, Payload>,
-        metaCreator: MetaCreator<Input, Meta>
-    ): (...args: Input[]) => ActionMeta<Payload, Meta>;
+        payloadCreator: (...args: any[]) => Payload,
+        metaCreator: (...args: any[]) => Meta
+    ): (...args: any[]) => ActionMeta<Payload, Meta>;
 
     export function handleAction<State, Payload>(
-        actionType: string,
+        actionType: { toString(): string },
         reducer: Reducer<State, Payload> | ReducerMap<State, Payload>
     ): Reducer<State, Payload>;
 
     export function handleAction<State, Payload, Meta>(
-        actionType: string,
+        actionType: { toString(): string },
         reducer: ReducerMeta<State, Payload, Meta> | ReducerMap<State, Payload>
     ): Reducer<State, Payload>;
 
@@ -70,5 +58,8 @@ declare namespace ReduxActions {
         reducerMap: ReducerMap<State, Payload>,
         initialState?: State
     ): Reducer<State, Payload>;
-}
 
+    export function combineActions(
+        ...actionTypes: { toString(): string }[]
+    ): { toString(): string };
+}

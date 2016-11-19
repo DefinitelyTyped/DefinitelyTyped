@@ -3,8 +3,7 @@
 // Definitions by: Sam Verschueren <https://github.com/samverschueren>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "tz-format" {
-	function format(date?: Date): string;
-	namespace format { }
-	export = format;
-}
+
+declare function format(date?: Date | number, offset?: number): string;
+declare namespace format {}
+export = format;
