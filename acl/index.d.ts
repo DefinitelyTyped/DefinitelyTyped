@@ -16,7 +16,7 @@ type Action = () => any;
 type Callback = (err: Error) => any;
 type AnyCallback = (err: Error, obj: any) => any;
 type AllowedCallback = (err: Error, allowed: boolean) => any;
-type GetUserId = (req: http.ServerRequest, res: http.ServerResponse) => Value;
+type GetUserId = (req: http.IncomingMessage, res: http.ServerResponse) => Value;
 
 interface AclStatic {
     new (backend: Backend<any>, logger: Logger, options: Option): Acl;

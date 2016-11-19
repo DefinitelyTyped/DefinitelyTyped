@@ -1,4 +1,4 @@
-/// <reference path="../github-electron/github-electron.d.ts" />
+/// <reference path="../electron/github-electron.d.ts" />
 /// <reference path="electron-devtools-installer.d.ts" />
 
 import installExtension, {

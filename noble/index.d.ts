@@ -1,6 +1,6 @@
 // Type definitions for noble
 // Project: https://github.com/sandeepmistry/noble
-// Definitions by: Seon-Wook Park <https://github.com/swook>, Hans Bakker <https://github.com/wind-rider>
+// Definitions by: Seon-Wook Park <https://github.com/swook>, Hans Bakker <https://github.com/wind-rider>, Shantanu Bhadoria <https://github.com/shantanubhadoria>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -20,7 +20,11 @@ export declare function on(event: "scanStop", listener: () => void): events.Even
 export declare function on(event: "discover", listener: (peripheral: Peripheral) => void): events.EventEmitter;
 
 export declare class Peripheral extends events.EventEmitter {
+    id: string;
     uuid: string;
+    address: string;
+    addressType: string;
+    connectable: boolean;
     advertisement: Advertisement;
     rssi: number;
     services: Service[];

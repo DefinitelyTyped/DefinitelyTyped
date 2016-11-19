@@ -31,8 +31,6 @@ declare module 'angular' {
             // Supports http/https/ftp/mailto and plain email address links.
             // see http://code.angularjs.org/1.2.0/docs/api/ngSanitize.filter:linky
             interface ILinky {
-                (text: string, target?: string): string;
-            }
+            (text: string, target: string, attributes?: { [attribute: string]: string } | ((url: string) => { [attribute: string]: string })): string;
         }
-    }
 }

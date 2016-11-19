@@ -20,7 +20,28 @@ export class EnvironmentCredentials extends Credentials {
     constructor(profile: string);
 }
 
-export interface Logger {
+  export module CognitoIdentity {
+    export interface CognitoIdentityCredentialsParams {
+      IdentityPoolId?: string;
+      AccountId?: string;
+      Logins?: {[k: string]: any};
+
+      RoleArn?: string;
+      RoleSessionName?: string;
+      WebIdentityToken?: string;
+      ProviderId?: string;
+      Policy?: string;
+      DurationSeconds?: number;
+
+      IdentityId?: string;
+    }
+  }
+
+  export class CognitoIdentityCredentials extends Credentials {
+    constructor(params: CognitoIdentity.CognitoIdentityCredentialsParams);
+  }
+
+  export interface Logger {
     write?: (chunk: any, encoding?: string, callback?: () => void) => void;
     log?: (...messages: any[]) => void;
 }
@@ -357,7 +378,8 @@ export declare class S3 {
     endpoint: Endpoint;
 
     getObject(params: s3.GetObjectRequest, callback?: (err: Error, data: any) => void): any;
-    putObject(params: s3.PutObjectRequest, callback: (err: Error, data: any) => void): void;
+    putObject(params: s3.PutObjectRequest, callback?: (err: Error, data: any) => void): any;
+    copyObject(params: s3.CopyObjectRequest, callback?: (err: Error, data: any) => void): any;
     deleteObject(params: s3.DeleteObjectRequest, callback: (err: Error, data: any) => void): void;
     headObject(params: s3.HeadObjectRequest, callback: (err: Error, data: any) => void): void;
     getSignedUrl(operation: string, params: any): string;
@@ -501,7 +523,8 @@ export declare module DynamoDB {
 
     interface UpdateParam extends _DDBDC_Writer {
         Key: _DDBDC_Keys;
-        AttributeUpdates: {
+      UpdateExpression?: string;
+      AttributeUpdates?: {
             [someKey: string]: {
                 Action: "PUT" | "ADD" | "DELETE";
                 Value: any
@@ -2230,6 +2253,40 @@ export declare module s3 {
         ServerSideEncryption?: string;
         StorageClass?: string;
         WebsiteRedirectLocation?: string;
+    }
+
+    export interface CopyObjectRequest {
+      Bucket: string;
+      CopySource: string;
+      Key: string;
+      ACL?: string;
+      CacheControl?: string;
+      ContentDisposition?: string;
+      ContentEncoding?: string;
+      ContentLanguage?: string;
+      ContentType?: string;
+      CopySourceIfMatch?: string;
+      CopySourceIfModifiedSince?: any;
+      CopySourceIfNoneMatch?: string;
+      CopySourceIfUnmodifiedSince?: any;
+      CopySourceSSECustomerAlgorithm?: string;
+      CopySourceSSECustomerKey?: any;
+      CopySourceSSECustomerKeyMD5?: string;
+      Expires?: any;
+      GrantFullControl?: string;
+      GrantRead?: string;
+      GrantReadACP?: string;
+      GrantWriteACP?: string;
+      Metadata?: { [key: string]: string; };
+      MetadataDirective?: string;
+      RequestPayer?: string;
+      SSECustomerAlgorithm?: string;
+      SSECustomerKey?: any;
+      SSECustomerKeyMD5?: string;
+      SSEKMSKeyId?: string;
+      ServerSideEncryption?: string;
+      StorageClass?: string;
+      WebsiteRedirectLocation?: string;
     }
 
     export interface GetObjectRequest {

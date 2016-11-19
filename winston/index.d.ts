@@ -26,7 +26,13 @@ export declare var level: string;
 
 export declare var log: LogMethod;
 
+export type CLILoggingLevel = 'error' | 'warn' | 'help' | 'data' | 'info' | 'debug' | 'prompt' | 'verbose' | 'input' | 'silly';
+export type NPMLoggingLevel = 'error' | 'warn' | 'info' | 'verbose' | 'debug' | 'silly';
+export type SyslogLoggingLevel = 'emerg' | 'alert' | 'crit' | 'error' | 'warning' | 'notice' | 'info' | 'debug';
+
+export declare var silly: LeveledLogMethod;
 export declare var debug: LeveledLogMethod;
+export declare var verbose: LeveledLogMethod;
 export declare var info: LeveledLogMethod;
 export declare var warn: LeveledLogMethod;
 export declare var error: LeveledLogMethod;
@@ -46,6 +52,7 @@ export declare function addColors(target: any): any;
 export declare function setLevels(target: any): any;
 export declare function cli(): LoggerInstance;
 export declare function close(): void;
+export declare function configure(options: LoggerOptions): void;
 
 export interface ExceptionProcessInfo {
     pid: number;
@@ -108,7 +115,9 @@ export interface LoggerInstance extends NodeJS.EventEmitter {
 
     log: LogMethod;
 
+    silly: LeveledLogMethod;
     debug: LeveledLogMethod;
+    verbose: LeveledLogMethod;
     info: LeveledLogMethod;
     warn: LeveledLogMethod;
     error: LeveledLogMethod;
@@ -124,7 +133,7 @@ export interface LoggerInstance extends NodeJS.EventEmitter {
     remove(transport: TransportInstance): LoggerInstance;
     startTimer(): ProfileHandler;
     profile(id: string, msg?: string, meta?: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-
+    configure(options: LoggerOptions): void;
     setLevels(target: any): any;
     cli(): LoggerInstance;
 

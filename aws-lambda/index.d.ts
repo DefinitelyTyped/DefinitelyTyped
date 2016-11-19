@@ -23,7 +23,9 @@ interface Context {
     getRemainingTimeInMillis(): number;
 
     // Functions for compatibility with earlier Node.js Runtime v0.10.42
-    log(message: string, object: any): void;
+    // For more details see http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-using-old-runtime.html#nodejs-prog-model-oldruntime-context-methods
+    done(error?: Error, result?: any): void;
+    fail(error: Error): void;
     fail(message: string): void;
     succeed(message: string): void;
     succeed(object: any): void;

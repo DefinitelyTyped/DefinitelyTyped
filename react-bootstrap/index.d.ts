@@ -428,6 +428,7 @@ declare namespace ReactBootstrap {
         rootClose?: boolean;
         show?: boolean;
         target?: Function;
+        shouldUpdatePosition?: boolean;
     }
     class Overlay extends React.Component<OverlayProps, {}> {
     }

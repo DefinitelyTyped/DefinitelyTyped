@@ -1,9 +1,47 @@
-// Type definitions for Leaflet.js 1.0.0-rc3
+// Type definitions for Leaflet.js 1.0.0
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../geojson/geojson.d.ts" />
+
+type NativeMouseEvent = MouseEvent;
+
 declare namespace L {
+    export class Class {
+        static extend(props:any):any/* how to return constructor of self extended type ? */;
+        static include(props:any):any /* how to return self extended type ? */;
+        static mergeOptions(props:any): any /* how to return self extended type ? */;
+        static addInitHook(initHookFn: ()=> void): any/* how to return self extended type ? */;
+    }
+
+    export class DomUtil {
+        static get(id: string): HTMLElement;
+        static get(id: HTMLElement): HTMLElement;
+        static getStyle(el: HTMLElement, styleAttrib: string): string;
+        static create(tagName: String, className?: String, container?: HTMLElement): HTMLElement;
+        static remove(el: HTMLElement):void;
+        static empty(el: HTMLElement):void;
+        static toFront(el: HTMLElement):void;
+        static toBack(el: HTMLElement):void;
+        static hasClass(el: HTMLElement, name: String): Boolean;
+        static addClass(el: HTMLElement, name: String):void;
+        static removeClass(el: HTMLElement, name: String):void;
+        static setClass(el: HTMLElement, name: String):void;
+        static getClass(el: HTMLElement): String;
+        static setOpacity(el: HTMLElement, opacity: Number):void;
+        static testProp(props: String[]): String|boolean/*=false*/;
+        static setTransform(el: HTMLElement, offset: Point, scale?: Number):void;
+        static setPosition(el: HTMLElement, position: Point):void;
+        static getPosition(el: HTMLElement): Point
+        static disableTextSelection(): void
+        static enableTextSelection(): void
+        static disableImageDrag(): void
+        static enableImageDrag(): void
+        static preventOutline(el: HTMLElement): void
+        static restoreOutline(): void
+    }
+
     export interface CRS {
         latLngToPoint(latlng: LatLng, zoom: number): Point;
         latLngToPoint(latlng: LatLngLiteral, zoom: number): Point;
@@ -209,7 +247,7 @@ declare namespace L {
      * with an object (e.g. the user clicks on the map, causing the map to fire
      * 'click' event).
      */
-    export interface Evented {
+    export interface Evented extends Class {
         /**
          * Adds a listener function (fn) to a particular event type of the object.
          * You can optionally specify the context of the listener (object the this
@@ -445,6 +483,7 @@ declare namespace L {
         zoomReverse?: boolean;
         detectRetina?: boolean;
         crossOrigin?: boolean;
+        [name: string]: any;
     }
 
     export interface TileLayer extends GridLayer {
@@ -523,8 +562,7 @@ declare namespace L {
         noClip?: boolean;
     }
 
-    export interface Polyline extends Path {
-        toGeoJSON(): Object; // should import GeoJSON typings
+    interface InternalPolyline extends Path {
         getLatLngs(): Array<LatLng>;
         setLatLngs(latlngs: Array<LatLng>): this;
         setLatLngs(latlngs: Array<LatLngLiteral>): this;
@@ -540,6 +578,10 @@ declare namespace L {
         addLatLng(latlng: Array<LatLngTuple>): this;
     }
 
+    export interface Polyline extends InternalPolyline {
+        toGeoJSON(): GeoJSON.LineString | GeoJSON.MultiLineString;
+    }
+
     export function polyline(latlngs: Array<LatLng>, options?: PolylineOptions): Polyline;
 
     export function polyline(latlngs: Array<LatLngLiteral>, options?: PolylineOptions): Polyline;
@@ -552,8 +594,8 @@ declare namespace L {
 
     export function polyline(latlngs: Array<Array<LatLngTuple>>, options?: PolylineOptions): Polyline;
 
-    export interface Polygon extends Polyline {
-        toGeoJSON(): Object; // should import GeoJSON typings
+    export interface Polygon extends InternalPolyline {
+        toGeoJSON(): GeoJSON.Polygon | GeoJSON.MultiPolygon;
     }
 
     export function polygon(latlngs: Array<LatLng>, options?: PolylineOptions): Polygon;
@@ -582,7 +624,7 @@ declare namespace L {
     }
 
     export interface CircleMarker extends Path {
-        toGeoJSON(): Object; // should import GeoJSON typings
+        toGeoJSON(): GeoJSON.Point;
         setLatLng(latLng: LatLng): this;
         setLatLng(latLng: LatLngLiteral): this;
         setLatLng(latLng: LatLngTuple): this;
@@ -650,7 +692,7 @@ declare namespace L {
         /**
          * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection).
          */
-        toGeoJSON(): Object; // should import GeoJSON typings
+        toGeoJSON(): GeoJSON.GeometryCollection;
 
         /**
          * Adds the given layer to the group.
@@ -747,7 +789,7 @@ declare namespace L {
      */
     export function featureGroup(layers?: Array<Layer>): FeatureGroup;
 
-    type StyleFunction = (feature: any) => PathOptions;
+    type StyleFunction = (feature: GeoJSON.Feature<GeoJSON.GeometryObject>) => PathOptions;
 
     export interface GeoJSONOptions extends LayerOptions {
         /**
@@ -763,7 +805,7 @@ declare namespace L {
          * }
          * ```
          */
-        pointToLayer?: (geoJsonPoint: Object, latlng: LatLng) => Layer; // should import GeoJSON typings
+        pointToLayer?: (geoJsonPoint: GeoJSON.Point, latlng: LatLng) => Layer; // should import GeoJSON typings
 
         /**
          * A Function defining the Path options for styling GeoJSON lines and polygons,
@@ -777,7 +819,7 @@ declare namespace L {
          * }
          * ```
          */
-        style?: (geoJsonFeature: Object) => PathOptions;
+        style?: StyleFunction;
 
         /**
          * A Function that will be called once for each created Feature, after it
@@ -789,7 +831,7 @@ declare namespace L {
          * function (feature, layer) {}
          * ```
          */
-        onEachFeature?: (feature: Object, layer: Layer) => void;
+        onEachFeature?: (feature: GeoJSON.Feature<GeoJSON.GeometryObject>, layer: Layer) => void;
 
         /**
          * A Function that will be used to decide whether to show a feature or not.
@@ -802,7 +844,7 @@ declare namespace L {
          * }
          * ```
          */
-        filter?: (geoJsonFeature: Object) => boolean;
+        filter?: (geoJsonFeature: GeoJSON.Feature<GeoJSON.GeometryObject>) => boolean;
 
         /**
          * A Function that will be used for converting GeoJSON coordinates to LatLngs.
@@ -815,36 +857,36 @@ declare namespace L {
      * Represents a GeoJSON object or an array of GeoJSON objects.
      * Allows you to parse GeoJSON data and display it on the map. Extends FeatureGroup.
      */
-    export interface GeoJSON extends FeatureGroup {}
-
-    export namespace GeoJSON {
+    export interface GeoJSON extends FeatureGroup {
         /**
          * Adds a GeoJSON object to the layer.
          */
-        export function addData(data: Object): Layer;
+        addData(data: GeoJSON.GeoJsonObject): Layer;
 
         /**
          * Resets the given vector layer's style to the original GeoJSON style,
          * useful for resetting style after hover events.
          */
-        export function resetStyle(layer: Layer): Layer;
+        resetStyle(layer: Layer): Layer;
 
         /**
          * Changes styles of GeoJSON vector layers with the given style function.
          */
-        export function setStyle(style: PathOptions | StyleFunction): Layer;
+        setStyle(style: StyleFunction): this;
 
         /**
          * Creates a Layer from a given GeoJSON feature. Can use a custom pointToLayer
          * and/or coordsToLatLng functions if provided as options.
          */
-        export function geometryToLayer(featureData: Object, options?: GeoJSONOptions): Layer;
+        geometryToLayer(featureData: GeoJSON.Feature<GeoJSON.GeometryObject>, options?: GeoJSONOptions): Layer;
 
         /**
          * Creates a LatLng object from an array of 2 numbers (longitude, latitude) or
          * 3 numbers (longitude, latitude, altitude) used in GeoJSON for points.
          */
-        export function coordsToLatLng(coords: [number, number] | [number, number, number]): LatLng;
+        coordsToLatLng(coords: [number, number]): LatLng;
+
+        coordsToLatLng(coords: [number, number, number]): LatLng;
 
         /**
          * Creates a multidimensional array of LatLngs from a GeoJSON coordinates array.
@@ -852,24 +894,26 @@ declare namespace L {
          * arrays of points, etc., 0 by default).
          * Can use a custom coordsToLatLng function.
          */
-        export function coordsToLatLngs(coords: Array<number>, levelsDeep?: number, coordsToLatLng?: (coords: [number, number] | [number, number, number]) => LatLng): LatLng[]; // Not entirely sure how to define arbitrarily nested arrays
+        coordsToLatLngs(coords: Array<number>, levelsDeep?: number, coordsToLatLng?: (coords: [number, number] | [number, number, number]) => LatLng): LatLng[]; // Not entirely sure how to define arbitrarily nested arrays
 
         /**
          * Reverse of coordsToLatLng
          */
-        export function latLngToCoords(latlng: LatLng): [number, number] | [number, number, number];
+        latLngToCoords(latlng: LatLng): [number, number] | [number, number, number];
 
         /**
          * Reverse of coordsToLatLngs closed determines whether the first point should be
          * appended to the end of the array to close the feature, only used when levelsDeep is 0.
          * False by default.
          */
-        export function latLngsToCoords(latlngs: Array<LatLng>, levelsDeep?: number, closed?: boolean): [number, number] | [number, number, number];
+        latLngsToCoords(latlngs: Array<LatLng>, levelsDeep?: number, closed?: boolean): [number, number] | [number, number, number];
 
         /**
          * Normalize GeoJSON geometries/features into GeoJSON features.
          */
-        export function asFeature(geojson: Object): Object;
+        asFeature(geojson: GeoJSON.GeometryObject): GeoJSON.Feature<GeoJSON.GeometryObject>;
+
+        asFeature(geojson: GeoJSON.Feature<GeoJSON.GeometryObject>): GeoJSON.Feature<GeoJSON.GeometryObject>;
     }
 
     /**
@@ -879,7 +923,7 @@ declare namespace L {
      * map (you can alternatively add it later with addData method) and
      * an options object.
      */
-    export function geoJSON(geojson?: Object, options?: GeoJSONOptions): GeoJSON;
+    export function geoJSON(geojson?: GeoJSON.GeoJsonObject, options?: GeoJSONOptions): GeoJSON;
 
     type Zoom = boolean | 'center';
 
@@ -1117,7 +1161,7 @@ declare namespace L {
         latlng: LatLng;
         layerPoint: Point;
         containerPoint: Point;
-        originalEvent: MouseEvent; // how can I reference the global MouseEvent?
+        originalEvent: NativeMouseEvent;
     }
 
     export interface LocationEvent extends Event {
@@ -1177,6 +1221,38 @@ declare namespace L {
         distance: number;
     }
 
+    export namespace DomEvent {
+        export function on(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: Object): typeof DomEvent;
+
+        export function on(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
+
+        export function off(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: Object): typeof DomEvent;
+
+        export function off(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
+
+        export function stopPropagation(ev: Event): typeof DomEvent;
+
+        export function disableScrollPropagation(el: HTMLElement): typeof DomEvent;
+
+        export function disableClickPropagation(el: HTMLElement): typeof DomEvent;
+
+        export function preventDefault(ev: Event): typeof DomEvent;
+
+        export function stop(ev: Event): typeof DomEvent;
+
+        export function getMousePosition(ev: Event, container?: HTMLElement): Point;
+
+        export function getWheelDelta(ev: Event): number;
+
+        export function addListener(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: Object): typeof DomEvent;
+
+        export function addListener(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
+
+        export function removeListener(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: Object): typeof DomEvent;
+
+        export function removeListener(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
+    }
+
     interface DefaultMapPanes {
         mapPane: HTMLElement;
         tilePane: HTMLElement;
@@ -1233,8 +1309,8 @@ declare namespace L {
         panTo(latlng: LatLngTuple, options?: PanOptions): this;
         panBy(offset: Point): this;
         panBy(offset: PointTuple): this;
-        setMaxBounds(bounds: Bounds): this; // is this really bounds and not lanlngbounds?
-        setMaxBounds(bounds: BoundsLiteral): this;
+        setMaxBounds(bounds: LatLngBounds): this;
+        setMaxBounds(bounds: LatLngBoundsLiteral): this;
         setMinZoom(zoom: number): this;
         setMaxZoom(zoom: number): this;
         panInsideBounds(bounds: LatLngBounds, options?: PanOptions): this;
@@ -1337,8 +1413,12 @@ declare namespace L {
         createShadow(oldIcon?: HTMLElement): HTMLElement;
     }
 
+    export interface IconDefault extends Icon {
+        imagePath: string;
+    }
+     
     export namespace Icon {
-        export const Default: Icon;
+        export const Default: IconDefault;
     }
 
     export function icon(options: IconOptions): Icon;
@@ -1395,45 +1475,25 @@ declare namespace L {
         export const gecko: boolean;
         export const android: boolean;
         export const android23: boolean;
-
         export const chrome: boolean;
-
         export const safari: boolean;
-
         export const win: boolean;
-
         export const ie3d: boolean;
-
         export const webkit3d: boolean;
-
         export const gecko3d: boolean;
-
         export const opera12: boolean;
-
         export const any3d: boolean;
-
         export const mobile: boolean;
-
         export const mobileWebkit: boolean;
-
         export const mobiWebkit3d: boolean;
-
         export const mobileOpera: boolean;
-
         export const mobileGecko: boolean;
-
         export const touch: boolean;
-
         export const msPointer: boolean;
-
         export const pointer: boolean;
-
         export const retina: boolean;
-
         export const canvas: boolean;
-
         export const vml: boolean;
-
         export const svg: boolean;
     }
 }

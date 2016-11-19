@@ -9,6 +9,7 @@
 export declare class Client {
     constructor(connectionString: string, clientId: string, options?: ZKOptions);
     close(callback?: Function): void;
+    topicExists(topics: Array<string>, callback: Function): void;
 }
 
 export declare class Producer {
@@ -65,6 +66,8 @@ export declare class Offset {
     fetch(payloads: Array<OffsetRequest>, cb: (error: any, data: any) => any): void;
     commit(groupId: string, payloads: Array<OffsetCommitRequest>, cb: (error: any, data: any) => any): void;
     fetchCommits(groupId: string, payloads: Array<OffsetFetchRequest>, cb: (error: any, data: any) => any): void;
+    fetchLatestOffsets(topics: Array<string>, cb: (error: any, data: any) => any): void;
+    on(eventName: string, cb: (error: any) => any): void;
 }
 
 export declare class KeyedMessage {
@@ -99,6 +102,8 @@ export interface ConsumerOptions {
 export interface Topic {
     topic: string;
     offset?: number;
+    encoding?: string;
+    autoCommit?: boolean;
 }
 
 export interface OffsetRequest {

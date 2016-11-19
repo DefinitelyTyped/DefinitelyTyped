@@ -7,9 +7,9 @@
 
 import * as React from 'react';
 
-interface IDevTools {
+export interface IDevTools {
     new (): JSX.ElementClass;
-    instrument(): Function
+    instrument(): (opts: any) => any;
 }
 
 export declare function createDevTools(el: React.ReactElement<any>): IDevTools;

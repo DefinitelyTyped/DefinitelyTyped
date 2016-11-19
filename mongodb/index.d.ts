@@ -426,7 +426,9 @@ export class ObjectID {
     getTimestamp(): Date;
     // Returns the ObjectID id as a 24 byte hex string representation
     toHexString(): string;
-}
+    // Returns the ObjectID id as a 24 byte hex string representation
+    toString(): string;
+  }
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Binary.html
 export class Binary {
@@ -980,8 +982,10 @@ export interface FindOperatorsOrdered {
     upsert(): FindOperatorsOrdered;
 }
 
-//http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html
 export interface UnorderedBulkOperation {
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/lib_bulk_unordered.js.html line 339
+    length: number;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html#execute
     execute(callback: MongoCallback<BulkWriteResult>): void;
     execute(options?: FSyncOptions): Promise<BulkWriteResult>;
@@ -1168,7 +1172,7 @@ export interface Cursor extends Readable, NodeJS.EventEmitter {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#limit
     limit(value: number): Cursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#map
-    map(transform: Function): void;
+    map(transform: Function): Cursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#max
     max(max: number): Cursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#maxAwaitTimeMS

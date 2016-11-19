@@ -346,7 +346,7 @@ export class NodePath<T> {
 
     getData(key: string, def?: any): any;
 
-    buildCodeFrameError(msg: string, Error: Error): Error;
+    buildCodeFrameError<TError extends Error>(msg: string, Error?: new (msg: string) => TError): TError;
 
     traverse(visitor: Visitor, state?: any): void;
 

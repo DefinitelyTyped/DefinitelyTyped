@@ -14,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "qunit-tests.ts"
+        "qunit-test.ts"
     ]
 }

@@ -99,6 +99,14 @@ declare namespace WebSocket {
         rejectUnauthorized?: boolean;
     }
 
+    export interface IPerMessageDeflateOptions {
+        serverNoContextTakeover?: boolean;
+        clientNoContextTakeover?: boolean;
+        serverMaxWindowBits?: number;
+        clientMaxWindowBits?: number;
+        memLevel?: number;
+    }
+
     export interface IServerOptions {
         host?: string;
         port?: number;
@@ -109,6 +117,7 @@ declare namespace WebSocket {
         noServer?: boolean;
         disableHixie?: boolean;
         clientTracking?: boolean;
+        perMessageDeflate?: boolean | IPerMessageDeflateOptions;
     }
 
     export class Server extends events.EventEmitter {

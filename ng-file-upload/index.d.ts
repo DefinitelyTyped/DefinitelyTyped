@@ -91,6 +91,20 @@ declare module 'angular' {
              */
             ngfValidateForce?: boolean;
         }
+        
+        interface ResizeIfFunction {
+            (width: number, height: number): boolean;
+        }
+
+        interface FileResizeOptions {
+            centerCrop?: boolean;
+            height?: number;
+            ratio?: number;
+            resizeIf?: ResizeIfFunction;
+            restoreExif?: boolean;
+            quality?: number;
+            width?: number;
+        }
 
         interface IUploadService {
             /**
@@ -166,7 +180,7 @@ declare module 'angular' {
              * @param  {string} newName
              * @return {File}
              */
-            rename(file: File, newName: string): File;
+            rename(file: File, newName: string): Blob;
             /**
              * Resizes an image. Returns a promise
              *
@@ -179,8 +193,7 @@ declare module 'angular' {
              * @param  {boolean} [centerCrop]
              * @return {angular.IPromise<string>}
              */
-            resize(file: File, width?: number, height?: number, quality?: number, type?: string,
-                ratio?: number | string, centerCrop?: boolean): angular.IPromise<string>;
+            resize(file: File, options: FileResizeOptions): angular.IPromise<File>;
             /**
              * Set the default values for ngf-select and ngf-drop directives
              *

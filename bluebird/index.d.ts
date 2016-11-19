@@ -71,14 +71,19 @@ class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R> {
    */
   catch(predicate: (error: any) => boolean, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
   caught(predicate: (error: any) => boolean, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
+  
   catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
   caught<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
-  catch(ErrorClass: Function, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
-  caught(ErrorClass: Function, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
-  catch<U>(ErrorClass: Function, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
-  caught<U>(ErrorClass: Function, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
+  
+  catch<E extends Error>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
+  caught<E extends Error>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
+
+  catch<E extends Error, U>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
+  caught<E extends Error, U>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
+  
   catch(predicate: Object, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
   caught(predicate: Object, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
+  
   catch<U>(predicate: Object, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
   caught<U>(predicate: Object, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
 
@@ -316,6 +321,13 @@ class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R> {
    * Cancel this `promise`. Will not do anything if this promise is already settled or if the cancellation feature has not been enabled
    */
   cancel(): void;
+
+  /**
+   * Basically sugar for doing: somePromise.catch(function(){});
+   * 
+   * Which is needed in case error handlers are attached asynchronously to the promise later, which would otherwise result in premature unhandled rejection reporting.
+   */
+  suppressUnhandledRejections(): void;
 
   /**
    * Start the chain of promises with `Promise.try`. Any synchronous exceptions will be turned into rejections on the returned promise.

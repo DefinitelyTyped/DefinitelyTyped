@@ -1,3 +1,4 @@
+import SAT = require("sat");
 
 class SatTest{
 	public vectorTest(){
