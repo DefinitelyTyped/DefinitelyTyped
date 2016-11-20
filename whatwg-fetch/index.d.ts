@@ -6,7 +6,7 @@
 /// <reference types="whatwg-streams" />
 
 interface Window {
-    fetch(url: RequestInfo, init?: RequestInit): Promise<Response>;
+    fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 }
 declare let fetch: typeof window.fetch;
 
@@ -16,7 +16,7 @@ declare class Headers {
 
     append(name: string, value: string): void;
     delete(name: string): void;
-    get(name: string): string; // | null; (TS 2.0 strict null check)
+    get(name: string): string | null;
     has(name: string): boolean;
     set(name: string, value: string): void;
 
@@ -29,8 +29,9 @@ declare class Headers {
 }
 
 declare type BodyInit = Blob | ArrayBufferView | ArrayBuffer | FormData /* | URLSearchParams */ | string;
+declare type ResponseBodyInit = BodyInit | ReadableStream;
 interface Body {
-    bodyUsed: boolean;
+    readonly bodyUsed: boolean;
     arrayBuffer(): Promise<ArrayBuffer>;
     blob(): Promise<Blob>;
     formData(): Promise<FormData>;
@@ -43,19 +44,20 @@ declare type RequestInfo = Request | string;
 declare class Request {
     constructor(input: RequestInfo, init?: RequestInit);
 
-    method: string;
-    url: string;
-    headers: Headers;
+    readonly method: string;
+    readonly url: string;
+    readonly headers: Headers;
 
-    type: RequestType
-    destination: RequestDestination;
-    referrer: string;
-    referrerPolicy: ReferrerPolicy;
-    mode: RequestMode;
-    credentials: RequestCredentials;
-    cache: RequestCache;
-    redirect: RequestRedirect;
-    integrity: string;
+    readonly type: RequestType
+    readonly destination: RequestDestination;
+    readonly referrer: string;
+    readonly referrerPolicy: ReferrerPolicy;
+    readonly mode: RequestMode;
+    readonly credentials: RequestCredentials;
+    readonly cache: RequestCache;
+    readonly redirect: RequestRedirect;
+    readonly integrity: string;
+    readonly keepalive: boolean;
 
     clone(): Request;
 }
@@ -71,7 +73,7 @@ interface RequestInit {
     cache?: RequestCache;
     redirect?: RequestRedirect;
     integrity?: string;
-    window?: any;
+    window?: null; // can only be set to null
 }
 
 type RequestType = "" | "audio" | "font" | "image" | "script" | "style" | "track" | "video";
@@ -80,27 +82,30 @@ type RequestMode = "navigate" | "same-origin" | "no-cors" | "cors";
 type RequestCredentials = "omit" | "same-origin" | "include";
 type RequestCache = "default" | "no-store" | "reload" | "no-cache" | "force-cache" | "only-if-cached";
 type RequestRedirect = "follow" | "error" | "manual";
+
 type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "same-origin" | "origin" | "strict-origin" | "origin-when-cross-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
 
 declare class Response {
-    constructor(body?: BodyInit, init?: ResponseInit);
+    constructor(body?: ResponseBodyInit, init?: ResponseInit);
 
     static error(): Response;
     static redirect(url: string, status?: number): Response;
 
-    type: ResponseType;
-    url: string;
-    redirected: boolean;
-    status: number;
-    ok: boolean;
-    statusText: string;
-    headers: Headers;
-    body: ReadableStream; // | null;
-    trailer: Promise<Headers>;
+    readonly type: ResponseType;
+
+    readonly url: string;
+    readonly redirected: boolean;
+    readonly status: number;
+    readonly ok: boolean;
+    readonly statusText: string;
+    readonly headers: Headers;
+    readonly body: ReadableStream | null;
+    readonly trailer: Promise<Headers>;
 
     clone(): Response;
 }
 interface Response extends Body {}
+
 interface ResponseInit {
     status?: number;
     statusText?: string;
