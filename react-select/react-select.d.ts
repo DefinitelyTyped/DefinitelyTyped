@@ -5,7 +5,7 @@
 
 /// <reference path="../react/react.d.ts"/>
 
-declare namespace ReactSelect {
+declare namespace ReactSelectNameSpace {
 
     interface AutocompleteResult {
         /** the search-results to be displayed  */
@@ -424,28 +424,28 @@ declare namespace ReactSelect {
         shouldKeyDownEventCreateNewOption?: (arg: { keyCode: number }) => boolean;
     }
 
-    class ReactSelectCreatableClass extends __React.Component<ReactCreatableSelectProps, {}> {
-    }
-    class ReactSelectAsyncClass extends __React.Component<ReactAsyncSelectProps, {}> {
-    }
     class ReactSelectClass extends __React.Component<ReactSelectProps, {}> {
-        static Async: ReactSelectAsyncClass;
-        static Creatable: ReactSelectCreatableClass;
     }
 
+    module ReactSelectClass {
+        class Creatable extends __React.Component<ReactCreatableSelectProps, {}> {
+        }
+        class Async extends __React.Component<ReactAsyncSelectProps, {}> {
+        }
+    }
 }
 
 declare module "react-select" {
-    export = ReactSelect.ReactSelectClass;
+    export = ReactSelectNameSpace.ReactSelectClass;
 }
 
 declare module "react-select-props" {
 
-    import Option = ReactSelect.Option;
-    import MenuRendererProps = ReactSelect.MenuRendererProps;
-    import ReactSelectProps = ReactSelect.ReactSelectProps;
-    import ReactAsyncSelectProps = ReactSelect.ReactAsyncSelectProps;
-    import ReactCreatableSelectProps = ReactSelect.ReactCreatableSelectProps;
+    import Option = ReactSelectNameSpace.Option;
+    import MenuRendererProps = ReactSelectNameSpace.MenuRendererProps;
+    import ReactSelectProps = ReactSelectNameSpace.ReactSelectProps;
+    import ReactAsyncSelectProps = ReactSelectNameSpace.ReactAsyncSelectProps;
+    import ReactCreatableSelectProps = ReactSelectNameSpace.ReactCreatableSelectProps;
 
     export { MenuRendererProps, ReactSelectProps, ReactAsyncSelectProps, ReactCreatableSelectProps, Option };
 }
