@@ -1,6 +1,6 @@
 // Type definitions for halogen
 // Project: https://github.com/yuanyan/halogen
-// Definitions by: Clément Devos <https://github.com/steller>
+// Definitions by: Vincent Rouffiat <https://github.com/steller>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "halogen" {
@@ -8,7 +8,7 @@ declare module "halogen" {
 
   type VerticalAlign = "baseline" | "length" | "sub" | "super" | "top" | "text-top" | "middle" | "bottom" | "text-bottom" | "initial" | "inherit";
 
-  interface IHalogenCommonProps {
+  interface HalogenCommonProps {
     loading?: boolean;
     color?: string;
     id?: string;
@@ -16,16 +16,16 @@ declare module "halogen" {
     verticalAlign?: VerticalAlign;
   }
 
-  interface ISizeLoaderProps extends IHalogenCommonProps {
+  interface SizeLoaderProps extends HalogenCommonProps {
     size?: string;
   }
 
-  interface IMarginLoaderProps<T> extends IHalogenCommonProps {
+  interface MarginLoaderProps<T> extends HalogenCommonProps {
     margin?: T;
     size?: T;
   }
 
-  interface IRadiusLoaderProps extends IMarginLoaderProps<string> {
+  interface RadiusLoaderProps extends MarginLoaderProps<string> {
     height?: string;
     width?: string;
     radius?: string;
@@ -34,52 +34,52 @@ declare module "halogen" {
   /**
    * React components
    */
-  type PulseLoader = React.Component<IMarginLoaderProps<string>, {}>;
-  export let PulseLoader: React.ComponentClass<IMarginLoaderProps<string>>;
+  type PulseLoader = react.Component<MarginLoaderProps<string>, {}>;
+  export const PulseLoader: react.ComponentClass<MarginLoaderProps<string>>;
 
-  type RotateLoader = React.Component<IMarginLoaderProps<string>, {}>;
-  export let RotateLoader: React.ComponentClass<IMarginLoaderProps<string>>;
+  type RotateLoader = react.Component<MarginLoaderProps<string>, {}>;
+  export const RotateLoader: react.ComponentClass<MarginLoaderProps<string>>;
 
-  type BeatLoader = React.Component<IMarginLoaderProps<string>, {}>;
-  export let BeatLoader: React.ComponentClass<IMarginLoaderProps<string>>;
+  type BeatLoader = react.Component<MarginLoaderProps<string>, {}>;
+  export const BeatLoader: react.ComponentClass<MarginLoaderProps<string>>;
 
-  type RiseLoader = React.Component<IMarginLoaderProps<string>, {}>;
-  export let RiseLoader: React.ComponentClass<IMarginLoaderProps<string>>;
+  type RiseLoader = react.Component<MarginLoaderProps<string>, {}>;
+  export const RiseLoader: react.ComponentClass<MarginLoaderProps<string>>;
 
-  type SyncLoader = React.Component<IMarginLoaderProps<string>, {}>;
-  export let SyncLoader: React.ComponentClass<IMarginLoaderProps<string>>;
+  type SyncLoader = react.Component<MarginLoaderProps<string>, {}>;
+  export const SyncLoader: react.ComponentClass<MarginLoaderProps<string>>;
 
-  type GridLoader = React.Component<IMarginLoaderProps<string>, {}>;
-  export let GridLoader: React.ComponentClass<IMarginLoaderProps<string>>;
+  type GridLoader = react.Component<MarginLoaderProps<string>, {}>;
+  export const GridLoader: react.ComponentClass<MarginLoaderProps<string>>;
 
-  type ClipLoader = React.Component<ISizeLoaderProps, {}>;
-  export let ClipLoader: React.ComponentClass<ISizeLoaderProps>;
+  type ClipLoader = react.Component<SizeLoaderProps, {}>;
+  export const ClipLoader: react.ComponentClass<SizeLoaderProps>;
 
-  type SquareLoader = React.Component<ISizeLoaderProps, {}>;
-  export let SquareLoader: React.ComponentClass<ISizeLoaderProps>;
+  type SquareLoader = react.Component<SizeLoaderProps, {}>;
+  export const SquareLoader: react.ComponentClass<SizeLoaderProps>;
 
-  type DotLoader = React.Component<ISizeLoaderProps, {}>;
-  export let DotLoader: React.ComponentClass<ISizeLoaderProps>;
+  type DotLoader = react.Component<SizeLoaderProps, {}>;
+  export const DotLoader: react.ComponentClass<SizeLoaderProps>;
 
-  type PacmanLoader = React.Component<IMarginLoaderProps<number>, {}>;
-  export let PacmanLoader: React.ComponentClass<IMarginLoaderProps<number>>;
+  type PacmanLoader = react.Component<MarginLoaderProps<number>, {}>;
+  export const PacmanLoader: react.ComponentClass<MarginLoaderProps<number>>;
 
-  type MoonLoader = React.Component<ISizeLoaderProps, {}>;
-  export let MoonLoader: React.ComponentClass<ISizeLoaderProps>;
+  type MoonLoader = react.Component<SizeLoaderProps, {}>;
+  export const MoonLoader: react.ComponentClass<SizeLoaderProps>;
 
-  type RingLoader = React.Component<ISizeLoaderProps, {}>;
-  export let RingLoader: React.ComponentClass<ISizeLoaderProps>;
+  type RingLoader = react.Component<SizeLoaderProps, {}>;
+  export const RingLoader: react.ComponentClass<SizeLoaderProps>;
 
-  type BounceLoader = React.Component<ISizeLoaderProps, {}>;
-  export let BounceLoader: React.ComponentClass<ISizeLoaderProps>;
+  type BounceLoader = react.Component<SizeLoaderProps, {}>;
+  export const BounceLoader: react.ComponentClass<SizeLoaderProps>;
 
-  type SkewLoader = React.Component<ISizeLoaderProps, {}>;
-  export let SkewLoader: React.ComponentClass<ISizeLoaderProps>;
+  type SkewLoader = react.Component<SizeLoaderProps, {}>;
+  export const SkewLoader: react.ComponentClass<SizeLoaderProps>;
 
-  type FadeLoader = React.Component<IRadiusLoaderProps, {}>;
-  export let FadeLoader: React.ComponentClass<IRadiusLoaderProps>;
+  type FadeLoader = react.Component<RadiusLoaderProps, {}>;
+  export const FadeLoader: react.ComponentClass<RadiusLoaderProps>;
 
-  type ScaleLoader = React.Component<IRadiusLoaderProps, {}>;
-  export let ScaleLoader: React.ComponentClass<IRadiusLoaderProps>;
+  type ScaleLoader = react.Component<RadiusLoaderProps, {}>;
+  export const ScaleLoader: react.ComponentClass<RadiusLoaderProps>;
 
 }
