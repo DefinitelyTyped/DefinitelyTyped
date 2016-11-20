@@ -8,7 +8,7 @@
 interface Window {
     fetch(url: RequestInfo, init?: RequestInit): Promise<Response>;
 }
-declare var fetch: typeof window.fetch;
+declare let fetch: typeof window.fetch;
 
 declare type HeadersInit = Headers | string[][] | { [key: string]: string };
 declare class Headers {
@@ -40,8 +40,8 @@ interface Body {
 
 declare type RequestInfo = Request | string;
 declare class Request {
-	constructor(input: RequestInfo, init?: RequestInit);
-	
+    constructor(input: RequestInfo, init?: RequestInit);
+
     method: string;
     url: string;
     headers: Headers;
