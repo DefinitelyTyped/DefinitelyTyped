@@ -3,8 +3,11 @@
 // Definitions by: Vincent Rouffiat <https://github.com/steller>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "halogen" {
-  import * as react from "react";
+import * as react from "react";
+
+export = Halogen;
+
+declare namespace Halogen {
 
   type VerticalAlign = "baseline" | "length" | "sub" | "super" | "top" | "text-top" | "middle" | "bottom" | "text-bottom" | "initial" | "inherit";
 
