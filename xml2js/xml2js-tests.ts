@@ -1,3 +1,4 @@
+/// <reference types="node"/>
 
 import xml2js = require('xml2js');
 
@@ -67,3 +68,11 @@ var v2Defaults = xml2js.defaults['0.2'];
 v2Defaults.async = false;
 v2Defaults.chunkSize = 20000;
 
+import fs = require('fs');
+ 
+fs.readFile(__dirname + '/foo.xml', function(err, data) {
+    parser.parseString(data, function (err: any, result: any) {
+        console.dir(result);
+        console.log('Done');
+    });
+});
