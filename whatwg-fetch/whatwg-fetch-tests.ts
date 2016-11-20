@@ -100,8 +100,8 @@ function test_Body_json() {
 	fetch('http://test.com')
 		.then(response => response.json())
 		.then(fooBar => {
-			// fooBar is {}, not FooBar
-			//console.log(fooBar.foo);
-			//console.log(fooBar.bar);
+			// fooBar is any, not FooBar
+			console.log(fooBar.foo);
+			console.log(fooBar.bar);
 		});
 }
