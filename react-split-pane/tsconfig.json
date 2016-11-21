@@ -14,7 +14,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "react-split-pane.d.ts",
+        "index.d.ts",
         "react-split-pane-tests.tsx"
     ]
 }

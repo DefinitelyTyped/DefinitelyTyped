@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "masonry-layout.d.ts",
+        "index.d.ts",
         "masonry-layout-tests.ts"
     ]
 }
