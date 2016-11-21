@@ -68,6 +68,10 @@ class App extends React.Component<{}, {}> {
     }
 }
 
+css();
+css(false, null, styles.red);
+css([false, null, [styles.red]], styles.blue);
+
 const output = StyleSheetServer.renderStatic(() => {
     return "test";
 });
@@ -80,3 +84,34 @@ StyleSheet.rehydrate(output.css.renderedClassNames);
 
 StyleSheetTestUtils.suppressStyleInjection();
 StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+
+// Testing extensions
+const oldStyleSheet = StyleSheet;
+{
+    function myExtension(selector: string, base: string, callback: (selector: string) => string) {
+        if (selector[0] !== "&") {
+            return null;
+        }
+
+        return callback(base + selector.slice(1));
+    }
+
+    const {css, StyleSheet, StyleSheetServer, StyleSheetTestUtils} = oldStyleSheet.extend([
+        myExtension
+    ]);
+
+    css(styles.red);
+
+    const output = StyleSheetServer.renderStatic(() => {
+        return "test";
+    });
+
+    output.css.content;
+    output.css.renderedClassNames;
+    output.html;
+
+    StyleSheet.rehydrate(output.css.renderedClassNames);
+
+    StyleSheetTestUtils.suppressStyleInjection();
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+}

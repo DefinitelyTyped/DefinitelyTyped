@@ -1,4 +1,4 @@
-// Type definitions for Aphrodite 1.1.0
+// Type definitions for Aphrodite 0.5.0
 // Project: https://github.com/Khan/aphrodite
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -27,7 +27,6 @@ declare module "aphrodite" {
     }
 
     export var StyleSheet: StyleSheetStatic;
-
     /**
      * Get class names from passed styles
      */
@@ -70,30 +69,6 @@ declare module "aphrodite" {
     }
 
     export var StyleSheetTestUtils: StyleSheetTestUtilsStatic;
-
-    export interface SelectorHandler {
-        (selector: string, baseSelector: string, callback: (selector: string) => string): string;
-    }
-
-    export interface Extension {
-        selectorHandler?: SelectorHandler,
-    }
-
-    /**
-     * Calling StyleSheet.extend() returns an object with each of the exported
-     * properties on it.
-     */
-    interface Exports {
-        css(...styles: any[]): string;
-
-        StyleSheet: StyleSheetStatic;
-        StyleSheetServer: StyleSheetServerStatic;
-        StyleSheetTestUtils: StyleSheetTestUtilsStatic;
-    }
-
-    interface StyleSheetStatic {
-        extend(extensions: Extension[]): Exports;
-    }
 }
 
 declare module "aphrodite/no-important" {
