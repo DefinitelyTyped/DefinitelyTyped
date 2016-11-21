@@ -49,7 +49,7 @@ declare namespace request {
         search(url: string, callback?: CallbackHandler): Req;
         connect(url: string, callback?: CallbackHandler): Req;
 
-      parse(fn: (res: Response, callback: (err: Error, body: any) => void) => void): this;
+      parse(fn: (res: Response, callback: (err: Error | null, body: any) => void) => void): this;
       saveCookies(res: Response): void;
       attachCookies(req: Req): void;
     }
@@ -109,7 +109,7 @@ declare namespace request {
       withCredentials(): this;
       write(data: string, encoding?: string): this;
       write(data: Buffer, encoding?: string): this;
-      parse(fn: (res: Response, callback: (err: Error, body: any) => void) => void): this;
+      parse(fn: (res: Response, callback: (err: Error | null, body: any) => void) => void): this;
     }
 
 }
