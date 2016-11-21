@@ -528,31 +528,55 @@ declare namespace webpack {
     }
 
     interface SourceMapDevToolPluginStatic {
-        new (options?: string | false | null | {
-            filename?: string | false | null,
-            append?: false | string,
-            moduleFilenameTemplate?: string,
-            fallbackModuleFilenameTemplate?: string,
-            test?: RegExp,
-            noSources?: boolean,
-            module?: boolean,
-            lineToLine?: boolean | {
-                test?: Condition | Condition[],
-                include?: Condition | Condition[],
-                exclude?: Condition | Condition[]
-            }
-        }): Plugin;
+        new (options?: SourceMapDevToolPluginOptions): Plugin;
+    }
+
+    // if string | false | null, maps to the filename option
+    type SourceMapDevToolPluginOptions = string | false | null | {
+        // output filename pattern (false/null to append)
+        filename?: string | false | null,
+        // source map comment pattern (false to not append)
+        append?: false | string,
+        // template for the module filename inside the source map
+        moduleFilenameTemplate?: string,
+        // fallback used when the moduleFilenameTemplate produces a collision
+        fallbackModuleFilenameTemplate?: string,
+        // test/include/exclude files
+        test?: Condition | Condition[],
+        include?: Condition | Condition[],
+        exclude?: Condition | Condition[]
+        // whether to include the footer comment with source information
+        noSources?: boolean,
+        // the source map sourceRoot ("The URL root from which all sources are relative.")
+        sourceRoot?: string | null,
+        // whether to generate per-module source map
+        module?: boolean,
+        // whether to include column information in the source map
+        columns?: boolean,
+        // whether to preserve line numbers between source and source map
+        lineToLine?: boolean | {
+            test?: Condition | Condition[],
+            include?: Condition | Condition[],
+            exclude?: Condition | Condition[]
+        }
     }
 
     interface EvalSourceMapDevToolPluginStatic {
-        new (options?: {
-            module?: boolean,
-            lineToLine?: boolean | {
-                test?: Condition | Condition[],
-                include?: Condition | Condition[],
-                exclude?: Condition | Condition[]
-            }
-        }): Plugin;
+        new (options?: EvalSourceMapDevToolPluginOptions): Plugin;
+    }
+
+    // if string | false, maps to the append option
+    type EvalSourceMapDevToolPluginOptions = string | false | {
+        append?: false | string,
+        moduleFilenameTemplate?: string,
+        sourceRoot?: string,
+        module?: boolean,
+        columns?: boolean,
+        lineToLine?: boolean | {
+            test?: Condition | Condition[],
+            include?: Condition | Condition[],
+            exclude?: Condition | Condition[]
+        }
     }
 
     interface HotModuleReplacementPluginStatic {
