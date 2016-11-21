@@ -465,7 +465,5 @@ declare class cropperjs {
 
 }
 
-declare module "cropperjs" {
-    const Cropper: typeof cropperjs;
-    export default Cropper;
-}
+export = cropperjs;
+export as namespace Cropper;

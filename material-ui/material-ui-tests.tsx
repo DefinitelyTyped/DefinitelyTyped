@@ -1,7 +1,7 @@
-///<reference path='../react/react.d.ts' />
-///<reference path='../react/react-dom.d.ts' />
-///<reference path='../react-tap-event-plugin/react-tap-event-plugin.d.ts' />
-///<reference path='material-ui.d.ts' />
+///<reference types='react' />
+///<reference types='react-dom' />
+///<reference types='react-tap-event-plugin' />
+///<reference types='material-ui' />
 
 import * as React from 'react';
 import {Component, PropTypes} from 'react';
@@ -165,7 +165,7 @@ const styles = {
     root: {
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent: 'space-around',
+        justifyContent: 'space-around' as 'space-around',
     },
     gridList: {
         width: 500,
@@ -3584,8 +3584,8 @@ const ToggleExampleSimple = () => (
             label="Label on the right"
             labelPosition="right"
             style={styles.toggle}
-            thumbTwitchedStyle={styles.toggle}
-            trackTwitchedStyle={styles.toggle}
+            thumbSwitchedStyle={styles.toggle}
+            trackSwitchedStyle={styles.toggle}
         />
     </div>
 );

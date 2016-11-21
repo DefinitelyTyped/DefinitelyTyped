@@ -1,4 +1,4 @@
-import Cropper from 'cropperjs';
+import * as Cropper from 'cropperjs';
 
 var image = <HTMLImageElement>document.getElementById('image');
 var cropper = new Cropper(image, {
