@@ -3,7 +3,7 @@
 import * as EventEmitter from 'eventemitter3';
 
 const eventName = 'test';
-const eventSymbol = Symbol('test');
+const eventSymbol: symbol = Symbol('test');
 const fn = () => console.log(1);
 
 // Extending EventEmitter
@@ -35,9 +35,8 @@ ee.eventNames().every((event) => {
         return false;
     } else {
         return event.length > 0;
-      }
+    }
 });
-
 
 // EventEmitter.listeners()
 // should return array of functions

@@ -7,7 +7,7 @@ import * as React from 'react';
 
 type DataKey = string | number;
 
-export type DataValue = any
+type DataValue = any
 
 type DataByNumber = {
     [key: number]: DataValue
@@ -17,7 +17,7 @@ type DataByString = {
     [key: string]: DataValue
 }
 
-export type Data = DataByNumber | DataByString;
+type Data = DataByNumber | DataByString;
 
 export interface RowProps {
     active: boolean

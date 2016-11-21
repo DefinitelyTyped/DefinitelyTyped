@@ -33,15 +33,15 @@ interface IValidateConfig {
     /** validation rules for incoming request headers.Values allowed:
      * trueany headers allowed (no validation performed).This is the default.
      falseno headers allowed (this will cause all valid HTTP requests to fail).
-     a Joi validation object.
-     a validation function using the signature function(value, options, next) where:
-     valuethe object containing the request headers.
-     optionsthe server validation options.
-     next(err, value)the callback function called when validation is completed.
-    */
+        a Joi validation object.
+        a validation function using the signature function(value, options, next) where:
+        valuethe object containing the request headers.
+        optionsthe server validation options.
+        next(err, value)the callback function called when validation is completed.
+        */
     headers?: boolean | hapi.IJoi | hapi.IValidationFunction;
     /** validation rules for incoming request path parameters, after matching the path against the route and extracting any parameters then stored in request.params.Values allowed:
-        trueany path parameters allowed (no validation performed).This is the default.
+     trueany path parameters allowed (no validation performed).This is the default.
         falseno path variables allowed.
         a Joi validation object.
         a validation function using the signature function(value, options, next) where:
@@ -50,7 +50,7 @@ interface IValidateConfig {
         next(err, value)the callback function called when validation is completed. */
     params?: boolean | hapi.IJoi | hapi.IValidationFunction;
     /** validation rules for an incoming request URI query component (the key- value part of the URI between '?' and '#').The query is parsed into its individual key- value pairs (using the qs module) and stored in request.query prior to validation.Values allowed:
-        trueany query parameters allowed (no validation performed).This is the default.
+     trueany query parameters allowed (no validation performed).This is the default.
         falseno query parameters allowed.
         a Joi validation object.
         a validation function using the signature function(value, options, next) where:
@@ -59,18 +59,18 @@ interface IValidateConfig {
         next(err, value)the callback function called when validation is completed. */
     query?: boolean | hapi.IJoi | hapi.IValidationFunction;
     /**  validation rules for an incoming request payload (request body).Values allowed:
-         trueany payload allowed (no validation performed).This is the default.
-         falseno payload allowed.
-         a Joi validation object.
-         a validation function using the signature function(value, options, next) where:
-         valuethe object containing the payload object.
-         optionsthe server validation options.
-         next(err, value)the callback function called when validation is completed.  */
+     trueany payload allowed (no validation performed).This is the default.
+        falseno payload allowed.
+        a Joi validation object.
+        a validation function using the signature function(value, options, next) where:
+        valuethe object containing the payload object.
+        optionsthe server validation options.
+        next(err, value)the callback function called when validation is completed.  */
     payload?: boolean | hapi.IJoi | hapi.IValidationFunction;
     /** an optional object with error fields copied into every validation error response. */
     errorFields?: any;
     /** determines how to handle invalid requests.Allowed values are:
-        'error'return a Bad Request (400) error response.This is the default value.
+     'error'return a Bad Request (400) error response.This is the default value.
         'log'log the error but continue processing the request.
         'ignore'take no action.
         OR a custom error handler function with the signature 'function(request, reply, source, error)` where:
