@@ -409,7 +409,7 @@ declare namespace webpack {
          * Adds SourceMaps for assets, but wrapped inside eval statements.
          * Much faster incremental build speed, but harder to debug.
          */
-        EvalSourceMapDevToolPlugin: SourceMapDevToolPluginStatic;
+        EvalSourceMapDevToolPlugin: EvalSourceMapDevToolPluginStatic;
         /**
          * Enables Hot Module Replacement. (This requires records data if not in dev-server mode, recordsPath)
          * Generates Hot Update Chunks of each chunk in the records.
@@ -528,7 +528,31 @@ declare namespace webpack {
     }
 
     interface SourceMapDevToolPluginStatic {
-        new (options: any): Plugin;
+        new (options?: string | false | null | {
+            filename?: string | false | null,
+            append?: false | string,
+            moduleFilenameTemplate?: string,
+            fallbackModuleFilenameTemplate?: string,
+            test?: RegExp,
+            noSources?: boolean,
+            module?: boolean,
+            lineToLine?: boolean | {
+                test?: Condition | Condition[],
+                include?: Condition | Condition[],
+                exclude?: Condition | Condition[]
+            }
+        }): Plugin;
+    }
+
+    interface EvalSourceMapDevToolPluginStatic {
+        new (options?: {
+            module?: boolean,
+            lineToLine?: boolean | {
+                test?: Condition | Condition[],
+                include?: Condition | Condition[],
+                exclude?: Condition | Condition[]
+            }
+        }): Plugin;
     }
 
     interface HotModuleReplacementPluginStatic {
