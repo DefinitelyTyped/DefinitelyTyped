@@ -35,7 +35,7 @@ declare module "material-ui" {
     export import LinearProgress = __MaterialUI.LinearProgress;
     export import List = __MaterialUI.List.List;
     export import ListItem = __MaterialUI.List.ListItem;
-    export import MakeSelectable = __MaterialUI.List.MakeSelectable;
+    export import makeSelectable = __MaterialUI.List.makeSelectable;
     export import Menu = __MaterialUI.Menus.Menu;
     export import MenuItem = __MaterialUI.Menus.MenuItem;
     export import Paper = __MaterialUI.Paper;
@@ -573,6 +573,7 @@ declare namespace __MaterialUI {
         onUpdateInput?: (searchText: string, dataSource: AutoCompleteDataSource) => void;
         open?: boolean;
         openOnFocus?: boolean;
+        popoverProps?: Popover.PopoverProps;
         searchText?: string;
         style?: React.CSSProperties;
         targetOrigin?: propTypes.origin;
@@ -683,6 +684,7 @@ declare namespace __MaterialUI {
     interface RaisedButtonProps extends SharedEnhancedButtonProps<RaisedButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
         backgroundColor?: string;
+        buttonStyle?: React.CSSProperties;
         className?: string;
         disabled?: boolean;
         disabledBackgroundColor?: string;
@@ -1103,7 +1105,7 @@ declare namespace __MaterialUI {
         }
 
         // union types for higher order components in TypeScript 1.8: https://github.com/Microsoft/TypeScript/issues/4362
-        export function MakeSelectable<P extends {}>(component: React.ComponentClass<P>): React.ComponentClass<P & SelectableProps>;
+        export function makeSelectable<P extends {}>(component: React.ComponentClass<P>): React.ComponentClass<P & SelectableProps>;
     }
 
     namespace Menus {
@@ -1285,6 +1287,7 @@ declare namespace __MaterialUI {
         mode?: "determinate" | "indeterminate";
         size?: number;
         style?: React.CSSProperties;
+        thickness?: number;
         value?: number;
     }
     export class CircularProgress extends React.Component<CircularProgressProps, {}> {
@@ -1488,6 +1491,8 @@ declare namespace __MaterialUI {
             rippleStyle?: React.CSSProperties;
             style?: React.CSSProperties;
             thumbStyle?: React.CSSProperties;
+            thumbSwitchedStyle?: React.CSSProperties;
+            trackSwitchedStyle?: React.CSSProperties;
             toggled?: boolean;
             trackStyle?: React.CSSProperties;
             valueLink?: ReactLink<boolean>;
@@ -1503,6 +1508,7 @@ declare namespace __MaterialUI {
         autoHideDuration?: number;
         bodyStyle?: React.CSSProperties;
         className?: string;
+        contentStyle?: React.CSSProperties;
         message: React.ReactNode;
         onActionTouchTap?: React.TouchEventHandler<{}>;
         onRequestClose: (reason: string) => void;
@@ -2086,7 +2092,7 @@ declare module 'material-ui/LinearProgress' {
 declare module 'material-ui/List' {
     export import List = __MaterialUI.List.List;
     export import ListItem = __MaterialUI.List.ListItem;
-    export import MakeSelectable = __MaterialUI.List.MakeSelectable;
+    export import makeSelectable = __MaterialUI.List.makeSelectable;
     export default List;
 }
 
@@ -2100,8 +2106,8 @@ declare module 'material-ui/List/ListItem' {
     export default ListItem;
 }
 
-declare module 'material-ui/List/MakeSelectable' {
-    export import MakeSelectable = __MaterialUI.List.MakeSelectable;
+declare module 'material-ui/List/makeSelectable' {
+    export import MakeSelectable = __MaterialUI.List.makeSelectable;
     export default MakeSelectable;
 }
 
