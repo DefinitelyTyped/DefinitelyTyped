@@ -3,17 +3,12 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
-        "strictNullChecks": false,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "types": [],
+        "strictNullChecks": true,
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "spin-tests.ts"
+        "d3-box-tests.ts"
     ]
 }
