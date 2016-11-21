@@ -7490,7 +7490,7 @@ declare namespace  __React {
       key: string;
     }
 
-    export interface NavigationState extends NavigationRoute {
+    export interface NavigationState {
         index: number;
         routes: NavigationRoute[];
     }
