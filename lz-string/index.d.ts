@@ -1,4 +1,4 @@
-﻿// Type definitions for lz-string v1.3.5
+// Type definitions for lz-string v1.3.5
 // Project: https://github.com/pieroxy/lz-string
 // Definitions by: Roman Nikitin <https://github.com/M0ns1gn0r>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

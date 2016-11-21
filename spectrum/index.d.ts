@@ -1,4 +1,4 @@
-﻿// Type definitions for spectrum 1.5.1
+// Type definitions for spectrum 1.5.1
 // Project: https://github.com/bgrins/spectrum/
 // Definitions by: Mordechai Zuber <https://github.com/M-Zuber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -1,4 +1,4 @@
-﻿// Type definitions for bcrypt
+// Type definitions for bcrypt
 // Project: https://www.npmjs.org/package/bcrypt
 // Definitions by: Peter Harris <https://github.com/codeanimal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

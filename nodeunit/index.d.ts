@@ -1,4 +1,4 @@
-﻿// Type definitions for nodeunit
+// Type definitions for nodeunit
 // Project: https://github.com/caolan/nodeunit
 // Definitions by: Jeff Goddard <https://github.com/jedigo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

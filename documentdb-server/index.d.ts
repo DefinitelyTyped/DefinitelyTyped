@@ -1,4 +1,4 @@
-﻿// Type definitions for DocumentDB server side JavaScript SDK
+// Type definitions for DocumentDB server side JavaScript SDK
 // Project: http://dl.windowsazure.com/documentDB/jsserverdocs
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -1,4 +1,4 @@
-﻿// Type definitions for gm 1.17.0
+// Type definitions for gm 1.17.0
 // Project: https://github.com/aheckmann/gm
 // Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
