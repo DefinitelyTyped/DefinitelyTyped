@@ -57,6 +57,3 @@ declare namespace assert {
     export function ifError(value:any):void;
 }
 
-declare module "assert" {
-    export = assert;
-}
