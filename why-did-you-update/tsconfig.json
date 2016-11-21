@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "why-did-you-update.d.ts",
+        "index.d.ts",
         "why-did-you-update-tests.ts"
     ]
 }

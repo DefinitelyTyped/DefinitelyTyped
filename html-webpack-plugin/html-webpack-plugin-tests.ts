@@ -1,5 +1,3 @@
-///<reference path="html-webpack-plugin.d.ts" />
-
 import {Configuration} from "webpack";
 import HtmlWebpackPlugin = require("html-webpack-plugin");
 
