@@ -63,7 +63,7 @@ declare namespace webpack {
         /** Store compiler state to a json file. */
         recordsOutputPath?: string;
         /** Add additional plugins to the compiler. */
-        plugins?: (Plugin | Function)[];
+        plugins?: Plugin[];
         /** Stats options for logging  */
         stats?: compiler.StatsToStringOptions;
     }
