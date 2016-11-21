@@ -259,7 +259,7 @@ declare namespace NodeJS {
 
     export interface ReadableStream extends EventEmitter {
         readable: boolean;
-        isTTY: boolean;
+        isTTY?: boolean;
         read(size?: number): string | Buffer;
         setEncoding(encoding: string): void;
         pause(): ReadableStream;
@@ -273,7 +273,7 @@ declare namespace NodeJS {
 
     export interface WritableStream extends EventEmitter {
         writable: boolean;
-        isTTY: boolean;
+        isTTY?: boolean;
         write(buffer: Buffer | string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
         end(): void;
