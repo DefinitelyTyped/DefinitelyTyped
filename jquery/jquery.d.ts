@@ -1300,7 +1300,7 @@ interface JQuery {
      *
      * @param htmlString A string of HTML to set as the content of each matched element.
      */
-    html(htmlString: string): JQuery;
+    html(htmlString: JQuery|any[]|Element|DocumentFragment|Text|string): JQuery;
     /**
      * Set the HTML contents of each element in the set of matched elements.
      *

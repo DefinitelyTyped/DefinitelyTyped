@@ -2247,6 +2247,16 @@ function test_html() {
     $("div").html("<b>Wow!</b> Such excitement...");
     $("div b").append(document.createTextNode("!!!"))
               .css("color", "red");
+
+    // Anything valid in jQuery.append is valid in jQuery.html
+    // http://stackoverflow.com/a/27404233/3012550
+    var jQueryObject = $("<p>jQuery object</p>");
+    var element = document.createElement("element");
+    var textNode = document.createTextNode("text");
+    $("div").html(jQueryObject);
+    $("div").html(element);
+    $("div").html(textNode);
+    $("div").html([jQueryObject, element, textNode]);
 }
 
 function test_inArray() {
