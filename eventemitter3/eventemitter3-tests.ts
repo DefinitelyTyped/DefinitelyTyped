@@ -1,10 +1,6 @@
-///<reference types="node" />
-///<reference types="mocha" />
-///<reference types="eventemitter3" />
-
 'use strict';
 
-import EventEmitter = require('eventemitter3');
+import * as EventEmitter from 'eventemitter3';
 
 const eventName = 'test';
 const eventSymbol = Symbol('test');

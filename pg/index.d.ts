@@ -127,8 +127,4 @@ export declare class Events extends events.EventEmitter {
     public on(event: string, listener: Function): this;
 }
 
-declare namespace types {
-    function setTypeParser<T>(typeId: number, parser: (value: string) => T): void;
-}
-
 export const types: typeof pgTypes;
