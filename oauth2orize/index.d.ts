@@ -24,6 +24,7 @@ export interface ErrorHandlerOptions {
 
 type MiddlewareFunction = (req: http.IncomingMessage, res: http.ServerResponse, next: Function) => void;
 type ValidatedFunction = (err: Error | null, client?: any, redirectURI?: string) => void;
+type IssuedFunction = (err: Error | null, accessToken?: string | boolean, refreshToken?: string, params?: any) => void;
 
 export class OAuth2Server {
   exchange(fn: MiddlewareFunction): OAuth2Server;
@@ -54,10 +55,6 @@ export namespace exchange {
     // but achieves compatibility with existing client libraries that are already
     // deployed.
     scopeSeparator?: string;
-  }
-
-  interface IssuedFunction extends Function {
-    (err: Error | null, accessToken?: string | boolean, refreshToken?: string, params?: any): void;
   }
 
   function authorizationCode(options: Options, issue: (client: any, code: string, redirectURI: string, issued: IssuedFunction) => void): MiddlewareFunction;
