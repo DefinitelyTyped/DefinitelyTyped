@@ -5,7 +5,7 @@
 
 /// <reference path="../react/react.d.ts"/>
 
-declare namespace ReactSelectNameSpace {
+declare namespace ReactSelect {
 
     interface AutocompleteResult {
         /** the search-results to be displayed  */
@@ -436,16 +436,16 @@ declare namespace ReactSelectNameSpace {
 }
 
 declare module "react-select" {
-    export = ReactSelectNameSpace.ReactSelectClass;
+    export = ReactSelect.ReactSelectClass;
 }
 
 declare module "react-select-props" {
 
-    import Option = ReactSelectNameSpace.Option;
-    import MenuRendererProps = ReactSelectNameSpace.MenuRendererProps;
-    import ReactSelectProps = ReactSelectNameSpace.ReactSelectProps;
-    import ReactAsyncSelectProps = ReactSelectNameSpace.ReactAsyncSelectProps;
-    import ReactCreatableSelectProps = ReactSelectNameSpace.ReactCreatableSelectProps;
+    import Option = ReactSelect.Option;
+    import MenuRendererProps = ReactSelect.MenuRendererProps;
+    import ReactSelectProps = ReactSelect.ReactSelectProps;
+    import ReactAsyncSelectProps = ReactSelect.ReactAsyncSelectProps;
+    import ReactCreatableSelectProps = ReactSelect.ReactCreatableSelectProps;
 
     export { MenuRendererProps, ReactSelectProps, ReactAsyncSelectProps, ReactCreatableSelectProps, Option };
 }
