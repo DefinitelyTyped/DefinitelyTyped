@@ -520,11 +520,11 @@ declare namespace webpack {
     }
 
     interface DefinePluginStatic {
-        new (definitions: any): Plugin;
+        new (definitions: {[key: string]: any}): Plugin;
     }
 
     interface ProvidePluginStatic {
-        new (definitions: any): Plugin;
+        new (definitions: {[key: string]: any}): Plugin;
     }
 
     interface SourceMapDevToolPluginStatic {
