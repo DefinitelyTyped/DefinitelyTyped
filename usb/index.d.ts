@@ -1,4 +1,4 @@
-// Type definitions for node-usb 1.1.2
+// Type definitions for node-usb 1.1
 // Project: https://github.com/nonolith/node-usb
 // Definitions by: Eric Brody <https://github.com/underscorebrody>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
