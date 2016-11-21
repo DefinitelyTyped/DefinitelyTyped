@@ -55,18 +55,23 @@ Before you share your improvement with the world, use it yourself.
 #### Test editing an exiting package
 
 To add new features you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html).
-You can also directly edit the types in `node_modules/@types/foo/index.d.ts`,
-or copy them from there and paste inside of `declarations.d.ts` and follow the steps below.
+You can also directly edit the types in `node_modules/@types/foo/index.d.ts`, or copy them from there and follow the steps below.
 
 
 #### Test a new package
 
-* Add a new file `declarations.d.ts` to your project.
-* Add it to the compilation, through `"includes"` or `"files"` in your [tsconfig](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html),
-or through a `/// <reference path="" />` declaration in your code.
-* Inside `declarations.d.ts`, write `declare module "foo" { }`, then write the module declaration inside.
-* Test that your code works.
-* *Then*, once you've tested your definitions, make a PR contributing the definition.
+Add to your `tsconfig.json`:
+
+```json
+"baseUrl": "types",
+"typeRoots": ["types"],
+```
+
+(You can also use `src/types`.)
+Create `types/foo/index.d.ts` containing declarations for the module "foo".
+You should now be able import from `"foo"` in your code and it will route to the new type definition.
+Then build *and* run the code to make sure your type definition actually corresponds to what happens at runtime.
+Once you've tested your definitions with real code, make a PR contributing the definition by copying `types/foo` to `DefinitelyTyped/foo` and adding a `tsconfig.json` and `foo-tests.ts`.
 
 
 ### Make a pull request
