@@ -23,6 +23,10 @@ declare module 'react-redux-i18n' {
 
   type TranslationObjects = { [lang: string]: SubTranslationObject };
 
+  type DispatchCallback<S> = {
+    (dispatch?: _Redux.Dispatch<S>, getState?: () => S): any;
+  }
+
   type I18nState = {
     translations: TranslationObjects;
     locale: string;
@@ -58,8 +62,8 @@ declare module 'react-redux-i18n' {
   /**
    *  Redux Actions
    */
-  export function loadTranslations(translationsObject: TranslationObjects): void;
+  export function loadTranslations(translationsObject: TranslationObjects): DispatchCallback<any>;
 
-  export function setLocale(locale: string): void;
+  export function setLocale(locale: string): DispatchCallback<any>;
 
 }
