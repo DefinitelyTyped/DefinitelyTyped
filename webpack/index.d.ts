@@ -4,8 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="uglify-js" />
+/// <reference types="tapable" />
 
 import * as UglifyJS from 'uglify-js';
+import * as tapable from 'tapable';
 
 declare namespace webpack {
     interface Configuration {
@@ -345,7 +347,7 @@ declare namespace webpack {
     }
     type Rule = LoaderRule | UseRule | RulesRule | OneOfRule;
 
-    interface Plugin { }
+    interface Plugin extends tapable.Plugin {}
 
     interface Webpack {
         (config: Configuration, callback?: compiler.CompilerCallback): compiler.Compiler;
