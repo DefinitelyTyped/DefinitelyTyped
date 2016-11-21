@@ -347,7 +347,9 @@ declare namespace webpack {
     }
     type Rule = LoaderRule | UseRule | RulesRule | OneOfRule;
 
-    interface Plugin extends tapable.Plugin {}
+    interface Plugin extends tapable.Plugin {
+        apply (thisArg: Webpack, ...args: any[]): void
+    }
 
     interface Webpack {
         (config: Configuration, callback?: compiler.CompilerCallback): compiler.Compiler;
@@ -404,6 +406,11 @@ declare namespace webpack {
          */
         SourceMapDevToolPlugin: SourceMapDevToolPluginStatic;
         /**
+         * Adds SourceMaps for assets, but wrapped inside eval statements.
+         * Much faster incremental build speed, but harder to debug.
+         */
+        EvalSourceMapDevToolPlugin: SourceMapDevToolPluginStatic;
+        /**
          * Enables Hot Module Replacement. (This requires records data if not in dev-server mode, recordsPath)
          * Generates Hot Update Chunks of each chunk in the records.
          * It also enables the API and makes __webpack_hash__ available in the bundle.
@@ -422,6 +429,11 @@ declare namespace webpack {
          * Does not watch specified files matching provided paths or RegExps.
          */
         WatchIgnorePlugin: WatchIgnorePluginStatic;
+        /**
+         * Uses the module name as the module id inside the bundle, instead of a number.
+         * Helps with debugging, but increases bundle size.
+         */
+        NamedModulesPlugin: NamedModulesPluginStatic;
     }
 
     interface Optimize {
@@ -533,6 +545,10 @@ declare namespace webpack {
 
     interface WatchIgnorePluginStatic {
         new (paths: RegExp[]): Plugin;
+    }
+
+    interface NamedModulesPluginStatic {
+        new (): Plugin;
     }
 
     namespace optimize {
