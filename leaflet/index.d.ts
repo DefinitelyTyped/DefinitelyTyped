@@ -3,7 +3,7 @@
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../geojson/geojson.d.ts" />
+/// <reference types="geojson" />
 
 type NativeMouseEvent = MouseEvent;
 
