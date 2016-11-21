@@ -131,7 +131,7 @@ declare namespace i18n {
 
         off(event: string, listener: () => void): void;
 
-        options: I18next.Options;
+        options: Options;
     }
 }
 
