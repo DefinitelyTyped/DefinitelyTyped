@@ -451,12 +451,17 @@ function stream_readable_pipe_test() {
 
 // helpers
 const compressMe = new Buffer("some data");
+const compressMeString = "compress me!";
 
 zlib.deflate(compressMe, (err: Error, result: Buffer) => zlib.inflate(result, (err: Error, result: Buffer) => result));
+zlib.deflate(compressMeString, (err: Error, result: Buffer) => zlib.inflate(result, (err: Error, result: Buffer) => result));
 const inflated = zlib.inflateSync(zlib.deflateSync(compressMe));
+const inflatedString = zlib.inflateSync(zlib.deflateSync(compressMeString));
 
 zlib.deflateRaw(compressMe, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
+zlib.deflateRaw(compressMeString, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
 const inflatedRaw: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMe));
+const inflatedRawString: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMeString));
 
 zlib.gzip(compressMe, (err: Error, result: Buffer) => zlib.gunzip(result, (err: Error, result: Buffer) => result));
 const gunzipped: Buffer = zlib.gunzipSync(zlib.gzipSync(compressMe));
@@ -1332,7 +1337,7 @@ namespace child_process_tests {
         childProcess.exec("echo test");
         childProcess.spawnSync("echo test");
     }
-    
+
     {
         let _cp: childProcess.ChildProcess;
         let _boolean: boolean;
