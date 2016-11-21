@@ -11,6 +11,8 @@
 ///  Winston v2.2.x
 ///******************
 
+import {Agent} from 'http';
+
 declare var winston: winston.Winston;
 export = winston;
 
@@ -159,6 +161,15 @@ declare namespace winston {
     }
 
     export interface TransportInstance extends TransportStatic, NodeJS.EventEmitter {
+        silent: boolean;
+        raw: boolean;
+        name: string;
+        formatter?: Function;
+        level?: string;
+        handleExceptions: boolean;
+        exceptionsLevel: string;
+        humanReadableUnhandledException: boolean;
+
         formatQuery(query: (string | Object)): (string | Object);
         normalizeQuery(options: QueryOptions): QueryOptions;
         formatResults(results: (Object | Array<any>), options?: Object): (Object | Array<any>);
@@ -166,6 +177,19 @@ declare namespace winston {
     }
 
     export interface ConsoleTransportInstance extends TransportInstance {
+        json: boolean;
+        colorize: boolean;
+        prettyPrint: boolean;
+        timestamp: boolean;
+        showLevel: boolean;
+        label: string|null;
+        logstash: boolean;
+        depth: string|null;
+        align: boolean;
+        stderrLevels: {[key: string]: LeveledLogMethod;}
+        eol: string;
+        stringify?: (obj: Object) => string;
+
         new (options?: ConsoleTransportOptions): ConsoleTransportInstance;
     }
 
@@ -174,15 +198,52 @@ declare namespace winston {
     }
 
     export interface FileTransportInstance extends TransportInstance {
+        json: boolean;
+        logstash: boolean;
+        colorize: boolean;
+        maxsize: number|null;
+        rotationFormat: boolean;
+        zippedArchive: boolean;
+        maxFiles: number|null;
+        prettyPrint: boolean;
+        label: string|null;
+        timestamp: boolean;
+        eol: string;
+        tailable: boolean;
+        depth: string|null;
+        showLevel: boolean;
+        maxRetries: number;
+        stringify?: (obj: Object) => string;
+
         new (options?: FileTransportOptions): FileTransportInstance;
         close(): void;
     }
 
     export interface HttpTransportInstance extends TransportInstance {
+        name: string;
+        ssl: boolean;
+        host: string;
+        port: number;
+        auth?: {username: string, password: string};
+        path: string;
+        agent?: Agent|null;
+
         new (options?: HttpTransportOptions): HttpTransportInstance;
     }
 
     export interface MemoryTransportInstance extends TransportInstance {
+        errorOutput: GenericTextTransportOptions[];
+        writeOutput: GenericTextTransportOptions[];
+
+        json: boolean;
+        colorize: boolean;
+        prettyPrint: boolean;
+        timestamp: boolean;
+        showLevel: boolean;
+        label: string|null;
+        depth: string|null;
+        stringify?: (obj: Object) => string;
+
         new (options?: MemoryTransportOptions): MemoryTransportInstance;
     }
 

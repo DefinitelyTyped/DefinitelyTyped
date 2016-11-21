@@ -1,4 +1,3 @@
-/// <reference path="d3kit.d.ts" />
 /// <reference types="d3" />
 /// <reference types="mocha" />
 /// <reference types="chai" />
