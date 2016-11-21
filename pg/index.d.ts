@@ -1,4 +1,4 @@
-// Type definitions for pg
+// Type definitions for pg 6.1.0
 // Project: https://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <http://pspeter3.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,9 +6,10 @@
 /// <reference types="node" />
 /// <reference types="pg-types" />
 
+
 import events = require("events");
 import stream = require("stream");
-import pgTypes = require("pg-types");
+    import pgTypes = require("pg-types");
 
 export declare function connect(connection: string, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
 export declare function connect(config: ClientConfig, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
@@ -35,13 +36,13 @@ export interface ClientConfig extends ConnectionConfig {
 }
 
 export interface PoolConfig extends ClientConfig {
-    // properties from module 'node-pool'
-    max?: number;
-    min?: number;
-    refreshIdle?: boolean;
-    idleTimeoutMillis?: number;
-    reapIntervalMillis?: number;
-    returnToHead?: boolean;
+      // properties from module 'node-pool'
+      max?: number;
+      min?: number;
+      refreshIdle?: boolean;
+      idleTimeoutMillis?: number;
+      reapIntervalMillis?: number;
+      returnToHead?: boolean;
 }
 
 export interface QueryConfig {
@@ -91,7 +92,7 @@ export declare class Client extends events.EventEmitter {
     constructor(connection: string);
     constructor(config: ClientConfig);
 
-    connect(callback?: (err:Error) => void): void;
+        connect(callback?: (err:Error) => void): void;
     end(): void;
     release(): void;
 
@@ -128,3 +129,5 @@ export declare class Events extends events.EventEmitter {
 }
 
 export const types: typeof pgTypes;
+
+
