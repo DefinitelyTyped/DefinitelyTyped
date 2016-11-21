@@ -1,6 +1,3 @@
-import * as _ from 'lodash';
-
-
 declare var $: any, jQuery: any;
 
 interface IFoodOrganic {
