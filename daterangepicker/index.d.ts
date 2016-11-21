@@ -167,6 +167,5 @@ declare namespace daterangepicker {
     }
 }
 
-declare module "daterangepicker" {
-    export = daterangepicker;
-}
+export = daterangepicker;
+export as namespace daterangepicker;

@@ -1,6 +1,6 @@
 {
     "files": [
-        "koa-compress.d.ts",
+        "index.d.ts",
         "koa-compress-tests.ts"
     ],
     "compilerOptions": {

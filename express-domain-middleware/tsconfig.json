@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "express-domain-middleware.d.ts",
+        "index.d.ts",
         "express-domain-middleware-tests.ts"
     ]
 }

@@ -14,7 +14,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "react-scrollbar.d.ts",
+        "index.d.ts",
         "react-scrollbar-tests.tsx"
     ]
 }
