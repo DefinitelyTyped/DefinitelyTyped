@@ -528,11 +528,11 @@ declare namespace webpack {
     }
 
     interface SourceMapDevToolPluginStatic {
-        new (options?: SourceMapDevToolPluginOptions): Plugin;
+        // if string | false | null, maps to the filename option
+        new (options?: string | false | null | SourceMapDevToolPluginOptions): Plugin;
     }
 
-    // if string | false | null, maps to the filename option
-    type SourceMapDevToolPluginOptions = string | false | null | {
+    interface SourceMapDevToolPluginOptions {
         // output filename pattern (false/null to append)
         filename?: string | false | null,
         // source map comment pattern (false to not append)
@@ -562,11 +562,11 @@ declare namespace webpack {
     }
 
     interface EvalSourceMapDevToolPluginStatic {
-        new (options?: EvalSourceMapDevToolPluginOptions): Plugin;
+        // if string | false, maps to the append option
+        new (options?: string | false | EvalSourceMapDevToolPluginOptions): Plugin;
     }
 
-    // if string | false, maps to the append option
-    type EvalSourceMapDevToolPluginOptions = string | false | {
+    interface EvalSourceMapDevToolPluginOptions {
         append?: false | string,
         moduleFilenameTemplate?: string,
         sourceRoot?: string,
