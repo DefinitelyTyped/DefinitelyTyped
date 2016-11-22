@@ -16,8 +16,7 @@ info({ obj: { aa: 'bbb' } }, 'another')
 setImmediate(info, 'after setImmediate')
 error(new Error('an error'))
 
-
-var instance = PINO({
+let instance:PINO.Logger = PINO({
   name: 'myapp',
   safe: true,
   serializers: {
@@ -26,13 +25,12 @@ var instance = PINO({
   }
 })
 
-let version:number = pino.LOG_VERSION;
-let levels:Object = pino.levels;
+let version:number = pino.LOG_VERSION
+let levels:Object = pino.levels
 
-let pretty:stream.Transform = PINO.pretty();
+let pretty:stream.Transform = PINO.pretty()
 
-var pretty = PINO.pretty()
-var instance2 = PINO({
+let logger2:PINO.Logger = PINO({
   name: 'app',
   safe: true
 }, pretty)
