@@ -44,11 +44,11 @@ export interface SimulationNodeDatum {
     /**
      * Node’s fixed x-position (if position was fixed)
      */
-    fx?: number | null | undefined;
+    fx?: number | null;
     /**
      * Node’s fixed y-position (if position was fixed)
      */
-    fy?: number | null | undefined;
+    fy?: number | null;
 }
 
 /**
@@ -225,7 +225,7 @@ export interface Simulation<NodeDatum extends SimulationNodeDatum, LinkDatum ext
      *
      * @param name Name of the registered force.
      */
-    force<F extends Force<NodeDatum, LinkDatum>>(name: string): F | undefined;
+    force<F extends Force<NodeDatum, LinkDatum> | undefined>(name: string): F;
     /**
      * Remove a previously registered force.
      *
@@ -261,7 +261,7 @@ export interface Simulation<NodeDatum extends SimulationNodeDatum, LinkDatum ext
      * The type must be one of the following: "tick" (after each tick of the simulation’s internal timer) or
      * "end" (after the simulation’s timer stops when alpha < alphaMin).
      */
-    on(typenames: 'tick' | 'end' | string): (this: Simulation<NodeDatum, LinkDatum>) => void;
+    on(typenames: 'tick' | 'end' | string): ((this: Simulation<NodeDatum, LinkDatum>) => void) | undefined;
     /**
      * Remove the current event listeners for the specified typenames, if any, return the simulation.
      *
@@ -337,7 +337,7 @@ export function forceSimulation<NodeDatum extends SimulationNodeDatum, LinkDatum
  *
  * Forces may optionally implement force.initialize to receive the simulation’s array of nodes.
  */
-export interface Force<NodeDatum extends SimulationNodeDatum, LinkDatum extends SimulationLinkDatum<NodeDatum>> {
+export interface Force<NodeDatum extends SimulationNodeDatum, LinkDatum extends SimulationLinkDatum<NodeDatum> | undefined> {
     /**
      * Apply this force, optionally observing the specified alpha.
      * Typically, the force is applied to the array of nodes previously passed to force.initialize,
@@ -369,6 +369,14 @@ export interface Force<NodeDatum extends SimulationNodeDatum, LinkDatum extends 
  */
 export interface ForceCenter<NodeDatum extends SimulationNodeDatum> extends Force<NodeDatum, any> {
     /**
+     * Assign the array of nodes to this force. This method is called when a force is bound to a simulation via simulation.force
+     * and when the simulation’s nodes change via simulation.nodes.
+     *
+     * A force may perform necessary work during initialization, such as evaluating per-node parameters, to avoid repeatedly performing work during each application of the force.
+     */
+    initialize(nodes: Array<NodeDatum>): void;
+
+    /**
      * Return the current x-coordinate of the centering position, which defaults to zero.
      */
     x(): number;
@@ -378,6 +386,7 @@ export interface ForceCenter<NodeDatum extends SimulationNodeDatum> extends Forc
      * @param x x-coordinate.
      */
     x(x: number): this;
+
     /**
      * Return the current y-coordinate of the centering position, which defaults to zero.
      */
@@ -418,6 +427,14 @@ export function forceCenter<NodeDatum extends SimulationNodeDatum>(x?: number, y
  * The generic refers to the type of data for a node.
  */
 export interface ForceCollide<NodeDatum extends SimulationNodeDatum> extends Force<NodeDatum, any> {
+    /**
+     * Assign the array of nodes to this force. This method is called when a force is bound to a simulation via simulation.force
+     * and when the simulation’s nodes change via simulation.nodes.
+     *
+     * A force may perform necessary work during initialization, such as evaluating per-node parameters, to avoid repeatedly performing work during each application of the force.
+     */
+    initialize(nodes: Array<NodeDatum>): void;
+
     /**
      * Returns the current radius accessor function.
      */
@@ -526,6 +543,14 @@ export function forceCollide<NodeDatum extends SimulationNodeDatum>(radius: (nod
  * The second generic refers to the type of data for a link.
  */
 export interface ForceLink<NodeDatum extends SimulationNodeDatum, LinkDatum extends SimulationLinkDatum<NodeDatum>> extends Force<NodeDatum, LinkDatum> {
+    /**
+     * Assign the array of nodes to this force. This method is called when a force is bound to a simulation via simulation.force
+     * and when the simulation’s nodes change via simulation.nodes.
+     *
+     * A force may perform necessary work during initialization, such as evaluating per-node parameters, to avoid repeatedly performing work during each application of the force.
+     */
+    initialize(nodes: Array<NodeDatum>): void;
+
     /**
      * Return the current array of links, which defaults to the empty array.
      *
@@ -680,6 +705,14 @@ export function forceLink<NodeDatum extends SimulationNodeDatum, LinksDatum exte
  */
 export interface ForceManyBody<NodeDatum extends SimulationNodeDatum> extends Force<NodeDatum, any> {
     /**
+     * Assign the array of nodes to this force. This method is called when a force is bound to a simulation via simulation.force
+     * and when the simulation’s nodes change via simulation.nodes.
+     *
+     * A force may perform necessary work during initialization, such as evaluating per-node parameters, to avoid repeatedly performing work during each application of the force.
+     */
+    initialize(nodes: Array<NodeDatum>): void;
+
+    /**
      * Return the current strength accessor.
      *
      * For details regarding the default behavior see: {@link https://github.com/d3/d3-force#manyBody_strength}
@@ -797,6 +830,13 @@ export function forceManyBody<NodeDatum extends SimulationNodeDatum>(): ForceMan
  * The generic refers to the type of data for a node.
  */
 export interface ForceX<NodeDatum extends SimulationNodeDatum> extends Force<NodeDatum, any> {
+    /**
+     * Assign the array of nodes to this force. This method is called when a force is bound to a simulation via simulation.force
+     * and when the simulation’s nodes change via simulation.nodes.
+     *
+     * A force may perform necessary work during initialization, such as evaluating per-node parameters, to avoid repeatedly performing work during each application of the force.
+     */
+    initialize(nodes: Array<NodeDatum>): void;
 
     /**
      *  Returns the current strength accessor, which defaults to a constant strength for all nodes of 0.1.
@@ -916,6 +956,14 @@ export function forceX<NodeDatum extends SimulationNodeDatum>(x: (d: NodeDatum, 
  * The generic refers to the type of data for a node.
  */
 export interface ForceY<NodeDatum extends SimulationNodeDatum> extends Force<NodeDatum, any> {
+    /**
+     * Assign the array of nodes to this force. This method is called when a force is bound to a simulation via simulation.force
+     * and when the simulation’s nodes change via simulation.nodes.
+     *
+     * A force may perform necessary work during initialization, such as evaluating per-node parameters, to avoid repeatedly performing work during each application of the force.
+     */
+    initialize(nodes: Array<NodeDatum>): void;
+
     /**
      *  Returns the current strength accessor, which defaults to a constant strength for all nodes of 0.1.
      */
