@@ -7,7 +7,7 @@ import * as superagent from "superagent"
 
 export = supertest;
 
-declare function supertest(app: any): supertest.SuperTest<any>;
+declare function supertest(app: any): supertest.SuperTest<supertest.Test>;
 declare namespace supertest {
     interface Response extends superagent.Response {
     }
