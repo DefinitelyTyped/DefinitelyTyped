@@ -1,6 +1,6 @@
 // Type definitions for Raven.js
 // Project: https://github.com/getsentry/raven-js
-// Definitions by: Santi Albo <https://github.com/santialbo/>, Benjamin Pannell <http://github.com/spartan563>, Gary Blackwood <http://github.com/Garee>, Rich Rout <http://github.com/richrout>
+// Definitions by: Santi Albo <https://github.com/santialbo/>, Benjamin Pannell <http://github.com/spartan563>, Gary Blackwood <http://github.com/Garee>, Rich Rout <http://github.com/richrout>, Anton Konev <http://github.com/evilj0e>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Raven: RavenStatic;
@@ -204,6 +204,8 @@ interface RavenStatic {
     setTagsContext(tags: { [id: string]: string; }): void;
 
     setExtraContext(context: any): void;
+
+    captureBreadcrumb(breadcrumb: any): void;
 }
 
 interface RavenTransportOptions {
