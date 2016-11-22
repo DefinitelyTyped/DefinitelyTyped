@@ -5,13 +5,6 @@
 
 
 type Diff = [number, string];
-export class Patch {
-    diffs: Diff[];
-    start1: number;
-    start2: number;
-    length1: number;
-    length2: number;
-}
 
 export declare class Patch {
     diffs: Diff[];

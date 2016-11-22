@@ -78,7 +78,7 @@ async.foldl(numArray, 0, reducer, function (err, result) { });
 async.reduceRight(numArray, 0, reducer, function (err, result) { });
 async.foldr(numArray, 0, reducer, function (err, result) { });
 
-async.detect(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err,result:string) { });
+async.detect(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error,result:string) { });
 async.detectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err,result) { });
 async.detectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err,result) { });
 
@@ -271,7 +271,7 @@ async.waterfall([
 ], function (err, result) { });
 
 
-var q = async.queue<any,Error>(function (task: any, callback) {
+var q = async.queue<any,Error>(function (task: any, callback: () => void) {
     console.log('hello ' + task.name);
     callback();
 }, 2);
@@ -324,7 +324,7 @@ q.resume();
 q.kill();
 
 // tests for strongly typed tasks
-var q2 = async.queue<string,Error>(function (task: string, callback) {
+var q2 = async.queue<string,Error>(function (task: string, callback: () => void) {
     console.log('Task: ' + task);
     callback();
 }, 1);
