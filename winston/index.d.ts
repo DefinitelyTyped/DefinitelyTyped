@@ -17,7 +17,88 @@ declare var winston: winston.Winston;
 export = winston;
 
 declare namespace winston {
+    export interface AbstractConfigLevels {
+        [key: string]: number;
+    }
+
+    export interface AbstractConfigColors {
+        [key: string]: string;
+    }
+
+    export interface AbstractConfig {
+        levels: AbstractConfigLevels;
+        colors: AbstractConfigColors;
+    }
+
+    export interface CliConfigLevels extends AbstractConfigLevels {
+        error: number;
+        warn: number;
+        help: number;
+        data: number;
+        info: number;
+        debug: number;
+        prompt: number;
+        verbose: number;
+        input: number;
+        silly: number;
+    }
+
+    export interface CliConfigColors extends AbstractConfigColors {
+        error: string;
+        warn: string;
+        help: string;
+        data: string;
+        info: string;
+        debug: string;
+        prompt: string;
+        verbose: string;
+        input: string;
+        silly: string;
+    }
+    export interface NpmConfigLevels extends AbstractConfigLevels {
+        error: number;
+        warn: number;
+        info: number;
+        verbose: number;
+        debug: number;
+        silly: number;
+    }
+    export interface NpmConfigColors extends AbstractConfigColors {
+        error: string;
+        warn: string;
+        info: string;
+        verbose: string;
+        debug: string;
+        silly: string;
+    }
+    export interface SyslogConfigLevels extends AbstractConfigLevels {
+        emerg: number;
+        alert: number;
+        crit: number;
+        error: number;
+        warning: number;
+        notice: number;
+        info: number;
+        debug: number;
+    }
+    export interface SyslogConfigColors extends AbstractConfigColors {
+        emerg: string;
+        alert: string;
+        crit: string;
+        error: string;
+        warning: string;
+        notice: string;
+        info: string;
+        debug: string;
+    }
+
     export interface Winston {
+        config: {
+            cli: {levels: CliConfigLevels, colors: CliConfigColors},
+            npm: {levels: NpmConfigLevels, colors: NpmConfigColors},
+            syslog: {levels: SyslogConfigLevels, colors: SyslogConfigColors}
+        };
+
         transports: winston.Transports;
         Transport: winston.TransportStatic;
         Logger: winston.LoggerStatic;
@@ -50,8 +131,8 @@ declare namespace winston {
         remove(transport: winston.TransportInstance): winston.LoggerInstance;
         startTimer(): winston.ProfileHandler;
         profile(id: string, msg?: string, meta?: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): winston.LoggerInstance;
-        addColors(target: any): any;
-        setLevels(target: any): any;
+        addColors(target: AbstractConfigColors): any;
+        setLevels(target: AbstractConfigLevels): any;
         cli(): winston.LoggerInstance;
         close(): void;
         configure(options: winston.LoggerOptions): void;
@@ -116,18 +197,30 @@ declare namespace winston {
     export interface LoggerInstance extends NodeJS.EventEmitter {
         rewriters: Array<MetadataRewriter>;
         filters: Array<MetadataFilter>;
-        transports: Array<TransportInstance>;
+        transports: {[key: string]: TransportInstance};
 
         extend(target: any): LoggerInstance;
 
         log: LogMethod;
 
-        silly: LeveledLogMethod;
-        debug: LeveledLogMethod;
-        verbose: LeveledLogMethod;
-        info: LeveledLogMethod;
-        warn: LeveledLogMethod;
+        // for cli levels
         error: LeveledLogMethod;
+        warn: LeveledLogMethod;
+        help: LeveledLogMethod;
+        data: LeveledLogMethod;
+        info: LeveledLogMethod;
+        debug: LeveledLogMethod;
+        prompt: LeveledLogMethod;
+        verbose: LeveledLogMethod;
+        input: LeveledLogMethod;
+        silly: LeveledLogMethod;
+
+        // for syslog levels only
+        emerg: LeveledLogMethod;
+        alert: LeveledLogMethod;
+        crit: LeveledLogMethod;
+        warning: LeveledLogMethod;
+        notice: LeveledLogMethod;
 
         query(options: QueryOptions, callback?: (err: Error, results: any) => void): any;
         query(callback: (err: Error, results: any) => void): any;
@@ -141,9 +234,9 @@ declare namespace winston {
         startTimer(): ProfileHandler;
         profile(id: string, msg?: string, meta?: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
         configure(options: LoggerOptions): void;
-        setLevels(target: any): any;
+        setLevels(target: AbstractConfigLevels): any;
         cli(): LoggerInstance;
-
+        
         level: string;
     }
 
@@ -152,6 +245,8 @@ declare namespace winston {
         rewriters?: TransportInstance[];
         exceptionHandlers?: TransportInstance[];
         handleExceptions?: boolean;
+        level?: string;
+        levels?: AbstractConfigLevels;
 
         /**
          * @type {(boolean|(err: Error) => void)}
@@ -273,7 +368,7 @@ declare namespace winston {
         has(id: string): boolean;
         close(id: string): void;
         options: LoggerOptions;
-        loggers: any;
+        loggers: {[key: string]: LoggerInstance};
         default: LoggerOptions;
     }
 
