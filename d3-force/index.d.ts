@@ -574,7 +574,7 @@ export interface ForceLink<NodeDatum extends SimulationNodeDatum, LinkDatum exte
     links(links: Array<LinkDatum>): this;
 
     /**
-     * Return the current node id accessor, which defaults to the numeric index of the node.
+     * Return the current node id accessor, which defaults to the numeric node.index.
      */
     id(): (node: NodeDatum, i: number, nodesData: Array<NodeDatum>) => (string | number);
     /**
@@ -584,10 +584,10 @@ export interface ForceLink<NodeDatum extends SimulationNodeDatum, LinkDatum exte
      * into the nodes array.
      *
      * The id accessor is invoked for each node whenever the force is initialized,
-     * as when the nodes or links change, being passed the node and its zero-based index.
+     * as when the nodes or links change, being passed the node, the zero-based index of the node in the node array, and the node array.
      *
      * @param id A node id accessor function which is invoked for each node in the simulation,
-     * being passed the node, its zero-based index and the complete array of nodes. It returns a string to represent the node id which can be used
+     * being passed the node, the zero-based index of the node in the node array, and the node array. It returns a string to represent the node id which can be used
      * for matching link source and link target strings during the ForceLink initialization.
      */
     id(id: (node: NodeDatum, i: number, nodesData: Array<NodeDatum>) => string): this;
