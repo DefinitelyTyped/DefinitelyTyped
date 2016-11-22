@@ -481,7 +481,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * start (after zooming begins [such as mousedown]), zoom (after a change to the zoom  transform [such as mousemove], or
      * end (after an active pointer becomes inactive [such as on mouseup].)
      */
-    on(typenames: string): ValueFn<ZoomRefElement, Datum, void>;
+    on(typenames: string): ValueFn<ZoomRefElement, Datum, void> | undefined;
     /**
      * Remove the current event listeners for the specified typenames, if any, return the drag behavior.
      *
