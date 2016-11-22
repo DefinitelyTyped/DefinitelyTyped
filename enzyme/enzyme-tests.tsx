@@ -38,6 +38,7 @@ namespace ShallowWrapperTest {
         objectVal: Object,
         boolVal: Boolean,
         stringVal: String,
+        numOrStringVal: number | string,
         elementWrapper: ShallowWrapper<HTMLAttributes<{}>, {}>
 
     function test_shallow_options() {
@@ -305,6 +306,10 @@ namespace ShallowWrapperTest {
 
     function test_isEmptyRender() {
         boolVal = shallowWrapper.isEmptyRender();
+    }
+
+    function test_svg() {
+        numOrStringVal = shallowWrapper.find('svg').props().strokeWidth;
     }
 }
 
