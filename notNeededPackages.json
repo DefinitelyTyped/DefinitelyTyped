@@ -52,6 +52,12 @@
             "typingsPackageName": "typescript-services",
             "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "Shopify Prime",
+            "typingsPackageName": "shopify-prime",
+            "sourceRepoURL": "https://github.com/nozzlegear/shopify-prime",
+            "asOfVersion": "2.0.0"
         }
     ]
 }
