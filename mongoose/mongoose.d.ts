@@ -813,7 +813,8 @@ declare module "mongoose" {
      */
     populate(callback: (err: any, res: this) => void): this;
     populate(path: string, callback?: (err: any, res: this) => void): this;
-    populate(options: ModelPopulateOptions, callback?: (err: any, res: this) => void): this;
+    populate(options: ModelPopulateOptions | ModelPopulateOptions[],
+      callback?: (err: any, res: this) => void): this;
 
     /** Gets _id(s) used during population of the given path. If the path was not populated, undefined is returned. */
     populated(path: string): any;
@@ -1454,7 +1455,7 @@ declare module "mongoose" {
      */
     populate(path: string | Object, select?: string | Object, model?: any,
       match?: Object, options?: Object): this;
-    populate(options: ModelPopulateOptions): this;
+    populate(options: ModelPopulateOptions | ModelPopulateOptions[]): this;
 
     /**
      * Determines the MongoDB nodes from which to read.
@@ -2428,6 +2429,8 @@ declare module "mongoose" {
     model?: string;
     /** optional query options like sort, limit, etc */
     options?: Object;
+    /** deep populate */
+    populate?: ModelPopulateOptions | ModelPopulateOptions[]
   }
 
   interface ModelUpdateOptions {
