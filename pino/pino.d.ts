@@ -1,4 +1,4 @@
-// Type definitions for pino v1.0.1
+// Type definitions for pino v3.0.1
 // Project: https://github.com/mcollina/pino.git
 // Definitions by: Peter Snider <https://github.com/psnider>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
