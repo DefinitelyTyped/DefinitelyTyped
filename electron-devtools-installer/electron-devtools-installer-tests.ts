@@ -1,5 +1,4 @@
-/// <reference path="../electron/github-electron.d.ts" />
-/// <reference path="electron-devtools-installer.d.ts" />
+/// <reference types="electron-devtools-installer" />
 
 import installExtension, {
     EMBER_INSPECTOR, REACT_DEVELOPER_TOOLS,

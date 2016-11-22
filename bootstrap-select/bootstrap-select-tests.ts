@@ -1,7 +1,4 @@
-// Bootstrap Select Test
-// ================================================================================
-/// <reference path="bootstrap-select.d.ts" />
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 $(".selectpicker").selectpicker({
     actionsBox: true,

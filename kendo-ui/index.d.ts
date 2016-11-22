@@ -90,8 +90,39 @@ declare namespace kendo {
     };
 
     var cultures: {[culture: string] : {
-            name?: string;
-            calendar?: {
+        name?: string;
+        calendar?: {
+            AM: string[];
+            PM: string[];
+            days: {
+                names: string[];
+                namesAbbr: string[];
+                namesShort: string[];
+                firstDay: number;
+            };
+            months: {
+                names: string[];
+                namesAbbr: string[];
+            };
+            patterns: {
+                D: string;
+                F: string;
+                G: string;
+                M: string;
+                T: string;
+                Y: string;
+                d: string;
+                g: string;
+                m: string;
+                s: string;
+                t: string;
+                u: string;
+                y: string;
+            };
+            twoDigitYearMax: number;
+        };
+        calendars?: {
+            standard: {
                 AM: string[];
                 PM: string[];
                 days: {
@@ -121,55 +152,24 @@ declare namespace kendo {
                 };
                 twoDigitYearMax: number;
             };
-            calendars?: {
-                standard: {
-                    AM: string[];
-                    PM: string[];
-                    days: {
-                        names: string[];
-                        namesAbbr: string[];
-                        namesShort: string[];
-                        firstDay: number;
-                    };
-                    months: {
-                        names: string[];
-                        namesAbbr: string[];
-                    };
-                    patterns: {
-                        D: string;
-                        F: string;
-                        G: string;
-                        M: string;
-                        T: string;
-                        Y: string;
-                        d: string;
-                        g: string;
-                        m: string;
-                        s: string;
-                        t: string;
-                        u: string;
-                        y: string;
-                    };
-                    twoDigitYearMax: number;
-                };
-            };
-            numberFormat?: {
-                currency: {
-                    decimals: number;
-                    groupSize: number[];
-                    pattern: string[];
-                    symbol: string;
-                };
+        };
+        numberFormat?: {
+            currency: {
                 decimals: number;
                 groupSize: number[];
                 pattern: string[];
-                percent: {
-                    decimals: number;
-                    groupSize: number[];
-                    pattern: string[];
-                    symbol: string;
-                };
+                symbol: string;
             };
+            decimals: number;
+            groupSize: number[];
+            pattern: string[];
+            percent: {
+                decimals: number;
+                groupSize: number[];
+                pattern: string[];
+                symbol: string;
+            };
+        };
     }};
 
     function format(format: string, ...values: any[]): string;
@@ -1026,7 +1026,7 @@ declare namespace kendo.data {
     class DataSource extends Observable{
         options: DataSourceOptions;
 
-        transport: any;
+        transports: any;
 
         static create(options?: DataSourceOptions): DataSource;
 

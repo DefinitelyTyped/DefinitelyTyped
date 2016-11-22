@@ -1,6 +1,4 @@
-﻿/// <reference path="simplemde.d.ts" />
-
-function testSimplemde() {
+﻿function testSimplemde() {
 
     function customMarkdownParser(markdown: string) {
         return "<div>" + markdown + "</div>";

@@ -2,6 +2,7 @@ import * as Knex from 'knex';
 import * as Bookshelf from 'bookshelf';
 import * as assert from 'assert';
 import * as express from 'express';
+import * as _ from "lodash";
 
 /**
  * The examples/tests below follow Bookshelf documentation chapter after chapter: http://bookshelfjs.org/
@@ -296,7 +297,7 @@ class Account extends bookshelf.Model<Account> {
 }
 {
 	var checkit  = require('checkit');
-	
+
 	//todo: make sure this works with BlueBird 3.0
 	var bcrypt:any; //   = Promise.promisifyAll(require('bcrypt'));
 

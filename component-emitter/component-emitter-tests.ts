@@ -1,11 +1,9 @@
-/// <reference path='../node/node.d.ts' />   // only for require
-/// <reference path='component-emitter.d.ts' />
 // These are all of the examples from https://www.npmjs.com/package/component-emitter as of June 18, 2016
 
 
 // These are all of the examples from https://www.npmjs.com/package/component-emitter as of June 18, 2016
 
-var Emitter = require('component-emitter');
+import Emitter = require('component-emitter');
 var emitter = new Emitter;
 emitter.emit('something');
 
@@ -15,7 +13,7 @@ emitter.emit('something');
 var user = { name: 'tobi' };
 Emitter(user);
 
-(<Emitter>user).emit('im a user');
+//(<Emitter>user).emit('im a user');
 
 
 
@@ -24,7 +22,7 @@ var User = Object.create({
     someUserFunction: () => {console.log('someUserFunction called!')}
 })
 var another_user = Emitter(User);
-another_user.someUserFunction()
+//another_user.someUserFunction()
 another_user.on('hi', () => {console.log('Hi called')})
 another_user.emit('hi')
 

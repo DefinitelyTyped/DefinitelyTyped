@@ -126,7 +126,8 @@ validErrItem = {
 	message: str,
 	type: str,
 	path: str,
-	options: validOpts
+	options: validOpts,
+	context: obj
 };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

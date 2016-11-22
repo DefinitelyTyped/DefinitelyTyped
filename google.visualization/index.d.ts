@@ -1,6 +1,6 @@
 // Type definitions for Google Visualisation Apis
 // Project: https://developers.google.com/chart/
-// Definitions by: Dan Ludwig <https://github.com/danludwig>, Gregory Moore <https://github.com/gmoore-sjcorg>
+// Definitions by: Dan Ludwig <https://github.com/danludwig>, Gregory Moore <https://github.com/gmoore-sjcorg>, Dan Manastireanu <https://github.com/danmana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google {
@@ -331,6 +331,25 @@ declare namespace google {
         export interface ChartAnnotations {
             boxStyle?: ChartBoxStyle;
             textStyle?: ChartTextStyle;
+            datum?: ChartStemAndStyle;
+            domain?: ChartStemAndStyle;
+            highContrast?: boolean;
+            stem?: ChartStem;
+            style?: string; // 'line' or 'point'
+        }
+
+        export interface ChartBarColumnAnnotations extends ChartAnnotations {
+            alwaysOutside?: boolean;
+        }
+
+        export interface ChartStemAndStyle {
+            stem?: ChartStem;
+            style?: string;
+        }
+
+        export interface ChartStem {
+            color?: string;
+            length?: number;
         }
 
         export interface ChartBoxStyle {
@@ -565,7 +584,7 @@ declare namespace google {
         export interface ColumnChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
-            annotations?: ChartAnnotations;
+            annotations?: ChartBarColumnAnnotations;
             axisTitlesPosition?: string; // in, out, none
             backgroundColor?: any;
             bar?: GroupWidth;
@@ -645,7 +664,7 @@ declare namespace google {
         export interface BarChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
-            annotations?: ChartAnnotations;
+            annotations?: ChartBarColumnAnnotations;
             axisTitlesPosition?: string; // in, out, none
             backgroundColor?: any;
             bar?: GroupWidth;
@@ -739,6 +758,7 @@ declare namespace google {
         export interface AreaChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
+            annotations?: ChartAnnotations;
             areaOpacity?: number;
             axisTitlesPosition?: string;
             backgroundColor?: any;
@@ -1355,6 +1375,34 @@ declare namespace google {
              * @param opt_dstColumnIndex - The destination column to place the output of the pattern manipulation. If not specified, the first element in srcColumIndices will be used as the destination.
              */
             format(dataTable: DataTable, srcColumnIndices: number[], opt_dstColumnIndex?: number): void;
+        }
+
+        //#endregion
+        //#region OrgChart
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/orgchart
+        export class OrgChart extends CoreChartBase {
+            draw(data: DataTable, options: OrgChartOptions): void;
+            draw(data: DataView, options: OrgChartOptions): void;
+            collapse(row: number, collapsed: boolean): void;
+            getChildrenIndexes(row: number): number[];
+            getCollapsedNodes(): number[];
+        }
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/orgchart#Configuration_Options
+        export interface OrgChartOptions {
+            allowCollapse?: boolean;
+            allowHtml?: boolean;
+            color?: string;
+            nodeClass?: string;
+            selectedNodeClass?: string;
+            selectionColor?: string;
+            /**
+             * Chart size
+             * @type {('small'|'medium'|'large')}
+             * @default 'medium'
+             */
+            size?: string;
         }
 
         //#endregion

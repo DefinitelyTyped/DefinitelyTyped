@@ -1,4 +1,4 @@
-// Type definitions for Samchon Framework v2.0.0-gamma.3
+// Type definitions for Samchon Framework v2.0.0-gamma.9
 // Project: https://github.com/samchon/framework
 // Definitions by: Jeongho Nam <http://samchon.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,16 +7,16 @@
 
 declare module "samchon-framework"
 {
-        export = samchon;
+	export = samchon;
 }
 
 /**
- * <h1> Samchon-Framework </h1>
+ * # Samchon-Framework
  *
  * <a href="https://nodei.co/npm/samchon-framework">
  *	<img src="https://nodei.co/npm/samchon-framework.png?downloads=true&downloadRank=true&stars=true"> </a>
  *
- * Samchon, a SDN (Software Defined Network) framework.
+ * Samchon, a OON (Object-Oriented Network) framework.
  *
  * With Samchon Framework, you can implement distributed processing system within framework of OOD like handling S/W
  * objects (classes). You can realize cloud and distributed system very easily with provided system templates and even
@@ -249,7 +249,7 @@ declare namespace samchon.library {
         /**
          * @inheritdoc
          */
-        type: string;
+        readonly type: string;
         /**
          * @inheritdoc
          */
@@ -257,43 +257,43 @@ declare namespace samchon.library {
         /**
          * @inheritdoc
          */
-        currentTarget: IEventDispatcher;
+        readonly currentTarget: IEventDispatcher;
         /**
          * @inheritdoc
          */
-        isTrusted: boolean;
+        readonly isTrusted: boolean;
         /**
          * @inheritdoc
          */
-        bubbles: boolean;
+        readonly bubbles: boolean;
         /**
          * @inheritdoc
          */
-        cancelable: boolean;
+        readonly cancelable: boolean;
         /**
          * @inheritdoc
          */
-        eventPhase: number;
+        readonly eventPhase: number;
         /**
          * @inheritdoc
          */
-        defaultPrevented: boolean;
+        readonly defaultPrevented: boolean;
         /**
          * @inheritdoc
          */
-        srcElement: Element;
+        readonly srcElement: Element;
         /**
          * @inheritdoc
          */
-        cancelBubble: boolean;
+        readonly cancelBubble: boolean;
         /**
          * @inheritdoc
          */
-        timeStamp: number;
+        readonly timeStamp: number;
         /**
          * Don't know what it is.
          */
-        returnValue: boolean;
+        readonly returnValue: boolean;
     }
 }
 declare namespace samchon.collections {
@@ -340,24 +340,21 @@ declare namespace samchon.collections {
         /**
          * Associative target, the {@link ICollection collection}.
          */
-        target: ICollection<T>;
+        readonly target: ICollection<T>;
         /**
          * An {@link Iterator} to the initial position in this {@link CollectionEvent}.
          */
-        first: std.Iterator<T>;
+        readonly first: std.Iterator<T>;
         /**
          * An {@link Iterator} to the final position in this {@link CollectionEvent}.
          */
-        last: std.Iterator<T>;
+        readonly last: std.Iterator<T>;
         /**
          * @inheritdoc
          */
         preventDefault(): void;
     }
 }
-/**
- * @hidden
- */
 declare namespace samchon.collections.CollectionEvent {
     const INSERT: "insert";
     const ERASE: "erase";
@@ -1025,6 +1022,27 @@ declare namespace samchon.collections {
         removeEventListener(type: "refresh", listener: CollectionEventListener<T>, thisArg: Object): void;
     }
 }
+/**
+ * Collections, elements I/O detectable STL containers.
+ *
+ * STL Containers       | Collections
+ * ---------------------|-------------------
+ * {@link Vector}       | {@link ArrayCollection}
+ * {@link List}         | {@link ListCollection}
+ * {@link Deque}        | {@link DequeCollection}
+ *                      |
+ * {@link TreeSet}      | {@link TreeSetCollection}
+ * {@link HashSet}      | {@link HashSetCollection}
+ * {@link TreeMultiSet} | {@link TreeMultiSetCollection}
+ * {@link HashMultiSet} | {@link HashMultiSetCollection}
+ *                      |
+ * {@link TreeMap}      | {@link TreeMapCollection}
+ * {@link HashMap}      | {@link HashMapCollection}
+ * {@link TreeMultiMap} | {@link TreeMultiMapCollection}
+ * {@link HashMultiMap} | {@link HashMultiMapCollection}
+ *
+ * @author Jeongho Nam <http://samchon.org>
+ */
 declare namespace samchon.collections {
     /**
      * An interface for {@link IContainer containers} who can detect element I/O events.
@@ -1314,11 +1332,11 @@ declare namespace samchon.collections {
         /**
          * @inheritdoc
          */
-        first: std.MapIterator<Key, T>;
+        readonly first: std.MapIterator<Key, T>;
         /**
          * @inheritdoc
          */
-        last: std.MapIterator<Key, T>;
+        readonly last: std.MapIterator<Key, T>;
     }
 }
 declare namespace samchon.collections {
@@ -1996,7 +2014,7 @@ declare namespace samchon.library {
          * @param event The {@link BasicEvent} object that is dispatched into the event flow. If the event is being
          *				redispatched, a clone of the event is created automatically. After an event is dispatched, its
          *				target property cannot be changed, so you must create a new copy
-         *			  of the event for redispatching to work.
+         *				of the event for redispatching to work.
          */
         dispatchEvent(event: library.BasicEvent): boolean;
         /**
@@ -2235,7 +2253,7 @@ declare namespace samchon.library {
          * All the properties of a {@link FileReference} object are populated by calling the {@link browse browse()}.
          *
          */
-        data: any;
+        readonly data: any;
         /**
          * The name of the file on the local disk.
          *
@@ -2245,7 +2263,7 @@ declare namespace samchon.library {
          * All the properties of a {@link FileReference} object are populated by calling the {@link browse browse()}.
          *
          */
-        name: string;
+        readonly name: string;
         /**
          * The filename extension.
          *
@@ -2258,7 +2276,7 @@ declare namespace samchon.library {
          * All the properties of a {@link FileReference} object are populated by calling the {@link browse browse()}.
          *
          */
-        extension: string;
+        readonly extension: string;
         /**
          * The file type, metadata of the {@link extension}.
          *
@@ -2268,7 +2286,7 @@ declare namespace samchon.library {
          * All the properties of a {@link FileReference} object are populated by calling the {@link browse browse()}.
          *
          */
-        type: string;
+        readonly type: string;
         /**
          * The size of the file on the local disk in bytes.
          *
@@ -2278,7 +2296,7 @@ declare namespace samchon.library {
          * All the properties of a {@link FileReference} object are populated by calling the {@link browse browse()}.
          *
          */
-        size: number;
+        readonly size: number;
         /**
          * The date that the file on the local disk was last modified.
          *
@@ -2288,7 +2306,7 @@ declare namespace samchon.library {
          * All the properties of a {@link FileReference} object are populated by calling the {@link browse browse()}.
          *
          */
-        modificationDate: Date;
+        readonly modificationDate: Date;
         /**
          * Displays a file-browsing dialog box that lets the user select a file to upload. The dialog box is native
          * to the user's browser system. The user can select a file on the local computer or from other systems, for
@@ -2417,7 +2435,7 @@ declare namespace samchon.library {
          * The {@link fileList} property is populated anew each time {@link browse browse()} is called on that
          * {@link FileReferenceList} object.
          */
-        fileList: std.Vector<FileReference>;
+        readonly fileList: std.Vector<FileReference>;
         /**
          * Displays a file-browsing dialog box that lets the user select one or more local files to upload. The
          * dialog box is native to the user's browser system.
@@ -2977,6 +2995,27 @@ declare namespace samchon.library {
          */
         getValue(): string;
         /**
+         * Get iterator to property element.
+         *
+         * Searches the {@link getPropertyMap properties} for an element with a identifier equivalent to <i>key</i>
+         * and returns an iterator to it if found, otherwise it returns an iterator to {@link HashMap.end end()}.
+         *
+         * <p> Two keys are considered equivalent if the properties' comparison object returns false reflexively
+         * (i.e., no matter the order in which the elements are passed as arguments). </p>
+         *
+         * Another member function, {@link hasProperty hasProperty()} can be used to just check whether a particular
+         * <i>key</i> exists.
+         *
+         * ```xml
+         * <tag PROPERTY_KEY={property_value}>{value}</tag>
+         * ```
+         *
+         * @param key Key to be searched for
+         * @return An iterator to the element, if an element with specified <i>key</i> is found, or
+         *		   {@link end HashMap.end()} otherwise.
+         */
+        findProperty(key: string): std.MapIterator<string, string>;
+        /**
          * Test whether a property exists.
          *
          * ```xml
@@ -3114,7 +3153,7 @@ declare namespace samchon.library {
          *
          * @param obj Target {@link XML} object to copy properties.
          */
-        addAllProperties(obj: XML): void;
+        insertAllProperties(obj: XML): void;
         /**
          * Clear properties.
          *
@@ -3204,6 +3243,8 @@ declare namespace samchon.protocol {
      * If your own network system has a critical performance issue on communication data class,
      * it would be better to using binary communication (with ByteArray).
      * Don't worry about the problem! Invoke also provides methods for binary data (ByteArray).
+     *
+     * ![Class Diagram](http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_message_protocol.png)
      *
      * @author Jeongho Nam <http://samchon.org>
      */
@@ -3312,6 +3353,8 @@ declare namespace samchon.protocol {
      * it would be better to using binary communication (with ByteArray).
      * Don't worry about the problem! Invoke also provides methods for binary data (ByteArray).
      *
+     * ![Class Diagram](http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_message_protocol.png)
+     *
      * @author Jeongho Nam <http://samchon.org>
      */
     abstract class Entity implements IEntity {
@@ -3337,14 +3380,14 @@ declare namespace samchon.protocol {
 declare namespace samchon.protocol {
     /**
      * @inheritdoc
-         */
+     */
     interface IEntityCollection<T extends IEntity> extends IEntityGroup<T>, collections.ICollection<T> {
     }
 }
 declare namespace samchon.protocol {
-        /**
+    /**
      * @inheritdoc
-         */
+     */
     abstract class EntityArrayCollection<T extends IEntity> extends collections.ArrayCollection<T> implements IEntityCollection<T> {
         /**
          * @inheritdoc
@@ -3385,9 +3428,9 @@ declare namespace samchon.protocol {
     }
 }
 declare namespace samchon.protocol {
-        /**
+    /**
      * @inheritdoc
-         */
+     */
     abstract class EntityListCollection<T extends IEntity> extends collections.ListCollection<T> implements IEntityCollection<T> {
         /**
          * @inheritdoc
@@ -3428,9 +3471,9 @@ declare namespace samchon.protocol {
     }
 }
 declare namespace samchon.protocol {
-        /**
+    /**
      * @inheritdoc
-         */
+     */
     abstract class EntityDequeCollection<T extends IEntity> extends collections.DequeCollection<T> implements IEntityCollection<T> {
         /**
          * @inheritdoc
@@ -3440,9 +3483,9 @@ declare namespace samchon.protocol {
          * @inheritdoc
          */
         abstract createChild(xml: library.XML): T;
-    /**
+        /**
          * @inheritdoc
-     */
+         */
         key(): any;
         /**
          * @inheritdoc
@@ -3472,7 +3515,7 @@ declare namespace samchon.protocol {
 }
 /**
  * A template for External Systems Manager.
-     *
+ *
  * @handbook [Templates - External System](https://github.com/samchon/framework/wiki/TypeScript-Templates-External_System)
  * @author Jeongho Nam <http://samchon.org>
  */
@@ -3524,7 +3567,7 @@ declare namespace samchon.templates.external {
      * @handbook [Templates - External System](https://github.com/samchon/framework/wiki/TypeScript-Templates-External_System)
      * @author Jeongho Nam <http://samchon.org>
      */
-    abstract class ExternalSystemArray extends protocol.EntityDequeCollection<ExternalSystem> implements protocol.IProtocol {
+    abstract class ExternalSystemArray<System extends ExternalSystem> extends protocol.EntityDequeCollection<System> implements protocol.IProtocol {
         /**
          * Default Constructor.
          */
@@ -3577,54 +3620,54 @@ declare namespace samchon.templates.external {
 }
 /**
  * A template for Parallel Processing System.
-     *
+ *
  * @handbook [Templates - Parallel System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Parallel_System)
-     * @author Jeongho Nam <http://samchon.org>
-     */
+ * @author Jeongho Nam <http://samchon.org>
+ */
 declare namespace samchon.templates.parallel {
-        /**
+    /**
      * Master of Parallel Processing System.
-         *
+     *
      * The {@link ParallelSystemArray} is an abstract class containing and managing remote parallel **slave** system
      * drivers, {@link ParallelSystem} objects. Within framework of network, {@link ParallelSystemArray} represents your
      * system, a **Master** of *Parallel Processing System* that requesting *parallel process* to **slave** systems and the
      * children {@link ParallelSystem} objects represent the remote **slave** systems, who is being requested the
      * *parallel processes*.
-         *
+     *
      * You can specify this {@link ParallelSystemArray} class to be *a server accepting parallel clients* or
      * *a client connecting to parallel servers*. Even both of them is possible. Extends one of them below and overrides
      * abstract factory method(s) creating the child {@link ParallelSystem} object.
-         *
+     *
      * - {@link ParallelClientArray}: A server accepting {@link ParallelSystem parallel clients}.
      * - {@link ParallelServerArray}: A client connecting to {@link ParallelServer parallel servers}.
      * - {@link ParallelServerClientArray}: Both of them. Accepts {@link ParallelSystem parallel clients} and connects to
      *   {@link ParallelServer parallel servers} at the same time.
-         *
+     *
      * When you need the **parallel process**, then call one of them: {@link sendSegmentData} or {@link sendPieceData}.
      * When the **parallel process** has completed, {@link ParallelSystemArray} estimates each {@link ParallelSystem}'s
      * {@link ParallelSystem.getPerformance performance index} basis on their execution time. Those performance indices
      * will be reflected to the next **parallel process**, how much pieces to allocate to each {@link ParallelSystem}.
-         *
+     *
      * <a href="http://samchon.github.io/framework/images/design/ts_class_diagram/templates_parallel_system.png"
      *		  target="_blank">
      *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/templates_parallel_system.png"
      *		 style="max-width: 100%" />
      * </a>
-         *
+     *
      * #### Proxy Pattern
      * This class {@link ParallelSystemArray} is derived from the {@link ExternalSystemArray} class. Thus, you can take
      * advantage of the *Proxy Pattern* in the {@link ParallelSystemArray} class. If a process to request is not the
      * *parallel process* (to be distrubted to all slaves), but the **exclusive process** handled in a system, then it
      * may better to utilizing the *Proxy Pattern*:
-         *
+     *
      * The {@link ExternalSystemArray} class can use *Proxy Pattern*. In framework within user, which
      * {@link ExternalSystem external system} is connected with {@link ExternalSystemArray this system}, it's not
      * important. Only interested in user's perspective is *which can be done*.
-         *
+     *
      * By using the *logical proxy*, user dont't need to know which {@link ExternalSystemRole role} is belonged
      * to which {@link ExternalSystem system}. Just access to a role directly from {@link ExternalSystemArray.getRole}.
      * Sends and receives {@link Invoke} message via the {@link ExternalSystemRole role}.
-         *
+     *
      * <ul>
      *	<li>
      *		{@link ExternalSystemRole} can be accessed from {@link ExternalSystemArray} directly, without inteferring
@@ -3641,7 +3684,7 @@ declare namespace samchon.templates.parallel {
      * @handbook [Templates - Parallel System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Parallel_System)
      * @author Jeongho Nam <http://samchon.org>
      */
-    abstract class ParallelSystemArray extends external.ExternalSystemArray {
+    abstract class ParallelSystemArray<System extends ParallelSystem> extends external.ExternalSystemArray<System> {
         /**
          * @hidden
          */
@@ -3650,10 +3693,6 @@ declare namespace samchon.templates.parallel {
          * Default Constructor.
          */
         constructor();
-        /**
-         * @inheritdoc
-         */
-        at(index: number): ParallelSystem;
         /**
          * Send an {@link Invoke} message with segment size.
          *
@@ -3678,9 +3717,11 @@ declare namespace samchon.templates.parallel {
          * @param invoke An {@link Invoke} message requesting parallel process.
          * @param size Number of pieces to segment.
          *
+         * @return Number of {@link ParallelSystem slave systems} participating in the *Parallel Process*.
+         *
          * @see {@link sendPieceData}, {@link ParallelSystem.getPerformacen}
          */
-        sendSegmentData(invoke: protocol.Invoke, size: number): void;
+        sendSegmentData(invoke: protocol.Invoke, size: number): number;
         /**
          * Send an {@link Invoke} message with range of pieces.
          *
@@ -3709,12 +3750,14 @@ declare namespace samchon.templates.parallel {
          *			   all the pieces' indices between *first* and *last*, including the piece pointed by index
          *			   *first*, but not the piece pointed by the index *last*.
          *
+         * @return Number of {@link ParallelSystem slave systems} participating in the *Parallel Process*.
+         *
          * @see {@link sendSegmentData}, {@link ParallelSystem.getPerformacen}
          */
-        sendPieceData(invoke: protocol.Invoke, first: number, last: number): void;
-    /**
-     * @hidden
-     */
+        sendPieceData(invoke: protocol.Invoke, first: number, last: number): number;
+        /**
+         * @hidden
+         */
         protected _Complete_history(history: protocol.InvokeHistory): boolean;
         /**
          * @hidden
@@ -3751,11 +3794,11 @@ declare namespace samchon.templates.distributed {
      * **distributed process** through the {@link DistributedProcess} object. You can access the
      * {@link DistributedProcess} object(s) with those methods:
      *
-     * - {@link hasRole}
-     * - {@link getRole}
-     * - {@link insertRole}
-     * - {@link eraseRole}
-     * - {@link getRoleMap}
+     * - {@link hasProcess}
+     * - {@link getProcess}
+     * - {@link insertProcess}
+     * - {@link eraseProcess}
+     * - {@link getProcessMap}
      *
      * When you need the **distributed process**, call the {@link DistributedProcess.sendData} method. Then the
      * {@link DistributedProcess} will find the most idle {@link DistributedSystem} object who represents a distributed
@@ -3808,14 +3851,14 @@ declare namespace samchon.templates.distributed {
      * @handbook [Templates - Distributed System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Distributed_System)
      * @author Jeongho Nam <http://samchon.org>
      */
-    abstract class DistributedSystemArray extends parallel.ParallelSystemArray {
+    abstract class DistributedSystemArray<System extends DistributedSystem> extends parallel.ParallelSystemArray<System> {
         /**
          * @hidden
          */
         private process_map_;
-    /**
+        /**
          * Default Constructor.
-     */
+         */
         constructor();
         /**
          * @inheritdoc
@@ -3828,10 +3871,6 @@ declare namespace samchon.templates.distributed {
          * @return A new {@link DistributedProcess} object.
          */
         protected abstract createProcess(xml: library.XML): DistributedProcess;
-        /**
-         * @inheritdoc
-         */
-        at(index: number): DistributedSystem;
         /**
          * Get process map.
          *
@@ -3873,10 +3912,10 @@ declare namespace samchon.templates.distributed {
          * @hidden
          */
         protected _Complete_history(history: protocol.InvokeHistory): boolean;
-    /**
+        /**
          * @hidden
-     */
-        private estimate_role_performance(history);
+         */
+        private estimate_process_resource(history);
         /**
          * @hidden
          */
@@ -3899,7 +3938,7 @@ declare namespace samchon.templates.distributed {
      * system at the same time. This {@link DistributedSystemArrayMediator} be a master system, containing and managing
      * {@link DistributedSystem} objects, which represent distributed slave systems, by extending
      * {@link DistributedSystemArray} class. Also, be a slave system through {@link getMediator mediator} object, which is
-     * derived from the {@link SlavSystem} class.
+     * derived from the {@link SlaveSystem} class.
      *
      * As a master, you can specify this {@link DistributedSystemArrayMediator} class to be <i>a master server accepting
      * slave clients<i> or <i>a master client to connecting slave servers</i>. Even both of them is possible. Extends one
@@ -3921,6 +3960,7 @@ declare namespace samchon.templates.distributed {
      * - A server slave accepting master client:
      *   - {@link MediatorServer}
      *   - {@link MediatorWebServer}
+     *   - {@link MediatorDedicatedWorkerServer}
      *   - {@link MediatorSharedWorkerServer}
      *
      * #### [Inherited] {@link DistributedSystemArray}
@@ -3934,11 +3974,11 @@ declare namespace samchon.templates.distributed {
      * **distributed process** through the {@link DistributedProcess} object. You can access the
      * {@link DistributedProcess} object(s) with those methods:
      *
-     * - {@link hasRole}
-     * - {@link getRole}
-     * - {@link insertRole}
-     * - {@link eraseRole}
-     * - {@link getRoleMap}
+     * - {@link hasProcess}
+     * - {@link getProcess}
+     * - {@link insertProcess}
+     * - {@link eraseProcess}
+     * - {@link getProcessMap}
      *
      * When you need the **distributed process**, call the {@link DistributedProcess.sendData} method. Then the
      * {@link DistributedProcess} will find the most idle {@link DistributedSystem} object who represents a distributed
@@ -3991,7 +4031,7 @@ declare namespace samchon.templates.distributed {
      * @handbook [Templates - Distributed System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Distributed_System)
      * @author Jeongho Nam <http://samchon.org>
      */
-    abstract class DistributedSystemArrayMediator extends DistributedSystemArray {
+    abstract class DistributedSystemArrayMediator<System extends DistributedSystem> extends DistributedSystemArray<System> {
         /**
          * @hidden
          */
@@ -4019,6 +4059,7 @@ declare namespace samchon.templates.distributed {
          * - A server slave accepting master client:
          *   - {@link MediatorServer}
          *   - {@link MediatorWebServer}
+         *   - {@link MediatorDedicatedWorkerServer}
          *   - {@link MediatorSharedWorkerServer}
          *
          * @return A newly created {@link MediatorSystem} object.
@@ -4113,7 +4154,7 @@ declare namespace samchon.protocol {
     }
 }
 declare namespace samchon.protocol {
-        /**
+    /**
      * An abstract, basic class for communicators.
      *
      * {@link CommunicatorBase} is an abstract class implemented from the {@link ICommunicator}. Mechanism of converting
@@ -4143,7 +4184,7 @@ declare namespace samchon.protocol {
      * @see {@link IClientDriver}, {@link IServerConnector}, {@link IProtocol}
      * @handbook [Protocol - Basic Components](https://github.com/samchon/framework/wiki/TypeScript-Protocol-Basic_Components#icommunicator)
      * @author Jeongho Nam <http://samchon.org>
-         */
+     */
     abstract class CommunicatorBase implements ICommunicator {
         /**
          * @hidden
@@ -4157,13 +4198,13 @@ declare namespace samchon.protocol {
          * @hidden
          */
         protected connected_: boolean;
-    /**
+        /**
          * @hidden
-     */
+         */
         private binary_invoke_;
-    /**
+        /**
          * @hidden
-     */
+         */
         private binary_parameters_;
         /**
          * @hidden
@@ -4278,9 +4319,9 @@ declare namespace samchon.protocol {
          * @hidden
          */
         private handle_close();
-    /**
-     * @inheritdoc
-     */
+        /**
+         * @inheritdoc
+         */
         sendData(invoke: Invoke): void;
         /**
          * @hidden
@@ -4297,7 +4338,7 @@ declare namespace samchon.protocol {
     }
 }
 declare namespace samchon.protocol {
-        /**
+    /**
      * A communicator following Web-socket protocol.
      *
      * {@link WebCommunicator} is an abstract class following Web-socket protocol. This {@link WebCommunicator} class is
@@ -4326,7 +4367,7 @@ declare namespace samchon.protocol {
      * @see {@link WebClientDriver}, {@link WebServerConnector}, {@link IProtocol}
      * @handbook [Protocol - Basic Components](https://github.com/samchon/framework/wiki/TypeScript-Protocol-Basic_Components#icommunicator)
      * @author Jeongho Nam <http://samchon.org>
-         */
+     */
     abstract class WebCommunicator extends CommunicatorBase {
         /**
          * @hidden
@@ -4348,6 +4389,54 @@ declare namespace samchon.protocol {
          * @hidden
          */
         protected handle_close(): void;
+    }
+}
+declare namespace samchon.protocol {
+    /**
+     * A communicator for shared worker.
+     *
+     * {@link DedicatedWorkerCommunicator} is an abstract class for communication between DedicatedWorker and Web-browser.
+     * This {@link DedicatedWorkerCommunicator} is specified to {@link DedicatedWorkerServerConnector} and
+     * {@link DedicatedWorkerClientDriver} whether the remote system is a server (that my system is connecting to) or a
+     * client (a client conneting to to my server).
+     *
+     * #### Why DedicatedWorker be a server?
+     * In JavaScript environment, there's no way to implement multi-threading function. Instead, JavaScript supports the
+     * **Worker**, creating a new process. However, the **Worker** does not shares memory addresses. To integrate the
+     * **Worker** with its master, only communication with string or binary data is allowed. Doesn't it seem like a network
+     * communication? Furthermore, there's not any difference between the worker communication and network communication.
+     * It's the reason why Samchon Framework considers the **Worker** as a network node.
+     *
+     * The class {@link DedicatedWorkerCommunicator} is designed make such relationship. From now on, DedicatedWorker is a
+     * {@link DedicatedWorkerServer server} and {@link DedicatedWorkerServerConnector browser} is a client. Integrate the
+     * server and clients with this {@link DedicatedWorkerCommunicator}.
+     *
+     * #### [Inherited] {@link ICommunicator}
+     * {@link ICommunicator} is an interface for communicator classes who take full charge of network communication with
+     * remote system, without reference to whether the remote system is a server or a client. Type of the
+     * {@link ICommunicator} is specified to {@link IServerConnector} and {@link IClientDriver} whether the remote system
+     * is a server (that I've to connect) or a client (a client connected to my server).
+     *
+     * Whenever a replied message comes from the remote system, the message will be converted to an {@link Invoke} class
+     * and the {@link Invoke} object will be shifted to the {@link IProtocol listener}'s
+     * {@link IProtocol.replyData IProtocol.replyData()} method.
+     *
+     * <a href="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
+     *		  target="_blank">
+     *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
+     *		 style="max-width: 100%" />
+     * </a>
+     *
+     * @see {@link DedicatedWorkerClientDriver}, {@link DedicatedWorkerServerConnector}, {@link IProtocol}
+     * @reference https://developer.mozilla.org/en-US/docs/Web/API/DedicatedWorker
+     * @handbook [Protocol - Basic Components](https://github.com/samchon/framework/wiki/TypeScript-Protocol-Basic_Components#icommunicator)
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    abstract class DedicatedWorkerCommunicator extends CommunicatorBase {
+        /**
+         * @hidden
+         */
+        protected handle_message(event: MessageEvent): void;
     }
 }
 declare namespace samchon.protocol {
@@ -4423,11 +4512,12 @@ declare namespace samchon.protocol {
      * {@link IServer.addClient IServer.addClient()}. Those are derived types from this {@link IClientDriver}, being
      * created by the matched {@link IServer} object.
      *
-     * Protocol                | Derived Type                     | Created By
-     * ------------------------|----------------------------------|----------------------------
-     * Samchon Framework's own | {@link ClientDriver}             | {@link Server}
-     * Web-socket protocol     | {@link WebClientDriver}          | {@link WebServer}
-     * SharedWorker            | {@link SharedWorkerClientDriver} | {@link SharedWorkerServer}
+     * Protocol                | Derived Type                        | Created By
+     * ------------------------|-------------------------------------|----------------------------
+     * Samchon Framework's own | {@link ClientDriver}                | {@link Server}
+     * Web-socket protocol     | {@link WebClientDriver}             | {@link WebServer}
+     * DedicatedWorker         | {@link DedicatedWorkerClinetDriver} | {@link DedicatedWorkerServer}
+     * SharedWorker            | {@link SharedWorkerClientDriver}    | {@link SharedWorkerServer}
      *
      * When you've got an {@link IClientDriver} object from the {@link IServer.addClient IServer.addClient()}, then
      * specify {@link IProtocol listener} with {@link IClient.listen IClient.listen()}. Whenever a replied message comes
@@ -4478,11 +4568,12 @@ declare namespace samchon.protocol {
      * {@link IServer.addClient IServer.addClient()}. Those are derived types from this {@link IClientDriver}, being
      * created by the matched {@link IServer} object.
      *
-     * Protocol                | Derived Type                     | Created By
-     * ------------------------|----------------------------------|----------------------------
-     * Samchon Framework's own | {@link ClientDriver}             | {@link Server}
-     * Web-socket protocol     | {@link WebClientDriver}          | {@link WebServer}
-     * SharedWorker            | {@link SharedWorkerClientDriver} | {@link SharedWorkerServer}
+     * Protocol                | Derived Type                        | Created By
+     * ------------------------|-------------------------------------|----------------------------
+     * Samchon Framework's own | {@link ClientDriver}                | {@link Server}
+     * Web-socket protocol     | {@link WebClientDriver}             | {@link WebServer}
+     * DedicatedWorker         | {@link DedicatedWorkerClinetDriver} | {@link DedicatedWorkerServer}
+     * SharedWorker            | {@link SharedWorkerClientDriver}    | {@link SharedWorkerServer}
      *
      * When you've got an {@link IClientDriver} object from the {@link IServer.addClient IServer.addClient()}, then
      * specify {@link IProtocol listener} with {@link IClient.listen IClient.listen()}. Whenever a replied message comes
@@ -4514,14 +4605,14 @@ declare namespace samchon.protocol {
     }
 }
 declare namespace samchon.protocol {
-        /**
+    /**
      * Communicator with remote web-client.
-         *
+     *
      * {@link WebClientDriver} is a class taking full charge of network communication with remote client who follows
      * Web-socket protocol. This {@link WebClientDriver} object is always created by {@link WebServer} class. When you
      * got this {@link WebClientDriver} object from the {@link WebServer.addClient WebServer.addClient()}, then specify
      * {@link IProtocol listener} with the {@link WebClientDriver.listen WebClientDriver.listen()} method.
-         *
+     *
      * Unlike other protocol, Web-socket protocol's clients notify two parameters on their connection;
      * {@link getSessionID session-id} and {@link getPath path}. The {@link getSessionID session-id} can be used to
      * identify *user* of each client, and the {@link getPath path} can be used which type of *service* that client wants.
@@ -4537,11 +4628,12 @@ declare namespace samchon.protocol {
      * {@link IServer.addClient IServer.addClient()}. Those are derived types from this {@link IClientDriver}, being
      * created by the matched {@link IServer} object.
      *
-     * Protocol                | Derived Type                     | Created By
-     * ------------------------|----------------------------------|----------------------------
-     * Samchon Framework's own | {@link ClientDriver}             | {@link Server}
-     * Web-socket protocol     | {@link WebClientDriver}          | {@link WebServer}
-     * SharedWorker            | {@link SharedWorkerClientDriver} | {@link SharedWorkerServer}
+     * Protocol                | Derived Type                        | Created By
+     * ------------------------|-------------------------------------|----------------------------
+     * Samchon Framework's own | {@link ClientDriver}                | {@link Server}
+     * Web-socket protocol     | {@link WebClientDriver}             | {@link WebServer}
+     * DedicatedWorker         | {@link DedicatedWorkerClinetDriver} | {@link DedicatedWorkerServer}
+     * SharedWorker            | {@link SharedWorkerClientDriver}    | {@link SharedWorkerServer}
      *
      * When you've got an {@link IClientDriver} object from the {@link IServer.addClient IServer.addClient()}, then
      * specify {@link IProtocol listener} with {@link IClient.listen IClient.listen()}. Whenever a replied message comes
@@ -4560,7 +4652,7 @@ declare namespace samchon.protocol {
      * @see {@link WebServer}, {@link IProtocol}
      * @handbook [Protocol - Basic Components](https://github.com/samchon/framework/wiki/TypeScript-Protocol-Basic_Components#iclientdriver)
      * @author Jeongho Nam <http://samchon.org>
-         */
+     */
     class WebClientDriver extends WebCommunicator implements IClientDriver {
         /**
          * @hidden
@@ -4598,6 +4690,79 @@ declare namespace samchon.protocol {
 }
 declare namespace samchon.protocol {
     /**
+     * Communicator with master web-browser.
+     *
+     * {@link DedicatedWorkerClientDriver} is a class taking full charge of network communication with web browsers. This
+     * {@link DedicatedWorkerClientDriver} object is always created by {@link DedicatedWorkerServer} class. When you got
+     * this {@link DedicatedWorkerClientDriver} object from
+     * {@link DedicatedWorkerServer.addClient DedicatedWorkerServer.addClient()}, then specify {@link IProtocol listener}
+     * with the {@link DedicatedWorkerClientDriver.listen DedicatedWorkerClientDriver.listen()} method.
+     *
+     * #### Why DedicatedWorker be a server?
+     * In JavaScript environment, there's no way to implement multi-threading function. Instead, JavaScript supports the
+     * **Worker**, creating a new process. However, the **Worker** does not shares memory addresses. To integrate the
+     * **Worker** with its master, only communication with string or binary data is allowed. Doesn't it seem like a network
+     * communication? Furthermore, there's not any difference between the worker communication and network communication.
+     * It's the reason why Samchon Framework considers the **Worker** as a network node.
+     *
+     * The class {@link DedicatedWorkerCommunicator} is designed make such relationship. From now on, DedicatedWorker is a
+     * {@link DedicatedWorkerServer server} and {@link DedicatedWorkerServerConnector browser} is a client. Integrate the
+     * server and clients with this {@link DedicatedWorkerCommunicator}.
+     *
+     * #### [Inherited] {@link IClientDriver}
+     * {@link IClientDriver} is a type of {@link ICommunicator}, specified for communication with remote client who has
+     * connected in a {@link IServer server}. It takes full charge of network communication with the remote client.
+     *
+     * The {@link IClientDriver} object is created and delivered from {@link IServer} and
+     * {@link IServer.addClient IServer.addClient()}. Those are derived types from this {@link IClientDriver}, being
+     * created by the matched {@link IServer} object.
+     *
+     * Protocol                | Derived Type                        | Created By
+     * ------------------------|-------------------------------------|----------------------------
+     * Samchon Framework's own | {@link ClientDriver}                | {@link Server}
+     * Web-socket protocol     | {@link WebClientDriver}             | {@link WebServer}
+     * DedicatedWorker         | {@link DedicatedWorkerClinetDriver} | {@link DedicatedWorkerServer}
+     * SharedWorker            | {@link SharedWorkerClientDriver}    | {@link SharedWorkerServer}
+     *
+     * When you've got an {@link IClientDriver} object from the {@link IServer.addClient IServer.addClient()}, then
+     * specify {@link IProtocol listener} with {@link IClient.listen IClient.listen()}. Whenever a replied message comes
+     * from the remote system, the message will be converted to an {@link Invoke} class and the {@link Invoke} object
+     * will be shifted to the {@link IProtocol listener}'s {@link IProtocol.replyData IProtocol.replyData()} method.
+     * Below code is an example specifying and managing the {@link IProtocol listener} objects.
+     *
+     * - https://github.com/samchon/framework/blob/master/ts/examples/calculator/calculator-server.ts
+     *
+     * <a href="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
+     *		  target="_blank">
+     *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
+     *		 style="max-width: 100%" />
+     * </a>
+     *
+     * @see {@link DedicatedWorkerServer}, {@link IProtocol}
+     * @handbook [Protocol - Basic Components](https://github.com/samchon/framework/wiki/TypeScript-Protocol-Basic_Components#iclientdriver)
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    class DedicatedWorkerClientDriver extends DedicatedWorkerCommunicator implements IClientDriver {
+        /**
+         * Default Constructor.
+         */
+        constructor();
+        /**
+         * @inheritdoc
+         */
+        listen(listener: IProtocol): void;
+        /**
+         * @inheritdoc
+         */
+        close(): void;
+        /**
+         * @inheritdoc
+         */
+        sendData(invoke: Invoke): void;
+    }
+}
+declare namespace samchon.protocol {
+    /**
      * Communicator with remote web-browser.
      *
      * {@link SharedWorkerClientDriver} is a class taking full charge of network communication with web browsers. This
@@ -4605,7 +4770,7 @@ declare namespace samchon.protocol {
      * {@link SharedWorkerClientDriver} object from {@link SharedWorkerServer.addClient SharedWorkerServer.addClient()},
      * then specify {@link IProtocol listener} with the
      * {@link SharedWorkerClientDriver.listen SharedWorkerClientDriver.listen()} method.
-         *
+     *
      * #### Why SharedWorker be a server?
      * SharedWorker, it allows only an instance (process) to be created whether the SharedWorker is declared in a browser
      * or multiple browsers. To integrate them, messages are being sent and received. Doesn't it seem like a relationship
@@ -4624,11 +4789,12 @@ declare namespace samchon.protocol {
      * {@link IServer.addClient IServer.addClient()}. Those are derived types from this {@link IClientDriver}, being
      * created by the matched {@link IServer} object.
      *
-     * Protocol                | Derived Type                     | Created By
-     * ------------------------|----------------------------------|----------------------------
-     * Samchon Framework's own | {@link ClientDriver}             | {@link Server}
-     * Web-socket protocol     | {@link WebClientDriver}          | {@link WebServer}
-     * SharedWorker            | {@link SharedWorkerClientDriver} | {@link SharedWorkerServer}
+     * Protocol                | Derived Type                        | Created By
+     * ------------------------|-------------------------------------|----------------------------
+     * Samchon Framework's own | {@link ClientDriver}                | {@link Server}
+     * Web-socket protocol     | {@link WebClientDriver}             | {@link WebServer}
+     * DedicatedWorker         | {@link DedicatedWorkerClinetDriver} | {@link DedicatedWorkerServer}
+     * SharedWorker            | {@link SharedWorkerClientDriver}    | {@link SharedWorkerServer}
      *
      * When you've got an {@link IClientDriver} object from the {@link IServer.addClient IServer.addClient()}, then
      * specify {@link IProtocol listener} with {@link IClient.listen IClient.listen()}. Whenever a replied message comes
@@ -4647,7 +4813,7 @@ declare namespace samchon.protocol {
      * @see {@link SharedWorkerServer}, {@link IProtocol}
      * @handbook [Protocol - Basic Components](https://github.com/samchon/framework/wiki/TypeScript-Protocol-Basic_Components#iclientdriver)
      * @author Jeongho Nam <http://samchon.org>
-         */
+     */
     class SharedWorkerClientDriver extends SharedWorkerCommunicator implements IClientDriver {
         private listening_;
         /**
@@ -4661,47 +4827,14 @@ declare namespace samchon.protocol {
     }
 }
 declare namespace samchon.protocol {
-    abstract class DedicatedWorker implements IProtocol {
-        private communicator_;
-        /**
-         * Default Constructor.
-         */
-        constructor();
-        abstract replyData(invoke: protocol.Invoke): void;
-        sendData(invoke: Invoke): void;
-    }
-}
-declare namespace samchon.protocol {
-    class DedicatedWorkerConnector extends CommunicatorBase implements IServerConnector {
-        private worker;
-        /**
-         * @inheritdoc
-         */
-        onConnect: Function;
-        /**
-         * @inheritdoc
-         */
-        onClose: Function;
-        constructor(listener: IProtocol);
-        /**
-         * @inheritdoc
-         */
-        connect(jsFile: string): void;
-        /**
-         * @inheritdoc
-         */
-        close(): void;
-        sendData(invoke: Invoke): void;
-        replyData(invoke: Invoke): void;
-        private handle_message(event);
-    }
-}
-declare namespace samchon.protocol {
-        /**
+    /**
      * A container of entity, and it's a type of entity, too.
-         *
+     *
+     * ![Class Diagram](http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_message_protocol.png)
+     *
+     * @handbook  [Protocol - Standard Message](https://github.com/samchon/framework/wiki/TypeScript-Protocol-Standard_Message)
      * @author Jeongho Nam <http://samchon.org>
-         */
+     */
     interface IEntityGroup<T extends IEntity> extends IEntity, std.base.IContainer<T> {
         /**
          * Construct data of the Entity from an XML object.
@@ -4751,25 +4884,25 @@ declare namespace samchon.protocol {
          * @return Whether the map has an item having the specified identifier.
          */
         has(key: any): boolean;
-    /**
+        /**
          * Count elements with a specific key.
-     *
+         *
          * Searches the container for elements whose key is *key* and returns the number of elements found.
-     *
+         *
          * @param key Key value to be searched for.
-     *
+         *
          * @return The number of elements in the container with a *key*.
          */
         count(key: any): number;
         /**
          * Get an element
-     *
+         *
          * Returns a reference to the mapped value of the element identified with *key*.
-     *
+         *
          * @param key Key value of the element whose mapped value is accessed.
-     *
+         *
          * @throw exception out of range
-     *
+         *
          * @return A reference object of the mapped value (_Ty)
          */
         get(key: any): T;
@@ -4779,21 +4912,21 @@ declare namespace samchon.protocol {
         CHILD_TAG(): string;
         /**
          * Get an XML object represents the EntityArray.
-     *
+         *
          * Archives the EntityArray's own member variables only to the returned XML object.
-     *
+         *
          * Do not consider about archiving children Entity objects' data in EntityArray::toXML().
          * Those children Entity objects will converted to XML object by their own toXML() method. The
          * insertion of XML objects representing children are done by abstract method of
          * EntityArray::toXML().
-     *
+         *
          * Archives only data of EntityArray's own.
-     */
+         */
         toXML(): library.XML;
     }
-        /**
+    /**
      * @hidden
-         */
+     */
     namespace IEntityGroup {
         /**
          * @hidden
@@ -4809,9 +4942,9 @@ declare namespace samchon.protocol {
     }
 }
 declare namespace samchon.protocol {
-        /**
+    /**
      * @inheritdoc
-         */
+     */
     abstract class EntityArray<T extends IEntity> extends std.Vector<T> implements IEntityGroup<T> {
         /**
          * @inheritdoc
@@ -4939,47 +5072,6 @@ declare namespace samchon.protocol {
 }
 declare namespace samchon.protocol {
     /**
-     * An interface for {@link Invoke} message chain.
-     *
-     * {@link IProtocol} is an interface for {@link Invoke} message, which is standard message of network I/O in
-     * *Samchon Framework*, chain. The {@link IProtocol} interface is used to network drivers and some classes which are
-     * in a relationship of *Chain of Responsibility Pattern* with those network drivers.
-     *
-     * Implements {@link IProtocol} if the class sends and handles {@link Invoke} messages. Looking around source codes of
-     * the *Samchon Framework*, especially *Templates*, you can find out that all the classes and modules handling
-     * {@link Invoke} messages are always implementing this {@link IProtocol}.
-     *
-     * <a href="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
-     *		  target="_blank">
-     *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
-     *		 style="max-width: 100%" />
-     * </a>
-     *
-     * @see {@link Invoke}
-     * @handbook https://github.com/samchon/framework/wiki/TypeScript-Protocol-Basic_Components#iprotocol
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    interface IProtocol {
-        /**
-         * Sending message.
-         *
-         * Sends message to related system or shifts the responsibility to chain.
-         *
-         * @param invoke Invoke message to send
-         */
-        replyData(invoke: Invoke): void;
-        /**
-         * Handling replied message.
-         *
-         * Handles replied message or shifts the responsibility to chain.
-         *
-         * @param invoke An {@link Invoke} message has received.
-         */
-        sendData(invoke: Invoke): void;
-    }
-}
-declare namespace samchon.protocol {
-    /**
      * Standard message of network I/O.
      *
      * {@link Invoke} is a class used in network I/O in protocol package of Samchon Framework.
@@ -4998,7 +5090,9 @@ declare namespace samchon.protocol {
      * (IProtocol, IServer and ICommunicator) by implemens or inherits them, like designing
      * classes of S/W architecture.
      *
-     * @see IProtocol
+     * ![Class Diagram](http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_message_protocol.png)
+     *
+     * @see {@link IProtocol}
      * @author Jeongho Nam <http://samchon.org>
      */
     class Invoke extends EntityArray<InvokeParameter> {
@@ -5040,8 +5134,18 @@ declare namespace samchon.protocol {
         getArguments(): Array<any>;
         /**
          * Apply to a matched function.
+         *
+         * @param obj Target {@link IProtocol} object to find matched function.
+         * @return Whether succeded to find matched function.
          */
         apply(obj: IProtocol): boolean;
+        /**
+         * Apply to a function.
+         *
+         * @param thisArg Owner of the function.
+         * @param func Function to call.
+         */
+        apply(thisArg: IProtocol, func: Function): void;
         /**
          * @inheritdoc
          */
@@ -5055,6 +5159,8 @@ declare namespace samchon.protocol {
 declare namespace samchon.protocol {
     /**
      * A parameter belongs to an Invoke.
+     *
+     * ![Class Diagram](http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_message_protocol.png)
      *
      * @author Jeongho Nam <http://samchon.org>
      */
@@ -5217,6 +5323,47 @@ declare namespace samchon.protocol {
 }
 declare namespace samchon.protocol {
     /**
+     * An interface for {@link Invoke} message chain.
+     *
+     * {@link IProtocol} is an interface for {@link Invoke} message, which is standard message of network I/O in
+     * *Samchon Framework*, chain. The {@link IProtocol} interface is used to network drivers and some classes which are
+     * in a relationship of *Chain of Responsibility Pattern* with those network drivers.
+     *
+     * Implements {@link IProtocol} if the class sends and handles {@link Invoke} messages. Looking around source codes of
+     * the *Samchon Framework*, especially *Templates*, you can find out that all the classes and modules handling
+     * {@link Invoke} messages are always implementing this {@link IProtocol}.
+     *
+     * <a href="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
+     *		  target="_blank">
+     *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
+     *		 style="max-width: 100%" />
+     * </a>
+     *
+     * @see {@link Invoke}
+     * @handbook https://github.com/samchon/framework/wiki/TypeScript-Protocol-Basic_Components#iprotocol
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    interface IProtocol {
+        /**
+         * Sending message.
+         *
+         * Sends message to related system or shifts the responsibility to chain.
+         *
+         * @param invoke Invoke message to send
+         */
+        replyData(invoke: Invoke): void;
+        /**
+         * Handling replied message.
+         *
+         * Handles replied message or shifts the responsibility to chain.
+         *
+         * @param invoke An {@link Invoke} message has received.
+         */
+        sendData(invoke: Invoke): void;
+    }
+}
+declare namespace samchon.protocol {
+    /**
      * An interface for a server.
      *
      * {@link IServer} is an interfaec for server classes who are providing methods for {@link open opening a server} and
@@ -5226,11 +5373,12 @@ declare namespace samchon.protocol {
      * overrides {@link addClient addClient()} method who accepts a newly connected client as an {@link IClientDriver}
      * object. Then at last, call {@link open open()} method with specified port number.
      *
-     * Protocol | Derived Type | Related {@link IClientDriver}
-     * ---------|--------------|-------------------------------
-     * Samchon Framework's own | {@link Server} | {@link ClientDriver}
-     * Web-socket protocol | {@link WebServer} | {@link WebClientDriver}
-     * SharedWorker | {@link SharedWorkerServer} | {@link SharedWorkerClientDriver}
+     * Protocol                | Derived Type                  | Related {@link IClientDriver}
+     * ------------------------|-------------------------------|-------------------------------------
+     * Samchon Framework's own | {@link Server}                | {@link ClientDriver}
+     * Web-socket protocol     | {@link WebServer}             | {@link WebClientDriver}
+     * DedicatedWorker         | {@link DedicatedWorkerServer} | {@link DedicatedWorkerClientDriver}
+     * SharedWorker            | {@link SharedWorkerServer}    | {@link SharedWorkerClientDriver}
      *
      * Below codes and classes will be good examples for comprehending how to open a server and handle remote clients.
      * - https://github.com/samchon/framework/blob/master/ts/examples/calculator/calculator-server.ts
@@ -5301,11 +5449,12 @@ declare namespace samchon.protocol {
      * overrides {@link addClient addClient()} method who accepts a newly connected client as an {@link IClientDriver}
      * object. Then at last, call {@link open open()} method with specified port number.
      *
-     * Protocol | Derived Type | Related {@link IClientDriver}
-     * ---------|--------------|-------------------------------
-     * Samchon Framework's own | {@link Server} | {@link ClientDriver}
-     * Web-socket protocol | {@link WebServer} | {@link WebClientDriver}
-     * SharedWorker | {@link SharedWorkerServer} | {@link SharedWorkerClientDriver}
+     * Protocol                | Derived Type                  | Related {@link IClientDriver}
+     * ------------------------|-------------------------------|-------------------------------------
+     * Samchon Framework's own | {@link Server}                | {@link ClientDriver}
+     * Web-socket protocol     | {@link WebServer}             | {@link WebClientDriver}
+     * DedicatedWorker         | {@link DedicatedWorkerServer} | {@link DedicatedWorkerClientDriver}
+     * SharedWorker            | {@link SharedWorkerServer}    | {@link SharedWorkerClientDriver}
      *
      * Below codes and classes will be good examples for comprehending how to open a server and handle remote clients.
      * - https://github.com/samchon/framework/blob/master/ts/examples/calculator/calculator-server.ts
@@ -5365,11 +5514,12 @@ declare namespace samchon.protocol {
      * overrides {@link addClient addClient()} method who accepts a newly connected client as an {@link IClientDriver}
      * object. Then at last, call {@link open open()} method with specified port number.
      *
-     * Protocol | Derived Type | Related {@link IClientDriver}
-     * ---------|--------------|-------------------------------
-     * Samchon Framework's own | {@link Server} | {@link ClientDriver}
-     * Web-socket protocol | {@link WebServer} | {@link WebClientDriver}
-     * SharedWorker | {@link SharedWorkerServer} | {@link SharedWorkerClientDriver}
+     * Protocol                | Derived Type                  | Related {@link IClientDriver}
+     * ------------------------|-------------------------------|-------------------------------------
+     * Samchon Framework's own | {@link Server}                | {@link ClientDriver}
+     * Web-socket protocol     | {@link WebServer}             | {@link WebClientDriver}
+     * DedicatedWorker         | {@link DedicatedWorkerServer} | {@link DedicatedWorkerClientDriver}
+     * SharedWorker            | {@link SharedWorkerServer}    | {@link SharedWorkerClientDriver}
      *
      * Below codes and classes will be good examples for comprehending how to open a server and handle remote clients.
      * - https://github.com/samchon/framework/blob/master/ts/examples/calculator/calculator-server.ts
@@ -5437,9 +5587,78 @@ declare namespace samchon.protocol {
     /**
      * A SharedWorker server.
      *
+     * The {@link DedicatedWorkerServer} is an abstract class is realized to open a DedicatedWorker server and accept
+     * web-browser client (master). Extends this {@link DedicatedWorkerServer} class and overrides
+     * {@link addClient addClient()} method to define what to do with a newly connected
+     * {@link DedicatedWorkerClientDriver remote client}.
+     *
+     * #### Why DedicatedWorker be a server?
+     * In JavaScript environment, there's no way to implement multi-threading function. Instead, JavaScript supports the
+     * **Worker**, creating a new process. However, the **Worker** does not shares memory addresses. To integrate the
+     * **Worker** with its master, only communication with string or binary data is allowed. Doesn't it seem like a network
+     * communication? Furthermore, there's not any difference between the worker communication and network communication.
+     * It's the reason why Samchon Framework considers the **Worker** as a network node.
+     *
+     * The class {@link DedicatedWorkerCommunicator} is designed make such relationship. From now on, DedicatedWorker is a
+     * {@link DedicatedWorkerServer server} and {@link DedicatedWorkerServerConnector browser} is a client. Integrate the
+     * server and clients with this {@link DedicatedWorkerCommunicator}.
+     *
+     * #### [Inherited] {@link IServer}
+     * {@link IServer} is an interfaec for server classes who are providing methods for {@link open opening a server} and
+     * {@link IClientDriver accepting clients}.
+     *
+     * To open a server, extends one of derived class under below considedring which protocol to follow first. At next,
+     * overrides {@link addClient addClient()} method who accepts a newly connected client as an {@link IClientDriver}
+     * object. Then at last, call {@link open open()} method with specified port number.
+     *
+     * Protocol                | Derived Type                  | Related {@link IClientDriver}
+     * ------------------------|-------------------------------|-------------------------------------
+     * Samchon Framework's own | {@link Server}                | {@link ClientDriver}
+     * Web-socket protocol     | {@link WebServer}             | {@link WebClientDriver}
+     * DedicatedWorker         | {@link DedicatedWorkerServer} | {@link DedicatedWorkerClientDriver}
+     * SharedWorker            | {@link SharedWorkerServer}    | {@link SharedWorkerClientDriver}
+     *
+     * Below codes and classes will be good examples for comprehending how to open a server and handle remote clients.
+     * - https://github.com/samchon/framework/blob/master/ts/examples/calculator/calculator-server.ts
+     * - https://github.com/samchon/framework/blob/master/ts/examples/chat-server/server.ts
+     * - {@link service.Server}
+     * - {@link external.ExternalClientArray}
+     * - {@link slave.SlaveServer}
+     *
+     * If you're embarrased because your class already extended another one, then use {@link IServerBase}.
+     *
+     * <a href="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
+     *		  target="_blank">
+     *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
+     *		 style="max-width: 100%" />
+     * </a>
+     *
+     * @see {@link DedicatedWorkerClientDriver}, {@link DedicatedWorkerServerBase}
+     * @handbook [Protocol - Basic Components](https://github.com/samchon/framework/wiki/TypeScript-Protocol-Basic_Components#iserver)
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    abstract class DedicatedWorkerServer implements IServer {
+        /**
+         * @inheritdoc
+         */
+        open(): void;
+        /**
+         * @inheritdoc
+         */
+        close(): void;
+        /**
+         * @inheritdoc
+         */
+        abstract addClient(driver: DedicatedWorkerClientDriver): void;
+    }
+}
+declare namespace samchon.protocol {
+    /**
+     * A SharedWorker server.
+     *
      * The {@link SharedWorker} is an abstract class is realized to open a SharedWorker server and accept web-browser
      * clients. Extends this {@link SharedWorkerServer} class and overrides {@link addClient addClient()} method to
-     * define what to do with newly connected {@link ClientDriver remote clients}.
+     * define what to do with newly connected {@link SharedWorkerClientDriver remote clients}.
      *
      * #### Why SharedWorker be a server?
      * SharedWorker, it allows only an instance (process) to be created whether the SharedWorker is declared in a browser
@@ -5459,11 +5678,12 @@ declare namespace samchon.protocol {
      * overrides {@link addClient addClient()} method who accepts a newly connected client as an {@link IClientDriver}
      * object. Then at last, call {@link open open()} method with specified port number.
      *
-     * Protocol | Derived Type | Related {@link IClientDriver}
-     * ---------|--------------|-------------------------------
-     * Samchon Framework's own | {@link Server} | {@link ClientDriver}
-     * Web-socket protocol | {@link WebServer} | {@link WebClientDriver}
-     * SharedWorker | {@link SharedWorkerServer} | {@link SharedWorkerClientDriver}
+     * Protocol                | Derived Type                  | Related {@link IClientDriver}
+     * ------------------------|-------------------------------|-------------------------------------
+     * Samchon Framework's own | {@link Server}                | {@link ClientDriver}
+     * Web-socket protocol     | {@link WebServer}             | {@link WebClientDriver}
+     * DedicatedWorker         | {@link DedicatedWorkerServer} | {@link DedicatedWorkerClientDriver}
+     * SharedWorker            | {@link SharedWorkerServer}    | {@link SharedWorkerClientDriver}
      *
      * Below codes and classes will be good examples for comprehending how to open a server and handle remote clients.
      * - https://github.com/samchon/framework/blob/master/ts/examples/calculator/calculator-server.ts
@@ -5514,11 +5734,12 @@ declare namespace samchon.protocol {
      * the {@link IServer} interface, create an {@link IServerBase} member, and write simple hooks to route calls into
      * the aggregated {@link IServerBase}.
      *
-     * Protocol | {@link IServer} | {@link IServerBase} | {@link IClientDriver}
-     * ---------|-----------------|---------------------|-----------------------
-     * Samchon Framework's own | {@link Server} | {@link ServerBase} | {@link ClientDriver}
-     * Web-socket protocol | {@link WebServer} | {@link WebServerBase} | {@link WebClientDriver}
-     * SharedWorker | {@link SharedWorkerServer} | {@link SharedWorkerServerBase} | {@link SharedWorkerClientDriver}
+     * Protocol                | {@link IServer}               | {@link IServerBase}               | {@link IClientDriver}
+     * ------------------------|-------------------------------|-----------------------------------|-------------------------------------
+     * Samchon Framework's own | {@link Server}                | {@link ServerBase}                | {@link ClientDriver}
+     * Web-socket protocol     | {@link WebServer}             | {@link WebServerBase}             | {@link WebClientDriver}
+     * DedicatedWorker         | {@link DedicatedWorkerServer} | {@link DedicatedWorkerServerBase} | {@link DedicatedWorkerClientDriver}
+     * SharedWorker            | {@link SharedWorkerServer}    | {@link SharedWorkerServerBase}    | {@link SharedWorkerClientDriver}
      *
      * After the hooking to aggregated {@link IServerBase} object, overrides {@link addClient addClient()} method who
      * accepts a newly connected client as an {@link IClientDriver} object. At last, call {@link open open()} method with
@@ -5544,6 +5765,12 @@ declare namespace samchon.protocol {
      * 	}
      * }
      * ```
+     *
+     * <a href="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
+     *		  target="_blank">
+     *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
+     *		 style="max-width: 100%" />
+     * </a>
      *
      * @see {@link IServer}, {@link IClientDriver}
      * @handbook [Protocol - Basic Components](https://github.com/samchon/framework/wiki/TypeScript-Protocol-Basic_Components#iserverbase)
@@ -5566,11 +5793,12 @@ declare namespace samchon.protocol {
      * the {@link IServer} interface, create an {@link IServerBase} member, and write simple hooks to route calls into
      * the aggregated {@link IServerBase}.
      *
-     * Protocol | {@link IServer} | {@link IServerBase} | {@link IClientDriver}
-     * ---------|-----------------|---------------------|-----------------------
-     * Samchon Framework's own | {@link Server} | {@link ServerBase} | {@link ClientDriver}
-     * Web-socket protocol | {@link WebServer} | {@link WebServerBase} | {@link WebClientDriver}
-     * SharedWorker | {@link SharedWorkerServer} | {@link SharedWorkerServerBase} | {@link SharedWorkerClientDriver}
+     * Protocol                | {@link IServer}               | {@link IServerBase}               | {@link IClientDriver}
+     * ------------------------|-------------------------------|-----------------------------------|-------------------------------------
+     * Samchon Framework's own | {@link Server}                | {@link ServerBase}                | {@link ClientDriver}
+     * Web-socket protocol     | {@link WebServer}             | {@link WebServerBase}             | {@link WebClientDriver}
+     * DedicatedWorker         | {@link DedicatedWorkerServer} | {@link DedicatedWorkerServerBase} | {@link DedicatedWorkerClientDriver}
+     * SharedWorker            | {@link SharedWorkerServer}    | {@link SharedWorkerServerBase}    | {@link SharedWorkerClientDriver}
      *
      * After the hooking to aggregated {@link IServerBase} object, overrides {@link addClient addClient()} method who
      * accepts a newly connected client as an {@link IClientDriver} object. At last, call {@link open open()} method with
@@ -5596,6 +5824,13 @@ declare namespace samchon.protocol {
      * 	}
      * }
      * ```
+     *
+     * <a href="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
+     *		  target="_blank">
+     *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
+     *		 style="max-width: 100%" />
+     * </a>
+     *
      *
      * @see {@link Server}, {@link ClientDriver}
      * @handbook [Protocol - Basic Components](https://github.com/samchon/framework/wiki/TypeScript-Protocol-Basic_Components#iserverbase)
@@ -5624,6 +5859,7 @@ declare namespace samchon.protocol {
      *
      * The {@link WebServerBase} is a substitute class who subrogates {@link WebServer}'s responsibility.
      *
+     * #### [Inherited] {@link IServerBase}
      * {@link IServerBase} is an interface for substitue server classes who subrogate server's role.
      *
      * The easiest way to defining a server class is to extending one of them below, who implemented the {@link IServer}.
@@ -5631,11 +5867,12 @@ declare namespace samchon.protocol {
      * the {@link IServer} interface, create an {@link IServerBase} member, and write simple hooks to route calls into
      * the aggregated {@link IServerBase}.
      *
-     * Protocol | {@link IServer} | {@link IServerBase} | {@link IClientDriver}
-     * ---------|-----------------|---------------------|-----------------------
-     * Samchon Framework's own | {@link Server} | {@link ServerBase} | {@link ClientDriver}
-     * Web-socket protocol | {@link WebServer} | {@link WebServerBase} | {@link WebClientDriver}
-     * SharedWorker | {@link SharedWorkerServer} | {@link SharedWorkerServerBase} | {@link SharedWorkerClientDriver}
+     * Protocol                | {@link IServer}               | {@link IServerBase}               | {@link IClientDriver}
+     * ------------------------|-------------------------------|-----------------------------------|-------------------------------------
+     * Samchon Framework's own | {@link Server}                | {@link ServerBase}                | {@link ClientDriver}
+     * Web-socket protocol     | {@link WebServer}             | {@link WebServerBase}             | {@link WebClientDriver}
+     * DedicatedWorker         | {@link DedicatedWorkerServer} | {@link DedicatedWorkerServerBase} | {@link DedicatedWorkerClientDriver}
+     * SharedWorker            | {@link SharedWorkerServer}    | {@link SharedWorkerServerBase}    | {@link SharedWorkerClientDriver}
      *
      * After the hooking to aggregated {@link IServerBase} object, overrides {@link addClient addClient()} method who
      * accepts a newly connected client as an {@link IClientDriver} object. At last, call {@link open open()} method with
@@ -5661,6 +5898,12 @@ declare namespace samchon.protocol {
      * 	}
      * }
      * ```
+     *
+     * <a href="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
+     *		  target="_blank">
+     *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
+     *		 style="max-width: 100%" />
+     * </a>
      *
      * @see {@link WebServer}, {@link WebClientDriver}
      * @handbook [Protocol - Basic Components](https://github.com/samchon/framework/wiki/TypeScript-Protocol-Basic_Components#iserverbase)
@@ -5685,11 +5928,12 @@ declare namespace samchon.protocol {
 }
 declare namespace samchon.protocol {
     /**
-     * A substitute {@link SharedWorkerServer}.
+     * A substitute {@link DedicatedWorkerServer}.
      *
-     * The {@link SharedWorkerServerBase} is a substitute class who subrogates {@link SharedWorkerServer}'s
+     * The {@link DedicatedWorkerServerBase} is a substitute class who subrogates {@link DedicatedWorkerServer}'s
      * responsibility.
      *
+     * #### [Inherited] {@link IServerBase}
      * {@link IServerBase} is an interface for substitue server classes who subrogate server's role.
      *
      * The easiest way to defining a server class is to extending one of them below, who implemented the {@link IServer}.
@@ -5697,11 +5941,12 @@ declare namespace samchon.protocol {
      * the {@link IServer} interface, create an {@link IServerBase} member, and write simple hooks to route calls into
      * the aggregated {@link IServerBase}.
      *
-     * Protocol | {@link IServer} | {@link IServerBase} | {@link IClientDriver}
-     * ---------|-----------------|---------------------|-----------------------
-     * Samchon Framework's own | {@link Server} | {@link ServerBase} | {@link ClientDriver}
-     * Web-socket protocol | {@link WebServer} | {@link WebServerBase} | {@link WebClientDriver}
-     * SharedWorker | {@link SharedWorkerServer} | {@link SharedWorkerServerBase} | {@link SharedWorkerClientDriver}
+     * Protocol                | {@link IServer}               | {@link IServerBase}               | {@link IClientDriver}
+     * ------------------------|-------------------------------|-----------------------------------|-------------------------------------
+     * Samchon Framework's own | {@link Server}                | {@link ServerBase}                | {@link ClientDriver}
+     * Web-socket protocol     | {@link WebServer}             | {@link WebServerBase}             | {@link WebClientDriver}
+     * DedicatedWorker         | {@link DedicatedWorkerServer} | {@link DedicatedWorkerServerBase} | {@link DedicatedWorkerClientDriver}
+     * SharedWorker            | {@link SharedWorkerServer}    | {@link SharedWorkerServerBase}    | {@link SharedWorkerClientDriver}
      *
      * After the hooking to aggregated {@link IServerBase} object, overrides {@link addClient addClient()} method who
      * accepts a newly connected client as an {@link IClientDriver} object. At last, call {@link open open()} method with
@@ -5727,6 +5972,86 @@ declare namespace samchon.protocol {
      * 	}
      * }
      * ```
+     *
+     * <a href="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
+     *		  target="_blank">
+     *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
+     *		 style="max-width: 100%" />
+     * </a>
+     *
+     * @see {@link DedicatedWorkerServer}, {@link DedicatedWorkerClientDriver}
+     * @handbook [Protocol - Basic Components](https://github.com/samchon/framework/wiki/TypeScript-Protocol-Basic_Components#iserverbase)
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    class DedicatedWorkerServerBase extends DedicatedWorkerServer implements IServerBase {
+        /**
+         * @hidden
+         */
+        private hooker_;
+        /**
+         * Construct from a *hooker*.
+         *
+         * @param hooker A hooker throwing responsibility of server's role.
+         */
+        constructor(hooker: IServer);
+        /**
+         * @inheritdoc
+         */
+        addClient(driver: IClientDriver): void;
+    }
+}
+declare namespace samchon.protocol {
+    /**
+     * A substitute {@link SharedWorkerServer}.
+     *
+     * The {@link SharedWorkerServerBase} is a substitute class who subrogates {@link SharedWorkerServer}'s
+     * responsibility.
+     *
+     * #### [Inherited] {@link IServerBase}
+     * {@link IServerBase} is an interface for substitue server classes who subrogate server's role.
+     *
+     * The easiest way to defining a server class is to extending one of them below, who implemented the {@link IServer}.
+     * However, it is impossible (that is, if the class is already extending another class), you can instead implement
+     * the {@link IServer} interface, create an {@link IServerBase} member, and write simple hooks to route calls into
+     * the aggregated {@link IServerBase}.
+     *
+     * Protocol                | {@link IServer}               | {@link IServerBase}               | {@link IClientDriver}
+     * ------------------------|-------------------------------|-----------------------------------|-------------------------------------
+     * Samchon Framework's own | {@link Server}                | {@link ServerBase}                | {@link ClientDriver}
+     * Web-socket protocol     | {@link WebServer}             | {@link WebServerBase}             | {@link WebClientDriver}
+     * DedicatedWorker         | {@link DedicatedWorkerServer} | {@link DedicatedWorkerServerBase} | {@link DedicatedWorkerClientDriver}
+     * SharedWorker            | {@link SharedWorkerServer}    | {@link SharedWorkerServerBase}    | {@link SharedWorkerClientDriver}
+     *
+     * After the hooking to aggregated {@link IServerBase} object, overrides {@link addClient addClient()} method who
+     * accepts a newly connected client as an {@link IClientDriver} object. At last, call {@link open open()} method with
+     * specified port number.
+     *
+     * ```typescript
+     * class MyServer extends Something implements IServer
+     * {
+     * 	private server_base_: IServerBase = new WebServerBase(this);
+     *
+     * 	public addClient(driver: IClientDriver): void
+     * 	{
+     * 		// WHAT TO DO WHEN A CLIENT HAS CONNECTED
+     * 	}
+     *
+     * 	public open(port: number): void
+     * 	{
+     * 		this.server_base_.open();
+     * 	}
+     * 	public close(): void
+     * 	{
+     * 		this.server_base_.close();
+     * 	}
+     * }
+     * ```
+     *
+     * <a href="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
+     *		  target="_blank">
+     *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
+     *		 style="max-width: 100%" />
+     * </a>
      *
      * @see {@link SharedWorkerServer}, {@link SharedWorkerClientDriver}
      * @handbook [Protocol - Basic Components](https://github.com/samchon/framework/wiki/TypeScript-Protocol-Basic_Components#iserverbase)
@@ -5768,17 +6093,14 @@ declare namespace samchon.protocol {
      * Note that, protocol of this client and remote server must be matched. Thus, before determining specific type of
      * this {@link IServerConnector}, you've to consider which protocol and type the remote server follows.
      *
-     * Protocol | Derived Type | Connect to
-     * ---------|--------------|---------------
-     * Samchon Framework's own | {@link ServerConnector} | {@link Server}
-     * Web-socket protocol | {@link WebServerConnector} | {@link WebServer}
-     * SharedWorker | {@link SharedWorkerServerConnector} | {@link SharedWorkerServer}
+     * Protocol                | Derived Type                           | Connect to
+     * ------------------------|----------------------------------------|-------------------------------
+     * Samchon Framework's own | {@link ServerConnector}                | {@link Server}
+     * Web-socket protocol     | {@link WebServerConnector}             | {@link WebServer}
+     * DedicatedWorker         | {@link DedicatedWorkerServerConnector} | {@link DedicatedWorkerServer}
+     * SharedWorker            | {@link SharedWorkerServerConnector}    | {@link SharedWorkerServer}
      *
-     * <a href="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
-     *		  target="_blank">
-     *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
-     *		 style="max-width: 100%" />
-     * </a>
+     * ![Class Diagram](http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png)
      *
      * @see {@link IServer}, {@link IProtocol}
      * @handbook [Protocol - Basic Components](https://github.com/samchon/framework/wiki/TypeScript-Protocol-Basic_Components#iserverconnector)
@@ -5836,17 +6158,14 @@ declare namespace samchon.protocol {
      * Note that, protocol of this client and remote server must be matched. Thus, before determining specific type of
      * this {@link IServerConnector}, you've to consider which protocol and type the remote server follows.
      *
-     * Protocol | Derived Type | Connect to
-     * ---------|--------------|---------------
-     * Samchon Framework's own | {@link ServerConnector} | {@link Server}
-     * Web-socket protocol | {@link WebServerConnector} | {@link WebServer}
-     * SharedWorker | {@link SharedWorkerServerConnector} | {@link SharedWorkerServer}
+     * Protocol                | Derived Type                           | Connect to
+     * ------------------------|----------------------------------------|-------------------------------
+     * Samchon Framework's own | {@link ServerConnector}                | {@link Server}
+     * Web-socket protocol     | {@link WebServerConnector}             | {@link WebServer}
+     * DedicatedWorker         | {@link DedicatedWorkerServerConnector} | {@link DedicatedWorkerServer}
+     * SharedWorker            | {@link SharedWorkerServerConnector}    | {@link SharedWorkerServer}
      *
-     * <a href="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
-     *		  target="_blank">
-     *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
-     *		 style="max-width: 100%" />
-     * </a>
+     * ![Class Diagram](http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png)
      *
      * @see {@link Server}, {@link IProtocol}
      * @handbook [Protocol - Basic Components](https://github.com/samchon/framework/wiki/TypeScript-Protocol-Basic_Components#iserverconnector)
@@ -5895,17 +6214,14 @@ declare namespace samchon.protocol {
      * Note that, protocol of this client and remote server must be matched. Thus, before determining specific type of
      * this {@link IServerConnector}, you've to consider which protocol and type the remote server follows.
      *
-     * Protocol | Derived Type | Connect to
-     * ---------|--------------|---------------
-     * Samchon Framework's own | {@link ServerConnector} | {@link Server}
-     * Web-socket protocol | {@link WebServerConnector} | {@link WebServer}
-     * SharedWorker | {@link SharedWorkerServerConnector} | {@link SharedWorkerServer}
+     * Protocol                | Derived Type                           | Connect to
+     * ------------------------|----------------------------------------|-------------------------------
+     * Samchon Framework's own | {@link ServerConnector}                | {@link Server}
+     * Web-socket protocol     | {@link WebServerConnector}             | {@link WebServer}
+     * DedicatedWorker         | {@link DedicatedWorkerServerConnector} | {@link DedicatedWorkerServer}
+     * SharedWorker            | {@link SharedWorkerServerConnector}    | {@link SharedWorkerServer}
      *
-     * <a href="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
-     *		  target="_blank">
-     *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
-     *		 style="max-width: 100%" />
-     * </a>
+     * ![Class Diagram](http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png)
      *
      * @see {@link WebServer}, {@link IProtocol}
      * @handbook [Protocol - Basic Components](https://github.com/samchon/framework/wiki/TypeScript-Protocol-Basic_Components#iserverconnector)
@@ -5976,6 +6292,81 @@ declare namespace samchon.protocol {
 }
 declare namespace samchon.protocol {
     /**
+     * A server connector for DedicatedWorker.
+     *
+     * {@link DedicatedWorkerServerConnector} is a class connecting to SharedWorker and taking full charge of network
+     * communication with the SharedWorker. Create an {@link DedicatedWorkerServer} instance from the
+     * {@IProtocol listener} and call the {@link connect connect()} method.
+     *
+     * #### Why DedicatedWorker be a server?
+     * In JavaScript environment, there's no way to implement multi-threading function. Instead, JavaScript supports the
+     * **Worker**, creating a new process. However, the **Worker** does not shares memory addresses. To integrate the
+     * **Worker** with its master, only communication with string or binary data is allowed. Doesn't it seem like a network
+     * communication? Furthermore, there's not any difference between the worker communication and network communication.
+     * It's the reason why Samchon Framework considers the **Worker** as a network node.
+     *
+     * The class {@link DedicatedWorkerCommunicator} is designed make such relationship. From now on, DedicatedWorker is a
+     * {@link DedicatedWorkerServer server} and {@link DedicatedWorkerServerConnector browser} is a client. Integrate the
+     * server and clients with this {@link DedicatedWorkerCommunicator}.
+     *
+     * #### [Inherited] {@link IServerConnector}
+     * {@link IServerConnector} is a type of {@link ICommunicator}, specified for server connector classes who connect to
+     * the remote server as a client. {@link IServerConnector} provides {@link connect connection method} and takes full
+     * charge of network communication with the remote server.
+     *
+     * Declare specific type of {@link IServerConnector} from {@link IProtocol listener} and call the
+     * {@link connect connect()} method. Then whenever a replied message comes from the remote system, the message will
+     * be converted to an {@link Invoke} class and the {@link Invoke} object will be shifted to the
+     * {@link IProtocol listener}'s {@link IProtocol.replyData IProtocol.replyData()} method.
+     *
+     * Note that, protocol of this client and remote server must be matched. Thus, before determining specific type of
+     * this {@link IServerConnector}, you've to consider which protocol and type the remote server follows.
+     *
+     * Protocol                | Derived Type                           | Connect to
+     * ------------------------|----------------------------------------|-------------------------------
+     * Samchon Framework's own | {@link ServerConnector}                | {@link Server}
+     * Web-socket protocol     | {@link WebServerConnector}             | {@link WebServer}
+     * DedicatedWorker         | {@link DedicatedWorkerServerConnector} | {@link DedicatedWorkerServer}
+     * SharedWorker            | {@link SharedWorkerServerConnector}    | {@link SharedWorkerServer}
+     *
+     * ![Class Diagram](http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png)
+     *
+     * @see {@link DedicatedWorkerServer}, {@link IProtocol}
+     * @handbook [Protocol - Basic Components](https://github.com/samchon/framework/wiki/TypeScript-Protocol-Basic_Components#iserverconnector)
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    class DedicatedWorkerServerConnector extends DedicatedWorkerCommunicator implements IServerConnector {
+        /**
+         * @hidden
+         */
+        private worker;
+        /**
+         * @inheritdoc
+         */
+        onConnect: Function;
+        /**
+         * Construct from *listener*.
+         *
+         * @param listener A listener object to listen replied message from newly connected client in
+         *				   {@link IProtocol.replyData replyData()} as an {@link Invoke} object.
+         */
+        constructor(listener: IProtocol);
+        /**
+         * @inheritdoc
+         */
+        connect(jsFile: string): void;
+        /**
+         * @inheritdoc
+         */
+        close(): void;
+        /**
+         * @inheritdoc
+         */
+        sendData(invoke: Invoke): void;
+    }
+}
+declare namespace samchon.protocol {
+    /**
      * A server connector for SharedWorker.
      *
      * {@link SharedWorkerServerConnector} is a class connecting to SharedWorker and taking full charge of network
@@ -6005,17 +6396,14 @@ declare namespace samchon.protocol {
      * Note that, protocol of this client and remote server must be matched. Thus, before determining specific type of
      * this {@link IServerConnector}, you've to consider which protocol and type the remote server follows.
      *
-     * Protocol | Derived Type | Connect to
-     * ---------|--------------|---------------
-     * Samchon Framework's own | {@link ServerConnector} | {@link Server}
-     * Web-socket protocol | {@link WebServerConnector} | {@link WebServer}
-     * SharedWorker | {@link SharedWorkerServerConnector} | {@link SharedWorkerServer}
+     * Protocol                | Derived Type                           | Connect to
+     * ------------------------|----------------------------------------|-------------------------------
+     * Samchon Framework's own | {@link ServerConnector}                | {@link Server}
+     * Web-socket protocol     | {@link WebServerConnector}             | {@link WebServer}
+     * DedicatedWorker         | {@link DedicatedWorkerServerConnector} | {@link DedicatedWorkerServer}
+     * SharedWorker            | {@link SharedWorkerServerConnector}    | {@link SharedWorkerServer}
      *
-     * <a href="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
-     *		  target="_blank">
-     *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png"
-     *		 style="max-width: 100%" />
-     * </a>
+     * ![Class Diagram](http://samchon.github.io/framework/images/design/ts_class_diagram/protocol_basic_components.png)
      *
      * @see {@link SharedWorkerServer}, {@link IProtocol}
      * @handbook [Protocol - Basic Components](https://github.com/samchon/framework/wiki/TypeScript-Protocol-Basic_Components#iserverconnector)
@@ -6075,67 +6463,6 @@ declare namespace samchon.protocol {
 }
 declare namespace samchon.templates.distributed {
     /**
-     * History of an {@link Invoke} message.
-     *
-     * The {@link PRInvokeHistory} is a class archiving history log of an {@link Invoke} message which requests the
-     * *distributed process*, created whenever {@link DistributedProcess.sendData} is called.
-     *
-     * When the *distributed process* has completed, then {@link complete complete()} is called and the *elapsed time* is
-     * determined. The elapsed time is utilized for computation of {@link DistributedSystem.getPerformance performance index}
-     * and {@link DistributedProcess.getResource resource index} of related objects.
-     *
-     * <a href="http://samchon.github.io/framework/images/design/ts_class_diagram/templates_distributed_system.png"
-     *		  target="_blank">
-     *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/templates_distributed_system.png"
-     *		 style="max-width: 100%" />
-     * </a>
-     *
-     * @handbook [Templates - Distributed System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Distributed_System)
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    class DSInvokeHistory extends protocol.InvokeHistory {
-        /**
-         * @hidden
-         */
-        private system_;
-        /**
-         * @hidden
-         */
-        private process_;
-        /**
-         * Construct from a DistributedSystem.
-         *
-         * @param system The {@link DistributedSystem} object who sent the {@link Invoke} message.
-         */
-        constructor(system: DistributedSystem);
-        /**
-         * Initilizer Constructor.
-         *
-         * @param system The {@link DistributedSystem} object who sent the {@link Invoke} message.
-         * @param process The {@link DistributedProcess} object who sent the {@link Invoke} message.
-         * @param invoke An {@link Invoke} message requesting the *distributed process*.
-         */
-        constructor(system: DistributedSystem, process: DistributedProcess, invoke: protocol.Invoke);
-        /**
-         * @inheritdoc
-         */
-        construct(xml: library.XML): void;
-        /**
-         * Get the related {@link DistributedSystem} object.
-         */
-        getSystem(): DistributedSystem;
-        /**
-         * Get the related {@link DistributedProcess} object.
-         */
-        getProcess(): DistributedProcess;
-        /**
-         * @inheritdoc
-         */
-        toXML(): library.XML;
-    }
-}
-declare namespace samchon.templates.distributed {
-    /**
      * Master of Distributed Processing System, a server accepting slave clients.
      *
      * The {@link DistributedClientArray} is an abstract class, derived from the {@link DistributedSystemArray} class,
@@ -6144,7 +6471,7 @@ declare namespace samchon.templates.distributed {
      * Extends this {@link DistributedClientArray}, overrides {@link createServerBase createServerBase()} to determine
      * which protocol to follow and {@link createExternalClient createExternalClient()} creating child
      * {@link DistributedSystem} object. After the extending and overridings, open this server using the
-     * {@liok open open()} method.
+     * {@link open open()} method.
      *
      * #### [Inherited] {@link DistributedSystemArray}
      * The {@link DistributedSystemArray} is an abstract class containing and managing remote distributed **slave** system
@@ -6157,11 +6484,11 @@ declare namespace samchon.templates.distributed {
      * **distributed process** through the {@link DistributedProcess} object. You can access the
      * {@link DistributedProcess} object(s) with those methods:
      *
-     * - {@link hasRole}
-     * - {@link getRole}
-     * - {@link insertRole}
-     * - {@link eraseRole}
-     * - {@link getRoleMap}
+     * - {@link hasProcess}
+     * - {@link getProcess}
+     * - {@link insertProcess}
+     * - {@link eraseProcess}
+     * - {@link getProcessMap}
      *
      * When you need the **distributed process**, call the {@link DistributedProcess.sendData} method. Then the
      * {@link DistributedProcess} will find the most idle {@link DistributedSystem} object who represents a distributed
@@ -6214,7 +6541,7 @@ declare namespace samchon.templates.distributed {
      * @handbook [Templates - Distributed System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Distributed_System)
      * @author Jeongho Nam <http://samchon.org>
      */
-    abstract class DistributedClientArray extends DistributedSystemArray implements external.IExternalClientArray {
+    abstract class DistributedClientArray<System extends DistributedSystem> extends DistributedSystemArray<System> implements external.IExternalClientArray<System> {
         /**
          * @hidden
          */
@@ -6260,7 +6587,7 @@ declare namespace samchon.templates.distributed {
          * @param xml An {@link XML} object represents the child {@link ParallelSystem} object.
          * @return ```null```
          */
-        createChild(xml: library.XML): DistributedSystem;
+        createChild(xml: library.XML): System;
         /**
          * Factory method creating {@link DistributedSystem} object.
          *
@@ -6276,7 +6603,7 @@ declare namespace samchon.templates.distributed {
          * @param driver A communicator with the parallel client.
          * @return A newly created {@link ParallelSystem} object.
          */
-        protected abstract createExternalClient(driver: protocol.IClientDriver): DistributedSystem;
+        protected abstract createExternalClient(driver: protocol.IClientDriver): System;
         /**
          * @inheritdoc
          */
@@ -6304,7 +6631,7 @@ declare namespace samchon.templates.distributed {
      * system at the same time. This {@link DistributedSystemArrayMediator} be a master system, containing and managing
      * {@link DistributedSystem} objects, which represent distributed slave systems, by extending
      * {@link DistributedSystemArray} class. Also, be a slave system through {@link getMediator mediator} object, which is
-     * derived from the {@link SlavSystem} class.
+     * derived from the {@link SlaveSystem} class.
      *
      * As a slave, you can specify this {@link DistributedSystemArrayMediator} to be <i>a client slave connecting to master
      * server</i> or <i>a server slave accepting master client</i> by overriding the {@link createMediator} method.
@@ -6317,6 +6644,7 @@ declare namespace samchon.templates.distributed {
      * - A server slave accepting master client:
      *   - {@link MediatorServer}
      *   - {@link MediatorWebServer}
+     *   - {@link MediatorDedicatedWorkerServer}
      *   - {@link MediatorSharedWorkerServer}
      *
      * #### [Inherited] {@link DistributedSystemArray}
@@ -6330,11 +6658,11 @@ declare namespace samchon.templates.distributed {
      * **distributed process** through the {@link DistributedProcess} object. You can access the
      * {@link DistributedProcess} object(s) with those methods:
      *
-     * - {@link hasRole}
-     * - {@link getRole}
-     * - {@link insertRole}
-     * - {@link eraseRole}
-     * - {@link getRoleMap}
+     * - {@link hasProcess}
+     * - {@link getProcess}
+     * - {@link insertProcess}
+     * - {@link eraseProcess}
+     * - {@link getProcessMap}
      *
      * When you need the **distributed process**, call the {@link DistributedProcess.sendData} method. Then the
      * {@link DistributedProcess} will find the most idle {@link DistributedSystem} object who represents a distributed
@@ -6387,7 +6715,7 @@ declare namespace samchon.templates.distributed {
      * @handbook [Templates - Distributed System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Distributed_System)
      * @author Jeongho Nam <http://samchon.org>
      */
-    abstract class DistributedClientArrayMediator extends DistributedSystemArrayMediator implements external.IExternalClientArray {
+    abstract class DistributedClientArrayMediator<System extends DistributedSystem> extends DistributedSystemArrayMediator<System> implements external.IExternalClientArray<System> {
         /**
          * A subrogator of {@link IServer server}'s role instead of this {@link ExternalClientArray}.
          */
@@ -6435,7 +6763,7 @@ declare namespace samchon.templates.distributed {
          * @param xml An {@link XML} object represents the child {@link DistributedSystem} object.
          * @return null
          */
-        createChild(xml: library.XML): DistributedSystem;
+        createChild(xml: library.XML): System;
         /**
          * Factory method creating {@link DistributedSystem} object.
          *
@@ -6451,7 +6779,7 @@ declare namespace samchon.templates.distributed {
          * @param driver A communicator with the distributed client.
          * @return A newly created {@link DistributedSystem} object.
          */
-        protected abstract createExternalClient(driver: protocol.IClientDriver): DistributedSystem;
+        protected abstract createExternalClient(driver: protocol.IClientDriver): System;
         /**
          * @inheritdoc
          */
@@ -6464,7 +6792,7 @@ declare namespace samchon.templates.distributed {
 }
 declare namespace samchon.templates.distributed {
     /**
-     * A role of Distributed Processing System.
+     * A process of Distributed Processing System.
      *
      * The {@link DistributedProcess} is an abstract class who represents a **process**, *SOMETHING TO DISTRIBUTE* in a Distributed
      * Processing System. Overrides the {@link DistributedProcess} and defines the *SOMETHING TO DISTRIBUTE*.
@@ -6526,7 +6854,7 @@ declare namespace samchon.templates.distributed {
          *
          * @param systemArray The parent {@link DistributedSystemArray} object.
          */
-        constructor(systemArray: DistributedSystemArray);
+        constructor(systemArray: DistributedSystemArray<DistributedSystem>);
         /**
          * Identifier of {@link ParallelProcess} is its {@link name}.
          */
@@ -6536,7 +6864,13 @@ declare namespace samchon.templates.distributed {
          *
          * @return The parent {@link DistributedSystemArray} object.
          */
-        getSystemArray(): DistributedSystemArray;
+        getSystemArray(): DistributedSystemArray<DistributedSystem>;
+        /**
+         * Get parent {@link DistributedSystemArray} object.
+         *
+         * @return The parent {@link DistributedSystemArray} object.
+         */
+        getSystemArray<SystemArray extends DistributedSystemArray<DistributedSystem>>(): SystemArray;
         /**
          * Get name, who represents and identifies this process.
          */
@@ -6544,14 +6878,14 @@ declare namespace samchon.templates.distributed {
         /**
          * Get resource index.
          *
-         * Get *resource index* that indicates how much this {@link DistributedProcess role} is heavy.
+         * Get *resource index* that indicates how much this {@link DistributedProcess process} is heavy.
          *
-         * If this {@link DistributedProcess role} does not have any	{@link Invoke} message had handled, then the
+         * If this {@link DistributedProcess process} does not have any	{@link Invoke} message had handled, then the
          * *resource index* will be ```1.0```, which means default and average value between all
          * {@link DistributedProcess} instances (that are belonged to a same {@link DistributedSystemArray} object).
          *
          * You can specify the *resource index* by yourself, but notice that, if the *resource index* is higher than
-         * other {@link DistributedProcess} objects, then this {@link DistributedProcess role} will be ordered to
+         * other {@link DistributedProcess} objects, then this {@link DistributedProcess process} will be ordered to
          * handle less processes than other {@link DistributedProcess} objects. Otherwise, the *resource index* is
          * lower than others, of course, much processes will be requested.
          *
@@ -6567,7 +6901,7 @@ declare namespace samchon.templates.distributed {
         /**
          * Set resource index.
          *
-         * Set *resource index* that indicates how much this {@link DistributedProcess role} is heavy. This
+         * Set *resource index* that indicates how much this {@link DistributedProcess process} is heavy. This
          * *resource index* can be **revaulated**.
          *
          * Note that, initial and average *resource index* of {@link DistributedProcess} objects are ```1.0```. If the
@@ -6577,10 +6911,10 @@ declare namespace samchon.templates.distributed {
          *
          * Unlike {@link enforceResource}, configuring *resource index* by this {@link setResource} allows the
          * **revaluation**. This **revaluation** prevents wrong valuation from user. For example, you *mis-valuated* the
-         * *resource index*. The {@link DistributedProcess role} is much heavier than any other, but you estimated it
+         * *resource index*. The {@link DistributedProcess process} is much heavier than any other, but you estimated it
          * to the lightest one. It looks like a terrible case that causes
          * {@link DistributedSystemArray entire distributed processing system} to be slower, however, don't mind. The
-         * {@link DistributedProcess role} will the direct to the *propriate resource index* eventually with the
+         * {@link DistributedProcess process} will the direct to the *propriate resource index* eventually with the
          * **revaluation**.
          *
          * - The **revaluation** is caused by the {@link sendData sendData()} method.
@@ -6591,7 +6925,7 @@ declare namespace samchon.templates.distributed {
         /**
          * Enforce resource index.
          *
-         * Enforce *resource index* that indicates how much heavy the {@link DistributedProcess role is}. The
+         * Enforce *resource index* that indicates how much heavy the {@link DistributedProcess process is}. The
          * *resource index* will be fixed, never be **revaluated**.
          *
          * Note that, initial and average *resource index* of {@link DistributedProcess} objects are ```1.0```. If the
@@ -6604,7 +6938,7 @@ declare namespace samchon.templates.distributed {
          * never be changed by the **revaluation**. But you've to keep in mind that, you can't avoid the **mis-valuation**
          * with this {@link enforceResource}.
          *
-         * For example, there's a {@link DistributedProcess role} much heavier than any other, but you
+         * For example, there's a {@link DistributedProcess process} much heavier than any other, but you
          * **mis-estimated** it to the lightest. In that case, there's no way. The
          * {@link DistributedSystemArray entire distributed processing system} will be slower by the **mis-valuation**.
          * By the reason, using {@link enforceResource}, it's recommended only when you can clearly certain the
@@ -6637,6 +6971,23 @@ declare namespace samchon.templates.distributed {
          * @return The most idle {@link DistributedSystem} object who may send the {@link Invoke} message.
          */
         sendData(invoke: protocol.Invoke): DistributedSystem;
+        /**
+         * Send an {@link Invoke} message.
+         *
+         * Sends an {@link Invoke} message requesting a **distributed process**. The {@link Invoke} message will be sent
+         * to the most idle {@link DistributedSystem} object, which represents a slave system, and the most idle
+         * {@link DistributedSystem} object will be returned.
+         *
+         * When the **distributed process** has completed, then the {@link DistributedSystemArray} object will revaluate
+         * {@link getResource resource index} and {@link DistributedSystem.getPerformance performance index} of this
+         * {@link DistributedSystem} and the most idle {@link DistributedSystem} objects basis on the execution time.
+         *
+         * @param invoke An {@link Invoke} message requesting distributed process.
+         * @param weight Weight of resource which indicates how heavy this {@link Invoke} message is. Default is 1.
+         *
+         * @return The most idle {@link DistributedSystem} object who may send the {@link Invoke} message.
+         */
+        sendData(invoke: protocol.Invoke, weight: number): DistributedSystem;
         /**
          * @hidden
          */
@@ -6705,14 +7056,14 @@ declare namespace samchon.templates.external {
          *
          * @param systemArray The parent {@link ExternalSystemArray} object.
          */
-        constructor(systemArray: ExternalSystemArray);
+        constructor(systemArray: ExternalSystemArray<ExternalSystem>);
         /**
          * Constrct from parent {@link ExternalSystemArray} and communicator.
          *
          * @param systemArray The parent {@link ExternalSystemArray} object.
          * @param communicator Communicator with the remote, external system.
          */
-        constructor(systemArray: ExternalSystemArray, communicator: protocol.IClientDriver);
+        constructor(systemArray: ExternalSystemArray<ExternalSystem>, communicator: protocol.IClientDriver);
         /**
          * Default Destructor.
          *
@@ -6748,7 +7099,11 @@ declare namespace samchon.templates.external {
         /**
          * Get parent {@link ExternalSystemArray} object.
          */
-        getSystemArray(): ExternalSystemArray;
+        getSystemArray(): ExternalSystemArray<ExternalSystem>;
+        /**
+         * Get parent {@link ExternalSystemArray} object.
+         */
+        getSystemArray<SystemArray extends ExternalSystemArray<ExternalSystem>>(): SystemArray;
         /**
          * Identifier of {@link ExternalSystem} is its {@link name}.
          *
@@ -6804,7 +7159,7 @@ declare namespace samchon.templates.parallel {
      * connected with this **master** system. This {@link ParallelSystem} takes full charge of network communication with
      * the remote, parallel **slave** system has connected.
      *
-     * When a *parallel process* is requested (by {@link ParallelSystemArray.sendSegementData} or
+     * When a *parallel process* is requested (by {@link ParallelSystemArray.sendSegmentData} or
      * {@link ParallelSystemArray.sendPieceData}), the number of pieces to be allocated to a {@link ParallelSystem} is
      * turn on its {@link getPerformance performance index}. Higher {@link getPerformance performance index}, then
      * more pieces are requested. The {@link getPerformance performance index} is revaluated whenever a *parallel process*
@@ -6873,14 +7228,14 @@ declare namespace samchon.templates.parallel {
          *
          * @param systemArray The parent {@link ParallelSystemArray} object.
          */
-        constructor(systemArray: ParallelSystemArray);
+        constructor(systemArray: ParallelSystemArray<ParallelSystem>);
         /**
          * Construct from parent {@link ParallelSystemArray} and communicator.
          *
          * @param systemArray The parent {@link ParallelSystemArray} object.
          * @param communicator A communicator communicates with remote, the external system.
          */
-        constructor(systemArray: ParallelSystemArray, communicator: protocol.IClientDriver);
+        constructor(systemArray: ParallelSystemArray<ParallelSystem>, communicator: protocol.IClientDriver);
         /**
          * Default Destructor.
          *
@@ -6919,7 +7274,13 @@ declare namespace samchon.templates.parallel {
          *
          * @return The parent {@link ParallelSystemArray} object.
          */
-        getSystemArray(): ParallelSystemArray;
+        getSystemArray(): ParallelSystemArray<ParallelSystem>;
+        /**
+         * Get manager of this object.
+         *
+         * @return The parent {@link ParallelSystemArray} object.
+         */
+        getSystemArray<SystemArray extends ParallelSystemArray<ParallelSystem>>(): SystemArray;
         /**
          * Get performance index.
          *
@@ -7061,14 +7422,14 @@ declare namespace samchon.templates.distributed {
          *
          * @param systemArray The parent {@link DistributedSystemArray} object.
          */
-        constructor(systemArray: DistributedSystemArray);
+        constructor(systemArray: DistributedSystemArray<DistributedSystem>);
         /**
          * Constrct from parent {@link DistributedSystemArray} and communicator.
          *
          * @param systemArray The parent {@link DistributedSystemArray} object.
          * @param communicator A communicator communicates with remote, the external system.
          */
-        constructor(systemArray: DistributedSystemArray, communicator: protocol.IClientDriver);
+        constructor(systemArray: DistributedSystemArray<DistributedSystem>, communicator: protocol.IClientDriver);
         /**
          * Factory method creating a {@link ExternalSystemRole child} object.
          *
@@ -7088,11 +7449,17 @@ declare namespace samchon.templates.distributed {
          */
         createChild(xml: library.XML): external.ExternalSystemRole;
         /**
-         * Get parent {@link DistributedSystemArray} object.
+         * Get manager of this object.
          *
          * @return The parent {@link DistributedSystemArray} object.
          */
-        getSystemArray(): DistributedSystemArray;
+        getSystemArray(): DistributedSystemArray<DistributedSystem>;
+        /**
+         * Get manager of this object.
+         *
+         * @return The parent {@link DistributedSystemArray} object.
+         */
+        getSystemArray<SystemArray extends DistributedSystemArray<DistributedSystem>>(): SystemArray;
         /**
          * @hidden
          */
@@ -7203,7 +7570,7 @@ declare namespace samchon.templates.distributed {
          *
          * @param systemArray The parent {@link DistributedSystemArray} object.
          */
-        constructor(systemArray: DistributedSystemArray);
+        constructor(systemArray: DistributedSystemArray<DistributedSystem>);
         /**
          * Factory method creating {@link IServerConnector} object.
          *
@@ -7213,6 +7580,7 @@ declare namespace samchon.templates.distributed {
          *
          * - {@link ServerConnector}
          * - {@link WebServerConnector}
+         * - {@link DedicatedWorkerServerConnector}
          * - {@link SharedWorkerServerConnector}
          *
          * @return A newly created {@link IServerConnector} object.
@@ -7234,7 +7602,7 @@ declare namespace samchon.templates.distributed {
      * Extends this {@link DistributedServerArray} and overrides {@link createChild createChild()} method creating child
      * {@link IDistributedServer} object. After the extending and overriding, construct children {@link IDistributedServer}
      * objects and call the {@link connect connect()} method.
-         *
+     *
      * #### [Inherited] {@link DistributedSystemArray}
      * The {@link DistributedSystemArray} is an abstract class containing and managing remote distributed **slave** system
      * drivers, {@link DistributedSystem} objects. Within framework of network, {@link DistributedSystemArray} represents
@@ -7246,11 +7614,11 @@ declare namespace samchon.templates.distributed {
      * **distributed process** through the {@link DistributedProcess} object. You can access the
      * {@link DistributedProcess} object(s) with those methods:
      *
-     * - {@link hasRole}
-     * - {@link getRole}
-     * - {@link insertRole}
-     * - {@link eraseRole}
-     * - {@link getRoleMap}
+     * - {@link hasProcess}
+     * - {@link getProcess}
+     * - {@link insertProcess}
+     * - {@link eraseProcess}
+     * - {@link getProcessMap}
      *
      * When you need the **distributed process**, call the {@link DistributedProcess.sendData} method. Then the
      * {@link DistributedProcess} will find the most idle {@link DistributedSystem} object who represents a distributed
@@ -7299,11 +7667,11 @@ declare namespace samchon.templates.distributed {
      *	</li>
      *	<li> Those strategy is called *Proxy Pattern*. </li>
      * </ul>
-         *
+     *
      * @handbook [Templates - Distributed System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Distributed_System)
      * @author Jeongho Nam <http://samchon.org>
-         */
-    abstract class DistributedServerArray extends DistributedSystemArray implements external.IExternalServerArray {
+     */
+    abstract class DistributedServerArray<System extends IDistributedServer> extends DistributedSystemArray<System> implements external.IExternalServerArray<System> {
         /**
          * Default Constructor.
          */
@@ -7330,7 +7698,7 @@ declare namespace samchon.templates.distributed {
      * system at the same time. This {@link DistributedSystemArrayMediator} be a master system, containing and managing
      * {@link DistributedSystem} objects, which represent distributed slave systems, by extending
      * {@link DistributedSystemArray} class. Also, be a slave system through {@link getMediator mediator} object, which is
-     * derived from the {@link SlavSystem} class.
+     * derived from the {@link SlaveSystem} class.
      *
      * As a slave, you can specify this {@link DistributedSystemArrayMediator} to be <i>a client slave connecting to master
      * server</i> or <i>a server slave accepting master client</i> by overriding the {@link createMediator} method.
@@ -7343,6 +7711,7 @@ declare namespace samchon.templates.distributed {
      * - A server slave accepting master client:
      *   - {@link MediatorServer}
      *   - {@link MediatorWebServer}
+     *   - {@link MediatorDedicatedWorkerServer}
      *   - {@link MediatorSharedWorkerServer}
      *
      * #### [Inherited] {@link DistributedSystemArray}
@@ -7356,11 +7725,11 @@ declare namespace samchon.templates.distributed {
      * **distributed process** through the {@link DistributedProcess} object. You can access the
      * {@link DistributedProcess} object(s) with those methods:
      *
-     * - {@link hasRole}
-     * - {@link getRole}
-     * - {@link insertRole}
-     * - {@link eraseRole}
-     * - {@link getRoleMap}
+     * - {@link hasProcess}
+     * - {@link getProcess}
+     * - {@link insertProcess}
+     * - {@link eraseProcess}
+     * - {@link getProcessMap}
      *
      * When you need the **distributed process**, call the {@link DistributedProcess.sendData} method. Then the
      * {@link DistributedProcess} will find the most idle {@link DistributedSystem} object who represents a distributed
@@ -7412,8 +7781,8 @@ declare namespace samchon.templates.distributed {
      *
      * @handbook [Templates - Distributed System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Distributed_System)
      * @author Jeongho Nam <http://samchon.org>
-         */
-    abstract class DistributedServerArrayMediator extends DistributedSystemArrayMediator implements external.IExternalServerArray {
+     */
+    abstract class DistributedServerArrayMediator<System extends IDistributedServer> extends DistributedSystemArrayMediator<System> implements external.IExternalServerArray<System> {
         /**
          * Default Constructor.
          */
@@ -7451,11 +7820,11 @@ declare namespace samchon.templates.distributed {
      * **distributed process** through the {@link DistributedProcess} object. You can access the
      * {@link DistributedProcess} object(s) with those methods:
      *
-     * - {@link hasRole}
-     * - {@link getRole}
-     * - {@link insertRole}
-     * - {@link eraseRole}
-     * - {@link getRoleMap}
+     * - {@link hasProcess}
+     * - {@link getProcess}
+     * - {@link insertProcess}
+     * - {@link eraseProcess}
+     * - {@link getProcessMap}
      *
      * When you need the **distributed process**, call the {@link DistributedProcess.sendData} method. Then the
      * {@link DistributedProcess} will find the most idle {@link DistributedSystem} object who represents a distributed
@@ -7508,7 +7877,7 @@ declare namespace samchon.templates.distributed {
      * @handbook [Templates - Distributed System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Distributed_System)
      * @author Jeongho Nam <http://samchon.org>
      */
-    abstract class DistributedServerClientArray extends DistributedClientArray implements external.IExternalServerClientArray {
+    abstract class DistributedServerClientArray<System extends DistributedSystem> extends DistributedClientArray<System> implements external.IExternalServerClientArray<System> {
         /**
          * Default Constructor.
          */
@@ -7521,14 +7890,14 @@ declare namespace samchon.templates.distributed {
          * @param xml An {@link XML} object represents child element, so that can identify the type of child to create.
          * @return A new child Entity via {@link createExternalServer createExternalServer()}.
          */
-        createChild(xml: library.XML): DistributedSystem;
+        createChild(xml: library.XML): System;
         /**
          * Factory method creating an {@link IDistributedServer} object.
          *
          * @param xml An {@link XML} object represents child element, so that can identify the type of child to create.
          * @return A newly created {@link IDistributedServer} object.
          */
-        protected abstract createExternalServer(xml: library.XML): IDistributedServer;
+        protected abstract createExternalServer(xml: library.XML): System;
         /**
          * @inheritdoc
          */
@@ -7556,7 +7925,7 @@ declare namespace samchon.templates.distributed {
      * system at the same time. This {@link DistributedSystemArrayMediator} be a master system, containing and managing
      * {@link DistributedSystem} objects, which represent distributed slave systems, by extending
      * {@link DistributedSystemArray} class. Also, be a slave system through {@link getMediator mediator} object, which is
-     * derived from the {@link SlavSystem} class.
+     * derived from the {@link SlaveSystem} class.
      *
      * As a slave, you can specify this {@link DistributedSystemArrayMediator} to be <i>a client slave connecting to master
      * server</i> or <i>a server slave accepting master client</i> by overriding the {@link createMediator} method.
@@ -7569,6 +7938,7 @@ declare namespace samchon.templates.distributed {
      * - A server slave accepting master client:
      *   - {@link MediatorServer}
      *   - {@link MediatorWebServer}
+     *   - {@link MediatorDedicatedWorkerServer}
      *   - {@link MediatorSharedWorkerServer}
      *
      * #### [Inherited] {@link DistributedSystemArray}
@@ -7582,11 +7952,11 @@ declare namespace samchon.templates.distributed {
      * **distributed process** through the {@link DistributedProcess} object. You can access the
      * {@link DistributedProcess} object(s) with those methods:
      *
-     * - {@link hasRole}
-     * - {@link getRole}
-     * - {@link insertRole}
-     * - {@link eraseRole}
-     * - {@link getRoleMap}
+     * - {@link hasProcess}
+     * - {@link getProcess}
+     * - {@link insertProcess}
+     * - {@link eraseProcess}
+     * - {@link getProcessMap}
      *
      * When you need the **distributed process**, call the {@link DistributedProcess.sendData} method. Then the
      * {@link DistributedProcess} will find the most idle {@link DistributedSystem} object who represents a distributed
@@ -7639,7 +8009,7 @@ declare namespace samchon.templates.distributed {
      * @handbook [Templates - Distributed System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Distributed_System)
      * @author Jeongho Nam <http://samchon.org>
      */
-    abstract class DistributedServerClientArrayMediator extends DistributedClientArrayMediator implements external.IExternalServerClientArray {
+    abstract class DistributedServerClientArrayMediator<System extends DistributedSystem> extends DistributedClientArrayMediator<System> implements external.IExternalServerClientArray<System> {
         /**
          * Default Constructor.
          */
@@ -7652,18 +8022,90 @@ declare namespace samchon.templates.distributed {
          * @param xml An {@link XML} object represents child element, so that can identify the type of child to create.
          * @return A new child Entity via {@link createExternalServer createExternalServer()}.
          */
-        createChild(xml: library.XML): DistributedSystem;
+        createChild(xml: library.XML): System;
         /**
          * Factory method creating an {@link IDistributedServer} object.
          *
          * @param xml An {@link XML} object represents child element, so that can identify the type of child to create.
          * @return A newly created {@link IDistributedServer} object.
          */
-        protected abstract createExternalServer(xml: library.XML): IDistributedServer;
+        protected abstract createExternalServer(xml: library.XML): System;
         /**
          * @inheritdoc
          */
         connect(): void;
+    }
+}
+declare namespace samchon.templates.distributed {
+    /**
+     * History of an {@link Invoke} message.
+     *
+     * The {@link PRInvokeHistory} is a class archiving history log of an {@link Invoke} message which requests the
+     * *distributed process*, created whenever {@link DistributedProcess.sendData} is called.
+     *
+     * When the *distributed process* has completed, then {@link complete complete()} is called and the *elapsed time* is
+     * determined. The elapsed time is utilized for computation of {@link DistributedSystem.getPerformance performance index}
+     * and {@link DistributedProcess.getResource resource index} of related objects.
+     *
+     * <a href="http://samchon.github.io/framework/images/design/ts_class_diagram/templates_distributed_system.png"
+     *		  target="_blank">
+     *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/templates_distributed_system.png"
+     *		 style="max-width: 100%" />
+     * </a>
+     *
+     * @handbook [Templates - Distributed System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Distributed_System)
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    class DSInvokeHistory extends protocol.InvokeHistory {
+        /**
+         * @hidden
+         */
+        private system_;
+        /**
+         * @hidden
+         */
+        private process_;
+        /**
+         * @hidden
+         */
+        private weight_;
+        /**
+         * Construct from a DistributedSystem.
+         *
+         * @param system The {@link DistributedSystem} object who sent the {@link Invoke} message.
+         */
+        constructor(system: DistributedSystem);
+        /**
+         * Initilizer Constructor.
+         *
+         * @param system The {@link DistributedSystem} object who sent the {@link Invoke} message.
+         * @param process The {@link DistributedProcess} object who sent the {@link Invoke} message.
+         * @param invoke An {@link Invoke} message requesting the *distributed process*.
+         * @param weight Weight of resource which indicates how heavy this {@link Invoke} message is.
+         */
+        constructor(system: DistributedSystem, process: DistributedProcess, invoke: protocol.Invoke, weight: number);
+        /**
+         * @inheritdoc
+         */
+        construct(xml: library.XML): void;
+        /**
+         * Get the related {@link DistributedSystem} object.
+         */
+        getSystem(): DistributedSystem;
+        /**
+         * Get the related {@link DistributedProcess} object.
+         */
+        getProcess(): DistributedProcess;
+        /**
+         * Get weight.
+         *
+         * Gets weight of resource which indicates how heavy this {@link Invoke} message is. Default is 1.
+         */
+        getWeight(): number;
+        /**
+         * @inheritdoc
+         */
+        toXML(): library.XML;
     }
 }
 declare namespace samchon.templates.external {
@@ -7696,7 +8138,7 @@ declare namespace samchon.templates.external {
      * @handbook [Templates - External System](https://github.com/samchon/framework/wiki/TypeScript-Templates-External_System)
      * @author Jeongho Nam <http://samchon.org>
      */
-    interface IExternalClientArray extends ExternalSystemArray, protocol.IServer {
+    interface IExternalClientArray<System extends ExternalSystem> extends ExternalSystemArray<System>, protocol.IServer {
     }
     /**
      * An array and manager of {@link ExternalSystem external clients} as a server.
@@ -7745,7 +8187,7 @@ declare namespace samchon.templates.external {
      * @handbook [Templates - External System](https://github.com/samchon/framework/wiki/TypeScript-Templates-External_System)
      * @author Jeongho Nam <http://samchon.org>
      */
-    abstract class ExternalClientArray extends ExternalSystemArray implements IExternalClientArray {
+    abstract class ExternalClientArray<T extends ExternalSystem> extends ExternalSystemArray<T> implements IExternalClientArray<T> {
         /**
          * @hidden
          */
@@ -7754,22 +8196,21 @@ declare namespace samchon.templates.external {
          * Default Constructor.
          */
         constructor();
-    /**
+        /**
          * Factory method creating {@link IServerBase} object.
-     *
+         *
          * This method {@link createServerBase createServerBase()} determines which templates is used in this server,
          * {@link ExternalClientArray}. If the templates is determined, then {@link ExternalSystem external clients} who
          * may connect to {@link ExternalClientArray this server} must follow the specified templates.
-     *
+         *
          * Creates and returns one of them:
-         * <ul>
-         *	<li> {@link ServerBase} </li>
-         *	<li> {@link WebServerBase} </li>
-         *	<li> {@link SharedWorkerServerBase} </li>
-         * </ul>
-     *
+         *
+         * - {@link ServerBase}
+         * - {@link WebServerBase}
+         * - {@link SharedWorkerServerBase}
+         *
          * @return A new {@link IServerBase} object.
-     */
+         */
         protected abstract createServerBase(): protocol.IServerBase;
         /**
          * Add a newly connected remote client.
@@ -7792,14 +8233,14 @@ declare namespace samchon.templates.external {
          * @param xml An {@link XML} object represents the child {@link ExternalSystem} object.
          * @return null
          */
-        createChild(xml: library.XML): ExternalSystem;
+        createChild(xml: library.XML): T;
         /**
          * Factory method creating a child {@link ExternalSystem} object.
          *
          * @param driver A communicator with connected client.
          * @return A newly created {@link ExternalSystem} object.
          */
-        protected abstract createExternalClient(driver: protocol.IClientDriver): ExternalSystem;
+        protected abstract createExternalClient(driver: protocol.IClientDriver): T;
         /**
          * @inheritdoc
          */
@@ -7844,7 +8285,7 @@ declare namespace samchon.templates.external {
          */
         connect(): void;
     }
-        /**
+    /**
      * An external server driver.
      *
      * The {@link ExternalServer} is an abstract class, derived from the {@link ExternalSystem} class, connecting to
@@ -7884,10 +8325,10 @@ declare namespace samchon.templates.external {
      *	</li>
      *	<li> Those strategy is called *Bridge Pattern* and *Proxy Pattern*. </li>
      * </ul>
-         *
+     *
      * @handbook [Templates - External System](https://github.com/samchon/framework/wiki/TypeScript-Templates-External_System)
      * @author Jeongho Nam <http://samchon.org>
-         */
+     */
     abstract class ExternalServer extends ExternalSystem implements IExternalServer {
         /**
          * IP address of target external system to connect.
@@ -7902,7 +8343,7 @@ declare namespace samchon.templates.external {
          *
          * @param systemArray The parent {@link ExternalSystemArray} object.
          */
-        constructor(systemArray: ExternalSystemArray);
+        constructor(systemArray: ExternalSystemArray<IExternalServer>);
         /**
          * Factory method creating {@link IServerConnector} object.
          *
@@ -7912,6 +8353,7 @@ declare namespace samchon.templates.external {
          *
          * - {@link ServerConnector}
          * - {@link WebServerConnector}
+         * - {@link DedicatedWorkerServerConnector}
          * - {@link SharedWorkerServerConnector}
          *
          * @return A newly created {@link IServerConnector} object.
@@ -7953,20 +8395,20 @@ declare namespace samchon.templates.external {
      * @handbook [Templates - External System](https://github.com/samchon/framework/wiki/TypeScript-Templates-External_System)
      * @author Jeongho Nam <http://samchon.org>
      */
-    interface IExternalServerArray extends ExternalSystemArray {
-    /**
+    interface IExternalServerArray<System extends IExternalServer> extends ExternalSystemArray<System> {
+        /**
          * Connect to {@link IExternalServer external servers}.
          *
          * This method calls children elements' method {@link IExternalServer.connect} gradually.
-     */
+         */
         connect(): void;
     }
-        /**
+    /**
      * An array and manager of {@link IExternalServer external servers}.
-         *
+     *
      * The {@link ExternalServerArray} is an abstract class, derived from the {@link ExternalSystemArray} class,
      * connecting to {@link IExternalServer external servers}.
-         *
+     *
      * Extends this {@link ExternalServerArray} and overrides {@link createChild createChild()} method creating child
      * {@link IExternalServer} object. After the extending and overriding, construct children {@link IExternalServer}
      * objects and call the {@link connect connect()} method.
@@ -8007,8 +8449,8 @@ declare namespace samchon.templates.external {
      *
      * @handbook [Templates - External System](https://github.com/samchon/framework/wiki/TypeScript-Templates-External_System)
      * @author Jeongho Nam <http://samchon.org>
-         */
-    abstract class ExternalServerArray extends ExternalSystemArray {
+     */
+    abstract class ExternalServerArray<T extends IExternalServer> extends ExternalSystemArray<T> implements IExternalServerArray<T> {
         /**
          * Default Constructor.
          */
@@ -8050,7 +8492,13 @@ declare namespace samchon.templates.external {
      * @handbook [Templates - External System](https://github.com/samchon/framework/wiki/TypeScript-Templates-External_System)
      * @author Jeongho Nam <http://samchon.org>
      */
-    interface IExternalServerClientArray extends IExternalServerArray, IExternalClientArray {
+    interface IExternalServerClientArray<System extends ExternalSystem> extends IExternalClientArray<System> {
+        /**
+         * Connect to {@link IExternalServer external servers}.
+         *
+         * This method calls children elements' method {@link IExternalServer.connect} gradually.
+         */
+        connect(): void;
     }
     /**
      * An array and manager of {@link IExternalServer external servers} and {@link ExternalSystem external clients}.
@@ -8104,7 +8552,7 @@ declare namespace samchon.templates.external {
      * @handbook [Templates - External System](https://github.com/samchon/framework/wiki/TypeScript-Templates-External_System)
      * @author Jeongho Nam <http://samchon.org>
      */
-    abstract class ExternalServerClientArray extends ExternalClientArray implements IExternalServerClientArray {
+    abstract class ExternalServerClientArray<T extends ExternalSystem> extends ExternalClientArray<T> implements IExternalServerClientArray<T> {
         /**
          * Default Constructor.
          */
@@ -8117,14 +8565,14 @@ declare namespace samchon.templates.external {
          * @param xml An {@link XML} object represents child element, so that can identify the type of child to create.
          * @return A new child Entity via {@link createExternalServer createExternalServer()}.
          */
-        createChild(xml: library.XML): ExternalSystem;
+        createChild(xml: library.XML): T;
         /**
          * Factory method creating an {@link IExternalServer} object.
          *
          * @param xml An {@link XML} object represents child element, so that can identify the type of child to create.
          * @return A newly created {@link IExternalServer} object.
          */
-        protected abstract createExternalServer(xml: library.XML): IExternalServer;
+        protected abstract createExternalServer(xml: library.XML): T;
         /**
          * @inheritdoc
          */
@@ -8132,7 +8580,7 @@ declare namespace samchon.templates.external {
     }
 }
 declare namespace samchon.templates.external {
-        /**
+    /**
      * A role of an external system.
      *
      * The {@link ExternalSystemRole} class represents a role, *WHAT TO DO*. Extends the {@link ExternalSystemRole} class
@@ -8201,7 +8649,7 @@ declare namespace samchon.templates.external {
          *
          * @return The grandparent {@link ExternalSystemArray} object.
          */
-        getSystemArray(): ExternalSystemArray;
+        getSystemArray(): ExternalSystemArray<ExternalSystem>;
         /**
          * Get parent {@link ExternalSystemRole} object.
          */
@@ -8272,6 +8720,7 @@ declare namespace samchon.templates.parallel {
      * - A server slave accepting master client:
      *   - {@link MediatorServer}
      *   - {@link MediatorWebServer}
+     *   - {@link MediatorDedicatedWorkerServer}
      *   - {@link MediatorSharedWorkerServer}
      *
      * When the **master** orders a *parallel process* to this **slave**, then the {@link MediatorSystem} delivers the
@@ -8304,13 +8753,13 @@ declare namespace samchon.templates.parallel {
          *
          * @param systemArray The parent {@link ParallelSystemArrayMediator} object.
          */
-        constructor(systemArray: ParallelSystemArrayMediator);
+        constructor(systemArray: ParallelSystemArrayMediator<ParallelSystem>);
         /**
          * Construct from parent {@link DistributedSystemArrayMediator} object.
          *
          * @param systemArray The parent {@link DistributedSystemArrayMediator} object.
          */
-        constructor(systemArray: distributed.DistributedSystemArrayMediator);
+        constructor(systemArray: distributed.DistributedSystemArrayMediator<distributed.DistributedSystem>);
         /**
          * Start interaction.
          *
@@ -8320,9 +8769,17 @@ declare namespace samchon.templates.parallel {
          */
         abstract start(): void;
         /**
+         * Get parent {@link ParallelSystemArrayMediator} or {@link DistributedSystemArrayMediator} object.
+         */
+        getSystemArray(): ParallelSystemArrayMediator<ParallelSystem> | distributed.DistributedSystemArrayMediator<distributed.DistributedSystem>;
+        /**
          * Get parent {@link ParallelSystemArrayMediator} object.
          */
-        getSystemArray(): ParallelSystemArrayMediator | distributed.DistributedSystemArrayMediator;
+        getSystemArray<SystemArray extends ParallelSystemArray<ParallelSystem>>(): SystemArray;
+        /**
+         * Get parent {@link DistributedSystemArrayMediator} object.
+         */
+        getSystemArray<SystemArray extends distributed.DistributedSystemArray<distributed.DistributedSystem>>(): SystemArray;
         /**
          * @hidden
          */
@@ -8338,7 +8795,7 @@ declare namespace samchon.templates.parallel {
     }
 }
 declare namespace samchon.templates.parallel {
-        /**
+    /**
      * A mediator server, driver for the master client.
      *
      * The {@link MediatorServer} is a class opening a server accepting the **master** client, following the protocol of
@@ -8359,6 +8816,7 @@ declare namespace samchon.templates.parallel {
      * - A server slave accepting master client:
      *   - {@link MediatorServer}
      *   - {@link MediatorWebServer}
+     *   - {@link MediatorDedicatedWorkerServer}
      *   - {@link MediatorSharedWorkerServer}
      *
      * When the **master** orders a *parallel process* to this **slave**, then the {@link MediatorSystem} delivers the
@@ -8376,7 +8834,7 @@ declare namespace samchon.templates.parallel {
      * @handbook [Templates - Parallel System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Parallel_System),
      *			 [Templates - Distributed System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Distributed_System)
      * @author Jeongho Nam <http://samchon.org>
-         */
+     */
     class MediatorServer extends MediatorSystem implements slave.ISlaveServer {
         /**
          * @hidden
@@ -8392,14 +8850,14 @@ declare namespace samchon.templates.parallel {
          * @param systemArray The parent {@link ParallelSystemArrayMediator} object.
          * @param port Port number of server to open.
          */
-        constructor(systemArray: ParallelSystemArrayMediator, port: number);
+        constructor(systemArray: ParallelSystemArrayMediator<ParallelSystem>, port: number);
         /**
          * Initializer Constructor.
          *
          * @param systemArray The parent {@link DistributedSystemArrayMediator} object.
          * @param port Port number of server to open.
          */
-        constructor(systemArray: distributed.DistributedSystemArrayMediator, port: number);
+        constructor(systemArray: distributed.DistributedSystemArrayMediator<distributed.DistributedSystem>, port: number);
         /**
          * Factory method creating {@link IServerBase} object.
          *
@@ -8458,6 +8916,7 @@ declare namespace samchon.templates.parallel {
      * - A server slave accepting master client:
      *   - {@link MediatorServer}
      *   - {@link MediatorWebServer}
+     *   - {@link MediatorDedicatedWorkerServer}
      *   - {@link MediatorSharedWorkerServer}
      *
      * When the **master** orders a *parallel process* to this **slave**, then the {@link MediatorSystem} delivers the
@@ -8475,14 +8934,60 @@ declare namespace samchon.templates.parallel {
      * @handbook [Templates - Parallel System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Parallel_System),
      *			 [Templates - Distributed System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Distributed_System)
      * @author Jeongho Nam <http://samchon.org>
-         */
+     */
     class MediatorWebServer extends MediatorServer {
         /**
          * @inheritdoc
          */
         protected createServerBase(): protocol.IServerBase;
     }
+    /**
+     * A mediator server, driver for the master client.
+     *
+     * The {@link MediatorDedicatedWorkerServer} is a class opening a server accepting the **master** client, following
+     * the DedicatedWorker's protocol.
+     *
+     * #### [Inherited] {@link MediatorSystem}
+     * The {@link MediatorSystem} is an abstract class helping {@link ParallelSystemArrayMediator} can be a **slave**
+     * system. The {@link MediatorSystem} interacts and communicates with the **master** system as a role of **slave**.
+     *
+     * This {@link MediatorSystem} object is created in {@link ParallelSystemArrayMediator.createMediator}. Override the
+     * method and return one of them, which are derived from this {@link MediatorSystem} class, considering which
+     * type and protocol the **master** system follows:
+     *
+     * - A client slave connecting to master server:
+     *   - {@link MediatorClient}
+     *   - {@link MediatorWebClient}
+     *   - {@link MediatorSharedWorkerClient}
+     * - A server slave accepting master client:
+     *   - {@link MediatorServer}
+     *   - {@link MediatorWebServer}
+     *   - {@link MediatorDedicatedWorkerServer}
+     *   - {@link MediatorSharedWorkerServer}
+     *
+     * When the **master** orders a *parallel process* to this **slave**, then the {@link MediatorSystem} delivers the
+     * *parallel process* to its parent {@link ParallelSystemArrayMediator} object. The
+     * {@link ParallelSystemArrayMediator} object distributes the *parallel process* to its slaves system,
+     * {@link ParallelSystem} objects. When the *parallel process* has completed, then {@link MediatorSystem} reports the
+     * result to its **master**.
+     *
+     * <a href="http://samchon.github.io/framework/images/design/ts_class_diagram/templates_parallel_system.png"
+     *		  target="_blank">
+     *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/templates_parallel_system.png"
+     *		 style="max-width: 100%" />
+     * </a>
+     *
+     * @handbook [Templates - Parallel System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Parallel_System),
+     *			 [Templates - Distributed System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Distributed_System)
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    class MediatorDedicatedWorkerServer extends MediatorServer {
         /**
+         * @inheritdoc
+         */
+        protected createServerBase(): protocol.IServerBase;
+    }
+    /**
      * A mediator server, driver for the master client.
      *
      * The {@link MediatorSharedWorkerServer} is a class opening a server accepting the **master** client, following the
@@ -8503,6 +9008,7 @@ declare namespace samchon.templates.parallel {
      * - A server slave accepting master client:
      *   - {@link MediatorServer}
      *   - {@link MediatorWebServer}
+     *   - {@link MediatorDedicatedWorkerServer}
      *   - {@link MediatorSharedWorkerServer}
      *
      * When the **master** orders a *parallel process* to this **slave**, then the {@link MediatorSystem} delivers the
@@ -8520,7 +9026,7 @@ declare namespace samchon.templates.parallel {
      * @handbook [Templates - Parallel System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Parallel_System),
      *			 [Templates - Distributed System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Distributed_System)
      * @author Jeongho Nam <http://samchon.org>
-         */
+     */
     class MediatorSharedWorkerServer extends MediatorServer {
         /**
          * @inheritdoc
@@ -8550,6 +9056,7 @@ declare namespace samchon.templates.parallel {
      * - A server slave accepting master client:
      *   - {@link MediatorServer}
      *   - {@link MediatorWebServer}
+     *   - {@link MediatorDedicatedWorkerServer}
      *   - {@link MediatorSharedWorkerServer}
      *
      * When the **master** orders a *parallel process* to this **slave**, then the {@link MediatorSystem} delivers the
@@ -8584,7 +9091,7 @@ declare namespace samchon.templates.parallel {
          * @param ip IP address to connect.
          * @param port Port number to connect.
          */
-        constructor(systemArray: ParallelSystemArrayMediator, ip: string, port: number);
+        constructor(systemArray: ParallelSystemArrayMediator<ParallelSystem>, ip: string, port: number);
         /**
          * Initializer Constructor.
          *
@@ -8592,7 +9099,7 @@ declare namespace samchon.templates.parallel {
          * @param ip IP address to connect.
          * @param port Port number to connect.
          */
-        constructor(systemArray: distributed.DistributedSystemArrayMediator, ip: string, port: number);
+        constructor(systemArray: distributed.DistributedSystemArrayMediator<distributed.DistributedSystem>, ip: string, port: number);
         /**
          * Factory method creating {@link IServerConnector} object.
          *
@@ -8616,9 +9123,9 @@ declare namespace samchon.templates.parallel {
          */
         connect(): void;
     }
-        /**
+    /**
      * A mediator client, driver for the master server.
-         *
+     *
      * The {@link MediatorWebClient} is a class being a client connecting to the **master** server, following the
      * web-socket protocol.
      *
@@ -8637,6 +9144,7 @@ declare namespace samchon.templates.parallel {
      * - A server slave accepting master client:
      *   - {@link MediatorServer}
      *   - {@link MediatorWebServer}
+     *   - {@link MediatorDedicatedWorkerServer}
      *   - {@link MediatorSharedWorkerServer}
      *
      * When the **master** orders a *parallel process* to this **slave**, then the {@link MediatorSystem} delivers the
@@ -8654,14 +9162,14 @@ declare namespace samchon.templates.parallel {
      * @handbook [Templates - Parallel System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Parallel_System),
      *			 [Templates - Distributed System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Distributed_System)
      * @author Jeongho Nam <http://samchon.org>
-         */
+     */
     class MediatorWebClient extends MediatorClient {
         /**
          * @inheritdoc
          */
         protected createServerConnector(): protocol.IServerConnector;
     }
-        /**
+    /**
      * A mediator client, driver for the master server.
      *
      * The {@link MediatorSharedWorkerClient} is a class being a client connecting to the **master** server, following
@@ -8674,7 +9182,7 @@ declare namespace samchon.templates.parallel {
      * This {@link MediatorSystem} object is created in {@link ParallelSystemArrayMediator.createMediator}. Override the
      * method and return one of them, which are derived from this {@link MediatorSystem} class, considering which
      * type and protocol the **master** system follows:
-         *
+     *
      * - A client slave connecting to master server:
      *   - {@link MediatorClient}
      *   - {@link MediatorWebClient}
@@ -8682,6 +9190,7 @@ declare namespace samchon.templates.parallel {
      * - A server slave accepting master client:
      *   - {@link MediatorServer}
      *   - {@link MediatorWebServer}
+     *   - {@link MediatorDedicatedWorkerServer}
      *   - {@link MediatorSharedWorkerServer}
      *
      * When the **master** orders a *parallel process* to this **slave**, then the {@link MediatorSystem} delivers the
@@ -8699,7 +9208,7 @@ declare namespace samchon.templates.parallel {
      * @handbook [Templates - Parallel System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Parallel_System),
      *			 [Templates - Distributed System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Distributed_System)
      * @author Jeongho Nam <http://samchon.org>
-         */
+     */
     class MediatorSharedWorkerClient extends MediatorClient {
         /**
          * @inheritdoc
@@ -8709,75 +9218,11 @@ declare namespace samchon.templates.parallel {
 }
 declare namespace samchon.templates.parallel {
     /**
-     * History of an {@link Invoke} message.
-     *
-     * The {@link PRInvokeHistory} is a class archiving history log of an {@link Invoke} message which requests the
-     * *parallel process*, created whenever {@link ParallelSystemArray.sendSegmentData} or
-     * {@link ParallelSystemArray.sendSegmentData} is called.
-     *
-     * When the *parallel process* has completed, then {@link complete complete()} is called and the *elapsed time* is
-     * determined. The elapsed time is utilized for computation of {@link ParallelSystem.getPerformance performance index}
-     * of each {@link ParallelSystem parallel slave system}.
-     *
-     * <a href="http://samchon.github.io/framework/images/design/ts_class_diagram/templates_parallel_system.png"
-     *		  target="_blank">
-     *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/templates_parallel_system.png"
-     *		 style="max-width: 100%" />
-     * </a>
-     *
-     * @handbook [Templates - Parallel System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Parallel_System)
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    class PRInvokeHistory extends protocol.InvokeHistory {
-        /**
-         * @hidden
-         */
-        private first;
-        /**
-         * @hidden
-         */
-        private last;
-        /**
-         * Default Constructor.
-         */
-        constructor();
-        /**
-         * Construct from an {@link Invoke} message.
-         *
-         * @param invoke An {@link Invoke} message requesting a *parallel process*.
-         */
-        constructor(invoke: protocol.Invoke);
-        /**
-         * Get initial piece's index.
-         *
-         * Returns initial piece's index in the section of requested *parallel process*.
-         *
-         * @return The initial index.
-         */
-        getFirst(): number;
-        /**
-         * Get final piece's index.
-         *
-         * Returns initial piece's index in the section of requested *parallel process*. The range used is
-         * [*first*, *last*), which contains all the pieces' indices between *first* and *last*, including the piece
-         * pointed by index *first*, but not the piece pointed by the index *last*.
-         *
-         * @return The final index.
-         */
-        getLast(): number;
-        /**
-         * Compute number of allocated pieces.
-         */
-        computeSize(): number;
-    }
-}
-declare namespace samchon.templates.parallel {
-        /**
      * Master of Parallel Processing System, a server accepting slave clients.
      *
      * The {@link ParallelClientArray} is an abstract class, derived from the {@link ParallelSystemArray} class, opening
      * a server accepting {@link ParallelSystem parallel clients}.
-         *
+     *
      * Extends this {@link ParallelClientArray}, overrides {@link createServerBase createServerBase()} to determine which
      * protocol to follow and {@link createExternalClient createExternalClient()} creating child {@link ParallelSystem}
      * object. After the extending and overridings, open this server using the {@link open open()} method.
@@ -8829,8 +9274,8 @@ declare namespace samchon.templates.parallel {
      *
      * @handbook [Templates - Parallel System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Parallel_System)
      * @author Jeongho Nam <http://samchon.org>
-         */
-    abstract class ParallelClientArray extends ParallelSystemArray implements external.IExternalClientArray {
+     */
+    abstract class ParallelClientArray<System extends ParallelSystem> extends ParallelSystemArray<System> implements external.IExternalClientArray<System> {
         /**
          * @hidden
          */
@@ -8855,9 +9300,9 @@ declare namespace samchon.templates.parallel {
          * @return A new {@link IServerBase} object.
          */
         protected abstract createServerBase(): protocol.IServerBase;
-    /**
+        /**
          * Add a newly connected remote client.
-     *
+         *
          * When a {@link IClientDriver remote client} connects to this *master server of parallel processing system*,
          * then this {@link ParallelClientArray} creates a child {@link ParallelSystem parallel client} object through
          * the {@link createExternalClient createExternalClient()} method and {@link insert inserts} it.
@@ -8876,7 +9321,7 @@ declare namespace samchon.templates.parallel {
          * @param xml An {@link XML} object represents the child {@link ParallelSystem} object.
          * @return ```null```
          */
-        createChild(xml: library.XML): ParallelSystem;
+        createChild(xml: library.XML): System;
         /**
          * Factory method creating {@link ParallelSystem} object.
          *
@@ -8892,7 +9337,7 @@ declare namespace samchon.templates.parallel {
          * @param driver A communicator with the parallel client.
          * @return A newly created {@link ParallelSystem} object.
          */
-        protected abstract createExternalClient(driver: protocol.IClientDriver): ParallelSystem;
+        protected abstract createExternalClient(driver: protocol.IClientDriver): System;
         /**
          * @inheritdoc
          */
@@ -8911,7 +9356,7 @@ declare namespace samchon.templates.parallel {
      * master system at the same time. This {@link ParallelSystemArrayMediator} be a **master **system, containing and
      * managing {@link ParallelSystem} objects, which represent parallel slave systems, by extending
      * {@link ParallelSystemArray} class. Also, be a **slave** system through {@link getMediator mediator} object, which is
-     * derived from the {@link SlavSystem} class.
+     * derived from the {@link SlaveSystem} class.
      *
      * As a **master**, you can specify this {@link ParallelSystemArrayMediator} class to be <i>a master server accepting
      * slave clients<i> or <i>a master client to connecting slave servers</i>. Even both of them is possible. Extends one
@@ -8933,6 +9378,7 @@ declare namespace samchon.templates.parallel {
      * - A server slave accepting master client:
      *   - {@link MediatorServer}
      *   - {@link MediatorWebServer}
+     *   - {@link MediatorDedicatedWorkerServer}
      *   - {@link MediatorSharedWorkerServer}
      *
      * #### [Inherited] {@link ParallelSystemArray}
@@ -8982,8 +9428,8 @@ declare namespace samchon.templates.parallel {
      *
      * @handbook [Templates - Parallel System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Parallel_System)
      * @author Jeongho Nam <http://samchon.org>
-         */
-    abstract class ParallelSystemArrayMediator extends ParallelSystemArray {
+     */
+    abstract class ParallelSystemArrayMediator<System extends ParallelSystem> extends ParallelSystemArray<System> {
         /**
          * @hidden
          */
@@ -9011,6 +9457,7 @@ declare namespace samchon.templates.parallel {
          * - A server slave accepting master client:
          *   - {@link MediatorServer}
          *   - {@link MediatorWebServer}
+         *   - {@link MediatorDedicatedWorkerServer}
          *   - {@link MediatorSharedWorkerServer}
          *
          * @return A newly created {@link MediatorSystem} object.
@@ -9023,20 +9470,20 @@ declare namespace samchon.templates.parallel {
          * Otherwise, the {@link getMediator mediator} is a type of client, then connects the master server.
          */
         protected startMediator(): void;
-    /**
+        /**
          * Get {@link MediatorSystem} object.
-     *
+         *
          * When you need to send an {@link Invoke} message to the master system of this
          * {@link ParallelSystemArrayMediator}, then send to the {@link MediatorSystem} through this {@link getMediator}.
-     *
+         *
          * ```typescript
          * this.getMediator().sendData(...);
          * ```
-     *
+         *
          * @return The {@link MediatorSystem} object.
-     */
+         */
         getMediator(): MediatorSystem;
-    /**
+        /**
          * @hidden
          */
         protected _Complete_history(history: PRInvokeHistory): boolean;
@@ -9059,7 +9506,7 @@ declare namespace samchon.templates.parallel {
      * master system at the same time. This {@link ParallelSystemArrayMediator} be a **master **system, containing and
      * managing {@link ParallelSystem} objects, which represent parallel slave systems, by extending
      * {@link ParallelSystemArray} class. Also, be a **slave** system through {@link getMediator mediator} object, which is
-     * derived from the {@link SlavSystem} class.
+     * derived from the {@link SlaveSystem} class.
      *
      * As a **slave**, you can specify this {@link ParallelSystemArrayMediator} to be <i>a client slave connecting to
      * master server</i> or <i>a server slave accepting master client</i> by overriding the {@link createMediator} method.
@@ -9072,6 +9519,7 @@ declare namespace samchon.templates.parallel {
      * - A server slave accepting master client:
      *   - {@link MediatorServer}
      *   - {@link MediatorWebServer}
+     *   - {@link MediatorDedicatedWorkerServer}
      *   - {@link MediatorSharedWorkerServer}
      *
      * #### [Inherited] {@link ParallelSystemArray}
@@ -9122,7 +9570,7 @@ declare namespace samchon.templates.parallel {
      * @handbook [Templates - Parallel System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Parallel_System)
      * @author Jeongho Nam <http://samchon.org>
      */
-    abstract class ParallelClientArrayMediator extends ParallelSystemArrayMediator implements external.IExternalClientArray {
+    abstract class ParallelClientArrayMediator<System extends ParallelSystem> extends ParallelSystemArrayMediator<System> implements external.IExternalClientArray<System> {
         /**
          * @hidden
          */
@@ -9170,7 +9618,7 @@ declare namespace samchon.templates.parallel {
          * @param xml An {@link XML} object represents the child {@link ParallelSystem} object.
          * @return null
          */
-        createChild(xml: library.XML): ParallelSystem;
+        createChild(xml: library.XML): System;
         /**
          * Factory method creating {@link ParallelSystem} object.
          *
@@ -9186,7 +9634,7 @@ declare namespace samchon.templates.parallel {
          * @param driver A communicator with the parallel client.
          * @return A newly created {@link ParallelSystem} object.
          */
-        protected abstract createExternalClient(driver: protocol.IClientDriver): ParallelSystem;
+        protected abstract createExternalClient(driver: protocol.IClientDriver): System;
         /**
          * @inheritdoc
          */
@@ -9243,7 +9691,7 @@ declare namespace samchon.templates.parallel {
      * connected with this **master** system. This {@link ParallelSystem} takes full charge of network communication with
      * the remote, parallel **slave** system has connected.
      *
-     * When a *parallel process* is requested (by {@link ParallelSystemArray.sendSegementData} or
+     * When a *parallel process* is requested (by {@link ParallelSystemArray.sendSegmentData} or
      * {@link ParallelSystemArray.sendPieceData}), the number of pieces to be allocated to a {@link ParallelSystem} is
      * turn on its {@link getPerformance performance index}. Higher {@link getPerformance performance index}, then
      * more pieces are requested. The {@link getPerformance performance index} is revaluated whenever a *parallel process*
@@ -9300,20 +9748,21 @@ declare namespace samchon.templates.parallel {
          *
          * @param systemArray The parent {@link ParallelSystemArray} object.
          */
-        constructor(systemArray: ParallelSystemArray);
-    /**
+        constructor(systemArray: ParallelSystemArray<IParallelServer>);
+        /**
          * Factory method creating {@link IServerConnector} object.
-     *
+         *
          * The {@link createServerConnector createServerConnector()} is an abstract method creating
          * {@link IServerConnector} object. Overrides and returns one of them, considering which protocol the slave server
          * follows:
          *
          * - {@link ServerConnector}
          * - {@link WebServerConnector}
+         * - {@link DedicatedWorkerServerConnector}
          * - {@link SharedWorkerServerConnector}
          *
          * @return A newly created {@link IServerConnector} object.
-     */
+         */
         protected abstract createServerConnector(): protocol.IServerConnector;
         /**
          * @inheritdoc
@@ -9380,7 +9829,7 @@ declare namespace samchon.templates.parallel {
      * @handbook [Templates - Parallel System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Parallel_System)
      * @author Jeongho Nam <http://samchon.org>
      */
-    abstract class ParallelServerArray extends ParallelSystemArray implements external.IExternalServerArray {
+    abstract class ParallelServerArray<System extends IParallelServer> extends ParallelSystemArray<System> implements external.IExternalServerArray<System> {
         /**
          * Default Constructor.
          */
@@ -9407,7 +9856,7 @@ declare namespace samchon.templates.parallel {
      * master system at the same time. This {@link ParallelSystemArrayMediator} be a **master **system, containing and
      * managing {@link ParallelSystem} objects, which represent parallel slave systems, by extending
      * {@link ParallelSystemArray} class. Also, be a **slave** system through {@link getMediator mediator} object, which is
-     * derived from the {@link SlavSystem} class.
+     * derived from the {@link SlaveSystem} class.
      *
      * As a **master**, you can specify this {@link ParallelSystemArrayMediator} class to be <i>a master server accepting
      * slave clients<i> or <i>a master client to connecting slave servers</i>. Even both of them is possible. Extends one
@@ -9429,6 +9878,7 @@ declare namespace samchon.templates.parallel {
      * - A server slave accepting master client:
      *   - {@link MediatorServer}
      *   - {@link MediatorWebServer}
+     *   - {@link MediatorDedicatedWorkerServer}
      *   - {@link MediatorSharedWorkerServer}
      *
      * #### [Inherited] {@link ParallelSystemArray}
@@ -9479,7 +9929,7 @@ declare namespace samchon.templates.parallel {
      * @handbook [Templates - Parallel System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Parallel_System)
      * @author Jeongho Nam <http://samchon.org>
      */
-    abstract class ParallelServerArrayMediator extends ParallelSystemArrayMediator implements external.IExternalServerArray {
+    abstract class ParallelServerArrayMediator<System extends IParallelServer> extends ParallelSystemArrayMediator<System> implements external.IExternalServerArray<System> {
         /**
          * Default Constructor.
          */
@@ -9554,7 +10004,7 @@ declare namespace samchon.templates.parallel {
      * @handbook [Templates - Parallel System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Parallel_System)
      * @author Jeongho Nam <http://samchon.org>
      */
-    abstract class ParallelServerClientArray extends ParallelClientArray implements external.IExternalServerClientArray {
+    abstract class ParallelServerClientArray<System extends ParallelSystem> extends ParallelClientArray<System> implements external.IExternalServerClientArray<System> {
         /**
          * Default Constructor.
          */
@@ -9567,14 +10017,14 @@ declare namespace samchon.templates.parallel {
          * @param xml An {@link XML} object represents child element, so that can identify the type of child to create.
          * @return A new child Entity via {@link createExternalServer createExternalServer()}.
          */
-        createChild(xml: library.XML): IParallelServer;
+        createChild(xml: library.XML): System;
         /**
          * Factory method creating an {@link IParallelServer} object.
          *
          * @param xml An {@link XML} object represents child element, so that can identify the type of child to create.
          * @return A newly created {@link IParallelServer} object.
          */
-        protected abstract createExternalServer(xml: library.XML): IParallelServer;
+        protected abstract createExternalServer(xml: library.XML): System;
         /**
          * @inheritdoc
          */
@@ -9602,7 +10052,7 @@ declare namespace samchon.templates.parallel {
      * master system at the same time. This {@link ParallelSystemArrayMediator} be a **master **system, containing and
      * managing {@link ParallelSystem} objects, which represent parallel slave systems, by extending
      * {@link ParallelSystemArray} class. Also, be a **slave** system through {@link getMediator mediator} object, which is
-     * derived from the {@link SlavSystem} class.
+     * derived from the {@link SlaveSystem} class.
      *
      * As a **master**, you can specify this {@link ParallelSystemArrayMediator} class to be <i>a master server accepting
      * slave clients<i> or <i>a master client to connecting slave servers</i>. Even both of them is possible. Extends one
@@ -9624,6 +10074,7 @@ declare namespace samchon.templates.parallel {
      * - A server slave accepting master client:
      *   - {@link MediatorServer}
      *   - {@link MediatorWebServer}
+     *   - {@link MediatorDedicatedWorkerServer}
      *   - {@link MediatorSharedWorkerServer}
      *
      * #### [Inherited] {@link ParallelSystemArray}
@@ -9643,22 +10094,22 @@ declare namespace samchon.templates.parallel {
      *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/templates_parallel_system.png"
      *		 style="max-width: 100%" />
      * </a>
-         *
+     *
      * #### Proxy Pattern
      * This class {@link ParallelSystemArray} is derived from the {@link ExternalSystemArray} class. Thus, you can take
      * advantage of the *Proxy Pattern* in the {@link ParallelSystemArray} class. If a process to request is not the
      * *parallel process* (to be distrubted to all slaves), but the **exclusive process** handled in a system, then it
      * may better to utilizing the *Proxy Pattern*:
-         *
+     *
      * The {@link ExternalSystemArray} class can use *Proxy Pattern*. In framework within user, which
      * {@link ExternalSystem external system} is connected with {@link ExternalSystemArray this system}, it's not
      * important. Only interested in user's perspective is *which can be done*.
-         *
+     *
      * By using the *logical proxy*, user dont't need to know which {@link ExternalSystemRole role} is belonged
      * to which {@link ExternalSystem system}. Just access to a role directly from {@link ExternalSystemArray.getRole}.
      * Sends and receives {@link Invoke} message via the {@link ExternalSystemRole role}.
-         *
-         * <ul>
+     *
+     * <ul>
      *	<li>
      *		{@link ExternalSystemRole} can be accessed from {@link ExternalSystemArray} directly, without inteferring
      *		from {@link ExternalSystem}, with {@link ExternalSystemArray.getRole}.
@@ -9669,12 +10120,12 @@ declare namespace samchon.templates.parallel {
      *		external system.
      *	</li>
      *	<li> Those strategy is called *Proxy Pattern*. </li>
-         * </ul>
+     * </ul>
      *
      * @handbook [Templates - Parallel System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Parallel_System)
      * @author Jeongho Nam <http://samchon.org>
      */
-    abstract class ParallelServerClientArrayMediator extends ParallelClientArrayMediator implements external.IExternalServerClientArray {
+    abstract class ParallelServerClientArrayMediator<System extends ParallelSystem> extends ParallelClientArrayMediator<System> implements external.IExternalServerClientArray<System> {
         /**
          * Default Constructor.
          */
@@ -9687,18 +10138,82 @@ declare namespace samchon.templates.parallel {
          * @param xml An {@link XML} object represents child element, so that can identify the type of child to create.
          * @return A new child Entity via {@link createExternalServer createExternalServer()}.
          */
-        createChild(xml: library.XML): ParallelSystem;
+        createChild(xml: library.XML): System;
         /**
          * Factory method creating an {@link IParallelServer} object.
          *
          * @param xml An {@link XML} object represents child element, so that can identify the type of child to create.
          * @return A newly created {@link IParallelServer} object.
          */
-        protected abstract createExternalServer(xml: library.XML): IParallelServer;
+        protected abstract createExternalServer(xml: library.XML): System;
         /**
          * @inheritdoc
          */
         connect(): void;
+    }
+}
+declare namespace samchon.templates.parallel {
+    /**
+     * History of an {@link Invoke} message.
+     *
+     * The {@link PRInvokeHistory} is a class archiving history log of an {@link Invoke} message which requests the
+     * *parallel process*, created whenever {@link ParallelSystemArray.sendSegmentData} or
+     * {@link ParallelSystemArray.sendSegmentData} is called.
+     *
+     * When the *parallel process* has completed, then {@link complete complete()} is called and the *elapsed time* is
+     * determined. The elapsed time is utilized for computation of {@link ParallelSystem.getPerformance performance index}
+     * of each {@link ParallelSystem parallel slave system}.
+     *
+     * <a href="http://samchon.github.io/framework/images/design/ts_class_diagram/templates_parallel_system.png"
+     *		  target="_blank">
+     *	<img src="http://samchon.github.io/framework/images/design/ts_class_diagram/templates_parallel_system.png"
+     *		 style="max-width: 100%" />
+     * </a>
+     *
+     * @handbook [Templates - Parallel System](https://github.com/samchon/framework/wiki/TypeScript-Templates-Parallel_System)
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    class PRInvokeHistory extends protocol.InvokeHistory {
+        /**
+         * @hidden
+         */
+        private first;
+        /**
+         * @hidden
+         */
+        private last;
+        /**
+         * Default Constructor.
+         */
+        constructor();
+        /**
+         * Construct from an {@link Invoke} message.
+         *
+         * @param invoke An {@link Invoke} message requesting a *parallel process*.
+         */
+        constructor(invoke: protocol.Invoke);
+        /**
+         * Get initial piece's index.
+         *
+         * Returns initial piece's index in the section of requested *parallel process*.
+         *
+         * @return The initial index.
+         */
+        getFirst(): number;
+        /**
+         * Get final piece's index.
+         *
+         * Returns initial piece's index in the section of requested *parallel process*. The range used is
+         * [*first*, *last*), which contains all the pieces' indices between *first* and *last*, including the piece
+         * pointed by index *first*, but not the piece pointed by the index *last*.
+         *
+         * @return The final index.
+         */
+        getLast(): number;
+        /**
+         * Compute number of allocated pieces.
+         */
+        computeSize(): number;
     }
 }
 declare namespace samchon.templates.service {
@@ -9888,7 +10403,7 @@ declare namespace samchon.templates.service {
      * - Objects in composite relationship and their factory methods
      *   - {@link User}: {@link Server.createUser Server.createUser()}
      *   - {@link Client}: {@link User.createClient User.createClient()}
-     *   - {@link Service}: {@liok Client.createService Client.createService()}
+     *   - {@link Service}: {@link Client.createService Client.createService()}
      * - {@link Invoke} message chains; {@link IProtocol.replyData replyData}
      *   - {@link Server.replyData}
      *   - {@link User.replyData}
@@ -10070,7 +10585,7 @@ declare namespace samchon.templates.service {
      * An user.
      *
      * The {@link User} is an abstract class groupping {@link Client} objects, who communicates with remote client, with
-     * same *session id*. This {link User} represents a *remote user* literally. Within framework of remote system,
+     * same *session id*. This {@link User} represents a *remote user* literally. Within framework of remote system,
      * an {@link User} corresponds to a web-browser and a {@link Client} represents a window in the web-browser.
      *
      * Extends this {@link User} class and override the {@link createClient} method, a factory method creating a child

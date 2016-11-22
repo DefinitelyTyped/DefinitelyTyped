@@ -1,5 +1,3 @@
-/// <reference path="qunit-1.16.d.ts" />
-
 QUnit.test("assert.async() test", function (assert) {
     var done = assert.async();
     var input = [];

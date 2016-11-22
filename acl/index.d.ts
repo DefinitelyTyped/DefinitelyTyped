@@ -9,9 +9,9 @@
 import http = require('http');
 import Promise = require("bluebird");
 
-type strings = string | string[];
-type Value = string | number;
-type Values = Value | Value[];
+type strings = string|string[];
+type Value = string|number;
+type Values = Value|Value[];
 type Action = () => any;
 type Callback = (err: Error) => any;
 type AnyCallback = (err: Error, obj: any) => any;

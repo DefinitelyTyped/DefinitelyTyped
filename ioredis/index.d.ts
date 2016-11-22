@@ -211,6 +211,8 @@ declare module IORedis {
         hexists(...args: any[]): any;
         incrby(args: any[], callback?: ResCallbackT<any>): any;
         incrby(...args: any[]): any;
+        incrbyfloat(args: any[], callback?: ResCallbackT<any>): any;
+        incrbyfloat(...args: any[]): any;
         decrby(args: any[], callback?: ResCallbackT<any>): any;
         decrby(...args: any[]): any;
         getset(args: any[], callback?: ResCallbackT<any>): any;
@@ -496,6 +498,8 @@ declare module IORedis {
         hexists(...args: any[]): Pipeline;
         incrby(args: any[], callback?: ResCallbackT<any>): Pipeline;
         incrby(...args: any[]): Pipeline;
+        incrbyfloat(args: any[], callback?: ResCallbackT<any>): Pipeline;
+        incrbyfloat(...args: any[]): Pipeline;
         decrby(args: any[], callback?: ResCallbackT<any>): Pipeline;
         decrby(...args: any[]): Pipeline;
         getset(args: any[], callback?: ResCallbackT<any>): Pipeline;

@@ -1,4 +1,4 @@
-// Type definitions for Sequelize 3.4.1
+// Type definitions for Sequelize 4.0.0
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,6 +11,7 @@
 
 
 import * as _ from "lodash";
+import * as Promise from "bluebird";
 
 declare namespace sequelize {
 
@@ -2544,6 +2545,41 @@ declare namespace sequelize {
         afterInit(name: string, fn: (sequelize: Sequelize) => void): void;
         afterInit(fn: (sequelize: Sequelize) => void): void;
 
+        /**
+         * A hook that is run before Model.sync call
+         *
+         * @param name
+         * @param fn   	A callback function that is called with options passed to Model.sync
+         */
+        beforeSync(name: string, fn: (options: SyncOptions) => void): void;
+        beforeSync(fn: (options: SyncOptions) => void): void;
+
+        /**
+         * A hook that is run after Model.sync call
+         *
+         * @param name
+         * @param fn   	A callback function that is called with options passed to Model.sync
+         */
+        afterSync(name: string, fn: (options: SyncOptions) => void): void;
+        afterSync(fn: (options: SyncOptions) => void): void;
+
+        /**
+         * A hook that is run before sequelize.sync call
+         *
+         * @param name
+         * @param fn    A callback function that is called with options passed to sequelize.sync
+         */
+        beforeBulkSync(name: string, fn: (options: SyncOptions) => void): void;
+        beforeBulkSync(fn: (options: SyncOptions) => void): void;
+
+        /**
+         * A hook that is run after sequelize.sync call
+         *
+         * @param name
+         * @param fn   A callback function that is called with options passed to sequelize.sync
+         */
+        afterBulkSync(name: string, fn: (options: SyncOptions) => void): void;
+        afterBulkSync(fn: (options: SyncOptions) => void): void;
     }
 
     //
@@ -3134,7 +3170,7 @@ declare namespace sequelize {
     /**
          * Shortcut for types used in FindOptions.attributes
          */
-    type FindOptionsAttriburesArray = Array<string | [string, string] | fn | [fn, string] | cast | [cast, string]>;
+    type FindOptionsAttributesArray = Array<string | [string, string] | fn | [fn, string] | cast | [cast, string]>;
 
     /**
 * Options that are passed to any model creating a SELECT query
@@ -3154,7 +3190,7 @@ declare namespace sequelize {
          * `Sequelize.literal`, `Sequelize.fn` and so on), and the second is the name you want the attribute to
          * have in the returned instance
          */
-        attributes?: FindOptionsAttriburesArray | { include?: FindOptionsAttriburesArray, exclude?: Array<string> };
+        attributes?: FindOptionsAttributesArray | { include?: FindOptionsAttributesArray, exclude?: Array<string> };
 
         /**
          * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will

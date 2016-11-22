@@ -1,5 +1,3 @@
-/// <reference path="restler.d.ts" />
-
 import rest = require("restler");
 
 rest.get("http://google.com").on("complete", function(result) {

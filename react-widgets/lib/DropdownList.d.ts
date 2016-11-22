@@ -97,9 +97,9 @@ interface DropdownListProps extends React.Props<DropdownListClass> {
      */
     onToggle?: (isOpen: boolean) => void;
     /**
-     * Specify a filtering method used to reduce the items in the dropdown as you type. 
+     * Specify a filtering method used to reduce the items in the dropdown as you type.
      * There are a few built-in filtering methods that can be specified by passing the String name.
-     * To handle custom filtering techniques provide a function that returns true or false 
+     * To handle custom filtering techniques provide a function that returns true or false
      * for each passed in item (analogous to the array.filter builtin)
      * @enum false "startsWith" "endsWith" "contains"
      */

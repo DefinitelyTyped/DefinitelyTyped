@@ -300,21 +300,15 @@ export interface IStrictReply<T> extends IReplyMethods {
 
 export interface ISessionHandler {
     (request: Request, reply: IReply): void;
-	}
-
-	export interface IStrictSessionHandler{
-    <T>(request: Request, reply: IStrictReply<T>): void;
-<<<<<<< HEAD
 }
-export interface IRequestHandler<T> {
-=======
+
+export interface IStrictSessionHandler {
+    <T>(request: Request, reply: IStrictReply<T>): void;
 	}
 
 	export interface IRequestHandler<T> {
->>>>>>> upstream/master
     (request: Request): T;
 }
-
 
 export interface IFailAction {
     (source: string, error: any, next: () => void): void

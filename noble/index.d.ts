@@ -20,15 +20,15 @@ export declare function on(event: "scanStop", listener: () => void): events.Even
 export declare function on(event: "discover", listener: (peripheral: Peripheral) => void): events.EventEmitter;
 
 export declare class Peripheral extends events.EventEmitter {
-    id: string;
-    uuid: string;
-    address: string;
-    addressType: string;
-    connectable: boolean;
+    id:            string;
+    uuid:          string;
+    address:       string;
+    addressType:   string;
+    connectable:   boolean;
     advertisement: Advertisement;
-    rssi: number;
-    services: Service[];
-    state: string;
+    rssi:          number;
+    services:      Service[];
+    state:         string;
 
     connect(callback?: (error: string) => void): void;
     disconnect(callback?: () => void): void;

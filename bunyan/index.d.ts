@@ -11,7 +11,7 @@ import { EventEmitter } from 'events';
 declare class Logger extends EventEmitter {
     constructor(options: LoggerOptions);
     addStream(stream: Stream): void;
-    addSerializers(serializers:Serializers | StdSerializers): void;
+    addSerializers(serializers:Serializers | StdSerializers):void;
     child(options: LoggerOptions, simple?: boolean): Logger;
     child(obj: Object, simple?: boolean): Logger;
     reopenFileStreams(): void;
@@ -21,7 +21,7 @@ declare class Logger extends EventEmitter {
     levels(name: number | string, value: number | string): void;
 
     fields: any;
-    src: boolean;
+        src:boolean;
 
     trace(error: Error, format?: any, ...params: any[]): void;
     trace(buffer: Buffer, format?: any, ...params: any[]): void;
@@ -54,7 +54,7 @@ interface LoggerOptions {
     streams?: Stream[];
     level?: string | number;
     stream?: NodeJS.WritableStream;
-    serializers?: Serializers;
+    serializers?: Serializers | StdSerializers;
     src?: boolean;
 }
 

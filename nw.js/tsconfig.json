@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "nw.js.d.ts",
+        "index.d.ts",
         "nw.js-tests.ts"
     ]
 }

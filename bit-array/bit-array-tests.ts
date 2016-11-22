@@ -1,4 +1,4 @@
-/// <reference path="bit-array.d.ts" />
+/// <reference types="bit-array" />
 
 import BitArray = require("bit-array");
 

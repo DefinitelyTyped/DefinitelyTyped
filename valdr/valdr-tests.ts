@@ -1,6 +1,4 @@
-﻿/// <reference path="valdr.d.ts" />
-
-function ValdrTests() {
+﻿function ValdrTests() {
     var valdr: valdr.Valdr;
     var validation = valdr.validate('person', 'lastName', 'test');
     var isValid = validation.valid;

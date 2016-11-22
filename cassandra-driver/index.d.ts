@@ -365,7 +365,6 @@ export namespace types {
     buffer: Buffer;
     paused: boolean;
 
-    // _read(): void;
     _valve(readNext: Function): void;
     add(chunk: Buffer): void;
   }

@@ -1,11 +1,20 @@
-// Type definitions for Kefir 3.2.0
+// Type definitions for Kefir 3.3.0
 // Project: http://rpominov.github.io/kefir/
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
+export interface Subscription {
+    unsubscribe(): void;
+    closed: boolean; // Actually, `readonly` but it's avaiable in tsc starting with 2.0.0
+}
 
+export interface Observer<T, S> {
+    value?: (value: T) => void;
+    error?: (error: S) => void;
+    end?: () => void;
+}
 
 export interface Subscription {
     unsubscribe(): void;

@@ -116,16 +116,15 @@ export interface OutputFormatBare extends BuildOptionsBase {
 }
 
 /** Returns a generated parser object. It will throw an exception if the grammar is invalid. The exception will contain `message` property with more details about the error. */
-export declare function generate(grammar: string, options?: ParserBuildOptions): Parser;
+export function generate(grammar: string, options?: ParserBuildOptions): Parser;
 /** Returns the generated source code as a `string`. It will throw an exception if the grammar is invalid. The exception will contain `message` property with more details about the error. */
-export declare function generate(grammar: string, options: OutputFormatAmdCommonjs): string;
+export function generate(grammar: string, options: OutputFormatAmdCommonjs): string;
 /** Returns the generated source code as a `string`. It will throw an exception if the grammar is invalid. The exception will contain `message` property with more details about the error. */
-export declare function generate(grammar: string, options: OutputFormatUmd): string;
+export function generate(grammar: string, options: OutputFormatUmd): string;
 /** Returns the generated source code as a `string`. It will throw an exception if the grammar is invalid. The exception will contain `message` property with more details about the error. */
-export declare function generate(grammar: string, options: OutputFormatGlobals): string;
+export function generate(grammar: string, options: OutputFormatGlobals): string;
 /** Returns the generated source code as a `string`. It will throw an exception if the grammar is invalid. The exception will contain `message` property with more details about the error. */
-export declare function generate(grammar: string, options: OutputFormatBare): string;
-
+export function generate(grammar: string, options: OutputFormatBare): string;
 
 export namespace parser {
     type SyntaxError = PegjsError;

@@ -1,5 +1,5 @@
-// Type definitions for assert
-// Project: https://github.com/defunctzombie/commonjs-assert
+// Type definitions for assert and power-assert
+// Project: https://github.com/Jxck/assert, https://github.com/twada/power-assert
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

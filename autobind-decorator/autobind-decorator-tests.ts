@@ -1,4 +1,3 @@
-/// <reference path="autobind-decorator.d.ts" />
 
 import autobind = require('autobind-decorator');
 
@@ -31,7 +30,7 @@ class Component {
     public constructor(private someMember: string) {
         this.someMember = someMember;
     }
-  
+
     public someMethod(): void {
         console.error(this.someMember);
     }
