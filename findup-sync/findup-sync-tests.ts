@@ -1,7 +1,7 @@
 /// <reference path="./findup-sync.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
-import findup = require('findup-sync');
+import * as findup from "findup-sync";
 
 var str: string;
 
