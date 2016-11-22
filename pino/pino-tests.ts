@@ -1,6 +1,8 @@
 // This contains all of the code from the docs on https://www.npmjs.com/package/pino
 
-import PINO = require('pino')
+import * as PINO from 'pino';
+import * as stream from 'stream';
+
 var pino = PINO()
 var info = pino.info
 var error = pino.error
@@ -23,6 +25,11 @@ var instance = PINO({
     res: pino.stdSerializers.res
   }
 })
+
+let version:number = pino.LOG_VERSION;
+let levels:Object = pino.levels;
+
+let pretty:stream.Transform = PINO.pretty();
 
 var pretty = PINO.pretty()
 var instance2 = PINO({

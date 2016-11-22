@@ -7,12 +7,12 @@
 
 import stream = require('stream');
 
-declare function P(optionsOrStream?: P.LoggerOptions | stream.Writable | stream.Readable): P.Logger;
-declare function P(options: P.LoggerOptions, stream: stream.Writable | stream.Readable): P.Logger;
+declare function P(optionsOrStream?: P.LoggerOptions | stream.Writable | stream.Duplex | stream.Transform): P.Logger;
+declare function P(options: P.LoggerOptions, stream: stream.Writable | stream.Duplex | stream.Transform): P.Logger;
 
 declare namespace P {
 
-    function pretty(opts?: {timeTransOnly?: boolean, levelFirst?: boolean, formatter?: (str: string) => void}): stream.Readable;
+    function pretty(opts?: {timeTransOnly?: boolean, levelFirst?: boolean, formatter?: (str: string) => void}): stream.Transform;
 
     type Level = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent';
     interface Headers {
@@ -54,8 +54,8 @@ declare namespace P {
     }
 
     interface Pino {
-        (optionsOrStream?: LoggerOptions | stream.Writable | stream.Readable): Logger;
-        (options: LoggerOptions, stream: stream.Writable | stream.Readable): Logger;
+        (optionsOrStream?: LoggerOptions | stream.Writable | stream.Duplex): Logger;
+        (options: LoggerOptions, stream: stream.Writable | stream.Duplex): Logger;
         levels: {
             values: LevelLabelsToValues
             labels: LevelValuesToLabels
