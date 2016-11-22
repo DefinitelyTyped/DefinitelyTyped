@@ -19,7 +19,7 @@ declare namespace WebTorrent {
     nodeId?: string|Buffer, // DHT protocol node ID (default=randomly generated)
     peerId?: string|Buffer, // Wire protocol peer ID (default=randomly generated)
     rtcConfig?: Object,     // RTCPeerConnection configuration object (default=STUN only)
-    tracker?: boolean,      // Whether or not to enable trackers (default=true)
+    tracker?: boolean|Object,      // Whether or not to enable trackers (default=true)
     wrtc?: Object           // Custom webrtc implementation (in node, specify the [wrtc](https://www.npmjs.com/package/wrtc) package)
   }
 
