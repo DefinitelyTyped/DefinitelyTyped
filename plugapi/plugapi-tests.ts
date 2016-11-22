@@ -1,5 +1,3 @@
-/// <reference path="./plugapi.d.ts" />
-
 import * as PlugAPI from "plugapi";
 
 new PlugAPI({

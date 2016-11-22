@@ -2,7 +2,6 @@
 // Project: https://www.npmjs.com/package/plugapi
 // Definitions by: Brice Theurillat <https://github.com/BNedry/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare module "plugapi" {
     interface PlugLogin {
         email: string;

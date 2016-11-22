@@ -1,4 +1,3 @@
-/// <reference path="./random-seed.d.ts" />
 import { RandomSeed, create } from "random-seed";
 
 // these generators produce different numbers

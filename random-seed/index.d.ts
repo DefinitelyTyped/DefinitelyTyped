@@ -3,9 +3,7 @@
 // Definitions by: Endel Dreyer <https://github.com/endel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "random-seed" {
-
-  export interface RandomSeed {
+export interface RandomSeed {
     range (range: number): number;
     random (): number;
     floatBetween (min: number, max: number): number;
@@ -21,8 +19,6 @@ declare module "random-seed" {
     initState (): void;
 
     done (): void;
-  }
-
-  export function create (seed?: string): RandomSeed;
-
 }
+
+export function create (seed?: string): RandomSeed;
