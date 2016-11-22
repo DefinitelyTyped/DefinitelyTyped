@@ -3,6 +3,8 @@
 // Definitions by: Donald Nairn <https://github.com/deenairn/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="angular" />
+
 declare namespace angular {
     /**
      * A core Angular factory proving FileSaver functionality.
@@ -14,6 +16,6 @@ declare namespace angular {
          * @param filename: a String custom filename (an extension is optional);
          * @param disableAutoBOM : (optional) Boolean Disable automatically provided Unicode text encoding hints;
          */
-        saveAs(blob: Blob, fileName: string, disableBOM: boolean);
+        saveAs(blob: Blob, fileName: string, disableBOM?: boolean): void;
     }
 }
