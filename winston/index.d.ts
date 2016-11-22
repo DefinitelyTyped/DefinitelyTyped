@@ -32,7 +32,9 @@ declare namespace winston {
 
         log: winston.LogMethod;
 
+        silly: winston.LeveledLogMethod;
         debug: winston.LeveledLogMethod;
+        verbose: winston.LeveledLogMethod;
         info: winston.LeveledLogMethod;
         warn: winston.LeveledLogMethod;
         error: winston.LeveledLogMethod;
@@ -54,6 +56,10 @@ declare namespace winston {
         close(): void;
         configure(options: winston.LoggerOptions): void;
     }
+
+    export type CLILoggingLevel = 'error' | 'warn' | 'help' | 'data' | 'info' | 'debug' | 'prompt' | 'verbose' | 'input' | 'silly';
+    export type NPMLoggingLevel = 'error' | 'warn' | 'info' | 'verbose' | 'debug' | 'silly';
+    export type SyslogLoggingLevel = 'emerg' | 'alert' | 'crit' | 'error' | 'warning' | 'notice' | 'info' | 'debug';
 
     export interface ExceptionProcessInfo {
         pid: number;
@@ -116,7 +122,9 @@ declare namespace winston {
 
         log: LogMethod;
 
+        silly: LeveledLogMethod;
         debug: LeveledLogMethod;
+        verbose: LeveledLogMethod;
         info: LeveledLogMethod;
         warn: LeveledLogMethod;
         error: LeveledLogMethod;
