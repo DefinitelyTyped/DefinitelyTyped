@@ -91,6 +91,20 @@ declare module 'angular' {
              */
             ngfValidateForce?: boolean;
         }
+        
+        interface ResizeIfFunction {
+            (width: number, height: number): boolean;
+        }
+
+        interface FileResizeOptions {
+            centerCrop?: boolean;
+            height?: number;
+            ratio?: number;
+            resizeIf?: ResizeIfFunction;
+            restoreExif?: boolean;
+            quality?: number;
+            width?: number;
+        }
 
         interface ResizeIfFunction {
             (width: number, height: number): boolean;

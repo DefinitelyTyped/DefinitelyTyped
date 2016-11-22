@@ -76,7 +76,7 @@ declare module 'angular' {
         }
 
         interface IColorService {
-            applyThemeColors(element: Element|JQuery, colorExpression: IColorExpression): void;
+            applyThemeColors(element: Element | JQuery, colorExpression: IColorExpression): void;
             getThemeColor(expression: string): string;
             hasTheme(): boolean;
         }
@@ -158,7 +158,7 @@ declare module 'angular' {
             hideDelay(delay: number): T;
             position(position: string): T;
             parent(parent?: string | Element | JQuery): T; // default: root node
-        toastClass(toastClass: string): T;
+            toastClass(toastClass: string): T;
         }
 
         interface ISimpleToastPreset extends IToastPreset<ISimpleToastPreset> {
@@ -225,7 +225,7 @@ declare module 'angular' {
             hues: IThemeHues;
         }
 
-        interface IBrowserColors{
+        interface IBrowserColors {
             theme: string;
             palette: string;
             hue: string;
@@ -264,6 +264,7 @@ declare module 'angular' {
             definePalette(name: string, palette: IPalette): IThemingProvider;
             enableBrowserColor(browserColors: IBrowserColors): Function;
             extendPalette(name: string, palette: IPalette): IPalette;
+            registerStyles(styles: String): void;
             setDefaultTheme(theme: string): void;
             setNonce(nonce: string): void;
             theme(name: string, inheritFrom?: string): ITheme;
@@ -414,7 +415,7 @@ declare module 'angular' {
                 ESCAPE: string,
             };
             absPosition: {
-                TOP:  string,
+                TOP: string,
                 RIGHT: string,
                 BOTTOM: string,
                 LEFT: string,
