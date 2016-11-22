@@ -132,3 +132,10 @@ import * as ImportUsingES6Syntax from 'form-data';
             console.log(json);
         });
 }
+
+() => {
+    var form = new FormData();
+	form.getLength((err: Error, length: number): void => {
+		// nothing
+	});
+}
