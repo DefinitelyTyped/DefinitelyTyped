@@ -2,20 +2,21 @@
 // Project: https://www.npmjs.com/package/plugapi
 // Definitions by: Brice Theurillat <https://github.com/BNedry/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-declare module "plugapi" {
-    interface PlugLogin {
+declare namespace PlugAPI {
+
+    export interface PlugLogin {
         email: string;
         password: string;
     }
 
-    interface Notification {
+    export interface Notification {
         action: string;
         id: number;
         timestamp: string;
         value: string;
     }
 
-    interface RawChatMessage {
+    export interface RawChatMessage {
         cid: string;
         message: string;
         sub: number;
@@ -23,7 +24,7 @@ declare module "plugapi" {
         un: string;
     }
 
-    interface Media {
+    export interface Media {
         author: string;
         format: number;
         image: string;
@@ -33,7 +34,7 @@ declare module "plugapi" {
         id: number;
     }
 
-    interface Score {
+    export interface Score {
         positive: number;
         listeners: number;
         grabs: number;
@@ -41,23 +42,23 @@ declare module "plugapi" {
         skipped: number;
     }
 
-    interface LastPlay {
+    export interface LastPlay {
         dj: User.DJ;
         media: Media;
         score: Score;
     }
 
-    interface FollowJoinData {
+    export interface FollowJoinData {
         r: number;
         un: string;
         id: string;
     }
 
-    interface LogObject {
+    export interface LogObject {
         log: () => void;
     }
 
-    namespace User {
+    export namespace User {
         interface Default {
             username: string;
             language: string;
@@ -109,7 +110,7 @@ declare module "plugapi" {
         }
     }
 
-    namespace Enum {
+    export namespace Enum {
         interface RoomRole {
             NONE: number;
             RESIDENTDJ: number;
@@ -216,36 +217,36 @@ declare module "plugapi" {
         }
     }
 
-    namespace Event {
+    export namespace Event {
         interface BoothCycle {
             moderator: string;
             cycle: boolean;
         }
-        
+
         interface BoothLocked {
             m: string;
             c: boolean;
             ml: string;
             f: boolean;
         }
-        
+
         interface Chat {
             raw: RawChatMessage;
             id: string;
             from: User.User;
             message: string;
-            mentions: Array<any>;
+            mentions: any[];
             muted: boolean;
             type: string;
         }
-        
+
         interface ChatDelete {
             mi: number;
             chatID: string;
         }
-        
+
         type Grab = number;
-        
+
         interface Advance {
             media: Media;
             startTime: string;
@@ -255,12 +256,12 @@ declare module "plugapi" {
             playlistID: number;
             lastPlay: LastPlay;
         }
-        
+
         interface DJListUpdate {
             djs: User.DJ[];
             remove: string;
         }
-        
+
         interface Emote {
             fromID: string;
             message: string;
@@ -268,17 +269,17 @@ declare module "plugapi" {
             type: string;
             chatID: string;
         }
-        
+
         interface FollowJoin {
             data: FollowJoinData;
             type: string;
         }
-        
+
         interface ModAddDJ {
             moderator: string;
             username: string;
         }
-        
+
         interface ModBan {
             moderator: string;
             username: string;
@@ -286,37 +287,37 @@ declare module "plugapi" {
             ref: string;
             reason: string;
         }
-        
+
         interface ModMoveDJ {
             moderator: string;
             index: number;
             old: number;
             userID: string;
         }
-        
+
         interface ModRemoveDJ {
             moderator: string;
             username: string;
             userID: string;
         }
-        
+
         interface ModSkip {
             mi: number;
             m: string;
         }
-        
+
         interface RoomMinChatLevelUpdate {
             level: number;
             id: number;
             user: User.User;
         }
-        
+
         type RoomJoin = string;
-        
+
         type UserJoin = User.User;
-        
+
         type UserLeave = User.User;
-        
+
         interface UserUpdate {
             username: string;
             status: number;
@@ -329,91 +330,87 @@ declare module "plugapi" {
             curatorPoints: number;
             djPoints: number;
         }
-        
+
         interface Vote {
             i: number;
             v: number;
         }
-        
+
         interface Command extends Event.Chat {
             command: string;
             args: string[];
-            respond: Function;
-            respondTimeout: Function;
-            havePermission: Function;
-            isFrom: Function;
+            respond: (...args: any[]) => any;
+            respondTimeout: (...args: any[]) => any;
+            havePermission: (...args: any[]) => boolean;
+            isFrom: (...args: any[]) => boolean;
         }
     }
 
-    interface PlugAPIInstance {
-        deleteAllChat: boolean;
-        multiLine: boolean;
-        multiLineLimit: number;
-
-        connect(room: string): void;
-        changeDJCycle(enabled: boolean, callback?: () => void): boolean;
-        changeRoom(room: string, callback?: () => void): void;
-        close(): void;
-        getAdmins(): User.Extended[];
-        getAmbassadors(): User.Extended[];
-        getAudience(): User.Audience[];
-        getDJ(): User.DJ;
-        getDJs(): User.DJ[];
-        getHost(): User.Extended;
-        getMedia(): Media;
-        getRoomScore(): Score;
-        getSelf(): User.Audience;
-        getStaff(): User.Extended[];
-        getTimeElapsed(): number;
-        getTimeRemaining(): number;
-        getUser(userID: number): User.DJ;
-        getUsers(): User.DJ[];
-        getWaitList(): User.Extended;
-        getWaitListPosition(userID: number): number;
-        havePermission(userID: number, permission: number, global?: boolean): boolean;
-        joinBooth(callback?: () => void): boolean;
-        leaveBooth(callback?: () => void): boolean;
-        selfSkip(callback?: () => void): boolean;
-        sendChat(msg: string, timeout?: number): void;
-        setLogger(logObject: LogObject): boolean;
-
-        on(event: "boothCycle", callback: (data: Event.BoothCycle) => void): void;
-        on(event: "boothLocked", callback: (data: Event.BoothLocked) => void): void;
-        on(event: "chat", callback: (data: Event.Chat) => void): void;
-        on(event: "chatDelete", callback: (data: Event.ChatDelete) => void): void;
-        on(event: "grab", callback: (data: Event.Grab) => void): void;
-        on(event: "advance", callback: (data: Event.Advance) => void): void;
-        on(event: "djListUpdate", callback: (data: Event.DJListUpdate) => void): void;
-        on(event: "emote", callback: (data: Event.Emote) => void): void;
-        on(event: "followJoin", callback: (data: Event.FollowJoin) => void): void;
-        on(event: "modAddDJ", callback: (data: Event.ModAddDJ) => void): void;
-        on(event: "modBan", callback: (data: Event.ModBan) => void): void;
-        on(event: "modMoveDJ", callback: (data: Event.ModMoveDJ) => void): void;
-        on(event: "modRemoveDJ", callback: (data: Event.ModRemoveDJ) => void): void;
-        on(event: "modSkip", callback: (data: Event.ModSkip) => void): void;
-        on(event: "roomMinChatLevelUpdate", callback: (data: Event.RoomMinChatLevelUpdate) => void): void;
-        on(event: "roomJoin", callback: (data: Event.RoomJoin) => void): void;
-        on(event: "userJoin", callback: (data: Event.UserJoin) => void): void;
-        on(event: "userLeave", callback: (data: Event.UserLeave) => void): void;
-        on(event: "userUpdate", callback: (data: Event.UserUpdate) => void): void;
-        on(event: "vote", callback: (data: Event.Vote) => void): void;
-        on(event: "command", callback: (data: Event.Command) => void): void;
-        on(event: string, callback: (data: any) => void): void;
-    }
-
-    interface PlugAPIStatic {
-        new (login: PlugLogin, callback?: (error: Error, bot: PlugAPIInstance) => void): PlugAPIInstance;
-        new (login: PlugLogin, callback?: (bot: PlugAPIInstance) => void): PlugAPIInstance;
-        ROOM_ROLE: Enum.RoomRole;
-        GLOBAL_ROLES: Enum.GlobalRole;
-        STATUS: Enum.Status;
-        BAN: Enum.Ban;
-        BAN_REASON: Enum.BanReason;
-        MUTE: Enum.Mute;
-        MUTE_REASON: Enum.MuteReason;
-        events: Enum.Events;
-    }
-
-    var PlugAPI: PlugAPIStatic;
-    export = PlugAPI;
+    export var ROOM_ROLE: Enum.RoomRole;
+    export var GLOBAL_ROLES: Enum.GlobalRole;
+    export var STATUS: Enum.Status;
+    export var BAN: Enum.Ban;
+    export var BAN_REASON: Enum.BanReason;
+    export var MUTE: Enum.Mute;
+    export var MUTE_REASON: Enum.MuteReason;
+    export var events: Enum.Events;
 }
+
+declare class PlugAPI {
+    constructor(login: PlugAPI.PlugLogin, callback?: (error: Error, bot: PlugAPI) => void);
+    constructor(login: PlugAPI.PlugLogin, callback?: (bot: PlugAPI) => void);
+    deleteAllChat: boolean;
+    multiLine: boolean;
+    multiLineLimit: number;
+
+    connect(room: string): void;
+    changeDJCycle(enabled: boolean, callback?: () => void): boolean;
+    changeRoom(room: string, callback?: () => void): void;
+    close(): void;
+    getAdmins(): PlugAPI.User.Extended[];
+    getAmbassadors(): PlugAPI.User.Extended[];
+    getAudience(): PlugAPI.User.Audience[];
+    getDJ(): PlugAPI.User.DJ;
+    getDJs(): PlugAPI.User.DJ[];
+    getHost(): PlugAPI.User.Extended;
+    getMedia(): PlugAPI.Media;
+    getRoomScore(): PlugAPI.Score;
+    getSelf(): PlugAPI.User.Audience;
+    getStaff(): PlugAPI.User.Extended[];
+    getTimeElapsed(): number;
+    getTimeRemaining(): number;
+    getUser(userID: number): PlugAPI.User.DJ;
+    getUsers(): PlugAPI.User.DJ[];
+    getWaitList(): PlugAPI.User.Extended;
+    getWaitListPosition(userID: number): number;
+    havePermission(userID: number, permission: number, global?: boolean): boolean;
+    joinBooth(callback?: () => void): boolean;
+    leaveBooth(callback?: () => void): boolean;
+    selfSkip(callback?: () => void): boolean;
+    sendChat(msg: string, timeout?: number): void;
+    setLogger(logObject: PlugAPI.LogObject): boolean;
+
+    on(event: "boothCycle", callback: (data: PlugAPI.Event.BoothCycle) => void): void;
+    on(event: "boothLocked", callback: (data: PlugAPI.Event.BoothLocked) => void): void;
+    on(event: "chat", callback: (data: PlugAPI.Event.Chat) => void): void;
+    on(event: "chatDelete", callback: (data: PlugAPI.Event.ChatDelete) => void): void;
+    on(event: "grab", callback: (data: PlugAPI.Event.Grab) => void): void;
+    on(event: "advance", callback: (data: PlugAPI.Event.Advance) => void): void;
+    on(event: "djListUpdate", callback: (data: PlugAPI.Event.DJListUpdate) => void): void;
+    on(event: "emote", callback: (data: PlugAPI.Event.Emote) => void): void;
+    on(event: "followJoin", callback: (data: PlugAPI.Event.FollowJoin) => void): void;
+    on(event: "modAddDJ", callback: (data: PlugAPI.Event.ModAddDJ) => void): void;
+    on(event: "modBan", callback: (data: PlugAPI.Event.ModBan) => void): void;
+    on(event: "modMoveDJ", callback: (data: PlugAPI.Event.ModMoveDJ) => void): void;
+    on(event: "modRemoveDJ", callback: (data: PlugAPI.Event.ModRemoveDJ) => void): void;
+    on(event: "modSkip", callback: (data: PlugAPI.Event.ModSkip) => void): void;
+    on(event: "roomMinChatLevelUpdate", callback: (data: PlugAPI.Event.RoomMinChatLevelUpdate) => void): void;
+    on(event: "roomJoin", callback: (data: PlugAPI.Event.RoomJoin) => void): void;
+    on(event: "userJoin", callback: (data: PlugAPI.Event.UserJoin) => void): void;
+    on(event: "userLeave", callback: (data: PlugAPI.Event.UserLeave) => void): void;
+    on(event: "userUpdate", callback: (data: PlugAPI.Event.UserUpdate) => void): void;
+    on(event: "vote", callback: (data: PlugAPI.Event.Vote) => void): void;
+    on(event: "command", callback: (data: PlugAPI.Event.Command) => void): void;
+    on(event: string, callback: (data: any) => void): void;
+}
+export = PlugAPI;

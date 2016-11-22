@@ -1,4 +1,4 @@
-import * as PlugAPI from "plugapi";
+import PlugAPI = require("plugapi");
 
 new PlugAPI({
     email: "",

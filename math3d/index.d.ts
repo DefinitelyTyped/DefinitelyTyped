@@ -6,161 +6,161 @@
 export class Vector3 {
     constructor(x?: number, y?: number, z?: number);
 
-    public static back: Vector3;
-    public static down: Vector3;
-    public static forward: Vector3;
-    public static left: Vector3;
-    public static one: Vector3;
-    public static right: Vector3;
-    public static up: Vector3;
-    public static zero: Vector3;
-    public static dimension: number;
-    public static FromVector4: (vector4: Vector4) => Vector3;
+    static back: Vector3;
+    static down: Vector3;
+    static forward: Vector3;
+    static left: Vector3;
+    static one: Vector3;
+    static right: Vector3;
+    static up: Vector3;
+    static zero: Vector3;
+    static dimension: number;
+    static FromVector4: (vector4: Vector4) => Vector3;
 
-    public homogeneous: Vector4;
-    public magnitude: number;
-    public values: number[];
-    public vector4: Vector4;
-    public x: number;
-    public y: number;
-    public z: number;
+    homogeneous: Vector4;
+    magnitude: number;
+    values: number[];
+    vector4: Vector4;
+    x: number;
+    y: number;
+    z: number;
 
-    public add(vector3: Vector3): Vector3;
-    public average(vector3: Vector3): Vector3;
-    public cross(vector3: Vector3): Vector3;
-    public distanceTo(vector3: Vector3): number;
-    public dot(vector3: Vector3): number;
-    public equals(vector3: Vector3): boolean;
-    public mulScalar(scalar: Number): Vector3;
-    public negate(): Vector3;
-    public normalize(): Vector3;
-    public scale(vector3: Vector3): Vector3;
-    public sub(vector3: Vector3): Vector3;
-    public toString(): string;
+    add(vector3: Vector3): Vector3;
+    average(vector3: Vector3): Vector3;
+    cross(vector3: Vector3): Vector3;
+    distanceTo(vector3: Vector3): number;
+    dot(vector3: Vector3): number;
+    equals(vector3: Vector3): boolean;
+    mulScalar(scalar: number): Vector3;
+    negate(): Vector3;
+    normalize(): Vector3;
+    scale(vector3: Vector3): Vector3;
+    sub(vector3: Vector3): Vector3;
+    toString(): string;
 }
 
 export class Vector4 {
     constructor(x?: number, y?: number, z?: number, w?: number);
 
-    public static one: Vector4;
-    public static zero: Vector4;
-    public static dimension: number;
+    static one: Vector4;
+    static zero: Vector4;
+    static dimension: number;
 
-    public magnitude: number;
-    public values: number[];
-    public x: number;
-    public y: number;
-    public z: number;
-    public w: number;
+    magnitude: number;
+    values: number[];
+    x: number;
+    y: number;
+    z: number;
+    w: number;
 
-    public add(vector4: Vector4): Vector4;
-    public distanceTo(vector4: Vector4): number;
-    public dot(vector4: Vector4): number;
-    public equals(vector4: Vector4): boolean;
-    public mulScalar(scalar: Number): Vector4;
-    public negate(): Vector4;
-    public normalize(): Vector3;
-    public sub(vector4: Vector4): Vector3;
-    public toString(): string;
+    add(vector4: Vector4): Vector4;
+    distanceTo(vector4: Vector4): number;
+    dot(vector4: Vector4): number;
+    equals(vector4: Vector4): boolean;
+    mulScalar(scalar: number): Vector4;
+    negate(): Vector4;
+    normalize(): Vector3;
+    sub(vector4: Vector4): Vector3;
+    toString(): string;
 }
 
 export class Quaternion {
     constructor(x?: number, y?: number, z?: number, w?: number);
-    public static Euler(x?: number, y?: number, z?: number): Quaternion;
-    public static AngleAxis(axis: Vector3, angle: number): Quaternion;
+    static Euler(x?: number, y?: number, z?: number): Quaternion;
+    static AngleAxis(axis: Vector3, angle: number): Quaternion;
 
-    public static identity: Quaternion;
-    public static zero: Quaternion;
+    static identity: Quaternion;
+    static zero: Quaternion;
 
-    public angleAxis: { axis: Vector3, angle: number };
-    public eulerAngles: { x: number, y: number, z: number };
-    public x: number;
-    public y: number;
-    public z: number;
-    public w: number;
+    angleAxis: { axis: Vector3, angle: number };
+    eulerAngles: { x: number, y: number, z: number };
+    x: number;
+    y: number;
+    z: number;
+    w: number;
 
-    public angleTo(quaternion: Quaternion): number;
-    public conjugate(): Quaternion;
-    public distanceTo(quaternion: Quaternion): number;
-    public dot(quaternion: Quaternion): number;
-    public equals(quaternion: Quaternion): boolean;
-    public inverse(): Quaternion;
-    public mul(quaternion: Quaternion): Quaternion;
-    public mulVector3(vector3: Vector3): Vector3;
-    public toString(): string;
+    angleTo(quaternion: Quaternion): number;
+    conjugate(): Quaternion;
+    distanceTo(quaternion: Quaternion): number;
+    dot(quaternion: Quaternion): number;
+    equals(quaternion: Quaternion): boolean;
+    inverse(): Quaternion;
+    mul(quaternion: Quaternion): Quaternion;
+    mulVector3(vector3: Vector3): Vector3;
+    toString(): string;
 }
 
 export class Matrix4x4 {
     constructor(data: number[]);
 
-    public static FlipMatrix(flipX: boolean, flipY: boolean, flipZ: boolean): Matrix4x4;
-    public static ScaleMatrix(scale: number | Vector3): Matrix4x4;
-    public static RotationMatrix(quaternion: Quaternion): Matrix4x4;
-    public static TranslationMatrix(translation: Vector3): Matrix4x4;
-    public static TRS(translation: Vector3, rotation: Quaternion, scale: number | Vector3): Matrix4x4;
-    public static LocalToWorldMatrix(position: Vector3, rotation: Quaternion, scale: number | Vector3): Matrix4x4;
-    public static WorldToLocalMatrix(position: Vector3, rotation: Quaternion, scale: number | Vector3): Matrix4x4;
+    static FlipMatrix(flipX: boolean, flipY: boolean, flipZ: boolean): Matrix4x4;
+    static ScaleMatrix(scale: number | Vector3): Matrix4x4;
+    static RotationMatrix(quaternion: Quaternion): Matrix4x4;
+    static TranslationMatrix(translation: Vector3): Matrix4x4;
+    static TRS(translation: Vector3, rotation: Quaternion, scale: number | Vector3): Matrix4x4;
+    static LocalToWorldMatrix(position: Vector3, rotation: Quaternion, scale: number | Vector3): Matrix4x4;
+    static WorldToLocalMatrix(position: Vector3, rotation: Quaternion, scale: number | Vector3): Matrix4x4;
 
-    public static identity: Matrix4x4;
-    public static zero: Matrix4x4;
+    static identity: Matrix4x4;
+    static zero: Matrix4x4;
 
-    public columns: number[][];
-    public m11: number;
-    public m12: number;
-    public m13: number;
-    public m14: number;
-    public m21: number;
-    public m22: number;
-    public m23: number;
-    public m24: number;
-    public m31: number;
-    public m32: number;
-    public m33: number;
-    public m34: number;
-    public m41: number;
-    public m42: number;
-    public m43: number;
-    public m44: number;
-    public rows: number[][];
-    public size: { rows: number, columns: number };
-    public values: number[];
+    columns: number[][];
+    m11: number;
+    m12: number;
+    m13: number;
+    m14: number;
+    m21: number;
+    m22: number;
+    m23: number;
+    m24: number;
+    m31: number;
+    m32: number;
+    m33: number;
+    m34: number;
+    m41: number;
+    m42: number;
+    m43: number;
+    m44: number;
+    rows: number[][];
+    size: { rows: number, columns: number };
+    values: number[];
 
-    public determinant(): number
-    public inverse(): Matrix4x4;
-    public negate(): Matrix4x4;
-    public transpose(): Matrix4x4;
-    public add(matrix4x4: Matrix4x4): Matrix4x4;
-    public sub(matrix4x4: Matrix4x4): Matrix4x4;
-    public mul(matrix4x4: Matrix4x4): Matrix4x4;
-    public mulScalar(scalar: Number): Matrix4x4;
-    public mulVector3(vector3: Vector3): Vector3;
+    determinant(): number
+    inverse(): Matrix4x4;
+    negate(): Matrix4x4;
+    transpose(): Matrix4x4;
+    add(matrix4x4: Matrix4x4): Matrix4x4;
+    sub(matrix4x4: Matrix4x4): Matrix4x4;
+    mul(matrix4x4: Matrix4x4): Matrix4x4;
+    mulScalar(scalar: number): Matrix4x4;
+    mulVector3(vector3: Vector3): Vector3;
 }
 
 export class Transform {
     constructor(position?: Vector3, rotation?: Quaternion);
 
-    public forward: Vector3;
-    public localPosition: Vector3;
-    public localRotation: Quaternion;
-    public localToWorldMatrix: Matrix4x4;
-    public name: string;
-    public parent: Transform;
-    public position: Vector3;
-    public right: Vector3;
-    public root: Transform;
-    public rotation: Vector3;
-    public up: Vector3;
-    public worldToLocalMatrix: Matrix4x4;
+    forward: Vector3;
+    localPosition: Vector3;
+    localRotation: Quaternion;
+    localToWorldMatrix: Matrix4x4;
+    name: string;
+    parent: Transform;
+    position: Vector3;
+    right: Vector3;
+    root: Transform;
+    rotation: Vector3;
+    up: Vector3;
+    worldToLocalMatrix: Matrix4x4;
 
-    public addChild(child: Transform): void;
-    public inverseTransformPosition(position: Vector3): Vector3;
-    public removeChild(child: Transform): void;
-    public transformPosition(position: Vector3): Vector3;
-    public translate(translation: Vector3, relativeTo?: Transform.Space): Transform;
-    public rotate(x: number, y: number, z: number, relativeTo?: Transform.Space): Transform;
+    addChild(child: Transform): void;
+    inverseTransformPosition(position: Vector3): Vector3;
+    removeChild(child: Transform): void;
+    transformPosition(position: Vector3): Vector3;
+    translate(translation: Vector3, relativeTo?: Transform.Space): Transform;
+    rotate(x: number, y: number, z: number, relativeTo?: Transform.Space): Transform;
 }
 
-export module Transform {
+export namespace Transform {
     export enum Space {
         Self,
         World
