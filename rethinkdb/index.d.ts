@@ -84,6 +84,15 @@ interface GetTableOptions {
     useOutdated: boolean;
 }
 
+interface ChangesOptions {
+    squash?: boolean | number;
+    changefeedQueueSize?: number;
+    includeInitial?: boolean;
+    includeStates?: boolean;
+    includeOffsets?: boolean;
+    includeTypes?: boolean;
+}
+
 interface Writeable {
     update(obj: Object, options?: UpdateOptions): Operation<WriteResult>;
     replace(obj: Object, options?: UpdateOptions): Operation<WriteResult>;
@@ -110,7 +119,7 @@ interface Sequence extends Operation<Cursor>, Writeable {
     filter(rql: ExpressionFunction<boolean>): Sequence;
     filter(rql: Expression<boolean>): Sequence;
     filter(obj: { [key: string]: any }): Sequence;
-
+    changes(opts?: ChangesOptions): Sequence;
 
     // Join
     // these return left, right
