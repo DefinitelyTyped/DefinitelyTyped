@@ -365,7 +365,19 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      *
      * @param filter A CSS selector string.
      */
-    filter(filter: string): this;
+    filter(filter: string): Transition<GElement, Datum, PElement, PDatum>;
+    /**
+     * For each selected element, selects only the elements that match the specified filter, and returns a transition on the resulting selection.
+     *
+     * The new transition has the same id, name and timing as this transition; however, if a transition with the same id already exists on a selected element,
+     * the existing transition is returned for that element.
+     *
+     * The generic refers to the type of element which will be selected after applying the filter, i.e. if the element types
+     * contained in a pre-filter selection are narrowed to a subset as part of the filtering.
+     *
+     * @param filter A CSS selector string.
+     */
+    filter<FilteredElement extends BaseType>(filter: string): Transition<FilteredElement, Datum, PElement, PDatum>;
     /**
      * For each selected element, selects only the elements that match the specified filter, and returns a transition on the resulting selection.
      *
@@ -376,7 +388,21 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * the current index (i), and the current group (nodes), with this as the current DOM element. The filter function returns a boolean indicating,
      * whether the selected element matches.
      */
-    filter(filter: ValueFn<GElement, Datum, boolean>): this;
+    filter(filter: ValueFn<GElement, Datum, boolean>): Transition<GElement, Datum, PElement, PDatum>;
+    /**
+     * For each selected element, selects only the elements that match the specified filter, and returns a transition on the resulting selection.
+     *
+     * The new transition has the same id, name and timing as this transition; however, if a transition with the same id already exists on a selected element,
+     * the existing transition is returned for that element.
+     *
+     * The generic refers to the type of element which will be selected after applying the filter, i.e. if the element types
+     * contained in a pre-filter selection are narrowed to a subset as part of the filtering.
+     *
+     * @param filter A filter function which is evaluated for each selected element, in order, being passed the current datum (d),
+     * the current index (i), and the current group (nodes), with this as the current DOM element. The filter function returns a boolean indicating,
+     * whether the selected element matches.
+     */
+    filter<FilteredElement extends BaseType>(filter: ValueFn<GElement, Datum, boolean>): Transition<FilteredElement, Datum, PElement, PDatum>;
 
     // Event Handling -------------------
 
@@ -389,7 +415,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * the optional name allows multiple callbacks to be registered to receive events of the same type, such as "start.foo"" and "start.bar".
      * To specify multiple typenames, separate typenames with spaces, such as "interrupt end"" or "start.foo start.bar".
      */
-    on(type: string): ValueFn<GElement, Datum, void>;
+    on(type: string): ValueFn<GElement, Datum, void> | undefined;
     /**
      * Remove all listeners for a given name.
      *
@@ -443,7 +469,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
     /**
      * Return the first (non-null) element in this transition. If the transition is empty, returns null.
      */
-    node(): GElement | null;
+    node(): GElement;
 
     /**
      * Return an array of all (non-null) elements in this transition.

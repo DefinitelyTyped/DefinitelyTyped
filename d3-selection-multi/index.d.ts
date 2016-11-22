@@ -8,7 +8,7 @@ import {Transition} from 'd3-transition';
 
 
 // An object mapping attribute (or style or property) names to value accessors
-export type ValueMap<Element, Datum> = { [key: string]: number | string | boolean | null | ValueFn<Element, Datum, number | string | boolean | null> };
+export type ValueMap<T extends BaseType, Datum> = { [key: string]: number | string | boolean | null | ValueFn<T, Datum, number | string | boolean | null> };
 
 declare module 'd3-selection' {
     export interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {

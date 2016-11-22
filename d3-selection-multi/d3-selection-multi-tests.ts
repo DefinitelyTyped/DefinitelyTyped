@@ -7,12 +7,12 @@
  * are not intended as functional tests.
  */
 
-import { Selection, ArrayLike } from 'd3-selection';
+import { selectAll, Selection, ArrayLike } from 'd3-selection';
 import { Transition } from 'd3-transition';
 
 import * as d3SelectionMulti from 'd3-selection-multi';
 
-let selection: Selection<HTMLAnchorElement, string, null, undefined>;
+let selection: Selection<HTMLAnchorElement, string, HTMLElement, undefined> = selectAll<HTMLAnchorElement, string>('a');
 
 // Selection.attrs
 
@@ -34,8 +34,11 @@ selection = selection.attrs({
 });
 
 // Function that returns a map
-selection = selection.attrs(function (d) {
-    return this.id ? null : { id: d };
+selection = selection.attrs(function (d, i, g) {
+    let that: HTMLAnchorElement = this;
+    let index: number = i;
+    let group: HTMLAnchorElement[] | ArrayLike<HTMLAnchorElement> = g;
+    return this.id ? {} : { id: d };
 });
 
 // Selection.styles
@@ -86,11 +89,14 @@ selection = selection.properties({
 });
 
 // Function that returns an object
-selection = selection.properties(function (d) {
-    return this.href ? null : { href: d };
+selection = selection.properties(function (d, i, g) {
+    let that: HTMLAnchorElement = this;
+    let index: number = i;
+    let group: HTMLAnchorElement[] | ArrayLike<HTMLAnchorElement> = g;
+    return that.href ? {} : { href: d };
 });
 
-let transition: Transition<HTMLAnchorElement, string, null, undefined>;
+let transition: Transition<HTMLAnchorElement, string, HTMLElement, undefined> = selectAll<HTMLAnchorElement, string>('a').transition();
 
 // Transition.attrs
 
@@ -112,8 +118,11 @@ transition = transition.attrs({
 });
 
 // Function that returns a map
-transition = transition.attrs(function (d) {
-    return this.id ? null : { id: d };
+transition = transition.attrs(function (d, i, g) {
+    let that: HTMLAnchorElement = this;
+    let index: number = i;
+    let group: HTMLAnchorElement[] | ArrayLike<HTMLAnchorElement> = g;
+    return this.id ? {} : { id: d };
 });
 
 // Transition.styles
@@ -173,7 +182,7 @@ valueMap = {
     bar2: function (d, i) {
         let that: SVGCircleElement = this;
         let datum: SampleDatum = d;
-        let index: number =  i;
+        let index: number = i;
         return d.r;
     },
     bar3: function (d, i, g) {
