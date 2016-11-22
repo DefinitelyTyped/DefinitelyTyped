@@ -1,5 +1,3 @@
-/// <reference path="./menubar.d.ts" />
-
 import * as menubar from "menubar";
 
 var mb1 = menubar();

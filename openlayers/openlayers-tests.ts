@@ -1,4 +1,3 @@
-
 // Basic type variables for test functions
 let anyValue: any;
 let voidValue: void;
@@ -440,7 +439,7 @@ voidValue = observable.unByKey(eventKeyArray);
 //
 let getPointResolutionFn: (n: number, c: ol.Coordinate) => number;
 projection = new ol.proj.Projection({
-    code:stringValue,    
+    code:stringValue,
 });
 stringValue = projection.getCode();
 extent = projection.getExtent();
@@ -455,7 +454,7 @@ voidValue = projection.setGlobal(booleanValue);
 voidValue = projection.setWorldExtent(extent);
 
 //
-// ol.Map 
+// ol.Map
 //
 
 let map: ol.Map = new ol.Map({
@@ -498,9 +497,9 @@ stringValue = tileWMS.getGetFeatureInfoUrl([0, 0], 1, "EPSG:4326", {});
 // ol.source.WMTS
 //
 let wmts: ol.source.WMTS = new ol.source.WMTS({
-   layer: "",
+    layer: "",
     projection: projection,
-   matrixSet: "",
+    matrixSet: "",
     style: "",
     tileGrid: new ol.tilegrid.WMTS({
         matrixIds: [],

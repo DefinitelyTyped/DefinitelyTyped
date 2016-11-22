@@ -1,5 +1,3 @@
-/// <reference path="change-emitter.d.ts"/>
-
 import { createChangeEmitter, ChangeEmitterOf0 } from "change-emitter";
 
 function usage() {

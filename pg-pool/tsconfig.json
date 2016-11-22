@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "pg-pool.d.ts",
+        "index.d.ts",
         "pg-pool-tests.ts"
     ]
 }

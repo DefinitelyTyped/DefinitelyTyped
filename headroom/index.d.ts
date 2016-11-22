@@ -8,11 +8,10 @@ interface HeadroomOptions {
 	tolerance?: any;
 	classes?: {
 		initial?: string;
-		notBottom?:string;
+		notBottom?: string;
 		notTop?: string;
 		pinned?: string;
 		top?: string;
-		bottom?:string;
 		unpinned?: string;
 	};
 	scroller?: Element;
@@ -20,8 +19,8 @@ interface HeadroomOptions {
 	onUnpin?: () => void;
 	onTop?: () => void;
 	onNotTop?: () => void;
-	onNotBottom?:()=>void;
-	onBottom?:()=>void;
+	onNotBottom?: () => void;
+	onBottom?: () => void;
 }
 
 declare class Headroom {

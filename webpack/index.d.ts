@@ -1,4 +1,4 @@
-// Type definitions for webpack 1.12.9
+// Type definitions for webpack 2.0.0
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -63,7 +63,7 @@ declare namespace webpack {
         /** Add additional plugins to the compiler. */
         plugins?: (Plugin | Function)[];
         /** Stats options for logging  */
-        stats?: compiler.StatsOptions;
+        stats?: compiler.StatsToStringOptions;
     }
 
     interface Entry {
@@ -124,13 +124,11 @@ declare namespace webpack {
         crossOriginLoading?: string | boolean;
     }
 
-    interface Module {
-        /** A array of automatically applied loaders. */
-        loaders?: Loader[];
+    interface BaseModule {
         /** A array of applied pre loaders. */
-        preLoaders?: Loader[];
+        preLoaders?: Rule[];
         /** A array of applied post loaders. */
-        postLoaders?: Loader[];
+        postLoaders?: Rule[];
         /** A RegExp or an array of RegExps. Don’t parse files matching. */
         noParse?: RegExp | RegExp[];
         unknownContextRequest?: string;
@@ -145,6 +143,15 @@ declare namespace webpack {
         wrappedContextRecursive?: boolean;
         wrappedContextCritical?: boolean;
     }
+    interface OldModule extends BaseModule {
+        /** An array of automatically applied loaders. */
+        loaders: Rule[];
+    }
+    interface NewModule extends BaseModule {
+        /** An array of rules applied for modules. */
+        rules: Rule[];
+    }
+    type Module = OldModule | NewModule;
 
     interface Resolve {
         /** Replace modules by other modules or paths. */
@@ -214,23 +221,129 @@ declare namespace webpack {
         [nodeBuiltin: string]: boolean | string | undefined;
     }
 
-    type LoaderCondition = string | RegExp | ((absPath: string) => boolean);
-
-    interface Loader {
-        /** A condition that must not be met */
-        exclude?: LoaderCondition | LoaderCondition[];
-        /** A condition that must be met */
-        include?: LoaderCondition | LoaderCondition[];
-        /** A condition that must be met */
-        test: LoaderCondition | LoaderCondition[];
-        /** A string of “!” separated loaders */
-        loader?: string;
-        /** A array of loaders as string */
-        loaders?: string[];
-        query?: {
-            [name: string]: any;
-        }
+    interface BaseConditionSpec {
+        /** The Condition must match. The convention is the provide a string or array of strings here, but it's not enforced. */
+        include?: Condition;
+        /** The Condition must NOT match. The convention is the provide a string or array of strings here, but it's not enforced. */
+        exclude?: Condition;
     }
+    interface TestConditionSpec extends BaseConditionSpec {
+        /** The Condition must match. The convention is the provide a RegExp or array of RegExps here, but it's not enforced. */
+        test: Condition;
+    }
+    interface AndConditionSpec extends BaseConditionSpec {
+        /** All Conditions must match. */
+        and: Condition[];
+    }
+    interface OrConditionSpec extends BaseConditionSpec {
+        /** Any Condition must match. */
+        or: Condition[];
+    }
+    interface NotConditionSpec extends BaseConditionSpec {
+        /** The Condition must NOT match. */
+        not: Condition;
+    }
+    type ConditionSpec = TestConditionSpec | OrConditionSpec | AndConditionSpec | NotConditionSpec;
+
+    interface ConditionArray extends Array<Condition> {} 
+    type Condition = string | RegExp | ((absPath: string) => boolean) | ConditionSpec | ConditionArray;
+
+    interface OldLoader {
+        loader: string;
+        query?: { [name: string]: any };
+    }
+    interface NewLoader {
+        loader: string;
+        options?: { [name: string]: any };
+    }
+    type Loader = string | OldLoader | NewLoader;
+
+    /** 
+     * There are direct and delegate rules. Direct Rules need a test, Delegate rules delegate to subrules bringing their own.
+     * Direct rules can optionally contain delegate keys (oneOf, rules).
+     * 
+     * These types exist to enforce that a rule has the keys `((loader XOR loaders) AND test) OR oneOf OR rules`
+     */
+    interface BaseRule {
+        /**
+         * Specifies the category of the loader. No value means normal loader.
+         * 
+         * There is also an additional category "inlined loader" which are loaders applied inline of the import/require.
+         * 
+         * All loaders are sorted in the order post, inline, normal, pre and used in this order.
+         * 
+         * All normal loaders can be omitted (overridden) by prefixing ! in the request.
+         * 
+         * All normal and pre loaders can be omitted (overridden) by prefixing -! in the request.
+         * 
+         * All normal, post and pre loaders can be omitted (overridden) by prefixing !! in the request.
+         * 
+         * Inline loaders and ! prefixes should not be used as they are non-standard. They may be use by loader generated code.
+         */
+        enforce?: 'pre' | 'post';
+        /** A condition that must be met */
+        test?: Condition | Condition[];
+        /** A condition that must not be met */
+        exclude?: Condition | Condition[];
+        /** A condition that must be met */
+        include?: Condition | Condition[];
+        /** A Condition matched with the resource. */
+        resource?: Condition | Condition[];
+        /** A condition matched with the issuer */
+        issuer?: Condition | Condition[];
+        /**
+         * An object with parser options. All applied parser options are merged.
+         * 
+         * For each different parser options object a new parser is created and plugins can apply plugins depending on the parser options. Many of the default plugins apply their parser plugins only if a property in the parser options is not set or true.
+         */
+        parser?: { [optName: string]: any };
+        /** An array of Rules that is also used when the Rule matches. */
+        rules?: Rule[];
+        /** An array of Rules from which only the first matching Rule is used when the Rule matches. */
+        oneOf?: Rule[];
+    }
+    interface BaseDirectRule extends BaseRule {
+        /** A condition that must be met */
+        test: Condition | Condition[];
+    }
+    // Direct Rules
+    interface BaseSingleLoaderRule extends BaseDirectRule {
+        /** Loader name or an object with name and options */
+        loader: Loader;
+    }
+    interface OldLoaderRule extends BaseSingleLoaderRule {
+        /**
+         * Loader options
+         * @deprecated:
+         */
+        query?: { [name: string]: any };
+    }
+    interface NewLoaderRule extends BaseSingleLoaderRule {
+        options?: { [name: string]: any };
+    }
+    type LoaderRule = OldLoaderRule | NewLoaderRule;
+    interface OldUseRule extends BaseDirectRule {
+        /**
+         * A array of loaders.
+         * @deprecated  use `use` instead
+         */
+        loaders: string[];
+    }
+    interface NewUseRule extends BaseDirectRule {
+        /** A loader or array of loaders */
+        use: Loader | Loader[];
+    }
+    type UseRule = OldUseRule | NewUseRule;
+    
+    // Delegate Rules
+    interface RulesRule extends BaseRule {
+        /** An array of Rules that is also used when the Rule matches. */
+        rules: Rule[];
+    }
+    interface OneOfRule extends BaseRule {
+        oneOf: Rule[];
+    }
+    type Rule = LoaderRule | UseRule | RulesRule | OneOfRule;
 
     interface Plugin { }
 
@@ -405,7 +518,7 @@ declare namespace webpack {
     }
 
     interface HotModuleReplacementPluginStatic {
-        new (): Plugin;
+        new (options?: any): Plugin;
     }
 
     interface ExtendedAPIPluginStatic {

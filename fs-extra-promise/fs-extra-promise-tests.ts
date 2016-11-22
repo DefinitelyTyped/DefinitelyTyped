@@ -17,6 +17,7 @@ var dir: string;
 var path: string;
 var data: any;
 var object: Object;
+var buf: Buffer;
 var buffer: NodeBuffer;
 var modeNum: number;
 var modeStr: string;
@@ -27,23 +28,22 @@ var srcpath: string;
 var dstpath: string;
 var oldPath: string;
 var newPath: string;
-var cache: string;
+var cache: { [path: string]: string; };
 var offset: number;
 var length: number;
 var position: number;
-var cacheBool: boolean;
-var cacheStr: string;
 var fd: number;
 var len: number;
 var uid: number;
 var gid: number;
 var atime: number;
 var mtime: number;
+var watchListener: (curr: fs.Stats, prev: fs.Stats) => void;
 var statsCallback: (err: Error, stats: fs.Stats) => void;
 var errorCallback: (err: Error) => void;
 var openOpts: fs.OpenOptions;
 var watcher: fs.FSWatcher;
-var readStreeam: stream.Readable;
+var readStream: stream.Readable;
 var writeStream: stream.Writable;
 
 fs.copy(src, dest, errorCallback);
@@ -91,8 +91,8 @@ fs.writeJSONSync(file, object, openOpts);
 
 fs.rename(oldPath, newPath, errorCallback);
 fs.renameSync(oldPath, newPath);
-fs.truncate(fd, len, errorCallback);
-fs.truncateSync(fd, len);
+fs.truncate(path, len, errorCallback);
+fs.truncateSync(path, len);
 fs.chown(path, uid, gid, errorCallback);
 fs.chownSync(path, uid, gid);
 fs.fchown(fd, uid, gid, errorCallback);
@@ -130,7 +130,7 @@ fs.realpath(path, (err: Error, resolvedPath: string) => {
 fs.realpath(path, cache, (err: Error, resolvedPath: string) => {
 
 });
-str = fs.realpathSync(path, cacheBool);
+str = fs.realpathSync(path, cache);
 fs.unlink(path, errorCallback);
 fs.unlinkSync(path);
 fs.rmdir(path, errorCallback);
@@ -145,10 +145,10 @@ fs.readdir(path, (err: Error, files: string[]) => {
 strArr = fs.readdirSync(path);
 fs.close(fd, errorCallback);
 fs.closeSync(fd);
-fs.open(path, flags, modeStr, (err: Error, fd: number) => {
-    
+fs.open(path, flags, modeNum, (err: Error, fd: number) => {
+
 });
-num = fs.openSync(path, flags, modeStr);
+num = fs.openSync(path, flags, modeNum);
 fs.utimes(path, atime, mtime, errorCallback);
 fs.utimesSync(path, atime, mtime);
 fs.futimes(fd, atime, mtime, errorCallback);
@@ -169,7 +169,7 @@ fs.readFile(filename, (err: Error, data: NodeBuffer) => {
 fs.readFile(filename, encoding, (err: Error, data: string) => {
 
 });
-fs.readFile(filename, openOpts, (err: Error, data: string) => {
+fs.readFile(filename, openOpts, (err: NodeJS.ErrnoException, data: Buffer) => {
 
 });
 fs.readFile(filename, (err: Error, data: NodeBuffer) => {
@@ -177,7 +177,7 @@ fs.readFile(filename, (err: Error, data: NodeBuffer) => {
 });
 buffer = fs.readFileSync(filename);
 str = fs.readFileSync(filename, encoding);
-str = fs.readFileSync(filename, openOpts);
+buf = fs.readFileSync(filename, openOpts);
 
 fs.writeFile(filename, data, errorCallback);
 fs.writeFile(filename, data, encoding, errorCallback);
@@ -193,17 +193,11 @@ fs.appendFileSync(filename, data);
 fs.appendFileSync(filename, data, encoding);
 fs.appendFileSync(filename, data, openOpts);
 
-fs.watchFile(filename, {
-	curr: stats,
-	prev: stats
-});
+fs.watchFile(filename, watchListener);
 fs.watchFile(filename, {
 	persistent: bool,
 	interval: num
-}, {
-	curr: stats,
-	prev: stats
-});
+}, watchListener);
 fs.unwatchFile(filename);
 watcher = fs.watch(filename, { persistent: bool }, (event: string, filename: string) => {
 
@@ -213,17 +207,15 @@ fs.exists(path, (exists: boolean) => {
 });
 bool = fs.existsSync(path);
 
-readStreeam = fs.createReadStream(path);
-readStreeam = fs.createReadStream(path, {
+readStream = fs.createReadStream(path);
+readStream = fs.createReadStream(path, {
 	flags: str,
 	encoding: str,
 	fd: num,
-	mode: num,
-	bufferSize: num
+	mode: num
 });
 writeStream = fs.createWriteStream(path);
 writeStream = fs.createWriteStream(path, {
 	flags: str,
-	encoding: str,
-	string: str
+	encoding: str
 });

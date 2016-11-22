@@ -1,4 +1,3 @@
-/// <reference path="./murmurhash3js.d.ts"/>
 
 import * as murmurhash3js from 'murmurhash3js';
 

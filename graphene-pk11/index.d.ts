@@ -2272,4 +2272,3 @@ declare class Module extends BaseObject {
      */
     static load(libFile: string, libName?: string): Module;
 }
-

@@ -1,5 +1,3 @@
-/// <reference path="wiring-pi.d.ts" />
-
 import * as wpi from 'wiring-pi';
 
 console.log(wpi.VERSION);

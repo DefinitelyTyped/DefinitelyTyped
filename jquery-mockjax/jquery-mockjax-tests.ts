@@ -1,5 +1,5 @@
 /// <reference types="jquery"/>
-/// <reference path="../qunit/qunit-1.16.d.ts" />
+/// <reference types="qunit" />
 
 class Tests {
     private _noErrorCallbackExpected: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any;

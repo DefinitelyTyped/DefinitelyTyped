@@ -9,10 +9,10 @@ declare module "query-string" {
     interface StringifyOptions { strict?: boolean; encode?: boolean; }
 
     /**
- * Parse a query string into an object.
- * Leading ? or # are ignored, so you can pass location.search or location.hash directly.
- * @param str
- */
+     * Parse a query string into an object.
+     * Leading ? or # are ignored, so you can pass location.search or location.hash directly.
+     * @param str
+     */
     export function parse(str: string): { [key: string]: string | string[] };
 
     /**

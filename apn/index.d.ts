@@ -357,8 +357,8 @@ export declare enum Errors {
 }
 
 //Lowercase aliases
-export {Connection as connection};
-export {Device as device};
-export {Errors as error};
-export {Feedback as feedback};
-export {Notification as notification};
+export { Connection as connection };
+export { Device as device };
+export { Errors as error };
+export { Feedback as feedback };
+export { Notification as notification };

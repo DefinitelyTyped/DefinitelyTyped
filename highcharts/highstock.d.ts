@@ -3,30 +3,28 @@
 // Definitions by: David Deutsch <http://github.com/DavidKDeutsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="highcharts" />
-
 declare namespace __Highstock {
-    interface ChartObject extends __Highcharts.ChartObject {
+    interface ChartObject extends Highcharts.ChartObject {
         options: Options;
     }
 
     interface NavigatorOptions {
-    adaptToUpdatedData?: boolean;
-    baseSeries?: string | number;
-    enabled?: boolean;
-    handles?: {
-        backgroundColor?: string;
-        borderColor?: string;
-    };
-    height?: number;
-    margin?: number;
-    maskFill?: string;
-    maskInside?: boolean;
-    outlineColor?: string;
-    outlineWidth?: number;
-        series?: __Highcharts.IndividualSeriesOptions;
-        xAxis?: __Highcharts.AxisOptions;
-        yAxis?: __Highcharts.AxisOptions;
+        adaptToUpdatedData?: boolean;
+        baseSeries?: string | number;
+        enabled?: boolean;
+        handles?: {
+            backgroundColor?: string;
+            borderColor?: string;
+        };
+        height?: number;
+        margin?: number;
+        maskFill?: string;
+        maskInside?: boolean;
+        outlineColor?: string;
+        outlineWidth?: number;
+        series?: Highcharts.IndividualSeriesOptions;
+        xAxis?: Highcharts.AxisOptions;
+        yAxis?: Highcharts.AxisOptions;
     }
 
     interface RangeSelectorButton {
@@ -37,27 +35,27 @@ declare namespace __Highstock {
     }
 
     interface RangeSelectorOptions {
-    allButtonsEnabled?: boolean;
-    buttonSpacing?: number;
-    buttonTheme?: any;
-    buttons?: RangeSelectorButton[];
-    enabled?: boolean;
-    inputBoxBorderColor?: string;
-    inputBoxHeight?: number;
-    inputBoxWidth?: number;
-    inputDateFormat?: string;
-    inputDateParser?: (date: string) => number;
-    inputEditDateFormat?: string;
-    inputEnabled?: boolean;
-    inputPosition?: {
-        align?: string;
-        verticalAlign?: string;
-        x?: number;
-        y?: number;
-    };
-        inputStyle?: __Highcharts.CSSObject;
-        labelStyle?: __Highcharts.CSSObject;
-    selected?: number;
+        allButtonsEnabled?: boolean;
+        buttonSpacing?: number;
+        buttonTheme?: any;
+        buttons?: RangeSelectorButton[];
+        enabled?: boolean;
+        inputBoxBorderColor?: string;
+        inputBoxHeight?: number;
+        inputBoxWidth?: number;
+        inputDateFormat?: string;
+        inputDateParser?: (date: string) => number;
+        inputEditDateFormat?: string;
+        inputEnabled?: boolean;
+        inputPosition?: {
+            align?: string;
+            verticalAlign?: string;
+            x?: number;
+            y?: number;
+        };
+        inputStyle?: Highcharts.CSSObject;
+        labelStyle?: Highcharts.CSSObject;
+        selected?: number;
     }
 
     interface ScrollbarOptions {
@@ -81,7 +79,7 @@ declare namespace __Highstock {
     trackBorderWidth?: number;
     }
 
-    interface Options extends __Highcharts.Options {
+    interface Options extends Highcharts.Options {
         navigator?: NavigatorOptions;
         rangeSelector?: RangeSelectorOptions;
         scrollbar?: ScrollbarOptions;
@@ -92,7 +90,7 @@ declare namespace __Highstock {
         new (options: Options, callback: (chart: ChartObject) => void): ChartObject;
     }
 
-    interface Static extends __Highcharts.Static {
+    interface Static extends Highcharts.Static {
         StockChart: Chart;
     }
 }
@@ -101,24 +99,24 @@ declare namespace __Highstock {
 interface JQuery {
     highcharts(type: "StockChart"): __Highstock.ChartObject;
     /**
-    * Creates a new Highcharts.Chart for the current JQuery selector; usually
-    * a div selected by $('#container')
-     * @param {__Highcharts.Options} options Options for this chart
-    * @return current {JQuery} selector the current JQuery selector
-    **/
+     * Creates a new Highcharts.Chart for the current JQuery selector; usually
+     * a div selected by $('#container')
+     * @param {Highcharts.Options} options Options for this chart
+     * @return current {JQuery} selector the current JQuery selector
+     **/
     highcharts(type: "StockChart", options: __Highstock.Options): JQuery;
     /**
-    * Creates a new Highcharts.Chart for the current JQuery selector; usually
-    * a div selected by $('#container')
-     * @param {__Highcharts.Options} options Options for this chart
-    * @param callback Callback function used to manipulate the constructed chart instance
-    * @return current {JQuery} selector the current JQuery selector
-    **/
+     * Creates a new Highcharts.Chart for the current JQuery selector; usually
+     * a div selected by $('#container')
+     * @param {Highcharts.Options} options Options for this chart
+     * @param callback Callback function used to manipulate the constructed chart instance
+     * @return current {JQuery} selector the current JQuery selector
+     **/
     highcharts(type: "StockChart", options: __Highstock.Options, callback: (chart: __Highstock.ChartObject) => void): JQuery;
 
 
-    highcharts(type: string): __Highcharts.ChartObject;
-    highcharts(type: string, options: __Highcharts.Options): JQuery;
-    highcharts(type: string, options: __Highcharts.Options, callback: (chart: __Highcharts.ChartObject) => void): JQuery;
+    highcharts(type: string): Highcharts.ChartObject;
+    highcharts(type: string, options: Highcharts.Options): JQuery;
+    highcharts(type: string, options: Highcharts.Options, callback: (chart: Highcharts.ChartObject) => void): JQuery;
 }
 

@@ -7,6 +7,8 @@
 
 import {ServerRequest, ServerResponse} from "http";
 
+declare function finalHandler(req: ServerRequest, res: ServerResponse, options?: finalHandler.Options): (err: any) => void;
+
 declare namespace finalHandler {
 	export interface Options {
 		message?: boolean|((err: any, status: number) => string);
@@ -14,7 +16,5 @@ declare namespace finalHandler {
 		stacktrace?: boolean;
 	}
 }
-
-declare function finalHandler(req: ServerRequest, res: ServerResponse, options?: finalHandler.Options): (err: any) => void;
 
 export = finalHandler;

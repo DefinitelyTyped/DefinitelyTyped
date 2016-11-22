@@ -63,8 +63,24 @@ declare namespace Office {
             isSetSupported(name: string, minVersion?: number): boolean;
         }
     }
+    /**
+     * Provides specific information about an error that occurred during an asynchronous data operation.
+     */
     export interface Error {
+        /**
+         * Gets the numeric code of the error.
+         * @since 1.0
+         */
+        code: number;
+        /**
+         * Gets the name of the error.
+         * @since 1.0
+         */
         message: string;
+        /**
+         * Gets a detailed description of the error.
+         * @since 1.0
+         */
         name: string;
     }
     export interface UI {
@@ -641,6 +657,19 @@ declare namespace Office {
          * @param callback The optional callback method
          */
         setSelectedDataAsync(data: string | TableData | any[][], options?: any, callback?: (result: AsyncResult) => void): void;
+    }
+    /**
+     * Provides information about the document that raised the SelectionChanged event.
+     */
+    export interface DocumentSelectionChangedEventArgs {
+        /**
+         * Gets a Document object that represents the document that raised the SelectionChanged event.
+         */
+        document: Document;
+        /**
+         * Get an EventType enumeration value that identifies the kind of event that was raised.
+         */
+        type: EventType;
     }
     export interface File {
         size: number;
@@ -4189,7 +4218,14 @@ declare module Excel {
         index: number;
         /**
          *
+<<<<<<< HEAD
          * Represents the raw values of the specified range. The data returned could be of type string, number, or a boolean. Cell that contain an error will return the error string.
+=======
+         * The first criterion used to filter data. Used as an operator in the case of "custom" filtering.
+             For example ">50" for number greater than 50 or "=*s" for values ending in "s".
+
+             Used as a number in the case of top/bottom items/percents. E.g. "5" for the top 5 items if filterOn is set to "topItems"
+>>>>>>> types-2.0
          *
          * [Api set: ExcelApi 1.1]
          */

@@ -4,7 +4,13 @@
         "target": "es6",
         "noImplicitAny": false,
         "strictNullChecks": false,
-        "noEmit": true
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

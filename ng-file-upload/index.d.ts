@@ -10,7 +10,7 @@ declare var angularFileUploadDefaultExport: string;
 export = angularFileUploadDefaultExport;
 
 declare module 'angular' {
-    export namespace angularFileUpload  {
+    export namespace angularFileUpload {
         interface ImageDimensions {
             height: number;
             width: number;
@@ -92,6 +92,20 @@ declare module 'angular' {
             ngfValidateForce?: boolean;
         }
         
+        interface ResizeIfFunction {
+            (width: number, height: number): boolean;
+        }
+
+        interface FileResizeOptions {
+            centerCrop?: boolean;
+            height?: number;
+            ratio?: number;
+            resizeIf?: ResizeIfFunction;
+            restoreExif?: boolean;
+            quality?: number;
+            width?: number;
+        }
+
         interface ResizeIfFunction {
             (width: number, height: number): boolean;
         }
@@ -216,7 +230,7 @@ declare module 'angular' {
              * @return {IUploadPromise<T>}
              */
             abort(): IUploadPromise<T>;
-            progress(callback: IHttpPromiseCallback<T>): IUploadPromise<T>;
+            progress(callback: (event: IFileProgressEvent) => void): IUploadPromise<T>;
             /**
              * Access or attach event listeners to the underlying XMLHttpRequest
              *

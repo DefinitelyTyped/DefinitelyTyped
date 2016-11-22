@@ -1,4 +1,3 @@
-/// <reference path="jsonnet.d.ts" />
 import Jsonnet = require('jsonnet');
 var jsonnet = new Jsonnet();
 var code = '{a:1}';

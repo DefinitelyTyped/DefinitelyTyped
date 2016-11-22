@@ -1,5 +1,3 @@
-/// <reference path="scrollreveal.d.ts" />
-
 //Tests from https://github.com/jlmakes/scrollreveal.js
 
 //1.2

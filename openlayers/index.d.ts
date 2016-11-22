@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers v3.6.0
+// Type definitions for OpenLayers v3.18.2
 // Project: http://openlayers.org/
 // Definitions by: Olivier Sechet <https://github.com/osechet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7767,7 +7767,7 @@ declare module ol {
 
         }
 
-            /**
+         /**
           * Register proj4. If not explicitly registered, it will be assumed that
           * proj4js will be loaded in the global namespace. For example in a
           * browserify ES6 environment you could use:
@@ -7778,7 +7778,7 @@ declare module ol {
           *
           * @param {any} proj4 Proj4.
           * @api
-             */
+          */
         function setProj4(proj4: any): void;
 
             /**

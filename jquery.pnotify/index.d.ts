@@ -258,7 +258,7 @@ interface PNotifyOptions {
 }
 
 interface PNotify {
-    
+
     /**
      * The state can be "initializing", "opening", "open", "closing", and "closed"
      */
@@ -288,7 +288,7 @@ interface PNotify {
 
 interface PNotifyConstructor {
     new (options?: PNotifyOptions): PNotify;
-    
+
     removeAll(): void;
 }
 

@@ -381,7 +381,7 @@ export class NodePath<T> {
     getEarliestCommonAncestorFrom(paths: NodePath<Node>[]): NodePath<Node>;
 
     /** Get the earliest path in the tree where the provided `paths` intersect. */
-    getDeepestCommonAncestorFrom(paths: NodePath<Node>[], filter?: Function): NodePath<Node>;        
+    getDeepestCommonAncestorFrom(paths: NodePath<Node>[], filter?: Function): NodePath<Node>;
 
     /**
      * Build an array of node paths containing the entire ancestry of the current node path.
@@ -963,4 +963,3 @@ interface TraversalContext {
     state: any;
     opts: any;
 }
-

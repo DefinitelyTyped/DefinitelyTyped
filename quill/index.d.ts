@@ -1,5 +1,5 @@
-// Type definitions for Quill v1.1.0
-// Project: http://quilljs.com
+// Type definitions for Quill
+// Project: https://github.com/quilljs/quill/
 // Definitions by: Sumit <https://github.com/sumitkm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

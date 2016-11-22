@@ -242,7 +242,7 @@ function TestBrowser() {
 }
 
 function TestButton() {
-    var button: number;
+    var button: string;
 
     button = webdriver.Button.LEFT;
     button = webdriver.Button.MIDDLE;
@@ -457,7 +457,7 @@ function TestEventEmitter() {
 }
 
 function TestKey() {
-    var key: webdriver.Key;
+    var key: string;
 
     key = webdriver.Key.ADD;
     key = webdriver.Key.ALT;
@@ -849,10 +849,10 @@ function TestLogging() {
     level = webdriver.logging.Level.SEVERE;
     level = webdriver.logging.Level.WARNING;
 
-    var name: string = level.name();
-    var value: number = level.value();
+    var name: string = level.name;
+    var value: number = level.value;
 
-    var type: webdriver.logging.Type;
+    var type: string;
     type = webdriver.logging.Type.BROWSER;
     type = webdriver.logging.Type.CLIENT;
     type = webdriver.logging.Type.DRIVER;
@@ -1047,14 +1047,14 @@ function TestPromiseClass() {
     var controlFlow: webdriver.promise.ControlFlow;
     var promise: webdriver.promise.Promise<string>;
     promise = new webdriver.promise.Promise<string>(function(
-          onFulfilled: (value: string)=>void,
-          onRejected: ()=>void) { });
+          resolve: (value: string)=>void,
+          reject: ()=>void) { });
     promise = new webdriver.promise.Promise<string>(function(
-          onFulfilled: (value: webdriver.promise.Promise<string>)=>void,
-          onRejected: ()=>void) { });
+          resolve: (value: webdriver.promise.Promise<string>)=>void,
+          reject: ()=>void) { });
     promise = new webdriver.promise.Promise<string>(function(
-          onFulfilled: (value: string)=>void,
-          onRejected: ()=>void) { }, controlFlow);
+          resolve: (value: string)=>void,
+          reject: ()=>void) { }, controlFlow);
 
     promise.cancel('Abort');
 
@@ -1071,7 +1071,9 @@ function TestPromiseClass() {
 }
 
 function TestThenableClass() {
-    var thenable: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>();
+    var thenable: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>((resolve, reject) => {
+        resolve("a");
+    });
 
     thenable.cancel('Abort');
 
@@ -1113,6 +1115,10 @@ function TestErrorCode() {
     errorCode = new webdriver.error.UnknownCommandError().code();
     errorCode = new webdriver.error.UnknownMethodError().code();
     errorCode = new webdriver.error.UnsupportedOperationError().code();
+}
+async function TestAsyncAwaitable() {
+    var thenable: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>((resolve, reject) => resolve('foo'));
+    var str: string = await thenable;
 }
 
 function TestTestingModule() {

@@ -37,14 +37,14 @@ formatFn = d3Format.formatPrefix(',.0', 1e-6);
 specifier = d3Format.formatSpecifier('.0%');
 
 let fill: string = specifier.fill;
-let align: string = specifier.align;
-let sign: string = specifier.sign;
-let symbol: string = specifier.symbol;
+let align: '>' | '<' | '^' | '=' = specifier.align;
+let sign: '-' | '+' | '(' | ' ' = specifier.sign;
+let symbol: '$' | '#' | '' = specifier.symbol;
 let zero: boolean = specifier.zero;
-let width: number = specifier.width;
+let width: number | undefined = specifier.width;
 let comma: boolean = specifier.comma;
 let precision: number = specifier.precision;
-let type: string = specifier.type;
+let type: 'e' | 'f' | 'g' | 'r' | 's' | '%' | 'p' | 'b' | 'o' | 'd' | 'x' | 'X' | 'c' | '' | 'n' = specifier.type;
 
 let formatString: string = specifier.toString();
 
@@ -64,7 +64,7 @@ num = d3Format.precisionRound(0.0005, 3000);
 // ----------------------------------------------------------------------
 
 let decimal: '.' | ',' = localeDef.decimal;
-let thousands: '.' | ',' = localeDef.thousands;
+let thousands: '.' | ',' | '\u00a0' | "'" = localeDef.thousands;
 let grouping: Array<number> = localeDef.grouping;
 let currency: [string, string] = localeDef.currency;
 

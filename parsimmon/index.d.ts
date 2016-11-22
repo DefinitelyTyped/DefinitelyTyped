@@ -5,10 +5,10 @@
 
 // TODO convert to generics
 
-declare module 'parsimmon' {
-	namespace Parsimmon {
 
-		export type StreamType = string;
+declare namespace Parsimmon {
+
+    export type StreamType = string;
 
 		export interface Index {
 			/** zero-based character offset */
@@ -19,87 +19,87 @@ declare module 'parsimmon' {
 			column: number;
 		}
 
-		export interface Mark<T> {
+    export interface Mark<T> {
 			start: Index;
 			end: Index;
-			value: T;
-		}
+        value: T;
+    }
 
-		export interface Result<T> {
-			status: boolean;
-			value?: T;
-			expected?: string;
+    export interface Result<T> {
+        status: boolean;
+        value?: T;
+        expected?: string;
 			index?: Index;
-		}
+    }
 
-		export interface Parser<T> {
+    export interface Parser<T> {
 			/**
 			 * parse the string
-			 */
-			parse(input: string): Result<T>;
+         */
+        parse(input: string): Result<T>;
 			/**
 			 * returns a new parser which tries parser, and if it fails uses otherParser.
-			 */
-			or(otherParser: Parser<T>): Parser<T>;
-			or<U>(otherParser: Parser<U>): Parser<any>;
+         */
+        or(otherParser: Parser<T>): Parser<T>;
+        or<U>(otherParser: Parser<U>): Parser<any>;
 			/**
 			 * returns a new parser which tries parser, and on success calls the given function
 			 * with the result of the parse, which is expected to return another parser, which
 			 * will be tried next
-			 */
-			chain<U>(next: (result: T) => Parser<U>): Parser<U>;
+		*/
+        chain<U>(next: (result: T) => Parser<U>): Parser<U>;
 			/**
 			 * returns a new parser which tries parser, and on success calls the given function
 			 * with the result of the parse, which is expected to return another parser.
-			 */
-			then<U>(call: (result: T) => Parser<U>): Parser<U>;
+		 */
+        then<U>(call: (result: T) => Parser<U>): Parser<U>;
 			/**
 			 * expects anotherParser to follow parser, and yields the result of anotherParser.
 			 * NB: the result of parser here is ignored.
-			 */
-			then<U>(anotherParser: Parser<U>): Parser<U>;
+		 */
+        then<U>(anotherParser: Parser<U>): Parser<U>;
 			/**
 			 * transforms the output of parser with the given function.
-			 */
-			map<U>(call: (result: T) => U): Parser<U>;
+		 */
+        map<U>(call: (result: T) => U): Parser<U>;
 			/**
 			 * expects otherParser after parser, but preserves the yield value of parser.
-			 */
-			skip<U>(otherParser: Parser<U>): Parser<T>;
+		 */
+        skip<U>(otherParser: Parser<U>): Parser<T>;
 			/**
 			 * returns a new parser with the same behavior, but which yields aResult.
-			 */
-			result<U>(aResult: U): Parser<U>;
+		 */
+        result<U>(aResult: U): Parser<U>;
 			/**
 			 * expects parser zero or more times, and yields an array of the results.
-			 */
-			many(): Parser<T[]>;
+		 */
+        many(): Parser<T[]>;
 			/**
 			 * expects parser exactly n times, and yields an array of the results.
-			 */
-			times(n: number): Parser<T[]>;
+		 */
+        times(n: number): Parser<T[]>;
 			/**
 			 * expects parser between min and max times, and yields an array of the results.
-			 */
-			times(min: number, max: number): Parser<T[]>;
+		 */
+        times(min: number, max: number): Parser<T[]>;
 			/**
 			 * expects parser at most n times. Yields an array of the results.
-			 */
-			atMost(n: number): Parser<T[]>;
+		 */
+        atMost(n: number): Parser<T[]>;
 			/**
 			 * expects parser at least n times. Yields an array of the results.
-			 */
-			atLeast(n: number): Parser<T[]>;
+		 */
+        atLeast(n: number): Parser<T[]>;
 			/**
 			 * returns a new parser whose failure message is the passed description.
-			 */
-			mark(): Parser<Mark<T>>;
+		 */
+        mark(): Parser<Mark<T>>;
 			/**
 			 * Returns a new parser whose failure message is description.
 			 * For example, string('x').desc('the letter x') will indicate that 'the letter x' was expected.
 			 */
-			desc(description: string): Parser<T>;
-		}
+        desc(description: string): Parser<T>;
+    }
 
 		/**
 		 * Returns true if obj is a Parsimmon parser, otherwise false.
@@ -108,7 +108,7 @@ declare module 'parsimmon' {
 
 		/**
 		 * is a parser that expects to find "my-string", and will yield the same.
-		 */
+	 */
 		export function string(string: string): Parser<string>;
 
 		/**
@@ -126,7 +126,7 @@ declare module 'parsimmon' {
 		 * (defaulting to the entire match). The regexp will always match starting at the current
 		 * parse location. The regexp may only use the following flags: imu. Any other flag will
 		 * result in an error being thrown.
-		 */
+	 */
 		export function regexp(myregex: RegExp, group?: number): Parser<string>;
 
 		/**
@@ -136,8 +136,8 @@ declare module 'parsimmon' {
 
 		/**
 		 * Returns a parser that doesn't consume any of the string, and yields result.
-		 */
-		export function succeed<U>(result: U): Parser<U>;
+	 */
+    export function succeed<U>(result: U): Parser<U>;
 
 		/**
 		 * This is an alias for Parsimmon.succeed(result).
@@ -146,7 +146,7 @@ declare module 'parsimmon' {
 
 		/**
 		 * accepts a variable number of parsers that it expects to find in order, yielding an array of the results.
-		 */
+	 */
 		export function seq<T>(p1: Parser<T>): Parser<[T]>;
 		export function seq<T, U>(p1: Parser<T>, p2: Parser<U>): Parser<[T, U]>;
 		export function seq<T, U, V>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>): Parser<[T, U, V]>;
@@ -155,7 +155,7 @@ declare module 'parsimmon' {
 		export function seq<T, U, V, W, X, Y>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>, p6: Parser<Y>): Parser<[T, U, V, W, X, Y]>;
 		export function seq<T, U, V, W, X, Y, Z>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>, p6: Parser<Y>, p7: Parser<Z>): Parser<[T, U, V, W, X, Y, Z]>;
 		export function seq<T>(...parsers: Parser<T>[]): Parser<T[]>;
-		export function seq(...parsers: Parser<any>[]): Parser<any[]>;
+    export function seq(...parsers: Parser<any>[]): Parser<any[]>;
 
 		/**
 		 * Takes the string passed to parser.parse(string) and the error returned from
@@ -175,20 +175,20 @@ declare module 'parsimmon' {
 		export function seqMap<T, U, V, W, X, Y>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>, cb: (a1: T, a2: U, a3: V, a4: W, a5: X) => Y): Parser<Y>;
 		export function seqMap<T, U, V, W, X, Y, Z>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>, p6: Parser<Y>, cb: (a1: T, a2: U, a3: V, a4: W, a5: X, a6: Y) => Z): Parser<Z>;
 
-		export type SuccessFunctionType<U> = (index: number, result: U) => Result<U>;
-		export type FailureFunctionType<U> = (index: number, msg: string) => Result<U>;
-		export type ParseFunctionType<U> = (stream: StreamType, index: number) => Result<U>;
+    export type SuccessFunctionType<U> = (index: number, result: U) => Result<U>;
+    export type FailureFunctionType<U> = (index: number, msg: string) => Result<U>;
+    export type ParseFunctionType<U> = (stream: StreamType, index: number) => Result<U>;
 		/**
 		 * allows to add custom primitive parsers.
-		 */
-		export function custom<U>(parsingFunction: (success: SuccessFunctionType<U>, failure: FailureFunctionType<U>) => ParseFunctionType<U>): Parser<U>;
+	 */
+    export function custom<U>(parsingFunction: (success: SuccessFunctionType<U>, failure: FailureFunctionType<U>) => ParseFunctionType<U>): Parser<U>;
 
 		/**
 		 * accepts a variable number of parsers, and yields the value of the first one that succeeds,
 		 * backtracking in between.
-		 */
-		export function alt<U>(...parsers: Parser<U>[]): Parser<U>;
-		export function alt(...parsers: Parser<any>[]): Parser<any>;
+	 */
+    export function alt<U>(...parsers: Parser<U>[]): Parser<U>;
+    export function alt(...parsers: Parser<any>[]): Parser<any>;
 
 		/**
 		 * Accepts two parsers, and expects zero or more matches for content, separated by separator, yielding an array.
@@ -203,55 +203,55 @@ declare module 'parsimmon' {
 		/**
 		 * accepts a function that returns a parser, which is evaluated the first time the parser is used.
 		 * This is useful for referencing parsers that haven't yet been defined.
-		 */
-		export function lazy<U>(f: () => Parser<U>): Parser<U>;
-		export function lazy<U>(description: string, f: () => Parser<U>): Parser<U>;
+	 */
+    export function lazy<U>(f: () => Parser<U>): Parser<U>;
+    export function lazy<U>(description: string, f: () => Parser<U>): Parser<U>;
 
 		/**
 		 * fail paring with a message
-		 */
-		export function fail(message: string): Parser<void>;
-		export function fail<U>(message: string): Parser<U>;
+	 */
+    export function fail(message: string): Parser<void>;
+    export function fail<U>(message: string): Parser<U>;
 
 		/**
 		 * is equivalent to Parsimmon.regex(/[a-z]/i)
-		 */
-		export var letter: Parser<string>;
+	 */
+    export var letter: Parser<string>;
 		/**
 		 * is equivalent to Parsimmon.regex(/[a-z]*`/i)
-		 */
-		export var letters: Parser<string>;
+	 */
+    export var letters: Parser<string>;
 		/**
 		 * is equivalent to Parsimmon.regex(/[0-9]/)
-		 */
-		export var digit: Parser<string>;
+	 */
+    export var digit: Parser<string>;
 		/**
 		 * is equivalent to Parsimmon.regex(/[0-9]*`/)
-		 */
-		export var digits: Parser<string>;
+	 */
+    export var digits: Parser<string>;
 		/**
 		 * is equivalent to Parsimmon.regex(/\s+/)
-		 */
-		export var whitespace: Parser<string>;
+	 */
+    export var whitespace: Parser<string>;
 		/**
 		 * is equivalent to Parsimmon.regex(/\s*`/)
-		 */
-		export var optWhitespace: Parser<string>;
+	 */
+    export var optWhitespace: Parser<string>;
 		/**
 		 * consumes and yields the next character of the stream.
-		 */
-		export var any: Parser<string>;
+	 */
+    export var any: Parser<string>;
 		/**
 		 * consumes and yields the entire remainder of the stream.
-		 */
-		export var all: Parser<string>;
+	 */
+    export var all: Parser<string>;
 		/**
 		 * expects the end of the stream.
-		 */
-		export var eof: Parser<void>;
+	 */
+    export var eof: Parser<void>;
 		/**
 		 * is a parser that yields the current index of the parse.
-		 */
+	 */
 		export var index: Parser<Index>;
 		/**
 		 * Returns a parser that yield a single character if it passes the predicate
@@ -261,7 +261,6 @@ declare module 'parsimmon' {
 		 * Returns a parser yield a string containing all the next characters that pass the predicate
 		 */
 		export function takeWhile(predicate: (char: string) => boolean): Parser<string>;
-	}
-
-	export = Parsimmon;
 }
+
+export = Parsimmon;

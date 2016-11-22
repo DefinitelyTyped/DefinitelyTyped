@@ -124,21 +124,21 @@ declare module "react" {
             height: number,
             pageX: number,
             pageY: number
-        ) => void
+      ) => void
 
     export type MeasureInWindowOnSuccessCallback = (
             x: number,
             y: number,
             width: number,
             height: number
-        ) => void
+      ) => void
 
     export type MeasureLayoutOnSuccessCallback = (
             left: number,
             top: number,
             width: number,
             height: number
-        ) => void
+      ) => void
 
     /**
      * EventSubscription represents a subscription to a particular event. It can
@@ -345,7 +345,7 @@ declare module "react" {
          *     console.log(message);
          *   }); // removes the listener if already registered
          *
-     */
+         */
         removeListener(eventType: string, listener: (...args: any[]) => any): void
     }
 
@@ -613,11 +613,11 @@ declare module "react" {
          */
         configureNext: ( config: LayoutAnimationConfig, onAnimationDidEnd?: () => void ) => void
         /** Helper for creating a config for configureNext. */
-        create: ( duration: number, type?: string, creationProp?: string ) => LayoutAnimationConfig
+        create: (duration: number, type?: string, creationProp?: string) => LayoutAnimationConfig
         Types: LayoutAnimationTypes
         Properties: LayoutAnimationProperties
         configChecker: (shapeTypes: {[key: string]: any}) => any
-        Presets : {
+        Presets: {
             easeInEaseOut: LayoutAnimationConfig
             linear: LayoutAnimationConfig
             spring: LayoutAnimationConfig
@@ -1834,7 +1834,7 @@ declare module "react" {
          *    Value x means that (1 - x) fraction of the page at "position" index is
          *    visible, and x fraction of the next page is visible.
          */
-        onPageScroll?: ( event: NativeSyntheticEvent<ViewPagerAndroidOnPageScrollEventData> ) => void;
+        onPageScroll?: (event: NativeSyntheticEvent<ViewPagerAndroidOnPageScrollEventData>) => void;
 
         /**
          * This callback will be called once ViewPager finish navigating to selected page
@@ -1842,7 +1842,7 @@ declare module "react" {
          * callback will have following fields:
          *  - position - index of page that has been selected
          */
-        onPageSelected?: ( event: NativeSyntheticEvent<ViewPagerAndroidOnPageSelectedEventData> ) => void;
+        onPageSelected?: (event: NativeSyntheticEvent<ViewPagerAndroidOnPageSelectedEventData>) => void;
 
         /**
          * Function called when the page scrolling state has changed.
@@ -2165,46 +2165,46 @@ declare module "react" {
     export interface SegmentedControlIOSProperties extends ViewProperties, React.Props<SegmentedControlIOSStatic> {
 
         /**
-          * If false the user won't be able to interact with the control. Default value is true.
+         * If false the user won't be able to interact with the control. Default value is true.
          */
         enabled?: boolean
 
         /**
-          * If true, then selecting a segment won't persist visually.
-          * The onValueChange callback will still work as expected.
+         * If true, then selecting a segment won't persist visually.
+         * The onValueChange callback will still work as expected.
          */
         momentary?: boolean
 
         /**
-          * Callback that is called when the user taps a segment;
-          * passes the event as an argument
-          * @param event
+         * Callback that is called when the user taps a segment;
+         * passes the event as an argument
+         * @param event
          */
         onChange?: (event: NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent>) => void
 
         /**
-          * Callback that is called when the user taps a segment; passes the segment's value as an argument
-          * @param value
+         * Callback that is called when the user taps a segment; passes the segment's value as an argument
+         * @param value
          */
         onValueChange?: (value: string) => void
 
         /**
-          * The index in props.values of the segment to be (pre)selected.
+         * The index in props.values of the segment to be (pre)selected.
          */
         selectedIndex?: number
 
         /**
-          * Accent color of the control.
+         * Accent color of the control.
          */
         tintColor?: string
 
         /**
-          * The labels for the control's segment buttons, in order.
-          */
-         values?: string[]
+         * The labels for the control's segment buttons, in order.
+         */
+        values?: string[]
 
-         ref?: Ref<SegmentedControlIOSStatic>
-     }
+        ref?: Ref<SegmentedControlIOSStatic>
+    }
 
     /**
      * Use `SegmentedControlIOS` to render a UISegmentedControl iOS.
@@ -2587,7 +2587,7 @@ declare module "react" {
     }
 
     export interface DrawerLayoutAndroidStatic extends NativeMethodsMixin, React.ClassicComponentClass<DrawerLayoutAndroidProperties> {
-        
+
         /**
          * Opens the drawer.
          */
@@ -3045,9 +3045,9 @@ declare module "react" {
         value?: number
     }
 
-        /**
-         * A component used to select a single value from a range of values.
-         */
+    /**
+     * A component used to select a single value from a range of values.
+     */
     export interface SliderStatic extends NativeMethodsMixin, React.ClassicComponentClass<SliderProperties> {
 
     }
@@ -3205,7 +3205,7 @@ declare module "react" {
         /**
          * Invoked on download progress with {nativeEvent: {loaded, total}}
          */
-        onProgress?: ()=> void
+        onProgress?: () => void
 
         /**
          * Invoked when a partial load of the image is complete. The definition of
@@ -4114,7 +4114,7 @@ declare module "react" {
         overswipe: {
             frictionConstant: number
             frictionByDistance: number
-    }
+        }
     }
 
     // see /NavigatorSceneConfigs.js
@@ -4243,11 +4243,11 @@ declare module "react" {
         sceneStyle?: ViewStyle
 
     }
-    
-   /**
-   * Class that contains the info and methods for app navigation.
-   */
-    export interface NavigationContext { 
+
+    /**
+     * Class that contains the info and methods for app navigation.
+     */
+    export interface NavigationContext {
         parent: NavigationContext;
         top: NavigationContext;
         currentRoute: any;
@@ -4299,7 +4299,7 @@ declare module "react" {
         NavigationBar: NavigatorStatic.NavigationBarStatic;
         BreadcrumbNavigationBar: NavigatorStatic.BreadcrumbNavigationBarStatic;
 
-	navigationContext: NavigationContext;
+        navigationContext: NavigationContext;
 
         /**
          * returns the current list of routes
@@ -4695,7 +4695,7 @@ declare module "react" {
          * - rowHasChanged(prevRowData, nextRowData);
          * - sectionHeaderHasChanged(prevSectionData, nextSectionData);
          */
-        new( onAsset: DataSourceAssetCallback ): ListViewDataSource;
+        new (onAsset: DataSourceAssetCallback): ListViewDataSource;
 
         /**
          * Clones this `ListViewDataSource` with the specified `dataBlob` and
@@ -4948,10 +4948,10 @@ declare module "react" {
         select<T>( specifics: { ios?: T, android?: T} ): T;
     }
 
-        /**
+    /**
      * Deprecated - subclass NativeEventEmitter to create granular event modules instead of
      * adding all event listeners directly to RCTDeviceEventEmitter.
-         */
+     */
     interface DeviceEventEmitterStatic extends EventEmitter {
         sharedSubscriber: EventSubscriptionVendor
         new(): DeviceEventEmitterStatic;
@@ -5719,7 +5719,7 @@ declare module "react" {
         maxSwipeDistance: number
 
         // Callback method to render the swipeable view
-        renderRow: ( rowData: any, sectionID: string | number, rowID: string | number, highlightRow?: boolean ) => React.ReactElement<any>
+        renderRow: (rowData: any, sectionID: string | number, rowID: string | number, highlightRow?: boolean) => React.ReactElement<any>
 
         // Callback method to render the view that will be unveiled on swipe
         renderQuickActions(rowData: any, sectionID: string | number, rowID: string | number): React.ReactElement<any>
@@ -6742,6 +6742,12 @@ declare module "react" {
          * Requests all notification permissions from iOS, prompting the user's
          * dialog box.
          */
+        requestPermissions(permissions?: PushNotificationPermissions[]): void
+
+        /**
+         * Requests all notification permissions from iOS, prompting the user's
+         * dialog box.
+         */
         requestPermissions( permissions?: PushNotificationPermissions ): Promise<PushNotificationPermissions>
         
         /**
@@ -7048,7 +7054,6 @@ declare module "react" {
          */
         value?: boolean
 	    style?: ViewStyle
-        ref?: Ref<SwitchStatic>
     }
 
     /**
@@ -7450,12 +7455,12 @@ declare module "react" {
             config?: EventConfig
       ): (...args: any[]) => void;
 
-      /**
+        /**
        * Make any React component Animatable.  Used to create `Animated.View`, etc.
        */
       export function createAnimatedComponent (component: any) : any;
 
-        /**
+      /**
          * Animated variants of the basic native views. Accepts Animated.Value for
          * props and style.
          */
@@ -7564,6 +7569,7 @@ declare module "react" {
     // Network Polyfill
     // TODO: Add proper support for fetch
     export type fetch = (url: string, options?: Object) => Promise<any>
+	export const fetch: fetch;
 
     // Timers polyfill
     export type timedScheduler = (fn: string | Function, time: number) => number
@@ -7586,8 +7592,7 @@ declare module "react" {
 
     export type TabsReducerFunction = (params: any) => any;
 
-    export interface NavigationTab
-    {
+    export interface NavigationTab {
         key: string;
     }
 
@@ -7599,7 +7604,7 @@ declare module "react" {
       key: string;
     }
 
-    export interface NavigationState {
+    export interface NavigationState extends NavigationRoute {
         index: number;
         routes: NavigationRoute[];
     }

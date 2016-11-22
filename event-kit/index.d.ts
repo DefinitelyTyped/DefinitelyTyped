@@ -14,6 +14,10 @@ declare namespace AtomEventKit {
 	interface DisposableStatic {
 		prototype: Disposable;
 		new (disposalAction: Function): Disposable;
+		/**
+		* Ensure that Object correctly implements the Disposable.
+		*/
+		isDisposable(object: Object): boolean;
 	}
 
 	/** Instance side of the Disposable class. */
@@ -59,6 +63,13 @@ declare namespace AtomEventKit {
 		isDisposed: boolean;
 
 		constructor: EmitterStatic;
+		/**
+		* Clear out any existing subscribers.
+		*/
+		clear(): void;
+		/**
+		* Unsubscribe all handlers.
+		*/
 		dispose(): void;
 		/**
 		* Registers a handler to be invoked whenever the given event is emitted.

@@ -280,7 +280,7 @@ declare namespace NodeJS {
     export interface ReadableStream extends EventEmitter {
         readable: boolean;
         read(size?: number): string | Buffer;
-        setEncoding(encoding: string): void;
+        setEncoding(encoding: string | null): void;
         pause(): ReadableStream;
         resume(): ReadableStream;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
@@ -397,7 +397,7 @@ declare namespace NodeJS {
         nextTick(callback: Function, ...args: any[]): void;
         umask(mask?: number): number;
         uptime(): number;
-        hrtime(time?: number[]): number[];
+        hrtime(time?: [number, number]): [number, number];
         domain: Domain;
 
         // Worker
@@ -1028,7 +1028,7 @@ declare module "cluster" {
 
 declare module "zlib" {
     import * as stream from "stream";
-    export interface ZlibOptions { chunkSize?: number; windowBits?: number; level?: number; memLevel?: number; strategy?: number; dictionary?: any; }
+    export interface ZlibOptions { chunkSize?: number; windowBits?: number; level?: number; memLevel?: number; strategy?: number; dictionary?: any; finishFlush?: number }
 
     export interface Gzip extends stream.Transform { }
     export interface Gunzip extends stream.Transform { }
@@ -1471,10 +1471,7 @@ declare module "readline" {
         (line: string, callback: (err: any, result: CompleterResult) => void): any;
     }
 
-    export interface CompleterResult {
-        completions: string[];
-        line: string;
-    }
+    export type CompleterResult = [string[], string];
 
     export interface ReadLineOptions {
         input: NodeJS.ReadableStream;
@@ -1854,6 +1851,7 @@ declare module "net" {
         localPort: number;
         bytesRead: number;
         bytesWritten: number;
+        destroyed: boolean;
 
         // Extended base methods
         end(): void;
@@ -2584,7 +2582,7 @@ declare module "fs" {
         /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating executable by others. */
         export const S_IXOTH: number;
     }
-    
+
     /** Tests a user's permissions for the file specified by path. */
     export function access(path: string | Buffer, callback: (err: NodeJS.ErrnoException) => void): void;
     export function access(path: string | Buffer, mode: number, callback: (err: NodeJS.ErrnoException) => void): void;

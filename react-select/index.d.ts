@@ -1,6 +1,6 @@
 // Type definitions for react-select v1.0.0
 // Project: https://github.com/JedWatson/react-select
-// Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet/>, Gilad Gray <https://github.com/giladgray/>, Izaak Baker <https://github.com/iebaker/>
+// Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet/>, Gilad Gray <https://github.com/giladgray/>, Izaak Baker <https://github.com/iebaker/>, Tadas Dailyda <https://github.com/skirsdeda/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
@@ -20,9 +20,9 @@ declare namespace ReactSelectClass {
 
     export interface Option {
         /** Text for rendering */
-        label: string;
+        label?: string;
         /** Value for searching */
-        value: string | number;
+        value?: string | number;
         /**
          * Allow this option to be cleared
          * @default true
@@ -63,12 +63,24 @@ declare namespace ReactSelectClass {
         valueArray: Option[];
     }
 
+    export interface ArrowRendererProps {
+        /**
+         * Arrow mouse down event handler.
+         */
+        onMouseDown: React.MouseEventHandler<{}>;
+    }
+
     export interface ReactSelectProps extends React.Props<ReactSelectClass> {
         /**
          * text to display when `allowCreate` is true.
          * @default 'Add "{label}"?'
          */
         addLabelText?: string;
+        /**
+         * renders a custom drop-down arrow to be shown in the right-hand side of the select.
+         * @default undefined
+         */
+        arrowRenderer?: (props: ArrowRendererProps) => React.ReactElement<any>;
         /**
          * blurs the input element after a selection has been made. Handy for lowering the keyboard on mobile devices.
          * @default false
@@ -356,7 +368,7 @@ declare namespace ReactSelectClass {
         /**
          * factory to create new options
          */
-        newOptionCreator?: (input: string) => Option;
+        newOptionCreator?: (arg: { label: string, labelKey: string, valueKey: string }) => Option;
 
         /**
          * Creates prompt/placeholder for option text.

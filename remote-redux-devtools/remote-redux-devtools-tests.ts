@@ -1,5 +1,3 @@
-/// <reference path="remote-redux-devtools.d.ts" />
-
 import * as devTools from "remote-redux-devtools";
 
 // example configuration from: https://github.com/zalmoxisus/remote-redux-devtools

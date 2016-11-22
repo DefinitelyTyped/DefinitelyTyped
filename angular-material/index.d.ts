@@ -72,7 +72,7 @@ declare module 'angular' {
         }
 
         interface IColorExpression {
-            [cssPropertyName: string]: string
+            [cssPropertyName: string]: string;
         }
 
         interface IColorService {
@@ -266,7 +266,6 @@ declare module 'angular' {
             extendPalette(name: string, palette: IPalette): IPalette;
             registerStyles(styles: String): void;
             setDefaultTheme(theme: string): void;
-            alwaysWatchTheme(alwaysWatch: boolean): void;
             setNonce(nonce: string): void;
             theme(name: string, inheritFrom?: string): ITheme;
         }

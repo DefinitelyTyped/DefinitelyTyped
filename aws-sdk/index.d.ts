@@ -1,6 +1,6 @@
 // Type definitions for aws-sdk
 // Project: https://github.com/aws/aws-sdk-js
-// Definitions by: midknight41 <https://github.com/midknight41>
+// Definitions by: midknight41 <https://github.com/midknight41>, Casper Skydt <https://github.com/CasperSkydt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/aws-sdk.d.ts
@@ -20,28 +20,28 @@ export class EnvironmentCredentials extends Credentials {
     constructor(profile: string);
 }
 
-  export module CognitoIdentity {
+export module CognitoIdentity {
     export interface CognitoIdentityCredentialsParams {
-      IdentityPoolId?: string;
-      AccountId?: string;
-      Logins?: {[k: string]: any};
+        IdentityPoolId?: string;
+        AccountId?: string;
+        Logins?: { [k: string]: any };
 
-      RoleArn?: string;
-      RoleSessionName?: string;
-      WebIdentityToken?: string;
-      ProviderId?: string;
-      Policy?: string;
-      DurationSeconds?: number;
+        RoleArn?: string;
+        RoleSessionName?: string;
+        WebIdentityToken?: string;
+        ProviderId?: string;
+        Policy?: string;
+        DurationSeconds?: number;
 
-      IdentityId?: string;
+        IdentityId?: string;
     }
-  }
+}
 
-  export class CognitoIdentityCredentials extends Credentials {
+export class CognitoIdentityCredentials extends Credentials {
     constructor(params: CognitoIdentity.CognitoIdentityCredentialsParams);
-  }
+}
 
-  export interface Logger {
+export interface Logger {
     write?: (chunk: any, encoding?: string, callback?: () => void) => void;
     log?: (...messages: any[]) => void;
 }
@@ -296,7 +296,7 @@ export class AutoScaling {
     suspendProcesses(params: AutoScaling.SuspendProcessesParams, callback: (err: AwsError, data: any) => void): void;
     terminateInstanceInAutoScalingGroup(params: AutoScaling.TerminateInstanceInAutoScalingGroupParams, callback: (err: AwsError, data: any) => void): void;
     updateAutoScalingGroup(params: AutoScaling.UpdateAutoScalingGroupParams, callback: (err: AwsError, data: any) => void): void;
-}
+  }
 
 export class SQS {
     constructor(options?: any);
@@ -334,6 +334,56 @@ export declare class SNS {
 
     publish(request: Sns.PublishRequest, callback: (err: any, data: any) => void): void;
 }
+
+export class Kinesis {
+    constructor(options?: any);
+    endpoint: Endpoint;
+
+    putRecord(params: KINESIS.PutRecordParams, callback: (error: Error, data: KINESIS.PutRecordResult) => void): void;
+    putRecords(params: KINESIS.PutRecordsParams, callback: (error: Error, data: KINESIS.PutRecordsResult) => void): void;
+    increaseStreamRetentionPeriod(params: KINESIS.IncreaseStreamRetentionPeriodParams, callback: (error: Error, data: any) => void): void;
+  }
+
+  export module KINESIS {
+    export interface Record {
+        Data: Buffer | string | Blob;
+        PartitionKey: string;
+        ExplicitHashKey?: string;
+    }
+
+    export interface RecordResult {
+        SequenceNumber: string;
+        ShardId: string;
+        ErrorCode: string;
+        ErrorMessage: string;
+    }
+
+    export interface PutRecordParams extends Record {
+        StreamName: string;
+        SequenceNumberForOrdering?: string;
+    }
+
+    export interface PutRecordResult {
+        ShardId: string;
+        SequenceNumber: string;
+    }
+
+    export interface PutRecordsParams {
+        StreamName: string;
+        Records: Record[];
+    }
+
+    export interface PutRecordsResult {
+        FailedRecordCount: number;
+        Records: RecordResult[]
+    }
+
+    export interface IncreaseStreamRetentionPeriodParams {
+        RetentionPeriodHours: number;
+        StreamName: string;
+    }
+  }
+
 
 export declare class SWF {
     constructor(options?: any);
@@ -393,7 +443,7 @@ export declare class S3 {
     uploadPart(params: any, callback: (err: Error, data: any) => void): void;
     listParts(params: any, callback: (err: Error, data: any) => void): void;
     completeMultipartUpload(params: any, callback: (err: Error, data: any) => void): void;
-}
+  }
 
 
 export class STS {
@@ -486,7 +536,7 @@ export declare module DynamoDB {
 
     interface _DDBDC_Generic {
         TableName: string;
-        ExpressionAttributeNames?: { [someKey: string]: string };
+      ExpressionAttributeNames?: { [someKey: string]: string };
         ReturnConsumedCapacity?: "INDEXES" | "TOTAL" | "NONE";
     }
 
@@ -513,10 +563,10 @@ export declare module DynamoDB {
         ConditionalOperator?: "AND" | "OR";
         Expected?: {
             [someKey: string]: {
-                AttributeValueList?: any[];
-                ComparisonOperator?: _DDBDC_ComparisonOperator;
+          AttributeValueList?: any[];
+          ComparisonOperator?: _DDBDC_ComparisonOperator;
                 Exists: boolean;
-                Value?: any;
+          Value?: any;
             }
         }
     }
@@ -581,8 +631,7 @@ export declare module DynamoDB {
 
 // ===========================================================
 
-export declare module CloudFormation {
-
+export module CloudFormation {
     export interface CancelUpdateStackParams {
         StackName: string;
     }
@@ -617,9 +666,9 @@ export declare module CloudFormation {
         Capabilities?: string[];
         ResourceTypes?: string[];
         OnFailure?: string[];       //  cannot specify both DisableRollback and OnFailure
-        //  DO_NOTHING | ROLLBACK | DELETE
-        StackPolicyBody?: string[];  //  cannot specify both StackPolicyBody and StackPolicyURL
-        StackPolicyURL?: string[];   //  cannot specify both StackPolicyBody and StackPolicyURL
+                                    //  DO_NOTHING | ROLLBACK | DELETE
+        StackPolicyBody?: string;  //  cannot specify both StackPolicyBody and StackPolicyURL
+        StackPolicyURL?: string;   //  cannot specify both StackPolicyBody and StackPolicyURL
         Tags?: CloudFormation.Tag[];
     }
 
@@ -666,7 +715,7 @@ export declare module CloudFormation {
 
     export interface EstimateTemplateCostParams {
         TemplateBody?: string;  //  must specify either TemplateBody or TemplateURL
-        //  if both are passed, only TemplateBody is used
+                                //  if both are passed, only TemplateBody is used
         TemplateURL?: string;   //  must specify either TemplateBody or TemplateURL
         Parameters?: CloudFormation.Parameter[];
     }
@@ -737,7 +786,7 @@ export declare module CloudFormation {
 
     export interface ValidateTemplateParams {
         TemplateBody?: string;  //  must pass either TemplateBody or TemplateURL
-        //  if both are specified, only TemplateBody is used
+                                //  if both are specified, only TemplateBody is used
         TemplateURL?: string;   //  must pass either TemplateBody or TemplateURL
     }
 

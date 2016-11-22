@@ -1,6 +1,3 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="perfect-scrollbar.d.ts" />
-
 /**
  * https://github.com/noraesae/perfect-scrollbar#how-to-use
  */

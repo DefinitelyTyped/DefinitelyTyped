@@ -1,5 +1,3 @@
-/// <reference path="nodemailer-stub-transport.d.ts"/>
-
 import nodemailer = require("nodemailer");
 import stubTransport = require("nodemailer-stub-transport");
 

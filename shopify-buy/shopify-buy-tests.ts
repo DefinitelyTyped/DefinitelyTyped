@@ -1,5 +1,4 @@
-/// <reference path="shopify-buy.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 /* Build new ShopifyBuy client
 ============================================================ */

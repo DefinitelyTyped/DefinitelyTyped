@@ -13,6 +13,14 @@ export class Patch {
     length2: number;
 }
 
+export declare class Patch {
+    diffs: Diff[];
+    start1: number;
+    start2: number;
+    length1: number;
+    length2: number;
+}
+
 export declare class diff_match_patch {
     static new(): diff_match_patch;
 
