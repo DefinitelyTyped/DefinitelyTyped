@@ -52,7 +52,7 @@ DefinitelyTyped only works because of contributions by users like you!
 
 Before you share your improvement with the world, use it yourself.
 
-#### Test editing an exiting package
+#### Test editing an existing package
 
 To add new features you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html).
 You can also directly edit the types in `node_modules/@types/foo/index.d.ts`, or copy them from there and follow the steps below.
@@ -100,7 +100,7 @@ If it doesn't, you can do so yourself in the comment associated with the PR.
 
 #### Create a new package
 
-If you are the library author, or can make a pull request to the library, [bundle](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) types instead of publishing to DefinitelyTyped.
+If you are the library author, or can make a pull request to the library, [bundle types](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) instead of publishing to DefinitelyTyped.
 
 If you are adding typings for an NPM package, create a directory with the same name.
 If the package you are adding typings for is not on NPM, make sure the name you choose for it does not conflict with the name of a package on NPM.
@@ -192,7 +192,7 @@ Changes to the `master` branch are also manually merged into the `types-2.0` bra
 #### I'm writing a definition that depends on another definition. Should I use `<reference types="" />` or an import?
 
 If the module you're referencing is an external module (uses `export`), use an import.
-If the module you're referenceing is an ambient module (uses `declare module`, or just declares globals), use `<reference types="" />`.
+If the module you're referencing is an ambient module (uses `declare module`, or just declares globals), use `<reference types="" />`.
 
 #### What do I do about older versions of typings?
 
