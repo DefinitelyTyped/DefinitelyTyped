@@ -862,6 +862,7 @@ declare namespace ReactBootstrap {
         hover?: boolean;
         responsive?: boolean;
         striped?: boolean;
+        fill?: boolean;
     }
     type Table = React.ClassicComponent<TableProps, {}>;
     var Table: React.ClassicComponentClass<TableProps>;
