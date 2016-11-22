@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "jquery-truncate-html.d.ts",
+        "index.d.ts",
         "jquery-truncate-html-tests.ts"
     ]
 }

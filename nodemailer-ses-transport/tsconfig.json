@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "nodemailer-ses-transport.d.ts",
+        "index.d.ts",
         "nodemailer-ses-transport-tests.ts"
     ]
 }

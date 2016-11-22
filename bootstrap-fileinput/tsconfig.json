@@ -13,6 +13,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "bootstrap-fileinput.d.ts"
+        "index.d.ts"
     ]
 }
