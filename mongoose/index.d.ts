@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 4.5.4
+// Type definitions for Mongoose 4.6.8
 // Project: http://mongoosejs.com/
 // Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -284,6 +284,9 @@ declare module "mongoose" {
      */
     open(connection_string: string, database?: string, port?: number,
       options?: ConnectionOpenOptions, callback?: (err: any) => void): any;
+
+    /** Helper for dropDatabase() */
+    dropDatabase(callback?: (err: any) => void): Promise<void>;
 
     /**
      * Opens the connection to a replica set.
@@ -659,6 +662,8 @@ declare module "mongoose" {
     methods: any;
     /** Object of currently defined statics on this schema. */
     statics: any;
+    /** The original object passed to the schema constructor */
+    obj: any;
   }
 
   interface SchemaOptions {
