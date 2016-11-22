@@ -1,9 +1,9 @@
-// Type definitions for Mapbox GL JS v0.27.0
+// Type definitions for Mapbox GL JS v0.26.0
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="geojson" />
+/// <reference path="../geojson/geojson.d.ts" />
 
 declare namespace mapboxgl {
 	let accessToken: string;
@@ -16,9 +16,7 @@ declare namespace mapboxgl {
 	export class Map extends Evented {
 		constructor(options?: MapboxOptions);
 
-		addControl(control: Control, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'): this;
-
-		removeControl(control: Control): this;
+		addControl(control: Control): this;
 
 		addClass(klass: string, options?: mapboxgl.StyleOptions): this;
 
@@ -38,11 +36,7 @@ declare namespace mapboxgl {
 
 		setMinZoom(minZoom?: number): this;
 
-		getMinZoom(): number;
-
 		setMaxZoom(maxZoom?: number): this;
-
-		getMaxZoom(): number;
 
 		project(lnglat: mapboxgl.LngLat | number[]): mapboxgl.Point;
 
@@ -334,34 +328,44 @@ declare namespace mapboxgl {
 	 * Control
 	 */
 	export class Control extends Evented {
+		addTo(map: mapboxgl.Map): this;
+
+		remove(): this;
+	}
+
+	/**
+	 * ControlOptions
+	 */
+	export interface ControlOptions {
+		position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
 	}
 
 	/**
 	 * Navigation
 	 */
 	export class NavigationControl extends Control {
-		constructor();
+		constructor(options?: mapboxgl.ControlOptions);
 	}
 
 	/**
 	 * Geolocate
 	 */
 	export class GeolocateControl extends Control {
-		constructor();
+		constructor(options?: mapboxgl.ControlOptions);
 	}
 
 	/**
 	 * Attribution
 	 */
 	export class AttributionControl extends Control {
-		constructor();
+		constructor(options?: mapboxgl.ControlOptions);
 	}
 
 	/**
 	 * Scale
 	 */
 	export class ScaleControl extends Control {
-		constructor(options?: {maxWidth?: number, unit?: string})
+		constructor(options?: {position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left', maxWidth?: number, unit?: string})
 	}
 
 	/**
@@ -405,7 +409,6 @@ declare namespace mapboxgl {
 		metadata?: any;
 		name?: string;
 		pitch?: number;
-		light?: Light;
 		sources?: any;
 		sprite?: string;
 		transition?: Transition;
@@ -416,13 +419,6 @@ declare namespace mapboxgl {
 	export interface Transition {
 		delay?: number;
 		duration?: number;
-	}
-
-	export interface Light {
-		"anchor"?: "map" | "viewport";
-		"position"?: number[];
-		"color"?: string;
-		"intensity"?: number;
 	}
 
 	export interface Source {
@@ -466,7 +462,7 @@ declare namespace mapboxgl {
 	 */
 	export class VideoSource implements Source, VideoSourceOptions {
 		type: "video";
-
+		
 		constructor(options?: mapboxgl.VideoSourceOptions);
 
 		getVideo(): HTMLVideoElement;
@@ -803,8 +799,8 @@ declare namespace mapboxgl {
 		interactive?: boolean;
 
 		filter?: any[];
-		layout?: BackgroundLayout | FillLayout | FillExtrusionLayout | LineLayout | SymbolLayout | RasterLayout | CircleLayout;
-		paint?: BackgroundPaint | FillPaint | FillExtrusionPaint | LinePaint | SymbolPaint | RasterPaint | CirclePaint;
+		layout?: BackgroundLayout | FillLayout | LineLayout | SymbolLayout | RasterLayout | CircleLayout;
+		paint?: BackgroundPaint | FillPaint | LinePaint | SymbolPaint | RasterPaint | CirclePaint;
 	}
 
 	export interface StyleFunction {
@@ -835,18 +831,8 @@ declare namespace mapboxgl {
 		"fill-translate"?: number[];
 		"fill-translate-anchor"?: "map" | "viewport";
 		"fill-pattern"?: "string";
-	}
-
-	export interface FillExtrusionLayout {
-		visibility?: "visible" | "none";
-	}
-	export interface FillExtrusionPaint {
-		"fill-extrusion-opacity"?: number;
-		"fill-extrusion-color"?: string | StyleFunction;
-		"fill-extrusion-translate"?: number[];
-		"fill-extrusion-translate-anchor"?: "map" | "viewport";
-		"fill-extrusion-height"?: number | StyleFunction;
-		"fill-extrusion-base"?: number;
+		"fill-extrude-height"?: number;
+		"fill-extrude-base"?: number;
 	}
 
 	export interface LineLayout {
