@@ -174,7 +174,7 @@ export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Su
      * start (after a new pointer becomes active [on mousedown or touchstart]), drag (after an active pointer moves [on mousemove or touchmove], or
      * end (after an active pointer becomes inactive [on mouseup, touchend or touchcancel].)
      */
-    on(typenames: string): ValueFn<GElement, Datum, void>;
+    on(typenames: string): ValueFn<GElement, Datum, void> | undefined;
     /**
      * Remove the current event listeners for the specified typenames, if any, return the drag behavior.
      *
@@ -297,7 +297,7 @@ export interface D3DragEvent<GElement extends DraggedElementBaseType, Datum, Sub
      * start (after a new pointer becomes active [on mousedown or touchstart]), drag (after an active pointer moves [on mousemove or touchmove], or
      * end (after an active pointer becomes inactive [on mouseup, touchend or touchcancel].)
      */
-    on(typenames: string): ValueFn<GElement, Datum, void>;
+    on(typenames: string): ValueFn<GElement, Datum, void> | undefined;
     /**
      * Remove the current event listeners for the specified typenames, if any, return the drag behavior.
      *
