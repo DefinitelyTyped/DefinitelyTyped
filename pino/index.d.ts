@@ -12,6 +12,8 @@ declare function P(options: P.LoggerOptions, stream: stream.Writable | stream.Re
 
 declare namespace P {
 
+    function pretty(opts?: {timeTransOnly?: boolean, levelFirst?: boolean, formatter?: (str: string) => void}): stream.Readable;
+
     type Level = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent';
     interface Headers {
         [header: string]: string;
@@ -59,7 +61,6 @@ declare namespace P {
             labels: LevelValuesToLabels
         };
         LOG_VERSION: number;
-        pretty(opts?: {timeTransOnly?: boolean}): stream.Readable;
     }
 
     type LevelChangeEventListener = (lvl: string, val: number, prevLvl: string, prevVal: number) => void;
