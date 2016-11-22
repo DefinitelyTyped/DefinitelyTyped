@@ -8,6 +8,11 @@
 
 import * as d3Hexbin from 'd3-hexbin';
 
+interface Point {
+    x0: number;
+    y0: number;
+}
+
 {
     // d3.hexbin() has the expected defaults
     const b = d3Hexbin.hexbin();
@@ -32,10 +37,10 @@ import * as d3Hexbin from 'd3-hexbin';
     // hexbin(points) observes the current x- and y-accessors
     const x = function(d: any) { return d.x; },
           y = function(d: any) { return d.y; },
-          bins = d3Hexbin.hexbin().x(x).y(y)([
-        {x: 0, y: 0}, {x: 0, y: 1}, {x: 0, y: 2},
-        {x: 1, y: 0}, {x: 1, y: 1}, {x: 1, y: 2},
-        {x: 2, y: 0}, {x: 2, y: 1}, {x: 2, y: 2}
+          bins = d3Hexbin.hexbin<Point>().x(x).y(y)([
+        {x0: 0, y0: 0}, {x0: 0, y0: 1}, {x0: 0, y0: 2},
+        {x0: 1, y0: 0}, {x0: 1, y0: 1}, {x0: 1, y0: 2},
+        {x0: 2, y0: 0}, {x0: 2, y0: 1}, {x0: 2, y0: 2}
     ]);
     bins.map((bin: any) => {});
 }
@@ -51,9 +56,14 @@ import * as d3Hexbin from 'd3-hexbin';
 }
 
 {
+    interface PointX {
+        x: number;
+        [key: number]: number;
+    }
+
     // hexbin.x(x) sets the x-coordinate accessor
-    const x = function(d: any) { return d.x; },
-          b = d3Hexbin.hexbin().x(x),
+    const x = function(d: PointX) { return d.x; },
+          b = d3Hexbin.hexbin<PointX>().x(x),
           bins = b([{x: 1, 1: 2}]);
 
     b.x();          // should be x;
@@ -64,9 +74,13 @@ import * as d3Hexbin from 'd3-hexbin';
 }
 
 {
+    interface PointY {
+        y: number;
+        [key: number]: number;
+    }
     // hexbin.y(y) sets the y-coordinate accessor
-    const y = function(d: any) { return d.y; },
-          b = d3Hexbin.hexbin().y(y),
+    const y = function(d: PointY) { return d.y; },
+          b = d3Hexbin.hexbin<PointY>().y(y),
           bins = b([{0: 1, y: 2}]);
 
     bins.length;    // should be 1;
@@ -131,4 +145,67 @@ import * as d3Hexbin from 'd3-hexbin';
     const path: string = d3Hexbin.hexbin().radius(0.5)
                          .extent([[-1.1, -1.1], [1.1, 1.1]])
                          .mesh();
+}
+
+{
+
+    let hb: d3Hexbin.Hexbin<Point>;
+    let bins: d3Hexbin.HexbinBin<Point>[];
+
+    // Create generator =======================================
+
+    hb = d3Hexbin.hexbin<Point>();
+
+    // Configure generator =====================================
+
+    // x Accessor ----------------------------------------------
+
+    let x: (d:Point) => number;
+    x = function (d: Point) { return d.x0; };
+
+    // test setter
+    hb = hb.x(x);
+
+    // test getter
+    x = hb.x();
+
+    // y Accessor ----------------------------------------------
+
+    let y: (d:Point) => number;
+    y = function (d: Point) { return d.y0; };
+
+    // test setter
+    hb = hb.y(y);
+
+    // test getter
+    y = hb.y();
+
+    // Use generator ============================================
+
+    bins = hb([
+        { x0: 0, y0: 0 }, { x0: 0, y0: 1 }, { x0: 0, y0: 2 },
+        { x0: 1, y0: 0 }, { x0: 1, y0: 1 }, { x0: 1, y0: 2 },
+        { x0: 2, y0: 0 }, { x0: 2, y0: 1 }, { x0: 2, y0: 2 }
+    ]);
+
+    interface RemappedBin {
+        binCoordinates: [number, number];
+        points: Point[];
+    }
+
+    let remappedBins: Array<RemappedBin>;
+
+    remappedBins = bins.map(bin => {
+        const x: number = bin.x; // x-coordinate of bin
+        const y: number = bin.y; // y-coordinate of bin
+        const pointsInBin: Point[] = bin.map(p => {
+            const point: Point = p;
+            return point;
+        });
+        const remapped: RemappedBin = {
+            binCoordinates: [x, y],
+            points: pointsInBin
+        };
+        return remapped;
+    });
 }
