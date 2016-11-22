@@ -159,7 +159,7 @@ export interface BrushBehavior<Datum> {
      * start (at the start of a brush gesture, such as on mousedown), brush (when the brush moves, such as on mousemove), or
      * end (at the end of a brush gesture, such as on mouseup.)
      */
-    on(typenames: string): ValueFn<SVGGElement, Datum, void>;
+    on(typenames: string): ValueFn<SVGGElement, Datum, void> | undefined;
     /**
      * Removes the current event listeners for the specified typenames, if any.
      *
