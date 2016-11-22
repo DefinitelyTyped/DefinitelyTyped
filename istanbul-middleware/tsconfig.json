@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "istanbul-middleware.d.ts",
+        "index.d.ts",
         "istanbul-middleware-tests.ts"
     ]
 }
