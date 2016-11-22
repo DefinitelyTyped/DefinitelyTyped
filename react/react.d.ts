@@ -164,7 +164,7 @@ declare namespace __React {
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
         forceUpdate(callback?: () => any): void;
-        render(): JSX.Element;
+        render(): JSX.Element | null;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
