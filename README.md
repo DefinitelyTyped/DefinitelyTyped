@@ -113,6 +113,7 @@ Your package should have this structure:
 | index.d.ts | This contains the typings for the package. |
 | foo-tests.ts | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
 | tsconfig.json | This allows you to run `tsc` within the package. |
+| tslint.json | Enables linting. |
 
 Generate these by running `npm run new-package -- new-package-name`.
 
