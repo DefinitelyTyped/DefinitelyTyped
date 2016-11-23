@@ -8,8 +8,7 @@
 type ImporterReturnType = { file: string } | { contents: string } | Error | null;
 
 interface Importer {
-    (url: string, prev: string): ImporterReturnType;
-    (url: string, prev: string, done: (data: ImporterReturnType) => void): void;
+    (url: string, prev: string, done: (data: ImporterReturnType) => void): ImporterReturnType | void;
 }
 
 interface Options {
