@@ -5,29 +5,25 @@
 
 /// <reference types="node" />
 
-declare module ContinuationLocalStorage {
-  type Context = any;
+export type Context = any;
 
-  interface Namespace {
-    active(): Context;
-    set<T>(key: string, value: T): T;
-    get(key: string): any;
-    run(callback: any): void;
-    runAndReturn(callback: any): any;
-    bind(callback: any, context?: Context): any;
-    bindEmitter(emitter: NodeJS.EventEmitter): any;
-    createContext(): Context;
-    name: string;
-    context: Context;
-  }
-  function createNamespace(name: string): Namespace;
-  function getNamespace(name: string): Namespace;
-  function destroyNamespace(name: string): void;
-  function reset(): void;
+export interface Namespace {
+  active(): Context;
+  set<T>(key: string, value: T): T;
+  get(key: string): any;
+  run(callback: any): void;
+  runAndReturn(callback: any): any;
+  bind(callback: any, context?: Context): any;
+  bindEmitter(emitter: NodeJS.EventEmitter): any;
+  createContext(): Context;
+  name: string;
+  context: Context;
 }
+export function createNamespace(name: string): Namespace;
+export function getNamespace(name: string): Namespace;
+export function destroyNamespace(name: string): void;
+export function reset(): void;
 
 // declare namespace process {
 //   var namespaces: ContinuationLocalStorage.Namespace[];
 // }
-
-export = ContinuationLocalStorage;
