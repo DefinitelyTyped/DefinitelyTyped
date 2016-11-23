@@ -43,20 +43,15 @@ declare namespace dat {
         updateDisplay(): void;
 
         // gui properties in dat/gui/GUI.js
-        parent(): GUI;
-        scrollable(): boolean;
-        autoPlace(): boolean;
-        preset(): string;
-        preset(s: string): void;
-        width(): number;
-        width(n: number): void;
-        name(): string;
-        name(s: string): void;
-        closed(): boolean;
-        closed(b: boolean): void;
-        load(): Object;
-        useLocalStorage(): boolean;
-        useLocalStorage(b: boolean): void;
+        readonly parent: GUI;
+        readonly scrollable: boolean;
+        readonly autoPlace: boolean;
+        preset: string;
+        width: number;
+        name: string;
+        closed: boolean;
+        readonly load: Object;
+        useLocalStorage: boolean;
     }
 
     export interface GUIParams{
