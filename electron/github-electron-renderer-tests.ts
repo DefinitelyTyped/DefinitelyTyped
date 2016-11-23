@@ -77,7 +77,7 @@ webFrame.insertText('text');
 
 webFrame.executeJavaScript('JSON.stringify({})', false, (result) => {
     console.log(result);
-});
+}).then((result: string) => console.log('OK:' + result));
 
 console.log(webFrame.getResourceUsage());
 webFrame.clearCache();
