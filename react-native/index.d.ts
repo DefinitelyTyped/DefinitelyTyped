@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.34
+// Type definitions for react-native 0.37
 // Project: https://github.com/facebook/react-native
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1922,6 +1922,16 @@ declare module "react" {
         [key: string]: any
     }
 
+    /**
+     * Passed data from WebView via window.postMessage.
+     */
+    export interface WebViewMessageEventData {
+	/**
+	 * The data sent from a WebView; can only be a string.
+	 */
+	data: string
+    }
+    
     export interface WebViewPropertiesAndroid {
 
         /**
@@ -2080,6 +2090,11 @@ declare module "react" {
          */
         onLoadStart?: (event: NavState) => void
 
+        /**
+         * Invoked when window.postMessage is called from WebView.
+         */
+	onMessage?: ( event: NativeSyntheticEvent<WebViewMessageEventData> ) => void
+	
         /**
          * Function that is invoked when the `WebView` loading starts or ends.
          */
