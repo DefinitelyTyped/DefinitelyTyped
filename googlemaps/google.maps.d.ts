@@ -71,7 +71,7 @@ declare namespace google.maps {
         mapMaker?: boolean;
         mapTypeControl?: boolean;
         mapTypeControlOptions?: MapTypeControlOptions;
-        mapTypeId?: MapTypeId;
+        mapTypeId?: MapTypeId|string;
         maxZoom?: number;
         minZoom?: number;
         noClear?: boolean;
