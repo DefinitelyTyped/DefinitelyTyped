@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.4.7
+// Type definitions for Electron v1.4.8
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>, aliib <https://github.com/aliib>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -2490,7 +2490,7 @@ declare namespace Electron {
 	}
 
 	type MenuItemType = 'normal' | 'separator' | 'submenu' | 'checkbox' | 'radio';
-	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'pasteandmatchstyle' | 'selectall' | 'delete' | 'minimize' | 'close' | 'quit' | 'togglefullscreen' | 'resetzoom' | 'zoomin' | 'zoomout';
+	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'pasteandmatchstyle' | 'selectall' | 'delete' | 'minimize' | 'close' | 'quit' | 'togglefullscreen' | 'resetzoom' | 'zoomin' | 'zoomout' | 'reload' | 'toggledevtools';
 	type MenuItemRoleMac = 'about' | 'hide' | 'hideothers' | 'unhide' | 'startspeaking' | 'stopspeaking' | 'front' | 'zoom' | 'window' | 'help' | 'services';
 
 	interface MenuItemOptions {
@@ -4462,7 +4462,11 @@ declare namespace Electron {
 		/**
 		 * Sets the maximum and minimum zoom level.
 		 */
-		setZoomLevelLimits(minimumLevel: number, maximumLevel: number): void;
+		setVisualZoomLevelLimits(minimumLevel: number, maximumLevel: number): void;
+		/**
+		 * Sets the maximum and minimum layout-based (i.e. non-visual) zoom level.
+		 */
+		setLayoutZoomLevelLimits(minimumLevel: number, maximumLevel: number): void;
 		/**
 		 * Executes the editing command undo in web page.
 		 */
@@ -5245,7 +5249,11 @@ declare namespace Electron {
 		/**
 		 * Sets the maximum and minimum zoom level.
 		 */
-		setZoomLevelLimits(minimumLevel: number, maximumLevel: number): void;
+		setVisualZoomLevelLimits(minimumLevel: number, maximumLevel: number): void;
+		/**
+		 * Sets the maximum and minimum layout-based (i.e. non-visual) zoom level.
+		 */
+		setLayoutZoomLevelLimits(minimumLevel: number, maximumLevel: number): void;
 		/**
 		 * Sets a provider for spell checking in input fields and text areas.
 		 */
