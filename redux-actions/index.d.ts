@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = ReduxActions;
+export as namespace ReduxActions;
 
 declare namespace ReduxActions {
     // FSA-compliant action.
