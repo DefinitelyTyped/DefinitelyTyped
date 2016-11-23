@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.4.5
+// Type definitions for Electron v1.4.6
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>, aliib <https://github.com/aliib>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -4415,8 +4415,10 @@ declare namespace Electron {
 		/**
 		 * Evaluates code in page.
 		 * @param code Code to evaluate.
+		 *
+		 * @returns Promise
 		 */
-		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): void;
+		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): Promise<any>;
 		/**
 		 * Mute the audio on the current web page.
 		 */
@@ -5176,8 +5178,10 @@ declare namespace Electron {
 		 * In the browser window some HTML APIs like `requestFullScreen` can only be
 		 * invoked by a gesture from the user. Setting `userGesture` to `true` will remove
 		 * this limitation.
+		 *
+		 * @returns Promise
 		 */
-		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): void;
+		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): Promise<any>;
 		/**
 		 * @returns Object describing usage information of Blink’s internal memory caches.
 		 */
@@ -5399,8 +5403,10 @@ declare namespace Electron {
 		/**
 		 * Evaluates code in page. If userGesture is set, it will create the user gesture context in the page.
 		 * HTML APIs like requestFullScreen, which require user action, can take advantage of this option for automation.
+		 *
+		 * @returns Promise
 		 */
-		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): void;
+		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): Promise<any>;
 		/**
 		 * Opens a DevTools window for guest page.
 		 */

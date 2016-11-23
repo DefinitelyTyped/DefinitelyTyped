@@ -93,7 +93,7 @@ app.on('ready', () => {
 
 	mainWindow.webContents.printToPDF({}, (err, data) => {});
 
-	mainWindow.webContents.executeJavaScript('return true;');
+	mainWindow.webContents.executeJavaScript('return true;').then((v: boolean) => console.log(v));
 	mainWindow.webContents.executeJavaScript('return true;', true);
 	mainWindow.webContents.executeJavaScript('return true;', true, (result: boolean) => console.log(result));
 	mainWindow.webContents.insertText('blah, blah, blah');
