@@ -63,8 +63,24 @@ declare namespace Office {
             isSetSupported(name: string, minVersion?: number): boolean;
         }
     }
+    /**
+     * Provides specific information about an error that occurred during an asynchronous data operation.
+     */
     export interface Error {
+        /**
+         * Gets the numeric code of the error.
+         * @since 1.0
+         */
+        code: number;
+        /**
+         * Gets the name of the error.
+         * @since 1.0
+         */
         message: string;
+        /**
+         * Gets a detailed description of the error.
+         * @since 1.0
+         */
         name: string;
     }
     export interface UI {
@@ -109,284 +125,6 @@ declare namespace Office {
          */
         addEventHandler(eventType: Office.EventType, handler: Function): void;
 
-    }
-}
-
-declare module OfficeExtension {
-    /** An abstract proxy object that represents an object in an Office document. You create proxy objects from the context (or from other proxy objects), add commands to a queue to act on the object, and then synchronize the proxy object state with the document by calling "context.sync()". */
-    class ClientObject {
-        /** The request context associated with the object */
-        context: ClientRequestContext;
-        /** Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property. [Api set: ExcelApi 1.3 (Preview), WordApi 1.3] */
-        isNull: boolean;
-    }
-}
-declare module OfficeExtension {
-    interface LoadOption {
-        select?: string | string[];
-        expand?: string | string[];
-        top?: number;
-        skip?: number;
-    }
-    /** An abstract RequestContext object that facilitates requests to the host Office application. The "Excel.run" and "Word.run" methods provide a request context. */
-    class ClientRequestContext {
-        constructor(url?: string);
-        /** Collection of objects that are tracked for automatic adjustments based on surrounding changes in the document. */
-        trackedObjects: TrackedObjects;
-        /** Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties. */
-        load(object: ClientObject, option?: string | string[] | LoadOption): void;
-        /** Adds a trace message to the queue. If the promise returned by "context.sync()" is rejected due to an error, this adds a ".traceMessages" array to the OfficeExtension.Error object, containing all trace messages that were executed. These messages can help you monitor the program execution sequence and detect the cause of the error. */
-        trace(message: string): void;
-        /** Synchronizes the state between JavaScript proxy objects and the Office document, by executing instructions queued on the request context and retrieving properties of loaded Office objects for use in your code. This method returns a promise, which is resolved when the synchronization is complete. */
-        sync<T>(passThroughValue?: T): IPromise<T>;
-    }
-}
-declare module OfficeExtension {
-    /** Contains the result for methods that return primitive types. The object's value property is retrieved from the document after "context.sync()" is invoked. */
-    class ClientResult<T> {
-        /** The value of the result that is retrieved from the document after "context.sync()" is invoked. */
-        value: T;
-    }
-}
-declare module OfficeExtension {
-    /** The error object returned by "context.sync()", if a promise is rejected due to an error while processing the request. */
-    class Error {
-        /** Error name: "OfficeExtension.Error".*/
-        name: string;
-        /** The error message passed through from the host Office application. */
-        message: string;
-        /** Stack trace, if applicable. */
-        stack: string;
-        /** Error code string, such as "InvalidArgument". */
-        code: string;
-        /** Trace messages (if any) that were added via a "context.trace()" invocation before calling "context.sync()". If there was an error, this contains all trace messages that were executed before the error occurred. These messages can help you monitor the program execution sequence and detect the case of the error. */
-        traceMessages: Array<string>;
-        /** Debug info, if applicable. The ".errorLocation" property can describe the object and method or property that caused the error. */
-        debugInfo: {
-            /** If applicable, will return the object type and the name of the method or property that caused the error. */
-            errorLocation?: string;
-        };
-    }
-}
-declare module OfficeExtension {
-    class ErrorCodes {
-        static accessDenied: string;
-        static generalException: string;
-        static activityLimitReached: string;
-        static invalidObjectPath: string;
-        static propertyNotLoaded: string;
-        static valueNotLoaded: string;
-        static invalidRequestContext: string;
-        static invalidArgument: string;
-        static runMustReturnPromise: string;
-        static cannotRegisterEvent: string;
-    }
-}
-declare module OfficeExtension {
-    /** An IPromise object that represents a deferred interaction with the host Office application. */
-    interface IPromise<R> {
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => U): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => void): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => void): IPromise<U>;
-
-
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
-        catch<U>(onRejected?: (error: any) => IPromise<U>): IPromise<U>;
-
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
-        catch<U>(onRejected?: (error: any) => U): IPromise<U>;
-
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
-        catch<U>(onRejected?: (error: any) => void): IPromise<U>;
-    }
-
-    /** An Promise object that represents a deferred interaction with the host Office application. The publically-consumable OfficeExtension.Promise is available starting in ExcelApi 1.2 and WordApi 1.2. Promises can be chained via ".then", and errors can be caught via ".catch". Remember to always use a ".catch" on the outer promise, and to return intermediary promises so as not to break the promise chain. When a "native" Promise implementation is available, OfficeExtension.Promise will switch to use the native Promise instead. */
-    export class Promise<R> implements IPromise<R>
-    {
-        /**
-         * Creates a new promise based on a function that accepts resolve and reject handlers.
-         */
-        constructor(func: (resolve: (value?: R | IPromise<R>) => void, reject: (error?: any) => void) => void);
-
-        /**
-         * Creates a promise that resolves when all of the child promises resolve.
-         */
-        static all<U>(promises: OfficeExtension.IPromise<U>[]): IPromise<U[]>;
-
-        /**
-         * Creates a promise that is resolved.
-         */
-        static resolve<U>(value: U): IPromise<U>;
-
-        /**
-         * Creates a promise that is rejected.
-         */
-        static reject<U>(error: any): IPromise<U>;
-
-        /* This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => U): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => void): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => void): IPromise<U>;
-
-
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
-        catch<U>(onRejected?: (error: any) => IPromise<U>): IPromise<U>;
-
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
-        catch<U>(onRejected?: (error: any) => U): IPromise<U>;
-
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
-        catch<U>(onRejected?: (error: any) => void): IPromise<U>;
-    }
-}
-
-declare module OfficeExtension {
-    /** Collection of tracked objects, contained within a request context. See "context.trackedObjects" for more information. */
-    class TrackedObjects {
-        /** Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
-        add(object: ClientObject): void;
-        /** Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
-        add(objects: ClientObject[]): void;
-        /** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect. */
-        remove(object: ClientObject): void;
-        /** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect. */
-        remove(objects: ClientObject[]): void;
-    }
-}
-
-declare module OfficeExtension {
-    export class EventHandlers<T> {
-        constructor(context: ClientRequestContext, parentObject: ClientObject, name: string, eventInfo: EventInfo<T>);
-        add(handler: (args: T) => IPromise<any>): EventHandlerResult<T>;
-        remove(handler: (args: T) => IPromise<any>): void;
-        removeAll(): void;
-    }
-
-    export class EventHandlerResult<T> {
-        constructor(context: ClientRequestContext, handlers: EventHandlers<T>, handler: (args: T) => IPromise<any>);
-        remove(): void;
-    }
-
-    export interface EventInfo<T> {
-        registerFunc: (callback: (args: any) => void) => IPromise<any>;
-        unregisterFunc: (callback: (args: any) => void) => IPromise<any>;
-        eventArgsTransformFunc: (args: any) => IPromise<T>;
     }
 }
 
@@ -919,6 +657,19 @@ declare namespace Office {
          * @param callback The optional callback method
          */
         setSelectedDataAsync(data: string | TableData | any[][], options?: any, callback?: (result: AsyncResult) => void): void;
+    }
+    /**
+     * Provides information about the document that raised the SelectionChanged event.
+     */
+    export interface DocumentSelectionChangedEventArgs {
+        /**
+         * Gets a Document object that represents the document that raised the SelectionChanged event.
+         */
+        document: Document;
+        /**
+         * Get an EventType enumeration value that identifies the kind of event that was raised.
+         */
+        type: EventType;
     }
     export interface File {
         size: number;
@@ -1660,6 +1411,958 @@ declare namespace Office {
         getWSSUrlAsync(options?: any, callback?: (result: AsyncResult) => void): void;
     }
 }
+
+
+
+
+////////////////////////////////////////////////////////////////
+////////////////////// Begin Exchange APIs /////////////////////
+////////////////////////////////////////////////////////////////
+
+
+declare namespace Office.MailboxEnums {
+    export enum BodyType {
+        /**
+         * The body is in HTML format
+         */
+        Html,
+        /**
+         * The body is in text format
+         */
+        text
+    }
+    export enum EntityType {
+        /**
+         * Specifies that the entity is a meeting suggestion
+         */
+        MeetingSuggestion,
+        /**
+         * Specifies that the entity is a task suggestion
+         */
+        TaskSuggestion,
+        /**
+         * Specifies that the entity is a postal address
+         */
+        Address,
+        /**
+         * Specifies that the entity is SMTP email address
+         */
+        EmailAddress,
+        /**
+         * Specifies that the entity is an Internet URL
+         */
+        Url,
+        /**
+         * Specifies that the entity is US phone number
+         */
+        PhoneNumber,
+        /**
+         * Specifies that the entity is a contact
+         */
+        Contact
+    }
+    export enum ItemType {
+        /**
+         * A meeting request, response, or cancellation
+         */
+        Message,
+        /**
+         * Specifies an appointment item
+         */
+        Appointment
+    }
+    export enum ResponseType {
+        /**
+         * There has been no response from the attendee
+         */
+        None,
+        /**
+         * The attendee is the meeting organizer
+         */
+        Organizer,
+        /**
+         * The meeting request was tentatively accepted by the attendee
+         */
+        Tentative,
+        /**
+         * The meeting request was accepted by the attendee
+         */
+        Accepted,
+        /**
+         * The meeting request was declined by the attendee
+         */
+        Declined
+    }
+    export enum RecipientType {
+        /**
+         * Specifies that the recipient is not one of the other recipient types
+         */
+        Other,
+        /**
+         * Specifies that the recipient is a distribution list containing a list of email addresses
+         */
+        DistributionList,
+        /**
+         * Specifies that the recipient is an SMTP email address that is on the Exchange server
+         */
+        User,
+        /**
+         * Specifies that the recipient is an SMTP email address that is not on the Exchange server
+         */
+        ExternalUser
+    }
+    export enum AttachmentType {
+        /**
+         * The attachment is a file
+         */
+        File,
+        /**
+         * The attachment is an Exchange item
+         */
+        Item
+    }
+}
+declare namespace Office {
+    export module Types {
+        export interface ItemRead extends Office.Item {
+            subject: any;
+            /**
+             * Displays a reply form that includes the sender and all the recipients of the selected message
+             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+             */
+            displayReplyAllForm(htmlBody: string): void;
+            /**
+             * Displays a reply form that includes only the sender of the selected message
+             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+             */
+            displayReplyForm(htmlBody: string): void;
+            /**
+             * Gets an array of entities found in an message
+             */
+            getEntities(): Office.Entities;
+            /**
+             * Gets an array of entities of the specified entity type found in an message
+             * @param entityType One of the EntityType enumeration values
+             */
+            getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
+            /**
+             * Returns well-known entities that pass the named filter defined in the manifest XML file
+             * @param name  A TableData object with the headers and rows
+             */
+            getFilteredEntitiesByName(name: string): Office.Entities;
+            /**
+             * Returns string values in the currently selected message object that match the regular expressions defined in the manifest XML file
+             */
+            getRegExMatches(): string[];
+            /**
+             * Returns string values that match the named regular expression defined in the manifest XML file
+             */
+            getRegExMatchesByName(name: string): string[];
+        }
+        export interface ItemCompose extends Office.Item {
+            body: Office.Body;
+            subject: any;
+            /**
+             * Adds a file to a message as an attachment
+             * @param uri The URI that provides the location of the file to attach to the message. The maximum length is 2048 characters
+             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+             * @param options Any optional parameters or state data passed to the method
+             * @param callback The optional callback method
+             */
+            addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+            /**
+             * Adds an Exchange item, such as a message, as an attachment to the message
+             * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
+             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+             * @param options Any optional parameters or state data passed to the method
+             * @param callback The optional callback method
+             */
+            addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+            /**
+             * Removes an attachment from a message
+             * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
+             * @param options Any optional parameters or state data passed to the method
+             * @param callback The optional callback method
+             */
+            removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
+        }
+        export interface MessageCompose extends Office.Message {
+            attachments: Office.AttachmentDetails[];
+            body: Office.Body;
+            bcc: Office.Recipients;
+            cc: Office.Recipients;
+            subject: Office.Subject;
+            to: Office.Recipients;
+            /**
+             * Adds a file to a message as an attachment
+             * @param uri The URI that provides the location of the file to attach to the message. The maximum length is 2048 characters
+             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+             * @param options Any optional parameters or state data passed to the method
+             * @param callback The optional callback method
+             */
+            addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+            /**
+             * Adds an Exchange item, such as a message, as an attachment to the message
+             * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
+             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+             * @param options Any optional parameters or state data passed to the method
+             * @param callback The optional callback method
+             */
+            addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+            /**
+             * Removes an attachment from a message
+             * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
+             * @param options Any optional parameters or state data passed to the method
+             * @param callback The optional callback method
+             */
+            removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
+        }
+        export interface MessageRead extends Office.Message {
+            cc: Office.EmailAddressDetails[];
+            from: Office.EmailAddressDetails;
+            internetMessageId: string;
+            normalizedSubject: string;
+            sender: Office.EmailAddressDetails;
+            subject: string;
+            to: Office.EmailAddressDetails;
+            /**
+             * Displays a reply form that includes the sender and all the recipients of the selected message
+             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+             */
+            displayReplyAllForm(htmlBody: string): void;
+            /**
+             * Displays a reply form that includes only the sender of the selected message
+             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+             */
+            displayReplyForm(htmlBody: string): void;
+            /**
+             * Gets an array of entities found in an message
+             */
+            getEntities(): Office.Entities;
+            /**
+             * Gets an array of entities of the specified entity type found in an message
+             * @param entityType One of the EntityType enumeration values
+             */
+            getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
+            /**
+             * Returns well-known entities that pass the named filter defined in the manifest XML file
+             * @param name  A TableData object with the headers and rows
+             */
+            getFilteredEntitiesByName(name: string): Office.Entities;
+            /**
+             * Returns string values in the currently selected message object that match the regular expressions defined in the manifest XML file
+             */
+            getRegExMatches(): string[];
+            /**
+             * Returns string values that match the named regular expression defined in the manifest XML file
+             */
+            getRegExMatchesByName(name: string): string[];
+        }
+        export interface AppointmentCompose extends Office.Appointment {
+            body: Office.Body;
+            end: Office.Time;
+            location: Office.Location;
+            optionalAttendees: Office.Recipients;
+            requiredAttendees: Office.Recipients;
+            start: Office.Time;
+            subject: Office.Subject;
+            /**
+             * Adds a file to an appointment as an attachment
+             * @param uri The URI that provides the location of the file to attach to the appointment. The maximum length is 2048 characters
+             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+             * @param options Any optional parameters or state data passed to the method
+             * @param callback The optional callback method
+             */
+            addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+            /**
+             * Adds an Exchange item, such as a message, as an attachment to the appointment
+             * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
+             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+             * @param options Any optional parameters or state data passed to the method
+             * @param callback The optional callback method
+             */
+            addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+            /**
+             * Removes an attachment from a appointment
+             * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
+             * @param options Any optional parameters or state data passed to the method
+             * @param callback The optional callback method
+             */
+            removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
+        }
+        export interface AppointmentRead extends Office.Appointment {
+            attachments: Office.AttachmentDetails[];
+            end: Date;
+            location: string;
+            normalizedSubject: string;
+            optionalAttendees: Office.EmailAddressDetails;
+            organizer: Office.EmailAddressDetails;
+            requiredAttendees: Office.EmailAddressDetails;
+            resources: string[];
+            start: Date;
+            subject: string;
+            /**
+             * Displays a reply form that includes the organizer and all the attendees of the selected appointment item
+             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+             */
+            displayReplyAllForm(htmlBody: string): void;
+            /**
+             * Displays a reply form that includes only the organizer of the selected appointment item
+             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+             */
+            displayReplyForm(htmlBody: string): void;
+            /**
+             * Gets an array of entities found in an appointment
+             */
+            getEntities(): Office.Entities;
+            /**
+             * Gets an array of entities of the specified entity type found in an appointment
+             * @param entityType One of the EntityType enumeration values
+             */
+            getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
+            /**
+             * Returns well-known entities that pass the named filter defined in the manifest XML file
+             * @param name  A TableData object with the headers and rows
+             */
+            getFilteredEntitiesByName(name: string): Office.Entities;
+            /**
+             * Returns string values in the currently selected appointment object that match the regular expressions defined in the manifest XML file
+             */
+            getRegExMatches(): string[];
+            /**
+             * Returns string values that match the named regular expression defined in the manifest XML file
+             */
+            getRegExMatchesByName(name: string): string[];
+        }
+    }
+    export module cast {
+        export module item {
+            function toAppointmentCompose(item: Office.Item): Office.Types.AppointmentCompose;
+            function toAppointmentRead(item: Office.Item): Office.Types.AppointmentRead;
+            function toAppointment(item: Office.Item): Office.Appointment;
+            function toMessageCompose(item: Office.Item): Office.Types.MessageCompose;
+            function toMessageRead(item: Office.Item): Office.Types.MessageRead;
+            function toMessage(item: Office.Item): Office.Message;
+            function toItemCompose(item: Office.Item): Office.Types.ItemCompose;
+            function toItemRead(item: Office.Item): Office.Types.ItemRead;
+        }
+    }
+    export interface AttachmentDetails {
+        attachmentType: Office.MailboxEnums.AttachmentType;
+        contentType: string;
+        id: string;
+        isInline: boolean;
+        name: string;
+        size: number;
+    }
+    export interface Contact {
+        personName: string;
+        businessName: string;
+        phoneNumbers: PhoneNumber[];
+        emailAddresses: string[];
+        urls: string[];
+        addresses: string[];
+        contactString: string;
+    }
+
+    export interface Context {
+        mailbox: Mailbox;
+        roamingSettings: RoamingSettings;
+    }
+    export interface CustomProperties {
+        /**
+         * Returns the value of the specified custom property
+         * @param name The name of the property to be returned
+         */
+        get(name: string): any;
+        /**
+         * Sets the specified property to the specified value
+         * @param name The name of the property to be set
+         * @param value The value of the property to be set
+         */
+        set(name: string, value: string): void;
+        /**
+         * Removes the specified property from the custom property collection.
+         * @param name The name of the property to be removed
+         */
+        remove(name: string): void;
+        /**
+         * Saves the custom property collection to the server
+         * @param callback The optional callback method
+         * @param userContext Optional variable for any state data that is passed to the saveAsync method
+         */
+        saveAsync(callback?: (result: AsyncResult) => void, userContext?: any): void;
+    }
+    export interface EmailAddressDetails {
+        emailAddress: string;
+        displayName: string;
+        appointmentResponse: Office.MailboxEnums.ResponseType;
+        recipientType: Office.MailboxEnums.RecipientType;
+    }
+    export interface EmailUser {
+        name: string;
+        userId: string;
+    }
+    export interface Entities {
+        addresses: string[];
+        taskSuggestions: string[];
+        meetingSuggestions: MeetingSuggestion[];
+        emailAddresses: string[];
+        urls: string[];
+        phoneNumbers: PhoneNumber[];
+        contacts: Contact[];
+    }
+    export interface Item {
+        dateTimeCreated: Date;
+        dateTimeModified: Date;
+        itemClass: string;
+        itemId: string;
+        itemType: Office.MailboxEnums.ItemType;
+        /**
+         * Asynchronously loads custom properties that are specific to the item and a app for Office
+         * @param callback The optional callback method
+         * @param userContext Optional variable for any state data that is passed to the asynchronous method
+         */
+        loadCustomPropertiesAsync(callback?: (result: AsyncResult) => void, userContext?: any): void;
+    }
+    export interface Appointment extends Item {
+    }
+    export interface Body {
+        /**
+         * Gets a value that indicates whether the content is in HTML or text format
+         * @param tableData  A TableData object with the headers and rows
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the getTypeAsync method returns
+         */
+        getTypeAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Adds the specified content to the beginning of the item body
+         * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        prependAsync(data: string, options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Replaces the selection in the body with the specified text
+         * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        setSelectedDataAsync(data: string, options?: any, callback?: (result: AsyncResult) => void): void;
+    }
+    export interface Location {
+        /**
+         * Begins an asynchronous request for the location of an appointment
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        getAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Begins an asynchronous request to set the location of an appointment
+         * @param data The location of the appointment. The string is limited to 255 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the location is set
+         */
+        setAsync(location: string, options?: any, callback?: (result: AsyncResult) => void): void;
+    }
+    export interface Mailbox {
+        item: Item;
+        userProfile: UserProfile;
+        /**
+         * Gets a Date object from a dictionary containing time information
+         * @param timeValue A Date object
+         */
+        convertToLocalClientTime(timeValue: Date): any;
+        /**
+         * Gets a dictionary containing time information in local client time
+         * @param input A dictionary containing a date. The dictionary should contain the following fields: year, month, date, hours, minutes, seconds, time zone, time zone offset
+         */
+        convertToUtcClientTime(input: any): Date;
+        /**
+         * Displays an existing calendar appointment
+         * @param itemId The Exchange Web Services (EWS) identifier for an existing calendar appointment
+         */
+        displayAppointmentForm(itemId: any): void;
+        /**
+         * Displays an existing message
+         * @param itemId The Exchange Web Services (EWS) identifier for an existing message
+         */
+        displayMessageForm(itemId: any): void;
+        /**
+         * Displays a form for creating a new calendar appointment
+         * @param requiredAttendees An array of strings containing the email addresses or an array containing an EmailAddressDetails object for each of the required attendees for the appointment. The array is limited to a maximum of 100 entries
+         * @param optionalAttendees An array of strings containing the email addresses or an array containing an EmailAddressDetails object for each of the optional attendees for the appointment. The array is limited to a maximum of 100 entries
+         * @param start A Date object specifying the start date and time of the appointment
+         * @param end A Date object specifying the end date and time of the appointment
+         * @param location A string containing the location of the appointment. The string is limited to a maximum of 255 characters
+         * @param resources An array of strings containing the resources required for the appointment. The array is limited to a maximum of 100 entries
+         * @param subject A string containing the subject of the appointment. The string is limited to a maximum of 255 characters
+         * @param body The body of the appointment message. The body content is limited to a maximum size of 32 KB
+         */
+        displayNewAppointmentForm(requiredAttendees: any, optionalAttendees: any, start: Date, end: Date, location: string, resources: string[], subject: string, body: string): void;
+        /**
+         * Gets a string that contains a token used to get an attachment or item from an Exchange Server
+         * @param callback The optional method to call when the string is inserted
+         * @param userContext Optional variable for any state data that is passed to the asynchronous method
+         */
+        getCallbackTokenAsync(callback?: (result: AsyncResult) => void, userContext?: any): void;
+        /**
+         * Gets a token identifying the user and the app for Office
+         * @param callback The optional method to call when the string is inserted
+         * @param userContext Optional variable for any state data that is passed to the asynchronous method
+         */
+        getUserIdentityTokenAsync(callback?: (result: AsyncResult) => void, userContext?: any): void;
+        /**
+         * Makes an asynchronous request to an Exchange Web Services (EWS) service on the Exchange server that hosts the user’s mailbox
+         * @param data The EWS request
+         * @param callback The optional method to call when the string is inserted
+         * @param userContext Optional variable for any state data that is passed to the asynchronous method
+         */
+        makeEwsRequestAsync(data: any, callback?: (result: AsyncResult) => void, userContext?: any): void;
+    }
+    export interface Message extends Item {
+        conversationId: string;
+    }
+    export interface MeetingRequest extends Message {
+        start: Date;
+        end: Date;
+        location: string;
+        optionalAttendees: EmailAddressDetails[];
+        requiredAttendees: EmailAddressDetails[];
+    }
+    export interface MeetingSuggestion {
+        meetingString: string;
+        attendees: EmailAddressDetails[];
+        location: string;
+        subject: string;
+        start: Date;
+        end: Date;
+    }
+    export interface PhoneNumber {
+        phoneString: string;
+        originalPhoneString: string;
+        type: string;
+    }
+    export interface Recipients {
+        /**
+         * Begins an asynchronous request to add a recipient list to an appointment or message
+         * @param recipients The recipients to add to the recipients list
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        addAsync(recipients: any, options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Begins an asynchronous request to get the recipient list for an appointment or message
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        getAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Begins an asynchronous request to set the recipient list for an appointment or message
+         * @param recipients The recipients to add to the recipients list
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        setAsync(recipients: any, options?: any, callback?: (result: AsyncResult) => void): void;
+    }
+    export interface RoamingSettings {
+        /**
+         * Retrieves the specified setting
+         * @param name The case-sensitive name of the setting to retrieve
+         */
+        get(name: string): any;
+        /**
+         * Removes the specified setting
+         * @param name The case-sensitive name of the setting to remove
+         */
+        remove(name: string): void;
+        /**
+         * Saves the settings
+         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult
+         */
+        saveAsync(callback?: (result: AsyncResult) => void): void;
+        /**
+         * Sets or creates the specified setting
+         * @param name The case-sensitive name of the setting to set or create
+         * @param value Specifies the value to be stored
+         */
+        set(name: string, value: any): void;
+    }
+    export interface Subject {
+        /**
+         * Begins an asynchronous request to get the subject of an appointment or message
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        getAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Begins an asynchronous call to set the subject of an appointment or message
+         * @param data The subject of the appointment. The string is limited to 255 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        setAsync(data: string, options?: any, callback?: (result: AsyncResult) => void): void;
+    }
+    export interface TaskSuggestion {
+        assignees: EmailUser[];
+        taskString: string;
+    }
+    export interface Time {
+        /**
+         * Begins an asynchronous request to get the start or end time
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        getAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Begins an asynchronous request to set the start or end time
+         * @param dateTime A date-time object in Coordinated Universal Time (UTC)
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        setAsync(dateTime: Date, options?: any, callback?: (result: AsyncResult) => void): void;
+    }
+    export interface UserProfile {
+        displayName: string;
+        emailAddress: string;
+        timeZone: string;
+    }
+}
+
+
+////////////////////////////////////////////////////////////////
+/////////////////////// End Exchange APIs //////////////////////
+////////////////////////////////////////////////////////////////
+
+
+
+///////////////////////////////////////////////////////////////
+
+
+
+////////////////////////////////////////////////////////////////
+///////////////// Begin OfficeExtension runtime ////////////////
+////////////////////////////////////////////////////////////////
+
+
+declare module OfficeExtension {
+    /** An abstract proxy object that represents an object in an Office document. You create proxy objects from the context (or from other proxy objects), add commands to a queue to act on the object, and then synchronize the proxy object state with the document by calling "context.sync()". */
+    class ClientObject {
+        /** The request context associated with the object */
+        context: ClientRequestContext;
+        /** Returns a boolean value for whether the corresponding object is a null object. You must call "context.sync()" before reading the isNullObject property. */
+        isNullObject: boolean;
+    }
+}
+declare module OfficeExtension {
+    interface LoadOption {
+        select?: string | string[];
+        expand?: string | string[];
+        top?: number;
+        skip?: number;
+    }
+    /** An abstract RequestContext object that facilitates requests to the host Office application. The "Excel.run" and "Word.run" methods provide a request context. */
+    class ClientRequestContext {
+        constructor(url?: string);
+
+        /** Collection of objects that are tracked for automatic adjustments based on surrounding changes in the document. */
+        trackedObjects: TrackedObjects;
+
+        /** Request headers */
+        requestHeaders: { [name: string]: string };
+
+        /** Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties. */
+        load(object: ClientObject, option?: string | string[]| LoadOption): void;
+
+        /**
+        * Queues up a command to recursively load the specified properties of the object and its navigation properties.
+        * You must call "context.sync()" before reading the properties.
+        * 
+        * @param object The object to be loaded.
+        * @param options The key-value pairing of load options for the types, such as { "Workbook": "worksheets,tables",  "Worksheet": "tables",  "Tables": "name" }
+        * @param maxDepth The maximum recursive depth.
+        */
+        loadRecursive(object: ClientObject, options: { [typeName: string]: string | string[] | LoadOption }, maxDepth?: number): void;
+
+        /** Adds a trace message to the queue. If the promise returned by "context.sync()" is rejected due to an error, this adds a ".traceMessages" array to the OfficeExtension.Error object, containing all trace messages that were executed. These messages can help you monitor the program execution sequence and detect the cause of the error. */
+        trace(message: string): void;
+
+        /** Synchronizes the state between JavaScript proxy objects and the Office document, by executing instructions queued on the request context and retrieving properties of loaded Office objects for use in your code. This method returns a promise, which is resolved when the synchronization is complete. */
+        sync<T>(passThroughValue?: T): IPromise<T>;
+    }
+}
+declare module OfficeExtension {
+    /** Contains the result for methods that return primitive types. The object's value property is retrieved from the document after "context.sync()" is invoked. */
+    class ClientResult<T> {
+        /** The value of the result that is retrieved from the document after "context.sync()" is invoked. */
+        value: T;
+    }
+}
+declare module OfficeExtension {
+    /** The error object returned by "context.sync()", if a promise is rejected due to an error while processing the request. */
+    class Error {
+        /** Error name: "OfficeExtension.Error".*/
+        name: string;
+        /** The error message passed through from the host Office application. */
+        message: string;
+        /** Stack trace, if applicable. */
+        stack: string;
+        /** Error code string, such as "InvalidArgument". */
+        code: string;
+        /** Trace messages (if any) that were added via a "context.trace()" invocation before calling "context.sync()". If there was an error, this contains all trace messages that were executed before the error occurred. These messages can help you monitor the program execution sequence and detect the case of the error. */
+        traceMessages: Array<string>;
+        /** Debug info, if applicable. The ".errorLocation" property can describe the object and method or property that caused the error. */
+        debugInfo: {
+            /** If applicable, will return the object type and the name of the method or property that caused the error. */
+            errorLocation?: string;
+        };
+    }
+}
+declare module OfficeExtension {
+    class ErrorCodes {
+        static accessDenied: string;
+        static generalException: string;
+        static activityLimitReached: string;
+    }
+}
+declare module OfficeExtension {
+    /** An IPromise object that represents a deferred interaction with the host Office application. */
+    interface IPromise<R> {
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => U): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => void): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => void): IPromise<U>;
+
+
+        /**
+         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+         * @param onRejected function to be called if or when the promise rejects.
+         */
+        catch<U>(onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
+        /**
+         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+         * @param onRejected function to be called if or when the promise rejects.
+         */
+        catch<U>(onRejected?: (error: any) => U): IPromise<U>;
+
+        /**
+         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+         * @param onRejected function to be called if or when the promise rejects.
+         */
+        catch<U>(onRejected?: (error: any) => void): IPromise<U>;
+    }
+
+    /** An Promise object that represents a deferred interaction with the host Office application. The publically-consumable OfficeExtension.Promise is available starting in ExcelApi 1.2 and WordApi 1.2. Promises can be chained via ".then", and errors can be caught via ".catch". Remember to always use a ".catch" on the outer promise, and to return intermediary promises so as not to break the promise chain. When a "native" Promise implementation is available, OfficeExtension.Promise will switch to use the native Promise instead. */
+    export class Promise<R> implements IPromise<R>
+    {
+        /**
+         * Creates a new promise based on a function that accepts resolve and reject handlers.
+         */
+        constructor(func: (resolve: (value?: R | IPromise<R>) => void, reject: (error?: any) => void) => void);
+
+        /**
+         * Creates a promise that resolves when all of the child promises resolve.
+         */
+        static all<U>(promises: OfficeExtension.IPromise<U>[]): IPromise<U[]>;
+
+        /**
+         * Creates a promise that is resolved.
+         */
+        static resolve<U>(value: U): IPromise<U>;
+
+        /**
+         * Creates a promise that is rejected.
+         */
+        static reject<U>(error: any): IPromise<U>;
+
+        /* This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => U): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => void): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => void): IPromise<U>;
+
+
+        /**
+         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+         * @param onRejected function to be called if or when the promise rejects.
+         */
+        catch<U>(onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
+        /**
+         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+         * @param onRejected function to be called if or when the promise rejects.
+         */
+        catch<U>(onRejected?: (error: any) => U): IPromise<U>;
+
+        /**
+         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+         * @param onRejected function to be called if or when the promise rejects.
+         */
+        catch<U>(onRejected?: (error: any) => void): IPromise<U>;
+    }
+}
+
+declare module OfficeExtension {
+    /** Collection of tracked objects, contained within a request context. See "context.trackedObjects" for more information. */
+    class TrackedObjects {
+        /** Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
+        add(object: ClientObject): void;
+        /** Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
+        add(objects: ClientObject[]): void;
+        /** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect. */
+        remove(object: ClientObject): void;
+        /** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect. */
+        remove(objects: ClientObject[]): void;
+    }
+}
+
+declare module OfficeExtension {
+    export class EventHandlers<T> {
+        constructor(context: ClientRequestContext, parentObject: ClientObject, name: string, eventInfo: EventInfo<T>);
+        add(handler: (args: T) => IPromise<any>): EventHandlerResult<T>;
+        remove(handler: (args: T) => IPromise<any>): void;
+        removeAll(): void;
+    }
+
+    export class EventHandlerResult<T> {
+        constructor(context: ClientRequestContext, handlers: EventHandlers<T>, handler: (args: T) => IPromise<any>);
+        remove(): void;
+    }
+
+    export interface EventInfo<T> {
+        registerFunc: (callback: (args: any) => void) => IPromise<any>;
+        unregisterFunc: (callback: (args: any) => void) => IPromise<any>;
+        eventArgsTransformFunc: (args: any) => IPromise<T>;
+    }
+}
+declare module OfficeExtension {
+    /**
+    * Request URL and headers 
+    */
+    interface RequestUrlAndHeaderInfo {
+        /** Request URL */
+        url: string;
+        /** Request headers */
+        headers?: {
+            [name: string]: string;
+        };
+    }
+}
+
+
+
+////////////////////////////////////////////////////////////////
+////////////////// End OfficeExtension runtime /////////////////
+////////////////////////////////////////////////////////////////
+
+
+
+////////////////////////////////////////////////////////////////
+
+
+
+////////////////////////////////////////////////////////////////
+//////////////// Begin Excel APIs (latest = 1.3) ///////////////
+////////////////////////////////////////////////////////////////
+
+
 declare module Excel {
     interface ThreeArrowsSet {
         [index: number]: Icon;
@@ -1899,7 +2602,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class Application extends OfficeExtension.ClientObject {
-        private m_calculationMode;
         /**
          *
          * Returns the calculation mode used in the workbook. See Excel.CalculationMode for details. Read-only.
@@ -1920,6 +2622,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.Application;
+        toJSON(): {
+            "calculationMode": string;
+        };
     }
     /**
      *
@@ -1928,14 +2633,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class Workbook extends OfficeExtension.ClientObject {
-        private m_application;
-        private m_bindings;
-        private m_functions;
-        private m_names;
-        private m_pivotTables;
-        private m_tables;
-        private m_worksheets;
-        private m_selectionChanged;
         /**
          *
          * Represents Excel application instance that contains this workbook. Read-only.
@@ -1968,7 +2665,7 @@ declare module Excel {
          *
          * Represents a collection of PivotTables associated with the workbook. Read-only.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         pivotTables: Excel.PivotTableCollection;
         /**
@@ -2003,6 +2700,7 @@ declare module Excel {
          * [Api set: ExcelApi 1.2]
          */
         onSelectionChanged: OfficeExtension.EventHandlers<Excel.SelectionChangedEventArgs>;
+        toJSON(): {};
     }
     /**
      *
@@ -2011,14 +2709,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class Worksheet extends OfficeExtension.ClientObject {
-        private m_charts;
-        private m_id;
-        private m_name;
-        private m_pivotTables;
-        private m_position;
-        private m_protection;
-        private m_tables;
-        private m_visibility;
         /**
          *
          * Returns collection of charts that are part of the worksheet. Read-only.
@@ -2030,7 +2720,7 @@ declare module Excel {
          *
          * Collection of PivotTables that are part of the worksheet. Read-only.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         pivotTables: Excel.PivotTableCollection;
         /**
@@ -2121,6 +2811,13 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.Worksheet;
+        toJSON(): {
+            "id": string;
+            "name": string;
+            "position": number;
+            "protection": WorksheetProtection;
+            "visibility": string;
+        };
     }
     /**
      *
@@ -2129,7 +2826,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class WorksheetCollection extends OfficeExtension.ClientObject {
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.Worksheet>;
         /**
@@ -2158,18 +2854,10 @@ declare module Excel {
          */
         getItem(key: string): Excel.Worksheet;
         /**
-         *
-         * Gets a worksheet object using its Name or ID. If the worksheet does not exist, the returned object's isNull property will be true.
-         *
-         * @param key The Name or ID of the worksheet.
-         *
-         * [Api set: ExcelApi 1.3 (Preview)]
-         */
-        getItemOrNull(key: string): Excel.Worksheet;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.WorksheetCollection;
+        toJSON(): {};
     }
     /**
      *
@@ -2178,11 +2866,9 @@ declare module Excel {
      * [Api set: ExcelApi 1.2]
      */
     class WorksheetProtection extends OfficeExtension.ClientObject {
-        private m_options;
-        private m_protected;
         /**
          *
-         * Sheet protection options.
+         * Sheet protection options. Read-Only.
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -2214,6 +2900,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.WorksheetProtection;
+        toJSON(): {
+            "options": WorksheetProtectionOptions;
+            "protected": boolean;
+        };
     }
     /**
      *
@@ -2307,29 +2997,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class Range extends OfficeExtension.ClientObject {
-        private m_address;
-        private m_addressLocal;
-        private m_cellCount;
-        private m_columnCount;
-        private m_columnHidden;
-        private m_columnIndex;
-        private m_format;
-        private m_formulas;
-        private m_formulasLocal;
-        private m_formulasR1C1;
-        private m_hidden;
-        private m_numberFormat;
-        private m_rowCount;
-        private m_rowHidden;
-        private m_rowIndex;
-        private m_sort;
-        private m_text;
-        private m_valueTypes;
-        private m_values;
-        private m_worksheet;
-        private m__ReferenceId;
-        private _ensureInteger(num, methodName);
-        private _getAdjacentRange(functionName, count, referenceRange, rowDirection, columnDirection);
         /**
          *
          * Returns a format object, encapsulating the range's font, fill, borders, alignment, and other properties. Read-only.
@@ -2367,7 +3034,7 @@ declare module Excel {
         addressLocal: string;
         /**
          *
-         * Number of cells in the range. Read-only.
+         * Number of cells in the range. This API will return -1 if the cell count exceeds 2^31-1 (2,147,483,647). Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -2559,15 +3226,6 @@ declare module Excel {
         getIntersection(anotherRange: Excel.Range | string): Excel.Range;
         /**
          *
-         * Gets the range object that represents the rectangular intersection of the given ranges. If no intersection is found, will return a null object.
-         *
-         * @param anotherRange The range object or range address that will be used to determine the intersection of ranges.
-         *
-         * [Api set: ExcelApi 1.3 (Preview)]
-         */
-        getIntersectionOrNull(anotherRange: Excel.Range | string): Excel.Range;
-        /**
-         *
          * Gets the last cell within the range. For example, the last cell of "B2:D5" is "D5".
          *
          * [Api set: ExcelApi 1.1]
@@ -2647,7 +3305,7 @@ declare module Excel {
          *
          * Represents the visible rows of the current range.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         getVisibleView(): Excel.RangeView;
         /**
@@ -2686,6 +3344,34 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.Range;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Excel.Range;
+        /**
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Excel.Range;
+        toJSON(): {
+            "address": string;
+            "addressLocal": string;
+            "cellCount": number;
+            "columnCount": number;
+            "columnHidden": boolean;
+            "columnIndex": number;
+            "format": RangeFormat;
+            "formulas": any[][];
+            "formulasLocal": any[][];
+            "formulasR1C1": any[][];
+            "hidden": boolean;
+            "numberFormat": any[][];
+            "rowCount": number;
+            "rowHidden": boolean;
+            "rowIndex": number;
+            "text": any[][];
+            "values": any[][];
+            "valueTypes": string[][];
+        };
     }
     /**
      *
@@ -2700,109 +3386,125 @@ declare module Excel {
      *
      * RangeView represents a set of visible cells of the parent range.
      *
-     * [Api set: ExcelApi 1.3 (Preview)]
+     * [Api set: ExcelApi 1.3]
      */
     class RangeView extends OfficeExtension.ClientObject {
-        private m_columnCount;
-        private m_formulas;
-        private m_formulasLocal;
-        private m_formulasR1C1;
-        private m_numberFormat;
-        private m_rowCount;
-        private m_rows;
-        private m_text;
-        private m_valueTypes;
-        private m_values;
         /**
          *
          * Represents a collection of range views associated with the range. Read-only.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         rows: Excel.RangeViewCollection;
         /**
          *
+         * Represents the cell addresses of the RangeView.
+         *
+         * [Api set: ExcelApi 1.3]
+         */
+        cellAddresses: Array<Array<any>>;
+        /**
+         *
          * Returns the number of visible columns. Read-only.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         columnCount: number;
         /**
          *
          * Represents the formula in A1-style notation.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         formulas: Array<Array<any>>;
         /**
          *
          * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         formulasLocal: Array<Array<any>>;
         /**
          *
          * Represents the formula in R1C1-style notation.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         formulasR1C1: Array<Array<any>>;
         /**
          *
-         * Represents Excel's number format code for the given cell. Read-only.
+         * Returns a value that represents the index of the RangeView. Read-only.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
+         */
+        index: number;
+        /**
+         *
+         * Represents Excel's number format code for the given cell.
+         *
+         * [Api set: ExcelApi 1.3]
          */
         numberFormat: Array<Array<any>>;
         /**
          *
          * Returns the number of visible rows. Read-only.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         rowCount: number;
         /**
          *
          * Text values of the specified range. The Text value will not depend on the cell width. The # sign substitution that happens in Excel UI will not affect the text value returned by the API. Read-only.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         text: Array<Array<any>>;
         /**
          *
          * Represents the type of data of each cell. Read-only.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         valueTypes: Array<Array<string>>;
         /**
          *
          * Represents the raw values of the specified range view. The data returned could be of type string, number, or a boolean. Cell that contain an error will return the error string.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         values: Array<Array<any>>;
         /**
          *
          * Gets the parent range associated with the current RangeView.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         getRange(): Excel.Range;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.RangeView;
+        toJSON(): {
+            "cellAddresses": any[][];
+            "columnCount": number;
+            "formulas": any[][];
+            "formulasLocal": any[][];
+            "formulasR1C1": any[][];
+            "index": number;
+            "numberFormat": any[][];
+            "rowCount": number;
+            "text": any[][];
+            "values": any[][];
+            "valueTypes": string[][];
+        };
     }
     /**
      *
      * Represents a collection of worksheet objects that are part of the workbook.
      *
-     * [Api set: ExcelApi 1.3 (Preview)]
+     * [Api set: ExcelApi 1.3]
      */
     class RangeViewCollection extends OfficeExtension.ClientObject {
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.RangeView>;
         /**
@@ -2811,22 +3513,58 @@ declare module Excel {
          *
          * @param index Index of the visible row.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
-        getItem(index: number): Excel.RangeView;
+        getItemAt(index: number): Excel.RangeView;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.RangeViewCollection;
+        toJSON(): {};
     }
     /**
      *
-     * A collection of all the nameditem objects that are part of the workbook.
+     * Setting represents a key-value pair of a setting persisted to the document.
+     *
+     * [Api set: ExcelApi 1.3]
+     */
+    class Setting extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Represents the value stored for this setting.
+         *
+         * [Api set: ExcelApi 1.3]
+         */
+        value: any;
+        /**
+         *
+         * Returns the key that represents the id of the Setting. Read-only.
+         *
+         * [Api set: ExcelApi 1.3]
+         */
+        key: string;
+        /**
+         *
+         * Deletes the setting.
+         *
+         * [Api set: ExcelApi 1.3]
+         */
+        delete(): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Excel.Setting;
+        toJSON(): {
+            "key": string;
+        };
+    }
+    /**
+     *
+     * A collection of all the nameditem objects that are part of the workbook or worksheet, depending on how it was reached.
      *
      * [Api set: ExcelApi 1.1]
      */
     class NamedItemCollection extends OfficeExtension.ClientObject {
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.NamedItem>;
         /**
@@ -2839,18 +3577,10 @@ declare module Excel {
          */
         getItem(name: string): Excel.NamedItem;
         /**
-         *
-         * Gets a nameditem object using its name. If the nameditem object does not exist, the returned object's isNull property will be true.
-         *
-         * @param name nameditem name.
-         *
-         * [Api set: ExcelApi 1.3 (Preview)]
-         */
-        getItemOrNull(name: string): Excel.NamedItem;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.NamedItemCollection;
+        toJSON(): {};
     }
     /**
      *
@@ -2859,11 +3589,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class NamedItem extends OfficeExtension.ClientObject {
-        private m_name;
-        private m_type;
-        private m_value;
-        private m_visible;
-        private m__Id;
         /**
          *
          * The name of the object. Read-only.
@@ -2873,14 +3598,14 @@ declare module Excel {
         name: string;
         /**
          *
-         * Indicates what type of reference is associated with the name. See Excel.NamedItemType for details. Read-only.
+         * Indicates the type of the value returned by the name's formula. See Excel.NamedItemType for details. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
         type: string;
         /**
          *
-         * Represents the formula that the name is defined to refer to. E.g. =Sheet14!$B$2:$H$12, =4.75, etc. Read-only.
+         * Represents the value computed by the name's formula. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -2900,9 +3625,22 @@ declare module Excel {
          */
         getRange(): Excel.Range;
         /**
+         *
+         * Returns the range object that is associated with the name. Returns a null object if the named item's type is not a range
+         *
+         * [Api set: ExcelApi 1.1]
+         */
+        getRangeOrNullObject(): Excel.Range;
+        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.NamedItem;
+        toJSON(): {
+            "name": string;
+            "type": string;
+            "value": any;
+            "visible": boolean;
+        };
     }
     /**
      *
@@ -2911,10 +3649,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class Binding extends OfficeExtension.ClientObject {
-        private m_id;
-        private m_type;
-        private m_dataChanged;
-        private m_selectionChanged;
         /**
          *
          * Represents binding identifier. Read-only.
@@ -2929,6 +3663,13 @@ declare module Excel {
          * [Api set: ExcelApi 1.1]
          */
         type: string;
+        /**
+         *
+         * Deletes the binding.
+         *
+         * [Api set: ExcelApi 1.3]
+         */
+        delete(): void;
         /**
          *
          * Returns the range represented by the binding. Will throw an error if binding is not of the correct type.
@@ -2956,7 +3697,7 @@ declare module Excel {
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.Binding;
         /**
          *
-         * Occurs when data within the binding is changed.
+         * Occurs when data or formatting within the binding is changed.
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -2968,6 +3709,10 @@ declare module Excel {
          * [Api set: ExcelApi 1.2]
          */
         onSelectionChanged: OfficeExtension.EventHandlers<Excel.BindingSelectionChangedEventArgs>;
+        toJSON(): {
+            "id": string;
+            "type": string;
+        };
     }
     /**
      *
@@ -2976,8 +3721,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class BindingCollection extends OfficeExtension.ClientObject {
-        private m_count;
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.Binding>;
         /**
@@ -2995,7 +3738,7 @@ declare module Excel {
          * @param bindingType Type of binding. See Excel.BindingType.
          * @param id Name of binding.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         add(range: Excel.Range | string, bindingType: string, id: string): Excel.Binding;
         /**
@@ -3006,7 +3749,7 @@ declare module Excel {
          * @param bindingType Type of binding. See Excel.BindingType.
          * @param id Name of binding.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         addFromNamedItem(name: string, bindingType: string, id: string): Excel.Binding;
         /**
@@ -3016,7 +3759,7 @@ declare module Excel {
          * @param bindingType Type of binding. See Excel.BindingType.
          * @param id Name of binding.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         addFromSelection(bindingType: string, id: string): Excel.Binding;
         /**
@@ -3038,28 +3781,20 @@ declare module Excel {
          */
         getItemAt(index: number): Excel.Binding;
         /**
-         *
-         * Gets a binding object by ID. If the binding object does not exist, the return object's isNull property will be true.
-         *
-         * @param id Id of the binding object to be retrieved.
-         *
-         * [Api set: ExcelApi 1.3 (Preview)]
-         */
-        getItemOrNull(id: string): Excel.Binding;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.BindingCollection;
+        toJSON(): {
+            "count": number;
+        };
     }
     /**
      *
-     * Represents a collection of all the tables that are part of the workbook.
+     * Represents a collection of all the tables that are part of the workbook or worksheet, depending on how it was reached.
      *
      * [Api set: ExcelApi 1.1]
      */
     class TableCollection extends OfficeExtension.ClientObject {
-        private m_count;
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.Table>;
         /**
@@ -3071,14 +3806,14 @@ declare module Excel {
         count: number;
         /**
          *
-         * Create a new table. The range source address determines the worksheet under which the table will be added. If the table cannot be added (e.g., because the address is invalid, or the table would overlap with another table), an error will be thrown.
+         * Create a new table. The range object or source address determines the worksheet under which the table will be added. If the table cannot be added (e.g., because the address is invalid, or the table would overlap with another table), an error will be thrown.
          *
-         * @param address Address or name of the range object representing the data source. If the address does not contain a sheet name, the currently-active sheet is used.
+         * @param address A Range object, or a string address or name of the range representing the data source. If the address does not contain a sheet name, the currently-active sheet is used. [Api set: ExcelApi 1.1 for string parameter; 1.3 for accepting a Range object as well]
          * @param hasHeaders Boolean value that indicates whether the data being imported has column labels. If the source does not contain headers (i.e,. when this property set to false), Excel will automatically generate header shifting the data down by one row.
          *
          * [Api set: ExcelApi 1.1]
          */
-        add(address: string, hasHeaders: boolean): Excel.Table;
+        add(address: Excel.Range | string, hasHeaders: boolean): Excel.Table;
         /**
          *
          * Gets a table by Name or ID.
@@ -3098,18 +3833,12 @@ declare module Excel {
          */
         getItemAt(index: number): Excel.Table;
         /**
-         *
-         * Gets a table by Name or ID. If the table does not exist, the return object's isNull property will be true.
-         *
-         * @param key Name or ID of the table to be retrieved.
-         *
-         * [Api set: ExcelApi 1.3 (Preview)]
-         */
-        getItemOrNull(key: number | string): Excel.Table;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.TableCollection;
+        toJSON(): {
+            "count": number;
+        };
     }
     /**
      *
@@ -3118,20 +3847,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class Table extends OfficeExtension.ClientObject {
-        private m_columns;
-        private m_highlightFirstColumn;
-        private m_highlightLastColumn;
-        private m_id;
-        private m_name;
-        private m_rows;
-        private m_showBandedColumns;
-        private m_showBandedRows;
-        private m_showFilterButton;
-        private m_showHeaders;
-        private m_showTotals;
-        private m_sort;
-        private m_style;
-        private m_worksheet;
         /**
          *
          * Represents a collection of all the columns in the table. Read-only.
@@ -3164,14 +3879,14 @@ declare module Excel {
          *
          * Indicates whether the first column contains special formatting.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         highlightFirstColumn: boolean;
         /**
          *
          * Indicates whether the last column contains special formatting.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         highlightLastColumn: boolean;
         /**
@@ -3192,21 +3907,21 @@ declare module Excel {
          *
          * Indicates whether the columns show banded formatting in which odd columns are highlighted differently from even ones to make reading the table easier.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         showBandedColumns: boolean;
         /**
          *
          * Indicates whether the rows show banded formatting in which odd rows are highlighted differently from even ones to make reading the table easier.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         showBandedRows: boolean;
         /**
          *
          * Indicates whether the filter buttons are visible at the top of each column header. Setting this is only allowed if the table contains a header row.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         showFilterButton: boolean;
         /**
@@ -3290,6 +4005,18 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.Table;
+        toJSON(): {
+            "highlightFirstColumn": boolean;
+            "highlightLastColumn": boolean;
+            "id": number;
+            "name": string;
+            "showBandedColumns": boolean;
+            "showBandedRows": boolean;
+            "showFilterButton": boolean;
+            "showHeaders": boolean;
+            "showTotals": boolean;
+            "style": string;
+        };
     }
     /**
      *
@@ -3298,8 +4025,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class TableColumnCollection extends OfficeExtension.ClientObject {
-        private m_count;
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.TableColumn>;
         /**
@@ -3313,12 +4038,13 @@ declare module Excel {
          *
          * Adds a new column to the table.
          *
-         * @param index Specifies the relative position of the new column. The previous column at this position is shifted to the right. The index value should be equal to or less than the last column's index value, so it cannot be used to append a column at the end of the table. Zero-indexed.
+         * @param index Specifies the relative position of the new column. If null or -1, the addition happens at the end. Columns with a higher index will be shifted to the side. Zero-indexed.
          * @param values A 2-dimensional array of unformatted values of the table column.
+         * @param name Specifies the name of the new column. If null, the default name will be used.
          *
-         * [Api set: ExcelApi 1.1]
+         * [Api set: ExcelApi 1.1 requires an index smaller than the total column count; 1.4 allows index to be optional (null or -1) and will append a column at the end; 1.4 allows name parameter at creation time.]
          */
-        add(index: number, values?: Array<Array<boolean | string | number>> | boolean | string | number): Excel.TableColumn;
+        add(index?: number, values?: Array<Array<boolean | string | number>> | boolean | string | number, name?: string): Excel.TableColumn;
         /**
          *
          * Gets a column object by Name or ID.
@@ -3338,18 +4064,12 @@ declare module Excel {
          */
         getItemAt(index: number): Excel.TableColumn;
         /**
-         *
-         * Gets a column object by Name or ID. If the column does not exist, the returned object's isNull property will be true.
-         *
-         * @param key Column Name or ID.
-         *
-         * [Api set: ExcelApi 1.3 (Preview)]
-         */
-        getItemOrNull(key: number | string): Excel.TableColumn;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.TableColumnCollection;
+        toJSON(): {
+            "count": number;
+        };
     }
     /**
      *
@@ -3358,11 +4078,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class TableColumn extends OfficeExtension.ClientObject {
-        private m_filter;
-        private m_id;
-        private m_index;
-        private m_name;
-        private m_values;
         /**
          *
          * Retrieve the filter applied to the column.
@@ -3386,9 +4101,9 @@ declare module Excel {
         index: number;
         /**
          *
-         * Returns the name of the table column. Read-only.
+         * Represents the name of the table column.
          *
-         * [Api set: ExcelApi 1.1]
+         * [Api set: ExcelApi 1.1 for getting the name; 1.4 for setting it.]
          */
         name: string;
         /**
@@ -3437,6 +4152,12 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.TableColumn;
+        toJSON(): {
+            "id": number;
+            "index": number;
+            "name": string;
+            "values": any[][];
+        };
     }
     /**
      *
@@ -3445,8 +4166,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class TableRowCollection extends OfficeExtension.ClientObject {
-        private m_count;
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.TableRow>;
         /**
@@ -3458,12 +4177,12 @@ declare module Excel {
         count: number;
         /**
          *
-         * Adds a new row to the table.
+         * Adds one or more rows to the table. The return object will be the top of the newly added row(s).
          *
-         * @param index Specifies the relative position of the new row. If null, the addition happens at the end. Any rows below the inserted row are shifted downwards. Zero-indexed.
+         * @param index Specifies the relative position of the new row. If null or -1, the addition happens at the end. Any rows below the inserted row are shifted downwards. Zero-indexed.
          * @param values A 2-dimensional array of unformatted values of the table row.
          *
-         * [Api set: ExcelApi 1.1]
+         * [Api set: ExcelApi 1.1 for adding a single row; 1.4 allows adding of multiple rows.]
          */
         add(index?: number, values?: Array<Array<boolean | string | number>> | boolean | string | number): Excel.TableRow;
         /**
@@ -3479,6 +4198,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.TableRowCollection;
+        toJSON(): {
+            "count": number;
+        };
     }
     /**
      *
@@ -3487,8 +4209,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class TableRow extends OfficeExtension.ClientObject {
-        private m_index;
-        private m_values;
         /**
          *
          * Returns the index number of the row within the rows collection of the table. Zero-indexed. Read-only.
@@ -3498,7 +4218,14 @@ declare module Excel {
         index: number;
         /**
          *
+<<<<<<< HEAD
          * Represents the raw values of the specified range. The data returned could be of type string, number, or a boolean. Cell that contain an error will return the error string.
+=======
+         * The first criterion used to filter data. Used as an operator in the case of "custom" filtering.
+             For example ">50" for number greater than 50 or "=*s" for values ending in "s".
+
+             Used as a number in the case of top/bottom items/percents. E.g. "5" for the top 5 items if filterOn is set to "topItems"
+>>>>>>> types-2.0
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -3521,6 +4248,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.TableRow;
+        toJSON(): {
+            "index": number;
+            "values": any[][];
+        };
     }
     /**
      *
@@ -3529,18 +4260,9 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class RangeFormat extends OfficeExtension.ClientObject {
-        private m_borders;
-        private m_columnWidth;
-        private m_fill;
-        private m_font;
-        private m_horizontalAlignment;
-        private m_protection;
-        private m_rowHeight;
-        private m_verticalAlignment;
-        private m_wrapText;
         /**
          *
-         * Collection of border objects that apply to the overall range selected Read-only.
+         * Collection of border objects that apply to the overall range. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -3554,7 +4276,7 @@ declare module Excel {
         fill: Excel.RangeFill;
         /**
          *
-         * Returns the font object defined on the overall range selected Read-only.
+         * Returns the font object defined on the overall range. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -3619,6 +4341,16 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.RangeFormat;
+        toJSON(): {
+            "columnWidth": number;
+            "fill": RangeFill;
+            "font": RangeFont;
+            "horizontalAlignment": string;
+            "protection": FormatProtection;
+            "rowHeight": number;
+            "verticalAlignment": string;
+            "wrapText": boolean;
+        };
     }
     /**
      *
@@ -3627,8 +4359,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.2]
      */
     class FormatProtection extends OfficeExtension.ClientObject {
-        private m_formulaHidden;
-        private m_locked;
         /**
          *
          * Indicates if Excel hides the formula for the cells in the range. A null value indicates that the entire range doesn't have uniform formula hidden setting.
@@ -3647,6 +4377,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.FormatProtection;
+        toJSON(): {
+            "formulaHidden": boolean;
+            "locked": boolean;
+        };
     }
     /**
      *
@@ -3655,7 +4389,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class RangeFill extends OfficeExtension.ClientObject {
-        private m_color;
         /**
          *
          * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange")
@@ -3674,6 +4407,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.RangeFill;
+        toJSON(): {
+            "color": string;
+        };
     }
     /**
      *
@@ -3682,10 +4418,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class RangeBorder extends OfficeExtension.ClientObject {
-        private m_color;
-        private m_sideIndex;
-        private m_style;
-        private m_weight;
         /**
          *
          * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
@@ -3718,6 +4450,12 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.RangeBorder;
+        toJSON(): {
+            "color": string;
+            "sideIndex": string;
+            "style": string;
+            "weight": string;
+        };
     }
     /**
      *
@@ -3726,8 +4464,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class RangeBorderCollection extends OfficeExtension.ClientObject {
-        private m_count;
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.RangeBorder>;
         /**
@@ -3759,6 +4495,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.RangeBorderCollection;
+        toJSON(): {
+            "count": number;
+        };
     }
     /**
      *
@@ -3767,12 +4506,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class RangeFont extends OfficeExtension.ClientObject {
-        private m_bold;
-        private m_color;
-        private m_italic;
-        private m_name;
-        private m_size;
-        private m_underline;
         /**
          *
          * Represents the bold status of font.
@@ -3819,6 +4552,14 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.RangeFont;
+        toJSON(): {
+            "bold": boolean;
+            "color": string;
+            "italic": boolean;
+            "name": string;
+            "size": number;
+            "underline": string;
+        };
     }
     /**
      *
@@ -3827,8 +4568,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartCollection extends OfficeExtension.ClientObject {
-        private m_count;
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.Chart>;
         /**
@@ -3868,19 +4607,12 @@ declare module Excel {
          */
         getItemAt(index: number): Excel.Chart;
         /**
-         *
-         * Gets a chart using its name. If there are multiple charts with the same name, the first one will be returned.
-            If the chart does not exist, the returned object's isNull property will be true.
-         *
-         * @param name Name of the chart to be retrieved.
-         *
-         * [Api set: ExcelApi 1.3 (Preview)]
-         */
-        getItemOrNull(name: string): Excel.Chart;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartCollection;
+        toJSON(): {
+            "count": number;
+        };
     }
     /**
      *
@@ -3889,18 +4621,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class Chart extends OfficeExtension.ClientObject {
-        private m_axes;
-        private m_dataLabels;
-        private m_format;
-        private m_height;
-        private m_left;
-        private m_legend;
-        private m_name;
-        private m_series;
-        private m_title;
-        private m_top;
-        private m_width;
-        private m_worksheet;
         /**
          *
          * Represents chart axes. Read-only.
@@ -4028,6 +4748,18 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.Chart;
+        toJSON(): {
+            "axes": ChartAxes;
+            "dataLabels": ChartDataLabels;
+            "format": ChartAreaFormat;
+            "height": number;
+            "left": number;
+            "legend": ChartLegend;
+            "name": string;
+            "title": ChartTitle;
+            "top": number;
+            "width": number;
+        };
     }
     /**
      *
@@ -4036,8 +4768,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartAreaFormat extends OfficeExtension.ClientObject {
-        private m_fill;
-        private m_font;
         /**
          *
          * Represents the fill format of an object, which includes background formatting information. Read-only.
@@ -4056,6 +4786,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartAreaFormat;
+        toJSON(): {
+            "fill": ChartFill;
+            "font": ChartFont;
+        };
     }
     /**
      *
@@ -4064,8 +4798,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartSeriesCollection extends OfficeExtension.ClientObject {
-        private m_count;
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.ChartSeries>;
         /**
@@ -4088,6 +4820,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartSeriesCollection;
+        toJSON(): {
+            "count": number;
+        };
     }
     /**
      *
@@ -4096,9 +4831,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartSeries extends OfficeExtension.ClientObject {
-        private m_format;
-        private m_name;
-        private m_points;
         /**
          *
          * Represents the formatting of a chart series, which includes fill and line formatting. Read-only.
@@ -4124,6 +4856,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartSeries;
+        toJSON(): {
+            "format": ChartSeriesFormat;
+            "name": string;
+        };
     }
     /**
      *
@@ -4132,8 +4868,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartSeriesFormat extends OfficeExtension.ClientObject {
-        private m_fill;
-        private m_line;
         /**
          *
          * Represents the fill format of a chart series, which includes background formating information. Read-only.
@@ -4152,6 +4886,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartSeriesFormat;
+        toJSON(): {
+            "fill": ChartFill;
+            "line": ChartLineFormat;
+        };
     }
     /**
      *
@@ -4160,8 +4898,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartPointsCollection extends OfficeExtension.ClientObject {
-        private m_count;
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.ChartPoint>;
         /**
@@ -4184,6 +4920,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartPointsCollection;
+        toJSON(): {
+            "count": number;
+        };
     }
     /**
      *
@@ -4192,8 +4931,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartPoint extends OfficeExtension.ClientObject {
-        private m_format;
-        private m_value;
         /**
          *
          * Encapsulates the format properties chart point. Read-only.
@@ -4212,6 +4949,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartPoint;
+        toJSON(): {
+            "format": ChartPointFormat;
+            "value": any;
+        };
     }
     /**
      *
@@ -4220,7 +4961,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartPointFormat extends OfficeExtension.ClientObject {
-        private m_fill;
         /**
          *
          * Represents the fill format of a chart, which includes background formating information. Read-only.
@@ -4232,6 +4972,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartPointFormat;
+        toJSON(): {
+            "fill": ChartFill;
+        };
     }
     /**
      *
@@ -4240,9 +4983,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartAxes extends OfficeExtension.ClientObject {
-        private m_categoryAxis;
-        private m_seriesAxis;
-        private m_valueAxis;
         /**
          *
          * Represents the category axis in a chart. Read-only.
@@ -4268,6 +5008,11 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartAxes;
+        toJSON(): {
+            "categoryAxis": ChartAxis;
+            "seriesAxis": ChartAxis;
+            "valueAxis": ChartAxis;
+        };
     }
     /**
      *
@@ -4276,14 +5021,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartAxis extends OfficeExtension.ClientObject {
-        private m_format;
-        private m_majorGridlines;
-        private m_majorUnit;
-        private m_maximum;
-        private m_minimum;
-        private m_minorGridlines;
-        private m_minorUnit;
-        private m_title;
         /**
          *
          * Represents the formatting of a chart object, which includes line and font formatting. Read-only.
@@ -4344,6 +5081,16 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartAxis;
+        toJSON(): {
+            "format": ChartAxisFormat;
+            "majorGridlines": ChartGridlines;
+            "majorUnit": any;
+            "maximum": any;
+            "minimum": any;
+            "minorGridlines": ChartGridlines;
+            "minorUnit": any;
+            "title": ChartAxisTitle;
+        };
     }
     /**
      *
@@ -4352,8 +5099,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartAxisFormat extends OfficeExtension.ClientObject {
-        private m_font;
-        private m_line;
         /**
          *
          * Represents the font attributes (font name, font size, color, etc.) for a chart axis element. Read-only.
@@ -4372,6 +5117,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartAxisFormat;
+        toJSON(): {
+            "font": ChartFont;
+            "line": ChartLineFormat;
+        };
     }
     /**
      *
@@ -4380,9 +5129,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartAxisTitle extends OfficeExtension.ClientObject {
-        private m_format;
-        private m_text;
-        private m_visible;
         /**
          *
          * Represents the formatting of chart axis title. Read-only.
@@ -4408,6 +5154,11 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartAxisTitle;
+        toJSON(): {
+            "format": ChartAxisTitleFormat;
+            "text": string;
+            "visible": boolean;
+        };
     }
     /**
      *
@@ -4416,7 +5167,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartAxisTitleFormat extends OfficeExtension.ClientObject {
-        private m_font;
         /**
          *
          * Represents the font attributes, such as font name, font size, color, etc. of chart axis title object. Read-only.
@@ -4428,6 +5178,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartAxisTitleFormat;
+        toJSON(): {
+            "font": ChartFont;
+        };
     }
     /**
      *
@@ -4436,15 +5189,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartDataLabels extends OfficeExtension.ClientObject {
-        private m_format;
-        private m_position;
-        private m_separator;
-        private m_showBubbleSize;
-        private m_showCategoryName;
-        private m_showLegendKey;
-        private m_showPercentage;
-        private m_showSeriesName;
-        private m_showValue;
         /**
          *
          * Represents the format of chart data labels, which includes fill and font formatting. Read-only.
@@ -4512,6 +5256,17 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartDataLabels;
+        toJSON(): {
+            "format": ChartDataLabelFormat;
+            "position": string;
+            "separator": string;
+            "showBubbleSize": boolean;
+            "showCategoryName": boolean;
+            "showLegendKey": boolean;
+            "showPercentage": boolean;
+            "showSeriesName": boolean;
+            "showValue": boolean;
+        };
     }
     /**
      *
@@ -4520,8 +5275,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartDataLabelFormat extends OfficeExtension.ClientObject {
-        private m_fill;
-        private m_font;
         /**
          *
          * Represents the fill format of the current chart data label. Read-only.
@@ -4540,6 +5293,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartDataLabelFormat;
+        toJSON(): {
+            "fill": ChartFill;
+            "font": ChartFont;
+        };
     }
     /**
      *
@@ -4548,8 +5305,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartGridlines extends OfficeExtension.ClientObject {
-        private m_format;
-        private m_visible;
         /**
          *
          * Represents the formatting of chart gridlines. Read-only.
@@ -4568,6 +5323,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartGridlines;
+        toJSON(): {
+            "format": ChartGridlinesFormat;
+            "visible": boolean;
+        };
     }
     /**
      *
@@ -4576,7 +5335,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartGridlinesFormat extends OfficeExtension.ClientObject {
-        private m_line;
         /**
          *
          * Represents chart line formatting. Read-only.
@@ -4588,6 +5346,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartGridlinesFormat;
+        toJSON(): {
+            "line": ChartLineFormat;
+        };
     }
     /**
      *
@@ -4596,10 +5357,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartLegend extends OfficeExtension.ClientObject {
-        private m_format;
-        private m_overlay;
-        private m_position;
-        private m_visible;
         /**
          *
          * Represents the formatting of a chart legend, which includes fill and font formatting. Read-only.
@@ -4632,6 +5389,12 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartLegend;
+        toJSON(): {
+            "format": ChartLegendFormat;
+            "overlay": boolean;
+            "position": string;
+            "visible": boolean;
+        };
     }
     /**
      *
@@ -4640,8 +5403,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartLegendFormat extends OfficeExtension.ClientObject {
-        private m_fill;
-        private m_font;
         /**
          *
          * Represents the fill format of an object, which includes background formating information. Read-only.
@@ -4660,6 +5421,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartLegendFormat;
+        toJSON(): {
+            "fill": ChartFill;
+            "font": ChartFont;
+        };
     }
     /**
      *
@@ -4668,10 +5433,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartTitle extends OfficeExtension.ClientObject {
-        private m_format;
-        private m_overlay;
-        private m_text;
-        private m_visible;
         /**
          *
          * Represents the formatting of a chart title, which includes fill and font formatting. Read-only.
@@ -4704,6 +5465,12 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartTitle;
+        toJSON(): {
+            "format": ChartTitleFormat;
+            "overlay": boolean;
+            "text": string;
+            "visible": boolean;
+        };
     }
     /**
      *
@@ -4712,8 +5479,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartTitleFormat extends OfficeExtension.ClientObject {
-        private m_fill;
-        private m_font;
         /**
          *
          * Represents the fill format of an object, which includes background formating information. Read-only.
@@ -4732,6 +5497,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartTitleFormat;
+        toJSON(): {
+            "fill": ChartFill;
+            "font": ChartFont;
+        };
     }
     /**
      *
@@ -4760,6 +5529,7 @@ declare module Excel {
          * [Api set: ExcelApi 1.1]
          */
         setSolidColor(color: string): void;
+        toJSON(): {};
     }
     /**
      *
@@ -4768,7 +5538,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartLineFormat extends OfficeExtension.ClientObject {
-        private m_color;
         /**
          *
          * HTML color code representing the color of lines in the chart.
@@ -4787,6 +5556,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartLineFormat;
+        toJSON(): {
+            "color": string;
+        };
     }
     /**
      *
@@ -4795,12 +5567,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartFont extends OfficeExtension.ClientObject {
-        private m_bold;
-        private m_color;
-        private m_italic;
-        private m_name;
-        private m_size;
-        private m_underline;
         /**
          *
          * Represents the bold status of font.
@@ -4847,6 +5613,14 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartFont;
+        toJSON(): {
+            "bold": boolean;
+            "color": string;
+            "italic": boolean;
+            "name": string;
+            "size": number;
+            "underline": string;
+        };
     }
     /**
      *
@@ -4868,6 +5642,7 @@ declare module Excel {
          * [Api set: ExcelApi 1.2]
          */
         apply(fields: Array<Excel.SortField>, matchCase?: boolean, hasHeaders?: boolean, orientation?: string, method?: string): void;
+        toJSON(): {};
     }
     /**
      *
@@ -4876,9 +5651,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.2]
      */
     class TableSort extends OfficeExtension.ClientObject {
-        private m_fields;
-        private m_matchCase;
-        private m_method;
         /**
          *
          * Represents the current conditions used to last sort the table.
@@ -4929,6 +5701,11 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.TableSort;
+        toJSON(): {
+            "fields": SortField[];
+            "matchCase": boolean;
+            "method": string;
+        };
     }
     /**
      *
@@ -4987,7 +5764,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.2]
      */
     class Filter extends OfficeExtension.ClientObject {
-        private m_criteria;
         /**
          *
          * The currently applied filter on the given column.
@@ -5107,6 +5883,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.Filter;
+        toJSON(): {
+            "criteria": FilterCriteria;
+        };
     }
     /**
      *
@@ -5223,10 +6002,9 @@ declare module Excel {
      *
      * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
      *
-     * [Api set: ExcelApi 1.3 (Preview)]
+     * [Api set: ExcelApi 1.3]
      */
     class PivotTableCollection extends OfficeExtension.ClientObject {
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.PivotTable>;
         /**
@@ -5235,64 +6013,57 @@ declare module Excel {
          *
          * @param name Name of the PivotTable to be retrieved.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         getItem(name: string): Excel.PivotTable;
         /**
          *
-         * Gets a PivotTable by name. If the PivotTable does not exist, the return object's isNull property will be true.
-         *
-         * @param name Name of the PivotTable to be retrieved.
-         *
-         * [Api set: ExcelApi 1.3 (Preview)]
-         */
-        getItemOrNull(name: string): Excel.PivotTable;
-        /**
-         *
          * Refreshes all the PivotTables in the collection.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         refreshAll(): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.PivotTableCollection;
+        toJSON(): {};
     }
     /**
      *
      * Represents an Excel PivotTable.
      *
-     * [Api set: ExcelApi 1.3 (Preview)]
+     * [Api set: ExcelApi 1.3]
      */
     class PivotTable extends OfficeExtension.ClientObject {
-        private m_name;
-        private m_worksheet;
         /**
          *
          * The worksheet containing the current PivotTable. Read-only.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         worksheet: Excel.Worksheet;
         /**
          *
          * Name of the PivotTable.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         name: string;
         /**
          *
          * Refreshes the PivotTable.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         refresh(): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.PivotTable;
+        toJSON(): {
+            "name": string;
+        };
     }
     /**
      * [Api set: ExcelApi 1.1]
@@ -5635,6 +6406,7 @@ declare module Excel {
         var double: string;
         var boolean: string;
         var range: string;
+        var error: string;
     }
     /**
      * [Api set: ExcelApi 1.1]
@@ -5713,8 +6485,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.2]
      */
     class FunctionResult<T> extends OfficeExtension.ClientObject {
-        private m_error;
-        private m_value;
         /**
          *
          * Error value (such as "#DIV/0") representing the error. If the error string is not set, then the function succeeded, and its result is written to the Value field. The error is always in the English locale.
@@ -5724,7 +6494,7 @@ declare module Excel {
         error: string;
         /**
          *
-         * The value of function evaluation. The value field will be populated only if no error has occured (i.e., the Error property is not set).
+         * The value of function evaluation. The value field will be populated only if no error has occurred (i.e., the Error property is not set).
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -5733,6 +6503,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): FunctionResult<T>;
+        toJSON(): {
+            "error": string;
+            "value": T;
+        };
     }
     /**
      *
@@ -9477,9 +10251,11 @@ declare module Excel {
          * [Api set: ExcelApi 1.2]
          */
         z_Test(array: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, sigma?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
+        toJSON(): {};
     }
     module ErrorCodes {
         var accessDenied: string;
+        var apiNotFound: string;
         var generalException: string;
         var insertDeleteConflict: string;
         var invalidArgument: string;
@@ -9498,16 +10274,66 @@ declare module Excel {
      * The RequestContext object facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the request context is required to get access to the Excel object model from the add-in.
      */
     class RequestContext extends OfficeExtension.ClientRequestContext {
-        private m_workbook;
         constructor(url?: string);
         workbook: Workbook;
     }
     /**
-     * Executes a batch script that performs actions on the Excel object model. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
-     * @param batch - A function that takes in an Excel.RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the request context is required to get access to the Excel object model from the add-in.
+     * Executes a batch script that performs actions on the Excel object model, using a new RequestContext. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
      */
     function run<T>(batch: (context: Excel.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the Excel object model, using a new remote RequestContext. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param requestInfo - The URL of the remote workbook and the request headers to be sent.
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+     */
+    function run<T>(requestInfo: OfficeExtension.RequestUrlAndHeaderInfo, batch: (context: Excel.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the Excel object model, using the RequestContext of a previously-created API object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param object - A previously-created API object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+     */
+    function run<T>(object: OfficeExtension.ClientObject, batch: (context: Excel.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the Excel object model, using the remote RequestContext of a previously-created API object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param requestInfo - The URL of the remote workbook and the request headers to be sent.
+     * @param object - A previously-created API object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+     */
+    function run<T>(requestInfo: OfficeExtension.RequestUrlAndHeaderInfo, object: OfficeExtension.ClientObject, batch: (context: Excel.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the Excel object model, using the RequestContext of previously-created API objects.
+     * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared RequestContext, which means that any changes applied to these objects will be picked up by "context.sync()".
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+     */
+    function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Excel.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the Excel object model, using the remote RequestContext of previously-created API objects.
+     * @param requestInfo - The URL of the remote workbook and the request headers to be sent.
+     * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared RequestContext, which means that any changes applied to these objects will be picked up by "context.sync()".
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+     */
+    function run<T>(requestInfo: OfficeExtension.RequestUrlAndHeaderInfo, objects: OfficeExtension.ClientObject[], batch: (context: Excel.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
 }
+
+
+
+////////////////////////////////////////////////////////////////
+//////////////////////// End Excel APIs ////////////////////////
+////////////////////////////////////////////////////////////////
+
+
+
+
+////////////////////////////////////////////////////////////////
+
+
+
+
+////////////////////////////////////////////////////////////////
+//////////////////////// Begin Word APIs ///////////////////////
+////////////////////////////////////////////////////////////////
+
 
 declare namespace Word {
     /**
@@ -12914,614 +13740,26 @@ declare namespace Word {
     function run<T>(batch: (context: Word.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
 }
 
-declare namespace Office.MailboxEnums {
-    export enum BodyType {
-        /**
-         * The body is in HTML format
-         */
-        Html,
-        /**
-         * The body is in text format
-         */
-        text
-    }
-    export enum EntityType {
-        /**
-         * Specifies that the entity is a meeting suggestion
-         */
-        MeetingSuggestion,
-        /**
-         * Specifies that the entity is a task suggestion
-         */
-        TaskSuggestion,
-        /**
-         * Specifies that the entity is a postal address
-         */
-        Address,
-        /**
-         * Specifies that the entity is SMTP email address
-         */
-        EmailAddress,
-        /**
-         * Specifies that the entity is an Internet URL
-         */
-        Url,
-        /**
-         * Specifies that the entity is US phone number
-         */
-        PhoneNumber,
-        /**
-         * Specifies that the entity is a contact
-         */
-        Contact
-    }
-    export enum ItemType {
-        /**
-         * A meeting request, response, or cancellation
-         */
-        Message,
-        /**
-         * Specifies an appointment item
-         */
-        Appointment
-    }
-    export enum ResponseType {
-        /**
-         * There has been no response from the attendee
-         */
-        None,
-        /**
-         * The attendee is the meeting organizer
-         */
-        Organizer,
-        /**
-         * The meeting request was tentatively accepted by the attendee
-         */
-        Tentative,
-        /**
-         * The meeting request was accepted by the attendee
-         */
-        Accepted,
-        /**
-         * The meeting request was declined by the attendee
-         */
-        Declined
-    }
-    export enum RecipientType {
-        /**
-         * Specifies that the recipient is not one of the other recipient types
-         */
-        Other,
-        /**
-         * Specifies that the recipient is a distribution list containing a list of email addresses
-         */
-        DistributionList,
-        /**
-         * Specifies that the recipient is an SMTP email address that is on the Exchange server
-         */
-        User,
-        /**
-         * Specifies that the recipient is an SMTP email address that is not on the Exchange server
-         */
-        ExternalUser
-    }
-    export enum AttachmentType {
-        /**
-         * The attachment is a file
-         */
-        File,
-        /**
-         * The attachment is an Exchange item
-         */
-        Item
-    }
-}
-declare namespace Office {
-    export module Types {
-        export interface ItemRead extends Office.Item {
-            subject: any;
-            /**
-             * Displays a reply form that includes the sender and all the recipients of the selected message
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-             */
-            displayReplyAllForm(htmlBody: string): void;
-            /**
-             * Displays a reply form that includes only the sender of the selected message
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-             */
-            displayReplyForm(htmlBody: string): void;
-            /**
-             * Gets an array of entities found in an message
-             */
-            getEntities(): Office.Entities;
-            /**
-             * Gets an array of entities of the specified entity type found in an message
-             * @param entityType One of the EntityType enumeration values
-             */
-            getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
-            /**
-             * Returns well-known entities that pass the named filter defined in the manifest XML file
-             * @param name  A TableData object with the headers and rows
-             */
-            getFilteredEntitiesByName(name: string): Office.Entities;
-            /**
-             * Returns string values in the currently selected message object that match the regular expressions defined in the manifest XML file
-             */
-            getRegExMatches(): string[];
-            /**
-             * Returns string values that match the named regular expression defined in the manifest XML file
-             */
-            getRegExMatchesByName(name: string): string[];
-        }
-        export interface ItemCompose extends Office.Item {
-            body: Office.Body;
-            subject: any;
-            /**
-             * Adds a file to a message as an attachment
-             * @param uri The URI that provides the location of the file to attach to the message. The maximum length is 2048 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
-            /**
-             * Adds an Exchange item, such as a message, as an attachment to the message
-             * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
-            /**
-             * Removes an attachment from a message
-             * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
-        }
-        export interface MessageCompose extends Office.Message {
-            attachments: Office.AttachmentDetails[];
-            body: Office.Body;
-            bcc: Office.Recipients;
-            cc: Office.Recipients;
-            subject: Office.Subject;
-            to: Office.Recipients;
-            /**
-             * Adds a file to a message as an attachment
-             * @param uri The URI that provides the location of the file to attach to the message. The maximum length is 2048 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
-            /**
-             * Adds an Exchange item, such as a message, as an attachment to the message
-             * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
-            /**
-             * Removes an attachment from a message
-             * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
-        }
-        export interface MessageRead extends Office.Message {
-            cc: Office.EmailAddressDetails[];
-            from: Office.EmailAddressDetails;
-            internetMessageId: string;
-            normalizedSubject: string;
-            sender: Office.EmailAddressDetails;
-            subject: string;
-            to: Office.EmailAddressDetails;
-            /**
-             * Displays a reply form that includes the sender and all the recipients of the selected message
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-             */
-            displayReplyAllForm(htmlBody: string): void;
-            /**
-             * Displays a reply form that includes only the sender of the selected message
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-             */
-            displayReplyForm(htmlBody: string): void;
-            /**
-             * Gets an array of entities found in an message
-             */
-            getEntities(): Office.Entities;
-            /**
-             * Gets an array of entities of the specified entity type found in an message
-             * @param entityType One of the EntityType enumeration values
-             */
-            getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
-            /**
-             * Returns well-known entities that pass the named filter defined in the manifest XML file
-             * @param name  A TableData object with the headers and rows
-             */
-            getFilteredEntitiesByName(name: string): Office.Entities;
-            /**
-             * Returns string values in the currently selected message object that match the regular expressions defined in the manifest XML file
-             */
-            getRegExMatches(): string[];
-            /**
-             * Returns string values that match the named regular expression defined in the manifest XML file
-             */
-            getRegExMatchesByName(name: string): string[];
-        }
-        export interface AppointmentCompose extends Office.Appointment {
-            body: Office.Body;
-            end: Office.Time;
-            location: Office.Location;
-            optionalAttendees: Office.Recipients;
-            requiredAttendees: Office.Recipients;
-            start: Office.Time;
-            subject: Office.Subject;
-            /**
-             * Adds a file to an appointment as an attachment
-             * @param uri The URI that provides the location of the file to attach to the appointment. The maximum length is 2048 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
-            /**
-             * Adds an Exchange item, such as a message, as an attachment to the appointment
-             * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
-            /**
-             * Removes an attachment from a appointment
-             * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
-        }
-        export interface AppointmentRead extends Office.Appointment {
-            attachments: Office.AttachmentDetails[];
-            end: Date;
-            location: string;
-            normalizedSubject: string;
-            optionalAttendees: Office.EmailAddressDetails;
-            organizer: Office.EmailAddressDetails;
-            requiredAttendees: Office.EmailAddressDetails;
-            resources: string[];
-            start: Date;
-            subject: string;
-            /**
-             * Displays a reply form that includes the organizer and all the attendees of the selected appointment item
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-             */
-            displayReplyAllForm(htmlBody: string): void;
-            /**
-             * Displays a reply form that includes only the organizer of the selected appointment item
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-             */
-            displayReplyForm(htmlBody: string): void;
-            /**
-             * Gets an array of entities found in an appointment
-             */
-            getEntities(): Office.Entities;
-            /**
-             * Gets an array of entities of the specified entity type found in an appointment
-             * @param entityType One of the EntityType enumeration values
-             */
-            getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
-            /**
-             * Returns well-known entities that pass the named filter defined in the manifest XML file
-             * @param name  A TableData object with the headers and rows
-             */
-            getFilteredEntitiesByName(name: string): Office.Entities;
-            /**
-             * Returns string values in the currently selected appointment object that match the regular expressions defined in the manifest XML file
-             */
-            getRegExMatches(): string[];
-            /**
-             * Returns string values that match the named regular expression defined in the manifest XML file
-             */
-            getRegExMatchesByName(name: string): string[];
-        }
-    }
-    export module cast {
-        export module item {
-            function toAppointmentCompose(item: Office.Item): Office.Types.AppointmentCompose;
-            function toAppointmentRead(item: Office.Item): Office.Types.AppointmentRead;
-            function toAppointment(item: Office.Item): Office.Appointment;
-            function toMessageCompose(item: Office.Item): Office.Types.MessageCompose;
-            function toMessageRead(item: Office.Item): Office.Types.MessageRead;
-            function toMessage(item: Office.Item): Office.Message;
-            function toItemCompose(item: Office.Item): Office.Types.ItemCompose;
-            function toItemRead(item: Office.Item): Office.Types.ItemRead;
-        }
-    }
-    export interface AttachmentDetails {
-        attachmentType: Office.MailboxEnums.AttachmentType;
-        contentType: string;
-        id: string;
-        isInline: boolean;
-        name: string;
-        size: number;
-    }
-    export interface Contact {
-        personName: string;
-        businessName: string;
-        phoneNumbers: PhoneNumber[];
-        emailAddresses: string[];
-        urls: string[];
-        addresses: string[];
-        contactString: string;
-    }
 
-    export interface Context {
-        mailbox: Mailbox;
-        roamingSettings: RoamingSettings;
-    }
-    export interface CustomProperties {
-        /**
-         * Returns the value of the specified custom property
-         * @param name The name of the property to be returned
-         */
-        get(name: string): any;
-        /**
-         * Sets the specified property to the specified value
-         * @param name The name of the property to be set
-         * @param value The value of the property to be set
-         */
-        set(name: string, value: string): void;
-        /**
-         * Removes the specified property from the custom property collection.
-         * @param name The name of the property to be removed
-         */
-        remove(name: string): void;
-        /**
-         * Saves the custom property collection to the server
-         * @param callback The optional callback method
-         * @param userContext Optional variable for any state data that is passed to the saveAsync method
-         */
-        saveAsync(callback?: (result: AsyncResult) => void, userContext?: any): void;
-    }
-    export interface EmailAddressDetails {
-        emailAddress: string;
-        displayName: string;
-        appointmentResponse: Office.MailboxEnums.ResponseType;
-        recipientType: Office.MailboxEnums.RecipientType;
-    }
-    export interface EmailUser {
-        name: string;
-        userId: string;
-    }
-    export interface Entities {
-        addresses: string[];
-        taskSuggestions: string[];
-        meetingSuggestions: MeetingSuggestion[];
-        emailAddresses: string[];
-        urls: string[];
-        phoneNumbers: PhoneNumber[];
-        contacts: Contact[];
-    }
-    export interface Item {
-        dateTimeCreated: Date;
-        dateTimeModified: Date;
-        itemClass: string;
-        itemId: string;
-        itemType: Office.MailboxEnums.ItemType;
-        /**
-         * Asynchronously loads custom properties that are specific to the item and a app for Office
-         * @param callback The optional callback method
-         * @param userContext Optional variable for any state data that is passed to the asynchronous method
-         */
-        loadCustomPropertiesAsync(callback?: (result: AsyncResult) => void, userContext?: any): void;
-    }
-    export interface Appointment extends Item {
-    }
-    export interface Body {
-        /**
-         * Gets a value that indicates whether the content is in HTML or text format
-         * @param tableData  A TableData object with the headers and rows
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the getTypeAsync method returns
-         */
-        getTypeAsync(options?: any, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Adds the specified content to the beginning of the item body
-         * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        prependAsync(data: string, options?: any, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Replaces the selection in the body with the specified text
-         * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        setSelectedDataAsync(data: string, options?: any, callback?: (result: AsyncResult) => void): void;
-    }
-    export interface Location {
-        /**
-         * Begins an asynchronous request for the location of an appointment
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        getAsync(options?: any, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Begins an asynchronous request to set the location of an appointment
-         * @param data The location of the appointment. The string is limited to 255 characters
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the location is set
-         */
-        setAsync(location: string, options?: any, callback?: (result: AsyncResult) => void): void;
-    }
-    export interface Mailbox {
-        item: Item;
-        userProfile: UserProfile;
-        /**
-         * Gets a Date object from a dictionary containing time information
-         * @param timeValue A Date object
-         */
-        convertToLocalClientTime(timeValue: Date): any;
-        /**
-         * Gets a dictionary containing time information in local client time
-         * @param input A dictionary containing a date. The dictionary should contain the following fields: year, month, date, hours, minutes, seconds, time zone, time zone offset
-         */
-        convertToUtcClientTime(input: any): Date;
-        /**
-         * Displays an existing calendar appointment
-         * @param itemId The Exchange Web Services (EWS) identifier for an existing calendar appointment
-         */
-        displayAppointmentForm(itemId: any): void;
-        /**
-         * Displays an existing message
-         * @param itemId The Exchange Web Services (EWS) identifier for an existing message
-         */
-        displayMessageForm(itemId: any): void;
-        /**
-         * Displays a form for creating a new calendar appointment
-         * @param requiredAttendees An array of strings containing the email addresses or an array containing an EmailAddressDetails object for each of the required attendees for the appointment. The array is limited to a maximum of 100 entries
-         * @param optionalAttendees An array of strings containing the email addresses or an array containing an EmailAddressDetails object for each of the optional attendees for the appointment. The array is limited to a maximum of 100 entries
-         * @param start A Date object specifying the start date and time of the appointment
-         * @param end A Date object specifying the end date and time of the appointment
-         * @param location A string containing the location of the appointment. The string is limited to a maximum of 255 characters
-         * @param resources An array of strings containing the resources required for the appointment. The array is limited to a maximum of 100 entries
-         * @param subject A string containing the subject of the appointment. The string is limited to a maximum of 255 characters
-         * @param body The body of the appointment message. The body content is limited to a maximum size of 32 KB
-         */
-        displayNewAppointmentForm(requiredAttendees: any, optionalAttendees: any, start: Date, end: Date, location: string, resources: string[], subject: string, body: string): void;
-        /**
-         * Gets a string that contains a token used to get an attachment or item from an Exchange Server
-         * @param callback The optional method to call when the string is inserted
-         * @param userContext Optional variable for any state data that is passed to the asynchronous method
-         */
-        getCallbackTokenAsync(callback?: (result: AsyncResult) => void, userContext?: any): void;
-        /**
-         * Gets a token identifying the user and the app for Office
-         * @param callback The optional method to call when the string is inserted
-         * @param userContext Optional variable for any state data that is passed to the asynchronous method
-         */
-        getUserIdentityTokenAsync(callback?: (result: AsyncResult) => void, userContext?: any): void;
-        /**
-         * Makes an asynchronous request to an Exchange Web Services (EWS) service on the Exchange server that hosts the user’s mailbox
-         * @param data The EWS request
-         * @param callback The optional method to call when the string is inserted
-         * @param userContext Optional variable for any state data that is passed to the asynchronous method
-         */
-        makeEwsRequestAsync(data: any, callback?: (result: AsyncResult) => void, userContext?: any): void;
-    }
-    export interface Message extends Item {
-        conversationId: string;
-    }
-    export interface MeetingRequest extends Message {
-        start: Date;
-        end: Date;
-        location: string;
-        optionalAttendees: EmailAddressDetails[];
-        requiredAttendees: EmailAddressDetails[];
-    }
-    export interface MeetingSuggestion {
-        meetingString: string;
-        attendees: EmailAddressDetails[];
-        location: string;
-        subject: string;
-        start: Date;
-        end: Date;
-    }
-    export interface PhoneNumber {
-        phoneString: string;
-        originalPhoneString: string;
-        type: string;
-    }
-    export interface Recipients {
-        /**
-         * Begins an asynchronous request to add a recipient list to an appointment or message
-         * @param recipients The recipients to add to the recipients list
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        addAsync(recipients: any, options?: any, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Begins an asynchronous request to get the recipient list for an appointment or message
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        getAsync(options?: any, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Begins an asynchronous request to set the recipient list for an appointment or message
-         * @param recipients The recipients to add to the recipients list
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        setAsync(recipients: any, options?: any, callback?: (result: AsyncResult) => void): void;
-    }
-    export interface RoamingSettings {
-        /**
-         * Retrieves the specified setting
-         * @param name The case-sensitive name of the setting to retrieve
-         */
-        get(name: string): any;
-        /**
-         * Removes the specified setting
-         * @param name The case-sensitive name of the setting to remove
-         */
-        remove(name: string): void;
-        /**
-         * Saves the settings
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult
-         */
-        saveAsync(callback?: (result: AsyncResult) => void): void;
-        /**
-         * Sets or creates the specified setting
-         * @param name The case-sensitive name of the setting to set or create
-         * @param value Specifies the value to be stored
-         */
-        set(name: string, value: any): void;
-    }
-    export interface Subject {
-        /**
-         * Begins an asynchronous request to get the subject of an appointment or message
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        getAsync(options?: any, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Begins an asynchronous call to set the subject of an appointment or message
-         * @param data The subject of the appointment. The string is limited to 255 characters
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        setAsync(data: string, options?: any, callback?: (result: AsyncResult) => void): void;
-    }
-    export interface TaskSuggestion {
-        assignees: EmailUser[];
-        taskString: string;
-    }
-    export interface Time {
-        /**
-         * Begins an asynchronous request to get the start or end time
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        getAsync(options?: any, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Begins an asynchronous request to set the start or end time
-         * @param dateTime A date-time object in Coordinated Universal Time (UTC)
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        setAsync(dateTime: Date, options?: any, callback?: (result: AsyncResult) => void): void;
-    }
-    export interface UserProfile {
-        displayName: string;
-        emailAddress: string;
-        timeZone: string;
-    }
-}
+
+
+
+////////////////////////////////////////////////////////////////
+///////////////////////// End Word APIs ////////////////////////
+////////////////////////////////////////////////////////////////
+
+
+
+
+////////////////////////////////////////////////////////////////
+
+
+
+
+////////////////////////////////////////////////////////////////
+////////////////////// Begin OneNote APIs //////////////////////
+////////////////////////////////////////////////////////////////
+
 
 declare namespace OneNote {
     /**
@@ -15696,3 +15934,8 @@ declare namespace OneNote {
  */
     function run<T>(batch: (context: OneNote.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
 }
+
+
+////////////////////////////////////////////////////////////////
+/////////////////////// End OneNote APIs ///////////////////////
+////////////////////////////////////////////////////////////////

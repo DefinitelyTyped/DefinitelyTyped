@@ -15,7 +15,7 @@
         "jsx": "react"
     },
     "files": [
-        "react-user-tour.d.ts",
+        "index.d.ts",
         "react-user-tour-tests.tsx"
     ]
 }

@@ -237,7 +237,7 @@ declare module 'angular' {
 			template: string;
 			controller?: string| any[] | any;
 			controllerAs?: string;
-		bindToController?: boolean;
+			bindToController?: boolean;
 
 			/**
 			 * Scope object that will be passed to dialog. If you use controller with separate $scope service this object will be passed to $scope.$parent param.
