@@ -136,7 +136,7 @@ declare namespace Roles {
     function getRolesForUser(
         user : string|Object,
         group? : string
-    ) : Role[];
+    ) : string[];
 
     /**
      * Retrieve all users who are in target role.
