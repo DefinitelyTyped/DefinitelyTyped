@@ -482,17 +482,32 @@ declare namespace Xrm
     export module Async
     {
         /**
-         * Called when the operation is successful.
+         * Object passed to ErrorCallbackDelegate
          */
-        export type SuccessCallbackDelegate = ( object: any ) => void;
+        export interface ErrorCallbackObject
+        {
+            errorCode: number;
+            message: string;
+        }
+        
+        export interface SuccessCallbackObject
+        { 
+            savedEntityReference: Page.LookupValue;
+        }
+
+        /**
+         * Called when the operation is successful.
+         * Currently, only the Xrm.Utility.openQuickCreate successCallback
+         * is passed a parameter so an optional parameter for it is included
+         */
+        export type SuccessCallbackDelegate = (object?: SuccessCallbackObject ) => void;
 
         /**
          * Called when the operation fails.
          *
-         * @param   {number}    errorCode   The error code.
-         * @param   {string}    message     The message.
+         * @param   {ErrorCallbackObject}    error   The error object         
          */
-        export type ErrorCallbackDelegate = ( errorCode: number, message: string ) => void;
+        export type ErrorCallbackDelegate = ( error: ErrorCallbackObject ) => void;
 
         /**
          * Interface for Xrm.Page.data promises.
