@@ -304,9 +304,9 @@ export interface ISessionHandler {
 
 export interface IStrictSessionHandler {
     <T>(request: Request, reply: IStrictReply<T>): void;
-}
+	}
 
-export interface IRequestHandler<T> {
+	export interface IRequestHandler<T> {
     (request: Request): T;
 }
 

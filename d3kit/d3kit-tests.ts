@@ -1,4 +1,3 @@
-/// <reference path="index.d.ts" />
 /// <reference types="d3" />
 
 function test_abstract_chart() {

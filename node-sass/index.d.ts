@@ -22,13 +22,13 @@ interface Options {
     linefeed?: string;
     omitSourceMapUrl?: boolean;
     outFile?: string;
-        outputStyle?: "compact" | "compressed" | "expanded" | "nested";
+    outputStyle?: "compact" | "compressed" | "expanded" | "nested";
     precision?: number;
     sourceComments?: boolean;
     sourceMap?: boolean | string;
     sourceMapContents?: boolean;
     sourceMapEmbed?: boolean;
-        sourceMapRoot?: string;
+    sourceMapRoot?: string;
 }
 
 interface SassError extends Error {
