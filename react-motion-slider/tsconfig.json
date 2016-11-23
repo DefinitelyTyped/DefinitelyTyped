@@ -15,7 +15,7 @@
         "jsx": "react"
     },
     "files": [
-        "react-motion-slider.d.ts",
+        "index.d.ts",
         "react-motion-slider-tests.tsx"
     ]
 }

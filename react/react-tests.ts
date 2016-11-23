@@ -333,7 +333,10 @@ React.DOM.div(htmlAttr);
 React.DOM.span(htmlAttr);
 React.DOM.input(htmlAttr);
 
-React.DOM.svg({ viewBox: "0 0 48 48" },
+React.DOM.svg({
+        viewBox: "0 0 48 48",
+        xmlns: "http://www.w3.org/2000/svg"
+    },
     React.DOM.rect({
         x: 22,
         y: 10,

@@ -134,7 +134,7 @@ export namespace types {
   var LocalTime: LocalTimeStatic;
   var Long: _Long;
   var ResultSet: ResultSetStatic;
-    // var ResultStream: ResultStreamStatic;
+  // var ResultStream: ResultStreamStatic;
   var Row: RowStatic;
   var TimeUuid: TimeUuidStatic;
   var Tuple: TupleStatic;

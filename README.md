@@ -52,21 +52,26 @@ DefinitelyTyped only works because of contributions by users like you!
 
 Before you share your improvement with the world, use it yourself.
 
-#### Test editing an exiting package
+#### Test editing an existing package
 
 To add new features you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html).
-You can also directly edit the types in `node_modules/@types/foo/index.d.ts`,
-or copy them from there and paste inside of `declarations.d.ts` and follow the steps below.
+You can also directly edit the types in `node_modules/@types/foo/index.d.ts`, or copy them from there and follow the steps below.
 
 
 #### Test a new package
 
-* Add a new file `declarations.d.ts` to your project.
-* Add it to the compilation, through `"includes"` or `"files"` in your [tsconfig](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html),
-or through a `/// <reference path="" />` declaration in your code.
-* Inside `declarations.d.ts`, write `declare module "foo" { }`, then write the module declaration inside.
-* Test that your code works.
-* *Then*, once you've tested your definitions, make a PR contributing the definition.
+Add to your `tsconfig.json`:
+
+```json
+"baseUrl": "types",
+"typeRoots": ["types"],
+```
+
+(You can also use `src/types`.)
+Create `types/foo/index.d.ts` containing declarations for the module "foo".
+You should now be able import from `"foo"` in your code and it will route to the new type definition.
+Then build *and* run the code to make sure your type definition actually corresponds to what happens at runtime.
+Once you've tested your definitions with real code, make a PR contributing the definition by copying `types/foo` to `DefinitelyTyped/foo` and adding a `tsconfig.json` and `foo-tests.ts`.
 
 
 ### Make a pull request
@@ -95,7 +100,7 @@ If it doesn't, you can do so yourself in the comment associated with the PR.
 
 #### Create a new package
 
-If you are the library author, or can make a pull request to the library, [bundle](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) types instead of publishing to DefinitelyTyped.
+If you are the library author, or can make a pull request to the library, [bundle types](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) instead of publishing to DefinitelyTyped.
 
 If you are adding typings for an NPM package, create a directory with the same name.
 If the package you are adding typings for is not on NPM, make sure the name you choose for it does not conflict with the name of a package on NPM.
@@ -187,7 +192,7 @@ Changes to the `master` branch are also manually merged into the `types-2.0` bra
 #### I'm writing a definition that depends on another definition. Should I use `<reference types="" />` or an import?
 
 If the module you're referencing is an external module (uses `export`), use an import.
-If the module you're referenceing is an ambient module (uses `declare module`, or just declares globals), use `<reference types="" />`.
+If the module you're referencing is an ambient module (uses `declare module`, or just declares globals), use `<reference types="" />`.
 
 #### What do I do about older versions of typings?
 

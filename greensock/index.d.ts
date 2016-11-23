@@ -161,7 +161,7 @@ declare class TimelineLite extends SimpleTimeline {
     static exportRoot(vars?: Object, omitDelayedCalls?: boolean): TimelineLite;
     from(target: Object, duration: number, vars: Object, position?: any): TimelineLite;
     fromTo(target: Object, duration: number, fromVars: Object, toVars: Object, position?: any): TimelineLite;
-    getChildren(nested?: boolean, tweens?: boolean, timelines?: boolean, ignoreBeforeTime?: number): Tween | Timeline[];
+    getChildren(nested?: boolean, tweens?: boolean, timelines?: boolean, ignoreBeforeTime?: number): (Tween | Timeline)[];
     getLabelTime(label: string): number;
     getTweensOf(target: Object, nested?: boolean): Tween[];
     recent(): Animation;

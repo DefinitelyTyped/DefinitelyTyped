@@ -15,7 +15,7 @@
         "jsx": "react"
     },
     "files": [
-        "react-fontawesome.d.ts",
+        "index.d.ts",
         "react-fontawesome-tests.tsx"
     ]
 }

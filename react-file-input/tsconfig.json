@@ -15,7 +15,7 @@
         "jsx": "react"
     },
     "files": [
-        "react-file-input.d.ts",
+        "index.d.ts",
         "react-file-input-tests.tsx"
     ]
 }

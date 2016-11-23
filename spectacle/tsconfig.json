@@ -15,7 +15,7 @@
         "jsx": "react"
     },
     "files": [
-        "spectacle.d.ts",
+        "index.d.ts",
         "spectacle-tests.tsx"
     ]
 }
