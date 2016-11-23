@@ -187,6 +187,12 @@ interface Toastr {
         	(toast: JQuery, clearOptions: { force: boolean }): void;
 	};
 	/**
+	* Removes all toasts (without animation)
+	*/
+	remove: {
+		(): void;
+	};
+	/**
 	* Create an error toast
 	*/
 	error: ToastrDisplayMethod;
