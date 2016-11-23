@@ -27,7 +27,7 @@ declare namespace Quill {
         placeholder?: string,
         readOnly?: boolean,
         theme?: string,
-        formats?: string[] 
+        formats?: string[]
     }
 
     export interface BoundsStatic {

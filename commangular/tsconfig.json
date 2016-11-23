@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "commangular.d.ts",
+        "index.d.ts",
         "commangular-mock.d.ts"
     ]
 }

@@ -1116,6 +1116,7 @@ declare namespace __MaterialUI {
             secondaryText?: React.ReactNode;
             style?: React.CSSProperties;
             value?: any;
+            containerElement?: React.ReactNode | string;
         }
         export class MenuItem extends React.Component<MenuItemProps, {}> {
         }

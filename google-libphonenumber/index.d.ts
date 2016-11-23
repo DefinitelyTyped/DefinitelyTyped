@@ -1,6 +1,5 @@
 // Type definitions for libphonenumber v7.4.3
-// Project: https://github.com/googlei18n/libphonenumber
-// Project: https://github.com/seegno/google-libphonenumber
+// Project: https://github.com/googlei18n/libphonenumber, https://github.com/seegno/google-libphonenumber
 // Definitions by: Leon Yu <https://github.com/leonyu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

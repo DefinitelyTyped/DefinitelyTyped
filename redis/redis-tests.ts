@@ -111,3 +111,5 @@ client.monitor(resCallback);
 
 // Send command
 client.send_command(str, args, resCallback);
+// Duplicate
+client.duplicate();

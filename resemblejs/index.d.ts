@@ -3,18 +3,19 @@
 // Definitions by: Tim Perry <https://github.com/pimterry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace Resemble {
-  interface ResembleStatic {
-    /**
-     * Retrieve basic analysis for a single image (add compareTo to compare with another).
-     */
-    (image: string|ImageData): ResembleAnalysis;
+export = Resemble;
+export as namespace resemble;
 
-    /**
-     * Set the resemblance image output style
-     */
-    outputSettings(settings: OutputSettings): ResembleStatic;
-  }
+/**
+ * Retrieve basic analysis for a single image (add compareTo to compare with another).
+ */
+declare function Resemble(image: string | ImageData): Resemble.ResembleAnalysis;
+
+declare namespace Resemble {
+  /**
+   * Set the resemblance image output style
+   */
+  function outputSettings(settings: OutputSettings): typeof Resemble;
 
   interface OutputSettings {
     errorColor: {
@@ -36,7 +37,7 @@ declare namespace Resemble {
     /**
      * Compare this image to another image, to get resemblance data
      */
-    compareTo(fileData: string|ImageData): ResembleComparison;
+    compareTo(fileData: string | ImageData): ResembleComparison;
   }
 
   interface ResembleAnalysisResult {
@@ -93,5 +94,3 @@ declare namespace Resemble {
     analysisTime: number;
   }
 }
-
-declare var resemble: Resemble.ResembleStatic;
