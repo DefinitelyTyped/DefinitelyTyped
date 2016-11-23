@@ -15,7 +15,7 @@
         "jsx": "react"
     },
     "files": [
-        "rc-tooltip.d.ts",
+        "index.d.ts",
         "rc-tooltip-tests.tsx"
     ]
 }

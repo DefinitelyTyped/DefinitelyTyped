@@ -2,7 +2,7 @@ import * as React from "react"
 import * as ReactDOM from "react-dom"
 import {renderToString} from "react-dom/server";
 
-import { browserHistory, hashHistory, match, createMemoryHistory, withRouter, routerShape, Router, Route, IndexRoute, InjectedRouter, Link, RouterOnContext, RouterContext} from "react-router";
+import { applyRouterMiddleware, browserHistory, hashHistory, match, createMemoryHistory, withRouter, routerShape, Router, Route, IndexRoute, InjectedRouter, Link, RouterOnContext, RouterContext} from "react-router";
 
 interface MasterContext {
 	router: RouterOnContext;
@@ -105,3 +105,15 @@ const routes = (
 match({history, routes, location: "baseurl"}, (error, redirectLocation, renderProps) => {
 	renderToString(<RouterContext {...renderProps} />);
 });
+
+
+ReactDOM.render((
+	<Router
+		history={history}
+		routes={routes}
+		render={applyRouterMiddleware({
+			renderRouteComponent: child => child
+		})}
+	>
+	</Router>
+), document.body);

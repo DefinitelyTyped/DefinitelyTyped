@@ -5,8 +5,10 @@
 
 /// <reference types="source-map" />
 /// <reference types="source-list-map" />
+/// <reference types="node" />
 
-import { SourceNode } from 'source-map'
+import { Hash } from 'crypto'
+import { SourceNode, RawSourceMap, SourceMapGenerator } from 'source-map'
 import { SourceListMap } from 'source-list-map'
 
 export abstract class Source {
@@ -16,10 +18,10 @@ export abstract class Source {
 
     sourceAndMap(options?: any): {
         source: string;
-        map: string;
+        map: RawSourceMap;
     };
 
-    updateHash(hash: any): void;
+    updateHash(hash: Hash): void;
 
     source(options?: any): string;
 
@@ -31,20 +33,22 @@ export abstract class Source {
 }
 
 interface SourceAndMapMixin {
-    map(options: { columns?: boolean }): string
+    map(options: { columns?: boolean }): RawSourceMap;
     sourceAndMap(options: { columns?: boolean }): {
-        source: string,
-        map: string
-    }
+        source: string;
+        map: RawSourceMap;
+    };
 }
 
 export class CachedSource {
     _source: Source;
     _cachedSource: string;
     _cachedSize: number;
-    _cachedMaps: any;
-    node: (options: any) => any;
-    listMap: (options: any) => any;
+    _cachedMaps: {
+        [prop: string]: RawSourceMap
+    };
+    node: (options: any) => SourceNode;
+    listMap: (options: any) => SourceListMap;
 
     constructor(source: Source);
 
@@ -54,12 +58,12 @@ export class CachedSource {
 
     sourceAndMap(options: any): {
         source: string;
-        map: any;
+        map: RawSourceMap;
     };
 
-    map(options: any): any;
+    map(options: any): RawSourceMap;
 
-    updateHash(hash: any): void;
+    updateHash(hash: Hash): void;
 }
 
 export class ConcatSource extends Source implements SourceAndMapMixin {
@@ -77,7 +81,7 @@ export class ConcatSource extends Source implements SourceAndMapMixin {
 
     listMap(options: any): SourceListMap;
 
-    updateHash(hash: any): void;
+    updateHash(hash: Hash): void;
 }
 
 export class LineToLineMappedSource extends Source implements SourceAndMapMixin {
@@ -93,7 +97,7 @@ export class LineToLineMappedSource extends Source implements SourceAndMapMixin 
 
     listMap(options: any): SourceListMap;
 
-    updateHash(hash: any): void;
+    updateHash(hash: Hash): void;
 }
 
 export class OriginalSource extends Source implements SourceAndMapMixin {
@@ -112,7 +116,7 @@ export class OriginalSource extends Source implements SourceAndMapMixin {
 
     listMap(options: any): SourceListMap;
 
-    updateHash(hash: any): void;
+    updateHash(hash: Hash): void;
 }
 
 export class PrefixSource extends Source implements SourceAndMapMixin {
@@ -125,9 +129,9 @@ export class PrefixSource extends Source implements SourceAndMapMixin {
 
     node(options: any): SourceNode;
 
-    listMap(options: any): any;
+    listMap(options: any): SourceListMap;
 
-    updateHash(hash: any): void;
+    updateHash(hash: Hash): void;
 }
 
 export class RawSource extends Source {
@@ -137,13 +141,13 @@ export class RawSource extends Source {
 
     source(): string;
 
-    map(options: any): any;
+    map(options: any): null;
 
     node(options: any): SourceNode;
 
     listMap(options: any): SourceListMap;
 
-    updateHash(hash: any): void;
+    updateHash(hash: Hash): void;
 }
 
 export class ReplaceSource extends Source implements SourceAndMapMixin {
@@ -165,7 +169,7 @@ export class ReplaceSource extends Source implements SourceAndMapMixin {
 
     node(options: any): SourceNode;
 
-    listMap(options: any): any;
+    listMap(options: any): SourceListMap;
 
     _replacementToSourceNode(oldNode: SourceNode, newString: string): string | SourceNode;
 
@@ -178,11 +182,14 @@ export class ReplaceSource extends Source implements SourceAndMapMixin {
 export class SourceMapSource extends Source implements SourceAndMapMixin {
     _value: string;
     _name: string;
-    _sourceMap: any;
-    _originalSource: Source;
-    _innerSourceMap: any;
+    _sourceMap: SourceMapGenerator | RawSourceMap;
+    _originalSource: string;
+    _innerSourceMap: RawSourceMap;
 
-    constructor(value: string, name: string, sourceMap: any, originalSource: Source, innerSourceMap?: any);
+    constructor(
+        value: string, name: string, sourceMap: SourceMapGenerator | RawSourceMap, originalSource: string,
+        innerSourceMap?: RawSourceMap
+    );
 
     source(): string;
 
@@ -194,5 +201,5 @@ export class SourceMapSource extends Source implements SourceAndMapMixin {
         }
     ): SourceListMap;
 
-    updateHash(hash: any): void;
+    updateHash(hash: Hash): void;
 }

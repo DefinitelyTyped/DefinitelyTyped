@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "webpack-dev-server.d.ts",
+        "index.d.ts",
         "webpack-dev-server-tests.ts"
     ]
 }

@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 4.5.4
+// Type definitions for Mongoose 4.6.8
 // Project: http://mongoosejs.com/
 // Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -284,6 +284,9 @@ declare module "mongoose" {
      */
     open(connection_string: string, database?: string, port?: number,
       options?: ConnectionOpenOptions, callback?: (err: any) => void): any;
+
+    /** Helper for dropDatabase() */
+    dropDatabase(callback?: (err: any) => void): Promise<void>;
 
     /**
      * Opens the connection to a replica set.
@@ -659,6 +662,8 @@ declare module "mongoose" {
     methods: any;
     /** Object of currently defined statics on this schema. */
     statics: any;
+    /** The original object passed to the schema constructor */
+    obj: any;
   }
 
   interface SchemaOptions {
@@ -808,7 +813,7 @@ declare module "mongoose" {
      */
     populate(callback: (err: any, res: this) => void): this;
     populate(path: string, callback?: (err: any, res: this) => void): this;
-    populate(options: ModelPopulateOptions, callback?: (err: any, res: this) => void): this;
+    populate(options: ModelPopulateOptions | ModelPopulateOptions[], callback?: (err: any, res: this) => void): this;
 
     /** Gets _id(s) used during population of the given path. If the path was not populated, undefined is returned. */
     populated(path: string): any;
@@ -871,7 +876,7 @@ declare module "mongoose" {
     /** Hash containing current validation errors. */
     errors: Object;
     /** This documents _id. */
-    _id: mongodb.ObjectID;
+    _id: any;
     /** Boolean flag specifying if the document is new. */
     isNew: boolean;
     /** The documents schema. */
@@ -1449,7 +1454,7 @@ declare module "mongoose" {
      */
     populate(path: string | Object, select?: string | Object, model?: any,
       match?: Object, options?: Object): this;
-    populate(options: ModelPopulateOptions): this;
+    populate(options: ModelPopulateOptions | ModelPopulateOptions[]): this;
 
     /**
      * Determines the MongoDB nodes from which to read.
@@ -2423,6 +2428,8 @@ declare module "mongoose" {
     model?: string;
     /** optional query options like sort, limit, etc */
     options?: Object;
+    /** deep populate */
+    populate?: ModelPopulateOptions | ModelPopulateOptions[]
   }
 
   interface ModelUpdateOptions {

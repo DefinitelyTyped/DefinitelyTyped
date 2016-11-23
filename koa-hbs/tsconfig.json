@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "koa-hbs.d.ts",
+        "index.d.ts",
         "koa-hbs-tests.ts"
     ]
 }

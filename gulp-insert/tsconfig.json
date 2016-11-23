@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "gulp-insert.d.ts",
+        "index.d.ts",
         "gulp-insert-tests.ts"
     ]
 }
