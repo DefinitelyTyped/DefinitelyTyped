@@ -3052,7 +3052,7 @@ declare module "tls" {
     }
 
     export interface Server extends net.Server {
-        close(): Server;
+        close(callback?: Function): Server;
         address(): { port: number; family: string; address: string; };
         addContext(hostName: string, credentials: {
             key: string;

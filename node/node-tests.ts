@@ -1,3 +1,4 @@
+/// <reference path="index.d.ts" />
 import * as assert from "assert";
 import * as fs from "fs";
 import * as events from "events";
@@ -751,6 +752,14 @@ namespace tls_tests {
         _server = _server.prependOnceListener("secureConnection", (tlsSocket) => {
             let _tlsSocket: tls.TLSSocket = tlsSocket;
         })
+
+        // close callback parameter is optional
+        _server = _server.close();
+
+        // close callback parameter doesn't specify any arguments, so any
+        // function is acceptable
+        _server = _server.close(() => {});
+        _server = _server.close((...args:any[]) => {});
     }
 
     {
@@ -1625,8 +1634,22 @@ namespace console_tests {
 
 namespace net_tests {
     {
-        // Make sure .listen() and .close() retuern a Server instance
-        net.createServer().listen(0).close().address();
+        let server = net.createServer();
+        // Check methods which return server instances by chaining calls
+        server = server.listen(0)
+                .close()
+                .ref()
+                .unref();
+
+        // close has an optional callback function. No callback parameters are
+        // specified, so any callback function is permissible.
+        server = server.close((...args: any[]) => {});
+
+        // test the types of the address object fields
+        let address = server.address();
+        address.port = 1234;
+        address.family = "ipv4";
+        address.address = "127.0.0.1";
     }
 
     {
