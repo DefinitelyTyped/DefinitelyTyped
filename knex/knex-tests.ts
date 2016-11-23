@@ -453,6 +453,10 @@ knex.schema.raw("SET sql_mode='TRADITIONAL'")
     table.dropColumn('name');
     table.string('first_name');
     table.string('last_name');
+    table.dropUnique(["name1", "name2"], "index_name");
+    table.dropUnique(["name1", "name2"]);
+    table.dropPrimary();
+    table.dropPrimary("constraint_name");
 });
 
 knex('users')

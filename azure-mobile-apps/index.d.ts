@@ -237,7 +237,7 @@ declare namespace Azure.MobileApps {
     interface SqlParameterDefinition {
         name: string;
         value: any;
-    }
+     }		     
 
     interface TableDefinition {
         access?: AccessType;

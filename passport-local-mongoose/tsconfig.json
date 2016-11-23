@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "passport-local-mongoose.d.ts",
+        "index.d.ts",
         "passport-local-mongoose-tests.ts"
     ]
 }

@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "webpack-validator.d.ts",
+        "index.d.ts",
         "webpack-validator-tests.ts"
     ]
 }

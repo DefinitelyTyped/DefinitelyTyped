@@ -1,4 +1,3 @@
-
 import * as sass from 'node-sass';
 sass.render({
   file: '/path/to/myFile.scss',

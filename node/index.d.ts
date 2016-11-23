@@ -1539,7 +1539,7 @@ declare module "child_process" {
         disconnect(): void;
         unref(): void;
         ref(): void;
-    
+
         /**
          * events.EventEmitter
          * 1. close
@@ -1851,6 +1851,7 @@ declare module "net" {
         localPort: number;
         bytesRead: number;
         bytesWritten: number;
+        destroyed: boolean;
 
         // Extended base methods
         end(): void;
