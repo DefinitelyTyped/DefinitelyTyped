@@ -313,6 +313,8 @@ var window = new BrowserWindow();
 window.setProgressBar(0.5);
 window.setRepresentedFilename('/etc/passwd');
 window.setDocumentEdited(true);
+window.previewFile('/path/to/file');
+window.previewFile('/path/to/file', 'Displayed Name');
 
 // Online/Offline Event Detection
 // https://github.com/atom/electron/blob/master/docs/tutorial/online-offline-events.md
@@ -869,20 +871,25 @@ app.on('ready', () => {
 // clipboard
 // https://github.com/atom/electron/blob/master/docs/api/clipboard.md
 
-clipboard.writeText('Example String');
-clipboard.writeText('Example String', 'selection');
-clipboard.writeBookmark('foo', 'http://example.com');
-clipboard.writeBookmark('foo', 'http://example.com', 'selection');
-console.log(clipboard.readText('selection'));
-console.log(clipboard.availableFormats());
-console.log(clipboard.readBookmark().title);
-clipboard.clear();
+{
+    let str: string;
+    clipboard.writeText('Example String');
+    clipboard.writeText('Example String', 'selection');
+    clipboard.writeBookmark('foo', 'http://example.com');
+    clipboard.writeBookmark('foo', 'http://example.com', 'selection');
+    clipboard.writeFindText('foo');
+    str = clipboard.readText('selection');
+    str = clipboard.readFindText();
+    console.log(clipboard.availableFormats());
+    console.log(clipboard.readBookmark().title);
+    clipboard.clear();
 
-clipboard.write({
-	html: '<html></html>',
-	text: 'Hello World!',
-	image: clipboard.readImage()
-});
+    clipboard.write({
+        html: '<html></html>',
+        text: 'Hello World!',
+        image: clipboard.readImage()
+    });
+}
 
 // crash-reporter
 // https://github.com/atom/electron/blob/master/docs/api/crash-reporter.md

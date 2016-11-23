@@ -1024,6 +1024,14 @@ declare namespace Electron {
 		 */
 		setAspectRatio(aspectRatio: number, extraSize?: Size): void;
 		/**
+		 * Uses Quick Look to preview a file at a given path.
+		 *
+		 * @param path The absolute path to the file to preview with QuickLook.
+		 * @param displayName The name of the file to display on the Quick Look modal view.
+		 * Note: This API is available only on macOS.
+		 */
+		previewFile(path: string, displayName?: string): void;
+		/**
 		 * Resizes and moves the window to width, height, x, y.
 		 */
 		setBounds(options: Rectangle, animate?: boolean): void;
@@ -1861,6 +1869,20 @@ declare namespace Electron {
 		 * Note: This API is available on macOS and Windows.
 		 */
 		writeBookmark(title: string, url: string, type?: ClipboardType): void;
+		/**
+		 * The text on the find pasteboard. This method uses synchronous IPC when called from the renderer process.
+		 * The cached value is reread from the find pasteboard whenever the application is activated.
+		 *
+		 * Note: This API is available on macOS.
+		 */
+		readFindText(): string;
+		/**
+		 * Writes the text into the find pasteboard as plain text.
+		 * This method uses synchronous IPC when called from the renderer process.
+		 *
+		 * Note: This API is available on macOS.
+		 */
+		writeFindText(text: string): void;
 	}
 
 	type ClipboardType = '' | 'selection';
@@ -5144,7 +5166,7 @@ declare namespace Electron {
 		 * Registers the scheme as secure, bypasses content security policy for resources,
 		 * allows registering ServiceWorker and supports fetch API.
 		 */
-		registerURLSchemeAsPrivileged(scheme: string): void;
+		registerURLSchemeAsPrivileged(scheme: string, options?: RegisterURLSchemeOptions): void;
 		/**
 		 * Inserts text to the focused element.
 		 */
@@ -5182,6 +5204,14 @@ declare namespace Electron {
 		purgeableSize: number;
 		purgedSize: number;
 		size: number;
+	}
+
+	interface RegisterURLSchemeOptions {
+		secure?: boolean;
+		bypassCSP?: boolean;
+		allowServiceWorkers?: boolean;
+		supportFetchAPI?: boolean;
+		corsEnabled?: boolean;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/web-view-tag.md
@@ -5257,6 +5287,10 @@ declare namespace Electron {
 		 * If "on", the guest page will be allowed to open new windows.
 		 */
 		allowpopups: string;
+		/**
+		 * A list of strings which specifies the web preferences to be set on the webview, separated by ,.
+		 */
+		webpreferences: string;
 		/**
 		 * A list of strings which specifies the blink features to be enabled separated by ,.
 		 */
@@ -5377,7 +5411,7 @@ declare namespace Electron {
 		closeDevTools(): void;
 		/**
 		 * @returns Whether guest page has a DevTools window attached.
-		 */
+		 
 		isDevToolsOpened(): boolean;
 		/**
 		 * @returns Whether DevTools window of guest page is focused.
