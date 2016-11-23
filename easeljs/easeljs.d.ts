@@ -892,11 +892,11 @@ declare namespace createjs {
         }
 
     export class Stage extends Container {
-        constructor(canvas: HTMLCanvasElement | string | Object);
+        constructor(canvas: HTMLCanvasElement | string);
 
         // properties
         autoClear: boolean;
-        canvas: HTMLCanvasElement | Object;
+        canvas: HTMLCanvasElement;
         drawRect: Rectangle;
         handleEvent: Function;
         mouseInBounds: boolean;
