@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.4.6
+// Type definitions for Electron v1.4.7
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>, aliib <https://github.com/aliib>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -41,6 +41,8 @@ declare namespace Electron {
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/app.md
+
+	type VibrancyType = 'appearance-based' | 'light' | 'dark' | 'titlebar' | 'selection' | 'menu' | 'popover' | 'sidebar' | 'medium-light' | 'ultra-dark';
 
 	/**
 	 * The app module is responsible for controlling the application's lifecycle.
@@ -1391,6 +1393,13 @@ declare namespace Electron {
 		 * @returns All child windows.
 		 */
 		getChildWindows(): BrowserWindow[];
+		/**
+		 * Adds a vibrancy effect to the browser window. Passing null or
+		 * an empty string will remove the vibrancy effect on the window.
+		 *
+		 * Note: This API is available only on macOS.
+		 */
+		setVibrancy(type: VibrancyType): void;
 	}
 
 	type WindowLevel = 'normal' | 'floating' | 'torn-off-menu' | 'modal-panel' | 'main-menu' | 'status' | 'pop-up-menu' | 'screen-saver' | 'dock';
@@ -1780,6 +1789,10 @@ declare namespace Electron {
 		 * Use WS_THICKFRAME style for frameless windows on Windows
 		 */
 		thickFrame?: boolean;
+		/**
+		 * Add a type of vibrancy effect to the window, only on macOS
+		 */
+		vibrancy?: VibrancyType;
 		/**
 		 * Settings of web page’s features.
 		 */
@@ -3304,7 +3317,7 @@ declare namespace Electron {
 		 *
 		 * Calling setCertificateVerifyProc(null) will revert back to default certificate verify proc.
 		 */
-		setCertificateVerifyProc(proc: (hostname: string, cert: Certificate, callback: (accepted: boolean) => void) => void): void;
+		setCertificateVerifyProc(proc: ((hostname: string, cert: Certificate, callback: (accepted: boolean) => void) => void) | null): void;
 		/**
 		 * Sets the handler which can be used to respond to permission requests for the session.
 		 */
@@ -4871,6 +4884,55 @@ declare namespace Electron {
 		 * Extra headers separated by "\n"
 		 */
 		extraHeaders?: string;
+		/**
+		 * POST data
+		 */
+		postData?: (UploadRawData | UploadFileSystem | UploadBlob)[];
+	}
+
+	interface UploadRawData {
+		/**
+		 * rawData
+		 */
+		type: 'rawData';
+		/**
+		 * Data to be uploaded.
+		 */
+		bytes: Buffer;
+	}
+
+	interface UploadFileSystem {
+		/**
+		 * fileSystem
+		 */
+		type: 'fileSystem';
+		/**
+		 * FileSystem url to read data for upload.
+		 */
+		fileSystemURL: string;
+		/**
+		 * Defaults to 0.
+		 */
+		offset: number;
+		/**
+		 * Number of bytes to read from offset. Defaults to 0.
+		 */
+		length: number;
+		/**
+		 * Last Modification time in number of seconds sine the UNIX epoch.
+		 */
+		modificationTime: number;
+	}
+
+	interface UploadBlob {
+		/**
+		 * blob
+		 */
+		type: 'blob';
+		/**
+		 * UUID of blob data to upload.
+		 */
+		blobUUID: string;
 	}
 
 	interface PrintOptions {
@@ -4923,9 +4985,21 @@ declare namespace Electron {
 		 */
 		data: string;
 		/**
+		 * Issuer principal
+		 */
+		issuer: CertificatePrincipal;
+		/**
 		 * Issuer's Common Name.
 		 */
 		issuerName: string;
+		/**
+		 * Issuer certificate (if not self-signed)
+		 */
+		issuerCert: Certificate;
+		/**
+		 * Subject principal
+		 */
+		subject: CertificatePrincipal;
 		/**
 		 * Subject's Common Name.
 		 */
@@ -4946,6 +5020,33 @@ declare namespace Electron {
 		 * Fingerprint of the certificate.
 		 */
 		fingerprint: string;
+	}
+
+	interface CertificatePrincipal {
+		/**
+		 * Common Name
+		 */
+		commonName: string;
+		/**
+		 * Organization names
+		 */
+		organizations: string[];
+		/**
+		 * Organization Unit names
+		 */
+		organizationUnits: string[];
+		/**
+		 * Locality
+		 */
+		locality: string;
+		/**
+		 * State or province
+		 */
+		state: string;
+		/**
+		 * Country or region
+		 */
+		country: string;
 	}
 
 	interface LoginRequest {

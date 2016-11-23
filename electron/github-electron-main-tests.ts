@@ -63,6 +63,7 @@ app.on('ready', () => {
 	mainWindow.loadURL(`file://${__dirname}/index.html`);
 	mainWindow.loadURL('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer'});
 	mainWindow.webContents.loadURL('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer'});
+	mainWindow.webContents.loadURL('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer', postData: [{type: 'blob', blobUUID: 'hogefuga'}]});
 
 	mainWindow.webContents.openDevTools();
 	mainWindow.webContents.toggleDevTools();
@@ -315,6 +316,8 @@ window.setRepresentedFilename('/etc/passwd');
 window.setDocumentEdited(true);
 window.previewFile('/path/to/file');
 window.previewFile('/path/to/file', 'Displayed Name');
+window.setVibrancy('light');
+window.setVibrancy('titlebar');
 
 // Online/Offline Event Detection
 // https://github.com/atom/electron/blob/master/docs/tutorial/online-offline-events.md
@@ -322,7 +325,7 @@ window.previewFile('/path/to/file', 'Displayed Name');
 var onlineStatusWindow: Electron.BrowserWindow;
 
 app.on('ready', () => {
-	onlineStatusWindow = new BrowserWindow({ width: 0, height: 0, show: false });
+	onlineStatusWindow = new BrowserWindow({ width: 0, height: 0, show: false, vibrancy: 'sidebar' });
 	onlineStatusWindow.loadURL(`file://${__dirname}/online-status.html`);
 });
 app.on('accessibility-support-changed', (_, enabled) => console.log('accessibility: ' + enabled));
@@ -1058,6 +1061,7 @@ session.defaultSession.enableNetworkEmulation({
 
 session.defaultSession.setCertificateVerifyProc((hostname, cert, callback) => {
 	callback((hostname === 'github.com') ? true : false);
+	console.log(cert.issuer.commonName);
 });
 
 session.defaultSession.setPermissionRequestHandler(function(webContents, permission, callback) {
