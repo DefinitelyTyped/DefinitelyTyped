@@ -1,6 +1,5 @@
-/// <reference path="./sails.io.js.d.ts"/>
-import * as SocketIO from 'socket.io-client';
-import * as SailsIOJS from 'sails.io.js';
+import SocketIO = require('socket.io-client');
+import SailsIOJS = require('.');
 const io = SailsIOJS(SocketIO);
 io.sails.autoConnect = true;
 io.sails.connect();
