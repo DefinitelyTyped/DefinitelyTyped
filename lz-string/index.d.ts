@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var LZString: LZString.LZStringStatic;
+export = LZString;
+export as namespace LZString;
 
 declare namespace LZString {
     /**
@@ -59,8 +61,8 @@ declare namespace LZString {
         decompressFromBase64(compressed: string): string;
 
         /**
-        * produces ASCII strings representing the original string encoded in Base64 with a few 
-        * tweaks to make these URI safe. Hence, you can send them to the server without thinking 
+        * produces ASCII strings representing the original string encoded in Base64 with a few
+        * tweaks to make these URI safe. Hence, you can send them to the server without thinking
         * about URL encoding them. This saves bandwidth and CPU
         *
         * @param uncompressed A string which should be compressed.
