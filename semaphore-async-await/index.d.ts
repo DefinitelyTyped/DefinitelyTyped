@@ -6,10 +6,8 @@
 /**
  * Class representing a semaphore
  */
-export default class Semaphore {
-	private _permits: number;
-	private _promiseResolvers: (( value: boolean ) => void)[];
-	
+export default class Semaphore
+{
 	/**
 	 * Creates a semaphore.
 	 * 
