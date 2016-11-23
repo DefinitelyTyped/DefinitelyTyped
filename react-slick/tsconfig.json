@@ -14,7 +14,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "react-slick.d.ts",
+        "index.d.ts",
         "react-slick-test.tsx"
     ]
 }

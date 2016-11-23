@@ -3,7 +3,8 @@
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
+/// <reference types="three" />
+/// <reference types="webvr-api" />
 
 declare namespace THREE {
     export class VRControls {
@@ -16,5 +17,7 @@ declare namespace THREE {
         zeroSensor(): void;
 
         scale: number;
+
+        setVRDisplay(display: VRDisplay): void;
     }
 }

@@ -15,7 +15,7 @@
         "jsx": "react"
     },
     "files": [
-        "redux-bootstrap.d.ts",
+        "index.d.ts",
         "redux-bootstrap-tests.tsx"
     ]
 }

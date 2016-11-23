@@ -1,6 +1,3 @@
-/// <reference path="../d3/d3.d.ts" />
-/// <reference path="d3-box.d.ts" />
-
 // Inspired by http://bl.ocks.org/mbostock/4061502
 
 function iqr(k: number) {

@@ -6,7 +6,6 @@
     "strictNullChecks": false,
     "baseUrl": "../",
     "typeRoots": [
-      "node_modules/@types",
       "../"
     ],
     "types": [],
@@ -14,7 +13,7 @@
     "forceConsistentCasingInFileNames": true
   },
   "files": [
-    "d3kit.d.ts",
+    "index.d.ts",
     "d3kit-tests.ts"
   ]
 }

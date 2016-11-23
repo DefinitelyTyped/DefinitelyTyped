@@ -11,7 +11,7 @@ import { EventEmitter } from 'events';
 declare class Logger extends EventEmitter {
     constructor(options: LoggerOptions);
     addStream(stream: Stream): void;
-        addSerializers(serializers:Serializers | StdSerializers):void;
+    addSerializers(serializers:Serializers | StdSerializers):void;
     child(options: LoggerOptions, simple?: boolean): Logger;
     child(obj: Object, simple?: boolean): Logger;
     reopenFileStreams(): void;
@@ -58,18 +58,18 @@ interface LoggerOptions {
     src?: boolean;
 }
 
-	interface Serializer {
-		(input:any): any;
-	}
+interface Serializer {
+    (input:any): any;
+}
 
 interface Serializers {
-        [key:string]: Serializer;
-    }
+    [key: string]: Serializer
+}
 
-    interface StdSerializers {
-        err: Serializer;
-        res: Serializer;
-        req: Serializer;
+interface StdSerializers {
+    err: Serializer;
+    res: Serializer;
+    req: Serializer;
 }
 
 interface Stream {
@@ -82,7 +82,7 @@ interface Stream {
     count?: number;
 }
 
-    export var stdSerializers:StdSerializers;
+export declare var stdSerializers: StdSerializers;
 
 export declare var TRACE: number;
 export declare var DEBUG: number;

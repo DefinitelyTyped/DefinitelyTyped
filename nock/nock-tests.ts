@@ -76,6 +76,8 @@ inst = inst.once();
 inst = inst.twice();
 inst = inst.thrice();
 
+inst = inst.optionally();
+
 scope = scope.defaultReplyHeaders(value);
 
 scope = scope.matchHeader(str, str);
@@ -411,6 +413,9 @@ nock('http://zombo.com').get('/').times(4).reply(200, 'Ok');
 nock('http://zombo.com').get('/').once().reply(200, 'Ok');
 nock('http://zombo.com').get('/').twice().reply(200, 'Ok');
 nock('http://zombo.com').get('/').thrice().reply(200, 'Ok');
+
+// Make responding optional
+nock('http://zombo.com').get('/').optionally().reply(200, 'Ok');
 
 // Delay the response body
 nock('http://my.server.com')

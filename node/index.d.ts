@@ -1046,20 +1046,20 @@ declare module "zlib" {
     export function createInflateRaw(options?: ZlibOptions): InflateRaw;
     export function createUnzip(options?: ZlibOptions): Unzip;
 
-    export function deflate(buf: Buffer, callback: (error: Error, result: any) => void): void;
-    export function deflateSync(buf: Buffer, options?: ZlibOptions): any;
-    export function deflateRaw(buf: Buffer, callback: (error: Error, result: any) => void): void;
-    export function deflateRawSync(buf: Buffer, options?: ZlibOptions): any;
-    export function gzip(buf: Buffer, callback: (error: Error, result: any) => void): void;
-    export function gzipSync(buf: Buffer, options?: ZlibOptions): any;
-    export function gunzip(buf: Buffer, callback: (error: Error, result: any) => void): void;
-    export function gunzipSync(buf: Buffer, options?: ZlibOptions): any;
-    export function inflate(buf: Buffer, callback: (error: Error, result: any) => void): void;
-    export function inflateSync(buf: Buffer, options?: ZlibOptions): any;
-    export function inflateRaw(buf: Buffer, callback: (error: Error, result: any) => void): void;
-    export function inflateRawSync(buf: Buffer, options?: ZlibOptions): any;
-    export function unzip(buf: Buffer, callback: (error: Error, result: any) => void): void;
-    export function unzipSync(buf: Buffer, options?: ZlibOptions): any;
+    export function deflate(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function deflateSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
+    export function deflateRaw(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function deflateRawSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
+    export function gzip(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
+    export function gzipSync(buf: Buffer, options?: ZlibOptions): Buffer;
+    export function gunzip(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
+    export function gunzipSync(buf: Buffer, options?: ZlibOptions): Buffer;
+    export function inflate(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
+    export function inflateSync(buf: Buffer, options?: ZlibOptions): Buffer;
+    export function inflateRaw(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
+    export function inflateRawSync(buf: Buffer, options?: ZlibOptions): Buffer;
+    export function unzip(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
+    export function unzipSync(buf: Buffer, options?: ZlibOptions): Buffer;
 
     // Constants
     export var Z_NO_FLUSH: number;
@@ -1539,7 +1539,7 @@ declare module "child_process" {
         disconnect(): void;
         unref(): void;
         ref(): void;
-    
+
         /**
          * events.EventEmitter
          * 1. close
@@ -1851,6 +1851,7 @@ declare module "net" {
         localPort: number;
         bytesRead: number;
         bytesWritten: number;
+        destroyed: boolean;
 
         // Extended base methods
         end(): void;
