@@ -3,7 +3,8 @@
 // Definitions by: Arvitaly <https://github.com/arvitaly/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="./../socket.io-client/index.d.ts"/>
+/// <reference types="socket.io-client"/>
+
 declare namespace SailsIOJS {
     export interface SDKInfo {
         version?: string;
@@ -96,6 +97,4 @@ declare namespace SailsIOJS {
     }
 }
 declare function SailsIOJS(client: SocketIOClientStatic): SailsIOJS.Client;
-declare module 'sails.io.js' {
-    export = SailsIOJS;
-}
+export = SailsIOJS;
