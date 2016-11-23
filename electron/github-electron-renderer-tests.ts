@@ -57,7 +57,8 @@ console.log(webFrame.getZoomFactor());
 webFrame.setZoomLevel(200);
 console.log(webFrame.getZoomLevel());
 
-webFrame.setZoomLevelLimits(50, 200);
+webFrame.setVisualZoomLevelLimits(50, 200);
+webFrame.setLayoutZoomLevelLimits(50, 200);
 
 webFrame.setSpellCheckProvider('en-US', true, {
 	spellCheck: text => {
