@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "redux-optimistic-ui.d.ts",
+        "index.d.ts",
         "redux-optimistic-ui-tests.ts"
     ]
 }

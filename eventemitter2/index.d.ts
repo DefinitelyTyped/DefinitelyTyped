@@ -23,7 +23,7 @@ interface EventEmitter2Configuration {
      * max listeners that can be assigned to an event, default 10.
      */
     maxListeners?: number;
-    
+
     /**
      * show event name in memory leak message when more than maximum amount of listeners is assigned, default false
      */

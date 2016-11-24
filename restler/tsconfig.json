@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "restler.d.ts",
+        "index.d.ts",
         "restler-tests.ts"
     ]
 }

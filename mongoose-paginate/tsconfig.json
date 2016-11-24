@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "mongoose-paginate.d.ts",
+        "index.d.ts",
         "mongoose-paginate-tests.ts"
     ]
 }

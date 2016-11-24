@@ -28,10 +28,10 @@ declare namespace __Highstock {
     }
 
     interface RangeSelectorButton {
-        type: string; //Defines the timespan, can be one of 'millisecond', 'second', 'minute', 'day', 'week', 'month', 'ytd' (year to date), 'year' and 'all'.
-        count?: number;
-        text: string;
-        dataGrouping?: any; //not sure how this works
+    type: string; //Defines the timespan, can be one of 'millisecond', 'second', 'minute', 'day', 'week', 'month', 'ytd' (year to date), 'year' and 'all'.
+    count?: number;
+    text: string;
+    dataGrouping?: any; //not sure how this works
     }
 
     interface RangeSelectorOptions {
@@ -59,24 +59,24 @@ declare namespace __Highstock {
     }
 
     interface ScrollbarOptions {
-        barBackgroundColor?: string;
-        barBorderColor?: string;
-        barBorderRadius?: number;
-        barBorderWidth?: number;
-        buttonArrowColor?: string;
-        buttonBackgroundColor?: string;
-        buttonBorderColor?: string;
-        buttonBorderRadius?: number;
-        buttonBorderWidth?: number;
-        enabled?: boolean;
-        height?: number;
-        liveRedraw?: boolean;
-        minWidth?: number;
-        rifleColor?: string;
-        trackBackgroundColor?: string;
-        trackBorderColor?: string;
-        trackBorderRadius?: number;
-        trackBorderWidth?: number;
+    barBackgroundColor?: string;
+    barBorderColor?: string;
+    barBorderRadius?: number;
+    barBorderWidth?: number;
+    buttonArrowColor?: string;
+    buttonBackgroundColor?: string;
+    buttonBorderColor?: string;
+    buttonBorderRadius?: number;
+    buttonBorderWidth?: number;
+    enabled?: boolean;
+    height?: number;
+    liveRedraw?: boolean;
+    minWidth?: number;
+    rifleColor?: string;
+    trackBackgroundColor?: string;
+    trackBorderColor?: string;
+    trackBorderRadius?: number;
+    trackBorderWidth?: number;
     }
 
     interface Options extends Highcharts.Options {
@@ -119,3 +119,4 @@ interface JQuery {
     highcharts(type: string, options: Highcharts.Options): JQuery;
     highcharts(type: string, options: Highcharts.Options, callback: (chart: Highcharts.ChartObject) => void): JQuery;
 }
+
