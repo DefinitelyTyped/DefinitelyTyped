@@ -8,6 +8,7 @@
 /// <reference types="node" />
 
 import {EventEmitter} from 'events';
+import { Readable, Writable } from "stream";
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html
 export class MongoClient {
@@ -1114,26 +1115,11 @@ export interface WriteOpResult {
     result: any;
 }
 
-//http://mongodb.github.io/node-mongodb-native/2.1/api/external-Readable.html
-export interface Readable {
-    pause(): void;
-    pipe(destination: Writable, options?: Object): void;
-    read(size: number): string | Buffer | void;
-    resume(): void;
-    setEncoding(encoding: string): void;
-    unpipe(destination?: Writable): void;
-    unshift(stream: Buffer | string): void;
-    wrap(stream: Stream): void;
-}
-
-export interface Writable { }
-export interface Stream { }
-
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#~resultCallback
 export type CursorResult = any | void | boolean;
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html
-export interface Cursor extends Readable, NodeJS.EventEmitter {
+export interface Cursor extends Readable {
 
     sortValue: string;
     timeout: boolean;
@@ -1186,16 +1172,12 @@ export interface Cursor extends Readable, NodeJS.EventEmitter {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#next
     next(): Promise<CursorResult>;
     next(callback: MongoCallback<CursorResult>): void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#pause
-    pause(): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#pipe
     pipe(destination: Writable, options?: Object): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#project
     project(value: Object): Cursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#read
     read(size: number): string | Buffer | void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#resume
-    resume(): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#next
     returnKey(returnKey: Object): Cursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#rewind
@@ -1223,8 +1205,6 @@ export interface Cursor extends Readable, NodeJS.EventEmitter {
     unpipe(destination?: Writable): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#unshift
     unshift(stream: Buffer | string): void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#wrap
-    wrap(stream: Stream): void;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#count
@@ -1250,7 +1230,7 @@ export interface EndCallback {
 export type AggregationCursorResult = any | void;
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html
-export interface AggregationCursor extends Readable, NodeJS.EventEmitter {
+export interface AggregationCursor extends Readable {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#batchSize
     batchSize(value: number): AggregationCursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#clone
@@ -1280,8 +1260,6 @@ export interface AggregationCursor extends Readable, NodeJS.EventEmitter {
     next(callback: MongoCallback<AggregationCursorResult>): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#out
     out(destination: string): AggregationCursor;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#pause
-    pause(): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#pipe
     pipe(destination: Writable, options?: Object): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#project
@@ -1290,8 +1268,6 @@ export interface AggregationCursor extends Readable, NodeJS.EventEmitter {
     read(size: number): string | Buffer | void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#redact
     redact(document: Object): AggregationCursor;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#resume
-    resume(): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#rewind
     rewind(): AggregationCursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#setEncoding
@@ -1309,12 +1285,10 @@ export interface AggregationCursor extends Readable, NodeJS.EventEmitter {
     unshift(stream: Buffer | string): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#unwind
     unwind(field: string): AggregationCursor;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#wrap
-    wrap(stream: Stream): void;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html
-export interface CommandCursor extends Readable, NodeJS.EventEmitter {
+export interface CommandCursor extends Readable {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#batchSize
     batchSize(value: number): CommandCursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#clone
@@ -1331,14 +1305,10 @@ export interface CommandCursor extends Readable, NodeJS.EventEmitter {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#next
     next(): Promise<AggregationCursorResult>;
     next(callback: MongoCallback<AggregationCursorResult>): void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#pause
-    pause(): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#pipe
     pipe(destination: Writable, options?: Object): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#read
     read(size: number): string | Buffer | void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#resume
-    resume(): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#rewind
     rewind(): CommandCursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#setEncoding
@@ -1352,6 +1322,83 @@ export interface CommandCursor extends Readable, NodeJS.EventEmitter {
     unpipe(destination?: Writable): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#unshift
     unshift(stream: Buffer | string): void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#wrap
-    wrap(stream: Stream): void;
+}
+
+// http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html
+export class GridFSBucket {
+    constructor(db: Db, options?: GridFSBucketOptions);
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#delete
+    delete(id: ObjectID, callback?: GridFSBucketErrorCallback): void;
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#drop
+    drop(callback?: GridFSBucketErrorCallback): void;
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#find
+    find(filter?: Object, options?: GridFSBucketFindOptions): Cursor;
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#openDownloadStream
+    openDownloadStream(id: ObjectID, options?: { start: number, end: number }): GridFSBucketReadStream;
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#openDownloadStreamByName
+    openDownloadStreamByName(filename: string, options?: { revision: number, start: number, end: number }): GridFSBucketReadStream;
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#openUploadStream
+    openUploadStream(filename: string, options?: GridFSBucketOpenUploadStreamOptions): GridFSBucketWriteStream;
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#openUploadStreamWithId
+    openUploadStreamWithId(id: string | number | Object, filename: string, options?: GridFSBucketOpenUploadStreamOptions): GridFSBucketWriteStream;
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#rename
+    rename(id: ObjectID, filename: string, callback?: GridFSBucketErrorCallback): void;
+}
+
+// http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html
+export interface GridFSBucketOptions {
+    bucketName?: string;
+    chunkSizeBytes?: number;
+    writeConcern?: Object;
+    ReadPreference?: Object;
+}
+
+// http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#~errorCallback
+export interface GridFSBucketErrorCallback {
+    (err?: MongoError): void;
+}
+
+// http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#find
+export interface GridFSBucketFindOptions {
+    batchSize?: number;
+    limit?: number;
+    maxTimeMS?: number;
+    noCursorTimeout?: boolean;
+    skip?: number;
+    sort?: Object;
+}
+
+// https://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#openUploadStream
+export interface GridFSBucketOpenUploadStreamOptions {
+    chunkSizeBytes?: number,
+    metadata?: Object,
+    contentType?: string,
+    aliases?: Array<string>
+}
+
+// https://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucketReadStream.html
+export class GridFSBucketReadStream extends Readable {
+    constructor(chunks: Collection, files: Collection, readPreference: Object, filter: Object, options?: GridFSBucketReadStreamOptions);
+}
+
+// https://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucketReadStream.html
+export interface GridFSBucketReadStreamOptions {
+    sort?: number,
+    skip?: number,
+    start?: number,
+    end?: number
+}
+
+// https://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucketWriteStream.html
+export class GridFSBucketWriteStream extends Writable{
+    constructor(bucket: GridFSBucket, filename:string, options?: GridFSBucketWriteStreamOptions);
+}
+
+// https://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucketWriteStream.html
+export interface GridFSBucketWriteStreamOptions {
+    id?: string | number | Object,
+    chunkSizeBytes?: number,
+    w?: number,
+    wtimeout?: number,
+    j?: number
 }
