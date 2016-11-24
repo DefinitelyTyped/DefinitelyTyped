@@ -419,6 +419,7 @@ knex.schema.createTable('users', function (table) {
   table.enu('favorite_color', ['red', 'blue', 'green']);
   table.timestamps();
   table.timestamp('created_at').defaultTo(knex.fn.now());
+  table.timestamps(true, true);
 });
 
 knex.schema.renameTable('users', 'old_users');
