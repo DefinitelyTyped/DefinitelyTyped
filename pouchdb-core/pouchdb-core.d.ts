@@ -20,6 +20,7 @@ declare namespace PouchDB {
         type RevisionId = string;
         type Availability = 'available' | 'compacted' | 'not compacted' | 'missing';
         type Encodable = { [propertyName: string]: any };
+        type Attachment = string | Blob | Buffer;
 
         interface Options {
           ajax?: Configuration.RemoteRequesterConfiguration;
@@ -83,7 +84,7 @@ declare namespace PouchDB {
         interface AttachmentResponse {
             content_type: string;
 
-            /** Hash ? */
+            /** Md5 hash, starts with "md5-" prefix */
             digest: string;
 
             /** Only present if `attachments` was `false`. */
@@ -97,7 +98,7 @@ declare namespace PouchDB {
              * {string} if `binary` was `false`
              * {Blob|Buffer} if `binary` was `true`
              */
-            data?: string | Blob | Buffer;
+            data?: Attachment;
         }
 
         interface Attachments {
@@ -109,7 +110,7 @@ declare namespace PouchDB {
         type ExistingDocument<Content extends Encodable> =
                 Document<Content> & RevisionIdMeta;
 
-        /** Pass existing doc, or just object with `_id` and `_rev` */
+        /** Existing doc or just object with `_id` and `_rev` */
         type RemoveDocument = Encodable & IdMeta & RevisionIdMeta;
 
         type PostDocument<Content extends Encodable> = NewDocument<Content> & {
@@ -128,7 +129,7 @@ declare namespace PouchDB {
 
         interface PutAttachment {
             content_type: string;
-            data: string | Blob | Buffer;
+            data: Attachment;
         }
 
         interface AllDocsOptions extends Options {
@@ -294,130 +295,6 @@ declare namespace PouchDB {
             cancel(): void;
         }
 
-        interface ReplicateOptions {
-            /** If true, starts subscribing to future changes in the source database and continue replicating them. */
-            live?: boolean;
-
-            /**
-             * If true will attempt to retry replications in the case of failure (due to being offline), 
-             * using a backoff algorithm that retries at longer and longer intervals until a connection is re-established, 
-             * with a maximum delay of 10 minutes. Only applicable if options.live is also true.
-             */
-            retry?: boolean;
-
-            /**
-             * Reference a filter function from a design document to selectively get updates. 
-             * To use a view function, pass '_view' here and provide a reference to the view function in options.view. 
-             * See filtered changes for details.
-             */
-            filter?: string | {(doc: any, params: any): any};
-
-            /** Only show changes for docs with these ids (array of strings). */
-            doc_ids?: string[];
-
-            /**
-             * Object containing properties that are passed to the filter function, e.g. {"foo:"bar"}, 
-             * where "bar" will be available in the filter function as params.query.foo. 
-             * To access the params, define your filter function like function (doc, params).
-             */
-            query_params?: {[paramName: string]: any};
-
-            /**
-             * Specify a view function (e.g. 'design_doc_name/view_name' or 'view_name' as shorthand for 'view_name/view_name') to act as a filter. 
-             * Documents counted as “passed” for a view filter if a map function emits at least one record for them. 
-             * Note: options.filter must be set to '_view' for this option to work.
-             */
-            view?: string;
-
-            /** Replicate changes after the given sequence number. */
-            since?: any;
-
-            /** Configure the heartbeat supported by CouchDB which keeps the change connection alive. */
-            heartbeat?: any;
-
-            /** Request timeout (in milliseconds). */
-            timeout?: number | false;
-
-            /**
-             * Number of change feed items to process at a time. Defaults to 100. 
-             * This affects the number of docs and attachments held in memory and the number sent at a time to the target server. 
-             * You may need to adjust downward if targeting devices with low amounts of memory 
-             * e.g. or if the documents and/or attachments are large in size or if there are many conflicted revisions. 
-             * If your documents are small in size, then increasing this number will probably speed replication up.
-             */
-            batch_size?: number;
-            
-            /**
-             * Number of batches to process at a time. Defaults to 10. 
-             * This (along wtih batch_size) controls how many docs are kept in memory at a time, 
-             * so the maximum docs in memory at once would equal batch_size × batches_limit.
-             */
-            batches_limit?: number;
-            
-            /**
-             * Backoff function to be used in retry replication. This is a function that takes the current 
-             * backoff as input (or 0 the first time) and returns a new backoff in milliseconds. 
-             * You can use this to tweak when and how replication will try to reconnect to a remote database when the user goes offline. 
-             * Defaults to a function that chooses a random backoff between 0 and 2 seconds and doubles every time it fails to connect. 
-             * The default delay will never exceed 10 minutes.
-             */
-            back_off_function?: (delay: number) => number;
-        }
-
-        interface ReplicationEventEmitter<Content extends Core.Encodable, C, F> extends EventEmitter {
-            on(event: 'change', listener: (info: C) => any): this;
-            on(event: 'paused', listener: (err: {}) => any): this;
-            on(event: 'active', listener: () => any): this;
-            on(event: 'denied', listener: (err: {}) => any): this;
-            on(event: 'complete', listener: (info: F) => any): this;
-            on(event: 'error', listener: (err: {}) => any): this;
-
-            cancel(): void;
-        }
-
-        interface Replication<Content extends Core.Encodable> 
-            extends ReplicationEventEmitter<Content, ReplicationResult<Content>, ReplicationResultComplete<Content>>, 
-                    Promise<ReplicationResultComplete<Content>> {
-
-        }
-
-        interface ReplicationResult<Content extends Core.Encodable> {
-            doc_write_failures: number;
-            docs_read: number;
-            docs_written: number;
-            last_seq: number,
-            start_time: Date,
-            ok: boolean,
-            errors: any[];
-            docs: ExistingDocument<Content>[];
-        }
-
-        interface ReplicationResultComplete<Content extends Core.Encodable> extends ReplicationResult<Content> {
-            end_time: Date;
-            status: string;
-        }
-
-        interface SyncOptions extends ReplicateOptions {
-            push?: boolean;
-            pull?: boolean;
-        }
-
-        interface Sync<Content extends Core.Encodable> 
-            extends ReplicationEventEmitter<Content, SyncResult<Content>, SyncResultComplete<Content>>, 
-                    Promise<SyncResultComplete<Content>> {
-
-        }
-
-        interface SyncResult<Content extends Core.Encodable> {
-            direction: 'push' | 'pull';
-            change: ReplicationResult<Content>;
-        }
-
-        interface SyncResultComplete<Content extends Core.Encodable> {
-            push?: ReplicationResultComplete<Content>;
-            pull?: ReplicationResultComplete<Content>;
-        }
-
         interface DestroyOptions extends Options {
         }
 
@@ -550,35 +427,6 @@ declare namespace PouchDB {
         on(event: 'created', listener: (dbName: string) => any): this;
         on(event: 'destroyed', listener: (dbName: string) => any): this;
 
-        /**
-         * Replicate data from source to target. Both the source and target can be a PouchDB instance or a string 
-         * representing a CouchDB database URL or the name of a local PouchDB database. If options.live is true, 
-         * then this will track future changes and also replicate them automatically. 
-         * This method returns an object with the method cancel(), which you call if you want to cancel live replication.
-         */
-        replicate<Content>(
-            source: string | Database<Content>, 
-            target: string | Database<Content>, 
-            options?: Core.ReplicateOptions,
-            callback?: Core.Callback<any, Core.ReplicationResultComplete<Content>>
-        ): Core.Replication<Content>;
-
-        /** 
-         * Sync data from src to target and target to src. This is a convenience method for bidirectional data replication.
-         * 
-         * In other words, this code:
-         * `PouchDB.replicate('mydb', 'http://localhost:5984/mydb')`;
-         * `PouchDB.replicate('http://localhost:5984/mydb', 'mydb')`;
-         * is equivalent to this code:
-         * `PouchDB.sync('mydb', 'http://localhost:5984/mydb')`;
-         */
-        sync<Content>(
-            source: string | Database<Content>, 
-            target: string | Database<Content>, 
-            options?: Core.SyncOptions,
-            callback?: Core.Callback<any, Core.SyncResultComplete<Content>>
-        ): Core.Sync<Content>;
-
         new<Content extends Core.Encodable>(name?: string,
             options?: Configuration.DatabaseConfiguration): Database<Content>;
 
@@ -593,47 +441,6 @@ declare namespace PouchDB {
     }
 
     interface Database<Content extends Core.Encodable>  {
-
-        replicate: {
-            /**
-             * Replicate data to `target`. Both the source and target can be a PouchDB instance 
-             * or a string representing a CouchDB database URL or the name of a local PouchDB database. 
-             * If options.live is true, then this will track future changes and also replicate them automatically. 
-             * This method returns an object with the method cancel(), which you call if you want to cancel live replication.
-             */
-            to<Content>(
-                target: string | Database<Content>, 
-                options?: Core.ReplicateOptions,
-                callback?: Core.Callback<any, Core.ReplicationResultComplete<Content>>
-            ): Core.Replication<Content>;
-
-            /**
-             * Replicate data from `source`. Both the source and target can be a PouchDB instance 
-             * or a string representing a CouchDB database URL or the name of a local PouchDB database. 
-             * If options.live is true, then this will track future changes and also replicate them automatically. 
-             * This method returns an object with the method cancel(), which you call if you want to cancel live replication.
-             */
-            from<Content>(
-                source: string | Database<Content>, 
-                options?: Core.ReplicateOptions,
-                callback?: Core.Callback<any, Core.ReplicationResultComplete<Content>>
-            ): Core.Replication<Content>;
-        };
-
-        /** 
-         * Sync data from src to target and target to src. This is a convenience method for bidirectional data replication.
-         * 
-         * In other words, this code:
-         * `PouchDB.replicate('mydb', 'http://localhost:5984/mydb')`;
-         * `PouchDB.replicate('http://localhost:5984/mydb', 'mydb')`;
-         * is equivalent to this code:
-         * `PouchDB.sync('mydb', 'http://localhost:5984/mydb')`;
-         */
-        sync<Content>(
-            remote: string | Database<Content>, 
-            options?: Core.SyncOptions,
-            callback?: Core.Callback<any, Core.SyncResultComplete<Content>>
-        ): Core.Sync<Content>;
 
         /** Fetch all documents matching the given key. */
         allDocs(options: Core.AllDocsWithKeyOptions):
@@ -821,7 +628,7 @@ declare namespace PouchDB {
         putAttachment(docId: Core.DocumentId,
             attachmentId: Core.AttachmentId,
             rev: Core.RevisionId,
-            attachment: string | Blob | Buffer,
+            attachment: Core.Attachment,
             type: string,
             callback: Core.Callback<Core.Error, Core.Response>): void;
 
@@ -833,7 +640,7 @@ declare namespace PouchDB {
         putAttachment(docId: Core.DocumentId,
             attachmentId: Core.AttachmentId,
             rev: Core.RevisionId,
-            attachment: string | Blob | Buffer,
+            attachment: Core.Attachment,
             type: string): Promise<Core.Response>;
 
          /**
@@ -843,7 +650,7 @@ declare namespace PouchDB {
          */
         putAttachment(docId: Core.DocumentId,
             attachmentId: Core.AttachmentId,
-            attachment: string | Blob | Buffer,
+            attachment: Core.Attachment,
             type: string,
             callback: Core.Callback<Core.Error, Core.Response>): void;
 
@@ -854,7 +661,7 @@ declare namespace PouchDB {
          */
         putAttachment(docId: Core.DocumentId,
             attachmentId: Core.AttachmentId,
-            attachment: string | Blob | Buffer,
+            attachment: Core.Attachment,
             type: string): Promise<Core.Response>;
 
         /** Get attachment data */
