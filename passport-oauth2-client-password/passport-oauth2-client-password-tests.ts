@@ -18,7 +18,7 @@ class Client implements IClient {
     public clientId: string;
     public clientSecret: string;
 
-    static findOne(client: IClient, callback: (err: Error, client: Client) => void): void {
+    static findOne(client: IClient, callback: (err: any, client: Client) => void): void {
         callback(null, new this);
     }
 }
