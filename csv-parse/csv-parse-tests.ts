@@ -1,5 +1,3 @@
-/// <reference path="csv-parse.d.ts" />
-
 import parse = require('csv-parse');
 
 function callbackAPITest() {
@@ -38,7 +36,7 @@ import fs = require('fs');
 
 function pipeFunctionTest() {
     var transform = require('stream-transform');
-    
+
     var output:any = [];
     var parser = parse({delimiter: ':'})
     var input = fs.createReadStream('/etc/passwd');

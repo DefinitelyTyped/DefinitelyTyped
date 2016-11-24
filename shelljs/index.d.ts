@@ -508,7 +508,6 @@ export declare function tempdir(): string;
  */
 export declare function error(): string;
 
-
 export declare function touch(...files: string[]): void;
 export declare function touch(files: string[]): void;
 
@@ -518,8 +517,8 @@ export declare function touch(options: TouchOptionsLiteral, ...files: string[]):
 export declare function touch(options: TouchOptionsLiteral, files: string[]): void;
 
 /**
-* Update the access and modification times of each FILE to the current time. A FILE argument that does not exist is created empty, unless -c is supplied
-*/
+ * Update the access and modification times of each FILE to the current time. A FILE argument that does not exist is created empty, unless -c is supplied
+ */
 type touchOptionsArray = {
     '-d'?: string;
     '-r'?: string;

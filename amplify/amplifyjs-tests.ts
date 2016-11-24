@@ -1,6 +1,8 @@
 
 /// <reference types="jquery" />
 
+import amplify = require("amplify");
+
 // Copied examples directly from AmplifyJs site
 
 // Subscribe and publish with no data
@@ -176,7 +178,7 @@ amplify.request("twitter-mentions", { user: "amplifyjs" });
 
 //Example:
 
-var appEnvelopeDecoder: amplifyDecoder = function (data, status, xhr, success, error) {
+var appEnvelopeDecoder: amplify.Decoder = function (data, status, xhr, success, error) {
     if (data.status === "success") {
         success(data.data);
     } else if (data.status === "fail" || data.status === "error") {
@@ -187,8 +189,10 @@ var appEnvelopeDecoder: amplifyDecoder = function (data, status, xhr, success, e
 };
 
 //a new decoder can be added to the amplifyDecoders interface
-interface amplifyDecoders {
-    appEnvelope: amplifyDecoder;
+declare module "amplify" {
+    interface Decoders {
+        appEnvelope: amplify.Decoder;
+    }
 }
 
 amplify.request.decoders.appEnvelope = appEnvelopeDecoder;

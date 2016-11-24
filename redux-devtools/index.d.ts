@@ -9,7 +9,7 @@
 import * as React from 'react';
 import { GenericStoreEnhancer } from 'redux';
 
-interface IDevTools {
+export interface IDevTools {
     new (): JSX.ElementClass;
     instrument(): GenericStoreEnhancer
 }

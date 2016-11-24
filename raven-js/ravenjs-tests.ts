@@ -47,6 +47,8 @@ Raven.setUserContext({
 Raven.captureMessage('Broken!');
 Raven.captureMessage('Broken!', {tags: { key: "value" }});
 
+Raven.showReportDialog(options);
+
 Raven.setTagsContext({ key: "value" });
 
 Raven.setExtraContext({ foo: "bar" });

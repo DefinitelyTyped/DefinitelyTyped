@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "nes.d.ts",
+        "index.d.ts",
         "nes-tests.ts"
     ]
 }
