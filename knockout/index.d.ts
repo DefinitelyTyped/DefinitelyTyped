@@ -587,6 +587,12 @@ interface KnockoutStatic {
     /////////////////////////////////
 
     tasks: KnockoutTasks;
+    
+    /////////////////////////////////
+    // utils.js
+    /////////////////////////////////
+
+    onError?: (error: Error) => void;
 }
 
 interface KnockoutBindingProvider {
