@@ -34,7 +34,7 @@ declare module 'react-sortable-hoc' {
 
     export type ContainerGetter = (element: React.ReactElement<any>) => HTMLElement;
 
-    export interface SortableContainerProps {
+    export interface SortableContainerHOCProps {
         axis?: Axis;
         lockAxis?: Axis;
         helperClass?: string;
@@ -51,7 +51,7 @@ declare module 'react-sortable-hoc' {
         getContainer?: ContainerGetter;
     }
 
-    export interface SortableElementProps {
+    export interface SortableElementHOCProps {
         index: number;
         collection?: Offset;
         disabled?: boolean;
@@ -61,13 +61,26 @@ declare module 'react-sortable-hoc' {
         withRef: boolean;
     }
 
-    export type WrappedComponentFactory<P> = (props: P) => JSX.Element;
+    export type WrappedComponentFactory<P> = (props: P) => JSX.Element; 
 
     export type WrappedComponent<P> = React.ComponentClass<P> | WrappedComponentFactory<P>;
 
-    export function SortableContainer<P>(wrappedComponent: WrappedComponent<P>, config?: Config): React.ComponentClass<P & SortableContainerProps>;
+    export type SortableContainerProps<P> = P & SortableContainerHOCProps;
 
-    export function SortableElement<P>(wrappedComponent: WrappedComponent<P>, config?: Config): React.ComponentClass<P & SortableElementProps>;
+    export type SortableElementProps<P> = P & SortableElementHOCProps;
+    
+    // Generic decorators can't be used in TSX:
+    // [ts] Cannot find name ''. [ts] JSX element '' has no corresponding closing tag.
+    // Sortable{Wrapper}Props<Props> is required in order to avoid compilation errors:
+    // [ts] Property '{prop}' dose not exist on type ...
+
+    export function SortableContainer<P>(wrappedComponent: WrappedComponent<P>, config?: Config): React.ComponentClass<SortableContainerProps<P>>;
+
+    export function SortableContainer<TFunction extends Function>(wrappedComponent: TFunction, config?: Config): TFunction | void;
+
+    export function SortableElement<P>(wrappedComponent: WrappedComponent<P>, config?: Config): React.ComponentClass<SortableElementProps<P>>;
+
+    export function SortableElement<TFunction extends Function>(wrappedComponent: TFunction, config?: Config): TFunction | void;
 
     export function SortableHandle<P>(wrappedComponent: WrappedComponent<P>, config?: Config): React.ComponentClass<P>;
 

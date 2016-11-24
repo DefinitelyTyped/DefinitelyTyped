@@ -15,24 +15,42 @@ interface SortableListProps {
 
 type SortableComponentState = SortableListProps;
 
-class Item extends React.Component<SortableItemProps, void> {
-    public constructor(props: SortableItemProps) {
+const SortableItem = ReactSortableHOC.SortableElement((props: SortableItemProps): JSX.Element => {
+    return <li>{props.value}</li>;
+});
+
+const SortableListFunCall = ReactSortableHOC.SortableContainer<SortableListProps>(
+    class extends React.Component<SortableListProps, void> {
+        public constructor(props: SortableListProps) {
+            super(props);
+        }
+
+        public render(): JSX.Element {
+            const items: Array<JSX.Element> = this.props.items.map((value: string, index: number): JSX.Element => {
+                return <SortableItem key={`item-${index}`} index={index} value={value} />;
+            });
+            return <ul>{items}</ul>;
+        }
+    }
+);
+
+// Generic decorators can't be used in TSX:
+// [ts] Cannot find name ''. [ts] JSX element '' has no corresponding closing tag.
+// ReactSortableHOC.SortableContainerProps<Props> is required in order to avoid compilation errors:
+// [ts] Property '{prop}' dose not exist on type ...
+@ReactSortableHOC.SortableContainer
+class SortableListDecorated extends React.Component<ReactSortableHOC.SortableContainerProps<SortableListProps>, void> {
+    public constructor(props: SortableListProps) {
         super(props);
     }
 
     public render(): JSX.Element {
-        return <li>{this.props.value}</li>;
+        const items: Array<JSX.Element> = this.props.items.map((value: string, index: number): JSX.Element => {
+            return <SortableItem key={`item-${index}`} index={index} value={value} />;
+        });
+        return <ul>{items}</ul>;
     }
 }
-
-const SortableItem = ReactSortableHOC.SortableElement(Item);
-
-const SortableList = ReactSortableHOC.SortableContainer((props: SortableListProps): JSX.Element => {
-    const items: Array<JSX.Element> = props.items.map((value: string, index: number): JSX.Element => {
-        return <SortableItem key={`item-${index}`} index={index} value={value} />;
-    });
-    return <ul>{items}</ul>;
-});
 
 class SortableComponent extends React.Component<void, SortableComponentState> {
     private _onSortEnd: ReactSortableHOC.SortEndHandler;
@@ -48,7 +66,12 @@ class SortableComponent extends React.Component<void, SortableComponentState> {
     }
 
     public render(): JSX.Element {
-        return <SortableList items={this.state.items} onSortEnd={this._onSortEnd} />;
+        return (
+            <div>
+                <SortableListFunCall items={this.state.items} onSortEnd={this._onSortEnd} />
+                <SortableListDecorated items={this.state.items} onSortEnd={this._onSortEnd} />
+            </div>
+        );
     }
 }
 
