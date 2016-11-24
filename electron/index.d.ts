@@ -2913,7 +2913,9 @@ declare namespace Electron {
 		 * - Each header name produces an array-valued property on the headers object.
 		 * - Each header value is pushed into the array associated with its header name.
 		 */
-		headers: Headers;
+		headers: {
+			[key: string]: string[]
+		};
 		/**
 		 * A string indicating the HTTP protocol version number. Typical values are ‘1.0’ or ‘1.1’.
 		 */

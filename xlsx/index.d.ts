@@ -132,14 +132,21 @@ export interface ICell {
     r: number;
 }
 
+export interface IRange {
+    s: ICell;
+    e: ICell;
+}
+
 export interface IUtils {
-    sheet_to_json<T>(worksheet: IWorkSheet, opts?: {
+    sheet_to_json<T>(worksheet:IWorkSheet, opts?: {
         raw?: boolean;
         range?: any;
         header?: "A"|number|string[];
-    }): T[];
-    sheet_to_csv(worksheet: IWorkSheet): any;
-    sheet_to_formulae(worksheet: IWorkSheet): any;
+    }):T[];
+    sheet_to_csv(worksheet: IWorkSheet):any;
+    sheet_to_formulae(worksheet: IWorkSheet):any;
     encode_cell(cell: ICell): any;
     encode_range(s: ICell, e: ICell): any;
+    decode_cell(address: string): ICell;
+    decode_range(range: string): IRange;
 }

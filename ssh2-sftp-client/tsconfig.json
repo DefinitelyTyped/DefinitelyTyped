@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "ssh2-sftp-client.d.ts",
+        "index.d.ts",
         "ssh2-sftp-client-tests.ts"
     ]
 }

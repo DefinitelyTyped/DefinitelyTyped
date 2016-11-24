@@ -468,22 +468,22 @@ interface ClientOptions {
 }
 
 interface Client {
-    get: (opts: string | { path?: string;[name: string]: any }, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
-    head: (opts: string | { path?: string;[name: string]: any }, callback?: (err: any, req: Request, res: Response) => any) => any;
-    post: (opts: string | { path?: string;[name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
-    put: (opts: string | { path?: string;[name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
-    patch: (opts: string | { path?: string;[name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
-    del: (opts: string | { path?: string;[name: string]: any }, callback?: (err: any, req: Request, res: Response) => any) => any;
+    get: (opts: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
+    head: (opts: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request, res: Response) => any) => any;
+    post: (opts: string | { path?: string; [name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
+    put: (opts: string | { path?: string; [name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
+    patch: (opts: string | { path?: string; [name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
+    del: (opts: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request, res: Response) => any) => any;
     basicAuth: (username: string, password: string) => any;
 }
 
 interface HttpClient extends Client {
-    get: (opts?: string | { path?: string;[name: string]: any }, callback?: Function) => any;
-    head: (opts?: string | { path?: string;[name: string]: any }, callback?: Function) => any;
-    post: (opts?: string | { path?: string;[name: string]: any }, callback?: Function) => any;
-    put: (opts?: string | { path?: string;[name: string]: any }, callback?: Function) => any;
-    patch: (opts?: string | { path?: string;[name: string]: any }, callback?: Function) => any;
-    del: (opts?: string | { path?: string;[name: string]: any }, callback?: Function) => any;
+    get: (opts?: string | { path?: string; [name: string]: any }, callback?: Function) => any;
+    head: (opts?: string | { path?: string; [name: string]: any }, callback?: Function) => any;
+    post: (opts?: string | { path?: string; [name: string]: any }, callback?: Function) => any;
+    put: (opts?: string | { path?: string; [name: string]: any }, callback?: Function) => any;
+    patch: (opts?: string | { path?: string; [name: string]: any }, callback?: Function) => any;
+    del: (opts?: string | { path?: string; [name: string]: any }, callback?: Function) => any;
 }
  
 interface ThrottleOptions {

@@ -3,33 +3,43 @@
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-declare function t(settings?: t.ISettings): t.IResult;
-
-declare namespace t {
-
-    export interface IResult {
-        update: IUpdateInfo;
-        notify(message?: string): void;
-    }
-
-    export interface ISettings {
-        callback?: (error: any, update?: IUpdateInfo) => any; // default null
-        packagePath?: string; // default 'package.json'
-        packageName?: string; // default Inferred from packageFile
-        packageVersion?: string; // default Inferred from packageFile
-        updateCheckInterval?: number; // default 1000 * 60 * 60 * 24 (1 day)
-        updateCheckTimeout?: number; // default 20000 (20 secs)
-        registryUrl?: string; // default 'http://registry.npmjs.org/%s'
-    }
-
-    export interface IUpdateInfo {
-        latest: string;
-        current: string;
-        type: string;
-        date: string;
-        name: string;
-    }
+export interface ISettings {
+    pkg?: IPackage;
+    callback?: (update?: IUpdateInfo) => any;
+    packageName?: string; 
+    packageVersion?: string; 
+    updateCheckInterval?: number; // default 1000 * 60 * 60 * 24 (1 day)
 }
 
-export = t;
+export interface IBoxenOptions {
+    padding: number;
+    margin: number;
+    align: string;
+    borderColor: string;
+    borderStyle: string;
+}
+
+export interface INotifyOptions {
+    message: string;
+    defer?: boolean;
+    boxenOpts?: IBoxenOptions;
+}   
+
+export interface IPackage {
+    name: string;
+    version: string;
+}
+
+export interface IUpdateInfo {
+    latest: string;
+    current: string;
+    type: string;
+    name: string;
+}
+
+export declare class UpdateNotifier {
+    constructor(settings?: ISettings);
+    
+    update: IUpdateInfo;
+    notify(message?: INotifyOptions): void;
+}

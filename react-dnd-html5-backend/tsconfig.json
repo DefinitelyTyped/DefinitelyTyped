@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "react-dnd-html5-backend.d.ts",
+        "index.d.ts",
         "react-dnd-html5-backend-tests.ts"
     ]
 }
