@@ -3,6 +3,8 @@
 // Definitions by: David Deutsch <http://github.com/DavidKDeutsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import * as Highcharts from "highcharts";
+
 declare namespace __Highstock {
     interface ChartObject extends Highcharts.ChartObject {
         options: Options;
