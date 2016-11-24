@@ -1,4 +1,4 @@
-// Type definitions for Moment.js 2.0.3
+// Type definitions for Moment.js 2.0.4
 // Project: https://github.com/gf3/moment-range
 // Definitions by: Bart van den Burg <https://github.com/Burgov>, Wilgert Velinga <https://github.com/wilgert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -33,6 +33,8 @@ declare module 'moment' {
         toDate (): Date;
 
         toString (): string;
+
+        toArray (by: Range|String, exclusive?: boolean): Moment[];
 
         valueOf (): number;
 

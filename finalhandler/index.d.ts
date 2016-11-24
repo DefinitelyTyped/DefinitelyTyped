@@ -5,7 +5,6 @@
 
 /// <reference types="node" />
 
-
 import {ServerRequest, ServerResponse} from "http";
 
 declare function finalHandler(req: ServerRequest, res: ServerResponse, options?: finalHandler.Options): (err: any) => void;

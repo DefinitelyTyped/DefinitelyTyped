@@ -65,6 +65,7 @@ declare namespace ReactDayPicker {
         numberOfMonths?: number;
         renderDay?: (date: Date) => number | string | JSX.Element;
         enableOutsideDays?: boolean;
+        firstDayOfWeek?:number;
         canChangeMonth?: boolean;
         disabledDays?: (date: Date) => boolean;
         fixedWeeks?: boolean;

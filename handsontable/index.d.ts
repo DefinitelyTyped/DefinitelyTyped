@@ -266,7 +266,7 @@ declare namespace ht {
     listen(): void;
     loadData(data: any[]): void;
     populateFromArray(row: number, col: number, input: any[], endRow?: number, endCol?: number, source?: string, method?: string, direction?: string, deltas?: any[]): any;
-    propToCol(prop: string): number;
+    propToCol(prop: string | number): number;
     removeCellMeta(row: number, col: number, key: string): void;
     removeHook(key: string, callback: Function): void;
     render(): void;
@@ -290,3 +290,9 @@ declare namespace ht {
 declare var Handsontable: {
   new (element: Element, options: ht.Options): ht.Methods;
 };
+
+declare module "handsontable" {
+    export var Handsontable: {
+      new (element: Element, options: ht.Options): ht.Methods;
+    };
+}
