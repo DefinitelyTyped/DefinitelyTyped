@@ -219,3 +219,54 @@ declare module "nw.gui" {
     export var Shell: Shell;
 
 }
+
+interface Notification extends EventTarget {
+    /**
+     * The text displayed in the notification body
+     * @readonly
+     */
+    body:string;
+
+    /**
+     * The direction the popup will sho
+     * @readonly
+     */
+    dir:"auto"|"ltr"|"rtl";
+
+    /**
+     * The icon shown in the notification
+     * @readonly
+     */
+    icon:string;
+
+    /**
+     * The title shown in the notification
+     * @readonly
+     */
+    title:string;
+
+    /**
+     * The notification language
+     * @readonly
+     */
+    lang:string;
+
+    new( title:string, options:NotificationOptions ):Notification;
+    close():void;
+
+    onclick:() => void;
+    onshow:() => void;
+    onerror:( error:Error ) => void;
+    onclose:() => void;
+}
+
+declare var Notification: Notification;
+
+declare interface NotificationOptions {
+    title?:string;
+    body?:string;
+    icon?:string;
+    tag?:string;
+    lang?:string;
+    dir?:"auto"|"ltr"|"rtl";
+}
