@@ -9,7 +9,7 @@ supertest(app)
   .expect('Content-Type', /json/)
   .expect('Content-Length', '20')
   .expect(201)
-  .end((err: any, res: any) => {
+  .end((err, res) => {
     if (err) throw err;
   });
 
