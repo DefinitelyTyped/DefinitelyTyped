@@ -8,8 +8,8 @@
 export = xml2js;
 
 declare namespace xml2js {
-    function parseString(xml: string, callback: (err: any, result: any) => void): void;
-    function parseString(xml: string, options: OptionsV2, callback: (err: any, result: any) => void): void;
+    function parseString(xml: convertableToString, callback: (err: any, result: any) => void): void;
+    function parseString(xml: convertableToString, options: OptionsV2, callback: (err: any, result: any) => void): void;
 
     var defaults: {
         '0.1': Options;
@@ -23,7 +23,7 @@ declare namespace xml2js {
 
     class Parser {
         constructor(options?: OptionsV2);
-        parseString(str: string, cb?: Function): void;
+        parseString(str: convertableToString, cb?: Function): void;
     }
 
     interface Options {
@@ -69,6 +69,10 @@ declare namespace xml2js {
         headless?: boolean;
         chunkSize?: number;
         cdata?: boolean;
+    }
+
+    interface convertableToString {
+        toString(): string;
     }
 }
 
