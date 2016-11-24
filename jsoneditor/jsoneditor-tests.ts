@@ -1,5 +1,3 @@
-/// <reference path="jsoneditor.d.ts" />
-
 import JSONEditor, {JSONEditorMode, JSONEditorNode, JSONEditorOptions} from 'jsoneditor';
 
 let options: JSONEditorOptions;

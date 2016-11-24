@@ -15,7 +15,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "react-measure.d.ts",
+        "index.d.ts",
         "react-measure-tests.tsx"
     ]
 }

@@ -1,8 +1,8 @@
-﻿// Type definitions for jsTree v3.3.2 
+﻿// Type definitions for jsTree v3.3.3 
 // Project: http://www.jstree.com/
 // Definitions by: Adam Pluciński <https://github.com/adaskothebeast>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// 1 commit bb0473ae8cfc205585b6404ef86f650df2f6996e 2016-08-15
+// 1 commit 26e99ad5ec27c1a594ed57974cb16e0987482fd5 2016-11-19
 
 ///<reference types="jquery" />
 
@@ -375,6 +375,12 @@ interface JSTreeStaticDefaultsCoreThemes {
     icons?: boolean;
 
     /**
+    * a boolean indicating if node ellipsis should be shown - this only works with a fixed with on the container
+    * @name $.jstree.defaults.core.themes.ellipsis
+    */
+    ellipsis?: boolean;
+
+    /**
     * a boolean indicating if the tree background is striped
     * @name $.jstree.defaults.core.themes.stripes
     */
@@ -429,7 +435,7 @@ interface JSTreeStaticDefaultsCheckbox {
     * @name $.jstree.defaults.checkbox.cascade
     * @plugin checkbox
     */
-    cascade: boolean;
+    cascade: string;
 
     /**
     * This setting controls if checkbox are bound to the general tree selection 
@@ -736,6 +742,11 @@ interface JSTree extends JQuery {
     * @name teardown()
     */
     teardown: () => void;
+
+    /**
+    * Create prototype node
+    */
+    _create_prototype_node: () => HTMLElement;
 
     /**
     * bind all events. Used internally.
@@ -1566,6 +1577,24 @@ interface JSTree extends JQuery {
     * @name toggle_icons()
     */
     toggle_icons: () => void;
+
+    /**
+    * show the node ellipsis
+    * @name show_icons()
+    */
+    show_ellipsis: () => void;
+
+    /**
+    * hide the node ellipsis
+    * @name hide_ellipsis()
+    */
+    hide_ellipsis: () => void;
+
+    /**
+    * toggle the node ellipsis
+    * @name toggle_icons()
+    */
+    toggle_ellipsis: () => void;
 
     /**
     * set the node icon for a node

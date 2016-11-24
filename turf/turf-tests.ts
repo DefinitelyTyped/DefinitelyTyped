@@ -504,7 +504,6 @@ turf.bbox(point1)
 turf.bbox(lineString1)
 turf.bbox(multiLineString1)
 turf.bbox(multiPolygon1)
-
 // -- Test circle --
 turf.circle(point1, 10)
 turf.circle(point1, 10, 32)

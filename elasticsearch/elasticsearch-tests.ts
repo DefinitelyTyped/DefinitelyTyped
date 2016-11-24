@@ -46,12 +46,12 @@ client.create({
 });
 
 client.cluster.getSettings({
-  masterTimeout: 100
+  masterTimeout: '100s'
 }, (err, response) => {
 });
 
 client.cluster.health({
-  masterTimeout: 100
+  masterTimeout: '100s'
 }, (err, response) => {
 });
 
@@ -206,6 +206,33 @@ client.suggest({
     }
   }
 }, function (error, response) {
+});
+
+
+// first we do a search, and specify a scroll timeout
+var allTitles: string[] = [];
+client.search({
+  index: 'myindex',
+  // Set to 30 seconds because we are calling right back
+  scroll: '30s',
+  searchType: 'query_then_fetch',
+  docvalueFields: ['title'],
+  q: 'title:test'
+}, function getMoreUntilDone(error, response) {
+  // collect the title from each response
+  response.hits.hits.forEach(function (hit) {
+    allTitles.push(hit.fields.title);
+  });
+
+  if (response.hits.total !== allTitles.length) {
+    // now we can call scroll over and over
+    client.scroll({
+      scrollId: response._scroll_id,
+      scroll: '30s'
+    }, getMoreUntilDone);
+  } else {
+    console.log('every "test" title', allTitles);
+  }
 });
 
 client.indices.updateAliases({

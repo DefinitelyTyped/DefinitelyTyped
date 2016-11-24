@@ -14,7 +14,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "inversify-express-utils.d.ts",
+        "index.d.ts",
         "inversify-express-utils-tests.ts"
     ]
 }
