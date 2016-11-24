@@ -31,6 +31,7 @@ addLocaleData(reactIntlEn);
 console.log(hasLocaleData("en"));
 
 interface SomeComponentProps {
+  className: string,
   intl: InjectedIntl
 }
 
@@ -47,7 +48,7 @@ class SomeComponent extends React.Component<SomeComponentProps, void> {
         const formattedPlural = intl.formatPlural(1, { one: "hai!" });
         const formattedMessage = intl.formatMessage({ id: "hello", defaultMessage: "Hello {name}!" }, { name: "Roger" });
         const formattedHTMLMessage = intl.formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{name}</strong>!" }, { name: "Roger" });
-        return <div>
+        return <div className={this.props.className}>
             <FormattedRelative
                 value={new Date().getTime() }
                 units="hour"
@@ -160,7 +161,7 @@ class TestApp extends React.Component<{}, {}> {
         };
         return (
           <IntlProvider locale="en" formats={{}} messages={messages} defaultLocale="en" defaultFormats={messages}>
-            <SomeComponentWithIntl />
+            <SomeComponentWithIntl className="just-for-test" />
           </IntlProvider>
         );
     }

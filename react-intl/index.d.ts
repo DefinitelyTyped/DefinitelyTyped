@@ -12,7 +12,7 @@ declare namespace ReactIntl {
         pluralRuleFunction?: (n: number, ord: boolean) => string;
     }
 
-    function injectIntl<TOriginalProps, TOwnProps>(component: React.ComponentClass<TOriginalProps> | React.StatelessComponent<TOriginalProps>): React.ComponentClass<TOwnProps>;
+    function injectIntl<P> (component: React.ComponentClass<P>): React.ComponentClass<P>;
 
     function addLocaleData(data: Locale[] | Locale): void;
 
@@ -34,14 +34,18 @@ declare namespace ReactIntl {
         formats?: any;
     }
 
-    interface InjectedIntl {
-        formatDate: (date: Date, options?: FormattedDate.PropsBase) => string;
-        formatTime: (date: Date, options?: FormattedTime.PropsBase) => string;
-        formatRelative: (value: number, options?: FormattedRelative.PropsBase) => string;
-        formatNumber: (value: number, options?: FormattedNumber.PropsBase) => string;
-        formatPlural: (value: number, options?: FormattedPlural.PropsBase) => string;
-        formatMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: Object) => string;
-        formatHTMLMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: Object) => string;
+    type InjectedIntl = {
+      formatDate: (date: Date, options?: FormattedDate.PropsBase) => string;
+      formatTime: (date: Date, options?: FormattedTime.PropsBase) => string;
+      formatRelative: (value: number, options?: FormattedRelative.PropsBase) => string;
+      formatNumber: (value: number, options?: FormattedNumber.PropsBase) => string;
+      formatPlural: (value: number, options?: FormattedPlural.PropsBase) => string;
+      formatMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: Object) => string;
+      formatHTMLMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: Object) => string;
+    }
+
+    interface InjectedIntlProps {
+      intl?: InjectedIntl
     }
 
     namespace IntlComponent {
