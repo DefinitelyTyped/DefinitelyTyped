@@ -592,7 +592,7 @@ interface KnockoutStatic {
     // utils.js
     /////////////////////////////////
 
-    onError: (error: Error) => any;
+    onError?: (error: Error) => void;
 }
 
 interface KnockoutBindingProvider {
