@@ -68,6 +68,7 @@ declare namespace Ajv {
         formats?: any;
         schemas?: any;
         missingRefs?: boolean;
+        extendRefs?: boolean;
         loadSchema?(uri: string, callback: (error: Error, body: any) => void): void;
         removeAdditional?: boolean;
         useDefaults?: boolean;
