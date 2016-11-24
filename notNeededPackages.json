@@ -40,6 +40,37 @@
             "typingsPackageName": "dexie",
             "sourceRepoURL": "https://github.com/dfahlander/Dexie.js",
             "asOfVersion": "1.3.1"
+        },
+        {
+            "libraryName": "LinqSharp",
+            "typingsPackageName": "linqsharp",
+            "sourceRepoURL": "https://github.com/brunolm/LinqSharp",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "TypeScript",
+            "typingsPackageName": "typescript",
+            "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "TypeScript",
+            "typingsPackageName": "typescript-services",
+            "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "Prando",
+            "typingsPackageName": "prando",
+            "sourceRepoURL": "https://github.com/zeh/prando",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "SimpleSignal",
+            "typingsPackageName": "simplesignal",
+            "sourceRepoURL": "https://github.com/zeh/simplesignal",
+            "asOfVersion": "1.0.0"
+>>>>>>> types-2.0
         }
     ]
 }

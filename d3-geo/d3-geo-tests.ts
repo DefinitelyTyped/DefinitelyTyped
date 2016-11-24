@@ -636,6 +636,15 @@ identityTransform = identityTransform.fitSize([960, 500], sampleExtendedFeature2
 identityTransform = identityTransform.fitSize([960, 500], sampleFeatureCollection);
 identityTransform = identityTransform.fitSize([960, 500], sampleExtendedFeatureCollection);
 
+let reflecting: boolean;
+
+identityTransform = identityTransform.reflectX(true);
+// identityTransform = identityTransform.reflectX(5); // fails, wrong argument data type
+reflecting = identityTransform.reflectX();
+
+identityTransform = identityTransform.reflectY(true);
+// identityTransform = identityTransform.reflectY(5); // fails, wrong argument data type
+reflecting = identityTransform.reflectY();
 
 // ----------------------------------------------------------------------
 // Stream interface

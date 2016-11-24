@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "exorcist.d.ts",
+        "index.d.ts",
         "exorcist-tests.ts"
     ]
 }

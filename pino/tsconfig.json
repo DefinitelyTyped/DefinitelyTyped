@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "pino.d.ts",
+        "index.d.ts",
         "pino-tests.ts"
     ]
 }

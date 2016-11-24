@@ -15,7 +15,7 @@
         "jsx": "react"
     },
     "files": [
-        "react-responsive.d.ts",
+        "index.d.ts",
         "react-responsive-tests.tsx"
     ]
 }

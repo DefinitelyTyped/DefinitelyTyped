@@ -1,6 +1,6 @@
-// Type definitions for react-intl 2.0.0
+// Type definitions for react-intl 2.1.5
 // Project: http://formatjs.io/react/
-// Definitions by: Bruno Grieder <https://github.com/bgrieder>, Christian Droulers <https://github.com/cdroulers>
+// Definitions by: Bruno Grieder <https://github.com/bgrieder>, Christian Droulers <https://github.com/cdroulers>, Fedor Nezhivoi <https://github.com/gyzerok>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="react" />
@@ -12,7 +12,7 @@ declare namespace ReactIntl {
         pluralRuleFunction?: (n: number, ord: boolean) => string;
     }
 
-    function injectIntl<T>(clazz: T): T;
+    function injectIntl<TOriginalProps, TOwnProps>(component: React.ComponentClass<TOriginalProps> | React.StatelessComponent<TOriginalProps>): React.ComponentClass<TOwnProps>;
 
     function addLocaleData(data: Locale[] | Locale): void;
 
@@ -34,14 +34,14 @@ declare namespace ReactIntl {
         formats?: any;
     }
 
-    interface InjectedIntlProps {
-        formatDate?: (date: Date, options?: FormattedDate.PropsBase) => string;
-        formatTime?: (date: Date, options?: FormattedTime.PropsBase) => string;
-        formatRelative?: (value: number, options?: FormattedRelative.PropsBase) => string;
-        formatNumber?: (value: number, options?: FormattedNumber.PropsBase) => string;
-        formatPlural?: (value: number, options?: FormattedPlural.PropsBase) => string;
-        formatMessage?: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: Object) => string;
-        formatHTMLMessage?: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: Object) => string;
+    interface InjectedIntl {
+        formatDate: (date: Date, options?: FormattedDate.PropsBase) => string;
+        formatTime: (date: Date, options?: FormattedTime.PropsBase) => string;
+        formatRelative: (value: number, options?: FormattedRelative.PropsBase) => string;
+        formatNumber: (value: number, options?: FormattedNumber.PropsBase) => string;
+        formatPlural: (value: number, options?: FormattedPlural.PropsBase) => string;
+        formatMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: Object) => string;
+        formatHTMLMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: Object) => string;
     }
 
     namespace IntlComponent {

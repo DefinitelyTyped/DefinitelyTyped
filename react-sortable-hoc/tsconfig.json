@@ -14,7 +14,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "react-sortable-hoc.d.ts",
+        "index.d.ts",
         "react-sortable-hoc-tests.tsx"
     ]
 }

@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "redux-storage.d.ts",
+        "index.d.ts",
         "redux-storage-tests.ts"
     ]
 }
