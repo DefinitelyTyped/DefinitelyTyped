@@ -52,6 +52,18 @@
             "typingsPackageName": "typescript-services",
             "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "Prando",
+            "typingsPackageName": "prando",
+            "sourceRepoURL": "https://github.com/zeh/prando",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "SimpleSignal",
+            "typingsPackageName": "simplesignal",
+            "sourceRepoURL": "https://github.com/zeh/simplesignal",
+            "asOfVersion": "1.0.0"
         }
     ]
 }
