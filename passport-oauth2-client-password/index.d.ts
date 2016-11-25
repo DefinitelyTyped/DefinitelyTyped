@@ -6,8 +6,8 @@
 /// <reference types="passport"/>
 /// <reference types="express"/>
 
-import passport = require('passport');
-import express = require('express');
+import * as passport from 'passport';
+import * as express from  'express';
 
 interface StrategyOptionsWithRequestInterface {
     passReqToCallback: boolean;
@@ -26,5 +26,5 @@ declare class Strategy implements passport.Strategy {
     constructor(verify: VerifyFunction);
 
     name: string;
-    authenticate: (req: express.Request, options?: Object) => void;
+    authenticate: (req: express.Request, options?: {}) => void;
 }
