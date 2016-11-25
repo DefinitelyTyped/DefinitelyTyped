@@ -301,6 +301,48 @@ new mongoose.Schema({
     favs:  Number
   }
 });
+new mongoose.Schema({ name: { type: String, index: true }});
+new mongoose.Schema({ loc: { type: [Number], index: 'hashed' }});
+new mongoose.Schema({ loc: { type: [Number], index: '2d', sparse: true }});
+new mongoose.Schema({ loc: { type: [Number], index: { type: '2dsphere', sparse: true }}});
+new mongoose.Schema({ date: { type: Date, index: { unique: true, expires: '1d' }}});
+new mongoose.Schema({ born: { type: Date, required: '{PATH} is required!' }});
+new mongoose.Schema({ born: { type: Date, required: function() {
+  return this.age >= 18;
+}}});
+new mongoose.Schema({ state: { type: String, enum: ['opening', 'open', 'closing', 'closed'] }});
+new mongoose.Schema({ state: { type: String, enum: {
+  values: ['opening', 'open', 'closing', 'closed'],
+  message: 'enum validator failed for path `{PATH}` with value `{VALUE}`'
+}}});
+new mongoose.Schema({ name: { type: String, match: /^a/ }});
+new mongoose.Schema({ name: { type: String, match: [
+  /\.html$/, "That file doesn't end in .html ({VALUE})"
+]}});
+new mongoose.Schema({
+  createdAt: {type: Date, expires: 60 * 60 * 24}
+});
+new mongoose.Schema({ createdAt: { type: Date, expires: '1.5h' }});
+new mongoose.Schema({ d: { type: Date, max: new Date('2014-01-01') }});
+new mongoose.Schema({ d: { type: Date, max: [
+  new Date('2014-01-01'),
+  'The value of path `{PATH}` ({VALUE}) exceeds the limit ({MAX}).'
+]}});
+new mongoose.Schema({d: {type: Date, min: [
+  new Date('1970-01-01'),
+  'The value of path `{PATH}` ({VALUE}) is beneath the limit ({MIN}).'
+]}});
+new mongoose.Schema({
+  integerOnly: {
+    type: Number,
+    get: v => Math.round(v),
+    set: v => Math.round(v)
+  }
+});
+new mongoose.Schema({ name: { type: String, validate: [
+  { validator: () => {return true}, msg: 'uh oh' },
+  { validator: () => {return true}, msg: 'failed' }
+]}});
 animalSchema.statics.findByName = function(name: any, cb: any) {
   return this.find({ name: new RegExp(name, 'i') }, cb);
 };
@@ -311,7 +353,7 @@ animalSchema.virtual('name.full').get(function () {
   return this.name.first + ' ' + this.name.last;
 });
 new mongoose.Schema({
-  child: new mongoose.Schema({ name: 'string' })
+  child: new mongoose.Schema({ name: String })
 });
 new mongoose.Schema({
   eggs: {
