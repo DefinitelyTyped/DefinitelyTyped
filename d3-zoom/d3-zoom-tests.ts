@@ -10,6 +10,7 @@ import * as d3Zoom from 'd3-zoom';
 import { ArrayLike, select, Selection, event } from 'd3-selection';
 import { Transition } from 'd3-transition';
 import { scaleLinear, ScaleLinear } from 'd3-scale';
+import { interpolateZoom, interpolate, interpolateArray, ZoomInterpolator, ZoomView } from 'd3-interpolate';
 
 // --------------------------------------------------------------------------
 // Preparatory Steps
@@ -183,6 +184,26 @@ translateExtent = svgZoom.translateExtent();
 svgZoom = svgZoom.duration(500);
 
 let duration: number = svgZoom.duration();
+
+// interpolate() --------------------------------------------------------------
+
+// chainable setter accepts interpoateZoom, interpolate and interpolateArray
+svgZoom = svgZoom.interpolate(interpolateZoom);
+svgZoom = svgZoom.interpolate(interpolate);
+svgZoom = svgZoom.interpolate(interpolateArray);
+
+
+// getter
+
+let basicInterpolatorFactory: (a: ZoomView, b: ZoomView) => ((t: number) => ZoomView);
+let zoomInterpolatorFactory: (a: ZoomView, b: ZoomView) => ZoomInterpolator;
+
+// Basic case without casting
+basicInterpolatorFactory = svgZoom.interpolate();
+
+// Assuming it is know that a specialized interpolation factory was used. E.g. ZoomInterpolator also has a duration
+// argument
+zoomInterpolatorFactory = svgZoom.interpolate<(a: ZoomView, b: ZoomView) => ZoomInterpolator>();
 
 // on() --------------------------------------------------------------------
 
