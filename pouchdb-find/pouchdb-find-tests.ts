@@ -1,4 +1,4 @@
-/// <reference path="./pouchdb-find.d.ts" />
+/// <reference path="./index.d.ts" />
 
 namespace PouchDBFindTests {
 

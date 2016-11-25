@@ -3,7 +3,7 @@
 // Definitions by: Jakub Navratil <https://github.com/trubit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../pouchdb-core/pouchdb-core.d.ts" />
+/// <reference types="pouchdb-core" />
 
 declare namespace PouchDB {
 
@@ -39,13 +39,13 @@ declare namespace PouchDB {
 
             /** The document field must not exist in the list provided. */
             $nin?: any[];
-            
+
             /** Special condition to match the length of an array field in a document. Non-array fields cannot match this condition. */
             $size?: number;
 
-            /** Divisor and Remainder are both positive or negative integers. 
-             * Non-integer values result in a 404 status. 
-             * Matches documents where (field % Divisor == Remainder) is true, and only when the document field is an integer. 
+            /** Divisor and Remainder are both positive or negative integers.
+             * Non-integer values result in a 404 status.
+             * Matches documents where (field % Divisor == Remainder) is true, and only when the document field is an integer.
              * [divisor, remainder]
              * */
             $mod?: [number, number];
@@ -69,7 +69,7 @@ declare namespace PouchDB {
             /** Matches if the given selector does not match. */
             $not?: Selector;
 
-            /** Matches if none of the selectors in the array match. */	
+            /** Matches if none of the selectors in the array match. */
             $nor?: Selector[];
         }
 
@@ -88,7 +88,7 @@ declare namespace PouchDB {
 
             /** Defines a list of fields defining how you want to sort. Note that sorted fields also have to be selected in the selector. */
             sort?: Array<string|{[propName: string]: 'asc' | 'desc'}>;
-            
+
             /** Maximum number of documents to return. */
             limit?: number;
 
