@@ -1,13 +1,11 @@
-﻿// Type definitions for ej.web.all v14.3.0.52
+﻿// Type definitions for ej.web.all v14.4.0.15
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="jquery"/>
-
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 14.3.0.52
+*  version : 14.4.0.15
 *  Copyright Syncfusion Inc. 2001 - 2016. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -114,6 +112,7 @@ declare module ej {
     var transitionDuration: string;
     var transitionProperty: string;
     var transitionTimingFunction: string;
+	var template: any;
 	var util: {
         valueFunction(val: string): any;
     }        
@@ -294,7 +293,17 @@ declare module ej {
         changeSetContent?: string;
         batchChangeSetContentType?: string;
     }
-
+	
+	class WebApiAdaptor extends ej.ODataAdaptor {
+        constructor();
+        insert(dm: ej.DataManager, data: Object, tableName?: string): { url: string; type: string; data: Object; }
+        remove(dm: ej.DataManager, value: any, keyField?: string, tableName?: string): { url: string; type: string; data: Object; }
+        update(dm: ej.DataManager, value: any, keyField?: string, tableName?: string): { url: string; type: string; data: Object; accept: string; }
+        processResponse(data: Object, ds: Object, query: ej.Query, xhr: any, request: any, changes: Changes): {
+            result: Object; count: number
+        };
+    }
+	
     class ODataV4Adaptor extends ej.ODataAdaptor {
         constructor();
         options: ODataAdaptorOptions;
@@ -4199,6 +4208,11 @@ export interface Model {
 	*/
 	htmlAttributes?: any;
 
+	/** Defines the localized text values in button and tooltip.
+	*   @Default {en-US}
+	*/
+	locale?: string;
+
 	/** Specifies the model type to be rendered initially in the color picker control. See below to get available ModelType
 	*   @Default {ej.ColorPicker.ModelType.Default}
 	*/
@@ -7049,6 +7063,11 @@ class DocumentEditor extends ej.Widget {
 	*/
 	getPageCount(): void;
 
+	/** Gets the text of current selection in the document.
+	*   @returns {void}
+	*/
+	getSelectedText(): void;
+
 	/** Gets the current zoom factor value of the document container.
 	*   @returns {void}
 	*/
@@ -9538,10 +9557,10 @@ export interface Model {
 	keyup? (e: KeyupEventArgs): void;
 
 	/** Fires when mouse out in mask edit textbox control. */
-	mouseout? (e: MouseoutEventArgs): void;
+	mouseOut? (e: MouseOutEventArgs): void;
 
 	/** Fires when mouse over in mask edit textbox control. */
-	mouseover? (e: MouseoverEventArgs): void;
+	mouseOver? (e: MouseOverEventArgs): void;
 }
 
 export interface ChangeEventArgs {
@@ -9712,7 +9731,7 @@ export interface KeyupEventArgs {
 	unmaskedValue?: string;
 }
 
-export interface MouseoutEventArgs {
+export interface MouseOutEventArgs {
 
 	/** if the event should be canceled; otherwise, false.
 	*/
@@ -9735,7 +9754,7 @@ export interface MouseoutEventArgs {
 	unmaskedValue?: string;
 }
 
-export interface MouseoverEventArgs {
+export interface MouseOverEventArgs {
 
 	/** if the event should be canceled; otherwise, false.
 	*/
@@ -11190,11 +11209,11 @@ class Ribbon extends ej.Widget {
 
 	/** To customize whole content from Tab Group.
 	*   @param {number} ribbon tab index.
-	*   @param {string} ribbon group index.
+	*   @param {string} ribbon group text.
 	*   @param {number} sub group index in the ribbon group,
 	*   @returns {void}
 	*/
-	removeTabGroupContent(tabIndex: number, groupIndex: string, subGroupIndex?: number): void;
+	removeTabGroupContent(tabIndex: number, groupText: string, subGroupIndex?: number): void;
 
 	/** Remove option from Backstage.
 	*   @param {number} index to the backstage item
@@ -11216,11 +11235,6 @@ export interface Model {
 	*/
 	isResponsive?: boolean;
 
-	/** When isMobileOnly is true,its shows in mobile toolbar.
-	*   @Default {false}
-	*/
-	isMobileOnly?: boolean;
-
 	/** Specifies the height, width, enableRTL, showRoundedCorner,enabled,cssClass property to the controls in the ribbon commonly andit will work only when those properties are not defined in buttonSettings and content defaults.
 	*   @Default {object}
 	*/
@@ -11235,6 +11249,16 @@ export interface Model {
 	*   @Default {Object}
 	*/
 	collapsePinSettings?: CollapsePinSettings;
+
+	/** Set enableOnDemand as true to load ribbon tab and backstage contents while corresponding item clicked.
+	*   @Default {false}
+	*/
+	enableOnDemand?: boolean;
+
+	/** Set collapsible property as true to render ribbon in initially collapsed state.
+	*   @Default {false}
+	*/
+	collapsible?: boolean;
 
 	/** Align content in the ribbon control from right to left by setting the property as true.
 	*   @Default {false}
@@ -11912,6 +11936,11 @@ export interface TabsGroupsContentGroupsGalleryItem {
 
 export interface TabsGroupsContentGroup {
 
+	/** When isMobileOnly is true,its shows in mobile toolbar.isResponsive should be true for using this property.
+	*   @Default {false}
+	*/
+	isMobileOnly?: boolean;
+
 	/** Specifies the Syncfusion button members, events by using this buttonSettings.
 	*   @Default {object}
 	*/
@@ -12584,6 +12613,42 @@ export interface Model {
 
 	/** Triggered when card is double clicked. */
 	cardDoubleClick? (e: CardDoubleClickEventArgs): void;
+
+	/** Triggered before the card is selected. */
+	cardSelecting? (e: CardSelectingEventArgs): void;
+
+	/** Triggered when the Kanban is rendered completely */
+	create? (e: CreateEventArgs): void;
+
+	/** Triggers after the cell is clicked. */
+	cellClick? (e: CellClickEventArgs): void;
+
+	/** Triggered the Kanban is bound with data during initial rendering. */
+	dataBound? (e: DataBoundEventArgs): void;
+
+	/** Triggered when Kanban going to destroy. */
+	destroy? (e: DestroyEventArgs): void;
+
+	/** Triggered after the card is deleted. */
+	endDelete? (e: EndDeleteEventArgs): void;
+
+	/** Triggered after the card is edited. */
+	endEdit? (e: EndEditEventArgs): void;
+
+	/** Triggers after the header is clicked. */
+	headerClick? (e: HeaderClickEventArgs): void;
+
+	/** Triggered initial load. */
+	load? (e: LoadEventArgs): void;
+
+	/** Triggered when toolbar item is clicked in Kanban. */
+	toolbarClick? (e: ToolbarClickEventArgs): void;
+
+	/** Triggered every time a single card rendered request is made to access particular card information. */
+	queryCellInfo? (e: QueryCellInfoEventArgs): void;
+
+	/** Triggered before the context menu is opened. */
+	contextOpen? (e: ContextOpenEventArgs): void;
 }
 
 export interface ActionBeginEventArgs {
@@ -13008,9 +13073,326 @@ export interface CardDoubleClickEventArgs {
 	*/
 	data?: any;
 
+	/** Returns the Kanban model.
+	*/
+	model?: any;
+
 	/** Returns the name of the event.
 	*/
 	type?: string;
+}
+
+export interface CardSelectingEventArgs {
+
+	/** Returns the selecting cell index value.
+	*/
+	cellIndex?: number;
+
+	/** Returns the selecting card index value.
+	*/
+	cardIndex?: number;
+
+	/** Returns the selecting cell element
+	*/
+	currentCell?: any;
+
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
+
+	/** Returns the previously selecting the card element
+	*/
+	previousCard?: any;
+
+	/** Returns the previously rowcell is selecting card indexes
+	*/
+	previousRowcellindex?: Array<any>;
+
+	/** Returns the current item.
+	*/
+	currentTarget?: any;
+
+	/** Returns the Kanban model.
+	*/
+	model?: any;
+
+	/** Returns added data.
+	*/
+	data?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+}
+
+export interface CreateEventArgs {
+
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
+
+	/** Returns the kanban model.
+	*/
+	model?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+}
+
+export interface CellClickEventArgs {
+
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
+
+	/** Returns the kanban model.
+	*/
+	model?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+
+	/** Returns the select cell index value.
+	*/
+	cellIndex?: number;
+
+	/** Returns the edited row index.
+	*/
+	rowIndex?: number;
+}
+
+export interface DataBoundEventArgs {
+
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
+
+	/** Returns the Kanban model.
+	*/
+	model?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+}
+
+export interface DestroyEventArgs {
+
+	/** Returns the kanban model.
+	*/
+	model?: any;
+
+	/** Returns deleted data.
+	*/
+	data?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+}
+
+export interface EndDeleteEventArgs {
+
+	/** Returns the Kanban model.
+	*/
+	model?: any;
+
+	/** Returns request type.
+	*/
+	requestType?: string;
+
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
+
+	/** Returns deleted  data.
+	*/
+	data?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+
+	/** Current action name
+	*/
+	action?: string;
+}
+
+export interface EndEditEventArgs {
+
+	/** Returns the Kanban model.
+	*/
+	model?: any;
+
+	/** Returns request type.
+	*/
+	requestType?: string;
+
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
+
+	/** Returns modified data.
+	*/
+	data?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+
+	/** Current Action name
+	*/
+	action?: string;
+}
+
+export interface HeaderClickEventArgs {
+
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
+
+	/** Returns the kanban model.
+	*/
+	model?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+
+	/** Returns the select cell index value.
+	*/
+	cellIndex?: number;
+
+	/** Returns the column object.
+	*/
+	columnData?: any;
+}
+
+export interface LoadEventArgs {
+
+	/** Returns the kanban model.
+	*/
+	model?: any;
+
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+}
+
+export interface ToolbarClickEventArgs {
+
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
+
+	/** Returns the current item.
+	*/
+	currentTarget?: any;
+
+	/** Returns the item id of that current element.
+	*/
+	itemId?: string;
+
+	/** Returns the item index of that current element.
+	*/
+	itemIndex?: number;
+
+	/** Returns the item name of that current element.
+	*/
+	itemName?: string;
+
+	/** Returns the item text of that current element.
+	*/
+	itemText?: string;
+
+	/** Returns the Kanban model.
+	*/
+	model?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+
+	/** Returns the toolbar object of the Kanban.
+	*/
+	toolbarData?: any;
+}
+
+export interface QueryCellInfoEventArgs {
+
+	/** Returns Kanban card.
+	*/
+	card?: any;
+
+	/** Returns Kanban card.
+	*/
+	cell?: any;
+
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
+
+	/** Returns current row record object (JSON).
+	*/
+	data?: any;
+
+	/** Returns the column object.
+	*/
+	column?: any;
+
+	/** Returns the Kanban model.
+	*/
+	model?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+}
+
+export interface ContextOpenEventArgs {
+
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
+
+	/** Returns the Kanban model.
+	*/
+	model?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+
+	/** Returns the current item.
+	*/
+	currentTarget?: any;
+
+	/** Returns the status of contextmenu item which denotes its enabled state.
+	*/
+	status?: boolean;
+
+	/** Returns the target item.
+	*/
+	target?: any;
+}
+
+export interface SwimlaneSettingsUnassignedGroup {
+
+	/** To enable or disable unassigned category change with swim lane key values.
+	*   @Default {true}
+	*/
+	enable?: boolean;
+
+	/** To set the user defined values which are need to categorized as unassigned category swim lane groups.
+	*   @Default {[null,undefined,]}
+	*/
+	keys?: boolean;
 }
 
 export interface SwimlaneSettings {
@@ -13024,6 +13406,11 @@ export interface SwimlaneSettings {
 	*   @Default {false}
 	*/
 	allowDragAndDrop?: boolean;
+
+	/** Customize the settings for unassigned category of swim lane.
+	*   @Default {Object}
+	*/
+	unassignedGroup?: SwimlaneSettingsUnassignedGroup;
 }
 
 export interface ContextMenuSettingsCustomMenuItem {
@@ -13651,6 +14038,11 @@ export interface Model {
 	*   @Default {null}
 	*/
 	template?: string;
+
+	/** The templateId enables to bind multiple customized template items in Rotator.
+	*   @Default {null}
+	*/
+	templateId?: Array<any>;
 
 	/** Specifies the source for thumbnail elements.
 	*   @Default {null}
@@ -17081,10 +17473,20 @@ export interface Model {
 	*/
 	dataSource?: any;
 
+	/** Disables an Item or set of Items that are enabled in the Toolbar
+	*   @Default {[]}
+	*/
+	disabledItemIndices?: Array<any>;
+
 	/** Specifies the Toolbar control state.
 	*   @Default {true}
 	*/
 	enabled?: boolean;
+
+	/** Enables an Item or set of Items that are disabled in the Toolbar
+	*   @Default {[]}
+	*/
+	enabledItemIndices?: Array<any>;
 
 	/** Specifies enableRTL property to align the Toolbar control from right to left direction.
 	*   @Default {false}
@@ -17744,6 +18146,11 @@ export interface Model {
 	*/
 	fields?: Fields;
 
+	/** Gets or sets a value that indicates whether to enable full row selection support for TreeView.
+	*   @Default {false}
+	*/
+	fullRowSelect?: boolean;
+
 	/** Defines the height of the TreeView.
 	*   @Default {Null}
 	*/
@@ -18246,6 +18653,14 @@ export interface KeyPressEventArgs {
 	/** it returns when the current node is in expanded state; otherwise, false.
 	*/
 	isExpanded?: boolean;
+
+	/** returns the id of current TreeView node
+	*/
+	id?: string;
+
+	/** returns the parentId of current TreeView node
+	*/
+	parentId?: string;
 }
 
 export interface LoadErrorEventArgs {
@@ -20591,7 +21006,7 @@ export interface Model {
 	templateRefresh? (e: TemplateRefreshEventArgs): void;
 
 	/** Triggered when toolbar item is clicked in grid. */
-	toolBarClick? (e: ToolBarClickEventArgs): void;
+	toolbarClick? (e: ToolbarClickEventArgs): void;
 }
 
 export interface ActionBeginEventArgs {
@@ -22205,7 +22620,7 @@ export interface TemplateRefreshEventArgs {
 	type?: string;
 }
 
-export interface ToolBarClickEventArgs {
+export interface ToolbarClickEventArgs {
 
 	/** Returns the cancel option value.
 	*/
@@ -22374,7 +22789,7 @@ export interface Column {
 	headerText?: String;
 
 	/** This defines the text alignment of a particular column header cell value. See headerTextAlign
-	*   @Default {ej.TextAlign.Left}
+	*   @Default {null}
 	*/
 	headerTextAlign?: ej.TextAlign|string;
 
@@ -23891,6 +24306,11 @@ export interface Model {
 	*   @Default {â€œâ€}
 	*/
 	cssClass?: string;
+
+	/** Connects the PivotSchemaDesigner with the specified ID to the PivotGrid Control.
+	*   @Default {â€œâ€}
+	*/
+	pivotTableFieldListID?: string;
 
 	/** Initializes the data source for the PivotGrid widget, when it functions completely on client-side.
 	*   @Default {{}}
@@ -29384,6 +29804,11 @@ export interface Model {
 	*/
 	allowMultiSorting?: boolean;
 
+	/** Enables or disables the option for multiple exporting
+	*   @Default {false}
+	*/
+	allowMultipleExporting?: boolean;
+
 	/** Enables or disables the interactive selection of a row.
 	*   @Default {true}
 	*/
@@ -29914,6 +30339,9 @@ export interface Model {
 
 	/** Triggered while editing the Gantt chart (dragging, resizing the taskbar ) */
 	taskbarEditing? (e: TaskbarEditingEventArgs): void;
+
+	/** Triggered when taskbar item is clicked in Gantt. */
+	taskbarClick? (e: TaskbarClickEventArgs): void;
 
 	/** Triggered when toolbar item is clicked in Gantt. */
 	toolbarClick? (e: ToolbarClickEventArgs): void;
@@ -30546,6 +30974,33 @@ export interface TaskbarEditingEventArgs {
 	/** Returns the field values of record being edited.
 	*/
 	editingFields?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+}
+
+export interface TaskbarClickEventArgs {
+
+	/** Returns currently clicked row data
+	*/
+	data?: any;
+
+	/** Returns the current item index.
+	*/
+	index?: number;
+
+	/** Returns the Gantt model.
+	*/
+	model?: any;
+
+	/** Returns the clicked row element
+	*/
+	taskbarElement?: any;
+
+	/** Returns the target element.
+	*/
+	target?: any;
 
 	/** Returns the name of the event.
 	*/
@@ -31627,6 +32082,13 @@ class TreeGrid extends ej.Widget {
 	*   @returns {void}
 	*/
 	sortColumn(columnName: string, columnSortDirection: string): void;
+
+	/** To reorder the column with field name and target index values
+	*   @param {string} you can pass a name of column to reorder.
+	*   @param {string} you can pass a target column index to be inserted.
+	*   @returns {void}
+	*/
+	reorderColumn(fieldName: string, targetIndex: string): void;
 }
 export module TreeGrid{
 
@@ -31636,6 +32098,11 @@ export interface Model {
 	*   @Default {false}
 	*/
 	allowColumnResize?: boolean;
+
+	/** Enables or disables the option for column reordering
+	*   @Default {false}
+	*/
+	allowColumnReordering?: boolean;
 
 	/** Enables or disables the ability to drag and drop the row interactively to reorder the rows.
 	*   @Default {false}
@@ -31734,6 +32201,10 @@ export interface Model {
 	*   @Default {false}
 	*/
 	enableVirtualization?: boolean;
+
+	/** Specifies the settings for column resize
+	*/
+	columnResizeSettings?: ColumnResizeSettings;
 
 	/** Options for filtering and customizing filter actions.
 	*/
@@ -31874,6 +32345,15 @@ export interface Model {
 
 	/** Triggered while collapsing the TreeGrid record */
 	collapsing? (e: CollapsingEventArgs): void;
+
+	/** Triggered  when you start to drag a column */
+	columnDragStart? (e: ColumnDragStartEventArgs): void;
+
+	/** Triggered while dragging a column */
+	columnDrag? (e: ColumnDragEventArgs): void;
+
+	/** Triggered when a column is dropped */
+	columnDrop? (e: ColumnDropEventArgs): void;
 
 	/** Triggered after a column resized */
 	columnResized? (e: ColumnResizedEventArgs): void;
@@ -32078,6 +32558,95 @@ export interface CollapsingEventArgs {
 	/** Returns state of a record whether it is in expanded or collapsing state.
 	*/
 	expanded?: boolean;
+}
+
+export interface ColumnDragStartEventArgs {
+
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
+
+	/** Returns the control model values.
+	*/
+	model?: any;
+
+	/** Returns the event Type.
+	*/
+	type?: string;
+
+	/** Returns the column data which is dragged
+	*/
+	draggedColumn?: any;
+
+	/** Returns the index of the column being dragged
+	*/
+	draggedColumnIndex?: number;
+}
+
+export interface ColumnDragEventArgs {
+
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
+
+	/** Returns the control model values.
+	*/
+	model?: any;
+
+	/** Returns the event Type.
+	*/
+	type?: string;
+
+	/** Returns the column data which is dragged
+	*/
+	draggedColumn?: any;
+
+	/** Returns the index of the column being dragged
+	*/
+	draggedColumnIndex?: number;
+
+	/** Returns the target column data
+	*/
+	targetColumn?: any;
+
+	/** Returns the index of the target column
+	*/
+	targetColumnIndex?: number;
+
+	/** Returns that we can drop over the column or not.
+	*/
+	canDrop?: boolean;
+}
+
+export interface ColumnDropEventArgs {
+
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
+
+	/** Returns the control model values.
+	*/
+	model?: any;
+
+	/** Returns the event Type.
+	*/
+	type?: string;
+
+	/** Returns the column data which is dragged
+	*/
+	draggedColumn?: any;
+
+	/** Returns the index of the column being dragged
+	*/
+	draggedColumnIndex?: number;
+
+	/** Returns the target column data
+	*/
+	targetColumn?: any;
+
+	/** Returns the index of the target column
+	*/
+	targetColumnIndex?: number;
 }
 
 export interface ColumnResizedEventArgs {
@@ -32763,12 +33332,25 @@ export interface EditSettings {
 	rowPosition?: ej.TreeGrid.RowPosition|string;
 }
 
+export interface ColumnResizeSettings {
+
+	/** Specifies the mode for column resizing
+	*   @Default {normal}
+	*/
+	columnResizeMode?: string;
+}
+
 export interface FilterSettings {
 
 	/** Specifies the mode on which column filtering should start
 	*   @Default {immediate}
 	*/
 	filterBarMode?: string;
+
+	/** Specifies the type of column filtering.
+	*   @Default {filterbar}
+	*/
+	filterType?: string;
 
 	/** Specifies the column collection for filtering the TreeGrid content on initial load
 	*   @Default {[]}
@@ -33372,6 +33954,11 @@ export interface Model {
 	*/
 	width?: number;
 
+	/** Navigation pane opened initially when isPaneOpen property is true.
+	*   @Default {false}
+	*/
+	isPaneOpen?: boolean;
+
 	/** Event triggers before the control gets closed. */
 	beforeClose? (e: BeforeCloseEventArgs): void;
 
@@ -33457,59 +34044,71 @@ class RadialMenu extends ej.Widget {
 	showMenu(): void;
 
 	/** To enable menu item using index
+	*   @param {number} Index of the Radialmenu to be enabled.
 	*   @returns {void}
 	*/
-	enableItemByIndex(): void;
+	enableItemByIndex(itemIndex: number): void;
 
 	/** To enable menu items using indices
+	*   @param {Array<any>} Index of the Radialmenu to be enabled.
 	*   @returns {void}
 	*/
-	enableItemsByIndices(): void;
+	enableItemsByIndices(itemIndices: Array<any>): void;
 
 	/** To disable menu item using index
+	*   @param {number} Index of the Radialmenu to be disabled.
 	*   @returns {void}
 	*/
-	disableItemByIndex(): void;
+	disableItemByIndex(itemIndex: number): void;
 
 	/** To disable menu items using indices
+	*   @param {Array<any>} items of the Radialmenu to disable.
 	*   @returns {void}
 	*/
-	disableItemsByIndices(): void;
+	disableItemsByIndices(itemIndices: Array<any>): void;
 
 	/** To enable menu item using item text
+	*   @param {String} item of the Radialmenu item to enable.
 	*   @returns {void}
 	*/
-	enableItem(): void;
+	enableItem(item: String): void;
 
 	/** To disable menu item using item text
+	*   @param {String} item of the Radialmenu item to disable.
 	*   @returns {void}
 	*/
-	disableItem(): void;
+	disableItem(item: String): void;
 
 	/** To enable menu items using item texts
+	*   @param {Array<any>} items of the Radialmenu item to enable.
 	*   @returns {void}
 	*/
-	enableItems(): void;
+	enableItems(items: Array<any>): void;
 
 	/** To disable menu items using item texts
+	*   @param {Array<any>} items of the Radialmenu item to disable.
 	*   @returns {void}
 	*/
-	disableItems(): void;
+	disableItems(items: Array<any>): void;
 
 	/** To update menu item badge value
+	*   @param {number} The index value to add the given items at the specified index. If index is not specified, the given value will not be updated.
+	*   @param {number} The Value to be updated in the badge. It will be updated based on the given index
 	*   @returns {void}
 	*/
-	updateBadgeValue(): void;
+	updateBadgeValue(index: number, value: number): void;
 
 	/** To show menu item badge
+	*   @param {number} Index of the Radialmenu item to be shown badge.
 	*   @returns {void}
 	*/
-	showBadge(): void;
+	showBadge(index: number): void;
 
 	/** To hide menu item badge
+	*   @param {number} Index of the Radialmenu item to hide the badge.
 	*   @returns {void}
 	*/
-	hideBadge(): void;
+	hideBadge(index: number): void;
 }
 export module RadialMenu{
 
@@ -37523,6 +38122,26 @@ class PdfViewer extends ej.Widget {
 	*/
 	print(): void;
 
+	/** Abort the printing function and restores the PDF Viewer.
+	*   @returns {void}
+	*/
+	abortPrint(): void;
+
+	/** Shows/hides the print icon in the tool bar.
+	*   @returns {void}
+	*/
+	showPrintTools(): void;
+
+	/** Downloads the PDF document being loaded in the ejPdfViewer control.
+	*   @returns {void}
+	*/
+	download(): void;
+
+	/** Shows/hides the download tool in the tool bar.
+	*   @returns {void}
+	*/
+	showDownloadTool(): void;
+
 	/** Shows/hides the page navigation tools in the toolbar
 	*   @returns {void}
 	*/
@@ -37649,6 +38268,9 @@ export interface Model {
 	/** Triggers after the printing is completed. */
 	afterPrint? (e: AfterPrintEventArgs): void;
 
+	/** Triggers when the mouse click is performed over the page of the PDF document. */
+	pageClick? (e: PageClickEventArgs): void;
+
 	/** Triggers when PDF viewer control is destroyed successfully. */
 	destroy? (e: DestroyEventArgs): void;
 }
@@ -37757,6 +38379,29 @@ export interface AfterPrintEventArgs {
 	/** Returns the name of the event
 	*/
 	type?: string;
+}
+
+export interface PageClickEventArgs {
+
+	/** True, if the event should be canceled; otherwise, false.
+	*/
+	cancel?: boolean;
+
+	/** Returns the PDF viewer model
+	*/
+	model?: any;
+
+	/** Returns the name of the event
+	*/
+	type?: string;
+
+	/** Returns the current X position
+	*/
+	offsetX?: number;
+
+	/** Returns the current Y position
+	*/
+	offsetY?: number;
 }
 
 export interface DestroyEventArgs {
@@ -43028,6 +43673,10 @@ export interface Model {
 	*/
 	primaryXAxis?: PrimaryXAxis;
 
+	/** To override x axis for particular series, create an axis object by providing unique name by using name property and add it to axes array. Then, assign the name to the seriesâ€™s xAxisName property to link both axis and series.
+	*/
+	axes?: Array<Axis>;
+
 	/** This is a vertical axis that contains options to configure axis. This is the primary y axis for all the series in series array. To override y axis for particular series, create an axis object by providing unique name by using name property and add it to axes array. Then, assign the name to the seriesâ€™s yAxisName property to link both axis and series.
 	*/
 	primaryYAxis?: PrimaryYAxis;
@@ -46581,6 +47230,677 @@ export interface PrimaryXAxis {
 	/** Options for customizing the axis title.
 	*/
 	title?: PrimaryXAxisTitle;
+
+	/** Specifies the type of data the axis is handling.
+	*   @Default {null. See ValueType}
+	*/
+	valueType?: ej.datavisualization.Chart.ValueType|string;
+
+	/** Show/hides the axis.
+	*   @Default {true}
+	*/
+	visible?: boolean;
+
+	/** The axis is scaled by this factor. When zoomFactor is 0.5, the chart is scaled by 200% along this axis. Value ranges from 0 to 1.
+	*   @Default {1}
+	*/
+	zoomFactor?: number;
+
+	/** Position of the zoomed axis. Value ranges from 0 to 1.
+	*   @Default {0}
+	*/
+	zoomPosition?: number;
+}
+
+export interface AxesAlternateGridBandEven {
+
+	/** Fill color for the even grid bands.
+	*   @Default {transparent}
+	*/
+	fill?: string;
+
+	/** Opacity of the even grid band.
+	*   @Default {1}
+	*/
+	opacity?: number;
+}
+
+export interface AxesAlternateGridBandOdd {
+
+	/** Fill color of the odd grid bands
+	*   @Default {transparent}
+	*/
+	fill?: string;
+
+	/** Opacity of odd grid band
+	*   @Default {1}
+	*/
+	opacity?: number;
+}
+
+export interface AxesAlternateGridBand {
+
+	/** Options for customizing even grid band.
+	*/
+	even?: AxesAlternateGridBandEven;
+
+	/** Options for customizing odd grid band.
+	*/
+	odd?: AxesAlternateGridBandOdd;
+}
+
+export interface AxesAxisLine {
+
+	/** Pattern of dashes and gaps to be applied to the axis line.
+	*   @Default {null}
+	*/
+	dashArray?: string;
+
+	/** Padding for axis line. Normally, it is used along with plotOffset to pad the plot area.
+	*   @Default {null}
+	*/
+	offset?: number;
+
+	/** Show/hides the axis line.
+	*   @Default {true}
+	*/
+	visible?: boolean;
+
+	/** Width of axis line.
+	*   @Default {1}
+	*/
+	width?: number;
+}
+
+export interface AxesCrosshairLabel {
+
+	/** Show/hides the crosshair label associated with this axis.
+	*   @Default {false}
+	*/
+	visible?: boolean;
+}
+
+export interface AxesFont {
+
+	/** Font family of labels.
+	*   @Default {Segoe UI}
+	*/
+	fontFamily?: string;
+
+	/** Font style of labels.
+	*   @Default {ej.datavisualization.Chart.FontStyle.Normal. See FontStyle}
+	*/
+	fontStyle?: ej.datavisualization.Chart.FontStyle|string;
+
+	/** Font weight of the label.
+	*   @Default {ej.datavisualization.Chart.FontWeight.Regular. See FontWeight}
+	*/
+	fontWeight?: ej.datavisualization.Chart.FontWeight|string;
+
+	/** Opacity of the axis labels.
+	*   @Default {1}
+	*/
+	opacity?: number;
+
+	/** Font size of the axis labels.
+	*   @Default {13px}
+	*/
+	size?: string;
+}
+
+export interface AxesMajorGridLines {
+
+	/** Pattern of dashes and gaps used to stroke the major grid lines.
+	*   @Default {null}
+	*/
+	dashArray?: string;
+
+	/** Color of the major grid line.
+	*   @Default {null}
+	*/
+	color?: string;
+
+	/** Opacity of major grid lines.
+	*   @Default {1}
+	*/
+	opacity?: number;
+
+	/** Show/hides the major grid lines.
+	*   @Default {true}
+	*/
+	visible?: boolean;
+
+	/** Width of the major grid lines.
+	*   @Default {1}
+	*/
+	width?: number;
+}
+
+export interface AxesMajorTickLines {
+
+	/** Length of the major tick lines.
+	*   @Default {5}
+	*/
+	size?: number;
+
+	/** Show/hides the major tick lines.
+	*   @Default {true}
+	*/
+	visible?: boolean;
+
+	/** Width of the major tick lines.
+	*   @Default {1}
+	*/
+	width?: number;
+}
+
+export interface AxesMinorGridLines {
+
+	/** Patterns of dashes and gaps used to stroke the minor grid lines.
+	*   @Default {null}
+	*/
+	dashArray?: string;
+
+	/** Show/hides the minor grid lines.
+	*   @Default {true}
+	*/
+	visible?: boolean;
+
+	/** Width of the minorGridLines.
+	*   @Default {1}
+	*/
+	width?: number;
+}
+
+export interface AxesMinorTickLines {
+
+	/** Length of the minor tick lines.
+	*   @Default {5}
+	*/
+	size?: number;
+
+	/** Show/hides the minor tick lines.
+	*   @Default {true}
+	*/
+	visible?: boolean;
+
+	/** Width of the minor tick line.
+	*   @Default {1}
+	*/
+	width?: number;
+}
+
+export interface AxesRange {
+
+	/** Minimum value of the axis range.
+	*   @Default {null}
+	*/
+	min?: number;
+
+	/** Maximum value of the axis range.
+	*   @Default {null}
+	*/
+	max?: number;
+
+	/** Interval of the axis range.
+	*   @Default {null}
+	*/
+	interval?: number;
+}
+
+export interface AxesMultiLevelLabelsFont {
+
+	/** Font color of the multi level labels text.
+	*   @Default {null}
+	*/
+	color?: string;
+
+	/** Font family of the multi level labels text.
+	*   @Default {Segoe UI}
+	*/
+	fontFamily?: string;
+
+	/** Font style of the multi level labels text.
+	*   @Default {Normal}
+	*/
+	fontStyle?: ej.datavisualization.Chart.FontStyle|string;
+
+	/** Font weight of the multi level label text.
+	*   @Default {regular}
+	*/
+	fontWeight?: string;
+
+	/** Opacity of the multi level label text.
+	*   @Default {1}
+	*/
+	opacity?: number;
+
+	/** Font size of the multi level label text.
+	*   @Default {12px}
+	*/
+	size?: string;
+}
+
+export interface AxesMultiLevelLabelsBorder {
+
+	/** Border color of the multi level labels.
+	*   @Default {null}
+	*/
+	color?: string;
+
+	/** Border width of the multi level labels.
+	*   @Default {1}
+	*/
+	width?: number;
+
+	/** Border type of the multi level labels.
+	*   @Default {rectangle. See Type}
+	*/
+	type?: ej.datavisualization.Chart.MultiLevelLabelsBorderType|string;
+}
+
+export interface AxesMultiLevelLabel {
+
+	/** Visibility of the multi level labels.
+	*   @Default {false}
+	*/
+	visible?: boolean;
+
+	/** Text of the multi level labels.
+	*/
+	text?: string;
+
+	/** Starting value of the multi level labels.
+	*   @Default {null}
+	*/
+	start?: number;
+
+	/** Ending value of the multi level labels.
+	*   @Default {null}
+	*/
+	end?: number;
+
+	/** Specifies the level of multi level labels.
+	*   @Default {0}
+	*/
+	level?: number;
+
+	/** Specifies the maximum width of the text in multi level labels.
+	*   @Default {null}
+	*/
+	maximumTextWidth?: number;
+
+	/** Specifies the alignment of the text in multi level labels.
+	*   @Default {center. See TextAlignment}
+	*/
+	textAlignment?: ej.datavisualization.Chart.TextAlignment|string;
+
+	/** Specifies the handling of text over flow in multi level labels.
+	*   @Default {center. See TextOverflow}
+	*/
+	textOverflow?: ej.datavisualization.Chart.TextOverflow|string;
+
+	/** Options for customizing the font of the text.
+	*/
+	font?: AxesMultiLevelLabelsFont;
+
+	/** Options for customizing the border of the series.
+	*/
+	border?: AxesMultiLevelLabelsBorder;
+}
+
+export interface AxesStripLineFont {
+
+	/** Font color of the strip line text.
+	*   @Default {black}
+	*/
+	color?: string;
+
+	/** Font family of the strip line text.
+	*   @Default {Segoe UI}
+	*/
+	fontFamily?: string;
+
+	/** Font style of the strip line text.
+	*   @Default {Normal}
+	*/
+	fontStyle?: ej.datavisualization.Chart.FontStyle|string;
+
+	/** Font weight of the strip line text.
+	*   @Default {regular}
+	*/
+	fontWeight?: string;
+
+	/** Opacity of the strip line text.
+	*   @Default {1}
+	*/
+	opacity?: number;
+
+	/** Font size of the strip line text.
+	*   @Default {12px}
+	*/
+	size?: string;
+}
+
+export interface AxesStripLine {
+
+	/** Border color of the strip line.
+	*   @Default {gray}
+	*/
+	borderColor?: string;
+
+	/** Background color of the strip line.
+	*   @Default {gray}
+	*/
+	color?: string;
+
+	/** End value of the strip line.
+	*   @Default {null}
+	*/
+	end?: number;
+
+	/** Options for customizing the font of the text.
+	*/
+	font?: AxesStripLineFont;
+
+	/** Start value of the strip line.
+	*   @Default {null}
+	*/
+	start?: number;
+
+	/** Indicates whether to render the strip line from the minimum/start value of the axis. This property does not work when start property is set.
+	*   @Default {false}
+	*/
+	startFromAxis?: boolean;
+
+	/** Specifies text to be displayed inside the strip line.
+	*   @Default {stripLine}
+	*/
+	text?: string;
+
+	/** Specifies the alignment of the text inside the strip line.
+	*   @Default {middlecenter. See TextAlignment}
+	*/
+	textAlignment?: ej.datavisualization.Chart.TextAlignment|string;
+
+	/** Show/hides the strip line.
+	*   @Default {false}
+	*/
+	visible?: boolean;
+
+	/** Width of the strip line.
+	*   @Default {0}
+	*/
+	width?: number;
+
+	/** Specifies the order where the strip line and the series have to be rendered. When Z-order is â€œbehindâ€, strip line is rendered under the series and when it is â€œoverâ€, it is rendered above the series.
+	*   @Default {over. See ZIndex}
+	*/
+	zIndex?: ej.datavisualization.Chart.ZIndex|string;
+}
+
+export interface AxesLabelBorder {
+
+	/** Specifies the color of the label border.
+	*   @Default {null}
+	*/
+	color?: string;
+
+	/** Specifies the width of the label border.
+	*   @Default {1}
+	*/
+	width?: number;
+}
+
+export interface AxesTitleFont {
+
+	/** Font family of the title text.
+	*   @Default {Segoe UI}
+	*/
+	fontFamily?: string;
+
+	/** Font style of the title text.
+	*   @Default {ej.datavisualization.Chart.FontStyle.Normal}
+	*/
+	fontStyle?: ej.datavisualization.Chart.FontStyle|string;
+
+	/** Font weight of the title text.
+	*   @Default {ej.datavisualization.Chart.FontWeight.Regular. See FontWeight}
+	*/
+	fontWeight?: ej.datavisualization.Chart.FontWeight|string;
+
+	/** Opacity of the axis title text.
+	*   @Default {1}
+	*/
+	opacity?: number;
+
+	/** Font size of the axis title.
+	*   @Default {16px}
+	*/
+	size?: string;
+}
+
+export interface AxesTitle {
+
+	/** Specifies whether to trim the axis title when it exceeds the chart area or the maximum width of the title.
+	*   @Default {false}
+	*/
+	enableTrim?: boolean;
+
+	/** Options for customizing the title font.
+	*/
+	font?: AxesTitleFont;
+
+	/** Maximum width of the title, when the title exceeds this width, the title gets trimmed, when enableTrim is true.
+	*   @Default {34}
+	*/
+	maximumTitleWidth?: number;
+
+	/** Title for the axis.
+	*/
+	text?: string;
+
+	/** Controls the visibility of axis title.
+	*   @Default {true}
+	*/
+	visible?: boolean;
+
+	/** offset value for axis title.
+	*   @Default {0}
+	*/
+	offset?: number;
+
+	/** Specifies the position of the axis title.
+	*   @Default {outside. See Position}
+	*/
+	position?: ej.datavisualization.Chart.LabelPosition|string;
+
+	/** Specifies the position of the axis title.
+	*   @Default {center. See Alignment}
+	*/
+	alignment?: ej.datavisualization.Chart.TextAlignment|string;
+}
+
+export interface Axis {
+
+	/** Options for customizing axis alternate grid band.
+	*/
+	alternateGridBand?: AxesAlternateGridBand;
+
+	/** Specifies where axis should intersect the vertical axis or vice versa. Value should be provided in axis co-ordinates. If provided value is greater than the maximum value of crossing axis, then axis will be placed at the opposite side.
+	*   @Default {null}
+	*/
+	crossesAt?: number;
+
+	/** Category axis can also plot points based on index value of data points. Index based plotting can be enabled by setting â€˜isIndexedâ€™ property to true.
+	*   @Default {false}
+	*/
+	isIndexed?: boolean;
+
+	/** Options for customizing the axis line.
+	*/
+	axisLine?: AxesAxisLine;
+
+	/** Specifies the index of the column where the axis is associated, when the chart area is divided into multiple plot areas by using columnDefinitions.
+	*   @Default {null}
+	*/
+	columnIndex?: number;
+
+	/** Specifies the number of columns or plot areas an axis has to span horizontally.
+	*   @Default {null}
+	*/
+	columnSpan?: number;
+
+	/** Options to customize the crosshair label.
+	*/
+	crosshairLabel?: AxesCrosshairLabel;
+
+	/** With this setting, you can request axis to calculate intervals approximately equal to your desired interval.
+	*   @Default {null}
+	*/
+	desiredIntervals?: number;
+
+	/** Specifies the placement of labels.
+	*   @Default {ej.datavisualization.Chart.LabelPlacement.BetweenTicks. See LabelPlacement}
+	*/
+	labelPlacement?: ej.datavisualization.Chart.LabelPlacement|string;
+
+	/** Specifies the position of labels at the edge of the axis.
+	*   @Default {ej.datavisualization.Chart.EdgeLabelPlacement.None. See EdgeLabelPlacement}
+	*/
+	edgeLabelPlacement?: ej.datavisualization.Chart.EdgeLabelPlacement|string;
+
+	/** Specifies whether to trim the axis label when the width of the label exceeds the maximumLabelWidth.
+	*   @Default {false}
+	*/
+	enableTrim?: boolean;
+
+	/** Options for customizing the font of the axis Labels.
+	*/
+	font?: AxesFont;
+
+	/** Specifies the type of interval in date time axis.
+	*   @Default {null. See IntervalType}
+	*/
+	intervalType?: ej.datavisualization.Chart.IntervalType|string;
+
+	/** Specifies whether to inverse the axis.
+	*   @Default {false}
+	*/
+	isInversed?: boolean;
+
+	/** Custom formatting for axis label and supports all standard formatting type of numerical and date time values.
+	*   @Default {null}
+	*/
+	labelFormat?: string;
+
+	/** Specifies the action to take when the axis labels are overlapping with each other.
+	*   @Default {ej.datavisualization.Chart.LabelIntersectAction.None. See LabelIntersectAction}
+	*/
+	labelIntersectAction?: ej.datavisualization.Chart.LabelIntersectAction|string;
+
+	/** Specifies the position of the axis labels.
+	*   @Default {outside. See LabelPosition}
+	*/
+	labelPosition?: ej.datavisualization.Chart.LabelPosition|string;
+
+	/** Specifies the position of the axis labels.
+	*   @Default {center. See Alignment}
+	*/
+	alignment?: ej.datavisualization.Chart.LabelAlignment|string;
+
+	/** Angle in degrees to rotate the axis labels.
+	*   @Default {null}
+	*/
+	labelRotation?: number;
+
+	/** Logarithmic base value. This is applicable only for logarithmic axis.
+	*   @Default {10}
+	*/
+	logBase?: number;
+
+	/** Options for customizing major gird lines.
+	*/
+	majorGridLines?: AxesMajorGridLines;
+
+	/** Options for customizing the major tick lines.
+	*/
+	majorTickLines?: AxesMajorTickLines;
+
+	/** Maximum number of labels to be displayed in every 100 pixels.
+	*   @Default {3}
+	*/
+	maximumLabels?: number;
+
+	/** Maximum width of the axis label. When the label exceeds the width, the label gets trimmed when the enableTrim is set to true.
+	*   @Default {34}
+	*/
+	maximumLabelWidth?: number;
+
+	/** Options for customizing the minor grid lines.
+	*/
+	minorGridLines?: AxesMinorGridLines;
+
+	/** Options for customizing the minor tick lines.
+	*/
+	minorTickLines?: AxesMinorTickLines;
+
+	/** Specifies the number of minor ticks per interval.
+	*   @Default {null}
+	*/
+	minorTicksPerInterval?: number;
+
+	/** Unique name of the axis. To associate an axis with the series, you have to set this name to the xAxisName/yAxisName property of the series.
+	*   @Default {null}
+	*/
+	name?: string;
+
+	/** Specifies whether to render the axis at the opposite side of its default position.
+	*   @Default {false}
+	*/
+	opposedPosition?: boolean;
+
+	/** Specifies the padding for the plot area.
+	*   @Default {10}
+	*/
+	plotOffset?: number;
+
+	/** Options to customize the range of the axis.
+	*/
+	range?: AxesRange;
+
+	/** Specifies the padding for the axis range.
+	*   @Default {None. See RangePadding}
+	*/
+	rangePadding?: ej.datavisualization.Chart.RangePadding|string;
+
+	/** Rounds the number to the given number of decimals.
+	*   @Default {null}
+	*/
+	roundingPlaces?: number;
+
+	/** Options for customizing the multi level labels.
+	*   @Default {[ ]}
+	*/
+	multiLevelLabels?: Array<AxesMultiLevelLabel>;
+
+	/** Options for customizing the strip lines.
+	*   @Default {[ ]}
+	*/
+	stripLine?: Array<AxesStripLine>;
+
+	/** Specifies the position of the axis tick lines.
+	*   @Default {outside. See TickLinesPosition}
+	*/
+	tickLinesPosition?: ej.datavisualization.Chart.TickLinesPosition|string;
+
+	/** Options for customizing the border of the labels.
+	*/
+	labelBorder?: AxesLabelBorder;
+
+	/** Options for customizing the axis title.
+	*/
+	title?: AxesTitle;
 
 	/** Specifies the type of data the axis is handling.
 	*   @Default {null. See ValueType}
@@ -53441,11 +54761,11 @@ export interface Model {
 	/** Defines the background color of diagram elements
 	*   @Default {transparent}
 	*/
-	backgroundColor?: String;
+	backgroundColor?: string;
 
 	/** Defines the path of the background image of diagram elements
 	*/
-	backgroundImage?: String;
+	backgroundImage?: string;
 
 	/** Sets the direction of line bridges.
 	*   @Default {ej.datavisualization.Diagram.BridgeDirection.Top}
@@ -53502,7 +54822,7 @@ export interface Model {
 	/** Specifies the height of the diagram
 	*   @Default {null}
 	*/
-	height?: String;
+	height?: string;
 
 	/** Customizes the undo redo functionality
 	*/
@@ -53515,7 +54835,7 @@ export interface Model {
 	/** Defines the current culture of diagram
 	*   @Default {en-US}
 	*/
-	locale?: String;
+	locale?: string;
 
 	/** Array of JSON objects where each object represents a node
 	*   @Default {[]}
@@ -53561,12 +54881,12 @@ export interface Model {
 	/** Specifies the width of the diagram
 	*   @Default {null}
 	*/
-	width?: String;
+	width?: string;
 
 	/** Sets the factor by which we can zoom in or zoom out
 	*   @Default {0.2}
 	*/
-	zoomFactor?: Number;
+	zoomFactor?: number;
 
 	/** Triggers When auto scroll is changed */
 	autoScrollChange? (e: AutoScrollChangeEventArgs): void;
@@ -54404,12 +55724,12 @@ export interface ConnectorsLabel {
 	/** Sets the border color of the label
 	*   @Default {transparent}
 	*/
-	borderColor?: String;
+	borderColor?: string;
 
 	/** Sets the border width of the label
 	*   @Default {0}
 	*/
-	borderWidth?: Number;
+	borderWidth?: number;
 
 	/** Defines whether the label should be aligned within the connector boundaries
 	*   @Default {true}
@@ -54419,22 +55739,22 @@ export interface ConnectorsLabel {
 	/** Sets the fill color of the text area
 	*   @Default {transparent}
 	*/
-	fillColor?: String;
+	fillColor?: string;
 
 	/** Sets the font color of the text
 	*   @Default {black}
 	*/
-	fontColor?: String;
+	fontColor?: string;
 
 	/** Sets the font family of the text
 	*   @Default {Arial}
 	*/
-	fontFamily?: String;
+	fontFamily?: string;
 
 	/** Defines the font size of the text
 	*   @Default {12}
 	*/
-	fontSize?: Number;
+	fontSize?: number;
 
 	/** Sets the horizontal alignment of the label.
 	*   @Default {ej.datavisualization.Diagram.HorizontalAlignment.Center}
@@ -54453,7 +55773,7 @@ export interface ConnectorsLabel {
 
 	/** Sets the unique identifier of the label
 	*/
-	name?: String;
+	name?: string;
 
 	/** Sets the fraction/ratio(relative to connector) that defines the position of the label
 	*   @Default {ej.datavisualization.Diagram.Point(0.5, 0.5)}
@@ -54468,7 +55788,7 @@ export interface ConnectorsLabel {
 	/** Defines the transparency of labels
 	*   @Default {1}
 	*/
-	opacity?: Number;
+	opacity?: number;
 
 	/** Defines whether the label is editable or not
 	*   @Default {false}
@@ -54483,16 +55803,16 @@ export interface ConnectorsLabel {
 	/** Defines the angle to which the label needs to be rotated
 	*   @Default {0}
 	*/
-	rotateAngle?: Number;
+	rotateAngle?: number;
 
 	/** Sets the position of the label with respect to the total segment length
 	*   @Default {0.5}
 	*/
-	segmentOffset?: String;
+	segmentOffset?: string;
 
 	/** Defines the label text
 	*/
-	text?: String;
+	text?: string;
 
 	/** Defines how to align the text inside the label.
 	*   @Default {ej.datavisualization.Diagram.TextAlign.Center}
@@ -54517,7 +55837,7 @@ export interface ConnectorsLabel {
 	/** Sets the width of the label(the maximum value of label width and the connector width will be considered as label width)
 	*   @Default {50}
 	*/
-	width?: Number;
+	width?: number;
 
 	/** Defines how the label text needs to be wrapped.
 	*   @Default {ej.datavisualization.Diagram.TextWrapping.WrapWithOverflow}
@@ -54529,12 +55849,12 @@ export interface ConnectorsSegment {
 
 	/** Sets the direction of orthogonal segment
 	*/
-	direction?: String;
+	direction?: string;
 
 	/** Describes the length of orthogonal segment
 	*   @Default {undefined}
 	*/
-	length?: Number;
+	length?: number;
 
 	/** Describes the end point of bezier/straight segment
 	*   @Default {Diagram.Point()}
@@ -54577,12 +55897,12 @@ export interface ConnectorsShapeMultiplicitySource {
 	/** Defines the source label to connector. Applicable, if the connector is of type &quot;UML&quot;
 	*   @Default {null}
 	*/
-	lowerBounds?: Number;
+	lowerBounds?: number;
 
 	/** Defines the source label to connector. Applicable, if the connector is of type &quot;UML&quot;
 	*   @Default {null}
 	*/
-	upperBounds?: Number;
+	upperBounds?: number;
 }
 
 export interface ConnectorsShapeMultiplicity {
@@ -54645,26 +55965,26 @@ export interface ConnectorsSourceDecorator {
 	/** Sets the border color of the source decorator
 	*   @Default {black}
 	*/
-	borderColor?: String;
+	borderColor?: string;
 
 	/** Sets the border width of the decorator
 	*   @Default {1}
 	*/
-	borderWidth?: Number;
+	borderWidth?: number;
 
 	/** Sets the fill color of the source decorator
 	*   @Default {black}
 	*/
-	fillColor?: String;
+	fillColor?: string;
 
 	/** Sets the height of the source decorator
 	*   @Default {8}
 	*/
-	height?: Number;
+	height?: number;
 
 	/** Defines the custom shape of the source decorator
 	*/
-	pathData?: String;
+	pathData?: string;
 
 	/** Defines the shape of the source decorator.
 	*   @Default {ej.datavisualization.Diagram.DecoratorShapes.Arrow}
@@ -54674,7 +55994,7 @@ export interface ConnectorsSourceDecorator {
 	/** Defines the width of the source decorator
 	*   @Default {8}
 	*/
-	width?: Number;
+	width?: number;
 }
 
 export interface ConnectorsSourcePoint {
@@ -54682,12 +56002,12 @@ export interface ConnectorsSourcePoint {
 	/** Defines the x-coordinate of a position
 	*   @Default {0}
 	*/
-	x?: Number;
+	x?: number;
 
 	/** Defines the y-coordinate of a position
 	*   @Default {0}
 	*/
-	y?: Number;
+	y?: number;
 }
 
 export interface ConnectorsTargetDecorator {
@@ -54695,21 +56015,21 @@ export interface ConnectorsTargetDecorator {
 	/** Sets the border color of the decorator
 	*   @Default {black}
 	*/
-	borderColor?: String;
+	borderColor?: string;
 
 	/** Sets the color with which the decorator will be filled
 	*   @Default {black}
 	*/
-	fillColor?: String;
+	fillColor?: string;
 
 	/** Defines the height of the target decorator
 	*   @Default {8}
 	*/
-	height?: Number;
+	height?: number;
 
 	/** Defines the custom shape of the target decorator
 	*/
-	pathData?: String;
+	pathData?: string;
 
 	/** Defines the shape of the target decorator.
 	*   @Default {ej.datavisualization.Diagram.DecoratorShapes.Arrow}
@@ -54719,7 +56039,7 @@ export interface ConnectorsTargetDecorator {
 	/** Defines the width of the target decorator
 	*   @Default {8}
 	*/
-	width?: Number;
+	width?: number;
 }
 
 export interface Connector {
@@ -54732,7 +56052,7 @@ export interface Connector {
 	/** Defines the width of the line bridges
 	*   @Default {10}
 	*/
-	bridgeSpace?: Number;
+	bridgeSpace?: number;
 
 	/** Enables or disables the behaviors of connectors.
 	*   @Default {ej.datavisualization.Diagram.ConnectorConstraints.Default}
@@ -54742,11 +56062,11 @@ export interface Connector {
 	/** Defines the radius of the rounded corner
 	*   @Default {0}
 	*/
-	cornerRadius?: Number;
+	cornerRadius?: number;
 
 	/** Configures the styles of shapes
 	*/
-	cssClass?: String;
+	cssClass?: string;
 
 	/** Sets the horizontal alignment of the connector. Applicable, if the parent of the connector is a container.
 	*   @Default {ej.datavisualization.Diagram.HorizontalAlignment.Left}
@@ -54761,50 +56081,50 @@ export interface Connector {
 	/** Sets the stroke color of the connector
 	*   @Default {black}
 	*/
-	lineColor?: String;
+	lineColor?: string;
 
 	/** Sets the pattern of dashes and gaps used to stroke the path of the connector
 	*/
-	lineDashArray?: String;
+	lineDashArray?: string;
 
 	/** Defines the padding value to ease the interaction with connectors
 	*   @Default {10}
 	*/
-	lineHitPadding?: Number;
+	lineHitPadding?: number;
 
 	/** Sets the width of the line
 	*   @Default {1}
 	*/
-	lineWidth?: Number;
+	lineWidth?: number;
 
 	/** Defines the minimum space to be left between the bottom of parent bounds and the connector. Applicable, if the parent is a container.
 	*   @Default {0}
 	*/
-	marginBottom?: Number;
+	marginBottom?: number;
 
 	/** Defines the minimum space to be left between the left of parent bounds and the connector. Applicable, if the parent is a container.
 	*   @Default {0}
 	*/
-	marginLeft?: Number;
+	marginLeft?: number;
 
 	/** Defines the minimum space to be left between the right of parent bounds and the connector. Applicable, if the parent is a container.
 	*   @Default {0}
 	*/
-	marginRight?: Number;
+	marginRight?: number;
 
 	/** Defines the minimum space to be left between the top of parent bounds and the connector. Applicable, if the parent is a container.
 	*   @Default {0}
 	*/
-	marginTop?: Number;
+	marginTop?: number;
 
 	/** Sets a unique name for the connector
 	*/
-	name?: String;
+	name?: string;
 
 	/** Defines the transparency of the connector
 	*   @Default {1}
 	*/
-	opacity?: Number;
+	opacity?: number;
 
 	/** Defines the size and preview size of the node to add that to symbol palette. To explore palette item, refer Palette Item
 	*   @Default {null}
@@ -54813,7 +56133,7 @@ export interface Connector {
 
 	/** Sets the parent name of the connector.
 	*/
-	parent?: String;
+	parent?: string;
 
 	/** An array of JSON objects where each object represents a segment
 	*   @Default {[ { type:straight } ]}
@@ -54832,12 +56152,12 @@ export interface Connector {
 
 	/** Sets the source node of the connector
 	*/
-	sourceNode?: String;
+	sourceNode?: string;
 
 	/** Defines the space to be left between the source node and the source point of a connector
 	*   @Default {0}
 	*/
-	sourcePadding?: Number;
+	sourcePadding?: number;
 
 	/** Describes the start point of the connector
 	*   @Default {ej.datavisualization.Diagram.Point()}
@@ -54846,7 +56166,7 @@ export interface Connector {
 
 	/** Sets the source port of the connector
 	*/
-	sourcePort?: String;
+	sourcePort?: string;
 
 	/** Defines the target decorator of the connector
 	*   @Default {{ shape:arrow, width: 8, height:8, borderColor:black, fillColor:black }}
@@ -54855,12 +56175,12 @@ export interface Connector {
 
 	/** Sets the target node of the connector
 	*/
-	targetNode?: String;
+	targetNode?: string;
 
 	/** Defines the space to be left between the target node and the target point of the connector
 	*   @Default {0}
 	*/
-	targetPadding?: Number;
+	targetPadding?: number;
 
 	/** Describes the end point of the connector
 	*   @Default {ej.datavisualization.Diagram.Point()}
@@ -54869,7 +56189,7 @@ export interface Connector {
 
 	/** Sets the targetPort of the connector
 	*/
-	targetPort?: String;
+	targetPort?: string;
 
 	/** Defines the tooltip that should be shown when the mouse hovers over connector. For tooltip properties, refer Tooltip
 	*   @Default {null}
@@ -54889,7 +56209,7 @@ export interface Connector {
 	/** Sets the z-index of the connector
 	*   @Default {0}
 	*/
-	zOrder?: Number;
+	zOrder?: number;
 }
 
 export interface ContextMenu {
@@ -54914,26 +56234,26 @@ export interface DataSourceSettings {
 
 	/** Sets the unique id of the data source items
 	*/
-	id?: String;
+	id?: string;
 
 	/** Defines the parent id of the data source item
 	*   @Default {''}
 	*/
-	parent?: String;
+	parent?: string;
 
 	/** Describes query to retrieve a set of data from the specified datasource
 	*   @Default {null}
 	*/
-	query?: String;
+	query?: string;
 
 	/** Sets the unique id of the root data source item
 	*/
-	root?: String;
+	root?: string;
 
 	/** Describes the name of the table on which the specified query has to be executed
 	*   @Default {null}
 	*/
-	tableName?: String;
+	tableName?: string;
 }
 
 export interface DefaultSettings {
@@ -54985,7 +56305,7 @@ export interface HistoryManager {
 	/** The stackLimit property used to restrict the undo and redo actions to a certain limit.
 	*   @Default {null}
 	*/
-	stackLimit?: Number;
+	stackLimit?: number;
 
 	/** A method that starts to group the changes to revert/restore them in a single undo or redo
 	*/
@@ -55010,7 +56330,7 @@ export interface Layout {
 
 	/** Defines the fixed node with reference to which, the layout will be arranged and fixed node will not be repositioned
 	*/
-	fixedNode?: String;
+	fixedNode?: string;
 
 	/** Customizes the orientation of trees/sub trees. For orientations, see Chart Orientations. For chart types, see Chart Types
 	*   @Default {null}
@@ -55020,7 +56340,7 @@ export interface Layout {
 	/** Sets the space to be horizontally left between nodes
 	*   @Default {30}
 	*/
-	horizontalSpacing?: Number;
+	horizontalSpacing?: number;
 
 	/** Defines the space to be left between layout bounds and layout.
 	*   @Default {ej.datavisualization.Diagram.Margin()}
@@ -55050,7 +56370,7 @@ export interface Layout {
 	/** Sets the space to be vertically left between nodes
 	*   @Default {30}
 	*/
-	verticalSpacing?: Number;
+	verticalSpacing?: number;
 }
 
 export interface NodesAnnotation {
@@ -55058,7 +56378,7 @@ export interface NodesAnnotation {
 	/** Sets the angle between the BPMN shape and the annotation
 	*   @Default {0}
 	*/
-	angle?: Number;
+	angle?: number;
 
 	/** Sets the direction of the text annotation
 	*   @Default {ej.datavisualization.Diagram.BPMNAnnotationDirections.Left}
@@ -55068,37 +56388,37 @@ export interface NodesAnnotation {
 	/** Sets the height of the text annotation
 	*   @Default {20}
 	*/
-	height?: Number;
+	height?: number;
 
 	/** Sets the distance between the BPMN shape and the annotation
 	*   @Default {0}
 	*/
-	length?: Number;
+	length?: number;
 
 	/** Defines the additional information about the flow object in a BPMN Process
 	*/
-	text?: String;
+	text?: string;
 
 	/** Sets the  width of the text annotation
 	*   @Default {20}
 	*/
-	width?: Number;
+	width?: number;
 }
 
 export interface NodesClassAttribute {
 
 	/** Sets the name of the attribute
 	*/
-	name?: String;
+	name?: string;
 
 	/** Sets the data type of attribute
 	*/
-	type?: String;
+	type?: string;
 
 	/** Defines the visibility of the attribute
 	*   @Default {ej.datavisualization.Diagram.ScopeValueDefaults.Public}
 	*/
-	scope?: String;
+	scope?: string;
 }
 
 export interface NodesClassMethod {
@@ -55106,14 +56426,14 @@ export interface NodesClassMethod {
 	/** Sets the visibility of the method.
 	*   @Default {ej.datavisualization.Diagram.ScopeValueDefaults.Public}
 	*/
-	scope?: String;
+	scope?: string;
 }
 
 export interface NodesClass {
 
 	/** Sets the name of class.
 	*/
-	name?: String;
+	name?: string;
 
 	/** Defines the collection of attributes
 	*   @Default {[]}
@@ -55131,22 +56451,22 @@ export interface NodesCollapseIcon {
 	/** Sets the border color for collapse icon of node
 	*   @Default {black}
 	*/
-	borderColor?: String;
+	borderColor?: string;
 
 	/** Sets the border width for collapse icon of node
 	*   @Default {1}
 	*/
-	borderWidth?: Number;
+	borderWidth?: number;
 
 	/** Sets the fill color for collapse icon of node
 	*   @Default {white}
 	*/
-	fillColor?: String;
+	fillColor?: string;
 
 	/** Defines the height for collapse icon of node
 	*   @Default {15}
 	*/
-	height?: Number;
+	height?: number;
 
 	/** Sets the horizontal alignment of the icon.
 	*   @Default {ej.datavisualization.Diagram.HorizontalAlignment.Center}
@@ -55179,7 +56499,7 @@ export interface NodesContainer {
 	/** Defines the orientation of the container. Applicable, if the group is a container.
 	*   @Default {vertical}
 	*/
-	orientation?: String;
+	orientation?: string;
 
 	/** Sets the type of the container. Applicable if the group is a container.
 	*   @Default {ej.datavisualization.Diagram.ContainerType.Canvas}
@@ -55204,14 +56524,14 @@ export interface NodesEnumerationMember {
 
 	/** Sets the name of the enumeration member
 	*/
-	name?: String;
+	name?: string;
 }
 
 export interface NodesEnumeration {
 
 	/** Sets the name of the Enumeration
 	*/
-	name?: String;
+	name?: string;
 
 	/** Defines the collection of enumeration members
 	*   @Default {[]}
@@ -55224,22 +56544,22 @@ export interface NodesExpandIcon {
 	/** Sets the border color for expand icon of node
 	*   @Default {black}
 	*/
-	borderColor?: String;
+	borderColor?: string;
 
 	/** Sets the border width for expand icon of node
 	*   @Default {1}
 	*/
-	borderWidth?: Number;
+	borderWidth?: number;
 
 	/** Sets the fill color for expand icon of node
 	*   @Default {white}
 	*/
-	fillColor?: String;
+	fillColor?: string;
 
 	/** Defines the height for expand icon of node
 	*   @Default {15}
 	*/
-	height?: Number;
+	height?: number;
 
 	/** Sets the horizontal alignment of the icon.
 	*   @Default {ej.datavisualization.Diagram.HorizontalAlignment.Center}
@@ -55277,22 +56597,22 @@ export interface NodesGradientLinearGradient {
 	/** Defines the left most position(relative to node) of the rectangular region that needs to be painted
 	*   @Default {0}
 	*/
-	x1?: Number;
+	x1?: number;
 
 	/** Defines the right most position(relative to node) of the rectangular region that needs to be painted
 	*   @Default {0}
 	*/
-	x2?: Number;
+	x2?: number;
 
 	/** Defines the top most position(relative to node) of the rectangular region that needs to be painted
 	*   @Default {0}
 	*/
-	y1?: Number;
+	y1?: number;
 
 	/** Defines the bottom most position(relative to node) of the rectangular region that needs to be painted
 	*   @Default {0}
 	*/
-	y2?: Number;
+	y2?: number;
 }
 
 export interface NodesGradientRadialGradient {
@@ -55300,22 +56620,22 @@ export interface NodesGradientRadialGradient {
 	/** Defines the position of the outermost circle
 	*   @Default {0}
 	*/
-	cx?: Number;
+	cx?: number;
 
 	/** Defines the outer most circle of the radial gradient
 	*   @Default {0}
 	*/
-	cy?: Number;
+	cy?: number;
 
 	/** Defines the innermost circle of the radial gradient
 	*   @Default {0}
 	*/
-	fx?: Number;
+	fx?: number;
 
 	/** Defines the innermost circle of the radial gradient
 	*   @Default {0}
 	*/
-	fy?: Number;
+	fy?: number;
 
 	/** Defines the different colors and the region of color transitions.
 	*   @Default {[]}
@@ -55327,17 +56647,17 @@ export interface NodesGradientStop {
 
 	/** Sets the color to be filled over the specified region
 	*/
-	color?: String;
+	color?: string;
 
 	/** Sets the position where the previous color transition ends and a new color transition starts
 	*   @Default {0}
 	*/
-	offset?: Number;
+	offset?: number;
 
 	/** Describes the transparency level of the region
 	*   @Default {1}
 	*/
-	opacity?: Number;
+	opacity?: number;
 }
 
 export interface NodesGradient {
@@ -55359,29 +56679,29 @@ export interface NodesInterfaceAttribute {
 
 	/** Sets the name of the attribute
 	*/
-	name?: String;
+	name?: string;
 
 	/** Sets the type of the attribute
 	*/
-	type?: String;
+	type?: string;
 
 	/** Sets the visibility of the attribute
 	*/
-	scope?: String;
+	scope?: string;
 }
 
 export interface NodesInterfaceMethod {
 
 	/** Sets the visibility of the method
 	*/
-	scope?: String;
+	scope?: string;
 }
 
 export interface NodesInterface {
 
 	/** Sets the name of the interface
 	*/
-	name?: String;
+	name?: string;
 
 	/** Defines a collection of attributes of the interface
 	*   @Default {[]}
@@ -55404,32 +56724,32 @@ export interface NodesLabel {
 	/** Sets the border color of the label
 	*   @Default {transparent}
 	*/
-	borderColor?: String;
+	borderColor?: string;
 
 	/** Sets the border width of the label
 	*   @Default {0}
 	*/
-	borderWidth?: Number;
+	borderWidth?: number;
 
 	/** Sets the fill color of the text area
 	*   @Default {transparent}
 	*/
-	fillColor?: String;
+	fillColor?: string;
 
 	/** Sets the font color of the text
 	*   @Default {black}
 	*/
-	fontColor?: String;
+	fontColor?: string;
 
 	/** Sets the font family of the text
 	*   @Default {Arial}
 	*/
-	fontFamily?: String;
+	fontFamily?: string;
 
 	/** Defines the font size of the text
 	*   @Default {12}
 	*/
-	fontSize?: Number;
+	fontSize?: number;
 
 	/** Sets the horizontal alignment of the label.
 	*   @Default {ej.datavisualization.Diagram.HorizontalAlignment.Center}
@@ -55453,7 +56773,7 @@ export interface NodesLabel {
 
 	/** Sets the unique identifier of the label
 	*/
-	name?: String;
+	name?: string;
 
 	/** Sets the fraction/ratio(relative to node) that defines the position of the label
 	*   @Default {ej.datavisualization.Diagram.Point(0.5, 0.5)}
@@ -55463,7 +56783,7 @@ export interface NodesLabel {
 	/** Defines the transparency of the labels
 	*   @Default {1}
 	*/
-	opacity?: Number;
+	opacity?: number;
 
 	/** Defines whether the label is editable or not
 	*   @Default {false}
@@ -55473,11 +56793,11 @@ export interface NodesLabel {
 	/** Defines the angle to which the label needs to be rotated
 	*   @Default {0}
 	*/
-	rotateAngle?: Number;
+	rotateAngle?: number;
 
 	/** Defines the label text
 	*/
-	text?: String;
+	text?: string;
 
 	/** Defines how to align the text inside the label.
 	*   @Default {ej.datavisualization.Diagram.TextAlign.Center}
@@ -55502,7 +56822,7 @@ export interface NodesLabel {
 	/** Sets the width of the label(the maximum value of label width and the node width will be considered as label width)
 	*   @Default {50}
 	*/
-	width?: Number;
+	width?: number;
 
 	/** Defines how the label text needs to be wrapped.
 	*   @Default {ej.datavisualization.Diagram.TextWrapping.WrapWithOverflow}
@@ -55540,7 +56860,7 @@ export interface NodesLane {
 	/** Defines the fill color of the lane
 	*   @Default {white}
 	*/
-	fillColor?: String;
+	fillColor?: string;
 
 	/** Defines the header of the lane
 	*   @Default {{ text: Function, fontSize: 11 }}
@@ -55554,12 +56874,12 @@ export interface NodesLane {
 
 	/** Sets the unique identifier of the lane
 	*/
-	name?: String;
+	name?: string;
 
 	/** Sets the orientation of the lane.
 	*   @Default {vertical}
 	*/
-	orientation?: String;
+	orientation?: string;
 }
 
 export interface NodesPaletteItem {
@@ -55572,7 +56892,7 @@ export interface NodesPaletteItem {
 	/** Defines the height of the symbol
 	*   @Default {0}
 	*/
-	height?: Number;
+	height?: number;
 
 	/** Defines the margin of the symbol item
 	*   @Default {{ left: 4, right: 4, top: 4, bottom: 4 }}
@@ -55582,17 +56902,17 @@ export interface NodesPaletteItem {
 	/** Defines the preview height of the symbol
 	*   @Default {undefined}
 	*/
-	previewHeight?: Number;
+	previewHeight?: number;
 
 	/** Defines the preview width of the symbol
 	*   @Default {undefined}
 	*/
-	previewWidth?: Number;
+	previewWidth?: number;
 
 	/** Defines the width of the symbol
 	*   @Default {0}
 	*/
-	width?: Number;
+	width?: number;
 }
 
 export interface NodesPhase {
@@ -55605,36 +56925,36 @@ export interface NodesPhase {
 	/** Defines the line color of the splitter that splits adjacent phases.
 	*   @Default {#606060}
 	*/
-	lineColor?: String;
+	lineColor?: string;
 
 	/** Sets the dash array that used to stroke the phase splitter
 	*   @Default {3,3}
 	*/
-	lineDashArray?: String;
+	lineDashArray?: string;
 
 	/** Sets the lineWidth of the phase
 	*   @Default {1}
 	*/
-	lineWidth?: Number;
+	lineWidth?: number;
 
 	/** Sets the unique identifier of the phase
 	*/
-	name?: String;
+	name?: string;
 
 	/** Sets the length of the smaller region(phase) of a swimlane
 	*   @Default {100}
 	*/
-	offset?: Number;
+	offset?: number;
 
 	/** Sets the orientation of the phase
 	*   @Default {horizontal}
 	*/
-	orientation?: String;
+	orientation?: string;
 
 	/** Sets the type of the object as phase
 	*   @Default {phase}
 	*/
-	type?: String;
+	type?: string;
 }
 
 export interface NodesPort {
@@ -55642,17 +56962,17 @@ export interface NodesPort {
 	/** Sets the border color of the port
 	*   @Default {#1a1a1a}
 	*/
-	borderColor?: String;
+	borderColor?: string;
 
 	/** Sets the stroke width of the port
 	*   @Default {1}
 	*/
-	borderWidth?: Number;
+	borderWidth?: number;
 
 	/** Defines the space to be left between the port bounds and its incoming and outgoing connections.
 	*   @Default {0}
 	*/
-	connectorPadding?: Number;
+	connectorPadding?: number;
 
 	/** Defines whether connections can be created with the port
 	*   @Default {ej.datavisualization.Diagram.PortConstraints.Connect}
@@ -55662,11 +56982,11 @@ export interface NodesPort {
 	/** Sets the fill color of the port
 	*   @Default {white}
 	*/
-	fillColor?: String;
+	fillColor?: string;
 
 	/** Sets the unique identifier of the port
 	*/
-	name?: String;
+	name?: string;
 
 	/** Defines the position of the port as fraction/ ratio relative to node
 	*   @Default {ej.datavisualization.Diagram.Point(0, 0)}
@@ -55675,7 +56995,7 @@ export interface NodesPort {
 
 	/** Defines the path data to draw the port. Applicable, if the port shape is path.
 	*/
-	pathData?: String;
+	pathData?: string;
 
 	/** Defines the shape of the port.
 	*   @Default {ej.datavisualization.Diagram.PortShapes.Square}
@@ -55685,7 +57005,7 @@ export interface NodesPort {
 	/** Defines the size of the port
 	*   @Default {8}
 	*/
-	size?: Number;
+	size?: number;
 
 	/** Defines when the port should be visible.
 	*   @Default {ej.datavisualization.Diagram.PortVisibility.Default}
@@ -55698,17 +57018,17 @@ export interface NodesShadow {
 	/** Defines the angle of the shadow relative to node
 	*   @Default {45}
 	*/
-	angle?: Number;
+	angle?: number;
 
 	/** Sets the distance to move the shadow relative to node
 	*   @Default {5}
 	*/
-	distance?: Number;
+	distance?: number;
 
 	/** Defines the opaque of the shadow
 	*   @Default {0.7}
 	*/
-	opacity?: Number;
+	opacity?: number;
 }
 
 export interface NodesSubProcess {
@@ -55806,16 +57126,16 @@ export interface Node {
 	/** Sets the border color of node
 	*   @Default {black}
 	*/
-	borderColor?: String;
+	borderColor?: string;
 
 	/** Sets the pattern of dashes and gaps to stroke the border
 	*/
-	borderDashArray?: String;
+	borderDashArray?: string;
 
 	/** Sets the border width of the node
 	*   @Default {1}
 	*/
-	borderWidth?: Number;
+	borderWidth?: number;
 
 	/** Defines whether the group can be ungrouped or not
 	*   @Default {true}
@@ -55844,7 +57164,7 @@ export interface Node {
 	/** Defines the distance to be left between a node and its connections(In coming and out going connections).
 	*   @Default {0}
 	*/
-	connectorPadding?: Number;
+	connectorPadding?: number;
 
 	/** Enables or disables the default behaviors of the node.
 	*   @Default {ej.datavisualization.Diagram.NodeConstraints.Default}
@@ -55859,11 +57179,11 @@ export interface Node {
 	/** Defines the corner radius of rectangular shapes.
 	*   @Default {0}
 	*/
-	cornerRadius?: Number;
+	cornerRadius?: number;
 
 	/** Configures the styles of shapes
 	*/
-	cssClass?: String;
+	cssClass?: string;
 
 	/** Defines the BPMN data object
 	*/
@@ -55891,7 +57211,7 @@ export interface Node {
 	/** Defines the fill color of the node
 	*   @Default {white}
 	*/
-	fillColor?: String;
+	fillColor?: string;
 
 	/** Sets the type of the BPMN Gateway. Applicable, if the node is a BPMN gateway.
 	*   @Default {ej.datavisualization.Diagram.BPMNGateways.None}
@@ -55915,7 +57235,7 @@ export interface Node {
 	/** Defines the height of the node
 	*   @Default {0}
 	*/
-	height?: Number;
+	height?: number;
 
 	/** Sets the horizontal alignment of the node. Applicable, if the parent of the node is a container.
 	*   @Default {ej.datavisualization.Diagram.HorizontalAlignment.Left}
@@ -55955,66 +57275,66 @@ export interface Node {
 	/** Defines the minimum space to be left between the bottom of parent bounds and the node. Applicable, if the parent is a container.
 	*   @Default {0}
 	*/
-	marginBottom?: Number;
+	marginBottom?: number;
 
 	/** Defines the minimum space to be left between the left of parent bounds and the node. Applicable, if the parent is a container.
 	*   @Default {0}
 	*/
-	marginLeft?: Number;
+	marginLeft?: number;
 
 	/** Defines the minimum space to be left between the right of the parent bounds and the node. Applicable, if the parent is a container.
 	*   @Default {0}
 	*/
-	marginRight?: Number;
+	marginRight?: number;
 
 	/** Defines the minimum space to be left between the top of parent bounds and the node. Applicable, if the parent is a container.
 	*   @Default {0}
 	*/
-	marginTop?: Number;
+	marginTop?: number;
 
 	/** Defines the maximum height limit of the node
 	*   @Default {0}
 	*/
-	maxHeight?: Number;
+	maxHeight?: number;
 
 	/** Defines the maximum width limit of the node
 	*   @Default {0}
 	*/
-	maxWidth?: Number;
+	maxWidth?: number;
 
 	/** Defines the minimum height limit of the node
 	*   @Default {0}
 	*/
-	minHeight?: Number;
+	minHeight?: number;
 
 	/** Defines the minimum width limit of the node
 	*   @Default {0}
 	*/
-	minWidth?: Number;
+	minWidth?: number;
 
 	/** Sets the unique identifier of the node
 	*/
-	name?: String;
+	name?: string;
 
 	/** Defines the position of the node on X-Axis
 	*   @Default {0}
 	*/
-	offsetX?: Number;
+	offsetX?: number;
 
 	/** Defines the position of the node on Y-Axis
 	*   @Default {0}
 	*/
-	offsetY?: Number;
+	offsetY?: number;
 
 	/** Defines the opaque of the node
 	*   @Default {1}
 	*/
-	opacity?: Number;
+	opacity?: number;
 
 	/** Defines the orientation of nodes. Applicable, if the node is a swimlane.
 	*   @Default {vertical}
 	*/
-	orientation?: String;
+	orientation?: string;
 
 	/** A read only collection of outgoing connectors/edges of the node
 	*   @Default {[]}
@@ -56024,22 +57344,22 @@ export interface Node {
 	/** Defines the minimum padding value to be left between the bottom most position of a group and its children. Applicable, if the group is a container.
 	*   @Default {0}
 	*/
-	paddingBottom?: Number;
+	paddingBottom?: number;
 
 	/** Defines the minimum padding value to be left between the left most position of a group and its children. Applicable, if the group is a container.
 	*   @Default {0}
 	*/
-	paddingLeft?: Number;
+	paddingLeft?: number;
 
 	/** Defines the minimum padding value to be left between the right most position of a group and its children. Applicable, if the group is a container.
 	*   @Default {0}
 	*/
-	paddingRight?: Number;
+	paddingRight?: number;
 
 	/** Defines the minimum padding value to be left between the top most position of a group and its children. Applicable, if the group is a container.
 	*   @Default {0}
 	*/
-	paddingTop?: Number;
+	paddingTop?: number;
 
 	/** Defines the size and preview size of the node to add that to symbol palette
 	*   @Default {null}
@@ -56048,11 +57368,11 @@ export interface Node {
 
 	/** Sets the name of the parent group
 	*/
-	parent?: String;
+	parent?: string;
 
 	/** Sets the path geometry that defines the shape of a path node
 	*/
-	pathData?: String;
+	pathData?: string;
 
 	/** An array of objects, where each object represents a smaller region(phase) of a swimlane.
 	*   @Default {[]}
@@ -56062,7 +57382,7 @@ export interface Node {
 	/** Sets the height of the phase headers
 	*   @Default {0}
 	*/
-	phaseSize?: Number;
+	phaseSize?: number;
 
 	/** Sets the ratio/ fractional value relative to node, based on which the node will be transformed(positioning, scaling and rotation)
 	*   @Default {ej.datavisualization.Diagram.Points(0.5,0.5)}
@@ -56082,7 +57402,7 @@ export interface Node {
 	/** Sets the angle to which the node should be rotated
 	*   @Default {0}
 	*/
-	rotateAngle?: Number;
+	rotateAngle?: number;
 
 	/** Defines the opacity and the position of shadow
 	*   @Default {ej.datavisualization.Diagram.Shadow()}
@@ -56096,7 +57416,7 @@ export interface Node {
 
 	/** Sets the source path of the image. Applicable, if the type of the node is image.
 	*/
-	source?: String;
+	source?: string;
 
 	/** Defines the sub process of a BPMN Activity. Applicable, if the type of the BPMN activity is sub process.
 	*   @Default {ej.datavisualization.Diagram.BPMNSubProcess()}
@@ -56110,7 +57430,7 @@ export interface Node {
 
 	/** Sets the id of svg/html templates. Applicable, if the node is HTML or native.
 	*/
-	templateId?: String;
+	templateId?: string;
 
 	/** Defines the textBlock of a text node
 	*   @Default {null}
@@ -56145,12 +57465,12 @@ export interface Node {
 	/** Defines the width of the node
 	*   @Default {0}
 	*/
-	width?: Number;
+	width?: number;
 
 	/** Defines the z-index of the node
 	*   @Default {0}
 	*/
-	zOrder?: Number;
+	zOrder?: number;
 }
 
 export interface PageSettings {
@@ -56168,27 +57488,27 @@ export interface PageSettings {
 	/** Defines the background color of diagram pages
 	*   @Default {#ffffff}
 	*/
-	pageBackgroundColor?: String;
+	pageBackgroundColor?: string;
 
 	/** Defines the page border color
 	*   @Default {#565656}
 	*/
-	pageBorderColor?: String;
+	pageBorderColor?: string;
 
 	/** Sets the border width of diagram pages
 	*   @Default {0}
 	*/
-	pageBorderWidth?: Number;
+	pageBorderWidth?: number;
 
 	/** Defines the height of a page
 	*   @Default {null}
 	*/
-	pageHeight?: Number;
+	pageHeight?: number;
 
 	/** Defines the page margin
 	*   @Default {24}
 	*/
-	pageMargin?: Number;
+	pageMargin?: number;
 
 	/** Sets the orientation of the page.
 	*   @Default {ej.datavisualization.Diagram.PageOrientations.Portrait}
@@ -56198,7 +57518,7 @@ export interface PageSettings {
 	/** Defines the height of a diagram page
 	*   @Default {null}
 	*/
-	pageWidth?: Number;
+	pageWidth?: number;
 
 	/** Defines the scrollable area of diagram. Applicable, if the scroll limit is &quot;limited&quot;.
 	*   @Default {null}
@@ -56226,12 +57546,12 @@ export interface ScrollSettings {
 	/** Allows to read the zoom value of diagram
 	*   @Default {0}
 	*/
-	currentZoom?: Number;
+	currentZoom?: number;
 
 	/** Sets the horizontal scroll offset
 	*   @Default {0}
 	*/
-	horizontalOffset?: Number;
+	horizontalOffset?: number;
 
 	/** Allows to extend the scrollable region that is based on the scroll limit
 	*   @Default {{left: 0, right: 0, top:0, bottom: 0}}
@@ -56241,17 +57561,17 @@ export interface ScrollSettings {
 	/** Sets the vertical scroll offset
 	*   @Default {0}
 	*/
-	verticalOffset?: Number;
+	verticalOffset?: number;
 
 	/** Allows to read the view port height of the diagram
 	*   @Default {0}
 	*/
-	viewPortHeight?: Number;
+	viewPortHeight?: number;
 
 	/** Allows to read the view port width of the diagram
 	*   @Default {0}
 	*/
-	viewPortWidth?: Number;
+	viewPortWidth?: number;
 }
 
 export interface SelectedItemsUserHandle {
@@ -56259,12 +57579,12 @@ export interface SelectedItemsUserHandle {
 	/** Defines the background color of the user handle
 	*   @Default {#2382c3}
 	*/
-	backgroundColor?: String;
+	backgroundColor?: string;
 
 	/** Sets the border color of the user handle
 	*   @Default {transparent}
 	*/
-	borderColor?: String;
+	borderColor?: string;
 
 	/** Defines whether the user handle should be added, when more than one element is selected
 	*   @Default {false}
@@ -56274,11 +57594,11 @@ export interface SelectedItemsUserHandle {
 	/** Sets the stroke color of the user handle
 	*   @Default {transparent}
 	*/
-	pathColor?: String;
+	pathColor?: string;
 
 	/** Defines the custom shape of the user handle
 	*/
-	pathData?: String;
+	pathData?: string;
 
 	/** Defines the position of the user handle
 	*   @Default {ej.datavisualization.Diagram.UserHandlePositions.BottomCenter}
@@ -56288,7 +57608,7 @@ export interface SelectedItemsUserHandle {
 	/** Defines the size of the user handle
 	*   @Default {8}
 	*/
-	size?: Number;
+	size?: number;
 
 	/** Defines the interactive behaviors of the user handle
 	*/
@@ -56320,22 +57640,22 @@ export interface SelectedItems {
 	/** Sets the height of the selected items
 	*   @Default {0}
 	*/
-	height?: Number;
+	height?: number;
 
 	/** Sets the x position of the selector
 	*   @Default {0}
 	*/
-	offsetX?: Number;
+	offsetX?: number;
 
 	/** Sets the y position of the selector
 	*   @Default {0}
 	*/
-	offsetY?: Number;
+	offsetY?: number;
 
 	/** Sets the angle to rotate the selected items
 	*   @Default {0}
 	*/
-	rotateAngle?: Number;
+	rotateAngle?: number;
 
 	/** Sets the angle to rotate the selected items. For tooltip properties, refer Tooltip
 	*   @Default {ej.datavisualization.Diagram.Tooltip()}
@@ -56350,7 +57670,7 @@ export interface SelectedItems {
 	/** Sets the width of the selected items
 	*   @Default {0}
 	*/
-	width?: Number;
+	width?: number;
 }
 
 export interface SnapSettingsHorizontalGridLines {
@@ -56358,11 +57678,11 @@ export interface SnapSettingsHorizontalGridLines {
 	/** Defines the line color of horizontal grid lines
 	*   @Default {lightgray}
 	*/
-	lineColor?: String;
+	lineColor?: string;
 
 	/** Specifies the pattern of dashes and gaps used to stroke horizontal grid lines
 	*/
-	lineDashArray?: String;
+	lineDashArray?: string;
 
 	/** A pattern of lines and gaps that defines a set of horizontal gridlines
 	*   @Default {[1.25, 18.75, 0.25, 19.75, 0.25, 19.75, 0.25, 19.75, 0.25, 19.75]}
@@ -56380,11 +57700,11 @@ export interface SnapSettingsVerticalGridLines {
 	/** Defines the line color of horizontal grid lines
 	*   @Default {lightgray}
 	*/
-	lineColor?: String;
+	lineColor?: string;
 
 	/** Specifies the pattern of dashes and gaps used to stroke horizontal grid lines
 	*/
-	lineDashArray?: String;
+	lineDashArray?: string;
 
 	/** A pattern of lines and gaps that defines a set of horizontal gridlines
 	*   @Default {[1.25, 18.75, 0.25, 19.75, 0.25, 19.75, 0.25, 19.75, 0.25, 19.75]}
@@ -56411,7 +57731,7 @@ export interface SnapSettings {
 	/** Defines the angle by which the object needs to be snapped
 	*   @Default {5}
 	*/
-	snapAngle?: Number;
+	snapAngle?: number;
 
 	/** Defines and sets the snapConstraints
 	*/
@@ -56420,7 +57740,7 @@ export interface SnapSettings {
 	/** Defines the minimum distance between the selected object and the nearest object
 	*   @Default {5}
 	*/
-	snapObjectDistance?: Number;
+	snapObjectDistance?: number;
 
 	/** Defines the appearance of horizontal gridlines
 	*/
@@ -56458,7 +57778,7 @@ export interface Tooltip {
 
 	/** Sets the svg/html template to be bound with tooltip
 	*/
-	templateId?: String;
+	templateId?: string;
 }
 }
 module Diagram
@@ -58472,17 +59792,17 @@ export interface Model {
 	/** The sourceId property of overview should be set with the corresponding Diagram ID for you need the overall view.
 	*   @Default {null}
 	*/
-	sourceID?: String;
+	sourceID?: string;
 
 	/** Defines the height of the overview
 	*   @Default {400}
 	*/
-	height?: Number;
+	height?: number;
 
 	/** Defines the width of the overview
 	*   @Default {250}
 	*/
-	width?: Number;
+	width?: number;
 }
 }
 
@@ -58894,4 +60214,3 @@ ejWaitingPopup(options?: ej.WaitingPopup.Model): JQuery;
 ejWaitingPopup(memberName: any, value?: any, param?: any): any;
 data(key: "ejWaitingPopup"): ej.WaitingPopup;
 }
-
