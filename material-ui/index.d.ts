@@ -533,6 +533,7 @@ declare namespace __MaterialUI {
         animated?: boolean;
         animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
         dataSource: AutoCompleteDataSource;
+        dataSourceConfig?: { text: string; value: string; };
         disableFocusRipple?: boolean;
         errorStyle?: React.CSSProperties;
         errorText?: string;
