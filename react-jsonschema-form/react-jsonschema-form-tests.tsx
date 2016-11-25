@@ -76,6 +76,8 @@ export class Example extends React.Component<any, IExampleState> {
           <div className="react-jsonschema-form-example">
               {   <Form schema={schema}
                         uiSchema={uiSchema}
+                        showErrorList={false}
+                        noValidate={false}
                         formData={this.state}
                         onChange={(formData) => this.setState({formData})} /> }
           </div>
