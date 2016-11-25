@@ -84,7 +84,7 @@ declare namespace PouchDB {
         interface AttachmentResponse {
             content_type: string;
 
-            /** Md5 hash, starts with "md5-" prefix */
+            /** MD5 hash, starts with "md5-" prefix */
             digest: string;
 
             /** Only present if `attachments` was `false`. */
@@ -93,7 +93,7 @@ declare namespace PouchDB {
             /** Only present if `attachments` was `false`. */
             length?: number;
 
-            /** 
+            /**
              * Only present if `attachments` was `true`.
              * {string} if `binary` was `false`
              * {Blob|Buffer} if `binary` was `true`
@@ -242,15 +242,15 @@ declare namespace PouchDB {
             /** Reverse the order of the output documents. */
             descending?: boolean;
 
-            /** 
-             * For http adapter only, time in milliseconds for server to give a heartbeat to keep long connections open. 
-             * Defaults to 10000 (10 seconds), use false to disable the default. 
+            /**
+             * For http adapter only, time in milliseconds for server to give a heartbeat to keep long connections open.
+             * Defaults to 10000 (10 seconds), use false to disable the default.
              */
             heartbeat?: number | false;
 
             /**
-             * Reference a filter function from a design document to selectively get updates. 
-             * To use a view function, pass '_view' here and provide a reference to the view function in options.view. 
+             * Reference a filter function from a design document to selectively get updates.
+             * To use a view function, pass '_view' here and provide a reference to the view function in options.view.
              * See filtered changes for details.
              */
             filter?: string | {(doc: any, params: any): any};
@@ -259,15 +259,15 @@ declare namespace PouchDB {
             doc_ids?: string[];
 
             /**
-             * Object containing properties that are passed to the filter function, e.g. {"foo:"bar"}, 
-             * where "bar" will be available in the filter function as params.query.foo. 
+             * Object containing properties that are passed to the filter function, e.g. {"foo:"bar"},
+             * where "bar" will be available in the filter function as params.query.foo.
              * To access the params, define your filter function like function (doc, params).
              */
             query_params?: {[paramName: string]: any};
 
             /**
-             * Specify a view function (e.g. 'design_doc_name/view_name' or 'view_name' as shorthand for 'view_name/view_name') to act as a filter. 
-             * Documents counted as “passed” for a view filter if a map function emits at least one record for them. 
+             * Specify a view function (e.g. 'design_doc_name/view_name' or 'view_name' as shorthand for 'view_name/view_name') to act as a filter.
+             * Documents counted as “passed” for a view filter if a map function emits at least one record for them.
              * Note: options.filter must be set to '_view' for this option to work.
              */
             view?: string;
@@ -431,7 +431,7 @@ declare namespace PouchDB {
             options?: Configuration.DatabaseConfiguration): Database<Content>;
 
         /**
-         * The returned object is a constructor function that works the same as PouchDB, 
+         * The returned object is a constructor function that works the same as PouchDB,
          * except that whenever you invoke it (e.g. with new), the given options will be passed in by default.
          */
         defaults(options: Configuration.DatabaseConfiguration): {
@@ -460,9 +460,9 @@ declare namespace PouchDB {
 
         /**
          * Create, update or delete multiple documents. The docs argument is an array of documents.
-         * If you omit an _id parameter on a given document, the database will create a new document and assign the ID for you. 
-         * To update a document, you must include both an _id parameter and a _rev parameter, 
-         * which should match the ID and revision of the document on which to base your updates. 
+         * If you omit an _id parameter on a given document, the database will create a new document and assign the ID for you.
+         * To update a document, you must include both an _id parameter and a _rev parameter,
+         * which should match the ID and revision of the document on which to base your updates.
          * Finally, to delete a document, include a _deleted parameter with the value true.
          */
         bulkDocs(docs: Core.PutDocument<Content>[],
@@ -471,9 +471,9 @@ declare namespace PouchDB {
 
         /**
          * Create, update or delete multiple documents. The docs argument is an array of documents.
-         * If you omit an _id parameter on a given document, the database will create a new document and assign the ID for you. 
-         * To update a document, you must include both an _id parameter and a _rev parameter, 
-         * which should match the ID and revision of the document on which to base your updates. 
+         * If you omit an _id parameter on a given document, the database will create a new document and assign the ID for you.
+         * To update a document, you must include both an _id parameter and a _rev parameter,
+         * which should match the ID and revision of the document on which to base your updates.
          * Finally, to delete a document, include a _deleted parameter with the value true.
          */
         bulkDocs(docs: Core.PutDocument<Content>[],
@@ -594,35 +594,35 @@ declare namespace PouchDB {
         info(options?: Core.InfoOptions): Promise<Core.DatabaseInfo>;
 
         /**
-         * A list of changes made to documents in the database, in the order they were made. 
+         * A list of changes made to documents in the database, in the order they were made.
          * It returns an object with the method cancel(), which you call if you don’t want to listen to new changes anymore.
-         * 
-         * It is an event emitter and will emit a 'change' event on each document change, 
-         * a 'complete' event when all the changes have been processed, and an 'error' event when an error occurs. 
+         *
+         * It is an event emitter and will emit a 'change' event on each document change,
+         * a 'complete' event when all the changes have been processed, and an 'error' event when an error occurs.
          * Calling cancel() will unsubscribe all event listeners automatically.
          */
         changes(options: Core.ChangesOptions | null,
             callback: Core.Callback<any, Core.Changes<Content>>): void;
 
         /**
-         * A list of changes made to documents in the database, in the order they were made. 
+         * A list of changes made to documents in the database, in the order they were made.
          * It returns an object with the method cancel(), which you call if you don’t want to listen to new changes anymore.
-         * 
-         * It is an event emitter and will emit a 'change' event on each document change, 
-         * a 'complete' event when all the changes have been processed, and an 'error' event when an error occurs. 
+         *
+         * It is an event emitter and will emit a 'change' event on each document change,
+         * a 'complete' event when all the changes have been processed, and an 'error' event when an error occurs.
          * Calling cancel() will unsubscribe all event listeners automatically.
          */
         changes(options?: Core.ChangesOptions): Core.Changes<Content>;
 
         /** Close the database */
         close(callback: Core.AnyCallback): void;
-    
+
         /** Close the database */
         close(): Promise<void>;
 
         /**
          * Attaches a binary object to a document.
-         * This method will update an existing document to add the attachment, so it requires a rev if the document already exists. 
+         * This method will update an existing document to add the attachment, so it requires a rev if the document already exists.
          * If the document doesn’t already exist, then this method will create an empty document containing the attachment.
          */
         putAttachment(docId: Core.DocumentId,
@@ -634,7 +634,7 @@ declare namespace PouchDB {
 
          /**
          * Attaches a binary object to a document.
-         * This method will update an existing document to add the attachment, so it requires a rev if the document already exists. 
+         * This method will update an existing document to add the attachment, so it requires a rev if the document already exists.
          * If the document doesn’t already exist, then this method will create an empty document containing the attachment.
          */
         putAttachment(docId: Core.DocumentId,
@@ -645,7 +645,7 @@ declare namespace PouchDB {
 
          /**
          * Attaches a binary object to a document.
-         * This method will update an existing document to add the attachment, so it requires a rev if the document already exists. 
+         * This method will update an existing document to add the attachment, so it requires a rev if the document already exists.
          * If the document doesn’t already exist, then this method will create an empty document containing the attachment.
          */
         putAttachment(docId: Core.DocumentId,
@@ -656,7 +656,7 @@ declare namespace PouchDB {
 
          /**
          * Attaches a binary object to a document.
-         * This method will update an existing document to add the attachment, so it requires a rev if the document already exists. 
+         * This method will update an existing document to add the attachment, so it requires a rev if the document already exists.
          * If the document doesn’t already exist, then this method will create an empty document containing the attachment.
          */
         putAttachment(docId: Core.DocumentId,
@@ -669,7 +669,7 @@ declare namespace PouchDB {
             attachmentId: Core.AttachmentId,
             options: { rev?: Core.RevisionId},
             callback: Core.Callback<Core.Error, Blob | Buffer>): void;
-        
+
         /** Get attachment data */
         getAttachment(docId: Core.DocumentId,
             attachmentId: Core.AttachmentId,
@@ -689,7 +689,7 @@ declare namespace PouchDB {
             attachmentId: Core.AttachmentId,
             rev: Core.RevisionId,
             callback: Core.Callback<Core.Error, Core.RemoveAttachmentResponse>): void;
-        
+
         /** Delete an attachment from a doc. You must supply the rev of the existing doc. */
         removeAttachment(docId: Core.DocumentId,
             attachmentId: Core.AttachmentId,
@@ -698,7 +698,7 @@ declare namespace PouchDB {
         /** Given a set of document/revision IDs, returns the document bodies (and, optionally, attachment data) for each ID/revision pair specified. */
         bulkGet(options: any,
             callback: Core.Callback<any, any>): void;
-        
+
         /** Given a set of document/revision IDs, returns the document bodies (and, optionally, attachment data) for each ID/revision pair specified. */
         bulkGet(options: any): Promise<any>;
     }
