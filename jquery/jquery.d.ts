@@ -855,6 +855,10 @@ interface JQueryStatic {
      */
     data(element: Element, key: string): any;
     /**
+     * jQuery more than v1.8. Example.. jQuery._data(window, "events")
+     */
+    _data(element: Element, key: string): any;
+    /**
      * Returns value at named data store for the element, as set by jQuery.data(element, name, value), or the full data store for the element.
      *
      * @param element The DOM element to associate with the data.
