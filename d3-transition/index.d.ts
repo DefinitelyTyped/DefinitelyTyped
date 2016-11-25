@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-transition module v1.0.2
+// Type definitions for D3JS d3-transition module v1.0.3
 // Project: https://github.com/d3/d3-transition/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -36,6 +36,9 @@ declare module 'd3-selection' {
          * Otherwise, the timing of the returned transition is inherited from the existing transition of the same id on the nearest ancestor of each selected element.
          * Thus, this method can be used to synchronize a transition across multiple selections,
          * or to re-select a transition for specific elements and modify its configuration.
+         *
+         * If the specified transition is not found on a selected node or its ancestors (such as if the transition already ended),
+         * the default timing parameters are used; however, in a future release, this will likely be changed to throw an error.
          *
          * @param transition A transition instance.
          */
