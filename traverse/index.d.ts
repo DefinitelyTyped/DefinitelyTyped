@@ -172,13 +172,13 @@ interface TraverseContext {
   delete(stopHere?: boolean): void;
 
   /**
-   * Call this function before any of the children are traversed.
+   * Call this function before all of the children are traversed.
    * You can assign into `this.keys` here to traverse in a custom order.
    */
   before(callback: (this: TraverseContext, value: any) => void): void;
 
   /**
-   * Call this function after any of the children are traversed.
+   * Call this function after all of the children are traversed.
    */
   after(callback: (this: TraverseContext, value: any) => void): void;
 
@@ -190,7 +190,7 @@ interface TraverseContext {
   /**
    * Call this function after each of the children are traversed.
    */
-  pre(callback: (this: TraverseContext, child: any) => void): void;
+  post(callback: (this: TraverseContext, child: any) => void): void;
 }
 
 declare function traverseFunction<T>(obj: T): Traverse<T>;
