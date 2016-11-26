@@ -57,8 +57,8 @@ declare namespace Redux {
     /**
      * Object whose values correspond to different reducer functions.
      */
-    interface ReducersMapObject {
-      [key: string]: Reducer<any>;
+    type ReducersMapObject<S> = {
+      [K in keyof S]: Reducer<S[K]>;
     }
 
     /**
@@ -79,7 +79,7 @@ declare namespace Redux {
      * @returns A reducer function that invokes every reducer inside the passed
      *   object, and builds a state object with the same shape.
      */
-    function combineReducers<S>(reducers: ReducersMapObject): Reducer<S>;
+    function combineReducers<S>(reducers: ReducersMapObject<S>): Reducer<S>;
 
 
     /* store */
