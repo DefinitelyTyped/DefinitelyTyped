@@ -1,4 +1,4 @@
-import * as mem from 'mem';
+import mem = require('mem');
 
 let i = 0;
 const memoized = mem((arg: string) => ++i);

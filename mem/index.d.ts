@@ -14,5 +14,4 @@ declare const mem: {
 	clear<F extends (...args: any[]) => any>(fn: F): void;
 };
 
-declare namespace mem { }
 export = mem;
