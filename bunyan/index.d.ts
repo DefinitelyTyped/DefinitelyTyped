@@ -56,6 +56,7 @@ interface LoggerOptions {
     stream?: NodeJS.WritableStream;
     serializers?: Serializers | StdSerializers;
     src?: boolean;
+    [custom: string]: any;
 }
 
 interface Serializer {
