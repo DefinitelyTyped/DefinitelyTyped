@@ -1,6 +1,6 @@
 // Type definitions for jsonschema
 // Project: https://github.com/tdegrunt/jsonschema
-// Definitions by: Vlado Tešanovic <https://github.com/vladotesanovic>
+// Definitions by: Vlado Tešanovic <https://github.com/vladotesanovic>, kinesivan <https://github.com/kinesivan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare module "jsonschema" {
 
@@ -11,6 +11,7 @@ declare module "jsonschema" {
         propertyPath: string;
         name: string;
         schema: {};
+        valid: boolean;
         throwError: any;
         disableFormat: boolean;
     }
