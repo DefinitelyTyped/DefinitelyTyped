@@ -402,7 +402,7 @@ declare module "browser-sync" {
             /**
              * Stand alone file-watcher. Use this along with Browsersync to create your own, minimal build system
              */
-            watch(patterns: string, opts?: chokidar.WatchOptions, fn?: (event: string, file: fs.Stats) => any)
+            watch(patterns: string | string[], opts?: chokidar.WatchOptions, fn?: (event: string, file: fs.Stats) => any)
                 : NodeJS.EventEmitter;
             /**
              * Method to pause file change events
