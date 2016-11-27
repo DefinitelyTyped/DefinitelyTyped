@@ -1,6 +1,6 @@
-// Type definitions for Vivus 0.3.2
+// Type definitions for Vivus 0.4.0
 // Project: http://maxwellito.github.io/vivus/
-// Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
+// Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>, Ruslan Lekhman <https://github.com/lekhmanrus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Vivus;
@@ -24,10 +24,11 @@ declare class Vivus {
      * Plays the animation with the speed given in parameter.
      * A speed of `1` is the normal speed.
      * This value can be negative to go reverse, between 0 and 1 to play slowly, or greater than 1 to go faster.
+     * Callback executed after the animation is finished (optional).
      *
      * (default: `1`)
      */
-    play(speed?: number): this;
+    play(speed?: number, callback?: () => void): this;
 
     /**
      * Stops the animation.
@@ -67,10 +68,10 @@ declare namespace Vivus {
     export interface VivusOptions {
         /**
          * Determines if the item must be drawn asynchronously or not.
-         * Can be `'delayed'`, `'async'`, `'oneByOne'`, or `'script'`.
+         * Can be `'delayed'`, `'sync'`, `'oneByOne'`, `'script'`, `'scenario'`, or `'scenario-sync'`.
          * (default: `'delayed'`)
          */
-        type?: 'delayed' | 'async' | 'oneByOne' | 'script';
+        type?: 'delayed' | 'sync' | 'oneByOne' | 'script' | 'scenario' | 'scenario-sync';
         /**
          * Link to the SVG to animate.
          * If set, Vivus will create an object tag and append it to the DOM element given to the constructor.
@@ -124,6 +125,14 @@ declare namespace Vivus {
          * See [the troubleshooting documentation for more details](https://github.com/maxwellito/vivus#troubleshoot).
          */
         forceRender?: boolean;
+        /**
+         * Reverse the order of execution.
+         * The default behaviour is to render from the first 'path' in the SVG to the last one.
+         * This option allow you to reverse the order.
+         *
+         * (default: `false`)
+         */
+        reverseStack?: boolean;
         /**
          * Removes all extra styling on the SVG, and leaves it as original.
          */
