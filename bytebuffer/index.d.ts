@@ -2,13 +2,9 @@
 // Project: https://github.com/dcodeIO/bytebuffer.js
 // Definitions by: Denis Cappellin <http://github.com/cappellin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Definitions by: SINTEF-9012 <http://github.com/SINTEF-9012>
+// Definitions by: SINTEF-9012 <http://github.com/SINTEF-9012>, woooha <https://github.com/woooha>
 
-import Long = require("long");
-
-declare namespace ByteBuffer {}
-export = ByteBuffer;
-export as namespace ByteBuffer;
+/// <reference path="../long/index.d.ts" />
 
 declare class ByteBuffer
 {
@@ -617,4 +613,8 @@ declare class ByteBuffer
      * Writes a zig-zag encoded 64bit base 128 variable-length integer.
      */
     writeVarint64ZigZag( value: number | Long, offset?: number ): ByteBuffer | number;
+}
+
+declare module 'bytebuffer' {
+    export = ByteBuffer;
 }
