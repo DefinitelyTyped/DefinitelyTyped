@@ -24,9 +24,7 @@ declare namespace getRawBody {
         type?: string;
     }
 
-    export interface Callback {
-        (err: RawBodyError, res: string | Buffer): void;
-    }
+    export type Callback = (err: RawBodyError, res: string | Buffer) => void;
 }
 
 
