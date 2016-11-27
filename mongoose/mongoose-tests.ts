@@ -193,6 +193,18 @@ QCModel.find({}).cursor({}).on('data', function (doc: any) {
 }).on('error', function (error: any) {
   throw error;
 }).close().then(cb).catch(cb);
+querycursor.map(function (doc) {
+  doc.foo = "bar";
+  return doc;
+}).on('data', function (doc: any) {
+  console.log(doc.foo);
+});
+querycursor.map(function (doc) {
+  doc.foo = "bar";
+  return doc;
+}).next(function (error, doc) {
+  console.log(doc.foo);
+});
 
 /*
  * section virtualtype.js
