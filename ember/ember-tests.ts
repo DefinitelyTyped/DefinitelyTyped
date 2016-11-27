@@ -146,7 +146,7 @@ people2.everyProperty('isHappy', true);
 people2.someProperty('isHappy', true);
 
 // Examples taken from http://emberjs.com/api/classes/Em.RSVP.Promise.html
-var promise = new Em.RSVP.Promise(function(resolve: Function, reject: Function) {
+var promise = new Em.RSVP.Promise<string, string>(function(resolve: Function, reject: Function) {
   // on success
   resolve('ok!');
 
@@ -158,4 +158,9 @@ promise.then(function(value: any) {
   // on fulfillment
 }, function(reason: any) {
   // on rejection
+});
+
+var component1 = Ember.Component.extend({
+  lyft: Ember.inject.service(),
+  cars: Ember.computed.readOnly('lyft.cars')
 });
