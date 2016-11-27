@@ -10,19 +10,19 @@ declare namespace accepts {
     export interface Accepts {
         charset(charsets: string[]): string | string[] | boolean;
         charset(...charsets: string[]): string | string[] | boolean;
-        charsets(): string[]
+        charsets(): string[];
 
         encoding(encodings: string[]): string | string[] | boolean;
         encoding(...encodings: string[]): string | string[] | boolean;
-        encodings(): string[]
+        encodings(): string[];
 
         language(languages: string[]): string | string[] | boolean;
         language(...languages: string[]): string | string[] | boolean;
-        languages(): string[]
+        languages(): string[];
 
         type(types: string[]): string | string[] | boolean;
         type(...types: string[]): string | string[] | boolean;
-        types(): string[]
+        types(): string[];
     }
 }
 
