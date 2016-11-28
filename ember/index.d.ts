@@ -874,7 +874,8 @@ declare namespace Ember {
         @param {Object} [args] - Object containing values to use within the new class
         **/
         static extend<T>(args?: CoreObjectArguments): T;
-        static extend<T>(mixins?: Mixin, args?: CoreObjectArguments): T;
+        static extend<T>(mixin1: Mixin, args?: CoreObjectArguments): T;
+        static extend<T>(mixin1: Mixin, mixin2: Mixin, args?: CoreObjectArguments): T;
 
         /**
         Creates a new subclass.

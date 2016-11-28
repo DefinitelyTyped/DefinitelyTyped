@@ -160,7 +160,15 @@ promise.then(function(value: any) {
   // on rejection
 });
 
-var component1 = Ember.Component.extend({
+var mix1 = Ember.Mixin.create({
+  foo: 1
+});
+
+var mix2 = Ember.Mixin.create({
+  bar: 2
+});
+
+var component1 = Ember.Component.extend( mix1, mix2, {
   lyft: Ember.inject.service(),
   cars: Ember.computed.readOnly('lyft.cars')
 });
