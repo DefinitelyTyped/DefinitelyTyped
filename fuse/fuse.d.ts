@@ -3,24 +3,25 @@
 // Definitions by: Greg Smith <https://github.com/smrq/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class Fuse {
-	constructor(list: any[], options?: fuse.IFuseOptions);
-	search(pattern: string): any[];
-}
+declare module 'fuse' {
+	export class Fuse {
+		constructor(list: any[], options?: FuseOptions);
+		search(pattern: string): any[];
+		search<T>(pattern: string): T[];
+	}
 
-declare namespace fuse {
-	interface IFuseOptions {
+	export interface FuseOptions {
 		id?: string;
 		caseSensitive?: boolean;
 		include?: string[];
 		shouldSort?: boolean;
 		searchFn?: any;
-		sortFn?: (a: {score: number}, b: {score: number}) => number;
+		sortFn?: (a: { score: number }, b: { score: number }) => number;
 		getFn?: (obj: any, path: string) => any;
-		keys?: string[] | { name:string; weight:number} [];
-        	verbose?:boolean;
+		keys?: string[] | { name: string; weight: number }[];
+		verbose?: boolean;
 		tokenize?: boolean;
-		tokenSeparator? : RegExp;
+		tokenSeparator?: RegExp;
 		matchAllTokens?: boolean;
 		location?: number;
 		distance?: number;
