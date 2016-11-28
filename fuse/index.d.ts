@@ -33,4 +33,4 @@ declare module 'fuse.js' {
 	export = fuse.js;
 }
 
-declare const Fuse;
+declare const Fuse: any;
