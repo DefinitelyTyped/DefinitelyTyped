@@ -1,5 +1,5 @@
-/// <reference types="jquery" />
-/// <reference types="ej.web.all" />
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="ej.web.all.d.ts" />
 
  
  
