@@ -3368,7 +3368,7 @@ declare module "stream" {
 
             on(event: string, listener: Function): this;
             on(event: "close", listener: () => void): this;
-            on(event: "data", listener: (chunk: Buffer | string) => void): this;
+            on(event: "data", listener: (chunk: any) => void): this;
             on(event: "end", listener: () => void): this;
             on(event: "readable", listener: () => void): this;
             on(event: "error", listener: (err: Error) => void): this;
