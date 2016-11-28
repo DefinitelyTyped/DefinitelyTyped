@@ -1,4 +1,5 @@
 // Type definitions for Fuse.js 2.5.0
+// Project: https://github.com/krisk/Fuse
 // Definitions by: Alan Agius <https://github.com/alan-agius4/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
