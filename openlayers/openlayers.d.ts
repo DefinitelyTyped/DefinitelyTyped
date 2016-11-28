@@ -3728,6 +3728,12 @@ declare module ol {
              */
             transform(source: ol.ProjectionLike, destination: ol.ProjectionLike): ol.geom.Geometry;
 
+            /**
+             * Get the type of this geometry.
+             * @abstract
+             * @return {ol.geom.GeometryType} Geometry type.
+             */
+            getType(): ol.geom.GeometryType;
         }
 
         /**
@@ -10957,7 +10963,7 @@ declare module ol {
      * @typedef {function(this:ol.source.ImageCanvas, ol.Extent, number,
      *     number, ol.Size, ol.proj.Projection): HTMLCanvasElement}
      */
-    type CanvasFunctionType = (self: ol.source.ImageCanvas, extent: ol.Extent, resolution: number, pixelRatio: number, size: ol.Size, proj: ol.proj.Projection) => HTMLCanvasElement;
+    type CanvasFunctionType = (extent: ol.Extent, resolution: number, pixelRatio: number, size: ol.Size, proj: ol.proj.Projection) => HTMLCanvasElement;
 
     /**
      * A color represented as a short array [red, green, blue, alpha].
@@ -11050,7 +11056,7 @@ declare module ol {
      * @typedef {function(this:ol.source.Vector, ol.Extent, number,
      *                    ol.proj.Projection)}
      */
-    type FeatureLoader = (self: ol.source.Vector, extent: ol.Extent, resolution: number, proj: ol.proj.Projection) => void;
+    type FeatureLoader = (extent: ol.Extent, resolution: number, proj: ol.proj.Projection) => void;
 
     /**
      * A function that returns an array of {@link ol.style.Style styles} given a
@@ -11060,7 +11066,7 @@ declare module ol {
      * @typedef {function(this: ol.Feature, number):
      *     (ol.style.Style|Array.<ol.style.Style>)}
      */
-    type FeatureStyleFunction = (self: ol.Feature, resolution: number) => (ol.style.Style | ol.style.Style[]);
+    type FeatureStyleFunction = (resolution: number) => (ol.style.Style | ol.style.Style[]);
 
     /**
      * {@link ol.source.Vector} sources use a function of this type to get the url
@@ -12732,7 +12738,7 @@ declare module olx {
             geometryFunction?: ((feature: ol.Feature) => ol.geom.Point);
             format?: ol.format.Feature;
             logo?: string;
-            projection: ol.ProjectionLike;
+            projection?: ol.ProjectionLike;
             source: ol.source.Vector;
             wrapX?: boolean;
         }
@@ -13251,7 +13257,7 @@ declare module olx {
             crossOrigin?: (string);
             logo?: (string | olx.LogoOptions);
             opaque?: boolean;
-            projection: ol.ProjectionLike;
+            projection?: ol.ProjectionLike;
             reprojectionErrorThreshold?: number;
             maxZoom?: number;
             minZoom?: number;

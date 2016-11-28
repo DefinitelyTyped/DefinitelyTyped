@@ -8,6 +8,7 @@ function test_basic() {
     t.push(toastr.error('I do not think that word means what you think it means.', 'Inconceivable!'));
     toastr.clear(t[0]); // clear 1
     toastr.clear(); // clear all
+    toastr.remove();
 
     var msg = 'Do you think Rodents of Unusual Size really exist?';
     var title = 'Fireswamp Legends';
