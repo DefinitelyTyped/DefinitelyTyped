@@ -1,4 +1,4 @@
-﻿// Type definitions for sanitize-html 1.13.0
+// Type definitions for sanitize-html 1.13.0
 // Project: https://github.com/punkave/sanitize-html
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>, Afshin Darian <https://github.com/afshin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

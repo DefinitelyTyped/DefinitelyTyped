@@ -1,4 +1,4 @@
-﻿// Type definitions for FullCalendar 2.7.2
+// Type definitions for FullCalendar 2.7.2
 // Project: http://fullcalendar.io/
 // Definitions by: Neil Stalker <https://github.com/nestalk>, Marcelo Camargo <https://github.com/hasellcamargo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

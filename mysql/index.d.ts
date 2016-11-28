@@ -1,4 +1,4 @@
-﻿// Type definitions for node-mysql
+// Type definitions for node-mysql
 // Project: https://github.com/felixge/node-mysql
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

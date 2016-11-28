@@ -1,4 +1,4 @@
-﻿// Type definitions for jQuery Steps v1.1.0
+// Type definitions for jQuery Steps v1.1.0
 // Project: http://www.jquery-steps.com/
 // Definitions by: Joseph Blank <https://github.com/jblank/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
