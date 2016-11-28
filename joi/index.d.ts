@@ -765,7 +765,7 @@ export interface Rules {
     params?: ObjectSchema | { [key: string]: Schema };
     setup?: Function;
     validate?: Function;
-    description: string | Function;
+    description?: string | Function;
 }
 
 export interface Extension {
