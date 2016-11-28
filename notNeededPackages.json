@@ -70,6 +70,12 @@
             "typingsPackageName": "simplesignal",
             "sourceRepoURL": "https://github.com/zeh/simplesignal",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "Redux",
+            "typingsPackageName": "redux",
+            "sourceRepoURL": "https://github.com/reactjs/redux",
+            "asOfVersion": "3.6.0"
         }
     ]
 }
