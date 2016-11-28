@@ -1,4 +1,4 @@
-﻿// Type definitions for orientjs v2.1.0
+// Type definitions for orientjs v2.1.0
 // Project: https://github.com/orientechnologies/orientjs
 // Definitions by: Saeed Tabrizi <https://github.com/saeedtabrizi>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

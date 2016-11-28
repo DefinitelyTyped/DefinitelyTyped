@@ -1,4 +1,4 @@
-﻿// Type definitions for ShellJS v0.3.0
+// Type definitions for ShellJS v0.3.0
 // Project: http://shelljs.org
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

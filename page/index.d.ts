@@ -1,4 +1,4 @@
-﻿// Type definitions for page v1.5.0
+// Type definitions for page v1.5.0
 // Project: http://visionmedia.github.io/page.js/
 // Definitions by: Alan Norbauer <http://alan.norbauer.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -1,4 +1,4 @@
-﻿// Type definitions for Angular File Upload 11.1.1
+// Type definitions for Angular File Upload 11.1.1
 // Project: https://github.com/danialfarid/ng-file-upload
 // Definitions by: John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

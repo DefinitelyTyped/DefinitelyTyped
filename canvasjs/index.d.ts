@@ -1,4 +1,4 @@
-﻿// Type definitions for CanvasJS v1.5.1
+// Type definitions for CanvasJS v1.5.1
 // Project: http://canvasjs.com/
 // Definitions by: Mark Overholt <https://github.com/mover5>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

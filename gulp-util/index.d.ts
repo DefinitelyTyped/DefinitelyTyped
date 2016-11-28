@@ -1,4 +1,4 @@
-﻿// Type definitions for gulp-util v3.0.x
+// Type definitions for gulp-util v3.0.x
 // Project: https://github.com/gulpjs/gulp-util
 // Definitions by: jedmao <https://github.com/jedmao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

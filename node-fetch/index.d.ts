@@ -1,4 +1,4 @@
-﻿// Type definitions for node-fetch v1.6
+// Type definitions for node-fetch v1.6
 // Project: https://github.com/bitinn/node-fetch
 // Definitions by: Torsten Werner <https://github.com/torstenwerner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

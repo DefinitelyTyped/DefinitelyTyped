@@ -1,4 +1,4 @@
-﻿// Type definitions for JQuery DataTables 1.10.8
+// Type definitions for JQuery DataTables 1.10.8
 // Project: http://www.datatables.net
 // Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>, Omid Rad <https://github.com/omidkrad>, Armin Sander <https://github.com/pragmatrix/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
