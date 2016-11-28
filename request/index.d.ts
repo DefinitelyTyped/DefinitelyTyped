@@ -83,8 +83,6 @@ declare namespace request {
         oauth?: OAuthOptions;
         aws?: AWSOptions;
         hawk?: HawkOptions;
-        qsStringifyOptions?: any;
-        qsParseOptions?: any;
         qs?: any;
         qsStringifyOptions?: any;
         qsParseOptions?: any;
