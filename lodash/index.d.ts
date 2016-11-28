@@ -2,6 +2,7 @@
 // Project: http://lodash.com/
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference path="modules.d.ts" />
 
 
 /**
@@ -19284,6 +19285,7 @@ declare module _ {
         flush(): void;
     }
 }
+
 
 // Backward compatibility with --target es5
 declare global {
