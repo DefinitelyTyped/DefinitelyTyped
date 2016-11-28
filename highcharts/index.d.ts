@@ -5977,6 +5977,8 @@ declare namespace Highcharts {
         yAxis: AxisObject[];
 
         renderer: RendererObject;
+
+        legend: LegendObject;
     }
 
     interface Chart {
@@ -6455,6 +6457,16 @@ declare namespace Highcharts {
          * @since 1.2.0
          */
         yAxis: AxisObject;
+    }
+
+    interface LegendObject {
+        /**
+         * Update the legend with new options.
+         * @param {LegendOptions} options New options that will be merged into the legend's existing options.
+         * @param [boolean] redraw - Whether to redraw the chart. Defaults to true.
+         * @since 5.0.0
+         */
+        update(options: LegendOptions, redraw?: boolean): void;
     }
 }
 
