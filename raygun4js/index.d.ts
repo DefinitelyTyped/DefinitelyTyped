@@ -120,24 +120,36 @@ interface RaygunStatic {
     trackEvent(type: "pageView", options: { path: string }): void;
 }
 
-declare var Raygun: RaygunStatic;
+interface RaygunV2UserDetails {
+    identifier: string;
+    isAnonymous: string;
+    email: string;
+    fullName: string;
+    firstName: string;
+    uuid: string;
+}
 
-interface RaygunFunction {
+interface RaygunV2 {
     (key: "options", value:RaygunOptions):void;
-    (key: "setUser", value:any):void; // User Params
-    (key: "onBeforeSend", callback: (payload: RaygunPayload, stackTrace: TracekitStackTrace, options: any) => string):void;
+    (key: "setUser", value: RaygunV2UserDetails):void;
+    (key: "onBeforeSend", callback: (payload: RaygunPayload) => string):void;
     (key: "onBeforeXHR"|"onAfterSend", callback: (xhr: XMLHttpRequest) => void): void;
-    (key: "filterSensitiveData"|"whitelistCrossOriginDomains"|"withTags", values: string[]): void;
     (key: "groupingKey", value:(payload: RaygunPayload, stackTrace: TracekitStackTrace, options: any) => string):void;
-    (key: "send", value: any): void; // Error Details
-    (key: "trackEvent", value: any): void; // Pulse Details
+    (key: "trackEvent", value: { type: string, path: string }): void;
     (key: "apiKey"|"setVersion"|"setFilterScope", value:string):void;
     (key: "attach"|"enableCrashReporting"|"enablePulse"|"noConflict"|"saveIfOffline", value: boolean):void;
-    (key: "withCustomData", customdata: any): void;
+    (key: "filterSensitiveData"|"whitelistCrossOriginDomains"|"withTags", values: string[]): void;
+    (key: "send"|"withCustomData", value: any): void;
     (key: "getRaygunInstance"):RaygunStatic;
     (key: "detach"): void;
     (key: string):void;
 }
+
+interface Window {
+    Raygun: RaygunStatic;
+}
+
+declare var Raygun: RaygunStatic;
 
 declare module 'raygun4js' {
     export = Raygun;
