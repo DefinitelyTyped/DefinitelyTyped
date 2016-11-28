@@ -1,5 +1,3 @@
-
-
 declare var $: any, jQuery: any;
 
 interface IFoodOrganic {
