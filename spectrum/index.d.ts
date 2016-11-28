@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery"/>
-/// <reference types="tinycolor"/>
+/// <reference types="tinycolor2"/>
 
 interface JQuery {
 
