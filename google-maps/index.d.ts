@@ -6,8 +6,9 @@
 /// <reference types="googlemaps" />
 
 declare namespace GoogleMapsLoader {
+    type google = { maps: typeof google.maps };
     interface CallBack {
-        (google: { maps: { Map: google.maps.Map } }): void;
+        (google: google): void;
     }
     export var KEY: string;
     export var CLIENT: string;
