@@ -1,3 +1,8 @@
+// Type definitions for waterline 0.11
+// Project: https://github.com/balderdashy/waterline
+// Definitions by: Alexandro Libertino <https://github.com/arvitaly>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 import BluebirdPromise = require("bluebird");
 declare namespace Waterline {
     type Adapter = Object;
