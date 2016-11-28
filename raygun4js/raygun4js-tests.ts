@@ -1,6 +1,6 @@
-﻿var client: raygun.RaygunStatic = Raygun.noConflict();
+﻿var client: RaygunStatic = Raygun.noConflict();
 
-var newClient: raygun.RaygunStatic = client.constructNewRaygun();
+var newClient: RaygunStatic = client.constructNewRaygun();
 
 client.init('api-key');
 client.init('api-key', { allowInsecureSubmissions: true });
