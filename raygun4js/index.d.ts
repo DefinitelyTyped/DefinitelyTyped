@@ -117,10 +117,27 @@ interface RaygunStatic {
     onBeforeXHR(callback: (xhr: XMLHttpRequest) => void): RaygunStatic;
     onAfterSend(callback: (response: XMLHttpRequest) => void): RaygunStatic;
     endSession(): void;
-    trackEvent(type: string, options: { path?: string }): void;
+    trackEvent(type: "pageView", options: { path: string }): void;
 }
 
 declare var Raygun: RaygunStatic;
+
+interface RaygunFunction {
+    (key: "options", value:RaygunOptions):void;
+    (key: "setUser", value:any):void; // User Params
+    (key: "onBeforeSend", callback: (payload: RaygunPayload, stackTrace: TracekitStackTrace, options: any) => string):void;
+    (key: "onBeforeXHR"|"onAfterSend", callback: (xhr: XMLHttpRequest) => void): void;
+    (key: "filterSensitiveData"|"whitelistCrossOriginDomains"|"withTags", values: string[]): void;
+    (key: "groupingKey", value:(payload: RaygunPayload, stackTrace: TracekitStackTrace, options: any) => string):void;
+    (key: "send", value: any): void; // Error Details
+    (key: "trackEvent", value: any): void; // Pulse Details
+    (key: "apiKey"|"setVersion"|"setFilterScope", value:string):void;
+    (key: "attach"|"enableCrashReporting"|"enablePulse"|"noConflict"|"saveIfOffline", value: boolean):void;
+    (key: "withCustomData", customdata: any): void;
+    (key: "getRaygunInstance"):RaygunStatic;
+    (key: "detach"): void;
+    (key: string):void;
+}
 
 declare module 'raygun4js' {
     export = Raygun;
