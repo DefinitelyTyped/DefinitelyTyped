@@ -117,10 +117,13 @@ declare module 'angular' {
   ///////////////////////////////////////////////////////////////////////////
   interface IHttpBackendService {
     /**
-      * Flushes all pending requests using the trained responses.
-      * @param count Number of responses to flush (in the order they arrived). If undefined, all pending requests will be flushed.
+      * Flushes pending requests using the trained responses. Requests are flushed in the order they were made, but it is also possible to skip one or more requests (for example to have them flushed later). This is useful for simulating scenarios where responses arrive from the server in any order.
+      *
+      * If there are no pending requests to flush when the method is called, an exception is thrown (as this is typically a sign of programming error).
+      * @param count Number of responses to flush. If undefined/null, all pending requests (starting after `skip`) will be flushed.
+      * @param skip Number of pending requests to skip. For example, a value of 5 would skip the first 5 pending requests and start flushing from the 6th onwards. _(default: 0)_
       */
-    flush(count?: number): void;
+    flush(count?: number, skip?: number): void;
 
     /**
       * Resets all request expectations, but preserves all backend definitions.
