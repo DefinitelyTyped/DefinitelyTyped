@@ -45,7 +45,7 @@ declare namespace libphonenumber {
         isPossibleNumber(phoneNumber: PhoneNumber): boolean;
         isPossibleNumberWithReason(phoneNumber: PhoneNumber): PhoneNumberUtil.ValidationResult;
         isValidNumberForRegion(phoneNumber: PhoneNumber, region: string): boolean;
-        getNumberType(phoneNumber:PhoneNumber):PhoneNumberType; 
+        getNumberType(phoneNumber: PhoneNumber): PhoneNumberType; 
         getRegionCodeForNumber(phoneNumber: PhoneNumber): string;
         isNANPACountry(regionCode: string): boolean;
         format(phoneNumber: PhoneNumber, format: PhoneNumberFormat): string;
