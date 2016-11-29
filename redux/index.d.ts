@@ -227,7 +227,7 @@ declare namespace Redux {
      */
     type StoreEnhancer<S> = (next: StoreEnhancerStoreCreator<S>) => StoreEnhancerStoreCreator<S>;
     type GenericStoreEnhancer = <S>(next: StoreEnhancerStoreCreator<S>) => StoreEnhancerStoreCreator<S>;
-    type StoreEnhancerStoreCreator<S> = (reducer: Reducer<S>, preloadedState?: S) => Store<S>;
+    type StoreEnhancerStoreCreator<S> = (reducer: Reducer<S>, preloadedState?: S, enhancer?: StoreEnhancer<S>) => Store<S>;
 
     /**
      * Creates a Redux store that holds the state tree.

@@ -358,10 +358,17 @@ declare module "redux" {
     });
 
     const genericEnhancer: R.GenericStoreEnhancer = <S>(next: R.StoreEnhancerStoreCreator<S>) => next;
-    const specificEnhencer: R.StoreEnhancer<State> = next => next;
+    const specificEnhancer: R.StoreEnhancer<State> = next => next;
+
+    const composedEnhancer: R.StoreEnhancer<State> = next => (reducer, initialState, enhancer) => next(reducer, initialState, enhancer);
+    const notComposedEnhancer: R.StoreEnhancer<State> = next => (reducer, initialState) => next(reducer, initialState);
+    const noInitialStateEnhancer: R.StoreEnhancer<State> = next => (reducer) => next(reducer);
 
     const storeWithGenericEnhancer: R.Store<State> = R.createStore(reducer, genericEnhancer);
-    const storeWithSpecificEnhancer: R.Store<State> = R.createStore(reducer, specificEnhencer);
+    const storeWithSpecificEnhancer: R.Store<State> = R.createStore(reducer, specificEnhancer);
+    const storeWithComposedEnhancer: R.Store<State> = R.createStore(reducer, composedEnhancer);
+    const storeWithNotComposedEnhancer: R.Store<State> = R.createStore(reducer, notComposedEnhancer);
+    const storeWithNoInitialStateEnhancer: R.Store<State> = R.createStore(reducer, noInitialStateEnhancer);
 
     const storeWithPreloadedStateAndEnhancer: R.Store<State> = R.createStore(reducer, {
       todos: []
