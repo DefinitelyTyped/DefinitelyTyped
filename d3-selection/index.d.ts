@@ -12,7 +12,7 @@
  * without 'd3-selection' trying to use properties internally which would otherwise not
  * be supported.
  */
-export type BaseType = Element | EnterElement | Window;
+export type BaseType = Element | EnterElement | Window | null;
 
 /**
  * A helper interface which covers arguments like NodeListOf<T> or HTMLCollectionOf<T>
