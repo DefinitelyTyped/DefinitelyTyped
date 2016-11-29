@@ -445,6 +445,7 @@ declare namespace AdazzleReactDataGridPlugins {
     }
     export namespace Formatters {
         export class ImageFormatter extends React.Component<any, {}> { }
+        export class DropDownFormatter extends React.Component<any, {}> { }
     }
     export class Toolbar extends React.Component<any, any> {}
     // TODO: re-export the react-contextmenu typings once those exist
