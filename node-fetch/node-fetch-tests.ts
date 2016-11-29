@@ -1,4 +1,4 @@
-﻿import fetch, { Headers, Request, RequestInit, Response } from 'node-fetch';
+import fetch, { Headers, Request, RequestInit, Response } from 'node-fetch';
 
 function test_fetchUrlWithOptions() {
 	var headers = new Headers();

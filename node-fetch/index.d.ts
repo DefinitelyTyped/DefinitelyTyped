@@ -3,6 +3,8 @@
 // Definitions by: Torsten Werner <https://github.com/torstenwerner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+///<reference types="node" />
+
 export class Request extends Body {
 	constructor(input: string | Request, init?: RequestInit);
 	method: string;
@@ -53,12 +55,12 @@ export class Headers {
 
 export class Body {
 	bodyUsed: boolean;
+	body: NodeJS.ReadableStream;
 	arrayBuffer(): Promise<ArrayBuffer>;
-	blob(): Promise<Blob>;
-	formData(): Promise<FormData>;
 	json(): Promise<any>;
 	json<T>(): Promise<T>;
 	text(): Promise<string>;
+	buffer(): Promise<Buffer>;
 }
 
 export class Response extends Body {
@@ -83,7 +85,7 @@ interface ResponseInit {
 }
 
 type HeaderInit = Headers | Array<string>;
-type BodyInit = ArrayBuffer | ArrayBufferView | Blob | FormData | string;
+type BodyInit = ArrayBuffer | ArrayBufferView | string | NodeJS.ReadableStream;
 type RequestInfo = Request | string;
 
 export default function fetch(url: string | Request, init?: RequestInit): Promise<Response>;
