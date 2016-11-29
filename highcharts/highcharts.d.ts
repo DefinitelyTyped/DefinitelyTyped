@@ -112,7 +112,7 @@ declare namespace __Highcharts {
          * @since 2.2.5
          * @deprecated
          */
-        overflow?: string|boolean;
+        overflow?: string | boolean;
         /**
          * The pixel padding for axis labels, to ensure white space between them.
          * @default 5
@@ -274,7 +274,7 @@ declare namespace __Highcharts {
          * @default null
          * @since 2.3
          */
-        innerRadius?: number|string;
+        innerRadius?: number | string;
         /**
          * Text labels for the plot bands
          */
@@ -286,7 +286,7 @@ declare namespace __Highcharts {
          * @default '100%'
          * @since 2.3
          */
-        outerRadius?: number|string;
+        outerRadius?: number | string;
         /**
          * In a gauge chart, this option sets the width of the plot band stretching along the perimeter. It can be given as
          * a percentage string, like '10%', or as a pixel number, like 10. The default value 10 is the same as the default
@@ -295,7 +295,7 @@ declare namespace __Highcharts {
          * @default 10
          * @since 2.3
          */
-        thickness?: number|string;
+        thickness?: number | string;
         /**
          * The end position of the plot band in axis units.
          */
@@ -655,7 +655,7 @@ declare namespace __Highcharts {
          *
          * On axes using categories, minor ticks are not supported.
          */
-        minorTickInterval?: number|string;
+        minorTickInterval?: number | string;
         /**
          * The pixel length of the minor tick marks.
          * @default 2
@@ -717,6 +717,82 @@ declare namespace __Highcharts {
          * @default true
          */
         showLastLabel?: boolean;
+        /**
+        * Show the total value for each bar in a stacked column or bar chart.
+        * The label will be placed on top of positive columns and below negative columns.
+        * In case of an inverted column chart or a bar chart the label is placed to the right of positive bars and to the left of negative bars.
+        * Only used for yAxis
+        */
+        stackLabels?: {
+            /**
+             * Defines the horizontal alignment of the stack total label. Can be one of "left", "center" or "right".
+             * @default calculated at runtime and depends on orientation and whether the stack is positive or negative.
+             * @since 2.1.5
+             */
+            align?: string;
+            /**
+             * Enable or disable the stack total labels.
+             * @default false
+             * @since 2.1.5
+             */
+            enabled?: boolean;
+            /**
+             * A format string for the data label. Available variables are the same as for formatter.
+             * @default {total}
+             * @since 3.0.2
+             */
+            format?: string;
+            /**
+             * Callback JavaScript function to format the label. The value is given by this.total.
+             * @default function() { return this.total; }
+             * @since 2.1.5
+             */
+            formatter?: Function;
+            /**
+             * Rotation of the labels in degrees.
+             * @default 0
+             * @since 2.1.5
+             */
+            rotation?: number;
+            /**
+             * CSS styles for the label.
+             * @default { "color": "#000000", "fontSize": "11px", "fontWeight": "bold", "textShadow": "0 0 6px contrast, 00 3px contrast" }
+             * @since 2.1.5
+             */
+            style?: CSSObject;
+            /**
+             * The text alignment for the label.
+             * While align determines where the texts anchor point is placed with regards to the stack, textAlign determines how the text is aligned against its anchor point.
+             * Possible values are "left", "center" and "right".
+             * @default calculated at runtime and depends on orientation and whether the stack is positive or negative.
+             * @since 2.1.5
+             */
+            textAlign?: string;
+            /**
+             * Whether to use HTML to render the labels.
+             * @default false
+             * @since 3.0
+             */
+            useHTML?: boolean;
+            /**
+             * Defines the vertical alignment of the stack total label. Can be one of "top", "middle" or "bottom".
+             * @default calculated at runtime and depends on orientation and whether the stack is positive or negative.
+             * @since 2.1.5
+             */
+            verticalAlign?: string;
+            /**
+             * The x position offset of the label relative to the left of the stacked bar.
+             * @default calculated at runtime and depends on orientation and whether the stack is positive or negative.
+             * @since 2.1.5
+             */
+            x?: number;
+            /**
+             * The y position offset of the label relative to the tick position on the axis.
+             * @default calculated at runtime and depends on orientation and whether the stack is positive or negative.
+             * @since 2.1.5
+             */
+            y?: number;
+        }
         /**
          * For datetime axes, this decides where to put the tick between weeks. 0 = Sunday, 1 = Monday.
          * @default 1
@@ -1189,7 +1265,7 @@ declare namespace __Highcharts {
          * The this keyword refers to the Chart object.
          * @since 1.2.0
          */
-        addSeries?: (event: AddSeriesEvent) => boolean|void;
+        addSeries?: (event: AddSeriesEvent) => boolean | void;
         /**
          * Fires after a chart is printed through the context menu item or the Chart.print method. Requires the exporting
          * module.
@@ -1787,7 +1863,7 @@ declare namespace __Highcharts {
          * switchRowsAndColumns is set, the columns are interpreted as series.
          * @since 4.0
          */
-        columns?: [string|number][];
+        columns?: [string | number][];
         /**
          * The callback that is evaluated when the data is finished loading, optionally from an external source, and parsed.
          * The first argument passed is a finished chart options object, containing the series. These options can be
@@ -1870,12 +1946,12 @@ declare namespace __Highcharts {
          * async.
          * @since 4.0
          */
-        parsed?: (columns: [string|number][]) => boolean | void;
+        parsed?: (columns: [string | number][]) => boolean | void;
         /**
          * The same as the columns input option, but defining rows intead of columns.
          * @since 4.0
          */
-        rows?: [string|number][];
+        rows?: [string | number][];
         /**
          * An array containing object with Point property names along with what column id the property should be taken from.
          * @since 4.0.4
@@ -2140,6 +2216,13 @@ declare namespace __Highcharts {
          */
         enabled?: boolean;
         /**
+         * Function to call if the offline-exporting module fails to export a chart on the client side, and
+         * fallbackToExportServer is disabled. If left undefined, an exception is thrown instead.
+         * @default undefined
+         * @since 5.0.0
+         */
+        error?: Function;
+        /**
          * Whether or not to fall back to the export server if the offline-exporting module is unable to export the chart on
          * the client side.
          * @default true
@@ -2159,6 +2242,22 @@ declare namespace __Highcharts {
          * @since 3.0.8
          */
         formAttributes?: any;
+        /**
+         * Path where Highcharts will look for export module dependencies to load on demand if they don't already exist on
+         * window. Should currently point to location of CanVG library (https://github.com/canvg/canvg) and RGBColor.js, 
+         * required for client side export in certain browsers.
+         * @default 'http://code.highcharts.com/{version}/lib'
+         * @since 5.0.0
+         */
+        libUrl?: string;
+        /**
+         * When printing the chart from the menu item in the burger menu, if the on-screen chart exceeds this width, it is
+         * resized. After printing or cancelled, it is restored. The default width makes the chart fit into typical paper
+         * format. Note that this does not affect the chart when printing the web page as a whole.
+         * @default 780
+         * @since 4.2.5
+         */
+        printMaxWidth?: number;
         /**
          * Defines the scale or zoom factor for the exported image compared to the on-screen display. While for instance a
          * 600px wide chart may look good on a website, it will look bad in print. The default scale of 2 makes this chart
@@ -2766,7 +2865,7 @@ declare namespace __Highcharts {
          * @default ['50%', '50%']
          * @since 2.3.0
          */
-        center?: [number|string, number|string];
+        center?: [number | string, number | string];
         /**
          * The end angle of the polar X axis or gauge value axis, given in degrees where 0 is north.
          * @default startAngle + 360
@@ -2822,6 +2921,13 @@ declare namespace __Highcharts {
          * @since 2.2.1
          */
         borderWidth?: number;
+        /**
+         * A class name for the data label. Particularly in styled mode, this can be used to give each series' or point's
+         * data label unique styling. In addition to this option, a default color class name is added so that we can give
+         * the labels a contrast text shadow.
+         * @since 5.0.0
+         */
+        className?: string;
         /**
          * The text color for the data labels.
          * @default null
@@ -2882,6 +2988,13 @@ declare namespace __Highcharts {
          * @since 2.2.1
          */
         padding?: number;
+        /**
+         * Whether to reserve space for the labels. This can be turned off when for example the labels are rendered inside 
+         * the plot area instead of outside.
+         * @default true
+         * @since 4.1.10
+         */
+        reserveSpace?: boolean;
         /**
          * Text rotation in degrees. Note that due to a more complex structure, backgrounds, borders and padding will be
          * lost on a rotated data label.
@@ -3006,7 +3119,7 @@ declare namespace __Highcharts {
          * The this keyword refers to the Series object.
          * @since 1.2.0
          */
-        checkboxClick?: (event: AreaCheckboxEvent) => boolean|void;
+        checkboxClick?: (event: AreaCheckboxEvent) => boolean | void;
         /**
          * Fires when the series is clicked. One parameter, event, is passed to the function. This contains common event
          * information based on jQuery or MooTools depending on which library is used as the base for Highcharts.
@@ -3030,7 +3143,7 @@ declare namespace __Highcharts {
          *
          * The this keyword refers to the Series object.
          */
-        legendItemClick?: (event: Event) => boolean|void;
+        legendItemClick?: (event: Event) => boolean | void;
         /**
          * Fires when the mouse leaves the graph. One parameter, event, is passed to the function. This contains common
          * event information based on jQuery or MooTools depending on which library is used as the base for Highcharts. If
@@ -3168,7 +3281,7 @@ declare namespace __Highcharts {
          * The this keyword refers to the Point object.
          * @since 1.2.0
          */
-        remove?: (event: Event) => boolean|void;
+        remove?: (event: Event) => boolean | void;
         /**
          * Fires when the point is selected either programmatically or following a click on the point. One parameter, event,
          * is passed to the function. Returning false cancels the operation.
@@ -3176,7 +3289,7 @@ declare namespace __Highcharts {
          * The this keyword refers to the Point object.
          * @since 1.2.0
          */
-        select?: (event: Event) => boolean|void;
+        select?: (event: Event) => boolean | void;
         /**
          * Fires when the point is unselected either programmatically or following a click on the point. One parameter,
          * event, is passed to the function. Returning false cancels the operation.
@@ -3184,7 +3297,7 @@ declare namespace __Highcharts {
          * The this keyword refers to the Point object.
          * @since 1.2.0
          */
-        unselect?: (event: Event) => boolean|void;
+        unselect?: (event: Event) => boolean | void;
         /**
          * Fires when the point is updated programmatically through the .update() method. One parameter, event, is passed to
          * the function. The new point options can be accessed through event.options. Returning false cancels the operation.
@@ -3192,7 +3305,7 @@ declare namespace __Highcharts {
          * The this keyword refers to the Point object.
          * @since 1.2.0
          */
-        update?: (event: Event) => boolean|void;
+        update?: (event: Event) => boolean | void;
         /**
          * Fires when the legend item belonging to the pie point (slice) is clicked.
          * The this keyword refers to the point itself. One parameter, event, is passed to the function.
@@ -4289,7 +4402,7 @@ declare namespace __Highcharts {
          * @default ['50%', '50%']
          * @since 3.0
          */
-        center?: [string|number, string|number];
+        center?: [string | number, string | number];
         /**
          * A series specific or series type specific color set to use instead of the global colors.
          * @since 3.0
@@ -4469,7 +4582,7 @@ declare namespace __Highcharts {
          * @default false
          * @since 1.2.5
          */
-        step?: boolean|string;
+        step?: boolean | string;
     }
 
     /**
@@ -4495,7 +4608,7 @@ declare namespace __Highcharts {
          * center should be explicitly set, for example to ['50%', '50%'].
          * @default [null, null]
          */
-        center?: [string|number, string|number];
+        center?: [string | number, string | number];
         /**
          * A series specific or series type specific color set to use instead of the global colors.
          * @since 3.0
@@ -4599,7 +4712,7 @@ declare namespace __Highcharts {
          * @default ['50%', '50%']
          * @since 3.0
          */
-        center?: [string|number, string|number];
+        center?: [string | number, string | number];
         /**
          * A series specific or series type specific color set to use instead of the global colors.
          * @since 3.0
@@ -4996,7 +5109,7 @@ declare namespace __Highcharts {
          * The inner radius of an individual point in a solid gauge. Can be given as a number (pixels) or percentage string.
          * @since 4.1.6
          */
-        innerRadius?: number|string;
+        innerRadius?: number | string;
         /**
          * When this property is true, the points acts as a summary column for the values added or substracted since the
          * last intermediate sum, or since the start of the series. The y value is ignored.
@@ -5047,7 +5160,7 @@ declare namespace __Highcharts {
          * The outer radius of an individual point in a solid gauge. Can be given as a number (pixels) or percentage string.
          * @since 4.1.6
          */
-        radius?: number|string;
+        radius?: number | string;
         /**
          * Whether the data point is selected initially.
          * @default false
@@ -5535,8 +5648,7 @@ declare namespace __Highcharts {
         lang?: LangObject;
     }
 
-    interface DateFormatSpecifiers
-    {
+    interface DateFormatSpecifiers {
         [index: string]: (timestamp: number) => string;
     }
 
@@ -5676,7 +5788,7 @@ declare namespace __Highcharts {
          * @param [boolean] redraw
          * @since 1.2.0
          */
-        addSeries<T extends IndividualSeriesOptions>(options: T, redraw?: boolean, animation?: boolean | Animation): T;
+        addSeries<T extends IndividualSeriesOptions>(options: T, redraw?: boolean, animation?: boolean | Animation): SeriesObject;
         /**
          * Add a series to the chart as drilldown from a specific point in the parent series. This method is used for async
          * drilldown, when clicking a point in a series should result in loading and displaying a more high-resolution
@@ -5834,6 +5946,19 @@ declare namespace __Highcharts {
          * @since 2.0.5
          */
         showLoading(str?: string): void;
+        /**
+         * A generic function to update any element of the chart. Elements can be enabled and disabled, moved, re-styled,
+         * re-formatted etc.
+         * A special case is configuration objects that take arrays, for example xAxis, yAxis or series. For these collections,
+         * an id option is used to map the new option set to an existing object. If an existing object of the same id is not
+         * found, the first item is updated. So for example, running chart.update with a series item without an id, will cause
+         * the existing chart's first series to be updated.
+         * See also the responsive option set. Switching between responsive.rules basically runs chart.update under the hood.
+         * @param {ChartOptions} option A configuration object for the new chart options as defined in the options section of the API.
+         * @param [boolean] redraw Whether to redraw the chart. Defaults to true.
+         * @since 5.0.0
+         */
+        update(options: ChartOptions, redraw?: boolean): void;
         /**
          * This method is deprecated as of 2.0.1. Updating the chart position after a move operation is no longer necessary.
          * @since 1.2.5
@@ -6031,7 +6156,7 @@ declare namespace __Highcharts {
          * @param  {(string|number)[]} path An SVG path split up in array form.
          * @return {ElementObject}
          */
-        path(path: [string|number]): ElementObject;
+        path(path: [string | number]): ElementObject;
         /**
          * Add a rectangle.
          * @param  {number} x The x position of the rectangle's upper left corner.
@@ -6150,7 +6275,7 @@ declare namespace __Highcharts {
          * @param [boolean|Animation] animation Defaults to true. When true, the graph's updating will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
          * @since 1.2.0
          */
-        remove(redraw?: boolean, animation?: boolean|Animation): void;
+        remove(redraw?: boolean, animation?: boolean | Animation): void;
         /**
          * Select or unselect the point.
          * @param [boolean] select When true, the point is selected. When false, the point is unselected. When null or undefined, the selection state is toggled.
@@ -6176,7 +6301,7 @@ declare namespace __Highcharts {
          * @param [boolean|Animation] animation Defaults to true. When true, the move will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
          * @since 1.2.0
          */
-        slice(sliced?: boolean, redraw?: boolean, animation?: boolean|Animation): void;
+        slice(sliced?: boolean, redraw?: boolean, animation?: boolean | Animation): void;
         /**
          * The total of a stack for stacked series, or pie in pie charts.
          */
@@ -6225,7 +6350,7 @@ declare namespace __Highcharts {
          * @param [(boolean|Animation)=false] animation - When shift is true, one point is shifted off the start of the series as one is appended to the end. Use this option for live charts monitoring a value over time.
          * @since 1.2.0
          */
-        addPoint(options: number |[number, number]| DataPoint, redraw?: boolean, shift?: boolean, animation?: boolean | Animation): void;
+        addPoint(options: number | [number, number] | DataPoint, redraw?: boolean, shift?: boolean, animation?: boolean | Animation): void;
         /**
          * Read only. The chart that the series belongs to.
          * @since 1.2.0
@@ -6266,7 +6391,7 @@ declare namespace __Highcharts {
          * @param [boolean|Animation=true] animation - When true, the graph will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
          * @since 4.1.0
          */
-        removePoint(index: number, redraw?: boolean, animation?: boolean|Animation): void;
+        removePoint(index: number, redraw?: boolean, animation?: boolean | Animation): void;
         /**
          * Select or unselect the series. This means its selected property is set,the checkbox in the legend is toggled and
          * when selected, the series is returned in the chart.getSelectedSeries() method.

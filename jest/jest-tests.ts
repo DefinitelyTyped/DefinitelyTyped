@@ -209,6 +209,8 @@ describe('missing tests', function () {
        expect(getFruits()).toContain('Orange');
        mock.mockReturnValueOnce(['Apple', 'Plum']);
        expect(mock()).not.toContain('Orange');
+       const myBeverage: any = {delicious: true, sour: false}; 
+       expect(myBeverage).toContainEqual({delicious: true, sour: false});
        mock.mockReturnValue([]); //Deprecated: Use jest.fn(() => value) instead.
        mock.mockClear();
        let thisMock: jest.Mock<any> = jest.fn<any>().mockReturnThis();
@@ -216,8 +218,7 @@ describe('missing tests', function () {
    });
    
    it('creates snapshoter', function () {
-       jest.disableAutomock();
-       jest.mock('./render', () => jest.fn((): string => "{Link to: \"facebook\"}"), { virtual: true });
+       jest.disableAutomock().mock('./render', () => jest.fn((): string => "{Link to: \"facebook\"}"), { virtual: true });
        const render: () => string = require('./render');
        expect(render()).toMatch(/Link/);
        jest.enableAutomock();
@@ -226,7 +227,7 @@ describe('missing tests', function () {
    it('runs only pending timers', function () {
         jest.useRealTimers();
         setTimeout(() => expect(1).not.toEqual(0), 3000);
-        jest.runOnlyPendingTimers();
+        jest.runOnlyPendingTimers().runTimersToTime(300);
    });
    
    it('runs all timers', function () {
@@ -247,6 +248,12 @@ describe('missing tests', function () {
 describe('toMatchSnapshot', function () {
    it('compares snapshots', function () {
         expect({ type: 'a', props: { href: 'https://www.facebook.com/' }, children: [ 'Facebook' ] }).toMatchSnapshot();
+    });
+});
+
+describe('toThrowErrorMatchingSnapshot', function () {
+   it('compares snapshots', function () {
+        expect(() => { throw new Error('descriptiton') }).toThrowErrorMatchingSnapshot();
     });
 });
 

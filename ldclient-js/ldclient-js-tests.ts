@@ -6,6 +6,9 @@ const ldClient = LDClient.initialize(
     {
         key: 'USER KEY',
         name: 'USER NAME',
+        custom: {
+            'CUSTOM ATTRIBUTE': ['CUSTOM VALUE'],
+        },
     },
     {
         hash: 'SECURE USER HASH',

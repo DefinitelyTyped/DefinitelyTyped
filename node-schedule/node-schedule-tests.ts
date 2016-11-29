@@ -107,6 +107,13 @@ function testRecurrenceRule() {
     var rule:nodeSchedule.RecurrenceRule = new nodeSchedule.RecurrenceRule(0, 0, 0, 0, 0, 0, 0);
 
     var nextInvocation:Date = rule.nextInvocationDate(new Date());
+
+    var rule2 = new nodeSchedule.RecurrenceRule();
+    rule2.month = "7";
+    rule2.date = [1, new nodeSchedule.Range(5, 15, 5), "23"];
+    rule2.hour = 5;
+    rule2.minute = new nodeSchedule.Range(4, 6);
+    rule2.second = new nodeSchedule.Range(8, 12, 2);
 }
 
 /**

@@ -7490,7 +7490,7 @@ declare namespace  __React {
       key: string;
     }
 
-    export interface NavigationState extends NavigationRoute {
+    export interface NavigationState {
         index: number;
         routes: NavigationRoute[];
     }
@@ -7502,11 +7502,16 @@ declare namespace  __React {
 
     export interface NavigationHeaderProps {
         renderTitleComponent?(props: Object): JSX.Element
+        renderLeftComponent?(props: Object): JSX.Element
+        renderRightComponent?(props: Object): JSX.Element
         onNavigateBack(): void
+        style?: ViewStyle
+        viewProps?: any
+        statusBarHeight?: number | NavigationAnimatedValue
     }
 
     export interface NavigationHeaderStatic extends React.ComponentClass<NavigationHeaderProps> {
-        Title: JSX.Element
+        Title: () => JSX.ElementClass
         HEIGHT: number
     }
 

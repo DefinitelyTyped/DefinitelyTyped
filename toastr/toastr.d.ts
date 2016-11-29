@@ -1,4 +1,4 @@
-// Type definitions for Toastr 2.1.1
+// Type definitions for Toastr 2.1.3
 // Project: https://github.com/CodeSeven/toastr
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -130,9 +130,13 @@ interface ToastrOptions {
 	*/
 	onclick?: () => void;
 	/**
-	* Set if toastr should parse containing html 
+	* Set if toastr should parse containing html
 	**/
 	allowHtml?: boolean;
+	/**
+	* Set if toastr should escape html
+	**/
+	escapeHtml?: boolean;
 }
 
 interface ToastrDisplayMethod {
@@ -170,17 +174,23 @@ interface Toastr {
 		(): void;
 		/**
 		* Clear specific toast
-		* 
+		*
 		* @param toast Toast to clear
 		*/
 		(toast: JQuery): void;
 	        /**
 		* Clear specific toast
-		* 
+		*
 		* @param toast Toast to clear
 		* @param clearOptions force clearing a toast, ignoring focus
 		*/
         	(toast: JQuery, clearOptions: { force: boolean }): void;
+	};
+	/**
+	* Removes all toasts (without animation)
+	*/
+	remove: {
+		(): void;
 	};
 	/**
 	* Create an error toast
@@ -203,7 +213,7 @@ interface Toastr {
 	*/
 	warning: ToastrDisplayMethod;
 	/**
-	* Get toastr version 
+	* Get toastr version
 	*/
 	version: string;
 }

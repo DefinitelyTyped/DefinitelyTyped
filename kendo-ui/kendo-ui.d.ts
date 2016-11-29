@@ -1,4 +1,4 @@
-// Type definitions for Kendo UI Professional v2016.3.914
+// Type definitions for Kendo UI Professional v2016.3.1028
 // Project: http://www.telerik.com/kendo-ui
 // Definitions by: Telerik <https://github.com/telerik/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1026,6 +1026,8 @@ declare namespace kendo.data {
     class DataSource extends Observable{
         options: DataSourceOptions;
 
+        transport: any;
+
         static create(options?: DataSourceOptions): DataSource;
 
         constructor(options?: DataSourceOptions);
@@ -1112,7 +1114,7 @@ declare namespace kendo.data {
     }
 
     interface DataSourceFilterItem extends DataSourceFilter {
-        operator?: string;
+        operator?: string|Function;
         field?: string;
         value?: any;
     }
@@ -1245,6 +1247,7 @@ declare namespace kendo.data {
         type?: string;
         change? (e: DataSourceChangeEvent): void;
         error?(e: DataSourceErrorEvent): void;
+		push?(e: DataSourcePushEvent): void;
         sync?(e: DataSourceEvent): void;
         requestStart?(e: DataSourceRequestStartEvent): void;
         requestEnd?(e: DataSourceRequestEndEvent): void;
@@ -1272,6 +1275,12 @@ declare namespace kendo.data {
         index?: number;
         items?: DataSourceItemOrGroup[];
         node?: any;
+    }
+
+	interface DataSourcePushEvent extends DataSourceEvent {
+        items?: DataSourceItemOrGroup[];
+		type?: string;
+       
     }
 
     interface DataSourceErrorEvent extends DataSourceEvent {
@@ -1480,6 +1489,7 @@ declare namespace kendo.mobile {
         statusBarStyle?: string;
         transition?: string;
         useNativeScrolling?: boolean;
+		init?(e: ApplicationEvent): void;
     }
 
     interface ApplicationEvent {
@@ -1538,7 +1548,7 @@ declare namespace kendo.ui {
         static extend(proto: Object): AgendaView;
     }
 
-    class Alert extends kendo.ui.Widget {
+    class Alert extends kendo.ui.Dialog {
 
         static fn: Alert;
 
@@ -2043,12 +2053,13 @@ declare namespace kendo.ui {
     }
 
 
-    class Confirm extends kendo.ui.Widget {
+    class Confirm extends kendo.ui.Dialog {
 
         static fn: Confirm;
 
         options: ConfirmOptions;
 
+        result: JQueryPromise<any>;
 
         element: JQuery;
         wrapper: JQuery;
@@ -2809,66 +2820,95 @@ declare namespace kendo.ui {
     }
 
     interface EditorMessages {
-        bold?: string;
-        italic?: string;
-        underline?: string;
-        strikethrough?: string;
-        superscript?: string;
-        subscript?: string;
-        justifyCenter?: string;
-        justifyLeft?: string;
-        justifyRight?: string;
-        justifyFull?: string;
-        insertUnorderedList?: string;
-        insertOrderedList?: string;
-        indent?: string;
-        outdent?: string;
-        createLink?: string;
-        unlink?: string;
-        insertImage?: string;
-        insertFile?: string;
-        insertHtml?: string;
-        viewHtml?: string;
-        fontName?: string;
-        fontNameInherit?: string;
-        fontSize?: string;
-        fontSizeInherit?: string;
-        formatBlock?: string;
-        formatting?: string;
-        foreColor?: string;
-        backColor?: string;
-        style?: string;
-        emptyFolder?: string;
-        uploadFile?: string;
-        editAreaTitle?: string;
-        orderBy?: string;
-        orderBySize?: string;
-        orderByName?: string;
-        invalidFileType?: string;
-        deleteFile?: string;
-        overwriteFile?: string;
-        directoryNotFound?: string;
-        imageWebAddress?: string;
-        imageAltText?: string;
-        imageWidth?: string;
-        imageHeight?: string;
-        fileWebAddress?: string;
-        fileTitle?: string;
-        linkWebAddress?: string;
-        linkText?: string;
-        linkToolTip?: string;
-        linkOpenInNewWindow?: string;
-        dialogUpdate?: string;
-        dialogInsert?: string;
-        dialogCancel?: string;
-        createTable?: string;
-        createTableHint?: string;
+        accessibilityTab?: string;
         addColumnLeft?: string;
         addColumnRight?: string;
         addRowAbove?: string;
         addRowBelow?: string;
-        deleteRow?: string;
+        alignCenter?: string;
+        alignCenterBottom?: string;
+        alignCenterMiddle?: string;
+        alignCenterTop?: string;
+        alignLeft?: string;
+        alignLeftBottom?: string;
+        alignLeftMiddle?: string;
+        alignLeftTop?: string;
+        alignRemove?: string;
+        alignRight?: string;
+        alignRightBottom?: string;
+        alignRightMiddle?: string;
+        alignRightTop?: string;
+        alignment?: string;
+        associateCellsWithHeaders?: string;
+        backColor?: string;
+        background?: string;
+        bold?: string;
+        border?: string;
+        style?: string;
+        caption?: string;
+        cellMargin?: string;
+        cellPadding?: string;
+        cellSpacing?: string;
+        cellTab?: string;
+        cleanFormatting?: string;
+        collapseBorders?: string;
+        columns?: string;
+        createLink?: string;
+        createTable?: string;
+        createTableHint?: string;
+        cssClass?: string;
         deleteColumn?: string;
+        deleteRow?: string;
+        dialogCancel?: string;
+        dialogInsert?: string;
+        dialogOk?: string;
+        dialogUpdate?: string;
+        editAreaTitle?: string;
+        fileTitle?: string;
+        fileWebAddress?: string;
+        fontName?: string;
+        fontNameInherit?: string;
+        fontSize?: string;
+        fontSizeInherit?: string;
+        foreColor?: string;
+        formatBlock?: string;
+        formatting?: string;
+        height?: string;
+        id?: string;
+        imageAltText?: string;
+        imageHeight?: string;
+        imageWebAddress?: string;
+        imageWidth?: string;
+        indent?: string;
+        insertFile?: string;
+        insertHtml?: string;
+        insertImage?: string;
+        insertOrderedList?: string;
+        insertUnorderedList?: string;
+        italic?: string;
+        justifyCenter?: string;
+        justifyFull?: string;
+        justifyLeft?: string;
+        justifyRight?: string;
+        linkOpenInNewWindow?: string;
+        linkText?: string;
+        linkToolTip?: string;
+        linkWebAddress?: string;
+        outdent?: string;
+        print?: string;
+        rows?: string;
+        selectAllCells?: string;
+        strikethrough?: string;
+        subscript?: string;
+        summary?: string;
+        superscript?: string;
+        tableTab?: string;
+        tableWizard?: string;
+        underline?: string;
+        unlink?: string;
+        viewHtml?: string;
+        width?: string;
+        wrapText?: string;
     }
 
     interface EditorPasteCleanup {
@@ -5141,12 +5181,13 @@ declare namespace kendo.ui {
     }
 
 
-    class Prompt extends kendo.ui.Widget {
+    class Prompt extends kendo.ui.Dialog {
 
         static fn: Prompt;
 
         options: PromptOptions;
 
+        result: JQueryPromise<any>;
 
         element: JQuery;
         wrapper: JQuery;
@@ -5542,6 +5583,7 @@ declare namespace kendo.ui {
         minorTimeHeaderTemplate?: string|Function;
         selected?: boolean;
         selectedDateFormat?: string;
+        selectedShortDateFormat?: string;
         showWorkHours?: boolean;
         slotTemplate?: string|Function;
         startTime?: Date;
@@ -6068,6 +6110,7 @@ declare namespace kendo.ui {
         comparerType?: string;
         dataType?: string;
         from?: string;
+        showButton?: boolean;
         to?: string;
         allowNulls?: boolean;
         messageTemplate?: string;
@@ -6102,6 +6145,7 @@ declare namespace kendo.ui {
         cells?: SpreadsheetSheetRowCell[];
         height?: number;
         index?: number;
+        type?: string;
     }
 
     interface SpreadsheetSheetSortColumn {
@@ -7291,7 +7335,7 @@ declare namespace kendo.ui {
         destroy(): void;
         disable(): void;
         enable(enable?: boolean): void;
-        getFiles(): void;
+        getFiles(): any;
         removeAllFiles(): void;
         removeFile(): void;
         removeFileByUid(): void;
@@ -7470,6 +7514,8 @@ declare namespace kendo.ui {
         content(content?: string): kendo.ui.Window;
         content(content?: JQuery): kendo.ui.Window;
         destroy(): void;
+        isMaximized(): boolean;
+        isMinimized(): boolean;
         maximize(): kendo.ui.Window;
         minimize(): kendo.ui.Window;
         open(): kendo.ui.Window;
@@ -11017,7 +11063,6 @@ declare namespace kendo.dataviz.ui {
         autoBind?: boolean;
         axisDefaults?: ChartAxisDefaults;
         categoryAxis?: ChartCategoryAxisItem[];
-        valueAxis?: ChartValueAxisItem[];
         chartArea?: ChartChartArea;
         dataSource?: any|any|kendo.data.DataSource;
         legend?: ChartLegend;
@@ -11033,6 +11078,7 @@ declare namespace kendo.dataviz.ui {
         title?: ChartTitle;
         tooltip?: ChartTooltip;
         transitions?: boolean;
+        valueAxis?: ChartValueAxisItem[];
         xAxis?: ChartXAxisItem[];
         yAxis?: ChartYAxisItem[];
         zoomable?: boolean|ChartZoomable;
@@ -16928,7 +16974,7 @@ declare namespace kendo {
         function bind(element: Element, viewModel: any, namespace?: any): void;
         function bind(element: Element, viewModel: kendo.data.ObservableObject, namespace?: any): void;
         function observableHierarchy(array: any): void;
-        function confirm(text: string): void;
+        function confirm(text: string): JQueryPromise<any>;
         function culture(culture: string): void;
         function destroy(element: string): void;
         function destroy(element: JQuery): void;
@@ -16939,7 +16985,7 @@ declare namespace kendo {
         function parseFloat(value: string, culture?: string): number;
         function parseInt(value: string, culture?: string): number;
         function parseColor(color: string, noerror: boolean): kendo.Color;
-        function prompt(text: string, defaultValue: string): void;
+        function prompt(text: string, defaultValue: string): JQueryPromise<any>;
         function proxyModelSetters(): void;
         function proxyModelSetters(data: kendo.data.Model): void;
         function resize(element: string, force: boolean): void;
@@ -16947,7 +16993,7 @@ declare namespace kendo {
         function resize(element: Element, force: boolean): void;
         function saveAs(options: any): void;
         function stringify(value: any): string;
-        function throttle(fn: Function, timeout: number): void;
+        function throttle(fn: Function, timeout: number): Function;
         function touchScroller(element: string): void;
         function touchScroller(element: JQuery): void;
         function touchScroller(element: Element): void;
@@ -17032,6 +17078,8 @@ declare namespace kendo.spreadsheet {
         clear(options?: any): void;
         clearFilter(indices: any): void;
         clearFilter(indices: number): void;
+        editor(): string;
+        editor(value?: string): void;
         enable(): boolean;
         enable(value?: boolean): void;
         fillFrom(srcRange: Range, direction?: number): void;

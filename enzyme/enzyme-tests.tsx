@@ -96,6 +96,18 @@ namespace ShallowWrapperTest {
         boolVal = shallowWrapper.containsAnyMatchingElements([<div className="foo bar"/>]);
     }
 
+    function test_dive() {
+        interface TmpProps {
+            foo: any
+        }
+
+        interface TmpState {
+            bar: any
+        }
+
+        const diveWrapper: ShallowWrapper<TmpProps, TmpState> = shallowWrapper.dive<TmpProps, TmpState>({ context: { foobar: 'barfoo' }});
+    }
+
     function test_equals() {
         boolVal = shallowWrapper.equals(<div className="foo bar"/>);
     }
@@ -192,7 +204,7 @@ namespace ShallowWrapperTest {
     }
 
     function test_state() {
-        shallowWrapper.state();
+        const state: MyComponentState = shallowWrapper.state();
         shallowWrapper.state('key');
         const tmp: String = shallowWrapper.state<String>('key');
     }
@@ -222,11 +234,11 @@ namespace ShallowWrapperTest {
     }
 
     function test_setState() {
-        shallowWrapper = shallowWrapper.setState({ stateProperty: 'state' });
+        shallowWrapper = shallowWrapper.setState({ stateProperty: 'state' }, () => console.log('state updated'));
     }
 
     function test_setProps() {
-        shallowWrapper = shallowWrapper.setProps({ propsProperty: 'foo' });
+        shallowWrapper = shallowWrapper.setProps({ propsProperty: 'foo' }, () => console.log('props updated'));
     }
 
     function test_setContext() {

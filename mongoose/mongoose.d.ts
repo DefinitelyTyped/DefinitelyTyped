@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 4.5.9
+// Type definitions for Mongoose 4.6.8
 // Project: http://mongoosejs.com/
 // Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -285,6 +285,9 @@ declare module "mongoose" {
     open(connection_string: string, database?: string, port?: number,
       options?: ConnectionOpenOptions, callback?: (err: any) => void): any;
 
+    /** Helper for dropDatabase() */
+    dropDatabase(callback?: (err: any) => void): Promise<void>;
+
     /**
      * Opens the connection to a replica set.
      * @param uris comma-separated mongodb:// URIs
@@ -528,10 +531,10 @@ declare module "mongoose" {
      * the child schema first before passing it into its parent.
      * @event init Emitted after the schema is compiled into a Model.
      */
-    constructor(definition?: Object, options?: SchemaOptions);
+    constructor(definition?: SchemaDefinition, options?: SchemaOptions);
 
     /** Adds key path / schema type pairs to this schema. */
-    add(obj: Object, prefix?: string): void;
+    add(obj: SchemaDefinition, prefix?: string): void;
 
     /**
      * Iterates the schemas paths similar to Array.forEach.
@@ -659,6 +662,8 @@ declare module "mongoose" {
     methods: any;
     /** Object of currently defined statics on this schema. */
     statics: any;
+    /** The original object passed to the schema constructor */
+    obj: any;
   }
 
   interface SchemaOptions {
@@ -709,6 +714,159 @@ declare module "mongoose" {
      * assigned is Date.
      */
     timestamps?: Object;
+  }
+
+  /*
+   * Intellisense for Schema definitions
+   */
+  interface SchemaDefinition {
+    [path: string]: SchemaTypeOpts<any>;
+  }
+
+  /*
+   * The standard options available when configuring a schema type:
+   * new Schema({
+   *   name: {
+   *     type: String,
+   *     required: true,
+   *     ...
+   *   }
+   * });
+   * References:
+   * - http://mongoosejs.com/docs/schematypes.html
+   * - http://mongoosejs.com/docs/api.html#schema_Schema.Types
+   */
+  interface SchemaTypeOpts<T> {
+    /* Common Options for all schema types */
+    type?: T;
+
+    /** Sets a default value for this SchemaType. */
+    default?: SchemaTypeOpts.DefaultFn<T> | T;
+
+    /**
+     * Getters allow you to transform the representation of the data as it travels
+     * from the raw mongodb document to the value that you see.
+     */
+    get?: (value: T, schematype?: this) => T;
+
+    /** Declares the index options for this schematype. */
+    index?: SchemaTypeOpts.IndexOpts | boolean | string;
+
+    /**
+     * Adds a required validator to this SchemaType. The validator gets added
+     * to the front of this SchemaType's validators array using unshift().
+     */
+    required?: SchemaTypeOpts.RequiredFn<T> |
+      boolean | [boolean, string] |
+      string | [string, string];
+
+    /**
+     * Sets default select() behavior for this path.
+     * Set to true if this path should always be included in the results, false
+     * if it should be excluded by default. This setting can be overridden at
+     * the query level.
+     */
+    select?: boolean;
+
+    /**
+     * Setters allow you to transform the data before it gets to the raw mongodb
+     * document and is set as a value on an actual key.
+     */
+    set?: (value: T, schematype?: this) => T;
+
+    /** Declares a sparse index. */
+    sparse?: boolean;
+
+    /** Declares a full text index. */
+    text?: boolean;
+
+    /**
+     * Adds validator(s) for this document path.
+     * Validators always receive the value to validate as their first argument
+     * and must return Boolean. Returning false means validation failed.
+     */
+    validate?: RegExp | [RegExp, string] |
+      SchemaTypeOpts.ValidateFn<T> | [SchemaTypeOpts.ValidateFn<T>, string] |
+      SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.ValidateOpts[];
+
+    /** Declares an unique index. */
+    unique?: boolean;
+
+
+    /* Options for specific schema types (String, Number, Date, etc.) */
+    /** String only - Adds an enum validator */
+    enum?: T[] | SchemaTypeOpts.EnumOpts<T>;
+    /** String only - Adds a lowercase setter. */
+    lowercase?: boolean;
+    /** String only - Sets a regexp validator. */
+    match?: RegExp | [RegExp, string];
+    /** String only - Sets a maximum length validator. */
+    maxlength?: number | [number, string];
+    /** String only - Sets a minimum length validator. */
+    minlength?: number | [number, string];
+    /** String only - Adds a trim setter. */
+    trim?: boolean;
+    /** String only - Adds an uppercase setter. */
+    uppercase?: boolean;
+
+    /**
+     * Date, Number only - Sets a minimum number validator.
+     * Sets a minimum date validator.
+     */
+    min?: number | [number, string] |
+      Date | [Date, string];
+
+    /**
+     * Date, Number only - Sets a maximum number validator.
+     * Sets a maximum date validator.
+     */
+    max?: number | [number, string] |
+      Date | [Date, string];
+
+    /**
+     * Date only - Declares a TTL index (rounded to the nearest second)
+     * for Date types only.
+     */
+    expires?: number | string;
+
+    /** ObjectId only - Adds an auto-generated ObjectId default if turnOn is true. */
+    auto?: boolean;
+
+    [other: string]: any;
+  }
+
+  // Interfaces specific to schema type options should be scoped in this namespace
+  namespace SchemaTypeOpts {
+    interface DefaultFn<T> {
+      (...args: any[]): T;
+    }
+
+    interface RequiredFn<T> {
+      (required: boolean, message?: string): T;
+    }
+
+    interface ValidateFn<T> {
+      (obj: RegExp | Function, message?: string, type?: string): T;
+    }
+
+    interface ValidateOpts {
+      validator?: RegExp | Function,
+      msg?: string,
+      type?: string
+    }
+
+    interface EnumOpts<T> {
+      values?: T[];
+      message?: string;
+    }
+
+    interface IndexOpts {
+      background?: boolean,
+      expires?: number | string
+      sparse?: boolean,
+      type?: string,
+      unique?: boolean,
+    }
   }
 
   /*
@@ -808,7 +966,8 @@ declare module "mongoose" {
      */
     populate(callback: (err: any, res: this) => void): this;
     populate(path: string, callback?: (err: any, res: this) => void): this;
-    populate(options: ModelPopulateOptions, callback?: (err: any, res: this) => void): this;
+    populate(options: ModelPopulateOptions | ModelPopulateOptions[],
+      callback?: (err: any, res: this) => void): this;
 
     /** Gets _id(s) used during population of the given path. If the path was not populated, undefined is returned. */
     populated(path: string): any;
@@ -1449,7 +1608,7 @@ declare module "mongoose" {
      */
     populate(path: string | Object, select?: string | Object, model?: any,
       match?: Object, options?: Object): this;
-    populate(options: ModelPopulateOptions): this;
+    populate(options: ModelPopulateOptions | ModelPopulateOptions[]): this;
 
     /**
      * Determines the MongoDB nodes from which to read.
@@ -2423,6 +2582,8 @@ declare module "mongoose" {
     model?: string;
     /** optional query options like sort, limit, etc */
     options?: Object;
+    /** deep populate */
+    populate?: ModelPopulateOptions | ModelPopulateOptions[]
   }
 
   interface ModelUpdateOptions {
