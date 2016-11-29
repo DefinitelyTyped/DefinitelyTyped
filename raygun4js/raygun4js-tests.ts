@@ -1,9 +1,14 @@
 // V2 Api
+
+// To use the V2 api you will need to declare a `rg4js` variable
+// This is because `rg4js` name is configurable by users
 declare var rg4js: RaygunV2;
+
 rg4js("apiKey", "api-key");
 rg4js("enableCrashReporting", true);
 rg4js("enablePulse", true);
-rg4js('setUser', <RaygunV2UserDetails> {
+rg4js('setUser', {
+    identifier: "username",
     firstName: "Robert",
     fullName: "Robert Raygun"
 });
