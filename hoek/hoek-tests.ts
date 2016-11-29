@@ -2,7 +2,7 @@ import * as Hoek from "hoek";
 
 /**
  * Import the entire module as above or use named imports:
- *      import { clone, merge, assert} from "hoek";
+ *      import { clone, merge, assert } from "hoek";
  * "Tests" taken straight from hoek API reference and adapted to TypeScript.
  */
 

@@ -179,19 +179,19 @@ export function displayStack(slice?: any): string[];
 /**
  * Return a trace stack array.
  */
-export function callStack(slice?: any): Array<any>[];
+export function callStack(slice?: any): any[];
 
 // Function
 
 /**
  * Wrap fn in process.nextTick.
  */
-export function nextTick(fn: Function): Function;
+export function nextTick(fn: () => void): () => void;
 
 /**
  * Make sure fn is only run once.
  */
-export function once(fn: Function): Function;
+export function once(fn: () => void): () => void;
 
 /**
  * A simple no-op function.
