@@ -9,6 +9,14 @@ import { ArrayLike, BaseType, Selection, ValueFn } from 'd3-selection';
  * Extend interface 'Selection' by declaration merging with 'd3-selection'
  */
 declare module 'd3-selection' {
+    /**
+     * A D3 Selection of elements.
+     *
+     * The first generic "GElement" refers to the type of the selected element(s).
+     * The second generic "Datum" refers to the type of the datum of a selected element(s).
+     * The third generic "PElement" refers to the type of the parent element(s) in the D3 selection.
+     * The fourth generic "PDatum" refers to the type of the datum of the parent element(s).
+     */
     export interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
         /**
          * Interrupts the active transition of the specified name on the selected elements, and cancels any pending transitions with the specified name, if any.
@@ -129,7 +137,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * the current index (i), and the current group (nodes), with this as the current DOM element. It must return an array of elements
      * (or a pseudo-array, such as a NodeList), or the empty array if there are no matching elements.
      */
-    selectAll<DescElement extends BaseType, OldDatum>(selector: ValueFn<GElement, Datum, Array<DescElement> | ArrayLike<DescElement>>): Transition<DescElement, OldDatum, GElement, Datum>;
+    selectAll<DescElement extends BaseType, OldDatum>(selector: ValueFn<GElement, Datum, DescElement[] | ArrayLike<DescElement>>): Transition<DescElement, OldDatum, GElement, Datum>;
 
     /**
      * Return the selection corresponding to this transition.
@@ -477,7 +485,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
     /**
      * Return an array of all (non-null) elements in this transition.
      */
-    nodes(): Array<GElement>;
+    nodes(): GElement[];
 
     /**
      * Returns the total number of elements in this transition.

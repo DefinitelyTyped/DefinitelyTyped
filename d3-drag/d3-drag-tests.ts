@@ -63,7 +63,7 @@ circleCustomDrag = d3Drag.drag<SVGCircleElement, CircleDatum, CustomSubject | d3
 
 // set and get container element/accessor ----------------------------
 
-let containerAccessor: (this: SVGCircleElement, d: CircleDatum, i: number, group: Array<SVGCircleElement> | NodeListOf<SVGCircleElement>) => d3Drag.DragContainerElement;
+let containerAccessor: (this: SVGCircleElement, d: CircleDatum, i: number, group: SVGCircleElement[] | NodeListOf<SVGCircleElement>) => d3Drag.DragContainerElement;
 
 containerAccessor = function (d, i, group) {
     console.log('Node Id of circle: ', d.nodeId);
@@ -110,7 +110,7 @@ filterFn = circleDrag.filter();
 
 circleCustomDrag.subject(function (d, i, g) {
     // Cast event type for completeness, otherwise event is of type any.
-    let e = <d3Drag.D3DragEvent<SVGCircleElement, CircleDatum, CustomSubject | d3Drag.SubjectPosition>>event;
+    let e = <d3Drag.D3DragEvent<SVGCircleElement, CircleDatum, CustomSubject | d3Drag.SubjectPosition>> event;
     let that: SVGCircleElement = this;
     let datum: CircleDatum = d;
     let index: number = i;
@@ -139,14 +139,14 @@ subjectAccessor = circleCustomDrag.subject();
 
 function dragstarted(this: SVGCircleElement, d: CircleDatum) {
     // cast d3 event to drag event. Otherwise, d3 event is currently defined as type 'any'
-    let e = <d3Drag.D3DragEvent<SVGCircleElement, CircleDatum, CircleDatum | d3Drag.SubjectPosition>>event;
+    let e = <d3Drag.D3DragEvent<SVGCircleElement, CircleDatum, CircleDatum | d3Drag.SubjectPosition>> event;
     e.sourceEvent.stopPropagation();
     select(this).classed('dragging', true);
 }
 
 function dragged(this: SVGCircleElement, d: CircleDatum) {
     // cast d3 event to drag event. Otherwise, d3 event is currently defined as type 'any'
-    let e = <d3Drag.D3DragEvent<SVGCircleElement, CircleDatum, CircleDatum | d3Drag.SubjectPosition>>event;
+    let e = <d3Drag.D3DragEvent<SVGCircleElement, CircleDatum, CircleDatum | d3Drag.SubjectPosition>> event;
     select(this).attr('cx', d.x = e.x).attr('cy', d.y = e.y);
 }
 

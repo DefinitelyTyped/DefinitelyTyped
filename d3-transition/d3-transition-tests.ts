@@ -44,7 +44,7 @@ let dimensions: SVGDatum = {
     height: 300
 };
 
-let startCircleData: Array<CircleDatum> = [
+let startCircleData: CircleDatum[] = [
     {
         nodeId: 'n1',
         name: 'node_1',
@@ -65,7 +65,7 @@ let startCircleData: Array<CircleDatum> = [
     }
 ];
 
-let endCircleData: Array<CircleDatum> = [
+let endCircleData: CircleDatum[] = [
     {
         nodeId: 'n1',
         name: 'node_1',
@@ -129,9 +129,9 @@ let exitCircles = circles.exit<CircleDatum>(); // Note: need to re-type datum ty
 // Create Transition from Selection
 // --------------------------------------------------------------------------
 
-let updateTransition: d3Transition.Transition<SVGCircleElement, CircleDatum, SVGSVGElement, SVGDatum>,
-    enterTransition: d3Transition.Transition<SVGCircleElement, CircleDatum, SVGSVGElement, SVGDatum>,
-    exitTransition: d3Transition.Transition<SVGCircleElement, CircleDatum, SVGSVGElement, SVGDatum>;
+let updateTransition: d3Transition.Transition<SVGCircleElement, CircleDatum, SVGSVGElement, SVGDatum>;
+let enterTransition: d3Transition.Transition<SVGCircleElement, CircleDatum, SVGSVGElement, SVGDatum>;
+let exitTransition: d3Transition.Transition<SVGCircleElement, CircleDatum, SVGSVGElement, SVGDatum>;
 
 updateTransition = circles.transition('update');
 enterTransition = enterCircles.transition('enter');
@@ -411,7 +411,7 @@ exitTransition.remove();
 // Test Event Handling
 // --------------------------------------------------------------------------
 
-let listener: undefined | ((this: SVGCircleElement, datum: CircleDatum, index: number, group: Array<SVGCircleElement> | ArrayLike<SVGCircleElement>) => void);
+let listener: undefined | ((this: SVGCircleElement, datum: CircleDatum, index: number, group: SVGCircleElement[] | ArrayLike<SVGCircleElement>) => void);
 
 
 enterTransition = enterTransition.on('end', function (d, i, g) {
@@ -483,7 +483,7 @@ let empty: boolean = enterTransition.empty();
 // node() and nodes() --------------------------------------------------------------------
 
 let firstCircleNode: SVGCircleElement = enterTransition.node();
-let circleNodes: Array<SVGCircleElement> = enterTransition.nodes();
+let circleNodes: SVGCircleElement[] = enterTransition.nodes();
 
 // size() --------------------------------------------------------------------------------
 

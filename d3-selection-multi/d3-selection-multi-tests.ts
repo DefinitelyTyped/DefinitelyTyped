@@ -1,4 +1,4 @@
-
+// tslint:disable:object-literal-shorthand
 /**
  * Typescript definition tests for d3/d3-selection-multi module
  *
@@ -28,7 +28,7 @@ selection = selection.attrs({
     foo: () => 1,
     bar: (d) => d,
     baz: (d, i) => i !== 0,
-    bat: function () {
+    bat: function() {
         return this.href;
     },
 });
@@ -189,7 +189,7 @@ valueMap = {
         let that: SVGCircleElement = this;
         let datum: SampleDatum = d;
         let index: number = i;
-        let group: Array<SVGCircleElement> | ArrayLike<SVGCircleElement> = g;
+        let group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
         return d.filled;
     }
 };

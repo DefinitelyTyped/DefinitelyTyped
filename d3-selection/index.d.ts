@@ -44,10 +44,10 @@ export type ContainerElement = HTMLElement | SVGSVGElement | SVGGElement;
 
 
 /**
- * Type for optional parameters map, when dispatching custom events
+ * Interface for optional parameters map, when dispatching custom events
  * on a selection
  */
-export type CustomEventParameters = {
+export interface CustomEventParameters {
     /**
      * If true, the event is dispatched to ancestors in reverse tree order
      */
@@ -65,7 +65,7 @@ export type CustomEventParameters = {
 /**
  * Callback type for selections and transitions
  */
-export type ValueFn<T extends BaseType, Datum, Result> = (this: T, datum: Datum, index: number, groups: Array<T> | ArrayLike<T>) => Result;
+export type ValueFn<T extends BaseType, Datum, Result> = (this: T, datum: Datum, index: number, groups: T[] | ArrayLike<T>) => Result;
 
 
 /**
@@ -248,7 +248,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * the current index (i), and the current group (nodes), with this as the current DOM element. It must return an array of elements
      * (or a pseudo-array, such as a NodeList), or the empty array if there are no matching elements.
      */
-    selectAll<DescElement extends BaseType, OldDatum>(selector: ValueFn<GElement, Datum, Array<DescElement> | ArrayLike<DescElement>>): Selection<DescElement, OldDatum, GElement, Datum>;
+    selectAll<DescElement extends BaseType, OldDatum>(selector: ValueFn<GElement, Datum, DescElement[] | ArrayLike<DescElement>>): Selection<DescElement, OldDatum, GElement, Datum>;
 
     // Modifying -------------------------------
 
@@ -732,7 +732,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * The datum for a given key is assigned to the element with the matching key. If multiple elements have the same key,
      * the duplicate elements are put into the exit selection; if multiple data have the same key, the duplicate data are put into the enter selection.
      */
-    data<NewDatum>(data: Array<NewDatum>, key?: ValueFn<GElement | PElement, Datum | NewDatum, string>): Selection<GElement, NewDatum, PElement, PDatum>;
+    data<NewDatum>(data: NewDatum[], key?: ValueFn<GElement | PElement, Datum | NewDatum, string>): Selection<GElement, NewDatum, PElement, PDatum>;
     /**
      * Joins the data returned by the specified value function with the selected elements, returning a new selection that it represents
      * the update selection: the elements successfully bound to data. Also defines the enter and exit selections on
@@ -764,7 +764,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * The datum for a given key is assigned to the element with the matching key. If multiple elements have the same key,
      * the duplicate elements are put into the exit selection; if multiple data have the same key, the duplicate data are put into the enter selection.
      */
-    data<NewDatum>(data: ValueFn<PElement, PDatum, Array<NewDatum>>, key?: ValueFn<GElement | PElement, Datum | NewDatum, string>): Selection<GElement, NewDatum, PElement, PDatum>;
+    data<NewDatum>(data: ValueFn<PElement, PDatum, NewDatum[]>, key?: ValueFn<GElement | PElement, Datum | NewDatum, string>): Selection<GElement, NewDatum, PElement, PDatum>;
 
     /**
      * Return the enter selection: placeholder nodes for each datum that had no corresponding DOM element
@@ -883,7 +883,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
     /**
      * Return an array of all (non-null) elements in this selection.
      */
-    nodes(): Array<GElement>;
+    nodes(): GElement[];
 
     /**
      * Returns the total number of elements in this selection.
@@ -1064,17 +1064,17 @@ export function local<T>(): Local<T>;
 // ---------------------------------------------------------------------------
 
 /**
- * Type for object literal containing local name with related fully qualified namespace
+ * Interface for object literal containing local name with related fully qualified namespace
  */
-export type NamespaceLocalObject = {
+export interface NamespaceLocalObject {
     /**
      * Fully qualified namespace
      */
-    space: string,
+    space: string;
     /**
      * Name of the local to be namespaced.
      */
-    local: string
+    local: string;
 }
 
 /**
@@ -1094,9 +1094,9 @@ export function namespace(prefixedLocal: string): NamespaceLocalObject | string;
 // ---------------------------------------------------------------------------
 
 /**
- * Type for maps of namespace prefixes to corresponding fully qualified namespace strings
+ * Interface for maps of namespace prefixes to corresponding fully qualified namespace strings
  */
-export type NamespaceMap = { [prefix: string]: string };
+export interface NamespaceMap { [prefix: string]: string; }
 
 /**
  * Map of namespace prefixes to corresponding fully qualified namespace strings
@@ -1153,7 +1153,7 @@ export function matcher(selector: string): (this: BaseType) => boolean;
  *
  * @param selector A CSS selector string.
  */
-export function selector<DescElement extends Element>(selector: string): (this: BaseType) => DescElement
+export function selector<DescElement extends Element>(selector: string): (this: BaseType) => DescElement;
 
 /**
  * Given the specified selector, returns a function which returns all descendants of "this" element that match the specified selector.

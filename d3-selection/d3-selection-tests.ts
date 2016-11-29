@@ -15,8 +15,8 @@ import * as d3Selection from 'd3-selection';
 // ---------------------------------------------------------------------------------------
 
 // Generic DOM related variables
-let xDoc: Document = document,
-    xWindow: Window = window;
+let xDoc: Document = document;
+let xWindow: Window = window;
 
 interface BodyDatum {
     foo: string;
@@ -181,7 +181,7 @@ maybeG = svgEl.select<SVGGElement | null>('g');
 
 // Using select(...) sub-selection with a selector function argument.
 
-function svgGroupSelector(this: SVGSVGElement, d: SVGDatum, i: number, groups: Array<SVGSVGElement>): SVGGElement {
+function svgGroupSelector(this: SVGSVGElement, d: SVGDatum, i: number, groups: SVGSVGElement[]): SVGGElement {
     return this.querySelector('g'); // this-type compatible with group element-type to which the selector function will be appplied
 }
 
@@ -234,14 +234,14 @@ let gElementsOldData: d3Selection.Selection<SVGGElement, CircleDatum, SVGSVGElem
 
 // Using selectAll(...) sub-selection with a selector function argument.
 
-function svgGroupSelectorAll(this: SVGSVGElement, d: SVGDatum, i: number, groups: Array<SVGSVGElement>): NodeListOf<SVGGElement> {
+function svgGroupSelectorAll(this: SVGSVGElement, d: SVGDatum, i: number, groups: SVGSVGElement[]): NodeListOf<SVGGElement> {
     return this.querySelectorAll('g'); // this-type compatible with group element-type to which the selector function will be appplied
 }
 
 
 gElementsOldData = svgEl.selectAll<SVGGElement, CircleDatum>(svgGroupSelectorAll);
 
-function wrongSvgGroupSelectorAll(this: HTMLElement, d: SVGDatum, i: number, groups: Array<HTMLElement>): NodeListOf<SVGGElement> {
+function wrongSvgGroupSelectorAll(this: HTMLElement, d: SVGDatum, i: number, groups: HTMLElement[]): NodeListOf<SVGGElement> {
     return this.querySelectorAll('g');
 }
 // gElementsOldData = svgEl.selectAll<SVGGElement, CircleDatum>(wrongSvgGroupSelectorAll); // fails, wrong this context
@@ -342,7 +342,7 @@ filterdGElements2 = d3Selection.selectAll<SVGElement, any>('.any-svg-type').filt
 
 filterdGElements2 = d3Selection.selectAll<SVGElement, any>('.any-svg-type').filter<SVGGElement>(function(){
     let that: SVGElement = this;
-    return that.tagName === 'g'|| that.tagName === 'G';
+    return that.tagName === 'g' || that.tagName === 'G';
 });
 // filterdGElements2 = d3Selection.selectAll<SVGElement, any>('.any-svg-type').filter(function(){
 //     let that: SVGElement = this;
@@ -361,9 +361,9 @@ filterdGElements = gElementsOldData.filter(d3Selection.matcher('.top-level'));
 
 // Getter return values tests -------------------------------------------------------------
 
-let flag: boolean,
-    str: string,
-    dummy: any;
+let flag: boolean;
+let str: string;
+let dummy: any;
 
 flag = body.classed('any-class');
 str = body.attr('class');
@@ -522,13 +522,13 @@ body = body
 // ---------------------------------------------------------------------------------------
 
 
-let data: Array<CircleDatum> = [
+let data: CircleDatum[] = [
     { nodeId: 'c1', cx: 10, cy: 10, r: 5, name: 'foo', label: 'Foo' },
     { nodeId: 'c2', cx: 20, cy: 20, r: 5, name: 'bar', label: 'Bar' },
     { nodeId: 'c3', cx: 30, cy: 30, r: 5, name: 'fooBar', label: 'Foo Bar' }
 ];
 
-let data2: Array<CircleDatumAlternative> = [
+let data2: CircleDatumAlternative[] = [
     { nodeId: 'c1', cx: 10, cy: 10, r: 5, name: 'foo', label: 'Foo', color: 'seagreen' },
     { nodeId: 'c2', cx: 20, cy: 20, r: 5, name: 'bar', label: 'Bar', color: 'midnightblue' },
     { nodeId: 'c4', cx: 10, cy: 15, r: 10, name: 'newbie', label: 'Newbie', color: 'red' }
@@ -632,7 +632,7 @@ let dimensions: SVGDatum = {
     height: 300
 };
 
-let startCircleData: Array<CircleDatumAlternative> = [
+let startCircleData: CircleDatumAlternative[] = [
     {
         nodeId: 'n1',
         name: 'node_1',
@@ -652,7 +652,7 @@ let startCircleData: Array<CircleDatumAlternative> = [
         color: 'slateblue'
     }
 ];
-let endCircleData: Array<CircleDatumAlternative> = [
+let endCircleData: CircleDatumAlternative[] = [
     {
         nodeId: 'n1',
         name: 'node_1',
@@ -759,8 +759,8 @@ const matrix = [
 // SCENARIO 1 - Fully type parameterized, when there is a need for `this` typings in callbacks
 // and enforcement of type of data used in data join as input to data(...)
 
-let nMatrix: Array<number[]>,
-    nRow: Array<number>;
+let nMatrix: number[][];
+let nRow: number[];
 
 let tr: d3Selection.Selection<HTMLTableRowElement, number[], HTMLTableElement, any>;
 tr = d3Selection.select('body')
@@ -934,7 +934,7 @@ let emptyFlag = gElementsOldData.empty();
 
 let bodyNode: HTMLBodyElement = body.node();
 
-let gElementsNodes: Array<SVGGElement> = gElementsOldData.nodes();
+let gElementsNodes: SVGGElement[] = gElementsOldData.nodes();
 
 // size() --------------------------------------------------------------------------------
 
@@ -983,7 +983,7 @@ circles = circles.call(enforceMinRadius, 40); // check chaining return type by r
 
 // on(...) -------------------------------------------------------------------------------
 
-let listener: undefined | ((this: HTMLBodyElement, datum: BodyDatum, index: number, group: Array<HTMLBodyElement> | ArrayLike<HTMLBodyElement>) => void);
+let listener: undefined | ((this: HTMLBodyElement, datum: BodyDatum, index: number, group: HTMLBodyElement[] | ArrayLike<HTMLBodyElement>) => void);
 
 
 body = body.on('click', function (d, i, g) {
@@ -1052,7 +1052,7 @@ let successEvent = { type: 'wonEuro2016', team: 'Island' };
 let customListener: (this: HTMLBodyElement, finalOpponent: string) => string;
 
 customListener = function (finalOpponent) {
-    let e = <SuccessEvent>d3Selection.event;
+    let e = <SuccessEvent> d3Selection.event;
 
     return e.team + ' defeated ' + finalOpponent + ' in the EURO 2016 Cup. Who would have thought!!!';
 };
@@ -1067,11 +1067,11 @@ let resultText: string = d3Selection.customEvent(successEvent, customListener, b
 
 // mouse() ---------------------------------------------------------------------------------
 
-let position: [number, number] | null,
-    svg: SVGSVGElement = d3Selection.select<SVGSVGElement, any>('svg').node(),
-    g: SVGGElement = d3Selection.select<SVGGElement, any>('g').node(),
-    h: HTMLElement = d3Selection.select<HTMLElement, any>('div').node(),
-    changedTouches: TouchList = new TouchList(); // dummy
+let position: [number, number] | null;
+let svg: SVGSVGElement = d3Selection.select<SVGSVGElement, any>('svg').node();
+let g: SVGGElement = d3Selection.select<SVGGElement, any>('g').node();
+let h: HTMLElement = d3Selection.select<HTMLElement, any>('div').node();
+let changedTouches: TouchList = new TouchList(); // dummy
 
 position = d3Selection.mouse(svg);
 position = d3Selection.mouse(g);

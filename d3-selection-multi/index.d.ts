@@ -7,10 +7,26 @@ import {Selection, BaseType, ArrayLike, ValueFn} from 'd3-selection';
 import {Transition} from 'd3-transition';
 
 
-// An object mapping attribute (or style or property) names to value accessors
+/**
+ * An object mapping attribute (or style or property) names to value accessors
+ *
+ * The first generic corresponds to type of the selected element(s).
+ *
+ * The second generic corresponds to the type of the data on the selected element.
+ */
+// Retained ValueMap as type as it works better with IDE support for its intended purpose. It is not meant to be extended. So type is o.k.
+// tslint:disable-next-line:interface-over-type-literal
 export type ValueMap<T extends BaseType, Datum> = { [key: string]: number | string | boolean | null | ValueFn<T, Datum, number | string | boolean | null> };
 
 declare module 'd3-selection' {
+    /**
+     * A D3 Selection of elements.
+     *
+     * The first generic "GElement" refers to the type of the selected element(s).
+     * The second generic "Datum" refers to the type of the datum of a selected element(s).
+     * The third generic "PElement" refers to the type of the parent element(s) in the D3 selection.
+     * The fourth generic "PDatum" refers to the type of the datum of the parent element(s).
+     */
     export interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
         /**
          * Set multiple attributes on the given selection. Attribute values may be constant or derived from each node and its bound data.
@@ -59,6 +75,14 @@ declare module 'd3-selection' {
 }
 
 declare module 'd3-transition' {
+    /**
+     * A D3 Transition.
+     *
+     * The first generic "GElement" refers to the type of the selected element(s) in the Transition.
+     * The second generic "Datum" refers to the type of the datum of a selected element(s) in the Transition.
+     * The third generic "PElement" refers to the type of the parent element(s) in the D3 selection in the Transition.
+     * The fourth generic "PDatum" refers to the type of the datum of the parent element(s) in the Transition.
+     */
     export interface Transition<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
         /**
          * Set multiple attribute values. The transition will animate from the present value to the new value. Attribute values may be constant or derived from each node and its bound data.

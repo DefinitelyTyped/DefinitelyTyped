@@ -24,10 +24,10 @@ type ZoomedElementBaseType = Element;
  * that  can be passed into zoomTransform methods rescaleX and rescaleY
  */
 export interface ZoomScale {
-    domain(): Array<number>;
-    domain(domain: Array<number>): this;
-    range(): Array<number>;
-    range(range: Array<number>): this;
+    domain(): number[];
+    domain(domain: number[]): this;
+    range(): number[];
+    range(range: number[]): this;
     copy(): ZoomScale;
     invert(value: number): number;
 }
