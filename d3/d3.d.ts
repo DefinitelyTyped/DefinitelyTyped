@@ -794,7 +794,7 @@ declare namespace d3 {
         /**
          * Returns the first non-null element in the selection, or null otherwise.
          */
-        node(): Node;
+        node(): Datum;
 
         /**
          * Returns the total number of elements in the selection.
@@ -857,7 +857,7 @@ declare namespace d3 {
         call(func: (transition: Transition<Datum>, ...args: any[]) => any, ...args: any[]): Transition<Datum>;
 
         empty(): boolean;
-        node(): Node;
+        node(): Datum;
         size(): number;
     }
 
