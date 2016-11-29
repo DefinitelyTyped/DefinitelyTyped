@@ -24,6 +24,7 @@ declare namespace xml2js {
     class Parser {
         constructor(options?: OptionsV2);
         parseString(str: convertableToString, cb?: Function): void;
+        reset(): void;
     }
 
     interface Options {
