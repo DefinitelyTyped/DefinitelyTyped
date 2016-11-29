@@ -11,6 +11,21 @@ declare namespace libphonenumber {
         RFC3966
     }
 
+    export enum PhoneNumberType {
+        FIXED_LINE,
+        MOBILE,
+        FIXED_LINE_OR_MOBILE,
+        TOLL_FREE,
+        PREMIUM_RATE,
+        SHARED_COST,
+        VOIP,
+        PERSONAL_NUMBER,
+        PAGER,
+        UAN,
+        VOICEMAIL,
+        UNKNOWN
+    }
+
     interface PhoneNumber {
     }
 
@@ -30,6 +45,7 @@ declare namespace libphonenumber {
         isPossibleNumber(phoneNumber: PhoneNumber): boolean;
         isPossibleNumberWithReason(phoneNumber: PhoneNumber): PhoneNumberUtil.ValidationResult;
         isValidNumberForRegion(phoneNumber: PhoneNumber, region: string): boolean;
+        getNumberType(phoneNumber:PhoneNumber):PhoneNumberType; 
         getRegionCodeForNumber(phoneNumber: PhoneNumber): string;
         isNANPACountry(regionCode: string): boolean;
         format(phoneNumber: PhoneNumber, format: PhoneNumberFormat): string;
