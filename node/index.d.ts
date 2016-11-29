@@ -67,7 +67,7 @@ interface NodeRequire extends NodeRequireFunction {
     resolve(id: string): string;
     cache: any;
     extensions: any;
-    main: NodeModule;
+    main: NodeModule | undefined;
 }
 
 declare var require: NodeRequire;
@@ -78,7 +78,7 @@ interface NodeModule {
     id: string;
     filename: string;
     loaded: boolean;
-    parent: NodeModule;
+    parent: NodeModule | null;
     children: NodeModule[];
 }
 
@@ -301,8 +301,8 @@ declare namespace NodeJS {
     }
 
     export interface ReadWriteStream extends ReadableStream, WritableStream {
-      pause(): ReadWriteStream;
-      resume(): ReadWriteStream;
+        pause(): ReadWriteStream;
+        resume(): ReadWriteStream;
     }
 
     export interface Events extends EventEmitter { }
