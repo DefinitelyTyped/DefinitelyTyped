@@ -396,9 +396,9 @@ export interface FormProps<FormData extends DataShape, S> {
      * may pass that as if it were the error for a field called _error, and
      * it will be given as the error prop.
      */
-    handleSubmit?(event: SyntheticEvent): void; // same as ReactEventHandler
+    handleSubmit?(event: SyntheticEvent<any>): void; // same as ReactEventHandler
 
-    handleSubmit?(submit: SubmitHandler<FormData, S>): ReactEventHandler;
+    handleSubmit?(submit: SubmitHandler<FormData, S>): ReactEventHandler<any>;
 
     /**
      * Initializes the form data to the given values. All dirty and pristine

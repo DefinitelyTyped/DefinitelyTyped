@@ -192,29 +192,29 @@ interface WrappedFieldInputProps {
     /**
      * A function to call when the form field loses focus.
      */
-    onBlur: FocusEventHandler;
+    onBlur: FocusEventHandler<any>;
 
     /**
      * A function to call when the form field is changed.
      */
-    onChange: FormEventHandler;
+    onChange: FormEventHandler<any>;
 
     /**
      * A function to call when the form field receives a 'dragStart' event.
      * Saves the field value in the event for giving the field it is dropped
      * into.
      */
-    onDragStart: DragEventHandler;
+    onDragStart: DragEventHandler<any>;
 
     /**
      * A function to call when the form field receives a drop event.
      */
-    onDrop: DragEventHandler;
+    onDrop: DragEventHandler<any>;
 
     /**
      * A function to call when the form field receives focus.
      */
-    onFocus: FocusEventHandler;
+    onFocus: FocusEventHandler<any>;
 
     /**
      * The value of this form field. It will be a boolean for checkboxes, and
