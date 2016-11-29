@@ -25,6 +25,11 @@ declare namespace WordCloud {
 		 * keywords: random-dark and random-light.
 		 */
 		color?: string | ((word: string, weight: string | number, fontSize: number, distance: number, theta: number) => string);
+		/**
+		 * for DOM clouds, allows the user to define the class of the span elements.Can be a normal class
+		 * string, applying the same class to every span or a callback(word, weight, fontSize, distance, theta)
+		 * for per-span class definition. In canvas clouds or if equals null, this option has no effect. */
+		classes?: string | ((word: string, weight: string | number, fontSize: number, distance: number, theta: number) => string); 
 		/** minimum font size to draw on the canvas. */
 		minSize?: number;
 		/** function to call or number to multiply for size of each word in the list. */
@@ -41,6 +46,8 @@ declare namespace WordCloud {
 		gridSize?: number;
 		/** origin of the “cloud” in [x, y]. */
 		origin?: [number, number];
+		/** set to true to allow word being draw partly outside of the canvas. Allow word bigger than the size of the canvas to be drawn. */
+		drawOutOfBounds?: boolean;
 
 		/** visualize the grid by draw squares to mask the drawn areas. */
 		drawMask?: boolean;
