@@ -1567,5 +1567,6 @@ interface AlgoliaQueryParameters {
 
 declare module "algoliasearch" {
     function algoliasearch(applicationId: string, apiKey: string, options?: ClientOptions) : AlgoliaClient;
+    namespace algoliasearch {}
     export = algoliasearch;
 }
