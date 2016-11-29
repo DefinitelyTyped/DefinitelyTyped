@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.4.5
+// Type definitions for Electron v1.4.8
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>, aliib <https://github.com/aliib>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -41,6 +41,8 @@ declare namespace Electron {
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/app.md
+
+	type VibrancyType = 'appearance-based' | 'light' | 'dark' | 'titlebar' | 'selection' | 'menu' | 'popover' | 'sidebar' | 'medium-light' | 'ultra-dark';
 
 	/**
 	 * The app module is responsible for controlling the application's lifecycle.
@@ -1024,6 +1026,14 @@ declare namespace Electron {
 		 */
 		setAspectRatio(aspectRatio: number, extraSize?: Size): void;
 		/**
+		 * Uses Quick Look to preview a file at a given path.
+		 *
+		 * @param path The absolute path to the file to preview with QuickLook.
+		 * @param displayName The name of the file to display on the Quick Look modal view.
+		 * Note: This API is available only on macOS.
+		 */
+		previewFile(path: string, displayName?: string): void;
+		/**
 		 * Resizes and moves the window to width, height, x, y.
 		 */
 		setBounds(options: Rectangle, animate?: boolean): void;
@@ -1383,6 +1393,13 @@ declare namespace Electron {
 		 * @returns All child windows.
 		 */
 		getChildWindows(): BrowserWindow[];
+		/**
+		 * Adds a vibrancy effect to the browser window. Passing null or
+		 * an empty string will remove the vibrancy effect on the window.
+		 *
+		 * Note: This API is available only on macOS.
+		 */
+		setVibrancy(type: VibrancyType): void;
 	}
 
 	type WindowLevel = 'normal' | 'floating' | 'torn-off-menu' | 'modal-panel' | 'main-menu' | 'status' | 'pop-up-menu' | 'screen-saver' | 'dock';
@@ -1773,6 +1790,10 @@ declare namespace Electron {
 		 */
 		thickFrame?: boolean;
 		/**
+		 * Add a type of vibrancy effect to the window, only on macOS
+		 */
+		vibrancy?: VibrancyType;
+		/**
 		 * Settings of web page’s features.
 		 */
 		webPreferences?: WebPreferences;
@@ -1861,6 +1882,20 @@ declare namespace Electron {
 		 * Note: This API is available on macOS and Windows.
 		 */
 		writeBookmark(title: string, url: string, type?: ClipboardType): void;
+		/**
+		 * The text on the find pasteboard. This method uses synchronous IPC when called from the renderer process.
+		 * The cached value is reread from the find pasteboard whenever the application is activated.
+		 *
+		 * Note: This API is available on macOS.
+		 */
+		readFindText(): string;
+		/**
+		 * Writes the text into the find pasteboard as plain text.
+		 * This method uses synchronous IPC when called from the renderer process.
+		 *
+		 * Note: This API is available on macOS.
+		 */
+		writeFindText(text: string): void;
 	}
 
 	type ClipboardType = '' | 'selection';
@@ -2455,7 +2490,7 @@ declare namespace Electron {
 	}
 
 	type MenuItemType = 'normal' | 'separator' | 'submenu' | 'checkbox' | 'radio';
-	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'pasteandmatchstyle' | 'selectall' | 'delete' | 'minimize' | 'close' | 'quit' | 'togglefullscreen' | 'resetzoom' | 'zoomin' | 'zoomout';
+	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'pasteandmatchstyle' | 'selectall' | 'delete' | 'minimize' | 'close' | 'quit' | 'togglefullscreen' | 'resetzoom' | 'zoomin' | 'zoomout' | 'reload' | 'toggledevtools';
 	type MenuItemRoleMac = 'about' | 'hide' | 'hideothers' | 'unhide' | 'startspeaking' | 'stopspeaking' | 'front' | 'zoom' | 'window' | 'help' | 'services';
 
 	interface MenuItemOptions {
@@ -3284,7 +3319,7 @@ declare namespace Electron {
 		 *
 		 * Calling setCertificateVerifyProc(null) will revert back to default certificate verify proc.
 		 */
-		setCertificateVerifyProc(proc: (hostname: string, cert: Certificate, callback: (accepted: boolean) => void) => void): void;
+		setCertificateVerifyProc(proc: ((hostname: string, cert: Certificate, callback: (accepted: boolean) => void) => void) | null): void;
 		/**
 		 * Sets the handler which can be used to respond to permission requests for the session.
 		 */
@@ -4395,8 +4430,10 @@ declare namespace Electron {
 		/**
 		 * Evaluates code in page.
 		 * @param code Code to evaluate.
+		 *
+		 * @returns Promise
 		 */
-		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): void;
+		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): Promise<any>;
 		/**
 		 * Mute the audio on the current web page.
 		 */
@@ -4427,7 +4464,11 @@ declare namespace Electron {
 		/**
 		 * Sets the maximum and minimum zoom level.
 		 */
-		setZoomLevelLimits(minimumLevel: number, maximumLevel: number): void;
+		setVisualZoomLevelLimits(minimumLevel: number, maximumLevel: number): void;
+		/**
+		 * Sets the maximum and minimum layout-based (i.e. non-visual) zoom level.
+		 */
+		setLayoutZoomLevelLimits(minimumLevel: number, maximumLevel: number): void;
 		/**
 		 * Executes the editing command undo in web page.
 		 */
@@ -4849,6 +4890,55 @@ declare namespace Electron {
 		 * Extra headers separated by "\n"
 		 */
 		extraHeaders?: string;
+		/**
+		 * POST data
+		 */
+		postData?: (UploadRawData | UploadFileSystem | UploadBlob)[];
+	}
+
+	interface UploadRawData {
+		/**
+		 * rawData
+		 */
+		type: 'rawData';
+		/**
+		 * Data to be uploaded.
+		 */
+		bytes: Buffer;
+	}
+
+	interface UploadFileSystem {
+		/**
+		 * fileSystem
+		 */
+		type: 'fileSystem';
+		/**
+		 * FileSystem url to read data for upload.
+		 */
+		fileSystemURL: string;
+		/**
+		 * Defaults to 0.
+		 */
+		offset: number;
+		/**
+		 * Number of bytes to read from offset. Defaults to 0.
+		 */
+		length: number;
+		/**
+		 * Last Modification time in number of seconds sine the UNIX epoch.
+		 */
+		modificationTime: number;
+	}
+
+	interface UploadBlob {
+		/**
+		 * blob
+		 */
+		type: 'blob';
+		/**
+		 * UUID of blob data to upload.
+		 */
+		blobUUID: string;
 	}
 
 	interface PrintOptions {
@@ -4901,9 +4991,21 @@ declare namespace Electron {
 		 */
 		data: string;
 		/**
+		 * Issuer principal
+		 */
+		issuer: CertificatePrincipal;
+		/**
 		 * Issuer's Common Name.
 		 */
 		issuerName: string;
+		/**
+		 * Issuer certificate (if not self-signed)
+		 */
+		issuerCert: Certificate;
+		/**
+		 * Subject principal
+		 */
+		subject: CertificatePrincipal;
 		/**
 		 * Subject's Common Name.
 		 */
@@ -4924,6 +5026,33 @@ declare namespace Electron {
 		 * Fingerprint of the certificate.
 		 */
 		fingerprint: string;
+	}
+
+	interface CertificatePrincipal {
+		/**
+		 * Common Name
+		 */
+		commonName: string;
+		/**
+		 * Organization names
+		 */
+		organizations: string[];
+		/**
+		 * Organization Unit names
+		 */
+		organizationUnits: string[];
+		/**
+		 * Locality
+		 */
+		locality: string;
+		/**
+		 * State or province
+		 */
+		state: string;
+		/**
+		 * Country or region
+		 */
+		country: string;
 	}
 
 	interface LoginRequest {
@@ -5122,7 +5251,11 @@ declare namespace Electron {
 		/**
 		 * Sets the maximum and minimum zoom level.
 		 */
-		setZoomLevelLimits(minimumLevel: number, maximumLevel: number): void;
+		setVisualZoomLevelLimits(minimumLevel: number, maximumLevel: number): void;
+		/**
+		 * Sets the maximum and minimum layout-based (i.e. non-visual) zoom level.
+		 */
+		setLayoutZoomLevelLimits(minimumLevel: number, maximumLevel: number): void;
 		/**
 		 * Sets a provider for spell checking in input fields and text areas.
 		 */
@@ -5146,7 +5279,7 @@ declare namespace Electron {
 		 * Registers the scheme as secure, bypasses content security policy for resources,
 		 * allows registering ServiceWorker and supports fetch API.
 		 */
-		registerURLSchemeAsPrivileged(scheme: string): void;
+		registerURLSchemeAsPrivileged(scheme: string, options?: RegisterURLSchemeOptions): void;
 		/**
 		 * Inserts text to the focused element.
 		 */
@@ -5156,8 +5289,10 @@ declare namespace Electron {
 		 * In the browser window some HTML APIs like `requestFullScreen` can only be
 		 * invoked by a gesture from the user. Setting `userGesture` to `true` will remove
 		 * this limitation.
+		 *
+		 * @returns Promise
 		 */
-		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): void;
+		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): Promise<any>;
 		/**
 		 * @returns Object describing usage information of Blink’s internal memory caches.
 		 */
@@ -5184,6 +5319,14 @@ declare namespace Electron {
 		purgeableSize: number;
 		purgedSize: number;
 		size: number;
+	}
+
+	interface RegisterURLSchemeOptions {
+		secure?: boolean;
+		bypassCSP?: boolean;
+		allowServiceWorkers?: boolean;
+		supportFetchAPI?: boolean;
+		corsEnabled?: boolean;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/web-view-tag.md
@@ -5259,6 +5402,10 @@ declare namespace Electron {
 		 * If "on", the guest page will be allowed to open new windows.
 		 */
 		allowpopups: string;
+		/**
+		 * A list of strings which specifies the web preferences to be set on the webview, separated by ,.
+		 */
+		webpreferences: string;
 		/**
 		 * A list of strings which specifies the blink features to be enabled separated by ,.
 		 */
@@ -5367,8 +5514,10 @@ declare namespace Electron {
 		/**
 		 * Evaluates code in page. If userGesture is set, it will create the user gesture context in the page.
 		 * HTML APIs like requestFullScreen, which require user action, can take advantage of this option for automation.
+		 *
+		 * @returns Promise
 		 */
-		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): void;
+		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): Promise<any>;
 		/**
 		 * Opens a DevTools window for guest page.
 		 */
@@ -5379,7 +5528,7 @@ declare namespace Electron {
 		closeDevTools(): void;
 		/**
 		 * @returns Whether guest page has a DevTools window attached.
-		 */
+		 
 		isDevToolsOpened(): boolean;
 		/**
 		 * @returns Whether DevTools window of guest page is focused.
