@@ -63,6 +63,7 @@ app.on('ready', () => {
 	mainWindow.loadURL(`file://${__dirname}/index.html`);
 	mainWindow.loadURL('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer'});
 	mainWindow.webContents.loadURL('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer'});
+	mainWindow.webContents.loadURL('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer', postData: [{type: 'blob', blobUUID: 'hogefuga'}]});
 
 	mainWindow.webContents.openDevTools();
 	mainWindow.webContents.toggleDevTools();
@@ -80,6 +81,9 @@ app.on('ready', () => {
 		mainWindow = null;
 	});
 
+	mainWindow.webContents.setVisualZoomLevelLimits(50, 200);
+	mainWindow.webContents.setLayoutZoomLevelLimits(50, 200);
+
 	mainWindow.webContents.print({silent: true, printBackground: false});
 	mainWindow.webContents.print();
 
@@ -93,7 +97,7 @@ app.on('ready', () => {
 
 	mainWindow.webContents.printToPDF({}, (err, data) => {});
 
-	mainWindow.webContents.executeJavaScript('return true;');
+	mainWindow.webContents.executeJavaScript('return true;').then((v: boolean) => console.log(v));
 	mainWindow.webContents.executeJavaScript('return true;', true);
 	mainWindow.webContents.executeJavaScript('return true;', true, (result: boolean) => console.log(result));
 	mainWindow.webContents.insertText('blah, blah, blah');
@@ -313,6 +317,10 @@ var window = new BrowserWindow();
 window.setProgressBar(0.5);
 window.setRepresentedFilename('/etc/passwd');
 window.setDocumentEdited(true);
+window.previewFile('/path/to/file');
+window.previewFile('/path/to/file', 'Displayed Name');
+window.setVibrancy('light');
+window.setVibrancy('titlebar');
 
 // Online/Offline Event Detection
 // https://github.com/atom/electron/blob/master/docs/tutorial/online-offline-events.md
@@ -320,7 +328,7 @@ window.setDocumentEdited(true);
 var onlineStatusWindow: Electron.BrowserWindow;
 
 app.on('ready', () => {
-	onlineStatusWindow = new BrowserWindow({ width: 0, height: 0, show: false });
+	onlineStatusWindow = new BrowserWindow({ width: 0, height: 0, show: false, vibrancy: 'sidebar' });
 	onlineStatusWindow.loadURL(`file://${__dirname}/online-status.html`);
 });
 app.on('accessibility-support-changed', (_, enabled) => console.log('accessibility: ' + enabled));
@@ -869,20 +877,25 @@ app.on('ready', () => {
 // clipboard
 // https://github.com/atom/electron/blob/master/docs/api/clipboard.md
 
-clipboard.writeText('Example String');
-clipboard.writeText('Example String', 'selection');
-clipboard.writeBookmark('foo', 'http://example.com');
-clipboard.writeBookmark('foo', 'http://example.com', 'selection');
-console.log(clipboard.readText('selection'));
-console.log(clipboard.availableFormats());
-console.log(clipboard.readBookmark().title);
-clipboard.clear();
+{
+    let str: string;
+    clipboard.writeText('Example String');
+    clipboard.writeText('Example String', 'selection');
+    clipboard.writeBookmark('foo', 'http://example.com');
+    clipboard.writeBookmark('foo', 'http://example.com', 'selection');
+    clipboard.writeFindText('foo');
+    str = clipboard.readText('selection');
+    str = clipboard.readFindText();
+    console.log(clipboard.availableFormats());
+    console.log(clipboard.readBookmark().title);
+    clipboard.clear();
 
-clipboard.write({
-	html: '<html></html>',
-	text: 'Hello World!',
-	image: clipboard.readImage()
-});
+    clipboard.write({
+        html: '<html></html>',
+        text: 'Hello World!',
+        image: clipboard.readImage()
+    });
+}
 
 // crash-reporter
 // https://github.com/atom/electron/blob/master/docs/api/crash-reporter.md
@@ -1051,6 +1064,7 @@ session.defaultSession.enableNetworkEmulation({
 
 session.defaultSession.setCertificateVerifyProc((hostname, cert, callback) => {
 	callback((hostname === 'github.com') ? true : false);
+	console.log(cert.issuer.commonName);
 });
 
 session.defaultSession.setPermissionRequestHandler(function(webContents, permission, callback) {
