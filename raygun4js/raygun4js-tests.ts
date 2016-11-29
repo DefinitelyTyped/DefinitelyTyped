@@ -1,3 +1,14 @@
+// V2 Api
+declare var rg4js: RaygunV2;
+rg4js("apiKey", "api-key");
+rg4js("enableCrashReporting", true);
+rg4js("enablePulse", true);
+rg4js('setUser', <RaygunV2UserDetails> {
+    firstName: "Robert",
+    fullName: "Robert Raygun"
+});
+
+// V1 Api
 var client: RaygunStatic = Raygun.noConflict();
 var newClient: RaygunStatic = client.constructNewRaygun();
 
@@ -27,9 +38,9 @@ catch (e) {
 
 client.setUser('username');
 client.setUser('username', true);
-client.setUser('username', false, 'user@email.com', 'Robbie Robot');
-client.setUser('username', false, 'user@email.com', 'Robbie Robot', 'Robbie');
-client.setUser('username', false, 'user@email.com', 'Robbie Robot', 'Robbie', '8ae89fc9-1144-42d6-9629-bf085dab18d2');
+client.setUser('username', false, 'user@email.com', 'Robert Raygun');
+client.setUser('username', false, 'user@email.com', 'Robert Raygun', 'Robert');
+client.setUser('username', false, 'user@email.com', 'Robert Raygun', 'Robert', '8ae89fc9-1144-42d6-9629-bf085dab18d2');
 
 client.resetAnonymousUser();
 client.setVersion('1.2.3.4');
@@ -61,5 +72,5 @@ client.onAfterSend(xhr => {
 client.endSession();
 
 client.trackEvent('pageView', {
-    path: '/path'
+    path: '/url'
 });
