@@ -1,6 +1,6 @@
 // Type definitions for randomColor 0.4.1
 // Project: https://github.com/davidmerfield/randomColor
-// Definitions by: Mathias Feitzinger <https://github.com/feitzi> & Brady Liles <https://github.com/BradyLiles>
+// Definitions by: Mathias Feitzinger <https://github.com/feitzi>, Brady Liles <https://github.com/BradyLiles>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function randomColor(options?: RandomColorOptions): string;
