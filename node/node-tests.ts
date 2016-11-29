@@ -1611,7 +1611,7 @@ namespace process_tests {
         assert(process.argv[0] === process.argv0);
     }
     {
-        var module: NodeModule;
+        var module: NodeModule | undefined;
         module = process.mainModule;
     }
 }
