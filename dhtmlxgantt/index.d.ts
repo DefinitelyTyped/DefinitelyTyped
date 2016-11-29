@@ -1,6 +1,6 @@
 // Type definitions for dhtmlxGantt 4.0.0
 // Project: http://dhtmlx.com/docs/products/dhtmlxGantt
-// Definitions by: Maksim Kozhukh <http://github.com/mkozhukh>
+// Definitions by: Maksim Kozhukh <http://github.com/mkozhukh>, Christophe Camicas <http://github.com/chriscamicas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
