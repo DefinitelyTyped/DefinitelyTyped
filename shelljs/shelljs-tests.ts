@@ -52,6 +52,8 @@ shell.rm("some_file.txt", "another_file.txt");
 shell.rm(["some_file.txt", "another_file.txt"]); // same as above
 
 shell.mv(["file1", "file2"], "dir/"); // same as above
+shell.mv("-f", "*.txt", "dir/"); // same as above
+shell.mv("-f", ['file1', 'file2'], "dir/"); // same as above
 
 shell.mkdir("-p", "/tmp/a/b/c/d", "/tmp/e/f/g");
 shell.mkdir("-p", ["/tmp/a/b/c/d", "/tmp/e/f/g"]); // same as above
