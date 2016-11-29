@@ -1,0 +1,7 @@
+{
+    "extends": "../tslint.json",
+    "rules": {
+        // TODO: Review usability trade-off, unifying signatures may lead to unreadable definitions/IDE hints given the complexity
+        "unified-signatures": false
+    }
+}

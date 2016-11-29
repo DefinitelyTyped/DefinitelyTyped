@@ -93,7 +93,7 @@ export interface Chords extends Array<Chord> {
      * An array of length n, where each group represents the combined outflow for node i,
      * corresponding to the elements matrix[i][0 … n - 1]
      */
-    groups: Array<ChordGroup>;
+    groups: ChordGroup[];
 }
 
 /**
@@ -235,9 +235,9 @@ export interface Ribbon {
  *
  * The first generic corresponds to the type of the "this" context within which the ribbon generator and its accessor functions will be invoked.
  *
- * The second generic corresponds to the datum type representing a chord for which the ribbon is to be generated. The default type is Chord.
+ * The second generic corresponds to the datum type representing a chord for which the ribbon is to be generated. The default type is Ribbon.
  *
- * The third generic corresponds to the datum type of the chord subgroup, i.e. source or target of the cord. The default type is ChordSubgroup.
+ * The third generic corresponds to the datum type of the chord subgroup, i.e. source or target of the cord. The default type is RibbonSubgroup.
  */
 export interface RibbonGenerator<This, RibbonDatum, RibbonSubgroupDatum> {
     /**
@@ -364,7 +364,9 @@ export interface RibbonGenerator<This, RibbonDatum, RibbonSubgroupDatum> {
     /**
      * Sets the rendering context to null and returns this ribbon generator.
      *
-     * A path data string representing the generated ribbon will be returned when the generator is invoked with data. See also d3-path.     *
+     * A path data string representing the generated ribbon will be returned when the generator is invoked with data. See also d3-path.
+     *
+     * @param context null, to remove rendering context.
      */
     context(context: null): this;
 }
