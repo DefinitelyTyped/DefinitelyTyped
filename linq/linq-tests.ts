@@ -35,5 +35,11 @@ describe("Linq.js tests", function () {
             .Select(g => g.key+":"+g.count)
             .ToString(",")).toBe("1:3,2:1,3:2");
     });
+    it("Query Methods", function () {
+        var arr: string[] = [];
+        var res1 = Enumerable.From(arr).FirstOrDefault();
+        res1 = null;
+        var res2 = Enumerable.From(arr).FirstOrDefault("Hello World!");
+        res2.charAt(2);
+    });
 });
-
