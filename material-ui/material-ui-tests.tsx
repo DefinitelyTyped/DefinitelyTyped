@@ -396,6 +396,11 @@ export class AutoCompleteExampleSimple extends React.Component<{}, {dataSource: 
     });
   };
 
+  dataSourceConfig = {
+    text: 'textKey',
+    value: 'valueKey',
+  };
+
   render() {
     return (
       <div>
@@ -413,6 +418,12 @@ export class AutoCompleteExampleSimple extends React.Component<{}, {dataSource: 
                     popoverProps={{
             animated: true
           }}
+        />
+        <AutoComplete
+          hintText="Type anything"
+          dataSource={this.state.dataSource}
+          dataSourceConfig={this.dataSourceConfig}
+          onUpdateInput={this.handleUpdateInput}
         />
       </div>
     );
