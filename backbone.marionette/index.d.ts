@@ -288,6 +288,15 @@ declare namespace Marionette {
         triggerAttach?: boolean;
     }
 
+    interface RegionEmptyOptions {
+        /**
+         * If you would like to prevent the view currently shown in the region
+         * from being destroyed you can set this option to true to prevent the
+         * default destroy behavior.
+         */
+        preventDestroy?: boolean;
+    }
+
     /**
      * Regions provide consistent methods to manage, show and destroy views in
      * your applications and layouts. They use a jQuery selector to show your
@@ -348,7 +357,7 @@ declare namespace Marionette {
         /**
          * Empties the current view from the region.
          */
-        empty(): any;
+        empty(options?: RegionEmptyOptions): any;
 
         /**
          * @returns view that this region has.
