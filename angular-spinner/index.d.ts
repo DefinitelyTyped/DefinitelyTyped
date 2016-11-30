@@ -3,13 +3,11 @@
 // Definitions by: Marcin Biegała <https://github.com/Biegal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angular" />
-
 /**
 * SpinnerService
 * see https://github.com/urish/angular-spinner
 */
-export interface ISpinnerService {
+declare interface ISpinnerService {
     /**
      * Start selected spinner
      *
