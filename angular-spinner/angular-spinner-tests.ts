@@ -1,5 +1,3 @@
-
-
 var myApp = angular.module('testModule');
 
 namespace AngularSpinnerTest {

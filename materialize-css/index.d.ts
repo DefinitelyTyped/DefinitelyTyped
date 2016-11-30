@@ -235,6 +235,12 @@ declare namespace Materialize {
          * Default: false
          */
         closeOnClick?: boolean;
+
+        /**
+         * Choose whether you can drag to open on touch screens
+         * Default: true
+         */
+        draggable?: boolean;
     }
 
     interface ScrollFireOptions {

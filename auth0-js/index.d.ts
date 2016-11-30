@@ -96,6 +96,7 @@ interface Auth0PopupOptions {
 
 interface Auth0LoginOptions {
     auto_login?: boolean;
+    responseType?: string;
     connection?: string;
     email?: string;
     username?: string;
