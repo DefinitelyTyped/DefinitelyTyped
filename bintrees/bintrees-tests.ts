@@ -12,5 +12,3 @@ treeB.insert('hi');
 treeB.insert('there');
 treeB.insert('how');
 treeB.insert('are');
-
-
