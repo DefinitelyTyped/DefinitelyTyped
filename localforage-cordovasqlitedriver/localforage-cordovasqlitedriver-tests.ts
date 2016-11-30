@@ -36,7 +36,7 @@ declare var cordovaSQLiteDriver: LocalForageDriver;
         var newError: any = err;
         var newStr: string = str
     });
-  
+
     cordovaSQLiteDriver.setItem("key", "value", (err: any, str: string) => {
         var newError: any = err;
         var newStr: string = str
@@ -45,7 +45,7 @@ declare var cordovaSQLiteDriver: LocalForageDriver;
     cordovaSQLiteDriver.setItem("key", "value", (str: string) => {
         var newStr: string = str;
     });
-  
+
     cordovaSQLiteDriver.removeItem("key",(err: any) => {
         var newError: any = err;
     });
