@@ -1239,7 +1239,7 @@ declare module "hapi" {
 			payload: any;
 		};
 		/**  an object where each key is a path parameter name with matching value as described in Path parameters.*/
-		params: IDictionary<string>;
+		params: any;
 		/** an array containing all the path params values in the order they appeared in the path.*/
 		paramsArray: string[];
 		/**  the request URI's path component. */
@@ -1249,7 +1249,7 @@ declare module "hapi" {
 		/**  plugin-specific state. Provides a place to store and pass request-level plugin data. The plugins is an object where each key is a plugin name and the value is the state.*/
 		plugins: any;
 		/** an object where each key is the name assigned by a route prerequisites function. The values are the raw values provided to the continuation function as argument. For the wrapped response object, use responses.*/
-		pre: IDictionary<any>;
+		pre: any;
 		/** the response object when set. The object can be modified but must not be assigned another object. To replace the response with another from within an extension point, use reply(response) to override with a different response. Contains null when no response has been set (e.g. when a request terminates prematurely when the client disconnects).*/
 		response: Response;
 		/**preResponses - same as pre but represented as the response object created by the pre method.*/
