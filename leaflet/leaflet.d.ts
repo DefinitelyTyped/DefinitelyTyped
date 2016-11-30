@@ -113,8 +113,7 @@ declare namespace L {
 
     export interface LatLngBounds {
         extend(latlng: LatLngExpression): this;
-        extend(otherBounds: LatLngBounds): this;
-        extend(otherBounds: LatLngBoundsLiteral): this;
+        extend(otherBounds: LatLngBoundsExpression): this;
         pad(bufferRatio: number): LatLngBounds; // does this modify the current instance or does it return a new one?
         getCenter(): LatLng;
         getSouthWest(): LatLng;
@@ -125,16 +124,12 @@ declare namespace L {
         getSouth(): number;
         getEast(): number;
         getNorth(): number;
-        contains(otherBounds: LatLngBounds): boolean;
-        contains(otherBounds: LatLngBoundsLiteral): boolean;
+        contains(otherBounds: LatLngBoundsExpression): boolean;
         contains(latlng: LatLngExpression): boolean;
-        intersects(otherBounds: LatLngBounds): boolean;
-        intersects(otherBounds: LatLngLiteral): boolean;
-        overlaps(otherBounds: Bounds): boolean; // investigate if this is really bounds and not latlngbounds
-        overlaps(otherBounds: BoundsLiteral): boolean;
+        intersects(otherBounds: LatLngBoundsExpression): boolean;
+        overlaps(otherBounds: BoundsExpression): boolean; // investigate if this is really bounds and not latlngbounds
         toBBoxString(): string;
-        equals(otherBounds: LatLngBounds): boolean;
-        equals(otherBounds: LatLngBoundsLiteral): boolean;
+        equals(otherBounds: LatLngBoundsExpression): boolean;
         isValid(): boolean;
     }
 
@@ -181,13 +176,10 @@ declare namespace L {
         getBottomLeft(): Point;
         getTopRight(): Point;
         getSize(): Point;
-        contains(otherBounds: Bounds): boolean;
-        contains(otherBounds: BoundsLiteral): boolean;
+        contains(otherBounds: BoundsExpression): boolean;
         contains(point: PointExpression): boolean;
-        intersects(otherBounds: Bounds): boolean;
-        intersects(otherBounds: BoundsLiteral): boolean;
-        overlaps(otherBounds: Bounds): boolean;
-        overlaps(otherBounds: BoundsLiteral): boolean;
+        intersects(otherBounds: BoundsExpression): boolean;
+        overlaps(otherBounds: BoundsExpression): boolean;
 
         min: Point;
         max: Point;
@@ -548,13 +540,10 @@ declare namespace L {
     export function polygon(latlngs: Array<Array<LatLngExpression>>, options?: PolylineOptions): Polygon;
 
     export interface Rectangle extends Polygon {
-        setBounds(latLngBounds: LatLngBounds): this;
-        setBounds(latLngBounds: LatLngBoundsLiteral): this;
+        setBounds(latLngBounds: LatLngBoundsExpression): this;
     }
 
-    export function rectangle(latLngBounds: LatLngBounds, options?: PolylineOptions): Rectangle;
-
-    export function rectangle(latLngBounds: LatLngBoundsLiteral, options?: PolylineOptions): Rectangle;
+    export function rectangle(latLngBounds: LatLngBoundsExpression, options?: PolylineOptions): Rectangle;
 
     export interface CircleMarkerOptions extends PathOptions {
         radius?: number;
@@ -1211,23 +1200,19 @@ declare namespace L {
         zoomOut(delta?: number, options?: ZoomOptions): this;
         setZoomAround(latlng: LatLngExpression, zoom: number, options: ZoomOptions): this;
         setZoomAround(offset: Point, zoom: number, options: ZoomOptions): this;
-        fitBounds(bounds: LatLngBounds, options: FitBoundsOptions): this;
-        fitBounds(bounds: LatLngBoundsLiteral, options: FitBoundsOptions): this;
+        fitBounds(bounds: LatLngBoundsExpression, options: FitBoundsOptions): this;
         fitWorld(options?: FitBoundsOptions): this;
         panTo(latlng: LatLngExpression, options?: PanOptions): this;
         panBy(offset: PointExpression): this;
-        setMaxBounds(bounds: LatLngBounds): this;
-        setMaxBounds(bounds: LatLngBoundsLiteral): this;
+        setMaxBounds(bounds: LatLngBoundsExpression): this;
         setMinZoom(zoom: number): this;
         setMaxZoom(zoom: number): this;
-        panInsideBounds(bounds: LatLngBounds, options?: PanOptions): this;
-        panInsideBounds(bounds: LatLngBoundsLiteral, options?: PanOptions): this;
+        panInsideBounds(bounds: LatLngBoundsExpression, options?: PanOptions): this;
         invalidateSize(options: ZoomPanOptions): this;
         invalidateSize(animate: boolean): this;
         stop(): this;
         flyTo(latlng: LatLngExpression, zoom?: number, options?: ZoomPanOptions): this;
-        flyToBounds(bounds: LatLngBounds, options?: FitBoundsOptions): this;
-        flyToBounds(bounds: LatLngBoundsLiteral, options?: FitBoundsOptions): this;
+        flyToBounds(bounds: LatLngBoundsExpression, options?: FitBoundsOptions): this;
 
         // Other methods
         addHandler(name: string, HandlerClass: () => Handler): this; // HandlerClass is actually a constructor function, is this the right way?
@@ -1245,8 +1230,7 @@ declare namespace L {
         getBounds(): LatLngBounds;
         getMinZoom(): number;
         getMaxZoom(): number;
-        getBoundsZoom(bounds: LatLngBounds, inside?: boolean): number;
-        getBoundsZoom(bounds: LatLngBoundsLiteral, inside?: boolean): number;
+        getBoundsZoom(bounds: LatLngBoundsExpression, inside?: boolean): number;
         getSize(): Point;
         getPixelBounds(): Bounds;
         getPixelOrigin(): Point;
