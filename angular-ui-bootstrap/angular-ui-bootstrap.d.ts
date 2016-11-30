@@ -1,6 +1,6 @@
 // Type definitions for Angular UI Bootstrap 0.13.3
 // Project: https://github.com/angular-ui/bootstrap
-// Definitions by: Brian Surowiec <https://github.com/xt0rted>
+// Definitions by: Brian Surowiec <https://github.com/xt0rted>, Ryan Southgate <https://github.com/ry8806>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
@@ -411,6 +411,22 @@ declare namespace angular.ui.bootstrap {
          *   - `resolve` - An object of the modal resolve values. See [UI Router resolves] for details.
          */
         component?: string;
+
+        /**
+         * Sets the `aria-describedby` property on the modal.
+         * The string should be an id (without the leading '#') pointing to the element that describes your modal. 
+         * @type {string}
+         * @memberOf IModalSettings
+         */
+        ariaDescribedBy?: string;
+
+        /**
+         * Sets the `aria-labelledby` property on the modal.
+         * The string should be an id (without the leading '#') pointing to the element that labels your modal.
+         * @type {string}
+         * @memberOf IModalSettings
+         */
+        ariaLabelledBy?: string;
     }
 
     interface IModalStackService {
