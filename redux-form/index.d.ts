@@ -21,6 +21,7 @@ export type ComponentConstructor = ComponentClass<any> | StatelessComponent<any>
 
 export * from "./lib/reduxForm";
 export * from "./lib/Field";
+export * from "./lib/Fields";
 export * from "./lib/FieldArray";
 export * from "./lib/actions";
 export * from "./lib/reducer";
