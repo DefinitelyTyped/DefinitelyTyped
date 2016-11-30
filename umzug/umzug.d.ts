@@ -80,7 +80,7 @@ declare module "umzug" {
              * The type of the column holding migration name.
              * Defaults to `Sequelize.STRING`
              */
-            columnType: Sequelize.DataTypeAbstract;
+            columnType:  Sequelize.DataTypeStringBase | Sequelize.DataTypeNumberBase | Sequelize.DataTypeBlob | Sequelize.DataTypeDecimal | Sequelize.DataTypeVirtual | Sequelize.DataTypeEnum | Sequelize.DataTypeArray | Sequelize.DataTypeHstore;
 
         }
 
