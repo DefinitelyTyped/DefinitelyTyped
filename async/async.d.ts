@@ -111,8 +111,8 @@ interface Async {
     mapSeries: typeof async.map;
     mapLimit<T, R, E>(arr: T[], limit: number, iterator: AsyncResultIterator<T, R, E>, callback?: AsyncResultArrayCallback<R, E>): void;
     mapLimit<T, R, E>(arr: Dictionary<T>, limit: number, iterator: AsyncResultIterator<T, R, E>, callback?: AsyncResultArrayCallback<R, E>): void;
-    mapValuesLimit<T, R, E>(obj: Dictionary<T>, limit: number, iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void, callback: AsyncResultCallback<R[], E>): void;
-    mapValues<T, R, E>(obj: Dictionary<T>, iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void, callback: AsyncResultCallback<R[], E>): void;
+    mapValuesLimit<T, R, E>(obj: Dictionary<T>, limit: number, iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void, callback: AsyncResultObjectCallback<R, E>): void;
+    mapValues<T, R, E>(obj: Dictionary<T>, iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void, callback: AsyncResultObjectCallback<R, E>): void;
     mapValuesSeries: typeof async.mapValues;
     filter<T, E>(arr: T[], iterator: AsyncBooleanIterator<T, E>, callback?: AsyncResultArrayCallback<T, E>): void;
     filter<T, E>(arr: Dictionary<T>, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncResultArrayCallback<T, E>): void;
