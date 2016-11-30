@@ -65,7 +65,10 @@ interface Globalization {
         dateString: string,
         onSuccess: (date: GlobalizationDate) => void,
         onError: (error: GlobalizationError) => void,
-        options?: { type?: string; item?: string; }): void;
+        options?: {
+            formatLength?: string; // "short" | "medium" | "long" | "full"
+            selector?: string; // "date" | "time" | "date and time"
+        }): void;
     /**
      * Returns a pattern string to format and parse dates according to the client's user preferences.
      * @param onSuccess Called on success getting pattern with a GlobalizationDatePattern object
@@ -76,7 +79,10 @@ interface Globalization {
     getDatePattern(
         onSuccess: (datePattern: GlobalizationDatePattern) => void,
         onError: (error: GlobalizationError) => void,
-        options?: { type?: string; item?: string; }): void;
+        options?: {
+            formatLength?: string; // "short" | "medium" | "long" | "full"
+            selector?: string; // "date" | "time" | "date and time"
+        }): void;
     /**
      * Returns an array of the names of the months or days of the week, depending on the client's user preferences and calendar.
      * @param onSuccess Called on success getting names with a properties object,
