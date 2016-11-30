@@ -26,3 +26,7 @@ cb2.on('success', function(e) {
 });
 cb2.on('error', function(e) { });
 
+
+import * as Clipboard2 from "clipboard";
+
+var cb6 = new Clipboard2('.btn');
