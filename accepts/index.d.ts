@@ -1,4 +1,4 @@
-// Type definitions for accepts 1.3.3
+// Type definitions for accepts 1.3
 // Project: https://github.com/jshttp/accepts
 // Definitions by: Stefan Reichel <https://github.com/bomret>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
