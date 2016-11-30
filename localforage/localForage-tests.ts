@@ -105,4 +105,13 @@ namespace LocalForageTest {
             testSerializer = serializer;
         });
     }
+
+    {
+        let store: LocalForage;
+
+        store.ready()
+        .then(() => {});
+
+        store.ready(() => {});
+    }
 }

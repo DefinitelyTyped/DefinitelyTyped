@@ -41,7 +41,7 @@ interface LocalForageDbMethods {
 
     iterate(iteratee: (value: any, key: string, iterationNumber: number) => any): Promise<any>;
     iterate(iteratee: (value: any, key: string, iterationNumber: number) => any,
-            callback: (err: any, result: any) => void): void;
+        callback: (err: any, result: any) => void): void;
 }
 
 interface LocalForageDriverSupportFunc {
@@ -53,11 +53,11 @@ interface LocalForageDriver extends LocalForageDbMethods {
 
     _initStorage(options: LocalForageOptions): void;
 
-    _support: boolean | LocalForageDriverSupportFunc;
+    _support?: boolean | LocalForageDriverSupportFunc;
 }
 
 interface LocalForageSerializer {
-    serialize<T>(value: T | ArrayBuffer | Blob, callback: (value: string, error: any) => {}): void;
+    serialize<T>(value: T | ArrayBuffer | Blob, callback: (value: string, error: any) => void): void;
 
     deserialize<T>(value: string): T | ArrayBuffer | Blob;
 
@@ -72,10 +72,10 @@ interface LocalForage extends LocalForageDbMethods {
     INDEXEDDB: string;
 
     /**
-    * Set and persist localForage options. This must be called before any other calls to localForage are made, but can be called after localForage is loaded.
-    * If you set any config values with this method they will persist after driver changes, so you can call config() then setDriver()
-    * @param {ILocalForageConfig} options?
-    */
+     * Set and persist localForage options. This must be called before any other calls to localForage are made, but can be called after localForage is loaded.
+     * If you set any config values with this method they will persist after driver changes, so you can call config() then setDriver()
+     * @param {LocalForageOptions} options?
+     */
     config(options: LocalForageOptions): boolean;
 
     /**
@@ -87,23 +87,26 @@ interface LocalForage extends LocalForageDbMethods {
 
     driver(): string;
     /**
-    * Force usage of a particular driver or drivers, if available.
-    * @param {string} driver
-    */
+     * Force usage of a particular driver or drivers, if available.
+     * @param {string} driver
+     */
     setDriver(driver: string | string[]): Promise<void>;
     setDriver(driver: string | string[], callback: () => void, errorCallback: (error: any) => void): void;
     defineDriver(driver: LocalForageDriver): Promise<void>;
     defineDriver(driver: LocalForageDriver, callback: () => void, errorCallback: (error: any) => void): void;
     /**
-    * Return a particular driver
-    * @param {string} driver
-    */
+     * Return a particular driver
+     * @param {string} driver
+     */
     getDriver(driver: string): Promise<LocalForageDriver>;
 
     getSerializer(): Promise<LocalForageSerializer>;
     getSerializer(callback: (serializer: LocalForageSerializer) => void): void;
 
     supports(driverName: string): boolean;
+
+    ready(callback: () => void): void;
+    ready(): Promise<void>;
 }
 
 declare module "localforage" {

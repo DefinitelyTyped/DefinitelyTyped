@@ -1,4 +1,4 @@
-// Type definitions for Kendo UI Professional v2016.3.1028
+// Type definitions for Kendo UI Professional v2016.3.1029
 // Project: http://www.telerik.com/kendo-ui
 // Definitions by: Telerik <https://github.com/telerik/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7331,7 +7331,7 @@ declare namespace kendo.ui {
 
         clearAllFiles(): void;
         clearFile(): void;
-        clearFileByUid(): void;
+        clearFileByUid(uid: string): void;
         destroy(): void;
         disable(): void;
         enable(enable?: boolean): void;
@@ -7359,6 +7359,7 @@ declare namespace kendo.ui {
         extension?: string;
         name?: string;
         size?: number;
+	uid?: string;
     }
 
     interface UploadLocalization {
@@ -18292,6 +18293,7 @@ declare namespace kendo.ooxml {
         cells?: WorkbookSheetRowCell[];
         index?: number;
         height?: number;
+        type?: "header" | "footer" | "groupHeader" | "groupFooter" | "data";
     }
 
     interface WorkbookSheet {

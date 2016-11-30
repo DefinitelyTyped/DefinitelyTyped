@@ -1,4 +1,4 @@
-
+/// <reference types="angular" />
 
 var myApp = angular.module('testModule');
 
