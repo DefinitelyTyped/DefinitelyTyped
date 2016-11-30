@@ -589,6 +589,10 @@ declare namespace mapboxgl {
 		// Todo: Pull out class to seperate definition for Module "point-geometry"
 	export class Point {
 		constructor(options?: Object);
+		
+		x:number;
+		
+		y:number;
 
 		clone(): Point;
 
