@@ -6,7 +6,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import expect from 'expect';
+import * as expect from 'expect';
 var miss = require('mississippi');
 var cloneable = require('cloneable-readable');
 

@@ -59,7 +59,7 @@ var settings: JQuerySteps.Settings = {
     onStepChanging: onStepChangingFunc
 }
 
-var wizard = $('.wizard').JQuerySteps(settings);
+var wizard = $('.wizard').steps(settings);
 
 var newStep1: JQuerySteps.Step = {
     content: '<div>Content</div>',
