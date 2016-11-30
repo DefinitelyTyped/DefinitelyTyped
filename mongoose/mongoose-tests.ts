@@ -269,8 +269,18 @@ schema.plugin(function (schema, opts) {
   schema.get('path');
   opts.hasOwnProperty('');
 }).plugin(cb, {opts: true});
-schema.post('post', function (doc) {}).post('post', function (doc, next) {
+schema
+.post('save', function (error, doc, next) {
+  error.stack;
+  doc.model;
+  next.apply;
+})
+.post('save', function (doc: mongoose.Document, next: Function) {
+  doc.model;
   next(new Error());
+})
+.post('save', function (doc: mongoose.Document) {
+  doc.model;
 });
 schema.queue('m1', [1, 2, 3]).queue('m2', [[]]);
 schema.remove('path');

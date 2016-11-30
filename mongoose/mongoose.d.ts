@@ -609,9 +609,13 @@ declare module "mongoose" {
      * @param method name of the method to hook
      * @param fn callback
      */
-    post<T extends Document>(method: string, fn: (doc: T) => void, ...args: any[]): this;
-    post<T extends Document>(method: string, fn: (doc: T, next: (err?: NativeError) => void,
-      ...otherArgs: any[]) => void): this;
+    post<T extends Document>(method: string, fn: (
+      error: mongodb.MongoError, doc: T, next: (err?: NativeError) => void
+    ) => void): this;
+
+    post<T extends Document>(method: string, fn: (
+      doc: T, next: (err?: NativeError) => void
+    ) => void): this;
 
     /**
      * Defines a pre hook for the document.
