@@ -32,9 +32,9 @@ export interface AccelerometerMMA7361Option extends AccelerometerGeneralOption {
 
 export declare class Accelerometer {
     constructor(option: AccelerometerGeneralOption | AccelerometerAnalogOption | AccelerometerMPU6050Option | AccelerometerMMA7361Option);
-    on(event: string, cb: () => void): void;
-    on(event: "change", cb: () => void): void;
-    on(event: "data", cb: (freq: any) => void): void;
+    on(event: string, cb: () => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (freq: any) => void): this;
     hasAxis(name: string): void;
     enable(): void;
     disable(): void;
@@ -71,12 +71,12 @@ export interface ButtonOptions {
 
 export declare class Button {
     constructor(pin: number | string | ButtonOptions);
-    on(event: string, cb: () => void): void;
-    on(event: "hold", cb: (holdTime: number) => void): void;
-    on(event: "down", cb: () => void): void;
-    on(event: "press", cb: () => void): void;
-    on(event: "up", cb: () => void): void;
-    on(event: "release", cb: () => void): void;
+    on(event: string, cb: () => void): this;
+    on(event: "hold", cb: (holdTime: number) => void): this;
+    on(event: "down", cb: () => void): this;
+    on(event: "press", cb: () => void): this;
+    on(event: "up", cb: () => void): this;
+    on(event: "release", cb: () => void): this;
 }
 
 export interface BoardOptions {
@@ -91,9 +91,9 @@ export interface Repl {
 
 export declare class Board {
     constructor(option?: BoardOptions);
-    on(event: string, cb: () => void): void;
-    on(event: "ready", cb: () => void): void;
-    on(event: "connect", cb: () => void): void;
+    on(event: string, cb: () => void): this;
+    on(event: "ready", cb: () => void): this;
+    on(event: "connect", cb: () => void): this;
     pinMode(pin: number, mode: number): void;
     analogWrite(pin: number, value: number): void;
     analogRead(pin: number, cb: (item: number) => void): void;
@@ -170,9 +170,9 @@ export interface IMUMPU6050Option extends IMUGeneralOption {
 
 export declare class IMU {
     constructor(option: IMUGeneralOption | IMUMPU6050Option);
-    on(event: string, cb: () => void): void;
-    on(event: "change", cb: () => void): void;
-    on(event: "data", cb: (data: any) => void): void;
+    on(event: string, cb: () => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: any) => void): this;
 }
 
 export declare module IR {
@@ -182,11 +182,11 @@ export declare module IR {
 
     export class Motion {
         constructor(option: number | MotionOption);
-        on(event: string, cb: () => void): void;
-        on(event: "data", cb: (data: any) => void): void;
-        on(event: "motionstart", cb: () => void): void;
-        on(event: "motionend", cb: () => void): void;
-        on(event: "calibrated", cb: () => void): void;
+        on(event: string, cb: () => void): this;
+        on(event: "data", cb: (data: any) => void): this;
+        on(event: "motionstart", cb: () => void): this;
+        on(event: "motionend", cb: () => void): this;
+        on(event: "calibrated", cb: () => void): this;
     }
 
     export interface PloximityOption {
@@ -196,9 +196,9 @@ export declare module IR {
 
     export class Proximity {
         constructor(option: number | PloximityOption);
-        on(event: string, cb: () => void): void;
-        on(event: "data", cb: (data: any) => void): void;
-        on(event: "change", cb: () => void): void;
+        on(event: string, cb: () => void): this;
+        on(event: "data", cb: (data: any) => void): this;
+        on(event: "change", cb: () => void): this;
     }
 
     export interface ArrayOption {
@@ -220,10 +220,10 @@ export declare module IR {
             calibrate(): void;
             calibrateUntil(predicate: () => void): void;
             loadCalibration(option: LoadCalibrationOption): void;
-            on(event: string, cb: () => void): void;
-            on(event: "data", cb: (data: any) => void): void;
-            on(event: "calibratedData", cb: (data: any) => void): void;
-            on(event: "line", cb: (data: any) => void): void;
+            on(event: string, cb: () => void): this;
+            on(event: "data", cb: (data: any) => void): this;
+            on(event: "calibratedData", cb: (data: any) => void): this;
+            on(event: "line", cb: (data: any) => void): this;
         }
     }
 }
@@ -234,10 +234,10 @@ export interface JoystickOption {
 
 export declare class Joystick {
     constructor(option: JoystickOption);
-    on(event: string, cb: () => void): void;
-    on(event: "data", cb: (data: any) => void): void;
-    on(event: "change", cb: () => void): void;
-    on(event: "axismove", cb: (error: Error, date: Date) => void): void;
+    on(event: string, cb: () => void): this;
+    on(event: "data", cb: (data: any) => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "axismove", cb: (error: Error, date: Date) => void): this;
 
     axis: Array<number>;
     raw: Array<number>;
@@ -468,9 +468,9 @@ export declare class Sensor {
     scale(): Sensor;
     booleanAt(barrier: number): boolean;
     within(range: Array<number>, cb: () => void): void;
-    on(event: string, cb: () => void): void;
-    on(event: "data", cb: (data: any) => void): void;
-    on(event: "change", cb: () => void): void;
+    on(event: string, cb: () => void): this;
+    on(event: "data", cb: (data: any) => void): this;
+    on(event: "change", cb: () => void): this;
 }
 
 export interface ServoGeneralOption {
@@ -505,8 +505,8 @@ export declare class Servo {
     stop(): void;
     cw(speed: number): void;
     ccw(speed: number): void;
-    on(event: string, cb: () => void): void;
-    on(event: "move:complete", cb: () => void): void;
+    on(event: string, cb: () => void): this;
+    on(event: "move:complete", cb: () => void): this;
 }
 
 export interface ShiftRegisterOption {
@@ -529,9 +529,9 @@ export declare class Sonar {
     constructor(option: number | string | SonarOption);
     within(range: Array<number>, cb: () => void): void;
     within(range: Array<number>, unit: string, cb: () => void): void;
-    on(event: string, cb: () => void): void;
-    on(event: "data", cb: (data: any) => void): void;
-    on(event: "change", cb: () => void): void;
+    on(event: string, cb: () => void): this;
+    on(event: "data", cb: (data: any) => void): this;
+    on(event: "change", cb: () => void): this;
 }
 
 export interface StepperOption {
@@ -568,9 +568,9 @@ export declare class Stepper {
 
     within(range: Array<number>, cb: () => void): void;
     within(range: Array<number>, unit: string, cb: () => void): void;
-    on(event: string, cb: () => void): void;
-    on(event: "data", cb: (data: any) => void): void;
-    on(event: "change", cb: () => void): void;
+    on(event: string, cb: () => void): this;
+    on(event: "data", cb: (data: any) => void): this;
+    on(event: "change", cb: () => void): this;
 }
 
 export interface TemperatureOption {
@@ -582,7 +582,7 @@ export interface TemperatureOption {
 
 export declare class Temperature {
     constructor(option: TemperatureOption);
-    on(event: string, cb: () => void): void;
-    on(event: "data", cb: (data: any) => void): void;
-    on(event: "change", cb: () => void): void;
+    on(event: string, cb: () => void): this;
+    on(event: "data", cb: (data: any) => void): this;
+    on(event: "change", cb: () => void): this;
 }

@@ -183,7 +183,7 @@ declare namespace React {
         };
     }
 
-    class PureComponent<P, S> extends Component<P, S> {}
+    class PureComponent<P, S> extends Component<P, S> { }
 
     interface ClassicComponent<P, S> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => any): void;
@@ -209,7 +209,7 @@ declare namespace React {
     }
 
     interface ComponentClass<P> {
-        new(props?: P, context?: any): Component<P, ComponentState>;
+        new (props?: P, context?: any): Component<P, ComponentState>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
@@ -218,7 +218,7 @@ declare namespace React {
     }
 
     interface ClassicComponentClass<P> extends ComponentClass<P> {
-        new(props?: P, context?: any): ClassicComponent<P, ComponentState>;
+        new (props?: P, context?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
 
@@ -229,8 +229,8 @@ declare namespace React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         C &
-        (new() => T) &
-        (new() => { props: P });
+        (new () => T) &
+        (new () => { props: P });
 
     //
     // Component Specs and Lifecycle
@@ -2436,7 +2436,7 @@ declare global {
     namespace JSX {
         interface Element extends React.ReactElement<any> { }
         interface ElementClass extends React.Component<any, any> {
-            render(): JSX.Element|null;
+            render(): JSX.Element | null;
         }
         interface ElementAttributesProperty { props: {}; }
 
@@ -2514,7 +2514,7 @@ declare global {
             meta: React.HTMLProps<HTMLMetaElement>;
             meter: React.HTMLProps<HTMLElement>;
             nav: React.HTMLProps<HTMLElement>;
-        noindex: React.HTMLProps<HTMLElement>;
+            noindex: React.HTMLProps<HTMLElement>;
             noscript: React.HTMLProps<HTMLElement>;
             object: React.HTMLProps<HTMLObjectElement>;
             ol: React.HTMLProps<HTMLOListElement>;
