@@ -3,6 +3,8 @@
 // Definitions by: Andy Brown <https://github.com/AGBrown>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="debug" />
+
 declare namespace PouchDB {
     namespace Core {
         interface Error {
@@ -34,6 +36,9 @@ declare namespace PouchDB {
         }
 
         interface DatabaseInfo {
+            db_name: string;
+            doc_count: number;
+            update_seq: number;
         }
 
         interface Revision<Content> {
@@ -223,22 +228,26 @@ declare namespace PouchDB {
             headers?: {
                 [name: string]: string;
             }
-            username?: string;
-            password?: string;
+
             /**
              * Enables transferring cookies and HTTP Authorization information.
              *
              * Defaults to true.
              */
             withCredentials?: boolean;
-            /**
-             * Disables automatic creation of databases.
-             */
-            skip_setup?: boolean;
         }
 
         interface RemoteDatabaseConfiguration extends CommonDatabaseConfiguration {
             ajax?: RemoteRequesterConfiguration;
+
+            auth?: {
+                username?: string;
+                password?: string;
+            }
+            /**
+             * Disables automatic creation of databases.
+             */
+            skip_setup?: boolean;
         }
 
         type DatabaseConfiguration = LocalDatabaseConfiguration |
@@ -249,6 +258,10 @@ declare namespace PouchDB {
 
     interface Static {
         plugin(plugin: Plugin): Static;
+
+        debug: debug.IDebug;
+
+        adapter(name: string, adapter: any): void;
 
         new<Content extends Core.Encodable>(name?: string,
             options?: Configuration.DatabaseConfiguration): Database<Content>;
