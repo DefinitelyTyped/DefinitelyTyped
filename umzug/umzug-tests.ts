@@ -1,5 +1,5 @@
 /// <reference path="./umzug.d.ts" />
-/// <reference path="../sequelize/sequelize.d.ts" />
+/// <reference path="../sequelize/sequelize-2.0.0.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
 import * as Umzug from "umzug";
