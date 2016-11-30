@@ -6,3 +6,5 @@
 /// <reference path="Core.d.ts"/>
 /// <reference path="Ease.d.ts"/>
 /// <reference path="TweenLite.d.ts"/>
+
+export = TweenLite;
