@@ -1,0 +1,7 @@
+{
+    "extends": "../tslint.json",
+    "rules": {
+        // The stripe client side APIs are only not published as dedicated packages compliance reasons. A release date versioning schema is used.
+        "dt-header": false
+    }
+}

@@ -68,15 +68,13 @@ interface StripeCardData {
     createToken(data: StripeTokenData, responseHandler: (status: number, response: StripeTokenResponse) => void): void;
 }
 
-interface StripeBankAccount
-{
-    createToken(params: StripeBankTokenParams, stripeResponseHandler: (status:number, response: StripeBankTokenResponse) => void): void;
+interface StripeBankAccount {
+    createToken(params: StripeBankTokenParams, stripeResponseHandler: (status: number, response: StripeBankTokenResponse) => void): void;
     validateRoutingNumber(routingNumber: number | string, countryCode: string): boolean;
     validateAccountNumber(accountNumber: number | string, countryCode: string): boolean;
 }
 
-interface StripeBankTokenParams
-{
+interface StripeBankTokenParams {
     country: string;
     currency: string;
     account_number: number | string;
@@ -85,8 +83,7 @@ interface StripeBankTokenParams
     account_holder_type: string;
 }
 
-interface StripeBankTokenResponse
-{
+interface StripeBankTokenResponse {
     id: string;
     bank_account: {
         country: string;
@@ -103,13 +100,7 @@ interface StripeBankTokenResponse
     error?: StripeError;
 }
 
-declare var Stripe: StripeStatic;
-declare module "Stripe" {
-    export = StripeStatic;
-}
-
-interface StripeApplePay
-{
+interface StripeApplePay {
     checkAvailability(resopnseHandler: (result: boolean) => void): void;
     buildSession(data: StripeApplePayPaymentRequest,
                  onSuccessHandler: (result: StripeApplePaySessionResult, completion: ((value: any) => void)) => void,
@@ -120,8 +111,7 @@ type StripeApplePayBillingContactField = 'postalAddress' | 'name';
 type StripeApplePayShippingContactField = StripeApplePayBillingContactField | 'phone' | 'email';
 type StripeApplePayShipping = 'shipping' | 'delivery' | 'storePickup' | 'servicePickup';
 
-interface StripeApplePayPaymentRequest
-{
+interface StripeApplePayPaymentRequest {
     billingContact: StripeApplePayPaymentContact;
     countryCode: string;
     currencyCode: string;
@@ -135,30 +125,26 @@ interface StripeApplePayPaymentRequest
 }
 
 // https://developer.apple.com/reference/applepayjs/1916082-applepay_js_data_types
-interface StripeApplePayLineItem
-{
+interface StripeApplePayLineItem {
     type: 'pending' | 'final';
     label: string;
     amount: number;
 }
 
-interface StripeApplePaySessionResult
-{
+interface StripeApplePaySessionResult {
     token: StripeTokenResponse;
     shippingContact?: StripeApplePayPaymentContact;
     shippingMethod?: StripeApplePayShippingMethod;
 }
 
-interface StripeApplePayShippingMethod
-{
+interface StripeApplePayShippingMethod {
     label: string;
     detail: string;
     amount: number;
     identifier: string;
 }
 
-interface StripeApplePayPaymentContact
-{
+interface StripeApplePayPaymentContact {
     emailAddress: string;
     phoneNumber: string;
     givenName: string;
