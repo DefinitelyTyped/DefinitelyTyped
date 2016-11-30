@@ -155,7 +155,7 @@ declare namespace Selectize {
          *
          * Default: null
          */
-        plugins?: string[];
+        plugins?: string[] | Object;
 
         // Data / Searching
         // ------------------------------------------------------------------------------------------------------------
