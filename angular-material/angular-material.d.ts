@@ -157,7 +157,7 @@ declare namespace angular.material {
         highlightClass(highlightClass: string): T;
         capsule(capsule: boolean): T;
         theme(theme: string): T;
-        hideDelay(delay: number): T;
+        hideDelay(delay: number|false): T;
         position(position: string): T;
         parent(parent?: string|Element|JQuery): T; // default: root node
         toastClass(toastClass: string): T;
@@ -172,7 +172,7 @@ declare namespace angular.material {
         autoWrap?:boolean;
         scope?: angular.IScope; // default: new child scope
         preserveScope?: boolean; // default: false
-        hideDelay?: number; // default (ms): 3000
+        hideDelay?: number|false; // default (ms): 3000
         position?: string; // any combination of 'bottom'/'left'/'top'/'right'/'fit'; default: 'bottom left'
         toastClass?: string;
         controller?: string|Function;
