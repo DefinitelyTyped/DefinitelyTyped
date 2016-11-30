@@ -44,11 +44,9 @@ declare namespace L {
 
     export interface CRS {
         latLngToPoint(latlng: LatLngExpression, zoom: number): Point;
-        pointToLatLng(point: Point): LatLng;
-        pointToLatLng(point: PointTuple): LatLng;
+        pointToLatLng(point: PointExpression): LatLng;
         project(latlng: LatLngExpression): Point;
-        unproject(point: Point): LatLng;
-        unproject(point: PointTuple): LatLng;
+        unproject(point: PointExpression): LatLng;
         scale(zoom: number): number;
         zoom(scale: number): number;
         getProjectedBounds(zoom: number): Bounds;
@@ -71,8 +69,7 @@ declare namespace L {
 
     export interface Projection {
         project(latlng: LatLngExpression): Point;
-        unproject(point: Point): LatLng;
-        unproject(point: PointTuple): LatLng;
+        unproject(point: PointExpression): LatLng;
 
         bounds: LatLngBounds;
     }
@@ -153,25 +150,18 @@ declare namespace L {
 
     export interface Point {
         clone(): Point;
-        add(otherPoint: Point): Point; // investigate if this mutates or returns a new instance
-        add(otherPoint: PointTuple): Point;
-        subtract(otherPoint: Point): Point;
-        subtract(otherPoint: PointTuple): Point;
+        add(otherPoint: PointExpression): Point; // investigate if this mutates or returns a new instance
+        subtract(otherPoint: PointExpression): Point;
         divideBy(num: number): Point;
         multiplyBy(num: number): Point;
-        scaleBy(scale: Point): Point;
-        scaleBy(scale: PointTuple): Point;
-        unscaleBy(scale: Point): Point;
-        unscaleBy(scale: PointTuple): Point;
+        scaleBy(scale: PointExpression): Point;
+        unscaleBy(scale: PointExpression): Point;
         round(): Point;
         floor(): Point;
         ceil(): Point;
-        distanceTo(otherPoint: Point): Point;
-        distanceTo(otherPoint: PointTuple): Point;
-        equals(otherPoint: Point): boolean;
-        equals(otherPoint: PointTuple): boolean;
-        contains(otherPoint: Point): boolean;
-        contains(otherPoint: PointTuple): boolean;
+        distanceTo(otherPoint: PointExpression): Point;
+        equals(otherPoint: PointExpression): boolean;
+        contains(otherPoint: PointExpression): boolean;
         toString(): string;
     }
 
@@ -186,16 +176,14 @@ declare namespace L {
     export type BoundsLiteral = Array<PointTuple>;
 
     export interface Bounds {
-        extend(point: Point): this;
-        extend(point: PointTuple): this;
+        extend(point: PointExpression): this;
         getCenter(round?: boolean): Point;
         getBottomLeft(): Point;
         getTopRight(): Point;
         getSize(): Point;
         contains(otherBounds: Bounds): boolean;
         contains(otherBounds: BoundsLiteral): boolean;
-        contains(point: Point): boolean;
-        contains(point: PointTuple): boolean;
+        contains(point: PointExpression): boolean;
         intersects(otherBounds: Bounds): boolean;
         intersects(otherBounds: BoundsLiteral): boolean;
         overlaps(otherBounds: Bounds): boolean;
@@ -207,9 +195,7 @@ declare namespace L {
 
     type BoundsExpression = Bounds | BoundsLiteral;
 
-    export function bounds(topLeft: Point, bottomRight: Point): Bounds;
-
-    export function bounds(topLeft: PointTuple, bottomRight: PointTuple): Bounds;
+    export function bounds(topLeft: PointExpression, bottomRight: PointExpression): Bounds;
 
     export function bounds(points: Array<Point>): Bounds;
 
@@ -1229,8 +1215,7 @@ declare namespace L {
         fitBounds(bounds: LatLngBoundsLiteral, options: FitBoundsOptions): this;
         fitWorld(options?: FitBoundsOptions): this;
         panTo(latlng: LatLngExpression, options?: PanOptions): this;
-        panBy(offset: Point): this;
-        panBy(offset: PointTuple): this;
+        panBy(offset: PointExpression): this;
         setMaxBounds(bounds: LatLngBounds): this;
         setMaxBounds(bounds: LatLngBoundsLiteral): this;
         setMinZoom(zoom: number): this;
@@ -1271,16 +1256,13 @@ declare namespace L {
         getZoomScale(toZoom: number, fromZoom: number): number;
         getScaleZoom(scale: number, fromZoom: number): number;
         project(latlng: LatLngExpression, zoom: number): Point;
-        unproject(point: Point, zoom: number): LatLng;
-        unproject(point: PointTuple, zoom: number): LatLng;
-        layerPointToLatLng(point: Point): LatLng;
-        layerPointToLatLng(point: PointTuple): LatLng;
+        unproject(point: PointExpression, zoom: number): LatLng;
+        layerPointToLatLng(point: PointExpression): LatLng;
         latLngToLayerPoint(latlng: LatLngExpression): Point;
         wrapLatLng(latlng: LatLngExpression): LatLng;
         distance(latlng1: LatLngExpression, latlng2: LatLngExpression): number;
-        containerPointToLayerPoint(point: Point): Point;
-        containerPointToLayerPoint(point: PointTuple): Point;
-        layerPointToContainerPoint(point: Point): Point;
+        containerPointToLayerPoint(point: PointExpression): Point;
+        layerPointToContainerPoint(point: PointExpression): Point;
         layerPointToContainerPoint(point: PointTuple): Point;
         latLngToContainerPoint(latlng: LatLngExpression): Point;
         mouseEventToContainerPoint(ev: MouseEvent): Point;
