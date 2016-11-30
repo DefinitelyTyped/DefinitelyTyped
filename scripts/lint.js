@@ -7,7 +7,7 @@ const path = require("path");
 // Path of tslint when `types-publisher` is symlinked
 const symlinkedTslintPath = "../node_modules/types-publisher/node_modules/tslint"
 const tslintPath =  existsSync(path.join(pkg, symlinkedTslintPath)) ? symlinkedTslintPath : "../node_modules/tslint";
-const cmd = `node ${tslintPath}/lib/tslint-cli --format stylish **/*.d.ts`;
+const cmd = `node ${tslintPath}/lib/tslint-cli --format stylish "**/*.d.ts"`;
 console.log(cmd);
 
 try {

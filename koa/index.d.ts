@@ -43,6 +43,8 @@ declare namespace Koa {
 
         toJSON(): any;
         inspect(): any;
+
+        [key: string]: any;
     }
 
     export interface Request {

@@ -1,13 +1,13 @@
 // Type definitions for dhtmlxGantt 4.0.0
 // Project: http://dhtmlx.com/docs/products/dhtmlxGantt
-// Definitions by: Maksim Kozhukh <http://github.com/mkozhukh>
+// Definitions by: Maksim Kozhukh <http://github.com/mkozhukh>, Christophe Camicas <http://github.com/chriscamicas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-interface GanttCallback {  (...args: any[]) : any }
-type GanttEventName ='onAfterAutoSchedule'|'onAfterBatchUpdate'|'onAfterLightbox'|'onAfterLinkAdd'|'onAfterLinkDelete'|'onAfterLinkUpdate'|'onAfterRedo'|'onAfterTaskAdd'|'onAfterTaskAutoSchedule'|'onAfterTaskDelete'|'onAfterTaskDrag'|'onAfterTaskMove'|'onAfterTaskUpdate'|'onAfterUndo'|'onAjaxError'|'onBeforeAutoSchedule'|'onBeforeBatchUpdate'|'onBeforeCollapse'|'onBeforeDataRender'|'onBeforeExpand'|'onBeforeGanttReady'|'onBeforeGanttRender'|'onBeforeLightbox'|'onBeforeLinkAdd'|'onBeforeLinkDelete'|'onBeforeLinkDisplay'|'onBeforeLinkUpdate'|'onBeforeParse'|'onBeforeRedo'|'onBeforeRowDragEnd'|'onBeforeTaskAdd'|'onBeforeTaskAutoSchedule'|'onBeforeTaskChanged'|'onBeforeTaskDelete'|'onBeforeTaskDisplay'|'onBeforeTaskDrag'|'onBeforeTaskMove'|'onBeforeTaskSelected'|'onBeforeTaskUpdate'|'onBeforeUndo'|'onCircularLinkError'|'onClear'|'onCollapse'|'onColumnResize'|'onColumnResizeEnd'|'onColumnResizeStart'|'onContextMenu'|'onDataRender'|'onEmptyClick'|'onError'|'onExpand'|'onGanttReady'|'onGanttRender'|'onGanttScroll'|'onGridHeaderClick'|'onGridResize'|'onGridResizeEnd'|'onGridResizeStart'|'onLightbox'|'onLightboxButton'|'onLightboxCancel'|'onLightboxChange'|'onLightboxDelete'|'onLightboxSave'|'onLinkClick'|'onLinkDblClick'|'onLinkIdChange'|'onLinkValidation'|'onLoadEnd'|'onLoadStart'|'onMouseMove'|'onOptionsLoad'|'onParse'|'onRowDragEnd'|'onRowDragStart'|'onScaleAdjusted'|'onScaleClick'|'onTaskClick'|'onTaskClosed'|'onTaskCreated'|'onTaskDblClick'|'onTaskDrag'|'onTaskIdChange'|'onTaskLoading'|'onTaskOpened'|'onTaskRowClick'|'onTaskSelected'|'onTaskUnselected'|'onTemplatesReady';
+type GanttCallback = (...args: any[]) => any;
+type GanttEventName = 'onAfterAutoSchedule'|'onAfterBatchUpdate'|'onAfterLightbox'|'onAfterLinkAdd'|'onAfterLinkDelete'|'onAfterLinkUpdate'|'onAfterRedo'|'onAfterTaskAdd'|'onAfterTaskAutoSchedule'|'onAfterTaskDelete'|'onAfterTaskDrag'|'onAfterTaskMove'|'onAfterTaskUpdate'|'onAfterUndo'|'onAjaxError'|'onBeforeAutoSchedule'|'onBeforeBatchUpdate'|'onBeforeCollapse'|'onBeforeDataRender'|'onBeforeExpand'|'onBeforeGanttReady'|'onBeforeGanttRender'|'onBeforeLightbox'|'onBeforeLinkAdd'|'onBeforeLinkDelete'|'onBeforeLinkDisplay'|'onBeforeLinkUpdate'|'onBeforeParse'|'onBeforeRedo'|'onBeforeRowDragEnd'|'onBeforeTaskAdd'|'onBeforeTaskAutoSchedule'|'onBeforeTaskChanged'|'onBeforeTaskDelete'|'onBeforeTaskDisplay'|'onBeforeTaskDrag'|'onBeforeTaskMove'|'onBeforeTaskSelected'|'onBeforeTaskUpdate'|'onBeforeUndo'|'onCircularLinkError'|'onClear'|'onCollapse'|'onColumnResize'|'onColumnResizeEnd'|'onColumnResizeStart'|'onContextMenu'|'onDataRender'|'onEmptyClick'|'onError'|'onExpand'|'onGanttReady'|'onGanttRender'|'onGanttScroll'|'onGridHeaderClick'|'onGridResize'|'onGridResizeEnd'|'onGridResizeStart'|'onLightbox'|'onLightboxButton'|'onLightboxCancel'|'onLightboxChange'|'onLightboxDelete'|'onLightboxSave'|'onLinkClick'|'onLinkDblClick'|'onLinkIdChange'|'onLinkValidation'|'onLoadEnd'|'onLoadStart'|'onMouseMove'|'onOptionsLoad'|'onParse'|'onRowDragEnd'|'onRowDragStart'|'onScaleAdjusted'|'onScaleClick'|'onTaskClick'|'onTaskClosed'|'onTaskCreated'|'onTaskDblClick'|'onTaskDrag'|'onTaskIdChange'|'onTaskLoading'|'onTaskOpened'|'onTaskRowClick'|'onTaskSelected'|'onTaskUnselected'|'onTemplatesReady';
 
-interface GanttTemplates{
+interface GanttTemplates {
 	/**
 	 * specifies the format of dates that are set by means of API methods. Used to parse incoming dates
 	 * @param date the date which needs formatting
@@ -269,7 +269,7 @@ interface GanttTemplates{
 
 }
 
-interface GanttConfigOptions{
+interface GanttConfigOptions {
 	/**
 	 * sets the date format for addTask() method to
 	*/
@@ -802,7 +802,7 @@ interface GanttConfigOptions{
 
 }
 
-interface GanttDateHelpers{
+interface GanttDateHelpers {
 	add(origin: Date, count: number, unit: string): Date;
 	copy(origin: Date): Date;
 
@@ -823,21 +823,21 @@ interface GanttDateHelpers{
 	to_fixed(value: number): string;
 }
 
-interface GanttHotkeys{
+interface GanttHotkeys {
 	edit_save: number;
 	edit_cancel: number;
 }
 
-//Gantt.locale 
+//Gantt.locale
 
-interface GanttLocaleDate{
+interface GanttLocaleDate {
 	month_full: string[];
 	month_short: string[];
 	day_full: string[];
 	day_short: string[];
 }
 
-interface GanttLocaleLabels{
+interface GanttLocaleLabels {
 	new_task: string;
 	icon_save: string;
 	icon_cancel: string;
@@ -861,25 +861,25 @@ interface GanttLocaleLabels{
 	years: string;
 }
 
-interface GanttLocale{
+interface GanttLocale {
 	date: GanttLocaleDate;
 	labels: GanttLocaleLabels;
 }
 
-interface GanttEnterprise{
+interface GanttEnterprise {
 	/**
 	 * Creates a new instance of Gantt
 	 */
 	getGanttInstance(): GanttStatic;
 }
 
-interface GanttStatic{
+interface GanttStatic {
 	templates: GanttTemplates;
 	config: GanttConfigOptions;
 	date: GanttDateHelpers;
 	keys: GanttHotkeys;
-	skin: String;
-	version: String;
+	skin: string;
+	version: string;
 	locale: GanttLocale;
 	$click: any;
 
@@ -1056,10 +1056,10 @@ interface GanttStatic{
 	dataProcessor(url: string): void;
 
 	/**
-	 * gets the date of the specified horizontal  position in the chart area
+	 * returns the date of the specified horizontal position in the chart area
 	 * @param pos the relative horizontal position you want to know the date of
 	*/
-	dateFromPos(pos: number): void;
+	dateFromPos(pos: number): Date;
 
 	/**
 	 * returns false if the provided argument is undefined, otherwise true
