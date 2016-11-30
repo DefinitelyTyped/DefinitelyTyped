@@ -31,6 +31,9 @@ declare namespace c {
 
         // Get the current value of a config environment variable
         getEnv(varName: string): string;
+        
+        // Return the config for the project based on directory param if not directory then return default one (config).
+        loadFileConfigs(configDir: string): any;
     }
 
     interface IConfig {
