@@ -49,6 +49,8 @@ interface StripeError {
     param?: string;
 }
 
+type StripeCardDataBrand = 'Visa' | 'American Express' | 'MasterCard' | 'Discover JCB' | 'Diners Club' | 'Unknown';
+
 interface StripeCardData {
     object: string;
     last4: string;
@@ -62,6 +64,7 @@ interface StripeCardData {
     address_state?: string;
     address_zip?: string;
     address_country?: string;
+    brand?: StripeCardDataBrand;
     createToken(data: StripeTokenData, responseHandler: (status: number, response: StripeTokenResponse) => void): void;
 }
 
