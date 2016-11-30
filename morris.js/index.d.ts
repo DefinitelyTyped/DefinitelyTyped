@@ -37,7 +37,11 @@ declare namespace morris {
         /** Set the font family of the axis labels (default: sans-serif). */
         gridTextFamily?: string;
         /** Set the font weight of the axis labels (default: normal). */
-        gridTextWeight?: string;
+        gridTextWeight?: string;      
+        /** Set the stroke of the grid. (default: 0.5)*/
+        gridStrokeWidth?: number;
+        /** Set the line color of the grid. (default: #aaa) */
+        gridLineColor?: string;
     }
 
     interface ILineOptions extends IGridChartOptions {
