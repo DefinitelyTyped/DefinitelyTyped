@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.js 1.0.0
+// Type definitions for Leaflet.js 1.0.2
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,10 +9,38 @@ type NativeMouseEvent = MouseEvent;
 
 declare namespace L {
     export class Class {
-        static extend(props:any):any/* how to return constructor of self extended type ? */;
-        static include(props:any):any /* how to return self extended type ? */;
-        static mergeOptions(props:any): any /* how to return self extended type ? */;
-        static addInitHook(initHookFn: ()=> void): any/* how to return self extended type ? */;
+        static extend(props: any): any/* how to return constructor of self extended type ? */;
+        static include(props: any): any /* how to return self extended type ? */;
+        static mergeOptions(props: any): any /* how to return self extended type ? */;
+        static addInitHook(initHookFn: () => void): any/* how to return self extended type ? */;
+    }
+
+    export class Transformation {
+        constructor(a: number, b: number, c: number, d: number);
+
+        transform(point: Point, scale?: number): Point;
+
+        untransform(point: Point, scale?: number): Point;
+    }
+
+    export namespace LineUtil {
+        export function simplify(points: Array<Point>, tolerance: number): Array<Point>;
+
+        export function simplify(points: Array<PointTuple>, tolerance: number): Array<Point>;
+
+        export function pointToSegmentDistance(p: Point, p1: Point, p2: Point): number;
+
+        export function pointToSegmentDistance(p: PointTuple, p1: PointTuple, p2: PointTuple): number;
+
+        export function closestPointOnSegment(p: Point, p1: Point, p2: Point): Point;
+
+        export function closestPointOnSegment(p: PointTuple, p1: PointTuple, p2: PointTuple): Point;
+    }
+
+    export namespace PolyUtil {
+        export function clipPolygon(points: Array<Point>, bounds: Bounds, round?: boolean): Array<Point>;
+
+        export function clipPolygon(points: Array<PointTuple>, bounds: BoundsLiteral, round?: boolean): Array<Point>;
     }
 
     export class DomUtil {
@@ -154,7 +182,7 @@ declare namespace L {
         round(): Point;
         floor(): Point;
         ceil(): Point;
-        distanceTo(otherPoint: PointExpression): Point;
+        distanceTo(otherPoint: PointExpression): number;
         equals(otherPoint: PointExpression): boolean;
         contains(otherPoint: PointExpression): boolean;
         toString(): string;
@@ -210,7 +238,7 @@ declare namespace L {
          * keyword will point to). You can also pass several space-separated types
          * (e.g. 'click dblclick').
          */
-        on(type: string, fn: EventHandlerFn, context?: Object): this;
+        on(type: string, fn: EventHandlerFn, context?: any): this;
 
         /**
          * Adds a set of type/listener pairs, e.g. {click: onClick, mousemove: onMouseMove}
@@ -223,7 +251,7 @@ declare namespace L {
          * Note that if you passed a custom context to on, you must pass the same context
          * to off in order to remove the listener.
          */
-        off(type: string, fn?: EventHandlerFn, context?: Object): this;
+        off(type: string, fn?: EventHandlerFn, context?: any): this;
 
         /**
          * Removes a set of type/listener pairs.
@@ -240,7 +268,7 @@ declare namespace L {
          * object — the first argument of the listener function will contain its properties.
          * The event might can optionally be propagated to event parents.
          */
-        fire(type: string, data?: Object, propagate?: boolean): this;
+        fire(type: string, data?: any, propagate?: boolean): this;
 
         /**
          * Returns true if a particular event type has any listeners attached to it.
@@ -250,7 +278,7 @@ declare namespace L {
         /**
          * Behaves as on(...), except the listener will only get fired once and then removed.
          */
-        once(type: string, fn: EventHandlerFn, context?: Object): this;
+        once(type: string, fn: EventHandlerFn, context?: any): this;
 
         /**
          * Behaves as on(...), except the listener will only get fired once and then removed.
@@ -275,7 +303,7 @@ declare namespace L {
          * keyword will point to). You can also pass several space-separated types
          * (e.g. 'click dblclick').
          */
-        addEventListener(type: string, fn: EventHandlerFn, context?: Object): this;
+        addEventListener(type: string, fn: EventHandlerFn, context?: any): this;
 
         /**
          * Alias for on(...)
@@ -292,7 +320,7 @@ declare namespace L {
          * Note that if you passed a custom context to on, you must pass the same context
          * to off in order to remove the listener.
          */
-        removeEventListener(type: string, fn: EventHandlerFn, context?: Object): this;
+        removeEventListener(type: string, fn: EventHandlerFn, context?: any): this;
 
         /**
          * Alias for off(...)
@@ -313,7 +341,7 @@ declare namespace L {
          *
          * Behaves as on(...), except the listener will only get fired once and then removed.
          */
-        addOneTimeEventListener(type: string, fn: EventHandlerFn, context?: Object): this;
+        addOneTimeEventListener(type: string, fn: EventHandlerFn, context?: any): this;
 
         /**
          * Alias for once(...)
@@ -329,7 +357,7 @@ declare namespace L {
          * object — the first argument of the listener function will contain its properties.
          * The event might can optionally be propagated to event parents.
          */
-        fireEvent(type: string, data?: Object, propagate?: boolean): this;
+        fireEvent(type: string, data?: any, propagate?: boolean): this;
 
         /**
          * Alias for listens(...)
@@ -470,7 +498,7 @@ declare namespace L {
     }
 
     export interface WMS extends TileLayer {
-        setParams(params: Object, noRedraw?: boolean): this;
+        setParams(params: any, noRedraw?: boolean): this;
     }
 
     export namespace tileLayer {
@@ -664,7 +692,7 @@ declare namespace L {
          * Iterates over the layers of the group,
          * optionally specifying context of the iterator function.
          */
-        eachLayer(fn: (layer: Layer) => void, context?: Object): this;
+        eachLayer(fn: (layer: Layer) => void, context?: any): this;
 
         /**
          * Returns the layer with the given internal ID.
@@ -1089,7 +1117,7 @@ declare namespace L {
 
     export interface Event {
         type: string;
-        target: any; // should this be Object and have users cast?
+        target: any;
     }
 
     export interface MouseEvent extends Event {
@@ -1139,7 +1167,7 @@ declare namespace L {
 
     export interface GeoJSONEvent extends Event {
         layer: Layer;
-        properties: any; // any or Object?
+        properties: any;
         geometryType: string;
         id: string;
     }
@@ -1157,13 +1185,13 @@ declare namespace L {
     }
 
     export namespace DomEvent {
-        export function on(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: Object): typeof DomEvent;
+        export function on(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: any): typeof DomEvent;
 
-        export function on(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
+        export function on(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: any): typeof DomEvent;
 
-        export function off(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: Object): typeof DomEvent;
+        export function off(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: any): typeof DomEvent;
 
-        export function off(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
+        export function off(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: any): typeof DomEvent;
 
         export function stopPropagation(ev: Event): typeof DomEvent;
 
@@ -1179,13 +1207,13 @@ declare namespace L {
 
         export function getWheelDelta(ev: Event): number;
 
-        export function addListener(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: Object): typeof DomEvent;
+        export function addListener(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: any): typeof DomEvent;
 
-        export function addListener(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
+        export function addListener(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: any): typeof DomEvent;
 
-        export function removeListener(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: Object): typeof DomEvent;
+        export function removeListener(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: any): typeof DomEvent;
 
-        export function removeListener(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
+        export function removeListener(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: any): typeof DomEvent;
     }
 
     interface DefaultMapPanes {
@@ -1207,7 +1235,7 @@ declare namespace L {
         addLayer(layer: Layer): this;
         removeLayer(layer: Layer): this;
         hasLayer(layer: Layer): boolean;
-        eachLayer(fn: (layer: Layer) => void, context?: Object): this;
+        eachLayer(fn: (layer: Layer) => void, context?: any): this;
         openPopup(popup: Popup): this;
         openPopup(content: string, latlng: LatLngExpression, options?: PopupOptions): this;
         openPopup(content: HTMLElement, latlng: LatLngExpression, options?: PopupOptions): this;
@@ -1246,7 +1274,7 @@ declare namespace L {
         getPane(pane: HTMLElement): HTMLElement;
         getPanes(): {[name: string]: HTMLElement} & DefaultMapPanes;
         getContainer(): HTMLElement;
-        whenReady(fn: () => void, context?: Object): this;
+        whenReady(fn: () => void, context?: any): this;
 
         // Methods for getting map state
         getCenter(): LatLng;
@@ -1316,7 +1344,7 @@ declare namespace L {
     export interface IconDefault extends Icon {
         imagePath: string;
     }
-     
+
     export namespace Icon {
         export const Default: IconDefault;
     }
