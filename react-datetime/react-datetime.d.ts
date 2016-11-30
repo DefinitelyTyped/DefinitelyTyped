@@ -1,6 +1,7 @@
 // Type definitions for react-datetime
 // Project: https://github.com/YouCanBookMe/react-datetime
-// Definitions by: Ivan Verevkin <vereva@x-root.org>
+// Definitions by: Ivan Verevkin <https://github.com/idoo>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../moment/moment.d.ts" />
 /// <reference path="../react/react.d.ts" />

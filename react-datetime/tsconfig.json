@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es5",
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "sourceMap": false,
         "jsx": "react",
         "noEmit": true
