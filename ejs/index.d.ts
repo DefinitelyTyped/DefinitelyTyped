@@ -1,9 +1,7 @@
-﻿// Type definitions for ejs.js v2.3.3
+// Type definitions for ejs.js v2.3.3
 // Project: http://ejs.co/
 // Definitions by: Ben Liddicott <https://github.com/benliddicott/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
 
 declare namespace Ejs {
     type Data = { [name: string]: any };
@@ -13,12 +11,16 @@ declare namespace Ejs {
     function resolveInclude(name: string, filename: string): string;
     function compile(template: string, opts?: Options): (TemplateFunction);
     function render(template: string, data?: Data, opts?: Options): string;
-    function renderFile(path: string, data?: Data, opts?: Options, cb?: Function): any;// TODO RenderFileCallback return type
+
+    type RenderFileCallback<T> = (err: Error, str?: string) => T;
+    function renderFile<T>(path: string, cb: RenderFileCallback<T>): T;
+    function renderFile<T>(path: string, data: Data, cb: RenderFileCallback<T>): T;
+    function renderFile<T>(path: string, data: Data, opts: Options, cb: RenderFileCallback<T>): T;
+
     function clearCache(): any;
 
-    function TemplateFunction(data: Data): any;
     interface TemplateFunction {
-        dependencies: Dependencies;
+        (data: Data): any;
     }
     interface Options {
         cache?: any;
@@ -63,7 +65,6 @@ declare namespace Ejs {
         set(key: string, val: any): any;
         get(key: string): any;
     }
-    var cache: Cache;
     function resolve(from1: string, to: string): string;
     function resolve(from1: string, from2: string, to: string): string;
     function resolve(from1: string, from2: string, from3: string, to: string): string;
@@ -84,7 +85,6 @@ declare namespace Ejs {
     function basename(path: string): string;
     function extname(path: string): string;
     function filter(xs: any, f: any): any; // TODO WHUT?
-
-
 }
+
 export = Ejs;

@@ -1,4 +1,4 @@
-﻿// Type definitions for gulp-util v3.0.x
+// Type definitions for gulp-util v3.0.x
 // Project: https://github.com/gulpjs/gulp-util
 // Definitions by: jedmao <https://github.com/jedmao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,7 +11,7 @@ import vinyl = require('vinyl');
 import chalk = require('chalk');
 import through2 = require('through2');
 
-export class File extends vinyl { }
+export { vinyl as File };
 
 /**
 * Replaces a file extension in a path. Returns the new path.

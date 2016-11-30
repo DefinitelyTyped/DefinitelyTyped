@@ -1,12 +1,10 @@
-// Type definitions for Mongoose 4.5.4
+// Type definitions for Mongoose 4.6.8
 // Project: http://mongoosejs.com/
 // Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="mongodb" />
-/// <reference types="mpromise" />
 /// <reference types="node" />
-/// <reference types="mongoose-promise" />
 
 /*
  * Guidelines for maintaining these definitions:
@@ -287,6 +285,9 @@ declare module "mongoose" {
     open(connection_string: string, database?: string, port?: number,
       options?: ConnectionOpenOptions, callback?: (err: any) => void): any;
 
+    /** Helper for dropDatabase() */
+    dropDatabase(callback?: (err: any) => void): Promise<void>;
+
     /**
      * Opens the connection to a replica set.
      * @param uris comma-separated mongodb:// URIs
@@ -530,10 +531,10 @@ declare module "mongoose" {
      * the child schema first before passing it into its parent.
      * @event init Emitted after the schema is compiled into a Model.
      */
-    constructor(definition?: Object, options?: SchemaOptions);
+    constructor(definition?: SchemaDefinition, options?: SchemaOptions);
 
     /** Adds key path / schema type pairs to this schema. */
-    add(obj: Object, prefix?: string): void;
+    add(obj: SchemaDefinition, prefix?: string): void;
 
     /**
      * Iterates the schemas paths similar to Array.forEach.
@@ -596,16 +597,16 @@ declare module "mongoose" {
      * @param method name of the method to hook
      * @param fn callback
      */
-    post<T extends Document>(method: string, fn: (doc: T) => void, ...args: any[]): this;
     post<T extends Document>(method: string, fn: (doc: T, next: (err?: NativeError) => void,
       ...otherArgs: any[]) => void): this;
+    post<T extends Document>(method: string, fn: (doc: T) => void, ...args: any[]): this;
 
     /**
      * Defines a pre hook for the document.
      */
-    pre(method: string, fn: (next: (err?: NativeError) => void) => void,
-      errorCb?: (err: Error) => void): this;
     pre(method: string, parallel: boolean, fn: (next: (err?: NativeError) => void, done: () => void) => void,
+      errorCb?: (err: Error) => void): this;
+    pre(method: string, fn: (next: (err?: NativeError) => void) => void,
       errorCb?: (err: Error) => void): this;
 
     /**
@@ -661,6 +662,8 @@ declare module "mongoose" {
     methods: any;
     /** Object of currently defined statics on this schema. */
     statics: any;
+    /** The original object passed to the schema constructor */
+    obj: any;
   }
 
   interface SchemaOptions {
@@ -698,7 +701,7 @@ declare module "mongoose" {
     /** defaults to true */
     validateBeforeSave?: boolean;
     /** defaults to "__v" */
-    versionKey?: boolean;
+    versionKey?: string;
     /**
      * skipVersioning allows excluding paths from
      * versioning (the internal revision will not be
@@ -714,10 +717,163 @@ declare module "mongoose" {
   }
 
   /*
+   * Intellisense for Schema definitions
+   */
+  interface SchemaDefinition {
+    [path: string]: SchemaTypeOpts<any>;
+  }
+
+  /*
+   * The standard options available when configuring a schema type:
+   * new Schema({
+   *   name: {
+   *     type: String,
+   *     required: true,
+   *     ...
+   *   }
+   * });
+   * References:
+   * - http://mongoosejs.com/docs/schematypes.html
+   * - http://mongoosejs.com/docs/api.html#schema_Schema.Types
+   */
+  interface SchemaTypeOpts<T> {
+    /* Common Options for all schema types */
+    type?: T;
+
+    /** Sets a default value for this SchemaType. */
+    default?: SchemaTypeOpts.DefaultFn<T> | T;
+
+    /**
+     * Getters allow you to transform the representation of the data as it travels
+     * from the raw mongodb document to the value that you see.
+     */
+    get?: (value: T, schematype?: this) => T;
+
+    /** Declares the index options for this schematype. */
+    index?: SchemaTypeOpts.IndexOpts | boolean | string;
+
+    /**
+     * Adds a required validator to this SchemaType. The validator gets added
+     * to the front of this SchemaType's validators array using unshift().
+     */
+    required?: SchemaTypeOpts.RequiredFn<T> |
+      boolean | [boolean, string] |
+      string | [string, string];
+
+    /**
+     * Sets default select() behavior for this path.
+     * Set to true if this path should always be included in the results, false
+     * if it should be excluded by default. This setting can be overridden at
+     * the query level.
+     */
+    select?: boolean;
+
+    /**
+     * Setters allow you to transform the data before it gets to the raw mongodb
+     * document and is set as a value on an actual key.
+     */
+    set?: (value: T, schematype?: this) => T;
+
+    /** Declares a sparse index. */
+    sparse?: boolean;
+
+    /** Declares a full text index. */
+    text?: boolean;
+
+    /**
+     * Adds validator(s) for this document path.
+     * Validators always receive the value to validate as their first argument
+     * and must return Boolean. Returning false means validation failed.
+     */
+    validate?: RegExp | [RegExp, string] |
+      SchemaTypeOpts.ValidateFn<T> | [SchemaTypeOpts.ValidateFn<T>, string] |
+      SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.ValidateOpts[];
+
+    /** Declares an unique index. */
+    unique?: boolean;
+
+
+    /* Options for specific schema types (String, Number, Date, etc.) */
+    /** String only - Adds an enum validator */
+    enum?: T[] | SchemaTypeOpts.EnumOpts<T>;
+    /** String only - Adds a lowercase setter. */
+    lowercase?: boolean;
+    /** String only - Sets a regexp validator. */
+    match?: RegExp | [RegExp, string];
+    /** String only - Sets a maximum length validator. */
+    maxlength?: number | [number, string];
+    /** String only - Sets a minimum length validator. */
+    minlength?: number | [number, string];
+    /** String only - Adds a trim setter. */
+    trim?: boolean;
+    /** String only - Adds an uppercase setter. */
+    uppercase?: boolean;
+
+    /**
+     * Date, Number only - Sets a minimum number validator.
+     * Sets a minimum date validator.
+     */
+    min?: number | [number, string] |
+      Date | [Date, string];
+
+    /**
+     * Date, Number only - Sets a maximum number validator.
+     * Sets a maximum date validator.
+     */
+    max?: number | [number, string] |
+      Date | [Date, string];
+
+    /**
+     * Date only - Declares a TTL index (rounded to the nearest second)
+     * for Date types only.
+     */
+    expires?: number | string;
+
+    /** ObjectId only - Adds an auto-generated ObjectId default if turnOn is true. */
+    auto?: boolean;
+
+    [other: string]: any;
+  }
+
+  // Interfaces specific to schema type options should be scoped in this namespace
+  namespace SchemaTypeOpts {
+    interface DefaultFn<T> {
+      (...args: any[]): T;
+    }
+
+    interface RequiredFn<T> {
+      (required: boolean, message?: string): T;
+    }
+
+    interface ValidateFn<T> {
+      (obj: RegExp | Function, message?: string, type?: string): T;
+    }
+
+    interface ValidateOpts {
+      validator?: RegExp | Function,
+      msg?: string,
+      type?: string
+    }
+
+    interface EnumOpts<T> {
+      values?: T[];
+      message?: string;
+    }
+
+    interface IndexOpts {
+      background?: boolean,
+      expires?: number | string
+      sparse?: boolean,
+      type?: string,
+      unique?: boolean,
+    }
+  }
+
+  /*
    * section document.js
    * http://mongoosejs.com/docs/api.html#document-js
    */
-  class MongooseDocument {
+  class MongooseDocument implements MongooseDocumentOptionals {
     /** Checks if a path is set to its default. */
     $isDefault(path?: string): boolean;
 
@@ -810,7 +966,7 @@ declare module "mongoose" {
      */
     populate(callback: (err: any, res: this) => void): this;
     populate(path: string, callback?: (err: any, res: this) => void): this;
-    populate(options: ModelPopulateOptions, callback?: (err: any, res: this) => void): this;
+    populate(options: ModelPopulateOptions | ModelPopulateOptions[], callback?: (err: any, res: this) => void): this;
 
     /** Gets _id(s) used during population of the given path. If the path was not populated, undefined is returned. */
     populated(path: string): any;
@@ -872,14 +1028,17 @@ declare module "mongoose" {
 
     /** Hash containing current validation errors. */
     errors: Object;
-    /** The string version of this documents _id. */
-    id: string;
     /** This documents _id. */
     _id: any;
     /** Boolean flag specifying if the document is new. */
     isNew: boolean;
     /** The documents schema. */
     schema: Schema;
+  }
+
+  interface MongooseDocumentOptionals {
+    /** The string version of this documents _id. */
+    id?: string;
   }
 
   interface DocumentToObjectOptions {
@@ -1044,13 +1203,13 @@ declare module "mongoose" {
        * This is the same subdocument constructor used for casting.
        * @param obj the value to cast to this arrays SubDocument schema
        */
-      create(obj: Object): Subdocument;
+      create(obj: Object): T;
 
       /**
        * Searches array items for the first document with a matching _id.
        * @returns the subdocument or null if not found.
        */
-      id(id: ObjectId | string | number | NativeBuffer): Embedded;
+      id(id: ObjectId | string | number | NativeBuffer): T;
 
       /** Helper for console.log */
       inspect(): T[];
@@ -1093,7 +1252,19 @@ declare module "mongoose" {
       * section types/objectid.js
       * http://mongoosejs.com/docs/api.html#types-objectid-js
       */
-    class ObjectId extends mongodb.ObjectID {}
+    var ObjectId: ObjectIdConstructor;
+
+    // mongodb.ObjectID does not allow mongoose.Types.ObjectId(id). This is
+    //   commonly used in mongoose and is found in an example in the docs:
+    //   http://mongoosejs.com/docs/api.html#aggregate_Aggregate
+    // constructor exposes static methods of mongodb.ObjectID and ObjectId(id)
+    type ObjectIdConstructor = typeof mongodb.ObjectID & {
+      (s?: string | number): mongodb.ObjectID;
+    }
+
+    // var objectId: mongoose.Types.ObjectId should reference mongodb.ObjectID not
+    //   the ObjectIdConstructor, so we add the interface below
+    interface ObjectId extends mongodb.ObjectID {}
 
     /*
       * section types/embedded.js
@@ -1436,7 +1607,7 @@ declare module "mongoose" {
      */
     populate(path: string | Object, select?: string | Object, model?: any,
       match?: Object, options?: Object): this;
-    populate(options: ModelPopulateOptions): this;
+    populate(options: ModelPopulateOptions | ModelPopulateOptions[]): this;
 
     /**
      * Determines the MongoDB nodes from which to read.
@@ -2013,12 +2184,6 @@ declare module "mongoose" {
      */
     validate(obj: RegExp | Function | Object, errorMsg?: string,
       type?: string): this;
-
-    /**
-     * http://mongoosejs.com/docs/api.html#schematype_SchemaType
-     * Options for this schema type (required, index, etc.)
-     */
-    options: any;
   }
 
   /*
@@ -2416,6 +2581,8 @@ declare module "mongoose" {
     model?: string;
     /** optional query options like sort, limit, etc */
     options?: Object;
+    /** deep populate */
+    populate?: ModelPopulateOptions | ModelPopulateOptions[]
   }
 
   interface ModelUpdateOptions {

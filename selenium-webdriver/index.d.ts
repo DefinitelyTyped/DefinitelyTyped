@@ -1736,26 +1736,28 @@ declare namespace webdriver {
          * @typedef {Object.<webdriver.logging.Type, webdriver.logging.LevelName>}
          */
         class Preferences {
-            setLevel(type: string|Type, level: Level|string|number): void;
+            setLevel(type: string, level: Level|string|number): void;
             toJSON(): { [key: string]: string };
+        }
+
+        interface IType {
+          /** Logs originating from the browser. */
+          BROWSER: string;
+          /** Logs from a WebDriver client. */
+          CLIENT: string;
+          /** Logs from a WebDriver implementation. */
+          DRIVER: string;
+          /** Logs related to performance. */
+          PERFORMANCE: string;
+          /** Logs from the remote server. */
+          SERVER: string;
         }
 
         /**
          * Common log types.
          * @enum {string}
          */
-        enum Type {
-          /** Logs originating from the browser. */
-          BROWSER,
-          /** Logs from a WebDriver client. */
-          CLIENT,
-          /** Logs from a WebDriver implementation. */
-          DRIVER,
-          /** Logs related to performance. */
-          PERFORMANCE,
-          /** Logs from the remote server. */
-          SERVER
-        }
+        var Type: IType;
 
         /**
          * Defines a message level that may be used to control logging output.
@@ -1775,10 +1777,10 @@ declare namespace webdriver {
           toString(): string;
 
           /** This logger's name. */
-          name(): string;
+          name: string;
 
           /** The numeric log level. */
-          value(): number;
+          value: number;
 
           /**
            * Indicates no log messages should be recorded.
@@ -1857,7 +1859,7 @@ declare namespace webdriver {
            * @param {string=} opt_type The log type, if known.
            * @constructor
            */
-          constructor(level: Level|string|number, message: string, opt_timestamp?:number, opt_type?:string|Type);
+          constructor(level: Level|string|number, message: string, opt_timestamp?:number, opt_type?:string|IType);
 
           /** @type {!webdriver.logging.Level} */
           level: Level;
@@ -2172,7 +2174,7 @@ declare namespace webdriver {
          *     {@code fn}.
          * @template TYPE, SELF
          */
-        function map<T>(arr: Array<T>|Promise<Array<T>>, fn: (self: any, type: any, index: number, array: any[]) => any, opt_self?: any): Promise<T[]>
+        function map<T>(arr: Array<T>|Promise<Array<T>>, fn: (self: any, type: any, index: number, array: T[]) => any, opt_self?: any): Promise<any[]>
 
         /**
          * Creates a promise that has been rejected with the given reason.
@@ -2248,7 +2250,7 @@ declare namespace webdriver {
          *     rejected.
          * @return {!ManagedPromise} A new promise.
          */
-        function when<T,R>(value: T|Promise<T>, opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<R>;
+        function when<T>(value: T|Promise<T>, opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<any>;
 
         /**
          * Returns a promise that will be resolved with the input value in a
@@ -2317,7 +2319,7 @@ declare namespace webdriver {
              *     resolved with the result of the invoked callback.
              * @template R
              */
-            then<R>(opt_callback?: (value: T) => R|IThenable<R>, opt_errback?: (error: any) => R|IThenable<R>): Promise<R>;
+            then<R>(opt_callback?: (value: T) => R|IThenable<R>, opt_errback?: (error: any) => any): Promise<R>;
 
             /**
              * Registers a listener for when this promise is rejected. This is synonymous
@@ -2494,8 +2496,7 @@ declare namespace webdriver {
              * @param {ControlFlow=} opt_flow The control flow
              *     this instance was created under. Defaults to the currently active flow.
              */
-            constructor(resolver: (onFulfilled: IFulfilledCallback<T>, onRejected: IRejectedCallback)=>void, opt_flow?: ControlFlow);
-            constructor(); // For angular-protractor/angular-protractor-tests.ts
+            constructor(resolver: (resolve: IFulfilledCallback<T>, reject: IRejectedCallback)=>void, opt_flow?: ControlFlow);
 
             //region Methods
 
@@ -2524,7 +2525,7 @@ declare namespace webdriver {
              * @return A new promise which will be resolved
              *     with the result of the invoked callback.
              */
-            then(opt_callback?: Function, opt_errback?: Function): Promise<any>;
+            then<R>(opt_callback?: (value: T) => IThenable<R>|R, opt_errback?: (error: any) => any): Promise<R>;
 
             /**
              * Registers a listener for when this promise is rejected. This is synonymous
@@ -2706,6 +2707,25 @@ declare namespace webdriver {
             setTimeout: (fn: Function, ms: number) => number;
         }
 
+        interface IEventType {
+            /** Emitted when all tasks have been successfully executed. */
+                IDLE: string;
+
+            /** Emitted when a ControlFlow has been reset. */
+                RESET: string;
+
+            /** Emitted whenever a new task has been scheduled. */
+                SCHEDULE_TASK: string;
+
+            /**
+             * Emitted whenever a control flow aborts due to an unhandled promise
+             * rejection. This event will be emitted along with the offending rejection
+             * reason. Upon emitting this event, the control flow will empty its task
+             * queue and revert to its initial state.
+             */
+                UNCAUGHT_EXCEPTION: string;
+        }
+
         /**
          * Handles the execution of scheduled tasks, each of which may be an
          * asynchronous operation. The control flow will ensure tasks are executed in
@@ -2745,24 +2765,7 @@ declare namespace webdriver {
              * Events that may be emitted by an {@link webdriver.promise.ControlFlow}.
              * @enum {string}
              */
-            static EventType: {
-                /** Emitted when all tasks have been successfully executed. */
-                    IDLE: string;
-
-                /** Emitted when a ControlFlow has been reset. */
-                    RESET: string;
-
-                /** Emitted whenever a new task has been scheduled. */
-                    SCHEDULE_TASK: string;
-
-                /**
-                 * Emitted whenever a control flow aborts due to an unhandled promise
-                 * rejection. This event will be emitted along with the offending rejection
-                 * reason. Upon emitting this event, the control flow will empty its task
-                 * queue and revert to its initial state.
-                 */
-                    UNCAUGHT_EXCEPTION: string;
-            };
+            static EventType: IEventType;
 
             /**
              * Returns a string representation of this control flow, which is its current
@@ -3066,17 +3069,10 @@ declare namespace webdriver {
         height: number;
     }
 
-    /**
-     * Representations of pressable keys that aren't text.  These are stored in
-     * the Unicode PUA (Private Use Area) code points, 0xE000-0xF8FF.  Refer to
-     * http://www.google.com.au/search?&q=unicode+pua&btnG=Search
-     *
-     * @enum {string}
-     */
-    enum Button {
-        LEFT,
-        MIDDLE,
-        RIGHT,
+    interface IButton {
+      LEFT: string;
+      MIDDLE: string;
+      RIGHT: string;
     }
 
     /**
@@ -3086,72 +3082,82 @@ declare namespace webdriver {
      *
      * @enum {string}
      */
-    enum Key {
-        NULL,
-        CANCEL,  // ^break
-        HELP,
-        BACK_SPACE,
-        TAB,
-        CLEAR,
-        RETURN,
-        ENTER,
-        SHIFT,
-        CONTROL,
-        ALT,
-        PAUSE,
-        ESCAPE,
-        SPACE,
-        PAGE_UP,
-        PAGE_DOWN,
-        END,
-        HOME,
-        ARROW_LEFT,
-        LEFT,
-        ARROW_UP,
-        UP,
-        ARROW_RIGHT,
-        RIGHT,
-        ARROW_DOWN,
-        DOWN,
-        INSERT,
-        DELETE,
-        SEMICOLON,
-        EQUALS,
+    var Button: IButton;
 
-        NUMPAD0,  // number pad keys
-        NUMPAD1,
-        NUMPAD2,
-        NUMPAD3,
-        NUMPAD4,
-        NUMPAD5,
-        NUMPAD6,
-        NUMPAD7,
-        NUMPAD8,
-        NUMPAD9,
-        MULTIPLY,
-        ADD,
-        SEPARATOR,
-        SUBTRACT,
-        DECIMAL,
-        DIVIDE,
+    interface IKey {
+      NULL: string;
+      CANCEL: string;  // ^break
+      HELP: string;
+      BACK_SPACE: string;
+      TAB: string;
+      CLEAR: string;
+      RETURN: string;
+      ENTER: string;
+      SHIFT: string;
+      CONTROL: string;
+      ALT: string;
+      PAUSE: string;
+      ESCAPE: string;
+      SPACE: string;
+      PAGE_UP: string;
+      PAGE_DOWN: string;
+      END: string;
+      HOME: string;
+      ARROW_LEFT: string;
+      LEFT: string;
+      ARROW_UP: string;
+      UP: string;
+      ARROW_RIGHT: string;
+      RIGHT: string;
+      ARROW_DOWN: string;
+      DOWN: string;
+      INSERT: string;
+      DELETE: string;
+      SEMICOLON: string;
+      EQUALS: string;
 
-        F1,  // function keys
-        F2,
-        F3,
-        F4,
-        F5,
-        F6,
-        F7,
-        F8,
-        F9,
-        F10,
-        F11,
-        F12,
+      NUMPAD0: string;  // number pad keys
+      NUMPAD1: string;
+      NUMPAD2: string;
+      NUMPAD3: string;
+      NUMPAD4: string;
+      NUMPAD5: string;
+      NUMPAD6: string;
+      NUMPAD7: string;
+      NUMPAD8: string;
+      NUMPAD9: string;
+      MULTIPLY: string;
+      ADD: string;
+      SEPARATOR: string;
+      SUBTRACT: string;
+      DECIMAL: string;
+      DIVIDE: string;
 
-        COMMAND,  // Apple command key
-        META      // alias for Windows key
+      F1: string;  // function keys
+      F2: string;
+      F3: string;
+      F4: string;
+      F5: string;
+      F6: string;
+      F7: string;
+      F8: string;
+      F9: string;
+      F10: string;
+      F11: string;
+      F12: string;
 
+      COMMAND: string;  // Apple command key
+      META: string;     // alias for Windows key
     }
+
+    /**
+     * Representations of pressable keys that aren't text.  These are stored in
+     * the Unicode PUA (Private Use Area) code points, 0xE000-0xF8FF.  Refer to
+     * http://www.google.com.au/search?&q=unicode+pua&btnG=Search
+     *
+     * @enum {string}
+     */
+    var Key: IKey;
 
     /**
      * Class for defining sequences of complex user interactions. Each sequence
@@ -3229,7 +3235,7 @@ declare namespace webdriver {
          *     first argument.
          * @return {!ActionSequence} A self reference.
          */
-        mouseDown(opt_elementOrButton?: WebElement|webdriver.Button, opt_button?: webdriver.Button): ActionSequence;
+        mouseDown(opt_elementOrButton?: WebElement|string, opt_button?: string): ActionSequence;
 
         /**
          * Releases a mouse button. Behavior is undefined for calling this function
@@ -3252,7 +3258,7 @@ declare namespace webdriver {
          *     first argument.
          * @return {!ActionSequence} A self reference.
          */
-        mouseUp(opt_elementOrButton?: WebElement|webdriver.Button, opt_button?: webdriver.Button): ActionSequence;
+        mouseUp(opt_elementOrButton?: WebElement|string, opt_button?: string): ActionSequence;
 
         /**
          * Convenience function for performing a "drag and drop" manuever. The target
@@ -3284,7 +3290,7 @@ declare namespace webdriver {
          *     first argument.
          * @return {!ActionSequence} A self reference.
          */
-        click(opt_elementOrButton?: WebElement|webdriver.Button, opt_button?: webdriver.Button): ActionSequence;
+        click(opt_elementOrButton?: WebElement|string, opt_button?: string): ActionSequence;
 
         /**
          * Double-clicks a mouse button.
@@ -3306,7 +3312,7 @@ declare namespace webdriver {
          *     first argument.
          * @return {!ActionSequence} A self reference.
          */
-        doubleClick(opt_elementOrButton?: WebElement|webdriver.Button, opt_button?: webdriver.Button): ActionSequence;
+        doubleClick(opt_elementOrButton?: WebElement|string, opt_button?: string): ActionSequence;
 
         /**
          * Performs a modifier key press. The modifier key is <em>not released</em>
@@ -3317,7 +3323,7 @@ declare namespace webdriver {
          * @return {!webdriver.ActionSequence} A self reference.
          * @throws {Error} If the key is not a valid modifier key.
          */
-        keyDown(key: Key): ActionSequence;
+        keyDown(key: string): ActionSequence;
 
         /**
          * Performs a modifier key release. The release is targetted at the currently
@@ -3327,7 +3333,7 @@ declare namespace webdriver {
          * @return {!webdriver.ActionSequence} A self reference.
          * @throws {Error} If the key is not a valid modifier key.
          */
-        keyUp(key: Key): ActionSequence;
+        keyUp(key: string): ActionSequence;
 
         /**
          * Simulates typing multiple keys. Each modifier key encountered in the
@@ -3338,7 +3344,7 @@ declare namespace webdriver {
          * @return {!webdriver.ActionSequence} A self reference.
          * @throws {Error} If the key is not a valid modifier key.
          */
-        sendKeys(...var_args: Array<string|Key>): ActionSequence;
+        sendKeys(...var_args: Array<string>): ActionSequence;
 
         //endregion
     }
@@ -5010,7 +5016,7 @@ declare namespace webdriver {
          *   promise that will resolve to a list of log entries for the specified
          *   type.
          */
-        get(type: webdriver.logging.Type): webdriver.promise.Promise<webdriver.logging.Entry[]>;
+        get(type: string): webdriver.promise.Promise<webdriver.logging.Entry[]>;
 
         /**
          * Retrieves the log types available to this driver.
@@ -6568,8 +6574,36 @@ declare module 'selenium-webdriver/chrome' {
     export = chrome;
 }
 
+declare module 'selenium-webdriver/edge' {
+  export = edge;
+}
+
 declare module 'selenium-webdriver/executors' {
     export = executors;
+}
+
+declare module 'selenium-webdriver/firefox' {
+  export = firefox;
+}
+
+declare module 'selenium-webdriver/http' {
+  export = http;
+}
+
+declare module 'selenium-webdriver/ie' {
+  export = ie;
+}
+
+declare module 'selenium-webdriver/opera' {
+  export = opera;
+}
+
+declare module 'selenium-webdriver/remote' {
+  export = remote;
+}
+
+declare module 'selenium-webdriver/safari' {
+  export = safari;
 }
 
 declare module 'selenium-webdriver' {

@@ -99,6 +99,22 @@ declare namespace WebSocket {
         rejectUnauthorized?: boolean;
     }
 
+    export interface IPerMessageDeflateOptions {
+        serverNoContextTakeover?: boolean;
+        clientNoContextTakeover?: boolean;
+        serverMaxWindowBits?: number;
+        clientMaxWindowBits?: number;
+        memLevel?: number;
+    }
+
+    export interface IPerMessageDeflateOptions {
+        serverNoContextTakeover?: boolean;
+        clientNoContextTakeover?: boolean;
+        serverMaxWindowBits?: number;
+        clientMaxWindowBits?: number;
+        memLevel?: number;
+    }
+
     export interface IServerOptions {
         host?: string;
         port?: number;
@@ -109,6 +125,7 @@ declare namespace WebSocket {
         noServer?: boolean;
         disableHixie?: boolean;
         clientTracking?: boolean;
+        perMessageDeflate?: boolean | IPerMessageDeflateOptions;
     }
 
     export class Server extends events.EventEmitter {
@@ -118,7 +135,7 @@ declare namespace WebSocket {
 
         constructor(options?: IServerOptions, callback?: Function);
 
-        close(cb?: () => {}): void;
+        close(cb?: (err?: any) => void): void;
         handleUpgrade(request: http.IncomingMessage, socket: net.Socket,
             upgradeHead: Buffer, callback: (client: WebSocket) => void): void;
 

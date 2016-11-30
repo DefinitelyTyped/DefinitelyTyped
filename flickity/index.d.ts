@@ -161,13 +161,7 @@ declare class Flickity {
     * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires
     */
-    on(eventname: string, callback: (eventt?: Event, cellElement?: Element) => any) : void;
-    /**
-    * bind event listener
-    * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
-    * @param callback callback funtion to execute when event fires
-    */
-    on(eventname: string, callback: (event?: Event, pointer?: Element | Touch) => any): void;
+    on(eventname: string, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any): void;
     /**
     * bind event listener
     * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
@@ -179,7 +173,27 @@ declare class Flickity {
     * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires
     */
-    on(eventname: string, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any): void;
+    on(eventname: string, callback: (eventt?: Event, cellElement?: Element) => any) : void;
+    /**
+    * bind event listener
+    * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
+    * @param callback callback funtion to execute when event fires
+    */
+    on(eventname: string, callback: (event?: Event, pointer?: Element | Touch) => any): void;
+
+    /**
+    * Remove event listener
+    * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
+    * @param callback callback funtion to execute when event fires
+    */
+    off(eventname: string, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any): void;
+
+    /**
+    * Remove event listener
+    * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
+    * @param callback callback funtion to execute when event fires
+    */
+    off(eventname: string, callback: (event?: Event, pointer?: Element | Touch, moveVector?: Object) => any): void;
 
     /**
     * Remove event listener
@@ -195,20 +209,20 @@ declare class Flickity {
     */
     off(eventname: string, callback: (event?: Event, pointer?: Element | Touch) => any): void;
 
+
     /**
-    * Remove event listener
+    * one time event handler
     * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires
     */
-    off(eventname: string, callback: (event?: Event, pointer?: Element | Touch, moveVector?: Object) => any): void;
+    once(eventname: string, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any): void;
 
     /**
-    * Remove event listener
+    * one time event handler
     * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires
     */
-    off(eventname: string, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any): void;
-
+    once(eventname: string, callback: (event?: Event, pointer?: Element | Touch, moveVector?: Object) => any): void;
 
     /**
     * one time event handler
@@ -223,22 +237,6 @@ declare class Flickity {
     * @param callback callback funtion to execute when event fires
     */
     once(eventname: string, callback: (event?: Event, pointer?: Element | Touch) => any): void;
-
-    /**
-    * one time event handler
-    * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
-    * @param callback callback funtion to execute when event fires
-    */
-    once(eventname: string, callback: (event?: Event, pointer?: Element | Touch, moveVector?: Object) => any): void;
-
-    /**
-    * one time event handler
-    * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
-    * @param callback callback funtion to execute when event fires
-    */
-    once(eventname: string, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any): void;
-
-
 }
 
 interface FlickityOptions {

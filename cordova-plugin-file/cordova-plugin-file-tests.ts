@@ -1,4 +1,4 @@
-/// <reference path="../cordova/index.d.ts"/>
+/// <reference types="cordova"/>
 /// <reference path="index.d.ts"/>
 
 function fsaccessor(fs: FileSystem) {

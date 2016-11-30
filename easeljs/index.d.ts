@@ -53,6 +53,21 @@ declare namespace createjs {
         clone(): Bitmap;
     }
 
+    export class ScaleBitmap extends DisplayObject {
+        constructor(imageOrUrl: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | Object | string, scale9Grid: Rectangle);
+
+        // properties
+        image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement;
+        sourceRect: Rectangle;
+        drawWidth: number;
+        drawHeight: number;
+        scale9Grid: Rectangle;
+        snapToPixel: boolean;
+
+        // methods
+        setDrawSize (newWidth: number, newHeight: number): void;
+        clone(): ScaleBitmap;
+    }
 
     export class BitmapText extends DisplayObject {
         constructor(text?:string, spriteSheet?:SpriteSheet);
@@ -608,6 +623,7 @@ declare namespace createjs {
         primary: boolean;
         rawX: number;
         rawY: number;
+        relatedTarget: DisplayObject;
         stageX: number;
         stageY: number;
         mouseMoveOutside: boolean;

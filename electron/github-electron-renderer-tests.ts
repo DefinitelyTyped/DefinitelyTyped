@@ -26,7 +26,7 @@ ipcRenderer.send('asynchronous-message', 'ping');
 // remote
 // https://github.com/atom/electron/blob/master/docs/api/remote.md
 
-var BrowserWindow: typeof Electron.BrowserWindow = remote.require('browser-window');
+var BrowserWindow = remote.BrowserWindow;
 var win = new BrowserWindow({ width: 800, height: 600 });
 win.loadURL('https://github.com');
 
@@ -57,7 +57,8 @@ console.log(webFrame.getZoomFactor());
 webFrame.setZoomLevel(200);
 console.log(webFrame.getZoomLevel());
 
-webFrame.setZoomLevelLimits(50, 200);
+webFrame.setVisualZoomLevelLimits(50, 200);
+webFrame.setLayoutZoomLevelLimits(50, 200);
 
 webFrame.setSpellCheckProvider('en-US', true, {
 	spellCheck: text => {
@@ -68,12 +69,16 @@ webFrame.setSpellCheckProvider('en-US', true, {
 webFrame.registerURLSchemeAsSecure('app');
 webFrame.registerURLSchemeAsBypassingCSP('app');
 webFrame.registerURLSchemeAsPrivileged('app');
+webFrame.registerURLSchemeAsPrivileged('app', {
+	secure: true,
+	supportFetchAPI: true,
+});
 
 webFrame.insertText('text');
 
 webFrame.executeJavaScript('JSON.stringify({})', false, (result) => {
     console.log(result);
-});
+}).then((result: string) => console.log('OK:' + result));
 
 console.log(webFrame.getResourceUsage());
 webFrame.clearCache();
@@ -167,7 +172,7 @@ holder.ondrop = function (e) {
 // nativeImage
 // https://github.com/atom/electron/blob/master/docs/api/native-image.md
 
-var Tray: Electron.Tray = remote.require('Tray');
+var Tray = remote.Tray;
 var appIcon2 = new Tray('/Users/somebody/images/icon.png');
 var window2 = new BrowserWindow({ icon: '/Users/somebody/images/window.png' });
 var image = clipboard.readImage();
@@ -187,7 +192,7 @@ process.once('loaded', function() {
 // screen
 // https://github.com/atom/electron/blob/master/docs/api/screen.md
 
-var app: Electron.App = remote.require('app');
+var app = remote.app;
 
 var mainWindow: Electron.BrowserWindow = null;
 

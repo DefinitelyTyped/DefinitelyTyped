@@ -138,7 +138,7 @@ declare namespace PhantomCSS {
         prefixCount?: boolean;
 
         hideElements?: string;
-        outputSettings?: Resemble.OutputSettings;
+        outputSettings?: resemble.OutputSettings;
     }
 
 }

@@ -1,10 +1,15 @@
 // Type definitions for assert and power-assert
-// Project: https://github.com/Jxck/assert
-// Project: https://github.com/twada/power-assert
+// Project: https://github.com/Jxck/assert, https://github.com/twada/power-assert
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// copy from assert external module in node.d.ts
+// Definitions for commonjs-assert match that of node.js' assert module,
+// but commonjs-assert is intended to be used as an independent module,
+// for instance when making a stand-alone site or app that doesn't have
+// access to node modules. For that reason, these definitions define a
+// "assert" module. This will conflict with node.d.ts and other assert
+// modules such as "power-assert", but a project should realistically
+// only be using one of these at a time.
 
 declare function assert(value:any, message?:string):void;
 declare namespace assert {
@@ -51,3 +56,4 @@ declare namespace assert {
 
     export function ifError(value:any):void;
 }
+

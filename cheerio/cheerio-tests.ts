@@ -20,6 +20,12 @@ cheerio(html);
 cheerio('ul', html);
 cheerio('li', 'ul', html);
 
+const $fromElement = cheerio.load($("ul").get(0));
+
+if ($fromElement("ul > li").length !== 3) {
+  throw new Error("Expecting 3 elements when passing `CheerioElement` to `load()`");
+}
+
 $ = cheerio.load(html, {
     normalizeWhitespace: true,
     xmlMode: true

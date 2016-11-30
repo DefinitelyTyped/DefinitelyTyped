@@ -1,4 +1,3 @@
-/// <reference path="json-editor.d.ts" />
 
 var element = document.getElementById('editor_holder');
 var editor = new JSONEditor(element, {});

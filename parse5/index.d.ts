@@ -55,9 +55,11 @@ export interface Attribute {
 export interface ASTNode {
     attrs: ASTAttribute[];
     childNodes?: ASTNode[];
+    data?: string;
     namespaceURI?: string;
     parentNode?: ASTNode;
     nodeName: string;
+    tagName?: string;
     quirksMode?: boolean;
     value?: string;
     __location: LocationInfo | ElementLocationInfo;

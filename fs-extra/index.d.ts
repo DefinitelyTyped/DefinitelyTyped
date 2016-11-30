@@ -8,11 +8,7 @@
 /// <reference types="node" />
 
 import * as stream from 'stream';
-
 export * from "fs";
-
-export class ReadStream extends stream.Readable { }
-export class WriteStream extends stream.Writable { }
 
 export declare function copy(src: string, dest: string, callback?: (err: Error) => void): void;
 export declare function copy(src: string, dest: string, filter: CopyFilter, callback?: (err: Error) => void): void;
@@ -21,6 +17,9 @@ export declare function copy(src: string, dest: string, options: CopyOptions, ca
 export declare function copySync(src: string, dest: string): void;
 export declare function copySync(src: string, dest: string, filter: CopyFilter): void;
 export declare function copySync(src: string, dest: string, options: CopyOptions): void;
+
+export declare function move(src: string, dest: string, callback?: (err: Error) => void): void;
+export declare function move(src: string, dest: string, options: MoveOptions, callback?: (err: Error) => void): void;
 
 export declare function createFile(file: string, callback?: (err: Error) => void): void;
 export declare function createFileSync(file: string): void;
@@ -73,8 +72,8 @@ export declare function ensureSymlinkSync(path: string): void;
 
 export declare function emptyDir(path: string, callback?: (err: Error) => void): void;
 export declare function emptyDirSync(path: string): boolean;
-
-export interface CopyFilterFunction {
+	
+    export interface CopyFilterFunction {
     (src: string): boolean
 }
 
@@ -86,6 +85,16 @@ export interface CopyOptions {
     dereference?: boolean
     filter?: CopyFilter
     recursive?: boolean
+}
+	
+	export interface MoveOptions {
+		clobber? : boolean;
+		limit?: number;
+	}
+
+export interface MoveOptions {
+    clobber? : boolean;
+    limit?: number;
 }
 
 export interface OpenOptions {

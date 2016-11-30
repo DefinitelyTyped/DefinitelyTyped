@@ -1,4 +1,4 @@
-// Type definitions for Webix UI 3.3.0
+// Type definitions for Webix UI 4.1
 // Project: http://webix.com
 // Definitions by: Maksim Kozhukh <http://github.com/mkozhukh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,6 +7,8 @@ declare namespace webix {
 
 type WebixTemplate = (...args: any[])=>string;
 type WebixCallback = (...args: any[])=>any;
+type EventHash = { [id: string] : WebixCallback };
+
 interface PromisedData {
     then(handler:(data:any)=>any):PromisedData;
     fail(handler:(error:any)=>any):PromisedData;
@@ -199,18 +201,18 @@ function editStop():void;
 function event(node:HTMLElement|string, event:string, handler:WebixCallback, context?:any):string|number;
 function eventRemove(id:string|number):void;
 function exec(code:string):void;
-function extend(target:any, source:any, overwrite:boolean):any;
+function extend(target:any, source:any, overwrite?:boolean):any;
 function hasEvent(name:string):boolean;
 function isArray(check:any):boolean;
 function isDate(check:any):boolean;
 function isUndefined(check:any):boolean;
 function jsonp(url:string, params?:any, callback?:WebixCallback, master?:any):void;
 function mapEvent(map:any):void;
-function message(text:string):void;
+function message(content:any):void;
 function modalbox(text:string, callback:WebixCallback):HTMLElement;
 function once(code:WebixCallback):void;
-function proto(target:any, mixin1?:any, mixinN?:any):any;
-function protoUI(target:any, view:any, mixin1:any, mixinN:any):any;
+function proto(target:any, ...mixins:any[]):any;
+function protoUI(target:any, view:any, mixins:any):any;
 function proxy(type:string, source:string):any;
 function ready(code:WebixCallback):void;
 function remote():void;
@@ -260,6 +262,9 @@ interface AtomRender{
 	sync(source:any, filter:WebixCallback, silent:boolean):void;
 }
 var AtomRender:AtomRender;
+interface AutoScroll{
+}
+var AutoScroll:AutoScroll;
 interface AutoTooltip{
 }
 var AutoTooltip:AutoTooltip;
@@ -520,6 +525,7 @@ interface DataStore{
 	name: string;
 	order: any[];
 	pull: any;
+	sorting: any;
 }
 var DataStore:DataStore;
 interface DataValue{
@@ -571,11 +577,11 @@ interface DragControl{
 	getMaster(target:any):any;
 	getNode():HTMLElement;
 	sendSignal(signal:string):void;
-	$drag(s:any, e:Event):HTMLElement;
-	$dragIn(s:any, t:any, e:Event):void;
+	$drag(source:HTMLElement, ev:Event):HTMLElement;
+	$dragIn(source:HTMLElement, target:HTMLElement, ev:Event):void;
 	$dragOut(s:any, t:any, n:any, e:Event):void;
 	$dragPos: WebixCallback;
-	$drop(s:any, t:any, d:any, e:Event):void;
+	$drop(source:HTMLElement, target:HTMLElement, ev:Event):void;
 	left: number;
 	top: number;
 }
@@ -619,6 +625,10 @@ interface EventSystem{
 	unblockEvent():void;
 }
 var EventSystem:EventSystem;
+interface FlexLayout{
+	$getSize: any[];
+}
+var FlexLayout:FlexLayout;
 interface Group{
 	group(config:any, mode:boolean):void;
 	ungroup(mode:boolean):void;
@@ -638,6 +648,9 @@ interface GroupStore{
 	ungroup():void;
 }
 var GroupStore:GroupStore;
+interface HTMLOptions{
+}
+var HTMLOptions:HTMLOptions;
 interface HtmlMap{
 	addPoly(id:string|number, points:any[]):void;
 	addRect(id:string|number, points:any[], userdata?:string):void;
@@ -646,7 +659,7 @@ interface HtmlMap{
 }
 var HtmlMap:HtmlMap;
 interface IdSpace{
-	innerId(id:string|number):string|number;
+	innerId(id:number|string):number|string;
 	ui(view:any):webix.ui.baseview;
 	$$: any;
 }
@@ -710,7 +723,7 @@ interface RecordBind{
 var RecordBind:RecordBind;
 interface RenderStack{
 	customize(obj:any):void;
-	getItemNode(id:string|number):void;
+	getItemNode(id:string|number):HTMLElement;
 	locate(e:Event):string|number;
 	render(id:string|number, data:any, type:string):void;
 	showItem(id:string|number):void;
@@ -854,7 +867,7 @@ interface TreeDataMove{
 }
 var TreeDataMove:TreeDataMove;
 interface TreeRenderStack{
-	getItemNode(id:string|number):void;
+	getItemNode(id:string|number):HTMLElement;
 	render(id:string|number, data:any, type:string):void;
 }
 var TreeRenderStack:TreeRenderStack;
@@ -961,7 +974,7 @@ interface Values{
 }
 var Values:Values;
 interface VirtualRenderStack{
-	getItemNode(id:string|number):void;
+	getItemNode(id:string|number):HTMLElement;
 	render(id:string|number, data:any, type:string):void;
 	showItem(id:string|number):void;
 }
@@ -976,6 +989,38 @@ var DataCollection: DataCollectionFactory;
 
 namespace ui {
 
+interface WebixFilter {
+	getValue(node:HTMLElement):any;
+	setValue(node:HTMLElement, value:any):any;
+	refresh(master: webix.ui.baseview, node:HTMLElement, value: any):void;
+	render(master: webix.ui.baseview, config: {[name:string]:any}):string;
+}
+
+namespace datafilter{
+	class textFilter implements WebixFilter{
+		getValue(node:HTMLElement):any;
+		setValue(node:HTMLElement, value:any):any;
+		refresh(master: webix.ui.baseview, node:HTMLElement, value: any):void;
+		render(master: webix.ui.baseview, config: {[name:string]:any}):string;
+		getInputNode(node:HTMLElement):HTMLElement;
+	}
+
+	class selectFilter extends textFilter{}
+	class serverFilter extends textFilter{}
+	class serverSelectFilter extends textFilter{}
+	class numberFilter extends textFilter{}
+	class dateFilter extends textFilter{}
+	class multiSelectFilter extends textFilter{}
+	class serverMultiSelectFilter extends textFilter{}
+	class multiComboFilter extends textFilter{}
+	class datepickerFilter extends textFilter{}
+	class dateRangeFilter extends textFilter{}
+
+	class summColumn extends textFilter{}
+	class masterCheckbox extends textFilter{}
+	class columnGroup extends textFilter{}
+}
+
 function delay(config:any):void;
 function fullScreen():void;
 function hasMethod(name:string, method_name:string):boolean;
@@ -985,6 +1030,7 @@ var scrollSize: number;
 var zIndexBase: number;
 
 interface baselayoutConfig{
+	view?: string;
 	animate?: any;
 	borderless?: boolean;
 	cols?: any[];
@@ -999,14 +1045,14 @@ interface baselayoutConfig{
 	maxWidth?: number;
 	minHeight?: number;
 	minWidth?: number;
-	on?: any;
+	on?: EventHash;
 	responsive?: string;
 	rows?: any[];
 	visibleBatch?: string;
 	width?: number;
 }
 type baselayoutEventName ='onBindRequest'|'onDestruct';
-interface baselayout extends webix.ui.baseview{
+class baselayout implements webix.ui.baseview{
 	addView(view:any, index?:number):webix.ui.baseview;
 	adjust():void;
 	attachEvent(type:baselayoutEventName, functor:WebixCallback, id?:string):string|number;
@@ -1038,7 +1084,7 @@ interface baselayout extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$setSize(x:number, y:number):boolean;
 	$skin: any;
@@ -1048,6 +1094,7 @@ interface baselayout extends webix.ui.baseview{
 	name: string;
 }
 interface baseviewConfig{
+	view?: string;
 	animate?: any;
 	borderless?: boolean;
 	container?: string|HTMLElement;
@@ -1083,7 +1130,7 @@ interface baseview{
 	show(force?:boolean, animation?:boolean):void;
 	unbind():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$setSize(x:number, y:number):boolean;
 	$skin: any;
@@ -1092,102 +1139,8 @@ interface baseview{
 	config: baseviewConfig;
 	name: string;
 }
-interface checksuggestConfig{
-	animate?: any;
-	autofit?: boolean;
-	autofocus?: boolean;
-	body?: string|webix.ui.baseview;
-	borderless?: boolean;
-	button?: boolean;
-	buttonText?: string;
-	container?: string|HTMLElement;
-	css?: string;
-	disabled?: boolean;
-	filter?: WebixCallback;
-	fitMaster?: boolean;
-	gravity?: number;
-	head?: any;
-	headHeight?: number;
-	height?: number;
-	hidden?: boolean;
-	id?: string|number;
-	input?: HTMLElement|string;
-	keyPressTimeout?: number;
-	left?: number;
-	master?: webix.ui.baseview;
-	maxHeight?: number;
-	maxWidth?: number;
-	minHeight?: number;
-	minWidth?: number;
-	modal?: boolean;
-	move?: boolean;
-	on?: any;
-	padding?: any;
-	position?: string|WebixCallback;
-	relative?: string;
-	resize?: boolean;
-	separator?: string;
-	template?: string|WebixTemplate;
-	textValue?: string;
-	toFront?: boolean;
-	top?: number;
-	type?: string;
-	value?: string|number;
-	width?: number;
-	zIndex?: number;
-}
-type checksuggestEventName ='onAfterScroll'|'onBeforeShow'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onHide'|'onKeyPress'|'onLongTouch'|'onShow'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValueSuggest'|'onViewMove'|'onViewMoveEnd'|'onViewResize';
-interface checksuggest extends webix.ui.baseview{
-	adjust():void;
-	attachEvent(type:checksuggestEventName, functor:WebixCallback, id?:string):string|number;
-	bind(target:any, rule?:WebixCallback, format?:string):void;
-	blockEvent():void;
-	callEvent(name:string, params:any[]):boolean;
-	close():void;
-	define(property:string, value:any):void;
-	destructor():void;
-	detachEvent(id:string):void;
-	disable():void;
-	enable():void;
-	getBody():any;
-	getButton():webix.ui.baseview;
-	getChildViews():any[];
-	getFormView():webix.ui.baseview;
-	getHead():any;
-	getItemText(id:string|number):string;
-	getList():webix.ui.baseview;
-	getMasterValue():any;
-	getNode():any;
-	getParentView():any;
-	getSuggestion():string;
-	getTopParentView():webix.ui.baseview;
-	getValue():string|number;
-	hasEvent(name:string):boolean;
-	hide():void;
-	isEnabled():boolean;
-	isVisible():boolean;
-	linkInput(input:HTMLElement):void;
-	mapEvent(map:any):void;
-	resize():void;
-	resizeChildren():void;
-	setMasterValue(value:any):void;
-	setPosition(x:number, y:number):void;
-	setValue(value:string|number):void;
-	show(force?:boolean, animation?:boolean):void;
-	unbind():void;
-	unblockEvent():void;
-
-	$getSize: any[];
-	$height: number;
-	$scope: any;
-	$setSize(x:number, y:number):boolean;
-	$skin: any;
-	$view: HTMLElement;
-	$width: number;
-	config: checksuggestConfig;
-	name: string;
-}
 interface protoConfig{
+	view?: string;
 	animate?: any;
 	borderless?: boolean;
 	click?: string|WebixCallback;
@@ -1205,7 +1158,7 @@ interface protoConfig{
 	maxWidth?: number;
 	minHeight?: number;
 	minWidth?: number;
-	on?: any;
+	on?: EventHash;
 	pager?: any;
 	ready?: WebixCallback;
 	removeMissed?: boolean;
@@ -1213,13 +1166,13 @@ interface protoConfig{
 	save?: string;
 	scheme?: any;
 	template?: string|WebixCallback;
-	tooltip?: any;
+	tooltip?: string|boolean;
 	type?: any;
 	url?: string;
 	width?: number;
 }
 type protoEventName ='onAfterAdd'|'onAfterDelete'|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSort'|'onBeforeAdd'|'onBeforeDelete'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onFocus'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewResize';
-interface proto extends webix.ui.baseview{
+class proto implements webix.ui.baseview{
 	add(obj:any, index?:number):string|number;
 	addCss(id:string|number, css:string, silent?:boolean):void;
 	adjust():void;
@@ -1246,7 +1199,7 @@ interface proto extends webix.ui.baseview{
 	getIdByIndex(index:number):string|number;
 	getIndexById(id:string|number):number;
 	getItem(id:string|number):any;
-	getItemNode(id:string|number):void;
+	getItemNode(id:string|number):HTMLElement;
 	getLastId():string|number;
 	getNextId(id:string|number, step:number):string|number;
 	getNode():any;
@@ -1281,7 +1234,7 @@ interface proto extends webix.ui.baseview{
 	updateItem(id:string|number, data:any):void;
 	validate(id?:string):boolean;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -1294,6 +1247,7 @@ interface proto extends webix.ui.baseview{
 	types: { [key: string]: any; };
 }
 interface resizeareaConfig{
+	view?: string;
 	border?: boolean;
 	container?: string|HTMLElement;
 	cursor?: string;
@@ -1301,12 +1255,12 @@ interface resizeareaConfig{
 	eventPos?: number;
 	height?: number;
 	id?: string|number;
-	on?: any;
+	on?: EventHash;
 	start?: number;
 	width?: number;
 }
 type resizeareaEventName ='onResize'|'onResizeEnd';
-interface resizearea extends webix.ui.baseview{
+class resizearea{
 	attachEvent(type:resizeareaEventName, functor:WebixCallback, id?:string):string|number;
 	blockEvent():void;
 	callEvent(name:string, params:any[]):boolean;
@@ -1320,6 +1274,7 @@ interface resizearea extends webix.ui.baseview{
 	name: string;
 }
 interface viewConfig{
+	view?: string;
 	animate?: any;
 	borderless?: boolean;
 	container?: string|HTMLElement;
@@ -1336,7 +1291,7 @@ interface viewConfig{
 	width?: number;
 }
 type viewEventName ='onAfterScroll'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface view extends webix.ui.baseview{
+class view implements webix.ui.baseview{
 	adjust():void;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
 	define(property:string, value:any):void;
@@ -1355,7 +1310,7 @@ interface view extends webix.ui.baseview{
 	show(force?:boolean, animation?:boolean):void;
 	unbind():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -1366,9 +1321,10 @@ interface view extends webix.ui.baseview{
 	name: string;
 }
 interface vscrollConfig{
+	view?: string;
 	container?: string|HTMLElement;
 	id?: string|number;
-	on?: any;
+	on?: EventHash;
 	scroll?: string;
 	scrollHeight?: number;
 	scrollPos?: number;
@@ -1379,7 +1335,7 @@ interface vscrollConfig{
 	zoom?: number;
 }
 type vscrollEventName ='onScroll';
-interface vscroll extends webix.ui.baseview{
+class vscroll{
 	activeArea(node:HTMLElement):void;
 	attachEvent(type:vscrollEventName, functor:WebixCallback, id?:string):string|number;
 	blockEvent():void;
@@ -1398,6 +1354,7 @@ interface vscroll extends webix.ui.baseview{
 	name: string;
 }
 interface accordionConfig{
+	view?: string;
 	animate?: any;
 	borderless?: boolean;
 	collapsed?: boolean;
@@ -1416,7 +1373,7 @@ interface accordionConfig{
 	minHeight?: number;
 	minWidth?: number;
 	multi?: boolean|string;
-	on?: any;
+	on?: EventHash;
 	padding?: number;
 	paddingX?: number;
 	paddingY?: number;
@@ -1428,7 +1385,7 @@ interface accordionConfig{
 	width?: number;
 }
 type accordionEventName ='onAfterCollapse'|'onAfterExpand'|'onBindRequest'|'onDestruct';
-interface accordion extends webix.ui.baseview{
+class accordion implements webix.ui.baseview{
 	addView(view:any, index?:number):webix.ui.baseview;
 	adjust():void;
 	attachEvent(type:accordionEventName, functor:WebixCallback, id?:string):string|number;
@@ -1460,7 +1417,7 @@ interface accordion extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$setSize(x:number, y:number):boolean;
 	$skin: any;
@@ -1470,6 +1427,7 @@ interface accordion extends webix.ui.baseview{
 	name: string;
 }
 interface accordionitemConfig{
+	view?: string;
 	animate?: any;
 	body?: any;
 	borderless?: boolean;
@@ -1490,7 +1448,7 @@ interface accordionitemConfig{
 	minHeight?: number;
 	minWidth?: number;
 	mouseEventDelay?: number;
-	on?: any;
+	on?: EventHash;
 	onClick?: { [key: string]: any; };
 	onContext?: { [key: string]: any; };
 	onDblClick?: WebixCallback;
@@ -1498,7 +1456,7 @@ interface accordionitemConfig{
 	width?: number;
 }
 type accordionitemEventName ='onAfterContextMenu'|'onAfterScroll'|'onBeforeContextMenu'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onItemClick'|'onItemDblClick'|'onKeyPress'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface accordionitem extends webix.ui.baseview{
+class accordionitem implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:accordionitemEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -1527,7 +1485,7 @@ interface accordionitem extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -1542,7 +1500,9 @@ interface accordionitem extends webix.ui.baseview{
 	on_mouse_move: WebixCallback;
 }
 interface barcodeConfig{
+	view?: string;
 	animate?: any;
+	ariaLabel?: string;
 	borderless?: boolean;
 	color?: string;
 	container?: string|HTMLElement;
@@ -1564,7 +1524,7 @@ interface barcodeConfig{
 	width?: number;
 }
 type barcodeEventName ='onAfterScroll'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface barcode extends webix.ui.baseview{
+class barcode implements webix.ui.baseview{
 	adjust():void;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
 	define(property:string, value:any):void;
@@ -1586,7 +1546,7 @@ interface barcode extends webix.ui.baseview{
 	show(force?:boolean, animation?:boolean):void;
 	unbind():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -1598,6 +1558,7 @@ interface barcode extends webix.ui.baseview{
 	types: any[];
 }
 interface buttonConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	autowidth?: boolean;
@@ -1620,17 +1581,16 @@ interface buttonConfig{
 	minHeight?: number;
 	minWidth?: number;
 	name?: string;
-	on?: any;
+	on?: EventHash;
 	placeholder?: string;
 	popup?: string;
-	tabFocus?: boolean;
 	tooltip?: string;
 	type?: string;
 	value?: string|number;
 	width?: number;
 }
 type buttonEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface button extends webix.ui.baseview{
+class button implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:buttonEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -1664,8 +1624,8 @@ interface button extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$renderInput(config:any):HTMLElement;
 	$scope: any;
@@ -1680,6 +1640,7 @@ interface button extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface calendarConfig{
+	view?: string;
 	animate?: any;
 	blockDates?: WebixCallback;
 	borderless?: boolean;
@@ -1711,7 +1672,7 @@ interface calendarConfig{
 	monthSelect?: boolean;
 	mouseEventDelay?: number;
 	navigation?: boolean;
-	on?: any;
+	on?: EventHash;
 	onClick?: { [key: string]: any; };
 	onContext?: { [key: string]: any; };
 	onDblClick?: WebixCallback;
@@ -1726,7 +1687,7 @@ interface calendarConfig{
 	width?: number;
 }
 type calendarEventName ='onAfterContextMenu'|'onAfterDateSelect'|'onAfterMonthChange'|'onAfterRender'|'onAfterScroll'|'onAfterZoom'|'onBeforeContextMenu'|'onBeforeDateSelect'|'onBeforeMonthChange'|'onBeforeRender'|'onBeforeZoom'|'onBindRequest'|'onBlur'|'onChange'|'onDateClear'|'onDateSelect'|'onDestruct'|'onFocus'|'onItemClick'|'onItemDblClick'|'onKeyPress'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTodaySet'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface calendar extends webix.ui.baseview{
+class calendar implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:calendarEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -1751,17 +1712,18 @@ interface calendar extends webix.ui.baseview{
 	isVisible():boolean;
 	locate(e:Event):string|number;
 	mapEvent(map:any):void;
+	moveSelection(direction:string):void;
 	refresh():void;
 	render(id:string|number, data:any, type:string):void;
 	resize():void;
-	selectDate(date:any, mode:boolean):void;
-	setValue(date:any):void;
+	selectDate(date:string|Date, mode:boolean):void;
+	setValue(date:string|Date):void;
 	show(force?:boolean, animation?:boolean):void;
-	showCalendar(date:any):void;
+	showCalendar(date:string|Date):void;
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -1776,6 +1738,7 @@ interface calendar extends webix.ui.baseview{
 	on_mouse_move: WebixCallback;
 }
 interface carouselConfig{
+	view?: string;
 	animate?: any;
 	borderless?: boolean;
 	cols?: any[];
@@ -1791,14 +1754,14 @@ interface carouselConfig{
 	minHeight?: number;
 	minWidth?: number;
 	navigation?: any;
-	on?: any;
+	on?: EventHash;
 	rows?: any[];
 	scrollSpeed?: string;
 	type?: string;
 	width?: number;
 }
 type carouselEventName ='onAfterScroll'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onKeyPress'|'onLongTouch'|'onShow'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface carousel extends webix.ui.baseview{
+class carousel implements webix.ui.baseview{
 	adjust():void;
 	adjustScroll():void;
 	attachEvent(type:carouselEventName, functor:WebixCallback, id?:string):string|number;
@@ -1833,7 +1796,7 @@ interface carousel extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -1844,13 +1807,17 @@ interface carousel extends webix.ui.baseview{
 	name: string;
 }
 interface chartConfig{
+	view?: string;
 	alpha?: number;
 	animate?: any;
+	animateDuration?: number;
+	ariaLabel?: string;
 	barWidth?: number;
 	border?: boolean;
 	borderColor?: string;
 	borderless?: boolean;
 	cant?: number;
+	cellWidth?: number;
 	color?: string|WebixCallback;
 	container?: string|HTMLElement;
 	css?: string;
@@ -1859,6 +1826,7 @@ interface chartConfig{
 	datatype?: string;
 	disableLines?: boolean;
 	disabled?: boolean;
+	dynamic?: boolean;
 	eventRadius?: number;
 	fill?: string;
 	fixOverflow?: boolean;
@@ -1879,7 +1847,7 @@ interface chartConfig{
 	minWidth?: number;
 	mouseEventDelay?: number;
 	offset?: boolean;
-	on?: any;
+	on?: EventHash;
 	onClick?: { [key: string]: any; };
 	onContext?: { [key: string]: any; };
 	onDblClick?: WebixCallback;
@@ -1897,7 +1865,7 @@ interface chartConfig{
 	scheme?: any;
 	series?: any;
 	shadow?: boolean;
-	tooltip?: any;
+	tooltip?: string|boolean;
 	type?: string;
 	url?: string;
 	value?: string|WebixTemplate;
@@ -1910,7 +1878,7 @@ interface chartConfig{
 	yValue?: string;
 }
 type chartEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onFocus'|'onItemClick'|'onItemDblClick'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface chart extends webix.ui.baseview{
+class chart implements webix.ui.baseview{
 	add(obj:any, index?:number):string|number;
 	addSeries(obj:any):void;
 	adjust():void;
@@ -1967,7 +1935,7 @@ interface chart extends webix.ui.baseview{
 	ungroup(mode:boolean):void;
 	updateItem(id:string|number, data:any):void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -1984,6 +1952,7 @@ interface chart extends webix.ui.baseview{
 	presets: { [key: string]: any; };
 }
 interface checkboxConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	attributes?: any;
@@ -2002,11 +1971,13 @@ interface checkboxConfig{
 	hidden?: boolean;
 	hotkey?: string;
 	id?: string|number;
+	inputAlign?: string;
 	inputHeight?: number;
 	inputPadding?: number;
 	inputWidth?: number;
 	invalidMessage?: string;
 	label?: string;
+	labelAlign?: string;
 	labelPosition?: string;
 	labelRight?: string;
 	labelWidth?: number;
@@ -2015,13 +1986,12 @@ interface checkboxConfig{
 	minHeight?: number;
 	minWidth?: number;
 	name?: string;
-	on?: any;
+	on?: EventHash;
 	popup?: string;
 	relatedAction?: string;
 	relatedView?: string;
 	required?: boolean;
 	suggest?: any;
-	tabFocus?: boolean;
 	tooltip?: string;
 	uncheckValue?: string;
 	validate?: WebixCallback;
@@ -2030,7 +2000,7 @@ interface checkboxConfig{
 	width?: number;
 }
 type checkboxEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface checkbox extends webix.ui.baseview{
+class checkbox implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:checkboxEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -2067,8 +2037,8 @@ interface checkbox extends webix.ui.baseview{
 	unblockEvent():void;
 	validate():boolean;
 
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$render: WebixCallback;
 	$renderIcon: WebixCallback;
@@ -2085,7 +2055,107 @@ interface checkbox extends webix.ui.baseview{
 	on_click: WebixCallback;
 	touchable: boolean;
 }
+interface checksuggestConfig{
+	view?: string;
+	animate?: any;
+	autofit?: boolean;
+	autofocus?: boolean;
+	body?: string|webix.ui.baseview;
+	borderless?: boolean;
+	button?: boolean;
+	buttonText?: string;
+	container?: string|HTMLElement;
+	css?: string;
+	data?: string|any[];
+	disabled?: boolean;
+	filter?: WebixCallback;
+	fitMaster?: boolean;
+	gravity?: number;
+	head?: any;
+	headHeight?: number;
+	height?: number;
+	hidden?: boolean;
+	id?: string|number;
+	input?: HTMLElement|string;
+	keyPressTimeout?: number;
+	left?: number;
+	master?: webix.ui.baseview;
+	maxHeight?: number;
+	maxWidth?: number;
+	minHeight?: number;
+	minWidth?: number;
+	modal?: boolean;
+	move?: boolean;
+	on?: EventHash;
+	padding?: any;
+	position?: string|WebixCallback;
+	relative?: string;
+	resize?: boolean;
+	separator?: string;
+	template?: string|WebixTemplate;
+	textValue?: string;
+	toFront?: boolean;
+	top?: number;
+	type?: string;
+	url?: string;
+	value?: string|number;
+	width?: number;
+	zIndex?: number;
+}
+type checksuggestEventName ='onAfterScroll'|'onBeforeShow'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onHide'|'onKeyPress'|'onLongTouch'|'onShow'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValueSuggest'|'onViewMove'|'onViewMoveEnd'|'onViewResize';
+class checksuggest implements webix.ui.baseview{
+	adjust():void;
+	attachEvent(type:checksuggestEventName, functor:WebixCallback, id?:string):string|number;
+	bind(target:any, rule?:WebixCallback, format?:string):void;
+	blockEvent():void;
+	callEvent(name:string, params:any[]):boolean;
+	close():void;
+	define(property:string, value:any):void;
+	destructor():void;
+	detachEvent(id:string):void;
+	disable():void;
+	enable():void;
+	getBody():any;
+	getButton():webix.ui.baseview;
+	getChildViews():any[];
+	getFormView():webix.ui.baseview;
+	getHead():any;
+	getItemText(id:string|number):string;
+	getList():webix.ui.list;
+	getMasterValue():any;
+	getNode():any;
+	getParentView():any;
+	getSuggestion():string;
+	getTopParentView():webix.ui.baseview;
+	getValue():string|number;
+	hasEvent(name:string):boolean;
+	hide():void;
+	isEnabled():boolean;
+	isVisible():boolean;
+	linkInput(input:HTMLElement):void;
+	mapEvent(map:any):void;
+	resize():void;
+	resizeChildren():void;
+	setMasterValue(value:any):void;
+	setPosition(x:number, y:number):void;
+	setValue(value:string|number):void;
+	show(force?:boolean, animation?:boolean):void;
+	unbind():void;
+	unblockEvent():void;
+
+	$enterKey: WebixCallback;
+	$getSize():any[];
+	$height: number;
+	$scope: any;
+	$setSize(x:number, y:number):boolean;
+	$skin: any;
+	$view: HTMLElement;
+	$width: number;
+	config: checksuggestConfig;
+	name: string;
+}
 interface colorboardConfig{
+	view?: string;
 	animate?: any;
 	borderless?: boolean;
 	cols?: number;
@@ -2102,15 +2172,16 @@ interface colorboardConfig{
 	minHeight?: number;
 	minLightness?: number;
 	minWidth?: number;
-	on?: any;
+	navigation?: boolean;
+	on?: EventHash;
 	palette?: any[];
 	rows?: number;
 	template?: WebixCallback;
 	value?: string;
 	width?: number;
 }
-type colorboardEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface colorboard extends webix.ui.baseview{
+type colorboardEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onKeyPress'|'onLongTouch'|'onSelect'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
+class colorboard implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:colorboardEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -2132,6 +2203,7 @@ interface colorboard extends webix.ui.baseview{
 	isEnabled():boolean;
 	isVisible():boolean;
 	mapEvent(map:any):void;
+	moveSelection(direction:string):void;
 	refresh():void;
 	render(id:string|number, data:any, type:string):void;
 	resize():void;
@@ -2140,7 +2212,7 @@ interface colorboard extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -2152,6 +2224,7 @@ interface colorboard extends webix.ui.baseview{
 	name: string;
 }
 interface colorpickerConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	attributes?: any;
@@ -2171,11 +2244,14 @@ interface colorpickerConfig{
 	hotkey?: string;
 	icons?: boolean;
 	id?: string|number;
+	inputAlign?: string;
 	inputHeight?: number;
 	inputPadding?: number;
 	inputWidth?: number;
+	invalid?: boolean;
 	invalidMessage?: string;
 	label?: string;
+	labelAlign?: string;
 	labelPosition?: string;
 	labelWidth?: number;
 	maxHeight?: number;
@@ -2183,7 +2259,7 @@ interface colorpickerConfig{
 	minHeight?: number;
 	minWidth?: number;
 	name?: string;
-	on?: any;
+	on?: EventHash;
 	placeholder?: string;
 	popup?: string;
 	readonly?: boolean;
@@ -2192,7 +2268,6 @@ interface colorpickerConfig{
 	required?: boolean;
 	stringResult?: boolean;
 	suggest?: any;
-	tabFocus?: boolean;
 	timeIcon?: string;
 	timepicker?: boolean;
 	tooltip?: string;
@@ -2202,7 +2277,7 @@ interface colorpickerConfig{
 	width?: number;
 }
 type colorpickerEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface colorpicker extends webix.ui.baseview{
+class colorpicker implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:colorpickerEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -2240,8 +2315,8 @@ interface colorpicker extends webix.ui.baseview{
 	unblockEvent():void;
 	validate():boolean;
 
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$render: WebixCallback;
 	$renderIcon: WebixCallback;
@@ -2259,6 +2334,7 @@ interface colorpicker extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface comboConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	attributes?: any;
@@ -2276,11 +2352,14 @@ interface comboConfig{
 	hotkey?: string;
 	icon?: string;
 	id?: string|number;
+	inputAlign?: string;
 	inputHeight?: number;
 	inputPadding?: number;
 	inputWidth?: number;
+	invalid?: boolean;
 	invalidMessage?: string;
 	label?: string;
+	labelAlign?: string;
 	labelPosition?: string;
 	labelWidth?: number;
 	maxHeight?: number;
@@ -2288,7 +2367,7 @@ interface comboConfig{
 	minHeight?: number;
 	minWidth?: number;
 	name?: string;
-	on?: any;
+	on?: EventHash;
 	options?: any;
 	placeholder?: string;
 	popup?: string;
@@ -2298,8 +2377,6 @@ interface comboConfig{
 	relatedView?: string;
 	required?: boolean;
 	suggest?: any;
-	tabFocus?: boolean;
-	text?: string;
 	tooltip?: string;
 	type?: string;
 	validate?: WebixCallback;
@@ -2308,7 +2385,7 @@ interface comboConfig{
 	width?: number;
 }
 type comboEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface combo extends webix.ui.baseview{
+class combo implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:comboEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -2324,7 +2401,7 @@ interface combo extends webix.ui.baseview{
 	getChildViews():any[];
 	getFormView():webix.ui.baseview;
 	getInputNode():HTMLElement;
-	getList():webix.ui.baseview;
+	getList():webix.ui.list;
 	getNode():any;
 	getParentView():any;
 	getPopup():webix.ui.baseview;
@@ -2347,8 +2424,8 @@ interface combo extends webix.ui.baseview{
 	unblockEvent():void;
 	validate():boolean;
 
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$render: WebixCallback;
 	$renderIcon: WebixCallback;
@@ -2366,6 +2443,7 @@ interface combo extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface contextConfig{
+	view?: string;
 	animate?: any;
 	autofit?: boolean;
 	autofocus?: boolean;
@@ -2388,7 +2466,7 @@ interface contextConfig{
 	minWidth?: number;
 	modal?: boolean;
 	move?: boolean;
-	on?: any;
+	on?: EventHash;
 	padding?: any;
 	position?: string|WebixCallback;
 	relative?: string;
@@ -2399,7 +2477,7 @@ interface contextConfig{
 	zIndex?: number;
 }
 type contextEventName ='onAfterScroll'|'onBeforeShow'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onHide'|'onKeyPress'|'onLongTouch'|'onShow'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewMove'|'onViewMoveEnd'|'onViewResize';
-interface context extends webix.ui.baseview{
+class context implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:contextEventName, functor:WebixCallback, id?:string):string|number;
 	attachTo(view:any):void;
@@ -2433,7 +2511,7 @@ interface context extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 	show(force:boolean,animation:boolean):void;
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -2444,6 +2522,7 @@ interface context extends webix.ui.baseview{
 	name: string;
 }
 interface contextmenuConfig{
+	view?: string;
 	animate?: any;
 	autofit?: boolean;
 	autofocus?: boolean;
@@ -2481,7 +2560,7 @@ interface contextmenuConfig{
 	move?: boolean;
 	multiselect?: boolean;
 	navigation?: boolean;
-	on?: any;
+	on?: EventHash;
 	onClick?: { [key: string]: any; };
 	onContext?: { [key: string]: any; };
 	onDblClick?: WebixCallback;
@@ -2505,7 +2584,7 @@ interface contextmenuConfig{
 	template?: string|WebixCallback;
 	templateCopy?: WebixCallback;
 	toFront?: boolean;
-	tooltip?: any;
+	tooltip?: string|boolean;
 	top?: number;
 	type?: any;
 	url?: string;
@@ -2514,8 +2593,8 @@ interface contextmenuConfig{
 	yCount?: number;
 	zIndex?: number;
 }
-type contextmenuEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeShow'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onHide'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMenuItemClick'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPaste'|'onSelectChange'|'onShow'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewMove'|'onViewMoveEnd'|'onViewResize';
-interface contextmenu extends webix.ui.baseview{
+type contextmenuEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|''|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|''|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeShow'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onHide'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMenuItemClick'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPaste'|'onSelectChange'|'onShow'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewMove'|'onViewMoveEnd'|'onViewResize';
+class contextmenu implements webix.ui.baseview{
 	add(obj:any, index?:number):string|number;
 	addCss(id:string|number, css:string, silent?:boolean):void;
 	adjust():void;
@@ -2550,7 +2629,7 @@ interface contextmenu extends webix.ui.baseview{
 	getIdByIndex(index:number):string|number;
 	getIndexById(id:string|number):number;
 	getItem(id:string|number):any;
-	getItemNode(id:string|number):void;
+	getItemNode(id:string|number):HTMLElement;
 	getLastId():string|number;
 	getMenu(id:string|number):any;
 	getMenuItem(id:string|number):any;
@@ -2617,7 +2696,7 @@ interface contextmenu extends webix.ui.baseview{
 	$dragOut(source:HTMLElement, old_target:HTMLElement, new_target:HTMLElement, ev:Event):void;
 	$drop(source:HTMLElement, target:HTMLElement, ev:Event):void;
 	$dropAllow: WebixCallback;
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -2634,6 +2713,7 @@ interface contextmenu extends webix.ui.baseview{
 	types: { [key: string]: any; };
 }
 interface counterConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	attributes?: any;
@@ -2650,11 +2730,13 @@ interface counterConfig{
 	hidden?: boolean;
 	hotkey?: string;
 	id?: string|number;
+	inputAlign?: string;
 	inputHeight?: number;
 	inputPadding?: number;
 	inputWidth?: number;
 	invalidMessage?: string;
 	label?: string;
+	labelAlign?: string;
 	labelPosition?: string;
 	labelWidth?: number;
 	max?: number;
@@ -2664,14 +2746,13 @@ interface counterConfig{
 	minHeight?: number;
 	minWidth?: number;
 	name?: string;
-	on?: any;
+	on?: EventHash;
 	popup?: string;
 	relatedAction?: string;
 	relatedView?: string;
 	required?: boolean;
 	step?: number;
 	suggest?: any;
-	tabFocus?: boolean;
 	tooltip?: string;
 	validate?: WebixCallback;
 	validateEvent?: string;
@@ -2679,7 +2760,7 @@ interface counterConfig{
 	width?: number;
 }
 type counterEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface counter extends webix.ui.baseview{
+class counter implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:counterEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -2718,8 +2799,8 @@ interface counter extends webix.ui.baseview{
 	unblockEvent():void;
 	validate():boolean;
 
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$render: WebixCallback;
 	$renderIcon: WebixCallback;
@@ -2737,6 +2818,7 @@ interface counter extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface datasuggestConfig{
+	view?: string;
 	animate?: any;
 	autofit?: boolean;
 	autofocus?: boolean;
@@ -2744,6 +2826,7 @@ interface datasuggestConfig{
 	borderless?: boolean;
 	container?: string|HTMLElement;
 	css?: string;
+	data?: string|any[];
 	disabled?: boolean;
 	filter?: WebixCallback;
 	fitMaster?: boolean;
@@ -2763,7 +2846,7 @@ interface datasuggestConfig{
 	minWidth?: number;
 	modal?: boolean;
 	move?: boolean;
-	on?: any;
+	on?: EventHash;
 	padding?: any;
 	position?: string|WebixCallback;
 	relative?: string;
@@ -2773,11 +2856,12 @@ interface datasuggestConfig{
 	toFront?: boolean;
 	top?: number;
 	type?: string;
+	url?: string;
 	width?: number;
 	zIndex?: number;
 }
 type datasuggestEventName ='onAfterScroll'|'onBeforeShow'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onHide'|'onKeyPress'|'onLongTouch'|'onShow'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValueSuggest'|'onViewMove'|'onViewMoveEnd'|'onViewResize';
-interface datasuggest extends webix.ui.baseview{
+class datasuggest implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:datasuggestEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -2794,7 +2878,7 @@ interface datasuggest extends webix.ui.baseview{
 	getFormView():webix.ui.baseview;
 	getHead():any;
 	getItemText(id:string|number):string;
-	getList():webix.ui.baseview;
+	getList():webix.ui.list;
 	getMasterValue():any;
 	getNode():any;
 	getParentView():any;
@@ -2816,7 +2900,8 @@ interface datasuggest extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 	show(force:boolean,animation:boolean):void;
-	$getSize: any[];
+	$enterKey: WebixCallback;
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -2827,6 +2912,7 @@ interface datasuggest extends webix.ui.baseview{
 	name: string;
 }
 interface datatableConfig{
+	view?: string;
 	animate?: any;
 	areaselect?: boolean;
 	autoConfig?: boolean;
@@ -2880,7 +2966,7 @@ interface datatableConfig{
 	mouseEventDelay?: number;
 	multiselect?: boolean;
 	navigation?: boolean;
-	on?: any;
+	on?: EventHash;
 	onClick?: { [key: string]: any; };
 	onContext?: { [key: string]: any; };
 	onDblClick?: WebixCallback;
@@ -2889,7 +2975,7 @@ interface datatableConfig{
 	prerender?: boolean;
 	ready?: WebixCallback;
 	removeMissed?: boolean;
-	resizeColumn?: boolean;
+	resizeColumn?: any;
 	resizeRow?: boolean;
 	rightSplit?: number;
 	rowHeight?: number;
@@ -2907,13 +2993,14 @@ interface datatableConfig{
 	subrow?: string;
 	subview?: webix.ui.baseview;
 	tooltip?: boolean;
+	topSplit?: number;
 	type?: any;
 	url?: string;
 	width?: number;
 	yCount?: number;
 }
-type datatableEventName ='onAfterAdd'|'onAfterAreaAdd'|'onAfterAreaRemove'|'onAfterBlockSelect'|'onAfterColumnDrop'|'onAfterColumnDropOrder'|'onAfterColumnHide'|'onAfterColumnShow'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|'onAfterEditStart'|'onAfterEditStop'|'onAfterFilter'|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onAfterUnSelect'|'onAreaDrag'|'onBeforeAdd'|'onBeforeAreaAdd'|'onBeforeAreaRemove'|'onBeforeBlockSelect'|'onBeforeColumnDrag'|'onBeforeColumnDrop'|'onBeforeColumnDropOrder'|'onBeforeColumnHide'|'onBeforeColumnShow'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeDropOut'|'onBeforeEditStart'|'onBeforeEditStop'|'onBeforeFilter'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeSort'|'onBeforeUnSelect'|'onBindRequest'|'onBlur'|'onCheck'|'onCollectValues'|'onColumnResize'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onHeaderClick'|'onItemClick'|'onItemDblClick'|'onKeyPress'|'onLiveEdit'|'onLoadError'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onResize'|'onRowResize'|'onScrollX'|'onScrollY'|'onSelectChange'|'onStructureLoad'|'onStructureUpdate'|'onSubViewClose'|'onSubViewCreate'|'onSubViewOpen'|'onSubViewRender'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewResize';
-interface datatable extends webix.ui.baseview{
+type datatableEventName ='onAfterAdd'|'onAfterAreaAdd'|'onAfterAreaRemove'|'onAfterBlockSelect'|'onAfterColumnDrop'|'onAfterColumnDropOrder'|'onAfterColumnHide'|'onAfterColumnShow'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|'onAfterDropOrder'|'onAfterEditStart'|'onAfterEditStop'|'onAfterFilter'|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onAfterUnSelect'|'onAreaDrag'|'onBeforeAdd'|'onBeforeAreaAdd'|'onBeforeAreaRemove'|'onBeforeBlockSelect'|'onBeforeColumnDrag'|'onBeforeColumnDrop'|'onBeforeColumnDropOrder'|'onBeforeColumnHide'|'onBeforeColumnShow'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeDropOrder'|'onBeforeDropOut'|'onBeforeEditStart'|'onBeforeEditStop'|'onBeforeFilter'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeSort'|'onBeforeUnSelect'|'onBindRequest'|'onBlur'|'onCheck'|'onCollectValues'|'onColumnResize'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onEditorChange'|'onFocus'|'onHeaderClick'|'onItemClick'|'onItemDblClick'|'onKeyPress'|'onLiveEdit'|'onLoadError'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onResize'|'onRowResize'|'onScrollX'|'onScrollY'|'onSelectChange'|'onStructureLoad'|'onStructureUpdate'|'onSubViewClose'|'onSubViewCreate'|'onSubViewOpen'|'onSubViewRender'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewResize';
+class datatable implements webix.ui.baseview{
 	add(obj:any, index?:number):string|number;
 	addCellCss(id:string, name:string, css:string):void;
 	addCss(id:string|number, css:string, silent?:boolean):void;
@@ -2944,7 +3031,7 @@ interface datatable extends webix.ui.baseview{
 	eachRow(handler:WebixCallback, all?:boolean):void;
 	edit(id:any):void;
 	editCancel():void;
-	editCell(row:string, col:string, preserve?:boolean, show?:boolean):void;
+	editCell(row:string|number, col:string|number, preserve?:boolean, show?:boolean):void;
 	editColumn(id:string):void;
 	editNext():boolean;
 	editRow(id:string):void;
@@ -2955,10 +3042,12 @@ interface datatable extends webix.ui.baseview{
 	filterByAll():void;
 	find(criterion:WebixCallback, first?:boolean):any;
 	focusEditor():void;
+	freezeRow(id:number|string, state:boolean):void;
 	getAllSelectAreas():any;
 	getChildViews():any[];
 	getColumnConfig(id:string):any;
 	getColumnIndex(id:string|number):number;
+	getCss():void;
 	getEditState():any;
 	getEditor(row?:any, column?:string|number):any;
 	getEditorValue():string;
@@ -2970,7 +3059,7 @@ interface datatable extends webix.ui.baseview{
 	getIdByIndex(index:number):string|number;
 	getIndexById(id:string|number):number;
 	getItem(id:string|number):any;
-	getItemNode(id:string|number):void;
+	getItemNode(id:string|number):HTMLElement;
 	getLastId():string|number;
 	getNextId(id:string|number, step:number):string|number;
 	getNode():any;
@@ -3018,7 +3107,7 @@ interface datatable extends webix.ui.baseview{
 	refreshColumns(config?:any[], reset?:boolean):void;
 	refreshFilter(id:string|number):void;
 	refreshHeaderContent():void;
-	registerFilter(node:HTMLElement, config:any, obj:any):void;
+	registerFilter(object:any, config:any, controller:any):void;
 	remove(id:string|number):void;
 	removeCellCss(id:string, name:string, css_name:string):void;
 	removeCss(id:string|number, css:string, silent?:boolean):void;
@@ -3062,7 +3151,7 @@ interface datatable extends webix.ui.baseview{
 	$dragOut(source:HTMLElement, old_target:HTMLElement, new_target:HTMLElement, ev:Event):void;
 	$drop(source:HTMLElement, target:HTMLElement, ev:Event):void;
 	$dropAllow: WebixCallback;
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -3079,6 +3168,7 @@ interface datatable extends webix.ui.baseview{
 	waitData: webix.promise;
 }
 interface dataviewConfig{
+	view?: string;
 	animate?: any;
 	autoheight?: boolean;
 	borderless?: boolean;
@@ -3106,7 +3196,7 @@ interface dataviewConfig{
 	mouseEventDelay?: number;
 	multiselect?: boolean;
 	navigation?: boolean;
-	on?: any;
+	on?: EventHash;
 	onClick?: { [key: string]: any; };
 	onContext?: { [key: string]: any; };
 	onDblClick?: WebixCallback;
@@ -3121,15 +3211,15 @@ interface dataviewConfig{
 	scrollSpeed?: string;
 	select?: boolean|string;
 	template?: string|WebixCallback;
-	tooltip?: any;
+	tooltip?: string|boolean;
 	type?: any;
 	url?: string;
 	width?: number;
 	xCount?: number;
 	yCount?: number;
 }
-type dataviewEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onSelectChange'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewResize';
-interface dataview extends webix.ui.baseview{
+type dataviewEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|'onAfterDropOrder'|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeDropOrder'|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onSelectChange'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewResize';
+class dataview implements webix.ui.baseview{
 	add(obj:any, index?:number):string|number;
 	addCss(id:string|number, css:string, silent?:boolean):void;
 	adjust():void;
@@ -3157,7 +3247,7 @@ interface dataview extends webix.ui.baseview{
 	getIdByIndex(index:number):string|number;
 	getIndexById(id:string|number):number;
 	getItem(id:string|number):any;
-	getItemNode(id:string|number):void;
+	getItemNode(id:string|number):HTMLElement;
 	getLastId():string|number;
 	getNextId(id:string|number, step:number):string|number;
 	getNode():any;
@@ -3214,7 +3304,7 @@ interface dataview extends webix.ui.baseview{
 	$dragOut(source:HTMLElement, old_target:HTMLElement, new_target:HTMLElement, ev:Event):void;
 	$drop(source:HTMLElement, target:HTMLElement, ev:Event):void;
 	$dropAllow: WebixCallback;
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -3231,7 +3321,87 @@ interface dataview extends webix.ui.baseview{
 	types: { [key: string]: any; };
 	waitData: webix.promise;
 }
-interface datepickerConfig{
+interface daterangeConfig{
+	view?: string;
+	animate?: any;
+	borderless?: boolean;
+	button?: boolean;
+	calendarCount?: number;
+	calendarHeight?: number;
+	cols?: any[];
+	container?: string|HTMLElement;
+	css?: string;
+	disabled?: boolean;
+	gravity?: number;
+	height?: number;
+	hidden?: boolean;
+	icons?: any;
+	id?: string|number;
+	isolate?: boolean;
+	margin?: number;
+	maxHeight?: number;
+	maxWidth?: number;
+	minHeight?: number;
+	minWidth?: number;
+	on?: EventHash;
+	padding?: number;
+	paddingX?: number;
+	paddingY?: number;
+	responsive?: string;
+	rows?: any[];
+	timepicker?: boolean;
+	type?: string;
+	value?: any;
+	visibleBatch?: string;
+	width?: number;
+}
+type daterangeEventName ='onAfterDateSelect'|'onBeforeDateSelect'|'onBindRequest'|'onAfterDateSelect'|'onDateClear'|'onDestruct'|'onTodaySet';
+class daterange implements webix.ui.baseview{
+	addView(view:any, index?:number):webix.ui.baseview;
+	adjust():void;
+	attachEvent(type:daterangeEventName, functor:WebixCallback, id?:string):string|number;
+	bind(target:any, rule?:WebixCallback, format?:string):void;
+	blockEvent():void;
+	callEvent(name:string, params:any[]):boolean;
+	define(property:string, value:any):void;
+	destructor():void;
+	detachEvent(id:string):void;
+	disable():void;
+	enable():void;
+	getChildViews():any[];
+	getFormView():webix.ui.baseview;
+	getNode():any;
+	getParentView():any;
+	getTopParentView():webix.ui.baseview;
+	getValue():any;
+	hasEvent(name:string):boolean;
+	hide():void;
+	index(obj:any):number;
+	isEnabled():boolean;
+	isVisible():boolean;
+	mapEvent(map:any):void;
+	reconstruct():void;
+	refresh():void;
+	removeView(id:string|number):void;
+	resize():void;
+	resizeChildren():void;
+	setValue(range:any):void;
+	show(force?:boolean, animation?:boolean):void;
+	showBatch(name:string):void;
+	unbind():void;
+	unblockEvent():void;
+
+	$getSize():any[];
+	$height: number;
+	$setSize(x:number, y:number):boolean;
+	$skin: any;
+	$view: HTMLElement;
+	$width: number;
+	config: daterangeConfig;
+	name: string;
+}
+interface daterangepickerConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	attributes?: any;
@@ -3252,11 +3422,14 @@ interface datepickerConfig{
 	icon?: string;
 	icons?: boolean;
 	id?: string|number;
+	inputAlign?: string;
 	inputHeight?: number;
 	inputPadding?: number;
 	inputWidth?: number;
+	invalid?: boolean;
 	invalidMessage?: string;
 	label?: string;
+	labelAlign?: string;
 	labelPosition?: string;
 	labelWidth?: number;
 	maxHeight?: number;
@@ -3264,7 +3437,8 @@ interface datepickerConfig{
 	minHeight?: number;
 	minWidth?: number;
 	name?: string;
-	on?: any;
+	on?: EventHash;
+	pattern?: any;
 	placeholder?: string;
 	popup?: string;
 	readonly?: boolean;
@@ -3273,8 +3447,215 @@ interface datepickerConfig{
 	required?: boolean;
 	stringResult?: boolean;
 	suggest?: any;
-	tabFocus?: boolean;
-	text?: string;
+	timeIcon?: string;
+	timepicker?: boolean;
+	tooltip?: string;
+	type?: string;
+	validate?: WebixCallback;
+	validateEvent?: string;
+	value?: string|number;
+	width?: number;
+}
+type daterangepickerEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
+class daterangepicker implements webix.ui.baseview{
+	adjust():void;
+	attachEvent(type:daterangepickerEventName, functor:WebixCallback, id?:string):string|number;
+	bind(target:any, rule?:WebixCallback, format?:string):void;
+	blockEvent():void;
+	blur():void;
+	callEvent(name:string, params:any[]):boolean;
+	define(property:string, value:any):void;
+	destructor():void;
+	detachEvent(id:string):void;
+	disable():void;
+	enable():void;
+	focus():void;
+	getChildViews():any[];
+	getFormView():webix.ui.baseview;
+	getInputNode():HTMLElement;
+	getNode():any;
+	getParentView():any;
+	getPopup():webix.ui.baseview;
+	getText():string;
+	getTopParentView():webix.ui.baseview;
+	getValue():string;
+	hasEvent(name:string):boolean;
+	hide():void;
+	isEnabled():boolean;
+	isVisible():boolean;
+	mapEvent(map:any):void;
+	refresh():void;
+	render(id:string|number, data:any, type:string):void;
+	resize():void;
+	setBottomText(text:string):void;
+	setValue(value:string):void;
+	show(force?:boolean, animation?:boolean):void;
+	sync(source:any, filter:WebixCallback, silent:boolean):void;
+	unbind():void;
+	unblockEvent():void;
+	validate():boolean;
+
+	$cssName: string;
+	$getSize():any[];
+	$getValue():string;
+	$height: number;
+	$render: WebixCallback;
+	$renderIcon: WebixCallback;
+	$renderInput(config:any):HTMLElement;
+	$renderLabel(config:any, id:string|number):string;
+	$scope: any;
+	$setSize(x:number, y:number):boolean;
+	$setValue(value:string):void;
+	$skin: any;
+	$view: HTMLElement;
+	$width: number;
+	config: daterangepickerConfig;
+	name: string;
+	on_click: WebixCallback;
+	touchable: boolean;
+}
+interface daterangesuggestConfig{
+	view?: string;
+	animate?: any;
+	autofit?: boolean;
+	autofocus?: boolean;
+	body?: string|webix.ui.baseview;
+	borderless?: boolean;
+	container?: string|HTMLElement;
+	css?: string;
+	data?: string|any[];
+	disabled?: boolean;
+	filter?: WebixCallback;
+	fitMaster?: boolean;
+	gravity?: number;
+	head?: any;
+	headHeight?: number;
+	height?: number;
+	hidden?: boolean;
+	id?: string|number;
+	input?: HTMLElement|string;
+	keyPressTimeout?: number;
+	left?: number;
+	master?: webix.ui.baseview;
+	maxHeight?: number;
+	maxWidth?: number;
+	minHeight?: number;
+	minWidth?: number;
+	modal?: boolean;
+	move?: boolean;
+	on?: EventHash;
+	padding?: any;
+	position?: string|WebixCallback;
+	relative?: string;
+	resize?: boolean;
+	template?: string|WebixTemplate;
+	textValue?: string;
+	toFront?: boolean;
+	top?: number;
+	type?: string;
+	url?: string;
+	width?: number;
+	zIndex?: number;
+}
+type daterangesuggestEventName ='onAfterScroll'|'onBeforeShow'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onHide'|'onKeyPress'|'onLongTouch'|'onShow'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValueSuggest'|'onViewMove'|'onViewMoveEnd'|'onViewResize';
+class daterangesuggest implements webix.ui.baseview{
+	adjust():void;
+	attachEvent(type:daterangesuggestEventName, functor:WebixCallback, id?:string):string|number;
+	bind(target:any, rule?:WebixCallback, format?:string):void;
+	blockEvent():void;
+	callEvent(name:string, params:any[]):boolean;
+	close():void;
+	define(property:string, value:any):void;
+	destructor():void;
+	detachEvent(id:string):void;
+	disable():void;
+	enable():void;
+	getBody():any;
+	getButton():webix.ui.baseview;
+	getChildViews():any[];
+	getFormView():webix.ui.baseview;
+	getHead():any;
+	getItemText(id:string|number):string;
+	getList():webix.ui.list;
+	getMasterValue():any;
+	getNode():any;
+	getParentView():any;
+	getRange():webix.ui.baseview;
+	getSuggestion():string;
+	getTopParentView():webix.ui.baseview;
+	getValue():string|number;
+	hasEvent(name:string):boolean;
+	hide():void;
+	isEnabled():boolean;
+	isVisible():boolean;
+	linkInput(input:HTMLElement):void;
+	mapEvent(map:any):void;
+	resize():void;
+	resizeChildren():void;
+	setMasterValue(value:any):void;
+	setPosition(x:number, y:number):void;
+	setValue(value:string|number):void;
+	show(force?:boolean, animation?:boolean):void;
+	unbind():void;
+	unblockEvent():void;
+
+	$enterKey: WebixCallback;
+	$getSize():any[];
+	$height: number;
+	$scope: any;
+	$setSize(x:number, y:number):boolean;
+	$skin: any;
+	$view: HTMLElement;
+	$width: number;
+	config: daterangesuggestConfig;
+	name: string;
+}
+interface datepickerConfig{
+	view?: string;
+	align?: string;
+	animate?: any;
+	attributes?: any;
+	autowidth?: boolean;
+	borderless?: boolean;
+	bottomLabel?: string;
+	bottomPadding?: number;
+	click?: WebixCallback;
+	container?: string|HTMLElement;
+	css?: string;
+	disabled?: boolean;
+	editable?: boolean;
+	format?: string;
+	gravity?: number;
+	height?: number;
+	hidden?: boolean;
+	hotkey?: string;
+	icon?: string;
+	icons?: boolean;
+	id?: string|number;
+	inputAlign?: string;
+	inputHeight?: number;
+	inputPadding?: number;
+	inputWidth?: number;
+	invalid?: boolean;
+	invalidMessage?: string;
+	label?: string;
+	labelAlign?: string;
+	labelPosition?: string;
+	labelWidth?: number;
+	maxHeight?: number;
+	maxWidth?: number;
+	minHeight?: number;
+	minWidth?: number;
+	name?: string;
+	on?: EventHash;
+	placeholder?: string;
+	popup?: string;
+	readonly?: boolean;
+	relatedAction?: string;
+	relatedView?: string;
+	required?: boolean;
+	stringResult?: boolean;
+	suggest?: any;
 	timeIcon?: string;
 	timepicker?: boolean;
 	tooltip?: string;
@@ -3285,7 +3666,7 @@ interface datepickerConfig{
 	width?: number;
 }
 type datepickerEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface datepicker extends webix.ui.baseview{
+class datepicker implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:datepickerEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -3323,8 +3704,8 @@ interface datepicker extends webix.ui.baseview{
 	unblockEvent():void;
 	validate():boolean;
 
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$render: WebixCallback;
 	$renderIcon: WebixCallback;
@@ -3342,6 +3723,7 @@ interface datepicker extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface fieldsetConfig{
+	view?: string;
 	animate?: any;
 	body?: webix.ui.baseview;
 	borderless?: boolean;
@@ -3360,7 +3742,7 @@ interface fieldsetConfig{
 	width?: number;
 }
 type fieldsetEventName ='onAfterScroll'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface fieldset extends webix.ui.baseview{
+class fieldset implements webix.ui.baseview{
 	adjust():void;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
 	define(property:string, value:any):void;
@@ -3380,7 +3762,7 @@ interface fieldset extends webix.ui.baseview{
 	show(force?:boolean, animation?:boolean):void;
 	unbind():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -3390,7 +3772,167 @@ interface fieldset extends webix.ui.baseview{
 	config: fieldsetConfig;
 	name: string;
 }
+interface filemanagerConfig{
+	view?: string;
+	animate?: any;
+	borderless?: boolean;
+	cols?: any[];
+	container?: string|HTMLElement;
+	css?: string;
+	data?: string|any[];
+	datathrottle?: number;
+	datatype?: string;
+	disabled?: boolean;
+	disabledHistory?: boolean;
+	filterMode?: any;
+	gravity?: number;
+	handlers?: any;
+	height?: number;
+	hidden?: boolean;
+	icons?: any;
+	id?: string|number;
+	isolate?: boolean;
+	margin?: number;
+	maxHeight?: number;
+	maxWidth?: number;
+	minHeight?: number;
+	minWidth?: number;
+	mode?: string;
+	modes?: any[];
+	on?: EventHash;
+	padding?: number;
+	paddingX?: number;
+	paddingY?: number;
+	readonly?: boolean;
+	ready?: WebixCallback;
+	removeMissed?: boolean;
+	responsive?: string;
+	rows?: any[];
+	save?: string;
+	scheme?: any;
+	structure?: any;
+	templateCreate?: WebixCallback;
+	templateDate?: WebixCallback;
+	templateIcon?: WebixCallback;
+	templateName?: WebixCallback;
+	templateSize?: WebixCallback;
+	templateType?: WebixCallback;
+	type?: string;
+	uploadProgress?: any;
+	url?: string;
+	visibleBatch?: string;
+	width?: number;
+}
+type filemanagerEventName ='onAfterAdd'|'onAfterDelete'|'onAfterDrop'|'onAfterEditStop'|'onAfterHideTree'|'onAfterLevelDown'|'onAfterLoad'|'onAfterRun'|'onAfterShowTree'|'onAfterSort'|'onBeforeAdd'|'onBeforeCreateFolder'|'onBeforeDelete'|'onBeforeDeleteFile'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeEditFile'|'onBeforeEditStop'|'onBeforeHideTree'|'onBeforeLevelDown'|'onBeforeLoad'|'onBeforeMarkCopy'|'onBeforeMarkCut'|'onBeforePasteFile'|'onBeforeRun'|'onBeforeShowTree'|'onBeforeSort'|'onBeforeUploadFile'|'onBindRequest'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onErrorResponse'|'onFolderSelect'|'onHideSearchResults'|'onItemRename'|'onLoadError'|'onSuccessResponse'|'onViewInit';
+class filemanager implements webix.ui.baseview{
+	add(obj:any, index?:number):string|number;
+	addView(view:any, index?:number):webix.ui.baseview;
+	adjust():void;
+	attachEvent(type:filemanagerEventName, functor:WebixCallback, id?:string):string|number;
+	bind(target:any, rule?:WebixCallback, format?:string):void;
+	blockEvent():void;
+	callEvent(name:string, params:any[]):boolean;
+	clearAll():void;
+	copy(sid:string|number, tindex:number, tobj?:webix.ui.baseview, details?:any):string|number;
+	copyFile(source:string|any[], target:string):void;
+	count():number;
+	createFolder(targetId:string):void;
+	define(property:string, value:any):void;
+	deleteFile(ids:string|any[]):void;
+	destructor():void;
+	detachEvent(id:string):void;
+	disable():void;
+	download(id:string):void;
+	editFile(id:string):void;
+	enable():void;
+	exists(id:string|number):boolean;
+	filter(text:string|WebixTemplate|WebixCallback, value:string, preserve:boolean):void;
+	find(criterion:WebixCallback, first?:boolean):any;
+	getActive():string;
+	getActiveView():any;
+	getBranchIndex(id:string|number, parent?:string|number):number;
+	getChildViews():any[];
+	getCurrentFolder():string;
+	getFirstChildId(id:string|number):string;
+	getFirstId():string|number;
+	getFormView():webix.ui.baseview;
+	getIdByIndex(index:number):string|number;
+	getIndexById(id:string|number):number;
+	getItem(id:string|number):any;
+	getLastId():string|number;
+	getMenu():any;
+	getNextId(id:string|number, step:number):string|number;
+	getNextSiblingId(id:string|number):string|number;
+	getNode():any;
+	getParentId(id:string|number):string|number;
+	getParentView():any;
+	getPath(id:string):any[];
+	getPathNames(id:string):any[];
+	getPrevId(id:string|number, step:number):string|number;
+	getPrevSiblingId(id:string|number):string|number;
+	getSearchData(id:string, text:string):any[];
+	getSelectedFile():string|any[];
+	getTopParentView():webix.ui.baseview;
+	getUploader():any;
+	goBack(step:number):void;
+	goForward(step:number):void;
+	hasEvent(name:string):boolean;
+	hide():void;
+	hideProgress():void;
+	hideSearchResults():void;
+	hideTree():void;
+	index(obj:any):number;
+	innerId(id:number|string):number|string;
+	isBranch(id:string|number):boolean;
+	isEnabled():boolean;
+	isVisible():boolean;
+	levelUp(id:string):void;
+	load(url:string, type?:string, callback?:WebixCallback):webix.promise;
+	loadBranch(id:string|number, callback:WebixCallback, url:string):void;
+	loadNext(count:number, start:number, callback:WebixCallback, url:string, now:boolean):void;
+	mapEvent(map:any):void;
+	markCopy(id:string|any[]):void;
+	markCut(id:string|any[]):void;
+	move(sid:string, tindex:number, tobj?:any, details?:any):string;
+	moveFile(source:string, target:string):void;
+	openFolders(folders:any[]):void;
+	parse(data:any, type:string):void;
+	pasteFile(id:string):void;
+	reconstruct():void;
+	refresh(id?:string|number):void;
+	remove(id:string|number):void;
+	removeView(id:string|number):void;
+	renameFile(id:string, name:string, property:string):void;
+	resize():void;
+	resizeChildren():void;
+	serialize():any;
+	setPath(id:string):void;
+	show(force?:boolean, animation?:boolean):void;
+	showBatch(name:string):void;
+	showProgress(config?:any):void;
+	showSearchResults(text:string):void;
+	showTree():void;
+	sort(by:string, dir?:string, as?:string):void;
+	sync(source:any, filter:WebixCallback, silent:boolean):void;
+	ui(view:any):webix.ui.baseview;
+	unbind():void;
+	unblockEvent():void;
+	updateItem(id:string|number, data:any):void;
+	uploadFile(target:string):void;
+
+	$$: any;
+	$dropAllow: WebixCallback;
+	$getSize():any[];
+	$height: number;
+	$setSize(x:number, y:number):boolean;
+	$skin: any;
+	$view: HTMLElement;
+	$width: number;
+	config: filemanagerConfig;
+	name: string;
+}
 interface formConfig{
+	view?: string;
 	animate?: any;
 	autoheight?: boolean;
 	borderless?: boolean;
@@ -3414,7 +3956,7 @@ interface formConfig{
 	maxWidth?: number;
 	minHeight?: number;
 	minWidth?: number;
-	on?: any;
+	on?: EventHash;
 	padding?: number;
 	paddingX?: number;
 	paddingY?: number;
@@ -3429,7 +3971,7 @@ interface formConfig{
 	width?: number;
 }
 type formEventName ='onAfterLoad'|'onAfterScroll'|'onAfterValidation'|'onBeforeLoad'|'onBeforeValidate'|'onBindRequest'|'onChange'|'onDestruct'|'onLoadError'|'onSubmit'|'onValidationError'|'onValidationSuccess'|'onValues';
-interface form extends webix.ui.baseview{
+class form implements webix.ui.baseview{
 	addView(view:any, index?:number):webix.ui.baseview;
 	adjust():void;
 	attachEvent(type:formEventName, functor:WebixCallback, id?:string):string|number;
@@ -3478,7 +4020,7 @@ interface form extends webix.ui.baseview{
 	unblockEvent():void;
 	validate(mode?:any):boolean;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$setSize(x:number, y:number):boolean;
 	$skin: any;
@@ -3487,7 +4029,166 @@ interface form extends webix.ui.baseview{
 	config: formConfig;
 	name: string;
 }
+interface gageConfig{
+	view?: string;
+	animate?: any;
+	borderless?: boolean;
+	container?: string|HTMLElement;
+	css?: string;
+	disabled?: boolean;
+	gravity?: number;
+	height?: number;
+	hidden?: boolean;
+	id?: string|number;
+	label?: string;
+	maxHeight?: number;
+	maxRange?: number;
+	maxWidth?: number;
+	minHeight?: number;
+	minRange?: number;
+	minWidth?: number;
+	on?: EventHash;
+	placeholder?: string;
+	scale?: number;
+	smoothFlow?: boolean;
+	stroke?: number;
+	value?: number;
+	width?: number;
+}
+type gageEventName ='onAfterScroll'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
+class gage implements webix.ui.baseview{
+	adjust():void;
+	attachEvent(type:gageEventName, functor:WebixCallback, id?:string):string|number;
+	bind(target:any, rule?:WebixCallback, format?:string):void;
+	blockEvent():void;
+	callEvent(name:string, params:any[]):boolean;
+	define(property:string, value:any):void;
+	destructor():void;
+	detachEvent(id:string):void;
+	disable():void;
+	enable():void;
+	getChildViews():any[];
+	getFormView():webix.ui.baseview;
+	getNode():any;
+	getParentView():any;
+	getTopParentView():webix.ui.baseview;
+	getValue():number;
+	hasEvent(name:string):boolean;
+	hide():void;
+	isEnabled():boolean;
+	isVisible():boolean;
+	mapEvent(map:any):void;
+	resize():void;
+	setValue(new_value:number):void;
+	show(force?:boolean, animation?:boolean):void;
+	unbind():void;
+	unblockEvent():void;
+
+	$getSize():any[];
+	$height: number;
+	$scope: any;
+	$setSize(x:number, y:number):boolean;
+	$skin: any;
+	$view: HTMLElement;
+	$width: number;
+	config: gageConfig;
+	name: string;
+}
+interface googleMapConfig{
+	view?: string;
+	animate?: any;
+	borderless?: boolean;
+	center?: any[];
+	container?: string|HTMLElement;
+	css?: string;
+	data?: string|any[];
+	dataFeed?: string|WebixCallback;
+	datathrottle?: number;
+	datatype?: string;
+	disabled?: boolean;
+	gravity?: number;
+	height?: number;
+	hidden?: boolean;
+	id?: string|number;
+	layerType?: string;
+	mapType?: string;
+	maxHeight?: number;
+	maxWidth?: number;
+	minHeight?: number;
+	minWidth?: number;
+	on?: EventHash;
+	ready?: WebixCallback;
+	removeMissed?: boolean;
+	save?: string;
+	scheme?: any;
+	url?: string;
+	width?: number;
+	zoom?: number;
+}
+type googleMapEventName ='onAfterAdd'|'onAfterDelete'|'onAfterLoad'|'onAfterScroll'|'onAfterSort'|'onBeforeAdd'|'onBeforeDelete'|'onBeforeLoad'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onFocus'|'onHeatMapRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
+class googleMap implements webix.ui.baseview{
+	add(obj:any, index?:number):string|number;
+	adjust():void;
+	attachEvent(type:googleMapEventName, functor:WebixCallback, id?:string):string|number;
+	bind(target:any, rule?:WebixCallback, format?:string):void;
+	blockEvent():void;
+	callEvent(name:string, params:any[]):boolean;
+	clearAll():void;
+	count():number;
+	define(property:string, value:any):void;
+	destructor():void;
+	detachEvent(id:string):void;
+	disable():void;
+	enable():void;
+	exists(id:string|number):boolean;
+	filter(text:string|WebixTemplate|WebixCallback, value:string, preserve:boolean):void;
+	find(criterion:WebixCallback, first?:boolean):any;
+	getChildViews():any[];
+	getFirstId():string|number;
+	getFormView():webix.ui.baseview;
+	getIdByIndex(index:number):string|number;
+	getIndexById(id:string|number):number;
+	getItem(id:string|number):any;
+	getLastId():string|number;
+	getMap():void;
+	getNextId(id:string|number, step:number):string|number;
+	getNode():any;
+	getParentView():any;
+	getPrevId(id:string|number, step:number):string|number;
+	getTopParentView():webix.ui.baseview;
+	hasEvent(name:string):boolean;
+	hide():void;
+	isEnabled():boolean;
+	isVisible():boolean;
+	load(url:string, type?:string, callback?:WebixCallback):webix.promise;
+	loadNext(count:number, start:number, callback:WebixCallback, url:string, now:boolean):void;
+	mapEvent(map:any):void;
+	parse(data:any, type:string):void;
+	refresh(id?:string|number):void;
+	remove(id:string|number):void;
+	render():void;
+	resize():void;
+	serialize():any;
+	show(force?:boolean, animation?:boolean):void;
+	sort(by:string, dir?:string, as?:string):void;
+	sync(source:any, filter:WebixCallback, silent:boolean):void;
+	unbind():void;
+	unblockEvent():void;
+	updateItem(id:string|number, data:any):void;
+
+	$getSize():any[];
+	$height: number;
+	$onLoad: WebixCallback;
+	$scope: any;
+	$setSize(x:number, y:number):boolean;
+	$skin: any;
+	$view: HTMLElement;
+	$width: number;
+	config: googleMapConfig;
+	name: string;
+}
 interface gridsuggestConfig{
+	view?: string;
 	animate?: any;
 	autofit?: boolean;
 	autofocus?: boolean;
@@ -3495,6 +4196,7 @@ interface gridsuggestConfig{
 	borderless?: boolean;
 	container?: string|HTMLElement;
 	css?: string;
+	data?: string|any[];
 	disabled?: boolean;
 	filter?: WebixCallback;
 	fitMaster?: boolean;
@@ -3514,7 +4216,7 @@ interface gridsuggestConfig{
 	minWidth?: number;
 	modal?: boolean;
 	move?: boolean;
-	on?: any;
+	on?: EventHash;
 	padding?: any;
 	position?: string|WebixCallback;
 	relative?: string;
@@ -3524,11 +4226,12 @@ interface gridsuggestConfig{
 	toFront?: boolean;
 	top?: number;
 	type?: string;
+	url?: string;
 	width?: number;
 	zIndex?: number;
 }
 type gridsuggestEventName ='onAfterScroll'|'onBeforeShow'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onHide'|'onKeyPress'|'onLongTouch'|'onShow'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValueSuggest'|'onViewMove'|'onViewMoveEnd'|'onViewResize';
-interface gridsuggest extends webix.ui.baseview{
+class gridsuggest implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:gridsuggestEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -3545,7 +4248,7 @@ interface gridsuggest extends webix.ui.baseview{
 	getFormView():webix.ui.baseview;
 	getHead():any;
 	getItemText(id:string|number):string;
-	getList():webix.ui.baseview;
+	getList():webix.ui.list;
 	getMasterValue():any;
 	getNode():any;
 	getParentView():any;
@@ -3567,7 +4270,8 @@ interface gridsuggest extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 	show(force:boolean,animation:boolean):void;
-	$getSize: any[];
+	$enterKey: WebixCallback;
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -3578,6 +4282,7 @@ interface gridsuggest extends webix.ui.baseview{
 	name: string;
 }
 interface grouplistConfig{
+	view?: string;
 	animate?: any;
 	autoheight?: boolean;
 	autowidth?: boolean;
@@ -3606,7 +4311,7 @@ interface grouplistConfig{
 	mouseEventDelay?: number;
 	multiselect?: boolean;
 	navigation?: boolean;
-	on?: any;
+	on?: EventHash;
 	onClick?: { [key: string]: any; };
 	onContext?: { [key: string]: any; };
 	onDblClick?: WebixCallback;
@@ -3625,15 +4330,15 @@ interface grouplistConfig{
 	templateCopy?: WebixCallback;
 	templateGroup?: string|WebixCallback;
 	templateItem?: string|WebixCallback;
-	tooltip?: any;
+	tooltip?: string|boolean;
 	type?: any;
 	url?: string;
 	width?: number;
 	xCount?: number;
 	yCount?: number;
 }
-type grouplistEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPaste'|'onSelectChange'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewResize';
-interface grouplist extends webix.ui.baseview{
+type grouplistEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|'onAfterDropOrder'|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeDropOrder'|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPaste'|'onSelectChange'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewResize';
+class grouplist implements webix.ui.baseview{
 	add(obj:any, index?:number):string|number;
 	addCss(id:string|number, css:string, silent?:boolean):void;
 	adjust():void;
@@ -3661,7 +4366,7 @@ interface grouplist extends webix.ui.baseview{
 	getIdByIndex(index:number):string|number;
 	getIndexById(id:string|number):number;
 	getItem(id:string|number):any;
-	getItemNode(id:string|number):void;
+	getItemNode(id:string|number):HTMLElement;
 	getLastId():string|number;
 	getNextId(id:string|number, step:number):string|number;
 	getNode():any;
@@ -3722,7 +4427,7 @@ interface grouplist extends webix.ui.baseview{
 	$dragOut(source:HTMLElement, old_target:HTMLElement, new_target:HTMLElement, ev:Event):void;
 	$drop(source:HTMLElement, target:HTMLElement, ev:Event):void;
 	$dropAllow: WebixCallback;
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -3739,6 +4444,7 @@ interface grouplist extends webix.ui.baseview{
 	types: { [key: string]: any; };
 }
 interface headerlayoutConfig{
+	view?: string;
 	animate?: any;
 	borderless?: boolean;
 	collapsed?: boolean;
@@ -3757,7 +4463,7 @@ interface headerlayoutConfig{
 	minHeight?: number;
 	minWidth?: number;
 	multi?: boolean|string;
-	on?: any;
+	on?: EventHash;
 	padding?: number;
 	paddingX?: number;
 	paddingY?: number;
@@ -3769,7 +4475,7 @@ interface headerlayoutConfig{
 	width?: number;
 }
 type headerlayoutEventName ='onAfterCollapse'|'onAfterExpand'|'onBindRequest'|'onDestruct';
-interface headerlayout extends webix.ui.baseview{
+class headerlayout implements webix.ui.baseview{
 	addView(view:any, index?:number):webix.ui.baseview;
 	adjust():void;
 	attachEvent(type:headerlayoutEventName, functor:WebixCallback, id?:string):string|number;
@@ -3801,7 +4507,7 @@ interface headerlayout extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$setSize(x:number, y:number):boolean;
 	$skin: any;
@@ -3811,6 +4517,7 @@ interface headerlayout extends webix.ui.baseview{
 	name: string;
 }
 interface htmlformConfig{
+	view?: string;
 	animate?: any;
 	autoheight?: boolean;
 	borderless?: boolean;
@@ -3829,7 +4536,7 @@ interface htmlformConfig{
 	maxWidth?: number;
 	minHeight?: number;
 	minWidth?: number;
-	on?: any;
+	on?: EventHash;
 	onClick?: { [key: string]: any; };
 	scroll?: boolean|string;
 	scrollSpeed?: string;
@@ -3839,7 +4546,7 @@ interface htmlformConfig{
 	width?: number;
 }
 type htmlformEventName ='onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onBeforeLoad'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValues'|'onViewResize';
-interface htmlform extends webix.ui.baseview{
+class htmlform implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:htmlformEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -3884,7 +4591,7 @@ interface htmlform extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -3895,6 +4602,7 @@ interface htmlform extends webix.ui.baseview{
 	name: string;
 }
 interface iconConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	autowidth?: boolean;
@@ -3916,15 +4624,14 @@ interface iconConfig{
 	minHeight?: number;
 	minWidth?: number;
 	name?: string;
-	on?: any;
+	on?: EventHash;
 	popup?: string;
-	tabFocus?: boolean;
 	tooltip?: string;
 	value?: string|number;
 	width?: number;
 }
 type iconEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface icon extends webix.ui.baseview{
+class icon implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:iconEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -3958,8 +4665,8 @@ interface icon extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$renderInput(config:any):HTMLElement;
 	$scope: any;
@@ -3974,6 +4681,7 @@ interface icon extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface iframeConfig{
+	view?: string;
 	animate?: any;
 	borderless?: boolean;
 	container?: string|HTMLElement;
@@ -3987,12 +4695,12 @@ interface iframeConfig{
 	maxWidth?: number;
 	minHeight?: number;
 	minWidth?: number;
-	on?: any;
+	on?: EventHash;
 	src?: string;
 	width?: number;
 }
 type iframeEventName ='onAfterLoad'|'onAfterScroll'|'onBeforeLoad'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface iframe extends webix.ui.baseview{
+class iframe implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:iframeEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -4021,7 +4729,7 @@ interface iframe extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -4031,7 +4739,117 @@ interface iframe extends webix.ui.baseview{
 	config: iframeConfig;
 	name: string;
 }
+interface kanbanConfig{
+	view?: string;
+	animate?: any;
+	borderless?: boolean;
+	collapsed?: boolean;
+	cols?: any[];
+	container?: string|HTMLElement;
+	css?: string;
+	data?: string|any[];
+	dataFeed?: string|WebixCallback;
+	datathrottle?: number;
+	datatype?: string;
+	disabled?: boolean;
+	gravity?: number;
+	height?: number;
+	hidden?: boolean;
+	id?: string|number;
+	isolate?: boolean;
+	listFilter?: WebixCallback;
+	margin?: number;
+	maxHeight?: number;
+	maxWidth?: number;
+	minHeight?: number;
+	minWidth?: number;
+	multi?: boolean|string;
+	on?: EventHash;
+	padding?: number;
+	paddingX?: number;
+	paddingY?: number;
+	panelClass?: string;
+	ready?: WebixCallback;
+	removeMissed?: boolean;
+	responsive?: string;
+	rows?: any[];
+	save?: string;
+	scheme?: any;
+	type?: string;
+	url?: string;
+	visibleBatch?: string;
+	width?: number;
+}
+type kanbanEventName ='onAfterAdd'|'onAfterCollapse'|'onAfterDelete'|'onAfterExpand'|'onAfterLoad'|'onAfterSort'|'onBeforeAdd'|'onBeforeDelete'|'onBeforeLoad'|'onBeforeSort'|'onBindRequest'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onLoadError';
+class kanban implements webix.ui.baseview{
+	add(obj:any, index?:number):string|number;
+	addView(view:any, index?:number):webix.ui.baseview;
+	adjust():void;
+	attachEvent(type:kanbanEventName, functor:WebixCallback, id?:string):string|number;
+	bind(target:any, rule?:WebixCallback, format?:string):void;
+	blockEvent():void;
+	callEvent(name:string, params:any[]):boolean;
+	clearAll():void;
+	count():number;
+	define(property:string, value:any):void;
+	destructor():void;
+	detachEvent(id:string):void;
+	disable():void;
+	eachList(func:WebixCallback):void;
+	enable():void;
+	exists(id:string|number):boolean;
+	filter(text:string|WebixTemplate|WebixCallback, value:string, preserve:boolean):void;
+	find(criterion:WebixCallback, first?:boolean):any;
+	getChildViews():any[];
+	getFirstId():string|number;
+	getFormView():webix.ui.baseview;
+	getIdByIndex(index:number):string|number;
+	getIndexById(id:string|number):number;
+	getItem(id:string|number):any;
+	getLastId():string|number;
+	getNextId(id:string|number, step:number):string|number;
+	getNode():any;
+	getOwnerList(itemId:string|number):any;
+	getParentView():any;
+	getPrevId(id:string|number, step:number):string|number;
+	getSelectedId():string|number;
+	getTopParentView():webix.ui.baseview;
+	hasEvent(name:string):boolean;
+	hide():void;
+	index(obj:any):number;
+	isEnabled():boolean;
+	isVisible():boolean;
+	load(url:string, type?:string, callback?:WebixCallback):webix.promise;
+	loadNext(count:number, start:number, callback:WebixCallback, url:string, now:boolean):void;
+	mapEvent(map:any):void;
+	parse(data:any, type:string):void;
+	reconstruct():void;
+	refresh(id?:string|number):void;
+	remove(id:string|number):void;
+	removeView(id:string|number):void;
+	resize():void;
+	resizeChildren():void;
+	select(id:string|number):void;
+	serialize():any;
+	show(force?:boolean, animation?:boolean):void;
+	showBatch(name:string):void;
+	sort(by:string, dir?:string, as?:string):void;
+	sync(source:any, filter:WebixCallback, silent:boolean):void;
+	unbind():void;
+	unblockEvent():void;
+	updateItem(id:string|number, data:any):void;
+
+	$getSize():any[];
+	$height: number;
+	$setSize(x:number, y:number):boolean;
+	$skin: any;
+	$view: HTMLElement;
+	$width: number;
+	config: kanbanConfig;
+	name: string;
+}
 interface labelConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	autowidth?: boolean;
@@ -4054,15 +4872,14 @@ interface labelConfig{
 	minHeight?: number;
 	minWidth?: number;
 	name?: string;
-	on?: any;
+	on?: EventHash;
 	popup?: string;
-	tabFocus?: boolean;
 	tooltip?: string;
 	value?: string|number;
 	width?: number;
 }
 type labelEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface label extends webix.ui.baseview{
+class label implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:labelEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -4097,8 +4914,8 @@ interface label extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$renderInput(config:any):HTMLElement;
 	$scope: any;
@@ -4113,6 +4930,7 @@ interface label extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface layoutConfig{
+	view?: string;
 	animate?: any;
 	borderless?: boolean;
 	cols?: any[];
@@ -4129,7 +4947,7 @@ interface layoutConfig{
 	maxWidth?: number;
 	minHeight?: number;
 	minWidth?: number;
-	on?: any;
+	on?: EventHash;
 	padding?: number;
 	paddingX?: number;
 	paddingY?: number;
@@ -4140,7 +4958,7 @@ interface layoutConfig{
 	width?: number;
 }
 type layoutEventName ='onBindRequest'|'onDestruct';
-interface layout extends webix.ui.baseview{
+class layout implements webix.ui.baseview{
 	addView(view:any, index?:number):webix.ui.baseview;
 	adjust():void;
 	attachEvent(type:layoutEventName, functor:WebixCallback, id?:string):string|number;
@@ -4172,7 +4990,7 @@ interface layout extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$setSize(x:number, y:number):boolean;
 	$skin: any;
@@ -4182,6 +5000,7 @@ interface layout extends webix.ui.baseview{
 	name: string;
 }
 interface listConfig{
+	view?: string;
 	animate?: any;
 	autoheight?: boolean;
 	autowidth?: boolean;
@@ -4210,7 +5029,7 @@ interface listConfig{
 	mouseEventDelay?: number;
 	multiselect?: boolean;
 	navigation?: boolean;
-	on?: any;
+	on?: EventHash;
 	onClick?: { [key: string]: any; };
 	onContext?: { [key: string]: any; };
 	onDblClick?: WebixCallback;
@@ -4226,15 +5045,15 @@ interface listConfig{
 	select?: boolean|string;
 	template?: string|WebixCallback;
 	templateCopy?: WebixCallback;
-	tooltip?: any;
+	tooltip?: string|boolean;
 	type?: any;
 	url?: string;
 	width?: number;
 	xCount?: number;
 	yCount?: number;
 }
-type listEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPaste'|'onSelectChange'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewResize';
-interface list extends webix.ui.baseview{
+type listEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|'onAfterDropOrder'|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeDropOrder'|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPaste'|'onSelectChange'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewResize';
+class list implements webix.ui.baseview{
 	add(obj:any, index?:number):string|number;
 	addCss(id:string|number, css:string, silent?:boolean):void;
 	adjust():void;
@@ -4262,7 +5081,7 @@ interface list extends webix.ui.baseview{
 	getIdByIndex(index:number):string|number;
 	getIndexById(id:string|number):number;
 	getItem(id:string|number):any;
-	getItemNode(id:string|number):void;
+	getItemNode(id:string|number):HTMLElement;
 	getLastId():string|number;
 	getNextId(id:string|number, step:number):string|number;
 	getNode():any;
@@ -4320,7 +5139,7 @@ interface list extends webix.ui.baseview{
 	$dragOut(source:HTMLElement, old_target:HTMLElement, new_target:HTMLElement, ev:Event):void;
 	$drop(source:HTMLElement, target:HTMLElement, ev:Event):void;
 	$dropAllow: WebixCallback;
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -4337,6 +5156,7 @@ interface list extends webix.ui.baseview{
 	types: { [key: string]: any; };
 }
 interface menuConfig{
+	view?: string;
 	animate?: any;
 	autoheight?: boolean;
 	autowidth?: boolean;
@@ -4365,7 +5185,7 @@ interface menuConfig{
 	mouseEventDelay?: number;
 	multiselect?: boolean;
 	navigation?: boolean;
-	on?: any;
+	on?: EventHash;
 	onClick?: { [key: string]: any; };
 	onContext?: { [key: string]: any; };
 	onDblClick?: WebixCallback;
@@ -4384,15 +5204,15 @@ interface menuConfig{
 	submenuConfig?: any;
 	template?: string|WebixCallback;
 	templateCopy?: WebixCallback;
-	tooltip?: any;
+	tooltip?: string|boolean;
 	type?: any;
 	url?: string;
 	width?: number;
 	xCount?: number;
 	yCount?: number;
 }
-type menuEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMenuItemClick'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPaste'|'onSelectChange'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewResize';
-interface menu extends webix.ui.baseview{
+type menuEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|''|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|''|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMenuItemClick'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPaste'|'onSelectChange'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewResize';
+class menu implements webix.ui.baseview{
 	add(obj:any, index?:number):string|number;
 	addCss(id:string|number, css:string, silent?:boolean):void;
 	adjust():void;
@@ -4422,7 +5242,7 @@ interface menu extends webix.ui.baseview{
 	getIdByIndex(index:number):string|number;
 	getIndexById(id:string|number):number;
 	getItem(id:string|number):any;
-	getItemNode(id:string|number):void;
+	getItemNode(id:string|number):HTMLElement;
 	getLastId():string|number;
 	getMenu(id:string|number):any;
 	getMenuItem(id:string|number):any;
@@ -4486,7 +5306,7 @@ interface menu extends webix.ui.baseview{
 	$dragOut(source:HTMLElement, old_target:HTMLElement, new_target:HTMLElement, ev:Event):void;
 	$drop(source:HTMLElement, target:HTMLElement, ev:Event):void;
 	$dropAllow: WebixCallback;
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -4503,6 +5323,7 @@ interface menu extends webix.ui.baseview{
 	types: { [key: string]: any; };
 }
 interface multicomboConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	attributes?: any;
@@ -4520,12 +5341,15 @@ interface multicomboConfig{
 	hidden?: boolean;
 	hotkey?: string;
 	id?: string|number;
+	inputAlign?: string;
 	inputHeight?: number;
 	inputPadding?: number;
 	inputWidth?: number;
+	invalid?: boolean;
 	invalidMessage?: string;
 	keepText?: boolean;
 	label?: string;
+	labelAlign?: string;
 	labelPosition?: string;
 	labelWidth?: number;
 	maxHeight?: number;
@@ -4534,7 +5358,7 @@ interface multicomboConfig{
 	minWidth?: number;
 	name?: string;
 	newValues?: boolean;
-	on?: any;
+	on?: EventHash;
 	optionWidth?: number;
 	options?: any;
 	placeholder?: string;
@@ -4546,10 +5370,8 @@ interface multicomboConfig{
 	required?: boolean;
 	separator?: string;
 	suggest?: any;
-	tabFocus?: boolean;
 	tagMode?: boolean;
 	tagTemplate?: WebixCallback;
-	text?: string;
 	tooltip?: string;
 	validate?: WebixCallback;
 	validateEvent?: string;
@@ -4557,7 +5379,7 @@ interface multicomboConfig{
 	width?: number;
 }
 type multicomboEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface multicombo extends webix.ui.baseview{
+class multicombo implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:multicomboEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -4573,7 +5395,7 @@ interface multicombo extends webix.ui.baseview{
 	getChildViews():any[];
 	getFormView():webix.ui.baseview;
 	getInputNode():HTMLElement;
-	getList():webix.ui.baseview;
+	getList():webix.ui.list;
 	getNode():any;
 	getParentView():any;
 	getPopup():webix.ui.baseview;
@@ -4597,8 +5419,8 @@ interface multicombo extends webix.ui.baseview{
 	validate():boolean;
 
 	$cssName: string;
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$render: WebixCallback;
 	$renderInput(obj:any, html:string, id:string|number):string;
@@ -4615,6 +5437,7 @@ interface multicombo extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface multiselectConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	attributes?: any;
@@ -4632,11 +5455,14 @@ interface multiselectConfig{
 	hotkey?: string;
 	icon?: string;
 	id?: string|number;
+	inputAlign?: string;
 	inputHeight?: number;
 	inputPadding?: number;
 	inputWidth?: number;
+	invalid?: boolean;
 	invalidMessage?: string;
 	label?: string;
+	labelAlign?: string;
 	labelPosition?: string;
 	labelWidth?: number;
 	maxHeight?: number;
@@ -4644,7 +5470,7 @@ interface multiselectConfig{
 	minHeight?: number;
 	minWidth?: number;
 	name?: string;
-	on?: any;
+	on?: EventHash;
 	optionWidth?: number;
 	options?: any;
 	placeholder?: string;
@@ -4656,8 +5482,6 @@ interface multiselectConfig{
 	required?: boolean;
 	separator?: string;
 	suggest?: any;
-	tabFocus?: boolean;
-	text?: string;
 	tooltip?: string;
 	validate?: WebixCallback;
 	validateEvent?: string;
@@ -4665,7 +5489,7 @@ interface multiselectConfig{
 	width?: number;
 }
 type multiselectEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface multiselect extends webix.ui.baseview{
+class multiselect implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:multiselectEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -4681,7 +5505,7 @@ interface multiselect extends webix.ui.baseview{
 	getChildViews():any[];
 	getFormView():webix.ui.baseview;
 	getInputNode():HTMLElement;
-	getList():webix.ui.baseview;
+	getList():webix.ui.list;
 	getNode():any;
 	getParentView():any;
 	getPopup():webix.ui.baseview;
@@ -4705,8 +5529,8 @@ interface multiselect extends webix.ui.baseview{
 	validate():boolean;
 
 	$cssName: string;
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$render: WebixCallback;
 	$renderIcon: WebixCallback;
@@ -4724,6 +5548,7 @@ interface multiselect extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface multisuggestConfig{
+	view?: string;
 	animate?: any;
 	autofit?: boolean;
 	autofocus?: boolean;
@@ -4733,6 +5558,7 @@ interface multisuggestConfig{
 	buttonText?: string;
 	container?: string|HTMLElement;
 	css?: string;
+	data?: string|any[];
 	disabled?: boolean;
 	filter?: WebixCallback;
 	fitMaster?: boolean;
@@ -4752,7 +5578,7 @@ interface multisuggestConfig{
 	minWidth?: number;
 	modal?: boolean;
 	move?: boolean;
-	on?: any;
+	on?: EventHash;
 	padding?: any;
 	position?: string|WebixCallback;
 	relative?: string;
@@ -4763,12 +5589,13 @@ interface multisuggestConfig{
 	toFront?: boolean;
 	top?: number;
 	type?: string;
+	url?: string;
 	value?: string|number;
 	width?: number;
 	zIndex?: number;
 }
 type multisuggestEventName ='onAfterScroll'|'onBeforeShow'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onHide'|'onKeyPress'|'onLongTouch'|'onShow'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValueSuggest'|'onViewMove'|'onViewMoveEnd'|'onViewResize';
-interface multisuggest extends webix.ui.baseview{
+class multisuggest implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:multisuggestEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -4786,7 +5613,7 @@ interface multisuggest extends webix.ui.baseview{
 	getFormView():webix.ui.baseview;
 	getHead():any;
 	getItemText(id:string|number):string;
-	getList():webix.ui.baseview;
+	getList():webix.ui.list;
 	getMasterValue():any;
 	getNode():any;
 	getParentView():any;
@@ -4808,7 +5635,8 @@ interface multisuggest extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
+	$enterKey: WebixCallback;
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -4819,6 +5647,7 @@ interface multisuggest extends webix.ui.baseview{
 	name: string;
 }
 interface multitextConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	attributes?: any;
@@ -4837,11 +5666,14 @@ interface multitextConfig{
 	icon?: string;
 	iconWidth?: string;
 	id?: string|number;
+	inputAlign?: string;
 	inputHeight?: number;
 	inputPadding?: number;
 	inputWidth?: number;
+	invalid?: boolean;
 	invalidMessage?: string;
 	label?: string;
+	labelAlign?: string;
 	labelPosition?: string;
 	labelWidth?: number;
 	maxHeight?: number;
@@ -4849,7 +5681,7 @@ interface multitextConfig{
 	minHeight?: number;
 	minWidth?: number;
 	name?: string;
-	on?: any;
+	on?: EventHash;
 	placeholder?: string;
 	popup?: string;
 	readonly?: boolean;
@@ -4857,8 +5689,8 @@ interface multitextConfig{
 	relatedView?: string;
 	required?: boolean;
 	separator?: string;
+	subConfig?: any;
 	suggest?: any;
-	tabFocus?: boolean;
 	tooltip?: string;
 	validate?: WebixCallback;
 	validateEvent?: string;
@@ -4866,7 +5698,7 @@ interface multitextConfig{
 	width?: number;
 }
 type multitextEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface multitext extends webix.ui.baseview{
+class multitext implements webix.ui.baseview{
 	addSection():string|number;
 	adjust():void;
 	attachEvent(type:multitextEventName, functor:WebixCallback, id?:string):string|number;
@@ -4907,8 +5739,8 @@ interface multitext extends webix.ui.baseview{
 	validate():boolean;
 
 	$cssName: string;
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$render: WebixCallback;
 	$renderIcon: WebixCallback;
@@ -4926,6 +5758,7 @@ interface multitext extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface multiviewConfig{
+	view?: string;
 	animate?: any;
 	borderless?: boolean;
 	cells?: any;
@@ -4943,14 +5776,14 @@ interface multiviewConfig{
 	maxWidth?: number;
 	minHeight?: number;
 	minWidth?: number;
-	on?: any;
+	on?: EventHash;
 	responsive?: string;
 	rows?: any[];
 	visibleBatch?: string;
 	width?: number;
 }
 type multiviewEventName ='onBeforeBack'|'onBindRequest'|'onDestruct'|'onViewChange';
-interface multiview extends webix.ui.baseview{
+class multiview implements webix.ui.baseview{
 	addView(view:any, index?:number):webix.ui.baseview;
 	adjust():void;
 	attachEvent(type:multiviewEventName, functor:WebixCallback, id?:string):string|number;
@@ -4986,7 +5819,7 @@ interface multiview extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$setSize(x:number, y:number):boolean;
 	$skin: any;
@@ -4996,7 +5829,9 @@ interface multiview extends webix.ui.baseview{
 	name: string;
 }
 interface organogramConfig{
+	view?: string;
 	animate?: any;
+	ariaLabel?: string;
 	autoheight?: boolean;
 	autowidth?: boolean;
 	borderless?: boolean;
@@ -5019,7 +5854,7 @@ interface organogramConfig{
 	minWidth?: number;
 	mouseEventDelay?: number;
 	multiselect?: boolean;
-	on?: any;
+	on?: EventHash;
 	onClick?: { [key: string]: any; };
 	onContext?: { [key: string]: any; };
 	onDblClick?: WebixCallback;
@@ -5033,13 +5868,13 @@ interface organogramConfig{
 	select?: boolean|string;
 	template?: string|WebixCallback;
 	threeState?: boolean;
-	tooltip?: any;
+	tooltip?: string|boolean;
 	type?: any;
 	url?: string;
 	width?: number;
 }
 type organogramEventName ='onAfterAdd'|'onAfterClose'|'onAfterContextMenu'|'onAfterDelete'|'onAfterLoad'|'onAfterOpen'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeClose'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeLoad'|'onBeforeOpen'|'onBeforeRender'|'onBeforeSelect'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onFocus'|'onItemCheck'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onSelectChange'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface organogram extends webix.ui.baseview{
+class organogram implements webix.ui.baseview{
 	add(obj:any, index?:number):string|number;
 	addCss(id:string|number, css:string, silent?:boolean):void;
 	adjust():void;
@@ -5069,7 +5904,7 @@ interface organogram extends webix.ui.baseview{
 	getIdByIndex(index:number):string|number;
 	getIndexById(id:string|number):number;
 	getItem(id:string|number):any;
-	getItemNode(id:string|number):void;
+	getItemNode(id:string|number):HTMLElement;
 	getLastId():string|number;
 	getNextId(id:string|number, step:number):string|number;
 	getNextSiblingId(id:string|number):string|number;
@@ -5122,7 +5957,7 @@ interface organogram extends webix.ui.baseview{
 	unselectAll():void;
 	updateItem(id:string|number, data:any):void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -5139,6 +5974,7 @@ interface organogram extends webix.ui.baseview{
 	types: { [key: string]: any; };
 }
 interface pagerConfig{
+	view?: string;
 	animate?: any;
 	apiOnly?: boolean;
 	borderless?: boolean;
@@ -5157,7 +5993,7 @@ interface pagerConfig{
 	minHeight?: number;
 	minWidth?: number;
 	mouseEventDelay?: number;
-	on?: any;
+	on?: EventHash;
 	onClick?: { [key: string]: any; };
 	onContext?: { [key: string]: any; };
 	onDblClick?: WebixCallback;
@@ -5168,7 +6004,7 @@ interface pagerConfig{
 	width?: number;
 }
 type pagerEventName ='onAfterContextMenu'|'onAfterRender'|'onAfterScroll'|'onBeforeContextMenu'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onItemClick'|'onItemDblClick'|'onKeyPress'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface pager extends webix.ui.baseview{
+class pager implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:pagerEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -5200,7 +6036,7 @@ interface pager extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -5215,7 +6051,207 @@ interface pager extends webix.ui.baseview{
 	on_mouse_move: WebixCallback;
 	type: { [key: string]: any; };
 }
+interface pdfviewerConfig{
+	view?: string;
+	animate?: any;
+	borderless?: boolean;
+	container?: string|HTMLElement;
+	css?: string;
+	data?: string|any[];
+	dataFeed?: string|WebixCallback;
+	datatype?: string;
+	disabled?: boolean;
+	downloadName?: string;
+	gravity?: number;
+	height?: number;
+	hidden?: boolean;
+	id?: string|number;
+	maxHeight?: number;
+	maxWidth?: number;
+	minHeight?: number;
+	minWidth?: number;
+	on?: EventHash;
+	scale?: string|number;
+	toolbar?: string;
+	url?: string;
+	width?: number;
+}
+type pdfviewerEventName ='onAfterLoad'|'onAfterScroll'|'onBeforeLoad'|'onBindRequest'|'onBlur'|'onDestruct'|'onDocumentReady'|'onFocus'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onPageRender'|'onScaleChange'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
+class pdfviewer implements webix.ui.baseview{
+	adjust():void;
+	attachEvent(type:pdfviewerEventName, functor:WebixCallback, id?:string):string|number;
+	bind(target:any, rule?:WebixCallback, format?:string):void;
+	blockEvent():void;
+	callEvent(name:string, params:any[]):boolean;
+	clear():void;
+	define(property:string, value:any):void;
+	destructor():void;
+	detachEvent(id:string):void;
+	disable():void;
+	download():void;
+	enable():void;
+	getChildViews():any[];
+	getFormView():webix.ui.baseview;
+	getNode():any;
+	getParentView():any;
+	getTopParentView():webix.ui.baseview;
+	hasEvent(name:string):boolean;
+	hide():void;
+	isEnabled():boolean;
+	isVisible():boolean;
+	load(url:string, type?:string, callback?:WebixCallback):webix.promise;
+	mapEvent(map:any):void;
+	nextPage():void;
+	parse(data:any, type:string):void;
+	prevPage():void;
+	renderPage(page:number):void;
+	resize():void;
+	setScale(scale:string|number, update:boolean):void;
+	show(force?:boolean, animation?:boolean):void;
+	unbind():void;
+	unblockEvent():void;
+	zoomIn():void;
+	zoomOut():void;
+
+	$getSize():any[];
+	$height: number;
+	$numPages: number;
+	$onLoad: WebixCallback;
+	$pageNum: number;
+	$scope: any;
+	$setSize(x:number, y:number):boolean;
+	$skin: any;
+	$view: HTMLElement;
+	$width: number;
+	config: pdfviewerConfig;
+	name: string;
+}
+interface pivotConfig{
+	view?: string;
+	animate?: any;
+	borderless?: boolean;
+	cols?: any[];
+	columnWidth?: number;
+	container?: string|HTMLElement;
+	css?: string;
+	data?: string|any[];
+	datatype?: string;
+	disabled?: boolean;
+	fieldMap?: any;
+	filterLabelAlign?: string;
+	filterLabelWidth?: number;
+	filterMinWidth?: number;
+	filterWidth?: number;
+	footer?: string;
+	gravity?: number;
+	height?: number;
+	hidden?: boolean;
+	id?: string|number;
+	margin?: number;
+	max?: boolean;
+	maxHeight?: number;
+	maxWidth?: number;
+	min?: boolean;
+	minHeight?: number;
+	minWidth?: number;
+	on?: EventHash;
+	padding?: number;
+	paddingX?: number;
+	paddingY?: number;
+	popup?: any;
+	profile?: boolean;
+	readonly?: boolean;
+	readonlyTitle?: string;
+	ready?: WebixCallback;
+	removeMissed?: boolean;
+	responsive?: string;
+	rows?: any[];
+	scheme?: any;
+	structure?: any;
+	totalColumn?: string;
+	type?: string;
+	url?: string;
+	visibleBatch?: string;
+	width?: number;
+	yScaleWidth?: number;
+}
+type pivotEventName ='onAfterAdd'|'onAfterDelete'|'onAfterLoad'|'onAfterSort'|'onBeforeAdd'|'onBeforeDelete'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSort'|'onBindRequest'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onHeaderInit'|'onLoadError'|'onPopup'|'onViewInit';
+class pivot implements webix.ui.baseview{
+	add(obj:any, index?:number):string|number;
+	addOperation(name:string, functor:WebixCallback, options:any):void;
+	addView(view:any, index?:number):webix.ui.baseview;
+	adjust():void;
+	attachEvent(type:pivotEventName, functor:WebixCallback, id?:string):string|number;
+	bind(target:any, rule?:WebixCallback, format?:string):void;
+	blockEvent():void;
+	callEvent(name:string, params:any[]):boolean;
+	clearAll():void;
+	configure():void;
+	count():number;
+	define(property:string, value:any):void;
+	destructor():void;
+	detachEvent(id:string):void;
+	disable():void;
+	enable():void;
+	exists(id:string|number):boolean;
+	filter(text:string|WebixTemplate|WebixCallback, value:string, preserve:boolean):void;
+	find(criterion:WebixCallback, first?:boolean):any;
+	getChildViews():any[];
+	getConfigWindow():any;
+	getFields():any;
+	getFirstId():string|number;
+	getFormView():webix.ui.baseview;
+	getIdByIndex(index:number):string|number;
+	getIndexById(id:string|number):number;
+	getItem(id:string|number):any;
+	getLastId():string|number;
+	getNextId(id:string|number, step:number):string|number;
+	getNode():any;
+	getParentView():any;
+	getPrevId(id:string|number, step:number):string|number;
+	getStructure():any;
+	getTopParentView():webix.ui.baseview;
+	hasEvent(name:string):boolean;
+	hide():void;
+	index(obj:any):number;
+	innerId(id:number|string):number|string;
+	isEnabled():boolean;
+	isVisible():boolean;
+	load(url:string, type?:string, callback?:WebixCallback):webix.promise;
+	mapEvent(map:any):void;
+	parse(data:any, type:string):void;
+	reconstruct():void;
+	refresh(id?:string|number):void;
+	remove(id:string|number):void;
+	removeView(id:string|number):void;
+	render():void;
+	resize():void;
+	resizeChildren():void;
+	serialize():any;
+	setStructure(config:any):void;
+	show(force?:boolean, animation?:boolean):void;
+	showBatch(name:string):void;
+	sort(by:string, dir?:string, as?:string):void;
+	sync(source:any, filter:WebixCallback, silent:boolean):void;
+	ui(view:any):webix.ui.baseview;
+	unbind():void;
+	unblockEvent():void;
+	updateItem(id:string|number, data:any):void;
+
+	$$: any;
+	$divider: string;
+	$getSize():any[];
+	$height: number;
+	$setSize(x:number, y:number):boolean;
+	$skin: any;
+	$view: HTMLElement;
+	$width: number;
+	config: pivotConfig;
+	name: string;
+	operations: any;
+}
 interface popupConfig{
+	view?: string;
 	animate?: any;
 	autofit?: boolean;
 	autofocus?: boolean;
@@ -5237,7 +6273,7 @@ interface popupConfig{
 	minWidth?: number;
 	modal?: boolean;
 	move?: boolean;
-	on?: any;
+	on?: EventHash;
 	padding?: any;
 	position?: string|WebixCallback;
 	relative?: string;
@@ -5248,7 +6284,7 @@ interface popupConfig{
 	zIndex?: number;
 }
 type popupEventName ='onAfterScroll'|'onBeforeShow'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onHide'|'onKeyPress'|'onLongTouch'|'onShow'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewMove'|'onViewMoveEnd'|'onViewResize';
-interface popup extends webix.ui.baseview{
+class popup implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:popupEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -5279,7 +6315,7 @@ interface popup extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 	show(force:boolean,animation:boolean):void;
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -5290,6 +6326,7 @@ interface popup extends webix.ui.baseview{
 	name: string;
 }
 interface portletConfig{
+	view?: string;
 	animate?: any;
 	body?: string|webix.ui.baseview;
 	borderless?: boolean;
@@ -5308,7 +6345,8 @@ interface portletConfig{
 	maxWidth?: number;
 	minHeight?: number;
 	minWidth?: number;
-	on?: any;
+	mode?: string;
+	on?: EventHash;
 	padding?: number;
 	paddingX?: number;
 	paddingY?: number;
@@ -5318,8 +6356,8 @@ interface portletConfig{
 	visibleBatch?: string;
 	width?: number;
 }
-type portletEventName ='onBindRequest'|'onDestruct';
-interface portlet extends webix.ui.baseview{
+type portletEventName ='onAfterPortletMove'|'onBeforePortletMove'|'onBindRequest'|'onDestruct';
+class portlet implements webix.ui.baseview{
 	addView(view:any, index?:number):webix.ui.baseview;
 	adjust():void;
 	attachEvent(type:portletEventName, functor:WebixCallback, id?:string):string|number;
@@ -5354,7 +6392,7 @@ interface portlet extends webix.ui.baseview{
 	unblockEvent():void;
 
 	$drag(source:HTMLElement, ev:Event):string;
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$setSize(x:number, y:number):boolean;
 	$skin: any;
@@ -5364,6 +6402,7 @@ interface portlet extends webix.ui.baseview{
 	name: string;
 }
 interface propertyConfig{
+	view?: string;
 	animate?: any;
 	autoheight?: boolean;
 	borderless?: boolean;
@@ -5389,7 +6428,7 @@ interface propertyConfig{
 	minWidth?: number;
 	mouseEventDelay?: number;
 	nameWidth?: number;
-	on?: any;
+	on?: EventHash;
 	onClick?: { [key: string]: any; };
 	onContext?: { [key: string]: any; };
 	onDblClick?: WebixCallback;
@@ -5397,12 +6436,12 @@ interface propertyConfig{
 	scroll?: boolean|string;
 	scrollSpeed?: string;
 	template?: string|WebixCallback;
-	tooltip?: any;
+	tooltip?: string|boolean;
 	url?: string;
 	width?: number;
 }
 type propertyEventName ='onAfterContextMenu'|'onAfterEditStart'|'onAfterEditStop'|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onBeforeContextMenu'|'onBeforeEditStart'|'onBeforeEditStop'|'onBeforeLoad'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onItemClick'|'onItemDblClick'|'onKeyPress'|'onLiveEdit'|'onLoadError'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface property extends webix.ui.baseview{
+class property implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:propertyEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -5425,7 +6464,7 @@ interface property extends webix.ui.baseview{
 	getEditorValue():string;
 	getFormView():webix.ui.baseview;
 	getItem(id:string):any;
-	getItemNode(id:string|number):void;
+	getItemNode(id:string|number):HTMLElement;
 	getNode():any;
 	getParentView():any;
 	getScrollState():any;
@@ -5453,7 +6492,7 @@ interface property extends webix.ui.baseview{
 	updateItem():void;
 	validateEditor(id?:string|number):boolean;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -5471,6 +6510,7 @@ interface property extends webix.ui.baseview{
 	type: { [key: string]: any; };
 }
 interface radioConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	attributes?: any;
@@ -5488,11 +6528,13 @@ interface radioConfig{
 	hidden?: boolean;
 	hotkey?: string;
 	id?: string|number;
+	inputAlign?: string;
 	inputHeight?: number;
 	inputPadding?: number;
 	inputWidth?: number;
 	invalidMessage?: string;
 	label?: string;
+	labelAlign?: string;
 	labelPosition?: string;
 	labelWidth?: number;
 	maxHeight?: number;
@@ -5500,7 +6542,7 @@ interface radioConfig{
 	minHeight?: number;
 	minWidth?: number;
 	name?: string;
-	on?: any;
+	on?: EventHash;
 	optionHeight?: number;
 	options?: any[];
 	popup?: string;
@@ -5508,7 +6550,6 @@ interface radioConfig{
 	relatedView?: string;
 	required?: boolean;
 	suggest?: any;
-	tabFocus?: boolean;
 	tooltip?: string;
 	validate?: WebixCallback;
 	validateEvent?: string;
@@ -5517,7 +6558,7 @@ interface radioConfig{
 	width?: number;
 }
 type radioEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface radio extends webix.ui.baseview{
+class radio implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:radioEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -5553,8 +6594,8 @@ interface radio extends webix.ui.baseview{
 	unblockEvent():void;
 	validate():boolean;
 
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$render: WebixCallback;
 	$renderIcon: WebixCallback;
@@ -5572,8 +6613,10 @@ interface radio extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface rangechartConfig{
+	view?: string;
 	alpha?: number;
 	animate?: any;
+	ariaLabel?: string;
 	barWidth?: number;
 	border?: boolean;
 	borderColor?: string;
@@ -5608,7 +6651,7 @@ interface rangechartConfig{
 	minWidth?: number;
 	mouseEventDelay?: number;
 	offset?: boolean;
-	on?: any;
+	on?: EventHash;
 	onClick?: { [key: string]: any; };
 	onContext?: { [key: string]: any; };
 	onDblClick?: WebixCallback;
@@ -5627,7 +6670,7 @@ interface rangechartConfig{
 	scheme?: any;
 	series?: any;
 	shadow?: boolean;
-	tooltip?: any;
+	tooltip?: string|boolean;
 	type?: string;
 	url?: string;
 	value?: string|WebixTemplate;
@@ -5640,7 +6683,7 @@ interface rangechartConfig{
 	yValue?: string;
 }
 type rangechartEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterLoad'|'onAfterRangeChange'|'onAfterRender'|'onAfterScroll'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onFocus'|'onItemClick'|'onItemDblClick'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface rangechart extends webix.ui.baseview{
+class rangechart implements webix.ui.baseview{
 	add(obj:any, index?:number):string|number;
 	addSeries(obj:any):void;
 	adjust():void;
@@ -5700,7 +6743,7 @@ interface rangechart extends webix.ui.baseview{
 	ungroup(mode:boolean):void;
 	updateItem(id:string|number, data:any):void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -5717,6 +6760,7 @@ interface rangechart extends webix.ui.baseview{
 	presets: { [key: string]: any; };
 }
 interface rangesliderConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	attributes?: any;
@@ -5733,11 +6777,13 @@ interface rangesliderConfig{
 	hidden?: boolean;
 	hotkey?: string;
 	id?: string|number;
+	inputAlign?: string;
 	inputHeight?: number;
 	inputPadding?: number;
 	inputWidth?: number;
 	invalidMessage?: string;
 	label?: string;
+	labelAlign?: string;
 	labelPosition?: string;
 	labelWidth?: number;
 	max?: number;
@@ -5747,7 +6793,7 @@ interface rangesliderConfig{
 	minHeight?: number;
 	minWidth?: number;
 	name?: string;
-	on?: any;
+	on?: EventHash;
 	popup?: string;
 	relatedAction?: string;
 	relatedView?: string;
@@ -5756,7 +6802,6 @@ interface rangesliderConfig{
 	step?: number;
 	stringResult?: boolean;
 	suggest?: any;
-	tabFocus?: boolean;
 	title?: string|WebixCallback;
 	tooltip?: string;
 	validate?: WebixCallback;
@@ -5765,7 +6810,7 @@ interface rangesliderConfig{
 	width?: number;
 }
 type rangesliderEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSliderDrag'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface rangeslider extends webix.ui.baseview{
+class rangeslider implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:rangesliderEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -5802,8 +6847,8 @@ interface rangeslider extends webix.ui.baseview{
 	validate():boolean;
 
 	$cssName: string;
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$render: WebixCallback;
 	$renderIcon: WebixCallback;
@@ -5822,6 +6867,7 @@ interface rangeslider extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface resizerConfig{
+	view?: string;
 	animate?: any;
 	borderless?: boolean;
 	container?: string|HTMLElement;
@@ -5836,14 +6882,11 @@ interface resizerConfig{
 	minHeight?: number;
 	minWidth?: number;
 	mouseEventDelay?: number;
-	onClick?: { [key: string]: any; };
 	onContext?: { [key: string]: any; };
-	onDblClick?: WebixCallback;
-	onMouseMove?: WebixCallback;
 	width?: number;
 }
-type resizerEventName ='onAfterContextMenu'|'onAfterScroll'|'onBeforeContextMenu'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onItemClick'|'onItemDblClick'|'onKeyPress'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface resizer extends webix.ui.baseview{
+type resizerEventName ='onAfterContextMenu'|'onAfterScroll'|'onBeforeContextMenu'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onItemClick'|'onItemDblClick'|'onKeyPress'|'onLongTouch'|'onMouseMoving'|'onMouseOut'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
+class resizer implements webix.ui.baseview{
 	adjust():void;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
 	define(property:string, value:any):void;
@@ -5862,7 +6905,7 @@ interface resizer extends webix.ui.baseview{
 	show(force?:boolean, animation?:boolean):void;
 	unbind():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -5877,6 +6920,7 @@ interface resizer extends webix.ui.baseview{
 	on_mouse_move: WebixCallback;
 }
 interface richselectConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	attributes?: any;
@@ -5894,11 +6938,14 @@ interface richselectConfig{
 	hotkey?: string;
 	icon?: string;
 	id?: string|number;
+	inputAlign?: string;
 	inputHeight?: number;
 	inputPadding?: number;
 	inputWidth?: number;
+	invalid?: boolean;
 	invalidMessage?: string;
 	label?: string;
+	labelAlign?: string;
 	labelPosition?: string;
 	labelWidth?: number;
 	maxHeight?: number;
@@ -5906,7 +6953,7 @@ interface richselectConfig{
 	minHeight?: number;
 	minWidth?: number;
 	name?: string;
-	on?: any;
+	on?: EventHash;
 	options?: any;
 	placeholder?: string;
 	popup?: string;
@@ -5916,8 +6963,6 @@ interface richselectConfig{
 	relatedView?: string;
 	required?: boolean;
 	suggest?: any;
-	tabFocus?: boolean;
-	text?: string;
 	tooltip?: string;
 	validate?: WebixCallback;
 	validateEvent?: string;
@@ -5925,7 +6970,7 @@ interface richselectConfig{
 	width?: number;
 }
 type richselectEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface richselect extends webix.ui.baseview{
+class richselect implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:richselectEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -5941,7 +6986,7 @@ interface richselect extends webix.ui.baseview{
 	getChildViews():any[];
 	getFormView():webix.ui.baseview;
 	getInputNode():HTMLElement;
-	getList():webix.ui.baseview;
+	getList():webix.ui.list;
 	getNode():any;
 	getParentView():any;
 	getPopup():webix.ui.baseview;
@@ -5964,8 +7009,8 @@ interface richselect extends webix.ui.baseview{
 	unblockEvent():void;
 	validate():boolean;
 
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$render: WebixCallback;
 	$renderIcon: WebixCallback;
@@ -5982,7 +7027,90 @@ interface richselect extends webix.ui.baseview{
 	on_click: WebixCallback;
 	touchable: boolean;
 }
+interface richtextConfig{
+	view?: string;
+	animate?: any;
+	borderless?: boolean;
+	cols?: any[];
+	container?: string|HTMLElement;
+	css?: string;
+	disabled?: boolean;
+	gravity?: number;
+	height?: number;
+	hidden?: boolean;
+	id?: string|number;
+	isolate?: boolean;
+	label?: string;
+	labelPosition?: string;
+	labelWidth?: number;
+	margin?: number;
+	maxHeight?: number;
+	maxWidth?: number;
+	minHeight?: number;
+	minWidth?: number;
+	on?: EventHash;
+	padding?: number;
+	paddingX?: number;
+	paddingY?: number;
+	responsive?: string;
+	rows?: any[];
+	type?: string;
+	value?: string|number;
+	visibleBatch?: string;
+	width?: number;
+}
+type richtextEventName ='onBindRequest'|'onChange'|'onDestruct';
+class richtext implements webix.ui.baseview{
+	addView(view:any, index?:number):webix.ui.baseview;
+	adjust():void;
+	attachEvent(type:richtextEventName, functor:WebixCallback, id?:string):string|number;
+	bind(target:any, rule?:WebixCallback, format?:string):void;
+	blockEvent():void;
+	callEvent(name:string, params:any[]):boolean;
+	define(property:string, value:any):void;
+	destructor():void;
+	detachEvent(id:string):void;
+	disable():void;
+	enable():void;
+	focus():void;
+	getChildViews():any[];
+	getFormView():webix.ui.baseview;
+	getInputNode():HTMLElement;
+	getNode():any;
+	getParentView():any;
+	getTopParentView():webix.ui.baseview;
+	getValue():string;
+	hasEvent(name:string):boolean;
+	hide():void;
+	index(obj:any):number;
+	innerId(id:number|string):number|string;
+	isEnabled():boolean;
+	isVisible():boolean;
+	mapEvent(map:any):void;
+	reconstruct():void;
+	refresh():void;
+	removeView(id:string|number):void;
+	resize():void;
+	resizeChildren():void;
+	setValue(value:string):void;
+	show(force?:boolean, animation?:boolean):void;
+	showBatch(name:string):void;
+	ui(view:any):webix.ui.baseview;
+	unbind():void;
+	unblockEvent():void;
+
+	$$: any;
+	$getSize():any[];
+	$height: number;
+	$setSize(x:number, y:number):boolean;
+	$skin: any;
+	$view: HTMLElement;
+	$width: number;
+	config: richtextConfig;
+	name: string;
+}
 interface scrollviewConfig{
+	view?: string;
 	animate?: any;
 	body?: any;
 	borderless?: boolean;
@@ -5997,13 +7125,13 @@ interface scrollviewConfig{
 	maxWidth?: number;
 	minHeight?: number;
 	minWidth?: number;
-	on?: any;
+	on?: EventHash;
 	scroll?: boolean|string;
 	scrollSpeed?: string;
 	width?: number;
 }
 type scrollviewEventName ='onAfterScroll'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface scrollview extends webix.ui.baseview{
+class scrollview implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:scrollviewEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -6034,7 +7162,7 @@ interface scrollview extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -6045,6 +7173,7 @@ interface scrollview extends webix.ui.baseview{
 	name: string;
 }
 interface searchConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	attributes?: any;
@@ -6062,11 +7191,14 @@ interface searchConfig{
 	hotkey?: string;
 	icon?: string;
 	id?: string|number;
+	inputAlign?: string;
 	inputHeight?: number;
 	inputPadding?: number;
 	inputWidth?: number;
+	invalid?: boolean;
 	invalidMessage?: string;
 	label?: string;
+	labelAlign?: string;
 	labelPosition?: string;
 	labelWidth?: number;
 	maxHeight?: number;
@@ -6074,7 +7206,8 @@ interface searchConfig{
 	minHeight?: number;
 	minWidth?: number;
 	name?: string;
-	on?: any;
+	on?: EventHash;
+	pattern?: any;
 	placeholder?: string;
 	popup?: string;
 	readonly?: boolean;
@@ -6082,7 +7215,6 @@ interface searchConfig{
 	relatedView?: string;
 	required?: boolean;
 	suggest?: any;
-	tabFocus?: boolean;
 	tooltip?: string;
 	type?: string;
 	validate?: WebixCallback;
@@ -6091,7 +7223,7 @@ interface searchConfig{
 	width?: number;
 }
 type searchEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSearchIconClick'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface search extends webix.ui.baseview{
+class search implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:searchEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -6127,8 +7259,8 @@ interface search extends webix.ui.baseview{
 	unblockEvent():void;
 	validate():boolean;
 
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$render: WebixCallback;
 	$renderIcon: WebixCallback;
@@ -6146,6 +7278,7 @@ interface search extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface segmentedConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	attributes?: any;
@@ -6162,11 +7295,13 @@ interface segmentedConfig{
 	hidden?: boolean;
 	hotkey?: string;
 	id?: string|number;
+	inputAlign?: string;
 	inputHeight?: number;
 	inputPadding?: number;
 	inputWidth?: number;
 	invalidMessage?: string;
 	label?: string;
+	labelAlign?: string;
 	labelPosition?: string;
 	labelWidth?: number;
 	maxHeight?: number;
@@ -6175,7 +7310,7 @@ interface segmentedConfig{
 	minWidth?: number;
 	multiview?: boolean;
 	name?: string;
-	on?: any;
+	on?: EventHash;
 	optionWidth?: number;
 	options?: any;
 	popup?: string;
@@ -6183,7 +7318,6 @@ interface segmentedConfig{
 	relatedView?: string;
 	required?: boolean;
 	suggest?: any;
-	tabFocus?: boolean;
 	tooltip?: string;
 	validate?: WebixCallback;
 	validateEvent?: string;
@@ -6191,7 +7325,7 @@ interface segmentedConfig{
 	width?: number;
 }
 type segmentedEventName ='onAfterRender'|'onAfterScroll'|'onAfterTabClick'|'onBeforeRender'|'onBeforeTabClick'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onOptionRemove'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface segmented extends webix.ui.baseview{
+class segmented implements webix.ui.baseview{
 	addOption(id:string|number, value:any, show?:boolean, index?:number):void;
 	adjust():void;
 	attachEvent(type:segmentedEventName, functor:WebixCallback, id?:string):string|number;
@@ -6214,6 +7348,7 @@ interface segmented extends webix.ui.baseview{
 	getValue():string;
 	hasEvent(name:string):boolean;
 	hide():void;
+	hideOption(id:string|number):void;
 	isEnabled():boolean;
 	isVisible():boolean;
 	mapEvent(map:any):void;
@@ -6225,13 +7360,14 @@ interface segmented extends webix.ui.baseview{
 	setBottomText(text:string):void;
 	setValue(value:string):void;
 	show(force?:boolean, animation?:boolean):void;
+	showOption(id:string|number):void;
 	sync(source:any, filter:WebixCallback, silent:boolean):void;
 	unbind():void;
 	unblockEvent():void;
 	validate():boolean;
 
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$render: WebixCallback;
 	$renderIcon: WebixCallback;
@@ -6249,6 +7385,7 @@ interface segmented extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface selectConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	attributes?: any;
@@ -6265,11 +7402,14 @@ interface selectConfig{
 	hidden?: boolean;
 	hotkey?: string;
 	id?: string|number;
+	inputAlign?: string;
 	inputHeight?: number;
 	inputPadding?: number;
 	inputWidth?: number;
+	invalid?: boolean;
 	invalidMessage?: string;
 	label?: string;
+	labelAlign?: string;
 	labelPosition?: string;
 	labelWidth?: number;
 	maxHeight?: number;
@@ -6277,7 +7417,7 @@ interface selectConfig{
 	minHeight?: number;
 	minWidth?: number;
 	name?: string;
-	on?: any;
+	on?: EventHash;
 	options?: any[]|string;
 	placeholder?: string;
 	popup?: string;
@@ -6286,7 +7426,6 @@ interface selectConfig{
 	relatedView?: string;
 	required?: boolean;
 	suggest?: any;
-	tabFocus?: boolean;
 	tooltip?: string;
 	validate?: WebixCallback;
 	validateEvent?: string;
@@ -6294,7 +7433,7 @@ interface selectConfig{
 	width?: number;
 }
 type selectEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface select extends webix.ui.baseview{
+class select implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:selectEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -6325,13 +7464,12 @@ interface select extends webix.ui.baseview{
 	setBottomText(text:string):void;
 	setValue(value:string):void;
 	show(force?:boolean, animation?:boolean):void;
-	sync(source:any, filter:WebixCallback, silent:boolean):void;
 	unbind():void;
 	unblockEvent():void;
 	validate():boolean;
 
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$render: WebixCallback;
 	$renderIcon: WebixCallback;
@@ -6349,6 +7487,7 @@ interface select extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface sidemenuConfig{
+	view?: string;
 	animate?: any;
 	autofit?: boolean;
 	autofocus?: boolean;
@@ -6370,7 +7509,7 @@ interface sidemenuConfig{
 	minWidth?: number;
 	modal?: boolean;
 	move?: boolean;
-	on?: any;
+	on?: EventHash;
 	padding?: any;
 	position?: string|WebixCallback;
 	relative?: string;
@@ -6382,7 +7521,7 @@ interface sidemenuConfig{
 	zIndex?: number;
 }
 type sidemenuEventName ='onAfterScroll'|'onBeforeShow'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onHide'|'onKeyPress'|'onLongTouch'|'onShow'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewMove'|'onViewMoveEnd'|'onViewResize';
-interface sidemenu extends webix.ui.baseview{
+class sidemenu implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:sidemenuEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -6413,7 +7552,7 @@ interface sidemenu extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -6424,6 +7563,7 @@ interface sidemenu extends webix.ui.baseview{
 	name: string;
 }
 interface sliderConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	attributes?: any;
@@ -6440,11 +7580,14 @@ interface sliderConfig{
 	hidden?: boolean;
 	hotkey?: string;
 	id?: string|number;
+	inputAlign?: string;
 	inputHeight?: number;
 	inputPadding?: number;
 	inputWidth?: number;
+	invalid?: boolean;
 	invalidMessage?: string;
 	label?: string;
+	labelAlign?: string;
 	labelPosition?: string;
 	labelWidth?: number;
 	max?: number;
@@ -6454,7 +7597,7 @@ interface sliderConfig{
 	minHeight?: number;
 	minWidth?: number;
 	name?: string;
-	on?: any;
+	on?: EventHash;
 	placeholder?: string;
 	popup?: string;
 	readonly?: boolean;
@@ -6463,7 +7606,6 @@ interface sliderConfig{
 	required?: boolean;
 	step?: number;
 	suggest?: any;
-	tabFocus?: boolean;
 	title?: string|WebixCallback;
 	tooltip?: string;
 	validate?: WebixCallback;
@@ -6472,7 +7614,7 @@ interface sliderConfig{
 	width?: number;
 }
 type sliderEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSliderDrag'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface slider extends webix.ui.baseview{
+class slider implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:sliderEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -6508,8 +7650,8 @@ interface slider extends webix.ui.baseview{
 	unblockEvent():void;
 	validate():boolean;
 
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$render: WebixCallback;
 	$renderIcon: WebixCallback;
@@ -6528,6 +7670,7 @@ interface slider extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface spacerConfig{
+	view?: string;
 	animate?: any;
 	borderless?: boolean;
 	container?: string|HTMLElement;
@@ -6544,7 +7687,7 @@ interface spacerConfig{
 	width?: number;
 }
 type spacerEventName ='onAfterScroll'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface spacer extends webix.ui.baseview{
+class spacer implements webix.ui.baseview{
 	adjust():void;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
 	define(property:string, value:any):void;
@@ -6563,7 +7706,7 @@ interface spacer extends webix.ui.baseview{
 	show(force?:boolean, animation?:boolean):void;
 	unbind():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -6574,11 +7717,14 @@ interface spacer extends webix.ui.baseview{
 	name: string;
 }
 interface spreadsheetConfig{
+	view?: string;
 	animate?: any;
 	borderless?: boolean;
+	bottombar?: boolean;
 	buttons?: any;
 	cols?: any[];
 	columnCount?: number;
+	conditionStyle?: any[];
 	container?: string|HTMLElement;
 	css?: string;
 	data?: string|any[];
@@ -6594,9 +7740,10 @@ interface spreadsheetConfig{
 	math?: boolean;
 	maxHeight?: number;
 	maxWidth?: number;
+	menu?: boolean;
 	minHeight?: number;
 	minWidth?: number;
-	on?: any;
+	on?: EventHash;
 	padding?: number;
 	paddingX?: number;
 	paddingY?: number;
@@ -6605,27 +7752,46 @@ interface spreadsheetConfig{
 	responsive?: string;
 	rowCount?: number;
 	rows?: any[];
+	sheetTabWidth?: number;
 	subbar?: any;
+	toolbar?: string;
 	type?: string;
 	url?: string;
 	visibleBatch?: string;
 	width?: number;
 }
-type spreadsheetEventName ='onAfterLoad'|'onAfterSelect'|'onBeforeLoad'|'onBeforeSpan'|'onBeforeSplit'|'onBindRequest'|'onCellChange'|'onComponentInit'|'onDataParse'|'onDataSerialize'|'onDestruct'|'onLoadError'|'onReset';
-interface spreadsheet extends webix.ui.baseview{
+type spreadsheetEventName ='onAfterLoad'|'onAfterSelect'|'onBeforeLoad'|'onBeforeSpan'|'onBeforeSplit'|'onBeforeValueChange'|'onBindRequest'|'onCellChange'|'onComponentInit'|'onDataParse'|'onDataSerialize'|'onDestruct'|'onLoadError'|'onReset'|'onStyleSet';
+class spreadsheet implements webix.ui.baseview{
+	addFilter(rowId:number, columnId:number):void;
+	addImage(rowId:number, columnId:number, url:string):void;
+	addSheet(content:any):void;
+	addSparkline(rowId:number, columnId:number, config:any):void;
+	addStyle(styleProps:any, baseStyle:any):void;
 	addView(view:any, index?:number):webix.ui.baseview;
 	adjust():void;
+	alert(config:any):HTMLElement;
 	attachEvent(type:spreadsheetEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
 	blockEvent():void;
 	callEvent(name:string, params:any[]):boolean;
+	clearRange(rangeStr:string, type:any):void;
+	clearSheet():void;
 	combineCells(range:any):void;
+	confirm(config:any):void;
 	define(property:string, value:any):void;
+	deleteColumn(columnId:number):void;
+	deleteRow(rowId:number):void;
 	destructor():void;
 	detachEvent(id:string):void;
 	disable():void;
 	eachSelectedCell(handler:WebixCallback):void;
+	editSheet(name:string):void;
 	enable():void;
+	filterSpreadSheet():void;
+	freezeColumns(columns:number):void;
+	freezeRows(rows:number):void;
+	getActiveSheet():string;
+	getCellEditor(row:number, column:number):any;
 	getCellValue(row:number, column:number):string;
 	getChildViews():any[];
 	getColumn(id:string):any;
@@ -6634,30 +7800,52 @@ interface spreadsheet extends webix.ui.baseview{
 	getParentView():any;
 	getRow(id:string):any;
 	getSelectedId():any[];
-	getStyle(row:number, column:number):string;
+	getSelectedRange():string;
+	getStyle(row:number, column:number):any;
 	getTopParentView():webix.ui.baseview;
 	hasEvent(name:string):boolean;
 	hide():void;
+	hideColumn(columnId:number, state:boolean):void;
+	hideGridlines(state:boolean):void;
+	hideHeaders(state:boolean):void;
+	hideRow(rowId:number, state:boolean):void;
 	index(obj:any):number;
-	innerId(id:string|number):string|number;
+	innerId(id:number|string):number|string;
+	insertColumn(columnId:number):void;
+	insertRow(rowId:number):void;
+	isCellLocked(rowId:number, columnId:number):boolean;
+	isColumnVisible(columnId:number):boolean;
 	isEnabled():boolean;
+	isRowVisible(rowId:number):boolean;
 	isVisible():boolean;
 	load(url:string, type?:string, callback?:WebixCallback):webix.promise;
+	lockCell(rowId:number, columnId:number, state:boolean):void;
 	mapEvent(map:any):void;
 	parse(data:any, type:string):void;
 	reconstruct():void;
 	redo():void;
 	refresh():void;
+	removeFilter():void;
+	removeSheet(name:string):void;
 	removeView(id:string|number):void;
+	renameSheet(name:string, newName:string):void;
 	reset():void;
+	resetUndo():void;
 	resize():void;
 	resizeChildren():void;
 	saveCell(row:number, column:number):void;
 	serialize():any;
+	setCellEditor(rowId:number, columnId:number, editorObject:any):void;
+	setCellFilter(rowId:number, columnId:number, options:string|any[]):void;
 	setCellValue(row:number, column:any, value:string):void;
-	setStyle(row:number, column:number, style:string):void;
+	setFormat(rowId:number, columnId:number, format:string):void;
+	setRangeStyle(rangeStr:string, style:any):void;
+	setRangeValue(range:string):void;
+	setStyle(row:number, column:number, style:any):void;
 	show(force?:boolean, animation?:boolean):void;
 	showBatch(name:string):void;
+	showSheet(name:string):void;
+	sortRange(range:string, dir:string):void;
 	splitCell(row:number, column:number):void;
 	ui(view:any):webix.ui.baseview;
 	unbind():void;
@@ -6665,7 +7853,7 @@ interface spreadsheet extends webix.ui.baseview{
 	undo(id:string):void;
 
 	$$: any;
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$setSize(x:number, y:number):boolean;
 	$skin: any;
@@ -6675,6 +7863,7 @@ interface spreadsheet extends webix.ui.baseview{
 	name: string;
 }
 interface submenuConfig{
+	view?: string;
 	animate?: any;
 	autofit?: boolean;
 	autofocus?: boolean;
@@ -6711,7 +7900,7 @@ interface submenuConfig{
 	move?: boolean;
 	multiselect?: boolean;
 	navigation?: boolean;
-	on?: any;
+	on?: EventHash;
 	onClick?: { [key: string]: any; };
 	onContext?: { [key: string]: any; };
 	onDblClick?: WebixCallback;
@@ -6735,7 +7924,7 @@ interface submenuConfig{
 	template?: string|WebixCallback;
 	templateCopy?: WebixCallback;
 	toFront?: boolean;
-	tooltip?: any;
+	tooltip?: string|boolean;
 	top?: number;
 	type?: any;
 	url?: string;
@@ -6744,8 +7933,8 @@ interface submenuConfig{
 	yCount?: number;
 	zIndex?: number;
 }
-type submenuEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeShow'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onHide'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMenuItemClick'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPaste'|'onSelectChange'|'onShow'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewMove'|'onViewMoveEnd'|'onViewResize';
-interface submenu extends webix.ui.baseview{
+type submenuEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|''|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|''|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeShow'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onHide'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMenuItemClick'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPaste'|'onSelectChange'|'onShow'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewMove'|'onViewMoveEnd'|'onViewResize';
+class submenu implements webix.ui.baseview{
 	add(obj:any, index?:number):string|number;
 	addCss(id:string|number, css:string, silent?:boolean):void;
 	adjust():void;
@@ -6778,7 +7967,7 @@ interface submenu extends webix.ui.baseview{
 	getIdByIndex(index:number):string|number;
 	getIndexById(id:string|number):number;
 	getItem(id:string|number):any;
-	getItemNode(id:string|number):void;
+	getItemNode(id:string|number):HTMLElement;
 	getLastId():string|number;
 	getMenu(id:string|number):any;
 	getMenuItem(id:string|number):any;
@@ -6844,7 +8033,7 @@ interface submenu extends webix.ui.baseview{
 	$dragOut(source:HTMLElement, old_target:HTMLElement, new_target:HTMLElement, ev:Event):void;
 	$drop(source:HTMLElement, target:HTMLElement, ev:Event):void;
 	$dropAllow: WebixCallback;
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -6861,6 +8050,7 @@ interface submenu extends webix.ui.baseview{
 	types: { [key: string]: any; };
 }
 interface suggestConfig{
+	view?: string;
 	animate?: any;
 	autofit?: boolean;
 	autofocus?: boolean;
@@ -6868,6 +8058,7 @@ interface suggestConfig{
 	borderless?: boolean;
 	container?: string|HTMLElement;
 	css?: string;
+	data?: string|any[];
 	disabled?: boolean;
 	filter?: WebixCallback;
 	fitMaster?: boolean;
@@ -6887,7 +8078,7 @@ interface suggestConfig{
 	minWidth?: number;
 	modal?: boolean;
 	move?: boolean;
-	on?: any;
+	on?: EventHash;
 	padding?: any;
 	position?: string|WebixCallback;
 	relative?: string;
@@ -6897,11 +8088,12 @@ interface suggestConfig{
 	toFront?: boolean;
 	top?: number;
 	type?: string;
+	url?: string;
 	width?: number;
 	zIndex?: number;
 }
 type suggestEventName ='onAfterScroll'|'onBeforeShow'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onHide'|'onKeyPress'|'onLongTouch'|'onShow'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValueSuggest'|'onViewMove'|'onViewMoveEnd'|'onViewResize';
-interface suggest extends webix.ui.baseview{
+class suggest implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:suggestEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -6918,7 +8110,7 @@ interface suggest extends webix.ui.baseview{
 	getFormView():webix.ui.baseview;
 	getHead():any;
 	getItemText(id:string|number):string;
-	getList():webix.ui.baseview;
+	getList():webix.ui.list;
 	getMasterValue():any;
 	getNode():any;
 	getParentView():any;
@@ -6940,7 +8132,8 @@ interface suggest extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 	show(force:boolean,animation:boolean):void;
-	$getSize: any[];
+	$enterKey: WebixCallback;
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -6951,6 +8144,7 @@ interface suggest extends webix.ui.baseview{
 	name: string;
 }
 interface tabbarConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	attributes?: any;
@@ -6968,11 +8162,14 @@ interface tabbarConfig{
 	hidden?: boolean;
 	hotkey?: string;
 	id?: string|number;
+	inputAlign?: string;
 	inputHeight?: number;
 	inputPadding?: number;
 	inputWidth?: number;
+	invalid?: boolean;
 	invalidMessage?: string;
 	label?: string;
+	labelAlign?: string;
 	labelPosition?: string;
 	labelWidth?: number;
 	maxHeight?: number;
@@ -6982,7 +8179,7 @@ interface tabbarConfig{
 	moreTemplate?: WebixCallback;
 	multiview?: boolean;
 	name?: string;
-	on?: any;
+	on?: EventHash;
 	optionWidth?: number;
 	options?: any;
 	placeholder?: string;
@@ -6994,13 +8191,11 @@ interface tabbarConfig{
 	relatedView?: string;
 	required?: boolean;
 	suggest?: any;
-	tabFocus?: boolean;
 	tabMargin?: number;
 	tabMinWidth?: number;
 	tabMoreWidth?: number;
 	tabOffset?: number;
 	tabbarPopup?: webix.ui.baseview;
-	tooltip?: string;
 	topOffset?: number;
 	type?: string;
 	validate?: WebixCallback;
@@ -7010,7 +8205,7 @@ interface tabbarConfig{
 	yCount?: number;
 }
 type tabbarEventName ='onAfterRender'|'onAfterScroll'|'onAfterTabClick'|'onBeforeRender'|'onBeforeTabClick'|'onBeforeTabClose'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onOptionRemove'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface tabbar extends webix.ui.baseview{
+class tabbar implements webix.ui.baseview{
 	addOption(id:string|number, value:any, show?:boolean, index?:number):void;
 	adjust():void;
 	attachEvent(type:tabbarEventName, functor:WebixCallback, id?:string):string|number;
@@ -7034,6 +8229,7 @@ interface tabbar extends webix.ui.baseview{
 	getValue():string;
 	hasEvent(name:string):boolean;
 	hide():void;
+	hideOption(id:string|number):void;
 	isEnabled():boolean;
 	isVisible():boolean;
 	mapEvent(map:any):void;
@@ -7045,13 +8241,14 @@ interface tabbar extends webix.ui.baseview{
 	setBottomText(text:string):void;
 	setValue(value:string):void;
 	show(force?:boolean, animation?:boolean):void;
+	showOption(id:string|number):void;
 	sync(source:any, filter:WebixCallback, silent:boolean):void;
 	unbind():void;
 	unblockEvent():void;
 	validate():boolean;
 
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$render: WebixCallback;
 	$renderIcon: WebixCallback;
@@ -7069,6 +8266,7 @@ interface tabbar extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface tabviewConfig{
+	view?: string;
 	animate?: any;
 	borderless?: boolean;
 	cells?: any[];
@@ -7087,7 +8285,7 @@ interface tabviewConfig{
 	minHeight?: number;
 	minWidth?: number;
 	multiview?: any;
-	on?: any;
+	on?: EventHash;
 	padding?: number;
 	paddingX?: number;
 	paddingY?: number;
@@ -7099,7 +8297,7 @@ interface tabviewConfig{
 	width?: number;
 }
 type tabviewEventName ='onBindRequest'|'onDestruct';
-interface tabview extends webix.ui.baseview{
+class tabview implements webix.ui.baseview{
 	addView(view:any):webix.ui.baseview;
 	adjust():void;
 	attachEvent(type:tabviewEventName, functor:WebixCallback, id?:string):string|number;
@@ -7135,7 +8333,7 @@ interface tabview extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$setSize(x:number, y:number):boolean;
 	$skin: any;
@@ -7145,6 +8343,7 @@ interface tabview extends webix.ui.baseview{
 	name: string;
 }
 interface templateConfig{
+	view?: string;
 	animate?: any;
 	autoheight?: boolean;
 	borderless?: boolean;
@@ -7163,7 +8362,7 @@ interface templateConfig{
 	maxWidth?: number;
 	minHeight?: number;
 	minWidth?: number;
-	on?: any;
+	on?: EventHash;
 	onClick?: { [key: string]: any; };
 	scroll?: boolean|string;
 	scrollSpeed?: string;
@@ -7174,7 +8373,7 @@ interface templateConfig{
 	width?: number;
 }
 type templateEventName ='onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onBeforeLoad'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface template extends webix.ui.baseview{
+class template implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:templateEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -7211,7 +8410,7 @@ interface template extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -7222,6 +8421,7 @@ interface template extends webix.ui.baseview{
 	name: string;
 }
 interface textConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	attributes?: any;
@@ -7239,11 +8439,14 @@ interface textConfig{
 	hotkey?: string;
 	icon?: string;
 	id?: string|number;
+	inputAlign?: string;
 	inputHeight?: number;
 	inputPadding?: number;
 	inputWidth?: number;
+	invalid?: boolean;
 	invalidMessage?: string;
 	label?: string;
+	labelAlign?: string;
 	labelPosition?: string;
 	labelWidth?: number;
 	maxHeight?: number;
@@ -7251,7 +8454,8 @@ interface textConfig{
 	minHeight?: number;
 	minWidth?: number;
 	name?: string;
-	on?: any;
+	on?: EventHash;
+	pattern?: any;
 	placeholder?: string;
 	popup?: string;
 	readonly?: boolean;
@@ -7259,7 +8463,6 @@ interface textConfig{
 	relatedView?: string;
 	required?: boolean;
 	suggest?: any;
-	tabFocus?: boolean;
 	tooltip?: string;
 	type?: string;
 	validate?: WebixCallback;
@@ -7268,7 +8471,7 @@ interface textConfig{
 	width?: number;
 }
 type textEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface text extends webix.ui.baseview{
+class text implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:textEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -7304,8 +8507,8 @@ interface text extends webix.ui.baseview{
 	unblockEvent():void;
 	validate():boolean;
 
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$render: WebixCallback;
 	$renderIcon: WebixCallback;
@@ -7323,6 +8526,7 @@ interface text extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface textareaConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	attributes?: any;
@@ -7339,11 +8543,14 @@ interface textareaConfig{
 	hidden?: boolean;
 	hotkey?: string;
 	id?: string|number;
+	inputAlign?: string;
 	inputHeight?: number;
 	inputPadding?: number;
 	inputWidth?: number;
+	invalid?: boolean;
 	invalidMessage?: string;
 	label?: string;
+	labelAlign?: string;
 	labelPosition?: string;
 	labelWidth?: number;
 	maxHeight?: number;
@@ -7351,7 +8558,8 @@ interface textareaConfig{
 	minHeight?: number;
 	minWidth?: number;
 	name?: string;
-	on?: any;
+	on?: EventHash;
+	pattern?: any;
 	placeholder?: string;
 	popup?: string;
 	readonly?: boolean;
@@ -7359,7 +8567,6 @@ interface textareaConfig{
 	relatedView?: string;
 	required?: boolean;
 	suggest?: any;
-	tabFocus?: boolean;
 	tooltip?: string;
 	validate?: WebixCallback;
 	validateEvent?: string;
@@ -7367,7 +8574,7 @@ interface textareaConfig{
 	width?: number;
 }
 type textareaEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface textarea extends webix.ui.baseview{
+class textarea implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:textareaEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -7403,8 +8610,8 @@ interface textarea extends webix.ui.baseview{
 	unblockEvent():void;
 	validate():boolean;
 
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$render: WebixCallback;
 	$renderIcon: WebixCallback;
@@ -7422,6 +8629,7 @@ interface textarea extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface toggleConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	autowidth?: boolean;
@@ -7445,18 +8653,17 @@ interface toggleConfig{
 	name?: string;
 	offIcon?: string;
 	offLabel?: string;
-	on?: any;
+	on?: EventHash;
 	onIcon?: string;
 	onLabel?: string;
 	popup?: string;
-	tabFocus?: boolean;
 	tooltip?: string;
 	type?: string;
 	value?: string|number;
 	width?: number;
 }
 type toggleEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onChange'|'onDestruct'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface toggle extends webix.ui.baseview{
+class toggle implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:toggleEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -7491,8 +8698,8 @@ interface toggle extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$renderInput(config:any):HTMLElement;
 	$scope: any;
@@ -7507,6 +8714,7 @@ interface toggle extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface toolbarConfig{
+	view?: string;
 	animate?: any;
 	borderless?: boolean;
 	cols?: any[];
@@ -7529,7 +8737,7 @@ interface toolbarConfig{
 	maxWidth?: number;
 	minHeight?: number;
 	minWidth?: number;
-	on?: any;
+	on?: EventHash;
 	padding?: number;
 	paddingX?: number;
 	paddingY?: number;
@@ -7544,7 +8752,7 @@ interface toolbarConfig{
 	width?: number;
 }
 type toolbarEventName ='onAfterLoad'|'onAfterScroll'|'onAfterValidation'|'onBeforeLoad'|'onBeforeValidate'|'onBindRequest'|'onChange'|'onDestruct'|'onLoadError'|'onValidationError'|'onValidationSuccess'|'onValues';
-interface toolbar extends webix.ui.baseview{
+class toolbar implements webix.ui.baseview{
 	addView(view:any, index?:number):webix.ui.baseview;
 	adjust():void;
 	attachEvent(type:toolbarEventName, functor:WebixCallback, id?:string):string|number;
@@ -7593,7 +8801,7 @@ interface toolbar extends webix.ui.baseview{
 	unblockEvent():void;
 	validate(mode?:any):boolean;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$setSize(x:number, y:number):boolean;
 	$skin: any;
@@ -7603,6 +8811,7 @@ interface toolbar extends webix.ui.baseview{
 	name: string;
 }
 interface tooltipConfig{
+	view?: string;
 	animate?: any;
 	borderless?: boolean;
 	container?: string|HTMLElement;
@@ -7618,15 +8827,14 @@ interface tooltipConfig{
 	maxWidth?: number;
 	minHeight?: number;
 	minWidth?: number;
-	on?: any;
+	on?: EventHash;
 	template?: string|WebixCallback;
 	width?: number;
 }
 type tooltipEventName ='onAfterRender'|'onAfterScroll'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface tooltip extends webix.ui.baseview{
+class tooltip{
 	adjust():void;
 	attachEvent(type:tooltipEventName, functor:WebixCallback, id?:string):string|number;
-	bind(target:any, rule?:WebixCallback, format?:string):void;
 	blockEvent():void;
 	callEvent(name:string, params:any[]):boolean;
 	customize(obj:any):void;
@@ -7647,12 +8855,10 @@ interface tooltip extends webix.ui.baseview{
 	mapEvent(map:any):void;
 	render(id:string|number, data:any, type:string):void;
 	resize():void;
-	show(force?:boolean, animation?:boolean):void;
-	sync(source:any, filter:WebixCallback, silent:boolean):void;
-	unbind():void;
+	show(data:any, position:any):void;
 	unblockEvent():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -7664,6 +8870,7 @@ interface tooltip extends webix.ui.baseview{
 	type: { [key: string]: any; };
 }
 interface treeConfig{
+	view?: string;
 	animate?: any;
 	borderless?: boolean;
 	click?: string|WebixCallback;
@@ -7688,7 +8895,7 @@ interface treeConfig{
 	mouseEventDelay?: number;
 	multiselect?: boolean|string;
 	navigation?: boolean;
-	on?: any;
+	on?: EventHash;
 	onClick?: { [key: string]: any; };
 	onContext?: { [key: string]: any; };
 	onDblClick?: WebixCallback;
@@ -7704,13 +8911,13 @@ interface treeConfig{
 	template?: string|WebixCallback;
 	templateCopy?: WebixCallback;
 	threeState?: boolean;
-	tooltip?: any;
+	tooltip?: string|boolean;
 	type?: any;
 	url?: string;
 	width?: number;
 }
-type treeEventName ='onAfterAdd'|'onAfterClose'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|'onAfterLoad'|'onAfterOpen'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeClose'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeOpen'|'onBeforeRender'|'onBeforeSelect'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onItemCheck'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPartialRender'|'onPaste'|'onSelectChange'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewResize';
-interface tree extends webix.ui.baseview{
+type treeEventName ='onAfterAdd'|'onAfterClose'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|'onAfterDropOrder'|'onAfterLoad'|'onAfterOpen'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeClose'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeDropOrder'|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeOpen'|'onBeforeRender'|'onBeforeSelect'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onItemCheck'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPartialRender'|'onPaste'|'onSelectChange'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewResize';
+class tree implements webix.ui.baseview{
 	add(obj:any, index?:number, parentId?:string):string;
 	addCss(id:string|number, css:string, silent?:boolean):void;
 	adjust():void;
@@ -7745,7 +8952,7 @@ interface tree extends webix.ui.baseview{
 	getIdByIndex(index:number):string|number;
 	getIndexById(id:string|number):number;
 	getItem(id:string|number):any;
-	getItemNode(id:string|number):void;
+	getItemNode(id:string|number):HTMLElement;
 	getLastId():string|number;
 	getNextId(id:string|number, step:number):string|number;
 	getNextSiblingId(id:string|number):string|number;
@@ -7811,7 +9018,7 @@ interface tree extends webix.ui.baseview{
 	$dragOut(source:HTMLElement, old_target:HTMLElement, new_target:HTMLElement, ev:Event):void;
 	$drop(source:HTMLElement, target:HTMLElement, ev:Event):void;
 	$dropAllow: WebixCallback;
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -7828,6 +9035,7 @@ interface tree extends webix.ui.baseview{
 	types: { [key: string]: any; };
 }
 interface treemapConfig{
+	view?: string;
 	activeItem?: boolean;
 	animate?: any;
 	borderless?: boolean;
@@ -7856,7 +9064,7 @@ interface treemapConfig{
 	mouseEventDelay?: number;
 	multiselect?: boolean;
 	navigation?: boolean;
-	on?: any;
+	on?: EventHash;
 	onClick?: { [key: string]: any; };
 	onContext?: { [key: string]: any; };
 	onDblClick?: WebixCallback;
@@ -7874,14 +9082,14 @@ interface treemapConfig{
 	template?: string|WebixCallback;
 	templateCopy?: WebixCallback;
 	threeState?: boolean;
-	tooltip?: any;
+	tooltip?: string|boolean;
 	type?: any;
 	url?: string;
 	value?: string|WebixCallback;
 	width?: number;
 }
 type treemapEventName ='onAfterAdd'|'onAfterClose'|'onAfterContextMenu'|'onAfterDelete'|'onAfterLoad'|'onAfterOpen'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeClose'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeLoad'|'onBeforeOpen'|'onBeforeRender'|'onBeforeSelect'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onFocus'|'onItemCheck'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPartialRender'|'onPaste'|'onSelectChange'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewResize';
-interface treemap extends webix.ui.baseview{
+class treemap implements webix.ui.baseview{
 	add(obj:any, index?:number):string|number;
 	addCss(id:string|number, css:string, silent?:boolean):void;
 	adjust():void;
@@ -7912,7 +9120,7 @@ interface treemap extends webix.ui.baseview{
 	getIdByIndex(index:number):string|number;
 	getIndexById(id:string|number):number;
 	getItem(id:string|number):any;
-	getItemNode(id:string|number):void;
+	getItemNode(id:string|number):HTMLElement;
 	getLastId():string|number;
 	getNextId(id:string|number, step:number):string|number;
 	getNextSiblingId(id:string|number):string|number;
@@ -7971,7 +9179,7 @@ interface treemap extends webix.ui.baseview{
 	updateItem(id:string|number, data:any):void;
 	validate(id?:string):boolean;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -7988,6 +9196,7 @@ interface treemap extends webix.ui.baseview{
 	types: { [key: string]: any; };
 }
 interface treetableConfig{
+	view?: string;
 	animate?: any;
 	areaselect?: boolean;
 	autoConfig?: boolean;
@@ -8041,7 +9250,7 @@ interface treetableConfig{
 	mouseEventDelay?: number;
 	multiselect?: boolean;
 	navigation?: boolean;
-	on?: any;
+	on?: EventHash;
 	onClick?: { [key: string]: any; };
 	onContext?: { [key: string]: any; };
 	onDblClick?: WebixCallback;
@@ -8050,7 +9259,7 @@ interface treetableConfig{
 	prerender?: boolean;
 	ready?: WebixCallback;
 	removeMissed?: boolean;
-	resizeColumn?: boolean;
+	resizeColumn?: any;
 	resizeRow?: boolean;
 	rightSplit?: number;
 	rowHeight?: number;
@@ -8069,13 +9278,14 @@ interface treetableConfig{
 	subview?: webix.ui.baseview;
 	threeState?: boolean;
 	tooltip?: boolean;
+	topSplit?: number;
 	type?: any;
 	url?: string;
 	width?: number;
 	yCount?: number;
 }
-type treetableEventName ='onAfterAdd'|'onAfterAreaAdd'|'onAfterAreaRemove'|'onAfterBlockSelect'|'onAfterClose'|'onAfterColumnDrop'|'onAfterColumnDropOrder'|'onAfterColumnHide'|'onAfterColumnShow'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|'onAfterEditStart'|'onAfterEditStop'|'onAfterFilter'|'onAfterLoad'|'onAfterOpen'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onAfterUnSelect'|'onAreaDrag'|'onBeforeAdd'|'onBeforeAreaAdd'|'onBeforeAreaRemove'|'onBeforeBlockSelect'|'onBeforeClose'|'onBeforeColumnDrag'|'onBeforeColumnDrop'|'onBeforeColumnDropOrder'|'onBeforeColumnHide'|'onBeforeColumnShow'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeDropOut'|'onBeforeEditStart'|'onBeforeEditStop'|'onBeforeFilter'|'onBeforeLoad'|'onBeforeOpen'|'onBeforeRender'|'onBeforeSelect'|'onBeforeSort'|'onBeforeUnSelect'|'onBindRequest'|'onBlur'|'onCheck'|'onCollectValues'|'onColumnResize'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onHeaderClick'|'onItemCheck'|'onItemClick'|'onItemDblClick'|'onKeyPress'|'onLiveEdit'|'onLoadError'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onResize'|'onRowResize'|'onScrollX'|'onScrollY'|'onSelectChange'|'onStructureLoad'|'onStructureUpdate'|'onSubViewClose'|'onSubViewCreate'|'onSubViewOpen'|'onSubViewRender'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewResize';
-interface treetable extends webix.ui.baseview{
+type treetableEventName ='onAfterAdd'|'onAfterAreaAdd'|'onAfterAreaRemove'|'onAfterBlockSelect'|'onAfterClose'|'onAfterColumnDrop'|'onAfterColumnDropOrder'|'onAfterColumnHide'|'onAfterColumnShow'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|''|'onAfterEditStart'|'onAfterEditStop'|'onAfterFilter'|'onAfterLoad'|'onAfterOpen'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onAfterUnSelect'|'onAreaDrag'|'onBeforeAdd'|'onBeforeAreaAdd'|'onBeforeAreaRemove'|'onBeforeBlockSelect'|'onBeforeClose'|'onBeforeColumnDrag'|'onBeforeColumnDrop'|'onBeforeColumnDropOrder'|'onBeforeColumnHide'|'onBeforeColumnShow'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|''|'onBeforeDropOut'|'onBeforeEditStart'|'onBeforeEditStop'|'onBeforeFilter'|'onBeforeLoad'|'onBeforeOpen'|'onBeforeRender'|'onBeforeSelect'|'onBeforeSort'|'onBeforeUnSelect'|'onBindRequest'|'onBlur'|'onCheck'|'onCollectValues'|'onColumnResize'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onEditorChange'|'onFocus'|'onHeaderClick'|'onItemCheck'|'onItemClick'|'onItemDblClick'|'onKeyPress'|'onLiveEdit'|'onLoadError'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onResize'|'onRowResize'|'onScrollX'|'onScrollY'|'onSelectChange'|'onStructureLoad'|'onStructureUpdate'|'onSubViewClose'|'onSubViewCreate'|'onSubViewOpen'|'onSubViewRender'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewResize';
+class treetable implements webix.ui.baseview{
 	add(obj:any, index?:number, parentId?:string):string;
 	addCellCss(id:string, name:string, css:string):void;
 	addCss(id:string|number, css:string, silent?:boolean):void;
@@ -8106,7 +9316,7 @@ interface treetable extends webix.ui.baseview{
 	eachRow(handler:WebixCallback, all?:boolean):void;
 	edit(id:any):void;
 	editCancel():void;
-	editCell(row:string, col:string, preserve?:boolean, show?:boolean):void;
+	editCell(row:string|number, col:string|number, preserve?:boolean, show?:boolean):void;
 	editColumn(id:string):void;
 	editNext():boolean;
 	editRow(id:string):void;
@@ -8117,11 +9327,13 @@ interface treetable extends webix.ui.baseview{
 	filterByAll():void;
 	find(criterion:WebixCallback, first?:boolean):any;
 	focusEditor():void;
+	freezeRow(id:number|string, state:boolean):void;
 	getBranchIndex(id:string|number, parent?:string|number):number;
 	getChecked():any[];
 	getChildViews():any[];
 	getColumnConfig(id:string):any;
 	getColumnIndex(id:string|number):number;
+	getCss():void;
 	getEditState():any;
 	getEditor(row?:any, column?:string|number):any;
 	getEditorValue():string;
@@ -8134,7 +9346,7 @@ interface treetable extends webix.ui.baseview{
 	getIdByIndex(index:number):string|number;
 	getIndexById(id:string|number):number;
 	getItem(id:string|number):any;
-	getItemNode(id:string|number):void;
+	getItemNode(id:string|number):HTMLElement;
 	getLastId():string|number;
 	getNextId(id:string|number, step:number):string|number;
 	getNextSiblingId(id:string|number):string|number;
@@ -8186,7 +9398,7 @@ interface treetable extends webix.ui.baseview{
 	refreshColumns(config?:any[], reset?:boolean):void;
 	refreshFilter(id:string|number):void;
 	refreshHeaderContent():void;
-	registerFilter(node:HTMLElement, config:any, obj:any):void;
+	registerFilter(object:any, config:any, controller:any):void;
 	remove(id:string|number):void;
 	removeCellCss(id:string, name:string, css_name:string):void;
 	removeCss(id:string|number, css:string, silent?:boolean):void;
@@ -8224,7 +9436,7 @@ interface treetable extends webix.ui.baseview{
 	$dragOut(source:HTMLElement, old_target:HTMLElement, new_target:HTMLElement, ev:Event):void;
 	$drop(source:HTMLElement, target:HTMLElement, ev:Event):void;
 	$dropAllow: WebixCallback;
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -8241,6 +9453,7 @@ interface treetable extends webix.ui.baseview{
 	waitData: webix.promise;
 }
 interface unitlistConfig{
+	view?: string;
 	animate?: any;
 	autoheight?: boolean;
 	autowidth?: boolean;
@@ -8250,7 +9463,6 @@ interface unitlistConfig{
 	container?: string|HTMLElement;
 	css?: string;
 	data?: string|any[];
-	dataFeed?: string|WebixCallback;
 	datathrottle?: number;
 	datatype?: string;
 	disabled?: boolean;
@@ -8269,7 +9481,7 @@ interface unitlistConfig{
 	mouseEventDelay?: number;
 	multiselect?: boolean;
 	navigation?: boolean;
-	on?: any;
+	on?: EventHash;
 	onClick?: { [key: string]: any; };
 	onContext?: { [key: string]: any; };
 	onDblClick?: WebixCallback;
@@ -8283,10 +9495,9 @@ interface unitlistConfig{
 	scroll?: boolean|string;
 	scrollSpeed?: string;
 	select?: boolean|string;
-	sort?: WebixCallback;
 	template?: string|WebixCallback;
 	templateCopy?: WebixCallback;
-	tooltip?: any;
+	tooltip?: string|boolean;
 	type?: any;
 	uniteBy?: WebixCallback;
 	url?: string;
@@ -8294,8 +9505,8 @@ interface unitlistConfig{
 	xCount?: number;
 	yCount?: number;
 }
-type unitlistEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPaste'|'onSelectChange'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewResize';
-interface unitlist extends webix.ui.baseview{
+type unitlistEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|'onAfterDropOrder'|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeDropOrder'|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPaste'|'onSelectChange'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewResize';
+class unitlist implements webix.ui.baseview{
 	add(obj:any, index?:number):string|number;
 	addCss(id:string|number, css:string, silent?:boolean):void;
 	adjust():void;
@@ -8323,7 +9534,7 @@ interface unitlist extends webix.ui.baseview{
 	getIdByIndex(index:number):string|number;
 	getIndexById(id:string|number):number;
 	getItem(id:string|number):any;
-	getItemNode(id:string|number):void;
+	getItemNode(id:string|number):HTMLElement;
 	getLastId():string|number;
 	getNextId(id:string|number, step:number):string|number;
 	getNode():any;
@@ -8367,7 +9578,6 @@ interface unitlist extends webix.ui.baseview{
 	setPage(page:number):void;
 	show(force?:boolean, animation?:boolean):void;
 	showItem(id:string|number):void;
-	sort(by:string, dir?:string, as?:string):void;
 	sync(source:any, filter:WebixCallback, silent:boolean):void;
 	unbind():void;
 	unblockEvent():void;
@@ -8383,7 +9593,7 @@ interface unitlist extends webix.ui.baseview{
 	$dragOut(source:HTMLElement, old_target:HTMLElement, new_target:HTMLElement, ev:Event):void;
 	$drop(source:HTMLElement, target:HTMLElement, ev:Event):void;
 	$dropAllow: WebixCallback;
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -8400,6 +9610,7 @@ interface unitlist extends webix.ui.baseview{
 	types: { [key: string]: any; };
 }
 interface uploaderConfig{
+	view?: string;
 	align?: string;
 	animate?: any;
 	apiOnly?: boolean;
@@ -8409,6 +9620,7 @@ interface uploaderConfig{
 	click?: WebixCallback;
 	container?: string|HTMLElement;
 	css?: string;
+	datatype?: string;
 	disabled?: boolean;
 	formData?: { [key: string]: any; };
 	gravity?: number;
@@ -8427,16 +9639,17 @@ interface uploaderConfig{
 	minWidth?: number;
 	multiple?: boolean;
 	name?: string;
-	on?: any;
+	on?: EventHash;
 	popup?: string;
-	tabFocus?: boolean;
 	tooltip?: string;
 	type?: string;
+	upload?: string;
+	urlData?: { [key: string]: any; };
 	value?: string|number;
 	width?: number;
 }
 type uploaderEventName ='onAfterFileAdd'|'onAfterRender'|'onAfterScroll'|'onBeforeFileAdd'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onDestruct'|'onFileUpload'|'onFileUploadError'|'onFocus'|'onItemClick'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onUploadComplete'|'onViewResize';
-interface uploader extends webix.ui.baseview{
+class uploader implements webix.ui.baseview{
 	addDropZone(element:HTMLElement):void;
 	addFile(name:string, size:number, type?:string):void;
 	adjust():void;
@@ -8468,7 +9681,7 @@ interface uploader extends webix.ui.baseview{
 	refresh():void;
 	render(id:string|number, data:any, type:string):void;
 	resize():void;
-	send(id:number|string|WebixCallback, details:any):void;
+	send(id:number|string|WebixCallback):void;
 	setValue(value:string):void;
 	show(force?:boolean, animation?:boolean):void;
 	stopUpload(id:string|number):void;
@@ -8477,8 +9690,8 @@ interface uploader extends webix.ui.baseview{
 	unblockEvent():void;
 
 	$cssName: string;
-	$getSize: any[];
-	$getValue: string;
+	$getSize():any[];
+	$getValue():string;
 	$height: number;
 	$onUploadComplete: WebixCallback;
 	$renderInput(config:any):HTMLElement;
@@ -8495,6 +9708,7 @@ interface uploader extends webix.ui.baseview{
 	touchable: boolean;
 }
 interface videoConfig{
+	view?: string;
 	animate?: any;
 	borderless?: boolean;
 	container?: string|HTMLElement;
@@ -8513,7 +9727,7 @@ interface videoConfig{
 	width?: number;
 }
 type videoEventName ='onAfterScroll'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onKeyPress'|'onLongTouch'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
-interface video extends webix.ui.baseview{
+class video implements webix.ui.baseview{
 	adjust():void;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
 	define(property:string, value:any):void;
@@ -8533,7 +9747,7 @@ interface video extends webix.ui.baseview{
 	show(force?:boolean, animation?:boolean):void;
 	unbind():void;
 
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;
@@ -8544,6 +9758,7 @@ interface video extends webix.ui.baseview{
 	name: string;
 }
 interface windowConfig{
+	view?: string;
 	animate?: any;
 	autofit?: boolean;
 	autofocus?: boolean;
@@ -8566,7 +9781,7 @@ interface windowConfig{
 	minWidth?: number;
 	modal?: boolean;
 	move?: boolean;
-	on?: any;
+	on?: EventHash;
 	padding?: any;
 	position?: string|WebixCallback;
 	relative?: string;
@@ -8577,7 +9792,7 @@ interface windowConfig{
 	zIndex?: number;
 }
 type windowEventName ='onAfterScroll'|'onBeforeShow'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onHide'|'onKeyPress'|'onLongTouch'|'onShow'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewMove'|'onViewMoveEnd'|'onViewResize';
-interface window extends webix.ui.baseview{
+class window implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:windowEventName, functor:WebixCallback, id?:string):string|number;
 	bind(target:any, rule?:WebixCallback, format?:string):void;
@@ -8608,7 +9823,7 @@ interface window extends webix.ui.baseview{
 	unbind():void;
 	unblockEvent():void;
 	show(force:boolean,animation:boolean):void;
-	$getSize: any[];
+	$getSize():any[];
 	$height: number;
 	$scope: any;
 	$setSize(x:number, y:number):boolean;

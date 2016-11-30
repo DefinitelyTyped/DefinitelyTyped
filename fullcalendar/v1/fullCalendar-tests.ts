@@ -1,6 +1,6 @@
-/// <reference path="fullCalendar.d.ts" />
-/// <reference path="../../jquery/jquery.d.ts"/>
-/// <reference path="../../jqueryui/jqueryui.d.ts"/>
+/// <reference types="fullCalendar" />
+/// <reference types="jquery"/>
+/// <reference types="jqueryui"/>
 
 // All examples from http://arshaw.com/fullcalendar/docs/
 

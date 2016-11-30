@@ -305,7 +305,7 @@ interface Cache {
      *
      * @param request An array of Request objects you want to add to the cache.
      */
-    addAll(...request: Array<Request | string>): Promise<void>;
+    addAll(requests: Array<Request | string>): Promise<void>;
 
     /**
      * Adds additional key/value pairs to the current Cache object.

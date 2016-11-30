@@ -1,4 +1,4 @@
-﻿// Type definitions for Sugar 1.3.9
+// Type definitions for Sugar 1.3.9
 // Project: http://sugarjs.com/
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -3079,6 +3079,11 @@ interface ObjectConstructor {
 	/**
 	* @see map
 	**/
+	each(obj: any, map: (key: string, value: any) => void): void;
+
+	/**
+	* @see map
+	**/
 	any(obj: any, map: string): boolean;
 
 	/**
@@ -4174,7 +4179,7 @@ interface DateConstructor {
 	* @example
 	*   Date.now() -> ex. 1311938296231
 	**/
-	now(): string;
+	now(): number;
 
 	/**
 	* Alternate form of %Date.create% with any ambiguity assumed to be the past.

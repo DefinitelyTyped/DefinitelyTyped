@@ -30,40 +30,6 @@ declare namespace PinkySwear {
         (fulfilled: boolean, ...values: any[]): Promise;
 
         /**
-         * Called when or if the promise is either resolved or rejected.
-         *
-         * @returns PinkySwear.Promise
-         */
-        then(): Promise;
-
-        /**
-         * Called when or if the promise is either resolved or rejected.
-         *
-         * @param onFulfilled Called when or if the promise is resolved.
-         * @param onRejected Called when or if the promise is rejected.
-         * @returns PinkySwear.Promise
-         */
-        then(onFulfilled?: () => Promise, onRejected?: () => void): Promise;
-
-        /**
-         * Called when or if the promise is either resolved or rejected.
-         *
-         * @param onFulfilled Called when or if the promise is resolved.
-         * @param onRejected Called when or if the promise is rejected.
-         * @returns PinkySwear.Promise
-         */
-        then(onFulfilled?: () => void, onRejected?: () => void): Promise;
-
-        /**
-         * Called when or if the promise is either resolved or rejected.
-         *
-         * @param onFulfilled Called when or if the promise is resolved.
-         * @param onRejected Called when or if the promise is rejected.
-         * @returns PinkySwear.Promise
-         */
-        then(onFulfilled?: () => any, onRejected?: () => void): Promise;
-
-        /**
          * onFulfilled is called when or if the promise is resolved.
          * onRejected is called when or if the promise is rejected.
          *
@@ -71,57 +37,7 @@ declare namespace PinkySwear {
          * @param onRejected Called when or if the promise is rejected.
          * @returns PinkySwear.Promise
          */
-        then(onFulfilled?: (...values: any[]) => Promise, onRejected?: (...values: any[]) => void): Promise;
-
-        /**
-         * onFulfilled is called when or if the promise is resolved.
-         * onRejected is called when or if the promise is rejected.
-         *
-         * @param onFulfilled Called when or if the promise is resolved.
-         * @param onRejected Called when or if the promise is rejected.
-         * @returns PinkySwear.Promise
-         */
-        then(onFulfilled?: (...values: any[]) => void, onRejected?: (...values: any[]) => void): Promise;
-
-        /**
-         * onFulfilled is called when or if the promise is resolved.
-         * onRejected is called when or if the promise is rejected.
-         *
-         * @param onFulfilled Called when or if the promise is resolved.
-         * @param onRejected Called when or if the promise is rejected.
-         * @returns PinkySwear.Promise
-         */
-        then(onFulfilled?: (...values: any[]) => any, onRejected?: (...values: any[]) => void): Promise;
-
-        /**
-         * onFulfilled is called when or if the promise is resolved.
-         * onRejected is called when or if the promise is rejected.
-         *
-         * @param onFulfilled Called when or if the promise is resolved.
-         * @param onRejected Called when or if the promise is rejected.
-         * @returns PinkySwear.Promise
-         */
-        then(onFulfilled?: (...values: any[]) => Promise, onRejected?: (error?: TypeError) => void): Promise;
-
-        /**
-         * onFulfilled is called when or if the promise is resolved.
-         * onRejected is called when or if the promise is rejected.
-         *
-         * @param onFulfilled Called when or if the promise is resolved.
-         * @param onRejected Called when or if the promise is rejected.
-         * @returns PinkySwear.Promise
-         */
-        then(onFulfilled?: (...values: any[]) => void, onRejected?: (error: TypeError) => void): Promise;
-
-        /**
-         * onFulfilled is called when or if the promise is resolved.
-         * onRejected is called when or if the promise is rejected.
-         *
-         * @param onFulfilled Called when or if the promise is resolved.
-         * @param onRejected Called when or if the promise is rejected.
-         * @returns PinkySwear.Promise
-         */
-        then(onFulfilled?: (...values: any[]) => any, onRejected?: (error: TypeError) => void): Promise;
+        then(onFulfilled?: (...values: any[]) => Promise | void | any, onRejected?: (...values: any[]) => void): Promise;
     }
 
     interface GenericPromise<T> extends Promise {

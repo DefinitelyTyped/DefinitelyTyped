@@ -169,6 +169,12 @@ function test_ajax() {
         console.log(data, textStatus, jqXHR);
     });
 
+    // then method can change promise type through promise chaining
+    var chainedValuePromise : JQueryPromise<number>;
+    chainedValuePromise = $.ajax({
+        url: "test.js"
+    }).then(() => $.when(1));
+
     // fail method
     $.ajax({
         url: "test.js"
@@ -209,6 +215,50 @@ function test_ajax() {
         url: "test.js"
     });
     jqXHR.abort('aborting because I can');
+
+    //Test the promise exposed by the jqXHR object
+
+    // done method
+    $.ajax({
+        url: "test.js"
+    }).promise().done((data, textStatus, jqXHR) => {
+        console.log(data, textStatus, jqXHR);
+    });
+
+    // fail method
+    $.ajax({
+        url: "test.js"
+    }).promise().fail((jqXHR, textStatus, errorThrown) => {
+        console.log(jqXHR, textStatus, errorThrown);
+    });
+
+    // always method with successful request
+    $.ajax({
+        url: "test.js"
+    }).promise().always((data, textStatus, jqXHR) => {
+        console.log(data, textStatus, jqXHR);
+    });
+
+    // always method with failed request
+    $.ajax({
+        url: "test.js"
+    }).promise().always((jqXHR, textStatus, errorThrown) => {
+        console.log(jqXHR, textStatus, errorThrown);
+    });
+
+    // then method (as of 1.8)
+    $.ajax({
+        url: "test.js"
+    }).promise().then((data, textStatus, jqXHR) => {
+        console.log(data, textStatus, jqXHR);
+    }, (jqXHR, textStatus, errorThrown) => {
+        console.log(jqXHR, textStatus, errorThrown);
+    });
+
+    // generic then method
+    var p: JQueryPromise<number> = $.ajax({ url: "test.js" }).promise()
+        .then(() => "Hello")
+        .then((x) => x.length);
 }
 
 function test_ajaxComplete() {

@@ -1,5 +1,5 @@
-/// <reference path="jquery.payment.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery.payment" />
+/// <reference types="jquery" />
 
 $.payment.cards.push({
   // Card type, as returned by $.payment.cardType.

@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "imagemapster.d.ts",
+        "index.d.ts",
         "imagemapster-tests.ts"
     ]
 }

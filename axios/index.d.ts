@@ -39,7 +39,7 @@ declare namespace Axios {
         /**
          * custom headers to be sent
          */
-        headers?: Object;
+        headers?: {[key: string]: any};
 
         /**
          * URL parameters to be sent with the request
@@ -159,7 +159,7 @@ declare namespace Axios {
         /**
          * headers that the server responded with
          */
-        headers: Object;
+        headers: {[index: string]: any};
 
         /**
          * config that was provided to `axios` for the request

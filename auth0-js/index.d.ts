@@ -1,4 +1,4 @@
-﻿// Type definitions for Auth0.js
+// Type definitions for Auth0.js
 // Project: https://github.com/auth0/auth0.js
 // Definitions by: Robert McLaws <https://github.com/advancedrei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -84,7 +84,7 @@ interface Auth0Identity {
 
 interface Auth0DecodedHash {
     access_token: string;
-    id_token: string;
+    idToken: string;
     profile: Auth0UserProfile;
     state: any;
 }
@@ -128,6 +128,6 @@ interface Auth0DelegationToken {
 
 declare const Auth0: Auth0Static;
 
-declare module "auth0" {
+declare module "auth0-js" {
     export = Auth0
 }

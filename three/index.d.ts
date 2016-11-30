@@ -1,4 +1,4 @@
-// Type definitions for three.js r80
+// Type definitions for three.js r81
 // Project: http://mrdoob.github.com/three.js/
 // Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>, Florent Poujol <https://github.com/florentpoujol>, SereznoKot <https://github.com/SereznoKot>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -669,6 +669,7 @@ declare namespace THREE {
         constructor();
 
         aspect: number;
+        eyeSep: number;
         cameraL: PerspectiveCamera;
         cameraR: PerspectiveCamera;
 
@@ -2737,7 +2738,7 @@ declare namespace THREE {
         constructor(parameters?: ShaderMaterialParameters);
 
         defines: any;
-        uniforms: any; // type should be  { [uniform: string]: { value: any }; };    but gives "Index signature is missing in type" error during compilation
+        uniforms: { [uniform: string]: IUniform };
         vertexShader: string;
         fragmentShader: string;
         linewidth: number;
@@ -2796,8 +2797,8 @@ declare namespace THREE {
         copy(box: this): this;
         makeEmpty(): Box2;
         isEmpty(): boolean;
-        center(optionalTarget?: Vector2): Vector2;
-        size(optionalTarget?: Vector2): Vector2;
+        getCenter(optionalTarget?: Vector2): Vector2;
+        getSize(optionalTarget?: Vector2): Vector2;
         expandByPoint(point: Vector2): Box2;
         expandByVector(vector: Vector2): Box2;
         expandByScalar(scalar: number): Box2;
@@ -2831,8 +2832,8 @@ declare namespace THREE {
         copy(box: this): this;
         makeEmpty(): Box3;
         isEmpty(): boolean;
-        center(optionalTarget?: Vector3): Vector3;
-        size(optionalTarget?: Vector3): Vector3;
+        getCenter(optionalTarget?: Vector3): Vector3;
+        getSize(optionalTarget?: Vector3): Vector3;
         expandByPoint(point: Vector3): Box3;
         expandByVector(vector: Vector3): Box3;
         expandByScalar(scalar: number): Box3;
@@ -3193,7 +3194,7 @@ declare namespace THREE {
         set(start?: Vector3, end?: Vector3): Line3;
         clone(): this;
         copy(line: this): this;
-        center(optionalTarget?: Vector3): Vector3;
+        getCenter(optionalTarget?: Vector3): Vector3;
         delta(optionalTarget?: Vector3): Vector3;
         distanceSq(): number;
         distance(): number;
@@ -3348,7 +3349,7 @@ declare namespace THREE {
          * Transposes this matrix into the supplied array r, and returns itself.
          */
         transposeIntoArray(r: number[]): number[];
-        fromArray(array: number[]): Matrix3;
+        fromArray(array: number[], offset?: number): Matrix3;
         toArray(): number[];
 
         // deprecated
@@ -3531,7 +3532,7 @@ declare namespace THREE {
          */
         makeOrthographic(left: number, right: number, top: number, bottom: number, near: number, far: number): Matrix4;
         equals( matrix: Matrix4 ): boolean;
-        fromArray(array: number[]): Matrix4;
+        fromArray(array: number[], offset?: number): Matrix4;
         toArray(): number[];
 
         // deprecated
@@ -3646,7 +3647,7 @@ declare namespace THREE {
         inverse(): Quaternion;
 
         conjugate(): Quaternion;
-        dot(v: Vector3): number;
+        dot(v: Quaternion): number;
         lengthSq(): number;
 
         /**
@@ -5115,7 +5116,7 @@ declare namespace THREE {
     };
 
     export interface Shader {
-        uniforms: IUniform;
+        uniforms: { [uniform: string]: IUniform };
         vertexShader: string;
         fragmentShader: string;
     }

@@ -1,4 +1,4 @@
-﻿// Type definitions for stylus 0.48.1
+// Type definitions for stylus 0.48.1
 // Project: https://github.com/LearnBoost/stylus
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

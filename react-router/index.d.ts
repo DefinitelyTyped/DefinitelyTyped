@@ -1,7 +1,9 @@
 // Type definitions for react-router v2.0.0
 // Project: https://github.com/rackt/react-router
-// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>, Nathan Brown <https://github.com/ngbrown>, Alex Wendland <https://github.com/awendland>
+// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>, Nathan Brown <https://github.com/ngbrown>, Alex Wendland <https://github.com/awendland>, Kostya Esmukov <https://github.com/KostyaEsmukov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="history" />
 
 export as namespace ReactRouter;
 
@@ -45,9 +47,11 @@ export type PlainRoute = Router.PlainRoute;
 export type EnterHook = Router.EnterHook;
 export type LeaveHook = Router.LeaveHook;
 export type ParseQueryString = Router.ParseQueryString;
+export type LocationDescriptor = Router.LocationDescriptor;
 export type RedirectFunction = Router.RedirectFunction;
 export type RouteComponent = Router.RouteComponent;
 export type RouteComponentProps<P, R> = Router.RouteComponentProps<P, R>;
+export type RouteConfig = Router.RouteConfig;
 export type RouteHook = Router.RouteHook;
 export type StringifyQuery = Router.StringifyQuery;
 export type RouterListener = Router.RouterListener;

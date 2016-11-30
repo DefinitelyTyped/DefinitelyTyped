@@ -1,4 +1,4 @@
-﻿// Type definitions for jsonwebtoken 7.1.6
+// Type definitions for jsonwebtoken 7.1.6
 // Project: https://github.com/auth0/node-jsonwebtoken
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>, Daniel Heim <https://github.com/danielheim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -46,7 +46,7 @@ export interface SignOptions {
     issuer?: string;
     jwtid?: string;
     noTimestamp?: boolean;
-    headers?: Object;
+    header?: Object;
     encoding?: string;
 }
 

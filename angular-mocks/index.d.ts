@@ -107,7 +107,7 @@ declare module 'angular' {
   interface IComponentControllerService {
     // TBinding is an interface exposed by a component as per John Papa's style guide
     // https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#accessible-members-up-top
-    <T, TBinding>(componentName: string, locals: { $scope: IScope, [key: string]: any }, bindings?: TBinding, ident?: string): T;
+    <T, TBinding>(componentName: string, locals: { $scope?: IScope, [key: string]: any }, bindings?: TBinding, ident?: string): T;
   }
 
 
@@ -117,10 +117,13 @@ declare module 'angular' {
   ///////////////////////////////////////////////////////////////////////////
   interface IHttpBackendService {
     /**
-      * Flushes all pending requests using the trained responses.
-      * @param count Number of responses to flush (in the order they arrived). If undefined, all pending requests will be flushed.
+      * Flushes pending requests using the trained responses. Requests are flushed in the order they were made, but it is also possible to skip one or more requests (for example to have them flushed later). This is useful for simulating scenarios where responses arrive from the server in any order.
+      *
+      * If there are no pending requests to flush when the method is called, an exception is thrown (as this is typically a sign of programming error).
+      * @param count Number of responses to flush. If undefined/null, all pending requests (starting after `skip`) will be flushed.
+      * @param skip Number of pending requests to skip. For example, a value of 5 would skip the first 5 pending requests and start flushing from the 6th onwards. _(default: 0)_
       */
-    flush(count?: number): void;
+    flush(count?: number, skip?: number): void;
 
     /**
       * Resets all request expectations, but preserves all backend definitions.
@@ -299,6 +302,25 @@ declare module 'angular' {
           * @param keys Array of keys to assign to regex matches in the request url.
           */
     whenPUT(url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object | ((object: Object) => boolean), keys?: Object[]): mock.IRequestHandler;
+  }
+
+  ///////////////////////////////////////////////////////////////////////////
+  // AnimateService
+  // see https://docs.angularjs.org/api/ngMock/service/$animate
+  ///////////////////////////////////////////////////////////////////////////
+  module animate {
+    interface IAnimateService {
+
+      /**
+       * This method will close all pending animations (both Javascript and CSS) and it will also flush any remaining animation frames and/or callbacks.
+       */
+      closeAndFlush(): void;
+
+      /**
+       * This method is used to flush the pending callbacks and animation frames to either start an animation or conclude an animation. Note that this will not actually close an actively running animation (see `closeAndFlush()` for that).
+       */
+      flush(): void;
+    }
   }
 
   export module mock {

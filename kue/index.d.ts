@@ -7,7 +7,7 @@
 
 import events = require('events');
 import express = require('express');
-export import redis = require('redis');
+export import redisClientFactory = require('redis');
 
 export declare class Queue extends events.EventEmitter {
     name: string;
@@ -15,7 +15,7 @@ export declare class Queue extends events.EventEmitter {
     promoter: any;
     workers: Worker[];
     shuttingDown: boolean;
-    client: redis.RedisClient;
+    client: redisClientFactory.RedisClient;
     testMode: TestMode;
 
     static singleton: Queue;
@@ -60,7 +60,7 @@ export declare class Job extends events.EventEmitter {
     public id: number;
     public type: string;
     public data: any;
-    public client: redis.RedisClient;
+    public client: redisClientFactory.RedisClient;
     private _max_attempts;
 
     static priorities: Priorities;
@@ -83,7 +83,7 @@ export declare class Job extends events.EventEmitter {
     delay(ms: number | Date): Job;
     removeOnComplete(param: any): void;
     backoff(param: any): void;
-    ttl(param: any): void;
+    ttl(param: any): Job;
     private _getBackoffImpl(): void;
     priority(level: string | number): Job;
     attempt(fn: Function): Job;
@@ -106,7 +106,7 @@ export declare class Job extends events.EventEmitter {
 declare class Worker extends events.EventEmitter {
     queue: Queue;
     type: string;
-    client: redis.RedisClient;
+    client: redisClientFactory.RedisClient;
     job: Job;
 
     constructor(queue: Queue, type: string);
@@ -124,10 +124,10 @@ declare class Worker extends events.EventEmitter {
 
 interface Redis {
     configureFactory(options: Object, queue: Queue): void;
-    createClient(): redis.RedisClient;
-    createClientFactory(options: Object): redis.RedisClient;
-    client(): redis.RedisClient;
-    pubsubClient(): redis.RedisClient;
+    createClient(): redisClientFactory.RedisClient;
+    createClientFactory(options: Object): redisClientFactory.RedisClient;
+    client(): redisClientFactory.RedisClient;
+    pubsubClient(): redisClientFactory.RedisClient;
     reset(): void;
 }
 

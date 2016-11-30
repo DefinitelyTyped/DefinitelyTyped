@@ -1,5 +1,3 @@
-/// <reference path="rbush.d.ts" />
-
 import * as rbush from 'rbush';
 
 interface IndexedRect extends rbush.BBox {

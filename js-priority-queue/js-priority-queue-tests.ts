@@ -1,4 +1,3 @@
-/// <reference path="js-priority-queue.d.ts" />
 
 import * as PriorityQueue from "js-priority-queue";
 

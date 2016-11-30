@@ -112,6 +112,16 @@ server.route([{
 	}
 }]);
 
+// Implict handler
+server.route({
+	method: 'GET',
+	path: '/hello6',
+        handler: function (request: Hapi.Request, reply: Hapi.IReply) {
+                request.log('info', { route: '/hello' }, Date.now());
+		reply('hello world');
+	}
+});
+
 // config.validate parameters should be optional
 server.route([{
 	method: 'GET',

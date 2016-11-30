@@ -13,6 +13,7 @@ import https = require('https');
 import url = require('url');
 import fs = require('fs');
 import FormData = require('form-data');
+import { Url } from 'url';
 
 declare namespace request {
     export interface RequestAPI<TRequest extends Request,
@@ -83,6 +84,8 @@ declare namespace request {
         aws?: AWSOptions;
         hawk?: HawkOptions;
         qs?: any;
+        qsStringifyOptions?: any;
+        qsParseOptions?: any;
         json?: any;
         multipart?: RequestPart[] | Multipart;
         agent?: http.Agent | https.Agent;
@@ -97,7 +100,7 @@ declare namespace request {
         followRedirect?: boolean | ((response: http.IncomingMessage) => boolean);
         followAllRedirects?: boolean;
         maxRedirects?: number;
-        encoding?: string;
+        encoding?: string | null;
         pool?: any;
         timeout?: number;
         proxy?: any;
@@ -114,10 +117,10 @@ declare namespace request {
     }
 
     interface UriOptions {
-        uri: string;
+        uri: string | Url;
     }
     interface UrlOptions {
-        url: string;
+        url: string | Url;
     }
     export type RequiredUriUrl = UriOptions | UrlOptions;
 

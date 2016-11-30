@@ -1,4 +1,4 @@
-﻿// Type definitions for auth0 v2.3.1
+// Type definitions for auth0 v2.3.1
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Seth Westphal <https://github.com/westy92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,15 +10,18 @@ export interface ManagementClientOptions {
   domain?: string;
 }
 
+export type UserMetadata = {};
+export type AppMetadata = {};
+
 export interface UserData {
   connection: string;
   email?: string;
   username?: string;
   password?: string;
   phone_number?: string;
-  user_metadata?: {};
+  user_metadata?: UserMetadata;
   email_verified?: boolean;
-  app_metadata?: {};
+  app_metadata?: AppMetadata;
 }
 
 export interface GetUsersData {
@@ -43,8 +46,8 @@ export interface User {
   created_at?: string;
   updated_at?: string;
   identities?: Identity[];
-  app_metadata?: {};
-  user_metadata?: {};
+  app_metadata?: AppMetadata;
+  user_metadata?: UserMetadata;
   picture?: string;
   name?: string;
   nickname?: string;
@@ -53,6 +56,8 @@ export interface User {
   last_login?: string;
   logins_count?: number;
   blocked?: boolean;
+  given_name?: string;
+  family_name?: string;
 }
 
 export interface Identity {
@@ -62,6 +67,10 @@ export interface Identity {
   isSocial: boolean;
 }
 
+export interface UpdateUserParameters {
+  id: string;
+}
+
 export class ManagementClient {
   constructor(options: ManagementClientOptions);
 
@@ -69,6 +78,12 @@ export class ManagementClient {
   getUsers(params?: GetUsersData, cb?: (err: Error, users: User[]) => void): void;
   createUser(data: UserData): Promise<User>;
   createUser(data: UserData, cb: (err: Error, data: User) => void): void;
+  updateUser(params: UpdateUserParameters, data: User): Promise<User>;
+  updateUser(params: UpdateUserParameters, data: User, cb: (err: Error, data: User) => void): void;
+  updateUserMetadata(params: UpdateUserParameters, data: UserMetadata): Promise<User>;
+  updateUserMetadata(params: UpdateUserParameters, data: UserMetadata, cb: (err: Error, data: User) => void): void
+  updateAppMetadata(params: UpdateUserParameters, data: AppMetadata): Promise<User>;
+  updateAppMetadata(params: UpdateUserParameters, data: AppMetadata, cb: (err: Error, data: User) => void): void
 }
 
 export interface AuthenticationClientOptions {

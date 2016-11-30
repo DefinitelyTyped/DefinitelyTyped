@@ -2,6 +2,7 @@ import * as Knex from 'knex';
 import * as Bookshelf from 'bookshelf';
 import * as assert from 'assert';
 import * as express from 'express';
+import * as _ from "lodash";
 
 /**
  * The examples/tests below follow Bookshelf documentation chapter after chapter: http://bookshelfjs.org/
@@ -63,6 +64,12 @@ class Post extends bookshelf.Model<Post> {
 class Tag extends bookshelf.Model<Tag> {
 	get tableName() { return 'tags'; }
 }
+
+User.where<User>('id', 1).fetch({withRelated: ['posts.tags']}).then(function(user) {
+  console.log(user.related('posts').toJSON());
+}).catch(function(err) {
+  console.error(err);
+});
 
 new User().where('id', 1).fetch({withRelated: ['posts.tags']})
 .then(user => {
@@ -290,7 +297,7 @@ class Account extends bookshelf.Model<Account> {
 }
 {
 	var checkit  = require('checkit');
-	
+
 	//todo: make sure this works with BlueBird 3.0
 	var bcrypt:any; //   = Promise.promisifyAll(require('bcrypt'));
 

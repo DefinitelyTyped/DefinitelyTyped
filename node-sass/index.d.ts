@@ -1,13 +1,14 @@
-// Type definitions for Node Sass
+// Type definitions for Node Sass v3.10.1
 // Project: https://github.com/sass/node-sass
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
+type ImporterReturnType = { file: string } | { contents: string } | Error | null;
 
 interface Importer {
-    (url: string, prev: string, done: (data: { file: string; contents: string; }) => void): void;
+    (url: string, prev: string, done: (data: ImporterReturnType) => void): ImporterReturnType | void;
 }
 
 interface Options {
@@ -22,13 +23,13 @@ interface Options {
     linefeed?: string;
     omitSourceMapUrl?: boolean;
     outFile?: string;
-    outputStyle?: string;
+    outputStyle?: "compact" | "compressed" | "expanded" | "nested";
     precision?: number;
     sourceComments?: boolean;
     sourceMap?: boolean | string;
     sourceMapContents?: boolean;
     sourceMapEmbed?: boolean;
-    sourceMapRoot?: boolean;
+    sourceMapRoot?: string;
 }
 
 interface SassError extends Error {

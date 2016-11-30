@@ -6,6 +6,7 @@
 declare namespace ValidatorJS {
   type AlphaLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "cs-CZ" | "de-DE" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "hu-HU" | "nl-NL" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sr-RS" | "sr-RS@latin" | "tr-TR";
   type AlphanumericLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "cs-CZ" | "de-DE" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "fr-BE" | "hu-HU" | "nl-BE" | "nl-NL" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sr-RS" | "sr-RS@latin" | "tr-TR";
+  type MobilePhoneLocale = "ar-DZ" | "ar-SA" | "ar-SY" | "cs-CZ" | "de-DE" | "da-DK" | "el-GR" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-CA" | "en-ZA" | "en-ZM" | "es-ES" | "fi-FI" | "fr-FR" | "hu-HU" | "it-IT" | "ja-JP" | "ms-MY" | "nb-NO" | "nn-NO" | "pl-PL" | "pt-PT" | "ru-RU" | "sr-RS" | "tr-TR" | "vi-VN" | "zh-CN" | "zh-TW"
 
   interface ValidatorStatic {
 
@@ -17,7 +18,7 @@ declare namespace ValidatorJS {
     contains(str: string, elem: any): boolean;
 
     // check if the string matches the comparison.
-    equals(str: string, comparison: any): boolean;
+    equals(str: string, comparison: string): boolean;
 
     // check if the string is a date that's after the specified date (defaults to now).
     isAfter(str: string, date?: string): boolean;
@@ -70,6 +71,9 @@ declare namespace ValidatorJS {
 
     // check if the string is an email.
     isEmail(str: string, options?: IsEmailOptions): boolean;
+
+    // check if the string has a length of zero.
+    isEmpty(str: string): boolean;
 
     // check if the string is a fully qualified domain name (e.g. domain.com).
     isFQDN(str: string, options?: IsFQDNOptions): boolean;
@@ -130,7 +134,7 @@ declare namespace ValidatorJS {
     // 'en-IN', 'en-NZ', 'en-US', 'en-CA', 'en-ZA', 'en-ZM', 'es-ES', 'fi-FI', 'fr-FR', 'hu-HU',
     // 'it-IT', 'ja-JP', 'ms-MY', 'nb-NO', 'nn-NO', 'pl-PL', 'pt-PT', 'ru-RU', 'sr-RS', 'tr-TR',
     // 'vi-VN', 'zh-CN', 'zh-TW']).
-    isMobilePhone(str: string, locale: string): boolean;
+    isMobilePhone(str: string, locale: MobilePhoneLocale): boolean;
 
     // check if the string is a valid hex-encoded representation of a MongoDB ObjectId
     // (http://docs.mongodb.org/manual/reference/object-id/).
@@ -152,7 +156,7 @@ declare namespace ValidatorJS {
     isURL(str: string, options?: IsURLOptions): boolean;
 
     // check if the string is a UUID. Must be one of ['3', '4', '5', 'all'], default is all.
-    isUUID(str: string, version?: string|number): boolean;
+    isUUID(str: string, version?: string | number): boolean;
 
     // check if the string is uppercase.
     isUppercase(str: string): boolean;
@@ -161,10 +165,10 @@ declare namespace ValidatorJS {
     isVariableWidth(str: string): boolean;
 
     // checks characters if they appear in the whitelist.
-    isWhitelisted(str: string, chars: string|string[]): boolean;
+    isWhitelisted(str: string, chars: string | string[]): boolean;
 
     // check if string matches the pattern.
-    matches(str: string, pattern: RegExp|string, modifiers?: string): boolean;
+    matches(str: string, pattern: RegExp | string, modifiers?: string): boolean;
 
     // **************
     // * Sanitizers *
@@ -181,13 +185,13 @@ declare namespace ValidatorJS {
     unescape(input: string): string;
 
     // trim characters from the left-side of the input.
-    ltrim(input: any, chars?: string): string;
+    ltrim(input: string, chars?: string): string;
 
     // canonicalize an email address.
     normalizeEmail(email: string, options?: NormalizeEmailOptions): string | false;
 
     // trim characters from the right-side of the input.
-    rtrim(input: any, chars?: string): string;
+    rtrim(input: string, chars?: string): string;
 
     // remove characters with a numerical value < 32 and 127, mostly control characters. If keep_new_lines is true,
     // newline characters are preserved (\n and \r, hex 0xA and 0xD). Unicode-safe in JavaScript.
@@ -195,23 +199,27 @@ declare namespace ValidatorJS {
 
     // convert the input to a boolean. Everything except for '0', 'false' and '' returns true. In strict mode only '1'
     // and 'true' return true.
-    toBoolean(input: any, strict?: boolean): boolean;
+    toBoolean(input: string, strict?: boolean): boolean;
 
     // convert the input to a date, or null if the input is not a date.
-    toDate(input: any): Date; // Date or null
+    toDate(input: string): Date; // Date or null
 
     // convert the input to a float, or NaN if the input is not a float.
-    toFloat(input: any): number; // number or NaN
+    toFloat(input: string): number; // number or NaN
 
     // convert the input to an integer, or NaN if the input is not an integer.
-    toInt(input: any, radix?: number): number; // number or NaN
+    toInt(input: string, radix?: number): number; // number or NaN
 
     // trim characters (whitespace by default) from both sides of the input.
-    trim(input: any, chars?: string): string;
+    trim(input: string, chars?: string): string;
 
     // remove characters that do not appear in the whitelist. The characters are used in a RegExp and so you will
     // need to escape some chars, e.g. whitelist(input, '\\[\\]').
     whitelist(input: string, chars: string): string;
+
+    toString(input: any | any[]): string;
+    
+    version: string;
 
     // **************
     // * Extensions *
@@ -284,8 +292,8 @@ declare namespace ValidatorJS {
     require_host: boolean;
     require_valid_protocol?: boolean;
     allow_underscores?: boolean;
-    host_whitelist?: (string|RegExp)[];
-    host_blacklist?: (string|RegExp)[];
+    host_whitelist?: (string | RegExp)[];
+    host_blacklist?: (string | RegExp)[];
     allow_trailing_dot?: boolean;
     allow_protocol_relative_urls?: boolean;
   }
@@ -298,13 +306,317 @@ declare namespace ValidatorJS {
   }
 }
 
+/**
+ * MODULES
+ */
+declare var validator: ValidatorJS.ValidatorStatic;
+
 declare module "validator" {
-  const validator: ValidatorJS.ValidatorStatic;
   export = validator;
 }
 
+declare module "validator/lib/blacklist" {
+  const blacklist: typeof validator.blacklist;
+  export = blacklist;
+}
+
+declare module "validator/lib/contains" {
+  const contains: typeof validator.contains;
+  export = contains;
+}
+
+declare module "validator/lib/equals" {
+  const equals: typeof validator.equals;
+  export = equals;
+}
+
+declare module "validator/lib/escape" {
+  const escape: typeof validator.escape;
+  export = escape;
+}
+
+declare module "validator/lib/isAfter" {
+  const isAfter: typeof validator.isAfter;
+  export = isAfter;
+}
+
+declare module "validator/lib/isAlpha" {
+  const isAlpha: typeof validator.isAlpha;
+  export = isAlpha;
+}
+
+declare module "validator/lib/isAlphanumeric" {
+  const isAlphanumeric: typeof validator.isAlphanumeric;
+  export = isAlphanumeric;
+}
+
+declare module "validator/lib/isAscii" {
+  const isAscii: typeof validator.isAscii;
+  export = isAscii;
+}
+
+declare module "validator/lib/isBase64" {
+  const isBase64: typeof validator.isBase64;
+  export = isBase64;
+}
+
+declare module "validator/lib/isBefore" {
+  const isBefore: typeof validator.isBefore;
+  export = isBefore;
+}
+
+declare module "validator/lib/isBoolean" {
+  const isBoolean: typeof validator.isBoolean;
+  export = isBoolean;
+}
+
+declare module "validator/lib/isByteLength" {
+  const isByteLength: typeof validator.isByteLength;
+  export = isByteLength;
+}
+
+declare module "validator/lib/isCreditCard" {
+  const isCreditCard: typeof validator.isCreditCard;
+  export = isCreditCard;
+}
+
+declare module "validator/lib/isCurrency" {
+  const isCurrency: typeof validator.isCurrency;
+  export = isCurrency;
+}
+
+declare module "validator/lib/isDataURI" {
+  const isDataURI: typeof validator.isDataURI;
+  export = isDataURI;
+}
+
+declare module "validator/lib/isDate" {
+  const isDate: typeof validator.isDate;
+  export = isDate;
+}
+
+declare module "validator/lib/isDecimal" {
+  const isDecimal: typeof validator.isDecimal;
+  export = isDecimal;
+}
+
+declare module "validator/lib/isDivisibleBy" {
+  const isDivisibleBy: typeof validator.isDivisibleBy;
+  export = isDivisibleBy;
+}
+
+declare module "validator/lib/isEmail" {
+  const isEmail: typeof validator.isEmail;
+  export = isEmail;
+}
+
+declare module "validator/lib/isEmpty" {
+  const isEmpty: typeof validator.isEmpty;
+  export = isEmpty;
+}
+
+declare module "validator/lib/isFQDN" {
+  const isFQDN: typeof validator.isFQDN;
+  export = isFQDN;
+}
+
+declare module "validator/lib/isFloat" {
+  const isFloat: typeof validator.isFloat;
+  export = isFloat;
+}
+
+declare module "validator/lib/isFullWidth" {
+  const isFullWidth: typeof validator.isFullWidth;
+  export = isFullWidth;
+}
+
+declare module "validator/lib/isHalfWidth" {
+  const isHalfWidth: typeof validator.isHalfWidth;
+  export = isHalfWidth;
+}
+
+declare module "validator/lib/isHexColor" {
+  const isHexColor: typeof validator.isHexColor;
+  export = isHexColor;
+}
+
+declare module "validator/lib/isHexadecimal" {
+  const isHexadecimal: typeof validator.isHexadecimal;
+  export = isHexadecimal;
+}
+
+declare module "validator/lib/isIP" {
+  const isIP: typeof validator.isIP;
+  export = isIP;
+}
+
+declare module "validator/lib/isISBN" {
+  const isISBN: typeof validator.isISBN;
+  export = isISBN;
+}
+
+declare module "validator/lib/isISIN" {
+  const isISIN: typeof validator.isISIN;
+  export = isISIN;
+}
+
+declare module "validator/lib/isISO8601" {
+  const isISO8601: typeof validator.isISO8601;
+  export = isISO8601;
+}
+
+declare module "validator/lib/isIn" {
+  const isIn: typeof validator.isIn;
+  export = isIn;
+}
+
+declare module "validator/lib/isInt" {
+  const isInt: typeof validator.isInt;
+  export = isInt;
+}
+
+declare module "validator/lib/isJSON" {
+  const isJSON: typeof validator.isJSON;
+  export = isJSON;
+}
+
+declare module "validator/lib/isLength" {
+  const isLength: typeof validator.isLength;
+  export = isLength;
+}
+
+declare module "validator/lib/isLowercase" {
+  const isLowercase: typeof validator.isLowercase;
+  export = isLowercase;
+}
+
+declare module "validator/lib/isMACAddress" {
+  const isMACAddress: typeof validator.isMACAddress;
+  export = isMACAddress;
+}
+
+declare module "validator/lib/isMD5" {
+  const isMD5: typeof validator.isMD5;
+  export = isMD5;
+}
+
+declare module "validator/lib/isMobilePhone" {
+  const isMobilePhone: typeof validator.isMobilePhone;
+  export = isMobilePhone;
+}
+
+declare module "validator/lib/isMongoId" {
+  const isMongoId: typeof validator.isMongoId;
+  export = isMongoId;
+}
+
+declare module "validator/lib/isMultibyte" {
+  const isMultibyte: typeof validator.isMultibyte;
+  export = isMultibyte;
+}
+
+declare module "validator/lib/isNull" {
+  const isNull: typeof validator.isNull;
+  export = isNull;
+}
+
+declare module "validator/lib/isNumeric" {
+  const isNumeric: typeof validator.isNumeric;
+  export = isNumeric;
+}
+
+declare module "validator/lib/isSurrogatePair" {
+  const isSurrogatePair: typeof validator.isSurrogatePair;
+  export = isSurrogatePair;
+}
+
+declare module "validator/lib/isURL" {
+  const isURL: typeof validator.isURL;
+  export = isURL;
+}
+
+declare module "validator/lib/isUUID" {
+  const isUUID: typeof validator.isUUID;
+  export = isUUID;
+}
+
+declare module "validator/lib/isUppercase" {
+  const isUppercase: typeof validator.isUppercase;
+  export = isUppercase;
+}
+
+declare module "validator/lib/isVariableWidth" {
+  const isVariableWidth: typeof validator.isVariableWidth;
+  export = isVariableWidth;
+}
+
+declare module "validator/lib/isWhitelisted" {
+  const isWhitelisted: typeof validator.isWhitelisted;
+  export = isWhitelisted;
+}
+
+declare module "validator/lib/ltrim" {
+  const ltrim: typeof validator.ltrim;
+  export = ltrim;
+}
+
+declare module "validator/lib/matches" {
+  const matches: typeof validator.matches;
+  export = matches;
+}
+
+declare module "validator/lib/normalizeEmail" {
+  const normalizeEmail: typeof validator.normalizeEmail;
+  export = normalizeEmail;
+}
+
+declare module "validator/lib/rtrim" {
+  const rtrim: typeof validator.rtrim;
+  export = rtrim;
+}
+
+declare module "validator/lib/stripLow" {
+  const stripLow: typeof validator.stripLow;
+  export = stripLow;
+}
+
+declare module "validator/lib/toBoolean" {
+  const toBoolean: typeof validator.toBoolean;
+  export = toBoolean;
+}
+
+declare module "validator/lib/toDate" {
+  const toDate: typeof validator.toDate;
+  export = toDate;
+}
+
+declare module "validator/lib/toFloat" {
+  const toFloat: typeof validator.toFloat;
+  export = toFloat;
+}
+
+declare module "validator/lib/toInt" {
+  const toInt: typeof validator.toInt;
+  export = toInt;
+}
+
+declare module "validator/lib/trim" {
+  const trim: typeof validator.trim;
+  export = trim;
+}
+
+declare module "validator/lib/unescape" {
+  const unescape: typeof validator.unescape;
+  export = unescape;
+}
+
+declare module "validator/lib/whitelist" {
+  const whitelist: typeof validator.whitelist;
+  export = whitelist;
+}
+
 // deprecated interfaces for backward compatibility, please use ValidatorJS.* instead the ones
-interface IValidatorStatic extends ValidatorJS.ValidatorStatic {}
-interface IURLoptions extends ValidatorJS.IsURLOptions {}
-interface IFQDNoptions extends ValidatorJS.IsFQDNOptions {}
-interface IEmailoptions extends ValidatorJS.NormalizeEmailOptions {}
+interface IValidatorStatic extends ValidatorJS.ValidatorStatic { }
+interface IURLoptions extends ValidatorJS.IsURLOptions { }
+interface IFQDNoptions extends ValidatorJS.IsFQDNOptions { }
+interface IEmailoptions extends ValidatorJS.NormalizeEmailOptions { }

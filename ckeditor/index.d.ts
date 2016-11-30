@@ -1,4 +1,4 @@
-﻿// Type definitions for CKEditor
+// Type definitions for CKEditor
 // Project: http://ckeditor.com/
 // Definitions by: Ondrej Sevcik <https://github.com/ondrejsevcik/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -544,8 +544,19 @@ declare namespace CKEDITOR {
     }
 
 
-    interface focusManager {
+    class focusManager {
+        // Properties
+        currentActive: dom.domObject;
+        hasFocus: boolean;
 
+        // Methods
+        constructor(editor: editor);
+        focus(currentActive?: dom.element): void;
+        lock(): void;
+        unlock(): void;
+        blur(noDelay?: boolean): void;
+        add(element: dom.element, isCapture: boolean): void;
+        remove(element: dom.element): void;
     }
 
     interface keystrokeHandler {
@@ -796,7 +807,7 @@ declare namespace CKEDITOR {
         templates_files?: Object;
         templates_replaceContent?: boolean;
         title?: string | boolean;
-        toolbar?: string | (string[])[];
+        toolbar?: string | (string | string[])[];
         toolbarCanCollapse?: boolean;
         toolbarGroupCycling?: boolean;
         toolbarGroups?: toolbarGroups[];
@@ -1257,6 +1268,16 @@ declare namespace CKEDITOR {
     interface dataProcessor {
         toDataFormat(html: string, fixForBody: string): void;
         toHtml(data: string, fixForBody?: string): void;
+    }
+
+    class htmlDataProcessor {
+        dataFilter: htmlParser.filter;
+        htmlFilter: htmlParser.filter;
+        writer: htmlParser.basicWriter;
+
+        constructor(editor: editor);
+        toDataFormat(html: string, options?: Object): string;
+        toHtml(data: string, options?: Object): string;
     }
 
 
@@ -1790,6 +1811,16 @@ declare namespace CKEDITOR {
             writeHtml(writer: basicWriter, filter?: filter): void;
         }
 
+    }
+
+    class htmlWriter extends htmlParser.basicWriter {
+        indentationChars: string;
+        lineBreakChars: string;
+        selfClosingEnd: string;
+
+        indentation(): void;
+        lineBreak(): void;
+        setRules(tagName: string, rules: Object): void;
     }
 
 

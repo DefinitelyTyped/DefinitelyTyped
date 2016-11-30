@@ -120,8 +120,9 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
     containerStyle?: any;
     headerStyle?: any;
     bodyStyle?: any;
-
+    ignoreSinglePage?: boolean;
 }
+
 export type SelectRowMode = 'none' | 'radio' | 'checkbox';
 
 export interface SelectRow {
@@ -351,25 +352,24 @@ export interface Options {
 	*/
     onRowMouseOut?: Function;
 
-    paginationShowsTotal?: boolean;
-
 	/**
 	Assign a callback function which will be called when row dropping.
 	It give you a chance to customize your confirmation for row deletion.
 	This function taking two argument: next and rowKeys:
-	
+
 	  `next`: If you confirm to drop row, call next() to continue the process
-	  
+
 	  `rowKeys` is the row keys which been deleted, you can call next function to apply this deletion.
 	*/
     handleConfirmDeleteRow?: (next: Function, rowKeys: any[]) => void;
-    deleteText?: string;
-    saveText?: string;
-
+    paginationShowsTotal?: boolean;
+    onSearchChange?: Function;
     onAddRow?: Function;
     onExportToCSV?: Function;
 
     insertText?: string;
+    deleteText?: string;
+    saveText?: string;
     closeText?: string;
 }
 
@@ -431,7 +431,7 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	*/
     isKey?: boolean;
 	/**
-	Set the column width. ex: 150, it's means 150px 
+	Set the column width. ex: 150, it's means 150px
 	*/
     width?: string;
 	/**
@@ -522,10 +522,10 @@ export interface Editable {
 	 function for validation and taking only one "cell value" as argument. This function should return Bool.
 	 */
     validator?: (cell: any) => boolean;
-	/**			
+	/**
 	 {
 			values: //values means data in select or checkbox.If checkbox, use ':'(colon) to separate value, ex: Y:N
-	 }		
+	 }
 
 	 */
     options?: any;

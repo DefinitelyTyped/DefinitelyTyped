@@ -1,4 +1,4 @@
-﻿// Type definitions for Google API Client
+// Type definitions for Google API Client
 // Project: https://code.google.com/p/google-api-javascript-client/
 // Definitions by: Frank M <https://github.com/sgtfrankieboy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -127,27 +127,7 @@ declare namespace gapi.auth {
 }
 
 declare namespace gapi.client {
-    /**
-    * Loads the client library interface to a particular API. If a callback is not provided, a promise is returned.
-    * @param name The name of the API to load.
-    * @param version The version of the API to load.
-    * @return promise The promise that get's resolved after the request is finished.
-    */
-    export function load(name: string, version: string): Promise<void>
-
-    /**
-    * Loads the client library interface to a particular API. The new API interface will be in the form gapi.client.api.collection.method.
-    * @param name The name of the API to load.
-    * @param version The version of the API to load
-    * @param callback the function that is called once the API interface is loaded
-    * @param url optional, the url of your app - if using Google's APIs, don't set it
-    */
-    export function load(name: string, version: string, callback: () => any, url?: string): void;
-    /**
-    * Creates a HTTP request for making RESTful requests.
-    * An object encapsulating the various arguments for this method.
-    */
-    export function request(args: {
+    interface RequestOptions {
         /**
          * The URL to handle the request
          */
@@ -172,7 +152,29 @@ declare namespace gapi.client {
          * If supplied, the request is executed immediately and no gapi.client.HttpRequest object is returned
          */
         callback?: () => any;
-    }): HttpRequest<any>;
+    }
+
+    /**
+    * Loads the client library interface to a particular API. If a callback is not provided, a promise is returned.
+    * @param name The name of the API to load.
+    * @param version The version of the API to load.
+    * @return promise The promise that get's resolved after the request is finished.
+    */
+    export function load(name: string, version: string): Promise<void>
+
+    /**
+    * Loads the client library interface to a particular API. The new API interface will be in the form gapi.client.api.collection.method.
+    * @param name The name of the API to load.
+    * @param version The version of the API to load
+    * @param callback the function that is called once the API interface is loaded
+    * @param url optional, the url of your app - if using Google's APIs, don't set it
+    */
+    export function load(name: string, version: string, callback: () => any, url?: string): void;
+    /**
+    * Creates a HTTP request for making RESTful requests.
+    * An object encapsulating the various arguments for this method.
+    */
+    export function request(args: RequestOptions): HttpRequest<any>;
     /**
     * Creates an RPC Request directly. The method name and version identify the method to be executed and the RPC params are provided upon RPC creation.
     * @param method The method to be executed.

@@ -1,5 +1,3 @@
-/// <reference path="randomstring.d.ts" />
-
 import * as randomstring from "randomstring";
 
 randomstring.generate();

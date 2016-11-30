@@ -4,7 +4,7 @@ import FormData = require('form-data');
 import fs = require('fs');
 import http = require('http');
 import request = require('request');
-import fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
 import * as ImportUsingES6Syntax from 'form-data';
 
@@ -131,4 +131,11 @@ import * as ImportUsingES6Syntax from 'form-data';
         }).then(function (json) {
             console.log(json);
         });
+}
+
+() => {
+    var form = new FormData();
+	form.getLength((err: Error, length: number): void => {
+		// nothing
+	});
 }

@@ -1,4 +1,4 @@
-﻿// Type definitions for Angular File Upload 11.1.1
+// Type definitions for Angular File Upload 11.1.1
 // Project: https://github.com/danialfarid/ng-file-upload
 // Definitions by: John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@ declare var angularFileUploadDefaultExport: string;
 export = angularFileUploadDefaultExport;
 
 declare module 'angular' {
-    export namespace angularFileUpload  {
+    export namespace angularFileUpload {
         interface ImageDimensions {
             height: number;
             width: number;
@@ -91,6 +91,34 @@ declare module 'angular' {
              */
             ngfValidateForce?: boolean;
         }
+        
+        interface ResizeIfFunction {
+            (width: number, height: number): boolean;
+        }
+
+        interface FileResizeOptions {
+            centerCrop?: boolean;
+            height?: number;
+            ratio?: number;
+            resizeIf?: ResizeIfFunction;
+            restoreExif?: boolean;
+            quality?: number;
+            width?: number;
+        }
+
+        interface ResizeIfFunction {
+            (width: number, height: number): boolean;
+        }
+
+        interface FileResizeOptions {
+            centerCrop?: boolean;
+            height?: number;
+            ratio?: number;
+            resizeIf?: ResizeIfFunction;
+            restoreExif?: boolean;
+            quality?: number;
+            width?: number;
+        }
 
         interface IUploadService {
             /**
@@ -166,7 +194,7 @@ declare module 'angular' {
              * @param  {string} newName
              * @return {File}
              */
-            rename(file: File, newName: string): File;
+            rename(file: File, newName: string): Blob;
             /**
              * Resizes an image. Returns a promise
              *
@@ -179,8 +207,7 @@ declare module 'angular' {
              * @param  {boolean} [centerCrop]
              * @return {angular.IPromise<string>}
              */
-            resize(file: File, width?: number, height?: number, quality?: number, type?: string,
-                ratio?: number | string, centerCrop?: boolean): angular.IPromise<string>;
+            resize(file: File, options: FileResizeOptions): angular.IPromise<File>;
             /**
              * Set the default values for ngf-select and ngf-drop directives
              *
@@ -203,7 +230,7 @@ declare module 'angular' {
              * @return {IUploadPromise<T>}
              */
             abort(): IUploadPromise<T>;
-            progress(callback: IHttpPromiseCallback<T>): IUploadPromise<T>;
+            progress(callback: (event: IFileProgressEvent) => void): IUploadPromise<T>;
             /**
              * Access or attach event listeners to the underlying XMLHttpRequest
              *

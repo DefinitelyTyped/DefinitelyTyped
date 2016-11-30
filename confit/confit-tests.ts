@@ -1,4 +1,3 @@
-/// <reference path="./confit.d.ts" />
 import confit = require("confit");
 
 var basedir = "./config";

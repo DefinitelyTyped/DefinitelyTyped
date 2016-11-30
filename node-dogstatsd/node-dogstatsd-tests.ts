@@ -1,5 +1,3 @@
-/// <reference path="./node-dogstatsd.d.ts" />
-
 import * as datadog from 'node-dogstatsd';
 
 function test_statsd_client() {

@@ -2130,6 +2130,7 @@ declare enum TokenFlag {
     SO_PIN_FINAL_TRY,
     SO_PIN_LOCKED,
     SO_PIN_TO_BE_CHANGED,
+    ERROR_STATE,
 }
 
 declare class Token extends HandleObject {
@@ -2271,4 +2272,3 @@ declare class Module extends BaseObject {
      */
     static load(libFile: string, libName?: string): Module;
 }
-

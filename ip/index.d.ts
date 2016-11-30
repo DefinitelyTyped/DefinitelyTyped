@@ -1,4 +1,4 @@
-﻿// Type definitions for node-ip
+// Type definitions for node-ip
 // Project: https://github.com/indutny/node-ip
 // Definitions by: Peter Harris <https://github.com/codeanimal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,6 +14,7 @@ interface SubnetInfo {
     subnetMaskLength: number;
     numHosts: number;
     length: number;
+    contains(ip: string): boolean;
 }
 
 declare module "ip" {

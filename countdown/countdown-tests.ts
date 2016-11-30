@@ -1,5 +1,3 @@
-/// <reference path="countdown.d.ts" />
-
 import * as countdown from 'countdown';
 
 let ts: countdown.Timespan;
