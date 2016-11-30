@@ -7331,7 +7331,7 @@ declare namespace kendo.ui {
 
         clearAllFiles(): void;
         clearFile(): void;
-        clearFileByUid(): void;
+        clearFileByUid(uid: string): void;
         destroy(): void;
         disable(): void;
         enable(enable?: boolean): void;
@@ -7359,6 +7359,7 @@ declare namespace kendo.ui {
         extension?: string;
         name?: string;
         size?: number;
+	uid?: string;
     }
 
     interface UploadLocalization {
