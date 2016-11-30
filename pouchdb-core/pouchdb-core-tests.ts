@@ -99,6 +99,8 @@ namespace PouchDBCoreTests {
         });
         db.info({ ajax: { cache: true }}, (error, result) => {
         });
+
+        PouchDB.debug.enable('*');
     }
 
     function testRemove() {
@@ -126,5 +128,22 @@ namespace PouchDBCoreTests {
 
       // Callback version with docId and rev
       db.remove(id, rev, {}, (res: PouchDB.Core.Response) => {});
+    }
+
+    function testRemoteOptions() {
+        let db = new PouchDB('http://example.com/dbname', {
+            ajax: {
+                cache: false,
+                timeout: 10000,
+                headers: {
+                    'X-Some-Special-Header': 'foo'
+                },
+            },
+            auth: {
+                username: 'mysecretusername',
+                password: 'mysecretpassword'
+            },
+            skip_setup: true
+        });
     }
 }
