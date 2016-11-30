@@ -1,6 +1,7 @@
 {
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "react-addons-shallow-compare-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -13,6 +14,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "preserve"
     }
 }
