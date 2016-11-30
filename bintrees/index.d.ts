@@ -58,6 +58,4 @@ declare module 'bintrees' {
 
         remove(item: T): boolean;
     }
-
-
 }
