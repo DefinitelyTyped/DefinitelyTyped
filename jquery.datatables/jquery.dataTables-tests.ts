@@ -82,21 +82,21 @@ $(document).ready(function () {
             width: "200px"
         }
     col =
-    {
-        data: "",
-        orderData: [10, 11, 20],
-        render: "",
-    }
+        {
+            data: "",
+            orderData: [10, 11, 20],
+            render: "",
+        }
     col =
-    {
-        data: colDataObject,
-        render: colRenderObject,
-    }
+        {
+            data: colDataObject,
+            render: colRenderObject,
+        }
     col =
-    {
-        data: colDataFunc,
-        render: colRenderFunc,
-    }
+        {
+            data: colDataFunc,
+            render: colRenderFunc,
+        }
 
     //#endregion "Column"
 
@@ -124,16 +124,16 @@ $(document).ready(function () {
         };
 
     colDef =
-    {
-        targets: "2",
-        cellType: "th",
-    };
+        {
+            targets: "2",
+            cellType: "th",
+        };
 
     colDef =
-    {
-        targets: ["2", 5],
-        cellType: "th",
-    };
+        {
+            targets: ["2", 5],
+            cellType: "th",
+        };
 
     //#endregion "ColumnDef"
 
@@ -230,41 +230,41 @@ $(document).ready(function () {
 
 
     config =
-    {
-        ajax: ajaxFunc,
-        deferLoading: [10, 100],
-        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-        order: [0, 'asc'],
-        orderFixed: [[0, 'asc'], [1, 'asc']],
-        renderer: {
-            header: "bootstrap",
-            pageButton: "jqueryui"
-        },
-        search: { "search": "", "smart": true, "regex": false, "caseInsensitive": true },
-        searchCols: [
-            null,
-            { "search": "", "smart": true, "regex": false, "caseInsensitive": true },
-            { "search": "" },
-            { "search": "", "smart": true },
-            null
-        ],
-    };
+        {
+            ajax: ajaxFunc,
+            deferLoading: [10, 100],
+            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            order: [0, 'asc'],
+            orderFixed: [[0, 'asc'], [1, 'asc']],
+            renderer: {
+                header: "bootstrap",
+                pageButton: "jqueryui"
+            },
+            search: { "search": "", "smart": true, "regex": false, "caseInsensitive": true },
+            searchCols: [
+                null,
+                { "search": "", "smart": true, "regex": false, "caseInsensitive": true },
+                { "search": "" },
+                { "search": "", "smart": true },
+                null
+            ],
+        };
 
     config =
-    {
-        ajax: {
-            data: {},
-            dataSrc: "",
-        },
-    };
+        {
+            ajax: {
+                data: {},
+                dataSrc: "",
+            },
+        };
 
     config =
-    {
-        ajax: {
-            data: ajaxDataFunc,
+        {
+            ajax: {
+                data: ajaxDataFunc,
                 dataSrc: function (data: any) { },
-        },
-    };
+            },
+        };
 
     //#endregion "Settings"
 
@@ -393,11 +393,11 @@ $(document).ready(function () {
     var select = $('<select />')
         .appendTo('body')
         .on('change', function () {
-        dt
-            .column(0)
-            .search($(this).val())
-            .draw();
-    });
+            dt
+                .column(0)
+                .search($(this).val())
+                .draw();
+        });
     // Get the search data for the first column and add to the select list
     var data = dt
         .cells('', 0)
@@ -405,8 +405,8 @@ $(document).ready(function () {
         .sort()
         .unique()
         .each(function (d: any) {
-        select.append($('<option value="' + d + '">' + d + '</option>'));
-    });
+            select.append($('<option value="' + d + '">' + d + '</option>'));
+        });
 
     var cells_data = cells.data();
     var data = dt
@@ -530,12 +530,12 @@ $(document).ready(function () {
             dt.column(colIdx).footer()
             )
             .on('change', function () {
-            dt
-                .column(colIdx)
-                .search($(this).val())
-                .draw();
-        });
- 
+                dt
+                    .column(colIdx)
+                    .search($(this).val())
+                    .draw();
+            });
+
         // Get the search data for the first column and add to the select list
         dt
             .column(colIdx)
@@ -543,8 +543,8 @@ $(document).ready(function () {
             .sort()
             .unique()
             .each(function (d: any) {
-            select.append($('<option value="' + d + '">' + d + '</option>'));
-        });
+                select.append($('<option value="' + d + '">' + d + '</option>'));
+            });
     });
 
     var columns_data = columns.data();
@@ -556,7 +556,7 @@ $(document).ready(function () {
             .sort()       // Sort data alphabetically
             .unique()     // Reduce to unique values
             .join('<br>')
-        );
+    );
 
     //var idx = dt
     //    .columns('.check')
@@ -614,12 +614,12 @@ $(document).ready(function () {
         dt.column(0).footer()
         )
         .on('change', function () {
-        dt
-            .column(0)
-            .search($(this).val())
-            .draw();
-    });
- 
+            dt
+                .column(0)
+                .search($(this).val())
+                .draw();
+        });
+
     // Get the search data for the first column and add to the select list
     dt
         .column(0)
@@ -627,8 +627,8 @@ $(document).ready(function () {
         .sort()
         .unique()
         .each(function (d: any) {
-        select.append($('<option value="' + d + '">' + d + '</option>'));
-    });
+            select.append($('<option value="' + d + '">' + d + '</option>'));
+        });
 
     var column_data = column.data();
     alert('Column 4 sum: ' +
@@ -636,9 +636,9 @@ $(document).ready(function () {
             .column(4)
             .data()
             .reduce(function (a: any, b: any) {
-    return a + b;
-    })
-        );
+                return a + b;
+            })
+    );
 
     var column_dataSrc = column.dataSrc();
     $('#example').on('click', 'tbody td', function () {
@@ -699,11 +699,11 @@ $(document).ready(function () {
             )
             .on('change', function () {
                 dt
-                .column(colIdx)
-                .search($(this).val())
-                .draw();
-        });
- 
+                    .column(colIdx)
+                    .search($(this).val())
+                    .draw();
+            });
+
         // Get the search data for the first column and add to the select list
         dt
             .column(colIdx)
@@ -711,8 +711,8 @@ $(document).ready(function () {
             .sort()
             .unique()
             .each(function (d: any) {
-            select.append($('<option value="' + d + '">' + d + '</option>'));
-        });
+                select.append($('<option value="' + d + '">' + d + '</option>'));
+            });
     });
 
     var column_visible_get = column.visible();
@@ -720,7 +720,7 @@ $(document).ready(function () {
     column_visible_set = column.visible(false, true);
     alert('Column index 0 is ' +
         (dt.column(0).visible() === true ? 'visible' : 'not visible')
-        );
+    );
     for (var i = 0; i < 4; i++) {
         dt.column(i).visible(false, false);
     }
@@ -794,13 +794,13 @@ $(document).ready(function () {
         "office": "Edinburgh",
         "extn": "5421"
     }, {
-            "name": "Garrett Winters",
-            "position": "Director",
-            "salary": "$5,300",
-            "start_date": "2011/07/25",
-            "office": "Edinburgh",
-            "extn": "8422"
-        }])
+        "name": "Garrett Winters",
+        "position": "Director",
+        "salary": "$5,300",
+        "start_date": "2011/07/25",
+        "office": "Edinburgh",
+        "extn": "8422"
+    }])
         .draw();
 
     var pupil: any;
@@ -811,9 +811,9 @@ $(document).ready(function () {
         pupil,
     ])
         .draw();
-        //.nodes()
-        //.to$()
-        //.addClass('new');
+    //.nodes()
+    //.to$()
+    //.addClass('new');
 
     $('#example tbody').on('click', 'td.details-control', function () {
         var tr = $(this).parents('tr');
@@ -849,7 +849,7 @@ $(document).ready(function () {
                 '<td>' + rowIdx + '.3</td>' +
                 '<td>' + rowIdx + '.4</td>' +
                 '</tr>'
-                )
+            )
             )
             .show();
     });
