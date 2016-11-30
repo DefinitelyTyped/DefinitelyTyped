@@ -1056,7 +1056,7 @@ interface GanttStatic {
 	dataProcessor(url: string): void;
 
 	/**
-	 * gets the date of the specified horizontal  position in the chart area
+	 * returns the date of the specified horizontal position in the chart area
 	 * @param pos the relative horizontal position you want to know the date of
 	*/
 	dateFromPos(pos: number): Date;
