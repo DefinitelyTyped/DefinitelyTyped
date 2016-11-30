@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 4.6.8
+// Type definitions for Mongoose 4.7.0
 // Project: http://mongoosejs.com/
 // Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -497,10 +497,16 @@ declare module "mongoose" {
     eachAsync(fn: (doc: T) => any, callback?: (err: any) => void): Promise<T>;
 
     /**
+     * Registers a transform function which subsequently maps documents retrieved
+     * via the streams interface or .next()
+     */
+    map(fn: (doc: T) => T): this;
+
+    /**
      * Get the next document from this cursor. Will return null when there are
      * no documents left.
      */
-    next(callback?: (err: any) => void): Promise<any>;
+    next(callback?: (err: any, doc?: T) => void): Promise<any>;
   }
 
   /*
@@ -562,6 +568,12 @@ declare module "mongoose" {
 
     /** Compiles indexes from fields and schema-level indexes */
     indexes(): any[];
+
+    /**
+     * Loads an ES6 class into a schema. Maps setters + getters, static methods, and
+     * instance methods to schema virtuals, statics, and methods.
+     */
+    loadClass(model: Function): this;
 
     /**
      * Adds an instance method to documents constructed from Models compiled from this schema.
