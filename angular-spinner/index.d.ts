@@ -3,23 +3,21 @@
 // Definitions by: Marcin Biegała <https://github.com/Biegal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angular" />
-
 /**
-* SpinnerService 
+* SpinnerService
 * see https://github.com/urish/angular-spinner
 */
-interface ISpinnerService {
+declare interface ISpinnerService {
     /**
      * Start selected spinner
-     * 
+     *
      * @param spinner key
      */
     spin(key: string): void;
 
     /**
      * Stop selected spinner
-     * 
+     *
      * @param spinner key
      */
     stop(key: string): void;

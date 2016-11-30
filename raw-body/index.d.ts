@@ -1,4 +1,4 @@
-// Type definitions for raw-body
+// Type definitions for raw-body 2.1
 // Project: https://github.com/stream-utils/raw-body
 // Definitions by: Stefan Reichel <https://github.com/bomret>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

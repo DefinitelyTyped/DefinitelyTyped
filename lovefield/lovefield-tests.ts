@@ -27,11 +27,10 @@ function main(): void {
           'deadline': new Date(),
           'done': false
         });
-
         return db.insertOrReplace().into(itemSchema).values([row]).exec();
       }).then(
       function() {
-        var column: lf.schema.Column = (<any>itemSchema).done;
+        var column = itemSchema['done'];
         return todoDb.select().from(itemSchema).where(column.eq(false)).exec();
       }).then(
       function(results) {
