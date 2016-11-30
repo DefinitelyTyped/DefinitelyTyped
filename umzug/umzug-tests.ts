@@ -129,7 +129,7 @@ var AnotherUmzug = new Umzug({
 
     // The type of the column holding migration name.
     // Defaults to `Sequelize.STRING`
-    columnType: Sequelize.STRING(100)
+    columnType: Sequelize.STRING
   }
 
 });
