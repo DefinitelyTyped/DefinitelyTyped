@@ -8,38 +8,38 @@
 declare namespace PouchDB {
 
     interface Filter {
-        map: (doc: any) => void
-        reduce?: (key: string, value: any) => any
+        map: (doc: any) => void;
+        reduce?: (key: string, value: any) => any;
     }
 
     namespace Query {
         interface Options {
-            reduce?: ((...args: any[]) => void) | '_sum' | '_count' | '_stats' | boolean
-            include_docs?: boolean
-            conflicts?: boolean
-            attachments?: boolean
-            binary?: boolean
-            startkey?: any
-            endkey?: any
-            inclusive_end?: boolean
-            limit?: number
-            skip?: number
-            descending?: boolean
-            key?: any
-            keys?: any[]
-            group?: boolean
-            group_level?: number
-            stale?: 'ok' | 'update_after'
+            reduce?: ((...args: any[]) => void) | '_sum' | '_count' | '_stats' | boolean;
+            include_docs?: boolean;
+            conflicts?: boolean;
+            attachments?: boolean;
+            binary?: boolean;
+            startkey?: any;
+            endkey?: any;
+            inclusive_end?: boolean;
+            limit?: number;
+            skip?: number;
+            descending?: boolean;
+            key?: any;
+            keys?: any[];
+            group?: boolean;
+            group_level?: number;
+            stale?: 'ok' | 'update_after';
         }
 
         interface Response {
-            total_rows: number
-            offset: number
+            total_rows: number;
+            offset: number;
             rows: {
-                id: any
-                key: any
-                value: any
-                doc?: any
+                id: any;
+                key: any;
+                value: any;
+                doc?: any;
             }[]
         }
     }
