@@ -437,30 +437,11 @@ declare namespace ReactSelectClass {
          */
         searchingText?: string;
     }
-
 }
-    class ReactSelectClass extends __React.Component<ReactSelectProps, {}> {
-    }
+ 
+declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSelectProps, {}> { }
 
-    module ReactSelectClass {
-        class Creatable extends __React.Component<ReactCreatableSelectProps, {}> {
-        }
-        class Async extends __React.Component<ReactAsyncSelectProps, {}> {
-        }
-    }
-}
-
-declare module "react-select" {
-    export = ReactSelect.ReactSelectClass;
-}
-
-declare module "react-select-props" {
-
-    import Option = ReactSelect.Option;
-    import MenuRendererProps = ReactSelect.MenuRendererProps;
-    import ReactSelectProps = ReactSelect.ReactSelectProps;
-    import ReactAsyncSelectProps = ReactSelect.ReactAsyncSelectProps;
-    import ReactCreatableSelectProps = ReactSelect.ReactCreatableSelectProps;
-
-    export { MenuRendererProps, ReactSelectProps, ReactAsyncSelectProps, ReactCreatableSelectProps, Option };
-}
+declare module ReactSelectClass { 
+    class Creatable extends React.Component<ReactCreatableSelectProps, {}> { }
+    class Async extends React.Component<ReactAsyncSelectProps, {}> { } 
+} 
