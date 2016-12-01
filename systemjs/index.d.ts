@@ -12,7 +12,7 @@ declare namespace SystemJSLoader {
 
     /**
      * The following module formats are supported:
-     * 
+     *
      * - esm: ECMAScript Module (previously referred to as es6)
      * - cjs: CommonJS
      * - amd: Asynchronous Module Definition
@@ -101,7 +101,7 @@ declare namespace SystemJSLoader {
          * Use this option to disable this iteration and copying of the exports.
          */
         esmExports?: boolean;
-        
+
         /**
          * To ignore resources that shouldn't be traced as part of the build.
          * Use with the SystemJS Builder. (https://github.com/systemjs/builder#ignore-resources)
@@ -218,7 +218,7 @@ declare namespace SystemJSLoader {
          * Sets the module name of the transpiler to be used for loading ES6 modules.
          */
         transpiler?: Transpiler;
-        
+
         trace?: boolean;
 
         /**
@@ -324,6 +324,8 @@ declare namespace SystemJSLoader {
 }
 
 declare var SystemJS: SystemJSLoader.System;
+
+declare var __moduleName: string;
 
 /**
  * @deprecated use SystemJS https://github.com/systemjs/systemjs/releases/tag/0.19.10

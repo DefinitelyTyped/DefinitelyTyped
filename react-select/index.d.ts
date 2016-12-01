@@ -437,11 +437,11 @@ declare namespace ReactSelectClass {
          */
         searchingText?: string;
     }
+}
+ 
+declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSelectProps, {}> { }
 
-}
-declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSelectProps, {}> {
-    static Async: typeof ReactSelectAsyncClass;
-    static Creatable: typeof ReactSelectCreatableClass;
-}
-declare class ReactSelectAsyncClass extends React.Component<ReactSelectClass.ReactAsyncSelectProps, {}> { }
-declare class ReactSelectCreatableClass extends React.Component<ReactSelectClass.ReactCreatableSelectProps, {}> {}
+declare module ReactSelectClass { 
+    class Creatable extends React.Component<ReactCreatableSelectProps, {}> { }
+    class Async extends React.Component<ReactAsyncSelectProps, {}> { } 
+} 

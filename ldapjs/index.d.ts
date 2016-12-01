@@ -1,4 +1,4 @@
-﻿// Type definitions for ldapjs v0.7.1
+// Type definitions for ldapjs v0.7.1
 // Project: http://ldapjs.org
 // Definitions by: Peter Kooijmans <https://github.com/peterkooijmans/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

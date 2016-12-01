@@ -1,3 +1,4 @@
+/// <reference path="index.d.ts" />
 import * as assert from "assert";
 import * as fs from "fs";
 import * as events from "events";
@@ -449,6 +450,26 @@ function stream_readable_pipe_test() {
     rs.close();
 }
 
+// helpers
+const compressMe = new Buffer("some data");
+const compressMeString = "compress me!";
+
+zlib.deflate(compressMe, (err: Error, result: Buffer) => zlib.inflate(result, (err: Error, result: Buffer) => result));
+zlib.deflate(compressMeString, (err: Error, result: Buffer) => zlib.inflate(result, (err: Error, result: Buffer) => result));
+const inflated = zlib.inflateSync(zlib.deflateSync(compressMe));
+const inflatedString = zlib.inflateSync(zlib.deflateSync(compressMeString));
+
+zlib.deflateRaw(compressMe, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
+zlib.deflateRaw(compressMeString, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
+const inflatedRaw: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMe));
+const inflatedRawString: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMeString));
+
+zlib.gzip(compressMe, (err: Error, result: Buffer) => zlib.gunzip(result, (err: Error, result: Buffer) => result));
+const gunzipped: Buffer = zlib.gunzipSync(zlib.gzipSync(compressMe));
+
+zlib.unzip(compressMe, (err: Error, result: Buffer) => result);
+const unzipped: Buffer = zlib.unzipSync(compressMe);
+
 // Simplified constructors
 function simplified_stream_ctor_test() {
     new stream.Readable({
@@ -731,6 +752,14 @@ namespace tls_tests {
         _server = _server.prependOnceListener("secureConnection", (tlsSocket) => {
             let _tlsSocket: tls.TLSSocket = tlsSocket;
         })
+
+        // close callback parameter is optional
+        _server = _server.close();
+
+        // close callback parameter doesn't specify any arguments, so any
+        // function is acceptable
+        _server = _server.close(() => {});
+        _server = _server.close((...args:any[]) => {});
     }
 
     {
@@ -1317,7 +1346,7 @@ namespace child_process_tests {
         childProcess.exec("echo test");
         childProcess.spawnSync("echo test");
     }
-    
+
     {
         let _cp: childProcess.ChildProcess;
         let _boolean: boolean;
@@ -1582,7 +1611,7 @@ namespace process_tests {
         assert(process.argv[0] === process.argv0);
     }
     {
-        var module: NodeModule;
+        var module: NodeModule | undefined;
         module = process.mainModule;
     }
 }
@@ -1605,8 +1634,22 @@ namespace console_tests {
 
 namespace net_tests {
     {
-        // Make sure .listen() and .close() retuern a Server instance
-        net.createServer().listen(0).close().address();
+        let server = net.createServer();
+        // Check methods which return server instances by chaining calls
+        server = server.listen(0)
+                .close()
+                .ref()
+                .unref();
+
+        // close has an optional callback function. No callback parameters are
+        // specified, so any callback function is permissible.
+        server = server.close((...args: any[]) => {});
+
+        // test the types of the address object fields
+        let address = server.address();
+        address.port = 1234;
+        address.family = "ipv4";
+        address.address = "127.0.0.1";
     }
 
     {

@@ -358,3 +358,12 @@ describe('genMockFromModule', function () {
       });
     });
 });
+
+/**
+ * Pass strictNullChecks
+ */
+describe('strictNullChecks', function () {
+    it('does not complain when using done callback', (done) => {
+        done();
+    })
+});

@@ -1,4 +1,4 @@
-﻿// Type definitions for Angular matchMedia 0.6.0 (angular.matchMedia module)
+// Type definitions for Angular matchMedia 0.6.0 (angular.matchMedia module)
 // Project: https://github.com/jacopotarantino/angular-match-media
 // Definitions by: Joao Monteiro <https://github.com/jpmnteiro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

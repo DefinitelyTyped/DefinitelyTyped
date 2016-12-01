@@ -1,4 +1,4 @@
-﻿// Type definitions for Bootstrap Switch
+// Type definitions for Bootstrap Switch
 // Project: http://www.bootstrap-switch.org/
 // Definitions by: John M. Baughman <https://github.com/johnmbaughman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -250,7 +250,7 @@ declare namespace ht {
     getRowHeight(row: number): number;
     getSchema(): Object;
     getSelected(): any[];
-    getSelectedRange(): any;
+    getSelectedRange(): Range;
     getSettings(): Object;
     getSourceData(r?: number, c?: number, r2?: number, c2?: number): any[];
     getSourceDataAtCell(row: number, column: number): any;
@@ -266,7 +266,7 @@ declare namespace ht {
     listen(): void;
     loadData(data: any[]): void;
     populateFromArray(row: number, col: number, input: any[], endRow?: number, endCol?: number, source?: string, method?: string, direction?: string, deltas?: any[]): any;
-    propToCol(prop: string): number;
+    propToCol(prop: string | number): number;
     removeCellMeta(row: number, col: number, key: string): void;
     removeHook(key: string, callback: Function): void;
     render(): void;
@@ -284,9 +284,79 @@ declare namespace ht {
     updateSettings(settings: Object, init: boolean): void;
     validateCells(callback: Function): void;
   }
+
+  interface Selection {
+        start: CellPosition;
+        end: CellPosition;
+    }
+
+    interface Range {
+        from: CellPosition;
+        to: CellPosition;
+    }
+
+    interface HandsontableRegisterer {
+        getInstance(id: string): Methods;
+        registerInstance(id: string, instance: Methods): void;
+        removeInstance(id: string): void;
+    }
+
+    interface ColumnProperties extends CellProperties {
+        data?: string;
+        editor?: string;
+        selectOptions?: any[];
+    }
+
+    interface CellProperties {
+        renderer?: (
+            instance: Methods,
+            td: HTMLTableDataCellElement,
+            row: number,
+            col: number,
+            prop: string,
+            value: any,
+            tdCellProperties: Object) => void;
+        type?: string;
+        readOnly?: boolean;
+        language?: string;
+        format?: string;
+        validator?: (value: string, callback: (condition: boolean) => void) => void;
+    }
+
+    interface CellPosition {
+        row: number;
+        col: number;
+    }
 }
 
 
 declare var Handsontable: {
   new (element: Element, options: ht.Options): ht.Methods;
+  renderers: {
+    TextRenderer(
+      instance: any,
+      td: HTMLTableCellElement,
+      row: number,
+      col: number,
+      prop: string,
+      value: any,
+      cellProperties: any): void;
+    NumericRenderer(
+      instance: any,
+      td: HTMLTableCellElement,
+      row: number,
+      col: number,
+      prop: string,
+      value: any,
+      cellProperties: any): void;
+  }
+  Dom: {
+    addEvent(element: HTMLElement, eventName: string, callback: Function): void;
+  }
 };
+
+declare module "handsontable" {
+    export var Handsontable: {
+      new (element: Element, options: ht.Options): ht.Methods;
+    };
+}

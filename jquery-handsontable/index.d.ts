@@ -1,4 +1,4 @@
-﻿// Type definitions for jquery-handsontable
+// Type definitions for jquery-handsontable
 // Project: http://handsontable.com
 // Definitions by: Ted John <https://github.com/intelorca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -291,6 +291,11 @@ declare namespace Handsontable {
          * Setting to true enables the manualRowResize plugin, which allows to resize the row height with your mouse.
          */
         manualRowResize?: boolean;
+
+        /**
+         * Turns on Manual row move, if set to a boolean or define initial row order, if set to an array of row indexes.
+         */
+        manualRowMove?: boolean;
 
         /**
          * Setting to true enables the copyPaste plugin, which enables the copying and pasting to the clipboard.

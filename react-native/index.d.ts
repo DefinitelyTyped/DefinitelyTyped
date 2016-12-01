@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.34
+// Type definitions for react-native 0.37
 // Project: https://github.com/facebook/react-native
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1922,6 +1922,16 @@ declare module "react" {
         [key: string]: any
     }
 
+    /**
+     * Passed data from WebView via window.postMessage.
+     */
+    export interface WebViewMessageEventData {
+	/**
+	 * The data sent from a WebView; can only be a string.
+	 */
+	data: string
+    }
+    
     export interface WebViewPropertiesAndroid {
 
         /**
@@ -2080,6 +2090,11 @@ declare module "react" {
          */
         onLoadStart?: (event: NavState) => void
 
+        /**
+         * Invoked when window.postMessage is called from WebView.
+         */
+	onMessage?: ( event: NativeSyntheticEvent<WebViewMessageEventData> ) => void
+	
         /**
          * Function that is invoked when the `WebView` loading starts or ends.
          */
@@ -6111,6 +6126,17 @@ declare module "react" {
         removeEventListener(eventName: BackPressEventName, handler: () => void): void;
     }
 
+    export interface ButtonProperties {
+        title: string;
+        onPress: () => any;
+        color?: string;
+        accessibilityLabel?: string;
+        disabled?: boolean;
+    }
+
+    export interface ButtonStatic extends ComponentClass<ButtonProperties> {
+    }
+
     export type CameraRollGroupType = "Album" | "All" | "Event" | "Faces" | "Library" | "PhotoStream" | "SavedPhotos";
     export type CameraRollAssetType = "All" | "Videos" | "Photos";
 
@@ -7569,7 +7595,7 @@ declare module "react" {
     // Network Polyfill
     // TODO: Add proper support for fetch
     export type fetch = (url: string, options?: Object) => Promise<any>
-	export const fetch: fetch;
+    export const fetch: fetch;
 
     // Timers polyfill
     export type timedScheduler = (fn: string | Function, time: number) => number
@@ -7600,8 +7626,9 @@ declare module "react" {
         type: string;
     }
 
-     export interface NavigationRoute {
+    export interface NavigationRoute {
       key: string;
+      title?: string;
     }
 
     export interface NavigationState extends NavigationRoute {
@@ -7614,19 +7641,35 @@ declare module "react" {
         onNavigate: (action: NavigationAction) => boolean
     ) => JSX.Element;
 
-    export interface NavigationHeaderProps {
-        renderTitleComponent?(props: Object): JSX.Element
-        renderLeftComponent?(props: Object): JSX.Element
-        renderRightComponent?(props: Object): JSX.Element
-        onNavigateBack(): void
-        style?: ViewStyle
-        viewProps?: any
+    interface SubViewProps extends NavigationSceneRendererProps {
+        onNavigateBack?(): void;
+    }
+
+    type SubViewRenderer = (subViewProps: SubViewProps) => JSX.Element;
+
+    export interface NavigationHeaderProps extends NavigationSceneRendererProps {
+        onNavigateBack?(): void,
+        renderLeftComponent?: SubViewRenderer,
+        renderRightComponent?: SubViewRenderer,
+        renderTitleComponent?: SubViewRenderer,
+        style?: ViewStyle,
+        viewProps?: any,
         statusBarHeight?: number | NavigationAnimatedValue
     }
 
     export interface NavigationHeaderStatic extends React.ComponentClass<NavigationHeaderProps> {
-        Title: () => JSX.ElementClass
+        Title: NavigationHeaderTitleStatic
         HEIGHT: number
+    }
+
+    export interface NavigationHeaderTitleProps {
+        children?: JSX.Element,
+        style?: ViewStyle,
+        textStyle?: TextStyle,
+        viewProps?: any
+    }
+
+    export interface NavigationHeaderTitleStatic extends React.ComponentClass<NavigationHeaderTitleProps> {
     }
 
     export interface NavigationCardStackProps {
@@ -7672,13 +7715,11 @@ declare module "react" {
         /**
          * Function that renders the header.
          */
-        renderHeader?: Function,
-
+        renderHeader?: NavigationSceneRenderer,
         /**
          * Function that renders the a scene for a route.
          */
-        renderScene: Function,
-
+        renderScene: NavigationSceneRenderer,
         /**
          * Custom style applied to the cards stack.
          */
@@ -7709,35 +7750,19 @@ declare module "react" {
         route: NavigationRoute,
     };
 
+    // Similar to `NavigationTransitionProps`, except that the prop `scene`
+    // represents the scene for the renderer to render.
     export interface NavigationSceneRendererProps {
-        // The layout of the transitioner of the scenes.
         layout: NavigationLayout,
-
-        // The navigation state of the transitioner.
         navigationState: NavigationState,
-
-        // The progressive index of the transitioner's navigation state.
         position: NavigationAnimatedValue,
-
-        // The value that represents the progress of the transition when navigation
-        // state changes from one to another. Its numberic value will range from 0
-        // to 1.
-        //  progress.__getAnimatedValue() < 1 : transtion is happening.
-        //  progress.__getAnimatedValue() == 1 : transtion completes.
         progress: NavigationAnimatedValue,
-
-        // All the scenes of the transitioner.
         scenes: Array<NavigationScene>,
-
-        // The active scene, corresponding to the route at
-        // `navigationState.routes[navigationState.index]`.
         scene: NavigationScene,
-
-        // The gesture distance for `horizontal` and `vertical` transitions
         gestureResponseDistance?: number,
     }
 
-    export interface NavigationSceneRenderer extends React.ComponentClass<NavigationSceneRendererProps> {
+    export interface NavigationSceneRenderer extends React.StatelessComponent<NavigationSceneRendererProps> {
     }
 
     export interface NavigationPropTypes {
@@ -7764,11 +7789,11 @@ declare module "react" {
 
     export interface NavigationCardProps extends React.ComponentClass<NavigationSceneRendererProps> {
         onComponentRef: (ref: any) => void,
-        onNavigateBack: Function,
-        panHandlers: GestureResponderHandlers,
+        onNavigateBack?: Function,
+        panHandlers?: GestureResponderHandlers,
         pointerEvents: string,
         renderScene: NavigationSceneRenderer,
-        style: any,
+        style?: ViewStyle,
     }
 
     export interface NavigationCardStackStatic extends React.ComponentClass<NavigationCardStackProps> {
@@ -7847,13 +7872,13 @@ declare module "react" {
         timing?: (value: NavigationAnimatedValue, config: any) => any,
     }
     export interface NavigationTransitionerProps {
-        configureTransition: (
+        configureTransition?: (
             a: NavigationTransitionProps,
             b?: NavigationTransitionProps
         ) => NavigationTransitionSpec,
         navigationState: NavigationState,
-        onTransitionEnd: () => void,
-        onTransitionStart: () => void,
+        onTransitionEnd?: () => void,
+        onTransitionStart?: () => void,
         render: (a: NavigationTransitionProps, b?: NavigationTransitionProps) => any,
         style: any,
     }
@@ -8103,6 +8128,9 @@ declare module "react" {
 
     export var BackAndroid: BackAndroidStatic
     export type BackAndroid = BackAndroidStatic
+
+    export var Button: ButtonStatic
+    export type Button = ButtonStatic
 
     export var CameraRoll: CameraRollStatic
     export type CameraRoll = CameraRollStatic

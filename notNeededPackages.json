@@ -36,6 +36,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "Dexie.js",
+            "typingsPackageName": "dexie",
+            "sourceRepoURL": "https://github.com/dfahlander/Dexie.js",
+            "asOfVersion": "1.3.1"
+        },
+        {
             "libraryName": "LinqSharp",
             "typingsPackageName": "linqsharp",
             "sourceRepoURL": "https://github.com/brunolm/LinqSharp",
@@ -52,6 +58,30 @@
             "typingsPackageName": "typescript-services",
             "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "Prando",
+            "typingsPackageName": "prando",
+            "sourceRepoURL": "https://github.com/zeh/prando",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "Shopify Prime",
+            "typingsPackageName": "shopify-prime",
+            "sourceRepoURL": "https://github.com/nozzlegear/shopify-prime",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "SimpleSignal",
+            "typingsPackageName": "simplesignal",
+            "sourceRepoURL": "https://github.com/zeh/simplesignal",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "Redux",
+            "typingsPackageName": "redux",
+            "sourceRepoURL": "https://github.com/reactjs/redux",
+            "asOfVersion": "3.6.0"
         }
     ]
 }
