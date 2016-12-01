@@ -77,6 +77,14 @@ declare namespace PouchDB {
          * index files.
          */
         viewCleanup(callback: PouchDB.Core.Callback<any,void>): void;
+        /**
+         * Cleans up any stale map/reduce indexes.
+         *
+         * As design docs are deleted or modified, their associated index
+         * files(in CouchDB) or companion databases (in local PouchDBs) continue
+         * to take up space on disk. viewCleanup() removes these unnecessary
+         * index files.
+         */
         viewCleanup(): Promise<void>;
 
         /**
@@ -84,7 +92,15 @@ declare namespace PouchDB {
          * on PouchDB than what you get with allDocs().
          */
         query(fun: string | Filter | Function, opts: Query.Options, callback: (err: Core.Error, res: Query.Response<Content>) => void): void;
+        /**
+         * Invoke a map/reduce function, which allows you to perform more complex queries
+         * on PouchDB than what you get with allDocs().
+         */
         query(fun: string | Filter | Function, callback: (err: Core.Error, res: Query.Response<Content>) => void): void;
+        /**
+         * Invoke a map/reduce function, which allows you to perform more complex queries
+         * on PouchDB than what you get with allDocs().
+         */
         query(fun: string | Filter | Function, opts?: Query.Options): Promise<Query.Response<Content>>;
     }
 }
