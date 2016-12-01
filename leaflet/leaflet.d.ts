@@ -805,7 +805,7 @@ declare namespace L {
          * }
          * ```
          */
-         pointToLayer?: (geoJsonPoint: GeoJSON.Point|GeoJSON.Feature<GeoJSON.Point>, latlng: LatLng) => Layer; // should import GeoJSON typings
+        pointToLayer?: (geoJsonPoint: GeoJSON.Feature<GeoJSON.Point>, latlng: LatLng) => Layer; // should import GeoJSON typings
 
         /**
          * A Function defining the Path options for styling GeoJSON lines and polygons,
