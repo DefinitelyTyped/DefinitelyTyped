@@ -206,7 +206,7 @@ firstDivTransition = bodyTransition.select(function (d, i, g) {
     let group: HTMLBodyElement[] | ArrayLike<HTMLBodyElement> = g;
 
     console.log('Body Datum foo', d.foo); // d is of type BodyDatum
-    return this.querySelector('div'); // 'this' type is HTMLElement, return type is HTMLDivElement
+    return this.querySelector('div')!; // 'this' type is HTMLElement, return type is HTMLDivElement
 });
 
 
@@ -482,7 +482,7 @@ let empty: boolean = enterTransition.empty();
 
 // node() and nodes() --------------------------------------------------------------------
 
-let firstCircleNode: SVGCircleElement = enterTransition.node();
+let firstCircleNode: SVGCircleElement = enterTransition.node()!;
 let circleNodes: SVGCircleElement[] = enterTransition.nodes();
 
 // size() --------------------------------------------------------------------------------

@@ -225,7 +225,7 @@ export interface Simulation<NodeDatum extends SimulationNodeDatum, LinkDatum ext
      *
      * @param name Name of the registered force.
      */
-    force<F extends Force<NodeDatum, LinkDatum> | undefined>(name: string): F;
+    force<F extends Force<NodeDatum, LinkDatum>>(name: string): F| undefined;
     /**
      * Remove a previously registered force.
      *

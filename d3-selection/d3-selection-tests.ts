@@ -79,17 +79,17 @@ let body: d3Selection.Selection<HTMLBodyElement, BodyDatum, HTMLElement, any> = 
 let baseTypeEl2: d3Selection.Selection<d3Selection.BaseType, any, null, undefined> = d3Selection.select(baseTypeEl.node());
 // let body2: d3Selection.Selection<HTMLElement, any, null, undefined> = d3Selection.select(baseTypeEl.node()); // fails as baseTypeEl.node() is of type cannot be assigned to HTMLElement
 
-let body3: d3Selection.Selection<HTMLBodyElement, any, null, undefined> = d3Selection.select(body.node()); // element types match, but datum is of type 'any' as it cannot be inferred from .node()
+let body3: d3Selection.Selection<HTMLBodyElement, any, null, undefined> = d3Selection.select(body.node()!); // element types match, but datum is of type 'any' as it cannot be inferred from .node()
 
 // Using select() with node argument and type parameters creates selection
 // with Group element of type HTMLBodyElement and datum of BodyDatum type. The parent element is of type 'null' with datum of type 'undefined'
 
-let body4: d3Selection.Selection<HTMLBodyElement, BodyDatum, null, undefined> = d3Selection.select<HTMLBodyElement, BodyDatum>(body.node());
+let body4: d3Selection.Selection<HTMLBodyElement, BodyDatum, null, undefined> = d3Selection.select<HTMLBodyElement, BodyDatum>(body.node()!);
 
 //  Explicitly cast body.node() to HTMLBodyElement to narrow selection definition.
-let body5: d3Selection.Selection<HTMLBodyElement, BodyDatum, null, undefined> = d3Selection.select<HTMLBodyElement, BodyDatum>(body.node());
+let body5: d3Selection.Selection<HTMLBodyElement, BodyDatum, null, undefined> = d3Selection.select<HTMLBodyElement, BodyDatum>(body.node()!);
 
-// d3Selection.select<HTMLBodyElement, BodyDatum>(baseTypeEl.node()); // fails as baseTypeEl.node() is not of type HTMLBodyElement
+// d3Selection.select<HTMLBodyElement, BodyDatum>(baseTypeEl.node()!); // fails as baseTypeEl.node() is not of type HTMLBodyElement
 
 // test, when it is not certain, whether an element of the type to be selected exists
 let maybeSVG1: d3Selection.Selection<SVGSVGElement | null, any, HTMLElement, undefined> = d3Selection.select<SVGSVGElement, any>('svg');
@@ -182,7 +182,7 @@ maybeG = svgEl.select<SVGGElement | null>('g');
 // Using select(...) sub-selection with a selector function argument.
 
 function svgGroupSelector(this: SVGSVGElement, d: SVGDatum, i: number, groups: SVGSVGElement[]): SVGGElement {
-    return this.querySelector('g'); // this-type compatible with group element-type to which the selector function will be appplied
+    return this.querySelector('g')!; // this-type compatible with group element-type to which the selector function will be appplied
 }
 
 firstG = svgEl.select(svgGroupSelector);
@@ -191,7 +191,7 @@ firstG = svgEl.select(function () {
     let that: SVGSVGElement = this;
     // let that2: HTMLElement  = this; // fails, type mismatch
     console.log('Get <svg> Element width using "this": ', this.width.baseVal.value); // 'this' type is SVGSVGElement
-    return this.querySelector('g'); // this of type SVGSVGElement by type inference
+    return this.querySelector('g')!; // this of type SVGSVGElement by type inference
 });
 
 firstG = svgEl.select(function (d, i, g) {
@@ -205,7 +205,7 @@ firstG = svgEl.select(function (d, i, g) {
     if (g.length > 1) {
         console.log('Get width of 2nd <svg> Element in group: ', g[1].width.baseVal.value); // type is SVGSVGElement
     }
-    return this.querySelector('g'); // this of type SVGSVGElement by type inference
+    return this.querySelector('g')!; // this of type SVGSVGElement by type inference
 });
 
 
@@ -932,7 +932,7 @@ let emptyFlag = gElementsOldData.empty();
 
 // node() and nodes() --------------------------------------------------------------------
 
-let bodyNode: HTMLBodyElement = body.node();
+let bodyNode: HTMLBodyElement | null= body.node();
 
 let gElementsNodes: SVGGElement[] = gElementsOldData.nodes();
 
@@ -1068,9 +1068,9 @@ let resultText: string = d3Selection.customEvent(successEvent, customListener, b
 // mouse() ---------------------------------------------------------------------------------
 
 let position: [number, number] | null;
-let svg: SVGSVGElement = d3Selection.select<SVGSVGElement, any>('svg').node();
-let g: SVGGElement = d3Selection.select<SVGGElement, any>('g').node();
-let h: HTMLElement = d3Selection.select<HTMLElement, any>('div').node();
+let svg: SVGSVGElement = d3Selection.select<SVGSVGElement, any>('svg').node()!;
+let g: SVGGElement = d3Selection.select<SVGGElement, any>('g').node()!;
+let h: HTMLElement = d3Selection.select<HTMLElement, any>('div').node()!;
 let changedTouches: TouchList = new TouchList(); // dummy
 
 position = d3Selection.mouse(svg);
@@ -1101,7 +1101,7 @@ positions = d3Selection.touches(h, changedTouches);
 // Tests of Local
 // ---------------------------------------------------------------------------------------
 
-let xElement: Element = d3Selection.select<Element, any>('foo').node();
+let xElement: Element = d3Selection.select<Element, any>('foo').node()!;
 let foo: d3Selection.Local<number[]> = d3Selection.local<number[]>();
 let propName: string = foo.toString();
 

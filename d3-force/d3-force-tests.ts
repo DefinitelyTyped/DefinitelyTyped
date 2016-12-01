@@ -55,7 +55,7 @@ let simLinks: SimLink[];
 
 let num: number;
 
-let canvas = document.querySelector('canvas');
+let canvas = document.querySelector('canvas')!;
 let context = canvas.getContext('2d');
 let width = canvas.width;
 let height = canvas.height;
@@ -459,27 +459,26 @@ let f: d3Force.Force<SimNode, SimLink>;
 maybeF = nodeLinkSimulation.force('charge');
 maybeF = nodeLinkSimulation.force('link');
 
-
 // assuming certainty that force has been previously assigned
-f = nodeLinkSimulation.force<d3Force.Force<SimNode, SimLink>>('charge');
+f = nodeLinkSimulation.force<d3Force.Force<SimNode, SimLink>>('charge')!;
 
 // if force may not have been assigned for the name
-maybeF = nodeLinkSimulation.force<d3Force.Force<SimNode, SimLink> | undefined>('charge');
-// f = nodeLinkSimulation.force<d3Force.Force<SimNode, SimLink> | undefined>('charge'); // fails, with strictNullChecks
+maybeF = nodeLinkSimulation.force<d3Force.Force<SimNode, SimLink>>('charge');
+// f = nodeLinkSimulation.force<d3Force.Force<SimNode, SimLink>>('charge'); // fails, with strictNullChecks
 
 // getter with force type cast to improve return type specificity
 
 let fLink: d3Force.ForceLink<SimNode, SimLink>;
 
 // Need explicit, careful type casting to a specific force type
-fLink = nodeLinkSimulation.force<d3Force.ForceLink<SimNode, SimLink>>('link');
+fLink = nodeLinkSimulation.force<d3Force.ForceLink<SimNode, SimLink>>('link')!;
 
 // This is mainly an issue for ForceLinks, if once wants to get the links from an initialized force
 // or re-set new links for an initialized force, e.g.:
 
-simLinks = nodeLinkSimulation.force<d3Force.ForceLink<SimNode, SimLink>>('link').links();
+simLinks = nodeLinkSimulation.force<d3Force.ForceLink<SimNode, SimLink>>('link')!.links();
 
-// fLink = nodeLinkSimulation.force('link'); // fails, as ForceLink specific properties are missing from 'generic' force
+// fLink = nodeLinkSimulation.force('link')!; // fails, as ForceLink specific properties are missing from 'generic' force
 
 
 // on() --------------------------------------------------------------------------------

@@ -878,7 +878,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
     /**
      * Return the first (non-null) element in this selection. If the selection is empty, returns null.
      */
-    node(): GElement;
+    node(): GElement | null;
 
     /**
      * Return an array of all (non-null) elements in this selection.

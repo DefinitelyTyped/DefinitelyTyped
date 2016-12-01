@@ -38,7 +38,7 @@ interface CustomSubject {
     r: number;
 }
 
-let svg: SVGSVGElement = select<SVGSVGElement, any>('svg').node(); // mock
+let svg: SVGSVGElement = select<SVGSVGElement, any>('svg').node()!; // mock
 
 let circles: Selection<SVGCircleElement, CircleDatum, SVGSVGElement, any> = select<SVGSVGElement, any>('svg').selectAll<SVGCircleElement, CircleDatum>('circle'); // mock
 

@@ -480,7 +480,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
     /**
      * Return the first (non-null) element in this transition. If the transition is empty, returns null.
      */
-    node(): GElement;
+    node(): GElement | null;
 
     /**
      * Return an array of all (non-null) elements in this transition.
