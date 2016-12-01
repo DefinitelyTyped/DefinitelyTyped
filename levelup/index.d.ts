@@ -1,7 +1,6 @@
 // Type definitions for LevelUp 
 // Project: https://github.com/Level/levelup
-// Definitions by: Bret Little <https://github.com/blittle>
-// Definitions by: Thiago de Arruda <https://github.com/tarruda>
+// Definitions by: Bret Little <https://github.com/blittle>, Thiago de Arruda <https://github.com/tarruda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
