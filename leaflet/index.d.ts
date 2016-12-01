@@ -33,13 +33,13 @@ declare namespace L {
         static testProp(props: String[]): String|boolean/*=false*/;
         static setTransform(el: HTMLElement, offset: Point, scale?: Number):void;
         static setPosition(el: HTMLElement, position: Point):void;
-        static getPosition(el: HTMLElement): Point
-        static disableTextSelection(): void
-        static enableTextSelection(): void
-        static disableImageDrag(): void
-        static enableImageDrag(): void
-        static preventOutline(el: HTMLElement): void
-        static restoreOutline(): void
+        static getPosition(el: HTMLElement): Point;
+        static disableTextSelection(): void;
+        static enableTextSelection(): void;
+        static disableImageDrag(): void;
+        static enableImageDrag(): void;
+        static preventOutline(el: HTMLElement): void;
+        static restoreOutline(): void;
     }
 
     export interface CRS {
@@ -247,7 +247,7 @@ declare namespace L {
      * with an object (e.g. the user clicks on the map, causing the map to fire
      * 'click' event).
      */
-    export interface Evented extends Class {
+    export abstract class Evented extends Class {
         /**
          * Adds a listener function (fn) to a particular event type of the object.
          * You can optionally specify the context of the listener (object the this
@@ -381,6 +381,21 @@ declare namespace L {
          * Returns true if a particular event type has any listeners attached to it.
          */
         hasEventListeners(type: string): boolean;
+    }
+
+    /**
+     * A class for making DOM elements draggable (including touch support).
+     * Used internally for map and marker dragging. Only works for elements
+     * that were positioned with [`L.DomUtil.setPosition`](#domutil-setposition).
+     */
+    export class Draggable extends Evented {
+        constructor(element: HTMLElement, dragStartTarget?: HTMLElement, preventOutline?: boolean);
+
+        enable(): void;
+
+        disable(): void;
+
+        finishDrag(): void;
     }
 
     interface LayerOptions {
@@ -523,6 +538,15 @@ declare namespace L {
         bringToFront(): this;
         bringToBack(): this;
         setUrl(url: string): this;
+
+        /** Update the bounds that this ImageOverlay covers */
+        setBounds(bounds: LatLngBounds): this;
+
+        /** Get the bounds that this ImageOverlay covers */
+        getBounds(): LatLngBounds;
+
+	    /** Get the img element that represents the ImageOverlay on the map */
+	    getElement(): HTMLImageElement;
     }
 
     export function imageOverlay(imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions): ImageOverlay;
