@@ -158,7 +158,7 @@ declare namespace createjs {
         // methods
         close(): void;
         getItems(loaded: boolean): Object[];
-        installPlugin(plugin: () => any): void;
+        installPlugin(plugin: any): void;
         loadFile(file: Object | string, loadNow?: boolean, basePath?: string): void;
         loadManifest(manifest: Object | string | any[], loadNow?: boolean, basePath?: string): void;
         registerLoader(loader: AbstractLoader): void;
