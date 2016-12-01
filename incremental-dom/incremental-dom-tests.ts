@@ -1,4 +1,4 @@
-/// <reference types="all-tests.ts"/>
+declare var expect: any;
 
 import id = require('incremental-dom');
 var patch = id.patch;
