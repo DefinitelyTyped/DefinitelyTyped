@@ -15,7 +15,7 @@ declare function Q<T>(value: T): Q.Promise<T>;
 /**
  * Calling with nothing at all creates a void promise
  */
-declare function Q(): Q.Promise<void>;
+declare function Q<T>(): Q.Promise<void>;
 
 declare namespace Q {
     type IWhenable<T> = IPromise<T> | T;
