@@ -66,6 +66,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "Shopify Prime",
+            "typingsPackageName": "shopify-prime",
+            "sourceRepoURL": "https://github.com/nozzlegear/shopify-prime",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "SimpleSignal",
             "typingsPackageName": "simplesignal",
             "sourceRepoURL": "https://github.com/zeh/simplesignal",
