@@ -13,9 +13,9 @@ node.mapGeneratedCode(function (code) {
 })
 
 slm.fromStringWithSourceMap('hello', {
-    sources: null,
-    sourcesContent: null,
-    mappings: null
+    sources: [node, new slm.CodeNode('hello')],
+    sourcesContent: ['hi'],
+    mappings: 'null'
 });
 
 const snode = new slm.SourceNode('hi', 'i\'am', 'e-cloud');
