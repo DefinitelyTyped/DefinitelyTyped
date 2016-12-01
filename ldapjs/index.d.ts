@@ -1,7 +1,6 @@
 // Type definitions for ldapjs v1.0.1
 // Project: http://ldapjs.org
-// Definitions by: Charles Villemure <https://github.com/cvillemure/>
-// 		Updated from: Peter Kooijmans <https://github.com/peterkooijmans/>
+// Definitions by: Charles Villemure <https://github.com/cvillemure/>, Updated from (0.7.1) Peter Kooijmans <https://github.com/peterkooijmans/>
 // Definitions: https://github.com/cvillemure/DefinitelyTyped/tree/types-2.0/ldapjs
 
 /// <reference types="node" />
@@ -30,7 +29,7 @@ export interface CallBack {
 
 export interface ClientOptions {
 	url: string;
-	tlsOptions: Object;
+	tlsOptions?: Object;
 	socketPath?: string;
 	log?: any;
 	timeout?: number;
@@ -57,7 +56,7 @@ export interface SearchOptions {
 	timeLimit?: number;
 	derefAliases?: number;
 	typesOnly?: boolean;
-	paged: boolean | {
+	paged?: boolean | {
 		pageSize?: number;
 		pagePause?: boolean;
 	}
