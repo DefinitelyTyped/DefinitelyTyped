@@ -482,3 +482,7 @@ configuration = {
 		]
 	}
 }
+
+const resolve: webpack.Resolve = {
+    cachePredicate: 'boo' // why does this test _not_ fail!?
+}
