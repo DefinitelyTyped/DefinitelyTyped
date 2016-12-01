@@ -433,7 +433,7 @@ declare namespace PouchDB {
 
         debug: debug.IDebug;
 
-        adapter(id: string, adapter: any, addToPreferredAdapters: boolean): void;
+        adapter(id: string, adapter: any, addToPreferredAdapters?: boolean): void;
 
         new<Content extends Core.Encodable>(name?: string,
             options?: Configuration.DatabaseConfiguration): Database<Content>;
