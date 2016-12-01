@@ -1,4 +1,4 @@
-// Type definitions for webpack 2.0.0
+// Type definitions for webpack 2.1
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -155,23 +155,115 @@ declare namespace webpack {
     }
     type Module = OldModule | NewModule;
 
-    interface Resolve {
+    interface NewResolve {
+        /**
+         * A list of directories to resolve modules from.
+         *
+         * Absolute paths will be searched once.
+         *
+         * If an entry is relative, will be resolved using node's resolution algorithm
+         * relative to the requested file.
+         *
+         * Defaults to `["node_modules"]`
+         */
+        modules?: string[];
+
+        /**
+         * A list of package description files to search for.
+         *
+         * Defaults to `["package.json"]`
+         */
+        descriptionFiles?: string[];
+
+        /**
+         * A list of fields in a package description object to use for finding
+         * the entry point.
+         *
+         * Defaults to `["browser", "module", "main"]` or `["module", "main"]`,
+         * depending on the value of the `target` `Configuration` value.
+         */
+        mainFields?: string[];
+
+        /**
+         * A list of fields in a package description object to try to parse
+         * in the same format as the `alias` resolve option.
+         *
+         * Defaults to `["browser"]` or `[]`, depending on the value of the
+         * `target` `Configuration` value.
+         *
+         * @see alias
+         */
+        aliasFields?: string[];
+
+        /**
+         * A list of file names to search for when requiring directories that
+         * don't contain a package description file.
+         *
+         * Defaults to `["index"]`.
+         */
+        mainFiles?: string[];
+
+        /**
+         * A list of file extensions to try when requesting files.
+         *
+         * An empty string is considered invalid.
+         */
+        extensions?: string[];
+
+        /**
+         * If true, requires that all requested paths must use an extension
+         * from `extensions`.
+         */
+        enforceExtension?: boolean;
+
+        /**
+         * Replace the given module requests with other modules or paths.
+         *
+         * @see aliasFields
+         */
+        alias?: { [key: string]: string; };
+
+        /**
+         * Whether to use a cache for resolving, or the specific object
+         * to use for caching. Sharing objects may be useful when running
+         * multiple webpack compilers.
+         *
+         * Defaults to `true`.
+         */
+        unsafeCache?: {} | boolean;
+
+        /**
+         * A function used to decide whether to cache the given resolve request.
+         *
+         * Defaults to `() => true`.
+         */
+        cachePredicate?: (data: { path: string, request: string }) => boolean;
+    }
+
+    interface OldResolve {
         /** Replace modules by other modules or paths. */
         alias?: { [key: string]: string; };
         /**
          * The directory (absolute path) that contains your modules.
          * May also be an array of directories.
-         * This setting should be used to add individual directories to the search path. */
+         * This setting should be used to add individual directories to the search path.
+         *
+         * @deprecated Replaced by `modules` in webpack 2.
+         */
         root?: string | string[];
         /**
          * An array of directory names to be resolved to the current directory as well as its ancestors, and searched for modules.
          * This functions similarly to how node finds “node_modules” directories.
          * For example, if the value is ["mydir"], webpack will look in “./mydir”, “../mydir”, “../../mydir”, etc.
+         *
+         * @deprecated Replaced by `modules` in webpack 2.
          */
         modulesDirectories?: string[];
         /**
          * A directory (or array of directories absolute paths),
          * in which webpack should look for modules that weren’t found in resolve.root or resolve.modulesDirectories.
+         *
+         * @deprecated Replaced by `modules` in webpack 2.
          */
         fallback?: string | string[];
         /**
@@ -179,22 +271,49 @@ declare namespace webpack {
          * For example, in order to discover CoffeeScript files, your array should contain the string ".coffee".
          */
         extensions?: string[];
-        /** Check these fields in the package.json for suitable files. */
+        /**
+         * Check these fields in the package.json for suitable files.
+         *
+         * @deprecated Replaced by `mainFields` in webpack 2.
+         */
         packageMains?: (string | string[])[];
-        /** Check this field in the package.json for an object. Key-value-pairs are threaded as aliasing according to this spec */
+
+        /**
+         * Check this field in the package.json for an object. Key-value-pairs are threaded as aliasing according to this spec
+         *
+         * @deprecated Replaced by `aliasFields` in webpack 2.
+         */
         packageAlias?: (string | string[])[];
+
         /**
          * Enable aggressive but unsafe caching for the resolving of a part of your files.
          * Changes to cached paths may cause failure (in rare cases). An array of RegExps, only a RegExp or true (all files) is expected.
          * If the resolved path matches, it’ll be cached.
+         *
+         * @deprecated Split into `unsafeCache` and `cachePredicate` in webpack 2.
          */
         unsafeCache?: RegExp | RegExp[] | boolean;
     }
 
-    interface ResolveLoader extends Resolve {
-        /** It describes alternatives for the module name that are tried. */
+    type Resolve = OldResolve | NewResolve;
+
+    interface OldResolveLoader extends OldResolve {
+        /** It describes alternatives for the module name that are tried.
+         * @deprecated Replaced by `moduleExtensions` in webpack 2.
+         */
         moduleTemplates?: string[];
     }
+
+    interface NewResolveLoader extends NewResolve {
+        /**
+         * List of strings to append to a loader's name when trying to resolve it.
+         */
+        moduleExtensions?: string[];
+
+        enforceModuleExtension?: boolean;
+    }
+
+    type ResolveLoader = OldResolveLoader | NewResolveLoader;
 
     type ExternalsElement = string | RegExp | ExternalsObjectElement | ExternalsFunctionElement;
 
