@@ -11,6 +11,8 @@ declare module "material-ui" {
     export import AutoComplete = __MaterialUI.AutoComplete;
     export import Avatar = __MaterialUI.Avatar;
     export import Badge = __MaterialUI.Badge;
+    export import BottomNavigation = __MaterialUI.BottomNavigation.BottomNavigation;
+    export import BottomNavigationItem = __MaterialUI.BottomNavigation.BottomNavigationItem;
     export import Card = __MaterialUI.Card.Card;
     export import CardActions = __MaterialUI.Card.CardActions;
     export import CardHeader = __MaterialUI.Card.CardHeader;
@@ -733,6 +735,24 @@ declare namespace __MaterialUI {
         touch?: boolean;
     }
     export class IconButton extends React.Component<IconButtonProps, {}> {
+    }
+
+    namespace BottomNavigation {
+        interface BottomNavigationProps {
+            selectedIndex?: number;
+            className?: string;
+            style?: React.CSSProperties;
+        }
+
+        export class BottomNavigation extends React.Component<BottomNavigationProps, {}> { }
+
+        interface BottomNavigationItemProps extends SharedEnhancedButtonProps<BottomNavigationItem> {
+            label?: string;
+            icon?: any;
+            className?: string;
+        }
+
+        export class BottomNavigationItem extends React.Component<BottomNavigationItemProps, {}> { }
     }
 
     namespace Card {
@@ -1928,6 +1948,17 @@ declare module 'material-ui/Avatar' {
 declare module "material-ui/Badge" {
     export import Badge = __MaterialUI.Badge;
     export default Badge;
+}
+
+declare module 'material-ui/BottomNavigation' {
+    export import BottomNavigation = __MaterialUI.BottomNavigation.BottomNavigation;
+    export import BottomNavigationItem = __MaterialUI.BottomNavigation.BottomNavigationItem;
+    export default BottomNavigation;
+}
+
+declare module 'material-ui/BottomNavigation/BottomNavigationItem' {
+    export import BottomNavigationItem = __MaterialUI.BottomNavigation.BottomNavigationItem;
+    export default BottomNavigationItem;
 }
 
 declare module 'material-ui/Card' {
@@ -8490,179 +8521,179 @@ declare module "material-ui/svg-icons" {
 
 
 declare module 'material-ui/internal/AppCanvas' {
-  interface AppCanvasProps extends React.Props<AppCanvas> { }
-  class AppCanvas extends React.Component<AppCanvasProps, {}> { }
+    interface AppCanvasProps extends React.Props<AppCanvas> { }
+    class AppCanvas extends React.Component<AppCanvasProps, {}> { }
     export default AppCanvas;
 }
 declare module 'material-ui/internal/AutoLockScrolling' {
-  interface AutoLockScrollingProps extends React.Props<AutoLockScrolling> {
+    interface AutoLockScrollingProps extends React.Props<AutoLockScrolling> {
         lock: boolean;
     }
-  class AutoLockScrolling extends React.Component<AutoLockScrollingProps, {}> { }
+    class AutoLockScrolling extends React.Component<AutoLockScrollingProps, {}> { }
     export default AutoLockScrolling;
 }
 declare module 'material-ui/internal/BeforeAfterWrapper' {
-  interface BeforeAfterWrapperProps extends React.Props<BeforeAfterWrapper> {
+    interface BeforeAfterWrapperProps extends React.Props<BeforeAfterWrapper> {
         afterElementType?: string,
-    afterStyle?: React.CSSProperties,
+        afterStyle?: React.CSSProperties,
         beforeElementType?: string,
-    beforeStyle?: React.CSSProperties,
+        beforeStyle?: React.CSSProperties,
         elementType?: string,
-    style?: React.CSSProperties,
+        style?: React.CSSProperties,
     }
-  class BeforeAfterWrapper extends React.Component<BeforeAfterWrapperProps, {}> { }
+    class BeforeAfterWrapper extends React.Component<BeforeAfterWrapperProps, {}> { }
     export default BeforeAfterWrapper;
 }
 declare module 'material-ui/internal/CircleRipple' {
-  interface CircleRippleProps extends React.Props<CircleRipple> {
+    interface CircleRippleProps extends React.Props<CircleRipple> {
         aborted?: boolean;
         color?: string;
         opacity?: number;
-    style?: React.CSSProperties;
+        style?: React.CSSProperties;
     }
-  class CircleRipple extends React.Component<CircleRippleProps, {}> { }
+    class CircleRipple extends React.Component<CircleRippleProps, {}> { }
     export default CircleRipple;
 }
 declare module 'material-ui/internal/ClearFix' {
-  interface ClearFixProps extends React.Props<ClearFix> {
-    style?: React.CSSProperties;
+    interface ClearFixProps extends React.Props<ClearFix> {
+        style?: React.CSSProperties;
     }
-  class ClearFix extends React.Component<ClearFixProps, {}> { }
+    class ClearFix extends React.Component<ClearFixProps, {}> { }
     export default ClearFix;
 }
 declare module 'material-ui/internal/ClickAwayListener' {
-  interface ClickAwayListenerProps extends React.Props<ClickAwayListener> {
+    interface ClickAwayListenerProps extends React.Props<ClickAwayListener> {
         onClickAway?: any,
     }
-  class ClickAwayListener extends React.Component<ClickAwayListenerProps, {}> { }
+    class ClickAwayListener extends React.Component<ClickAwayListenerProps, {}> { }
     export default ClickAwayListener;
 }
 declare module 'material-ui/internal/EnhancedButton' {
     interface EnhancedButtonProps extends __MaterialUI.SharedEnhancedButtonProps<EnhancedButton> {
     }
-  class EnhancedButton extends React.Component<EnhancedButtonProps, {}> {}
+    class EnhancedButton extends React.Component<EnhancedButtonProps, {}> { }
     export default EnhancedButton;
 }
 declare module 'material-ui/internal/EnhancedSwitch' {
     interface EnhancedSwitchProps extends __MaterialUI.Switches.CommonEnhancedSwitchProps<EnhancedSwitch> {
     }
-  class EnhancedSwitch extends React.Component<EnhancedSwitchProps, {}> {}
+    class EnhancedSwitch extends React.Component<EnhancedSwitchProps, {}> { }
     export default EnhancedSwitch;
 }
 declare module 'material-ui/internal/ExpandTransition' {
-  interface ExpandTransitionProps extends React.Props<ExpandTransition> {
+    interface ExpandTransitionProps extends React.Props<ExpandTransition> {
         enterDelay?: number;
         loading?: boolean;
         open?: boolean;
-    style?: React.CSSProperties;
+        style?: React.CSSProperties;
         transitionDelay?: number;
         transitionDuration?: number;
     }
-  class ExpandTransition extends React.Component<ExpandTransitionProps, {}> { }
+    class ExpandTransition extends React.Component<ExpandTransitionProps, {}> { }
     export default ExpandTransition;
 }
 declare module 'material-ui/internal/ExpandTransitionChild' {
-  interface ExpandTransitionChildProps extends React.Props<ExpandTransitionChild> {
+    interface ExpandTransitionChildProps extends React.Props<ExpandTransitionChild> {
         enterDelay?: number;
-    style?: React.CSSProperties;
+        style?: React.CSSProperties;
         transitionDelay?: number;
         transitionDuration?: number;
     }
-  class ExpandTransitionChild extends React.Component<ExpandTransitionChildProps, {}> { }
+    class ExpandTransitionChild extends React.Component<ExpandTransitionChildProps, {}> { }
     export default ExpandTransitionChild;
 }
 declare module 'material-ui/internal/FocusRipple' {
-  interface FocusRippleProps extends React.Props<FocusRipple> {
+    interface FocusRippleProps extends React.Props<FocusRipple> {
         color?: string,
-    innerStyle?: React.CSSProperties,
+        innerStyle?: React.CSSProperties,
         opacity?: number,
         show?: boolean,
-    style?: React.CSSProperties
+        style?: React.CSSProperties
     }
-  class FocusRipple extends React.Component<FocusRippleProps, {}> { }
+    class FocusRipple extends React.Component<FocusRippleProps, {}> { }
     export default FocusRipple;
 }
 declare module 'material-ui/internal/Overlay' {
-  interface OverlayProps extends React.Props<Overlay> {
+    interface OverlayProps extends React.Props<Overlay> {
         autoLockScrolling?: boolean;
         show: boolean;
-    style?: React.CSSProperties;
+        style?: React.CSSProperties;
         transitionEnabled?: boolean;
     }
-  class Overlay extends React.Component<OverlayProps, {}> { }
+    class Overlay extends React.Component<OverlayProps, {}> { }
     export default Overlay;
 }
 declare module 'material-ui/internal/RenderToLayer' {
-  interface RenderToLayerProps extends React.Props<RenderToLayer> {
+    interface RenderToLayerProps extends React.Props<RenderToLayer> {
         componentClickAway?: Function;
         open: boolean;
         render: Function;
         useLayerForClickAway?: boolean;
     }
-  class RenderToLayer extends React.Component<RenderToLayerProps, {}> { }
+    class RenderToLayer extends React.Component<RenderToLayerProps, {}> { }
     export default RenderToLayer;
 }
 declare module 'material-ui/internal/ScaleIn' {
-  interface ScaleInProps extends React.Props<ScaleIn> {
-    childStyle?: React.CSSProperties;
+    interface ScaleInProps extends React.Props<ScaleIn> {
+        childStyle?: React.CSSProperties;
         enterDelay?: number;
         maxScale?: number;
         minScale?: number;
     }
-  class ScaleIn extends React.Component<ScaleInProps, {}> { }
+    class ScaleIn extends React.Component<ScaleInProps, {}> { }
     export default ScaleIn;
 }
 declare module 'material-ui/internal/ScaleInChild' {
-  interface ScaleInChildProps extends React.Props<ScaleInChild> {
+    interface ScaleInChildProps extends React.Props<ScaleInChild> {
         enterDelay?: number;
         maxScale?: number;
         minScale?: number;
-    style?: React.CSSProperties;
+        style?: React.CSSProperties;
     }
-  class ScaleInChild extends React.Component<ScaleInChildProps, {}> { }
+    class ScaleInChild extends React.Component<ScaleInChildProps, {}> { }
     export default ScaleInChild;
 }
 declare module 'material-ui/internal/SlideIn' {
-  interface SlideInProps extends React.Props<SlideIn> {
-    childStyle?: React.CSSProperties;
+    interface SlideInProps extends React.Props<SlideIn> {
+        childStyle?: React.CSSProperties;
         direction?: __MaterialUI.propTypes.direction;
         enterDelay?: number;
-    style?: React.CSSProperties;
+        style?: React.CSSProperties;
     }
-  class SlideIn extends React.Component<SlideInProps, {}> { }
+    class SlideIn extends React.Component<SlideInProps, {}> { }
     export default SlideIn;
 }
 declare module 'material-ui/internal/SlideInChild' {
-  interface SlideInChildProps extends React.Props<SlideInChild> {
+    interface SlideInChildProps extends React.Props<SlideInChild> {
         direction?: string,
         enterDelay?: number;
         getLeaveDirection: Function;
-    style?: React.CSSProperties;
+        style?: React.CSSProperties;
     }
-  class SlideInChild extends React.Component<SlideInChildProps, {}> { }
+    class SlideInChild extends React.Component<SlideInChildProps, {}> { }
     export default SlideInChild;
 }
 declare module 'material-ui/internal/Tooltip' {
-  interface TooltipProps extends React.Props<Tooltip> {
+    interface TooltipProps extends React.Props<Tooltip> {
         className?: string;
         horizontalPosition?: __MaterialUI.propTypes.horizontal;
         label: any;
         show?: boolean;
-    style?: React.CSSProperties;
+        style?: React.CSSProperties;
         touch?: boolean;
         verticalPosition?: __MaterialUI.propTypes.vertical;
     }
-  class Tooltip extends React.Component<TooltipProps, {}> { }
+    class Tooltip extends React.Component<TooltipProps, {}> { }
     export default Tooltip;
 }
 declare module 'material-ui/internal/TouchRipple' {
-  interface TouchRippleProps extends React.Props<TouchRipple> {
+    interface TouchRippleProps extends React.Props<TouchRipple> {
         abortOnScroll?: boolean,
         centerRipple?: boolean;
         color?: string;
         opacity?: number;
-    style?: React.CSSProperties
+        style?: React.CSSProperties
     }
-  class TouchRipple extends React.Component<TouchRippleProps, {}> { }
+    class TouchRipple extends React.Component<TouchRippleProps, {}> { }
     export default TouchRipple;
 }
