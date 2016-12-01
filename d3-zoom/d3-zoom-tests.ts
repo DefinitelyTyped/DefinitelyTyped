@@ -33,7 +33,7 @@ let canvas = select<HTMLCanvasElement, any>('canvas')
     .attr('width', function (d) { return d.width; })
     .attr('height', function (d) { return d.height; });
 
-let context = canvas.node().getContext('2d');
+let context = canvas.node()!.getContext('2d');
 
 function drawPointsOnCanvas(radius: number) {
     if (context) {
@@ -454,7 +454,7 @@ let sourceEvent: any = e.sourceEvent;
 
 let zTransform: d3Zoom.ZoomTransform;
 
-zTransform = d3Zoom.zoomTransform(canvas.node());
+zTransform = d3Zoom.zoomTransform(canvas.node()!);
 
 // Test ZoomTransform -------------------------------------------------------
 
