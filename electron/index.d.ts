@@ -5528,7 +5528,7 @@ declare namespace Electron {
 		closeDevTools(): void;
 		/**
 		 * @returns Whether guest page has a DevTools window attached.
-		 
+		 */
 		isDevToolsOpened(): boolean;
 		/**
 		 * @returns Whether DevTools window of guest page is focused.
