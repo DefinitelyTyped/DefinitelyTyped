@@ -3,6 +3,8 @@
 // Definitions by: Maciej Suchecki <http://github.com/mc-suchecki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import * as Highcharts from "highcharts";
+
 declare var HighchartsMore: (H: Highcharts.Static) => Highcharts.Static;
 export = HighchartsMore;
 export as namespace HighchartsMore;

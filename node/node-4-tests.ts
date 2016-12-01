@@ -942,7 +942,7 @@ namespace process_tests {
         _p = p;
     }
     {
-        var module: NodeModule;
+        var module: NodeModule | undefined;
         module = process.mainModule;
     }
 }

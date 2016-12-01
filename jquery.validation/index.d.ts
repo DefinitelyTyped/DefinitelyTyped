@@ -128,9 +128,9 @@ declare namespace JQueryValidation
          */
         showErrors?: (errorMap: ErrorDictionary, errorList: ErrorListItem[]) => void;
         /**
-         * Callback for handling the actual submit when the form is valid. Gets the form as the only argument. Replaces the default submit. The right place to submit a form via Ajax after it is validated.
+         * Callback for handling the actual submit when the form is valid. Gets the form and the event object. Replaces the default submit. The right place to submit a form via Ajax after it is validated.
          */
-        submitHandler?: (form: HTMLFormElement) => void;
+        submitHandler?: (form: HTMLFormElement, event?: JQueryEventObject) => void;
         /**
          * String or Function. If specified, the error label is displayed to show a valid element. If a String is given, it is added as a class to the label. If a Function is given, it is called with the label (as a jQuery object) and the validated input (as a DOM element). The label can be used to add a text like "ok!".
          */

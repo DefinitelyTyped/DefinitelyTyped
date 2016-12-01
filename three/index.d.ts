@@ -669,6 +669,7 @@ declare namespace THREE {
         constructor();
 
         aspect: number;
+        eyeSep: number;
         cameraL: PerspectiveCamera;
         cameraR: PerspectiveCamera;
 

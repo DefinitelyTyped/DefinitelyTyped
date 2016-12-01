@@ -121,8 +121,8 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
     headerStyle?: any;
     bodyStyle?: any;
     ignoreSinglePage?: boolean;
-
 }
+
 export type SelectRowMode = 'none' | 'radio' | 'checkbox';
 
 export interface SelectRow {

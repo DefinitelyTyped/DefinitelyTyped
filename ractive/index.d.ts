@@ -1,4 +1,4 @@
-﻿// Type definitions for Ractive 0.7.1
+// Type definitions for Ractive 0.7.1
 // Project: http://ractivejs.org
 // Definitions by: Han Lin Yap <http://yap.nu>
 // Definitions: https://github.com/codler/Ractive-TypeScript-Definition

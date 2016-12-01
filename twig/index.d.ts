@@ -1,4 +1,4 @@
-﻿// Type definitions for twig
+// Type definitions for twig
 // Project: https://github.com/justjohn/twig.js
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

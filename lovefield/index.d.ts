@@ -158,11 +158,13 @@ declare namespace lf {
       getNormalizedName(): string
     }
 
-    export interface Table {
+    interface ITable {
       as(name: string): Table
       createRow(value: Object): Row
       getName(): string
     }
+
+    export type Table = ITable & { [index: string]: Column }
 
     export interface ConnectOptions {
       onUpgrade?: (rawDb: raw.BackStore) => Promise<void>

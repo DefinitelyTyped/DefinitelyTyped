@@ -16,16 +16,16 @@ declare abstract class Tapable {
      * @param names a string or an array of strings to generate the id(group name) of plugins
      * @param handler a function which provides the plugin functionality *
      */
-    plugin(names: string, handler: Tapable.Handler): void;
+    plugin(names: string, handler: (this: this, ...args: any[]) => void): void;
 
-    plugin(names: string[], handler: Tapable.Handler): void;
+    plugin(names: string[], handler: (this: this, ...args: any[]) => void): void;
 
     /**
      * invoke all plugins with this attached.
      * This method is just to "apply" plugins' definition, so that the real event listeners can be registered into
      * registry. Mostly the `apply` method of a plugin is the main place to place extension logic.
      */
-    apply(...plugins: Tapable.Plugin[]): void;
+    apply(...plugins: (((this: this) => any) | Tapable.Plugin)[]): void;
 
     /**
      * synchronously applies all registered handlers for target name(event id).

@@ -1,4 +1,4 @@
-﻿// Type definitions for LaterJS
+// Type definitions for LaterJS
 // Project: http://bunkat.github.io/later/
 // Definitions by: Jason D Dryhurst-Smith <http://jasonds.co.uk/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

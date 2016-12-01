@@ -1,4 +1,4 @@
-﻿// Type definitions for Angular File Upload 11.1.1
+// Type definitions for Angular File Upload 11.1.1
 // Project: https://github.com/danialfarid/ng-file-upload
 // Definitions by: John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -90,6 +90,20 @@ declare module 'angular' {
              * @type {boolean}
              */
             ngfValidateForce?: boolean;
+        }
+        
+        interface ResizeIfFunction {
+            (width: number, height: number): boolean;
+        }
+
+        interface FileResizeOptions {
+            centerCrop?: boolean;
+            height?: number;
+            ratio?: number;
+            resizeIf?: ResizeIfFunction;
+            restoreExif?: boolean;
+            quality?: number;
+            width?: number;
         }
 
         interface ResizeIfFunction {

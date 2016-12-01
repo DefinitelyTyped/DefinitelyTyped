@@ -52,7 +52,7 @@ declare module "react-relay" {
     }
 
     class DefaultNetworkLayer implements RelayNetworkLayer {
-        constructor(host: string, options: any)
+        constructor(host: string, options?: any)
         supports(...options: string[]): boolean
     }
 
