@@ -2295,14 +2295,11 @@ interface ASPxClientDateEdit extends ASPxClientDropDownEditBase {
      */
     GetTimeEdit(): ASPxClientTimeEdit;
     /**
-     * Sets the date editor's value.
-     * @param date A date object specifying the value to assign to the date editor.
+     * 
+     * @param date 
      */
-    SetDate(date: Object): void;
-    /**
-     * Returns a date that is the date editor's value.
-     */
-    GetDate(): Object;
+    SetDate(date: Date): void;
+    GetDate(): Date;
     /**
      * Returns the number of days in a range selected within a date edit.
      */
@@ -3000,14 +2997,11 @@ interface ASPxClientTimeEdit extends ASPxClientSpinEditBase {
      */
     DateChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientTimeEdit>>;
     /**
-     * Sets the time editor's value.
-     * @param date A date-time object specifying the value to assign to the time editor.
+     * 
+     * @param date 
      */
-    SetDate(date: Object): void;
-    /**
-     * Returns a date that is the time editor's value.
-     */
-    GetDate(): Object;
+    SetDate(date: Date): void;
+    GetDate(): Date;
 }
 /**
  * Represents a base for client-side static editors whose values cannot be visually changed by end users.
@@ -4446,9 +4440,10 @@ interface ASPxClientCardViewBatchEditCardDeletingEventArgs extends ASPxClientCan
  */
 interface ASPxClientCardViewBatchEditApi {
     /**
-     * Performs validation of CardView data when the CardView operates in Batch Edit mode.
+     * Performs validation of CardView data contained in the cards when the CardView operates in Batch Edit mode.
+     * @param validateOnlyModified true, if only modified cards should be validated; otherwise, false.
      */
-    ValidateCards(): boolean;
+    ValidateCards(validateOnlyModified?: boolean): boolean;
     /**
      * Performs validation of CardView data contained in the specified card when the CardView operates in Batch Edit mode.
      * @param visibleIndex An integer value specifying the visible index of the validated card.
@@ -6038,9 +6033,10 @@ interface ASPxClientGridViewCellInfo {
  */
 interface ASPxClientGridViewBatchEditApi {
     /**
-     * Performs validation of grid data when the grid operates in Batch Edit mode.
+     * Performs validation of grid data contained in all rows when the grid operates in Batch Edit mode.
+     * @param validateOnlyModified true, if only modified rows should be validated; otherwise, false.
      */
-    ValidateRows(): boolean;
+    ValidateRows(validateOnlyModified?: boolean): boolean;
     /**
      * Performs validation of grid data contained in the specified row when the grid operates in Batch Edit mode.
      * @param visibleIndex An integer value specifying the visible index of the validated row.
@@ -7074,9 +7070,10 @@ interface ASPxClientVerticalGridCellInfo {
  */
 interface ASPxClientVerticalGridBatchEditApi {
     /**
-     * Performs validation of grid data when the grid operates in Batch Edit mode.
+     * Performs validation of grid data contained in all records when the grid operates in batch edit mode.
+     * @param validateOnlyModified true, if only modified records should be validated; otherwise, false.
      */
-    ValidateRecords(): boolean;
+    ValidateRecords(validateOnlyModified?: boolean): boolean;
     /**
      * Performs validation of grid data contained in the specified record when the grid operates in batch edit mode.
      * @param visibleIndex An integer value specifying the visible index of the validated record.
@@ -8249,6 +8246,7 @@ interface ASPxClientRichEdit extends ASPxClientControl {
      * Value: A <see cref="RichEditSelection" /> object that lists methods to work with the selection.
      */
     selection: RichEditSelection;
+    unitConverter: RichEditUnitConverter;
     /**
      * Occurs after a custom command has been executed on the client side.
      */
@@ -8622,6 +8620,7 @@ interface RichEditCommands {
      * Value: A <see cref="DeleteBookmarkCommand" /> object that provides methods for executing the command and checking its state.
      */
     deleteBookmark: DeleteBookmarkCommand;
+    goToBookmark: GoToBookmarkCommand;
     /**
      * Gets a command to invoke the Hyperlink dialog window.
      * Value: A <see cref="OpenInsertHyperlinkDialogCommand" /> object that provides methods for executing the command and checking its state.
@@ -8672,6 +8671,7 @@ interface RichEditCommands {
      * Value: A <see cref="ChangePageOrientationCommand" /> object that provides methods for executing the command and checking its state.
      */
     changePageOrientation: ChangePageOrientationCommand;
+    setPageSizeDialog: SetPageSizeDialogCommand;
     /**
      * Gets a command to invoke the Paper tab of the Page Setup dialog window.
      * Value: A <see cref="OpenPagePaperSizeDialogCommand" /> object that provides methods for executing the command and checking its state.
@@ -9022,6 +9022,7 @@ interface RichEditCommands {
      * Value: A <see cref="ChangeTableCellPreferredWidthCommand" /> object that provides methods for executing the command and checking its state.
      */
     changeTableCellPreferredWidth: ChangeTableCellPreferredWidthCommand;
+    toggleTableCellInsideBorders: ToggleTableCellInsideBordersCommand;
     /**
      * Gets a command to change the selected table columns' preferred width.
      * Value: A <see cref="ChangeTableColumnPreferredWidthCommand" /> object that provides methods for executing the command and checking its state.
@@ -9187,6 +9188,10 @@ interface RichEditCommands {
      * Value: A <see cref="ToggleTableCellBottomBorderCommand" /> object that provides methods for executing the command and checking its state.
      */
     toggleTableCellBottomBorder: ToggleTableCellBottomBorderCommand;
+    /**
+     * Gets a command to toggle left borders for selected cells on/off.
+     * Value: A <see cref="ToggleTableCellLeftBorderCommand" /> object that provides methods for executing the command and checking its state.
+     */
     toggleTableCellLeftBorder: ToggleTableCellLeftBorderCommand;
     /**
      * Gets a command to remove the borders of the selected table cells.
@@ -9263,7 +9268,12 @@ interface RichEditCommands {
      * Value: A <see cref="ReplaceNextCommand" /> object that provides methods for executing the command and checking its state.
      */
     replaceNext: ReplaceNextCommand;
+    /**
+     * Gets a command to invoke the Spelling dialog window.
+     * Value: A <see cref="OpenSpellingDialogCommand" /> object that provides methods for executing the command and checking its state.
+     */
     openSpellingDialog: OpenSpellingDialogCommand;
+    assignShortcut: AssignShortcutCommand;
 }
 /**
  * Serves as a base for objects that implement different client command functionalities.
@@ -9347,49 +9357,13 @@ interface RichEditDocument {
      * Value: An array of TableStyle objects storing information about table styles.
      */
     tableStylesInfo: TableStyle[];
+    spellingInfo: SpellingInfo;
 }
 /**
  * An abstract numbering list definition that defines the appearance and behavior of numbered paragraphs in a document.
  */
 interface AbstractNumberingList {
     deleted: boolean;
-}
-/**
- * Exposes the settings providing the information about the essential document functionality.
- */
-interface SubDocument {
-    id: number;
-    type: any;
-    /**
-     * Provides information about paragraphs contained in the document.
-     * Value: An array of Paragraph objects storing information about document paragraphs.
-     */
-    paragraphsInfo: Paragraph[];
-    /**
-     * Provides information about fields in the current document.
-     * Value: An array of Field objects storing information about document fields.
-     */
-    fieldsInfo: Field[];
-    /**
-     * Provides information about tables contained in the document.
-     * Value: An array of Table objects storing information about document tables.
-     */
-    tablesInfo: Table[];
-    /**
-     * Provides information about document bookmarks.
-     * Value: An array of Bookmark objects storing information about document bookmarks.
-     */
-    bookmarksInfo: Bookmark[];
-    /**
-     * Gets the document's textual representation.
-     * Value: A string value specifying the document's text.
-     */
-    text: string;
-    /**
-     * Gets the character length of the document.
-     * Value: An integer that is the number of character positions in the document.
-     */
-    length: number;
 }
 /**
  * Defines a paragraph in the document.
@@ -9405,6 +9379,7 @@ interface Paragraph {
      * Value: An integer value specifying the start position.
      */
     start: number;
+    interval: Interval;
     /**
      * Gets the name of the paragraph style applied to the current paragraph (see name).
      * Value: A string value specifying the style name.
@@ -9435,6 +9410,7 @@ interface Field {
      * Value: An integer value specifying the field length.
      */
     length: number;
+    interval: Interval;
     /**
      * Gets or sets a URI to navigate to when the hyperlink (represented by the current field) is activated.
      * Value: A string representing an URI.
@@ -9450,66 +9426,7 @@ interface Field {
      * Value: A string representing the bookmark's name.
      */
     hyperlinkAnchor: string;
-}
-/**
- * Defines a table in the document.
- */
-interface Table {
-    /**
-     * Gets the table's start position in the document.
-     * Value: An integer value specifying the start position.
-     */
-    start: number;
-    /**
-     * Gets the table length in characters.
-     * Value: A integer value specifying the character length of the table.
-     */
-    length: number;
-    /**
-     * Provides access to a collection of table rows.
-     * Value: An array of TableRow objects storing information about individual table rows.
-     */
-    rows: TableRow[];
-    /**
-     * Gets the name of the style applied to the table (see name).
-     * Value: A string value specifying the style name.
-     */
-    styleName: string;
-}
-/**
- * Defines a table row in the document.
- */
-interface TableRow {
-    /**
-     * Gets the table row's start position in the document.
-     * Value: An integer value specifying the start position.
-     */
-    start: number;
-    /**
-     * Gets the table row's character length.
-     * Value: An integer value specifying the element length in characters.
-     */
-    length: number;
-    /**
-     * Provides information about the table row's cells.
-     * Value: An array of TableCell objects storing information about cells.
-     */
-    cells: TableCell[];
-}
-/**
- * Defines a table cell in the document.
- */
-interface TableCell {
-    /**
-     * Gets the table cell's start position in the document.
-     * Value: An integer value specifying the start position.
-     */
-    start: number;
-    /**
-     * Gets the table cell's character length.
-     * Value: An integer value specifying the element length in characters.
-     */
-    length: number;
+    showCode: boolean;
 }
 /**
  * Defines a bookmark in the document.
@@ -9525,6 +9442,7 @@ interface Bookmark {
      * Value: An integer value specifying the length of the bookmark.
      */
     length: number;
+    interval: Interval;
     /**
      * Gets the name of a bookmark in the document.
      * Value: A string that is the unique bookmark's name.
@@ -9545,6 +9463,7 @@ interface Section {
      * Value: An integer value specifying the element length in characters.
      */
     length: number;
+    interval: Interval;
     /**
      * Provides access to the section's headers.
      * Value: An array of HeaderFooter objects storing information about the section's headers.
@@ -9571,75 +9490,15 @@ interface HeaderFooter {
      */
     subDocument: SubDocument;
 }
-/**
- * Serves as a base for objects implementing different element styles.
- */
-interface StyleBase {
-    /**
-     * Gets or sets the name of the style.
-     * Value: A string specifying the style name.
-     */
-    name: string;
-    /**
-     * Gets whether the specified style is marked as deleted.
-     * Value: true, if the style is deleted; otherwise, false.
-     */
-    isDeleted: boolean;
-}
-/**
- * Defines the paragraph style settings.
- */
-interface ParagraphStyle extends StyleBase {
-    /**
-     * Gets or sets the linked style for the current style.
-     * Value: A <see cref="CharacterStyle" /> object representing a character style linked to a current style.
-     */
-    linkedStyle: CharacterStyle;
-    /**
-     * Gets or sets the default style for a paragraph that immediately follows the current paragraph.
-     * Value: A <see cref="ParagraphStyle" /> object specifying the style for the next paragraph.
-     */
-    nextStyle: ParagraphStyle;
-    /**
-     * Gets the index of the list item associated with the paragraph formatted with the current style.
-     * Value: An integer value specifying the list item index.
-     */
-    listIndex: number;
-    /**
-     * Gets the index of the list level applied to the paragraph formatted with the current style.
-     * Value: An integer that is the list level index.
-     */
-    listLevelIndex: number;
-    /**
-     * Gets or sets the style from which the current style inherits.
-     * Value: A <see cref="ParagraphStyle" /> object representing the parent style.
-     */
-    parent: ParagraphStyle;
-}
-/**
- * Contains characteristics of a character style in a document.
- */
-interface CharacterStyle extends StyleBase {
-    /**
-     * Gets or sets the linked style for the current style.
-     * Value: A <see cref="ParagraphStyle" /> object representing a paragraph style linked to a current style.
-     */
-    linkedStyle: ParagraphStyle;
-    /**
-     * Gets the style form which the current style inherits.
-     * Value: A <see cref="CharacterStyle" /> object representing the parent style.
-     */
-    parent: CharacterStyle;
-}
-/**
- * Defines the table style settings.
- */
-interface TableStyle extends StyleBase {
-    /**
-     * Gets or sets the style from which the current style inherits.
-     * Value: A <see cref="TableStyle" /> object that is the parent style.
-     */
-    parent: TableStyle;
+interface InlinePictureInfo {
+    id: number;
+    position: number;
+    initialWidth: number;
+    initialHeight: number;
+    scaleX: number;
+    scaleY: number;
+    actualWidth: number;
+    actualHeigth: number;
 }
 declare enum HeaderFooterType {
     First=0,
@@ -9647,11 +9506,17 @@ declare enum HeaderFooterType {
     Primary=1,
     Even=2
 }
-declare enum SubDocumentType {
-    Main=0,
-    Header=1,
-    Footer=2,
-    TextBox=3
+declare enum DocumentFormat {
+    Undefined=0,
+    PlainText=1,
+    Rtf=2,
+    Html=3,
+    OpenXml=4,
+    Mht=5,
+    WordML=6,
+    OpenDocument=7,
+    ePub=9,
+    Doc=10
 }
 /**
  * Contains a set of methods and properties to work with the document selection.
@@ -9833,8 +9698,19 @@ interface RichEditSelection {
      * Selects the editor's entire content.
      */
     selectAll(): void;
+    /**
+     * Moves the cursor to the main sub-document.
+     */
     setMainSubDocumentAsActive(): void;
+    /**
+     * Moves the cursor to the footer of the specified document page.
+     * @param pageIndex An integer value specifying the page index.
+     */
     setFooterSubDocumentAsActiveByPageIndex(pageIndex: number): void;
+    /**
+     * Moves the cursor to the header of the specified document page.
+     * @param pageIndex An integer value specifying the page index.
+     */
     setHeaderSubDocumentAsActiveByPageIndex(pageIndex: number): void;
 }
 /**
@@ -9851,6 +9727,216 @@ interface Interval {
      * Value: An integer value specifying the element length in characters.
      */
     length: number;
+}
+interface SpellingInfo {
+    spellCheckerState: any;
+    misspelledIntervals: MisspelledInterval[];
+}
+declare enum SpellCheckerState {
+    Disabled=0,
+    InProgress=1,
+    Done=2
+}
+interface MisspelledInterval {
+    start: number;
+    length: number;
+    interval: Interval;
+    errorType: any;
+    word: string;
+    suggestions: string[];
+}
+declare enum SpellingErrorType {
+    Misspelling=0,
+    Repeating=1
+}
+/**
+ * Serves as a base for objects implementing different element styles.
+ */
+interface StyleBase {
+    /**
+     * Gets or sets the name of the style.
+     * Value: A string specifying the style name.
+     */
+    name: string;
+    /**
+     * Gets whether the specified style is marked as deleted.
+     * Value: true, if the style is deleted; otherwise, false.
+     */
+    isDeleted: boolean;
+}
+/**
+ * Defines the paragraph style settings.
+ */
+interface ParagraphStyle extends StyleBase {
+    /**
+     * Gets or sets the linked style for the current style.
+     * Value: A <see cref="CharacterStyle" /> object representing a character style linked to a current style.
+     */
+    linkedStyle: CharacterStyle;
+    /**
+     * Gets or sets the default style for a paragraph that immediately follows the current paragraph.
+     * Value: A <see cref="ParagraphStyle" /> object specifying the style for the next paragraph.
+     */
+    nextStyle: ParagraphStyle;
+    /**
+     * Gets the index of the list item associated with the paragraph formatted with the current style.
+     * Value: An integer value specifying the list item index.
+     */
+    listIndex: number;
+    /**
+     * Gets the index of the list level applied to the paragraph formatted with the current style.
+     * Value: An integer that is the list level index.
+     */
+    listLevelIndex: number;
+    /**
+     * Gets or sets the style from which the current style inherits.
+     * Value: A <see cref="ParagraphStyle" /> object representing the parent style.
+     */
+    parent: ParagraphStyle;
+}
+/**
+ * Contains characteristics of a character style in a document.
+ */
+interface CharacterStyle extends StyleBase {
+    /**
+     * Gets or sets the linked style for the current style.
+     * Value: A <see cref="ParagraphStyle" /> object representing a paragraph style linked to a current style.
+     */
+    linkedStyle: ParagraphStyle;
+    /**
+     * Gets the style form which the current style inherits.
+     * Value: A <see cref="CharacterStyle" /> object representing the parent style.
+     */
+    parent: CharacterStyle;
+}
+/**
+ * Defines the table style settings.
+ */
+interface TableStyle extends StyleBase {
+    /**
+     * Gets or sets the style from which the current style inherits.
+     * Value: A <see cref="TableStyle" /> object that is the parent style.
+     */
+    parent: TableStyle;
+}
+/**
+ * Exposes the settings providing the information about the essential document functionality.
+ */
+interface SubDocument {
+    id: number;
+    type: any;
+    /**
+     * Provides information about paragraphs contained in the document.
+     * Value: An array of Paragraph objects storing information about document paragraphs.
+     */
+    paragraphsInfo: Paragraph[];
+    /**
+     * Provides information about fields in the current document.
+     * Value: An array of Field objects storing information about document fields.
+     */
+    fieldsInfo: Field[];
+    /**
+     * Provides information about tables contained in the document.
+     * Value: An array of Table objects storing information about document tables.
+     */
+    tablesInfo: Table[];
+    /**
+     * Provides information about document bookmarks.
+     * Value: An array of Bookmark objects storing information about document bookmarks.
+     */
+    bookmarksInfo: Bookmark[];
+    inlinePicturesInfo: InlinePictureInfo[];
+    /**
+     * Gets the document's textual representation.
+     * Value: A string value specifying the document's text.
+     */
+    text: string;
+    /**
+     * Gets the character length of the document.
+     * Value: An integer that is the number of character positions in the document.
+     */
+    length: number;
+}
+declare enum SubDocumentType {
+    Main=0,
+    Header=1,
+    Footer=2,
+    TextBox=3
+}
+/**
+ * Defines a table in the document.
+ */
+interface Table {
+    /**
+     * Gets the table's start position in the document.
+     * Value: An integer value specifying the start position.
+     */
+    start: number;
+    /**
+     * Gets the table length in characters.
+     * Value: A integer value specifying the character length of the table.
+     */
+    length: number;
+    interval: Interval;
+    /**
+     * Provides access to a collection of table rows.
+     * Value: An array of TableRow objects storing information about individual table rows.
+     */
+    rows: TableRow[];
+    /**
+     * Gets the name of the style applied to the table (see name).
+     * Value: A string value specifying the style name.
+     */
+    styleName: string;
+}
+/**
+ * Defines a table row in the document.
+ */
+interface TableRow {
+    /**
+     * Gets the table row's start position in the document.
+     * Value: An integer value specifying the start position.
+     */
+    start: number;
+    /**
+     * Gets the table row's character length.
+     * Value: An integer value specifying the element length in characters.
+     */
+    length: number;
+    interval: Interval;
+    /**
+     * Provides information about the table row's cells.
+     * Value: An array of TableCell objects storing information about cells.
+     */
+    cells: TableCell[];
+}
+/**
+ * Defines a table cell in the document.
+ */
+interface TableCell {
+    /**
+     * Gets the table cell's start position in the document.
+     * Value: An integer value specifying the start position.
+     */
+    start: number;
+    /**
+     * Gets the table cell's character length.
+     * Value: An integer value specifying the element length in characters.
+     */
+    length: number;
+    interval: Interval;
+}
+interface RichEditUnitConverter {
+    pixelsToTwips(value: number): number;
+    inchesToTwips(value: number): number;
+    pointsToTwips(value: number): number;
+    centimetersToTwips(value: number): number;
+    twipsToCentimeters(value: number): number;
+    pixelsToCentimeters(value: number): number;
+    twipsToInches(value: number): number;
+    pixelsToInches(value: number): number;
+    pixelsToPoints(value: number): number;
+    twipsToPoints(value: number): number;
 }
 /**
  * A command to invoke the Bookmark dialog.
@@ -10011,6 +10097,11 @@ interface GoToDataRecordCommand extends CommandBase {
      * @param activeRecordIndex An integer value specifying index of the next data record.
      */
     execute(activeRecordIndex: number): boolean;
+    getState(): any;
+}
+interface DataRecordOptions {
+    activeRecordIndex: number;
+    recordCount: number;
 }
 /**
  * A command to navigate to the first data record of the bound data source.
@@ -10957,9 +11048,10 @@ interface OpenSectionColumnsDialogCommand extends CommandWithSimpleStateBase {
  */
 interface ChangeSectionColumnsCommand extends CommandBase {
     /**
-     * Executes the ChangeSectionColumnsCommand command by imitating the corresponding end-user action made in the RichEdit's UI.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
+     * 
+     * @param columns 
      */
-    execute(): boolean;
+    execute(columns: SectionColumn[]): boolean;
     /**
      * Gets information about the command state.
      */
@@ -11495,6 +11587,9 @@ declare enum ParagraphFirstLineIndent {
     None=0,
     Indented=1,
     Hanging=2
+}
+interface AssignShortcutCommand extends CommandWithSimpleStateBase {
+    execute(keyCode: number, callback: (arg1: string) => void): boolean;
 }
 interface OpenSpellingDialogCommand extends CommandWithSimpleStateBase {
     execute(): boolean;
@@ -12756,7 +12851,7 @@ interface FontFormattingSettings {
      * Value: true, if characters are italicized; otherwise, false.
      */
     italic: boolean;
-    boolean: boolean;
+    strikeout: boolean;
     /**
      * Gets or sets whether only word characters are underlined.
      * Value: true to underline only characters in words; false to underline all characters.
@@ -16892,9 +16987,17 @@ interface ASPxClientControlsInitializedEventArgs extends ASPxClientEventArgs {
     isCallback: boolean;
 }
 interface ASPxClientControlPredicate {
+    /**
+     * 
+     * @param control 
+     */
     (control: Object): boolean;
 }
 interface ASPxClientControlAction {
+    /**
+     * 
+     * @param control 
+     */
     (control: Object): void;
 }
 /**
@@ -16936,18 +17039,18 @@ interface ASPxClientControlCollection {
      */
     GetByName(name: string): Object;
     /**
-     * 
-     * @param predicate 
+     * Returns all controls in the collection that satisfy the specified predicate.
+     * @param predicate An ASPxClientControlPredicate object that is a predicate used to search for controls in the collection.
      */
     GetControlsByPredicate(predicate: ASPxClientControlPredicate): Object[];
     /**
-     * 
-     * @param type 
+     * Returns all controls of the specified type.
+     * @param type The object specifying the client control type.
      */
     GetControlsByType(type: Object): Object[];
     /**
-     * 
-     * @param action 
+     * Performs the specified action for each control in the collection.
+     * @param action An ASPxClientControlAction object specifying an action to perform.
      */
     ForEachControl(action: ASPxClientControlAction): void;
 }
@@ -17900,6 +18003,10 @@ interface ASPxClientFileManagerFile extends ASPxClientFileManagerItem {
  * A client-side equivalent of the FileManagerFolder object.
  */
 interface ASPxClientFileManagerFolder extends ASPxClientFileManagerItem {
+    /**
+     * Gets a value specifying whether an item is a parent folder.
+     * Value: true if an item is a parent folder; false if an item is a file or folder.
+     */
     isParentFolder: boolean;
 }
 /**
@@ -22329,7 +22436,7 @@ interface ASPxClientWebChartHitInfo {
      */
     inChartTitle: boolean;
     /**
-     * Gets a value indicating whether the test point is within the .
+     * Gets a value indicating whether the test point is within the axis.
      * Value: true if the test point is within an axis; otherwise, false.
      */
     inAxis: boolean;
@@ -22559,17 +22666,17 @@ interface ASPxClientDiagramCoordinates {
      */
     dateTimeValue: Date;
     /**
-     * Gets the X- of the diagram point.
+     * Gets the X-axis of the diagram point.
      * Value: An ASPxClientAxisBase descendant, representing the axis of arguments (X-axis).
      */
     axisX: ASPxClientAxisBase;
     /**
-     * Gets the Y- of the diagram point.
+     * Gets the Y-axis of the diagram point.
      * Value: An ASPxClientAxisBase descendant, representing the axis of values (Y-axis).
      */
     axisY: ASPxClientAxisBase;
     /**
-     * Gets the  of the diagram point.
+     * Gets the pane of the diagram point.
      * Value: An ASPxClientXYDiagramPane descendant, representing the pane.
      */
     pane: ASPxClientXYDiagramPane;
@@ -22788,12 +22895,12 @@ interface ASPxClientXYDiagram2D extends ASPxClientXYDiagramBase {
      */
     secondaryAxesY: ASPxClientAxis[];
     /**
-     * Provides access to a default  object.
+     * Provides access to a default pane object.
      * Value: An ASPxClientXYDiagramPane object which represents the default pane of a chart.
      */
     defaultPane: ASPxClientXYDiagramPane;
     /**
-     * Provides access to an array of a diagram's .
+     * Provides access to an array of a diagram's panes.
      * Value: An array of ASPxClientXYDiagramPane objects.
      */
     panes: ASPxClientXYDiagramPane[];
@@ -22925,7 +23032,7 @@ interface ASPxClientRadarAxis extends ASPxClientAxisBase {
  */
 interface ASPxClientAxisTitle extends ASPxClientWebChartRequiredElement {
     /**
-     * Gets the  to which the axis title belongs.
+     * Gets the axis to which the axis title belongs.
      * Value: An ASPxClientAxisBase descendant, which identifies the axis.
      */
     axis: ASPxClientAxisBase;
@@ -22940,7 +23047,7 @@ interface ASPxClientAxisTitle extends ASPxClientWebChartRequiredElement {
  */
 interface ASPxClientAxisLabelItem extends ASPxClientWebChartRequiredElement {
     /**
-     * Gets the  to which an axis label item belongs.
+     * Gets the axis to which an axis label item belongs.
      * Value: An ASPxClientAxisBase descendant, which identifies the axis.
      */
     axis: ASPxClientAxisBase;
@@ -24253,6 +24360,10 @@ interface ASPxClientReportDesigner extends ASPxClientControl {
      */
     CustomizeParameterEditors: ASPxClientEvent<ASPxClientReportDesignerCustomizeParameterEditorsEventHandler<ASPxClientReportDesigner>>;
     /**
+     * Occurs each time a look-up editor is created for a report parameter.
+     */
+    CustomizeParameterLookUpSource: ASPxClientEvent<ASPxClientReportDesignerCustomizeParameterLookUpSourceEventHandler<ASPxClientReportDesigner>>;
+    /**
      * Occurs on the client side when the Report Designer is being closed.
      */
     ExitDesigner: ASPxClientEvent<ASPxClientReportDesignerExitDesignerEventHandler<ASPxClientReportDesigner>>;
@@ -24391,6 +24502,9 @@ interface ASPxClientReportDesignerCustomizeMenuActionsEventArgs extends ASPxClie
  * Provides data for the ExitDesigner event.
  */
 interface ASPxClientReportDesignerExitDesignerEventArgs extends ASPxClientEventArgs {
+}
+interface ASPxClientReportDesignerCustomizeParameterLookUpSourceEventHandler<S> {
+    (source: S, e: ASPxClientCustomizeParameterLookUpSourceEventArgs): void;
 }
 /**
  * A method that will handle the CustomizeParameterEditors event.
@@ -24565,6 +24679,11 @@ interface ASPxClientCustomizeParameterEditorsEventArgs extends ASPxClientEventAr
      */
     info: ASPxDesignerElementSerializationInfo;
 }
+interface ASPxClientCustomizeParameterLookUpSourceEventArgs extends ASPxClientEventArgs {
+    parameter: ASPxDesignerElementParameterDescriptor;
+    items: ASPxDesignerElementEditorItem[];
+    dataSource: Object;
+}
 /**
  * Provides general information about a report parameter.
  */
@@ -24708,6 +24827,10 @@ interface ASPxClientWebDocumentViewer extends ASPxClientControl {
      */
     CustomizeParameterEditors: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeParameterEditorsEventHandler<ASPxClientWebDocumentViewer>>;
     /**
+     * Occurs each time a look-up editor is created for a report parameter.
+     */
+    CustomizeParameterLookUpSource: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeParameterLookUpSourceEventHandler<ASPxClientWebDocumentViewer>>;
+    /**
      * Provides access to the preview model of the ASPxClientWebDocumentViewer.
      */
     GetPreviewModel(): Object;
@@ -24738,17 +24861,6 @@ interface ASPxClientWebDocumentViewer extends ASPxClientControl {
      * @param localization A dictionary containing the property names, along with their localized equivalents.
      */
     UpdateLocalization(localization: { [key: string]: string; }): void;
-}
-/**
- * A method that will handle the CustomizeMenuActions event.
- */
-interface ASPxClientWebDocumentViewerCustomizeMenuActionsEventHandler<S> {
-    /**
-     * A method that will handle the CustomizeMenuActions event.
-     * @param source The event sender.
-     * @param e An ASPxClientWebDocumentViewerCustomizeMenuActionsEventArgs object that contains data related to the event.
-     */
-    (source: S, e: ASPxClientWebDocumentViewerCustomizeMenuActionsEventArgs): void;
 }
 /**
  * Provides settings to the actions listed in a Web Document Viewer menu.
@@ -24811,6 +24923,17 @@ interface ASPxClientWebDocumentViewerCustomizeMenuActionsEventArgs extends ASPxC
     GetById(actionId: string): ASPxClientWebDocumentViewerMenuAction;
 }
 /**
+ * A method that will handle the CustomizeMenuActions event.
+ */
+interface ASPxClientWebDocumentViewerCustomizeMenuActionsEventHandler<S> {
+    /**
+     * A method that will handle the CustomizeMenuActions event.
+     * @param source The event sender.
+     * @param e An ASPxClientWebDocumentViewerCustomizeMenuActionsEventArgs object that contains data related to the event.
+     */
+    (source: S, e: ASPxClientWebDocumentViewerCustomizeMenuActionsEventArgs): void;
+}
+/**
  * A method that will handle the CustomizeParameterEditors event.
  */
 interface ASPxClientWebDocumentViewerCustomizeParameterEditorsEventHandler<S> {
@@ -24819,6 +24942,9 @@ interface ASPxClientWebDocumentViewerCustomizeParameterEditorsEventHandler<S> {
      * @param source The event sender.
      * @param e An ASPxClientCustomizeParameterEditorsEventArgs object that contains data related to the event.
      */
+    (source: S, e: ASPxClientCustomizeParameterEditorsEventArgs): void;
+}
+interface ASPxClientWebDocumentViewerCustomizeParameterLookUpSourceEventHandler<S> {
     (source: S, e: ASPxClientCustomizeParameterEditorsEventArgs): void;
 }
 
@@ -25354,6 +25480,10 @@ interface ASPxClientButtonEditStatic extends ASPxClientButtonEditBaseStatic {
     Cast(obj: Object): ASPxClientButtonEdit;
 }
 interface ASPxClientTokenBoxStatic extends ASPxClientComboBoxStatic {
+    /**
+     * Converts the specified object to the current object's type. This method is effective when you utilize the Client API IntelliSense feature provided by DevExpress.
+     * @param obj The client object to be type cast. Represents an instance of a DevExpress web control's client object.
+     */
     Cast(obj: Object): ASPxClientTokenBox;
 }
 interface ASPxClientTrackBarStatic extends ASPxClientEditStatic {
@@ -26136,6 +26266,10 @@ interface ASPxClientPivotGridStatic extends ASPxClientControlStatic {
 interface ASPxClientPivotCustomizationStatic extends ASPxClientControlStatic {
 }
 interface ASPxClientRichEditStatic extends ASPxClientControlStatic {
+    /**
+     * Converts the specified object to the current object's type. This method is effective when you utilize the Client API IntelliSense feature provided by DevExpress.
+     * @param obj The client object to be type cast. Represents an instance of a DevExpress web control's client object.
+     */
     Cast(obj: Object): ASPxClientRichEdit;
 }
 interface ASPxSchedulerDateTimeHelperStatic {
@@ -26207,6 +26341,10 @@ interface ASPxClientSpellCheckerStatic extends ASPxClientControlStatic {
     Cast(obj: Object): ASPxClientSpellChecker;
 }
 interface ASPxClientSpreadsheetStatic extends ASPxClientControlStatic {
+    /**
+     * Converts the specified object to the current object's type. This method is effective when you utilize the Client API IntelliSense feature provided by DevExpress.
+     * @param obj The client object to be type cast. Represents an instance of a DevExpress web control's client object.
+     */
     Cast(obj: Object): ASPxClientSpreadsheet;
 }
 interface ASPxClientTreeListStatic extends ASPxClientControlStatic {
