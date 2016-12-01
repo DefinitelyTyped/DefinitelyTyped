@@ -1,6 +1,6 @@
 // This contains all of the code from the docs on https://www.npmjs.com/package/pino
 
-import * as PINO from 'pino';
+import PINO = require('pino');
 import * as stream from 'stream';
 
 var pino = PINO()
