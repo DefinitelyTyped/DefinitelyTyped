@@ -8,6 +8,9 @@
 /// <reference types="knockout" />
 /// <reference types="jquery" />
 
+export as namespace kg;
+export = kg;
+
 declare namespace kg {
    interface DomUtilityService {
       UpdateGridLayout(grid: Grid<any>): void;
@@ -172,7 +175,7 @@ declare namespace kg {
       /** Which direction to sort */
       direction: Direction;
    }
-   
+
    interface SortColumn {
       /** The string name of the property in your data model you want that column to represent. Can also be a property path on your data model. 'foo.bar.myField', 'Name.First', etc.. */
       field: string;
@@ -187,7 +190,7 @@ declare namespace kg {
 
       /**
        * A function which takes the value of the cell and returns the display value. Useful when your data model has an underlying value which you need to convert to a human readable format.
-       * @param val 
+       * @param val
        * @returns the display value
        * @example function(unixTimeTicks) { return new Date(unixTimeTicks); }
        */
@@ -273,7 +276,3 @@ interface IKg {
 }
 
 declare var kg: IKg;
-
-declare module "kg" {
-   export = kg;
-}
