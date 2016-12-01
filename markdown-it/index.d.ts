@@ -19,7 +19,7 @@ declare module MarkdownIt {
     interface MarkdownIt {
         render(md: string, env?: any): string;
         renderInline(md: string, env?: any): string;
-        use(plugin: any, ...params: any[]): MarkdownIt.MarkdownIt;
+        use(plugin: any, ...params: any[]): MarkdownIt;
         utils: {
             assign(obj: any): any;
             isString(obj: any): boolean;
@@ -37,9 +37,9 @@ declare module MarkdownIt {
             escapeRE(str: string): string;
             normalizeReference(str: string): string;
         }
-        disable(rules: string[] | string, ignoreInvalid?: boolean): MarkdownIt.MarkdownIt;
-        enable(rules: string[] | string, ignoreInvalid?: boolean): MarkdownIt.MarkdownIt;
-        set(options: Options): MarkdownIt.MarkdownIt;
+        disable(rules: string[] | string, ignoreInvalid?: boolean): MarkdownIt;
+        enable(rules: string[] | string, ignoreInvalid?: boolean): MarkdownIt;
+        set(options: Options): MarkdownIt;
         normalizeLink(url: string): string;
         normalizeLinkText(url: string): string;
         validateLink(url: string): boolean;
@@ -64,10 +64,32 @@ declare module MarkdownIt {
         tlds(lang: string, linkified: boolean): void;
     }
     interface Renderer {
-        rules: { [name: string]: any };
-        render(tokens: any[], options: any, env: any): string;
-        renderAttrs(token: any): string;
-        renderInline(tokens: any[], options: any, env: any): string;
-        renderToken(tokens: any[], idx: number, options: any): string;
+        rules: { [name: string]: TokenRender };
+        render(tokens: Token[], options: any, env: any): string;
+        renderAttrs(token: Token): string;
+        renderInline(tokens: Token[], options: any, env: any): string;
+        renderToken(tokens: Token[], idx: number, options: any): string;
     }
+    interface Token {
+        attrGet: (name: string) => string | null;
+        attrIndex: (name: string) => number;
+        attrJoin: (name: string, value: string) => void;
+        attrPush: (attrData: string[]) => void;
+        attrSet: (name: string, value: string) => void;
+        attrs: string[][];
+        block: boolean;
+        children: Token[];
+        content: string;
+        hidden: boolean;
+        info: string;
+        level: number;
+        map: number[];
+        markup: string;
+        meta: any;
+        nesting: number;
+        tag: string;
+        type: string;
+    }
+
+    type TokenRender = (tokens: Token[], index: number, options: any, env: any, self: Renderer) => void;
 }
