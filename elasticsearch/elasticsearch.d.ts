@@ -15,8 +15,8 @@ declare module Elasticsearch {
         create(params: CreateDocumentParams, callback: (err: any, response: any, status: any) => void): void;
         delete(params: DeleteDocumentParams): PromiseLike<any>;
         delete(params: DeleteDocumentParams, callback: (error: any, response: any) => void): void;
-        deleteByQuery(params : DeleteByQueryParams, callback : (error: any, response: any) => void): void;
-        deleteByQuery(params : DeleteByQueryParams): PromiseLike<any>;
+        deleteByQuery(params : SearchParams, callback : (error: any, response: any) => void): void;
+        deleteByQuery(params : SearchParams): PromiseLike<any>;
         exists(params: ExistsParams): PromiseLike<any>;
         exists(params: ExistsParams, callback: (error: any, response: any, status?: any) => void): void;
         get<T>(params: GetParams, callback: (error: any, response: GetResponse<T>) => void): void;
@@ -288,7 +288,7 @@ declare module Elasticsearch {
             }[]
         },
         aggregations?: any
-    } 
+    }
 
     export interface MSearchParams extends GenericParams {
         index?: string | string[] | Boolean;
@@ -331,11 +331,6 @@ declare module Elasticsearch {
         id: string;
         parent?: string;
         refresh?: boolean;
-    }
-
-    export interface DeleteByQueryParams extends GenericParams {
-        index: string;
-        body: any;
     }
 
     export interface UpdateDocumentParams extends GenericParams {
