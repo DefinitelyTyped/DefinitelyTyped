@@ -1,3 +1,7 @@
-import * as _ from "lodash";
-declare const invert: typeof _.invert;
+// Type definitions for lodash.invert 4.14
+// Project: http://lodash.com/
+// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { invert } from "lodash";
 export = invert;

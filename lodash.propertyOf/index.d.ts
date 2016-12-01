@@ -1,3 +1,7 @@
-import * as _ from "lodash";
-declare const propertyOf: typeof _.propertyOf;
+// Type definitions for lodash.propertyOf 4.14
+// Project: http://lodash.com/
+// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { propertyOf } from "lodash";
 export = propertyOf;

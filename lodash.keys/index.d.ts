@@ -1,3 +1,7 @@
-import * as _ from "lodash";
-declare const keys: typeof _.keys;
+// Type definitions for lodash.keys 4.14
+// Project: http://lodash.com/
+// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { keys } from "lodash";
 export = keys;

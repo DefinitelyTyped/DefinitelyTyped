@@ -1,3 +1,7 @@
-import * as _ from "lodash";
-declare const isUndefined: typeof _.isUndefined;
+// Type definitions for lodash.isUndefined 4.14
+// Project: http://lodash.com/
+// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { isUndefined } from "lodash";
 export = isUndefined;

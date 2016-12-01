@@ -1,3 +1,7 @@
-import * as _ from "lodash";
-declare const isWeakMap: typeof _.isWeakMap;
+// Type definitions for lodash.isWeakMap 4.14
+// Project: http://lodash.com/
+// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { isWeakMap } from "lodash";
 export = isWeakMap;

@@ -1,3 +1,7 @@
-import * as _ from "lodash";
-declare const tail: typeof _.tail;
+// Type definitions for lodash.tail 4.14
+// Project: http://lodash.com/
+// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { tail } from "lodash";
 export = tail;

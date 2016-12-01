@@ -1,3 +1,7 @@
-import * as _ from "lodash";
-declare const findLastIndex: typeof _.findLastIndex;
+// Type definitions for lodash.findLastIndex 4.14
+// Project: http://lodash.com/
+// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { findLastIndex } from "lodash";
 export = findLastIndex;

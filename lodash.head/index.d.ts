@@ -1,3 +1,7 @@
-import * as _ from "lodash";
-declare const head: typeof _.head;
+// Type definitions for lodash.head 4.14
+// Project: http://lodash.com/
+// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { head } from "lodash";
 export = head;

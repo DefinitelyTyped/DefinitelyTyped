@@ -1,3 +1,7 @@
-import * as _ from "lodash";
-declare const wrap: typeof _.wrap;
+// Type definitions for lodash.wrap 4.14
+// Project: http://lodash.com/
+// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { wrap } from "lodash";
 export = wrap;

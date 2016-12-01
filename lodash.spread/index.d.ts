@@ -1,3 +1,7 @@
-import * as _ from "lodash";
-declare const spread: typeof _.spread;
+// Type definitions for lodash.spread 4.14
+// Project: http://lodash.com/
+// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { spread } from "lodash";
 export = spread;

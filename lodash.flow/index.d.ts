@@ -1,3 +1,7 @@
-import * as _ from "lodash";
-declare const flow: typeof _.flow;
+// Type definitions for lodash.flow 4.14
+// Project: http://lodash.com/
+// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { flow } from "lodash";
 export = flow;
