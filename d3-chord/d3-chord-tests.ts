@@ -15,7 +15,7 @@ import { ascending } from 'd3-array';
 // Preparatory Steps
 // ---------------------------------------------------------------------
 
-let context: CanvasRenderingContext2D | null = document.querySelector('canvas').getContext("2d");
+let context: CanvasRenderingContext2D | null= document.querySelector('canvas')!.getContext("2d");
 
 let chords: d3Chord.Chords;
 let chordGroups: d3Chord.ChordGroup[];

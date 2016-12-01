@@ -14,7 +14,7 @@ import { path } from 'd3-path';
 // Preparatory Steps (General)
 // -----------------------------------------------------------------------------------
 
-let context: CanvasRenderingContext2D | null = document.querySelector('canvas').getContext('2d');
+let context: CanvasRenderingContext2D | null = document.querySelector('canvas')!.getContext('2d');
 let num: number;
 let pathString: string;
 let pathStringMaybe: string | null;
