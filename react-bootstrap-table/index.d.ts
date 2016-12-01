@@ -557,7 +557,7 @@ export interface Filter {
 	/**
 	 * Only work on NumberFilter. Accept an array which conatin the filter condition, like: ['<','>','=']
 	 */
-    numberComparators: string[];
+    numberComparators?: string[];
 }
 
 export interface TableHeaderColumn extends ComponentClass<TableHeaderColumnProps> { }
