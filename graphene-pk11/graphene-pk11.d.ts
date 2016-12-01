@@ -1048,7 +1048,7 @@ declare module "graphene-pk11" {
 
     interface IAlgorithm {
         name: string;
-        params: Buffer | IParams;
+        params: Buffer | IParams | null;
     }
 
     type MechanismType = MechanismEnum | KeyGenMechanism | IAlgorithm | string;
@@ -1634,400 +1634,400 @@ declare module "graphene-pk11" {
         /**
          * CKA_CLASS
          */
-        class?: number;
+        class?: number | null;
         /**
          * CKA_TOKEN
          */
-        token?: boolean;
+        token?: boolean | null;
         /**
          * CKA_PRIVATE
          */
-        private?: boolean;
+        private?: boolean | null;
         /**
          * CKA_LABEL
          */
-        label?: string;
+        label?: string | null;
         /**
          * CKA_APPLICATION
          */
-        application?: string;
+        application?: string | null;
         /**
          * CKA_VALUE
          */
-        value?: Buffer;
+        value?: Buffer | null;
         /**
          * CKA_OBJECT_ID
          */
-        objectId?: Buffer;
+        objectId?: Buffer | null;
         /**
          * CKA_CERTIFICATE_TYPE
          */
-        certType?: number;
+        certType?: number | null;
         /**
          * CKA_ISSUER
          */
-        issuer?: Buffer;
+        issuer?: Buffer | null;
         /**
          * CKA_SERIAL_NUMBER
          */
-        serial?: Buffer;
+        serial?: Buffer | null;
         /**
          * CKA_AC_ISSUER
          */
-        issuerAC?: Buffer;
+        issuerAC?: Buffer | null;
         /**
          * CKA_OWNER
          */
-        owner?: Buffer;
+        owner?: Buffer | null;
         /**
          * CKA_ATTR_TYPES
          */
-        attrTypes?: Buffer;
+        attrTypes?: Buffer | null;
         /**
          * CKA_TRUSTED
          */
-        trusted?: boolean;
+        trusted?: boolean | null;
         /**
          * CKA_CERTIFICATE_CATEGORY
          */
-        certCategory?: number;
+        certCategory?: number | null;
         /**
          * CKA_JAVA_MIDP_SECURITY_DOMAIN
          */
-        javaDomain?: number;
+        javaDomain?: number | null;
         /**
          * CKA_URL
          */
-        url?: string;
+        url?: string | null;
         /**
          * CKA_HASH_OF_SUBJECT_PUBLIC_KEY
          */
-        ski?: Buffer;
+        ski?: Buffer | null;
         /**
          * CKA_HASH_OF_ISSUER_PUBLIC_KEY
          */
-        aki?: Buffer;
+        aki?: Buffer | null;
         /**
          * CKA_NAME_HASH_ALGORITHM
          */
-        digestName?: number;
+        digestName?: number | null;
         /**
          * CKA_CHECK_VALUE
          */
-        checkValue?: Buffer;
+        checkValue?: Buffer | null;
         /**
          * CKA_KEY_TYPE
          */
-        keyType?: number;
+        keyType?: number | null;
         /**
          * CKA_SUBJECT
          */
-        subject?: Buffer;
+        subject?: Buffer | null;
         /**
          * CKA_ID
          */
-        id?: Buffer;
+        id?: Buffer | null;
         /**
          * CKA_SENSITIVE
          */
-        sensitive?: boolean;
+        sensitive?: boolean | null;
         /**
          * CKA_ENCRYPT
          */
-        encrypt?: boolean;
+        encrypt?: boolean | null;
         /**
          * CKA_DECRYPT
          */
-        decrypt?: boolean;
+        decrypt?: boolean | null;
         /**
          * CKA_WRAP
          */
-        wrap?: boolean;
+        wrap?: boolean | null;
         /**
          * CKA_UNWRAP
          */
-        unwrap?: boolean;
+        unwrap?: boolean | null;
         /**
          * CKA_SIGN
          */
-        sign?: boolean;
+        sign?: boolean | null;
         /**
          * CKA_SIGN_RECOVER
          */
-        signRecover?: boolean;
+        signRecover?: boolean | null;
         /**
          * CKA_VERIFY
          */
-        verify?: boolean;
+        verify?: boolean | null;
         /**
          * CKA_VERIFY_RECOVER
          */
-        verifyRecover?: boolean;
+        verifyRecover?: boolean | null;
         /**
          * CKA_DERIVE
          */
-        derive?: boolean;
+        derive?: boolean | null;
         /**
          * CKA_START_DATE
          */
-        startDate?: Date;
+        startDate?: Date | null;
         /**
          * CKA_END_DATE
          */
-        endDate?: Date;
+        endDate?: Date | null;
         /**
          * CKA_MODULUS
          */
-        modulus?: Buffer;
+        modulus?: Buffer | null;
         /**
          * CKA_MODULUS_BITS
          */
-        modulusBits?: number;
+        modulusBits?: number | null;
         /**
          * CKA_PUBLIC_EXPONENT
          */
-        publicExponent?: Buffer;
+        publicExponent?: Buffer | null;
         /**
          * CKA_PRIVATE_EXPONEN
          */
-        privateExponent?: Buffer;
+        privateExponent?: Buffer | null;
         /**
          * CKA_PRIME_1
          */
-        prime1?: Buffer;
+        prime1?: Buffer | null;
         /**
          * CKA_PRIME_2
          */
-        prime2?: Buffer;
+        prime2?: Buffer | null;
         /**
          * CKA_EXPONENT_1
          */
-        exp1?: Buffer;
+        exp1?: Buffer | null;
         /**
          * CKA_EXPONENT_2
          */
-        exp2?: Buffer;
+        exp2?: Buffer | null;
         /**
          * CKA_COEFFICIEN
          */
-        coefficient?: Buffer;
+        coefficient?: Buffer | null;
         /**
          * CKA_PRIME
          */
-        prime?: Buffer;
+        prime?: Buffer | null;
         /**
          * CKA_SUBPRIME
          */
-        subprime?: Buffer;
+        subprime?: Buffer | null;
         /**
          * CKA_BASE
          */
-        base?: Buffer;
+        base?: Buffer | null;
         /**
          * CKA_PRIME_BITS
          */
-        primeBits?: number;
+        primeBits?: number | null;
         /**
          * CKA_SUBPRIME_BITS
          */
-        subprimeBits?: number;
+        subprimeBits?: number | null;
         /**
          * CKA_VALUE_BITS
          */
-        valueBits?: number;
+        valueBits?: number | null;
         /**
          * CKA_VALUE_LEN
          */
-        valueLen?: number;
+        valueLen?: number | null;
         /**
          * CKA_EXTRACTABLE
          */
-        extractable?: boolean;
+        extractable?: boolean | null;
         /**
          * CKA_LOCAL
          */
-        local?: boolean;
+        local?: boolean | null;
         /**
          * CKA_NEVER_EXTRACTABLE
          */
-        neverExtractable?: boolean;
+        neverExtractable?: boolean | null;
         /**
          * CKA_ALWAYS_SENSITIVE
          */
-        alwaysSensitive?: boolean;
+        alwaysSensitive?: boolean | null;
         /**
          * CKA_KEY_GEN_MECHANISM
          */
-        keyGenMechanism?: number;
+        keyGenMechanism?: number | null;
         /**
          * CKA_MODIFIABLE
          */
-        modifiable?: boolean;
+        modifiable?: boolean | null;
         /**
          * CKA_COPYABLE
          */
-        copyable?: boolean;
+        copyable?: boolean | null;
         /**
          * CKA_ECDSA_PARAMS
          */
-        paramsECDSA?: Buffer;
-        paramsEC?: Buffer;
+        paramsECDSA?: Buffer | null;
+        paramsEC?: Buffer | null;
         /**
          * CKA_EC_POINT
          */
-        pointEC?: Buffer;
+        pointEC?: Buffer | null;
         /**
          * CKA_SECONDARY_AUTH
          */
-        secondaryAuth?: boolean;
+        secondaryAuth?: boolean | null;
         /**
          * CKA_AUTH_PIN_FLAGS
          */
-        authPinFlags?: Buffer;
+        authPinFlags?: Buffer | null;
         /**
          * CKA_ALWAYS_AUTHENTICATE
          */
-        alwaysAuth?: boolean;
+        alwaysAuth?: boolean | null;
         /**
          * CKA_WRAP_WITH_TRUSTED
          */
-        wrapWithTrusted?: boolean;
+        wrapWithTrusted?: boolean | null;
         /**
          * CKA_WRAP_TEMPLATE
          */
-        wrapTemplate?: any;
+        wrapTemplate?: any | null;
         /**
          * CKA_UNWRAP_TEMPLATE
          */
-        unwrapTemplate?: any;
+        unwrapTemplate?: any | null;
         /**
          * CKA_OTP_FORMAT
          */
-        otpFormat?: any;
+        otpFormat?: any | null;
         /**
          * CKA_OTP_LENGTH
          */
-        otpLength?: any;
+        otpLength?: any | null;
         /**
          * CKA_OTP_TIME_INTERVAL
          */
-        otpTimeInterval?: any;
+        otpTimeInterval?: any | null;
         /**
          * CKA_OTP_USER_FRIENDLY_MODE
          */
-        otpUserFriendlyMode?: any;
+        otpUserFriendlyMode?: any | null;
         /**
          * CKA_OTP_CHALLENGE_REQUIREMENT
          */
-        otpChallengeReq?: any;
+        otpChallengeReq?: any | null;
         /**
          * CKA_OTP_TIME_REQUIREMENT
          */
-        otpTimeReq?: any;
+        otpTimeReq?: any | null;
         /**
          * CKA_OTP_COUNTER_REQUIREMENT
          */
-        otpCounterReq?: any;
+        otpCounterReq?: any | null;
         /**
          * CKA_OTP_PIN_REQUIREMENT
          */
-        otppinReq?: any;
+        otppinReq?: any | null;
         /**
          * CKA_OTP_COUNTER
          */
-        otpCounter?: any;
+        otpCounter?: any | null;
         /**
          * CKA_OTP_TIME
          */
-        otpTime?: any;
+        otpTime?: any | null;
         /**
          * CKA_OTP_USER_IDENTIFIER
          */
-        otpUserId?: any;
+        otpUserId?: any | null;
         /**
          * CKA_OTP_SERVICE_IDENTIFIER
          */
-        otpServiceId?: any;
+        otpServiceId?: any | null;
         /**
          * CKA_OTP_SERVICE_LOGO
          */
-        otpServiceLogo?: any;
+        otpServiceLogo?: any | null;
         /**
          * CKA_OTP_SERVICE_LOGO_TYPE
          */
-        otpServiceLogoType?: any;
+        otpServiceLogoType?: any | null;
         /**
          * CKA_HW_FEATURE_TYPE
          */
-        hwFeatureType?: any;
+        hwFeatureType?: any | null;
         /**
          * CKA_RESET_ON_INIT
          */
-        resetOnInit?: any;
+        resetOnInit?: any | null;
         /**
          * CKA_HAS_RESET
          */
-        hasReset?: any;
+        hasReset?: any | null;
         /**
          * CKA_PIXEL_X
          */
-        pixelX?: any;
+        pixelX?: any | null;
         /**
          * CKA_PIXEL_Y
          */
-        pixelY?: any;
+        pixelY?: any | null;
         /**
          * CKA_RESOLUTION
          */
-        resolution?: any;
+        resolution?: any | null;
         /**
          * CKA_CHAR_ROWS
          */
-        charRows?: any;
+        charRows?: any | null;
         /**
          * CKA_CHAR_COLUMNS
          */
-        charCols?: any;
+        charCols?: any | null;
         /**
          * CKA_COLOR
          */
-        color?: any;
+        color?: any | null;
         /**
          * CKA_BITS_PER_PIXEL
          */
-        bitsPerPixel?: any;
+        bitsPerPixel?: any | null;
         /**
          * CKA_CHAR_SETS
          */
-        charSets?: any;
+        charSets?: any | null;
         /**
          * CKA_ENCODING_METHODS
          */
-        encMethod?: any;
+        encMethod?: any | null;
         /**
          * CKA_MIME_TYPES
          */
-        mimeTypes?: any;
+        mimeTypes?: any | null;
         /**
          * CKA_MECHANISM_TYPE
          */
-        mechanismType?: any;
+        mechanismType?: any | null;
         /**
          * CKA_REQUIRED_CMS_ATTRIBUTES
          */
-        requiredCmsAttrs?: any;
+        requiredCmsAttrs?: any | null;
         /**
          * CKA_DEFAULT_CMS_ATTRIBUTES
          */
-        defaultCmsAttrs?: any;
+        defaultCmsAttrs?: any | null;
         /**
          * CKA_SUPPORTED_CMS_ATTRIBUTES
          */
-        suportedCmsAttrs?: any;
+        suportedCmsAttrs?: any | null;
         /**
          * CKA_ALLOWED_MECHANISMS
          */
-        allowedMechanisms?: any;
+        allowedMechanisms?: any | null;
     }
 
     class Template {
@@ -2274,5 +2274,4 @@ declare module "graphene-pk11" {
         static load(libFile: string, libName?: string): Module;
     }
 
-
-} 
+}
