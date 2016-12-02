@@ -1,1 +1,4 @@
-{ "extends": "../tslint.json" }
+{
+  "extends": "../tslint.json",
+  "no-single-declare-module": false
+}
