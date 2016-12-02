@@ -3,7 +3,7 @@
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path='../lodash/lodash-3.10.d.ts' />
+/// <reference path='../lodash/legacy/lodash-3.10.d.ts' />
 
 
 declare module "lodash-decorators" {

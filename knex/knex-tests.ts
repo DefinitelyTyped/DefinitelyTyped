@@ -1,6 +1,6 @@
 /// <reference path='knex.d.ts' />
 
-/// <reference path='../lodash/lodash-3.10.d.ts' />
+/// <reference path='../lodash/legacy/lodash-3.10.d.ts' />
 
 import * as Knex from 'knex';
 import * as _ from 'lodash';
