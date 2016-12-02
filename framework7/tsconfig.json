@@ -13,8 +13,8 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "index.d.ts",
         "dom7.d.ts",
-        "framework7.d.ts",
         "template7.d.ts"
     ]
 }
