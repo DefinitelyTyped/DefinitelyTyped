@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 4.6.8
+// Type definitions for Mongoose 4.7.0
 // Project: http://mongoosejs.com/
 // Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -497,10 +497,16 @@ declare module "mongoose" {
     eachAsync(fn: (doc: T) => any, callback?: (err: any) => void): Promise<T>;
 
     /**
+     * Registers a transform function which subsequently maps documents retrieved
+     * via the streams interface or .next()
+     */
+    map(fn: (doc: T) => T): this;
+
+    /**
      * Get the next document from this cursor. Will return null when there are
      * no documents left.
      */
-    next(callback?: (err: any) => void): Promise<any>;
+    next(callback?: (err: any, doc?: T) => void): Promise<any>;
   }
 
   /*
@@ -564,6 +570,12 @@ declare module "mongoose" {
     indexes(): any[];
 
     /**
+     * Loads an ES6 class into a schema. Maps setters + getters, static methods, and
+     * instance methods to schema virtuals, statics, and methods.
+     */
+    loadClass(model: Function): this;
+
+    /**
      * Adds an instance method to documents constructed from Models compiled from this schema.
      * If a hash of name/fn pairs is passed as the only argument, each name/fn pair will be added as methods.
      */
@@ -597,9 +609,13 @@ declare module "mongoose" {
      * @param method name of the method to hook
      * @param fn callback
      */
-    post<T extends Document>(method: string, fn: (doc: T) => void, ...args: any[]): this;
-    post<T extends Document>(method: string, fn: (doc: T, next: (err?: NativeError) => void,
-      ...otherArgs: any[]) => void): this;
+    post<T extends Document>(method: string, fn: (
+      error: mongodb.MongoError, doc: T, next: (err?: NativeError) => void
+    ) => void): this;
+
+    post<T extends Document>(method: string, fn: (
+      doc: T, next: (err?: NativeError) => void
+    ) => void): this;
 
     /**
      * Defines a pre hook for the document.
