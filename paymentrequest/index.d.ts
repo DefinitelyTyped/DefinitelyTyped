@@ -27,7 +27,7 @@ interface PaymentDetails {
     total: PaymentItem;
     displayItems?: PaymentItem[];
     shippingOptions?: PaymentShippingOption[];
-    modifiers: PaymentDetailsModifier[];
+    modifiers?: PaymentDetailsModifier[];
 }
 
 interface PaymentDetailsModifier {
