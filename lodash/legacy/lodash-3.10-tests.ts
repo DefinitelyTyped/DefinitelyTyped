@@ -1,4 +1,4 @@
-/// <reference path='lodash-3.10.d.ts' />
+/// <reference path='../../lodash/legacy/lodash-3.10.d.ts' />
 
 declare var $: any, jQuery: any;
 
