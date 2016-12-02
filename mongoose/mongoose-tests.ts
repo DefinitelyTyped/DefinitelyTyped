@@ -193,6 +193,18 @@ QCModel.find({}).cursor({}).on('data', function (doc: any) {
 }).on('error', function (error: any) {
   throw error;
 }).close().then(cb).catch(cb);
+querycursor.map(function (doc) {
+  doc.foo = "bar";
+  return doc;
+}).on('data', function (doc: any) {
+  console.log(doc.foo);
+});
+querycursor.map(function (doc) {
+  doc.foo = "bar";
+  return doc;
+}).next(function (error, doc) {
+  console.log(doc.foo);
+});
 
 /*
  * section virtualtype.js
@@ -254,8 +266,19 @@ schema.plugin(function (schema, opts) {
 schema.get('path');
   opts.hasOwnProperty('');
 }).plugin(cb, {opts: true});
-schema.post('post', function (doc) {}).post('post', function (doc, next) {
+import { Schema, Model, Document, NativeError } from 'mongoose';
+schema
+.post('save', function (error, doc, next) {
+  error.stack;
+  doc.model;
+  next.apply;
+})
+.post('save', function (doc: mongoose.Document, next: Function) {
+  doc.model;
   next(new Error());
+})
+.post('save', function (doc: mongoose.Document) {
+  doc.model;
 });
 schema.queue('m1', [1, 2, 3]).queue('m2', [[]]);
 schema.remove('path');
