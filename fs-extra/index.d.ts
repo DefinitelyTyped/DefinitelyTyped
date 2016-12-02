@@ -100,11 +100,11 @@ export interface CopyOptions {
     filter?: CopyFilter
     recursive?: boolean
 }
-	
-	export interface MoveOptions {
-		clobber? : boolean;
-		limit?: number;
-	}
+
+export interface MoveOptions {
+    clobber? : boolean;
+    limit?: number;
+}
 
 export interface MoveOptions {
     clobber? : boolean;
