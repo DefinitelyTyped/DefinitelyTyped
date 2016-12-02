@@ -1,6 +1,9 @@
 /// <reference path="index.d.ts" />
 /// <reference path="../promise" />
 
+/// Code examples derived from
+/// https://developers.google.com/web/fundamentals/discovery-and-monetization/payment-request/
+
 function makeRequest() {
     if (!window.PaymentRequest) {
         return Promise.reject(new Error("PaymentRequest not available"))
