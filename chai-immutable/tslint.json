@@ -1,4 +1,6 @@
 {
   "extends": "../tslint.json",
-  "no-single-declare-module": false
+  "rules": {
+    "no-single-declare-module": false
+  }
 }
