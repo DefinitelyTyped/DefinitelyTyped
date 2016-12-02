@@ -303,7 +303,7 @@ declare module 'redux-form' {
      * a list of all your fields in your form. You may change these dynamically
      * at runtime.
      */
-    fields: string[];
+    fields?: string[];
 
     /**
      * the name of your form and the key to where your form's state will be
