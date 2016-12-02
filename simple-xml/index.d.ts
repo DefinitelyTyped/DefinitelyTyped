@@ -1,0 +1,14 @@
+// Type definitions for simple-xml 0.0
+// Project: https://github.com/AirAsiaExpedia/node-simple-xml
+// Definitions by: Vitaliy Isikov <https://github.com/notVitaliy>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+
+declare namespace simple.xml {
+  namespace XML {
+    function stringify(obj: {}): string;
+    function parse(data: string): {};
+  }
+}
+
+export = simple.xml;
