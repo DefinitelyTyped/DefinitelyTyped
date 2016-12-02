@@ -1,10 +1,14 @@
 /// <reference path="anychart.d.ts"/>
+interface Window {
+  get_ixic_daily_short_data(): Array<any>
+}
 anychart.onDocumentReady(function () {
     // The data that has been used for this sample is taken from the CDN
     // http://cdn.anychart.com/csv-data/ixic-daily-short.js
     // and required in 'index.html' file.
     var dataTable = anychart.data.table();
-    dataTable.addData(window['get_ixic_daily_short_data']());
+
+    dataTable.addData(window.get_ixic_daily_short_data());
 
     var mapping = dataTable.mapAs();
     mapping.addField('open', 1, anychart.enums.AggregationType.FIRST);

@@ -1,8 +1,7 @@
 /// <reference path="anychart.d.ts"/>
-var chart, series;
 anychart.onDocumentReady(function () {
-    chart = anychart.column();
-    series = chart.column([3, 1, 2]);
+    var chart = anychart.column();
+    var series = chart.column([3, 1, 2]);
 
     chart.xAxis(0).labels()
         .textFormatter('#{%Value}');

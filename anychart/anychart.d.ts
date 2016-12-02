@@ -1,3 +1,7 @@
+// Type definitions for anychart
+// Project: http://anychart.com/
+// Definitions by: AnyChart <http://anychart.com>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace anychart {
     const DEVELOP: boolean;
     const VERSION: string;
@@ -18772,19 +18776,19 @@ declare namespace anychart.math {
 }
 
 declare namespace anychart.palettes {
-    const blue;
-    const coffee;
-    const defaultPalette;
-    const earth;
-    const glamour;
-    const monochrome;
-    const morning;
-    const pastel;
-    const provence;
-    const sea;
-    const turquoise;
-    const v6;
-    const wines;
+    const blue: Array<string>;
+    const coffee: Array<string>;
+    const defaultPalette: Array<string>;
+    const earth: Array<string>;
+    const glamour: Array<string>;
+    const monochrome: Array<string>;
+    const morning: Array<string>;
+    const pastel: Array<string>;
+    const provence: Array<string>;
+    const sea: Array<string>;
+    const turquoise: Array<string>;
+    const v6: Array<string>;
+    const wines: Array<string>;
     function distinctColors(): anychart.palettes.DistinctColors;
     function hatchFills(): anychart.palettes.HatchFills;
     function markers(): anychart.palettes.Markers;

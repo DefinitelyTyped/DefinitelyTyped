@@ -1,4 +1,7 @@
 /// <reference path="anychart.d.ts"/>
+declare namespace anychart.maps {
+  const slovakia: Object;
+}
 anychart.onDocumentReady(function () {
     var dataSet = anychart.data.set([
         {'id': 'SK.BL', 'value': 80},
@@ -14,7 +17,7 @@ anychart.onDocumentReady(function () {
     var map = anychart.map();
 
     // this map required in 'index.html' file that placed in parent directory
-    map.geoData(anychart['maps']['slovakia']);
+    map.geoData(anychart.maps.slovakia);
 
     var title = map.title();
     title.enabled(true);

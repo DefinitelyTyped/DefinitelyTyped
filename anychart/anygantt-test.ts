@@ -249,7 +249,7 @@ anychart.onDocumentReady(function () {
     chart.draw();
 });
 
-function timeTask(duration) {
+function timeTask(duration: number) {
     var days = Math.floor(duration);
     var hours = Math.ceil(24 * (duration - days));
     var daysPart = days != 0 ? 'd:' + days + ' ' : '';
@@ -258,7 +258,7 @@ function timeTask(duration) {
     return daysPart + hoursPart;
 }
 
-function decorateLabels(tasks) {
+function decorateLabels(tasks: anychart.core.pert.Tasks) {
     decorateUpperLabels(tasks.upperLabels());
     decorateUpperLabels(tasks.hoverUpperLabels(), true);
     decorateUpperLabels(tasks.selectUpperLabels(), true);
@@ -267,16 +267,19 @@ function decorateLabels(tasks) {
     decorateLowerLabels(tasks.selectLowerLabels(), true);
 }
 
-function decorateUpperLabels(labels, opt_isBold?) {
+function decorateUpperLabels(labels: anychart.core.ui.LabelsFactory, opt_isBold?: boolean) {
     labels.textWrap('noWrap');
     labels.padding({'top': 0, 'right': 15, 'bottom': 0, 'left': 15});
     labels.fontSize(10);
     labels.fontWeight(opt_isBold ? 'bold' : 'normal');
 }
 
-function decorateLowerLabels(labels, opt_isBold?) {
-    labels.textWrap('noWrap').padding({'top': 0, 'right': 5, 'bottom': 0, 'left': 5})
-        .fontSize(9).fontOpacity(0.5).fontWeight(opt_isBold ? 'bold' : 'normal');
+function decorateLowerLabels(labels: anychart.core.ui.LabelsFactory, opt_isBold?: boolean) {
+    labels.textWrap('noWrap');
+    labels.padding({'top': 0, 'right': 5, 'bottom': 0, 'left': 5});
+    labels.fontSize(9);
+    labels.fontOpacity(0.5);
+    labels.fontWeight(opt_isBold ? 'bold' : 'normal');
 }
 
 function defaultMilestoneTooltipTextFormatter() {
