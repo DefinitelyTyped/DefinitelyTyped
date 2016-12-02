@@ -73,6 +73,8 @@ export interface SearchCallBack {
 
 export interface Client {
 
+	connected: boolean;
+	
 	/**
 	 * Performs a simple authentication against the server.
 	 *
