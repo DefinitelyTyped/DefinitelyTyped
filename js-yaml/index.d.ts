@@ -42,6 +42,14 @@ declare namespace jsyaml {
 		styles?: Object;
 		// specifies a schema to use.
 		schema?: any;
+		// if true, sort keys when dumping YAML. If a function, use the function to sort the keys. (default: false)
+		sortKeys?: boolean;
+		// set max line width. (default: 80)
+		lineWidth?: number;
+		// if true, don't convert duplicate objects into references (default: false)
+		noRefs?: boolean;
+		// if true don't try to be compatible with older yaml versions. Currently: don't quote "yes", "no" and so on, as required for YAML 1.1 (default: false)
+		noCompatMode?: boolean;
 	}
 
 	export interface TypeConstructorOptions {
