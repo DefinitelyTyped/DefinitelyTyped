@@ -1,10 +1,19 @@
-import { runLoaders, getContext, Loader, RunLoaderOption } from 'loader-runner';
+import { runLoaders, getContext } from 'loader-runner';
 
-const option = {} as RunLoaderOption;
+const option = {
+    resource: 'test.js',
+    loaders: [{
+        request: 'test.js'
+    }],
+    context: './lib/',
+    readResource: function () {
+    }
+};
 
 runLoaders(option, function (err, result) {
-    if(err)
+    if (err) {
         console.log(err, result);
+    }
 });
 
 getContext('sdlfkjaldfjiojsdf');
