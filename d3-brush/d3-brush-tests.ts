@@ -32,7 +32,7 @@ let brushY: d3Brush.BrushBehavior<BrushDatum> = d3Brush.brushY<BrushDatum>();
 
 // extent() ----------------------------------------------------------------------
 
-let extent: (this: SVGGElement, d: BrushDatum, i: number, group: Array<SVGGElement> | ArrayLike<SVGGElement>) => [[number, number], [number, number]];
+let extent: (this: SVGGElement, d: BrushDatum, i: number, group: SVGGElement[] | ArrayLike<SVGGElement>) => [[number, number], [number, number]];
 extent = brush.extent();
 
 // chainable with array
@@ -50,13 +50,13 @@ brush = brush.extent(function (d, i, group) {
 brush = brush.filter(function (d, i, group) {
 
     // Cast d3 event to D3ZoomEvent to be used in filter logic
-    let e = <d3Brush.D3BrushEvent<BrushDatum>>event;
+    let e = <d3Brush.D3BrushEvent<BrushDatum>> event;
 
     console.log('Owner SVG Element of svg group: ', this.ownerSVGElement); // this is of type SVGGElement
     return e.sourceEvent.type !== 'zoom' || !d.filterZoomEvent; // datum type is BrushDatum (as propagated to SVGGElement with brush event attached)
 });
 
-let filterFn: (this: SVGGElement, d?: BrushDatum, index?: number, group?: Array<SVGGElement>) => boolean;
+let filterFn: (this: SVGGElement, d: BrushDatum, index: number, group: SVGGElement[]) => boolean;
 filterFn = brush.filter();
 
 // handleSize() ----------------------------------------------------------------
@@ -67,9 +67,13 @@ let handleSize: number = brush.handleSize();
 
 // on() ------------------------------------------------------------------------
 
-let brushed: (this: SVGGElement, datum: BrushDatum, index: number, group: Array<SVGGElement> | ArrayLike<SVGGElement>) => void;
-let wrongHandler1: (this: SVGSVGElement, datum: BrushDatum, index: number, group: Array<SVGSVGElement> | ArrayLike<SVGSVGElement>) => void;
-let wrongHandler2: (this: SVGGElement, datum: { test: string }, index: number, group: Array<SVGGElement> | ArrayLike<SVGGElement>) => void;
+let brushed: ((this: SVGGElement, datum: BrushDatum, index: number, group: SVGGElement[] | ArrayLike<SVGGElement>) => void) | undefined;
+brushed = function (d, i, group) {
+    // do anything
+};
+
+let wrongHandler1: (this: SVGSVGElement, datum: BrushDatum, index: number, group: SVGSVGElement[] | ArrayLike<SVGSVGElement>) => void;
+let wrongHandler2: (this: SVGGElement, datum: { test: string }, index: number, group: SVGGElement[] | ArrayLike<SVGGElement>) => void;
 
 // chainable
 brush = brush.on('end', brushed);
@@ -83,7 +87,11 @@ brushed = brush.on('end');
 brush = brush.on('end', null);
 
 // re-apply
-brush.on('end', function (d, i, group) {
+brush.on('end', function (d, i, g) {
+    let that: SVGGElement = this;
+    let datum: BrushDatum = d;
+    let index: number = i;
+    let group: SVGGElement[] | ArrayLike<SVGGElement> = g;
     console.log('Owner SVG Element of svg group: ', this.ownerSVGElement); // this is of type SVGGElement
     console.log('Extent as per data: ', d.extent); // datum of type BrushDatum
     // do anything
@@ -127,7 +135,7 @@ let gTransition = g.transition();
 brush.move(g, [[10, 10], [50, 50]]); // two-dimensional brush
 brush.move(g, function (d, i, group) {
     console.log('Owner SVG Element of svg group: ', this.ownerSVGElement); // this is of type SVGGElement
-    let selection: [[number, number], [number, number]];
+    let selection: [[number, number], [number, number]] = [[0, 0], [0, 0]];
     selection[0][0] = d.extent[0][0] + 10; // datum type is brushDatum
     selection[0][1] = d.extent[0][1] + 10;
     selection[1][0] = d.extent[0][0] + 40;
@@ -139,7 +147,7 @@ brush.move(g, function (d, i, group) {
 brush.move(gTransition, [[10, 10], [50, 50]]); // two-dimensional brush
 brush.move(gTransition, function (d, i, group) {
     console.log('Owner SVG Element of svg group: ', this.ownerSVGElement); // this is of type SVGGElement
-    let selection: [[number, number], [number, number]];
+    let selection: [[number, number], [number, number]] = [[0, 0], [0, 0]];
     selection[0][0] = d.extent[0][0] + 10; // datum type is brushDatum
     selection[0][1] = d.extent[0][1] + 10;
     selection[1][0] = d.extent[0][0] + 40;
@@ -154,7 +162,7 @@ let gXTransition = gX.transition();
 brush.move(gX, [10, 40]); // two-dimensional brush
 brush.move(gX, function (d, i, group) {
     console.log('Owner SVG Element of svg group: ', this.ownerSVGElement); // this is of type SVGGElement
-    let selection: [number, number];
+    let selection: [number, number] = [0, 0];
     selection[0] = d.extent[0][0] + 10; // datum type is brushDatum
     selection[1] = d.extent[0][0] + 40;
     return selection;
@@ -164,7 +172,7 @@ brush.move(gX, function (d, i, group) {
 brush.move(gXTransition, [10, 40]); // two-dimensional brush
 brush.move(gXTransition, function (d, i, group) {
     console.log('Owner SVG Element of svg group: ', this.ownerSVGElement); // this is of type SVGGElement
-    let selection: [number, number];
+    let selection: [number, number] = [0, 0];
     selection[0] = d.extent[0][0] + 10; // datum type is brushDatum
     selection[1] = d.extent[0][0] + 40;
     return selection;
@@ -176,7 +184,7 @@ brush.move(gXTransition, function (d, i, group) {
 // -----------------------------------------------------------------------------
 
 
-let e: d3Brush.D3BrushEvent<BrushDatum>;
+let e: d3Brush.D3BrushEvent<BrushDatum> = event;
 
 
 let target: d3Brush.BrushBehavior<BrushDatum> = e.target;

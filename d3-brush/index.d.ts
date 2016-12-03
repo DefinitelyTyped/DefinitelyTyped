@@ -1,7 +1,9 @@
-// Type definitions for D3JS d3-brush module v1.0.2
+// Type definitions for D3JS d3-brush module 1.0
 // Project: https://github.com/d3/d3-brush/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// Last module patch version validated against: 1.0.3
 
 import { ArrayLike, Selection, TransitionLike, ValueFn } from 'd3-selection';
 
@@ -159,7 +161,7 @@ export interface BrushBehavior<Datum> {
      * start (at the start of a brush gesture, such as on mousedown), brush (when the brush moves, such as on mousemove), or
      * end (at the end of a brush gesture, such as on mouseup.)
      */
-    on(typenames: string): ValueFn<SVGGElement, Datum, void>;
+    on(typenames: string): ValueFn<SVGGElement, Datum, void> | undefined;
     /**
      * Removes the current event listeners for the specified typenames, if any.
      *
