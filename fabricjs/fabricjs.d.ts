@@ -14,6 +14,8 @@ declare module "fabric" {
 
 declare namespace fabric {
 
+  var document:HTMLDocument;
+  var window:Window;
   var isLikelyNode: boolean;
   var isTouchSupported: boolean;
 
@@ -4238,12 +4240,28 @@ declare namespace fabric {
     addListener(element: HTMLElement, eventName: string, handler: Function): void;
 
     /**
+     * Adds an event listener to the document
+     * @param {HTMLDocument} element
+     * @param {String} eventName
+     * @param {Function} handler
+     */
+    addListener(element: HTMLDocument, eventName: string, handler: Function): void;
+
+    /**
      * Removes an event listener from an element
      * @param {HTMLElement} element
      * @param {String} eventName
      * @param {Function} handler
      */
     removeListener(element: HTMLElement, eventName: string, handler: Function): void;
+
+    /**
+     * Removes an event listener from the document
+     * @param {HTMLDocument} element
+     * @param {String} eventName
+     * @param {Function} handler
+     */
+    removeListener(element: HTMLDocument, eventName: string, handler: Function): void;
   }
 
   interface IUtilDomMisc {
