@@ -320,6 +320,18 @@ declare namespace JQueryUI {
          * Additional text to display after the year in the month headers.
          */
         yearSuffix?: string;
+        /**
+         * True if the popup picker is showing , false if not
+         */
+        _datepickerShowing?: boolean
+        /**
+         * The name of the day hover marker class
+         */
+        _dayOverClass?: string
+        /**
+        * The name of the current day marker class
+        */
+        _currentClass?: string
     }
 
     interface DatepickerFormatDateOptions {
@@ -336,6 +348,13 @@ declare namespace JQueryUI {
         parseDate(format: string, date: string, settings?: DatepickerFormatDateOptions): Date;
         iso8601Week(date: Date): number;
         noWeekends(date: Date): any[];
+        _getInst(target: EventTarget): any;
+        _formatDate(inst: JQuery, day?: any, month?: any, year?: any): string;
+        _adjustDate(id: EventTarget, offset: any, period: string): void;
+        _get(inst: JQuery, name: string): DatepickerFormatDateOptions;
+        _selectDay(id: EventTarget, month: any, year: any, td: any): void;
+        _hideDatepicker(input?: Element): void;
+        _getDaysInMonth(year:any,month:any):number;
     }
 
 
