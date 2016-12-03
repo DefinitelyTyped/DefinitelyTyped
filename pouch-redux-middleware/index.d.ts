@@ -1,6 +1,6 @@
 // Type definitions for pouch-redux-middleware 0.5.0
 // Project: https://github.com/pgte/pouch-redux-middleware
-// Definitions by: Adam Charron<https://github.com/charrondev>
+// Definitions by: Adam Charron <https://github.com/charrondev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Dispatch, Action, Middleware } from 'redux'
