@@ -14,7 +14,7 @@ var string: string;
 // acorn
 string = acorn.version;
 program = acorn.parse('code');
-program = acorn.parse('code', {ranges: true, onToken: tokens, onComment: comments});
+program = acorn.parse('code', { ranges: true, onToken: tokens, onComment: comments });
 program = acorn.parse('code', {
     ranges: true,
     onToken: (token) => tokens.push(token),
@@ -28,3 +28,32 @@ any = token.value;
 
 // Comment
 string = comment.value;
+
+const parser = new acorn.Parser({}, 'export default ""', 0);
+
+const node = new acorn.Node(parser, 1, 1);
+
+acorn.addLooseExports(function () {
+    return {
+        type: 'Program',
+        sourceType: 'script',
+        body: [
+            {
+                type: 'EmptyStatement'
+            }
+        ]
+    }
+}, parser, {});
+
+acorn.parseExpressionAt('string', 2);
+
+acorn.isNewLine(56);
+
+acorn.isIdentifierStart(56);
+
+acorn.isIdentifierChar(56);
+
+acorn.getLineInfo('string', 56);
+
+acorn.plugins['test'] = function (p: acorn.Parser, config: any) {
+}
