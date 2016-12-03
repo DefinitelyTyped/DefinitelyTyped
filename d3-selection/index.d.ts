@@ -1,7 +1,9 @@
-// Type definitions for D3JS d3-selection module v1.0.2
+// Type definitions for D3JS d3-selection module 1.0
 // Project: https://github.com/d3/d3-selection/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// Last module patch version validated against: 1.0.2
 
 // --------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
@@ -12,7 +14,7 @@
  * without 'd3-selection' trying to use properties internally which would otherwise not
  * be supported.
  */
-export type BaseType = Element | EnterElement | Window;
+export type BaseType = Element | EnterElement | Document | Window | null;
 
 /**
  * A helper interface which covers arguments like NodeListOf<T> or HTMLCollectionOf<T>
@@ -44,10 +46,10 @@ export type ContainerElement = HTMLElement | SVGSVGElement | SVGGElement;
 
 
 /**
- * Type for optional parameters map, when dispatching custom events
+ * Interface for optional parameters map, when dispatching custom events
  * on a selection
  */
-export type CustomEventParameters = {
+export interface CustomEventParameters {
     /**
      * If true, the event is dispatched to ancestors in reverse tree order
      */
@@ -65,7 +67,7 @@ export type CustomEventParameters = {
 /**
  * Callback type for selections and transitions
  */
-export type ValueFn<Element, Datum, Result> = (this: Element, datum: Datum, index: number, groups: Array<Element> | ArrayLike<Element>) => Result;
+export type ValueFn<T extends BaseType, Datum, Result> = (this: T, datum: Datum, index: number, groups: T[] | ArrayLike<T>) => Result;
 
 
 /**
@@ -117,9 +119,13 @@ export function select<GElement extends BaseType, OldDatum>(node: GElement): Sel
  */
 export function selectAll(): Selection<null, undefined, null, undefined>;
 /**
- * Create an empy selection.
+ * Create an empty selection.
  */
 export function selectAll(selector: null): Selection<null, undefined, null, undefined>;
+/**
+ * Create an empty selection.
+ */
+export function selectAll(selector: undefined): Selection<null, undefined, null, undefined>;
 /**
  * Select all elements that match the specified selector string. The elements will be selected in document order (top-to-bottom).
  * If no elements in the document match the selector, returns an empty selection.
@@ -210,6 +216,11 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      */
     selectAll(selector: null): Selection<null, undefined, GElement, Datum>;
     /**
+     * Create an empty sub-selection. Selection.selectAll does affect grouping: The elements in the returned
+     * selection are grouped by their corresponding parent node in this selection, the group at the current index will be empty.
+     */
+    selectAll(selector: undefined): Selection<null, undefined, GElement, Datum>;
+    /**
      * For each selected element, selects the descendant elements that match the specified selector string. The elements in the returned
      * selection are grouped by their corresponding parent node in this selection. If no element matches the specified selector
      * for the current element, the group at the current index will be empty. Selection.selectAll does affect grouping: each selected descendant
@@ -239,7 +250,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * the current index (i), and the current group (nodes), with this as the current DOM element. It must return an array of elements
      * (or a pseudo-array, such as a NodeList), or the empty array if there are no matching elements.
      */
-    selectAll<DescElement extends BaseType, OldDatum>(selector: ValueFn<GElement, Datum, Array<DescElement> | ArrayLike<DescElement>>): Selection<DescElement, OldDatum, GElement, Datum>;
+    selectAll<DescElement extends BaseType, OldDatum>(selector: ValueFn<GElement, Datum, DescElement[] | ArrayLike<DescElement>>): Selection<DescElement, OldDatum, GElement, Datum>;
 
     // Modifying -------------------------------
 
@@ -584,7 +595,20 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      *
      * @param selector A CSS selector string to match when filtering.
      */
-    filter(selector: string): this;
+    filter(selector: string): Selection<GElement, Datum, PElement, PDatum>;
+    /**
+    * Filters the selection, returning a new selection that contains only the elements for
+    * which the specified filter is true.
+    *
+    * The returned filtered selection preserves the parents of this selection, but like array.filter,
+    * it does not preserve indexes as some elements may be removed; use selection.select to preserve the index, if needed.
+    *
+    * The generic refers to the type of element which will be selected after applying the filter, i.e. if the element types
+    * contained in a pre-filter selection are narrowed to a subset as part of the filtering.
+    *
+    * @param selector A CSS selector string to match when filtering.
+    */
+    filter<FilteredElement extends BaseType>(selector: string): Selection<FilteredElement, Datum, PElement, PDatum>;
     /**
      * Filter the selection, returning a new selection that contains only the elements for
      * which the specified filter is true.
@@ -596,8 +620,19 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * the current index (i), and the current group (nodes), with this as the current DOM element. This function should return true
      * for an element to be included, and false otherwise.
      */
-    filter(selector: ValueFn<GElement, Datum, boolean>): this;
-
+    filter(selector: ValueFn<GElement, Datum, boolean>): Selection<GElement, Datum, PElement, PDatum>;
+    /**
+     * Filter the selection, returning a new selection that contains only the elements for
+     * which the specified filter is true.
+     *
+     * The returned filtered selection preserves the parents of this selection, but like array.filter,
+     * it does not preserve indexes as some elements may be removed; use selection.select to preserve the index, if needed.
+     *
+     * @param selector  A value function which is evaluated for each selected element, in order, being passed the current datum (d),
+     * the current index (i), and the current group (nodes), with this as the current DOM element. This function should return true
+     * for an element to be included, and false otherwise.
+     */
+    filter<FilteredElement extends BaseType>(selector: ValueFn<GElement, Datum, boolean>): Selection<FilteredElement, Datum, PElement, PDatum>;
 
     /**
      * Return a new selection that contains a copy of each group in this selection sorted according
@@ -699,7 +734,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * The datum for a given key is assigned to the element with the matching key. If multiple elements have the same key,
      * the duplicate elements are put into the exit selection; if multiple data have the same key, the duplicate data are put into the enter selection.
      */
-    data<NewDatum>(data: Array<NewDatum>, key?: ValueFn<GElement | PElement, Datum | NewDatum, string>): Selection<GElement, NewDatum, PElement, PDatum>;
+    data<NewDatum>(data: NewDatum[], key?: ValueFn<GElement | PElement, Datum | NewDatum, string>): Selection<GElement, NewDatum, PElement, PDatum>;
     /**
      * Joins the data returned by the specified value function with the selected elements, returning a new selection that it represents
      * the update selection: the elements successfully bound to data. Also defines the enter and exit selections on
@@ -731,7 +766,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * The datum for a given key is assigned to the element with the matching key. If multiple elements have the same key,
      * the duplicate elements are put into the exit selection; if multiple data have the same key, the duplicate data are put into the enter selection.
      */
-    data<NewDatum>(data: ValueFn<PElement, PDatum, Array<NewDatum>>, key?: ValueFn<GElement | PElement, Datum | NewDatum, string>): Selection<GElement, NewDatum, PElement, PDatum>;
+    data<NewDatum>(data: ValueFn<PElement, PDatum, NewDatum[]>, key?: ValueFn<GElement | PElement, Datum | NewDatum, string>): Selection<GElement, NewDatum, PElement, PDatum>;
 
     /**
      * Return the enter selection: placeholder nodes for each datum that had no corresponding DOM element
@@ -763,7 +798,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * to receive events of the same type, such as click.foo and click.bar. To specify multiple typenames, separate typenames with spaces,
      * such as "input change"" or "click.foo click.bar".
      */
-    on(typenames: string): ValueFn<GElement, Datum, void>;
+    on(typenames: string): ValueFn<GElement, Datum, void> | undefined;
     /**
      * Remove a listener for the specified event type names. To remove all listeners for a given name,
      * pass null as the listener and ".foo" as the typename, where foo is the name; to remove all listeners with no name, specify "." as the typename.
@@ -850,7 +885,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
     /**
      * Return an array of all (non-null) elements in this selection.
      */
-    nodes(): Array<GElement>;
+    nodes(): GElement[];
 
     /**
      * Returns the total number of elements in this selection.
@@ -1031,17 +1066,17 @@ export function local<T>(): Local<T>;
 // ---------------------------------------------------------------------------
 
 /**
- * Type for object literal containing local name with related fully qualified namespace
+ * Interface for object literal containing local name with related fully qualified namespace
  */
-export type NamespaceLocalObject = {
+export interface NamespaceLocalObject {
     /**
      * Fully qualified namespace
      */
-    space: string,
+    space: string;
     /**
      * Name of the local to be namespaced.
      */
-    local: string
+    local: string;
 }
 
 /**
@@ -1061,9 +1096,9 @@ export function namespace(prefixedLocal: string): NamespaceLocalObject | string;
 // ---------------------------------------------------------------------------
 
 /**
- * Type for maps of namespace prefixes to corresponding fully qualified namespace strings
+ * Interface for maps of namespace prefixes to corresponding fully qualified namespace strings
  */
-export type NamespaceMap = { [prefix: string]: string };
+export interface NamespaceMap { [prefix: string]: string; }
 
 /**
  * Map of namespace prefixes to corresponding fully qualified namespace strings
@@ -1120,7 +1155,7 @@ export function matcher(selector: string): (this: BaseType) => boolean;
  *
  * @param selector A CSS selector string.
  */
-export function selector<DescElement extends Element>(selector: string): (this: BaseType) => DescElement
+export function selector<DescElement extends Element>(selector: string): (this: BaseType) => DescElement;
 
 /**
  * Given the specified selector, returns a function which returns all descendants of "this" element that match the specified selector.
