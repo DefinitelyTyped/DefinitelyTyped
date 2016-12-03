@@ -245,8 +245,8 @@ declare namespace Rx {
 		withLatestFrom<TOther, TResult>(souces: (Observable<TOther>|IPromise<TOther>)[], resultSelector: (firstValue: T, ...otherValues: TOther[]) => TResult): Observable<TResult>;
 		concat(...sources: (Observable<T>|IPromise<T>)[]): Observable<T>;
 		concat(sources: (Observable<T>|IPromise<T>)[]): Observable<T>;
-		concatAll(): Observable<T>;
-		concatObservable(): Observable<T>;	// alias for concatAll
+		concatAll(): T;
+		concatObservable(): T;	// alias for concatAll
 		concatMap<T2, R>(selector: (value: T, index: number) => Observable<T2>, resultSelector: (value1: T, value2: T2, index: number) => R): Observable<R>;	// alias for selectConcat
 		concatMap<T2, R>(selector: (value: T, index: number) => IPromise<T2>, resultSelector: (value1: T, value2: T2, index: number) => R): Observable<R>;	// alias for selectConcat
 		concatMap<R>(selector: (value: T, index: number) => Observable<R>): Observable<R>;	// alias for selectConcat
@@ -257,8 +257,8 @@ declare namespace Rx {
 		merge(maxConcurrent: number): T;
 		merge(other: Observable<T>): Observable<T>;
 		merge(other: IPromise<T>): Observable<T>;
-		mergeAll(): Observable<T>;
-		mergeObservable(): Observable<T>;	// alias for mergeAll
+		mergeAll(): T;
+		mergeObservable(): T;	// alias for mergeAll
 		skipUntil<T2>(other: Observable<T2>): Observable<T>;
 		skipUntil<T2>(other: IPromise<T2>): Observable<T>;
 		switch(): T;
@@ -524,6 +524,7 @@ declare namespace Rx {
 		range(start: number, count: number, scheduler?: IScheduler): Observable<number>;
 		repeat<T>(value: T, repeatCount?: number, scheduler?: IScheduler): Observable<T>;
 		return<T>(value: T, scheduler?: IScheduler): Observable<T>;
+		replay<T>(selector?, bufferSize?, window?, scheduler?:IScheduler): Observable<T>
 		/**
 		 * @since 2.2.28
 		 */
