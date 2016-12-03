@@ -5,9 +5,12 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-interface TimeickerOptions {
-    defaultTime?: string;
+interface TimepickerOptions {
+    defaultTime?: string|boolean;
     disableFocus?: boolean;
+    disableMousewheel?: boolean;
+    explicitMode?: boolean;
+    icons?: TimepickerIconOptions;
     isOpen?: boolean;
     minuteStep?: number;
     modalBackdrop?: boolean;
@@ -15,13 +18,32 @@ interface TimeickerOptions {
     showSeconds?: boolean;
     showInputs?: boolean;
     showMeridian?: boolean;
-    template?: string;
+    template?: string|boolean;
     appendWidgetTo?: string;
+    maxHours?: number;
+    snapToStep?: boolean;
+}
+
+interface TimepickerIconOptions {
+    up?: string;
+    down?: string;
+}
+
+interface TimepickerTime {
+    value?: string;
+    hours?: number;
+    minutes?: number;
+    seconds?: number;
+    meridian?: string;
 }
 
 interface JQuery {
     timepicker(): JQuery;
     timepicker(methodName: string): JQuery;
     timepicker(methodName: string, params: any): JQuery;
-    timepicker(options: TimeickerOptions): JQuery;
+    timepicker(options: TimepickerOptions): JQuery;
+}
+
+interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject {
+    time?: TimepickerTime;
 }

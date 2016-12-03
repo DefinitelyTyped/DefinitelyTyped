@@ -136,6 +136,8 @@ declare module "hapi" {
 	export interface IConnectionConfigurationServerDefaults {
 		/**  application-specific connection configuration which can be accessed via connection.settings.app. Provides a safe place to store application configuration without potential conflicts with the framework internals. Should not be used to configure plugins which should use plugins[name]. Note the difference between connection.settings.app which is used to store configuration values and connection.app which is meant for storing run-time state.  */
 		app?: any;
+		/** if false, response content encoding is disabled. Defaults to true */
+		compression?: boolean;
 		/**  connection load limits configuration where:  */
 		load?: {
 			/**  maximum V8 heap size over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).  */
@@ -271,8 +273,8 @@ declare module "hapi" {
 		/**  defines the default filename extension to append to template names when multiple engines are configured and not explicit extension is provided for a given template. No default value.*/
 		defaultExtension?: string;
 	}
-	
-	
+
+
 	interface IReplyMethods {
 		/** Returns control back to the framework without setting a response. If called in the handler, the response defaults to an empty payload with status code 200.
 		 * The data argument is only used for passing back authentication data and is ignored elsewhere. */
@@ -343,7 +345,7 @@ declare module "hapi" {
 		/**  Note that if result is a Stream with a statusCode property, that status code will be used as the default response code.  */
 		<T>(result: string | number | boolean | Buffer | stream.Stream | IPromise<T> | T): Response;
 	}
-	
+
 	/**  Concludes the handler activity by setting a response and returning control over to the framework where:
 	 erran optional error response.
 	 result an optional response payload.
@@ -1640,7 +1642,7 @@ declare module "hapi" {
 		addEventListener: any;
 		info: IServerConnectionInfo;
 	}
-	
+
 	type RequestExtPoints = "onRequest" | "onPreResponse" | "onPreAuth" | "onPostAuth" | "onPreHandler" | "onPostHandler" | "onPreResponse";
 	type ServerExtPoints = "onPreStart" | "onPostStart" | "onPreStop" | "onPostStop";
 

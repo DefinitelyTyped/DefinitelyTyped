@@ -298,7 +298,7 @@ declare namespace ReactSelect {
         /**
          * initial field value
          */
-        value?: Option | Option[] | string | string[] | number | number[];
+        value?: Option | Option[] | string | string[] | number | number[] | boolean;
         /**
          * the option property to use for the value
          * @default "value"
@@ -424,15 +424,15 @@ declare namespace ReactSelect {
         shouldKeyDownEventCreateNewOption?: (arg: { keyCode: number }) => boolean;
     }
 
-    class ReactSelectCreatableClass extends __React.Component<ReactCreatableSelectProps, {}> {
-    }
-    class ReactSelectAsyncClass extends __React.Component<ReactAsyncSelectProps, {}> {
-    }
     class ReactSelectClass extends __React.Component<ReactSelectProps, {}> {
-        static Async: ReactSelectAsyncClass;
-        static Creatable: ReactSelectCreatableClass;
     }
 
+    module ReactSelectClass {
+        class Creatable extends __React.Component<ReactCreatableSelectProps, {}> {
+        }
+        class Async extends __React.Component<ReactAsyncSelectProps, {}> {
+        }
+    }
 }
 
 declare module "react-select" {

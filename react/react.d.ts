@@ -173,7 +173,7 @@ declare namespace __React {
         // on the existence of `children` in `P`, then we should remove this.
         props: P & { children?: ReactNode };
         state: S;
-        context: {};
+        context: any;
         refs: {
             [key: string]: ReactInstance
         };
@@ -2123,6 +2123,7 @@ declare namespace __React {
         x1?: number | string;
         x2?: number | string;
         x?: number | string;
+        xChannelSelector?: string;
         xlinkActuate?: string;
         xlinkArcrole?: string;
         xlinkHref?: string;
@@ -2132,10 +2133,15 @@ declare namespace __React {
         xlinkType?: string;
         xmlBase?: string;
         xmlLang?: string;
+        xmlns?: string;
+        xmlnsXlink?: string;
         xmlSpace?: string;
         y1?: number | string;
         y2?: number | string;
         y?: number | string;
+        yChannelSelector?: string;
+        z?: number | string;
+        zoomAndPan?: string;
     }
 
     //
@@ -2443,6 +2449,7 @@ declare namespace JSX {
         meta: React.HTMLProps<HTMLMetaElement>;
         meter: React.HTMLProps<HTMLElement>;
         nav: React.HTMLProps<HTMLElement>;
+        noindex: React.HTMLProps<HTMLElement>;
         noscript: React.HTMLProps<HTMLElement>;
         object: React.HTMLProps<HTMLObjectElement>;
         ol: React.HTMLProps<HTMLOListElement>;

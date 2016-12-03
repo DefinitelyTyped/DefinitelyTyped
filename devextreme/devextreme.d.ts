@@ -1,4 +1,4 @@
-// Type definitions for DevExtreme 15.2.10
+﻿// Type definitions for DevExtreme 16.1.8
 // Project: http://js.devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,6 +6,19 @@
 /// <reference path="../jquery/jquery.d.ts" />
 
 declare module DevExpress {
+    /** Formats values. */
+    export interface Format {
+        /** Specifies a predefined format. */
+        type?: String;
+        /** Specifies the currency code for the 'currency' format. */
+        currency?: String;
+        /** Specifies a precision for values of a numeric format. */
+        precision?: number;
+        /** Parses string values into numeric or date-time values. */
+        parser?: (value: any) => any;
+        /** Specifies a custom format. */
+        formatter?: (value: any) => any;
+    }
     /** A mixin that provides a capability to fire and subscribe to events. */
     export interface EventsMixin<T> {
         /** Subscribes to a specified event. */
@@ -55,25 +68,34 @@ declare module DevExpress {
         export function resetGroup(): void;
         /** Validates the rules that are defined within the dxValidator objects that are registered for the specified ViewModel. */
         export function validateModel(model: Object): ValidationGroupValidationResult;
-        /** Registers all the dxValidator objects by which the fields of the specified ViewModel are extended. */
-        export function registerModelForValidation(model: Object) : void;
+        /** Registers all the dxValidator objects extending fields of the specified ViewModel. */
+        export function registerModelForValidation(model: Object): void;
+        /** Unregisters all the dxValidator objects extending fields of the specified ViewModel. */
+        export function unregisterModelForValidation(model: Object): void;
     }
     export var hardwareBackButton: JQueryCallback;
     /** Processes the hardware back button click. */
     export function processHardwareBackButton(): void;
     /** Hides the last displayed overlay widget. */
     export function hideTopOverlay(): boolean;
-    /** Specifies whether or not the entire application/site supports right-to-left representation. */
+    /**
+     * Specifies whether or not the entire application/site supports right-to-left representation.
+     * @deprecated Use the config(config) method instead.
+     */
     export var rtlEnabled: boolean;
-    /** Registers a new component in the DevExpress.ui namespace as a jQuery plugin, Angular directive and Knockout binding. */
+    /** Gets the current global configuration object. */
+    export function config(): Object;
+    /** Sets the global configuration object. */
+    export function config(config: Object): void;
+    /** Registers a new component in the DevExpress.ui namespace as a jQuery plugin, AngularJS directive and Knockout binding. */
     export function registerComponent(name: string, componentClass: Object): void;
-    /** Registers a new component in the specified namespace as a jQuery plugin, Angular directive and Knockout binding. */
+    /** Registers a new component in the specified namespace as a jQuery plugin, AngularJS directive and Knockout binding. */
     export function registerComponent(name: string, namespace: Object, componentClass: Object): void;
     export function requestAnimationFrame(callback: Function): number;
     export function cancelAnimationFrame(requestID: number): void;
     /** Custom Knockout binding that links an HTML element with a specific action. */
     export class Action { }
-    /** Used to get URLs that vary in a locally running application and the application running on production. */
+    /** An object used to manage OData endpoints in your application. */
     export class EndpointSelector {
         constructor(options: {
             [key: string]: {
@@ -81,7 +103,7 @@ declare module DevExpress {
                 production?: string;
             }
         });
-        /** Returns a local or a productional URL depending on how the application is currently running. */
+        /** Returns an endpoint for the specified key. */
         urlFor(key: string): string;
     }
     /** An object that serves as a namespace for the methods that are used to animate UI elements. */
@@ -96,7 +118,7 @@ declare module DevExpress {
             staggerDelay?: number;
             /** A number specifying the time in milliseconds spent on animation. */
             duration?: number;
-            /** A string specifying the type of an easing function used for animation. */
+            /** A string specifying the easing function for animation. */
             easing?: string;
             /** Specifies the initial animation state. */
             from?: any;
@@ -170,7 +192,7 @@ declare module DevExpress {
     }
     export class Devices implements EventsMixin<Devices> {
         constructor(options: { window: Window });
-        /** Overrides actual device information to force the application to operate as if it was running on the specified device. */
+        /** Overrides actual device information to force the application to operate as if it was running on a specified device. */
         current(deviceName: any): void;
         /** Returns information about the current device. */
         current(): Device;
@@ -194,7 +216,7 @@ declare module DevExpress {
         /** The target element position that the widget is positioned against. */
         at?: any;
         /** The element within which the widget is positioned. */
-        boundary?: Object;
+        boundary?: any;
         /** Specifies the horizontal and vertical offset from the window's boundaries. */
         boundaryOffset?: any;
         /** Specifies how to move the widget if it overflows the screen. */
@@ -202,7 +224,7 @@ declare module DevExpress {
         /** The position of the widget to align against the target element. */
         my?: any;
         /** The target element that the widget is positioned against. */
-        of?: Object;
+        of?: any;
         /** Specifies horizontal and vertical offset in pixels. */
         offset?: any;
     }
@@ -217,9 +239,9 @@ declare module DevExpress {
     /** A base class for all components and widgets. */
     export class Component {
         constructor(options?: ComponentOptions)
-        /** Prevents the component from refreshing until the endUpdate method is called. */
+        /** Prevents the component from refreshing until the endUpdate() method is called. */
         beginUpdate(): void;
-        /** Enables the component to refresh after the beginUpdate method call. */
+        /** Enables the component to refresh after the beginUpdate() method call. */
         endUpdate(): void;
         /** Returns an instance of this component class. */
         instance(): Component;
@@ -460,7 +482,7 @@ declare module DevExpress {
             isLoading(): boolean;
             /** Returns the array of items currently operated by the DataSource. */
             items(): Array<any>;
-            /** Returns the key expression. */
+            /** Returns the key expression specified by the key configuration option of the underlying Store. */
             key(): any;
             /** Starts loading data. */
             load(): OperationPromise<Array<any>>;
@@ -585,9 +607,9 @@ declare module DevExpress {
             }) => void;
             /** Specifies whether the ODataStore uses the JSONP approach to access non-CORS-compatible remote services. */
             jsonp?: boolean;
-            /** Specifies the type of the ODataStore key property. The following key types are supported out of the box: String, Int32, Int64, and Guid. */
+            /** Specifies the type of the ODataStore key property. The following key types are supported out of the box: String, Int32, Int64, Boolean, Single, Decimal and Guid. */
             keyType?: any;
-            /** Specifies whether or not dates found in the response are deserialized. */
+            /** Specifies whether or not dates in a response are deserialized. */
             deserializeDates?: boolean;
             /** Specifies the URL of the data service being accessed via the current ODataContext. */
             url?: string;
@@ -834,6 +856,8 @@ declare module DevExpress {
         export function currentTheme(platform: string, colorScheme: string): void;
         /** Registers a new theme based on the existing one. */
         export function registerTheme(customTheme: Object, baseTheme: string): void;
+        /** Allows you to export widgets using their SVG markup. */
+        export function exportFromMarkup(markup: string, options: Object): void;
         /** Applies a predefined or registered custom palette to all visualization widgets at once. */
         export function currentPalette(paletteName: string): void;
         /** Obtains the color sets of a predefined or registered palette. */
@@ -843,13 +867,27 @@ declare module DevExpress {
     }
 }
 declare module DevExpress.ui {
+    export interface dxValidatorValidationAdapter {
+        /** A function that returns the value to be validated. */
+        getValue?: Function;
+        /** The jQuery.Callbacks() object that is fired when the specified value should be validated. */
+        validationRequestsCallbacks?: JQueryCallback;
+        /** A function that the Validator widget calls after validating a specified value. */
+        applyValidationResults?: (params: validationEngine.ValidatorValidationResult) => void;
+        /** A function that resets the validated values. */
+        reset?: Function;
+        /** A function that sets focus to the validated editors when the ValidationSummary is focused. */
+        focus?: Function;
+        /** A function that returns a Boolean value specifying whether or not to bypass validation. */
+        bypass?: Function;
+    }
     export interface dxValidatorOptions extends DOMComponentOptions {
         /** An array of validation rules to be checked for the editor with which the dxValidator object is associated. */
         validationRules?: Array<any>;
         /** Specifies the editor name to be used in the validation default messages. */
         name?: string;
-        /** An object that specifies what and when to validate and how to apply the validation result. */
-        adapter?: Object;
+        /** An object that specifies what and when to validate, and how to apply the validation result. */
+        adapter?: dxValidatorValidationAdapter;
         /** Specifies the validation group the editor will be related to. */
         validationGroup?: string;
         /** A handler for the validated event. */
@@ -864,7 +902,7 @@ declare module DevExpress.ui {
         /** Resets the value and validation result of the editor associated with the current dxValidator object. */
         reset(): void;
     }
-    /** The widget that is used in the Knockout and Angular approaches to combine the editors to be validated. */
+    /** The widget that is used in the Knockout and AngularJS approaches to combine the editors to be validated. */
     export class dxValidationGroup extends DOMComponent {
         constructor(element: JQuery);
         constructor(element: Element);
@@ -967,14 +1005,14 @@ declare module DevExpress.ui {
             /** An object that defines the animation options used when the widget is being hidden. */
             hide?: fx.AnimationOptions;
         };
-        /** The time span in milliseconds during which the dxToast widget is visible. */
+        /** The time span in milliseconds during which the Toast widget is visible. */
         displayTime?: number;
         height?: any;
-        /** The dxToast message text. */
+        /** The Toast message text. */
         message?: string;
         position?: PositionOptions;
         shading?: boolean;
-        /** Specifies the dxToast widget type. */
+        /** Specifies the Toast widget type. */
         type?: string;
         width?: any;
         closeOnBackButton?: boolean;
@@ -1061,6 +1099,12 @@ declare module DevExpress.ui {
     export interface dxTextAreaOptions extends dxTextBoxOptions {
         /** Specifies whether or not the widget checks the inner text for spelling mistakes. */
         spellcheck?: boolean;
+        /** Specifies the minimum height of the widget. */
+        minHeight?: any;
+        /** Specifies the maximum height of the widget. */
+        maxHeight?: any;
+        /** A Boolean value specifying whether or not the auto resizing mode is enabled. */
+        autoResizeEnabled?: boolean;
     }
     /** A widget used to display and edit multi-line text. */
     export class dxTextArea extends dxTextBox {
@@ -1091,9 +1135,9 @@ declare module DevExpress.ui {
         onTitleRendered?: Function;
         /** The template to be used for rendering an item title. */
         itemTitleTemplate?: any;
-        /** A Boolean value specifying if the list is scrolled by content. */
+        /** A Boolean value specifying if tabs in the title are scrolled by content. */
         scrollByContent?: boolean;
-        /** A Boolean value specifying whether to enable or disable scrolling. */
+        /** A Boolean indicating whether or not to add scrolling support for tabs in the title. */
         scrollingEnabled?: boolean;
         /** A Boolean value that specifies the availability of navigation buttons. */
         showNavButtons?: boolean;
@@ -1111,7 +1155,11 @@ declare module DevExpress.ui {
         /** The text that is provided as a hint in the select box editor. */
         placeholder?: string;
         /** Specifies whether or not the widget allows an end-user to enter a custom value. */
-        fieldEditEnabled?: boolean;
+        acceptCustomValue?: boolean;
+        /** Specifies whether or not to display selection controls. */
+        showSelectionControls?: boolean;
+        /** A handler for the customItemCreating event. */
+        onCustomItemCreating?: Function;
     }
     /** A widget that allows you to select an item in a dropdown list. */
     export class dxSelectBox extends dxDropDownList {
@@ -1119,10 +1167,23 @@ declare module DevExpress.ui {
         constructor(element: Element, options?: dxSelectBoxOptions);
     }
     export interface dxTagBoxOptions extends dxSelectBoxOptions {
-        /** Holds the list of selected values. */
         values?: Array<any>;
-        /** A read-only option that holds the last selected value. */
-        value?: Object;
+        /** Specifies the selected items. */
+        value?: Array<any>;
+        /** Gets the currently selected items. */
+        selectedItems?: Array<any>;
+        /** Specifies how the widget applies values. */
+        applyValueMode?: string;
+        /** A Boolean value specifying whether or not to hide selected items. */
+        hideSelectedItems?: boolean;
+        /** A handler for the selectAllValueChanged event. */
+        onSelectAllValueChanged?: Function;
+        /** A Boolean value specifying whether or not the widget is multiline. */
+        multiline?: boolean;
+        /** A handler for the selectionChanged event. */
+        onSelectionChanged?: Function;
+        /** The template to be used for rendering tags. */
+        tagTemplate?: any;
     }
     /** A widget that allows you to select multiple items from a dropdown list. */
     export class dxTagBox extends dxSelectBox {
@@ -1223,7 +1284,7 @@ declare module DevExpress.ui {
         constructor(element: JQuery, options?: dxRadioGroupOptions);
         constructor(element: Element, options?: dxRadioGroupOptions);
     }
-    export interface dxPopupButtonOptions {
+    export interface dxPopupToolbarItemOptions {
         /** Specifies whether or not a toolbar item must be displayed disabled. */
         disabled?: boolean;
         /** Specifies html code inserted into the toolbar item element. */
@@ -1246,6 +1307,14 @@ declare module DevExpress.ui {
     export interface dxPopupOptions extends dxOverlayOptions {
         /** Specifies whether or not to allow a user to drag the popup window. */
         dragEnabled?: boolean;
+        /** Specifies whether or not an end user can resize the widget. */
+        resizeEnabled?: boolean;
+        /** A handler for the resizeStart event. */
+        onResizeStart?: Function;
+        /** A handler for the resize event. */
+        onResize?: Function;
+        /** A handler for the resizeEnd event. */
+        onResizeEnd?: Function;
         /** A Boolean value specifying whether or not to display the widget in full-screen mode. */
         fullScreen?: boolean;
         position?: PositionOptions;
@@ -1257,7 +1326,7 @@ declare module DevExpress.ui {
         titleTemplate?: any;
         width?: any;
         /** Specifies items displayed on the top or bottom toolbar of the popup window. */
-        buttons?: Array<dxPopupButtonOptions>;
+        toolbarItems?: Array<dxPopupToolbarItemOptions>;
         /** Specifies whether or not the widget displays the Close button. */
         showCloseButton?: boolean;
         /** A handler for the titleRendered event. */
@@ -1269,7 +1338,7 @@ declare module DevExpress.ui {
         constructor(element: Element, options?: dxPopupOptions);
     }
     export interface dxPopoverOptions extends dxPopupOptions {
-        /** An object that defines the animation options of the widget. */
+        /** An object defining the animation options of the widget. */
         animation?: {
             /** An object that defines the animation options used when the widget is being shown. */
             show?: fx.AnimationOptions;
@@ -1296,7 +1365,7 @@ declare module DevExpress.ui {
         show(target?: any): JQueryPromise<void>;
     }
     export interface dxOverlayOptions extends WidgetOptions {
-        /** An object that defines the animation options of the widget. */
+        /** An object defining the animation options of the widget. */
         animation?: {
             /** An object that defines the animation options used when the widget is being shown. */
             show?: fx.AnimationOptions;
@@ -1313,8 +1382,6 @@ declare module DevExpress.ui {
         deferRendering?: boolean;
         /** Specifies whether or not an end-user can drag the widget. */
         dragEnabled?: boolean;
-        /** Specifies whether or not an end user can resize the widget. */
-        resizeEnabled?: boolean;
         /** The height of the widget in pixels. */
         height?: any;
         /** Specifies the maximum height the widget can reach while resizing. */
@@ -1327,12 +1394,6 @@ declare module DevExpress.ui {
         minWidth?: any;
         /** A handler for the hidden event. */
         onHidden?: Function;
-        /** A handler for the resizeStart event. */
-        onResizeStart?: Function;
-        /** A handler for the resize event. */
-        onResize?: Function;
-        /** A handler for the resizeEnd event. */
-        onResizeEnd?: Function;
         /** A handler for the hiding event. */
         onHiding?: Function;
         /** An object defining widget positioning options. */
@@ -1382,6 +1443,8 @@ declare module DevExpress.ui {
         value?: number;
         /** The "mode" attribute value of the actual HTML input element representing the widget. */
         mode?: string;
+        /** Specifies the text of the message displayed if the specified value is not a number. */
+        invalidValueMessage?: string;
     }
     /** A textbox widget that enables a user to enter numeric values. */
     export class dxNumberBox extends dxTextEditor {
@@ -1413,15 +1476,43 @@ declare module DevExpress.ui {
         constructor(element: JQuery, options?: dxMultiViewOptions);
         constructor(element: Element, options?: dxMultiViewOptions);
     }
+    export interface dxMapLocation {
+        /** The latitude location of the widget. */
+        lat?: number;
+        /** The longitude location of the widget. */
+        lng?: number;
+    }
+    export interface dxMapMarker {
+        /** A URL pointing to the custom icon to be used for the marker. */
+        iconSrc?: string;
+        /** Specifies the marker location. */
+        location?: dxMapLocation;
+        /** A callback function performed when the marker is clicked. */
+        onClick?: Function;
+        /** A tooltip to be used for the marker. */
+        tooltip?: {
+            /** Specifies whether a tooltip is visible by default or not. */
+            isShown?: boolean;
+            /** Specifies the tooltip text. */
+            text?: string;
+        }
+    }
+    export interface dxMapRoute {
+        /** Specifies the color of the line displaying the route. */
+        color?: string;
+        /** Specifies a transportation mode to be used in the displayed route. */
+        mode?: string;
+        /** Specifies the opacity of the line displaying the route. */
+        opacity?: number;
+        /** Contains an array of objects making up the route. */
+        locations?: Array<dxMapLocation>;
+        /** Specifies the thickness of the line displaying the route in pixels. */
+        weight?: number;
+    }
     export interface dxMapOptions extends WidgetOptions {
         /** Specifies whether or not the widget automatically adjusts center and zoom option values when adding a new marker or route, or when creating a widget if it initially contains markers or routes. */
         autoAdjust?: boolean;
-        center?: {
-            /** The latitude location displayed in the center of the widget. */
-            lat?: number;
-            /** The longitude location displayed in the center of the widget. */
-            lng?: number;
-        };
+        center?: dxMapLocation;
         /** A handler for the click event. */
         onClick?: any;
         /** Specifies whether or not map widget controls are available. */
@@ -1444,7 +1535,7 @@ declare module DevExpress.ui {
         /** A handler for the markerRemoved event. */
         onMarkerRemoved?: Function;
         /** An array of markers displayed on a map. */
-        markers?: Array<any>;
+        markers?: Array<dxMapMarker>;
         /** The name of the current map data provider. */
         provider?: string;
         /** A handler for the ready event. */
@@ -1454,7 +1545,7 @@ declare module DevExpress.ui {
         /** A handler for the routeRemoved event. */
         onRouteRemoved?: Function;
         /** An array of routes shown on the map. */
-        routes?: Array<any>;
+        routes?: Array<dxMapRoute>;
         /** The type of a map to display. */
         type?: string;
         /** Specifies the width of the widget. */
@@ -1548,7 +1639,7 @@ declare module DevExpress.ui {
         titleTemplate?: any;
         /** Specifies whether or not the widget uses native scrolling. */
         useNativeScrolling?: boolean;
-        /** Specifies whether or not to show lookup contents in a dxPopover widget. */
+        /** Specifies whether or not to show lookup contents in a Popover widget. */
         usePopover?: boolean;
         /** A handler for the valueChanged event. */
         onValueChanged?: Function;
@@ -1581,6 +1672,8 @@ declare module DevExpress.ui {
         showPane?: boolean;
         /** The width of the widget. */
         width?: number;
+        /** Specifies whether or not the widget can be focused. */
+        focusStateEnabled?: boolean;
     }
     /** A widget used to indicate whether or not an element is loading. */
     export class dxLoadPanel extends dxOverlay {
@@ -1596,11 +1689,10 @@ declare module DevExpress.ui {
         constructor(element: JQuery, options?: dxLoadIndicatorOptions);
         constructor(element: Element, options?: dxLoadIndicatorOptions);
     }
-    /** An object containing items for a context menu called for a list item. */
     export interface ListOptionsMenuItem {
         /** Specifies the menu item text. */
         text?: string;
-        /** Specifies the function called when the menu item is clicked. */
+        /** Holds on a function called when the item is clicked. */
         action?: (itemElement: Element, itemData: any) => void;
     }
     export interface dxListOptions extends CollectionWidgetOptions {
@@ -1660,7 +1752,8 @@ declare module DevExpress.ui {
         /** Specifies item selection mode. */
         selectionMode?: string;
         selectAllText?: string;
-        onSelectAllChanged?: Function;
+        /** A handler for the selectAllValueChanged event. */
+        onSelectAllValueChanged?: Function;
         /** Specifies the array of items for a context menu called for a list item. */
         menuItems?: Array<ListOptionsMenuItem>;
         /** Specifies whether an item context menu is shown when a user holds or swipes an item. */
@@ -1768,8 +1861,9 @@ declare module DevExpress.ui {
         onOpened?: Function;
         /** Specifies whether or not the drop-down editor is displayed. */
         opened?: boolean;
-        /** Specifies whether or not the widget allows an end-user to enter a custom value. */
         fieldEditEnabled?: boolean;
+        /** Specifies whether or not the widget allows an end-user to enter a custom value. */
+        acceptCustomValue?: boolean;
         /** Specifies the way an end-user applies the selected value. */
         applyValueMode?: string;
         /** Specifies whether widget content is rendered when the widget is shown or when rendering the widget. */
@@ -1792,10 +1886,12 @@ declare module DevExpress.ui {
         content(): JQuery;
     }
     export interface dxDateBoxOptions extends dxTextEditorOptions {
-        /** A format used to display date/time information. */
+        formatString?: any;
+        /** Specifies the date display format. Applies only if the pickerType option is 'native' */
+        displayFormat?: any;
         format?: string;
-        /** A Globalize format string specifying the date display format. */
-        formatString?: string;
+        /** A format used to display date/time information. */
+        type?: string;
         /** The last date that can be selected within the widget. */
         max?: any;
         /** The minimum date that can be selected within the widget. */
@@ -1820,7 +1916,7 @@ declare module DevExpress.ui {
         maxZoomLevel?: string;
         /** Specifies the minimal zoom level of a calendar, which is used to pick the date. */
         minZoomLevel?: string;
-        /** Specifies the type of date/time picker. */
+        /** Specifies the type of the date/time picker. */
         pickerType?: string;
         /** Specifies the message displayed if the typed value is not a valid date or time. */
         invalidDateMessage?: string;
@@ -1828,6 +1924,8 @@ declare module DevExpress.ui {
         dateOutOfRangeMessage?: string;
         /** The text displayed on the Apply button. */
         applyButtonText?: string;
+        /** Specifies whether or not adaptive widget rendering is enabled on a small screen. */
+        adaptivityEnabled?: boolean;
         /** The text displayed on the Cancel button. */
         cancelButtonText?: string;
     }
@@ -1884,7 +1982,7 @@ declare module DevExpress.ui {
         /** Specifies the icon to be displayed on the button. */
         icon?: string;
         iconSrc?: string;
-        /** A template to be used for rendering the dxButton widget. */
+        /** A template to be used for rendering the Button widget. */
         template?: any;
         /** The text displayed on the button. */
         text?: string;
@@ -1954,12 +2052,10 @@ declare module DevExpress.ui {
         collapsible?: boolean;
         /** Specifies whether the widget can expand several items or only a single item at once. */
         multiple?: boolean;
-        /** The template to be used for rendering dxAccordion items. */
+        /** The template to be used for rendering Accordion items. */
         itemTemplate?: any;
         /** A handler for the itemTitleClick event. */
         onItemTitleClick?: any;
-        /** A handler for the itemTitleHold event. */
-        onItemTitleHold?: Function;
         /** The template to be used for rendering an item title. */
         itemTitleTemplate?: any;
         /** The index number of the currently selected item. */
@@ -1980,8 +2076,7 @@ declare module DevExpress.ui {
     }
     export interface dxFileUploaderOptions extends EditorOptions {
         /** A read-only option that holds a File instance representing the selected file. */
-        value?: File;
-        /** Holds the File instances representing files selected in the widget. */
+        value?: Array<File>;
         values?: Array<File>;
         buttonText?: string;
         /** The text displayed on the button that opens the file browser. */
@@ -2012,12 +2107,20 @@ declare module DevExpress.ui {
         uploadFailedMessage?: string;
         /** Specifies how the widget uploads files. */
         uploadMode?: string;
+        /** Specifies the method for the upload request. */
+        uploadMethod?: string;
+        /** Specifies headers for the upload request. */
+        uploadHeaders?: Object;
+        /** A handler for the uploadStarted event. */
+        onUploadStarted?: Function;
         /** A handler for the uploaded event. */
         onUploaded?: Function;
         /** A handler for the uploaded event. */
         onProgress?: Function;
         /** A handler for the uploadError event. */
         onUploadError?: Function;
+        /** A handler for the uploadAborted event. */
+        onUploadAborted?: Function;
         /** A handler for the valueChanged event. */
         onValueChanged?: Function;
     }
@@ -2147,13 +2250,26 @@ declare module DevExpress.ui {
         /** An array of validation rules to be checked for the form item editor. */
         validationRules?: Array<any>;
     }
+    /** Specifies dependency between the screen factor and the count of columns. */
+    export interface ColCountResponsible {
+        /** The count of columns for an extra small-sized screen. */
+        xs?: number;
+        /** The count of columns for a small-sized screen. */
+        sm?: number;
+        /** The count of columns for a middle-sized screen. */
+        md?: number;
+        /** The count of columns for a large screen size. */
+        lg?: number;
+    }
     export interface dxFormGroupItem extends dxFormItem {
         /** Specifies the group caption. */
         caption?: string;
-        /** A template to be used for rendering the group item. */
+        /** A template to be used for rendering a group item. */
         template?: any;
         /** The count of columns in the group layout. */
         colCount?: number;
+        /** Specifies dependency between the screen factor and the count of columns in the tab layout. */
+        colCountByScreen?: ColCountResponsible;
         /** Specifies whether or not all group item labels are aligned. */
         alignItemLabels?: boolean;
         /** Holds an array of form items displayed within the group. */
@@ -2164,6 +2280,8 @@ declare module DevExpress.ui {
         title?: string;
         /** The count of columns in the tab layout. */
         colCount?: number;
+        /** Specifies dependency between the screen factor and the count of columns in the group layout. */
+        colCountByScreen?: ColCountResponsible;
         /** Specifies whether or not labels of items displayed within the current tab are aligned. */
         alignItemLabels?: boolean;
         /** Holds an array of form items displayed within the tab. */
@@ -2180,7 +2298,7 @@ declare module DevExpress.ui {
         template?: any;
     }
     export interface dxFormTabbedItem extends dxFormItem {
-        /** Holds a configuration object for the dxTabPanel widget used to display the current form item. */
+        /** Holds a configuration object for the TabPanel widget used to display the current form item. */
         tabPanelOptions?: Object;
         /** An array of tab configuration objects. */
         tabs?: Array<dxFormTab>;
@@ -2190,6 +2308,10 @@ declare module DevExpress.ui {
         formData?: Object;
         /** The count of columns in the form layout. */
         colCount?: any;
+        /** Specifies dependency between the screen factor and the count of columns in the form layout. */
+        colCountByScreen?: ColCountResponsible;
+        /** Specifies the function returning the screen factor depending on the screen width. */
+        screenByWidth?: (width: number) => string;
         /** Specifies the location of a label against the editor. */
         labelLocation?: string;
         /** Specifies whether or not all editors on the form are read-only. */
@@ -2238,7 +2360,9 @@ declare module DevExpress.ui {
         itemOption(field: string, option: string, value: any): void;
         /** Updates the values of form item options. */
         itemOption(field: string, options: Object): void;
-        /** Returns an editor instance associated with the specified formData field. */
+        /** Gets the value of the form item option. */
+        itemOption(field: string): any;
+        /** Returns an editor instance associated with the specified formData field or name of the form item. */
         getEditor(field: string): Object;
         /** Updates the dimensions of the widget contents. */
         updateDimensions(): JQueryPromise<void>;
@@ -2246,6 +2370,25 @@ declare module DevExpress.ui {
         validate(): Object;
         /** Resets the editor's value to undefined. */
         resetValues(): void;
+    }
+    export interface dxDeferRenderingOptions extends WidgetOptions {
+        /** Indicates if a load indicator should be shown until the widget's content is rendered. */
+        showLoadIndicator?: boolean;
+        /** Specifies the jQuery.Promise or boolean value, which when resolved, forces widget content to render. */
+        renderWhen?: any;
+        /** Specifies the animation to be used to show the rendered content. */
+        animation?: fx.AnimationOptions;
+        /** Specifies a jQuery selector of items that should be rendered using a staggered animation. */
+        staggerItemSelector?: string;
+        /** Specifies a callback function that is called when the widget's content has finished rendering but is not yet shown. */
+        onRendered?: Function;
+        /** Specifies a callback function that is called when widget content is shown and animation has completed. */
+        onShown?: Function;
+    }
+    /** A container for elements that must be rendered at a specified moment. */
+    export class dxDeferRendering extends Widget {
+        constructor(element: JQuery, options?: dxDeferRenderingOptions);
+        constructor(element: Element, options?: dxDeferRenderingOptions);
     }
 }
 interface JQuery {
@@ -2619,7 +2762,7 @@ declare module DevExpress.ui {
         items?: Array<any>;
         /** The template to be used for rendering items. */
         itemTemplate?: any;
-        /** Specifies whether or not to show the drop down menu within a dxPopover widget. */
+        /** Specifies whether or not to show the drop down menu within a Popover widget. */
         usePopover?: boolean;
         /** The width of the menu popup in pixels. */
         popupWidth?: any;
@@ -2652,9 +2795,9 @@ declare module DevExpress.ui {
         target?: any;
         /** The title of the action sheet. */
         title?: string;
-        /** Specifies whether or not to show the action sheet within a dxPopover widget. */
+        /** Specifies whether or not to show the action sheet within a Popover widget. */
         usePopover?: boolean;
-        /** A Boolean value specifying whether or not the dxActionSheet widget is visible. */
+        /** A Boolean value specifying whether or not the ActionSheet widget is visible. */
         visible?: boolean;
     }
     /** A widget consisting of a set of choices related to a certain task. */
@@ -2727,7 +2870,7 @@ declare module DevExpress.data {
         visible?: boolean;
         /** Name of the data source field containing data for the pivot grid field. */
         dataField?: string;
-        /** A caption that will be displayed in the pivot grid's field chooser to identify the field. */
+        /** A caption that will be displayed in the pivot grid's field chooser and field panel to identify the field. */
         caption?: string;
         /** Specifies a type of field values. */
         dataType?: string;
@@ -2769,11 +2912,16 @@ declare module DevExpress.data {
         expanded?: boolean;
         /** Specifies whether the field should be treated as a Data Field. */
         isMeasure?: boolean;
+        /** Specifies whether or not long text in header items should be wrapped. */
+        wordWrapEnabled?: boolean;
         /** Specifies a display format for field values. */
-        format?: string;
+        format?: any;
         /** Specifies a callback function that returns the text to be displayed in the cells of a field. */
         customizeText?: (cellInfo: { value: any; valueText: string }) => string;
-        /** Specifies a precision for formatted field values. */
+        /**
+         * Specifies a precision for formatted field values.
+         * @deprecated Use the format | precision option instead.
+         */
         precision?: number;
         /** Specifies how to sort the header items. */
         sortingMethod?: (a: Object, b: Object) => number;
@@ -2803,7 +2951,7 @@ declare module DevExpress.data {
     export class SummaryCell {
         /** Gets the parent cell in a specified direction. */
         parent(direction: string): SummaryCell;
-        /** Gets all children cells in a specified direction. */
+        /** Gets all child cells in a specified direction. */
         children(direction: string): Array<SummaryCell>;
         /** Gets a partial Grand Total cell of a row or column. */
         grandTotal(direction: string): SummaryCell;
@@ -2821,7 +2969,7 @@ declare module DevExpress.data {
         child(direction: string, fieldValue: any): SummaryCell;
         /** Gets the cell located by the path of the source cell with one field value changed. */
         slice(field: PivotGridField, value: any): SummaryCell;
-        /** Gets the header cell of a row or column field to which the current cell belongs. */
+        /** Gets the row or column field to which the current cell belongs. */
         field(area: string): PivotGridField;
         /** Gets the value of the current cell. */
         value(): any;
@@ -2850,9 +2998,9 @@ declare module DevExpress.data {
         /** A handler for the fieldsPrepared event. */
         onFieldsPrepared?: (e?: Array<PivotGridField>) => void;
     }
-    /** An object that provides access to data for the dxPivotGrid widget. */
+    /** An object that provides access to data for the PivotGrid widget. */
     export class PivotGridDataSource implements EventsMixin<PivotGridDataSource> {
-        constructor(options?: PivotGridDataSource);
+        constructor(options?: PivotGridDataSourceOptions);
         /** Starts reloading data from any store and updating the data source. */
         reload(): JQueryPromise<any>;
         /** Starts updating the data source. Reloads data from the XMLA store only. */
@@ -2965,8 +3113,13 @@ declare module DevExpress.ui {
             displayExpr?: any;
             /** Specifies the resource object field that is used as a value of the Resource editor in the Appointment popup window. */
             valueExpr?: any;
-            /** The name of the appointment object field that specifies a resource of this kind. */
+            /**
+             * The name of the appointment object field that specifies a resource of this kind.
+             * @deprecated Use the fieldExpr option instead.
+             */
             field?: string;
+            /** The name of the appointment object field that specifies a resource of this kind. */
+            fieldExpr?: string;
             /** Specifies the label of the Appointment popup window field that allows end users to assign a resource of this kind. */
             label?: string;
         }>;
@@ -2992,8 +3145,11 @@ declare module DevExpress.ui {
         onCellClick?: any;
         /** A handler for the appointmentFormCreated event. */
         onAppointmentFormCreated?: Function;
-        /** Specifies whether or not an end-user can scroll the view horizontally. */
+        /** A handler for the contentReady event. */
+        onContentReady?: Function;
         horizontalScrollingEnabled?: boolean;
+        /** Specifies whether or not an end-user can scroll the view in both directions at the same time. */
+        crossScrollingEnabled?: boolean;
         /** Specifies whether a user can switch views using tabs or a drop-down menu. */
         useDropDownViewSwitcher?: boolean;
         /** Specifies the name of the data source item field that defines the start of an appointment. */
@@ -3010,8 +3166,16 @@ declare module DevExpress.ui {
         recurrenceRuleExpr?: string;
         /** Specifies the name of the data source item field that defines exceptions for the current recurring appointment. */
         recurrenceExceptionExpr?: string;
+        /** Specifies the name of the data source item field that defines the timezone of the appointment start date. */
+        startDateTimeZoneExpr?: string;
+        /** Specifies the name of the data source item field that defines the timezone of the appointment end date. */
+        endDateTimeZoneExpr?: string;
         /** Specifies whether filtering is performed on the server or client side. */
         remoteFiltering?: boolean;
+        /** Specifies the timezone of the widget. */
+        timeZone?: string;
+        /** The text or HTML markup displayed by the widget if the item collection is empty. Available for the Agenda view only. */
+        noDataText?: string;
     }
     /** A widget that displays scheduled data using different views and provides the capability to load, add and edit appointments. */
     export class dxScheduler extends Widget {
@@ -3027,6 +3191,10 @@ declare module DevExpress.ui {
         scrollToTime(hours: number, minutes: number, date: Date): void;
         /** Displayes the Appointment Details popup. */
         showAppointmentPopup(appointmentData: Object, createNewAppointment?: boolean, currentAppointmentData?: Object): void;
+        /** Returns the start date of the current view. */
+        getStartViewDate(): Date;
+        /** Returns the end date of the current view. */
+        getEndViewDate(): Date;
     }
     export interface dxColorBoxOptions extends dxDropDownEditorOptions {
         /** Specifies the text displayed on the button that applies changes and closes the drop-down editor. */
@@ -3055,10 +3223,6 @@ declare module DevExpress.ui {
         itemsExpr?: any;
         /** Specifies the name of the data source item field whose value defines whether or not the corresponding widget item is disabled. */
         disabledExpr?: any;
-        /** Specifies the name of the data source item field that holds the key of the parent item. */
-        parentIdExpr?: any;
-        /** Specifies the name of the data source item field whose value defines whether or not the corresponding widget items is expanded. */
-        expandedExpr?: any;
         hoverStateEnabled?: boolean;
         focusStateEnabled?: boolean;
     }
@@ -3078,6 +3242,8 @@ declare module DevExpress.ui {
         showCheckBoxes?: boolean;
         /** Specifies the current check boxes display mode. */
         showCheckBoxesMode?: string;
+        /** Specifies the name of the data source item field whose value defines whether or not the corresponding widget item is displayed expanded. */
+        expandedExpr?: any;
         /** Specifies whether or not to select nodes recursively. */
         selectNodesRecursive?: boolean;
         /** Specifies whether or not all parent nodes of an initially expanded node are displayed expanded. */
@@ -3087,20 +3253,26 @@ declare module DevExpress.ui {
          * @deprecated Use the showCheckBoxesMode options instead.
          */
         selectAllEnabled?: boolean;
+        /** Specifies whether or not an item becomes selected if a user clicks it. */
+        selectByClick?: boolean;
+        /** Specifies item selection mode. */
+        selectionMode?: string;
         /** Specifies the text displayed at the "Select All" check box. */
         selectAllText?: string;
         /** Specifies the name of the data source item field whose value defines whether or not the corresponding node includes child nodes. */
         hasItemsExpr?: any;
+        /** Specifies the name of the data source item field for holding the parent key of the corresponding node. */
+        parentIdExpr?: any;
         /** Specifies if the virtual mode is enabled. */
         virtualModeEnabled?: boolean;
         /** Specifies the parent ID value of the root item. */
-        rootValue?: any;
+        rootValue?: Object;
         /** Specifies the current value used to filter tree view items. */
         searchValue?: string;
         /** A string value specifying available scrolling directions. */
         scrollDirection?: string;
-        /** A handler for the itemSelected event. */
-        onItemSelected?: Function;
+        /** A handler for the itemSelectionChanged event. */
+        onItemSelectionChanged?: Function;
         /** A handler for the itemExpanded event. */
         onItemExpanded?: Function;
         /** A handler for the itemCollapsed event. */
@@ -3145,8 +3317,13 @@ declare module DevExpress.ui {
         cssClass?: string;
         /** Holds an array of menu items. */
         items?: Array<any>;
-        /** Specifies whether or not an item becomes selected if an end-user clicks it. */
-        selectionByClick?: boolean;
+        /**
+         * Specifies whether or not an item becomes selected if an end-user clicks it.
+         * @deprecated Use the selectByClick option instead.
+         */
+        selectionByClick?: boolean;        
+        /** Specifies whether or not an item becomes selected if a user clicks it. */
+        selectByClick?: boolean;
         /** Specifies the selection mode supported by the menu. */
         selectionMode?: string;
         /** Specifies options of submenu showing and hiding. */
@@ -3191,6 +3368,8 @@ declare module DevExpress.ui {
         submenuDirection?: string;
         /** A handler for the submenuHidden event. */
         onSubmenuHidden?: Function;
+        /** Specifies whether or not adaptive widget rendering is enabled on a small screen. */
+        adaptivityEnabled?: boolean;
         /** A handler for the submenuHiding event. */
         onSubmenuHiding?: Function;
         /** A handler for the submenuShowing event. */
@@ -3206,7 +3385,7 @@ declare module DevExpress.ui {
     export interface dxContextMenuOptions extends dxMenuBaseOptions {
         /** Holds an object that specifies options of alternative menu invocation. */
         alternativeInvocationMode?: {
-            /** Specifies whether or not the standard context menu invocation (on a right mouse click or on a long tap) is disabled. */
+            /** Specifies whether or not an alternative invocation mode is enabled. */
             enabled?: Boolean;
             /** Specifies the element used to invoke the context menu. */
             invokingElement?: any;
@@ -3254,14 +3433,14 @@ declare module DevExpress.ui {
         summary?: boolean;
     }
     export interface dxDataGridRow {
-        /** The data object represented by the row. */
         data: Object;
-        /** The key of the data object represented by the row. */
         key: any;
-        /** The visible index of the row. */
         rowIndex: number;
-        /** The type of the row. */
         rowType: string;
+        groupIndex: number;
+        isExpanded: boolean;
+        isSelected: boolean;
+        values: Array<any>;
     }
     export interface dxDataGridColumn {
         /** Specifies the content alignment within column cells. */
@@ -3276,7 +3455,7 @@ declare module DevExpress.ui {
         allowFixing?: boolean;
         /** Specifies if a column can be used for searching grid records. Setting this option makes sense only when the search panel is visible. */
         allowSearch?: boolean;
-        /** Specifies whether a column can be used for grouping grid records at runtime. Setting this option makes sense only when the group panel is visible. */
+        /** Specifies whether the user can group data by values of this column. Applies only when grouping is enabled. */
         allowGrouping?: boolean;
         /** Specifies whether or not a column can be hidden by a user. Setting this option makes sense only when the column chooser is visible. */
         allowHiding?: boolean;
@@ -3307,7 +3486,7 @@ declare module DevExpress.ui {
         /** Specifies a field name or a function that returns a field name or a value to be used for sorting column cells. */
         calculateSortValue?: any;
         /** Specifies a callback function that returns the text to be displayed in the cells of a column. */
-        customizeText?: (cellInfo: { value: any; valueText: string }) => string;
+        customizeText?: (cellInfo: { value: any; valueText: string; target: string; groupInterval: any }) => string;
         /** Specifies the field of a data source that provides data for a column. */
         dataField?: string;
         /** Specifies the required type of column values. */
@@ -3330,10 +3509,12 @@ declare module DevExpress.ui {
         filterType?: string;
         /** Indicates whether the column takes part in horizontal grid scrolling or is anchored to a grid edge. */
         fixed?: boolean;
+        /** Specifies the order according to which grid columns must be concealed when the widget adapts to the screen or container size. */
+        hidingPriority?: number;
         /** Specifies the grid edge to which the column is anchored. */
         fixedPosition?: string;
         /** Specifies a format for the values displayed in a column. */
-        format?: string;
+        format?: any;
         /** Specifies a custom template for the group cell of a grid column. */
         groupCellTemplate?: any;
         /** Specifies the index of a column when grid records are grouped by the values of this column. */
@@ -3358,9 +3539,12 @@ declare module DevExpress.ui {
             /** Specifies how header filter values should be combined into groups. */
             groupInterval?: any;
         };
-        /** Specifies a precision for formatted values displayed in a column. */
+        /**
+         * Specifies a precision for formatted values displayed in a column.
+         * @deprecated Use the format | precision option instead.
+         */
         precision?: number;
-        /** Specifies a filter operation applied to a column. */
+        /** Specifies the default filter operation of a column. */
         selectedFilterOperation?: string;
         /** Specifies whether or not the column displays its values by using editors. */
         showEditorAlways?: boolean;
@@ -3386,6 +3570,12 @@ declare module DevExpress.ui {
         name?: string;
         /** The form item configuration object. Used only when the editing mode is "form". */
         formItem?: DevExpress.ui.dxFormItem;
+        /** An array of grid columns. */
+        columns?: Array<dxDataGridColumn>;
+        /** Specifies the band column that owns the current column. Accepts the index of the band column in the columns array. */
+        ownerBand?: number;
+        /** Specifies whether the column bands other columns or not. */
+        isBand?: boolean;
     }
     export interface dxDataGridOptions extends WidgetOptions {
         /** Specifies whether the outer borders of the grid are visible or not. */
@@ -3412,6 +3602,8 @@ declare module DevExpress.ui {
         onRowUpdating?: (e: { oldData: Object; newData: Object; key: any; cancel: any }) => void;
         /** Enables a hint that appears when a user hovers the mouse pointer over a cell with truncated content. */
         cellHintEnabled?: boolean;
+        /** Specifies whether or not the widget should hide columns in order to adapt to the screen or container size. */
+        columnHidingEnabled?: boolean;
         /** Specifies whether or not grid columns can be reordered by a user. */
         allowColumnReordering?: boolean;
         /** Specifies whether or not grid columns can be resized by a user. */
@@ -3422,6 +3614,8 @@ declare module DevExpress.ui {
         onCellHoverChanged?: (e: Object) => void;
         /** A handler for the cellPrepared event. */
         onCellPrepared?: (e: Object) => void;
+        /** A handler for the adaptiveDetailRowPreparing event. */
+        onAdaptiveDetailRowPreparing?: (e: Object) => void;
         /** Specifies whether or not the width of grid columns depends on column content. */
         columnAutoWidth?: boolean;
         /** Specifies the options of a column chooser. */
@@ -3430,6 +3624,8 @@ declare module DevExpress.ui {
             emptyPanelText?: string;
             /** Specifies whether a user can invoke the column chooser or not. */
             enabled?: boolean;
+            /** Specifies how the end-user chooses columns. */
+            mode?: string;
             /** Specifies the height of the column chooser panel. */
             height?: number;
             /** Specifies text displayed in the title of the column chooser panel. */
@@ -3476,6 +3672,8 @@ declare module DevExpress.ui {
         onContentReady?: Function;
         /** Specifies a function that customizes grid columns after they are created. */
         customizeColumns?: (columns: Array<dxDataGridColumn>) => void;
+        /** Customizes grid columns and data before exporting. */
+        customizeExportData?: (columns: Array<dxDataGridColumn>, rows: Array<dxDataGridRow>) => void;
         /** Specifies a data source for the grid. */
         dataSource?: any;
         /** Specifies whether or not to enable data caching. */
@@ -3509,17 +3707,20 @@ declare module DevExpress.ui {
             form?: DevExpress.ui.dxFormOptions;
             /** Contains options that specify texts for editing-related grid controls. */
             texts?: {
-                /** Specifies text for a hint that appears when a user hovers the mouse pointer over the "Save" button. Setting this option makes sense only when the editMode option is set to batch. */
+                /** Specifies text for a hint that appears when a user hovers the mouse pointer over the "Save" button. Setting this option makes sense only when the mode option is set to batch. */
                 saveAllChanges?: string;
                 /** Specifies text for a cancel button displayed when a row is in the editing state. Setting this option makes sense only when the allowUpdating option is set to true. */
                 cancelRowChanges?: string;
-                /** Specifies text for a hint that appears when a user hovers the mouse pointer over the "Revert" button. Setting this option makes sense only when the editMode option is set to batch. */
+                /** Specifies text for a hint that appears when a user hovers the mouse pointer over the "Revert" button. Setting this option makes sense only when the mode option is set to batch. */
                 cancelAllChanges?: string;
                 /** Specifies a message to be displayed by a confirmation window. Setting this option makes sense only when the edit mode is "row". */
                 confirmDeleteMessage?: string;
                 /** Specifies text to be displayed in the title of a confirmation window. Setting this option makes sense only when the edit mode is "row". */
                 confirmDeleteTitle?: string;
-                /** Specifies text for a hint that appears when a user hovers the mouse pointer over the "Cancel changes" button. Setting this option makes sense only when the editMode option is set to cell and the validation capabilities are enabled. */
+                /** Specifies text for a hint that appears when a user hovers the mouse pointer over the "Cancel changes" button. Setting this option makes sense only when the mode option is set to cell and the validation capabilities are enabled.
+#####See Also#####
+- Validation Engine
+- Validation Engine - MVVM Approach */
                 validationCancelChanges?: string;
                 /** Specifies text for a button that deletes a row from a grid. Setting this option makes sense only when the allowDeleting option is set to true. */
                 deleteRow?: string;
@@ -3565,30 +3766,45 @@ declare module DevExpress.ui {
             /** Specifies whether the filter row is visible or not. */
             visible?: boolean;
         };
-        /** Specifies the behavior of grouped grid records. */
+        /** Specifies grouping settings and the behavior of grouped grid records. */
         grouping?: {
             /** Specifies whether the user can collapse grouped records in a grid or not. */
             allowCollapsing?: boolean;
             /** Specifies whether groups appear expanded or not. */
             autoExpandAll?: boolean;
-            /** Specifies the message displayed in a group row when the corresponding group is continued from the previous page. */
-            groupContinuedMessage?: string;
-            /** Specifies the message displayed in a group row when the corresponding group continues on the next page. */
+            /** Enables the user to group data using the context menu. */
+            contextMenuEnabled?: boolean;
+            /** Specifies the event on which a group will be expanded/collapsed. */
+            expandMode?: string;
+                groupContinuedMessage?: string;
             groupContinuesMessage?: string;
+            /** Defines the texts of grouping-related visual elements. */
+            texts?: {
+                /** Specifies the message displayed in a group row when the corresponding group is continued from the previous page. */
+                groupContinuedMessage?: string;
+                /** Specifies the message displayed in a group row when the corresponding group continues on the next page. */
+                groupContinuesMessage?: string;
+                /** Specifies the text of the context menu item that groups data by a specific column. */
+                groupByThisColumn?: string;
+                /** Specifies the text of the context menu item that clears grouping settings of a specific column. */
+                ungroup?: string;
+                /** Specifies the text of the context menu item that clears grouping settings of all columns. */
+                ungroupAll?: string;
+            }
         };
-        /** Specifies options that configure the group panel. */
+        /** Configures the group panel. */
         groupPanel?: {
             /** Specifies whether columns can be dragged onto or from the group panel. */
             allowColumnDragging?: boolean;
             /** Specifies text displayed by the group panel when it does not contain any columns. */
             emptyPanelText?: string;
             /** Specifies whether the group panel is visible or not. */
-            visible?: boolean;
+            visible?: any;
         };
         /** Specifies options configuring the load panel. */
         loadPanel?: {
             /** Specifies whether to show the load panel or not. */
-            enabled?: boolean;
+            enabled?: any;
             /** Specifies the height of the load panel in pixels. */
             height?: number;
             /** Specifies a URL pointing to an image to be used as a loading indicator. */
@@ -3621,7 +3837,7 @@ declare module DevExpress.ui {
         };
         /** Specifies paging options. */
         paging?: {
-            /** Specifies whether dxDataGrid loads data page by page or all at once. */
+            /** Specifies whether DataGrid loads data page by page or all at once. */
             enabled?: boolean;
             /** Specifies the grid page that should be displayed by default. */
             pageIndex?: number;
@@ -3661,6 +3877,8 @@ declare module DevExpress.ui {
             placeholder?: string;
             /** Specifies whether the search panel is visible or not. */
             visible?: boolean;
+            /** Specifies whether to search all columns or only visible ones. */
+            searchVisibleColumnsOnly?: boolean;
             /** Specifies the width of the search panel in pixels. */
             width?: number;
             /** Sets a search string for the search panel. */
@@ -3686,9 +3904,9 @@ declare module DevExpress.ui {
             /** Specifies the template for detail sections. */
             template?: any;
         };
-        /** Specifies options for exporting grid data. */
+        /** Configures client-side export. */
         export?: {
-            /** Indicates if the export feature is enabled in the grid. */
+            /** Enables the client-side export feature. */
             enabled?: boolean;
             /** Specifies a default name for the file to which grid data is exported. */
             fileName?: string;
@@ -3696,20 +3914,21 @@ declare module DevExpress.ui {
             excelFilterEnabled?: boolean;
             /** Specifies whether to enable word wrapping for the exported data in the resulting XLSX file. */
             excelWrapTextEnabled?: boolean;
-            /** Specifies the URL of the server-side proxy that streams the resulting file to the end user to enable export in IE8, IE9 and Safari browsers. */
+            /** Specifies the URL of the server-side proxy that streams the resulting file to the end user to enable export in IE9 and Safari browsers. */
             proxyUrl?: string;
-            /** Indicates whether to allow end users to export not only the data displayed in the grid, but the selected rows only. */
+            /** Allows an end user to export selected rows only. */
             allowExportSelectedData?: boolean;
             /** Contains options that specify texts for the export-related commands and hints. */
             texts?: {
-                /** Specifies text for the Export button when this button invokes a dropdown menu so you can choose the required export format. */
+                /** Specifies the hint of the Export button when the allowExportSelectedData option is true. */
                 exportTo?: string;
-                /** Specifies text for the Export button's hint when this button exports to the XSLX format without invoking the drop-down menu. */
                 exportToExcel?: string;
-                /** Specifies text for the item in the Export dropdown menu that exports grid data to Excel. */
                 excelFormat?: string;
-                /** Specifies text for the option in the Export dropdown menu that allows you to choose whether to export all the grid data or the selected rows only. */
                 selectedRows?: string;
+                /** Specifies the text of the command that exports all data. */
+                exportAll?: string;
+                /** Specifies the text of the drop-down menu command that exports selected rows. */
+                exportSelectedRows?: string;
             }
         };
         /** Specifies the keys of the records that must appear selected initially. */
@@ -3824,7 +4043,10 @@ declare module DevExpress.ui {
                 }) => string;
                 /** Specifies a pattern for the summary item text. */
                 displayFormat?: string;
-                /** Specifies a precision for the summary item value of a numeric format. */
+                /**
+                 * Specifies a precision for the summary item value of a numeric format.
+                 * @deprecated Use the valueFormat | precision option instead.
+                 */
                 precision?: number;
                 /** Specifies whether or not a summary item must be displayed in the group footer. */
                 showInGroupFooter?: boolean;
@@ -3835,7 +4057,7 @@ declare module DevExpress.ui {
                 /** Specifies how to aggregate data for a summary item. */
                 summaryType?: string;
                 /** Specifies a format for the summary item value. */
-                valueFormat?: string;
+                valueFormat?: any;
                 /** Specifies whether or not to skip empty strings, null and undefined values when calculating a summary. */
                 skipEmptyValues?: boolean;
             }>;
@@ -3856,14 +4078,17 @@ declare module DevExpress.ui {
                 }) => string;
                 /** Specifies a pattern for the summary item text. */
                 displayFormat?: string;
-                /** Specifies a precision for the summary item value of a numeric format. */
+                /**
+                 * Specifies a precision for the summary item value of a numeric format.
+                 * @deprecated Use the valueFormat | precision option instead.
+                 */
                 precision?: number;
                 /** Specifies the column that must hold the summary item. */
                 showInColumn?: string;
                 /** Specifies how to aggregate data for a summary item. */
                 summaryType?: string;
                 /** Specifies a format for the summary item value. */
-                valueFormat?: string;
+                valueFormat?: any;
                 /** Specifies whether or not to skip empty strings, null and undefined values when calculating a summary. */
                 skipEmptyValues?: boolean;
             }>;
@@ -3953,6 +4178,12 @@ declare module DevExpress.ui {
         expandRow(key: any): void;
         /** Allows you to collapse a specific group or master row by its key. */
         collapseRow(key: any): void;
+        /** Checks whether a specific adaptive detail row is expanded or collapsed. */
+        isAdaptiveDetailRowExpanded(key: any): void;
+        /** Expands an adaptive detail row by the key of its parent data row. */
+        expandAdaptiveDetailRow(key: any): void;
+        /** Collapses the currently expanded adaptive detail row (if there is one). */
+        collapseAdaptiveDetailRow(): void;
         /** Applies a filter to the grid's data source. */
         filter(filterExpr?: any): void;
         /** Returns a filter expression applied to the grid's data source using the filter(filterExpr) method. */
@@ -3983,7 +4214,7 @@ declare module DevExpress.ui {
         /** Gets the current page size. */
         pageSize(): number;
         /** Refreshes grid data. */
-        refresh(): void;
+        refresh(): JQueryPromise<any>;
         /** Removes a specific row from a grid. */
         deleteRow(rowIndex: number): void;
         /**
@@ -3992,7 +4223,7 @@ declare module DevExpress.ui {
          */
         removeRow(rowIndex: number): void;
         /** Saves changes made in a grid. */
-        saveEditData(): void;
+        saveEditData(): JQueryPromise<any>;
         /** Searches grid records by a search string. */
         searchByText(text: string): void;
         /** Selects all grid records. */
@@ -4010,6 +4241,8 @@ declare module DevExpress.ui {
         /** Invokes the column chooser panel. */
         showColumnChooser(): void;
         startSelectionWithCheckboxes(): boolean;
+        /** Returns how many pages the grid contains. */
+        pageCount(): number;
         /** Returns the number of records currently held by a grid. */
         totalCount(): number;
         /** Recovers a row deleted in the batch edit mode. */
@@ -4043,8 +4276,38 @@ declare module DevExpress.ui {
         allowSortingBySummary?: boolean;
         /** Allows an end-user to change filtering options. */
         allowFiltering?: boolean;
+        /** Specifies the area to which data field headers must belong. */
+        dataFieldArea?: string;
+         /** Configures the field panel. */
+        fieldPanel?: {
+            /** Makes fields on the field panel draggable. */
+            allowFieldDragging?: boolean;
+            /** Shows/hides filter fields on the field panel. */
+            showFilterFields?: boolean;
+            /** Shows/hides data fields on the field panel. */
+            showDataFields?: boolean;
+            /** Shows/hides column fields on the field panel. */
+            showColumnFields?: boolean;
+            /** Shows/hides row fields on the field panel. */
+            showRowFields?: boolean;
+            /** Shows/hides the field panel. */
+            visible?: boolean;
+            /** Specifies the placeholders of the field areas. */
+            texts?: {
+                /** Specifies the placeholder of the column field area. */
+                columnFieldArea?: string;
+                /** Specifies the placeholder of the row field area. */
+                rowFieldArea?: string;
+                /** Specifies the placeholder of the filter field area. */
+                filterFieldArea?: string;
+                /** Specifies the placeholder of the data field area. */
+                dataFieldArea?: string;
+            }
+        }
         /** Allows an end-user to expand/collapse all header items within a header level. */
         allowExpandAll?: boolean;
+        /** Specifies whether long text in header items should be wrapped. */
+        wordWrapEnabled?: boolean;
         /** Specifies whether to display the Total rows. */
         showRowTotals?: boolean;
         /** Specifies whether to display the Grand Total row. */
@@ -4057,6 +4320,8 @@ declare module DevExpress.ui {
         hideEmptySummaryCells?: boolean;
         /** Specifies where to show the total rows or columns. */
         showTotalsPrior?: string;
+        /** Specifies the layout of items in the row header. */
+        rowHeaderLayout?: string;
         /** Specifies whether the outer borders of the grid are visible or not. */
         showBorders?: boolean;
         /** The Field Chooser configuration options. */
@@ -4085,7 +4350,7 @@ declare module DevExpress.ui {
                 allFields?: string;
             };
         }
-        /** Strings that can be changed or localized in the dxPivotGrid widget. */
+        /** Strings that can be changed or localized in the PivotGrid widget. */
         texts?: {
             /** The string to display as a header of the Grand Total row and column. */
             grandTotal?: string;
@@ -4131,13 +4396,13 @@ declare module DevExpress.ui {
         onCellPrepared?: (e: any) => void;
         /** A handler for the contextMenuPreparing event. */
         onContextMenuPreparing?: (e: Object) => void;
-        /** Specifies options for exporting pivot grid data. */
+        /** Configures client-side export. */
         export?: {
-            /** Indicates whether the export feature is enabled for the pivot grid. */
+            /** Enables client-side export. */
             enabled?: boolean;
             /** Specifies a default name for the file to which grid data is exported. */
             fileName?: string;
-            /** Specifies the URL of the server-side proxy that streams the resulting file to the end user to enable export in IE8, IE9 and Safari browsers. */
+            /** Specifies the URL of the server-side proxy that streams the resulting file to the end user to enable export in IE9 and Safari browsers. */
             proxyUrl?: string;
         };
         /** A handler for the exporting event. */
@@ -4176,22 +4441,34 @@ declare module DevExpress.ui {
         constructor(element: Element, options?: dxPivotGridOptions);
         /** Gets the PivotGridDataSource instance. */
         getDataSource(): DevExpress.data.PivotGridDataSource;
-        /** Gets the dxPopup instance of the field chooser window. */
+        /** Gets the Popup instance of the field chooser window. */
         getFieldChooserPopup(): DevExpress.ui.dxPopup;
         /** Updates the widget to the size of its content. */
         updateDimensions(): void;
         /** Exports pivot grid data to the Excel file. */
         exportToExcel(): void;
+        /** Binds a Chart to the PivotGrid. */
+        bindChart(chart: any, integrationOptions?: {
+            inverted?: boolean;
+            dataFieldsDisplayMode?: string;
+            putDataFieldsInto?: string;
+            alternateDataFields?: boolean;
+            processCell?: Function;
+            customizeChart?: Function;
+            customizeSeries?: Function;
+        }): any;
     }
     export interface dxPivotGridFieldChooserOptions extends WidgetOptions {
         /** Specifies the height of the widget. */
         height?: any;
         /** Specifies the field chooser layout. */
         layout?: number;
-        /** The data source of a dxPivotGrid widget. */
+        /** The data source of a PivotGrid widget. */
         dataSource?: DevExpress.data.PivotGridDataSource;
         onContentReady?: Function;
-        /** Strings that can be changed or localized in the dxPivotGridFieldChooser widget. */
+        /** A handler for the contextMenuPreparing event. */
+        onContextMenuPreparing?: (e: Object) => void;
+        /** Strings that can be changed or localized in the PivotGridFieldChooser widget. */
         texts?: {
             /** The string to display instead of Row Fields. */
             rowFields?: string;
@@ -4205,12 +4482,14 @@ declare module DevExpress.ui {
             allFields?: string;
         };
     }
-    /** A complementary widget for dxPivotGrid that allows you to manage data displayed in the dxPivotGrid. */
+    /** A complementary widget for PivotGrid that allows you to manage data displayed in the PivotGrid. */
     export class dxPivotGridFieldChooser extends Widget {
         constructor(element: JQuery, options?: dxPivotGridFieldChooserOptions);
         constructor(element: Element, options?: dxPivotGridFieldChooserOptions);
         /** Updates the widget to the size of its content. */
         updateDimensions(): void;
+        /** Gets the PivotGridDataSource instance. */
+        getDataSource(): DevExpress.data.PivotGridDataSource;
     }
 }
 interface JQuery {
@@ -4289,7 +4568,7 @@ declare module DevExpress.framework {
         id?: string;
         /** Specifies the title of the widget associated with this command. */
         title?: string;
-        /** Specifies the type of the button, if the command is rendered as a dxButton widget. */
+        /** Specifies the type of the button, if the command is rendered as a Button widget. */
         type?: string;
         /** A Boolean value specifying whether or not the widget associated with this command is visible. */
         visible?: boolean;
@@ -4543,36 +4822,6 @@ declare module DevExpress.framework {
     }
 }
 declare module DevExpress.viz.core {
-    /**
-     * Applies a theme for the entire page with several DevExtreme visualization widgets.
-     * @deprecated Use the DevExpress.viz.currentTheme(theme) method instead.
-     */
-    export function currentTheme(theme: string): void;
-    /**
-     * Applies a new theme (with the color scheme defined separately) for the entire page with several DevExtreme visualization widgets.
-     * @deprecated Use the DevExpress.viz.currentTheme(platform, colorScheme) method instead.
-     */
-    export function currentTheme(platform: string, colorScheme: string): void;
-    /**
-     * Registers a new theme based on the existing one.
-     * @deprecated Use the DevExpress.viz.registerTheme(customTheme, baseTheme) method instead.
-     */
-    export function registerTheme(customTheme: Object, baseTheme: string): void;
-    /**
-     * Applies a predefined or registered custom palette to all visualization widgets at once.
-     * @deprecated Use the DevExpress.viz.currentPalette(paletteName) method instead.
-     */
-    export function currentPalette(paletteName: string): void;
-    /**
-     * Obtains the color sets of a predefined or registered palette.
-     * @deprecated Use the DevExpress.viz.getPalette(paletteName) method instead.
-     */
-    export function getPalette(paletteName: string): Object;
-    /**
-     * Registers a new palette.
-     * @deprecated Use the DevExpress.viz.registerPalette(paletteName, palette) method instead.
-     */
-    export function registerPalette(paletteName: string, palette: Object): void;
     export interface Border {
         /** Sets a border color for a selected series. */
         color?: string;
@@ -4586,19 +4835,19 @@ declare module DevExpress.viz.core {
         dashStyle?: string;
     }
     export interface DashedBorderWithOpacity extends DashedBorder {
-        /** Specifies the opacity of the tooltip's border. */
+        /** Specifies how transparent the vertical crosshair line should be. */
         opacity?: number;
     }
     export interface Font {
-        /** Specifies the font color for a strip label. */
+        /** Colors the text displayed by the group labels. */
         color?: string;
-        /** Specifies the font family for a strip label. */
+        /** Specifies the font family of the text displayed by the group labels. */
         family?: string;
-        /** Specifies the font opacity for a strip label. */
+        /** Specifies how transparent the text displayed by the group labels should be. */
         opacity?: number;
-        /** Specifies the font size for a strip label. */
+        /** Specifies the size of the text displayed by the group labels. */
         size?: any;
-        /** Specifies the font weight for the text displayed in strips. */
+        /** Specifies the font weight of the text displayed by the group labels. */
         weight?: number;
     }
     export interface Hatching {
@@ -4611,35 +4860,61 @@ declare module DevExpress.viz.core {
         width?: number;
     }
     export interface Margins {
-        /** Specifies the distance in pixels between the bottom side of the title and the surrounding widget elements. */
+        /** Specifies the legend's bottom margin in pixels. */
         bottom?: number;
-        /** Specifies the distance in pixels between the left side of the title and the surrounding widget elements. */
+        /** Specifies the legend's left margin in pixels. */
         left?: number;
-        /** Specifies the distance between the right side of the title and surrounding widget elements in pixels. */
+        /** Specifies the legend's right margin in pixels. */
         right?: number;
-        /** Specifies the distance between the top side of the title and surrounding widget elements in pixels. */
+        /** Specifies the legend's bottom margin in pixels. */
         top?: number;
     }
+    export interface MarginOptions {
+        /** Generates space around the widget. */
+        margin?: Margins;
+    }
+    export interface RedrawOnResizeOptions {
+        /** Specifies whether to redraw the widget when the size of the parent browser window changes or a mobile device rotates. */
+        redrawOnResize?: boolean;
+    }
+    export interface TitleOptions {
+        /** Specifies the widget title. */
+        title?: Title;
+    }
+    export interface ExportOptions {
+        /** Configures the exporting and printing features. */
+        export?: Export;
+    }
+    export interface LoadingIndicatorOptions {
+        /** Configures the loading indicator. */
+        loadingIndicator?: LoadingIndicator;
+    }
+    export interface LoadingIndicatorMethods {
+        /** Displays the loading indicator. */
+        showLoadingIndicator(): void;
+        /** Conceals the loading indicator. */
+        hideLoadingIndicator(): void;
+    }
     export interface Size {
-        /** Specifies the width of the widget. */
+        /** Specifies the width of the widget in pixels. */
         width?: number;
-        /** Specifies the height of the widget. */
+        /** Specifies the height of the widget in pixels. */
         height?: number;
     }
     export interface Title {
         /** Specifies font options for the title. */
         font?: viz.core.Font;
-        /** Specifies the widget title's horizontal position. */
+        /** Specifies the title's alignment in a horizontal direction. */
         horizontalAlignment?: string;
-       /** Specifies the widget title's position in the vertical direction. */
+       /** Specifies the title's alignment in a vertical direction. */
         verticalAlignment?: string;
-        /** Specifies the distance between the title and surrounding widget elements in pixels. */
-        margin?: viz.core.Margins;
-         /** Specifies the height of the space reserved for the title. */
+        /** Generates space around the title. */
+        margin?: Margins;
+         /** Specifies the minimum height that the title occupies. */
         placeholderSize?: number;
-        /** Specifies text for the title. */
+        /** Specifies the title text. */
         text?: string;
-        /** Specifies a subtitle for the widget. */
+        /** Specifies the widget subtitle. */
         subtitle?: {
             /** Specifies font options for the subtitle. */
             font?: viz.core.Font;
@@ -4647,42 +4922,58 @@ declare module DevExpress.viz.core {
             text?: string;
         }
     }
+    export interface Export {
+        /** Enables the client-side exporting in the widget. */
+        enabled?: boolean;
+        /** Enables the printing feature in the widget. Applies only if the export | enabled option is true. */
+        printingEnabled?: boolean;
+        /** Specifies a set of formats available for exporting into. */
+        formats?: Array<string>;
+        /** Specifies a default name for the file to which the widget will be exported. */
+        fileName?: string;
+        /** Specifies the URL of the server-side proxy that streams the resulting file to the end user to enable exporting in IE9 and Safari browsers. */
+        proxyUrl?: string;
+        /** Specifies the color that will fill transparent regions in the resulting file or document. */
+        backgroundColor?: string;
+    }
     export interface Tooltip {
         /** Specifies the length of the tooltip's arrow in pixels. */
         arrowLength?: number;
         /** Specifies the appearance of the tooltip's border. */
-        border?: viz.core.DashedBorderWithOpacity;
-        /** Specifies a color for the tooltip. */
+        border?: DashedBorderWithOpacity;
+        /** Specifies the color of tooltips. */
         color?: string;
-        /** Specifies the z-index for tooltips. */
+        /** Specifies the z-index of tooltips. */
         zIndex?: number;
         /** Specifies the container to draw tooltips inside of it. */
         container?: any;
-        /** Specifies text and appearance of a set of tooltips. */
+        /** Allows you to change tooltip appearance. */
         customizeTooltip?: (arg: Object) => { color?: string; text?: string };
-        /** Specifies whether or not the tooltip is enabled. */
         enabled?: boolean;
-        /** Specifies font options for the text displayed by the tooltip. */
+        /** Specifies the font of the text displayed by a tooltip. */
         font?: Font;
-        /** Specifies a format for the text displayed by the tooltip. */
-        format?: string;
-        /** Specifies the opacity of a tooltip. */
+        /** Specifies the format of the value displayed by a tooltip. */
+        format?: any;
+        /** Specifies the opacity of tooltips. */
         opacity?: number;
-        /** Specifies a distance from the tooltip's left/right boundaries to the inner text in pixels. */
+        /** Generates space on the left and the right of the text displayed by a tooltip. */
         paddingLeftRight?: number;
-        /** Specifies a distance from the tooltip's top/bottom boundaries to the inner text in pixels. */
+        /** Generates space above and below the text displayed by a tooltip. */
         paddingTopBottom?: number;
-        /** Specifies a precision for formatted values displayed by the tooltip. */
+        /**
+         * Specifies the precision of formatted values in a tooltip.
+         * @deprecated Use the tooltip | format | precision option instead.
+         */
         precision?: number;
-        /** Specifies options of the tooltip's shadow. */
+        /** Specifies the appearance of the tooltip's shadow. */
         shadow?: {
             /** Specifies the blur distance of the tooltip's shadow. */
             blur?: number;
             /** Specifies the color of the tooltip's shadow. */
             color?: string;
-            /** Specifies the horizontal offset of the tooltip's shadow relative to the tooltip in pixels. */
+            /** Specifies the horizontal offset of the tooltip's shadow relative to the tooltip itself measured in pixels. */
             offsetX?: number;
-            /** Specifies the vertical offset of the tooltip's shadow relative to the tooltip in pixels. */
+            /** Specifies the vertical offset of the tooltip's shadow relative to the tooltip itself measured in pixels. */
             offsetY?: number;
             /** Specifies the opacity of the tooltip's shadow. */
             opacity?: number;
@@ -4697,13 +4988,13 @@ declare module DevExpress.viz.core {
         enabled?: boolean;
     }
     export interface LoadingIndicator {
-        /** Specifies a color for the loading indicator background. */
+        /** Colors the background of the loading indicator. */
         backgroundColor?: string;
-        /** Specifies font options for the loading indicator text. */
+        /** Specifies font options for the loading indicator. */
         font?: viz.core.Font;
         /** Specifies whether to show the loading indicator or not. */
         show?: boolean;
-        /** Specifies a text to be displayed by the loading indicator. */
+        /** Specifies the text to be displayed by the loading indicator. */
         text?: string;
     }
     export interface LegendBorder extends viz.core.DashedBorderWithOpacity {
@@ -4747,6 +5038,8 @@ declare module DevExpress.viz.core {
         visible?: boolean;
     }
     export interface BaseWidgetOptions extends DOMComponentOptions {
+        /** Specifies the size of the widget in pixels. */
+        size?: Size;
         /** A handler for the drawn event. */
         onDrawn?: (e: {
             component: BaseWidget;
@@ -4765,6 +5058,20 @@ declare module DevExpress.viz.core {
             version: string;
         }
         ) => void;
+        /** A handler for the exporting event. */
+        onExporting?: (e: {
+            fileName: string;
+            cancel: boolean;
+        }) => void;
+        /** A handler for the fileSaving event. */
+        onFileSaving?: (e: {
+            fileName: string;
+            format: string;
+            data: any;
+            cancel: boolean;
+        }) => void;
+        /** A handler for the exported event. */
+        onExported?: (e: Object) => void;
         /** Notifies a widget that it is embedded into an HTML page that uses a path modifier. */
         pathModified?: boolean;
         /** Specifies whether or not the widget supports right-to-left representation. */
@@ -4776,7 +5083,45 @@ declare module DevExpress.viz.core {
     export class BaseWidget extends DOMComponent {
         /** Returns the widget's SVG markup. */
         svg(): string;
+        /** Exports the widget into a document with a specified name and format. */
+        exportTo(): void;
+        /** Opens the browser's print window. */
+        print(): void;
+        /** Redraws the widget. */
+        render(): void;
     }
+}
+declare module DevExpress.viz {
+    /**
+     * Applies a theme for the entire page with several DevExtreme visualization widgets.
+     * @deprecated Use the DevExpress.viz.currentTheme(theme) method instead.
+     */
+    export function currentTheme(theme: string): void;
+    /**
+     * Applies a new theme (with the color scheme defined separately) for the entire page with several DevExtreme visualization widgets.
+     * @deprecated Use the DevExpress.viz.currentTheme(platform, colorScheme) method instead.
+     */
+    export function currentTheme(platform: string, colorScheme: string): void;
+    /**
+     * Registers a new theme based on the existing one.
+     * @deprecated Use the DevExpress.viz.registerTheme(customTheme, baseTheme) method instead.
+     */
+    export function registerTheme(customTheme: Object, baseTheme: string): void;
+    /**
+     * Applies a predefined or registered custom palette to all visualization widgets at once.
+     * @deprecated Use the DevExpress.viz.currentPalette(paletteName) method instead.
+     */
+    export function currentPalette(paletteName: string): void;
+    /**
+     * Obtains the color sets of a predefined or registered palette.
+     * @deprecated Use the DevExpress.viz.getPalette(paletteName) method instead.
+     */
+    export function getPalette(paletteName: string): Object;
+    /**
+     * Registers a new palette.
+     * @deprecated Use the DevExpress.viz.registerPalette(paletteName, palette) method instead.
+     */
+    export function registerPalette(paletteName: string, palette: Object): void;
 }
 declare module DevExpress.viz.charts {
     /** This section describes the fields and methods that can be used in code to manipulate the Series object. */
@@ -4842,7 +5187,7 @@ declare module DevExpress.viz.charts {
         select(): void;
         /** Shows the tooltip of the point. */
         showTooltip(): void;
-        /** Allows you to obtain the label of a series point. */
+        /** Allows you to obtain the label(s) of the series point. */
         getLabel(): any;
         /** Returns the series object to which the point belongs. */
         series: BaseSeries;
@@ -4931,8 +5276,11 @@ declare module DevExpress.viz.charts {
     }
     export interface BaseSeriesConfigLabel {
         /** Specifies a format for arguments displayed by point labels. */
-        argumentFormat?: string;
-        /** Specifies a precision for formatted point arguments displayed in point labels. */
+        argumentFormat?: any;
+        /**
+         * Specifies a precision for formatted point arguments displayed in point labels.
+         * @deprecated Use the series | label | argumentFormat | precision instead.
+         */
         argumentPrecision?: number;
         /** Specifies a background color for point labels. */
         backgroundColor?: string;
@@ -4952,9 +5300,12 @@ declare module DevExpress.viz.charts {
         /** Specifies font options for the text displayed in point labels. */
         font?: viz.core.Font;
         /** Specifies a format for the text displayed by point labels. */
-        format?: string;
+        format?: any;
         position?: string;
-        /** Specifies a precision for formatted point values displayed in point labels. */
+        /**
+         * Specifies a precision for formatted point values displayed in point labels.
+         * @deprecated Use the series | label | format | precision option instead.
+         */
         precision?: number;
         /** Specifies the angle used to rotate point labels from their initial position. */
         rotationAngle?: number;
@@ -4962,26 +5313,27 @@ declare module DevExpress.viz.charts {
         visible?: boolean;
     }
     export interface SeriesConfigLabel extends BaseSeriesConfigLabel {
-        /** Specifies whether or not to show a label when the point has a zero value. */
+        /** Specifies whether or not to show labels for points with zero value. Applies only to bar-like series. */
         showForZeroValues?: boolean;
     }
     export interface ChartSeriesConfigLabel extends SeriesConfigLabel {
-        /** Specifies how to align point labels relative to the corresponding data points that they represent. */
+        /** Aligns point labels in relation to their points. */
         alignment?: string;
-        /** Specifies how to shift point labels horizontally from their initial positions. */
+        /** Along with verticalOffset, shifts point labels from their initial positions. */
         horizontalOffset?: number;
-        /** Specifies how to shift point labels vertically from their initial positions. */
+        /** Along with horizontalOffset, shifts point labels from their initial positions. */
         verticalOffset?: number;
-        /** Specifies a precision for the percentage values displayed in the labels of a full-stacked-like series. */
+        /**
+         * Specifies a precision for the percentage values displayed in the labels of a full-stacked-like series.
+         * @deprecated Use the series | label | format | percentPrecision instead.
+         */
         percentPrecision?: number;
     }
     export interface BaseCommonSeriesConfig {
         /** Specifies the data source field that provides arguments for series points. */
         argumentField?: string;
         axis?: string;
-        /** An object defining the label configuration options for a series in the dxChart widget. */
         label?: ChartSeriesConfigLabel;
-        /** Specifies border options for point labels. */
         border?: viz.core.DashedBorder;
         /** Specifies a series color. */
         color?: string;
@@ -4989,7 +5341,6 @@ declare module DevExpress.viz.charts {
         dashStyle?: string;
         hoverMode?: string;
         hoverStyle?: {
-            /** An object defining the border options for a hovered series. */
             border?: viz.core.DashedBorder;
             /** <p>Sets a color for a series when it is hovered over.</p> */
             color?: string;
@@ -5007,10 +5358,9 @@ declare module DevExpress.viz.charts {
         minBarSize?: number;
         /** Specifies opacity for a series. */
         opacity?: number;
-        /** Specifies the series elements to highlight when the series is selected. */
+        /** Specifies series elements to be highlighted when a user selects a point. */
         selectionMode?: string;
         selectionStyle?: {
-            /** An object defining the border options for a selected series. */
             border?: viz.core.DashedBorder;
             /** Sets a color for a series when it is selected. */
             color?: string;
@@ -5088,11 +5438,11 @@ declare module DevExpress.viz.charts {
         visible?: boolean;
     }
     export interface ChartCommonPointOptions extends CommonPointOptions {
-        /** An object specifying the parameters of an image that is used as a point marker. */
+        /** Substitutes the standard point symbols with an image. */
         image?: {
-            /** Specifies the height of an image that is used as a point marker. */
+            /** Specifies the height of the image used instead of a point marker. */
             height?: any;
-            /** Specifies a URL leading to the image to be used as a point marker. */
+            /** Specifies the URL of the image to be used as a point marker. */
             url?: any;
             /** Specifies the width of an image that is used as a point marker. */
             width?: any;
@@ -5111,84 +5461,83 @@ declare module DevExpress.viz.charts {
     }
     /** An object that defines configuration options for chart series. */
     export interface CommonSeriesConfig extends BaseCommonSeriesConfig {
-        /** Specifies the data source field that provides a 'close' value for a _candleStick_ or _stock_ series. */
+        /** Specifies which data source field provides close values for points of a financial series. */
         closeValueField?: string;
-        /** Specifies a radius for bar corners. */
+        /** Makes bars look rounded. Applies only to bar-like series. */
         cornerRadius?: number;
-        /** Specifies the data source field that provides a 'high' value for a _candleStick_ or _stock_ series. */
+        /** Specifies which data source field provides high values for points of a financial series. */
         highValueField?: string;
-        /** Specifies the color for the body (rectangle) of a _candleStick_ series. */
+        /** Specifies a filling color for the body of a series point that visualizes a non-reduced value. Applies only to candlestick series. */
         innerColor?: string;
-        /** Specifies the data source field that provides a 'low' value for a _candleStick_ or _stock_ series. */
+        /** Specifies which data source field provides low values for points of a financial series. */
         lowValueField?: string;
-        /** Specifies the data source field that provides an 'open' value for a _candleStick_ or _stock_ series. */
+        /** Specifies which data source field provides open values for points of a financial series. */
         openValueField?: string;
-        /** Specifies the pane that will be used to display a series. */
+        /** Specifies which pane the series should belong to. Accepts the name of the pane. */
         pane?: string;
-        /** An object defining configuration options for points in line-, scatter- and area-like series. */
         point?: ChartCommonPointOptions;
-        /** Specifies the data source field that provides values for one end of a range series. To set the data source field for the other end of the range series, use the rangeValue2Field property. */
+        /** Coupled with the rangeValue2Field option, specifies which data source field provides values for a range-like series. */
         rangeValue1Field?: string;
-        /** Specifies the data source field that provides values for the second end of a range series. To set the data source field for the other end of the range series, use the rangeValue1Field property. */
+        /** Coupled with the rangeValue1Field option, specifies which data source field provides values for a range-like series. */
         rangeValue2Field?: string;
-        /** Specifies reduction options for the stock or candleStick series. */
+        /** Specifies reduction options for financial series. */
         reduction?: {
-            /** Specifies a color for the points whose reduction level price is lower in comparison to the value in the previous point. */
+            /** Specifies a color for the points whose price has decreased in comparison to the price of the previous point. */
             color?: string;
-            /** Specifies for which price level (open, high, low or close) to enable reduction options in the series. */
+            /** Specifies whether high, low, open or close prices of points should be compared. */
             level?: string;
         };
-        /** Specifies the data source field that defines the size of bubbles. */
+        /** Specifies which data source field provides size values for bubbles. Required by and applies only to bubble series. */
         sizeField?: string;
     }
     export interface CommonSeriesSettings extends CommonSeriesConfig {
-        /** <p>An object that specifies configuration options for all series of the <i>area</i> type in the chart.</p> */
+        /** Defines common settings for all area series. */
         area?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the _bar_ type in the chart. */
+        /** Defines common settings for all bar series. */
         bar?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the bubble type in the chart. */
+        /** Defines common settings for all bubble series. */
         bubble?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the _candleStick_ type in the chart. */
+        /** Defines common settings for all candlestick series. */
         candlestick?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the _fullStackedArea_ type in the chart. */
+        /** Defines common settings for all full-stacked area series. */
         fullstackedarea?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the Full-Stacked Spline Area type in the chart. */
+        /** Defines common settings for all full-stacked spline area series. */
         fullstackedsplinearea?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the _fullStackedBar_ type in the chart. */
+        /** Defines common settings for all full-stacked bar series. */
         fullstackedbar?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the _fullStackedLine_ type in the chart. */
+        /** Defines common settings for all full-stacked line series. */
         fullstackedline?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the Full-Stacked Spline type in the chart. */
+        /** Defines common settings for all full-stacked spline series. */
         fullstackedspline?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the _line_ type in the chart. */
+        /** Defines common settings for all line series. */
         line?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the _rangeArea_ type in the chart. */
+        /** Defines common settings for all range area series. */
         rangearea?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the _rangeBar_ type in the chart. */
+        /** Defines common settings for all range bar series. */
         rangebar?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the _scatter_ type in the chart. */
+        /** Defines common settings for all scatter series. */
         scatter?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the _spline_ type in the chart. */
+        /** Defines common settings for all spline series. */
         spline?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the _splineArea_ type in the chart. */
+        /** Defines common settings for all spline area series. */
         splinearea?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the _stackedArea_ type in the chart. */
+        /** Defines common settings for all stacked area series. */
         stackedarea?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the Stacked Spline Area type in the chart. */
+        /** Defines common settings for all stacked spline area series. */
         stackedsplinearea?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the _stackedBar_ type in the chart. */
+        /** Defines common settings for all stacked bar series. */
         stackedbar?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the _stackedLine_ type in the chart. */
+        /** Defines common settings for all stacked line series. */
         stackedline?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the Stacked Spline type in the chart. */
+        /** Defines common settings for all stacked spline series. */
         stackedspline?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the _stepArea_ type in the chart. */
+        /** Defines common settings for all step area series. */
         steparea?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the _stepLine_ type in the chart. */
+        /** Defines common settings for all step line series. */
         stepline?: CommonSeriesConfig;
-        /** An object that specifies configuration options for all series of the _stock_ type in the chart. */
+        /** Defines common settings for all stock series. */
         stock?: CommonSeriesConfig;
-        /** Sets a series type. */
+        /** Specifies the type of the series. */
         type?: string;
     }
     export interface SeriesConfig extends CommonSeriesConfig {
@@ -5231,7 +5580,10 @@ declare module DevExpress.viz.charts {
     export interface PieSeriesConfigLabel extends BaseSeriesConfigLabel {
         /** Specifies how to shift labels from their initial position in a radial direction in pixels. */
         radialOffset?: number;
-        /** Specifies a precision for the percentage values displayed in labels. */
+        /**
+         * Specifies a precision for the percentage values displayed in labels.
+         * @deprecated Use the series | label | format | percentPrecision instead.
+         */
         percentPrecision?: number;
     }
     /** An object that defines configuration options for chart series. */
@@ -5267,7 +5619,7 @@ declare module DevExpress.viz.charts {
         /** Specifies a minimal size of a displayed pie segment. */
         minSegmentSize?: number;
         /**
-         * Specifies the direction in which the dxPieChart series points are located.
+         * Specifies the direction in which the PieChart series points are located.
          * @deprecated Use the segmentsDirection option instead.
          */
         segmentsDirection?: string;
@@ -5334,11 +5686,11 @@ declare module DevExpress.viz.charts {
         nameField?: string;
     }
     export interface ChartCommonConstantLineLabel {
-        /** Specifies font options for a constant line label. */
+        /** Specifies font options for constant line labels. */
         font?: viz.core.Font;
-        /** Specifies the position of the constant line label relative to the chart plot. */
+        /** Specifies the position of constant line labels on the chart plot. */
         position?: string;
-        /** Indicates whether or not to display labels for the axis constant lines. */
+        /** Makes constant line labels visible. */
         visible?: boolean;
     }
     export interface PolarCommonConstantLineLabel {
@@ -5356,11 +5708,11 @@ declare module DevExpress.viz.charts {
         width?: number;
     }
     export interface ChartCommonConstantLineStyle extends ConstantLineStyle {
-        /** An object defining constant line label options. */
+        /** Configures constant line labels. */
         label?: ChartCommonConstantLineLabel;
-        /** Specifies the space between the constant line label and the left/right side of the constant line. */
+        /** Generates a pixel-measured empty space between the left/right side of a constant line and the constant line label. */
         paddingLeftRight?: number;
-        /** Specifies the space between the constant line label and the top/bottom side of the constant line. */
+        /** Generates a pixel-measured empty space between the top/bottom side of a constant line and the constant line label. */
         paddingTopBottom?: number;
     }
     export interface PolarCommonConstantLineStyle extends ConstantLineStyle {
@@ -5376,15 +5728,15 @@ declare module DevExpress.viz.charts {
         visible?: boolean;
     }
     export interface ChartCommonAxisLabel extends CommonAxisLabel {
-        /** Specifies the label's position relative to the tick (grid line). */
+        /** Aligns axis labels in relation to ticks. */
         alignment?: string;
-        /** Specifies the overlap resolving algorithm to be applied to axis labels. */
+        /** Decides how to arrange axis labels when there is not enough space to keep all of them. */
         overlappingBehavior?: {
-            /** Specifies how to arrange axis labels. */
+            /** Decides how to arrange axis labels when there is not enough space to keep all of them. */
             mode?: string;
-            /** Specifies the angle used to rotate axis labels. */
+            /** Specifies the rotation angle of axis labels. Applies only if the mode option is "rotate". */
             rotationAngle?: number;
-            /** Specifies the spacing that must be set between staggered rows when the 'stagger' algorithm is applied. */
+            /** Adds a pixel-measured empty space between two staggered rows of axis labels. Applies only if the mode option is "stagger". */
             staggeringSpacing?: number;
         };
     }
@@ -5393,9 +5745,9 @@ declare module DevExpress.viz.charts {
         overlappingBehavior?: string;
     }
     export interface CommonAxisTitle {
-        /** Specifies font options for an axis title. */
+        /** Specifies font options for the axis title. */
         font?: viz.core.Font;
-        /** Specifies a margin for an axis title in pixels. */
+        /** Adds a pixel-measured empty space between the axis title and axis labels. */
         margin?: number;
     }
     export interface BaseCommonAxisSettings {
@@ -5403,7 +5755,7 @@ declare module DevExpress.viz.charts {
         color?: string;
         /** Specifies whether ticks/grid lines of a discrete axis are located between labels or cross the labels. */
         discreteAxisDivisionMode?: string;
-        /** An object defining the configuration options for the grid lines of an axis in the dxPolarChart widget. */
+        /** An object defining the configuration options for the grid lines of an axis in the PolarChart widget. */
         grid?: {
             /** Specifies a color for grid lines. */
             color?: string;
@@ -5463,41 +5815,41 @@ declare module DevExpress.viz.charts {
         width?: number;
     }
     export interface ChartCommonAxisSettings extends BaseCommonAxisSettings {
-        /** Specifies the appearance of all the widget's constant lines. */
+        /** Configures the appearance of all constant lines in the widget. */
         constantLineStyle?: ChartCommonConstantLineStyle;
-        /** An object defining the label configuration options that are common for all axes in the dxChart widget. */
+        /** Configures axis labels. */
         label?: ChartCommonAxisLabel;
-        /** Specifies a coefficient that determines the spacing between the maximum series point and the axis. */
+        /** Controls the empty space between the maximum series points and the axis. Applies only to the axes of the "continuous" and "logarithmic" type. */
         maxValueMargin?: number;
-        /** Specifies a coefficient that determines the spacing between the minimum series point and the axis. */
+        /** Controls the empty space between the minimum series points and the axis. Applies only to the axes of the "continuous" and "logarithmic" type. */
         minValueMargin?: number;
-        /** Specifies, in pixels, the space reserved for an axis. */
+        /** Reserves a pixel-measured space for the axis. */
         placeholderSize?: number;
-        /** An object defining configuration options for strip style. */
+        /** Configures the appearance of strips. */
         stripStyle?: {
-            /** An object defining the configuration options for a strip label style. */
+            /** Configures the appearance of strip labels. */
             label?: {
-                /** Specifies font options for a strip label. */
+                /** Specifies font options for strip labels. */
                 font?: viz.core.Font;
-                /** Specifies the label's position on a strip. */
+                /** Aligns strip labels in the horizontal direction. */
                 horizontalAlignment?: string;
-                /** Specifies a label's position on a strip. */
+                /** Aligns strip labels in the vertical direction. */
                 verticalAlignment?: string;
             };
-            /** Specifies the spacing, in pixels, between the left/right strip border and the strip label. */
+            /** Generates a pixel-measured empty space between the left/right border of a strip and the strip label. */
             paddingLeftRight?: number;
-            /** Specifies the spacing, in pixels, between the top/bottom strip borders and the strip label. */
+            /** Generates a pixel-measured empty space between the top/bottom border of a strip and the strip label. */
             paddingTopBottom?: number;
         };
-        /** An object defining the title configuration options that are common for all axes in the dxChart widget. */
+        /** Configures axis titles. */
         title?: CommonAxisTitle;
-        /** Indicates whether or not to display series with indents from axis boundaries. */
+        /** Adds an empty space between the axis and the minimum and maximum series points. */
         valueMarginsEnabled?: boolean;
     }
     export interface PolarCommonAxisSettings extends BaseCommonAxisSettings {
         /** Specifies the appearance of all the widget's constant lines. */
         constantLineStyle?: PolarCommonConstantLineStyle;
-        /** An object defining the label configuration options that are common for all axes in the dxPolarChart widget. */
+        /** An object defining the label configuration options that are common for all axes in the PolarChart widget. */
         label?: PolarCommonAxisLabel;
         /** An object defining configuration options for strip style. */
         stripStyle?: {
@@ -5509,11 +5861,11 @@ declare module DevExpress.viz.charts {
         };
     }
     export interface ChartConstantLineLabel extends ChartCommonConstantLineLabel {
-        /** Specifies the horizontal alignment of a constant line label. */
+        /** Aligns constant line labels in the horizontal direction. */
         horizontalAlignment?: string;
-        /** Specifies the vertical alignment of a constant line label. */
+        /** Aligns constant line labels in the vertical direction. */
         verticalAlignment?: string;
-        /** Specifies the text to be displayed in a constant line label. */
+        /** Specifies the text of a constant line label. By default, equals to the value of the constant line. */
         text?: string;
     }
     export interface PolarConstantLineLabel extends PolarCommonConstantLineLabel {
@@ -5526,24 +5878,27 @@ declare module DevExpress.viz.charts {
         /** Specifies a callback function that returns the text to be displayed in value axis labels. */
         customizeText?: (argument: { value: any; valueText: string }) => string;
         /** Specifies a format for the text displayed by axis labels. */
-        format?: string;
-        /** Specifies a precision for the formatted value displayed in the axis labels. */
+        format?: any;
+        /**
+         * Specifies a precision for the formatted value displayed in the axis labels.
+         * @deprecated Use the valueAxis | label | format | precision option instead.
+         */
         precision?: number;
     }
     export interface ChartAxisLabel extends ChartCommonAxisLabel, AxisLabel { }
     export interface PolarAxisLabel extends PolarCommonAxisLabel, AxisLabel { }
     export interface AxisTitle extends CommonAxisTitle {
-        /** Specifies the text for the value axis title. */
+        /** Specifies the text of the axis title. */
         text?: string;
     }
     export interface ChartConstantLineStyle extends ChartCommonConstantLineStyle {
-        /** An object defining constant line label options. */
+        /** Specifies the appearance of the labels of those constant lines that belong to the value axis. */
         label?: ChartConstantLineLabel;
     }
     export interface ChartConstantLine extends ChartConstantLineStyle {
-        /** An object defining constant line label options. */
+        /** Configures the constant line label. */
         label?: ChartConstantLineLabel;
-        /** Specifies a value to be displayed by a constant line. */
+        /** Specifies the value indicated by a constant line. Setting this option is necessary. */
         value?: any;
     }
     export interface PolarConstantLine extends PolarCommonConstantLineStyle {
@@ -5567,25 +5922,25 @@ declare module DevExpress.viz.charts {
         minorTickCount?: number;
         /** Specifies the required type of the value axis. */
         type?: string;
-        /** Specifies the pane on which the current value axis will be displayed. */
+        /** Binds the value axis to a pane. */
         pane?: string;
         /** Specifies options for value axis strips. */
         strips?: Array<Strip>;
     }
     export interface ChartAxis extends ChartCommonAxisSettings, Axis {
-        /** Defines an array of the value axis constant lines. */
+        /** Declares a collection of constant lines belonging to the value axis. */
         constantLines?: Array<ChartConstantLine>;
-        /** Specifies the appearance options for the constant lines of the value axis. */
+        /** Specifies the appearance of those constant lines that belong to the value axis. */
         constantLineStyle?: ChartCommonConstantLineStyle;
-        /** Specifies options for value axis labels. */
+        /** Configures the labels of the value axis. */
         label?: ChartAxisLabel;
-        /** Specifies the maximum value on the value axis. */
+        /** Coupled with the min option, focuses the widget on a specific chart segment. Applies only to the axes of the "continuous" and "logarithmic" type. */
         max?: any;
-        /** Specifies the minimum value on the value axis. */
+        /** Coupled with the max option, focuses the widget on a specific chart segment. Applies only to the axes of the "continuous" and "logarithmic" type. */
         min?: any;
-        /** Specifies the position of the value axis on a chart. */
+        /** Relocates the value axis. */
         position?: string;
-        /** Specifies the title for a value axis. */
+        /** Configures the axis title. */
         title?: any;
     }
     export interface PolarAxis extends PolarCommonAxisSettings, Axis {
@@ -5620,9 +5975,9 @@ declare module DevExpress.viz.charts {
         valueType?: string;
     }
     export interface ChartValueAxis extends ChartAxis, ValueAxis {
-        /** Specifies the spacing, in pixels, between multiple value axes in a chart. */
+        /** Adds a pixel-measured empty space between two side-by-side value axes. Applies if several value axes are located on one side of the chart. */
         multipleAxesSpacing?: number;
-        /** Specifies the value by which the chart's value axes are synchronized. */
+        /** Synchronizes two or more value axes with each other at a specific value. */
         synchronizedValue?: number;
     }
     export interface PolarValueAxis extends PolarAxis, ValueAxis {
@@ -5637,61 +5992,63 @@ declare module DevExpress.viz.charts {
         }
     }
     export interface CommonPane {
-        /** Specifies a background color in a pane. */
+        /** Specifies the color of the pane's background. */
         backgroundColor?: string;
-        /** Specifies the border options of a chart's pane. */
+        /** Configures the pane border. */
         border?: PaneBorder;
     }
     export interface Pane extends CommonPane {
-        /** Specifies the name of a pane. */
+        /** Specifies the name of the pane. */
         name?: string;
     }
     export interface PaneBorder extends viz.core.DashedBorderWithOpacity {
-        /** Specifies the bottom border's visibility state in a pane. */
+        /** Shows/hides the bottom border of the pane. Applies only when the border | visible option is true. */
         bottom?: boolean;
-        /** Specifies the left border's visibility state in a pane. */
+        /** Shows/hides the left border of the pane. Applies only when the border | visible option is true. */
         left?: boolean;
-        /** Specifies the right border's visibility state in a pane. */
+        /** Shows/hides the right border of the pane. Applies only when the border | visible option is true. */
         right?: boolean;
-        /** Specifies the top border's visibility state in a pane. */
+        /** Shows/hides the top border of the pane. Applies only when the border | visible option is true. */
         top?: boolean;
     }
     export interface ChartAnimation extends viz.core.Animation {
-        /** Specifies the maximum series point count in the chart that the animation supports. */
+        /** Specifies how many series points the widget should have before the animation will be disabled. */
         maxPointCountSupported?: number;
     }
     export interface BaseChartTooltip extends viz.core.Tooltip {
         /** Specifies a format for arguments of the chart's series points. */
-        argumentFormat?: string;
-        /** Specifies a precision for formatted arguments displayed in tooltips. */
+        argumentFormat?: any;
+        /**
+         * Specifies a precision for formatted arguments displayed in tooltips.
+         * @deprecated Use the tooltip | argumentFormat | precision option instead.
+         */
         argumentPrecision?: number;
-        /** Specifies a precision for a percent value displayed in tooltips for stacked series and dxPieChart series. */
+        /**
+         * Specifies a precision for a percent value displayed in tooltips for stacked series and PieChart series.
+         * @deprecated Use the tooltip | format | percentPrecision option instead.
+         */
         percentPrecision?: number;
     }
-    export interface BaseChartOptions<TPoint> extends viz.core.BaseWidgetOptions {
+    export interface BaseChartOptions<TPoint> extends viz.core.BaseWidgetOptions, viz.core.MarginOptions, viz.core.RedrawOnResizeOptions, viz.core.TitleOptions, viz.core.LoadingIndicatorOptions, viz.core.ExportOptions {
         /** Specifies adaptive layout options. */
         adaptiveLayout?: {
-            /** Specifies the width of the widget that is small enough for the layout to begin adapting. */
+            /** Specifies the widget's width small enough for the layout to begin adapting. */
             width?: number;
-            /** Specifies the height of the widget that is small enough for the layout to begin adapting. */
+            /** Specifies the widget's height small enough for the layout to begin adapting. */
             height?: number;
-            /** Specifies whether or not point labels can be hidden when the layout is adapting. */
+            /** Specifies whether or not point labels should be kept when the layout is adapting. */
             keepLabels?: boolean;
         };
         /** Specifies animation options. */
         animation?: ChartAnimation;
-        /** Specifies a callback function that returns an object with options for a specific point label. */
-        customizeLabel?: (labelInfo: Object) => Object;
-        /** Specifies a callback function that returns an object with options for a specific point. */
+        /** Customizes the appearance of an individual point label. */
+        customizeLabel?: (pointInfo: Object) => Object;
+        /** Customizes the appearance of an individual series point. */
         customizePoint?: (pointInfo: Object) => Object;
-        /** Specifies a data source for the chart. */
+        /** Specifies the origin of data for the widget. */
         dataSource?: any;
-        /** Specifies the appearance of the loading indicator. */
-        loadingIndicator?: viz.core.LoadingIndicator;
-        /** Specifies options of a dxChart's (dxPieChart's) legend. */
+        /** Specifies options of a Chart's or PieChart's legend. */
         legend?: core.BaseLegend;
-        /** Specifies the blank space between the chart's extreme elements and the boundaries of the area provided for the widget (see size) in pixels. */
-        margin?: viz.core.Margins;
         /** Sets the name of the palette to be used in the chart. Alternatively, an array of colors can be set as a custom palette to be used within this chart. */
         palette?: any;
         /** A handler for the done event. */
@@ -5715,15 +6072,9 @@ declare module DevExpress.viz.charts {
         }) => void;
         /** Specifies whether a single point or multiple points can be selected in the chart. */
         pointSelectionMode?: string;
-        /** Specifies whether to redraw the widget when the size of the parent browser window changes or a mobile device rotates. */
-        redrawOnResize?: boolean;
-        /** Specifies options for the dxChart and dxPieChart widget series. */
+        /** Specifies options for the Chart and PieChart widget series. */
         series?: any;
-        /** Specifies the size of the widget in pixels. */
-        size?: viz.core.Size;
-        /** Specifies a title for the chart. */
-        title?: viz.core.Title;
-        /** Specifies tooltip options. */
+        /** Configures tooltips. */
         tooltip?: BaseChartTooltip;
         /** A handler for the tooltipShown event. */
         onTooltipShown?: (e: {
@@ -5739,7 +6090,7 @@ declare module DevExpress.viz.charts {
         }) => void;
     }
     /** A base class for all chart widgets included in the ChartJS library. */
-    export class BaseChart extends viz.core.BaseWidget {
+    export class BaseChart extends viz.core.BaseWidget implements viz.core.LoadingIndicatorMethods {
         /** Deselects the chart's selected series. The series is displayed in an initial style. */
         clearSelection(): void;
         /** Gets the current size of the widget. */
@@ -5750,12 +6101,10 @@ declare module DevExpress.viz.charts {
         getSeriesByName(seriesName: string): BaseSeries;
         /** Gets a series within the chart's series collection by its position number. */
         getSeriesByPos(seriesIndex: number): BaseSeries;
-        /** Displays the loading indicator. */
-        showLoadingIndicator(): void;
-        /** Conceals the loading indicator. */
-        hideLoadingIndicator(): void;
         /** Hides all widget tooltips. */
         hideTooltip(): void;
+        showLoadingIndicator(): void;
+        hideLoadingIndicator(): void;
         /** Redraws a widget. */
         render(renderOptions?: {
             force?: boolean;
@@ -5817,80 +6166,91 @@ declare module DevExpress.viz.charts {
         position?: string;
     }
     export interface ChartTooltip extends BaseChartTooltip {
-        /** Specifies whether the tooltip must be located in the center of a bar or on its edge. Applies to the Bar and Bubble series. */
+        /** Specifies whether the tooltip must be located in the center of a series point or on its edge. Applies to bar-like and bubble series only. */
         location?: string;
         /** Specifies the kind of information to display in a tooltip. */
         shared?: boolean;
     }
     export interface dxChartOptions extends AdvancedOptions<ChartPoint, ChartSeries> {
-        adaptiveLayout?: {
-            keepLabels?: boolean;
-        };
         /** Indicates whether or not to synchronize value axes when they are displayed on a single pane. */
         synchronizeMultiAxes?: boolean;
         /** Specifies whether or not to filter the series points depending on their quantity. */
         useAggregation?: boolean;
-        /** Indicates whether or not to adjust a value axis to the current minimum and maximum values of a zoomed chart. */
+        /** Specifies whether or not to adjust the value axis when zooming the widget. */
         adjustOnZoom?: boolean;
-        /** Specifies argument axis options for the dxChart widget. */
+        /** Configures the argument axis. */
         argumentAxis?: ChartArgumentAxis;
-        /** An object defining the configuration options that are common for all axes of the dxChart widget. */
+        /** Defines common settings for both the argument and value axis in a chart. */
         commonAxisSettings?: ChartCommonAxisSettings;
-        /** An object defining the configuration options that are common for all panes in the dxChart widget. */
+        /** Defines common settings for all panes in a chart. */
         commonPaneSettings?: CommonPane;
-        /** An object defining the configuration options that are common for all series of the dxChart widget. */
+        /** Specifies settings common for all series in the chart. */
         commonSeriesSettings?: CommonSeriesSettings;
-        /** An object that specifies the appearance options of the chart crosshair. */
+        /** Configures the crosshair feature. */
         crosshair?: {
-            /** Specifies a color for the crosshair lines. */
+            /** Specifies the color of the crosshair lines. */
             color?: string;
-            /** Specifies a dash style for the crosshair lines. */
+            /** Specifies the dash style of the crosshair lines. */
             dashStyle?: string;
-            /** Specifies whether to enable the crosshair or not. */
+            /** Enables the crosshair. */
             enabled?: boolean;
-            /** Specifies the opacity of the crosshair lines. */
+            /** Specifies how transparent the crosshair lines should be. */
             opacity?: number;
             /** Specifies the width of the crosshair lines. */
             width?: number;
-            /** Specifies the appearance of the horizontal crosshair line. */
+            /** Configures the horizontal crosshair line individually. */
             horizontalLine?: CrosshaierWithLabel;
-            /** Specifies the appearance of the vertical crosshair line. */
+            /** Configures the vertical crosshair line individually. */
             verticalLine?: CrosshaierWithLabel;
-            /** Specifies the options of the crosshair labels. */
+            /** Configures the crosshair labels. */
             label?: {
-                /** Specifies a color for the background of the crosshair labels. */
+                /** Paints the background of the crosshair labels. */
                 backgroundColor?: string;
-                /** Specifies whether the crosshair labels are visible or not. */
+                /** Makes the crosshair labels visible. Applies only if the crosshair feature is enabled. */
                 visible?: boolean;
-                /** Specifies font options for the text of the crosshair labels. */
+                /** Specifies font options for the crosshair labels. */
                 font?: viz.core.Font;
-                /** Specifies the format of the values displayed by crosshair labels. */
-                format?: string;
-                /** Specifies a precision for formatted values. */
+                /** Formats the point value/argument before it will be displayed in the crosshair label. */
+                format?: any;
+                /**
+                 * Specifies a precision for formatted values.
+                 * @deprecated Use the crosshair | label | format | precision option instead.
+                 */
                 precision?: number;
                 /** Customizes the text displayed by the crosshair labels. */
                 customizeText?: (info: { value: any; valueText: string; point: ChartPoint; }) => string;
             }
         };
-        /** Specifies a default pane for the chart series. */
+        /** Specifies which pane should be used by default. */
         defaultPane?: string;
         /** Specifies a coefficient determining the diameter of the largest bubble. */
         maxBubbleSize?: number;
         /** Specifies the diameter of the smallest bubble measured in pixels. */
         minBubbleSize?: number;
-        /** Defines the dxChart widget's <a href="/Documentation/Guide/Data_Visualization/Charts/Chart_Elements?version=15_2#Panes">pane(s)</a>. */
+        /** Declares a collection of panes. */
         panes?: Array<Pane>;
-        /** Swaps the axes round so that the value axis becomes horizontal and the argument axes becomes vertical. */
+        /** Swaps the axes around making the value axis horizontal and the argument axis vertical. */
         rotated?: boolean;
         /** Specifies the options of a chart's legend. */
         legend?: Legend;
-        /** Specifies options for dxChart widget series. */
+        /** A handler for the zoomStart event. */
+        onZoomStart?: (e: {
+            component: BaseChart;
+            element: Element;
+        }) => void;
+        /** A handler for the zoomEnd event. */
+        onZoomEnd?: (e: {
+            component: BaseChart;
+            element: Element;
+            rangeStart: any;
+            rangeEnd: any;
+        }) => void;
+        /** Specifies options for Chart widget series. */
         series?: Array<SeriesConfig>;
         /** Defines options for the series template. */
         seriesTemplate?: SeriesTemplate;
-        /** Specifies tooltip options. */
         tooltip?: ChartTooltip;
-        /** Specifies value axis options for the dxChart widget. */
+        /** Configures the value axis. */
         valueAxis?: Array<ChartValueAxis>;
         /** Enables scrolling in your chart. */
         scrollingMode?: string;
@@ -5912,27 +6272,23 @@ declare module DevExpress.viz.charts {
             position?: string;
         };
     }
-    /** A widget used to embed charts into HTML JS applications. */
-    export class dxChart extends BaseChart {
-        constructor(element: JQuery, options?: dxChartOptions);
-        constructor(element: Element, options?: dxChartOptions);
-        /** Sets the specified start and end values for the chart's argument axis. */
-        zoomArgument(startValue: any, endValue: any): void;
-    }
     interface CrosshaierWithLabel extends viz.core.DashedBorderWithOpacity {
         /** Configures the label that belongs to the horizontal crosshair line. */
         label?: {
-            /** Specifies a color for the background of the label that belongs to the horizontal crosshair line. */
+            /** Paints the background of the label that belongs to the horizontal crosshair line. */
             backgroundColor?: string;
-            /** Specifies whether the label of the horizontal crosshair line is visible or not. */
+            /** Makes the label of the horizontal crosshair line visible. Applies only if the crosshair feature is enabled and the horizontal line is visible. */
             visible?: boolean;
-            /** Specifies font options for the text of the label that belongs to the horizontal crosshair line. */
+            /** Specifies font options for the label of the horizontal crosshair line. */
             font?: viz.core.Font;
-            /** Specifies the format of the values displayed by crosshair labels. */
-            format?: string;
-            /** Specifies a precision for formatted values. */
+            /** Formats the point value before it will be displayed in the crosshair label. */
+            format?: any;
+            /**
+             * Specifies a precision for formatted values.
+             * @deprecated Use the crosshair | horizontalLine | label | format | precision option instead.
+             */
             precision?: number;
-            /** Customizes the text displayed by the crosshair label that accompany the horizontal line. */
+            /** Customizes the text displayed by the label that belongs to the horizontal crosshair line. */
             customizeText?: (info: { value: any; valueText: string; point: ChartPoint; }) => string;
         }
     }
@@ -5945,32 +6301,24 @@ declare module DevExpress.viz.charts {
         adaptiveLayout?: {
             width?: number;
             height?: number;
-            /** Specifies whether or not point labels can be hidden when the layout is adapting. */
-            keepLabels?: boolean;
         };
         /** Indicates whether or not to display a "spider web". */
         useSpiderWeb?: boolean;
-        /** Specifies argument axis options for the dxPolarChart widget. */
+        /** Specifies argument axis options for the PolarChart widget. */
         argumentAxis?: PolarArgumentAxis;
-        /** An object defining the configuration options that are common for all axes of the dxPolarChart widget. */
+        /** An object defining the configuration options that are common for all axes of the PolarChart widget. */
         commonAxisSettings?: PolarCommonAxisSettings;
-        /** An object defining the configuration options that are common for all series of the dxPolarChart widget. */
+        /** An object defining the configuration options that are common for all series of the PolarChart widget. */
         commonSeriesSettings?: CommonPolarSeriesSettings;
         /** Specifies the options of a chart's legend. */
         legend?: AdvancedLegend;
-        /** Specifies options for dxPolarChart widget series. */
+        /** Specifies options for PolarChart widget series. */
         series?: Array<PolarSeriesConfig>;
         /** Defines options for the series template. */
         seriesTemplate?: PolarSeriesTemplate;
-        /** Specifies tooltip options. */
         tooltip?: PolarChartTooltip;
-        /** Specifies value axis options for the dxPolarChart widget. */
+        /** Specifies value axis options for the PolarChart widget. */
         valueAxis?: PolarValueAxis;
-    }
-    /** A chart widget displaying data in a polar coordinate system. */
-    export class dxPolarChart extends BaseChart {
-        constructor(element: JQuery, options?: dxPolarChartOptions);
-        constructor(element: Element, options?: dxPolarChartOptions);
     }
     export interface PieLegend extends core.BaseLegend {
         /** Specifies what chart elements to highlight when a corresponding item in the legend is hovered over. */
@@ -5983,12 +6331,11 @@ declare module DevExpress.viz.charts {
     export interface dxPieChartOptions extends BaseChartOptions<PiePoint> {
         /** Specifies adaptive layout options. */
         adaptiveLayout?: {
-            /** Specifies whether or not point labels can be hidden when the layout is adapting. */
             keepLabels?: boolean;
         };
-        /** Specifies dxPieChart legend options. */
+        /** Specifies PieChart legend options. */
         legend?: PieLegend;
-        /** Specifies options for the series of the dxPieChart widget. */
+        /** Specifies options for the series of the PieChart widget. */
         series?: Array<PieSeriesConfig>;
         /** Specifies the diameter of the pie. */
         diameter?: number;
@@ -6002,32 +6349,46 @@ declare module DevExpress.viz.charts {
         onLegendClick?: any;
         /** Specifies how a chart must behave when series point labels overlap. */
         resolveLabelOverlapping?: string;
-        /** An object defining the configuration options that are common for all series of the dxPieChart widget. */
+        /** An object defining the configuration options that are common for all series of the PieChart widget. */
         commonSeriesSettings?: CommonPieSeriesSettings;
         /** Specifies the type of the pie chart series. */
         type?: string;
     }
-    /** A circular chart widget for HTML JS applications. */
-    export class dxPieChart extends BaseChart {
-        constructor(element: JQuery, options?: dxPieChartOptions);
-        constructor(element: Element, options?: dxPieChartOptions);
+}
+declare module DevExpress.viz {
+    /** A widget providing charts of various types for web applications. */
+    export class dxChart extends DevExpress.viz.charts.BaseChart {
+        constructor(element: JQuery, options?: DevExpress.viz.charts.dxChartOptions);
+        constructor(element: Element, options?: DevExpress.viz.charts.dxChartOptions);
+        /** Sets the specified start and end values for the chart's argument axis. */
+        zoomArgument(startValue: any, endValue: any): void;
+    }
+    /** A circular chart widget for web applications. */
+    export class dxPieChart extends DevExpress.viz.charts.BaseChart {
+        constructor(element: JQuery, options?: DevExpress.viz.charts.dxPieChartOptions);
+        constructor(element: Element, options?: DevExpress.viz.charts.dxPieChartOptions);
         /**
-         * Provides access to the dxPieChart series.
+         * Provides access to the PieChart series.
          * @deprecated Use the getAllSeries() method instead.
          */
-        getSeries(): PieSeries;
+        getSeries(): DevExpress.viz.charts.PieSeries;
+    }
+    /** A chart widget displaying data in a polar coordinate system. */
+    export class dxPolarChart extends DevExpress.viz.charts.BaseChart {
+        constructor(element: JQuery, options?: DevExpress.viz.charts.dxPolarChartOptions);
+        constructor(element: Element, options?: DevExpress.viz.charts.dxPolarChartOptions);
     }
 }
 interface JQuery {
     dxChart(options?: DevExpress.viz.charts.dxChartOptions): JQuery;
     dxChart(methodName: string, ...params: any[]): any;
-    dxChart(methodName: "instance"): DevExpress.viz.charts.dxChart;
+    dxChart(methodName: "instance"): DevExpress.viz.dxChart;
     dxPieChart(options?: DevExpress.viz.charts.dxPieChartOptions): JQuery;
     dxPieChart(methodName: string, ...params: any[]): any;
-    dxPieChart(methodName: "instance"): DevExpress.viz.charts.dxPieChart;
+    dxPieChart(methodName: "instance"): DevExpress.viz.dxPieChart;
     dxPolarChart(options?: DevExpress.viz.charts.dxPolarChartOptions): JQuery;
     dxPolarChart(methodName: string, ...params: any[]): any;
-    dxPolarChart(methodName: "instance"): DevExpress.viz.charts.dxPolarChart;
+    dxPolarChart(methodName: "instance"): DevExpress.viz.dxPolarChart;
 }
 declare module DevExpress.viz.gauges {
     export interface BaseRangeContainer {
@@ -6097,8 +6458,11 @@ declare module DevExpress.viz.gauges {
         /** Specifies font options for the text displayed in the scale labels of the gauge. */
         font?: viz.core.Font;
         /** Specifies a format for the text displayed in scale labels. */
-        format?: string;
-        /** Specifies a precision for the formatted value displayed in the scale labels. */
+        format?: any;
+        /**
+         * Specifies a precision for the formatted value displayed in the scale labels.
+         * @deprecated Use the scale | label | format | precision option instead.
+         */
         precision?: number;
         /** Specifies whether or not scale labels are visible on the gauge. */
         visible?: boolean;
@@ -6175,10 +6539,13 @@ declare module DevExpress.viz.gauges {
             customizeText?: (indicatedValue: { value: number; valueText: string }) => string;
             font?: viz.core.Font;
             /** Specifies a format for the text displayed in an indicator. */
-            format?: string;
+            format?: any;
             /** Specifies the range bar's label indent in pixels. */
             indent?: number;
-            /** Specifies a precision for the formatted value displayed by an indicator. */
+            /**
+             * Specifies a precision for the formatted value displayed by an indicator.
+             * @deprecated Use the text | format | precision option instead.
+             */
             precision?: number;
         };
         offset?: number;
@@ -6187,7 +6554,7 @@ declare module DevExpress.viz.gauges {
         /** Specifies the length of an arrow for the indicator of the textCloud type in pixels. */
         arrowLength?: number;
         /** Sets the array of colors to be used for coloring subvalue indicators. */
-        palette?: Array<any>;
+        palette?: any;
         /** Specifies the distance between the needle and the center of a gauge for the indicator of a needle-like type. */
         indentFromCenter?: number;
         /** Specifies the second color for the indicator of the twoColorNeedle type. */
@@ -6198,20 +6565,14 @@ declare module DevExpress.viz.gauges {
         spindleSize?: number;
         /** Specifies the inner diameter in pixels, so that the spindle has the shape of a ring. */
         spindleGapSize?: number;
-        /** Specifies the orientation of the rangeBar indicator on a vertically oriented dxLinearGauge widget. */
+        /** Specifies the orientation of the rangeBar indicator on a vertically oriented LinearGauge widget. */
         horizontalOrientation?: string;
-        /** Specifies the orientation of the rangeBar indicator on a horizontally oriented dxLinearGauge widget. */
+        /** Specifies the orientation of the rangeBar indicator on a horizontally oriented LinearGauge widget. */
         verticalOrientation?: string;
     }
-    export interface SharedGaugeOptions {
+    export interface SharedGaugeOptions extends viz.core.MarginOptions, viz.core.RedrawOnResizeOptions, viz.core.TitleOptions, viz.core.LoadingIndicatorOptions, viz.core.ExportOptions {
         /** Specifies animation options. */
         animation?: viz.core.Animation;
-        /** Specifies the appearance of the loading indicator. */
-        loadingIndicator?: viz.core.LoadingIndicator;
-        /** Specifies whether to redraw the widget when the size of the parent browser window changes or a mobile device rotates. */
-        redrawOnResize?: boolean;
-        /** Specifies the size of the widget in pixels. */
-        size?: viz.core.Size;
         /**
          * Specifies a subtitle for the widget.
          * @deprecated Use the title | subtitle option instead.
@@ -6228,34 +6589,7 @@ declare module DevExpress.viz.gauges {
              */
             text?: string;
         };
-        /** Specifies a title for a gauge. */
-        title?: {
-            /** Specifies font options for the title. */
-            font?: viz.core.Font;
-            /**
-             * Specifies a title's position on the gauge.
-             * @deprecated Use the horizontalAlignment and verticalAlignment options instead.
-             */
-            position?: string;
-            /** Specifies the distance between the title and surrounding gauge elements in pixels. */
-            margin?: viz.core.Margins;
-            /** Specifies the height of the space reserved for the title. */
-            placeholderSize?: number;
-            /** Specifies the gauge title's position in the vertical direction. */
-            verticalAlignment?: string;
-            /** Specifies the gauge title's horizontal position. */
-            horizontalAlignment?: string;
-            /** Specifies text for the title. */
-            text?: string;
-            /** Specifies a subtitle for the widget. */
-            subtitle?: {
-                /** Specifies font options for the subtitle. */
-                font?: viz.core.Font;
-                /** Specifies text for the subtitle. */
-                text?: string;
-            }
-        };
-        /** Specifies options for gauge tooltips. */
+        /** Configures tooltips. */
         tooltip?: viz.core.Tooltip;
         /** A handler for the tooltipShown event. */
         onTooltipShown?: (e: {
@@ -6273,8 +6607,6 @@ declare module DevExpress.viz.gauges {
     export interface BaseGaugeOptions extends viz.core.BaseWidgetOptions, SharedGaugeOptions {
         /** Specifies the color of the parent page element. */
         containerBackgroundColor?: string;
-        /** Specifies the blank space in pixels between the widget's extreme elements and the boundaries of the area provided for the widget (see the size option). */
-        margin?: viz.core.Margins;
         /** Specifies options of the gauge's range container. */
         rangeContainer?: BaseRangeContainer;
         /** Specifies a gauge's scale options. */
@@ -6289,13 +6621,9 @@ declare module DevExpress.viz.gauges {
         valueIndicator?: BaseValueIndicator;
     }
     /** A gauge widget. */
-    export class dxBaseGauge extends viz.core.BaseWidget {
-        /** Displays the loading indicator. */
+    export class dxBaseGauge extends viz.core.BaseWidget implements viz.core.LoadingIndicatorMethods {
         showLoadingIndicator(): void;
-        /** Conceals the loading indicator. */
         hideLoadingIndicator(): void;
-        /** Redraws a widget. */
-        render(): void;
         /** Returns the main gauge value. */
         value(): number;
         /** Updates a gauge value. */
@@ -6306,11 +6634,11 @@ declare module DevExpress.viz.gauges {
         subvalues(subvalues: Array<number>): void;
     }
     export interface LinearRangeContainer extends BaseRangeContainer {
-        /** Specifies the orientation of the range container on a vertically oriented dxLinearGauge widget. */
+        /** Specifies the orientation of the range container on a vertically oriented LinearGauge widget. */
         horizontalOrientation?: string;
-        /** Specifies the orientation of a range container on a horizontally oriented dxLinearGauge widget. */
+        /** Specifies the orientation of a range container on a horizontally oriented LinearGauge widget. */
         verticalOrientation?: string;
-        /** Specifies the width of the range container's start and end boundaries in the dxLinearGauge widget. */
+        /** Specifies the width of the range container's start and end boundaries in the LinearGauge widget. */
         width?: any;
         /** Specifies an end width of a range container. */
         end?: number;
@@ -6322,29 +6650,24 @@ declare module DevExpress.viz.gauges {
         indentFromTick?: number;
     }
     export interface LinearScale extends BaseScale {
-        /** Specifies the orientation of scale ticks on a vertically oriented dxLinearGauge widget. */
+        /** Specifies the orientation of scale ticks on a vertically oriented LinearGauge widget. */
         horizontalOrientation?: string;
         label?: LinearScaleLabel;
-        /** Specifies the orientation of scale ticks on a horizontally oriented dxLinearGauge widget. */
+        /** Specifies the orientation of scale ticks on a horizontally oriented LinearGauge widget. */
         verticalOrientation?: string;
     }
     export interface dxLinearGaugeOptions extends BaseGaugeOptions {
-        /** Specifies the options required to set the geometry of the dxLinearGauge widget. */
+        /** Specifies the options required to set the geometry of the LinearGauge widget. */
         geometry?: {
-            /** Indicates whether to display the dxLinearGauge widget vertically or horizontally. */
+            /** Indicates whether to display the LinearGauge widget vertically or horizontally. */
             orientation?: string;
         };
         /** Specifies gauge range container options. */
         rangeContainer?: LinearRangeContainer;
         scale?: LinearScale;
     }
-    /** A widget that represents a gauge with a linear scale. */
-    export class dxLinearGauge extends dxBaseGauge {
-        constructor(element: JQuery, options?: dxLinearGaugeOptions);
-        constructor(element: Element, options?: dxLinearGaugeOptions);
-    }
     export interface CircularRangeContainer extends BaseRangeContainer {
-        /** Specifies the orientation of the range container in the dxCircularGauge widget. */
+        /** Specifies the orientation of the range container in the CircularGauge widget. */
         orientation?: string;
         /** Specifies the range container's width in pixels. */
         width?: number;
@@ -6359,7 +6682,7 @@ declare module DevExpress.viz.gauges {
         orientation?: string;
     }
     export interface dxCircularGaugeOptions extends BaseGaugeOptions {
-        /** Specifies the options required to set the geometry of the dxCircularGauge widget. */
+        /** Specifies the options required to set the geometry of the CircularGauge widget. */
         geometry?: {
             /** Specifies the end angle of the circular gauge's arc. */
             endAngle?: number;
@@ -6369,11 +6692,6 @@ declare module DevExpress.viz.gauges {
         /** Specifies gauge range container options. */
         rangeContainer?: CircularRangeContainer;
         scale?: CircularScale;
-    }
-    /** A widget that represents a gauge with a circular scale. */
-    export class dxCircularGauge extends dxBaseGauge {
-        constructor(element: JQuery, options?: dxCircularGaugeOptions);
-        constructor(element: Element, options?: dxCircularGaugeOptions);
     }
     export interface dxBarGaugeOptions extends viz.core.BaseWidgetOptions, SharedGaugeOptions {
         /** Specifies a color for the remaining segment of the bar's track. */
@@ -6402,10 +6720,13 @@ declare module DevExpress.viz.gauges {
             /** Specifies font options for bar labels. */
             font?: viz.core.Font;
             /** Specifies a format for bar labels. */
-            format?: string;
+            format?: any;
             /** Specifies the distance between the upper bar and bar labels in pixels. */
             indent?: number;
-            /** Specifies a precision for the formatted value displayed by labels. */
+            /**
+             * Specifies a precision for the formatted value displayed by labels.
+             * @deprecated Use the label | format | precision option instead.
+             */
             precision?: number;
             /** Specifies whether bar labels appear on a gauge or not. */
             visible?: boolean;
@@ -6419,16 +6740,24 @@ declare module DevExpress.viz.gauges {
         /** Specifies the array of values to be indicated on a bar gauge. */
         values?: Array<number>;
     }
+}
+declare module DevExpress.viz {
+    /** A widget that represents a gauge with a linear scale. */
+    export class dxLinearGauge extends DevExpress.viz.gauges.dxBaseGauge {
+        constructor(element: JQuery, options?: DevExpress.viz.gauges.dxLinearGaugeOptions);
+        constructor(element: Element, options?: DevExpress.viz.gauges.dxLinearGaugeOptions);
+    }
+    /** A widget that represents a gauge with a circular scale. */
+    export class dxCircularGauge extends DevExpress.viz.gauges.dxBaseGauge {
+        constructor(element: JQuery, options?: DevExpress.viz.gauges.dxCircularGaugeOptions);
+        constructor(element: Element, options?: DevExpress.viz.gauges.dxCircularGaugeOptions);
+    }
     /** A circular bar widget. */
-    export class dxBarGauge extends viz.core.BaseWidget {
-        constructor(element: JQuery, options?: dxBarGaugeOptions);
-        constructor(element: Element, options?: dxBarGaugeOptions);
-        /** Displays the loading indicator. */
+    export class dxBarGauge extends viz.core.BaseWidget implements viz.core.LoadingIndicatorMethods {
+        constructor(element: JQuery, options?: DevExpress.viz.gauges.dxBarGaugeOptions);
+        constructor(element: Element, options?: DevExpress.viz.gauges.dxBarGaugeOptions);
         showLoadingIndicator(): void;
-        /** Conceals the loading indicator. */
         hideLoadingIndicator(): void;
-        /** Redraws the widget. */
-        render(): void;
         /** Returns an array of gauge values. */
         values(): Array<number>;
         /** Updates the values displayed by a gauge. */
@@ -6438,19 +6767,19 @@ declare module DevExpress.viz.gauges {
 interface JQuery {
     dxLinearGauge(options?: DevExpress.viz.gauges.dxLinearGaugeOptions): JQuery;
     dxLinearGauge(methodName: string, ...params: any[]): any;
-    dxLinearGauge(methodName: "instance"): DevExpress.viz.gauges.dxLinearGauge;
+    dxLinearGauge(methodName: "instance"): DevExpress.viz.dxLinearGauge;
     dxCircularGauge(options?: DevExpress.viz.gauges.dxCircularGaugeOptions): JQuery;
     dxCircularGauge(methodName: string, ...params: any[]): any;
-    dxCircularGauge(methodName: "instance"): DevExpress.viz.gauges.dxCircularGauge;
+    dxCircularGauge(methodName: "instance"): DevExpress.viz.dxCircularGauge;
     dxBarGauge(options?: DevExpress.viz.gauges.dxBarGaugeOptions): JQuery;
     dxBarGauge(methodName: string, ...params: any[]): any;
-    dxBarGauge(methodName: "instance"): DevExpress.viz.gauges.dxBarGauge;
+    dxBarGauge(methodName: "instance"): DevExpress.viz.dxBarGauge;
 }
 declare module DevExpress.viz.rangeSelector {
-    export interface dxRangeSelectorOptions extends viz.core.BaseWidgetOptions {
+    export interface dxRangeSelectorOptions extends viz.core.BaseWidgetOptions, viz.core.MarginOptions, viz.core.RedrawOnResizeOptions, viz.core.TitleOptions, viz.core.LoadingIndicatorOptions, viz.core.ExportOptions {
         /** Specifies the options for the range selector's background. */
         background?: {
-            /** Specifies the background color for the dxRangeSelector. */
+            /** Specifies the background color for the RangeSelector. */
             color?: string;
             /** Specifies image options. */
             image?: {
@@ -6462,9 +6791,7 @@ declare module DevExpress.viz.rangeSelector {
             /** Indicates whether or not the background (background color and/or image) is visible. */
             visible?: boolean;
         };
-        /** Specifies a title for the range selector. */
-        title?: viz.core.Title;
-        /** Specifies the dxRangeSelector's behavior options. */
+        /** Specifies the RangeSelector's behavior options. */
         behavior?: {
             /** Indicates whether or not you can swap sliders. */
             allowSlidersSwap?: boolean;
@@ -6510,7 +6837,7 @@ declare module DevExpress.viz.rangeSelector {
             topIndent?: number;
             /** Specifies whether or not to filter the series points depending on their quantity. */
             useAggregation?: boolean;
-            /** Specifies options for the chart's value axis. */
+            /** Configures the chart value axis. */
             valueAxis?: {
                 /** Indicates whether or not the chart's value axis must be inverted. */
                 inverted?: boolean;
@@ -6532,12 +6859,6 @@ declare module DevExpress.viz.rangeSelector {
         dataSource?: any;
         /** Specifies the data source field that provides data for the scale. */
         dataSourceField?: string;
-        /** Specifies the appearance of the loading indicator. */
-        loadingIndicator?: viz.core.LoadingIndicator;
-        /** Specifies the blank space in pixels between the dxRangeSelector widget's extreme elements and the boundaries of the area provided for the widget (see size). */
-        margin?: viz.core.Margins;
-        /** Specifies whether to redraw the widget when the size of the parent browser window changes or a mobile device rotates. */
-        redrawOnResize?: boolean;
         /** Specifies options of the range selector's scale. */
         scale?: {
             /** Specifies the scale's end value. */
@@ -6549,8 +6870,11 @@ declare module DevExpress.viz.rangeSelector {
                 /** Specifies font options for the text displayed in the range selector's scale labels. */
                 font?: viz.core.Font;
                 /** Specifies a format for the text displayed in scale labels. */
-                format?: string;
-                /** Specifies a precision for the formatted value displayed in the scale labels. */
+                format?: any;
+                /**
+                 * Specifies a precision for the formatted value displayed in the scale labels.
+                 * @deprecated Use the scale | label | format | precision option instead.
+                 */
                 precision?: number;
                 /** Specifies a spacing between scale labels and the background bottom edge. */
                 topIndent?: number;
@@ -6573,7 +6897,7 @@ declare module DevExpress.viz.rangeSelector {
                     /** Specifies a callback function that returns the text to be displayed in scale markers. */
                     customizeText?: (markerValue: { value: any; valueText: string }) => string;
                     /** Specifies a format for the text displayed in scale markers. */
-                    format?: string;
+                    format?: any;
                 };
                 /** Specifies the height of the marker's separator. */
                 separatorHeight?: number;
@@ -6636,11 +6960,11 @@ declare module DevExpress.viz.rangeSelector {
 			/** Specifies the order of arguments on a discrete scale. */
 			categories?: Array<any>;
         };
-        /** Specifies the range to be selected when displaying the dxRangeSelector. */
+        /** Specifies the range to be selected when displaying the RangeSelector. */
         selectedRange?: {
-            /** Specifies the start value of the range to be selected when displaying the dxRangeSelector widget on a page. */
+            /** Specifies the start value of the range to be selected when displaying the RangeSelector widget on a page. */
             startValue?: any;
-            /** Specifies the end value of the range to be selected when displaying the dxRangeSelector widget on a page. */
+            /** Specifies the end value of the range to be selected when displaying the RangeSelector widget on a page. */
             endValue?: any;
         };
         /** Specifies the color of the selected range. */
@@ -6666,8 +6990,6 @@ declare module DevExpress.viz.rangeSelector {
             /** Specifies the opacity of the color of shutters. */
             opacity?: number;
         };
-        /** Specifies in pixels the size of the dxRangeSelector widget. */
-        size?: viz.core.Size;
         /** Specifies the appearance of the range selector's slider handles. */
         sliderHandle?: {
             /** Specifies the color of the slider handles. */
@@ -6686,7 +7008,7 @@ declare module DevExpress.viz.rangeSelector {
             /** Specifies font options for the text displayed by the range selector slider markers. */
             font?: viz.core.Font;
             /** Specifies a format for the text displayed in slider markers. */
-            format?: string;
+            format?: any;
             /** Specifies the color used for the slider marker text when the currently selected range does not match the minRange and maxRange values. */
             invalidRangeColor?: string;
             /**
@@ -6715,19 +7037,22 @@ declare module DevExpress.viz.rangeSelector {
                     right?: number;
                 };
             };
-            /** Specifies a precision for the formatted value displayed in slider markers. */
+            /**
+             * Specifies a precision for the formatted value displayed in slider markers.
+             * @deprecated Use the sliderMarker | format | precision option instead.
+             */
             precision?: number;
             /** Indicates whether or not the slider markers are visible. */
             visible?: boolean;
         };
     }
+}
+declare module DevExpress.viz {
     /** A widget that allows end users to select a range of values on a scale. */
-    export class dxRangeSelector extends viz.core.BaseWidget {
-        constructor(element: JQuery, options?: dxRangeSelectorOptions);
-        constructor(element: Element, options?: dxRangeSelectorOptions);
-        /** Displays the loading indicator. */
+    export class dxRangeSelector extends viz.core.BaseWidget implements viz.core.LoadingIndicatorMethods {
+        constructor(element: JQuery, options?: DevExpress.viz.rangeSelector.dxRangeSelectorOptions);
+        constructor(element: Element, options?: DevExpress.viz.rangeSelector.dxRangeSelectorOptions);
         showLoadingIndicator(): void;
-        /** Conceals the loading indicator. */
         hideLoadingIndicator(): void;
         /** Redraws a widget. */
         render(skipChartAnimation?: boolean): void;
@@ -6740,7 +7065,7 @@ declare module DevExpress.viz.rangeSelector {
 interface JQuery {
     dxRangeSelector(options?: DevExpress.viz.rangeSelector.dxRangeSelectorOptions): JQuery;
     dxRangeSelector(methodName: string, ...params: any[]): any;
-    dxRangeSelector(methodName: "instance"): DevExpress.viz.rangeSelector.dxRangeSelector;
+    dxRangeSelector(methodName: "instance"): DevExpress.viz.dxRangeSelector;
 }
 declare module DevExpress.viz.map {
     /** This section describes the fields and methods that can be used in code to manipulate the Layer object. */
@@ -6919,7 +7244,7 @@ declare module DevExpress.viz.map {
         customize?: (eleemnts: Array<MapLayerElement>) => void;
         /** Specifies marker label options. */
         label?: {
-            /** The name of the dataSource attribute containing marker texts. */
+            /** The name of the data source attribute containing marker texts. */
             dataField?: string;
             /** Enables marker labels. */
             enabled?: boolean;
@@ -7158,7 +7483,7 @@ declare module DevExpress.viz.map {
          */
         sizeGroupingField?: string;
     }
-    export interface dxVectorMapOptions extends viz.core.BaseWidgetOptions {
+    export interface dxVectorMapOptions extends viz.core.BaseWidgetOptions, viz.core.RedrawOnResizeOptions, viz.core.TitleOptions, viz.core.LoadingIndicatorOptions, viz.core.ExportOptions {
         /**
          * An object specifying options for the map areas.
          * @deprecated Use the "area" type element of the layers array.
@@ -7171,7 +7496,7 @@ declare module DevExpress.viz.map {
             /** Specifies a color for the background. */
             color?: string;
         };
-        /** Specifies options for dxVectorMap widget layers. */
+        /** Specifies options for VectorMap widget layers. */
         layers?: Array<MapLayerSettings>;
         /** Specifies the map projection. */
         projection?: Object;
@@ -7194,8 +7519,6 @@ declare module DevExpress.viz.map {
             /** Specifies the opacity of the control bar. */
             opacity?: number;
         };
-        /** Specifies the appearance of the loading indicator. */
-        loadingIndicator?: viz.core.LoadingIndicator;
         /**
          * Specifies a data source for the map area.
          * @deprecated Use the layers | dataSource option instead.
@@ -7211,11 +7534,7 @@ declare module DevExpress.viz.map {
          * @deprecated Use the "marker" type element of the layers array.
          */
         markerSettings?: MarkerSettings;
-        /** Specifies the size of the dxVectorMap widget. */
-        size?: viz.core.Size;
-        /** Specifies a title for the vector map. */
-        title?: viz.core.Title;
-        /** Specifies tooltip options. */
+        /** Configures tooltips. */
         tooltip?: viz.core.Tooltip;
         /** Configures map legends. */
         legends?: Array<Legend>;
@@ -7297,6 +7616,8 @@ declare module DevExpress.viz.map {
     export interface Legend extends viz.core.BaseLegend {
         /** Specifies the color of item markers in the legend. The specified color applied only when the legend uses 'size' source. */
         markerColor?: string;
+        /** Specifies the shape of item markers. */
+        markerShape?: string;
         /** Specifies text for legend items. */
         customizeText?: (itemInfo: { start: number; end: number; index: number; color: string; size: number; }) => string;
         /** Specifies text for a hint that appears when a user hovers the mouse pointer over the text of a legend item. */
@@ -7309,16 +7630,27 @@ declare module DevExpress.viz.map {
             grouping?: string;
         }
     }
+    export var projection: ProjectionCreator;
+    export interface ProjectionCreator {
+        /** Creates a new projection. */
+        (data: {
+            to?: (coordinates: Array<number>) => Array<number>;
+            from?: (coordinates: Array<number>) => Array<number>;
+            aspectRatio?: number;
+        }): Object;
+        /** Gets the default or custom projection from the projection storage. */
+        get(name: string): Object;
+        /** Adds a new projection to the internal projections storage. */
+        add(name: string, projection: Object): void;
+    }
+}
+declare module DevExpress.viz{
     /** A vector map widget. */
-    export class dxVectorMap extends viz.core.BaseWidget {
-        constructor(element: JQuery, options?: dxVectorMapOptions);
-        constructor(element: Element, options?: dxVectorMapOptions);
-        /** Displays the loading indicator. */
+    export class dxVectorMap extends viz.core.BaseWidget implements viz.core.LoadingIndicatorMethods {
+        constructor(element: JQuery, options?: DevExpress.viz.map.dxVectorMapOptions);
+        constructor(element: Element, options?: DevExpress.viz.map.dxVectorMapOptions);
         showLoadingIndicator(): void;
-        /** Conceals the loading indicator. */
         hideLoadingIndicator(): void;
-        /** Redraws a widget. */
-        render(): void;
         /** Gets the current coordinates of the map center. */
         center(): Array<number>;
         /** Sets the coordinates of the map center. */
@@ -7338,21 +7670,21 @@ declare module DevExpress.viz.map {
         /** Converts client area coordinates into map coordinates. */
         convertCoordinates(x: number, y: number): Array<number>;
         /** Gets all map layers. */
-        getLayers(): Array<MapLayer>;
+        getLayers(): Array<DevExpress.viz.map.MapLayer>;
         /** Gets the layer by its index. */
-        getLayerByIndex(index: number): MapLayer;
+        getLayerByIndex(index: number): DevExpress.viz.map.MapLayer;
         /** Gets the layer by its name. */
-        getLayerByName(name: string): MapLayer;
+        getLayerByName(name: string): DevExpress.viz.map.MapLayer;
         /**
          * Returns an array with all the map areas.
          * @deprecated Use the layer's getElements() method instead.
          */
-        getAreas(): Array<Area>;
+        getAreas(): Array<DevExpress.viz.map.Area>;
         /**
          * Returns an array with all the map markers.
          * @deprecated Use the layer's getElements() method instead.
          */
-        getMarkers(): Array<Marker>;
+        getMarkers(): Array<DevExpress.viz.map.Marker>;
         /** Gets the current coordinates of the map viewport. */
         viewport(): Array<any>;
         /** Sets the coordinates of the map viewport. */
@@ -7362,24 +7694,11 @@ declare module DevExpress.viz.map {
         /** Sets the value of the map zoom factor. */
         zoomFactor(zoomFactor: number): void;
     }
-    export var projection: ProjectionCreator;
-    export interface ProjectionCreator {
-        /** Creates a new projection. */
-        (data: {
-            to?: (coordinates: Array<number>) => Array<number>;
-            from?: (coordinates: Array<number>) => Array<number>;
-            aspectRatio?: number;
-        }): Object;
-        /** Gets the default or custom projection from the projection storage. */
-        get(name: string): Object;
-        /** Adds a new projection to the internal projections storage. */
-        add(name: string, projection: Object): void;
-    }
 }
 interface JQuery {
     dxVectorMap(options?: DevExpress.viz.map.dxVectorMapOptions): JQuery;
     dxVectorMap(methodName: string, ...params: any[]): any;
-    dxVectorMap(methodName: "instance"): DevExpress.viz.map.dxVectorMap;
+    dxVectorMap(methodName: "instance"): DevExpress.viz.dxVectorMap;
 }
 declare module DevExpress.viz.sparklines {
     export interface SparklineTooltip extends viz.core.Tooltip {
@@ -7394,12 +7713,8 @@ declare module DevExpress.viz.sparklines {
          */
         verticalAlignment?: string;
     }
-    export interface BaseSparklineOptions extends viz.core.BaseWidgetOptions {
-        /** Specifies the blank space between the widget's extreme elements and the boundaries of the area provided for the widget in pixels. */
-        margin?: viz.core.Margins;
-        /** Specifies the size of the widget. */
-        size?: viz.core.Size;
-        /** Specifies tooltip options. */
+    export interface BaseSparklineOptions extends viz.core.BaseWidgetOptions, viz.core.MarginOptions {
+        /** Configures the tooltip. */
         tooltip?: SparklineTooltip;
         /** A handler for the tooltipShown event. */
         onTooltipShown?: (e: {
@@ -7414,10 +7729,8 @@ declare module DevExpress.viz.sparklines {
     }
     /** Overridden by descriptions for particular widgets. */
     export class BaseSparkline extends viz.core.BaseWidget {
-        /** Redraws a widget. */
-        render(): void;
     }
-    export interface dxBulletOptions extends BaseSparkline {
+    export interface dxBulletOptions extends BaseSparklineOptions {
         /** Specifies a color for the bullet bar. */
         color?: string;
         /** Specifies an end value for the invisible scale. */
@@ -7436,11 +7749,6 @@ declare module DevExpress.viz.sparklines {
         targetWidth?: number;
         /** Specifies the primary value indicated by the bullet bar. */
         value?: number;
-    }
-    /** A bullet graph widget. */
-    export class dxBullet extends BaseSparkline {
-        constructor(element: JQuery, options?: dxBulletOptions);
-        constructor(element: Element, options?: dxBulletOptions);
     }
     export interface dxSparklineOptions extends BaseSparklineOptions {
         /** Specifies the data source field that provides arguments for a sparkline. */
@@ -7488,17 +7796,257 @@ declare module DevExpress.viz.sparklines {
         /** Specifies the maximum value of the sparkline's value axis. */
         maxValue?: number;
     }
+}
+declare module DevExpress.viz {
+    /** A bullet graph widget. */
+    export class dxBullet extends DevExpress.viz.sparklines.BaseSparkline {
+        constructor(element: JQuery, options?: DevExpress.viz.sparklines.dxBulletOptions);
+        constructor(element: Element, options?: DevExpress.viz.sparklines.dxBulletOptions);
+    }
     /** A sparkline widget. */
-    export class dxSparkline extends BaseSparkline {
-        constructor(element: JQuery, options?: dxSparklineOptions);
-        constructor(element: Element, options?: dxSparklineOptions);
+    export class dxSparkline extends DevExpress.viz.sparklines.BaseSparkline {
+        constructor(element: JQuery, options?: DevExpress.viz.sparklines.dxSparklineOptions);
+        constructor(element: Element, options?: DevExpress.viz.sparklines.dxSparklineOptions);
     }
 }
 interface JQuery {
     dxBullet(options?: DevExpress.viz.sparklines.dxBulletOptions): JQuery;
     dxBullet(methodName: string, ...params: any[]): any;
-    dxBullet(methodName: "instance"): DevExpress.viz.sparklines.dxBullet;
+    dxBullet(methodName: "instance"): DevExpress.viz.dxBullet;
     dxSparkline(options?: DevExpress.viz.sparklines.dxSparklineOptions): JQuery;
     dxSparkline(methodName: string, ...params: any[]): any;
-    dxSparkline(methodName: "instance"): DevExpress.viz.sparklines.dxSparkline;
+    dxSparkline(methodName: "instance"): DevExpress.viz.dxSparkline;
+}
+declare module DevExpress.viz.treeMap {
+    export interface dxTreeMapOptions extends viz.core.BaseWidgetOptions, viz.core.RedrawOnResizeOptions, viz.core.TitleOptions, viz.core.LoadingIndicatorOptions, viz.core.ExportOptions {
+        /** Specifies the origin of data for the widget. */
+        dataSource?: any;
+        /** Specifies the name of the data source field that provides nested items for a group. Applies to hierarchical data sources only. */
+        childrenField?: string;
+        /** Specifies the name of the data source field that provides values for tiles. */
+        valueField?: string;
+        /** Specifies the name of the data source field that provides colors for tiles. */
+        colorField?: string;
+        /** Specifies the name of the data source field that provides texts for tile and group labels. */
+        labelField?: string;
+        /** Specifies the name of the data source field that provides IDs for items. Applies to flat data sources only. */
+        idField?: string;
+        /** Specifies the name of the data source field that provides parent IDs for items. Applies to flat data sources only. */
+        parentField?: string;
+        /** Specifies the layout algorithm. */
+        layoutAlgorithm?: any;
+        /** Specifies the direction in which the items will be laid out. */
+        layoutDirection?: string;
+        /** Configures tiles. */
+        tile?: {
+            /** Configures the tile borders. */
+            border?: {
+                /** Specifies the width of the tile borders in pixels. */
+                width?: number;
+                /** Colors the tile borders. */
+                color?: string;
+            };
+            /** Specifies a single color for all tiles. */
+            color?: string;
+            /** Specifies the appearance of tiles in the hover state. */
+            hoverStyle?: {
+                /** Configures the appearance of the tile borders in the hover state. */
+                border?: {
+                    /** Specifies the width of the tile borders in pixels. Applies to a tile in the hover state. */
+                    width?: number;
+                    /** Colors the tile borders in the hover state. */
+                    color?: string;
+                };
+                /** Colors tiles in the hover state. */
+                color?: string;
+            };
+            /** Specifies the appearance of tiles in the selected state. */
+            selectionStyle?: {
+                /** Configures the appearance of the tile borders in the selected state. */
+                border?: {
+                    /** Specifies the width of the tile borders in pixels. Applies to a tile in the selected state. */
+                    width?: number;
+                    /** Colors the tile borders in the selected state. */
+                    color?: string;
+                };
+                /** Colors tiles in the selected state. */
+                color?: string;
+            };
+            /** Configures the tile labels. */
+            label?: {
+                /** Changes the visibility of the tile labels. */
+                visible?: boolean;
+                /** Specifies the font settings of the tile labels. */
+                font?: viz.core.Font;
+            };
+        };
+        /** Configures groups. */
+        group?: {
+            /** Specifies the height of the group headers in pixels. */
+            headerHeight?: number;
+            /** Configures the group borders. */
+            border?: {
+                /** Specifies the width of the group borders in pixels. */
+                width?: number;
+                /** Colors the group borders. */
+                color?: string;
+            };
+            /** Colors the group headers. */
+            color?: string;
+            /** Specifies the appearance of groups in the hover state. */
+            hoverStyle?: {
+                /** Configures the appearance of the group borders in the hover state. */
+                border?: {
+                    /** Specifies the width of the group borders in pixels. Applies to a group in the hover state. */
+                    width?: number;
+                    /** Colors the group borders in the hover state. */
+                    color?: string;
+                };
+                /** Colors the group headers in the hover state. */
+                color?: string;
+            };
+            /** Specifies the appearance of groups in the selected state. */
+            selectionStyle?: {
+                /** Configures the appearance of the group borders in the selected state. */
+                border?: {
+                    /** Specifies the width of the group borders in pixels. Applies to a group in the selected state. */
+                    width?: number;
+                    /** Colors the group borders in the selected state. */
+                    color?: string;
+                };
+                /** Colors the group headers in the selected state. */
+                color?: string;
+            };
+            /** Configures the group labels. */
+            label?: {
+                /** Changes the visibility of the group labels. */
+                visible?: boolean;
+                /** Specifies the font settings of the group labels. */
+                font?: viz.core.Font;
+            };
+        };
+        /** Manages the color settings. */
+        colorizer?: {
+            /** Specifies the colorizing algorithm. */
+            type?: string;
+            /** Sets the palette to be used for colorizing tiles. */
+            palette?: any;
+            /** Specifies whether or not all tiles in a group must be colored uniformly. Applies only if the type option is "discrete". */
+            colorizeGroups?: boolean;
+            /** Allows you to paint tiles with similar values uniformly. Applies only if the type option is "gradient" or "range". */
+            range?: Array<number>;
+            /** Specifies the name of the data source field whose values define the color of a tile. Applies only if the type option is "gradient" or "range". */
+            colorCodeField?: string;
+        };
+        /** Specifies whether tiles and groups change their style in the hover state. */
+        hoverEnabled?: boolean;
+        /** Specifies whether a single or multiple nodes can be in the selected state simultaneously. */
+        selectionMode?: string;
+        /** Specifies how many hierarchical levels must be visualized. */
+        maxDepth?: number;
+        /** Specifies whether the user will interact with a single tile or its group. */
+        interactWithGroup?: boolean;
+        tooltip?: viz.core.Tooltip;
+        /** A handler for the nodesInitialized event. */
+        onNodesInitialized?: (e: {
+            component: dxTreeMap;
+            element: Element;
+            root: TreeMapNode
+        }) => void;
+        /** A handler for the nodesRendering event. */
+        onNodesRendering?: (e: {
+            component: dxTreeMap;
+            element: Element;
+            node: TreeMapNode
+        }) => void;
+        /** A handler for the click event. */
+        onClick?: any;
+        /** A handler for the hoverChanged event. */
+        onHoverChanged?: (e: {
+            component: dxTreeMap;
+            element: Element;
+            node: TreeMapNode;
+        }) => void;
+        /** A handler for the selectionChanged event. */
+        onSelectionChanged?: (e: {
+            component: dxTreeMap;
+            element: Element;
+            node: TreeMapNode;
+        }) => void;
+        /** A handler for the drill event. */
+        onDrill?: (e: {
+            component: dxTreeMap;
+            element: Element;
+            node: TreeMapNode
+        }) => void;
+    }
+    /** This section describes fields and methods that can be used in code to manipulate a Node object. */
+    export interface TreeMapNode {
+        /** The level that the current node occupies in the hierarchy of nodes. */
+        level: number;
+        /** The index of the current node in the array of all nodes on the same level. */
+        index: number;
+        /** The object from the data source visualized by the node. */
+        data: Object;
+        /** Returns the parent node of the current node. */
+        getParent(): TreeMapNode;
+        /** Indicates how many direct descendants the current node has. */
+        getChildrenCount(): number;
+        /** Returns all nodes nested in the current node. */
+        getAllChildren(): Array<TreeMapNode>;
+        /** Returns all descendant nodes. */
+        getAllNodes(): Array<TreeMapNode>;
+        /** Gets a specific node from a collection of direct descendants. */
+        getChild(index: number): TreeMapNode;
+        /** Gets the raw value of the node. */
+        value(): number;
+        /** Returns the label of the node. */
+        label(): string;
+        /** Sets the label to the node. */
+        label(label: string): void;
+        /** Customizes the node. */
+        customize(options: any): void;
+        /** Reverts the appearance of the node to the initial state. */
+        resetCustomization(): void;
+        /** Indicates whether the node is in the hover state or not. */
+        isHovered(): boolean;
+        /** Sets the selection state of a node. */
+        select(state: boolean): void;
+        /** Indicates whether the node is selected or not. */
+        isSelected(): boolean;
+        /** Indicates whether the node is visualized by a tile or a group of tiles. */
+        isLeaf(): boolean;
+        /** Indicates whether the current node is active. */
+        isActive(): boolean;
+        /** Shows the tooltip. */
+        showTooltip(): void;
+        /** Drills down into the node. */
+        drillDown(): void;
+    }
+}
+declare module DevExpress.viz {
+    /** A widget for displaying hierarchical data by using nested rectangles. */
+    export class dxTreeMap extends viz.core.BaseWidget implements viz.core.LoadingIndicatorMethods {
+        constructor(element: JQuery, options?: DevExpress.viz.treeMap.dxTreeMapOptions);
+        constructor(element: Element, options?: DevExpress.viz.treeMap.dxTreeMapOptions);
+        /** Returns the root node. */
+        getRootNode(): DevExpress.viz.treeMap.TreeMapNode;
+        /** Returns the current node. */
+        getCurrentNode(): DevExpress.viz.treeMap.TreeMapNode;
+        /** Deselects all nodes in the widget. */
+        clearSelection(): void;
+        /** Hides the tooltip. */
+        hideTooltip(): void;
+        /** Drills one level up. */
+        drillUp(): void;
+        /** Resets the drill down level. */
+        resetDrillDown(): void;
+        showLoadingIndicator(): void;
+        hideLoadingIndicator(): void;
+    }
+}
+interface JQuery {
+    dxTreeMap(options?: DevExpress.viz.treeMap.dxTreeMapOptions): JQuery;
+    dxTreeMap(methodName: string, ...params: any[]): any;
+    dxTreeMap(methodName: "instance"): DevExpress.viz.dxTreeMap;
 }
