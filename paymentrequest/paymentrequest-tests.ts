@@ -1,5 +1,5 @@
 /// <reference path="index.d.ts" />
-/// <reference path="../promise" />
+/// <reference path="../es6-promise/index.d.ts" />
 
 /// Code examples derived from
 /// https://developers.google.com/web/fundamentals/discovery-and-monetization/payment-request/
@@ -15,7 +15,7 @@ function makeRequest() {
         }
     ]
 
-    const details = {
+    const details: PaymentDetails = {
         displayItems: [
             {
                 label: "Original donation amount",
@@ -39,14 +39,47 @@ function makeRequest() {
     }
 
     const request = new window.PaymentRequest(methodData, details, options)
-    request.addEventListener("shippingaddresschange", onShippingAddressChange)
+    request.addEventListener("shippingaddresschange", (e: any) => {
+		e.updateWith(((details, addr) => {
+			if (addr.country === 'US') {
+				var shippingOption = {
+					id: '',
+					label: '',
+					amount: {currency: 'USD', value: '0.00'},
+					selected: true
+				};
+				if (addr.region === 'US') {
+					shippingOption.id = 'us';
+					shippingOption.label = 'Standard shipping in US';
+					shippingOption.amount.value = '0.00';
+					details.total.amount.value = '55.00';
+				} else {
+					shippingOption.id = 'others';
+					shippingOption.label = 'International shipping';
+					shippingOption.amount.value = '10.00';
+					details.total.amount.value = '65.00';
+				}
+				if (details.displayItems.length === 2) {
+					details.displayItems.splice(1, 0, shippingOption);
+				} else {
+					details.displayItems.splice(1, 1, shippingOption);
+				}
+				
+				details.shippingOptions = [shippingOption];
+			} else {
+				details.shippingOptions = [];
+			}
+			return Promise.resolve(details);
+		})(details, request.shippingAddress));
+	})
 
     return request.show()
 }
 
-async function processPayment() {
+async function processPayment(): Promise<PaymentResponse> {
+	let paymentResponse;
     try {
-        const paymentResponse = await makeRequest()
+        paymentResponse = await makeRequest()
     } catch (error) {
         location.href = '/checkout';
         return;
@@ -58,7 +91,7 @@ async function processPayment() {
         // payment details as you requested
         details: paymentResponse.details,
         // shipping address information
-        address: toDict(paymentResponse.shippingAddress),
+        address: paymentResponse.shippingAddress,
         // shipping option
         shippingOption: paymentResponse.shippingOption
     }
@@ -73,37 +106,7 @@ async function processPayment() {
     }
 }
 
-function onShippingAddressChange(e) {
-    e.updateWith(((details, addr) => {
-        if (addr.country === 'US') {
-            var shippingOption = {
-                id: '',
-                label: '',
-                amount: {currency: 'USD', value: '0.00'},
-                selected: true
-            };
-            if (addr.region === 'US') {
-                shippingOption.id = 'us';
-                shippingOption.label = 'Standard shipping in US';
-                shippingOption.amount.value = '0.00';
-                details.total.amount.value = '55.00';
-            } else {
-                shippingOption.id = 'others';
-                shippingOption.label = 'International shipping';
-                shippingOption.amount.value = '10.00';
-                details.total.amount.value = '65.00';
-            }
-            if (details.displayItems.length === 2) {
-                details.displayItems.splice(1, 0, shippingOption);
-            } else {
-                details.displayItems.splice(1, 1, shippingOption);
-            }
-            details.shippingOptions = [shippingOption];
-        } else {
-            details.shippingOptions = [];
-        }
-        return Promise.resolve(details);
-    })(details, request.shippingAddress));
+function onShippingAddressChange(e: any) {
 }
 
 document.querySelector("#pay").addEventListener("click", processPayment)
