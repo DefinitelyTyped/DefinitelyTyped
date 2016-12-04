@@ -176,7 +176,7 @@ declare namespace React {
         // In the future, if we can define its call signature conditionally
         // on the existence of `children` in `P`, then we should remove this.
         props: P & { children?: ReactNode };
-        state: S;
+        state: S | null;
         context: any;
         refs: {
             [key: string]: ReactInstance
