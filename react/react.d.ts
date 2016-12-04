@@ -2005,6 +2005,7 @@ declare namespace __React {
         optimum?: number;
         pattern?: string;
         placeholder?: string;
+        playsInline?: boolean;
         poster?: string;
         preload?: string;
         radioGroup?: string;
