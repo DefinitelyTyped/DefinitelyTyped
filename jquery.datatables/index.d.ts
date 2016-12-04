@@ -1,4 +1,4 @@
-// Type definitions for JQuery DataTables 1.10.8
+// Type definitions for JQuery DataTables 1.10.9
 // Project: http://www.datatables.net
 // Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>, Omid Rad <https://github.com/omidkrad>, Armin Sander <https://github.com/pragmatrix/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
 // - Plugin and extension definitions are not typed.
 // - Some return types are not fully wokring
 
-/// <reference types="jquery"/>
+/// <reference types="jquery" />
 
 interface JQuery {
     DataTable(param?: DataTables.Settings): DataTables.DataTable;
@@ -1752,9 +1752,10 @@ declare namespace DataTables {
         oFeatures: FeaturesLegacy;
         oScroll: ScrollingLegacy;
         oLanguage: LanguageLegacy; // | { fnInfoCallback: FunctionInfoCallback; };
-        oBrowser: { bScrollOversize: boolean; };
+        oBrowser: BrowserLegacy;
         aanFeatures: ArrayStringNode[][];
         aoData: RowLegacy[];
+        aIds: any;
         aiDisplay: number[];
         aiDisplayMaster: number[];
         aoColumns: ColumnLegacy[];
@@ -1827,6 +1828,14 @@ declare namespace DataTables {
         iTabIndex: number;
         nScrollHead: Node;
         nScrollFoot: Node;
+        rowIdFn: (mSource: string | number | Function) => Function;
+    }
+
+    export interface BrowserLegacy {
+        barWidth: number,
+        bBounding: boolean,
+        bScrollbarLeft: boolean,
+        bScrollOversize: boolean
     }
 
     export interface FeaturesLegacy {

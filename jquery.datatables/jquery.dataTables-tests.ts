@@ -1,4 +1,4 @@
-/// <reference types="jquery" />
+/// <reference types="jquery"/>
 
 
 $(document).ready(function () {
@@ -267,6 +267,17 @@ $(document).ready(function () {
         };
 
     //#endregion "Settings"
+
+    //#region "Settings-Legacy"
+
+    var browserLegacy: DataTables.BrowserLegacy = {
+        barWidth: 10,
+        bBounding: true,
+        bScrollbarLeft: true,
+        bScrollOversize: true
+    }
+    
+    //#endregion
 
     //#region "Init"
 
