@@ -21,10 +21,10 @@ interface IMemoizeeOptions {
   max?: number,
   preFetch?: number,
   promise?: boolean,
-  dispose?: ()=> void,
+  dispose?: (value: any) => void,
   async?: boolean,
   primitive?: boolean,
-  normalizer?:()=> void,
+  normalizer?:(value:any ) => void,
   resolvers?: RevolversArray
 }
 
@@ -34,8 +34,8 @@ interface IMemoizeeOptions {
  * @extends {Function}
  */
 interface IMemoizee extends Function {
-  delete: () => void,
-  clear: () => void
+  delete: (...params: any[]) => void,
+  clear: (...params: any[]) => void
 }
 
 /**
@@ -44,6 +44,6 @@ interface IMemoizee extends Function {
  * @param {IMemoizeeOptions} [options]
  * @returns {IMemoizee}
  */
-declare function memoizee(f: () => void, options?: IMemoizeeOptions): IMemoizee;
+declare function memoizee(f: Function, options?: IMemoizeeOptions): IMemoizee;
 
 export = memoizee;
