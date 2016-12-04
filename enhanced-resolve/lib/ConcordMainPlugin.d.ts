@@ -1,10 +1,12 @@
 import Resolver = require('./Resolver');
+import { Dictionary } from './concord';
+
 declare class ConcordMainPlugin {
+    options: Dictionary<any>;
     source: string;
-    options: {};
     target: string;
 
-    constructor(source: string, options: {}, target: string);
+    constructor(source: string, options: Dictionary<any>, target: string);
 
     apply(resolver: Resolver): void;
 }
