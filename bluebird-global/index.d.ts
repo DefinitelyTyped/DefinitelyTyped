@@ -32,7 +32,6 @@
 import * as Bluebird from "bluebird";
 
 declare global {
-
     /*
      * Patch all instance method
      */
@@ -42,7 +41,6 @@ declare global {
      * Patch all static methods and the constructor
      */
     interface PromiseConstructor {
-
         new <T>(callback: (resolve: (thenableOrResult?: T | Bluebird.Thenable<T>) => void, reject: (error?: any) => void, onCancel?: (callback: () => void) => void) => void): Promise<T>;
 
         all: typeof Bluebird.all;
@@ -75,12 +73,10 @@ declare global {
         some: typeof Bluebird.some;
         try: typeof Bluebird.try;
         using: typeof Bluebird.using;
-
     }
 
     /*
      * Declare the `Promise` variable. This is needed for es5 only and is a no-op for all other targets.
      */
     var Promise: PromiseConstructor;
-
 }
