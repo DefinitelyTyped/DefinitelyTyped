@@ -42,38 +42,40 @@ declare global {
      * Patch all static methods and the constructor
      */
     interface PromiseConstructor {
+
         new <T>(callback: (resolve: (thenableOrResult?: T | Bluebird.Thenable<T>) => void, reject: (error?: any) => void, onCancel?: (callback: () => void) => void) => void): Promise<T>;
 
-        try: typeof Bluebird.try;
+        all: typeof Bluebird.all;
+        any: typeof Bluebird.any;
         attempt: typeof Bluebird.attempt;
-        method: typeof Bluebird.method;
-        resolve: typeof Bluebird.resolve;
-        reject: typeof Bluebird.reject;
-        defer: typeof Bluebird.defer;
-        cast: typeof Bluebird.cast;
         bind: typeof Bluebird.bind;
-        is: typeof Bluebird.is;
-        longStackTraces: typeof Bluebird.longStackTraces;
+        cast: typeof Bluebird.cast;
+        config: typeof Bluebird.config;
+        coroutine: typeof Bluebird.coroutine;
+        defer: typeof Bluebird.defer;
         delay: typeof Bluebird.delay;
+        each: typeof Bluebird.each;
+        filter: typeof Bluebird.filter;
+        fromCallback: typeof Bluebird.fromCallback;
+        fromNode: typeof Bluebird.fromNode;
+        is: typeof Bluebird.is;
+        join: typeof Bluebird.join;
+        longStackTraces: typeof Bluebird.longStackTraces;
+        map: typeof Bluebird.map;
+        mapSeries: typeof Bluebird.mapSeries;
+        method: typeof Bluebird.method;
+        onPossiblyUnhandledRejection: typeof Bluebird.onPossiblyUnhandledRejection;
         promisify: typeof Bluebird.promisify;
         promisifyAll: typeof Bluebird.promisifyAll;
-        fromNode: typeof Bluebird.fromNode;
-        fromCallback: typeof Bluebird.fromCallback;
-        coroutine: typeof Bluebird.coroutine;
-        onPossiblyUnhandledRejection: typeof Bluebird.onPossiblyUnhandledRejection;
-        all: typeof Bluebird.all;
         props: typeof Bluebird.props;
-        any: typeof Bluebird.any;
         race: typeof Bluebird.race;
-        some: typeof Bluebird.some;
-        join: typeof Bluebird.join;
-        map: typeof Bluebird.map;
         reduce: typeof Bluebird.reduce;
-        filter: typeof Bluebird.filter;
-        each: typeof Bluebird.each;
-        mapSeries: typeof Bluebird.mapSeries;
+        reject: typeof Bluebird.reject;
+        resolve: typeof Bluebird.resolve;
+        some: typeof Bluebird.some;
+        try: typeof Bluebird.try;
         using: typeof Bluebird.using;
-        config: typeof Bluebird.config;
+
     }
 
     /*
@@ -82,4 +84,3 @@ declare global {
     var Promise: PromiseConstructor;
 
 }
-
