@@ -8,7 +8,7 @@
  * @interface RevolversArray
  */
 interface RevolversArray {
-    [index:number]:Object
+  [index:number]: {};
 }
 
 /**
@@ -16,16 +16,16 @@ interface RevolversArray {
  * @interface IMemoizeeOptions
  */
 interface IMemoizeeOptions {
-  length?: number,
-  maxAge?: number,
-  max?: number,
-  preFetch?: number,
-  promise?: boolean,
-  dispose?: (value: any) => void,
-  async?: boolean,
-  primitive?: boolean,
-  normalizer?:(value:any ) => void,
-  resolvers?: RevolversArray
+  length?: number;
+  maxAge?: number;
+  max?: number;
+  preFetch?: number;
+  promise?: boolean;
+  dispose?: (value: any) => void;
+  async?: boolean;
+  primitive?: boolean;
+  normalizer?: (value:any ) => void;
+  resolvers?: RevolversArray;
 }
 
 /**
@@ -34,8 +34,8 @@ interface IMemoizeeOptions {
  * @extends {Function}
  */
 interface IMemoizee extends Function {
-  delete: (...params: any[]) => void,
-  clear: (...params: any[]) => void
+  delete: (...params: any[]) => void;
+  clear: (...params: any[]) => void;
 }
 
 /**
@@ -44,6 +44,6 @@ interface IMemoizee extends Function {
  * @param {IMemoizeeOptions} [options]
  * @returns {IMemoizee}
  */
-declare function memoizee(f: Function, options?: IMemoizeeOptions): IMemoizee;
+declare function memoizee(f: (...params: any[])=>void, options?: IMemoizeeOptions): IMemoizee;
 
 export = memoizee;
