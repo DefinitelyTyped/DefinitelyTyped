@@ -1,22 +1,24 @@
+// Tests for the type definitions for The Spotify Web API (including changes March 29th 2016)
+// Project: https://developer.spotify.com/web-api/
+// Definitions by: Niels Kristian Hansen Skovmand <https://github.com/skovmand>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /*
  * This test file contains the sample output from The Spotify Web Api obtained from [The Web API Console](https://developer.spotify.com/web-api/console/)
- * The standard suggested values for input were used.
  * 
- * Updated for the March 29th, 2016 changes to the Spotify Web Api.
- * 
- * Combined with the typings it should compile without errors.
+ * Run the tests (they should always compile without any errors):
+ * tsc spotify-api-tests.ts --target es6 --noImplicitAny
  * 
  * The order of tests is the same as on [The Spotify Web Api](https://developer.spotify.com/web-api/endpoint-reference/)
- * To find tests, search for "* Tests" instead of scrolling to keep sane.
  */
 
 /// <reference path="./spotify-api.d.ts" />
 
-
-
-
 /**
- * Tests the response of https://developer.spotify.com/web-api/get-album/
+ * Get an Album
+ * 
+ * GET /v1/albums/{id}
+ * https://developer.spotify.com/web-api/get-album/
  */
 const getSingleAlbum : SpotifyApi.SingleAlbumResponse = {
   "album_type" : "album",
@@ -401,9 +403,11 @@ const getSingleAlbum : SpotifyApi.SingleAlbumResponse = {
 
 
 
-
 /**
- * Tests https://developer.spotify.com/web-api/get-several-albums/
+ * Get Several Albums
+ * 
+ * GET /v1/albums?ids={ids}
+ * https://developer.spotify.com/web-api/get-several-albums/ 
  */
 const getMultipleAlbumsResponse : SpotifyApi.MultipleAlbumsResponse = {
   "albums" : [ {
@@ -2236,7 +2240,10 @@ const getMultipleAlbumsResponse : SpotifyApi.MultipleAlbumsResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/get-albums-tracks/
+ * Get an Album’s Tracks
+ * 
+ * GET /v1/albums/{id}/tracks
+ * https://developer.spotify.com/web-api/get-albums-tracks/
  */
 const getAlbumTracks : SpotifyApi.AlbumTracksResponse = {
   "href" : "https://api.spotify.com/v1/albums/6akEvsycLGftJxYudPjmqK/tracks?offset=0&limit=2",
@@ -2302,7 +2309,10 @@ const getAlbumTracks : SpotifyApi.AlbumTracksResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/get-artist/
+ * Get an Artist
+ * 
+ * GET /v1/artists/{id}
+ * https://developer.spotify.com/web-api/get-artist/
  */
 const getAnArtist : SpotifyApi.SingleArtistResponse = {
   "external_urls" : {
@@ -2341,7 +2351,10 @@ const getAnArtist : SpotifyApi.SingleArtistResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/get-several-artists/
+ * Get Several Artists
+ * 
+ * GET /v1/artists
+ * https://developer.spotify.com/web-api/get-several-artists/
  */
 const getSeveralArtists : SpotifyApi.MultipleArtistsResponse = {
   "artists" : [ {
@@ -2415,7 +2428,10 @@ const getSeveralArtists : SpotifyApi.MultipleArtistsResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/get-artists-albums/
+ * Get an Artist’s Albums
+ * 
+ * GET /v1/artists/{id}/albums
+ * https://developer.spotify.com/web-api/get-artists-albums/
  */
 const getArtistsAlbums : SpotifyApi.ArtistsAlbumsResponse = {
   "href" : "https://api.spotify.com/v1/artists/1vCWHaC5f2uS3yhpwWbIA6/albums?offset=0&limit=2&album_type=single",
@@ -2477,6 +2493,12 @@ const getArtistsAlbums : SpotifyApi.ArtistsAlbumsResponse = {
 
 
 
+/**
+ * Get an Artist’s Top Tracks
+ * 
+ * GET /v1/artists/{id}/top-tracks
+ * https://developer.spotify.com/web-api/get-artists-top-tracks/
+ */
 const getArtistsTopTracks : SpotifyApi.ArtistsTopTracksResponse = {
   "tracks" : [ {
     "album" : {
@@ -3042,6 +3064,12 @@ const getArtistsTopTracks : SpotifyApi.ArtistsTopTracksResponse = {
 
 
 
+/**
+ * Get an Artist’s Related Artists
+ * 
+ * GET /v1/artists/{id}/related-artists
+ * https://developer.spotify.com/web-api/get-related-artists/
+ */
 const getArtistRelatedArtists : SpotifyApi.ArtistsRelatedArtistsResponse = {
   "artists" : [ {
     "external_urls" : {
@@ -3687,7 +3715,10 @@ const getArtistRelatedArtists : SpotifyApi.ArtistsRelatedArtistsResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/get-audio-features/
+ * Get audio features for a track
+ * 
+ * GET /v1/audio-features/{id}
+ * https://developer.spotify.com/web-api/get-audio-features/
  */
 const singleAudioFeaturesResponse : SpotifyApi.AudioFeaturesResponse = { 
   "danceability": 0.281,
@@ -3715,7 +3746,10 @@ const singleAudioFeaturesResponse : SpotifyApi.AudioFeaturesResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/get-several-audio-features/
+ * Get audio features for several tracks
+ * 
+ * GET /v1/audio-features?ids={ids}
+ * https://developer.spotify.com/get-several-audio-features/
  */
 const severalAudioFeaturesResponse : SpotifyApi.MultipleAudioFeaturesResponse = { audio_features: 
    [ { "danceability": 0.808,
@@ -3782,7 +3816,10 @@ const severalAudioFeaturesResponse : SpotifyApi.MultipleAudioFeaturesResponse = 
 
 
 /**
- * Tests https://developer.spotify.com/web-api/get-list-featured-playlists/
+ * Get a list of featured playlists
+ * 
+ * GET /v1/browse/featured-playlists
+ * https://developer.spotify.com/web-api/get-list-featured-playlists/
  */
 const featuredPlaylists : SpotifyApi.ListOfFeaturedPlaylistsResponse = {
   "message" : "Enjoy a mellow afternoon.",
@@ -3861,7 +3898,10 @@ const featuredPlaylists : SpotifyApi.ListOfFeaturedPlaylistsResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/get-list-new-releases/
+ * Get a list of new releases
+ * 
+ * GET /v1/browse/new-releases
+ * https://developer.spotify.com/web-api/get-list-new-releases/
  */
 const newReleases : SpotifyApi.ListOfNewReleasesResponse = {
   "albums" : {
@@ -4359,7 +4399,10 @@ const newReleases : SpotifyApi.ListOfNewReleasesResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/get-list-categories/
+ * Get a list of categories
+ * 
+ * GET /v1/browse/categories
+ * https://developer.spotify.com/web-api/get-list-categories/
  */
 const listOfCategories : SpotifyApi.MultipleCategoriesResponse = {
   "categories" : {
@@ -4557,7 +4600,10 @@ const listOfCategories : SpotifyApi.MultipleCategoriesResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/get-category/
+ * Get a category
+ * 
+ * GET /v1/browse/categories/{category_id}
+ * https://developer.spotify.com/web-api/get-category/
  */
 const category : SpotifyApi.SingleCategoryResponse = {
   "href" : "https://api.spotify.com/v1/browse/categories/rock",
@@ -4574,7 +4620,10 @@ const category : SpotifyApi.SingleCategoryResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/get-categorys-playlists/
+ * Get a categorys playlists
+ * 
+ * GET /v1/browse/categories/{id}/playlists
+ * https://developer.spotify.com/web-api/get-categorys-playlists/
  */
 const categoryPlaylists : SpotifyApi.CategoryPlaylistsReponse = {
   "playlists" : {
@@ -4651,8 +4700,12 @@ const categoryPlaylists : SpotifyApi.CategoryPlaylistsReponse = {
 
 
 
+
 /**
- * Tests https://developer.spotify.com/web-api/get-current-users-profile/
+ * Get Current User’s Profile
+ * 
+ * GET /v1/me
+ * https://developer.spotify.com/web-api/get-current-users-profile/
  */
 const userProfilePrivate : SpotifyApi.CurrentUsersProfileResponse = {
   "birthdate" : "1982-06-29",
@@ -4678,7 +4731,10 @@ const userProfilePrivate : SpotifyApi.CurrentUsersProfileResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/get-followed-artists/
+ * Get User’s Followed Artists
+ * 
+ * GET /v1/me/following?type=artist
+ * https://developer.spotify.com/web-api/get-followed-artists/
  */
 const followedArtists : SpotifyApi.UsersFollowedArtistsResponse = {
   "artists" : {
@@ -4757,7 +4813,10 @@ const followedArtists : SpotifyApi.UsersFollowedArtistsResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/follow-artists-users/
+ * Follow artists or users
+ * 
+ * PUT /v1/me/following
+ * https://developer.spotify.com/web-api/follow-artists-users/
  */
 const followArtistsOrUsers : SpotifyApi.FollowArtistsOrUsersResponse = {}
 
@@ -4765,7 +4824,10 @@ const followArtistsOrUsers : SpotifyApi.FollowArtistsOrUsersResponse = {}
 
 
 /**
- * Tests https://developer.spotify.com/web-api/unfollow-artists-users/
+ * Unfollow artists or users
+ * 
+ * DELETE /v1/me/following
+ * https://developer.spotify.com/web-api/unfollow-artists-users/
  */
 const unfollowArtistsOrUsers : SpotifyApi.UnfollowArtistsOrUsersResponse = {}
 
@@ -4773,7 +4835,10 @@ const unfollowArtistsOrUsers : SpotifyApi.UnfollowArtistsOrUsersResponse = {}
 
 
 /**
- * Tests https://developer.spotify.com/web-api/check-current-user-follows/
+ * Check if User Follows Users or Artists
+ * 
+ * GET /v1/me/following/contains
+ * https://developer.spotify.com/web-api/check-current-user-follows/
  */
 const checkCurrentUserFollows : SpotifyApi.UserFollowsUsersOrArtistsResponse = [ true, true, false ];
 
@@ -4781,7 +4846,10 @@ const checkCurrentUserFollows : SpotifyApi.UserFollowsUsersOrArtistsResponse = [
 
 
 /**
- * Tests https://developer.spotify.com/web-api/follow-playlist/
+ * Follow a Playlist
+ * 
+ * PUT /v1/users/{owner_id}/playlists/{playlist_id}/followers
+ * https://developer.spotify.com/web-api/follow-playlist/
  */
 const followPlaylist : SpotifyApi.FollowPlaylistReponse = {};
 
@@ -4789,7 +4857,10 @@ const followPlaylist : SpotifyApi.FollowPlaylistReponse = {};
 
 
 /**
- * Tests https://developer.spotify.com/web-api/unfollow-playlist/
+ * Unfollow a Playlist
+ * 
+ * DELETE /v1/users/{owner_id}/playlists/{playlist_id}/followers
+ * https://developer.spotify.com/web-api/unfollow-playlist/
  */
 const unfollowPlaylist : SpotifyApi.UnfollowPlaylistReponse = {};
 
@@ -4797,7 +4868,10 @@ const unfollowPlaylist : SpotifyApi.UnfollowPlaylistReponse = {};
 
 
 /**
- * Tests https://developer.spotify.com/web-api/save-tracks-user/
+ * Save tracks for user
+ * 
+ * PUT /v1/me/tracks?ids={ids}
+ * https://developer.spotify.com/web-api/save-tracks-user/
  */
 const saveTracksForUser : SpotifyApi.SaveTracksForUserResponse = {};
 
@@ -4805,7 +4879,10 @@ const saveTracksForUser : SpotifyApi.SaveTracksForUserResponse = {};
 
 
 /**
- * Tests https://developer.spotify.com/web-api/console/get-current-user-saved-tracks
+ * Get user's saved tracks
+ * 
+ * GET /v1/me/tracks
+ * https://developer.spotify.com/web-api/get-users-saved-tracks/
  */
 const getSavedTracks : SpotifyApi.UsersSavedTracksResponse = {
   "href" : "https://api.spotify.com/v1/me/tracks?offset=0&limit=5&market=DK",
@@ -5101,7 +5178,10 @@ const getSavedTracks : SpotifyApi.UsersSavedTracksResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/remove-tracks-user/
+ * Remove User’s Saved Tracks
+ * 
+ * DELETE /v1/me/tracks?ids={ids}
+ * https://developer.spotify.com/web-api/remove-tracks-user/
  */
 const removeUsersTracks : SpotifyApi.RemoveUsersSavedTracksResponse = {};
 
@@ -5109,7 +5189,10 @@ const removeUsersTracks : SpotifyApi.RemoveUsersSavedTracksResponse = {};
 
 
 /**
- * Tests https://developer.spotify.com/web-api/check-users-saved-tracks/
+ * Check User’s Saved Tracks
+ * 
+ * GET /v1/me/tracks/contains?ids={ids}
+ * https://developer.spotify.com/web-api/check-users-saved-tracks/
  */
 const checkUsersTracks : SpotifyApi.CheckUserSavedAlbumsResponse = [ false, false, true ];
 
@@ -5117,15 +5200,167 @@ const checkUsersTracks : SpotifyApi.CheckUserSavedAlbumsResponse = [ false, fals
 
 
 /**
- * Tests https://developer.spotify.com/web-api/save-albums-user/
+ * Save albums for user
+ * 
+ * PUT /v1/me/albums?ids={ids}
+ * https://developer.spotify.com/web-api/save-albums-user/
  */
 const saveAlbumForUser : SpotifyApi.SaveAlbumsForUserResponse = {};
 
 
 
+/**
+ * Get user's saved albums
+ * 
+ * GET /v1/me/albums
+ * https://developer.spotify.com/web-api/get-users-saved-albums/
+ */
+const usersSavedAlbums : SpotifyApi.UsersSavedAlbumsResponse = {
+  "href" : "https://api.spotify.com/v1/me/albums?offset=0&limit=1",
+  "items" : [ {
+    "added_at" : "2015-11-26T19:13:31Z",
+    "album" : {
+      "album_type" : "album",
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/58RMTlPJKbmpmVk1AmRK3h"
+        },
+        "href" : "https://api.spotify.com/v1/artists/58RMTlPJKbmpmVk1AmRK3h",
+        "id" : "58RMTlPJKbmpmVk1AmRK3h",
+        "name" : "Abidaz",
+        "type" : "artist",
+        "uri" : "spotify:artist:58RMTlPJKbmpmVk1AmRK3h"
+      } ],
+      "available_markets" : [ "AR", "AT", "AU", "BE", "BR", "CL", "CO", "CY", "CZ", "DE" ],
+      "copyrights" : [ {
+        "text" : "(C) 2013 Soblue Music Group AB, Under exclusive license to Universal Music AB",
+        "type" : "C"
+      }, {
+        "text" : "(P) 2013 Soblue Music Group AB, Under exclusive license to Universal Music AB",
+        "type" : "P"
+      } ],
+      "external_ids" : {
+        "upc" : "00602537623730"
+      },
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/5m4VYOPoIpkV0XgOiRKkWC"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/albums/5m4VYOPoIpkV0XgOiRKkWC",
+      "id" : "5m4VYOPoIpkV0XgOiRKkWC",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/ccbb1e3bea2461e69783895e880965b171e29f4c",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/2210b7d23f320a2cab2736bd3b3b948415dd21d8",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/609153aca7f4760136d97fbaccdb4ec0757e4c9e",
+        "width" : 64
+      } ],
+      "name" : "In & ut",
+      "popularity" : 49,
+      "release_date" : "2013-01-01",
+      "release_date_precision" : "day",
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/albums/5m4VYOPoIpkV0XgOiRKkWC/tracks?offset=0&limit=50",
+        "items" : [ {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/58RMTlPJKbmpmVk1AmRK3h"
+            },
+            "href" : "https://api.spotify.com/v1/artists/58RMTlPJKbmpmVk1AmRK3h",
+            "id" : "58RMTlPJKbmpmVk1AmRK3h",
+            "name" : "Abidaz",
+            "type" : "artist",
+            "uri" : "spotify:artist:58RMTlPJKbmpmVk1AmRK3h"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/1l63szZeUpN1m87MOD1u7K"
+            },
+            "href" : "https://api.spotify.com/v1/artists/1l63szZeUpN1m87MOD1u7K",
+            "id" : "1l63szZeUpN1m87MOD1u7K",
+            "name" : "Chapee",
+            "type" : "artist",
+            "uri" : "spotify:artist:1l63szZeUpN1m87MOD1u7K"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/1VLf7Ncxb5Jga6eyd3jh6K"
+            },
+            "href" : "https://api.spotify.com/v1/artists/1VLf7Ncxb5Jga6eyd3jh6K",
+            "id" : "1VLf7Ncxb5Jga6eyd3jh6K",
+            "name" : "C.U.P",
+            "type" : "artist",
+            "uri" : "spotify:artist:1VLf7Ncxb5Jga6eyd3jh6K"
+          } ],
+          "available_markets" : [ "AR", "AT", "AU", "BE", "BR", "CL", "CO", "CY", "CZ", "DE" ],
+          "disc_number" : 1,
+          "duration_ms" : 170920,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/3VNWq8rTnQG6fM1eldSpZ0"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/3VNWq8rTnQG6fM1eldSpZ0",
+          "id" : "3VNWq8rTnQG6fM1eldSpZ0",
+          "name" : "E.C.",
+          "preview_url" : "https://p.scdn.co/mp3-preview/f95e0dba1a76b44fa2b52da2bc273d4f1c4126a5",
+          "track_number" : 1,
+          "type" : "track",
+          "uri" : "spotify:track:3VNWq8rTnQG6fM1eldSpZ0"
+        }, 
+        {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/58RMTlPJKbmpmVk1AmRK3h"
+            },
+            "href" : "https://api.spotify.com/v1/artists/58RMTlPJKbmpmVk1AmRK3h",
+            "id" : "58RMTlPJKbmpmVk1AmRK3h",
+            "name" : "Abidaz",
+            "type" : "artist",
+            "uri" : "spotify:artist:58RMTlPJKbmpmVk1AmRK3h"
+          } ],
+          "available_markets" : [ "AR", "AT", "AU", "BE", "BR", "CL", "CO", "CY", "CZ", "DE", "DK", "EE" ],
+          "disc_number" : 1,
+          "duration_ms" : 165946,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/6ZrVKylVlxkaXHj42O0q2r"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/6ZrVKylVlxkaXHj42O0q2r",
+          "id" : "6ZrVKylVlxkaXHj42O0q2r",
+          "name" : "Råknas - Radio Edit",
+          "preview_url" : "https://p.scdn.co/mp3-preview/a7c9a4bfa9e346e3733e9d88076ad1ae409136fb",
+          "track_number" : 13,
+          "type" : "track",
+          "uri" : "spotify:track:6ZrVKylVlxkaXHj42O0q2r"
+        } ],
+        "limit" : 50,
+        "next" : null,
+        "offset" : 0,
+        "previous" : null,
+        "total" : 13
+      },
+      "type" : "album",
+      "uri" : "spotify:album:5m4VYOPoIpkV0XgOiRKkWC"
+    }
+  } ],
+  "limit" : 1,
+  "next" : "https://api.spotify.com/v1/me/albums?offset=1&limit=1",
+  "offset" : 0,
+  "previous" : null,
+  "total" : 19
+}
+
+
 
 /**
- * Tests https://developer.spotify.com/web-api/remove-albums-user/
+ * Remove Albums for Current User
+ * 
+ * DELETE /v1/me/albums?ids={ids}
+ * https://developer.spotify.com/web-api/remove-albums-user/
  */
 const removeAlbumForUser : SpotifyApi.RemoveAlbumsForUserResponse = {};
 
@@ -5134,14 +5369,20 @@ const removeAlbumForUser : SpotifyApi.RemoveAlbumsForUserResponse = {};
 
 
 /**
- * Tests https://developer.spotify.com/web-api/check-users-saved-albums/
+ * Check user's saved albums
+ * 
+ * DELETE /v1/me/albums/contains?ids={ids}
+ * https://developer.spotify.com/web-api/check-users-saved-albums/
  */
 const checkUsersSavedAlbums : SpotifyApi.CheckUserSavedAlbumsResponse = [ true, false, false, true ];
 
 
 
 /**
- * Tests https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
+ * Get a User’s Top Artists and Tracks (Note: This is only Artists)
+ * 
+ * GET /v1/me/top/{type}
+ * https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
  */
 const usersTopArtists : SpotifyApi.UsersTopArtistsResponse = {
     "items" : [ 
@@ -5219,8 +5460,12 @@ const usersTopArtists : SpotifyApi.UsersTopArtistsResponse = {
 
 
 
+
 /**
- * Tests https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
+ * Get a User’s Top Artists and Tracks (Note: This is only Tracks)
+ * 
+ * GET /v1/me/top/{type}
+ * https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
  */
 const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
     "items" : [ 
@@ -5362,7 +5607,10 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
 
 
 /**
- * Tests 
+ * Get recommendations based on seeds
+ * 
+ * GET /v1/recommendations
+ * https://developer.spotify.com/get-recommendations/
  */
 const recommendationsBasedOnSeeds: SpotifyApi.RecommendationsFromSeedsResponse = {
   "tracks": [
@@ -5449,7 +5697,21 @@ const recommendationsBasedOnSeeds: SpotifyApi.RecommendationsFromSeedsResponse =
 
 
 /**
- * Tests https://developer.spotify.com/web-api/search-item/?type=album
+ * Get available genre seeds
+ * 
+ * GET /v1/recommendations/available-genre-seeds
+ * https://developer.spotify.com/web-api/get-recommendations/#available-genre-seeds
+ */
+const availableGenreSeeds : SpotifyApi.AvailableGenreSeedsResponse = {
+  "genres" : [ "acoustic", "afrobeat", "alt-rock", "alternative", "ambient", "anime", "black-metal", "bluegrass", "blues", "bossanova", "brazil", "breakbeat", "british", "cantopop", "chicago-house", "children", "chill", "classical", "club", "comedy", "country", "dance", "dancehall", "death-metal", "deep-house", "detroit-techno", "disco", "disney", "drum-and-bass", "dub", "dubstep", "edm", "electro", "electronic", "emo", "folk", "forro", "french", "funk", "garage", "german", "gospel", "goth", "grindcore", "groove", "grunge", "guitar", "happy", "hard-rock", "hardcore", "hardstyle", "heavy-metal", "hip-hop", "holidays", "honky-tonk", "house", "idm", "indian", "indie", "indie-pop", "industrial", "iranian", "j-dance", "j-idol", "j-pop", "j-rock", "jazz", "k-pop", "kids", "latin", "latino", "malay", "mandopop", "metal", "metal-misc", "metalcore", "minimal-techno", "movies", "mpb", "new-age", "new-release", "opera", "pagode", "party", "philippines-opm", "piano", "pop", "pop-film", "post-dubstep", "power-pop", "progressive-house", "psych-rock", "punk", "punk-rock", "r-n-b", "rainy-day", "reggae", "reggaeton", "road-trip", "rock", "rock-n-roll", "rockabilly", "romance", "sad", "salsa", "samba", "sertanejo", "show-tunes", "singer-songwriter", "ska", "sleep", "songwriter", "soul", "soundtracks", "spanish", "study", "summer", "swedish", "synth-pop", "tango", "techno", "trance", "trip-hop", "turkish", "work-out", "world-music" ]
+}
+
+
+/**
+ * Search for an album
+ * 
+ * GET /v1/search?type=album
+ * https://developer.spotify.com/web-api/search-item/
  */
 const searchAlbums : SpotifyApi.AlbumSearchResponse = {
   "albums" : {
@@ -5515,7 +5777,10 @@ const searchAlbums : SpotifyApi.AlbumSearchResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/search-item/?type=artist
+ * Search for an artist
+ * 
+ * GET /v1/search?type=artist
+ * https://developer.spotify.com/web-api/search-item/
  */
 const searchArtists : SpotifyApi.ArtistSearchResponse = {
   "artists" : {
@@ -5561,7 +5826,10 @@ const searchArtists : SpotifyApi.ArtistSearchResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/search-item/?type=playlist
+ * Search for a playlist
+ * 
+ * GET /v1/search?type=playlist
+ * https://developer.spotify.com/web-api/search-item/
  */
 const searchPlaylists : SpotifyApi.PlaylistSearchResponse = {
   "playlists" : {
@@ -5655,7 +5923,10 @@ const searchPlaylists : SpotifyApi.PlaylistSearchResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/search-item/?type=track
+ * Search for a track
+ * 
+ * GET /v1/search?type=track
+ * https://developer.spotify.com/web-api/search-item/
  */
 const searchTracks : SpotifyApi.TrackSearchResponse = {
   "tracks" : {
@@ -5799,7 +6070,10 @@ const searchTracks : SpotifyApi.TrackSearchResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/get-track/
+ * Get a track
+ * 
+ * GET /v1/tracks/{id}
+ * https://developer.spotify.com/web-api/get-track/
  */
 const track : SpotifyApi.SingleTrackResponse = {
   "album" : {
@@ -5861,7 +6135,10 @@ const track : SpotifyApi.SingleTrackResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/get-several-tracks/
+ * Get multiple tracks
+ * 
+ * GET /v1/tracks?ids={ids}
+ * https://developer.spotify.com/web-api/get-several-tracks/
  */
 const tracks : SpotifyApi.MultipleTracksResponse = {
   "tracks" : [ {
@@ -5977,9 +6254,11 @@ const tracks : SpotifyApi.MultipleTracksResponse = {
 
 
 
-
 /**
- * Tests https://developer.spotify.com/web-api/get-users-profile/
+ * Get user profile
+ * 
+ * GET /v1/users/{user_id}
+ * https://developer.spotify.com/web-api/get-users-profile/
  */
 const userProfile : SpotifyApi.UserProfileResponse = {
   "display_name" : "Ronald Pompa",
@@ -6005,7 +6284,10 @@ const userProfile : SpotifyApi.UserProfileResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/get-list-users-playlists/
+ * Get a list of a user's playlists
+ * 
+ * GET /v1/users/{user_id}/playlists
+ * https://developer.spotify.com/web-api/get-list-users-playlists/
  */
 const usersPlaylists : SpotifyApi.ListOfUsersPlaylistsResponse = {
   "href" : "https://api.spotify.com/v1/users/wizzler/playlists?offset=0&limit=2",
@@ -6081,7 +6363,89 @@ const usersPlaylists : SpotifyApi.ListOfUsersPlaylistsResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/get-playlist/
+ * Get a list of the current user's playlists
+ * 
+ * GET /v1/users/{user_id}/playlists
+ * https://developer.spotify.com/web-api/get-list-users-playlists/
+ */
+const currentUsersPlaylists : SpotifyApi.ListOfUsersPlaylistsResponse = {
+  "href" : "https://api.spotify.com/v1/users/wizzler/playlists?offset=0&limit=2",
+  "items" : [ {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "http://open.spotify.com/user/wizzler/playlist/6yRf9SJ1YiAhNAu7UCwgXQ"
+    },
+    "href" : "https://api.spotify.com/v1/users/wizzler/playlists/6yRf9SJ1YiAhNAu7UCwgXQ",
+    "id" : "6yRf9SJ1YiAhNAu7UCwgXQ",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/5c383056e25a3e3ec858151afb70afe763c00f9b",
+      "width" : 640
+    } ],
+    "name" : "My Shazam Tracks",
+    "owner" : {
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/wizzler"
+      },
+      "href" : "https://api.spotify.com/v1/users/wizzler",
+      "id" : "wizzler",
+      "type" : "user",
+      "uri" : "spotify:user:wizzler"
+    },
+    "public" : true,
+    "snapshot_id" : "WlQppvajE5kH/Xt5cHfHxJ6mSsFckwYixA06q7y1asdUz+m5v7pq6xb1f0FiFa7I",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/wizzler/playlists/6yRf9SJ1YiAhNAu7UCwgXQ/tracks",
+      "total" : 1
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:wizzler:playlist:6yRf9SJ1YiAhNAu7UCwgXQ"
+  }, {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "http://open.spotify.com/user/wizzler/playlist/3FJd21jWvCjGCLx7eKrext"
+    },
+    "href" : "https://api.spotify.com/v1/users/wizzler/playlists/3FJd21jWvCjGCLx7eKrext",
+    "id" : "3FJd21jWvCjGCLx7eKrext",
+    "images" : [ {
+      "height" : 300,
+      "url" : "https://i.scdn.co/image/15858d38fdac4af890dcc634f4946c5bf83c0915",
+      "width" : 300
+    } ],
+    "name" : "Video Game Masterpieces",
+    "owner" : {
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/wizzler"
+      },
+      "href" : "https://api.spotify.com/v1/users/wizzler",
+      "id" : "wizzler",
+      "type" : "user",
+      "uri" : "spotify:user:wizzler"
+    },
+    "public" : true,
+    "snapshot_id" : "LO0O/RGsDLEgeDC3xVR4HisMNsDqoPLE8QBRqllyvevTJ09tFWIUbjrYoEJbUhCa",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/wizzler/playlists/3FJd21jWvCjGCLx7eKrext/tracks",
+      "total" : 33
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:wizzler:playlist:3FJd21jWvCjGCLx7eKrext"
+  } ],
+  "limit" : 2,
+  "next" : "https://api.spotify.com/v1/users/wizzler/playlists?offset=2&limit=2",
+  "offset" : 0,
+  "previous" : null,
+  "total" : 7
+};
+
+
+
+
+/**
+ * Get a playlist
+ * 
+ * GET /v1/users/{user_id}/playlists/{playlist_id}
+ * https://developer.spotify.com/web-api/get-playlist/
  */
 const playlist : SpotifyApi.SinglePlaylistResponse = {
   "collaborative" : false,
@@ -6339,7 +6703,10 @@ const playlist : SpotifyApi.SinglePlaylistResponse = {
 
 
 /**
- * Tests 
+ * Get a playlist's tracks
+ * 
+ * GET /v1/users/{user_id}/playlists/{playlist_id}/tracks
+ * https://developer.spotify.com/web-api/get-playlists-tracks/
  */
 const playlistTracks : SpotifyApi.PlaylistTrackResponse = {
   "href" : "https://api.spotify.com/v1/users/spotify_espa%C3%B1a/playlists/21THa8j9TaSGuXYNBU5tsC/tracks?offset=0&limit=3",
@@ -6583,7 +6950,10 @@ const playlistTracks : SpotifyApi.PlaylistTrackResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/create-playlist/
+ * Create a Playlist
+ * 
+ * POST /v1/users/{user_id}/playlists
+ * https://developer.spotify.com/web-api/create-playlist/
  */
 const newPlaylist : SpotifyApi.CreatePlaylistResponse = {
   "collaborative" : false,
@@ -6627,7 +6997,10 @@ const newPlaylist : SpotifyApi.CreatePlaylistResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/change-playlist-details/
+ * Change a Playlist’s Details
+ * 
+ * PUT /v1/users/{user_id}/playlists/{playlist_id}
+ * https://developer.spotify.com/web-api/change-playlist-details/
  */
 const changePlaylistDetails : SpotifyApi.ChangePlaylistDetailsReponse = {};
 
@@ -6635,7 +7008,10 @@ const changePlaylistDetails : SpotifyApi.ChangePlaylistDetailsReponse = {};
 
 
 /**
- * Tests https://developer.spotify.com/web-api/add-tracks-to-playlist/
+ * Add Tracks to a Playlist
+ * 
+ * POST /v1/users/{user_id}/playlists/{playlist_id}/tracks
+ * https://developer.spotify.com/web-api/add-tracks-to-playlist/
  */
 const addTracksToPlaylist : SpotifyApi.AddTracksToPlaylistResponse = {
   "snapshot_id" : "4qQeMTnHV5LCL9w/lI9Mlu5shi2pk+iiIm6VEpmKdMPCE6adhRNTG9SXflxh8DTt"
@@ -6645,7 +7021,10 @@ const addTracksToPlaylist : SpotifyApi.AddTracksToPlaylistResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/remove-tracks-playlist/
+ * Remove Tracks from a Playlist
+ * 
+ * DELETE /v1/users/{user_id}/playlists/{playlist_id}/tracks
+ * https://developer.spotify.com/web-api/remove-tracks-playlist/
  */
 const removeTracksFromPlaylist : SpotifyApi.RemoveTracksFromPlaylistResponse = {
   "snapshot_id" : "t3+4ZWOqedj+bmcHHu1HKNqYfIyYAfXKlSHHykvS4KAm7hoVhDoCpn+KIuFZebZp"
@@ -6655,7 +7034,10 @@ const removeTracksFromPlaylist : SpotifyApi.RemoveTracksFromPlaylistResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/reorder-playlists-tracks/
+ * Reorder a Playlist’s Tracks
+ * 
+ * PUT /v1/users/{user_id}/playlists/{playlist_id}/tracks
+ * https://developer.spotify.com/web-api/reorder-playlists-tracks/
  */
 const reorderTracksInPlaylist : SpotifyApi.ReorderPlaylistTracksResponse = {
   "snapshot_id" : "t3+4ZWOqedj+bmcHHu1HKNqYfIyYAfXKlSHHykvS4KAm7hoVhDoCpn+KIuFZebZp"
@@ -6665,7 +7047,10 @@ const reorderTracksInPlaylist : SpotifyApi.ReorderPlaylistTracksResponse = {
 
 
 /**
- * Tests https://developer.spotify.com/web-api/replace-playlists-tracks/
+ * Replace a Playlist’s Tracks
+ * 
+ * PUT /v1/users/{user_id}/playlists/{playlist_id}/tracks
+ * https://developer.spotify.com/web-api/replace-playlists-tracks/
  */
 const replacePlaylistTracks : SpotifyApi.ReplacePlaylistTracksResponse = {};
 
@@ -6673,6 +7058,9 @@ const replacePlaylistTracks : SpotifyApi.ReplacePlaylistTracksResponse = {};
 
 
 /**
- * Tests https://developer.spotify.com/web-api/check-user-following-playlist/
+ * Check if Users Follow a Playlist
+ * 
+ * GET /v1/users/{user_id}/playlists/{playlist_id}/followers/contains
+ * https://developer.spotify.com/web-api/check-user-following-playlist/
  */
 const checkUserFollowsPlaylist : SpotifyApi.UsersFollowPlaylistReponse = [true, false, true];

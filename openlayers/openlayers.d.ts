@@ -3728,6 +3728,12 @@ declare module ol {
              */
             transform(source: ol.ProjectionLike, destination: ol.ProjectionLike): ol.geom.Geometry;
 
+            /**
+             * Get the type of this geometry.
+             * @abstract
+             * @return {ol.geom.GeometryType} Geometry type.
+             */
+            getType(): ol.geom.GeometryType;
         }
 
         /**

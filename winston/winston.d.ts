@@ -25,8 +25,14 @@ declare module "winston" {
   export var level: string;
 
   export var log: LogMethod;
+                
+  export type CLILoggingLevel = 'error' | 'warn' | 'help' | 'data' | 'info' | 'debug' | 'prompt' | 'verbose' | 'input' | 'silly';
+  export type NPMLoggingLevel = 'error' | 'warn' | 'info' | 'verbose' | 'debug' | 'silly';
+  export type SyslogLoggingLevel = 'emerg' | 'alert' | 'crit' | 'error' | 'warning' | 'notice' | 'info' | 'debug';
 
+  export var silly: LeveledLogMethod;
   export var debug: LeveledLogMethod;
+  export var verbose: LeveledLogMethod;
   export var info: LeveledLogMethod;
   export var warn: LeveledLogMethod;
   export var error: LeveledLogMethod;
@@ -109,7 +115,9 @@ declare module "winston" {
 
     log: LogMethod;
 
+    silly: LeveledLogMethod;
     debug: LeveledLogMethod;
+    verbose: LeveledLogMethod;
     info: LeveledLogMethod;
     warn: LeveledLogMethod;
     error: LeveledLogMethod;

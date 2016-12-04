@@ -11,7 +11,7 @@ declare module "bunyan" {
     class Logger extends EventEmitter {
         constructor(options:LoggerOptions);
         addStream(stream:Stream):void;
-        addSerializers(serializers:Serializers):void;
+        addSerializers(serializers:Serializers | StdSerializers):void;
         child(options:LoggerOptions, simple?:boolean):Logger;
         child(obj:Object, simple?:boolean):Logger;
         reopenFileStreams():void;
@@ -21,7 +21,7 @@ declare module "bunyan" {
         levels(name: number | string, value: number | string):void;
 
         fields:any;
-        src:boolean;       
+        src:boolean;
 
         trace(error:Error, format?:any, ...params:any[]):void;
         trace(buffer:Buffer, format?:any, ...params:any[]):void;
@@ -58,8 +58,18 @@ declare module "bunyan" {
         src?: boolean;
     }
 
+	interface Serializer {
+		(input:any): any;
+	}
+
     interface Serializers {
-        [key:string]: (input:any) => string;
+        [key:string]: Serializer;
+    }
+
+    interface StdSerializers {
+        err: Serializer;
+        res: Serializer;
+        req: Serializer;
     }
 
     interface Stream {
@@ -72,7 +82,7 @@ declare module "bunyan" {
         count?: number;
     }
 
-    export var stdSerializers:Serializers;
+    export var stdSerializers: StdSerializers;
 
     export var TRACE:number;
     export var DEBUG:number;

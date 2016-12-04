@@ -112,284 +112,6 @@ declare namespace Office {
     }
 }
 
-declare module OfficeExtension {
-    /** An abstract proxy object that represents an object in an Office document. You create proxy objects from the context (or from other proxy objects), add commands to a queue to act on the object, and then synchronize the proxy object state with the document by calling "context.sync()". */
-    class ClientObject {
-        /** The request context associated with the object */
-        context: ClientRequestContext;
-        /** Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property. [Api set: ExcelApi 1.3 (Preview), WordApi 1.3] */
-        isNull: boolean;
-    }
-}
-declare module OfficeExtension {
-    interface LoadOption {
-        select?: string | string[];
-        expand?: string | string[];
-        top?: number;
-        skip?: number;
-    }
-    /** An abstract RequestContext object that facilitates requests to the host Office application. The "Excel.run" and "Word.run" methods provide a request context. */
-    class ClientRequestContext {
-        constructor(url?: string);
-        /** Collection of objects that are tracked for automatic adjustments based on surrounding changes in the document. */
-        trackedObjects: TrackedObjects;
-        /** Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties. */
-        load(object: ClientObject, option?: string | string[] | LoadOption): void;
-        /** Adds a trace message to the queue. If the promise returned by "context.sync()" is rejected due to an error, this adds a ".traceMessages" array to the OfficeExtension.Error object, containing all trace messages that were executed. These messages can help you monitor the program execution sequence and detect the cause of the error. */
-        trace(message: string): void;
-        /** Synchronizes the state between JavaScript proxy objects and the Office document, by executing instructions queued on the request context and retrieving properties of loaded Office objects for use in your code. This method returns a promise, which is resolved when the synchronization is complete. */
-        sync<T>(passThroughValue?: T): IPromise<T>;
-    }
-}
-declare module OfficeExtension {
-    /** Contains the result for methods that return primitive types. The object's value property is retrieved from the document after "context.sync()" is invoked. */
-    class ClientResult<T> {
-        /** The value of the result that is retrieved from the document after "context.sync()" is invoked. */
-        value: T;
-    }
-}
-declare module OfficeExtension {
-    /** The error object returned by "context.sync()", if a promise is rejected due to an error while processing the request. */
-    class Error {
-        /** Error name: "OfficeExtension.Error".*/
-        name: string;
-        /** The error message passed through from the host Office application. */
-        message: string;
-        /** Stack trace, if applicable. */
-        stack: string;
-        /** Error code string, such as "InvalidArgument". */
-        code: string;
-        /** Trace messages (if any) that were added via a "context.trace()" invocation before calling "context.sync()". If there was an error, this contains all trace messages that were executed before the error occurred. These messages can help you monitor the program execution sequence and detect the case of the error. */
-        traceMessages: Array<string>;
-        /** Debug info, if applicable. The ".errorLocation" property can describe the object and method or property that caused the error. */
-        debugInfo: {
-            /** If applicable, will return the object type and the name of the method or property that caused the error. */
-            errorLocation?: string;
-        };
-    }
-}
-declare module OfficeExtension {
-    class ErrorCodes {
-        static accessDenied: string;
-        static generalException: string;
-        static activityLimitReached: string;
-        static invalidObjectPath: string;
-        static propertyNotLoaded: string;
-        static valueNotLoaded: string;
-        static invalidRequestContext: string;
-        static invalidArgument: string;
-        static runMustReturnPromise: string;
-        static cannotRegisterEvent: string;
-    }
-}
-declare module OfficeExtension {
-    /** An IPromise object that represents a deferred interaction with the host Office application. */
-    interface IPromise<R> {
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => U): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => void): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => void): IPromise<U>;
-
-
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
-        catch<U>(onRejected?: (error: any) => IPromise<U>): IPromise<U>;
-
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
-        catch<U>(onRejected?: (error: any) => U): IPromise<U>;
-
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
-        catch<U>(onRejected?: (error: any) => void): IPromise<U>;
-    }
-
-    /** An Promise object that represents a deferred interaction with the host Office application. The publically-consumable OfficeExtension.Promise is available starting in ExcelApi 1.2 and WordApi 1.2. Promises can be chained via ".then", and errors can be caught via ".catch". Remember to always use a ".catch" on the outer promise, and to return intermediary promises so as not to break the promise chain. When a "native" Promise implementation is available, OfficeExtension.Promise will switch to use the native Promise instead. */
-    export class Promise<R> implements IPromise<R>
-    {
-        /**
-         * Creates a new promise based on a function that accepts resolve and reject handlers.
-         */
-        constructor(func: (resolve: (value?: R | IPromise<R>) => void, reject: (error?: any) => void) => void);
-
-        /**
-         * Creates a promise that resolves when all of the child promises resolve.
-         */
-        static all<U>(promises: OfficeExtension.IPromise<U>[]): IPromise<U[]>;
-
-        /**
-         * Creates a promise that is resolved.
-         */
-        static resolve<U>(value: U): IPromise<U>;
-
-        /**
-         * Creates a promise that is rejected.
-         */
-        static reject<U>(error: any): IPromise<U>;
-
-        /* This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => U): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => void): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => void): IPromise<U>;
-
-
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
-        catch<U>(onRejected?: (error: any) => IPromise<U>): IPromise<U>;
-
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
-        catch<U>(onRejected?: (error: any) => U): IPromise<U>;
-
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
-        catch<U>(onRejected?: (error: any) => void): IPromise<U>;
-    }
-}
-
-declare module OfficeExtension {
-    /** Collection of tracked objects, contained within a request context. See "context.trackedObjects" for more information. */
-    class TrackedObjects {
-        /** Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
-        add(object: ClientObject): void;
-        /** Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
-        add(objects: ClientObject[]): void;
-        /** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect. */
-        remove(object: ClientObject): void;
-        /** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect. */
-        remove(objects: ClientObject[]): void;
-    }
-}
-
-declare module OfficeExtension {
-    export class EventHandlers<T> {
-        constructor(context: ClientRequestContext, parentObject: ClientObject, name: string, eventInfo: EventInfo<T>);
-        add(handler: (args: T) => IPromise<any>): EventHandlerResult<T>;
-        remove(handler: (args: T) => IPromise<any>): void;
-        removeAll(): void;
-    }
-
-    export class EventHandlerResult<T> {
-        constructor(context: ClientRequestContext, handlers: EventHandlers<T>, handler: (args: T) => IPromise<any>);
-        remove(): void;
-    }
-
-    export interface EventInfo<T> {
-        registerFunc: (callback: (args: any) => void) => IPromise<any>;
-        unregisterFunc: (callback: (args: any) => void) => IPromise<any>;
-        eventArgsTransformFunc: (args: any) => IPromise<T>;
-    }
-}
-
 declare namespace Office {
     /**
      * Returns a promise of an object described in the expression. Callback is invoked only if method fails.
@@ -1660,6 +1382,958 @@ declare namespace Office {
         getWSSUrlAsync(options?: any, callback?: (result: AsyncResult) => void): void;
     }
 }
+
+
+
+
+////////////////////////////////////////////////////////////////
+////////////////////// Begin Exchange APIs /////////////////////
+////////////////////////////////////////////////////////////////
+
+
+declare namespace Office.MailboxEnums {
+    export enum BodyType {
+        /**
+         * The body is in HTML format
+         */
+        Html,
+        /**
+         * The body is in text format
+         */
+        text
+    }
+    export enum EntityType {
+        /**
+         * Specifies that the entity is a meeting suggestion
+         */
+        MeetingSuggestion,
+        /**
+         * Specifies that the entity is a task suggestion
+         */
+        TaskSuggestion,
+        /**
+         * Specifies that the entity is a postal address
+         */
+        Address,
+        /**
+         * Specifies that the entity is SMTP email address
+         */
+        EmailAddress,
+        /**
+         * Specifies that the entity is an Internet URL
+         */
+        Url,
+        /**
+         * Specifies that the entity is US phone number
+         */
+        PhoneNumber,
+        /**
+         * Specifies that the entity is a contact
+         */
+        Contact
+    }
+    export enum ItemType {
+        /**
+         * A meeting request, response, or cancellation
+         */
+        Message,
+        /**
+         * Specifies an appointment item
+         */
+        Appointment
+    }
+    export enum ResponseType {
+        /**
+         * There has been no response from the attendee
+         */
+        None,
+        /**
+         * The attendee is the meeting organizer
+         */
+        Organizer,
+        /**
+         * The meeting request was tentatively accepted by the attendee
+         */
+        Tentative,
+        /**
+         * The meeting request was accepted by the attendee
+         */
+        Accepted,
+        /**
+         * The meeting request was declined by the attendee
+         */
+        Declined
+    }
+    export enum RecipientType {
+        /**
+         * Specifies that the recipient is not one of the other recipient types
+         */
+        Other,
+        /**
+         * Specifies that the recipient is a distribution list containing a list of email addresses
+         */
+        DistributionList,
+        /**
+         * Specifies that the recipient is an SMTP email address that is on the Exchange server
+         */
+        User,
+        /**
+         * Specifies that the recipient is an SMTP email address that is not on the Exchange server
+         */
+        ExternalUser
+    }
+    export enum AttachmentType {
+        /**
+         * The attachment is a file
+         */
+        File,
+        /**
+         * The attachment is an Exchange item
+         */
+        Item
+    }
+}
+declare namespace Office {
+    export module Types {
+        export interface ItemRead extends Office.Item {
+            subject: any;
+            /**
+             * Displays a reply form that includes the sender and all the recipients of the selected message
+             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+             */
+            displayReplyAllForm(htmlBody: string): void;
+            /**
+             * Displays a reply form that includes only the sender of the selected message
+             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+             */
+            displayReplyForm(htmlBody: string): void;
+            /**
+             * Gets an array of entities found in an message
+             */
+            getEntities(): Office.Entities;
+            /**
+             * Gets an array of entities of the specified entity type found in an message
+             * @param entityType One of the EntityType enumeration values
+             */
+            getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
+            /**
+             * Returns well-known entities that pass the named filter defined in the manifest XML file
+             * @param name  A TableData object with the headers and rows
+             */
+            getFilteredEntitiesByName(name: string): Office.Entities;
+            /**
+             * Returns string values in the currently selected message object that match the regular expressions defined in the manifest XML file
+             */
+            getRegExMatches(): string[];
+            /**
+             * Returns string values that match the named regular expression defined in the manifest XML file
+             */
+            getRegExMatchesByName(name: string): string[];
+        }
+        export interface ItemCompose extends Office.Item {
+            body: Office.Body;
+            subject: any;
+            /**
+             * Adds a file to a message as an attachment
+             * @param uri The URI that provides the location of the file to attach to the message. The maximum length is 2048 characters
+             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+             * @param options Any optional parameters or state data passed to the method
+             * @param callback The optional callback method
+             */
+            addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+            /**
+             * Adds an Exchange item, such as a message, as an attachment to the message
+             * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
+             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+             * @param options Any optional parameters or state data passed to the method
+             * @param callback The optional callback method
+             */
+            addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+            /**
+             * Removes an attachment from a message
+             * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
+             * @param options Any optional parameters or state data passed to the method
+             * @param callback The optional callback method
+             */
+            removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
+        }
+        export interface MessageCompose extends Office.Message {
+            attachments: Office.AttachmentDetails[];
+            body: Office.Body;
+            bcc: Office.Recipients;
+            cc: Office.Recipients;
+            subject: Office.Subject;
+            to: Office.Recipients;
+            /**
+             * Adds a file to a message as an attachment
+             * @param uri The URI that provides the location of the file to attach to the message. The maximum length is 2048 characters
+             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+             * @param options Any optional parameters or state data passed to the method
+             * @param callback The optional callback method
+             */
+            addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+            /**
+             * Adds an Exchange item, such as a message, as an attachment to the message
+             * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
+             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+             * @param options Any optional parameters or state data passed to the method
+             * @param callback The optional callback method
+             */
+            addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+            /**
+             * Removes an attachment from a message
+             * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
+             * @param options Any optional parameters or state data passed to the method
+             * @param callback The optional callback method
+             */
+            removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
+        }
+        export interface MessageRead extends Office.Message {
+            cc: Office.EmailAddressDetails[];
+            from: Office.EmailAddressDetails;
+            internetMessageId: string;
+            normalizedSubject: string;
+            sender: Office.EmailAddressDetails;
+            subject: string;
+            to: Office.EmailAddressDetails;
+            /**
+             * Displays a reply form that includes the sender and all the recipients of the selected message
+             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+             */
+            displayReplyAllForm(htmlBody: string): void;
+            /**
+             * Displays a reply form that includes only the sender of the selected message
+             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+             */
+            displayReplyForm(htmlBody: string): void;
+            /**
+             * Gets an array of entities found in an message
+             */
+            getEntities(): Office.Entities;
+            /**
+             * Gets an array of entities of the specified entity type found in an message
+             * @param entityType One of the EntityType enumeration values
+             */
+            getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
+            /**
+             * Returns well-known entities that pass the named filter defined in the manifest XML file
+             * @param name  A TableData object with the headers and rows
+             */
+            getFilteredEntitiesByName(name: string): Office.Entities;
+            /**
+             * Returns string values in the currently selected message object that match the regular expressions defined in the manifest XML file
+             */
+            getRegExMatches(): string[];
+            /**
+             * Returns string values that match the named regular expression defined in the manifest XML file
+             */
+            getRegExMatchesByName(name: string): string[];
+        }
+        export interface AppointmentCompose extends Office.Appointment {
+            body: Office.Body;
+            end: Office.Time;
+            location: Office.Location;
+            optionalAttendees: Office.Recipients;
+            requiredAttendees: Office.Recipients;
+            start: Office.Time;
+            subject: Office.Subject;
+            /**
+             * Adds a file to an appointment as an attachment
+             * @param uri The URI that provides the location of the file to attach to the appointment. The maximum length is 2048 characters
+             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+             * @param options Any optional parameters or state data passed to the method
+             * @param callback The optional callback method
+             */
+            addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+            /**
+             * Adds an Exchange item, such as a message, as an attachment to the appointment
+             * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
+             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+             * @param options Any optional parameters or state data passed to the method
+             * @param callback The optional callback method
+             */
+            addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+            /**
+             * Removes an attachment from a appointment
+             * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
+             * @param options Any optional parameters or state data passed to the method
+             * @param callback The optional callback method
+             */
+            removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
+        }
+        export interface AppointmentRead extends Office.Appointment {
+            attachments: Office.AttachmentDetails[];
+            end: Date;
+            location: string;
+            normalizedSubject: string;
+            optionalAttendees: Office.EmailAddressDetails;
+            organizer: Office.EmailAddressDetails;
+            requiredAttendees: Office.EmailAddressDetails;
+            resources: string[];
+            start: Date;
+            subject: string;
+            /**
+             * Displays a reply form that includes the organizer and all the attendees of the selected appointment item
+             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+             */
+            displayReplyAllForm(htmlBody: string): void;
+            /**
+             * Displays a reply form that includes only the organizer of the selected appointment item
+             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+             */
+            displayReplyForm(htmlBody: string): void;
+            /**
+             * Gets an array of entities found in an appointment
+             */
+            getEntities(): Office.Entities;
+            /**
+             * Gets an array of entities of the specified entity type found in an appointment
+             * @param entityType One of the EntityType enumeration values
+             */
+            getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
+            /**
+             * Returns well-known entities that pass the named filter defined in the manifest XML file
+             * @param name  A TableData object with the headers and rows
+             */
+            getFilteredEntitiesByName(name: string): Office.Entities;
+            /**
+             * Returns string values in the currently selected appointment object that match the regular expressions defined in the manifest XML file
+             */
+            getRegExMatches(): string[];
+            /**
+             * Returns string values that match the named regular expression defined in the manifest XML file
+             */
+            getRegExMatchesByName(name: string): string[];
+        }
+    }
+    export module cast {
+        export module item {
+            function toAppointmentCompose(item: Office.Item): Office.Types.AppointmentCompose;
+            function toAppointmentRead(item: Office.Item): Office.Types.AppointmentRead;
+            function toAppointment(item: Office.Item): Office.Appointment;
+            function toMessageCompose(item: Office.Item): Office.Types.MessageCompose;
+            function toMessageRead(item: Office.Item): Office.Types.MessageRead;
+            function toMessage(item: Office.Item): Office.Message;
+            function toItemCompose(item: Office.Item): Office.Types.ItemCompose;
+            function toItemRead(item: Office.Item): Office.Types.ItemRead;
+        }
+    }
+    export interface AttachmentDetails {
+        attachmentType: Office.MailboxEnums.AttachmentType;
+        contentType: string;
+        id: string;
+        isInline: boolean;
+        name: string;
+        size: number;
+    }
+    export interface Contact {
+        personName: string;
+        businessName: string;
+        phoneNumbers: PhoneNumber[];
+        emailAddresses: string[];
+        urls: string[];
+        addresses: string[];
+        contactString: string;
+    }
+
+    export interface Context {
+        mailbox: Mailbox;
+        roamingSettings: RoamingSettings;
+    }
+    export interface CustomProperties {
+        /**
+         * Returns the value of the specified custom property
+         * @param name The name of the property to be returned
+         */
+        get(name: string): any;
+        /**
+         * Sets the specified property to the specified value
+         * @param name The name of the property to be set
+         * @param value The value of the property to be set
+         */
+        set(name: string, value: string): void;
+        /**
+         * Removes the specified property from the custom property collection.
+         * @param name The name of the property to be removed
+         */
+        remove(name: string): void;
+        /**
+         * Saves the custom property collection to the server
+         * @param callback The optional callback method
+         * @param userContext Optional variable for any state data that is passed to the saveAsync method
+         */
+        saveAsync(callback?: (result: AsyncResult) => void, userContext?: any): void;
+    }
+    export interface EmailAddressDetails {
+        emailAddress: string;
+        displayName: string;
+        appointmentResponse: Office.MailboxEnums.ResponseType;
+        recipientType: Office.MailboxEnums.RecipientType;
+    }
+    export interface EmailUser {
+        name: string;
+        userId: string;
+    }
+    export interface Entities {
+        addresses: string[];
+        taskSuggestions: string[];
+        meetingSuggestions: MeetingSuggestion[];
+        emailAddresses: string[];
+        urls: string[];
+        phoneNumbers: PhoneNumber[];
+        contacts: Contact[];
+    }
+    export interface Item {
+        dateTimeCreated: Date;
+        dateTimeModified: Date;
+        itemClass: string;
+        itemId: string;
+        itemType: Office.MailboxEnums.ItemType;
+        /**
+         * Asynchronously loads custom properties that are specific to the item and a app for Office
+         * @param callback The optional callback method
+         * @param userContext Optional variable for any state data that is passed to the asynchronous method
+         */
+        loadCustomPropertiesAsync(callback?: (result: AsyncResult) => void, userContext?: any): void;
+    }
+    export interface Appointment extends Item {
+    }
+    export interface Body {
+        /**
+         * Gets a value that indicates whether the content is in HTML or text format
+         * @param tableData  A TableData object with the headers and rows
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the getTypeAsync method returns
+         */
+        getTypeAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Adds the specified content to the beginning of the item body
+         * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        prependAsync(data: string, options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Replaces the selection in the body with the specified text
+         * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        setSelectedDataAsync(data: string, options?: any, callback?: (result: AsyncResult) => void): void;
+    }
+    export interface Location {
+        /**
+         * Begins an asynchronous request for the location of an appointment
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        getAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Begins an asynchronous request to set the location of an appointment
+         * @param data The location of the appointment. The string is limited to 255 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the location is set
+         */
+        setAsync(location: string, options?: any, callback?: (result: AsyncResult) => void): void;
+    }
+    export interface Mailbox {
+        item: Item;
+        userProfile: UserProfile;
+        /**
+         * Gets a Date object from a dictionary containing time information
+         * @param timeValue A Date object
+         */
+        convertToLocalClientTime(timeValue: Date): any;
+        /**
+         * Gets a dictionary containing time information in local client time
+         * @param input A dictionary containing a date. The dictionary should contain the following fields: year, month, date, hours, minutes, seconds, time zone, time zone offset
+         */
+        convertToUtcClientTime(input: any): Date;
+        /**
+         * Displays an existing calendar appointment
+         * @param itemId The Exchange Web Services (EWS) identifier for an existing calendar appointment
+         */
+        displayAppointmentForm(itemId: any): void;
+        /**
+         * Displays an existing message
+         * @param itemId The Exchange Web Services (EWS) identifier for an existing message
+         */
+        displayMessageForm(itemId: any): void;
+        /**
+         * Displays a form for creating a new calendar appointment
+         * @param requiredAttendees An array of strings containing the email addresses or an array containing an EmailAddressDetails object for each of the required attendees for the appointment. The array is limited to a maximum of 100 entries
+         * @param optionalAttendees An array of strings containing the email addresses or an array containing an EmailAddressDetails object for each of the optional attendees for the appointment. The array is limited to a maximum of 100 entries
+         * @param start A Date object specifying the start date and time of the appointment
+         * @param end A Date object specifying the end date and time of the appointment
+         * @param location A string containing the location of the appointment. The string is limited to a maximum of 255 characters
+         * @param resources An array of strings containing the resources required for the appointment. The array is limited to a maximum of 100 entries
+         * @param subject A string containing the subject of the appointment. The string is limited to a maximum of 255 characters
+         * @param body The body of the appointment message. The body content is limited to a maximum size of 32 KB
+         */
+        displayNewAppointmentForm(requiredAttendees: any, optionalAttendees: any, start: Date, end: Date, location: string, resources: string[], subject: string, body: string): void;
+        /**
+         * Gets a string that contains a token used to get an attachment or item from an Exchange Server
+         * @param callback The optional method to call when the string is inserted
+         * @param userContext Optional variable for any state data that is passed to the asynchronous method
+         */
+        getCallbackTokenAsync(callback?: (result: AsyncResult) => void, userContext?: any): void;
+        /**
+         * Gets a token identifying the user and the app for Office
+         * @param callback The optional method to call when the string is inserted
+         * @param userContext Optional variable for any state data that is passed to the asynchronous method
+         */
+        getUserIdentityTokenAsync(callback?: (result: AsyncResult) => void, userContext?: any): void;
+        /**
+         * Makes an asynchronous request to an Exchange Web Services (EWS) service on the Exchange server that hosts the user’s mailbox
+         * @param data The EWS request
+         * @param callback The optional method to call when the string is inserted
+         * @param userContext Optional variable for any state data that is passed to the asynchronous method
+         */
+        makeEwsRequestAsync(data: any, callback?: (result: AsyncResult) => void, userContext?: any): void;
+    }
+    export interface Message extends Item {
+        conversationId: string;
+    }
+    export interface MeetingRequest extends Message {
+        start: Date;
+        end: Date;
+        location: string;
+        optionalAttendees: EmailAddressDetails[];
+        requiredAttendees: EmailAddressDetails[];
+    }
+    export interface MeetingSuggestion {
+        meetingString: string;
+        attendees: EmailAddressDetails[];
+        location: string;
+        subject: string;
+        start: Date;
+        end: Date;
+    }
+    export interface PhoneNumber {
+        phoneString: string;
+        originalPhoneString: string;
+        type: string;
+    }
+    export interface Recipients {
+        /**
+         * Begins an asynchronous request to add a recipient list to an appointment or message
+         * @param recipients The recipients to add to the recipients list
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        addAsync(recipients: any, options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Begins an asynchronous request to get the recipient list for an appointment or message
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        getAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Begins an asynchronous request to set the recipient list for an appointment or message
+         * @param recipients The recipients to add to the recipients list
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        setAsync(recipients: any, options?: any, callback?: (result: AsyncResult) => void): void;
+    }
+    export interface RoamingSettings {
+        /**
+         * Retrieves the specified setting
+         * @param name The case-sensitive name of the setting to retrieve
+         */
+        get(name: string): any;
+        /**
+         * Removes the specified setting
+         * @param name The case-sensitive name of the setting to remove
+         */
+        remove(name: string): void;
+        /**
+         * Saves the settings
+         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult
+         */
+        saveAsync(callback?: (result: AsyncResult) => void): void;
+        /**
+         * Sets or creates the specified setting
+         * @param name The case-sensitive name of the setting to set or create
+         * @param value Specifies the value to be stored
+         */
+        set(name: string, value: any): void;
+    }
+    export interface Subject {
+        /**
+         * Begins an asynchronous request to get the subject of an appointment or message
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        getAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Begins an asynchronous call to set the subject of an appointment or message
+         * @param data The subject of the appointment. The string is limited to 255 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        setAsync(data: string, options?: any, callback?: (result: AsyncResult) => void): void;
+    }
+    export interface TaskSuggestion {
+        assignees: EmailUser[];
+        taskString: string;
+    }
+    export interface Time {
+        /**
+         * Begins an asynchronous request to get the start or end time
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        getAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Begins an asynchronous request to set the start or end time
+         * @param dateTime A date-time object in Coordinated Universal Time (UTC)
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        setAsync(dateTime: Date, options?: any, callback?: (result: AsyncResult) => void): void;
+    }
+    export interface UserProfile {
+        displayName: string;
+        emailAddress: string;
+        timeZone: string;
+    }
+}
+
+
+////////////////////////////////////////////////////////////////
+/////////////////////// End Exchange APIs //////////////////////
+////////////////////////////////////////////////////////////////
+
+
+
+///////////////////////////////////////////////////////////////
+
+
+
+////////////////////////////////////////////////////////////////
+///////////////// Begin OfficeExtension runtime ////////////////
+////////////////////////////////////////////////////////////////
+
+
+declare module OfficeExtension {
+    /** An abstract proxy object that represents an object in an Office document. You create proxy objects from the context (or from other proxy objects), add commands to a queue to act on the object, and then synchronize the proxy object state with the document by calling "context.sync()". */
+    class ClientObject {
+        /** The request context associated with the object */
+        context: ClientRequestContext;
+        /** Returns a boolean value for whether the corresponding object is a null object. You must call "context.sync()" before reading the isNullObject property. */
+        isNullObject: boolean;
+    }
+}
+declare module OfficeExtension {
+    interface LoadOption {
+        select?: string | string[];
+        expand?: string | string[];
+        top?: number;
+        skip?: number;
+    }
+    /** An abstract RequestContext object that facilitates requests to the host Office application. The "Excel.run" and "Word.run" methods provide a request context. */
+    class ClientRequestContext {
+        constructor(url?: string);
+
+        /** Collection of objects that are tracked for automatic adjustments based on surrounding changes in the document. */
+        trackedObjects: TrackedObjects;
+
+        /** Request headers */
+        requestHeaders: { [name: string]: string };
+
+        /** Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties. */
+        load(object: ClientObject, option?: string | string[]| LoadOption): void;
+
+        /**
+        * Queues up a command to recursively load the specified properties of the object and its navigation properties.
+        * You must call "context.sync()" before reading the properties.
+        * 
+        * @param object The object to be loaded.
+        * @param options The key-value pairing of load options for the types, such as { "Workbook": "worksheets,tables",  "Worksheet": "tables",  "Tables": "name" }
+        * @param maxDepth The maximum recursive depth.
+        */
+        loadRecursive(object: ClientObject, options: { [typeName: string]: string | string[] | LoadOption }, maxDepth?: number): void;
+
+        /** Adds a trace message to the queue. If the promise returned by "context.sync()" is rejected due to an error, this adds a ".traceMessages" array to the OfficeExtension.Error object, containing all trace messages that were executed. These messages can help you monitor the program execution sequence and detect the cause of the error. */
+        trace(message: string): void;
+
+        /** Synchronizes the state between JavaScript proxy objects and the Office document, by executing instructions queued on the request context and retrieving properties of loaded Office objects for use in your code. This method returns a promise, which is resolved when the synchronization is complete. */
+        sync<T>(passThroughValue?: T): IPromise<T>;
+    }
+}
+declare module OfficeExtension {
+    /** Contains the result for methods that return primitive types. The object's value property is retrieved from the document after "context.sync()" is invoked. */
+    class ClientResult<T> {
+        /** The value of the result that is retrieved from the document after "context.sync()" is invoked. */
+        value: T;
+    }
+}
+declare module OfficeExtension {
+    /** The error object returned by "context.sync()", if a promise is rejected due to an error while processing the request. */
+    class Error {
+        /** Error name: "OfficeExtension.Error".*/
+        name: string;
+        /** The error message passed through from the host Office application. */
+        message: string;
+        /** Stack trace, if applicable. */
+        stack: string;
+        /** Error code string, such as "InvalidArgument". */
+        code: string;
+        /** Trace messages (if any) that were added via a "context.trace()" invocation before calling "context.sync()". If there was an error, this contains all trace messages that were executed before the error occurred. These messages can help you monitor the program execution sequence and detect the case of the error. */
+        traceMessages: Array<string>;
+        /** Debug info, if applicable. The ".errorLocation" property can describe the object and method or property that caused the error. */
+        debugInfo: {
+            /** If applicable, will return the object type and the name of the method or property that caused the error. */
+            errorLocation?: string;
+        };
+    }
+}
+declare module OfficeExtension {
+    class ErrorCodes {
+        static accessDenied: string;
+        static generalException: string;
+        static activityLimitReached: string;
+    }
+}
+declare module OfficeExtension {
+    /** An IPromise object that represents a deferred interaction with the host Office application. */
+    interface IPromise<R> {
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => U): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => void): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => void): IPromise<U>;
+
+
+        /**
+         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+         * @param onRejected function to be called if or when the promise rejects.
+         */
+        catch<U>(onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
+        /**
+         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+         * @param onRejected function to be called if or when the promise rejects.
+         */
+        catch<U>(onRejected?: (error: any) => U): IPromise<U>;
+
+        /**
+         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+         * @param onRejected function to be called if or when the promise rejects.
+         */
+        catch<U>(onRejected?: (error: any) => void): IPromise<U>;
+    }
+
+    /** An Promise object that represents a deferred interaction with the host Office application. The publically-consumable OfficeExtension.Promise is available starting in ExcelApi 1.2 and WordApi 1.2. Promises can be chained via ".then", and errors can be caught via ".catch". Remember to always use a ".catch" on the outer promise, and to return intermediary promises so as not to break the promise chain. When a "native" Promise implementation is available, OfficeExtension.Promise will switch to use the native Promise instead. */
+    export class Promise<R> implements IPromise<R>
+    {
+        /**
+         * Creates a new promise based on a function that accepts resolve and reject handlers.
+         */
+        constructor(func: (resolve: (value?: R | IPromise<R>) => void, reject: (error?: any) => void) => void);
+
+        /**
+         * Creates a promise that resolves when all of the child promises resolve.
+         */
+        static all<U>(promises: OfficeExtension.IPromise<U>[]): IPromise<U[]>;
+
+        /**
+         * Creates a promise that is resolved.
+         */
+        static resolve<U>(value: U): IPromise<U>;
+
+        /**
+         * Creates a promise that is rejected.
+         */
+        static reject<U>(error: any): IPromise<U>;
+
+        /* This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => U): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => void): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => void): IPromise<U>;
+
+
+        /**
+         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+         * @param onRejected function to be called if or when the promise rejects.
+         */
+        catch<U>(onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
+        /**
+         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+         * @param onRejected function to be called if or when the promise rejects.
+         */
+        catch<U>(onRejected?: (error: any) => U): IPromise<U>;
+
+        /**
+         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+         * @param onRejected function to be called if or when the promise rejects.
+         */
+        catch<U>(onRejected?: (error: any) => void): IPromise<U>;
+    }
+}
+
+declare module OfficeExtension {
+    /** Collection of tracked objects, contained within a request context. See "context.trackedObjects" for more information. */
+    class TrackedObjects {
+        /** Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
+        add(object: ClientObject): void;
+        /** Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
+        add(objects: ClientObject[]): void;
+        /** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect. */
+        remove(object: ClientObject): void;
+        /** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect. */
+        remove(objects: ClientObject[]): void;
+    }
+}
+
+declare module OfficeExtension {
+    export class EventHandlers<T> {
+        constructor(context: ClientRequestContext, parentObject: ClientObject, name: string, eventInfo: EventInfo<T>);
+        add(handler: (args: T) => IPromise<any>): EventHandlerResult<T>;
+        remove(handler: (args: T) => IPromise<any>): void;
+        removeAll(): void;
+    }
+
+    export class EventHandlerResult<T> {
+        constructor(context: ClientRequestContext, handlers: EventHandlers<T>, handler: (args: T) => IPromise<any>);
+        remove(): void;
+    }
+
+    export interface EventInfo<T> {
+        registerFunc: (callback: (args: any) => void) => IPromise<any>;
+        unregisterFunc: (callback: (args: any) => void) => IPromise<any>;
+        eventArgsTransformFunc: (args: any) => IPromise<T>;
+    }
+}
+declare module OfficeExtension {
+    /**
+    * Request URL and headers 
+    */
+    interface RequestUrlAndHeaderInfo {
+        /** Request URL */
+        url: string;
+        /** Request headers */
+        headers?: {
+            [name: string]: string;
+        };
+    }
+}
+
+
+
+////////////////////////////////////////////////////////////////
+////////////////// End OfficeExtension runtime /////////////////
+////////////////////////////////////////////////////////////////
+
+
+
+////////////////////////////////////////////////////////////////
+
+
+
+////////////////////////////////////////////////////////////////
+//////////////// Begin Excel APIs (latest = 1.3) ///////////////
+////////////////////////////////////////////////////////////////
+
+
 declare module Excel {
     interface ThreeArrowsSet {
         [index: number]: Icon;
@@ -1899,7 +2573,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class Application extends OfficeExtension.ClientObject {
-        private m_calculationMode;
         /**
          *
          * Returns the calculation mode used in the workbook. See Excel.CalculationMode for details. Read-only.
@@ -1920,6 +2593,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.Application;
+        toJSON(): {
+            "calculationMode": string;
+        };
     }
     /**
      *
@@ -1928,14 +2604,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class Workbook extends OfficeExtension.ClientObject {
-        private m_application;
-        private m_bindings;
-        private m_functions;
-        private m_names;
-        private m_pivotTables;
-        private m_tables;
-        private m_worksheets;
-        private m_selectionChanged;
         /**
          *
          * Represents Excel application instance that contains this workbook. Read-only.
@@ -1968,7 +2636,7 @@ declare module Excel {
          *
          * Represents a collection of PivotTables associated with the workbook. Read-only.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         pivotTables: Excel.PivotTableCollection;
         /**
@@ -2003,6 +2671,7 @@ declare module Excel {
          * [Api set: ExcelApi 1.2]
          */
         onSelectionChanged: OfficeExtension.EventHandlers<Excel.SelectionChangedEventArgs>;
+        toJSON(): {};
     }
     /**
      *
@@ -2011,14 +2680,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class Worksheet extends OfficeExtension.ClientObject {
-        private m_charts;
-        private m_id;
-        private m_name;
-        private m_pivotTables;
-        private m_position;
-        private m_protection;
-        private m_tables;
-        private m_visibility;
         /**
          *
          * Returns collection of charts that are part of the worksheet. Read-only.
@@ -2030,7 +2691,7 @@ declare module Excel {
          *
          * Collection of PivotTables that are part of the worksheet. Read-only.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         pivotTables: Excel.PivotTableCollection;
         /**
@@ -2121,6 +2782,13 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.Worksheet;
+        toJSON(): {
+            "id": string;
+            "name": string;
+            "position": number;
+            "protection": WorksheetProtection;
+            "visibility": string;
+        };
     }
     /**
      *
@@ -2129,7 +2797,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class WorksheetCollection extends OfficeExtension.ClientObject {
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.Worksheet>;
         /**
@@ -2158,18 +2825,10 @@ declare module Excel {
          */
         getItem(key: string): Excel.Worksheet;
         /**
-         *
-         * Gets a worksheet object using its Name or ID. If the worksheet does not exist, the returned object's isNull property will be true.
-         *
-         * @param key The Name or ID of the worksheet.
-         *
-         * [Api set: ExcelApi 1.3 (Preview)]
-         */
-        getItemOrNull(key: string): Excel.Worksheet;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.WorksheetCollection;
+        toJSON(): {};
     }
     /**
      *
@@ -2178,11 +2837,9 @@ declare module Excel {
      * [Api set: ExcelApi 1.2]
      */
     class WorksheetProtection extends OfficeExtension.ClientObject {
-        private m_options;
-        private m_protected;
         /**
          *
-         * Sheet protection options.
+         * Sheet protection options. Read-Only.
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -2214,6 +2871,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.WorksheetProtection;
+        toJSON(): {
+            "options": WorksheetProtectionOptions;
+            "protected": boolean;
+        };
     }
     /**
      *
@@ -2307,29 +2968,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class Range extends OfficeExtension.ClientObject {
-        private m_address;
-        private m_addressLocal;
-        private m_cellCount;
-        private m_columnCount;
-        private m_columnHidden;
-        private m_columnIndex;
-        private m_format;
-        private m_formulas;
-        private m_formulasLocal;
-        private m_formulasR1C1;
-        private m_hidden;
-        private m_numberFormat;
-        private m_rowCount;
-        private m_rowHidden;
-        private m_rowIndex;
-        private m_sort;
-        private m_text;
-        private m_valueTypes;
-        private m_values;
-        private m_worksheet;
-        private m__ReferenceId;
-        private _ensureInteger(num, methodName);
-        private _getAdjacentRange(functionName, count, referenceRange, rowDirection, columnDirection);
         /**
          *
          * Returns a format object, encapsulating the range's font, fill, borders, alignment, and other properties. Read-only.
@@ -2367,7 +3005,7 @@ declare module Excel {
         addressLocal: string;
         /**
          *
-         * Number of cells in the range. Read-only.
+         * Number of cells in the range. This API will return -1 if the cell count exceeds 2^31-1 (2,147,483,647). Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -2559,15 +3197,6 @@ declare module Excel {
         getIntersection(anotherRange: Excel.Range | string): Excel.Range;
         /**
          *
-         * Gets the range object that represents the rectangular intersection of the given ranges. If no intersection is found, will return a null object.
-         *
-         * @param anotherRange The range object or range address that will be used to determine the intersection of ranges.
-         *
-         * [Api set: ExcelApi 1.3 (Preview)]
-         */
-        getIntersectionOrNull(anotherRange: Excel.Range | string): Excel.Range;
-        /**
-         *
          * Gets the last cell within the range. For example, the last cell of "B2:D5" is "D5".
          *
          * [Api set: ExcelApi 1.1]
@@ -2647,7 +3276,7 @@ declare module Excel {
          *
          * Represents the visible rows of the current range.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         getVisibleView(): Excel.RangeView;
         /**
@@ -2686,6 +3315,34 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.Range;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Excel.Range;
+        /**
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Excel.Range;
+        toJSON(): {
+            "address": string;
+            "addressLocal": string;
+            "cellCount": number;
+            "columnCount": number;
+            "columnHidden": boolean;
+            "columnIndex": number;
+            "format": RangeFormat;
+            "formulas": any[][];
+            "formulasLocal": any[][];
+            "formulasR1C1": any[][];
+            "hidden": boolean;
+            "numberFormat": any[][];
+            "rowCount": number;
+            "rowHidden": boolean;
+            "rowIndex": number;
+            "text": any[][];
+            "values": any[][];
+            "valueTypes": string[][];
+        };
     }
     /**
      *
@@ -2700,109 +3357,125 @@ declare module Excel {
      *
      * RangeView represents a set of visible cells of the parent range.
      *
-     * [Api set: ExcelApi 1.3 (Preview)]
+     * [Api set: ExcelApi 1.3]
      */
     class RangeView extends OfficeExtension.ClientObject {
-        private m_columnCount;
-        private m_formulas;
-        private m_formulasLocal;
-        private m_formulasR1C1;
-        private m_numberFormat;
-        private m_rowCount;
-        private m_rows;
-        private m_text;
-        private m_valueTypes;
-        private m_values;
         /**
          *
          * Represents a collection of range views associated with the range. Read-only.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         rows: Excel.RangeViewCollection;
         /**
          *
+         * Represents the cell addresses of the RangeView.
+         *
+         * [Api set: ExcelApi 1.3]
+         */
+        cellAddresses: Array<Array<any>>;
+        /**
+         *
          * Returns the number of visible columns. Read-only.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         columnCount: number;
         /**
          *
          * Represents the formula in A1-style notation.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         formulas: Array<Array<any>>;
         /**
          *
          * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         formulasLocal: Array<Array<any>>;
         /**
          *
          * Represents the formula in R1C1-style notation.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         formulasR1C1: Array<Array<any>>;
         /**
          *
-         * Represents Excel's number format code for the given cell. Read-only.
+         * Returns a value that represents the index of the RangeView. Read-only.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
+         */
+        index: number;
+        /**
+         *
+         * Represents Excel's number format code for the given cell.
+         *
+         * [Api set: ExcelApi 1.3]
          */
         numberFormat: Array<Array<any>>;
         /**
          *
          * Returns the number of visible rows. Read-only.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         rowCount: number;
         /**
          *
          * Text values of the specified range. The Text value will not depend on the cell width. The # sign substitution that happens in Excel UI will not affect the text value returned by the API. Read-only.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         text: Array<Array<any>>;
         /**
          *
          * Represents the type of data of each cell. Read-only.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         valueTypes: Array<Array<string>>;
         /**
          *
          * Represents the raw values of the specified range view. The data returned could be of type string, number, or a boolean. Cell that contain an error will return the error string.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         values: Array<Array<any>>;
         /**
          *
          * Gets the parent range associated with the current RangeView.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         getRange(): Excel.Range;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.RangeView;
+        toJSON(): {
+            "cellAddresses": any[][];
+            "columnCount": number;
+            "formulas": any[][];
+            "formulasLocal": any[][];
+            "formulasR1C1": any[][];
+            "index": number;
+            "numberFormat": any[][];
+            "rowCount": number;
+            "text": any[][];
+            "values": any[][];
+            "valueTypes": string[][];
+        };
     }
     /**
      *
      * Represents a collection of worksheet objects that are part of the workbook.
      *
-     * [Api set: ExcelApi 1.3 (Preview)]
+     * [Api set: ExcelApi 1.3]
      */
     class RangeViewCollection extends OfficeExtension.ClientObject {
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.RangeView>;
         /**
@@ -2811,22 +3484,58 @@ declare module Excel {
          *
          * @param index Index of the visible row.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
-        getItem(index: number): Excel.RangeView;
+        getItemAt(index: number): Excel.RangeView;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.RangeViewCollection;
+        toJSON(): {};
     }
     /**
      *
-     * A collection of all the nameditem objects that are part of the workbook.
+     * Setting represents a key-value pair of a setting persisted to the document.
+     *
+     * [Api set: ExcelApi 1.3]
+     */
+    class Setting extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Represents the value stored for this setting.
+         *
+         * [Api set: ExcelApi 1.3]
+         */
+        value: any;
+        /**
+         *
+         * Returns the key that represents the id of the Setting. Read-only.
+         *
+         * [Api set: ExcelApi 1.3]
+         */
+        key: string;
+        /**
+         *
+         * Deletes the setting.
+         *
+         * [Api set: ExcelApi 1.3]
+         */
+        delete(): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Excel.Setting;
+        toJSON(): {
+            "key": string;
+        };
+    }
+    /**
+     *
+     * A collection of all the nameditem objects that are part of the workbook or worksheet, depending on how it was reached.
      *
      * [Api set: ExcelApi 1.1]
      */
     class NamedItemCollection extends OfficeExtension.ClientObject {
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.NamedItem>;
         /**
@@ -2839,18 +3548,10 @@ declare module Excel {
          */
         getItem(name: string): Excel.NamedItem;
         /**
-         *
-         * Gets a nameditem object using its name. If the nameditem object does not exist, the returned object's isNull property will be true.
-         *
-         * @param name nameditem name.
-         *
-         * [Api set: ExcelApi 1.3 (Preview)]
-         */
-        getItemOrNull(name: string): Excel.NamedItem;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.NamedItemCollection;
+        toJSON(): {};
     }
     /**
      *
@@ -2859,11 +3560,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class NamedItem extends OfficeExtension.ClientObject {
-        private m_name;
-        private m_type;
-        private m_value;
-        private m_visible;
-        private m__Id;
         /**
          *
          * The name of the object. Read-only.
@@ -2873,14 +3569,14 @@ declare module Excel {
         name: string;
         /**
          *
-         * Indicates what type of reference is associated with the name. See Excel.NamedItemType for details. Read-only.
+         * Indicates the type of the value returned by the name's formula. See Excel.NamedItemType for details. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
         type: string;
         /**
          *
-         * Represents the formula that the name is defined to refer to. E.g. =Sheet14!$B$2:$H$12, =4.75, etc. Read-only.
+         * Represents the value computed by the name's formula. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -2900,9 +3596,22 @@ declare module Excel {
          */
         getRange(): Excel.Range;
         /**
+         *
+         * Returns the range object that is associated with the name. Returns a null object if the named item's type is not a range
+         *
+         * [Api set: ExcelApi 1.1]
+         */
+        getRangeOrNullObject(): Excel.Range;
+        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.NamedItem;
+        toJSON(): {
+            "name": string;
+            "type": string;
+            "value": any;
+            "visible": boolean;
+        };
     }
     /**
      *
@@ -2911,10 +3620,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class Binding extends OfficeExtension.ClientObject {
-        private m_id;
-        private m_type;
-        private m_dataChanged;
-        private m_selectionChanged;
         /**
          *
          * Represents binding identifier. Read-only.
@@ -2929,6 +3634,13 @@ declare module Excel {
          * [Api set: ExcelApi 1.1]
          */
         type: string;
+        /**
+         *
+         * Deletes the binding.
+         *
+         * [Api set: ExcelApi 1.3]
+         */
+        delete(): void;
         /**
          *
          * Returns the range represented by the binding. Will throw an error if binding is not of the correct type.
@@ -2956,7 +3668,7 @@ declare module Excel {
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.Binding;
         /**
          *
-         * Occurs when data within the binding is changed.
+         * Occurs when data or formatting within the binding is changed.
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -2968,6 +3680,10 @@ declare module Excel {
          * [Api set: ExcelApi 1.2]
          */
         onSelectionChanged: OfficeExtension.EventHandlers<Excel.BindingSelectionChangedEventArgs>;
+        toJSON(): {
+            "id": string;
+            "type": string;
+        };
     }
     /**
      *
@@ -2976,8 +3692,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class BindingCollection extends OfficeExtension.ClientObject {
-        private m_count;
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.Binding>;
         /**
@@ -2995,7 +3709,7 @@ declare module Excel {
          * @param bindingType Type of binding. See Excel.BindingType.
          * @param id Name of binding.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         add(range: Excel.Range | string, bindingType: string, id: string): Excel.Binding;
         /**
@@ -3006,7 +3720,7 @@ declare module Excel {
          * @param bindingType Type of binding. See Excel.BindingType.
          * @param id Name of binding.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         addFromNamedItem(name: string, bindingType: string, id: string): Excel.Binding;
         /**
@@ -3016,7 +3730,7 @@ declare module Excel {
          * @param bindingType Type of binding. See Excel.BindingType.
          * @param id Name of binding.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         addFromSelection(bindingType: string, id: string): Excel.Binding;
         /**
@@ -3038,28 +3752,20 @@ declare module Excel {
          */
         getItemAt(index: number): Excel.Binding;
         /**
-         *
-         * Gets a binding object by ID. If the binding object does not exist, the return object's isNull property will be true.
-         *
-         * @param id Id of the binding object to be retrieved.
-         *
-         * [Api set: ExcelApi 1.3 (Preview)]
-         */
-        getItemOrNull(id: string): Excel.Binding;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.BindingCollection;
+        toJSON(): {
+            "count": number;
+        };
     }
     /**
      *
-     * Represents a collection of all the tables that are part of the workbook.
+     * Represents a collection of all the tables that are part of the workbook or worksheet, depending on how it was reached.
      *
      * [Api set: ExcelApi 1.1]
      */
     class TableCollection extends OfficeExtension.ClientObject {
-        private m_count;
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.Table>;
         /**
@@ -3071,14 +3777,14 @@ declare module Excel {
         count: number;
         /**
          *
-         * Create a new table. The range source address determines the worksheet under which the table will be added. If the table cannot be added (e.g., because the address is invalid, or the table would overlap with another table), an error will be thrown.
+         * Create a new table. The range object or source address determines the worksheet under which the table will be added. If the table cannot be added (e.g., because the address is invalid, or the table would overlap with another table), an error will be thrown.
          *
-         * @param address Address or name of the range object representing the data source. If the address does not contain a sheet name, the currently-active sheet is used.
+         * @param address A Range object, or a string address or name of the range representing the data source. If the address does not contain a sheet name, the currently-active sheet is used. [Api set: ExcelApi 1.1 for string parameter; 1.3 for accepting a Range object as well]
          * @param hasHeaders Boolean value that indicates whether the data being imported has column labels. If the source does not contain headers (i.e,. when this property set to false), Excel will automatically generate header shifting the data down by one row.
          *
          * [Api set: ExcelApi 1.1]
          */
-        add(address: string, hasHeaders: boolean): Excel.Table;
+        add(address: Excel.Range | string, hasHeaders: boolean): Excel.Table;
         /**
          *
          * Gets a table by Name or ID.
@@ -3098,18 +3804,12 @@ declare module Excel {
          */
         getItemAt(index: number): Excel.Table;
         /**
-         *
-         * Gets a table by Name or ID. If the table does not exist, the return object's isNull property will be true.
-         *
-         * @param key Name or ID of the table to be retrieved.
-         *
-         * [Api set: ExcelApi 1.3 (Preview)]
-         */
-        getItemOrNull(key: number | string): Excel.Table;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.TableCollection;
+        toJSON(): {
+            "count": number;
+        };
     }
     /**
      *
@@ -3118,20 +3818,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class Table extends OfficeExtension.ClientObject {
-        private m_columns;
-        private m_highlightFirstColumn;
-        private m_highlightLastColumn;
-        private m_id;
-        private m_name;
-        private m_rows;
-        private m_showBandedColumns;
-        private m_showBandedRows;
-        private m_showFilterButton;
-        private m_showHeaders;
-        private m_showTotals;
-        private m_sort;
-        private m_style;
-        private m_worksheet;
         /**
          *
          * Represents a collection of all the columns in the table. Read-only.
@@ -3164,14 +3850,14 @@ declare module Excel {
          *
          * Indicates whether the first column contains special formatting.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         highlightFirstColumn: boolean;
         /**
          *
          * Indicates whether the last column contains special formatting.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         highlightLastColumn: boolean;
         /**
@@ -3192,21 +3878,21 @@ declare module Excel {
          *
          * Indicates whether the columns show banded formatting in which odd columns are highlighted differently from even ones to make reading the table easier.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         showBandedColumns: boolean;
         /**
          *
          * Indicates whether the rows show banded formatting in which odd rows are highlighted differently from even ones to make reading the table easier.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         showBandedRows: boolean;
         /**
          *
          * Indicates whether the filter buttons are visible at the top of each column header. Setting this is only allowed if the table contains a header row.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         showFilterButton: boolean;
         /**
@@ -3290,6 +3976,18 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.Table;
+        toJSON(): {
+            "highlightFirstColumn": boolean;
+            "highlightLastColumn": boolean;
+            "id": number;
+            "name": string;
+            "showBandedColumns": boolean;
+            "showBandedRows": boolean;
+            "showFilterButton": boolean;
+            "showHeaders": boolean;
+            "showTotals": boolean;
+            "style": string;
+        };
     }
     /**
      *
@@ -3298,8 +3996,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class TableColumnCollection extends OfficeExtension.ClientObject {
-        private m_count;
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.TableColumn>;
         /**
@@ -3313,12 +4009,13 @@ declare module Excel {
          *
          * Adds a new column to the table.
          *
-         * @param index Specifies the relative position of the new column. The previous column at this position is shifted to the right. The index value should be equal to or less than the last column's index value, so it cannot be used to append a column at the end of the table. Zero-indexed.
+         * @param index Specifies the relative position of the new column. If null or -1, the addition happens at the end. Columns with a higher index will be shifted to the side. Zero-indexed.
          * @param values A 2-dimensional array of unformatted values of the table column.
+         * @param name Specifies the name of the new column. If null, the default name will be used.
          *
-         * [Api set: ExcelApi 1.1]
+         * [Api set: ExcelApi 1.1 requires an index smaller than the total column count; 1.4 allows index to be optional (null or -1) and will append a column at the end; 1.4 allows name parameter at creation time.]
          */
-        add(index: number, values?: Array<Array<boolean | string | number>> | boolean | string | number): Excel.TableColumn;
+        add(index?: number, values?: Array<Array<boolean | string | number>> | boolean | string | number, name?: string): Excel.TableColumn;
         /**
          *
          * Gets a column object by Name or ID.
@@ -3338,18 +4035,12 @@ declare module Excel {
          */
         getItemAt(index: number): Excel.TableColumn;
         /**
-         *
-         * Gets a column object by Name or ID. If the column does not exist, the returned object's isNull property will be true.
-         *
-         * @param key Column Name or ID.
-         *
-         * [Api set: ExcelApi 1.3 (Preview)]
-         */
-        getItemOrNull(key: number | string): Excel.TableColumn;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.TableColumnCollection;
+        toJSON(): {
+            "count": number;
+        };
     }
     /**
      *
@@ -3358,11 +4049,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class TableColumn extends OfficeExtension.ClientObject {
-        private m_filter;
-        private m_id;
-        private m_index;
-        private m_name;
-        private m_values;
         /**
          *
          * Retrieve the filter applied to the column.
@@ -3386,9 +4072,9 @@ declare module Excel {
         index: number;
         /**
          *
-         * Returns the name of the table column. Read-only.
+         * Represents the name of the table column.
          *
-         * [Api set: ExcelApi 1.1]
+         * [Api set: ExcelApi 1.1 for getting the name; 1.4 for setting it.]
          */
         name: string;
         /**
@@ -3437,6 +4123,12 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.TableColumn;
+        toJSON(): {
+            "id": number;
+            "index": number;
+            "name": string;
+            "values": any[][];
+        };
     }
     /**
      *
@@ -3445,8 +4137,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class TableRowCollection extends OfficeExtension.ClientObject {
-        private m_count;
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.TableRow>;
         /**
@@ -3458,12 +4148,12 @@ declare module Excel {
         count: number;
         /**
          *
-         * Adds a new row to the table.
+         * Adds one or more rows to the table. The return object will be the top of the newly added row(s).
          *
-         * @param index Specifies the relative position of the new row. If null, the addition happens at the end. Any rows below the inserted row are shifted downwards. Zero-indexed.
+         * @param index Specifies the relative position of the new row. If null or -1, the addition happens at the end. Any rows below the inserted row are shifted downwards. Zero-indexed.
          * @param values A 2-dimensional array of unformatted values of the table row.
          *
-         * [Api set: ExcelApi 1.1]
+         * [Api set: ExcelApi 1.1 for adding a single row; 1.4 allows adding of multiple rows.]
          */
         add(index?: number, values?: Array<Array<boolean | string | number>> | boolean | string | number): Excel.TableRow;
         /**
@@ -3479,6 +4169,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.TableRowCollection;
+        toJSON(): {
+            "count": number;
+        };
     }
     /**
      *
@@ -3487,8 +4180,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class TableRow extends OfficeExtension.ClientObject {
-        private m_index;
-        private m_values;
         /**
          *
          * Returns the index number of the row within the rows collection of the table. Zero-indexed. Read-only.
@@ -3521,6 +4212,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.TableRow;
+        toJSON(): {
+            "index": number;
+            "values": any[][];
+        };
     }
     /**
      *
@@ -3529,18 +4224,9 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class RangeFormat extends OfficeExtension.ClientObject {
-        private m_borders;
-        private m_columnWidth;
-        private m_fill;
-        private m_font;
-        private m_horizontalAlignment;
-        private m_protection;
-        private m_rowHeight;
-        private m_verticalAlignment;
-        private m_wrapText;
         /**
          *
-         * Collection of border objects that apply to the overall range selected Read-only.
+         * Collection of border objects that apply to the overall range. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -3554,7 +4240,7 @@ declare module Excel {
         fill: Excel.RangeFill;
         /**
          *
-         * Returns the font object defined on the overall range selected Read-only.
+         * Returns the font object defined on the overall range. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -3619,6 +4305,16 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.RangeFormat;
+        toJSON(): {
+            "columnWidth": number;
+            "fill": RangeFill;
+            "font": RangeFont;
+            "horizontalAlignment": string;
+            "protection": FormatProtection;
+            "rowHeight": number;
+            "verticalAlignment": string;
+            "wrapText": boolean;
+        };
     }
     /**
      *
@@ -3627,8 +4323,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.2]
      */
     class FormatProtection extends OfficeExtension.ClientObject {
-        private m_formulaHidden;
-        private m_locked;
         /**
          *
          * Indicates if Excel hides the formula for the cells in the range. A null value indicates that the entire range doesn't have uniform formula hidden setting.
@@ -3647,6 +4341,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.FormatProtection;
+        toJSON(): {
+            "formulaHidden": boolean;
+            "locked": boolean;
+        };
     }
     /**
      *
@@ -3655,7 +4353,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class RangeFill extends OfficeExtension.ClientObject {
-        private m_color;
         /**
          *
          * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange")
@@ -3674,6 +4371,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.RangeFill;
+        toJSON(): {
+            "color": string;
+        };
     }
     /**
      *
@@ -3682,10 +4382,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class RangeBorder extends OfficeExtension.ClientObject {
-        private m_color;
-        private m_sideIndex;
-        private m_style;
-        private m_weight;
         /**
          *
          * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
@@ -3718,6 +4414,12 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.RangeBorder;
+        toJSON(): {
+            "color": string;
+            "sideIndex": string;
+            "style": string;
+            "weight": string;
+        };
     }
     /**
      *
@@ -3726,8 +4428,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class RangeBorderCollection extends OfficeExtension.ClientObject {
-        private m_count;
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.RangeBorder>;
         /**
@@ -3759,6 +4459,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.RangeBorderCollection;
+        toJSON(): {
+            "count": number;
+        };
     }
     /**
      *
@@ -3767,12 +4470,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class RangeFont extends OfficeExtension.ClientObject {
-        private m_bold;
-        private m_color;
-        private m_italic;
-        private m_name;
-        private m_size;
-        private m_underline;
         /**
          *
          * Represents the bold status of font.
@@ -3819,6 +4516,14 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.RangeFont;
+        toJSON(): {
+            "bold": boolean;
+            "color": string;
+            "italic": boolean;
+            "name": string;
+            "size": number;
+            "underline": string;
+        };
     }
     /**
      *
@@ -3827,8 +4532,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartCollection extends OfficeExtension.ClientObject {
-        private m_count;
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.Chart>;
         /**
@@ -3868,19 +4571,12 @@ declare module Excel {
          */
         getItemAt(index: number): Excel.Chart;
         /**
-         *
-         * Gets a chart using its name. If there are multiple charts with the same name, the first one will be returned.
-            If the chart does not exist, the returned object's isNull property will be true.
-         *
-         * @param name Name of the chart to be retrieved.
-         *
-         * [Api set: ExcelApi 1.3 (Preview)]
-         */
-        getItemOrNull(name: string): Excel.Chart;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartCollection;
+        toJSON(): {
+            "count": number;
+        };
     }
     /**
      *
@@ -3889,18 +4585,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class Chart extends OfficeExtension.ClientObject {
-        private m_axes;
-        private m_dataLabels;
-        private m_format;
-        private m_height;
-        private m_left;
-        private m_legend;
-        private m_name;
-        private m_series;
-        private m_title;
-        private m_top;
-        private m_width;
-        private m_worksheet;
         /**
          *
          * Represents chart axes. Read-only.
@@ -4028,6 +4712,18 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.Chart;
+        toJSON(): {
+            "axes": ChartAxes;
+            "dataLabels": ChartDataLabels;
+            "format": ChartAreaFormat;
+            "height": number;
+            "left": number;
+            "legend": ChartLegend;
+            "name": string;
+            "title": ChartTitle;
+            "top": number;
+            "width": number;
+        };
     }
     /**
      *
@@ -4036,8 +4732,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartAreaFormat extends OfficeExtension.ClientObject {
-        private m_fill;
-        private m_font;
         /**
          *
          * Represents the fill format of an object, which includes background formatting information. Read-only.
@@ -4056,6 +4750,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartAreaFormat;
+        toJSON(): {
+            "fill": ChartFill;
+            "font": ChartFont;
+        };
     }
     /**
      *
@@ -4064,8 +4762,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartSeriesCollection extends OfficeExtension.ClientObject {
-        private m_count;
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.ChartSeries>;
         /**
@@ -4088,6 +4784,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartSeriesCollection;
+        toJSON(): {
+            "count": number;
+        };
     }
     /**
      *
@@ -4096,9 +4795,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartSeries extends OfficeExtension.ClientObject {
-        private m_format;
-        private m_name;
-        private m_points;
         /**
          *
          * Represents the formatting of a chart series, which includes fill and line formatting. Read-only.
@@ -4124,6 +4820,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartSeries;
+        toJSON(): {
+            "format": ChartSeriesFormat;
+            "name": string;
+        };
     }
     /**
      *
@@ -4132,8 +4832,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartSeriesFormat extends OfficeExtension.ClientObject {
-        private m_fill;
-        private m_line;
         /**
          *
          * Represents the fill format of a chart series, which includes background formating information. Read-only.
@@ -4152,6 +4850,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartSeriesFormat;
+        toJSON(): {
+            "fill": ChartFill;
+            "line": ChartLineFormat;
+        };
     }
     /**
      *
@@ -4160,8 +4862,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartPointsCollection extends OfficeExtension.ClientObject {
-        private m_count;
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.ChartPoint>;
         /**
@@ -4184,6 +4884,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartPointsCollection;
+        toJSON(): {
+            "count": number;
+        };
     }
     /**
      *
@@ -4192,8 +4895,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartPoint extends OfficeExtension.ClientObject {
-        private m_format;
-        private m_value;
         /**
          *
          * Encapsulates the format properties chart point. Read-only.
@@ -4212,6 +4913,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartPoint;
+        toJSON(): {
+            "format": ChartPointFormat;
+            "value": any;
+        };
     }
     /**
      *
@@ -4220,7 +4925,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartPointFormat extends OfficeExtension.ClientObject {
-        private m_fill;
         /**
          *
          * Represents the fill format of a chart, which includes background formating information. Read-only.
@@ -4232,6 +4936,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartPointFormat;
+        toJSON(): {
+            "fill": ChartFill;
+        };
     }
     /**
      *
@@ -4240,9 +4947,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartAxes extends OfficeExtension.ClientObject {
-        private m_categoryAxis;
-        private m_seriesAxis;
-        private m_valueAxis;
         /**
          *
          * Represents the category axis in a chart. Read-only.
@@ -4268,6 +4972,11 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartAxes;
+        toJSON(): {
+            "categoryAxis": ChartAxis;
+            "seriesAxis": ChartAxis;
+            "valueAxis": ChartAxis;
+        };
     }
     /**
      *
@@ -4276,14 +4985,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartAxis extends OfficeExtension.ClientObject {
-        private m_format;
-        private m_majorGridlines;
-        private m_majorUnit;
-        private m_maximum;
-        private m_minimum;
-        private m_minorGridlines;
-        private m_minorUnit;
-        private m_title;
         /**
          *
          * Represents the formatting of a chart object, which includes line and font formatting. Read-only.
@@ -4344,6 +5045,16 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartAxis;
+        toJSON(): {
+            "format": ChartAxisFormat;
+            "majorGridlines": ChartGridlines;
+            "majorUnit": any;
+            "maximum": any;
+            "minimum": any;
+            "minorGridlines": ChartGridlines;
+            "minorUnit": any;
+            "title": ChartAxisTitle;
+        };
     }
     /**
      *
@@ -4352,8 +5063,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartAxisFormat extends OfficeExtension.ClientObject {
-        private m_font;
-        private m_line;
         /**
          *
          * Represents the font attributes (font name, font size, color, etc.) for a chart axis element. Read-only.
@@ -4372,6 +5081,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartAxisFormat;
+        toJSON(): {
+            "font": ChartFont;
+            "line": ChartLineFormat;
+        };
     }
     /**
      *
@@ -4380,9 +5093,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartAxisTitle extends OfficeExtension.ClientObject {
-        private m_format;
-        private m_text;
-        private m_visible;
         /**
          *
          * Represents the formatting of chart axis title. Read-only.
@@ -4408,6 +5118,11 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartAxisTitle;
+        toJSON(): {
+            "format": ChartAxisTitleFormat;
+            "text": string;
+            "visible": boolean;
+        };
     }
     /**
      *
@@ -4416,7 +5131,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartAxisTitleFormat extends OfficeExtension.ClientObject {
-        private m_font;
         /**
          *
          * Represents the font attributes, such as font name, font size, color, etc. of chart axis title object. Read-only.
@@ -4428,6 +5142,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartAxisTitleFormat;
+        toJSON(): {
+            "font": ChartFont;
+        };
     }
     /**
      *
@@ -4436,15 +5153,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartDataLabels extends OfficeExtension.ClientObject {
-        private m_format;
-        private m_position;
-        private m_separator;
-        private m_showBubbleSize;
-        private m_showCategoryName;
-        private m_showLegendKey;
-        private m_showPercentage;
-        private m_showSeriesName;
-        private m_showValue;
         /**
          *
          * Represents the format of chart data labels, which includes fill and font formatting. Read-only.
@@ -4512,6 +5220,17 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartDataLabels;
+        toJSON(): {
+            "format": ChartDataLabelFormat;
+            "position": string;
+            "separator": string;
+            "showBubbleSize": boolean;
+            "showCategoryName": boolean;
+            "showLegendKey": boolean;
+            "showPercentage": boolean;
+            "showSeriesName": boolean;
+            "showValue": boolean;
+        };
     }
     /**
      *
@@ -4520,8 +5239,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartDataLabelFormat extends OfficeExtension.ClientObject {
-        private m_fill;
-        private m_font;
         /**
          *
          * Represents the fill format of the current chart data label. Read-only.
@@ -4540,6 +5257,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartDataLabelFormat;
+        toJSON(): {
+            "fill": ChartFill;
+            "font": ChartFont;
+        };
     }
     /**
      *
@@ -4548,8 +5269,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartGridlines extends OfficeExtension.ClientObject {
-        private m_format;
-        private m_visible;
         /**
          *
          * Represents the formatting of chart gridlines. Read-only.
@@ -4568,6 +5287,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartGridlines;
+        toJSON(): {
+            "format": ChartGridlinesFormat;
+            "visible": boolean;
+        };
     }
     /**
      *
@@ -4576,7 +5299,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartGridlinesFormat extends OfficeExtension.ClientObject {
-        private m_line;
         /**
          *
          * Represents chart line formatting. Read-only.
@@ -4588,6 +5310,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartGridlinesFormat;
+        toJSON(): {
+            "line": ChartLineFormat;
+        };
     }
     /**
      *
@@ -4596,10 +5321,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartLegend extends OfficeExtension.ClientObject {
-        private m_format;
-        private m_overlay;
-        private m_position;
-        private m_visible;
         /**
          *
          * Represents the formatting of a chart legend, which includes fill and font formatting. Read-only.
@@ -4632,6 +5353,12 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartLegend;
+        toJSON(): {
+            "format": ChartLegendFormat;
+            "overlay": boolean;
+            "position": string;
+            "visible": boolean;
+        };
     }
     /**
      *
@@ -4640,8 +5367,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartLegendFormat extends OfficeExtension.ClientObject {
-        private m_fill;
-        private m_font;
         /**
          *
          * Represents the fill format of an object, which includes background formating information. Read-only.
@@ -4660,6 +5385,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartLegendFormat;
+        toJSON(): {
+            "fill": ChartFill;
+            "font": ChartFont;
+        };
     }
     /**
      *
@@ -4668,10 +5397,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartTitle extends OfficeExtension.ClientObject {
-        private m_format;
-        private m_overlay;
-        private m_text;
-        private m_visible;
         /**
          *
          * Represents the formatting of a chart title, which includes fill and font formatting. Read-only.
@@ -4704,6 +5429,12 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartTitle;
+        toJSON(): {
+            "format": ChartTitleFormat;
+            "overlay": boolean;
+            "text": string;
+            "visible": boolean;
+        };
     }
     /**
      *
@@ -4712,8 +5443,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartTitleFormat extends OfficeExtension.ClientObject {
-        private m_fill;
-        private m_font;
         /**
          *
          * Represents the fill format of an object, which includes background formating information. Read-only.
@@ -4732,6 +5461,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartTitleFormat;
+        toJSON(): {
+            "fill": ChartFill;
+            "font": ChartFont;
+        };
     }
     /**
      *
@@ -4760,6 +5493,7 @@ declare module Excel {
          * [Api set: ExcelApi 1.1]
          */
         setSolidColor(color: string): void;
+        toJSON(): {};
     }
     /**
      *
@@ -4768,7 +5502,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartLineFormat extends OfficeExtension.ClientObject {
-        private m_color;
         /**
          *
          * HTML color code representing the color of lines in the chart.
@@ -4787,6 +5520,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartLineFormat;
+        toJSON(): {
+            "color": string;
+        };
     }
     /**
      *
@@ -4795,12 +5531,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartFont extends OfficeExtension.ClientObject {
-        private m_bold;
-        private m_color;
-        private m_italic;
-        private m_name;
-        private m_size;
-        private m_underline;
         /**
          *
          * Represents the bold status of font.
@@ -4847,6 +5577,14 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartFont;
+        toJSON(): {
+            "bold": boolean;
+            "color": string;
+            "italic": boolean;
+            "name": string;
+            "size": number;
+            "underline": string;
+        };
     }
     /**
      *
@@ -4868,6 +5606,7 @@ declare module Excel {
          * [Api set: ExcelApi 1.2]
          */
         apply(fields: Array<Excel.SortField>, matchCase?: boolean, hasHeaders?: boolean, orientation?: string, method?: string): void;
+        toJSON(): {};
     }
     /**
      *
@@ -4876,9 +5615,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.2]
      */
     class TableSort extends OfficeExtension.ClientObject {
-        private m_fields;
-        private m_matchCase;
-        private m_method;
         /**
          *
          * Represents the current conditions used to last sort the table.
@@ -4929,6 +5665,11 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.TableSort;
+        toJSON(): {
+            "fields": SortField[];
+            "matchCase": boolean;
+            "method": string;
+        };
     }
     /**
      *
@@ -4987,7 +5728,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.2]
      */
     class Filter extends OfficeExtension.ClientObject {
-        private m_criteria;
         /**
          *
          * The currently applied filter on the given column.
@@ -5107,6 +5847,9 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.Filter;
+        toJSON(): {
+            "criteria": FilterCriteria;
+        };
     }
     /**
      *
@@ -5223,10 +5966,9 @@ declare module Excel {
      *
      * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
      *
-     * [Api set: ExcelApi 1.3 (Preview)]
+     * [Api set: ExcelApi 1.3]
      */
     class PivotTableCollection extends OfficeExtension.ClientObject {
-        private m__items;
         /** Gets the loaded child items in this collection. */
         items: Array<Excel.PivotTable>;
         /**
@@ -5235,64 +5977,57 @@ declare module Excel {
          *
          * @param name Name of the PivotTable to be retrieved.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         getItem(name: string): Excel.PivotTable;
         /**
          *
-         * Gets a PivotTable by name. If the PivotTable does not exist, the return object's isNull property will be true.
-         *
-         * @param name Name of the PivotTable to be retrieved.
-         *
-         * [Api set: ExcelApi 1.3 (Preview)]
-         */
-        getItemOrNull(name: string): Excel.PivotTable;
-        /**
-         *
          * Refreshes all the PivotTables in the collection.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         refreshAll(): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.PivotTableCollection;
+        toJSON(): {};
     }
     /**
      *
      * Represents an Excel PivotTable.
      *
-     * [Api set: ExcelApi 1.3 (Preview)]
+     * [Api set: ExcelApi 1.3]
      */
     class PivotTable extends OfficeExtension.ClientObject {
-        private m_name;
-        private m_worksheet;
         /**
          *
          * The worksheet containing the current PivotTable. Read-only.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         worksheet: Excel.Worksheet;
         /**
          *
          * Name of the PivotTable.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         name: string;
         /**
          *
          * Refreshes the PivotTable.
          *
-         * [Api set: ExcelApi 1.3 (Preview)]
+         * [Api set: ExcelApi 1.3]
          */
         refresh(): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.PivotTable;
+        toJSON(): {
+            "name": string;
+        };
     }
     /**
      * [Api set: ExcelApi 1.1]
@@ -5635,6 +6370,7 @@ declare module Excel {
         var double: string;
         var boolean: string;
         var range: string;
+        var error: string;
     }
     /**
      * [Api set: ExcelApi 1.1]
@@ -5713,8 +6449,6 @@ declare module Excel {
      * [Api set: ExcelApi 1.2]
      */
     class FunctionResult<T> extends OfficeExtension.ClientObject {
-        private m_error;
-        private m_value;
         /**
          *
          * Error value (such as "#DIV/0") representing the error. If the error string is not set, then the function succeeded, and its result is written to the Value field. The error is always in the English locale.
@@ -5724,7 +6458,7 @@ declare module Excel {
         error: string;
         /**
          *
-         * The value of function evaluation. The value field will be populated only if no error has occured (i.e., the Error property is not set).
+         * The value of function evaluation. The value field will be populated only if no error has occurred (i.e., the Error property is not set).
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -5733,6 +6467,10 @@ declare module Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): FunctionResult<T>;
+        toJSON(): {
+            "error": string;
+            "value": T;
+        };
     }
     /**
      *
@@ -9477,9 +10215,11 @@ declare module Excel {
          * [Api set: ExcelApi 1.2]
          */
         z_Test(array: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, sigma?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
+        toJSON(): {};
     }
     module ErrorCodes {
         var accessDenied: string;
+        var apiNotFound: string;
         var generalException: string;
         var insertDeleteConflict: string;
         var invalidArgument: string;
@@ -9498,23 +10238,73 @@ declare module Excel {
      * The RequestContext object facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the request context is required to get access to the Excel object model from the add-in.
      */
     class RequestContext extends OfficeExtension.ClientRequestContext {
-        private m_workbook;
         constructor(url?: string);
         workbook: Workbook;
     }
     /**
-     * Executes a batch script that performs actions on the Excel object model. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
-     * @param batch - A function that takes in an Excel.RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the request context is required to get access to the Excel object model from the add-in.
+     * Executes a batch script that performs actions on the Excel object model, using a new RequestContext. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
      */
     function run<T>(batch: (context: Excel.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the Excel object model, using a new remote RequestContext. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param requestInfo - The URL of the remote workbook and the request headers to be sent.
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+     */
+    function run<T>(requestInfo: OfficeExtension.RequestUrlAndHeaderInfo, batch: (context: Excel.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the Excel object model, using the RequestContext of a previously-created API object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param object - A previously-created API object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+     */
+    function run<T>(object: OfficeExtension.ClientObject, batch: (context: Excel.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the Excel object model, using the remote RequestContext of a previously-created API object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param requestInfo - The URL of the remote workbook and the request headers to be sent.
+     * @param object - A previously-created API object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+     */
+    function run<T>(requestInfo: OfficeExtension.RequestUrlAndHeaderInfo, object: OfficeExtension.ClientObject, batch: (context: Excel.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the Excel object model, using the RequestContext of previously-created API objects.
+     * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared RequestContext, which means that any changes applied to these objects will be picked up by "context.sync()".
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+     */
+    function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Excel.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the Excel object model, using the remote RequestContext of previously-created API objects.
+     * @param requestInfo - The URL of the remote workbook and the request headers to be sent.
+     * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared RequestContext, which means that any changes applied to these objects will be picked up by "context.sync()".
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+     */
+    function run<T>(requestInfo: OfficeExtension.RequestUrlAndHeaderInfo, objects: OfficeExtension.ClientObject[], batch: (context: Excel.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
 }
 
-declare namespace Word {
+
+
+////////////////////////////////////////////////////////////////
+//////////////////////// End Excel APIs ////////////////////////
+////////////////////////////////////////////////////////////////
+
+
+
+
+////////////////////////////////////////////////////////////////
+
+
+
+
+////////////////////////////////////////////////////////////////
+//////////////////////// Begin Word APIs ///////////////////////
+////////////////////////////////////////////////////////////////
+
+
+declare module Word {
     /**
      *
      * The Application object.
      *
-     * [Api set: WordApiDesktop 1.3 Beta]
+     * [Api set: WordApi 1.3]
      */
     class Application extends OfficeExtension.ClientObject {
         /**
@@ -9523,13 +10313,14 @@ declare namespace Word {
          *
          * @param base64File Optional. The base64 encoded .docx file. The default value is null.
          *
-         * [Api set: WordApiDesktop 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         createDocument(base64File?: string): Word.Document;
         /**
          * Create a new instance of Word.Application object
          */
         static newObject(context: OfficeExtension.ClientRequestContext): Word.Application;
+        toJSON(): {};
     }
     /**
      *
@@ -9538,18 +10329,6 @@ declare namespace Word {
      * [Api set: WordApi 1.1]
      */
     class Body extends OfficeExtension.ClientObject {
-        private m_contentControls;
-        private m_font;
-        private m_inlinePictures;
-        private m_lists;
-        private m_paragraphs;
-        private m_parentBody;
-        private m_parentContentControl;
-        private m_style;
-        private m_tables;
-        private m_text;
-        private m_type;
-        private m__ReferenceId;
         /**
          *
          * Gets the collection of rich text content control objects in the body. Read-only.
@@ -9575,7 +10354,7 @@ declare namespace Word {
          *
          * Gets the collection of list objects in the body. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         lists: Word.ListCollection;
         /**
@@ -9589,30 +10368,44 @@ declare namespace Word {
          *
          * Gets the parent body of the body. For example, a table cell body's parent body could be a header. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         parentBody: Word.Body;
         /**
          *
-         * Gets the content control that contains the body. Returns null if there isn't a parent content control. Read-only.
+         * Gets the content control that contains the body. Returns a null object if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
         parentContentControl: Word.ContentControl;
         /**
          *
+         * Gets the parent section of the body. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentSection: Word.Section;
+        /**
+         *
          * Gets the collection of table objects in the body. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         tables: Word.TableCollection;
         /**
          *
-         * Gets or sets the style used for the body. This is the name of the pre-installed or custom style.
+         * Gets or sets the style name for the body. Use this property for custom styles and localized style names. To use the built-in styles that are portable between locales, see the "styleBuiltIn" property.
          *
          * [Api set: WordApi 1.1]
          */
         style: string;
+        /**
+         *
+         * Gets or sets the built-in style name for the body. Use this property for built-in styles that are portable between locales. To use custom styles or localized style names, see the "style" property.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        styleBuiltIn: string;
         /**
          *
          * Gets the text of the body. Use the insertText method to insert text. Read-only.
@@ -9624,7 +10417,7 @@ declare namespace Word {
          *
          * Gets the type of the body. The type can be 'MainDoc', 'Section', 'Header', 'Footer', or 'TableCell'. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         type: string;
         /**
@@ -9652,9 +10445,9 @@ declare namespace Word {
          *
          * Gets the whole body, or the starting or ending point of the body, as a range.
          *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Start' or 'End'.
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After' or 'Content'.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         getRange(rangeLocation?: string): Word.Range;
         /**
@@ -9733,7 +10526,7 @@ declare namespace Word {
          * @param insertLocation Required. The value can be 'Start' or 'End'.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: string, values?: Array<Array<string>>): Word.Table;
         /**
@@ -9760,11 +10553,10 @@ declare namespace Word {
             ignoreSpace?: boolean;
             matchCase?: boolean;
             matchPrefix?: boolean;
-            matchSoundsLike?: boolean;
             matchSuffix?: boolean;
             matchWholeWord?: boolean;
             matchWildcards?: boolean;
-        }): Word.SearchResultCollection;
+        }): Word.RangeCollection;
         /**
          *
          * Selects the body and navigates the Word UI to it.
@@ -9778,6 +10570,21 @@ declare namespace Word {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.Body;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.Body;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.Body;
+        toJSON(): {
+            "font": Font;
+            "style": string;
+            "styleBuiltIn": string;
+            "text": string;
+            "type": string;
+        };
     }
     /**
      *
@@ -9786,29 +10593,6 @@ declare namespace Word {
      * [Api set: WordApi 1.1]
      */
     class ContentControl extends OfficeExtension.ClientObject {
-        private m_appearance;
-        private m_cannotDelete;
-        private m_cannotEdit;
-        private m_color;
-        private m_contentControls;
-        private m_font;
-        private m_id;
-        private m_inlinePictures;
-        private m_lists;
-        private m_paragraphs;
-        private m_parentContentControl;
-        private m_parentTable;
-        private m_parentTableCell;
-        private m_placeholderText;
-        private m_removeWhenEdited;
-        private m_style;
-        private m_subtype;
-        private m_tables;
-        private m_tag;
-        private m_text;
-        private m_title;
-        private m_type;
-        private m__ReferenceId;
         /**
          *
          * Gets the collection of content control objects in the content control. Read-only.
@@ -9834,7 +10618,7 @@ declare namespace Word {
          *
          * Gets the collection of list objects in the content control. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         lists: Word.ListCollection;
         /**
@@ -9846,30 +10630,37 @@ declare namespace Word {
         paragraphs: Word.ParagraphCollection;
         /**
          *
-         * Gets the content control that contains the content control. Returns null if there isn't a parent content control. Read-only.
+         * Gets the parent body of the content control. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentBody: Word.Body;
+        /**
+         *
+         * Gets the content control that contains the content control. Returns a null object if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
         parentContentControl: Word.ContentControl;
         /**
          *
-         * Gets the table that contains the content control. Returns null if it is not contained in a table. Read-only.
+         * Gets the table that contains the content control. Returns a null object if it is not contained in a table. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         parentTable: Word.Table;
         /**
          *
-         * Gets the table cell that contains the content control. Returns null if it is not contained in a table cell. Read-only.
+         * Gets the table cell that contains the content control. Returns a null object if it is not contained in a table cell. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         parentTableCell: Word.TableCell;
         /**
          *
          * Gets the collection of table objects in the content control. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         tables: Word.TableCollection;
         /**
@@ -9923,16 +10714,23 @@ declare namespace Word {
         removeWhenEdited: boolean;
         /**
          *
-         * Gets or sets the style used for the content control. This is the name of the pre-installed or custom style.
+         * Gets or sets the style name for the content control. Use this property for custom styles and localized style names. To use the built-in styles that are portable between locales, see the "styleBuiltIn" property.
          *
          * [Api set: WordApi 1.1]
          */
         style: string;
         /**
          *
+         * Gets or sets the built-in style name for the content control. Use this property for built-in styles that are portable between locales. To use custom styles or localized style names, see the "style" property.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        styleBuiltIn: string;
+        /**
+         *
          * Gets the content control subtype. The subtype can be 'RichTextInline', 'RichTextParagraphs', 'RichTextTableCell', 'RichTextTableRow' and 'RichTextTable' for rich text content controls. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         subtype: string;
         /**
@@ -9997,21 +10795,21 @@ declare namespace Word {
          *
          * Gets the whole content control, or the starting or ending point of the content control, as a range.
          *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Start' or 'End'.
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Before', 'Start', 'End', 'After' or 'Content'.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         getRange(rangeLocation?: string): Word.Range;
         /**
          *
-         * Gets the text ranges in the content control by using punctuation marks and/or space character.
+         * Gets the text ranges in the content control by using punctuation marks and/or other ending marks.
          *
-         * @param punctuationMarks Required. The punctuation marks and/or space character as an array of strings.
+         * @param endingMarks Required. The punctuation marks and/or other ending marks as an array of strings.
          * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
-        getTextRanges(punctuationMarks: Array<string>, trimSpacing?: boolean): Word.RangeCollection;
+        getTextRanges(endingMarks: Array<string>, trimSpacing?: boolean): Word.RangeCollection;
         /**
          *
          * Inserts a break at the specified location in the main document. The insertLocation value can be 'Start', 'End', 'Before' or 'After'. This method cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls.
@@ -10081,7 +10879,7 @@ declare namespace Word {
          * @param insertLocation Required. The value can be 'Start', 'End', 'Before' or 'After'. 'Before' and 'After' cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: string, values?: Array<Array<string>>): Word.Table;
         /**
@@ -10108,11 +10906,10 @@ declare namespace Word {
             ignoreSpace?: boolean;
             matchCase?: boolean;
             matchPrefix?: boolean;
-            matchSoundsLike?: boolean;
             matchSuffix?: boolean;
             matchWholeWord?: boolean;
             matchWildcards?: boolean;
-        }): Word.SearchResultCollection;
+        }): Word.RangeCollection;
         /**
          *
          * Selects the content control. This causes Word to scroll to the selection.
@@ -10131,31 +10928,46 @@ declare namespace Word {
          * @param trimDelimiters Optional. Indicates whether to trim delimiters from the ranges in the range collection. Default is false which indicates that the delimiters are included in the ranges returned in the range collection.
          * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         split(delimiters: Array<string>, multiParagraphs?: boolean, trimDelimiters?: boolean, trimSpacing?: boolean): Word.RangeCollection;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.ContentControl;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.ContentControl;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.ContentControl;
+        toJSON(): {
+            "appearance": string;
+            "cannotDelete": boolean;
+            "cannotEdit": boolean;
+            "color": string;
+            "font": Font;
+            "id": number;
+            "placeholderText": string;
+            "removeWhenEdited": boolean;
+            "style": string;
+            "styleBuiltIn": string;
+            "subtype": string;
+            "tag": string;
+            "text": string;
+            "title": string;
+            "type": string;
+        };
     }
     /**
      *
-     * Contains a collection of ContentControl objects. Content controls are bounded and potentially labeled regions in a document that serve as containers for specific types of content. Individual content controls may contain contents such as images, tables, or paragraphs of formatted text. Currently, only rich text content controls are supported.
+     * Contains a collection of [contentControl](contentControl.md) objects. Content controls are bounded and potentially labeled regions in a document that serve as containers for specific types of content. Individual content controls may contain contents such as images, tables, or paragraphs of formatted text. Currently, only rich text content controls are supported.
      *
      * [Api set: WordApi 1.1]
      */
     class ContentControlCollection extends OfficeExtension.ClientObject {
-        private m_first;
-        private m__ReferenceId;
-        private m__items;
-        /**
-         *
-         * Gets the first content control in this collection. Read-only.
-         *
-         * [Api set: WordApiDesktop 1.3 Beta]
-         */
-        first: Word.ContentControl;
         /** Gets the loaded child items in this collection. */
         items: Array<Word.ContentControl>;
         /**
@@ -10191,14 +11003,21 @@ declare namespace Word {
          *
          * @param types Required. An array of content control types and/or subtypes.
          *
-         * [Api set: WordApiDesktop 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         getByTypes(types: Array<string>): Word.ContentControlCollection;
         /**
          *
+         * Gets the first content control in this collection.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getFirst(): Word.ContentControl;
+        /**
+         *
          * Gets a content control by its index in the collection.
          *
-         * @param index The index
+         * @param index The index.
          *
          * [Api set: WordApi 1.1]
          */
@@ -10207,6 +11026,124 @@ declare namespace Word {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.ContentControlCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.ContentControlCollection;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.ContentControlCollection;
+        toJSON(): {};
+    }
+    /**
+     *
+     * Represents a custom property.
+     *
+     * [Api set: WordApi 1.3]
+     */
+    class CustomProperty extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Gets the key of the custom property. Read only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        key: string;
+        /**
+         *
+         * Gets the value type of the custom property. Read only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        type: string;
+        /**
+         *
+         * Gets or sets the value of the custom property.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        value: any;
+        /**
+         *
+         * Deletes the custom property.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        delete(): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Word.CustomProperty;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.CustomProperty;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.CustomProperty;
+        toJSON(): {
+            "key": string;
+            "type": string;
+            "value": any;
+        };
+    }
+    /**
+     *
+     * Contains the collection of [customProperty](customProperty.md) objects.
+     *
+     * [Api set: WordApi 1.3]
+     */
+    class CustomPropertyCollection extends OfficeExtension.ClientObject {
+        /** Gets the loaded child items in this collection. */
+        items: Array<Word.CustomProperty>;
+        /**
+         *
+         * Deletes all custom properties in this collection.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        deleteAll(): void;
+        /**
+         *
+         * Gets the count of custom properties.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets a custom property object by its key, which is case-insensitive.
+         *
+         * @param key The key that identifies the custom property object.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getItem(key: string): Word.CustomProperty;
+        /**
+         *
+         * Creates or sets a custom property.
+         *
+         * @param key Required. The custom property's key, which is case-insensitive.
+         * @param value Required. The custom property's value.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        set(key: string, value: any): Word.CustomProperty;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Word.CustomPropertyCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.CustomPropertyCollection;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.CustomPropertyCollection;
+        toJSON(): {};
     }
     /**
      *
@@ -10215,11 +11152,6 @@ declare namespace Word {
      * [Api set: WordApi 1.1]
      */
     class Document extends OfficeExtension.ClientObject {
-        private m_body;
-        private m_contentControls;
-        private m_saved;
-        private m_sections;
-        private m__ReferenceId;
         /**
          *
          * Gets the body object of the document. The body is the text that excludes headers, footers, footnotes, textboxes, etc.. Read-only.
@@ -10234,6 +11166,13 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         contentControls: Word.ContentControlCollection;
+        /**
+         *
+         * Gets the properties of the current document. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        properties: Word.DocumentProperties;
         /**
          *
          * Gets the collection of section objects in the document. Read-only.
@@ -10259,7 +11198,7 @@ declare namespace Word {
          *
          * Open the document.
          *
-         * [Api set: WordApiDesktop 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         open(): void;
         /**
@@ -10273,6 +11212,184 @@ declare namespace Word {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.Document;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.Document;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.Document;
+        toJSON(): {
+            "body": Body;
+            "properties": DocumentProperties;
+            "saved": boolean;
+        };
+    }
+    /**
+     *
+     * Represents document properties.
+     *
+     * [Api set: WordApi 1.3]
+     */
+    class DocumentProperties extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Gets the collection of custom properties of the document. Read only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        customProperties: Word.CustomPropertyCollection;
+        /**
+         *
+         * Gets the application name of the document. Read only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        applicationName: string;
+        /**
+         *
+         * Gets or sets the author of the document.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        author: string;
+        /**
+         *
+         * Gets or sets the category of the document.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        category: string;
+        /**
+         *
+         * Gets or sets the comments of the document.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        comments: string;
+        /**
+         *
+         * Gets or sets the company of the document.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        company: string;
+        /**
+         *
+         * Gets the creation date of the document. Read only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        creationDate: Date;
+        /**
+         *
+         * Gets or sets the format of the document.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        format: string;
+        /**
+         *
+         * Gets or sets the keywords of the document.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        keywords: string;
+        /**
+         *
+         * Gets or sets the last author of the document.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        lastAuthor: string;
+        /**
+         *
+         * Gets the last print date of the document. Read only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        lastPrintDate: Date;
+        /**
+         *
+         * Gets the last save time of the document. Read only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        lastSaveTime: Date;
+        /**
+         *
+         * Gets or sets the manager of the document.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        manager: string;
+        /**
+         *
+         * Gets the revision number of the document. Read only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        revisionNumber: string;
+        /**
+         *
+         * Gets the security of the document. Read only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        security: number;
+        /**
+         *
+         * Gets or sets the subject of the document.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        subject: string;
+        /**
+         *
+         * Gets the template of the document. Read only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        template: string;
+        /**
+         *
+         * Gets or sets the title of the document.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        title: string;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Word.DocumentProperties;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.DocumentProperties;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.DocumentProperties;
+        toJSON(): {
+            "applicationName": string;
+            "author": string;
+            "category": string;
+            "comments": string;
+            "company": string;
+            "creationDate": Date;
+            "format": string;
+            "keywords": string;
+            "lastAuthor": string;
+            "lastPrintDate": Date;
+            "lastSaveTime": Date;
+            "manager": string;
+            "revisionNumber": string;
+            "security": number;
+            "subject": string;
+            "template": string;
+            "title": string;
+        };
     }
     /**
      *
@@ -10281,18 +11398,6 @@ declare namespace Word {
      * [Api set: WordApi 1.1]
      */
     class Font extends OfficeExtension.ClientObject {
-        private m_bold;
-        private m_color;
-        private m_doubleStrikeThrough;
-        private m_highlightColor;
-        private m_italic;
-        private m_name;
-        private m_size;
-        private m_strikeThrough;
-        private m_subscript;
-        private m_superscript;
-        private m_underline;
-        private m__ReferenceId;
         /**
          *
          * Gets or sets a value that indicates whether the font is bold. True if the font is formatted as bold, otherwise, false.
@@ -10311,12 +11416,12 @@ declare namespace Word {
          *
          * Gets or sets a value that indicates whether the font has a double strike through. True if the font is formatted as double strikethrough text, otherwise, false.
          *
-         * [Api set: WordApiDesktop 1.3 Beta]
+         * [Api set: WordApi 1.1]
          */
         doubleStrikeThrough: boolean;
         /**
          *
-         * Gets or sets the highlight color for the specified font. You can provide the value as either in the '#RRGGBB' format or the color name.
+         * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, or an empty string for mixed highlight colors, or null for no highlight color.
          *
          * [Api set: WordApi 1.1]
          */
@@ -10374,6 +11479,27 @@ declare namespace Word {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.Font;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.Font;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.Font;
+        toJSON(): {
+            "bold": boolean;
+            "color": string;
+            "doubleStrikeThrough": boolean;
+            "highlightColor": string;
+            "italic": boolean;
+            "name": string;
+            "size": number;
+            "strikeThrough": boolean;
+            "subscript": boolean;
+            "superscript": boolean;
+            "underline": string;
+        };
     }
     /**
      *
@@ -10382,53 +11508,32 @@ declare namespace Word {
      * [Api set: WordApi 1.1]
      */
     class InlinePicture extends OfficeExtension.ClientObject {
-        private m_altTextDescription;
-        private m_altTextTitle;
-        private m_height;
-        private m_hyperlink;
-        private m_imageFormat;
-        private m_lockAspectRatio;
-        private m_next;
-        private m_paragraph;
-        private m_parentContentControl;
-        private m_parentTable;
-        private m_parentTableCell;
-        private m_width;
-        private m__Id;
-        private m__ReferenceId;
         /**
          *
-         * Gets the next inline image. Read-only.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        next: Word.InlinePicture;
-        /**
-         *
-         * Gets the paragraph that contains the inline image. Read-only.
+         * Gets the parent paragraph that contains the inline image. Read-only.
          *
          * [Api set: WordApi 1.2]
          */
         paragraph: Word.Paragraph;
         /**
          *
-         * Gets the content control that contains the inline image. Returns null if there isn't a parent content control. Read-only.
+         * Gets the content control that contains the inline image. Returns a null object if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
         parentContentControl: Word.ContentControl;
         /**
          *
-         * Gets the table that contains the inline image. Returns null if it is not contained in a table. Read-only.
+         * Gets the table that contains the inline image. Returns a null object if it is not contained in a table. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         parentTable: Word.Table;
         /**
          *
-         * Gets the table cell that contains the inline image. Returns null if it is not contained in a table cell. Read-only.
+         * Gets the table cell that contains the inline image. Returns a null object if it is not contained in a table cell. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         parentTableCell: Word.TableCell;
         /**
@@ -10454,18 +11559,11 @@ declare namespace Word {
         height: number;
         /**
          *
-         * Gets or sets the hyperlink associated with the inline image.
+         * Gets or sets a hyperlink on the image. Use a newline character ('\n') to separate the address part from the optional location part.
          *
          * [Api set: WordApi 1.1]
          */
         hyperlink: string;
-        /**
-         *
-         * Gets the format of the inline image. Read-only.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        imageFormat: string;
         /**
          *
          * Gets or sets a value that indicates whether the inline image retains its original proportions when you resize it.
@@ -10496,11 +11594,18 @@ declare namespace Word {
         getBase64ImageSrc(): OfficeExtension.ClientResult<string>;
         /**
          *
+         * Gets the next inline image.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getNext(): Word.InlinePicture;
+        /**
+         *
          * Gets the picture, or the starting or ending point of the picture, as a range.
          *
          * @param rangeLocation Optional. The range location can be 'Whole', 'Start' or 'End'.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         getRange(rangeLocation?: string): Word.Range;
         /**
@@ -10593,6 +11698,22 @@ declare namespace Word {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.InlinePicture;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.InlinePicture;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.InlinePicture;
+        toJSON(): {
+            "altTextDescription": string;
+            "altTextTitle": string;
+            "height": number;
+            "hyperlink": string;
+            "lockAspectRatio": boolean;
+            "width": number;
+        };
     }
     /**
      *
@@ -10601,56 +11722,82 @@ declare namespace Word {
      * [Api set: WordApi 1.1]
      */
     class InlinePictureCollection extends OfficeExtension.ClientObject {
-        private m_first;
-        private m__ReferenceId;
-        private m__items;
-        /**
-         *
-         * Gets the first inline image in this collection. Read-only.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        first: Word.InlinePicture;
         /** Gets the loaded child items in this collection. */
         items: Array<Word.InlinePicture>;
+        /**
+         *
+         * Gets the first inline image in this collection.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getFirst(): Word.InlinePicture;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.InlinePictureCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.InlinePictureCollection;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.InlinePictureCollection;
+        toJSON(): {};
     }
     /**
      *
      * Contains a collection of [paragraph](paragraph.md) objects.
      *
-     * [Api set: WordApi 1.3 Beta]
+     * [Api set: WordApi 1.3]
      */
     class List extends OfficeExtension.ClientObject {
-        private m_format;
-        private m_id;
-        private m__ReferenceId;
         /**
          *
-         * An object that represents the list format.
+         * Gets paragraphs in the list. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
-        format: Word.ListFormat;
+        paragraphs: Word.ParagraphCollection;
         /**
          *
          * Gets the list's id.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         id: number;
         /**
          *
-         * Gets the paragraphs in the list.
+         * Checks whether each of the 9 levels exists in the list. A true value indicates the level exists, which means there is at least one list item at that level. Read-only.
          *
-         * @param topLevelOnly Optional. Indicates whether to get all paragraphs, or just the top level paragraphs. The default is false that specifies to get all paragraphs.
-         *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
-        getParagraphs(topLevelOnly?: boolean): Word.ParagraphCollection;
+        levelExistences: Array<boolean>;
+        /**
+         *
+         * Gets all 9 level types in the list. Each type can be 'Bullet', 'Number' or 'Picture'. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        levelTypes: Array<string>;
+        /**
+         *
+         * Gets the paragraphs that occur at the specified level in the list.
+         *
+         * @param level Required. The level in the list.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getLevelParagraphs(level: number): Word.ParagraphCollection;
+        /**
+         *
+         * Gets the bullet, number or picture at the specified level as a string.
+         *
+         * @param level Required. The level in the list.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getLevelString(level: number): OfficeExtension.ClientResult<string>;
         /**
          *
          * Inserts a paragraph at the specified location. The insertLocation value can be 'Start', 'End', 'Before' or 'After'.
@@ -10658,31 +11805,88 @@ declare namespace Word {
          * @param paragraphText Required. The paragraph text to be inserted.
          * @param insertLocation Required. The value can be 'Start', 'End', 'Before' or 'After'.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         insertParagraph(paragraphText: string, insertLocation: string): Word.Paragraph;
+        /**
+         *
+         * Sets the alignment of the bullet, number or picture at the specified level in the list.
+         *
+         * @param level Required. The level in the list.
+         * @param alignment Required. The level alignment that can be 'left', 'centered' or 'right'.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        setLevelAlignment(level: number, alignment: string): void;
+        /**
+         *
+         * Sets the bullet format at the specified level in the list. If the bullet is 'Custom', the charCode is required.
+         *
+         * @param level Required. The level in the list.
+         * @param listBullet Required. The bullet.
+         * @param charCode Optional. The bullet character's code value. Used only if the bullet is 'Custom'.
+         * @param fontName Optional. The bullet's font name. Used only if the bullet is 'Custom'.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        setLevelBullet(level: number, listBullet: string, charCode?: number, fontName?: string): void;
+        /**
+         *
+         * Sets the two indents of the specified level in the list.
+         *
+         * @param level Required. The level in the list.
+         * @param textIndent Required. The text indent in points. It is the same as paragraph left indent.
+         * @param textIndent Required. The relative indent, in points, of the bullet, number or picture. It is the same as paragraph first line indent.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        setLevelIndents(level: number, textIndent: number, bulletNumberPictureIndent: number): void;
+        /**
+         *
+         * Sets the numbering format at the specified level in the list.
+         *
+         * @param level Required. The level in the list.
+         * @param listNumbering Required. The ordinal format.
+         * @param formatString Optional. The numbering string format defined as an array of strings and/or integers. Each integer is a level of number type that is higher than or equal to this level. For example, an array of ["(", level - 1, ".", level, ")"] can define the format of "(2.c)", where 2 is the parent's item number and c is this level's item number.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        setLevelNumbering(level: number, listNumbering: string, formatString?: Array<any>): void;
+        /**
+         *
+         * Sets the starting number at the specified level in the list. Default value is 1.
+         *
+         * @param level Required. The level in the list.
+         * @param startingNumber Required. The number to start with.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        setLevelStartingNumber(level: number, startingNumber: number): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.List;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.List;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.List;
+        toJSON(): {
+            "id": number;
+            "levelExistences": boolean[];
+            "levelTypes": string[];
+        };
     }
     /**
      *
      * Contains a collection of [list](list.md) objects.
      *
-     * [Api set: WordApi 1.3 Beta]
+     * [Api set: WordApi 1.3]
      */
     class ListCollection extends OfficeExtension.ClientObject {
-        private m_first;
-        private m__ReferenceId;
-        private m__items;
-        /**
-         *
-         * Gets the first list in this collection. Read-only.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        first: Word.List;
         /** Gets the loaded child items in this collection. */
         items: Array<Word.List>;
         /**
@@ -10691,57 +11895,65 @@ declare namespace Word {
          *
          * @param id Required. A list identifier.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         getById(id: number): Word.List;
+        /**
+         *
+         * Gets the first list in this collection.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getFirst(): Word.List;
+        /**
+         *
+         * Gets a list object by its index in the collection.
+         *
+         * @param index A number that identifies the index location of a list object.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getItem(index: number): Word.List;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.ListCollection;
-    }
-    /**
-     *
-     * Represents a list's format.
-     *
-     * [Api set: WordApi 1.3 Beta]
-     */
-    class ListFormat extends OfficeExtension.ClientObject {
-        private m_levelTypes;
-        private m__ReferenceId;
         /**
-         *
-         * Gets all 9 level types in the list. Read-only.
-         *
-         * [Api set: WordApi 1.3 Beta]
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
-        levelTypes: Array<string>;
+        track(): Word.ListCollection;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
-        load(option?: string | string[] | OfficeExtension.LoadOption): Word.ListFormat;
+        untrack(): Word.ListCollection;
+        toJSON(): {};
     }
     /**
      *
      * Represents the paragraph list item format.
      *
-     * [Api set: WordApi 1.3 Beta]
+     * [Api set: WordApi 1.3]
      */
     class ListItem extends OfficeExtension.ClientObject {
-        private m_listString;
-        private m_siblingIndex;
-        private m__ReferenceId;
         /**
          *
-         * Gets the list item bullet or number as a string. Read-only.
+         * Gets or sets the level of the item in the list.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
+         */
+        level: number;
+        /**
+         *
+         * Gets the list item bullet, number or picture as a string. Read-only.
+         *
+         * [Api set: WordApi 1.3]
          */
         listString: string;
         /**
          *
          * Gets the list item order number in relation to its siblings. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         siblingIndex: number;
         /**
@@ -10750,7 +11962,7 @@ declare namespace Word {
          *
          * @param parentOnly Optional. Specified only the list item's parent will be returned. The default is false that specifies to get the lowest ancestor.
          *
-         * [Api set: WordApiDesktop 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         getAncestor(parentOnly?: boolean): Word.Paragraph;
         /**
@@ -10759,13 +11971,26 @@ declare namespace Word {
          *
          * @param directChildrenOnly Optional. Specified only the list item's direct children will be returned. The default is false that indicates to get all descendant items.
          *
-         * [Api set: WordApiDesktop 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         getDescendants(directChildrenOnly?: boolean): Word.ParagraphCollection;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.ListItem;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.ListItem;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.ListItem;
+        toJSON(): {
+            "level": number;
+            "listString": string;
+            "siblingIndex": number;
+        };
     }
     /**
      *
@@ -10774,33 +11999,6 @@ declare namespace Word {
      * [Api set: WordApi 1.1]
      */
     class Paragraph extends OfficeExtension.ClientObject {
-        private m_alignment;
-        private m_contentControls;
-        private m_firstLineIndent;
-        private m_font;
-        private m_inlinePictures;
-        private m_leftIndent;
-        private m_lineSpacing;
-        private m_lineUnitAfter;
-        private m_lineUnitBefore;
-        private m_list;
-        private m_listItem;
-        private m_listLevel;
-        private m_next;
-        private m_outlineLevel;
-        private m_parentBody;
-        private m_parentContentControl;
-        private m_parentTable;
-        private m_parentTableCell;
-        private m_previous;
-        private m_rightIndent;
-        private m_spaceAfter;
-        private m_spaceBefore;
-        private m_style;
-        private m_tableNestingLevel;
-        private m_text;
-        private m__Id;
-        private m__ReferenceId;
         /**
          *
          * Gets the collection of content control objects in the paragraph. Read-only.
@@ -10824,63 +12022,49 @@ declare namespace Word {
         inlinePictures: Word.InlinePictureCollection;
         /**
          *
-         * Gets the List to which this paragraph belongs. Returns null if the paragraph is not in a list.
+         * Gets the List to which this paragraph belongs. Returns a null object if the paragraph is not in a list. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         list: Word.List;
         /**
          *
-         * Gets the ListItem for the paragraph. Returns null if the paragraph is not part of a list.
+         * Gets the ListItem for the paragraph. Returns a null object if the paragraph is not part of a list. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         listItem: Word.ListItem;
         /**
          *
-         * Gets the next paragraph. Read-only.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        next: Word.Paragraph;
-        /**
-         *
          * Gets the parent body of the paragraph. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         parentBody: Word.Body;
         /**
          *
-         * Gets the content control that contains the paragraph. Returns null if there isn't a parent content control. Read-only.
+         * Gets the content control that contains the paragraph. Returns a null object if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
         parentContentControl: Word.ContentControl;
         /**
          *
-         * Gets the table that contains the paragraph. Returns null if it is not contained in a table. Read-only.
+         * Gets the table that contains the paragraph. Returns a null object if it is not contained in a table. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         parentTable: Word.Table;
         /**
          *
-         * Gets the table cell that contains the paragraph. Returns null if it is not contained in a table cell. Read-only.
+         * Gets the table cell that contains the paragraph. Returns a null object if it is not contained in a table cell. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         parentTableCell: Word.TableCell;
         /**
          *
-         * Gets the previous paragraph. Read-only.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        previous: Word.Paragraph;
-        /**
-         *
-         * Gets or sets the alignment for a paragraph. The value can  be 'left', 'centered', 'right', or 'justified'.
+         * Gets or sets the alignment for a paragraph. The value can be 'left', 'centered', 'right', or 'justified'.
          *
          * [Api set: WordApi 1.1]
          */
@@ -10892,6 +12076,20 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         firstLineIndent: number;
+        /**
+         *
+         * Indicates the paragraph is the last one inside its parent body. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        isLastParagraph: boolean;
+        /**
+         *
+         * Checks whether the paragraph is a list item. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        isListItem: boolean;
         /**
          *
          * Gets or sets the left indent value, in points, for the paragraph.
@@ -10922,16 +12120,9 @@ declare namespace Word {
         lineUnitBefore: number;
         /**
          *
-         * Gets or sets the list level of the paragraph. Set to -1 to make the paragraph appear outside of a list.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        listLevel: number;
-        /**
-         *
          * Gets or sets the outline level for the paragraph.
          *
-         * [Api set: WordApiDesktop 1.3 Beta]
+         * [Api set: WordApi 1.1]
          */
         outlineLevel: number;
         /**
@@ -10957,16 +12148,23 @@ declare namespace Word {
         spaceBefore: number;
         /**
          *
-         * Gets or sets the style used for the paragraph. This is the name of the pre-installed or custom style.
+         * Gets or sets the style name for the paragraph. Use this property for custom styles and localized style names. To use the built-in styles that are portable between locales, see the "styleBuiltIn" property.
          *
          * [Api set: WordApi 1.1]
          */
         style: string;
         /**
          *
+         * Gets or sets the built-in style name for the paragraph. Use this property for built-in styles that are portable between locales. To use custom styles or localized style names, see the "style" property.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        styleBuiltIn: string;
+        /**
+         *
          * Gets the level of the paragraph's table. It returns 0 if the paragraph is not in a table. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         tableNestingLevel: number;
         /**
@@ -10976,6 +12174,16 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         text: string;
+        /**
+         *
+         * Lets the paragraph join an existing list at the specified level. Fails if the paragraph cannot join the list or if the paragraph is already a list item.
+         *
+         * @param listId Required. The ID of an existing list.
+         * @param level Required. The level in the list.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        attachToList(listId: number, level: number): Word.List;
         /**
          *
          * Clears the contents of the paragraph object. The user can perform the undo operation on the cleared content.
@@ -10992,11 +12200,25 @@ declare namespace Word {
         delete(): void;
         /**
          *
+         * Moves this paragraph out of its list, if the paragraph is a list item.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        detachFromList(): void;
+        /**
+         *
          * Gets the HTML representation of the paragraph object.
          *
          * [Api set: WordApi 1.1]
          */
         getHtml(): OfficeExtension.ClientResult<string>;
+        /**
+         *
+         * Gets the next paragraph.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getNext(): Word.Paragraph;
         /**
          *
          * Gets the Office Open XML (OOXML) representation of the paragraph object.
@@ -11006,23 +12228,30 @@ declare namespace Word {
         getOoxml(): OfficeExtension.ClientResult<string>;
         /**
          *
+         * Gets the previous paragraph.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getPrevious(): Word.Paragraph;
+        /**
+         *
          * Gets the whole paragraph, or the starting or ending point of the paragraph, as a range.
          *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Start' or 'End'.
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After' or 'Content'.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         getRange(rangeLocation?: string): Word.Range;
         /**
          *
-         * Gets the text ranges in the paragraph by using punctuation marks and/or space character.
+         * Gets the text ranges in the paragraph by using punctuation marks and/or other ending marks.
          *
-         * @param punctuationMarks Required. The punctuation marks and/or space character as an array of strings.
+         * @param endingMarks Required. The punctuation marks and/or other ending marks as an array of strings.
          * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
-        getTextRanges(punctuationMarks: Array<string>, trimSpacing?: boolean): Word.RangeCollection;
+        getTextRanges(endingMarks: Array<string>, trimSpacing?: boolean): Word.RangeCollection;
         /**
          *
          * Inserts a break at the specified location in the main document. The insertLocation value can be 'Before' or 'After'.
@@ -11099,7 +12328,7 @@ declare namespace Word {
          * @param insertLocation Required. The value can be 'Before' or 'After'.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: string, values?: Array<Array<string>>): Word.Table;
         /**
@@ -11126,11 +12355,10 @@ declare namespace Word {
             ignoreSpace?: boolean;
             matchCase?: boolean;
             matchPrefix?: boolean;
-            matchSoundsLike?: boolean;
             matchSuffix?: boolean;
             matchWholeWord?: boolean;
             matchWildcards?: boolean;
-        }): Word.SearchResultCollection;
+        }): Word.RangeCollection;
         /**
          *
          * Selects and navigates the Word UI to the paragraph.
@@ -11148,20 +12376,48 @@ declare namespace Word {
          * @param trimDelimiters Optional. Indicates whether to trim delimiters from the ranges in the range collection. Default is false which indicates that the delimiters are included in the ranges returned in the range collection.
          * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         split(delimiters: Array<string>, trimDelimiters?: boolean, trimSpacing?: boolean): Word.RangeCollection;
         /**
          *
-         * Uses the paragraph to start a new list.
+         * Starts a new list with this paragraph. Fails if the paragraph is already a list item.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         startNewList(): Word.List;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.Paragraph;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.Paragraph;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.Paragraph;
+        toJSON(): {
+            "alignment": string;
+            "firstLineIndent": number;
+            "font": Font;
+            "isLastParagraph": boolean;
+            "isListItem": boolean;
+            "leftIndent": number;
+            "lineSpacing": number;
+            "lineUnitAfter": number;
+            "lineUnitBefore": number;
+            "listItem": ListItem;
+            "outlineLevel": number;
+            "rightIndent": number;
+            "spaceAfter": number;
+            "spaceBefore": number;
+            "style": string;
+            "styleBuiltIn": string;
+            "tableNestingLevel": number;
+            "text": string;
+        };
     }
     /**
      *
@@ -11170,30 +12426,35 @@ declare namespace Word {
      * [Api set: WordApi 1.1]
      */
     class ParagraphCollection extends OfficeExtension.ClientObject {
-        private m_first;
-        private m_last;
-        private m__ReferenceId;
-        private m__items;
-        /**
-         *
-         * Gets the first paragraph in this collection. Read-only.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        first: Word.Paragraph;
-        /**
-         *
-         * Gets the last paragraph in this collection. Read-only.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        last: Word.Paragraph;
         /** Gets the loaded child items in this collection. */
         items: Array<Word.Paragraph>;
+        /**
+         *
+         * Gets the first paragraph in this collection.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getFirst(): Word.Paragraph;
+        /**
+         *
+         * Gets the last paragraph in this collection.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getLast(): Word.Paragraph;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.ParagraphCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.ParagraphCollection;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.ParagraphCollection;
+        toJSON(): {};
     }
     /**
      *
@@ -11202,22 +12463,6 @@ declare namespace Word {
      * [Api set: WordApi 1.1]
      */
     class Range extends OfficeExtension.ClientObject {
-        private m_contentControls;
-        private m_font;
-        private m_hyperlink;
-        private m_inlinePictures;
-        private m_isEmpty;
-        private m_lists;
-        private m_paragraphs;
-        private m_parentBody;
-        private m_parentContentControl;
-        private m_parentTable;
-        private m_parentTableCell;
-        private m_style;
-        private m_tables;
-        private m_text;
-        private m__Id;
-        private m__ReferenceId;
         /**
          *
          * Gets the collection of content control objects in the range. Read-only.
@@ -11243,7 +12488,7 @@ declare namespace Word {
          *
          * Gets the collection of list objects in the range. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         lists: Word.ListCollection;
         /**
@@ -11257,12 +12502,12 @@ declare namespace Word {
          *
          * Gets the parent body of the range. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         parentBody: Word.Body;
         /**
          *
-         * Gets the content control that contains the range. Returns null if there isn't a parent content control. Read-only.
+         * Gets the content control that contains the range. Returns a null object if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
@@ -11271,44 +12516,51 @@ declare namespace Word {
          *
          * Gets the table that contains the range. Returns null if it is not contained in a table. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         parentTable: Word.Table;
         /**
          *
-         * Gets the table cell that contains the range. Returns null if it is not contained in a table cell. Read-only.
+         * Gets the table cell that contains the range. Returns a null object if it is not contained in a table cell. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         parentTableCell: Word.TableCell;
         /**
          *
          * Gets the collection of table objects in the range. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         tables: Word.TableCollection;
         /**
          *
-         * Gets the first hyperlink in the range, or sets a hyperlink on the range. Existing hyperlinks in this range are deleted when you set a new hyperlink.
+         * Gets the first hyperlink in the range, or sets a hyperlink on the range. All hyperlinks in the range are deleted when you set a new hyperlink on the range. Use a newline character ('\n') to separate the address part from the optional location part.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         hyperlink: string;
         /**
          *
          * Checks whether the range length is zero. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         isEmpty: boolean;
         /**
          *
-         * Gets or sets the style used for the range. This is the name of the pre-installed or custom style.
+         * Gets or sets the style name for the range. Use this property for custom styles and localized style names. To use the built-in styles that are portable between locales, see the "styleBuiltIn" property.
          *
          * [Api set: WordApi 1.1]
          */
         style: string;
+        /**
+         *
+         * Gets or sets the built-in style name for the range. Use this property for built-in styles that are portable between locales. To use custom styles or localized style names, see the "style" property.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        styleBuiltIn: string;
         /**
          *
          * Gets the text of the range. Read-only.
@@ -11329,7 +12581,7 @@ declare namespace Word {
          *
          * @param range Required. The range to compare with this range.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         compareLocationWith(range: Word.Range): OfficeExtension.ClientResult<string>;
         /**
@@ -11341,13 +12593,13 @@ declare namespace Word {
         delete(): void;
         /**
          *
-         * Expands the range in either direction to cover another range.
+         * Returns a new range that extends from this range in either direction to cover another range. This range is not changed.
          *
          * @param range Required. Another range.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
-        expandTo(range: Word.Range): void;
+        expandTo(range: Word.Range): Word.Range;
         /**
          *
          * Gets the HTML representation of the range object.
@@ -11359,19 +12611,19 @@ declare namespace Word {
          *
          * Gets hyperlink child ranges within the range.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         getHyperlinkRanges(): Word.RangeCollection;
         /**
          *
-         * Gets the next text range by using punctuation marks and/or space character.
+         * Gets the next text range by using punctuation marks and/or other ending marks.
          *
-         * @param punctuationMarks Required. The punctuation marks and/or space character as an array of strings.
+         * @param endingMarks Required. The punctuation marks and/or other ending marks as an array of strings.
          * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the returned range. Default is false which indicates that spacing characters at the start and end of the range are included.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
-        getNextTextRange(punctuationMarks: Array<string>, trimSpacing?: boolean): Word.Range;
+        getNextTextRange(endingMarks: Array<string>, trimSpacing?: boolean): Word.Range;
         /**
          *
          * Gets the OOXML representation of the range object.
@@ -11383,27 +12635,27 @@ declare namespace Word {
          *
          * Clones the range, or gets the starting or ending point of the range as a new range.
          *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Start' or 'End'.
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After' or 'Content'.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         getRange(rangeLocation?: string): Word.Range;
         /**
          *
-         * Gets the text child ranges in the range by using punctuation marks and/or space character.
+         * Gets the text child ranges in the range by using punctuation marks and/or other ending marks.
          *
-         * @param punctuationMarks Required. The punctuation marks and/or space character as an array of strings.
+         * @param endingMarks Required. The punctuation marks and/or other ending marks as an array of strings.
          * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
-        getTextRanges(punctuationMarks: Array<string>, trimSpacing?: boolean): Word.RangeCollection;
+        getTextRanges(endingMarks: Array<string>, trimSpacing?: boolean): Word.RangeCollection;
         /**
          *
-         * Inserts a break at the specified location in the main document. The insertLocation value can be 'Replace', 'Before' or 'After'.
+         * Inserts a break at the specified location in the main document. The insertLocation value can be 'Before' or 'After'.
          *
          * @param breakType Required. The break type to add.
-         * @param insertLocation Required. The value can be 'Replace', 'Before' or 'After'.
+         * @param insertLocation Required. The value can be 'Before' or 'After'.
          *
          * [Api set: WordApi 1.1]
          */
@@ -11474,7 +12726,7 @@ declare namespace Word {
          * @param insertLocation Required. The value can be 'Before' or 'After'.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: string, values?: Array<Array<string>>): Word.Table;
         /**
@@ -11489,13 +12741,13 @@ declare namespace Word {
         insertText(text: string, insertLocation: string): Word.Range;
         /**
          *
-         * Shrinks the range to the intersection of the range with another range.
+         * Returns a new range as the intersection of this range with another range. This range is not changed.
          *
          * @param range Required. Another range.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
-        intersectWith(range: Word.Range): void;
+        intersectWith(range: Word.Range): Word.Range;
         /**
          *
          * Performs a search with the specified searchOptions on the scope of the range object. The search results are a collection of range objects.
@@ -11510,11 +12762,10 @@ declare namespace Word {
             ignoreSpace?: boolean;
             matchCase?: boolean;
             matchPrefix?: boolean;
-            matchSoundsLike?: boolean;
             matchSuffix?: boolean;
             matchWholeWord?: boolean;
             matchWildcards?: boolean;
-        }): Word.SearchResultCollection;
+        }): Word.RangeCollection;
         /**
          *
          * Selects and navigates the Word UI to the range.
@@ -11533,37 +12784,59 @@ declare namespace Word {
          * @param trimDelimiters Optional. Indicates whether to trim delimiters from the ranges in the range collection. Default is false which indicates that the delimiters are included in the ranges returned in the range collection.
          * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         split(delimiters: Array<string>, multiParagraphs?: boolean, trimDelimiters?: boolean, trimSpacing?: boolean): Word.RangeCollection;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.Range;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.Range;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.Range;
+        toJSON(): {
+            "font": Font;
+            "hyperlink": string;
+            "isEmpty": boolean;
+            "style": string;
+            "styleBuiltIn": string;
+            "text": string;
+        };
     }
     /**
      *
      * Contains a collection of [range](range.md) objects.
      *
-     * [Api set: WordApi 1.3 Beta]
+     * [Api set: WordApi 1.3]
      */
     class RangeCollection extends OfficeExtension.ClientObject {
-        private m_first;
-        private m__ReferenceId;
-        private m__items;
-        /**
-         *
-         * Gets the first range in this collection. Read-only.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        first: Word.Range;
         /** Gets the loaded child items in this collection. */
         items: Array<Word.Range>;
+        /**
+         *
+         * Gets the first range in this collection.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getFirst(): Word.Range;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.RangeCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.RangeCollection;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.RangeCollection;
+        toJSON(): {};
     }
     /**
      *
@@ -11572,14 +12845,6 @@ declare namespace Word {
      * [Api set: WordApi 1.1]
      */
     class SearchOptions extends OfficeExtension.ClientObject {
-        private m_ignorePunct;
-        private m_ignoreSpace;
-        private m_matchCase;
-        private m_matchPrefix;
-        private m_matchSoundsLike;
-        private m_matchSuffix;
-        private m_matchWholeWord;
-        private m_matchWildcards;
         matchWildCards: boolean;
         /**
          *
@@ -11611,13 +12876,6 @@ declare namespace Word {
         matchPrefix: boolean;
         /**
          *
-         * Gets or sets a value that indicates whether to find words that sound similar to the search string. Corresponds to the Sounds like check box in the Find and Replace dialog box
-         *
-         * [Api set: WordApi 1.1]
-         */
-        matchSoundsLike: boolean;
-        /**
-         *
          * Gets or sets a value that indicates whether to match words that end with the search string. Corresponds to the Match suffix check box in the Find and Replace dialog box.
          *
          * [Api set: WordApi 1.1]
@@ -11645,30 +12903,15 @@ declare namespace Word {
          * Create a new instance of Word.SearchOptions object
          */
         static newObject(context: OfficeExtension.ClientRequestContext): Word.SearchOptions;
-    }
-    /**
-     *
-     * Contains a collection of [range](range.md) objects as a result of a search operation.
-     *
-     * [Api set: WordApi 1.1]
-     */
-    class SearchResultCollection extends OfficeExtension.ClientObject {
-        private m_first;
-        private m__ReferenceId;
-        private m__items;
-        /**
-         *
-         * Gets the first searched result in this collection. Read-only.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        first: Word.Range;
-        /** Gets the loaded child items in this collection. */
-        items: Array<Word.Range>;
-        /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         */
-        load(option?: string | string[] | OfficeExtension.LoadOption): Word.SearchResultCollection;
+        toJSON(): {
+            "ignorePunct": boolean;
+            "ignoreSpace": boolean;
+            "matchCase": boolean;
+            "matchPrefix": boolean;
+            "matchSuffix": boolean;
+            "matchWholeWord": boolean;
+            "matchWildcards": boolean;
+        };
     }
     /**
      *
@@ -11677,10 +12920,6 @@ declare namespace Word {
      * [Api set: WordApi 1.1]
      */
     class Section extends OfficeExtension.ClientObject {
-        private m_body;
-        private m_next;
-        private m__Id;
-        private m__ReferenceId;
         /**
          *
          * Gets the body object of the section. This does not include the header/footer and other section metadata. Read-only.
@@ -11690,11 +12929,18 @@ declare namespace Word {
         body: Word.Body;
         /**
          *
-         * Gets the next section. Read-only.
+         * Gets or sets a value that indicates whether even-numbered pages have a different header and footer from odd-numbered pages in the section.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
-        next: Word.Section;
+        headerFooterEvenPageDifferent: boolean;
+        /**
+         *
+         * Gets or sets a value that indicates whether the first page has a different header and footer from the other pages in the section.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        headerFooterFirstPageDifferent: boolean;
         /**
          *
          * Gets one of the section's footers.
@@ -11714,9 +12960,29 @@ declare namespace Word {
          */
         getHeader(type: string): Word.Body;
         /**
+         *
+         * Gets the next section.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getNext(): Word.Section;
+        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.Section;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.Section;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.Section;
+        toJSON(): {
+            "body": Body;
+            "headerFooterEvenPageDifferent": boolean;
+            "headerFooterFirstPageDifferent": boolean;
+        };
     }
     /**
      *
@@ -11725,254 +12991,223 @@ declare namespace Word {
      * [Api set: WordApi 1.1]
      */
     class SectionCollection extends OfficeExtension.ClientObject {
-        private m_first;
-        private m__ReferenceId;
-        private m__items;
-        /**
-         *
-         * Gets the first section in this collection. Read-only.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        first: Word.Section;
         /** Gets the loaded child items in this collection. */
         items: Array<Word.Section>;
+        /**
+         *
+         * Gets the first section in this collection.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getFirst(): Word.Section;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.SectionCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.SectionCollection;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.SectionCollection;
+        toJSON(): {};
     }
     /**
      *
      * Represents a table in a Word document.
      *
-     * [Api set: WordApi 1.3 Beta]
+     * [Api set: WordApi 1.3]
      */
     class Table extends OfficeExtension.ClientObject {
-        private m_cellPaddingBottom;
-        private m_cellPaddingLeft;
-        private m_cellPaddingRight;
-        private m_cellPaddingTop;
-        private m_font;
-        private m_headerRowCount;
-        private m_height;
-        private m_isUniform;
-        private m_nestingLevel;
-        private m_next;
-        private m_paragraphAfter;
-        private m_paragraphBefore;
-        private m_parentContentControl;
-        private m_parentTable;
-        private m_parentTableCell;
-        private m_rowCount;
-        private m_rows;
-        private m_shadingColor;
-        private m_style;
-        private m_styleBandedColumns;
-        private m_styleBandedRows;
-        private m_styleFirstColumn;
-        private m_styleLastColumn;
-        private m_styleTotalRow;
-        private m_tables;
-        private m_values;
-        private m_verticalAlignment;
-        private m_width;
-        private m__Id;
-        private m__ReferenceId;
         /**
          *
          * Gets the font. Use this to get and set font name, size, color, and other properties. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         font: Word.Font;
         /**
          *
-         * Gets the next table. Read-only.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        next: Word.Table;
-        /**
-         *
          * Gets the paragraph after the table. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         paragraphAfter: Word.Paragraph;
         /**
          *
          * Gets the paragraph before the table. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         paragraphBefore: Word.Paragraph;
         /**
          *
+         * Gets the parent body of the table. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentBody: Word.Body;
+        /**
+         *
          * Gets the content control that contains the table. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         parentContentControl: Word.ContentControl;
         /**
          *
-         * Gets the table that contains this table. Returns null if it is not contained in a table. Read-only.
+         * Gets the table that contains this table. Returns a null object if it is not contained in a table. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         parentTable: Word.Table;
         /**
          *
-         * Gets the table cell that contains this table. Returns null if it is not contained in a table cell. Read-only.
+         * Gets the table cell that contains this table. Returns a null object if it is not contained in a table cell. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         parentTableCell: Word.TableCell;
         /**
          *
          * Gets all of the table rows. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         rows: Word.TableRowCollection;
         /**
          *
          * Gets the child tables nested one level deeper. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         tables: Word.TableCollection;
         /**
          *
-         * Gets and sets the default bottom cell padding in points.
+         * Gets or sets the alignment of the table against the page column. The value can be 'left', 'centered' or 'right'.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
-        cellPaddingBottom: number;
-        /**
-         *
-         * Gets and sets the default left cell padding in points.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        cellPaddingLeft: number;
-        /**
-         *
-         * Gets and sets the default right cell padding in points.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        cellPaddingRight: number;
-        /**
-         *
-         * Gets and sets the default top cell padding in points.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        cellPaddingTop: number;
+        alignment: string;
         /**
          *
          * Gets and sets the number of header rows.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         headerRowCount: number;
         /**
          *
          * Gets the height of the table in points. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         height: number;
         /**
          *
+         * Gets and sets the horizontal alignment of every cell in the table. The value can be 'left', 'centered', 'right', or 'justified'.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        horizontalAlignment: string;
+        /**
+         *
          * Indicates whether all of the table rows are uniform. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         isUniform: boolean;
         /**
          *
          * Gets the nesting level of the table. Top-level tables have level 1. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         nestingLevel: number;
         /**
          *
-         * Gets the number of rows in the table.
+         * Gets the number of rows in the table. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         rowCount: number;
         /**
          *
          * Gets and sets the shading color.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         shadingColor: string;
         /**
          *
-         * Gets and sets the name of the table style.
+         * Gets or sets the style name for the table. Use this property for custom styles and localized style names. To use the built-in styles that are portable between locales, see the "styleBuiltIn" property.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         style: string;
         /**
          *
          * Gets and sets whether the table has banded columns.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         styleBandedColumns: boolean;
         /**
          *
          * Gets and sets whether the table has banded rows.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         styleBandedRows: boolean;
         /**
          *
+         * Gets or sets the built-in style name for the table. Use this property for built-in styles that are portable between locales. To use custom styles or localized style names, see the "style" property.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        styleBuiltIn: string;
+        /**
+         *
          * Gets and sets whether the table has a first column with a special style.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         styleFirstColumn: boolean;
         /**
          *
          * Gets and sets whether the table has a last column with a special style.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         styleLastColumn: boolean;
         /**
          *
          * Gets and sets whether the table has a total (last) row with a special style.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         styleTotalRow: boolean;
         /**
          *
          * Gets and sets the text values in the table, as a 2D Javascript array.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         values: Array<Array<string>>;
         /**
          *
-         * Gets and sets the vertical alignment of every cell in the table.
+         * Gets and sets the vertical alignment of every cell in the table. The value can be 'top', 'center' or 'bottom'.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         verticalAlignment: string;
         /**
          *
          * Gets and sets the width of the table in points.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         width: number;
         /**
@@ -11983,7 +13218,7 @@ declare namespace Word {
          * @param columnCount Required. Number of columns to add.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         addColumns(insertLocation: string, columnCount: number, values?: Array<Array<string>>): void;
         /**
@@ -11994,35 +13229,35 @@ declare namespace Word {
          * @param rowCount Required. Number of rows to add.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
-        addRows(insertLocation: string, rowCount: number, values?: Array<Array<string>>): void;
+        addRows(insertLocation: string, rowCount: number, values?: Array<Array<string>>): Word.TableRowCollection;
         /**
          *
          * Autofits the table columns to the width of their contents.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         autoFitContents(): void;
         /**
          *
          * Autofits the table columns to the width of the window.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         autoFitWindow(): void;
         /**
          *
          * Clears the contents of the table.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         clear(): void;
         /**
          *
          * Deletes the entire table.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         delete(): void;
         /**
@@ -12032,7 +13267,7 @@ declare namespace Word {
          * @param columnIndex Required. The first column to delete.
          * @param columnCount Optional. The number of columns to delete. Default 1.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         deleteColumns(columnIndex: number, columnCount?: number): void;
         /**
@@ -12042,21 +13277,21 @@ declare namespace Word {
          * @param rowIndex Required. The first row to delete.
          * @param rowCount Optional. The number of rows to delete. Default 1.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         deleteRows(rowIndex: number, rowCount?: number): void;
         /**
          *
          * Distributes the column widths evenly.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         distributeColumns(): void;
         /**
          *
          * Distributes the row heights evenly.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         distributeRows(): void;
         /**
@@ -12065,9 +13300,9 @@ declare namespace Word {
          *
          * @param borderLocation Required. The border location.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
-        getBorderStyle(borderLocation: string): Word.TableBorderStyle;
+        getBorder(borderLocation: string): Word.TableBorder;
         /**
          *
          * Gets the table cell at a specified row and column.
@@ -12075,23 +13310,39 @@ declare namespace Word {
          * @param rowIndex Required. The index of the row.
          * @param cellIndex Required. The index of the cell in the row.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         getCell(rowIndex: number, cellIndex: number): Word.TableCell;
         /**
          *
+         * Gets cell padding in points.
+         *
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getCellPadding(cellPaddingLocation: string): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets the next table.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getNext(): Word.Table;
+        /**
+         *
          * Gets the range that contains this table, or the range at the start or end of the table.
          *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Start' or 'End'.
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End' or 'After'.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
-        getRange(rangeLocation: string): Word.Range;
+        getRange(rangeLocation?: string): Word.Range;
         /**
          *
          * Inserts a content control on the table.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         insertContentControl(): Word.ContentControl;
         /**
@@ -12101,7 +13352,7 @@ declare namespace Word {
          * @param paragraphText Required. The paragraph text to be inserted.
          * @param insertLocation Required. The value can be 'Before' or 'After'.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         insertParagraph(paragraphText: string, insertLocation: string): Word.Paragraph;
         /**
@@ -12113,21 +13364,9 @@ declare namespace Word {
          * @param insertLocation Required. The value can be 'Before' or 'After'.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: string, values?: Array<Array<string>>): Word.Table;
-        /**
-         *
-         * Merges the cells bounded inclusively by a first and last cell.
-         *
-         * @param topRow Required. The row of the first cell
-         * @param firstCell Required. The index of the first cell in its row
-         * @param bottomRow Required. The row of the last cell
-         * @param lastCell Required. The index of the last cell in its row
-         *
-         * [Api set: WordApiDesktop 1.3 Beta]
-         */
-        mergeCells(topRow: number, firstCell: number, bottomRow: number, lastCell: number): Word.TableCell;
         /**
          *
          * Performs a search with the specified searchOptions on the scope of the table object. The search results are a collection of range objects.
@@ -12135,197 +13374,195 @@ declare namespace Word {
          * @param searchText Required. The search text.
          * @param searchOptions Optional. Options for the search.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         search(searchText: string, searchOptions?: Word.SearchOptions | {
             ignorePunct?: boolean;
             ignoreSpace?: boolean;
             matchCase?: boolean;
             matchPrefix?: boolean;
-            matchSoundsLike?: boolean;
             matchSuffix?: boolean;
             matchWholeWord?: boolean;
             matchWildcards?: boolean;
-        }): Word.SearchResultCollection;
+        }): Word.RangeCollection;
         /**
          *
          * Selects the table, or the position at the start or end of the table, and navigates the Word UI to it.
          *
          * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         select(selectionMode?: string): void;
+        /**
+         *
+         * Sets cell padding in points.
+         *
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        setCellPadding(cellPaddingLocation: string, cellPadding: number): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.Table;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.Table;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.Table;
+        toJSON(): {
+            "alignment": string;
+            "font": Font;
+            "headerRowCount": number;
+            "height": number;
+            "horizontalAlignment": string;
+            "isUniform": boolean;
+            "nestingLevel": number;
+            "rowCount": number;
+            "shadingColor": string;
+            "style": string;
+            "styleBandedColumns": boolean;
+            "styleBandedRows": boolean;
+            "styleBuiltIn": string;
+            "styleFirstColumn": boolean;
+            "styleLastColumn": boolean;
+            "styleTotalRow": boolean;
+            "values": string[][];
+            "verticalAlignment": string;
+            "width": number;
+        };
     }
     /**
      *
      * Contains the collection of the document's Table objects.
      *
-     * [Api set: WordApi 1.3 Beta]
+     * [Api set: WordApi 1.3]
      */
     class TableCollection extends OfficeExtension.ClientObject {
-        private m_first;
-        private m__ReferenceId;
-        private m__items;
-        /**
-         *
-         * Gets the first table in this collection. Read-only.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        first: Word.Table;
         /** Gets the loaded child items in this collection. */
         items: Array<Word.Table>;
+        /**
+         *
+         * Gets the first table in this collection.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getFirst(): Word.Table;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.TableCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.TableCollection;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.TableCollection;
+        toJSON(): {};
     }
     /**
      *
      * Represents a row in a Word document.
      *
-     * [Api set: WordApi 1.3 Beta]
+     * [Api set: WordApi 1.3]
      */
     class TableRow extends OfficeExtension.ClientObject {
-        private m_cellCount;
-        private m_cellPaddingBottom;
-        private m_cellPaddingLeft;
-        private m_cellPaddingRight;
-        private m_cellPaddingTop;
-        private m_cells;
-        private m_font;
-        private m_isHeader;
-        private m_next;
-        private m_parentTable;
-        private m_preferredHeight;
-        private m_rowIndex;
-        private m_shadingColor;
-        private m_values;
-        private m_verticalAlignment;
-        private m__Id;
-        private m__ReferenceId;
         /**
          *
          * Gets cells. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         cells: Word.TableCellCollection;
         /**
          *
          * Gets the font. Use this to get and set font name, size, color, and other properties. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         font: Word.Font;
         /**
          *
-         * Gets the next row. Read-only.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        next: Word.TableRow;
-        /**
-         *
          * Gets parent table. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         parentTable: Word.Table;
         /**
          *
          * Gets the number of cells in the row. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         cellCount: number;
         /**
          *
-         * Gets and sets the default bottom cell padding for the row in points.
+         * Gets and sets the horizontal alignment of every cell in the row. The value can be 'left', 'centered', 'right', or 'justified'.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
-        cellPaddingBottom: number;
+        horizontalAlignment: string;
         /**
          *
-         * Gets and sets the default left cell padding for the row in points.
+         * Checks whether the row is a header row. Read-only. To set the number of header rows, use HeaderRowCount on the Table object.
          *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        cellPaddingLeft: number;
-        /**
-         *
-         * Gets and sets the default right cell padding for the row in points.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        cellPaddingRight: number;
-        /**
-         *
-         * Gets and sets the default top cell padding for the row in points.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        cellPaddingTop: number;
-        /**
-         *
-         * Gets a value that indicates whether the row is a header row. Read-only. To set the number of header rows, use HeaderRowCount on the Table object.
-         *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         isHeader: boolean;
         /**
          *
          * Gets and sets the preferred height of the row in points.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         preferredHeight: number;
         /**
          *
          * Gets the index of the row in its parent table. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         rowIndex: number;
         /**
          *
          * Gets and sets the shading color.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         shadingColor: string;
         /**
          *
          * Gets and sets the text values in the row, as a 1D Javascript array.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         values: Array<string>;
         /**
          *
-         * Gets and sets the vertical alignment of the cells in the row.
+         * Gets and sets the vertical alignment of the cells in the row. The value can be 'top', 'center' or 'bottom'.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         verticalAlignment: string;
         /**
          *
          * Clears the contents of the row.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         clear(): void;
         /**
          *
          * Deletes the entire row.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         delete(): void;
         /**
@@ -12334,27 +13571,36 @@ declare namespace Word {
          *
          * @param borderLocation Required. The border location.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
-        getBorderStyle(borderLocation: string): Word.TableBorderStyle;
+        getBorder(borderLocation: string): Word.TableBorder;
+        /**
+         *
+         * Gets cell padding in points.
+         *
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getCellPadding(cellPaddingLocation: string): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets the next row.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getNext(): Word.TableRow;
         /**
          *
          * Inserts rows using this row as a template. If values are specified, inserts the values into the new rows.
          *
-         * @param insertLocation Where the new rows should be inserted, relative to the current row. It can be 'Before' or 'After'. Required.
+         * @param insertLocation Required. Where the new rows should be inserted, relative to the current row. It can be 'Before' or 'After'.
          * @param rowCount Required. Number of rows to add
-         * @param values Strings to insert in the new rows, specified as a 2D array. The number of cells in each row must not exceed the number of cells in the existing row. Optional.
+         * @param values Optional. Strings to insert in the new rows, specified as a 2D array. The number of cells in each row must not exceed the number of cells in the existing row.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
-        insertRows(insertLocation: string, rowCount: number, values?: Array<Array<string>>): void;
-        /**
-         *
-         * Merges the row into one cell.
-         *
-         * [Api set: WordApiDesktop 1.3 Beta]
-         */
-        merge(): Word.TableCell;
+        insertRows(insertLocation: string, rowCount: number, values?: Array<Array<string>>): Word.TableRowCollection;
         /**
          *
          * Performs a search with the specified searchOptions on the scope of the row. The search results are a collection of range objects.
@@ -12362,197 +13608,185 @@ declare namespace Word {
          * @param searchText Required. The search text.
          * @param searchOptions Optional. Options for the search.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         search(searchText: string, searchOptions?: Word.SearchOptions | {
             ignorePunct?: boolean;
             ignoreSpace?: boolean;
             matchCase?: boolean;
             matchPrefix?: boolean;
-            matchSoundsLike?: boolean;
             matchSuffix?: boolean;
             matchWholeWord?: boolean;
             matchWildcards?: boolean;
-        }): Word.SearchResultCollection;
+        }): Word.RangeCollection;
         /**
          *
          * Selects the row and navigates the Word UI to it.
          *
          * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         select(selectionMode?: string): void;
+        /**
+         *
+         * Sets cell padding in points.
+         *
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        setCellPadding(cellPaddingLocation: string, cellPadding: number): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.TableRow;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.TableRow;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.TableRow;
+        toJSON(): {
+            "cellCount": number;
+            "font": Font;
+            "horizontalAlignment": string;
+            "isHeader": boolean;
+            "preferredHeight": number;
+            "rowIndex": number;
+            "shadingColor": string;
+            "values": string[];
+            "verticalAlignment": string;
+        };
     }
     /**
      *
      * Contains the collection of the document's TableRow objects.
      *
-     * [Api set: WordApi 1.3 Beta]
+     * [Api set: WordApi 1.3]
      */
     class TableRowCollection extends OfficeExtension.ClientObject {
-        private m_first;
-        private m__ReferenceId;
-        private m__items;
-        /**
-         *
-         * Gets the first row in this collection. Read-only.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        first: Word.TableRow;
         /** Gets the loaded child items in this collection. */
         items: Array<Word.TableRow>;
+        /**
+         *
+         * Gets the first row in this collection.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getFirst(): Word.TableRow;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.TableRowCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.TableRowCollection;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.TableRowCollection;
+        toJSON(): {};
     }
     /**
      *
      * Represents a table cell in a Word document.
      *
-     * [Api set: WordApi 1.3 Beta]
+     * [Api set: WordApi 1.3]
      */
     class TableCell extends OfficeExtension.ClientObject {
-        private m_body;
-        private m_cellIndex;
-        private m_cellPaddingBottom;
-        private m_cellPaddingLeft;
-        private m_cellPaddingRight;
-        private m_cellPaddingTop;
-        private m_columnWidth;
-        private m_next;
-        private m_parentRow;
-        private m_parentTable;
-        private m_rowIndex;
-        private m_shadingColor;
-        private m_value;
-        private m_verticalAlignment;
-        private m_width;
-        private m__Id;
-        private m__ReferenceId;
         /**
          *
          * Gets the body object of the cell. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         body: Word.Body;
         /**
          *
-         * Gets the next cell. Read-only.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        next: Word.TableCell;
-        /**
-         *
          * Gets the parent row of the cell. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         parentRow: Word.TableRow;
         /**
          *
          * Gets the parent table of the cell. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         parentTable: Word.Table;
         /**
          *
          * Gets the index of the cell in its row. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         cellIndex: number;
         /**
          *
-         * Gets and sets the bottom padding of the cell in points.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        cellPaddingBottom: number;
-        /**
-         *
-         * Gets and sets the left padding of the cell in points.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        cellPaddingLeft: number;
-        /**
-         *
-         * Gets and sets the right padding of the cell in points.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        cellPaddingRight: number;
-        /**
-         *
-         * Gets and sets the top padding of the cell in points.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        cellPaddingTop: number;
-        /**
-         *
          * Gets and sets the width of the cell's column in points. This is applicable to uniform tables.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         columnWidth: number;
         /**
          *
+         * Gets and sets the horizontal alignment of the cell. The value can be 'left', 'centered', 'right', or 'justified'.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        horizontalAlignment: string;
+        /**
+         *
          * Gets the index of the cell's row in the table. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         rowIndex: number;
         /**
          *
          * Gets or sets the shading color of the cell. Color is specified in "#RRGGBB" format or by using the color name.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         shadingColor: string;
         /**
          *
          * Gets and sets the text of the cell.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         value: string;
         /**
          *
-         * Gets and sets the vertical alignment of the cell.
+         * Gets and sets the vertical alignment of the cell. The value can be 'top', 'center' or 'bottom'.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         verticalAlignment: string;
         /**
          *
          * Gets the width of the cell in points. Read-only.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         width: number;
         /**
          *
          * Deletes the column containing this cell. This is applicable to uniform tables.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         deleteColumn(): void;
         /**
          *
          * Deletes the row containing this cell.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         deleteRow(): void;
         /**
@@ -12561,9 +13795,25 @@ declare namespace Word {
          *
          * @param borderLocation Required. The border location.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
-        getBorderStyle(borderLocation: string): Word.TableBorderStyle;
+        getBorder(borderLocation: string): Word.TableBorder;
+        /**
+         *
+         * Gets cell padding in points.
+         *
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getCellPadding(cellPaddingLocation: string): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets the next cell.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getNext(): Word.TableCell;
         /**
          *
          * Adds columns to the left or right of the cell, using the cell's column as a template. This is applicable to uniform tables. The string values, if specified, are set in the newly inserted rows.
@@ -12572,7 +13822,7 @@ declare namespace Word {
          * @param columnCount Required. Number of columns to add
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         insertColumns(insertLocation: string, columnCount: number, values?: Array<Array<string>>): void;
         /**
@@ -12583,84 +13833,117 @@ declare namespace Word {
          * @param rowCount Required. Number of rows to add.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
-        insertRows(insertLocation: string, rowCount: number, values?: Array<Array<string>>): void;
+        insertRows(insertLocation: string, rowCount: number, values?: Array<Array<string>>): Word.TableRowCollection;
         /**
          *
-         * Adds columns to the left or right of the cell, using the existing column as a template. The string values, if specified, are set in the newly inserted rows.
+         * Sets cell padding in points.
          *
-         * @param rowCount Required. The number of rows to split into. Must be a divisor of the number of underlying rows.
-         * @param columnCount Required. The number of columns to split into.
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
          *
-         * [Api set: WordApiDesktop 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
-        split(rowCount: number, columnCount: number): void;
+        setCellPadding(cellPaddingLocation: string, cellPadding: number): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.TableCell;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.TableCell;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.TableCell;
+        toJSON(): {
+            "body": Body;
+            "cellIndex": number;
+            "columnWidth": number;
+            "horizontalAlignment": string;
+            "rowIndex": number;
+            "shadingColor": string;
+            "value": string;
+            "verticalAlignment": string;
+            "width": number;
+        };
     }
     /**
      *
      * Contains the collection of the document's TableCell objects.
      *
-     * [Api set: WordApi 1.3 Beta]
+     * [Api set: WordApi 1.3]
      */
     class TableCellCollection extends OfficeExtension.ClientObject {
-        private m_first;
-        private m__ReferenceId;
-        private m__items;
-        /**
-         *
-         * Gets the first table cell in this collection. Read-only.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        first: Word.TableCell;
         /** Gets the loaded child items in this collection. */
         items: Array<Word.TableCell>;
+        /**
+         *
+         * Gets the first table cell in this collection.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getFirst(): Word.TableCell;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.TableCellCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.TableCellCollection;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.TableCellCollection;
+        toJSON(): {};
     }
     /**
      *
      * Specifies the border style
      *
-     * [Api set: WordApi 1.3 Beta]
+     * [Api set: WordApi 1.3]
      */
-    class TableBorderStyle extends OfficeExtension.ClientObject {
-        private m_color;
-        private m_type;
-        private m_width;
-        private m__ReferenceId;
+    class TableBorder extends OfficeExtension.ClientObject {
         /**
          *
          * Gets or sets the table border color, as a hex value or name.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         color: string;
         /**
          *
-         * Gets or sets the type of the table border style.
+         * Gets or sets the type of the table border.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         type: string;
         /**
          *
-         * Gets or sets the width, in points, of the table border style.
+         * Gets or sets the width, in points, of the table border. Not applicable to table border types that have fixed widths.
          *
-         * [Api set: WordApi 1.3 Beta]
+         * [Api set: WordApi 1.3]
          */
         width: number;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
-        load(option?: string | string[] | OfficeExtension.LoadOption): Word.TableBorderStyle;
+        load(option?: string | string[] | OfficeExtension.LoadOption): Word.TableBorder;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Word.TableBorder;
+        /**
+         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         */
+        untrack(): Word.TableBorder;
+        toJSON(): {
+            "color": string;
+            "type": string;
+            "width": number;
+        };
     }
     /**
      *
@@ -12705,33 +13988,84 @@ declare namespace Word {
      * [Api set: WordApi]
      */
     module UnderlineType {
+        var mixed: string;
         var none: string;
+        /**
+         *
+         * @deprecated Hidden is no longer supported.
+         */
+        var hidden: string;
+        /**
+         *
+         * @deprecated DotLine is no longer supported.
+         */
+        var dotLine: string;
         var single: string;
         var word: string;
         var double: string;
-        var dotted: string;
-        var hidden: string;
         var thick: string;
+        var dotted: string;
+        var dottedHeavy: string;
         var dashLine: string;
-        var dotLine: string;
+        var dashLineHeavy: string;
+        var dashLineLong: string;
+        var dashLineLongHeavy: string;
         var dotDashLine: string;
+        var dotDashLineHeavy: string;
         var twoDotDashLine: string;
+        var twoDotDashLineHeavy: string;
         var wave: string;
+        var waveHeavy: string;
+        var waveDouble: string;
     }
     /**
+     *
+     * Page break, line break, and four section breaks
+     *
      * [Api set: WordApi]
      */
     module BreakType {
+        /**
+         *
+         * Page break.
+         *
+         */
         var page: string;
-        var column: string;
+        /**
+         *
+         * @deprecated Use sectionNext instead.
+         */
         var next: string;
+        /**
+         *
+         * Section break, with the new section starting on the next page.
+         *
+         */
+        var sectionNext: string;
+        /**
+         *
+         * Section break, with the new section starting on the same page.
+         *
+         */
         var sectionContinuous: string;
+        /**
+         *
+         * Section break, with the new section starting on the next even-numbered page.
+         *
+         */
         var sectionEven: string;
+        /**
+         *
+         * Section break, with the new section starting on the next odd-numbered page.
+         *
+         */
         var sectionOdd: string;
+        /**
+         *
+         * Line break.
+         *
+         */
         var line: string;
-        var lineClearLeft: string;
-        var lineClearRight: string;
-        var textWrapping: string;
     }
     /**
      *
@@ -12750,6 +14084,7 @@ declare namespace Word {
      * [Api set: WordApi]
      */
     module Alignment {
+        var mixed: string;
         var unknown: string;
         var left: string;
         var centered: string;
@@ -12800,6 +14135,7 @@ declare namespace Word {
         var emf: string;
         var pict: string;
         var pdf: string;
+        var svg: string;
     }
     /**
      * [Api set: WordApi]
@@ -12808,6 +14144,9 @@ declare namespace Word {
         var whole: string;
         var start: string;
         var end: string;
+        var before: string;
+        var after: string;
+        var content: string;
     }
     /**
      * [Api set: WordApi]
@@ -12845,13 +14184,20 @@ declare namespace Word {
     /**
      * [Api set: WordApi]
      */
+    module CellPaddingLocation {
+        var top: string;
+        var left: string;
+        var bottom: string;
+        var right: string;
+    }
+    /**
+     * [Api set: WordApi]
+     */
     module BorderType {
         var mixed: string;
         var none: string;
         var single: string;
-        var thick: string;
         var double: string;
-        var hairline: string;
         var dotted: string;
         var dashed: string;
         var dotDashed: string;
@@ -12890,6 +14236,251 @@ declare namespace Word {
         var number: string;
         var picture: string;
     }
+    /**
+     * [Api set: WordApi]
+     */
+    module ListBullet {
+        var custom: string;
+        var solid: string;
+        var hollow: string;
+        var square: string;
+        var diamonds: string;
+        var arrow: string;
+        var checkmark: string;
+    }
+    /**
+     * [Api set: WordApi]
+     */
+    module ListNumbering {
+        var none: string;
+        var arabic: string;
+        var upperRoman: string;
+        var lowerRoman: string;
+        var upperLetter: string;
+        var lowerLetter: string;
+    }
+    /**
+     * [Api set: WordApi]
+     */
+    module Style {
+        /**
+         *
+         * Mixed styles or other style not in this list.
+         *
+         */
+        var other: string;
+        /**
+         *
+         * Reset character and paragraph style to default.
+         *
+         */
+        var normal: string;
+        var heading1: string;
+        var heading2: string;
+        var heading3: string;
+        var heading4: string;
+        var heading5: string;
+        var heading6: string;
+        var heading7: string;
+        var heading8: string;
+        var heading9: string;
+        /**
+         *
+         * Table-of-content level 1.
+         *
+         */
+        var toc1: string;
+        /**
+         *
+         * Table-of-content level 2.
+         *
+         */
+        var toc2: string;
+        /**
+         *
+         * Table-of-content level 3.
+         *
+         */
+        var toc3: string;
+        /**
+         *
+         * Table-of-content level 4.
+         *
+         */
+        var toc4: string;
+        /**
+         *
+         * Table-of-content level 5.
+         *
+         */
+        var toc5: string;
+        /**
+         *
+         * Table-of-content level 6.
+         *
+         */
+        var toc6: string;
+        /**
+         *
+         * Table-of-content level 7.
+         *
+         */
+        var toc7: string;
+        /**
+         *
+         * Table-of-content level 8.
+         *
+         */
+        var toc8: string;
+        /**
+         *
+         * Table-of-content level 9.
+         *
+         */
+        var toc9: string;
+        var footnoteText: string;
+        var header: string;
+        var footer: string;
+        var caption: string;
+        var footnoteReference: string;
+        var endnoteReference: string;
+        var endnoteText: string;
+        var title: string;
+        var subtitle: string;
+        var hyperlink: string;
+        var strong: string;
+        var emphasis: string;
+        var noSpacing: string;
+        var listParagraph: string;
+        var quote: string;
+        var intenseQuote: string;
+        var subtleEmphasis: string;
+        var intenseEmphasis: string;
+        var subtleReference: string;
+        var intenseReference: string;
+        var bookTitle: string;
+        var bibliography: string;
+        /**
+         *
+         * Table-of-content heading.
+         *
+         */
+        var tocHeading: string;
+        var tableGrid: string;
+        var plainTable1: string;
+        var plainTable2: string;
+        var plainTable3: string;
+        var plainTable4: string;
+        var plainTable5: string;
+        var tableGridLight: string;
+        var gridTable1Light: string;
+        var gridTable1Light_Accent1: string;
+        var gridTable1Light_Accent2: string;
+        var gridTable1Light_Accent3: string;
+        var gridTable1Light_Accent4: string;
+        var gridTable1Light_Accent5: string;
+        var gridTable1Light_Accent6: string;
+        var gridTable2: string;
+        var gridTable2_Accent1: string;
+        var gridTable2_Accent2: string;
+        var gridTable2_Accent3: string;
+        var gridTable2_Accent4: string;
+        var gridTable2_Accent5: string;
+        var gridTable2_Accent6: string;
+        var gridTable3: string;
+        var gridTable3_Accent1: string;
+        var gridTable3_Accent2: string;
+        var gridTable3_Accent3: string;
+        var gridTable3_Accent4: string;
+        var gridTable3_Accent5: string;
+        var gridTable3_Accent6: string;
+        var gridTable4: string;
+        var gridTable4_Accent1: string;
+        var gridTable4_Accent2: string;
+        var gridTable4_Accent3: string;
+        var gridTable4_Accent4: string;
+        var gridTable4_Accent5: string;
+        var gridTable4_Accent6: string;
+        var gridTable5Dark: string;
+        var gridTable5Dark_Accent1: string;
+        var gridTable5Dark_Accent2: string;
+        var gridTable5Dark_Accent3: string;
+        var gridTable5Dark_Accent4: string;
+        var gridTable5Dark_Accent5: string;
+        var gridTable5Dark_Accent6: string;
+        var gridTable6Colorful: string;
+        var gridTable6Colorful_Accent1: string;
+        var gridTable6Colorful_Accent2: string;
+        var gridTable6Colorful_Accent3: string;
+        var gridTable6Colorful_Accent4: string;
+        var gridTable6Colorful_Accent5: string;
+        var gridTable6Colorful_Accent6: string;
+        var gridTable7Colorful: string;
+        var gridTable7Colorful_Accent1: string;
+        var gridTable7Colorful_Accent2: string;
+        var gridTable7Colorful_Accent3: string;
+        var gridTable7Colorful_Accent4: string;
+        var gridTable7Colorful_Accent5: string;
+        var gridTable7Colorful_Accent6: string;
+        var listTable1Light: string;
+        var listTable1Light_Accent1: string;
+        var listTable1Light_Accent2: string;
+        var listTable1Light_Accent3: string;
+        var listTable1Light_Accent4: string;
+        var listTable1Light_Accent5: string;
+        var listTable1Light_Accent6: string;
+        var listTable2: string;
+        var listTable2_Accent1: string;
+        var listTable2_Accent2: string;
+        var listTable2_Accent3: string;
+        var listTable2_Accent4: string;
+        var listTable2_Accent5: string;
+        var listTable2_Accent6: string;
+        var listTable3: string;
+        var listTable3_Accent1: string;
+        var listTable3_Accent2: string;
+        var listTable3_Accent3: string;
+        var listTable3_Accent4: string;
+        var listTable3_Accent5: string;
+        var listTable3_Accent6: string;
+        var listTable4: string;
+        var listTable4_Accent1: string;
+        var listTable4_Accent2: string;
+        var listTable4_Accent3: string;
+        var listTable4_Accent4: string;
+        var listTable4_Accent5: string;
+        var listTable4_Accent6: string;
+        var listTable5Dark: string;
+        var listTable5Dark_Accent1: string;
+        var listTable5Dark_Accent2: string;
+        var listTable5Dark_Accent3: string;
+        var listTable5Dark_Accent4: string;
+        var listTable5Dark_Accent5: string;
+        var listTable5Dark_Accent6: string;
+        var listTable6Colorful: string;
+        var listTable6Colorful_Accent1: string;
+        var listTable6Colorful_Accent2: string;
+        var listTable6Colorful_Accent3: string;
+        var listTable6Colorful_Accent4: string;
+        var listTable6Colorful_Accent5: string;
+        var listTable6Colorful_Accent6: string;
+        var listTable7Colorful: string;
+        var listTable7Colorful_Accent1: string;
+        var listTable7Colorful_Accent2: string;
+        var listTable7Colorful_Accent3: string;
+        var listTable7Colorful_Accent4: string;
+        var listTable7Colorful_Accent5: string;
+        var listTable7Colorful_Accent6: string;
+    }
+    /**
+     * [Api set: WordApi]
+     */
+    module DocumentPropertyType {
+        var string: string;
+        var number: string;
+        var date: string;
+        var boolean: string;
+    }
     module ErrorCodes {
         var accessDenied: string;
         var generalException: string;
@@ -12898,630 +14489,54 @@ declare namespace Word {
         var notImplemented: string;
     }
 }
-declare namespace Word {
+declare module Word {
     /**
      * The RequestContext object facilitates requests to the Word application. Since the Office add-in and the Word application run in two different processes, the request context is required to get access to the Word object model from the add-in.
      */
     class RequestContext extends OfficeExtension.ClientRequestContext {
-        private m_document;
         constructor(url?: string);
         document: Document;
+        application: Application;
     }
     /**
-     * Executes a batch script that performs actions on the Word object model. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
-     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Word application. Since the Office add-in and the Word application run in two different processes, the request context is required to get access to the Word object model from the add-in.
+     * Executes a batch script that performs actions on the Word object model, using a new RequestContext. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Word application. Since the Office add-in and the Word application run in two different processes, the RequestContext is required to get access to the Word object model from the add-in.
      */
     function run<T>(batch: (context: Word.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the Word object model, using the RequestContext of a previously-created API object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param object - A previously-created API object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Word application. Since the Office add-in and the Word application run in two different processes, the RequestContext is required to get access to the Word object model from the add-in.
+     */
+    function run<T>(object: OfficeExtension.ClientObject, batch: (context: Word.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the Word object model, using the RequestContext of previously-created API objects.
+     * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared RequestContext, which means that any changes applied to these objects will be picked up by "context.sync()".
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Word application. Since the Office add-in and the Word application run in two different processes, the RequestContext is required to get access to the Word object model from the add-in.
+     */
+    function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Word.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
 }
 
-declare namespace Office.MailboxEnums {
-    export enum BodyType {
-        /**
-         * The body is in HTML format
-         */
-        Html,
-        /**
-         * The body is in text format
-         */
-        text
-    }
-    export enum EntityType {
-        /**
-         * Specifies that the entity is a meeting suggestion
-         */
-        MeetingSuggestion,
-        /**
-         * Specifies that the entity is a task suggestion
-         */
-        TaskSuggestion,
-        /**
-         * Specifies that the entity is a postal address
-         */
-        Address,
-        /**
-         * Specifies that the entity is SMTP email address
-         */
-        EmailAddress,
-        /**
-         * Specifies that the entity is an Internet URL
-         */
-        Url,
-        /**
-         * Specifies that the entity is US phone number
-         */
-        PhoneNumber,
-        /**
-         * Specifies that the entity is a contact
-         */
-        Contact
-    }
-    export enum ItemType {
-        /**
-         * A meeting request, response, or cancellation
-         */
-        Message,
-        /**
-         * Specifies an appointment item
-         */
-        Appointment
-    }
-    export enum ResponseType {
-        /**
-         * There has been no response from the attendee
-         */
-        None,
-        /**
-         * The attendee is the meeting organizer
-         */
-        Organizer,
-        /**
-         * The meeting request was tentatively accepted by the attendee
-         */
-        Tentative,
-        /**
-         * The meeting request was accepted by the attendee
-         */
-        Accepted,
-        /**
-         * The meeting request was declined by the attendee
-         */
-        Declined
-    }
-    export enum RecipientType {
-        /**
-         * Specifies that the recipient is not one of the other recipient types
-         */
-        Other,
-        /**
-         * Specifies that the recipient is a distribution list containing a list of email addresses
-         */
-        DistributionList,
-        /**
-         * Specifies that the recipient is an SMTP email address that is on the Exchange server
-         */
-        User,
-        /**
-         * Specifies that the recipient is an SMTP email address that is not on the Exchange server
-         */
-        ExternalUser
-    }
-    export enum AttachmentType {
-        /**
-         * The attachment is a file
-         */
-        File,
-        /**
-         * The attachment is an Exchange item
-         */
-        Item
-    }
-}
-declare namespace Office {
-    export module Types {
-        export interface ItemRead extends Office.Item {
-            subject: any;
-            /**
-             * Displays a reply form that includes the sender and all the recipients of the selected message
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-             */
-            displayReplyAllForm(htmlBody: string): void;
-            /**
-             * Displays a reply form that includes only the sender of the selected message
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-             */
-            displayReplyForm(htmlBody: string): void;
-            /**
-             * Gets an array of entities found in an message
-             */
-            getEntities(): Office.Entities;
-            /**
-             * Gets an array of entities of the specified entity type found in an message
-             * @param entityType One of the EntityType enumeration values
-             */
-            getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
-            /**
-             * Returns well-known entities that pass the named filter defined in the manifest XML file
-             * @param name  A TableData object with the headers and rows
-             */
-            getFilteredEntitiesByName(name: string): Office.Entities;
-            /**
-             * Returns string values in the currently selected message object that match the regular expressions defined in the manifest XML file
-             */
-            getRegExMatches(): string[];
-            /**
-             * Returns string values that match the named regular expression defined in the manifest XML file
-             */
-            getRegExMatchesByName(name: string): string[];
-        }
-        export interface ItemCompose extends Office.Item {
-            body: Office.Body;
-            subject: any;
-            /**
-             * Adds a file to a message as an attachment
-             * @param uri The URI that provides the location of the file to attach to the message. The maximum length is 2048 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
-            /**
-             * Adds an Exchange item, such as a message, as an attachment to the message
-             * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
-            /**
-             * Removes an attachment from a message
-             * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
-        }
-        export interface MessageCompose extends Office.Message {
-            attachments: Office.AttachmentDetails[];
-            body: Office.Body;
-            bcc: Office.Recipients;
-            cc: Office.Recipients;
-            subject: Office.Subject;
-            to: Office.Recipients;
-            /**
-             * Adds a file to a message as an attachment
-             * @param uri The URI that provides the location of the file to attach to the message. The maximum length is 2048 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
-            /**
-             * Adds an Exchange item, such as a message, as an attachment to the message
-             * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
-            /**
-             * Removes an attachment from a message
-             * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
-        }
-        export interface MessageRead extends Office.Message {
-            cc: Office.EmailAddressDetails[];
-            from: Office.EmailAddressDetails;
-            internetMessageId: string;
-            normalizedSubject: string;
-            sender: Office.EmailAddressDetails;
-            subject: string;
-            to: Office.EmailAddressDetails;
-            /**
-             * Displays a reply form that includes the sender and all the recipients of the selected message
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-             */
-            displayReplyAllForm(htmlBody: string): void;
-            /**
-             * Displays a reply form that includes only the sender of the selected message
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-             */
-            displayReplyForm(htmlBody: string): void;
-            /**
-             * Gets an array of entities found in an message
-             */
-            getEntities(): Office.Entities;
-            /**
-             * Gets an array of entities of the specified entity type found in an message
-             * @param entityType One of the EntityType enumeration values
-             */
-            getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
-            /**
-             * Returns well-known entities that pass the named filter defined in the manifest XML file
-             * @param name  A TableData object with the headers and rows
-             */
-            getFilteredEntitiesByName(name: string): Office.Entities;
-            /**
-             * Returns string values in the currently selected message object that match the regular expressions defined in the manifest XML file
-             */
-            getRegExMatches(): string[];
-            /**
-             * Returns string values that match the named regular expression defined in the manifest XML file
-             */
-            getRegExMatchesByName(name: string): string[];
-        }
-        export interface AppointmentCompose extends Office.Appointment {
-            body: Office.Body;
-            end: Office.Time;
-            location: Office.Location;
-            optionalAttendees: Office.Recipients;
-            requiredAttendees: Office.Recipients;
-            start: Office.Time;
-            subject: Office.Subject;
-            /**
-             * Adds a file to an appointment as an attachment
-             * @param uri The URI that provides the location of the file to attach to the appointment. The maximum length is 2048 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
-            /**
-             * Adds an Exchange item, such as a message, as an attachment to the appointment
-             * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
-            /**
-             * Removes an attachment from a appointment
-             * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
-        }
-        export interface AppointmentRead extends Office.Appointment {
-            attachments: Office.AttachmentDetails[];
-            end: Date;
-            location: string;
-            normalizedSubject: string;
-            optionalAttendees: Office.EmailAddressDetails;
-            organizer: Office.EmailAddressDetails;
-            requiredAttendees: Office.EmailAddressDetails;
-            resources: string[];
-            start: Date;
-            subject: string;
-            /**
-             * Displays a reply form that includes the organizer and all the attendees of the selected appointment item
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-             */
-            displayReplyAllForm(htmlBody: string): void;
-            /**
-             * Displays a reply form that includes only the organizer of the selected appointment item
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-             */
-            displayReplyForm(htmlBody: string): void;
-            /**
-             * Gets an array of entities found in an appointment
-             */
-            getEntities(): Office.Entities;
-            /**
-             * Gets an array of entities of the specified entity type found in an appointment
-             * @param entityType One of the EntityType enumeration values
-             */
-            getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
-            /**
-             * Returns well-known entities that pass the named filter defined in the manifest XML file
-             * @param name  A TableData object with the headers and rows
-             */
-            getFilteredEntitiesByName(name: string): Office.Entities;
-            /**
-             * Returns string values in the currently selected appointment object that match the regular expressions defined in the manifest XML file
-             */
-            getRegExMatches(): string[];
-            /**
-             * Returns string values that match the named regular expression defined in the manifest XML file
-             */
-            getRegExMatchesByName(name: string): string[];
-        }
-    }
-    export module cast {
-        export module item {
-            function toAppointmentCompose(item: Office.Item): Office.Types.AppointmentCompose;
-            function toAppointmentRead(item: Office.Item): Office.Types.AppointmentRead;
-            function toAppointment(item: Office.Item): Office.Appointment;
-            function toMessageCompose(item: Office.Item): Office.Types.MessageCompose;
-            function toMessageRead(item: Office.Item): Office.Types.MessageRead;
-            function toMessage(item: Office.Item): Office.Message;
-            function toItemCompose(item: Office.Item): Office.Types.ItemCompose;
-            function toItemRead(item: Office.Item): Office.Types.ItemRead;
-        }
-    }
-    export interface AttachmentDetails {
-        attachmentType: Office.MailboxEnums.AttachmentType;
-        contentType: string;
-        id: string;
-        isInline: boolean;
-        name: string;
-        size: number;
-    }
-    export interface Contact {
-        personName: string;
-        businessName: string;
-        phoneNumbers: PhoneNumber[];
-        emailAddresses: string[];
-        urls: string[];
-        addresses: string[];
-        contactString: string;
-    }
 
-    export interface Context {
-        mailbox: Mailbox;
-        roamingSettings: RoamingSettings;
-    }
-    export interface CustomProperties {
-        /**
-         * Returns the value of the specified custom property
-         * @param name The name of the property to be returned
-         */
-        get(name: string): any;
-        /**
-         * Sets the specified property to the specified value
-         * @param name The name of the property to be set
-         * @param value The value of the property to be set
-         */
-        set(name: string, value: string): void;
-        /**
-         * Removes the specified property from the custom property collection.
-         * @param name The name of the property to be removed
-         */
-        remove(name: string): void;
-        /**
-         * Saves the custom property collection to the server
-         * @param callback The optional callback method
-         * @param userContext Optional variable for any state data that is passed to the saveAsync method
-         */
-        saveAsync(callback?: (result: AsyncResult) => void, userContext?: any): void;
-    }
-    export interface EmailAddressDetails {
-        emailAddress: string;
-        displayName: string;
-        appointmentResponse: Office.MailboxEnums.ResponseType;
-        recipientType: Office.MailboxEnums.RecipientType;
-    }
-    export interface EmailUser {
-        name: string;
-        userId: string;
-    }
-    export interface Entities {
-        addresses: string[];
-        taskSuggestions: string[];
-        meetingSuggestions: MeetingSuggestion[];
-        emailAddresses: string[];
-        urls: string[];
-        phoneNumbers: PhoneNumber[];
-        contacts: Contact[];
-    }
-    export interface Item {
-        dateTimeCreated: Date;
-        dateTimeModified: Date;
-        itemClass: string;
-        itemId: string;
-        itemType: Office.MailboxEnums.ItemType;
-        /**
-         * Asynchronously loads custom properties that are specific to the item and a app for Office
-         * @param callback The optional callback method
-         * @param userContext Optional variable for any state data that is passed to the asynchronous method
-         */
-        loadCustomPropertiesAsync(callback?: (result: AsyncResult) => void, userContext?: any): void;
-    }
-    export interface Appointment extends Item {
-    }
-    export interface Body {
-        /**
-         * Gets a value that indicates whether the content is in HTML or text format
-         * @param tableData  A TableData object with the headers and rows
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the getTypeAsync method returns
-         */
-        getTypeAsync(options?: any, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Adds the specified content to the beginning of the item body
-         * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        prependAsync(data: string, options?: any, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Replaces the selection in the body with the specified text
-         * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        setSelectedDataAsync(data: string, options?: any, callback?: (result: AsyncResult) => void): void;
-    }
-    export interface Location {
-        /**
-         * Begins an asynchronous request for the location of an appointment
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        getAsync(options?: any, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Begins an asynchronous request to set the location of an appointment
-         * @param data The location of the appointment. The string is limited to 255 characters
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the location is set
-         */
-        setAsync(location: string, options?: any, callback?: (result: AsyncResult) => void): void;
-    }
-    export interface Mailbox {
-        item: Item;
-        userProfile: UserProfile;
-        /**
-         * Gets a Date object from a dictionary containing time information
-         * @param timeValue A Date object
-         */
-        convertToLocalClientTime(timeValue: Date): any;
-        /**
-         * Gets a dictionary containing time information in local client time
-         * @param input A dictionary containing a date. The dictionary should contain the following fields: year, month, date, hours, minutes, seconds, time zone, time zone offset
-         */
-        convertToUtcClientTime(input: any): Date;
-        /**
-         * Displays an existing calendar appointment
-         * @param itemId The Exchange Web Services (EWS) identifier for an existing calendar appointment
-         */
-        displayAppointmentForm(itemId: any): void;
-        /**
-         * Displays an existing message
-         * @param itemId The Exchange Web Services (EWS) identifier for an existing message
-         */
-        displayMessageForm(itemId: any): void;
-        /**
-         * Displays a form for creating a new calendar appointment
-         * @param requiredAttendees An array of strings containing the email addresses or an array containing an EmailAddressDetails object for each of the required attendees for the appointment. The array is limited to a maximum of 100 entries
-         * @param optionalAttendees An array of strings containing the email addresses or an array containing an EmailAddressDetails object for each of the optional attendees for the appointment. The array is limited to a maximum of 100 entries
-         * @param start A Date object specifying the start date and time of the appointment
-         * @param end A Date object specifying the end date and time of the appointment
-         * @param location A string containing the location of the appointment. The string is limited to a maximum of 255 characters
-         * @param resources An array of strings containing the resources required for the appointment. The array is limited to a maximum of 100 entries
-         * @param subject A string containing the subject of the appointment. The string is limited to a maximum of 255 characters
-         * @param body The body of the appointment message. The body content is limited to a maximum size of 32 KB
-         */
-        displayNewAppointmentForm(requiredAttendees: any, optionalAttendees: any, start: Date, end: Date, location: string, resources: string[], subject: string, body: string): void;
-        /**
-         * Gets a string that contains a token used to get an attachment or item from an Exchange Server
-         * @param callback The optional method to call when the string is inserted
-         * @param userContext Optional variable for any state data that is passed to the asynchronous method
-         */
-        getCallbackTokenAsync(callback?: (result: AsyncResult) => void, userContext?: any): void;
-        /**
-         * Gets a token identifying the user and the app for Office
-         * @param callback The optional method to call when the string is inserted
-         * @param userContext Optional variable for any state data that is passed to the asynchronous method
-         */
-        getUserIdentityTokenAsync(callback?: (result: AsyncResult) => void, userContext?: any): void;
-        /**
-         * Makes an asynchronous request to an Exchange Web Services (EWS) service on the Exchange server that hosts the user’s mailbox
-         * @param data The EWS request
-         * @param callback The optional method to call when the string is inserted
-         * @param userContext Optional variable for any state data that is passed to the asynchronous method
-         */
-        makeEwsRequestAsync(data: any, callback?: (result: AsyncResult) => void, userContext?: any): void;
-    }
-    export interface Message extends Item {
-        conversationId: string;
-    }
-    export interface MeetingRequest extends Message {
-        start: Date;
-        end: Date;
-        location: string;
-        optionalAttendees: EmailAddressDetails[];
-        requiredAttendees: EmailAddressDetails[];
-    }
-    export interface MeetingSuggestion {
-        meetingString: string;
-        attendees: EmailAddressDetails[];
-        location: string;
-        subject: string;
-        start: Date;
-        end: Date;
-    }
-    export interface PhoneNumber {
-        phoneString: string;
-        originalPhoneString: string;
-        type: string;
-    }
-    export interface Recipients {
-        /**
-         * Begins an asynchronous request to add a recipient list to an appointment or message
-         * @param recipients The recipients to add to the recipients list
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        addAsync(recipients: any, options?: any, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Begins an asynchronous request to get the recipient list for an appointment or message
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        getAsync(options?: any, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Begins an asynchronous request to set the recipient list for an appointment or message
-         * @param recipients The recipients to add to the recipients list
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        setAsync(recipients: any, options?: any, callback?: (result: AsyncResult) => void): void;
-    }
-    export interface RoamingSettings {
-        /**
-         * Retrieves the specified setting
-         * @param name The case-sensitive name of the setting to retrieve
-         */
-        get(name: string): any;
-        /**
-         * Removes the specified setting
-         * @param name The case-sensitive name of the setting to remove
-         */
-        remove(name: string): void;
-        /**
-         * Saves the settings
-         * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult
-         */
-        saveAsync(callback?: (result: AsyncResult) => void): void;
-        /**
-         * Sets or creates the specified setting
-         * @param name The case-sensitive name of the setting to set or create
-         * @param value Specifies the value to be stored
-         */
-        set(name: string, value: any): void;
-    }
-    export interface Subject {
-        /**
-         * Begins an asynchronous request to get the subject of an appointment or message
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        getAsync(options?: any, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Begins an asynchronous call to set the subject of an appointment or message
-         * @param data The subject of the appointment. The string is limited to 255 characters
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        setAsync(data: string, options?: any, callback?: (result: AsyncResult) => void): void;
-    }
-    export interface TaskSuggestion {
-        assignees: EmailUser[];
-        taskString: string;
-    }
-    export interface Time {
-        /**
-         * Begins an asynchronous request to get the start or end time
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        getAsync(options?: any, callback?: (result: AsyncResult) => void): void;
-        /**
-         * Begins an asynchronous request to set the start or end time
-         * @param dateTime A date-time object in Coordinated Universal Time (UTC)
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        setAsync(dateTime: Date, options?: any, callback?: (result: AsyncResult) => void): void;
-    }
-    export interface UserProfile {
-        displayName: string;
-        emailAddress: string;
-        timeZone: string;
-    }
-}
+
+
+
+////////////////////////////////////////////////////////////////
+///////////////////////// End Word APIs ////////////////////////
+////////////////////////////////////////////////////////////////
+
+
+
+
+////////////////////////////////////////////////////////////////
+
+
+
+
+////////////////////////////////////////////////////////////////
+////////////////////// Begin OneNote APIs //////////////////////
+////////////////////////////////////////////////////////////////
+
 
 declare namespace OneNote {
     /**
@@ -15696,3 +16711,8 @@ declare namespace OneNote {
  */
     function run<T>(batch: (context: OneNote.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
 }
+
+
+////////////////////////////////////////////////////////////////
+/////////////////////// End OneNote APIs ///////////////////////
+////////////////////////////////////////////////////////////////

@@ -22,9 +22,23 @@ import * as vm from "vm";
 import * as string_decoder from "string_decoder";
 import * as stream from "stream";
 import * as timers from "timers";
+import * as repl from "repl";
 
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
+
+//////////////////////////////////////////////////////////
+/// Global Tests : https://nodejs.org/api/global.html  ///
+//////////////////////////////////////////////////////////
+namespace global_tests {
+    {
+        let x: NodeModule;
+        let y: NodeModule;
+        x.children.push(y);
+        x.parent = require.main;
+        require.main = y;
+    }
+}
 
 //////////////////////////////////////////////////////////
 /// Assert Tests : https://nodejs.org/api/assert.html ///
@@ -165,7 +179,7 @@ namespace fs_tests {
     }
 
     {
-        var errno: string;
+        var errno: number;
         fs.readFile('testfile', (err, data) => {
             if (err && err.errno) {
                 errno = err.errno;
@@ -1200,6 +1214,69 @@ namespace readline_tests {
 
         readline.clearScreenDown(stream);
     }
+
+    {
+        let _rl: readline.ReadLine;
+        let _boolean: boolean;
+
+        _rl = _rl.addListener("close", () => { });
+        _rl = _rl.addListener("line", (input) => {
+            let _input: any = input;
+        })
+        _rl = _rl.addListener("pause", () => { });
+        _rl = _rl.addListener("resume", () => { });
+        _rl = _rl.addListener("SIGCONT", () => { });
+        _rl = _rl.addListener("SIGINT", () => { });
+        _rl = _rl.addListener("SIGTSTP", () => { });
+
+        _boolean = _rl.emit("close", () => { });
+        _boolean = _rl.emit("line", () => { });
+        _boolean = _rl.emit("pause", () => { });
+        _boolean = _rl.emit("resume", () => { });
+        _boolean = _rl.emit("SIGCONT", () => { });
+        _boolean = _rl.emit("SIGINT", () => { });
+        _boolean = _rl.emit("SIGTSTP", () => { });
+
+        _rl = _rl.on("close", () => { });
+        _rl = _rl.on("line", (input) => {
+            let _input: any = input;
+        })
+        _rl = _rl.on("pause", () => { });
+        _rl = _rl.on("resume", () => { });
+        _rl = _rl.on("SIGCONT", () => { });
+        _rl = _rl.on("SIGINT", () => { });
+        _rl = _rl.on("SIGTSTP", () => { });
+
+        _rl = _rl.once("close", () => { });
+        _rl = _rl.once("line", (input) => {
+            let _input: any = input;
+        })
+        _rl = _rl.once("pause", () => { });
+        _rl = _rl.once("resume", () => { });
+        _rl = _rl.once("SIGCONT", () => { });
+        _rl = _rl.once("SIGINT", () => { });
+        _rl = _rl.once("SIGTSTP", () => { });
+
+        _rl = _rl.prependListener("close", () => { });
+        _rl = _rl.prependListener("line", (input) => {
+            let _input: any = input;
+        })
+        _rl = _rl.prependListener("pause", () => { });
+        _rl = _rl.prependListener("resume", () => { });
+        _rl = _rl.prependListener("SIGCONT", () => { });
+        _rl = _rl.prependListener("SIGINT", () => { });
+        _rl = _rl.prependListener("SIGTSTP", () => { });
+
+        _rl = _rl.prependOnceListener("close", () => { });
+        _rl = _rl.prependOnceListener("line", (input) => {
+            let _input: any = input;
+        })
+        _rl = _rl.prependOnceListener("pause", () => { });
+        _rl = _rl.prependOnceListener("resume", () => { });
+        _rl = _rl.prependOnceListener("SIGCONT", () => { });
+        _rl = _rl.prependOnceListener("SIGINT", () => { });
+        _rl = _rl.prependOnceListener("SIGTSTP", () => { });
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -1225,6 +1302,102 @@ namespace child_process_tests {
     {
         childProcess.exec("echo test");
         childProcess.spawnSync("echo test");
+    }
+    
+    {
+        let _cp: childProcess.ChildProcess;
+        let _boolean: boolean;
+
+        _cp = _cp.addListener("close", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.addListener("disconnet", () => { });
+        _cp = _cp.addListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _cp = _cp.addListener("exit", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.addListener("message", (message, sendHandle) => {
+            let _message: any = message;
+            let _sendHandle: net.Socket | net.Server = sendHandle;
+        })
+
+        _boolean = _cp.emit("close", () => { });
+        _boolean = _cp.emit("disconnet", () => { });
+        _boolean = _cp.emit("error", () => { });
+        _boolean = _cp.emit("exit", () => { });
+        _boolean = _cp.emit("message", () => { });
+
+        _cp = _cp.on("close", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.on("disconnet", () => { });
+        _cp = _cp.on("error", (err) => {
+            let _err: Error = err;
+        })
+        _cp = _cp.on("exit", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.on("message", (message, sendHandle) => {
+            let _message: any = message;
+            let _sendHandle: net.Socket | net.Server = sendHandle;
+        })
+
+        _cp = _cp.once("close", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.once("disconnet", () => { });
+        _cp = _cp.once("error", (err) => {
+            let _err: Error = err;
+        })
+        _cp = _cp.once("exit", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.once("message", (message, sendHandle) => {
+            let _message: any = message;
+            let _sendHandle: net.Socket | net.Server = sendHandle;
+        })
+
+        _cp = _cp.prependListener("close", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.prependListener("disconnet", () => { });
+        _cp = _cp.prependListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _cp = _cp.prependListener("exit", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.prependListener("message", (message, sendHandle) => {
+            let _message: any = message;
+            let _sendHandle: net.Socket | net.Server = sendHandle;
+        })
+
+        _cp = _cp.prependOnceListener("close", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.prependOnceListener("disconnet", () => { });
+        _cp = _cp.prependOnceListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _cp = _cp.prependOnceListener("exit", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.prependOnceListener("message", (message, sendHandle) => {
+            let _message: any = message;
+            let _sendHandle: net.Socket | net.Server = sendHandle;
+        })
     }
 }
 
@@ -1390,6 +1563,13 @@ namespace process_tests {
 
         var _p: NodeJS.Process = process;
         _p = p;
+    }
+    {
+        assert(process.argv[0] === process.argv0);
+    }
+    {
+        var module: NodeModule;
+        module = process.mainModule;
     }
 }
 
@@ -1640,6 +1820,36 @@ namespace net_tests {
 
     }
 
+}
+
+/////////////////////////////////////////////////////
+/// repl Tests : https://nodejs.org/api/repl.html ///
+/////////////////////////////////////////////////////
+
+namespace repl_tests {
+    {
+        let _server: repl.REPLServer;
+        let _boolean: boolean;
+        let _ctx: any;
+
+        _server = _server.addListener("exit", () => { });
+        _server = _server.addListener("reset", () => { });
+
+        _boolean = _server.emit("exit", () => { });
+        _boolean = _server.emit("reset", _ctx);
+
+        _server = _server.on("exit", () => { });
+        _server = _server.on("reset", () => { });
+
+        _server = _server.once("exit", () => { });
+        _server = _server.once("reset", () => { });
+
+        _server = _server.prependListener("exit", () => { });
+        _server = _server.prependListener("reset", () => { });
+
+        _server = _server.prependOnceListener("exit", () => { });
+        _server = _server.prependOnceListener("reset", () => { });
+    }
 }
 
 /*****************************************************************************

@@ -1,6 +1,6 @@
 // Type definitions for Raven.js
 // Project: https://github.com/getsentry/raven-js
-// Definitions by: Santi Albo <https://github.com/santialbo/>, Benjamin Pannell <http://github.com/spartan563>, Gary Blackwood <http://github.com/Garee>
+// Definitions by: Santi Albo <https://github.com/santialbo/>, Benjamin Pannell <http://github.com/spartan563>, Gary Blackwood <http://github.com/Garee>, Rich Rout <http://github.com/richrout>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Raven: RavenStatic;
@@ -61,6 +61,21 @@ interface RavenOptions {
     allowSecretKey?: boolean;
 }
 
+interface RavenAdditionalData {
+    /** The name of the logger used by Sentry. Default: javascript */
+    logger?: string;
+
+    /** The log level associated with this event. Default: error */
+    level?: string;
+
+    /** Additional data to be tagged onto the error. */
+    tags?: {
+      [id: string]: string;
+    };
+
+    extra?: any;
+}
+
 interface RavenStatic {
 
     /** Raven.js version. */
@@ -119,7 +134,7 @@ interface RavenStatic {
      * @param {array} args An array of arguments to be called with the callback [optional]
      */
     context(func: Function, ...args: any[]): void;
-    context(options: RavenOptions, func: Function, ...args: any[]): void;
+    context(options: RavenAdditionalData, func: Function, ...args: any[]): void;
 
     /*
      * Wrap code within a context and returns back a new function to be executed
@@ -129,9 +144,9 @@ interface RavenStatic {
      * @return {function} The newly wrapped functions with a context
      */
     wrap(func: Function): Function;
-    wrap(options: RavenOptions, func: Function): Function;
+    wrap(options: RavenAdditionalData, func: Function): Function;
     wrap<T extends Function>(func: T): T;
-    wrap<T extends Function>(options: RavenOptions, func: T): T;
+    wrap<T extends Function>(options: RavenAdditionalData, func: T): T;
 
     /*
      * Uninstalls the global error handler.
@@ -147,7 +162,7 @@ interface RavenStatic {
      * @param {object} options A specific set of options for this error [optional]
      * @return {Raven}
      */
-    captureException(ex: Error, options?: RavenOptions): RavenStatic;
+    captureException(ex: Error, options?: RavenAdditionalData): RavenStatic;
 
     /*
      * Manually send a message to Sentry
@@ -156,7 +171,7 @@ interface RavenStatic {
      * @param {object} options A specific set of options for this message [optional]
      * @return {Raven}
      */
-    captureMessage(msg: string, options?: RavenOptions): RavenStatic;
+    captureMessage(msg: string, options?: RavenAdditionalData): RavenStatic;
 
     /**
      * Clear the user context, removing the user data that would be sent to Sentry.
@@ -185,6 +200,10 @@ interface RavenStatic {
     isSetup(): boolean;
 
     showReportDialog(options: RavenOptions): void;
+
+    setTagsContext(tags: { [id: string]: string; }): void;
+
+    setExtraContext(context: any): void;
 }
 
 interface RavenTransportOptions {

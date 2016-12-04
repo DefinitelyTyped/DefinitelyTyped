@@ -28,8 +28,15 @@ declare namespace ReactRouter {
 
     type ParseQueryString = (queryString: H.QueryString) => H.Query
 
+    type LocationDescriptor = {
+        pathname?: H.Pathname
+        query?: H.Query
+        hash?: H.Hash
+        state?: H.LocationState
+    }
+
     interface RedirectFunction {
-        (location: H.LocationDescriptor): void;
+        (location: LocationDescriptor): void;
         /**
         * @deprecated `replaceState(state, pathname, query) is deprecated; Use `replace(location)` with a location descriptor instead. http://tiny.cc/router-isActivedeprecated
         */
@@ -116,9 +123,7 @@ declare namespace ReactRouter {
         activeStyle?: React.CSSProperties
         activeClassName?: string
         onlyActiveOnIndex?: boolean
-        to: RoutePattern | H.LocationDescriptor
-        query?: H.Query
-        state?: H.LocationState
+        to: RoutePattern | LocationDescriptor | ((...args: any[]) => LocationDescriptor)
     }
     interface Link extends React.ComponentClass<LinkProps> {}
     interface LinkElement extends React.ReactElement<LinkProps> {}
@@ -216,7 +221,7 @@ declare namespace ReactRouter {
 
     interface RouterOnContext extends H.History {
         setRouteLeaveHook(route: PlainRoute, hook?: RouteHook): () => void;
-        isActive(pathOrLoc: H.LocationDescriptor, indexOnly?: boolean): boolean;
+        isActive(pathOrLoc: H.Path | LocationDescriptor, indexOnly?: boolean): boolean;
     }
 
     /* mixins */
@@ -244,15 +249,15 @@ declare namespace ReactRouter {
     // https://github.com/reactjs/react-router/blob/v2.4.0/upgrade-guides/v2.4.0.md
 
     interface InjectedRouter {
-        push: (pathOrLoc: H.LocationDescriptor) => void
-        replace: (pathOrLoc: H.LocationDescriptor) => void
+        push: (pathOrLoc: H.Path | LocationDescriptor) => void
+        replace: (pathOrLoc: H.Path | LocationDescriptor) => void
         go: (n: number) => void
         goBack: () => void
         goForward: () => void
         setRouteLeaveHook(route: PlainRoute, callback: RouteHook): void
         createPath(path: H.Path, query?: H.Query): H.Path
         createHref(path: H.Path, query?: H.Query): H.Href
-        isActive: (pathOrLoc: H.LocationDescriptor, indexOnly?: boolean) => boolean
+        isActive: (pathOrLoc: H.Path | LocationDescriptor, indexOnly?: boolean) => boolean
     }
 
     function withRouter<C extends React.ComponentClass<any> | React.StatelessComponent<any> | React.PureComponent<any, any>>(component: C): C
@@ -519,8 +524,10 @@ declare module "react-router" {
     export type EnterHook = ReactRouter.EnterHook
     export type LeaveHook = ReactRouter.LeaveHook
     export type ParseQueryString = ReactRouter.ParseQueryString
+    export type LocationDescriptor = ReactRouter.LocationDescriptor
     export type RedirectFunction = ReactRouter.RedirectFunction
-    export type RouteComponentProps<P, R> = ReactRouter.RouteComponentProps<P, R>;
+    export type RouteComponentProps<P, R> = ReactRouter.RouteComponentProps<P, R>
+    export type RouteConfig = ReactRouter.RouteConfig
     export type RouteHook = ReactRouter.RouteHook
     export type StringifyQuery = ReactRouter.StringifyQuery
     export type RouterListener = ReactRouter.RouterListener
