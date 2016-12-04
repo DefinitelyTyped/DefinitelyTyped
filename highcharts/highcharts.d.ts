@@ -769,7 +769,7 @@ declare namespace __Highcharts {
              */
             textAlign?: string;
             /**
-             * Whether to use HTML to render the labels. 
+             * Whether to use HTML to render the labels.
              * @default false
              * @since 3.0
              */
@@ -2216,6 +2216,13 @@ declare namespace __Highcharts {
          */
         enabled?: boolean;
         /**
+         * Function to call if the offline-exporting module fails to export a chart on the client side, and
+         * fallbackToExportServer is disabled. If left undefined, an exception is thrown instead.
+         * @default undefined
+         * @since 5.0.0
+         */
+        error?: Function;
+        /**
          * Whether or not to fall back to the export server if the offline-exporting module is unable to export the chart on
          * the client side.
          * @default true
@@ -2235,6 +2242,22 @@ declare namespace __Highcharts {
          * @since 3.0.8
          */
         formAttributes?: any;
+        /**
+         * Path where Highcharts will look for export module dependencies to load on demand if they don't already exist on
+         * window. Should currently point to location of CanVG library (https://github.com/canvg/canvg) and RGBColor.js, 
+         * required for client side export in certain browsers.
+         * @default 'http://code.highcharts.com/{version}/lib'
+         * @since 5.0.0
+         */
+        libUrl?: string;
+        /**
+         * When printing the chart from the menu item in the burger menu, if the on-screen chart exceeds this width, it is
+         * resized. After printing or cancelled, it is restored. The default width makes the chart fit into typical paper
+         * format. Note that this does not affect the chart when printing the web page as a whole.
+         * @default 780
+         * @since 4.2.5
+         */
+        printMaxWidth?: number;
         /**
          * Defines the scale or zoom factor for the exported image compared to the on-screen display. While for instance a
          * 600px wide chart may look good on a website, it will look bad in print. The default scale of 2 makes this chart
@@ -2899,6 +2922,13 @@ declare namespace __Highcharts {
          */
         borderWidth?: number;
         /**
+         * A class name for the data label. Particularly in styled mode, this can be used to give each series' or point's
+         * data label unique styling. In addition to this option, a default color class name is added so that we can give
+         * the labels a contrast text shadow.
+         * @since 5.0.0
+         */
+        className?: string;
+        /**
          * The text color for the data labels.
          * @default null
          */
@@ -2958,6 +2988,13 @@ declare namespace __Highcharts {
          * @since 2.2.1
          */
         padding?: number;
+        /**
+         * Whether to reserve space for the labels. This can be turned off when for example the labels are rendered inside 
+         * the plot area instead of outside.
+         * @default true
+         * @since 4.1.10
+         */
+        reserveSpace?: boolean;
         /**
          * Text rotation in degrees. Note that due to a more complex structure, backgrounds, borders and padding will be
          * lost on a rotated data label.
@@ -5751,7 +5788,7 @@ declare namespace __Highcharts {
          * @param [boolean] redraw
          * @since 1.2.0
          */
-        addSeries<T extends IndividualSeriesOptions>(options: T, redraw?: boolean, animation?: boolean | Animation): T;
+        addSeries<T extends IndividualSeriesOptions>(options: T, redraw?: boolean, animation?: boolean | Animation): SeriesObject;
         /**
          * Add a series to the chart as drilldown from a specific point in the parent series. This method is used for async
          * drilldown, when clicking a point in a series should result in loading and displaying a more high-resolution
@@ -5909,6 +5946,19 @@ declare namespace __Highcharts {
          * @since 2.0.5
          */
         showLoading(str?: string): void;
+        /**
+         * A generic function to update any element of the chart. Elements can be enabled and disabled, moved, re-styled,
+         * re-formatted etc.
+         * A special case is configuration objects that take arrays, for example xAxis, yAxis or series. For these collections,
+         * an id option is used to map the new option set to an existing object. If an existing object of the same id is not
+         * found, the first item is updated. So for example, running chart.update with a series item without an id, will cause
+         * the existing chart's first series to be updated.
+         * See also the responsive option set. Switching between responsive.rules basically runs chart.update under the hood.
+         * @param {ChartOptions} option A configuration object for the new chart options as defined in the options section of the API.
+         * @param [boolean] redraw Whether to redraw the chart. Defaults to true.
+         * @since 5.0.0
+         */
+        update(options: ChartOptions, redraw?: boolean): void;
         /**
          * This method is deprecated as of 2.0.1. Updating the chart position after a move operation is no longer necessary.
          * @since 1.2.5

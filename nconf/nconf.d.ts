@@ -32,6 +32,7 @@ declare module "nconf" {
 	export function init(options?: IOptions): void;
 	export function overrides(options?: IOptions): Provider;
 	export function remove(name: string): void;
+	export function required(keys: string[]): boolean;
 	export function create(name: string, options: IOptions): IStore;
 
 	export function key(...values: any[]): string;
@@ -95,6 +96,7 @@ declare module "nconf" {
 		init(options?: IOptions): void;
 		overrides(options?: IOptions): Provider;
 		remove(name: string): void;
+		required(keys: string[]): boolean;
 		create(name: string, options: IOptions): IStore;
 	}
 
