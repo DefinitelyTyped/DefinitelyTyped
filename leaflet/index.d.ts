@@ -545,8 +545,8 @@ declare namespace L {
         /** Get the bounds that this ImageOverlay covers */
         getBounds(): LatLngBounds;
 
-	    /** Get the img element that represents the ImageOverlay on the map */
-	    getElement(): HTMLImageElement;
+        /** Get the img element that represents the ImageOverlay on the map */
+        getElement(): HTMLImageElement;
     }
 
     export function imageOverlay(imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions): ImageOverlay;

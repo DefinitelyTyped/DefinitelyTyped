@@ -327,8 +327,8 @@ map = map
 	.whenReady(() => {})
 	.whenReady(() => {}, {});
 
-var elementToDrag = document.createElement('div');
-var draggable = new L.Draggable(elementToDrag);
+let elementToDrag = document.createElement('div');
+let draggable = new L.Draggable(elementToDrag);
 draggable.enable();
 draggable.disable();
 draggable.on('drag', () => {});
