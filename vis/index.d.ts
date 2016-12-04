@@ -1,4 +1,4 @@
-// Type definitions for vis.js
+// Type definitions for vis.js 4.17
 // Project: https://github.com/almende/vis
 // Definitions by: Michaël Bitard <https://github.com/MichaelBitard>, Adrian Caballero <https://github.com/adripanico>, Severin <https://github.com/seveves>, kaktus40 <https://github.com/kaktus40>, Matthieu Maitre <https://github.com/mmaitre314>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -81,12 +81,12 @@ declare namespace vis {
         step?: number;
     }
 
-    type TimelineOptionsConfigureFunction = (option: string, path: Array<string>) => boolean;
+    type TimelineOptionsConfigureFunction = (option: string, path: string[]) => boolean;
     type TimelineOptionsConfigureType = boolean | TimelineOptionsConfigureFunction;
     type TimelineOptionsDataAttributesType = boolean | string | string[];
     type TimelineOptionsEditableType = boolean | TimelineEditableOption;
     type TimelineOptionsGroupEditableType = boolean | TimelineGroupEditableOption;
-    type TimelineOptionsGroupOrderType = string | Function; // TODO
+    type TimelineOptionsGroupOrderType = string | (() => void); // TODO
     type TimelineOptionsGroupOrderSwapFunction = (fromGroup: any, toGroup: any, groups: DataSet<DataGroup>) => void;
     type TimelineOptionsMarginType = number | TimelineMarginOption;
     type TimelineOptionsOrientationType = string | TimelineOrientationOption;
@@ -105,13 +105,13 @@ declare namespace vis {
         groupEditable?: TimelineOptionsGroupEditableType;
         groupOrder?: TimelineOptionsGroupOrderType;
         groupOrderSwap?: TimelineOptionsGroupOrderSwapFunction;
-        groupTemplate?: Function; // TODO
+        groupTemplate?: () => void; // TODO
         height?: HeightWidthType;
         hiddenDates?: any; // TODO
         itemsAlwaysDraggable?: boolean;
         locale?: string;
         locales?: any; // TODO
-        moment?: Function; // TODO
+        moment?: () => void; // TODO
         margin?: TimelineOptionsMarginType;
         max?: DateType;
         maxHeight?: HeightWidthType;
@@ -121,15 +121,15 @@ declare namespace vis {
         moveable?: boolean;
         multiselect?: boolean;
         multiselectPerGroup?: boolean;
-        onAdd?: Function; // TODO
-        onAddGroup?: Function; // TODO
-        onUpdate?: Function; // TODO
-        onMove?: Function; // TODO
-        onMoveGroup?: Function; // TODO
-        onMoving?: Function; // TODO
-        onRemove?: Function; // TODO
-        onRemoveGroup?: Function; // TODO
-        order?: Function; // TODO
+        onAdd?: () => void; // TODO
+        onAddGroup?: () => void; // TODO
+        onUpdate?: () => void; // TODO
+        onMove?: () => void; // TODO
+        onMoveGroup?: () => void; // TODO
+        onMoving?: () => void; // TODO
+        onRemove?: () => void; // TODO
+        onRemoveGroup?: () => void; // TODO
+        order?: () => void; // TODO
         orientation?: TimelineOptionsOrientationType;
         selectable?: boolean;
         showCurrentTime?: boolean;
@@ -138,7 +138,7 @@ declare namespace vis {
         stack?: boolean;
         snap?: TimelineOptionsSnapFunction;
         start?: DateType;
-        template?: Function; // TODO
+        template?: () => void; // TODO
         throttleRedraw?: number;
         timeAxis?: TimelineTimeAxisOption;
         type?: string;
@@ -239,7 +239,7 @@ declare namespace vis {
          * 
          * @memberOf DataSet
          */
-        constructor(data?: Array<T>, options?: DataSetOptions);
+        constructor(data?: T[], options?: DataSetOptions);
 
         /**
          * The number of items in the DataSet.
@@ -410,7 +410,7 @@ declare namespace vis {
         off(event: string, callback: (event: string, properties: any, senderId: IdType) => void): void;
 
         /**
-         * Remove one by id or by the items themselves. 
+         * Remove one or more items by id. 
          * 
          * @param {IdType} id The item id.
          * @param {IdType} [senderId] The sender id.
@@ -418,18 +418,7 @@ declare namespace vis {
          * 
          * @memberOf DataSet
          */
-        remove(id: IdType, senderId?: IdType): IdType[];
-
-        /**
-         * Remove multiple items by id or by the items themselves.
-         * 
-         * @param {IdType[]} ids The item ids.
-         * @param {IdType} [senderId] The sender id.
-         * @returns {IdType[]} Returns an array with the ids of the removed items.
-         * 
-         * @memberOf DataSet
-         */
-        remove(ids: IdType[], senderId?: IdType): IdType[];
+        remove(id: IdType | IdType[], senderId?: IdType): IdType[];
 
         /**
          * Set options for the DataSet.
@@ -518,13 +507,13 @@ declare namespace vis {
     }
 
     export class DataView<T extends DataItem | DataGroup> {
-        constructor(items: Array<T>);
+        constructor(items: T[]);
 
         length: number;
     }
 
-    type DataItemCollectionType = Array<DataItem> | DataSet<DataItem> | DataView<DataItem>;
-    type DataGroupCollectionType = Array<DataGroup> | DataSet<DataGroup> | DataView<DataGroup>;
+    type DataItemCollectionType = DataItem[] | DataSet<DataItem> | DataView<DataItem>;
+    type DataGroupCollectionType = DataGroup[] | DataSet<DataGroup> | DataView<DataGroup>;
 
     export class Timeline {
         constructor(
@@ -542,18 +531,17 @@ declare namespace vis {
         addCustomTime(time: DateType, id?: IdType): IdType;
         destroy(): void;
         fit(options?: TimelineFitOptions): void;
-        focus(id: IdType, options?: TimelineFitOptions): void;
-        focus(ids: Array<IdType>, options?: TimelineFitOptions): void;
+        focus(ids: IdType | IdType[], options?: TimelineFitOptions): void;
         getCurrentTime(): Date;
         getCustomTime(id?: IdType): Date;
         getEventProperties(event: Event): TimelineEventPropertiesResult;
         getItemRange(): any; // TODO
-        getSelection(): Array<IdType>;
-        getVisibleItems(): Array<IdType>;
+        getSelection(): IdType[];
+        getVisibleItems(): IdType[];
         getWindow(): { start: Date, end: Date };
         moveTo(time: DateType, options?: TimelineFitOptions): void;
-        on(event: TimelineEvents, callback: Function): void;
-        off(event: TimelineEvents, callback: Function): void;
+        on(event: TimelineEvents, callback: () => void): void;
+        off(event: TimelineEvents, callback: () => void): void;
         redraw(): void;
         removeCustomTime(id: IdType): void;
         setCurrentTime(time: DateType): void;
@@ -563,8 +551,7 @@ declare namespace vis {
         setGroups(groups?: DataGroupCollectionType): void;
         setItems(items: DataItemCollectionType): void;
         setOptions(options: TimelineOptions): void;
-        setSelection(id: IdType): void;
-        setSelection(ids: Array<IdType>): void;
+        setSelection(ids: IdType | IdType[]): void;
         setWindow(start: DateType, end: DateType, options?: TimelineFitOptions): void;
     }
 
@@ -929,9 +916,8 @@ declare namespace vis {
          * 
          * @memberOf Network
          */
-        getPositions(nodeIds: string[]): { [nodeId: string]: IPosition };
+        getPositions(nodeIds?: string[]): { [nodeId: string]: IPosition };
         getPositions(nodeId: string): IPosition;
-        getPositions(): { [nodeId: string]: IPosition };
 
         /**
          * 	When using the vis.DataSet to load your nodes into the network,
@@ -983,7 +969,7 @@ declare namespace vis {
          * 
          * @memberOf Network
          */
-        getConnectedNodes(nodeOrEdgeId: string): string[] | { fromId: string, toId: string }[];
+        getConnectedNodes(nodeOrEdgeId: string): string[] | Array<{ fromId: string, toId: string }>;
 
         /**
          * Returns an array of edgeIds of the edges connected to this node.
