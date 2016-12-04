@@ -4,28 +4,47 @@
 // Definitions by: Juan Picado <https://github.com/juanpicado>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/**
+ * Resolver options
+ * @interface RevolversArray
+ */
 interface RevolversArray {
     [index:number]:Object
 }
 
-interface MemoizeeOptions {
+/**
+ * List of options
+ * @interface IMemoizeeOptions
+ */
+interface IMemoizeeOptions {
   length?: number,
   maxAge?: number,
   max?: number,
   preFetch?: number,
   promise?: boolean,
-  dispose?: Function,
+  dispose?: () => void,
   async?: boolean,
   primitive?: boolean,
-  normalizer?:Function,
+  normalizer?:() => void,
   resolvers?: RevolversArray
 }
 
+/**
+ * Main interface functions
+ * @interface IMemoizee
+ * @extends {Function}
+ */
 interface IMemoizee extends Function {
-  delete: Function,
-  clear: Function
+  delete: () => void,
+  clear: () => void
 }
 
-declare function memoizee(f: any, options?:MemoizeeOptions): IMemoizee;
+/**
+ * Memoize function
+ * @param {*} f
+ * @param {IMemoizeeOptions} [options]
+ * @returns {IMemoizee}
+ */
+declare function memoizee(f: any, options?: IMemoizeeOptions): IMemoizee;
 
 export = memoizee;
