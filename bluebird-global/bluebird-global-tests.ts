@@ -1,4 +1,3 @@
-
 function testSomeStaticMethods() {
     Promise.config({});
     Promise.delay(100).then(() => {});
@@ -6,7 +5,6 @@ function testSomeStaticMethods() {
 }
 
 function testFunctionReturningPromise() {
-
     function functionReturningPromise(): Promise<string> {
         return new Promise<string>((resolve, reject, onCancel) => {
 
@@ -20,8 +18,7 @@ function testFunctionReturningPromise() {
         })
             .then((value) => {
                 return value + " dolor";
-            })
-        ;
+            });
     }
 
     functionReturningPromise()
@@ -31,5 +28,4 @@ function testFunctionReturningPromise() {
         .finally(() => {
             console.log("finally callback");
         });
-
 }
