@@ -5,35 +5,45 @@
 
 /// <reference types="node" />
 
-
 import * as stream from 'stream';
+
+interface MapStream extends stream.Stream {
+    writable: boolean;
+    readable: boolean;
+
+    destroy: () => void;
+    end: any;
+    pause: () => void;
+    resume: () => void;
+    write: any;
+}
 
 /**
  * Create a through stream from an asynchronous function
  * 
  * @param asyncFunction
  */
-export declare function map(asyncFunction: Function): stream.Stream;
+export declare function map(asyncFunction: Function):  MapStream;
 
 /**
  * Same as map, but the callback is called synchronously. Based on es.through
  * @param syncFunction
  */
-export declare function mapSync(syncFunction: Function): stream.Stream;
+export declare function mapSync(syncFunction: Function):  MapStream;
 
 /**
  * Break up a stream and reassemble it so that each line is a chunk. matcher may be a String, or a RegExp
  * 
  * @param matcher
  */
-export declare function split(matcher: string | RegExp): stream.Stream;
+export declare function split(matcher: string | RegExp):  MapStream;
 
 /**
  * Create a through stream that emits separator between each chunk, just like Array#join
  * 
  * @param separator
  */
-export declare function join(separator: string): stream.Stream;
+export declare function join(separator: string):  MapStream;
 
 /**
  * Merges streams into one and returns it. Incoming data will be emitted as soon it comes into - no ordering will be applied
@@ -42,7 +52,7 @@ export declare function join(separator: string): stream.Stream;
  * 
  * @param stream
  */
-export declare function concat(...stream: stream.Stream[]): stream.Stream;
+export declare function concat(...stream: MapStream[]):  MapStream;
 
 /**
  * Merges streams into one and returns it. Incoming data will be emitted as soon it comes into - no ordering will be applied
@@ -51,7 +61,7 @@ export declare function concat(...stream: stream.Stream[]): stream.Stream;
  * 
  * @param stream
  */
-export declare function concat(streamArray: stream.Stream[]): stream.Stream;
+export declare function concat(streamArray: MapStream[]):  MapStream;
 
 /**
  * Merges streams into one and returns it. Incoming data will be emitted as soon it comes into - no ordering will be applied
@@ -60,7 +70,7 @@ export declare function concat(streamArray: stream.Stream[]): stream.Stream;
  * 
  * @param stream
  */
-export declare function merge(...stream: stream.Stream[]): stream.Stream;
+export declare function merge(...stream: MapStream[]): MapStream;
 
 /**
  * Merges streams into one and returns it. Incoming data will be emitted as soon it comes into - no ordering will be applied
@@ -69,14 +79,14 @@ export declare function merge(...stream: stream.Stream[]): stream.Stream;
  * 
  * @param stream
  */
-export declare function merge(streamArray: stream.Stream[]): stream.Stream;
+export declare function merge(streamArray: MapStream[]): MapStream;
 
 /**
  * Replace all occurrences of from with to
  * @param from
  * @param to
  */
-export declare function replace(from: string | RegExp, to: string | RegExp): stream.Stream;
+export declare function replace(from: string | RegExp, to: string | RegExp): MapStream;
 
 /**
  * Convenience function for parsing JSON chunks. For newline separated JSON, use with es.split.
@@ -88,33 +98,33 @@ export declare function parse(): any;
 /**
  * convert javascript objects into lines of text. The text will have whitespace escaped and have a \n appended, so it will be compatible with es.parse
  */
-export declare function stringify(): stream.Stream;
+export declare function stringify(): MapStream;
 
 /**
  * create a readable stream (that respects pause) from an async function.
  * 
  * @param asyncFunction
  */
-export declare function readable(asyncFunction: Function): stream.Stream;
+export declare function readable(asyncFunction: Function): MapStream;
 
 /**
  * Create a readable stream from an Array.
  * 
  * @param array
  */
-export declare function readArray(array: any[]): stream.Stream;
+export declare function readArray(array: any[]): MapStream;
 
 /**
  * create a writeable stream from a callback
  * 
  * @param callback
  */
-export declare function writeArray(callback: Function): stream.Stream;
+export declare function writeArray(callback: Function): MapStream;
 
 /**
  * A stream that buffers all chunks when paused
  */
-export declare function pause(): stream.Stream | void;
+export declare function pause(): MapStream | void;
 
 /**
  * Takes a writable stream and a readable stream and makes them appear as a readable writable stream.
@@ -122,14 +132,14 @@ export declare function pause(): stream.Stream | void;
  * @param writeStream
  * @param readStream
  */
-export declare function duplex(writeStream: stream.Writable, readStream: stream.Readable): stream.Stream;
+export declare function duplex(writeStream: stream.Writable, readStream: stream.Readable): MapStream;
 
 /**
  * Create a through stream from a child process
  * 
  * @param child_process
  */
-export declare function child(child_process: any): stream.Stream;
+export declare function child(child_process: any): MapStream;
 
 /**
  * waits for stream to emit 'end'. joins chunks of a stream into a single string or buffer.
@@ -137,4 +147,4 @@ export declare function child(child_process: any): stream.Stream;
  * 
  * @param callback
  */
-export declare function wait(callback: Function): stream.Stream;
+export declare function wait(callback: Function): MapStream;
