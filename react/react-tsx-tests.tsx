@@ -23,3 +23,12 @@ StatelessComponent2.defaultProps = {
 };
 
 <StatelessComponent2>24</StatelessComponent2>;
+
+// svg sanity check
+<svg viewBox="0 0 1000 1000">
+    <g>
+        <text x="200" y="300" strokeWidth="5" stroke="black" alignmentBaseline="middle">
+            Hello, world!
+        </text>
+    </g>
+</svg>;

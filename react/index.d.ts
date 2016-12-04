@@ -1,4 +1,4 @@
-// Type definitions for React v0.14
+// Type definitions for React v15
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -2140,7 +2140,187 @@ declare namespace React {
         unselectable?: boolean;
     }
 
+    // this list is "complete" in that it contains every SVG attribute 
+    // that React supports, but the types can be improved.
+    // Full list here: https://facebook.github.io/react/docs/dom-elements.html
+    //
+    // The three broad type categories are (in order of restrictiveness):
+    //   - "number | string"
+    //   - "string"
+    //   - union of string literals
     interface SVGAttributes<T> extends HTMLAttributes<T> {
+        // new attrs
+        accentHeight?: number | string;
+        accumulate?: "none" | "sum";
+        additive?: "replace" | "sum";
+        alignmentBaseline?: "auto" | "baseline" | "before-edge" | "text-before-edge" | "middle" | "central" | "after-edge" | "text-after-edge" | "ideographic" | "alphabetic" | "hanging" | "mathematical" | "inherit";
+        allowReorder?: "no" | "yes";
+        alphabetic?: number | string;
+        amplitude?: number | string;
+        arabicForm?: "initial" | "medial" | "terminal" | "isolated";
+        ascent?: number | string;
+        attributeName?: string;
+        attributeType?: string;
+        autoReverse?: number | string;
+        azimuth?: number | string;
+        baseFrequency?: number | string;
+        baseProfile?: number | string;
+        baselineShift?: number | string;
+        bbox?: number | string;
+        begin?: number | string;
+        bias?: number | string;
+        by?: number | string;
+        calcMode?: number | string;
+        capHeight?: number | string;
+        clip?: number | string;
+        clipRule?: number | string;
+        clipPathUnits?: number | string;
+        colorInterpolation?: number | string;
+        colorProfile?: number | string;
+        colorRendering?: number | string;
+        contentScriptType?: number | string;
+        contentStyleType?: number | string;
+        cursor?: number | string;
+        decelerate?: number | string;
+        descent?: number | string;
+        diffuseConstant?: number | string;
+        direction?: number | string;
+        display?: number | string;
+        divisor?: number | string;
+        dominantBaseline?: number | string;
+        dur?: number | string;
+        edgeMode?: number | string;
+        elevation?: number | string;
+        enableBackground?: number | string;
+        end?: number | string;
+        exponent?: number | string;
+        externalResourcesRequired?: number | string;
+        filterRes?: number | string;
+        filterUnits?: number | string;
+        floodColor?: number | string;
+        floodOpacity?: number | string;
+        focusable?: number | string;
+        fontSizeAdjust?: number | string;
+        fontStretch?: number | string;
+        fontStyle?: number | string;
+        fontVariant?: number | string;
+        fontWeight?: number | string;
+        format?: number | string;
+        from?: number | string;
+        g1?: number | string;
+        g2?: number | string;
+        glyphName?: number | string;
+        glyphOrientationHorizontal?: number | string;
+        glyphOrientationVertical?: number | string;
+        glyphRef?: number | string;
+        hanging?: number | string;
+        horizAdvX?: number | string;
+        horizOriginX?: number | string;
+        ideographic?: number | string;
+        imageRendering?: number | string;
+        in2?: number | string;
+        intercept?: number | string;
+        k?: number | string;
+        k1?: number | string;
+        k2?: number | string;
+        k3?: number | string;
+        k4?: number | string;
+        kernelMatrix?: number | string;
+        kernelUnitLength?: number | string;
+        kerning?: number | string;
+        keyPoints?: number | string;
+        keySplines?: number | string;
+        keyTimes?: number | string;
+        lengthAdjust?: number | string;
+        letterSpacing?: number | string;
+        lightingColor?: number | string;
+        limitingConeAngle?: number | string;
+        local?: number | string;
+        markerHeight?: number | string;
+        markerUnits?: number | string;
+        markerWidth?: number | string;
+        maskContentUnits?: number | string;
+        maskUnits?: number | string;
+        mathematical?: number | string;
+        mode?: number | string;
+        numOctaves?: number | string;
+        operator?: number | string;
+        order?: number | string;
+        orient?: number | string;
+        orientation?: number | string;
+        origin?: number | string;
+        overflow?: number | string;
+        overlinePosition?: number | string;
+        overlineThickness?: number | string;
+        paintOrder?: number | string;
+        panose1?: number | string;
+        pathLength?: number | string;
+        patternTransform?: number | string;
+        pointerEvents?: number | string;
+        pointsAtX?: number | string;
+        pointsAtY?: number | string;
+        pointsAtZ?: number | string;
+        preserveAlpha?: number | string;
+        primitiveUnits?: number | string;
+        radius?: number | string;
+        refX?: number | string;
+        refY?: number | string;
+        renderingIntent?: number | string;
+        repeatCount?: number | string;
+        repeatDur?: number | string;
+        requiredExtensions?: number | string;
+        requiredFeatures?: number | string;
+        restart?: number | string;
+        rotate?: number | string;
+        scale?: number | string;
+        seed?: number | string;
+        shapeRendering?: number | string;
+        slope?: number | string;
+        spacing?: number | string;
+        specularConstant?: number | string;
+        specularExponent?: number | string;
+        speed?: number | string;
+        startOffset?: number | string;
+        stemh?: number | string;
+        stemv?: number | string;
+        stitchTiles?: number | string;
+        strikethroughPosition?: number | string;
+        strikethroughThickness?: number | string;
+        string?: number | string;
+        strokeDashoffset?: number | string;
+        surfaceScale?: number | string;
+        systemLanguage?: number | string;
+        tableValues?: number | string;
+        targetX?: number | string;
+        targetY?: number | string;
+        textDecoration?: number | string;
+        textRendering?: number | string;
+        textLength?: number | string;
+        to?: number | string;
+        u1?: number | string;
+        u2?: number | string;
+        underlinePosition?: number | string;
+        underlineThickness?: number | string;
+        unicode?: number | string;
+        unicodeBidi?: number | string;
+        unicodeRange?: number | string;
+        unitsPerEm?: number | string;
+        vAlphabetic?: number | string;
+        vHanging?: number | string;
+        vIdeographic?: number | string;
+        vMathematical?: number | string;
+        vectorEffect?: number | string;
+        vertAdvY?: number | string;
+        vertOriginX?: number | string;
+        vertOriginY?: number | string;
+        viewTarget?: number | string;
+        visibility?: number | string;
+        widths?: number | string;
+        wordSpacing?: number | string;
+        writingMode?: number | string;
+        xHeight?: number | string;
+
+        // old attrs
         clipPath?: string;
         colorInterpolationFilters?: "auto" | "sRGB" | "linearRGB" | "inherit";
         cx?: number | string;
