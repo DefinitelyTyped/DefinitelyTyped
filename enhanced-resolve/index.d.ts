@@ -10,79 +10,94 @@ import fs = require('fs');
 import {
     ResolveResult,
     LoggingCallbackWrapper,
-    ErrorCallback,
     CommonFileSystemMethod,
-    BaseFileSystem,
-    ResolverRequest
-} from './lib/common-types';
-import { Context } from './lib/concord';
+    ResolverRequest,
+    ResolveContext,
+    AbstractInputFileSystem
+} from './lib/common-types'
+import { Dictionary } from './lib/concord'
 import Resolver = require('./lib/Resolver');
+import Tapable = require('tapable')
 
 declare namespace Resolve {
     function sync(path: string, request: string): ResolveResult;
-    function sync(context: Context, path: string, request: string): ResolveResult;
+    function sync(context: ResolveContext, path: string, request: string): ResolveResult;
 
     function context(path: string, request: string, callback: LoggingCallbackWrapper): void;
-    function context(context: Context, path: string, request: string, callback: LoggingCallbackWrapper): void;
+    function context(context: ResolveContext, path: string, request: string, callback: LoggingCallbackWrapper): void;
 
     namespace context {
         function sync(path: string, request: string): ResolveResult;
-        function sync(context: Context, path: string, request: string): ResolveResult;
+        function sync(context: ResolveContext, path: string, request: string): ResolveResult;
     }
 
     function loader(path: string, request: string, callback: LoggingCallbackWrapper): void;
-    function loader(context: Context, path: string, request: string, callback: LoggingCallbackWrapper): void;
+    function loader(context: ResolveContext, path: string, request: string, callback: LoggingCallbackWrapper): void;
 
     namespace context {
         function sync(path: string, request: string): ResolveResult;
-        function sync(context: Context, path: string, request: string): ResolveResult;
+        function sync(context: ResolveContext, path: string, request: string): ResolveResult;
     }
 
     function create(path: string, request: string, callback: LoggingCallbackWrapper): void;
-    function create(context: Context, path: string, request: string, callback: LoggingCallbackWrapper): void;
+    function create(context: ResolveContext, path: string, request: string, callback: LoggingCallbackWrapper): void;
 
     export namespace create {
         function sync(path: string, request: string): ResolveResult;
-        function sync(context: Context, path: string, request: string): ResolveResult;
+        function sync(context: ResolveContext, path: string, request: string): ResolveResult;
     }
 
     export namespace ResolverFactory {
         interface ResolverOption {
-            modules?: string[];
-            descriptionFiles?: string[];
-            plugins?: any[];
-            mainFields?: string[];
+            alias?: AliasItem[] | Dictionary<string>;
             aliasFields?: string[];
-            mainFiles?: string[];
-            extensions: string[];
-            enforceExtension?: boolean;
-            moduleExtensions?: string[];
-            enforceModuleExtension?: boolean;
-            alias?: AliasItem[] | {};
-            symlinks?: string[] | boolean;
-            resolveToContext?: boolean;
-            unsafeCache?: boolean | {};
             cachePredicate?: (val: ResolverRequest) => boolean;
-            fileSystem: any;
+            descriptionFiles?: string[];
+            enforceExtension?: boolean;
+            enforceModuleExtension?: boolean;
+            extensions: string[];
+            fileSystem: AbstractInputFileSystem;
+            mainFields?: string[];
+            mainFiles?: string[];
+            moduleExtensions?: string[];
+            modules?: string[];
+            plugins?: Tapable.Plugin[];
             resolver?: Resolver;
+            resolveToContext?: boolean;
+            symlinks?: string[] | boolean;
+            unsafeCache?: boolean | Dictionary<any>;
         }
         interface AliasItem {
-            name: string;
             alias: string;
+            name: string;
             onlyModule: boolean;
         }
         function createResolver(options: ResolverOption): Resolver;
     }
 
     class NodeJsInputFileSystem {
-        readdir(path: string, callback: (err: Error, files: string[]) => void): void;
-
         isSync(): boolean;
+
+        readdir(path: string, callback: (err: Error, files: string[]) => void): void;
 
         stat(path: string, callback?: (err: NodeJS.ErrnoException, stats: fs.Stats) => any): void;
 
-        readFile(filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
-        readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+        readFile(
+            filename: string, encoding: string,
+            callback: (err: NodeJS.ErrnoException, data: string) => void
+        ): void;
+        readFile(
+            filename: string, options: {
+                encoding: string;
+                flag?: string;
+            }, callback: (err: NodeJS.ErrnoException, data: string) => void
+        ): void;
+        readFile(
+            filename: string, options: {
+                flag?: string;
+            }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void
+        ): void;
+        readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
 
         readlink(path: string, callback?: (err: NodeJS.ErrnoException, linkString: string) => any): void;
     }
@@ -92,43 +107,54 @@ declare namespace Resolve {
 
         stat: CommonFileSystemMethod;
         readdir: CommonFileSystemMethod;
-        readFile(path: string, encoding?: string, callback?: (err: NodeJS.ErrnoException, result: Buffer) => void): void;
-        readFile(path: string, callback?: (err: NodeJS.ErrnoException, result: Buffer) => void): void;
+
+        readFile(
+            filename: string, encoding: string,
+            callback: (err: NodeJS.ErrnoException, data: string) => void
+        ): void;
+        readFile(
+            filename: string, options: {
+                encoding: string;
+                flag?: string;
+            }, callback: (err: NodeJS.ErrnoException, data: string) => void
+        ): void;
+        readFile(
+            filename: string, options: {
+                flag?: string;
+            }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void
+        ): void;
+        readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+
         readlink: CommonFileSystemMethod;
     }
 
     class CachedInputFileSystem {
-        fileSystem: BaseFileSystem;
-        _statStorage: Storage;
-        _readdirStorage: Storage;
-        _readFileStorage: Storage;
-        _readJsonStorage: Storage;
-        _readlinkStorage: Storage;
-        _stat: CommonFileSystemMethod;
-        _readdir: CommonFileSystemMethod;
-        _readFile: CommonFileSystemMethod;
-        _readJson: CommonFileSystemMethod;
-        _readlink: CommonFileSystemMethod;
+        fileSystem: AbstractInputFileSystem;
 
-        constructor(fileSystem: BaseFileSystem, duration: number);
+        constructor(fileSystem: AbstractInputFileSystem, duration: number);
 
         isSync(): boolean;
 
-        stat(path: string, callback: ErrorCallback): void;
-
-        readdir(path: string, callback: ErrorCallback): void;
-
-        readFile(path: string, callback: ErrorCallback): void;
-
-        readJson(path: string, callback: ErrorCallback): void;
-
-        readlink(path: string, callback: ErrorCallback): void;
-
         purge(what?: string | string[]): void;
+
+        readdir(path: string, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
+
+        readFile(path: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+
+        readJson(path: string, callback: (err: NodeJS.ErrnoException, data: any) => void): void;
+
+        readlink(path: string, callback: (err: NodeJS.ErrnoException, linkString: string) => void): void;
+
+        stat(path: string, callback: (err: NodeJS.ErrnoException, stats: fs.Stats) => void): void;
     }
 }
 
 declare function Resolve(path: string, request: string, callback: LoggingCallbackWrapper): void;
-declare function Resolve(context: Context, path: string, request: string, callback: LoggingCallbackWrapper): void;
+declare function Resolve(
+    context: ResolveContext,
+    path: string,
+    request: string,
+    callback: LoggingCallbackWrapper
+): void;
 
 export = Resolve;

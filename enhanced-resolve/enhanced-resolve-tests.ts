@@ -1,12 +1,11 @@
 import resolve = require('enhanced-resolve');
-import { Context } from 'enhanced-resolve/lib/concord';
 import { ResolveResult } from 'enhanced-resolve/lib/common-types'
 import Resolver = require('enhanced-resolve/lib/Resolver')
 
 resolve('lib', 'string', function (err) { });
 
-let context: Context = {
-    referrer: 'hi'
+let context = {
+    issuer: 'hi'
 };
 
 resolve(context, 'path', 'string', function () { });
@@ -14,7 +13,7 @@ resolve(context, 'path', 'string', function () { });
 let resolver: Resolver
 resolver = resolve.ResolverFactory.createResolver({
     extensions: ['.js'],
-    fileSystem: {}
+    fileSystem: {} as resolve.CachedInputFileSystem
 });
 
 const nfs = new resolve.NodeJsInputFileSystem();

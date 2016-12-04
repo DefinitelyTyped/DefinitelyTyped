@@ -1,14 +1,11 @@
 /// <reference types="node" />
 import { CommonFileSystemMethod } from './common-types';
+import { Dictionary } from './concord';
 
 declare class Storage {
     duration: number;
-    running: {
-        [name: string]: ((...args: any[]) => any)[]
-    };
-    data: {
-        [name: string]: any[]
-    };
+    running: Dictionary<Function[]>;
+    data: Dictionary<any>;
     levels: string[][];
     count: number;
     interval: NodeJS.Timer | null;
