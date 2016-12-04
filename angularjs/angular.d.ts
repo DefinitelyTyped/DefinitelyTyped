@@ -1205,6 +1205,15 @@ declare namespace angular {
 
         debugInfoEnabled(): boolean;
         debugInfoEnabled(enabled: boolean): ICompileProvider;
+    
+        onChangesTtl(): number;
+        onChangesTtl(limit: number): ICompileProvider;
+    
+        commentDirectivesEnabled(): boolean;
+        commentDirectivesEnabled(enabled: boolean): ICompileProvider;
+    
+        cssClassDirectivesEnabled(): boolean;
+        cssClassDirectivesEnabled(enabled: boolean): ICompileProvider;
     }
 
     interface ICloneAttachFunction {
