@@ -596,7 +596,7 @@ interface PushSubscriptionOptions {
      * with elliptic curve digital signature (ECDSA) over the P-256 curve.
      * @readonly
      */
-	applicationServerKey: Uint8Array;
+	applicationServerKey?: Uint8Array;
 }
 
 /**
