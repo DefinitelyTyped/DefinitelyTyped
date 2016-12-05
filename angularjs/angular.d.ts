@@ -1210,6 +1210,7 @@ declare namespace angular {
          * Sets the number of times $onChanges hooks can trigger new changes before giving up and assuming that the model is unstable.
          * Increasing the TTL could have performance implications, so you should not change it without proper justification.
          * Default: 10.
+         * See: https://docs.angularjs.org/api/ng/provider/$compileProvider#onChangesTtl
          */
         onChangesTtl(): number;
         onChangesTtl(limit: number): ICompileProvider;
@@ -1218,6 +1219,7 @@ declare namespace angular {
          * It indicates to the compiler whether or not directives on comments should be compiled.
          * It results in a compilation performance gain since the compiler doesn't have to check comments when looking for directives.
          * Defaults to true.
+         * See: https://docs.angularjs.org/api/ng/provider/$compileProvider#commentDirectivesEnabled
          */
         commentDirectivesEnabled(): boolean;
         commentDirectivesEnabled(enabled: boolean): ICompileProvider;
@@ -1226,6 +1228,7 @@ declare namespace angular {
          * It indicates to the compiler whether or not directives on element classes should be compiled.
          * It results in a compilation performance gain since the compiler doesn't have to check element classes when looking for directives.
          * Defaults to true.
+         * See: https://docs.angularjs.org/api/ng/provider/$compileProvider#cssClassDirectivesEnabled
          */
         cssClassDirectivesEnabled(): boolean;
         cssClassDirectivesEnabled(enabled: boolean): ICompileProvider;
