@@ -1,5 +1,5 @@
 {
-  "devDependencies": {
+  "dependencies": {
     "redux": "^3.6.0"
   }
 }
