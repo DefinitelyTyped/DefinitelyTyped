@@ -1,5 +1,4 @@
 /// <reference path="index.d.ts" />
-/// <reference path="../es6-promise/index.d.ts" />
 
 /// Code examples derived from
 /// https://developers.google.com/web/fundamentals/discovery-and-monetization/payment-request/
