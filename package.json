@@ -28,6 +28,7 @@
     "help": "dt -h"
   },
   "devDependencies": {
+    "babel-code-frame": "^6.16.0",
     "definition-tester": "0.5.2",
     "typescript": "1.8.7"
   }
