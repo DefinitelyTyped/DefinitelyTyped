@@ -2350,7 +2350,7 @@ declare module elasticjs {
      Sets the distance unit.  Valid values are:
      in, yd, ft, km, NM, mm, cm, mi, and m.
      */
-    unit(unit: Number): GeoDistanceAggregation;
+    unit(unit: string): GeoDistanceAggregation;
 
   }
 
@@ -2485,7 +2485,7 @@ declare module elasticjs {
      Sets the distance unit.  Valid values are "mi" for miles or "km"
      for kilometers. Defaults to "km".
      */
-    unit(unit: Number): GeoDistanceFacet;
+    unit(unit: string): GeoDistanceFacet;
 
     /*
      Allows you to specify a different value field to aggrerate over.
@@ -2582,7 +2582,7 @@ declare module elasticjs {
      Sets the distance unit.  Valid values are "mi" for miles or "km"
      for kilometers. Defaults to "km".
      */
-    unit(unit: Number): GeoDistanceFilter;
+    unit(unit: string): GeoDistanceFilter;
 
   }
 
@@ -2706,7 +2706,7 @@ declare module elasticjs {
      Sets the distance unit.  Valid values are "mi" for miles or "km"
      for kilometers. Defaults to "km".
      */
-    unit(unit: Number): GeoDistanceRangeFilter;
+    unit(unit: string): GeoDistanceRangeFilter;
 
   }
 
@@ -7413,7 +7413,7 @@ declare module elasticjs {
 
      Valid during sort types:  geo distance
      */
-    unit(unit: Number): Sort;
+    unit(unit: string): Sort;
 
   }
 

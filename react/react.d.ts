@@ -2005,6 +2005,7 @@ declare namespace __React {
         optimum?: number;
         pattern?: string;
         placeholder?: string;
+        playsInline?: boolean;
         poster?: string;
         preload?: string;
         radioGroup?: string;
@@ -2449,6 +2450,7 @@ declare namespace JSX {
         meta: React.HTMLProps<HTMLMetaElement>;
         meter: React.HTMLProps<HTMLElement>;
         nav: React.HTMLProps<HTMLElement>;
+        noindex: React.HTMLProps<HTMLElement>;
         noscript: React.HTMLProps<HTMLElement>;
         object: React.HTMLProps<HTMLObjectElement>;
         ol: React.HTMLProps<HTMLOListElement>;

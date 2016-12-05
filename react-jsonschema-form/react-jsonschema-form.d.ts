@@ -1,4 +1,4 @@
-// Type definitions for react-jsonschema-form 0.30.1
+// Type definitions for react-jsonschema-form 0.38.1
 // Project: https://github.com/mozilla-services/react-jsonschema-form
 // Definitions by: Dan Fox <https://github.com/iamdanfox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,6 +14,8 @@ declare module "react-jsonschema-form" {
         formData?: any;
         widgets?: {};
         fields?: {};
+        noValidate?: boolean;
+        showErrorList?: boolean;
         validate?: (formData: any, errors: any) => any;
         onChange?: (e: IChangeEvent) => any;
         onError?: (e: any) => any;

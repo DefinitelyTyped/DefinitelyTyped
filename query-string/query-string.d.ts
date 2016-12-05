@@ -4,8 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "query-string" {
-    type value = string | boolean | number;
-                
+
     interface StringifyOptions { strict?: boolean; encode?: boolean; }
 
     /**
@@ -20,7 +19,7 @@ declare module "query-string" {
      *
      * @param obj
      */
-    export function stringify(obj: { [key: string]: value | value[] }, options?: StringifyOptions): string;
+    export function stringify(obj: any, options?: StringifyOptions): string;
 
     /**
      * Extract a query string from a URL that can be passed into .parse().

@@ -375,8 +375,9 @@ declare module "cassandra-driver" {
     }
 
     interface Row {
-      get(columnName: string|number): { [key:string]:any; };
-      values(): Array<{ [key:string]:any; }>;
+      get(columnName: string|number):any;
+      [key:string]:any;
+      values(): Array<any>;
       keys(): Array<string>;
       forEach(callback: Callback): void;
     }
