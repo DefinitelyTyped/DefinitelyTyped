@@ -31,7 +31,7 @@ declare namespace google.maps {
     /***** Map *****/
     export class Map extends MVCObject {
         constructor(mapDiv: Element, opts?: MapOptions);
-        fitBounds(bounds: LatLngBounds): void;
+        fitBounds(bounds: LatLngBounds|LatLngBoundsLiteral): void;
         getBounds(): LatLngBounds;
         getCenter(): LatLng;
         getDiv(): Element;
@@ -43,7 +43,7 @@ declare namespace google.maps {
         getZoom(): number;
         panBy(x: number, y: number): void;
         panTo(latLng: LatLng|LatLngLiteral): void;
-        panToBounds(latLngBounds: LatLngBounds): void;
+        panToBounds(latLngBounds: LatLngBounds|LatLngBoundsLiteral): void;
         setCenter(latlng: LatLng|LatLngLiteral): void;
         setHeading(heading: number): void;
         setMapTypeId(mapTypeId: MapTypeId|string): void;
@@ -769,7 +769,7 @@ declare namespace google.maps {
         getEditable(): boolean;
         getMap(): Map;
         getVisible(): boolean;
-        setBounds(bounds: LatLngBounds): void;
+        setBounds(bounds: LatLngBounds|LatLngBoundsLiteral): void;
         setDraggable(draggable: boolean): void;
         setEditable(editable: boolean): void;
         setMap(map: Map): void;
@@ -778,7 +778,7 @@ declare namespace google.maps {
     }
 
     export interface RectangleOptions {
-        bounds?: LatLngBounds;
+        bounds?: LatLngBounds|LatLngBoundsLiteral;
         clickable?: boolean;
         draggable?: boolean;
         editable?: boolean;
@@ -844,7 +844,7 @@ declare namespace google.maps {
     }
 
     export class GroundOverlay extends MVCObject {
-        constructor(url: string, bounds: LatLngBounds, opts?: GroundOverlayOptions);
+        constructor(url: string, bounds: LatLngBounds|LatLngBoundsLiteral, opts?: GroundOverlayOptions);
         getBounds(): LatLngBounds;
         getMap(): Map;
         getOpacity(): number;
@@ -892,7 +892,7 @@ declare namespace google.maps {
 
     export interface GeocoderRequest {
         address?: string;
-        bounds?: LatLngBounds;
+        bounds?: LatLngBounds|LatLngBoundsLiteral;
         componentRestrictions?: GeocoderComponentRestrictions;
         location?: LatLng|LatLngLiteral;
         placeId?: string;
@@ -2001,13 +2001,13 @@ declare namespace google.maps {
             constructor(inputField: HTMLInputElement, opts?: AutocompleteOptions);
             getBounds(): LatLngBounds;
             getPlace(): PlaceResult;
-            setBounds(bounds: LatLngBounds): void;
+            setBounds(bounds: LatLngBounds|LatLngBoundsLiteral): void;
             setComponentRestrictions(restrictions: ComponentRestrictions): void;
             setTypes(types: string[]): void;
         }
 
         export interface AutocompleteOptions  {
-            bounds?: LatLngBounds;
+            bounds?: LatLngBounds|LatLngBoundsLiteral;
             componentRestrictions?: ComponentRestrictions;
             types?: string[];
         }
@@ -2037,7 +2037,7 @@ declare namespace google.maps {
         }
 
         export interface AutocompletionRequest {
-            bounds?: LatLngBounds;
+            bounds?: LatLngBounds|LatLngBoundsLiteral;
             componentRestrictions?: ComponentRestrictions;
             input: string;
             location?: LatLng;
@@ -2112,7 +2112,7 @@ declare namespace google.maps {
         }
 
         export interface PlaceSearchRequest {
-            bounds?: LatLngBounds;
+            bounds?: LatLngBounds|LatLngBoundsLiteral;
             keyword?: string;
             location?: LatLng|LatLngLiteral;
             maxPriceLevel?: number;
@@ -2150,7 +2150,7 @@ declare namespace google.maps {
         }
 
         export interface QueryAutocompletionRequest {
-            bounds?: LatLngBounds;
+            bounds?: LatLngBounds|LatLngBoundsLiteral;
             input?: string;
             location?: LatLng;
             offset?: number;
@@ -2158,7 +2158,7 @@ declare namespace google.maps {
         }
 
         export interface RadarSearchRequest {
-            bounds?: LatLngBounds;
+            bounds?: LatLngBounds|LatLngBoundsLiteral;
             keyword?: string;
             location?: LatLng|LatLngLiteral;
             name?: string;
@@ -2176,15 +2176,15 @@ declare namespace google.maps {
             constructor(inputField: HTMLInputElement, opts?: SearchBoxOptions);
             getBounds(): LatLngBounds;
             getPlaces(): PlaceResult[];
-            setBounds(bounds: LatLngBounds): void;
+            setBounds(bounds: LatLngBounds|LatLngBoundsLiteral): void;
         }
 
         export interface SearchBoxOptions {
-            bounds: LatLngBounds;
+            bounds: LatLngBounds|LatLngBoundsLiteral;
         }
 
         export interface TextSearchRequest {
-            bounds?: LatLngBounds;
+            bounds?: LatLngBounds|LatLngBoundsLiteral;
             location?: LatLng|LatLngLiteral;
             query: string;
             radius?: number;
