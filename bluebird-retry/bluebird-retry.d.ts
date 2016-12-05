@@ -16,6 +16,7 @@ declare module "bluebird-retry" {
 			max_interval?:number;
 			timeout?:number;
 			max_tries?:number;
+			predicate?:any;
 		}
 
 	}

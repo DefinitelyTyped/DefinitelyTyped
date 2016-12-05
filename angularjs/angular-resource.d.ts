@@ -52,7 +52,7 @@ declare namespace angular.resource {
              where deleteDescriptor : IActionDescriptor */
             actions?: IActionHash, options?: IResourceOptions): IResourceClass<T>;
     }
-    
+
     // Hash of action descriptors allows custom action names
     interface IActionHash {
         [action: string]: IActionDescriptor
@@ -165,6 +165,8 @@ declare namespace angular.resource {
      * Really just a regular Array object with $promise and $resolve attached to it
      */
     interface IResourceArray<T> extends Array<T & IResource<T>> {
+        $cancelRequest(): void;
+
         /** the promise of the original server interaction that created this collection. **/
         $promise : angular.IPromise<IResourceArray<T>>;
         $resolved : boolean;
@@ -191,7 +193,7 @@ declare namespace angular {
         /** creating a resource service factory */
         factory(name: string, resourceServiceFactoryFunction: angular.resource.IResourceServiceFactoryFunction<any>): IModule;
     }
-    
+
     namespace auto {
     	interface IInjectorService {
     		get(name: '$resource'): ng.resource.IResourceService;

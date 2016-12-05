@@ -32,9 +32,9 @@ declare module "johnny-five" {
 
     export class Accelerometer{
         constructor(option: AccelerometerGeneralOption | AccelerometerAnalogOption | AccelerometerMPU6050Option | AccelerometerMMA7361Option);
-        on(event: string, cb: ()=>void): void;
-        on(event: "change", cb: ()=>void): void;
-        on(event: "data", cb: (freq: any)=>void): void;
+        on(event: string, cb: ()=>void): this;
+        on(event: "change", cb: ()=>void): this;
+        on(event: "data", cb: (freq: any)=>void): this;
         hasAxis(name: string): void;
         enable(): void;
         disable(): void;
@@ -71,12 +71,12 @@ declare module "johnny-five" {
 
     export class Button{
         constructor(pin: number | string | ButtonOptions);
-        on(event: string, cb: ()=>void): void;
-        on(event: "hold", cb: (holdTime: number)=>void): void;
-        on(event: "down", cb: ()=>void): void;
-        on(event: "press", cb: ()=>void): void;
-        on(event: "up", cb: ()=>void): void;
-        on(event: "release", cb: ()=>void): void;
+        on(event: string, cb: ()=>void): this;
+        on(event: "hold", cb: (holdTime: number)=>void): this;
+        on(event: "down", cb: ()=>void): this;
+        on(event: "press", cb: ()=>void): this;
+        on(event: "up", cb: ()=>void): this;
+        on(event: "release", cb: ()=>void): this;
     }
 
     export interface BoardOptions{
@@ -91,9 +91,9 @@ declare module "johnny-five" {
 
     export class Board{
         constructor(option?: BoardOptions);
-        on(event: string, cb: ()=>void): void;
-        on(event: "ready", cb: ()=>void): void;
-        on(event: "connect", cb: ()=>void): void;
+        on(event: string, cb: ()=>void): this;
+        on(event: "ready", cb: ()=>void): this;
+        on(event: "connect", cb: ()=>void): this;
         pinMode(pin: number, mode: number): void;
         analogWrite(pin: number, value: number): void;
         analogRead(pin: number, cb: (item: number)=>void): void;
@@ -118,9 +118,9 @@ declare module "johnny-five" {
 
     export class Compass{
         constructor(option: CompassOptions);
-        on(event: string, cb: ()=>void): void;
-        on(event: "change", cb: ()=>void): void;
-        on(event: "data", cb: (data: any)=>void): void;
+        on(event: string, cb: ()=>void): this;
+        on(event: "change", cb: ()=>void): this;
+        on(event: "data", cb: (data: any)=>void): this;
     }
 
     export interface ESCOption{
@@ -153,9 +153,9 @@ declare module "johnny-five" {
 
     export class Gyro{
         constructor(option: GyroGeneralOption | GyroAnalogOption | GyroMPU6050Option);
-        on(event: string, cb: ()=>void): void;
-        on(event: "change", cb: ()=>void): void;
-        on(event: "data", cb: (data: any)=>void): void;
+        on(event: string, cb: ()=>void): this;
+        on(event: "change", cb: ()=>void): this;
+        on(event: "data", cb: (data: any)=>void): this;
         recalibrate(): void;
     }
 
@@ -170,9 +170,9 @@ declare module "johnny-five" {
 
     export class IMU{
         constructor(option: IMUGeneralOption | IMUMPU6050Option);
-        on(event: string, cb: ()=>void): void;
-        on(event: "change", cb: ()=>void): void;
-        on(event: "data", cb: (data: any)=>void): void;
+        on(event: string, cb: ()=>void): this;
+        on(event: "change", cb: ()=>void): this;
+        on(event: "data", cb: (data: any)=>void): this;
     }
 
     export module IR{
@@ -182,11 +182,11 @@ declare module "johnny-five" {
 
         export class Motion{
             constructor(option: number | MotionOption);
-            on(event: string, cb: ()=>void): void;
-            on(event: "data", cb: (data: any)=>void): void;
-            on(event: "motionstart", cb: ()=>void): void;
-            on(event: "motionend", cb: ()=>void): void;
-            on(event: "calibrated", cb: ()=>void): void;
+            on(event: string, cb: ()=>void): this;
+            on(event: "data", cb: (data: any)=>void): this;
+            on(event: "motionstart", cb: ()=>void): this;
+            on(event: "motionend", cb: ()=>void): this;
+            on(event: "calibrated", cb: ()=>void): this;
         }
 
         export interface PloximityOption{
@@ -196,9 +196,9 @@ declare module "johnny-five" {
 
         export class Proximity{
             constructor(option: number | PloximityOption);
-            on(event: string, cb: ()=>void): void;
-            on(event: "data", cb: (data: any)=>void): void;
-            on(event: "change", cb: ()=>void): void;
+            on(event: string, cb: ()=>void): this;
+            on(event: "data", cb: (data: any)=>void): this;
+            on(event: "change", cb: ()=>void): this;
         }
 
         export interface ArrayOption{
@@ -220,10 +220,10 @@ declare module "johnny-five" {
                 calibrate(): void;
                 calibrateUntil(predicate: ()=>void): void;
                 loadCalibration(option: LoadCalibrationOption): void;
-                on(event: string, cb: ()=>void): void;
-                on(event: "data", cb: (data: any)=>void): void;
-                on(event: "calibratedData", cb: (data: any)=>void): void;
-                on(event: "line", cb: (data: any)=>void): void;
+                on(event: string, cb: ()=>void): this;
+                on(event: "data", cb: (data: any)=>void): this;
+                on(event: "calibratedData", cb: (data: any)=>void): this;
+                on(event: "line", cb: (data: any)=>void): this;
             }
         }
     }
@@ -234,10 +234,10 @@ declare module "johnny-five" {
 
     export class Joystick{
         constructor(option: JoystickOption);
-        on(event: string, cb: ()=>void): void;
-        on(event: "data", cb: (data: any)=>void): void;
-        on(event: "change", cb: ()=>void): void;
-        on(event: "axismove", cb: (error: Error, date: Date)=>void): void;
+        on(event: string, cb: ()=>void): this;
+        on(event: "data", cb: (data: any)=>void): this;
+        on(event: "change", cb: ()=>void): this;
+        on(event: "axismove", cb: (error: Error, date: Date)=>void): this;
 
         axis: Array<number>;
         raw: Array<number>;
@@ -468,9 +468,9 @@ declare module "johnny-five" {
         scale(): Sensor;
         booleanAt(barrier: number): boolean;
         within(range: Array<number>, cb: ()=>void): void;
-        on(event: string, cb: ()=>void): void;
-        on(event: "data", cb: (data: any)=>void): void;
-        on(event: "change", cb: ()=>void): void;
+        on(event: string, cb: ()=>void): this;
+        on(event: "data", cb: (data: any)=>void): this;
+        on(event: "change", cb: ()=>void): this;
     }
 
     export interface ServoGeneralOption{
@@ -505,8 +505,8 @@ declare module "johnny-five" {
         stop(): void;
         cw(speed: number): void;
         ccw(speed: number): void;
-        on(event: string, cb: ()=>void): void;
-        on(event: "move:complete", cb: ()=>void): void;
+        on(event: string, cb: ()=>void): this;
+        on(event: "move:complete", cb: ()=>void): this;
     }
 
     export interface ShiftRegisterOption{
@@ -529,9 +529,9 @@ declare module "johnny-five" {
         constructor(option: number | string | SonarOption);
         within(range: Array<number>, cb: ()=>void): void;
         within(range: Array<number>, unit: string, cb: ()=>void): void;
-        on(event: string, cb: ()=>void): void;
-        on(event: "data", cb: (data: any)=>void): void;
-        on(event: "change", cb: ()=>void): void;
+        on(event: string, cb: ()=>void): this;
+        on(event: "data", cb: (data: any)=>void): this;
+        on(event: "change", cb: ()=>void): this;
     }
 
     export interface StepperOption{
@@ -568,9 +568,9 @@ declare module "johnny-five" {
 
         within(range: Array<number>, cb: ()=>void): void;
         within(range: Array<number>, unit: string, cb: ()=>void): void;
-        on(event: string, cb: ()=>void): void;
-        on(event: "data", cb: (data: any)=>void): void;
-        on(event: "change", cb: ()=>void): void;
+        on(event: string, cb: ()=>void): this;
+        on(event: "data", cb: (data: any)=>void): this;
+        on(event: "change", cb: ()=>void): this;
     }
 
     export interface TemperatureOption{
@@ -582,9 +582,9 @@ declare module "johnny-five" {
 
     export class Temperature{
         constructor(option: TemperatureOption);
-        on(event: string, cb: ()=>void): void;
-        on(event: "data", cb: (data: any)=>void): void;
-        on(event: "change", cb: ()=>void): void;
+        on(event: string, cb: ()=>void): this;
+        on(event: "data", cb: (data: any)=>void): this;
+        on(event: "change", cb: ()=>void): this;
     }
 }
 
