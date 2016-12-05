@@ -8,7 +8,7 @@ export interface ISettings {
     callback?: (update?: IUpdateInfo) => any;
     packageName?: string; 
     packageVersion?: string; 
-    updateCheckInterval?: number; // default 1000 * 60 * 60 * 24 (1 day)
+    updateCheckInterval?: number; // in milliseconds, default 1000 * 60 * 60 * 24 (1 day)
 }
 
 export interface IBoxenOptions {
@@ -41,5 +41,7 @@ export declare class UpdateNotifier {
     constructor(settings?: ISettings);
     
     update: IUpdateInfo;
-    notify(message?: INotifyOptions): void;
+    check(): void;
+    checkNpm(): void;
+    notify(customMessage?: INotifyOptions): void;
 }
