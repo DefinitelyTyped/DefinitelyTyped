@@ -1814,6 +1814,7 @@ declare namespace google.maps {
         getSouthWest(): LatLng;
         intersects(other: LatLngBounds|LatLngBoundsLiteral): boolean;
         isEmpty(): boolean;
+        toJSON(): LatLngBoundsLiteral;
         toSpan(): LatLng;
         toString(): string;
         toUrlValue(precision?: number): string;
