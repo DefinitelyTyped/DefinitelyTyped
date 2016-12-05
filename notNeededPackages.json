@@ -82,6 +82,12 @@
             "typingsPackageName": "redux",
             "sourceRepoURL": "https://github.com/reactjs/redux",
             "asOfVersion": "3.6.0"
+        },
+        {
+            "libraryName": "oidc-client",
+            "typingsPackageName": "oidc-client",
+            "sourceRepoURL": "https://github.com/IdentityModel/oidc-client-js",
+            "asOfVersion": "1.2.2"
         }
     ]
 }
