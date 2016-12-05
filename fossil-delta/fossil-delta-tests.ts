@@ -1,4 +1,3 @@
-/// <reference path="fossil-delta.d.ts" />
 import * as fossilDelta from "fossil-delta";
 
 var origin =  new Array<number>(1,2,3);

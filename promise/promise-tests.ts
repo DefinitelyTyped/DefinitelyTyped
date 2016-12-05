@@ -1,5 +1,3 @@
-/// <reference path="promise.d.ts"/>
-
 var prom = new Promise<Boolean>((resolve, reject) => {
 	resolve(true);
 });

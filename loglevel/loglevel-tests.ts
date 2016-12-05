@@ -1,4 +1,4 @@
-/// <reference path="loglevel.d.ts" />
+
 
 log.trace("Trace message");
 log.debug("Debug message");

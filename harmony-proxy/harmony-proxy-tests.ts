@@ -1,4 +1,4 @@
-/// <reference path="./harmony-proxy.d.ts" />
+
 
 import * as Proxy from "harmony-proxy";
 

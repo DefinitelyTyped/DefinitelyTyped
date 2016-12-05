@@ -1,5 +1,3 @@
-/// <reference path="./inversify-restify-utils.d.ts" />
-
 import {
     InversifyRestifyServer, Controller, Get, Options,
     Delete, Head, Put, Patch, Post, Method, TYPE

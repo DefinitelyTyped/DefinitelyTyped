@@ -1,8 +1,7 @@
-/// <reference path="./update-notifier.d.ts" />
 
-import updateNotifier = require('update-notifier');
+import { UpdateNotifier } from "update-notifier";
 
-var notifier = updateNotifier();
+var notifier = new UpdateNotifier();
 
 if (notifier.update) {
 	notifier.notify();
@@ -10,10 +9,10 @@ if (notifier.update) {
 
 console.log(notifier.update);
 
-var notifier = updateNotifier({
+var notifier = new UpdateNotifier({
 	updateCheckInterval: 1000 * 60 * 60 * 24 * 7 // 1 week
 });
 
 if (notifier.update) {
-	notifier.notify('Update available: ' + notifier.update.latest);
+    notifier.notify({ message: 'Update available: ' + notifier.update.latest });
 }

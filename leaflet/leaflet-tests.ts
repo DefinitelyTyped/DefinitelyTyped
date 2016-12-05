@@ -1,4 +1,4 @@
-/// <reference path="leaflet.d.ts" />
+
 
 import L = require('leaflet');
 
@@ -40,7 +40,7 @@ let mapOptions: L.MapOptions = {};
 mapOptions = {
 	preferCanvas: true,
 	attributionControl: false,
-	zoomControl: true,
+    zoomControl: true,
 	closePopupOnClick: false,
 	zoomSnap: 1,
 	zoomDelta: 1,
@@ -51,11 +51,11 @@ mapOptions = {
 	zoom: 12,
 	minZoom: 10,
 	maxZoom: 14,
-	fadeAnimation: true,
+    fadeAnimation: true,
 	markerZoomAnimation: false,
 	transform3DLimit: 123,
 	zoomAnimation: false,
-	zoomAnimationThreshold: 4,
+    zoomAnimationThreshold: 4,
 	inertia: false,
 	inertiaDeceleration: 2000,
 	inertiaMaxSpeed: 1000,
@@ -206,6 +206,26 @@ let tileLayer: L.TileLayer;
 tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
 tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', tileLayerOptions);
 tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
+
+let eventHandler = () => {};
+let domEvent: Event = {} as Event;
+L.DomEvent
+	.on(htmlElement, 'click', eventHandler)
+	.addListener(htmlElement, 'click', eventHandler)
+	.off(htmlElement, 'click', eventHandler)
+	.removeListener(htmlElement, 'click', eventHandler)
+	.on(htmlElement, {'click': eventHandler})
+	.addListener(htmlElement, {'click': eventHandler})
+	.off(htmlElement, {'click': eventHandler}, eventHandler)
+	.removeListener(htmlElement, {'click': eventHandler}, eventHandler)
+	.stopPropagation(domEvent)
+	.disableScrollPropagation(htmlElement)
+	.disableClickPropagation(htmlElement)
+	.preventDefault(domEvent)
+	.stop(domEvent);
+point = L.DomEvent.getMousePosition(domEvent);
+point = L.DomEvent.getMousePosition(domEvent, htmlElement);
+const wheelDelta: number = L.DomEvent.getWheelDelta(domEvent);
 
 map = map
 	// addControl

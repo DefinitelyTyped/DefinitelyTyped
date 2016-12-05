@@ -1,7 +1,4 @@
-/// <reference path="./cross-storage.d.ts"/>
-
 import { CrossStorageClient, CrossStorageHub } from "cross-storage";
-
 
 const client = new CrossStorageClient("http://foo.com", {
   timeout: 0,

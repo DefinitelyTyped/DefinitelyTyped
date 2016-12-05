@@ -1,5 +1,3 @@
-/// <reference path="solution-center-communicator.d.ts" />
-
 import * as ScCommunicator from 'solution-center-communicator';
 
 var environment: ScCommunicator.Environment = {
@@ -9,7 +7,9 @@ var environment: ScCommunicator.Environment = {
   PORT: '',
   USER_SERVICE: 'https://um.norris.test.zalan.do',
   TOKEN_SERVICE: 'https://tm.norris.test.zalan.do',
-  MODULE_SERVICE: 'https://ms.norris.test.zalan.do'
+  MERCHANT_SERVICE: 'https://merch.norris.test.zalan.do',
+  MODULE_SERVICE: 'https://ms.norris.test.zalan.do',
+  USER_SERVICE_NEW: 'https://us2.norris.test.zalan.do'
 };
 
 var environments: ScCommunicator.Environments;

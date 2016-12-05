@@ -1,6 +1,4 @@
-﻿/// <reference path="hellosign-embedded.d.ts" />
-
-HelloSign.init('abc123');
+﻿HelloSign.init('abc123');
 
 // some options
 HelloSign.open({

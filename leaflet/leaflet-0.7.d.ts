@@ -3,7 +3,7 @@
 // Definitions by: Vladimir Zotov <https://github.com/rgripper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path='../geojson/geojson.d.ts' />
+/// <reference types="geojson" />
 
 declare namespace L {
     type LatLngExpression = LatLng | number[] | ({ lat: number; lng: number })

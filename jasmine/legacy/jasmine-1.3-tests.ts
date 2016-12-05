@@ -1,4 +1,4 @@
-/// <reference path="jasmine-1.3.d.ts" />
+
 
 describe("A suite", () => {
     it("contains spec with an expectation", () => {
@@ -433,7 +433,7 @@ describe("Asynchronous specs", () => {
     jasmineEnv.specFilter = function (spec) {
         return htmlReporter.specFilter(spec);
     };
-    var currentWindowOnload = window.onload;
+    var currentWindowOnload = (arg: any) => window.onload(arg);
     window.onload = () => {
         if (currentWindowOnload) {
             currentWindowOnload(null);

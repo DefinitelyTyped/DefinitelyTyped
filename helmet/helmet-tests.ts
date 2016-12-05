@@ -1,6 +1,6 @@
-/// <reference path="helmet.d.ts" />
 
-import express = require("express")
+
+import express = require("../express")
 import helmet = require("helmet");
 
 var app = express();

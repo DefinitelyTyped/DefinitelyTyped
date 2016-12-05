@@ -1,4 +1,3 @@
-/// <reference path="pg-pool.d.ts" />
 import {Pool} from "pg-pool";
 
 let pool = new Pool()

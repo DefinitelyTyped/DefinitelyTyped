@@ -4,9 +4,9 @@
  * Created by using code samples from https://github.com/LearnBoost/stylus/blob/master/docs/js.md.
  */
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../express/express.d.ts" />
-/// <reference path="stylus.d.ts" />
+/// <reference types="node" />
+
+
 
 import stylus = require("stylus");
 
@@ -89,7 +89,7 @@ stylus(str)
  * .use(fn)
  * https://github.com/LearnBoost/stylus/blob/master/docs/js.md#usefn
  */
-var mylib = function (style: Stylus.Renderer) {
+var mylib = function (style: any) {
     style.define('number', 15.5);
     style.define('get-list', function () {
         return ['foo', 'bar', 'baz'];

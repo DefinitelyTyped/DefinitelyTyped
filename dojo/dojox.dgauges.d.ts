@@ -3,10 +3,10 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="dijit.d.ts" />
-/// <reference path="dojox.gfx.d.ts" />
-/// <reference path="dojox.geo.d.ts" />
-/// <reference path="dojox.widget.d.ts" />
+
+
+
+
 declare namespace dojox {
 
     namespace dgauges {

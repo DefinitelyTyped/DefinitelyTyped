@@ -65,6 +65,9 @@ interface IScrollOptions {
 	click?: boolean;
 	invertWheelDirection?: boolean;
 	eventPassthrough?: string | boolean;
+
+	// iScroll probe edition
+	probeType?: number;
 }
 
 declare class IScroll {

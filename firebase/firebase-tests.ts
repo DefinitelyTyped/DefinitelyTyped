@@ -1,4 +1,4 @@
-/// <reference path="firebase.d.ts" />
+
 var AUTH_TOKEN: string = "12345";
 var dataRef:Firebase = new Firebase("https://SampleChat.firebaseio-demo.com/");
 //Log me in

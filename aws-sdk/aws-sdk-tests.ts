@@ -1,4 +1,3 @@
-/// <reference path="aws-sdk.d.ts" />
 
 import AWS = require('aws-sdk');
 
@@ -279,8 +278,7 @@ sqs.setQueueAttributes({
 		else console.log(data);           // successful response
 	});
 	
-
-var dynamoDBDocClient:AWS.DynamoDB.DocumentClient;
+	var dynamoDBDocClient:AWS.DynamoDB.DocumentClient;
 dynamoDBDocClient = new AWS.DynamoDB.DocumentClient();
 dynamoDBDocClient = new AWS.DynamoDB.DocumentClient({});
 dynamoDBDocClient.createSet([1, 2, 3], { validate: true });
@@ -383,3 +381,42 @@ dynamoDBDocClient.query(
 		else console.log(data);           // successful response
 	}
 );
+
+var kinesis = new AWS.Kinesis();
+
+var putRecordParam = {
+  Data: new Buffer('...') || 'STRING_VALUE', /* required */
+  PartitionKey: 'STRING_VALUE', /* required */
+  StreamName: 'STRING_VALUE', /* required */
+  ExplicitHashKey: 'STRING_VALUE',
+  SequenceNumberForOrdering: 'STRING_VALUE'
+};
+kinesis.putRecord(putRecordParam, function(err, data) {
+  if (err) console.log(err, err.stack); // an error occurred
+  else     console.log(data);           // successful response
+});
+
+var putRecordParams = {
+  Records: [ /* required */
+    {
+      Data: new Buffer('...') || 'STRING_VALUE', /* required */
+      PartitionKey: 'STRING_VALUE', /* required */
+      ExplicitHashKey: 'STRING_VALUE'
+    },
+    /* more items */
+  ],
+  StreamName: 'STRING_VALUE' /* required */
+};
+kinesis.putRecords(putRecordParams, function(err, data) {
+  if (err) console.log(err, err.stack); // an error occurred
+  else     console.log(data);           // successful response
+});
+
+var increaseStreamRetentionPeriodParams = {
+  RetentionPeriodHours: 0, /* required */
+  StreamName: 'STRING_VALUE' /* required */
+};
+kinesis.increaseStreamRetentionPeriod(increaseStreamRetentionPeriodParams, function(err, data) {
+  if (err) console.log(err, err.stack); // an error occurred
+  else     console.log(data);           // successful response
+});

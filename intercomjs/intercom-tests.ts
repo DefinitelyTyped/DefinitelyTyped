@@ -1,4 +1,4 @@
-/// <reference path="intercom.d.ts" />
+
 
 function test_intercom_static() {
     var instance: intercom.Intercom = Intercom.getInstance();

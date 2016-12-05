@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="jqueryui.d.ts" />
+/// <reference types="jquery" />
+
 
 function test_draggable() {
 
@@ -816,11 +816,7 @@ function test_autocomplete() {
                 }, response);
             },
             search: () => {
-                // custom minLength
-                var term = null
-                if (term.length < 2) {
-                    return false;
-                }
+                return false;
             },
             focus: () => {
                 return false;

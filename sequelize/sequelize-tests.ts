@@ -1,6 +1,5 @@
-/// <reference path="sequelize.d.ts" />
-
 import Sequelize = require("sequelize");
+import Promise = require('bluebird');
 
 //
 //  Fixtures
@@ -716,6 +715,12 @@ User.beforeFindAfterOptions( 'myHook', function( options ) {} );
 User.afterFind( function( user ) {} );
 User.afterFind( 'myHook', function( user ) {} );
 
+User.beforeSync( function( options ) {} );
+User.beforeSync( 'myHook', function( options ) {} );
+
+User.afterSync( function( options ) {} );
+User.afterSync( 'myHook', function( options ) {} );
+
 s.beforeDefine( function( attributes, options ) {} );
 s.beforeDefine( 'myHook', function( attributes, options ) {} );
 
@@ -727,6 +732,12 @@ s.beforeInit( 'myHook', function( attributes, options ) {} );
 
 s.afterInit( function( model ) {} );
 s.afterInit( 'myHook', function( model ) {} );
+
+s.beforeBulkSync( function( options ) {} );
+s.beforeBulkSync( 'myHook', function( options ) {} );
+
+s.afterBulkSync( function( options ) {} );
+s.afterBulkSync( 'myHook', function( options ) {} );
 
 s.define( 'User', {}, {
     hooks : {
@@ -1133,7 +1144,6 @@ s.model( 'pp' );
 s.query( '', { raw : true } );
 s.query( '' );
 s.query( '' ).then( function( res ) {} );
-s.query( '' ).spread( function(  ) {}, function( b ) {} );
 s.query( { query : 'select ? as foo, ? as bar', values : [1, 2] }, { raw : true, replacements : [1, 2] } );
 s.query( '', { raw : true, nest : false } );
 s.query( 'select ? as foo, ? as bar', { type : this.sequelize.QueryTypes.SELECT, replacements : [1, 2] } );

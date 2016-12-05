@@ -1,6 +1,3 @@
-/// <reference path="angulartics.d.ts" />
-/// <reference path="../angularjs/angular.d.ts" />
-
 namespace Analytics {
     angular.module("angulartics.app", ["angulartics"])
         .config(["$analyticsProvider", ($analyticsProvider:angulartics.IAnalyticsServiceProvider) => {
@@ -13,6 +10,10 @@ namespace Analytics {
             $analyticsProvider.withAutoBase(true);
             $analyticsProvider.developerMode(true);
 
+            $analyticsProvider.trackExceptions(true);
+            $analyticsProvider.trackRoutes(true);
+            $analyticsProvider.trackStates(true);
+
             $analyticsProvider.registerEventTrack((action: string, properties?: any) => {
                 console.log(action);
             });
@@ -22,5 +23,16 @@ namespace Analytics {
             });
 
             $analyticsProvider.settings.pageTracking.basePath = "/my/base/path";
-        }]);
+        }])
+        .run(($analytics: angulartics.IAnalyticsService) => {
+            let isOptedOut = $analytics.getOptOut();
+
+            $analytics.eventTrack('eventName', { label: 'test' });
+            $analytics.pageTrack('/');
+            $analytics.setAlias('alias');
+            $analytics.setOptOut(false);
+            $analytics.setUsername('username');
+            $analytics.setUserProperties({ id: 1 });
+            $analytics.setSuperProperties({ role: 'admin' });
+        });
 }

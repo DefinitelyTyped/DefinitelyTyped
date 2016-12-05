@@ -1,5 +1,4 @@
 // Test file for db-migrate-pg Definition file
-/// <reference path="db-migrate-pg.d.ts" />
 
 import * as DbMigratePg from "db-migrate-pg";
 

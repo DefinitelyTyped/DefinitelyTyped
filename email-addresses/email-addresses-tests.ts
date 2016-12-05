@@ -1,5 +1,3 @@
-///<reference path="email-addresses.d.ts"/>
-
 import addrs = require('email-addresses');
 
 var result: Object;

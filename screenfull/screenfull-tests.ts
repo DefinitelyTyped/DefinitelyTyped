@@ -1,4 +1,4 @@
-/// <reference path="screenfull.d.ts" />
+import screenfull = require('screenfull');
 
 function test_fullscreen_page() {
   if (screenfull.enabled) {
@@ -48,7 +48,7 @@ function test_detect_error() {
     document.addEventListener(screenfull.raw.fullscreenerror, function (event) {
       console.error('Failed to enable fullscreen', event);
     });
-  } 
+  }
 }
 
 function test_access_element() {

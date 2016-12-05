@@ -1,10 +1,10 @@
-/// <reference path="./node-cache.d.ts" />
+
 
 import NodeCache = require('node-cache');
 
-import Options = NodeCacheTypes.Options;
-import Stats = NodeCacheTypes.Stats;
-import Callback = NodeCacheTypes.Callback;
+import Options = NodeCache.Options;
+import Stats = NodeCache.Stats;
+import Callback = NodeCache.Callback;
 
 interface TypeSample {
 	a: number;
@@ -14,7 +14,7 @@ interface TypeSample {
 
 {
 	let options: Options;
-	let cache: NodeCacheTypes.NodeCache;
+	let cache: NodeCache.NodeCache;
 	cache = new NodeCache();
 	cache = new NodeCache(options);
 }

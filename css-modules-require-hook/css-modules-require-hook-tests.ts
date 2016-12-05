@@ -1,5 +1,5 @@
-/// <reference path="./css-modules-require-hook.d.ts" />
-/// <reference path="../node/node.d.ts" />
+/// <reference types="css-modules-require-hook" />
+/// <reference types="node" />
 
 import * as hook from 'css-modules-require-hook';
 import * as path from 'path';

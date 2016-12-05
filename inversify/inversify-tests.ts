@@ -1,6 +1,3 @@
-/// <reference path="./inversify.d.ts" />
-/// <reference path="../harmony-proxy/harmony-proxy.d.ts" />
-
 import {
     Kernel,
     injectable, tagged, named, targetName,

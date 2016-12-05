@@ -1,5 +1,3 @@
-/// <reference path="./base16.d.ts" />
-
 import * as base16 from 'base16';
 
 const colorScheme: base16.ColorScheme = base16.solarized

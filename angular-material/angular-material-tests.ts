@@ -1,4 +1,4 @@
-/// <reference path="angular-material.d.ts" />
+
 
 var myApp = angular.module('testModule', ['ngMaterial']);
 

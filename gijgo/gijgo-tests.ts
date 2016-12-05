@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="gijgo.d.ts" />
+/// <reference types="jquery" />
+/// <reference types="gijgo" />
 
 // Grid
 $(() => {

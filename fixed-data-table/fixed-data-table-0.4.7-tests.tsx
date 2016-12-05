@@ -1,6 +1,6 @@
-/// <reference path="./fixed-data-table-0.4.7.d.ts"" />
-/// <reference path="../react/react.d.ts"/>
-/// <reference path="../react/react-dom.d.ts"/>
+
+/// <reference types="react"/>
+/// <reference types="react-dom"/>
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";

@@ -1,4 +1,4 @@
-/// <reference path="nock.d.ts" />
+
 
 import * as nock from 'nock';
 import * as fs from 'fs';
@@ -75,6 +75,8 @@ inst = inst.times(4);
 inst = inst.once();
 inst = inst.twice();
 inst = inst.thrice();
+
+inst = inst.optionally();
 
 scope = scope.defaultReplyHeaders(value);
 
@@ -411,6 +413,9 @@ nock('http://zombo.com').get('/').times(4).reply(200, 'Ok');
 nock('http://zombo.com').get('/').once().reply(200, 'Ok');
 nock('http://zombo.com').get('/').twice().reply(200, 'Ok');
 nock('http://zombo.com').get('/').thrice().reply(200, 'Ok');
+
+// Make responding optional
+nock('http://zombo.com').get('/').optionally().reply(200, 'Ok');
 
 // Delay the response body
 nock('http://my.server.com')

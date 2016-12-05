@@ -1,5 +1,3 @@
-/// <reference path="quill.d.ts" />
-
 function test_quill() {
     var quillEditor = new Quill('#editor', {
         modules:
@@ -25,9 +23,14 @@ function test_enable() {
     quillEditor.enable();
 }
 
+function test_enable_false() {
+    let quillEditor = new Quill('#Editor');
+    quillEditor.enable(false);
+}
+
 function test_getContents() {
     var quillEditor = new Quill('#editor');
-    var delta: QuillJS.DeltaStatic = quillEditor.getContents();
+    var delta: Quill.DeltaStatic = quillEditor.getContents();
 }
 
 function test_getLength() {
@@ -95,24 +98,24 @@ function test_insertEmbed() {
 
 function test_updateContents() {
     var quillEditor = new Quill('#editor');
-    quillEditor.updateContents({
+    quillEditor.updateContents(new Delta({
         ops: [
             { retain: 6 },        // Keep 'Hello '
             { delete: 5 },        // 'World' is deleted
             { insert: 'Quill' },  // Insert 'Quill'
             { retain: 1, attributes: { bold: true } }    // Apply bold to exclamation mark
         ]
-    });
+    }));
 }
 
 function test_setContents() {
     var quillEditor = new Quill('#editor');
 
-    quillEditor.setContents([
+    quillEditor.setContents(new Delta({ ops: [
         { insert: 'Hello ' },
         { insert: 'World!', attributes: { bold: true } },
         { insert: '\n' }
-    ]);
+    ]}));
 }
 
 function test_setText() {

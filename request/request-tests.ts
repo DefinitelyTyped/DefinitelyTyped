@@ -1,8 +1,8 @@
-/// <reference path="request.d.ts" />
 
 import request = require('request');
 import http = require('http');
 import stream = require('stream');
+import urlModule = require('url');
 import fs = require('fs');
 import FormData = require('form-data');
 
@@ -662,3 +662,12 @@ request(
   .on('data', function(data: Buffer | string) { })
   .on('error', function(e: Error) { })
   .on('complete', function(resp: http.IncomingMessage, body?: string | Buffer) { });
+
+// options.url / options.uri can be the Url object
+request.get({
+  url: urlModule.parse('http://example.com')
+});
+
+request.get({
+  uri: urlModule.parse('http://example.com')
+});

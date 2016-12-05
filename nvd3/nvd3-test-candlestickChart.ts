@@ -1,4 +1,4 @@
-﻿/// <reference path="nvd3.d.ts" />
+﻿
 namespace nvd3_test_candlestickChart {
     var data = [{
         values: [

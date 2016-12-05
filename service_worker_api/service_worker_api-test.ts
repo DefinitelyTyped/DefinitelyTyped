@@ -1,5 +1,3 @@
-/// <reference path="service_worker_api.d.ts" />
-
 var OFFLINE_CACHE = "cache_test";
 var OFFLINE_URL = "localhost";
 
@@ -37,7 +35,7 @@ self.addEventListener('install', function(event: InstallEvent) {
 self.addEventListener('install', function(event: InstallEvent) {
     event.waitUntil(
         self.caches.open('v1').then(function(cache) {
-            return cache.addAll(
+            return cache.addAll([
                 '/sw-test/',
                 '/sw-test/index.html',
                 '/sw-test/style.css',
@@ -48,7 +46,7 @@ self.addEventListener('install', function(event: InstallEvent) {
                 '/sw-test/gallery/bountyHunters.jpg',
                 '/sw-test/gallery/myLittleVader.jpg',
                 '/sw-test/gallery/snowTroopers.jpg'
-            );
+            ]);
         })
     );
 });

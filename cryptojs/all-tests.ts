@@ -1,4 +1,4 @@
-/// <reference path="cryptojs.d.ts" />
+
 
 /// <reference path="test/aes-profile-tests.ts" />
 /// <reference path="test/aes-tests.ts" />

@@ -1,5 +1,3 @@
-/// <reference path="bunyan-config.d.ts"/>
-
 import * as bunyan from "bunyan";
 import bunyanConfig = require("bunyan-config");
 

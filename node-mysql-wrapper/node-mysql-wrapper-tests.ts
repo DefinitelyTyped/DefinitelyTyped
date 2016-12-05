@@ -1,6 +1,6 @@
-/// <reference path="./node-mysql-wrapper.d.ts" />
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../bluebird/bluebird-2.0.d.ts" />
+
+/// <reference types="node" />
+/// <reference types="bluebird" />
 
 var express = require('express');
 var app = express();

@@ -1,4 +1,4 @@
-/// <reference path="./express-session.d.ts" />
+
 
 import express = require('express');
 import session = require('express-session');

@@ -1,4 +1,4 @@
-/// <reference path="jquery-galleria.d.ts" />
+
 namespace JqueryGalleriaTests {
     var container = document.createElement("galleria");
 

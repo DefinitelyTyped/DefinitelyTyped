@@ -1,4 +1,4 @@
-/// <reference path="iscroll-5.d.ts" />
+
 
 var myScroll1 = new IScroll('#wrapper');
 var myScroll2 = new IScroll('#wrapper', { hScrollbar: false, vScrollbar: false });
@@ -34,7 +34,6 @@ myScroll2.on('scrollStart', function () { console.log('scroll started'); });
 
 var myScroll9 = new IScroll(document.getElementById('wrapper'));
 var myScroll10 = new IScroll(document.getElementById('wrapper'), { scrollbarClass: 'myScrollbar' });
-
 var myScroll11 = new IScroll(document.getElementById('wrapper'), { preventDefaultException: [ /^(INPUT|TEXTAREA|BUTTON|SELECT)$/ ] });
 var myScroll12 = new IScroll(document.getElementById('wrapper'), { preventDefaultException: { tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT)$/ } });
 

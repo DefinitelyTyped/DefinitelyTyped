@@ -1,4 +1,4 @@
-/// <reference path="lls.d.ts" />
+
 
 import LargeLocalStorage = require('lls');
 

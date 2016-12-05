@@ -1,4 +1,3 @@
-/// <reference path='path-to-regexp.d.ts' />
 
 import pathToRegexp = require('path-to-regexp');
 

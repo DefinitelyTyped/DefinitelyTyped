@@ -1,4 +1,6 @@
-/// <reference path="angular-feature-flags.d.ts" />
+/// <reference types="angular" />
+
+import * as angular from "angular";
 
 let myApp = angular.module('myApp', ['feature-flags']);
 

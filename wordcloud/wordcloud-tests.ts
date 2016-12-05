@@ -1,5 +1,4 @@
-/// <reference path="wordcloud.d.ts" />
-/// <reference path="../qunit/qunit-1.16.d.ts" />
+/// <reference types="qunit" />
 
 'use strict';
 //declare function test(name: string, test: Function);
@@ -31,47 +30,47 @@ function getTestOptions(): WordCloud.Options {
   };
 };
 
-test('Test runs without any extra parameters.', function() {
+QUnit.test('Test runs without any extra parameters.', function() {
   var options = getTestOptions();
   WordCloud(element, options);
 });
 
-test('Empty list results no output.', function() {
+QUnit.test('Empty list results no output.', function() {
   var options = getTestOptions();
   options.list = [];
 
   WordCloud(element, options);
 });
 
-test('gridSize can be set', function() {
+QUnit.test('gridSize can be set', function() {
   var options = getTestOptions();
   options.gridSize = 15;
 
   WordCloud(element, options);
 });
 
-test('ellipticity can be set', function() {
+QUnit.test('ellipticity can be set', function() {
   var options = getTestOptions();
   options.ellipticity = 1.5;
 
   WordCloud(element, options);
 });
 
-test('origin can be set', function() {
+QUnit.test('origin can be set', function() {
   var options = getTestOptions();
   options.origin = [300, 0];
 
   WordCloud(element, options);
 });
 
-test('minSize can be set', function() {
+QUnit.test('minSize can be set', function() {
   var options = getTestOptions();
   options.minSize = 10;
 
   WordCloud(element, options);
 });
 
-test('rotation can be set and locked', function() {
+QUnit.test('rotation can be set and locked', function() {
   var options = getTestOptions();
   options.rotateRatio = 1;
   options.minRotation = options.maxRotation = Math.PI / 6;
@@ -79,14 +78,14 @@ test('rotation can be set and locked', function() {
   WordCloud(element, options);
 });
 
-test('drawMask can be set', function() {
+QUnit.test('drawMask can be set', function() {
   var options = getTestOptions();
   options.drawMask = true;
 
   WordCloud(element, options);
 });
 
-test('maskColor can be set', function() {
+QUnit.test('maskColor can be set', function() {
   var options = getTestOptions();
   options.drawMask = true;
   options.maskColor = 'rgba(0, 0, 255, 0.8)';
@@ -94,35 +93,35 @@ test('maskColor can be set', function() {
   WordCloud(element, options);
 });
 
-test('backgroundColor can be set', function() {
+QUnit.test('backgroundColor can be set', function() {
   var options = getTestOptions();
   options.backgroundColor = 'rgb(0, 0, 255)';
 
   WordCloud(element, options);
 });
 
-test('semi-transparent backgroundColor can be set', function() {
+QUnit.test('semi-transparent backgroundColor can be set', function() {
   var options = getTestOptions();
   options.backgroundColor = 'rgba(0, 0, 255, 0.3)';
 
   WordCloud(element, options);
 });
 
-test('weightFactor can be set', function() {
+QUnit.test('weightFactor can be set', function() {
   var options = getTestOptions();
   options.weightFactor = 2;
 
   WordCloud(element, options);
 });
 
-test('weightFactor can be set as a function', function() {
+QUnit.test('weightFactor can be set as a function', function() {
   var options = getTestOptions();
   options.weightFactor = function (w) { return Math.sqrt(w); };
 
   WordCloud(element, options);
 });
 
-test('color can be set as a function', function() {
+QUnit.test('color can be set as a function', function() {
   var options = getTestOptions();
   options.color = function (word, weight, fontSize, radius, theta) {
     if (theta < 2*Math.PI/3) {
@@ -137,56 +136,56 @@ test('color can be set as a function', function() {
   WordCloud(element, options);
 });
 
-test('shape can be set to circle', function() {
+QUnit.test('shape can be set to circle', function() {
   var options = getTestOptions();
   options.shape = 'circle';
 
   WordCloud(element, options);
 });
 
-test('shape can be set to cardioid', function() {
+QUnit.test('shape can be set to cardioid', function() {
   var options = getTestOptions();
   options.shape = 'cardioid';
 
   WordCloud(element, options);
 });
 
-test('shape can be set to diamond', function() {
+QUnit.test('shape can be set to diamond', function() {
   var options = getTestOptions();
   options.shape = 'diamond';
 
   WordCloud(element, options);
 });
 
-test('shape can be set to triangle', function() {
+QUnit.test('shape can be set to triangle', function() {
   var options = getTestOptions();
   options.shape = 'triangle';
 
   WordCloud(element, options);
 });
 
-test('shape can be set to triangle-forward', function() {
+QUnit.test('shape can be set to triangle-forward', function() {
   var options = getTestOptions();
   options.shape = 'triangle-forward';
 
   WordCloud(element, options);
 });
 
-test('shape can be set to pentagon', function() {
+QUnit.test('shape can be set to pentagon', function() {
   var options = getTestOptions();
   options.shape = 'pentagon';
 
   WordCloud(element, options);
 });
 
-test('shape can be set to star', function() {
+QUnit.test('shape can be set to star', function() {
   var options = getTestOptions();
   options.shape = 'star';
 
   WordCloud(element, options);
 });
 
-test('shape can be set to a given polar equation', function() {
+QUnit.test('shape can be set to a given polar equation', function() {
   var options = getTestOptions();
   options.shape = function (theta) {
     return theta / (2 * Math.PI);

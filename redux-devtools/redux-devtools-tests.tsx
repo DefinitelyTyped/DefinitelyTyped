@@ -1,14 +1,14 @@
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="../react-redux/react-redux.d.ts" />
-/// <reference path="redux-devtools.d.ts" />
+/// <reference types="react" />
+/// <reference types="redux" />
 
 import * as React from 'react'
-import { createStore, applyMiddleware, compose } from 'redux'
+import { compose, createStore, Reducer, Store, StoreEnhancerStoreCreator } from 'redux'
 import { Provider } from 'react-redux'
 import { createDevTools, persistState } from 'redux-devtools'
 
-class DevToolsMonitor extends React.Component<any, any> {  
+declare var reducer: Reducer<any>
+
+class DevToolsMonitor extends React.Component<any, any> {
 }
 
 const DevTools = createDevTools(
@@ -20,10 +20,12 @@ const finalCreateStore = compose(
   persistState('test-session')
 )(createStore)
 
+const store: Store<any> = finalCreateStore(reducer)
+
 class App extends React.Component<any, any> {
   render() {
     return (
-      <Provider>
+      <Provider store={store}>
         <DevTools />
       </Provider>
     )

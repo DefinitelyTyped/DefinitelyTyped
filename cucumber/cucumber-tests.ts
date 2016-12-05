@@ -1,5 +1,6 @@
-/// <reference path="cucumber.d.ts" />
-/// <reference path="../assert/assert.d.ts" />
+/// <reference types="assert" />
+import cucumber = require("cucumber");
+
 
 function StepSample() {
 	type Callback = cucumber.CallbackStepDefinition;

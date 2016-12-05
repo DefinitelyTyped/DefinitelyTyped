@@ -1,7 +1,4 @@
-/// <reference path='knex.d.ts' />
-
-/// <reference path='../lodash/lodash-3.10.d.ts' />
-
+"use strict";
 import * as Knex from 'knex';
 import * as _ from 'lodash';
 
@@ -340,7 +337,7 @@ knex('accounts').where('userid', '=', 1).decrement('balance', 5);
 
 knex('accounts').truncate();
 
-knex.table('users').pluck('id').then(function(ids) {
+knex.table('users').first('id').then(function(ids) {
   console.log(ids);
 });
 
@@ -380,7 +377,7 @@ knex.transaction(function(trx) {
 
 // Using trx as a transaction object:
 knex.transaction(function(trx) {
-  
+
   trx.raw('')
 
   var info: any;
@@ -456,6 +453,10 @@ knex.schema.raw("SET sql_mode='TRADITIONAL'")
     table.dropColumn('name');
     table.string('first_name');
     table.string('last_name');
+    table.dropUnique(["name1", "name2"], "index_name");
+    table.dropUnique(["name1", "name2"]);
+    table.dropPrimary();
+    table.dropPrimary("constraint_name");
 });
 
 knex('users')
@@ -495,7 +496,7 @@ knex.select('name').from('users')
   .limit(10)
   .offset(x)
   .then(function(rows: any) {
-    return _.pluck(rows, 'name');
+    return _.map(rows, 'name');
   })
   .then(function(names: any) {
     return knex.select('id').from('nicknames').whereIn('nickname', names);
@@ -574,7 +575,7 @@ knex.select('name').from('users')
   .offset(x)
   .exec(function(err: any, rows: any[]) {
     if (err) return console.error(err);
-    knex.select('id').from('nicknames').whereIn('nickname', _.pluck(rows, 'name'))
+    knex.select('id').from('nicknames').whereIn('nickname', _.map(rows, 'name') as any)
       .exec(function(err: any, rows: any[]) {
         if (err) return console.error(err);
         console.log(rows);

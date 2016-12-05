@@ -1,4 +1,4 @@
-/// <reference path="showdown.d.ts" />
+
 
 // compile: tsc showdown/showdown-tests.ts --noImplicitAny --module commonjs
 // run: node showdown/showdown-tests.js

@@ -1,4 +1,3 @@
-/// <reference path="traverse.d.ts" />
 
 import traverse = require('traverse');
 

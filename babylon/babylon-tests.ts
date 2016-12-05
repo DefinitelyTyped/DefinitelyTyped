@@ -1,6 +1,6 @@
-/// <reference path="babylon.d.ts" />
-/// <reference path="../babel-types/babel-types.d.ts" />
-/// <reference path="../babel-types/babel-types.d.ts" />
+
+/// <reference types="babel-types" />
+/// <reference types="babel-types" />
 
 
 // Example from https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md#babylon

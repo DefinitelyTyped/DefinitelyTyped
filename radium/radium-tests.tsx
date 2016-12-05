@@ -1,6 +1,3 @@
-/// <reference path="radium.d.ts" />
-/// <reference path="../react/react.d.ts" />
-
 import * as React from "react";
 import { StyleRoot, Style } from "radium";
 import * as Radium from 'radium';
@@ -8,13 +5,13 @@ import * as Radium from 'radium';
 @Radium
 class TestComponent extends React.Component<{ a: number }, any> {
 
-    render() {
-        return (
-            <div >
-                Test with Radium
-            </div>
-        );
-    }
+	render() {
+		return (
+			<div >
+				Test with Radium
+			</div>
+		);
+	}
 }
 
 let TestStatelessComponent = (props: { a: number }) => <div/>;

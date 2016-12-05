@@ -1,9 +1,9 @@
-﻿// Type definitions for DevExtreme 15.1.4
+// Type definitions for DevExtreme 15.1.4
 // Project: http://js.devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 declare namespace DevExpress {
     /** A mixin that provides a capability to fire and subscribe to events. */

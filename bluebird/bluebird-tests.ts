@@ -1,5 +1,3 @@
-///<reference path="bluebird.d.ts"/>
-
 // Tests by: Bart van der Schoor <https://github.com/Bartvds>
 
 // Note: replicate changes to all overloads in both definition and test file
@@ -335,6 +333,29 @@ fooOrBarProm = fooProm.caught(Error, (reason: any) => {
 fooOrBarProm = fooProm.caught(Promise.CancellationError, (reason: any) => {
 	return bar;
 });
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+{
+	class CustomError extends Error {
+		public customField: number;
+	}
+	fooProm = fooProm.catch(CustomError, reason => {
+		let a: number = reason.customField
+	})
+}
+
+{
+	class CustomErrorWithConstructor extends Error {
+		constructor(public arg1: boolean, public arg2: number) {
+			super();
+		};
+	}
+	fooProm = fooProm.catch(CustomErrorWithConstructor, reason => {
+		let a: boolean = reason.arg1;
+		let b: number = reason.arg2;
+	})
+}
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -776,7 +797,6 @@ fooProm = Promise.race(fooArr);
 
 //TODO expand tests to overloads
 fooArrProm = Promise.some(fooThenArrThen, num);
-fooArrProm = Promise.some(fooArrThen, num);
 fooArrProm = Promise.some(fooThenArr, num);
 fooArrProm = Promise.some(fooArr, num);
 

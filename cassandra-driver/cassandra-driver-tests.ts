@@ -1,4 +1,4 @@
-/// <reference path="cassandra-driver.d.ts" />
+/// <reference types="cassandra-driver" />
 
 import * as cassandra from 'cassandra-driver';
 import * as util from 'util';

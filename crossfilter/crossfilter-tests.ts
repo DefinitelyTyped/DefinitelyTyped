@@ -1,5 +1,5 @@
 
-/// <reference path="crossfilter.d.ts" />
+
 
 interface Payment {
     date: string;
@@ -10,24 +10,24 @@ interface Payment {
 }
 
 var payments = crossfilter<Payment>([
-  {date: "2011-11-14T16:17:54Z", quantity: 2, total: 190, tip: 100, type: "tab"},
-  {date: "2011-11-14T16:20:19Z", quantity: 2, total: 190, tip: 100, type: "tab"},
-  {date: "2011-11-14T16:28:54Z", quantity: 1, total: 300, tip: 200, type: "visa"},
-  {date: "2011-11-14T16:30:43Z", quantity: 2, total: 90, tip: 0, type: "tab"},
-  {date: "2011-11-14T16:48:46Z", quantity: 2, total: 90, tip: 0, type: "tab"},
-  {date: "2011-11-14T16:53:41Z", quantity: 2, total: 90, tip: 0, type: "tab"},
-  {date: "2011-11-14T16:54:06Z", quantity: 1, total: 100, tip: 0, type: "cash"},
-  {date: "2011-11-14T16:58:03Z", quantity: 2, total: 90, tip: 0, type: "tab"},
-  {date: "2011-11-14T17:07:21Z", quantity: 2, total: 90, tip: 0, type: "tab"},
-  {date: "2011-11-14T17:22:59Z", quantity: 2, total: 90, tip: 0, type: "tab"},
-  {date: "2011-11-14T17:25:45Z", quantity: 2, total: 200, tip: 0, type: "cash"},
-  {date: "2011-11-14T17:29:52Z", quantity: 1, total: 200, tip: 100, type: "visa"}
+  { date: "2011-11-14T16:17:54Z", quantity: 2, total: 190, tip: 100, type: "tab" },
+  { date: "2011-11-14T16:20:19Z", quantity: 2, total: 190, tip: 100, type: "tab" },
+  { date: "2011-11-14T16:28:54Z", quantity: 1, total: 300, tip: 200, type: "visa" },
+  { date: "2011-11-14T16:30:43Z", quantity: 2, total: 90, tip: 0, type: "tab" },
+  { date: "2011-11-14T16:48:46Z", quantity: 2, total: 90, tip: 0, type: "tab" },
+  { date: "2011-11-14T16:53:41Z", quantity: 2, total: 90, tip: 0, type: "tab" },
+  { date: "2011-11-14T16:54:06Z", quantity: 1, total: 100, tip: 0, type: "cash" },
+  { date: "2011-11-14T16:58:03Z", quantity: 2, total: 90, tip: 0, type: "tab" },
+  { date: "2011-11-14T17:07:21Z", quantity: 2, total: 90, tip: 0, type: "tab" },
+  { date: "2011-11-14T17:22:59Z", quantity: 2, total: 90, tip: 0, type: "tab" },
+  { date: "2011-11-14T17:25:45Z", quantity: 2, total: 200, tip: 0, type: "cash" },
+  { date: "2011-11-14T17:29:52Z", quantity: 1, total: 200, tip: 100, type: "visa" }
 ]);
 
-var total_payments : number = payments.groupAll<number>().reduce(
-    function(p,v) { return p+=v.total; },
-    function(p,v) { return p-=v.total; },
-    function() { return 0; } ).value();
+var total_payments: number = payments.groupAll<number>().reduce(
+    function(p: number, v: any) { return p += v.total; },
+    function(p: number, v: any) { return p -= v.total; },
+    function() { return 0; }).value();
 
 var paymentsByTotal = payments.dimension((d) => d.total);
 
@@ -49,13 +49,13 @@ paymentsByTotal.filterFunction(d => 0 <= d && d < 10 || 20 <= d && d < 30);
 paymentsByTotal.filterAll();                // selects all payments
 
 var topPayments = paymentsByTotal.top(4);   // the top four payments, by total
-{var p: Payment = topPayments[0];}          // the biggest payment
+{ var p: Payment = topPayments[0]; }          // the biggest payment
 topPayments[1];                             // the second-biggest payment
 
 var allPayments = paymentsByTotal.top(Infinity);
 
 var bottomPayments = paymentsByTotal.bottom(4); // the bottom four payments, by total
-{var p: Payment = bottomPayments[0];}           // the smallest payment
+{ var p: Payment = bottomPayments[0]; }           // the smallest payment
 bottomPayments[1];                              // the second-smallest payment
 
 var paymentGroupsByTotal = paymentsByTotal.group(total => Math.floor(total / 100));
@@ -71,8 +71,8 @@ paymentGroupsByTotal.reduceCount();
 var paymentsByType = payments.dimension(d => d.type),
     paymentVolumeByType = paymentsByType.group().reduceSum(d => d.total),
     topTypes = paymentVolumeByType.top(1);
-{var s: string = topTypes[0].key;}   // the top payment type (e.g., "tab")
-{var n: number = topTypes[0].value;} // the payment volume for that type (e.g., 900)
+{ var s: string = topTypes[0].key; }   // the top payment type (e.g., "tab")
+{ var n: number = topTypes[0].value; } // the payment volume for that type (e.g., 900)
 
 interface Group {
     count: number;
@@ -91,8 +91,8 @@ function reduceRemove(p: Group, v: Payment) {
   return p;
 }
 
-function reduceInitial() : Group {
-  return {count: 0, total: 0};
+function reduceInitial(): Group {
+  return { count: 0, total: 0 };
 }
 
 function orderValue(p: Group) {

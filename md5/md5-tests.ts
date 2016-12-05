@@ -1,6 +1,6 @@
-/// <reference path="md5.d.ts" />
-/// <reference path="../node/node.d.ts" />
-import fs =require("fs");
+/// <reference types="node" />
+
+import fs = require("fs");
 import md5 = require("md5");
 /**
  * API
@@ -29,5 +29,5 @@ import md5 = require("md5");
 console.log(md5('message')); // should print 78e731027d8fd50ed642340b7c9a63b3
 
 fs.readFile('md5.d.ts', function(err: Error, buf: Buffer) {
-  console.log(md5(buf));
+	console.log(md5(buf));
 });

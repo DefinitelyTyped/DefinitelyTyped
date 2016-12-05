@@ -1,4 +1,4 @@
-/// <reference path="handsontable.d.ts" />
+
 
 function test_HandsontableInit() {
   var elem = document.createElement('div');
@@ -250,7 +250,7 @@ function test_HandsontableMethods() {
   hot.getRowHeight(123);
   hot.getSchema();
   hot.getSelected();
-  hot.getSelectedRange();
+  const range: ht.Range = hot.getSelectedRange();
   hot.getSettings();
   hot.getSourceData(123, 123, 123, 123);
   hot.getSourceDataAtCell(123, 123);
@@ -267,6 +267,7 @@ function test_HandsontableMethods() {
   hot.loadData([]);
   hot.populateFromArray(123, 123, [], 123, 123, 'foo', 'foo', 'foo', []);
   hot.propToCol('foo');
+  hot.propToCol(123);
   hot.removeCellMeta(123, 123, 'foo');
   hot.removeHook('foo', function() {});
   hot.render();
@@ -283,4 +284,8 @@ function test_HandsontableMethods() {
   hot.unlisten();
   hot.updateSettings({}, true);
   hot.validateCells(function() {});
+  
+  Handsontable.renderers.NumericRenderer(hot, new HTMLTableDataCellElement(), 0, 0, "prop", 1.235, {});
+  Handsontable.renderers.TextRenderer(hot, new HTMLTableDataCellElement(), 0, 0, "prop", 1.235, {});
+  Handsontable.Dom.addEvent(new HTMLElement(), "eventName", () => {});
 }

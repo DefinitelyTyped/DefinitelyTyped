@@ -1,8 +1,8 @@
-/// <reference path="bardjs.d.ts" />
-/// <reference path="../mocha/mocha.d.ts" />
-/// <reference path="../chai/chai.d.ts" />
-/// <reference path="../angularjs/angular.d.ts" />
-/// <reference path="../angularjs/angular-mocks.d.ts" />
+/// <reference types="mocha" />
+/// <reference types="chai" />
+
+import * as angular from 'angular';
+import 'angular-mocks';
 
 namespace bardTests {
     var expect = chai.expect,
@@ -18,9 +18,11 @@ namespace bardTests {
         }
     }
 
-    myService.$inject = ['$q'];
     function myService($q: angular.IQService) {
         return new MyService($q);
+    }
+    namespace myService {
+        export var $inject = ['$q'];
     }
 
     class MyController {

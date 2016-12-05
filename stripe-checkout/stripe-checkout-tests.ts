@@ -1,5 +1,3 @@
-/// <reference path="stripe-checkout.d.ts" />
-
 // Test the minimum amount of configuration required.
 var handler = StripeCheckout.configure({
 	key: "my-secret-key",
@@ -13,7 +11,7 @@ handler.open();
 handler.close();
 
 // Test all configuration options.
-var options = {
+var options: StripeCheckoutOptions = {
 	key: "my-secret-key",
 	token: function(token: StripeTokenResponse) {
 		console.log(token.id);
@@ -26,9 +24,13 @@ var options = {
     panelLabel: "Pay Definitely Typed {{amount}}",
     label: "Pay Definitely Typed",
     zipCode: false,
+    billingAddress: false,
     email: "test@example.com",
     allowRememberMe: false,
     bitcoin: false,
+    alipay: "auto",
+    alipayReusable: false,
+    shippingAddress: false,
     opened: function() {},
     closed: function() {}
 }

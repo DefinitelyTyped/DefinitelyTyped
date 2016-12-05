@@ -1,7 +1,4 @@
-/// <reference path="stripe-node.d.ts" />
-
 import StripeNode = require('stripe');
-
 
 var stripeTor = new StripeNode("sk_test_BF573NobVn98OiIsPAv7A04K");
 var stripe = StripeNode("sk_test_BF573NobVn98OiIsPAv7A04K")

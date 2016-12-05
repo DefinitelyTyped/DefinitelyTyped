@@ -1,8 +1,5 @@
-/// <reference path="icepick.d.ts" />
-/// <reference path="../underscore/underscore.d.ts" />
-
-
 import i = require("icepick");
+import * as _ from 'underscore';
 
 "use strict"; // so attempted modifications of frozen objects will throw errors
 
@@ -30,7 +27,7 @@ class Foo {}
 // assoc(collection, key, value)
 {
     let coll = { a: 1, b: 2 };
-    let newColl = i.assoc(coll, "b", 3); // {a: 1, b: 3}
+    let newColl = i.assoc<typeof coll, number>(coll, "b", 3); // {a: 1, b: 3}
 
     let arr = ["a", "b", "c"];
     let newArr = i.assoc(arr, 2, "d"); // ["a", "b", "d"]
@@ -39,7 +36,7 @@ class Foo {}
 // alias: set(collection, key, value)
 {
     let coll = { a: 1, b: 2 };
-    let newColl = i.set(coll, "b", 3); // {a: 1, b: 3}
+    let newColl = i.set<typeof coll, number>(coll, "b", 3); // {a: 1, b: 3}
 
     let arr = ["a", "b", "c"];
     let newArr = i.set(arr, 2, "d"); // ["a", "b", "d"]
@@ -73,7 +70,7 @@ class Foo {}
         }
     };
 
-    let newColl = i.assocIn(coll, ["c", "d"], "baz");
+    let newColl = i.assocIn<typeof coll, string>(coll, ["c", "d"], "baz");
 
     let coll2 = {};
     let newColl2 = i.assocIn(coll2, ["a", "b", "c"], 1);
@@ -89,7 +86,7 @@ class Foo {}
         }
     };
 
-    let newColl = i.setIn(coll, ["c", "d"], "baz");
+    let newColl = i.setIn<typeof coll, string>(coll, ["c", "d"], "baz");
 
     let coll2 = {};
     let newColl2 = i.setIn(coll2, ["a", "b", "c"], 1);
@@ -102,7 +99,7 @@ class Foo {}
         { b: 2 }
     ]);
 
-    let result = i.getIn(coll, [1, "b"]); // 2
+    let result = i.getIn(coll, [1, "b"]) as number; // 2
 }
 
 // updateIn(collection, path, callback)
@@ -169,9 +166,13 @@ class Foo {}
     };
 
     let result = i.chain(o)
-        .assocIn(["a", 2], 4)
+        .assocIn<number>(["a", 2], 4)
+        .setIn<number>(["a", 1], 5)
+        .updateIn<number>(["d"], function(d) { return d * 2 })
         .merge({ b: { c: 2, c2: 3 } })
-        .assoc("e", 2)
+        .assoc<number>("e", 2)
+        .set<number>("f", 3)
         .dissoc("d")
-        .value();
+        .getIn(['a', 0])
+        .value() as number;
 }

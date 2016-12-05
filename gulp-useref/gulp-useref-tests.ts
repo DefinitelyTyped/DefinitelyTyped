@@ -1,12 +1,4 @@
-/// <reference path="gulp-useref.d.ts" />
-/// <reference path="../gulp/gulp.d.ts" />
-/// <reference path="../gulp-if/gulp-if.d.ts" />
-/// <reference path="../gulp-uglify/gulp-uglify.d.ts" />
-/// <reference path="../gulp-minify-css/gulp-minify-css.d.ts" />
-/// <reference path="../gulp-sourcemaps/gulp-sourcemaps.d.ts" />
-/// <reference path="../lazypipe/lazypipe.d.ts" />
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../gulp-typescript/gulp-typescript.d.ts" />
+/// <reference types="node" />
 
 import * as gulp from 'gulp';
 import * as useref from 'gulp-useref';

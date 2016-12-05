@@ -1,6 +1,6 @@
-/// <reference path="passport.d.ts" />
-/// <reference path="../express/express.d.ts" />
-/// <reference path="../express-session/express-session.d.ts" />
+
+
+/// <reference types="express-session" />
 
 import express = require('express');
 import passport = require('passport');
@@ -29,7 +29,9 @@ const newFramework:passport.Framework = {
 passport.use(new TestStrategy());
 passport.framework(newFramework);
 passport.serializeUser((user, done) => { });
+passport.serializeUser<string, number>((user, done) => { });
 passport.deserializeUser((id, done) => { });
+passport.deserializeUser<string, number>((id, done) => { });
 
 passport.use(new TestStrategy())
   .unuse('test')
@@ -43,7 +45,7 @@ app.configure(() => {
   app.use(passport.session());
 });
 
-app.post('/login',
+app.post('/login', 
   passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
   function (req, res) {
     res.redirect('/');
@@ -81,14 +83,14 @@ function authSetting(): void {
   };
 
   app.get('/auth/facebook',
-    passport.authenticate('facebook'));
+      passport.authenticate('facebook'));
   app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', authOption), successCallback);
+      passport.authenticate('facebook', authOption), successCallback);
 
   app.get('/auth/twitter',
-    passport.authenticate('twitter'));
+      passport.authenticate('twitter'));
   app.get('/auth/twitter/callback',
-    passport.authenticate('twitter', authOption));
+      passport.authenticate('twitter', authOption));
 
   app.get('/auth/google',
     passport.authenticate('google', {
@@ -96,7 +98,7 @@ function authSetting(): void {
       ['https://www.googleapis.com/auth/userinfo.profile']
     }));
   app.get('/auth/google/callback',
-    passport.authenticate('google', authOption), successCallback);
+      passport.authenticate('google', authOption), successCallback);
 
 }
 

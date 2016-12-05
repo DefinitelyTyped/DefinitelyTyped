@@ -1,6 +1,4 @@
-///<reference path="blessed.d.ts" />
-
-import * as blessed from 'blessed';
+import * as blessed from 'blessed'
 
 let screen: blessed.Widgets.Screen = null;
 

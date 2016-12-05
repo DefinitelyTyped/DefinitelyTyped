@@ -1,5 +1,4 @@
-/// <reference path="./redux-mock-store.d.ts" />
-
+import * as Redux from 'redux';
 import configureStore, {IStore} from 'redux-mock-store';
 
 // Redux store API tests
@@ -42,3 +41,7 @@ store.dispatch({ type: 'INCREMENT' });
 var actions: Array<any> = store.getActions();
 
 store.clearActions();
+
+// actions access without the need to cast
+var actions2 = store.getActions();
+actions2[10].payload.id;

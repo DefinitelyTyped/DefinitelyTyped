@@ -3,7 +3,6 @@
 // Definitions by: Nico Jansen <https://github.com/nicojs>, Meirion Hughes <https://github.com/MeirionHughes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="./parse5.d.ts" />
 
 import * as parse5 from 'parse5';
 
@@ -59,6 +58,7 @@ fragment = parse5.parseFragment('<div></div>', {locationInfo: true});
 fragment.quirksMode = true;
 fragment.namespaceURI = '';
 fragment.nodeName = '';
+fragment.tagName = '';
 fragment.value = '';
 fragment.data = '';
 fragment = fragment.childNodes[0];

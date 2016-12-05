@@ -1,5 +1,4 @@
-/// <reference path="ui-router-extras.d.ts"/>
-
+import * as angular from 'angular';
 var myApp = angular.module('testModule')
 
 myApp.config(($stateProvider: angular.ui.IStateProvider, $stickyStateProvider: angular.ui.IStickyStateProvider) => {

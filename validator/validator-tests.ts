@@ -1,4 +1,4 @@
-/// <reference path='./validator.d.ts' />
+/// <reference types="validator" />
 
 import * as validator from 'validator';
 
@@ -8,67 +8,66 @@ import * as validator from 'validator';
 *                  IMPORT TESTS                 *
 *                                               *
 ************************************************/
-import {
-    blacklist as blacklistFunc,
-    contains as containsFunc,
-    equals as equalsFunc,
-    escape as escapeFunc,
-    isAfter as isAfterFunc,
-    isAlpha as isAlphaFunc,
-    isAlphanumeric as isAlphanumericFunc,
-    isAscii as isAsciiFunc,
-    isBase64 as isBase64Func,
-    isBefore as isBeforeFunc,
-    isBoolean as isBooleanFunc,
-    isByteLength as isByteLengthFunc,
-    isCreditCard as isCreditCardFunc,
-    isCurrency as isCurrencyFunc,
-    isDataURI as isDataURIFunc,
-    isDate as isDateFunc,
-    isDecimal as isDecimalFunc,
-    isDivisibleBy as isDivisibleByFunc,
-    isEmail as isEmailFunc,
-    isFQDN as isFQDNFunc,
-    isFloat as isFloatFunc,
-    isFullWidth as isFullWidthFunc,
-    isHalfWidth as isHalfWidthFunc,
-    isHexColor as isHexColorFunc,
-    isHexadecimal as isHexadecimalFunc,
-    isIP as isIPFunc,
-    isISBN as isISBNFunc,
-    isISIN as isISINFunc,
-    isISO8601 as isISO8601Func,
-    isIn as isInFunc,
-    isInt as isIntFunc,
-    isJSON as isJSONFunc,
-    isLength as isLengthFunc,
-    isLowercase as isLowercaseFunc,
-    isMACAddress as isMACAddressFunc,
-    isMD5 as isMD5Func,
-    isMobilePhone as isMobilePhoneFunc,
-    isMongoId as isMongoIdFunc,
-    isMultibyte as isMultibyteFunc,
-    isNull as isNullFunc,
-    isNumeric as isNumericFunc,
-    isSurrogatePair as isSurrogatePairFunc,
-    isURL as isURLFunc,
-    isUUID as isUUIDFunc,
-    isUppercase as isUppercaseFunc,
-    isVariableWidth as isVariableWidthFunc,
-    isWhitelisted as isWhitelistedFunc,
-    ltrim as ltrimFunc,
-    matches as matchesFunc,
-    normalizeEmail as normalizeEmailFunc,
-    rtrim as rtrimFunc,
-    stripLow as stripLowFunc,
-    toBoolean as toBooleanFunc,
-    toDate as toDateFunc,
-    toFloat as toFloatFunc,
-    toInt as toIntFunc,
-    trim as trimFunc,
-    unescape as unescapeFunc,
-    whitelist as whitelistFunc,
-} from 'validator'
+import blacklistFunc = require('validator/lib/blacklist');
+import containsFunc = require('validator/lib/contains');
+import equalsFunc = require('validator/lib/equals');
+import escapeFunc = require('validator/lib/escape');
+import isAfterFunc = require('validator/lib/isAfter');
+import isAlphaFunc = require('validator/lib/isAlpha');
+import isAlphanumericFunc = require('validator/lib/isAlphanumeric');
+import isAsciiFunc = require('validator/lib/isAscii');
+import isBase64Func = require('validator/lib/isBase64');
+import isBeforeFunc = require('validator/lib/isBefore');
+import isBooleanFunc = require('validator/lib/isBoolean');
+import isByteLengthFunc = require('validator/lib/isByteLength');
+import isCreditCardFunc = require('validator/lib/isCreditCard');
+import isCurrencyFunc = require('validator/lib/isCurrency');
+import isDataURIFunc = require('validator/lib/isDataURI');
+import isDateFunc = require('validator/lib/isDate');
+import isDecimalFunc = require('validator/lib/isDecimal');
+import isDivisibleByFunc = require('validator/lib/isDivisibleBy');
+import isEmailFunc = require('validator/lib/isEmail');
+import isEmptyFunc = require('validator/lib/isEmpty');
+import isFQDNFunc = require('validator/lib/isFQDN');
+import isFloatFunc = require('validator/lib/isFloat');
+import isFullWidthFunc = require('validator/lib/isFullWidth');
+import isHalfWidthFunc = require('validator/lib/isHalfWidth');
+import isHexColorFunc = require('validator/lib/isHexColor');
+import isHexadecimalFunc = require('validator/lib/isHexadecimal');
+import isIPFunc = require('validator/lib/isIP');
+import isISBNFunc = require('validator/lib/isISBN');
+import isISINFunc = require('validator/lib/isISIN');
+import isISO8601Func = require('validator/lib/isISO8601');
+import isInFunc = require('validator/lib/isIn');
+import isIntFunc = require('validator/lib/isInt');
+import isJSONFunc = require('validator/lib/isJSON');
+import isLengthFunc = require('validator/lib/isLength');
+import isLowercaseFunc = require('validator/lib/isLowercase');
+import isMACAddressFunc = require('validator/lib/isMACAddress');
+import isMD5Func = require('validator/lib/isMD5');
+import isMobilePhoneFunc = require('validator/lib/isMobilePhone');
+import isMongoIdFunc = require('validator/lib/isMongoId');
+import isMultibyteFunc = require('validator/lib/isMultibyte');
+import isNullFunc = require('validator/lib/isNull');
+import isNumericFunc = require('validator/lib/isNumeric');
+import isSurrogatePairFunc = require('validator/lib/isSurrogatePair');
+import isURLFunc = require('validator/lib/isURL');
+import isUUIDFunc = require('validator/lib/isUUID');
+import isUppercaseFunc = require('validator/lib/isUppercase');
+import isVariableWidthFunc = require('validator/lib/isVariableWidth');
+import isWhitelistedFunc = require('validator/lib/isWhitelisted');
+import ltrimFunc = require('validator/lib/ltrim');
+import matchesFunc = require('validator/lib/matches');
+import normalizeEmailFunc = require('validator/lib/normalizeEmail');
+import rtrimFunc = require('validator/lib/rtrim');
+import stripLowFunc = require('validator/lib/stripLow');
+import toBooleanFunc = require('validator/lib/toBoolean');
+import toDateFunc = require('validator/lib/toDate');
+import toFloatFunc = require('validator/lib/toFloat');
+import toIntFunc = require('validator/lib/toInt');
+import trimFunc = require('validator/lib/trim');
+import unescapeFunc = require('validator/lib/unescape');
+import whitelistFunc = require('validator/lib/whitelist');
 
 namespace import_tests {
   let _blacklist = validator.blacklist;
@@ -127,6 +126,9 @@ namespace import_tests {
 
   let _isEmail = validator.isEmail;
   _isEmail = isEmailFunc;
+
+  let _isEmpty = validator.isEmpty;
+  _isEmpty = isEmptyFunc;
 
   let _isFQDN = validator.isFQDN;
   _isFQDN = isFQDNFunc;
@@ -510,8 +512,9 @@ let any: any;
   result = validator.ltrim('sample', ' ');
 
   let normalizeEmailOptions: ValidatorJS.NormalizeEmailOptions;
-  result = validator.normalizeEmail('sample');
-  result = validator.normalizeEmail('sample', normalizeEmailOptions);
+  let normalizeResult: string | false;
+  normalizeResult = validator.normalizeEmail('sample');
+  normalizeResult = validator.normalizeEmail('sample', normalizeEmailOptions);
 
   result = validator.rtrim('sample');
   result = validator.rtrim('sample', ' ');

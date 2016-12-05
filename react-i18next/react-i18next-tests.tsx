@@ -1,9 +1,3 @@
-///<reference path="../react/react.d.ts" />
-///<reference path="../react/react-dom.d.ts" />
-///<reference path="../i18next/i18next.d.ts" />
-///<reference path="./react-i18next.d.ts" />
-
-
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import * as i18n from 'i18next';
@@ -32,7 +26,7 @@ interface InnerAnotherComponentProps {
 
 class InnerAnotherComponent extends React.Component<InnerAnotherComponentProps, {}> {
     render() {
-        const { _ } = this.props;
+        const _ = this.props._!;
 
         return <p>{_('content.text', { /* options t options */ })}</p>;
     }
@@ -47,7 +41,7 @@ interface InnerYetAnotherComponentProps extends InjectedTranslateProps {
 
 class InnerYetAnotherComponent extends React.Component<InnerYetAnotherComponentProps, {}> {
     render() {
-        const { t } = this.props;
+        const t = this.props.t!;
 
         return <p>{t('usingDefaultNS', { /* options t options */ })}</p>;
     }
@@ -61,7 +55,7 @@ interface TranslatableViewProps extends InjectedTranslateProps {
 @translate(['view', 'nav'], { wait: true })
 class TranslatableView extends React.Component<TranslatableViewProps, {}> {
     render() {
-        const { t } = this.props;
+        const t = this.props.t!;
 
         let interpolateComponent = <strong>"a interpolated component"</strong>;
 

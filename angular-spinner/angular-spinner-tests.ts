@@ -1,4 +1,4 @@
-/// <reference path="angular-spinner.d.ts" />
+/// <reference types="angular" />
 
 var myApp = angular.module('testModule');
 

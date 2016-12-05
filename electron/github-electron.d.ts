@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.4.3
+// Type definitions for Electron v1.4.4
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -423,6 +423,13 @@ declare namespace Electron {
 		 * Note: This API is only available on macOS and Windows.
 		 */
 		setLoginItemSettings(settings: LoginItemSettings): void;
+		/**
+		 * Set the about panel options. This will override the values defined in the app's .plist file.
+		 * See the Apple docs for more details.
+		 *
+		 * Note: This API is only available on macOS.
+		 */
+		setAboutPanelOptions(options: AboutPanelOptions): void;
 		commandLine: CommandLine;
 		/**
 		 * Note: This API is only available on macOS.
@@ -682,6 +689,29 @@ declare namespace Electron {
 		 * This setting is only supported on macOS.
 		 */
 		restoreState?: boolean;
+	}
+
+	interface AboutPanelOptions {
+		/**
+		 * The app's name.
+		 */
+		applicationName?: string;
+		/**
+		 * The app's version.
+		 */
+		applicationVersion?: string;
+		/**
+		 * Copyright information.
+		 */
+		copyright?: string;
+		/**
+		 * Credit information.
+		 */
+		credits?: string;
+		/**
+		 * The app's build version number.
+		 */
+		version?: string;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/auto-updater.md
@@ -3547,6 +3577,38 @@ declare namespace Electron {
 
 	// https://github.com/electron/electron/blob/master/docs/api/system-preferences.md
 
+	type SystemColor =
+		'3d-dark-shadow' |            // Dark shadow for three-dimensional display elements.
+		'3d-face' |                   // Face color for three-dimensional display elements and for dialog box backgrounds.
+		'3d-highlight' |              // Highlight color for three-dimensional display elements.
+		'3d-light' |                  // Light color for three-dimensional display elements.
+		'3d-shadow' |                 // Shadow color for three-dimensional display elements.
+		'active-border' |             // Active window border.
+		'active-caption' |            // Active window title bar. Specifies the left side color in the color gradient of an active window's title bar if the gradient effect is enabled.
+		'active-caption-gradient' |   // Right side color in the color gradient of an active window's title bar.
+		'app-workspace' |             // Background color of multiple document interface (MDI) applications.
+		'button-text' |               // Text on push buttons.
+		'caption-text' |              // Text in caption, size box, and scroll bar arrow box.
+		'desktop' |                   // Desktop background color.
+		'disabled-text' |             // Grayed (disabled) text.
+		'highlight' |                 // Item(s) selected in a control.
+		'highlight-text' |            // Text of item(s) selected in a control.
+		'hotlight' |                  // Color for a hyperlink or hot-tracked item.
+		'inactive-border' |           // Inactive window border.
+		'inactive-caption' |          // Inactive window caption. Specifies the left side color in the color gradient of an inactive window's title bar if the gradient effect is enabled.
+		'inactive-caption-gradient' | // Right side color in the color gradient of an inactive window's title bar.
+		'inactive-caption-text' |     // Color of text in an inactive caption.
+		'info-background' |           // Background color for tooltip controls.
+		'info-text' |                 // Text color for tooltip controls.
+		'menu' |                      // Menu background.
+		'menu-highlight' |            // The color used to highlight menu items when the menu appears as a flat menu.
+		'menubar' |                   // The background color for the menu bar when menus appear as flat menus.
+		'menu-text' |                 // Text in menus.
+		'scrollbar' |                 // Scroll bar gray area.
+		'window' |                    // Window background.
+		'window-frame' |              // Window frame.
+		'window-text';                // Text in windows.
+
 	/**
 	 * Get system preferences.
 	 */
@@ -3555,6 +3617,20 @@ declare namespace Electron {
 		 * Note: This is only implemented on Windows.
 		 */
 		on(event: 'accent-color-changed', listener: (event: Event, newColor: string) => void): this;
+		/**
+		 * Note: This is only implemented on Windows.
+		 */
+		on(event: 'color-changed', listener: (event: Event) => void): this;
+		/**
+		 * Note: This is only implemented on Windows.
+		 */
+		on(event: 'inverted-color-scheme-changed', listener: (
+			event: Event,
+			/**
+			 * @param invertedColorScheme true if an inverted color scheme, such as a high contrast theme, is being used, false otherwise.
+			 */
+			invertedColorScheme: boolean
+		) => void): this;
 		on(event: string, listener: Function): this;
 		/**
 		 * @returns Whether the system is in Dark Mode.
@@ -3621,6 +3697,18 @@ declare namespace Electron {
 		 * Note: This is only implemented on Windows.
 		 */
 		getAccentColor(): string;
+		/**
+		 * @returns true if an inverted color scheme, such as a high contrast theme, is active, false otherwise.
+		 *
+		 * Note: This is only implemented on Windows.
+		 */
+		isInvertedColorScheme(): boolean;
+		/**
+		 * @returns The system color setting in RGB hexadecimal form (#ABCDEF). See the Windows docs for more details.
+		 *
+		 * Note: This is only implemented on Windows.
+		 */
+		getColor(color: SystemColor): string;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/tray.md

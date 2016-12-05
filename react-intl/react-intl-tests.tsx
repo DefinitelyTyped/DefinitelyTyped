@@ -1,18 +1,16 @@
 /**
  * Created by Bruno Grieder and Christian Droulers
+ * Updated by Fedor Nezhivoi
  */
 
-///<reference path="../react/react.d.ts" />
-///<reference path="../react-mixin/react-mixin.d.ts" />
-///<reference path="./react-intl.d.ts" />
-
+///<reference types="react" />
 
 import * as React from "react"
-
 import * as reactMixin from "react-mixin"
+
 import {
 IntlProvider,
-InjectedIntlProps,
+InjectedIntl,
 addLocaleData,
 hasLocaleData,
 injectIntl,
@@ -26,27 +24,29 @@ FormattedPlural,
 FormattedDate,
 FormattedTime
 } from "react-intl"
+
 import reactIntlEn = require("react-intl/locale-data/en");
 
 addLocaleData(reactIntlEn);
 console.log(hasLocaleData("en"));
 
-interface SomeComponentProps extends InjectedIntlProps {
-
+interface SomeComponentProps {
+  intl: InjectedIntl
 }
 
-class SomeComponent extends React.Component<SomeComponentProps, {}> {
+class SomeComponent extends React.Component<SomeComponentProps, void> {
     static propTypes: React.ValidationMap<any> = {
         intl: intlShape.isRequired
     };
     public render(): React.ReactElement<{}> {
-        const formattedDate = this.props.formatDate(new Date(), { format: "short" });
-        const formattedTime = this.props.formatTime(new Date(), { format: "short" });
-        const formattedRelative = this.props.formatRelative(new Date().getTime(), { format: "short" });
-        const formattedNumber = this.props.formatNumber(123, { format: "short" });
-        const formattedPlural = this.props.formatPlural(1, { one: "hai!" });
-        const formattedMessage = this.props.formatMessage({ id: "hello", defaultMessage: "Hello {name}!" }, { name: "Roger" });
-        const formattedHTMLMessage = this.props.formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{name}</strong>!" }, { name: "Roger" });
+        const intl = this.props.intl;
+        const formattedDate = intl.formatDate(new Date(), { format: "short" });
+        const formattedTime = intl.formatTime(new Date(), { format: "short" });
+        const formattedRelative = intl.formatRelative(new Date().getTime(), { format: "short" });
+        const formattedNumber = intl.formatNumber(123, { format: "short" });
+        const formattedPlural = intl.formatPlural(1, { one: "hai!" });
+        const formattedMessage = intl.formatMessage({ id: "hello", defaultMessage: "Hello {name}!" }, { name: "Roger" });
+        const formattedHTMLMessage = intl.formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{name}</strong>!" }, { name: "Roger" });
         return <div>
             <FormattedRelative
                 value={new Date().getTime() }
@@ -144,6 +144,8 @@ class SomeComponent extends React.Component<SomeComponentProps, {}> {
     }
 }
 
+const SomeComponentWithIntl = injectIntl(SomeComponent);
+
 class TestApp extends React.Component<{}, {}> {
     public render(): React.ReactElement<{}> {
         const definedMessages = defineMessages({
@@ -155,14 +157,16 @@ class TestApp extends React.Component<{}, {}> {
 
         const messages = {
             "hello": "Hello, {name}!"
-        }
-        return (<IntlProvider locale="en" formats={{}} messages={messages} defaultLocale="en" defaultFormats={messages}>
-            <SomeComponent />
-            </IntlProvider>)
+        };
+        return (
+          <IntlProvider locale="en" formats={{}} messages={messages} defaultLocale="en" defaultFormats={messages}>
+            <SomeComponentWithIntl />
+          </IntlProvider>
+        );
     }
 }
 
 export default {
     TestApp,
-    SomeComponent: injectIntl(SomeComponent)
+    SomeComponent: SomeComponentWithIntl
 }

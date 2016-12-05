@@ -3,9 +3,11 @@
 // Definitions by: Jed Mao <https://github.com/jedmao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../handlebars/handlebars-1.0.0.d.ts" />
+/// <reference types="jquery"/>
+/// <reference types="handlebars"/>
 
+/* this is an older file, do not lint */
+/* tslint:disable */
 declare var Handlebars: HandlebarsStatic;
 
 declare namespace EmberStates {

@@ -1,6 +1,5 @@
-/// <reference path="o.js.d.ts" /> 
-
 import * as o from 'o.js';
+import * as Q from "q";
 
 interface Product {
     ID : number;

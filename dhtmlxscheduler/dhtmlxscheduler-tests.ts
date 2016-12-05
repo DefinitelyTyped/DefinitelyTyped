@@ -1,4 +1,4 @@
-/// <reference path="dhtmlxscheduler.d.ts" />
+
 
 //date operations
 var start: Date = scheduler.date.week_start(new Date());
@@ -31,7 +31,6 @@ scheduler.load("/data/events");
 scheduler.attachEvent("onEmptyClick", function (ev?: Event) {
     var date: Date = scheduler.getActionData(ev).date;
 });
-
 //filters
 scheduler.filter_week = (id: string, e: Event) => true;
 

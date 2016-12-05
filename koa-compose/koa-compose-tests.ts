@@ -1,4 +1,3 @@
-/// <reference path="koa-compose.d.ts" />
 
 import compose = require('koa-compose');
 

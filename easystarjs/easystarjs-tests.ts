@@ -1,5 +1,3 @@
-/// <reference path="easystarjs.d.ts"/>
-
 // For node.js compile using: tsc --module commonjs easystarjs-tests.ts
 // then run using: node easystarjs-tests.js
 import EasyStar = require('easystarjs');

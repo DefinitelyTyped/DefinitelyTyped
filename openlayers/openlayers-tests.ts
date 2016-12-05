@@ -1,5 +1,3 @@
-/// <reference path="openlayers.d.ts" />
-
 // Basic type variables for test functions
 let anyValue: any;
 let voidValue: void;

@@ -1,5 +1,3 @@
-/// <reference path='dateformat.d.ts' />
-
 /**
  * https://github.com/felixge/node-dateformat#usage
  */

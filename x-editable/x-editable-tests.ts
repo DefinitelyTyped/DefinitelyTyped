@@ -3,8 +3,7 @@
 // Definitions by: Chris Kirby <https://github.com/sirkirby/>
 // Definitions: https://github.com/sirkirby/DefinitelyTyped
 
-/// <reference path="x-editable.d.ts"/>
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 // server post and response
 $('#username').editable({

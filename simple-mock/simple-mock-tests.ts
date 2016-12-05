@@ -1,36 +1,34 @@
-/// <reference path="../mocha/mocha.d.ts"/>
-/// <reference path="../node/node.d.ts"/>
-/// <reference path="../bluebird/bluebird.d.ts"/>
+/// <reference types="mocha"/>
+/// <reference types="node"/>
+/// <reference types="bluebird"/>
 
-/// <reference path="./simple-mock.d.ts"/>
+'use strict';
 
-'use strict'
-
-import simple = require('simple-mock');
+import Simple = require('simple-mock');
 import assert = require('assert');
 
 import Bluebird = require('bluebird');
 
-// Following code is a TypeScript convertion of the test suite bundled with simple-mock.
+// Following code is a TypeScript convertion of the test suite bundled with Simple-mock.
 // Original test in MIT license
 
-describe('simple', function () {
-  describe('spy()', function () {
-    describe('for noop function', function () {
+describe('Simple', function() {
+  describe('spy()', function() {
+    describe('for noop function', function() {
       let spyFn: Simple.Spy<void>;
 
-      beforeEach(function () {
-        spyFn = simple.spy(function () {})
+      beforeEach(function() {
+        spyFn = Simple.spy(function() { })
       })
 
-      it('can be queried without having been called', function () {
+      it('can be queried without having been called', function() {
         assert.equal(spyFn.callCount, 0)
         assert.deepEqual(spyFn.calls, [])
         assert(spyFn.lastCall)
         assert.deepEqual(spyFn.lastCall.args, [])
       })
 
-      it('can be queried for arguments on a single call', function () {
+      it('can be queried for arguments on a single call', function() {
         let context = {
           spyFn: spyFn
         }
@@ -47,7 +45,7 @@ describe('simple', function () {
         assert.equal(spyFn.lastCall.context, context)
       })
 
-      it('can be queried for arguments over multiple calls', function () {
+      it('can be queried for arguments over multiple calls', function() {
         let context = {
           spyFn: spyFn
         }
@@ -71,20 +69,20 @@ describe('simple', function () {
       })
     })
 
-    describe('for a throwing function', function () {
+    describe('for a throwing function', function() {
       let originalFn: () => void;
       let spyFn: Simple.Spy<void>;
-      beforeEach(function () {
+      beforeEach(function() {
         let i = 0
 
-        originalFn = function () {
+        originalFn = function() {
           throw new Error(`${i++}`)
         }
 
-        spyFn = simple.spy(originalFn)
+        spyFn = Simple.spy(originalFn)
       })
 
-      it('can be queried without having been called', function () {
+      it('can be queried without having been called', function() {
         assert(!spyFn.called)
         assert.equal(spyFn.callCount, 0)
         assert.deepEqual(spyFn.calls, [])
@@ -92,7 +90,7 @@ describe('simple', function () {
         assert.equal(spyFn.lastCall.threw, undefined)
       })
 
-      it('can be queried for what it threw on a single call', function () {
+      it('can be queried for what it threw on a single call', function() {
         let threw: Error;
         try {
           spyFn()
@@ -107,7 +105,7 @@ describe('simple', function () {
         assert.equal(spyFn.firstCall.threw, threw)
       })
 
-      it('can be queried for what it threw over multiple calls', function () {
+      it('can be queried for what it threw over multiple calls', function() {
         let threw: Error[] = []
         try {
           spyFn()
@@ -135,20 +133,20 @@ describe('simple', function () {
       })
     })
 
-    describe('for a returning function', function () {
+    describe('for a returning function', function() {
       let originalFn: () => number;
       let spyFn: Simple.Spy<number>;
-      beforeEach(function () {
+      beforeEach(function() {
         let i = 1
 
         originalFn = () => {
           return i++
         }
 
-        spyFn = simple.spy(originalFn)
+        spyFn = Simple.spy(originalFn)
       })
 
-      it('can be queried without having been called', function () {
+      it('can be queried without having been called', function() {
         assert(!spyFn.called)
         assert.equal(spyFn.callCount, 0)
         assert.deepEqual(spyFn.calls, [])
@@ -156,7 +154,7 @@ describe('simple', function () {
         assert.equal(spyFn.lastCall.returned, undefined)
       })
 
-      it('can be queried for what it threw on a single call', function () {
+      it('can be queried for what it threw on a single call', function() {
         let returned: number
 
         returned = spyFn()
@@ -167,7 +165,7 @@ describe('simple', function () {
         assert.equal(spyFn.firstCall.returned, returned)
       })
 
-      it('can be queried for what it threw over multiple calls', function () {
+      it('can be queried for what it threw over multiple calls', function() {
         let returned: number[] = []
 
         returned.push(spyFn())
@@ -184,11 +182,11 @@ describe('simple', function () {
       })
     })
 
-    describe('calls of multiple spies', function () {
-      it('can be compared to determine the order they were called in', function () {
-        let spy1 = simple.spy(function () {})
-        let spy2 = simple.spy(function () {})
-        let spy3 = simple.spy(function () {})
+    describe('calls of multiple spies', function() {
+      it('can be compared to determine the order they were called in', function() {
+        let spy1 = Simple.spy(function() { })
+        let spy2 = Simple.spy(function() { })
+        let spy3 = Simple.spy(function() { })
 
         spy1()
         spy3()
@@ -203,11 +201,11 @@ describe('simple', function () {
     })
   })
 
-  describe('stub()', function () {
-    describe('with no configuration', function () {
+  describe('stub()', function() {
+    describe('with no configuration', function() {
       let stubFn: Simple.Stub<void>;
-      it('is also a spy', function () {
-        stubFn = simple.stub()
+      it('is also a spy', function() {
+        stubFn = Simple.stub()
 
         stubFn('etc')
         assert(stubFn.called)
@@ -215,15 +213,15 @@ describe('simple', function () {
       })
     })
 
-    describe('for a single callback configuration', function () {
+    describe('for a single callback configuration', function() {
       let stubFn: Simple.Stub<void>;
-      describe('with default index', function () {
-        beforeEach(function () {
-          stubFn = simple.stub().callbackWith(1, 2, 3)
+      describe('with default index', function() {
+        beforeEach(function() {
+          stubFn = Simple.stub().callbackWith(1, 2, 3)
         })
 
-        it('can call back with arguments', function () {
-          stubFn('a', function () {
+        it('can call back with arguments', function() {
+          stubFn('a', function() {
             assert(stubFn.called)
             assert.equal(stubFn.callCount, 1)
             assert.equal(stubFn.lastCall.args[0], 'a')
@@ -234,9 +232,9 @@ describe('simple', function () {
           })
         })
 
-        it('can call back with arguments, over multiple calls', function () {
-          stubFn('a', function () {})
-          stubFn('b', function () {
+        it('can call back with arguments, over multiple calls', function() {
+          stubFn('a', function() { })
+          stubFn('b', function() {
             assert(stubFn.called)
             assert.equal(stubFn.callCount, 2)
             assert.equal(stubFn.lastCall.args[0], 'b')
@@ -248,13 +246,13 @@ describe('simple', function () {
         })
       })
 
-      describe('with specified index', function () {
-        beforeEach(function () {
-          stubFn = simple.stub().callbackArgWith(1, 2, 3)
+      describe('with specified index', function() {
+        beforeEach(function() {
+          stubFn = Simple.stub().callbackArgWith(1, 2, 3)
         })
 
-        it('can call back with arguments', function () {
-          stubFn('a', function () {
+        it('can call back with arguments', function() {
+          stubFn('a', function() {
             assert(stubFn.called)
             assert.equal(stubFn.callCount, 1)
             assert.equal(stubFn.lastCall.args[0], 'a')
@@ -264,9 +262,9 @@ describe('simple', function () {
           })
         })
 
-        it('can call back with arguments, over multiple calls', function () {
-          stubFn('a', function () {})
-          stubFn('b', function () {
+        it('can call back with arguments, over multiple calls', function() {
+          stubFn('a', function() { })
+          stubFn('b', function() {
             assert(stubFn.called)
             assert.equal(stubFn.callCount, 2)
             assert.equal(stubFn.lastCall.args[0], 'b')
@@ -277,13 +275,13 @@ describe('simple', function () {
         })
       })
 
-      describe('with context specified', function () {
-        beforeEach(function () {
-          stubFn = simple.stub().callback().inThisContext({ a: 'a' })
+      describe('with context specified', function() {
+        beforeEach(function() {
+          stubFn = Simple.stub().callback().inThisContext({ a: 'a' })
         })
 
-        it('should do what...', function (done) {
-          stubFn(function () {
+        it('should do what...', function(done) {
+          stubFn(function() {
             assert.equal(this.a, 'a')
             done()
           })
@@ -291,14 +289,14 @@ describe('simple', function () {
       })
     })
 
-    describe('for a multiple callback configurations', function () {
+    describe('for a multiple callback configurations', function() {
       let stubFn: Simple.Stub<void>;
-      beforeEach(function () {
-        stubFn = simple.stub().callbackWith(1).callbackWith(2).callbackWith(3)
+      beforeEach(function() {
+        stubFn = Simple.stub().callbackWith(1).callbackWith(2).callbackWith(3)
       })
 
-      it('can call back once with arguments', function () {
-        stubFn('a', function () {
+      it('can call back once with arguments', function() {
+        stubFn('a', function() {
           assert(stubFn.called)
           assert.equal(stubFn.callCount, 1)
           assert.equal(stubFn.lastCall.args[0], 'a')
@@ -306,57 +304,57 @@ describe('simple', function () {
         })
       })
 
-      it('can call back with arguments, over multiple calls, looping per default', function () {
-        stubFn('a', function () {})
-        stubFn('b', function () {
+      it('can call back with arguments, over multiple calls, looping per default', function() {
+        stubFn('a', function() { })
+        stubFn('b', function() {
           assert(stubFn.called)
           assert.equal(stubFn.callCount, 2)
           assert.equal(stubFn.lastCall.args[0], 'b')
           assert.equal(arguments[0], 2)
         })
-        stubFn('c', function () {
+        stubFn('c', function() {
           assert(stubFn.called)
           assert.equal(stubFn.callCount, 3)
           assert.equal(stubFn.lastCall.args[0], 'c')
           assert.equal(arguments[0], 3)
         })
-        stubFn('d', function () {
+        stubFn('d', function() {
           assert.equal(stubFn.callCount, 4)
           assert.equal(stubFn.lastCall.args[0], 'd')
           assert.equal(arguments[0], 1)
         })
       })
 
-      it('can call back with arguments, over multiple calls, looping turned off', function () {
+      it('can call back with arguments, over multiple calls, looping turned off', function() {
         stubFn.loop = false
-        stubFn('a', function () {})
-        stubFn('b', function () {
+        stubFn('a', function() { })
+        stubFn('b', function() {
           assert(stubFn.called)
           assert.equal(stubFn.callCount, 2)
           assert.equal(stubFn.lastCall.args[0], 'b')
           assert.equal(arguments[0], 2)
         })
-        stubFn('c', function () {
+        stubFn('c', function() {
           assert(stubFn.called)
           assert.equal(stubFn.callCount, 3)
           assert.equal(stubFn.lastCall.args[0], 'c')
           assert.equal(arguments[0], 3)
         })
         let neverCalled = true
-        stubFn('d', function () {
+        stubFn('d', function() {
           neverCalled = false
         })
         assert(neverCalled)
       })
     })
 
-    describe('for a single throwing configuration', function () {
+    describe('for a single throwing configuration', function() {
       let stubFn: Simple.Stub<void>;
-      beforeEach(function () {
-        stubFn = simple.stub().throwWith(new Error('example'))
+      beforeEach(function() {
+        stubFn = Simple.stub().throwWith(new Error('example'))
       })
 
-      it('can throw', function () {
+      it('can throw', function() {
         let threw: Error
         try {
           stubFn()
@@ -370,7 +368,7 @@ describe('simple', function () {
         assert.equal(threw.message, 'example')
       })
 
-      it('can throw over multiple calls, looping per default', function () {
+      it('can throw over multiple calls, looping per default', function() {
         let threw: Error[] = []
         try {
           stubFn()
@@ -391,13 +389,13 @@ describe('simple', function () {
       })
     })
 
-    describe('for a multiple throwing configurations', function () {
+    describe('for a multiple throwing configurations', function() {
       let stubFn: Simple.Stub<void>;
-      beforeEach(function () {
-        stubFn = simple.stub().throwWith(new Error('a')).throwWith(new Error('b'))
+      beforeEach(function() {
+        stubFn = Simple.stub().throwWith(new Error('a')).throwWith(new Error('b'))
       })
 
-      it('can throw', function () {
+      it('can throw', function() {
         let threw: Error
         try {
           stubFn()
@@ -411,7 +409,7 @@ describe('simple', function () {
         assert.equal(threw.message, 'a')
       })
 
-      it('can throw over multiple calls, looping per default', function () {
+      it('can throw over multiple calls, looping per default', function() {
         let threw: Error[] = []
         try {
           stubFn()
@@ -437,7 +435,7 @@ describe('simple', function () {
         assert.equal(threw[2].message, 'a')
       })
 
-      it('can throw over multiple calls, looping turned off', function () {
+      it('can throw over multiple calls, looping turned off', function() {
         stubFn.loop = false
 
         let threw: Error[] = []
@@ -465,13 +463,13 @@ describe('simple', function () {
       })
     })
 
-    describe('for a single returning configuration', function () {
+    describe('for a single returning configuration', function() {
       let stubFn: Simple.Stub<string>;
-      beforeEach(function () {
-        stubFn = simple.stub()
+      beforeEach(function() {
+        stubFn = Simple.stub()
       })
 
-      it('can return', function () {
+      it('can return', function() {
         stubFn.returnWith('example')
 
         let returned: string
@@ -482,7 +480,7 @@ describe('simple', function () {
         assert.equal(returned, 'example')
       })
 
-      it('can return an empty string', function () {
+      it('can return an empty string', function() {
         stubFn.returnWith('')
 
         let returned: string
@@ -492,7 +490,7 @@ describe('simple', function () {
         assert.equal(returned, '')
       })
 
-      it('can return over multiple calls, looping per default', function () {
+      it('can return over multiple calls, looping per default', function() {
         stubFn.returnWith('example-a')
         stubFn.returnWith('example-b')
 
@@ -512,13 +510,13 @@ describe('simple', function () {
       })
     })
 
-    describe('for a multiple returning configurations', function () {
+    describe('for a multiple returning configurations', function() {
       let stubFn: Simple.Stub<string>;
-      beforeEach(function () {
-        stubFn = simple.stub().returnWith('a').returnWith('b')
+      beforeEach(function() {
+        stubFn = Simple.stub().returnWith('a').returnWith('b')
       })
 
-      it('can return', function () {
+      it('can return', function() {
         let returned: string
         returned = stubFn()
 
@@ -527,7 +525,7 @@ describe('simple', function () {
         assert.equal(returned, 'a')
       })
 
-      it('can return over multiple calls, looping per default', function () {
+      it('can return over multiple calls, looping per default', function() {
         let returned: string[] = []
         returned.push(stubFn())
         returned.push(stubFn())
@@ -541,7 +539,7 @@ describe('simple', function () {
         assert.equal(returned[2], 'a')
       })
 
-      it('can return over multiple calls, looping turned off', function () {
+      it('can return over multiple calls, looping turned off', function() {
         stubFn.loop = false
 
         let returned: string[] = []
@@ -558,9 +556,9 @@ describe('simple', function () {
       })
     })
 
-    describe('for a specified function to call', function () {
-      it('should be called with arguments and return', function () {
-        let stubFn = simple.stub().callFn(function () {
+    describe('for a specified function to call', function() {
+      it('should be called with arguments and return', function() {
+        let stubFn = Simple.stub().callFn(function() {
           return arguments
         })
 
@@ -571,22 +569,22 @@ describe('simple', function () {
         assert.equal(returned[1], 'x')
       })
 
-      it('should be able to throw', function () {
-        let stubFn = simple.stub().callFn(function () {
+      it('should be able to throw', function() {
+        let stubFn = Simple.stub().callFn(function() {
           throw new Error('my message')
         })
 
         try {
           stubFn()
-        } catch(e) {
+        } catch (e) {
           assert(e instanceof Error)
           assert.equal(e.message, 'my message')
         }
       })
 
-      it('should be called in context', function () {
+      it('should be called in context', function() {
         let mockObj = {
-          stubFn: simple.stub().callFn(function () {
+          stubFn: Simple.stub().callFn(function() {
             return this
           })
         }
@@ -596,11 +594,11 @@ describe('simple', function () {
         assert.equal(returned, mockObj)
       })
 
-      it('can be called in specified context', function () {
+      it('can be called in specified context', function() {
         let anotherMockObj = {}
 
         let mockObj = {
-          stubFn: simple.stub().callFn(function () {
+          stubFn: Simple.stub().callFn(function() {
             return this
           }).inThisContext(anotherMockObj)
         }
@@ -611,13 +609,13 @@ describe('simple', function () {
       })
     })
 
-    describe('for custom/when-conforming promises', function () {
+    describe('for custom/when-conforming promises', function() {
       let fulfilledStub: Simple.Stub<boolean>
       let rejectedStub: Simple.Stub<boolean>
 
-      beforeEach(function () {
-        fulfilledStub = simple.stub().returnWith(true)
-        rejectedStub = simple.stub().returnWith(true)
+      beforeEach(function() {
+        fulfilledStub = Simple.stub().returnWith(true)
+        rejectedStub = Simple.stub().returnWith(true)
 
         interface MockPromise<T> {
           resolveValue: T,
@@ -628,43 +626,43 @@ describe('simple', function () {
         let mockPromise: MockPromise<boolean> = {
           resolveValue: null as boolean,
           rejectValue: null as boolean,
-          then: function (fulfilledFn: (value: any) => boolean, rejectedFn: (error: any) => boolean) {
+          then: function(fulfilledFn: (value: any) => boolean, rejectedFn: (error: any) => boolean) {
             let self = this
-            process.nextTick(function () {
+            process.nextTick(function() {
               if (self.resolveValue) return fulfilledFn(self.resolveValue)
               if (self.rejectValue) return rejectedFn(self.rejectValue)
             })
           }
         }
 
-        simple.mock(simple, 'Promise', {
-          when: function<T>(value: T) {
-            let promise: MockPromise<T> = Object.create(mockPromise)
+        Simple.mock(Simple, 'Promise', {
+          when: function <T>(value: T) {
+            let promise: MockPromise<T> = <any>Object.create(mockPromise)
             promise.resolveValue = value
             return promise
           },
-          reject: function<T>(value: T) {
-            let promise: MockPromise<T> = Object.create(mockPromise)
+          reject: function <T>(value: T) {
+            let promise: MockPromise<T> = <any>Object.create(mockPromise)
             promise.rejectValue = value
             return promise
           }
         })
       })
 
-      describe('with a single resolving configuration', function () {
+      describe('with a single resolving configuration', function() {
         let stubFn: Simple.Stub<PromiseLike<string>>;
-        beforeEach(function () {
-          stubFn = simple.stub().resolveWith('example')
+        beforeEach(function() {
+          stubFn = Simple.stub().resolveWith('example')
         })
 
-        it('can return a promise', function (done) {
+        it('can return a promise', function(done) {
           let returned = stubFn()
 
           assert(returned)
 
           returned.then(fulfilledStub, rejectedStub)
 
-          setTimeout(function () {
+          setTimeout(function() {
             assert.equal(fulfilledStub.callCount, 1)
             assert.equal(fulfilledStub.lastCall.arg, 'example')
             assert.equal(rejectedStub.callCount, 0)
@@ -673,20 +671,20 @@ describe('simple', function () {
         })
       })
 
-      describe('with a multiple resolving configurations', function () {
+      describe('with a multiple resolving configurations', function() {
         let stubFn: Simple.Stub<PromiseLike<string>>;
-        beforeEach(function () {
-          stubFn = simple.stub().resolveWith('a').resolveWith('b')
+        beforeEach(function() {
+          stubFn = Simple.stub().resolveWith('a').resolveWith('b')
         })
 
-        it('can return a promise', function (done) {
+        it('can return a promise', function(done) {
           let returned = stubFn()
 
           assert(returned)
 
           returned.then(fulfilledStub, rejectedStub)
 
-          setTimeout(function () {
+          setTimeout(function() {
             assert.equal(fulfilledStub.callCount, 1)
             assert.equal(fulfilledStub.lastCall.arg, 'a')
             assert.equal(rejectedStub.callCount, 0)
@@ -694,12 +692,12 @@ describe('simple', function () {
           }, 0)
         })
 
-        it('can return over multiple calls, looping per default', function (done) {
+        it('can return over multiple calls, looping per default', function(done) {
           stubFn().then(fulfilledStub, rejectedStub)
           stubFn().then(fulfilledStub, rejectedStub)
           stubFn().then(fulfilledStub, rejectedStub)
 
-          setTimeout(function () {
+          setTimeout(function() {
             assert.equal(fulfilledStub.callCount, 3)
             assert.equal(fulfilledStub.calls[0].arg, 'a')
             assert.equal(fulfilledStub.calls[1].arg, 'b')
@@ -710,20 +708,20 @@ describe('simple', function () {
         })
       })
 
-      describe('with a single rejecting configuration', function () {
+      describe('with a single rejecting configuration', function() {
         let stubFn: Simple.Stub<PromiseLike<string>>;
-        beforeEach(function () {
-          stubFn = simple.stub().rejectWith('example')
+        beforeEach(function() {
+          stubFn = Simple.stub().rejectWith('example')
         })
 
-        it('can return a promise', function (done) {
+        it('can return a promise', function(done) {
           let returned = stubFn()
 
           assert(returned)
 
           returned.then(fulfilledStub, rejectedStub)
 
-          setTimeout(function () {
+          setTimeout(function() {
             assert.equal(fulfilledStub.callCount, 0)
             assert.equal(rejectedStub.callCount, 1)
             assert.equal(rejectedStub.lastCall.arg, 'example')
@@ -732,20 +730,20 @@ describe('simple', function () {
         })
       })
 
-      describe('with a multiple rejecting configurations', function () {
+      describe('with a multiple rejecting configurations', function() {
         let stubFn: Simple.Stub<PromiseLike<string>>;
-        beforeEach(function () {
-          stubFn = simple.stub().rejectWith('a').rejectWith('b')
+        beforeEach(function() {
+          stubFn = Simple.stub().rejectWith('a').rejectWith('b')
         })
 
-        it('can return a promise', function (done) {
+        it('can return a promise', function(done) {
           let returned = stubFn()
 
           assert(returned)
 
           returned.then(fulfilledStub, rejectedStub)
 
-          setTimeout(function () {
+          setTimeout(function() {
             assert.equal(fulfilledStub.callCount, 0)
             assert.equal(rejectedStub.callCount, 1)
             assert.equal(rejectedStub.lastCall.arg, 'a')
@@ -753,12 +751,12 @@ describe('simple', function () {
           }, 0)
         })
 
-        it('can return over multiple calls, looping per default', function (done) {
+        it('can return over multiple calls, looping per default', function(done) {
           stubFn().then(fulfilledStub, rejectedStub)
           stubFn().then(fulfilledStub, rejectedStub)
           stubFn().then(fulfilledStub, rejectedStub)
 
-          setTimeout(function () {
+          setTimeout(function() {
             assert.equal(fulfilledStub.callCount, 0)
             assert.equal(rejectedStub.callCount, 3)
             assert.equal(rejectedStub.calls[0].arg, 'a')
@@ -770,29 +768,29 @@ describe('simple', function () {
       })
     })
 
-    describe('for native/conforming promises', function () {
+    describe('for native/conforming promises', function() {
       let fulfilledStub: Simple.Stub<boolean>
       let rejectedStub: Simple.Stub<boolean>
 
-      beforeEach(function () {
-        fulfilledStub = simple.stub().returnWith(true)
-        rejectedStub = simple.stub().returnWith(true)
+      beforeEach(function() {
+        fulfilledStub = Simple.stub().returnWith(true)
+        rejectedStub = Simple.stub().returnWith(true)
       })
 
-      describe('with a single resolving configuration', function () {
+      describe('with a single resolving configuration', function() {
         let stubFn: Simple.Stub<PromiseLike<string>>;
-        beforeEach(function () {
-          stubFn = simple.stub().resolveWith('example')
+        beforeEach(function() {
+          stubFn = Simple.stub().resolveWith('example')
         })
 
-        it('can return a promise', function (done) {
+        it('can return a promise', function(done) {
           let returned = stubFn()
 
           assert(returned)
 
           returned.then(fulfilledStub, rejectedStub)
 
-          setTimeout(function () {
+          setTimeout(function() {
             assert.equal(fulfilledStub.callCount, 1)
             assert.equal(fulfilledStub.lastCall.arg, 'example')
             assert.equal(rejectedStub.callCount, 0)
@@ -801,20 +799,20 @@ describe('simple', function () {
         })
       })
 
-      describe('with a multiple resolving configurations', function () {
+      describe('with a multiple resolving configurations', function() {
         let stubFn: Simple.Stub<PromiseLike<string>>;
-        beforeEach(function () {
-          stubFn = simple.stub().resolveWith('a').resolveWith('b')
+        beforeEach(function() {
+          stubFn = Simple.stub().resolveWith('a').resolveWith('b')
         })
 
-        it('can return a promise', function (done) {
+        it('can return a promise', function(done) {
           let returned = stubFn()
 
           assert(returned)
 
           returned.then(fulfilledStub, rejectedStub)
 
-          setTimeout(function () {
+          setTimeout(function() {
             assert.equal(fulfilledStub.callCount, 1)
             assert.equal(fulfilledStub.lastCall.arg, 'a')
             assert.equal(rejectedStub.callCount, 0)
@@ -822,12 +820,12 @@ describe('simple', function () {
           }, 0)
         })
 
-        it('can return over multiple calls, looping per default', function (done) {
+        it('can return over multiple calls, looping per default', function(done) {
           stubFn().then(fulfilledStub, rejectedStub)
           stubFn().then(fulfilledStub, rejectedStub)
           stubFn().then(fulfilledStub, rejectedStub)
 
-          setTimeout(function () {
+          setTimeout(function() {
             assert.equal(fulfilledStub.callCount, 3)
             assert.equal(fulfilledStub.calls[0].arg, 'a')
             assert.equal(fulfilledStub.calls[1].arg, 'b')
@@ -838,20 +836,20 @@ describe('simple', function () {
         })
       })
 
-      describe('with a single rejecting configuration', function () {
+      describe('with a single rejecting configuration', function() {
         let stubFn: Simple.Stub<PromiseLike<string>>;
-        beforeEach(function () {
-          stubFn = simple.stub().rejectWith('example')
+        beforeEach(function() {
+          stubFn = Simple.stub().rejectWith('example')
         })
 
-        it('can return a promise', function (done) {
+        it('can return a promise', function(done) {
           let returned = stubFn()
 
           assert(returned)
 
           returned.then(fulfilledStub, rejectedStub)
 
-          setTimeout(function () {
+          setTimeout(function() {
             assert.equal(fulfilledStub.callCount, 0)
             assert.equal(rejectedStub.callCount, 1)
             assert.equal(rejectedStub.lastCall.arg, 'example')
@@ -860,20 +858,20 @@ describe('simple', function () {
         })
       })
 
-      describe('with a multiple rejecting configurations', function () {
+      describe('with a multiple rejecting configurations', function() {
         let stubFn: Simple.Stub<PromiseLike<string>>;
-        beforeEach(function () {
-          stubFn = simple.stub().rejectWith('a').rejectWith('b')
+        beforeEach(function() {
+          stubFn = Simple.stub().rejectWith('a').rejectWith('b')
         })
 
-        it('can return a promise', function (done) {
+        it('can return a promise', function(done) {
           let returned = stubFn()
 
           assert(returned)
 
           returned.then(fulfilledStub, rejectedStub)
 
-          setTimeout(function () {
+          setTimeout(function() {
             assert.equal(fulfilledStub.callCount, 0)
             assert.equal(rejectedStub.callCount, 1)
             assert.equal(rejectedStub.lastCall.arg, 'a')
@@ -881,12 +879,12 @@ describe('simple', function () {
           }, 0)
         })
 
-        it('can return over multiple calls, looping per default', function (done) {
+        it('can return over multiple calls, looping per default', function(done) {
           stubFn().then(fulfilledStub, rejectedStub)
           stubFn().then(fulfilledStub, rejectedStub)
           stubFn().then(fulfilledStub, rejectedStub)
 
-          setTimeout(function () {
+          setTimeout(function() {
             assert.equal(fulfilledStub.callCount, 0)
             assert.equal(rejectedStub.callCount, 3)
             assert.equal(rejectedStub.calls[0].arg, 'a')
@@ -899,8 +897,8 @@ describe('simple', function () {
     })
   })
 
-  describe('mock()', function () {
-    describe('on a object with prototype', function () {
+  describe('mock()', function() {
+    describe('on a object with prototype', function() {
       class ProtoKlass {
         protoValue: string = 'x'
         protoFn() {
@@ -910,96 +908,96 @@ describe('simple', function () {
 
       let obj: any
 
-      before(function () {
+      before(function() {
       })
 
-      beforeEach(function () {
+      beforeEach(function() {
         obj = new ProtoKlass()
       })
 
-      it('can mock instance values over its prototype\'s and restore', function () {
-        simple.mock(obj, 'protoValue', 'y')
+      it('can mock instance values over its prototype\'s and restore', function() {
+        Simple.mock(obj, 'protoValue', 'y')
         assert.equal(obj.protoValue, 'y')
-        simple.restore()
+        Simple.restore()
         assert.equal(obj.protoValue, 'x')
       })
 
-      it('can mock with custom instance functions over its prototype\'s and restore', function () {
-        simple.mock(obj, 'protoFn', function () {
+      it('can mock with custom instance functions over its prototype\'s and restore', function() {
+        Simple.mock(obj, 'protoFn', function() {
           return 'y'
         })
         assert.equal(obj.protoFn(), 'y')
         assert(obj.protoFn.called)
-        simple.restore()
+        Simple.restore()
         assert.equal(obj.protoFn(), 'x')
       })
 
-      it('can mock with stubbed functions over its prototype\'s and restore', function () {
-        simple.mock(obj, 'protoFn').returnWith('y')
+      it('can mock with stubbed functions over its prototype\'s and restore', function() {
+        Simple.mock(obj, 'protoFn').returnWith('y')
         assert.equal(obj.protoFn(), 'y')
         assert(obj.protoFn.called)
-        simple.restore()
+        Simple.restore()
         assert.equal(obj.protoFn(), 'x')
       })
 
-      it('can mock with stubbed functions and prototype\'s original over its prototype\'s and restore', function () {
-        simple.mock(obj, 'protoFn').returnWith('y').callOriginal().returnWith('z')
+      it('can mock with stubbed functions and prototype\'s original over its prototype\'s and restore', function() {
+        Simple.mock(obj, 'protoFn').returnWith('y').callOriginal().returnWith('z')
         assert.equal(obj.protoFn(), 'y')
         assert.equal(obj.protoFn(), 'x')
         assert.equal(obj.protoFn(), 'z')
         assert.equal(obj.protoFn.callCount, 3)
-        simple.restore()
+        Simple.restore()
         assert.equal(obj.protoFn(), 'x')
       })
     })
 
-    describe('on an anonymous object', function () {
+    describe('on an anonymous object', function() {
       let obj: any
-      beforeEach(function () {
+      beforeEach(function() {
         obj = {
           a: 'a',
           b: 'b',
           c: 'c',
-          fnD: function () {
+          fnD: function() {
             return 'd'
           }
         }
       })
 
-      it('can mock instance values and restore', function () {
+      it('can mock instance values and restore', function() {
         let beforeKeys = Object.keys(obj)
-        simple.mock(obj, 'a', 'd')
-        simple.mock(obj, 'd', 'a')
+        Simple.mock(obj, 'a', 'd')
+        Simple.mock(obj, 'd', 'a')
         assert.equal(obj.a, 'd')
         assert.equal(obj.d, 'a')
-        simple.restore()
+        Simple.restore()
         assert.equal(obj.a, 'a')
         assert.equal(obj.d, undefined)
         assert.deepEqual(Object.keys(obj), beforeKeys)
       })
 
-      it('can mock with spy on pre-existing functions and restore', function () {
-        simple.mock(obj, 'fnD').returnWith('a')
+      it('can mock with spy on pre-existing functions and restore', function() {
+        Simple.mock(obj, 'fnD').returnWith('a')
         assert.equal(obj.fnD(), 'a')
         assert(obj.fnD.called)
-        simple.restore()
+        Simple.restore()
         assert.equal(obj.fnD(), 'd')
       })
 
-      it('can mock with newly stubbed functions and restore', function () {
-        simple.mock(obj, 'fnA').returnWith('a')
+      it('can mock with newly stubbed functions and restore', function() {
+        Simple.mock(obj, 'fnA').returnWith('a')
         assert.equal(obj.fnA(), 'a')
         assert(obj.fnA.called)
-        simple.restore()
+        Simple.restore()
         assert.equal(obj.fnA, undefined)
       })
     })
 
-    describe('with one argument', function () {
-      it('returns a spy', function () {
+    describe('with one argument', function() {
+      it('returns a spy', function() {
         let called = 0
 
-        let spy = simple.mock(function () {
+        let spy = Simple.mock(function() {
           called++
         })
 
@@ -1009,9 +1007,9 @@ describe('simple', function () {
       })
     })
 
-    describe('with no arguments', function () {
-      it('returns a stub', function () {
-        let stub = simple.mock().returnWith('x')
+    describe('with no arguments', function() {
+      it('returns a stub', function() {
+        let stub = Simple.mock().returnWith('x')
 
         let x = stub()
         assert(stub.called)
@@ -1021,4 +1019,5 @@ describe('simple', function () {
   })
 })
 
-simple.Promise = Bluebird;
+Simple.Promise = Bluebird;
+

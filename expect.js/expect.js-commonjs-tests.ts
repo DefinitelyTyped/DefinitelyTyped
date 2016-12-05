@@ -1,4 +1,4 @@
-/// <reference path="expect.js.d.ts" />
+
 
 import expect = require("expect.js");
 

@@ -1,5 +1,5 @@
-/// <reference path="./gulp-less.d.ts" />
-/// <reference path="../gulp/gulp.d.ts" />
+
+
 
 import * as gulp from "gulp";
 import * as less from "gulp-less";

@@ -1,4 +1,4 @@
-/// <reference path="./insight.d.ts" />
+
 
 declare var require:any;
 

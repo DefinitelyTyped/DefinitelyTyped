@@ -1,4 +1,5 @@
-/// <reference path="./angular-permission.d.ts" />
+
+import * as angular from 'angular';
 
 import permissionNamespace = angular.permission;
 import { permission, ngPermission, uiPermission } from "angular-permission";
@@ -65,7 +66,7 @@ angular
 
     PermissionStore.removePermissionDefinition('user');
 
-    let permissions: Array<permissionNamespace.Permission> = PermissionStore.getStore();
+    let permissions = PermissionStore.getStore();
 
 
   });
@@ -89,5 +90,5 @@ angular
 
     RoleStore.removeRoleDefinition('user');
 
-    let roles: Array<permissionNamespace.Role> = RoleStore.getStore();
+    let roles = RoleStore.getStore();
   });

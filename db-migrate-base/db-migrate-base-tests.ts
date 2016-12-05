@@ -1,5 +1,4 @@
 // Test file for db-migrate-base Definition file
-/// <reference path="db-migrate-base.d.ts" />
 
 import * as DbMigrateBase from "db-migrate-base";
 

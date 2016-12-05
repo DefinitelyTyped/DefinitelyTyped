@@ -1,5 +1,4 @@
-/// <reference path="asana.d.ts" />
-/// <reference path="../request/request.d.ts" />
+/// <reference types="node" />
 
 import * as asana from 'asana';
 import * as util from 'util';

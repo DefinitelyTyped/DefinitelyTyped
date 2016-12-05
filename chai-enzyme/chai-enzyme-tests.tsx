@@ -1,7 +1,6 @@
-/// <reference path="../react/react.d.ts" />
-/// <reference path="./chai-enzyme.d.ts" />
-/// <reference path="../enzyme/enzyme.d.ts" />
-/// <reference path="../chai/chai.d.ts" />
+/// <reference types="react" />
+/// <reference types="enzyme" />
+/// <reference types="chai" />
 
 import * as React from "react";
 import * as chaiEnzyme from "chai-enzyme";

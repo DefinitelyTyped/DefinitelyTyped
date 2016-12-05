@@ -1,5 +1,3 @@
-/// <reference path="pem.d.ts" />
-
 import * as pem from 'pem';
 
 const tests = {

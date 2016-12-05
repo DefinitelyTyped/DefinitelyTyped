@@ -1,4 +1,4 @@
-/// <reference path="uikit.d.ts" />
+
 
 function testModal() {
     UIkit.modal.alert("Attention!");

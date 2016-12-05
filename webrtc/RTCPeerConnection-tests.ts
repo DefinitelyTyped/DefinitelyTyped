@@ -1,95 +1,91 @@
 /// <reference path="MediaStream.d.ts" />
 /// <reference path="RTCPeerConnection.d.ts" />
 
-let voidpromise: Promise<void>;
+let defaultIceServers: RTCIceServer[] = RTCPeerConnection.defaultIceServers;
+if (defaultIceServers.length > 0) {
+    let urls = defaultIceServers[0].urls;
+}
 
-var minimalConfig: RTCConfiguration = {};
-var config: RTCConfiguration = {
-    iceServers: [
-        {
-            // Single url
-            urls: "stun.l.google.com:19302"
-        },
-        {
-            // List of urls and credentials
-            urls: ["another-stun.example.com"],
-            username: "dude",
-            credential: "pass",
-            credentialType: "token"
-        },
-    ],
-    iceTransportPolicy: "relay",
-    bundlePolicy: "max-compat",
-    rtcpMuxPolicy: "negotiate",
-    peerIdentity: "dude",
-    certificates: [{expires: 1337}],
-    iceCandidatePoolSize: 5
+// Create a peer connection
+let ice1: RTCIceServer = {
+    'urls': 'stun:stun.l.google.com:19302',
+    'username': 'john',
+    'credential': '1234',
+    'credentialType': 'password',
 };
-var constraints: RTCMediaConstraints =
-    { mandatory: { offerToReceiveAudio: true, offerToReceiveVideo: true } };
-
-var peerConnection: RTCPeerConnection =
-    new RTCPeerConnection(config, constraints);
-
-navigator.getUserMedia({ audio: true, video: true },
-  stream => {
-    peerConnection.addStream(stream);
-  },
-  error => {
-    console.log('Error message: ' + error.message);
-    console.log('Error name: ' + error.name);
-  });
-
-peerConnection.onaddstream = ev => console.log(ev.type);
-peerConnection.ondatachannel = ev => console.log(ev.channel);
-peerConnection.oniceconnectionstatechange = ev => console.log(ev.type);
-peerConnection.onnegotiationneeded = ev => console.log(ev.type);
-peerConnection.onopen = ev => console.log(ev.type);
-peerConnection.onicecandidate = ev => console.log(ev.type);
-peerConnection.onremovestream = ev => console.log(ev.type);
-peerConnection.onstatechange = ev => console.log(ev.type);
-
-peerConnection.createOffer();
-let offer2: Promise<RTCSessionDescription> = peerConnection.createOffer({
-    voiceActivityDetection: true,
-    iceRestart: false
+let ice2: RTCIceServer = {'urls': ['stun:stunserver.org', 'stun:stun.example.com']};
+let pc: RTCPeerConnection = new RTCPeerConnection();
+let pc2: RTCPeerConnection = new RTCPeerConnection({
+    iceServers: [ice1, ice2],
+});
+RTCPeerConnection.generateCertificate("sha-256").then((cert: RTCCertificate) => {
+    new RTCPeerConnection({
+        iceServers: [ice1],
+        iceTransportPolicy: 'relay',
+        bundlePolicy: 'max-compat',
+        rtcpMuxPolicy: 'negotiate',
+        peerIdentity: 'dude',
+        certificates: [cert],
+        iceCandidatePoolSize: 5,
+    });
 });
 
-var type: string = RTCSdpType[RTCSdpType.offer];
-var offer: RTCSessionDescriptionInit = { type: type, sdp: "some sdp" };
-var sessionDescription = new RTCSessionDescription(offer);
+// Get/set the configuration
+let conf: RTCConfiguration = pc2.getConfiguration();
+pc.setConfiguration(conf);
 
-peerConnection.setRemoteDescription(sessionDescription).then(
-    () => peerConnection.createAnswer(),
-    error => console.log('Error setting remote description: ' + error + "; offer.sdp=" + offer.sdp)
-);
+// Close peer connection
+pc2.close();
 
-var webkitSessionDescription = new webkitRTCSessionDescription(offer);
+// Offer/answer flow
+let offer: RTCSessionDescriptionInit;
+let answer: RTCSessionDescriptionInit;
+pc.createOffer({iceRestart: true})
+    .then((_offer: RTCSessionDescriptionInit) => offer = _offer);
+pc.setLocalDescription(offer);
+pc2.setRemoteDescription(offer);
+pc2.createAnswer().then((_answer: RTCSessionDescriptionInit) => answer = _answer);
+pc2.setLocalDescription(answer);
+pc.setRemoteDescription(answer);
 
-// New syntax
-voidpromise = peerConnection.setLocalDescription(webkitSessionDescription);
+// Event handlers
+pc.onnegotiationneeded = ev => console.log(ev.type);
+pc.onicecandidate = ev => console.log(ev.candidate);
+pc.onicecandidateerror = ev => console.log(ev.errorText);
+pc.onsignalingstatechange = ev => console.log(ev.type);
+pc.oniceconnectionstatechange = ev => console.log(ev.type);
+pc.onicegatheringstatechange = ev => console.log(ev.type);
+pc.onconnectionstatechange = ev => console.log(ev.type);
+pc.ontrack = ev => console.log(ev.receiver);
+pc.ondatachannel = ev => console.log(ev.channel);
 
-// Legacy syntax
-peerConnection.setRemoteDescription(webkitSessionDescription, () => {
-  peerConnection.createAnswer(
-    answer => {
-      peerConnection.setLocalDescription(answer,
-        () => console.log('Set local description'),
-      error => console.log(
-         "Error setting local description from created answer: " + error +
-         "; answer.sdp=" + answer.sdp));
-    },
-  error => console.log("Error creating answer: " + error));
-},
-error => console.log('Error setting remote description: ' + error +
-    "; offer.sdp=" + offer.sdp));
-
-var mozSessionDescription = new mozRTCSessionDescription(offer);
-
-peerConnection.setRemoteDescription(mozSessionDescription);
-
-var wkPeerConnection: webkitRTCPeerConnection =
-    new webkitRTCPeerConnection(config, constraints);
-
-let candidate: RTCIceCandidate = {'candidate': 'foobar'};
-voidpromise = peerConnection.addIceCandidate(candidate);
+// Legacy interface extensions
+pc.createOffer(
+    (sdp: RTCSessionDescription) => console.log(sdp.sdp),
+    (error: DOMException) => console.log(error.message),
+    {iceRestart: true}
+).then(() => console.log('createOffer complete'));
+pc.setLocalDescription(
+    {type: 'offer', sdp: 'foobar'},
+    () => console.log('local description set'),
+    (error: DOMException) => console.log(error.message)
+).then(() => console.log('setLocalDescription complete'));
+pc.createAnswer(
+    (sdp: RTCSessionDescription) => console.log(sdp.sdp),
+    (error: DOMException) => console.log(error.message)
+).then(() => console.log('createAnswer complete'));
+pc.setRemoteDescription(
+    {type: 'answer', sdp: 'foobar'},
+    () => console.log('remote description set'),
+    (error: DOMException) => console.log(error.message)
+).then(() => console.log('setRemoteDescription complete'));
+pc.addIceCandidate(
+    {candidate: 'candidate', sdpMid: 'foo', sdpMLineIndex: 1},
+    () => console.log('candidate added'),
+    (error: DOMException) => console.log(error.message)
+).then(() => console.log('addIceCandidate complete'));
+pc.getStats(
+    null,
+    (report: RTCStatsReport) => console.log('got report'),
+    (error: DOMException) => console.log(error.message)
+).then(() => console.log('getStats complete'));

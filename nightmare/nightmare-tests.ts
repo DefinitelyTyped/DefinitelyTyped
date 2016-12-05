@@ -1,5 +1,5 @@
-/// <reference path="./nightmare.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
+
+/// <reference types="jquery" />
 
 import Nightmare = require("nightmare");
 
@@ -92,7 +92,7 @@ new Nightmare()
   .goto('http://google.com')
   .inject('js', 'test/files/jquery-2.1.1.min.js')
   .inject('css', 'test/files/test.css')
-  .evaluate(function () {          
+  .evaluate(function () {
     return $('body').css('background-color');
   }, function (color) {
   })
@@ -102,7 +102,7 @@ new Nightmare()
   .goto('http://google.com')
   .inject('js', 'test/files/jquery-2.1.1.min.js')
   .inject('pdf', 'test/files/test.css')
-  .evaluate(function () {          
+  .evaluate(function () {
     return $('body').css('background-color');
   }, function (color) {
   })

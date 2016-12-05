@@ -1,7 +1,4 @@
-﻿/// <reference path="flux.d.ts" />
-/// <reference path="../react/react.d.ts" />
-
-import flux = require('flux')
+﻿import flux = require('flux')
 import FluxUtils = require('flux/utils')
 import React = require('react')
 
@@ -88,7 +85,7 @@ export = customDispatcher
 
 
 // Sample Reduce Store
-class CounterStore extends FluxUtils.ReduceStore<number, Action> {
+class CounterStore extends FluxUtils.ReduceStore<number, any> {
   getInitialState(): number {
     return 0;
   }
@@ -126,4 +123,4 @@ class CounterContainer extends Component<any, any> {
   }
 }
 
-const container = Container.create<CounterContainer>(CounterContainer);
+const container = Container.create(CounterContainer);

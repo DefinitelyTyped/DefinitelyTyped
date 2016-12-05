@@ -1,8 +1,8 @@
 // ReSharper disable InconsistentNaming
 // ReSharper disable WrongExpressionStatement
-/// <reference path="./tcomb.d.ts"/>
-/// <reference path="../node/node.d.ts"/>
-/// <reference path="../jasmine/jasmine.d.ts" />
+
+/// <reference types="node"/>
+/// <reference types="jasmine" />
 
 // tests adapted from/for tcomb's test folder
 
@@ -333,19 +333,19 @@ describe('assert', function () {
 
   it('should throw a default message', function () {
     throwsWithMessage(function () {
-      assert(1 === 2);
+      assert(1 === 2 + 1);
     }, 'assert failed');
   });
 
   it('should throw the specified message', function () {
     throwsWithMessage(function () {
-      assert(1 === 2, 'my message');
+      assert(1 === 2 + 1, 'my message');
     }, 'my message');
   });
 
   it('should format the specified message', function () {
     throwsWithMessage(function () {
-      assert(1 === 2, '%s !== %s', 1, 2);
+      assert(1 === 2 + 1, '%s !== %s', 1, 2);
     }, '1 !== 2');
   });
 
@@ -359,7 +359,7 @@ describe('assert', function () {
       }
     };
     doesNotThrow(function () {
-      assert(1 === 2, 'report error');
+      assert(1 === 2 + 1, 'report error');
     });
     t.fail = fail;
   });

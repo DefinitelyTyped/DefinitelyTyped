@@ -1,5 +1,3 @@
-/// <reference path="bunnymq.d.ts"/>
-
 import * as bunnymq from "bunnymq";
 
 // Basic usage

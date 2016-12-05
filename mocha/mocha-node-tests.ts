@@ -1,4 +1,4 @@
-/// <reference path="mocha-node.d.ts" />
+
 
 import MochaDef = require('mocha');
 

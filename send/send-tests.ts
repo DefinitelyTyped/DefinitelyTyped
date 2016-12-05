@@ -1,5 +1,4 @@
-/// <reference path="send.d.ts" />
-/// <reference path="../express/express.d.ts" />
+/// <reference types="express" />
 
 import * as express from 'express';
 import * as send from 'send';
