@@ -1,7 +1,7 @@
-/**
- * @fileoverview
- * Definitions by @mohsen1: https://github.com/mohsen1
- */
+// Type definitions for babel-code-frame 6.x
+// Project: https://github.com/babel/babel/tree/master/packages
+// Definitions by: Mohsen Azimi <https://github.com/mohsen1>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "babel-code-frame" {
     interface BabelCodeFrameOptions {
