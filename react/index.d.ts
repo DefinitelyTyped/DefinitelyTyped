@@ -59,22 +59,22 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     interface Factory<P> {
-        (props?: P & Attributes, ...children: ReactNode[]): ReactElement<P>;
+        (props?: Attributes & P, ...children: ReactNode[]): ReactElement<P>;
     }
 
     interface SFCFactory<P> {
-        (props?: P & Attributes, ...children: ReactNode[]): SFCElement<P>;
+        (props?: Attributes & P, ...children: ReactNode[]): SFCElement<P>;
     }
 
     interface ComponentFactory<P, T extends Component<P, ComponentState>> {
-        (props?: P & ClassAttributes<T>, ...children: ReactNode[]): CElement<P, T>;
+        (props?: ClassAttributes<T> & P, ...children: ReactNode[]): CElement<P, T>;
     }
 
     type CFactory<P, T extends Component<P, ComponentState>> = ComponentFactory<P, T>;
     type ClassicFactory<P> = CFactory<P, ClassicComponent<P, ComponentState>>;
 
     interface DOMFactory<P extends DOMAttributes<T>, T extends Element> {
-        (props?: P & ClassAttributes<T> | null, ...children: ReactNode[]): DOMElement<P, T>;
+        (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]): DOMElement<P, T>;
     }
 
     interface HTMLFactory<T extends HTMLElement> extends DOMFactory<HTMLAttributes<T>, T> {
@@ -108,32 +108,32 @@ declare namespace React {
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>): CFactory<P, ClassicComponent<P, ComponentState>>;
     function createFactory<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>): CFactory<P, T>;
-    function createFactory<P>(type: ComponentClass<P> | SFC<P>): Factory<P>;
+    function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
     function createElement<P extends DOMAttributes<T>, T extends Element>(
         type: string,
-        props?: P & ClassAttributes<T>,
+        props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): DOMElement<P, T>;
     function createElement<P>(
         type: SFC<P>,
-        props?: P & Attributes,
+        props?: Attributes & P,
         ...children: ReactNode[]): SFCElement<P>;
     function createElement<P>(
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
-        props?: P & ClassAttributes<ClassicComponent<P, ComponentState>>,
+        props?: ClassAttributes<ClassicComponent<P, ComponentState>> & P,
         ...children: ReactNode[]): CElement<P, ClassicComponent<P, ComponentState>>;
     function createElement<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>,
-        props?: P & ClassAttributes<T>,
+        props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): CElement<P, T>;
     function createElement<P>(
-        type: ComponentClass<P> | SFC<P>,
-        props?: P & Attributes,
+        type: ComponentClass<P>,
+        props?: Attributes & P,
         ...children: ReactNode[]): ReactElement<P>;
 
     function cloneElement<P extends DOMAttributes<T>, T extends Element>(
         element: DOMElement<P, T>,
-        props?: P & ClassAttributes<T>,
+        props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): DOMElement<P, T>;
     function cloneElement<P extends Q, Q>(
         element: SFCElement<P>,
@@ -175,7 +175,7 @@ declare namespace React {
         // always pass children as variadic arguments to `createElement`.
         // In the future, if we can define its call signature conditionally
         // on the existence of `children` in `P`, then we should remove this.
-        props: P & { children?: ReactNode };
+        props: { children?: ReactNode } & P;
         state: S;
         context: any;
         refs: {
