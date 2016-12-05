@@ -7,6 +7,7 @@ declare module ActionCable {
   interface Channel {
     unsubscribe(): void;
     perform(action: string, data: {}): void;
+    send(data: Object): boolean;
   }
 
   interface Subscriptions {
