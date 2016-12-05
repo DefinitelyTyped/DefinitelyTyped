@@ -15,8 +15,8 @@ declare module Elasticsearch {
         create(params: CreateDocumentParams, callback: (err: any, response: any, status: any) => void): void;
         delete(params: DeleteDocumentParams): PromiseLike<any>;
         delete(params: DeleteDocumentParams, callback: (error: any, response: any) => void): void;
-        deleteByQuery(params : SearchParams, callback : (error: any, response: any) => void): void;
-        deleteByQuery(params : SearchParams): PromiseLike<any>;
+        deleteByQuery(params : DeleteByQueryParams, callback : (error: any, response: any) => void): void;
+        deleteByQuery(params : DeleteByQueryParams): PromiseLike<any>;
         exists(params: ExistsParams): PromiseLike<any>;
         exists(params: ExistsParams, callback: (error: any, response: any, status?: any) => void): void;
         get<T>(params: GetParams, callback: (error: any, response: GetResponse<T>) => void): void;
@@ -226,7 +226,7 @@ declare module Elasticsearch {
         type: string;
         id: string;
         body: T;
-        consistensy?: string;
+        consistency?: string;
         parent?: string;
         replication?: string;
         routing?: string;
@@ -260,6 +260,44 @@ declare module Elasticsearch {
         suggestSize?: number;
         suggestText?: string;
         timeout?: Date | number;
+    }
+
+    export interface DeleteByQueryParams extends GenericParams {
+        index?: string;
+        type?: string | string[] | number;
+        body?: any;
+        q?: string;
+        analyzer?: string;
+        analyzeWildcard?: boolean;
+        defaultOperator?: 'AND' | 'OR';
+        df?: string;
+        from?: number;
+        ignoreUnavailable?: boolean;
+        allowNoIndices?: boolean;
+        conflicts?: 'abort' | 'proceed';
+        expandWildcards?: 'open' | 'closed' | 'none' | 'all';
+        lenient?: boolean;
+        lowercaseExpandedTerms?: boolean;
+        preference?: string;
+        routing?: string | string[] | boolean;
+        scroll?: string;
+        searchType?: 'query_then_fetch' | 'dfs_query_then_fetch';
+        searchTimeout?: string;
+        size?: number;
+        sort: string | string[] | boolean;
+        _source?: string | string[] | boolean;
+        _sourceExclude?: string | string[] | boolean;
+        _sourceInclude?: string | string[] | boolean;
+        terminateAfter?: number;
+        stats?: string | string[] | boolean;
+        version?: boolean;
+        requestCache?: boolean;
+        refresh?: boolean;
+        timeout?: string;
+        waitForActiveShards?: string;
+        scrollSize?: number;
+        waitForCompletion?: boolean;
+        requestsPerSecond?: number;
     }
 
     export interface SearchResponse<T> {
