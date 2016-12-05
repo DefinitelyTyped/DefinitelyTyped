@@ -86,6 +86,7 @@ export interface WalkEventFile {
 }
 
 export function walk(path: string, options?: {}): WalkEventEmitter;
+export function walkSync(path: string): ReadonlyArray<string>;
 
 export interface CopyFilterFunction {
     (src: string): boolean
