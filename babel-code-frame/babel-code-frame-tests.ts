@@ -1,6 +1,6 @@
 /// <reference path="./index.d.ts" />
-/// <reference path="../mocha/mocha.d.ts"" />
-/// <reference path="../chai/chai.d.ts"" />
+/// <reference path="../mocha/index.d.ts" />
+/// <reference path="../chai/index.d.ts" />
 
 import codeFrame from "babel-code-frame";
 
