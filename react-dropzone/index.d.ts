@@ -3,14 +3,9 @@
 // Definitions by: Mathieu Larouche Dube <https://github.com/matdube>, Ivo Jesus <https://github.com/LynxEyes>, Luís Rodrigues <https://github.com/goblindegook>
 // Definitions: https://github.com/Vooban/DefinitelyTyped
 
-///<reference types="react" />
+/// <reference types="react"/>
 
-import * as React from "react";
-
-declare var Dropzone: typeof ReactDropzone.Dropzone;
-export = Dropzone;
-
-declare namespace ReactDropzone {
+declare module "react-dropzone" {
     interface DropzoneProps {
         // Drop behavior
         onDrop?: Function,
@@ -40,7 +35,6 @@ declare namespace ReactDropzone {
         minSize?: number
     }
 
-    export class Dropzone extends React.Component<DropzoneProps, {}> {
-    }
-
+    let Dropzone: React.ClassicComponentClass<DropzoneProps>;
+    export default Dropzone;
 }
