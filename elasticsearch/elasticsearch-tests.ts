@@ -86,3 +86,10 @@ client.cluster.stats({
   ignore: 1
 }, (err, response) => {
 });
+
+client.deleteByQuery({
+  index : 'index',
+  type : 'type'
+}, (err, response) => {
+
+});

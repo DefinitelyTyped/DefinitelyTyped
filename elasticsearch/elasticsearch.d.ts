@@ -284,7 +284,7 @@ declare module Elasticsearch {
         searchType?: 'query_then_fetch' | 'dfs_query_then_fetch';
         searchTimeout?: string;
         size?: number;
-        sort: string | string[] | boolean;
+        sort?: string | string[] | boolean;
         _source?: string | string[] | boolean;
         _sourceExclude?: string | string[] | boolean;
         _sourceInclude?: string | string[] | boolean;
