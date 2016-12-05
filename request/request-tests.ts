@@ -203,6 +203,13 @@ req = request.del(uri, callback);
 req = request.del(options);
 req = request.del(options, callback);
 
+req = request.delete(uri);
+req = request.delete(uri, options);
+req = request.delete(uri, options, callback);
+req = request.delete(uri, callback);
+req = request.delete(options);
+req = request.delete(options, callback);
+
 req = request.forever(value, value);
 jar = request.jar();
 cookie = request.cookie(str);
@@ -560,6 +567,7 @@ request.patch(url);
 request.post(url);
 request.head(url);
 request.del(url);
+request.delete(url);
 request.get(url);
 request.cookie('key1=value1');
 request.jar();
