@@ -19,6 +19,6 @@ declare namespace Chai {
 
 declare module "chai-json-schema" {
 	function chaiJsonSchema(chai: any, utils: any): void;
-    namespace chaiAsPromised {}
+    namespace chaiJsonSchema {}
 	export = chaiJsonSchema;
 }
