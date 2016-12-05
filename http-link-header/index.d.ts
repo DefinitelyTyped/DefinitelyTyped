@@ -9,7 +9,7 @@ export interface Reference {
     title?: string;
 }
 export interface Link {
-    refs: Array<Reference>;
+    refs: Reference[];
     has: (attribute: string, value: string) => boolean;
     get: (attribute: string, value: string) => Reference;
     rel: (value: string) => Reference;
