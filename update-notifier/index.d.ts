@@ -1,6 +1,6 @@
 // Type definitions for update-notifier
 // Project: https://github.com/yeoman/update-notifier
-// Definitions by: vvakame <https://github.com/vvakame>
+// Definitions by: vvakame <https://github.com/vvakame>, Noah Chen <https://github.com/nchen63>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ISettings {
