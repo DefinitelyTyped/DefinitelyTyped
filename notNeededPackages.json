@@ -82,6 +82,12 @@
             "typingsPackageName": "redux",
             "sourceRepoURL": "https://github.com/reactjs/redux",
             "asOfVersion": "3.6.0"
+        },
+        {
+            "libraryName": "Normalizr",
+            "typingsPackageName": "normalizr",
+            "sourceRepoURL": "https://github.com/paularmstrong/normalizr",
+            "asOfVersion": "2.0.18"
         }
     ]
 }
