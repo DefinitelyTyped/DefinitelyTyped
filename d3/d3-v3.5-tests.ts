@@ -1,4 +1,4 @@
-
+/* tslint:disable */
 
 //Example from http://bl.ocks.org/3887235
 interface TestPieChartData {
@@ -2708,14 +2708,14 @@ function testMultiUtcFormat() {
 }
 
 function testEnterSizeEmpty() {
-    
+
     var selectionSize: number,
         emptyStatus: boolean;
-        
+
     var newNodes = d3.selectAll('.test')
                 .data(['1', '2', '3'])
                 .enter();
-                
+
     emptyStatus = newNodes.empty();
     selectionSize = newNodes.size();
 
