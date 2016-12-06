@@ -651,12 +651,27 @@ declare namespace angular {
         [name: string]: any;
     }
 
+    interface IFilterOrderByObject {
+        value: any;
+        type: string;
+        index: number;
+    }
+
     interface IFilterFilterPredicateFunc<T> {
         (value: T, index: number, array: T[]): boolean;
     }
 
     interface IFilterFilterComparatorFunc<T> {
         (actual: T, expected: T): boolean;
+    }
+
+    interface IFilterOrderByComparatorFunc {
+        /**
+        * Denotes a function which is used in comparision.
+        * @param Pair of {IFilterOrderByObject} objects that are going to be compared.
+        * @return {number} that belongs to a set {-1,0,1}
+        */
+        (value1: IFilterOrderByObject, value2: IFilterOrderByObject): number;
     }
 
     interface IFilterCurrency {
@@ -741,9 +756,10 @@ declare namespace angular {
          * @param array The array to sort.
          * @param expression A predicate to be used by the comparator to determine the order of elements.
          * @param reverse Reverse the order of the array.
+         * @param comparator function used to determine the relative order of value pairs. If omitted, the built-in comparator will be used.
          * @return Reverse the order of the array.
          */
-        <T>(array: T[], expression: string|((value: T) => any)|(((value: T) => any)|string)[], reverse?: boolean): T[];
+        <T>(array: T[], expression: string|((value: T) => any)|(((value: T) => any)|string)[], reverse?: boolean, comparator?: IFilterOrderByComparatorFunc): T[];
     }
 
     /**
