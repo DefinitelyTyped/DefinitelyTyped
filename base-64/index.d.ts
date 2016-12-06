@@ -3,19 +3,6 @@
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface base64static {
-    /**
-     * A string representing the semantic version number.
-     */
-    version: string;
-
-
-    encode(input: string): string;
-
-
-    decode(input: string): string;
-}
-
 export const version: string;
 
     /**
