@@ -261,7 +261,7 @@ declare namespace THREE {
         reset(): AnimationAction;
         isRunning(): boolean;
         startAt(time: number): AnimationAction;
-        setLoop(mode: boolean, repetitions: number): AnimationAction;
+        setLoop(mode: AnimationActionLoopStyles, repetitions?: number): AnimationAction;
         setEffectiveWeight(weight: number): AnimationAction;
         getEffectiveWeight(): number;
         fadeIn(duration: number): AnimationAction;
@@ -1284,6 +1284,11 @@ declare namespace THREE {
          * Face normals must be existing / computed beforehand.
          */
         computeVertexNormals(areaWeighted?: boolean): void;
+
+        /**
+         * Compute vertex normals, but duplicating face normals.
+         */
+        computeFlatVertexNormals(): void;
 
         /**
          * Computes morph normals.
@@ -5729,7 +5734,7 @@ declare namespace THREE {
             encoding?: TextureEncoding
         );
 
-        image: { data: ImageData; width: number; height: number; };
+        image: ImageData;
     }
 
     export class VideoTexture extends Texture {
