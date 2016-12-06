@@ -1,6 +1,6 @@
 // Type definitions for Angular UI Bootstrap 0.13.3
 // Project: https://github.com/angular-ui/bootstrap
-// Definitions by: Brian Surowiec <https://github.com/xt0rted>
+// Definitions by: Brian Surowiec <https://github.com/xt0rted>, Ryan Southgate <https://github.com/ry8806>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="angular" />
@@ -19,7 +19,6 @@ declare module 'angular' {
             closeOthers?: boolean;
         }
 
-
         interface IButtonConfig {
             /**
              * @default: 'active'
@@ -31,7 +30,6 @@ declare module 'angular' {
              */
             toggleEvent?: string;
         }
-
 
         interface IDatepickerConfig {
             /**
@@ -131,6 +129,13 @@ declare module 'angular' {
              * @default null
              */
             maxDate?: any;
+
+            /**
+             * Defines the initial date, when no model value is specified.
+             * 
+             * @default null
+             */
+            initDate?: any;
 
             /**
              * An option to disable or enable shortcut's event propagation
