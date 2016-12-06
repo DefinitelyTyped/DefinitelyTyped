@@ -3,6 +3,8 @@
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 declare function getStdin(): Promise<string>;
 declare namespace getStdin {
     export function buffer(): Promise<Buffer>;
