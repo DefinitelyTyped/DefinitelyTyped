@@ -1,4 +1,15 @@
-﻿///<reference path="SharePoint.d.ts" />
+﻿///<reference path="SP.Init.d.ts" />
+///<reference path="SP.d.ts" />
+///<reference path="clienttemplates.d.ts" />
+///<reference path="clientpeoplepicker.d.ts" />
+///<reference path="SP.Search.d.ts" />
+///<reference path="SP.UI.d.ts" />
+///<reference path="SP.UI.Controls.d.ts" />
+///<reference path="SP.Taxonomy.d.ts" />
+///<reference path="mQuery.d.ts" />
+///<reference path="SP.UserProfiles.d.ts" />
+///<reference path="SP.Publishing.d.ts" />
+///<reference path="reputation.d.ts" />
 ///<reference path="../angularjs/angular.d.ts" />
 ///<reference path="../knockout/knockout.d.ts" />
 ///<reference path="../jquery/jquery.d.ts" />
