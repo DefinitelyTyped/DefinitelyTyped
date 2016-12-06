@@ -3,35 +3,36 @@
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'base-64' {
-    interface base64static {
-        /**
-         * A string representing the semantic version number.
-         */
-        version: string;
+export interface base64static {
+    /**
+     * A string representing the semantic version number.
+     */
+    version: string;
 
-        /**
-         * This function takes a byte string (the input parameter) and encodes it according to base64. 
-         * The input data must be in the form of a string containing only characters 
-         * in the range from U+0000 to U+00FF, each representing a binary byte with values 0x00 to 0xFF. 
-         * The base64.encode() function is designed to be fully compatible 
-         * with btoa() as described in the HTML Standard.
-         * see: https://html.spec.whatwg.org/multipage/webappapis.html#dom-windowbase64-btoa
-         */
-        encode(input: string): string;
 
-        /**
-         * This function takes a base64-encoded string (the input parameter) and decodes it. 
-         * The return value is in the form of a string containing only characters in 
-         * the range from U+0000 to U+00FF, each representing a binary byte with values 0x00 to 0xFF. 
-         * The base64.decode() function is designed to be fully compatible 
-         * with atob() as described in the HTML Standard.
-         * see: https://html.spec.whatwg.org/multipage/webappapis.html#dom-windowbase64-atob
-         */
-        decode(input: string): string;
-    }
+    encode(input: string): string;
 
-    var base64: base64static;
 
-    export = base64;
+    decode(input: string): string;
 }
+
+export const version: string;
+
+    /**
+     * This function takes a byte string (the input parameter) and encodes it according to base64. 
+     * The input data must be in the form of a string containing only characters 
+     * in the range from U+0000 to U+00FF, each representing a binary byte with values 0x00 to 0xFF. 
+     * The base64.encode() function is designed to be fully compatible 
+     * with btoa() as described in the HTML Standard.
+     * see: https://html.spec.whatwg.org/multipage/webappapis.html#dom-windowbase64-btoa
+     */
+export function encode(input: string): string;
+    /**
+     * This function takes a base64-encoded string (the input parameter) and decodes it. 
+     * The return value is in the form of a string containing only characters in 
+     * the range from U+0000 to U+00FF, each representing a binary byte with values 0x00 to 0xFF. 
+     * The base64.decode() function is designed to be fully compatible 
+     * with atob() as described in the HTML Standard.
+     * see: https://html.spec.whatwg.org/multipage/webappapis.html#dom-windowbase64-atob
+     */
+export function decode(input: string): string;

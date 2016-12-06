@@ -9,3 +9,5 @@ let encoded = base64.encode(bytes);
 encoded = 'Zm9vIMKpIGJhciDwnYyGIGJheg==';
 bytes = base64.decode(encoded);
 text = utf8.decode(bytes);
+
+let version = base64.version;
