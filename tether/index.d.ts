@@ -1,4 +1,4 @@
-// Type definitions for Tether v1.1
+// Type definitions for Tether v1.4
 // Project: http://github.hubspot.com/tether/
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -22,6 +22,7 @@ declare class Tether {
 declare namespace Tether {
     interface ITetherOptions {
         attachment?: string;
+        bodyElement?: HTMLElement;
         classes?: {[className: string]: boolean};
         classPrefix?: string;
         constraints?: ITetherConstraint[];
