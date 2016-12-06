@@ -88,6 +88,12 @@
             "typingsPackageName": "normalizr",
             "sourceRepoURL": "https://github.com/paularmstrong/normalizr",
             "asOfVersion": "2.0.18"
+        },
+        {
+            "libraryName": "redux-batched-actions",
+            "typingsPackageName": "redux-batched-actions",
+            "sourceRepoURL": "https://github.com/tshelburne/redux-batched-actions",
+            "asOfVersion": "0.1.5"
         }
     ]
 }
