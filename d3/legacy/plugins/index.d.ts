@@ -3,6 +3,8 @@
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/* tslint:disable */
+
 import * as d3 from 'd3';
 
 declare module 'd3' {
