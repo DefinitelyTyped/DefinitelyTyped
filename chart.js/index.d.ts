@@ -3,15 +3,15 @@
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export enum ChartType {
+declare enum ChartType {
     line, bar, radar, doughnut, polarArea, bubble
 }
-export enum TimeUnit {
+declare enum TimeUnit {
     millisecond, second, minute,
     hour, day, week,
     month, quarter, year
 }
-export interface ChartLegendItem {
+interface ChartLegendItem {
     text?: string;
     fillStyle?: string;
     hidden?: boolean;
@@ -22,13 +22,13 @@ export interface ChartLegendItem {
     lineWidth?: number;
     strokeStyle?: string;
 }
-export interface ChartTooltipItem {
+interface ChartTooltipItem {
     xLabel?: string;
     yLabel?: string;
     datasetIndex?: number;
     index?: number;
 }
-export interface ChartTooltipCallback {
+interface ChartTooltipCallback {
     beforeTitle?: (item?: ChartTooltipItem[], data?: any) => void;
     title?: (item?: ChartTooltipItem[], data?: any) => void;
     afterTitle?: (item?: ChartTooltipItem[], data?: any) => void;
@@ -41,31 +41,31 @@ export interface ChartTooltipCallback {
     footer?: (item?: ChartTooltipItem[], data?: any) => void;
     afterfooter?: (item?: ChartTooltipItem[], data?: any) => void;
 }
-export interface ChartAnimationParameter {
+interface ChartAnimationParameter {
     chartInstance?: any;
     animationObject?: any;
 }
-export interface ChartPoint {
+interface ChartPoint {
     x?: number;
     y?: number;
 }
 
-export interface ChartConfiguration {
+interface ChartConfiguration {
     type?: string;
     data?: ChartData;
     options?: ChartOptions;
 }
 
-export interface ChartData {
+interface ChartData {
 
 }
 
-export interface LinearChartData extends ChartData {
+interface LinearChartData extends ChartData {
     labels?: string[];
     datasets?: ChartDataSets[];
 }
 
-export interface ChartOptions {
+interface ChartOptions {
     responsive?: boolean;
     responsiveAnimationDuration?: number;
     maintainAspectRatio?: boolean;
@@ -80,14 +80,14 @@ export interface ChartOptions {
     scales?: ChartScales;
 }
 
-export interface ChartFontOptions {
+interface ChartFontOptions {
     defaultFontColor?: ChartColor;
     defaultFontFamily?: string;
     defaultFontSize?: number;
     defaultFontStyle?: string;
 }
 
-export interface ChartTitleOptions {
+interface ChartTitleOptions {
     display?: boolean;
     position?: string;
     fullWdith?: boolean;
@@ -99,7 +99,7 @@ export interface ChartTitleOptions {
     text?: string;
 }
 
-export interface ChartLegendOptions {
+interface ChartLegendOptions {
     display?: boolean;
     position?: string;
     fullWidth?: boolean;
@@ -107,7 +107,7 @@ export interface ChartLegendOptions {
     labels?: ChartLegendLabelOptions;
 }
 
-export interface ChartLegendLabelOptions {
+interface ChartLegendLabelOptions {
     boxWidth?: number;
     fontSize?: number;
     fontStyle?: number;
@@ -117,7 +117,7 @@ export interface ChartLegendLabelOptions {
     generateLabels?: (chart: any) => any;
 }
 
-export interface ChartTooltipOptions {
+interface ChartTooltipOptions {
     enabled?: boolean;
     custom?: (a: any) => void;
     mode?: string;
@@ -147,13 +147,13 @@ export interface ChartTooltipOptions {
     callbacks?: ChartTooltipCallback;
 }
 
-export interface ChartHoverOptions {
+interface ChartHoverOptions {
     mode?: string;
     animationDuration?: number;
     onHover?: (active: any) => void;
 }
 
-export interface ChartAnimationObject {
+interface ChartAnimationObject {
     currentStep?: number;
     numSteps?: number;
     easing?: string;
@@ -162,27 +162,27 @@ export interface ChartAnimationObject {
     onAnimationComplete?: (arg: any) => void;
 }
 
-export interface ChartAnimationOptions {
+interface ChartAnimationOptions {
     duration?: number;
     easing?: string;
     onProgress?: (chart: any) => void;
     onComplete?: (chart: any) => void;
 }
 
-export interface ChartElementsOptions {
+interface ChartElementsOptions {
     point?: ChartPointOptions;
     line?: ChartLineOptions;
     arg?: ChartArcOtpions;
     rectangle?: ChartRectangleOptions;
 }
 
-export interface ChartArcOtpions {
+interface ChartArcOtpions {
     backgroundColor?: ChartColor;
     borderColor?: ChartColor;
     borderWidth?: number;
 }
 
-export interface ChartLineOptions {
+interface ChartLineOptions {
     tension?: number;
     backgroundColor?: ChartColor;
     borderWidth?: number;
@@ -193,7 +193,7 @@ export interface ChartLineOptions {
     borderJoinStyle?: string;
 }
 
-export interface ChartPointOptions {
+interface ChartPointOptions {
     radius?: number;
     pointStyle?: string;
     backgroundColor?: ChartColor;
@@ -204,13 +204,13 @@ export interface ChartPointOptions {
     hoverBorderWidth?: number;
 }
 
-export interface ChartRectangleOptions {
+interface ChartRectangleOptions {
     backgroundColor?: ChartColor;
     borderWidth?: number;
     borderColor?: ChartColor;
     borderSkipped?: string;
 }
-export interface GridLineOptions {
+interface GridLineOptions {
     display?: boolean;
     color?: ChartColor;
     lineWidth?: number;
@@ -223,7 +223,7 @@ export interface GridLineOptions {
     offsetGridLines?: boolean;
 }
 
-export interface ScaleTitleOptions {
+interface ScaleTitleOptions {
     display?: boolean;
     labelString?: string;
     fontColor?: ChartColor;
@@ -232,7 +232,7 @@ export interface ScaleTitleOptions {
     fontStyle?: string;
 }
 
-export interface TickOptions {
+interface TickOptions {
     autoSkip?: boolean;
     callback?: (value: any, index: any, values: any) => string;
     display?: boolean;
@@ -249,13 +249,13 @@ export interface TickOptions {
     min?: any;
     max?: any;
 }
-export interface AngleLineOptions {
+interface AngleLineOptions {
     display?: boolean;
     color?: ChartColor;
     lineWidth?: number;
 }
 
-export interface PointLabelOptions {
+interface PointLabelOptions {
     callback?: (arg: any) => any;
     fontColor?: ChartColor;
     fontFamily?: string;
@@ -263,14 +263,14 @@ export interface PointLabelOptions {
     fontStyle?: string;
 }
 
-export interface TickOptions {
+interface TickOptions {
     backdropColor?: ChartColor;
     backdropPaddingX?: number;
     backdropPaddingY?: number;
     maxTicksLimit?: number;
     showLabelBackdrop?: boolean;
 }
-export interface LinearTickOptions extends TickOptions {
+interface LinearTickOptions extends TickOptions {
     beginAtZero?: boolean;
     min?: number;
     max?: number;
@@ -280,14 +280,14 @@ export interface LinearTickOptions extends TickOptions {
     suggestedMax?: number;
 }
 
-export interface LogarithmicTickOptions extends TickOptions {
+interface LogarithmicTickOptions extends TickOptions {
     min?: number;
     max?: number;
 }
 
 type ChartColor = string | CanvasGradient | CanvasPattern;
 
-export interface ChartDataSets {
+interface ChartDataSets {
     backgroundColor?: ChartColor;
     borderWidth?: number;
     borderColor?: ChartColor;
@@ -313,7 +313,7 @@ export interface ChartDataSets {
     yAxisID?: string;
 }
 
-export interface ChartScales {
+interface ChartScales {
     type?: string;
     display?: boolean;
     position?: string;
@@ -338,7 +338,7 @@ export interface ChartScales {
     yAxes?: ChartYAxe[];
 }
 
-export interface ChartXAxe {
+interface ChartXAxe {
     type?: string;
     display?: boolean;
     id?: string;
@@ -353,7 +353,7 @@ export interface ChartXAxe {
     scaleLabel?: ScaleTitleOptions;
 }
 
-export interface ChartYAxe {
+interface ChartYAxe {
     type?: string;
     display?: boolean;
     id?: string;
@@ -363,15 +363,15 @@ export interface ChartYAxe {
     scaleLabel?: ScaleTitleOptions;
 }
 
-export interface LinearScale extends ChartScales {
+interface LinearScale extends ChartScales {
     ticks?: LinearTickOptions;
 }
 
-export interface LogarithmicScale extends ChartScales {
+interface LogarithmicScale extends ChartScales {
     ticks?: LogarithmicTickOptions;
 }
 
-export interface TimeScale extends ChartScales {
+interface TimeScale extends ChartScales {
     format?: string;
     displayFormats?: string;
     isoWeekday?: boolean;
@@ -384,14 +384,14 @@ export interface TimeScale extends ChartScales {
     unitStepSize?: number;
 }
 
-export interface RadialLinearScale {
+interface RadialLinearScale {
     lineArc?: boolean;
     angleLines?: AngleLineOptions;
     pointLabels?: PointLabelOptions;
     ticks?: TickOptions;
 }
 
-export class Chart {
+declare class Chart {
     constructor (context: CanvasRenderingContext2D | HTMLCanvasElement, options: ChartConfiguration);
     config: ChartConfiguration;
     destroy: () => {};
