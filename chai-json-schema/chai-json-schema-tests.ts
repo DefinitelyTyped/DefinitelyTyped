@@ -7,6 +7,7 @@ import chai = require('chai');
 import ChaiJsonSchema = require('chai-json-schema');
 
 chai.use(ChaiJsonSchema);
+chai.should();
 
 let goodApple = {
     skin: 'thin',
