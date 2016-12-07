@@ -1,4 +1,4 @@
-/// <reference types="stats" />
+/// <reference types="stats.js" />
 
 Physijs.scripts.worker = '../physijs_worker.js';
 Physijs.scripts.ammo = 'examples/js/ammo.js';
