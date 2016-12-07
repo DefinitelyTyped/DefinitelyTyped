@@ -29,5 +29,5 @@ server.on('client:connected', function(conn: ftpd.FtpConnection): void {
 	});
 });
 
-server.debugging = ftpd.LogLevel.NOTICE;
+server.debugging = ftpd.LogLevel.TRACE;
 server.listen(21);
