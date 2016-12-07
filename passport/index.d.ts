@@ -28,6 +28,24 @@ declare module 'passport' {
     import express = require('express');
 
     namespace passport {
+
+    interface AuthenticateOptions {
+      authInfo?:boolean;
+      assignProperty?:string;
+      failureFlash?: string|boolean|Object;
+      failureMessage?: boolean|string;
+      failureRedirect?:string;
+      failWithError?:boolean;
+      session?: boolean;
+      scope?: string|string[];
+      successFlash?: string|boolean|Object;
+      successMessage?: boolean|string;
+      successRedirect?:string;
+      successReturnToOrRedirect?:string;
+      pauseStream?:boolean;
+      userProperty?:string;
+    }
+
     interface Passport {
         use(strategy: passport.Strategy): Passport;
         use(name: string, strategy: passport.Strategy): Passport;
@@ -37,9 +55,9 @@ declare module 'passport' {
         session(options?: { pauseStream: boolean; }): express.Handler;
 
         authenticate(strategy: string, callback?: Function): express.Handler;
-        authenticate(strategy: string, options: Object, callback?: Function): express.Handler;
+        authenticate(strategy: string, options: AuthenticateOptions, callback?: Function): express.Handler;
         authenticate(strategies: string[], callback?: Function): express.Handler;
-        authenticate(strategies: string[], options: Object, callback?: Function): express.Handler;
+        authenticate(strategies: string[], options: AuthenticateOptions, callback?: Function): express.Handler;
         authorize(strategy: string, callback?: Function): express.Handler;
         authorize(strategy: string, options: Object, callback?: Function): express.Handler;
         authorize(strategies: string[], callback?: Function): express.Handler;
