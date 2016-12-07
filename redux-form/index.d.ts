@@ -25,6 +25,7 @@ export * from "./lib/reduxForm";
 export * from "./lib/Field";
 export * from "./lib/Fields";
 export * from "./lib/FieldArray";
+export * from "./lib/FormSection";
 export * from "./lib/actions";
 export * from "./lib/reducer";
 export * from "./lib/selectors";

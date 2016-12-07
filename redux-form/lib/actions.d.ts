@@ -1,5 +1,5 @@
 import { Action } from "redux";
-import { FormErrors, FormWarnings } from "../index";
+import { FormErrors, FormWarnings, FieldType } from "../index";
 
 /**
  * Inserts an item into a field array at the specified index
@@ -85,6 +85,11 @@ export function focus(form: string, field: string): Action;
 export function initialize(form: string, data: Object, fields: string[]): Action;
 
 /**
+ * Registers a field with the form.
+ */
+export function registerField(form: string, name: string, type: FieldType): Action;
+
+/**
  * Resets the values in the form back to the values past in with the most recent initialize action.
  */
 export function reset(form: string): Action;
@@ -114,9 +119,19 @@ export function setSubmitFailed(form: string, ...fields: string[]): Action;
 export function setSubmitSucceeded(form: string, ...fields: string[]): Action;
 
 /**
+ * Triggers a submission of the specified form.
+ */
+export function submit(form: string): Action;
+
+/**
  * Marks all the fields passed in as touched.
  */
 export function touch(form: string, ...fields: string[]): Action;
+
+/**
+ * Unregisters a field with the form.
+ */
+export function unregisterField(form: string, name: string): Action;
 
 /**
  * Resets the 'touched' flag for all the fields passed in.

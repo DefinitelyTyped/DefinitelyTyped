@@ -112,13 +112,18 @@ export interface Config<FormData extends DataShape, P, S> {
 
     /**
      * A callback function that will be called when a submission fails for whatever reason.
+     *
+     * @param errors      The errors that caused the submission to fail.
+     * @param dispatch    The Redux `dispatch` function.
+     * @param submitError The error object that caused the submission to fail. If `errors` is set this will be most
+     *                    likely a `SubmissionError`, otherwise it can be any error or null.
      */
-    onSubmitFail?: (errors: FormErrors<FormData>, dispatch: Dispatch<S>) => void;
+    onSubmitFail?(errors: FormErrors<FormData>, dispatch: Dispatch<S>, submitError: any): void;
 
     /**
      * A callback function that will be called when a submission succeeds.
      */
-    onSubmitSuccess?: (result: any, dispatch: Dispatch<S>) => void;
+    onSubmitSuccess?(result: any, dispatch: Dispatch<S>): void;
 
     /**
      * Do not remove submit errors when the change action is fired. Defaults to false.
@@ -142,6 +147,11 @@ export interface Config<FormData extends DataShape, P, S> {
      * See Alternate Mount Point Example for more details.
      */
     reduxMountPoint?: string;
+
+    /**
+     * An optional function you may provide to have full control over when sync validation happens.
+     */
+    shouldValidate?(params: ValidateCallback<FormData>): boolean;
 
     /**
      * An optional function you may provide to have full control over when async
@@ -189,6 +199,33 @@ export interface Config<FormData extends DataShape, P, S> {
  */
 export interface SubmitHandler<FormData extends DataShape, P, S> {
     (values: FormData, dispatch: Dispatch<S>, props: FormProps<FormData, P, S> & P): void | FormErrors<FormData> | Promise<any>;
+}
+
+interface ValidateCallback<FormData extends DataShape> {
+    /**
+     * The values.
+     */
+    values: FormData;
+
+    /**
+     * The next props.
+     */
+    nextProps: Object;
+
+    /**
+     * The current props.
+     */
+    props: Object;
+
+    /**
+     * true if the form is being initially rendered.
+     */
+    initialRender: boolean;
+
+    /**
+     * The structure object being used internally for values. You may wish to use 'deepEqual' from the structure.
+     */
+    structure: Object;
 }
 
 interface AsyncValidateCallback<FormData extends DataShape> {

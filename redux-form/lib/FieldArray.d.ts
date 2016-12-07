@@ -92,7 +92,7 @@ interface FieldsProps<T> {
     /**
      * A method to iterate over each value of the array.
      */
-    forEach(callback: (name: string, index: number) => void): void;
+    forEach(callback: (name: string, index: number, fields: FieldsProps<T>) => void): void;
 
     /**
      * A function to insert a new value into the array at any arbitrary index.
@@ -108,7 +108,7 @@ interface FieldsProps<T> {
      * A method to iterate over each value of the array. Returns an array of the
      * results of each call to the callback.
      */
-    map(callback: (name: string, index: number) => any): any;
+    map(callback: (name: string, index: number, fields: FieldsProps<T>) => any): any;
 
     /**
      * Removes an item from the end of the array. Returns the item removed.

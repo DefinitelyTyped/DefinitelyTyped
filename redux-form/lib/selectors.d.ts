@@ -45,6 +45,11 @@ export const getFormValues: DataSelector;
 export const getFormSyncErrors: ErrorSelector;
 
 /**
+ * Returns the form submit validation errors.
+ */
+export const getFormSubmitErrors: ErrorSelector;
+
+/**
  * Returns true if the form is dirty, i.e. the values have been altered
  * from the original initialValues provided. The opposite of isPristine.
  */
