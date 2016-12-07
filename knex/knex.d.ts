@@ -518,7 +518,7 @@ declare module "knex" {
       stringifyObjects?: boolean;
       insecureAuth?: boolean;
       typeCast?: boolean;
-      queryFormat?: (query, values) => string;
+      queryFormat?: (query: string, values: any) => string;
       supportBigNumbers?: boolean;
       bigNumberStrings?: boolean;
       dateStrings?: boolean;
