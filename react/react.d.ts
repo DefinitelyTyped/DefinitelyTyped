@@ -2327,11 +2327,11 @@ declare namespace __React {
     // ----------------------------------------------------------------------
 
     interface ReactChildren {
-        map<T>(children: ReactNode, fn: (child: ReactChild, index: number) => T): T[];
-        forEach(children: ReactNode, fn: (child: ReactChild, index: number) => any): void;
+        map<T>(children: ReactNode, fn: (child: ReactChild | null, index: number) => T): T[];
+        forEach(children: ReactNode, fn: (child: ReactChild | null, index: number) => any): void;
         count(children: ReactNode): number;
         only(children: ReactNode): ReactElement<any>;
-        toArray(children: ReactNode): ReactChild[];
+        toArray(children: ReactNode): Array<ReactChild | null>;
     }
 
     //
