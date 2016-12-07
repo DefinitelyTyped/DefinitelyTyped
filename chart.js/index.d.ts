@@ -410,3 +410,5 @@ export class Chart {
         global: ChartOptions;
     }
 }
+
+export as namespace Chart;
