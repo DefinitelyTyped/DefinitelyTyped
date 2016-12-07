@@ -12,7 +12,7 @@ import fs = require("fs");
 import net = require("net");
 import tls = require("tls");
 
-export enum LogLevel {
+export const enum LogLevel {
     ERROR = 0,
     WARN = 1,
     INFO = 2,
@@ -212,5 +212,5 @@ export declare class FtpServer extends events.EventEmitter {
     /**
      * Change/Retrieve logLevel at runtime.
      */
-    public debugging:LogLevel;
+    public debugging: LogLevel;
 }
