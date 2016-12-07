@@ -1,4 +1,4 @@
-// Type definitions for react-bootstrap-table v2.3.0
+// Type definitions for react-bootstrap-table v2.6.0
 // Project: https://github.com/AllenFang/react-bootstrap-table
 // Definitions by: Frank Laub <https://github.com/flaub>, Aleksander Lode <https://github.com/alelode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -115,12 +115,18 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 	*/
     options?: Options;
     fetchInfo?: FetchInfo;
-
+	printable?: boolean;
     tableStyle?: any;
     containerStyle?: any;
     headerStyle?: any;
     bodyStyle?: any;
     ignoreSinglePage?: boolean;
+	containerClass?: string;
+	tableContainerClass?: string
+	headerContainerClass?: string;
+	bodyContainerClass?: string;
+	expandableRow?: (row: any) => boolean;
+	expandComponent?: (row: any) => any;
 }
 
 export type SelectRowMode = 'none' | 'radio' | 'checkbox';
@@ -166,7 +172,7 @@ export interface SelectRow {
 		`row`: is the row data which you wanted to select or unselect.
 		`isSelected`: it's a boolean value means "whether or not that row will be selected?".
 		`event`: The event target object.
-	If return value of this function is false, the select or deselect action will not be applied.
+	If return value of this (function) is false, the select or deselect action will not be applied.
 	*/
     onSelect?: (row: any, isSelected: Boolean, event: any) => boolean;
 	/**
@@ -178,6 +184,10 @@ export interface SelectRow {
 	*/
     onSelectAll?: (isSelected: boolean, currentSelectedAndDisplayData: any) => boolean;
 
+	/**
+	 * Provide a list of unselectable row keys.
+	 */
+	unselectable?: number[];
 }
 
 export type CellEditClickMode = 'none' | 'click' | 'dbclick';
@@ -375,7 +385,7 @@ export interface Options {
 	  `rowKeys` is the row keys which been deleted, you can call next function to apply this deletion.
 	*/
     handleConfirmDeleteRow?: (next: Function, rowKeys: any[]) => void;
-    paginationShowsTotal?: boolean;
+    paginationShowsTotal?: boolean | ReactElement<any>;
     onSearchChange?: Function;
     onAddRow?: Function;
     onExportToCSV?: Function;
