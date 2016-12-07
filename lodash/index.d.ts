@@ -241,7 +241,9 @@ export as namespace _;
 
 declare var _: _.LoDashStatic;
 
-declare module _ {
+declare namespace _ {
+    type Many<T> = T | T[];
+
     interface LoDashStatic {
         /**
         * Creates a lodash object which wraps the given value to enable intuitive method chaining.
@@ -277,8 +279,8 @@ declare module _ {
         (value: number): LoDashImplicitWrapper<number>;
         (value: string): LoDashImplicitStringWrapper;
         (value: boolean): LoDashImplicitWrapper<boolean>;
-        (value: Array<number>): LoDashImplicitNumberArrayWrapper;
-        <T>(value: Array<T>): LoDashImplicitArrayWrapper<T>;
+        (value: number[]): LoDashImplicitNumberArrayWrapper;
+        <T>(value: T[]): LoDashImplicitArrayWrapper<T>;
         <T extends {}>(value: T): LoDashImplicitObjectWrapper<T>;
         (value: any): LoDashImplicitWrapper<any>;
 
@@ -515,7 +517,7 @@ declare module _ {
          * console.log(array);
          * // => [1]
          */
-         concat<T>(array: T[]|List<T>, ...values: (T|T[]|List<T>)[]) : T[];
+         concat<T>(array: List<T>, ...values: Array<T|List<T>>): T[];
     }
 
     //_.difference
@@ -529,8 +531,8 @@ declare module _ {
          * @return Returns the new array of filtered values.
          */
         difference<T>(
-            array: T[]|List<T>,
-            ...values: Array<T[]|List<T>>
+            array: List<T>,
+            ...values: Array<List<T>>
         ): T[];
     }
 
@@ -538,28 +540,28 @@ declare module _ {
         /**
          * @see _.difference
          */
-        difference(...values: (T[]|List<T>)[]): LoDashImplicitArrayWrapper<T>;
+        difference(...values: Array<List<T>>): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.difference
          */
-        difference<TValue>(...values: (TValue[]|List<TValue>)[]): LoDashImplicitArrayWrapper<TValue>;
+        difference<TValue>(...values: Array<List<TValue>>): LoDashImplicitArrayWrapper<TValue>;
     }
 
     interface LoDashExplicitArrayWrapper<T> {
         /**
          * @see _.difference
          */
-        difference(...values: (T[]|List<T>)[]): LoDashExplicitArrayWrapper<T>;
+        difference(...values: Array<List<T>>): LoDashExplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.difference
          */
-        difference<TValue>(...values: (TValue[]|List<TValue>)[]): LoDashExplicitArrayWrapper<TValue>;
+        difference<TValue>(...values: Array<List<TValue>>): LoDashExplicitArrayWrapper<TValue>;
     }
 
     //_.differenceBy
@@ -575,8 +577,8 @@ declare module _ {
          * @returns Returns the new array of filtered values.
          */
         differenceBy<T>(
-            array: T[]|List<T>,
-            values?: T[]|List<T>,
+            array: List<T>,
+            values?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): T[];
 
@@ -584,8 +586,8 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            array: T[]|List<T>,
-            values?: T[]|List<T>,
+            array: List<T>,
+            values?: List<T>,
             iteratee?: W
         ): T[];
 
@@ -593,9 +595,9 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            array: T[]|List<T>,
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
+            array: List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): T[];
 
@@ -603,9 +605,9 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            array: T[]|List<T>,
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
+            array: List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
             iteratee?: W
         ): T[];
 
@@ -613,10 +615,10 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            array: T[]|List<T>,
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
+            array: List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): T[];
 
@@ -624,10 +626,10 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            array: T[]|List<T>,
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
+            array: List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
             iteratee?: W
         ): T[];
 
@@ -635,11 +637,11 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            array: T[]|List<T>,
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
-            values4?: T[]|List<T>,
+            array: List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
+            values4?: List<T>,
             iteratee?: W
         ): T[];
 
@@ -647,11 +649,11 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            array: T[]|List<T>,
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
-            values4?: T[]|List<T>,
+            array: List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
+            values4?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): T[];
 
@@ -659,12 +661,12 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            array: T[]|List<T>,
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
-            values4?: T[]|List<T>,
-            values5?: T[]|List<T>,
+            array: List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
+            values4?: List<T>,
+            values5?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): T[];
 
@@ -672,12 +674,12 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            array: T[]|List<T>,
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
-            values4?: T[]|List<T>,
-            values5?: T[]|List<T>,
+            array: List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
+            values4?: List<T>,
+            values5?: List<T>,
             iteratee?: W
         ): T[];
 
@@ -685,7 +687,7 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            array: T[]|List<T>,
+            array: List<T>,
             ...values: any[]
         ): T[];
     }
@@ -695,7 +697,7 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values?: T[]|List<T>,
+            values?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -703,7 +705,7 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            values?: T[]|List<T>,
+            values?: List<T>,
             iteratee?: W
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -711,8 +713,8 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -720,8 +722,8 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
             iteratee?: W
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -729,9 +731,9 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -739,9 +741,9 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
             iteratee?: W
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -749,10 +751,10 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
-            values4?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
+            values4?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -760,10 +762,10 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
-            values4?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
+            values4?: List<T>,
             iteratee?: W
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -771,11 +773,11 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
-            values4?: T[]|List<T>,
-            values5?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
+            values4?: List<T>,
+            values5?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -783,11 +785,11 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
-            values4?: T[]|List<T>,
-            values5?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
+            values4?: List<T>,
+            values5?: List<T>,
             iteratee?: W
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -804,7 +806,7 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values?: T[]|List<T>,
+            values?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -812,7 +814,7 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            values?: T[]|List<T>,
+            values?: List<T>,
             iteratee?: W
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -820,8 +822,8 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -829,8 +831,8 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
             iteratee?: W
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -838,9 +840,9 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -848,9 +850,9 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
             iteratee?: W
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -858,10 +860,10 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
-            values4?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
+            values4?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -869,10 +871,10 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
-            values4?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
+            values4?: List<T>,
             iteratee?: W
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -880,11 +882,11 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
-            values4?: T[]|List<T>,
-            values5?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
+            values4?: List<T>,
+            values5?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -892,11 +894,11 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
-            values4?: T[]|List<T>,
-            values5?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
+            values4?: List<T>,
+            values5?: List<T>,
             iteratee?: W
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -913,7 +915,7 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values?: T[]|List<T>,
+            values?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -921,7 +923,7 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            values?: T[]|List<T>,
+            values?: List<T>,
             iteratee?: W
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -929,8 +931,8 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -938,8 +940,8 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
             iteratee?: W
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -947,9 +949,9 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -957,9 +959,9 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
             iteratee?: W
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -967,10 +969,10 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
-            values4?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
+            values4?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -978,10 +980,10 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
-            values4?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
+            values4?: List<T>,
             iteratee?: W
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -989,11 +991,11 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
-            values4?: T[]|List<T>,
-            values5?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
+            values4?: List<T>,
+            values5?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -1001,11 +1003,11 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
-            values4?: T[]|List<T>,
-            values5?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
+            values4?: List<T>,
+            values5?: List<T>,
             iteratee?: W
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -1022,7 +1024,7 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values?: T[]|List<T>,
+            values?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -1030,7 +1032,7 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            values?: T[]|List<T>,
+            values?: List<T>,
             iteratee?: W
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -1038,8 +1040,8 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -1047,8 +1049,8 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
             iteratee?: W
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -1056,9 +1058,9 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -1066,9 +1068,9 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
             iteratee?: W
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -1076,10 +1078,10 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
-            values4?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
+            values4?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -1087,10 +1089,10 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
-            values4?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
+            values4?: List<T>,
             iteratee?: W
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -1098,11 +1100,11 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
-            values4?: T[]|List<T>,
-            values5?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
+            values4?: List<T>,
+            values5?: List<T>,
             iteratee?: ((value: T) => any)|string
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -1110,11 +1112,11 @@ declare module _ {
          * @see _.differenceBy
          */
         differenceBy<T, W extends Object>(
-            values1?: T[]|List<T>,
-            values2?: T[]|List<T>,
-            values3?: T[]|List<T>,
-            values4?: T[]|List<T>,
-            values5?: T[]|List<T>,
+            values1?: List<T>,
+            values2?: List<T>,
+            values3?: List<T>,
+            values4?: List<T>,
+            values5?: List<T>,
             iteratee?: W
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -1145,7 +1147,7 @@ declare module _ {
          * // => [3, 1]
          */
         differenceWith(
-            array: any[]|List<any>,
+            array: List<any>,
             ...values: any[]
         ): any[];
     }
@@ -1159,7 +1161,7 @@ declare module _ {
          * @param n The number of elements to drop.
          * @return Returns the slice of array.
          */
-        drop<T>(array: T[]|List<T>, n?: number): T[];
+        drop<T>(array: List<T>, n?: number): T[];
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -1941,7 +1943,7 @@ declare module _ {
         /**
          * @see _.flatten
          */
-        flatten<T>(array: List<T|T[]>): T[];
+        flatten<T>(array: List<Many<T>>): T[];
 
         /**
          * @see _.flatten
@@ -2250,7 +2252,7 @@ declare module _ {
          * // => [{ 'x': 1 }]
          */
         intersectionBy(
-            array: any[]|List<any>,
+            array: List<any>,
             ...values: any[]
         ): any[];
     }
@@ -2277,7 +2279,7 @@ declare module _ {
          * // => [{ 'x': 1, 'y': 2 }]
          */
         intersectionWith(
-            array: any[]|List<any>,
+            array: List<any>,
             ...values: any[]
         ): any[];
     }
@@ -2361,7 +2363,7 @@ declare module _ {
          * // => [1, 1]
          */
         pullAll(
-            array: any[]|List<any>,
+            array: List<any>,
             ...values: any[]
         ): any[];
     }
@@ -2391,7 +2393,7 @@ declare module _ {
          * // => [{ 'x': 2 }]
          */
         pullAllBy(
-            array: any[]|List<any>,
+            array: List<any>,
             ...values: any[]
         ): any[];
     }
@@ -2419,7 +2421,7 @@ declare module _ {
          * // => [3, 2, 1]
          */
         reverse(
-            array: any[]|List<any>,
+            array: List<any>,
             ...values: any[]
         ): any[];
     }
@@ -2531,35 +2533,35 @@ declare module _ {
          * @param arrays The arrays to inspect.
          * @return Returns the new array of shared values.
          */
-        intersection<T>(...arrays: (T[]|List<T>)[]): T[];
+        intersection<T>(...arrays: Array<List<T>>): T[];
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.intersection
          */
-        intersection<TResult>(...arrays: (TResult[]|List<TResult>)[]): LoDashImplicitArrayWrapper<TResult>;
+        intersection<TResult>(...arrays: Array<List<TResult>>): LoDashImplicitArrayWrapper<TResult>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.intersection
          */
-        intersection<TResult>(...arrays: (TResult[]|List<TResult>)[]): LoDashImplicitArrayWrapper<TResult>;
+        intersection<TResult>(...arrays: Array<List<TResult>>): LoDashImplicitArrayWrapper<TResult>;
     }
 
     interface LoDashExplicitArrayWrapper<T> {
         /**
          * @see _.intersection
          */
-        intersection<TResult>(...arrays: (TResult[]|List<TResult>)[]): LoDashExplicitArrayWrapper<TResult>;
+        intersection<TResult>(...arrays: Array<List<TResult>>): LoDashExplicitArrayWrapper<TResult>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.intersection
          */
-        intersection<TResult>(...arrays: (TResult[]|List<TResult>)[]): LoDashExplicitArrayWrapper<TResult>;
+        intersection<TResult>(...arrays: Array<List<TResult>>): LoDashExplicitArrayWrapper<TResult>;
     }
 
     //_.last
@@ -2739,7 +2741,7 @@ declare module _ {
          */
         pullAt<T>(
             array: List<T>,
-            ...indexes: (number|number[])[]
+            ...indexes: Array<Many<number>>
         ): T[];
     }
 
@@ -2747,28 +2749,28 @@ declare module _ {
         /**
          * @see _.pullAt
          */
-        pullAt(...indexes: (number|number[])[]): LoDashImplicitArrayWrapper<T>;
+        pullAt(...indexes: Array<Many<number>>): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.pullAt
          */
-        pullAt<T>(...indexes: (number|number[])[]): LoDashImplicitArrayWrapper<T>;
+        pullAt<T>(...indexes: Array<Many<number>>): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitArrayWrapper<T> {
         /**
          * @see _.pullAt
          */
-        pullAt(...indexes: (number|number[])[]): LoDashExplicitArrayWrapper<T>;
+        pullAt(...indexes: Array<Many<number>>): LoDashExplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.pullAt
          */
-        pullAt<T>(...indexes: (number|number[])[]): LoDashExplicitArrayWrapper<T>;
+        pullAt<T>(...indexes: Array<Many<number>>): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.remove
@@ -3768,7 +3770,7 @@ declare module _ {
          * // => 3
          */
         sortedLastIndexOf(
-            array: any[]|List<any>,
+            array: List<any>,
             ...values: any[]
         ): any[];
     }
@@ -4172,45 +4174,45 @@ declare module _ {
          * @param arrays The arrays to inspect.
          * @return Returns the new array of combined values.
          */
-        union<T>(...arrays: List<T>[]): T[];
+        union<T>(...arrays: Array<List<T>>): T[];
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.union
          */
-        union(...arrays: List<T>[]): LoDashImplicitArrayWrapper<T>;
+        union(...arrays: Array<List<T>>): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.union
          */
-        union<T>(...arrays: List<T>[]): LoDashImplicitArrayWrapper<T>;
+        union<T>(...arrays: Array<List<T>>): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.union
          */
-        union<T>(...arrays: List<T>[]): LoDashImplicitArrayWrapper<T>;
+        union<T>(...arrays: Array<List<T>>): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitArrayWrapper<T> {
         /**
          * @see _.union
          */
-        union(...arrays: List<T>[]): LoDashExplicitArrayWrapper<T>;
+        union(...arrays: Array<List<T>>): LoDashExplicitArrayWrapper<T>;
 
         /**
          * @see _.union
          */
-        union<T>(...arrays: List<T>[]): LoDashExplicitArrayWrapper<T>;
+        union<T>(...arrays: Array<List<T>>): LoDashExplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.union
          */
-        union<T>(...arrays: List<T>[]): LoDashExplicitArrayWrapper<T>;
+        union<T>(...arrays: Array<List<T>>): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.unionBy
@@ -4225,7 +4227,7 @@ declare module _ {
          * @return Returns the new array of combined values.
          */
         unionBy<T>(
-            arrays: T[]|List<T>,
+            arrays: List<T>,
             iteratee?: (value: T) => any
         ): T[];
 
@@ -4233,7 +4235,7 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays: T[]|List<T>,
+            arrays: List<T>,
             iteratee?: W
         ): T[];
 
@@ -4241,8 +4243,8 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays1: T[]|List<T>,
-            arrays2: T[]|List<T>,
+            arrays1: List<T>,
+            arrays2: List<T>,
             iteratee?: (value: T) => any
         ): T[];
 
@@ -4250,8 +4252,8 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays1: T[]|List<T>,
-            arrays2: T[]|List<T>,
+            arrays1: List<T>,
+            arrays2: List<T>,
             iteratee?: W
         ): T[];
 
@@ -4259,9 +4261,9 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays1: T[]|List<T>,
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
+            arrays1: List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
             iteratee?: (value: T) => any
         ): T[];
 
@@ -4269,9 +4271,9 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays1: T[]|List<T>,
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
+            arrays1: List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
             iteratee?: W
         ): T[];
 
@@ -4279,10 +4281,10 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays1: T[]|List<T>,
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
-            arrays4: T[]|List<T>,
+            arrays1: List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
+            arrays4: List<T>,
             iteratee?: (value: T) => any
         ): T[];
 
@@ -4290,10 +4292,10 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays1: T[]|List<T>,
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
-            arrays4: T[]|List<T>,
+            arrays1: List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
+            arrays4: List<T>,
             iteratee?: W
         ): T[];
 
@@ -4301,11 +4303,11 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays1: T[]|List<T>,
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
-            arrays4: T[]|List<T>,
-            arrays5: T[]|List<T>,
+            arrays1: List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
+            arrays4: List<T>,
+            arrays5: List<T>,
             iteratee?: (value: T) => any
         ): T[];
 
@@ -4313,11 +4315,11 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays1: T[]|List<T>,
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
-            arrays4: T[]|List<T>,
-            arrays5: T[]|List<T>,
+            arrays1: List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
+            arrays4: List<T>,
+            arrays5: List<T>,
             iteratee?: W
         ): T[];
 
@@ -4325,7 +4327,7 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays: T[]|List<T>,
+            arrays: List<T>,
             ...iteratee: any[]
         ): T[];
     }
@@ -4349,7 +4351,7 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays2: T[]|List<T>,
+            arrays2: List<T>,
             iteratee?: (value: T) => any
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -4357,7 +4359,7 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays2: T[]|List<T>,
+            arrays2: List<T>,
             iteratee?: W
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -4365,8 +4367,8 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
             iteratee?: (value: T) => any
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -4374,8 +4376,8 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
             iteratee?: W
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -4383,9 +4385,9 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
-            arrays4: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
+            arrays4: List<T>,
             iteratee?: (value: T) => any
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -4393,9 +4395,9 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
-            arrays4: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
+            arrays4: List<T>,
             iteratee?: W
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -4403,10 +4405,10 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
-            arrays4: T[]|List<T>,
-            arrays5: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
+            arrays4: List<T>,
+            arrays5: List<T>,
             iteratee?: (value: T) => any
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -4414,10 +4416,10 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
-            arrays4: T[]|List<T>,
-            arrays5: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
+            arrays4: List<T>,
+            arrays5: List<T>,
             iteratee?: W
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -4448,7 +4450,7 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays2: T[]|List<T>,
+            arrays2: List<T>,
             iteratee?: (value: T) => any
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -4456,7 +4458,7 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays2: T[]|List<T>,
+            arrays2: List<T>,
             iteratee?: W
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -4464,8 +4466,8 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
             iteratee?: (value: T) => any
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -4473,8 +4475,8 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
             iteratee?: W
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -4482,9 +4484,9 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
-            arrays4: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
+            arrays4: List<T>,
             iteratee?: (value: T) => any
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -4492,9 +4494,9 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
-            arrays4: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
+            arrays4: List<T>,
             iteratee?: W
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -4502,10 +4504,10 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
-            arrays4: T[]|List<T>,
-            arrays5: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
+            arrays4: List<T>,
+            arrays5: List<T>,
             iteratee?: (value: T) => any
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -4513,10 +4515,10 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
-            arrays4: T[]|List<T>,
-            arrays5: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
+            arrays4: List<T>,
+            arrays5: List<T>,
             iteratee?: W
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -4547,7 +4549,7 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays2: T[]|List<T>,
+            arrays2: List<T>,
             iteratee?: (value: T) => any
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -4555,7 +4557,7 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays2: T[]|List<T>,
+            arrays2: List<T>,
             iteratee?: W
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -4563,8 +4565,8 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
             iteratee?: (value: T) => any
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -4572,8 +4574,8 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
             iteratee?: W
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -4581,9 +4583,9 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
-            arrays4: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
+            arrays4: List<T>,
             iteratee?: (value: T) => any
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -4591,9 +4593,9 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
-            arrays4: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
+            arrays4: List<T>,
             iteratee?: W
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -4601,10 +4603,10 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
-            arrays4: T[]|List<T>,
-            arrays5: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
+            arrays4: List<T>,
+            arrays5: List<T>,
             iteratee?: (value: T) => any
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -4612,10 +4614,10 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
-            arrays4: T[]|List<T>,
-            arrays5: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
+            arrays4: List<T>,
+            arrays5: List<T>,
             iteratee?: W
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -4646,7 +4648,7 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays2: T[]|List<T>,
+            arrays2: List<T>,
             iteratee?: (value: T) => any
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -4654,7 +4656,7 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays2: T[]|List<T>,
+            arrays2: List<T>,
             iteratee?: W
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -4662,8 +4664,8 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
             iteratee?: (value: T) => any
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -4671,8 +4673,8 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
             iteratee?: W
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -4680,9 +4682,9 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
-            arrays4: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
+            arrays4: List<T>,
             iteratee?: (value: T) => any
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -4690,9 +4692,9 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
-            arrays4: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
+            arrays4: List<T>,
             iteratee?: W
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -4700,10 +4702,10 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
-            arrays4: T[]|List<T>,
-            arrays5: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
+            arrays4: List<T>,
+            arrays5: List<T>,
             iteratee?: (value: T) => any
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -4711,10 +4713,10 @@ declare module _ {
          * @see _.unionBy
          */
         unionBy<T, W extends Object>(
-            arrays2: T[]|List<T>,
-            arrays3: T[]|List<T>,
-            arrays4: T[]|List<T>,
-            arrays5: T[]|List<T>,
+            arrays2: List<T>,
+            arrays3: List<T>,
+            arrays4: List<T>,
+            arrays5: List<T>,
             iteratee?: W
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -5315,7 +5317,7 @@ declare module _ {
          * // => [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
          */
         unionWith(
-            array: any[]|List<any>,
+            array: List<any>,
             ...values: any[]
         ): any[];
     }
@@ -5341,7 +5343,7 @@ declare module _ {
          * // => [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }]
          */
         uniqWith(
-            array: any[]|List<any>,
+            array: List<any>,
             ...values: any[]
         ): any[];
     }
@@ -5473,35 +5475,35 @@ declare module _ {
          * @param arrays The arrays to inspect.
          * @return Returns the new array of values.
          */
-        xor<T>(...arrays: List<T>[]): T[];
+        xor<T>(...arrays: Array<List<T>>): T[];
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.xor
          */
-        xor(...arrays: List<T>[]): LoDashImplicitArrayWrapper<T>;
+        xor(...arrays: Array<List<T>>): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.xor
          */
-        xor<T>(...arrays: List<T>[]): LoDashImplicitArrayWrapper<T>;
+        xor<T>(...arrays: Array<List<T>>): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitArrayWrapper<T> {
         /**
          * @see _.xor
          */
-        xor(...arrays: List<T>[]): LoDashExplicitArrayWrapper<T>;
+        xor(...arrays: Array<List<T>>): LoDashExplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.xor
          */
-        xor<T>(...arrays: List<T>[]): LoDashExplicitArrayWrapper<T>;
+        xor<T>(...arrays: Array<List<T>>): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.xorBy DUMMY
@@ -5527,7 +5529,7 @@ declare module _ {
          * // => [{ 'x': 2 }]
          */
         xorBy(
-            array: any[]|List<any>,
+            array: List<any>,
             ...values: any[]
         ): any[];
     }
@@ -5554,7 +5556,7 @@ declare module _ {
          * // => [{ 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
          */
         xorWith(
-            array: any[]|List<any>,
+            array: List<any>,
             ...values: any[]
         ): any[];
     }
@@ -5568,35 +5570,35 @@ declare module _ {
          * @param arrays The arrays to process.
          * @return Returns the new array of grouped elements.
          */
-        zip<T>(...arrays: List<T>[]): T[][];
+        zip<T>(...arrays: Array<List<T>>): T[][];
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.zip
          */
-        zip<T>(...arrays: List<T>[]): _.LoDashImplicitArrayWrapper<T[]>;
+        zip<T>(...arrays: Array<List<T>>): _.LoDashImplicitArrayWrapper<T[]>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.zip
          */
-        zip<T>(...arrays: List<T>[]): _.LoDashImplicitArrayWrapper<T[]>;
+        zip<T>(...arrays: Array<List<T>>): _.LoDashImplicitArrayWrapper<T[]>;
     }
 
     interface LoDashExplicitArrayWrapper<T> {
         /**
          * @see _.zip
          */
-        zip<T>(...arrays: List<T>[]): _.LoDashExplicitArrayWrapper<T[]>;
+        zip<T>(...arrays: Array<List<T>>): _.LoDashExplicitArrayWrapper<T[]>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.zip
          */
-        zip<T>(...arrays: List<T>[]): _.LoDashExplicitArrayWrapper<T[]>;
+        zip<T>(...arrays: Array<List<T>>): _.LoDashExplicitArrayWrapper<T[]>;
     }
 
     //_.zipObject
@@ -5939,24 +5941,24 @@ declare module _ {
          * @param items
          * @return Returns the new concatenated array.
          */
-        concat<TItem>(...items: Array<TItem|Array<TItem>>): LoDashImplicitArrayWrapper<TItem>;
+        concat<TItem>(...items: Array<Many<TItem>>): LoDashImplicitArrayWrapper<TItem>;
 
         /**
          * @see _.concat
          */
-        concat(...items: Array<T|Array<T>>): LoDashImplicitArrayWrapper<T>;
+        concat(...items: Array<Many<T>>): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.concat
          */
-        concat<TItem>(...items: Array<TItem|Array<TItem>>): LoDashExplicitArrayWrapper<TItem>;
+        concat<TItem>(...items: Array<Many<TItem>>): LoDashExplicitArrayWrapper<TItem>;
 
         /**
          * @see _.concat
          */
-        concat(...items: Array<T|Array<T>>): LoDashExplicitArrayWrapper<T>;
+        concat(...items: Array<Many<T>>): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.prototype.plant
@@ -6110,7 +6112,7 @@ declare module _ {
          */
         at<T>(
             collection: List<T>|Dictionary<T>,
-            ...props: (number|string|(number|string)[])[]
+            ...props: Array<Many<number|string>>
         ): T[];
     }
 
@@ -6118,28 +6120,28 @@ declare module _ {
         /**
          * @see _.at
          */
-        at(...props: (number|string|(number|string)[])[]): LoDashImplicitArrayWrapper<T>;
+        at(...props: Array<Many<number|string>>): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.at
          */
-        at<T>(...props: (number|string|(number|string)[])[]): LoDashImplicitArrayWrapper<T>;
+        at<T>(...props: Array<Many<number|string>>): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitArrayWrapper<T> {
         /**
          * @see _.at
          */
-        at(...props: (number|string|(number|string)[])[]): LoDashExplicitArrayWrapper<T>;
+        at(...props: Array<Many<number|string>>): LoDashExplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.at
          */
-        at<T>(...props: (number|string|(number|string)[])[]): LoDashExplicitArrayWrapper<T>;
+        at<T>(...props: Array<Many<number|string>>): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.countBy
@@ -6931,7 +6933,7 @@ declare module _ {
         * @return The found element, else undefined.
         **/
         findLast<T>(
-            collection: Array<T>,
+            collection: T[],
             callback: ListIterator<T, boolean>,
             fromIndex?: number
         ): T;
@@ -6959,7 +6961,7 @@ declare module _ {
         * @param _.pluck style callback
         **/
         findLast<W, T>(
-            collection: Array<T>,
+            collection: T[],
             whereValue: W,
             fromIndex?: number
         ): T;
@@ -6989,7 +6991,7 @@ declare module _ {
         * @param _.where style callback
         **/
         findLast<T>(
-            collection: Array<T>,
+            collection: T[],
             pluckValue: string,
             fromIndex?: number
         ): T;
@@ -7055,7 +7057,7 @@ declare module _ {
          */
         flatMap<T, TResult>(
             collection: List<T>,
-            iteratee?: ListIterator<T, TResult|TResult[]>
+            iteratee?: ListIterator<T, Many<TResult>>
         ): TResult[];
 
         /**
@@ -7063,7 +7065,7 @@ declare module _ {
          */
         flatMap<TResult>(
             collection: List<any>,
-            iteratee?: ListIterator<any, TResult|TResult[]>
+            iteratee?: ListIterator<any, Many<TResult>>
         ): TResult[];
 
         /**
@@ -7071,7 +7073,7 @@ declare module _ {
          */
         flatMap<T, TResult>(
             collection: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, TResult|TResult[]>
+            iteratee?: DictionaryIterator<T, Many<TResult>>
         ): TResult[];
 
         /**
@@ -7079,7 +7081,7 @@ declare module _ {
          */
         flatMap<TResult>(
             collection: Dictionary<any>,
-            iteratee?: DictionaryIterator<any, TResult|TResult[]>
+            iteratee?: DictionaryIterator<any, Many<TResult>>
         ): TResult[];
 
         /**
@@ -7087,7 +7089,7 @@ declare module _ {
          */
         flatMap<T, TResult>(
             collection: NumericDictionary<T>,
-            iteratee?: NumericDictionaryIterator<T, TResult|TResult[]>
+            iteratee?: NumericDictionaryIterator<T, Many<TResult>>
         ): TResult[];
 
         /**
@@ -7095,7 +7097,7 @@ declare module _ {
          */
         flatMap<TResult>(
             collection: NumericDictionary<any>,
-            iteratee?: NumericDictionaryIterator<any, TResult|TResult[]>
+            iteratee?: NumericDictionaryIterator<any, Many<TResult>>
         ): TResult[];
 
         /**
@@ -7103,7 +7105,7 @@ declare module _ {
          */
         flatMap<TObject extends Object, TResult>(
             collection: TObject,
-            iteratee?: ObjectIterator<any, TResult|TResult[]>
+            iteratee?: ObjectIterator<any, Many<TResult>>
         ): TResult[];
 
         /**
@@ -7111,7 +7113,7 @@ declare module _ {
          */
         flatMap<TResult>(
             collection: Object,
-            iteratee?: ObjectIterator<any, TResult|TResult[]>
+            iteratee?: ObjectIterator<any, Many<TResult>>
         ): TResult[];
 
         /**
@@ -7159,7 +7161,7 @@ declare module _ {
          * @see _.flatMap
          */
         flatMap<TResult>(
-            iteratee: ListIterator<string, TResult|TResult[]>
+            iteratee: ListIterator<string, Many<TResult>>
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
@@ -7173,7 +7175,7 @@ declare module _ {
          * @see _.flatMap
          */
         flatMap<TResult>(
-            iteratee: ListIterator<T, TResult|TResult[]>|string
+            iteratee: ListIterator<T, Many<TResult>>|string
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
@@ -7201,14 +7203,14 @@ declare module _ {
          * @see _.flatMap
          */
         flatMap<T, TResult>(
-            iteratee: ListIterator<T, TResult|TResult[]>|DictionaryIterator<T, TResult|TResult[]>|NumericDictionaryIterator<T, TResult|TResult[]>
+            iteratee: ListIterator<T, Many<TResult>>|DictionaryIterator<T, Many<TResult>>|NumericDictionaryIterator<T, Many<TResult>>
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
          * @see _.flatMap
          */
         flatMap<TResult>(
-            iteratee: ObjectIterator<any, TResult|TResult[]>|string
+            iteratee: ObjectIterator<any, Many<TResult>>|string
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
@@ -7236,7 +7238,7 @@ declare module _ {
          * @see _.flatMap
          */
         flatMap<TResult>(
-            iteratee: ListIterator<string, TResult|TResult[]>
+            iteratee: ListIterator<string, Many<TResult>>
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
@@ -7250,7 +7252,7 @@ declare module _ {
          * @see _.flatMap
          */
         flatMap<TResult>(
-            iteratee: ListIterator<T, TResult|TResult[]>|string
+            iteratee: ListIterator<T, Many<TResult>>|string
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
@@ -7278,14 +7280,14 @@ declare module _ {
          * @see _.flatMap
          */
         flatMap<T, TResult>(
-            iteratee: ListIterator<T, TResult|TResult[]>|DictionaryIterator<T, TResult|TResult[]>|NumericDictionaryIterator<T, TResult|TResult[]>
+            iteratee: ListIterator<T, Many<TResult>>|DictionaryIterator<T, Many<TResult>>|NumericDictionaryIterator<T, Many<TResult>>
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
          * @see _.flatMap
          */
         flatMap<TResult>(
-            iteratee: ObjectIterator<any, TResult|TResult[]>|string
+            iteratee: ObjectIterator<any, Many<TResult>>|string
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
@@ -8044,7 +8046,7 @@ declare module _ {
         **/
         invoke<TObject extends Object, TResult>(
             object: TObject,
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             ...args: any[]): TResult;
 
         /**
@@ -8052,7 +8054,7 @@ declare module _ {
         **/
         invoke<TValue, TResult>(
             object: Dictionary<TValue>|TValue[],
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             ...args: any[]): TResult;
 
         /**
@@ -8060,7 +8062,7 @@ declare module _ {
         **/
         invoke<TResult>(
             object: any,
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             ...args: any[]): TResult;
     }
 
@@ -8069,7 +8071,7 @@ declare module _ {
         * @see _.invoke
         **/
         invoke<TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             ...args: any[]): TResult;
     }
 
@@ -8078,7 +8080,7 @@ declare module _ {
         * @see _.invoke
         **/
         invoke<TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             ...args: any[]): TResult;
     }
 
@@ -8087,7 +8089,7 @@ declare module _ {
         * @see _.invoke
         **/
         invoke<TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             ...args: any[]): TResult;
     }
 
@@ -8096,7 +8098,7 @@ declare module _ {
         * @see _.invoke
         **/
         invoke<TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             ...args: any[]): TResult;
     }
 
@@ -8128,7 +8130,7 @@ declare module _ {
         * @see _.invokeMap
         **/
         invokeMap<TResult>(
-            collection: {}[],
+            collection: Array<{}>,
             methodName: string,
             ...args: any[]): TResult[];
 
@@ -8160,7 +8162,7 @@ declare module _ {
         * @see _.invokeMap
         **/
         invokeMap<TResult>(
-            collection: {}[],
+            collection: Array<{}>,
             method: (...args: any[]) => TResult,
             ...args: any[]): TResult[];
 
@@ -8549,7 +8551,7 @@ declare module _ {
         * @return Returns the accumulated value.
         **/
         reduce<T, TResult>(
-            collection: Array<T>,
+            collection: T[],
             callback: MemoIterator<T, TResult>,
             accumulator: TResult): TResult;
 
@@ -8581,7 +8583,7 @@ declare module _ {
         * @see _.reduce
         **/
         reduce<T, TResult>(
-            collection: Array<T>,
+            collection: T[],
             callback: MemoIterator<T, TResult>): TResult;
 
         /**
@@ -8679,7 +8681,7 @@ declare module _ {
         * @return The accumulated value.
         **/
         reduceRight<T, TResult>(
-            collection: Array<T>,
+            collection: T[],
             callback: MemoIterator<T, TResult>,
             accumulator: TResult): TResult;
 
@@ -8703,7 +8705,7 @@ declare module _ {
         * @see _.reduceRight
         **/
         reduceRight<T, TResult>(
-            collection: Array<T>,
+            collection: T[],
             callback: MemoIterator<T, TResult>): TResult;
 
         /**
@@ -9391,15 +9393,15 @@ declare module _ {
          * @see _.sortBy
          */
         sortBy<T>(
-            collection: (Array<T>|List<T>),
-            iteratees: (ListIterator<T, any>|string|Object)[]): T[];
+            collection: List<T>,
+            iteratees: Array<ListIterator<T, any>|string|Object>): T[];
 
         /**
          * @see _.sortBy
          */
         sortBy<T>(
-            collection: (Array<T>|List<T>),
-            ...iteratees: (ListIterator<T, boolean>|Object|string)[]): T[];
+            collection: List<T>,
+            ...iteratees: Array<ListIterator<T, boolean>|Object|string>): T[];
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -9428,12 +9430,12 @@ declare module _ {
         /**
          * @see _.sortBy
          */
-        sortBy(...iteratees: (ListIterator<T, boolean>|Object|string)[]): LoDashImplicitArrayWrapper<T>;
+        sortBy(...iteratees: Array<ListIterator<T, boolean>|Object|string>): LoDashImplicitArrayWrapper<T>;
 
         /**
         * @see _.sortBy
         **/
-        sortBy(iteratees: (ListIterator<T, any>|string|Object)[]): LoDashImplicitArrayWrapper<T>;
+        sortBy(iteratees: Array<ListIterator<T, any>|string|Object>): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -9539,8 +9541,8 @@ declare module _ {
          */
         orderBy<W extends Object, T>(
             collection: List<T>,
-            iteratees: ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<ListIterator<T, any>|string|W>,
+            orders?: Many<boolean|string>
         ): T[];
 
         /**
@@ -9548,8 +9550,8 @@ declare module _ {
          */
         orderBy<T>(
             collection: List<T>,
-            iteratees: ListIterator<T, any>|string|Object|(ListIterator<T, any>|string|Object)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<ListIterator<T, any>|string|Object>,
+            orders?: Many<boolean|string>
         ): T[];
 
         /**
@@ -9557,8 +9559,8 @@ declare module _ {
          */
         orderBy<W extends Object, T>(
             collection: NumericDictionary<T>,
-            iteratees: NumericDictionaryIterator<T, any>|string|W|(NumericDictionaryIterator<T, any>|string|W)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<NumericDictionaryIterator<T, any>|string|W>,
+            orders?: Many<boolean|string>
         ): T[];
 
         /**
@@ -9566,8 +9568,8 @@ declare module _ {
          */
         orderBy<T>(
             collection: NumericDictionary<T>,
-            iteratees: NumericDictionaryIterator<T, any>|string|Object|(NumericDictionaryIterator<T, any>|string|Object)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<NumericDictionaryIterator<T, any>|string|Object>,
+            orders?: Many<boolean|string>
         ): T[];
 
         /**
@@ -9575,8 +9577,8 @@ declare module _ {
          */
         orderBy<W extends Object, T>(
             collection: Dictionary<T>,
-            iteratees: DictionaryIterator<T, any>|string|W|(DictionaryIterator<T, any>|string|W)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<DictionaryIterator<T, any>|string|W>,
+            orders?: Many<boolean|string>
         ): T[];
 
         /**
@@ -9584,8 +9586,8 @@ declare module _ {
          */
         orderBy<T>(
             collection: Dictionary<T>,
-            iteratees: DictionaryIterator<T, any>|string|Object|(DictionaryIterator<T, any>|string|Object)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<DictionaryIterator<T, any>|string|Object>,
+            orders?: Many<boolean|string>
         ): T[];
     }
 
@@ -9594,8 +9596,8 @@ declare module _ {
          * @see _.orderBy
          */
         orderBy(
-            iteratees: ListIterator<T, any>|string|(ListIterator<T, any>|string)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<ListIterator<T, any>|string>,
+            orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
     }
 
@@ -9604,8 +9606,8 @@ declare module _ {
          * @see _.orderBy
          */
         orderBy<W extends Object>(
-            iteratees: ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<ListIterator<T, any>|string|W>,
+            orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
     }
 
@@ -9614,48 +9616,48 @@ declare module _ {
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<ListIterator<T, any>|string|W>,
+            orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: ListIterator<T, any>|string|Object|(ListIterator<T, any>|string|Object)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<ListIterator<T, any>|string|Object>,
+            orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: NumericDictionaryIterator<T, any>|string|W|(NumericDictionaryIterator<T, any>|string|W)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<NumericDictionaryIterator<T, any>|string|W>,
+            orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: NumericDictionaryIterator<T, any>|string|Object|(NumericDictionaryIterator<T, any>|string|Object)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<NumericDictionaryIterator<T, any>|string|Object>,
+            orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: DictionaryIterator<T, any>|string|W|(DictionaryIterator<T, any>|string|W)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<DictionaryIterator<T, any>|string|W>,
+            orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: DictionaryIterator<T, any>|string|Object|(DictionaryIterator<T, any>|string|Object)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<DictionaryIterator<T, any>|string|Object>,
+            orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
     }
 
@@ -9664,8 +9666,8 @@ declare module _ {
          * @see _.orderBy
          */
         orderBy(
-            iteratees: ListIterator<T, any>|string|(ListIterator<T, any>|string)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<ListIterator<T, any>|string>,
+            orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
     }
 
@@ -9674,8 +9676,8 @@ declare module _ {
          * @see _.orderBy
          */
         orderBy<W extends Object>(
-            iteratees: ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)>,
+            orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
     }
 
@@ -9684,48 +9686,48 @@ declare module _ {
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<ListIterator<T, any>|string|W>,
+            orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: ListIterator<T, any>|string|Object|(ListIterator<T, any>|string|Object)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<ListIterator<T, any>|string|Object>,
+            orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: NumericDictionaryIterator<T, any>|string|W|(NumericDictionaryIterator<T, any>|string|W)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<NumericDictionaryIterator<T, any>|string|W>,
+            orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: NumericDictionaryIterator<T, any>|string|Object|(NumericDictionaryIterator<T, any>|string|Object)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<NumericDictionaryIterator<T, any>|string|Object>,
+            orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: DictionaryIterator<T, any>|string|W|(DictionaryIterator<T, any>|string|W)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<DictionaryIterator<T, any>|string|W>,
+            orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: DictionaryIterator<T, any>|string|Object|(DictionaryIterator<T, any>|string|Object)[],
-            orders?: boolean|string|(boolean|string)[]
+            iteratees: Many<DictionaryIterator<T, any>|string|Object>,
+            orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
     }
 
@@ -9926,7 +9928,7 @@ declare module _ {
          */
         bindAll<T>(
             object: T,
-            ...methodNames: (string|string[])[]
+            ...methodNames: Array<Many<string>>
         ): T;
     }
 
@@ -9934,14 +9936,14 @@ declare module _ {
         /**
          * @see _.bindAll
          */
-        bindAll(...methodNames: (string|string[])[]): LoDashImplicitObjectWrapper<T>;
+        bindAll(...methodNames: Array<Many<string>>): LoDashImplicitObjectWrapper<T>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.bindAll
          */
-        bindAll(...methodNames: (string|string[])[]): LoDashExplicitObjectWrapper<T>;
+        bindAll(...methodNames: Array<Many<string>>): LoDashExplicitObjectWrapper<T>;
     }
 
     //_.bindKey
@@ -10472,7 +10474,7 @@ declare module _ {
         memoize: {
             <T extends Function>(func: T, resolver?: Function): T & MemoizedFunction;
             Cache: MapCacheConstructor;
-        }
+        };
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -10619,21 +10621,11 @@ declare module _ {
 
     type PH = LoDashStatic;
 
-    interface Function0<R> {
-        (): R;
-    }
-    interface Function1<T1, R> {
-        (t1: T1): R;
-    }
-    interface Function2<T1, T2, R> {
-        (t1: T1, t2: T2): R;
-    }
-    interface Function3<T1, T2, T3, R> {
-        (t1: T1, t2: T2, t3: T3): R;
-    }
-    interface Function4<T1, T2, T3, T4, R> {
-        (t1: T1, t2: T2, t3: T3, t4: T4): R;
-    }
+    type Function0<R> = () => R;
+    type Function1<T1, R> = (t1: T1) => R;
+    type Function2<T1, T2, R> = (t1: T1, t2: T2) => R;
+    type Function3<T1, T2, T3, R> = (t1: T1, t2: T2, t3: T3) => R;
+    type Function4<T1, T2, T3, T4, R> = (t1: T1, t2: T2, t3: T3, t4: T4) => R;
 
     interface Partial {
         // arity 0
@@ -10685,7 +10677,7 @@ declare module _ {
         * @param args Arguments to be partially applied.
         * @return The new partially applied function.
         **/
-        partialRight: PartialRight
+        partialRight: PartialRight;
     }
 
     interface PartialRight {
@@ -11039,7 +11031,7 @@ declare module _ {
          * @param value The value to inspect.
          * @return Returns the cast array.
          */
-        castArray<T>(value?: T | T[]): T[];
+        castArray<T>(value?: Many<T>): T[];
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -11198,9 +11190,7 @@ declare module _ {
     }
 
     //_.cloneDeepWith
-    interface CloneDeepWithCustomizer<TValue, TResult> {
-        (value: TValue): TResult;
-    }
+    type CloneDeepWithCustomizer<TValue, TResult> = (value: TValue) => TResult;
 
     interface LoDashStatic {
         /**
@@ -11321,9 +11311,7 @@ declare module _ {
     }
 
     //_.cloneWith
-    interface CloneWithCustomizer<TValue, TResult> {
-        (value: TValue): TResult;
-    }
+    type CloneWithCustomizer<TValue, TResult> = (value: TValue) => TResult;
 
     interface LoDashStatic {
         /**
@@ -11594,14 +11582,14 @@ declare module _ {
         isArray<T>(value?: any): value is T[];
     }
 
-    interface LoDashImplicitWrapperBase<T,TWrapper> {
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.isArray
          */
         isArray(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T,TWrapper> {
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.isArray
          */
@@ -11663,14 +11651,14 @@ declare module _ {
         isArrayLike<T>(value?: any): value is T[];
     }
 
-    interface LoDashImplicitWrapperBase<T,TWrapper> {
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.isArrayLike
          */
         isArrayLike(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T,TWrapper> {
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.isArrayLike
          */
@@ -11706,14 +11694,14 @@ declare module _ {
         isArrayLikeObject<T>(value?: any): value is T[];
     }
 
-    interface LoDashImplicitWrapperBase<T,TWrapper> {
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.isArrayLikeObject
          */
         isArrayLikeObject(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T,TWrapper> {
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.isArrayLikeObject
          */
@@ -11900,9 +11888,7 @@ declare module _ {
     }
 
     // _.isEqualWith
-    interface IsEqualCustomizer {
-        (value: any, other: any, indexOrKey?: number|string): boolean;
-    }
+    type IsEqualCustomizer = (value: any, other: any, indexOrKey?: number|string) => boolean;
 
     interface LoDashStatic {
         /**
@@ -12153,9 +12139,7 @@ declare module _ {
     }
 
     //_.isMatch
-    interface isMatchCustomizer {
-        (value: any, other: any, indexOrKey?: number|string): boolean;
-    }
+    type isMatchCustomizer = (value: any, other: any, indexOrKey?: number|string) => boolean;
 
     interface LoDashStatic {
         /**
@@ -12191,9 +12175,7 @@ declare module _ {
     }
 
     //_.isMatchWith
-    interface isMatchWithCustomizer {
-        (value: any, other: any, indexOrKey?: number|string): boolean;
-    }
+    type isMatchWithCustomizer = (value: any, other: any, indexOrKey?: number|string) => boolean;
 
     interface LoDashStatic {
         /**
@@ -14060,11 +14042,6 @@ declare module _ {
         assign<TResult>(...otherArgs: any[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
-    //_.assignWith
-    interface AssignCustomizer {
-        (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}): any;
-    }
-
     interface LoDashStatic {
         /**
          * This method is like `_.assign` except that it accepts `customizer` which
@@ -14418,9 +14395,7 @@ declare module _ {
     }
 
     //_.assignInWith
-    interface AssignCustomizer {
-        (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}): any;
-    }
+    type AssignCustomizer = (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => any;
 
     interface LoDashStatic {
         /**
@@ -14805,7 +14780,7 @@ declare module _ {
         /**
          * @see _.defaultsDeep
          **/
-        defaultsDeep<TResult>(...sources: any[]): LoDashImplicitObjectWrapper<TResult>
+        defaultsDeep<TResult>(...sources: any[]): LoDashImplicitObjectWrapper<TResult>;
     }
 
     // _.extend
@@ -15595,7 +15570,7 @@ declare module _ {
          */
         get<TObject, TResult>(
             object: TObject,
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             defaultValue?: TResult
         ): TResult;
 
@@ -15604,7 +15579,7 @@ declare module _ {
          */
         get<TResult>(
             object: any,
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             defaultValue?: TResult
         ): TResult;
     }
@@ -15614,7 +15589,7 @@ declare module _ {
          * @see _.get
          */
         get<TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             defaultValue?: TResult
         ): TResult;
     }
@@ -15624,7 +15599,7 @@ declare module _ {
          * @see _.get
          */
         get<TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             defaultValue?: TResult
         ): TResult;
     }
@@ -15634,7 +15609,7 @@ declare module _ {
          * @see _.get
          */
         get<TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             defaultValue?: TResult
         ): TResult;
     }
@@ -15644,7 +15619,7 @@ declare module _ {
          * @see _.get
          */
         get<TResultWrapper>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             defaultValue?: any
         ): TResultWrapper;
     }
@@ -15654,7 +15629,7 @@ declare module _ {
          * @see _.get
          */
         get<TResultWrapper>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             defaultValue?: any
         ): TResultWrapper;
     }
@@ -15664,7 +15639,7 @@ declare module _ {
          * @see _.get
          */
         get<TResultWrapper>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             defaultValue?: any
         ): TResultWrapper;
     }
@@ -15699,7 +15674,7 @@ declare module _ {
          */
         has<T extends {}>(
             object: T,
-            path: StringRepresentable|StringRepresentable[]
+            path: Many<StringRepresentable>
         ): boolean;
     }
 
@@ -15707,14 +15682,14 @@ declare module _ {
         /**
          * @see _.has
          */
-        has(path: StringRepresentable|StringRepresentable[]): boolean;
+        has(path: Many<StringRepresentable>): boolean;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.has
          */
-        has(path: StringRepresentable|StringRepresentable[]): LoDashExplicitWrapper<boolean>;
+        has(path: Many<StringRepresentable>): LoDashExplicitWrapper<boolean>;
     }
 
     //_.hasIn
@@ -15746,7 +15721,7 @@ declare module _ {
          */
         hasIn<T extends {}>(
             object: T,
-            path: StringRepresentable|StringRepresentable[]
+            path: Many<StringRepresentable>
         ): boolean;
     }
 
@@ -15754,14 +15729,14 @@ declare module _ {
         /**
          * @see _.hasIn
          */
-        hasIn(path: StringRepresentable|StringRepresentable[]): boolean;
+        hasIn(path: Many<StringRepresentable>): boolean;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.hasIn
          */
-        hasIn(path: StringRepresentable|StringRepresentable[]): LoDashExplicitWrapper<boolean>;
+        hasIn(path: Many<StringRepresentable>): LoDashExplicitWrapper<boolean>;
     }
 
     //_.invert
@@ -15803,9 +15778,7 @@ declare module _ {
     }
 
     //_.inverBy
-    interface InvertByIterator<T> {
-        (value: T): any;
-    }
+    type InvertByIterator<T> = (value: T) => any;
 
     interface LoDashStatic {
         /**
@@ -16347,9 +16320,7 @@ declare module _ {
     }
 
     //_.mergeWith
-    interface MergeWithCustomizer {
-        (value: any, srcValue: any, key?: string, object?: Object, source?: Object): any;
-    }
+    type MergeWithCustomizer = (value: any, srcValue: any, key?: string, object?: Object, source?: Object) => any;
 
     interface LoDashStatic {
         /**
@@ -16505,7 +16476,7 @@ declare module _ {
 
         omit<TResult extends {}, T extends {}>(
             object: T,
-            ...predicate: (StringRepresentable|StringRepresentable[])[]
+            ...predicate: Array<Many<StringRepresentable>>
         ): TResult;
     }
 
@@ -16515,7 +16486,7 @@ declare module _ {
          * @see _.omit
          */
         omit<TResult extends {}>(
-            ...predicate: (StringRepresentable|StringRepresentable[])[]
+            ...predicate: Array<Many<StringRepresentable>>
         ): LoDashImplicitObjectWrapper<TResult>;
     }
 
@@ -16525,7 +16496,7 @@ declare module _ {
          * @see _.omit
          */
         omit<TResult extends {}>(
-            ...predicate: (StringRepresentable|StringRepresentable[])[]
+            ...predicate: Array<Many<StringRepresentable>>
         ): LoDashExplicitObjectWrapper<TResult>;
     }
 
@@ -16594,7 +16565,7 @@ declare module _ {
          */
         pick<TResult extends {}, T extends {}>(
             object: T,
-            ...predicate: (StringRepresentable|StringRepresentable[])[]
+            ...predicate: Array<Many<StringRepresentable>>
         ): TResult;
     }
 
@@ -16603,7 +16574,7 @@ declare module _ {
          * @see _.pick
          */
         pick<TResult extends {}>(
-            ...predicate: (StringRepresentable|StringRepresentable[])[]
+            ...predicate: Array<Many<StringRepresentable>>
         ): LoDashImplicitObjectWrapper<TResult>;
     }
 
@@ -16612,7 +16583,7 @@ declare module _ {
          * @see _.pick
          */
         pick<TResult extends {}>(
-            ...predicate: (StringRepresentable|StringRepresentable[])[]
+            ...predicate: Array<Many<StringRepresentable>>
         ): LoDashExplicitObjectWrapper<TResult>;
     }
 
@@ -16672,7 +16643,7 @@ declare module _ {
          */
         result<TObject, TResult>(
             object: TObject,
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             defaultValue?: TResult|((...args: any[]) => TResult)
         ): TResult;
 
@@ -16681,7 +16652,7 @@ declare module _ {
          */
         result<TResult>(
             object: any,
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             defaultValue?: TResult|((...args: any[]) => TResult)
         ): TResult;
     }
@@ -16691,7 +16662,7 @@ declare module _ {
          * @see _.result
          */
         result<TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             defaultValue?: TResult|((...args: any[]) => TResult)
         ): TResult;
     }
@@ -16701,7 +16672,7 @@ declare module _ {
          * @see _.result
          */
         result<TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             defaultValue?: TResult|((...args: any[]) => TResult)
         ): TResult;
     }
@@ -16711,7 +16682,7 @@ declare module _ {
          * @see _.result
          */
         result<TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             defaultValue?: TResult|((...args: any[]) => TResult)
         ): TResult;
     }
@@ -16721,7 +16692,7 @@ declare module _ {
          * @see _.result
          */
         result<TResultWrapper>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             defaultValue?: any
         ): TResultWrapper;
     }
@@ -16731,7 +16702,7 @@ declare module _ {
          * @see _.result
          */
         result<TResultWrapper>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             defaultValue?: any
         ): TResultWrapper;
     }
@@ -16741,7 +16712,7 @@ declare module _ {
          * @see _.result
          */
         result<TResultWrapper>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             defaultValue?: any
         ): TResultWrapper;
     }
@@ -16760,7 +16731,7 @@ declare module _ {
          */
         set<TResult>(
             object: Object,
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             value: any
         ): TResult;
 
@@ -16769,7 +16740,7 @@ declare module _ {
          */
         set<V, TResult>(
             object: Object,
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             value: V
         ): TResult;
 
@@ -16778,7 +16749,7 @@ declare module _ {
          */
         set<O, V, TResult>(
             object: O,
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             value: V
         ): TResult;
     }
@@ -16788,7 +16759,7 @@ declare module _ {
          * @see _.set
          */
         set<TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             value: any
         ): LoDashImplicitObjectWrapper<TResult>;
 
@@ -16796,7 +16767,7 @@ declare module _ {
          * @see _.set
          */
         set<V, TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             value: V
         ): LoDashImplicitObjectWrapper<TResult>;
     }
@@ -16806,7 +16777,7 @@ declare module _ {
          * @see _.set
          */
         set<TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             value: any
         ): LoDashExplicitObjectWrapper<TResult>;
 
@@ -16814,15 +16785,13 @@ declare module _ {
          * @see _.set
          */
         set<V, TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             value: V
         ): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.setWith
-    interface SetWithCustomizer<T> {
-        (nsValue: any, key: string, nsObject: T): any;
-    }
+    type SetWithCustomizer<T> = (nsValue: any, key: string, nsObject: T) => any;
 
     interface LoDashStatic {
         /**
@@ -16838,7 +16807,7 @@ declare module _ {
          */
         setWith<TResult>(
             object: Object,
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             value: any,
             customizer?: SetWithCustomizer<Object>
         ): TResult;
@@ -16848,7 +16817,7 @@ declare module _ {
          */
         setWith<V, TResult>(
             object: Object,
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             value: V,
             customizer?: SetWithCustomizer<Object>
         ): TResult;
@@ -16858,7 +16827,7 @@ declare module _ {
          */
         setWith<O, V, TResult>(
             object: O,
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             value: V,
             customizer?: SetWithCustomizer<O>
         ): TResult;
@@ -16869,7 +16838,7 @@ declare module _ {
          * @see _.setWith
          */
         setWith<TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             value: any,
             customizer?: SetWithCustomizer<T>
         ): LoDashImplicitObjectWrapper<TResult>;
@@ -16878,7 +16847,7 @@ declare module _ {
          * @see _.setWith
          */
         setWith<V, TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             value: V,
             customizer?: SetWithCustomizer<T>
         ): LoDashImplicitObjectWrapper<TResult>;
@@ -16889,7 +16858,7 @@ declare module _ {
          * @see _.setWith
          */
         setWith<TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             value: any,
             customizer?: SetWithCustomizer<T>
         ): LoDashExplicitObjectWrapper<TResult>;
@@ -16898,7 +16867,7 @@ declare module _ {
          * @see _.setWith
          */
         setWith<V, TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             value: V,
             customizer?: SetWithCustomizer<T>
         ): LoDashExplicitObjectWrapper<TResult>;
@@ -17055,7 +17024,7 @@ declare module _ {
          */
         unset<T>(
             object: T,
-            path: StringRepresentable|StringRepresentable[]
+            path: Many<StringRepresentable>
         ): boolean;
     }
 
@@ -17063,14 +17032,14 @@ declare module _ {
         /**
          * @see _.unset
          */
-        unset(path: StringRepresentable|StringRepresentable[]): LoDashImplicitWrapper<boolean>;
+        unset(path: Many<StringRepresentable>): LoDashImplicitWrapper<boolean>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.unset
          */
-        unset(path: StringRepresentable|StringRepresentable[]): LoDashExplicitWrapper<boolean>;
+        unset(path: Many<StringRepresentable>): LoDashExplicitWrapper<boolean>;
     }
 
     //_.update
@@ -17086,7 +17055,7 @@ declare module _ {
          */
         update<TResult>(
             object: Object,
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             updater: Function
         ): TResult;
 
@@ -17095,7 +17064,7 @@ declare module _ {
          */
         update<U extends Function, TResult>(
             object: Object,
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             updater: U
         ): TResult;
 
@@ -17104,7 +17073,7 @@ declare module _ {
          */
         update<O extends {}, TResult>(
             object: O,
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             updater: Function
         ): TResult;
 
@@ -17113,7 +17082,7 @@ declare module _ {
          */
         update<O, U extends Function, TResult>(
             object: O,
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             updater: U
         ): TResult;
     }
@@ -17123,7 +17092,7 @@ declare module _ {
          * @see _.update
          */
         update<TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             updater: any
         ): LoDashImplicitObjectWrapper<TResult>;
 
@@ -17131,7 +17100,7 @@ declare module _ {
          * @see _.update
          */
         update<U extends Function, TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             updater: U
         ): LoDashImplicitObjectWrapper<TResult>;
     }
@@ -17141,7 +17110,7 @@ declare module _ {
          * @see _.update
          */
         update<TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             updater: any
         ): LoDashExplicitObjectWrapper<TResult>;
 
@@ -17149,7 +17118,7 @@ declare module _ {
          * @see _.update
          */
         update<U extends Function, TResult>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             updater: U
         ): LoDashExplicitObjectWrapper<TResult>;
     }
@@ -18485,7 +18454,7 @@ declare module _ {
          * @return Returns the new function.
          */
         matchesProperty<T>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             srcValue: T
         ): (value: any) => boolean;
 
@@ -18493,7 +18462,7 @@ declare module _ {
          * @see _.matchesProperty
          */
         matchesProperty<T, V>(
-            path: StringRepresentable|StringRepresentable[],
+            path: Many<StringRepresentable>,
             srcValue: T
         ): (value: V) => boolean;
     }
@@ -18615,7 +18584,7 @@ declare module _ {
         methodOf<TObject extends {}, TResult>(
             object: TObject,
             ...args: any[]
-        ): (path: StringRepresentable|StringRepresentable[]) => TResult;
+        ): (path: Many<StringRepresentable>) => TResult;
 
         /**
          * @see _.methodOf
@@ -18623,7 +18592,7 @@ declare module _ {
         methodOf<TResult>(
             object: {},
             ...args: any[]
-        ): (path: StringRepresentable|StringRepresentable[]) => TResult;
+        ): (path: Many<StringRepresentable>) => TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -18632,7 +18601,7 @@ declare module _ {
          */
         methodOf<TResult>(
             ...args: any[]
-        ): LoDashImplicitObjectWrapper<(path: StringRepresentable|StringRepresentable[]) => TResult>;
+        ): LoDashImplicitObjectWrapper<(path: Many<StringRepresentable>) => TResult>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
@@ -18641,7 +18610,7 @@ declare module _ {
          */
         methodOf<TResult>(
             ...args: any[]
-        ): LoDashExplicitObjectWrapper<(path: StringRepresentable|StringRepresentable[]) => TResult>;
+        ): LoDashExplicitObjectWrapper<(path: Many<StringRepresentable>) => TResult>;
     }
 
     //_.mixin
@@ -18794,35 +18763,35 @@ declare module _ {
          * @param iteratees The iteratees to invoke.
          * @return Returns the new function.
          */
-        over<TResult>(...iteratees: (Function|Function[])[]): (...args: any[]) => TResult[];
+        over<TResult>(...iteratees: Array<Many<Function>>): (...args: any[]) => TResult[];
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.over
          */
-        over<TResult>(...iteratees: (Function|Function[])[]): LoDashImplicitObjectWrapper<(...args: any[]) => TResult[]>;
+        over<TResult>(...iteratees: Array<Many<Function>>): LoDashImplicitObjectWrapper<(...args: any[]) => TResult[]>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.over
          */
-        over<TResult>(...iteratees: (Function|Function[])[]): LoDashImplicitObjectWrapper<(...args: any[]) => TResult[]>;
+        over<TResult>(...iteratees: Array<Many<Function>>): LoDashImplicitObjectWrapper<(...args: any[]) => TResult[]>;
     }
 
     interface LoDashExplicitArrayWrapper<T> {
         /**
          * @see _.over
          */
-        over<TResult>(...iteratees: (Function|Function[])[]): LoDashExplicitObjectWrapper<(...args: any[]) => TResult[]>;
+        over<TResult>(...iteratees: Array<Many<Function>>): LoDashExplicitObjectWrapper<(...args: any[]) => TResult[]>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.over
          */
-        over<TResult>(...iteratees: (Function|Function[])[]): LoDashExplicitObjectWrapper<(...args: any[]) => TResult[]>;
+        over<TResult>(...iteratees: Array<Many<Function>>): LoDashExplicitObjectWrapper<(...args: any[]) => TResult[]>;
     }
 
     //_.overEvery
@@ -18834,35 +18803,35 @@ declare module _ {
          * @param predicates The predicates to check.
          * @return Returns the new function.
          */
-        overEvery(...predicates: (Function|Function[])[]): (...args: any[]) => boolean;
+        overEvery(...predicates: Array<Many<Function>>): (...args: any[]) => boolean;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.overEvery
          */
-        overEvery(...predicates: (Function|Function[])[]): LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+        overEvery(...predicates: Array<Many<Function>>): LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.overEvery
          */
-        overEvery(...predicates: (Function|Function[])[]): LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+        overEvery(...predicates: Array<Many<Function>>): LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
     }
 
     interface LoDashExplicitArrayWrapper<T> {
         /**
          * @see _.overEvery
          */
-        overEvery(...predicates: (Function|Function[])[]): LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+        overEvery(...predicates: Array<Many<Function>>): LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.overEvery
          */
-        overEvery(...predicates: (Function|Function[])[]): LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+        overEvery(...predicates: Array<Many<Function>>): LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
     }
 
     //_.overSome
@@ -18874,35 +18843,35 @@ declare module _ {
          * @param predicates The predicates to check.
          * @return Returns the new function.
          */
-        overSome(...predicates: (Function|Function[])[]): (...args: any[]) => boolean;
+        overSome(...predicates: Array<Many<Function>>): (...args: any[]) => boolean;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.overSome
          */
-        overSome(...predicates: (Function|Function[])[]): LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+        overSome(...predicates: Array<Many<Function>>): LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.overSome
          */
-        overSome(...predicates: (Function|Function[])[]): LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
+        overSome(...predicates: Array<Many<Function>>): LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
     }
 
     interface LoDashExplicitArrayWrapper<T> {
         /**
          * @see _.overSome
          */
-        overSome(...predicates: (Function|Function[])[]): LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+        overSome(...predicates: Array<Many<Function>>): LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.overSome
          */
-        overSome(...predicates: (Function|Function[])[]): LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
+        overSome(...predicates: Array<Many<Function>>): LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
     }
 
     //_.property
@@ -18913,7 +18882,7 @@ declare module _ {
          * @param path The path of the property to get.
          * @return Returns the new function.
          */
-        property<TObj, TResult>(path: StringRepresentable|StringRepresentable[]): (obj: TObj) => TResult;
+        property<TObj, TResult>(path: Many<StringRepresentable>): (obj: TObj) => TResult;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -18953,21 +18922,21 @@ declare module _ {
          * @param object The object to query.
          * @return Returns the new function.
          */
-        propertyOf<T extends {}>(object: T): (path: string|string[]) => any;
+        propertyOf<T extends {}>(object: T): (path: Many<string>) => any;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.propertyOf
          */
-        propertyOf(): LoDashImplicitObjectWrapper<(path: string|string[]) => any>;
+        propertyOf(): LoDashImplicitObjectWrapper<(path: Many<string>) => any>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.propertyOf
          */
-        propertyOf(): LoDashExplicitObjectWrapper<(path: string|string[]) => any>;
+        propertyOf(): LoDashExplicitObjectWrapper<(path: Many<string>) => any>;
     }
 
     //_.range
@@ -19224,41 +19193,22 @@ declare module _ {
         uniqueId(): LoDashExplicitWrapper<string>;
     }
 
-    interface ListIterator<T, TResult> {
-        (value: T, index: number, collection: List<T>): TResult;
-    }
+    type ListIterator<T, TResult> = (value: T, index: number, collection: List<T>) => TResult;
 
-    interface DictionaryIterator<T, TResult> {
-        (value: T, key?: string, collection?: Dictionary<T>): TResult;
-    }
+    type DictionaryIterator<T, TResult> = (value: T, key?: string, collection?: Dictionary<T>) => TResult;
 
-    interface NumericDictionaryIterator<T, TResult> {
-        (value: T, key?: number, collection?: Dictionary<T>): TResult;
-    }
+    type NumericDictionaryIterator<T, TResult> = (value: T, key?: number, collection?: Dictionary<T>) => TResult;
 
-    interface ObjectIterator<T, TResult> {
-        (element: T, key?: string, collection?: any): TResult;
-    }
+    type ObjectIterator<T, TResult> = (element: T, key?: string, collection?: any) => TResult;
 
-    interface StringIterator<TResult> {
-        (char: string, index?: number, string?: string): TResult;
-    }
+    type StringIterator<TResult> = (char: string, index?: number, string?: string) => TResult;
 
-    interface MemoVoidIterator<T, TResult> {
-        (prev: TResult, curr: T, indexOrKey?: any, list?: T[]): void;
-    }
-    interface MemoIterator<T, TResult> {
-        (prev: TResult, curr: T, indexOrKey?: any, list?: T[]): TResult;
-    }
+    type MemoVoidIterator<T, TResult> = (prev: TResult, curr: T, indexOrKey?: any, list?: T[]) => void;
 
-    interface MemoVoidArrayIterator<T, TResult> {
-        (acc: TResult, curr: T, index?: number, arr?: T[]): void;
-    }
-    interface MemoVoidDictionaryIterator<T, TResult> {
-        (acc: TResult, curr: T, key?: string, dict?: Dictionary<T>): void;
-    }
+    type MemoIterator<T, TResult> = (prev: TResult, curr: T, indexOrKey?: any, list?: T[]) => TResult;
 
-    //interface Collection<T> {}
+    type MemoVoidArrayIterator<T, TResult> = (acc: TResult, curr: T, index?: number, arr?: T[]) => void;
+    type MemoVoidDictionaryIterator<T, TResult> = (acc: TResult, curr: T, key?: string, dict?: Dictionary<T>) => void;
 
     // Common interface between Arrays and jQuery objects
     interface List<T> {
