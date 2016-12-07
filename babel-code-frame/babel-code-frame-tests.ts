@@ -1,7 +1,4 @@
-/// <reference path="./index.d.ts" />
-
 import codeFrame from "babel-code-frame";
-
 import {expect} from 'chai';
 
 describe('babel-code-frame', () => {
