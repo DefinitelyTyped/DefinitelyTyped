@@ -232,6 +232,7 @@ declare module Elasticsearch {
         timestamp?: Date | number;
         version?: number;
         versionType?: string;
+        refresh?: boolean;
     }
 
     export interface ScrollParams extends GenericParams {
