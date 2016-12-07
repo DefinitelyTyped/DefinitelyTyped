@@ -12,12 +12,12 @@ import fs = require("fs");
 import net = require("net");
 import tls = require("tls");
 
-export interface LogLevel {
-    ERROR: 0;
-    WARN: 1;
-    INFO: 2;
-    DEBUG: 3;
-    TRACE: 4;
+export enum LogLevel {
+    ERROR = 0,
+    WARN = 1,
+    INFO = 2,
+    DEBUG = 3,
+    TRACE = 4
 }
 
 /**
