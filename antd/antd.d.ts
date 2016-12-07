@@ -103,6 +103,8 @@ declare namespace Antd {
         loading?: boolean,
         /** 样式名*/
         className?: string,
+        /** 图标 */
+        icon?: string,
     }
 
 
