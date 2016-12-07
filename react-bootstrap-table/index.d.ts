@@ -1,6 +1,6 @@
 // Type definitions for react-bootstrap-table v2.3.0
 // Project: https://github.com/AllenFang/react-bootstrap-table
-// Definitions by: Frank Laub <https://github.com/flaub>
+// Definitions by: Frank Laub <https://github.com/flaub>, Aleksander Lode <https://github.com/alelode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="react" />
@@ -293,6 +293,10 @@ export interface Options {
 	/**
 	To define the pagination bar length, default is 5.
 	*/
+	/**
+	To define where to start counting the pages.
+	*/
+	pageStartIndex?: string;
     paginationSize?: number;
 	/**
 	Assign a callback function which will be called after page changed.
@@ -333,6 +337,15 @@ export interface Options {
 	This function taking one argument: row which is the row data which you click on.
 	*/
     onRowClick?: (row: any) => void;
+	/**
+	Assign a callback function which will be called after a row double click.
+	This function taking one argument: row which is the row data which you double click on.
+	*/
+	onRowDoubleClick?: (row:any)=>void;
+	/**
+	Background color on expanded rows.
+	*/
+	expandRowBgColor?: string;	
 	/**
 	Assign a callback function which will be called when mouse enter into the table.
 	*/
@@ -443,6 +456,10 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	*/
     dataSort?: boolean;
 	/**
+	Default search string.
+	*/
+	defaultSearch?: string;
+	/**
 	Allow user to render a custom sort caret. You should give a function and should return a JSX.
 	This function taking one arguments: order which present the sort order currently.
 	*/
@@ -460,6 +477,10 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	True to hide column.
 	*/
     hidden?: boolean;
+	/**
+	True to hide the dropdown for sizePerPage.
+	*/
+	hideSizePerPage?: boolean
 	/**
 	False to disable search functionality on column, default is true.
 	*/
