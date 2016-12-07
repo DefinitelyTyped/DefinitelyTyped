@@ -15,10 +15,10 @@ import { ascending } from 'd3-array';
 // Preparatory Steps
 // ---------------------------------------------------------------------
 
-let context: CanvasRenderingContext2D;
+let context: CanvasRenderingContext2D | null= document.querySelector('canvas')!.getContext('2d');
 
 let chords: d3Chord.Chords;
-let chordGroups: Array<d3Chord.ChordGroup>;
+let chordGroups: d3Chord.ChordGroup[];
 let chord: d3Chord.Chord;
 let chordSubgroup: d3Chord.ChordSubgroup;
 
@@ -30,7 +30,7 @@ let matrix: number[][] = [
     [1013, 990, 940, 6907]
 ]; // From Circos Table Viewer example http://mkweb.bcgsc.ca/circos/guide/tables/
 
-let comparatorFn: (a: number, b: number) => number;
+let comparatorFn: ((a: number, b: number) => number) | null;
 
 let subgroupAccessor: (this: SVGPathElement, d: d3Chord.Chord, ...args: any[]) => d3Chord.ChordSubgroup;
 let numAccessor: (this: SVGPathElement, d: d3Chord.ChordSubgroup, ...args: any[]) => number;
@@ -39,27 +39,6 @@ let numAccessor: (this: SVGPathElement, d: d3Chord.ChordSubgroup, ...args: any[]
 // Test Chord
 // ---------------------------------------------------------------------
 
-// Test supporting interfaces ==========================================
-
-
-let length: number = chords.length;
-
-chordGroups = chords.groups;
-
-num = chordGroups[0].startAngle;
-num = chordGroups[0].endAngle;
-num = chordGroups[0].value;
-num = chordGroups[0].index;
-
-chord = chords[0];
-
-chordSubgroup = chord.source;
-chordSubgroup = chord.target;
-
-num = chordSubgroup.startAngle;
-num = chordSubgroup.endAngle;
-num = chordSubgroup.value;
-num = chordSubgroup.index;
 
 // chord() create ChordLayout  generator ===============================
 
@@ -96,13 +75,37 @@ comparatorFn = chordLayout.sortChords();
 
 chords = chordLayout(matrix);
 
+
+// Test supporting interfaces ==========================================
+
+
+let length: number = chords.length;
+
+chordGroups = chords.groups;
+
+num = chordGroups[0].startAngle;
+num = chordGroups[0].endAngle;
+num = chordGroups[0].value;
+num = chordGroups[0].index;
+
+chord = chords[0];
+
+chordSubgroup = chord.source;
+chordSubgroup = chord.target;
+
+num = chordSubgroup.startAngle;
+num = chordSubgroup.endAngle;
+num = chordSubgroup.value;
+num = chordSubgroup.index;
+
+
 // ---------------------------------------------------------------------
 // Test Ribbon
 // ---------------------------------------------------------------------
 
 // ribbon() create RibbonGenerator =====================================
 
-let canvasRibbon: d3Chord.RibbonGenerator<any, d3Chord.Chord, d3Chord.ChordSubgroup>;
+let canvasRibbon: d3Chord.RibbonGenerator<any, d3Chord.Ribbon, d3Chord.RibbonSubgroup>;
 canvasRibbon = d3Chord.ribbon();
 
 let svgRibbon: d3Chord.RibbonGenerator<SVGPathElement, d3Chord.Chord, d3Chord.ChordSubgroup>;
@@ -113,7 +116,10 @@ svgRibbon = d3Chord.ribbon<SVGPathElement, d3Chord.Chord, d3Chord.ChordSubgroup>
 
 // context() -----------------------------------------------------------
 
-canvasRibbon = canvasRibbon.context(context);
+if (context) {
+    canvasRibbon = canvasRibbon.context(context);
+}
+
 context = canvasRibbon.context();
 
 svgRibbon = svgRibbon.context(null);
@@ -172,7 +178,19 @@ numAccessor = svgRibbon.endAngle();
 // Use RibbonGenerator =================================================
 
 // use canvas
-canvasRibbon(chords[0]); // render ribbon for first chord
+let ribbon: d3Chord.Ribbon = {
+  source: {startAngle: 0.7524114, endAngle: 1.1212972, radius: 240},
+  target: {startAngle: 1.8617078, endAngle: 1.9842927, radius: 240}
+};
+
+canvasRibbon(ribbon); // render ribbon for first chord
+
+// The below fails explicitly, as standard ChordSubgroup objects for source and target are missing "radius" property assumed in default
+// radius accessor. Given the internals of d3 this would lead to a "NaN" radius. So using static typing to raise this to
+// awareness seems appropriate. The alternative, is to create RibbonGenerator using the generics to explictly set the types and
+// then set the radius. Or, one could map a radius property into the Chords returned by the ChordLayout.
+
+// canvasRibbon(chords[0]); // fails, see above
 
 // use svg
 

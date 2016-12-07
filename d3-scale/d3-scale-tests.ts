@@ -15,23 +15,23 @@ import { timeHour } from 'd3-time';
 // -------------------------------------------------------------------------------
 
 class NumCoercible {
-    public a: number;
+    a: number;
 
     constructor(a: number) {
         this.a = a;
     }
-    public valueOf() {
+    valueOf() {
         return this.a;
     }
 }
 
 class StringCoercible {
-    public txt: string;
+    txt: string;
 
     constructor(txt: string) {
         this.txt = txt;
     }
-    public toString() {
+    toString() {
         return this.txt;
     }
 }
@@ -45,22 +45,24 @@ let clampFlag: boolean;
 let outputNumber: number;
 let outputString: string;
 
-let domainNumbers: Array<number>;
-let domainNumeric: Array<NumCoercible>;
-let domainStrings: Array<string>;
-let domainDates: Array<Date>;
+let domainNumbers: number[] = [1, 100];
+let domainNumeric: NumCoercible[] = [new NumCoercible(0), new NumCoercible(100)];
+let domainStrings: string[];
+let domainDates: Date[] = [new Date(2016, 0, 15), new Date(2016, 5, 15)];
 
-let ticksNumbers: Array<number>;
-let ticksDates: Array<Date>;
+let ticksNumbers: number[];
+let ticksDates: Date[];
 
 let tickFormatNumberFn: ((d: number | { valueOf(): number }) => string);
 let tickFormatDateFn: ((d: Date) => string);
 
-let rangeNumbers: Array<number>;
-let roundRangeNumbers: Array<number>;
-let rangeStrings: Array<string>;
+let rangeNumbers: number[] = [2, 200];
+let rangeStrings: string[] = ['2px', '200px'];
 
+let numExtent: [number, number];
+let numOrUndefinedExtent: [number | undefined, number | undefined];
 
+let outputNumberMaybe: number | undefined;
 // -------------------------------------------------------------------------------
 // Linear Scale Factory
 // -------------------------------------------------------------------------------
@@ -113,7 +115,7 @@ num = linearScaleNumString.invert(new NumCoercible(500)); // has number range, s
 
 // rangeRound(...) -----------------------------------------------------------------
 
-linearScaleNumber = linearScaleNumber.rangeRound(roundRangeNumbers);
+linearScaleNumber = linearScaleNumber.rangeRound(rangeNumbers);
 
 // clamp(...) -----------------------------------------------------------------
 
@@ -125,6 +127,14 @@ clampFlag = linearScaleNumber.clamp();
 linearScaleString = linearScaleString.interpolate(interpolateCubehelix.gamma(3));
 
 linearScaleNumString = linearScaleNumString.interpolate(function (a, b) {
+    // take two numbers
+    return function (t: number) {
+        return (a * (1 - t) + b * t) + 'px'; // a and b are numbers based on Range Type, return value of interpolator is string based on Output type
+    };
+});
+
+// Changes scale output type (inferred generic)
+linearScaleNumString = linearScaleNumber.interpolate(function (a, b) {
     // take two numbers
     return function (t: number) {
         return (a * (1 - t) + b * t) + 'px'; // a and b are numbers based on Range Type, return value of interpolator is string based on Output type
@@ -228,7 +238,7 @@ num = powerScaleNumString.invert(new NumCoercible(500)); // has number range, so
 
 // rangeRound(...) -----------------------------------------------------------------
 
-powerScaleNumber = powerScaleNumber.rangeRound(roundRangeNumbers);
+powerScaleNumber = powerScaleNumber.rangeRound(rangeNumbers);
 
 // clamp(...) -----------------------------------------------------------------
 
@@ -335,7 +345,7 @@ num = logScaleNumString.invert(new NumCoercible(500)); // has number range, so i
 
 // rangeRound(...) -----------------------------------------------------------------
 
-logScaleNumber = logScaleNumber.rangeRound(roundRangeNumbers);
+logScaleNumber = logScaleNumber.rangeRound(rangeNumbers);
 
 // clamp(...) -----------------------------------------------------------------
 
@@ -357,7 +367,7 @@ logScaleNumString = logScaleNumString.interpolate(function (a, b) {
 
 // chainable
 logScaleNumber = logScaleNumber.nice();
-logScaleNumber = logScaleNumber.nice(5);
+// logScaleNumber = logScaleNumber.nice(5); // fails, logarithmic scale does not support count parameter.
 
 // ticks(...) -----------------------------------------------------------------
 
@@ -465,9 +475,10 @@ utcScaleNumString = d3Scale.scaleUtc<number, string>();
 // domain(...) -----------------------------------------------------------------
 
 localTimeScaleNumber = localTimeScaleNumber.domain(domainDates);
+
 domainDates = localTimeScaleNumber.domain();
 
-localTimeScaleString = localTimeScaleString.domain([new Date(2016, 6, 1), new Date(2016, 6, 6)]);
+localTimeScaleString = localTimeScaleString.domain([new Date(2016, 6, 1), Date.now()]);
 domainDates = localTimeScaleString.domain();
 
 localTimeScaleNumString = localTimeScaleNumString.domain(domainDates);
@@ -495,7 +506,7 @@ date = localTimeScaleNumString.invert(new NumCoercible(500)); // has number rang
 
 // rangeRound(...) -----------------------------------------------------------------
 
-localTimeScaleNumber = localTimeScaleNumber.rangeRound(roundRangeNumbers);
+localTimeScaleNumber = localTimeScaleNumber.rangeRound(rangeNumbers);
 
 // clamp(...) -----------------------------------------------------------------
 
@@ -525,15 +536,23 @@ localTimeScaleNumber = localTimeScaleNumber.nice(timeHour, 5);
 
 // ticks(...) -----------------------------------------------------------------
 
+const timeInterval = timeHour.every(5);
+
 ticksDates = localTimeScaleNumber.ticks();
 ticksDates = localTimeScaleNumber.ticks(50);
-ticksDates = localTimeScaleNumString.ticks(timeHour.every(5));
+
+if (timeInterval !== null) {
+    ticksDates = localTimeScaleNumString.ticks(timeInterval);
+}
+
 
 // tickFormat(...) -----------------------------------------------------------------
 
 tickFormatDateFn = localTimeScaleNumber.tickFormat();
 tickFormatDateFn = localTimeScaleNumber.tickFormat(50, '%I %p');
-tickFormatDateFn = localTimeScaleNumber.tickFormat(timeHour.every(5), '%I %p');
+if (timeInterval !== null) {
+    tickFormatDateFn = localTimeScaleNumber.tickFormat(timeInterval, '%I %p');
+}
 
 
 // (...) value mapping from domain to output -----------------------------------
@@ -644,7 +663,7 @@ rangeStrings = quantizeScaleString.range();
 
 // invertExtent(...) -----------------------------------------------------------------
 
-let numExtent: [number, number] = quantizeScaleNumber.invertExtent(500);
+numExtent = quantizeScaleNumber.invertExtent(500);
 
 numExtent = quantizeScaleString.invertExtent('steelblue');
 
@@ -715,7 +734,7 @@ numExtent = quantileScaleString.invertExtent('q50');
 
 // quantile() -----------------------------------------------------------------------
 
-let quantiles: Array<number> = quantileScaleNumber.quantiles();
+let quantiles: number[] = quantileScaleNumber.quantiles();
 
 // (...) value mapping from domain to output -----------------------------------
 
@@ -759,9 +778,9 @@ rangeStrings = thresholdScaleNumberString.range();
 
 // invertExtent(...) -----------------------------------------------------------------
 
-numExtent = thresholdScaleNumberNumber.invertExtent(100);
+numOrUndefinedExtent = thresholdScaleNumberNumber.invertExtent(100);
 
-numExtent = thresholdScaleNumberString.invertExtent('seagreen');
+numOrUndefinedExtent = thresholdScaleNumberString.invertExtent('seagreen');
 
 // (...) value mapping from domain to output -----------------------------------
 
@@ -905,9 +924,9 @@ num = bandScaleString.step();
 
 // (...) value mapping from domain to output -----------------------------------
 
-outputNumber = bandScaleString('neutral');
+outputNumberMaybe = bandScaleString('neutral');
 
-outputNumber = bandScaleCoercible(new StringCoercible('negative'));
+outputNumberMaybe = bandScaleCoercible(new StringCoercible('negative'));
 
 // copy(...) -----------------------------------------------------------------
 
@@ -976,9 +995,9 @@ num = pointScaleString.step();
 
 // (...) value mapping from domain to output -----------------------------------
 
-outputNumber = pointScaleString('neutral');
+outputNumberMaybe = pointScaleString('neutral');
 
-outputNumber = pointScaleCoercible(new StringCoercible('negative'));
+outputNumberMaybe = pointScaleCoercible(new StringCoercible('negative'));
 
 // copy(...) -----------------------------------------------------------------
 
@@ -988,7 +1007,7 @@ let copiedPointScale: d3Scale.ScalePoint<StringCoercible> = pointScaleCoercible.
 // Categorical Color Schemas for Ordinal Scales
 // -------------------------------------------------------------------------------
 
-let colorStrings: Array<string>;
+let colorStrings: string[];
 
 colorStrings = d3Scale.schemeCategory10;
 
