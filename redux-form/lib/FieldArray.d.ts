@@ -169,8 +169,20 @@ interface FieldArrayMetaProps {
     pristine: boolean;
 
     /**
+     * true if any of the fields have been touched.
+     */
+    touched: boolean;
+
+    /**
      * true if the field value passes validation (has no validation errors).
      * Opposite of invalid.
      */
     valid: boolean;
+
+    /**
+     * The warning for this field array if its values are not passing warning validation.
+     * Array-specific errors should be returned from the validation function as an
+     * `_warning` key on the array.
+     */
+    warning?: string;
 }

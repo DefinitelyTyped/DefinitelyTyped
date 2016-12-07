@@ -5,7 +5,7 @@ import {
     ReactEventHandler,
 } from "react";
 import { Dispatch } from "redux";
-import { DataShape, FieldValue, FormErrors, RegisteredFieldState } from "../index";
+import { DataShape, FieldValue, FormErrors, FormWarnings, RegisteredFieldState } from "../index";
 
 export function reduxForm<FormData extends DataShape, P, S>(
     config: Config<FormData, P, S>
@@ -72,6 +72,14 @@ export interface Config<FormData extends DataShape, P, S> {
     getFormState?(state: S): any;
 
     /**
+     * When set to true and enableReinitialize is also set, the form will retain the value of dirty fields when
+     * reinitializing. When this option is not set (the default), reinitializing the form replaces all field values.
+     * This option is useful in situations where the form has live updates or continues to be editable after
+     * form submission; it prevents reinitialization from overwriting user changes. Defaults to false.
+     */
+    keepDirtyOnReinitialize?: boolean;
+
+    /**
      * If true, implements `shouldComponentUpdate` and shallowly compares _only_
      * the Redux-connected props that are needed to manage the form state. This
      * prevents unnecessary updates, but assumes the component is a "pure"
@@ -100,7 +108,7 @@ export interface Config<FormData extends DataShape, P, S> {
      * you must pass it as a parameter to handleSubmit() inside your form
      * component.
      */
-    onSubmit?: SubmitHandler<FormData, S>;
+    onSubmit?: SubmitHandler<FormData, P, S>;
 
     /**
      * A callback function that will be called when a submission fails for whatever reason.
@@ -111,6 +119,11 @@ export interface Config<FormData extends DataShape, P, S> {
      * A callback function that will be called when a submission succeeds.
      */
     onSubmitSuccess?: (result: any, dispatch: Dispatch<S>) => void;
+
+    /**
+     * Do not remove submit errors when the change action is fired. Defaults to false.
+     */
+    persistentSubmitErrors?: boolean;
 
     /**
      * If specified, all the props normally passed into your decorated
@@ -154,7 +167,15 @@ export interface Config<FormData extends DataShape, P, S> {
      * { field1: <String>, field2: <String> }.
      * Defaults to (values, props) => ({}).
      */
-    validate?(values: FormData, props: FormProps<FormData, S> & P): FormErrors<FormData>;
+    validate?(values: FormData, props: FormProps<FormData, P, S> & P): FormErrors<FormData>;
+
+    /**
+     * A synchronous warning function that takes the form values and props passed into your component.
+     * Warnings work the same as validations, but do not mark a form as invalid. If the warning check passes,
+     * it should return {}. If the check fails, it should return the warnings in the form
+     * { field1: <String>, field2: <String> }. Defaults to (values, props) => ({}).
+     */
+    warn?(values: FormData, props: FormProps<FormData, P, S> & P): FormWarnings<FormData>;
 }
 
 /**
@@ -166,8 +187,8 @@ export interface Config<FormData extends DataShape, P, S> {
  * to the entire form, you may pass that as if it were the error for a field called _error,
  * and it will be given as the error prop.
  */
-export interface SubmitHandler<FormData extends DataShape, S> {
-    (values: FormData, dispatch?: Dispatch<S>): void | FormErrors<FormData> | Promise<any>;
+export interface SubmitHandler<FormData extends DataShape, P, S> {
+    (values: FormData, dispatch: Dispatch<S>, props: FormProps<FormData, P, S> & P): void | FormErrors<FormData> | Promise<any>;
 }
 
 interface AsyncValidateCallback<FormData extends DataShape> {
@@ -270,14 +291,14 @@ export interface Form<FormData extends DataShape, P, S> extends Component<P, any
      * A reference to the instance of the component you decorated with reduxForm().
      * Mainly useful for testing.
      */
-    wrappedInstance: ReactElement<P & FormProps<FormData, S>>
+    wrappedInstance: ReactElement<P & FormProps<FormData, P, S>>
 }
 
 /**
  * These are the props that will be passed to your form component.
  * Your form component's props can extend this interface.
  */
-export interface FormProps<FormData extends DataShape, S> {
+export interface FormProps<FormData extends DataShape, P, S> {
     /**
      * true if any of the fields have been marked as touched, false otherwise.
      */
@@ -354,6 +375,23 @@ export interface FormProps<FormData extends DataShape, S> {
     asyncValidating?: string | boolean;
 
     /**
+     * Sets the value and marks the field as autofilled in the Redux Store. This is useful when a field
+     * needs to be set programmatically, but in a way that lets the user know (via a styling change using
+     * the autofilled prop in Field) that it has been autofilled for them programmatically.
+     */
+    autofill?(field: string, value: FieldValue): void;
+
+    /**
+     * Marks a field as blurred in the Redux store.
+     */
+    blur?(field: string, value: FieldValue): void;
+
+    /**
+     * Changes the value of a field in the Redux store.
+     */
+    change?(field: string, value: FieldValue): void;
+
+    /**
      * Destroys the form state in the Redux store. By default, this will be
      * called for you in componentWillUnmount().
      */
@@ -400,7 +438,7 @@ export interface FormProps<FormData extends DataShape, S> {
      */
     handleSubmit?(event: SyntheticEvent<any>): void; // same as ReactEventHandler
 
-    handleSubmit?(submit: SubmitHandler<FormData, S>): ReactEventHandler<any>;
+    handleSubmit?(submit: SubmitHandler<FormData, P, S>): ReactEventHandler<any>;
 
     /**
      * Initializes the form data to the given values. All dirty and pristine
@@ -462,4 +500,10 @@ export interface FormProps<FormData extends DataShape, S> {
      * of invalid.
      */
     valid?: boolean;
+
+    /**
+     * A generic warning for the entire form given by the `_warning` key in the result from the
+     * synchronous warning function.
+     */
+    warning?: string;
 }

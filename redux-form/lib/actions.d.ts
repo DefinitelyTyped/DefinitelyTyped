@@ -1,4 +1,5 @@
 import { Action } from "redux";
+import { FormErrors, FormWarnings } from "../index";
 
 /**
  * Inserts an item into a field array at the specified index
@@ -50,6 +51,11 @@ export function arraySwap(form: string, field: string, indexA: number, indexB: n
  * Inserts an item at the beginning of a field array
  */
 export function arrayUnshift(form: string, field: string, value: any): Action;
+
+/**
+ * Saves the value to the field and sets its `autofilled` property to `true`.
+ */
+export function autofill(form: string, field: string, value: any): Action;
 
 /**
  * Saves the value to the field
@@ -116,3 +122,7 @@ export function touch(form: string, ...fields: string[]): Action;
  * Resets the 'touched' flag for all the fields passed in.
  */
 export function untouch(form: string, ...fields: string[]): Action;
+
+export function updateSyncErrors(from: string, syncErrors: FormErrors<FormData>, error: any): Action;
+
+export function updateSyncWarnings(form: string, syncWarnings: FormWarnings<FormData>, warning: any): Action;

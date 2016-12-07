@@ -11,6 +11,8 @@ export type DataShape = {[fieldName:string]: FieldValue};
 
 export type FormErrors<FormData extends DataShape> = FormData & { _error?: string };
 
+export type FormWarnings<FormData extends DataShape> = FormData & { _warning?: string };
+
 /**
  * A component class or stateless function component.
  * Workaround for: ComponentClass<P> | SFC<P> which does

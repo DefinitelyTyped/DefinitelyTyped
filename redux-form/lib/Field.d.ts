@@ -5,6 +5,7 @@ import {
     FocusEventHandler,
     FormEventHandler,
 } from "react";
+import { Dispatch } from "redux";
 import { ComponentConstructor, DataShape, FieldValue } from "../index";
 
 /**
@@ -31,12 +32,6 @@ interface BaseFieldProps {
     // component?: ComponentClass<P> | SFC<P> | "input" | "select" | "textarea",
 
     /**
-     * A value to be used if the current value for this field is undefined in the
-     * Redux Store. Defaults to '' to ensure that the input is controlled.
-     */
-    defaultValue?: FieldValue;
-
-    /**
      * If true, the rendered component will be available with the
      * getRenderedComponent() method. Defaults to false. Cannot be used if your
      * component is a stateless function component.
@@ -48,7 +43,7 @@ interface BaseFieldProps {
      * Common use cases are to format Numbers into currencies or Dates into a
      * localized date format.
      */
-    format?: Formatter;
+    format?: Formatter | null;
 
     /**
      * A function to convert whatever value the user has entered into the value that you
@@ -59,6 +54,9 @@ interface BaseFieldProps {
      */
     normalize?: Normalizer;
 
+    /**
+     * Don't use.
+     */
     props?: Object;
 
     /**
@@ -82,17 +80,17 @@ interface Normalizer {
 }
 
 interface Formatter {
-    (value: FieldValue): FieldValue;
+    (value: FieldValue, name: string): FieldValue;
 }
 
 interface Parser {
-    (value: FieldValue): FieldValue;
+    (value: FieldValue, name: string): FieldValue;
 }
 
 /**
  * Declare Field as this interface to specify the generic.
  */
-export interface GenericField<FieldCustomProps> extends Component<BaseFieldProps & FieldCustomProps, {}> {
+export interface GenericField<FieldCustomProps, S> extends Component<BaseFieldProps & FieldCustomProps, {}> {
     /**
      * true if the current value is different from the initialized value,
      * false otherwise.
@@ -120,13 +118,13 @@ export interface GenericField<FieldCustomProps> extends Component<BaseFieldProps
      * provide a withRef prop, and your component must not be a stateless function
      * component.
      */
-    getRenderedComponent(): Component<WrappedFieldProps & FieldCustomProps, any>;
+    getRenderedComponent(): Component<WrappedFieldProps<S> & FieldCustomProps, any>;
 }
 
 /**
  * The Field Instance API.
  */
-export class Field extends Component<any, {}> implements GenericField<any> {
+export class Field extends Component<any, {}> implements GenericField<any, any> {
     /**
      * true if the current value is different from the initialized value,
      * false otherwise.
@@ -160,7 +158,7 @@ export class Field extends Component<any, {}> implements GenericField<any> {
 /**
  * These are props that `Field` will pass to your wrapped component (not including custom props).
  */
-interface WrappedFieldProps {
+interface WrappedFieldProps<S> {
     /**
      * An object containing all the props that you will normally want to pass to
      * your input component.
@@ -170,7 +168,7 @@ interface WrappedFieldProps {
     /**
      * An object containing all the metadata props.
      */
-    meta: WrappedFieldMetaProps;
+    meta: WrappedFieldMetaProps<S>;
 }
 
 /**
@@ -219,8 +217,7 @@ interface WrappedFieldInputProps {
     /**
      * The value of this form field. It will be a boolean for checkboxes, and
      * a string for all other input types. If there is no value in the Redux
-     * state for this field, it will default to the defaultValue prop given to
-     * Field. If no such defaultValue is specified, it will be ''. This is to
+     * state for this field, it will default to ''. This is to
      * ensure that the input is controlled.
      */
     value: FieldValue;
@@ -229,13 +226,20 @@ interface WrappedFieldInputProps {
 /**
  * These props are metadata about the state of this field that redux-form is tracking for you.
  */
-interface WrappedFieldMetaProps {
+interface WrappedFieldMetaProps<S> {
 
     /**
      * true if this field currently has focus. It will only work if you are
      * passing onFocus to your input element.
      */
     active?: boolean;
+
+    /**
+     * true if this field has been set with the AUTOFILL action and has not since been changed
+     * with a CHANGE action. This is useful to render the field in a way that the user can tell
+     * that the value was autofilled for them.
+     */
+    autofilled: boolean;
 
     /**
      * true if the form is currently running asynchronous validation because this
@@ -248,6 +252,11 @@ interface WrappedFieldMetaProps {
      * Opposite of pristine.
      */
     dirty: boolean;
+
+    /**
+     * The Redux dispatch function.
+     */
+    dispatch: Dispatch<S>;
 
     /**
      * The error for this field if its value is not passing validation. Both
@@ -284,4 +293,9 @@ interface WrappedFieldMetaProps {
      * passing onFocus to your input element.
      */
     visited?: boolean;
+
+    /**
+     * The warning for this field if its value is not passing warning validation.
+     */
+    warning?: string;
 }

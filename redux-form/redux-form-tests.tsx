@@ -8,7 +8,7 @@ interface CustomComponentProps {
   customProp: string;
 }
 
-class CustomComponent extends Component<WrappedFieldProps & CustomComponentProps, {}> {
+class CustomComponent extends Component<WrappedFieldProps<any> & CustomComponentProps, {}> {
   render() {
     return (
       <div>
@@ -22,12 +22,16 @@ class CustomComponent extends Component<WrappedFieldProps & CustomComponentProps
 
 class CustomField extends Component<BaseFieldProps & CustomComponentProps, {}> {
   render() {
-    const F = Field as new () => GenericField<CustomComponentProps>;
+    const F = Field as new () => GenericField<CustomComponentProps, any>;
     return <F component={CustomComponent} {...this.props} />;
   }
 }
 
-@reduxForm({
+interface FormData {
+    custom: any;
+}
+
+@reduxForm<FormData, any, any>({
   form: 'myForm'
 })
 class MyForm extends Component<{}, {}> {
@@ -36,12 +40,11 @@ class MyForm extends Component<{}, {}> {
       <div>
         <Field
           component='input'
-          defaultValue='derp'
           placeholder='Foo bar'
         />
         <CustomField
+          name="custom"
           customProp='Foo bar'
-          defaultValue='Nope'
         />
       </div>
     );

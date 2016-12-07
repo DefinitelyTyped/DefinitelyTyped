@@ -1,4 +1,4 @@
-import { DataShape } from "../index";
+import { DataShape, FormErrors } from "../index";
 
 /**
  * A "selector" API to make it easier to connect() to form values. Creates a selector
@@ -19,6 +19,14 @@ export interface DataSelector {
 }
 
 /**
+ * Gets form errors.
+ */
+export interface ErrorSelector {
+    <FormData extends DataShape, State>(formName: string): (state: State) => FormErrors<FormData>;
+    <FormData extends DataShape>(formName: string): (state: any) => FormErrors<FormData>;
+}
+
+/**
  * Gets boolean info from form.
  */
 export interface BooleanSelector {
@@ -30,6 +38,11 @@ export interface BooleanSelector {
  * Gets the form values. Shocking, right?
  */
 export const getFormValues: DataSelector;
+
+/**
+ * Returns the form synchronous validation errors.
+ */
+export const getFormSyncErrors: ErrorSelector;
 
 /**
  * Returns true if the form is dirty, i.e. the values have been altered
