@@ -261,7 +261,7 @@ declare namespace NodeJS {
         readable: boolean;
         isTTY?: boolean;
         read(size?: number): string | Buffer;
-        setEncoding(encoding: string): void;
+        setEncoding(encoding: string | null): void;
         pause(): ReadableStream;
         resume(): ReadableStream;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
