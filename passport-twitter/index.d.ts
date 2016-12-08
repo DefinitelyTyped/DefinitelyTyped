@@ -1,5 +1,5 @@
-// Type definitions for passport-facebook 1.0.3
-// Project: https://github.com/jaredhanson/passport-facebook
+// Type definitions for passport-twitter 1.0.4
+// Project: https://github.com/jaredhanson/passport-twitter
 // Definitions by: James Roland Cabresos <https://github.com/staticfunction>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -23,6 +23,9 @@ interface IStrategyOption {
     consumerKey: string;
     consumerSecret: string;
     callbackURL: string;
+
+    passReqToCallback?: true;
+    includeEmail?: true;
 
     reguestTokenURL?: string;
     accessTokenURL?: string;
