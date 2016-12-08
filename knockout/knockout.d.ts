@@ -332,7 +332,7 @@ interface KnockoutUtils {
 }
 
 interface KnockoutArrayChange<T> {
-    status: "added" | "deleted";
+    status: "added" | "deleted" | "retained";
     value: T;
     index: number;
     moved?: number;

@@ -22,7 +22,7 @@ interface Auth0Static {
     logout(query: string): void;
     getConnections(callback?: Function): void;
     refreshToken(refreshToken: string, callback: (error?: Auth0Error, delegationResult?: Auth0DelegationToken) => any): void;
-    getDelegationToken(targetClientId: string, id_token: string, options: any, callback: (error?: Auth0Error, delegationResult?: Auth0DelegationToken) => any): void;
+    getDelegationToken(options: any, callback: (error?: Auth0Error, delegationResult?: Auth0DelegationToken) => any): void;
     getProfile(id_token: string, callback?: Function): Auth0UserProfile;
     getSSOData(withActiveDirectories: any, callback?: Function): void;
     parseHash(hash: string): Auth0DecodedHash;
@@ -84,7 +84,7 @@ interface Auth0Identity {
 
 interface Auth0DecodedHash {
     access_token: string;
-    id_token: string;
+    idToken: string;
     profile: Auth0UserProfile;
     state: any;
 }
@@ -96,6 +96,7 @@ interface Auth0PopupOptions {
 
 interface Auth0LoginOptions {
     auto_login?: boolean;
+    responseType?: string;
     connection?: string;
     email?: string;
     username?: string;

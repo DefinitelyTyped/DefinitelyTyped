@@ -488,7 +488,7 @@ declare namespace Matter {
         * @type boolean
         * @default true
         */
-        visible: boolean;
+        visible?: boolean;
 
         /**
          * An `Object` that defines the sprite properties to use when rendering, if any.
@@ -496,31 +496,31 @@ declare namespace Matter {
         * @property render.sprite
         * @type object
         */
-        sprite: IBodyRenderOptionsSprite;
+        sprite?: IBodyRenderOptionsSprite;
 
         /**
          * A String that defines the fill style to use when rendering the body (if a sprite is not defined). It is the same as when using a canvas, so it accepts CSS style property values.
          Default: a random colour
         */
-        fillStyle: string;
+        fillStyle?: string;
 
         /**
          * A Number that defines the line width to use when rendering the body outline (if a sprite is not defined). A value of 0 means no outline will be rendered.
          Default: 1.5
         */
-        lineWidth: number;
+        lineWidth?: number;
 
         /**
          * A String that defines the stroke style to use when rendering the body outline (if a sprite is not defined). It is the same as when using a canvas, so it accepts CSS style property values.
          Default: a random colour
         */
-        strokeStyle: string;
+        strokeStyle?: string;
 
 
 		/*
 		 * Sets the opacity. 1.0 is fully opaque. 0.0 is fully translucent
 		 */
-		opacity: number;
+		opacity?: number;
     }
 
     export interface IBodyRenderOptionsSprite {
@@ -1971,6 +1971,11 @@ declare namespace Matter {
         enableSleeping: boolean;
 
         /**
+         * Collision pair set for this `Engine`.
+         */
+        pairs: any;
+
+        /**
          * An integer `Number` that specifies the number of position iterations to perform each update.
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          *
@@ -2125,7 +2130,7 @@ declare namespace Matter {
          * @param {} options
          * @return {MouseConstraint} A new MouseConstraint
          */
-        create(engine: Engine, options: IMouseConstraintDefinition): MouseConstraint;
+        static create(engine: Engine, options?: IMouseConstraintDefinition): MouseConstraint;
 
         /**
          * The `Constraint` object that is used to move the body during interaction.
@@ -2172,6 +2177,21 @@ declare namespace Matter {
         */
 
         type: string;
+    }
+
+    /**
+    * The `Matter.Pairs` module contains methods for creating and manipulating collision pair sets.
+    *
+    * @class Pairs
+    */
+    export class Pairs {
+        /**
+         * Clears the given pairs structure.
+         * @method clear
+         * @param {pairs} pairs
+         * @return {pairs} pairs
+         */
+        static clear(pairs: any): any;
     }
 
     export interface IPair {
@@ -2329,9 +2349,12 @@ declare namespace Matter {
         */
         hasBounds?: boolean;
 
-
-
-
+        /**
+         * Render wireframes only
+         * @type boolean
+         * @default true 
+         */
+        wireframes?: boolean;
     }
 
     /**
@@ -2924,7 +2947,7 @@ declare namespace Matter {
          * @param body
          * @returns world
          */
-        static add(world: World, body: Body | Array<Body> | Composite | Array<Composite> | Constraint | Array<Constraint>): World;
+        static add(world: World, body: Body | Array<Body> | Composite | Array<Composite> | Constraint | Array<Constraint> | MouseConstraint): World;
 
         /**
          * An alias for Composite.addBody since World is also a Composite
@@ -3286,7 +3309,7 @@ declare namespace Matter {
         * @param eventNames
         * @param event
         */
-        static trigger(object: any, eventNames: string, event: (e: any) => void): void;
+        static trigger(object: any, eventNames: string, event?: (e: any) => void): void;
 
     }
 }

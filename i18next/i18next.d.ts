@@ -130,6 +130,8 @@ declare namespace I18next {
         on(languageChanged: 'languageChanged', listener: (lng: string) => void): void;
 
         off(event: string, listener: () => void): void;
+
+        options: I18next.Options;
     }
 }
 

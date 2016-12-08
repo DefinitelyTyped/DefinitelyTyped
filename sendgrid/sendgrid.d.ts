@@ -49,7 +49,8 @@ declare namespace Sendgrid {
         subject?: string;
         text?: string;
         html?: string;
-        bcc?: any;
+        cc?: string[];
+        bcc?: string[];
         replyto?: string;
         date?: Date;
         headers?: { [key: string]: string };
@@ -65,7 +66,8 @@ declare namespace Sendgrid {
         subject: string;
         text: string;
         html: string;
-        bcc: any;
+        cc: string[];
+        bcc: string[];
         replyto: string;
         date: Date;
         headers: { [key: string]: string };

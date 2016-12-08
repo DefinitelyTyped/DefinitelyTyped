@@ -3,7 +3,7 @@
 // Definitions by: rhysd <https://github.com/rhysd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../github-electron/github-electron.d.ts" />
+/// <reference path="../electron/github-electron.d.ts" />
 
 declare namespace ElectronWindowState {
 	interface WindowState {

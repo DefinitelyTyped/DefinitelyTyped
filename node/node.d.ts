@@ -52,7 +52,7 @@ interface NodeRequire extends NodeRequireFunction {
     resolve(id: string): string;
     cache: any;
     extensions: any;
-    main: any;
+    main: NodeModule;
 }
 
 declare var require: NodeRequire;
@@ -63,8 +63,8 @@ interface NodeModule {
     id: string;
     filename: string;
     loaded: boolean;
-    parent: any;
-    children: any[];
+    parent: NodeModule;
+    children: NodeModule[];
 }
 
 declare var module: NodeModule;
@@ -233,7 +233,7 @@ declare var Buffer: {
 ************************************************/
 declare namespace NodeJS {
     export interface ErrnoException extends Error {
-        errno?: string;
+        errno?: number;
         code?: string;
         path?: string;
         syscall?: string;
@@ -259,6 +259,7 @@ declare namespace NodeJS {
 
     export interface ReadableStream extends EventEmitter {
         readable: boolean;
+        isTTY?: boolean;
         read(size?: number): string | Buffer;
         setEncoding(encoding: string): void;
         pause(): ReadableStream;
@@ -272,6 +273,7 @@ declare namespace NodeJS {
 
     export interface WritableStream extends EventEmitter {
         writable: boolean;
+        isTTY?: boolean;
         write(buffer: Buffer | string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
         end(): void;
@@ -324,6 +326,7 @@ declare namespace NodeJS {
         stderr: WritableStream;
         stdin: ReadableStream;
         argv: string[];
+        argv0: string;
         execArgv: string[];
         execPath: string;
         abort(): void;
@@ -371,6 +374,7 @@ declare namespace NodeJS {
         title: string;
         arch: string;
         platform: string;
+        mainModule?: NodeModule;
         memoryUsage(): MemoryUsage;
         nextTick(callback: Function, ...args: any[]): void;
         umask(mask?: number): number;
@@ -1321,7 +1325,37 @@ declare module "repl" {
 
     export interface REPLServer extends readline.ReadLine {
         defineCommand(keyword: string, cmd: Function | { help: string, action: Function }): void;
-        displayPrompt(preserveCursor?: boolean): void
+        displayPrompt(preserveCursor?: boolean): void;
+
+        /**
+         * events.EventEmitter
+         * 1. exit
+         * 2. reset
+         **/
+
+        addListener(event: string, listener: Function): this;
+        addListener(event: "exit", listener: () => void): this;
+        addListener(event: "reset", listener: Function): this;
+
+        emit(event: string, ...args: any[]): boolean;
+        emit(event: "exit"): boolean;
+        emit(event: "reset", context: any): boolean;
+
+        on(event: string, listener: Function): this;
+        on(event: "exit", listener: () => void): this;
+        on(event: "reset", listener: Function): this;
+
+        once(event: string, listener: Function): this;
+        once(event: "exit", listener: () => void): this;
+        once(event: "reset", listener: Function): this;
+
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "exit", listener: () => void): this;
+        prependListener(event: "reset", listener: Function): this;
+
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "exit", listener: () => void): this;
+        prependOnceListener(event: "reset", listener: Function): this;
     }
 
     export function start(options: ReplOptions): REPLServer;
@@ -1347,6 +1381,71 @@ declare module "readline" {
         resume(): ReadLine;
         close(): void;
         write(data: string | Buffer, key?: Key): void;
+
+        /**
+         * events.EventEmitter
+         * 1. close
+         * 2. line
+         * 3. pause
+         * 4. resume
+         * 5. SIGCONT
+         * 6. SIGINT
+         * 7. SIGTSTP
+         **/
+
+        addListener(event: string, listener: Function): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "line", listener: (input: any) => void): this;
+        addListener(event: "pause", listener: () => void): this;
+        addListener(event: "resume", listener: () => void): this;
+        addListener(event: "SIGCONT", listener: () => void): this;
+        addListener(event: "SIGINT", listener: () => void): this;
+        addListener(event: "SIGTSTP", listener: () => void): this;
+
+        emit(event: string, ...args: any[]): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "line", input: any): boolean;
+        emit(event: "pause"): boolean;
+        emit(event: "resume"): boolean;
+        emit(event: "SIGCONT"): boolean;
+        emit(event: "SIGINT"): boolean;
+        emit(event: "SIGTSTP"): boolean;
+
+        on(event: string, listener: Function): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "line", listener: (input: any) => void): this;
+        on(event: "pause", listener: () => void): this;
+        on(event: "resume", listener: () => void): this;
+        on(event: "SIGCONT", listener: () => void): this;
+        on(event: "SIGINT", listener: () => void): this;
+        on(event: "SIGTSTP", listener: () => void): this;
+
+        once(event: string, listener: Function): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "line", listener: (input: any) => void): this;
+        once(event: "pause", listener: () => void): this;
+        once(event: "resume", listener: () => void): this;
+        once(event: "SIGCONT", listener: () => void): this;
+        once(event: "SIGINT", listener: () => void): this;
+        once(event: "SIGTSTP", listener: () => void): this;
+
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "line", listener: (input: any) => void): this;
+        prependListener(event: "pause", listener: () => void): this;
+        prependListener(event: "resume", listener: () => void): this;
+        prependListener(event: "SIGCONT", listener: () => void): this;
+        prependListener(event: "SIGINT", listener: () => void): this;
+        prependListener(event: "SIGTSTP", listener: () => void): this;
+
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "line", listener: (input: any) => void): this;
+        prependOnceListener(event: "pause", listener: () => void): this;
+        prependOnceListener(event: "resume", listener: () => void): this;
+        prependOnceListener(event: "SIGCONT", listener: () => void): this;
+        prependOnceListener(event: "SIGINT", listener: () => void): this;
+        prependOnceListener(event: "SIGTSTP", listener: () => void): this;
     }
 
     export interface Completer {
@@ -1411,6 +1510,7 @@ declare module "vm" {
 declare module "child_process" {
     import * as events from "events";
     import * as stream from "stream";
+    import * as net from "net";
 
     export interface ChildProcess extends events.EventEmitter {
         stdin: stream.Writable;
@@ -1424,6 +1524,57 @@ declare module "child_process" {
         disconnect(): void;
         unref(): void;
         ref(): void;
+
+        /**
+         * events.EventEmitter
+         * 1. close
+         * 2. disconnet
+         * 3. error
+         * 4. exit
+         * 5. message
+         **/
+
+        addListener(event: string, listener: Function): this;
+        addListener(event: "close", listener: (code: number, signal: string) => void): this;
+        addListener(event: "disconnet", listener: () => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "exit", listener: (code: number, signal: string) => void): this;
+        addListener(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
+
+        emit(event: string, ...args: any[]): boolean;
+        emit(event: "close", code: number, signal: string): boolean;
+        emit(event: "disconnet"): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "exit", code: number, signal: string): boolean;
+        emit(event: "message", message: any, sendHandle: net.Socket | net.Server): boolean;
+
+        on(event: string, listener: Function): this;
+        on(event: "close", listener: (code: number, signal: string) => void): this;
+        on(event: "disconnet", listener: () => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "exit", listener: (code: number, signal: string) => void): this;
+        on(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
+
+        once(event: string, listener: Function): this;
+        once(event: "close", listener: (code: number, signal: string) => void): this;
+        once(event: "disconnet", listener: () => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "exit", listener: (code: number, signal: string) => void): this;
+        once(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
+
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "close", listener: (code: number, signal: string) => void): this;
+        prependListener(event: "disconnet", listener: () => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "exit", listener: (code: number, signal: string) => void): this;
+        prependListener(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
+
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "close", listener: (code: number, signal: string) => void): this;
+        prependOnceListener(event: "disconnet", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "exit", listener: (code: number, signal: string) => void): this;
+        prependOnceListener(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
     }
 
     export interface SpawnOptions {
@@ -1653,6 +1804,7 @@ declare module "dns" {
 
 declare module "net" {
     import * as stream from "stream";
+    import * as events from "events";
 
     export interface Socket extends stream.Duplex {
         // Extended base methods
@@ -1776,16 +1928,16 @@ declare module "net" {
         exclusive?: boolean;
     }
 
-    export interface Server extends Socket {
+    export interface Server extends events.EventEmitter {
         listen(port: number, hostname?: string, backlog?: number, listeningListener?: Function): Server;
         listen(port: number, hostname?: string, listeningListener?: Function): Server;
         listen(port: number, backlog?: number, listeningListener?: Function): Server;
         listen(port: number, listeningListener?: Function): Server;
         listen(path: string, backlog?: number, listeningListener?: Function): Server;
         listen(path: string, listeningListener?: Function): Server;
+        listen(options: ListenOptions, listeningListener?: Function): Server;
         listen(handle: any, backlog?: number, listeningListener?: Function): Server;
         listen(handle: any, listeningListener?: Function): Server;
-        listen(options: ListenOptions, listeningListener?: Function): Server;
         close(callback?: Function): Server;
         address(): { port: number; family: string; address: string; };
         getConnections(cb: (error: Error, count: number) => void): void;
@@ -2000,6 +2152,8 @@ declare module "fs" {
     export interface ReadStream extends stream.Readable {
         close(): void;
         destroy(): void;
+        bytesRead: number;
+        path: string | Buffer;
 
         /**
          * events.EventEmitter

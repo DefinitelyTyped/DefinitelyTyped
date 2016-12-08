@@ -56,7 +56,20 @@ var options:bunyan.LoggerOptions = {
 
 var log = bunyan.createLogger(options);
 
+var customSerializer = function(anything: any) {
+    return { obj: anything};
+};
+
+log.addSerializers({anything: customSerializer});
 log.addSerializers(bunyan.stdSerializers);
+log.addSerializers(
+    {
+        err: bunyan.stdSerializers.err,
+        req: bunyan.stdSerializers.req,
+        res: bunyan.stdSerializers.res
+    }
+);
+
 var child = log.child({name: 'child'});
 child.reopenFileStreams();
 log.addStream({path: '/dev/null'});

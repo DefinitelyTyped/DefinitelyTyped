@@ -1,6 +1,6 @@
-// Type definitions for nouislider v8.0.2
+// Type definitions for nouislider v9.0.0
 // Project: https://github.com/leongersen/noUiSlider
-// Definitions by: Patrick Davies <https://github.com/bleuarg>
+// Definitions by: Patrick Davies <https://github.com/bleuarg>, Guust Nieuwenhuis <https://github.com/lagaffe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path="../wnumb/wnumb.d.ts"/>
 
@@ -16,23 +16,23 @@ declare namespace noUiSlider {
          */
         start: number | number[] | number[][];
         /**
-        * The connect setting can be used to control the bar between the handles,
-        * or the edges of the slider. Use "lower" to connect to the lower side,
-        * or "upper" to connect to the upper side. Setting true sets the bar between the handles.
-        */
+         * The connect setting can be used to control the bar between the handles,
+         * or the edges of the slider. Use "lower" to connect to the lower side,
+         * or "upper" to connect to the upper side. Setting true sets the bar between the handles.
+         */
         range: Object;
         /**
-         * noUiSlider offers several ways to handle user interaction.
-         * The range can be set to drag, and handles can move to taps.
-         * All these effects are optional, and can be enable by adding their keyword to the behaviour option.
-         * This option accepts a "-" separated list of "drag", "tap", "fixed", "snap" or "none".
+         * The connect setting can be used to control the (green) bar between the handles, or the edges of the slider.
+         * Pass an array with a boolean for every connecting element, including the edges of the slider. 
+         * The length of this array must match the handle count + 1.
+         * Setting true sets the bars between the handles, but not between the handles and the sliders edges.
          */
-        connect?: string | boolean;
+        connect?: boolean | boolean[];
         /**
-        * When using two handles, the minimum distance between the handles can be set using the margin option.
-        * The margin value is relative to the value set in 'range'.
-        * This option is only available on standard linear sliders.
-        */
+         * When using two handles, the minimum distance between the handles can be set using the margin option.
+         * The margin value is relative to the value set in 'range'.
+         * This option is only available on standard linear sliders.
+         */
         margin?: number;
         /**
          * The limit option is the oposite of the margin option,
@@ -51,17 +51,32 @@ declare namespace noUiSlider {
          * Set dimensions! Vertical sliders don't assume a default height, so you'll need to set one.
          * You can use any unit you want, including % or px.
          */
-        orientation?: string;
+        orientation?: string; // "vertical" | "horizontal"
         /**
          * By default the sliders are top-to-bottom and left-to-right,
          * but you can change this using the direction option,
          * which decides where the upper side of the slider is.
          */
-        direction?: string;
+        direction?: string; // "ltr" | "rtl"
+        /**
+         * noUiSlider can provide a basic tooltip without using its events system. 
+         * Set the tooltips option to true to enable. 
+         * This option can also accept formatting options to format the tooltips content. 
+         * In that case, pass an array with a formatter for each handle, true to use the default or false to display no tooltip.
+         */
+        tooltips?: boolean | Object | ((...args:any[]) => any);
         /**
          * Set the animate option to false to prevent the slider from animating to a new value with when calling .val().
          */
         animate?: boolean;
+        /**
+         * The animationDuration option can be used to set the animation speed assumed by the slider library. In addition to this, you must manually set the CSS (-webkit-)transition property for the .noUi-state-tap .noUi-origin selector.
+         */
+        animationDuration?: number;
+        /**
+         * When a non-linear slider has been configured, the snap option can be set to true to force the slider to jump between the specified values.
+         */
+        snap?: boolean;
         /**
          * All values on the slider are part of a range. The range has a minimum and maximum value.
          */
@@ -113,7 +128,7 @@ declare namespace noUiSlider {
          * format for step mode
          * see noUiSlider format
          */
-        format?: Object;
+        format?: Object | ((...args:any[]) => any);
         /**
          *
          * values for positions and values mode
@@ -168,6 +183,10 @@ declare namespace noUiSlider {
          * if you want to leave a handle unchanged.
          */
         set(value: number | number[]): void;
+        /*
+         * To return to the initial slider values, you can use the .reset() method. This will only reset the slider values.
+         */
+        reset(): void;
     }
 
     interface Instance extends HTMLElement {
