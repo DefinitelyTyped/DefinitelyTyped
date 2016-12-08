@@ -2924,8 +2924,12 @@ declare namespace Matter {
     }
 
     interface IWorldDefinition extends ICompositeDefinition {
-        gravity?: Vector;
+        gravity?: Gravity;
         bounds?: Bounds;
+    }
+
+    interface Gravity extends Vector {
+      scale: number;
     }
 
     /**
@@ -2994,7 +2998,7 @@ declare namespace Matter {
          */
         static create(options: IWorldDefinition): World;
 
-        gravity: Vector;
+        gravity: Gravity;
         bounds: Bounds;
 
     }
