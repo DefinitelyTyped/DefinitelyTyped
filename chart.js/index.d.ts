@@ -394,6 +394,7 @@ interface RadialLinearScale {
 declare class Chart {
     constructor (context: CanvasRenderingContext2D | HTMLCanvasElement, options: ChartConfiguration);
     config: ChartConfiguration;
+    data: ChartData;
     destroy: () => {};
     update: (duration?: any, lazy?: any) => {};
     render: (duration?: any, lazy?: any) => {};
