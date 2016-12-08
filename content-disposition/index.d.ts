@@ -18,7 +18,7 @@ declare namespace contentDisposition {
 }
 
 declare function contentDisposition(): string;
-declare function contentDisposition(filename: void, options: contentDisposition.Options): string;
+declare function contentDisposition(filename: undefined, options: contentDisposition.Options): string;
 declare function contentDisposition(filename: string, options?: contentDisposition.Options): string;
 
 export = contentDisposition;
