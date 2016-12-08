@@ -1,6 +1,6 @@
 // Type definitions for Koa 2.x
 // Project: http://koajs.com
-// Definitions by: DavidCai1993 <https://github.com/DavidCai1993>
+// Definitions by: DavidCai1993 <https://github.com/DavidCai1993>, jKey Lu <https://github.com/jkeylu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
@@ -8,176 +8,647 @@
     import * as Koa from "koa"
     const app = new Koa()
 
-    async function (ctx: Koa.Context, next: Function) {
-      // ...
-    }
+    app.use(async (ctx, next) => {
+        // ...
+    });
 
  =============================================== */
 /// <reference path="../cookies/cookies.d.ts"/>
 /// <reference path="../node/node.d.ts"/>
 
+
+declare namespace Koa {
+
+    // These open interfaces may be extended in an application-specific manner via declaration merging.
+    // See for example method-override.d.ts (https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/method-override/method-override.d.ts)
+    export interface Request { }
+    export interface Response { }
+    export interface Context { }
+    export interface Application { }
+}
+
 declare module "koa" {
-    import { EventEmitter } from "events";
-    import * as cookies from "cookies";
-    import * as http from "http";
-    import * as net from "net";
+    import { EventEmitter } from 'events';
+    import * as cookies from 'cookies';
+    import * as http from 'http';
+    import * as net from 'net';
 
-    namespace Koa {
-        export interface Context extends Request, Response {
-            app: Koa;
-            req: http.IncomingMessage;
-            res: http.ServerResponse;
-            request: Request;
-            response: Response;
+    interface IRequest {
+        /**
+         * Get origin of URL.
+         */
+        origin: string;
 
-            cookies: cookies.ICookies;
-            originalUrl: string;
-            state: any;
+        /**
+         * Get full request URL.
+         */
+        href: string;
 
-            name?: string;
-            respond?: boolean;
+        /**
+         * Return subdomains as an array.
+         *
+         * Subdomains are the dot-separated parts of the host before the main domain
+         * of the app. By default, the domain of the app is assumed to be the last two
+         * parts of the host. This can be changed by setting `app.subdomainOffset`.
+         *
+         * For example, if the domain is "tobi.ferrets.example.com":
+         * If `app.subdomainOffset` is not set, this.subdomains is
+         * `["ferrets", "tobi"]`.
+         * If `app.subdomainOffset` is 3, this.subdomains is `["tobi"]`.
+         */
+        subdomains: string[];
 
-            assert(test: any, ...args: any[]): void;
-            onerror(err?: any): void;
+        /**
+         * Return the protocol string "http" or "https"
+         * when requested with TLS. When the proxy setting
+         * is enabled the "X-Forwarded-Proto" header
+         * field will be trusted. If you're running behind
+         * a reverse proxy that supplies https for you this
+         * may be enabled.
+         */
+        protocol: string;
+
+        /**
+         * Parse the "Host" header field host
+         * and support X-Forwarded-Host when a
+         * proxy is enabled.
+         */
+        host: string;
+
+        /**
+         * Parse the "Host" header field hostname
+         * and support X-Forwarded-Host when a
+         * proxy is enabled.
+         *
+         * @return {String} hostname
+         * @api public
+         */
+        hostname: string;
+
+        /**
+         * Return request header.
+         */
+        header: any;
+
+        /**
+         * Return request header, alias as request.header
+         */
+        headers: any;
+
+        /**
+         * Short-hand for:
+         *
+         *    this.protocol == 'https'
+         */
+        secure: boolean;
+
+        /**
+         * Check if the request is stale, aka
+         * "Last-Modified" and / or the "ETag" for the
+         * resource has changed.
+         */
+        stale: boolean;
+
+        /**
+         * Check if the request is fresh, aka
+         * Last-Modified and/or the ETag
+         * still match.
+         */
+        fresh: boolean;
+
+        /**
+         * When `app.proxy` is `true`, parse
+         * the "X-Forwarded-For" ip address list.
+         *
+         * For example if the value were "client, proxy1, proxy2"
+         * you would receive the array `["client", "proxy1", "proxy2"]`
+         * where "proxy2" is the furthest down-stream.
+         */
+        ips: string[];
+
+        ip: string;
+
+
+        /**
+         * Get/Set query string.
+         */
+        querystring: string;
+
+        /**
+         * Check if the request is idempotent.
+         */
+        idempotent: boolean;
+
+        /**
+         * Return the request socket.
+         */
+        socket: net.Socket;
+
+        /**
+         * Get the search string. Same as the querystring except it includes the leading ?.
+         * Set the search string. Same as response.querystring= but included for ubiquity.
+         */
+        search: string;
+
+        /**
+         * Get/Set request method.
+         */
+        method: string;
+
+        /**
+         * Get parsed query-string.
+         * Set query-string as an object.
+         */
+        query: any;
+
+        /**
+         * Get request pathname.
+         * Set pathname, retaining the query-string when present.
+         */
+        path: string;
+
+        /**
+         * Get request URL.
+         */
+        url: string;
+
+
+        /**
+         * Return accepted languages or best fit based on `langs`.
+         *
+         * Given `Accept-Language: en;q=0.8, es, pt`
+         * an array sorted by quality is returned:
+         *
+         *     ['es', 'pt', 'en']
+         */
+        acceptsLanguages(): string[];
+        acceptsLanguages(...langs: string[]): string;
+        acceptsLanguages(langs: string[]): string;
+
+        /**
+         * Return accepted encodings or best fit based on `encodings`.
+         *
+         * Given `Accept-Encoding: gzip, deflate`
+         * an array sorted by quality is returned:
+         *
+         *     ['gzip', 'deflate']
+         */
+        acceptsEncodings(): string[];
+        acceptsEncodings(...encodings: string[]): string;
+        acceptsEncodings(encodings: string[]): string;
+
+        /**
+         * Return accepted charsets or best fit based on `charsets`.
+         *
+         * Given `Accept-Charset: utf-8, iso-8859-1;q=0.2, utf-7;q=0.5`
+         * an array sorted by quality is returned:
+         *
+         *     ['utf-8', 'utf-7', 'iso-8859-1']
+         */
+        acceptsCharsets(): string[];
+        acceptsCharsets(...charsets: string[]): string;
+        acceptsCharsets(charsets: string[]): string;
+
+        /**
+         * Check if the given `type(s)` is acceptable, returning
+         * the best match when true, otherwise `undefined`, in which
+         * case you should respond with 406 "Not Acceptable".
+         *
+         * The `type` value may be a single mime type string
+         * such as "application/json", the extension name
+         * such as "json" or an array `["json", "html", "text/plain"]`. When a list
+         * or array is given the _best_ match, if any is returned.
+         *
+         * Examples:
+         *
+         *     // Accept: text/html
+         *     this.accepts('html');
+         *     // => "html"
+         *
+         *     // Accept: text/*, application/json
+         *     this.accepts('html');
+         *     // => "html"
+         *     this.accepts('text/html');
+         *     // => "text/html"
+         *     this.accepts('json', 'text');
+         *     // => "json"
+         *     this.accepts('application/json');
+         *     // => "application/json"
+         *
+         *     // Accept: text/*, application/json
+         *     this.accepts('image/png');
+         *     this.accepts('png');
+         *     // => undefined
+         *
+         *     // Accept: text/*;q=.5, application/json
+         *     this.accepts(['html', 'json']);
+         *     this.accepts('html', 'json');
+         *     // => "json"
+         */
+        accepts(): string[];
+        accepts(...types: string[]): string;
+        accepts(types: string[]): string;
+
+        /**
+         * Return request header.
+         *
+         * The `Referrer` header field is special-cased,
+         * both `Referrer` and `Referer` are interchangeable.
+         *
+         * Examples:
+         *
+         *     this.get('Content-Type');
+         *     // => "text/plain"
+         *
+         *     this.get('content-type');
+         *     // => "text/plain"
+         *
+         *     this.get('Something');
+         *     // => undefined
+         */
+        get(field: string): string;
+
+        /**
+         * Check if the incoming request contains the "Content-Type"
+         * header field, and it contains any of the give mime `type`s.
+         * If there is no request body, `null` is returned.
+         * If there is no content type, `false` is returned.
+         * Otherwise, it returns the first `type` that matches.
+         *
+         * Examples:
+         *
+         *     // With Content-Type: text/html; charset=utf-8
+         *     this.is('html'); // => 'html'
+         *     this.is('text/html'); // => 'text/html'
+         *     this.is('text/*', 'application/json'); // => 'text/html'
+         *
+         *     // When Content-Type is application/json
+         *     this.is('json', 'urlencoded'); // => 'json'
+         *     this.is('application/json'); // => 'application/json'
+         *     this.is('html', 'application/*'); // => 'application/json'
+         *
+         *     this.is('html'); // => false
+         */
+        is(): string;
+        is(...types: string[]): string;
+        is(types: string[]): string;
+    }
+
+    interface IResponse {
+        /**
+         * Check if a header has been written to the socket.
+         */
+        headerSent: boolean;
+
+        /**
+         * Checks if the request is writable.
+         * Tests for the existence of the socket
+         * as node sometimes does not set it.
+         */
+        writable: boolean;
+
+        /**
+         * Get/Set response status code.
+         */
+        status: number;
+
+        /**
+         * Get/Set response status message
+         */
+        message: string;
+
+        /**
+         * Get/Set response body.
+         */
+        body: any;
+
+        /**
+         * Return parsed response Content-Length when present.
+         * Set Content-Length field to `n`.
+         */
+        length: number;
+
+        /**
+         * Return the response mime type void of
+         * parameters such as "charset".
+         *
+         * Set Content-Type response header with `type` through `mime.lookup()`
+         * when it does not contain a charset.
+         *
+         * Examples:
+         *
+         *     this.type = '.html';
+         *     this.type = 'html';
+         *     this.type = 'json';
+         *     this.type = 'application/json';
+         *     this.type = 'png';
+         */
+        type: string;
+
+        /**
+         * Get the Last-Modified date in Date form, if it exists.
+         * Set the Last-Modified date using a string or a Date.
+         *
+         *     this.response.lastModified = new Date();
+         *     this.response.lastModified = '2013-09-13';
+         */
+        lastModified: Date;
+
+        /**
+         * Get the ETag of a response.
+         * Set the ETag of a response.
+         * This will normalize the quotes if necessary.
+         *
+         *     this.response.etag = 'md5hashsum';
+         *     this.response.etag = '"md5hashsum"';
+         *     this.response.etag = 'W/"123456789"';
+         */
+        etag: string;
+
+        /**
+         * Set Content-Disposition header to "attachment" with optional `filename`.
+         */
+        attachment(filename: string): void;
+
+        /**
+         * Perform a 302 redirect to `url`.
+         *
+         * The string "back" is special-cased
+         * to provide Referrer support, when Referrer
+         * is not present `alt` or "/" is used.
+         *
+         * Examples:
+         *
+         *    this.redirect('back');
+         *    this.redirect('back', '/index.html');
+         *    this.redirect('/login');
+         *    this.redirect('http://google.com');
+         */
+        redirect(url: string): void;
+        redirect(url: string, alt: string): void;
+
+        /**
+         * Remove header `field`.
+         */
+        remove(field: string): void;
+
+        /**
+         * Vary on `field`.
+         */
+        vary(field: string): void;
+
+        /**
+         * Set header `field` to `val`, or pass
+         * an object of header fields.
+         *
+         * Examples:
+         *
+         *    this.set('Foo', ['bar', 'baz']);
+         *    this.set('Accept', 'application/json');
+         *    this.set({ Accept: 'text/plain', 'X-API-Key': 'tobi' });
+         */
+        set(field: any): void;
+        set(field: string, val: string): void;
+        set(field: string, val: string[]): void;
+
+        /**
+         * Append additional header `field` with value `val`.
+         *
+         * Examples:
+         *
+         *    this.append('Link', ['<http://localhost/>', '<http://localhost:3000/>']);
+         *    this.append('Set-Cookie', 'foo=bar; Path=/; HttpOnly');
+         *    this.append('Warning', '199 Miscellaneous warning');
+         */
+        append(field: string, val: string): void;
+        append(field: string, val: string[]): void;
+
+        /**
+         * Flush any set headers, and begin the body
+         */
+        flushHeaders(): void;
+    }
+
+    namespace koa {
+        interface BaseRequest extends IRequest {
+            /**
+             * Get the charset when present or undefined.
+             */
+            charset: string;
+
+            /**
+             * Return parsed Content-Length when present.
+             */
+            length: number;
+
+            /**
+             * Return the request mime type void of
+             * parameters such as "charset".
+             */
+            type: string;
+
+            /**
+             * Inspect implementation.
+             */
+            inspect(): any;
+
+            /**
+             * Return JSON representation.
+             */
+            toJSON(): any;
+        }
+
+        interface BaseResponse extends IResponse {
+            /**
+             * Return the request socket.
+             */
+            socket: net.Socket;
+
+            /**
+             * Return response header.
+             */
+            header: any;
+
+            /**
+             * Return response header, alias as response.header
+             */
+            headers: any;
+
+            /**
+             * Check whether the response is one of the listed types.
+             * Pretty much the same as `this.request.is()`.
+             */
+            is(): string;
+            is(...types: string[]): string;
+            is(types: string[]): string;
+
+            /**
+             * Return response header.
+             *
+             * Examples:
+             *
+             *     this.get('Content-Type');
+             *     // => "text/plain"
+             *
+             *     this.get('content-type');
+             *     // => "text/plain"
+             */
+            get(field: string): string;
+
+            /**
+             * Inspect implementation.
+             */
+            inspect(): any;
+
+            /**
+             * Return JSON representation.
+             */
+            toJSON(): any;
+        }
+
+        interface BaseContext extends IRequest, IResponse {
+            /**
+             * util.inspect() implementation, which
+             * just returns the JSON output.
+             */
+            inspect(): any;
+
+            /**
+             * Return JSON representation.
+             *
+             * Here we explicitly invoke .toJSON() on each
+             * object, as iteration will otherwise fail due
+             * to the getters and cause utilities such as
+             * clone() to fail.
+             */
+            toJSON(): any;
+
+            /**
+             * Similar to .throw(), adds assertion.
+             *
+             *    this.assert(this.user, 401, 'Please login!');
+             *
+             * See: https://github.com/jshttp/http-assert
+             */
+            assert(test: any, status: number, message: string): void;
+
+            /**
+             * Throw an error with `msg` and optional `status`
+             * defaulting to 500. Note that these are user-level
+             * errors, and the message may be exposed to the client.
+             *
+             *    this.throw(403)
+             *    this.throw('name required', 400)
+             *    this.throw(400, 'name required')
+             *    this.throw('something exploded')
+             *    this.throw(new Error('invalid'), 400);
+             *    this.throw(400, new Error('invalid'));
+             *
+             * See: https://github.com/jshttp/http-errors
+             */
             throw(...args: any[]): void;
 
-            toJSON(): any;
-            inspect(): any;
+            /**
+             * Default error handling.
+             *
+             * @private
+             */
+            onerror(err: Error): void;
         }
 
-        export interface Request {
-            app: Koa;
+        interface Request extends BaseRequest, Koa.Request {
+            app: Application;
             req: http.IncomingMessage;
             res: http.ServerResponse;
             ctx: Context;
             response: Response;
-
-            fresh: boolean;
-            header: any;
-            headers: any;
-            host: string;
-            hostname: string;
-            href: string;
-            idempotent: boolean;
-            ip: string;
-            ips: string[];
-            method: string;
-            origin: string;
             originalUrl: string;
-            path: string;
-            protocol: string;
-            query: any;
-            querystring: string;
-            search: string;
-            secure: boolean;
-            socket: net.Socket;
-            stale: boolean;
-            subdomains: string[];
-            type: string;
-            url: string;
-
-            charset?: string;
-            length?: number;
-
-            accepts(): string[];
-            accepts(arg: string): void | string;
-            accepts(arg: string[]): void | string;
-            accepts(...args: string[]): void | string;
-            acceptsCharsets(): string[];
-            acceptsCharsets(arg: string): void | string;
-            acceptsCharsets(arg: string[]): void | string;
-            acceptsCharsets(...args: string[]): void | string;
-            acceptsEncodings(): string[];
-            acceptsEncodings(arg: string): void | string;
-            acceptsEncodings(arg: string[]): void | string;
-            acceptsEncodings(...args: string[]): void | string;
-            acceptsLanguages(): string[];
-            acceptsLanguages(arg: string): void | string;
-            acceptsLanguages(arg: string[]): void | string;
-            acceptsLanguages(...args: string[]): void | string;
-            get(field: string): string;
-            is(): string[];
-            is(arg: string): void | string;
-            is(arg: string[]): void | string;
-            is(...args: string[]): void | string;
-
-            toJSON(): any;
-            inspect(): any;
+            accept: any;
         }
 
-        export interface Response {
-            app: Koa;
+        interface Response extends BaseResponse, Koa.Response {
+            app: Application;
             req: http.IncomingMessage;
             res: http.ServerResponse;
             ctx: Context;
             request: Request;
+        }
 
-            body: any;
-            etag: string;
-            header: any;
-            headers: any;
-            headerSent: boolean;
-            lastModified: Date;
-            message: string;
-            socket: net.Socket;
-            status: number;
-            type: string;
-            writable: boolean;
+        interface Context extends BaseContext, Koa.Context {
+            app: Application;
+            request: Request;
+            response: Response;
+            req: http.IncomingMessage;
+            res: http.ServerResponse;
+            originalUrl: string;
+            cookies: cookies.ICookies;
+            accept: any;
+            state: any;
+        }
 
-            charset?: string;
-            length?: number;
+        interface Application extends EventEmitter, Koa.Application {
+            proxy: boolean;
+            middleware: Middleware[];
+            subdomainOffset: number;
+            env: string;
+            context: BaseContext;
+            request: BaseRequest;
+            response: BaseResponse;
+            silent: boolean;
+            keys: string[];
 
-            append(field: string, val: string | string[]): void;
-            attachment(filename?: string): void;
-            get(field: string): string;
-            is(): string[];
-            is(arg: string): void | string;
-            is(arg: string[]): void | string;
-            is(...args: string[]): void | string;
-            redirect(url: string, alt?: string): void;
-            remove(field: string): void;
-            set(field: string, val: string | string[]): void;
-            set(field: any): void;
-            vary(field: string): void;
+            /**
+             * Shorthand for:
+             *
+             *    http.createServer(app.callback()).listen(...)
+             */
+            listen(port: number, hostname?: string, backlog?: number, callback?: Function): http.Server;
+            listen(port: number, hostname?: string, callback?: Function): http.Server;
+            listen(path: string, callback?: Function): http.Server;
+            listen(handle: any, listeningListener?: Function): http.Server;
+            listen(): http.Server;
 
-            toJSON(): any;
+            /**
+             * Return JSON representation.
+             * We only bother showing settings.
+             */
             inspect(): any;
+
+            /**
+             * Return JSON representation.
+             * We only bother showing settings.
+             */
+            toJSON(): any;
+
+            /**
+             * Use the given middleware `fn`.
+             *
+             * Old-style middleware will be converted.
+             */
+            use(middleware: Middleware): Application;
+
+            /**
+             * Return a request handler callback
+             * for node's native http server.
+             */
+            callback(): (req: http.IncomingMessage, res: http.ServerResponse) => void;
+
+            /**
+             * Default error handler.
+             */
+            onerror(err: Error): void;
+        }
+
+        interface Middleware {
+            (context: Context, next: () => Promise<void>): any;
         }
     }
 
-    class Koa extends EventEmitter {
-        context: Koa.Context;
-        env: string;
-        keys: string[];
-        proxy: boolean;
-        request: Koa.Request;
-        response: Koa.Response;
-        server: http.Server;
-        silent: boolean;
-        subdomainOffset: number;
-
-        constructor();
-
-        // From node.d.ts
-        listen(): http.Server;
-        listen(port: number, hostname?: string, backlog?: number, listeningListener?: Function): http.Server;
-        listen(port: number, hostname?: string, listeningListener?: Function): http.Server;
-        listen(port: number, backlog?: number, listeningListener?: Function): http.Server;
-        listen(port: number, listeningListener?: Function): http.Server;
-        listen(path: string, backlog?: number, listeningListener?: Function): http.Server;
-        listen(path: string, listeningListener?: Function): http.Server;
-        listen(handle: any, backlog?: number, listeningListener?: Function): http.Server;
-        listen(handle: any, listeningListener?: Function): http.Server;
-        listen(options: net.ListenOptions, listeningListener?: Function): http.Server;
-
-        callback(): (req: http.IncomingMessage, res: http.ServerResponse) => void;
-        onerror(err: any): void;
-        use(middleware: (ctx: Koa.Context, next: () => Promise<any>) => any): Koa;
-
-        toJSON(): any;
-        inspect(): any;
+    interface KoaStatic {
+        new (): koa.Application;
     }
 
-    namespace Koa {}
-    export = Koa;
+    var koa: KoaStatic;
+
+    export = koa;
 }
