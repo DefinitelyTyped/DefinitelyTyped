@@ -4,4 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = is_binary_path;
-declare function is_binary_path(filepath: string): void;
+declare function is_binary_path(filepath: string): boolean;
