@@ -24,6 +24,9 @@ interface IStrategyOption {
     consumerSecret: string;
     callbackURL: string;
 
+    passReqToCallback?: true;
+    includeEmail?: true;
+
     reguestTokenURL?: string;
     accessTokenURL?: string;
     userAuthorizationURL?: string;
