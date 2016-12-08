@@ -160,7 +160,7 @@ declare namespace PDFKit.Mixins {
         bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): TDocument;
         quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): TDocument;
         rect(x: number, y: number, w: number, h: number): TDocument;
-        roundRect(x: number, y: number, w: number, h: number, r?: number): TDocument;
+        roundedRect(x: number, y: number, w: number, h: number, r?: number): TDocument;
         ellipse(x: number, y: number, r1: number, r2?: number): TDocument;
         circle(x: number, y: number, raduis: number): TDocument;
         polygon(...points: number[][]): TDocument;
