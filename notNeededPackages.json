@@ -84,6 +84,12 @@
             "asOfVersion": "3.6.0"
         },
         {
+            "libraryName": "Redux Thunk",
+            "typingsPackageName": "redux-thunk",
+            "sourceRepoURL": "https://github.com/gaearon/redux-thunk",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "Normalizr",
             "typingsPackageName": "normalizr",
             "sourceRepoURL": "https://github.com/paularmstrong/normalizr",
