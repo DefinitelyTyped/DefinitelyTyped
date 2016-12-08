@@ -13,7 +13,7 @@ declare namespace contentDisposition {
 
     export interface Options {
         type?: string;
-        fallback?: string | boolean
+        fallback?: string | boolean;
     }
 
     export function parse(contentDispositionHeader: string): ContentDisposition;
