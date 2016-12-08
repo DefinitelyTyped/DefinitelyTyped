@@ -4,11 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace contentDisposition {
-    export class ContentDisposition {
+    export interface ContentDisposition {
         type: string;
         parameters: any;
-
-        constructor(type: string, parameters: any);
     }
 
     export interface Options {
