@@ -15,7 +15,9 @@ var User = {
 passport.use(new twitter.Strategy({
             consumerKey: process.env.PASSPORT_TWITTER_CONSUMER_KEY,
             consumerSecret: process.env.PASSPORT_TWITTER_CONSUMER_SECRET,
-            callbackURL: process.env.PASSPORT_TWITTER_CALLBACK_URL
+            callbackURL: process.env.PASSPORT_TWITTER_CALLBACK_URL,
+            passReqToCallback : true,
+            includeEmail: true
     },
     function(accessToken:string, refreshToken:string, profile:twitter.Profile, done:(error:any, user?:any) => void) {
          User.findOrCreate(profile.id, profile.provider, function(err, user) {
