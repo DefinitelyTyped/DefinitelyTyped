@@ -80,7 +80,7 @@ moment.tz.setDefault('America/Los_Angeles');
 
 moment.tz.guess();
 
-moment.tz('America/Los_Angeles').zoneAbbr();
+var zoneAbbr: string = moment.tz('America/Los_Angeles').zoneAbbr();
 
-moment.tz('America/Los_Angeles').zoneName();
+var zoneName: string = moment.tz('America/Los_Angeles').zoneName();
 
