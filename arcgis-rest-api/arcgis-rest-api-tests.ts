@@ -1,4 +1,6 @@
-let point: ArcGis.Rest.Point;
+import { Point } from "arcgis-rest-api";
+
+let point: Point;
 
 point = {
     x: -122.6764,

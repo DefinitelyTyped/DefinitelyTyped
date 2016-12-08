@@ -4,14 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="geojson" />
-/// <reference types="arcgis-rest-api" />
+
+import * as ArcGis from "arcgis-rest-api"
 
 /**
  * Converts an ArcGIS geometry into a GeoJSON geometry.
  */
-export function arcgisToGeoJSON<T extends ArcGis.Rest.Geometry>(arcgis: T): GeoJSON.GeometryObject;
+export function arcgisToGeoJSON<T extends ArcGis.Geometry>(arcgis: T): GeoJSON.GeometryObject;
 
 /**
  * Converts a GeoJSON geometry into a ArcGIS geometry.
  */
-export function geojsonToArcGIS(geojson: GeoJSON.GeometryObject): ArcGis.Rest.Geometry;
+export function geojsonToArcGIS(geojson: GeoJSON.GeometryObject): ArcGis.Geometry;
