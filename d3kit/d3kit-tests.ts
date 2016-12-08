@@ -5,7 +5,7 @@ function test_abstract_chart() {
         chart: d3kit.AbstractChart,
         options: d3kit.ChartOptions,
         margins: d3kit.ChartMargin,
-        offsets: d3kit.ChartOffset,
+        offsets: [number, number],
         defopts: d3kit.ChartOptions,
         fitopts: d3kit.FitOptions,
         watchop: d3kit.WatchOptions,
@@ -17,7 +17,7 @@ function test_abstract_chart() {
 
     // create examples of margins, offsets, options, fit options, watch options
     margins = { top: 20, right: 20, bottom: 20, left: 20};
-    offsets = { x: 0.5, y: 0.5 };
+    offsets = [0.5, 0.5];
     options = { initialWidth: 400, initialHeight: 300, margin: margins, offset: offsets };
     fitopts = { mode: 'basic', width: '90%', ratio: 4/3 };
     watchop = { mode: 'window', target: null, interval: 500 };
@@ -85,7 +85,7 @@ function test_svgchart() {
         chart: d3kit.SvgChart,
         options: d3kit.ChartOptions,
         margins: d3kit.ChartMargin,
-        offsets: d3kit.ChartOffset,
+        offsets: [number, number],
         svg: d3.Selection<d3.BaseType, any, d3.BaseType, any>, 
         rootg: d3.Selection<d3.BaseType, any, d3.BaseType, any>, 
         layers: d3kit.LayerOrganizer;
@@ -95,7 +95,7 @@ function test_svgchart() {
 
     // create examples of margins, offsets, options, fit options, watch options
     margins = { top: 20, right: 20, bottom: 20, left: 20};
-    offsets = { x: 0.5, y: 0.5 };
+    offsets = [0.5, 0.5];
     options = { initialWidth: 400, initialHeight: 300, margin: margins, offset: offsets };
 
     /**
@@ -119,7 +119,7 @@ function test_canvaschart() {
         chart: d3kit.CanvasChart,
         options: d3kit.ChartOptions,
         margins: d3kit.ChartMargin,
-        offsets: d3kit.ChartOffset,
+        offsets: [number, number],
         context: CanvasRenderingContext2D;
 
     // create a div, append to body, return Node as type Element
@@ -127,7 +127,7 @@ function test_canvaschart() {
 
     // create examples of margins, offsets, options, fit options, watch options
     margins = { top: 20, right: 20, bottom: 20, left: 20};
-    offsets = { x: 0.5, y: 0.5 };
+    offsets = [0.5, 0.5];
     options = { initialWidth: 400, initialHeight: 300, margin: margins, offset: offsets, pixelRatio: 1 };
 
     /**

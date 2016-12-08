@@ -26,8 +26,8 @@ export class AbstractChart {
     data(): any;
     margin(margins: ChartMargin): this;
     margin(): ChartMargin;
-    offset(offset: ChartOffset): this;
-    offset(): ChartOffset;
+    offset(offset: [number, number]): this;
+    offset(): [number, number];
     options(options: ChartOptions): this;
     options(): ChartOptions;
     updateDimensionNow(): this;
@@ -47,16 +47,11 @@ export interface ChartMargin {
     left?: number;
 }
 
-export interface ChartOffset {
-    x: number;
-    y: number;
-}
-
 export interface ChartOptions {
     initialWidth?: number;
     initialHeight?: number;
     margin?: ChartMargin;
-    offset?: ChartOffset;
+    offset?: [number, number];
     pixelRatio?: number;
 }
 
