@@ -8,10 +8,7 @@
         "typeRoots": [
             "../"
         ],
-        "types": [
-            "node",
-            "bluebird"
-        ],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
