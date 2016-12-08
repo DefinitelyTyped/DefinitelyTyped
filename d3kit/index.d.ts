@@ -88,23 +88,23 @@ export class CanvasChart extends AbstractChart {
 
 export class LayerOrganizer {
     constructor(container: d3.Selection<d3.BaseType, any, d3.BaseType, any>, defaultTag?: string);
-    create(layerNames: string|Array<string>|LayerConfig|Array<LayerConfig>): d3.Selection<d3.BaseType, any, d3.BaseType, any>|Array<d3.Selection<d3.BaseType, any, d3.BaseType, any>>;
+    create(layerNames: string|string[]|LayerConfig|LayerConfig[]): d3.Selection<d3.BaseType, any, d3.BaseType, any>|Array<d3.Selection<d3.BaseType, any, d3.BaseType, any>>;
     get(name: string): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
     has(name: string): boolean;
 }
 
 export interface LayerConfig {
-    [layerName: string]: string|string[]|LayerConfig|Array<LayerConfig>;
+    [layerName: string]: string|string[]|LayerConfig|LayerConfig[];
 }
 
 export namespace helper {
-    function debounce(fn: (...args: Array<any>) => void, delay: number): (...args: Array<any>) => void;
-    function deepExtend(dest: Object, ...args: Object[]): Object;
-    function extend(dest: Object, ...args: Object[]): Object;
-    function functor(value: any): (...args: Array<any>) => any;
-    function rebind(target: Object, source: Object): Object;
+    function debounce(fn: (...args: any[]) => void, delay: number): (...args: any[]) => void;
+    function deepExtend(dest: any, ...args: any[]): any;
+    function extend(dest: any, ...args: any[]): any;
+    function functor(value: any): (...args: any[]) => any;
+    function rebind(target: any, source: any): any;
     function isFunction(value: any): boolean;
     function isObject(value: any): boolean;
     function kebabCase(str: string): string;
-    function throttle(fn: (...args: Array<any>) => void, delay: number): (...args: Array<any>) => void;
+    function throttle(fn: (...args: any[]) => void, delay: number): (...args: any[]) => void;
 }
