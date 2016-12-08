@@ -5,10 +5,6 @@
 
 /// <reference types="node" />
 
-// Functions that are deprecated, not working, or returning callbacks instead of promises were not documented.
-
-declare module "node-hue-api" {
-
     //Not documented because it says it's broken
     //export function connect(config) : HueApi;
 
@@ -1072,4 +1068,3 @@ declare module "node-hue-api" {
         function create(values?: Object): State;
         function isLightState(obj: Object): obj is State;
     }
-}
