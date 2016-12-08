@@ -1,4 +1,4 @@
-// Type definitions for ngDialog
+// Type definitions for ngDialog v0.6.4
 // Project: https://github.com/likeastore/ngDialog
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -227,6 +227,11 @@ declare namespace angular.dialog {
 		 * Specifies the width of the dialog content element. Default value is null (unspecified)
 		 */
 		width?: string|number;
+		
+		/**
+		 * Specifies the height of the dialog content element. Default value is null (unspecified)
+		 */
+		height?: string|number;
 	}
 
 	/**
