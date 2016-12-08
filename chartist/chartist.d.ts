@@ -423,7 +423,7 @@ declare namespace Chartist {
     /**
      * This method will append an element to the current element as a child.
      */
-    append(): IChartistSvg;
+    append(element: IChartistSvg, insertFirst?: boolean): IChartistSvg;
 
     /**
      * Returns an array of class names that are attached to the current wrapper element. This method can not be chained further.
