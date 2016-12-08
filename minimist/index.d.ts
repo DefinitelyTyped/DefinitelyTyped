@@ -39,12 +39,13 @@ declare namespace minimist {
         string?: string | string[];
 
         /**
-         * A string or array of strings to always treat as booleans
+         * A boolean, string or array of strings to always treat as booleans. If true will treat
+         * all double hyphenated arguments without equals signs as boolean (e.g. affects `--foo`, not `-f` or `--foo=bar`)
          */
         boolean?: boolean | string | string[];
 
         /**
-         * An object mapping string names to strings or arrays of string argument names to use
+         * An object mapping string names to strings or arrays of string argument names to use as aliases
          */
         alias?: { [key: string]: string | string[] };
 
@@ -65,7 +66,8 @@ declare namespace minimist {
         unknown?: (arg: string) => boolean;
 
         /**
-         * When true, populate argv._ with everything before the -- and argv['--'] with everything after the --         
+         * When true, populate argv._ with everything before the -- and argv['--'] with everything after the --.
+         * Note that with -- set, parsing for arguments still stops after the `--`.
          */
         '--'?: boolean;
     }
@@ -79,7 +81,7 @@ declare namespace minimist {
         '--'?: string[];
 
         /**
-         * An array of non-option arguments
+         * Contains all the arguments that didn't have an option associated with them
          */
         _: string[];       
     }
