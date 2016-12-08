@@ -323,7 +323,7 @@ declare module "mongoose" {
     strict?: boolean;
     toJSON?: Object;
     toObject?: Object;
-    versionKey?: string|boolean;
+    versionKey?: boolean;
   }
 
   export interface Model<T extends Document> extends NodeJS.EventEmitter {
