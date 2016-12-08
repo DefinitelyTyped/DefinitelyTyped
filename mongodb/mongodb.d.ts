@@ -986,6 +986,8 @@ declare module "mongodb" {
 
   //http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html
   export interface UnorderedBulkOperation {
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/lib_bulk_unordered.js.html line 339
+    length: number;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html#execute
     execute(callback: MongoCallback<BulkWriteResult>): void;
     execute(options?: FSyncOptions): Promise<BulkWriteResult>;
@@ -1172,7 +1174,7 @@ declare module "mongodb" {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#limit
     limit(value: number): Cursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#map
-    map(transform: Function): void;
+    map(transform: Function): Cursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#max
     max(max: number): Cursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#maxAwaitTimeMS

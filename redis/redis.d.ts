@@ -46,22 +46,33 @@ declare module "redis" {
     }
 
     export interface ClientOpts {
-        parser?: string;
-        return_buffers?: boolean;
-        detect_buffers?: boolean;
-        socket_nodelay?: boolean;
-        socket_keepalive?: boolean;
-        no_ready_check?: boolean;
-        enable_offline_queue?: boolean;
-        retry_max_delay?: number;
-        connect_timeout?: number;
-        max_attempts?: number;
         auth_pass?: string;
-        password?: string;
-        family?: string;
         command_queue_high_water?: number;
         command_queue_low_water?: number;
+        connect_timeout?: number;
+        db?: string;
+        detect_buffers?: boolean;
+        disable_resubscribing?: boolean;
+        enable_offline_queue?: boolean;
+        family?: string;
+        host?: string;
+        max_attempts?: number;
+        no_ready_check?: boolean;
+        parser?: string;
+        password?: string;
+        path?: string;
+        port?: number;
+        prefix?: string;
+        rename_commands?: any;
+        retry_max_delay?: number;
         retry_strategy?: RetryStrategy;
+        retry_unfulfilled_commands?: boolean;
+        return_buffers?: boolean;
+        socket_keepalive?: boolean;
+        socket_nodelay?: boolean;
+        string_numbers?: boolean;
+        tls?: any;
+        url?: string;
     }
 
     export interface RedisClient extends NodeJS.EventEmitter {
@@ -386,6 +397,9 @@ declare module "redis" {
         hscan(args:any[], callback?:ResCallbackT<any>): boolean;
         zscan(...args:any[]): boolean;
         zscan(args:any[], callback?:ResCallbackT<any>): boolean;
+
+        // Extras
+        duplicate(options?:any[], callback?:ResCallbackT<any>): RedisClient;
     }
 
     export interface Multi {

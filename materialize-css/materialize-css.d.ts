@@ -235,6 +235,12 @@ declare namespace Materialize {
          * Default: false
          */
         closeOnClick?: boolean;
+
+        /**
+         * Choose whether you can drag to open on touch screens
+         * Default: true
+         */
+        draggable?: boolean;
     }
 
     interface ScrollFireOptions {
@@ -414,8 +420,10 @@ interface JQuery {
 
     /**
      * Close a modal programatically
+     *
+     * @name options the lean modal options
      */
-    closeModal(): void;
+    closeModal(options?: Materialize.LeanModalOptions): void;
 
     /**
      * Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.

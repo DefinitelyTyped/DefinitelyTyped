@@ -261,8 +261,8 @@ declare namespace Rx {
 		mergeObservable(): Observable<T>;	// alias for mergeAll
 		skipUntil<T2>(other: Observable<T2>): Observable<T>;
 		skipUntil<T2>(other: IPromise<T2>): Observable<T>;
-		switch(): Observable<T>;
-		switchLatest(): Observable<T>;	// alias for switch
+		switch(): T;
+		switchLatest(): T;	// alias for switch
 		takeUntil<T2>(other: Observable<T2>): Observable<T>;
 		takeUntil<T2>(other: IPromise<T2>): Observable<T>;
 		zip<T2>(second: Observable<T2>|IPromise<T2>): Observable<[T, T2]>;

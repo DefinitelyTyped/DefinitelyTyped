@@ -966,7 +966,7 @@ declare namespace __MaterialUI {
 
     namespace GridList {
         interface GridListProps {
-            cellHeight?: number;
+            cellHeight?: number|'auto';
             cols?: number;
             padding?: number;
             style?: React.CSSProperties;

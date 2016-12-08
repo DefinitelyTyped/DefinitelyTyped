@@ -259,6 +259,7 @@ declare namespace NodeJS {
 
     export interface ReadableStream extends EventEmitter {
         readable: boolean;
+        isTTY?: boolean;
         read(size?: number): string | Buffer;
         setEncoding(encoding: string): void;
         pause(): ReadableStream;
@@ -272,6 +273,7 @@ declare namespace NodeJS {
 
     export interface WritableStream extends EventEmitter {
         writable: boolean;
+        isTTY?: boolean;
         write(buffer: Buffer | string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
         end(): void;
@@ -1522,7 +1524,7 @@ declare module "child_process" {
         disconnect(): void;
         unref(): void;
         ref(): void;
-    
+
         /**
          * events.EventEmitter
          * 1. close
@@ -2150,6 +2152,8 @@ declare module "fs" {
     export interface ReadStream extends stream.Readable {
         close(): void;
         destroy(): void;
+        bytesRead: number;
+        path: string | Buffer;
 
         /**
          * events.EventEmitter

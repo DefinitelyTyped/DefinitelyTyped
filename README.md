@@ -52,21 +52,26 @@ DefinitelyTyped only works because of contributions by users like you!
 
 Before you share your improvement with the world, use it yourself.
 
-#### Test editing an exiting package
+#### Test editing an existing package
 
 To add new features you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html).
-You can also directly edit the types in `node_modules/@types/foo/index.d.ts`,
-or copy them from there and paste inside of `declarations.d.ts` and follow the steps below.
+You can also directly edit the types in `node_modules/@types/foo/index.d.ts`, or copy them from there and follow the steps below.
 
 
 #### Test a new package
 
-* Add a new file `declarations.d.ts` to your project.
-* Add it to the compilation, through `"includes"` or `"files"` in your [tsconfig](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html),
-or through a `/// <reference path="" />` declaration in your code.
-* Inside `declarations.d.ts`, write `declare module "foo" { }`, then write the module declaration inside.
-* Test that your code works.
-* *Then*, once you've tested your definitions, make a PR contributing the definition.
+Add to your `tsconfig.json`:
+
+```json
+"baseUrl": "types",
+"typeRoots": ["types"],
+```
+
+(You can also use `src/types`.)
+Create `types/foo/index.d.ts` containing declarations for the module "foo".
+You should now be able import from `"foo"` in your code and it will route to the new type definition.
+Then build *and* run the code to make sure your type definition actually corresponds to what happens at runtime.
+Once you've tested your definitions with real code, make a PR contributing the definition by copying `types/foo` to `DefinitelyTyped/foo` and adding a `tsconfig.json` and `foo-tests.ts`.
 
 
 ### Make a pull request
@@ -95,7 +100,7 @@ If it doesn't, you can do so yourself in the comment associated with the PR.
 
 #### Create a new package
 
-If you are the library author, or can make a pull request to the library, [bundle](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) types instead of publishing to DefinitelyTyped.
+If you are the library author, or can make a pull request to the library, [bundle types](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) instead of publishing to DefinitelyTyped.
 
 If you are adding typings for an NPM package, create a directory with the same name.
 If the package you are adding typings for is not on NPM, make sure the name you choose for it does not conflict with the name of a package on NPM.
@@ -108,48 +113,16 @@ Your package should have this structure:
 | index.d.ts | This contains the typings for the package. |
 | foo-tests.ts | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
 | tsconfig.json | This allows you to run `tsc` within the package. |
+| tslint.json | Enables linting. |
 
-`index.d.ts` should start with a header looking like:
+Generate these by running `npm run new-package -- new-package-name`.
 
-```ts
-// Type definitions for foo 1.2
-// Project: https://github.com/baz/foo
-// Definitions by: My Self <https://github.com/me>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-```
-
-The `Project` link does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.
-
-`tsconfig.json` should look like this:
-
-```json
-{
-    "compilerOptions": {
-        "module": "commonjs",
-        "target": "es6",
-        "noImplicitAny": true,
-        "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "types": [],
-        "noEmit": true,
-        "forceConsistentCasingInFileNames": true
-    },
-    "files": [
-        "index.d.ts",
-        "foo-tests.ts"
-    ]
-}
-```
-
-These should be identical accross projects except that `foo-tests` will be replaced with the name of your test file,
-and you may also add the `"jsx"` compiler option if your library needs it.
+You may edit the `tsconfig.json` to add new files or to add the `"jsx"` compiler option.
 
 DefinitelyTyped members routinely monitor for new PRs, though keep in mind that the number of other PRs may slow things down.
 
 For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/types-2.0/base64-js).
+
 
 #### Common mistakes
 
@@ -158,7 +131,7 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 * `interface X {}`: An empty interface is essentially the `{}` type: it places no constraints on an object.
 * `interface IFoo {}`: Don't add `I` to the front of an interface name.
 * `interface Foo { new(): Foo; }`:
-    This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }
+    This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
 * `const Class: { new(): IClass; }`:
     Prefer to use a class declaration `class Class { constructor(); }` instead of a new-able constant.
 * `namespace foo {}`:
@@ -186,6 +159,29 @@ Make a PR doing the following:
 * Any other packages in DefinitelyTyped that referenced the deleted package should be updated to reference the bundled types.
     To do this, add a `package.json` with `"dependencies": { "foo": "x.y.z" }`.
 
+If a package was never on DefinitelyTyped, it does not need to be added to `notNeededPackages.json`.
+
+
+#### Lint
+
+To lint a package, just add a `tslint.json` to that package containing `{ "extends": "../tslint.json" }`. All new packages must be linted.
+If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. For example:
+
+```json
+{
+    "extends": "../tslint.json",
+    "rules": {
+        // This package uses the Function type, and it will take effort to fix.
+        "forbidden-types": false
+    }
+}
+```
+
+(To indicate that a lint rule truly does not apply, use `// tslint:disable:rule-name` or better, `//tslint:disable-next-line:rule-name`.)
+
+Only `.d.ts` files are linted.
+Test the linter by running `npm run lint -- package-name`. Do not use a globally installed tslint.
+
 
 ## FAQ
 
@@ -199,7 +195,7 @@ Changes to the `master` branch are also manually merged into the `types-2.0` bra
 #### I'm writing a definition that depends on another definition. Should I use `<reference types="" />` or an import?
 
 If the module you're referencing is an external module (uses `export`), use an import.
-If the module you're referenceing is an ambient module (uses `declare module`, or just declares globals), use `<reference types="" />`.
+If the module you're referencing is an ambient module (uses `declare module`, or just declares globals), use `<reference types="" />`.
 
 #### What do I do about older versions of typings?
 

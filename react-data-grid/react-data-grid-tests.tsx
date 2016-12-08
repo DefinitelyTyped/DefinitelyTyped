@@ -247,7 +247,19 @@ class Example extends React.Component<any, any> {
         return this.state.rows.length;
     }
 
+    onRowsSelected(rows: Array<ReactDataGrid.SelectionParams>) {
+        var selectedIndexes = this.state.selectedIndexes as Array<number>;
+
+        this.setState({selectedIndexes: selectedIndexes.concat(rows.map(r => r.rowIdx))});
+    }
+    onRowsDeselected(rows: Array<ReactDataGrid.SelectionParams>) {
+        var rowIndexes = rows.map(r => r.rowIdx);
+        var selectedIndexes = this.state.selectedIndexes as Array<number>;
+        this.setState({selectedIndexes: selectedIndexes.filter(i => rowIndexes.indexOf(i) === -1 )});
+    }
+
     render() {
+        let selectedRows = ['id1', 'id2'];
         return (
             <ReactDataGrid
                 ref='grid'
@@ -261,6 +273,15 @@ class Example extends React.Component<any, any> {
                 rowHeight={50}
                 minHeight={600}
                 rowScrollTimeout={200}
+                rowSelection={{
+                    showCheckbox: true,
+                    enableShiftSelect: true,
+                    onRowsSelected: this.onRowsSelected,
+                    onRowsDeselected: this.onRowsDeselected,
+                    selectBy: {
+                        keys: {rowKey: 'id', values: selectedRows}
+                    }
+                }}
             />
 
         );

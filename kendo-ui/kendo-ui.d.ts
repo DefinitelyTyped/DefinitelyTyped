@@ -1,4 +1,4 @@
-// Type definitions for Kendo UI Professional v2016.3.1028
+// Type definitions for Kendo UI Professional v2016.3.1029
 // Project: http://www.telerik.com/kendo-ui
 // Definitions by: Telerik <https://github.com/telerik/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1025,6 +1025,8 @@ declare namespace kendo.data {
 
     class DataSource extends Observable{
         options: DataSourceOptions;
+
+        transport: any;
 
         static create(options?: DataSourceOptions): DataSource;
 
@@ -7329,7 +7331,7 @@ declare namespace kendo.ui {
 
         clearAllFiles(): void;
         clearFile(): void;
-        clearFileByUid(): void;
+        clearFileByUid(uid: string): void;
         destroy(): void;
         disable(): void;
         enable(enable?: boolean): void;
@@ -7357,6 +7359,7 @@ declare namespace kendo.ui {
         extension?: string;
         name?: string;
         size?: number;
+	uid?: string;
     }
 
     interface UploadLocalization {
@@ -8502,7 +8505,7 @@ declare namespace kendo.geometry {
         round(digits: number): kendo.geometry.Matrix;
         multiplyCopy(matrix: kendo.geometry.Matrix): kendo.geometry.Matrix;
         toArray(digits: number): any;
-        toString(digits: number, separator: string): string;
+        toString(digits?: number, separator?: string): string;
 
     }
 
@@ -8548,7 +8551,7 @@ declare namespace kendo.geometry {
         setX(value: number): kendo.geometry.Point;
         setY(value: number): kendo.geometry.Point;
         toArray(digits: number): any;
-        toString(digits: number, separator: string): string;
+        toString(digits?: number, separator?: string): string;
         transform(tansformation: kendo.geometry.Transformation): kendo.geometry.Point;
         transformCopy(tansformation: kendo.geometry.Transformation): kendo.geometry.Point;
         translate(dx: number, dy: number): kendo.geometry.Point;
@@ -18290,6 +18293,7 @@ declare namespace kendo.ooxml {
         cells?: WorkbookSheetRowCell[];
         index?: number;
         height?: number;
+        type?: "header" | "footer" | "groupHeader" | "groupFooter" | "data";
     }
 
     interface WorkbookSheet {
@@ -19208,7 +19212,7 @@ declare namespace kendo.dataviz.geometry {
         round(digits: number): kendo.geometry.Matrix;
         multiplyCopy(matrix: kendo.geometry.Matrix): kendo.geometry.Matrix;
         toArray(digits: number): any;
-        toString(digits: number, separator: string): string;
+        toString(digits?: number, separator?: string): string;
 
     }
 

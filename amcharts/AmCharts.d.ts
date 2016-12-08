@@ -23,6 +23,9 @@ declare namespace AmCharts {
 
     /** Set it to true if you want UTC time to be used instead of local time. */
     var useUTC: boolean;
+    
+    /** Object with themes */
+    var themes: any;
 
     /** Clears all the charts on page, removes listeners and intervals. */
     function clear();
@@ -2311,6 +2314,8 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         numberFormatter: Object;
         /** Name of the open field (used by floating columns, candlesticks and ohlc) in your dataProvider. */
         openField: string;
+        /**Precision of values. Will use chart's precision if not set any.*/
+        precision: number;
         /** Specifies where data points should be placed - on the beginning of the period (day, hour, etc) or in the middle (only when parseDates property of categoryAxis is set to true). This setting affects Serial chart only. Possible values are "start" and "middle". middle */
         pointPosition: string;
         /** If graph's type is column and labelText is set, graph hides labels which do not fit into the column's space. If you don't want these labels to be hidden, set this to true. */
@@ -2584,5 +2589,8 @@ Your function should return string.*/
         enabled: boolean;
         libs: Object;
         menu: Object;
+        config: any;
+        capture(config: any, callback: () => void);
+        toJPG(config: any, callback: (config:any) => void);
     }
 }
