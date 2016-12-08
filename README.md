@@ -222,6 +222,10 @@ If you're targeting master, we may change it to the new style when merging from 
 
 Here are the [currently requested definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
 
+#### What about type definitions for the DOM?
+
+If types are part of a web standard, they should be contributed to [TSJS-lib-generator](https://github.com/Microsoft/TSJS-lib-generator) so that they can become part of the default `lib.dom.d.ts`.
+
 
 ## License
 
