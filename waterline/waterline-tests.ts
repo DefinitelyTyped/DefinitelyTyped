@@ -246,7 +246,7 @@ User.findOne()
         return [user.id, user.friendsList, comments];
     })
     .spread((userId, friendsList, comments) => {
-
+        // 
     })
     .catch((err: any) => {
         // An error occured
@@ -260,27 +260,27 @@ User.find()
 // Simple Population
 User.find()
     .populate("foo")
-    .exec((err, users) => { });
+    .exec((err, users) => { /* */ });
 // Collection Filtering
 User.find()
     .populate("foo", { type: "bar", limit: 20 })
-    .exec((err, users) => { });
+    .exec((err, users) => { /* */ });
 User.find()
     .limit(10)
-    .exec((err, users) => { });
+    .exec((err, users) => { /* */ });
 User.find()
     .skip(10)
-    .exec((err, users) => { });
+    .exec((err, users) => { /* */ });
 User.find()
     .skip(10)
     .limit(10)
-    .exec((err, users) => { });
+    .exec((err, users) => { /* */ });
 User.find()
     .paginate({ page: 2, limit: 10 })
-    .exec((err, users) => { });
+    .exec((err, users) => { /* */ });
 User.find().sort("roleId asc")
-    .sort({ createdAt: "desc" }).exec((err, users) => { });
-User.find().exec((err, users) => { });
+    .sort({ createdAt: "desc" }).exec((err, users) => { /* */ });
+User.find().exec((err, users) => { /* */ });
 // Query methods https://github.com/balderdashy/waterline-docs/blob/master/queries/query-methods.md
 // .find( criteria, [callback] )
 User.find(1, (err, values) => { values.map((v) => v); });
@@ -289,18 +289,18 @@ User.find({ name: "Walter Jr" }).exec((err, users) => { users.map((u) => u.id); 
 User.findOne({ name: "Walter Jr" }).exec((err, users) => { users.map((u: any) => u.id); });
 User.findOne(1).exec((err, users) => { users.map((u: any) => u.id); });
 User.findOne("1").exec((err, users) => { users.map((u: any) => u.id); });
-User.findOne(1, (err, value) => { });
+User.findOne(1, (err, value) => { /* */ });
 // .create( criteria, [callback] )
-User.create({ name: "Walter Jr" }).exec((err, user) => { });
-User.findOrCreate({ name: "Walter Jr" }, {}, (err, user) => { }).exec((err, users) => { });
+User.create({ name: "Walter Jr" }).exec((err, user) => { /* */ });
+User.findOrCreate({ name: "Walter Jr" }, {}, (err, user) => { /* */ }).exec((err, users) => { /* */ });
 // .update( search criteria , values , [callback] )
-User.update({ name: "Walter Jr" }, { name: "Flynn" }, (err, value) => { }).exec((err, users) => { });
+User.update({ name: "Walter Jr" }, { name: "Flynn" }, (err, value) => { /* */ }).exec((err, users) => { /* */ });
 // .destroy( criteria , [callback] )
-User.destroy({ name: "Flynn" }, (err, value) => { }).exec((err) => { });
+User.destroy({ name: "Flynn" }, (err, value) => { /* */ }).exec((err) => { /* */ });
 // .query( query, [data], callback )
 const Movie: Waterline.Model = {} as any;
 const title = "The Speech";
-Movie.query("SELECT * FROM movie WHERE title = $1", [title], (err, results) => { });
+Movie.query("SELECT * FROM movie WHERE title = $1", [title], (err, results) => { /* */ });
 // Aggregates https://github.com/balderdashy/waterline-docs/blob/master/queries/query-methods.md#aggregates
 Movie.find()
     .groupBy("genre")
@@ -308,4 +308,4 @@ Movie.find()
     .min("title")
     .sum("imdb")
     .average("cost")
-    .then((results: any) => { });
+    .then((results: any) => { /* */ });
