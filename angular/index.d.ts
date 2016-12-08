@@ -4,13 +4,27 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery" />
+declare var angular: angular.IAngularStatic;
+
+//// Support for painless dependency injection
+declare global {
+    interface Function {
+        $inject?: string[];
+    }
+}
+
+export as namespace angular;
+export as namespace ng;
+
+// Support AMD require
+export = angular;
 
 import ng = angular;
 
 ///////////////////////////////////////////////////////////////////////////////
 // ng module (angular.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare namespace angular {
+declare namespace angular.contracts {
 
     type Injectable<T extends Function> = T | (string | T)[];
 
