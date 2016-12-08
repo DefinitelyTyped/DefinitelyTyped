@@ -1,4 +1,4 @@
-// Type definitions for ngDialog
+// Type definitions for ngDialog v0.6.4
 // Project: https://github.com/likeastore/ngDialog
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
