@@ -11,7 +11,7 @@
         "paths": {
             "*": ["*", "react-daterange-picker/node_modules/*"]
         },
-        "types": ["moment-range", "react"],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react"

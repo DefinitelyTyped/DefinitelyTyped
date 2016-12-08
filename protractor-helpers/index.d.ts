@@ -3,8 +3,6 @@
 // Definitions by: John Cant <https://github.com/johncant/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-/// <reference types="jasmine" />
 /// <reference types="selenium-webdriver" />
 
 // ElementArrayFinder

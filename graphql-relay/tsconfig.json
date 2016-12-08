@@ -8,9 +8,7 @@
         "typeRoots": [
             "../"
         ],
-        "types": [
-            "graphql"
-        ],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

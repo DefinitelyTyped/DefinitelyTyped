@@ -8,9 +8,7 @@
         "typeRoots": [
             "../"
         ],
-        "types": [
-          "mocha"
-        ],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
