@@ -1,6 +1,6 @@
 // Type definitions for LESS
 // Project: http://lesscss.org/
-// Definitions by: Tom Hasner <https://github.com/thasner>
+// Definitions by: Tom Hasner <https://github.com/thasner>, Pranay Prakash <https://github.com/pranaygp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Less {
@@ -40,11 +40,11 @@ declare namespace Less {
     }
 
     interface SourceMapOption {
-        sourceMapURL: string;
-        sourceMapBasepath: string;
-        sourceMapRootpath: string;
-        outputSourceFiles: boolean;
-        sourceMapFileInline: boolean;
+        sourceMapURL?: string;
+        sourceMapBasepath?: string;
+        sourceMapRootpath?: string;
+        outputSourceFiles?: boolean;
+        sourceMapFileInline?: boolean;
     }
 
     interface StaticOptions {
@@ -55,7 +55,7 @@ declare namespace Less {
     interface Options {
         sourceMap?: SourceMapOption;
         filename?: string;
-        plugins: Plugin[];
+        plugins?: Plugin[];
         rootFileInfo?: RootFileInfo;
     }
 
