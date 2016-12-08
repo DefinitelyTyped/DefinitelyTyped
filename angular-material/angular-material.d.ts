@@ -346,6 +346,8 @@ declare namespace angular.material {
         id: string;
         config: IPanelConfig;
         isAttached: boolean;
+        panelContainer: JQuery;
+        panelEl: JQuery;
         open(): angular.IPromise<any>;
         close(): angular.IPromise<any>;
         attach(): angular.IPromise<any>;
