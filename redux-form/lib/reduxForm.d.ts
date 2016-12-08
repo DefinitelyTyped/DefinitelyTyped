@@ -210,6 +210,8 @@ interface AsyncValidateCallback<FormData extends DataShape> {
  * from promise rejection because of AJAX I/O problems or other server errors.
  */
 export class SubmissionError<FormData extends DataShape> extends Error {
+    errors: FormErrors<FormData>;
+
     constructor(errors?: FormErrors<FormData>);
 }
 
