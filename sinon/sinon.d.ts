@@ -76,7 +76,7 @@ declare namespace Sinon {
         alwaysThrew(): boolean;
         alwaysThrew(type: string): boolean;
         alwaysThrew(obj: any): boolean;
-        alwaysReturned(): boolean;
+        alwaysReturned(obj: any): boolean;
         invokeCallback(...args: any[]): void;
         getCall(n: number): SinonSpyCall;
         reset(): void;
