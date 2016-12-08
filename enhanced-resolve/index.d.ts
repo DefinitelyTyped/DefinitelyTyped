@@ -1,4 +1,4 @@
-// Type definitions for enhanced-resolve v2.3.0
+// Type definitions for enhanced-resolve v3.0.0
 // Project: http://github.com/webpack/enhanced-resolve.git
 // Definitions by: e-cloud <https://github.com/e-cloud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,14 +10,13 @@ import fs = require('fs');
 import {
     ResolveResult,
     LoggingCallbackWrapper,
-    CommonFileSystemMethod,
     ResolverRequest,
     ResolveContext,
     AbstractInputFileSystem
 } from './lib/common-types'
 import { Dictionary } from './lib/concord'
 import Resolver = require('./lib/Resolver');
-import Tapable = require('tapable')
+import Tapable = require('tapable');
 
 declare namespace Resolve {
     function sync(path: string, request: string): ResolveResult;
@@ -66,6 +65,7 @@ declare namespace Resolve {
             resolveToContext?: boolean;
             symlinks?: string[] | boolean;
             unsafeCache?: boolean | Dictionary<any>;
+            useSyncFileSystemCalls?: boolean;
         }
         interface AliasItem {
             alias: string;
@@ -76,12 +76,9 @@ declare namespace Resolve {
     }
 
     class NodeJsInputFileSystem {
-        isSync(): boolean;
-
-        readdir(path: string, callback: (err: Error, files: string[]) => void): void;
-
         stat(path: string, callback?: (err: NodeJS.ErrnoException, stats: fs.Stats) => any): void;
 
+        readdir(path: string, callback: (err: Error, files: string[]) => void): void
         readFile(
             filename: string, encoding: string,
             callback: (err: NodeJS.ErrnoException, data: string) => void
@@ -100,32 +97,25 @@ declare namespace Resolve {
         readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
 
         readlink(path: string, callback?: (err: NodeJS.ErrnoException, linkString: string) => any): void;
-    }
 
-    class SyncNodeJsInputFileSystem {
-        isSync(): boolean;
+        statSync(path: string | Buffer): fs.Stats;
 
-        stat: CommonFileSystemMethod;
-        readdir: CommonFileSystemMethod;
+        readdirSync(path: string): string[];
 
-        readFile(
-            filename: string, encoding: string,
-            callback: (err: NodeJS.ErrnoException, data: string) => void
-        ): void;
-        readFile(
+        readFileSync(filename: string, encoding: string): string;
+        readFileSync(
             filename: string, options: {
                 encoding: string;
                 flag?: string;
-            }, callback: (err: NodeJS.ErrnoException, data: string) => void
-        ): void;
-        readFile(
-            filename: string, options: {
+            }
+        ): string;
+        readFileSync(
+            filename: string, options?: {
                 flag?: string;
-            }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void
-        ): void;
-        readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+            }
+        ): Buffer;
 
-        readlink: CommonFileSystemMethod;
+        readlinkSync(path: string | Buffer): string;
     }
 
     class CachedInputFileSystem {
@@ -133,19 +123,27 @@ declare namespace Resolve {
 
         constructor(fileSystem: AbstractInputFileSystem, duration: number);
 
-        isSync(): boolean;
+        stat?(path: string, callback: (err: NodeJS.ErrnoException, stats: fs.Stats) => void): void;
+
+        readdir?(path: string, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
+
+        readFile?(path: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+
+        readJson?(path: string, callback: (err: NodeJS.ErrnoException, data: any) => void): void;
+
+        readlink?(path: string, callback: (err: NodeJS.ErrnoException, linkString: string) => void): void;
+
+        statSync?(path: string | Buffer): fs.Stats;
+
+        readdirSync?(path: string): string[];
+
+        readFileSync?(filename: string, options?: { flag?: string; }): Buffer;
+
+        readlinkSync?(path: string | Buffer): string;
+
+        readJsonSync?(path: string): any;
 
         purge(what?: string | string[]): void;
-
-        readdir(path: string, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
-
-        readFile(path: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
-
-        readJson(path: string, callback: (err: NodeJS.ErrnoException, data: any) => void): void;
-
-        readlink(path: string, callback: (err: NodeJS.ErrnoException, linkString: string) => void): void;
-
-        stat(path: string, callback: (err: NodeJS.ErrnoException, stats: fs.Stats) => void): void;
     }
 }
 

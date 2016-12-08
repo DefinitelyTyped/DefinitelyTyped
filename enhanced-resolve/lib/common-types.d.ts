@@ -39,6 +39,9 @@ export interface ResolverRequest {
     query?: string;
     relativePath?: string;
     request: string;
+    __innerRequest?: string;
+    __innerRequest_request?: string;
+    __innerRequest_relativePath?: string;
 }
 
 export interface LoggingCallbackTools {
@@ -58,13 +61,29 @@ export interface ErrorCallback<T> {
 }
 
 export interface AbstractInputFileSystem {
-    isSync(): boolean;
     purge?(what?: string | string[]): void;
     readdir(path: string, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
+    readdirSync?(path: string): string[];
+    readFile(filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+    readFile(
+        filename: string, options: {
+            encoding: string;
+            flag?: string;
+        }, callback: (err: NodeJS.ErrnoException, data: string) => void
+    ): void;
+    readFile(
+        filename: string, options: {
+            flag?: string;
+        }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void
+    ): void;
     readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+    readFileSync?(filename: string): Buffer;
     readJson?(path: string, callback: (err: NodeJS.ErrnoException, data: any) => void): void;
+    readJsonSync?(path: string): any;
     readlink(path: string, callback: (err: NodeJS.ErrnoException, linkString: string) => void): void;
+    readlinkSync?(path: string): string;
     stat(path: string, callback: (err: NodeJS.ErrnoException, stats: fs.Stats) => void): void;
+    statSync?(path: string): fs.Stats;
 }
 
 export interface CommonFileSystemMethod {

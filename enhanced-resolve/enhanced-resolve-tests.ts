@@ -1,5 +1,5 @@
 import resolve = require('enhanced-resolve');
-import { ResolveResult } from 'enhanced-resolve/lib/common-types'
+import { ResolveResult, AbstractInputFileSystem } from 'enhanced-resolve/lib/common-types'
 import Resolver = require('enhanced-resolve/lib/Resolver')
 
 resolve('lib', 'string', function (err) { });
@@ -13,15 +13,12 @@ resolve(context, 'path', 'string', function () { });
 let resolver: Resolver
 resolver = resolve.ResolverFactory.createResolver({
     extensions: ['.js'],
-    fileSystem: {} as resolve.CachedInputFileSystem
+    fileSystem: {} as AbstractInputFileSystem
 });
 
 const nfs = new resolve.NodeJsInputFileSystem();
 
-const snfs = new resolve.SyncNodeJsInputFileSystem();
-
 const cfs = new resolve.CachedInputFileSystem(nfs, 4);
-const cfs2 = new resolve.CachedInputFileSystem(snfs, 4);
 
 let result: ResolveResult
 
