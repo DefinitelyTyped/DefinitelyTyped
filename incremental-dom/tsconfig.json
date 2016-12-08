@@ -8,12 +8,14 @@
         "typeRoots": [
             "../"
         ],
-        "types": [],
+        "types": [
+          "mocha"
+        ],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "all-tests.ts"
+        "incremental-dom-tests.ts"
     ]
 }
