@@ -261,7 +261,7 @@ declare namespace THREE {
         reset(): AnimationAction;
         isRunning(): boolean;
         startAt(time: number): AnimationAction;
-        setLoop(mode: AnimationActionLoopStyles, repetitions?: number): AnimationAction;
+        setLoop(mode: AnimationActionLoopStyles, repetitions: number): AnimationAction;
         setEffectiveWeight(weight: number): AnimationAction;
         getEffectiveWeight(): number;
         fadeIn(duration: number): AnimationAction;
