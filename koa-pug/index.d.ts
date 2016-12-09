@@ -3,7 +3,7 @@
 // Definitions by: Xavier Stouder <https://github.com/Xstoudi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../koa/index.d.ts" />
+/// <reference path="koa/index.d.ts" />
 
 declare module "koa-pug" {
     import * as koa from "koa";
