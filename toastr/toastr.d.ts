@@ -8,6 +8,10 @@
 
 interface ToastrOptions {
 	/**
+    	 * Allow writing of HTML inside message
+	 */
+	allowHtml: boolean;
+	/**
 	* Optionally override the animation easing to show or hide the toasts. Default is swing. swing and linear are built into jQuery.
 	*/
 	showEasing?: string;
