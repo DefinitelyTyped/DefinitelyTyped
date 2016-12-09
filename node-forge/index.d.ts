@@ -1,4 +1,4 @@
-﻿// Type definitions for node-forge 0.6.42
+// Type definitions for node-forge 0.6.42
 // Project: https://github.com/digitalbazaar/forge
 // Definitions by: Seth Westphal <https://github.com/westy92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

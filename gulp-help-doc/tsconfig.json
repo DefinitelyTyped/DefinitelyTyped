@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "gulp-help-doc.d.ts",
+        "index.d.ts",
         "gulp-help-doc-tests.ts"
     ]
 }

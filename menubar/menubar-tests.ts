@@ -12,6 +12,8 @@ var mb2 = menubar({
     icon: '/path/to/icon.png',
     width: 400,
     height: 800,
+    preloadWindow: true,
+    transparent: true,
 });
 
 mb2.on('ready', () => mb2.showWindow());

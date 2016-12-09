@@ -1,4 +1,4 @@
-﻿// Type definitions for auth0-lock v10.0.1
+// Type definitions for auth0-lock v10.0.1
 // Project: http://auth0.com
 // Definitions by: Brian Caruso <https://github.com/carusology>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

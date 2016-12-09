@@ -3,9 +3,9 @@
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>, Cap3 <http://www.cap3.de>, Ivo Stratev <https://github.com/NoHomey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ReactElement, Component, StatelessComponent, ComponentClass, HTMLAttributes as ReactHTMLAttributes } from "react";
+import { ReactElement, Component, StatelessComponent, ComponentClass, HTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
 
-type HTMLAttributes = ReactHTMLAttributes<{}>;
+type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;
 
 export class ElementClass extends Component<any, any> {
 }

@@ -1,6 +1,6 @@
 {
     "files": [
-        "angular-q-spread.d.ts",
+        "index.d.ts",
         "angular-q-spread-tests.ts"
     ],
     "compilerOptions": {

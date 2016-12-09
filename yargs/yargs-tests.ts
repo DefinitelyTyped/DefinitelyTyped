@@ -188,14 +188,13 @@ function command() {
 	var argv = yargs
 		.usage('npm <command>')
 		.command('install', 'tis a mighty fine package to install')
-		.command('publish', 'shiver me timbers, should you be sharing all that', yargs => {
-			argv = yargs.option('f', {
+		.command('publish', 'shiver me timbers, should you be sharing all that', yargs =>
+			yargs.option('f', {
 				alias: 'force',
 				description: 'yar, it usually be a bad idea'
 			})
 			.help('help')
-			.argv;
-		})
+		)
 		.command("build", "arghh, build it mate", {
 			tag: {
 				default: true,
@@ -226,6 +225,33 @@ function command() {
 		})
 		.help('help')
 		.argv;
+
+	yargs
+		.command('get', 'make a get HTTP request', function (yargs) {
+			return yargs.option('url', {
+				alias: 'u',
+				default: 'http://yargs.js.org/'
+			})
+		})
+		.help()
+		.argv
+
+	yargs
+		.command(
+			'get',
+			'make a get HTTP request',
+			function (yargs) {
+				return yargs.option('u', {
+					alias: 'url',
+					describe: 'the URL to make an HTTP request to'
+				})
+			},
+			function (argv: { url: string }) {
+				console.dir(argv.url)
+			}
+		)
+		.help()
+		.argv
 }
 
 function completion_sync() {

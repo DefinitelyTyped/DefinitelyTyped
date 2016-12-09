@@ -3,7 +3,7 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -15,7 +15,7 @@
         "jsx": "react"
     },
     "files": [
-        "react-autosuggest.d.ts",
+        "index.d.ts",
         "react-autosuggest-tests.tsx"
     ]
 }

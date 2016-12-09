@@ -49,3 +49,30 @@ auth
   }).catch((err) => {
     // Handle the error.
   });
+
+
+// Update a user
+management
+  .updateUser({id: "user_id"}, {"email": "hi@me.co"});
+
+// Update a user using callback
+management
+  .updateUser({id: "user_id"}, {"email": "hi@me.co"}, (err: Error, users: auth0.User) => {});
+
+
+// Update user metadata
+management
+  .updateUserMetadata({id: "user_id"}, {"key": "value"});
+
+// Update user metadata using callback
+management
+  .updateUserMetadata({id: "user_id"}, {"key": "value"}, (err: Error, users: auth0.User) => {});
+
+
+// Update app metadata
+management
+  .updateAppMetadata({id: "user_id"}, {"key": "value"});
+
+// Update app metadata using callback
+management
+  .updateAppMetadata({id: "user_id"}, {"key": "value"}, (err: Error, users: auth0.User) => {});

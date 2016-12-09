@@ -1,4 +1,4 @@
-﻿// Type definitions for doT v1.0.1
+// Type definitions for doT v1.0.1
 // Project: https://github.com/olado/doT
 // Definitions by: ZombieHunter <https://github.com/ZombieHunter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

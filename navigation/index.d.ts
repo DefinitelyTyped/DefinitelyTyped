@@ -1,4 +1,4 @@
-﻿// Type definitions for Navigation 2.0.0
+// Type definitions for Navigation 2.0.0
 // Project: http://grahammendick.github.io/navigation/
 // Definitions by: Graham Mendick <https://github.com/grahammendick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

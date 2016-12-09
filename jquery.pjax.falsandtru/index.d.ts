@@ -1,4 +1,4 @@
-﻿// Type definitions for jquery.pjax.ts by falsandtru
+// Type definitions for jquery.pjax.ts by falsandtru
 // Project: https://github.com/falsandtru/jquery.pjax.js/
 // Definitions by: 新ゝ月 NewNotMoon <http://new.not-moon.net/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

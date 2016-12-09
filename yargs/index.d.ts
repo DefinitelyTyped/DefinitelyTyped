@@ -65,11 +65,10 @@ declare namespace yargs {
         usage(options?: { [key: string]: Options }): Argv;
 
         command(command: string, description: string): Argv;
-        command(command: string, description: string, handler: (args: Argv) => void): Argv;
-        command(command: string, description: string, builder: (args: Argv) => Options): Argv;
+        command(command: string, description: string, builder: (args: Argv) => Argv): Argv;
         command(command: string, description: string, builder: { [optionName: string]: Options }): Argv;
-        command(command: string, description: string, builder: { [optionName: string]: Options }, handler: (args: Argv) => void): Argv;
-        command(command: string, description: string, builder: (args: Argv) => Options, handler: (args: Argv) => void): Argv;
+        command(command: string, description: string, builder: { [optionName: string]: Options }, handler: (args: any) => void): Argv;
+        command(command: string, description: string, builder: (args: Argv) => Argv, handler: (args: any) => void): Argv;
         command(command: string, description: string, module: CommandModule): Argv;
         command(module: CommandModule): Argv;
 

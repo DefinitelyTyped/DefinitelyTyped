@@ -1,6 +1,6 @@
 {
     "files": [
-        "angular-websocket.d.ts",
+        "index.d.ts",
         "angular-websocket-tests.ts"
     ],
     "compilerOptions": {

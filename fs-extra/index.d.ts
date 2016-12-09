@@ -18,6 +18,9 @@ export declare function copySync(src: string, dest: string): void;
 export declare function copySync(src: string, dest: string, filter: CopyFilter): void;
 export declare function copySync(src: string, dest: string, options: CopyOptions): void;
 
+export declare function move(src: string, dest: string, callback?: (err: Error) => void): void;
+export declare function move(src: string, dest: string, options: MoveOptions, callback?: (err: Error) => void): void;
+
 export declare function createFile(file: string, callback?: (err: Error) => void): void;
 export declare function createFileSync(file: string): void;
 
@@ -88,6 +91,11 @@ export interface CopyOptions {
 		clobber? : boolean;
 		limit?: number;
 	}
+
+export interface MoveOptions {
+    clobber? : boolean;
+    limit?: number;
+}
 
 export interface OpenOptions {
     encoding?: string;

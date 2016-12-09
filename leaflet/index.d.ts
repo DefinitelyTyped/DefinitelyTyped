@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.js 1.0.0-rc3
+// Type definitions for Leaflet.js 1.0.0
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1413,8 +1413,12 @@ declare namespace L {
         createShadow(oldIcon?: HTMLElement): HTMLElement;
     }
 
+    export interface IconDefault extends Icon {
+        imagePath: string;
+    }
+     
     export namespace Icon {
-        export const Default: Icon;
+        export const Default: IconDefault;
     }
 
     export function icon(options: IconOptions): Icon;
@@ -1471,45 +1475,25 @@ declare namespace L {
         export const gecko: boolean;
         export const android: boolean;
         export const android23: boolean;
-
         export const chrome: boolean;
-
         export const safari: boolean;
-
         export const win: boolean;
-
         export const ie3d: boolean;
-
         export const webkit3d: boolean;
-
         export const gecko3d: boolean;
-
         export const opera12: boolean;
-
         export const any3d: boolean;
-
         export const mobile: boolean;
-
         export const mobileWebkit: boolean;
-
         export const mobiWebkit3d: boolean;
-
         export const mobileOpera: boolean;
-
         export const mobileGecko: boolean;
-
         export const touch: boolean;
-
         export const msPointer: boolean;
-
         export const pointer: boolean;
-
         export const retina: boolean;
-
         export const canvas: boolean;
-
         export const vml: boolean;
-
         export const svg: boolean;
     }
 }

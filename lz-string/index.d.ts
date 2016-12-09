@@ -1,9 +1,11 @@
-﻿// Type definitions for lz-string v1.3.5
+// Type definitions for lz-string v1.3.5
 // Project: https://github.com/pieroxy/lz-string
 // Definitions by: Roman Nikitin <https://github.com/M0ns1gn0r>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var LZString: LZString.LZStringStatic;
+export = LZString;
+export as namespace LZString;
 
 declare namespace LZString {
     /**
@@ -59,8 +61,8 @@ declare namespace LZString {
         decompressFromBase64(compressed: string): string;
 
         /**
-        * produces ASCII strings representing the original string encoded in Base64 with a few 
-        * tweaks to make these URI safe. Hence, you can send them to the server without thinking 
+        * produces ASCII strings representing the original string encoded in Base64 with a few
+        * tweaks to make these URI safe. Hence, you can send them to the server without thinking
         * about URL encoding them. This saves bandwidth and CPU
         *
         * @param uncompressed A string which should be compressed.

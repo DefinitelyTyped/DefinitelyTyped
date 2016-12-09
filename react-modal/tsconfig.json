@@ -14,7 +14,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "react-modal.d.ts",
+        "index.d.ts",
         "react-modal-tests.tsx"
     ]
 }

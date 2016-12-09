@@ -15,7 +15,7 @@
         "jsx": "react"
     },
     "files": [
-        "react-flexr.d.ts",
+        "index.d.ts",
         "react-flexr-tests.tsx"
     ]
 }

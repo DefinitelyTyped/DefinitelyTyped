@@ -131,8 +131,14 @@ declare module Elasticsearch {
         failed: number;
     }
 
+    /**
+     * A string of a number and a time unit.  A time unit is one of
+     * [d, h, m, s, ms, micros, nanos].  eg: "30s" for 30 seconds.
+     * These are incorrectly identified as `Date | number` in the docs as of 2016-11-15.
+     */
+    export type TimeSpan = string;
+
     export type NameList = string | string[] | boolean;
-    export type DateLike = Date | number;
     export type Refresh = boolean | "true" | "false" | "wait_for" | "";
     export type VersionType = "internal" | "external" | "external_gte" | "force";
     export type ExpandWildcards = "open" | "closed" | "none" | "all";
@@ -142,7 +148,7 @@ declare module Elasticsearch {
         waitForActiveShards?: string;
         refresh?: Refresh;
         routing?: string;
-        timeout?: DateLike;
+        timeout?: TimeSpan;
         type?: string;
         fields?: NameList;
         _source?: NameList;
@@ -183,9 +189,9 @@ declare module Elasticsearch {
         waitForActiveShards?: string;
         parent?: string;
         refresh?: Refresh;
-        timeout?: DateLike;
-        timestamp?: DateLike;
-        ttl?: DateLike;
+        timeout?: TimeSpan;
+        timestamp?: Date | number;
+        ttl?: TimeSpan;
         version?: number;
         versionType?: VersionType;
         pipeline?: string;
@@ -209,7 +215,7 @@ declare module Elasticsearch {
         parent?: string;
         refresh?: Refresh;
         routing?: string;
-        timeout?: DateLike;
+        timeout?: TimeSpan;
         version?: number;
         versionType?: VersionType;
         index: string;
@@ -232,7 +238,7 @@ declare module Elasticsearch {
         parent?: string;
         refresh?: Refresh;
         routing?: string;
-        timeout?: DateLike;
+        timeout?: TimeSpan;
         version?: number;
         versionType?: VersionType;
         index: string;
@@ -399,9 +405,9 @@ declare module Elasticsearch {
         parent?: string;
         refresh?: string;
         routing?: string;
-        timeout?: DateLike;
-        timestamp?: DateLike;
-        ttl?: DateLike;
+        timeout?: TimeSpan;
+        timestamp?: Date | number;
+        ttl?: TimeSpan;
         version?: number;
         versionType?: VersionType;
         pipeline?: string;
@@ -481,7 +487,7 @@ declare module Elasticsearch {
 
     export interface ReindexParams extends GenericParams {
         refresh?: boolean;
-        timeout?: DateLike;
+        timeout?: TimeSpan;
         waitForActiveShards?: string;
         waitForCompletion?: boolean;
         requestsPerSecond?: number;
@@ -537,7 +543,7 @@ declare module Elasticsearch {
     }
 
     export interface ScrollParams extends GenericParams {
-        scroll: DateLike;
+        scroll: TimeSpan;
         scrollId: string;
     }
 
@@ -559,7 +565,7 @@ declare module Elasticsearch {
         preference?: string;
         q?: string;
         routing?: NameList;
-        scroll?: DateLike;
+        scroll?: TimeSpan;
         searchType?: "query_then_fetch" | "dfs_query_then_fetch";
         size?: number;
         sort?: NameList;
@@ -572,7 +578,7 @@ declare module Elasticsearch {
         suggestMode?: "missing" | "popular" | "always";
         suggestSize?: number;
         suggestText?: string;
-        timeout?: DateLike;
+        timeout?: TimeSpan;
         trackScores?: boolean;
         version?: boolean;
         requestCache?: boolean;
@@ -638,7 +644,7 @@ declare module Elasticsearch {
         expandWildcards?: ExpandWildcards;
         preference?: string;
         routing?: NameList;
-        scroll?: DateLike;
+        scroll?: TimeSpan;
         searchType?: "query_then_fetch" | "query_and_fetch" | "dfs_query_then_fetch" | "dfs_query_and_fetch";
         index: NameList;
         type: NameList;
@@ -682,9 +688,9 @@ declare module Elasticsearch {
         refresh?: Refresh;
         retryOnConflict?: number;
         routing?: string;
-        timeout?: DateLike;
-        timestamp?: DateLike;
-        ttl?: DateLike;
+        timeout?: TimeSpan;
+        timestamp?: Date | number;
+        ttl?: TimeSpan;
         version?: number;
         versionType?: "internal" | "force";
         id: string;
@@ -712,9 +718,9 @@ declare module Elasticsearch {
         preference?: string;
         q?: string;
         routing?: NameList;
-        scroll?: DateLike;
+        scroll?: TimeSpan;
         searchType?: "query_then_fetch" | "dfs_query_then_fetch";
-        searchTimeout?: DateLike;
+        searchTimeout?: TimeSpan;
         size?: number;
         sort?: NameList;
         _source?: NameList;
@@ -726,7 +732,7 @@ declare module Elasticsearch {
         suggestMode?: "missing" | "popular" | "always";
         suggestSize?: number;
         suggestText?: string;
-        timeout?: DateLike;
+        timeout?: TimeSpan;
         trackScores?: boolean;
         version?: boolean;
         versionType?: boolean;
@@ -786,7 +792,7 @@ declare module Elasticsearch {
     export interface CatCommonParams extends GenericParams {
         format: string;
         local?: boolean;
-        masterTimeout?: DateLike;
+        masterTimeout?: TimeSpan;
         h?: NameList;
         help?: boolean;
         v?: boolean;
@@ -828,7 +834,7 @@ declare module Elasticsearch {
     export interface CatRecoveryParams extends GenericParams {
         format: string;
         bytes?: CatBytes;
-        masterTimeout?: DateLike;
+        masterTimeout?: TimeSpan;
         h?: NameList;
         help?: boolean;
         v?: boolean;
@@ -849,7 +855,7 @@ declare module Elasticsearch {
     export interface CatSnapshotsParams extends GenericParams {
         format: string;
         ignoreUnavailable?: boolean;
-        masterTimeout?: DateLike;
+        masterTimeout?: TimeSpan;
         h?: NameList;
         help?: boolean;
         v?: boolean;
@@ -899,15 +905,15 @@ declare module Elasticsearch {
 
     export interface ClusterGetSettingsParams extends GenericParams {
         flatSettings?: boolean;
-        masterTimeout?: DateLike;
-        timeout?: DateLike;
+        masterTimeout?: TimeSpan;
+        timeout?: TimeSpan;
         includeDefaults?: boolean;
     }
 
     export interface ClusterHealthParams extends GenericParams {
         level?: "cluster" | "indices" | "shards";
         local?: boolean;
-        masterTimeout?: DateLike;
+        masterTimeout?: TimeSpan;
         waitForActiveShards?: string;
         waitForNodes?: string;
         waitForEvents?: "immediate" | "urgent" | "high" | "normal" | "low" | "languid";
@@ -918,13 +924,13 @@ declare module Elasticsearch {
 
     export interface ClusterPendingTasksParams extends GenericParams {
         local?: boolean;
-        masterTimeout?: DateLike;
+        masterTimeout?: TimeSpan;
     }
 
     export interface ClusterPutSettingsParams extends GenericParams {
         flatSettings?: boolean;
-        masterTimeout?: DateLike;
-        timeout?: DateLike;
+        masterTimeout?: TimeSpan;
+        timeout?: TimeSpan;
     }
 
     export interface ClusterRerouteParams extends GenericParams {
@@ -932,13 +938,13 @@ declare module Elasticsearch {
         explain?: boolean;
         retryFailed?: boolean;
         metric?: NameList;
-        masterTimeout?: DateLike;
-        timeout?: DateLike;
+        masterTimeout?: TimeSpan;
+        timeout?: TimeSpan;
     }
 
     export interface ClusterStateParams extends GenericParams {
         local?: boolean;
-        masterTimeout?: DateLike;
+        masterTimeout?: TimeSpan;
         flatSettings?: boolean;
         ignoreUnavailable?: boolean;
         allowNoIndices?: boolean;
@@ -950,7 +956,7 @@ declare module Elasticsearch {
     export interface ClusterStatsParams extends GenericParams {
         flatSettings?: boolean;
         human?: boolean;
-        timeout?: DateLike;
+        timeout?: TimeSpan;
         nodeId?: NameList;
     }
 
@@ -1057,8 +1063,8 @@ declare module Elasticsearch {
     }
 
     export interface IndicesCloseParams extends GenericParams {
-        timeout?: DateLike;
-        masterTimeout?: DateLike;
+        timeout?: TimeSpan;
+        masterTimeout?: TimeSpan;
         ignoreUnavailable?: boolean;
         allowNoIndices?: boolean;
         expandWildcards?: ExpandWildcards;
@@ -1067,28 +1073,28 @@ declare module Elasticsearch {
 
     export interface IndicesCreateParams extends GenericParams {
         waitForActiveShards?: string;
-        timeout?: DateLike;
-        masterTimeout?: DateLike;
+        timeout?: TimeSpan;
+        masterTimeout?: TimeSpan;
         updateAllTypes?: boolean;
         index: string;
     }
 
     export interface IndicesDeleteParams extends GenericParams {
-        timeout?: DateLike;
-        masterTimeout?: DateLike;
+        timeout?: TimeSpan;
+        masterTimeout?: TimeSpan;
         index: NameList;
     }
 
     export interface IndicesDeleteAliasParams extends GenericParams {
-        timeout?: DateLike;
-        masterTimeout?: DateLike;
+        timeout?: TimeSpan;
+        masterTimeout?: TimeSpan;
         index: NameList;
         name: NameList;
     }
 
     export interface IndicesDeleteTemplateParams extends GenericParams {
-        timeout?: DateLike;
-        masterTimeout?: DateLike;
+        timeout?: TimeSpan;
+        masterTimeout?: TimeSpan;
         name: string;
     }
 
@@ -1105,8 +1111,8 @@ declare module Elasticsearch {
     }
 
     export interface IndicesExistsTemplateParams extends GenericParams {
-        timeout?: DateLike;
-        masterTimeout?: DateLike;
+        timeout?: TimeSpan;
+        masterTimeout?: TimeSpan;
         name: NameList;
     }
 
@@ -1197,7 +1203,7 @@ declare module Elasticsearch {
 
     export interface IndicesGetTemplateParams extends GenericParams {
         flatSettings?: boolean;
-        masterTimeout?: DateLike;
+        masterTimeout?: TimeSpan;
         local?: boolean;
         name?: NameList;
     }
@@ -1211,8 +1217,8 @@ declare module Elasticsearch {
     }
 
     export interface IndicesOpenParams extends GenericParams {
-        timeout?: DateLike;
-        masterTimeout?: DateLike;
+        timeout?: TimeSpan;
+        masterTimeout?: TimeSpan;
         ignoreUnavailable?: boolean;
         allowNoIndices?: boolean;
         expandWildcards?: ExpandWildcards;
@@ -1220,15 +1226,15 @@ declare module Elasticsearch {
     }
 
     export interface IndicesPutAliasParams extends GenericParams {
-        timeout?: DateLike;
-        masterTimeout?: DateLike;
+        timeout?: TimeSpan;
+        masterTimeout?: TimeSpan;
         index?: NameList;
         name: NameList;
     }
 
     export interface IndicesPutMappingParams extends GenericParams {
-        timeout?: DateLike;
-        masterTimeout?: DateLike;
+        timeout?: TimeSpan;
+        masterTimeout?: TimeSpan;
         ignoreUnavailable?: boolean;
         allowNoIndices?: boolean;
         expandWildcards?: ExpandWildcards;
@@ -1239,7 +1245,7 @@ declare module Elasticsearch {
     }
 
     export interface IndicesPutSettingsParams extends GenericParams {
-        masterTimeout?: DateLike;
+        masterTimeout?: TimeSpan;
         preserveExisting?: boolean;
         ignoreUnavailable?: boolean;
         allowNoIndices?: boolean;
@@ -1252,8 +1258,8 @@ declare module Elasticsearch {
     export interface IndicesPutTemplateParams extends GenericParams {
         order?: number;
         create?: boolean;
-        timeout?: DateLike;
-        masterTimeout?: DateLike;
+        timeout?: TimeSpan;
+        masterTimeout?: TimeSpan;
         flatSettings?: boolean;
         name: string;
         body: any;
@@ -1276,8 +1282,8 @@ declare module Elasticsearch {
     }
 
     export interface IndicesRolloverParams extends GenericParams {
-        timeout?: DateLike;
-        masterTimeout?: DateLike;
+        timeout?: TimeSpan;
+        masterTimeout?: TimeSpan;
         waitForActiveShards?: number | string;
         alias?: string;
         newIndex?: string;
@@ -1313,8 +1319,8 @@ declare module Elasticsearch {
     }
 
     export interface IndicesShrinkParams extends GenericParams {
-        timeout?: DateLike;
-        masterTimeout?: DateLike;
+        timeout?: TimeSpan;
+        masterTimeout?: TimeSpan;
         waitForActiveShards?: string | number;
         index: string;
         target: string;
@@ -1333,8 +1339,8 @@ declare module Elasticsearch {
     }
 
     export interface IndicesUpdateAliasesParams extends GenericParams {
-        timeout?: DateLike;
-        masterTimeout?: DateLike;
+        timeout?: TimeSpan;
+        masterTimeout?: TimeSpan;
         body: {
             actions: IndicesUpdateAliasesParamsAction[];
         }
@@ -1426,19 +1432,19 @@ declare module Elasticsearch {
     }
 
     export interface NodesHotThreadsParams extends GenericParams {
-        interval?: DateLike;
+        interval?: TimeSpan;
         snapshots?: number;
         threads?: number;
         ignoreIdleThreads?: boolean;
         type?: "cpu" | "wait" | "blocked";
-        timeout?: DateLike;
+        timeout?: TimeSpan;
         nodeId: NameList;
     }
 
     export interface NodesInfoParams extends GenericParams {
         flatSettings?: boolean;
         human?: boolean;
-        timeout?: DateLike;
+        timeout?: TimeSpan;
         nodeId: NameList;
         metric?: NameList;
     }
@@ -1451,7 +1457,7 @@ declare module Elasticsearch {
         human?: boolean;
         level?: "indices" | "node" | "shards";
         types?: NameList;
-        timeout?: DateLike;
+        timeout?: TimeSpan;
         metric?: NameList;
         indexMetric?: NameList;
         nodeId?: NameList;
@@ -1479,61 +1485,61 @@ declare module Elasticsearch {
     }
 
     export interface SnapshotCreateParams extends GenericParams {
-        masterTimeout?: DateLike;
+        masterTimeout?: TimeSpan;
         waitForCompletion?: boolean;
         repository: string;
         snapshot: string;
     }
 
     export interface SnapshotCreateRepositoryParams extends GenericParams {
-        masterTimeout?: DateLike;
-        timeout?: DateLike;
+        masterTimeout?: TimeSpan;
+        timeout?: TimeSpan;
         verify?: boolean;
         repository: string;
     }
 
     export interface SnapshotDeleteParams extends GenericParams {
-        masterTimeout?: DateLike;
+        masterTimeout?: TimeSpan;
         repository: string;
         snapshot: string;
     }
 
     export interface SnapshotDeleteRepositoryParams extends GenericParams {
-        masterTimeout?: DateLike;
-        timeout?: DateLike;
+        masterTimeout?: TimeSpan;
+        timeout?: TimeSpan;
         repository: string;
     }
 
     export interface SnapshotGetParams extends GenericParams {
-        masterTimeout?: DateLike;
+        masterTimeout?: TimeSpan;
         ignoreUnavailable?: boolean;
         repository: string;
         snapshot: NameList;
     }
 
     export interface SnapshotGetRepositoryParams extends GenericParams {
-        masterTimeout?: DateLike;
+        masterTimeout?: TimeSpan;
         local?: boolean;
         repository: NameList;
     }
 
     export interface SnapshotRestoreParams extends GenericParams {
-        masterTimeout?: DateLike;
+        masterTimeout?: TimeSpan;
         waitForCompletion?: boolean;
         repository: string;
         snapshot: string;
     }
 
     export interface SnapshotStatusParams extends GenericParams {
-        masterTimeout?: DateLike;
+        masterTimeout?: TimeSpan;
         ignoreUnavailable?: boolean;
         repository: string;
         snapshot: NameList;
     }
 
     export interface SnapshotVerifyRepositoryParams extends GenericParams {
-        masterTimeout?: DateLike;
-        timeout?: DateLike;
+        masterTimeout?: TimeSpan;
+        timeout?: TimeSpan;
         repository: string;
     }
 

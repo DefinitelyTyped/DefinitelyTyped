@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "3d-bin-packing.d.ts",
+        "index.d.ts",
         "3d-bin-packing-tests.ts"
     ]
 }

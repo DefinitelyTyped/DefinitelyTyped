@@ -118,6 +118,23 @@ declare module "react-virtualized" {
     type ScrollSyncProps = any;
     export class ScrollSync extends React.Component<ScrollSyncProps, {}> { }
 
-    type WindowScrollerProps = any;
-    export class WindowScroller extends React.Component<WindowScrollerProps, {}> { }
+    export module WindowScroller {
+        export type OnResizeArg = {
+            height: number;
+        }
+        export type OnScrollArg = {
+            scrollTop: number;
+        }
+        export type RenderCallbackArg = {
+            height: number;
+            scrollTop: number;
+            isScrolling: boolean;
+        }
+        export type Props = {
+            onScroll?: (arg: OnScrollArg) => void;
+            onResize?: (arg: OnResizeArg) => void;
+            // TODO `children` should be typed here
+        };
+    }
+    export class WindowScroller extends React.Component<WindowScroller.Props, {}> { }
 }

@@ -111,7 +111,7 @@ declare namespace inquirer {
      * A key/value hash containing the client answers in each prompt.
      */
     interface Answers {
-            [key: string]: any;
+        [key: string]: any;
     }
 
     namespace ui {

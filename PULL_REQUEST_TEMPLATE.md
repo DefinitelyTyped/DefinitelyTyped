@@ -13,5 +13,5 @@ If adding a new definition:
 - [ ] Include the required [files](https://github.com/DefinitelyTyped/DefinitelyTyped#create-a-new-package) and header. Base these on the README, *not* on an existing project.
 
 If changing an existing definition:
-- [ ] Provide a URL to  documentation or source code which provides context for the suggested changes: <<url here>>
+- [ ] Provide a URL to documentation or source code which provides context for the suggested changes: <<url here>>
 - [ ] Increase the version number in the header if appropriate.

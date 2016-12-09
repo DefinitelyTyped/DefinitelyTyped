@@ -85,7 +85,7 @@ class UploadController {
 				ratio: 0.9,
 				centerCrop: true,
 				restoreExif: true,
-				resizeIf: (width, height) => {
+                                resizeIf: (width: number, height: number) => {
 					return true;
 				}
 			})

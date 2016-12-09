@@ -15,7 +15,7 @@
         "jsx": "react"
     },
     "files": [
-        "dva.d.ts",
+        "index.d.ts",
         "dva-tests.tsx"
     ]
 }

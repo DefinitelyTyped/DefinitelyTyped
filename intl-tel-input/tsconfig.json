@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "intl-tel-input.d.ts",
+        "index.d.ts",
         "intl-tel-input-tests.ts"
     ]
 }

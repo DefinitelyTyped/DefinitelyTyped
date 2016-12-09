@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "sqs-producer.d.ts",
+        "index.d.ts",
         "sqs-producer-tests.ts"
     ]
 }

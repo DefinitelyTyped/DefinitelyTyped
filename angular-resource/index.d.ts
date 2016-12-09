@@ -1,4 +1,4 @@
-// Type definitions for Angular JS 1.5 (ngResource module)
+// Type definitions for Angular JS (ngResource module) 1.5
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Michael Jess <http://github.com/miffels>
 // Definitions: https://github.com/daptiv/DefinitelyTyped
@@ -162,6 +162,8 @@ declare module 'angular' {
          * Really just a regular Array object with $promise and $resolve attached to it
          */
         interface IResourceArray<T> extends Array<T & IResource<T>> {
+            $cancelRequest(): void;
+
             /** the promise of the original server interaction that created this collection. **/
             $promise: angular.IPromise<IResourceArray<T>>;
             $resolved: boolean;

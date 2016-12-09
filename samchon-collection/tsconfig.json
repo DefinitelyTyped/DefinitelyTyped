@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "samchon-collection.d.ts",
+        "index.d.ts",
         "samchon-collection-tests.ts"
     ]
 }

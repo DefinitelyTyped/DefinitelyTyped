@@ -16,6 +16,17 @@ export interface Observer<T, S> {
     end?: () => void;
 }
 
+export interface Subscription {
+    unsubscribe(): void;
+    closed: boolean; // Actually, `readonly` but it's avaiable in tsc starting with 2.0.0
+}
+
+export interface Observer<T, S> {
+    value?: (value: T) => void;
+    error?: (error: S) => void;
+    end?: () => void;
+}
+
 export interface Observable<T, S> {
     // Subscribe / add side effects
     onValue(callback: (value: T) => void): void;

@@ -1,11 +1,67 @@
-﻿// Type definitions for hellosign-embedded v1.2.0
+// Type definitions for hellosign-embedded v1.2.0
 // Project: https://github.com/HelloFax/hellosign-embedded
 // Definitions by: Brian Surowiec <https://github.com/xt0rted/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare module HelloSign {
-    interface MessageEvent {
-        event: string;
+    interface SignedMessageEvent {
+        event: 'signature_request_signed';
+        signature_id: string;
     }
+
+    interface DeclinedMessageEvent {
+        event: 'signature_request_declined';
+        signature_id: string;
+    }
+
+    interface CanceledMessageEvent {
+        event: 'signature_request_canceled';
+    }
+
+    interface SentMessageEvent {
+        event: 'signature_request_sent';
+        signature_request_id: string;
+        signature_request_info: {
+            title: string;
+            message: string;
+            signatures: Array<{
+                signature_id: string;
+                signer_email_address: string;
+                signer_name: string;
+                order: number;
+                status_code: string;
+                signed_at: number;
+                last_viewed_at: number;
+                last_reminded_at: number;
+                has_pin: boolean;
+            }>;
+            cc_email_addresses: Array<string>;
+        };
+    }
+
+    interface TemplateCreatedMessageEvent {
+        event: 'template_created';
+        template_id: string;
+        template_info: {
+            title: string;
+            message: string;
+            signer_roles: Array<{
+                name: string;
+                order: number;
+            }>;
+            cc_roles: Array<{
+                name: string;
+            }>;
+        };
+    }
+
+    interface ErrorMessageEvent {
+        event: 'error';
+        description: string;
+    }
+
+    type MessageEvent = SignedMessageEvent | DeclinedMessageEvent |
+        CanceledMessageEvent | SentMessageEvent | TemplateCreatedMessageEvent |
+        ErrorMessageEvent;
 
     interface ClientCultures {
         /**
@@ -168,6 +224,20 @@ declare module HelloSign {
          * @default signature_request_canceled
          */
         EVENT_CANCELED: string;
+
+        /**
+         * The user sent a signature request
+         *
+         * @default signature_request_sent
+         */
+        EVENT_SENT: string;
+
+        /**
+         * The template was created or edited
+         *
+         * @default template_created
+         */
+        EVENT_TEMPLATE_CREATED: string;
 
         /**
          * An error occurred in the iFrame

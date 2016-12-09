@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "socket.io-parser.d.ts",
+        "index.d.ts",
         "socket.io-parser-tests.ts"
     ]
 }

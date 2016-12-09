@@ -2212,6 +2212,7 @@ function test_ChartObject() {
     chart.showLoading("Loading label");
     var firstXAxis = chart.xAxis[0];
     var firstYAxis = chart.yAxis[0];
+    var legend = chart.legend;
 }
 
 function test_ElementObject() {
@@ -2337,4 +2338,9 @@ function test_SeriesObject() {
     var visible = series.visible;
     var xAxis = series.xAxis;
     var yAxis = series.yAxis;
+}
+function test_LegendObject() {
+    var legend = $('#container').highcharts().legend;
+    legend.update({});
+    legend.update({}, false);
 }

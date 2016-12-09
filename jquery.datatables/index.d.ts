@@ -1,4 +1,4 @@
-﻿// Type definitions for JQuery DataTables 1.10.8
+// Type definitions for JQuery DataTables 1.10.8
 // Project: http://www.datatables.net
 // Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>, Omid Rad <https://github.com/omidkrad>, Armin Sander <https://github.com/pragmatrix/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -908,15 +908,9 @@ declare namespace DataTables {
         * @param d Data to use for the row.
         */
         data(d: any[] | Object): DataTable;
-
+        
         /**
-        * Get the id of the selected row.
-        *
-        * @param hash Set to true to append a hash (#) to the start of the row id.
-        */
-        id(hash?: boolean): string;
 
-        /**
         * Get the id of the selected row. Since: 1.10.8
         *
         * @param hash true - Append a hash (#) to the start of the row id. This can be useful for then using the id as a selector
@@ -1712,7 +1706,7 @@ declare namespace DataTables {
 
     //#region "language-settings"
 
-	// these are all optional
+    // these are all optional
     interface LanguageSettings {
         emptyTable?: string;
         info?: string;

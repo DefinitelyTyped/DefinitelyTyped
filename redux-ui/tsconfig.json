@@ -15,7 +15,7 @@
         "experimentalDecorators": true
     },
     "files": [
-        "redux-ui.d.ts",
+        "index.d.ts",
         "redux-ui-tests.ts"
     ]
 }

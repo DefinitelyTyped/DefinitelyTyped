@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Router from './Router';
-import * as H from 'history';
 
 declare const Link: Link;
 type Link = Link.Link;
@@ -12,9 +11,7 @@ declare namespace Link {
         activeStyle?: React.CSSProperties;
         activeClassName?: string;
         onlyActiveOnIndex?: boolean;
-        to: Router.RoutePattern | H.LocationDescriptor;
-        query?: H.Query;
-        state?: H.LocationState;
+        to: Router.RoutePattern | Router.LocationDescriptor | ((...args: any[]) => Router.LocationDescriptor);
     }
 
     interface Link extends React.ComponentClass<LinkProps> {}

@@ -3,6 +3,7 @@
 //date operations
 var start: Date = gantt.date.week_start(new Date());
 var next: Date = gantt.date.add(new Date(), 1, "week");
+var datePos: Date = gantt.dateFromPos(0);
 
 //hotkeys
 gantt.keys.edit_cancel = 13;

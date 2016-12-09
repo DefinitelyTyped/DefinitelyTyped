@@ -84,6 +84,8 @@ declare namespace request {
         aws?: AWSOptions;
         hawk?: HawkOptions;
         qs?: any;
+        qsStringifyOptions?: any;
+        qsParseOptions?: any;
         json?: any;
         multipart?: RequestPart[] | Multipart;
         agent?: http.Agent | https.Agent;

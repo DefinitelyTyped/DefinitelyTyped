@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "marker-animate-unobtrusive.d.ts",
+        "index.d.ts",
         "marker-animate-unobtrusive-tests.ts",
         "marker-animate-unobtrusive-amd-tests.ts"
     ]

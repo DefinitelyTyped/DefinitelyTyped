@@ -30,4 +30,4 @@ export class RequestSigner {
     formatPath(): string;
 }
 
-export function sign(options?: any, credentials?: any): RequestSigner;
+export function sign(options?: any, credentials?: any): any;

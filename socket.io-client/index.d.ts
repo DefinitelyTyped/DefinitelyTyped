@@ -612,6 +612,11 @@ declare namespace SocketIOClient {
 		onlyBinaryUpgrades?: boolean;
 
 		/**
+		 * Header options for Node.js client
+		 */
+		extraHeaders?: Object;
+
+		/**
 		 * (SSL) Certificate, Private key and CA certificates to use for SSL.
 		 * Can be used in Node.js client environment to manually specify
 		 * certificate information.

@@ -7,7 +7,35 @@ import * as moment from 'moment';
 import * as angular from 'angular';
 
 declare module 'angular' {
-    export namespace bootstrap.calendar {
+	    export namespace bootstrap.calendar {
+	    interface IEventAction {
+	        /**
+	         * The label of the action
+	         */
+	        label: string;
+	        /**
+	         * CSS class to be added to the action element
+	         */
+	        cssClass?: string;
+	        /**
+	         * The action that occurs when it's clicked
+	         * @param args - the IEvent whose action was clicked
+	         */
+	        onClick: (args: any) => void;
+	    }
+
+	    interface IEventColor {
+	        /**
+	         * The primary color of the event, should be darker than secondary
+	         */
+	        primary: string;
+
+	        /**
+	         * The secondary color of the event, should be lighter than primary
+	         */
+	        secondary: string;
+	    }
+
         interface IEvent {
             /**
              * The title of the event
@@ -16,7 +44,7 @@ declare module 'angular' {
             /**
              * The type of the event (determines its color). Can be important, warning, info, inverse, success or special
              */
-            type: string;
+            type?: string;
             /**
              * A javascript date object for when the event starts
              */
@@ -25,6 +53,14 @@ declare module 'angular' {
              * Optional - a javascript date object for when the event ends
              */
             endsAt?: Date;
+	        /**
+	         * Color of the Event
+	         */
+	        color?: IEventColor;
+	        /**
+	         * Actions of the Event
+	         */
+	        actions?: Array<IEventAction>;
             /**
              * If edit-event-html is set and this field is explicitly set to false then dont make it editable.
              */
@@ -53,6 +89,10 @@ declare module 'angular' {
              * A CSS class (or more, just separate with spaces) that will be added to the event when it is displayed on each view. Useful for marking an event as selected / active etc
              */
             cssClass?: string;
+	        /**
+	         * If set the event will display as all-day event
+	         */
+	        allDay?: boolean;
         }
 
         interface ICalendarConfig {
@@ -134,7 +174,7 @@ declare module 'angular' {
             }
 
             interface IOnViewChangeClick {
-                (calendarDate: Date, calendarNextView: string): void;
+                (calendarDate: Date, calendarNextView: string): boolean;
             }
         }
     }

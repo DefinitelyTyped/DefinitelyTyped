@@ -6,7 +6,7 @@
 /// <reference types="node" />
 
 
-import fs = require("fs");
+import nodefs = require("fs");
 
 declare function mock(config?: mock.Config, options?: mock.Options): void;
 
@@ -17,7 +17,7 @@ declare namespace mock {
 
     function restore(): void;
 
-    function fs(config?: Config, options?: Options): typeof fs;
+    function fs(config?: Config, options?: Options): typeof nodefs;
 
     interface Config {
         [path: string]: string | Buffer | File | Directory | Symlink | Config;

@@ -50,9 +50,11 @@ new Vivus(el, { duration: 200, delay: 199 })
 // 'type' option tests.
 
 new Vivus(el, { type: "delayed" });
-new Vivus(el, { type: "async" });
+new Vivus(el, { type: "sync" });
 new Vivus(el, { type: "oneByOne" });
 new Vivus(el, { type: "script" });
+new Vivus(el, { type: "scenario" });
+new Vivus(el, { type: "scenario-sync" });
 
 // 'start' option tests.
 

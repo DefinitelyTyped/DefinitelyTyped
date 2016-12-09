@@ -1,5 +1,3 @@
-
-
 QUnit.test("assert.async() test", function (assert) {
     var done = assert.async();
     var input = [];

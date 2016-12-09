@@ -1,4 +1,4 @@
-﻿declare class TweenLite {
+declare class TweenLite {
     constructor(target: any, duration: number, vars: any);
 
     /** Provides An easy way to change the default easing equation. */

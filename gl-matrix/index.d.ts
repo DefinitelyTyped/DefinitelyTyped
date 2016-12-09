@@ -1384,7 +1384,7 @@ declare module 'gl-matrix' {
          * @param a the source matrix
          * @returns out
          */
-        public static invert(out: mat2, a: mat2): mat2;
+        public static invert(out: mat2, a: mat2): mat2 | null;
 
         /**
          * Calculates the adjugate of a mat2
@@ -1638,7 +1638,7 @@ declare module 'gl-matrix' {
          * @param a the source matrix
          * @returns out
          */
-        public static invert(out: mat2d, a: mat2d): mat2d;
+        public static invert(out: mat2d, a: mat2d): mat2d | null;
 
         /**
          * Calculates the determinant of a mat2d
@@ -1918,7 +1918,7 @@ declare module 'gl-matrix' {
          * @param a the source matrix
          * @returns out
          */
-        public static invert(out: mat3, a: mat3): mat3;
+        public static invert(out: mat3, a: mat3): mat3 | null;
 
         /**
          * Calculates the adjugate of a mat3
@@ -2054,7 +2054,7 @@ declare module 'gl-matrix' {
          *
          * @returns out
          */
-        public static normalFromMat4(out: mat3, a: mat4): mat3;
+        public static normalFromMat4(out: mat3, a: mat4): mat3 | null;
 
         /**
          * Returns a string representation of a mat3
@@ -2242,7 +2242,7 @@ declare module 'gl-matrix' {
          * @param a the source matrix
          * @returns out
          */
-        public static invert(out: mat4, a: mat4): mat4;
+        public static invert(out: mat4, a: mat4): mat4 | null;
 
         /**
          * Calculates the adjugate of a mat4

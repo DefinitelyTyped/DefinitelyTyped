@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = ReduxActions;
+export as namespace ReduxActions;
 
 declare namespace ReduxActions {
     // FSA-compliant action.
@@ -44,6 +45,11 @@ declare namespace ReduxActions {
         metaCreator: (...args: any[]) => Meta
     ): (...args: any[]) => ActionMeta<Payload, Meta>;
 
+    export function handleAction<StateAndPayload>(
+        actionType: { toString: () => string },
+        reducer: Reducer<StateAndPayload, StateAndPayload> | ReducerMap<StateAndPayload, StateAndPayload>
+    ): Reducer<StateAndPayload, StateAndPayload>;
+
     export function handleAction<State, Payload>(
         actionType: { toString(): string },
         reducer: Reducer<State, Payload> | ReducerMap<State, Payload>
@@ -53,6 +59,11 @@ declare namespace ReduxActions {
         actionType: { toString(): string },
         reducer: ReducerMeta<State, Payload, Meta> | ReducerMap<State, Payload>
     ): Reducer<State, Payload>;
+
+    export function handleActions<StateAndPayload>(
+        reducerMap: ReducerMap<StateAndPayload, StateAndPayload>,
+        initialState?: StateAndPayload
+    ): Reducer<StateAndPayload, StateAndPayload>;
 
     export function handleActions<State, Payload>(
         reducerMap: ReducerMap<State, Payload>,

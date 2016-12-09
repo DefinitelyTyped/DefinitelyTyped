@@ -15,7 +15,7 @@
         "jsx": "react"
     },
     "files": [
-        "react-jsonschema-form.d.ts",
+        "index.d.ts",
         "react-jsonschema-form-tests.tsx"
     ]
 }
