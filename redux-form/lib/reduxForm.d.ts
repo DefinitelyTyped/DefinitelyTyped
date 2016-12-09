@@ -429,6 +429,11 @@ export interface FormProps<FormData extends DataShape, P, S> {
     change?(field: string, value: FieldValue): void;
 
     /**
+     * Clear async error of a field in the Redux store.
+     */
+    clearAsyncError?(field: string): void;
+
+    /**
      * Destroys the form state in the Redux store. By default, this will be
      * called for you in componentWillUnmount().
      */
