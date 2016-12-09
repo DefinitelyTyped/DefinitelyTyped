@@ -5,7 +5,7 @@
 
 // Note: try to maintain the ordering and separators, and keep to the pattern
 
-import Promise = require("bluebird");
+import Promise from "bluebird";
 
 var obj: Object;
 var bool: boolean;
