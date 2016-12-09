@@ -1,4 +1,7 @@
-// Type definitions for CloudBoost sdk
+// Type definitions for cloudboost sdk
+// Project: https://cloudboost.io/
+// Definitions by: Shubham Aggarwal <https://github.com/shubhamqweasd/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface CloudApp {
 	init(serverUrl? :string, applicationId? :string, applicationKey? :string, opts? :any):any
