@@ -43,7 +43,7 @@ declare module __ReactDnd {
     ): (componentClass: React.ComponentClass<P> | React.StatelessComponent<P>) => DndComponentClass<P>;
 
     export function DropTarget<P>(
-        types: Identifier | Identifier[] | ((props: P) => Identifier | Identifier[]),
+        types: Identifier | Identifier[] | NativeTypes | ((props: P) => Identifier | Identifier[]),
         spec: DropTargetSpec<P>,
         collect: DropTargetCollector,
         options?: DndOptions<P>
