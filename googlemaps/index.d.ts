@@ -356,7 +356,7 @@ declare namespace google.maps {
         setDraggable(flag: boolean): void;
         setIcon(icon: string|Icon|Symbol): void;
         setLabel(label: string|MarkerLabel): void;
-        setMap(map: Map|StreetViewPanorama): void;
+        setMap(map: Map|StreetViewPanorama|null): void;
         setOpacity(opacity: number): void;
         setOptions(options: MarkerOptions): void;
         setPlace(place: Place): void;
