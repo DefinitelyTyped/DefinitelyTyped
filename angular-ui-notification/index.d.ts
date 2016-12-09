@@ -3,7 +3,7 @@
 // Definitions by: Kamil Rojewski <https://github.com/krojew/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace angular.uiNotification {
+export namespace angular.uiNotification {
     // Taken from angular to avoid dependency
     interface IPromise<T> {
         /**
