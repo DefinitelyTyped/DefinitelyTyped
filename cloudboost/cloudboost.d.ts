@@ -1,4 +1,4 @@
-// Type Defs for CloudBoost SDK
+// Type definitions for CloudBoost sdk
 
 interface CloudApp {
 	init(serverUrl? :string, applicationId? :string, applicationKey? :string, opts? :any):any
