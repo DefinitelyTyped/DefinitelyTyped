@@ -32,7 +32,7 @@ declare module "koa-pug" {
         export interface PugCtxOptions extends PugOptions {
             fromString: boolean;
         }
-        export type PugLocals = { [str: string]: any };
+        export interface PugLocals { [str: string]: any }
     }
 
     export = Pug;
