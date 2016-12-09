@@ -444,6 +444,7 @@ declare namespace NodeJS {
         parseFloat: typeof parseFloat;
         parseInt: typeof parseInt;
         process: Process;
+        require: NodeRequire;
         root: Global;
         setImmediate: (callback: (...args: any[]) => void, ...args: any[]) => any;
         setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => NodeJS.Timer;
