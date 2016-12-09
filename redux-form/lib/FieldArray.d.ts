@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { ComponentConstructor } from "../index";
+import { ComponentConstructor, Validator } from "../index";
 
 /**
  * These are the props to give to `FieldArray`.
@@ -22,6 +22,22 @@ interface BaseFieldArrayProps {
      */
     component?: ComponentConstructor,
     // component?: Component<P, any> | StatelessComponent<P>,
+
+    /**
+     * Allows you to to provide a field-level validation rule. The function will be given the
+     * current value of the field and all the other form values. If the field is valid, it
+     * should return `undefined`, if the field is invalid, it should return an error
+     * (usually, but not necessarily, a `String`).
+     */
+    validate?: Validator|Validator[];
+
+    /**
+     * Allows you to to provide a field-level warning rule. The function will be given the
+     * current value of the field and all the other form values. If the field needs a warning,
+     * it should return the warning (usually, but not necessarily, a `String`). If the field
+     * does not need a warning, it should return `undefined`.
+     */
+    warn?: Validator|Validator[];
 
     /**
      * If true, the rendered component will be available with the
