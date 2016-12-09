@@ -3,6 +3,8 @@
 // Definitions by: Carson Full <https://github.com/carsonf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+///<reference types="react" />
+
 import {
   ComponentClass,
   StatelessComponent,
