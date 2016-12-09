@@ -2,6 +2,9 @@
 // Project: https://github.com/chrisyip/koa-pug
 // Definitions by: Xavier Stouder <https://github.com/Xstoudi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// tslint:disable-next-line:unified-signatures
+
 import * as koa from "koa";
 
 export namespace Koa {
