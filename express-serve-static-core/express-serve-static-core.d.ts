@@ -1079,8 +1079,6 @@ declare module "express-serve-static-core" {
 
         map: any;
 
-        locals: any;
-
         /**
             * The app.routes object houses all of the routes defined mapped by the
             * associated HTTP verb. This object may be used for introspection
