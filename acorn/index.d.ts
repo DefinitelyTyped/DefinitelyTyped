@@ -243,12 +243,16 @@ declare namespace acorn {
     // function tokenizer(options: Options, input: string): Parser;
 
     let parse_dammit: IParse | undefined;
-    let LooseParser: LooseParser | undefined;
+    let LooseParser: ILooseParserClass | undefined;
     let pluginsLoose: PluginsObject | undefined;
 
-    class LooseParser {
+    interface ILooseParserClass {
+        new (input: string, options?: Options): ILooseParser
+    }
+
+    interface ILooseParser {
 
     }
 
-    function addLooseExports(parse: IParse, parser: LooseParser, plugins: PluginsObject): void;
+    function addLooseExports(parse: IParse, parser: ILooseParserClass, plugins: PluginsObject): void;
 }

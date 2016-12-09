@@ -33,6 +33,16 @@ const parser = new acorn.Parser({}, 'export default ""', 0);
 
 const node = new acorn.Node(parser, 1, 1);
 
+class LooseParser {
+    constructor(input: string, options = {}) {
+
+    }
+
+    // this means you can extend LooseParser
+    test() {
+
+    }
+}
 acorn.addLooseExports(function () {
     return {
         type: 'Program',
@@ -43,7 +53,7 @@ acorn.addLooseExports(function () {
             }
         ]
     }
-}, parser, {});
+}, LooseParser, {});
 
 acorn.parseExpressionAt('string', 2);
 
