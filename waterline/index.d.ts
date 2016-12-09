@@ -22,17 +22,18 @@ declare namespace Waterline {
     interface CollectionClass {
         (): Collection;
     }
+
     // used this comment https://github.com/balderdashy/waterline/issues/1154#issuecomment-167262575
     export interface LifecycleCallbacks {
-        beforeValidate?: Array<{ (vaues: any, next: (err?: any) => any): void }> | { (vaues: any, next: (err?: any) => any): void };
-        beforeCreate?: Array<{ (values: any, next: (err?: any) => any): void }> | { (vaues: any, next: (err?: any) => any): void };
+        beforeValidate?: Array<{ (values: any, next: (err?: any) => any): void }> | { (values: any, next: (err?: any) => any): void };
+        beforeCreate?: Array<{ (values: any, next: (err?: any) => any): void }> | { (values: any, next: (err?: any) => any): void };
         afterCreate?: Array<{ (newlyCreatedRecord: any, next: (err?: any) => any): void }> | { (newlyCreatedRecord: any, next: (err?: any) => any): void };
         beforeUpdate?: Array<{ (valuesToUpdate: any, next: (err?: any) => any): void }> | { (valuesToUpdate: any, next: (err?: any) => any): void };
         afterUpdate?: Array<{ (valuesToUpdate: any, next: (err?: any) => any): void }> | { (valuesToUpdate: any, next: (err?: any) => any): void };
         beforeDestroy?: Array<{ (criteria: any, next: (err?: any) => any): void }> | { (valuesToUpdate: any, next: (err?: any) => any): void };
         afterDestroy?: Array<{ (destroyedInstance: any, next: (err?: any) => any): void }> | { (destroyedInstance: any, next: (err?: any) => any): void };
     }
-    export type CollectionDefinition = LifecycleCallbacks & {
+    export interface CollectionDefinition extends LifecycleCallbacks {
         attributes?: Attributes;
         connection?: string;
         identity?: string;
@@ -43,7 +44,7 @@ declare namespace Waterline {
         autoUpdatedAt?: boolean;
         schema?: boolean;
         types?: any;
-    };
+    }
     export type Collection = CollectionDefinition;
     export type Attributes = { [index: string]: Attribute } & {
         toJSON?: () => string;
@@ -178,10 +179,10 @@ declare namespace Waterline {
         uuidv4?: AttributeValidation<boolean>;
     }
 
-    type WaterlinePromise<T> = BluebirdPromise<T> & {
+    interface WaterlinePromise<T> extends BluebirdPromise<T> {
         exec(cb: (err: Error, result: T) => any): void;
-    };
-    type QueryBuilder<T> = WaterlinePromise<T> & {
+    }
+    interface QueryBuilder<T> extends WaterlinePromise<T> {
         where(condition: any): QueryBuilder<T>;
         limit(lim: number): QueryBuilder<T>;
         skip(num: number): QueryBuilder<T>;
@@ -193,7 +194,7 @@ declare namespace Waterline {
         min(attribute: string): QueryBuilder<T>;
         sum(attribute: string): QueryBuilder<T>;
         average(attribute: string): QueryBuilder<T>;
-    };
+    }
     interface ModelInstance {
         id?: number | string;
         createdAt?: Date;
