@@ -3,12 +3,11 @@
 // Definitions by: Xavier Stouder <https://github.com/Xstoudi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// tslint:disable-next-line:unified-signatures
-
 import * as koa from "koa";
 
 export namespace Koa {
     interface Context {
+        // tslint:disable-next-line:unified-signatures
         render(viewPath: string, locals?: Pug.PugLocals, overrideOpts?: Pug.PugCtxOptions, noCache?: boolean): void;
         render(pugStr: string, locals?: Pug.PugLocals, overrideOpts?: Pug.PugCtxOptions): void;
         render(pugStr: string, locals?: Pug.PugLocals, noCache?: boolean): void;
