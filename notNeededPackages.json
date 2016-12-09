@@ -94,12 +94,6 @@
             "typingsPackageName": "normalizr",
             "sourceRepoURL": "https://github.com/paularmstrong/normalizr",
             "asOfVersion": "2.0.18"
-        },
-        {
-            "libraryName": "vuejs",
-            "typingsPackageName": "vue",
-            "sourceRepoURL": "https://github.com/vuejs/vue",
-            "asOfVersion": "2.0.0"
         }
     ]
 }
