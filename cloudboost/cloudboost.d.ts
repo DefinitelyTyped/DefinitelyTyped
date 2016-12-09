@@ -1,3 +1,5 @@
+// Type Defs for CloudBoost SDK
+
 interface CloudApp {
 	init(serverUrl? :string, applicationId? :string, applicationKey? :string, opts? :any):any
 	onConnect(functionToFire :any):any
@@ -21,7 +23,7 @@ declare module cloudboost {
 	export var CloudNotification:CloudNotification
 	export var CloudPush:CloudPush
 	export class Column {
-		constructor(columnName? :string, dataType? :string, required? :boolean, unique? :boolean):any
+		constructor(columnName? :string, dataType? :string, required? :boolean, unique? :boolean)
 		name:string
 		dataType:any
 		unique:any
