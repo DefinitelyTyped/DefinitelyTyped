@@ -111,6 +111,16 @@ interface FieldsProps<T> {
     forEach(callback: (name: string, index: number, fields: FieldsProps<T>) => void): void;
 
     /**
+     * A method to get a single value from the array value.
+     */
+    get(index: number): T;
+
+    /**
+     * A method to get all the values in the array.
+     */
+    getAll(): T[];
+
+    /**
      * A function to insert a new value into the array at any arbitrary index.
      */
     insert(index: number, value: T): void;
