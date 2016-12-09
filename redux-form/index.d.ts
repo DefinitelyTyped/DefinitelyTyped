@@ -1,4 +1,4 @@
-// Type definitions for redux-form v6.2.1
+// Type definitions for redux-form v6.3.1
 // Project: https://github.com/erikras/redux-form
 // Definitions by: Carson Full <https://github.com/carsonf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
