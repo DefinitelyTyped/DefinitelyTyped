@@ -314,6 +314,11 @@ declare namespace Marionette {
         el: any;
 
         /**
+         * Contains the element that this region should manage as a jQuery selector.
+         */
+        $el?: JQuery;
+
+        /**
          * Renders and displays the specified view in this region.
          * @param view the view to display.
          */
