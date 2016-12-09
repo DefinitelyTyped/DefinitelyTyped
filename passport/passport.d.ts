@@ -5,7 +5,7 @@
 
 /// <reference path="../express/express.d.ts" />
 
-declare namespace Express {
+declare namespace express {
     export interface Request {
         authInfo?: any;
         user?: any;
