@@ -3,7 +3,7 @@
 // Definitions by: themauveavenger <https://github.com/themauveavenger/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'xlsx' {
+declare namespace XLSX {
 
     export function readFile(filename:string, opts?:IParsingOptions):IWorkBook;
     export function read(data:any, opts?:IParsingOptions):IWorkBook;
@@ -152,5 +152,8 @@ declare module 'xlsx' {
         decode_cell(address: string): ICell;
         decode_range(range: string): IRange;
     }
+}
 
+declare module 'xlsx' {
+    export = XLSX;
 }
