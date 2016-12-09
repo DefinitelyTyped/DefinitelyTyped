@@ -777,4 +777,4 @@ declare namespace Bluebird {
   export function setScheduler(scheduler: (callback: (...args: any[]) => void) => void): void;
 }
 
-export = Bluebird;
+export default Bluebird;
