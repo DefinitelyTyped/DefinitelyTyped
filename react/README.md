@@ -17,35 +17,31 @@ This directory contains type definitions for the following React packages:
 If you are using modules you should use `react.d.ts`, `react-dom.d.ts` or any of the `react-addons-*.d.ts` definition files. If `React` is in your global namespace, you should use `react-global.d.ts`.
 
 ## Known Problems & Workarounds
-  
-### **The type of `cloneElement` is incorrect.**
-This is similar to the `setState` problem, in that `cloneElement(element, props)` should should accept a `props` object with a subset of the properties on `element.props`. There is an additional complication, however—React attributes, such as `key` and `ref`, should also be accepted in `props`, but should not exist on `element.props`. The "correct" way to model this, then, is with
+
+### **The type of `setState` is less than ideal and a little more strict than desirable.**
+Starting with TypeScript 2.1, its more correct than it used to be, with a caveat: optional parameters on state interfaces are no longer valid.
+
 ```ts
-declare function cloneElement<P extends Q, Q>(
-    element: ReactElement<P>,
-    props?: Q & Attributes,
-    ...children: ReactNode[]): ReactElement<P>;
-```
-However, type inference for `Q` defaults to `{}` when [intersected with another type](https://github.com/Microsoft/TypeScript/pull/5738#issuecomment-181904905). And since any object is assignable to `{}`, we would lose the type safety of the `P extends Q` constraint. Therefore, the type of `props` is left as `Q`, which should work for most cases. If you need to call `cloneElement` with `key` or `ref`, you'll need a type cast:
-```ts
-interface ButtonProps {
-    label: string,
-    isDisabled?: boolean;
+interface FooState {
+  bar: string;
+  foo?: string;
 }
-var element: React.CElement<ButtonProps, Button>;
 
-React.cloneElement(element, { label: "label" });
+const defaultFooState: FooState = {
+  bar: "Hi",
+  foo: undefined,
+};
 
-// cloning with optional props requires a cast
-React.cloneElement(element, <{ isDisabled?: boolean }>{ isDisabled: true });
-
-// cloning with key or ref requires a cast
-React.cloneElement(element, <React.ClassAttributes<Button>>{ ref: button => button.reset() });
-React.cloneElement(element, <{ isDisabled?: boolean } & React.Attributes>{
-    key: "disabledButton",
-    isDisabled: true
-});
+class Foo extends React.Component<{}, FooState> {
+  public doStuff() {
+    this.setState(defaultFooState);
+  }
+}
 ```
+
+Will produce an error. The other way the types could be written (using `Partial<>` instead of `Pick<>`) would allow for you to set `undefined` to a parameter that is not allowed
+to be `undefined`, which could lead to bugs. Users who want to keep optional state parameters should continue to use the hack of `setState({...} as any);`.
+
 
 ### **`React.Component<P, S>` subclass members aren't contextually typed.**
 This problem manifests itself in two ways. It should be fixed in [TypeScript 2.0](https://github.com/Microsoft/TypeScript/pull/6118).
