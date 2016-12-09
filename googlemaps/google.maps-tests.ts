@@ -142,7 +142,7 @@ var mapTypeStyle: google.maps.MapTypeStyle ={
 };
 
 // https://developers.google.com/maps/documentation/javascript/adding-a-google-map
-function initMap() {
+function initMap1() {
     var uluru = {lat: -25.363, lng: 131.044};
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 4,
@@ -152,4 +152,32 @@ function initMap() {
         position: uluru,
         map: map
     });
+}
+
+// Marker Animations
+// https://developers.google.com/maps/documentation/javascript/examples/marker-animations
+
+var marker: google.maps.Marker;
+
+function initMap2() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: {lat: 59.325, lng: 18.070}
+    });
+
+    marker = new google.maps.Marker({
+        map: map,
+        draggable: true,
+        animation: google.maps.Animation.DROP,
+        position: {lat: 59.327, lng: 18.067}
+    });
+    marker.addListener('click', toggleBounce);
+}
+
+function toggleBounce() {
+    if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+    } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
 }
