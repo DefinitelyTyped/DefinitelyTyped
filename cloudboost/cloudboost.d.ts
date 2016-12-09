@@ -31,7 +31,7 @@ declare module cloudboost {
 		isSearchable:any
 	}
 	export class CloudTable {
-		constructor(tableName :string):any
+		constructor(tableName :string)
 		addColumn(column :any):any
 		getColumn(columnName :any):any
 		updateColumn(column :any):any
@@ -45,7 +45,7 @@ declare module cloudboost {
 		id:any
 	}
 	export class ACL {
-		constructor():any
+		constructor()
 		setPublicWriteAccess(value? :any):any
 		setPublicReadAccess(value? :any):any
 		setUserWriteAccess(userId :any, value? :any):any
@@ -54,7 +54,7 @@ declare module cloudboost {
 		setRoleReadAccess(roleId :any, value? :any):any
 	}
 	export class CloudCache {
-		constructor(cacheName :string):any
+		constructor(cacheName :string)
 		set(key:any, value?:any, callback?:any):any
 		deleteItem(key:any, callback?:any):any
 		create(callback?:any):any
@@ -71,7 +71,7 @@ declare module cloudboost {
 		items:any
 	}
 	export class CloudObject {
-		constructor(tableName:string, id?:any):any
+		constructor(tableName:string, id?:any)
 		set(columnName:any, data:any):any
 		relate(columnName:any, objectTableName:any, objectId?:any):any
 		get(columnName:any):any
@@ -90,7 +90,7 @@ declare module cloudboost {
 		expires:any
 	}
 	export class CloudFile extends CloudObject {
-		constructor(file:any,data?:any,type?:any):any
+		constructor(file:any,data?:any,type?:any)
 		save(callback?:any):any
 		delete(callback?:any):any
 		getFileContent(callback?:any):any
@@ -100,7 +100,7 @@ declare module cloudboost {
 		name:any
 	}
 	export class CloudGeoPoint {
-		constructor(longitude?:any , latitude?:any):any
+		constructor(longitude?:any , latitude?:any)
 		get(name:any):any
 		set(name:any,value:any):any
 		distanceInKMs(point:any):any
@@ -110,7 +110,7 @@ declare module cloudboost {
 		longitude:any
 	}
 	export class CloudQuery {
-		constructor(tableName:string):any
+		constructor(tableName:string)
 		search (search?:any, language?:any, caseSensitive?:any, diacriticSensitive?:any):any
 		equalTo (columnName?:any, data?:any):any
 		includeList (columnName:any):any
@@ -149,7 +149,7 @@ declare module cloudboost {
 		static or(obj1:any, obj2:any):any
 	}
 	export class CloudQueue {
-		constructor(queueName:any,queueType?:any):any
+		constructor(queueName:any,queueType?:any)
 		addMessage(queueMessage:any, callback?:any):any
 		updateMessage(queueMessage:any, callback?:any):any
 		getMessage(count?:any,callback?:any):any
@@ -180,7 +180,7 @@ declare module cloudboost {
 		expires:any
 	}
 	export class QueueMessage {
-		constructor(data?:any):any
+		constructor(data?:any)
 		message:any
 		ACL:any
 		id:any
@@ -191,11 +191,11 @@ declare module cloudboost {
 		delay:any
 	}
 	export class CloudRole extends CloudObject {
-		constructor(roleName:any):any
+		constructor(roleName:any)
 		name:any
 	}
 	export class CloudUser extends CloudObject {
-		constructor():any
+		constructor()
 		changePassword(oldPassword:any, newPassword:any, callback?:any):any
 		addToRole(role:any, callback?:any):any
 		removeFromRole(role:any, callback?:any):any
