@@ -1,4 +1,4 @@
-// Type definitions for meow 3.6.0
+// Type definitions for meow 3.6
 // Project: https://github.com/sindresorhus/meow
 // Definitions by: KnisterPeter <https://github.com/KnisterPeter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
