@@ -10,6 +10,8 @@ declare module "material-ui" {
     export import AutoComplete = __MaterialUI.AutoComplete;
     export import Avatar = __MaterialUI.Avatar;
     export import Badge = __MaterialUI.Badge;
+    export import BottomNavigation = __MaterialUI.BottomNavigation.BottomNavigation;
+    export import BottomNavigationItem = __MaterialUI.BottomNavigation.BottomNavigationItem;
     export import Card = __MaterialUI.Card.Card;
     export import CardActions = __MaterialUI.Card.CardActions;
     export import CardHeader = __MaterialUI.Card.CardHeader;
@@ -733,6 +735,24 @@ declare namespace __MaterialUI {
         touch?: boolean;
     }
     export class IconButton extends React.Component<IconButtonProps, {}> {
+    }
+
+    namespace BottomNavigation {
+        interface BottomNavigationProps {
+            selectedIndex?: number;
+            className?: string;            
+            style?: React.CSSProperties;            
+        }
+
+        export class BottomNavigation extends React.Component<BottomNavigationProps, {}> { }
+
+        interface BottomNavigationItemProps extends SharedEnhancedButtonProps<BottomNavigationItem> {
+            label?: string;
+            icon?: any;
+            className?: string;
+        }
+
+        export class BottomNavigationItem extends React.Component<BottomNavigationItemProps, {}> { }
     }
 
     namespace Card {
@@ -1841,6 +1861,17 @@ declare module 'material-ui/Avatar' {
 declare module "material-ui/Badge" {
     export import Badge = __MaterialUI.Badge;
     export default Badge;
+}
+
+declare module 'material-ui/BottomNavigation' {
+    export import BottomNavigation = __MaterialUI.BottomNavigation.BottomNavigation;
+    export import BottomNavigationItem = __MaterialUI.BottomNavigation.BottomNavigationItem;
+    export default BottomNavigation;
+}
+
+declare module 'material-ui/BottomNavigation/BottomNavigationItem' {
+    export import BottomNavigationItem = __MaterialUI.BottomNavigation.BottomNavigationItem;
+    export default BottomNavigationItem;
 }
 
 declare module 'material-ui/Card' {
