@@ -1,5 +1,5 @@
 /// <reference path="./umzug.d.ts" />
-/// <reference path="../sequelize/sequelize.d.ts" />
+/// <reference path="../sequelize/sequelize-2.0.0.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
 import * as Umzug from "umzug";
@@ -129,7 +129,7 @@ var AnotherUmzug = new Umzug({
 
     // The type of the column holding migration name.
     // Defaults to `Sequelize.STRING`
-    columnType: Sequelize.STRING(100)
+    columnType: Sequelize.STRING
   }
 
 });

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../bluebird/bluebird-2.0.d.ts" />
-/// <reference path="../sequelize/sequelize.d.ts" />
+/// <reference path="../sequelize/sequelize-2.0.0.d.ts" />
 
 declare module "umzug" {
     import Sequelize = require("sequelize");
@@ -80,7 +80,7 @@ declare module "umzug" {
              * The type of the column holding migration name.
              * Defaults to `Sequelize.STRING`
              */
-            columnType: Sequelize.DataTypeAbstract;
+            columnType:  Sequelize.DataTypeStringBase | Sequelize.DataTypeNumberBase | Sequelize.DataTypeBlob | Sequelize.DataTypeDecimal | Sequelize.DataTypeVirtual | Sequelize.DataTypeEnum | Sequelize.DataTypeArray | Sequelize.DataTypeHstore;
 
         }
 
