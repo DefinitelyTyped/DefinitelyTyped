@@ -325,7 +325,7 @@ declare module "enzyme" {
          * @param fn A callback to be run for every node in the collection. Should expect a ShallowWrapper as the first
          *              argument, index as a second, and will be run with a context of the original instance.
          */
-        forEach(fn: (wrapper: this, index: number) => any): this;
+        forEach(fn: (wrapper: this, index?: number) => any): this;
 
         /**
          * Maps the current array of nodes to another array. Each node is passed in as a ShallowWrapper to the map
