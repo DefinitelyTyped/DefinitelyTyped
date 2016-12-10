@@ -1,4 +1,4 @@
-﻿// Type definitions for JQuery DataTables 1.10.8
+﻿// Type definitions for JQuery DataTables 1.10.9
 // Project: http://www.datatables.net
 // Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>, Omid Rad <https://github.com/omidkrad>, Armin Sander <https://github.com/pragmatrix/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -908,7 +908,7 @@ declare namespace DataTables {
         * @param d Data to use for the row.
         */
         data(d: any[] | Object): DataTable;
-        
+
         /**
         * Get the id of the selected row.
         *
@@ -1758,9 +1758,10 @@ declare namespace DataTables {
         oFeatures: FeaturesLegacy;
         oScroll: ScrollingLegacy;
         oLanguage: LanguageLegacy; // | { fnInfoCallback: FunctionInfoCallback; };
-        oBrowser: { bScrollOversize: boolean; };
+        oBrowser: BrowserLegacy;
         aanFeatures: ArrayStringNode[][];
         aoData: RowLegacy[];
+        aIds: any;
         aiDisplay: number[];
         aiDisplayMaster: number[];
         aoColumns: ColumnLegacy[];
@@ -1833,6 +1834,14 @@ declare namespace DataTables {
         iTabIndex: number;
         nScrollHead: Node;
         nScrollFoot: Node;
+        rowIdFn: (mSource: string | number | Function) => Function;
+    }
+
+    export interface BrowserLegacy {
+        barWidth: number,
+        bBounding: boolean,
+        bScrollbarLeft: boolean,
+        bScrollOversize: boolean
     }
 
     export interface FeaturesLegacy {
