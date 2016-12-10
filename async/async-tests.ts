@@ -645,7 +645,7 @@ async.mapValues<number, string, Error>({
 
     }, 500);
 
-}, function(err: Error, results: string[]): void {
+}, function(err: Error, results: Dictionary<string>): void {
 
     console.log("async.mapValues: done with results", results);
 
@@ -665,7 +665,7 @@ async.mapValuesSeries<number, string, Error>({
 
     }, 500);
 
-}, function(err: Error, results: string[]): void {
+}, function(err: Error, results: Dictionary<string>): void {
 
     console.log("async.mapValuesSeries: done with results", results);
 
