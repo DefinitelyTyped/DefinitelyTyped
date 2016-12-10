@@ -2361,6 +2361,12 @@ declare namespace __React {
         item(index: number): Touch;
         identifiedTouch(identifier: number): Touch;
     }
+
+    //
+    // React internal functions called in JSX generation.
+    //
+
+    function __spread(target: any, ...sources: any[]): any;
 }
 
 declare module "react" {
