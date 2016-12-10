@@ -2,7 +2,6 @@
 // Project: https://github.com/sindresorhus/meow
 // Definitions by: KnisterPeter <https://github.com/KnisterPeter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference types="minimist" />
 
 import * as minimist from 'minimist';
 
