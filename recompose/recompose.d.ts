@@ -21,7 +21,7 @@ declare module 'recompose' {
     interface ComponentEnhancer<TInner, TOutter> {
         (component: Component<TInner>): ComponentClass<TOutter>;
     }
-    interface InferableComponentEnhancer {
+    export interface InferableComponentEnhancer {
         <P, TComp extends (Component<P>)>(component: TComp): TComp;
     }
 
