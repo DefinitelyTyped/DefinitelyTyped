@@ -28,9 +28,11 @@ interface BabelCodeFrameOptions {
  *
  * @returns Framed code
  */
-export default function babelCodeFrame(
+declare function codeFrame(
     rawLines: string,
     lineNumber: number,
     colNumber: number,
     options?: BabelCodeFrameOptions
 ): string;
+
+export = codeFrame;
