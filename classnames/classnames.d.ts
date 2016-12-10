@@ -6,7 +6,7 @@
 declare type ClassValue = string | number | ClassDictionary | ClassArray;
 
 interface ClassDictionary {
-	[id: string]: boolean;
+	[id: string]: any;
 }
 
 interface ClassArray extends Array<ClassValue> { }
