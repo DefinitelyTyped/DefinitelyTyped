@@ -1741,7 +1741,7 @@ declare namespace angular {
          * { currentValue, previousValue, isFirstChange() }. Use this hook to trigger updates within a component such as
          * cloning the bound value to prevent accidental mutation of the outer value.
          */
-        $onChanges?(onChangesObj: IOnChangesObject): void;
+        $onChanges?<T>(onChangesObj: IOnChangesObject<T>): void;
         /**
          * Called on a controller when its containing scope is destroyed. Use this hook for releasing external resources,
          * watches and event handlers.
@@ -1758,9 +1758,7 @@ declare namespace angular {
         $postLink?(): void;
     }
 
-    interface IOnChangesObject {
-        [property: string]: IChangesObject<any>;
-    }
+    type IOnChangesObject<T> = {[P in keyof T]: ng.IChangesObject<T[P]>};
 
     interface IChangesObject<T> {
         currentValue: T;
