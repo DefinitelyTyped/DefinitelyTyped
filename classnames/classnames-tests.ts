@@ -1,6 +1,6 @@
 ///<reference path='classnames.d.ts' />
 
-import classNames = require('classnames')
+import classNames from 'classnames';
 
 classNames('foo', 'bar'); // => 'foo bar'
 

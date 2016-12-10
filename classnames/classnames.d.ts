@@ -18,5 +18,5 @@ interface ClassNamesFn {
 declare var classNames: ClassNamesFn;
 
 declare module "classnames" {
-	export = classNames
+	export default classNames;
 }
