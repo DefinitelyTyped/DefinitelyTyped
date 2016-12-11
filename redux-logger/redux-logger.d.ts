@@ -3,9 +3,8 @@
 // Definitions by: Alexander Rusakov <https://github.com/arusakov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../redux/redux.d.ts" />
-
 declare module 'redux-logger' {
+  import { Middleware } from "redux";
 
   type LoggerPredicate = (getState: () => any, action: any) => boolean;
 
@@ -47,6 +46,6 @@ declare module 'redux-logger' {
   // Trickery to get TypeScript to accept that our anonymous, non-default export is a function.
   // see https://github.com/Microsoft/TypeScript/issues/3612 for more
   namespace createLogger {}
-  function createLogger(options?: ReduxLoggerOptions): Redux.Middleware;
+  function createLogger(options?: ReduxLoggerOptions): Middleware;
   export = createLogger;
 }
