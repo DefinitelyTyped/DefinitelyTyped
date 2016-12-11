@@ -22,6 +22,12 @@ interface QueuingStrategy {
     highWaterMark?: number;
 }
 
+interface PipeOptions {
+    preventClose?: boolean;
+    preventAbort?: boolean;
+    preventCancel?: boolean;
+}
+
 declare class ReadableStream {
     constructor(underlyingSource?: ReadableStreamSource, strategy?: QueuingStrategy);
     constructor(underlyingSource?: ReadableByteStreamSource, strategy?: QueuingStrategy);
@@ -31,8 +37,8 @@ declare class ReadableStream {
     cancel(reason: string): Promise<void>;
     getReader(): ReadableStreamDefaultReader;
     getReader({ mode }: { mode: "byob" }): ReadableStreamBYOBReader;
-    pipeThrough<T extends ReadableStream>({ writable, readable }: { writable: WritableStream, readable: T }, options?: any): T;
-    pipeTo(dest: WritableStream, { preventClose, preventAbort, preventCancel }: { preventClose?: boolean, preventAbort?: boolean, preventCancel?: boolean }): Promise<void>;
+    pipeThrough<T extends ReadableStream>({ writable, readable }: { writable: WritableStream, readable: T }, options?: PipeOptions): T;
+    pipeTo(dest: WritableStream, options?: PipeOptions): Promise<void>;
     tee(): [ReadableStream, ReadableStream];
 }
 
