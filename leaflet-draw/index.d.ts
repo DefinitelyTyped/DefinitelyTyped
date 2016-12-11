@@ -12,7 +12,7 @@ declare namespace L {
 
 	namespace Control {
 
-		export interface IDrawConstructorOptions {
+		export interface DrawConstructorOptions {
 
 			/**
 			 * The initial position of the control (one of the map corners).
@@ -105,13 +105,13 @@ declare namespace L {
 		}
 
 		export class Draw {
-			constructor(options?: IDrawConstructorOptions);
+			constructor(options?: DrawConstructorOptions);
 		}
 
 	}
 
 
-	export namespace DrawOptions {
+	namespace DrawOptions {
 
 		export interface PolylineOptions {
 
