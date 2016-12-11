@@ -44,9 +44,5 @@ declare module 'redux-logger' {
     diffPredicate?: LoggerPredicate;
   }
 
-  // Trickery to get TypeScript to accept that our anonymous, non-default export is a function.
-  // see https://github.com/Microsoft/TypeScript/issues/3612 for more
-  namespace createLogger {}
-  function createLogger(options?: ReduxLoggerOptions): Redux.Middleware;
-  export = createLogger;
+  export default function createLogger(options?: ReduxLoggerOptions): Redux.Middleware;
 }
