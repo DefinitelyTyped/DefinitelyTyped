@@ -163,6 +163,10 @@ declare namespace jest {
     }
 }
 
+declare module "jest" {
+    export = jest;
+}
+
 //Jest ships with a copy of Jasmine. They monkey-patch its APIs and divergence/deprecation are expected.
 //Relevant parts of Jasmine's API are below so they can be changed and removed over time.
 //This file can't reference jasmine.d.ts since the globals aren't compatible.
