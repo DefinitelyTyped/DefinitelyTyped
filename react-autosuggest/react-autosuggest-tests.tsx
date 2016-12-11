@@ -62,7 +62,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
         };
 
         return <Autosuggest suggestions={suggestions}
-                            onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested.bind(this)}
+                            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
                             getSuggestionValue={this.getSuggestionValue}
                             renderSuggestion={this.renderSuggestion}
                             onSuggestionSelected={this.onSuggestionsSelected}
@@ -85,7 +85,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
         });
     }
 
-    protected onSuggestionsUpdateRequested({ value }): void {
+    protected onSuggestionsFetchRequested({ value }): void {
         this.setState({
             suggestions: this.getSuggestions(value)
         });
@@ -185,7 +185,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
 
         return <Autosuggest multiSection={true}
                             suggestions={suggestions}
-                            onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested.bind(this)}
+                            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
                             onSuggestionSelected={this.onSuggestionSelected}
                             getSuggestionValue={this.getSuggestionValue}
                             renderSuggestion={this.renderSuggestion}
@@ -216,7 +216,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
         });
     }
 
-    protected onSuggestionsUpdateRequested({ value }): void {
+    protected onSuggestionsFetchRequested({ value }): void {
         this.setState({
             suggestions: this.getSuggestions(value)
         });
@@ -292,7 +292,7 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
         };
 
         return <Autosuggest suggestions={suggestions}
-                            onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested}
+                            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
                             getSuggestionValue={this.getSuggestionValue}
                             renderSuggestion={this.renderSuggestion}
                             inputProps={inputProps} />;
@@ -329,7 +329,7 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
         });
     }
 
-    protected onSuggestionsUpdateRequested({ value }): void {
+    protected onSuggestionsFetchRequested({ value }): void {
         this.setState({
             suggestions: this.getSuggestions(value)
         });
