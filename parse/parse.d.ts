@@ -1,6 +1,6 @@
 // Type definitions for Parse v1.2.19
 // Project: https://parse.com/
-// Definitions by: Ullisen Media Group <http://ullisenmedia.com>
+// Definitions by: Ullisen Media Group <http://ullisenmedia.com>, David Poetzsch-Heffter <https://github.com/dpoetzsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
@@ -223,7 +223,11 @@ declare namespace Parse {
         latitude: number;
         longitude: number;
 
-        constructor(arg1?: any, arg2?: any);
+        constructor(other: GeoPoint);
+        constructor(lat: number, lng: number);
+        constructor(latLng: number[]);
+        constructor(latLng: { latitude: number; longitude: number });
+        constructor();
 
         current(options?: SuccessFailureOptions): GeoPoint;
         radiansTo(point: GeoPoint): number;
