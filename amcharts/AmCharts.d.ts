@@ -1638,11 +1638,11 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Zooms out, charts shows all available data. */
         zoomOut();
         /** Zooms the chart by the value of the category axis. start - category value, String \\ end - category value, String */
-        zoomToCategoryValues(start: Date, end: Date);
+        zoomToCategoryValues(start: string, end: string);
         /** Zooms the chart from one date to another. start - start date, Date object \\ end - end date, Date object */
         zoomToDates(start: Date, end: Date);
         /** Zooms the chart by the index of the category. start - start index, Number \\ end - end index, Number */
-        zoomToIndexes(start: Date, end: Date);
+        zoomToIndexes(start: number, end: number);
     }
 
     class PeriodSelector {
