@@ -15,6 +15,7 @@ interface ReadableByteStreamSource {
     cancel?(reason: string): void | Promise<void>;
 
     type: "bytes";
+    autoAllocateChunkSize?: number;
 }
 
 interface QueuingStrategy {
