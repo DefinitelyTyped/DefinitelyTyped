@@ -1,4 +1,4 @@
-// Type definitions for react-autosuggest v3.7.3
+// Type definitions for react-autosuggest v7.0.1
 // Project: http://react-autosuggest.js.org/
 // Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
