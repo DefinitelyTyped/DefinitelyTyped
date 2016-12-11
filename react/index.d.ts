@@ -2179,7 +2179,8 @@ declare namespace React {
         stopColor?: string;
         stopOpacity?: number | string;
         stroke?: string;
-        strokeDasharray?: string;
+        strokeDasharray?: string | number;
+        strokeDashoffset?: string | number;
         strokeLinecap?: "butt" | "round" | "square" | "inherit";
         strokeLinejoin?: "miter" | "round" | "bevel" | "inherit";
         strokeMiterlimit?: string;

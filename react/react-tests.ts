@@ -341,13 +341,17 @@ React.DOM.svg({
         x: 22,
         y: 10,
         width: 4,
-        height: 28
+        height: 28,
+        strokeDasharray: '30%',
+        strokeDashoffset: '20%'
     }),
     React.DOM.rect({
         x: 10,
         y: 22,
         width: 28,
-        height: 4
+        height: 4,
+        strokeDasharray: 30,
+        strokeDashoffset: 20
     }),
     React.DOM.path({
         d: "M0,0V3H3V0ZM1,1V2H2V1Z",
