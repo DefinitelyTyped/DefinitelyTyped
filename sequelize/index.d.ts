@@ -2762,7 +2762,7 @@ declare namespace sequelize {
          *
          * @param options.plain If set to true, included instances will be returned as plain objects
          */
-        get(key: string, options?: { plain?: boolean, clone?: boolean }): any;
+        get<Attribute extends keyof TAttributes>(key: Attribute, options?: { plain?: boolean, clone?: boolean }): TAttributes[Attribute];
         get(options?: { plain?: boolean, clone?: boolean }): TAttributes;
 
         /**
@@ -2789,10 +2789,10 @@ declare namespace sequelize {
          * @param options.raw If set to true, field and virtual setters will be ignored
          * @param options.reset Clear all previously set data values
          */
-        set(key: string, value: any, options?: InstanceSetOptions): this;
-        set(keys: Object, options?: InstanceSetOptions): this;
-        setAttributes(key: string, value: any, options?: InstanceSetOptions): this;
-        setAttributes(keys: Object, options?: InstanceSetOptions): this;
+        set<Attribute extends keyof TAttributes>(key: Attribute, value: TAttributes[Attribute], options?: InstanceSetOptions): this;
+        set(keys: {[Attribute in keyof TAttributes]: TAttributes[Attribute]}, options?: InstanceSetOptions): this;
+        setAttributes<Attribute extends keyof TAttributes>(key: Attribute, value: TAttributes[Attribute], options?: InstanceSetOptions): this;
+        setAttributes(keys: {[Attribute in keyof TAttributes]: TAttributes[Attribute]}, options?: InstanceSetOptions): this;
 
         /**
          * If changed is called with a string it will return a boolean indicating whether the value of that key in
@@ -2840,10 +2840,10 @@ declare namespace sequelize {
         /**
          * This is the same as calling `set` and then calling `save`.
          */
-        update(key: string, value: any, options?: InstanceUpdateOptions): Promise<this>;
-        update(keys: Object, options?: InstanceUpdateOptions): Promise<this>;
-        updateAttributes(key: string, value: any, options?: InstanceUpdateOptions): Promise<this>;
-        updateAttributes(keys: Object, options?: InstanceUpdateOptions): Promise<this>;
+        update<Attribute extends keyof TAttributes>(key: Attribute, value: TAttributes[Attribute], options?: InstanceUpdateOptions): Promise<this>;
+        update(keys: {[Attribute in keyof TAttributes]: TAttributes[Attribute]}, options?: InstanceUpdateOptions): Promise<this>;
+        updateAttributes<Attribute extends keyof TAttributes>(key: Attribute, value: TAttributes[Attribute], options?: InstanceUpdateOptions): Promise<this>;
+        updateAttributes(keys: {[Attribute in keyof TAttributes]: TAttributes[Attribute]}, options?: InstanceUpdateOptions): Promise<this>;
 
         /**
          * Destroy the row corresponding to this instance. Depending on your setting for paranoid, the row will
