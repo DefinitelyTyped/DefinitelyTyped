@@ -10,7 +10,6 @@
 /// <reference path="../validator/validator.d.ts" />
 
 declare module "sequelize" {
-    import * as _ from "lodash";
 
     namespace sequelize {
 

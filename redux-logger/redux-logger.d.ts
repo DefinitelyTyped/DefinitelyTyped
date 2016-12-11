@@ -6,6 +6,7 @@
 /// <reference path="../redux/redux.d.ts" />
 
 declare module 'redux-logger' {
+  import { Middleware } from "redux";
 
   type LoggerPredicate = (getState: () => any, action: any) => boolean;
 
@@ -44,9 +45,9 @@ declare module 'redux-logger' {
     diffPredicate?: LoggerPredicate;
   }
 
-  // Trickery to get TypeScript to accept that our anonymous, non-default export is a function.
-  // see https://github.com/Microsoft/TypeScript/issues/3612 for more
-  namespace createLogger {}
-  function createLogger(options?: ReduxLoggerOptions): Redux.Middleware;
-  export = createLogger;
+  const createLogger: Middleware & {
+    withExtraArgument(extraArgument: any): Middleware;
+  };
+
+  export default createLogger;
 }
