@@ -13,6 +13,7 @@ declare module "knex" {
   type Callback = Function;
   type Client = Function;
   type Value = string|number|boolean|Date|Array<string>|Array<number>|Array<Date>|Array<boolean>|Buffer|Knex.Raw;
+  type DefaultValue = Value|Knex.Raw;
   type ColumnName = string|Knex.Raw|Knex.QueryBuilder;
   type TableName = string|Knex.Raw|Knex.QueryBuilder;
 
@@ -408,7 +409,7 @@ declare module "knex" {
       references(columnName: string): ReferencingColumnBuilder;
       onDelete(command: string): ColumnBuilder;
       onUpdate(command: string): ColumnBuilder;
-      defaultTo(value: Value): ColumnBuilder;
+      defaultTo(value: DefaultValue): ColumnBuilder;
       unsigned(): ColumnBuilder;
       notNullable(): ColumnBuilder;
       nullable(): ColumnBuilder;
