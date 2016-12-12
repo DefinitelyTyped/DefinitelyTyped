@@ -140,7 +140,7 @@ declare namespace Parsimmon {
         desc(description: string): Parser<T>;
     }
 
-		/**
+    /**
      * Alias of `Parsimmon(fn)` for backwards compatibility.
      */
     export function Parser<T>(fn: (input: string, i: number) => Parsimmon.Result<T>): Parser<T>;
