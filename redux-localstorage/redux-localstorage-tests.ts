@@ -1,5 +1,3 @@
-// Imports
-// --------------------------------------------------------------------------------
 import { Reducer, compose, combineReducers, createStore } from "redux"
 import {
     default as persistState,
