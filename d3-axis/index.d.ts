@@ -30,14 +30,14 @@ export interface AxisTimeInterval {
  * A helper interface to which a scale passed into axis must conform (at a minimum)
  * for axis to use the scale without error
  */
-export interface AxisScale<Domain> {
+export interface AxisScale<Domain, TickCount> {
     (x: Domain): number;
     domain(): Array<Domain>;
     range(): Array<number>;
-    copy(): AxisScale<Domain>;
+    copy(): AxisScale<Domain, TickCount>;
     bandwidth?(): number;
-    ticks?(count: number | AxisTimeInterval): Array<number> | Array<Date>;
-    tickFormat?(count: number | AxisTimeInterval, specifier?: string): ((d: number) => string) | ((d: Date) => string);
+    ticks?(count: TickCount): Array<number> | Array<Date>;
+    tickFormat?(count: TickCount, specifier?: string): ((d: number) => string) | ((d: Date) => string);
 }
 
 /**
