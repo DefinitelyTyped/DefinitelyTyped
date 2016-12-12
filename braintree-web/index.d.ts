@@ -448,9 +448,8 @@ declare namespace BraintreeWeb {
      *       billingAddress: {
      *         postalCode: form['cc-postal'].value
      *       },
-     *     options: {
+     *       options: {
      *         validate: false
-     *       }
      *       }
      *     }
      *   };
