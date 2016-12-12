@@ -2,6 +2,8 @@
 // Project: http://prismjs.com/
 // Definitions by: Erik Lieben <https://github.com/eriklieben>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+export = Prism;
+export as namespace Prism;
 
 declare namespace PrismJS {
 
@@ -161,4 +163,4 @@ declare namespace PrismJS {
 	}
 }
 
-declare var Prism : PrismJS.Prism;
+declare var Prism : PrismJS.Prism; 
