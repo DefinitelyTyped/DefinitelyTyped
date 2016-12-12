@@ -5125,10 +5125,9 @@ declare namespace webdriver {
          *
          * @param {!(string|Function)} script The script to execute.
          * @param {...*} var_args The arguments to pass to the script.
-         * @return {function(!webdriver.WebDriver): !webdriver.promise.Promise} A new,
-         *     JavaScript-based locator function.
+         * @return {!webdriver.Locator} The new locator.
          */
-        function js(script: any, ...var_args: any[]): (WebDriver: webdriver.WebDriver) => webdriver.promise.Promise<any>;
+        function js(script: any, ...var_args: any[]): Locator;
 
         /**
          * Locates elements whose {@code name} attribute has the given value.
