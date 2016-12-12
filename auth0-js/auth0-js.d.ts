@@ -33,6 +33,7 @@ interface Auth0Static {
 /** Represents constructor options for the Auth0 client. */
 interface Auth0ClientOptions {
     clientID: string;
+    responseType: string;
     callbackURL: string;
     callbackOnLocationHash?: boolean;
     domain: string;
