@@ -333,6 +333,7 @@ function TestElementFinder() {
     voidPromise = elementFinder.click();
     elementFinder = elementFinder.allowAnimations('string');
     voidPromise = elementFinder.sendKeys(protractor.Key.UP, protractor.Key.DOWN);
+    voidPromise = elementFinder.sendKeys('Hello', 0, 1, 3, protractor.Key.DOWN);
     stringPromise = elementFinder.getTagName();
     stringPromise = elementFinder.getCssValue('display');
     stringPromise = elementFinder.getAttribute('atribute');
@@ -373,6 +374,7 @@ function TestElementArrayFinder() {
     voidPromise = elementArrayFinder.click();
     elementArrayFinder = elementArrayFinder.allowAnimations(true);
     voidPromise = elementArrayFinder.sendKeys(protractor.Key.UP, protractor.Key.DOWN);
+    voidPromise = elementArrayFinder.sendKeys('Hello', 0, 1, 3, protractor.Key.DOWN);
     stringPromise = elementArrayFinder.getTagName();
     stringPromise = elementArrayFinder.getCssValue('display');
     stringPromise = elementArrayFinder.getAttribute('atribute');
