@@ -39,7 +39,7 @@ declare module "jsonwebtoken" {
          * - ES512:    ECDSA using P-521 curve and SHA-512 hash algorithm
          * - none:     No digital signature or MAC value included
          */
-        algorithm?: string;
+        algorithm?: 'HS256' | 'HS384' | 'HS512' | 'RS256' | 'RS384' | 'RS512' | 'ES256' | 'ES384' | 'ES512' | 'none';
         /** @member {string} - Lifetime for the token expressed in a string describing a time span [rauchg/ms](https://github.com/rauchg/ms.js). Eg: `60`, `"2 days"`, `"10h"`, `"7d"` */
         expiresIn?: string | number;
         notBefore?: string;
@@ -69,8 +69,8 @@ declare module "jsonwebtoken" {
     }
 
     export interface DecodeOptions {
-      complete?: boolean;
-      json?: boolean;
+        complete?: boolean;
+        json?: boolean;
     }
 
     export interface VerifyCallback {
