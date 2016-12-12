@@ -46,6 +46,7 @@ var barPar: Parser<Bar>;
 
 var anyArrPar: Parser<any[]>;
 
+var strArrPar: Parser<string[]>;
 var fooArrPar: Parser<Foo[]>;
 var barArrPar: Parser<Bar[]>;
 
@@ -68,7 +69,16 @@ index = fooResult.index;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
+fooResult = P.makeSuccess(0, foo);
+fooResult = P.makeFailure<Foo>(0, '');
+
+fooPar = P((input: string, i: number) => P.makeSuccess(0, foo));
+fooPar = P.Parser((input: string, i: number) => P.makeSuccess(0, foo));
+
+// --  --  --  --  --  --  --  --  --  --  --  --  --
+
 fooResult = fooPar.parse(str);
+foo = fooPar.tryParse(str);
 
 fooPar = fooPar.or(fooPar);
 anyPar = fooPar.or(barPar);
@@ -171,8 +181,8 @@ numPar = P.seqMap(P.digit, P.digits, (a: string, b: string) => 42);
 strPar = P.seqMap(P.digit, P.digits, P.letter, (a: string, b: string, c: string) => 'foo');
 strPar = P.seqMap(P.digit, P.digits, P.letter, P.letters.map(Number), (a: string, b: string, c: string, d: number) => 'foo');
 
-strPar = P.sepBy(P.string('foo'), P.string('bar'));
-strPar = P.sepBy1(P.string('foo'), P.string('bar'));
+strArrPar = P.sepBy(P.string('foo'), P.string('bar'));
+strArrPar = P.sepBy1(P.string('foo'), P.string('bar'));
 
 strPar = P.test((a: string) => false);
 

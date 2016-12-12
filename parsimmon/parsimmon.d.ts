@@ -1,4 +1,4 @@
-// Type definitions for Parsimmon 0.9.2
+// Type definitions for Parsimmon 1.0.0
 // Project: https://github.com/jneen/parsimmon
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Mizunashi Mana <https://github.com/mizunashi-mana>, Boris Cherny <https://github.com/bcherny>, Benny van Reeven <https://github.com/bvanreeven>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,6 +6,42 @@
 // TODO convert to generics
 
 declare module 'parsimmon' {
+
+  /**
+   * **NOTE:** You probably will never need to use this function. Most parsing
+   * can be accomplished using `Parsimmon.regexp` and combination with
+   * `Parsimmon.seq` and `Parsimmon.alt`.
+   *
+   * You can add a primitive parser (similar to the included ones) by using
+   * `Parsimmon(fn)`. This is an example of how to create a parser that matches
+   * any character except the one provided:
+   *
+   * ```javascript
+   * function notChar(char) {
+   *   return Parsimmon(function(input, i) {
+   *     if (input.charAt(i) !== char) {
+   *       return Parsimmon.makeSuccess(i + 1, input.charAt(i));
+   *     }
+   *     return Parsimmon.makeFailure(i, 'anything different than "' + char + '"');
+   *   });
+   * }
+   * ```
+   *
+   * This parser can then be used and composed the same way all the existing
+   * ones are used and composed, for example:
+   *
+   * ```javascript
+   * var parser =
+   *   Parsimmon.seq(
+   *     Parsimmon.string('a'),
+   *     notChar('b').times(5)
+   *   );
+   * parser.parse('accccc');
+   * //=> {status: true, value: ['a', ['c', 'c', 'c', 'c', 'c']]}
+   * ```
+   */
+  function Parsimmon<T>(fn: (input: string, i: number) => Parsimmon.Result<T>): Parsimmon.Parser<T>;
+
 	namespace Parsimmon {
 
 		export type StreamType = string;
@@ -37,6 +73,12 @@ declare module 'parsimmon' {
 			 * parse the string
 			 */
 			parse(input: string): Result<T>;
+      /**
+       * Like parser.parse(input) but either returns the parsed value or throws
+       * an error on failure. The error object contains additional properties
+       * about the error.
+       */
+      tryParse(input: string): T;
 			/**
 			 * returns a new parser which tries parser, and if it fails uses otherParser.
 			 */
@@ -100,6 +142,25 @@ declare module 'parsimmon' {
 			 */
 			desc(description: string): Parser<T>;
 		}
+
+    /**
+     * Alias of `Parsimmon(fn)` for backwards compatibility.
+     */
+    export function Parser<T>(fn: (input: string, i: number) => Parsimmon.Result<T>): Parser<T>;
+
+    /**
+     * To be used inside of Parsimmon(fn). Generates an object describing how
+     * far the successful parse went (index), and what value it created doing
+     * so. See documentation for Parsimmon(fn).
+     */
+    export function makeSuccess<T>(index: number, value: T): Result<T>;
+
+    /**
+     * To be used inside of Parsimmon(fn). Generates an object describing how
+     * far the unsuccessful parse went (index), and what kind of syntax it
+     * expected to see (expectation). See documentation for Parsimmon(fn).
+     */
+    export function makeFailure<T>(furthest: number, expectation: string): Result<T>;
 
 		/**
 		 * Returns true if obj is a Parsimmon parser, otherwise false.
@@ -193,12 +254,12 @@ declare module 'parsimmon' {
 		/**
 		 * Accepts two parsers, and expects zero or more matches for content, separated by separator, yielding an array.
 		 */
-		export function sepBy<T>(content: Parser<T>, separator: Parser<T>): Parser<T>
+		export function sepBy<T, U>(content: Parser<T>, separator: Parser<U>): Parser<T[]>
 
 		/**
 		 * This is the same as Parsimmon.sepBy, but matches the content parser at least once.
 		 */
-		export function sepBy1<T>(content: Parser<T>, separator: Parser<T>): Parser<T>
+		export function sepBy1<T, U>(content: Parser<T>, separator: Parser<U>): Parser<T[]>
 
 		/**
 		 * accepts a function that returns a parser, which is evaluated the first time the parser is used.

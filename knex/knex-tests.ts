@@ -36,6 +36,19 @@ var knex = Knex({
   }
 });
 
+// Mysql configuration
+var knex = Knex({
+  debug: true,
+  client: 'mysql',
+  connection: {
+    host     : '127.0.0.1',
+    user     : 'your_database_user',
+    password : 'your_database_password',
+    db       : 'myapp_test',
+    trace: false
+  }
+});
+
 // Pooling
 var knex = Knex({
   client: 'mysql',
