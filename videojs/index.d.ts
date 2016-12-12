@@ -5,7 +5,7 @@
 
 // The Video.js API allows you to interact with the video through Javascript, whether the browser is playing the video through HTML5 video, Flash, or any other supported playback technologies.
 
-interface VideoJSOptions {
+export interface VideoJSOptions {
 	techOrder?: string[];
 	html5?: Object;
 	width?: number;
@@ -18,12 +18,12 @@ interface VideoJSOptions {
 	preload?: string;
 }
 
-interface VideoJSSource {
+export interface VideoJSSource {
 	type: string;
 	src: string;
 }
 
-interface VideoJSPlayer {
+export interface VideoJSPlayer {
 	play(): VideoJSPlayer;
 	pause(): VideoJSPlayer;
 	paused(): boolean;
@@ -56,7 +56,7 @@ interface VideoJSPlayer {
 	playbackRate(rate?: number) : number;
 }
 
-interface VideoJSStatic {
+export interface VideoJSStatic {
 	(id: any, options?: VideoJSOptions, ready?: () => void): VideoJSPlayer;
 }
 
