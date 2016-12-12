@@ -8,6 +8,7 @@
 declare module "form-data" {
     class FormData {
         append(key: string, value: any, options?: any): void;
+        entries(): IteratorResult<string,Object>;
         getHeaders(): FormData.Dictionary<string>;
         // TODO expand pipe
         pipe(to: any): any;
