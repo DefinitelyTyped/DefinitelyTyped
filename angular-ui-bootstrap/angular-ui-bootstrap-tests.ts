@@ -154,6 +154,8 @@ testApp.controller('TestCtrl', (
      * test the $modal service
      */
     var modalInstance = $modal.open({
+        ariaLabelledBy: "label",
+        ariaDescribedBy: "description",
         animation: false,
         backdrop: 'static',
         backdropClass: 'modal-backdrop-test',

@@ -159,6 +159,8 @@ Make a PR doing the following:
 * Any other packages in DefinitelyTyped that referenced the deleted package should be updated to reference the bundled types.
     To do this, add a `package.json` with `"dependencies": { "foo": "x.y.z" }`.
 
+If a package was never on DefinitelyTyped, it does not need to be added to `notNeededPackages.json`.
+
 
 #### Lint
 
@@ -219,6 +221,10 @@ If you're targeting master, we may change it to the new style when merging from 
 #### Can I request a definition?
 
 Here are the [currently requested definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
+
+#### What about type definitions for the DOM?
+
+If types are part of a web standard, they should be contributed to [TSJS-lib-generator](https://github.com/Microsoft/TSJS-lib-generator) so that they can become part of the default `lib.dom.d.ts`.
 
 
 ## License

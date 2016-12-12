@@ -1,4 +1,4 @@
-// Type definitions for Braintree-web v3.5.0
+// Type definitions for Braintree-web v3.6.1
 // Project: https://github.com/braintree/braintree-web
 // Definitions by: Guy Shahine <https://github.com/chlela>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -97,7 +97,7 @@ declare namespace BraintreeWeb {
 //  billingContact
 //  Billing contact information for the user.
 //    countryCode
-//Required.The merchant’s two- letter ISO 3166 country code.
+//Required.The merchants two- letter ISO 3166 country code.
 //    currencyCode
 //  Required.The three- letter ISO 4217 currency code for the payment.
 //    lineItems
@@ -427,10 +427,10 @@ declare namespace BraintreeWeb {
      * Used by other modules to formulate all network requests to the Braintree gateway. It is also capable of being used directly from your own form to tokenize credit card information. However, be sure to satisfy PCI compliance if you use direct card tokenization.
      * @public
      * @param {object} options Request options:
-     * @param {string} options.method HTTP method. i.e. "get" or "post"
-     * @param {string} options.endpoint Enpoint path. i.e. "payment_methods"
+     * @param {string} options.method HTTP method, e.g. "get" or "post"
+     * @param {string} options.endpoint Endpoint path. e.g. "payment_methods"
      * @param {object} options.data Data to send with the request
-     * @param {string} [options.timeout=60000] Timeout limit
+     * @param {number} [options.timeout=60000] Set a timeout (in milliseconds) for the request.
      * @param {callback} callback The second argument, <code>data</code>, is the returned server data.
      * @example
      * <caption>Direct Credit Card Tokenization</caption>
@@ -447,7 +447,11 @@ declare namespace BraintreeWeb {
      *       expirationDate: form['cc-date'].value,
      *       billingAddress: {
      *         postalCode: form['cc-postal'].value
+     *       },
+     *     options: {
+     *         validate: false
      *       }
+    *       }
      *     }
      *   };
      *
@@ -459,6 +463,7 @@ declare namespace BraintreeWeb {
      *     method: 'post',
      *     data: data
      *   }, function (requestErr, response) {
+     *  // More detailed example of handling API errors: https://codepen.io/braintree/pen/MbwjdM
      *     if (requestErr) { throw new Error(requestErr); }
      *
      *     console.log('Got nonce:', response.creditCards[0].nonce);
@@ -477,6 +482,7 @@ declare namespace BraintreeWeb {
     /**
      * @static
      * @function create
+     * @description Creates a DataCollector instance. Requires advanced fraud protection to be enabled in the Braintree gateway. Contact our [support team](mailto:support@braintreepayments.com) to configure your Kount ID.
      * @param {object} options Creation options:
      * @param {Client} options.client A {@link Client} instance.
      * @param {boolean} [options.kount] If true, Kount fraud data collection is enabled.
@@ -498,7 +504,7 @@ declare namespace BraintreeWeb {
  * @global
  * @name DataCollector
  * @description <strong>Do not use this constructor directly. Use {@link module:braintree-web/data-collector.create|braintree-web.data-collector.create} instead.</strong>
- * @classdesc This class is used for advanced fraud integration with PayPal and Kount. Instances of this class have {@link DataCollector#deviceData|deviceData} which is used to correlate user sessions with server transactions.
+ * @classdesc This class is used for advanced fraud integration with PayPal and Kount. Instances of this class have {@link DataCollector#deviceData|deviceData} which is used to correlate user sessions with server transactions. Before using DataCollector, make sure you have enabled advanced fraud protection in the Braintree gateway. To use your own Kount ID, contact our support team ([support@braintreepayments.com](mailto:support@braintreepayments.com) or [877.434.2894](tel:877.434.2894)).
  */
   export class DataCollector {
     /**
@@ -740,7 +746,33 @@ declare namespace BraintreeWeb {
      *
      * These are the CSS properties that Hosted Fields supports. Any other CSS should be specified on your page and outside of any Braintree configuration. Trying to set unsupported properties will fail and put a warning in the console.
      *
-     * `color` `font-family` `font-size-adjust` `font-size` `font-stretch` `font-style` `font-variant-alternates` `font-variant-caps` `font-variant-east-asian` `font-variant-ligatures` `font-variant-numeric` `font-variant` `font-weight` `font` `line-height` `opacity` `outline` `text-shadow` `transition` `-moz-osx-font-smoothing` `-moz-tap-highlight-color` `-moz-transition` `-webkit-font-smoothing` `-webkit-tap-highlight-color` `-webkit-transition`
+     * Supported CSS properties are:
+     * `color`
+     * `font-family`
+     * `font-size-adjust`
+     * `font-size`
+     * `font-stretch`
+     * `font-style`
+     * `font-variant-alternates`
+     * `font-variant-caps`
+     * `font-variant-east-asian`
+     * `font-variant-ligatures`
+     * `font-variant-numeric`
+     * `font-variant`
+     * `font-weight`
+     * `font`
+     * `letter-spacing`
+     * `line-height`
+     * `opacity`
+     * `outline`
+     * `text-shadow`
+     * `transition`
+     * `-moz-osx-font-smoothing`
+     * `-moz-tap-highlight-color`
+     * `-moz-transition`
+     * `-webkit-font-smoothing`
+     * `-webkit-tap-highlight-color`
+     * `-webkit-transition`
      * @typedef {object} styleOptions
      */
     styleOptions: any;
@@ -976,7 +1008,9 @@ declare namespace BraintreeWeb {
    * @property {string} details.shippingAddress.postalCode Postal code.
    * @property {string} details.shippingAddress.countryCode 2 character country code (e.g. US).
    * @property {?object} details.billingAddress User's billing address details.
-   * You will also need to enable the PayPal Billing Address Request feature in your PayPal account.
+   * Not available to all merchants; [contact PayPal](https://developers.braintreepayments.com/support/guides/paypal/setup-guide#contacting-paypal-support) for details on eligibility and enabling this feature.
+   * To enable this feature, [contact PayPal](https://developers.braintreepayments.com/support/guides/paypal/setup-guide#contacting-paypal-support).
+   * Alternatively, see `shippingAddress` above as an available client opt
    * To enable this feature, [contact PayPal](https://developers.braintreepayments.com/support/guides/paypal/setup-guide#contacting-paypal-support).
    * @property {string} details.billingAddress.line1 Street number and name.
    * @property {string} details.billingAddress.line2 Extended address.
@@ -1029,7 +1063,7 @@ declare namespace BraintreeWeb {
      * @param {Client} options.client A {@link Client} instance.
      * @param {callback} callback The second argument, `data`, is the {@link PayPal} instance.
      * @example
-     * braintree.paypal.create(
+     * braintree.paypal.create({
      *   client: clientInstance
      * }, function (createErr, paypalInstance) {
      *   if (createErr) {
@@ -1039,7 +1073,7 @@ declare namespace BraintreeWeb {
      *       console.error('Error!', createErr);
      *     }
      *   }
-     * }
+     * });
      * @returns {void}
      */
     create: (options: { client: Client }, callback: callback) => void;
@@ -1083,7 +1117,33 @@ declare namespace BraintreeWeb {
      * @param {string|number} [options.amount] The amount of the transaction. Required when using the Checkout flow.
      * @param {string} [options.currency] The currency code of the amount, such as 'USD'. Required when using the Checkout flow.
      * @param {string} [options.displayName] The merchant name displayed inside of the PayPal lightbox; defaults to the company name on your Braintree account
-     * @param {string} [options.locale=en_US] Use this option to change the language, links, and terminology used in the PayPal flow to suit the country and language of your customer.
+     * @param {string} [options.locale=en_US] Use this option to change the language, links, and terminology used in the PayPal flow. This locale will be used unless the buyer has set a preferred locale for their account. If an unsupported locale is supplied, a fallback locale (determined by buyer preference or browser data) will be used and no error will be thrown.
+     *
+     * Supported locales are:
+     * `da_DK`,
+     * `de_DE`,
+     * `en_AU`,
+     * `en_GB`,
+     * `en_US`,
+     * `es_ES`,
+     * `fr_CA`,
+     * `fr_FR`,
+     * `id_ID`,
+     * `it_IT`,
+     * `ja_JP`,
+     * `ko_KR`,
+     * `nl_NL`,
+     * `no_NO`,
+     * `pl_PL`,
+     * `pt_BR`,
+     * `pt_PT`,
+     * `ru_RU`,
+     * `sv_SE`,
+     * `th_TH`,
+     * `zh_CN`,
+     * `zh_HK`,
+     * and `zh_TW`.
+     *
      * @param {boolean} [options.enableShippingAddress=false] Returns a shipping address object in {@link PayPal#tokenize}.
      * @param {object} [options.shippingAddressOverride] Allows you to pass a shipping address you have already collected into the PayPal payment flow.
      * @param {string} options.shippingAddressOverride.line1 Street address.
@@ -1603,6 +1663,134 @@ declare namespace BraintreeWeb {
     public teardown(callback?: callback): void;
 
   }
+
+  /**
+ * @module braintree-web/us-bank-account
+ * @description This module is for accepting payments of US bank accounts.
+ */
+  export interface USBankAccount {
+    /**
+     * @static
+     * @function create
+     * @param {object} options Creation options:
+     * @param {Client} options.client A {@link Client} instance.
+     * @param {callback} callback The second argument, `data`, is the {@link USBankAccount} instance.
+     * @returns {void}
+     */
+    create: (options: { client: Client }, callback: callback) => void;
+
+    /**
+     * @description The current version of the SDK, i.e. `{@pkg version}`.
+     * @type {string}
+     */
+    VERSION: string;
+  }
+
+  /**
+ * @class
+ * @param {object} options See {@link module:braintree-web/us-bank-account.create|us-bank-account.create}.
+ * @classdesc This class represents a US Bank Account component. Instances of this class can tokenize raw bank details or present a bank login. <strong>You cannot use this constructor directly. Use {@link module:braintree-web/us-bank-account.create|braintree.us-bank-account.create} instead.</strong>
+ */
+  export class USBankAccount {
+    /**
+     * @class
+     * @param {object} options See {@link module:braintree-web/us-bank-account.create|us-bank-account.create}.
+     * @classdesc This class represents a US Bank Account component. Instances of this class can tokenize raw bank details or present a bank login. <strong>You cannot use this constructor directly. Use {@link module:braintree-web/us-bank-account.create|braintree.us-bank-account.create} instead.</strong>
+     */
+    constructor(options: any)
+
+
+    /**
+     * Tokenizes bank information to return a payment method nonce. You can tokenize bank details by providing information like account and routing numbers. You can also tokenize with a bank login UI that prompts the customer to log into their bank account.
+     * @public
+     * @param {object} options All tokenization options for the US Bank Account component.
+     * @param {string} options.mandateText A string for proof of customer authorization. For example, `'I authorize Braintree to debit my bank account on behalf of My Online Store.'`.
+     * @param {object} [options.bankDetails] Bank detail information (such as account and routing numbers). `bankDetails` or `bankLogin` option must be provided.
+     * @param {string} options.bankDetails.routingNumber The customer's bank routing number, such as `'307075259'`.
+     * @param {string} options.bankDetails.accountNumber The customer's bank account number, such as `'999999999'`.
+     * @param {string} options.bankDetails.accountType The customer's bank account type. Must be `'checking'` or `'savings'`.
+     * @param {string} options.bankDetails.accountHolderName The customer's bank account holder name, such as `'Rosetta Fox'`.
+     * @param {object} options.bankDetails.billingAddress The customer's billing address.
+     * @param {string} options.bankDetails.billingAddress.streetAddress The street address for the customer's billing address, such as `'123 Fake St'`.
+     * @param {string} [options.bankDetails.billingAddress.extendedAddress] The extended street address for the customer's billing address, such as `'Apartment B'`.
+     * @param {string} options.bankDetails.billingAddress.locality The locality for the customer's billing address. This is typically a city, such as `'San Francisco'`.
+     * @param {string} options.bankDetails.billingAddress.region The region for the customer's billing address. This is typically a state, such as `'CA'`.
+     * @param {string} options.bankDetails.billingAddress.postalCode The postal code for the customer's billing address. This is typically a ZIP code, such as `'94119'`.
+     * @param {object} [options.bankLogin] Bank login information. `bankLogin` or `bankDetails` option must be provided.
+     * @param {string} options.bankLogin.displayName Display name for the bank login UI, such as `'My Store'`.
+     * @param {callback} callback The second argument, <code>data</code>, is a {@link USBankAccount~tokenizePayload|tokenizePayload}.
+     * @returns {void}
+     * @example
+     * <caption>Tokenizing raw bank details</caption>
+     * submitButton.addEventListener('click', function (event) {
+     *   var routingNumberInput = document.querySelector('input#routing-number');
+     *   var accountNumberInput = document.querySelector('input#account-number');
+     *   var accountHolderNameInput = document.querySelector('input#account-holder-name');
+     *   var accountTypeInput = document.querySelector('input[name="account-type"]:checked');
+     *   var billingAddressStreetInput = document.querySelector('input#street-address');
+     *   var billingAddressExtendedInput = document.querySelector('input#extended-address');
+     *   var billingAddressLocalityInput = document.querySelector('input#locality');
+     *   var billingAddressRegionSelect = document.querySelector('select#region');
+     *   var billingAddressPostalInput = document.querySelector('input#postal-code');
+     *
+     *   event.preventDefault();
+     *
+     *   usBankAccountInstance.tokenize({
+     *     bankDetails: {
+     *       routingNumber: routingNumberInput.value,
+     *       accountNumber: accountNumberInput.value,
+     *       accountHolderName: accountHolderNameInput.value,
+     *       accountType: accountTypeInput.value,
+     *       billingAddress: {
+     *         streetAddress: billingAddressStreetInput.value,
+     *         extendedAddress: billingAddressExtendedInput.value,
+     *         locality: billingAddressLocalityInput.value,
+     *         region: billingAddressRegionSelect.value,
+     *         postalCode: billingAddressPostalInput.value
+     *       }
+     *     },
+     *     mandateText: 'I authorize Braintree to debit my bank account on behalf of My Online Store.'
+     *   }, function (tokenizeErr, tokenizedPayload) {
+     *     if (tokenizeErr) {
+     *       console.error('There was an error tokenizing the bank details.');
+     *       return;
+     *     }
+     *
+     *     // Send tokenizePayload.nonce to your server here!
+     *   });
+     * });
+     * @example
+     * <caption>Tokenizing with bank login UI</caption>
+     * bankLoginButton.addEventListener('click', function (event) {
+     *   event.preventDefault();
+     *
+     *   usBankAccountInstance.tokenize({
+     *     bankLogin: {
+     *       displayName: 'My Online Store'
+     *     },
+     *     mandateText: 'I authorize Braintree to debit my bank account on behalf of My Online Store.'
+     *   }, function (tokenizeErr, tokenizedPayload) {
+     *     if (tokenizeErr) {
+     *       console.error('There was an error tokenizing the bank details.');
+     *       return;
+     *     }
+     *
+     *     // Send tokenizePayload.nonce to your server here!
+     *   });
+     * });
+     */
+    public tokenize(options: { mandateText: string, bankDetails: any, bankLogin: any }, callback: callback): void;
+
+    /**
+     * Cleanly tear down anything set up by {@link module:braintree-web/us-bank-account.create|create}.
+     * @public
+     * @param {callback} [callback] Called once teardown is complete. No data is returned if teardown completes successfully.
+     * @returns {void}
+     */
+    public teardown(callback?: callback): void;
+
+  }
+
 }
 
 declare namespace BraintreeError {
@@ -1732,6 +1920,9 @@ interface BraintreeStatic {
 
   /** @type {module:braintree-web/apple-pay} */
   applePay: BraintreeWeb.ApplePay;
+
+     /** @type {module:braintree-web/us-bank-account} */
+  usBankAccount: BraintreeWeb.USBankAccount;
 
   /**
    * @description The current version of the SDK, i.e. `3.0.2`.
