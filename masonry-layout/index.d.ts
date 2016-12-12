@@ -1,4 +1,4 @@
-// Type definitions for Masonry 4.0.0
+// Type definitions for Masonry 4.0
 // Project: https://github.com/desandro/masonry
 // Definitions by: Mark Wilson <https://github.com/m-a-wilson>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
