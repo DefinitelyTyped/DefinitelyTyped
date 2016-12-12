@@ -26,7 +26,7 @@ declare namespace ReactDayPicker {
     interface DayModifiers {
          selected?: boolean;
          disabled?: boolean;
-         [name: string]: boolean;
+         [name: string]: boolean | undefined;
     }
 
     interface Modifiers {
