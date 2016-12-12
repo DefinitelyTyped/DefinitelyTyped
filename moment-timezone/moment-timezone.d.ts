@@ -3,9 +3,14 @@
 // Definitions by: Michel Salib <https://github.com/michelsalib>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../moment/moment.d.ts" />
-
 declare namespace moment {
+
+    interface MomentBuiltinFormat {
+        __momentBuiltinFormatBrand: any;
+    }
+
+    type MomentFormatSpecification = string | MomentBuiltinFormat | (string | MomentBuiltinFormat)[];
+
     interface Moment {
         tz(): string;
         tz(timezone: string): Moment;

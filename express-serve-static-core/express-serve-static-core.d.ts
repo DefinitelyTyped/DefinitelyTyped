@@ -529,7 +529,7 @@ declare module "express-serve-static-core" {
             *     res.json(500, 'oh noes!');
             *     res.json(404, 'I dont have that');
             */
-        json: Send;
+        json: any;
 
         /**
             * Send JSON response with JSONP callback support.
@@ -541,7 +541,7 @@ declare module "express-serve-static-core" {
             *     res.jsonp(500, 'oh noes!');
             *     res.jsonp(404, 'I dont have that');
             */
-        jsonp: Send;
+        jsonp: any;
 
         /**
             * Transfer the file at the given `path`.
@@ -861,7 +861,7 @@ declare module "express-serve-static-core" {
          * third argument.
          */
         (req: Request, res: Response): any;
-        
+
         /**
             * Initialize the server.
             *
@@ -1090,7 +1090,7 @@ declare module "express-serve-static-core" {
             * simply by removing them from this object.
             */
         routes: any;
-        
+
         /**
          * Used to get all registered routes in Express Application
          */
