@@ -1,3 +1,4 @@
+/// <reference types="mocha" />
 declare var expect: any;
 
 import id = require('incremental-dom');
