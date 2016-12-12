@@ -95,6 +95,18 @@ uriOpts = {scheme: str};
 uriOpts = {scheme: exp};
 uriOpts = {scheme: strArr};
 uriOpts = {scheme: expArr};
+uriOpts = {scheme: str, allowRelative: bool};
+uriOpts = {scheme: str, relativeOnly: bool};
+uriOpts = {scheme: str, allowRelative: bool, relativeOnly: bool};
+uriOpts = {scheme: exp, allowRelative: bool};
+uriOpts = {scheme: exp, relativeOnly: bool};
+uriOpts = {scheme: exp, allowRelative: bool, relativeOnly: bool};
+uriOpts = {scheme: strArr, allowRelative: bool};
+uriOpts = {scheme: strArr, relativeOnly: bool};
+uriOpts = {scheme: strArr, allowRelative: bool, relativeOnly: bool};
+uriOpts = {scheme: expArr, allowRelative: bool};
+uriOpts = {scheme: expArr, relativeOnly: bool};
+uriOpts = {scheme: expArr, allowRelative: bool, relativeOnly: bool};
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -222,7 +234,7 @@ namespace common {
 	anySchema = anySchema.empty();
 	anySchema = anySchema.empty(str);
 	anySchema = anySchema.empty(anySchema);
-	
+
 	anySchema = anySchema.error(err);
 }
 

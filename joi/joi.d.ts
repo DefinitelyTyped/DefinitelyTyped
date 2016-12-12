@@ -97,6 +97,14 @@ declare module 'joi' {
 		 * Can be an Array or String (strings are automatically escaped for use in a Regular Expression).
 		 */
 		scheme ?: string | RegExp | Array<string | RegExp>;
+		/**
+		 * Allow relative URIs. Defaults to false.
+		 */
+		allowRelative ?: boolean;
+		/**
+		 * Restrict only relative URIs. Defaults to false.
+		 */
+		relativeOnly ?: boolean;
 	}
 
 	export interface WhenOptions<T> {
@@ -291,7 +299,7 @@ declare module 'joi' {
 		 * @param schema - any object or joi schema to match. An undefined schema unsets that rule.
 		 */
 		empty(schema?: any) : T;
-		
+
 		/**
 		 * Overrides the default joi error with a custom error if the rule fails where:
 		 * @param err - the override error.
@@ -831,7 +839,7 @@ declare module 'joi' {
 	export function alternatives(): AlternativesSchema;
 	export function alternatives(types: Schema[]): AlternativesSchema;
 	export function alternatives(type1: Schema, type2: Schema, ...types: Schema[]): AlternativesSchema;
-	
+
 	/**
 	 * Generates a placeholder schema for a schema that you would provide with the fn.
 	 * Supports the same methods of the any() type.
