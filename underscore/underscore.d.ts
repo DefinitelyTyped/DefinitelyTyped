@@ -5101,28 +5101,106 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.reduce
 	**/
-	reduce<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+	reduce<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _Chain<TResult>;
+	
+	/**
+	* Wrapped type `any[]`.
+	* @see _.reduce
+	**/
+	reduce<TResult extends number>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+	
+	/**
+	* Wrapped type `any[]`.
+	* @see _.reduce
+	**/
+	reduce<TResult extends string>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+	
+	/**
+	* Wrapped type `any[]`.
+	* @see _.reduce
+	**/
+	reduce<TResult extends boolean>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
 
 	/**
 	* @see _.reduce
 	**/
-	inject<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
-
+	inject<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _Chain<TResult>;
+	
 	/**
 	* @see _.reduce
 	**/
-	foldl<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+	inject<TResult extends number>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+	
+	/**
+	* @see _.reduce
+	**/
+	inject<TResult extends string>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+	
+	/**
+	* @see _.reduce
+	**/
+	inject<TResult extends boolean>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+	
+	/**
+	* @see _.reduce
+	**/
+	foldl<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _Chain<TResult>;
+	
+	/**
+	* @see _.reduce
+	**/
+	foldl<TResult extends number>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+	
+	/**
+	* @see _.reduce
+	**/
+	foldl<TResult extends string>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+	
+	/**
+	* @see _.reduce
+	**/
+	foldl<TResult extends boolean>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.reduceRight
 	**/
-	reduceRight<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+	reduceRight<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _Chain<TResult>;
+
+	/**
+	* @see _.reduce
+	**/
+	reduceRight<TResult extends number>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+	
+	/**
+	* @see _.reduce
+	**/
+	reduceRight<TResult extends string>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+	
+	/**
+	* @see _.reduce
+	**/
+	reduceRight<TResult extends boolean>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
 
 	/**
 	* @see _.reduceRight
 	**/
-	foldr<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+	foldr<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _Chain<TResult>;
+
+	/**
+	* @see _.reduce
+	**/
+	foldr<TResult extends number>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+	
+	/**
+	* @see _.reduce
+	**/
+	foldr<TResult extends string>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+	
+	/**
+	* @see _.reduce
+	**/
+	foldr<TResult extends boolean>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
 
 	/**
 	* Wrapped type `any[]`.
