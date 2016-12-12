@@ -4751,6 +4751,18 @@ interface Underscore<T> {
 	* Wrapped type `object`.
 	* @see _.extend
 	**/
+	extendOwn(...sources: any[]): any;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.extend
+	**/
+	assign(...sources: any[]): any;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.extend
+	**/
 	findKey(predicate: _.ObjectIterator<any, boolean>, context? : any): any
 
 	/**
@@ -5706,6 +5718,18 @@ interface _Chain<T> {
 	* @see _.extend
 	**/
 	extend(...sources: any[]): _Chain<T>;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.extend
+	**/
+	extendOwn(...sources: any[]): _Chain<T>;
+
+	/**
+	* Wrapped type `object`.
+	* @see _.extend
+	**/
+	assign(...sources: any[]): _Chain<T>;
 
 	/**
 	* Wrapped type `object`.
