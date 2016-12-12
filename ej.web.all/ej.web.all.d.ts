@@ -3,7 +3,7 @@
 // Definitions by: Syncfusion <https://github.com/syncfusion/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+//// <reference path="../jquery/jquery.d.ts" />
 
 /*!
 *  filename: ej.web.all.d.ts
