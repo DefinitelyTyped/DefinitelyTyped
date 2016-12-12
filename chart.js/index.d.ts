@@ -3,14 +3,12 @@
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export enum ChartType {
-    line, bar, radar, doughnut, polarArea, bubble
-}
-export enum TimeUnit {
-    millisecond, second, minute,
-    hour, day, week,
-    month, quarter, year
-}
+export declare type ChartType = 'line' | 'bar' | 'radar' | 'doughnut' | 'polarArea' | 'bubble';
+
+export declare type TimeUnit = 'millisecond' | 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year';
+
+export declare type ScaleType = 'category' | 'linear' | 'logarithmic' | 'time' | 'radialLinear';
+
 export interface ChartLegendItem {
     text?: string;
     fillStyle?: string;
@@ -51,7 +49,7 @@ export interface ChartPoint {
 }
 
 export interface ChartConfiguration {
-    type?: string;
+    type?: ChartType | string;
     data?: ChartData;
     options?: ChartOptions;
 }
@@ -314,7 +312,7 @@ export interface ChartDataSets {
 }
 
 export interface ChartScales {
-    type?: string;
+    type?: ScaleType | string;
     display?: boolean;
     position?: string;
     beforeUpdate?: (scale?: any) => void;
@@ -339,7 +337,7 @@ export interface ChartScales {
 }
 
 export interface ChartXAxe {
-    type?: string;
+    type?: ScaleType | string;
     display?: boolean;
     id?: string;
     stacked?: boolean;
@@ -354,7 +352,7 @@ export interface ChartXAxe {
 }
 
 export interface ChartYAxe {
-    type?: string;
+    type?: ScaleType | string;
     display?: boolean;
     id?: string;
     stacked?: boolean;
@@ -371,16 +369,28 @@ export interface LogarithmicScale extends ChartScales {
     ticks?: LogarithmicTickOptions;
 }
 
+export interface TimeDisplayFormat {
+    millisecond?: string;
+    second?: string;
+    minute?: string;
+    hour?: string;
+    day?: string;
+    week?: string;
+    month?: string;
+    quarter?: string;
+    year?: string;
+}
+
 export interface TimeScale extends ChartScales {
     format?: string;
-    displayFormats?: string;
+    displayFormats?: TimeDisplayFormat;
     isoWeekday?: boolean;
     max?: string;
     min?: string;
     parser?: string | ((arg: any) => any);
     round?: string;
     tooltipFormat?: string;
-    unit?: string | TimeUnit;
+    unit?: TimeUnit;
     unitStepSize?: number;
 }
 
