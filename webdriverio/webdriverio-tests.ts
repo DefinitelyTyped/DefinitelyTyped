@@ -61,7 +61,7 @@ describe("my webdriverio tests", function(){
     });
 
     after(function(done) {
-        client.end(done);
+        client.end();
     });
 });
 
