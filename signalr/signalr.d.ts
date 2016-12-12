@@ -3,9 +3,35 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, T. Michael Keesey <https://github.com/keesey/>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/**
+ * Usage:
+ *
+ * interface IChatMessage {
+ *    UserName: string;
+ *    Message: string;
+ * }
+ *
+ * interface IContosoChatHub extends SignalR.Hub.Proxy {
+ *    client: {
+ *       addMessageToPage : (message: IChatMessage) => void;
+ *    },
+ *    server: {
+ *       newContosoChatMessage: (message: IChatMessage) => JQueryPromise<void>;
+ *    },
+ *    state: {
+ *       someState: string;
+ *    }
+ * }
+ *
+ * var hub = <IContosoChatHub>$.connection['contosoChatHub'];
+ * var withoutGeneratedProxy = $.hubConnection().createHubProxy<IContosoChatHub>("contosoChatHub");
+ *
+ * hub.state.someState = "hello";
+ * hub.client.addMessageToPage({UserName: "123", Message: "msg"});
+ * hub.server.newContosoChatMessage({ UserName: "123", Message: "msg" }).done(() => console.log("Success"));
+ */
 
 /// <reference path="../jquery/jquery.d.ts" />
-
 
 declare namespace SignalR {
     
@@ -47,8 +73,7 @@ declare namespace SignalR {
 
     namespace Hub {
 
-        interface Proxy {
-            state: any;
+       interface Proxy {
             connection: Connection;
             hubName: string;
             init(connection: Connection, hubName: string): void;
@@ -59,22 +84,63 @@ declare namespace SignalR {
             * @param eventName The name of the hub event to register the callback for.
             * @param callback The callback to be invoked.
             */
-            on(eventName: string, callback: (...msg: any[]) => void): Proxy;
+            on(eventName: string, callback: ClientCallBack): Proxy;
             /**
             * Removes the callback invocation request from the server hub for the given event name.
             *
             * @param eventName The name of the hub event to unregister the callback for.
             * @param callback The callback to be invoked.
             */
-            off(eventName: string, callback: (...msg: any[]) => void): Proxy;
+            off(eventName: string, callback: ClientCallBack): Proxy;
             /**
             * Invokes a server hub method with the given arguments.
             *
             * @param methodName The name of the server hub method.
             */
             invoke(methodName: string, ...args: any[]): JQueryPromise<any>;
+
+            /**
+             * All of the call backs that the server can call
+             */
+            client: ClientCallBacks;
+            /**
+             * All of the functions defined on the hub serverside
+             */
+            server: ServerCalls;
+            /**
+             * All of the functions defined on the hub serverside
+             */
+            state: States;
+       }
+
+       interface States {
+           /**
+            * Set a specific state variable that is transferred to the server when calling functions
+            * @param statename Name of the state
+            */
+           [statename: string]: string;
+       }
+
+       interface Hubs {
+           /**
+            * Get a specific hub
+            * @param hubname Name of the serverside defined class that inherit from Hub
+            */
+           [hubname: string]: Proxy;
         }
 
+        type ClientCallBack = (...param: any[]) => void;
+
+        interface ClientCallBacks {
+           [clientFunction: string]: ClientCallBack;
+        }
+
+        type ServerCall<T> = (...param: any[]) => JQueryPromise<T>;
+
+        interface ServerCalls {
+           [serverFunctionName: string]: ServerCall<any>;
+        }
+       
         interface Options {
             qs?: string;
             logging?: boolean;
@@ -97,6 +163,7 @@ declare namespace SignalR {
             *
             * @param hubName The name of the hub on the server to create the proxy for.
             */
+            createHubProxy<T extends Proxy>(hubName: string): T;
             createHubProxy(hubName: string): Proxy;
         }
 
@@ -359,7 +426,7 @@ interface SignalR {
 }
 
 interface JQueryStatic {
-    signalR: SignalR;
-    connection: SignalR;
+    signalR: SignalR & SignalR.Hub.Hubs;
+    connection: SignalR & SignalR.Hub.Hubs;
     hubConnection: SignalR.Hub.HubCreator;
 }

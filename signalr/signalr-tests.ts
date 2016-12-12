@@ -1,5 +1,29 @@
 /// <reference path="signalr.d.ts" />
 
+interface IChatMessage {
+   UserName: string;
+   Message: string;
+}
+
+interface IContosoChatHub extends SignalR.Hub.Proxy {
+   client: {
+      addMessageToPage : (message: IChatMessage) => void;
+   },
+   server: {
+      newContosoChatMessage: (message: IChatMessage) => JQueryPromise<void>;
+   },
+   state: {
+      someState: string;
+   }
+}
+
+var typedHub = <IContosoChatHub>$.connection['contosoChatHub'];
+var withoutGeneratedProxy = $.hubConnection().createHubProxy<IContosoChatHub>("contosoChatHub");
+
+typedHub.state.someState = "hello";
+typedHub.client.addMessageToPage({ UserName: "123", Message: "msg" });
+typedHub.server.newContosoChatMessage({ UserName: "123", Message: "msg" }).done(() => console.log("Success"));
+
 var connection = $.hubConnection();
 var contosoChatHubProxy = connection.createHubProxy('contosoChatHub');
 contosoChatHubProxy.on('addContosoChatMessageToPage', function (name, message) {
