@@ -64,7 +64,7 @@ export interface ClientOpts {
     prefix?: string;
     rename_commands?: any;
     retry_max_delay?: number;
-        retry_strategy?: RetryStrategy;
+    retry_strategy?: RetryStrategy;
     retry_unfulfilled_commands?: boolean;
     return_buffers?: boolean;
     socket_keepalive?: boolean;
