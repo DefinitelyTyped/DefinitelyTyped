@@ -50,7 +50,8 @@ declare namespace angular {
     // see http://docs.angularjs.org/api
     ///////////////////////////////////////////////////////////////////////////
     interface IAngularStatic {
-        bind(context: any, fn: Function, ...args: any[]): Function;
+        /*bind(context: any, fn: Function, ...args: any[]): Function;*/
+        bind<T>(context: any, fn: T, ...args: any[]): T;
 
         /**
          * Use this function to manually start up angular application.
