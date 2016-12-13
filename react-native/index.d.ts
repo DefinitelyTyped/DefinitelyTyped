@@ -741,10 +741,57 @@ declare module "react" {
         timestamp: number
     }
 
+    interface PerpectiveTransform {
+        perspective: number;
+    }
+
+    interface RotateTransform {
+        rotate: string;
+    }
+
+    interface RotateXTransform {
+        rotateX: string;
+    }
+
+    interface RotateYTransform {
+        rotateY: string;
+    }
+
+    interface RotateZTransform {
+        rotateZ: string;
+    }
+
+    interface ScaleTransform {
+        scale: number;
+    }
+
+    interface ScaleXTransform {
+        scaleX: number;
+    }
+
+    interface ScaleYTransform {
+        scaleY: number;
+    }
+
+    interface TranslateXTransform {
+        translateX: number;
+    }
+
+    interface TranslateYTransform {
+        translateY: number;
+    }
+
+    interface SkewXTransform {
+        skewX: string;
+    }
+
+    interface SkewYTransform {
+        skewY: string;
+    }
 
     export interface TransformsStyle {
 
-        transform?: [{ perspective: number }, { rotate: string }, { rotateX: string }, { rotateY: string }, { rotateZ: string }, { scale: number }, { scaleX: number }, { scaleY: number }, { translateX: number }, { translateY: number }, { skewX: string }, { skewY: string }]
+        transform?: (PerpectiveTransform|RotateTransform|RotateXTransform|RotateYTransform|RotateZTransform|ScaleTransform|ScaleXTransform|ScaleYTransform|TranslateXTransform|TranslateYTransform|SkewXTransform|SkewYTransform)[]
         transformMatrix?: Array<number>
         rotation?: number
         scaleX?: number
