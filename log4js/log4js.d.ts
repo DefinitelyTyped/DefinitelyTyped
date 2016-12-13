@@ -3,10 +3,7 @@
 // Definitions by: Kentaro Okuno <http://github.com/armorik83>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
-
 declare module "log4js" {
-  import express = require('express');
 
   /**
    * Replaces the console
@@ -97,11 +94,11 @@ declare module "log4js" {
    * Create logger for connect middleware.
    *
    *
-   * @returns {express.Handler} Instance of middleware.
+   * @returns {any} Instance of middleware.
    * @static
    */
-  export function connectLogger(logger: Logger, options: { format?: string; level?: string; nolog?: any; }): express.Handler;
-  export function connectLogger(logger: Logger, options: { format?: string; level?: Level; nolog?: any; }): express.Handler;
+  export function connectLogger(logger: Logger, options: { format?: string; level?: string; nolog?: any; }): any;
+  export function connectLogger(logger: Logger, options: { format?: string; level?: Level; nolog?: any; }): any;
 
   export var layouts: {
     basicLayout: Layout,
