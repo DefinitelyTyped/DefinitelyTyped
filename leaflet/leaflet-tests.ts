@@ -326,3 +326,9 @@ map = map
 	.remove()
 	.whenReady(() => {})
 	.whenReady(() => {}, {});
+
+let elementToDrag = document.createElement('div');
+let draggable = new L.Draggable(elementToDrag);
+draggable.enable();
+draggable.disable();
+draggable.on('drag', () => {});
