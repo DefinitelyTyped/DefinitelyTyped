@@ -3,7 +3,6 @@
 // Definitions by: Sven Reglitzki <https://github.com/svi3c/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="sandboxed-module.d.ts" />
 
 import SandboxedModule = require("sandboxed-module");
 

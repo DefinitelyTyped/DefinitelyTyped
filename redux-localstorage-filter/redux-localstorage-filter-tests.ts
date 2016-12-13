@@ -1,11 +1,3 @@
-// Redux Localstorage Filter Test
-// ================================================================================
-/// <reference path="./redux-localstorage-filter.d.ts" />
-/// <reference path="../redux-localstorage/redux-localstorage.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
-
-// Imports
-// --------------------------------------------------------------------------------
 import { compose } from "redux"
 import {
     default as persistState

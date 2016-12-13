@@ -1,6 +1,3 @@
-/// <reference path="../hapi/hapi.d.ts" />
-/// <reference path="hapi-decorators.d.ts" />
-
 import * as hapi from 'hapi';
 import { controller, get, post, put, cache, config, route, validate, Controller } from 'hapi-decorators';
 

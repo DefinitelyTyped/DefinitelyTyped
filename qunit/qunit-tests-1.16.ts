@@ -1,5 +1,3 @@
-/// <reference path="qunit-1.16.d.ts" />
-
 QUnit.test("assert.async() test", function (assert) {
     var done = assert.async();
     var input = [];
@@ -1637,7 +1635,6 @@ function testAfterDone() {
         }
     });
 }
-
 // Example QUnit.extend call taken from: http://api.qunitjs.com/QUnit.extend/
 QUnit.test( "QUnit.extend", function( assert ) {
   var base = {

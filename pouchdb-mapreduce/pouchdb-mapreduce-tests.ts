@@ -1,5 +1,3 @@
-/// <reference path="../pouchdb-mapreduce/pouchdb-mapreduce.d.ts" />
-
 namespace PouchDBBrowserTests {
     function testConstructor() {
         type MyModel = { numericProperty: number };

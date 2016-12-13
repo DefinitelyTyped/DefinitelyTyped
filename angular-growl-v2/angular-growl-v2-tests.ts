@@ -1,4 +1,4 @@
-/// <reference path="angular-growl-v2.d.ts" />
+
 
 var app = angular.module("ag", ["pascalprecht.translate", "$httpProvider"]);
 

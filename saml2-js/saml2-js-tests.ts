@@ -1,6 +1,5 @@
-/// <reference path="saml2-js.d.ts" />
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../express/express.d.ts" />
+/// <reference types="node" />
+/// <reference types="express" />
 
 import * as fs from 'fs';
 import * as express from 'express';

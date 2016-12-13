@@ -1,4 +1,4 @@
-/// <reference path="leaflet.d.ts" />
+
 
 import L = require('leaflet');
 
@@ -40,7 +40,7 @@ let mapOptions: L.MapOptions = {};
 mapOptions = {
 	preferCanvas: true,
 	attributionControl: false,
-	zoomControl: true,
+    zoomControl: true,
 	closePopupOnClick: false,
 	zoomSnap: 1,
 	zoomDelta: 1,
@@ -51,11 +51,11 @@ mapOptions = {
 	zoom: 12,
 	minZoom: 10,
 	maxZoom: 14,
-	fadeAnimation: true,
+    fadeAnimation: true,
 	markerZoomAnimation: false,
 	transform3DLimit: 123,
 	zoomAnimation: false,
-	zoomAnimationThreshold: 4,
+    zoomAnimationThreshold: 4,
 	inertia: false,
 	inertiaDeceleration: 2000,
 	inertiaMaxSpeed: 1000,

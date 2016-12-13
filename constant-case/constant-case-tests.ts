@@ -1,4 +1,3 @@
-/// <reference path="constant-case.d.ts" />
 
 import constantCase = require('constant-case');
 

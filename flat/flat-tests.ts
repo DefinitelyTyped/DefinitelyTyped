@@ -1,4 +1,4 @@
-/// <reference path="./flat.d.ts" />
+
 
 import {flatten, unflatten} from "flat";
 

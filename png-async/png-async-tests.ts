@@ -1,4 +1,3 @@
-/// <reference path="png-async.d.ts" />
 
 import fs = require('fs');
 import png = require('png-async');

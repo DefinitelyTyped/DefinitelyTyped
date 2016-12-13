@@ -1,4 +1,4 @@
-﻿// DefinitelyTyped: partial
+// DefinitelyTyped: partial
 
 // This file contains common part of defintions for rx.d.ts and rx.lite.d.ts
 // Do not include the file separately.

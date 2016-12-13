@@ -1,5 +1,4 @@
-﻿/// <reference path="localforage-cordovasqlitedriver.d.ts" />
-
+﻿
 declare var cordovaSQLiteDriver: LocalForageDriver;
 
 () => {

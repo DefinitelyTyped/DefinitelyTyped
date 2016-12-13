@@ -1,4 +1,4 @@
-/// <reference path="./bezier-js.d.ts" />
+/// <reference types="bezier-js" />
 
 function test() {
 

@@ -1,5 +1,3 @@
-/// <reference path='fill-pdf.d.ts' />
-
 import * as fillPdf from 'fill-pdf';
 
 var formData: fillPdf.FormData = { FieldName: 'Text to put into form field' };

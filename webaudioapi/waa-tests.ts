@@ -1,6 +1,6 @@
 // http://www.w3.org/TR/2012/WD-webaudio-20121213/
 
-/// <reference path="waa.d.ts" />
+
 
 declare var dogBarkingBuffer: any;
 

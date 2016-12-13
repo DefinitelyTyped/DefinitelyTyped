@@ -1,4 +1,4 @@
-/// <reference path="angular-ui-scroll.d.ts" />
+
 var myApp = angular.module('application', ['ui.scroll', 'ui.scroll.jqlite']);
 
 namespace application {

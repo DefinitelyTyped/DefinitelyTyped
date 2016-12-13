@@ -1,4 +1,4 @@
-/// <reference path="js-data-1.5.4.d.ts" />
+
 
 interface IUser {
     id?: number;

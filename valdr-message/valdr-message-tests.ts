@@ -1,6 +1,4 @@
-﻿/// <reference path="valdr-message.d.ts" />
-
-function ValdrMessageTests() {
+﻿function ValdrMessageTests() {
     var valdrMessage: valdr.message.ValdrMessage;
 
     valdrMessage.templateUrl = 'valdrMesssageTemplate.html';

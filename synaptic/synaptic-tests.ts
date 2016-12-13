@@ -1,5 +1,3 @@
-/// <reference path="synaptic.d.ts" />
-
 // Neurons
 // =======
 namespace NeuronTests {

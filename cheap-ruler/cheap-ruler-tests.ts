@@ -1,5 +1,3 @@
-/// <reference path="cheap-ruler.d.ts"/>
-
 import * as cheapRuler from 'cheap-ruler'
 
 // -- Fixtures --

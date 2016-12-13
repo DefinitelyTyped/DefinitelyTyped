@@ -1,5 +1,3 @@
-/// <reference path="scriptjs.d.ts" />
-
 import * as $script from 'scriptjs';
 
 const callback = (): void => console.log('done');

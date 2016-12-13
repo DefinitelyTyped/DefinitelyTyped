@@ -1,4 +1,4 @@
-/// <reference path="nouislider.d.ts" />
+import noUiSlider = require("nouislider");
 
 var testHtmlElement = document.getElementById('test');
 
@@ -42,7 +42,7 @@ noUiSlider.create(testHtmlElement, {
 
 /**
  * Start
- */ 
+ */
 noUiSlider.create(testHtmlElement, {
     start: [20, 80],
     range: {
@@ -87,7 +87,7 @@ noUiSlider.create(testHtmlElement, {
 
 /**
  * Stepping and snapping to values
- */ 
+ */
 noUiSlider.create(testHtmlElement, {
     start: [ 4000 ],
     step: 1000,
@@ -99,7 +99,7 @@ noUiSlider.create(testHtmlElement, {
 
 /**
  * Non-linear sliders
- */ 
+ */
 noUiSlider.create(testHtmlElement, {
     start: [ 4000 ],
     range: {
@@ -112,7 +112,7 @@ noUiSlider.create(testHtmlElement, {
 
 /**
  * Stepping in non-linear sliders
- */ 
+ */
 noUiSlider.create(testHtmlElement, {
     start: [ 500, 4000 ],
     range: {
@@ -125,7 +125,7 @@ noUiSlider.create(testHtmlElement, {
 
 /**
  * Snapping between steps
- */ 
+ */
 noUiSlider.create(testHtmlElement, {
     start: [ 0, 500 ],
     snap: true,
@@ -143,7 +143,7 @@ noUiSlider.create(testHtmlElement, {
 
 /**
  * Connect
- */ 
+ */
 noUiSlider.create(testHtmlElement, {
     start: 40,
     connect: [true, false],
@@ -408,7 +408,7 @@ noUiSlider.create(testHtmlElement, {
 
 /**
  * Pipes: Positions
- */ 
+ */
 noUiSlider.create(testHtmlElement, {
     range: range_all_sliders,
     start: 0,

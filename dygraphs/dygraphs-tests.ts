@@ -1,7 +1,5 @@
 // These tests are copied more or less directly from http://dygraphs.com/tests/ 
 
-/// <reference path="dygraphs.d.ts" />
-
 function demo() {
     const g14 = new Dygraph(
         document.getElementById("div_g14"),
