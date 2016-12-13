@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts" />
-
 emojione.sprites = true;
 emojione.imagePathPNG = 'foobar';
 emojione.imagePathSVG = 'foobar';
