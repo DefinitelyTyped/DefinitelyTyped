@@ -6,10 +6,13 @@
 
 /// <reference path="../react/react.d.ts" />
 /// <reference path="../redux/redux.d.ts" />
+/// <reference path="../react-redux/react-redux.d.ts" />
 
 declare module 'redux-form' {
   import { Component, SyntheticEvent, FormEventHandler } from 'react';
   import { Dispatch, ActionCreator, Reducer } from 'redux';
+  import { MergeProps, Options } from 'react-redux';
+
 
   export const actionTypes: {[actionName:string]: string};
 
@@ -294,9 +297,13 @@ declare module 'redux-form' {
     [name: string]: ActionCreator<any>;
   }
 
-  export function reduxForm(config:ReduxFormConfig,
-                            mapStateToProps?:MapStateToProps,
-                            mapDispatchToProps?:MapDispatchToPropsFunction|MapDispatchToPropsObject):ClassDecorator;
+  export function reduxForm<TStateProps, TDispatchProps, TOwnProps>(
+    config:ReduxFormConfig,
+    mapStateToProps?:MapStateToProps,
+    mapDispatchToProps?:MapDispatchToPropsFunction|MapDispatchToPropsObject,
+    mergeProps?:MergeProps<TStateProps, TDispatchProps, TOwnProps>,
+    options?:Options
+  ):ClassDecorator;
 
   export interface ReduxFormConfig {
     /**
