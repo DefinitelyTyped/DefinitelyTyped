@@ -137,6 +137,8 @@ interface String {
 }
 
 declare module 'colors/safe' {
+    export var enabled: boolean;
+
     export function strip(str: string): string;
     export function stripColors(str: string): string;
 
