@@ -15,7 +15,7 @@ declare namespace ReactRedux {
   type ActionCreator<A> = Redux.ActionCreator<A>;
 
   interface ComponentDecorator<TOriginalProps, TOwnProps> {
-    (component: ComponentClass<TOriginalProps>|StatelessComponent<TOriginalProps>): ComponentClass<TOwnProps>;
+    (component: ComponentClass<TOriginalProps>|StatelessComponent<TOriginalProps>): ComponentClass<TOwnProps> & void;
   }
 
   /**
@@ -88,7 +88,7 @@ declare namespace ReactRedux {
      */
     pure?: boolean;
     /**
-    * If true, stores a ref to the wrapped component instance and makes it available via 
+    * If true, stores a ref to the wrapped component instance and makes it available via
     * getWrappedInstance() method. Defaults to false.
     */
     withRef?: boolean;

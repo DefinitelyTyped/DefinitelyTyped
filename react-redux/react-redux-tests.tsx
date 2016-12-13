@@ -52,10 +52,8 @@ connect(
     mapDispatchToProps
 )(Counter);
 
-
 @connect(mapStateToProps)
 class CounterContainer extends Component<any, any> {
-
 }
 
 // Ensure connect's first two arguments can be replaced by wrapper functions
@@ -87,6 +85,20 @@ connect<ICounterStateProps, ICounterDispatchProps, {}>(
     { pure: true }
 )(Counter);
 
+interface AnotherCounterProps {
+    mustHaveValue: number;
+}
+
+@connect<ICounterStateProps, ICounterDispatchProps, AnotherCounterProps>(mapStateToProps, mapDispatchToProps)
+class AnotherCounter extends React.Component<ICounterStateProps & ICounterDispatchProps, any> {
+    doSomething(): void {
+    }
+}
+
+let AnotherCounterContainer: React.ComponentClass<AnotherCounterProps> = connect<ICounterStateProps, ICounterDispatchProps, AnotherCounterProps>(mapStateToProps, mapDispatchToProps)(AnotherCounter);
+let anotherCounterContainerInstance = new AnotherCounterContainer();
+anotherCounterContainerInstance.props.mustHaveValue = 1;
+anotherCounterContainerInstance.render();
 
 class App extends Component<any, any> {
     render(): JSX.Element {
