@@ -1871,7 +1871,7 @@ declare namespace  __React {
          * Specifies the side of the screen from which the drawer will slide in.
          * enum(DrawerConsts.DrawerPosition.Left, DrawerConsts.DrawerPosition.Right)
          */
-        drawerPosition?: any;
+        drawerPosition?: number;
 
         /**
          * Specifies the width of the drawer, more precisely the width of the

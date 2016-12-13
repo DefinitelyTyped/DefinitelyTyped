@@ -266,7 +266,7 @@ schema.plugin(function (schema, opts) {
 schema.get('path');
   opts.hasOwnProperty('');
 }).plugin(cb, {opts: true});
-import { Schema, Model, Document, NativeError } from 'mongoose';
+
 schema
 .post('save', function (error, doc, next) {
   error.stack;
