@@ -499,6 +499,25 @@ declare namespace protractor {
          * @return {!until.Condition.<boolean>} The new condition.
          */
         function titleMatches(regex: RegExp): webdriver.until.Condition<boolean>;
+        
+        /**
+         * Creates a condition that will wait for the current page's URL to contain
+         * the given substring.
+         *
+         * @param {string} substr The substring that should be present in the page
+         *     URL.
+         * @return {!until.Condition.<boolean>} The new condition.
+         */
+        function urlContains(substr: string): webdriver.until.Condition<boolean>;
+
+        /**
+         * Creates a condition that will wait for the current page's URL to match the
+         * given value.
+         *
+         * @param {string} url The expected page URL.
+         * @return {!until.Condition.<boolean>} The new condition.
+         */
+        function urlIs(url: string): webdriver.until.Condition<boolean>;
     }
 
     namespace ExpectedConditions {
