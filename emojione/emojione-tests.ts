@@ -1,4 +1,4 @@
-/// <reference path="emojione.d.ts" />
+/// <reference path="index.d.ts" />
 
 emojione.sprites = true;
 emojione.imagePathPNG = 'foobar';
