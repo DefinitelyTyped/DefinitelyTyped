@@ -1,4 +1,4 @@
-// Type definitions for stripe
+// Type definitions for stripe 0.0
 // Project: https://stripe.com/
 // Definitions by: Andy Hawkins <https://github.com/a904guy/,http://a904guy.com>, Eric J. Smith <https://github.com/ejsmith/>, Amrit Kahlon <https://github.com/amritk/>, Adam Cmiel <https://github.com/adamcmiel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -155,3 +155,7 @@ interface StripeApplePayPaymentContact {
     postalCode: string;
     countryCode: string;
 }
+
+// The Stripe client side APIs are not made available to package managers for direct installation.
+// As explained compliance reasons. Source: https://github.com/stripe/stripe-node/blob/master/README.md#these-are-serverside-bindings-only
+// A release date versioning schema is used to version these APIs.
