@@ -17,6 +17,9 @@ declare module 'redux-form' {
 
   export type FormData = {[fieldName:string]: FieldValue};
 
+  export const propTypes: { [key: string]: any };
+  export const defaultProps: { [key: string]: any };
+
   export interface FieldProp {
     /**
      * true if this field currently has focus. It will only work if you are
