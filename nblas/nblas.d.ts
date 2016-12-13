@@ -26,18 +26,18 @@ declare enum SIDE {
     Right = 142
 }
 
-export const NoTrans: TRANS.NoTrans;
-export const Trans: TRANS.Trans;
-export const ConjTrans: TRANS.ConjTrans;
+export const NoTrans: TRANS;
+export const Trans: TRANS;
+export const ConjTrans: TRANS;
 
-export const Upper: UPLO.Upper;
-export const Lower: UPLO.Lower;
+export const Upper: UPLO;
+export const Lower: UPLO;
 
-export const NonUnit: DIAG.NonUnit;
-export const Unit: DIAG.Unit;
+export const NonUnit: DIAG;
+export const Unit: DIAG;
 
-export const Left: SIDE.Left;
-export const Right: SIDE.Right;
+export const Left: SIDE;
+export const Right: SIDE;
 
 // BLAS Level 1 Routines and Functions
 export function asum (x: Float32Array|Float64Array): number;
