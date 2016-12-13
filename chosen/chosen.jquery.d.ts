@@ -96,3 +96,7 @@ interface JQuery {
 
     trigger(eventType: Chosen.TriggerEvent): JQuery;
 }
+
+declare module 'chosen-js' {
+  namespace Chosen {}
+}
