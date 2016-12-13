@@ -1,4 +1,4 @@
-// Type definitions for Solution Center Communicator 2.2.0
+// Type definitions for Solution Center Communicator 2.3.0
 // Project: https://github.com/zalando-incubator/solution-center-communicator
 // Definitions by: Damián García <https://github.com/dami-gg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -50,6 +50,11 @@ declare namespace ScCommunicator {
      * URL where to reach the module service API
      */
     MODULE_SERVICE?: string;
+
+    /**
+     * URL where to reach the new user service API
+     */
+    USER_SERVICE_NEW?: string;
   }
 
   interface Environments {

@@ -1,4 +1,4 @@
-﻿// Type definitions for sendgrid v2.0.0
+// Type definitions for sendgrid v2.0.0
 // Project: https://github.com/sendgrid/sendgrid-nodejs
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -52,7 +52,8 @@ declare namespace Sendgrid {
         subject?: string;
         text?: string;
         html?: string;
-        bcc?: any;
+        cc?: string[];
+        bcc?: string[];
         replyto?: string;
         date?: Date;
         headers?: { [key: string]: string };
@@ -68,7 +69,8 @@ declare namespace Sendgrid {
         subject: string;
         text: string;
         html: string;
-        bcc: any;
+        cc: string[];
+        bcc: string[];
         replyto: string;
         date: Date;
         headers: { [key: string]: string };

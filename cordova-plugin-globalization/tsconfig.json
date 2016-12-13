@@ -4,7 +4,8 @@
         "target": "es6",
         "noImplicitAny": false,
         "strictNullChecks": false,
-        "noEmit": true
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

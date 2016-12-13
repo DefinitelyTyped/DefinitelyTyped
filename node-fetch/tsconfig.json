@@ -10,7 +10,8 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "lib": ["es5", "es6"]
     },
     "files": [
         "index.d.ts",

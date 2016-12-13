@@ -58,7 +58,15 @@ export interface ILegendwidget {
   export var events: IEvents;
 
   export interface IListener<T> {
-    on: (eventName: string, fnctn: (c:T) => void) => T;
+    on: {
+      (event: "preRender", fnctn: (c: T) => any): T;
+      (event: "postRender", fnctn: (c: T) => any): T;
+      (event: "preRedraw", fnctn: (c: T) => any): T;
+      (event: "postRedraw", fnctn: (c: T) => any): T;
+      (event: "filtered", fnctn: (c: T, filter: any) => any): T;
+      (event: "zoomed", fnctn: (c: T, filter: any) => any): T;
+      (event: string, fnctn: (c: T, ...args: any[]) => any): T;
+    };
   }
 
   export interface ImarginObj {

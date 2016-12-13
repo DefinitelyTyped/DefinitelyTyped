@@ -3,9 +3,6 @@
 // Definitions by: Christophe Vidal <https://github.com/krizalys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../passport/index.d.ts"/>
-/// <reference path="../express/index.d.ts"/>
-
 import passport = require("passport");
 import express = require("express");
 

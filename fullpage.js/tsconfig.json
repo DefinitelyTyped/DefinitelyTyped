@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "fullpage.js.d.ts",
+        "index.d.ts",
         "fullpage.js-tests.ts"
     ]
 }

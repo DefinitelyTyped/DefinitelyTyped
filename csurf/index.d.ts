@@ -12,7 +12,7 @@ declare namespace Express {
 }
 
 declare module "csurf" {
-  import express = require('express');
+  import express = require('express-serve-static-core');
 
   function csurf(options?: {
     value?: (req: express.Request) => string;

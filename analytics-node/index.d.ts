@@ -3,7 +3,7 @@
 // Definitions by: Andrew Fong <https://github.com/fongandrew>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = AnalyticsNode;
+export = AnalyticsNode.Analytics;
 
 declare namespace AnalyticsNode {
 

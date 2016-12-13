@@ -15,7 +15,7 @@
         "jsx": "react"
     },
     "files": [
-        "react-big-calendar.d.ts",
+        "index.d.ts",
         "react-big-calendar-tests.tsx"
     ]
 }

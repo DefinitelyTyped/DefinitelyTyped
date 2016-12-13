@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "rx-node.d.ts",
+        "index.d.ts",
         "rx-node-tests.ts"
     ]
 }

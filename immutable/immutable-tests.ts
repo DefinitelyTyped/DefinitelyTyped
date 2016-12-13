@@ -46,7 +46,10 @@ list = list.asImmutable();
 let indexedSeq: immutable.Seq.Indexed<number> = list.toSeq();
 
 // Iterable tests
-let value: number = list.get(0);
+let optionalValue: number | undefined;
+let value: number;
+
+optionalValue = list.get(0);
 value = list.get(0, 1);
 list = list.interpose(0);
 list = list.interleave(list, list1);
@@ -77,8 +80,8 @@ value = list.hashCode();
 bool = list.has(1);
 bool = list.includes(1);
 bool = list.contains(1);
-value = list.first();
-value = list.last();
+optionalValue = list.first();
+optionalValue = list.last();
 let toArr: number[] = list.toArray();
 let toMap: immutable.Map<number, number> = list.toMap();
 let toOrderedMap: immutable.OrderedMap<number, number> = list.toOrderedMap();
@@ -177,23 +180,23 @@ tuple = list.findLastEntry(
     null,
     0
 );
-value = list.findKey(
+optionalValue = list.findKey(
     (value: number, key: number, iter: immutable.List<number>) => true,
     null
 );
-value = list.findLastKey(
+optionalValue = list.findLastKey(
     (value: number, key: number, iter: immutable.List<number>) => true,
     null
 );
-value = list.keyOf(0);
-value = list.lastKeyOf(0);
-value = list.max((valA: number, valB: number) => 0);
-value = list.maxBy<string>(
+optionalValue = list.keyOf(0);
+optionalValue = list.lastKeyOf(0);
+optionalValue = list.max((valA: number, valB: number) => 0);
+optionalValue = list.maxBy<string>(
     (value: number, key: number, iter: immutable.List<number>) => "foo",
     (valueA: string, valueB: string) => 0
 );
-value = list.min((valA: number, valB: number) => 0);
-value = list.minBy<string>(
+optionalValue = list.min((valA: number, valB: number) => 0);
+optionalValue = list.minBy<string>(
     (value: number, key: number, iter: immutable.List<number>) => "foo",
     (valueA: string, valueB: string) => 0
 );
@@ -279,7 +282,7 @@ let stack: immutable.Stack<number> = immutable.Stack<number>();
 bool = immutable.Stack.isStack(stack);
 stack = immutable.Stack.of<number>(0, 1, 2, 3, 4, 5);
 stack = immutable.Stack<number>(list);
-value = stack.peek();
+optionalValue = stack.peek();
 stack = stack.clear();
 stack = stack.unshift(0, 1, 2);
 stack = stack.unshiftAll(list);

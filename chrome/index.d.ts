@@ -1,4 +1,4 @@
-﻿// Type definitions for Chrome extension development
+// Type definitions for Chrome extension development
 // Project: http://developer.chrome.com/extensions/
 // Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1617,7 +1617,7 @@ declare namespace chrome.devtools.inspectedWindow {
 		/** Optional. When true, the loader will ignore the cache for all inspected page resources loaded before the load event is fired. The effect is similar to pressing Ctrl+Shift+R in the inspected window or within the Developer Tools window.  */
         ignoreCache?: boolean;
 		/** Optional. If specified, the script will be injected into every frame of the inspected page immediately upon load, before any of the frame's scripts. The script will not be injected after subsequent reloads—for example, if the user presses Ctrl+R.  */
-        injectedScript?: boolean;
+        injectedScript?: string;
 		/**
 		 * Optional.
  		 * If specified, this script evaluates into a function that accepts three string arguments: the source to preprocess, the URL of the source, and a function name if the source is an DOM event handler. The preprocessorerScript function should return a string to be compiled by Chrome in place of the input source. In the case that the source is a DOM event handler, the returned source must compile to a single JS function.

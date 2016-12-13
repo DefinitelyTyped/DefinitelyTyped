@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "notify.js.d.ts",
+        "index.d.ts",
         "notify.js.tests.ts"
     ]
 }

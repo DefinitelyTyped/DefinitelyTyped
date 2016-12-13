@@ -1,4 +1,3 @@
-/// <reference path="daterangepicker.d.ts"/>
 import moment = require("moment")
 
 function tests_simple() {

@@ -1,4 +1,3 @@
-
 import {
 	connect,
 	Document as CamoDocument,
@@ -16,7 +15,7 @@ connect("mongodb://user:password@localhost:27017/database?authSource=admin").the
 		dateCreated?: Date;
 	}
 
-	class User extends CamoDocument {
+	class User extends CamoDocument<UserSchema> {
 		private name: SchemaTypeExtended = String;
 		private password: SchemaTypeExtended = String;
 		private friends: SchemaTypeExtended = [String];

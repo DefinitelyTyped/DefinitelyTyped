@@ -3,8 +3,6 @@
 // Definitions by: berwyn <https://github.com/berwyn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="SlickGrid.d.ts" />
-
 declare namespace Slick {
     export namespace Controls {
         export interface SlickColumnPickerOptions {

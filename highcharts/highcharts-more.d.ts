@@ -3,10 +3,8 @@
 // Definitions by: Maciej Suchecki <http://github.com/mc-suchecki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="highcharts.d.ts" />
+import * as Highcharts from "highcharts";
 
-declare var HighchartsMore: (H: __Highcharts.Static) => __Highcharts.Static;
-
-declare module "highcharts/highcharts-more" {
-    export = HighchartsMore;
-}
+declare var HighchartsMore: (H: Highcharts.Static) => Highcharts.Static;
+export = HighchartsMore;
+export as namespace HighchartsMore;

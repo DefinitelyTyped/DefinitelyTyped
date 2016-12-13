@@ -89,6 +89,7 @@ interface EventEmitter {
 
 interface WritableStream extends EventEmitter {
     writable: boolean;
+    isTTY?: boolean;
     write(str: string, encoding?: string, fd?: string): boolean;
     write(buffer: Buffer): boolean;
     end(): void;
@@ -100,6 +101,7 @@ interface WritableStream extends EventEmitter {
 
 interface ReadableStream extends EventEmitter {
     readable: boolean;
+    isTTY?: boolean;
     setEncoding(encoding: string): void;
     pause(): void;
     resume(): void;

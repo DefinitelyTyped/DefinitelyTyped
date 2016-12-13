@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "df-visible.d.ts",
+        "index.d.ts",
         "df-visible-tests.ts"
     ]
 }

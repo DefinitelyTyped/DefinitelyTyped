@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "multer-s3.d.ts",
+        "index.d.ts",
         "multer-s3-tests.ts"
     ]
 }

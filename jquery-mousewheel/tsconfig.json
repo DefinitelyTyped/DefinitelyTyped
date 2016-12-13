@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "jquery-mousewheel.d.ts",
+        "index.d.ts",
         "jquery-mousewheel-tests.ts"
     ]
 }

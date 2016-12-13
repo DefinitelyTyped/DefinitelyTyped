@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "gulp-angular-templatecache.d.ts",
+        "index.d.ts",
         "gulp-angular-templatecache-tests.ts"
     ]
 }

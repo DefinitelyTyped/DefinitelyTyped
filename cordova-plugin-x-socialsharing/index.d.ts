@@ -1,4 +1,4 @@
-﻿// Type definitions for SocialSharing-PhoneGap-Plugin v5.0.12
+// Type definitions for SocialSharing-PhoneGap-Plugin v5.0.12
 // Project: https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin
 // Definitions by: Markus Wagner <https://github.com/Ritzlgrmft/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

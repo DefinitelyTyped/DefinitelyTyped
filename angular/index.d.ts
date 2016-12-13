@@ -1205,6 +1205,33 @@ declare namespace angular {
 
         debugInfoEnabled(): boolean;
         debugInfoEnabled(enabled: boolean): ICompileProvider;
+    
+        /**
+         * Sets the number of times $onChanges hooks can trigger new changes before giving up and assuming that the model is unstable.
+         * Increasing the TTL could have performance implications, so you should not change it without proper justification.
+         * Default: 10.
+         * See: https://docs.angularjs.org/api/ng/provider/$compileProvider#onChangesTtl
+         */
+        onChangesTtl(): number;
+        onChangesTtl(limit: number): ICompileProvider;
+    
+        /**
+         * It indicates to the compiler whether or not directives on comments should be compiled.
+         * It results in a compilation performance gain since the compiler doesn't have to check comments when looking for directives.
+         * Defaults to true.
+         * See: https://docs.angularjs.org/api/ng/provider/$compileProvider#commentDirectivesEnabled
+         */
+        commentDirectivesEnabled(): boolean;
+        commentDirectivesEnabled(enabled: boolean): ICompileProvider;
+    
+        /**
+         * It indicates to the compiler whether or not directives on element classes should be compiled.
+         * It results in a compilation performance gain since the compiler doesn't have to check element classes when looking for directives.
+         * Defaults to true.
+         * See: https://docs.angularjs.org/api/ng/provider/$compileProvider#cssClassDirectivesEnabled
+         */
+        cssClassDirectivesEnabled(): boolean;
+        cssClassDirectivesEnabled(enabled: boolean): ICompileProvider;
     }
 
     interface ICloneAttachFunction {
@@ -1775,7 +1802,7 @@ declare namespace angular {
     ///////////////////////////////////////////////////////////////////////////
 
     interface IDirectiveFactory {
-        (...args: any[]): IDirective;
+        (...args: any[]): IDirective | IDirectiveLinkFn;
     }
 
     interface IDirectiveLinkFn {
@@ -1783,8 +1810,8 @@ declare namespace angular {
             scope: IScope,
             instanceElement: JQuery,
             instanceAttributes: IAttributes,
-            controller: {},
-            transclude: ITranscludeFunction
+            controller?: IController | IController[] | {[key: string]: IController},
+            transclude?: ITranscludeFunction
         ): void;
     }
 
@@ -1812,7 +1839,6 @@ declare namespace angular {
         controller?: string | Injectable<IControllerConstructor>;
         controllerAs?: string;
         /**
-         * @deprecated
          * Deprecation warning: although bindings for non-ES6 class controllers are currently bound to this before
          * the controller constructor is called, this use is now deprecated. Please place initialization code that
          * relies upon bindings inside a $onInit method on the controller, instead.

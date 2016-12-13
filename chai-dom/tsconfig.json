@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "chai-dom.d.ts",
+        "index.d.ts",
         "chai-dom-tests.ts"
     ]
 }

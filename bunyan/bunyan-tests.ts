@@ -26,6 +26,7 @@ level = bunyan.resolveLevel(bunyan.FATAL);
 
 var options:bunyan.LoggerOptions = {
     name: 'test-logger',
+    serializers: bunyan.stdSerializers,
     streams: [{
         type: 'stream',
         stream: process.stdout,

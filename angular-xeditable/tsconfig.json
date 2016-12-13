@@ -1,6 +1,6 @@
 {
     "files": [
-        "angular-xeditable.d.ts",
+        "index.d.ts",
         "angular-xeditable-tests.ts"
     ],
     "compilerOptions": {
@@ -14,6 +14,6 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": false
+        "forceConsistentCasingInFileNames": true
     }
 }

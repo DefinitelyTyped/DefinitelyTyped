@@ -1,5 +1,3 @@
-
-
 import needle = require("needle");
 
 function Usage() {

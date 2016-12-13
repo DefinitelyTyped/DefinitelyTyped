@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "pouchdb-upsert.d.ts",
+        "index.d.ts",
         "pouchdb-upsert-tests.ts"
     ]
 }

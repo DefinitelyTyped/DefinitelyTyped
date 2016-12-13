@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "webpack-merge.d.ts",
+        "index.d.ts",
         "webpack-merge-tests.ts"
     ]
 }

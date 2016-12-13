@@ -206,6 +206,7 @@ declare namespace ReactBootstrap {
         title?: string;
         useAnchor?: boolean;
         bsClass?:string; // Added since v0.30.0
+        bsStyle?:string;
     }
     class DropdownToggle extends React.Component<DropdownToggleProps, any> { }
 
@@ -428,6 +429,7 @@ declare namespace ReactBootstrap {
         rootClose?: boolean;
         show?: boolean;
         target?: Function;
+        shouldUpdatePosition?: boolean;
     }
     class Overlay extends React.Component<OverlayProps, {}> {
     }
@@ -518,11 +520,35 @@ declare namespace ReactBootstrap {
     type NavbarToggle = React.ClassicComponent<NavbarToggleProps, {}>;
     var NavbarToggle: React.ClassicComponentClass<NavbarToggleProps>;
 
+    // <Navbar.Link />
+    interface NavbarLinkProps {
+        href: string;
+        onClick?: React.MouseEventHandler<{}>;
+    }
+    type NavbarLink = React.ClassicComponent<NavbarLinkProps, {}>;
+    const NavbarLink: React.ClassicComponentClass<NavbarLinkProps>;
+
+    // <Navbar.Text />
+    interface NavbarTextProps {
+        pullRight?: boolean;
+    }
+    type NavbarText = React.ClassicComponent<NavbarTextProps, {}>;
+    const NavbarText: React.ClassicComponentClass<NavbarTextProps>;
+
+    // <Navbar.Form />
+    interface NavbarFormProps extends React.HTMLProps<NavbarForm> {
+        componentClass?: React.ReactType;
+        pullRight?: boolean;
+    }
+    type NavbarForm = React.ClassicComponent<NavbarFormProps, {}>;
+    const NavbarForm: React.ClassicComponentClass<NavbarFormProps>;
+
     // <Navbar />
     interface NavbarProps extends React.HTMLProps<Navbar> {
         brand?: any; // TODO: Add more specific type
         bsSize?: Sizes;
         bsStyle?: string;
+        collapseOnSelect?: boolean;
         componentClass?: React.ReactType;
         defaultNavExpanded?: boolean;
         fixedBottom?: boolean;
@@ -540,6 +566,9 @@ declare namespace ReactBootstrap {
         Collapse: typeof NavbarCollapse;
         Header: typeof NavbarHeader;
         Toggle: typeof NavbarToggle;
+        Link: typeof NavbarLink;
+        Text: typeof NavbarText;
+        Form: typeof NavbarForm;
     }
     type Navbar = React.ClassicComponent<NavbarProps, {}>;
     var Navbar: NavbarClass;
@@ -842,6 +871,7 @@ declare namespace ReactBootstrap {
         hover?: boolean;
         responsive?: boolean;
         striped?: boolean;
+        fill?: boolean;
     }
     type Table = React.ClassicComponent<TableProps, {}>;
     var Table: React.ClassicComponentClass<TableProps>;

@@ -160,7 +160,16 @@ declare namespace DC {
         legend: IGetSet<Legend, T>;
         options(optionsObject: any): T;
         renderlet(fn: (chart: T) => any): T;
-        on(event: string, fn: (chart: T) => any): T;
+
+        on(event: "renderlet", fn: (chart: T, filter: any) => any): T;
+        on(event: "pretransition", fn: (chart: T, filter: any) => any): T;
+        on(event: "preRender", fn: (chart: T) => any): T;
+        on(event: "postRender", fn: (chart: T) => any): T;
+        on(event: "preRedraw", fn: (chart: T) => any): T;
+        on(event: "postRedraw", fn: (chart: T) => any): T;
+        on(event: "filtered", fn: (chart: T, filter: any) => any): T;
+        on(event: "zoomed", fn: (chart: T, filter: any) => any): T;
+        on(event: string, fn: (chart: T, ...args: any[]) => any): T;
     }
 
     export interface Margins {
