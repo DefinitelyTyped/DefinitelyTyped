@@ -1,26 +1,26 @@
-/// <reference path="fs-finder.d.ts" />
+
 
 import finder = require('fs-finder');
 
 
 // static
-var a: FsFinder.Finder = finder.in('./*');
+var a = finder.in('./*');
 
-var b: FsFinder.Finder = finder.from('./*');
+var b = finder.from('./*');
 
-var c: FsFinder.Finder = finder.find('./*');
+var c = finder.find('./*');
 finder.find('./*', (paths: string[]) => {});
 
-var d: FsFinder.Finder = finder.findFiles('./*');
+var d = finder.findFiles('./*');
 finder.findFiles('./*', (paths: string[]) => {});
 
-var e: FsFinder.Finder = finder.findDirectories('./*');
+var e = finder.findDirectories('./*');
 finder.findDirectories('./*', (paths: string[]) => {});
 
-var f: FsFinder.Finder = finder.findFile('./*');
+var f = finder.findFile('./*');
 finder.findFile('./*', (paths: string[]) => {});
 
-var g: FsFinder.Finder = finder.findDirectory('./*');
+var g = finder.findDirectory('./*');
 finder.findDirectory('./*', (paths: string[]) => {});
 
 

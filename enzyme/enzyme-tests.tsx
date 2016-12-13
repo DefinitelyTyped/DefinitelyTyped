@@ -1,11 +1,7 @@
-/// <reference path="enzyme.d.ts" />
-/// <reference path="../react/react.d.ts"/>
-
 import { shallow, mount, render, describeWithDOM, spyLifecycle } from "enzyme";
 import * as React from "react";
 import {Component, ReactElement, HTMLAttributes} from "react";
 import {ShallowWrapper, ReactWrapper, CheerioWrapper} from "enzyme";
-
 
 // Help classes/interfaces
 interface MyComponentProps {
@@ -42,7 +38,8 @@ namespace ShallowWrapperTest {
         objectVal: Object,
         boolVal: Boolean,
         stringVal: String,
-        elementWrapper: ShallowWrapper<HTMLAttributes, {}>
+        numOrStringVal: number | string,
+        elementWrapper: ShallowWrapper<HTMLAttributes<{}>, {}>
 
     function test_shallow_options() {
         shallow(<MyComponent propsProperty={1}/>, {
@@ -310,6 +307,10 @@ namespace ShallowWrapperTest {
     function test_isEmptyRender() {
         boolVal = shallowWrapper.isEmptyRender();
     }
+
+    function test_svg() {
+        numOrStringVal = shallowWrapper.find('svg').props().strokeWidth;
+    }
 }
 
 
@@ -322,7 +323,7 @@ namespace ReactWrapperTest {
         objectVal: Object,
         boolVal: Boolean,
         stringVal: String,
-        elementWrapper: ReactWrapper<HTMLAttributes, {}>
+        elementWrapper: ReactWrapper<HTMLAttributes<{}>, {}>
 
     function test_unmount() {
         reactWrapper = reactWrapper.unmount();
@@ -596,7 +597,7 @@ namespace CheerioWrapperTest {
         objectVal: Object,
         boolVal: Boolean,
         stringVal: String,
-        elementWrapper: CheerioWrapper<HTMLAttributes, {}>
+        elementWrapper: CheerioWrapper<HTMLAttributes<{}>, {}>
 
     function test_find() {
         elementWrapper = cheerioWrapper.find('.selector');

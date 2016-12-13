@@ -1,7 +1,3 @@
-/// <reference path="../react/react.d.ts"/>
-/// <reference path="../react-native/react-native.d.ts"/>
-/// <reference path="react-native-sortable-list.d.ts" />
-
 import * as React from 'react';
 import {
     Animated,
@@ -16,7 +12,6 @@ import {
     FlexAlignType
 } from 'react-native';
 import SortableList, {RowProps} from 'react-native-sortable-list';
-
 
 const window = Dimensions.get('window');
 

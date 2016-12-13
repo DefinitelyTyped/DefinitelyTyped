@@ -1,5 +1,5 @@
-/// <reference path="nouislider-7.0.10.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
+
+/// <reference types="jquery" />
 
 //basic
 var basicSlider = $("<div/>").noUiSlider({

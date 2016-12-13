@@ -1,6 +1,4 @@
-/// <reference path="../../stats/stats.d.ts" />
-/// <reference path="../physijs.d.ts" />
-/// <reference path="../../threejs/three-projector.d.ts" />
+/// <reference types="stats.js" />
 
 Physijs.scripts.worker = '../physijs_worker.js';
 Physijs.scripts.ammo = 'examples/js/ammo.js';
@@ -14,20 +12,20 @@ initScene = function() {
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize( window.innerWidth, window.innerHeight );
     renderer.shadowMapEnabled = true;
-    renderer.shadowMapSoft = true;
+    // // renderer.shadowMapSoft = true;
     document.getElementById( 'viewport' ).appendChild( renderer.domElement );
 
     render_stats = new Stats();
-    render_stats.domElement.style.position = 'absolute';
-    render_stats.domElement.style.top = '1px';
-    render_stats.domElement.style.zIndex = 100;
-    document.getElementById( 'viewport' ).appendChild( render_stats.domElement );
+    render_stats.dom.style.position = 'absolute';
+    render_stats.dom.style.top = '1px';
+    render_stats.dom.style.zIndex = '100';
+    document.getElementById( 'viewport' ).appendChild( render_stats.dom );
 
     physics_stats = new Stats();
-    physics_stats.domElement.style.position = 'absolute';
-    physics_stats.domElement.style.top = '50px';
-    physics_stats.domElement.style.zIndex = 100;
-    document.getElementById( 'viewport' ).appendChild( physics_stats.domElement );
+    physics_stats.dom.style.position = 'absolute';
+    physics_stats.dom.style.top = '50px';
+    physics_stats.dom.style.zIndex = '100';
+    document.getElementById( 'viewport' ).appendChild( physics_stats.dom );
 
     scene = new Physijs.Scene({ fixedTimeStep: 1 / 120 });
     scene.setGravity(new THREE.Vector3( 0, -30, 0 ));
@@ -80,7 +78,7 @@ initScene = function() {
     dir_light.shadowCameraFar = 200;
     dir_light.shadowBias = -.001
     dir_light.shadowMapWidth = dir_light.shadowMapHeight = 2048;
-    dir_light.shadowDarkness = .5;
+    // dir_light.shadowDarkness = .5;
     scene.add( dir_light );
 
     // Materials
@@ -89,16 +87,16 @@ initScene = function() {
         .9, // high friction
         .2 // low restitution
     );
-    table_material.map.wrapS = table_material.map.wrapT = THREE.RepeatWrapping;
-    table_material.map.repeat.set( 5, 5 );
+    // table_material.map.wrapS = table_material.map.wrapT = THREE.RepeatWrapping;
+    // table_material.map.repeat.set( 5, 5 );
 
     block_material = Physijs.createMaterial(
         new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture( 'images/plywood.jpg' ) }),
         .4, // medium friction
         .4 // medium restitution
     );
-    block_material.map.wrapS = block_material.map.wrapT = THREE.RepeatWrapping;
-    block_material.map.repeat.set( 1, .5 );
+    // block_material.map.wrapS = block_material.map.wrapT = THREE.RepeatWrapping;
+    // block_material.map.repeat.set( 1, .5 );
 
     // Table
     table = new Physijs.BoxMesh(
@@ -181,10 +179,10 @@ initEventHandling = (function() {
             selected_block = intersections[0].object;
 
             _vector.set( 0, 0, 0 );
-            selected_block.setAngularFactor( _vector );
-            selected_block.setAngularVelocity( _vector );
-            selected_block.setLinearFactor( _vector );
-            selected_block.setLinearVelocity( _vector );
+            // selected_block.setAngularFactor( _vector );
+            // selected_block.setAngularVelocity( _vector );
+            // selected_block.setLinearFactor( _vector );
+            // selected_block.setLinearVelocity( _vector );
 
             mouse_pos.copy( intersections[0].point );
             block_offset.subVectors( selected_block.position, mouse_pos );
@@ -227,9 +225,9 @@ initEventHandling = (function() {
     };
 
     return function() {
-        renderer.domElement.addEventListener( 'mousedown', handleMouseDown );
-        renderer.domElement.addEventListener( 'mousemove', handleMouseMove );
-        renderer.domElement.addEventListener( 'mouseup', handleMouseUp );
+        renderer.dom.addEventListener( 'mousedown', handleMouseDown );
+        renderer.dom.addEventListener( 'mousemove', handleMouseMove );
+        renderer.dom.addEventListener( 'mouseup', handleMouseUp );
     };
 })();
 

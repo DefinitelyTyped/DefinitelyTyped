@@ -1,5 +1,4 @@
-// Test file for db.js Definition file
-/// <reference path="db.js.d.ts" />
+import db = require("db.js");
 
 /* Type for use in tests */
 
@@ -46,7 +45,7 @@ server.add<Person>('people', {
     answer: 42
 }).then(function (item) { });
 
-typedStore.add({ 
+typedStore.add({
     firstName: 'Aaron',
     lastName: 'Powell',
     answer: 42
@@ -113,7 +112,7 @@ server.query<Person>('people', 'specialProperty')
     .all()
     .execute()
     .then(function (results) { });
-    
+
  typedStore.query('specialProperty')
     .all()
     .execute()
@@ -130,7 +129,7 @@ server.query<Person>('people')
     .filter(function(person: any) { return person.group === 'hipster'; })
     .execute()
     .then(function (results) { });
-    
+
 typedStore.query('people')
     .filter(function(person) { return person.group === 'hipster'; })
     .execute()
@@ -144,14 +143,14 @@ server.query<Person>('people', 'firstName')
 server.query<Person>('people', 'answer')
     .bound(30, 50)
     .then(function (results) { });
-    
+
 server.query<Person>('people', 'firstName')
     .range({ eq: 'Aaron' })
     .then(function (results) { });
 
 server.query<Person>('people', 'answer')
     .range({ gte: 30, lte: 50 })
-    .then(function (results) { });    
+    .then(function (results) { });
 
 // Querying for distinct values
  server.query<Person>('people', 'firstName')
@@ -159,7 +158,7 @@ server.query<Person>('people', 'answer')
     .distinct()
     .execute()
     .then(function (data) { });
-    
+
 // Limiting cursor range
 server.query<Person>('people', 'firstName')
     .all()
@@ -199,7 +198,7 @@ server.query<Person>('people', 'firstName')
     .count()
     .execute()
     .then(function (results) { });
-    
+
 // With no arguments (count all items)
 server.count().then(function (ct) { });
 
@@ -230,7 +229,7 @@ server.query('users', 'name')
     .modify({ views: function(profile: any) { return profile.views + 1; } })
     .execute()
     .then(function () { });
-        
+
 /* Other server methods */
 
 // Closing connection

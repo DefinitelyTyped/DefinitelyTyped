@@ -1,5 +1,3 @@
-///<reference path="podcast.d.ts" />
-
 import Podcast = require('podcast');
 
 /* lets create an rss feed */

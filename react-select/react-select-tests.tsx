@@ -1,12 +1,8 @@
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../react/react-dom.d.ts" />
-/// <reference path="./react-select.d.ts" />
-
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import { Option, ReactSelectProps, ReactAsyncSelectProps, ReactCreatableSelectProps, MenuRendererProps } from "react-select-props";
 import Select = require("react-select");
+import { Option, ReactSelectProps, ReactCreatableSelectProps, ReactAsyncSelectProps, MenuRendererProps } from "react-select";
 
 const CustomOption = React.createClass({
     propTypes: {

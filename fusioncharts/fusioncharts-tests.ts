@@ -1,5 +1,3 @@
-/// <reference path="fusioncharts.d.ts" />
-
 FusionCharts.addEventListener('ready',(eventObject)=>{
     eventObject.stopPropagation();
 });

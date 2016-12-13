@@ -1,5 +1,3 @@
-/// <reference path="change-case.d.ts"/>
-
 import changeCase = require("change-case");
 
 var s: string;

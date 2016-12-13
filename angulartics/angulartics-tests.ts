@@ -1,6 +1,3 @@
-/// <reference path="angulartics.d.ts" />
-/// <reference path="../angularjs/angular.d.ts" />
-
 namespace Analytics {
     angular.module("angulartics.app", ["angulartics"])
         .config(["$analyticsProvider", ($analyticsProvider:angulartics.IAnalyticsServiceProvider) => {

@@ -12,7 +12,7 @@
  * The order of tests is the same as on [The Spotify Web Api](https://developer.spotify.com/web-api/endpoint-reference/)
  */
 
-/// <reference path="./spotify-api.d.ts" />
+
 
 /**
  * Get an Album

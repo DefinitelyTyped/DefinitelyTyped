@@ -1,11 +1,11 @@
-/// <reference path="node-uuid.d.ts" />
+
 
 import nodeUuid = require('node-uuid');
 
 var uid1: string = nodeUuid.v1();
 var uid4: string = nodeUuid.v4();
 
-var options: __NodeUUID.UUIDOptions = {
+var options: nodeUuid.UUIDOptions = {
   node: [],
   clockseq: 2,
   nsecs: 3,

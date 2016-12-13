@@ -1,4 +1,4 @@
-/// <reference path="sweetalert.d.ts" />
+
 
 // A basic message
 swal("Here's a message!");

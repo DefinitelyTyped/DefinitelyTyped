@@ -1,4 +1,3 @@
-/// <reference path="pascal-case.d.ts" />
 
 import pascalCase = require('pascal-case');
 

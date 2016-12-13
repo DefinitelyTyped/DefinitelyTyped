@@ -1,8 +1,6 @@
-/// <reference path="./qs.d.ts" />
-/// <reference path="../node/node.d.ts" />
+/// <reference types="assert" />
 
 import qs = require('qs');
-import assert = require('assert');
 
 qs.stringify({ a: 'b' });
 qs.stringify({ a: 'b', c: 'd' }, { delimiter: '&' });

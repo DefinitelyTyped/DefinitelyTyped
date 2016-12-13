@@ -1,10 +1,8 @@
-/// <reference path='acl.d.ts'/>
-
 // https://github.com/OptimalBits/node_acl/blob/master/Readme.md
 import Acl = require('acl');
 import mongodb = require('mongodb');
 
-var db: mongodb.Db;
+declare var db: mongodb.Db;
 
 // Using the mongo db backend
 var acl = new Acl(new Acl.mongodbBackend(db, 'acl_', true));

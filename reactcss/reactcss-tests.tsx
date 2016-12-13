@@ -1,11 +1,3 @@
-// ReactCSS Test
-// ================================================================================
-///<reference path="reactcss.d.ts"/>
-///<reference path="../react/react.d.ts"/>
-///<reference path="../react/react-dom.d.ts"/>
-
-// Imports
-// --------------------------------------------------------------------------------
 import * as React from "react"
 import { StatelessComponent } from "react"
 import { render } from "react-dom"

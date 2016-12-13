@@ -3,9 +3,7 @@
 // Definitions by: Carlo Cancellieri <https://github.com/ccancellieri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path='react-user-tour.d.ts' />
-/// <reference path='../react/react.d.ts' />
-/// <reference path='../react/react-dom.d.ts' />
+/// <reference types='react-dom' />
 
 import React = require('react');
 import ReactDOM = require('react-dom');
@@ -46,7 +44,7 @@ class TestApp extends React.Component<{}, State> {
             ]}
             />;
 
-        return  <div id='test-app' class='.MyClass'>
+        return  <div id='test-app' classID='.MyClass'>
                     {Tour}
                 </div>;
     }

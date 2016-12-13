@@ -1,7 +1,3 @@
-///<reference path="react-redux-toastr.d.ts" />
-///<reference path="../react/react.d.ts" />
-///<reference path="../react/react-dom.d.ts" />
-///<reference path="../react-redux/react-redux.d.ts" />
 import {toastr, reducer as toastrReducer, actions} from 'react-redux-toastr';
 import ReduxToastr from 'react-redux-toastr';
 import * as React from 'react';

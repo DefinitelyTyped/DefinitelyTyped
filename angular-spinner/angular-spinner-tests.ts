@@ -1,4 +1,4 @@
-import {ISpinnerService} from './angular-spinner';
+/// <reference types="angular" />
 
 var myApp = angular.module('testModule');
 

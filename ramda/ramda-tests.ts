@@ -1,4 +1,4 @@
-import * as R from './ramda';
+import * as R from 'ramda';
 
 var double = function(x: number): number {
     return x + x

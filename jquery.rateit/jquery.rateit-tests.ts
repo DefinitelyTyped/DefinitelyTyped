@@ -1,5 +1,3 @@
-/// <reference path="jquery.rateit.d.ts"/>
-
 var rateit_simple = $('.rateit').rateit();
 
 var rateit_properties_font = $('.rateit').rateit({
@@ -26,7 +24,7 @@ var rateit_properties_bg = $('.rateit').rateit({
     step: 0.5,
     value: 2,
     starheight: 16,
-    starwidth: 16    
+    starwidth: 16
 });
 
 //getters

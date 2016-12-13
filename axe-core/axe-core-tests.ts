@@ -1,4 +1,3 @@
-/// <reference path="axe-core.d.ts" />
 
 var context:any = document
 var $fixture:any = {}
