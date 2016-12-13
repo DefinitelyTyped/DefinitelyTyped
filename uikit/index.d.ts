@@ -1,6 +1,6 @@
 // Type definitions for uikit 2.27.2
 // Project: http://getuikit.org
-// Definitions by: Giovanni Silva <https://github.com/giovannicandido>
+// Definitions by: Giovanni Silva <https://github.com/giovannicandido>, Ivo Senner <https://github.com/s0x>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery" />
@@ -20,6 +20,43 @@ declare namespace UIkit {
          * @return {boolean} True if the modal is current active on the page, false otherwise
          */
         isActive(): boolean
+    }
+    interface ModalOptions {
+        /**
+         * Allows controls from keyboard (ESC to close)
+         * @default true
+         * <h2>Possible value</h2>
+         * boolean
+         */
+        keyboard?: boolean
+        /**
+         * Allow modal to close automatically when clicking on the modal overlay
+         * @default true
+         * <h2>Possible value</h2>
+         * boolean
+         */
+        bgclose?: boolean
+        /**
+         * Set the height for overflow container to start scrolling
+         * @default 150
+         * <h2>Possible value</h2>
+         * integer
+         */
+        minScrollHeight?: number
+        /**
+         * Vertically center the modal
+         * @default false
+         * <h2>Possible value</h2>
+         * boolean
+         */
+        center?: boolean
+        /**
+         * Close currently opened modals on opening modal
+         * @default true
+         * <h2>Possible value</h2>
+         * boolean
+         */
+        modal?: boolean
     }
     /**
      * Create modal dialogs with different styles and transitions
@@ -66,31 +103,40 @@ declare namespace UIkit {
          */
         alert(message:string): void
         /**
-         * Create a confirm dialog and execute the function on positive confirmation
+         * Create a confirm dialog
          * @param  {string} message The message to display. Can be Html
-         * @param  {function}      fn      A function to execute on confirmation
+         * @param  {ModalOptions} [options={bgclose: true, keyboard: false, modal: false}] The modal options
          */
-        confirm(message:string, fn:() => any): void
+        confirm(message: string, options?: ModalOptions): void
         /**
-         * Create a prompt dialog, where the user enter information
+         * Create a confirm dialog and execute onconfirm on confirmation
          * @param  {string} message The message to display. Can be Html
-         * @param  {function} fn  A function to execute on confirmation. The function
-         * receive the new value as a parameter
+         * @param  {function} onconfirm A function to execute on confirmation
+         * @param  {ModalOptions} [options={bgclose: true, keyboard: false, modal: false}] The modal options
          */
-        prompt(message:string, fn:(newValue:string) => any): void
+        confirm(message:string, onconfirm:() => any, options?:ModalOptions): void
+        /**
+         * Create a confirm dialog and execute onconfirm on confirmation and oncancel on cancelation.
+         * @param  {string} message The message to display. Can be Html
+         * @param  {function} onconfirm A function to execute on confirmation
+         * @param  {function} oncancel A function to execute on cancelation
+         * @param  {ModalOptions} [options={bgclose: true, keyboard: false, modal: false}] The modal options
+         */
+        confirm(message:string, onconfirm:() => any, oncancel?:() => any, options?:ModalOptions): void
         /**
          * Create a prompt dialog, where the user enter information
          * @param  {string} message The message to display. Can be Html
          * @param  {string} value   A value to init the input
-         * @param  {function} fn  A function to execute on confirmation. The function
-         * receive the new value as a parameter
+         * @param  {function} fn  A function to execute on submission. The function receive the new value as a parameter
+         * @param  {ModalOptions} [options={bgclose: true, keyboard: false, modal: false}] The modal options
          */
-        prompt(message:string, value:string, fn:(newValue:string) => any): void
+        prompt(message:string, value:string, onsubmit?:(newValue:string) => any, options?:ModalOptions): void
         /**
          * Create a modal that blocks the entire page
          * @param {string} content A content to display. Can be Html
+         * @param  {ModalOptions} [options={bgclose: true, keyboard: false, modal: false}] The modal options
          */
-        blockUI(content:string): ModalElement
+        blockUI(content:string, options?:ModalOptions): ModalElement
         /**
          * Select a modal element on page and return it.
          * @example
