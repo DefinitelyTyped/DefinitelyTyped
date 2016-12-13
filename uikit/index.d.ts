@@ -1,4 +1,4 @@
-// Type definitions for uikit 2.23.0
+// Type definitions for uikit 2.27.2
 // Project: http://getuikit.org
 // Definitions by: Giovanni Silva <https://github.com/giovannicandido>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
