@@ -77,6 +77,7 @@ var grad = doc.linearGradient(50, 0, 150, 100)
 
 doc.rect(50, 0, 100, 100)
 .fill(grad);
+doc.roundedRect(65, 15, 100, 100, 10);
 
 doc.circle(100, 50, 50).dash(5, {
   space: 10
