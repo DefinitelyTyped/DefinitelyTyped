@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "epub.d.ts",
+        "index.d.ts",
         "epub-tests.ts"
     ]
 }

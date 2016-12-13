@@ -5,15 +5,18 @@
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/form-data.d.ts
 
+/// <reference types="node" />
+
 export = FormData;
 
-declare class FormData {
+import * as stream from "stream";
+
+declare class FormData extends stream.Readable {
     append(key: string, value: any, options?: any): void;
     getHeaders(): FormData.Dictionary<string>;
-    // TODO expand pipe
-    pipe(to: any): any;
     submit(params: string | Object, callback: (error: any, response: any) => void): any;
     getBoundary(): string;
+    getLength(callback: (err: Error, length: number) => void): void;
 }
 
 declare namespace FormData {

@@ -42,6 +42,9 @@ declare var xit: Mocha.ITestDefinition;
 declare var test: Mocha.ITestDefinition;
 declare var specify: Mocha.ITestDefinition;
 
+// Used with the --delay flag; see https://mochajs.org/#hooks
+declare function run(): void;
+
 interface MochaDone {
     (error?: any): any;
 }

@@ -2,7 +2,7 @@
 // https://github.com/mrdoob/three.js/tree/master/examples
 //////////////////////////////////////////////////////////////
 
-/// <reference types="stats" />
+/// <reference types="stats.js" />
 /// <reference types="dat-gui" />
 
 

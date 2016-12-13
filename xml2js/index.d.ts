@@ -3,13 +3,13 @@
 // Definitions by: Michel Salib <https://github.com/michelsalib>, Jason McNeil <https://github.com/jasonrm>, Christopher Currens <https://github.com/ccurrens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
+/// <reference path="./processors.d.ts" />
 
 export = xml2js;
 
 declare namespace xml2js {
-    function parseString(xml: string, callback: (err: any, result: any) => void): void;
-    function parseString(xml: string, options: Options, callback: (err: any, result: any) => void): void;
+    function parseString(xml: convertableToString, callback: (err: any, result: any) => void): void;
+    function parseString(xml: convertableToString, options: OptionsV2, callback: (err: any, result: any) => void): void;
 
     var defaults: {
         '0.1': Options;
@@ -17,46 +17,21 @@ declare namespace xml2js {
     }
 
     class Builder {
-        constructor(options?: BuilderOptions);
+        constructor(options?: OptionsV2);
         buildObject(rootObj: any): string;
     }
 
     class Parser {
-        constructor(options?: Options);
-        processAsync(): any;
-        assignOrPush(obj: any, key: string, newValue: any): any;
-        reset(): any;
-        parseString(str: string, cb?: Function): void;
-    }
-
-    interface RenderOptions {
-        indent?: string;
-        newline?: string;
-        pretty?: boolean;
-    }
-
-    interface XMLDeclarationOptions {
-        encoding?: string;
-        standalone?: boolean;
-        version?: string;
-    }
-
-    interface BuilderOptions {
-        doctype?: any;
-        headless?: boolean;
-        indent?: string;
-        newline?: string;
-        pretty?: boolean;
-        renderOpts?: RenderOptions;
-        rootName?: string;
-        xmldec?: XMLDeclarationOptions;
+        constructor(options?: OptionsV2);
+        parseString(str: convertableToString, cb?: Function): void;
+        reset(): void;
     }
 
     interface Options {
         async?: boolean;
         attrkey?: string;
-        attrNameProcessors?: [(name: string) => string];
-        attrValueProcessors?: [(name: string) => string];
+        attrNameProcessors?: [(name: string) => any];
+        attrValueProcessors?: [(name: string) => any];
         charkey?: string;
         charsAsChildren?: boolean;
         childkey?: string;
@@ -66,14 +41,15 @@ declare namespace xml2js {
         explicitChildren?: boolean;
         explicitRoot?: boolean;
         ignoreAttrs?: boolean;
+        includeWhiteChars?: boolean;
         mergeAttrs?: boolean;
         normalize?: boolean;
         normalizeTags?: boolean;
         strict?: boolean;
-        tagNameProcessors?: [(name: string) => string];
+        tagNameProcessors?: [(name: string) => any];
         trim?: boolean;
         validator?: Function;
-        valueProcessors?: [(name: string) => string];
+        valueProcessors?: [(name: string) => any];
         xmlns?: boolean;
     }
 
@@ -94,5 +70,9 @@ declare namespace xml2js {
         headless?: boolean;
         chunkSize?: number;
         cdata?: boolean;
+    }
+
+    interface convertableToString {
+        toString(): string;
     }
 }

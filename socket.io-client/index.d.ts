@@ -410,7 +410,7 @@ declare namespace SocketIOClient {
 		 * @param The connection timeout milliseconds
 		 * @return This Manager
 		 */
-		timeout(v: boolean): Manager;
+		timeout(v: number): Manager;
 
 		/**
 		 * Sets the current transport socket and opens our connection
@@ -610,6 +610,11 @@ declare namespace SocketIOClient {
 		 * Are we only interested in transports that support binary?
 		 */
 		onlyBinaryUpgrades?: boolean;
+
+		/**
+		 * Header options for Node.js client
+		 */
+		extraHeaders?: Object;
 
 		/**
 		 * (SSL) Certificate, Private key and CA certificates to use for SSL.

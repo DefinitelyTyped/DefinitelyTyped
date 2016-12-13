@@ -1,97 +1,158 @@
-// Type definitions for svg-pan-zoom v2.3.9
+// Type definitions for svg-pan-zoom v3.3.0
 // Project: https://github.com/ariutta/svg-pan-zoom
-// Definitions by: Chintan Shah <https://github.com/Promact>
+// Definitions by: César Vidril <https://github.com/Yimiprod>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace SvgPanZoom {
-
-    interface OptionConfig {
+    interface Options {
+        viewportSelector?: string|HTMLElement|SVGElement; // can be querySelector string or SVGElement (default enabled)
         panEnabled?: boolean; // enable or disable panning (default enabled)
         controlIconsEnabled?: boolean; // insert icons to give user an option in addition to mouse events to control pan/zoom (default disabled)
         zoomEnabled?: boolean; // enable or disable zooming (default enabled)
         dblClickZoomEnabled?: boolean; // enable or disable zooming by double clicking (default enabled)
-        zoomScaleSensitivity?: number; // Zoom sensitivity
-        minZoom?: number; // Minimum Zoom level
-        maxZoom?: number; // Maximum Zoom level
+        mouseWheelZoomEnabled?: boolean; // (default enabled)
+        preventMouseEventsDefault?: boolean; // (default enabled)
+        zoomScaleSensitivity?: number; // Zoom sensitivity (Default 0.2)
+        minZoom?: number; // Minimum Zoom level (Default 0.5)
+        maxZoom?: number; // Maximum Zoom level  (Default 10)
         fit?: boolean; // enable or disable viewport fit in SVG (default true)
+        contain?: boolean; // (default true)
         center?: boolean; // enable or disable viewport centering in SVG (default true)
-        beforeZoom?: (scale:number) => void;
-        onZoom?: (scale:number) => void;
-        beforePan?: (point:IPoint) => void;
-        onPan?: (x:number, y:number) => void;
-        refreshRate?: any; // in hz
+        refreshRate?: number | 'auto'; // (default 'auto')
+        beforeZoom?: (oldScale:number, newScale:number) => boolean;
+        onZoom?: (newScale:number) => void;
+        beforePan?: (oldPan:Point, newPan:Point) => boolean | PointModifier;
+        onPan?: (newPan:Point) => void;
+        customEventsHandler?: CustomEventHandler; // (default null)
+        eventsListenerElement?: SVGElement; // (default null)
     }
 
-    interface IPoint {
+    interface CustomEventHandler {
+        haltEventListeners: string[],
+        init: (options: CustomEventOptions) => void,
+        destroy: Function
+    }
+
+    interface CustomEventOptions {
+        svgElement: SVGSVGElement,
+        instance: Instance
+    }
+
+    interface Point {
         x: number;
         y: number;
     }
 
-    interface ISvgPanZoom {
+    interface PointModifier {
+        x: number|boolean;
+        y: number|boolean;
+    }
+
+    interface Instance {
         /**
          * Creates a new SvgPanZoom instance with given element selector.
          *
-         * @param svg selector of the tag on which it is to be applied.
-         * @param options provides customization options at the initialization of the object.
+         * @param  {string|HTMLElement|SVGElement} svg selector of the tag on which it is to be applied.
+         * @param  {Object} options        provides customization options at the initialization of the object.
+         * @return {Instance}              Current instance
          */
-        (svg:any, options?:OptionConfig):  ISvgPanZoom;
+        (svg:string|HTMLElement|SVGElement, options?:Options): Instance;
 
         /**
          * Enables Panning on svg element
+         * @return {Instance} Current instance
          */
-        enablePan(): void;
+        enablePan(): Instance;
 
         /**
          * Disables panning on svg element
+         * @return {Instance} Current instance
          */
-        disablePan(): void;
+        disablePan(): Instance;
 
         /**
          * Checks if Panning is enabled or not
-         * @return true or false based on panning settings
+         * @return {Boolean} true or false based on panning settings
          */
         isPanEnabled(): boolean;
 
+        setBeforePan(fn: (point:Point)=> void): Instance;
 
-        setBeforePan(fn: (point:IPoint)=> void): void;
+        setOnPan(fn: (x:number, y:number)=> void): Instance;
 
-        setOnPan(fn: (x:number, y:number)=> void): void;
+        /**
+         * Pan to a rendered position
+         *
+         * @param  {Object} point {x: 0, y: 0}
+         * @return {Instance}    Current instance
+         */
+        pan(point: Point): Instance;
 
-        enableZoom(): void;
+        /**
+         * Relatively pan the graph by a specified rendered position vector
+         *
+         * @param  {Object} point {x: 0, y: 0}
+         * @return {Instance}    Current instance
+         */
+        panBy(point: Point): Instance;
 
-        disableZoom(): void;
+        /**
+         * Get pan vector
+         *
+         * @return {Object} {x: 0, y: 0}
+         * @return {Instance}    Current instance
+         */
+        getPan(): Point;
+
+        resetPan(): Instance;
+
+        enableZoom(): Instance;
+
+        disableZoom(): Instance;
 
         isZoomEnabled(): boolean;
 
-        enableControlIcons(): void;
+        enableControlIcons(): Instance;
 
-        disableControlIcons(): void;
+        disableControlIcons(): Instance;
 
         isControlIconsEnabled(): boolean;
 
-        enableDblClickZoom(): void;
+        enableDblClickZoom(): Instance;
 
-        disableDblClickZoom(): void;
+        disableDblClickZoom(): Instance;
 
-        setZoomScaleSensitivity(scale: number): void;
+        isDblClickZoomEnabled(): boolean;
 
-        setMinZoom(zoom: number): void;
+        enableMouseWheelZoom(): Instance;
 
-        setMaxZoom(zoom: number): void;
+        disableMouseWheelZoom(): Instance;
 
-        setBeforeZoom(fn: (scale: number) => void): void;
+        isMouseWheelZoomEnabled(): boolean;
 
-        setOnZoom(fn: (scale: number) => void): void;
+        setZoomScaleSensitivity(scale: number): Instance;
+
+        setMinZoom(zoom: number): Instance;
+
+        setMaxZoom(zoom: number): Instance;
+
+        setBeforeZoom(fn: (scale: number) => void): Instance;
+
+        setOnZoom(fn: (scale: number) => void): Instance;
 
         zoom(scale: number):void;
 
-        zoomIn(): void;
+        zoomIn(): Instance;
 
-        zoomOut(): void;
+        zoomOut(): Instance;
 
-        zoomBy(scale: number): void;
+        zoomBy(scale: number): Instance;
 
-        resetZoom(): void;
+        zoomAtPoint(scale:number, point:Point): Instance;
+
+        zoomAtPointBy(scale:number, point:Point): Instance;
+
+        resetZoom(): Instance;
 
         /**
          * Get zoom scale/level
@@ -104,48 +165,49 @@ declare namespace SvgPanZoom {
          * Adjust viewport size (only) so it will fit in SVG
          * Does not center image
          *
-         * @param  {bool} dropCache drop viewBox cache and recalculate SVG's viewport sizes. Default false
+         * @return {Instance}    Current instance
          */
-        fit(dropCache?: boolean): void;
+        fit(): Instance;
+
+        /**
+         * Adjust viewport size (only) so it will contain in SVG
+         * Does not center image
+         *
+         * @return {Instance}    Current instance
+         */
+        contain(): Instance;
 
         /**
          * Adjust viewport pan (only) so it will be centered in SVG
          * Does not zoom/fit image
          *
-         * @param  {bool} dropCache drop viewBox cache and recalculate SVG's viewport sizes. Default false
+         * @return {Instance}    Current instance
          */
-        center(dropCache?: boolean): void;
+        center(): Instance;
 
         /**
          * Recalculates cached svg dimensions and controls position
+         *
+         * @return {Instance}    Current instance
          */
-        resize(): void;
+        resize(): Instance;
+
+        reset(): Instance;
 
         /**
-         * Pan to a rendered position
+         * Update content cached BorderBox
+         * Use when viewport contents change
          *
-         * @param  {object} point {x: 0, y: 0}
+         * @return {Instance}    Current instance
          */
-        pan(point: IPoint): void;
+        updateBBox(): Instance;
 
-        /**
-         * Relatively pan the graph by a specified rendered position vector
-         *
-         * @param  {object} point {x: 0, y: 0}
-         */
-        panBy(point: IPoint): void;
-
-        /**
-         * Get pan vector
-         *
-         * @return {object} {x: 0, y: 0}
-         */
-        getPan(): IPoint;
-
-        zoomAtPoint(scale:number, point:IPoint): boolean;
-
-        zoomAtPointBy(scale:number, point:IPoint): boolean;
+        destroy(): void;
     }
 }
 
-declare var svgPanZoom:SvgPanZoom.ISvgPanZoom;
+declare const svgPanZoom:SvgPanZoom.Instance;
+
+declare module 'svg-pan-zoom' {
+    export = svgPanZoom;
+}

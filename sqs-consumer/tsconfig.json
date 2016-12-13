@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "sqs-consumer.d.ts",
+        "index.d.ts",
         "sqs-consumer-tests.ts"
     ]
 }

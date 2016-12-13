@@ -10,7 +10,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "leaflet-geocoder-mapzen.d.ts",
+        "index.d.ts",
         "leaflet-geocoder-mapzen-tests.ts"
     ]
 }

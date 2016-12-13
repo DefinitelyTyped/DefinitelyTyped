@@ -6,22 +6,30 @@
 /// <reference types="react" />
 
 
-import { ComponentClass, Props } from 'react';
+import { Component, ClassAttributes  } from 'react';
 
-interface IconProps extends Props<Icon> {
-    name: string;
-    className?: string;
-    size?: string;
-    spin?: boolean;
-    rotate?: string;
-    flip?: string;
-    fixedWidth?: boolean;
-    pulse?: boolean;
-    stack?: string;
-    inverse?: boolean;
+type IconSize = "lg" | "2x" | "3x" | "4x" | "5x"
+
+interface IconProps extends ClassAttributes<Icon> {
+    name: string
+    className?: string
+    size?: IconSize
+    rotate?: "45" | "90" | "135" | "180" | "225" | "270" | "315"
+    flip?: "horizontal" | "vertical"
+    fixedWidth?: boolean
+    spin?: boolean
+    pulse?: boolean
+    stack?: "1x" | "2x"
+    inverse?: boolean
+    Component?: string | Function
 }
 
-interface Icon extends ComponentClass<IconProps> { }
-declare const Icon: Icon;
+export class Icon extends Component<IconProps, {}> {}
 
-export = Icon;
+interface IconStackProps extends ClassAttributes<IconStack> {
+    className?: string
+    size?: IconSize
+}
+export class IconStack extends Component<IconStackProps, {}> {}
+
+export default Icon;

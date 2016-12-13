@@ -313,11 +313,11 @@ declare namespace WebdriverIO {
             callback: (err: any, html: string | string[]) => P
         ): Client<P>;
 
-        getLocation(selector: string): Client<Size>;
+        getLocation(selector: string): Client<Location>;
         getLocation(selector: string, axis: string): Client<number>;
         getLocation<P>(
             selector: string,
-            callback: (err: any, size: Size) => P
+            callback: (err: any, location: Location) => P
         ): Client<P>;
         getLocation<P>(
             selector: string,
@@ -325,11 +325,11 @@ declare namespace WebdriverIO {
             callback: (err: any, location: number) => P
         ): Client<P>;
 
-        getLocationInView(selector: string): Client<Size | Size[]>;
+        getLocationInView(selector: string): Client<Location | Location[]>;
         getLocationInView(selector: string, axis: string): Client<number | number[]>;
         getLocationInView<P>(
             selector: string,
-            callback: (err: any, size: Size | Size[]) => P
+            callback: (err: any, location: Location | Location[]) => P
         ): Client<P>;
         getLocationInView<P>(
             selector: string,
@@ -395,7 +395,7 @@ declare namespace WebdriverIO {
         value: any;
     }
 
-    export interface Location {
+    export interface GeoLocation {
         latitude: number;
         longitude: number;
         altitude: number;

@@ -1,4 +1,4 @@
-﻿// Type definitions for dsv
+// Type definitions for dsv
 // Project: https://www.npmjs.com/package/dsv
 // Definitions by: Jason Swearingen <https://jasonswearingen.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

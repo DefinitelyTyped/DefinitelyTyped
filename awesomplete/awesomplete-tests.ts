@@ -1,5 +1,3 @@
-/// <reference path="awesomplete.d.ts" />
-
 var input = document.getElementById("myinput");
 new Awesomplete(input, {list: "#mylist"});
 

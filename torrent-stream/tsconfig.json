@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "torrent-stream.d.ts",
+        "index.d.ts",
         "torrent-stream-tests.ts"
     ]
 }

@@ -1,4 +1,4 @@
-﻿// Type definitions for react-mdl 1.7.0
+// Type definitions for react-mdl 1.7.0
 // Project: https://github.com/tleunen/react-mdl
 // Definitions by: Brad Zacher <https://github.com/bradzacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -357,6 +357,7 @@ declare namespace __ReactMDL {
 
     interface DialogProps extends __MDLOtherProps {
         open?: boolean;
+        onCancel?: (e: any) => void;
     }
     interface DialogActionsProps extends __MDLOtherProps {
         fullWidth?: boolean;
@@ -373,6 +374,10 @@ declare namespace __ReactMDL {
     }
     interface CellProps extends __MDLOtherProps, CustomRenderedComponent, ShadowedComponent {
         col: number;
+        offset?: number;
+        offsetDesktop?: number;
+        offsetPhone?: number;
+        offsetTablet?: number;
         align?: string;
         phone?: number;
         tablet?: number;

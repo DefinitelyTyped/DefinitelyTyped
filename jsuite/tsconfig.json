@@ -13,6 +13,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "jsuite.d.ts"
+        "index.d.ts"
     ]
 }

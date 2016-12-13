@@ -5,7 +5,7 @@
         "noImplicitAny": true,
         "strictNullChecks": false,
         "baseUrl": "../",
-        "types": ["jasmine", "selenium-webdriver"],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

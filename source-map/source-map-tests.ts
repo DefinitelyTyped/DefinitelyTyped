@@ -14,6 +14,15 @@ function testSourceMapConsumer() {
             file: 'sdf'
         });
 
+        scm = new SourceMap.SourceMapConsumer(JSON.stringify({
+            version: 3,
+            sources: ['foo', 'bar'],
+            names: ['foo', 'bar'],
+            sourcesContent: ['foo'],
+            mappings: 'foo',
+            file: 'sdf'
+        }));
+
         // create with partial RawSourceMap
         scm = new SourceMap.SourceMapConsumer({
             version: 3,
@@ -129,10 +138,14 @@ function testSourceNode() {
 
     function testAdd(node: SourceMap.SourceNode) {
         node.add('foo');
+        node.add(new SourceMap.SourceNode());
+        node.add([new SourceMap.SourceNode(), 'bar']);
     }
 
     function testPrepend(node: SourceMap.SourceNode) {
         node.prepend('foo');
+        node.prepend(new SourceMap.SourceNode());
+        node.prepend([new SourceMap.SourceNode(), 'bar']);
     }
 
     function testSetSourceContent(node: SourceMap.SourceNode) {

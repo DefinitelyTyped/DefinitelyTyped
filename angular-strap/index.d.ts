@@ -42,6 +42,7 @@ declare namespace mgcrea.ngStrap {
             show?: boolean;
             container?: string | boolean;
             template?: string;
+            templateUrl?: string;
             contentTemplate?: string;
             prefixEvent?: string;
             id?: string;

@@ -1,10 +1,20 @@
 /// <reference types="react-dom"/>
 
-import * as React from "react";
-import { render } from 'react-dom';
-import Icon = require('react-fa');
+// Imports
+// --------------------------------------------------------------------------------
+import * as React from "react"
+import { render } from "react-dom"
+import { Icon, IconStack } from "react-fa"
 
 render(
-	<Icon spin name="spinner" />,
-	document.getElementById('main')
+	<Icon spin name="spinner" rotate="90" size="2x" Component="span" />,
+	document.getElementById("main")
+)
+
+render(
+	<IconStack size="2x">
+		<Icon name="test" stack="2x" />
+		<Icon name="test" stack="1x" />
+	</IconStack>,
+	document.getElementById("main")
 )

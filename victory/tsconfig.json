@@ -15,7 +15,7 @@
         "jsx": "react"
     },
     "files": [
-        "victory.d.ts",
+        "index.d.ts",
         "victory-tests.tsx"
     ]
 }

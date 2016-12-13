@@ -1,7 +1,11 @@
-// Type definitions for d3JS v3.5.17
+// Type definitions for d3JS 3.5
 // Project: http://d3js.org/
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/* tslint:disable */
+
+// Latest patch version of module validated against: 3.5.17
 
 export = d3;
 export as namespace d3;

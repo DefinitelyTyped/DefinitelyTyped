@@ -15,7 +15,7 @@
         "jsx": "react"
     },
     "files": [
-        "react-imageloader.d.ts",
+        "index.d.ts",
         "react-imageloader-tests.tsx"
     ]
 }

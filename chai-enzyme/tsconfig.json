@@ -15,7 +15,7 @@
         "jsx": "react"
     },
     "files": [
-        "chai-enzyme.d.ts",
+        "index.d.ts",
         "chai-enzyme-tests.tsx"
     ]
 }

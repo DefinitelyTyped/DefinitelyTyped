@@ -48,5 +48,9 @@ myCodeMirror.getValue();
 myCodeMirror.getValue("foo")
 myCodeMirror.setValue("bar");
 
-CodeMirror.registerHelper("lint", "javascript", {});
+myCodeMirror.on(
+  "renderLine",
+  (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => { }
+);
 
+CodeMirror.registerHelper("lint", "javascript", {});

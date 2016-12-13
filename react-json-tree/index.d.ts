@@ -15,7 +15,7 @@ export interface JSONTreeProps extends Props<JSONTreeComponent> {
     invertTheme?: boolean;
     keyPath?: [string | number];
     sortObjectKeys?: Function | boolean;
-    shouldExpandNode?: (keyName: string, data: [any] | {}, level: number) => boolean;
+    shouldExpandNode?: (keyPath: (string | number)[], data: [any] | {}, level: number) => boolean;
     getItemString?: (type: string, data: [any] | {}, itemType: string, itemString: string) => JSX.Element;
     labelRenderer?: (raw: [string, string]) => JSX.Element;
     valueRenderer?: (raw: string) => JSX.Element;

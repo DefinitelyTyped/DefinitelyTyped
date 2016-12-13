@@ -12,3 +12,15 @@ let db = dbserver.use({
         password: 'root'
     });
 
+
+{
+    var manager = new orientjs.Migration.Manager({
+        db: db,
+        dir: __dirname + '/migrations'
+    });
+
+    manager.up(1)
+    .then(function () {
+        console.log('migrated up by one!')
+    });
+}

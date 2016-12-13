@@ -1,4 +1,4 @@
-﻿// Type definitions for sylvester 0.1.3
+// Type definitions for sylvester 0.1.3
 // Project: https://github.com/jcoglan/sylvester
 // Definitions by: Stephane Alie <https://github.com/StephaneAlie>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

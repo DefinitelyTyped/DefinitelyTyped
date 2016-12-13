@@ -1,7 +1,9 @@
-// Type definitions for D3JS d3-drag module v1.0.1
+// Type definitions for D3JS d3-drag module 1.0
 // Project: https://github.com/d3/d3-drag/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// Last module patch version validated against: 1.0.2
 
 import { ArrayLike, Selection, ValueFn } from 'd3-selection';
 
@@ -174,7 +176,7 @@ export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Su
      * start (after a new pointer becomes active [on mousedown or touchstart]), drag (after an active pointer moves [on mousemove or touchmove], or
      * end (after an active pointer becomes inactive [on mouseup, touchend or touchcancel].)
      */
-    on(typenames: string): ValueFn<GElement, Datum, void>;
+    on(typenames: string): ValueFn<GElement, Datum, void> | undefined;
     /**
      * Remove the current event listeners for the specified typenames, if any, return the drag behavior.
      *
@@ -297,7 +299,7 @@ export interface D3DragEvent<GElement extends DraggedElementBaseType, Datum, Sub
      * start (after a new pointer becomes active [on mousedown or touchstart]), drag (after an active pointer moves [on mousemove or touchmove], or
      * end (after an active pointer becomes inactive [on mouseup, touchend or touchcancel].)
      */
-    on(typenames: string): ValueFn<GElement, Datum, void>;
+    on(typenames: string): ValueFn<GElement, Datum, void> | undefined;
     /**
      * Remove the current event listeners for the specified typenames, if any, return the drag behavior.
      *

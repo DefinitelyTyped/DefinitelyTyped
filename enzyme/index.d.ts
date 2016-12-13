@@ -3,9 +3,9 @@
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>, Cap3 <http://www.cap3.de>, Ivo Stratev <https://github.com/NoHomey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ReactElement, Component, StatelessComponent, ComponentClass, HTMLAttributes as ReactHTMLAttributes } from "react";
+import { ReactElement, Component, StatelessComponent, ComponentClass, HTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
 
-type HTMLAttributes = ReactHTMLAttributes<{}>;
+type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;
 
 export class ElementClass extends Component<any, any> {
 }
@@ -202,8 +202,9 @@ interface CommonWrapper<P, S> {
      * Returns the state hash for the root node of the wrapper. Optionally pass in a prop name and it will return just that value.
      * @param [key]
      */
-    state(key?: string): any;
-    state<T>(key?: string): T;
+    state(): S;
+    state(key: string): any;
+    state<T>(key: string): T;
 
     /**
      * Returns the context hash for the root node of the wrapper. Optionally pass in a prop name and it will return just that value.

@@ -1,4 +1,4 @@
-// Type definitions for Angular JS Meteor v0.8.8 (angular.meteor module)
+// Type definitions for Angular JS Meteor (angular.meteor module) 0.8
 // Project: https://github.com/Urigo/angular-meteor
 // Definitions by: Peter Grman <https://github.com/pgrm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

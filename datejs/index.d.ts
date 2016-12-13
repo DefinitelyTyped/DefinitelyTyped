@@ -1,4 +1,4 @@
-﻿// Type definitions for DateJS
+// Type definitions for DateJS
 // Project: http://www.datejs.com/
 // Definitions by: David Khristepher Santos <http://github.com/rupertavery>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

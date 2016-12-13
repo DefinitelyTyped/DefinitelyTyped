@@ -1,6 +1,6 @@
 // Type definitions for through2 v 2.0.0
 // Project: https://github.com/rvagg/through2
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, jedmao <https://github.com/jedmao>, Georgios Valotasios <https://github.com/valotas>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, jedmao <https://github.com/jedmao>, Georgios Valotasios <https://github.com/valotas>, Ben Chauvette <https://github.com/bdchauvette>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

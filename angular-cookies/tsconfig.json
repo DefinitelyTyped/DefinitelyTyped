@@ -13,6 +13,6 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": false
+        "forceConsistentCasingInFileNames": true
     }
 }

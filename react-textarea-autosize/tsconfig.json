@@ -15,7 +15,7 @@
         "jsx": "react"
     },
     "files": [
-        "react-textarea-autosize.d.ts",
+        "index.d.ts",
         "react-textarea-autosize-tests.tsx"
     ]
 }

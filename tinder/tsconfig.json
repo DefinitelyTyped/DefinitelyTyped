@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "tinder.d.ts",
+        "index.d.ts",
         "tinder-tests.ts"
     ]
 }

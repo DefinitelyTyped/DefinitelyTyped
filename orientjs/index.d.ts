@@ -1,4 +1,4 @@
-﻿// Type definitions for orientjs v2.1.0
+// Type definitions for orientjs v2.1.0
 // Project: https://github.com/orientechnologies/orientjs
 // Definitions by: Saeed Tabrizi <https://github.com/saeedtabrizi>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -43,7 +43,6 @@ declare module "orientjs" {
         }
 
         module Migration {
-            function Manager(config: any): void ;
             interface Migration {
                 name: string;
                 server: Server;
@@ -55,7 +54,7 @@ declare module "orientjs" {
 
             }
 
-            class MigrationManager {
+            class Manager {
 
                 constructor(config?: any);
                 name: string;
@@ -67,7 +66,7 @@ declare module "orientjs" {
                 generateMigration(config: any): string;
                 list(): Promise<string[]>;
                 listAvailable(): Promise<string[]>;
-                ensureStructure: Promise<MigrationManager>;
+                ensureStructure: Promise<Manager>;
                 listApplied(): Promise<any[]>;
                 up(limit?: number): Promise<any>;
                 down(limit?: number): Promise<any>;

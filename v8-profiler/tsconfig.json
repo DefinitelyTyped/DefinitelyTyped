@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "v8-profiler.d.ts",
+        "index.d.ts",
         "v8-profiler-tests.ts"
     ]
 }

@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "jsoneditor.d.ts",
+        "index.d.ts",
         "jsoneditor-tests.ts"
     ]
 }
