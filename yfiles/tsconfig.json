@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "moduleResolution": "classic",
+    "noImplicitAny": true,
+    "strictNullChecks": false
+  },
+  "files": [
+    "yfiles.d.ts",
+    "yfiles-tests.ts"
+  ]
+}
