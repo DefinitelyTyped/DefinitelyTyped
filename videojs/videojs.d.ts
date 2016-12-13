@@ -42,8 +42,8 @@ interface VideoJSPlayer {
 	height(): number;
 	height(pixels: number): VideoJSPlayer;
 	size(width: number, height: number): VideoJSPlayer;
-	requestFullScreen(): VideoJSPlayer;
-	cancelFullScreen(): VideoJSPlayer;
+	requestFullscreen(): VideoJSPlayer;
+	cancelFullscreen(): VideoJSPlayer;
 	ready(callback: () => void ): VideoJSPlayer;
 	on(eventName: string, callback: (eventObject: Event) => void ): void;
 	off(eventName: string, callback: () => void ): void;
