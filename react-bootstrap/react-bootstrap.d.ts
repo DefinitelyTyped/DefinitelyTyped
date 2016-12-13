@@ -1,6 +1,6 @@
-// Type definitions for react-bootstrap
+// Type definitions for react-bootstrap v0.30.0
 // Project: https://github.com/react-bootstrap/react-bootstrap
-// Definitions by: Walker Burgin <https://github.com/walkerburgin>, Vincent Siao <https://github.com/vsiao>, Danilo Barros <https://github.com/danilojrr>, Batbold Gansukh <https://github.com/Batbold-Gansukh>
+// Definitions by: Walker Burgin <https://github.com/walkerburgin>, Vincent Siao <https://github.com/vsiao>, Danilo Barros <https://github.com/danilojrr>, Batbold Gansukh <https://github.com/Batbold-Gansukh>, Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../react/react.d.ts"/>
@@ -514,6 +514,27 @@ declare namespace ReactBootstrap {
     type NavbarToggle = React.ClassicComponent<NavbarToggleProps, {}>;
     var NavbarToggle: React.ClassicComponentClass<NavbarToggleProps>;
 
+    interface NavbarWrapperProps {
+        componentClass?: React.ReactType
+        pullLeft?: boolean
+        pullRight?: boolean
+    }
+
+    // <Navbar.Form />
+    interface NavbarFormProps extends NavbarWrapperProps, React.HTMLProps<NavbarForm> {}
+    type NavbarForm = React.ClassicComponent<NavbarFormProps, {}>;
+    var NavbarForm: React.ClassicComponentClass<NavbarFormProps>;
+
+    // <Navbar.Text />
+    interface NavbarTextProps extends NavbarWrapperProps, React.HTMLProps<NavbarText> {}
+    type NavbarText = React.ClassicComponent<NavbarTextProps, {}>;
+    var NavbarText: React.ClassicComponentClass<NavbarTextProps>;
+
+    // <Navbar.Link />
+    interface NavbarLinkProps extends NavbarWrapperProps, React.HTMLProps<NavbarLink> {}
+    type NavbarLink = React.ClassicComponent<NavbarLinkProps, {}>;
+    var NavbarLink: React.ClassicComponentClass<NavbarLinkProps>;
+
     // <Navbar />
     interface NavbarProps extends React.HTMLProps<Navbar> {
         brand?: any; // TODO: Add more specific type
@@ -536,6 +557,9 @@ declare namespace ReactBootstrap {
         Collapse: typeof NavbarCollapse;
         Header: typeof NavbarHeader;
         Toggle: typeof NavbarToggle;
+        Form: typeof NavbarForm;
+        Text: typeof NavbarText;
+        Link: typeof NavbarLink;
     }
     type Navbar = React.ClassicComponent<NavbarProps, {}>;
     var Navbar: NavbarClass;
@@ -544,9 +568,11 @@ declare namespace ReactBootstrap {
     // <NavDropdown />
     interface NavDropdownBaseProps extends DropdownBaseProps {
         active?: boolean;
+        eventKey?: number | string;
         noCaret?: boolean;
+        title?: React.ReactNode;
     }
-    type NavDropdownProps = NavDropdownBaseProps & React.HTMLProps<NavDropdown>;
+    type NavDropdownProps = NavDropdownBaseProps & React.ClassAttributes<NavDropdown>;
     class NavDropdown extends React.Component<NavDropdownProps, {}> { }
 
 
@@ -633,7 +659,7 @@ declare namespace ReactBootstrap {
     // <Pagination />
     interface PaginationProps extends React.HTMLProps<Pagination> {
         activePage?: number;
-        bsSize?: Sizes;
+        bsSize?: Sizes | "medium";
         bsStyle?: string;
         boundaryLinks?: boolean;
         buttonComponentClass?: React.ReactType;
