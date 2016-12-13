@@ -1,152 +1,224 @@
-ï»¿// Type definitions for Microsoft.Maps.Search 7.0
-// Project: http://msdn.microsoft.com/en-us/library/hh868061.aspx
-// Definitions by: Eric Todd <https://github.com/ericrtodd>
+// Type definitions for Bing Maps V8 SDK - Search module (ported from Bing Maps Typescript reference)
+// Project: https://msdn.microsoft.com/en-us/library/mt712846.aspx
+// Definitions by: James Croft <https://github.com/jamesmcroft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="Microsoft.Maps.d.ts"/>
 
 declare namespace Microsoft.Maps.Search {
+    /** Defines the match precision of a geocdoed result. */
+    export enum LocationPrecision {
+        /** The geocode result was matched to a point on a road using interpolation. */
+        interpolated,
 
-     export interface Address {
-         addressLine: string;
-         adminDistrict: string;
-         countryRegion: string;
-         district: string;
-         formattedAddress: string;
-         locality: string;
-         postalCode: string;
-         postalTown:string;
-     }
+        /**
+        * The geocode result was matched to a point on a road using interpolation with an additional offset to shift the
+        * Location to the side of the street.
+        */
+        InterpolatedOffset,
 
-     export interface GeocodeLocation {
-         location: Location;
-         name: string;
-         precision:LocationPrecision;
-     }
+        /** The geocode result was matched to the center of a parcel (property boundary). */
+        parcel,
 
-     export interface GeocodeRequestOptions {
-         bounds?: LocationRect;
-         callback?: (result: GeocodeResult, userData: any) => any;
-         count: number;
-         errorCallback?: (options: GeocodeRequestOptions) => any;
-         timeout?: number;
-         userData?: any;
-         where:string;
-     }
+        /** The geocode result was matched to the rooftop of a building. */
+        rooftop
+    }
 
-     export interface GeocodeResult {
-         parsedAddress: Address;
-         parsedKeyword: string;
-         parsedSeparator: string;
-         results:Array<PlaceResult>;
-     }
+    /** 
+     * Defines the geocoding level of the location match found by the geocoder.
+     */
+    export enum MatchCode {
+        /** No match was found. */
+        none,
 
-     export enum LocationPrecision {
-         interpolated,
-         rooftop,
-     }
+        /** The match was good. */
+        good,
 
-     export enum MatchCode {
-         none,
-         good,
-         ambiguous,
-         upHierarchy,
-         modified,
-     }
+        /** The match was ambiguous. Multiple results were returned. */
+        ambiguous,
 
-     export enum MatchConfidence {
-         high,
-         medium,
-         low,
-         unknown,
-     }
+        /** The match was found by a broader search. */
+        upHierarchy,
 
-     export interface PlaceResult {
-         bestView: LocationRect;
-         location: GeocodeLocation;
-         locations: Array<GeocodeLocation>;
-         matchCode: MatchCode;
-         matchConfidence: MatchConfidence;
-         name:string;
-     }
+        /** The match was found, but possibly using a modified query. */
+        modified
+    }
 
-     export interface ReverseGeocodeRequestOptions {
-         callback?: (result: PlaceResult, userData: any) => any;
-         errorCallback?: (options: ReverseGeocodeRequestOptions) => any;
-         location?: Location;
-         timeout?: number;
-         userData?:any;
-     }
+    /** 
+     * Defines the confidence of the location match found by the geocoding service.
+     */
+    export enum MatchConfidence {
+        /** The confidence of the match is high. */
+        high,
 
-     export class SearchManager {
+        /** The confidence of the match is medium. */
+        medium,
 
-         constructor(map: Map);
+        /** The confidence of the match is low. */
+        low,
 
-         geocode(request: GeocodeRequestOptions): void;
-         reverseGeocode(request: ReverseGeocodeRequestOptions): void;
-         search(request:SearchRequestOptions):void;
-     }
+        /** The confidence of the match is unknown. */
+        unknown
+    }
 
-     export interface SearchParseResult {
-         keyword: string;
-         location: GeocodeLocation;
-         matchConfidence:MatchConfidence;
-     }
+    /** A object that represents a geocoded location. */
+    export interface IGeocodeLocation {
+        /** The map location of this geocode location match. */
+        location: Location;
 
-     export interface SearchRegion {
-         address: Address;
-         geocodeLocations: Array<GeocodeLocation>;
-         explicitLocation: GeocodeLocation;
-         mapBounds: LocationRect;
-         matchCode: MatchCode;
-         matchConfidence: MatchConfidence;
-         source:string;
-     }
+        /** The name of this geocode location match. */
+        name: string;
 
-     export interface SearchRequestOptions {
-         callback?:(result: SearchResponse, userData: any)=>any;
-         count: number;
-         errorCallback?:(options: SearchRequestOptions)=>any;
-         query?: string;
-         startIndex?: number;
-         timeout?: number;
-         entityType?: string;
-         userData?: any;
-         what?: string;
-         where?:string;
-     }
+        /** The precision of this geocode location match. */
+        precision: string | LocationPrecision;
+    }
 
-     export interface SearchResponse {
-         alternateSearchRegions: Array<SearchRegion>;
-         hasMore: boolean;
-         parseResults: Array<SearchParseResult>;
-         responseSummary: SearchResponseSummary;
-         searchRegion: SearchRegion;
-         searchResults:Array<SearchResult>;
-     }
+    /** An object that represents an place result. */
+    export interface IPlaceResult {
+        /** The geocoded address of the place result. */
+        address: IAddress;
 
-     export interface SearchResponseSummary {
-         authResultCode: number;
-         copyright: string;
-         errorMessage: string;
-         statusCode: number;
-         traceId:number;
-     }
+        /** The location rectangle that defines the boundaries of the best map view of the place result. */
+        bestView: LocationRect;
 
-     export interface SearchResult {
-         address: Address;
-         city: string;
-         country: string;
-         entityType: string;
-         hoursOfOperation: string;
-         id: number;
-         location: Location;
-         name: string;
-         phone: string;
-         postalCode: string;
-         reviewCount: number;
-         userRating: number;
-         website:string;
-     }
+        /** The classification of the geographic entity returned, such as PopulatedPlace. */
+        entityType: string;
 
- }
+        /** The geocoded location of the best result. */
+        location: Location;
+
+        /** The geocoded locations. */
+        locations: IGeocodeLocation[];
+
+        /** The match code of the best result. */
+        matchCode: string | MatchCode;
+
+        /** The match confidence of the best result. */
+        matchConfidence: string | MatchConfidence;
+
+        /** The name of the place result, if one exists. */
+        name: string;
+    }
+
+    /** An object that represents a geocode result returned by REST service. */
+    export interface IGeocodeResult {
+        /** An array of geocode results. */
+        results: IPlaceResult[];
+    }
+
+    /** The options for a geocode request. */
+    export interface IGeocodeRequestOptions {
+        /** 
+         * A location rectangle that defines the boundaries of the area in which to search for 
+         * location results. The default is the bounds of the map view associated with this 
+         * instance of the SearchManager, which is usually the current map view.
+         */
+        bounds?: LocationRect;
+
+        /**
+         * The name of the function to call when a successful result is returned from the 
+         * geocode request. The callback function must accept two parameters: result, which is 
+         * a GeocodeResult type, and a userData object.
+         */
+        callback: (geocodeResult: IGeocodeResult, userData: any) => void;
+
+        /** The maximum number of results to return. Required. The maximum number than can be returned is 20. */
+        count?: number;
+
+        /**
+         * The name of the function to call when the request is returned with an error. The 
+         * error callback function must accept an IGeocodeRequestOptions object.
+         */
+        errorCallback?: (geocodeRequestOptions: IGeocodeRequestOptions) => void;
+
+        /** Specifies to include the two-letter ISO country code. */
+        includeCountryIso2?: boolean;
+
+        /** Specifies to include the neighborhood in the response when it is available. */
+        includeNeighborhood?: boolean;
+
+        /** A number indicating how long to wait, in seconds, for the geocode request to return. The default value is 5 seconds. */
+        timeout?: number;
+
+        /** An object containing any data that needs to be passed to the callback when the request is completed. */
+        userData?: any;
+
+        /** A string containing the address or place to be matched to a location on the map.  */
+        where: string;
+    }
+
+    /** The options for a reverse geocode request. */
+    export interface ReverseGeocodeRequestOptions {
+        /**
+         * A reference to a function to call when a successful result is returned from the geocode request. The callback function
+         * will receive a PlaceResult object as an argument.
+         */
+        callback: (placeResult: IPlaceResult, userData: any) => void;
+
+        /**
+         * A reference to a function to call when the request is returned with an error. The error callback function will receive
+         * an object containing the geocode request options used in the request.
+         */
+        errorCallback?: (reverseGeocodeRequestOptions: ReverseGeocodeRequestOptions) => void;
+
+        /** Specifies to include the two-letter ISO country code. Default: false */
+        includeCountryIso2?: boolean;
+
+        /**
+         *  An array of entity types selected from the following options.
+         * • Address
+         * • Neighborhood
+         * • PopulatedPlace
+         * • Postcode1
+         * • AdminDivision1
+         * • AdminDivision2
+         * • CountryRegion
+         * These entity types are ordered from the most specific entity to the least specific entity. When entities of more than one entity type are found, only the most specific
+         * entity is returned. For example, if you specify Address and AdminDistrict1 as entity types and entities were found for both types, only the Address entity information is
+         * returned in the response. One exception to this rule is when both PopulatedPlace and Neighborhood entity types are specified and information is found for both. In this case,
+         * the information for both entity types is returned. Also, more than one Neighborhood may be returned because the area covered by two different neighborhoods can overlap.
+         */
+        includeEntityTypes?: string[];
+
+        /**
+         * Specifies to include the neighborhood in the response when it is available. Note: This feature isn’t
+         * available in all locations.
+         */
+        includeNeighborhood?: boolean;
+
+        /** The location to use to match to geographic entities and addresses. */
+        location: Location;
+
+        /** A number indicating how long to wait, in seconds, for the reverse geocode request to  return. The default value is 5 seconds. */
+        timeout?: number;
+
+        /** An object containing any data that needs to be passed to the callback when the request is completed. */
+        userData?: any;
+    }
+
+    /**
+    * A class that contains methods for returning search and location results.
+    */
+    export class SearchManager {
+        /**
+         * @constructor
+         * @param map A Map object
+         */
+        constructor(map: Map);
+
+        /**
+         * Matches the address or place query in the specified request 
+         * options to a location and returns the results to the request 
+         * options callback function.
+         * @param request Options for sending geocode request
+         */
+        public geocode(request: IGeocodeRequestOptions): void;
+
+        /**
+         * Matches the specified location to an address and returns the 
+         * address results to the specified request options callback function.
+         * @param request Options for sending reverse geocode request
+         */
+        public reverseGeocode(request: ReverseGeocodeRequestOptions): void;
+    }
+}

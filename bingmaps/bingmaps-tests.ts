@@ -1,25 +1,24 @@
-﻿/// <reference path="Microsoft.Maps.d.ts"/>
-/// <reference path="Microsoft.Maps.AdvancedShapes.d.ts"/>
+/// <reference path="Microsoft.Maps.d.ts"/>
+/// <reference path="Microsoft.Maps.Autosuggest.d.ts"/>
+/// <reference path="Microsoft.Maps.Clustering.d.ts"/>
 /// <reference path="Microsoft.Maps.Directions.d.ts"/>
+/// <reference path="Microsoft.Maps.DrawingTools.d.ts"/>
+/// <reference path="Microsoft.Maps.GeoJSON.d.ts"/>
+/// <reference path="Microsoft.Maps.HeatMapLayer.d.ts"/>
 /// <reference path="Microsoft.Maps.Search.d.ts"/>
-/// <reference path="Microsoft.Maps.Themes.BingTheme.d.ts"/>
+/// <reference path="Microsoft.Maps.SpatialDataService.d.ts"/>
+/// <reference path="Microsoft.Maps.SpatialMath.d.ts"/>
 /// <reference path="Microsoft.Maps.Traffic.d.ts"/>
-/// <reference path="Microsoft.Maps.VenueMaps.d.ts"/>
+/// <reference path="Microsoft.Maps.WellKnownText.d.ts"/>
 
-namespace BingMapsTests {
+namespace BingMapsV8Tests {
 
-    // An interactive set of Bing Maps AJAX control usages can be found at http://www.bingmapsportal.com/isdk/ajaxv7
-    // A full API description can be found at http://msdn.microsoft.com/en-us/library/gg427610.aspx
     export class TestFixture {
 
         public createMap(
-            // This key can be acquired at http://www.microsoft.com/maps/create-a-bing-maps-key.aspx
             bingMapsApiKey: string,
-            // This is the HTML container that the map will be drawn inside of
             target: HTMLElement,
-            // These positions will be placed as pushpins onto the map
             mapPositions: Array<Position>,
-            // This will fire if the geolocation fails and will pass the original target (parameter 2)
             onFailure: (element: HTMLElement) => any) {
 
             var self = this;
@@ -28,20 +27,16 @@ namespace BingMapsTests {
             navigator.geolocation.getCurrentPosition((position: Position) => {
 
                 var locations: Array<Microsoft.Maps.Location> = new Array<Microsoft.Maps.Location>();
-                var options: Microsoft.Maps.MapOptions;
+                var options: Microsoft.Maps.IMapLoadOptions;
 
                 function loadMap() {
-                    options = {};
                     options.credentials = bingMapsApiKey;
                     options.enableClickableLogo = false;
-                    options.enableSearchLogo = false;
                     options.showDashboard = false;
                     options.showScalebar = false;
                     options.center = self.toLocation(position);
                     options.zoom = 16;
                     options.mapTypeId = Microsoft.Maps.MapTypeId.road;
-                    options.height = target.clientHeight;
-                    options.width = target.clientWidth;
 
                     target.innerHTML = "";
 
