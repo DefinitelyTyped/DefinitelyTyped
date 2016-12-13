@@ -1,0 +1,16 @@
+{
+    "name": "@types/nblas",
+    "version": "1.2.2",
+    "description": "TypeScript declarations for nblas 1.2.2",
+    "license": "MIT",
+    "author": "Erik Gerrits <https://github.com/erikgerrits>",
+    "main": "",
+    "repository": {
+        "type": "git",
+        "url": "https://www.github.com/DefinitelyTyped/DefinitelyTyped.git"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "peerDependencies": {},
+    "typings": "index.d.ts"
+}
