@@ -42,10 +42,10 @@ declare module IORedis {
 
     interface Redis extends NodeJS.EventEmitter, Commander {
         status: string;
-        connect(callback?: Function): Promise<any>;
+        connect(callback?: Function): PromiseLike<any>;
         disconnect(): void;
         duplicate(): Redis;
-        monitor(calback: (error: Error, monitor: NodeJS.EventEmitter) => void): Promise<NodeJS.EventEmitter>;
+        monitor(calback: (error: Error, monitor: NodeJS.EventEmitter) => void): PromiseLike<NodeJS.EventEmitter>;
 
         send_command(command: string, ...args: any[]): any;
         auth(password: string, callback?: ResCallbackT<any>): any;
@@ -619,7 +619,7 @@ declare module IORedis {
 
     interface Cluster extends NodeJS.EventEmitter, Commander {
         new (nodes: { host: string; port: number; }[], options?: IORedis.ClusterOptions): Redis;
-        connect(callback: Function): Promise<any>;
+        connect(callback: Function): PromiseLike<any>;
         disconnect(): void;
         nodes(role: string): Redis[];
     }
