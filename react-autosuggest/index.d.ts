@@ -3,9 +3,8 @@
 // Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>, Philip Ottesen <https://github.com/pjo256>, Robert Essig <https://github.com/robessog>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react"/>
+import * as React from 'react';
 
-declare namespace ReactAutosuggest {
   interface SuggestionsFetchRequest {
     value: string;
     reason: string;
@@ -31,7 +30,7 @@ declare namespace ReactAutosuggest {
     onBlur?: (event: React.FormEvent<any>, params?: BlurEvent) => void;
   }
 
-  interface SuggestionSelectedEventData<TSuggestion> {
+ export interface SuggestionSelectedEventData<TSuggestion> {
     method: 'click' | 'enter';
     sectionIndex: number | null;
     suggestion: TSuggestion;
@@ -71,10 +70,4 @@ declare namespace ReactAutosuggest {
     id?: string;
   }
 
-  class Autosuggest extends React.Component<AutosuggestProps, any> {}
-}
-
-declare module 'react-autosuggest' {
-  import Autosuggest = ReactAutosuggest.Autosuggest;
-  export = Autosuggest;
-}
+  export class Autosuggest extends React.Component<any, any> {}

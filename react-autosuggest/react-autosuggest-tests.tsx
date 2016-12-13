@@ -1,7 +1,7 @@
 //region Imports
 import React = require('react');
 import ReactDOM = require('react-dom');
-import Autosuggest = require('react-autosuggest');
+import { Autosuggest, SuggestionSelectedEventData } from 'react-autosuggest';
 //endregion
 
 interface Language {
@@ -72,7 +72,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
                             />;
     }
 
-    protected onSuggestionsSelected(event: React.FormEvent<any>, data: ReactAutosuggest.SuggestionSelectedEventData<Language>): void {
+    protected onSuggestionsSelected(event: React.FormEvent<any>, data: SuggestionSelectedEventData<Language>): void {
         alert(`Selected language is ${data.suggestion.name} (${data.suggestion.year}).`);
     }
 
@@ -197,7 +197,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
                             inputProps={inputProps} />;
     }
 
-    protected onSuggestionSelected(event: React.FormEvent<any>, data: ReactAutosuggest.SuggestionSelectedEventData<Language>): void {
+    protected onSuggestionSelected(event: React.FormEvent<any>, data: SuggestionSelectedEventData<Language>): void {
         const language = data.suggestion as Language;
 
         alert(`Selected language is ${language.name} (${language.year}).`);
