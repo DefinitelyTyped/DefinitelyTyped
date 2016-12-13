@@ -649,6 +649,14 @@ declare namespace chrome.sockets.udp {
     var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
 }
 
+/**
+ * Use the chrome.sockets.tcpServer API to create server applications using TCP
+ * connections. This API supersedes the TCP functionality previously found in
+ * the chrome.socket API.
+ *
+ * @since Chrome 33
+ * @see https://developer.chrome.com/apps/sockets_tcpServer
+ */
 declare namespace chrome.sockets.tcpServer {
     interface CreateInfo {
         socketId: number;
@@ -664,36 +672,180 @@ declare namespace chrome.sockets.tcpServer {
         resultCode: number;
     }
 
+    /**
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#type-SocketProperties
+     */
     interface SocketProperties {
+        /**
+         * Flag indicating if the socket remains open when the event page of the
+         * application is unloaded. The default value is "false." When the
+         * application is loaded, any sockets previously opened with
+         * persistent=true can be fetched with getSockets.
+         *
+         * @see http://developer.chrome.com/apps/app_lifecycle.html
+         */
         persistent?: boolean;
+
+        /** An application-defined string associated with the socket. */
         name?: string;
     }
 
+    /**
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#type-SocketInfo
+     */
     interface SocketInfo {
+        /** The socket identifier. */
         socketId: number;
+
+        /**
+         * Flag indicating if the socket remains open when the event page of the
+         * application is unloaded (see SocketProperties.persistent). The
+         * default value is "false".
+         */
         persistent: boolean;
+
+        /** Application-defined string associated with the socket. */
         name?: string;
+
+        /**
+         * Flag indicating whether connection requests on a listening socket are
+         * dispatched through the onAccept event or queued up in the listen
+         * queue backlog. See setPaused. The default value is "false"
+         */
         paused: boolean;
+
+        /** If the socket is listening, contains its local IPv4/6 address. */
         localAddress?: string;
+
+        /** If the socket is listening, contains its local port. */
         localPort?: number;
     }
 
+    /**
+     * Creates a TCP server socket.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-create
+     * @param callback Called when the socket has been created.
+     */
     export function create(callback: (createInfo: CreateInfo) => void): void;
+
+    /**
+     * Creates a TCP server socket.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-create
+     * @param properties The socket properties.
+     * @param callback   Called when the socket has been created.
+     */
     export function create(properties: SocketProperties, callback: (createInfo: CreateInfo) => void): void;
 
+    /**
+     * Updates the socket properties.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-update
+     * @param socketId   The socket identifier.
+     * @param properties The properties to update.
+     * @param callback   Called when the properties are updated.
+     */
     export function update(socketId: number, properties: SocketProperties, callback?: () => void): void;
+
+    /**
+     * Enables or disables a listening socket from accepting new connections.
+     * When paused, a listening socket accepts new connections until its backlog
+     * (see listen function) is full then refuses additional connection
+     * requests. onAccept events are raised only when the socket is un-paused.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-setPaused
+     * @param callback Callback from the setPaused method.
+     */
     export function setPaused(socketId: number, paused: boolean, callback?: () => void): void;
 
-    export function listen(socketId: number, address: string,
-        port: number, backlog: number, callback: (result: number) => void): void;
-    export function listen(socketId: number, address: string,
-        port: number, callback: (result: number) => void): void;
+    /**
+     * Listens for connections on the specified port and address. If the
+     * port/address is in use, the callback indicates a failure.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-listen
+     * @param socketId The socket identifier.
+     * @param address  The address of the local machine.
+     * @param port     The port of the local machine. When set to 0, a free port
+     *                 is chosen dynamically. The dynamically allocated port can
+     *                 be found by calling getInfo.
+     * @param backlog  Length of the socket's listen queue. The default value
+     *                 depends on the Operating System (SOMAXCONN), which
+     *                 ensures a reasonable queue length for most applications.
+     * @param callback Called when listen operation completes.
+     */
+    export function listen(socketId: number, address: string, port: number, backlog: number, callback: (result: number) => void): void;
 
+    /**
+     * Listens for connections on the specified port and address. If the
+     * port/address is in use, the callback indicates a failure.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-listen
+     * @param socketId The socket identifier.
+     * @param address  The address of the local machine.
+     * @param port     The port of the local machine. When set to 0, a free port
+     *                 is chosen dynamically. The dynamically allocated port can
+     *                 be found by calling getInfo.
+     * @param callback Called when listen operation completes.
+     */
+    export function listen(socketId: number, address: string, port: number, callback: (result: number) => void): void;
+
+    /**
+     * Disconnects the listening socket, i.e. stops accepting new connections
+     * and releases the address/port the socket is bound to. The socket
+     * identifier remains valid, e.g. it can be used with listen to accept
+     * connections on a new port and address.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-disconnect
+     * @param socketId The socket identifier.
+     * @param callback Called when the disconnect attempt is complete.
+     */
     export function disconnect(socketId: number, callback?: () => void): void;
-    export function close(socketId: number, callback?: () => void): void;
-    export function getInfo(socketId: number, callback: (socketInfos: SocketInfo[]) => void): void;
 
+    /**
+     * Disconnects and destroys the socket. Each socket created should be closed
+     * after use. The socket id is no longer valid as soon at the function is
+     * called. However, the socket is guaranteed to be closed only when the
+     * callback is invoked.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-close
+     * @param socketId The socket identifier.
+     * @param callback Called when the close operation completes.
+     */
+    export function close(socketId: number, callback?: () => void): void;
+
+    /**
+     * Retrieves the state of the given socket.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-getInfo
+     * @param socketId The socket identifier.
+     * @param callback Called when the socket state is available.
+     */
+    export function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
+
+    /**
+     * Retrieves the list of currently opened sockets owned by the application.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#method-getSockets
+     * @param callback Called when the list of sockets is available.
+     */
+    export function getSockets(callback: (socketInfos: SocketInfo[]) => void): void;
+
+    /**
+     * Event raised when a connection has been made to the server socket.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#event-onAccept
+     */
     var onAccept: chrome.events.Event<(args: AcceptEventArgs) => void>;
+
+    /**
+     * Event raised when a network error occured while the runtime was waiting
+     * for new connections on the socket address and port. Once this event is
+     * raised, the socket is set to paused and no more onAccept events are
+     * raised for this socket until the socket is resumed.
+     *
+     * @see https://developer.chrome.com/apps/sockets_tcpServer#event-onAcceptError
+     */
     var onAcceptError: chrome.events.Event<(args: AcceptErrorEventArgs) => void>;
 }
 
