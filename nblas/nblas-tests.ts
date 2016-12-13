@@ -1,6 +1,6 @@
-/// <reference path="nblas.d.ts" />
+/// <reference path="index.d.ts" />
 
-import * as nblas from './nblas';
+import * as nblas from './index';
 
 const a = new Float32Array(0);
 const n = 1;
