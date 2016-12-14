@@ -294,7 +294,7 @@ function makeWritableWebSocketStream(url: string, protocols: string | string[]) 
     }
 
     class WebSocketSource implements ReadableStreamSource {
-        private _ws: WebSocket
+        private _ws: WebSocket;
 
         constructor(ws: WebSocket) {
             this._ws = ws;
@@ -315,7 +315,7 @@ function makeWritableWebSocketStream(url: string, protocols: string | string[]) 
     }
 
     class WebSocketSink implements WritableStreamSink {
-        private _ws: WebSocket
+        private _ws: WebSocket;
 
         constructor(ws: WebSocket) {
             this._ws = ws;
