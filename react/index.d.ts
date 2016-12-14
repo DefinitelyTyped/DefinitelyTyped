@@ -165,8 +165,8 @@ declare namespace React {
     class Component<P, S> implements ComponentLifecycle<P, S> {
         constructor(...args: any[]);
         constructor(props?: P, context?: any);
-        setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K>, callback?: () => any): void;
-        setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
+        setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K> | S, callback?: () => any): void;
+        setState<K extends keyof S>(state: Pick<S, K> | S, callback?: () => any): void;
         forceUpdate(callBack?: () => any): void;
         render(): JSX.Element | null;
 
