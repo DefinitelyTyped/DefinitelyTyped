@@ -12310,7 +12310,7 @@ declare module _ {
          * _.isNil(NaN);
          * // => false
          */
-        isNil(value?: any): boolean;
+        isNil(value: any): value is null | undefined;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -12335,7 +12335,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is null, else false.
          */
-        isNull(value?: any): boolean;
+        isNull(value: any): value is null;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -12662,7 +12662,7 @@ declare module _ {
          * @param value The value to check.
          * @return Returns true if value is undefined, else false.
          */
-        isUndefined(value: any): boolean;
+        isUndefined(value: any): value is undefined;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
