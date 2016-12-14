@@ -257,7 +257,7 @@ declare namespace SystemJSLoader {
         /**
          * This represents the System base class, which can be extended or reinstantiated to create a custom System instance.
          */
-        constructor(): System;
+        constructor: new () => System;
 
         /**
          * Deletes a module from the registry by normalized name.
