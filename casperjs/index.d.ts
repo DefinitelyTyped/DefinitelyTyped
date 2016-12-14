@@ -1,26 +1,22 @@
-// Type definitions for CasperJS v1.0.0
+// Type definitions for CasperJS v1.0.29
 // Project: http://casperjs.org/
 // Definitions by: Jed Mao <https://github.com/jedmao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="phantomjs" />
 
-interface CasperModule {
-    create(options: CasperOptions): Casper;
-    selectXPath(expression: string): Object
-}
 
-interface EventEmitter {
-    removeAllFilters(filter: string): Casper;
-    setFilter(filter: string, cb: Function): boolean;
-}
+export function create(options?: CasperOptions): Casper;
 
-interface Casper extends EventEmitter {
-    test: Tester;
+export function selectXPath(expression: string): Object;
 
-	constructor (options: CasperOptions): Casper;
+export class Casper {
 
+	constructor(options: CasperOptions);
+
+	test: Tester;
 	options: CasperOptions;
+
 	// Properties
 	__utils__: ClientUtils;
 
@@ -41,10 +37,10 @@ interface Casper extends EventEmitter {
 	debugPage(): Casper;
 	die(message: string, status?: number): Casper;
 	download(url: string, target?: string, method?: string, data?: any): Casper;
-    each<T>(array: T[], fn: (self: Casper, item: T, index: number) => void): Casper;
+	each<T>(array: T[], fn: (this: Casper, item: T, index: number) => void): Casper;
 	echo(message: string, style?: string): Casper;
-    evaluate<T>(fn: () => T, ...args: any[]): T
-    evaluateOrDie(fn: () => any, message?: string, status?: number): Casper;
+	evaluate<T>(fn: () => T, ...args: any[]): T
+	evaluateOrDie(fn: () => any, message?: string, status?: number): Casper;
 	exit(status?: number): Casper;
 	exists(selector: string): boolean;
 	fetchText(selector: string): string;
@@ -78,12 +74,12 @@ interface Casper extends EventEmitter {
 	setHttpAuth(username: string, password: string): Casper;
 	start(url?: string, then?: (response: HttpResponse) => void): Casper;
 	status(asString: boolean): any;
-	then(fn: (self?: Casper) => void): Casper;
+	then(fn: (this: Casper) => void): Casper;
 	thenBypass(nb: number): Casper;
 	thenBypassIf(condition: any, nb: number): Casper;
 	thenBypassUnless(condition: any, nb: number): Casper;
 	thenClick(selector: string): Casper;
-    thenEvaluate(fn: () => any, ...args: any[]): Casper;
+	thenEvaluate(fn: () => any, ...args: any[]): Casper;
 	thenOpen(location: string, then?: (response: HttpResponse) => void): Casper;
 	thenOpen(location: string, options?: OpenSettings, then?: (response: HttpResponse) => void): Casper;
 	thenOpenAndEvaluate(location: string, then?: Function, ...args: any[]): Casper;
@@ -112,6 +108,8 @@ interface Casper extends EventEmitter {
 	withPopup(popupInfo: string, step: Function): Casper;
 	withPopup(popupInfo: RegExp, step: Function): Casper;
 	zoom(factor: number): Casper;
+	removeAllFilters(filter: string): Casper;
+	setFilter(filter: string, cb: Function): boolean;
 }
 
 interface HttpResponse {
@@ -212,8 +210,8 @@ interface Tester {
 	assertDoesntExist(selector: string, message?: string): any;
 	assertElementCount(selctor: string, expected: number, message?: string): any;
 	assertEquals(testValue: any, expected: any, message?: string): any;
-	assertEval(fn: Function, message: string, arguments: any): any;
-	assertEvalEquals(fn: Function, expected: any, message?: string, arguments?: any): any;
+	assertEval(fn: Function, message: string, args: any): any;
+	assertEvalEquals(fn: Function, expected: any, message?: string, args?: any): any;
 	assertExists(selector: string, message?: string): any;
 	assertFalsy(subject: any, message?: string): any;
 	assertField(inputName: string, expected: string, message?: string): any;
@@ -241,11 +239,11 @@ interface Tester {
 	assertUrlMatch(pattern: RegExp, message?: string): any;
 	assertVisible(selector: string, message?: string): any;
 
-    /* since 1.1 */
-    begin(description: string, planned: number, suite: Function): any;
-    begin(description: string, suite: Function): any;
-    begin(description: string, planned: number, config: Object): any;
-    begin(description: string, config: Object): any;
+	/* since 1.1 */
+	begin(description: string, planned: number, suite: Function): any;
+	begin(description: string, suite: Function): any;
+	begin(description: string, planned: number, config: Object): any;
+	begin(description: string, config: Object): any;
 
 	colorize(message: string, style: string): any;
 	comment(message: string): any;
