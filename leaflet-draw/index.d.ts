@@ -101,7 +101,7 @@ declare namespace L {
 		}
 
 		export interface Draw extends Control {
-			setDrawingOptions(options: DrawOptions): void
+			setDrawingOptions(options: DrawOptions): void;
 		}
 
 		export class Draw {
