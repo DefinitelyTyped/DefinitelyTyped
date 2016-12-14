@@ -69,3 +69,42 @@ function handlePromise(promise: Promise<Response>) {
 		console.log(text);
 	});
 }
+
+function test_Body_json() {
+	interface FooBar {
+		foo: string;
+		bar: string;
+	}
+
+	fetch('http://test.com')
+		.then(response => response.json<FooBar>())
+		.then(fooBar => {
+			console.log(fooBar.foo);
+			console.log(fooBar.bar);
+		});
+
+	fetch('http://test.com')
+		.then(response => <Promise<FooBar>> response.json())
+		.then(fooBar => {
+			console.log(fooBar.foo);
+			console.log(fooBar.bar);
+		});
+
+	fetch('http://test.com')
+		.then(response => response.json() as Promise<FooBar>)
+		.then(fooBar => {
+			console.log(fooBar.foo);
+			console.log(fooBar.bar);
+		});
+
+	fetch('http://test.com')
+		.then(response => response.json())
+		.then(fooBar => {
+			// fooBar is of type any, not of type FooBar
+
+			// FIXME Was behaving properly with TypeScript 2.0.10, not anymore with 2.1.4
+			// See Wrong type with Promise chaining and 2.1.4 https://github.com/Microsoft/TypeScript/issues/12409
+			//console.log(fooBar.foo);
+			//console.log(fooBar.bar);
+		});
+}
