@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@types/geojson": "0.0.31"
+  }
+}
