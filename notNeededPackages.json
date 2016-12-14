@@ -196,6 +196,12 @@
             "typingsPackageName": "upper-case-first",
             "sourceRepoUrl": "https://github.com/blakeembrey/upper-case-first",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "Sugar",
+            "typingsPackageName": "sugar",
+            "sourceRepoURL": "https://github.com/andrewplummer/Sugar",
+            "asOfVersion": "2.0.2"
         }
     ]
 }
