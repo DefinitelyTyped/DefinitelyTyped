@@ -1,7 +1,24 @@
+// Type definitions for Umbraco v7.2.8
+// Project: https://github.com/umbraco
+// Definitions by: DeCareSystemsIreland <https://github.com/DeCareSystemsIreland>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="angular" />
+
 declare namespace Umbraco {
     export var Sys: IUmbracoSystem;
-
+    
+    
     interface IUmbracoSystem {
+        
+        /**
+        * @name Umbraco.Sys.ServerVariables
+        * @description
+        * This dictionary contains information based on the current Umbraco environment 
+        * for which the JavaScript and client side needs to know about. 
+        * Information such as whether the application is running in debug mode, 
+        * the service API URLs, or other non-sensitive global server side variables.
+        */
         ServerVariables: IServerVariables;
     }
 
@@ -86,6 +103,11 @@ declare namespace Umbraco {
         umbracoUrls: IUmbracoUrls;
         umbracoSettings: IUmbracoSettings;
         umbracoPlugins: IUmbracoPlugins;
+        
+        /**
+        * @name Umbraco.Sys.ServerVariables.isDebuggingEnabled
+        * @description Whether or not the application has the debug="true" setting in the web.config file.
+        */
         isDebuggingEnabled: boolean;
         application: IApplication;
         externalLogins: IExternalLogins;
