@@ -2,6 +2,7 @@
 // Project: https://github.com/umbraco
 // Definitions by: DeCareSystemsIreland <https://github.com/DeCareSystemsIreland>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Definitions: https://our.umbraco.org/apidocs/ui/#/api/umbraco.services
 
 
 /// <reference types="angular" />
