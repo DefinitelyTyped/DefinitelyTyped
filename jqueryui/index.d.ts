@@ -320,6 +320,14 @@ declare namespace JQueryUI {
          * Additional text to display after the year in the month headers.
          */
         yearSuffix?: string;
+        /**
+        * Set to true to automatically hide the datepicker.
+        */
+     	autohide?: boolean;
+    	/**
+ 	    * Set to date to automatically enddate the datepicker.
+ 	    */
+    	endDate?: Date;
     }
 
     interface DatepickerFormatDateOptions {
@@ -1250,6 +1258,22 @@ interface JQuery {
      */
     datepicker(methodName: 'option', optionName: 'appendText', appendTextValue: string): JQuery;
 
+     /**
+     * Get the autohide option, after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'autohide'
+     */
+     datepicker(methodName: 'option', optionName: 'autohide'): boolean;
+   
+  
+     /**
+     * Get the endDate after initialization
+     *
+     * @param methodName 'option'
+     * @param optionName 'endDate'
+     */
+     datepicker(methodName: 'option', optionName: 'endDate'): Date;
     /**
      * Get the autoSize option, after initialization
      *
