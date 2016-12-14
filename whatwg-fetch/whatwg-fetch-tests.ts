@@ -100,8 +100,11 @@ function test_Body_json() {
 	fetch('http://test.com')
 		.then(response => response.json())
 		.then(fooBar => {
-			// fooBar is any, not FooBar
-			console.log(fooBar.foo);
-			console.log(fooBar.bar);
+			// fooBar is of type any, not of type FooBar
+
+			// FIXME Was behaving properly with TypeScript 2.0.10, not anymore with 2.1.4
+			// See Wrong type with Promise chaining and 2.1.4 https://github.com/Microsoft/TypeScript/issues/12409
+			//console.log(fooBar.foo);
+			//console.log(fooBar.bar);
 		});
 }
