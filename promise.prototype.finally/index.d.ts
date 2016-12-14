@@ -6,3 +6,7 @@
 declare interface Promise<T> {
     finally<U>(onFinally?: () => U | Promise<U>): Promise<U>;
 }
+
+declare module 'promise.prototype.finally' {
+  export function shim(): void;
+}
