@@ -5,7 +5,6 @@
 
 // This file contains all of the example code for the core pino library from the docs on https://www.npmjs.com/package/pino
 
-/// <reference path='../pino/index.d.ts' />
 
 // from: Usage
 import PINO = require('pino')

@@ -3,7 +3,6 @@
 // Definitions by: Peter Snider <https://github.com/psnider>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path='../node/index.d.ts' />
 
 
 declare namespace Pino {
