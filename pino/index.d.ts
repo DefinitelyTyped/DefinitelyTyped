@@ -3,6 +3,7 @@
 // Definitions by: Peter Snider <https://github.com/psnider>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference types="node"/>
 
 
 declare namespace Pino {

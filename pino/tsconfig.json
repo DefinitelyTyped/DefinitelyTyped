@@ -8,7 +8,7 @@
         "typeRoots": [
             "../"
         ],
-        "types": ["node","pino"],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
