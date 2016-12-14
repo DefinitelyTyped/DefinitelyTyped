@@ -778,7 +778,7 @@ declare namespace google.maps {
     }
 
     export interface RectangleOptions {
-        bounds?: LatLngBounds;
+        bounds?: LatLngBounds | LatLngBoundsLiteral;
         clickable?: boolean;
         draggable?: boolean;
         editable?: boolean;
