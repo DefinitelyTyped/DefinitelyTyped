@@ -1135,8 +1135,7 @@ declare namespace kendo.data {
 
     interface DataSourceFilters extends DataSourceFilter {
         logic?: string;
-        filters?: DataSourceFilter[];
-        filters?: DataSourceFilterItem[];
+        filters?: DataSourceFilter[];        
     }
 
     interface DataSourceGroupItemAggregate {
