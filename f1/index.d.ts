@@ -27,7 +27,7 @@ interface F1 extends NodeJS.EventEmitter {
 	destroy(): void;
 	apply(pathToTarget: string, target: any, parserDefinition: any): void;
 
-	go(state: string, callback?: () => void): F1;
+	go(state: string, callback?: (state: any, currentState :any) => void): F1;
 	set(state: string): F1;
 	step(deltaTime: number): F1;
 	update(): F1;
