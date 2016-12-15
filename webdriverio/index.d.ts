@@ -1,18 +1,22 @@
-// Type definitions for webdriverio 4.0.4
+// Type definitions for webdriverio 4.0
 // Project: http://www.webdriver.io/
-// Definitions by: Nick Malaguti <https://github.com/nmalaguti/>
+// Definitions by: Nick Malaguti <https://github.com/nmalaguti/>, Greg O'Connor <https://github.com/greglo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
 /// <reference types="q"/>
 
+// tslint:disable:void-return
+
 declare namespace WebdriverIO {
+    export type AnyFunction = (...args: any[]) => void;
+
     // EventEmitter
     export interface Client<T> {
-        addListener(event: string, listener: Function): Client<T>;
-        on(event: string, listener: Function): Client<T>;
-        once(event: string, listener: Function): Client<T>;
-        removeListener(event: string, listener: Function): Client<T>;
+        addListener(event: string, listener: AnyFunction): Client<T>;
+        on(event: string, listener: AnyFunction): Client<T>;
+        once(event: string, listener: AnyFunction): Client<T>;
+        removeListener(event: string, listener: AnyFunction): Client<T>;
         removeAllListeners(event?: string): Client<T>;
         setMaxListeners(n: number): Client<T>;
         listeners(event: string): Client<T>;
@@ -133,14 +137,16 @@ declare namespace WebdriverIO {
             ...args: any[]
         ): Client<P>;
 
-        setValue(selector: string, values: number | string | Array<string>): Client<void>;
+        setValue(selector: string, values: number | string | string[]): Client<void>;
+        // tslint:disable-next-line:unified-signatures
         setValue<P>(
             selector: string,
-            values: number | string | Array<string>,
+            values: number | string | string[],
             callback: (err: any) => P
         ): Client<void>;
 
         submitForm(selector: string): Client<void>;
+        // tslint:disable-next-line:unified-signatures
         submitForm<P>(
             selector: string,
             callback: (err: any) => P
@@ -148,6 +154,7 @@ declare namespace WebdriverIO {
     }
 
     // Appium
+    // tslint:disable-next-line:no-empty-interface
     export interface Client<T> {
         // backgroundApp
         // closeApp
@@ -212,29 +219,48 @@ declare namespace WebdriverIO {
         ): Client<P>;
     }
 
+    export interface GridNodeDetails {
+        request?: {
+            capabilities: {};
+            configuration: {};
+            description?: string;
+            id?: string;
+            msg?: string;
+            name?: string;
+        };
+        success?: boolean;
+        session?: string;
+        internalKey?: string;
+        inactivityTime?: number;
+        proxyId?: string;
+    }
+
     export interface Client<T> {
         session(action?: string, sessionId?: string): Client<RawResult<any>>;
         session<P>(
             callback: (err: any, result: RawResult<any>) => P
         ): Client<P>;
 
-        getGridNodeDetails(): Client<Object>;
+        getGridNodeDetails(): Client<GridNodeDetails>;
         getGridNodeDetails<P>(
-            callback: (err: any, details: Object) => P
+            callback: (err: any, details: GridNodeDetails) => P
         ): Client<P>;
 
-        gridProxyDetails(): Client<Object>;
+        gridProxyDetails(): Client<GridNodeDetails>;
+        // tslint:disable-next-line:unified-signatures
         gridProxyDetails<P>(
-            callback: (err: any, result: Object) => P
+            callback: (err: any, result: GridNodeDetails) => P
+        ): Client <P>;
+        // tslint:disable-next-line:unified-signatures
+        gridProxyDetails<P>(
+            callback: (err: any, result: GridNodeDetails) => P
         ): Client <P>;
 
-        gridTestSession(): Client<Object>;
-        gridProxyDetails<P>(
-            callback: (err: any, result: Object) => P
-        ): Client <P>;
+        gridTestSession(): Client<GridNodeDetails>;
     }
 
     // Mobile
+    // tslint:disable-next-line:no-empty-interface
     export interface Client<T> {
         // flick
         // flickDown
@@ -462,10 +488,11 @@ declare namespace WebdriverIO {
 
         // you probably want to use the click and drag and drop commands instead
         buttonUp(button?: string | Button): Client<void>;
+        // tslint:disable-next-line:unified-signatures
         buttonUp<P>(
             callback: (err: any) => P
         ): Client<P>;
-        buttonUp(button?: string | Button): Client<void>;
+        // tslint:disable-next-line:unified-signatures
         buttonUp<P>(
             button: string | Button,
             callback: (err: any) => P
@@ -723,10 +750,10 @@ declare namespace WebdriverIO {
         // cookie
 
         // use selectorExecute instead
-        execute(script: string | Function, ...args: any[]): Client<RawResult<any>>;
+        execute(script: string | AnyFunction, ...args: any[]): Client<RawResult<any>>;
 
         // use selectorExecuteAsync instead
-        executeAsync(script: string | Function, ...args: any[]): Client<RawResult<any>>;
+        executeAsync(script: string | AnyFunction, ...args: any[]): Client<RawResult<any>>;
 
         // file
         // imeActivate
@@ -794,15 +821,15 @@ declare namespace WebdriverIO {
 
     // Utility
     export interface Client<T> {
-        addCommand(commandName: string, customMethod: Function, overwrite?: boolean): Client<void>;
+        addCommand(commandName: string, customMethod: AnyFunction, overwrite?: boolean): Client<void>;
         addCommand<P>(
             commandName: string,
-            customMethod: Function,
+            customMethod: AnyFunction,
             callback: (err: any) => P
         ): Client<P>;
         addCommand<P>(
             commandName: string,
-            customMethod: Function,
+            customMethod: AnyFunction,
             overwrite: boolean,
             callback: (err: any) => P
         ): Client<P>;
@@ -1082,6 +1109,7 @@ declare namespace WebdriverIO {
 
 declare var browser: WebdriverIO.Client<void>;
 
+// tslint:disable-next-line:no-single-declare-module
 declare module "webdriverio" {
     export = WebdriverIO;
 }

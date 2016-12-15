@@ -125,4 +125,7 @@ webdriverio
     .then(function(visible){
         console.log(visible); //Should return true
     })
+    .on("event", (e: any) => {
+        console.log(e);
+    })
     .end();
