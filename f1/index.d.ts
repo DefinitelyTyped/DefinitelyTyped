@@ -6,8 +6,8 @@
 /// <reference types="node" />
 
 interface F1Options {
-	onState: void;
-	onUpdate: void;
+	onState?: (...args: any[]) => void;
+	onUpdate?: (...args: any[]) => void;
 
 	name: string;
 
@@ -27,10 +27,12 @@ interface F1 extends NodeJS.EventEmitter {
 	destroy(): void;
 	apply(): void;
 
-	go(state: string, callback?: void): F1;
+	go(state: string, callback?: (...args: any[]) => void): F1;
 	set(state: string): F1;
 	step(deltaTime: number): F1;
 	update(): F1;
 }
 
-declare function f1(settings?: F1Options): F1;
+declare function F1(settings?: F1Options): F1;
+
+export = F1;
