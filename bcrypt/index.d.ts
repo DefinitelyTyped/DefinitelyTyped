@@ -1,4 +1,4 @@
-// Type definitions for bcrypt v1.0.1
+// Type definitions for bcrypt 1.0
 // Project: https://www.npmjs.org/package/bcrypt
 // Definitions by: Peter Harris <https://github.com/codeanimal>, Ayman Nedjmeddine <https://github.com/IOAyman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -25,12 +25,7 @@ export declare function genSalt(callback?: (err: Error, salt: string) => void): 
  * @param data  The data to be encrypted.
  * @param salt  The salt to be used in encryption.
  */
-export declare function hashSync(data: any, salt: string): string;
-/**
- * @param data    The data to be encrypted.
- * @param rounds  A salt will be generated using the rounds specified.
- */
-export declare function hashSync(data: any, rounds: number): string;
+export declare function hashSync(data: any, saltOrRounds: string | number): string;
 
 /**
  * @param data      The data to be encrypted.
@@ -38,14 +33,7 @@ export declare function hashSync(data: any, rounds: number): string;
  * @param callback  A callback to be fired once the data has been encrypted. Uses eio making it asynchronous.
  * @return A promise to be either resolved with the encrypted data salt or rejected with an Error
  */
-export declare function hash(data: any, salt: string, callback?: (err: Error, encrypted: string) => void): Promise<string>;
-/**
- * @param data      The data to be encrypted.
- * @param rounds    A salt will be generated using the rounds specified.
- * @param callback  A callback to be fired once the data has been encrypted. Uses eio making it asynchronous.
- * @return A promise to be either resolved with the encrypted data salt or rejected with an Error
- */
-export declare function hash(data: any, rounds: number, callback?: (err: Error, encrypted: string) => void): Promise<string>;
+export declare function hash(data: any, saltOrRounds: string | number, callback?: (err: Error, encrypted: string) => void): Promise<string>;
 
 /**
  * @param data      The data to be encrypted.
