@@ -343,6 +343,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "TsMonad",
+            "typingsPackageName": "tsmonad",
+            "sourceRepoURL": "https://github.com/cbowdon/TsMonad",
+            "asOfVersion": "0.5.0"
+        },
+        {
             "libraryName": "TypeScript",
             "typingsPackageName": "typescript",
             "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
