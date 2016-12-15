@@ -396,6 +396,7 @@ declare namespace NodeJS {
         platform: string;
         mainModule?: NodeModule;
         memoryUsage(): MemoryUsage;
+        cpuUsage(previousValue?: [number, number]): [number, number];
         nextTick(callback: Function, ...args: any[]): void;
         umask(mask?: number): number;
         uptime(): number;
