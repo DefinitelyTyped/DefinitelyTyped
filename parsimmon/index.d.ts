@@ -83,8 +83,7 @@ declare namespace Parsimmon {
 		/**
 		 * returns a new parser which tries parser, and if it fails uses otherParser.
 		 */
-		or(otherParser: Parser<T>): Parser<T>;
-		or<U>(otherParser: Parser<U>): Parser<any>;
+		or<U>(otherParser: Parser<U>): Parser<T | U>;
 		/**
 		 * returns a new parser which tries parser, and on success calls the given function
 		 * with the result of the parse, which is expected to return another parser, which
@@ -107,13 +106,17 @@ declare namespace Parsimmon {
 		 */
 		map<U>(call: (result: T) => U): Parser<U>;
 		/**
-		 * expects otherParser after parser, but preserves the yield value of parser.
-		 */
-		skip<U>(otherParser: Parser<U>): Parser<T>;
-		/**
 		 * returns a new parser with the same behavior, but which yields aResult.
 		 */
 		result<U>(aResult: U): Parser<U>;
+		/**
+		 * returns a new parser that returns the fallback value if the first parser failed.
+		 */
+		fallback<U>(fallbackValue: U): Parser<T | U>;
+		/**
+		 * expects otherParser after parser, but preserves the yield value of parser.
+		 */
+		skip<U>(otherParser: Parser<U>): Parser<T>;
 		/**
 		 * expects parser zero or more times, and yields an array of the results.
 		 */

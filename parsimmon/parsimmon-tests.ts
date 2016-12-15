@@ -38,6 +38,7 @@ var indexPar: Parser<Index>;
 
 var fooPar: Parser<Foo>;
 var barPar: Parser<Bar>;
+var fooOrBarPar: Parser<Foo | Bar>;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -84,7 +85,7 @@ fooResult = fooPar.parse(str);
 foo = fooPar.tryParse(str);
 
 fooPar = fooPar.or(fooPar);
-anyPar = fooPar.or(barPar);
+fooOrBarPar = fooPar.or(barPar);
 
 barPar = fooPar.chain((f) => {
 	foo = f;
@@ -107,6 +108,8 @@ barPar = fooPar.map((f) => {
 fooPar = fooPar.skip(barPar);
 
 barPar = barPar = fooPar.result(bar);
+
+fooOrBarPar = fooPar.fallback(bar);
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
