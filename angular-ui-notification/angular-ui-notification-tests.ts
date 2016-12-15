@@ -1,5 +1,5 @@
 
-function TestNotifications(NotificationProvider: angular.uiNotification.INotificationProvider, Notification: angular.uiNotification.INotificationService) {
+function TestNotifications(NotificationProvider: angular.uiNotification.NotificationProvider, Notification: angular.uiNotification.NotificationService) {
     NotificationProvider.setOptions({
         delay: 10000,
         startTop: 20,
