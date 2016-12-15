@@ -1090,6 +1090,7 @@ declare namespace Ember {
     var GUID_KEY: string;
     namespace Handlebars {
         function compile(string: string): Function;
+        function compile(environment: any, options?: any, context?: any, asObject?: any): any;
         function precompile(string: string, options: any): void;
         class Compiler { }
         class JavaScriptCompiler { }
@@ -1105,7 +1106,6 @@ declare namespace Ember {
         function print(ast: any): void;
         var logger: typeof Ember.Logger;
         function log(level: string, str: string): void;
-        function compile(environment: any, options?: any, context?: any, asObject?: any): any;
     }
     class HashLocation extends Object {
         static detect(obj: any): boolean;
