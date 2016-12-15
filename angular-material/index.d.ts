@@ -278,7 +278,7 @@ declare module 'angular' {
             setNonce(nonce: string): void;
             theme(name: string, inheritFrom?: string): ITheme;
             generateThemesOnDemand(onDemand: boolean): void;
-            disableTheming(isDisabled: boolean): void;
+            disableTheming(isDisabled?: boolean): void;
             configuration(): IThemeConfig;
         }
 
