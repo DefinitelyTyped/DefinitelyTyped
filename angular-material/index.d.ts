@@ -436,19 +436,19 @@ declare module 'angular' {
             };
         }
 
-        interface IProgressCircularConfig {
-            progressSize: number;
-            strokeWidth: number;
-            duration: number;
-            easeFn: Function;
-            durationIndeterminate: number;
-            startIndeterminate: number;
-            endIndeterminate: number;
-            easeFnIndeterminate: Function;        
+        interface IProgressCircularOptions {
+            progressSize?: number;
+            strokeWidth?: number;
+            duration?: number;
+            easeFn?: Function;
+            durationIndeterminate?: number;
+            startIndeterminate?: number;
+            endIndeterminate?: number;
+            easeFnIndeterminate?: Function;        
         }
 
         interface IProgressCircularProvider {
-            configure(options: IProgressCircularConfig): void;
+            configure(options: IProgressCircularOptions): void;
         }
     }
 }
