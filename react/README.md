@@ -19,23 +19,23 @@ If you are using modules you should use `react.d.ts`, `react-dom.d.ts` or any of
 ## Known Problems & Workarounds
 
 ### **The type of `setState` is less than ideal and a little more strict than desirable.**
-Starting with TypeScript 2.1, its more correct than it used to be, with a caveat: optional parameters on state interfaces are no longer valid.
+Starting with TypeScript 2.1, its more correct than it used to be, with a caveat: optional parameters on state interfaces are no longer valid. Once https://github.com/Microsoft/TypeScript/pull/12826 is released (should be in 2.2 at the latest, possibly in a 2.1.x hotfix) this constraint goes away and `Pick<S, K>` becomes ideal.
 
 ```ts
 interface FooState {
-  bar: string;
-  foo?: string;
+    bar: string;
+    foo?: string;
 }
 
 const defaultFooState: FooState = {
-  bar: "Hi",
-  foo: undefined,
+    bar: "Hi",
+    foo: undefined,
 };
 
 class Foo extends React.Component<{}, FooState> {
-  public doStuff() {
-    this.setState(defaultFooState);
-  }
+    public doStuff() {
+        this.setState(defaultFooState);
+    }
 }
 ```
 

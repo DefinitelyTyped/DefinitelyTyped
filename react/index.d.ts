@@ -165,6 +165,8 @@ declare namespace React {
     class Component<P, S> implements ComponentLifecycle<P, S> {
         constructor(...args: any[]);
         constructor(props?: P, context?: any);
+        // Note to future editors, once https://github.com/Microsoft/TypeScript/pull/12826 is in a release, the next two
+        // lines should swap `Pick<S, K> | S` for `Pick<S, K>`.
         setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K> | S, callback?: () => any): void;
         setState<K extends keyof S>(state: Pick<S, K> | S, callback?: () => any): void;
         forceUpdate(callBack?: () => any): void;
