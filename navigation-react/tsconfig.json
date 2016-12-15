@@ -5,6 +5,7 @@
         "noImplicitAny": true,
         "strictNullChecks": true,
         "baseUrl": "../",
+        "jsx": "react",
         "typeRoots": [
             "../"
         ],
@@ -14,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "whatwg-streams-tests.ts"
+        "navigation-react-tests.tsx"
     ]
 }

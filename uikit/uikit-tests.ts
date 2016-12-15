@@ -2,9 +2,20 @@
 
 function testModal() {
     UIkit.modal.alert("Attention!");
-    UIkit.modal.confirm("Are you sure?", function () {
-        // will be executed on confirm.
-    });
+
+    let options: UIkit.ModalOptions = {
+        keyboard: true,
+        bgclose: true,
+        minScrollHeight: 150,
+        center: false,
+        modal: true
+    };
+    UIkit.modal.confirm("Are you sure?", () => {});
+    UIkit.modal.confirm("Are you sure?", () => {}, {});
+    UIkit.modal.confirm("Are you sure?", () => {}, () => {});
+    UIkit.modal.confirm("Are you sure?", () => {}, () => {}, {});
+    UIkit.modal.confirm("Are you sure?", () => {}, {});
+
     UIkit.modal.prompt("Name:", 'value', function (newvalue:string) {
         // will be executed on submit.
     });
