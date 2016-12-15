@@ -41,20 +41,14 @@ declare namespace WebdriverIO {
         ): Client<P>;
         addValue<P>(value: string | number): Client<P>;
 
-        clearElement(selector: string): Client<void>;
-        clearElement(): Client<void>;
-        clearElement<P>(selector: string): Client<P>;
-        clearElement<P>(): Client<P>;
+        clearElement(selector?: string): Client<void>;
+        clearElement<P>(selector?: string): Client<P>;
 
-        click(selector: string): Client<void>;
-        click(): Client<void>;
-        click<P>(selector: string): Client<P>;
-        click<P>(): Client<P>;
+        click(selector?: string): Client<void>;
+        click<P>(selector?: string): Client<P>;
 
-        doubleClick(selector: string): Client<void>;
-        doubleClick(): Client<void>;
-        doubleClick<P>(selector: string): Client<P>;
-        doubleClick<P>(): Client<P>;
+        doubleClick(selector?: string): Client<void>;
+        doubleClick<P>(selector?: string): Client<P>;
 
         dragAndDrop(
             sourceElem: string,
@@ -67,18 +61,13 @@ declare namespace WebdriverIO {
         ): Client<P>;
         dragAndDrop<P>(destinationElem: string): Client<P>;
 
-        leftClick(selector: string): Client<void>;
-        leftClick(): Client<void>;
-        leftClick<P>(selector: string): Client<P>;
-        leftClick<P>(): Client<P>;
+        leftClick(selector?: string): Client<void>;
+        leftClick<P>(selector?: string): Client<P>;
 
-        middleClick(selector: string): Client<void>;
-        middleClick(): Client<void>;
-        middleClick<P>(selector: string): Client<P>;
-        middleClick<P>(): Client<P>;
+        middleClick(selector?: string): Client<void>;
+        middleClick<P>(selector?: string): Client<P>;
 
-        moveToObject(selector: string): Client<void>;
-        moveToObject(): Client<void>;
+        moveToObject(selector?: string): Client<void>;
         moveToObject(
             selector: string,
             xoffset: number,
@@ -88,8 +77,7 @@ declare namespace WebdriverIO {
             xoffset: number,
             yoffset: number
         ): Client<void>;
-        moveToObject<P>(selector: string): Client<P>;
-        moveToObject<P>(): Client<P>;
+        moveToObject<P>(selector?: string): Client<P>;
         moveToObject<P>(
             selector: string,
             xoffset: number,
@@ -100,13 +88,18 @@ declare namespace WebdriverIO {
             yoffset: number
         ): Client<P>;
 
-        rightClick(selector: string): Client<void>;
-        rightClick(): Client<void>;
-        rightClick<P>(selector: string): Client<P>;
-        rightClick<P>(): Client<P>;
+        rightClick(selector?: string): Client<void>;
+        rightClick<P>(selector?: string): Client<P>;
 
-        selectByAttribute(selector: string, attribute: string, value: string): Client<void>;
-        selectByAttribute(attribute: string, value: string): Client<void>;
+        selectByAttribute(
+            selector: string,
+            attribute: string,
+            value: string
+        ): Client<void>;
+        selectByAttribute(
+            attribute: string,
+            value: string
+        ): Client<void>;
         selectByAttribute<P>(
             selector: string,
             attribute: string,
@@ -117,7 +110,10 @@ declare namespace WebdriverIO {
             value: string
         ): Client<P>;
 
-        selectByIndex(selectElem: string, index: number): Client<void>;
+        selectByIndex(
+            selectElem: string,
+            index: number
+        ): Client<void>;
         selectByIndex(index: number): Client<void>;
         selectByIndex<P>(
             selectElem: string,
@@ -125,7 +121,10 @@ declare namespace WebdriverIO {
         ): Client<P>;
         selectByIndex<P>(index: number): Client<P>;
 
-        selectByValue(selectElem: string, value: string): Client<void>;
+        selectByValue(
+            selectElem: string,
+            value: string
+        ): Client<void>;
         selectByValue(value: string): Client<void>;
         selectByValue<P>(
             selectElem: string,
@@ -133,7 +132,10 @@ declare namespace WebdriverIO {
         ): Client<P>;
         selectByValue<P>(value: string): Client<P>;
 
-        selectByVisibleText(selectElem: string, text: string): Client<void>;
+        selectByVisibleText(
+            selectElem: string,
+            text: string
+        ): Client<void>;
         selectByVisibleText(text: string): Client<void>;
         selectByVisibleText<P>(
             selectElem: string,
@@ -153,18 +155,23 @@ declare namespace WebdriverIO {
             ...args: any[]
         ): Client<P>;
 
-        setValue(selector: string, values: number | string | Array<string>): Client<void>;
-        setValue(values: number | string | Array<string>): Client<void>;
+        setValue(
+            selector: string,
+            values: number | string | Array<string>
+        ): Client<void>;
+        setValue(
+            values: number | string | Array<string>
+        ): Client<void>;
         setValue<P>(
             selector: string,
             values: number | string | Array<string>
         ): Client<void>;
-        setValue<P>(values: number | string | Array<string>): Client<void>;
+        setValue<P>(
+            values: number | string | Array<string>
+        ): Client<void>;
 
-        submitForm(selector: string): Client<void>;
-        submitForm(): Client<void>;
-        submitForm<P>(selector: string): Client<void>;
-        submitForm<P>(): Client<void>;
+        submitForm(selector?: string): Client<void>;
+        submitForm<P>(selector?: string): Client<P>;
     }
 
     // Appium
@@ -207,20 +214,21 @@ declare namespace WebdriverIO {
     // Cookie
     export interface Client<T> {
         deleteCookie(name?: string): Client<void>;
-        deleteCookie<P>(): Client<P>;
-        deleteCookie<P>(name: string): Client<P>;
+        deleteCookie<P>(name?: string): Client<P>;
 
         getCookie(): Client<Cookie[]>;
         getCookie(name: string): Client<Cookie>;
-        getCookie<P>(): Client<P>;
-        getCookie<P>(name: string): Client<P>;
+        getCookie<P>(name?: string): Client<P>;
 
         setCookie(cookie: Cookie): Client<void>;
         setCookie<P>(cookie: Cookie): Client<P>;
     }
 
     export interface Client<T> {
-        session(action?: string, sessionId?: string): Client<RawResult<any>>;
+        session(
+            action?: string,
+            sessionId?: string
+        ): Client<RawResult<any>>;
         session<P>(): Client<P>;
 
         getGridNodeDetails(): Client<Object>;
@@ -275,8 +283,14 @@ declare namespace WebdriverIO {
 
     // Property
     export interface Client<T> {
-        getAttribute(selector: string, attributeName: string): Client<string> & string;
-        getAttribute(selector: string, attributeName: string): Client<string[]> & string[];
+        getAttribute(
+            selector: string,
+            attributeName: string
+        ): Client<string> & string;
+        getAttribute(
+            selector: string,
+            attributeName: string
+        ): Client<string[]> & string[];
         getAttribute(attributeName: string): Client<string> & string;
         getAttribute(attributeName: string): Client<string[]> & string[];
         getAttribute<P>(
@@ -285,8 +299,14 @@ declare namespace WebdriverIO {
         ): Client<P>;
         getAttribute<P>(attributeName: string): Client<P>;
 
-        getCssProperty(selector: string, cssProperty: string): CssProperty;
-        getCssProperty(selector: string, cssProperty: string): CssProperty[];
+        getCssProperty(
+            selector: string,
+            cssProperty: string
+        ): CssProperty;
+        getCssProperty(
+            selector: string,
+            cssProperty: string
+        ): CssProperty[];
         getCssProperty(cssProperty: string): CssProperty;
         getCssProperty(cssProperty: string): CssProperty[];
         getCssProperty<P>(
@@ -298,38 +318,44 @@ declare namespace WebdriverIO {
         getElementSize(selector: string): Client<Size> & Size;
         getElementSize(selector: string): Client<Size[]> & Size[];
         getElementSize(): Client<Size|Size[]> & Size|Size[];
-        getElementSize(selector: string, dimension: string): number;
-        getElementSize(selector: string, dimension: string): number[];
+        getElementSize(
+            selector: string,
+            dimension: string
+        ): number;
+        getElementSize(
+            selector: string,
+            dimension: string
+        ): number[];
         getElementSize(dimension: string): number ;
         getElementSize(dimension: string): number[];
-        getElementSize<P>(selector: string): Client<P>;
-        getElementSize<P>(): Client<P>;
+        getElementSize<P>(selector?: string): Client<P>;
         getElementSize<P>(
             selector: string,
             dimension: string
         ): Client<P>;
         getElementSize<P>(dimension: string): Client<P>;
 
-        getHTML(selector: string, includeSelectorTag?: boolean): string;
-        getHTML(selector: string, includeSelectorTag?: boolean): string[];
+        getHTML(
+            selector: string,
+            includeSelectorTag?: boolean
+        ): string;
+        getHTML(
+            selector: string,
+            includeSelectorTag?: boolean
+        ): string[];
         getHTML(includeSelectorTag?: boolean): string;
         getHTML(includeSelectorTag?: boolean): string[];
-        getHTML<P>(
-            selector: string
-        ): Client<P>;
-        getHTML<P>(): Client<P>;
+        getHTML<P>(selector?: string): Client<P>;
         getHTML<P>(
             selector: string,
             includeSelectorTag: boolean
         ): Client<P>;
         getHTML<P>(includeSelectorTag: boolean): Client<P>;
 
-        getLocation(selector: string): Size;
-        getLocation(): Size;
+        getLocation(selector?: string): Size;
         getLocation(selector: string, axis: string): number;
         getLocation(axis: string): number;
-        getLocation<P>(selector: string): Client<P>;
-        getLocation<P>(): Client<P>;
+        getLocation<P>(selector?: string): Client<P>;
         getLocation<P>(
             selector: string,
             axis: string
@@ -340,12 +366,17 @@ declare namespace WebdriverIO {
         getLocationInView(selector: string): Size[];
         getLocationInView(): Size;
         getLocationInView(): Size[];
-        getLocationInView(selector: string, axis: string): number;
-        getLocationInView(selector: string, axis: string): number[];
+        getLocationInView(
+            selector: string,
+            axis: string
+        ): number;
+        getLocationInView(
+            selector: string,
+            axis: string
+        ): number[];
         getLocationInView(axis: string): number;
         getLocationInView(axis: string): number[];
-        getLocationInView<P>(selector: string): Client<P>;
-        getLocationInView<P>(): Client<P>;
+        getLocationInView<P>(selector?: string): Client<P>;
         getLocationInView<P>(
             selector: string,
             axis: string
@@ -355,15 +386,11 @@ declare namespace WebdriverIO {
         getSource(): Client<string>;
         getSource<P>(): Client<P>;
 
-        getTagName(selector: string): string | string[];
-        getTagName(): string | string[];
-        getTagName<P>(selector: string): Client<P>;
-        getTagName<P>(): Client<P>;
+        getTagName(selector?: string): string | string[];
+        getTagName<P>(selector?: string): Client<P>;
 
-        getText(selector: string): string | string[];
-        getText(): string | string[];
-        getText<P>(selector: string): Client<P>;
-        getText<P>(): Client<P>;
+        getText(selector?: string): string | string[];
+        getText<P>(selector?: string): Client<P>;
 
         getTitle(): Client<string>;
         getTitle<P>(): Client<P>;
@@ -371,10 +398,8 @@ declare namespace WebdriverIO {
         getUrl(): Client<string>;
         getUrl<P>(): Client<P>;
 
-        getValue(selector: string): string | string[];
-        getValue(): string | string[];
-        getValue<P>(selector: string): Client<P>;
-        getValue<P>(): Client<P>;
+        getValue(selector?: string): string | string[];
+        getValue<P>(selector?: string): Client<P>;
     }
 
     export interface LogEntry {
@@ -431,27 +456,22 @@ declare namespace WebdriverIO {
 
         url(): Client<RawResult<string>> & RawResult<string>;
         url(url: string): Client<void>;
-        url<P>(): Client<P>;
-        url<P>(url: string): Client<P>;
+        url<P>(url?: string): Client<P>;
     }
 
     // Advanced input
     export interface Client<T> {
         // you probably want to use the click and drag and drop commands instead
         buttonDown(button?: string | Button): Client<void>;
-        buttonDown<P>(): Client<P>;
-        buttonDown<P>(button: string | Button): Client<P>;
+        buttonDown<P>(button?: string | Button): Client<P>;
 
         // you probably want to use the click and drag and drop commands instead
         buttonPress(button?: string | Button): Client<void>;
-        buttonPress<P>(): Client<P>;
-        buttonPress<P>(button: string | Button): Client<P>;
+        buttonPress<P>(button?: string | Button): Client<P>;
 
         // you probably want to use the click and drag and drop commands instead
         buttonUp(button?: string | Button): Client<void>;
-        buttonUp<P>(): Client<P>;
-        buttonUp(button?: string | Button): Client<void>;
-        buttonUp<P>(button: string | Button): Client<P>;
+        buttonUp<P>(button?: string | Button): Client<P>;
 
         // you probably want to use the click and drag and drop commands instead
         doDoubleClick(): Client<void>;
@@ -462,17 +482,20 @@ declare namespace WebdriverIO {
         keys<P>(value: string | string[]): Client<P>;
 
         // you probably want to use the moveToObject command instead
-        moveTo(id: ElementId, xoffset?: number, yoffset?: number): Client<void>;
-        moveTo(xoffset?: number, yoffset?: number): Client<void>;
+        moveTo(
+            id: ElementId,
+            xoffset?: number,
+            yoffset?: number
+        ): Client<void>;
+        moveTo(
+            xoffset?: number,
+            yoffset?: number
+        ): Client<void>;
         moveTo<P>(id: ElementId): Client<P>;
         moveTo<P>(
             id: ElementId,
-            xoffset: number
-        ): Client<P>;
-        moveTo<P>(
-            id: ElementId,
             xoffset: number,
-            yoffset: number
+            yoffset?: number
         ): Client<P>;
 
         // touchClick
@@ -504,8 +527,7 @@ declare namespace WebdriverIO {
         frameParent<P>(): Client<P>;
 
         init(capabilities?: DesiredCapabilities): Client<void>;
-        init<P>(): Client<P>;
-        init<P>(capabilities: DesiredCapabilities): Client<P>;
+        init<P>(capabilities?: DesiredCapabilities): Client<P>;
 
         log(type: string): Client<RawResult<LogEntry[]>>;
         log<P>(type: string): Client<P>;
@@ -513,9 +535,11 @@ declare namespace WebdriverIO {
         logTypes(): Client<RawResult<string[]>> & RawResult<string[]>;
         logTypes<P>(): Client<P>;
 
-        session(action?: string, sessionId?: string): Client<RawResult<any>> & RawResult<any>;
-        session<P>(): Client<P>;
-        session<P>(action: string): Client<P>;
+        session(
+            action?: string,
+            sessionId?: string
+        ): Client<RawResult<any>> & RawResult<any>;
+        session<P>(action?: string): Client<P>;
         session<P>(
             action: string,
             sessionId: string
@@ -550,7 +574,10 @@ declare namespace WebdriverIO {
         elementActive(): Client<RawResult<Element>> & RawResult<Element>;
         elementActive<P>(): Client<P>;
 
-        elementIdAttribute(id: ElementId, attributeName: string): Client<RawResult<string>> & RawResult<string>;
+        elementIdAttribute(
+            id: ElementId,
+            attributeName: string
+        ): Client<RawResult<string>> & RawResult<string>;
         elementIdAttribute<P>(
             id: ElementId,
             attributeName: string
@@ -562,7 +589,10 @@ declare namespace WebdriverIO {
         elementIdClick(id: ElementId): Client<void>;
         elementIdClick<P>(id: ElementId): Client<P>;
 
-        elementIdCssProperty(id: ElementId, propertyName: string): Client<RawResult<string>> & RawResult<string>;
+        elementIdCssProperty(
+            id: ElementId,
+            propertyName: string
+        ): Client<RawResult<string>> & RawResult<string>;
         elementIdCssProperty<P>(
             id: ElementId,
             propertyName: string
@@ -571,13 +601,19 @@ declare namespace WebdriverIO {
         elementIdDisplayed(id: ElementId): Client<RawResult<boolean>> & RawResult<boolean>;
         elementIdDisplayed<P>(id: ElementId): Client<P>;
 
-        elementIdElement(id: ElementId, selector: string): Client<RawResult<Element>> & RawResult<Element>;
+        elementIdElement(
+            id: ElementId,
+            selector: string
+        ): Client<RawResult<Element>> & RawResult<Element>;
         elementIdElement<P>(
             id: ElementId,
             selector: string
         ): Client<P>;
 
-        elementIdElements(id: ElementId, selector: string): Client<RawResult<Element[]>> & RawResult<Element[]>;
+        elementIdElements(
+            id: ElementId,
+            selector: string
+        ): Client<RawResult<Element[]>> & RawResult<Element[]>;
         elementIdElements<P>(
             id: ElementId,
             selector: string
@@ -604,7 +640,10 @@ declare namespace WebdriverIO {
         elementIdText(id: ElementId): Client<RawResult<string>> & RawResult<string>;
         elementIdText<P>(id: ElementId): Client<P>;
 
-        elementIdValue(id: ElementId, values: string | string[]): Client<RawResult<void>>;
+        elementIdValue(
+            id: ElementId,
+            values: string | string[]
+        ): Client<RawResult<void>>;
         elementIdValue<P>(
             id: ElementId,
             values: string | string[]
@@ -650,30 +689,20 @@ declare namespace WebdriverIO {
 
     // State
     export interface Client<T> {
-        isEnabled(selector: string): Client<boolean>;
-        isEnabled(): Client<boolean>;
-        isEnabled<P>(selector: string): Client<P>;
-        isEnabled<P>(): Client<P>;
+        isEnabled(selector?: string): Client<boolean>;
+        isEnabled<P>(selector?: string): Client<P>;
 
-        isExisting(selector: string): Client<boolean>;
-        isExisting(): Client<boolean>;
-        isExisting<P>(selector: string): Client<P>;
-        isExisting<P>(): Client<P>;
+        isExisting(selector?: string): Client<boolean>;
+        isExisting<P>(selector?: string): Client<P>;
 
-        isSelected(selector: string): Client<boolean>;
-        isSelected(): Client<boolean>;
-        isSelected<P>(selector: string): Client<P>;
-        isSelected<P>(): Client<P>;
+        isSelected(selector?: string): Client<boolean>;
+        isSelected<P>(selector?: string): Client<P>;
 
-        isVisible(selector: string): Client<boolean>;
-        isVisible(): Client<boolean>;
-        isVisible<P>(selector: string): Client<P>;
-        isVisible<P>(): Client<P>;
+        isVisible(selector?: string): Client<boolean>;
+        isVisible<P>(selector?: string): Client<P>;
 
-        isVisibleWithinViewport(selector: string): Client<boolean>;
-        isVisibleWithinViewport(): Client<boolean>;
-        isVisibleWithinViewport<P>(selector: string): Client<P>;
-        isVisibleWithinViewport<P>(): Client<P>;
+        isVisibleWithinViewport(selector?: string): Client<boolean>;
+        isVisibleWithinViewport<P>(selector?: string): Client<P>;
     }
 
     export interface CommandHistoryEntry {
@@ -683,20 +712,21 @@ declare namespace WebdriverIO {
 
     // Utility
     export interface Client<T> {
-
-
-        addCommand(commandName: string, customMethod: Function, overwrite?: boolean): Client<void>;
-        addCommand<P>(
+        addCommand(
             commandName: string,
-            customMethod: Function
-        ): Client<P>;
+            customMethod: Function,
+            overwrite?: boolean
+        ): Client<void>;
         addCommand<P>(
             commandName: string,
             customMethod: Function,
-            overwrite: boolean
+            overwrite?: boolean
         ): Client<P>;
 
-        chooseFile(selector: string, localPath: string): Client<void>;
+        chooseFile(
+            selector: string,
+            localPath: string
+        ): Client<void>;
         chooseFile(localPath: string): Client<void>;
         chooseFile<P>(
             selector: string,
@@ -720,15 +750,19 @@ declare namespace WebdriverIO {
         pause<P>(milliseconds: number): Client<P>;
 
         saveScreenshot(filename?: string): Client<Buffer>;
-        saveScreenshot<P>(): Client<P>;
-        saveScreenshot<P>(filename: string): Client<P>;
+        saveScreenshot<P>(filename?: string): Client<P>;
 
-        scroll(selector: string): Client<void>;
-        scroll(): Client<void>;
-        scroll(selector: string, xoffset: number, yoffset: number): Client<void>;
-        scroll(xoffset: number, yoffset: number): Client<void>;
-        scroll<P>(selector: string): Client<P>;
-        scroll<P>(): Client<P>;
+        scroll(selector?: string): Client<void>;
+        scroll(
+            selector: string,
+            xoffset: number,
+            yoffset: number
+        ): Client<void>;
+        scroll(
+            xoffset: number,
+            yoffset: number
+        ): Client<void>;
+        scroll<P>(selector?: string): Client<P>;
         scroll<P>(
             selector: string,
             xoffset: number,
@@ -742,10 +776,16 @@ declare namespace WebdriverIO {
         uploadFile(localPath: string): Client<void>;
         uploadFile<P>(localPath: string): Client<P>;
 
-        waitForEnabled(selector: string, milliseconds?: number, reverse?: boolean): Client<boolean>;
-        waitForEnabled(milliseconds?: number, reverse?: boolean): Client<boolean>;
-        waitForEnabled<P>(selector: string): Client<P>;
-        waitForEnabled<P>(): Client<P>;
+        waitForEnabled(
+            selector: string,
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForEnabled(
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForEnabled<P>(selector?: string): Client<P>;
         waitForEnabled<P>(
             selector: string,
             milliseconds: number,
@@ -761,10 +801,16 @@ declare namespace WebdriverIO {
             reverse: boolean
         ): Client<P>;
 
-        waitForExist(selector: string, milliseconds?: number, reverse?: boolean): Client<boolean>;
-        waitForExist(milliseconds?: number, reverse?: boolean): Client<boolean>;
-        waitForExist<P>(selector: string): Client<P>;
-        waitForExist<P>(): Client<P>;
+        waitForExist(
+            selector: string,
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForExist(
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForExist<P>(selector?: string): Client<P>;
         waitForExist<P>(
             selector: string,
             milliseconds: number
@@ -780,10 +826,16 @@ declare namespace WebdriverIO {
             reverse: boolean
         ): Client<P>;
 
-        waitForSelected(selector: string, milliseconds?: number, reverse?: boolean): Client<boolean>;
-        waitForSelected(milliseconds?: number, reverse?: boolean): Client<boolean>;
-        waitForSelected<P>(selector: string): Client<P>;
-        waitForSelected<P>(): Client<P>;
+        waitForSelected(
+            selector: string,
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForSelected(
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForSelected<P>(selector?: string): Client<P>;
         waitForSelected<P>(
             selector: string,
             milliseconds: number
@@ -799,10 +851,16 @@ declare namespace WebdriverIO {
             reverse: boolean
         ): Client<P>;
 
-        waitForText(selector: string, milliseconds?: number, reverse?: boolean): Client<boolean>;
-        waitForText(milliseconds?: number, reverse?: boolean): Client<boolean>;
-        waitForText<P>(selector: string): Client<P>;
-        waitForText<P>(): Client<P>;
+        waitForText(
+            selector: string,
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForText(
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForText<P>(selector?: string): Client<P>;
         waitForText<P>(
             selector: string,
             milliseconds: number
@@ -818,10 +876,16 @@ declare namespace WebdriverIO {
             reverse: boolean
         ): Client<P>;
 
-        waitForValue(selector: string, milliseconds?: number, reverse?: boolean): Client<boolean>;
-        waitForValue(milliseconds?: number, reverse?: boolean): Client<boolean>;
-        waitForValue<P>(selector: string): Client<P>;
-        waitForValue<P>(): Client<P>;
+        waitForValue(
+            selector: string,
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForValue(
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForValue<P>(selector?: string): Client<P>;
         waitForValue<P>(
             selector: string,
             milliseconds: number
@@ -839,10 +903,16 @@ declare namespace WebdriverIO {
 
         ): Client<P>;
 
-        waitForVisible(selector: string, milliseconds?: number, reverse?: boolean): Client<boolean>;
-        waitForVisible(milliseconds?: number, reverse?: boolean): Client<boolean>;
-        waitForVisible<P>(selector: string): Client<P>;
-        waitForVisible<P>(): Client<P>;
+        waitForVisible(
+            selector: string,
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForVisible(
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForVisible<P>(selector?: string): Client<P>;
         waitForVisible<P>(
             selector: string,
             milliseconds: number
@@ -877,8 +947,7 @@ declare namespace WebdriverIO {
 
 
         close(windowHandle?: string): Client<void>;
-        close<P>(): Client<P>;
-        close<P>(windowHandle: string): Client<P>;
+        close<P>(windowHandle?: string): Client<P>;
 
         getCurrentTabId(): Client<string>;
         getCurrentTabId<P>(): Client<P>;
@@ -888,25 +957,30 @@ declare namespace WebdriverIO {
 
         getViewportSize(): Client<Size> & Size;
         getViewportSize(dimension: string): Client<number>;
-        getViewportSize<P>(): Client<P>;
-        getViewportSize<P>(dimension: string): Client<P>;
+        getViewportSize<P>(dimension?: string): Client<P>;
 
-        newWindow(url: string, windowName: string, windowFeatures: string): Client<string>;
+        newWindow(
+            url: string,
+            windowName: string,
+            windowFeatures: string
+        ): Client<string>;
         newWindow<P>(
             url: string,
             windowName: string,
             windowFeatures: string
         ): Client<P>;
 
-        setViewportSize(size: Size, type: boolean): Client<void>;
+        setViewportSize(
+            size: Size,
+            type: boolean
+        ): Client<void>;
         setViewportSize<P>(
             size: Size,
             type: boolean
         ): Client<P>;
 
         switchTab(windowHandle?: string): Client<void>;
-        switchTab<P>(): Client<P>;
-        switchTab<P>(windowHandle: string): Client<P>;
+        switchTab<P>(windowHandle?: string): Client<P>;
     }
 
     export interface Options {
