@@ -143,15 +143,14 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 #### Removing a package
 
 When a package [bundles](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) its own types, types should be removed from DefinitelyTyped to avoid confusion.
-Make a PR doing the following:
-* Delete the directory.
-* Add a new entry to `notNeededPackages.json`.
-    - `libraryName`: Descriptive name of the library, e.g. "Angular 2" instead of "angular2". (May be identical to "typingsPackageName".)
-    - `typingsPackageName`: This is the name of the directory you just deleted.
-    - `sourceRepoURL`: This should point to the repository that contains the typings.
-    - `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version.
-* Any other packages in DefinitelyTyped that referenced the deleted package should be updated to reference the bundled types.
-    To do this, add a `package.json` with `"dependencies": { "foo": "x.y.z" }`.
+
+You can remove it by running `npm run not-needed -- typingsPackageName asOfVersion sourceRepoURL [libraryName]`.
+- `typingsPackageName`: This is the name of the directory to delete.
+- `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version.
+- `sourceRepoURL`: This should point to the repository that contains the typings.
+- `libraryName`: Descriptive name of the library, e.g. "Angular 2" instead of "angular2". (If ommitted, will be identical to "typingsPackageName".)
+
+Any other packages in DefinitelyTyped that referenced the deleted package should be updated to reference the bundled types. To do this, add a `package.json` with `"dependencies": { "foo": "x.y.z" }`.
 
 If a package was never on DefinitelyTyped, it does not need to be added to `notNeededPackages.json`.
 
