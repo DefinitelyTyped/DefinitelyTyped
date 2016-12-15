@@ -202,6 +202,12 @@
             "typingsPackageName": "sugar",
             "sourceRepoURL": "https://github.com/andrewplummer/Sugar",
             "asOfVersion": "2.0.2"
+        },
+        {
+            "libraryName": "TsMonad",
+            "typingsPackageName": "tsmonad",
+            "sourceRepoURL": "https://github.com/cbowdon/TsMonad#readme",
+            "asOfVersion": "0.7.0"
         }
     ]
 }
