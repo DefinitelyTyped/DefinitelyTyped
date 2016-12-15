@@ -119,3 +119,48 @@ function myToken(tokens: any, idx: number, options: any, env: any, self: any) {
     var md = MarkdownIt();
     md.renderer.rules['my_token'] = myToken
 }
+
+{
+    const md = MarkdownIt({
+        linkify: true,
+        highlight: (str: string, lang: string) => {
+            if (hljs) {
+                if (lang && hljs.getLanguage(lang)) {
+                    try {
+                        return hljs.highlight(lang, str).value;
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+                try {
+                    return hljs.highlightAuto(str).value;
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            return "";
+        },
+    });
+    md.renderer.rules["image"] = (tokens: MarkdownIt.Token[], index: number, options: any, env: any, self: MarkdownIt.Renderer) => {
+        const token = tokens[index];
+        const aIndex = token.attrIndex("src");
+        token.attrs[aIndex][1];
+        token.attrPush(["style", "color: red"]);
+
+        return md.renderer.rules["image"](tokens, index, options, env, self);
+    };
+
+    let defaultLinkRender: MarkdownIt.TokenRender;
+    if (md.renderer.rules["link_open"]) {
+        defaultLinkRender = md.renderer.rules["link_open"];
+    } else {
+        defaultLinkRender = (tokens: MarkdownIt.Token[], index: number, options: any, env: any, self: MarkdownIt.Renderer) => {
+            return self.renderToken(tokens, index, options);
+        };
+    }
+    md.renderer.rules["link_open"] = (tokens: MarkdownIt.Token[], index: number, options: any, env: any, self: MarkdownIt.Renderer) => {
+        tokens[index].attrPush(["target", "_blank"]);
+        tokens[index].attrPush(["rel", "nofollow"]);
+        return defaultLinkRender(tokens, index, options, env, self);
+    };
+}

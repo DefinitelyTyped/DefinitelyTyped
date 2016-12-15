@@ -130,7 +130,7 @@ class ModernComponent extends React.Component<Props, State>
     }
 }
 
-class ModernComponentNoState extends React.Component<Props, void> {}
+class ModernComponentNoState extends React.Component<Props, void> { }
 
 interface SCProps {
     foo?: number;
@@ -334,20 +334,24 @@ React.DOM.span(htmlAttr);
 React.DOM.input(htmlAttr);
 
 React.DOM.svg({
-        viewBox: "0 0 48 48",
-        xmlns: "http://www.w3.org/2000/svg"
-    },
+    viewBox: "0 0 48 48",
+    xmlns: "http://www.w3.org/2000/svg"
+},
     React.DOM.rect({
         x: 22,
         y: 10,
         width: 4,
-        height: 28
+        height: 28,
+        strokeDasharray: '30%',
+        strokeDashoffset: '20%'
     }),
     React.DOM.rect({
         x: 10,
         y: 22,
         width: 28,
-        height: 4
+        height: 4,
+        strokeDasharray: 30,
+        strokeDashoffset: 20
     }),
     React.DOM.path({
         d: "M0,0V3H3V0ZM1,1V2H2V1Z",
@@ -386,7 +390,7 @@ var PropTypesSpecification: React.ComponentSpec<any, any> = {
         }),
         requiredFunc: React.PropTypes.func.isRequired,
         requiredAny: React.PropTypes.any.isRequired,
-        customProp: function(props: any, propName: string, componentName: string): Error | null {
+        customProp: function (props: any, propName: string, componentName: string): Error | null {
             if (!/matchme/.test(props[propName])) {
                 return new Error("Validation failed!");
             }
@@ -438,7 +442,7 @@ var ContextTypesSpecification: React.ComponentSpec<any, any> = {
         }),
         requiredFunc: React.PropTypes.func.isRequired,
         requiredAny: React.PropTypes.any.isRequired,
-        customProp: function(props: any, propName: string, componentName: string): Error | null {
+        customProp: function (props: any, propName: string, componentName: string): Error | null {
             if (!/matchme/.test(props[propName])) {
                 return new Error("Validation failed!");
             }
@@ -456,7 +460,7 @@ var ContextTypesSpecification: React.ComponentSpec<any, any> = {
 
 var mappedChildrenArray: number[] =
     React.Children.map<number>(children, (child) => { return 42; });
-React.Children.forEach(children, (child) => {});
+React.Children.forEach(children, (child) => { });
 var nChildren: number = React.Children.count(children);
 var onlyChild: React.ReactElement<any> = React.Children.only(React.DOM.div()); // ok
 onlyChild = React.Children.only([null, [[["Hallo"], true]], false]); // error
@@ -535,13 +539,13 @@ React.createFactory(CSSTransitionGroup)({
 // --------------------------------------------------------------------------
 React.createClass({
     mixins: [LinkedStateMixin],
-    getInitialState: function() {
+    getInitialState: function () {
         return {
             isChecked: false,
             message: "hello!"
         };
     },
-    render: function() {
+    render: function () {
         return React.DOM.div(null,
             React.DOM.input({
                 type: "checkbox",
@@ -587,8 +591,8 @@ Perf.printDOM();
 // PureRenderMixin addon
 // --------------------------------------------------------------------------
 React.createClass({
-  mixins: [PureRenderMixin],
-  render: function() { return React.DOM.div(null); }
+    mixins: [PureRenderMixin],
+    render: function () { return React.DOM.div(null); }
 });
 
 //
@@ -638,21 +642,21 @@ React.createFactory(TransitionGroup)({ component: "div" });
 // update addon
 // --------------------------------------------------------------------------
 {
-// These are copied from https://facebook.github.io/react/docs/update.html
-let initialArray = [1, 2, 3];
-let newArray = update(initialArray, {$push: [4]}); // => [1, 2, 3, 4]
+    // These are copied from https://facebook.github.io/react/docs/update.html
+    let initialArray = [1, 2, 3];
+    let newArray = update(initialArray, { $push: [4] }); // => [1, 2, 3, 4]
 
-let collection = [1, 2, {a: [12, 17, 15]}];
-let newCollection = update(collection, {2: {a: {$splice: [[1, 1, 13, 14]]}}});
-// => [1, 2, {a: [12, 13, 14, 15]}]
+    let collection = [1, 2, { a: [12, 17, 15] }];
+    let newCollection = update(collection, { 2: { a: { $splice: [[1, 1, 13, 14]] } } });
+    // => [1, 2, {a: [12, 13, 14, 15]}]
 
-let obj = {a: 5, b: 3};
-let newObj = update(obj, {b: {$apply: function(x) {return x * 2;}}});
-// => {a: 5, b: 6}
-let newObj2 = update(obj, {b: {$set: obj.b * 2}});
+    let obj = { a: 5, b: 3 };
+    let newObj = update(obj, { b: { $apply: function (x) { return x * 2; } } });
+    // => {a: 5, b: 6}
+    let newObj2 = update(obj, { b: { $set: obj.b * 2 } });
 
-let objShallow = {a: 5, b: 3};
-let newObjShallow = update(obj, {$merge: {b: 6, c: 7}}); // => {a: 5, b: 6, c: 7}
+    let objShallow = { a: 5, b: 3 };
+    let newObjShallow = update(obj, { $merge: { b: 6, c: 7 } }); // => {a: 5, b: 6, c: 7}
 }
 
 //

@@ -1,4 +1,5 @@
 // Tests for storagejs.d.ts
+import * as store from 'store';
 
 // Store 'marcus' at 'username'
 store.set('username', 'marcus');
@@ -20,3 +21,4 @@ store.set('user', { name: 'marcus', likes: 'javascript' });
 // Get the stored object - store.js uses JSON.parse under the hood
 var user: any = store.get('user');
 alert(user.name + ' likes ' + user.likes);
+

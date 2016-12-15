@@ -13,5 +13,19 @@ var serror = new VError.SError(error, "bar");
 var multiError = new VError.MultiError([verror1, verror2]);
 var werror = new VError.WError(verror1, "foobar");
 
+var verror3 = new VError({
+    name: "fooError",
+    cause: error,
+    info: {
+        "info0": "baz"
+    }
+}, "bar");
+
 var cause1: Error = verror1.cause();
 var cause2: Error = werror.cause();
+
+const info: { [k: string]: any } = VError.info(verror3);
+const namedCause: Error | null = VError.findCauseByName(verror3, "fooError");
+const stack: string = VError.fullStack(verror3);
+const cause3: Error | null = VError.cause(verror3);
+

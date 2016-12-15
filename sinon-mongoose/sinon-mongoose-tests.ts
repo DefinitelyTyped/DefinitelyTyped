@@ -1,4 +1,4 @@
-import * as sinon from "sinon";
+/// <reference types="sinon"/>
 
 function testChain() {
     sinon.stub().chain('exec');

@@ -1,4 +1,4 @@
-// Type definitions for TypeScript-STL v1.2.0
+// Type definitions for TypeScript-STL v1.2.4
 // Project: https://github.com/samchon/typescript-stl
 // Definitions by: Jeongho Nam <http://samchon.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -155,45 +155,6 @@ declare namespace std {
      *		   of the range starting at <i>first2</i>, and <code>false</code> otherwise.
      */
     function equal<T, InputIterator extends Iterator<T>>(first1: InputIterator, last1: InputIterator, first2: Iterator<T>, pred: (x: T, y: T) => boolean): boolean;
-    /**
-     * <p> Test whether range is permutation of another. </p>
-     *
-     * <p> Compares the elements in the range [<i>first1</i>, <i>last1</i>) with those in the range beginning at
-     * <i>first2</i>, and returns <code>true</code> if all of the elements in both ranges match, even in a different
-     * order. </p>
-     *
-     * @param first1 An {@link Iterator} to the initial position of the first sequence.
-     * @param last1 An {@link Iterator} to the final position in a sequence. The range used is
-     *				[<i>first1</i>, <i>last1</i>), including the element pointed by <i>first1</i>, but not the element
-     *				pointed by <i>last1</i>.
-     * @param first2 An {@link Iterator} to the initial position of the second sequence. The comparison includes up to
-     *				 as many elements of this sequence as those in the range [<i>first1</i>, <i>last1</i>).
-     *
-     * @return <code>true</code> if all the elements in the range [<i>first1</i>, <i>last1</i>) compare equal to those
-     *		   of the range starting at <i>first2</i> in any order, and <code>false</code> otherwise.
-     */
-    function is_permutation<T, Iterator1 extends Iterator<T>, Iterator2 extends Iterator<T>>(first1: Iterator1, last1: Iterator1, first2: Iterator2): boolean;
-    /**
-     * <p> Test whether range is permutation of another. </p>
-     *
-     * <p> Compares the elements in the range [<i>first1</i>, <i>last1</i>) with those in the range beginning at
-     * <i>first2</i>, and returns <code>true</code> if all of the elements in both ranges match, even in a different
-     * order. </p>
-     *
-     * @param first1 An {@link Iterator} to the initial position of the first sequence.
-     * @param last1 An {@link Iterator} to the final position in a sequence. The range used is
-     *				[<i>first1</i>, <i>last1</i>), including the element pointed by <i>first1</i>, but not the element
-     *				pointed by <i>last1</i>.
-     * @param first2 An {@link Iterator} to the initial position of the second sequence. The comparison includes up to
-     *				 as many elements of this sequence as those in the range [<i>first1</i>, <i>last1</i>).
-     * @param pred Binary function that accepts two elements as argument (one of each of the two sequences, in the same
-     *			   order), and returns a value convertible to <code>bool</code>. The value returned indicates whether
-     *			   the elements are considered to match in the context of this function.
-     *
-     * @return <code>true</code> if all the elements in the range [<i>first1</i>, <i>last1</i>) compare equal to those
-     *		   of the range starting at <i>first2</i> in any order, and <code>false</code> otherwise.
-     */
-    function is_permutation<T, Iterator1 extends Iterator<T>, Iterator2 extends Iterator<T>>(first1: Iterator1, last1: Iterator1, first2: Iterator2, pred: (x: T, y: T) => boolean): boolean;
     /**
      * <p> Lexicographical less-than comparison. </p>
      *
@@ -1464,7 +1425,7 @@ declare namespace std {
      *			   by <i>last</i>. {@link IArrayIterator RandomAccessIterator} shall point to a type for which
      *			   {@link Iterator.swap swap} is properly defined.
      */
-    function make_heap<T, RandomAccessIterator extends base.IArrayIterator<T>>(fisrt: RandomAccessIterator, last: RandomAccessIterator): void;
+    function make_heap<T, RandomAccessIterator extends base.IArrayIterator<T>>(first: RandomAccessIterator, last: RandomAccessIterator): void;
     /**
      * <p> Make heap from range. </p>
      *
@@ -1496,7 +1457,7 @@ declare namespace std {
      *				  The function shall not modify any of its arguments. This can either be a function pointer or a
      *				  function object.
      */
-    function make_heap<T, RandomAccessIterator extends base.IArrayIterator<T>>(fisrt: RandomAccessIterator, last: RandomAccessIterator, compare: (x: T, y: T) => boolean): void;
+    function make_heap<T, RandomAccessIterator extends base.IArrayIterator<T>>(first: RandomAccessIterator, last: RandomAccessIterator, compare: (x: T, y: T) => boolean): void;
     /**
      * <p> Push element into heap range. </p>
      *
@@ -1516,7 +1477,7 @@ declare namespace std {
      *			   pointed by <i>last</i>. {@link IArrayIterator RandomAccessIterator} shall point to a type for which
      *			   {@link Iterator.swap swap} is properly defined.
      */
-    function push_heap<T, RandomAccessIterator extends base.IArrayIterator<T>>(fisrt: RandomAccessIterator, last: RandomAccessIterator): void;
+    function push_heap<T, RandomAccessIterator extends base.IArrayIterator<T>>(first: RandomAccessIterator, last: RandomAccessIterator): void;
     /**
      * <p> Push element into heap range. </p>
      *
@@ -1541,7 +1502,7 @@ declare namespace std {
      *				  The function shall not modify any of its arguments. This can either be a function pointer or a
      *				  function object.
      */
-    function push_heap<T, RandomAccessIterator extends base.IArrayIterator<T>>(fisrt: RandomAccessIterator, last: RandomAccessIterator, compare: (x: T, y: T) => boolean): void;
+    function push_heap<T, RandomAccessIterator extends base.IArrayIterator<T>>(first: RandomAccessIterator, last: RandomAccessIterator, compare: (x: T, y: T) => boolean): void;
     /**
      * <p> Pop element from heap range. </p>
      *
@@ -1563,7 +1524,7 @@ declare namespace std {
      *			   {@link IArrayIterator RandomAccessIterator} shall point to a type for which {@link Iterator.swap swap}
      *			   is properly defined.
      */
-    function pop_heap<T, RandomAccessIterator extends base.IArrayIterator<T>>(fisrt: RandomAccessIterator, last: RandomAccessIterator): void;
+    function pop_heap<T, RandomAccessIterator extends base.IArrayIterator<T>>(first: RandomAccessIterator, last: RandomAccessIterator): void;
     /**
      * <p> Pop element from heap range. </p>
      *
@@ -1590,7 +1551,7 @@ declare namespace std {
      *				  The function shall not modify any of its arguments. This can either be a function pointer or a
      *				  function object.
      */
-    function pop_heap<T, RandomAccessIterator extends base.IArrayIterator<T>>(fisrt: RandomAccessIterator, last: RandomAccessIterator, compare: (x: T, y: T) => boolean): void;
+    function pop_heap<T, RandomAccessIterator extends base.IArrayIterator<T>>(first: RandomAccessIterator, last: RandomAccessIterator, compare: (x: T, y: T) => boolean): void;
     /**
      * <p> Test if range is heap. </p>
      *
@@ -1697,7 +1658,7 @@ declare namespace std {
      *			   {@link IArrayIterator RandomAccessIterator} shall point to a type for which {@link Iterator.swap swap}
      *			   is properly defined.
      */
-    function sort_heap<T, RandomAccessIterator extends base.IArrayIterator<T>>(fisrt: RandomAccessIterator, last: RandomAccessIterator): void;
+    function sort_heap<T, RandomAccessIterator extends base.IArrayIterator<T>>(first: RandomAccessIterator, last: RandomAccessIterator): void;
     /**
      * <p> Sort elements of heap. </p>
      *
@@ -1719,7 +1680,7 @@ declare namespace std {
      *				  The function shall not modify any of its arguments. This can either be a function pointer or a
      *				  function object.
      */
-    function sort_heap<T, RandomAccessIterator extends base.IArrayIterator<T>>(fisrt: RandomAccessIterator, last: RandomAccessIterator, compare: (x: T, y: T) => boolean): void;
+    function sort_heap<T, RandomAccessIterator extends base.IArrayIterator<T>>(first: RandomAccessIterator, last: RandomAccessIterator, compare: (x: T, y: T) => boolean): void;
 }
 declare namespace std {
     /**
@@ -2663,6 +2624,159 @@ declare namespace std {
      *		   [<i>first</i>, <i>last</i>) as first element, and the largest as second.
      */
     function minmax_element<T, ForwardIterator extends Iterator<T>>(first: ForwardIterator, last: ForwardIterator, compare: (x: T, y: T) => boolean): Pair<ForwardIterator, ForwardIterator>;
+    /**
+     * <p> Test whether range is permutation of another. </p>
+     *
+     * <p> Compares the elements in the range [<i>first1</i>, <i>last1</i>) with those in the range beginning at
+     * <i>first2</i>, and returns <code>true</code> if all of the elements in both ranges match, even in a different
+     * order. </p>
+     *
+     * @param first1 An {@link Iterator} to the initial position of the first sequence.
+     * @param last1 An {@link Iterator} to the final position in a sequence. The range used is
+     *				[<i>first1</i>, <i>last1</i>), including the element pointed by <i>first1</i>, but not the element
+     *				pointed by <i>last1</i>.
+     * @param first2 An {@link Iterator} to the initial position of the second sequence. The comparison includes up to
+     *				 as many elements of this sequence as those in the range [<i>first1</i>, <i>last1</i>).
+     *
+     * @return <code>true</code> if all the elements in the range [<i>first1</i>, <i>last1</i>) compare equal to those
+     *		   of the range starting at <i>first2</i> in any order, and <code>false</code> otherwise.
+     */
+    function is_permutation<T, Iterator1 extends Iterator<T>, Iterator2 extends Iterator<T>>(first1: Iterator1, last1: Iterator1, first2: Iterator2): boolean;
+    /**
+     * <p> Test whether range is permutation of another. </p>
+     *
+     * <p> Compares the elements in the range [<i>first1</i>, <i>last1</i>) with those in the range beginning at
+     * <i>first2</i>, and returns <code>true</code> if all of the elements in both ranges match, even in a different
+     * order. </p>
+     *
+     * @param first1 An {@link Iterator} to the initial position of the first sequence.
+     * @param last1 An {@link Iterator} to the final position in a sequence. The range used is
+     *				[<i>first1</i>, <i>last1</i>), including the element pointed by <i>first1</i>, but not the element
+     *				pointed by <i>last1</i>.
+     * @param first2 An {@link Iterator} to the initial position of the second sequence. The comparison includes up to
+     *				 as many elements of this sequence as those in the range [<i>first1</i>, <i>last1</i>).
+     * @param pred Binary function that accepts two elements as argument (one of each of the two sequences, in the same
+     *			   order), and returns a value convertible to <code>bool</code>. The value returned indicates whether
+     *			   the elements are considered to match in the context of this function.
+     *
+     * @return <code>true</code> if all the elements in the range [<i>first1</i>, <i>last1</i>) compare equal to those
+     *		   of the range starting at <i>first2</i> in any order, and <code>false</code> otherwise.
+     */
+    function is_permutation<T, Iterator1 extends Iterator<T>, Iterator2 extends Iterator<T>>(first1: Iterator1, last1: Iterator1, first2: Iterator2, pred: (x: T, y: T) => boolean): boolean;
+    /**
+     * Transform range to previous permutation.
+     *
+     * Rearranges the elements in the range [*first*, *last*) into the previous *lexicographically-ordered* permutation.
+     *
+     * A *permutation* is each one of the N! possible arrangements the elements can take (where *N* is the number of
+     * elements in the range). Different permutations can be ordered according to how they compare
+     * {@link lexicographicaly lexicographical_compare} to each other; The first such-sorted possible permutation (the one
+     * that would compare *lexicographically smaller* to all other permutations) is the one which has all its elements
+     * sorted in ascending order, and the largest has all its elements sorted in descending order.
+     *
+     * The comparisons of individual elements are performed using the {@link std.less std.less()} function.
+     *
+     * If the function can determine the previous permutation, it rearranges the elements as such and returns true. If
+     * that was not possible (because it is already at the lowest possible permutation), it rearranges the elements
+     * according to the last permutation (sorted in descending order) and returns false.
+     *
+     * @param first Bidirectional iterators to the initial positions of the sequence
+     * @param last Bidirectional iterators to the final positions of the sequence. The range used is [*first*, *last*),
+     *			   which contains all the elements between *first* and *last*, including the element pointed by *first*
+     *			   but not the element pointed by *last*.
+     *
+     * @return true if the function could rearrange the object as a lexicographicaly smaller permutation. Otherwise, the
+     *		   function returns false to indicate that the arrangement is not less than the previous, but the largest
+     *		   possible (sorted in descending order).
+     */
+    function prev_permutation<T, BidirectionalIterator extends base.IArrayIterator<T>>(first: BidirectionalIterator, last: BidirectionalIterator): boolean;
+    /**
+     * Transform range to previous permutation.
+     *
+     * Rearranges the elements in the range [*first*, *last*) into the previous *lexicographically-ordered* permutation.
+     *
+     * A *permutation* is each one of the N! possible arrangements the elements can take (where *N* is the number of
+     * elements in the range). Different permutations can be ordered according to how they compare
+     * {@link lexicographicaly lexicographical_compare} to each other; The first such-sorted possible permutation (the one
+     * that would compare *lexicographically smaller* to all other permutations) is the one which has all its elements
+     * sorted in ascending order, and the largest has all its elements sorted in descending order.
+     *
+     * The comparisons of individual elements are performed using the *compare*.
+     *
+     * If the function can determine the previous permutation, it rearranges the elements as such and returns true. If
+     * that was not possible (because it is already at the lowest possible permutation), it rearranges the elements
+     * according to the last permutation (sorted in descending order) and returns false.
+     *
+     * @param first Bidirectional iterators to the initial positions of the sequence
+     * @param last Bidirectional iterators to the final positions of the sequence. The range used is [*first*, *last*),
+     *			   which contains all the elements between *first* and *last*, including the element pointed by *first*
+     *			   but not the element pointed by *last*.
+     * @param compare Binary function that accepts two arguments of the type pointed by BidirectionalIterator, and returns
+     *				  a value convertible to bool. The value returned indicates whether the first argument is considered
+     *				  to go before the second in the specific strict weak ordering it defines.
+     *
+     * @return true if the function could rearrange the object as a lexicographicaly smaller permutation. Otherwise, the
+     *		   function returns false to indicate that the arrangement is not less than the previous, but the largest
+     *		   possible (sorted in descending order).
+     */
+    function prev_permutation<T, BidirectionalIterator extends base.IArrayIterator<T>>(first: BidirectionalIterator, last: BidirectionalIterator, compare: (x: T, y: T) => boolean): boolean;
+    /**
+     * Transform range to next permutation.
+     *
+     * Rearranges the elements in the range [*first*, *last*) into the next *lexicographically greater* permutation.
+     *
+     * A permutation is each one of the *N!* possible arrangements the elements can take (where *N* is the number of
+     * elements in the range). Different permutations can be ordered according to how they compare
+     * {@link lexicographicaly lexicographical_compare} to each other; The first such-sorted possible permutation (the one
+     * that would compare *lexicographically smaller* to all other permutations) is the one which has all its elements
+     * sorted in ascending order, and the largest has all its elements sorted in descending order.
+     *
+     * The comparisons of individual elements are performed using the {@link std.less} function.
+     *
+     * If the function can determine the next higher permutation, it rearranges the elements as such and returns true. If
+     * that was not possible (because it is already at the largest possible permutation), it rearranges the elements
+     * according to the first permutation (sorted in ascending order) and returns false.
+     *
+     * @param first Bidirectional iterators to the initial positions of the sequence
+     * @param last Bidirectional iterators to the final positions of the sequence. The range used is [*first*, *last*),
+     *			   which contains all the elements between *first* and *last*, including the element pointed by *first*
+     *			   but not the element pointed by *last*.
+     *
+     * @return true if the function could rearrange the object as a lexicographicaly greater permutation. Otherwise, the
+     *		   function returns false to indicate that the arrangement is not greater than the previous, but the lowest
+     *		   possible (sorted in ascending order).
+     */
+    function next_permutation<T, BidirectionalIterator extends base.IArrayIterator<T>>(first: BidirectionalIterator, last: BidirectionalIterator): boolean;
+    /**
+     * Transform range to next permutation.
+     *
+     * Rearranges the elements in the range [*first*, *last*) into the next *lexicographically greater* permutation.
+     *
+     * A permutation is each one of the *N!* possible arrangements the elements can take (where *N* is the number of
+     * elements in the range). Different permutations can be ordered according to how they compare
+     * {@link lexicographicaly lexicographical_compare} to each other; The first such-sorted possible permutation (the one
+     * that would compare *lexicographically smaller* to all other permutations) is the one which has all its elements
+     * sorted in ascending order, and the largest has all its elements sorted in descending order.
+     *
+     * The comparisons of individual elements are performed using the *compare*.
+     *
+     * If the function can determine the next higher permutation, it rearranges the elements as such and returns true. If
+     * that was not possible (because it is already at the largest possible permutation), it rearranges the elements
+     * according to the first permutation (sorted in ascending order) and returns false.
+     *
+     * @param first Bidirectional iterators to the initial positions of the sequence
+     * @param last Bidirectional iterators to the final positions of the sequence. The range used is [*first*, *last*),
+     *			   which contains all the elements between *first* and *last*, including the element pointed by *first*
+     *			   but not the element pointed by *last*.
+     * @param compare Binary function that accepts two arguments of the type pointed by BidirectionalIterator, and returns
+     *				  a value convertible to bool. The value returned indicates whether the first argument is considered
+     *				  to go before the second in the specific strict weak ordering it defines.
+     *
+     * @return true if the function could rearrange the object as a lexicographicaly greater permutation. Otherwise, the
+     *		   function returns false to indicate that the arrangement is not greater than the previous, but the lowest
+     *		   possible (sorted in ascending order).
+     */
+    function next_permutation<T, BidirectionalIterator extends base.IArrayIterator<T>>(first: BidirectionalIterator, last: BidirectionalIterator, compare: (x: T, y: T) => boolean): boolean;
 }
 declare namespace std.base {
     /**
@@ -4121,16 +4235,16 @@ declare namespace std {
          * <p> Compare two iterators and returns whether they are equal or not. </p>
          *
          * <h4> Note </h4>
-         * <p> Iterator's equal_to() only compare souce container and index number. </p>
+         * <p> Iterator's {@link equals equals()} only compare souce container and index number. </p>
          *
-         * <p> Although elements in a pair, key and value are equal_to, if the source map or
-         * index number is different, then the {@link equal_to equal_to()} will return false. If you want to
+         * <p> Although elements in a pair, key and value are {@link std.equal_to equal_to}, if the source map or
+         * index number is different, then the {@link equals equals()} will return false. If you want to
          * compare the elements of a pair, compare them directly by yourself. </p>
          *
          * @param obj An iterator to compare
          * @return Indicates whether equal or not.
          */
-        equal_to<U extends T>(obj: Iterator<U>): boolean;
+        equals(obj: Iterator<T>): boolean;
         /**
          * <p> Get value of the iterator is pointing. </p>
          *
@@ -4212,7 +4326,7 @@ declare namespace std {
         /**
          * @inheritdoc
          */
-        equal_to(obj: This): boolean;
+        equals(obj: This): boolean;
         /**
          * @inheritdoc
          */
@@ -4425,7 +4539,7 @@ declare namespace std.base {
      *
      * @author Jeongho Nam <http://samchon.org>
      */
-    abstract class ListContainer<T, BidrectionalIterator extends ListIteratorBase<T>> extends Container<T> implements IDequeContainer<T> {
+    abstract class ListContainer<T, BidirectionalIterator extends ListIteratorBase<T>> extends Container<T> implements IDequeContainer<T> {
         /**
          * @hidden
          */
@@ -4442,7 +4556,14 @@ declare namespace std.base {
          * Default Constructor.
          */
         protected constructor();
-        protected abstract _Create_iterator(prev: BidrectionalIterator, next: BidrectionalIterator, val: T): BidrectionalIterator;
+        /**
+         * @hidden
+         */
+        protected abstract _Create_iterator(prev: BidirectionalIterator, next: BidirectionalIterator, val: T): BidirectionalIterator;
+        /**
+         * @hidden
+         */
+        protected _Set_begin(it: BidirectionalIterator): void;
         /**
          * @inheritdoc
          */
@@ -4454,11 +4575,11 @@ declare namespace std.base {
         /**
          * @inheritdoc
          */
-        begin(): BidrectionalIterator;
+        begin(): BidirectionalIterator;
         /**
          * @inheritdoc
          */
-        end(): BidrectionalIterator;
+        end(): BidirectionalIterator;
         /**
          * @inheritdoc
          */
@@ -4508,7 +4629,7 @@ declare namespace std.base {
          *
          * @return An iterator that points to the newly inserted element; <i>val</i>.
          */
-        insert(position: BidrectionalIterator, val: T): BidrectionalIterator;
+        insert(position: BidirectionalIterator, val: T): BidirectionalIterator;
         /**
          * <p> Insert elements by repeated filling. </p>
          *
@@ -4527,7 +4648,7 @@ declare namespace std.base {
          *
          * @return An iterator that points to the first of the newly inserted elements.
          */
-        insert(position: BidrectionalIterator, size: number, val: T): BidrectionalIterator;
+        insert(position: BidirectionalIterator, size: number, val: T): BidirectionalIterator;
         /**
          * <p> Insert elements by range iterators. </p>
          *
@@ -4546,7 +4667,7 @@ declare namespace std.base {
          *
          * @return An iterator that points to the first of the newly inserted elements.
          */
-        insert<U extends T, InputIterator extends Iterator<U>>(position: BidrectionalIterator, begin: InputIterator, end: InputIterator): BidrectionalIterator;
+        insert<U extends T, InputIterator extends Iterator<U>>(position: BidirectionalIterator, begin: InputIterator, end: InputIterator): BidirectionalIterator;
         /**
          * @hidden
          */
@@ -4554,11 +4675,11 @@ declare namespace std.base {
         /**
          * @hidden
          */
-        protected _Insert_by_repeating_val(position: BidrectionalIterator, size: number, val: T): BidrectionalIterator;
+        protected _Insert_by_repeating_val(position: BidirectionalIterator, size: number, val: T): BidirectionalIterator;
         /**
          * @hidden
          */
-        protected _Insert_by_range<U extends T, InputIterator extends Iterator<U>>(position: BidrectionalIterator, begin: InputIterator, end: InputIterator): BidrectionalIterator;
+        protected _Insert_by_range<U extends T, InputIterator extends Iterator<U>>(position: BidirectionalIterator, begin: InputIterator, end: InputIterator): BidirectionalIterator;
         /**
          * <p> Erase an element. </p>
          *
@@ -4574,7 +4695,7 @@ declare namespace std.base {
          * @return An iterator pointing to the element that followed the last element erased by the function call.
          *		   This is the {@link end end()} if the operation erased the last element in the sequence.
          */
-        erase(position: BidrectionalIterator): BidrectionalIterator;
+        erase(position: BidirectionalIterator): BidirectionalIterator;
         /**
          * <p> Erase elements. </p>
          *
@@ -4591,11 +4712,11 @@ declare namespace std.base {
          * @return An iterator pointing to the element that followed the last element erased by the function call.
          *		   This is the {@link end end()} if the operation erased the last element in the sequence.
          */
-        erase(begin: BidrectionalIterator, end: BidrectionalIterator): BidrectionalIterator;
+        erase(begin: BidirectionalIterator, end: BidirectionalIterator): BidirectionalIterator;
         /**
          * @hidden
          */
-        protected _Erase_by_range(first: BidrectionalIterator, last: BidrectionalIterator): BidrectionalIterator;
+        protected _Erase_by_range(first: BidirectionalIterator, last: BidirectionalIterator): BidirectionalIterator;
         /**
          * <p> Swap content. </p>
          *
@@ -4613,7 +4734,7 @@ declare namespace std.base {
          *			  with the same template parameter, <b>T</b>) whose content is swapped with that of this
          *			  {@link container List}.
          */
-        swap(obj: ListContainer<T, BidrectionalIterator>): void;
+        swap(obj: ListContainer<T, BidirectionalIterator>): void;
         /**
          * @inheritdoc
          */
@@ -4671,7 +4792,7 @@ declare namespace std.base {
         /**
          * @inheritdoc
          */
-        equal_to(obj: ListIteratorBase<T>): boolean;
+        equals(obj: ListIteratorBase<T>): boolean;
         /**
          * @inheritdoc
          */
@@ -5155,8 +5276,10 @@ declare namespace std.base {
      */
     class MapElementList<Key, T> extends ListContainer<Pair<Key, T>, MapIterator<Key, T>> {
         private associative_;
+        private rend_;
         constructor(associative: MapContainer<Key, T>);
         protected _Create_iterator(prev: MapIterator<Key, T>, next: MapIterator<Key, T>, val: Pair<Key, T>): MapIterator<Key, T>;
+        protected _Set_begin(it: MapIterator<Key, T>): void;
         get_associative(): MapContainer<Key, T>;
         rbegin(): MapReverseIterator<Key, T>;
         rend(): MapReverseIterator<Key, T>;
@@ -5210,16 +5333,20 @@ declare namespace std {
          */
         second: T;
         /**
-         * <p> Whether an iterator is equal with the iterator. </p>
-         *
-         * <p> Compare two iterators and returns whether they are equal or not. </p>
-         *
-         * @param obj An iterator to compare
-         * @return Indicates whether equal or not.
+         * @inheritdoc
          */
-        equal_to<L extends Key, U extends T>(obj: MapIterator<L, U>): boolean;
-        less<L extends Key, U extends T>(obj: MapIterator<L, U>): boolean;
-        hash(): number;
+        less(obj: MapIterator<Key, T>): boolean;
+        /**
+         * @inheritdoc
+         */
+        equals(obj: MapIterator<Key, T>): boolean;
+        /**
+         * @inheritdoc
+         */
+        hashCode(): number;
+        /**
+         * @inheritdoc
+         */
         swap(obj: MapIterator<Key, T>): void;
     }
     /**
@@ -5660,8 +5787,10 @@ declare namespace std.base {
      */
     class SetElementList<T> extends ListContainer<T, SetIterator<T>> {
         private associative_;
+        private rend_;
         constructor(associative: SetContainer<T>);
         protected _Create_iterator(prev: SetIterator<T>, next: SetIterator<T>, val: T): SetIterator<T>;
+        protected _Set_begin(it: SetIterator<T>): void;
         get_associative(): SetContainer<T>;
         rbegin(): SetReverseIterator<T>;
         rend(): SetReverseIterator<T>;
@@ -5707,15 +5836,15 @@ declare namespace std {
         /**
          * @inheritdoc
          */
-        equal_to<U extends T>(obj: SetIterator<U>): boolean;
+        less(obj: SetIterator<T>): boolean;
         /**
          * @inheritdoc
          */
-        less<U extends T>(obj: SetIterator<U>): boolean;
+        equals(obj: SetIterator<T>): boolean;
         /**
          * @inheritdoc
          */
-        hash(): number;
+        hashCode(): number;
         /**
          * @inheritdoc
          */
@@ -7618,6 +7747,14 @@ declare namespace std {
          */
         private get_col_size();
         /**
+         * @hidden
+         */
+        private end_;
+        /**
+         * @hidden
+         */
+        private rend_;
+        /**
          * <p> Default Constructor. </p>
          *
          * <p> Constructs an empty container, with no elements. </p>
@@ -7886,21 +8023,9 @@ declare namespace std {
          */
         advance(n: number): DequeIterator<T>;
         /**
-         * <p> Whether an iterator is equal with the iterator. </p>
-         *
-         * <p> Compare two iterators and returns whether they are equal or not. </p>
-         *
-         * <h4> Note </h4>
-         * <p> Iterator's equal_to() only compare souce container and index number. </p>
-         *
-         * <p> Although elements in a pair, key and value are equal_to, if the source map or
-         * index number is different, then the {@link equal_to equal_to()} will return false. If you want to
-         * compare the elements of a pair, compare them directly by yourself. </p>
-         *
-         * @param obj An iterator to compare
-         * @return Indicates whether equal or not.
+         * @inheritdoc
          */
-        equal_to<U extends T>(obj: DequeIterator<U>): boolean;
+        equals(obj: DequeIterator<T>): boolean;
         /**
          * @inheritdoc
          */
@@ -8427,104 +8552,6 @@ declare namespace std {
      * @return Result of bitwise XOR operation.
      */
     function bit_xor(x: number, y: number): number;
-    /**
-     * <p> Comparable instance. </p>
-     *
-     * <p> {@link IComparable} is a common interface for objects who can compare each other. </p>
-     *
-     * @reference https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    interface IComparable<T> extends Object {
-        /**
-         * <p> Indicates whether some other object is &quot;equal to&quot; this one. </p>
-         *
-         * <p> The {@link equal_to} method implements an equivalence relation on non-null object references: </p>
-         *
-         * <ul>
-         *	<li>
-         *		It is <b>reflexive</b>: for any non-null reference value <code>x</code>, <code>x.equal_to(x)</code>
-         *		should return <code>true</code>.
-         *	</li>
-         *	<li>
-         *		It is <b>symmetric</b>: for any non-null reference values <code>x</code> and <code>y</code>,
-         *		<code>x.equal_to(y)</code> should return <code>true</code> if and only if <code>y.equal_to(x)</code>
-         *		returns <code>true</code>. </li>
-         *	<li>
-         *		It is <b>transitive</b>: for any non-null reference values <code>x</code>, <code>y</code>, and
-         *		<code>z</code>, if <code>x.equal_to(y)</code> returns <code>true</code> and <code>y.equal_to(z)</code>
-         *		returns <code>true</code>, then <code>x.equal_to(z)</code> should return <code>true</code>.
-         *	</li>
-         *	<li>
-         *		It is <b>consistent</b>: for any non-null reference values <code>x</code> and <code>y</code>, multiple
-         *		invocations of <code>x.equal_to(y)</code> consistently return <code>true</code> or consistently return
-         *		<code>false</code>, provided no information used in equal_to comparisons on the objects is modified.
-         *	</li>
-         *	<li>
-         *		For any non-null reference value <code>x</code>, <code>x.equal_to(null)</code> should return
-         *		<code>false</code>.
-         *	</li>
-         * </ul>
-         *
-         * <p> The {@link equal_to} method for interface {@link IComparable} implements the most discriminating possible
-         * equivalence relation on objects; that is, for any non-null reference values <code>x</code> and
-         * <code>y</code>, this method returns <code>true</code> if and only if <code>x</code> and <code>y</code>
-         * refer to the same object (<code>x == y</code> has the value <code>true</code>). </p>
-         *
-         * <p> Note that it is generally necessary to override the {@link hash_code} method whenever this method is
-         * overridden, so as to maintain the general contract for the {@link hash_code} method, which states that
-         * equal objects must have equal hash codes. </p>
-         *
-         * <ul>
-         *	<li> {@link IComparable.equal_to} is called by {@link std.equal_to}. </li>
-         * </ul>
-         *
-         * @param obj the reference object with which to compare.
-         *
-         * @return <code>true</code> if this object is the same as the obj argument; <code>false</code> otherwise.
-         */
-        equal_to(obj: T): boolean;
-        /**
-         * <p> Less-than inequality comparison. </p>
-         *
-         * <p> Binary method returns whether the the instance compares less than the <i>obj</i>. </p>
-         *
-         * <ul>
-         *	<li>
-         *		{@link IComparable.less} is called by {@link std.less}. Also, this method can be used on standard
-         *		algorithms such as {@link sort sort()}</code>, {@link merge merge()} or
-         *		{@link TreeMap.lower_bound lower_bound()}.
-         *	</li>
-         * </ul>
-         *
-         * @param obj the reference object with which to compare.
-         *
-         * @return Whether the first parameter is less than the second.
-         */
-        less(obj: T): boolean;
-        /**
-         * <p> Issue a hash code. </p>
-         *
-         * <p> Returns a hash code value for the object. This method is supported for the benefit of hash tables such
-         * as those provided by hash containers; {@link HashSet}, {@link HashMap}, {@link MultiHashSet} and
-         * {@link MultiHashMap}. </p>
-         *
-         * <p> As much as is reasonably practical, the {@link hash_code} method defined by interface
-         * {@link IComparable} does return distinct integers for distinct objects. (This is typically implemented by
-         * converting the internal address of the object into an integer, but this implementation technique is not
-         * required by the JavaScript programming language.) </p>
-         *
-         * <ul>
-         *	<li>
-         *		{@link IComparable.hash_code} is called by {@link std.hash_code}. If you want to keep basically
-         *		provided hash function, then returns {@link std.Hash.code}; <code>return std.Hash.code(this);</code>
-         *	</li>
-         * </ul>
-         *
-         * @return An hash code who represents the object.
-         */
-        hash(): number;
-    }
     /**
      * <p> Default hash function for number. </p>
      *
@@ -9530,6 +9557,106 @@ declare namespace std {
         swap(obj: base.IContainer<T>): void;
     }
 }
+declare namespace std {
+    /**
+     * <p> Comparable instance. </p>
+     *
+     * <p> {@link IComparable} is a common interface for objects who can compare each other. </p>
+     *
+     * @reference https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    interface IComparable<T> extends Object {
+        /**
+         * <p> Indicates whether some other object is &quot;equal to&quot; this one. </p>
+         *
+         * <p> The {@link equal_to} method implements an equivalence relation on non-null object references: </p>
+         *
+         * <ul>
+         *	<li>
+         *		It is <b>reflexive</b>: for any non-null reference value <code>x</code>, <code>x.equal_to(x)</code>
+         *		should return <code>true</code>.
+         *	</li>
+         *	<li>
+         *		It is <b>symmetric</b>: for any non-null reference values <code>x</code> and <code>y</code>,
+         *		<code>x.equal_to(y)</code> should return <code>true</code> if and only if <code>y.equal_to(x)</code>
+         *		returns <code>true</code>. </li>
+         *	<li>
+         *		It is <b>transitive</b>: for any non-null reference values <code>x</code>, <code>y</code>, and
+         *		<code>z</code>, if <code>x.equal_to(y)</code> returns <code>true</code> and <code>y.equal_to(z)</code>
+         *		returns <code>true</code>, then <code>x.equal_to(z)</code> should return <code>true</code>.
+         *	</li>
+         *	<li>
+         *		It is <b>consistent</b>: for any non-null reference values <code>x</code> and <code>y</code>, multiple
+         *		invocations of <code>x.equal_to(y)</code> consistently return <code>true</code> or consistently return
+         *		<code>false</code>, provided no information used in equal_to comparisons on the objects is modified.
+         *	</li>
+         *	<li>
+         *		For any non-null reference value <code>x</code>, <code>x.equal_to(null)</code> should return
+         *		<code>false</code>.
+         *	</li>
+         * </ul>
+         *
+         * <p> The {@link equal_to} method for interface {@link IComparable} implements the most discriminating possible
+         * equivalence relation on objects; that is, for any non-null reference values <code>x</code> and
+         * <code>y</code>, this method returns <code>true</code> if and only if <code>x</code> and <code>y</code>
+         * refer to the same object (<code>x == y</code> has the value <code>true</code>). </p>
+         *
+         * <p> Note that it is generally necessary to override the {@link hash_code} method whenever this method is
+         * overridden, so as to maintain the general contract for the {@link hash_code} method, which states that
+         * equal objects must have equal hash codes. </p>
+         *
+         * <ul>
+         *	<li> {@link IComparable.equal_to} is called by {@link std.equal_to}. </li>
+         * </ul>
+         *
+         * @param obj the reference object with which to compare.
+         *
+         * @return <code>true</code> if this object is the same as the obj argument; <code>false</code> otherwise.
+         */
+        equals(obj: T): boolean;
+        /**
+         * <p> Less-than inequality comparison. </p>
+         *
+         * <p> Binary method returns whether the the instance compares less than the <i>obj</i>. </p>
+         *
+         * <ul>
+         *	<li>
+         *		{@link IComparable.less} is called by {@link std.less}. Also, this method can be used on standard
+         *		algorithms such as {@link sort sort()}</code>, {@link merge merge()} or
+         *		{@link TreeMap.lower_bound lower_bound()}.
+         *	</li>
+         * </ul>
+         *
+         * @param obj the reference object with which to compare.
+         *
+         * @return Whether the first parameter is less than the second.
+         */
+        less(obj: T): boolean;
+        /**
+         * <p> Issue a hash code. </p>
+         *
+         * <p> Returns a hash code value for the object. This method is supported for the benefit of hash tables such
+         * as those provided by hash containers; {@link HashSet}, {@link HashMap}, {@link MultiHashSet} and
+         * {@link MultiHashMap}. </p>
+         *
+         * <p> As much as is reasonably practical, the {@link hash_code} method defined by interface
+         * {@link IComparable} does return distinct integers for distinct objects. (This is typically implemented by
+         * converting the internal address of the object into an integer, but this implementation technique is not
+         * required by the JavaScript programming language.) </p>
+         *
+         * <ul>
+         *	<li>
+         *		{@link IComparable.hash_code} is called by {@link std.hash_code}. If you want to keep basically
+         *		provided hash function, then returns {@link std.Hash.code}; <code>return std.Hash.code(this);</code>
+         *	</li>
+         * </ul>
+         *
+         * @return An hash code who represents the object.
+         */
+        hashCode?(): number;
+    }
+}
 declare namespace std.List {
     type iterator<T> = std.ListIterator<T>;
     type reverse_iterator<T> = std.ListReverseIterator<T>;
@@ -9577,6 +9704,7 @@ declare namespace std {
      * @author Jeongho Nam <http://samchon.org>
      */
     class List<T> extends base.ListContainer<T, ListIterator<T>> {
+        private rend_;
         /**
          * <p> Default Constructor. </p>
          *
@@ -9620,7 +9748,14 @@ declare namespace std {
          * @param end Input interator of the final position in a sequence.
          */
         constructor(begin: Iterator<T>, end: Iterator<T>);
+        /**
+         * @hidden
+         */
         protected _Create_iterator(prev: ListIterator<T>, next: ListIterator<T>, val: T): ListIterator<T>;
+        /**
+         * @hidden
+         */
+        protected _Set_begin(it: ListIterator<T>): void;
         /**
          * @inheritdoc
          */
@@ -10132,7 +10267,7 @@ declare namespace std {
         /**
          * @inheritdoc
          */
-        equal_to(obj: ListIterator<T>): boolean;
+        equals(obj: ListIterator<T>): boolean;
         /**
          * @inheritdoc
          */
@@ -10234,6 +10369,14 @@ declare namespace std {
      * @author Jeongho Nam <http://samchon.org>
      */
     class Vector<T> extends Array<T> implements base.IContainer<T>, base.IArrayContainer<T> {
+        /**
+         * @hidden
+         */
+        private end_;
+        /**
+         * @hidden
+         */
+        private rend_;
         /**
          * <p> Default Constructor. </p>
          *
@@ -10663,21 +10806,9 @@ declare namespace std {
          */
         advance(n: number): VectorIterator<T>;
         /**
-         * <p> Whether an iterator is equal with the iterator. </p>
-         *
-         * <p> Compare two iterators and returns whether they are equal or not. </p>
-         *
-         * <h4> Note </h4>
-         * <p> Iterator's equal_to() only compare souce container and index number. </p>
-         *
-         * <p> Although elements in a pair, key and value are equal_to, if the source map or
-         * index number is different, then the {@link equal_to equal_to()} will return false. If you want to
-         * compare the elements of a pair, compare them directly by yourself. </p>
-         *
-         * @param obj An iterator to compare
-         * @return Indicates whether equal or not.
+         * @inheritdoc
          */
-        equal_to<U extends T>(obj: VectorIterator<U>): boolean;
+        equals(obj: VectorIterator<T>): boolean;
         /**
          * @inheritdoc
          */
@@ -12211,7 +12342,7 @@ declare namespace std {
      * @reference http://www.cplusplus.com/reference/utility/pair
      * @author Jeongho Nam <http://samchon.org>
      */
-    class Pair<T1, T2> {
+    class Pair<T1, T2> implements IComparable<Pair<T1, T2>> {
         /**
          * <p> A first value in the Pair. </p>
          */
@@ -12238,7 +12369,10 @@ declare namespace std {
          * @param obj A Map to compare
          * @return Indicates whether equal or not.
          */
-        equal_to<U1 extends T1, U2 extends T2>(pair: Pair<U1, U2>): boolean;
+        equals<U1 extends T1, U2 extends T2>(pair: Pair<U1, U2>): boolean;
+        /**
+         * @inheritdoc
+         */
         less<U1 extends T1, U2 extends T2>(pair: Pair<U1, U2>): boolean;
     }
     /**

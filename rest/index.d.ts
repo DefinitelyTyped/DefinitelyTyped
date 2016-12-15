@@ -26,6 +26,9 @@ declare module "rest" {
 			params?: any;
 			headers?: any;
 			entity?: any;
+			canceled?: boolean;
+			cancel?: () => void;
+			originator?: (request?: Request) => ResponsePromise;
 		}
 
 		export interface Status {

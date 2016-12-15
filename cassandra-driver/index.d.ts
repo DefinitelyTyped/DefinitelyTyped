@@ -438,7 +438,7 @@ export var Encoder: EncoderStatic;
 
 export interface ClientOptions {
   contactPoints: Array<string>,
-  keyspace: string,
+  keyspace?: string,
   policies?: {
     addressResolution?: policies.addressResolution.AddressTranslator,
     loadBalancing?: policies.loadBalancing.LoadBalancingPolicy,

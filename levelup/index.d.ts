@@ -1,14 +1,25 @@
 // Type definitions for LevelUp 
-// Project: https://github.com/rvagg/node-levelup
-// Definitions by: Bret Little <https://github.com/blittle>
+// Project: https://github.com/Level/levelup
+// Definitions by: Bret Little <https://github.com/blittle>, Thiago de Arruda <https://github.com/tarruda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="node" />
+
+interface CustomEncoding {
+    encode(val: any): Buffer| string;
+    decode(val: Buffer | string): any;
+    buffer: boolean;
+    type: string;
+}
+
+type Encoding = string | CustomEncoding;
 
 interface Batch {
     type: string;
     key: any;
     value?: any;
-    keyEncoding?: string;
-    valueEncoding?: string;
+    keyEncoding?: Encoding;
+    valueEncoding?: Encoding;
 }
 interface LevelUp {
     open(callback ?: (error : any) => any): void;
@@ -17,12 +28,12 @@ interface LevelUp {
     put(key: any, value: any, options?: { sync?: boolean }, callback ?: (error: any) => any): void;
     get(key: any, callback ?: (error: any, value: any) => any): void;
 
-    get(key: any, options ?: { keyEncoding?: string; fillCache?: boolean }, callback ?: (error: any, value: any) => any): void;
+    get(key: any, options ?: { keyEncoding?: Encoding; fillCache?: boolean }, callback ?: (error: any, value: any) => any): void;
     del(key: any, callback ?: (error: any) => any): void;
-    del(key: any, options ?: { keyEncoding?: string; sync?: boolean }, callback ?: (error: any) => any): void;
+    del(key: any, options ?: { keyEncoding?: Encoding; sync?: boolean }, callback ?: (error: any) => any): void;
 
 
-    batch(array: Batch[], options?: { keyEncoding?: string; valueEncoding?: string; sync?: boolean }, callback?: (error?: any)=>any): void;
+    batch(array: Batch[], options?: { keyEncoding?: Encoding; valueEncoding?: Encoding; sync?: boolean }, callback?: (error?: any)=>any): void;
     batch(array: Batch[], callback?: (error?: any)=>any): void;
     batch():LevelUpChain;
     isOpen():boolean;
@@ -39,7 +50,7 @@ interface LevelUpChain {
     put(key: any, value: any): LevelUpChain;
     put(key: any, value: any, options?: { sync?: boolean }): LevelUpChain;
     del(key: any): LevelUpChain;
-    del(key: any, options ?: { keyEncoding?: string; sync?: boolean }): LevelUpChain;
+    del(key: any, options ?: { keyEncoding?: Encoding; sync?: boolean }): LevelUpChain;
     clear(): LevelUpChain;
     write(callback?: (error?: any)=>any) : LevelUpChain;
 }
@@ -49,8 +60,8 @@ interface levelupOptions {
     errorIfExists?: boolean; 
     compression?: boolean; 
     cacheSize?: number; 
-    keyEncoding?: string; 
-    valueEncoding?: string; 
+    keyEncoding?: Encoding; 
+    valueEncoding?: Encoding; 
     db?: string
 }
 

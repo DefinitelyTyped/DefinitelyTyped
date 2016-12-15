@@ -3,6 +3,8 @@
 // Definitions by: Alexandro Libertino <https://github.com/arvitaly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 import BluebirdPromise = require("bluebird");
 declare namespace Waterline {
     type Adapter = Object;

@@ -293,7 +293,7 @@ declare module ej {
         changeSetContent?: string;
         batchChangeSetContentType?: string;
     }
-
+	
 	class WebApiAdaptor extends ej.ODataAdaptor {
         constructor();
         insert(dm: ej.DataManager, data: Object, tableName?: string): { url: string; type: string; data: Object; }

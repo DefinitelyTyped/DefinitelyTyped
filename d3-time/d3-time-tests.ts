@@ -70,13 +70,13 @@ resultDate = countableI.offset(inBetween, 3);
 dateArray = countableI.range(new Date(), new Date()); // TODO: specify dates
 dateArray = countableI.range(new Date(), new Date(), 2); // TODO: specify dates
 
-// countI = countI.filter((d: Date)=>{ return d.getMonth() === 2;}); // Test fails, since .filter(...) return Interval and not CountableInterval
+// countableI = countableI.filter((d: Date)=>{ return d.getMonth() === 2;}); // Test fails, since .filter(...) return Interval and not CountableInterval
 simpleI = countableI.filter((d: Date) => { return d.getMonth() === 2; });
 
 count = countableI.count(start, end);
 
-// countI = countI.every(10); // Test fails, since .every(...) return Interval and not CountableInterval
-simpleI = countableI.every(10);
+// let countableIOrNull: d3Time.CountableTimeInterval | null = countableI.every(10); // Test fails, since .every(...) return Interval and not CountableInterval
+let simpleIOrNull: d3Time.TimeInterval | null = countableI.every(10);
 
 resultDate = simpleI.floor(inBetween);
 resultDate = simpleI.round(inBetween);
