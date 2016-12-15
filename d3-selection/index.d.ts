@@ -899,9 +899,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
  * Selects the root element, document.documentElement. This function can also be used to test for selections
  * (instanceof d3.selection) or to extend the selection prototype.
  */
-interface SelectionFn extends Function {
-    (): Selection<HTMLElement, any, null, undefined>;
-}
+type SelectionFn = () => Selection<HTMLElement, any, null, undefined>;
 
 /**
  * Selects the root element, document.documentElement. This function can also be used to test for selections
