@@ -6,12 +6,11 @@
 /// <reference types="chai" />
 
 declare global {
-
- namespace Chai {
-  interface Assertion {
-    xml: ChaiXml.XmlAssertion;
-  }
-}
+    namespace Chai {
+        interface Assertion {
+            xml: ChaiXml.XmlAssertion;
+        }
+    }
 }
 
 declare namespace ChaiXml {
@@ -34,13 +33,6 @@ declare namespace ChaiXml {
     same: XmlAssertion;
   }
 }
-//
 
 declare  function chaiXml(chai: any, utils: any): void;
 export = chaiXml;
-
-// declare module "chai-xml" {
-//   function chaiXml(chai: any, utils: any): void;
-// //  namespace chaiXml {}
-//   export = chaiXml;
-// }
