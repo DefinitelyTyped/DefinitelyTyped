@@ -29,5 +29,5 @@ declare module 'react-css-modules' {
 
     let CSSModules: CSSModules;
 
-    export = CSSModules;
+    export default CSSModules;
 }
