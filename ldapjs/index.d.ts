@@ -5,6 +5,8 @@
 
 /// <reference types="node" />
 
+import { EventEmitter } from "events";
+
 export interface Error {
 	code: number;
 	name: string;
@@ -63,18 +65,22 @@ export interface SearchOptions {
 }
 
 export interface Change {
-	operation?: string;
-	modification?: Object;
+	operation: string;
+	modification: {
+		[key: string]: any;
+	};
 }
 
 export interface SearchCallBack {
-	(error: Error, result: NodeJS.EventEmitter): void;
+	(error: Error, result: EventEmitter): void;
 }
 
-export interface Client {
+export type Control = any;
+
+export interface Client extends EventEmitter {
 
 	connected: boolean;
-	
+
 	/**
 	 * Performs a simple authentication against the server.
 	 *
@@ -85,6 +91,7 @@ export interface Client {
 	 * @throws {TypeError} on invalid input.
 	 */
 	bind(dn: string, password: string, callback: CallBack): void;
+	bind(dn: string, password: string, controls: Control | Array<Control>, callback: CallBack): void;
 
 	/**
 	 * Adds an entry to the LDAP server.
@@ -99,7 +106,8 @@ export interface Client {
 	 * @param callback of the form f(err, res).
 	 * @throws {TypeError} on invalid input.
 	 */
-	add(name: string, entry: Object, controls: Array<Object>, callback: ErrorCallback): void;
+	add(name: string, entry: Object, callback: ErrorCallback): void;
+	add(name: string, entry: Object, controls: Control | Array<Control>, callback: ErrorCallback): void;
 
 	/**
 	 * Compares an attribute/value pair with an entry on the LDAP server.
@@ -111,7 +119,8 @@ export interface Client {
 	 * @param callback of the form f(err, boolean, res).
 	 * @throws {TypeError} on invalid input.
 	 */
-	compare(name: string, attr: string, value: string, controls: Object | Array<Object>, callback: CompareCallback): void;
+	compare(name: string, attr: string, value: string, callback: CompareCallback): void;
+	compare(name: string, attr: string, value: string, controls: Control | Array<Control>, callback: CompareCallback): void;
 
 	/**
 	 * Deletes an entry from the LDAP server.
@@ -121,7 +130,8 @@ export interface Client {
 	 * @param callback of the form f(err, res).
 	 * @throws {TypeError} on invalid input.
 	 */
-	del(name: string, controls: Object | Array<Object>, callback: ErrorCallback): void;
+	del(name: string, callback: ErrorCallback): void;
+	del(name: string, controls: Control | Array<Control>, callback: ErrorCallback): void;
 
 	/**
 	 * Performs an extended operation on the LDAP server.
@@ -136,7 +146,8 @@ export interface Client {
 	 * @param callback of the form f(err, value, res).
 	 * @throws {TypeError} on invalid input.
 	 */
-	exop(name: string, value: string, controls: Object | Array<Object>, callback: ExopCallback): void;
+	exop(name: string, value: string, callback: ExopCallback): void;
+	exop(name: string, value: string, controls: Control | Array<Control>, callback: ExopCallback): void;
 
 	/**
 	 * Performs an LDAP modify against the server.
@@ -147,7 +158,8 @@ export interface Client {
 	 * @param callback of the form f(err, res).
 	 * @throws {TypeError} on invalid input.
 	 */
-	modify(name: string, change: Change | Array<Change>, controls: Object | Array<Object>, callback: ErrorCallback): void;
+	modify(name: string, change: Change | Array<Change>, callback: ErrorCallback): void;
+	modify(name: string, change: Change | Array<Change>, controls: Control | Array<Control>, callback: ErrorCallback): void;
 
 	/**
 	 * Performs an LDAP modifyDN against the server.
@@ -163,7 +175,8 @@ export interface Client {
 	 * @param {Function} callback of the form f(err, res).
 	 * @throws {TypeError} on invalid input.
 	 */
-	modifyDN(name: string, newName: string, controls: Object | Array<Object>, callback: ErrorCallback): void;
+	modifyDN(name: string, newName: string, callback: ErrorCallback): void;
+	modifyDN(name: string, newName: string, controls: Control | Array<Control>, callback: ErrorCallback): void;
 
 	/**
 	 * Performs an LDAP search against the server.
@@ -184,12 +197,18 @@ export interface Client {
 	 * @param {Function} callback of the form f(err, res).
 	 * @throws {TypeError} on invalid input.
 	 */
-	search(base: string, options: SearchOptions, callback: SearchCallBack, _bypass?: boolean): void;
+	search(base: string, options: SearchOptions, callback: SearchCallBack): void;
+	search(base: string, options: SearchOptions, callback: SearchCallBack, _bypass: boolean): void;
+	search(base: string, options: SearchOptions, controls: Control | Array<Control>, callback: SearchCallBack): void;
+	search(base: string, options: SearchOptions, controls: Control | Array<Control>, callback: SearchCallBack, _bypass: boolean): void;
 
 	/**
 	 * Attempt to secure connection with StartTLS.
 	 */
-	starttls(options: Object, controls: Object | Array<Object>, callback: CallBack, _bypass?: boolean): void;
+	starttls(options: Object, callback: CallBack): void;
+	starttls(options: Object, callback: CallBack, _bypass: boolean): void;
+	starttls(options: Object, controls: Control | Array<Control>, callback: CallBack): void;
+	starttls(options: Object, controls: Control | Array<Control>, callback: CallBack, _bypass: boolean): void;
 
 	/**
 	 * Unbinds this client from the LDAP server.
@@ -200,7 +219,20 @@ export interface Client {
 	 * @param {Function} callback of the form f(err).
 	 * @throws {TypeError} if you pass in callback as not a function.
 	 */
-	unbind(callback: ErrorCallback): void;
+	unbind(callback?: ErrorCallback): void;
+
+	/**
+	 * Disconnect from the LDAP server and do not allow reconnection.
+	 *
+	 * If the client is instantiated with proper reconnection options, it's
+	 * possible to initiate new requests after a call to unbind since the client
+	 * will attempt to reconnect in order to fulfill the request.
+	 *
+	 * Calling destroy will prevent any further reconnection from occurring.
+	 *
+	 * @param {Object} err (Optional) error that was cause of client destruction
+	 */
+	destroy(err?: any): void;
 }
 
 export function createClient(options?: ClientOptions): Client;
