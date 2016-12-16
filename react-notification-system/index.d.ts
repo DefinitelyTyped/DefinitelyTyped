@@ -3,21 +3,16 @@
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>, Deividas Bakanas <https://github.com/DeividasBakanas>, Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react" />
-
 import * as React from "react";
 
 declare namespace NotificationSystem {
 
     export interface System extends React.Component<any, any> {
         addNotification(notification: Notification): Notification;
-        removeNotification(notification: Notification): void;
-        removeNotification(uid: string): void;
+        removeNotification(notification: Notification | number | string): void;
     }
 
-    export interface CallBackFunction {
-        (notification: Notification): void;
-    }
+    export type CallBackFunction = (notification: Notification) => void;
 
     export interface Notification {
         title?: string;
