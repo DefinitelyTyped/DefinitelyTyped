@@ -390,7 +390,7 @@ declare namespace L {
         interactive?: boolean;
     }
 
-    export interface Layer extends Evented {
+    export class Layer extends Evented {
         addTo(map: Map): this;
         remove(): this;
         removeFrom(map: Map): this;
@@ -502,7 +502,7 @@ declare namespace L {
     }
 
     export namespace tileLayer {
-        export function wms(baseUrl: string, options: WMSOptions): WMS;
+        export function wms(baseUrl: string, options?: WMSOptions): WMS;
     }
 
     export interface ImageOverlayOptions extends LayerOptions {
@@ -1247,12 +1247,12 @@ declare namespace L {
 
         // Methods for modifying map state
         setView(center: LatLngExpression, zoom: number, options?: ZoomPanOptions): this;
-        setZoom(zoom: number, options: ZoomPanOptions): this;
+        setZoom(zoom: number, options?: ZoomPanOptions): this;
         zoomIn(delta?: number, options?: ZoomOptions): this;
         zoomOut(delta?: number, options?: ZoomOptions): this;
-        setZoomAround(latlng: LatLngExpression, zoom: number, options: ZoomOptions): this;
-        setZoomAround(offset: Point, zoom: number, options: ZoomOptions): this;
-        fitBounds(bounds: LatLngBoundsExpression, options: FitBoundsOptions): this;
+        setZoomAround(latlng: LatLngExpression, zoom: number, options?: ZoomOptions): this;
+        setZoomAround(offset: Point, zoom: number, options?: ZoomOptions): this;
+        fitBounds(bounds: LatLngBoundsExpression, options?: FitBoundsOptions): this;
         fitWorld(options?: FitBoundsOptions): this;
         panTo(latlng: LatLngExpression, options?: PanOptions): this;
         panBy(offset: PointExpression): this;
@@ -1345,11 +1345,11 @@ declare namespace L {
         imagePath: string;
     }
 
-    export namespace Icon {
-        export const Default: IconDefault;
+    export class Icon {
+        static Default: IconDefault;
     }
 
-    export function icon(options: IconOptions): Icon;
+    export function icon(options?: IconOptions): Icon;
 
     export interface DivIconOptions extends LayerOptions {
         html?: string;
@@ -1360,7 +1360,7 @@ declare namespace L {
         className?: string;
     }
 
-    export interface DivIcon extends Icon {}
+    export class DivIcon extends Icon {}
 
     export function divIcon(options: DivIconOptions): DivIcon;
 
@@ -1376,12 +1376,14 @@ declare namespace L {
         riseOffset?: number;
     }
 
-    export interface Marker extends Layer {
+    export class Marker extends Layer {
+        constructor(latlng: LatLngExpression, options?: MarkerOptions);
         getLatLng(): LatLng;
         setLatLng(latlng: LatLngExpression): this;
         setZIndexOffset(offset: number): this;
         setIcon(icon: Icon): this;
         setOpacity(opacity: number): this;
+        getElement(): Element;
 
         // Properties
         dragging: Handler;
