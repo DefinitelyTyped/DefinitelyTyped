@@ -1,6 +1,6 @@
-// Type definitions for React Notification System v0.2.6
+// Type definitions for React Notification System v0.2.10
 // Project: https://www.npmjs.com/package/react-notification-system
-// Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>, Deividas Bakanas <https://github.com/DeividasBakanas>
+// Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>, Deividas Bakanas <https://github.com/DeividasBakanas>, Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="react" />
@@ -27,6 +27,7 @@ declare namespace NotificationSystem {
         autoDismiss?: number;
         dismissible?: boolean;
         action?: ActionObject;
+        children?: React.ReactNode;
         onAdd?: CallBackFunction;
         onRemove?: CallBackFunction;
         uid?: number | string;
