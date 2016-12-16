@@ -1,6 +1,6 @@
 // Type definitions for redux-persist-transform-encrypt 0.1
 // Project: https://github.com/maxdeviant/redux-persist-transform-encrypt#readme
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { PersistTransformer } from "redux-persist";
