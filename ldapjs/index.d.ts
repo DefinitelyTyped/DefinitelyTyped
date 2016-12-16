@@ -205,8 +205,6 @@ export interface Client extends EventEmitter {
 	/**
 	 * Attempt to secure connection with StartTLS.
 	 */
-	starttls(options: Object, callback: CallBack): void;
-	starttls(options: Object, callback: CallBack, _bypass: boolean): void;
 	starttls(options: Object, controls: Control | Array<Control>, callback: CallBack): void;
 	starttls(options: Object, controls: Control | Array<Control>, callback: CallBack, _bypass: boolean): void;
 
