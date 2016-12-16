@@ -34,7 +34,6 @@ var a: number = color.a()
 var b: number = color.b()
 var rgbNumber: number = color.rgbNumber()
 
-
 var chain: Color.Color = color
     .alpha(0)
     .red(0)
@@ -57,8 +56,6 @@ var chain: Color.Color = color
     .greyscale()
     .whiten(0)
     .blacken(0)
-    .clearer(0)
     .opaquer(0)
     .rotate(0)
     .mix(colorOther, 0)
-    .clone()
