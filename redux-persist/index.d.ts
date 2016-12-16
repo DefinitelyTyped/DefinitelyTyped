@@ -38,8 +38,8 @@ export interface PersistStorage {
 
 export type PersistStateReconciler<A, B, C> = (state: A, inboundState: B, reducedState: C, log?: boolean) => C;
 
-export interface PersistAutoRehydrateConfig {
-    stateReconcile?: PersistStateReconciler;
+export interface PersistAutoRehydrateConfig<A, B, C> {
+    stateReconcile?: PersistStateReconciler<A, B, C>;
 }
 
 export interface PersistConfig {
@@ -53,7 +53,7 @@ export interface PersistConfig {
     deserialize?: (data: string) => any;
 }
 
-export function autoRehydrate (config?: PersistAutoRehydrateConfig): GenericStoreEnhancer;
+export function autoRehydrate<A, B ,C> (config?: PersistAutoRehydrateConfig<A, B, C>): GenericStoreEnhancer;
 
 export function createPersistor<A> (store: Store<A>, config?: PersistConfig): Persistor;
 
