@@ -124,7 +124,7 @@ declare module "csv-parse" {
 
     let parse: parseIntf;
 
-    export = parse;
+    export { parse };
 }
 
 declare module "csv-parse/lib/sync" {
@@ -132,5 +132,5 @@ declare module "csv-parse/lib/sync" {
 
    function parse (input: string, options?: options): any;
 
-   export = parse;
+   export { parse };
 }
