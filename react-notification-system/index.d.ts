@@ -9,7 +9,8 @@ declare namespace NotificationSystem {
 
     export interface System extends React.Component<any, any> {
         addNotification(notification: Notification): Notification;
-        removeNotification(notification: Notification | number | string): void;
+        removeNotification(notification: Notification): void;
+        removeNotification(uid: number | string): void;
     }
 
     export type CallBackFunction = (notification: Notification) => void;
