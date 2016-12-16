@@ -1,6 +1,3 @@
-/// <reference path="mongoose.d.ts" />
-/// <reference path="../lodash/lodash.d.ts"/>
-
 import * as mongoose from 'mongoose';
 
 // test compatibility with other libraries
@@ -196,6 +193,18 @@ QCModel.find({}).cursor({}).on('data', function (doc: any) {
 }).on('error', function (error: any) {
   throw error;
 }).close().then(cb).catch(cb);
+querycursor.map(function (doc) {
+  doc.foo = "bar";
+  return doc;
+}).on('data', function (doc: any) {
+  console.log(doc.foo);
+});
+querycursor.map(function (doc) {
+  doc.foo = "bar";
+  return doc;
+}).next(function (error, doc) {
+  console.log(doc.foo);
+});
 
 /*
  * section virtualtype.js
@@ -254,11 +263,22 @@ schema.method('name', cb).method({
 schema.path('a', mongoose.Schema.Types.Buffer).path('a');
 schema.pathType('m1').toLowerCase();
 schema.plugin(function (schema, opts) {
-  schema.get('path');
+schema.get('path');
   opts.hasOwnProperty('');
 }).plugin(cb, {opts: true});
-schema.post('post', function (doc) {}).post('post', function (doc, next) {
+
+schema
+.post('save', function (error, doc, next) {
+  error.stack;
+  doc.model;
+  next.apply;
+})
+.post('save', function (doc: mongoose.Document, next: Function) {
+  doc.model;
   next(new Error());
+})
+.post('save', function (doc: mongoose.Document) {
+  doc.model;
 });
 schema.queue('m1', [1, 2, 3]).queue('m2', [[]]);
 schema.remove('path');
@@ -980,8 +1000,8 @@ aggregate.project({
     newField: '$b.nested'
   , plusTen: { $add: ['$val', 10]}
   , sub: {
-       name: '$a'
-    }
+    name: '$a'
+  }
 })
 aggregate.project({ salary_k: { $divide: [ "$salary", 1000 ]}});
 aggregate.read('primaryPreferred').read('pp');
@@ -1456,8 +1476,7 @@ Final2.staticMethod();
 Final2.staticProp;
 var final2 = new Final2();
 final2.prop;
-final2.method;
-interface ibase extends mongoose.Document {
+final2.method;interface ibase extends mongoose.Document {
   username: string;
 }
 interface extended extends ibase {

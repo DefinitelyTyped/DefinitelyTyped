@@ -1,4 +1,4 @@
-/// <reference path="pdfkit.d.ts" />
+
 
 import PDFGradient = require("pdfkit/js/gradient");
 

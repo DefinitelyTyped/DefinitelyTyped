@@ -1,4 +1,4 @@
-/// <reference path="./js-combinatorics.d.ts" />
+
 
 import * as Combinatorics from "js-combinatorics";
 

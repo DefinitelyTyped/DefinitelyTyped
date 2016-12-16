@@ -1,5 +1,5 @@
-/// <reference path="klaw.d.ts" />
-/// <reference path="../node/node.d.ts" />
+/// <reference types="klaw" />
+/// <reference types="node" />
 
 import * as klaw from "klaw";
 const path = require('path');

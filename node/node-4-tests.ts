@@ -698,6 +698,12 @@ namespace readline_tests {
         result = readline.createInterface(input, output);
         result = readline.createInterface(input, output, completer);
         result = readline.createInterface(input, output, completer, terminal);
+        result = readline.createInterface({
+             input: input,
+             completer: function(str: string): readline.CompleteResult {
+                 return [['test'], 'test'];
+             }
+         });
     }
 
     {
@@ -936,7 +942,7 @@ namespace process_tests {
         _p = p;
     }
     {
-        var module: NodeModule;
+        var module: NodeModule | undefined;
         module = process.mainModule;
     }
 }

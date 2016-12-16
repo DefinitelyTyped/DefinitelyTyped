@@ -1,4 +1,4 @@
-/// <reference path="./wiiu.d.ts" />
+
 
 var state = window.wiiu.gamepad.update();
 if( !state.isEnabled || !state.isDataValid ){

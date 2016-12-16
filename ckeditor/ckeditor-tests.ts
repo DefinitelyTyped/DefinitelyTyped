@@ -1,4 +1,4 @@
-/// <reference path="ckeditor.d.ts" />
+
 
 function test_CKEDITOR() {
     CKEDITOR.basePath = 'test';

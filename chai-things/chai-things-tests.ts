@@ -1,4 +1,4 @@
-/// <reference path="chai-things.d.ts" />
+
 
 import chai = require('chai');
 import chaiThings = require('chai-things');

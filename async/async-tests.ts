@@ -1,10 +1,14 @@
-/// <reference path="async.d.ts" />
-/// <reference path="../node/node.d.ts" />
-import * as fs from "fs";
-// var fs = require("fs");
+/// <reference types="node" />
 
-function callback() {}
+import fs = require("fs");
+import process = require("process");
+
+declare var path: {
+    exists: (path: string, callback?: (err: Error, exists: boolean) => any) => void;
+};
+
 function funcStringCbErrBoolean(v:string, cb:(err:Error,res:boolean) => void) {}
+function callback() { }
 
 async.map(['file1', 'file2', 'file3'], fs.stat, function (err:Error, results:Array<fs.Stats>) { });
 async.mapSeries(['file1', 'file2', 'file3'], fs.stat, function (err:Error, results:Array<fs.Stats>) { });
@@ -31,8 +35,8 @@ async.series([
     function () { }
 ]);
 
-var data = [];
-function asyncProcess(item, callback) { }
+var data: any[] = [];
+function asyncProcess(item: any, callback: (err: Error, result: any) => void) { }
 async.map(data, asyncProcess, function (err, results) {
     console.log(results);
 });
@@ -47,11 +51,11 @@ var saveFile = function (file:string,cb:(err:Error)=>void) { }
 async.each(openFiles, saveFile, function (err:Error) { });
 async.eachSeries(openFiles, saveFile, function (err:Error) { });
 
-var documents, requestApi;
+var documents: any, requestApi: any;
 async.eachLimit(documents, 20, requestApi, function (err) { });
 
 // forEachOf* functions. May accept array or object.
-function forEachOfIterator(item, key, forEachOfIteratorCallback) {
+function forEachOfIterator(item: string, key: string, forEachOfIteratorCallback: any) {
     console.log("ForEach: item=" + item + ", key=" + key);
     forEachOfIteratorCallback();
 }
@@ -62,9 +66,8 @@ async.forEachOfSeries(openFilesObj, forEachOfIterator, function (err) { });
 async.forEachOfLimit(openFiles, 2, forEachOfIterator, function (err) { });
 async.forEachOfLimit(openFilesObj, 2, forEachOfIterator, function (err) { });
 
-var process;
 var numArray = [1, 2, 3];
-function reducer(memo, item, callback) {
+function reducer(memo: any, item: any, callback: any) {
     process.nextTick(function () {
         callback(null, memo + item)
     });
@@ -75,7 +78,7 @@ async.foldl(numArray, 0, reducer, function (err, result) { });
 async.reduceRight(numArray, 0, reducer, function (err, result) { });
 async.foldr(numArray, 0, reducer, function (err, result) { });
 
-async.detect(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err,result:string) { });
+async.detect(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error,result:string) { });
 async.detectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err,result) { });
 async.detectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err,result) { });
 
@@ -101,20 +104,20 @@ async.concatSeries(['dir1', 'dir2', 'dir3'], fs.readdir, function (err, files) {
 
 async.series([
     function (callback) {
-        callback(null, 'one');
+        callback(undefined, 'one');
     },
     function (callback) {
-        callback(null, 'two');
+        callback(undefined, 'two');
     },
 ],
 function (err, results) { });
 
 async.series<string,Error>([
     function (callback) {
-        callback(null, 'one');
+        callback(undefined, 'one');
     },
     function (callback) {
-        callback(null, 'two');
+        callback(undefined, 'two');
     },
 ],
 function (err, results) { });
@@ -122,12 +125,12 @@ function (err, results) { });
 async.series({
     one: function (callback) {
         setTimeout(function () {
-            callback(null, 1);
+            callback(undefined, 1);
         }, 200);
     },
     two: function (callback) {
         setTimeout(function () {
-            callback(null, 2);
+            callback(undefined, 2);
         }, 100);
     },
 },
@@ -136,25 +139,25 @@ function (err, results) { });
 async.series<number,Error>({
     one: function (callback) {
         setTimeout(function () {
-            callback(null, 1);
+            callback(undefined, 1);
         }, 200);
     },
     two: function (callback) {
         setTimeout(function () {
-            callback(null, 2);
+            callback(undefined, 2);
         }, 100);
     },
 },
 function (err, results) { });
 
 async.times(5, function(n, next) {
-    next(null, n)
+    next(undefined as any, n)
 }, function(err, results) {
     console.log(results)
 })
 
 async.timesSeries(5, function(n, next) {
-    next(null, n)
+    next(undefined as any, n)
 }, function(err, results) {
     console.log(results)
 })
@@ -162,12 +165,12 @@ async.timesSeries(5, function(n, next) {
 async.parallel([
     function (callback) {
         setTimeout(function () {
-            callback(null, 'one');
+            callback(undefined, 'one');
         }, 200);
     },
     function (callback) {
         setTimeout(function () {
-            callback(null, 'two');
+            callback(undefined, 'two');
         }, 100);
     },
 ],
@@ -176,12 +179,12 @@ function (err, results) { });
 async.parallel<string,Error>([
     function (callback) {
         setTimeout(function () {
-            callback(null, 'one');
+            callback(undefined, 'one');
         }, 200);
     },
     function (callback) {
         setTimeout(function () {
-            callback(null, 'two');
+            callback(undefined, 'two');
         }, 100);
     },
 ],
@@ -191,12 +194,12 @@ function (err, results) { });
 async.parallel({
     one: function (callback) {
         setTimeout(function () {
-            callback(null, 1);
+            callback(undefined, 1);
         }, 200);
     },
     two: function (callback) {
         setTimeout(function () {
-            callback(null, 2);
+            callback(undefined, 2);
         }, 100);
     },
 },
@@ -205,12 +208,12 @@ function (err, results) { });
 async.parallel<number,Error>({
     one: function (callback) {
         setTimeout(function () {
-            callback(null, 1);
+            callback(undefined, 1);
         }, 200);
     },
     two: function (callback) {
         setTimeout(function () {
-            callback(null, 2);
+            callback(undefined, 2);
         }, 100);
     },
 },
@@ -219,12 +222,12 @@ async.parallel<number,Error>({
 async.parallelLimit({
     one: function (callback) {
         setTimeout(function () {
-            callback(null, 1);
+            callback(undefined, 1);
         }, 200);
     },
     two: function (callback) {
         setTimeout(function () {
-            callback(null, 2);
+            callback(undefined, 2);
         }, 100);
     },
 },
@@ -233,7 +236,7 @@ async.parallelLimit({
 );
 
 
-function whileFn(callback) {
+function whileFn(callback: any) {
     count++;
     setTimeout(callback, 1000);
 }
@@ -256,19 +259,19 @@ async.forever(function (errBack) {
 );
 
 async.waterfall([
-    function (callback) {
+    function (callback: any) {
         callback(null, 'one', 'two');
     },
-    function (arg1, arg2, callback) {
+    function (arg1: any, arg2: any, callback: any) {
         callback(null, 'three');
     },
-    function (arg1, callback) {
+    function (arg1: any, callback: any) {
         callback(null, 'done');
     }
 ], function (err, result) { });
 
 
-var q = async.queue<any,Error>(function (task: any, callback) {
+var q = async.queue<any,Error>(function (task: any, callback: () => void) {
     console.log('hello ' + task.name);
     callback();
 }, 2);
@@ -321,7 +324,7 @@ q.resume();
 q.kill();
 
 // tests for strongly typed tasks
-var q2 = async.queue<string,Error>(function (task: string, callback) {
+var q2 = async.queue<string,Error>(function (task: string, callback: () => void) {
     console.log('Task: ' + task);
     callback();
 }, 1);
@@ -356,26 +359,26 @@ var cargo = async.cargo(function (tasks, callback) {
 
 
 // add some items
-cargo.push({ name: 'foo' }, function (err) {
+cargo.push({ name: 'foo' }, function (err: Error) {
     console.log('finished processing foo');
 });
-cargo.push({ name: 'bar' }, function (err) {
+cargo.push({ name: 'bar' }, function (err: Error) {
     console.log('finished processing bar');
 });
-cargo.push({ name: 'baz' }, function (err) {
+cargo.push({ name: 'baz' }, function (err: Error) {
     console.log('finished processing baz');
 });
 
 var filename = '';
 async.auto({
-    get_data: function (callback) { },
-    make_folder: function (callback) { },
+    get_data: function (callback: any) { },
+    make_folder: function (callback: any) { },
     //arrays with different types are not accepted by TypeScript.
-    write_file: ['get_data', 'make_folder', <any>function (callback) {
+    write_file: ['get_data', 'make_folder', <any>function (callback: any) {
         callback(null, filename);
     }],
     //arrays with different types are not accepted by TypeScript.
-    email_link: ['write_file', <any>function (callback, results) { }]
+    email_link: ['write_file', <any>function (callback: any, results: any) { }]
 });
 
 async.retry(3, function (callback, results) { }, function (err, result) { });
@@ -409,13 +412,13 @@ async.parallel([
     },
 ]);
 
-var call_order = [];
+var call_order: string[] = [];
 async.nextTick(function () {
     call_order.push('two');
 });
 call_order.push('one');
 
-var slow_fn = function (name, callback) {
+var slow_fn = function (name: string, callback: any) {
     callback(null, 123);
 };
 var fn = async.memoize(slow_fn);
@@ -425,14 +428,14 @@ async.ensureAsync(function () { });
 async.constant(42);
 async.asyncify(function () { });
 
-async.log(function (name, callback) {
+async.log(function (name: any, callback: any) {
     setTimeout(function () {
         callback(null, 'hello ' + name);
     }, 0);
 }, "world"
     );
 
-async.dir(function (name, callback) {
+async.dir(function (name: string, callback: any) {
     setTimeout(function () {
         callback(null, { hello: name });
     }, 1000);
@@ -576,7 +579,7 @@ async.map<number, string, Error>({
 
         console.log(`async.map: ${val}`);
 
-        next(null, val.toString());
+        next(undefined as any, val.toString());
 
     }, 500);
 
@@ -596,7 +599,7 @@ async.mapSeries<number, string, Error>({
 
         console.log(`async.mapSeries: ${val}`);
 
-        next(null, val.toString());
+        next(undefined as any, val.toString());
 
     }, 500);
 
@@ -619,7 +622,7 @@ async.mapLimit<number, string, Error>({
 
         console.log(`async.mapLimit: ${val}`);
 
-        next(null, val.toString());
+        next(undefined as any, val.toString());
 
     }, 500);
 
@@ -641,11 +644,11 @@ async.mapValues<number, string, Error>({
 
         console.log(`async.mapValues: ${key} = ${val}`);
 
-        next(null, val.toString());
+        next(undefined as any, val.toString());
 
     }, 500);
 
-}, function(err: Error, results: string[]): void {
+}, function(err: Error, results: Dictionary<string>): void {
 
     console.log("async.mapValues: done with results", results);
 
@@ -661,11 +664,11 @@ async.mapValuesSeries<number, string, Error>({
 
         console.log(`async.mapValuesSeries: ${key} = ${val}`);
 
-        next(null, val.toString());
+        next(undefined as any, val.toString());
 
     }, 500);
 
-}, function(err: Error, results: string[]): void {
+}, function(err: Error, results: Dictionary<string>): void {
 
     console.log("async.mapValuesSeries: done with results", results);
 
@@ -683,7 +686,7 @@ async.filter<number, Error>({
 
         console.log(`async.filter/select: ${val}`);
 
-        next(null, val % 2 === 0);
+        next(undefined as any, val % 2 === 0);
 
     }, 500);
 
@@ -703,7 +706,7 @@ async.reject<number, Error>({
 
         console.log(`async.reject: ${val}`);
 
-        next(null, val % 2 === 0);
+        next(undefined as any, val % 2 === 0);
 
     }, 500);
 
@@ -723,7 +726,7 @@ async.concat<string, string, Error>({
 
     console.log(`async.concat: ${item}`);
 
-    next(null, [item, item, item]);
+    next(undefined as any, [item, item, item]);
 
 }, function(err: Error, results: string[]) {
 
@@ -741,7 +744,7 @@ async.detect<number, Error>({
 
     console.log(`async.detect/find: ${item}`);
 
-    next(null, item > 1);
+    next(undefined as any, item > 1);
 
 }, function(err: Error, result: number) {
 
@@ -766,7 +769,7 @@ async.every<number,Error>({
 
     console.log(`async.every/all: ${item}`);
 
-    next(null, item > 0);
+    next(undefined as any, item > 0);
 
 }, function(err: Error, result: boolean) {
 
@@ -784,7 +787,7 @@ async.some<number, Error>({
 
     console.log(`async.some/any: ${item}`);
 
-    next(null, item > 2);
+    next(undefined as any, item > 2);
 
 }, function(err: Error, result: boolean) {
 

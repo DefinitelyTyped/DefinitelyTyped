@@ -1,4 +1,4 @@
-/// <reference path="./vue-router.d.ts" />
+
 
 Vue.use(VueRouter);
 

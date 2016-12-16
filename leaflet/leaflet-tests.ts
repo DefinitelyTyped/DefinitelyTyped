@@ -1,5 +1,3 @@
-/// <reference path="leaflet.d.ts" />
-
 import L = require('leaflet');
 
 const latLngLiteral: L.LatLngLiteral = {lat: 12, lng: 13};
@@ -28,6 +26,16 @@ point = L.point(12, 13, true);
 point = L.point(pointTuple);
 point = L.point({x: 12, y: 13});
 
+let distance: number;
+point.distanceTo(point);
+point.distanceTo(pointTuple);
+
+const transformation = new L.Transformation(1, 2, 3, 4);
+point = transformation.transform(point);
+point = transformation.transform(point, 2);
+point = transformation.untransform(point);
+point = transformation.untransform(point, 2);
+
 const boundsLiteral: L.BoundsLiteral = [[1, 1], pointTuple];
 
 let bounds: L.Bounds;
@@ -35,6 +43,21 @@ bounds = L.bounds(point, point);
 bounds = L.bounds(pointTuple, pointTuple);
 bounds = L.bounds([point, point]);
 bounds = L.bounds(boundsLiteral);
+
+let points: Array<L.Point>;
+points = L.LineUtil.simplify([point, point], 1);
+points = L.LineUtil.simplify([pointTuple, pointTuple], 2);
+
+distance = L.LineUtil.pointToSegmentDistance(point, point, point);
+distance = L.LineUtil.pointToSegmentDistance(pointTuple, pointTuple, pointTuple);
+
+point = L.LineUtil.closestPointOnSegment(point, point, point);
+point = L.LineUtil.closestPointOnSegment(pointTuple, pointTuple, pointTuple);
+
+points = L.PolyUtil.clipPolygon(points, bounds);
+points = L.PolyUtil.clipPolygon(points, bounds, true);
+points = L.PolyUtil.clipPolygon([pointTuple, pointTuple], boundsLiteral);
+points = L.PolyUtil.clipPolygon([pointTuple, pointTuple], boundsLiteral, true);
 
 let mapOptions: L.MapOptions = {};
 mapOptions = {
@@ -326,3 +349,9 @@ map = map
 	.remove()
 	.whenReady(() => {})
 	.whenReady(() => {}, {});
+
+let elementToDrag = document.createElement('div');
+let draggable = new L.Draggable(elementToDrag);
+draggable.enable();
+draggable.disable();
+draggable.on('drag', () => {});

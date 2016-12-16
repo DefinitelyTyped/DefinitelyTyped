@@ -30,9 +30,14 @@ _infrastructure/tests/build
 *.iml
 *.js.map
 !*.js/
+!scripts/new-package.js
+!scripts/not-needed.js
+!scripts/lint.js
 
 node_modules
 
 .sublimets
 .settings/launch.json
+
+.vscode
 yarn.lock

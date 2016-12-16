@@ -2,8 +2,7 @@
  * Created by karl on 14/07/15.
  */
 
-/// <reference path="../express/express.d.ts" />
-/// <reference path="./easy-api-request.d.ts" />
+
 
 import express = require('express');
 import APIRequest = require('easy-api-request');

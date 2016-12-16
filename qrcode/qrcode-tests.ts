@@ -1,5 +1,3 @@
-/// <reference path="qrcode.d.ts" />
-
 import * as QRCode from 'qrcode';
 
 QRCode.toDataURL('i am a pony!', function (err, url) {

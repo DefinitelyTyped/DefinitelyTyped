@@ -1,5 +1,3 @@
-/// <reference path='./cordova-plugin-ble-central.d.ts' />
-
 var log = (msg : string) => {};
 var devices: BLECentralPlugin.PeripheralData[] = [];
 var demoDevice :BLECentralPlugin.PeripheralData = {
@@ -66,7 +64,7 @@ ble.startStateNotifications((state) => log(`BLE state ${state}`));
 
 ble.isEnabled(()=> log(`bluetooth is enabled`), ()=>log(`bluetooth is not enabled`));
 
-//here we try to enable bluetooth 
+//here we try to enable bluetooth
 ble.enable(() => log(`yes it worked, or it was already enabled `), () => log(`nope it didn't work, the user pressed cancel, or we are in iOS`));
 
 ble.showBluetoothSettings(() => log(`yes it worked`), () => log(`nope it didn't work`))

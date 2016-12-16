@@ -3,8 +3,8 @@
 // Definitions by: Phil McCloghry-Laing <https://github.com/pmccloghrylaing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angular.d.ts" />
-/// <reference path="../cordova/plugins/FileSystem.d.ts" />
+/// <reference types="angular" />
+/// <reference types="cordova" />
 
 declare namespace ngCordova {
     export interface IFileService {
