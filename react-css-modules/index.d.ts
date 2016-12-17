@@ -26,7 +26,7 @@ declare module CSSModules {
 
 declare let CSSModules: CSSModules;
 
-export = CSSModules;
+export default CSSModules;
 
 declare module 'react' {
     interface HTMLAttributes<T> {
