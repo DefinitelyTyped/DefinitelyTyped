@@ -1,7 +1,3 @@
-///<reference path="../react/react.d.ts" />
-///<reference path="./react-css-modules.d.ts" />
-
-
 import * as React from 'react';
 import * as CSSModules from 'react-css-modules';
 
