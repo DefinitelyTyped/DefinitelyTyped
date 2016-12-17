@@ -335,42 +335,6 @@ declare namespace PouchDB {
         interface PostOptions extends PutOptions {
         }
 
-        interface QueryOptions extends Options {
-            /** Reduce function, or the string name of a built-in function */
-            reduce?: false | '_sum' | '_count' | '_stats' | (() => void);
-            /** Include the document in each row in the doc field */
-            include_docs?: boolean;
-            conflicts?: boolean;
-            attachment?: boolean;
-            binary?: boolean;
-            /** Include rows having a key equal to the given options.endkey */
-            inclusive_end?: boolean;
-            /** Maximum number of rows to return. */
-            limit?: number;
-            /** Number of rows to skip before returning */
-            skip?: number;
-            /** Reverse the order of the output rows */
-            descending?: boolean;
-            /** Only return rows matching this key. */
-            key?: string;
-            /** True if you want the reduce function to group results by keys, rather than returning a single result */
-            group?: boolean;
-            /** Number of elements in a key to group by, assuming the keys are arrays. */
-            group_level?: number;
-            /** Only applies to saved views */
-            stale?: "ok" | "update_after";
-        }
-
-        interface QueryOptionsWithRangeKeys extends QueryOptions {
-            /** Get rows with keys in a certain range  */
-            startkey?: any;
-            endkey?: any;
-        }
-        interface QueryOptionsWithKeys extends QueryOptions {
-            /** Array of keys to fetch in a single shot. */
-            keys: Array<string>;
-        }
-
         interface CompactOptions extends Core.Options {
           interval?: number;
         }
@@ -743,14 +707,6 @@ declare namespace PouchDB {
 
         /** Given a set of document/revision IDs, returns the document bodies (and, optionally, attachment data) for each ID/revision pair specified. */
         bulkGet(options: any): Promise<any>;
-
-        /** Invoke a map/reduce function, which allows you to perform more complex queries on PouchDB than what you get with allDocs()
-         * @todo: support other fun types (map/reduce or map functions)
-        */
-        query(fun: string,
-            options?: Core.QueryOptions |
-                Core.QueryOptionsWithKeys |
-                Core.QueryOptionsWithRangeKeys): Promise<Core.AllDocsResponse<Content & Core.GetMeta>>;
     }
 }
 
