@@ -206,6 +206,7 @@ declare namespace PouchDB {
         }
 
         interface ChangesMeta {
+            _conflicts?: RevisionId[];
             _deleted?: boolean;
             _attachments?: Attachments;
         }
