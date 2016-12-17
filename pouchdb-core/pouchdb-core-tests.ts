@@ -177,8 +177,5 @@ namespace PouchDBCoreTests {
         });
 
         db.changes({ limit: 50 }).then(() => {});
-
-        db.query('myview/for_test');
-        db.query('myview/for_test', { include_docs: true, limit: 50 });
     }
 }
