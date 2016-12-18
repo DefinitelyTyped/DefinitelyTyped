@@ -1,4 +1,4 @@
-// Type definitions for Masonry 4.0.0
+// Type definitions for Masonry 4.0
 // Project: https://github.com/desandro/masonry
 // Definitions by: Mark Wilson <https://github.com/m-a-wilson>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -8,28 +8,28 @@
 // Modified from original definitions by:
 // Travis Brown < https://github.com/warriorrocker>
 
-declare module Masonry {
+declare namespace Masonry {
 
-     class Masonry implements MasonryGrid {
+    class Masonry implements MasonryGrid {
         constructor(options?: MasonryOptions);
         constructor(selector: string, options?: MasonryOptions);
     }
 
-     interface MasonryGrid {
+    interface MasonryGrid {
         masonry?(): void;
         masonry?(eventName: string, listener: any): void;
 
         // layout
         layout?(): void;
-        layoutItems?(items: Array<any>, isStill?: boolean): void;
-        stamp?(elements: Array<any>): void;
-        unstamp?(elements: Array<any>): void;
+        layoutItems?(items: any[], isStill?: boolean): void;
+        stamp?(elements: any[]): void;
+        unstamp?(elements: any[]): void;
 
         // add and remove items
-        appended?(elements: Array<any>): void;
-        prepended?(elements: Array<any>): void;
-        addItems?(elements: Array<any>): void;
-        remove?(elements: Array<any>): void;
+        appended?(elements: any[]): void;
+        prepended?(elements: any[]): void;
+        addItems?(elements: any[]): void;
+        remove?(elements: any[]): void;
 
         // events
         on?(eventName: string, listener: any): void;
@@ -39,11 +39,11 @@ declare module Masonry {
         // utilities
         reloadItems?(): void;
         destroy?(): void;
-        getItemElements?(): Array<any>;
+        getItemElements?(): any[];
         data?(element: Element): Masonry;
     }
 
-     interface MasonryOptions {
+    interface MasonryOptions {
 
         // layout
         itemSelector?: string;
@@ -56,15 +56,15 @@ declare module Masonry {
         originTop?: boolean;
 
         // setup
-        containerStyle?: Object;
+        containerStyle?: {};
         transitionDuration?: any;
         resize?: boolean;
         initLayout?: boolean;
     }
 }
 
+export = Masonry;
+
 interface JQuery {
-	masonry(options?: Masonry.MasonryOptions): JQuery;
+    masonry(options?: Masonry.MasonryOptions): JQuery;
 }
-
-
