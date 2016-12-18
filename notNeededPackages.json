@@ -202,6 +202,12 @@
             "typingsPackageName": "sugar",
             "sourceRepoURL": "https://github.com/andrewplummer/Sugar",
             "asOfVersion": "2.0.2"
+        },
+        {
+            "libraryName": "github",
+            "typingsPackageName": "github",
+            "sourceRepoURL": "https://github.com/mikedeboer/node-github",
+            "asOfVersion": "7.1.0"
         }
     ]
 }
