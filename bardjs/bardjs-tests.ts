@@ -195,7 +195,7 @@ namespace bardTests {
     /*
      * bard.inject
      */
-    function test_inject() {
+    function test_inject(this: Mocha) {
         beforeEach(() => bard.inject(this, '$controller', '$log', '$q', '$rootScope', 'myService'));
     }
 

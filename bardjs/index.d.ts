@@ -114,7 +114,7 @@ declare namespace bard {
      *    [strings]   - same string array you'd use to set fn.$inject
      *    (...string) - string arguments turned into a string array
      */
-    function inject(context?: Function, ...args: string[]): void;
+    function inject(context?: Mocha, ...args: string[]): void;
 
     /**
      * Write to console if bard debugging flag is on
