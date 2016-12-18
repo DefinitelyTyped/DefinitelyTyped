@@ -391,6 +391,7 @@ declare namespace L {
     }
 
     export class Layer extends Evented {
+        constructor(options?: LayerOptions);
         addTo(map: Map): this;
         remove(): this;
         removeFrom(map: Map): this;
@@ -1346,10 +1347,17 @@ declare namespace L {
     }
 
     export class Icon {
-        static Default: IconDefault;
+        constructor(options: IconOptions);
     }
 
-    export function icon(options?: IconOptions): Icon;
+    export namespace Icon {
+        export class Default extends Icon {
+            constructor(options?: IconOptions);
+            imagePath: string;
+        }
+    }
+
+    export function icon(options: IconOptions): Icon;
 
     export interface DivIconOptions extends LayerOptions {
         html?: string;
@@ -1360,9 +1368,11 @@ declare namespace L {
         className?: string;
     }
 
-    export class DivIcon extends Icon {}
+    export class DivIcon extends Icon {
+        constructor(options?: DivIconOptions);
+    }
 
-    export function divIcon(options: DivIconOptions): DivIcon;
+    export function divIcon(options?: DivIconOptions): DivIcon;
 
     export interface MarkerOptions extends InteractiveLayerOptions {
         icon?: Icon;
