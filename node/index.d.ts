@@ -329,6 +329,11 @@ declare namespace NodeJS {
         heapTotal: number;
         heapUsed: number;
     }
+    
+    export interface CpuUsage {
+        user: number;
+        system: number;
+    }
 
     export interface ProcessVersions {
         http_parser: string;
@@ -396,6 +401,7 @@ declare namespace NodeJS {
         platform: string;
         mainModule?: NodeModule;
         memoryUsage(): MemoryUsage;
+        cpuUsage(previousValue?: CpuUsage): CpuUsage;
         nextTick(callback: Function, ...args: any[]): void;
         umask(mask?: number): number;
         uptime(): number;
