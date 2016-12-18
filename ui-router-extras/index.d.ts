@@ -1,4 +1,4 @@
-// Type definitions for UI-Router Extras 0.0.14+ (ct.ui.router.extras module)
+// Type definitions for UI-Router Extras (ct.ui.router.extras module) 0.0
 // Project: https://github.com/christopherthielen/ui-router-extras
 // Definitions by: Michael Putters <https://github.com/mputters/>, Marcel van de Kamp <https://github.com/marcel-k/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
