@@ -1292,10 +1292,25 @@ declare namespace mathjs {
 	}
 
 	export interface Matrix {
-		size(): number[];
+		type: string;
+		storage(): string;
+		datatype(): string;
+		density(): number;
 		subset(index: Index, replacement?: any, defaultValue?: any): Matrix;
+		get(index: number[]): any;
+		set(index: number[], value: any, defaultValue?: number|string): Matrix;
 		resize(size: MathArray|Matrix, defaultValue?: number|string): Matrix;
 		clone(): Matrix;
+		size(): number[];
+		map(callback: (a: any, b: number, c: Matrix) => any, skipZeros?: boolean): Matrix;
+		forEach(callback: (a: any, b: number, c: Matrix) => any, skipZeros?: boolean): Matrix;
+		toArray(): any[];
+		valueOf(): any[];
+		format(): any[];
+		toString(): string;
+		toJSON(): Object;
+		diagonal(k?: number|BigNumber): any[];
+		swapRows(i: number, j: number): Matrix;
 	}
 
 	export interface BigNumber {
