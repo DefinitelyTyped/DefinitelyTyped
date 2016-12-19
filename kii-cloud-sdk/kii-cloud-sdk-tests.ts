@@ -1,4 +1,4 @@
-/// <reference path="kii-cloud-sdk.d.ts" />
+
 
 function main() {
     Kii.initializeWithSite("abc", "def", KiiSite.JP);

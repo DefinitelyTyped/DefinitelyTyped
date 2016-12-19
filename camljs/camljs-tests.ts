@@ -1,4 +1,4 @@
-/// <reference path="camljs.d.ts" />
+
 
 var caml = new CamlBuilder().Where()
 	.Any(

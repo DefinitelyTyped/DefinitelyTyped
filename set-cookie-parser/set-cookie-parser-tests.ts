@@ -1,13 +1,17 @@
-/// <reference path="./set-cookie-parser.d.ts" />
-/// <reference path="../node/node.d.ts" />
+import * as assert from "assert";
+import * as http from "http";
+import * as setCookie from "set-cookie-parser";
 
-import assert = require("assert");
-import http = require("http");
-import setCookie = require("set-cookie-parser");
+// Call parse function on imported object
+var input = "foo=bar;";
+var cookies = setCookie.parse(input);
+assert.equal(cookies.length, 1);
+assert.equal(cookies[0].name, "foo");
+assert.equal(cookies[0].value, "bar");
 
 // Required properties only test
 var requiredOnly = "foo=bar;";
-var cookies = setCookie(requiredOnly);
+cookies = setCookie(requiredOnly);
 assert.equal(cookies.length, 1);
 assert.equal(cookies[0].name, "foo");
 assert.equal(cookies[0].value, "bar");
@@ -43,3 +47,21 @@ assert.equal(cookies[0].name, "bam");
 assert.equal(cookies[0].value, "baz");
 assert.equal(cookies[1].name, "foo");
 assert.equal(cookies[1].value, "bar");
+
+// Create new cookie with only required properties
+var requiredOnlyCookie: setCookie.Cookie = {
+    name: "Foo",
+    value: "Bar"
+}
+
+// Create new cookie with all properties included optional ones
+var optionalIncludedCookie: setCookie.Cookie = {
+    name: "Bam",
+    value: "Baz",
+    domain: ".example.com",
+    path: "/",
+    expires:  new Date("Tue Jul 01 2025 06:01:11 GMT-0400 (EDT)"),
+    maxAge: 1000,
+    httpOnly: true,
+    secure: true
+};

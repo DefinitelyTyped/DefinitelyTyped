@@ -1,5 +1,5 @@
 // Test files for Geolocation Definition file
-/// <reference path="google.geolocation.d.ts" />
+
 
 //determine if the handset has client side geo location capabilities
 var isInit: boolean = geo_position_js.init();

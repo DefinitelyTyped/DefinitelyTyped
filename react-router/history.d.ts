@@ -29,6 +29,7 @@ declare namespace HistoryModule {
         createPath(path: LocationDescriptor): Path
         createHref(path: LocationDescriptor): Href
         createLocation(path?: LocationDescriptor, action?: Action, key?: LocationKey): Location
+        getCurrentLocation: () => Location
 
         /** @deprecated use a location descriptor instead */
         createLocation(path?: Path, state?: LocationState, action?: Action, key?: LocationKey): Location

@@ -1,8 +1,4 @@
-/// <reference path="./passport-local-mongoose.d.ts" />
-/// <reference path="../express/express.d.ts" />
-/// <reference path="../passport/passport.d.ts" />
-/// <reference path="../passport-local/passport-local.d.ts" />
-/// <reference path="../mongoose/mongoose.d.ts" />
+/// <reference types="express" />
 
 /**
  * Created by Linus Brolin <https://github.com/linusbrolin/>.
@@ -11,6 +7,7 @@
 import {
     Schema,
     model,
+    Document,
     PassportLocalDocument,
     PassportLocalSchema,
     PassportLocalModel,
@@ -34,7 +31,7 @@ interface User extends PassportLocalDocument {
     last: Date;
 }
 
-const UserSchema: PassportLocalSchema = <PassportLocalSchema>new Schema({
+const UserSchema: PassportLocalSchema = new Schema({
     username: String,
     hash: String,
     salt: String,
@@ -77,10 +74,9 @@ options.errorMessages = errorMessages;
 
 UserSchema.plugin(passportLocalMongoose, options);
 
-type UserModel<T extends PassportLocalDocument> = _UserModel<T> & PassportLocalModel<T>;
-interface _UserModel<T extends PassportLocalDocument> {}
+interface UserModel<T extends Document> extends PassportLocalModel<T> {}
 
-let UserModel: UserModel<User> = model<User>('User', UserSchema) as UserModel<User>;
+let UserModel: UserModel<User> = model<User>('User', UserSchema);
 //#endregion
 
 
@@ -96,7 +92,7 @@ passport.use('login', new LocalStrategy({
         process.nextTick(() => {
             UserModel
             .findOne({ 'username': username })
-            .exec((err: any, user: model<User>) => {
+            .exec((err: any, user: User) => {
                 if (err) {
                     console.log(err);
                     return done(err, null);

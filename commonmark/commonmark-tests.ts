@@ -1,4 +1,4 @@
-/// <reference path="commonmark.d.ts" />
+
 
 import commonmark = require('commonmark');
 

@@ -3,8 +3,8 @@
 // Definitions by: Sam Vloeberghs <https://github.com/samvloeberghs/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="foundation-sites.d.ts" />
+/// <reference types="jquery" />
+
 
 $(document).foundation();
 $(document).foundation('method5');

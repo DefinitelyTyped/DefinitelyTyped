@@ -1,7 +1,4 @@
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../react/react-dom.d.ts" />
-/// <reference path="./react-codemirror.d.ts" />
-
+import * as CodeMirror from "codemirror";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as Codemirror from "react-codemirror";

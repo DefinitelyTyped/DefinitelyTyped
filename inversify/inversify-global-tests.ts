@@ -1,5 +1,7 @@
-/// <reference path="./inversify.d.ts" />
-/// <reference path="../harmony-proxy/harmony-proxy.d.ts" />
+/// <reference types="inversify" />
+/// <reference types="harmony-proxy" />
+
+import * as Proxy from "harmony-proxy";
 
 let injectable = inversify.injectable;
 let inject = inversify.inject;
@@ -13,10 +15,7 @@ let traverseAncerstors = inversify.traverseAncerstors;
 let taggedConstraint = inversify.taggedConstraint;
 let namedConstraint = inversify.namedConstraint;
 let typeConstraint = inversify.typeConstraint;
-let makePropertyMultiInjectDecorator = inversify.makePropertyMultiInjectDecorator;
-let makePropertyInjectTaggedDecorator = inversify.makePropertyInjectTaggedDecorator;
-let makePropertyInjectNamedDecorator = inversify.makePropertyInjectNamedDecorator;
-let makePropertyInjectDecorator = inversify.makePropertyInjectDecorator;
+let unmanaged = inversify.unmanaged;
 
 module external_module_test {
 
@@ -112,7 +111,7 @@ module external_module_test {
     // binding types
     kernel.bind<Weapon>("Weapon").to(Katana);
     kernel.bind<Weapon>("Weapon").toConstantValue(new Katana());
-    kernel.bind<Weapon>("Weapon").toDynamicValue(() => { return new Katana(); });
+    kernel.bind<Weapon>("Weapon").toDynamicValue((context: inversify.interfaces.Context) => { return new Katana(); });
 
     kernel.bind<inversify.interfaces.Newable<Weapon>>("Weapon").toConstructor<Weapon>(Katana);
 
@@ -145,6 +144,7 @@ module external_module_test {
         return new Proxy(katanaToBeInjected, handler);
     });
 
+
     @injectable()
     class Samurai implements Warrior {
         public katana: Weapon;
@@ -161,8 +161,9 @@ module external_module_test {
     }
 
     kernel.bind<Samurai>("Samurai").to(Samurai);
-    kernel.bind<Weapon>("IWeapon").to(Katana).whenTargetTagged("canThrow", false);
+    kernel.bind<Weapon>("Weapon").to(Katana).whenTargetTagged("canThrow", false);
     kernel.bind<ThrowableWeapon>("ThrowableWeapon").to(Shuriken).whenTargetTagged("canThrow", true);
+    kernel.getAllTagged<Weapon>("Weapon", "canThrow", false);
 
     let throwable = tagged("canThrow", true);
     let notThrowable = tagged("canThrow", false);
@@ -200,6 +201,7 @@ module external_module_test {
     kernel.bind<Warrior>("Warrior").to(Samurai3);
     kernel.bind<Weapon>("Weapon").to(Katana).whenTargetNamed("strong");
     kernel.bind<Weapon>("Weapon").to(Shuriken).whenTargetNamed("weak");
+    kernel.getAllNamed<Weapon>("Weapon", "weak");
 
     @injectable()
     class Samurai4 implements Samurai {
@@ -245,18 +247,18 @@ module external_module_test {
 
     // Constraint helpers
     kernel.bind<Weapon>("Weapon").to(Shuriken).whenInjectedInto(Ninja);
-    kernel.bind<Weapon>("Weapon").to(Shuriken).whenInjectedInto("INinja");
+    kernel.bind<Weapon>("Weapon").to(Shuriken).whenInjectedInto("Ninja");
     kernel.bind<Weapon>("Weapon").to(Shuriken).whenParentNamed("chinese");
     kernel.bind<Weapon>("Weapon").to(Shuriken).whenParentTagged("canThrow", true);
     kernel.bind<Weapon>("Weapon").to(Shuriken).whenTargetNamed("strong");
     kernel.bind<Weapon>("Weapon").to(Shuriken).whenTargetTagged("canThrow", true);
     kernel.bind<Weapon>("Weapon").to(Shuriken).whenAnyAncestorIs(Ninja);
-    kernel.bind<Weapon>("Weapon").to(Shuriken).whenAnyAncestorIs("INinja");
+    kernel.bind<Weapon>("Weapon").to(Shuriken).whenAnyAncestorIs("Ninja");
     kernel.bind<Weapon>("Weapon").to(Shuriken).whenAnyAncestorNamed("strong");
     kernel.bind<Weapon>("Weapon").to(Shuriken).whenAnyAncestorTagged("canThrow", true);
     kernel.bind<Weapon>("Weapon").to(Shuriken).whenAnyAncestorMatches(whenParentNamedCanThrowConstraint);
     kernel.bind<Weapon>("Weapon").to(Shuriken).whenNoAncestorIs(Ninja);
-    kernel.bind<Weapon>("Weapon").to(Shuriken).whenNoAncestorIs("INinja");
+    kernel.bind<Weapon>("Weapon").to(Shuriken).whenNoAncestorIs("Ninja");
     kernel.bind<Weapon>("Weapon").to(Shuriken).whenNoAncestorNamed("strong");
     kernel.bind<Weapon>("Weapon").to(Shuriken).whenNoAncestorTagged("canThrow", true);
     kernel.bind<Weapon>("Weapon").to(Shuriken).whenNoAncestorMatches(whenParentNamedCanThrowConstraint);
@@ -341,103 +343,42 @@ module external_module_test {
 
 }
 
-module property_injection {
+module snapshot {
 
     let kernel = new Kernel();
 
-    let TYPES = { Weapon: "Weapon" };
-
-    interface Weapon {
-        durability: number;
-        use(): void;
-    }
-
-    @injectable()
-    class Sword implements Weapon {
-        public durability: number;
-        public constructor() {
-            this.durability = 100;
-        }
-        public use() {
-            this.durability = this.durability - 10;
-        }
-    }
-
-    @injectable()
-    class WarHammer implements Weapon {
-        public durability: number;
-        public constructor() {
-            this.durability = 100;
-        }
-        public use() {
-            this.durability = this.durability - 10;
-        }
-    }
-
-    let propertyMultiInject = makePropertyMultiInjectDecorator(kernel);
-
-    class Warrior1 {
-        @propertyMultiInject(TYPES.Weapon)
-        public weapons: Weapon[];
-    }
-
-    let propertyInject = makePropertyInjectDecorator(kernel);
-
-    interface Service {
-        count: number;
-        increment(): void;
-    }
-
-    @injectable()
-    class SomeService implements Service {
-        public count: number;
-        public constructor() {
-            this.count = 0;
-        }
-        public increment() {
-            this.count = this.count + 1;
-        }
-    }
-
-    class SomeWebComponent {
-        @propertyInject("Service")
-        private _service: Service;
-        public doSomething() {
-            let count =  this._service.count;
-            this._service.increment();
-            return count;
-        }
-    }
-
-    let propertyInjectNammed = makePropertyInjectNamedDecorator(kernel);
-
-    class Warrior2 {
-
-        @propertyInjectNammed(TYPES.Weapon, "not-throwwable")
-        @named("not-throwwable")
-        public primaryWeapon: Weapon;
-
-        @propertyInjectNammed(TYPES.Weapon, "throwwable")
-        @named("throwwable")
-        public secondaryWeapon: Weapon;
-
-    }
-
-    let propertyInjectTagged = makePropertyInjectTaggedDecorator(kernel);
-
-    class Warrior3 {
-
-        @propertyInjectTagged(TYPES.Weapon, "throwwable", false)
-        @tagged("throwwable", false)
-        public primaryWeapon: Weapon;
-
-        @propertyInjectTagged(TYPES.Weapon, "throwwable", true)
-        @tagged("throwwable", true)
-        public secondaryWeapon: Weapon;
-
-    }
-
     kernel.snapshot();
     kernel.restore();
+
+    @injectable()
+    class Test { }
+
+    kernel.bind<Test>(Test).toSelf();
+    kernel.bind<Test>(Test).toSelf().inSingletonScope();
+}
+
+module unmanaged_injection {
+
+    let kernel = new Kernel();
+
+    const BaseId = "Base";
+
+    @injectable()
+    class Base {
+        public prop: string;
+        public constructor(@unmanaged() arg: string) { // injected by user
+            this.prop = arg;
+        }
+    }
+
+    @injectable()
+    class Derived extends Base {
+        public constructor() {
+            super("unmanaged-injected-value"); // user injection
+        }
+    }
+
+    kernel.bind<Base>(BaseId).to(Derived);
+    console.log(kernel.get(BaseId) instanceof Base); // true
 
 }

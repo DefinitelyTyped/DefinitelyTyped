@@ -1,10 +1,8 @@
-/// <reference path="./sockjs-client.d.ts" />
+
 
 import * as SockJS from 'sockjs-client';
-import BaseEvent = __SockJSClient.BaseEvent;
-import SockJSClass = __SockJSClient.SockJSClass;
 
-let sockJs: SockJSClass;
+let sockJs: any;
 
 sockJs = new SockJS('url');
 sockJs = SockJS('url');
@@ -18,9 +16,9 @@ sockJs = SockJS('url', null, {
   transports: ['websocket', 'eventsource']
 });
 
-let listener = (e: BaseEvent) => e;
+let listener = (e: any) => e;
 let listenerObj = {
-  handleEvent: (e: BaseEvent) => e
+  handleEvent: (e: any) => e
 };
 
 sockJs.addEventListener('onopen', listener);
@@ -33,9 +31,9 @@ sockJs.removeEventListener('onclose', listener, true);
 sockJs.removeEventListener('onopen', listenerObj);
 sockJs.removeEventListener('onclose', listenerObj, true);
 
-sockJs.onopen = e => console.log(e);
-sockJs.onmessage = e => console.log(e.data);
-sockJs.onclose = e => console.log(e.code, e.reason, e.wasClean);
+sockJs.onopen = (e: any) => console.log(e);
+sockJs.onmessage = (e: any) => console.log(e.data);
+sockJs.onclose = (e: any) => console.log(e.code, e.reason, e.wasClean);
 
 let testStates = SockJS.CONNECTING !== -1 && SockJS.OPEN !== -1 &&
                   SockJS.CLOSING !== -1 && SockJS.CLOSED !== -1;

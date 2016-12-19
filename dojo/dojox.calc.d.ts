@@ -3,9 +3,9 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="dijit.d.ts" />
-/// <reference path="dojox.charting.d.ts" />
-/// <reference path="dojox.geo.d.ts" />
+
+
+
  declare namespace dojox {
 
     namespace calc {

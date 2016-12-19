@@ -1,4 +1,5 @@
-import { twilio } from './twilio';
+import * as twilio from 'twilio';
+import * as Express from "express";
 
 // Examples taken from https://twilio.github.io/twilio-node/ (v2.1.0)
 
@@ -17,11 +18,16 @@ client.calls.get(function(err: any, response: any) {
     });
 });
 
+// Using the alias described above
+client.calls.list(function(err: any, response: any) {
+    response.calls.forEach(function(call: any) {});
+});
+
 //Get a list of calls made by this account, from this phone number
 // GET /2010-04-01/Accounts/ACCOUNT_SID/Calls?From=+16513334455
 client.calls.get({
     from:'+16513334455'
-}, function(err: any, response: any) {
+}, function(err, response) {
     response.calls.forEach(function(call: any) {
         console.log('Received call from: ' + call.from);
         console.log('This call\'s unique ID is: ' + call.sid);
@@ -30,14 +36,14 @@ client.calls.get({
 
 //Get data for a specific call
 // GET /2010-04-01/Accounts/ACCOUNT_SID/Calls/abc123...
-client.calls('abc123...').get(function(err: any, call: any) {
+client.calls('abc123...').get(function(err, call) {
     console.log('This call\'s unique ID is: ' + call.sid);
     console.log('This call was created at: ' + call.dateCreated);
 });
 
 //Get data for a specific call, for a specific account
 // GET /2010-04-01/Accounts/AC.../Calls/abc123...
-client.accounts('AC...').calls('abc123...').get(function(err: any, response: any) {
+client.accounts('AC...').calls('abc123...').get(function(err, response) {
     response.calls.forEach(function(call: any) {
         console.log('Received call from: ' + call.from);
         console.log('This call\'s unique ID is: ' + call.sid);
@@ -58,7 +64,7 @@ client.sms.messages.post({
 
 // Delete a TwiML application
 // DELETE /2010-04-01/Accounts/ACCOUNT_SID/Applications/APP...
-client.applications('APP...').delete(function(err: any, response: any, nodeResponse: any) {
+client.applications('APP...').delete(function(err, response, nodeResponse) {
     //DELETE requests do not return data - if there was no error, it worked.
     err ? console.log('There was an error') : console.log('it worked!');
 });
@@ -212,6 +218,8 @@ resp.say('Your conference call is starting.',
         });
     });
 
+resp.hangup();
+
 /// Capabilities
 var capability = new twilio.Capability(str, str);
 capability.allowClientIncoming('jenny');
@@ -225,8 +233,12 @@ var token = capability.generate(120);
 
 /// Utilities
 twilio.validateRequest(token, str, 'http://example.herokuapp.com', { query: 'val' });
-twilio.validateExpressRequest({}, 'YOUR_TWILIO_AUTH_TOKEN');
-twilio.validateExpressRequest({}, 'YOUR_TWILIO_AUTH_TOKEN', {});
+twilio.validateExpressRequest(getMockExpressRequest(), 'YOUR_TWILIO_AUTH_TOKEN');
+twilio.validateExpressRequest(getMockExpressRequest(), 'YOUR_TWILIO_AUTH_TOKEN', {});
 twilio.webhook({ validate: false });
+twilio.webhook("MYAUTHTOKEN", { validate: false });
 
 
+function getMockExpressRequest(): Express.Request {
+    return <Express.Request>JSON.parse("{}");
+}

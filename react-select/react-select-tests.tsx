@@ -1,12 +1,8 @@
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../react/react-dom.d.ts" />
-/// <reference path="./react-select.d.ts" />
-
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import { Option, ReactSelectProps, ReactAsyncSelectProps, MenuRendererProps } from "react-select-props";
 import Select = require("react-select");
+import { Option, ReactSelectProps, ReactCreatableSelectProps, ReactAsyncSelectProps, MenuRendererProps } from "react-select";
 
 const CustomOption = React.createClass({
     propTypes: {
@@ -104,7 +100,6 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
             key: "1",
             options: options,
             optionRenderer: optionRenderer,
-            allowCreate: true,
             autofocus: true,
             autosize: true,
             clearable: true,
@@ -197,6 +192,31 @@ class SelectAsyncTest extends React.Component<React.Props<{}>, {}> {
         return <div>
             <Select.Async {...asyncSelectProps} />
         </div>;
+    }
+
+}
+
+class SelectCreatableTest extends React.Component<React.Props<{}>, {}> {
+
+    render() {
+        const options: Option[] = [{ label: "Foo", value: "bar" }];
+        const onChange = (value: any) => console.log(value);
+
+        const creatableSelectProps: ReactCreatableSelectProps = {
+            name: "test-creatable-select",
+            value: "bar",
+            options: options,
+            onChange: onChange,
+            isOptionUnique: () => { return true; },
+            isValidNewOption: () => { return true; },
+            newOptionCreator: () => { return { label: "NewFoo", value: "newBar" }; },
+            promptTextCreator: () => { return ""; },
+            shouldKeyDownEventCreateNewOption: () => { return true; }
+        };
+
+        return <div>
+            <Select.Creatable {...creatableSelectProps} />
+        </div>
     }
 
 }

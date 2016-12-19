@@ -1,7 +1,3 @@
-
-/// <reference path="../any-db/any-db.d.ts" />
-/// <reference path="any-db-transaction.d.ts" />
-
 "use strict";
 
 import anyDB = require("any-db");

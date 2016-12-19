@@ -1,4 +1,4 @@
-/// <reference path="graham_scan.d.ts" />
+import ConvexHullGrahamScan = require("graham_scan");
 
 // Based on the README.MD
 

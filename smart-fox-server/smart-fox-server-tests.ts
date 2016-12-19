@@ -1,5 +1,3 @@
-/// <reference path="smart-fox-server.d.ts" />
-
 function  test_Vec3D() {
     var Vec3D: SFS2X.Entities.Data.Vec3D = new SFS2X.Entities.Data.Vec3D(0, 0, 0);
     var Vec3Dalt: SFS2X.Entities.Data.Vec3D = new SFS2X.Entities.Data.Vec3D(0, 0);

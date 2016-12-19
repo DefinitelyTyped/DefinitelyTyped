@@ -1,8 +1,15 @@
-/// <reference path="js-data-http.d.ts" />
+/// <reference types="axios" />
+import * as JSData from 'js-data';
+import DSHttpAdapter = require("js-data-http");
+
+import * as axios from 'axios';
 
 var adapter = new DSHttpAdapter();
 var store = new JSData.DS();
 store.registerAdapter('http', adapter, { default: true });
+
+adapter.defaults.basePath = '/api';
+adapter.http = axios;
 
 var ADocument:JSData.DSResourceDefinition<any> = store.defineResource<any>('document');
 

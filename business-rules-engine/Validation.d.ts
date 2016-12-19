@@ -3,8 +3,8 @@
 // Definitions by: Roman Samec <https://github.com/rsamec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../q/Q.d.ts" />
-/// <reference path="../underscore/underscore.d.ts" />
+/// <reference types="q" />
+
 declare namespace Validation {
     interface IErrorCustomMessage {
         (config: any, args: any): string;

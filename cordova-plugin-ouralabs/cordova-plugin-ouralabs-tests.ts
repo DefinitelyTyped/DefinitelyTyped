@@ -1,4 +1,4 @@
-/// <reference path="cordova-plugin-ouralabs.d.ts" />
+
 
 var traceLevel: number = OuralabsPlugin.LogLevel.TRACE;
 var debugLevel: number = OuralabsPlugin.LogLevel.DEBUG;
