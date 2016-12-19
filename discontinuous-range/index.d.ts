@@ -6,7 +6,7 @@
 /**
  * Represents a discontinuous range of numbers.
  */
-export declare class DiscontinuousRange {
+declare class DiscontinuousRange {
 
     /**
      * Creates a discontinuous range at rangeStart, and ending at
@@ -43,7 +43,7 @@ export declare class DiscontinuousRange {
     subtract(rangeStart: number, rangeEnd?: number): DiscontinuousRange;
 
     /**
-     * Removes the current range from the current range.
+     * Removes rangeToRemove from the current range.
      * @param rangeToRemove The range to exclude from the current range.
      * @returns The range on which subtract was called. It contains the numbers in rangeToRemove.
      */
@@ -69,3 +69,5 @@ export declare class DiscontinuousRange {
      */
     clone(): DiscontinuousRange;
 }
+
+export = DiscontinuousRange;
