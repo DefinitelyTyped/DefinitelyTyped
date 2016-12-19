@@ -8,16 +8,20 @@
 
 import * as d3Axis from 'd3-axis';
 import {
+    scaleBand,
+    ScaleBand,
     scaleLinear,
     ScaleLinear,
     scaleOrdinal,
     ScaleOrdinal,
+    scalePoint,
+    ScalePoint,
     scalePow,
     ScalePower,
     scaleTime,
-    ScaleTime,
+    ScaleTime
 } from 'd3-scale';
-import { Selection } from 'd3-selection';
+import { select, Selection } from 'd3-selection';
 import { Transition } from 'd3-transition';
 import { timeMinute } from 'd3-time';
 import { format } from 'd3-format';
@@ -41,15 +45,18 @@ let axisScaleString: d3Axis.AxisScale<string>;
 axisScaleNumber = scaleLinear();
 axisScaleDate = scaleTime();
 axisScaleString = scaleOrdinal<number>();
-
+axisScaleNumber = scaleBand<number>();
+axisScaleNumber = scalePoint<number>();
+axisScaleString = scaleBand();
+axisScaleString = scalePoint();
 // --------------------------------------------------------------------------
 // Test AxisContainerElement
 // --------------------------------------------------------------------------
 
 let containerElement: d3Axis.AxisContainerElement;
-let svg: SVGSVGElement,
-    g: SVGGElement,
-    canvas: HTMLCanvasElement;
+const svg: SVGSVGElement = select<SVGSVGElement, any>('svg').node() !; //mock
+const g: SVGGElement = select<SVGGElement, any>('g').node() !; //mock
+const canvas: HTMLCanvasElement = select<HTMLCanvasElement, any>('canvas').node() !; //mock
 
 containerElement = svg;
 containerElement = g;
@@ -60,7 +67,7 @@ containerElement = g;
 // --------------------------------------------------------------------------
 
 let topAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisTop(scaleLinear());
-let rightAxis: d3Axis.Axis<Date> = d3Axis.axisRight(scaleTime());
+let rightAxis: d3Axis.Axis<Date> = d3Axis.axisRight<Date>(scaleTime());
 let bottomAxis: d3Axis.Axis<string> = d3Axis.axisBottom(scaleOrdinal<number>());
 let leftAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisLeft(scaleLinear<number>());
 
@@ -95,7 +102,7 @@ topAxis = topAxis.tickArguments([20, 's']);
 
 rightAxis = rightAxis.tickArguments([timeMinute.every(5)]);
 
-let tickArguments: Array<any> = leftAxis.tickArguments();
+let tickArguments: any[] = leftAxis.tickArguments();
 
 // tickValues(...) ----------------------------------------------------------------
 
@@ -105,15 +112,17 @@ bottomAxis = bottomAxis.tickValues(['strongly negative', 'strongly positive']);
 
 leftAxis = leftAxis.tickValues(null);
 
-let tickValues: Array<Date> = rightAxis.tickValues();
+let tickValues: Date[] | null = rightAxis.tickValues();
 
 // tickFormat(...) ----------------------------------------------------------------
 
 topAxis = topAxis.tickFormat(format(',.0f'));
 topAxis = topAxis.tickFormat(null);
 
-let formatFn: (domainValue: string) => string = bottomAxis.tickFormat();
+let formatFn: ((domainValue: string, index: number) => string) | null = bottomAxis.tickFormat();
 
+bottomAxis.tickFormat(function (d, i) { return '#' + i; });
+bottomAxis.tickFormat(function (d) { return d + '!'; });
 // tickSize(...) ----------------------------------------------------------------
 
 rightAxis = rightAxis.tickSize(5);
@@ -138,19 +147,19 @@ num = rightAxis.tickPadding();
 // Test Apply Axis
 // --------------------------------------------------------------------------
 
-let gSelection: Selection<SVGGElement, any, any, any>;
+let gSelection: Selection<SVGGElement, any, any, any> = select<SVGGElement, any>('g');
 let gTransition = gSelection.transition();
 
 gSelection.call(topAxis);
 gTransition.call(topAxis);
 
-let svgSelection: Selection<SVGSVGElement, any, any, any>;
+let svgSelection: Selection<SVGSVGElement, any, any, any> = select<SVGSVGElement, any>('g');
 let svgTransition = svgSelection.transition();
 
 svgSelection.call(leftAxis);
 svgTransition.call(leftAxis);
 
-let canvasSelection: Selection<HTMLCanvasElement, any, any, any>;
+let canvasSelection: Selection<HTMLCanvasElement, any, any, any> = select<HTMLCanvasElement, any>('canvas');
 let canvasTransition = canvasSelection.transition();
 
 // canvasSelection.call(rightAxis); // fails, incompatible context container element

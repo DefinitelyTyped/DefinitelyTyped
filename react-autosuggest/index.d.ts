@@ -1,12 +1,11 @@
-// Type definitions for react-autosuggest v3.7.3
+// Type definitions for react-autosuggest 7.0
 // Project: http://react-autosuggest.js.org/
-// Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>, Philip Ottesen <https://github.com/pjo256>
+// Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>, Philip Ottesen <https://github.com/pjo256>, Robert Essig <https://github.com/robessog>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react"/>
+import * as React from 'react';
 
-declare namespace ReactAutosuggest {
-  interface SuggestionUpdateRequest {
+  interface SuggestionsFetchRequest {
     value: string;
     reason: string;
   }
@@ -31,14 +30,11 @@ declare namespace ReactAutosuggest {
     onBlur?: (event: React.FormEvent<any>, params?: BlurEvent) => void;
   }
 
-  interface ExplicitSuggestionSelectedEventData<TSuggestion> {
+ export interface SuggestionSelectedEventData<TSuggestion> {
     method: 'click' | 'enter';
     sectionIndex: number | null;
     suggestion: TSuggestion;
     suggestionValue: string;
-  }
-
-  interface SuggestionSelectedEventData extends ExplicitSuggestionSelectedEventData<any> {
   }
 
   interface Theme {
@@ -55,25 +51,23 @@ declare namespace ReactAutosuggest {
 
   interface AutosuggestProps extends React.Props<Autosuggest> {
     suggestions: any[];
-    onSuggestionsUpdateRequested?: (request: SuggestionUpdateRequest) => void;
-    getSuggestionValue: (suggestion: any) => string;
+    onSuggestionsFetchRequested: (request: SuggestionsFetchRequest) => void;
+    onSuggestionsClearRequested?: () => void;
+    getSuggestionValue: (suggestion: any) => any;
     renderSuggestion: (suggestion: any, inputValues: InputValues) => JSX.Element;
     inputProps: InputProps;
-    alwaysRenderSuggestions?: boolean;
+    onSuggestionSelected?: (event: React.FormEvent<any>, data: SuggestionSelectedEventData<any>) => void;
     shouldRenderSuggestions?: (value: string) => boolean;
+    alwaysRenderSuggestions?: boolean;
+    focusFirstSuggestion?: boolean;
+    focusInputOnSuggestionClick?: boolean;
     multiSection?: boolean;
     renderSectionTitle?: (section: any, inputValues: InputValues) => JSX.Element;
     getSectionSuggestions?: (section: any) => any[];
-    onSuggestionSelected?: (event: React.FormEvent<any>, data: SuggestionSelectedEventData | ExplicitSuggestionSelectedEventData<any>) => void;
-    focusInputOnSuggestionClick?: boolean;
+    renderInputComponent?: () => JSX.Element;
+    renderSuggestionsContainer?: (children: any) => JSX.Element;
     theme?: Theme;
     id?: string;
   }
 
-  class Autosuggest extends React.Component<AutosuggestProps, any> {}
-}
-
-declare module 'react-autosuggest' {
-  import Autosuggest = ReactAutosuggest.Autosuggest;
-  export = Autosuggest;
-}
+  export class Autosuggest extends React.Component<any, any> {}
