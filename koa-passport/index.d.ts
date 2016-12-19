@@ -32,23 +32,22 @@ declare module "koa" {
 
 import * as passport from "passport";
 
-interface Middleware { (ctx: Koa.Context, next: () => Promise<any>): any; }
 interface KoaPassport {
     use(strategy: passport.Strategy): this;
     use(name: string, strategy: passport.Strategy): this;
     unuse(name: string): this;
     framework(fw: passport.Framework): this;
-    initialize(options?: { userProperty: string; }): Middleware;
-    session(options?: { pauseStream: boolean; }): Middleware;
+    initialize(options?: { userProperty: string; }): Koa.Middleware;
+    session(options?: { pauseStream: boolean; }): Koa.Middleware;
 
-    authenticate(strategy: string, callback?: Function): Middleware;
-    authenticate(strategy: string, options: Object, callback?: Function): Middleware;
-    authenticate(strategies: string[], callback?: Function): Middleware;
-    authenticate(strategies: string[], options: Object, callback?: Function): Middleware;
-    authorize(strategy: string, callback?: Function): Middleware;
-    authorize(strategy: string, options: Object, callback?: Function): Middleware;
-    authorize(strategies: string[], callback?: Function): Middleware;
-    authorize(strategies: string[], options: Object, callback?: Function): Middleware;
+    authenticate(strategy: string, callback?: Function): Koa.Middleware;
+    authenticate(strategy: string, options: Object, callback?: Function): Koa.Middleware;
+    authenticate(strategies: string[], callback?: Function): Koa.Middleware;
+    authenticate(strategies: string[], options: Object, callback?: Function): Koa.Middleware;
+    authorize(strategy: string, callback?: Function): Koa.Middleware;
+    authorize(strategy: string, options: Object, callback?: Function): Koa.Middleware;
+    authorize(strategies: string[], callback?: Function): Koa.Middleware;
+    authorize(strategies: string[], options: Object, callback?: Function): Koa.Middleware;
     serializeUser(fn: (user: any, done: (err: any, id: any) => void) => void): void;
     deserializeUser(fn: (id: any, done: (err: any, user: any) => void) => void): void;
     transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;

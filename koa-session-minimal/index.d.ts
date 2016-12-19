@@ -38,7 +38,7 @@ declare function session(opts?: {
      * session store
      */
     store?: any;
-}): { (ctx: Koa.Context, next?: () => any): any };
+}): Koa.Middleware;
 
 declare namespace session {}
 export = session;

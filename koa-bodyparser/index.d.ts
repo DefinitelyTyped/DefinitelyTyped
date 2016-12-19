@@ -61,7 +61,7 @@ declare function bodyParser(opts?: {
      * support custom error handle
      */
     onerror?: (err: Error, ctx: Koa.Context) => void;
-}): { (ctx: Koa.Context, next?: () => any): any };
+}): Koa.Middleware;
 
 declare namespace bodyParser { }
 export = bodyParser;
