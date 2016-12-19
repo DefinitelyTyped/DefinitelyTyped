@@ -7,4 +7,3 @@ import { PersistConfig, PersistTransformer } from "redux-persist";
 
 export = createCompressor;
 declare function createCompressor (config?: PersistConfig): PersistTransformer;
-declare namespace createCompressor {}

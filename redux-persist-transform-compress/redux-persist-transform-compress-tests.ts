@@ -1,6 +1,6 @@
 import { createStore, Reducer, Store } from "redux"
 import { createPersistor, Persistor, PersistTransformer } from "redux-persist"
-import * as createCompressor from "redux-persist-transform-compress"
+import createCompressor = require("redux-persist-transform-compress")
 
 const reducer: Reducer<any> = (state: any, action: any) => ({})
 

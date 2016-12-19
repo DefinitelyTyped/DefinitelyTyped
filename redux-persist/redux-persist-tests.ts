@@ -33,7 +33,7 @@ const persistConfig: PersistConfig = {
 
 const rehydrateOptions: PersistorRehydrateOptions = { serial : true }
 
-const autoRehydrateConfig: PersistAutoRehydrateConfig = {
+const autoRehydrateConfig: PersistAutoRehydrateConfig<any, any, any> = {
     stateReconcile: (state: any, inboundState: any, reducedState: any, log: boolean) => ({})
 }
 
