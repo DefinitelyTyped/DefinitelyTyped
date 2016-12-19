@@ -4,7 +4,6 @@ import OpticsAgent, {
   middleware,
   instrumentHapiServer,
   context,
-  Agent,
 } from 'optics-agent';
 import { GraphQLSchema } from 'graphql';
 import * as express from 'express';

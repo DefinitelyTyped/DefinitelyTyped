@@ -56,10 +56,10 @@ declare namespace OpticsAgent {
     reportVariables?: boolean;
   }
 
-  export interface Agent {
-    new(options: Options): Agent;
+  export class Agent {
+    constructor(options: OpticsAgent.Options);
 
-    configureAgent(options: OpticsAgent.Options): OpticsAgent.Agent;
+    configureAgent(options: OpticsAgent.Options): Agent;
     instrumentSchema(schema: GraphQLSchema): void;
     middleware(): (req: Request, res: Response, next?: any) => void;
     instrumentHapiServer(server: Server): void;
@@ -73,13 +73,11 @@ export function middleware(): (req: Request, res: Response, next?: any) => void;
 export function instrumentHapiServer(server: Server): void;
 export function context(req: Request): any;
 
-export const Agent: OpticsAgent.Agent;
-
 export default {
   configureAgent,
   instrumentSchema,
   middleware,
   instrumentHapiServer,
   context,
-  Agent,
+  Agent: OpticsAgent.Agent,
 };
