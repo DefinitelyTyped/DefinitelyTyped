@@ -1,5 +1,5 @@
 
-import * as table from 'table';
+import table from 'table';
 
 const border = table.getBorderCharacters('norc');
 
