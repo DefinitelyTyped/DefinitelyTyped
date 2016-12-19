@@ -7,7 +7,7 @@ import Koa = require("koa");
 
 export = jwt;
 
-declare function jwt(options: jwt.Options): { (ctx: Koa.Context, next?: () => any): any };
+declare function jwt(options: jwt.Options): (ctx: Koa.Context, next?: () => any) => any;
 
 declare namespace jwt {
     type GetToken = (opts: jwt.Options) => string;
