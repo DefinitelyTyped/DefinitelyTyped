@@ -3,6 +3,8 @@
 // Definitions by: Paulo Cesar <https://github.com/pocesar/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="react-native" />
+
 declare namespace RNFS {
   interface ReadDirItem {
     // The name of the item
