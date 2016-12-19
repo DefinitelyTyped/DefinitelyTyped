@@ -1309,7 +1309,7 @@ declare namespace mathjs {
 		valueOf(): any[];
 		format(): any[];
 		toString(): string;
-		toJSON(): Object;
+		toJSON(): any;
 		diagonal(k?: number|BigNumber): any[];
 		swapRows(i: number, j: number): Matrix;
 	}
