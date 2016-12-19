@@ -4,6 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="angular" />
+
+import * as angular from 'angular';
+
 declare namespace angulartics {
 
     interface IAngularticsStatic {
