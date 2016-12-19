@@ -1,7 +1,7 @@
 import koa = require('koa');
 import jwt = require('koa-jwt');
 
-var app = koa();
+var app = new koa();
 
 app.use(jwt({
     secret: 'some-secret-key'
