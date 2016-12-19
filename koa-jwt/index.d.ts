@@ -3,12 +3,11 @@
 // Definitions by: Bruno Krebs <https://github.com/brunokrebs/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import express = require('express');
-import unless = require('express-unless');
+import Koa = require("koa");
 
 export = jwt;
 
-declare function jwt(options: jwt.Options): jwt.RequestHandler;
+declare function jwt(options: jwt.Options): { (ctx: Koa.Context, next?: () => any): any };
 
 declare namespace jwt {
     type GetToken = (opts: jwt.Options) => string;
