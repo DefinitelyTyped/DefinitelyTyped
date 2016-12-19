@@ -12,13 +12,17 @@ declare namespace ReduxForm {
     type ComponentConstructor<P> = React.ComponentClass<P> | React.StatelessComponent<P>;
 
     type PartialData<FormData extends DataShape> = {
-        [P in keyof FormData]?: FormData[P]
+        [P in keyof FormData]?: FormData[P];
+    };
+
+    type ErrorData<FormData extends DataShape> = {
+        [P in keyof FormData]?: string;
     };
 
     interface FormError { _error?: string; }
     interface FormWarning { _warning?: string; }
-    type FormErrors<FormData extends DataShape> = FormData & FormError;
-    type FormWarnings<FormData extends DataShape> = FormData & FormWarning;
+    type FormErrors<FormData extends DataShape> = ErrorData<FormData> & FormError;
+    type FormWarnings<FormData extends DataShape> = ErrorData<FormData> & FormWarning;
 
     type Normalizer = (value: any, previousValue?: any, allValues?: any, previousAllValues?: any) => any;
     type Formatter = (value: any, name?: string) => any;
@@ -156,7 +160,7 @@ declare namespace ReduxForm {
         enableReinitialize?: boolean;
         getFormState?: FromStateGetter<S>;
         keepDirtyOnReinitialize?: boolean;
-        initialValue?: FormData;
+        initialValues?: PartialData<FormData>;
         onSubmit?: SubmitHandler<FormData, S>;
         onSubmitFail?(errors: FormErrors<FormData>, dispatch: Redux.Dispatch<S>): void;
         onSubmitSuccess?(result: any, dispatch: Redux.Dispatch<S>): void;
