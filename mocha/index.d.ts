@@ -50,7 +50,7 @@ interface MochaDone {
 }
 
 interface ActionFunction {
-    (done: MochaDone): any | PromiseLike<any>
+    (this: Mocha, done: MochaDone): any | PromiseLike<any>
 }
 
 declare function setup(action: ActionFunction): void;
@@ -142,9 +142,9 @@ declare namespace Mocha {
     interface IRunner {}
 
     interface IContextDefinition {
-        (description: string, spec: () => void): ISuite;
-        only(description: string, spec: () => void): ISuite;
-        skip(description: string, spec: () => void): void;
+        (description: string, spec: (this: Mocha) => void): ISuite;
+        only(description: string, spec: (this: Mocha) => void): ISuite;
+        skip(description: string, spec: (this: Mocha) => void): void;
         timeout(ms: number): void;
     }
 
