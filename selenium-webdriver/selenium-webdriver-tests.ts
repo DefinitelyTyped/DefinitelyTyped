@@ -1,4 +1,9 @@
-
+import * as webdriver from "selenium-webdriver";
+import * as chrome from "selenium-webdriver/chrome";
+import * as remote from "selenium-webdriver/remote";
+import * as executors from "selenium-webdriver/executors";
+import * as firefox from "selenium-webdriver/firefox";
+import * as testing from "selenium-webdriver/testing";
 
 function TestChromeDriver() {
     var driver: chrome.Driver = new chrome.Driver();
@@ -26,7 +31,7 @@ function TestChromeOptions() {
     options = options.androidProcess("com.android.chrome");
     options = options.androidUseRunningApp(true);
     options = options.setLoggingPrefs(new webdriver.logging.Preferences());
-    options = options.setPerfLoggingPrefs({enableNetwork: true, enablePage: true, enableTimeline: true, tracingCategories: "category", bufferUsageReportingInterval: 1000});
+    options = options.setPerfLoggingPrefs({ enableNetwork: true, enablePage: true, enableTimeline: true, tracingCategories: "category", bufferUsageReportingInterval: 1000 });
     options = options.setProxy({ proxyType: "proxyType" });
     options = options.setUserPreferences("preferences");
     var capabilities: webdriver.Capabilities = options.toCapabilities();
@@ -120,7 +125,7 @@ function TestBuilder() {
     builder = builder.forBrowser('name', 'version', 'platform');
 
     var cap: webdriver.Capabilities = builder.getCapabilities();
-    var str:string = builder.getServerUrl();
+    var str: string = builder.getServerUrl();
 
     builder = builder.setAlertBehavior('behavior');
     builder = builder.setChromeOptions(new chrome.Options());
@@ -160,7 +165,7 @@ function TestActionSequence() {
 
     // DragAndDrop
     sequence = sequence.dragAndDrop(element, element);
-    sequence = sequence.dragAndDrop(element, {x: 1, y: 2});
+    sequence = sequence.dragAndDrop(element, { x: 1, y: 2 });
 
     // KeyDown
     sequence = sequence.keyDown(webdriver.Key.ADD);
@@ -176,8 +181,8 @@ function TestActionSequence() {
 
     // MouseMove
     sequence = sequence.mouseMove(element);
-    sequence = sequence.mouseMove({x: 1, y: 1});
-    sequence = sequence.mouseMove(element, {x: 1, y: 2});
+    sequence = sequence.mouseMove({ x: 1, y: 1 });
+    sequence = sequence.mouseMove(element, { x: 1, y: 2 });
 
     // MouseUp
     sequence = sequence.mouseUp();
@@ -427,7 +432,7 @@ function TestCommandName() {
 function TestEventEmitter() {
     var emitter: webdriver.EventEmitter = new webdriver.EventEmitter();
 
-    var callback = function (a: number, b: number, c: number) {};
+    var callback = function (a: number, b: number, c: number) { };
 
     emitter = emitter.addListener('ABC', callback);
     emitter = emitter.addListener('ABC', callback, this);
@@ -583,7 +588,7 @@ function TestWebDriverFileDetector() {
 
     var fileDetector: webdriver.FileDetector = new webdriver.FileDetector();
 
-    fileDetector.handleFile(driver, 'path/to/file').then(function(path: string) {});
+    fileDetector.handleFile(driver, 'path/to/file').then(function (path: string) { });
 }
 
 function TestWebDriverLogs() {
@@ -699,10 +704,10 @@ function TestWebDriver() {
     var touchActions: webdriver.TouchSequence = driver.touchActions();
 
     // call
-    stringPromise = driver.call<string>(function(){ return 'value'; });
-    stringPromise = driver.call<string>(function(){ return stringPromise; });
-    stringPromise = driver.call<string>(function(){ var d: any = this; return 'value'; }, driver);
-    stringPromise = driver.call<string>(function(a: number){ return 'value'; }, driver, 1);
+    stringPromise = driver.call<string>(function () { return 'value'; });
+    stringPromise = driver.call<string>(function () { return stringPromise; });
+    stringPromise = driver.call<string>(function () { var d: any = this; return 'value'; }, driver);
+    stringPromise = driver.call<string>(function (a: number) { return 'value'; }, driver, 1);
 
     voidPromise = driver.close();
     flow = driver.controlFlow();
@@ -710,14 +715,14 @@ function TestWebDriver() {
     // executeAsyncScript
     stringPromise = driver.executeAsyncScript<string>('function(){}');
     stringPromise = driver.executeAsyncScript<string>('function(){}', 1, 2, 3);
-    stringPromise = driver.executeAsyncScript<string>(function(){});
-    stringPromise = driver.executeAsyncScript<string>(function(a: number){}, 1);
+    stringPromise = driver.executeAsyncScript<string>(function () { });
+    stringPromise = driver.executeAsyncScript<string>(function (a: number) { }, 1);
 
     // executeScript
     stringPromise = driver.executeScript<string>('function(){}');
     stringPromise = driver.executeScript<string>('function(){}', 1, 2, 3);
-    stringPromise = driver.executeScript<string>(function(){});
-    stringPromise = driver.executeScript<string>(function(a: number){}, 1);
+    stringPromise = driver.executeScript<string>(function () { });
+    stringPromise = driver.executeScript<string>(function (a: number) { }, 1);
 
     // findElement
     var element: webdriver.WebElement;
@@ -755,7 +760,7 @@ function TestWebDriver() {
     var booleanCondition: webdriver.until.Condition<boolean>;
     booleanPromise = driver.wait(booleanPromise);
     booleanPromise = driver.wait(booleanCondition);
-    booleanPromise = driver.wait(function(driver: webdriver.WebDriver) { return true; });
+    booleanPromise = driver.wait(function (driver: webdriver.WebDriver) { return true; });
     let conditionFunction: Function;
     booleanPromise = driver.wait(conditionFunction);
     booleanPromise = driver.wait(booleanPromise, 123);
@@ -767,7 +772,7 @@ function TestWebDriver() {
 
 function TestSerializable() {
     var serializable: webdriver.Serializable<string>;
-    var serial: string|webdriver.promise.IThenable<string> = serializable.serialize();
+    var serial: string | webdriver.promise.IThenable<string> = serializable.serialize();
 }
 
 function TestWebElement() {
@@ -892,10 +897,10 @@ function TestPromiseModule() {
 
     webdriver.promise.all([stringPromise]).then(function (values: string[]) { });
 
-    webdriver.promise.asap('abc', function(value: any){ return true; });
-    webdriver.promise.asap('abc', function(value: any){}, function(err: any) { return 'ABC'; });
+    webdriver.promise.asap('abc', function (value: any) { return true; });
+    webdriver.promise.asap('abc', function (value: any) { }, function (err: any) { return 'ABC'; });
 
-    stringPromise = webdriver.promise.checkedNodeCall<string>(function(err: any, value: any) { return 'abc'; });
+    stringPromise = webdriver.promise.checkedNodeCall<string>(function (err: any, value: any) { return 'abc'; });
 
     webdriver.promise.consume(function () {
         return 5;
@@ -935,7 +940,7 @@ function TestPromiseModule() {
 
     var flow: webdriver.promise.ControlFlow = webdriver.promise.controlFlow();
 
-    stringPromise = webdriver.promise.createFlow<string>(function(newFlow: webdriver.promise.ControlFlow) { return 'ABC' });
+    stringPromise = webdriver.promise.createFlow<string>(function (newFlow: webdriver.promise.ControlFlow) { return 'ABC' });
 
     var deferred: webdriver.promise.Deferred<string>;
     deferred = webdriver.promise.defer();
@@ -960,7 +965,7 @@ function TestPromiseModule() {
 
     webdriver.promise.setDefaultFlow(new webdriver.promise.ControlFlow());
 
-    numberPromise = webdriver.promise.when('abc', function(value: any) { return 123; }, function(err: Error) { return 123; });
+    numberPromise = webdriver.promise.when('abc', function (value: any) { return 123; }, function (err: Error) { return 123; });
 }
 
 function TestUntilModule() {
@@ -1008,9 +1013,9 @@ function TestControlFlow() {
     eventType = webdriver.promise.ControlFlow.EventType.UNCAUGHT_EXCEPTION;
 
     var stringPromise: webdriver.promise.Promise<string>;
-    stringPromise = flow.execute(function() { return 'value'; });
-    stringPromise = flow.execute(function() { return stringPromise; });
-    stringPromise = flow.execute(function() { return stringPromise; }, 'Description');
+    stringPromise = flow.execute(function () { return 'value'; });
+    stringPromise = flow.execute(function () { return stringPromise; });
+    stringPromise = flow.execute(function () { return stringPromise; }, 'Description');
 
     var schedule: string;
     schedule = flow.toString();
@@ -1024,9 +1029,9 @@ function TestControlFlow() {
 
     stringPromise = flow.wait(stringPromise);
 
-    voidPromise = flow.wait<void>(function() { return true; });
-    voidPromise = flow.wait<void>(function() { return true; }, 123);
-    voidPromise = flow.wait<void>(function() { return stringPromise; }, 123, 'Timeout Message');
+    voidPromise = flow.wait<void>(function () { return true; });
+    voidPromise = flow.wait<void>(function () { return true; }, 123);
+    voidPromise = flow.wait<void>(function () { return stringPromise; }, 123, 'Timeout Message');
 }
 
 function TestDeferred() {
@@ -1048,24 +1053,24 @@ function TestDeferred() {
 function TestPromiseClass() {
     var controlFlow: webdriver.promise.ControlFlow;
     var promise: webdriver.promise.Promise<string>;
-    promise = new webdriver.promise.Promise<string>(function(
-          resolve: (value: string)=>void,
-          reject: ()=>void) { });
-    promise = new webdriver.promise.Promise<string>(function(
-          resolve: (value: webdriver.promise.Promise<string>)=>void,
-          reject: ()=>void) { });
-    promise = new webdriver.promise.Promise<string>(function(
-          resolve: (value: string)=>void,
-          reject: ()=>void) { }, controlFlow);
+    promise = new webdriver.promise.Promise<string>(function (
+        resolve: (value: string) => void,
+        reject: () => void) { });
+    promise = new webdriver.promise.Promise<string>(function (
+        resolve: (value: webdriver.promise.Promise<string>) => void,
+        reject: () => void) { });
+    promise = new webdriver.promise.Promise<string>(function (
+        resolve: (value: string) => void,
+        reject: () => void) { }, controlFlow);
 
     promise.cancel('Abort');
 
     var isPending: boolean = promise.isPending();
 
     promise = promise.then();
-    promise = promise.then(function( a: string ) { return 'cde'; });
-    promise = promise.then(function( a: string ) { return 'cde'; }, function( e: any) {});
-    promise = promise.then(function( a: string ) { return 'cde'; }, function (e: any) { return 123; });
+    promise = promise.then(function (a: string) { return 'cde'; });
+    promise = promise.then(function (a: string) { return 'cde'; }, function (e: any) { });
+    promise = promise.then(function (a: string) { return 'cde'; }, function (e: any) { return 123; });
 
     promise = promise.thenCatch(function (error: any) { });
 
