@@ -1304,7 +1304,7 @@ declare namespace mathjs {
 		clone(): Matrix;
 		size(): number[];
 		map(callback: (a: any, b: number, c: Matrix) => any, skipZeros?: boolean): Matrix;
-		forEach(callback: (a: any, b: number, c: Matrix) => any, skipZeros?: boolean): Matrix;
+		forEach(callback: (a: any, b: number, c: Matrix) => void, skipZeros?: boolean): void;
 		toArray(): any[];
 		valueOf(): any[];
 		format(): any[];
