@@ -297,6 +297,7 @@ map = map
 	.setView(latLngLiteral, 12, zoomPanOptions)
 	.setView(latLngTuple, 12)
 	.setView(latLngTuple, 12, zoomPanOptions)
+	.setZoom(11)
 	.setZoom(12, zoomPanOptions) // investigate if zoomPanOptions are really required
 	.zoomIn()
 	.zoomIn(1)
@@ -309,6 +310,7 @@ map = map
 	.setZoomAround(latLngTuple, 12, zoomOptions)
 	.setZoomAround(point, 12, zoomOptions)
 	.setZoomAround(pointTuple, 11, zoomOptions)
+	.fitBounds(latLngBounds)
 	.fitBounds(latLngBounds, fitBoundsOptions) // investigate if fit bounds options are really required
 	.fitBounds(latLngBoundsLiteral, fitBoundsOptions)
 	.fitWorld()
@@ -355,3 +357,24 @@ let draggable = new L.Draggable(elementToDrag);
 draggable.enable();
 draggable.disable();
 draggable.on('drag', () => {});
+
+class MyMarker extends L.Marker {
+	constructor() {
+		super([12, 13]);
+	}
+}
+class MyLayer extends L.Layer {
+	constructor() {
+		super();
+	}
+}
+class MyIcon extends L.Icon {
+	constructor() {
+		super({iconUrl: 'icon.png'});
+	}
+}
+class MyDivIcon extends L.DivIcon {
+	constructor() {
+		super();
+	}
+}
