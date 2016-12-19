@@ -1,476 +1,399 @@
-// Type definitions for redux-form v4.0.3
+// Type definitions for redux-form 6.2
 // Project: https://github.com/erikras/redux-form
-// Definitions by: Daniel Lytkin <https://github.com/aikoven>
+// Definitions by: Daniel Lytkin <https://github.com/aikoven>, Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
-import { Component, SyntheticEvent, FormEventHandler } from 'react';
-import { Dispatch, ActionCreator, Reducer } from 'redux';
+import * as React from "react";
+import * as Redux from "redux";
+import * as Immutable from "immutable";
 
-export const actionTypes: {[actionName:string]: string};
+declare namespace ReduxForm {
 
-export type FieldValue = any;
+    type ComponentConstructor<P> = React.ComponentClass<P> | React.StatelessComponent<P>;
 
-export type FormData = { [fieldName: string]: FieldValue };
+    type PartialData<FormData extends DataShape> = {
+        [P in keyof FormData]?: FormData[P]
+    };
 
-export interface FieldProp<T> {
-    /**
-     * true if this field currently has focus. It will only work if you are
-     * passing onFocus to your input element.
-     */
-    active: boolean;
+    interface FormError { _error?: string; }
+    interface FormWarning { _warning?: string; }
+    type FormErrors<FormData extends DataShape> = FormData & FormError;
+    type FormWarnings<FormData extends DataShape> = FormData & FormWarning;
 
-    /**
-     * An alias for value only when value is a boolean. Provided for
-     * convenience of destructuring the whole field object into the props of a
-     * form element.
-     */
-    checked?: boolean;
+    type Normalizer = (value: any, previousValue?: any, allValues?: any, previousAllValues?: any) => any;
+    type Formatter = (value: any, name?: string) => any;
+    type Parser = (value: any, name?: string) => any;
 
-    /**
-     * true if the field value has changed from its initialized value.
-     * Opposite of pristine.
-     */
-    dirty: boolean;
+    type FieldType = "Field" | "FieldArray";
 
-    /**
-     * The error for this field if its value is not passing validation. Both
-     * synchronous and asynchronous validation errors will be reported here.
-     */
-    error?: any;
+    type SubmitHandler<FormData extends DataShape, S> = (values: FormData, dispatch?: Redux.Dispatch<S>) => undefined | FormErrors<FormData> | Promise<any>;
 
-    /**
-     * The value for this field as supplied in initialValues to the form.
-     */
-    initialValue: FieldValue;
+    interface NestedFields<A> {
+        [fieldName: string]: A | NestedFields<A>;
+    }
 
-    /**
-     * true if the field value fails validation (has a validation error).
-     * Opposite of valid.
-     */
-    invalid: boolean;
+    interface DataShape {
+        [fieldName: string]: any;
+    }
 
-    /**
-     * The name of the field. It will be the same as the key in the fields
-     * Object, but useful if bundling up a field to send down to a specialized
-     * input component.
-     */
-    name: string;
+    /* State */
+    interface RegisteredField {
+        name: string;
+        type: FieldType;
+    }
 
-    /**
-     * A function to call when the form field loses focus. It expects to
-     * either receive the React SyntheticEvent or the current value of the
-     * field.
-     */
-    onBlur(eventOrValue: SyntheticEvent<T> | FieldValue): void;
+    interface FieldState {
+        active?: boolean;
+        touched?: boolean;
+        visited?: boolean;
+    }
 
-    /**
-     * A function to call when the form field is changed. It expects to either
-     * receive the React SyntheticEvent or the new value of the field.
-     * @param eventOrValue
-     */
-    onChange(eventOrValue: SyntheticEvent<T> | FieldValue): void;
+    interface FormState {
+        registeredFields: RegisteredField[];
+        fields?: { [name: string]: FieldState };
+        values?: DataShape;
+        active?: string;
+        anyTouched?: boolean;
+        submitting?: boolean;
+        submitErrors?: FormErrors<DataShape>;
+        submitFailed?: boolean;
+    }
 
-    /**
-     * A function to call when the form field receives a 'dragStart' event.
-     * Saves the field value in the event for giving the field it is dropped
-     * into.
-     */
-    onDragStart(): void;
+    interface FormStateMap {
+        [formName: string]: FormState;
+    }
 
-    /**
-     * A function to call when the form field receives a drop event.
-     */
-    onDrop(): void;
+    type FromStateGetter<S> = (state: S) => FormStateMap;
 
-    /**
-     * A function to call when the form field receives focus.
-     */
-    onFocus(): void;
+    /* props */
+    interface ArrayProps {
+        insert(field: string, index: number, value: any): void;
+        move(field: string, from: number, to: number): void;
+        pop(field: string): void;
+        push(field: string, value: any): void;
+        remove(field: string, index: number): void;
+        removeAll(field: string): void;
+        shift(field: string): void;
+        splice(field: string, index: number, removeNum: number, value: any): void;
+        swap(field: string, indexA: number, indexB: number): void;
+        unshift(field: string, value: any): void;
+    }
 
-    /**
-     * An alias for onChange. Provided for convenience of destructuring the
-     * whole field object into the props of a form element. Added to provide
-     * out-of-the-box support for Belle components' onUpdate API.
-     */
-    onUpdate(): void;
+    interface FormProps<FormData extends DataShape, S> {
+        anyTouched?: boolean;
+        array?: ArrayProps;
+        asyncValidate?(): void;
+        asyncValidation?: string | boolean;
+        autofill?(field: string, value: any): void;
+        blur?(field: string, value: any): void;
+        change?(field: string, value: any): void;
+        destroy?(): void;
+        dirty?: boolean;
+        error?: any;
+        form?: string;
+        handleSubmit?(event: React.FormEvent<any>): void;
+        handleSubmit?(submit: SubmitHandler<FormData, S>): React.FormEventHandler<any>;
+        initialize?(data: FormData): void;
+        invalid?: boolean;
+        pristine?: boolean;
+        reset?(): void;
+        submitFailed?: boolean;
+        submitSucceeded?: boolean;
+        submitting?: boolean;
+        touch?(...fields: string[]): void;
+        untouch?(...fields: string[]): void;
+        valid?: boolean;
+        warning?: any;
+    }
 
-    /**
-     * true if the field value is the same as its initialized value. Opposite
-     * of dirty.
-     */
-    pristine: boolean;
+    /* reduxForm() */
+    interface Structure {
+        deepEqual(a: any, b: any): boolean;
+        deleteIn<S>(state: S, field: string): any;
+        getIn<S>(state: S, field: string): any;
+        setIn<S>(state: S, field: string, value: any): S & { [field: string]: any };
+        splice(array: any[], index: number, removeNum?: number, value?: any): any[];
+    }
 
-    /**
-     * true if the field has been touched. By default this will be set when
-     * the field is blurred.
-     */
-    touched: boolean;
+    interface PlainStructure extends Structure {
+        empty: any;
+        emptyList: any[];
+        fromJs(value: any): any;
+        size(array: any[]): number;
+        some(collection: {} | any[], predicate: any): boolean;
+    }
 
-    /**
-     * true if the field value passes validation (has no validation errors).
-     * Opposite of invalid.
-     */
-    valid: boolean;
+    interface ImmutableStructure extends Structure {
+        empty: Immutable.Map<any, any>;
+        emptyList: Immutable.List<any>;
+        fromJs(value: any): Immutable.List<any> | Immutable.Map<any, any>;
+        size(list: Immutable.List<any>): number;
+        some(iterable: Immutable.Iterable<any, any>, callback: <V, K>(value?: V, key?: K, iter?: Immutable.Iterable<K, V>) => boolean): boolean;
+    }
 
-    /**
-     * The value of this form field. It will be a boolean for checkboxes, and
-     * a string for all other input types.
-     */
-    value: FieldValue;
+    interface ValidateCallback<FormData extends DataShape, P> {
+        values: FormData;
+        nextProps: P;
+        props: P;
+        initialRender: boolean;
+        structure: PlainStructure | ImmutableStructure;
+    }
 
-    /**
-     * true if this field has ever had focus. It will only work if you are
-     * passing onFocus to your input element.
-     */
-    visited: boolean;
+    interface AsyncValidateCallback<FormData extends DataShape> {
+        asyncErrors?: FormErrors<FormData>;
+        initialized?: boolean;
+        trigger?: "blur" | "submit";
+        blurredField?: string;
+        pristine?: boolean;
+        syncValidationPassed?: boolean;
+    }
+
+    interface Config<FormData extends DataShape, P, S> {
+        form: string;
+        asyncBlurFields?: string[];
+        asyncValidate?(values: FormData, dispatch: Redux.Dispatch<S>, props: P, blurredField?: string): Promise<any & FormError & FormWarning>;
+        destroyOnUnmount?: boolean;
+        enableReinitialize?: boolean;
+        getFormState?: FromStateGetter<S>;
+        keepDirtyOnReinitialize?: boolean;
+        initialValue?: FormData;
+        onSubmit?: SubmitHandler<FormData, S>;
+        onSubmitFail?(errors: FormErrors<FormData>, dispatch: Redux.Dispatch<S>): void;
+        onSubmitSuccess?(result: any, dispatch: Redux.Dispatch<S>): void;
+        propNamespace?: string;
+        pure?: boolean;
+        shouldValidate?(params: ValidateCallback<FormData, FormProps<FormData, S> & P>): boolean;
+        shouldAsyncValidate?(params: AsyncValidateCallback<FormData>): boolean;
+        touchOnBlur?: boolean;
+        touchOnChange?: boolean;
+        persistentSubmitErrors?: boolean;
+        validate?(values: FormData, props?: FormProps<FormData, S> & P): FormErrors<FormData>;
+        warn?(values: FormData, props?: FormProps<FormData, S> & P): FormWarnings<FormData>;
+    }
+
+    interface Form<FormData extends DataShape, P> extends React.ComponentClass<P> {
+        dirty?: boolean;
+        invalid?: boolean;
+        pristine?: boolean;
+        registeredFields?: RegisteredField[];
+        reset?: () => void;
+        submit?: () => Promise<any>;
+        valid?: boolean;
+        values?: FormData;
+        wrappedInstance?: React.ReactElement<P>;
+    }
+
+    interface FormDecorator<FormData extends DataShape, P> {
+        <T extends React.ComponentClass<P>>(component: T): T & Form<FormData, P>;
+        (component: React.StatelessComponent<P>): Form<FormData, P>;
+    }
+
+    function reduxForm<FormData extends DataShape, P, S>(config: Config<FormData, P, S>): FormDecorator<FormData, P>;
+
+    /* reducer & reducer.plugin() */
+    interface FormReducersMap {
+        [formName: string]: Redux.Reducer<FormState>;
+    }
+
+    interface FormReducer {
+        <A extends Redux.Action>(state: FormState, action: A): FormState;
+        plugin(reducers: FormReducersMap): Redux.Reducer<FormStateMap>;
+    }
+    const reducer: FormReducer;
+
+
+    /* Field, Fields, FieldArray commons */
+    interface ValueCallback extends React.EventHandler<any> {
+        <A>(value: A): void;
+    }
+
+    interface WrappedInputProps {
+        checked: boolean;
+        name: string;
+        onBlur: ValueCallback;
+        onChange: ValueCallback;
+        onDragStart: React.DragEventHandler<any>;
+        onDrop: React.DragEventHandler<any>;
+        onFocus: React.FocusEventHandler<any>;
+        value: any;
+    }
+
+    interface WrappedMetaProps {
+        dirty: boolean;
+        error?: string;
+        invalid: boolean;
+        pristine: boolean;
+        submitting: boolean;
+        valid: boolean;
+        warning?: string;
+    }
+
+    interface WrappedFieldMetaProps extends WrappedMetaProps {
+        active: boolean;
+        autofilled: boolean;
+        asyncValidation: boolean;
+        dispatch: Redux.Dispatch<any>;
+        touched: boolean;
+        visited: boolean;
+    }
+
+    abstract class InstanceAPI<P, S> extends React.Component<P, S> {
+        dirty: boolean;
+        pristine: boolean;
+        getRenderedComponent(): React.ReactElement<P>;
+    }
+
+    interface RefProps<P> {
+        props?: P;
+        withRef?: boolean;
+    }
+
+    interface BaseProps<P> extends RefProps<P> {
+        format?: Formatter;
+        parse?: Parser;
+    }
+
+    /* Field */
+    interface FieldProps<P> extends BaseProps<P> {
+        name: string;
+        component: ComponentConstructor<any> | "input" | "select" | "textarea";
+        normalize?: Normalizer;
+    }
+
+    interface WrappedFieldProps {
+        input?: WrappedInputProps;
+        meta?: WrappedFieldMetaProps;
+    }
+
+    class Field<P, S> extends InstanceAPI<FieldProps<P> & P, S> {
+        name: string;
+        value: any;
+    }
+
+    /* Fields */
+    interface FieldsProps<P> extends BaseProps<P> {
+        names: string[];
+        component: ComponentConstructor<any>;
+    }
+
+    type WrappedFieldsProps = NestedFields<WrappedFieldProps>;
+
+    class Fields<P, S> extends InstanceAPI<FieldsProps<P> & P, S> {
+        names: string[];
+        values: NestedFields<any>;
+    }
+
+    /* FieldArray */
+    interface FieldArrayProps<P> extends RefProps<P> {
+        name: string;
+        component: ComponentConstructor<any>;
+    }
+
+    type FieldIteratorCallback<A> = (name?: string, index?: number) => A;
+
+    interface WrappedFields<A> {
+        forEach(callback?: FieldIteratorCallback<void>): void;
+        insert(index: number, value: A): void;
+        length: number;
+        map<T>(callback?: FieldIteratorCallback<T>): T[];
+        move(from: number, to: number): void;
+        pop(): A;
+        push(value: A): void;
+        remove(index: number): void;
+        removeAll(): void;
+        shift(): A;
+        swap(indexA: number, indexB: number): void;
+        unshift(value: A): void;
+    }
+
+    interface WrappedFieldArrayProps<A> {
+        fields?: WrappedFields<A>;
+        meta?: WrappedMetaProps;
+    }
+
+    class FieldArray<P, S> extends React.Component<FieldArrayProps<P> & P, S> {
+        name: string;
+        valid: boolean;
+        getRenderedComponent(): React.ReactElement<P>;
+    }
+
+    /* FormSection */
+    interface FormSectionProps {
+        name: string;
+    }
+
+    class FormSection<P, S> extends React.Component<FormSectionProps & P, S> {}
+
+    /* formValueSelector() */
+    type Selector<S> = (state: S, ...fields: string[]) => any;
+
+    function formValueSelector<S> (form: string, getFormState?: FromStateGetter<S>): Selector<S>;
+
+    /* propTypes */
+    type Fn = (...args: any[]) => any;
+
+    interface PropTypes {
+        destroyOnUnmount: React.Validator<boolean>;
+        form: React.Requireable<string>;
+        getFormState: React.Validator<Fn>;
+        initialValues: React.Validator<any>;
+        onSubmitFail: React.Validator<Fn>;
+        onSubmitSuccess: React.Validator<Fn>;
+        propNameSpace: React.Validator<string>;
+        persistentSubmitErrors: React.Validator<boolean>;
+        registeredFields: React.Validator<any>;
+        touchOnBlur: React.Validator<boolean>;
+        touchOnChange: React.Validator<boolean>;
+        triggerSubmit: React.Validator<boolean>;
+        validate: React.Validator<Fn>;
+        warn: React.Validator<Fn>;
+    }
+    const propTypes: PropTypes;
+
+    /* SubmissionError */
+    class SubmissionError<FormData extends DataShape> extends Error {
+        constructor(errors?: FormErrors<FormData>)
+    }
+
+    /* Action Creators */
+    function arrayInsert(form: string, field: string, index: number, value: any): Redux.Action;
+    function arrayMove(form: string, field: string, from: number, to: number): Redux.Action;
+    function arrayPop(form: string, field: string): Redux.Action;
+    function arrayPush(form: string, field: string, value: any): Redux.Action;
+    function arrayRemove(form: string, field: string, index: number): Redux.Action;
+    function arrayRemoveAll(form: string, field: string): Redux.Action;
+    function arrayShift(form: string, field: string): Redux.Action;
+    function arraySplice(form: string, field: string, index: number, removeNum: number, value: any): Redux.Action;
+    function arraySwap(form: string, field: string, indexA: number, indexB: number): Redux.Action;
+    function arrayUnshift(form: string, field: string, value: any): Redux.Action;
+    function autofill(form: string, field: string, value: any): Redux.Action;
+    function blur(form: string, field: string, value: any): Redux.Action;
+    function change(form: string, field: string, value: any): Redux.Action;
+    function destroy(form: string): Redux.Action;
+    function focus(form: string, field: string): Redux.Action;
+    function initialize<FormData extends DataShape>(form: string, data: FormData, keepDirty?: boolean): Redux.Action;
+    function reset(form: string): Redux.Action;
+    function startAsyncValidation(form: string): Redux.Action;
+    function startSubmit(form: string): Redux.Action;
+    function stopSubmit<FormData extends DataShape>(form: string, errors?: FormErrors<FormData>): Redux.Action;
+    function stopAsyncValidation<FormData extends DataShape>(form: string, errors?: FormErrors<FormData>): Redux.Action;
+    function submit(form: string): Redux.Action;
+    function touch(form: string, ...fields: string[]): Redux.Action;
+    function untouch(form: string, ...fields: string[]): Redux.Action;
+
+    /* Selectors */
+    type DataSelector = (form: string) => (state: any) => any;
+    type ErrorsSelector = (form: string) => (state: any) => FormErrors<any>;
+    type BooleanSelector = (form: string) => (state: any) => boolean;
+
+    const getFormValues: DataSelector;
+    const getFormSyncErrors: ErrorsSelector;
+    const getFormSubmitErrors: ErrorsSelector;
+    const isDirty: BooleanSelector;
+    const isPristine: BooleanSelector;
+    const isValid: BooleanSelector;
+    const isInvalid: BooleanSelector;
 }
 
-export interface ReduxFormProps<T> {
-    /**
-     * The name of the currently active (with focus) field.
-     */
-    active?: string;
-
-    /**
-     * A function that may be called to initiate asynchronous validation if
-     * asynchronous validation is enabled.
-     */
-    asyncValidate?: Function;
-
-    /**
-     * true if the asynchronous validation function has been called but has not
-     * yet returned.
-     */
-    asyncValidating?: boolean;
-
-    /**
-     * Destroys the form state in the Redux store. By default, this will be
-     * called for you in componentWillUnmount().
-     */
-    destroyForm?(): void;
-
-    /**
-     * true if the form data has changed from its initialized values. Opposite
-     * of pristine.
-     */
-    dirty?: boolean;
-
-    /**
-     * A generic error for the entire form given by the _error key in the
-     * result from the synchronous validation function, the asynchronous
-     * validation, or the rejected promise from onSubmit.
-     */
-    error?: any;
-
-    /**
-     * The form data, in the form { field1: <Object>, field2: <Object> }. The
-     * field objects are meant to be destructured into your input component as
-     * props, e.g. <input type="text" {...field.name}/>. Each field Object has
-     * the following properties:
-     */
-    fields?: { [field: string]: FieldProp<T> };
-
-    /**
-     * A function meant to be passed to <form onSubmit={handleSubmit}> or to
-     * <button onClick={handleSubmit}>. It will run validation, both sync and
-     * async, and, if the form is valid, it will call
-     * this.props.onSubmit(data) with the contents of the form data.
-     * Optionally, you may also pass your onSubmit function to handleSubmit
-     * which will take the place of the onSubmit prop. For example: <form
-     * onSubmit={handleSubmit(this.save.bind(this))}> If your onSubmit
-     * function returns a promise, the submitting property will be set to true
-     * until the promise has been resolved or rejected. If it is rejected with
-     * an object matching { field1: 'error', field2: 'error' } then the
-     * submission errors will be added to each field (to the error prop) just
-     * like async validation errors are. If there is an error that is not
-     * specific to any field, but applicable to the entire form, you may pass
-     * that as if it were the error for a field called _error, and it will be
-     * given as the error prop.
-     */
-    handleSubmit?(event: SyntheticEvent<T>): void;
-    handleSubmit?(event: React.MouseEvent<HTMLButtonElement>): void;
-    handleSubmit?(submit: (data: FormData, dispatch?: Dispatch<any>) => Promise<any> | void): FormEventHandler<T>;
-
-    /**
-     * Initializes the form data to the given values. All dirty and pristine
-     * state will be determined by comparing the current data with these
-     * initialized values.
-     * @param data
-     */
-    initializeForm?(data: FormData): void;
-
-    /**
-     * true if the form has validation errors. Opposite of valid.
-     */
-    invalid?: boolean;
-
-    /**
-     * true if the form data is the same as its initialized values. Opposite
-     * of dirty.
-     */
-    pristine?: boolean;
-
-    /**
-     * Resets all the values in the form to the initialized state, making it
-     * pristine again.
-     */
-    resetForm?(): void;
-
-    /**
-     * The same formKey prop that was passed in. See Editing Multiple Records.
-     */
-    formKey?: string;
-
-    /**
-     * Whether or not your form is currently submitting. This prop will only
-     * work if you have passed an onSubmit function that returns a promise. It
-     * will be true until the promise is resolved or rejected.
-     */
-    submitting?: boolean;
-
-    /**
-     * Starts as false. If onSubmit is called, and fails to submit for any
-     * reason, submitFailed will be set to true. A subsequent successful
-     * submit will set it back to false.
-     */
-    submitFailed?: boolean;
-
-    /**
-     * Marks the given fields as "touched" to show errors.
-     * @param field
-     */
-    touch?(...field: string[]): void;
-
-    /**
-     * Marks all fields as "touched" to show errors. This will automatically
-     * happen on form submission.
-     */
-    touchAll?(): void;
-
-    /**
-     * Clears the "touched" flag for the given fields
-     * @param field
-     */
-    untouch?(...field: string[]): void;
-
-    /**
-     * Clears the "touched" flag for the all fields
-     */
-    untouchAll?(): void;
-
-    /**
-     * true if the form passes validation (has no validation errors). Opposite
-     * of invalid.
-     */
-    valid?: boolean;
-
-    /**
-     * All of your values in the form { field1: <string>, field2: <string> }.
-     */
-    values?: FormData;
-}
-
-declare class ElementClass extends Component<any, any> {
-}
-interface ClassDecorator {
-    <T extends (typeof ElementClass)>(component: T): T;
-}
-
-interface MapStateToProps {
-    (state: any, ownProps?: any): any;
-}
-
-interface MapDispatchToPropsFunction {
-    (dispatch: Dispatch<any>, ownProps?: any): any;
-}
-
-interface MapDispatchToPropsObject {
-    [name: string]: ActionCreator<any>;
-}
-
-export declare function reduxForm(config: ReduxFormConfig,
-    mapStateToProps?: MapStateToProps,
-    mapDispatchToProps?: MapDispatchToPropsFunction | MapDispatchToPropsObject): ClassDecorator;
-
-export interface ReduxFormConfig {
-    /**
-     * a list of all your fields in your form. You may change these dynamically
-     * at runtime.
-     */
-    fields: string[];
-
-    /**
-     * the name of your form and the key to where your form's state will be
-     * mounted under the redux-form reducer
-     */
-    form: string;
-
-    /**
-     * By default, async blur validation is only triggered if synchronous
-     * validation passes, and the form is dirty or was never initialized (or if
-     * submitting). Sometimes it may be desirable to trigger asynchronous
-     * validation even in these cases, for example if all validation is performed
-     * asynchronously and you want to display validation messages if a user does
-     * not change a field, but does touch and blur it. Setting
-     * alwaysAsyncValidate to true will always run asynchronous validation on
-     * blur, even if the form is pristine or sync validation fails.
-     */
-    alwaysAsyncValidate?: boolean;
-
-    /**
-     * field names for which onBlur should trigger a call to the asyncValidate
-     * function. Defaults to [].
-     *
-     * See Asynchronous Blur Validation Example for more details.
-     */
-    asyncBlurFields?: string[];
-
-    /**
-     * a function that takes all the form values, the dispatch function, and
-     * the props given to your component, and returns a Promise that will
-     * resolve if the validation is passed, or will reject with an object of
-     * validation errors in the form { field1: <String>, field2: <String> }.
-     *
-     * See Asynchronous Blur Validation Example for more details.
-     */
-    asyncValidate?(values: FormData, dispatch: Dispatch<any>, props: Object): Promise<any>;
-
-    /**
-     * Whether or not to automatically destroy your form's state in the Redux
-     * store when your component is unmounted. Defaults to true.
-     */
-    destroyOnUnmount?: boolean;
-
-    /**
-     * The key for your sub-form.
-     *
-     * See Multirecord Example for more details.
-     */
-    formKey?: string;
-
-    /**
-     * A function that takes the entire Redux state and the reduxMountPoint
-     * (which defaults to "form"). It defaults to:
-     * (state, reduxMountPoint) => state[reduxMountPoint].
-     * The only reason you should provide this is if you are keeping your Redux
-     * state as something other than plain javascript objects, e.g. an
-     * Immutable.Map.
-     */
-    getFormState?(state: any, reduxMountPoint: string): any;
-
-    /**
-     * The values with which to initialize your form in componentWillMount().
-     * Particularly useful when Editing Multiple Records, but can also be used
-     * with single-record forms. The values should be in the form
-     * { field1: 'value1', field2: 'value2' }.
-     */
-    initialValues?: { [field: string]: FieldValue };
-
-    /**
-     * The function to call with the form data when the handleSubmit() is fired
-     * from within the form component. If you do not specify it as a prop here,
-     * you must pass it as a parameter to handleSubmit() inside your form
-     * component.
-     */
-    onSubmit?(values: FormData, dispatch?: Dispatch<any>): any;
-
-    /**
-     * If true, the form values will be overwritten whenever the initialValues
-     * prop changes. If false, the values will not be overwritten if the form has
-     * previously been initialized. Defaults to true.
-     */
-    overwriteOnInitialValuesChange?: boolean;
-
-    /**
-     * If specified, all the props normally passed into your decorated
-     * component directly will be passed under the key specified. Useful if
-     * using other decorator libraries on the same component to avoid prop
-     * namespace collisions.
-     */
-    propNamespace?: string;
-
-    /**
-     * if true, the decorated component will not be passed any of the onX
-     * functions as props that will allow it to mutate the state. Useful for
-     * decorating another component that is not your form, but that needs to
-     * know about the state of your form.
-     */
-    readonly?: boolean;
-
-    /**
-     * The use of this property is highly discouraged, but if you absolutely
-     * need to mount your redux-form reducer at somewhere other than form in
-     * your Redux state, you will need to specify the key you mounted it under
-     * with this property. Defaults to 'form'.
-     *
-     * See Alternate Mount Point Example for more details.
-     */
-    reduxMountPoint?: string;
-
-    /**
-     * If set to true, a failed submit will return a rejected promise. Defaults
-     * to false. Only use this if you need to detect submit failures and run
-     * some code when a submit fails.
-     */
-    returnRejectedSubmitPromise?: boolean;
-
-    /**
-     * marks fields as touched when the blur action is fired. Defaults to true.
-     */
-    touchOnBlur?: boolean;
-
-    /**
-     * marks fields as touched when the change action is fired. Defaults to
-     * false.
-     */
-    touchOnChange?: boolean;
-
-    /**
-     * a synchronous validation function that takes the form values and props
-     * passed into your component. If validation passes, it should return {}.
-     * If validation fails, it should return the validation errors in the form
-     * { field1: <String>, field2: <String> }.
-     * Defaults to (values, props) => ({}).
-     */
-    validate?(values: FormData, props: { [fieldName: string]: FieldProp<any> }): Object;
-}
-
-/**
- * @param value The current value of the field.
- * @param previousValue The previous value of the field before the current
- * action was dispatched.
- * @param allValues All the values of the current form.
- * @param previousAllValues All the values of the form before the current
- * change. Useful to change one field based on a change in another.
- */
-export type Normalizer =
-    (value: FieldValue, previousValue: FieldValue,
-        allValues: FormData, previousAllValues: FormData) => any;
-
-export declare const reducer: {
-    (state: any, action: any): any;
-
-    /**
-     * Returns a form reducer that will also pass each form value through the
-     * normalizing functions provided. The parameter is an object mapping from
-     * formName to an object mapping from fieldName to a normalizer function.
-     * The normalizer function is given four parameters and expected to return
-     * the normalized value of the field.
-     */
-    normalize(normalizers: {
-        [formName: string]: {
-            [fieldName: string]: Normalizer
-        }
-    }): Reducer<any>;
-
-    /**
-     * Returns a form reducer that will also pass each action through
-     * additional reducers specified. The parameter should be an object mapping
-     * from formName to a (state, action) => nextState reducer. The state
-     * passed to each reducer will only be the slice that pertains to that
-     * form.
-     */
-    plugin(reducers: { [formName: string]: Reducer<any> }): Reducer<any>;
-}
-
+export as namespace ReduxForm
+export = ReduxForm;
