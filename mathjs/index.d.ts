@@ -527,7 +527,8 @@ declare namespace mathjs {
 		 * storage formats are 'dense' and 'sparse'.
 		 */
 		matrix(format?: string): Matrix;
-		matrix(data: MathArray|Matrix, format?: string, dataType?:string): Matrix;
+		matrix(data: MathArray|Matrix, format?: 'sparse'|'dense'): Matrix;
+		matrix(data: MathArray|Matrix, format?: 'sparse'|'dense', dataType?: string): Matrix;
 
 		/**
 		 * Create a number or convert a string, boolean, or unit to a number. When value is a matrix, all elements will be converted to number.
