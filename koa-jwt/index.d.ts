@@ -1,4 +1,4 @@
-// Type definitions for koa-jwt v2.1.0
+// Type definitions for koa-jwt 2.1
 // Project: https://github.com/koajs/jwt
 // Definitions by: Bruno Krebs <https://github.com/brunokrebs/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,9 +11,7 @@ export = jwt;
 declare function jwt(options: jwt.Options): jwt.RequestHandler;
 
 declare namespace jwt {
-    export interface GetToken {
-        (opts: jwt.Options): string;
-    }
+    type GetToken = (opts: jwt.Options) => string;
 
     export interface Options {
         secret: string | Buffer;
