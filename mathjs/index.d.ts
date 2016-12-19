@@ -526,7 +526,7 @@ declare namespace mathjs {
                  * to manipulate the data in the matrix, like getting the size and getting or setting values in the matrix. Supported
 		 * storage formats are 'dense' and 'sparse'.
 		 */
-		matrix(format?: string): Matrix;
+		matrix(format?: 'sparse'|'dense'): Matrix;
 		matrix(data: MathArray|Matrix, format?: 'sparse'|'dense'): Matrix;
 		matrix(data: MathArray|Matrix, format?: 'sparse'|'dense', dataType?: string): Matrix;
 
