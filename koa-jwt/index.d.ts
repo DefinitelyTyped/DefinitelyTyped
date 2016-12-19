@@ -7,15 +7,13 @@ import Koa = require("koa");
 
 export = jwt;
 
-declare function jwt(options: jwt.Options): (ctx: Koa.Context, next?: () => any) => any;
+declare function jwt(options: jwt.Options): Koa.Middleware;
 
 declare namespace jwt {
-    type GetToken = (opts: jwt.Options) => string;
-
     export interface Options {
         secret: string | Buffer;
         key?: string;
-        getToken?: GetToken;
+        getToken?: (opts: jwt.Options) => string;
         passthrough?: boolean;
         cookie?: string;
         debug?: boolean;
