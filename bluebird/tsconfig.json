@@ -7,7 +7,7 @@
         "module": "commonjs",
         "target": "es5",
         "noImplicitAny": true,
-        "noImplicitThis": true,
+        "noImplicitThis": false,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
