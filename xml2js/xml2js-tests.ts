@@ -1,6 +1,7 @@
 /// <reference types="node"/>
 
 import xml2js = require('xml2js');
+import * as processors from 'xml2js/lib/processors';
 
 xml2js.parseString('<root>Hello xml2js!</root>', (err: any, result: any) => { });
 
@@ -30,6 +31,13 @@ xml2js.parseString('<root>Hello xml2js!</root>', {
     attrValueProcessors: undefined,
     tagNameProcessors: undefined,
     valueProcessors: undefined
+}, (err: any, result: any) => { });
+
+xml2js.parseString('<root>Hello xml2js!</root>', {
+    attrNameProcessors: [processors.firstCharLowerCase],
+    attrValueProcessors: [processors.normalize],
+    tagNameProcessors: [processors.stripPrefix],
+    valueProcessors: [processors.parseBooleans, processors.parseNumbers]
 }, (err: any, result: any) => { });
 
 var builder = new xml2js.Builder({

@@ -890,7 +890,7 @@ declare namespace Reflect {
 
 // #############################################################################################
 // ECMAScript 7
-// Modules: es7.array.includes, es7.string.at, es7.string.lpad, es7.string.rpad,
+// Modules: es7.array.includes, es7.string.at, es7.string.pad-start, es7.string.pad-end,
 //          es7.object.to-array, es7.object.get-own-property-descriptors, es7.regexp.escape,
 //          es7.map.to-json, and es7.set.to-json
 // #############################################################################################
@@ -901,8 +901,8 @@ interface Array<T> {
 
 interface String {
     at(index: number): string;
-    lpad(length: number, fillStr?: string): string;
-    rpad(length: number, fillStr?: string): string;
+    padStart(length: number, fillStr?: string): string;
+    padEnd(length: number, fillStr?: string): string;
 }
 
 interface ObjectConstructor {

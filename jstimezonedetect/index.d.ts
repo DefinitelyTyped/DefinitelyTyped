@@ -1,16 +1,10 @@
-// Type definitions for jsTimezoneDetect
+// Type definitions for jsTimezoneDetect 1.0
 // Project: https://bitbucket.org/pellepim/jstimezonedetect
 // Definitions by: Olivier Lamothe <https://github.com/olamothe/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface JsTimezoneDetect {
-    determine: ()=> {
-        name: ()=> string;
-    }
+export function determine(): {
+    name(): string;
 }
 
-declare var jstimezonedetect: JsTimezoneDetect;
-
-declare module "jstimezonedetect" {
-    export = jstimezonedetect;
-}
+export as namespace jstz;

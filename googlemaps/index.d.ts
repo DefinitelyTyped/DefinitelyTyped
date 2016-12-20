@@ -1,6 +1,6 @@
 // Type definitions for Google Maps JavaScript API 3.25
 // Project: https://developers.google.com/maps/
-// Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>
+// Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -871,10 +871,13 @@ declare namespace google.maps {
 
     export interface MapPanes {
         floatPane: Element;
+        floatShadow: Element;
         mapPane: Element;
         markerLayer: Element;
+        overlayImage: Element;
         overlayLayer: Element;
         overlayMouseTarget: Element;
+        overlayShadow: Element;
     }
 
     export class MapCanvasProjection extends MVCObject {

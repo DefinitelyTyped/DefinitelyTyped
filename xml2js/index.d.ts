@@ -3,7 +3,7 @@
 // Definitions by: Michel Salib <https://github.com/michelsalib>, Jason McNeil <https://github.com/jasonrm>, Christopher Currens <https://github.com/ccurrens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
+/// <reference path="./processors.d.ts" />
 
 export = xml2js;
 
@@ -24,13 +24,14 @@ declare namespace xml2js {
     class Parser {
         constructor(options?: OptionsV2);
         parseString(str: convertableToString, cb?: Function): void;
+        reset(): void;
     }
 
     interface Options {
         async?: boolean;
         attrkey?: string;
-        attrNameProcessors?: [(name: string) => string];
-        attrValueProcessors?: [(name: string) => string];
+        attrNameProcessors?: [(name: string) => any];
+        attrValueProcessors?: [(name: string) => any];
         charkey?: string;
         charsAsChildren?: boolean;
         childkey?: string;
@@ -45,10 +46,10 @@ declare namespace xml2js {
         normalize?: boolean;
         normalizeTags?: boolean;
         strict?: boolean;
-        tagNameProcessors?: [(name: string) => string];
+        tagNameProcessors?: [(name: string) => any];
         trim?: boolean;
         validator?: Function;
-        valueProcessors?: [(name: string) => string];
+        valueProcessors?: [(name: string) => any];
         xmlns?: boolean;
     }
 
@@ -75,4 +76,3 @@ declare namespace xml2js {
         toString(): string;
     }
 }
-

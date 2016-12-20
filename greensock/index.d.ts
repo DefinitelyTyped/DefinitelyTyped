@@ -44,7 +44,7 @@ declare type TweenConfig = {
     autoCSS?: boolean;
     callbackScope?: Object;
 }
-    
+
 //com.greensock.core
 declare class Animation {
     static ticker: IDispatcher;
@@ -185,8 +185,9 @@ declare class TimelineMax extends TimelineLite {
     getActive(nested?: boolean, tweens?: boolean, timelines?: boolean): Tween | Timeline[];
     getLabelAfter(time: number): string;
     getLabelBefore(time: number): string;
-    getLabelsArray(): any[];
+    getLabelsArray(): {name: string; time: number;}[];
     removeCallback(callback: Function, timeOrLabel?: any): TimelineMax;
+    removePause(position: any): TimelineMax;
     repeat(): number;
     repeat(value: number): TimelineMax;
     repeatDelay(): number;

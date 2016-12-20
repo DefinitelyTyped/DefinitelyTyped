@@ -103,6 +103,8 @@ declare namespace gapi.auth2 {
   export interface BasicProfile {
     getId(): string;
     getName(): string;
+    getGivenName(): string;
+    getFamilyName(): string;
     getImageUrl(): string;
     getEmail(): string;
   }

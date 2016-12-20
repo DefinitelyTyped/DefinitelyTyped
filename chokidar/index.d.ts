@@ -5,20 +5,24 @@
 
 /// <reference types="node" />
 
-declare module "fs"
+declare module "chokidar"
 {
-    interface FSWatcher
+    export class FSWatcher
     {
+        constructor(options?: WatchOptions);
         add(fileDirOrGlob:string):void;
         add(filesDirsOrGlobs:Array<string>):void;
         unwatch(fileDirOrGlob:string):void;
         unwatch(filesDirsOrGlobs:Array<string>):void;
         getWatched():any;
+        on(event: 'add', fn: (path: string, stats?: fs.Stats) => void): this;
+        on(event: 'change', fn: (path: string, stats?: fs.Stats) => void): this;
+        on(event: 'unlink', fn: (path: string) => void): this;
+        on(event: 'raw', fn: (event: Event, path:string, details:any) => void): this;
+        on(event: string, fn: (path: string) => void): this;
+        close(): this;
     }
-}
 
-declare module "chokidar"
-{
     interface WatchOptions
     {
         persistent?:boolean;
@@ -39,6 +43,6 @@ declare module "chokidar"
 
     import fs = require("fs");
 
-    function watch(fileDirOrGlob:string, options?:WatchOptions):fs.FSWatcher;
-    function watch(filesDirsOrGlobs:Array<string>, options?:WatchOptions):fs.FSWatcher;
+    export function watch(fileDirOrGlob:string, options?:WatchOptions):FSWatcher;
+    export function watch(filesDirsOrGlobs:Array<string>, options?:WatchOptions):FSWatcher;
 }

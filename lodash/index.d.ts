@@ -2,8 +2,6 @@
 // Project: http://lodash.com/
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="modules.d.ts" />
-
 
 /**
 ### 4.0.0 Changelog (https://github.com/lodash/lodash/wiki/Changelog)
@@ -18271,7 +18269,7 @@ declare module _ {
          * Checks `value` to determine whether a default value should be returned in
          * its place. The `defaultValue` is returned if `value` is `NaN`, `null`,
          * or `undefined`.
-         * 
+         *
          * @param value The value to check.
          * @param defaultValue The default value.
          * @returns Returns the resolved value.

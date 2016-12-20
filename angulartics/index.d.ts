@@ -1,19 +1,22 @@
-// Type definitions for Angulartics v0.20.2
+// Type definitions for Angulartics 1.3
 // Project: http://luisfarzati.github.io/angulartics/
 // Definitions by: Steven Fan <https://github.com/stevenfan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angular" />
+import * as angular from 'angular';
+
 declare namespace angulartics {
 
     interface IAngularticsStatic {
-        waitForVendorApi(objectName:string, delay:number, containsField?:any, registerFn?:any, onTimeout?:boolean): void;
+        waitForVendorApi(objectName: string, delay: number, containsField?: any, registerFn?: any, onTimeout?: boolean): void;
     }
 
     interface IAnalyticsService {
         eventTrack(eventName: string, properties?: any): any;
-        pageTrack(path:string, location?:angular.ILocationService): any;
+        getOptOut(): boolean;
+        pageTrack(path: string, location?: angular.ILocationService): any;
         setAlias(alias: string): any;
+        setOptOut(value: boolean): void;
         setUsername(username: string): any;
         setUserProperties(properties: any): any;
         setSuperProperties(properties: any): any;
@@ -26,13 +29,16 @@ declare namespace angulartics {
         withBase(value: boolean): void;
         withAutoBase(value: boolean): void;
         developerMode(value: boolean): void;
+        trackExceptions(value: boolean): void;
+        trackRoutes(value: boolean): void;
+        trackStates(value: boolean): void;
 
-        registerPageTrack(callback:(path:string, location?:angular.ILocationService) => any): void;
+        registerPageTrack(callback: (path: string, location?: angular.ILocationService) => any): void;
         registerEventTrack(callback: (eventName: string, properties?: any) => any): void;
-        registerSetAlias(callback: (alias: string) => any): void
-        registerSetUsername(callback: (username: string) => any): void
-        registerSetUserProperties(callback: (userProperties: any) => any): void
-        registerSetSuperProperties(callback: (superProperties: any) => any): void
+        registerSetAlias(callback: (alias: string) => any): void;
+        registerSetUsername(callback: (username: string) => any): void;
+        registerSetUserProperties(callback: (userProperties: any) => any): void;
+        registerSetSuperProperties(callback: (superProperties: any) => any): void;
 
         settings: {
             pageTracking: {
@@ -42,8 +48,8 @@ declare namespace angulartics {
                 autoBasePath: boolean
             },
             developerMode: boolean
-        }
+        };
     }
 }
 
-declare var angulartics:angulartics.IAngularticsStatic;
+declare var angulartics: angulartics.IAngularticsStatic;

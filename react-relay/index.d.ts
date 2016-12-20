@@ -103,8 +103,31 @@ declare module "react-relay" {
         renderFailure?(error: Error, retry: Function): JSX.Element
     }
 
+    type ReadyStateEvent = 
+        'ABORT' |
+        'CACHE_RESTORED_REQUIRED' |
+        'CACHE_RESTORE_FAILED' |
+        'CACHE_RESTORE_START' |
+        'NETWORK_QUERY_ERROR' |
+        'NETWORK_QUERY_RECEIVED_ALL' |
+        'NETWORK_QUERY_RECEIVED_REQUIRED' |
+        'NETWORK_QUERY_START' |
+        'STORE_FOUND_ALL' |
+        'STORE_FOUND_REQUIRED';
+
+    interface OnReadyStateChange {
+        (readyState: {
+              ready: boolean,
+              done: boolean,
+              stale: boolean,
+              error?: Error,
+              events: Array<ReadyStateEvent>,
+              aborted: boolean
+        }): void
+    }
+
     interface RelayProp {
-      variables: any
-      setVariables(variables: Object): void
+        variables: any
+        setVariables(variables: Object, onReadyStateChange?: OnReadyStateChange): void
     }
 }

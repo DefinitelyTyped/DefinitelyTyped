@@ -67,7 +67,7 @@ interface NodeRequire extends NodeRequireFunction {
     resolve(id: string): string;
     cache: any;
     extensions: any;
-    main: NodeModule;
+    main: NodeModule | undefined;
 }
 
 declare var require: NodeRequire;
@@ -78,7 +78,7 @@ interface NodeModule {
     id: string;
     filename: string;
     loaded: boolean;
-    parent: NodeModule;
+    parent: NodeModule | null;
     children: NodeModule[];
 }
 
@@ -279,6 +279,7 @@ declare namespace NodeJS {
 
     export interface ReadableStream extends EventEmitter {
         readable: boolean;
+        isTTY?: boolean;
         read(size?: number): string | Buffer;
         setEncoding(encoding: string | null): void;
         pause(): ReadableStream;
@@ -292,6 +293,7 @@ declare namespace NodeJS {
 
     export interface WritableStream extends EventEmitter {
         writable: boolean;
+        isTTY?: boolean;
         write(buffer: Buffer | string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
         end(): void;
@@ -301,8 +303,8 @@ declare namespace NodeJS {
     }
 
     export interface ReadWriteStream extends ReadableStream, WritableStream {
-      pause(): ReadWriteStream;
-      resume(): ReadWriteStream;
+        pause(): ReadWriteStream;
+        resume(): ReadWriteStream;
     }
 
     export interface Events extends EventEmitter { }
@@ -569,25 +571,30 @@ declare module "querystring" {
 }
 
 declare module "events" {
-    export class EventEmitter extends NodeJS.EventEmitter {
-        static EventEmitter: EventEmitter;
-        static listenerCount(emitter: EventEmitter, event: string | symbol): number; // deprecated
-        static defaultMaxListeners: number;
+    class internal extends NodeJS.EventEmitter { }
 
-        addListener(event: string | symbol, listener: Function): this;
-        on(event: string | symbol, listener: Function): this;
-        once(event: string | symbol, listener: Function): this;
-        prependListener(event: string | symbol, listener: Function): this;
-        prependOnceListener(event: string | symbol, listener: Function): this;
-        removeListener(event: string | symbol, listener: Function): this;
-        removeAllListeners(event?: string | symbol): this;
-        setMaxListeners(n: number): this;
-        getMaxListeners(): number;
-        listeners(event: string | symbol): Function[];
-        emit(event: string | symbol, ...args: any[]): boolean;
-        eventNames(): (string | symbol)[];
-        listenerCount(type: string | symbol): number;
+    namespace internal {
+        export class EventEmitter extends internal {
+            static listenerCount(emitter: EventEmitter, event: string | symbol): number; // deprecated
+            static defaultMaxListeners: number;
+
+            addListener(event: string | symbol, listener: Function): this;
+            on(event: string | symbol, listener: Function): this;
+            once(event: string | symbol, listener: Function): this;
+            prependListener(event: string | symbol, listener: Function): this;
+            prependOnceListener(event: string | symbol, listener: Function): this;
+            removeListener(event: string | symbol, listener: Function): this;
+            removeAllListeners(event?: string | symbol): this;
+            setMaxListeners(n: number): this;
+            getMaxListeners(): number;
+            listeners(event: string | symbol): Function[];
+            emit(event: string | symbol, ...args: any[]): boolean;
+            eventNames(): (string | symbol)[];
+            listenerCount(type: string | symbol): number;
+        }
     }
+
+    export = internal;
 }
 
 declare module "http" {

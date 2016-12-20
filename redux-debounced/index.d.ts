@@ -3,8 +3,5 @@
 // Definitions by: Sean Kelley <https://github.com/seansfkelley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="redux" />
-
-
 import { Middleware } from 'redux';
 export default function createDebounce(): Middleware;

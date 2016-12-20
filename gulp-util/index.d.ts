@@ -11,7 +11,7 @@ import vinyl = require('vinyl');
 import chalk = require('chalk');
 import through2 = require('through2');
 
-export class File extends vinyl { }
+export { vinyl as File };
 
 /**
 * Replaces a file extension in a path. Returns the new path.

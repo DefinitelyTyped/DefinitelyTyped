@@ -66,10 +66,34 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "Shopify Prime",
+            "typingsPackageName": "shopify-prime",
+            "sourceRepoURL": "https://github.com/nozzlegear/shopify-prime",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "SimpleSignal",
             "typingsPackageName": "simplesignal",
             "sourceRepoURL": "https://github.com/zeh/simplesignal",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "Redux",
+            "typingsPackageName": "redux",
+            "sourceRepoURL": "https://github.com/reactjs/redux",
+            "asOfVersion": "3.6.0"
+        },
+        {
+            "libraryName": "Redux Thunk",
+            "typingsPackageName": "redux-thunk",
+            "sourceRepoURL": "https://github.com/gaearon/redux-thunk",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "Normalizr",
+            "typingsPackageName": "normalizr",
+            "sourceRepoURL": "https://github.com/paularmstrong/normalizr",
+            "asOfVersion": "2.0.18"
         }
     ]
 }

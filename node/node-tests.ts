@@ -2,6 +2,7 @@
 import * as assert from "assert";
 import * as fs from "fs";
 import * as events from "events";
+import events2 = require("events");
 import * as zlib from "zlib";
 import * as url from "url";
 import * as util from "util";
@@ -142,6 +143,10 @@ namespace events_tests {
                 this.emit("mingling");
             }
         }
+    }
+
+    {
+        new events2();
     }
 }
 
@@ -1611,7 +1616,7 @@ namespace process_tests {
         assert(process.argv[0] === process.argv0);
     }
     {
-        var module: NodeModule;
+        var module: NodeModule | undefined;
         module = process.mainModule;
     }
 }

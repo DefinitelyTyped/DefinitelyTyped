@@ -1,7 +1,9 @@
-// Type definitions for D3JS d3-transition module v1.0.2
+// Type definitions for D3JS d3-transition module 1.0
 // Project: https://github.com/d3/d3-transition/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// Last module patch version validated against: 1.0.3
 
 import { ArrayLike, BaseType, Selection, ValueFn } from 'd3-selection';
 
@@ -9,6 +11,14 @@ import { ArrayLike, BaseType, Selection, ValueFn } from 'd3-selection';
  * Extend interface 'Selection' by declaration merging with 'd3-selection'
  */
 declare module 'd3-selection' {
+    /**
+     * A D3 Selection of elements.
+     *
+     * The first generic "GElement" refers to the type of the selected element(s).
+     * The second generic "Datum" refers to the type of the datum of a selected element(s).
+     * The third generic "PElement" refers to the type of the parent element(s) in the D3 selection.
+     * The fourth generic "PDatum" refers to the type of the datum of the parent element(s).
+     */
     export interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
         /**
          * Interrupts the active transition of the specified name on the selected elements, and cancels any pending transitions with the specified name, if any.
@@ -36,6 +46,9 @@ declare module 'd3-selection' {
          * Otherwise, the timing of the returned transition is inherited from the existing transition of the same id on the nearest ancestor of each selected element.
          * Thus, this method can be used to synchronize a transition across multiple selections,
          * or to re-select a transition for specific elements and modify its configuration.
+         *
+         * If the specified transition is not found on a selected node or its ancestors (such as if the transition already ended),
+         * the default timing parameters are used; however, in a future release, this will likely be changed to throw an error.
          *
          * @param transition A transition instance.
          */
@@ -126,7 +139,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * the current index (i), and the current group (nodes), with this as the current DOM element. It must return an array of elements
      * (or a pseudo-array, such as a NodeList), or the empty array if there are no matching elements.
      */
-    selectAll<DescElement extends BaseType, OldDatum>(selector: ValueFn<GElement, Datum, Array<DescElement> | ArrayLike<DescElement>>): Transition<DescElement, OldDatum, GElement, Datum>;
+    selectAll<DescElement extends BaseType, OldDatum>(selector: ValueFn<GElement, Datum, DescElement[] | ArrayLike<DescElement>>): Transition<DescElement, OldDatum, GElement, Datum>;
 
     /**
      * Return the selection corresponding to this transition.
@@ -365,7 +378,19 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      *
      * @param filter A CSS selector string.
      */
-    filter(filter: string): this;
+    filter(filter: string): Transition<GElement, Datum, PElement, PDatum>;
+    /**
+     * For each selected element, selects only the elements that match the specified filter, and returns a transition on the resulting selection.
+     *
+     * The new transition has the same id, name and timing as this transition; however, if a transition with the same id already exists on a selected element,
+     * the existing transition is returned for that element.
+     *
+     * The generic refers to the type of element which will be selected after applying the filter, i.e. if the element types
+     * contained in a pre-filter selection are narrowed to a subset as part of the filtering.
+     *
+     * @param filter A CSS selector string.
+     */
+    filter<FilteredElement extends BaseType>(filter: string): Transition<FilteredElement, Datum, PElement, PDatum>;
     /**
      * For each selected element, selects only the elements that match the specified filter, and returns a transition on the resulting selection.
      *
@@ -376,7 +401,21 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * the current index (i), and the current group (nodes), with this as the current DOM element. The filter function returns a boolean indicating,
      * whether the selected element matches.
      */
-    filter(filter: ValueFn<GElement, Datum, boolean>): this;
+    filter(filter: ValueFn<GElement, Datum, boolean>): Transition<GElement, Datum, PElement, PDatum>;
+    /**
+     * For each selected element, selects only the elements that match the specified filter, and returns a transition on the resulting selection.
+     *
+     * The new transition has the same id, name and timing as this transition; however, if a transition with the same id already exists on a selected element,
+     * the existing transition is returned for that element.
+     *
+     * The generic refers to the type of element which will be selected after applying the filter, i.e. if the element types
+     * contained in a pre-filter selection are narrowed to a subset as part of the filtering.
+     *
+     * @param filter A filter function which is evaluated for each selected element, in order, being passed the current datum (d),
+     * the current index (i), and the current group (nodes), with this as the current DOM element. The filter function returns a boolean indicating,
+     * whether the selected element matches.
+     */
+    filter<FilteredElement extends BaseType>(filter: ValueFn<GElement, Datum, boolean>): Transition<FilteredElement, Datum, PElement, PDatum>;
 
     // Event Handling -------------------
 
@@ -389,7 +428,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * the optional name allows multiple callbacks to be registered to receive events of the same type, such as "start.foo"" and "start.bar".
      * To specify multiple typenames, separate typenames with spaces, such as "interrupt end"" or "start.foo start.bar".
      */
-    on(type: string): ValueFn<GElement, Datum, void>;
+    on(type: string): ValueFn<GElement, Datum, void> | undefined;
     /**
      * Remove all listeners for a given name.
      *
@@ -448,7 +487,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
     /**
      * Return an array of all (non-null) elements in this transition.
      */
-    nodes(): Array<GElement>;
+    nodes(): GElement[];
 
     /**
      * Returns the total number of elements in this transition.

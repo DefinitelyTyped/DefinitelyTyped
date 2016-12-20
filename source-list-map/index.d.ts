@@ -49,9 +49,9 @@ export class SourceNode {
 }
 
 export class SourceListMap {
-    children: (SourceNode | CodeNode | SourceListMap)[];
+    children: (SourceNode | CodeNode)[];
 
-    constructor(generatedCode: (SourceNode | CodeNode | SourceListMap)[]);
+    constructor(generatedCode: (SourceNode | CodeNode)[]);
     constructor(
         generatedCode?: string | SourceNode | CodeNode | SourceListMap,
         source?: string,
@@ -84,9 +84,8 @@ export class SourceListMap {
 
 export function fromStringWithSourceMap(
     code: string, map: {
-        sources: any;
-        sourcesContent: any;
-        mappings: any;
+        sources: (string | SourceNode | CodeNode) [];
+        sourcesContent: string[];
+        mappings: string;
     }
 ): SourceListMap;
-

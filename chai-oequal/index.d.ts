@@ -1,4 +1,4 @@
-// Type definitions for chai-oequal
+// Type definitions for chai-oequal 0.0
 // Project: https://github.com/wrwrwr/chai-oequal
 // Definitions by: Mizunashi Mana <https://github.com/mizunashi-mana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -23,5 +23,6 @@ declare namespace Chai {
 
 declare module 'chai-oequal' {
     function chaiOequal(chai: any, utils: any): void;
+    namespace chaiOequal {}
     export = chaiOequal;
 }
