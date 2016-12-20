@@ -228,7 +228,7 @@ interface DataSetQueueOptions {
   queue?: any | boolean;
 }
 
-export class DataSet<T extends DataItem | DataGroup | INode | IEdge> {
+export class DataSet<T extends DataItem | DataGroup | Node | Edge> {
 
   /**
    * Creates an instance of DataSet.
@@ -562,25 +562,25 @@ export class Timeline {
   setWindow(start: DateType, end: DateType, options?: TimelineFitOptions): void;
 }
 
-export interface ITimelineStatic {
-  new (id: HTMLElement, data: any, options?: any): vis.ITimeline;
+export interface TimelineStatic {
+  new (id: HTMLElement, data: any, options?: any): vis.Timeline;
 }
 
-export interface ITimeline {
-  setGroups(groups?: ITimelineGroup[]): void;
-  setItems(items?: ITimelineItem[]): void;
-  getWindow(): ITimelineWindow;
+export interface Timeline {
+  setGroups(groups?: TimelineGroup[]): void;
+  setItems(items?: TimelineItem[]): void;
+  getWindow(): TimelineWindow;
   setWindow(start: any, date: any): void;
   focus(selection: any): void;
   on(event?: string, callback?: (properties: any) => void): void;
 }
 
-export interface ITimelineWindow {
+export interface TimelineWindow {
   start: Date;
   end: Date;
 }
 
-export interface ITimelineItem {
+export interface TimelineItem {
   id: number;
   content: string;
   group?: number;
@@ -589,29 +589,16 @@ export interface ITimelineItem {
   editable?: boolean;
 }
 
-export interface ITimelineOptions {
-  stack?: boolean;
-  start?: any;
-  end?: any;
-  orientation?: string;
-}
-
-export interface ITimelineGroup {
+export interface TimelineGroup {
   id: number;
   content: string;
   style?: string;
 }
 
-export interface IVisSelectProperties {
+export interface VisSelectProperties {
   items: number[];
 }
 
-export interface INetwork {
-  network?: any;
-  selectNodes?(nodeIds: string[], highlightEdges?: boolean): void;
-  unselectAll?(): void;
-  fit?(): void;
-}
 type NetworkEvents =
   'click' |
   'doubleClick' |
@@ -665,7 +652,7 @@ export class Network {
    *
    * @memberOf Network
    */
-  constructor(container: HTMLElement, data: IData, options?: IOptions);
+  constructor(container: HTMLElement, data: Data, options?: Options);
 
   /**
    * 	Remove the network from the DOM and remove all Hammer bindings and references.
@@ -684,7 +671,7 @@ export class Network {
    *
    * @memberOf Network
    */
-  setData(data: IData): void;
+  setData(data: Data): void;
 
   /**
    * Set the options.
@@ -695,7 +682,7 @@ export class Network {
    *
    * @memberOf Network
    */
-  setOptions(options: IOptions): void;
+  setOptions(options: Options): void;
 
   /**
    * Set an event listener.
@@ -742,7 +729,7 @@ export class Network {
    *
    * @memberOf Network
    */
-  canvasToDOM(position: IPosition): IPosition;
+  canvasToDOM(position: Position): Position;
 
   /**
    * This function converts DOM coordinates to coordinates on the canvas.
@@ -754,7 +741,7 @@ export class Network {
    *
    * @memberOf Network
    */
-  DOMtoCanvas(position: IPosition): IPosition;
+  DOMtoCanvas(position: Position): Position;
 
   /**
    * Redraw the network.
@@ -781,7 +768,7 @@ export class Network {
    *
    * @memberOf Network
    */
-  cluster(options?: IClusterOptions): void;
+  cluster(options?: ClusterOptions): void;
 
   /**
    * 	This method looks at the provided node and makes a cluster of it and all it's connected nodes.
@@ -794,7 +781,7 @@ export class Network {
    *
    * @memberOf Network
    */
-  clusterByConnection(nodeId: string, options?: IClusterOptions): void;
+  clusterByConnection(nodeId: string, options?: ClusterOptions): void;
 
   /**
    * This method checks all nodes in the network and those with a equal or higher
@@ -809,7 +796,7 @@ export class Network {
    *
    * @memberOf Network
    */
-  clusterByHubsize(hubsize?: number, options?: IClusterOptions): void;
+  clusterByHubsize(hubsize?: number, options?: ClusterOptions): void;
 
   /**
    * This method will cluster all nodes with 1 edge with their respective connected node.
@@ -818,7 +805,7 @@ export class Network {
    *
    * @memberOf Network
    */
-  clusterOutliers(options?: IClusterOptions): void;
+  clusterOutliers(options?: ClusterOptions): void;
 
   /**
    * Nodes can be in clusters.
@@ -868,13 +855,13 @@ export class Network {
    * @param {IdType} startEdgeId
    * @param {IEdgeOptions} [options]
    */
-  updateEdge(startEdgeId: IdType, options?: IEdgeOptions): void;
+  updateEdge(startEdgeId: IdType, options?: EdgeOptions): void;
 
   /**
    * Clustered Nodes when created are not contained in the original data.nodes
    * passed on network creation. This method updates the cluster node.
    */
-  updateClusteredNode(clusteredNodeId: IdType, options?: INodeOptions): void;
+  updateClusteredNode(clusteredNodeId: IdType, options?: NodeOptions): void;
 
   /**
    * Returns true if the node whose ID has been supplied is a cluster.
@@ -909,7 +896,7 @@ export class Network {
    *
    * @memberOf Network
    */
-  openCluster(nodeId: IdType, options?: IOpenClusterOptions): void;
+  openCluster(nodeId: IdType, options?: OpenClusterOptions): void;
 
   /**
    * If you like the layout of your network
@@ -992,8 +979,8 @@ export class Network {
    *
    * @memberOf Network
    */
-  getPositions(nodeIds?: IdType[]): { [nodeId: string]: IPosition };
-  getPositions(nodeId: IdType): IPosition;
+  getPositions(nodeIds?: IdType[]): { [nodeId: string]: Position };
+  getPositions(nodeId: IdType): Position;
 
   /**
    * 	When using the vis.DataSet to load your nodes into the network,
@@ -1033,7 +1020,7 @@ export class Network {
    *
    * @memberOf Network
    */
-  getBoundingBox(nodeId: IdType): IBoundingBox;
+  getBoundingBox(nodeId: IdType): BoundingBox;
 
   /**
    * Returns an array of nodeIds of the all the nodes that are directly connected to this node.
@@ -1124,7 +1111,7 @@ export class Network {
    *
    * @memberOf Network
    */
-  getNodeAt(position: IPosition): IdType;
+  getNodeAt(position: Position): IdType;
 
   /**
    * Returns a edgeId or undefined.
@@ -1135,7 +1122,7 @@ export class Network {
    *
    * @memberOf Network
    */
-  getEdgeAt(position: IPosition): IdType;
+  getEdgeAt(position: Position): IdType;
 
   /**
    * Selects the nodes corresponding to the id's in the input array.
@@ -1169,7 +1156,7 @@ export class Network {
    *
    * @memberOf Network
    */
-  setSelection(selection: { nodes: IdType[], edges: IdType[] }, options?: ISelectionOptions): void;
+  setSelection(selection: { nodes: IdType[], edges: IdType[] }, options?: SelectionOptions): void;
 
   /**
    * Unselect all objects.
@@ -1196,7 +1183,7 @@ export class Network {
    *
    * @memberOf Network
    */
-  getViewPosition(): IPosition;
+  getViewPosition(): Position;
 
   /**
    * Zooms out so all nodes fit on the canvas.
@@ -1205,7 +1192,7 @@ export class Network {
    *
    * @memberOf Network
    */
-  fit(options?: IFitOptions): void;
+  fit(options?: FitOptions): void;
 
   /**
    * You can focus on a node with this function.
@@ -1217,7 +1204,7 @@ export class Network {
    *
    * @memberOf Network
    */
-  focus(nodeId: IdType, options?: IFocusOptions): void;
+  focus(nodeId: IdType, options?: FocusOptions): void;
 
   /**
    * You can animate or move the camera using the moveTo method.
@@ -1226,7 +1213,7 @@ export class Network {
    *
    * @memberOf Network
    */
-  moveTo(options: IMoveToOptions): void;
+  moveTo(options: MoveToOptions): void;
 
   /**
    * Programatically release the focussed node.
@@ -1253,7 +1240,7 @@ export class Network {
  * @interface IFocusOptions
  * @extends {IViewPortOptions}
  */
-export interface IFocusOptions extends IViewPortOptions {
+export interface FocusOptions extends ViewPortOptions {
   /**
    * Locked denotes whether or not the view remains locked to
    * the node once the zoom-in animation is finished.
@@ -1271,7 +1258,7 @@ export interface IFocusOptions extends IViewPortOptions {
  * @export
  * @interface IViewPortOptions
  */
-export interface IViewPortOptions {
+export interface ViewPortOptions {
   /**
    * The scale is the target zoomlevel.
    * Default value is 1.0.
@@ -1288,7 +1275,7 @@ export interface IViewPortOptions {
    * @type {IPosition}
    * @memberOf IFocusOptions
    */
-  offset?: IPosition;
+  offset?: Position;
 
   /**
   * For animation you can either use a Boolean to use it with the default options or
@@ -1297,7 +1284,7 @@ export interface IViewPortOptions {
   * @type {(IAnimationOptions | boolean)}
   * @memberOf IFitOptions
   */
-  animation?: IAnimationOptions | boolean;
+  animation?: AnimationOptions | boolean;
 }
 
 /**
@@ -1308,14 +1295,14 @@ export interface IViewPortOptions {
  * @interface IMoveToOptions
  * @extends {IViewPortOptions}
  */
-export interface IMoveToOptions extends IViewPortOptions {
+export interface MoveToOptions extends ViewPortOptions {
   /**
    * The position (in canvas units!) is the position of the central focus point of the camera.
    *
    * @type {IPosition}
    * @memberOf IMoveToOptions
    */
-  position?: IPosition;
+  position?: Position;
 }
 
 /**
@@ -1324,7 +1311,7 @@ export interface IMoveToOptions extends IViewPortOptions {
  * @export
  * @interface IAnimationOptions
  */
-export interface IAnimationOptions {
+export interface AnimationOptions {
 
   /**
    * The duration (in milliseconds).
@@ -1353,7 +1340,7 @@ export interface IAnimationOptions {
  * @export
  * @interface IFitOptions
  */
-export interface IFitOptions {
+export interface FitOptions {
 
   /**
    * The nodes can be used to zoom to fit only specific nodes in the view.
@@ -1370,10 +1357,10 @@ export interface IFitOptions {
    * @type {(IAnimationOptions | boolean)}
    * @memberOf IFitOptions
    */
-  animation: IAnimationOptions | boolean;
+  animation: AnimationOptions | boolean;
 }
 
-export interface ISelectionOptions {
+export interface SelectionOptions {
   unselectAll?: boolean;
   highlightEdges?: boolean;
 }
@@ -1384,7 +1371,7 @@ export interface ISelectionOptions {
  * @export
  * @interface IBoundingBox
  */
-export interface IBoundingBox {
+export interface BoundingBox {
   top: number;
   left: number;
   right: number;
@@ -1397,7 +1384,7 @@ export interface IBoundingBox {
  * @export
  * @interface IClusterOptions
  */
-export interface IClusterOptions {
+export interface ClusterOptions {
 
   /**
    * Optional for all but the cluster method.
@@ -1433,7 +1420,7 @@ export interface IClusterOptions {
    * @type {INodeOptions}
    * @memberOf IClusterOptions
    */
-  clusterNodeProperties?: INodeOptions;
+  clusterNodeProperties?: NodeOptions;
 
   /**
    * Optional.
@@ -1446,7 +1433,7 @@ export interface IClusterOptions {
    * @type {IEdgeOptions}
    * @memberOf IClusterOptions
    */
-  clusterEdgeProperties?: IEdgeOptions;
+  clusterEdgeProperties?: EdgeOptions;
 }
 
 /**
@@ -1455,7 +1442,7 @@ export interface IClusterOptions {
  * @export
  * @interface IOpenClusterOptions
  */
-export interface IOpenClusterOptions {
+export interface OpenClusterOptions {
 
   /**
    * A function that can be used to manually position the nodes after the cluster is opened.
@@ -1472,16 +1459,16 @@ export interface IOpenClusterOptions {
    * @memberOf IOpenClusterOptions
    */
   releaseFunction: (
-    clusterPosition: IPosition,
-    containedNodesPositions: { [nodeId: string]: IPosition }) => { [nodeId: string]: IPosition };
+    clusterPosition: Position,
+    containedNodesPositions: { [nodeId: string]: Position }) => { [nodeId: string]: Position };
 }
 
-export interface IPosition {
+export interface Position {
   x: number;
   y: number;
 }
 
-export interface IProperties {
+export interface Properties {
 
   nodes: string[];
 
@@ -1490,8 +1477,8 @@ export interface IProperties {
   event: string[];
 
   pointer: {
-    DOM: IPosition;
-    canvas: IPosition;
+    DOM: Position;
+    canvas: Position;
   };
 
   previousSelection?: {
@@ -1504,12 +1491,12 @@ export interface Callback {
   callback?: (params?: any) => void;
 }
 
-export interface IData {
-  nodes?: INode[] | DataSet<INode>;
-  edges?: IEdge[] | DataSet<IEdge>;
+export interface Data {
+  nodes?: Node[] | DataSet<Node>;
+  edges?: Edge[] | DataSet<Edge>;
 }
 
-export interface INode {
+export interface Node {
   id?: IdType;
   label?: string;
   x?: number;
@@ -1519,13 +1506,13 @@ export interface INode {
   shape?: string;
 }
 
-export interface IEdge {
+export interface Edge {
   from?: IdType;
   to?: IdType;
   id?: IdType;
 }
 
-export interface IOptions {
+export interface Options {
   autoResize?: boolean;
 
   width?: string;
@@ -1540,9 +1527,9 @@ export interface IOptions {
 
   configure?: any; // http://visjs.org/docs/network/configure.html#
 
-  edges?: IEdgeOptions;
+  edges?: EdgeOptions;
 
-  nodes?: INodeOptions;
+  nodes?: NodeOptions;
 
   groups?: any;
 
@@ -1555,7 +1542,7 @@ export interface IOptions {
   physics?: any; // http://visjs.org/docs/network/physics.html#
 }
 
-export interface INodeOptions {
+export interface NodeOptions {
   borderWidth?: number;
 
   borderWidthSelected?: number;
@@ -1615,9 +1602,9 @@ export interface INodeOptions {
 
   physics?: boolean;
 
-  scaling?: IOptionsScaling;
+  scaling?: OptionsScaling;
 
-  shadow?: boolean | IOptionsShadow;
+  shadow?: boolean | OptionsShadow;
 
   shape?: string;
 
@@ -1640,7 +1627,7 @@ export interface INodeOptions {
   y?: number;
 }
 
-export interface IEdgeOptions {
+export interface EdgeOptions {
   arrows?: string | {
     to?: boolean | {
       enabled?: boolean,
@@ -1694,13 +1681,13 @@ export interface IEdgeOptions {
 
   physics?: boolean;
 
-  scaling?: IOptionsScaling;
+  scaling?: OptionsScaling;
 
   selectionWidth?: number; // please note, selectionWidth could be also a function. This case is not represented here
 
   selfReferenceSize?: number;
 
-  shadow?: boolean | IOptionsShadow;
+  shadow?: boolean | OptionsShadow;
 
   smooth?: boolean | {
     enabled: boolean,
@@ -1718,7 +1705,7 @@ export interface IEdgeOptions {
   width?: number;
 }
 
-export interface IOptionsScaling {
+export interface OptionsScaling {
   min?: number;
   max?: number;
   label?: boolean | {
@@ -1731,7 +1718,7 @@ export interface IOptionsScaling {
   customScalingFunction?(min?: number, max?: number, total?: number, value?: number): number;
 }
 
-export interface IOptionsShadow {
+export interface OptionsShadow {
   enabled: boolean;
   color: string;
   size: number;
