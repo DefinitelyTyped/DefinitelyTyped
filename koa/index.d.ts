@@ -19,8 +19,44 @@ import * as cookies from "cookies";
 import * as http from "http";
 import * as net from "net";
 
-declare namespace Koa { }
+
 export = Koa;
+
+
+declare class Koa extends EventEmitter {
+    subdomainOffset: number;
+    server: http.Server;
+    env: string;
+    context: Koa.Context;
+    keys: string[];
+    proxy: boolean;
+    request: Koa.Request;
+    response: Koa.Response;
+    silent: boolean;
+
+    constructor();
+
+    // From node.d.ts
+    listen(): http.Server;
+    listen(port: number, hostname?: string, backlog?: number, listeningListener?: Function): http.Server;
+    listen(port: number, hostname?: string, listeningListener?: Function): http.Server;
+    listen(port: number, backlog?: number, listeningListener?: Function): http.Server;
+    listen(port: number, listeningListener?: Function): http.Server;
+    listen(path: string, backlog?: number, listeningListener?: Function): http.Server;
+    listen(path: string, listeningListener?: Function): http.Server;
+    listen(handle: any, backlog?: number, listeningListener?: Function): http.Server;
+    listen(handle: any, listeningListener?: Function): http.Server;
+    listen(options: net.ListenOptions, listeningListener?: Function): http.Server;
+
+    callback(): (req: http.IncomingMessage, res: http.ServerResponse) => void;
+    onerror(err: any): void;
+    use(middleware: Koa.Middleware): Koa;
+
+    toJSON(): any;
+    inspect(): any;
+    onerror(err: any): void;
+}
+
 
 declare namespace Koa {
     export interface Context extends Request, Response {
@@ -148,38 +184,3 @@ declare namespace Koa {
 
     export type Middleware = (ctx: Koa.Context, next: () => Promise<any>) => any;
 }
-
-declare class Koa extends EventEmitter {
-    subdomainOffset: number;
-    server: http.Server;
-    env: string;
-    context: Koa.Context;
-    keys: string[];
-    proxy: boolean;
-    request: Koa.Request;
-    response: Koa.Response;
-    silent: boolean;
-
-    constructor();
-
-    // From node.d.ts
-    listen(): http.Server;
-    listen(port: number, hostname?: string, backlog?: number, listeningListener?: Function): http.Server;
-    listen(port: number, hostname?: string, listeningListener?: Function): http.Server;
-    listen(port: number, backlog?: number, listeningListener?: Function): http.Server;
-    listen(port: number, listeningListener?: Function): http.Server;
-    listen(path: string, backlog?: number, listeningListener?: Function): http.Server;
-    listen(path: string, listeningListener?: Function): http.Server;
-    listen(handle: any, backlog?: number, listeningListener?: Function): http.Server;
-    listen(handle: any, listeningListener?: Function): http.Server;
-    listen(options: net.ListenOptions, listeningListener?: Function): http.Server;
-
-    callback(): (req: http.IncomingMessage, res: http.ServerResponse) => void;
-    onerror(err: any): void;
-    use(middleware: Koa.Middleware): Koa;
-
-    toJSON(): any;
-    inspect(): any;
-    onerror(err: any): void;
-}
-
