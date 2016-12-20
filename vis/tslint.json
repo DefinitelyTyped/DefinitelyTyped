@@ -1,7 +1,3 @@
 {
-  "extends": "../tslint.json",
-  "rules": {
-    // Needed for ambient 'vis' namespace
-    "no-single-declare-module": false
-  }
+  "extends": "../tslint.json"
 }
