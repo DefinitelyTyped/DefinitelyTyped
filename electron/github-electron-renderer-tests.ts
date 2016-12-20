@@ -257,6 +257,12 @@ webview.addEventListener('ipc-message', function(event) {
 webview.send('ping');
 webview.capturePage((image) => { console.log(image); });
 
+{
+    const opened: boolean = webview.isDevToolsOpened();
+    const focused: boolean = webview.isDevToolsFocused();
+    const focused2: boolean = webview.getWebContents().isFocused();
+}
+
 // In guest page.
 ipcRenderer.on('ping', function() {
 	ipcRenderer.sendToHost('pong');
