@@ -234,7 +234,15 @@ declare module "rethinkdb" {
         get(key: string): Sequence; // primary key
         getAll(key: string, index?: Index): Sequence; // without index defaults to primary key
         getAll(...keys: string[]): Sequence;
+    }
 
+    interface Sequence extends Operation<Cursor>, Writeable {
+        between(lower: any, upper: any, index?: Index): Sequence;
+
+        filter(rql: ExpressionFunction<boolean>): Sequence;
+        filter(rql: Expression<boolean>): Sequence;
+        filter(obj: { [key: string]: any }): Sequence; 
+        
         /**
          * Turn a query into a changefeed, an infinite stream of objects representing
          * changes to the query’s results as they occur. A changefeed may return changes
@@ -246,14 +254,6 @@ declare module "rethinkdb" {
          * See: https://rethinkdb.com/api/javascript/changes/
          */
         changes(opts?: ChangesOptions): Sequence;
-    }
-
-    interface Sequence extends Operation<Cursor>, Writeable {
-        between(lower: any, upper: any, index?: Index): Sequence;
-
-        filter(rql: ExpressionFunction<boolean>): Sequence;
-        filter(rql: Expression<boolean>): Sequence;
-        filter(obj: { [key: string]: any }): Sequence;
 
         // Join
         // these return left, right
@@ -304,9 +304,9 @@ declare module "rethinkdb" {
     }
 
     interface InsertOptions {
-        upsert: boolean; // true
-        durability: string; // 'soft'
-        return_vals: boolean; // false
+        conflict?: 'error' | 'replace' | 'update' | ((id: string, oldDoc: any, newDoc: any) => any);
+        durability?: 'hard' | 'soft';
+        returnChanges?: boolean | 'always';
     }
 
     interface UpdateOptions {
