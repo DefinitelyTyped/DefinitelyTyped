@@ -1,4 +1,4 @@
-import * as arrayFindIndex from 'array-find-index';
+import arrayFindIndex = require("array-find-index");
 
 arrayFindIndex(['rainbow', 'unicorn', 'pony'], x => x === 'unicorn');
 
