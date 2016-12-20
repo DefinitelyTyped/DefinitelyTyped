@@ -538,11 +538,11 @@ declare namespace __MaterialUI {
         dataSourceConfig?: { text: string; value: string; };
         disableFocusRipple?: boolean;
         errorStyle?: React.CSSProperties;
-        errorText?: string;
+        errorText?: React.ReactNode;
         filter?: (searchText: string, key: string, item: AutoCompleteDataItem) => boolean;
         floatingLabelText?: React.ReactNode;
         fullWidth?: boolean;
-        hintText?: string;
+        hintText?: React.ReactNode;
         listStyle?: React.CSSProperties;
         maxSearchResults?: number;
         menuCloseDelay?: number;
@@ -739,17 +739,17 @@ declare namespace __MaterialUI {
 
     namespace BottomNavigation {
         interface BottomNavigationProps {
-            selectedIndex?: number;
             className?: string;
+            selectedIndex?: number;
             style?: React.CSSProperties;
         }
 
         export class BottomNavigation extends React.Component<BottomNavigationProps, {}> { }
 
         interface BottomNavigationItemProps extends SharedEnhancedButtonProps<BottomNavigationItem> {
-            label?: string;
-            icon?: any;
             className?: string;
+            icon?: React.ReactNode;
+            label?: React.ReactNode;
         }
 
         export class BottomNavigationItem extends React.Component<BottomNavigationItemProps, {}> { }
