@@ -76,7 +76,7 @@ declare namespace Sinon {
         alwaysThrew(): boolean;
         alwaysThrew(type: string): boolean;
         alwaysThrew(obj: any): boolean;
-        alwaysReturned(): boolean;
+        alwaysReturned(obj: any): boolean;
         invokeCallback(...args: any[]): void;
         getCall(n: number): SinonSpyCall;
         reset(): void;
@@ -437,4 +437,4 @@ declare namespace Sinon {
 declare var Sinon: Sinon.SinonStatic;
 
 export = Sinon;
-export as namespace Sinon;
+export as namespace sinon;

@@ -3,13 +3,10 @@
 // Definitions by: Petryshyn Sergii <https://github.com/mc-petry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react" />
-/// <reference types="redux" />
-
 import * as React from 'react';
 import { GenericStoreEnhancer } from 'redux';
 
-interface IDevTools {
+export interface IDevTools {
     new (): JSX.ElementClass;
     instrument(): GenericStoreEnhancer
 }

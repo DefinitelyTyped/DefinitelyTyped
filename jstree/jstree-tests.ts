@@ -114,3 +114,15 @@ tree.get_path('nodeId');
 tree.get_path('nodeId', '/');
 tree.get_path('nodeId', '/', true);
 
+
+
+var coreThemes: JSTreeStaticDefaultsCoreThemes = {
+    ellipsis:true
+};
+
+// tree with new theme elipsis
+var treeWithNewCoreProperties = $('#treeWithNewEllipsisProperties').jstree({
+    core: {
+        themes: coreThemes
+    }
+});

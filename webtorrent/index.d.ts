@@ -19,7 +19,7 @@ declare namespace WebTorrent {
     nodeId?: string|Buffer, // DHT protocol node ID (default=randomly generated)
     peerId?: string|Buffer, // Wire protocol peer ID (default=randomly generated)
     rtcConfig?: Object,     // RTCPeerConnection configuration object (default=STUN only)
-    tracker?: boolean,      // Whether or not to enable trackers (default=true)
+    tracker?: boolean|Object,      // Whether or not to enable trackers (default=true)
     wrtc?: Object           // Custom webrtc implementation (in node, specify the [wrtc](https://www.npmjs.com/package/wrtc) package)
   }
 
@@ -244,7 +244,7 @@ declare namespace WebTorrent {
     /**
      * Emitted whenever a new peer is connected for this torrent. wire is an instance of bittorrent-protocol, which is a node.js-style duplex stream to the remote peer. This event can be used to specify custom BitTorrent protocol extensions.
      */
-    on(event: 'wire', callback:(wire:any)=>void): this;
+    on(event: 'wire', callback:(wire: any, addr: any) => void): this;
   }
 
   export interface InTorrentFile extends NodeJS.EventEmitter {

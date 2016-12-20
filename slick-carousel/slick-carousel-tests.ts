@@ -177,7 +177,9 @@ $('.single-item-rtl').slick({
     rtl: true
 });
 
-
+$('.no-arrows-slide').slick({
+    appendArrows: false
+})
 
 // --------------------------------------------------------
 // ---------------- TEST DEFAULT OPTIONS ------------------

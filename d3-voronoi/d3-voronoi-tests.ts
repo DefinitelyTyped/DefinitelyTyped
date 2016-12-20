@@ -234,3 +234,18 @@ link = links[0];
 
 testDatum = link.source;
 testDatum = link.target;
+
+
+// find() ===============================================================
+
+let nearestSite: d3Voronoi.VoronoiSite<VoronoiTestDatum> | null;
+let wrongSiteDataType: d3Voronoi.VoronoiSite<[number, number]> | null;
+
+// Without search radius
+nearestSite = voronoiDiagram.find(10, 50);
+
+// With search radius
+nearestSite = voronoiDiagram.find(10, 50, 20);
+
+// wrong data type
+// wrongSiteDataType = voronoiDiagram.find(10, 50); // fails, due to data type mismatch

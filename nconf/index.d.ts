@@ -1,4 +1,4 @@
-﻿// Type definitions for nconf
+// Type definitions for nconf
 // Project: https://github.com/flatiron/nconf
 // Definitions by: Jeff Goddard <https://github.com/jedigo>, Jean-Martin Thibault <https://github.com/jmthibault>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -32,6 +32,7 @@ export declare function defaults(options?: IOptions): Provider;
 export declare function init(options?: IOptions): void;
 export declare function overrides(options?: IOptions): Provider;
 export declare function remove(name: string): void;
+export declare function required(keys: string[]): boolean;
 export declare function create(name: string, options: IOptions): IStore;
 
 export declare function key(...values: any[]): string;
@@ -95,6 +96,7 @@ export declare class Provider {
     init(options?: IOptions): void;
     overrides(options?: IOptions): Provider;
     remove(name: string): void;
+    required(keys: string[]): boolean;
     create(name: string, options: IOptions): IStore;
 }
 

@@ -1,4 +1,4 @@
-// Type definitions for Angular Translate v2.4.0 (pascalprecht.translate module)
+// Type definitions for Angular Translate (pascalprecht.translate module) 2.4
 // Project: https://github.com/PascalPrecht/angular-translate
 // Definitions by: Michel Salib <https://github.com/michelsalib>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

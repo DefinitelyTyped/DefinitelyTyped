@@ -1,4 +1,4 @@
-﻿// Type definitions for Gridstack
+// Type definitions for Gridstack
 // Project: http://troolee.github.io/gridstack.js/
 // Definitions by: Pascal Senn <https://github.com/PascalSenn/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

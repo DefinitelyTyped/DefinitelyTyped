@@ -3,12 +3,9 @@
 // Definitions by: Aleksandar Ivanov <https://github.com/Smiche>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react" />
-/// <reference types="redux"/>
-
 declare module "react-redux-toastr" {
-    import R = React;
-    import _Redux = Redux;
+    import * as React from "react";
+    import * as Redux from "redux";
 
     interface ToastrOptions {
         /**
@@ -34,7 +31,7 @@ declare module "react-redux-toastr" {
     /**
      * Toastr react component.
      */
-    export default class ReduxToastr extends R.Component<ToastrOptions, any>{ }
+    export default class ReduxToastr extends React.Component<ToastrOptions, any>{ }
 
     interface EmitterOptions {
         /**
@@ -48,7 +45,7 @@ declare module "react-redux-toastr" {
         timeOut?: number,
         removeOnHover?: boolean,
         removeOnClick?: boolean,
-        component?: R.Component<any, any>,
+        component?: React.Component<any, any>,
         onShowComplete?(): void;
         onHideComplete?(): void;
     }

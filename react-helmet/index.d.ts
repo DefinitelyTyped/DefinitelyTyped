@@ -7,14 +7,11 @@
 
 import * as React from "react";
 
-declare var Helmet: {
-    (): ReactHelmet.HelmetComponent
-    rewind(): ReactHelmet.HelmetData
-    }
-
-export = Helmet;
+declare function ReactHelmet(): ReactHelmet.HelmetComponent;
 
 declare namespace ReactHelmet {
+    function rewind(): ReactHelmet.HelmetData;
+
     interface HelmetProps {
         base?: any;
         defaultTitle?: string;
@@ -43,3 +40,5 @@ declare namespace ReactHelmet {
 
     class HelmetComponent extends React.Component<HelmetProps, any> {}
 }
+
+export = ReactHelmet;

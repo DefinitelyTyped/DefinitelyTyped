@@ -18,12 +18,12 @@ declare class Nightmare {
     upload(selector: string, path: string): Nightmare;
     scrollTo(top: number, left: number): Nightmare;
     inject(type: string, file: string): Nightmare;
-    evaluate(fn: () => void): Nightmare;
-    evaluate<R>(fn: () => R, cb: (result: R) => void): Nightmare;
-    evaluate<T>(fn: (arg: T) => void, cb: () => void, arg: T): Nightmare;
-    evaluate<T, R>(fn: (arg: T) => R, cb: (result: R) => void, arg: T): Nightmare;
-    evaluate<T1, T2, R>(fn: (arg1: T1, arg2: T2) => R, cb: (result: R) => void, arg1: T1, arg2: T2): Nightmare;
     evaluate<T1, T2, T3, R>(fn: (arg1: T1, arg2: T2, arg3: T3) => R, cb: (result: R) => void, arg1: T1, arg2: T2, arg3: T3): Nightmare;
+    evaluate<T1, T2, R>(fn: (arg1: T1, arg2: T2) => R, cb: (result: R) => void, arg1: T1, arg2: T2): Nightmare;
+    evaluate<T, R>(fn: (arg: T) => R, cb: (result: R) => void, arg: T): Nightmare;
+    evaluate<T>(fn: (arg: T) => void, cb: () => void, arg: T): Nightmare;
+    evaluate<R>(fn: () => R, cb: (result: R) => void): Nightmare;
+    evaluate(fn: () => void): Nightmare;
     wait(): Nightmare;
     wait(ms: number): Nightmare;
     wait(selector: string): Nightmare;

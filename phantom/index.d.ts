@@ -15,7 +15,6 @@ export interface WebPage {
     close(): Promise<void>;
 
     evaluate<R>(callback: () => R): Promise<R>;
-    evaluate<T>(callback: (arg: T) => void, arg: T): Promise<void>;
     evaluate<T, R>(callback: (arg: T) => R, arg: T): Promise<R>;
     evaluate<T1, T2, R>(callback: (arg1: T1, arg2: T2) => R, arg1: T1, arg2: T2): Promise<R>;
     evaluate<T1, T2, T3, R>(callback: (arg1: T1, arg2: T2, arg3: T3) => R, arg1: T1, arg2: T2, arg3: T3): Promise<R>;

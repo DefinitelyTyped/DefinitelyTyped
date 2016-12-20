@@ -39,3 +39,9 @@ function HTML() {
         </html>
     );
 }
+
+function log(datum: Helmet.HelmetDatum) {
+    return console.log('logging a helmet datum:', datum.toString());
+}
+
+log(head.title);

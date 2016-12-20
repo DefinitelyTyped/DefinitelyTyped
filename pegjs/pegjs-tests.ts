@@ -6,7 +6,7 @@ import * as pegjs from 'pegjs';
 }
 
 {
-    let pegparser: pegjs.Parser = pegjs.buildParser("start = ('a' / 'b')+");
+    let pegparser: pegjs.Parser = pegjs.generate("start = ('a' / 'b')+");
 
     try {
         let result: string = pegparser.parse("abba");
@@ -18,7 +18,7 @@ import * as pegjs from 'pegjs';
 }
 
 {
-    let parser = pegjs.buildParser("A = 'test'", {
+    let parser = pegjs.generate("A = 'test'", {
         cache: true,
         allowedStartRules: ["A"],
         optimize: "speed",
@@ -27,7 +27,7 @@ import * as pegjs from 'pegjs';
 }
 
 try {
-    let parserOrSource: pegjs.Parser | string = pegjs.buildParser("A = 'test'", {output: "source"});
+    let source: string = pegjs.generate("A = 'test'", {output: "source"});
 } catch (error) {
     if (error instanceof pegjs.GrammarError) {
         let e: pegjs.GrammarError = error;

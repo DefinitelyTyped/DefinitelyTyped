@@ -74,6 +74,7 @@ declare namespace connectMongo {
          * (Default: 10)
          */
         autoRemoveInterval?: number;
+
         /**
          * don't save session if unmodified
          */

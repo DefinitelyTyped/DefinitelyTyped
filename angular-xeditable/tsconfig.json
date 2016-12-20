@@ -1,12 +1,13 @@
 {
     "files": [
-        "angular-xeditable.d.ts",
+        "index.d.ts",
         "angular-xeditable-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
@@ -14,6 +15,6 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": false
+        "forceConsistentCasingInFileNames": true
     }
 }

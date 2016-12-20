@@ -1,4 +1,4 @@
-﻿// Type definitions for jQuery postMessage
+// Type definitions for jQuery postMessage
 // Project: http://benalman.com/projects/jquery-postmessage-plugin/
 // Definitions by: Junle Li <https://github.com/lijunle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

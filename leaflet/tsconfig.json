@@ -3,9 +3,11 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
+            "node_modules/@types",
             "../"
         ],
         "types": [],

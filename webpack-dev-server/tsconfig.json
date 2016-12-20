@@ -3,6 +3,7 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
@@ -13,7 +14,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "webpack-dev-server.d.ts",
+        "index.d.ts",
         "webpack-dev-server-tests.ts"
     ]
 }

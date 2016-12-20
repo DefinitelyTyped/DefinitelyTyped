@@ -1,4 +1,4 @@
-// Type definitions for nock v8.0.0
+// Type definitions for nock v8.2.0
 // Project: https://github.com/node-nock/nock
 // Definitions by: bonnici <https://github.com/bonnici>, Horiuchi_H <https://github.com/horiuchi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -91,6 +91,7 @@ declare namespace nock {
         once(): this;
         twice(): this;
         thrice(): this;
+        optionally(): this;
 
         delay(opts: number | { head?: number; body?: number; }): this;
         delayBody(timeMs: number): this;

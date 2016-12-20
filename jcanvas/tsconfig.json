@@ -3,14 +3,13 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
-        "types": [
-            "node"
-        ],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

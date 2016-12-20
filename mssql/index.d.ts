@@ -145,7 +145,7 @@ export declare class Connection extends events.EventEmitter {
     public connecting: boolean;
     public driver: string;
     public constructor(config: config, callback?: (err?: any) => void);
-    public connect(): Promise<void>;
+    public connect(): Promise<Connection>;
     public connect(callback: (err: any) => void): void;
     public close(): Promise<void>;
     public close(callback: (err: any) => void): void;

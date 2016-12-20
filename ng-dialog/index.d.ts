@@ -1,4 +1,4 @@
-// Type definitions for ngDialog
+// Type definitions for ngDialog 0.6
 // Project: https://github.com/likeastore/ngDialog
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -228,6 +228,11 @@ declare module 'angular' {
 		 * Specifies the width of the dialog content element. Default value is null (unspecified)
 		 */
 		width?: string|number;
+
+		/**
+		 * Specifies the height of the dialog content element. Default value is null (unspecified)
+		 */
+		height?: string|number;
 	}
 
 		/**
@@ -237,7 +242,7 @@ declare module 'angular' {
 			template: string;
 			controller?: string| any[] | any;
 			controllerAs?: string;
-		bindToController?: boolean;
+			bindToController?: boolean;
 
 			/**
 			 * Scope object that will be passed to dialog. If you use controller with separate $scope service this object will be passed to $scope.$parent param.

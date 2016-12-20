@@ -3,6 +3,7 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": false,
+        "noImplicitThis": false,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
@@ -13,7 +14,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "restler.d.ts",
+        "index.d.ts",
         "restler-tests.ts"
     ]
 }

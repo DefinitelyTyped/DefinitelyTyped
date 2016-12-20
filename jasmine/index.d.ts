@@ -10,24 +10,17 @@ declare function describe(description: string, specDefinitions: () => void): voi
 declare function fdescribe(description: string, specDefinitions: () => void): void;
 declare function xdescribe(description: string, specDefinitions: () => void): void;
 
-declare function it(expectation: string, assertion?: () => void, timeout?: number): void;
 declare function it(expectation: string, assertion?: (done: DoneFn) => void, timeout?: number): void;
-declare function fit(expectation: string, assertion?: () => void, timeout?: number): void;
 declare function fit(expectation: string, assertion?: (done: DoneFn) => void, timeout?: number): void;
-declare function xit(expectation: string, assertion?: () => void, timeout?: number): void;
 declare function xit(expectation: string, assertion?: (done: DoneFn) => void, timeout?: number): void;
 
 /** If you call the function pending anywhere in the spec body, no matter the expectations, the spec will be marked pending. */
 declare function pending(reason?: string): void;
 
-declare function beforeEach(action: () => void, timeout?: number): void;
 declare function beforeEach(action: (done: DoneFn) => void, timeout?: number): void;
-declare function afterEach(action: () => void, timeout?: number): void;
 declare function afterEach(action: (done: DoneFn) => void, timeout?: number): void;
 
-declare function beforeAll(action: () => void, timeout?: number): void;
 declare function beforeAll(action: (done: DoneFn) => void, timeout?: number): void;
-declare function afterAll(action: () => void, timeout?: number): void;
 declare function afterAll(action: (done: DoneFn) => void, timeout?: number): void;
 
 declare function expect(spy: Function): jasmine.Matchers;
@@ -162,6 +155,7 @@ declare namespace jasmine {
         versionString(): string;
         nextSpecId(): number;
         addReporter(reporter: Reporter): void;
+        addReporter(reporter: CustomReporter): void;
         execute(): void;
         describe(description: string, specDefinitions: () => void): Suite;
         // ddescribe(description: string, specDefinitions: () => void): Suite; Not a part of jasmine. Angular team adds these
@@ -352,6 +346,45 @@ declare namespace jasmine {
 
     interface MultiReporter extends Reporter {
         addReporter(reporter: Reporter): void;
+    }
+
+    interface SuiteInfo {
+        totalSpecsDefined: number;
+    }
+
+    interface CustomReportExpectation {
+        matcherName: string;
+        message: string;
+        passed: boolean;
+        stack: string;
+    }
+
+    interface FailedExpectation extends CustomReportExpectation {
+        actual: string;
+        expected: string;
+    }
+
+    interface PassedExpectation extends CustomReportExpectation {
+
+    }
+
+    interface CustomReporterResult {
+      description: string,
+      failedExpectations?: FailedExpectation[],
+      fullName: string,
+      id: string;
+      passedExpectations?: PassedExpectation[],
+      pendingReason?: string;
+      status?: string;
+    }
+
+    interface CustomReporter {
+        jasmineStarted?(suiteInfo: SuiteInfo): void;
+        suiteStarted?(result: CustomReporterResult): void;
+        specStarted?(result: CustomReporterResult): void;
+        specDone?(result: CustomReporterResult): void;
+        suiteDone?(result: CustomReporterResult): void;
+        jasmineDone?(): any;
     }
 
     interface Runner {

@@ -1,4 +1,3 @@
-/// <reference path="./connect-redis.d.ts" />
 /// <reference types="express-session" />
 
 import * as connectRedis from "connect-redis";

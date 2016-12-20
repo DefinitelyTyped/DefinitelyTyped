@@ -34,7 +34,6 @@ declare module 'mongoose' {
      *   promises are not present) but still support plugging in your own ES6-compatible
      *   promises library. Mongoose 5.0 will not support mpromise.
      */
-    constructor(fn?: (err: any, arg: T) => void);
     constructor(fn?: (err: any, ...args: T[]) => void);
 
       /**
@@ -42,14 +41,12 @@ declare module 'mongoose' {
      * It will be executed with traditional node.js argument position when the promise is resolved.
      * @deprecated Use onResolve instead.
      */
-    addBack(listener: (err: any, arg: T) => void): this;
     addBack(listener: (err: any, ...args: T[]) => void): this;
 
     /**
      * Adds a listener to the complete (success) event.
      * @deprecated Adds a listener to the complete (success) event.
      */
-    addCallback(listener: (arg: T) => void): this;
     addCallback(listener: (...args: T[]) => void): this;
 
     /**
@@ -102,8 +99,6 @@ declare module 'mongoose' {
      * SUCCESS/ERROR callbacks to this promise after the nextTick.
      * Conforms to promises/A+ specification.
      */
-    then<TRes>(onFulFill: (arg: T) => void | TRes | PromiseLike<TRes>,
-      onReject?: (err: any) => void | TRes | PromiseLike<TRes>): MongoosePromise<TRes>;
     then<TRes>(onFulfill: (...args: T[]) => void | TRes | PromiseLike<TRes>,
       onReject?: (err: any) => void | TRes | PromiseLike<TRes>): MongoosePromise<TRes>;
 
@@ -111,12 +106,10 @@ declare module 'mongoose' {
      * Fulfills this promise with passed arguments. Alias of mpromise#fulfill.
      * @deprecated Use fulfill instead.
      */
-    complete(args: T): this;
     complete(...args: T[]): this;
 
     /** Fulfills this promise with passed arguments. */
     fulfill(...args: T[]): this;
-    fulfill(arg: T): this;
 
     /** ES6-style promise constructor wrapper around mpromise. */
     static ES6<TRes>(resolver: (

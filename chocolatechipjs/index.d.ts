@@ -1359,10 +1359,6 @@ interface fetch {
   }): Promise<any>;
 }
 
-interface XMLHttpRequest {
-   responseURL: string;
-}
-
 /**
  * Headers Interface. This defines the methods exposed by the Headers object.
  */

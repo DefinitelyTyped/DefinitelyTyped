@@ -261,7 +261,7 @@ declare namespace THREE {
         reset(): AnimationAction;
         isRunning(): boolean;
         startAt(time: number): AnimationAction;
-        setLoop(mode: boolean, repetitions: number): AnimationAction;
+        setLoop(mode: AnimationActionLoopStyles, repetitions: number): AnimationAction;
         setEffectiveWeight(weight: number): AnimationAction;
         getEffectiveWeight(): number;
         fadeIn(duration: number): AnimationAction;
@@ -669,6 +669,7 @@ declare namespace THREE {
         constructor();
 
         aspect: number;
+        eyeSep: number;
         cameraL: PerspectiveCamera;
         cameraR: PerspectiveCamera;
 
@@ -1283,6 +1284,11 @@ declare namespace THREE {
          * Face normals must be existing / computed beforehand.
          */
         computeVertexNormals(areaWeighted?: boolean): void;
+
+        /**
+         * Compute vertex normals, but duplicating face normals.
+         */
+        computeFlatVertexNormals(): void;
 
         /**
          * Computes morph normals.
@@ -2737,7 +2743,7 @@ declare namespace THREE {
         constructor(parameters?: ShaderMaterialParameters);
 
         defines: any;
-        uniforms: any; // type should be  { [uniform: string]: { value: any }; };    but gives "Index signature is missing in type" error during compilation
+        uniforms: { [uniform: string]: IUniform };
         vertexShader: string;
         fragmentShader: string;
         linewidth: number;
@@ -3646,7 +3652,7 @@ declare namespace THREE {
         inverse(): Quaternion;
 
         conjugate(): Quaternion;
-        dot(v: Vector3): number;
+        dot(v: Quaternion): number;
         lengthSq(): number;
 
         /**
@@ -5115,7 +5121,7 @@ declare namespace THREE {
     };
 
     export interface Shader {
-        uniforms: IUniform;
+        uniforms: { [uniform: string]: IUniform };
         vertexShader: string;
         fragmentShader: string;
     }
@@ -5728,7 +5734,7 @@ declare namespace THREE {
             encoding?: TextureEncoding
         );
 
-        image: { data: ImageData; width: number; height: number; };
+        image: ImageData;
     }
 
     export class VideoTexture extends Texture {

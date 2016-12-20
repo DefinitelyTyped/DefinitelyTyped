@@ -1,4 +1,4 @@
-﻿// Type definitions for nodemailer-smtp-transport 1.0.2
+// Type definitions for nodemailer-smtp-transport 1.0.2
 // Project: https://github.com/andris9/nodemailer-smtp-transport
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

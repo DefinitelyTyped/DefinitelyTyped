@@ -93,6 +93,15 @@ declare namespace restangular {
     extendModel(route: string, extender: (model: IElement) => any): void;
     extendCollection(route: string, extender: (collection: ICollection) => any): void;
   }
+  
+  interface IScopedService extends IService {
+    one(id: number): IElement;
+    one(id: string): IElement;
+    post(elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
+    post<T>(elementToPost: T, queryParams?: any, headers?: any): IPromise<T>;
+    getList(queryParams?: any, headers?: any): ICollectionPromise<any>;
+    getList<T>(queryParams?: any, headers?: any): ICollectionPromise<T>;
+  }
 
   interface IScopedService extends IService {
     one(id: number): IElement;
