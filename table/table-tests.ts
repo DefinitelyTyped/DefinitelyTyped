@@ -1,6 +1,6 @@
 import * as table from 'table';
 
-const border = table.getBorderCharacters('norc');
+const border: table.JoinStruct = table.getBorderCharacters('norc');
 
 const data = [
   ['first name', 'last name'],
@@ -8,8 +8,8 @@ const data = [
   ['john', 'doe']
 ];
 
-const config = {
+const config: table.TableUserConfig = {
   border: border
 };
 
-console.log(table.table(data, config));
+table.table(data, config);
