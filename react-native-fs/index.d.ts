@@ -1,4 +1,4 @@
-// Type definitions for react-native-fs 2.0.1
+// Type definitions for react-native-fs 2.0
 // Project: https://github.com/johanneslumpe/react-native-fs
 // Definitions by: Paulo Cesar <https://github.com/pocesar/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -34,7 +34,9 @@ declare namespace RNFS {
     isDirectory(): boolean;
   }
 
-  type Headers = { [index: string]: string };
+  interface Headers {
+    [index: string]: string;
+  }
   type Fields = Headers;
 
   interface MkdirOptions {
@@ -164,7 +166,7 @@ declare namespace RNFS {
   // The absolute path to the external files, shared directory (android only)
   export const ExternalDirectoryPath: string;
   // The absolute path to the external storage, shared directory (android only)
-  export const ExternalStorageDirectoryPath: string
+  export const ExternalStorageDirectoryPath: string;
 
   export function readDir(path: string): Promise<ReadDirItem[]>;
   export function readdir(path: string): Promise<string[]>;

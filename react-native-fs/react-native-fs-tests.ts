@@ -30,7 +30,7 @@ var path = RNFS.DocumentDirectoryPath + '/test.txt';
 
 // write the file
 RNFS.writeFile(path, 'Lorem ipsum dolor sit amet', 'utf8')
-  .then((success) => {
+  .then(() => {
     console.log('FILE WRITTEN!');
   })
   .catch((err) => {
