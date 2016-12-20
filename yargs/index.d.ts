@@ -1,4 +1,4 @@
-// Type definitions for yargs 6.3.0
+// Type definitions for yargs 6.5.0
 // Project: https://github.com/chevex/yargs
 // Definitions by: Martin Poelstra <https://github.com/poelstra>, Mizunashi Mana <https://github.com/mizunashi-mana>, Jeffery Grajkowski <https://github.com/pushplay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -118,7 +118,7 @@ declare namespace yargs {
         epilog(msg: string): Argv;
         epilogue(msg: string): Argv;
 
-        version(version: string, option?: string, description?: string): Argv;
+        version(version?: string, option?: string, description?: string): Argv;
         version(version: () => string, option?: string, description?: string): Argv;
 
         showHelpOnFail(enable: boolean, message?: string): Argv;
