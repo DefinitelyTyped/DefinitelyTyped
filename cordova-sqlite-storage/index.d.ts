@@ -18,7 +18,7 @@ declare namespace SQLitePlugin {
     type TransactionStatementSuccessCallback = (tx: Transaction, results: Results) => void;
 
     type ErrorCallback = (err: Error) => void;
-    type TransactionStatementErrorCallback = (tx: Transaction, err: Error) => boolean|void;
+    type TransactionStatementErrorCallback = (tx: Transaction, err: Error) => boolean | undefined;
 
     interface OpenArgs {
         name: string;
