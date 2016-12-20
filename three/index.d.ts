@@ -6483,10 +6483,10 @@ declare namespace THREE {
     }
 
     export class TubeGeometry extends Geometry {
-        constructor(path: Path, segments?: number, radius?: number, radiusSegments?: number, closed?: boolean, taper?: (u: number) => number);
+        constructor(path: Curve<Vector3>, segments?: number, radius?: number, radiusSegments?: number, closed?: boolean, taper?: (u: number) => number);
 
         parameters: {
-            path: Path;
+            path: Curve<Vector3>;
             segments: number;
             radius: number;
             radialSegments: number;
