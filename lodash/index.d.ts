@@ -6838,7 +6838,7 @@ declare module _ {
             collection: List<T>,
             predicate?: ListIterator<T, boolean>,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
          * @see _.find
@@ -6847,7 +6847,7 @@ declare module _ {
             collection: Dictionary<T>,
             predicate?: DictionaryIterator<T, boolean>,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
          * @see _.find
@@ -6856,7 +6856,7 @@ declare module _ {
             collection: List<T>|Dictionary<T>,
             predicate?: string,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
          * @see _.find
@@ -6865,7 +6865,7 @@ declare module _ {
             collection: List<T>|Dictionary<T>,
             predicate?: TObject,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -6875,7 +6875,7 @@ declare module _ {
         find(
             predicate?: ListIterator<T, boolean>,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
          * @see _.find
@@ -6883,7 +6883,7 @@ declare module _ {
         find(
             predicate?: string,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
          * @see _.find
@@ -6891,7 +6891,7 @@ declare module _ {
         find<TObject extends {}>(
             predicate?: TObject,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -6901,7 +6901,7 @@ declare module _ {
         find<TResult>(
             predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
             fromIndex?: number
-        ): TResult;
+        ): TResult|undefined;
 
         /**
          * @see _.find
@@ -6909,7 +6909,7 @@ declare module _ {
         find<TResult>(
             predicate?: string,
             fromIndex?: number
-        ): TResult;
+        ): TResult|undefined;
 
         /**
          * @see _.find
@@ -6917,7 +6917,7 @@ declare module _ {
         find<TObject extends {}, TResult>(
             predicate?: TObject,
             fromIndex?: number
-        ): TResult;
+        ): TResult|undefined;
     }
 
     //_.findLast
@@ -6934,7 +6934,7 @@ declare module _ {
             collection: Array<T>,
             callback: ListIterator<T, boolean>,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
         * @see _.find
@@ -6943,7 +6943,7 @@ declare module _ {
             collection: List<T>,
             callback: ListIterator<T, boolean>,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
         * @see _.find
@@ -6952,7 +6952,7 @@ declare module _ {
             collection: Dictionary<T>,
             callback: DictionaryIterator<T, boolean>,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
         * @see _.find
@@ -6962,7 +6962,7 @@ declare module _ {
             collection: Array<T>,
             whereValue: W,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
         * @see _.find
@@ -6972,7 +6972,7 @@ declare module _ {
             collection: List<T>,
             whereValue: W,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
         * @see _.find
@@ -6982,7 +6982,7 @@ declare module _ {
             collection: Dictionary<T>,
             whereValue: W,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
         * @see _.find
@@ -6992,7 +6992,7 @@ declare module _ {
             collection: Array<T>,
             pluckValue: string,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
         * @see _.find
@@ -7002,7 +7002,7 @@ declare module _ {
             collection: List<T>,
             pluckValue: string,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
         * @see _.find
@@ -7012,7 +7012,7 @@ declare module _ {
             collection: Dictionary<T>,
             pluckValue: string,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -7022,7 +7022,7 @@ declare module _ {
         findLast(
             callback: ListIterator<T, boolean>,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
         /**
         * @see _.findLast
         * @param _.where style callback
@@ -7030,7 +7030,7 @@ declare module _ {
         findLast<W>(
             whereValue: W,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
         * @see _.findLast
@@ -7039,7 +7039,7 @@ declare module _ {
         findLast(
             pluckValue: string,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
     }
 
     //_.flatMap
