@@ -1,4 +1,4 @@
-// Type definitions for angular-ui-router-default 0.5+
+// Type definitions for angular-ui-router-default 0.5
 // Project: https://github.com/nonplus/angular-ui-router-default
 // Definitions by: Stepan Riha <https://github.com/nonplus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
