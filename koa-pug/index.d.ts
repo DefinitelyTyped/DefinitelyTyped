@@ -41,8 +41,6 @@ declare module 'koa' {
     interface Context {
         render(viewPath: string, locals?: Pug.PugLocals, overrideOpts?: Pug.PugCtxOptions, noCache?: boolean): void;
         // tslint:disable-next-line:unified-signatures
-        render(pugStr: string, locals?: Pug.PugLocals, overrideOpts?: Pug.PugCtxOptions): void;
-        // tslint:disable-next-line:unified-signatures
-        render(pugStr: string, locals?: Pug.PugLocals, noCache?: boolean): void;
+        render(pugStr: string, locals?: Pug.PugLocals, overrideOpts?: boolean): void;
     }
 }
