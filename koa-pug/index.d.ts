@@ -5,20 +5,18 @@
 
 import * as koa from "koa";
 
-export namespace Koa {
-    interface Context {
-        render(viewPath: string, locals?: Pug.PugLocals, overrideOpts?: Pug.PugCtxOptions, noCache?: boolean): void;
-        // tslint:disable-next-line:unified-signatures
-        render(pugStr: string, locals?: Pug.PugLocals, overrideOpts?: Pug.PugCtxOptions): void;
-        // tslint:disable-next-line:unified-signatures
-        render(pugStr: string, locals?: Pug.PugLocals, noCache?: boolean): void;
-    }
-}
-export class Pug {
+
+export = Pug;
+
+
+/** main module */
+declare class Pug {
     constructor(options?: Pug.PugOptions);
     use(app: koa): void;
 }
-export namespace Pug {
+
+
+declare namespace Pug {
     export interface PugOptions {
         viewPath?: string;
         pretty?: boolean;
@@ -34,4 +32,17 @@ export namespace Pug {
         fromString: boolean;
     }
     export interface PugLocals { [str: string]: any; }
+}
+
+
+
+/** plugin */
+declare module 'koa' {
+    interface Context {
+        render(viewPath: string, locals?: Pug.PugLocals, overrideOpts?: Pug.PugCtxOptions, noCache?: boolean): void;
+        // tslint:disable-next-line:unified-signatures
+        render(pugStr: string, locals?: Pug.PugLocals, overrideOpts?: Pug.PugCtxOptions): void;
+        // tslint:disable-next-line:unified-signatures
+        render(pugStr: string, locals?: Pug.PugLocals, noCache?: boolean): void;
+    }
 }
