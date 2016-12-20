@@ -1,7 +1,7 @@
 // Type definitions for github
-// Project: https://com/mikedeboer/node-github
-// Definitions by: vvakame <https://com/vvakame/>
-// Definitions: https://com/DefinitelyTyped/DefinitelyTyped
+// Project: https://github.com/mikedeboer/node-github
+// Definitions by: vvakame <https://github.com/vvakame/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Client;
 
