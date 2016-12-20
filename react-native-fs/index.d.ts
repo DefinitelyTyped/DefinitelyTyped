@@ -14,9 +14,9 @@ declare namespace RNFS {
     // Size in bytes
     size: string;
     // Is the file just a file?
-    isFile: () => boolean;
+    isFile(): boolean;
     // Is the file a directory?
-    isDirectory: () => boolean;
+    isDirectory(): boolean;
   }
 
   interface StatResult {
@@ -29,9 +29,9 @@ declare namespace RNFS {
     // UNIX file mode
     mode: number;
     // Is the file just a file?
-    isFile: () => boolean;
+    isFile(): boolean;
     // Is the file a directory?
-    isDirectory: () => boolean;
+    isDirectory(): boolean;
   }
 
   type Headers = { [index: string]: string };
@@ -148,6 +148,11 @@ declare namespace RNFS {
     freeSpace: number;
   }
 
+  interface JobReturnValue<Result> {
+    jobId: number;
+    promise: Promise<Result>;
+  }
+
   //  The absolute path to the main bundle directory
   export const MainBundlePath: string;
   // The absolute path to the caches directory
@@ -173,9 +178,9 @@ declare namespace RNFS {
   export function exists(filepath: string): Promise<boolean>;
   export function hash(filepath: string, algorithm: string): Promise<string>;
   export function mkdir(filepath: string, options?: MkdirOptions): Promise<void>;
-  export function downloadFile(options: DownloadFileOptions): { jobId: number, promise: Promise<DownloadResult> };
+  export function downloadFile(options: DownloadFileOptions): JobReturnValue<DownloadResult>;
   export function stopDownload(jobId: number): Promise<void>;
-  export function uploadFiles(options: UploadFileOptions): { jobId: number, promise: Promise<UploadResult> };
+  export function uploadFiles(options: UploadFileOptions): JobReturnValue<UploadResult>;
   export function stopUpload(jobId: number): Promise<void>;
   export function getFSInfo(): Promise<FSInfoResult>;
 }
