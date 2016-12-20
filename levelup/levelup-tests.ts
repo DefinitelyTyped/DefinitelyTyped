@@ -1,6 +1,30 @@
-
-
 import levelup = require("levelup");
+
+interface BufferEncoding {
+    encode(val: any): Buffer;
+    decode(val: Buffer): any;
+    buffer: boolean;
+    type: string;
+}
+
+interface StringEncoding {
+    encode(val: any): string;
+    decode(val: string): any;
+    buffer: boolean;
+    type: string;
+}
+
+declare const bufferEncoding: BufferEncoding;
+declare const stringEncoding: StringEncoding;
+
+var db1 = levelup("db1", {
+    keyEncoding: bufferEncoding,
+    valueEncoding: bufferEncoding
+});
+var db2 = levelup("db2", {
+    keyEncoding: stringEncoding,
+    valueEncoding: stringEncoding
+});
 
 var db = levelup('./mydb')
 db.open();

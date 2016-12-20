@@ -1,4 +1,4 @@
-// Test file for db.js Definition file
+import db = require("db.js");
 
 /* Type for use in tests */
 

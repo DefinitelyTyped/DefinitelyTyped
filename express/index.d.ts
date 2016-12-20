@@ -28,7 +28,28 @@ declare namespace e {
      */
     var static: typeof serveStatic;
 
-    export function Router(options?: any): core.Router;
+    export function Router(options?: RouterOptions): core.Router;
+
+    interface RouterOptions {
+        /**
+         * Enable case sensitivity.
+         */
+        caseSensitive?: boolean;
+
+        /**
+         * Preserve the req.params values from the parent router.
+         * If the parent and the child have conflicting param names, the child’s value take precedence.
+         *
+         * @default false
+         * @since 4.5.0
+         */
+        mergeParams?: boolean;
+
+        /**
+         * Enable strict routing.
+         */
+        strict?: boolean;
+    }
 
     interface Application extends core.Application { }
     interface CookieOptions extends core.CookieOptions { }

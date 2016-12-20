@@ -30,8 +30,8 @@ declare module 'angular' {
        * @param validationFunction {Function} Function used to validate if permission is valid
        */
       definePermission(
-        name: string,
-        validationFunction: (permission?: string, transitionProperties?: TransitionProperties) => boolean | angular.IPromise<any>
+        permissionName: string,
+        validationFunction: PermissionValidationFunction
       ): void;
 
       /**
@@ -43,10 +43,14 @@ declare module 'angular' {
        * @param validationFunction {Function} Function used to validate if permission is valid
        */
       defineManyPermissions(
-        permissions: string[],
-        validationFunction: (permission?: string, transitionProperties?: TransitionProperties) => boolean | angular.IPromise<any>
+        permissionNames: string[],
+        validationFunction: PermissionValidationFunction
       ): void;
 
+      /**
+       * Removes all permissions
+       * @method
+       */
       clearStore(): void;
 
       /**
@@ -55,7 +59,7 @@ declare module 'angular' {
        *
        * @param permissionName {String} Name of defined permission
        */
-      removePermissionDefinition(permission: string): void;
+      removePermissionDefinition(permissionName: string): void;
 
       /**
        * Checks if permission exists
@@ -67,12 +71,20 @@ declare module 'angular' {
       hasPermissionDefinition(permissionName: string): boolean;
 
       /**
+       * Returns permission by it's name
+       * @method
+       *
+       * @returns {permission.Permission} Permissions definition object
+       */
+      getPermissionDefinition(permissionName: string): Permission;
+
+      /**
        * Returns all permissions
        * @method
        *
        * @returns {Object} Permissions collection
        */
-      getStore(): Permission[];
+      getStore(): { [permissionName: string]: Permission };
     }
 
     export interface RoleStore {
@@ -85,8 +97,8 @@ declare module 'angular' {
        * @param [validationFunction] {Function} Function used to validate if permissions in role are valid
        */
       defineRole(
-        role: string,
-        permissions: Array<string>,
+        roleName: string,
+        permissions: string[],
         validationFunction: RoleValidationFunction
       ): void;
 
@@ -97,7 +109,10 @@ declare module 'angular' {
        * @param roleName {String} Name of defined role
        * @param permissions {Array} Set of permission names
        */
-      defineRole(role: string, permissions: Array<string>): void;
+      defineRole(
+        roleName: string,
+        permissions: string[]
+      ): void;
 
       /**
        * Checks if role is defined in store
@@ -106,7 +121,7 @@ declare module 'angular' {
        * @param roleName {String} Name of role
        * @returns {Boolean}
        */
-      hasRoleDefinition(role: string): boolean;
+      hasRoleDefinition(roleName: string): boolean;
 
       /**
        * Returns role definition object by it's name
@@ -136,27 +151,31 @@ declare module 'angular' {
        *
        * @returns {Object} Defined roles collection
        */
-      getStore(): Role[];
+      getStore(): { [roleName: string]: Role };
     }
 
     export interface Role {
       roleName: string;
       permissionNames: string[];
       validationFunction?: RoleValidationFunction;
+      validateRole: () => angular.IPromise<any>;
     }
 
     export interface Permission {
       permissionName: string;
       validationFunction?: PermissionValidationFunction;
+      validatePermission: () => angular.IPromise<any>;
     }
 
-    interface RoleValidationFunction {
-      (permission?: string, transitionProperties?: TransitionProperties): boolean | angular.IPromise<any>;
-    }
+    export type RoleValidationFunction = (
+      roleName?: string,
+      transitionProperties?: TransitionProperties
+    ) => boolean | angular.IPromise<any>;
 
-    interface PermissionValidationFunction {
-      (permission?: string, transitionProperties?: TransitionProperties): boolean | angular.IPromise<any>;
-    }
+    export type PermissionValidationFunction = (
+      permissionName?: string,
+      transitionProperties?: TransitionProperties
+    ) => boolean | angular.IPromise<any>;
 
     export interface IPermissionState extends angular.ui.IState {
       data?: any | DataWithPermissions;
@@ -164,8 +183,8 @@ declare module 'angular' {
 
     export interface DataWithPermissions {
       permissions?: {
-        only?: (() => void) | Array<string> | angular.IPromise<any>;
-        except?: (() => void) | Array<string> | angular.IPromise<any>;
+        only?: (() => void) | string | string[] | angular.IPromise<any>;
+        except?: (() => void) | string | string[] | angular.IPromise<any>;
         redirectTo: string | (() => string) | (() => PermissionRedirectConfigation) | { [index: string]: PermissionRedirectConfigation }
       };
     }

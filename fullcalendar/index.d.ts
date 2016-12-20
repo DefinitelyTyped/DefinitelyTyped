@@ -1,4 +1,4 @@
-﻿// Type definitions for FullCalendar 2.7.2
+// Type definitions for FullCalendar 2.7.2
 // Project: http://fullcalendar.io/
 // Definitions by: Neil Stalker <https://github.com/nestalk>, Marcelo Camargo <https://github.com/hasellcamargo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -136,7 +136,13 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
     eventAfterAllRender?: (view: ViewObject) => void;
     eventDestroy?: (event: EventObject, element: JQuery, view: ViewObject) => void;
 
-	//scheduler options
+    //scheduler options
+    resourceAreaWidth?:number,
+    schedulerLicenseKey?:string,
+    customButtons?:any,
+    resourceLabelText?:any,
+    resourceColumns?:any,
+    displayEventTime?:any,
 }
 
 /**

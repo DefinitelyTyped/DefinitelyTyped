@@ -3,16 +3,20 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
-        "strictNullChecks": false,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react",
+        "experimentalDecorators": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "react-css-modules-tests.tsx"
     ]
 }

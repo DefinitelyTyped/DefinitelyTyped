@@ -3,6 +3,7 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "types": [],
@@ -10,7 +11,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "leaflet-geocoder-mapzen.d.ts",
+        "index.d.ts",
         "leaflet-geocoder-mapzen-tests.ts"
     ]
 }

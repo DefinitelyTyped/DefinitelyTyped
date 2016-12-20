@@ -7,7 +7,7 @@ export as namespace ReactDOM;
 export = ReactDOM;
 
 import { ReactInstance, Component, ComponentState,
-        ReactElement, SFCElement, CElement,
+         ReactElement, SFCElement, CElement,
          DOMAttributes, DOMElement } from 'react';
 
 declare namespace ReactDOM {

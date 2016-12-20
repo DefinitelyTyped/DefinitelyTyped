@@ -1,4 +1,4 @@
-﻿// Type definitions for Streams API
+// Type definitions for Streams API
 // Project: https://github.com/whatwg/streams
 // Definitions by: Kagami Sascha Rosylight <https://github.com/saschanaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,11 +15,18 @@ interface ReadableByteStreamSource {
     cancel?(reason: string): void | Promise<void>;
 
     type: "bytes";
+    autoAllocateChunkSize?: number;
 }
 
 interface QueuingStrategy {
-    highWaterMark?: number;
     size?(chunk: ArrayBufferView): number;
+    highWaterMark?: number;
+}
+
+interface PipeOptions {
+    preventClose?: boolean;
+    preventAbort?: boolean;
+    preventCancel?: boolean;
 }
 
 declare class ReadableStream {
@@ -31,8 +38,8 @@ declare class ReadableStream {
     cancel(reason: string): Promise<void>;
     getReader(): ReadableStreamDefaultReader;
     getReader({ mode }: { mode: "byob" }): ReadableStreamBYOBReader;
-    pipeThrough<T extends ReadableStream>({ writable, readable }: { writable: WritableStream, readable: T }): T;
-    pipeTo(dest: WritableStream, { preventClose, preventAbort, preventCancel }: { preventClose?: boolean, preventAbort?: boolean, preventCancel?: boolean }): Promise<void>;
+    pipeThrough<T extends ReadableStream>({ writable, readable }: { writable: WritableStream, readable: T }, options?: PipeOptions): T;
+    pipeTo(dest: WritableStream, options?: PipeOptions): Promise<void>;
     tee(): [ReadableStream, ReadableStream];
 }
 
@@ -49,7 +56,7 @@ declare class ReadableStreamDefaultReader {
 declare class ReadableStreamBYOBReader {
     constructor(stream: ReadableStream);
 
-    closed: Promise<boolean>;
+    closed: Promise<void>;
 
     cancel(reason: string): Promise<void>;
     read(view: ArrayBufferView): Promise<IteratorResult<ArrayBufferView>>;
@@ -88,8 +95,8 @@ declare class ReadableStreamBYOBRequest {
 
 interface WritableStreamSink {
     start?(controller: WritableStreamDefaultController): void | Promise<void>;
-    write?(chunk: any): void | Promise<void>;
-    close?(): void | Promise<void>;
+    write?(chunk: any, controller?: WritableStreamDefaultController): void | Promise<any>;
+    close?(controller: WritableStreamDefaultController): void | Promise<void>;
     abort?(reason: string): void | Promise<void>;
 }
 
@@ -106,7 +113,7 @@ declare class WritableStreamDefaultWriter {
     constructor(stream: WritableStream);
 
     closed: Promise<void>;
-    desiredSize: number;
+    desiredSize: number | null;
     ready: Promise<void>;
 
     abort(reason: string): Promise<void>;
@@ -124,11 +131,11 @@ declare class WritableStreamDefaultController {
 declare class ByteLengthQueuingStrategy {
     constructor({ highWaterMark }: { highWaterMark: number });
 
-    size(chunk: ArrayBufferView): number;
+    size(chunk: ArrayBufferView): number | undefined;
 }
 
 declare class CountQueuingStrategy {
     constructor({ highWaterMark }: { highWaterMark: number });
 
-    size(): number; // 1;
+    size(): 1;
 }

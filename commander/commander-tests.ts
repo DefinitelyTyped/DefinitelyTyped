@@ -79,6 +79,13 @@ program
         console.log('unknown option is allowed');
     });
 
+program
+  .version('0.0.1')
+  .arguments('<cmd> [env]')
+  .action(function (cmd, env) {
+     console.log(cmd, env);
+  });
+
 program.parse(process.argv);
 
 console.log('stuff');

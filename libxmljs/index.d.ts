@@ -17,13 +17,13 @@ export declare function parseHtmlString(source: string): HTMLDocument;
 
 export declare class XMLDocument {
     constructor(version: number, encoding: string);
-    child(idx: number): Element;
+    child(idx: number): Element | undefined;
     childNodes(): Element[];
     errors(): SyntaxError[];
     encoding(): string;
     encoding(enc: string): void;
     find(xpath: string): Element[];
-    get(xpath: string): Element;
+    get(xpath: string): Element | undefined;
     node(name: string, content: string): Element;
     root(): Element;
     toString(): string;
@@ -48,7 +48,7 @@ export declare class Element {
     attrs(): Attribute[];
     parent(): Element;
     doc(): XMLDocument;
-    child(idx: number): Element;
+    child(idx: number): Element | undefined;
     childNodes(): Element[];
     addChild(child: Element): Element;
     nextSibling(): Element;
@@ -60,9 +60,9 @@ export declare class Element {
     find(xpath: string): Element[];
     find(xpath: string, ns_uri: string): Element[];
     find(xpath: string, namespaces: { [key: string]: string; }): Element[];
-    get(xpath: string): Element;
-    get(xpath: string, ns_uri: string): Element;
-    get(xpath: string, ns_uri: { [key: string]: string; }): Element;
+    get(xpath: string): Element | undefined;
+    get(xpath: string, ns_uri: string): Element | undefined;
+    get(xpath: string, ns_uri: { [key: string]: string; }): Element | undefined;
     defineNamespace(href: string): Namespace;
     defineNamespace(prefix: string, href: string): Namespace;
     namespace(): Namespace;

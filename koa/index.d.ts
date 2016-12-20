@@ -43,6 +43,8 @@ declare namespace Koa {
 
         toJSON(): any;
         inspect(): any;
+
+        [key: string]: any;
     }
 
     export interface Request {
@@ -143,6 +145,8 @@ declare namespace Koa {
         toJSON(): any;
         inspect(): any;
     }
+
+    export type Middleware = (ctx: Koa.Context, next: () => Promise<any>) => any;
 }
 
 declare class Koa extends EventEmitter {
@@ -159,6 +163,7 @@ declare class Koa extends EventEmitter {
     constructor();
 
     // From node.d.ts
+    listen(): http.Server;
     listen(port: number, hostname?: string, backlog?: number, listeningListener?: Function): http.Server;
     listen(port: number, hostname?: string, listeningListener?: Function): http.Server;
     listen(port: number, backlog?: number, listeningListener?: Function): http.Server;
@@ -171,7 +176,7 @@ declare class Koa extends EventEmitter {
 
     callback(): (req: http.IncomingMessage, res: http.ServerResponse) => void;
     onerror(err: any): void;
-    use(middleware: (ctx: Koa.Context, next: () => Promise<any>) => any): Koa;
+    use(middleware: Koa.Middleware): Koa;
 
     toJSON(): any;
     inspect(): any;

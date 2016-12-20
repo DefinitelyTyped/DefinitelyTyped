@@ -121,8 +121,8 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
     headerStyle?: any;
     bodyStyle?: any;
     ignoreSinglePage?: boolean;
-
 }
+
 export type SelectRowMode = 'none' | 'radio' | 'checkbox';
 
 export interface SelectRow {
@@ -451,7 +451,7 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	To customize the column. This callback function should return a String or a React Component.
 	In addition, this function taking two argument: cell and row.
 	*/
-    dataFormat?: (cell: any, row: any) => string | ReactElement<any>;
+    dataFormat?: (cell: any, row: any, formatExtraData?: any) => string | ReactElement<any>;
 	/**
 	To to enable search or filter data on formatting. Default is false
 	*/

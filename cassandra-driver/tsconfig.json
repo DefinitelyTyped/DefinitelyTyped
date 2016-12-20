@@ -1,8 +1,9 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es5",
+        "target": "es6",
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
@@ -14,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "cassandra-driver.tests.ts"
+        "cassandra-driver-tests.ts"
     ]
 }

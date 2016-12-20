@@ -1,12 +1,13 @@
 {
     "files": [
-        "angular-q-spread.d.ts",
+        "index.d.ts",
         "angular-q-spread-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
@@ -14,6 +15,6 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": false
+        "forceConsistentCasingInFileNames": true
     }
 }

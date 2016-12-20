@@ -1,4 +1,4 @@
-﻿// Type definitions for ftpd 0.2.11
+// Type definitions for ftpd 0.2.11
 // Project: https://github.com/sstur/nodeftpd
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,6 +11,14 @@ import events = require("events");
 import fs = require("fs");
 import net = require("net");
 import tls = require("tls");
+
+export const enum LogLevel {
+    ERROR = 0,
+    WARN = 1,
+    INFO = 2,
+    DEBUG = 3,
+    TRACE = 4
+}
 
 /**
  * Options for FtpServer constructor
@@ -85,6 +93,11 @@ export interface FtpServerOptions {
      * Integer, specifies the upper-bound port (max port) for creating PASV connections
      */
     pasvPortRangeEnd?: number;
+    /**
+     * Integer from 0-4 representing the Log Level to show.
+     */
+    logLevel?: LogLevel;
+
 }
 
 /**
@@ -195,4 +208,9 @@ export declare class FtpServer extends events.EventEmitter {
      * Stop listening
      */
     public close(callback?: () => void): void;
+
+    /**
+     * Change/Retrieve logLevel at runtime.
+     */
+    public debugging: LogLevel;
 }

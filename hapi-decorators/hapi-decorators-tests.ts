@@ -1,6 +1,3 @@
-/// <reference types="hapi" />
-/// <reference types="hapi-decorators" />
-
 import * as hapi from 'hapi';
 import { controller, get, post, put, cache, config, route, validate, Controller } from 'hapi-decorators';
 

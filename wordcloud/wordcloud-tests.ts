@@ -1,4 +1,3 @@
-
 /// <reference types="qunit" />
 
 'use strict';

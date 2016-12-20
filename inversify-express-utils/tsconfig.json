@@ -3,6 +3,7 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "experimentalDecorators": true,
@@ -14,7 +15,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "inversify-express-utils.d.ts",
+        "index.d.ts",
         "inversify-express-utils-tests.ts"
     ]
 }

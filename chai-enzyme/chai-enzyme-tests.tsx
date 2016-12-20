@@ -1,5 +1,4 @@
 /// <reference types="react" />
-/// <reference path="./chai-enzyme.d.ts" />
 /// <reference types="enzyme" />
 /// <reference types="chai" />
 

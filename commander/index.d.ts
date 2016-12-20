@@ -75,6 +75,11 @@ declare namespace commander {
         command(name:string, desc?:string, opts?: any):ICommand;
 
         /**
+         * Set / get the arguments usage `str`.
+         */
+        arguments(str: string):ICommand;
+
+        /**
          * Add an implicit `help [cmd]` subcommand
          * which invokes `--help` for the given command.
          *

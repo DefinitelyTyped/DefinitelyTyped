@@ -130,9 +130,11 @@ declare namespace i18n {
         on(languageChanged: 'languageChanged', listener: (lng: string) => void): void;
 
         off(event: string, listener: () => void): void;
+
+        options: Options;
     }
 }
 
-declare var i18n:i18n.I18n;
+declare var i18n: i18n.I18n;
 
 export = i18n;

@@ -1,31 +1,85 @@
-// Type definitions for Leaflet.js 1.0.0-rc3
+// Type definitions for Leaflet.js 1.0.2
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="geojson" />
 
+type NativeMouseEvent = MouseEvent;
+
 declare namespace L {
+    export class Class {
+        static extend(props: any): any/* how to return constructor of self extended type ? */;
+        static include(props: any): any /* how to return self extended type ? */;
+        static mergeOptions(props: any): any /* how to return self extended type ? */;
+        static addInitHook(initHookFn: () => void): any/* how to return self extended type ? */;
+    }
+
+    export class Transformation {
+        constructor(a: number, b: number, c: number, d: number);
+
+        transform(point: Point, scale?: number): Point;
+
+        untransform(point: Point, scale?: number): Point;
+    }
+
+    export namespace LineUtil {
+        export function simplify(points: Array<Point>, tolerance: number): Array<Point>;
+
+        export function simplify(points: Array<PointTuple>, tolerance: number): Array<Point>;
+
+        export function pointToSegmentDistance(p: Point, p1: Point, p2: Point): number;
+
+        export function pointToSegmentDistance(p: PointTuple, p1: PointTuple, p2: PointTuple): number;
+
+        export function closestPointOnSegment(p: Point, p1: Point, p2: Point): Point;
+
+        export function closestPointOnSegment(p: PointTuple, p1: PointTuple, p2: PointTuple): Point;
+    }
+
+    export namespace PolyUtil {
+        export function clipPolygon(points: Array<Point>, bounds: Bounds, round?: boolean): Array<Point>;
+
+        export function clipPolygon(points: Array<PointTuple>, bounds: BoundsLiteral, round?: boolean): Array<Point>;
+    }
+
+    export class DomUtil {
+        static get(id: string): HTMLElement;
+        static get(id: HTMLElement): HTMLElement;
+        static getStyle(el: HTMLElement, styleAttrib: string): string;
+        static create(tagName: String, className?: String, container?: HTMLElement): HTMLElement;
+        static remove(el: HTMLElement):void;
+        static empty(el: HTMLElement):void;
+        static toFront(el: HTMLElement):void;
+        static toBack(el: HTMLElement):void;
+        static hasClass(el: HTMLElement, name: String): Boolean;
+        static addClass(el: HTMLElement, name: String):void;
+        static removeClass(el: HTMLElement, name: String):void;
+        static setClass(el: HTMLElement, name: String):void;
+        static getClass(el: HTMLElement): String;
+        static setOpacity(el: HTMLElement, opacity: Number):void;
+        static testProp(props: String[]): String|boolean/*=false*/;
+        static setTransform(el: HTMLElement, offset: Point, scale?: Number):void;
+        static setPosition(el: HTMLElement, position: Point):void;
+        static getPosition(el: HTMLElement): Point;
+        static disableTextSelection(): void;
+        static enableTextSelection(): void;
+        static disableImageDrag(): void;
+        static enableImageDrag(): void;
+        static preventOutline(el: HTMLElement): void;
+        static restoreOutline(): void;
+    }
+
     export interface CRS {
-        latLngToPoint(latlng: LatLng, zoom: number): Point;
-        latLngToPoint(latlng: LatLngLiteral, zoom: number): Point;
-        latLngToPoint(latlng: LatLngTuple, zoom: number): Point;
-        pointToLatLng(point: Point): LatLng;
-        pointToLatLng(point: PointTuple): LatLng;
-        project(latlng: LatLng): Point;
-        project(latlng: LatLngLiteral): Point;
-        project(latlng: LatLngTuple): Point;
-        unproject(point: Point): LatLng;
-        unproject(point: PointTuple): LatLng;
+        latLngToPoint(latlng: LatLngExpression, zoom: number): Point;
+        pointToLatLng(point: PointExpression): LatLng;
+        project(latlng: LatLngExpression): Point;
+        unproject(point: PointExpression): LatLng;
         scale(zoom: number): number;
         zoom(scale: number): number;
         getProjectedBounds(zoom: number): Bounds;
-        distance(latlng1: LatLng, latlng2: LatLng): number;
-        distance(latlng1: LatLngLiteral, latlng2: LatLngLiteral): number;
-        distance(latlng1: LatLngTuple, latlng2: LatLngTuple): number;
-        wrapLatLng(latlng: LatLng): LatLng;
-        wrapLatLng(latlng: LatLngLiteral): LatLng;
-        wrapLatLng(latlng: LatLngTuple): LatLng;
+        distance(latlng1: LatLngExpression, latlng2: LatLngExpression): number;
+        wrapLatLng(latlng: LatLngExpression): LatLng;
 
         code: string;
         wrapLng: [number, number];
@@ -42,11 +96,8 @@ declare namespace L {
     }
 
     export interface Projection {
-        project(latlng: LatLng): Point;
-        project(latlng: LatLngLiteral): Point;
-        project(latlng: LatLngTuple): Point;
-        unproject(point: Point): LatLng;
-        unproject(point: PointTuple): LatLng;
+        project(latlng: LatLngExpression): Point;
+        unproject(point: PointExpression): LatLng;
 
         bounds: LatLngBounds;
     }
@@ -58,13 +109,9 @@ declare namespace L {
     }
 
     export interface LatLng {
-        equals(otherLatLng: LatLng, maxMargin?: number): boolean;
-        equals(otherLatLng: LatLngLiteral, maxMargin?: number): boolean;
-        equals(otherLatLng: LatLngTuple, maxMargin?: number): boolean;
+        equals(otherLatLng: LatLngExpression, maxMargin?: number): boolean;
         toString(): string;
-        distanceTo(otherLatLng: LatLng): number;
-        distanceTo(otherLatLng: LatLngLiteral): number;
-        distanceTo(otherLatLng: LatLngTuple): number;
+        distanceTo(otherLatLng: LatLngExpression): number;
         wrap(): LatLng;
         toBounds(sizeInMeters: number): LatLngBounds;
 
@@ -93,11 +140,8 @@ declare namespace L {
     export function latLng(coords: {lat: number, lng: number, alt: number}): LatLng;
 
     export interface LatLngBounds {
-        extend(latlng: LatLng): this;
-        extend(latlng: LatLngLiteral): this;
-        extend(latlng: LatLngTuple): this;
-        extend(otherBounds: LatLngBounds): this;
-        extend(otherBounds: LatLngBoundsLiteral): this;
+        extend(latlng: LatLngExpression): this;
+        extend(otherBounds: LatLngBoundsExpression): this;
         pad(bufferRatio: number): LatLngBounds; // does this modify the current instance or does it return a new one?
         getCenter(): LatLng;
         getSouthWest(): LatLng;
@@ -108,18 +152,12 @@ declare namespace L {
         getSouth(): number;
         getEast(): number;
         getNorth(): number;
-        contains(otherBounds: LatLngBounds): boolean;
-        contains(otherBounds: LatLngBoundsLiteral): boolean;
-        contains(latlng: LatLng): boolean;
-        contains(latlng: LatLngLiteral): boolean;
-        contains(latlng: LatLngTuple): boolean;
-        intersects(otherBounds: LatLngBounds): boolean;
-        intersects(otherBounds: LatLngLiteral): boolean;
-        overlaps(otherBounds: Bounds): boolean; // investigate if this is really bounds and not latlngbounds
-        overlaps(otherBounds: BoundsLiteral): boolean;
+        contains(otherBounds: LatLngBoundsExpression): boolean;
+        contains(latlng: LatLngExpression): boolean;
+        intersects(otherBounds: LatLngBoundsExpression): boolean;
+        overlaps(otherBounds: BoundsExpression): boolean; // investigate if this is really bounds and not latlngbounds
         toBBoxString(): string;
-        equals(otherBounds: LatLngBounds): boolean;
-        equals(otherBounds: LatLngBoundsLiteral): boolean;
+        equals(otherBounds: LatLngBoundsExpression): boolean;
         isValid(): boolean;
     }
 
@@ -127,11 +165,7 @@ declare namespace L {
 
     type LatLngBoundsExpression = LatLngBounds | LatLngBoundsLiteral;
 
-    export function latLngBounds(southWest: LatLng, northEast: LatLng): LatLngBounds;
-
-    export function latLngBounds(southWest: LatLngLiteral, northEast: LatLngLiteral): LatLngBounds;
-
-    export function latLngBounds(southWest: LatLngTuple, northEast: LatLngTuple): LatLngBounds;
+    export function latLngBounds(southWest: LatLngExpression, northEast: LatLngExpression): LatLngBounds;
 
     export function latLngBounds(latlngs: LatLngBoundsLiteral): LatLngBounds;
 
@@ -139,25 +173,18 @@ declare namespace L {
 
     export interface Point {
         clone(): Point;
-        add(otherPoint: Point): Point; // investigate if this mutates or returns a new instance
-        add(otherPoint: PointTuple): Point;
-        subtract(otherPoint: Point): Point;
-        subtract(otherPoint: PointTuple): Point;
+        add(otherPoint: PointExpression): Point; // investigate if this mutates or returns a new instance
+        subtract(otherPoint: PointExpression): Point;
         divideBy(num: number): Point;
         multiplyBy(num: number): Point;
-        scaleBy(scale: Point): Point;
-        scaleBy(scale: PointTuple): Point;
-        unscaleBy(scale: Point): Point;
-        unscaleBy(scale: PointTuple): Point;
+        scaleBy(scale: PointExpression): Point;
+        unscaleBy(scale: PointExpression): Point;
         round(): Point;
         floor(): Point;
         ceil(): Point;
-        distanceTo(otherPoint: Point): Point;
-        distanceTo(otherPoint: PointTuple): Point;
-        equals(otherPoint: Point): boolean;
-        equals(otherPoint: PointTuple): boolean;
-        contains(otherPoint: Point): boolean;
-        contains(otherPoint: PointTuple): boolean;
+        distanceTo(otherPoint: PointExpression): number;
+        equals(otherPoint: PointExpression): boolean;
+        contains(otherPoint: PointExpression): boolean;
         toString(): string;
     }
 
@@ -172,20 +199,15 @@ declare namespace L {
     export type BoundsLiteral = Array<PointTuple>;
 
     export interface Bounds {
-        extend(point: Point): this;
-        extend(point: PointTuple): this;
+        extend(point: PointExpression): this;
         getCenter(round?: boolean): Point;
         getBottomLeft(): Point;
         getTopRight(): Point;
         getSize(): Point;
-        contains(otherBounds: Bounds): boolean;
-        contains(otherBounds: BoundsLiteral): boolean;
-        contains(point: Point): boolean;
-        contains(point: PointTuple): boolean;
-        intersects(otherBounds: Bounds): boolean;
-        intersects(otherBounds: BoundsLiteral): boolean;
-        overlaps(otherBounds: Bounds): boolean;
-        overlaps(otherBounds: BoundsLiteral): boolean;
+        contains(otherBounds: BoundsExpression): boolean;
+        contains(point: PointExpression): boolean;
+        intersects(otherBounds: BoundsExpression): boolean;
+        overlaps(otherBounds: BoundsExpression): boolean;
 
         min: Point;
         max: Point;
@@ -193,9 +215,7 @@ declare namespace L {
 
     type BoundsExpression = Bounds | BoundsLiteral;
 
-    export function bounds(topLeft: Point, bottomRight: Point): Bounds;
-
-    export function bounds(topLeft: PointTuple, bottomRight: PointTuple): Bounds;
+    export function bounds(topLeft: PointExpression, bottomRight: PointExpression): Bounds;
 
     export function bounds(points: Array<Point>): Bounds;
 
@@ -211,14 +231,14 @@ declare namespace L {
      * with an object (e.g. the user clicks on the map, causing the map to fire
      * 'click' event).
      */
-    export interface Evented {
+    export abstract class Evented extends Class {
         /**
          * Adds a listener function (fn) to a particular event type of the object.
          * You can optionally specify the context of the listener (object the this
          * keyword will point to). You can also pass several space-separated types
          * (e.g. 'click dblclick').
          */
-        on(type: string, fn: EventHandlerFn, context?: Object): this;
+        on(type: string, fn: EventHandlerFn, context?: any): this;
 
         /**
          * Adds a set of type/listener pairs, e.g. {click: onClick, mousemove: onMouseMove}
@@ -231,7 +251,7 @@ declare namespace L {
          * Note that if you passed a custom context to on, you must pass the same context
          * to off in order to remove the listener.
          */
-        off(type: string, fn?: EventHandlerFn, context?: Object): this;
+        off(type: string, fn?: EventHandlerFn, context?: any): this;
 
         /**
          * Removes a set of type/listener pairs.
@@ -248,7 +268,7 @@ declare namespace L {
          * object — the first argument of the listener function will contain its properties.
          * The event might can optionally be propagated to event parents.
          */
-        fire(type: string, data?: Object, propagate?: boolean): this;
+        fire(type: string, data?: any, propagate?: boolean): this;
 
         /**
          * Returns true if a particular event type has any listeners attached to it.
@@ -258,7 +278,7 @@ declare namespace L {
         /**
          * Behaves as on(...), except the listener will only get fired once and then removed.
          */
-        once(type: string, fn: EventHandlerFn, context?: Object): this;
+        once(type: string, fn: EventHandlerFn, context?: any): this;
 
         /**
          * Behaves as on(...), except the listener will only get fired once and then removed.
@@ -283,7 +303,7 @@ declare namespace L {
          * keyword will point to). You can also pass several space-separated types
          * (e.g. 'click dblclick').
          */
-        addEventListener(type: string, fn: EventHandlerFn, context?: Object): this;
+        addEventListener(type: string, fn: EventHandlerFn, context?: any): this;
 
         /**
          * Alias for on(...)
@@ -300,7 +320,7 @@ declare namespace L {
          * Note that if you passed a custom context to on, you must pass the same context
          * to off in order to remove the listener.
          */
-        removeEventListener(type: string, fn: EventHandlerFn, context?: Object): this;
+        removeEventListener(type: string, fn: EventHandlerFn, context?: any): this;
 
         /**
          * Alias for off(...)
@@ -321,7 +341,7 @@ declare namespace L {
          *
          * Behaves as on(...), except the listener will only get fired once and then removed.
          */
-        addOneTimeEventListener(type: string, fn: EventHandlerFn, context?: Object): this;
+        addOneTimeEventListener(type: string, fn: EventHandlerFn, context?: any): this;
 
         /**
          * Alias for once(...)
@@ -337,7 +357,7 @@ declare namespace L {
          * object — the first argument of the listener function will contain its properties.
          * The event might can optionally be propagated to event parents.
          */
-        fireEvent(type: string, data?: Object, propagate?: boolean): this;
+        fireEvent(type: string, data?: any, propagate?: boolean): this;
 
         /**
          * Alias for listens(...)
@@ -345,6 +365,21 @@ declare namespace L {
          * Returns true if a particular event type has any listeners attached to it.
          */
         hasEventListeners(type: string): boolean;
+    }
+
+    /**
+     * A class for making DOM elements draggable (including touch support).
+     * Used internally for map and marker dragging. Only works for elements
+     * that were positioned with [`L.DomUtil.setPosition`](#domutil-setposition).
+     */
+    export class Draggable extends Evented {
+        constructor(element: HTMLElement, dragStartTarget?: HTMLElement, preventOutline?: boolean);
+
+        enable(): void;
+
+        disable(): void;
+
+        finishDrag(): void;
     }
 
     interface LayerOptions {
@@ -355,7 +390,8 @@ declare namespace L {
         interactive?: boolean;
     }
 
-    export interface Layer extends Evented {
+    export class Layer extends Evented {
+        constructor(options?: LayerOptions);
         addTo(map: Map): this;
         remove(): this;
         removeFrom(map: Map): this;
@@ -368,9 +404,7 @@ declare namespace L {
         bindPopup(content: Popup): this;
         unbindPopup(): this;
         openPopup(): this;
-        openPopup(latlng: LatLng): this;
-        openPopup(latlng: LatLngLiteral): this;
-        openPopup(latlng: LatLngTuple): this;
+        openPopup(latlng: LatLngExpression): this;
         closePopup(): this;
         togglePopup(): this;
         isPopupOpen(): boolean;
@@ -386,9 +420,7 @@ declare namespace L {
         bindTooltip(content: Tooltip, options?: TooltipOptions): this;
         unbindTooltip(): this;
         openTooltip(): this;
-        openTooltip(latlng: LatLng): this;
-        openTooltip(latlng: LatLngLiteral): this;
-        openTooltip(latlng: LatLngTuple): this;
+        openTooltip(latlng: LatLngExpression): this;
         closeTooltip(): this;
         toggleTooltip(): this;
         isTooltipOpen(): boolean;
@@ -467,11 +499,11 @@ declare namespace L {
     }
 
     export interface WMS extends TileLayer {
-        setParams(params: Object, noRedraw?: boolean): this;
+        setParams(params: any, noRedraw?: boolean): this;
     }
 
     export namespace tileLayer {
-        export function wms(baseUrl: string, options: WMSOptions): WMS;
+        export function wms(baseUrl: string, options?: WMSOptions): WMS;
     }
 
     export interface ImageOverlayOptions extends LayerOptions {
@@ -487,6 +519,15 @@ declare namespace L {
         bringToFront(): this;
         bringToBack(): this;
         setUrl(url: string): this;
+
+        /** Update the bounds that this ImageOverlay covers */
+        setBounds(bounds: LatLngBounds): this;
+
+        /** Get the bounds that this ImageOverlay covers */
+        getBounds(): LatLngBounds;
+
+        /** Get the img element that represents the ImageOverlay on the map */
+        getElement(): HTMLImageElement;
     }
 
     export function imageOverlay(imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions): ImageOverlay;
@@ -528,60 +569,34 @@ declare namespace L {
 
     interface InternalPolyline extends Path {
         getLatLngs(): Array<LatLng>;
-        setLatLngs(latlngs: Array<LatLng>): this;
-        setLatLngs(latlngs: Array<LatLngLiteral>): this;
-        setLatLngs(latlngs: Array<LatLngTuple>): this;
+        setLatLngs(latlngs: Array<LatLngExpression>): this;
         isEmpty(): boolean;
         getCenter(): LatLng;
         getBounds(): LatLngBounds;
-        addLatLng(latlng: LatLng): this;
-        addLatLng(latlng: LatLngLiteral): this;
-        addLatLng(latlng: LatLngTuple): this;
-        addLatLng(latlng: Array<LatLng>): this; // these three overloads aren't explicitly noted in the docs
-        addLatLng(latlng: Array<LatLngLiteral>): this;
-        addLatLng(latlng: Array<LatLngTuple>): this;
+        addLatLng(latlng: LatLngExpression): this;
+        addLatLng(latlng: Array<LatLngExpression>): this; // these three overloads aren't explicitly noted in the docs
     }
 
     export interface Polyline extends InternalPolyline {
         toGeoJSON(): GeoJSON.LineString | GeoJSON.MultiLineString;
     }
 
-    export function polyline(latlngs: Array<LatLng>, options?: PolylineOptions): Polyline;
-
-    export function polyline(latlngs: Array<LatLngLiteral>, options?: PolylineOptions): Polyline;
-
-    export function polyline(latlngs: Array<LatLngTuple>, options?: PolylineOptions): Polyline;
-
-    export function polyline(latlngs: Array<Array<LatLng>>, options?: PolylineOptions): Polyline;
-
-    export function polyline(latlngs: Array<Array<LatLngLiteral>>, options?: PolylineOptions): Polyline;
-
-    export function polyline(latlngs: Array<Array<LatLngTuple>>, options?: PolylineOptions): Polyline;
+    export function polyline(latlngs: Array<LatLngExpression>, options?: PolylineOptions): Polyline;
+    export function polyline(latlngs: Array<Array<LatLngExpression>>, options?: PolylineOptions): Polyline;
 
     export interface Polygon extends InternalPolyline {
         toGeoJSON(): GeoJSON.Polygon | GeoJSON.MultiPolygon;
     }
 
-    export function polygon(latlngs: Array<LatLng>, options?: PolylineOptions): Polygon;
+    export function polygon(latlngs: Array<LatLngExpression>, options?: PolylineOptions): Polygon;
 
-    export function polygon(latlngs: Array<LatLngLiteral>, options?: PolylineOptions): Polygon;
-
-    export function polygon(latlngs: Array<LatLngTuple>, options?: PolylineOptions): Polygon;
-
-    export function polygon(latlngs: Array<Array<LatLng>>, options?: PolylineOptions): Polygon;
-
-    export function polygon(latlngs: Array<Array<LatLngLiteral>>, options?: PolylineOptions): Polygon;
-
-    export function polygon(latlngs: Array<Array<LatLngTuple>>, options?: PolylineOptions): Polygon;
+    export function polygon(latlngs: Array<Array<LatLngExpression>>, options?: PolylineOptions): Polygon;
 
     export interface Rectangle extends Polygon {
-        setBounds(latLngBounds: LatLngBounds): this;
-        setBounds(latLngBounds: LatLngBoundsLiteral): this;
+        setBounds(latLngBounds: LatLngBoundsExpression): this;
     }
 
-    export function rectangle(latLngBounds: LatLngBounds, options?: PolylineOptions): Rectangle;
-
-    export function rectangle(latLngBounds: LatLngBoundsLiteral, options?: PolylineOptions): Rectangle;
+    export function rectangle(latLngBounds: LatLngBoundsExpression, options?: PolylineOptions): Rectangle;
 
     export interface CircleMarkerOptions extends PathOptions {
         radius?: number;
@@ -589,19 +604,13 @@ declare namespace L {
 
     export interface CircleMarker extends Path {
         toGeoJSON(): GeoJSON.Point;
-        setLatLng(latLng: LatLng): this;
-        setLatLng(latLng: LatLngLiteral): this;
-        setLatLng(latLng: LatLngTuple): this;
+        setLatLng(latLng: LatLngExpression): this;
         getLatLng(): LatLng;
         setRadius(radius: number): this;
         getRadius(): number;
     }
 
-    export function circleMarker(latlng: LatLng, options?: CircleMarkerOptions): CircleMarker;
-
-    export function circleMarker(latlng: LatLngLiteral, options?: CircleMarkerOptions): CircleMarker;
-
-    export function circleMarker(latlng: LatLngLiteral, options?: CircleMarkerOptions): CircleMarker;
+    export function circleMarker(latlng: LatLngExpression, options?: CircleMarkerOptions): CircleMarker;
 
     export interface CircleOptions extends PathOptions {
         radius?: number;
@@ -613,17 +622,8 @@ declare namespace L {
         getBounds(): LatLngBounds;
     }
 
-    export function circle(latlng: LatLng, options?: CircleOptions): Circle;
-
-    export function circle(latlng: LatLngLiteral, options?: CircleOptions): Circle;
-
-    export function circle(latlng: LatLngTuple, options?: CircleOptions): Circle;
-
-    export function circle(latlng: LatLng, radius: number, options?: CircleOptions): Circle;
-
-    export function circle(latlng: LatLngLiteral, radius: number, options?: CircleOptions): Circle;
-
-    export function circle(latlng: LatLngTuple, radius: number, options?: CircleOptions): Circle;
+    export function circle(latlng: LatLngExpression, options?: CircleOptions): Circle;
+    export function circle(latlng: LatLngExpression, radius: number, options?: CircleOptions): Circle;
 
     export interface RendererOptions extends LayerOptions {
         padding?: number;
@@ -693,7 +693,7 @@ declare namespace L {
          * Iterates over the layers of the group,
          * optionally specifying context of the iterator function.
          */
-        eachLayer(fn: (layer: Layer) => void, context?: Object): this;
+        eachLayer(fn: (layer: Layer) => void, context?: any): this;
 
         /**
          * Returns the layer with the given internal ID.
@@ -769,7 +769,7 @@ declare namespace L {
          * }
          * ```
          */
-        pointToLayer?: (geoJsonPoint: GeoJSON.Point, latlng: LatLng) => Layer; // should import GeoJSON typings
+        pointToLayer?: (geoJsonPoint: GeoJSON.Feature<GeoJSON.Point>, latlng: LatLng) => Layer; // should import GeoJSON typings
 
         /**
          * A Function defining the Path options for styling GeoJSON lines and polygons,
@@ -1118,14 +1118,14 @@ declare namespace L {
 
     export interface Event {
         type: string;
-        target: any; // should this be Object and have users cast?
+        target: any;
     }
 
     export interface MouseEvent extends Event {
         latlng: LatLng;
         layerPoint: Point;
         containerPoint: Point;
-        originalEvent: MouseEvent; // how can I reference the global MouseEvent?
+        originalEvent: NativeMouseEvent;
     }
 
     export interface LocationEvent extends Event {
@@ -1168,7 +1168,7 @@ declare namespace L {
 
     export interface GeoJSONEvent extends Event {
         layer: Layer;
-        properties: any; // any or Object?
+        properties: any;
         geometryType: string;
         id: string;
     }
@@ -1183,6 +1183,38 @@ declare namespace L {
 
     export interface DragEndEvent extends Event {
         distance: number;
+    }
+
+    export namespace DomEvent {
+        export function on(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: any): typeof DomEvent;
+
+        export function on(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: any): typeof DomEvent;
+
+        export function off(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: any): typeof DomEvent;
+
+        export function off(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: any): typeof DomEvent;
+
+        export function stopPropagation(ev: Event): typeof DomEvent;
+
+        export function disableScrollPropagation(el: HTMLElement): typeof DomEvent;
+
+        export function disableClickPropagation(el: HTMLElement): typeof DomEvent;
+
+        export function preventDefault(ev: Event): typeof DomEvent;
+
+        export function stop(ev: Event): typeof DomEvent;
+
+        export function getMousePosition(ev: Event, container?: HTMLElement): Point;
+
+        export function getWheelDelta(ev: Event): number;
+
+        export function addListener(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: any): typeof DomEvent;
+
+        export function addListener(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: any): typeof DomEvent;
+
+        export function removeListener(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: any): typeof DomEvent;
+
+        export function removeListener(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: any): typeof DomEvent;
     }
 
     interface DefaultMapPanes {
@@ -1204,57 +1236,36 @@ declare namespace L {
         addLayer(layer: Layer): this;
         removeLayer(layer: Layer): this;
         hasLayer(layer: Layer): boolean;
-        eachLayer(fn: (layer: Layer) => void, context?: Object): this;
+        eachLayer(fn: (layer: Layer) => void, context?: any): this;
         openPopup(popup: Popup): this;
-        openPopup(content: string, latlng: LatLng, options?: PopupOptions): this;
-        openPopup(content: string, latlng: LatLngLiteral, options?: PopupOptions): this;
-        openPopup(content: string, latlng: LatLngTuple, options?: PopupOptions): this;
-        openPopup(content: HTMLElement, latlng: LatLng, options?: PopupOptions): this;
-        openPopup(content: HTMLElement, latlng: LatLngLiteral, options?: PopupOptions): this;
-        openPopup(content: HTMLElement, latlng: LatLngTuple, options?: PopupOptions): this;
+        openPopup(content: string, latlng: LatLngExpression, options?: PopupOptions): this;
+        openPopup(content: HTMLElement, latlng: LatLngExpression, options?: PopupOptions): this;
         closePopup(popup?: Popup): this;
         openTooltip(tooltip: Tooltip): this;
-        openTooltip(content: string, latlng: LatLng, options?: TooltipOptions): this;
-        openTooltip(content: string, latlng: LatLngLiteral, options?: TooltipOptions): this;
-        openTooltip(content: string, latlng: LatLngTuple, options?: TooltipOptions): this;
-        openTooltip(content: HTMLElement, latlng: LatLng, options?: TooltipOptions): this;
-        openTooltip(content: HTMLElement, latlng: LatLngLiteral, options?: TooltipOptions): this;
-        openTooltip(content: HTMLElement, latlng: LatLngTuple, options?: TooltipOptions): this;
+        openTooltip(content: string, latlng: LatLngExpression, options?: TooltipOptions): this;
+        openTooltip(content: HTMLElement, latlng: LatLngExpression, options?: TooltipOptions): this;
         closeTooltip(tooltip?: Tooltip): this;
 
         // Methods for modifying map state
-        setView(center: LatLng, zoom: number, options?: ZoomPanOptions): this;
-        setView(center: LatLngLiteral, zoom: number, options?: ZoomPanOptions): this;
-        setView(center: LatLngTuple, zoom: number, options?: ZoomPanOptions): this;
-        setZoom(zoom: number, options: ZoomPanOptions): this;
+        setView(center: LatLngExpression, zoom: number, options?: ZoomPanOptions): this;
+        setZoom(zoom: number, options?: ZoomPanOptions): this;
         zoomIn(delta?: number, options?: ZoomOptions): this;
         zoomOut(delta?: number, options?: ZoomOptions): this;
-        setZoomAround(latlng: LatLng, zoom: number, options: ZoomOptions): this;
-        setZoomAround(latlng: LatLngLiteral, zoom: number, options: ZoomOptions): this;
-        setZoomAround(latlng: LatLngTuple, zoom: number, options: ZoomOptions): this; // will the latlng version using tuple take precedence or will the point tuple version?
-        setZoomAround(offset: Point, zoom: number, options: ZoomOptions): this;
-        fitBounds(bounds: LatLngBounds, options: FitBoundsOptions): this;
-        fitBounds(bounds: LatLngBoundsLiteral, options: FitBoundsOptions): this;
+        setZoomAround(latlng: LatLngExpression, zoom: number, options?: ZoomOptions): this;
+        setZoomAround(offset: Point, zoom: number, options?: ZoomOptions): this;
+        fitBounds(bounds: LatLngBoundsExpression, options?: FitBoundsOptions): this;
         fitWorld(options?: FitBoundsOptions): this;
-        panTo(latlng: LatLng, options?: PanOptions): this;
-        panTo(latlng: LatLngLiteral, options?: PanOptions): this;
-        panTo(latlng: LatLngTuple, options?: PanOptions): this;
-        panBy(offset: Point): this;
-        panBy(offset: PointTuple): this;
-        setMaxBounds(bounds: LatLngBounds): this;
-        setMaxBounds(bounds: LatLngBoundsLiteral): this;
+        panTo(latlng: LatLngExpression, options?: PanOptions): this;
+        panBy(offset: PointExpression): this;
+        setMaxBounds(bounds: LatLngBoundsExpression): this;
         setMinZoom(zoom: number): this;
         setMaxZoom(zoom: number): this;
-        panInsideBounds(bounds: LatLngBounds, options?: PanOptions): this;
-        panInsideBounds(bounds: LatLngBoundsLiteral, options?: PanOptions): this;
+        panInsideBounds(bounds: LatLngBoundsExpression, options?: PanOptions): this;
         invalidateSize(options: ZoomPanOptions): this;
         invalidateSize(animate: boolean): this;
         stop(): this;
-        flyTo(latlng: LatLng, zoom?: number, options?: ZoomPanOptions): this;
-        flyTo(latlng: LatLngLiteral, zoom?: number, options?: ZoomPanOptions): this;
-        flyTo(latlng: LatLngTuple, zoom?: number, options?: ZoomPanOptions): this;
-        flyToBounds(bounds: LatLngBounds, options?: FitBoundsOptions): this;
-        flyToBounds(bounds: LatLngBoundsLiteral, options?: FitBoundsOptions): this;
+        flyTo(latlng: LatLngExpression, zoom?: number, options?: ZoomPanOptions): this;
+        flyToBounds(bounds: LatLngBoundsExpression, options?: FitBoundsOptions): this;
 
         // Other methods
         addHandler(name: string, HandlerClass: () => Handler): this; // HandlerClass is actually a constructor function, is this the right way?
@@ -1264,7 +1275,7 @@ declare namespace L {
         getPane(pane: HTMLElement): HTMLElement;
         getPanes(): {[name: string]: HTMLElement} & DefaultMapPanes;
         getContainer(): HTMLElement;
-        whenReady(fn: () => void, context?: Object): this;
+        whenReady(fn: () => void, context?: any): this;
 
         // Methods for getting map state
         getCenter(): LatLng;
@@ -1272,8 +1283,7 @@ declare namespace L {
         getBounds(): LatLngBounds;
         getMinZoom(): number;
         getMaxZoom(): number;
-        getBoundsZoom(bounds: LatLngBounds, inside?: boolean): number;
-        getBoundsZoom(bounds: LatLngBoundsLiteral, inside?: boolean): number;
+        getBoundsZoom(bounds: LatLngBoundsExpression, inside?: boolean): number;
         getSize(): Point;
         getPixelBounds(): Bounds;
         getPixelOrigin(): Point;
@@ -1282,29 +1292,16 @@ declare namespace L {
         // Conversion methods
         getZoomScale(toZoom: number, fromZoom: number): number;
         getScaleZoom(scale: number, fromZoom: number): number;
-        project(latlng: LatLng, zoom: number): Point;
-        project(latlng: LatLngLiteral, zoom: number): Point;
-        project(latlng: LatLngTuple, zoom: number): Point;
-        unproject(point: Point, zoom: number): LatLng;
-        unproject(point: PointTuple, zoom: number): LatLng;
-        layerPointToLatLng(point: Point): LatLng;
-        layerPointToLatLng(point: PointTuple): LatLng;
-        latLngToLayerPoint(latlng: LatLng): Point;
-        latLngToLayerPoint(latlng: LatLngLiteral): Point;
-        latLngToLayerPoint(latlng: LatLngTuple): Point;
-        wrapLatLng(latlng: LatLng): LatLng;
-        wrapLatLng(latlng: LatLngLiteral): LatLng;
-        wrapLatLng(latlng: LatLngTuple): LatLng;
-        distance(latlng1: LatLng, latlng2: LatLng): number;
-        distance(latlng1: LatLngLiteral, latlng2: LatLngLiteral): number;
-        distance(latlng1: LatLngTuple, latlng2: LatLngTuple): number;
-        containerPointToLayerPoint(point: Point): Point;
-        containerPointToLayerPoint(point: PointTuple): Point;
-        layerPointToContainerPoint(point: Point): Point;
+        project(latlng: LatLngExpression, zoom: number): Point;
+        unproject(point: PointExpression, zoom: number): LatLng;
+        layerPointToLatLng(point: PointExpression): LatLng;
+        latLngToLayerPoint(latlng: LatLngExpression): Point;
+        wrapLatLng(latlng: LatLngExpression): LatLng;
+        distance(latlng1: LatLngExpression, latlng2: LatLngExpression): number;
+        containerPointToLayerPoint(point: PointExpression): Point;
+        layerPointToContainerPoint(point: PointExpression): Point;
         layerPointToContainerPoint(point: PointTuple): Point;
-        latLngToContainerPoint(latlng: LatLng): Point;
-        latLngToContainerPoint(latlng: LatLngLiteral): Point;
-        latLngToContainerPoint(latlng: LatLngTuple): Point;
+        latLngToContainerPoint(latlng: LatLngExpression): Point;
         mouseEventToContainerPoint(ev: MouseEvent): Point;
         mouseEventToLayerPoint(ev: MouseEvent): Point;
         mouseEventToLatLng(ev: MouseEvent): LatLng;
@@ -1345,8 +1342,19 @@ declare namespace L {
         createShadow(oldIcon?: HTMLElement): HTMLElement;
     }
 
+    export interface IconDefault extends Icon {
+        imagePath: string;
+    }
+
+    export class Icon {
+        constructor(options: IconOptions);
+    }
+
     export namespace Icon {
-        export const Default: Icon;
+        export class Default extends Icon {
+            constructor(options?: IconOptions);
+            imagePath: string;
+        }
     }
 
     export function icon(options: IconOptions): Icon;
@@ -1360,9 +1368,11 @@ declare namespace L {
         className?: string;
     }
 
-    export interface DivIcon extends Icon {}
+    export class DivIcon extends Icon {
+        constructor(options?: DivIconOptions);
+    }
 
-    export function divIcon(options: DivIconOptions): DivIcon;
+    export function divIcon(options?: DivIconOptions): DivIcon;
 
     export interface MarkerOptions extends InteractiveLayerOptions {
         icon?: Icon;
@@ -1376,24 +1386,20 @@ declare namespace L {
         riseOffset?: number;
     }
 
-    export interface Marker extends Layer {
+    export class Marker extends Layer {
+        constructor(latlng: LatLngExpression, options?: MarkerOptions);
         getLatLng(): LatLng;
-        setLatLng(latlng: LatLng): this;
-        setLatLng(latlng: LatLngLiteral): this;
-        setLatLng(latlng: LatLngTuple): this;
+        setLatLng(latlng: LatLngExpression): this;
         setZIndexOffset(offset: number): this;
         setIcon(icon: Icon): this;
         setOpacity(opacity: number): this;
+        getElement(): Element;
 
         // Properties
         dragging: Handler;
     }
 
-    export function marker(latlng: LatLng, options?: MarkerOptions): Marker;
-
-    export function marker(latlng: LatLngLiteral, options?: MarkerOptions): Marker;
-
-    export function marker(latlng: LatLngTuple, options?: MarkerOptions): Marker;
+    export function marker(latlng: LatLngExpression, options?: MarkerOptions): Marker;
 
     export namespace Browser {
         export const ie: boolean;
@@ -1403,45 +1409,25 @@ declare namespace L {
         export const gecko: boolean;
         export const android: boolean;
         export const android23: boolean;
-
         export const chrome: boolean;
-
         export const safari: boolean;
-
         export const win: boolean;
-
         export const ie3d: boolean;
-
         export const webkit3d: boolean;
-
         export const gecko3d: boolean;
-
         export const opera12: boolean;
-
         export const any3d: boolean;
-
         export const mobile: boolean;
-
         export const mobileWebkit: boolean;
-
         export const mobiWebkit3d: boolean;
-
         export const mobileOpera: boolean;
-
         export const mobileGecko: boolean;
-
         export const touch: boolean;
-
         export const msPointer: boolean;
-
         export const pointer: boolean;
-
         export const retina: boolean;
-
         export const canvas: boolean;
-
         export const vml: boolean;
-
         export const svg: boolean;
     }
 }

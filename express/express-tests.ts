@@ -29,8 +29,7 @@ namespace express_tests {
     res.send('hello world');
     });
 
-    const router = express.Router();
-
+    const router = express.Router({ caseSensitive: true, mergeParams: true, strict: true });
 
     const pathStr: string = 'test';
     const pathRE: RegExp = /test/;

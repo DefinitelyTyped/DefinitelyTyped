@@ -20,9 +20,9 @@ declare namespace ReactSelectClass {
 
     export interface Option {
         /** Text for rendering */
-        label: string;
+        label?: string;
         /** Value for searching */
-        value: string | number;
+        value?: string | number;
         /**
          * Allow this option to be cleared
          * @default true
@@ -311,7 +311,7 @@ declare namespace ReactSelectClass {
         /**
          * initial field value
          */
-        value?: Option | Option[] | string | string[] | number | number[];
+        value?: Option | Option[] | string | string[] | number | number[] | boolean;
         /**
          * the option property to use for the value
          * @default "value"
@@ -368,7 +368,7 @@ declare namespace ReactSelectClass {
         /**
          * factory to create new options
          */
-        newOptionCreator?: (input: string) => Option;
+        newOptionCreator?: (arg: { label: string, labelKey: string, valueKey: string }) => Option;
 
         /**
          * Creates prompt/placeholder for option text.
@@ -437,11 +437,11 @@ declare namespace ReactSelectClass {
          */
         searchingText?: string;
     }
+}
+ 
+declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSelectProps, {}> { }
 
-}
-declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSelectProps, {}> {
-    static Async: typeof ReactSelectAsyncClass;
-    static Creatable: typeof ReactSelectCreatableClass;
-}
-declare class ReactSelectAsyncClass extends React.Component<ReactSelectClass.ReactAsyncSelectProps, {}> { }
-declare class ReactSelectCreatableClass extends React.Component<ReactSelectClass.ReactCreatableSelectProps, {}> {}
+declare module ReactSelectClass { 
+    class Creatable extends React.Component<ReactCreatableSelectProps, {}> { }
+    class Async extends React.Component<ReactAsyncSelectProps, {}> { } 
+} 

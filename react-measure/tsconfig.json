@@ -3,6 +3,7 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "jsx": "react",
@@ -15,7 +16,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "react-measure.d.ts",
+        "index.d.ts",
         "react-measure-tests.tsx"
     ]
 }

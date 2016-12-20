@@ -1,9 +1,18 @@
-// Type definitions for verror v1.6.0
+// Type definitions for verror v1.9.0
 // Project: https://github.com/davepacheco/node-verror
 // Definitions by: Sven Reglitzki <https://github.com/svi3c/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
+type VErrorInfo = { [key: string]: any };
+
+declare interface VErrorOptions {
+    cause: Error;
+    name?: string;
+    strict?: boolean;
+    constructorOpt?: Function;
+    info?: VErrorInfo;
+}
 
 /*
  * VError([cause], fmt[, arg...]): Like JavaScript's built-in Error class, but
@@ -24,7 +33,14 @@ declare class VError extends Error {
     static SError: typeof SError;
     static MultiError: typeof MultiError;
     static WError: typeof WError;
-    cause(): Error;
+
+    static cause(err: Error): Error | null;
+    static info(err: Error): VErrorInfo;
+    static findCauseByName(err: Error, name: string): Error | null;
+    static fullStack(err: Error): string;
+
+    cause(): Error | undefined;
+    constructor(options: VErrorOptions, message: string, ...params: any[]);
     constructor(cause: Error, message: string, ...params: any[]);
     constructor(message: string, ...params: any[]);
 }
@@ -46,6 +62,7 @@ declare class SError extends VError {
  */
 declare class MultiError extends VError {
     constructor(errors: Error[]);
+    errors(): Error[];
 }
 
 /*

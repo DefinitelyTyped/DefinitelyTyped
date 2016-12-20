@@ -64,7 +64,7 @@ num = d3Format.precisionRound(0.0005, 3000);
 // ----------------------------------------------------------------------
 
 let decimal: '.' | ',' = localeDef.decimal;
-let thousands: '.' | ',' | '\u00a0' = localeDef.thousands;
+let thousands: '.' | ',' | '\u00a0' | "'" = localeDef.thousands;
 let grouping: Array<number> = localeDef.grouping;
 let currency: [string, string] = localeDef.currency;
 

@@ -93,6 +93,7 @@ export declare function isValidList(usernameList: string): boolean;
 export declare function isValidHashtag(hashtag: string): boolean;
 // Note: unicodeDomainsa and requireProtocol can be null
 export declare function isValidUrl(url: string, unicodeDomains: boolean, requireProtocol: boolean): boolean;
+export declare function hasInvalidCharacters(text: string): boolean;
 export declare function isInvalidTweet(text: string): string;
 
 export declare function getUnicodeTextLength(text: string): number;

@@ -260,11 +260,11 @@ declare namespace Immutable {
      * @see `Map#mergeWith`
      */
     mergeWith(
-      merger: (previous?: T, next?: T, key?: number) => T,
+      merger: (previous: T, next: T, key: number) => T,
       ...iterables: Iterable.Indexed<T>[]
     ): List<T>;
     mergeWith(
-      merger: (previous?: T, next?: T, key?: number) => T,
+      merger: (previous: T, next: T, key: number) => T,
       ...iterables: Array<T>[]
     ): List<T>;
 
@@ -278,11 +278,11 @@ declare namespace Immutable {
      * @see `Map#mergeDeepWith`
      */
     mergeDeepWith(
-      merger: (previous?: T, next?: T, key?: number) => T,
+      merger: (previous: T, next: T, key: number) => T,
       ...iterables: Iterable.Indexed<T>[]
     ): List<T>;
     mergeDeepWith(
-      merger: (previous?: T, next?: T, key?: number) => T,
+      merger: (previous: T, next: T, key: number) => T,
       ...iterables: Array<T>[]
     ): List<T>;
 
@@ -541,11 +541,11 @@ declare namespace Immutable {
      *
      */
     mergeWith(
-      merger: (previous?: V, next?: V, key?: K) => V,
+      merger: (previous: V, next: V, key: K) => V,
       ...iterables: Iterable<K, V>[]
     ): Map<K, V>;
     mergeWith(
-      merger: (previous?: V, next?: V, key?: K) => V,
+      merger: (previous: V, next: V, key: K) => V,
       ...iterables: {[key: string]: V}[]
     ): Map<string, V>;
 
@@ -572,11 +572,11 @@ declare namespace Immutable {
      *
      */
     mergeDeepWith(
-      merger: (previous?: V, next?: V, key?: K) => V,
+      merger: (previous: V, next: V, key: K) => V,
       ...iterables: Iterable<K, V>[]
     ): Map<K, V>;
     mergeDeepWith(
-      merger: (previous?: V, next?: V, key?: K) => V,
+      merger: (previous: V, next: V, key: K) => V,
       ...iterables: {[key: string]: V}[]
     ): Map<string, V>;
 
@@ -988,7 +988,7 @@ declare namespace Immutable {
     /**
      * Alias for `Stack.first()`.
      */
-    peek(): T;
+    peek(): T | undefined;
 
 
     // Persistent changes
@@ -1459,7 +1459,7 @@ declare namespace Immutable {
        *
        */
       mapKeys<M>(
-        mapper: (key?: K, value?: V, iter?: this) => M,
+        mapper: (key: K, value: V, iter: this) => M,
         context?: any
       ): /*this*/Iterable.Keyed<M, V>;
 
@@ -1474,9 +1474,9 @@ declare namespace Immutable {
        */
       mapEntries<KM, VM>(
         mapper: (
-          entry?: [K, V],
-          index?: number,
-          iter?: this
+          entry: [K, V],
+          index: number,
+          iter: this
         ) => [KM, VM],
         context?: any
       ): /*this*/Iterable.Keyed<KM, VM>;
@@ -1521,8 +1521,8 @@ declare namespace Immutable {
        * `index` may be a negative number, which indexes back from the end of the
        * Iterable. `s.get(-1)` gets the last item in the Iterable.
        */
-      get(index: number, notSetValue?: T): T;
-
+      get(index: number, notSetValue: T): T;
+      get(index: number): T | undefined;
 
       // Conversion to Seq
 
@@ -1641,7 +1641,7 @@ declare namespace Immutable {
        * provided predicate function. Otherwise -1 is returned.
        */
       findIndex(
-        predicate: (value?: T, index?: number, iter?: this) => boolean,
+        predicate: (value: T, index: number, iter: this) => boolean,
         context?: any
       ): number;
 
@@ -1650,7 +1650,7 @@ declare namespace Immutable {
        * provided predicate function. Otherwise -1 is returned.
        */
       findLastIndex(
-        predicate: (value?: T, index?: number, iter?: this) => boolean,
+        predicate: (value: T, index: number, iter: this) => boolean,
         context?: any
       ): number;
     }
@@ -1758,7 +1758,8 @@ declare namespace Immutable {
      * so if `notSetValue` is not provided and this method returns `undefined`,
      * that does not guarantee the key was not found.
      */
-    get(key: K, notSetValue?: V): V;
+    get(key: K, notSetValue: V): V;
+    get(key: K): V | undefined;
 
     /**
      * True if a key exists within this `Iterable`, using `Immutable.is` to determine equality
@@ -1775,12 +1776,12 @@ declare namespace Immutable {
     /**
      * The first value in the Iterable.
      */
-    first(): V;
+    first(): V | undefined;
 
     /**
      * The last value in the Iterable.
      */
-    last(): V;
+    last(): V | undefined;
 
 
     // Reading deep values
@@ -1971,7 +1972,7 @@ declare namespace Immutable {
      *
      */
     map<M>(
-      mapper: (value?: V, key?: K, iter?: this) => M,
+      mapper: (value: V, key: K, iter: this) => M,
       context?: any
     ): /*this*/Iterable<K, M>;
 
@@ -1984,7 +1985,7 @@ declare namespace Immutable {
      *
      */
     filter(
-      predicate: (value?: V, key?: K, iter?: this) => boolean,
+      predicate: (value: V, key: K, iter: this) => boolean,
       context?: any
     ): this;
 
@@ -1997,7 +1998,7 @@ declare namespace Immutable {
      *
      */
     filterNot(
-      predicate: (value?: V, key?: K, iter?: this) => boolean,
+      predicate: (value: V, key: K, iter: this) => boolean,
       context?: any
     ): this;
 
@@ -2033,7 +2034,7 @@ declare namespace Immutable {
      *
      */
     sortBy<C>(
-      comparatorValueMapper: (value?: V, key?: K, iter?: this) => C,
+      comparatorValueMapper: (value: V, key: K, iter: this) => C,
       comparator?: (valueA: C, valueB: C) => number
     ): this;
 
@@ -2044,7 +2045,7 @@ declare namespace Immutable {
      * Note: This is always an eager operation.
      */
     groupBy<G>(
-      grouper: (value?: V, key?: K, iter?: this) => G,
+      grouper: (value: V, key: K, iter: this) => G,
       context?: any
     ): Seq.Keyed<G, this>;
 
@@ -2059,7 +2060,7 @@ declare namespace Immutable {
      * (including the last iteration which returned false).
      */
     forEach(
-      sideEffect: (value?: V, key?: K, iter?: this) => any,
+      sideEffect: (value: V, key: K, iter: this) => any,
       context?: any
     ): number;
 
@@ -2118,7 +2119,7 @@ declare namespace Immutable {
      *
      */
     skipWhile(
-      predicate: (value?: V, key?: K, iter?: this) => boolean,
+      predicate: (value: V, key: K, iter: this) => boolean,
       context?: any
     ): this;
 
@@ -2132,7 +2133,7 @@ declare namespace Immutable {
      *
      */
     skipUntil(
-      predicate: (value?: V, key?: K, iter?: this) => boolean,
+      predicate: (value: V, key: K, iter: this) => boolean,
       context?: any
     ): this;
 
@@ -2158,7 +2159,7 @@ declare namespace Immutable {
      *
      */
     takeWhile(
-      predicate: (value?: V, key?: K, iter?: this) => boolean,
+      predicate: (value: V, key: K, iter: this) => boolean,
       context?: any
     ): this;
 
@@ -2171,7 +2172,7 @@ declare namespace Immutable {
      *
      */
     takeUntil(
-      predicate: (value?: V, key?: K, iter?: this) => boolean,
+      predicate: (value: V, key: K, iter: this) => boolean,
       context?: any
     ): this;
 
@@ -2209,11 +2210,11 @@ declare namespace Immutable {
      * Similar to `iter.map(...).flatten(true)`.
      */
     flatMap<MK, MV>(
-      mapper: (value?: V, key?: K, iter?: this) => Iterable<MK, MV>,
+      mapper: (value: V, key: K, iter: this) => Iterable<MK, MV>,
       context?: any
     ): /*this*/Iterable<MK, MV>;
     flatMap<MK, MV>(
-      mapper: (value?: V, key?: K, iter?: this) => /*iterable-like*/any,
+      mapper: (value: V, key: K, iter: this) => /*iterable-like*/any,
       context?: any
     ): /*this*/Iterable<MK, MV>;
 
@@ -2230,10 +2231,13 @@ declare namespace Immutable {
      * @see `Array#reduce`.
      */
     reduce<R>(
-      reducer: (reduction?: R, value?: V, key?: K, iter?: this) => R,
-      initialReduction?: R,
+      reducer: (reduction: R, value: V, key: K, iter: this) => R,
+      initialReduction: R,
       context?: any
     ): R;
+    reduce<R>(
+      reducer: (reduction: R, value: V, key: K, iter: this) => R
+    ): R | undefined;
 
     /**
      * Reduces the Iterable in reverse (from the right side).
@@ -2242,16 +2246,19 @@ declare namespace Immutable {
      * with `Array#reduceRight`.
      */
     reduceRight<R>(
-      reducer: (reduction?: R, value?: V, key?: K, iter?: this) => R,
-      initialReduction?: R,
+      reducer: (reduction: R, value: V, key: K, iter: this) => R,
+      initialReduction: R,
       context?: any
     ): R;
+    reduceRight<R>(
+      reducer: (reduction: R, value: V, key: K, iter: this) => R
+    ): R | undefined;
 
     /**
      * True if `predicate` returns true for all entries in the Iterable.
      */
     every(
-      predicate: (value?: V, key?: K, iter?: this) => boolean,
+      predicate: (value: V, key: K, iter: this) => boolean,
       context?: any
     ): boolean;
 
@@ -2259,7 +2266,7 @@ declare namespace Immutable {
      * True if `predicate` returns true for any entry in the Iterable.
      */
     some(
-      predicate: (value?: V, key?: K, iter?: this) => boolean,
+      predicate: (value: V, key: K, iter: this) => boolean,
       context?: any
     ): boolean;
 
@@ -2289,7 +2296,7 @@ declare namespace Immutable {
      */
     count(): number;
     count(
-      predicate: (value?: V, key?: K, iter?: this) => boolean,
+      predicate: (value: V, key: K, iter: this) => boolean,
       context?: any
     ): number;
 
@@ -2300,7 +2307,7 @@ declare namespace Immutable {
      * Note: This is not a lazy operation.
      */
     countBy<G>(
-      grouper: (value?: V, key?: K, iter?: this) => G,
+      grouper: (value: V, key: K, iter: this) => G,
       context?: any
     ): Seq.Keyed<G, number>;
 
@@ -2311,10 +2318,14 @@ declare namespace Immutable {
      * Returns the first value for which the `predicate` returns true.
      */
     find(
-      predicate: (value?: V, key?: K, iter?: this) => boolean,
-      context?: any,
-      notSetValue?: V
+      predicate: (value: V, key: K, iter: this) => boolean,
+      context: any,
+      notSetValue: V
     ): V;
+    find(
+      predicate: (value: V, key: K, iter: this) => boolean,
+      context?: any
+    ): V | undefined;
 
     /**
      * Returns the last value for which the `predicate` returns true.
@@ -2322,19 +2333,27 @@ declare namespace Immutable {
      * Note: `predicate` will be called for each entry in reverse.
      */
     findLast(
-      predicate: (value?: V, key?: K, iter?: this) => boolean,
-      context?: any,
-      notSetValue?: V
+      predicate: (value: V, key: K, iter: this) => boolean,
+      context: any,
+      notSetValue: V
     ): V;
+    findLast(
+      predicate: (value: V, key: K, iter: this) => boolean,
+      context?: any
+    ): V | undefined;
 
     /**
      * Returns the first [key, value] entry for which the `predicate` returns true.
      */
     findEntry(
-      predicate: (value?: V, key?: K, iter?: this) => boolean,
-      context?: any,
-      notSetValue?: V
+      predicate: (value: V, key: K, iter: this) => boolean,
+      context: any,
+      notSetValue: V
     ): [K, V];
+    findEntry(
+      predicate: (value: V, key: K, iter: this) => boolean,
+      context?: any
+    ): [K, V] | undefined;
 
     /**
      * Returns the last [key, value] entry for which the `predicate`
@@ -2343,18 +2362,22 @@ declare namespace Immutable {
      * Note: `predicate` will be called for each entry in reverse.
      */
     findLastEntry(
-      predicate: (value?: V, key?: K, iter?: this) => boolean,
-      context?: any,
-      notSetValue?: V
+      predicate: (value: V, key: K, iter: this) => boolean,
+      context: any,
+      notSetValue: V
     ): [K, V];
+    findLastEntry(
+      predicate: (value: V, key: K, iter: this) => boolean,
+      context?: any
+    ): [K, V] | undefined;
 
     /**
      * Returns the key for which the `predicate` returns true.
      */
     findKey(
-      predicate: (value?: V, key?: K, iter?: this) => boolean,
+      predicate: (value: V, key: K, iter: this) => boolean,
       context?: any
-    ): K;
+    ): K | undefined;
 
     /**
      * Returns the last key for which the `predicate` returns true.
@@ -2362,19 +2385,19 @@ declare namespace Immutable {
      * Note: `predicate` will be called for each entry in reverse.
      */
     findLastKey(
-      predicate: (value?: V, key?: K, iter?: this) => boolean,
+      predicate: (value: V, key: K, iter: this) => boolean,
       context?: any
-    ): K;
+    ): K | undefined;
 
     /**
      * Returns the key associated with the search value, or undefined.
      */
-    keyOf(searchValue: V): K;
+    keyOf(searchValue: V): K | undefined;
 
     /**
      * Returns the last key associated with the search value, or undefined.
      */
-    lastKeyOf(searchValue: V): K;
+    lastKeyOf(searchValue: V): K | undefined;
 
     /**
      * Returns the maximum value in this collection. If any values are
@@ -2391,7 +2414,7 @@ declare namespace Immutable {
      * If `comparator` returns 0 and either value is NaN, undefined, or null,
      * that value will be returned.
      */
-    max(comparator?: (valueA: V, valueB: V) => number): V;
+    max(comparator?: (valueA: V, valueB: V) => number): V | undefined;
 
     /**
      * Like `max`, but also accepts a `comparatorValueMapper` which allows for
@@ -2401,9 +2424,9 @@ declare namespace Immutable {
      *
      */
     maxBy<C>(
-      comparatorValueMapper: (value?: V, key?: K, iter?: this) => C,
+      comparatorValueMapper: (value: V, key: K, iter: this) => C,
       comparator?: (valueA: C, valueB: C) => number
-    ): V;
+    ): V | undefined;
 
     /**
      * Returns the minimum value in this collection. If any values are
@@ -2420,7 +2443,7 @@ declare namespace Immutable {
      * If `comparator` returns 0 and either value is NaN, undefined, or null,
      * that value will be returned.
      */
-    min(comparator?: (valueA: V, valueB: V) => number): V;
+    min(comparator?: (valueA: V, valueB: V) => number): V | undefined;
 
     /**
      * Like `min`, but also accepts a `comparatorValueMapper` which allows for
@@ -2430,9 +2453,9 @@ declare namespace Immutable {
      *
      */
     minBy<C>(
-      comparatorValueMapper: (value?: V, key?: K, iter?: this) => C,
+      comparatorValueMapper: (value: V, key: K, iter: this) => C,
       comparator?: (valueA: C, valueB: C) => number
-    ): V;
+    ): V | undefined;
 
 
     // Comparison
@@ -2540,5 +2563,4 @@ declare namespace Immutable {
   export interface Iterator<T> {
     next(): { value: T; done: boolean; }
   }
-
 }

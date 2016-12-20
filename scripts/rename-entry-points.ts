@@ -25,7 +25,7 @@ function checkDir(home: string, count: number) {
 							if (exists) {
 								const old = JSON.parse(fs.readFileSync(target, 'utf-8'));
 
-								let entryPoint: string = undefined;
+								let entryPoint: string;
 								let definitionFiles = files.filter(f => (f.indexOf('.d.ts') > 0));
 								if (definitionFiles.length === 1) {
 									entryPoint = definitionFiles[0];
@@ -41,7 +41,7 @@ function checkDir(home: string, count: number) {
 									return;
 								}
 
-								let testFile = path.join(dir, path.basename(dir) + '-tests.ts');
+								let testFile: string | undefined = path.join(dir, path.basename(dir) + '-tests.ts');
 								if (!fs.existsSync(testFile)) {
 									let onlyTest = files.filter(f => f.toLowerCase().indexOf('-tests.ts') > 0)[0];
 									if (onlyTest) {
