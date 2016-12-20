@@ -187,6 +187,41 @@ declare namespace webpack {
          * If the resolved path matches, it’ll be cached.
          */
         unsafeCache?: RegExp | RegExp[] | boolean;
+
+        /**
+         * Tell webpack what directories should be searched when resolving modules.
+         *
+         * Absolute and relative paths can both be used, but be aware that they will behave a bit different.
+         *
+         * A relative path will be scanned simarly to how Node scans for node_modules, by looking through the current
+         * directory as well as it's ancestors (i.e. ./node_modules, ../node_modules, and on).
+         *
+         * With an absolute path, it will only search in the given directory.
+         *
+         * defaults to: ["node_modules"]
+         */
+        modules?: string[];
+
+        /**
+         * When importing from an npm package, e.g. import * as D3 from "d3", this option will determine which fields in
+         * it's package.json are checked. The default values will vary based upon the target specified in your webpack configuration.
+         *
+         */
+        mainFields?: string[];
+
+        /**
+         * The filename to be used while resolving directories.
+         *
+         * Default: mainFiles: ["index"]
+         */
+        mainFiles?: string[];
+
+        /**
+         * If true, trying to resolve a context to its absolute path ends when a directory is found.
+         *
+         * Default: false
+         */
+        resolveToContext?: boolean;
     }
 
     interface ResolveLoader extends Resolve {
@@ -245,7 +280,7 @@ declare namespace webpack {
     }
     type ConditionSpec = TestConditionSpec | OrConditionSpec | AndConditionSpec | NotConditionSpec;
 
-    interface ConditionArray extends Array<Condition> {} 
+    interface ConditionArray extends Array<Condition> {}
     type Condition = string | RegExp | ((absPath: string) => boolean) | ConditionSpec | ConditionArray;
 
     interface OldLoader {
@@ -258,26 +293,26 @@ declare namespace webpack {
     }
     type Loader = string | OldLoader | NewLoader;
 
-    /** 
+    /**
      * There are direct and delegate rules. Direct Rules need a test, Delegate rules delegate to subrules bringing their own.
      * Direct rules can optionally contain delegate keys (oneOf, rules).
-     * 
+     *
      * These types exist to enforce that a rule has the keys `((loader XOR loaders) AND test) OR oneOf OR rules`
      */
     interface BaseRule {
         /**
          * Specifies the category of the loader. No value means normal loader.
-         * 
+         *
          * There is also an additional category "inlined loader" which are loaders applied inline of the import/require.
-         * 
+         *
          * All loaders are sorted in the order post, inline, normal, pre and used in this order.
-         * 
+         *
          * All normal loaders can be omitted (overridden) by prefixing ! in the request.
-         * 
+         *
          * All normal and pre loaders can be omitted (overridden) by prefixing -! in the request.
-         * 
+         *
          * All normal, post and pre loaders can be omitted (overridden) by prefixing !! in the request.
-         * 
+         *
          * Inline loaders and ! prefixes should not be used as they are non-standard. They may be use by loader generated code.
          */
         enforce?: 'pre' | 'post';
@@ -293,7 +328,7 @@ declare namespace webpack {
         issuer?: Condition | Condition[];
         /**
          * An object with parser options. All applied parser options are merged.
-         * 
+         *
          * For each different parser options object a new parser is created and plugins can apply plugins depending on the parser options. Many of the default plugins apply their parser plugins only if a property in the parser options is not set or true.
          */
         parser?: { [optName: string]: any };
@@ -334,7 +369,7 @@ declare namespace webpack {
         use: Loader | Loader[];
     }
     type UseRule = OldUseRule | NewUseRule;
-    
+
     // Delegate Rules
     interface RulesRule extends BaseRule {
         /** An array of Rules that is also used when the Rule matches. */
