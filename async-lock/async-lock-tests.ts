@@ -1,4 +1,3 @@
-/// <reference path="async-lock.d.ts" />
 
 import * as AsyncLock from "async-lock";
 const lock = new AsyncLock();

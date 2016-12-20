@@ -1,4 +1,4 @@
-/// <reference path="heatmap.d.ts" />
+
 
 var baseLayer = L.tileLayer(
     'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

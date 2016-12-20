@@ -1,4 +1,4 @@
-/// <reference path="oauth.js.d.ts" />
+
 
 var encoded1: string = OAuth.percentEncode("abcあいう");
 var encoded2: string = OAuth.percentEncode(["abc", "あいう"]);

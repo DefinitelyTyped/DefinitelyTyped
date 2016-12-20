@@ -1,4 +1,4 @@
-/// <reference path="jss.d.ts" />
+
 
 jss.set('.demo', {
     'font-size': '15px',

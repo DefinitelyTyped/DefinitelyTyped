@@ -1,10 +1,10 @@
-/// <reference path='../angularjs/angular.d.ts' />
-/// <reference path='angular-touchspin.d.ts' />
+import angularTouchSpin = require("angular-touchspin");
+import * as angular from 'angular';
 
 angular
-    .module('touchspin-tests', ['lm.touchspin'])
-    .config(function(touchspinConfigProvider: angularTouchSpin.ITouchSpinConfigProvider) {
-        touchspinConfigProvider.defaults(<angularTouchSpin.ITouchSpinOptions>{
+    .module('touchspin-tests', ['nk.touchspin'])
+    .config(function(touchspinConfigProvider: angular.touchspin.ITouchSpinConfigProvider) {
+        touchspinConfigProvider.defaults(<angular.touchspin.ITouchSpinOptions>{
             min: 0,
             max: 0,
             step: 0,

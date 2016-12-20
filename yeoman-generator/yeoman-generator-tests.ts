@@ -1,4 +1,4 @@
-/// <reference path="yeoman-generator.d.ts" />
+
 import yeoman = require('yeoman-generator');
 
 var base = yeoman.generators.Base;
@@ -175,7 +175,7 @@ generator.prompt({ name: 'Name', message: '', default: (answers) => 10 }, (answe
 generator.prompt({ name: 'Name', message: '', type: "list" }, (answer) => {});
 generator.prompt({ name: 'Name', message: '', validate: (input) => true }, (answer) => {});
 generator.prompt({ name: 'Name', message: '', validate: (input) => "Error" }, (answer) => {});
-generator.prompt({ name: 'Name', message: '', filter: (input) => input }, (answer) => {});
+generator.prompt({ name: 'Name', message: '', filter: (input: any) => input }, (answer) => {});
 generator.prompt({ name: 'Name', message: '', when: (answers) => true }, (answer) => {});
 generator.prompt({ name: 'Name', message: '', when: true }, (answer) => {});
 

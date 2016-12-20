@@ -3,7 +3,7 @@
 // Definitions by: RReverser <https://github.com/RReverser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="./estree.d.ts" />
+
 
 declare namespace ESTree {
   interface FlowTypeAnnotation extends Node {}

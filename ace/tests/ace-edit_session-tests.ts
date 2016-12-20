@@ -1,4 +1,4 @@
-/// <reference path="../ace.d.ts" />
+
 
 var lang: any;
 var assert: any;

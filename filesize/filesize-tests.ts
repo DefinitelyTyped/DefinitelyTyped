@@ -1,4 +1,4 @@
-/// <reference path="filesize.d.ts" />
+
 
 import filesize = require("filesize");
 

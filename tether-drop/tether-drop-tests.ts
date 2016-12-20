@@ -1,7 +1,5 @@
-///<reference path="../tether/tether.d.ts" />
-///<reference path="tether-drop.d.ts" />
-
-import 'tether-drop';
+///<reference types="tether" />
+import Drop = require("tether-drop");
 
 var yellowBox = document.querySelector(".yellow");
 var greenBox = document.querySelector(".green");
@@ -24,7 +22,7 @@ d.remove();
 d.toggle();
 d.position();
 d.destroy();
-d.element.appendChild(document.createElement("div"));
+d.content.appendChild(document.createElement("div"));
 d.tether.position();
 
 d.on("open", () => false);

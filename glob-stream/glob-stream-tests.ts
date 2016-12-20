@@ -1,6 +1,4 @@
-/// <reference path="glob-stream.d.ts" />
-
-import gs = require('glob-stream');
+import gs = require('./');
 
 var read: NodeJS.ReadableStream;
 

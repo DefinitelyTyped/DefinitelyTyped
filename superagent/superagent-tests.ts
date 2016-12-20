@@ -1,10 +1,11 @@
-/// <reference path="superagent.d.ts" />
-/// <reference path="../node/node.d.ts" />
+
+/// <reference types="node" />
 
 // via: http://visionmedia.github.io/superagent/
 
 import * as request from 'superagent';
 import * as fs from 'fs';
+import * as assert from 'assert';
 
 // Examples taken from https://github.com/visionmedia/superagent/blob/gh-pages/docs/index.md
 // and https://github.com/visionmedia/superagent/blob/master/Readme.md
@@ -302,4 +303,13 @@ request
 request
   .get('/search')
   .then((response) => {})
-  .catch((error) => {}); 
+  .catch((error) => {});
+// Requesting binary data.
+// adapted from: https://github.com/visionmedia/superagent/blob/v2.0.0/test/client/request.js#L110
+request
+  .get('/blob')
+  .responseType('blob')
+  .end(function (err, res) {
+    assert(res.xhr instanceof XMLHttpRequest)
+    assert(res.xhr.response instanceof Blob);
+  });

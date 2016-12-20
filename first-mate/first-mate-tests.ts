@@ -1,4 +1,4 @@
-/// <reference path="./first-mate.d.ts" />
+
 
 import { GrammarRegistry, Grammar, IToken } from "first-mate";
 

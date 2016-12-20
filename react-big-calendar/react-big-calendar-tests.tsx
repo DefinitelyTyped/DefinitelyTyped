@@ -1,12 +1,9 @@
-/// <reference path="react-big-calendar.d.ts"/>
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../react/react-dom.d.ts"/>
-/// <reference path="../moment/moment.d.ts"/>
-
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
 import BigCalendar from 'react-big-calendar';
+// Don't want to add this as a dependency, because it is only used for tests.
+declare const moment: any;
 
 // Init localizer
 BigCalendar.momentLocalizer(moment);

@@ -1,4 +1,4 @@
-﻿/// <reference path="flight.d.ts" />
+﻿
 declare var el: Element;
 declare var els: Element[];
 declare var mixinFn: Function;

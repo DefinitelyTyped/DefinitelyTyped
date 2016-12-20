@@ -1,4 +1,4 @@
-/// <reference path="./status-bar.d.ts" />
+
 
 declare var StatusBarView:StatusBar.IStatusBarViewStatic;
 

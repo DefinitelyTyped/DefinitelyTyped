@@ -1,5 +1,3 @@
-/// <reference path="v8-profiler.d.ts" />
-
 import * as fs from "fs";
 import * as profiler from "v8-profiler";
 
