@@ -27,16 +27,14 @@ declare namespace webpack {
          */
         externals?: ExternalsElement | ExternalsElement[];
         /**
-         * <ul>
-         *   <li>"web" Compile for usage in a browser-like environment (default)</li>
-         *   <li>"webworker" Compile as WebWorker</li>
-         *   <li>"node" Compile for usage in a node.js-like environment (use require to load chunks)</li>
-         *   <li>"async-node" Compile for usage in a node.js-like environment (use fs and vm to load chunks async)</li>
-         *   <li>"node-webkit" Compile for usage in webkit, uses jsonp chunk loading but also supports builtin node.js modules plus require(“nw.gui”) (experimental)</li>
-         *   <li>"atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.</li>
-         * <ul>
+         * * "web" Compile for usage in a browser-like environment (default)
+         * * "webworker" Compile as WebWorker
+         * * "node" Compile for usage in a node.js-like environment (use require to load chunks)
+         * * "async-node" Compile for usage in a node.js-like environment (use fs and vm to load chunks async)
+         * * "node-webkit" Compile for usage in webkit, uses jsonp chunk loading but also supports builtin node.js modules plus require(“nw.gui”) (experimental)
+         * * "atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.
          */
-        target?: string;
+        target?: "web" | "webworker" | "node" | "async-node" | "node-webkit" | "atom";
         /** Report the first error as a hard error instead of tolerating it. */
         bail?: boolean;
         /** Capture timing information for each module. */
@@ -491,6 +489,21 @@ declare namespace webpack {
          * As an option modules that are not common in these chunks can be moved up the chunk tree to the parents.
          */
         AggressiveMergingPlugin: optimize.AggressiveMergingPluginStatic;
+        /**
+         * Split every chunk until it reaches the specified maxSize
+         * The AggressiveSplittingPlugin records it's splitting in the webpack records and try to restore splitting from records. 
+         * This ensures that after changes to the application old splittings (and chunks) are reused. They are probably already in 
+         * the clients cache. Therefore it's heavily recommended to use records!
+         * Only chunks which are bigger than the specified minSize are stored into the records. This ensures that these chunks fill 
+         * up as your application grows, instead of creating too many chunks for every change.
+         * Chunks can get invalid if a module changes. Modules from invalid chunks go back into the module pool and new chunks are 
+         * created from all modules in the pool.
+         * There is a tradeoff here:
+         * The caching improves with smaller maxSize, as chunks change less often and can be reused more often after an update.
+         * The compression improves with bigger maxSize, as gzip works better for bigger files. It's more likely to find duplicate
+         * strings, etc.
+         */
+        AggressiveSplittingPlugin: optimize.AggressiveSplittingPluginStatic;
     }
 
     interface Dependencies {
@@ -573,10 +586,10 @@ declare namespace webpack {
             new (): Plugin;
         }
         interface LimitChunkCountPluginStatic {
-            new (options: any): Plugin
+            new (options?: any): Plugin
         }
         interface MinChunkSizePluginStatic {
-            new (options: any): Plugin;
+            new (options?: any): Plugin;
         }
         interface OccurenceOrderPluginStatic {
             new (preferEntry: boolean): Plugin;
@@ -589,7 +602,10 @@ declare namespace webpack {
             new (options?: any): Plugin;
         }
         interface AggressiveMergingPluginStatic {
-            new (options: any): Plugin;
+            new (options?: any): Plugin;
+        }
+        interface AggressiveSplittingPluginStatic {
+            new (options?: { minSize?: number; maxSize?: number; }): Plugin;
         }
     }
 
