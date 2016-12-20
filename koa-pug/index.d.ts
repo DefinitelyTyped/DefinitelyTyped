@@ -40,7 +40,6 @@ declare namespace Pug {
 declare module 'koa' {
     interface Context {
         render(viewPath: string, locals?: Pug.PugLocals, overrideOpts?: Pug.PugCtxOptions, noCache?: boolean): void;
-        // tslint:disable-next-line:unified-signatures
         render(viewPath: string, locals?: Pug.PugLocals, overrideOpts?: boolean): void;
     }
 }
