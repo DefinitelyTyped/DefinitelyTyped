@@ -83,29 +83,21 @@ interface BaseFieldProps {
     warn?: Validator|Validator[];
 }
 
-interface Normalizer {
-    /**
-     * @param value             The value entered by the user.
-     * @param previousValue     The previous value for the field.
-     * @param allValues         All the values in the entire form with the new value.
-     *                          This will be an Immutable Map if you are using Immutable JS.
-     * @param previousAllValues All the values in the entire form before the current change.
-     *                          This will be an Immutable Map if you are using Immutable JS.
-     */
-    (value: FieldValue, previousValue?: FieldValue, allValues?: Object, previousAllValues?: Object): FieldValue;
-}
+/**
+ * @param value             The value entered by the user.
+ * @param previousValue     The previous value for the field.
+ * @param allValues         All the values in the entire form with the new value.
+ *                          This will be an Immutable Map if you are using Immutable JS.
+ * @param previousAllValues All the values in the entire form before the current change.
+ *                          This will be an Immutable Map if you are using Immutable JS.
+ */
+export type Normalizer = (value: FieldValue, previousValue?: FieldValue, allValues?: Object, previousAllValues?: Object) => FieldValue;
 
-interface Formatter {
-    (value: FieldValue, name: string): FieldValue;
-}
+export type Formatter = (value: FieldValue, name: string) => FieldValue;
 
-interface Parser {
-    (value: FieldValue, name: string): FieldValue;
-}
+export type Parser = (value: FieldValue, name: string) => FieldValue;
 
-interface Validator {
-    (value: FieldValue, allValues?: Object): undefined | string;
-}
+export type Validator = (value: FieldValue, allValues?: Object) => undefined | string;
 
 /**
  * Declare Field as this interface to specify the generic.
