@@ -25,11 +25,11 @@ declare namespace AmCharts {
     var useUTC: boolean;
 
     /** Clears all the charts on page, removes listeners and intervals. */
-    function clear();
-    
+    function clear(): any;
+
     /** Create chart by params. */
     function makeChart(selector: string, params: any, delay?: number): AmChart;
-    
+
     /** Set a method to be called before initializing the chart.
      * When the method is called, the chart instance is passed as an attribute.
      * You can use this feature to preprocess chart data or do some other things you need
@@ -38,16 +38,16 @@ declare namespace AmCharts {
      * @param {string[]} types - Which chart types should call this method. Defaults to all
      * if none is passed.
      */
-    function addInitHandler(handler: Function, types: string[]);
+    function addInitHandler(handler: Function, types: string[]): any;
 
     /** AmPieChart class creates pie/donut chart. In order to display pie chart you need to set at least three properties - dataProvider, titleField and valueField.
         @example
             var chartData = [{title:"Pie I have eaten",value:70},{title:"Pie I haven\'t eaten",value:30}];
-            var chart = new AmCharts.AmPieChart();
+            var chart = new AmCharts.AmPieChart(): any;
             chart.valueField = "value";
             chart.titleField = "title";
             chart.dataProvider = chartData;
-            chart.write("chartdiv");
+            chart.write("chartdiv"): any;
     */
     class AmPieChart extends AmChart {
         /** Name of the field in chart's dataProvider which holds slice's alpha. */
@@ -189,17 +189,17 @@ declare namespace AmCharts {
         visibleInLegendField: string;
 
         /** You can trigger the animation of the pie chart. */
-        animateAgain();
+        animateAgain(): any;
         /** You can trigger the click on a slice from outside. index - the number of a slice or Slice object. */
-        clickSlice(index: number);
+        clickSlice(index: number): any;
         /** Hides slice. index - the number of a slice or Slice object. */
-        hideSlice(index: number);
+        hideSlice(index: number): any;
         /** You can simulate roll-out of a slice from outside. index - the number of a slice or Slice object. */
-        rollOutSlice(index: number);
+        rollOutSlice(index: number): any;
         /** You can simulate roll-over a slice from outside. index - the number of a slice or Slice object. */
-        rollOverSlice(index: number);
+        rollOverSlice(index: number): any;
         /** Shows slice. index - the number of a slice or Slice object. */
-        showSlice(index: number);
+        showSlice(index: number): any;
     }
 
     /** AmRadarChart is the class you have to use for radar and polar chart types.
@@ -215,26 +215,26 @@ declare namespace AmCharts {
     ];
 
     window.onload = function() {
-      chart = new AmCharts.AmRadarChart();
+      chart = new AmCharts.AmRadarChart(): any;
       chart.dataProvider = chartData;
       chart.categoryField = "country";
       chart.startDuration = 2;
 
-      var valueAxis = new AmCharts.ValueAxis();
+      var valueAxis = new AmCharts.ValueAxis(): any;
       valueAxis.axisAlpha = 0.15;
       valueAxis.minimum = 0;
       valueAxis.dashLength = 3;
       valueAxis.axisTitleOffset = 20;
       valueAxis.gridCount = 5;
-      chart.addValueAxis(valueAxis);
+      chart.addValueAxis(valueAxis): any;
 
-      var graph = new AmCharts.AmGraph();
+      var graph = new AmCharts.AmGraph(): any;
       graph.valueField = "litres";
       graph.bullet = "round";
       graph.balloonText = "[[value]] litres of beer per year"
-      chart.addGraph(graph);
+      chart.addGraph(graph): any;
 
-      chart.write("chartdiv");
+      chart.write("chartdiv"): any;
     }
     */
     class AmRadarChart extends AmCoordinateChart {
@@ -262,38 +262,38 @@ declare namespace AmCharts {
                 {x:1, y:6, value:35}
             ];
 
-            var chart = new AmCharts.AmXYChart();
+            var chart = new AmCharts.AmXYChart(): any;
             chart.pathToImages = "../../amcharts/javascript/images/";
             chart.dataProvider = chartData;
             chart.marginLeft = 35;
             chart.startDuration = 1.5;
 
-            var xAxis = new AmCharts.ValueAxis();
+            var xAxis = new AmCharts.ValueAxis(): any;
             xAxis.position = "left";
             xAxis.autoGridCount = true;
-            chart.addValueAxis(xAxis);
+            chart.addValueAxis(xAxis): any;
 
-            var yAxis = new AmCharts.ValueAxis();
+            var yAxis = new AmCharts.ValueAxis(): any;
             yAxis.position = "bottom";
             yAxis.autoGridCount = true;
-            chart.addValueAxis(yAxis);
+            chart.addValueAxis(yAxis): any;
 
-            var graph = new AmCharts.AmGraph();
+            var graph = new AmCharts.AmGraph(): any;
             graph.valueField = "value";
             graph.xField = "x";
             graph.yField = "y";
             graph.lineAlpha = 0;
             graph.bullet = "round";
-            chart.addGraph(graph);
+            chart.addGraph(graph): any;
 
-            var chartCursor = new AmCharts.ChartCursor();
-            chart.addChartCursor(chartCursor);
+            var chartCursor = new AmCharts.ChartCursor(): any;
+            chart.addChartCursor(chartCursor): any;
 
-            var chartScrollbar = new AmCharts.ChartScrollbar();
+            var chartScrollbar = new AmCharts.ChartScrollbar(): any;
             chartScrollbar.hideResizeGrips = false;
-            chart.addChartScrollbar(chartScrollbar);
+            chart.addChartScrollbar(chartScrollbar): any;
 
-            chart.write("chartdiv);
+            chart.write("chartdiv): any;
     */
     class AmXYChart extends AmRectangularChart {
         /** Specifies if Scrollbar of X axis (horizontal) should be hidden. */
@@ -305,7 +305,7 @@ declare namespace AmCharts {
         */
         maxZoomFactor: number;
         /** Zooms out, charts shows all available data.*/
-        zoomOut();
+        zoomOut(): any;
     }
     /** Guides are straight vertical or horizontal lines or areas supported by AmSerialChart, AmXYChart and AmRadarChart. You can have guides both on value and category axes. To add/remove a guide to an axis, use axis.addGuide(guide)/axis.removeGuide(guide) methods.
 
@@ -552,27 +552,27 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         zoomOutOnDataSetChange: boolean;
 
         /** Adds panel to the stock chart. Requires stockChart.validateNow() method to be called after this action. */
-        addPanel(panel: StockPanel);
+        addPanel(panel: StockPanel): any;
         /** Adds panel to the stock chart at a specified index. Requires stockChart.validateNow() method to be called after this action. */
-        addPanelAt(panel: StockPanel, index: number);
+        addPanelAt(panel: StockPanel, index: number): any;
         /** Destroys chart, all timeouts and listeners. */
-        clear();
+        clear(): any;
         /** Hides event bullets. */
-        hideStockEvents();
+        hideStockEvents(): any;
         /** Removes event listener from the object. */
-        removeListener(obj: any, type: string, handler: any);
+        removeListener(obj: any, type: string, handler: any): any;
         /** Removes panel from the stock chart. Requires stockChart.validateNow() method to be called after this action. */
-        removePanel(panel: StockPanel);
+        removePanel(panel: StockPanel): any;
         /** Shows event bullets. */
-        showStockEvents();
+        showStockEvents(): any;
         /** Method which should be called after data was changed. */
-        validateData();
+        validateData(): any;
         /** Method which forces the stock chart to rebuild. Should be called after properties are changed. */
-        validateNow();
+        validateNow(): any;
         /** Zooms chart to specified dates. startDate, endDate - Date objects. */
-        zoom(startDate: Date, endDate: Date);
+        zoom(startDate: Date, endDate: Date): any;
         /** Zooms out the chart. */
-        zoomOut();
+        zoomOut(): any;
 
         /** Adds event listener of the type "dataUpdated" or "init" or "rendered" to the object.
             @param type Always "dataUpdated" or "init" or "rendered".
@@ -585,7 +585,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             /** Either "dataUpdated" or "init". */
             type: string;
             chart: AmStockChart;
-        }) => void );
+        }) => void): any;
 
         /** Adds event listener of the type "rollOutStockEvent" or "rollOverStockEvent" or "clickStockEvent" to the object.
             @param type     // Either "rollOutStockEvent" or "rollOverStockEvent" or "clickStockEvent".
@@ -602,7 +602,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             graph: AmGraph;
             date: Date;
             chart: AmStockChart;
-        }) => void );
+        }) => void): any;
 
         /** Adds event listener of the type "zoomed" to the object.
             @param type Always "zoomed".
@@ -614,7 +614,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             endDate: Date;
             period: string;
             chart: AmStockChart;
-        }) => void );
+        }) => void): any;
 
         /** Adds event listener of the type "panelRemoved" to the object.
             @param type Always "panelRemoved".
@@ -625,10 +625,10 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             type: string;
             panel: StockPanel;
             chart: AmStockChart;
-        }) => void );
+        }) => void): any;
 
         /** Removes event listener from chart object. */
-        removeListener(chart: AmChart, type: string, handler: any);
+        removeListener(chart: AmChart, type: string, handler: any): any;
     }
 
     /** ValueAxesSettings settings set 's settings for all ValueAxes. If you change a property after the chart is initialized, you should call stockChart.validateNow() method in order for it to work. If there is no default value specified, default value of ValueAxis class will be used. */
@@ -699,9 +699,9 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
     /** AmLegend is the class that displays legend of the chart. Legend to the chart should be added using chart.addLegend(legend) method.
         @example
-            var chart = new AmCharts.AmSerialChart();
-            var legend = new AmCharts.AmLegend();
-            chart.addLegend(legend);
+            var chart = new AmCharts.AmSerialChart(): any;
+            var legend = new AmCharts.AmLegend(): any;
+            chart.addLegend(legend): any;
     */
     class AmLegend {
 
@@ -837,10 +837,10 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         */
         addListener(type: string, handler: (e: {/** Always "showItem". */
             type: string; dataItem: Object; chart: AmChart;
-        }) => void );
+        }) => void): any;
 
         /** Removes event listener from chart object. */
-        removeListener(chart: AmChart, type: string, handler: any);
+        removeListener(chart: AmChart, type: string, handler: any): any;
     }
 
     /** StockLegend is a legend of StockPanel. */
@@ -896,16 +896,16 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         */
         trendLineThickness: number;
         /** Adds a graph to the panel. */
-        addStockGraph(graph: StockGraph);
+        addStockGraph(graph: StockGraph): any;
         /** Removes graph from the panel. */
-        removeStockGraph(graph: StockGraph);
+        removeStockGraph(graph: StockGraph): any;
     }
 
     /** AmChart is a base class of all charts. It can not be instantiated explicitly. AmCoordinateChart, AmPieChart and AmMap extend AmChart class. */
     class AmChart {
-    	/** used when constructing a chart with a theme */
-    	constructor(theme?: any);
-    	/** Specifies, if class names should be added to chart elements. */
+        /** used when constructing a chart with a theme */
+        constructor(theme?: any);
+        /** Specifies, if class names should be added to chart elements. */
         addClassNames: boolean;
         /** Array of Labels. Example of label object, with all possible properties:
 {"x": 20, "y": 20, "text": "this is label", "align": "left", "size": 12, "color": "#CC0000", "alpha": 1, "rotation": 0, "bold": true, "url": "http://www.amcharts.com"} */
@@ -1022,36 +1022,36 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             bold - specifies if text is bold (true/false),
             url - url
         */
-        addLabel(x: number|string, y: number|string, text: string, align: string, size?: number, color?: string, rotation?: number, alpha?: number, bold?: boolean, url?: string);
+        addLabel(x: number | string, y: number | string, text: string, align: string, size?: number, color?: string, rotation?: number, alpha?: number, bold?: boolean, url?: string): any;
         /** Adds a legend to the chart.
             By default, you don't need to create div for your legend, however if you want it to be positioned in some different way, you can create div anywhere you want and pass id or reference to your div as a second parameter.
             (NOTE: This method will not work on StockPanel.)
             @param legend
             @param legendDivId - Id of the legend div (optional).
         */
-        addLegend(legend: AmLegend, legendDivId?: string);
+        addLegend(legend: AmLegend, legendDivId?: string): any;
         /** Adds a legend to the chart.
             By default, you don't need to create div for your legend, however if you want it to be positioned in some different way, you can create div anywhere you want and pass id or reference to your div as a second parameter.
             (NOTE: This method will not work on StockPanel.)
             @param legend
             @param legendDiv - Legend div (optional).
         */
-        addLegend(legend: AmLegend, legendDiv: HTMLElement);
+        addLegend(legend: AmLegend, legendDiv: HTMLElement): any;
 
         /**   Adds title to the top of the chart. Pie, Radar positions are updated so that they won't overlap. Plot area of Serial/XY chart is also updated unless autoMargins property is set to false. You can add any number of titles - each of them will be placed in a new line. To remove titles, simply clear titles array: chart.titles = []; and call chart.validateNow() method. text - text of a title size - font size color - title color alpha - title opacity bold - boolean value indicating if title should be bold. */
-        addTitle(text: string, size: number, color: string, alpha: number, bold: boolean);
+        addTitle(text: string, size: number, color: string, alpha: number, bold: boolean): any;
         /** Clears the chart area, intervals, etc. */
-        clear();
+        clear(): any;
         /** Removes all labels added to the chart. */
-        clearLabels();
+        clearLabels(): any;
         /** Use this method to force the chart to resize to it's current container size. */
-        invalidateSize();
+        invalidateSize(): any;
         /** Removes chart's legend. */
-        removeLegend();
+        removeLegend(): any;
         /** This method should be called after data in your data provider changed or a new array was set to dataProvider. After calling this method the chart will parse data and redraw. */
-        validateData();
+        validateData(): any;
         /** This method should be called after you changed one or more properties of any class. The chart will redraw after this method is called. */
-        validateNow();
+        validateNow(): any;
 
         /** Adds chart to the specified DIV.
             @param container DIV object which will hold the chart. */
@@ -1072,9 +1072,9 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             /** Either "dataUpdated" or "init". */
             type: string;
             chart: AmChart;
-        }) => void );
+        }) => void): any;
         /** Removes event listener from chart object. */
-        removeListener(chart: AmChart, type: string, handler: any);
+        removeListener(chart: AmChart, type: string, handler: any): any;
     }
 
     /** AmCoordinateChart is a base class of AmRectangularChart. It can not be instantiated explicitly. */
@@ -1124,14 +1124,14 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         valueAxes: any[];
         /**  Adds a graph to the chart.
          */
-        addGraph(graph: AmGraph);
+        addGraph(graph: AmGraph): any;
         /** Adds a legend to the chart. By default, you don't need to create div for your legend, however if you want it to be positioned in some different way, you can create div anywhere you want and pass id or reference to your div as a second parameter. (NOTE: This method will not work on StockPanel.) */
         /** Adds value axis to the chart.
             One value axis is created automatically, so if you don't want to change anything or add more value axes, you don't need to add it.
         */
-        addValueAxis(axis: ValueAxis);
+        addValueAxis(axis: ValueAxis): any;
         /** You can trigger the animation of the chart. */
-        animateAgain();
+        animateAgain(): any;
 
         /** AmGraph Returns graph by id. */
         getGraphById(graphId: string): AmGraph;
@@ -1141,28 +1141,28 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
         /** Hide the graph (if it is visible). Usually this method is called from the Legend, when you click on the legend marker.
         */
-        hideGraph(graph: AmGraph);
+        hideGraph(graph: AmGraph): any;
 
         /** Hide value balloon of a graph. Usually this method is called from the Legend, when you click on the legend text.*/
-        hideGraphsBalloon(graph: AmGraph);
+        hideGraphsBalloon(graph: AmGraph): any;
 
         /** Highlight the graph. Usually this method is called from the Legend, when you roll-over the legend entry.*/
-        highlightGraph(graph: AmGraph);
+        highlightGraph(graph: AmGraph): any;
 
         /** Removes graph from the chart.*/
-        removeGraph(graph: AmGraph);
+        removeGraph(graph: AmGraph): any;
 
         /** Removes value axis from the chart. When you remove value axis, all graphs assigned to this axis are also removed. */
-        removeValueAxis(axis: ValueAxis);
+        removeValueAxis(axis: ValueAxis): any;
 
         /** Show the graph (if it is hidden). Usually this method is called from the Legend, when you click on the legend marker.*/
-        showGraph(graph: AmGraph);
+        showGraph(graph: AmGraph): any;
 
         /** Show value balloon of a graph. Usually this method is called from the Legend, when you click on the legend text.*/
-        showGraphsBalloon(graph: AmGraph);
+        showGraphsBalloon(graph: AmGraph): any;
 
         /** UnhighlightGraph the graph. Usually this method is called from the Legend, when you roll-out the legend entry.*/
-        unhighlightGraph(graph: AmGraph);
+        unhighlightGraph(graph: AmGraph): any;
         /** Adds event listener of the type "clickGraphItem" or "doubleClickGraphItem" or "rightClickGraphItem" or "rollOutGraphItem" or "rollOverGraphItem" to the object.
             @param type Either "clickGraphItem" or "doubleClickGraphItem" or "rightClickGraphItem" or "rollOutGraphItem" or "rollOverGraphItem".
             @param handler Dispatched when user clicks on the data item (column/bullet)
@@ -1174,7 +1174,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             item: GraphDataItem;
             index: number;
             chart: AmChart;
-        }) => void );
+        }) => void): any;
     }
 
     /** GraphDataItem holds all the information about the graph's data item. When working with a chart, you do not create GraphDataItem objects or change it's properties directly. GraphDataItem is passed to you by events when user interacts with data item on the chart. The list of properties below will help you to extract data item's value/coordinate/etc. */
@@ -1272,23 +1272,23 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         @default false*/
         useLineColorForBulletBorder: boolean;
         /** Number returns coordinate of a category. Works only if parseDates is false. If parseDates is true, use dateToCoordinate method. category - String */
-        categoryToCoordinate(category: string);
+        categoryToCoordinate(category: string): any;
 
         /** date - Date object Returns Date of the coordinate, in case parseDates is set to true and equalSpacing is set to false.  coordinate - Number */
-        coordinateToDate(coordinate: number);
+        coordinateToDate(coordinate: number): any;
 
         /** Number Returns coordinate of the date, in case parseDates is set to true. if parseDates is false, use categoryToCoordinate method. date - Date object */
-        dateToCoordinate(date: Date);
+        dateToCoordinate(date: Date): any;
 
         /** Number Returns index of the category which is most close to specified coordinate. x - coordinate */
-        xToIndex(x: number);
+        xToIndex(x: number): any;
     }
 
     /** ChartScrollbar class displays chart scrollbar. Supported by AmSerialChart and AmXYChart.
         @example
-            var chart = new AmCharts.AmSerialChart();
-            var chartScrollbar = new AmCharts.ChartScrollbar();
-            chart.addChartScrollbar(chartScrollbar);
+            var chart = new AmCharts.AmSerialChart(): any;
+            var chartScrollbar = new AmCharts.ChartScrollbar(): any;
+            chart.addChartScrollbar(chartScrollbar): any;
     */
     class ChartScrollbar {
         /** Specifies whether number of gridCount is specified automatically, acoarding to the axis size. */
@@ -1443,30 +1443,30 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         zoomOutText: string;
 
         /** Adds a ChartCursor object to a chart */
-        addChartCursor(cursor: ChartCursor);
+        addChartCursor(cursor: ChartCursor): any;
         /** Adds a ChartScrollbar to a chart */
-        addChartScrollbar(scrollbar: ChartScrollbar);
+        addChartScrollbar(scrollbar: ChartScrollbar): any;
         /** Adds a TrendLine to a chart.
             You should call chart.validateNow() after this method is called in order the trend line to be visible. */
-        addTrendLine(trendLine: TrendLine);
+        addTrendLine(trendLine: TrendLine): any;
         /** Removes cursor from the chart */
-        removeChartCursor();
+        removeChartCursor(): any;
         /** Removes scrollbar from the chart */
-        removeChartScrollbar();
+        removeChartScrollbar(): any;
         /** Removes a trend line from a chart.
             You should call chart.validateNow() in order the changes to be visible. */
-        removeTrendLine(trendLine: TrendLine);
+        removeTrendLine(trendLine: TrendLine): any;
     }
 
     /* Trend lines are straight lines indicating trends, might also be used for some different purposes. Can be used by Serial and XY charts. To add/remove trend line, use chart.addTrendLine(trendLine)/chart.removeTrendLine(trendLine) methods or simply pass array of trend lines: chart.trendLines = [trendLine1, trendLine2].
         @example
-            var trendLine = new AmCharts.TrendLine();
-            trendLine.initialDate = new Date(2012, 0, 2, 12); // 12 is hour - to start trend line in the middle of the day
-            trendLine.finalDate = new Date(2012, 0, 11, 12);
+            var trendLine = new AmCharts.TrendLine(): any;
+            trendLine.initialDate = new Date(2012, 0, 2, 12): any; // 12 is hour - to start trend line in the middle of the day
+            trendLine.finalDate = new Date(2012, 0, 11, 12): any;
             trendLine.initialValue = 10;
             trendLine.finalValue = 19;
             trendLine.lineColor = "#CC0000";
-            chart.addTrendLine(trendLine);
+            chart.addTrendLine(trendLine): any;
     */
     class TrendLine {
 
@@ -1474,9 +1474,9 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
     /** ChartCursor is a class which displays a cursor which follows the mouse. In case of Serial chart it also shows value and category balloons.
         @example
-            var chart = new AmCharts.AmSerialChart();
-            var chartCursor = new AmCharts.ChartCursor();
-            chart.addChartCursor(chartCursor);
+            var chart = new AmCharts.AmSerialChart(): any;
+            var chartCursor = new AmCharts.ChartCursor(): any;
+            chart.addChartCursor(chartCursor): any;
     */
     class ChartCursor {
         /** Specifies if bullet for each graph will follow the cursor. */
@@ -1534,21 +1534,21 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
 
         /** Hides cursor. */
-        hideCursor();
+        hideCursor(): any;
         /** You can force cursor to appear at specified cateogry or date. */
-        showCursorAt(category: string);
+        showCursorAt(category: string): any;
         /** Adds event listener of the type "changed" to the object.
             @param type Always "changed".
             @param handler Dispatched when cursor position is changed. "index" is a series index over which chart cursors currently is. "zooming" specifies if user is currently zooming (is selecting) the chart. mostCloseGraph property is set only when oneBalloonOnly is set to true.*/
         addListener(type: string, handler: (e: {/** Always "changed". */
             type: string; index: number; zooming: boolean; mostCloseGraph: AmGraph; chart: AmChart;
-        }) => void );
+        }) => void): any;
         /** Adds event listener of the type "onHideCursor" to the object.
             @param type Always "onHideCursor".
             @param handler Dispatched when cursor is hidden.*/
         addListener(type: string, handler: (e: {/** Always "onHideCursor". */
             type: string; chart: AmChart;
-        }) => void );
+        }) => void): any;
         /** Adds event listener of the type "selected" or "zoomed" to the object.
             @param type "selected" or "zoomed".
             @param handler
@@ -1557,27 +1557,27 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         */
         addListener(type: string, handler: (e: {/** Always "zoomed". */
             type: string; index: number; zooming: boolean; chart: AmChart;
-        }) => void );
+        }) => void): any;
 
         /** Removes event listener from chart object. */
-        removeListener(chart: AmChart, type: string, handler: any);
+        removeListener(chart: AmChart, type: string, handler: any): any;
     }
 
     /** AmSerialChart is the class you have to use for majority of chart types. The supported chart types are: line, area, column, bar, step line, smoothed line, candlestick and OHLC. The chart can be rotated by 90 degrees so the column chart becomes bar chart. The chart supports simple and logarithmic scales, it can have multiple value axes. The chart can place data points at equal intervals or can parse dates and place data points at irregular intervals.
         @example
             var chartData = [{title:"sample 1",value:130},{title:"sample 2",value:26}];
 
-            var chart = new AmCharts.AmSerialChart();
+            var chart = new AmCharts.AmSerialChart(): any;
             chart.categoryField = "title";
             chart.dataProvider = chartData;
 
-            var graph = new AmCharts.AmGraph();
+            var graph = new AmCharts.AmGraph(): any;
             graph.valueField = "value";
             graph.type = "column";
             graph.fillAlphas = 1;
-            chart.addGraph(graph);
+            chart.addGraph(graph): any;
 
-            chart.write("chartdiv");
+            chart.write("chartdiv"): any;
     */
     class AmSerialChart extends AmRectangularChart {
     	/** Date format of the graph balloon (if chart parses dates and you don't use chartCursor).
@@ -1628,15 +1628,15 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         zoomOutOnDataUpdate: boolean;
 
         /** Number Returns index of the specified category value. value - series (category value) which index you want to find. */
-        getCategoryIndexByValue(value: number);
+        getCategoryIndexByValue(value: number): any;
         /** Zooms out, charts shows all available data. */
-        zoomOut();
+        zoomOut(): any;
         /** Zooms the chart by the value of the category axis. start - category value, String \\ end - category value, String */
-        zoomToCategoryValues(start: Date, end: Date);
+        zoomToCategoryValues(start: Date, end: Date): any;
         /** Zooms the chart from one date to another. start - start date, Date object \\ end - end date, Date object */
-        zoomToDates(start: Date, end: Date);
+        zoomToDates(start: Date, end: Date): any;
         /** Zooms the chart by the index of the category. start - start index, Number \\ end - end index, Number */
-        zoomToIndexes(start: Date, end: Date);
+        zoomToIndexes(start: Date, end: Date): any;
     }
 
     class PeriodSelector {
@@ -1683,10 +1683,10 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             endDate: Date;
             predefinedPeriod: string;
             count: number;
-        }) => void );
+        }) => void): any;
 
         /** Removes event listener from chart object. */
-        removeListener(chart: AmChart, type: string, handler: any);
+        removeListener(chart: AmChart, type: string, handler: any): any;
     }
 
     /** PanelsSettings settings set's settings for all StockPanels. If you change a property after the chart is initialized, you should call stockChart.validateNow() method in order for it to work. If there is no default value specified, default value of StockPanel class will be used. */
@@ -1869,9 +1869,9 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** URL which will be access if user clicks on a label. */
         url: string;
         /** X position of a label. */
-        x: number|string;
+        x: number | string;
         /** y position of a label. */
-        y: number|string;
+        y: number | string;
     }
     /** Common settings of legends. If you change a property after the chart is initialized, you should call stockChart.validateNow() method in order for it to work. If there is no default value specified, default value of StockLegend class will be used. */
     class LegendSettings {
@@ -1950,7 +1950,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
     /** AmBalloon is the class which generates balloons (datatips). Balloon follows the mouse when you roll-over the pie slice/line bullet/column/etc, chart indicator of serial charts displays value balloons and category balloon. Balloon instance is created by the chart automatically and can be accessed via "balloon" property of AmChart. Chart shows/hides and sets position for every balloon automatically, so all you need to do is to change balloon appearance, if you want to.
         @example
-            var chart = new AmCharts.AmSerialChart();
+            var chart = new AmCharts.AmSerialChart(): any;
             // get balloon intance
             var balloon = chart.balloon;
             // set properties
@@ -2005,13 +2005,13 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         */
         verticalPadding: number;
         /** Hides balloon. */
-        hide();
+        hide(): any;
         /** Defines a square within which the balloon should appear. Bounds are set by chart class, you don't need to call this method yourself. */
-        setBounds(left: number, top: number, right: number, bottom: number);
+        setBounds(left: number, top: number, right: number, bottom: number): any;
         /** Sets coordinates the balloon should point to. */
-        setPosition(x: number, y: number);
+        setPosition(x: number, y: number): any;
         /** Specifies the text which should be displayed. */
-        show(value: string);
+        show(value: string): any;
     }
 
     /** CategoryAxesSettings settings set's settings common for all CategoryAxes of StockPanels. If you change a property after the chart is initialized, you should call stockChart.validateNow() method in order for it to work. If there is no default value specified, default value of CategoryAxis class will be used. */
@@ -2170,12 +2170,12 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
     /** AmGraph class displays all types of graphs - line, column, step line, smoothed line, ohlc and candlestick.
         @example
-            var chart = new AmCharts.AmSerialChart();
-            var graph = new AmCharts.AmGraph();
+            var chart = new AmCharts.AmSerialChart(): any;
+            var graph = new AmCharts.AmGraph(): any;
             graph.valueField = 'value';
             graph.type = 'column';
             graph.fillAlphas = 1;
-            chart.addGraph(graph);
+            chart.addGraph(graph): any;
     */
     class AmGraph {
         /** Name of the alpha field in your dataProvider. */
@@ -2430,9 +2430,9 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         titlefontSize: string;
 
         /** Adds guide to the axis. */
-        addGuide(guide:Guide);
+        addGuide(guide: Guide): any;
         /** Removes guide from the axis. */
-        removeGuide(guide:Guide);
+        removeGuide(guide: Guide): any;
     }
 
     /** ValueAxis is the class which displays value axis for the chart. The chart can have any number of value axes. For Serial chart one value axis is created automatically. For XY Chart two value axes (horizontal and vertical) are created automatically. */
@@ -2457,7 +2457,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         includeHidden: boolean;
         /** Specifies whether values on axis can only be integers or both integers and doubles. */
         integersOnly: boolean;
-        /** You can use this function to format Value axis labels. This function is called and these parameters are passed: labelFunction(value, valueText, valueAxis);
+        /** You can use this function to format Value axis labels. This function is called and these parameters are passed: labelFunction(value, valueText, valueAxis): any;
 Where value is numeric value, valueText is formatted string and valueAxis is a reference to valueAxis object.
 
 If axis type is "date", labelFunction will pass different arguments:
@@ -2526,22 +2526,22 @@ Your function should return string.*/
         useScientificNotation: boolean;
 
         /** Adds guide to the axis. */
-        addGuide(guide: Guide);
+        addGuide(guide: Guide): any;
         /** Adds event listener to the object.  type - string like 'axisChanged' (should be listed in 'events' section of this class or classes which extend this class). handler - function which is called when event happens */
-        addListener(type: string, handler: any);
+        addListener(type: string, handler: any): any;
         /** Number, - value of coordinate. Returns value of the coordinate.  coordinate - y or x coordinate, in pixels. */
-        coordinateToValue(coordinate: number);
+        coordinateToValue(coordinate: number): any;
         /** Number - coordinate Returns coordinate of the value in pixels. value - Number */
-        getCoordinate(value: number);
+        getCoordinate(value: number): any;
         /** Removes guide from the axis.*/
-        removeGuide(guide: Guide);
+        removeGuide(guide: Guide): any;
         /** Removes event listener from the object. */
-        removeListener(obj: any, type: string, handler: any);
+        removeListener(obj: any, type: string, handler: any): any;
 
         /** One value axis can be synchronized with another value axis. You should set synchronizationMultiplyer in order for this to work. */
-        synchronizeWithAxis(axis:ValueAxis);
+        synchronizeWithAxis(axis: ValueAxis): any;
         /** XY Chart only. Zooms-in the axis to the provided values. */
-        zoomToValues(startValue: number, endValue: number);
+        zoomToValues(startValue: number, endValue: number): any;
 
         /** Adds event listener of the type "axisZoomed" to the object.
             @param type Always "axisZoomed".
@@ -2549,17 +2549,17 @@ Your function should return string.*/
         addListener(type: string, handler: (e: {
             /** Always "axisZoomed". */
             type: string; startValue: Date; endValue: Date; chart: AmChart;
-        }) => void );
+        }) => void): any;
         /** Adds event listener of the type "logarithmicAxisFailed" to the object.
             @param type Always "logarithmicAxisFailed".
             @param handler Dispatched when valueAxis is logarithmic and values equal or less then zero were found in data.*/
         addListener(type: string, handler: (e: {
             /** Always "logarithmicAxisFailed". */
             type: string; chart: AmChart;
-        }) => void );
+        }) => void): any;
 
         /** Removes event listener from chart object. */
-        removeListener(chart: AmChart, type: string, handler: any);
+        removeListener(chart: AmChart, type: string, handler: any): any;
     }
 
     class Title {
