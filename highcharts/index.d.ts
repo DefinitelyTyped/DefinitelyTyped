@@ -5893,6 +5893,11 @@ declare namespace Highcharts {
          */
         hideLoading(): void;
         /**
+         *The series color counter
+         * @since 5.0.0
+         */
+        colorCounter: boolean;
+        /**
          * The options structure for the chart.
          * @since 1.2.0
          */
