@@ -1,4 +1,4 @@
-/// <reference path="./redux-actions.d.ts" />
+import ReduxActions = require("redux-actions");
 
 let state: number;
 const minimalAction: ReduxActions.BaseAction = { type: 'INCREMENT' };
@@ -85,8 +85,8 @@ const typedActionHandler = ReduxActions.handleAction<TypedState, TypedPayload>(
 typedState = typedActionHandler({ value: 0 }, typedIncrementAction());
 
 const typedIncrementByActionWithMeta: (value: number) => ReduxActions.ActionMeta<TypedPayload, MetaType> =
-    ReduxActions.createAction<number, TypedPayload, MetaType>(
-        'INCREMENT_BY',
+    ReduxActions.createAction<TypedPayload, MetaType>(
+    'INCREMENT_BY',
         amount => ({ increase: amount }),
         amount => ({ remote: true })
     );

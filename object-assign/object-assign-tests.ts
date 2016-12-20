@@ -1,5 +1,4 @@
-/// <reference path="object-assign.d.ts" />
-import objectAssign = require("object-assign");
+import * as objectAssign from 'object-assign';
 
 interface Target {
   hellow: string;

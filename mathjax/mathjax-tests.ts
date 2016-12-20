@@ -1,4 +1,3 @@
-/// <reference path='mathjax.d.ts' />
 MathJax.Hub.Config({
   config: ["MMLorHTML.js"],
   jax: ["input/TeX","input/MathML","input/AsciiMath","output/HTML-CSS","output/NativeMML"],
@@ -56,5 +55,6 @@ MathJax.Hub.Config({
 
 MathJax.Hub.Config({
   "HTML-CSS": { linebreaks: { automatic: true } },
+  CommonHTML: { linebreaks: { automatic: true } },
          SVG: { linebreaks: { automatic: true } }
 });

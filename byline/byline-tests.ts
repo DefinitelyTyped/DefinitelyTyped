@@ -2,13 +2,13 @@
  * Created by stefansteinhart on 31.01.15.
  */
 
-/// <reference path="byline.d.ts" />
 
 import fs = require( 'fs' );
 import byline = require( 'byline' );
 
-//TODO can this be typed in an ambient way?
-//var stream = byline( fs.createReadStream( 'sample.txt', {encoding: 'utf8'} ) );
+var stream = byline();
+
+var stream = byline( fs.createReadStream( 'sample.txt', {encoding: 'utf8'} ) );
 
 var stream = byline.createStream( fs.createReadStream( 'sample.txt', {encoding: 'utf8'} ) );
 

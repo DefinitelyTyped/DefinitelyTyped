@@ -1,6 +1,3 @@
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="./redux-storage.d.ts" />
-
 import { Action, createStore, applyMiddleware } from "redux";
 import { reducer, createMiddleware, createLoader } from "redux-storage";
 import reduxStorageImmutableMerger from "redux-storage-merger-immutablejs";
@@ -11,6 +8,7 @@ import createReactNativeAsyncStorageEngine from "redux-storage-engine-reactnativ
 interface TestState {
     a: number;
     b: string;
+    c: string;
 }
 
 function rootReducer(state: TestState, action: Action): TestState {
@@ -19,7 +17,7 @@ function rootReducer(state: TestState, action: Action): TestState {
 
 const enhancedReducer = reducer(rootReducer, reduxStorageImmutableMerger);
 
-const storageEngine = createEngine("test");
+const storageEngine = filter(createEngine("test"), ['a', 'b'], ['c']);
 
 const initialStateLoader = createLoader(storageEngine);
 

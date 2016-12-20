@@ -1,8 +1,7 @@
-/// <reference path="estraverse.d.ts" />
-
 import * as estraverse from 'estraverse';
+import * as estree from 'estree';
 
-let ast: any = {
+let ast: estree.Node = {
     "type": "Program",
     "body": [
         {
@@ -37,12 +36,12 @@ let ast: any = {
 };
 
 estraverse.traverse(ast, {
-    enter: (node: any, parentNode: any) => {
+    enter(node: estree.Node, parentNode: estree.Node | null) {
         if (node.type === 'Identifier') {
             return estraverse.VisitorOption.Skip;
         }
     },
-    leave: (node: any, parentNode: any) => {},
+    leave: (node: estree.Node, parentNode: estree.Node | null) => {},
     fallback: 'iteration',
     keys: {
         TestExpression: ['argument']
@@ -50,10 +49,10 @@ estraverse.traverse(ast, {
 });
 
 estraverse.replace(ast, {
-    enter: (node: any, parentNode: any) => {
+    enter: (node: estree.Node, parentNode: estree.Node | null) => {
         return node;
     },
-    leave: (node: any, parentNode: any) => {
+    leave: (node: estree.Node, parentNode: estree.Node | null) => {
         return node;
     }
 });

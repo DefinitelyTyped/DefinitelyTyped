@@ -1,4 +1,4 @@
-/// <reference path="webtorrent.d.ts" />
+
 
 import WebTorrent = require('webtorrent');
 import * as fs from 'fs';
@@ -14,17 +14,17 @@ client.add(magnetURI, {}, function (torrent) {
     // Display the file by appending it to the DOM. Supports video, audio, images, and
     // more. Specify a container element (CSS selector or reference to DOM node).
     file.appendTo('body')
-    
+
     file.getBuffer(function (err, buffer) {
       if (err) throw err
       console.log(buffer) // <Buffer 00 98 00 01 01 00 00 00 50 ae 07 04 01 00 00 00 0a 00 00 00 00 00 00 00 78 ae 07 04 01 00 00 00 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ...>
     })
-    
+
     file.appendTo('#containerElement', function (err, elem) {
       if (err) throw err // file failed to download or display in the DOM
       console.log('New DOM node with the content', elem)
     })
-    
+
     file.getBlobURL(function (err, url) {
       if (err) throw err
       var a = document.createElement('a')
@@ -34,14 +34,14 @@ client.add(magnetURI, {}, function (torrent) {
       document.body.appendChild(a)
     })
   })
-  
+
   torrent.on('done', function(){
     console.log('torrent finished downloading');
     torrent.files.forEach(function(file){
       // do something with file
     })
   })
-  
+
   torrent.on('download', function(chunkSize){
     console.log('chunk size: ' + chunkSize);
     console.log('total downloaded: ' + torrent.downloaded);
@@ -49,7 +49,7 @@ client.add(magnetURI, {}, function (torrent) {
     console.log('progress: ' + torrent.progress);
     console.log('======');
   })
-  
+
   torrent.on('wire', function (wire, addr) {
     console.log('connected to peer with address ' + addr)
     wire.use()

@@ -3,7 +3,7 @@
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>, Cap3 <http://www.cap3.de>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../react/react.d.ts" />
+///<reference types="react" />
 
 declare module "enzyme" {
 
@@ -253,9 +253,9 @@ declare module "enzyme" {
          *
          * Returns itself.
          * @param fn A callback to be run for every node in the collection. Should expect a ShallowWrapper as the first
-         *              argument, and will be run with a context of the original instance.
+         *              argument, index as a second, and will be run with a context of the original instance.
          */
-        forEach(fn: (wrapper: this) => any): this;
+        forEach(fn: (wrapper: this, index?: number) => any): this;
 
         /**
          * Maps the current array of nodes to another array. Each node is passed in as a ShallowWrapper to the map

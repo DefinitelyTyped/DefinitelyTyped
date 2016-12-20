@@ -1,9 +1,8 @@
-﻿///<reference path="SharePoint.d.ts" />
-///<reference path="../angularjs/angular.d.ts" />
-///<reference path="../knockout/knockout.d.ts" />
-///<reference path="../jquery/jquery.d.ts" />
+﻿///<reference types="knockout" />
+///<reference types="jquery" />
 
-
+import * as angular from 'angular';
+import * as ng from 'angular';
 //code from http://sptypescript.codeplex.com/
 //BasicTasksJSOM.ts
 // Website tasks
@@ -1196,10 +1195,10 @@ namespace CSR {
         computedValue(targetField: string, transform: (...values: string[]) => string, ...sourceField: string[]): ICSR {
             var dependentValues: { [field: string]: string } = {};
 
-            return this.onPostRenderField(targetField, (schema, ctx: SPClientTemplates.RenderContext_FieldInForm) => {
+            return this.onPostRenderField(targetField, (schema: SPClientTemplates.FieldSchema_InForm, ctx: SPClientTemplates.RenderContext_FieldInForm) => {
                 if (ctx.ControlMode == SPClientTemplates.ClientControlMode.EditForm
                     || ctx.ControlMode == SPClientTemplates.ClientControlMode.NewForm) {
-                    var targetControl = CSR.getControl(schema);
+                    var targetControl = CSR.getControl(<SPClientTemplates.FieldSchema_InForm>schema);
                     sourceField.forEach((field) => {
                         CSR.addUpdatedValueCallback(ctx, field, v => {
                             dependentValues[field] = v;
@@ -1978,7 +1977,7 @@ module _ {
 }
 
 //taxonomy
-namespace SP {
+namespace MySP {
 
     // Class
     export class ClientContextPromise extends SP.ClientContext {
@@ -2009,7 +2008,7 @@ namespace SP {
 SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("CSOMPromise.ts");
 
 module _ {
-    var context: SP.ClientContextPromise;
+    var context: MySP.ClientContextPromise;
     var web: SP.Web;
     var site: SP.Site;
     var session: SP.Taxonomy.TaxonomySession;
@@ -2020,7 +2019,7 @@ module _ {
     // which is needed to use the SharePoint object model.
     // It also wires up the click handlers for the two HTML buttons in Default.aspx.
     $(document).ready(function () {
-        context = SP.ClientContextPromise.get_current();
+        context = MySP.ClientContextPromise.get_current();
         site = context.get_site();
         web = context.get_web();
         $('#listExisting').click(function () { listGroups(); });

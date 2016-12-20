@@ -1,5 +1,5 @@
-/// <reference path="ga.d.ts" />
-/// <reference path="../jasmine/jasmine.d.ts" />
+
+/// <reference types="jasmine" />
 
 describe("tester Google Analytics Tracker _gat object", () => {
     it("can set ga script element", () => {
