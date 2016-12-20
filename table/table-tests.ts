@@ -1,4 +1,4 @@
-import table from 'table';
+import * as table from 'table';
 
 const border = table.getBorderCharacters('norc');
 
