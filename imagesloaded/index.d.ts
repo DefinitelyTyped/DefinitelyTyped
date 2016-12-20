@@ -1,4 +1,4 @@
-// Type definitions for imagesLoaded 3.1.8+
+// Type definitions for imagesLoaded 3.1.8
 // Project: https://github.com/desandro/imagesloaded
 // Definitions by: Chris Charabaruk <http://github.com/coldacid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

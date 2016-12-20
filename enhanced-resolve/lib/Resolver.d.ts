@@ -1,15 +1,22 @@
 /// <reference types="tapable" />
 import Tapable = require('tapable');
-import { ResolveParseResult, ResolverRequest, LoggingCallbackWrapper, BaseFileSystem } from './common-types';
-import { Context } from './concord';
+import {
+    ResolveParseResult,
+    ResolveResult,
+    ResolverRequest,
+    LoggingCallbackWrapper,
+    AbstractInputFileSystem,
+    ResolveContext
+} from './common-types';
+
 declare class Resolver extends Tapable {
-    fileSystem: BaseFileSystem;
+    fileSystem: AbstractInputFileSystem;
 
-    constructor(fileSystem: BaseFileSystem);
+    constructor(fileSystem: AbstractInputFileSystem);
 
-    resolveSync(context: Context, path: string, request: string): null;
+    resolveSync(context: ResolveContext, path: string, request: string): ResolveResult;
 
-    resolve(context: Context, path: string, request: string, callback: LoggingCallbackWrapper): any;
+    resolve(context: ResolveContext, path: string, request: string, callback: LoggingCallbackWrapper): any;
 
     doResolve(type: string, request: ResolverRequest, message: string | null, callback: LoggingCallbackWrapper): any;
 
@@ -23,4 +30,5 @@ declare class Resolver extends Tapable {
 
     normalize(path: string): string;
 }
+
 export = Resolver;

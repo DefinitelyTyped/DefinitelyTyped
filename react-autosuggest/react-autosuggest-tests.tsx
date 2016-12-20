@@ -1,7 +1,7 @@
 //region Imports
 import React = require('react');
 import ReactDOM = require('react-dom');
-import Autosuggest = require('react-autosuggest');
+import { Autosuggest, SuggestionSelectedEventData } from 'react-autosuggest';
 //endregion
 
 interface Language {
@@ -62,7 +62,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
         }
 
         return <Autosuggest suggestions={suggestions}
-                            onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested.bind(this)}
+                            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
                             getSuggestionValue={this.getSuggestionValue}
                             renderSuggestion={this.renderSuggestion}
                             onSuggestionSelected={this.onSuggestionsSelected}
@@ -72,7 +72,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
                             />;
     }
 
-    protected onSuggestionsSelected(event: React.FormEvent<any>, data: ReactAutosuggest.ExplicitSuggestionSelectedEventData<Language>): void {
+    protected onSuggestionsSelected(event: React.FormEvent<any>, data: SuggestionSelectedEventData<Language>): void {
         alert(`Selected language is ${data.suggestion.name} (${data.suggestion.year}).`);
     }
 
@@ -88,7 +88,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
         });
     }
 
-    protected onSuggestionsUpdateRequested({ value }: any): void {
+    protected onSuggestionsFetchRequested({ value }: any): void {
         this.setState({
             suggestions: this.getSuggestions(value)
         });
@@ -188,7 +188,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
 
         return <Autosuggest multiSection={true}
                             suggestions={suggestions}
-                            onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested.bind(this)}
+                            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
                             onSuggestionSelected={this.onSuggestionSelected}
                             getSuggestionValue={this.getSuggestionValue}
                             renderSuggestion={this.renderSuggestion}
@@ -197,7 +197,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
                             inputProps={inputProps} />;
     }
 
-    protected onSuggestionSelected(event: React.FormEvent<any>, data: ReactAutosuggest.SuggestionSelectedEventData): void {
+    protected onSuggestionSelected(event: React.FormEvent<any>, data: SuggestionSelectedEventData<Language>): void {
         const language = data.suggestion as Language;
 
         alert(`Selected language is ${language.name} (${language.year}).`);
@@ -219,7 +219,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
         });
     }
 
-    protected onSuggestionsUpdateRequested({ value }: any): void {
+    protected onSuggestionsFetchRequested({ value }: any): void {
         this.setState({
             suggestions: this.getSuggestions(value)
         });
@@ -295,7 +295,7 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
         };
 
         return <Autosuggest suggestions={suggestions}
-                            onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested}
+                            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
                             getSuggestionValue={this.getSuggestionValue}
                             renderSuggestion={this.renderSuggestion}
                             inputProps={inputProps} />;
@@ -332,7 +332,7 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
         });
     }
 
-    protected onSuggestionsUpdateRequested({ value }: any): void {
+    protected onSuggestionsFetchRequested({ value }: any): void {
         this.setState({
             suggestions: this.getSuggestions(value)
         });
