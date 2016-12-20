@@ -32,6 +32,8 @@ declare namespace Q {
         reject(reason: any): void;
         notify(value: any): void;
         makeNodeResolver(): (reason: any, value: T) => void;
+        /** An undocumented method. Use the `resolve` method instead.  */
+        fulfill(value: T): void;
     }
 
     interface Promise<T> {
