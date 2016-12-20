@@ -341,23 +341,25 @@ plugin = new webpack.ProvidePlugin({
 });
 plugin = new webpack.SourceMapDevToolPlugin({
     //// asset matching
-    //test: string | RegExp | Array,
-    //include: string | RegExp | Array,
-    //exclude: string | RegExp | Array,
+    test: /\.js$/,
+    //include: Condition | Condition[],
+    exclude: [
+        /node_modules/
+    ],
     //
     //// file and reference
-    //filename: string,
-    //append: bool | string,
-    //
+    filename: null, // | string
+    //append: false | string,
     //// sources naming
     //moduleFilenameTemplate: string,
     //fallbackModuleFilenameTemplate: string,
     //
     //// quality/performance
-    //module: bool,
-    //columns: bool,
-    //lineToLine: bool | object
+    module: true,
+    columns: true,
+    lineToLine: false // | { test?: Condition | Condition[], ... }
 });
+plugin = new webpack.EvalSourceMapDevToolPlugin(false);
 plugin = new webpack.HotModuleReplacementPlugin();
 plugin = new webpack.ExtendedAPIPlugin();
 plugin = new webpack.NoErrorsPlugin();
@@ -479,4 +481,8 @@ configuration = {
 			]}
 		]
 	}
+}
+
+const resolve: webpack.Resolve = {
+    cachePredicate: 'boo' // why does this test _not_ fail!?
 }
