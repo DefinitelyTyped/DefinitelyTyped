@@ -33,6 +33,7 @@ class ExampleOfUsingReactModal extends React.Component<{}, {}> {
     return (
       <ReactModal
         isOpen={true}
+	contentLabel="Test Modal"
         onAfterOpen={onAfterOpenFn}
         onRequestClose={onRequestCloseFn}
         closeTimeoutMS={1000}
