@@ -940,8 +940,8 @@ declare namespace grunt {
              * object properties, which will be further overridden in multi tasks by any target-level
              * options object properties.
              */
-            options(defaultsObj: any): ITaskOptions
-            options<T>(defaultsObj: T): T
+            options<T>(defaultsObj: T): T;
+            options(defaultsObj: any): ITaskOptions;
         }
 
         /**
