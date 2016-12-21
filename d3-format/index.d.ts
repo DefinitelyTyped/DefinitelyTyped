@@ -166,7 +166,7 @@ export function formatDefaultLocale(defaultLocale: FormatLocaleDefinition): Form
  *
  * @param specifier A Specifier string
  */
-export function format(specifier: string): (n: number) => string;
+export function format(specifier: string | string[]): (n: number) => string;
 
 /**
  * Returns a new format function for the given string specifier. The returned function
