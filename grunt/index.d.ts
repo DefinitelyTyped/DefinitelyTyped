@@ -785,8 +785,8 @@ declare namespace grunt {
              *
              * @note taskFunction.apply(scope: grunt.task.ITask, args: any[])
              */
-            registerTask(taskName: string, taskFunction: Function): void
-            registerTask(taskName: string, description: string, taskFunction: Function): void
+            registerTask(taskName: string, taskFunction: (this: ITask, ...args: any[]) => void): void;
+            registerTask(taskName: string, description: string, taskFunction: (this: ITask, ...args: any[]) => void): void;
 
             /**
              * Register a "multi task." A multi task is a task that implicitly iterates over all of its
@@ -796,8 +796,8 @@ declare namespace grunt {
              *
              * @note taskFunction.apply(scope: grunt.task.IMultiTask<any>, args: any[])
              */
-            registerMultiTask(taskName: string, taskFunction: Function): void
-            registerMultiTask(taskName: string, taskDescription: string, taskFunction: Function): void
+            registerMultiTask(taskName: string, taskFunction: (this: IMultiTask<any>, ...args: any[]) => void): void;
+            registerMultiTask<T extends any>(taskName: string, taskDescription: string, taskFunction: (this: IMultiTask<T>, ...args: any[]) => void): void;
 
             /**
              * Check with the name, if a task exists in the registered tasks.
