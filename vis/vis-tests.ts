@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts" />
-
 // Test DataSet constructor
 new vis.DataSet();
 new vis.DataSet({});
