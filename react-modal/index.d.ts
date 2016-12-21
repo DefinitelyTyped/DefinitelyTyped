@@ -1,6 +1,6 @@
-// Type definitions for react-modal v1.3.0
+// Type definitions for react-modal v1.6.0
 // Project: https://github.com/reactjs/react-modal
-// Definitions by: Rajab Shakirov <https://github.com/radziksh>
+// Definitions by: Rajab Shakirov <https://github.com/radziksh> and Remi Marenco <https://github.com/remimarenco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="react"/>
@@ -8,6 +8,7 @@
 declare module "react-modal" {
     interface ReactModal {
         isOpen: boolean;
+	contentLabel: string;
         style?: {
             content?: {
                 [key: string]: any;
