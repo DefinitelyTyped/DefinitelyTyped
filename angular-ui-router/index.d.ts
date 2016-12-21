@@ -94,6 +94,13 @@ declare module 'angular' {
              * Boolean (default true). If false will reload state on everytransitions. Useful for when you'd like to restore all data  to its initial state.
              */
             cache?: boolean;
+
+            /**
+             * string | function | object
+             * Synchronously or asynchronously redirects Transitions to a different state/params
+             */
+            redirectTo?: String | Function | IState;
+
         }
 
         interface IUnfoundState {
