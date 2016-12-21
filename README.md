@@ -212,6 +212,11 @@ Here are the [currently requested definitions](https://github.com/DefinitelyType
 
 If types are part of a web standard, they should be contributed to [TSJS-lib-generator](https://github.com/Microsoft/TSJS-lib-generator) so that they can become part of the default `lib.dom.d.ts`.
 
+#### I want to use features from TypeScript 2.1.
+
+Then you will have to add a comment to your definition header: `// TypeScript Version: 2.1`.
+If it is merged before January 7, it will be published as a prerelease version, such as `4.3.0-next.0`.
+
 
 ## License
 
