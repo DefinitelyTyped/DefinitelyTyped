@@ -31,7 +31,7 @@ declare namespace AmCharts {
     function clear(): void;
 
     /** Handle ready event */
-    function ready(Function: any): void;
+    function ready(f: Function): void;
 
     /** Create chart by params. */
     function makeChart(selector: string, params: any, delay?: number): AmChart;
