@@ -201,7 +201,7 @@ declare namespace Interact {
         (element: SVGElement): Interactable;
         (element: string): Interactable;
         (element: string, options: {context: Element}): Interactable;
-        interact(): Interact.InteractStatic;
+        interact: Interact.InteractStatic;
         // returns boolean or {[key: string]: any}
         autoScroll(): any;
         autoScroll(options: boolean): InteractStatic;
