@@ -89,6 +89,7 @@ declare namespace Router {
         routeParams?: R;
         routes?: PlainRoute[];
         children?: React.ReactElement<any>;
+        router?: Router;
     }
 
     interface RouterOnContext extends History {
