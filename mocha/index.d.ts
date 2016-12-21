@@ -49,18 +49,18 @@ interface MochaDone {
     (error?: any): any;
 }
 
-declare function setup(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
-declare function teardown(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
+declare function setup(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => any): void;
+declare function teardown(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => any): void;
 declare function suiteSetup(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
 declare function suiteTeardown(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
 declare function before(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
 declare function before(description: string, callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
 declare function after(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
 declare function after(description: string, callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
-declare function beforeEach(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
-declare function beforeEach(description: string, callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
-declare function afterEach(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
-declare function afterEach(description: string, callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
+declare function beforeEach(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => any): void;
+declare function beforeEach(description: string, callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => any): void;
+declare function afterEach(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => any): void;
+declare function afterEach(description: string, callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => any): void;
 
 declare class Mocha {
     currentTest: Mocha.ITestDefinition;
@@ -120,6 +120,7 @@ declare namespace Mocha {
         timeout(ms: number): void;
     }
 
+
     interface ITestCallbackContext {
         skip(): void;
         timeout(ms: number): void;
@@ -148,9 +149,15 @@ declare namespace Mocha {
     interface ITest extends IRunnable {
         parent: ISuite;
         pending: boolean;
+        state: 'failed'|'passed'|undefined;
 
         fullTitle(): string;
     }
+
+    interface IBeforeAndAfterContext extends IHookCallbackContext {
+        currentTest: ITest;
+    }
+
 
     /** Partial interface for Mocha's `Runner` class. */
     interface IRunner { }
