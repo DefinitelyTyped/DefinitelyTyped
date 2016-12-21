@@ -1,6 +1,6 @@
-// Type definitions for ArcGIS API for JavaScript v3.18
-// Project: http://js.arcgis.com
-// Definitions by: Esri <http://www.esri.com>
+// Type definitions for ArcGIS API for JavaScript 3.19
+// Project: https://developers.arcgis.com/javascript/3/
+// Definitions by: Esri <https://github.com/Esri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "esri" {
@@ -1438,6 +1438,8 @@ declare module "esri" {
     defaultAreaUnit?: string;
     /** The default length unit for the measure distance tool. */
     defaultLengthUnit?: string;
+    /** Fill symbol used to symbolize the polygons representing the areas measured for the measure area tool. */
+    fillSymbol?: SimpleFillSymbol;
     /** Allows the user to immediately measure previously-created geometry on dijit creation. */
     geometry?: Point | Polyline | Polygon;
     /** Line symbol used to draw the lines for the measure line and measure distance tools. */
@@ -3173,11 +3175,8 @@ declare module "esri/arcgis/Portal" {
      * @param comment The PortalComment to delete.
      */
     deleteComment(comment: PortalComment): any;
-    /**
-     * Delete a rating that you created for the specified item.
-     * @param rating Rating to delete.
-     */
-    deleteRating(rating: PortalRating): any;
+    /** Delete a rating that you created for the specified item. */
+    deleteRating(): any;
     /** Get the comments associated with the item. */
     getComments(): any;
     /** Returns the rating (if any) given to the item. */
@@ -8692,7 +8691,7 @@ declare module "esri/lang" {
      * @param callback Function or string implementing the filtering.
      * @param thisObject Optional object used to scope the call to the callback.
      */
-    filter(object: any, callback: Function, thisObject: any): any;
+    filter(object: any, callback: Function, thisObject?: any): any;
     /**
      * Returns true when the value is neither null or undefined.
      * @param value The value to test.
@@ -9871,6 +9870,8 @@ declare module "esri/layers/FeatureTemplate" {
     name: string;
     /** An instance of the prototypical feature described by the template. */
     prototype: Graphic;
+    /** An object used to create a thumbnail image that represents a feature type in the FeatureTemplate. */
+    thumbnail: any;
     /** Converts object to its ArcGIS Server JSON representation. */
     toJson(): any;
   }
@@ -10292,7 +10293,7 @@ declare module "esri/layers/LabelClass" {
     fieldInfos: any[];
     /** Adjusts the formatting of labels. */
     labelExpression: string;
-    /** Use this when working with FeatureLayer layer types. */
+    /** Use this property when working with FeatureLayer layer types. */
     labelExpressionInfo: any;
     /** The position of the label. */
     labelPlacement: string;
@@ -12118,7 +12119,7 @@ declare module "esri/opsdashboard/DataSourceProxy" {
      * Get the feature type from a feature coming from the data source.
      * @param feature A feature coming from the data source
      */
-    getTypeFromFeature(feature: Graphic): number;
+    getTypeFromFeature(feature: Graphic): any;
     /**
      * Returns the value corresponding to a field name from a feature coming from the data source.
      * @param feature A feature coming from the data source
@@ -12134,7 +12135,7 @@ declare module "esri/opsdashboard/DataSourceProxy" {
      * Select features in the data source using a collection of object ids.
      * @param objectIds The collection of object ids of the features to select.
      */
-    selectFeaturesByObjectIds(objectIds: string[]): void;
+    selectFeaturesByObjectIds(objectIds: number[]): void;
   }
   export = DataSourceProxy;
 }
@@ -12805,12 +12806,18 @@ declare module "esri/renderers/ClassBreaksRenderer" {
     infos: any[];
     /** Include graphics with attribute values equal to the max value of a class in that class. */
     isMaxInclusive: boolean;
+    /** An object containing a title property that describes the variable driving the visualization. */
+    legendOptions: any;
     /** When normalizationType is "field", this property contains the attribute field name used for normalization. */
     normalizationField: string;
     /** When normalizationType is "percent-of-total", this property contains the total of all data values. */
     normalizationTotal: number;
     /** Indicates how the data is normalized. */
     normalizationType: string;
+    /** An Arcade expression evaluating to a number. */
+    valueExpression: string;
+    /** The title identifying and describing the associated Arcade expression as defined in the valueExpression property. */
+    valueExpressionTitle: string;
     /**
      * Creates a new ClassBreaksRenderer object.
      * @param defaultSymbol Default symbol for the renderer.
@@ -12971,13 +12978,13 @@ declare module "esri/renderers/Renderer" {
 
   /** The base class for the renderers - SimpleRenderer, ClassBreaksRenderer, UniqueValueRenderer, DotDensityRenderer, ScaleDependentRenderer, TemporalRenderer, HeatmapRenderer, and VectorFieldRenderer used with a GraphicsLayer and FeatureLayer. */
   class Renderer {
-    /** An object defining a color ramp used to render the layer. */
+    /** Deprecated. */
     colorInfo: any;
-    /** An object that describes how opacity of features is calculated. */
+    /** Deprecated. */
     opacityInfo: any;
-    /** Defines how marker symbols are rotated. */
+    /** Deprecated. */
     rotationInfo: any;
-    /** Defines the size of the symbol where feature size is proportional to data value. */
+    /** Deprecated. */
     sizeInfo: any;
     /** This property allows you to define how to render values in a layer. */
     visualVariables: any[];
@@ -13018,22 +13025,22 @@ declare module "esri/renderers/Renderer" {
     /** Indicates if the renderer has defined visualVariables. */
     hasVisualVariables(): boolean;
     /**
-     * Sets the colorInfo property.
+     * Deprecated.
      * @param info An info object that defines the color.
      */
     setColorInfo(info: any): Renderer;
     /**
-     * Sets opacity info for the renderer as defined by the info parameter.
+     * Deprecated.
      * @param info The info parameter is an object with the same properties as opacityInfo.
      */
     setOpacityInfo(info: any): Renderer;
     /**
-     * Modifies rotation info for the renderer.
+     * Deprecated.
      * @param info An object with the same properties as rotationInfo.
      */
     setRotationInfo(info: any): Renderer;
     /**
-     * Set size info of the renderer to modify the symbol size based on data value.
+     * Deprecated.
      * @param info An object with the same properties as sizeInfo.
      */
     setSizeInfo(info: any): Renderer;
@@ -13079,11 +13086,8 @@ declare module "esri/renderers/ScaleDependentRenderer" {
      * @param scale Returns the renderer info for the specified scale.
      */
     getRendererInfoByScale(scale: number): any;
-    /**
-     * Returns the rendererInfo for the specified zoom level.
-     * @param zoom Specify the zoom level for which you want to retrieve the renderer info.
-     */
-    getRenderInfoByZoom(zoom: number): any;
+    /** Returns the rendererInfo for the specified zoom level. */
+    getRendererInfoByZoom(): any;
     /**
      * Replaces existing rendererInfos with new ones.
      * @param infos An array of objects as defined in the rendererInfos property.
@@ -13246,6 +13250,12 @@ declare module "esri/renderers/UniqueValueRenderer" {
     fieldDelimiter: string;
     /** Each element in the array is an object that provides information about the unique values associated with the renderer. */
     infos: any[];
+    /** An object containing a title property that describes the variable driving the visualization. */
+    legendOptions: any;
+    /** An Arcade expression evaluating to either a string or a number. */
+    valueExpression: string;
+    /** The title identifying and describing the associated Arcade expression as defined in the valueExpression property. */
+    valueExpressionTitle: string;
     /** Deprecated at v2.0, use infos instead. */
     values: string[];
     /**
@@ -13286,7 +13296,7 @@ declare module "esri/renderers/VectorFieldRenderer" {
   import esri = require("esri");
   import Renderer = require("esri/renderers/Renderer");
 
-  /** The VectorFieldRenderer function symbolizes a U-V or Magnitude-Direction data. */
+  /** The VectorFieldRenderer function creates a a U-V or Magnitude-Direction visualization for an instance of  ArcGISImageServiceVectorLayer. */
   class VectorFieldRenderer extends Renderer {
     /** Flow from angle */
     static FLOW_FROM: any;
