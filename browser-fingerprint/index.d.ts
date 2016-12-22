@@ -3,5 +3,10 @@
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function browserFingerprint (): string;
+interface browserFingerprint {
+    (): string;
+    default: browserFingerprint;
+}
+
+declare const browserFingerprint: browserFingerprint;
 export = browserFingerprint;
