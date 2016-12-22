@@ -1,7 +1,6 @@
 // Type definitions for Angular JS (ui.router module) 1.1.5
 // Project: https://github.com/angular-ui/ui-router
-// Definitions by: Michel Salib <https://github.com/michelsalib>
-// Definitions by: Ivan Matiishyn <https://github.com/matiishyn>
+// Definitions by: Michel Salib <https://github.com/michelsalib>, Ivan Matiishyn <https://github.com/matiishyn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as angular from 'angular';
@@ -100,7 +99,7 @@ declare module 'angular' {
              * string | function | object
              * Synchronously or asynchronously redirects Transitions to a different state/params
              */
-            redirectTo?: String | Function | IState;
+            redirectTo?: string | Function | IState;
 
         }
 
