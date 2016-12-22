@@ -1,12 +1,11 @@
 
-import minimist = require('minimist');
-import Opts = minimist.Opts;
+import minimist, { Opts, ParsedArgs } from 'minimist';
 
 var num: string;
 var str: string;
 var strArr: string[];
 var args: string[];
-var obj: minimist.ParsedArgs;
+var obj: ParsedArgs;
 var opts: Opts;
 var arg: any;
 
