@@ -26,6 +26,8 @@
 * 3. This notice may not be removed or altered from any source distribution.
 **/
 
+export = Box2D;
+export as namespace Box2D;
 declare namespace Box2D.Common {
 
 	/**
