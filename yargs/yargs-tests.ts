@@ -306,15 +306,18 @@ function Argv$showHelp() {
 
 function Argv$version() {
 	var argv1 = yargs
-		.version('1.0.0');
+		.version();
 
 	var argv2 = yargs
-		.version('1.0.0', '--version');
+		.version('1.0.0');
 
 	var argv3 = yargs
-		.version('1.0.0', '--version', 'description');
+		.version('1.0.0', '--version');
 
 	var argv4 = yargs
+		.version('1.0.0', '--version', 'description');
+
+	var argv5 = yargs
 		.version(function () { return '1.0.0'; }, '--version', 'description');
 }
 
