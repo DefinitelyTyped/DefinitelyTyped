@@ -35,7 +35,7 @@ exports = (grunt: IGrunt) => {
     // Default task(s).
     grunt.registerTask('default', ['uglify']);
 
-    grunt.registerMultiTask<MyOptions>('mytask', "short description", function() {
+    grunt.registerMultiTask('mytask', "short description", function() {
         var currenttask = this;
         var options = currenttask.options({
             sourceRoot: "default"

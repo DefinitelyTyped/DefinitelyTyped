@@ -796,8 +796,8 @@ declare namespace grunt {
              *
              * @note taskFunction.apply(scope: grunt.task.IMultiTask<any>, args: any[])
              */
-            registerMultiTask<T extends any>(taskName: string, taskFunction: (this: IMultiTask<T>, ...args: any[]) => void): void;
-            registerMultiTask<T extends any>(taskName: string, taskDescription: string, taskFunction: (this: IMultiTask<T>, ...args: any[]) => void): void;
+            registerMultiTask(taskName: string, taskFunction: (this: IMultiTask<any>, ...args: any[]) => void): void;
+            registerMultiTask(taskName: string, taskDescription: string, taskFunction: (this: IMultiTask<any>, ...args: any[]) => void): void;
 
             /**
              * Check with the name, if a task exists in the registered tasks.
