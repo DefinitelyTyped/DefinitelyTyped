@@ -59,19 +59,19 @@ declare namespace PhonegapPluginPush {
 		/**
 		 * The subscribe method is used when the application wants to subscribe a new topic to receive push notifications.
 		 * @param topic Topic to subscribe to.
-		 * @param successHandler
-		 * @param errorHandler
+		 * @param successHandler Is called when the api successfully unregisters.
+		 * @param errorHandler Is called when the api encounters an error while unregistering.
 		 */
-		subscribe(topic: string, successHandler: () => any, errorHandler?: () => any): void;
+		subscribe(topic: string, successHandler: () => any, errorHandler: () => any): void;
 
 		/**
 		 * The unsubscribe method is used when the application no longer wants to receive push notifications 
 		 * from a specific topic but continue to receive other push messages.
 		 * @param topic Topic to unsubscribe from.
-		 * @param successHandler
-		 * @param errorHandler
+		 * @param successHandler Is called when the api successfully unregisters.
+		 * @param errorHandler Is called when the api encounters an error while unregistering.
 		 */
-		unsubscribe(topic: string, successHandler: () => any, errorHandler?: () => any): void;
+		unsubscribe(topic: string, successHandler: () => any, errorHandler: () => any): void;
         
 		/*TODO according to js source code, "errorHandler" is optional, but is "count" also optional? I can't read objetive-C code (can anyone at all? I wonder...)*/
 		/**
