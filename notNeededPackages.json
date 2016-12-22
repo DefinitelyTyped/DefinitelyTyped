@@ -96,6 +96,7 @@
             "asOfVersion": "2.0.18"
         },
         {
+<<<<<<< HEAD
             "libraryName": "camel-case",
             "typingsPackageName": "camel-case",
             "sourceRepoURL": "https://github.com/blakeembrey/camel-case",
@@ -202,6 +203,12 @@
             "typingsPackageName": "sugar",
             "sourceRepoURL": "https://github.com/andrewplummer/Sugar",
             "asOfVersion": "2.0.2"
+        },
+        {
+             "libraryName": "ajv",
+             "typingsPackageName": "ajv",
+             "sourceRepoURL": "https://github.com/epoberezkin/ajv",
+             "asOfVersion": "1.0.0"
         }
     ]
 }

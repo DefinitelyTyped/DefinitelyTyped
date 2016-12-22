@@ -25,7 +25,7 @@ interface JSONErrorOptions {
 /**
  * Error handler for pure Koa 2.0.0+ JSON apps
  */
-declare function jsonError(options?: JSONErrorOptions) : { (ctx: Koa.Context, next?: () => any): any };
+declare function jsonError(options?: JSONErrorOptions) : Koa.Middleware;
 
 declare namespace jsonError {}
 export = jsonError;

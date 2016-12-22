@@ -1185,9 +1185,9 @@ declare module "graphql/type/definition" {
     export interface GraphQLScalarTypeConfig<TInternal, TExternal> {
         name: string;
         description?: string;
-        serialize: (value: any) => TInternal;
-        parseValue?: (value: any) => TExternal;
-        parseLiteral?: (valueNode: ValueNode) => TInternal;
+        serialize: (value: any) => TExternal | null | undefined;
+        parseValue?: (value: any) => TInternal | null | undefined;
+        parseLiteral?: (valueNode: ValueNode) => TInternal | null | undefined;
     }
 
     /**
@@ -2826,7 +2826,7 @@ declare module "graphql/utilities/TypeInfo" {
             // NOTE: this experimental optional second parameter is only needed in order
             // to support non-spec-compliant codebases. You should never need to use it.
             // It may disappear in the future.
-            getFieldDefFn: getFieldDef
+            getFieldDefFn?: getFieldDef
         );
 
         getType(): GraphQLOutputType;

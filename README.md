@@ -200,7 +200,7 @@ A `package.json` may be included for the sake of specifying dependencies. Here's
 We do not allow other fields, such as `"description"`, to be defined manually.
 Also, if you need to reference an older version of typings, you must do that by adding `"dependencies": { "@types/foo": "x.y.z" }` to the package.json.
 
-#### I notice some `tsconfig.json` are missing `"noImplicitAny": true` or `"strictNullChecks": true`.
+#### I notice some `tsconfig.json` are missing `"noImplicitAny": true`, `"noImplicitThis": true`, or `"strictNullChecks": true`.
 
 Then they are wrong. You can help by submitting a pull request to fix them.
 
@@ -217,6 +217,11 @@ If types are part of a web standard, they should be contributed to [TSJS-lib-gen
 If default imports work in your environment, consider turning on the [`--allowSyntheticDefaultImports`](http://www.typescriptlang.org/docs/handbook/compiler-options.html) compiler option.
 Do not change the type definition if it is accurate.
 For an NPM package, `export =` is accurate if `node -p 'require("foo")'` is the export, and `export default` is accurate if `node -p 'require("foo").default'` is the export.
+
+#### I want to use features from TypeScript 2.1.
+
+Then you will have to add a comment to your definition header: `// TypeScript Version: 2.1`.
+If it is merged before January 7, it will be published as a prerelease version, such as `4.3.0-next.0`.
 
 
 ## License

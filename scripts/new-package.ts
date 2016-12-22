@@ -59,7 +59,7 @@ async function getIndex() {
 
         const { latest } = reg["dist-tags"]
         const { homepage } = reg.versions[latest]
-        
+
         version = latest.split(".").slice(0, 2).join(".")
         if (homepage !== undefined) project = homepage
     } catch (e) {
@@ -81,6 +81,7 @@ function getTSConfig() {
             "module": "commonjs",
             "target": "es6",
             "noImplicitAny": true,
+            "noImplicitThis": true,
             "strictNullChecks": true,
             "baseUrl": "../",
             "typeRoots": [
