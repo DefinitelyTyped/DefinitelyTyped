@@ -36,7 +36,7 @@ declare class VRDisplay extends EventTarget {
    * Populates the passed VRFrameData with the information required to render
    * the current frame.
    */
-  getFrameData(frameData: VRFrameData) : boolean;
+  getFrameData(frameData: VRFrameData): boolean;
 
   /**
    * Return a VRPose containing the future predicted pose of the VRDisplay
@@ -46,7 +46,7 @@ declare class VRDisplay extends EventTarget {
    * The VRPose will contain the position, orientation, velocity,
    * and acceleration of each of these properties.
    */
-  getPose() : VRPose;
+  getPose(): VRPose;
 
   /**
    * Return the current instantaneous pose of the VRDisplay, with no
@@ -159,15 +159,15 @@ interface VRPose {
 }
 
 interface VRFrameData {
-  timestamp : any; // Should be DOMHighResTimeStamp
+  timestamp: any; // Should be DOMHighResTimeStamp
 
-  leftProjectionMatrix : Float32Array;
-  leftViewMatrix : Float32Array;
+  leftProjectionMatrix: Float32Array;
+  leftViewMatrix: Float32Array;
 
-  rightProjectionMatrix : Float32Array;
-  rightViewMatrix : Float32Array;
+  rightProjectionMatrix: Float32Array;
+  rightViewMatrix: Float32Array;
 
-  pose : VRPose;
+  pose: VRPose;
 }
 
 interface VREyeParameters {
