@@ -475,6 +475,8 @@ namespace basics {
                 wordWrapWidth: 440
             };
 
+            var textStyleClass: PIXI.TextStyle = new PIXI.TextStyle(style);
+
             this.richText = new PIXI.Text('Rich Text with a lot of options and across multiple lines', style);
             this.richText.x = 30;
             this.richText.y = 180;
@@ -1212,15 +1214,15 @@ namespace demos {
 
             // setup events
             this
-            // events for drag start
+                // events for drag start
                 .on('mousedown', this.onDragStart)
                 .on('touchstart', this.onDragStart)
-            // events for drag end
+                // events for drag end
                 .on('mouseup', this.onDragEnd)
                 .on('mouseupoutside', this.onDragEnd)
                 .on('touchend', this.onDragEnd)
                 .on('touchendoutside', this.onDragEnd)
-            // events for drag move
+                // events for drag move
                 .on('mousemove', this.onDragMove)
                 .on('touchmove', this.onDragMove);
 
@@ -1553,20 +1555,20 @@ namespace demos {
             this.interactive = true;
 
             this
-            // set the mousedown and touchstart callback...
+                // set the mousedown and touchstart callback...
                 .on('mousedown', this.onButtonDown)
                 .on('touchstart', this.onButtonDown)
 
-            // set the mouseup and touchend callback...
+                // set the mouseup and touchend callback...
                 .on('mouseup', this.onButtonUp)
                 .on('touchend', this.onButtonUp)
                 .on('mouseupoutside', this.onButtonUp)
                 .on('touchendoutside', this.onButtonUp)
 
-            // set the mouseover callback...
+                // set the mouseover callback...
                 .on('mouseover', this.onButtonOver)
 
-            // set the mouseout callback...
+                // set the mouseout callback...
                 .on('mouseout', this.onButtonOut)
 
             // you can also listen to click and tap events :
@@ -2076,7 +2078,7 @@ namespace demos {
 
         }
 
-        private onAssetsLoaded = (): void  => {
+        private onAssetsLoaded = (): void => {
 
             this.bitmapFontText = new PIXI.extras.BitmapText('bitmap fonts are\n now supported!', { font: '35px Desyrel', align: 'right' });
 
