@@ -22,16 +22,16 @@ const configOptions = {
 };
 OpticsAgent.configureAgent(configOptions)
 
-let expressServer: express.Express;
+let expressServer = express();
 expressServer.use(OpticsAgent.middleware());
 
-let hapiServer: hapi.Server;
+let hapiServer = new hapi.Server();
 OpticsAgent.instrumentHapiServer(hapiServer);
 
-let req: express.Request;
+let req = {} as express.Request;
 OpticsAgent.context(req);
 
 const agent = new OpticsAgent.Agent({ apiKey: '1234' });
 
-let schema: GraphQLSchema;
+let schema = {} as GraphQLSchema;
 agent.instrumentSchema(schema);

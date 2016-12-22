@@ -3,9 +3,7 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
-        "noUnusedLocals": false,
-        "noUnusedParameters": false,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
