@@ -2077,7 +2077,7 @@ declare module OfficeExtension {
         /**
         * Queues up a command to recursively load the specified properties of the object and its navigation properties.
         * You must call "context.sync()" before reading the properties.
-        * 
+        *
         * @param object The object to be loaded.
         * @param options The key-value pairing of load options for the types, such as { "Workbook": "worksheets,tables",  "Worksheet": "tables",  "Tables": "name" }
         * @param maxDepth The maximum recursive depth.
@@ -2334,7 +2334,7 @@ declare module OfficeExtension {
 }
 declare module OfficeExtension {
     /**
-    * Request URL and headers 
+    * Request URL and headers
     */
     interface RequestUrlAndHeaderInfo {
         /** Request URL */
@@ -4218,14 +4218,7 @@ declare module Excel {
         index: number;
         /**
          *
-<<<<<<< HEAD
          * Represents the raw values of the specified range. The data returned could be of type string, number, or a boolean. Cell that contain an error will return the error string.
-=======
-         * The first criterion used to filter data. Used as an operator in the case of "custom" filtering.
-             For example ">50" for number greater than 50 or "=*s" for values ending in "s".
-
-             Used as a number in the case of top/bottom items/percents. E.g. "5" for the top 5 items if filterOn is set to "topItems"
->>>>>>> types-2.0
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -5905,7 +5898,7 @@ declare module Excel {
          *
          * The first criterion used to filter data. Used as an operator in the case of "custom" filtering.
              For example ">50" for number greater than 50 or "=*s" for values ending in "s".
-            
+
              Used as a number in the case of top/bottom items/percents. E.g. "5" for the top 5 items if filterOn is set to "topItems"
          *
          * [Api set: ExcelApi 1.2]
