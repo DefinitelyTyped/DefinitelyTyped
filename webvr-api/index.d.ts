@@ -158,7 +158,7 @@ interface VRPose {
   angularAcceleration: Float32Array;
 }
 
-interface VRFrameData {
+declare class VRFrameData {
   timestamp: any; // Should be DOMHighResTimeStamp
 
   leftProjectionMatrix: Float32Array;
