@@ -223,7 +223,7 @@ namespace common {
 	anySchema = anySchema.empty();
 	anySchema = anySchema.empty(str);
 	anySchema = anySchema.empty(anySchema);
-	
+
 	anySchema = anySchema.error(err);
 }
 

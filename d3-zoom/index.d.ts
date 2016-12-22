@@ -1,9 +1,12 @@
-// Type definitions for d3JS d3-zoom module v1.0.3
+// Type definitions for d3JS d3-zoom module 1.1
 // Project: https://github.com/d3/d3-zoom/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// Last module patch version validated against: 1.1.1
+
 import { ArrayLike, Selection, TransitionLike, ValueFn } from 'd3-selection';
+import { ZoomView, ZoomInterpolator } from 'd3-interpolate';
 
 
 // --------------------------------------------------------------------------
@@ -23,10 +26,10 @@ type ZoomedElementBaseType = Element;
  * that  can be passed into zoomTransform methods rescaleX and rescaleY
  */
 export interface ZoomScale {
-    domain(): Array<number>;
-    domain(domain: Array<number>): this;
-    range(): Array<number>;
-    range(range: Array<number>): this;
+    domain(): number[];
+    domain(domain: number[]): this;
+    range(): number[];
+    range(range: number[]): this;
     copy(): ZoomScale;
     invert(value: number): number;
 }
@@ -473,6 +476,23 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
     duration(duration: number): this;
 
     /**
+     * Returns the current interpolation factory, which defaults to d3.interpolateZoom to implement smooth zooming.
+     */
+    interpolate<InterpolationFactory extends (a: ZoomView, b: ZoomView) => ((t: number) => ZoomView)>(): InterpolationFactory;
+
+    /**
+     * Sets the interpolation factory for zoom transitions to the specified function.
+     * Use the default d3.interpolateZoom to implement smooth zooming.
+     * To apply direct interpolation between two views, try d3.interpolate instead.
+     *
+     * Each view is defined as an array of three numbers: cx, cy and width. The first two coordinates cx, cy represent the center of the viewport;
+     * the last coordinate width represents the size of the viewport.
+     *
+     * @param interpolatorFactory An interpolator factory to be used to generate interpolators beetween zooms for transitions.
+     */
+    interpolate(interpolatorFactory: (a: ZoomView, b: ZoomView) => ((t: number) => ZoomView)): this;
+
+    /**
      * Return the first currently-assigned listener matching the specified typenames, if any.
      *
      * @param typenames The typenames is a string containing one or more typename separated by whitespace.
@@ -481,7 +501,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * start (after zooming begins [such as mousedown]), zoom (after a change to the zoom  transform [such as mousemove], or
      * end (after an active pointer becomes inactive [such as on mouseup].)
      */
-    on(typenames: string): ValueFn<ZoomRefElement, Datum, void>;
+    on(typenames: string): ValueFn<ZoomRefElement, Datum, void> | undefined;
     /**
      * Remove the current event listeners for the specified typenames, if any, return the drag behavior.
      *
@@ -685,8 +705,11 @@ export interface ZoomTransform {
 }
 
 /**
- * Return the current transform for the specified node. Internally, an element’s transform is stored as element.__zoom;
- * however, you should use this method rather than accessing it directly. If the given node has no defined transform, returns the identity transformation.
+ * Returns the current transform for the specified node. Note that node should typically be a DOM element, and not a selection.
+ * (A selection may consist of multiple nodes, in different states, and this function only returns a single transform.) If you have a selection, call selection.node first.
+ * In the context of an event listener, the node is typically the element that received the input event (which should be equal to event.transform), "this".
+ * Internally, an element’s transform is stored as element.__zoom; however, you should use this method rather than accessing it directly. If the given node has no defined transform, returns the identity transformation.
+ * The returned transform represents a two-dimensional transformation matrix
  *
  * For details see {@link https://github.com/d3/d3-zoom#zoom-transforms}
  *

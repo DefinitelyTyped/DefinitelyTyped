@@ -1,6 +1,6 @@
-// Type definitions for Angular Material 1.1.0-rc5+ (angular.material module)
+// Type definitions for Angular Material (angular.material module) 1.1
 // Project: https://github.com/angular/material
-// Definitions by: Alex Staroselsky <https://github.com/AlStar01>, Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>
+// Definitions by: Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as angular from 'angular';
@@ -155,7 +155,7 @@ declare module 'angular' {
             highlightClass(highlightClass: string): T;
             capsule(capsule: boolean): T;
             theme(theme: string): T;
-            hideDelay(delay: number): T;
+            hideDelay(delay: number | false): T;
             position(position: string): T;
             parent(parent?: string | Element | JQuery): T; // default: root node
             toastClass(toastClass: string): T;
@@ -170,7 +170,7 @@ declare module 'angular' {
             autoWrap?: boolean;
             scope?: angular.IScope; // default: new child scope
             preserveScope?: boolean; // default: false
-            hideDelay?: number; // default (ms): 3000
+            hideDelay?: number | false; // default (ms): 3000
             position?: string; // any combination of 'bottom'/'left'/'top'/'right'/'fit'; default: 'bottom left'
             toastClass?: string;
             controller?: string | Function;
@@ -344,6 +344,8 @@ declare module 'angular' {
             id: string;
             config: IPanelConfig;
             isAttached: boolean;
+            panelContainer: JQuery;
+            panelEl: JQuery;
             open(): angular.IPromise<any>;
             close(): angular.IPromise<any>;
             attach(): angular.IPromise<any>;

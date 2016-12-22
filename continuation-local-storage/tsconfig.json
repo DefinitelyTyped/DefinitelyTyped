@@ -4,6 +4,7 @@
         "moduleResolution": "node",
         "target": "es6",
         "noImplicitAny": true,
+        "noImplicitThis": false,
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [

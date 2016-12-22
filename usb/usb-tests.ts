@@ -72,8 +72,8 @@ endpointDesc.bInterval = 1;
 endpointDesc.bRefresh = 1;
 endpointDesc.bSynchAddress = 1;
 
-const ifaceInEndpoint: usb.IEndpoint = iface.endpoint(1) as usb.InEndpoint;
-const ifaceOutEndpoint: usb.IEndpoint = iface.endpoint(1) as usb.OutEndpoint;
+const ifaceInEndpoint: usb.Endpoint = iface.endpoint(1) as usb.InEndpoint;
+const ifaceOutEndpoint: usb.Endpoint = iface.endpoint(1) as usb.OutEndpoint;
 
 const inEndpoint: usb.InEndpoint = new usb.InEndpoint(device, endpointDesc);
 

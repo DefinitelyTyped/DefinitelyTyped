@@ -1,7 +1,7 @@
-/// <reference path="index.d.ts" />
 import * as assert from "assert";
 import * as fs from "fs";
 import * as events from "events";
+import events2 = require("events");
 import * as zlib from "zlib";
 import * as url from "url";
 import * as util from "util";
@@ -142,6 +142,10 @@ namespace events_tests {
                 this.emit("mingling");
             }
         }
+    }
+
+    {
+        new events2();
     }
 }
 
@@ -2063,3 +2067,16 @@ namespace constants_tests {
     str = constants.defaultCoreCipherList
     str = constants.defaultCipherList
 }
+
+///////////////////////////////////////////////////////////
+/// Debugger Tests                                      ///
+///////////////////////////////////////////////////////////
+
+import { Client } from  "_debugger";
+
+var client = new Client();
+
+client.connect(8888, 'localhost');
+client.listbreakpoints((err, body, packet) => {
+
+});

@@ -200,7 +200,7 @@ declare namespace Interact {
         (element: HTMLElement): Interactable;
         (element: SVGElement): Interactable;
         (element: string): Interactable;
-        (element: string, { context: Element } : { context: Element }): Interactable;
+        (element: string, options: {context: Element}): Interactable;
         // returns boolean or {[key: string]: any}
         autoScroll(): any;
         autoScroll(options: boolean): InteractStatic;
@@ -243,6 +243,17 @@ declare namespace Interact {
 
 declare var interact: Interact.InteractStatic;
 
-declare module "interact.js" {
+// CommonJS module name until version 1.2.6 is "interact.js"
+ declare module "interact.js" {
+     export = interact;
+ }
+
+// CommonJS module name from version 1.2.7 onward is "interactjs"
+declare module "interactjs" {
+    export = interact;
+}
+
+// AMD module name is "interact"
+declare module "interact" {
     export = interact;
 }
