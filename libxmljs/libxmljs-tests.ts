@@ -1,5 +1,4 @@
-/// <reference path="..\node\node.d.ts" />
-/// <reference path="libxmljs.d.ts" />
+
 
 var libxmljs = require("libxmljs");
 var xml =  '<?xml version="1.0" encoding="UTF-8"?>' +

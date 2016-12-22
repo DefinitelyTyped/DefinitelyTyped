@@ -3,8 +3,8 @@
 // Definitions by: DeCareSystemsIreland <https://github.com/DeCareSystemsIreland>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="umbraco.d.ts" />
-/// <reference path="../angularjs/angular.d.ts" />
+
+/// <reference types="angular" />
 
 declare namespace umbraco.services {
 
@@ -494,6 +494,10 @@ declare namespace umbraco.services {
         width?: number;
         /*strips the modal from any animation and wrappers, used when you want to inject a dialog into an existing container*/
         inline?: boolean;
+        /** 
+         * It will set this value as a property on the dialog controller's scope as $scope.dialogData
+         */
+	dialogData?: any;
     }
 
     /**

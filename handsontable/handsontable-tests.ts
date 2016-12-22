@@ -1,4 +1,4 @@
-/// <reference path="handsontable.d.ts" />
+
 
 function test_HandsontableInit() {
   var elem = document.createElement('div');
@@ -14,14 +14,17 @@ function test_HandsontableInit() {
     autoRowSize: true,
     autoWrapCol: true,
     autoWrapRow: true,
+    bindRowsWithHeaders: 'foo',
     cell: [],
     cells: function() {},
     checkedTemplate: true,
     className: [],
     colHeaders: true,
+    collapsibleColumns: true,
     columnHeaderHeight: 123,
     columns: [],
     columnSorting: {},
+    columnSummary: {},
     colWidths: 123,
     commentedCellClassName: 'foo',
     comments: [],
@@ -41,15 +44,24 @@ function test_HandsontableInit() {
     debug: true,
     defaultDate: 'foo',
     disableVisualSelection: true,
+    dropdownMenu: [],
     editor: true,
     enterBeginsEditing: true,
     enterMoves: {},
     fillHandle: true,
+    filter: true,
+    filteringCaseSensitive: true,
+    filters: false,
     fixedColumnsLeft: 123,
+    fixedRowsBottom: 123,
     fixedRowsTop: 123,
     format: 'foo',
     fragmentSelection: true,
+    ganttChart: {},
+    headerTooltips: true,
     height: 123,
+    hiddenColumns: true,
+    hiddenRows: {},
     invalidCellClassName: 'foo',
     label: {},
     language: 'foo',
@@ -66,6 +78,7 @@ function test_HandsontableInit() {
     minSpareCols: 123,
     minSpareRows: 123,
     multiSelect: true,
+    nestedHeaders: [],
     noWordWrapClassName: 'foo',
     observeChanges: true,
     observeDOMVisibility: true,
@@ -85,6 +98,7 @@ function test_HandsontableInit() {
     search: true,
     selectOptions: [],
     skipColumnOnPaste: true,
+    sortByRelevance: true,
     sortFunction: function() {},
     sortIndicator: true,
     source: [],
@@ -106,6 +120,88 @@ function test_HandsontableInit() {
     visibleRows: 123,
     width: 1232,
     wordWrap: true,
+
+    // Hooks
+    afterAutofillApplyValues: function() {},
+    afterCellMetaReset: function() {},
+    afterChange: function() {},
+    afterChangesObserved: function() {},
+    afterColumnMove: function() {},
+    afterColumnResize: function() {},
+    afterColumnSort: function() {},
+    afterContextMenuDefaultOptions: function() {},
+    afterContextMenuHide: function() {},
+    afterContextMenuShow: function() {},
+    afterCopyLimit: function() {},
+    afterCreateCol: function() {},
+    afterCreateRow: function() {},
+    afterDeselect: function() {},
+    afterDestroy: function() {},
+    afterDocumentKeyDown: function() {},
+    afterFilter: function() {},
+    afterGetCellMeta: function() {},
+    afterGetColHeader: function() {},
+    afterGetColumnHeaderRenderers: function() {},
+    afterGetRowHeader: function() {},
+    afterGetRowHeaderRenderers: function() {},
+    afterInit: function() {},
+    afterLoadData: function() {},
+    afterMomentumScroll: function() {},
+    afterOnCellCornerMouseDown: function() {},
+    afterOnCellMouseDown: function() {},
+    afterOnCellMouseOver: function() {},
+    afterRemoveCol: function() {},
+    afterRemoveRow: function() {},
+    afterRender: function() {},
+    afterRenderer: function() {},
+    afterRowMove: function() {},
+    afterRowResize: function() {},
+    afterScrollHorizontally: function() {},
+    afterScrollVertically: function() {},
+    afterSelection: function() {},
+    afterSelectionByProp: function() {},
+    afterSelectionEnd: function() {},
+    afterSelectionEndByProp: function() {},
+    afterSetCellMeta: function() {},
+    afterUpdateSettings: function() {},
+    afterValidate: function() {},
+    beforeAutofill: function() {},
+    beforeCellAlignment: function() {},
+    beforeChange: function() {},
+    beforeChangeRender: function() {},
+    beforeColumnMove: function() {},
+    beforeColumnResize: function() {},
+    beforeColumnSort: function() {},
+    beforeDrawBorders: function() {},
+    beforeFilter: function() {},
+    beforeGetCellMeta: function() {},
+    beforeInit: function() {},
+    beforeInitWalkontable: function() {},
+    beforeKeyDown: function() {},
+    beforeOnCellMouseDown: function() {},
+    beforeRemoveCol: function() {},
+    beforeRemoveRow: function() {},
+    beforeRender: function() {},
+    beforeRenderer: function() {},
+    beforeRowMove: function() {},
+    beforeRowResize: function() {},
+    beforeSetRangeEnd: function() {},
+    beforeStretchingColumnWidth: function() {},
+    beforeTouchScroll: function() {},
+    beforeValidate: function() {},
+    construct: function() {},
+    init: function() {},
+    modifyCol: function() {},
+    modifyColHeader: function() {},
+    modifyColWidth: function() {},
+    modifyCopyableRange: function() {},
+    modifyRow: function() {},
+    modifyRowHeader: function() {},
+    modifyRowHeight: function() {},
+    persistentStateLoad: function() {},
+    persistentStateReset: function() {},
+    persistentStateSave: function() {},
+    unmodifyCol: function() {}
   });
 }
 
@@ -154,7 +250,7 @@ function test_HandsontableMethods() {
   hot.getRowHeight(123);
   hot.getSchema();
   hot.getSelected();
-  hot.getSelectedRange();
+  const range: ht.Range = hot.getSelectedRange();
   hot.getSettings();
   hot.getSourceData(123, 123, 123, 123);
   hot.getSourceDataAtCell(123, 123);
@@ -171,6 +267,7 @@ function test_HandsontableMethods() {
   hot.loadData([]);
   hot.populateFromArray(123, 123, [], 123, 123, 'foo', 'foo', 'foo', []);
   hot.propToCol('foo');
+  hot.propToCol(123);
   hot.removeCellMeta(123, 123, 'foo');
   hot.removeHook('foo', function() {});
   hot.render();
@@ -187,4 +284,8 @@ function test_HandsontableMethods() {
   hot.unlisten();
   hot.updateSettings({}, true);
   hot.validateCells(function() {});
+  
+  Handsontable.renderers.NumericRenderer(hot, new HTMLTableDataCellElement(), 0, 0, "prop", 1.235, {});
+  Handsontable.renderers.TextRenderer(hot, new HTMLTableDataCellElement(), 0, 0, "prop", 1.235, {});
+  Handsontable.Dom.addEvent(new HTMLElement(), "eventName", () => {});
 }

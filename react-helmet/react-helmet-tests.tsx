@@ -1,8 +1,8 @@
-/// <reference path="react-helmet.d.ts" />
-/// <reference path="../react/react.d.ts" />
+
+/// <reference types="react" />
 
 import * as React from 'react';
-import Helmet from 'react-helmet';
+import * as Helmet from 'react-helmet';
 
 <Helmet title="My Title" />
 
@@ -39,3 +39,9 @@ function HTML() {
         </html>
     );
 }
+
+function log(datum: Helmet.HelmetDatum) {
+    return console.log('logging a helmet datum:', datum.toString());
+}
+
+log(head.title);

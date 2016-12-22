@@ -1,4 +1,3 @@
-/// <reference path="javascript-bignum.d.ts"/>
 let m = SchemeNumber("1");
 let n = SchemeNumber(2);
 

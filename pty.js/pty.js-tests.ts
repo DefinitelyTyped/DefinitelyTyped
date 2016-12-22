@@ -1,4 +1,3 @@
-/// <reference path="pty.js.d.ts" />
 
 import pty = require('pty.js');
 

@@ -1,4 +1,4 @@
-/// <reference path="mithril.d.ts" />
+
 // This is the todolist example from http://lhorie.github.io/mithril/getting-started.html
 
 var todo = {
@@ -52,4 +52,4 @@ var todo = {
 };
 
 //initialize the application
-m.module(document, todo);
+m.mount(document, todo);

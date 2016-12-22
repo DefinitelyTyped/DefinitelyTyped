@@ -1,7 +1,8 @@
-/// <reference path="./gulp-rename.d.ts"/>
-/// <reference path="../gulp/gulp.d.ts"/>
 import gulp = require("gulp");
 import rename = require("gulp-rename");
+
+// Test that new import syntax works
+import * as newRename from 'gulp-rename';
 
 // rename via string
 gulp.src("./src/main/text/hello.txt")

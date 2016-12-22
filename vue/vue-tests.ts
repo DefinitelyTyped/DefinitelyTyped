@@ -1,4 +1,4 @@
-/// <reference path="vue.d.ts" />
+
 
 namespace TestConfig {
   "use strict";
@@ -8,7 +8,7 @@ namespace TestConfig {
   Vue.config.unsafeDelimiters = ['{!!', '!!}'];
   Vue.config.silent = true;
   Vue.config.async = false;
-  Vue.config.convertAllProperties = true;
+  Vue.config.devtools = true;
 }
 
 namespace TestGlobalAPI {
@@ -30,9 +30,20 @@ namespace TestGlobalAPI {
     twoWay: true,
     acceptStatement: true,
     priority: 1,
+    terminal: true,
     count: 30
   });
-  Vue.directive("my-directive", () => {});
+  Vue.directive("my-directive", function() {
+    const d = this as vuejs.Directive;
+    d.el;
+    d.vm;
+    d.expression;
+    d.arg;
+    d.name;
+    d.modifiers;
+    d.descriptor;
+    d.params;
+  });
   var myDirective = Vue.directive("my-directive");
   var elementDirective = Vue.elementDirective("element-directive");
   Vue.elementDirective("element-directive", elementDirective);
@@ -65,6 +76,21 @@ namespace TestGlobalAPI {
         get: function() { return this.a; },
         set: function(val: number) { this.d = val; }
       }
+    }
+  });
+  Vue.component("component", {
+    props: {
+      a: [String, Number],
+      b: {
+        type: [Number, Function],
+        required: true
+      }
+    },
+    init: function() {}
+  });
+  Vue.component("component", {
+    activate: function(callback: Function) {
+      callback();
     }
   });
   var transition = Vue.transition("transition");

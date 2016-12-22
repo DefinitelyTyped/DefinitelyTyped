@@ -1,4 +1,4 @@
-/// <reference path="./geojson.d.ts" />
+
 
 var featureCollection: GeoJSON.FeatureCollection<any> =  {
     type: "FeatureCollection",
@@ -71,6 +71,11 @@ var point: GeoJSON.Point = {
 	type: "Point",
 	coordinates: [100.0, 0.0]
 };
+
+
+// This type is commonly used in the turf package
+var pointCoordinates: number[] = point.coordinates
+
 
 var lineString: GeoJSON.LineString = {
 	type: "LineString",

@@ -1,5 +1,5 @@
-/// <reference path='convict.d.ts' />
-/// <reference path='../validator/validator.d.ts' />
+
+/// <reference types="validator" />
 
 import convict = require('convict');
 import validator = require('validator');
@@ -104,7 +104,7 @@ conf.loadFile(['./configs/always.json', './configs/sometimes.json']);
 
 // perform validation
 
-conf.validate();
+conf.validate({ strict: true });
 
 var port: number = conf.default('port');
 

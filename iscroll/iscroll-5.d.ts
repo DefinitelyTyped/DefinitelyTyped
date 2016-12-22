@@ -51,10 +51,10 @@ interface IScrollOptions {
 	bounceTime?: number;
 
 	///String or function
-	bounceEasing?: any;
+	bounceEasing?: string|{ style: string, fn: (k: any) => any };
 
 	preventDefault?: boolean;
-	preventDefaultException?: boolean;
+	preventDefaultException?: Array<RegExp>|Object;
 
 	HWCompositing?: boolean;
 
@@ -65,6 +65,9 @@ interface IScrollOptions {
 	click?: boolean;
 	invertWheelDirection?: boolean;
 	eventPassthrough?: string | boolean;
+
+	// iScroll probe edition
+	probeType?: number;
 }
 
 declare class IScroll {

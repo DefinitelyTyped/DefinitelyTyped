@@ -1,5 +1,4 @@
-﻿/// <reference path="knockout.deferred.updates.d.ts" />
-
+﻿
 // Turn *off* deferred updates for computed observables and subscriptions
 ko.computed.deferUpdates = false;
 
@@ -200,8 +199,6 @@ function nestedComputedPlugin() {
         vm.setThrottle(undefined);
         vm.doUpdate();
     };
-
-    vm.runWrappedDefer = ko.tasks.makeProcessedCallback(vm.runDefer);
 
     vm.A = ko.computed(function () {
         var result = '' + vm.a();

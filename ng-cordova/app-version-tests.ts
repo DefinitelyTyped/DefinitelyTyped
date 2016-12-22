@@ -1,5 +1,6 @@
 /// <reference path="app-version.d.ts" />
 
+
 namespace ngCordova {
     function test($cordovaAppVersion: IAppVersionService) {
 

@@ -1,4 +1,4 @@
-/// <reference path="notify.d.ts" />
+
 
 $.notify.addStyle("bootstrap", {
   html: "<div>\n<span data-notify-text></span>\n</div>",

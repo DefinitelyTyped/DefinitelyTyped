@@ -1,6 +1,6 @@
-/// <reference path="tsd.d.ts" />
-/// <reference path="../angularjs/angular.d.ts" />
-/// <reference path="../ionic/ionic.d.ts" />
+/// <reference path="geolocation.d.ts" />
+/// <reference path="../angular/index.d.ts" />
+/// <reference path="../cordova/index.d.ts" />
 
 // For the full application demo please see following repo :
 // https://github.com/ksachdeva/ngCordova-typescript-demo

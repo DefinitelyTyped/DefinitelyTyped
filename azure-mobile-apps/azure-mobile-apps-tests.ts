@@ -1,4 +1,4 @@
-/// <reference path="azure-mobile-apps.d.ts" />
+
 
 import express = require('express');
 import mobileApps = require('azure-mobile-apps');
@@ -17,7 +17,8 @@ mobileApps({
         user: '',
         database: '',
         password: ''
-    }
+    },
+    webhook: { url: 'http://localhost/' }
 });
 
 mobileApps({
@@ -43,6 +44,9 @@ mobileApp.tables.import('tables');
 mobileApp.api.add('api', { authorize: true, get: function () {}, delete: function () {} });
 mobileApp.api.import('api');
 
+// ensure the mobile app instance can be correctly mounted as an express router
+app.use(mobileApp);
+
 // Express.Table, instantiated from the mobile app
 var table = mobileApp.table()
 table.use(function (req: Express.Request, res: Express.Response, next: any) {
@@ -66,16 +70,40 @@ table.insert(function (context: Azure.MobileApps.Context) {
     context.push.gcm.send('tag', {}, function (error, result) {});
     context.push.apns.send('tag', { payload: { } }, function (error, result) {});
     context.push.wns.sendToastText01('tag', '', { headers: { } }, function (error, result) {});
+    context.next(new Error());
+    context.next('An error occurred');
 });
 table.read.use(function () {});
 table.read.use([function () {}, function () {}]);
 table.read.use(function () {}, function () {});
-table.use(function () {}).use(function () {}).read(function () {}).use(function () {})
+table.use(function () {}).use(function () {}).read(function () {}).use(function () {});
+
+table.access = undefined;
+table.access = 'authenticated';
+table.read.access = 'anonymous';
+table.update.access = 'disabled';
+table.delete.access = 'authenticated';
+table.insert.access = 'authenticated';
+
+table.filters = [function (query, context) { }];
+table.transforms = [function (item, context) { }];
+table.hooks = [function (results, context) { }];
+
+table.perUser = true;
+table.recordsExpire = { milliseconds: 1, seconds: 1, minutes: 1, hours: 1, days: 1, weeks: 1, months: 1, years: 1 };
+table.webhook = { url: 'http://localhost/' }
+table.webhook = true;
 
 // Express.Table, instantiated from the static require('azure-mobile-apps').table()
 // This is going to be interesting if we ever support more than one provider
 var table2 = mobileApps.table();
-table2.read(function (context: Azure.MobileApps.Context) {})
+table2.read(function (context: Azure.MobileApps.Context) {});
+
+// ApiDefinition, from the static require('azure-mobile-apps').api()
+var api2 = mobileApps.api({
+    get: function (req, res, next) { }
+});
+api2.post = function (req, res, next) {};
 
 // Logger
 logger.silly('test', 'message');
@@ -83,5 +111,15 @@ logger.error('Something happened', new Error());
 mobileApps.logger.debug('a debug message')
 
 // Query
-queries.create('table').where({ x: 10 }).select('col1,col2');
+queries.create('table').where({ x: 10 }).select('col1,col2').includeDeleted().includeTotalCount();
 mobileApps.query.create('table');
+
+// Custom SQL query
+mobileApp.api.add('query', { authorize: true, get: (req, res, next) => {
+    req.azureMobile.data.execute({
+        sql: "SELECT * FROM TODOITEM WHERE COMPLETE = :complete",
+        parameters: [
+            { name: 'complete', value: 1 }
+        ]
+    }).then(x => {});
+}, delete: function () {} });

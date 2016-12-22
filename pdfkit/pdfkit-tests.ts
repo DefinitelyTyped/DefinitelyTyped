@@ -1,4 +1,4 @@
-/// <reference path="pdfkit.d.ts" />
+
 
 import PDFGradient = require("pdfkit/js/gradient");
 
@@ -16,7 +16,7 @@ import text = require("pdfkit/js/mixins/text");
 font.registerFont("Arial");
 text.widthOfString("Kila",{ellipsis:true});
 
-var doc = new PDFDocument({compress:false, sizes:[526,525],autoFirstPage:true});
+var doc = new PDFDocument({compress:false, size:[526,525],autoFirstPage:true});
 
 
 doc.addPage({
@@ -24,12 +24,16 @@ doc.addPage({
 });
 
 doc.addPage({
-  margin: {
+  margins: {
     top: 50,
     bottom: 50,
     left: 72,
     right: 72
   }
+});
+
+doc.addPage({
+  layout: "landscape"
 });
 
 doc.info.Title = "Sample";
@@ -134,3 +138,9 @@ doc.image('images/test.jpeg', 320, 145, {
 doc.image('images/test.jpeg', 320, 280, {
   scale: 0.25
 }).text('Scale', 320, 265);
+
+doc.image({ /* something like a buffer */ }, {
+  scale: 0.25
+}).text('Scale', 320, 265);
+
+doc.text('Scale', {align: 'justify'});

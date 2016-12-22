@@ -6,7 +6,7 @@
 //                 Olivier Chevet <https://github.com/olivr70>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// <reference path="../assertion-error/assertion-error.d.ts"/>
+// <reference types="assertion-error"/>
 
 declare namespace Chai {
 
@@ -270,6 +270,9 @@ declare namespace Chai {
 
         isAbove(val: number, abv: number, msg?: string): void;
         isBelow(val: number, blw: number, msg?: string): void;
+
+        isAtMost(val: number, atmst: number, msg?: string): void;
+        isAtLeast(val: number, atlst: number, msg?: string): void;
 
         isFunction(val: any, msg?: string): void;
         isNotFunction(val: any, msg?: string): void;

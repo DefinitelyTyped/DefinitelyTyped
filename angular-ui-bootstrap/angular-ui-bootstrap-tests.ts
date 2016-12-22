@@ -1,4 +1,4 @@
-/// <reference path="angular-ui-bootstrap.d.ts" />
+
 
 var testApp = angular.module('testApp');
 
@@ -154,6 +154,8 @@ testApp.controller('TestCtrl', (
      * test the $modal service
      */
     var modalInstance = $modal.open({
+        ariaLabelledBy: "label",
+        ariaDescribedBy: "description",
         animation: false,
         backdrop: 'static',
         backdropClass: 'modal-backdrop-test',
@@ -179,6 +181,10 @@ testApp.controller('TestCtrl', (
 
     modalInstance.rendered.then(() => {
         $log.log('modal rendered');
+    });
+
+    modalInstance.closed.then(()=> {
+        $log.log('modal closed');
     });
 
     modalInstance.result.then((closeResult:any)=> {

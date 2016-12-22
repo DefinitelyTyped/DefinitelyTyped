@@ -1,4 +1,4 @@
-/// <reference path="wnumb.d.ts" />
+
 
 
 var moneyFormat = wNumb({

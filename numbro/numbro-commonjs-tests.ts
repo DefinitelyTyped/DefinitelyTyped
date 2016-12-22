@@ -1,4 +1,4 @@
-/// <reference path="numbro.d.ts" />
+
 import numbro = require("numbro");
 
 var valueFormat: string = numbro(1000).format('0,0');

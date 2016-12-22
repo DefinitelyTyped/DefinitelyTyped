@@ -3,8 +3,19 @@
 // Definitions by: Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="chrome.d.ts"/>
-/// <reference path='../filesystem/filesystem.d.ts'/>
+/// <reference path="index.d.ts"/>
+/// <reference types="filesystem"/>
+
+////////////////////
+// App
+////////////////////
+declare namespace chrome.app {
+	interface AppDetails extends chrome.runtime.Manifest {
+		id: string;
+	}
+
+	export function getDetails(): AppDetails;
+}
 
 ////////////////////
 // App Runtime
@@ -685,7 +696,7 @@ declare namespace chrome.usb {
 	interface DeviceEvent extends chrome.events.Event<(device: Device) => void> {}
 
 	export var onDeviceAdded: DeviceEvent;
-	export var onDeviceAdded: DeviceEvent;
+	export var onDeviceRemoved: DeviceEvent;
 
 	export function getDevices(options: { vendorId?: number, productId?: number, filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
 	export function getUserSelectedDevices(options: { multiple?: boolean, filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
