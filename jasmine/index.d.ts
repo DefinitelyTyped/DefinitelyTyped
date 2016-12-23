@@ -182,6 +182,7 @@ declare namespace jasmine {
         allowRespy(allow: boolean): void;
         randomTests(): boolean;
         randomizeTests(b: boolean): void;
+        clearReporters(): void;
     }
 
     interface FakeTimer {
