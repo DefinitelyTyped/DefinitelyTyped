@@ -1,4 +1,4 @@
-// Type definitions for Angular JS 1.5 (ngResource module)
+// Type definitions for Angular JS (ngResource module) 1.5
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Michael Jess <http://github.com/miffels>
 // Definitions: https://github.com/daptiv/DefinitelyTyped

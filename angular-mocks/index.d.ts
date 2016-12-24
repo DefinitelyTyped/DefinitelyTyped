@@ -1,4 +1,4 @@
-// Type definitions for Angular JS 1.5 (ngMock, ngMockE2E module)
+// Type definitions for Angular JS (ngMock, ngMockE2E module) 1.5
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Tony Curtis <http://github.com/daltin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

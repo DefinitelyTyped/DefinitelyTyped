@@ -1,6 +1,7 @@
 Please fill in this template.
 
 - [ ] Prefer to make your PR against the `types-2.0` branch.
+- [ ] Use a meaningful title for the pull request. Include the name of the package modified.
 - [ ] Test the change in your own code.
 - [ ] Follow the advice from the [readme](https://github.com/DefinitelyTyped/DefinitelyTyped#make-a-pull-request).
 - [ ] Avoid [common mistakes](https://github.com/DefinitelyTyped/DefinitelyTyped#common-mistakes).

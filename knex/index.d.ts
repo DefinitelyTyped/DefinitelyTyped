@@ -365,7 +365,7 @@ declare namespace Knex {
         dateTime(columnName: string): ColumnBuilder;
         time(columnName: string): ColumnBuilder;
         timestamp(columnName: string): ColumnBuilder;
-        timestamps(): ColumnBuilder;
+        timestamps(useTimestampType?: boolean, makeDefaultNow?: boolean): ColumnBuilder;
         binary(columnName: string): ColumnBuilder;
         enum(columnName: string, values: Value[]): ColumnBuilder;
         enu(columnName: string, values: Value[]): ColumnBuilder;
@@ -380,8 +380,8 @@ declare namespace Knex {
         foreign(column: string): ForeignConstraintBuilder;
         foreign(columns: string[]): MultikeyForeignConstraintBuilder;
         dropForeign(columnNames: string[], foreignKeyName?: string): TableBuilder;
-      dropUnique(columnNames: string[], indexName?: string): TableBuilder;
-      dropPrimary(constraintName?: string): TableBuilder;
+        dropUnique(columnNames: string[], indexName?: string): TableBuilder;
+        dropPrimary(constraintName?: string): TableBuilder;
     }
 
     interface CreateTableBuilder extends TableBuilder {
@@ -453,7 +453,7 @@ declare namespace Knex {
         client?: string;
         dialect?: string;
         connection?: string | ConnectionConfig | MariaSqlConnectionConfig |
-        Sqlite3ConnectionConfig | SocketConnectionConfig;
+            MySqlConnectionConfig | Sqlite3ConnectionConfig | SocketConnectionConfig;
         pool?: PoolConfig;
         migrations?: MigratorConfig;
         acquireConnectionTimeout?: number;
@@ -499,6 +499,32 @@ declare namespace Knex {
         capath?: string;
         cipher?: string;
         rejectUnauthorized?: boolean;
+    }
+
+    // Config object for mysql: https://github.com/mysqljs/mysql#connection-options
+    interface MySqlConnectionConfig {
+        host?: string;
+        port?: number;
+        localAddress?: string;
+        socketPath?: string;
+        user?: string;
+        password?: string;
+        database?: string;
+        charset?: string;
+        timezone?: string;
+        connectTimeout?: number;
+        stringifyObjects?: boolean;
+        insecureAuth?: boolean;
+        typeCast?: boolean;
+        queryFormat?: (query: string, values: any) => string;
+        supportBigNumbers?: boolean;
+        bigNumberStrings?: boolean;
+        dateStrings?: boolean;
+        debug?: boolean;
+        trace?: boolean;
+        multipleStatements?: boolean;
+        flags?: string;
+        ssl?: string | MariaSslConfiguration;
     }
 
     /** Used with SQLite3 adapter */
