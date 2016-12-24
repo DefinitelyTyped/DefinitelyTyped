@@ -50,6 +50,10 @@ declare namespace request {
         del(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
         del(uri: string, callback?: RequestCallback): TRequest;
         del(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
+            
+        delete(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+        delete(uri: string, callback?: RequestCallback): TRequest;
+        delete(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
 
         forever(agentOptions: any, optionsArg: any): TRequest;
         jar(): CookieJar;
