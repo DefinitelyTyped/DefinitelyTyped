@@ -21,8 +21,10 @@ var verror3 = new VError({
     }
 }, "bar");
 
-var cause1: Error = verror1.cause();
-var cause2: Error = werror.cause();
+var verror4 = new VError({ cause: null }, "bar");
+
+var cause1: Error | undefined = verror1.cause();
+var cause2: Error | undefined = werror.cause();
 
 const info: { [k: string]: any } = VError.info(verror3);
 const namedCause: Error | null = VError.findCauseByName(verror3, "fooError");
