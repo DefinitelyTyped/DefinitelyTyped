@@ -200,7 +200,7 @@ A `package.json` may be included for the sake of specifying dependencies. Here's
 We do not allow other fields, such as `"description"`, to be defined manually.
 Also, if you need to reference an older version of typings, you must do that by adding `"dependencies": { "@types/foo": "x.y.z" }` to the package.json.
 
-#### I notice some `tsconfig.json` are missing `"noImplicitAny": true`, `"noImplicitThis": true`, or `"strictNullChecks": true`.
+#### Some packages have no `tslint.json`, and some `tsconfig.json` are missing `"noImplicitAny": true`, `"noImplicitThis": true`, or `"strictNullChecks": true`.
 
 Then they are wrong. You can help by submitting a pull request to fix them.
 
