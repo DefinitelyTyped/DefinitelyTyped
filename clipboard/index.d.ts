@@ -1,4 +1,4 @@
-// Type definitions for clipboard.js 1.5.9
+// Type definitions for clipboard.js 1.5
 // Project: https://github.com/zenorocha/clipboard.js
 // Definitions by: Andrei Kurosh <https://github.com/impworks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
