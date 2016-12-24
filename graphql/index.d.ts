@@ -319,6 +319,7 @@ declare module "graphql/language/ast" {
         | FloatValueNode
         | StringValueNode
         | BooleanValueNode
+        | NullValueNode
         | EnumValueNode
         | ListValueNode
         | ObjectValueNode
@@ -450,6 +451,7 @@ declare module "graphql/language/ast" {
         | FloatValueNode
         | StringValueNode
         | BooleanValueNode
+        | NullValueNode
         | EnumValueNode
         | ListValueNode
         | ObjectValueNode
@@ -476,6 +478,11 @@ declare module "graphql/language/ast" {
         kind: 'BooleanValue';
         loc?: Location;
         value: boolean;
+    }
+
+    export type NullValueNode = {
+        kind: 'NullValue';
+        loc?: Location;
     }
 
     export type EnumValueNode = {
