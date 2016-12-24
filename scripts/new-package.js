@@ -74,6 +74,7 @@ function getTSConfig() {
             "module": "commonjs",
             "target": "es6",
             "noImplicitAny": true,
+            "noImplicitThis": true,
             "strictNullChecks": true,
             "baseUrl": "../",
             "typeRoots": [
