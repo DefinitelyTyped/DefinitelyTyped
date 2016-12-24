@@ -1,16 +1,19 @@
-// Type definitions for verror v1.9.0
+// Type definitions for verror 1.9
 // Project: https://github.com/davepacheco/node-verror
 // Definitions by: Sven Reglitzki <https://github.com/svi3c/>, Maxime Toumi-M <https://github.com/max4t/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-type VErrorInfo = { [key: string]: any };
+// tslint:disable-next-line:functional-interfaces
+interface VErrorInfo {
+    [key: string]: any;
+}
 
 declare interface VErrorOptions {
     cause?: Error | null | undefined;
     name?: string;
     strict?: boolean;
-    constructorOpt?: Function;
+    constructorOpt?: (...args: any[]) => void;
     info?: VErrorInfo;
 }
 
