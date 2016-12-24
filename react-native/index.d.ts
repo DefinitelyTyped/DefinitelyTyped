@@ -5576,7 +5576,17 @@ declare module "react" {
          * Fires at most once per frame during scrolling.
          * The frequency of the events can be contolled using the scrollEventThrottle prop.
          */
-        onScroll?: (event?: { nativeEvent: NativeScrollEvent }) => void
+        onScroll?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
+
+        /**
+         * Fires if a user initiates a scroll gesture.
+         */
+        onScrollBeginDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
+
+	/**
+         * Fires when a user has finished scrolling.
+         */
+        onScrollEndDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
 
         /**
          * When true the scroll view stops on multiples of the scroll view's size
