@@ -172,11 +172,11 @@ interface ChartAnimationOptions {
 interface ChartElementsOptions {
     point?: ChartPointOptions;
     line?: ChartLineOptions;
-    arg?: ChartArcOtpions;
+    arc?: ChartArcOptions;
     rectangle?: ChartRectangleOptions;
 }
 
-interface ChartArcOtpions {
+interface ChartArcOptions {
     backgroundColor?: ChartColor;
     borderColor?: ChartColor;
     borderWidth?: number;
