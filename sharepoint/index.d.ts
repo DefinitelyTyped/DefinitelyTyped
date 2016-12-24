@@ -2107,6 +2107,7 @@ declare namespace SP {
         constructor(context: SP.ClientRuntimeContext, typeId: string, methodName: string, parameters: any[]);
     }
     export class ClientObject {
+        constructor(context: SP.ClientRuntimeContext, objectPath: SP.ObjectPath);
         get_context(): SP.ClientRuntimeContext;
         get_path(): SP.ObjectPath;
         get_objectVersion(): string;
@@ -2120,6 +2121,8 @@ declare namespace SP {
         isObjectPropertyInstantiated(propertyName: string): boolean;
         get_serverObjectIsNull(): boolean;
         get_typedObject(): SP.ClientObject;
+        initPropertiesFromJson(initValue: any): void;
+        checkUninitializedProperty(propName: string): void;
     }
     export class ClientObjectData {
         get_properties(): any;
