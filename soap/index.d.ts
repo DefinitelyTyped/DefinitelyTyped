@@ -23,6 +23,7 @@ interface Client extends events.EventEmitter {
     [method: string]: (args: any, fn: (err: any, result: any) => void, options?: any, extraHeaders?: any) => void;
     addSoapHeader(headJSON: any): void;
     setEndpoint(endpoint: string): void;
+    describe(): any;
 }
 
 export interface Server extends events.EventEmitter {
