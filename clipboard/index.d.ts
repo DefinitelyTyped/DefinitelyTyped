@@ -8,12 +8,11 @@ declare class Clipboard {
 
     /**
      * Subscribes to events that indicate the result of a copy/cut operation.
-     * @param type {string} Event type ('success' or 'error').
+     * @param type {"success" | "error"} Event type ('success' or 'error').
      * @param handler Callback function.
      */
-    on(type: "success", handler: (e: Clipboard.Event) => void): this;
-    on(type: "error", handler: (e: Clipboard.Event) => void): this;
-    on(type: string, handler: (e: Clipboard.Event) => void): this;
+    on(type: "success" | "error", handler: (e: Clipboard.Event) => void): this;
+    on(type: string, handler: (...args: any[]) => void): this;
 
     /**
      * Clears all event bindings.
