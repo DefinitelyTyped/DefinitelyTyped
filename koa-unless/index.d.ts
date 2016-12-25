@@ -1,4 +1,4 @@
-// Type definitions for koa-unless 0.0
+// Type definitions for koa-unless 1.0
 // Project: https://github.com/Foxandxss/koa-unless
 // Definitions by: Bruno Krebs <https://github.com/brunokrebs/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
