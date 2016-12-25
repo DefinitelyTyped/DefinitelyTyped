@@ -19,8 +19,6 @@ declare namespace unless {
         ext?: string | string[];
         method?: string | string[];
     }
-    export interface Middleware {
-        (ctx: Koa.Context, next: () => Promise<any>): any;
-        unless?: unlessWrapper;
-    }
+
+    export type Middleware = Koa.Middleware & { unless?: unlessWrapper };
 }

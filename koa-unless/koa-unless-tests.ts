@@ -23,6 +23,8 @@ const anotherSkippedMiddleware: unless.Middleware = function *() {
     throw new Error('Should not be executed');
 };
 
+anotherSkippedMiddleware.unless = unless;
+
 app.use(anotherSkippedMiddleware.unless({
     path: [ '/index', '/about' ],
     ext: 'bmp',
@@ -36,6 +38,8 @@ app.use(anotherSkippedMiddleware.unless({
 const lastSkippedMiddleware: unless.Middleware = function *() {
     throw new Error('Should not be executed');
 };
+
+lastSkippedMiddleware.unless = unless;
 
 app.use(lastSkippedMiddleware.unless(function() {
     return false;
