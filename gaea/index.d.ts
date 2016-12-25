@@ -1,3 +1,7 @@
+// Type definitions for gaea 1.0
+// Project: https://github.com/ascoders/gaea-editor
+// Definitions by: ascoders <https://github.com/ascoders>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import * as React from 'react'
 
 declare namespace Gaea {
@@ -8,7 +12,7 @@ declare namespace Gaea {
      */
     export interface ComponentProps extends React.HTMLProps<any> {
         /**
-         * 唯一的 key,用来唯一标识这个组件,所有盖亚内部组件都以 gaea- 为前缀
+         * 唯一的 key,用来唯一标识这个组件,所有盖亚内部组件都以 gaea-old- 为前缀
          */
         gaeaUniqueKey: string
         /**
@@ -132,7 +136,7 @@ declare namespace Gaea {
         /**
          * 值类型, 默认为字符串
          */
-        type?: string
+            type?: string
         /**
          * 为空时的值，默认为 null
          */
@@ -140,7 +144,7 @@ declare namespace Gaea {
         /**
          * 控制 number 单位
          */
-        number?: {
+            number?: {
             units: Array<Number>
             currentUnit: string
             max?: number
@@ -276,7 +280,7 @@ declare namespace Gaea {
          * 类型
          * number string boolean
          */
-        type: string
+            type: string
     }
 
     /**
@@ -485,3 +489,4 @@ declare namespace Gaea {
         selected: boolean
     }
 }
+
