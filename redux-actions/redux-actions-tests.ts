@@ -34,13 +34,17 @@ state = actionHandlerWithReduceMap(0, multiplyAction(10));
 const actionsHandler = ReduxActions.handleActions<number, number>({
     'INCREMENT': (state: number, action: ReduxActions.Action<number>) => state + action.payload,
     'MULTIPLY': (state: number, action: ReduxActions.Action<number>) => state * action.payload
-});
+}, 0);
 
 state = actionsHandler(0, { type: 'INCREMENT' });
 
 const actionsHandlerWithInitialState = ReduxActions.handleActions<number, number>({
-    'INCREMENT': (state: number, action: ReduxActions.Action<number>) => state + action.payload,
-    'MULTIPLY': (state: number, action: ReduxActions.Action<number>) => state * action.payload
+    'INCREMENT': {
+        next: (state: number, action: ReduxActions.Action<number>) => state + action.payload,
+    },
+    'MULTIPLY': {
+        next: (state: number, action: ReduxActions.Action<number>) => state * action.payload
+    }
 }, 0);
 
 state = actionsHandlerWithInitialState(0, { type: 'INCREMENT' });
@@ -123,7 +127,11 @@ ReduxActions.handleAction(act3, (state, action) => {
     return { hello: action.payload.s }
 })
 
-/* can't do this until it lands in 2.2
+ReduxActions.handleAction(ReduxActions.combineActions(act, act3, act2), () => {
+
+})
+
+/* can't do this until it lands in 2.2, HKTs
 ReduxActions.handleAction(act, (state, action) => {
     action.payload === 'hello'
     return {}
