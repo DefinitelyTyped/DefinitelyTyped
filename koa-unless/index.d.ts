@@ -13,14 +13,14 @@ declare namespace unless {
     export type unlessWrapper = (options: unless.Options | Function) => Koa.Middleware;
 
     export interface Options {
-        custom?: Function,
-        useOriginalUrl?: boolean,
-        path?: string | string[],
-        ext?: string | string[],
-        method?: string | string[]
+        custom?: () => boolean;
+        useOriginalUrl?: boolean;
+        path?: string | string[];
+        ext?: string | string[];
+        method?: string | string[];
     }
     export interface Middleware {
         (ctx: Koa.Context, next: () => Promise<any>): any;
-        unless?: unlessWrapper
+        unless?: unlessWrapper;
     }
 }
