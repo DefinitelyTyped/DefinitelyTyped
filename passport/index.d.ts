@@ -1,9 +1,7 @@
-// Type definitions for Passport v0.2.0
+// Type definitions for Passport 0.3
 // Project: http://passportjs.org
 // Definitions by: Horiuchi_H <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="express" />
 
 declare namespace Express {
     export interface Request {
@@ -12,9 +10,9 @@ declare namespace Express {
 
         // These declarations are merged into express's Request type
         login(user: any, done: (err: any) => void): void;
-        login(user: any, options: Object, done: (err: any) => void): void;
+        login(user: any, options: any, done: (err: any) => void): void;
         logIn(user: any, done: (err: any) => void): void;
-        logIn(user: any, options: Object, done: (err: any) => void): void;
+        logIn(user: any, options: any, done: (err: any) => void): void;
 
         logout(): void;
         logOut(): void;
@@ -30,20 +28,20 @@ declare module 'passport' {
     namespace passport {
 
     interface AuthenticateOptions {
-      authInfo?:boolean;
-      assignProperty?:string;
-      failureFlash?: string|boolean|Object;
+      authInfo?: boolean;
+      assignProperty?: string;
+      failureFlash?: string|boolean|any;
       failureMessage?: boolean|string;
-      failureRedirect?:string;
-      failWithError?:boolean;
+      failureRedirect?: string;
+      failWithError?: boolean;
       session?: boolean;
       scope?: string|string[];
-      successFlash?: string|boolean|Object;
+      successFlash?: string|boolean|any;
       successMessage?: boolean|string;
-      successRedirect?:string;
-      successReturnToOrRedirect?:string;
-      pauseStream?:boolean;
-      userProperty?:string;
+      successRedirect?: string;
+      successReturnToOrRedirect?: string;
+      pauseStream?: boolean;
+      userProperty?: string;
     }
 
     interface Passport {
@@ -54,24 +52,18 @@ declare module 'passport' {
         initialize(options?: { userProperty: string; }): express.Handler;
         session(options?: { pauseStream: boolean; }): express.Handler;
 
-        authenticate(strategy: string, callback?: Function): express.Handler;
-        authenticate(strategy: string, options: AuthenticateOptions, callback?: Function): express.Handler;
-        authenticate(strategies: string[], callback?: Function): express.Handler;
-        authenticate(strategies: string[], options: AuthenticateOptions, callback?: Function): express.Handler;
-        authorize(strategy: string, callback?: Function): express.Handler;
-        authorize(strategy: string, options: Object, callback?: Function): express.Handler;
-        authorize(strategies: string[], callback?: Function): express.Handler;
-        authorize(strategies: string[], options: Object, callback?: Function): express.Handler;
-        serializeUser(fn: (user: any, done: (err: any, id: any) => void) => void): void;
+        authenticate(strategy: string|string[], callback?: Function): express.Handler;
+        authenticate(strategy: string|string[], options: AuthenticateOptions, callback?: Function): express.Handler;
+        authorize(strategy: string|string[], callback?: Function): express.Handler;
+        authorize(strategy: string|string[], options: any, callback?: Function): express.Handler;
         serializeUser<TUser, TID>(fn: (user: TUser, done: (err: any, id: TID) => void) => void): void;
-        deserializeUser(fn: (id: any, done: (err: any, user: any) => void) => void): void;
         deserializeUser<TUser, TID>(fn: (id: TID, done: (err: any, user: TUser) => void) => void): void;
         transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;
     }
 
     interface Strategy {
         name?: string;
-        authenticate(req: express.Request, options?: Object): void;
+        authenticate(req: express.Request, options?: any): void;
     }
 
     interface Profile {
@@ -84,19 +76,19 @@ declare module 'passport' {
             givenName: string;
             middleName?: string;
         };
-        emails?: {
+        emails?: Array<{
             value: string;
             type?: string;
-        }[];
-        photos?: {
+        }>;
+        photos?: Array<{
             value: string;
-        }[];
+        }>;
     }
 
         interface Framework {
-            initialize(passport: Passport, options?: Object): Function;
-            authenticate(passport: Passport, name: string, options?: Object, callback?: Function): Function;
-            authorize?(passport: Passport, name: string, options?: Object, callback?: Function): Function;
+            initialize(passport: Passport, options?: any): Function;
+            authenticate(passport: Passport, name: string, options?: any, callback?: Function): Function;
+            authorize?(passport: Passport, name: string, options?: any, callback?: Function): Function;
         }
     }
 
