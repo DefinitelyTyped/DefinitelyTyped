@@ -10,7 +10,7 @@ function StepSample() {
 
 	hook.Before(function(scenario, callback){
 		scenario.isFailed() && callback.pending();
-	})
+	});
 
 	hook.Around(function(scenario, runScenario)  {
 		scenario.isFailed() && runScenario(null, function(){
@@ -39,19 +39,19 @@ function StepSample() {
 			callback(new Error("Expected to be on page with title " + title));
 		}
 	});
-  
-	// Type for data_table.js on 
+
+	// Type for data_table.js on
 	// https://github.com/cucumber/cucumber-js/blob/a5fd8251918c278ab2e389226d165cedb44df14a/lib/cucumber/ast/data_table.js
-	
+
 	step.Given(/^a table step with Table raw$/, function(table:Table){
 		var expected = [
 			['Cucumber', 'Cucumis sativus'],
 			['Burr Gherkin', 'Cucumis anguria']
 		];
-	
+
 		assert.deepEqual(table.raw(), expected);
 	});
-	
+
 	step.Given(/^a table step with Table rows$/, function(table: Table){
 		var expected = [
 			['Apricot', '5'],
@@ -60,7 +60,7 @@ function StepSample() {
 		];
 		assert.deepEqual(table.rows(), expected)
 	});
-	
+
 	step.Given(/^a table step with Table rowHash$/, function(table:Table){
 		var expected = {
 			'Cucumber': 'Cucumis sativus',
@@ -68,7 +68,7 @@ function StepSample() {
 		};
 		assert.deepEqual(table.rowsHash(), expected)
 	});
-	
+
 	step.Given(/^a table step$/, function(table:Table){
 		var expected = [
 			{'Vegetable': 'Apricot', 'Rating': '5'},
@@ -79,3 +79,15 @@ function StepSample() {
 	});
 }
 
+function registerListener(): cucumber.EventListener {
+	let listener = Object.assign(cucumber.Listener(), {
+		handleBeforeScenarioEvent: (scenario: cucumber.events.ScenarioPayload, callback: () => void) => {
+
+			// do some interesting stuff ...
+
+			callback();
+		}
+	});
+
+	return listener;
+}
