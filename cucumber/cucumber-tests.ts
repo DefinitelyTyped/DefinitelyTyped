@@ -1,6 +1,8 @@
-/// <reference types="assert" />
 import cucumber = require("cucumber");
 
+var assert = {deepEqual: function (a: Object, b: Object) {
+	return JSON.stringify(a) === JSON.stringify(b);
+}};
 
 function StepSample() {
 	type Callback = cucumber.CallbackStepDefinition;
