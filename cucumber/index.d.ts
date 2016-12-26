@@ -1,7 +1,6 @@
 // Type definitions for cucumber-js
 // Project: https://github.com/cucumber/cucumber-js
 // Definitions by: Abraão Alves <https://github.com/abraaoalves>
-// Definitions by: Jan Molak <https://github.com/jan-molak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = cucumber;
