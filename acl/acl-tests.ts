@@ -12,6 +12,23 @@ var report = <T>(err: Error, value: T) => {
 // Using the memory backend
 var acl = new Acl(new Acl.memoryBackend());
 
+// middleware with no optional parameters
+acl.middleware();
+
+acl.middleware(1);
+
+acl.middleware(1, () => {
+  return "joed";
+});
+
+acl.middleware(1, () => {
+  return 2;
+});
+
+acl.middleware(1, 'joed');
+
+acl.middleware(3, 'joed', 'post');
+
 // guest is allowed to view blogs
 acl.allow('guest', 'blogs', 'view');
 
