@@ -1,3 +1,5 @@
+let boolean: boolean;
+let string: string;
 
 function test_describe() {
     describe('something', () => { });
@@ -108,9 +110,26 @@ function test_before() {
 }
 
 function test_setup() {
-    setup(() => { });
+    setup(function() {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        string = this.currentTest.state;
+     });
 
-    setup((done) => { done(); });
+    setup(function (done) {
+        done();
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        string = this.currentTest.state;
+    });
 }
 
 function test_after() {
@@ -124,19 +143,70 @@ function test_after() {
 }
 
 function test_teardown() {
-    teardown(() => { });
+    teardown(function() {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        string = this.currentTest.state;
+    });
 
-    teardown((done) => { done(); });
+    teardown(function(done) {
+        done();
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        string = this.currentTest.state;
+    });
 }
 
 function test_beforeEach() {
-    beforeEach(() => { });
+    beforeEach(function () {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        string = this.currentTest.state;
+    });
 
-    beforeEach((done) => { done(); });
+    beforeEach(function (done) {
+        done();
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        string = this.currentTest.state;
+    });
 
-    beforeEach("my description", () => { });
+    beforeEach("my description", function() {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        string = this.currentTest.state;
+    });
 
-    beforeEach("my description", done => { });
+    beforeEach("my description", function(done) {
+        done();
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        string = this.currentTest.state;
+    });
 }
 
 function test_suiteSetup() {
@@ -146,13 +216,48 @@ function test_suiteSetup() {
 }
 
 function test_afterEach() {
-    afterEach(() => { });
+    afterEach(function () {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        string = this.currentTest.state;
+    });
 
-    afterEach((done) => { done(); });
+    afterEach(function (done) {
+        done();
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        string = this.currentTest.state;
+    });
 
-    afterEach("my description", () => { });
+    afterEach("my description", function() {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        string = this.currentTest.state;
+    });
 
-    afterEach("my description", done => { });
+    afterEach("my description", function(done) {
+        done();
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        string = this.currentTest.state;
+    });
+
 }
 
 function test_suiteTeardown() {
