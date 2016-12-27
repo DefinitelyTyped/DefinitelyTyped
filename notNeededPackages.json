@@ -204,10 +204,16 @@
             "asOfVersion": "2.0.2"
         },
         {
-             "libraryName": "ajv",
-             "typingsPackageName": "ajv",
-             "sourceRepoURL": "https://github.com/epoberezkin/ajv",
-             "asOfVersion": "1.0.0"
+            "libraryName": "ajv",
+            "typingsPackageName": "ajv",
+            "sourceRepoURL": "https://github.com/epoberezkin/ajv",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "date-fns",
+            "typingsPackageName": "date-fns",
+            "sourceRepoURL": "https://github.com/date-fns/date-fns",
+            "asOfVersion": "2.6.0"
         }
     ]
 }
