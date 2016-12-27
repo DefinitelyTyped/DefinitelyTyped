@@ -3,8 +3,4 @@
 // Definitions by: Tobias Wolff <https://github.com/Tobias4872/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace SwaggerParser {
-  function parse(path: string): any;
-}
-
-export = SwaggerParser;
+export function parse(api: any, options?: any, callback?: (err: any, result?: any) => void): undefined | Promise<any>;
