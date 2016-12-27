@@ -3,4 +3,5 @@
 // Definitions by: Tobias Wolff <https://github.com/Tobias4872/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function parse(api: any, options?: any, callback?: (err: any, result?: any) => void): undefined | Promise<any>;
+export function parse(api: any, options?: any): Promise<any>;
+export function parse(api: any, options: any, callback: (err: any, result?: any) => void): void;
