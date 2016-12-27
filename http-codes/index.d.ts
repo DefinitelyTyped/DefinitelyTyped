@@ -1,0 +1,70 @@
+// Type definitions for http-codes 1.0
+// Project: https://github.com/flesler/node-http-codes
+// Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+export = http_codes;
+declare const http_codes: {
+    readonly ACCEPTED: number;
+    readonly ALREADY_REPORTED: number;
+    readonly BAD_GATEWAY: number;
+    readonly BAD_REQUEST: number;
+    readonly BANDWIDTH_LIMIT_EXCEEDED: number;
+    readonly CONFLICT: number;
+    readonly CONTINUE: number;
+    readonly CREATED: number;
+    readonly EXPECTATION_FAILED: number;
+    readonly FAILED_DEPENDENCY: number;
+    readonly FORBIDDEN: number;
+    readonly FOUND: number;
+    readonly GATEWAY_TIMEOUT: number;
+    readonly GONE: number;
+    readonly HTTP_VERSION_NOT_SUPPORTED: number;
+    readonly IM_A_TEAPOT: number;
+    readonly IM_USED: number;
+    readonly INSUFFICIENT_STORAGE: number;
+    readonly INTERNAL_SERVER_ERROR: number;
+    readonly LENGTH_REQUIRED: number;
+    readonly LOCKED: number;
+    readonly LOOP_DETECTED: number;
+    readonly METHOD_NOT_ALLOWED: number;
+    readonly MISDIRECTED_REQUEST: number;
+    readonly MOVED_PERMANENTLY: number;
+    readonly MULTIPLE_CHOICES: number;
+    readonly MULTI_STATUS: number;
+    readonly NETWORK_AUTHENTICATION_REQUIRED: number;
+    readonly NON_AUTHORITATIVE_INFORMATION: number;
+    readonly NOT_ACCEPTABLE: number;
+    readonly NOT_EXTENDED: number;
+    readonly NOT_FOUND: number;
+    readonly NOT_IMPLEMENTED: number;
+    readonly NOT_MODIFIED: number;
+    readonly NO_CONTENT: number;
+    readonly OK: number;
+    readonly PARTIAL_CONTENT: number;
+    readonly PAYLOAD_TOO_LARGE: number;
+    readonly PAYMENT_REQUIRED: number;
+    readonly PERMANENT_REDIRECT: number;
+    readonly PRECONDITION_FAILED: number;
+    readonly PRECONDITION_REQUIRED: number;
+    readonly PROCESSING: number;
+    readonly PROXY_AUTHENTICATION_REQUIRED: number;
+    readonly RANGE_NOT_SATISFIABLE: number;
+    readonly REQUEST_HEADER_FIELDS_TOO_LARGE: number;
+    readonly REQUEST_TIMEOUT: number;
+    readonly RESET_CONTENT: number;
+    readonly SEE_OTHER: number;
+    readonly SERVICE_UNAVAILABLE: number;
+    readonly SWITCHING_PROTOCOLS: number;
+    readonly TEMPORARY_REDIRECT: number;
+    readonly TOO_MANY_REQUESTS: number;
+    readonly UNAUTHORIZED: number;
+    readonly UNAVAILABLE_FOR_LEGAL_REASONS: number;
+    readonly UNORDERED_COLLECTION: number;
+    readonly UNPROCESSABLE_ENTITY: number;
+    readonly UNSUPPORTED_MEDIA_TYPE: number;
+    readonly UPGRADE_REQUIRED: number;
+    readonly URI_TOO_LONG: number;
+    readonly USE_PROXY: number;
+    readonly VARIANT_ALSO_NEGOTIATES: number;
+};
