@@ -1,6 +1,6 @@
 // Type definitions for soap
 // Project: https://www.npmjs.com/package/soap
-// Definitions by: Nicole Wang <https://github.com/nicoleWjie>, Cage Fox <https://github.com/cagefox>
+// Definitions by: Leo Liang <https://github.com/aleung>, Cage Fox <https://github.com/cagefox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -15,7 +15,8 @@ export class WSSecurity implements Security {
 }
 
 export class ClientSSLSecurity implements Security {
-    constructor(key: string, cert: string, ca: string, defaults: any);
+    constructor(key: Buffer | string, cert: Buffer | string, ca: Buffer | string, defaults?: any);
+    constructor(key: Buffer | string, cert: Buffer | string, defaults?: any);
 }
 
 interface Client extends events.EventEmitter {
