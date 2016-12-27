@@ -11695,7 +11695,7 @@ declare module olx {
             resolution: number;
             start?: number;
             duration?: number;
-            easing: ((t: number) => number);
+            easing?: ((t: number) => number);
         }
 
 
@@ -11709,7 +11709,7 @@ declare module olx {
             source: ol.Coordinate;
             start?: number;
             duration?: number;
-            easing: ((t: number) => number);
+            easing?: ((t: number) => number);
         }
 
 
@@ -11725,7 +11725,7 @@ declare module olx {
             anchor?: ol.Coordinate;
             start?: number;
             duration?: number;
-            easing: ((t: number) => number);
+            easing?: ((t: number) => number);
         }
 
 
@@ -11739,7 +11739,7 @@ declare module olx {
             resolution: number;
             start?: number;
             duration?: number;
-            easing: ((t: number) => number);
+            easing?: ((t: number) => number);
         }
 
 
@@ -11979,8 +11979,8 @@ declare module olx {
          *     decimals: (number|undefined)}}
          */
         interface WriteOptions {
-            dataProjection: ol.ProjectionLike;
-            featureProjection: ol.ProjectionLike;
+            dataProjection?: ol.ProjectionLike;
+            featureProjection?: ol.ProjectionLike;
             rightHanded?: boolean;
             decimals?: number;
         }
