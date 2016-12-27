@@ -1,6 +1,6 @@
-// Type definitions for react-bootstrap-table v2.3.0
+// Type definitions for react-bootstrap-table v2.6.0
 // Project: https://github.com/AllenFang/react-bootstrap-table
-// Definitions by: Frank Laub <https://github.com/flaub>
+// Definitions by: Frank Laub <https://github.com/flaub>, Aleksander Lode <https://github.com/alelode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="react" />
@@ -115,12 +115,18 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 	*/
     options?: Options;
     fetchInfo?: FetchInfo;
-
+	printable?: boolean;
     tableStyle?: any;
     containerStyle?: any;
     headerStyle?: any;
     bodyStyle?: any;
     ignoreSinglePage?: boolean;
+	containerClass?: string;
+	tableContainerClass?: string
+	headerContainerClass?: string;
+	bodyContainerClass?: string;
+	expandableRow?: (row: any) => boolean;
+	expandComponent?: (row: any) => any;
 }
 
 export type SelectRowMode = 'none' | 'radio' | 'checkbox';
@@ -166,7 +172,7 @@ export interface SelectRow {
 		`row`: is the row data which you wanted to select or unselect.
 		`isSelected`: it's a boolean value means "whether or not that row will be selected?".
 		`event`: The event target object.
-	If return value of this function is false, the select or deselect action will not be applied.
+	If return value of this (function) is false, the select or deselect action will not be applied.
 	*/
     onSelect?: (row: any, isSelected: Boolean, event: any) => boolean;
 	/**
@@ -178,6 +184,10 @@ export interface SelectRow {
 	*/
     onSelectAll?: (isSelected: boolean, currentSelectedAndDisplayData: any) => boolean;
 
+	/**
+	 * Provide a list of unselectable row keys.
+	 */
+	unselectable?: number[];
 }
 
 export type CellEditClickMode = 'none' | 'click' | 'dbclick';
@@ -293,6 +303,10 @@ export interface Options {
 	/**
 	To define the pagination bar length, default is 5.
 	*/
+	/**
+	To define where to start counting the pages.
+	*/
+	pageStartIndex?: string;
     paginationSize?: number;
 	/**
 	Assign a callback function which will be called after page changed.
@@ -334,6 +348,15 @@ export interface Options {
 	*/
     onRowClick?: (row: any) => void;
 	/**
+	Assign a callback function which will be called after a row double click.
+	This function taking one argument: row which is the row data which you double click on.
+	*/
+	onRowDoubleClick?: (row:any)=>void;
+	/**
+	Background color on expanded rows.
+	*/
+	expandRowBgColor?: string;	
+	/**
 	Assign a callback function which will be called when mouse enter into the table.
 	*/
     onMouseEnter?: Function;
@@ -362,7 +385,7 @@ export interface Options {
 	  `rowKeys` is the row keys which been deleted, you can call next function to apply this deletion.
 	*/
     handleConfirmDeleteRow?: (next: Function, rowKeys: any[]) => void;
-    paginationShowsTotal?: boolean;
+    paginationShowsTotal?: boolean | ReactElement<any>;
     onSearchChange?: Function;
     onAddRow?: Function;
     onExportToCSV?: Function;
@@ -443,6 +466,10 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	*/
     dataSort?: boolean;
 	/**
+	Default search string.
+	*/
+	defaultSearch?: string;
+	/**
 	Allow user to render a custom sort caret. You should give a function and should return a JSX.
 	This function taking one arguments: order which present the sort order currently.
 	*/
@@ -460,6 +487,10 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	True to hide column.
 	*/
     hidden?: boolean;
+	/**
+	True to hide the dropdown for sizePerPage.
+	*/
+	hideSizePerPage?: boolean
 	/**
 	False to disable search functionality on column, default is true.
 	*/
