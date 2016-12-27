@@ -1,6 +1,6 @@
 // Type definitions for redux-form v6.3.1
 // Project: https://github.com/erikras/redux-form
-// Definitions by: Carson Full <https://github.com/carsonf>
+// Definitions by: Carson Full <https://github.com/carsonf>, Daniel Lytkin <https://github.com/aikoven>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="react" />
