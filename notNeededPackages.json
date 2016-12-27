@@ -214,6 +214,12 @@
             "typingsPackageName": "date-fns",
             "sourceRepoURL": "https://github.com/date-fns/date-fns",
             "asOfVersion": "2.6.0"
-        }
+        },
+        {
+            "libraryName": "vuejs",
+            "typingsPackageName": "vue",
+            "sourceRepoURL": "https://github.com/vuejs/vue",
+            "asOfVersion": "2.0.0"
+         }
     ]
 }
