@@ -51,15 +51,15 @@ export interface QueryConfig {
     values?: any[];
 }
 
-export interface QueryResult {
+export interface QueryResult<T> {
     command: string;
     rowCount: number;
     oid: number;
-    rows: any[];
+    rows: T[];
 }
 
-export interface ResultBuilder extends QueryResult {
-    addRow(row: any): void;
+export interface ResultBuilder<T> extends QueryResult<T> {
+    addRow(row: T): void;
 }
 
 export declare class Pool extends events.EventEmitter {
@@ -76,11 +76,11 @@ export declare class Pool extends events.EventEmitter {
 
     end(): Promise<void>;
 
-    query(queryText: string): Promise<QueryResult>;
-    query(queryText: string, values: any[]): Promise<QueryResult>;
+    query<T>(queryText: string): Promise<QueryResult<T>>;
+    query<T>(queryText: string, values: any[]): Promise<QueryResult<T>>;
 
-    query(queryText: string, callback: (err: Error, result: QueryResult) => void): void;
-    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): void;
+    query<T>(queryText: string, callback: (err: Error, result: QueryResult<T>) => void): void;
+    query<T>(queryText: string, values: any[], callback: (err: Error, result: QueryResult<T>) => void): void;
 
     public on(event: "error", listener: (err: Error, client: Client) => void): this;
     public on(event: "connect", listener: (client: Client) => void): this;
@@ -96,12 +96,12 @@ export declare class Client extends events.EventEmitter {
     end(): void;
     release(): void;
 
-    query(queryText: string): Promise<QueryResult>;
-    query(queryText: string, values: any[]): Promise<QueryResult>;
+    query<T>(queryText: string): Promise<QueryResult<T>>;
+    query<T>(queryText: string, values: any[]): Promise<QueryResult<T>>;
 
-    query(queryText: string, callback?: (err: Error, result: QueryResult) => void): Query;
-    query(config: QueryConfig, callback?: (err: Error, result: QueryResult) => void): Query;
-    query(queryText: string, values: any[], callback?: (err: Error, result: QueryResult) => void): Query;
+    query<T>(queryText: string, callback?: (err: Error, result: QueryResult<T>) => void): Query;
+    query<T>(config: QueryConfig, callback?: (err: Error, result: QueryResult<T>) => void): Query;
+    query<T>(queryText: string, values: any[], callback?: (err: Error, result: QueryResult<T>) => void): Query;
 
     copyFrom(queryText: string): stream.Writable;
     copyTo(queryText: string): stream.Readable;
@@ -117,9 +117,9 @@ export declare class Client extends events.EventEmitter {
 }
 
 export declare class Query extends events.EventEmitter {
-    public on(event: "row", listener: (row: any, result?: ResultBuilder) => void): this;
+    public on(event: "row", listener: (row: any, result?: ResultBuilder<any>) => void): this;
     public on(event: "error", listener: (err: Error) => void): this;
-    public on(event: "end", listener: (result: ResultBuilder) => void): this;
+    public on(event: "end", listener: (result: ResultBuilder<any>) => void): this;
     public on(event: string, listener: Function): this;
 }
 
