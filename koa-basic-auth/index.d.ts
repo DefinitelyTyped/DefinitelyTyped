@@ -11,6 +11,6 @@ declare function auth(opts?: {
 
     pass: string;
 
-}): { (ctx: Koa.Context, next?: () => any) => any };
+}): { (ctx: Koa.Context, next?: () => any): any };
 
 export = auth;
