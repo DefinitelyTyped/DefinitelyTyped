@@ -1,35 +1,45 @@
 // Type definitions for react-fa 4.1
 // Project: https://github.com/andreypopp/react-fa
-// Definitions by: Frank Laub <https://github.com/flaub>, Karol Janyst <https://github.com/LKay>
+// Definitions by: Frank Laub <https://github.com/flaub>, Pat Sissons <http://github.com/patsissons>, Karol Janyst <http://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Component, ComponentClass, HTMLAttributes, StatelessComponent } from "react";
+import { Component, ComponentClass, HTMLProps, StatelessComponent } from "react";
 
-type IconSize = "lg" | "2x" | "3x" | "4x" | "5x";
+// fake intermediate interface to remove typing on size, as the typing
+// is overrided by react-fa
+interface SizeOverrideHTMLProps<T> extends HTMLProps<T> {
+    size?: any;
+}
+
+export type IconSize = "lg" | "2x" | "3x" | "4x" | "5x";
+export type IconRotation = "45" | "90" | "135" | "180" | "225" | "270" | "315";
+export type IconFlip = "horizontal" | "vertical";
+export type IconStackSize = "1x" | "2x";
 
 type CustomComponent = string | ComponentClass<any> | StatelessComponent<any>;
 
-interface IconProps {
+export interface IconProps extends SizeOverrideHTMLProps<Icon> {
     name: string;
-    rotate?: "45" | "90" | "135" | "180" | "225" | "270" | "315";
-    flip?: "horizontal" | "vertical";
-    fixedWidth?: boolean;
+    size?: IconSize;
     spin?: boolean;
+    rotate?: IconRotation;
+    flip?: IconFlip;
+    fixedWidth?: boolean;
     pulse?: boolean;
-    stack?: "1x" | "2x";
+    stack?: IconStackSize;
     inverse?: boolean;
     Component?: CustomComponent;
-    size?: IconSize;
-    [prop: string]: any;
 }
 
-export class Icon extends Component<IconProps, {}> {}
+export type Icon = Component<IconProps, any>;
+export const Icon: ComponentClass<IconProps>;
 
-interface IconStackProps {
+export interface IconStackProps extends SizeOverrideHTMLProps<IconStack> {
     size?: IconSize;
-    [props: string]: any;
+    children?: IconProps[];
 }
 
-export class IconStack extends Component<IconStackProps, {}> {}
+export type IconStack = Component<IconStackProps, any>;
+export const IconStack: ComponentClass<IconStackProps>;
 
 export default Icon;
