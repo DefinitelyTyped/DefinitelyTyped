@@ -5,12 +5,12 @@
 
 import * as Koa from "koa";
 
-declare function auth(opts?: {
+declare function auth(opts: {
 
     name: string;
 
     pass: string;
 
-}): { (ctx: Koa.Context, next?: () => any): any };
+}): Koa.Middleware;
 
 export = auth;
