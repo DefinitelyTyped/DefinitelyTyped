@@ -1,7 +1,9 @@
-// Type definitions for angular-ui-notification 0.2
+// Type definitions for angular-ui-notification
 // Project: https://github.com/alexcrack/angular-ui-notification
 // Definitions by: Kamil Rojewski <https://github.com/krojew/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="angular" />
 
 import * as angular from 'angular';
 
@@ -12,7 +14,7 @@ declare module 'angular' {
 
         type MessageType = 'primary' | 'info' | 'success' | 'warning' | 'error';
 
-        interface GlobalMessageOptions {
+        interface IGlobalMessageOptions {
             delay?: number;
             startTop?: number;
             startRight?: number;
@@ -27,7 +29,7 @@ declare module 'angular' {
             maxCount?: number;
         }
 
-        interface MessageOptions {
+        interface IMessageOptions {
             title?: string;
             message?: string;
             templateUrl?: string;
@@ -39,26 +41,26 @@ declare module 'angular' {
             closeOnClick?: boolean;
         }
 
-        interface NotificationScope {
+        interface INotificationScope {
             kill(isHard: boolean): void;
         }
 
-        interface NotificationProvider {
-            setOptions(options: GlobalMessageOptions): void;
+        interface INotificationProvider {
+            setOptions(options: IGlobalMessageOptions): void;
         }
 
-        type Message = string | MessageOptions;
+        type Message = string | IMessageOptions;
 
-        interface NotificationService {
-            primary(message: Message): IPromise<NotificationScope>;
-            info(message: Message): IPromise<NotificationScope>;
-            success(message: Message): IPromise<NotificationScope>;
-            warning(message: Message): IPromise<NotificationScope>;
-            error(message: Message): IPromise<NotificationScope>;
+        interface INotificationService {
+            primary(message: Message): IPromise<INotificationScope>;
+            info(message: Message): IPromise<INotificationScope>;
+            success(message: Message): IPromise<INotificationScope>;
+            warning(message: Message): IPromise<INotificationScope>;
+            error(message: Message): IPromise<INotificationScope>;
 
             clearAll(): void;
 
-            (message: Message, type?: MessageType): IPromise<NotificationScope>;
+            (message: Message, type?: MessageType): IPromise<INotificationScope>;
         }
     }
 }
