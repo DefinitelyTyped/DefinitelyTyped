@@ -11,7 +11,9 @@ soap.createClient(url, wsdlOptions, function(err: any, client: soap.Client) {
     let securityOptions = { hasTimeStamp: false };
     client.setSecurity(new soap.WSSecurity('user', 'password', securityOptions));
     let defaults = {rejectUnauthorized: false};
-    client.setSecurity(new soap.ClientSSLSecurity('/path/to/key', '/path/to/cert', '/path/to/ca',defaults));
+    client.setSecurity(new soap.ClientSSLSecurity('/path/to/key', '/path/to/cert', '/path/to/ca', defaults));
+    client.setSecurity(new soap.ClientSSLSecurity('/path/to/key', '/path/to/cert', defaults));
+    client.setSecurity(new soap.ClientSSLSecurity('/path/to/key', '/path/to/cert', '/path/to/ca'));
     client.addSoapHeader({});
     client.setEndpoint('http://localhost');
     client['create']({ name: 'value' }, function(err, result) {
