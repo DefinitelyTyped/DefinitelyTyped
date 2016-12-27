@@ -3819,13 +3819,13 @@ declare module "react" {
          * On iOS, the modal is still restricted by what's specified in your app's Info.plist's UISupportedInterfaceOrientations field.
          * @platform ios
          */
-        supportedOrientations: ('portrait' | 'portrait-upside-down' | 'landscape' | 'landscape-left' | 'landscape-right')[]
+        supportedOrientations?: ('portrait' | 'portrait-upside-down' | 'landscape' | 'landscape-left' | 'landscape-right')[]
         /**
          * The `onOrientationChange` callback is called when the orientation changes while the modal is being displayed.
          * The orientation provided is only 'portrait' or 'landscape'. This callback is also called on initial render, regardless of the current orientation.
          * @platform ios
          */
-        onOrientationChange: () => void,
+        onOrientationChange?: () => void
     }
 
     export interface ModalStatic extends React.ComponentClass<ModalProperties> {
