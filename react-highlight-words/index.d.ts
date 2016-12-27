@@ -15,7 +15,7 @@ interface HighlighterProps {
     /** Specify the match index that should be actively highlighted. Use along with activeClassName */
     activeIndex?: string;
     /** CSS class name applied to highlighted text */
-    highlightClassName?: string
+    highlightClassName?: string;
     /** Inline styles applied to highlighted text */
     highlightStyle?: any;
     /** Type of tag to wrap around highlighted matches; defaults to mark */
@@ -28,6 +28,6 @@ interface HighlighterProps {
     textToHighlight: string;
 }
 
-declare class Highlighter extends React.Component<HighlighterProps, any>{
+declare class Highlighter extends React.Component<HighlighterProps, any> {
     static propTypes: any;
 }

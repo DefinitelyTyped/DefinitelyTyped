@@ -15,7 +15,7 @@ declare class uuid_js {
     static firstFromTime(time: number): uuid_js;
     static fromBinary(binary: any): uuid_js;
     static fromBytes(ints: number[]): uuid_js;
-    static fromTime(time: number, last?: boolean):uuid_js;
+    static fromTime(time: number, last?: boolean): uuid_js;
     static fromURN(strId: any): uuid_js;
     static getTimeFieldValues(time: any): any;
     static lastFromTime(time: any): uuid_js;

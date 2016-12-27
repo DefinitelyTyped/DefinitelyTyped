@@ -6,7 +6,8 @@
 import React = require("react");
 
 export = BodyClassName;
-declare class BodyClassName extends React.Component<{className: string}, any>{
+
+declare class BodyClassName extends React.Component<{ className: string }, any> {
     static canUseDOM: boolean;
     static displayName: string;
     static peek(): any;
