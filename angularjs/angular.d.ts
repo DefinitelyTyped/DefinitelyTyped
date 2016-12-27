@@ -1231,9 +1231,16 @@ declare namespace angular {
 
     // This corresponds to the "publicLinkFn" returned by $compile.
     interface ITemplateLinkingFunction {
-        (scope: IScope, cloneAttachFn?: ICloneAttachFunction): IAugmentedJQuery;
+        (scope: IScope, cloneAttachFn?: ICloneAttachFunction, options?: ITemplateLinkingFunctionOptions): JQuery;
     }
 
+    interface ITemplateLinkingFunctionOptions {
+        parentBoundTranscludeFn?: ITranscludeFunction,
+        transcludeControllers?: {
+            [controller: string]: { instance: any }
+        },
+        futureParentElement?: JQuery
+    }
     // This corresponds to $transclude (and also the transclude function passed to link).
     interface ITranscludeFunction {
         // If the scope is provided, then the cloneAttachFn must be as well.
