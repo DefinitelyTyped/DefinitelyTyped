@@ -1,5 +1,5 @@
-import {Configuration} from "webpack";
 import HtmlWebpackPlugin = require("html-webpack-plugin");
+import { Configuration } from "webpack";
 
 const a: Configuration = {
     plugins: [
@@ -14,3 +14,21 @@ const b: Configuration = {
         })
     ]
 };
+
+const minify: HtmlWebpackPlugin.MinifyConfig = {
+    caseSensitive: true
+};
+
+new HtmlWebpackPlugin({
+    minify
+});
+
+new HtmlWebpackPlugin({
+    chunksSortMode: function compare(a, b) {
+        return 1;
+    }
+});
+
+new HtmlWebpackPlugin({
+  arbitrary: "data"
+});
