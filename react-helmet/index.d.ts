@@ -10,6 +10,7 @@ import * as React from "react";
 declare function ReactHelmet(): ReactHelmet.HelmetComponent;
 
 declare namespace ReactHelmet {
+    function peek(): ReactHelmet.HelmetData;
     function rewind(): ReactHelmet.HelmetData;
 
     interface HelmetProps {
