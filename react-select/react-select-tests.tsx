@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 
 import Select = require("react-select");
-import { Option, ReactSelectProps, ReactCreatableSelectProps, ReactAsyncSelectProps, MenuRendererProps } from "react-select";
+import { Option, ReactSelectProps, ReactCreatableSelectProps, ReactAsyncSelectProps, MenuRendererProps, AutocompleteResult } from "react-select";
 
 const CustomOption = React.createClass({
     propTypes: {
@@ -158,9 +158,12 @@ class SelectWithStringValueTest extends React.Component<React.Props<{}>, {}> {
 class SelectAsyncTest extends React.Component<React.Props<{}>, {}> {
 
     render() {
-        const getOptions = (input: string, callback: Function) => {
+        const getOptions = (input: string, callback: (err: any, result: AutocompleteResult) => any) => {
             setTimeout(function() {
-                callback(null, options);
+                callback(null, {
+                    options: options,
+                    complete: true
+                });
             }, 500);
         };
         const options: Option[] = [{ label: "Foo", value: "bar" }];
