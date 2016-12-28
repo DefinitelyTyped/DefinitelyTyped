@@ -226,6 +226,12 @@
             "typingsPackageName": "Facebook's Immutable",
             "sourceRepoURL": "https://github.com/facebook/immutable-js",
             "asOfVersion": "3.8.7"
+         },
+         {
+            "libraryName": "dva",
+            "typingsPackageName": "dva",
+            "sourceRepoURL": "https://github.com/dvajs/dva",
+            "asOfVersion": "1.1.0"
         }
     ]
 }
