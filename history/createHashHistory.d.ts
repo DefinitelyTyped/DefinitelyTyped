@@ -1,4 +1,4 @@
-import { History } from './';
+import { History } from './index';
 import { getConfirmation } from './DOMUtils';
 
 export type HashType = 'hashbang' | 'noslash' | 'slash';

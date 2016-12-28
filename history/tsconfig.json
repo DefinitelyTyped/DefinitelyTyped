@@ -19,10 +19,10 @@
         "createBrowserHistory.d.ts",
         "createMemoryHistory.d.ts",
         "createHashHistory.d.ts",
-        "LocationUtils.d.ts",
+        "createTransitionManager.d.ts",
         "DOMUtils.d.ts",
-        "PathUtils.d.ts",
         "ExecutionEnvironment.d.ts",
-        "createTransitionManager.d.ts"
+        "LocationUtils.d.ts",
+        "PathUtils.d.ts"
     ]
 }

@@ -1,7 +1,8 @@
 import { History, Location } from './';
+import { getConfirmation } from './DOMUtils';
 
 export interface MemoryHistoryBuildOptions {
-  getUserConfirmation?: Function;
+  getUserConfirmation?: typeof getConfirmation;
   initialEntries?: string[];
   initialIndex?: number;
   keyLength?: number;

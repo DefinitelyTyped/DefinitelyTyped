@@ -1,4 +1,4 @@
-import { Location, Action, LocationListener, UnregisterCallback } from './';
+import { Location, Action, LocationListener, UnregisterCallback } from './index';
 import { getConfirmation } from './DOMUtils';
 
 export type PromptFunction = (location: Location, action: Action) => any;

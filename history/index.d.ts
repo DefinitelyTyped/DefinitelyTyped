@@ -1,4 +1,4 @@
-// Type definitions for history v4.5.0
+// Type definitions for history 4.5
 // Project: https://github.com/mjackson/history
 // Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Nathan Brown <https://github.com/ngbrown>, Young Rok Kim <https://github.com/rokoroku>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,9 +8,9 @@ export type Action = 'PUSH' | 'POP' | 'REPLACE';
 export type UnregisterCallback = () => void;
 
 export interface History {
-    length: number,
-    action: Action,
-    location: Location,
+    length: number;
+    action: Action;
+    location: Location;
     push(path: Path, state?: LocationState): void;
     push(location: LocationDescriptor): void;
     replace(path: Path, state?: LocationState): void;
@@ -18,36 +18,36 @@ export interface History {
     go(n: number): void;
     goBack(): void;
     goForward(): void;
-    block(prompt?: boolean): UnregisterCallback,
+    block(prompt?: boolean): UnregisterCallback;
     listen(listener: LocationListener): UnregisterCallback;
     createHref(location: LocationDescriptor): Path;
 }
 
-export type Location = {
+export interface Location {
     pathname: Pathname;
     search: Search;
     state: LocationState;
     hash: Hash;
     key: LocationKey;
-};
+}
 
-export type LocationDescriptorObject = {
+export interface LocationDescriptorObject {
     pathname?: Pathname;
     search?: Search;
     state?: LocationState;
     hash?: Hash;
     key?: LocationKey;
-};
+}
 
 export namespace History {
     export type LocationDescriptor = LocationDescriptorObject;
     export type LocationKey = string;
     export type LocationListener = (location: Location, action: Action) => void;
-    export type LocationState = Object;
+    export type LocationState = any;
     export type Path = string;
     export type Pathname = string;
     export type Search = string;
-    export type TransitionHook = (location: Location, callback: (result: any) => void) => any
+    export type TransitionHook = (location: Location, callback: (result: any) => void) => any;
     export type Hash = string;
 }
 
