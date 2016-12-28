@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers v3.18.2
+// Type definitions for OpenLayers v3.20.0
 // Project: http://openlayers.org/
 // Definitions by: Olivier Sechet <https://github.com/osechet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11130,7 +11130,7 @@ declare module ol {
      * undefined.
      * @typedef {ol.proj.Projection|string|undefined} ol.ProjectionLike
      */
-    type ProjectionLike = (ol.proj.Projection | string);
+    type ProjectionLike = (ol.proj.Projection | string | undefined);
 
     /**
      * A function that takes an array of input data, performs some operation, and
@@ -11695,7 +11695,7 @@ declare module olx {
             resolution: number;
             start?: number;
             duration?: number;
-            easing: ((t: number) => number);
+            easing?: ((t: number) => number);
         }
 
 
@@ -11709,7 +11709,7 @@ declare module olx {
             source: ol.Coordinate;
             start?: number;
             duration?: number;
-            easing: ((t: number) => number);
+            easing?: ((t: number) => number);
         }
 
 
@@ -11725,7 +11725,7 @@ declare module olx {
             anchor?: ol.Coordinate;
             start?: number;
             duration?: number;
-            easing: ((t: number) => number);
+            easing?: ((t: number) => number);
         }
 
 
@@ -11739,7 +11739,7 @@ declare module olx {
             resolution: number;
             start?: number;
             duration?: number;
-            easing: ((t: number) => number);
+            easing?: ((t: number) => number);
         }
 
 
@@ -11980,7 +11980,7 @@ declare module olx {
          */
         interface WriteOptions {
             dataProjection: ol.ProjectionLike;
-            featureProjection: ol.ProjectionLike;
+            featureProjection?: ol.ProjectionLike;
             rightHanded?: boolean;
             decimals?: number;
         }
