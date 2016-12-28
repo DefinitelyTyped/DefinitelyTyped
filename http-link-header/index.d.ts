@@ -14,6 +14,5 @@ export interface Link {
     get: (attribute: string, value: string) => Reference;
     rel: (value: string) => Reference;
     set: (ref: Reference) => Reference;
-    toString: () => string;
 }
 export function parse(header: string): Link;
