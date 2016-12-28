@@ -33,6 +33,12 @@ declare class VRDisplay extends EventTarget {
   displayName: string;
 
   /**
+   * Populates the passed VRFrameData with the information required to render
+   * the current frame.
+   */
+  getFrameData(frameData: VRFrameData): boolean;
+
+  /**
    * Return a VRPose containing the future predicted pose of the VRDisplay
    * when the current frame will be presented. The value returned will not
    * change until JavaScript has returned control to the browser.
@@ -40,7 +46,7 @@ declare class VRDisplay extends EventTarget {
    * The VRPose will contain the position, orientation, velocity,
    * and acceleration of each of these properties.
    */
-  getPose() : VRPose;
+  getPose(): VRPose;
 
   /**
    * Return the current instantaneous pose of the VRDisplay, with no
@@ -150,6 +156,18 @@ interface VRPose {
   orientation: Float32Array;
   angularVelocity: Float32Array;
   angularAcceleration: Float32Array;
+}
+
+declare class VRFrameData {
+  timestamp: number; // Should be DOMHighResTimeStamp
+
+  leftProjectionMatrix: Float32Array;
+  leftViewMatrix: Float32Array;
+
+  rightProjectionMatrix: Float32Array;
+  rightViewMatrix: Float32Array;
+
+  pose: VRPose;
 }
 
 interface VREyeParameters {
