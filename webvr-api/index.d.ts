@@ -159,7 +159,7 @@ interface VRPose {
 }
 
 declare class VRFrameData {
-  timestamp: any; // Should be DOMHighResTimeStamp
+  timestamp: number; // Should be DOMHighResTimeStamp
 
   leftProjectionMatrix: Float32Array;
   leftViewMatrix: Float32Array;
