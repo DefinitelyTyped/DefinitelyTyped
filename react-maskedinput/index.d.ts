@@ -2,11 +2,10 @@
 // Project: https://github.com/insin/react-maskedinput
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 import { ComponentClass, HTMLAttributes } from "react";
 
-export as namespace MaskedInput
+export as namespace MaskedInput;
 
 export = MaskedInput;
 
