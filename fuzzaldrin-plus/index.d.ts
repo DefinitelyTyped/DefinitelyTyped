@@ -5,25 +5,32 @@
 
 export as namespace fuzzaldrin;
 
-export interface IQueryOptions {
+export interface QueryOptions {
     pathSeparator?: string;
     optCharRegEx?: RegExp;
 }
 
-export interface IScoringOptions extends IQueryOptions {
+export interface ScoringOptions extends QueryOptions {
     allowErrors?: boolean;
-    isPath?: boolean;
+    usePathScoring?: boolean;
+    preparedQuery?: PreparedQuery;
     useExtensionBonus?: boolean;
 }
 
-export interface IFilterOptions extends IScoringOptions {
+export interface FilterOptions extends ScoringOptions {
     key?: string;
+    maxInners?: number;
     maxResults?: number;
+}
+
+export interface WrapOptions extends ScoringOptions {
+    wrap?: {tagClass: string, tagOpen: string, tagClose: string}; 
 }
 
 export type PreparedQuery = { __internalAPIBrand: string; };
 
-export function filter<T>(data: T[], query: string, options?: IFilterOptions): T[];
-export function score(str: string, query: string, preparedQuery?: PreparedQuery, options?: IScoringOptions): number;
-export function match(str: string, query: string, preparedQuery?: PreparedQuery, options?: IScoringOptions): number[];
-export function prepQuery(query: string, options?: IQueryOptions): PreparedQuery;
+export function filter<T>(data: T[], query: string, options?: FilterOptions): T[];
+export function score(str: string, query: string, options?: ScoringOptions): number;
+export function match(str: string, query: string, options?: ScoringOptions): number[];
+export function wrap(str: string, query: string, options?: WrapOptions): string;
+export function prepareQuery(query: string, options?: QueryOptions): PreparedQuery;

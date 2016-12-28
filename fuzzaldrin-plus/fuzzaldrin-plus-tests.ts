@@ -12,9 +12,12 @@ const objectCandidates = candidates.map(s => ({ foo: s }));
 fz.filter(candidates, 'install');
 fz.filter(objectCandidates, 'install', { key: 'foo' });
 
-const prepQuery = fz.prepQuery('install');
+const prepQuery = fz.prepareQuery('install');
 fz.score('Application: Install Update', 'install');
-fz.score('Application: Install Update', 'install', prepQuery);
+fz.score('Application: Install Update', 'install', { preparedQuery: prepQuery });
 
 fz.match('Application: Install Update', 'install');
-fz.match('Application: Install Update', 'install', prepQuery);
+fz.match('Application: Install Update', 'install', { preparedQuery: prepQuery });
+
+fz.wrap('Application: Install Update', 'install');
+fz.wrap('Application: Install Update', 'install', { preparedQuery: prepQuery });
