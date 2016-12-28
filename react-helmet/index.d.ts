@@ -10,6 +10,7 @@ import * as React from "react";
 declare function ReactHelmet(): ReactHelmet.HelmetComponent;
 
 declare namespace ReactHelmet {
+    function peek(): ReactHelmet.HelmetData;
     function rewind(): ReactHelmet.HelmetData;
 
     interface HelmetProps {
@@ -19,6 +20,7 @@ declare namespace ReactHelmet {
         link?: Array<any>;
         meta?: Array<any>;
         script?: Array<any>;
+        style?: Array<any>;
         title?: string;
         titleTemplate?: string;
         onChangeClientState?: (newState: any) => void;
@@ -30,6 +32,7 @@ declare namespace ReactHelmet {
         link: HelmetDatum;
         meta: HelmetDatum;
         script: HelmetDatum;
+        style: HelmetDatum;
         title: HelmetDatum;
     }
 

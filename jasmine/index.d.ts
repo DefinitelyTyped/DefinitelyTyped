@@ -489,7 +489,6 @@ declare namespace jasmine {
         calls: Calls;
         mostRecentCall: { args: any[]; };
         argsForCall: any[];
-        wasCalled: boolean;
     }
 
     interface SpyAnd {

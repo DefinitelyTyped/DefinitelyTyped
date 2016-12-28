@@ -896,9 +896,11 @@ import RichUtils = Draft.Model.Modifier.RichTextEditorUtil;
 import DefaultDraftBlockRenderMap = Draft.Model.ImmutableData.DefaultDraftBlockRenderMap;
 import DefaultDraftInlineStyle = Draft.Model.ImmutableData.DefaultDraftInlineStyle;
 
-import convertFromHTML = Draft.Model.Encoding.convertFromHTMLtoContentBlocks;
+import RawDraftContentState = Draft.Model.Encoding.RawDraftContentState;
 import convertFromRaw = Draft.Model.Encoding.convertFromRawToDraftState;
 import convertToRaw = Draft.Model.Encoding.convertFromDraftStateToRaw;
+import convertFromHTML = Draft.Model.Encoding.convertFromHTMLtoContentBlocks;
+
 import genKey = Draft.Model.Keys.generateRandomKey;
 import getDefaultKeyBinding = Draft.Component.Utils.getDefaultKeyBinding;
 import getVisibleSelectionRect = Draft.Component.Selection.getVisibleSelectionRect;
@@ -926,9 +928,11 @@ export {
     DefaultDraftBlockRenderMap,
     DefaultDraftInlineStyle,
 
-    convertFromHTML,
+    RawDraftContentState,
     convertFromRaw,
     convertToRaw,
+    convertFromHTML,
+  
     genKey,
     getDefaultKeyBinding,
     getVisibleSelectionRect

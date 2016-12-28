@@ -466,6 +466,8 @@ declare namespace Knex {
         user: string;
         password: string;
         database: string;
+        domain?: string;
+        instanceName?: string;
         debug?: boolean;
     }
 

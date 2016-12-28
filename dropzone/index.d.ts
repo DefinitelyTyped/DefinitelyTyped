@@ -24,6 +24,7 @@ interface DropzoneFile extends File {
 	previewsContainer: HTMLElement;
 	status: string;
 	accepted: boolean;
+	xhr?: XMLHttpRequest;
 }
 
 interface DropzoneOptions {

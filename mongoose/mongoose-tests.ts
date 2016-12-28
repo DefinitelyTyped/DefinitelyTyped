@@ -318,7 +318,14 @@ new mongoose.Schema({
   hidden: Boolean,
   meta: {
     votes: Number,
-    favs:  Number
+    favs:  Number,
+    text: String
+  },
+  meta2: {
+    text: mongoose.Schema.Types.Number,
+    select: {
+      type: String
+    }
   }
 });
 new mongoose.Schema({ name: { type: String, index: true }});

@@ -1659,6 +1659,20 @@ declare namespace webdriver {
 
     COMMAND: string;  // Apple command key
     META: string;     // alias for Windows key
+
+    /**
+      * Simulate pressing many keys at once in a "chord". Takes a sequence of
+      * keys or strings, appends each of the values to a string,
+      * and adds the chord termination key ({@link webdriver.Key.NULL}) and returns 
+      * the resulting string.
+      *
+      * Note: when the low-level webdriver key handlers see Keys.NULL, active
+      * modifier keys (CTRL/ALT/SHIFT/etc) release via a keyup event.
+      *
+      * @param {...string} var_args The key sequence to concatenate.
+      * @return {string} The null-terminated key sequence.
+    */
+    chord: (...var_args: string[]) => string;
   }
 
   /**

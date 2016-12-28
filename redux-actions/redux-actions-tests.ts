@@ -34,13 +34,17 @@ state = actionHandlerWithReduceMap(0, multiplyAction(10));
 const actionsHandler = ReduxActions.handleActions<number, number>({
     'INCREMENT': (state: number, action: ReduxActions.Action<number>) => state + action.payload,
     'MULTIPLY': (state: number, action: ReduxActions.Action<number>) => state * action.payload
-});
+}, 0);
 
 state = actionsHandler(0, { type: 'INCREMENT' });
 
 const actionsHandlerWithInitialState = ReduxActions.handleActions<number, number>({
-    'INCREMENT': (state: number, action: ReduxActions.Action<number>) => state + action.payload,
-    'MULTIPLY': (state: number, action: ReduxActions.Action<number>) => state * action.payload
+    'INCREMENT': {
+        next: (state: number, action: ReduxActions.Action<number>) => state + action.payload,
+    },
+    'MULTIPLY': {
+        next: (state: number, action: ReduxActions.Action<number>) => state * action.payload
+    }
 }, 0);
 
 state = actionsHandlerWithInitialState(0, { type: 'INCREMENT' });
@@ -101,3 +105,44 @@ const typedActionHandlerWithReduceMap = ReduxActions.handleAction<TypedState, Ty
 );
 
 typedState = typedActionHandlerWithReduceMap({ value: 0 }, typedIncrementByActionWithMeta(10));
+
+const act = ReduxActions.createAction<string>('ACTION1')
+act('hello').payload === 'hello'
+
+const act2 = ReduxActions.createAction('ACTION2', (s: {load: boolean}) => s)
+act2({load: true}).payload.load == true
+
+const act3 = ReduxActions.createAction('ACTION3', (s: string) => ({s}))
+act3('hello').payload.s == 'hello'
+
+ReduxActions.handleAction<{ hello: string }, string>(act, (state, action) => {
+    return { hello: action.payload }
+})
+
+ReduxActions.handleAction<{ hello: { load: boolean } }, { load: boolean }>(act2, (state, action) => {
+    return { hello: action.payload }
+})
+
+ReduxActions.handleAction(act3, (state, action) => {
+    return { hello: action.payload.s }
+})
+
+ReduxActions.handleAction(ReduxActions.combineActions(act, act3, act2), () => {
+
+})
+
+/* can't do this until it lands in 2.2, HKTs
+ReduxActions.handleAction(act, (state, action) => {
+    action.payload === 'hello'
+    return {}
+})
+
+ReduxActions.handleAction(act2, (state, action) => {
+    action.payload.load === true
+    return {}
+})
+
+ReduxActions.handleAction(act3, (state, action) => {
+    action.payload.s == 'hello'
+    return {}
+})*/
