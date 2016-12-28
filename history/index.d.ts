@@ -85,7 +85,7 @@ export interface Module {
 export * from "./createBrowserHistory";
 export * from "./createHashHistory";
 export * from "./createMemoryHistory";
-export * from "./history-compat";
+export * from "./history-2.0";
 export { createLocation, locationsAreEqual } from "./LocationUtils";
 export { parsePath, createPath } from "./PathUtils";
 export { createBrowserHistory, createHashHistory, createMemoryHistory };
