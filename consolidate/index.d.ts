@@ -48,6 +48,7 @@ interface Consolidate {
     mote: RendererInterface;
     mustache: RendererInterface;
     nunjucks: RendererInterface;
+    pug: RenderInterface;
     qejs: RendererInterface;
     ractive: RendererInterface;
     react: RendererInterface;
