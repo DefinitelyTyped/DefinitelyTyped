@@ -10029,6 +10029,14 @@ declare module ol {
              */
             getStroke(): ol.style.Stroke;
 
+            /**
+             * Set the circle radius.
+             *
+             * @param {number} radius Circle radius.
+             * @api
+             */
+            setRadius(radius: number): void;
+
         }
 
         /**
@@ -10522,6 +10530,13 @@ declare module ol {
             getZIndex(): (number);
 
             /**
+             * Set the fill style.
+             * @param {ol.style.Fill} fill Fill style.
+             * @api
+             */
+            setFill(fill: ol.style.Fill):void;
+
+            /**
              * Set a geometry that is rendered instead of the feature's geometry.
              *
              * @param {string|ol.geom.Geometry|ol.StyleGeometryFunction} geometry
@@ -10530,6 +10545,27 @@ declare module ol {
              * @api
              */
             setGeometry(geometry: (string | ol.geom.Geometry | ol.StyleGeometryFunction)): void;
+            
+            /**
+             * Set the image style.
+             * @param {ol.style.Image} image Image style.
+             * @api
+             */
+            setImage(image: ol.style.Image): void;
+
+            /**
+             * Set the stroke style.
+             * @param {ol.style.Stroke} stroke Stroke style.
+             * @api
+             */
+            setStroke(stroke: ol.style.Stroke): void;
+            
+            /**
+             * Set the text style.
+             * @param {ol.style.Text} text Text style.
+             * @api
+             */
+            setText(text: ol.style.Text): void;
 
             /**
              * Set the z-index.
