@@ -1,6 +1,5 @@
+import { createBrowserHistory, createLocation, useBasename, useBeforeUnload, useQueries } from 'history'
 
-
-import { createHistory, createLocation, useBeforeUnload, useQueries, useBasename } from 'history'
 import { getUserConfirmation } from 'history/lib/DOMUtils'
 
 interface Promise<T> {
@@ -11,7 +10,7 @@ let doSomethingAsync: () => Promise<Function>;
 let input = { value: "" };
 
 {
-    let history = createHistory()
+    let history = createBrowserHistory()
 
     // Listen for changes to the current location. The
     // listener is called once immediately.
@@ -47,7 +46,7 @@ let input = { value: "" };
 }
 
 {
-    let history = createHistory()
+    let history = createBrowserHistory()
 
     // Pushing a path string.
     history.push('/the/path')
@@ -64,7 +63,7 @@ let input = { value: "" };
 }
 
 {
-    let history = createHistory()
+    let history = createBrowserHistory()
     history.listenBefore(function(location) {
         if (input.value !== '')
             return 'Are you sure you want to leave this page?'
@@ -76,7 +75,7 @@ let input = { value: "" };
 }
 
 {
-    let history = createHistory({
+    let history = createBrowserHistory({
         getUserConfirmation(message, callback) {
             callback(window.confirm(message)) // The default behavior
         }
@@ -84,7 +83,7 @@ let input = { value: "" };
 }
 
 {
-    let history = useBeforeUnload(createHistory)()
+    let history = useBeforeUnload(createBrowserHistory)()
 
     history.listenBeforeUnload(function() {
         return 'Are you sure you want to leave this page?'
@@ -92,7 +91,7 @@ let input = { value: "" };
 }
 
 {
-    let history = useQueries(createHistory)()
+    let history = useQueries(createBrowserHistory)()
 
     history.listen(function(location) {
         console.log(location.query)
@@ -100,7 +99,7 @@ let input = { value: "" };
 }
 
 {
-    let history = useQueries(createHistory)({
+    let history = useQueries(createBrowserHistory)({
         parseQueryString: function(queryString) {
             // TODO: return a parsed version of queryString
             return {};
@@ -117,7 +116,7 @@ let input = { value: "" };
 
 {
     // Run our app under the /base URL.
-    let history = useBasename(createHistory)({
+    let history = useBasename(createBrowserHistory)({
         basename: '/base'
     })
 
