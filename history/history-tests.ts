@@ -1,12 +1,9 @@
-import { createBrowserHistory, createLocation, useBasename, useBeforeUnload, useQueries } from 'history'
+import { createBrowserHistory, createMemoryHistory, createHashHistory, createLocation } from 'history'
+import * as LocationUtils from 'history/LocationUtils'
+import * as PathUtils from 'history/PathUtils'
+import * as DOMUtils from 'history/DOMUtils'
+import * as ExecutionEnvironment from 'history/ExecutionEnvironment'
 
-import { getUserConfirmation } from 'history/lib/DOMUtils'
-
-interface Promise<T> {
-    then<TResult>(onfulfilled?: (value: T) => TResult): Promise<TResult>;
-}
-
-let doSomethingAsync: () => Promise<Function>;
 let input = { value: "" };
 
 {
@@ -14,7 +11,7 @@ let input = { value: "" };
 
     // Listen for changes to the current location. The
     // listener is called once immediately.
-    let unlisten = history.listen(function(location) {
+    let unlisten = history.listen(function (location) {
         console.log(location.pathname)
     })
 
@@ -35,18 +32,18 @@ let input = { value: "" };
     });
 
     // Change just the search on an existing location.
-    //history.push({ ...location, search: '?the=other+search' })
+    history.push({ ...location, search: '?the=other+search' })
 
     // Go back to the previous history entry. The following
     // two lines are synonymous.
     history.go(-1)
     history.goBack()
 
-    let href = history.createHref('/the/path')
+    let href = history.createHref({ pathname: '/the/path' })
 }
 
 {
-    let history = createBrowserHistory()
+    let history = createMemoryHistory()
 
     // Pushing a path string.
     history.push('/the/path')
@@ -54,78 +51,71 @@ let input = { value: "" };
     // Omitting location state when pushing a location descriptor.
     history.push({ pathname: '/the/path', search: '?the=search' })
 
-    // Extending an existing location object.
-    //history.push({ ...location, search: '?other=search' })
-
     let location = createLocation('/a/path?a=query', { the: 'state' })
 
-    location = history.createLocation('/a/path?a=query', { the: 'state' })
+    // Extending an existing location object.
+    history.push({ ...location, search: '?other=search' })
+
+    if (history.canGo(-1)) {
+        history.go(-1)
+        history.goBack()
+    }
+
+    let unblock = history.block(true);
+    unblock();
+
+    history.entries.forEach(function (location) {
+        location.hash;
+        location.pathname;
+        location.search;
+        location.state;
+    });
 }
 
 {
-    let history = createBrowserHistory()
-    history.listenBefore(function(location) {
-        if (input.value !== '')
+    let history = createHashHistory()
+    history.listen(function (location) {
+        if (input.value !== '') {
             return 'Are you sure you want to leave this page?'
+        }
     })
 
-    history.listenBefore(function(location, callback) {
-        doSomethingAsync().then(callback)
+    history.listen(function (location, action) {
+        typeof action === 'string'
     })
 }
 
 {
     let history = createBrowserHistory({
-        getUserConfirmation(message, callback) {
+        basename: 'base',
+        keyLength: 10,
+        forceRefresh: false,
+        getUserConfirmation: function (message, callback) {
             callback(window.confirm(message)) // The default behavior
         }
     })
 }
 
 {
-    let history = useBeforeUnload(createBrowserHistory)()
-
-    history.listenBeforeUnload(function() {
-        return 'Are you sure you want to leave this page?'
-    })
+    let location1 = LocationUtils.createLocation('path/1', { state: 1 })
+    let location2 = LocationUtils.createLocation({ pathname: 'pathname', state: 2 })
+    LocationUtils.locationsAreEqual(location1, location2)
 }
 
 {
-    let history = useQueries(createBrowserHistory)()
-
-    history.listen(function(location) {
-        console.log(location.query)
-    })
+    let path = PathUtils.createPath({ pathname: '/a/path', hash: '#hash' })
+    let strippedPath = PathUtils.stripPrefix(path, '/a/')
+    let location = PathUtils.parsePath(strippedPath)
 }
 
 {
-    let history = useQueries(createBrowserHistory)({
-        parseQueryString: function(queryString) {
-            // TODO: return a parsed version of queryString
-            return {};
-        },
-        stringifyQuery: function(query) {
-            // TODO: return a query string created from query
-            return "";
-        }
-    })
-
-    history.createPath({ pathname: '/the/path', query: { the: 'query' } })
-    history.push({ pathname: '/the/path', query: { the: 'query' } })
+    let eventTarget: EventTarget
+    DOMUtils.addEventListener(eventTarget, 'onload', function (event) { event.preventDefault() })
+    DOMUtils.removeEventListener(eventTarget, 'onload', function (event) { event.preventDefault() })
+    DOMUtils.getConfirmation('confirm?', (result) => console.log(result))
+    DOMUtils.supportsGoWithoutReloadUsingHash() && DOMUtils.supportsHistory()
 }
 
 {
-    // Run our app under the /base URL.
-    let history = useBasename(createBrowserHistory)({
-        basename: '/base'
-    })
-
-    // At the /base/hello/world URL:
-    history.listen(function(location) {
-        console.log(location.pathname) // /hello/world
-        console.log(location.basename) // /base
-    })
-
-    history.createPath('/the/path') // /base/the/path
-    history.push('/the/path') // push /base/the/path
+    ExecutionEnvironment.canUseDOM && DOMUtils.isExtraneousPopstateEvent
 }
