@@ -73,7 +73,7 @@ export interface Config {
      * default is `undefined`
      * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-security.js|Github Source}
      */
-    swaggerSecurityHandlers?: { [name: string]: (request: any, securityDefinition: any, scopes: any, callback: (err: Error) => void) => void };
+    swaggerSecurityHandlers?: SwaggerSecurityHandlers;
 
     /**
      * Used for Bagpipes library
@@ -89,14 +89,34 @@ export interface Config {
     swaggerControllerPipe?: string;
 }
 
-/**
- * Internally stored version of config
- */
+/** Internally stored version of config */
 interface ConfigInternal {
     /** Config of SwaggerNodeRunner  */
     swagger?: Config;
 }
 
+/** Middleware used by `swagger-tools` */
+type SwaggerToolsMiddleware = (req: any, res: any, next: any) => any;
+
+/**
+ * @param  {any} request
+ * @param  {any} securityDefinition
+ * @param  {any} scopes
+ * @param  {(err:Error)=>void} callback - Error is returned if request is unauthorized.
+ * The Error may include "message", "state", and "code" fields to be conveyed to the client in the response body and a
+ * "headers" field containing an object representing headers to be set on the response to the client.
+ * In addition, if the Error has a statusCode field, the response statusCode will be set to match -
+ * otherwise, the statusCode will be set to 403.
+ */
+export type SwaggerToolsSecurityHandler = (request: any, securityDefinition: any, scopes: any, callback: (err: Error) => void) => void;
+
+/**
+ *  The keys match SecurityDefinition names and the associated values are functions that accept the following parameters:
+ * `(request, securityDefinition, scopes, callback)`
+ */
+interface SwaggerSecurityHandlers {
+    [name: string]: SwaggerToolsSecurityHandler;
+}
 
 /**
  * Runner instance
@@ -114,17 +134,53 @@ export interface Runner extends EventEmitter {
      */
     swagger: Spec;
     /**
-     * References to Swagger Tools (from _swagger-tools_ module)
+     * References to Swagger Tools Midleware (from _swagger-tools_ module)     *
      * @see {@link https://github.com/apigee-127/swagger-tools|Github Source}
      */
     swaggerTools: {
-        swaggerMetadata: Function //[Function: swaggerMetadata],
-        swaggerRouter: Function
-        swaggerSecurity: Function
-        swaggerUi: Function //[Function: swaggerUi],
-        swaggerValidator: Function
+        /**
+         * Middleware for providing Swagger information to downstream middleware and request handlers.
+         *
+         * @param {any} rlOrSO - The Resource Listing (Swagger 1.2) or Swagger Object (Swagger 2.0)
+         * @param {any[]} apiDeclarations - The array of API Declarations (Swagger 1.2)
+         *
+         * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-metadata.js|Git Source}
+         */
+        swaggerMetadata: (rlOrSO: any, apiDeclarations: any[]) => SwaggerToolsMiddleware
+        /**
+         *  Middleware for using Swagger information to route requests to handlers.
+         * @param [{any}] options - The configuration options
+         *
+         * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/docs/Middleware.md#swaggerrouteroptions|Docs}
+         * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-router.js|Github Source}
+         */
+        swaggerRouter: (options?: any) => SwaggerToolsMiddleware
+        /**
+         * Middleware for using Swagger security information to authenticate requests.
+         * @param [{any}] options - The configuration options
+         *
+         * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-security.js|Github Source}
+         */
+        swaggerSecurity: (options?: SwaggerSecurityHandlers) => SwaggerToolsMiddleware
+        /**
+         * Middleware for serving the Swagger documents and Swagger UI.
+         *
+         * @param {any} rlOrSO - The Resource Listing (Swagger 1.2) or Swagger Object (Swagger 2.0)
+         * @param {any[]} apiDeclarations - The array of API Declarations (Swagger 1.2)
+         * @param [{any}] options - The configuration options
+         *
+         * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-ui.js|Github Source}
+         */
+        swaggerUi: (rlOrSO: any, apiDeclarations: any[], options?: any) => SwaggerToolsMiddleware
+        /**
+         * Middleware for using Swagger information to validate API requests/responses.type
+         * @param [{any}] options - The configuration options
+         *
+         * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-validator.js|Github Source}
+         */
+        swaggerValidator: (options?: any) => SwaggerToolsMiddleware
     };
-    swaggerSecurityHandlers: undefined;
+    swaggerSecurityHandlers: SwaggerSecurityHandlers | undefined;
     /**
      * Nested Key Value description for _backpipes_ module
      * @see {@link https://github.com/apigee-127/bagpipes#pipes|Github Source}
@@ -142,7 +198,6 @@ export interface Runner extends EventEmitter {
     hapiMiddleware: () => HapiMiddleware;
 }
 
-
 /** base used by all middleware versions */
 interface Middleware {
     /** Back-reference to `Runner` that has created this middleware */
@@ -159,6 +214,7 @@ export interface ConnectMiddleware extends Middleware {
  *
  * _Alias for `ConnectMiddleware`_
  */
+// tslint:disable-next-line:no-empty-interface
 export interface ExpressMiddleware extends ConnectMiddleware { }
 
 /** Sails specific Middleware */
@@ -169,7 +225,9 @@ export interface SailsMiddleware extends Middleware {
 
 /** Simplified interface of Hapi Server object */
 interface HapiServerMock {
+    // tslint:disable-next-line:forbidden-types
     ext: (name: string, cb: Function) => void;
+    // tslint:disable-next-line:forbidden-types
     on: (name: string, cb: Function) => void;
 }
 
@@ -180,6 +238,7 @@ export interface HapiMiddleware extends Middleware {
     /** swagger spec */
     sysConfig: Config;
     /** Register this Middleware with `app`  */
+    // tslint:disable-next-line:forbidden-types
     register: (app: any, cb: Function) => void;
     plugin: {
         /**
@@ -188,6 +247,7 @@ export interface HapiMiddleware extends Middleware {
          * @param  {any} options - not used in the moment
          * @param  {Function} next - callback called when register is done
          */
+        // tslint:disable-next-line:forbidden-types
         register: (server: HapiServerMock, options: any, next: Function) => void
     };
 }
