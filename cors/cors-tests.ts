@@ -25,3 +25,23 @@ app.use(cors({
 app.use(cors({
     origin: 'http://example.com'
 }));
+app.use(cors({
+    origin: /example\.com$/
+}));
+app.use(cors({
+    origin: ['http://example.com', 'http://fakeurl.com']
+}));
+app.use(cors({
+    origin: [/example\.com$/, /fakeurl\.com$/]
+}));
+app.use(cors({
+    origin: (requestOrigin, cb) => {
+        try {
+            var allow = requestOrigin.indexOf('.edu') !== -1;
+            cb(null, allow);
+        } catch (err) {
+            cb(err);
+        }
+    }
+}));
+
