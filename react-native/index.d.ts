@@ -7867,7 +7867,7 @@ declare module "react" {
     export type NavigationTransitionSpec = {
         duration?: number,
         // An easing function from `Easing`.
-        easing?: () => any,
+        easing?: EasingFunction,
         // A timing function such as `Animated.timing`.
         timing?: (value: NavigationAnimatedValue, config: any) => any,
     }
