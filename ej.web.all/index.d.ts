@@ -1,11 +1,11 @@
-// Type definitions for ej.web.all v14.4.0.15
+// Type definitions for ej.web.all v14.4.0.20
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 14.4.0.15
+*  version : 14.4.0.20
 *  Copyright Syncfusion Inc. 2001 - 2016. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -13,7 +13,7 @@
 *  applicable laws.
 */
 declare module ej {
-
+	
 	var dataUtil: dataUtil;
     function isMobile(): boolean;
     function isIOS(): boolean;
@@ -101,7 +101,7 @@ declare module ej {
     function select(jsonArray: any, fields: string): any;
     function setTransition(): boolean;
     function sum(json: string, fieldName: string): string;
-    function swap(array: any, x: string, y: string): any;
+    function swap(array: any, x: string, y: string): any; 
     var cssUA: string;
     var serverTimezoneOffset: number;
     var transform: string;
@@ -115,7 +115,7 @@ declare module ej {
 	var template: any;
 	var util: {
         valueFunction(val: string): any;
-    }
+    }        
     export module device {
         function isAndroid(): boolean;
         function isIOS(): boolean;
@@ -131,8 +131,8 @@ declare module ej {
         function destroyAll(elements: Element): void;
         function init(element: Element): void;
         function registerInstance(element: Element, pluginName: string, className: string, prototype: any):void;
-    }
-
+    } 
+	
 	interface browserInfoOptions {
 		name: string;
 		version: string;
@@ -148,7 +148,7 @@ declare module ej {
         _on(element: JQuery, eventType?: string, handler?: (eventObject: JQueryEventObject) => any): any;
          _on(element: JQuery, eventType ?: string, selector ?: string, handler ?: (eventObject: JQueryEventObject) => any): any;
        _off(element: JQuery, eventName: string, handler ?: (eventObject: JQueryEventObject) => any): any;
-       _off(element: JQuery, eventType ?: string, selector ?: string, handler ?: (eventObject: JQueryEventObject) => any): any;
+       _off(element: JQuery, eventType ?: string, selector ?: string, handler ?: (eventObject: JQueryEventObject) => any): any;     
         persistState(): void;
         restoreState(silent: boolean): void;
     }
@@ -158,17 +158,17 @@ declare module ej {
         static fn: Widget;
         static extend(widget: Widget): any;
         register(pluginName: string, className: string, prototype: any): void;
-        destroyAll(elements: Element): void;
-        model: any;
+        destroyAll(elements: Element): void;      
+        model: any;     
     }
 
 
     interface BaseEvent {
         cancel: boolean;
-        type: string;
+        type: string;       
     }
     class DataManager {
-        constructor(dataSource?: any, query?: ej.Query, adaptor?: any);
+        constructor(dataSource?: any, query?: ej.Query, adaptor?: any); 
         setDefaultQuery(query: ej.Query): void;
         executeQuery(query?: ej.Query, done?: any, fail?: any, always?: any): JQueryPromise<any>;
         executeLocal(query?: ej.Query): ej.DataManager;
@@ -176,7 +176,7 @@ declare module ej {
         insert(data: Object, tableName?: string): JQueryPromise<any>;
         remove(keyField: string, value: any, tableName?: string): Object;
         update(keyField: string, value: any, tableName?: string): Object;
-    }
+    }    
 
     class Query {
         constructor();
@@ -303,18 +303,18 @@ declare module ej {
             result: Object; count: number
         };
     }
-
+	
     class ODataV4Adaptor extends ej.ODataAdaptor {
         constructor();
         options: ODataAdaptorOptions;
         onCount(e: Object): string;
         onEachSearch(e: Object): void;
-        onSearch(e: Object): string;
+        onSearch(e: Object): string; 
         beforeSend(dm: ej.DataManager, request: any, settings?: any): void;
         processResponse(data: Object, ds: Object, query: ej.Query, xhr:any, request: any, changes: Changes): {
             result: Object; count: number
         };
-
+        
     }
     interface ODataAdaptorOptions {
         requestType?: string;
@@ -419,7 +419,7 @@ declare module ej {
             predicates: any;
         };
     }
-    interface dataUtil {
+    interface dataUtil { 
         swap(array: Array<any>, x: number, y: number): void;
         mergeSort(jsonArray: Array<any>, fieldName?: string, comparer?:any): Array<any>;
         max(jsonArray: Array<any>, fieldName?: string, comparer?: string): Array<any>;
@@ -489,7 +489,7 @@ declare module ej {
 		row,
 		tHead
 	}
-
+		
 	enum filterType{
 		StartsWith,
 		Contains,
@@ -505,7 +505,7 @@ declare module ej {
 		Fade,
 		None,
 		Slide
-	}
+	} 
 	enum Type{
 		Overlay,
 		Slide
@@ -874,10 +874,10 @@ export interface HelperEventArgs {
     	function parseDate(value: string, format: string, culture ?: string): Date;
     	function getLocalizedConstants(controlName: string, culture ?: string): any;
 
-interface globalize {
+interface globalize {  
         addCulture(name: string, culture?: any): void;
         preferredCulture(culture?: string): culture;
-        format(value: any, format: string, culture?: string): string;
+        format(value: any, format: string, culture?: string): string; 
         parseInt(value: string, radix?: any, culture?: string): number;
         parseFloat(value: string, radix?: any, culture?: string): number;
         parseDate(value: string, format: string, culture?: string): Date;
@@ -942,7 +942,7 @@ interface globalize {
         M: string;
         Y: string;
         S: string;
-    }
+    } 
 class Scroller extends ej.Widget {
 	static fn: Scroller;
 	constructor(element: JQuery, options?: Scroller.Model);
@@ -1791,19 +1791,19 @@ class Autocomplete extends ej.Widget {
 	enable(): void;
 
 	/** Returns objects (data object) of all the selected items in the autocomplete textbox.
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getSelectedItems(): void;
+	getSelectedItems(): any;
 
 	/** Returns the current selected value from the Autocomplete textbox.
-	*   @returns {void}
+	*   @returns {string}
 	*/
-	getValue(): void;
+	getValue(): string;
 
 	/** Returns the current active text value in the Autocomplete suggestion list.
-	*   @returns {void}
+	*   @returns {string}
 	*/
-	getActiveText(): void;
+	getActiveText(): string;
 
 	/** Search the entered text and show it in the suggestion list if available.
 	*   @returns {void}
@@ -1834,17 +1834,17 @@ export interface Model {
 	/** Customize &quot;Add New&quot; text (label) to be added in the autocomplete popup list for the entered text when there are no suggestions for it.
 	*   @Default {Add New}
 	*/
-	addNewText?: Boolean;
+	addNewText?: boolean;
 
 	/** Allows new values to be added to the autocomplete input other than the values in the suggestion list. Normally, when there are no suggestions it will display â€œNo suggestionsâ€ label in the popup.
 	*   @Default {false}
 	*/
-	allowAddNew?: Boolean;
+	allowAddNew?: boolean;
 
 	/** Enables or disables the sorting of suggestion list item. The default sort order is ascending order. You customize sort order.
 	*   @Default {true}
 	*/
-	allowSorting?: Boolean;
+	allowSorting?: boolean;
 
 	/** Enables or disables selecting the animation style for the popup list. Animation types can be selected through either of the following options,
 	*   @Default {slide}
@@ -1854,17 +1854,17 @@ export interface Model {
 	/** To focus the items in the suggestion list when the popup is shown. By default first item will be focused.
 	*   @Default {false}
 	*/
-	autoFocus?: Boolean;
+	autoFocus?: boolean;
 
 	/** Enables or disables the case sensitive search.
 	*   @Default {false}
 	*/
-	caseSensitiveSearch?: Boolean;
+	caseSensitiveSearch?: boolean;
 
 	/** The root class for the Autocomplete textbox widget which helps in customizing its theme.
 	*   @Default {â€â€}
 	*/
-	cssClass?: String;
+	cssClass?: string;
 
 	/** The data source contains the list of data for the suggestions list. It can be a string array or JSON array.
 	*   @Default {null}
@@ -1874,42 +1874,42 @@ export interface Model {
 	/** The time delay (in milliseconds) after which the suggestion popup will be shown.
 	*   @Default {200}
 	*/
-	delaySuggestionTimeout?: Number;
+	delaySuggestionTimeout?: number;
 
 	/** The special character which acts as a separator for the given words for multi-mode search i.e. the text after the delimiter are considered as a separate word or query for search operation.
 	*   @Default {â€™,â€™}
 	*/
-	delimiterChar?: String;
+	delimiterChar?: string;
 
 	/** The text to be displayed in the popup when there are no suggestions available for the entered text.
 	*   @Default {â€œNo suggestionsâ€}
 	*/
-	emptyResultText?: String;
+	emptyResultText?: string;
 
 	/** Fills the autocomplete textbox with the first matched item from the suggestion list automatically based on the entered text when enabled.
 	*   @Default {false}
 	*/
-	enableAutoFill?: Boolean;
+	enableAutoFill?: boolean;
 
 	/** Enables or disables the Autocomplete textbox widget.
 	*   @Default {true}
 	*/
-	enabled?: Boolean;
+	enabled?: boolean;
 
 	/** Enables or disables displaying the duplicate names present in the search result.
 	*   @Default {false}
 	*/
-	enableDistinct?: Boolean;
+	enableDistinct?: boolean;
 
 	/** Allows the current model values to be saved in local storage or browser cookies for state maintenance when it is set to true. While refreshing the page, it retains the model value from browser cookies or local storage.
 	*   @Default {false}
 	*/
-	enablePersistence?: Boolean;
+	enablePersistence?: boolean;
 
 	/** Displays the Autocomplete widgetâ€™s content from right to left when enabled.
 	*   @Default {false}
 	*/
-	enableRTL?: Boolean;
+	enableRTL?: boolean;
 
 	/** Mapping fields for the suggestion items of the Autocomplete textbox widget.
 	*   @Default {null}
@@ -1919,27 +1919,31 @@ export interface Model {
 	/** Specifies the search filter type. There are several types of search filter available such as â€˜startswithâ€™, â€˜containsâ€™, â€˜endswithâ€™, â€˜lessthanâ€™, â€˜lessthanorequalâ€™, â€˜greaterthanâ€™, â€˜greaterthanorequalâ€™, â€˜equalâ€™, â€˜notequalâ€™.
 	*   @Default {ej.filterType.StartsWith}
 	*/
-	filterType?: String;
+	filterType?: string;
 
 	/** The height of the Autocomplete textbox.
 	*   @Default {null}
 	*/
-	height?: String;
+	height?: string;
 
 	/** The search text can be highlighted in the AutoComplete suggestion list when enabled.
 	*   @Default {false}
 	*/
-	highlightSearch?: Boolean;
+	highlightSearch?: boolean;
 
 	/** Number of items to be displayed in the suggestion list.
 	*   @Default {0}
 	*/
-	itemsCount?: Number;
+	itemsCount?: number;
+
+	/** Set the localization culture for Autocomplete Widget.
+	*/
+	locale?: string;
 
 	/** Minimum number of character to be entered in the Autocomplete textbox to show the suggestion list.
 	*   @Default {1}
 	*/
-	minCharacter?: Number;
+	minCharacter?: number;
 
 	/** An Autocomplete column collection can be defined and customized through the multiColumnSettings property.Column's header, field, and stringFormat can be define via multiColumnSettings properties.
 	*/
@@ -1953,51 +1957,51 @@ export interface Model {
 	/** The height of the suggestion list.
 	*   @Default {â€œ152pxâ€}
 	*/
-	popupHeight?: String;
+	popupHeight?: string;
 
 	/** The width of the suggestion list.
 	*   @Default {â€œautoâ€}
 	*/
-	popupWidth?: String;
+	popupWidth?: string;
 
 	/** The query to retrieve the data from the data source.
 	*   @Default {null}
 	*/
-	query?: ej.Query|string;
+	query?: ej.Query;
 
 	/** Indicates that the autocomplete textbox values can only be readable.
 	*   @Default {false}
 	*/
-	readOnly?: Boolean;
+	readOnly?: boolean;
 
 	/** Sets the value for the Autocomplete textbox based on the given input key value.
 	*/
-	selectValueByKey?: Number;
+	selectValueByKey?: number;
 
 	/** Enables or disables showing the message when there are no suggestions for the entered text.
 	*   @Default {true}
 	*/
-	showEmptyResultText?: Boolean;
+	showEmptyResultText?: boolean;
 
 	/** Enables or disables the loading icon to intimate the searching operation. The loading icon is visible when there is a time delay to perform the search.
 	*   @Default {true}
 	*/
-	showLoadingIcon?: Boolean;
+	showLoadingIcon?: boolean;
 
 	/** Enables the showPopup button in autocomplete textbox. When the showPopup button is clicked, it displays all the available data from the data source.
 	*   @Default {false}
 	*/
-	showPopupButton?: Boolean;
+	showPopupButton?: boolean;
 
 	/** Enables or disables rounded corner.
 	*   @Default {false}
 	*/
-	showRoundedCorner?: Boolean;
+	showRoundedCorner?: boolean;
 
 	/** Enables or disables reset icon to clear the textbox values.
 	*   @Default {false}
 	*/
-	showResetIcon?: Boolean;
+	showResetIcon?: boolean;
 
 	/** Sort order specifies whether the suggestion list values has to be displayed in ascending or descending order.
 	*   @Default {ej.SortOrder.Ascending}
@@ -2007,7 +2011,7 @@ export interface Model {
 	/** The template to display the suggestion list items with customized appearance.
 	*   @Default {null}
 	*/
-	template?: String;
+	template?: string;
 
 	/** The jQuery validation error message to be displayed on form validation.
 	*   @Default {null}
@@ -2022,22 +2026,22 @@ export interface Model {
 	/** The value to be displayed in the autocomplete textbox.
 	*   @Default {null}
 	*/
-	value?: String;
+	value?: string;
 
 	/** Enables or disables the visibility of the autocomplete textbox.
 	*   @Default {true}
 	*/
-	visible?: Boolean;
+	visible?: boolean;
 
 	/** The text to be displayed when the value of the autocomplete textbox is empty.
 	*   @Default {null}
 	*/
-	watermarkText?: String;
+	watermarkText?: string;
 
 	/** The width of the Autocomplete textbox.
 	*   @Default {null}
 	*/
-	width?: String;
+	width?: string;
 
 	/** Triggers when the AJAX requests Begins. */
 	actionBegin? (e: ActionBeginEventArgs): void;
@@ -2092,19 +2096,19 @@ export interface ChangeEventArgs {
 
 	/** Set this option to true to cancel the event.
 	*/
-	cancel?: Boolean;
+	cancel?: boolean;
 
 	/** Instance of the autocomplete model object.
 	*/
-	model?: any;
+	model?: ej.Autocomplete.Model;
 
 	/** Name of the event.
 	*/
-	type?: String;
+	type?: string;
 
 	/** Value of the autocomplete textbox.
 	*/
-	value?: String;
+	value?: string;
 }
 
 export interface CloseEventArgs {
@@ -2115,11 +2119,11 @@ export interface CloseEventArgs {
 
 	/** Instance of the autocomplete model object.
 	*/
-	model?: any;
+	model?: ej.Autocomplete.Model;
 
 	/** Name of the event.
 	*/
-	type?: String;
+	type?: string;
 }
 
 export interface CreateEventArgs {
@@ -2267,7 +2271,7 @@ export interface MultiColumnSettingsColumn {
 
 	/** Gets or sets a value that indicates to render the multicolumn with custom theme.
 	*/
-	cssClass?: String;
+	cssClass?: string;
 
 	/** Specifies the search data type. There are four types of data types available such as string, â€˜numberâ€™, â€˜booleanâ€™ and â€˜dateâ€™.
 	*   @Default {ej.Type.String}
@@ -2479,7 +2483,7 @@ export interface ClickEventArgs {
 	*/
 	status?: boolean;
 
-	/** return the event model for sever side processing.
+	/** return the event model for sever side processing. 
 	*/
 	e?: any;
 }
@@ -2546,16 +2550,16 @@ Normal,
 Mini,
 //Creates button with Built-in small size height, width specified
 Small,
-//Creates button with Built-in medium size height, width specified
+//Creates button with Built-in medium size height, width specified 
 Medium,
-//Creates button with Built-in large size height, width specified
+//Creates button with Built-in large size height, width specified 
 Large,
 }
 enum ButtonType
 {
 //Creates button with Built-in button type specified
 Button,
-//Creates button with Built-in reset type specified
+//Creates button with Built-in reset type specified 
 Reset,
 //Creates button with Built-in submit type specified
 Submit,
@@ -2830,10 +2834,10 @@ class ListBox extends ej.Widget {
 	disable(): void;
 
 	/** Disables a list item by passing the item text as parameter.
-	*   @param {String} Text of the listbox item to be disabled.
+	*   @param {string} Text of the listbox item to be disabled.
 	*   @returns {void}
 	*/
-	disableItem(text: String): void;
+	disableItem(text: string): void;
 
 	/** Disables a list Item using its index value.
 	*   @param {number} Index of the listbox item to be disabled.
@@ -2925,10 +2929,10 @@ class ListBox extends ej.Widget {
 	moveUp(): void;
 
 	/** Refreshes the ListBox widget.
-	*   @param {Boolean} Refreshes both the datasource and the dimensions of the ListBox widget when the parameter is passed as true, otherwise only the ListBox dimensions will be refreshed.
+	*   @param {boolean} Refreshes both the datasource and the dimensions of the ListBox widget when the parameter is passed as true, otherwise only the ListBox dimensions will be refreshed.
 	*   @returns {void}
 	*/
-	refresh(refreshData: Boolean): void;
+	refresh(refreshData: boolean): void;
 
 	/** Removes all the list items from listbox.
 	*   @returns {void}
@@ -2941,7 +2945,7 @@ class ListBox extends ej.Widget {
 	removeSelectedItems(): void;
 
 	/** Removes a list item by using its text.
-	*   @param {string} Text of the listbox item to be removed.
+	*   @param {string} Text of the listbox item to be removed. 
 	*   @returns {void}
 	*/
 	removeItemByText(text: string): void;
@@ -2952,7 +2956,7 @@ class ListBox extends ej.Widget {
 	*/
 	removeItemByIndex(index: number): void;
 
-	/**
+	/** 
 	*   @returns {void}
 	*/
 	selectAll(): void;
@@ -2964,10 +2968,10 @@ class ListBox extends ej.Widget {
 	selectItemByText(text: string): void;
 
 	/** Selects list item using its value property.
-	*   @param {String} Value of the listbox item to be selected.
+	*   @param {string} Value of the listbox item to be selected.
 	*   @returns {void}
 	*/
-	selectItemByValue(value: String): void;
+	selectItemByValue(value: string): void;
 
 	/** Selects list item using its index value.
 	*   @param {number} Index of the listbox item to be selected.
@@ -2998,7 +3002,7 @@ class ListBox extends ej.Widget {
 	*/
 	uncheckItemsByIndices(indices: number[]|string): void;
 
-	/**
+	/** 
 	*   @returns {void}
 	*/
 	unselectAll(): void;
@@ -3057,16 +3061,16 @@ class ListBox extends ej.Widget {
 	hideItemsByValues(values: Array<any>): void;
 
 	/** Shows a hidden list item using its value.
-	*   @param {String} Value of the listbox item to be shown.
+	*   @param {string} Value of the listbox item to be shown.
 	*   @returns {void}
 	*/
-	showItemByValue(value: String): void;
+	showItemByValue(value: string): void;
 
 	/** Hide a list item using its value.
-	*   @param {String} Value of the listbox item to be hidden.
+	*   @param {string} Value of the listbox item to be hidden.
 	*   @returns {void}
 	*/
-	hideItemByValue(value: String): void;
+	hideItemByValue(value: string): void;
 
 	/** Shows a hidden list item using its index value.
 	*   @param {number} Index of the listbox item to be shown.
@@ -3080,7 +3084,7 @@ class ListBox extends ej.Widget {
 	*/
 	hideItemByIndex(index: number): void;
 
-	/**
+	/** 
 	*   @returns {void}
 	*/
 	show(): void;
@@ -3184,6 +3188,11 @@ export interface Model {
 	*/
 	height?: string;
 
+	/** Defines the height for individual ListBox item.
+	*   @Default {null}
+	*/
+	itemHeight?: string;
+
 	/** The number of list items to be shown in the ListBox widget. The remaining list items will be scrollable.
 	*   @Default {null}
 	*/
@@ -3206,7 +3215,7 @@ export interface Model {
 	/** The query to retrieve required data from the data source.
 	*   @Default {ej.Query()}
 	*/
-	query?: ej.Query|string;
+	query?: ej.Query;
 
 	/** The list item to be selected by default using its index.
 	*   @Default {null}
@@ -3319,11 +3328,11 @@ export interface ActionBeforeSuccessEventArgs {
 
 	/** Instance of the listbox model object.
 	*/
-	model?: any;
+	model?: ej.ListBox.Model;
 
 	/** Name of the event.
 	*/
-	type?: String;
+	type?: string;
 
 	/** List of actual object.
 	*/
@@ -3335,7 +3344,7 @@ export interface ActionBeforeSuccessEventArgs {
 
 	/** Set this option to true to cancel the event.
 	*/
-	cancel?: Boolean;
+	cancel?: boolean;
 
 	/** List of array object
 	*/
@@ -3350,11 +3359,11 @@ export interface ChangeEventArgs {
 
 	/** Instance of the listbox model object.
 	*/
-	model?: any;
+	model?: ej.ListBox.Model;
 
 	/** Name of the event.
 	*/
-	type?: String;
+	type?: string;
 
 	/** List item object.
 	*/
@@ -3366,42 +3375,42 @@ export interface ChangeEventArgs {
 
 	/** List itemâ€™s index.
 	*/
-	index?: Number;
+	index?: number;
 
 	/** Set this option to true to cancel the event.
 	*/
-	cancel?: Boolean;
+	cancel?: boolean;
 
 	/** Boolean value based on whether the list item is checked or not.
 	*/
-	isChecked?: Boolean;
+	isChecked?: boolean;
 
 	/** Boolean value based on whether the list item is selected or not.
 	*/
-	isSelected?: Boolean;
+	isSelected?: boolean;
 
 	/** Boolean value based on the list item is enabled or not.
 	*/
-	isEnabled?: Boolean;
+	isEnabled?: boolean;
 
 	/** List itemâ€™s text (label).
 	*/
-	text?: String;
+	text?: string;
 
 	/** List itemâ€™s value.
 	*/
-	value?: String;
+	value?: string;
 }
 
 export interface CheckChangeEventArgs {
 
 	/** Instance of the listbox model object.
 	*/
-	model?: any;
+	model?: ej.ListBox.Model;
 
 	/** Name of the event.
 	*/
-	type?: String;
+	type?: string;
 
 	/** List item object.
 	*/
@@ -3413,31 +3422,31 @@ export interface CheckChangeEventArgs {
 
 	/** List itemâ€™s index.
 	*/
-	index?: Number;
+	index?: number;
 
 	/** Set this option to true to cancel the event.
 	*/
-	cancel?: Boolean;
+	cancel?: boolean;
 
 	/** Boolean value based on whether the list item is checked or not.
 	*/
-	isChecked?: Boolean;
+	isChecked?: boolean;
 
 	/** Boolean value based on whether the list item is selected or not.
 	*/
-	isSelected?: Boolean;
+	isSelected?: boolean;
 
 	/** Boolean value based on the list item is enabled or not.
 	*/
-	isEnabled?: Boolean;
+	isEnabled?: boolean;
 
 	/** List itemâ€™s text (label).
 	*/
-	text?: String;
+	text?: string;
 
 	/** List itemâ€™s value.
 	*/
-	value?: String;
+	value?: string;
 }
 
 export interface CreateEventArgs {
@@ -3452,67 +3461,67 @@ export interface CreateEventArgs {
 
 	/** Set this option to true to cancel the event.
 	*/
-	cancel?: Boolean;
+	cancel?: boolean;
 }
 
 export interface DestroyEventArgs {
 
 	/** Instance of the listbox model object.
 	*/
-	model?: any;
+	model?: ej.ListBox.Model;
 
 	/** Name of the event.
 	*/
-	type?: String;
+	type?: string;
 
 	/** Set this option to true to cancel the event.
 	*/
-	cancel?: Boolean;
+	cancel?: boolean;
 }
 
 export interface FocusInEventArgs {
 
 	/** Instance of the listbox model object.
 	*/
-	model?: any;
+	model?: ej.ListBox.Model;
 
 	/** Name of the event.
 	*/
-	type?: String;
+	type?: string;
 
 	/** Set this option to true to cancel the event.
 	*/
-	cancel?: Boolean;
+	cancel?: boolean;
 }
 
 export interface FocusOutEventArgs {
 
 	/** Instance of the listbox model object.
 	*/
-	model?: any;
+	model?: ej.ListBox.Model;
 
 	/** Name of the event.
 	*/
-	type?: String;
+	type?: string;
 
 	/** Set this option to true to cancel the event.
 	*/
-	cancel?: Boolean;
+	cancel?: boolean;
 }
 
 export interface ItemDragEventArgs {
 
 	/** Instance of the listbox model object.
 	*/
-	model?: any;
+	model?: ej.ListBox.Model;
 
 	/** Name of the event.
 	*/
-	type?: String;
+	type?: string;
 
 	/** Set this option to true to cancel the event.
 	*/
-	cancel?: Boolean;
+	cancel?: boolean;
 
 	/** The Datasource of the listbox.
 	*/
@@ -3520,42 +3529,42 @@ export interface ItemDragEventArgs {
 
 	/** List itemâ€™s index.
 	*/
-	index?: Number;
+	index?: number;
 
 	/** Boolean value based on whether the list item is checked or not.
 	*/
-	isChecked?: Boolean;
+	isChecked?: boolean;
 
 	/** Boolean value based on whether the list item is selected or not.
 	*/
-	isSelected?: Boolean;
+	isSelected?: boolean;
 
 	/** Boolean value based on whether the list item is enabled or not.
 	*/
-	isEnabled?: Boolean;
+	isEnabled?: boolean;
 
 	/** List itemâ€™s text (label).
 	*/
-	text?: String;
+	text?: string;
 
 	/** List itemâ€™s value.
 	*/
-	value?: String;
+	value?: string;
 }
 
 export interface ItemDragStartEventArgs {
 
 	/** Instance of the listbox model object.
 	*/
-	model?: any;
+	model?: ej.ListBox.Model;
 
 	/** Name of the event.
 	*/
-	type?: String;
+	type?: string;
 
 	/** Set this option to true to cancel the event.
 	*/
-	cancel?: Boolean;
+	cancel?: boolean;
 
 	/** The Datasource of the listbox.
 	*/
@@ -3563,42 +3572,42 @@ export interface ItemDragStartEventArgs {
 
 	/** List itemâ€™s index.
 	*/
-	index?: Number;
+	index?: number;
 
 	/** Boolean value based on whether the list item is checked or not.
 	*/
-	isChecked?: Boolean;
+	isChecked?: boolean;
 
 	/** Boolean value based on whether the list item is selected or not.
 	*/
-	isSelected?: Boolean;
+	isSelected?: boolean;
 
 	/** Boolean value based on whether the list item is enabled or not.
 	*/
-	isEnabled?: Boolean;
+	isEnabled?: boolean;
 
 	/** List itemâ€™s text (label).
 	*/
-	text?: String;
+	text?: string;
 
 	/** List itemâ€™s value.
 	*/
-	value?: String;
+	value?: string;
 }
 
 export interface ItemDragStopEventArgs {
 
 	/** Instance of the listbox model object.
 	*/
-	model?: any;
+	model?: ej.ListBox.Model;
 
 	/** Name of the event.
 	*/
-	type?: String;
+	type?: string;
 
 	/** Set this option to true to cancel the event.
 	*/
-	cancel?: Boolean;
+	cancel?: boolean;
 
 	/** The Datasource of the listbox.
 	*/
@@ -3606,42 +3615,42 @@ export interface ItemDragStopEventArgs {
 
 	/** List itemâ€™s index.
 	*/
-	index?: Number;
+	index?: number;
 
 	/** Boolean value based on whether the list item is checked or not.
 	*/
-	isChecked?: Boolean;
+	isChecked?: boolean;
 
 	/** Boolean value based on whether the list item is selected or not.
 	*/
-	isSelected?: Boolean;
+	isSelected?: boolean;
 
 	/** Boolean value based on whether the list item is enabled or not.
 	*/
-	isEnabled?: Boolean;
+	isEnabled?: boolean;
 
 	/** List itemâ€™s text (label).
 	*/
-	text?: String;
+	text?: string;
 
 	/** List itemâ€™s value.
 	*/
-	value?: String;
+	value?: string;
 }
 
 export interface ItemDropEventArgs {
 
 	/** Instance of the listbox model object.
 	*/
-	model?: any;
+	model?: ej.ListBox.Model;
 
 	/** Name of the event.
 	*/
-	type?: String;
+	type?: string;
 
 	/** Set this option to true to cancel the event.
 	*/
-	cancel?: Boolean;
+	cancel?: boolean;
 
 	/** The Datasource of the listbox.
 	*/
@@ -3649,38 +3658,38 @@ export interface ItemDropEventArgs {
 
 	/** List itemâ€™s index.
 	*/
-	index?: Number;
+	index?: number;
 
 	/** Boolean value based on whether the list item is checked or not.
 	*/
-	isChecked?: Boolean;
+	isChecked?: boolean;
 
 	/** Boolean value based on whether the list item is selected or not.
 	*/
-	isSelected?: Boolean;
+	isSelected?: boolean;
 
 	/** Boolean value based on whether the list item is enabled or not.
 	*/
-	isEnabled?: Boolean;
+	isEnabled?: boolean;
 
 	/** List itemâ€™s text (label).
 	*/
-	text?: String;
+	text?: string;
 
 	/** List itemâ€™s value.
 	*/
-	value?: String;
+	value?: string;
 }
 
 export interface SelectEventArgs {
 
 	/** Instance of the listbox model object.
 	*/
-	model?: any;
+	model?: ej.ListBox.Model;
 
 	/** Name of the event.
 	*/
-	type?: String;
+	type?: string;
 
 	/** List item object.
 	*/
@@ -3692,42 +3701,42 @@ export interface SelectEventArgs {
 
 	/** List itemâ€™s index.
 	*/
-	index?: Number;
+	index?: number;
 
 	/** Set this option to true to cancel the event.
 	*/
-	cancel?: Boolean;
+	cancel?: boolean;
 
 	/** Boolean value based on whether the list item is checked or not.
 	*/
-	isChecked?: Boolean;
+	isChecked?: boolean;
 
 	/** Boolean value based on whether the list item is selected or not.
 	*/
-	isSelected?: Boolean;
+	isSelected?: boolean;
 
 	/** Boolean value based on the list item is enabled or not.
 	*/
-	isEnabled?: Boolean;
+	isEnabled?: boolean;
 
 	/** List itemâ€™s text (label).
 	*/
-	text?: String;
+	text?: string;
 
 	/** List itemâ€™s value.
 	*/
-	value?: String;
+	value?: string;
 }
 
 export interface UnselectEventArgs {
 
 	/** Instance of the listbox model object.
 	*/
-	model?: any;
+	model?: ej.ListBox.Model;
 
 	/** Name of the event.
 	*/
-	type?: String;
+	type?: string;
 
 	/** List item object.
 	*/
@@ -3739,31 +3748,31 @@ export interface UnselectEventArgs {
 
 	/** List itemâ€™s index.
 	*/
-	index?: Number;
+	index?: number;
 
 	/** Set this option to true to cancel the event.
 	*/
-	cancel?: Boolean;
+	cancel?: boolean;
 
 	/** Boolean value based on whether the list item is checked or not.
 	*/
-	isChecked?: Boolean;
+	isChecked?: boolean;
 
 	/** Boolean value based on whether the list item is selected or not.
 	*/
-	isSelected?: Boolean;
+	isSelected?: boolean;
 
 	/** Boolean value based on the list item is enabled or not.
 	*/
-	isEnabled?: Boolean;
+	isEnabled?: boolean;
 
 	/** List itemâ€™s text (label).
 	*/
-	text?: String;
+	text?: string;
 
 	/** List itemâ€™s value.
 	*/
-	value?: String;
+	value?: string;
 }
 
 export interface Fields {
@@ -4131,9 +4140,10 @@ class ColorPicker extends ej.Widget {
 	getValue(): string;
 
 	/** To Convert color value from hexCode to RGB
+	*   @param {string} Specified HEX code converted to RGB
 	*   @returns {any}
 	*/
-	hexCodeToRGB(): any;
+	hexCodeToRGB(colorCode: string): any;
 
 	/** Hides the ColorPicker popup, if in opened state.
 	*   @returns {void}
@@ -4141,19 +4151,22 @@ class ColorPicker extends ej.Widget {
 	hide(): void;
 
 	/** Convert color value from HSV to RGB
+	*   @param {any} Specified HSV code converted to RGB
 	*   @returns {any}
 	*/
-	HSVToRGB(): any;
+	HSVToRGB(hsv: any): any;
 
 	/** Convert color value from RGB to HEX
+	*   @param {any} Specified RGB code converted to HEX code
 	*   @returns {string}
 	*/
-	RGBToHEX(): string;
+	RGBToHEX(rgb: any): string;
 
 	/** Convert color value from RGB to HSV
+	*   @param {any} Specified RGB code converted to HSV code
 	*   @returns {any}
 	*/
-	RGBToHSV(): any;
+	RGBToHSV(rgb: any): any;
 
 	/** Open the ColorPicker popup.
 	*   @returns {void}
@@ -4536,7 +4549,7 @@ enum Presets{
 }
 enum ButtonMode
 {
-//Displays the button in split mode
+//Displays the button in split mode 
 Split,
 //Displays the button in Dropdown mode
 Dropdown,
@@ -4556,25 +4569,25 @@ class FileExplorer extends ej.Widget {
 	adjustSize(): void;
 
 	/** Disable the particular context menu item.
-	*   @param {string|HTMLElement} Id of the menu item/ Menu element to be disabled
+	*   @param {string|HTMLElement} Id of the menu item/ Menu element to be disabled 
 	*   @returns {void}
 	*/
 	disableMenuItem(item: string|HTMLElement): void;
 
 	/** Disable the particular toolbar item.
-	*   @param {string|HTMLElement} Id of the toolbar item/ Tool item element to be disabled
+	*   @param {string|HTMLElement} Id of the toolbar item/ Tool item element to be disabled 
 	*   @returns {void}
 	*/
 	disableToolbarItem(item: string|HTMLElement): void;
 
 	/** Enable the particular context menu item.
-	*   @param {string|HTMLElement} Id of the menu item/ Menu element to be Enabled
+	*   @param {string|HTMLElement} Id of the menu item/ Menu element to be Enabled 
 	*   @returns {void}
 	*/
 	enableMenuItem(item: string|HTMLElement): void;
 
 	/** Enable the particular toolbar item
-	*   @param {string|HTMLElement} Id of the tool item/ Tool item element to be Enabled
+	*   @param {string|HTMLElement} Id of the tool item/ Tool item element to be Enabled 
 	*   @returns {void}
 	*/
 	enableToolbarItem(item: string|HTMLElement): void;
@@ -4585,7 +4598,7 @@ class FileExplorer extends ej.Widget {
 	refresh(): void;
 
 	/** Remove the particular toolbar item.
-	*   @param {string|HTMLElement} Id of the tool item/ tool item element to be removed
+	*   @param {string|HTMLElement} Id of the tool item/ tool item element to be removed 
 	*   @returns {void}
 	*/
 	removeToolbarItem(item: string|HTMLElement): void;
@@ -4630,6 +4643,11 @@ export interface Model {
 	/** Sets the root class for FileExplorer theme. This cssClass API allows to use custom skinning option for File Explorer control. By defining the root class by using this API, you have to include this root class in CSS.
 	*/
 	cssClass?: string;
+
+	/** Specify the enablePersistence to FileExplorer to save the current model value in browser cookies for state maintains.
+	*   @Default {false}
+	*/
+	enablePersistence?: boolean;
 
 	/** Enables or disables the resize support in FileExplorer control.
 	*   @Default {false}
@@ -5328,7 +5346,7 @@ enum layoutType{
 	///Supports to display files in tile view
 	Tile,
 
-	///Supports to display files in grid view
+	///Supports to display files in grid view 
 	Grid,
 
 	///Supports to display files as large icons
@@ -5940,10 +5958,10 @@ enum Level{
 
 enum HighlightSection{
 
-	///Highlight the week of the currently  selected date in DatePicker popup calendar
+	///Highlight the week of the currently  selected date in DatePicker popup calendar  
 	Week,
 
-	///Highlight the workdays in a currently  selected date's week in DatePicker popup calendar
+	///Highlight the workdays in a currently  selected date's week in DatePicker popup calendar 
 	WorkDays,
 
 	///Nothing will be highlighted, remove highlights from DatePicker popup calendar if already exists
@@ -6417,8 +6435,349 @@ enum popupPosition
 {
 //Opens the DateTimePicker popup below to the DateTimePicker input box
 Bottom,
-//Opens the DateTimePicker popup above to the DateTimePicker input box
+//Opens the DateTimePicker popup above to the DateTimePicker input box 
 Top,
+}
+
+class DateRangePicker extends ej.Widget {
+	static fn: DateRangePicker;
+	constructor(element: JQuery, options?: DateRangePicker.Model);
+	constructor(element: Element, options?: DateRangePicker.Model);
+	static Locale: any;
+	model:DateRangePicker.Model;
+	defaults:DateRangePicker.Model;
+
+	/** Add the preset ranges to DateRangePicker popup.
+	*   @param {string} Display name
+	*   @param {Array<any>} StartDate and endDate of range.
+	*   @returns {void}
+	*/
+	addRanges(label: string, range: Array<any>): void;
+
+	/** Clears the all ranges selections in DateRangePicker popup
+	*   @returns {void}
+	*/
+	clearRanges(): void;
+
+	/** Disables the DateRangePicker control.
+	*   @returns {void}
+	*/
+	disable(): void;
+
+	/** Enable the DateRangePicker control, if it is in disabled state.
+	*   @returns {void}
+	*/
+	enable(): void;
+
+	/** Returns the startDate and endDate values in the selected ranges in the DateRangePicker control.
+	*   @returns {string}
+	*/
+	getSelectedValue(): string;
+
+	/** Close the DateRangePicker popup, if it is in opened state.
+	*   @returns {void}
+	*/
+	popupHide(): void;
+
+	/** Opens the DateRangePicker popup.
+	*   @returns {void}
+	*/
+	popupShow(): void;
+
+	/** set the preset ranges to DateRangePicker popup.
+	*   @returns {void}
+	*/
+	setRange(): void;
+}
+export module DateRangePicker{
+
+export interface Model {
+
+	/** Used to allow or restrict the editing in DateRangePicker input field directly. By setting false to this API, You can only pick the date ranges from DateRangePicker popup.
+	*   @Default {true}
+	*/
+	allowEdit?: boolean;
+
+	/** Sets the specified text value to the available buttons (Reset, Cancel, Apply) in the DateRangePicker popup.
+	*   @Default {{ reset: Reset, cancel: Cancel, apply: Apply}}
+	*/
+	buttonText?: any;
+
+	/** Sets the root CSS class for DateRangePicker theme, which is used to customize.
+	*/
+	cssClass?: string;
+
+	/** Formats the date value of the DateRangePicker in to the specified date format. If this API is not specified, dateFormat will be set based on the current culture of DateRangePicker.
+	*   @Default {MM/dd/yyyy}
+	*/
+	dateFormat?: string;
+
+	/** Allows to embed the Timepicker aling with the calendars in the page, two timepicker will be render, for selecting start and end date.
+	*   @Default {false}
+	*/
+	enableTimePicker?: boolean;
+
+	/** Enable or disable the DateRangePicker control.
+	*   @Default {true}
+	*/
+	enabled?: boolean;
+
+	/** Sustain the entire widget model of DateRangePicker even after form post or browser refresh
+	*   @Default {false}
+	*/
+	enablePersistence?: boolean;
+
+	/** Specifies the end date of the date ranges.
+	*   @Default {null}
+	*/
+	endDate?: string|Date;
+
+	/** Specifies the height of the DateRangePicker input.
+	*   @Default {28px}
+	*/
+	height?: string|number;
+
+	/** Change the DateRangePicker calendar and date format based on given culture.
+	*   @Default {en-US}
+	*/
+	locale?: string;
+
+	/** Used to add the preset ranges. Added ranges using this, will show in popup in right side for easy selection of different preset ranges.
+	*   @Default {null}
+	*/
+	ranges?: any;
+
+	/** Specifies the start date of the date ranges
+	*   @Default {null}
+	*/
+	startDate?: string|Date;
+
+	/** Shows/hides the date icon button at right side of textbox, which is used to open or close the DateRangePicker calendar popup.
+	*   @Default {true}
+	*/
+	showPopupButton?: boolean;
+
+	/** DateRangePicker input and popup is displayed with rounded corner when this property is set to true.
+	*   @Default {false}
+	*/
+	showRoundedCorner?: boolean;
+
+	/** Formats the date value of the DateRangePicker in to the specified time format. If this API is not specified, timeFormat will be set based on the current culture of DateRangePicker.
+	*   @Default {HH:mm tt}
+	*/
+	timeFormat?: string;
+
+	/** Separated two date values in string format to sets the date ranges in calendars.
+	*   @Default {null}
+	*/
+	value?: string;
+
+	/** Specifies the water mark text to be displayed in input text.
+	*   @Default {Select Range}
+	*/
+	watermarkText?: string;
+
+	/** Specifies the width of the DateRangePicker input text.
+	*   @Default {160px}
+	*/
+	width?: string|number;
+
+	/** Fires before closing the DateRangePicker popup. */
+	beforeClose? (e: BeforeCloseEventArgs): void;
+
+	/** Fires before opening the DateRangePicker popup. */
+	beforeOpen? (e: BeforeOpenEventArgs): void;
+
+	/** Fires when the DateRangePicker values get changed. */
+	onChange? (e: OnChangeEventArgs): void;
+
+	/** Fires when DateRangePicker popup is closed. */
+	close? (e: CloseEventArgs): void;
+
+	/** Fires when the DateRangePicker is created successfully. */
+	create? (e: CreateEventArgs): void;
+
+	/** Fires when the DateRangePicker is destroyed successfully. */
+	destroy? (e: DestroyEventArgs): void;
+
+	/** Fires when DateRangePicker popup is opened. */
+	open? (e: OpenEventArgs): void;
+
+	/** Fires when a date ranges is selected from the DateRangePicker popup. */
+	select? (e: SelectEventArgs): void;
+}
+
+export interface BeforeCloseEventArgs {
+
+	/** Set to true when the event has to be canceled, else false.
+	*/
+	cancel?: boolean;
+
+	/** returns the DateRangePicker model
+	*/
+	model?: ej.DateRangePicker.Model;
+
+	/** returns the name of the event.
+	*/
+	type?: string;
+
+	/** returns the event parameters from DateRangePicker.
+	*/
+	events?: any;
+
+	/** returns the DateRangePicker popup.
+	*/
+	element?: HTMLElement;
+}
+
+export interface BeforeOpenEventArgs {
+
+	/** Set to true when the event has to be canceled, else false.
+	*/
+	cancel?: boolean;
+
+	/** returns the DateRangePicker model.
+	*/
+	model?: ej.DateRangePicker.Model;
+
+	/** returns the name of the event.
+	*/
+	type?: string;
+
+	/** returns the event parameters from DateRangePicker.
+	*/
+	events?: any;
+
+	/** returns the DateRangePicker popup.
+	*/
+	element?: HTMLElement;
+}
+
+export interface OnChangeEventArgs {
+
+	/** Set to true when the event has to be canceled, else false.
+	*/
+	cancel?: boolean;
+
+	/** returns the DateRangePicker model.
+	*/
+	model?: ej.DateRangePicker.Model;
+
+	/** returns the name of the event.
+	*/
+	type?: string;
+
+	/** returns the DateRangePicker input value.
+	*/
+	value?: string;
+
+	/** returns the startDate of DateRangePicker.
+	*/
+	startDate?: any;
+
+	/** returns the endDate of the DateRangePicker popup.
+	*/
+	endDate?: any;
+}
+
+export interface CloseEventArgs {
+
+	/** Set to true when the event has to be canceled, else false.
+	*/
+	cancel?: boolean;
+
+	/** returns the current date object.
+	*/
+	date?: any;
+
+	/** returns the DateRangePicker model.
+	*/
+	model?: ej.DateRangePicker.Model;
+
+	/** returns the name of the event.
+	*/
+	type?: string;
+
+	/** returns the DateRangePicker popup.
+	*/
+	element?: HTMLElement;
+}
+
+export interface CreateEventArgs {
+
+	/** Set to true when the event has to be canceled, else false.
+	*/
+	cancel?: boolean;
+
+	/** returns the DateRangePicker model.
+	*/
+	model?: ej.DateRangePicker.Model;
+
+	/** returns the name of the event.
+	*/
+	type?: string;
+}
+
+export interface DestroyEventArgs {
+
+	/** Set to true when the event has to be canceled, else false.
+	*/
+	cancel?: boolean;
+
+	/** returns the DateRangePicker model.
+	*/
+	model?: ej.DateRangePicker.Model;
+
+	/** returns the name of the event.
+	*/
+	type?: string;
+}
+
+export interface OpenEventArgs {
+
+	/** Set to true when the event has to be canceled, else false.
+	*/
+	cancel?: boolean;
+
+	/** returns the current date object.
+	*/
+	date?: any;
+
+	/** returns the DateRangePicker model.
+	*/
+	model?: ej.DateRangePicker.Model;
+
+	/** returns the name of the event
+	*/
+	type?: string;
+
+	/** returns the DateRangePicker popup.
+	*/
+	element?: HTMLElement;
+}
+
+export interface SelectEventArgs {
+
+	/** Set to true when the event has to be canceled, else false.
+	*/
+	cancel?: boolean;
+
+	/** returns the selected date object.
+	*/
+	startDate?: any;
+
+	/** returns the DateRangePicker model.
+	*/
+	model?: ej.DateRangePicker.Model;
+
+	/** returns the name of the event.
+	*/
+	type?: string;
+
+	/** returns the current date value.
+	*/
+	endDate?: any;
+}
 }
 
 class Dialog extends ej.Widget {
@@ -6430,14 +6789,14 @@ class Dialog extends ej.Widget {
 	defaults:Dialog.Model;
 
 	/** Closes the dialog widget dynamically.
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	close(): void;
+	close(): any;
 
 	/** Collapses the content area when it is expanded.
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	collapse(): void;
+	collapse(): any;
 
 	/** Destroys the Dialog widget.
 	*   @returns {void}
@@ -6445,61 +6804,66 @@ class Dialog extends ej.Widget {
 	destroy(): void;
 
 	/** Expands the content area when it is collapsed.
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	expand(): void;
+	expand(): any;
 
 	/** Checks whether the Dialog widget is opened or not. This methods returns Boolean value.
-	*   @returns {void}
+	*   @returns {boolean}
 	*/
-	isOpen(): void;
+	isOpen(): boolean;
 
 	/** Maximizes the Dialog widget.
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	maximize(): void;
+	maximize(): any;
 
 	/** Minimizes the Dialog widget.
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	minimize(): void;
+	minimize(): any;
 
 	/** Opens the Dialog widget.
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	open(): void;
+	open(): any;
 
 	/** Pins the dialog in its current position.
+	*   @returns {any}
+	*/
+	pin(): any;
+
+	/** Refreshes the dialog content dynamically.
 	*   @returns {void}
 	*/
-	pin(): void;
+	refresh(): void;
 
 	/** Restores the dialog.
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	restore(): void;
+	restore(): any;
 
 	/** Unpins the Dialog widget.
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	unpin(): void;
+	unpin(): any;
 
 	/** Sets the title for the Dialog widget.
 	*   @param {string} The title for the dialog widget.
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	setTitle(Title: string): void;
+	setTitle(Title: string): any;
 
 	/** Sets the content for the Dialog widget dynamically.
 	*   @param {string} The content for the dialog widget. It accepts both string and HTML string.
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	setContent(content: string): void;
+	setContent(content: string): any;
 
 	/** Sets the focus on the Dialog widget.
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	focus(): void;
+	focus(): any;
 }
 export module Dialog{
 
@@ -6507,15 +6871,20 @@ export interface Model {
 
 	/** Adds action buttons like close, minimize, pin, maximize in the dialog header.
 	*/
-	actionButtons?: String[];
+	actionButtons?: string[];
+
+	/** Specifies the ajaxSettings option to load the content to the Dialog control.
+	*   @Default {null}
+	*/
+	ajaxSettings?: AjaxSettings;
 
 	/** Enables or disables draggable.
 	*/
-	allowDraggable?: Boolean;
+	allowDraggable?: boolean;
 
 	/** Enables or disables keyboard interaction.
 	*/
-	allowKeyboardNavigation?: Boolean;
+	allowKeyboardNavigation?: boolean;
 
 	/** Customizes the Dialog widget animations. The Dialog widget can be animated while opening and closing the dialog. In order to customize animation effects, you need to set â€œenableAnimationâ€ as true. It contains the following sub properties.
 	*/
@@ -6523,79 +6892,84 @@ export interface Model {
 
 	/** Closes the dialog widget on pressing the ESC key when it is set to true.
 	*/
-	closeOnEscape?: Boolean;
+	closeOnEscape?: boolean;
 
 	/** The selector for the container element. If the property is set, then dialog will append to the selected element and it is restricted to move only within the specified container element.
 	*/
-	containment?: String;
+	containment?: string;
 
 	/** The content type to load the dialog content at run time. The possible values are null, AJAX, iframe and image. When it is null (default value), the content inside dialog element will be displayed as content and when it is not null, the content will be loaded from the URL specified in the contentUrl property.
 	*/
-	contentType?: String;
+	contentType?: string;
 
 	/** The URL to load the dialog content (such as AJAX, image, and iframe). In order to load content from URL, you need to set contentType as â€˜ajaxâ€™ or â€˜iframeâ€™ or â€˜imageâ€™.
 	*/
-	contentUrl?: String;
+	contentUrl?: string;
 
 	/** The root class for the Dialog widget to customize the existing theme.
 	*/
-	cssClass?: String;
+	cssClass?: string;
 
 	/** Enable or disables animation when the dialog is opened or closed.
 	*/
-	enableAnimation?: Boolean;
+	enableAnimation?: boolean;
 
 	/** Enables or disables the Dialog widget.
 	*/
-	enabled?: Boolean;
+	enabled?: boolean;
 
 	/** Enable or disables modal dialog. The modal dialog acts like a child window that is displayed on top of the main window/screen and disables the main window interaction until it is closed.
 	*/
-	enableModal?: Boolean;
+	enableModal?: boolean;
 
 	/** Allows the current model values to be saved in local storage or browser cookies for state maintenance when it is set to true.
 	*/
-	enablePersistence?: Boolean;
+	enablePersistence?: boolean;
 
 	/** Allows the dialog to be resized. The dialog cannot be resized less than the minimum height, width values and greater than the maximum height and width.
 	*/
-	enableResize?: Boolean;
+	enableResize?: boolean;
 
 	/** Displays dialog content from right to left when set to true.
 	*/
-	enableRTL?: Boolean;
+	enableRTL?: boolean;
 
 	/** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to setÂ showHeaderÂ as true since the favicon will be displayed in the dialog header.
 	*/
-	faviconCSS?: String;
+	faviconCSS?: string;
 
 	/** Sets the height for the dialog widget. It accepts both string and integer values. For example, it can accepts values like â€œautoâ€, â€œ100%â€, â€œ100pxâ€ as string type and â€œ100â€, â€œ500â€ as integer type.
 	*/
-	height?: String|Number;
+	height?: string|number;
+
+	/** Specifies the HTML Attributes of the Dialog.
+	*   @Default {{}}
+	*/
+	htmlAttributes?: any;
 
 	/** Enable or disables responsive behavior.
 	*/
-	isResponsive?: Boolean;
+	isResponsive?: boolean;
 
-	/** Set the localization culture for Dialog Widget.
+	/** Default Value:{:.param}â€œen-USâ€
 	*/
-	locale?: Number;
+	locale?: number;
 
 	/** Sets the maximum height for the dialog widget.
 	*/
-	maxHeight?: Number;
+	maxHeight?: number;
 
 	/** Sets the maximum width for the dialog widget.
 	*/
-	maxWidth?: Number;
+	maxWidth?: number;
 
 	/** Sets the minimum height for the dialog widget.
 	*/
-	minHeight?: Number;
+	minHeight?: number;
 
 	/** Sets the minimum width for the dialog widget.
 	*/
-	minWidth?: Number;
+	minWidth?: number;
 
 	/** Displays the Dialog widget at the given X and Y position.
 	*/
@@ -6603,23 +6977,23 @@ export interface Model {
 
 	/** Shows or hides the dialog header.
 	*/
-	showHeader?: Boolean;
+	showHeader?: boolean;
 
 	/** The Dialog widget can be opened by default i.e. on initialization, when it is set to true.
 	*/
-	showOnInit?: Boolean;
+	showOnInit?: boolean;
 
 	/** Enables or disables the rounder corner.
 	*/
-	showRoundedCorner?: Boolean;
+	showRoundedCorner?: boolean;
 
 	/** The selector for the container element. If this property is set, the dialog will be displayed (positioned) based on its container.
 	*/
-	target?: String;
+	target?: string;
 
 	/** The title text to be displayed in the dialog header. In order to set title, you need to set showHeader as true since the title will be displayed in the dialog header.
 	*/
-	title?: String;
+	title?: string;
 
 	/** Add or configure the tooltip text for actionButtons in the dialog header.
 	*/
@@ -6627,19 +7001,19 @@ export interface Model {
 
 	/** Sets the height for the dialog widget. It accepts both string and integer values. For example, it can accepts values like â€œautoâ€, â€œ100%â€, â€œ100pxâ€ as string type and â€œ100â€, â€œ500â€ as integer type.
 	*/
-	width?: String|Number;
+	width?: string|number;
 
 	/** Sets the z-index value for the Dialog widget.
 	*/
-	zIndex?: Number;
+	zIndex?: number;
 
 	/** Sets the Footer for the Dialog widget.
 	*/
-	showFooter?: Boolean;
+	showFooter?: boolean;
 
 	/** Sets the FooterTemplate for the Dialog widget.
 	*/
-	footerTemplateId?: String;
+	footerTemplateId?: string;
 
 	/** This event is triggered before the dialog widgets gets open. */
 	beforeOpen? (e: BeforeOpenEventArgs): void;
@@ -6708,7 +7082,7 @@ export interface BeforeOpenEventArgs {
 
 	/** Name of the event
 	*/
-	type?: String;
+	type?: string;
 }
 
 export interface AjaxErrorEventArgs {
@@ -6800,7 +7174,7 @@ export interface CloseEventArgs {
 
 	/** Name of the event
 	*/
-	type?: String;
+	type?: string;
 }
 
 export interface ContentLoadEventArgs {
@@ -6815,11 +7189,11 @@ export interface ContentLoadEventArgs {
 
 	/** Name of the event.
 	*/
-	type?: String;
+	type?: string;
 
 	/** URL of the content.
 	*/
-	URL?: String;
+	URL?: string;
 
 	/** Content type
 	*/
@@ -6970,7 +7344,7 @@ export interface ResizeStopEventArgs {
 
 	/** Set this option to true to cancel the event.
 	*/
-	cancel?: Boolean;
+	cancel?: boolean;
 
 	/** Instance of the dialog model object.
 	*/
@@ -6978,7 +7352,7 @@ export interface ResizeStopEventArgs {
 
 	/** Name of the event
 	*/
-	type?: String;
+	type?: string;
 
 	/** Current event object.
 	*/
@@ -7037,6 +7411,33 @@ export interface ActionButtonClickEventArgs {
 	*/
 	currentTarget?: string;
 }
+
+export interface AjaxSettings {
+
+	/** It specifies, whether to enable or disable asynchronous request.
+	*/
+	async?: boolean;
+
+	/** It specifies the page will be cached in the web browser.
+	*/
+	cache?: boolean;
+
+	/** It specifies the type of data is send in the query string.
+	*/
+	contentType?: string;
+
+	/** It specifies the data as an object, will be passed in the query string.
+	*/
+	data?: any;
+
+	/** It specifies the type of data that you're expecting back from the response.
+	*/
+	dataType?: string;
+
+	/** It specifies the HTTP request type.
+	*/
+	type?: string;
+}
 }
 
 class DocumentEditor extends ej.Widget {
@@ -7048,35 +7449,36 @@ class DocumentEditor extends ej.Widget {
 	defaults:DocumentEditor.Model;
 
 	/** Loads the document from specified path using web API provided by importUrl.
-	*   @param {String} Specifies the file path.
+	*   @param {string} Specifies the file path.
 	*   @returns {void}
 	*/
-	load(Path: String): void;
+	load(path: string): void;
 
 	/** Gets the page number of current selection in the document.
-	*   @returns {void}
+	*   @returns {number}
 	*/
-	getCurrentPageNumber(): void;
+	getCurrentPageNumber(): number;
 
 	/** Gets the total number of pages in the document.
-	*   @returns {void}
+	*   @returns {number}
 	*/
-	getPageCount(): void;
+	getPageCount(): number;
 
 	/** Gets the text of current selection in the document.
-	*   @returns {void}
+	*   @returns {string}
 	*/
-	getSelectedText(): void;
+	getSelectedText(): string;
 
-	/** Gets the current zoom factor value of the document container.
-	*   @returns {void}
+	/** Gets the current zoom factor value of the document editor.
+	*   @returns {number}
 	*/
-	getZoomFactor(): void;
+	getZoomFactor(): number;
 
-	/** Scales the document container with the specified zoom factor. The range of zoom factor should be 0.10 to 5.00.
+	/** Scales the document editor with the specified zoom factor. The range of zoom factor should be 0.10 to 5.00 (10 - 500 %).
+	*   @param {number} Specifies the factor for zooming.
 	*   @returns {void}
 	*/
-	setZoomFactor(): void;
+	setZoomFactor(factor: number): void;
 
 	/** Prints the document content as page by page.
 	*   @returns {void}
@@ -7084,10 +7486,10 @@ class DocumentEditor extends ej.Widget {
 	print(): void;
 
 	/** Finds the first occurrence of specified text from current selection and  highlights the result. If the document end is reached, find operation will occur from the document start position.
-	*   @param {String} Specifies the text to search in a document.
+	*   @param {string} Specifies the text to search in a document.
 	*   @returns {void}
 	*/
-	find(Text: String): void;
+	find(text: string): void;
 }
 export module DocumentEditor{
 
@@ -7235,9 +7637,9 @@ class DropDownList extends ej.Widget {
 
 	/** This method retrieves the items using given value.
 	*   @param {string|number|any}  Return the whole object of data based on given value
-	*   @returns {any}
+	*   @returns {Array<any>}
 	*/
-	getItemDataByValue(value: string|number|any): any;
+	getItemDataByValue(value: string|number|any): Array<any>;
 
 	/** This method is used to retrieve the items that are bound with the DropDownList.
 	*   @returns {any}
@@ -7245,9 +7647,9 @@ class DropDownList extends ej.Widget {
 	getListData(): any;
 
 	/** This method is used to get the selected items in the DropDownList.
-	*   @returns {HTMLElement}
+	*   @returns {Array<any>}
 	*/
-	getSelectedItem(): HTMLElement;
+	getSelectedItem(): Array<any>;
 
 	/** This method is used to retrieve the items value that are selected in the DropDownList.
 	*   @returns {string}
@@ -7516,7 +7918,7 @@ export interface Model {
 	/** Specifies the value (text content) for the DropDownList control.
 	*   @Default {null}
 	*/
-	value?: string;
+	value?: string|number;
 
 	/** Specifies a short hint that describes the expected value of the DropDownList control.
 	*   @Default {null}
@@ -7626,11 +8028,11 @@ export interface ActionCompleteEventArgs {
 	*/
 	model?: any;
 
-	/** Returns the query for data retrieval
+	/** Returns the query for data retrieval 
 	*/
 	query?: any;
 
-	/** Returns the query for data retrieval from the Database
+	/** Returns the query for data retrieval from the Database 
 	*/
 	request?: any;
 
@@ -7661,7 +8063,7 @@ export interface ActionFailureEventArgs {
 	*/
 	model?: any;
 
-	/** Returns the query for data retrieval
+	/** Returns the query for data retrieval 
 	*/
 	query?: any;
 
@@ -7684,11 +8086,11 @@ export interface ActionSuccessEventArgs {
 	*/
 	model?: any;
 
-	/** Returns the query for data retrieval
+	/** Returns the query for data retrieval 
 	*/
 	query?: any;
 
-	/** Returns the query for data retrieval from the Database
+	/** Returns the query for data retrieval from the Database 
 	*/
 	request?: any;
 
@@ -8137,14 +8539,14 @@ export interface Fields {
 }
 enum FilterType
 {
-//filter the data wherever contains search key
+//filter the data wherever contains search key 
 Contains,
 //filter the data based on search key present at start position
 StartsWith,
 }
 enum MultiSelectMode
 {
-// can select only single item in DropDownList
+// can select only single item in DropDownList 
 None,
 //can select multiple items and it's separated by delimiterChar
 Delimiter,
@@ -9052,6 +9454,16 @@ export module ListView{
 
 export interface Model {
 
+	/** Specifies the ajaxSettings option to load the items to the ListView control.
+	*   @Default {null}
+	*/
+	ajaxSettings?: AjaxSettings;
+
+	/** Set the index values to be selected on intial loading. This works only when enableCheckMark is set true.
+	*   @Default {[]}
+	*/
+	checkedIndices?: Array<any>;
+
 	/** Sets the root class for ListView theme. This cssClass API helps to use custom skinning option for ListView control. By defining the root class using this API, we need to include this root class in CSS.
 	*/
 	cssClass?: string;
@@ -9095,6 +9507,11 @@ export interface Model {
 	*/
 	fieldSettings?: any;
 
+	/** Contains the array of items to be added in ListView.
+	*   @Default {[]}
+	*/
+	items?: Array<any>;
+
 	/** Specifies the text of the back button in the header.
 	*   @Default {null}
 	*/
@@ -9108,7 +9525,11 @@ export interface Model {
 	/** Specifies the height.
 	*   @Default {null}
 	*/
-	height?: String|Number;
+	height?: string|number;
+
+	/** Set the localization culture for ListView Widget.
+	*/
+	locale?: string;
 
 	/** Specifies whether to retain the selection of the item.
 	*   @Default {false}
@@ -9140,6 +9561,11 @@ export interface Model {
 	*/
 	showHeader?: boolean;
 
+	/** Specifies whether to show the back button header.
+	*   @Default {false}
+	*/
+	showHeaderBackButton?: boolean;
+
 	/** Specifies ID of the element contains template contents.
 	*   @Default {null}
 	*/
@@ -9148,7 +9574,7 @@ export interface Model {
 	/** Specifies the width.
 	*   @Default {null}
 	*/
-	width?: String|Number;
+	width?: string|number;
 
 	/** Event triggers before the AJAX request happens. */
 	ajaxBeforeLoad? (e: AjaxBeforeLoadEventArgs): void;
@@ -9187,7 +9613,7 @@ export interface AjaxBeforeLoadEventArgs {
 
 	/** returns the model value of the control.
 	*/
-	model?: any;
+	model?: ej.ListView.Model;
 
 	/** returns the AJAX settings.
 	*/
@@ -9206,7 +9632,7 @@ export interface AjaxCompleteEventArgs {
 
 	/** returns the model value of the control.
 	*/
-	model?: any;
+	model?: ej.ListView.Model;
 }
 
 export interface AjaxErrorEventArgs {
@@ -9221,7 +9647,7 @@ export interface AjaxErrorEventArgs {
 
 	/** returns the model value of the control.
 	*/
-	model?: any;
+	model?: ej.ListView.Model;
 
 	/** returns the error thrown in the AJAX post.
 	*/
@@ -9256,7 +9682,7 @@ export interface AjaxSuccessEventArgs {
 
 	/** returns the model value of the control.
 	*/
-	model?: any;
+	model?: ej.ListView.Model;
 
 	/** returns the AJAX current content.
 	*/
@@ -9291,7 +9717,7 @@ export interface LoadEventArgs {
 
 	/** returns the model value of the control.
 	*/
-	model?: any;
+	model?: ej.ListView.Model;
 }
 
 export interface LoadCompleteEventArgs {
@@ -9306,7 +9732,7 @@ export interface LoadCompleteEventArgs {
 
 	/** returns the model value of the control.
 	*/
-	model?: any;
+	model?: ej.ListView.Model;
 }
 
 export interface MouseDownEventArgs {
@@ -9321,7 +9747,7 @@ export interface MouseDownEventArgs {
 
 	/** returns the model value of the control.
 	*/
-	model?: any;
+	model?: ej.ListView.Model;
 
 	/** If the child element exist return true; otherwise, false.
 	*/
@@ -9364,7 +9790,7 @@ export interface MouseUpEventArgs {
 
 	/** returns the model value of the control.
 	*/
-	model?: any;
+	model?: ej.ListView.Model;
 
 	/** If the child element exist return true; otherwise, false.
 	*/
@@ -9393,6 +9819,33 @@ export interface MouseUpEventArgs {
 	/** returns the current checked item text.
 	*/
 	checkedItemsText?: string;
+}
+
+export interface AjaxSettings {
+
+	/** It specifies, whether to enable or disable asynchronous request.
+	*/
+	async?: boolean;
+
+	/** It specifies the page will be cached in the web browser.
+	*/
+	cache?: boolean;
+
+	/** It specifies the type of data is send in the query string.
+	*/
+	contentType?: string;
+
+	/** It specifies the data as an object, will be passed in the query string.
+	*/
+	data?: any;
+
+	/** It specifies the type of data that you're expecting back from the response.
+	*/
+	dataType?: string;
+
+	/** It specifies the HTTP request type.
+	*/
+	type?: string;
 }
 }
 
@@ -10296,61 +10749,61 @@ export interface Model {
 
 	/** Gets or sets a value that indicates whether to display the custom text message in Pager.
 	*/
-	customText?: String;
+	customText?: string;
 
 	/** Gets or sets a value that indicates whether to define which page to display currently in pager.
 	*   @Default {1}
 	*/
-	currentPage?: Number;
+	currentPage?: number;
 
 	/** Gets or sets a value that indicates whether to display the external Message in Pager.
 	*   @Default {false}
 	*/
-	enableExternalMessage?: Boolean;
+	enableExternalMessage?: boolean;
 
 	/** Gets or sets a value that indicates whether to pass the current page information as a query string along with the URL while navigating to other page.
 	*   @Default {false}
 	*/
-	enableQueryString?: Boolean;
+	enableQueryString?: boolean;
 
 	/** Align content in the pager control from right to left by setting the property as true.
 	*   @Default {false}
 	*/
-	enableRTL?: Boolean;
+	enableRTL?: boolean;
 
 	/** Gets or sets a value that indicates whether to display the external Message in Pager.
 	*/
-	externalMessage?: String;
+	externalMessage?: string;
 
 	/** Gets or sets a value that indicates whether to customizing the user interface (UI) as locale-specific in order to display regional data i.e. in a language and culture specific to a particular country or region.
 	*   @Default {en-US}
 	*/
-	locale?: String;
+	locale?: string;
 
 	/** Gets or sets a value that indicates whether to define the number of pages displayed in the pager for navigation.
 	*   @Default {10}
 	*/
-	pageCount?: Number;
+	pageCount?: number;
 
 	/** Gets or sets a value that indicates whether to define the number of records displayed per page.
 	*   @Default {12}
 	*/
-	pageSize?: Number;
+	pageSize?: number;
 
 	/** Get or sets a value of total number of pages in the pager. The totalPages value is calculated based on page size and total records.
 	*   @Default {null}
 	*/
-	totalPages?: Number;
+	totalPages?: number;
 
 	/** Get the value of total number of records which is bound to a data item.
 	*   @Default {null}
 	*/
-	totalRecordsCount?: Number;
+	totalRecordsCount?: number;
 
 	/** Shows or hides the current page information in pager footer.
 	*   @Default {true}
 	*/
-	showPageInfo?: Boolean;
+	showPageInfo?: boolean;
 
 	/** Triggered when pager numeric item is clicked in pager control. */
 	click? (e: ClickEventArgs): void;
@@ -11236,7 +11689,7 @@ export interface Model {
 	isResponsive?: boolean;
 
 	/** Specifies the height, width, enableRTL, showRoundedCorner,enabled,cssClass property to the controls in the ribbon commonly andit will work only when those properties are not defined in buttonSettings and content defaults.
-	*   @Default {object}
+	*   @Default {Object}
 	*/
 	buttonDefaults?: any;
 
@@ -11263,7 +11716,7 @@ export interface Model {
 	/** Align content in the ribbon control from right to left by setting the property as true.
 	*   @Default {false}
 	*/
-	enableRTL?: any;
+	enableRTL?: boolean;
 
 	/** Sets custom setting to the expandable pin in the ribbon.
 	*   @Default {Object}
@@ -11276,7 +11729,7 @@ export interface Model {
 	applicationTab?: ApplicationTab;
 
 	/** Specifies the contextual tabs and tab set to the ribbon control with the background color and border color. Refer to the tabs section for adding tabs into the contextual tab and contextual tab set.
-	*   @Default {array}
+	*   @Default {Array}
 	*/
 	contextualTabs?: Array<ContextualTab>;
 
@@ -11296,7 +11749,7 @@ export interface Model {
 	selectedItemIndex?: number;
 
 	/** Specifies the tabs and its groups. Also specifies the control details that has to be placed in the tab area in the ribbon control.
-	*   @Default {array}
+	*   @Default {Array}
 	*/
 	tabs?: Array<Tab>;
 
@@ -11781,7 +12234,7 @@ export interface ApplicationTabBackstageSettings {
 	width?: string|number;
 
 	/** Specifies the ribbon backstage page with its tab and button elements.
-	*   @Default {array}
+	*   @Default {Array}
 	*/
 	pages?: Array<ApplicationTabBackstageSettingsPage>;
 
@@ -11794,7 +12247,7 @@ export interface ApplicationTabBackstageSettings {
 export interface ApplicationTab {
 
 	/** Specifies the ribbon backstage page items.
-	*   @Default {object}
+	*   @Default {Object}
 	*/
 	backstageSettings?: ApplicationTabBackstageSettings;
 
@@ -11804,7 +12257,7 @@ export interface ApplicationTab {
 	menuItemID?: string;
 
 	/** Specifies the menu members, events by using the menu settings for the menu in the application tab.
-	*   @Default {object}
+	*   @Default {Object}
 	*/
 	menuSettings?: any;
 
@@ -11827,7 +12280,7 @@ export interface ContextualTab {
 	borderColor?: string;
 
 	/** Specifies the tabs to present in the contextual tabs and tab set. Refer to the tabs section for adding tabs into the contextual tabs and tab set.
-	*   @Default {array}
+	*   @Default {Array}
 	*/
 	tabs?: Array<any>;
 }
@@ -11858,7 +12311,7 @@ export interface TabsGroupsContentDefaults {
 export interface TabsGroupsContentGroupsCustomGalleryItem {
 
 	/** Specifies the Syncfusion button members, events by using buttonSettings.
-	*   @Default {object}
+	*   @Default {Object}
 	*/
 	buttonSettings?: any;
 
@@ -11868,7 +12321,7 @@ export interface TabsGroupsContentGroupsCustomGalleryItem {
 	customItemType?: ej.Ribbon.CustomItemType|string;
 
 	/** Specifies the custom tooltip for gallery extra item's button. Refer to ejRibbon#tabs-&gt;groups-&gt;content-&gt;groups-&gt;customToolTip for its inner properties.
-	*   @Default {object}
+	*   @Default {Object}
 	*/
 	customToolTip?: any;
 
@@ -11878,7 +12331,7 @@ export interface TabsGroupsContentGroupsCustomGalleryItem {
 	menuId?: string;
 
 	/** Specifies the Syncfusion menu members, events by using menuSettings.
-	*   @Default {object}
+	*   @Default {Object}
 	*/
 	menuSettings?: any;
 
@@ -11914,12 +12367,12 @@ export interface TabsGroupsContentGroupsCustomToolTip {
 export interface TabsGroupsContentGroupsGalleryItem {
 
 	/** Specifies the Syncfusion button members, events by using buttonSettings.
-	*   @Default {object}
+	*   @Default {Object}
 	*/
 	buttonSettings?: any;
 
 	/** Specifies the custom tooltip for gallery content. Refer to ejRibbon#tabs-&gt;groups-&gt;content-&gt;groups-&gt;customToolTip for its inner properties.
-	*   @Default {object}
+	*   @Default {Object}
 	*/
 	customToolTip?: any;
 
@@ -11942,7 +12395,7 @@ export interface TabsGroupsContentGroup {
 	isMobileOnly?: boolean;
 
 	/** Specifies the Syncfusion button members, events by using this buttonSettings.
-	*   @Default {object}
+	*   @Default {Object}
 	*/
 	buttonSettings?: any;
 
@@ -11962,7 +12415,7 @@ export interface TabsGroupsContentGroup {
 	cssClass?: string;
 
 	/** Specifies the Syncfusion button and menu as gallery extra items.
-	*   @Default {array}
+	*   @Default {Array}
 	*/
 	customGalleryItems?: Array<TabsGroupsContentGroupsCustomGalleryItem>;
 
@@ -11972,7 +12425,7 @@ export interface TabsGroupsContentGroup {
 	customToolTip?: TabsGroupsContentGroupsCustomToolTip;
 
 	/** Specifies the Syncfusion dropdown list members, events by using this dropdownSettings.
-	*   @Default {object}
+	*   @Default {Object}
 	*/
 	dropdownSettings?: any;
 
@@ -11987,7 +12440,7 @@ export interface TabsGroupsContentGroup {
 	expandedColumns?: number;
 
 	/** Defines each gallery content.
-	*   @Default {array}
+	*   @Default {Array}
 	*/
 	galleryItems?: Array<TabsGroupsContentGroupsGalleryItem>;
 
@@ -12012,7 +12465,7 @@ export interface TabsGroupsContentGroup {
 	itemWidth?: string|number;
 
 	/** Specifies the Syncfusion split button members, events by using this splitButtonSettings.
-	*   @Default {object}
+	*   @Default {Object}
 	*/
 	splitButtonSettings?: any;
 
@@ -12022,7 +12475,7 @@ export interface TabsGroupsContentGroup {
 	text?: string;
 
 	/** Specifies the Syncfusion toggle button members, events by using toggleButtonSettings.
-	*   @Default {object}
+	*   @Default {Object}
 	*/
 	toggleButtonSettings?: any;
 
@@ -12045,12 +12498,12 @@ export interface TabsGroupsContentGroup {
 export interface TabsGroupsContent {
 
 	/** Specifies the height, width, type, isBig property to the controls in the group commonly.
-	*   @Default {object}
+	*   @Default {Object}
 	*/
 	defaults?: TabsGroupsContentDefaults;
 
 	/** Specifies the controls such as Syncfusion button, split button, dropdown list, toggle button, gallery, custom controls in the subgroup of the ribbon tab .
-	*   @Default {array}
+	*   @Default {Array}
 	*/
 	groups?: Array<TabsGroupsContentGroup>;
 }
@@ -12076,7 +12529,7 @@ export interface TabsGroup {
 	alignType?: ej.Ribbon.AlignType|string;
 
 	/** Specifies the Syncfusion button, split button, dropdown list, toggle button, gallery, custom controls to the groups in the ribbon control.
-	*   @Default {array}
+	*   @Default {Array}
 	*/
 	content?: Array<TabsGroupsContent>;
 
@@ -12114,7 +12567,7 @@ export interface TabsGroup {
 export interface Tab {
 
 	/** Specifies single group or multiple groups and its contents to each tab in the ribbon control.
-	*   @Default {array}
+	*   @Default {Array}
 	*/
 	groups?: Array<TabsGroup>;
 
@@ -12171,7 +12624,7 @@ enum CustomItemType{
 
 enum QuickAccessMode{
 
-	///Controls are hidden in Quick Access toolbar
+	///Controls are hidden in Quick Access toolbar 
 	None,
 
 	///Add controls in toolBar
@@ -12239,20 +12692,20 @@ class Kanban extends ej.Widget {
 	toggleColumn(headerText: any): void;
 
 	/** Expand or collapse the card based on the state of target &quot;div&quot;
-	*   @param {string|number} Pass the id of card to be toggle
+	*   @param {string|number} Pass the id of card to be toggle 
 	*   @returns {void}
 	*/
 	toggleCard(key: string|number): void;
 
 	/** Used for get the names of all the visible column name collections in Kanban.
-	*   @returns {void}
+	*   @returns {Array<any>}
 	*/
-	getVisibleColumnNames(): void;
+	getVisibleColumnNames(): Array<any>;
 
 	/** Get the scroller object of Kanban.
-	*   @returns {void}
+	*   @returns {ej.Scroller}
 	*/
-	getScrollObject(): void;
+	getScrollObject(): ej.Scroller;
 
 	/** Get the column details based on the given header text in Kanban.
 	*   @param {string} Pass the header text of the column to get the corresponding column object
@@ -12363,30 +12816,30 @@ export interface KanbanFilter {
 
 export interface KanbanEdit {
 
-	/** Add a new card in Kanban control.If parameters are not given default dialog will be open.
+	/** Add a new card in Kanban control when allowAdding is set as true. If parameters are not given default dialog will be open.
 	*   @param {string} Pass the primary key field Name of the column
 	*   @param {Array<any>} Pass the edited JSON data of card need to be add.
 	*   @returns {void}
 	*/
 	addCard(primaryKey: string,card: Array<any>): void;
 
-	/** Send a cancel request of add/edit card in Kanban.
+	/** Send a cancel request of add/edit card in Kanban when allowEditing/allowAdding is set as true.
 	*   @returns {void}
 	*/
 	cancelEdit(): void;
 
-	/** Delete a card in Kanban control.
+	/** Delete a card in Kanban control when allowAdding/allowEditing is set as true.
 	*   @param {string|number} Pass the key of card to be delete
 	*   @returns {void}
 	*/
 	deleteCard(Key: string|number): void;
 
-	/** Send a save request in Kanban when any card is in edit/new add card state.
+	/** Send a save request in Kanban when any card is in edit/new add card state and allowEditing/allowAdding is set as true.
 	*   @returns {void}
 	*/
 	endEdit(): void;
 
-	/** Send an edit card request in Kanban.Parameter will be HTML element or primary key
+	/** Send an edit card request in Kanban when allowEditing is set as true. Parameter will be HTML element or primary key
 	*   @param {any} Pass the div selected row element to be edited in Kanban
 	*   @returns {void}
 	*/
@@ -12463,7 +12916,7 @@ export interface Model {
 	contextMenuSettings?: ContextMenuSettings;
 
 	/** Gets or sets an object that indicates to render the Kanban with specified columns.
-	*   @Default {array}
+	*   @Default {Array}
 	*/
 	columns?: Array<Column>;
 
@@ -12489,7 +12942,7 @@ export interface Model {
 	/** To perform kanban functionalities with touch interaction.
 	*   @Default {true}
 	*/
-	enableTouch?: Boolean;
+	enableTouch?: boolean;
 
 	/** Align content in the Kanban control align from right to left by setting the property as true.
 	*   @Default {false}
@@ -12527,7 +12980,7 @@ export interface Model {
 	minWidth?: number;
 
 	/** To customize the filtering behavior based on queries given.
-	*   @Default {array}
+	*   @Default {Array}
 	*/
 	filterSettings?: Array<FilterSetting>;
 
@@ -12566,14 +13019,14 @@ export interface Model {
 	tooltipSettings?: TooltipSettings;
 
 	/** Gets or sets an object that indicates to render the Kanban with specified workflows.
-	*   @Default {array}
+	*   @Default {Array}
 	*/
 	workflows?: Array<Workflow>;
 
 	/** Gets or sets a value that indicates whether to customizing the user interface (UI) as locale-specific in order to display regional data i.e. in a language and culture specific to a particular country or region.
 	*   @Default {en-US}
 	*/
-	locale?: String;
+	locale?: string;
 
 	/** Triggered for every Kanban action before its starts. */
 	actionBegin? (e: ActionBeginEventArgs): void;
@@ -13392,7 +13845,7 @@ export interface SwimlaneSettingsUnassignedGroup {
 	/** To set the user defined values which are need to categorized as unassigned category swim lane groups.
 	*   @Default {[null,undefined,]}
 	*/
-	keys?: boolean;
+	keys?: Array<any>;
 }
 
 export interface SwimlaneSettings {
@@ -13428,7 +13881,7 @@ export interface ContextMenuSettingsCustomMenuItem {
 	/** Gets the template to render custom context menu item.
 	*   @Default {null}
 	*/
-	template?: String;
+	template?: string;
 }
 
 export interface ContextMenuSettings {
@@ -13439,17 +13892,17 @@ export interface ContextMenuSettings {
 	enable?: boolean;
 
 	/** Gets or sets a value that indicates the list of items needs to be disable from default context menu items.
-	*   @Default {array}
+	*   @Default {Array}
 	*/
 	disableDefaultItems?: Array<any>;
 
 	/** Its used to add specific default context menu items.
-	*   @Default {array}
+	*   @Default {Array}
 	*/
 	menuItems?: Array<any>;
 
 	/** Gets or sets a value that indicates whether to add custom contextMenu items.
-	*   @Default {array}
+	*   @Default {Array}
 	*/
 	customMenuItems?: Array<ContextMenuSettingsCustomMenuItem>;
 }
@@ -13505,7 +13958,7 @@ export interface Column {
 	isCollapsed?: boolean;
 
 	/** To customize the column level constraints with minimum ,maximum limit validation.
-	*   @Default {object}
+	*   @Default {Object}
 	*/
 	constraints?: ColumnsConstraints;
 
@@ -13594,7 +14047,7 @@ export interface EditSettings {
 	/** This specifies the id of the template which is require to be edited using the Dialog Box.
 	*   @Default {null}
 	*/
-	dialogTemplate?: String;
+	dialogTemplate?: string;
 
 	/** Get or sets an object that indicates whether to customize the editMode of the Kanban.
 	*   @Default {ej.Kanban.EditMode.Dialog}
@@ -13609,7 +14062,7 @@ export interface EditSettings {
 	/** This specifies the id of the template which is require to be edited using the External edit form.
 	*   @Default {null}
 	*/
-	externalFormTemplate?: String;
+	externalFormTemplate?: string;
 
 	/** This specifies to set the position of an External edit form either in the right or bottom of the Kanban.
 	*   @Default {ej.Kanban.FormPosition.Bottom}
@@ -13802,7 +14255,7 @@ enum EditingType{
 	///Allows to set edit type as string edit type
 	String,
 
-	///Allows to set edit type as numeric edit type
+	///Allows to set edit type as numeric edit type 
 	Numeric,
 
 	///Allows to set edit type as drop down edit type
@@ -14275,9 +14728,9 @@ class RTE extends ej.Widget {
 	defaults:RTE.Model;
 
 	/** Returns the range object.
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	createRange(): void;
+	createRange(): any;
 
 	/** Disables the RTE control.
 	*   @returns {void}
@@ -14310,29 +14763,29 @@ class RTE extends ej.Widget {
 	focus(): void;
 
 	/** Gets the command status of the selected text based on the given comment in the RTE control.
-	*   @returns {void}
+	*   @returns {boolean}
 	*/
-	getCommandStatus(): void;
+	getCommandStatus(): boolean;
+
+	/** Gets the Document from the RTE control.
+	*   @returns {Document}
+	*/
+	getDocument(): Document;
 
 	/** Gets the HTML string from the RTE control.
-	*   @returns {void}
+	*   @returns {HTMLElement}
 	*/
-	getDocument(): void;
-
-	/** Gets the HTML string from the RTE control.
-	*   @returns {void}
-	*/
-	getHtml(): void;
+	getHtml(): HTMLElement;
 
 	/** Gets the selected HTML string from the RTE control.
-	*   @returns {void}
+	*   @returns {HTMLElement}
 	*/
-	getSelectedHtml(): void;
+	getSelectedHtml(): HTMLElement;
 
 	/** Gets the content as string from the RTE control.
-	*   @returns {void}
+	*   @returns {string}
 	*/
-	getText(): void;
+	getText(): string;
 
 	/** Hides the RTE control.
 	*   @returns {void}
@@ -14347,16 +14800,16 @@ class RTE extends ej.Widget {
 	/** Add a table column at the right or left of the specified cell
 	*   @param {boolean} If itâ€™s true, add a column at the left of the cell, otherwise add a column at the right of the cell
 	*   @param {JQuery} Column will be added based on the given cell element
-	*   @returns {void}
+	*   @returns {HTMLElement}
 	*/
-	insertColumn(before?: boolean, cell?: JQuery): void;
+	insertColumn(before?: boolean, cell?: JQuery): HTMLElement;
 
 	/** To add a table row below or above the specified cell.
 	*   @param {boolean} If itâ€™s true, add a row before the cell, otherwise add a row after the cell
 	*   @param {JQuery} Row will be added based on the given cell element
-	*   @returns {void}
+	*   @returns {HTMLElement}
 	*/
-	insertRow(before?: boolean, cell?: JQuery): void;
+	insertRow(before?: boolean, cell?: JQuery): HTMLElement;
 
 	/** This method helps to insert/paste the content at the current cursor (caret) position or the selected content to be replaced with our text by passing the value as parameter to the pasteContent method in the Editor.
 	*   @returns {void}
@@ -15237,7 +15690,7 @@ export interface ChangeEventArgs {
 	*/
 	value?: number;
 
-	/** returns true if event triggered by interaction else returns false.
+	/** returns true if event triggered by interaction else returns false. 
 	*/
 	isInteraction?: boolean;
 }
@@ -15377,7 +15830,7 @@ class SplitButton extends ej.Widget {
 	model:SplitButton.Model;
 	defaults:SplitButton.Model;
 
-	/** destroy the split button widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
+	/** Destroy the split button widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
 	*   @returns {void}
 	*/
 	destroy(): void;
@@ -15610,20 +16063,13 @@ export interface ItemMouseOutEventArgs {
 	*/
 	element?: any;
 
-	/** returns the event
-	*/
-	event?: any;
-}
-
-export interface ItemMouseOutEvent {
-
 	/** return the menu item id
 	*/
-	ID?: String;
+	ID?: string;
 
 	/** return the clicked menu item text
 	*/
-	Text?: String;
+	Text?: string;
 }
 
 export interface ItemMouseOverEventArgs {
@@ -15644,20 +16090,13 @@ export interface ItemMouseOverEventArgs {
 	*/
 	element?: any;
 
-	/** returns the event
-	*/
-	event?: any;
-}
-
-export interface ItemMouseOverEvent {
-
 	/** return the menu item id
 	*/
-	ID?: String;
+	ID?: string;
 
 	/** return the clicked menu item text
 	*/
-	Text?: String;
+	Text?: string;
 }
 
 export interface ItemSelectedEventArgs {
@@ -15684,11 +16123,11 @@ export interface ItemSelectedEventArgs {
 
 	/** return the menu id
 	*/
-	menuId?: String;
+	menuId?: string;
 
 	/** return the clicked menu item text
 	*/
-	menuText?: String;
+	menuText?: string;
 }
 
 export interface OpenEventArgs {
@@ -16488,7 +16927,7 @@ enum Position{
 	///Tab headers display to top position
 	Top,
 
-	///Tab headers display to bottom position
+	///Tab headers display to bottom position 
 	Bottom,
 
 	///Tab headers display to left position.
@@ -18353,7 +18792,7 @@ export interface BeforeCollapseEventArgs {
 	*/
 	parentId?: string;
 
-	/** returns the format asynchronous or synchronous
+	/** returns the format asynchronous or synchronous 
 	*/
 	async?: boolean;
 }
@@ -18481,7 +18920,7 @@ export interface BeforeExpandEventArgs {
 	*/
 	parentId?: string;
 
-	/** returns the format asynchronous or synchronous
+	/** returns the format asynchronous or synchronous 
 	*/
 	async?: boolean;
 }
@@ -18852,7 +19291,7 @@ export interface NodeCollapseEventArgs {
 	*/
 	isChildLoaded?: boolean;
 
-	/** returns the format asynchronous or synchronous
+	/** returns the format asynchronous or synchronous 
 	*/
 	async?: boolean;
 }
@@ -19156,7 +19595,7 @@ export interface NodeExpandEventArgs {
 	*/
 	parentId?: string;
 
-	/** returns the format asynchronous or synchronous
+	/** returns the format asynchronous or synchronous 
 	*/
 	async?: boolean;
 }
@@ -20029,7 +20468,7 @@ class Grid extends ej.Widget {
 	defaults:Grid.Model;
 
 	/** Adds a grid model property which is to be ignored upon exporting.
-	*   @param {Array<any>} Pass the array of parameters which need to be ignored on exporting
+	*   @param {Array<any>} Pass the array of parameters which need to be ignored on exporting 
 	*   @returns {void}
 	*/
 	addIgnoreOnExport(propertyNames: Array<any>): void;
@@ -20161,9 +20600,9 @@ class Grid extends ej.Widget {
 
 	/** Expand or collapse the row based on the row state in grid
 	*   @param {JQuery} Pass the target object to expand/collapse the row based on its row state
-	*   @returns {HTMLElement}
+	*   @returns {void}
 	*/
-	expandCollapse($target: JQuery): HTMLElement;
+	expandCollapse($target: JQuery): void;
 
 	/** Expand the group drop area in grid.
 	*   @returns {void}
@@ -20239,9 +20678,9 @@ class Grid extends ej.Widget {
 
 	/** Get the column index of the given field in grid.
 	*   @param {string} Pass the field name of the column to get the corresponding column index
-	*   @returns {Number}
+	*   @returns {number}
 	*/
-	getColumnIndexByField(fieldName: string): Number;
+	getColumnIndexByField(fieldName: string): number;
 
 	/** Get the content div element of grid.
 	*   @returns {HTMLElement}
@@ -20259,9 +20698,9 @@ class Grid extends ej.Widget {
 	getCurrentEditCellData(): any;
 
 	/** Get the current page index in grid pager.
-	*   @returns {Number}
+	*   @returns {number}
 	*/
-	getCurrentIndex(): Number;
+	getCurrentIndex(): number;
 
 	/** Get the current page data source of grid.
 	*   @returns {Array<any>}
@@ -20317,9 +20756,9 @@ class Grid extends ej.Widget {
 
 	/** Get the row index based on the given tr element in grid.
 	*   @param {JQuery} Pass the tr element in grid content to get its row index
-	*   @returns {Number}
+	*   @returns {number}
 	*/
-	getIndexByRow($tr: JQuery): Number;
+	getIndexByRow($tr: JQuery): number;
 
 	/** Get the pager of grid.
 	*   @returns {HTMLElement}
@@ -20339,9 +20778,9 @@ class Grid extends ej.Widget {
 	getRowByIndex(from: number, to: number): HTMLElement;
 
 	/** Get the row height of grid.
-	*   @returns {Number}
+	*   @returns {number}
 	*/
-	getRowHeight(): Number;
+	getRowHeight(): number;
 
 	/** Get the rows(tr element)of grid which is displayed in the current page.
 	*   @returns {HTMLElement}
@@ -20450,12 +20889,12 @@ class Grid extends ej.Widget {
 	rowHeightRefresh(): void;
 
 	/** Save the particular edited cell in grid.
-	*   @returns {Boolean}
+	*   @returns {void}
 	*/
-	saveCell(): Boolean;
+	saveCell(): void;
 
 	/** We can prevent the client side cellSave event triggering by passing the preventSaveEvent argument as true.
-	*   @param {boolean} optionalIf we pass preventSaveEvent as true, it prevents the client side cellSave event triggering
+	*   @param {boolean} optionalIf we pass preventSaveEvent as true, it prevents the client side cellSave event triggering 
 	*   @returns {void}
 	*/
 	saveCell(preventSaveEvent: boolean): void;
@@ -20559,9 +20998,9 @@ class Grid extends ej.Widget {
 
 	/** Send an edit record request in grid
 	*   @param {JQuery} Pass the tr- selected row element to be edited in grid
-	*   @returns {HTMLElement}
+	*   @returns {void}
 	*/
-	startEdit($tr: JQuery): HTMLElement;
+	startEdit($tr: JQuery): void;
 
 	/** Un-group a column from grouped columns collection in grid
 	*   @param {string} Pass the field Name of the column to be ungrouped from grouped column collection
@@ -20702,7 +21141,7 @@ export interface Model {
 	*/
 	dataSource?: any;
 
-	/** This specifies the grid to add the details row for the corresponding master row
+	/** Default Value:
 	*   @Default {null}
 	*/
 	detailsTemplate?: String;
@@ -20833,7 +21272,7 @@ export interface Model {
 	*/
 	scrollSettings?: ScrollSettings;
 
-	/** Gets or sets a value that indicates whether to enable column chooser on grid. On enabling feature able to show/hide grid columns
+	/** Default Value:
 	*   @Default {false}
 	*/
 	showColumnChooser?: Boolean;
@@ -22765,6 +23204,11 @@ export interface Column {
 	*/
 	field?: String;
 
+	/** Gets or sets a template that customize the filter control from default . See filterBarTemplate
+	*   @Default {null}
+	*/
+	filterBarTemplate?: any;
+
 	/** Gets or sets a value that indicates to define foreign key field name of the grid datasource.
 	*   @Default {null}
 	*/
@@ -23367,7 +23811,7 @@ export interface ToolbarSettings {
 	/** Gets or sets a value that indicates whether to add the default editing actions as a toolbar items
 	*   @Default {[]}
 	*/
-	toolbarItems?: Array<any>;
+	toolbarItems?: Array<ej.Grid.ToolBarItems|string>;
 }
 
 enum GridLines{
@@ -23601,6 +24045,37 @@ enum WrapMode{
 	Header
 }
 
+
+enum ToolBarItems{
+
+	///Toolbar item is add.
+	Add,
+
+	///Toolbar item is edit.
+	Edit,
+
+	///Toolbar item is delete.
+	Delete,
+
+	///Toolbar item is update.
+	Update,
+
+	///Toolbar item is cancel.
+	Cancel,
+
+	///Toolbar item is search.
+	Search,
+
+	///Toolbar item is pdfExport.
+	PdfExport,
+
+	///Toolbar item is printGrid.
+	PrintGrid,
+
+	///Toolbar item is wordExport.
+	WordExport
+}
+
 }
 
 class Sparkline extends ej.Widget {
@@ -23795,7 +24270,7 @@ export interface LoadedEventArgs {
 
 export interface TooltipInitializeEventArgs {
 
-	/** Set this option to true to cancel the event
+	/** Set this option to true to cancel the event    
 	*/
 	cancel?: boolean;
 
@@ -23919,7 +24394,7 @@ export interface PointRegionMouseClickEventArgs {
 
 export interface SparklineMouseMoveEventArgs {
 
-	/** Set this option to true to cancel the event
+	/** Set this option to true to cancel the event    
 	*/
 	cancel?: boolean;
 
@@ -23934,7 +24409,7 @@ export interface SparklineMouseMoveEventArgs {
 
 export interface SparklineMouseLeaveEventArgs {
 
-	/** Set this option to true to cancel the event
+	/** Set this option to true to cancel the event    
 	*/
 	cancel?: boolean;
 
@@ -24239,9 +24714,9 @@ class PivotGrid extends ej.Widget {
 	refreshControl(): void;
 
 	/** This function returns the height of all rows and width each and every column.
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	calculateCellWidths(): void;
+	calculateCellWidths(): any;
 
 	/** This function creates the conditional formatting dialog to apply conditional formatting for PivotGrid control.
 	*   @returns {void}
@@ -24264,9 +24739,9 @@ class PivotGrid extends ej.Widget {
 	excelLikeLayout(): void;
 
 	/** Returns the OlapReport string maintained along with the axis elements information.
-	*   @returns {void}
+	*   @returns {string}
 	*/
-	getOlapReport(): void;
+	getOlapReport(): string;
 
 	/** Sets the OlapReport string along with the axis information.
 	*   @returns {void}
@@ -24274,9 +24749,9 @@ class PivotGrid extends ej.Widget {
 	setOlapReport(): void;
 
 	/** Returns the JSON records formed to render the control.
-	*   @returns {void}
+	*   @returns {Array<any>}
 	*/
-	getJSONRecords(): void;
+	getJSONRecords(): Array<any>;
 
 	/** Sets the JSON records formed to render the control.
 	*   @returns {void}
@@ -25644,9 +26119,9 @@ class PivotChart extends ej.Widget {
 	renderControlSuccess(): void;
 
 	/** Returns the OlapReport string maintained along with the axis elements information.
-	*   @returns {void}
+	*   @returns {string}
 	*/
-	getOlapReport(): void;
+	getOlapReport(): string;
 
 	/** Sets the OlapReport string along with the axis information and maintains it in a property.
 	*   @returns {void}
@@ -25654,9 +26129,9 @@ class PivotChart extends ej.Widget {
 	setOlapReport(): void;
 
 	/** Returns the JSON records formed to render the control.
-	*   @returns {void}
+	*   @returns {Array<any>}
 	*/
-	getJSONRecords(): void;
+	getJSONRecords(): Array<any>;
 
 	/** Sets the JSON records to render the control.
 	*   @returns {void}
@@ -25664,9 +26139,9 @@ class PivotChart extends ej.Widget {
 	setJSONRecords(): void;
 
 	/** Returns the PivotEngine formed to render the control.
-	*   @returns {void}
+	*   @returns {Array<any>}
 	*/
-	getPivotEngine(): void;
+	getPivotEngine(): Array<any>;
 
 	/** Sets the PivotEngine required to render the control.
 	*   @returns {void}
@@ -25701,6 +26176,11 @@ export interface Model {
 	*   @Default {â€œâ€}
 	*/
 	cssClass?: string;
+
+	/** Options for enabling zooming feature of PivotChart.
+	*   @Default {{}}
+	*/
+	zooming?: Zooming;
 
 	/** Options available to configure the properties of entire series. You can also override the options for specific series by using series collection.
 	*   @Default {{}}
@@ -25797,6 +26277,9 @@ export interface Model {
 
 	/** Triggers when PivotChart successfully reaches client-side after any AJAX request. */
 	renderSuccess? (e: RenderSuccessEventArgs): void;
+
+	/** Triggers before performing exporting in pivot chart. */
+	beforeExport? (e: BeforeExportEventArgs): void;
 }
 
 export interface LoadEventArgs {
@@ -25902,6 +26385,25 @@ export interface RenderSuccessEventArgs {
 	/** returns the current instance of PivotChart.
 	*/
 	args?: any;
+}
+
+export interface BeforeExportEventArgs {
+
+	/** contains the url of the service responsible for exporting.
+	*/
+	url?: string;
+
+	/** contains the name of the exporting file.
+	*/
+	fileName?: string;
+}
+
+export interface Zooming {
+
+	/** Enables or disables horizontal scrollbar.
+	*   @Default {false}
+	*/
+	enableScrollbar?: boolean;
 }
 
 export interface CommonSeriesOptions {
@@ -26208,9 +26710,9 @@ class PivotClient extends ej.Widget {
 	refreshControl(): void;
 
 	/** Returns the OlapReport string maintained along with the axis elements information.
-	*   @returns {void}
+	*   @returns {string}
 	*/
-	getOlapReport(): void;
+	getOlapReport(): string;
 
 	/** Sets the OlapReport string along with the axis information and maintains it in a property.
 	*   @returns {void}
@@ -26218,9 +26720,9 @@ class PivotClient extends ej.Widget {
 	setOlapReport(): void;
 
 	/** Returns the JSON records formed to render the control.
-	*   @returns {void}
+	*   @returns {Array<any>}
 	*/
-	getJSONRecords(): void;
+	getJSONRecords(): Array<any>;
 
 	/** Sets the JSON records formed to render the control to a property.
 	*   @returns {void}
@@ -27046,9 +27548,9 @@ class PivotGauge extends ej.Widget {
 	renderControlFromJSON(): void;
 
 	/** Returns the OlapReport string maintained along with the axis elements information.
-	*   @returns {void}
+	*   @returns {string}
 	*/
-	getOlapReport(): void;
+	getOlapReport(): string;
 
 	/** Sets the OlapReport string along with the axis information and maintains it in a property.
 	*   @returns {void}
@@ -27056,9 +27558,9 @@ class PivotGauge extends ej.Widget {
 	setOlapReport(): void;
 
 	/** Returns the JSON records formed to render the control.
-	*   @returns {void}
+	*   @returns {Array<any>}
 	*/
-	getJSONRecords(): void;
+	getJSONRecords(): Array<any>;
 
 	/** Sets the JSON records to render the control.
 	*   @returns {void}
@@ -27485,9 +27987,9 @@ class PivotTreeMap extends ej.Widget {
 	doAjaxPost(): void;
 
 	/** Returns the OlapReport string maintained along with the axis elements information.
-	*   @returns {void}
+	*   @returns {string}
 	*/
-	getOlapReport(): void;
+	getOlapReport(): string;
 
 	/** Sets the OlapReport string along with the axis information and maintains it in a property.
 	*   @returns {void}
@@ -27495,9 +27997,9 @@ class PivotTreeMap extends ej.Widget {
 	setOlapReport(): void;
 
 	/** Returns the JSON records formed to render the control.
-	*   @returns {void}
+	*   @returns {Array<any>}
 	*/
-	getJSONRecords(): void;
+	getJSONRecords(): Array<any>;
 
 	/** Sets the JSON records to render the control.
 	*   @returns {void}
@@ -27867,14 +28369,14 @@ class Schedule extends ej.Widget {
 
 	/** Searches and filters the appointments from appointment list of Schedule control.
 	*   @param {Array<any>} Holds array of one or more conditional objects for filtering the appointments based on it.
-	*   @returns {void}
+	*   @returns {Array<any>}
 	*/
-	filterAppointments(filterConditions: Array<any>): void;
+	filterAppointments(filterConditions: Array<any>): Array<any>;
 
 	/** Gets the complete appointment list of Schedule control.
-	*   @returns {void}
+	*   @returns {Array<any>}
 	*/
-	getAppointments(): void;
+	getAppointments(): Array<any>;
 
 	/** Prints the entire Scheduler or a single appointment based on the appointment data passed as an argument to it. Simply calling the print() method, without passing any argument will print the entire Scheduler.
 	*   @param {any} Either accepts no arguments at all or else accepts an appointment object.
@@ -27894,24 +28396,24 @@ class Schedule extends ej.Widget {
 	saveAppointment(appointmentObject: any): void;
 
 	/** Generate the recurrence rule as a string, based on the repeat options selected.
-	*   @returns {void}
+	*   @returns {string}
 	*/
-	getRecurrenceRule(): void;
+	getRecurrenceRule(): string;
 
 	/** Retrieves the time slot information (start/end time and resource details) of the given element. The parameter is optional - as when no element is passed to it, the currently selected cell information will be retrieved. When multiple cells are selected in the Scheduler, it is not necessary to provide the parameter.
 	*   @param {any} TD element object rendered as Scheduler work cell
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getSlotByElement(element: any): void;
+	getSlotByElement(element: any): any;
 
 	/** Searches the appointments from the appointment list of Schedule control based on the provided search string in its argument list.
 	*   @param {any|string} Defines the search word or the filter condition, based on which the appointments are filtered from the list.
 	*   @param {string} Defines the field name on which the search is to be made.
-	*   @param {string|string} Defines the filterOperator value for the search operation.
+	*   @param {ej.FilterOperators|string} Defines the filterOperator value for the search operation.
 	*   @param {boolean} Defines the ignoreCase value for performing the search operation.
-	*   @returns {void}
+	*   @returns {Array<any>}
 	*/
-	searchAppointments(searchString: any|string, field: string, operator: string|string, ignoreCase: boolean): void;
+	searchAppointments(searchString: any|string, field: string, operator: ej.FilterOperators|string, ignoreCase: boolean): Array<any>;
 
 	/** Refreshes the entire Schedule control.
 	*   @returns {void}
@@ -28940,7 +29442,7 @@ export interface ResizeStopEventArgs {
 
 export interface OverflowButtonClickEventArgs {
 
-	/** Returns the object consisting of start time, end time and resource value of the underlying cell on which the clicked overflow button is present.
+	/** Returns the object consisting of start time, end time and resource value of the underlying cell on which the clicked overflow button is present.  
 	*/
 	object?: any;
 
@@ -28963,7 +29465,7 @@ export interface OverflowButtonClickEventArgs {
 
 export interface OverflowButtonHoverEventArgs {
 
-	/** Returns the object consisting of start time, end time and resource value of the underlying cell on which the overflow button is currently hovered.
+	/** Returns the object consisting of start time, end time and resource value of the underlying cell on which the overflow button is currently hovered.  
 	*/
 	object?: any;
 
@@ -29568,23 +30070,23 @@ class RecurrenceEditor extends ej.Widget {
 	defaults:RecurrenceEditor.Model;
 
 	/** Generates the recurrence rule with the options selected within the Recurrence Editor.
-	*   @returns {void}
+	*   @returns {String}
 	*/
-	getRecurrenceRule(): void;
+	getRecurrenceRule(): String;
 
 	/** Generates the collection of date, that lies within the selected recurrence start and end date for which the recurrence pattern applies.
 	*   @param {string} It refers the recurrence rule.
 	*   @param {any} It refers the start date of the recurrence.
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	recurrenceDateGenerator(recurrenceString: string, startDate: any): void;
+	recurrenceDateGenerator(recurrenceString: string, startDate: any): any;
 
 	/** It splits and returns the recurrence rule string into object collection.
 	*   @param {string} It refers the recurrence rule string.
 	*   @param {any} It refers the appointment dates (ExDate) to be excluded
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	recurrenceRuleSplit(recurrenceRule: string, exDate: any): void;
+	recurrenceRuleSplit(recurrenceRule: string, exDate: any): any;
 }
 export module RecurrenceEditor{
 
@@ -29643,7 +30145,7 @@ export interface Model {
 	*/
 	cssClass?: string;
 
-	/** Triggers whenever any of the Recurrence Editorâ€™s value is changed. */
+	/** Triggers whenever any of the Recurrence Editor's value is changed. */
 	change? (e: ChangeEventArgs): void;
 }
 
@@ -29675,7 +30177,7 @@ class Gantt extends ej.Widget {
 	model:Gantt.Model;
 	defaults:Gantt.Model;
 
-	/** To add item in Gantt
+	/** To add a new item in Gantt
 	*   @param {any} Item to add in Gantt row.
 	*   @param {string} Defines in which position the row wants to add
 	*   @returns {void}
@@ -29690,10 +30192,10 @@ class Gantt extends ej.Widget {
 	selectCells(Indexes: Array<any>, preservePreviousSelectedCell: boolean): void;
 
 	/** Positions the splitter by the specified column index.
-	*   @param {Number} Set the splitter position based on column index.
+	*   @param {number} Set the splitter position based on column index.
 	*   @returns {void}
 	*/
-	setSplitterIndex(index: Number): void;
+	setSplitterIndex(index: number): void;
 
 	/** To cancel the edited state of an item in Gantt
 	*   @returns {void}
@@ -29721,10 +30223,10 @@ class Gantt extends ej.Widget {
 	expandAllItems(): void;
 
 	/** To expand and collapse an item in Gantt using item's ID
-	*   @param {Number} Expand or Collapse a record based on task id.
+	*   @param {number} Expand or Collapse a record based on task id.
 	*   @returns {void}
 	*/
-	expandCollapseRecord(taskId: Number): void;
+	expandCollapseRecord(taskId: number): void;
 
 	/** To hide the column by using header text
 	*   @param {string} you can pass a header text of a column to hide
@@ -30013,7 +30515,7 @@ export interface Model {
 	*/
 	parentTaskbarTemplate?: string;
 
-	/** Specifies the nature of a task for caluculating the work,  and it can fixed duration, fixed work and fixed resource unit
+	/** Specifies the nature of a task for calculating the work,  and it can fixed duration, fixed work and fixed resource unit
 	*   @Default {ej.Gantt.TaskType.FixedUnit}
 	*/
 	taskType?: ej.Gantt.TaskType|string;
@@ -30045,12 +30547,12 @@ export interface Model {
 	*/
 	notesMapping?: string;
 
-	/** Specifies the mapping property path for the task scheuling mode for a task in datasource
+	/** Specifies the mapping property path for the task scheduling mode for a task in datasource
 	*   @Default {auto}
 	*/
 	taskSchedulingModeMapping?: string;
 
-	/** Specifies the mapping property path for task duration unit in datasoruce
+	/** Specifies the mapping property path for task duration unit in datasource
 	*/
 	durationUnitMapping?: string;
 
@@ -30102,7 +30604,7 @@ export interface Model {
 	/** Enables or disables the schedule date validation while connecting a manually scheduled task with predecessor
 	*   @Default {false}
 	*/
-	validateManaulTasksOnLinking?: boolean;
+	validateManualTasksOnLinking?: boolean;
 
 	/** Specifies the mapping property name for resource ID in resource Collection in Gantt
 	*/
@@ -30639,7 +31141,7 @@ export interface CollapsedEventArgs {
 
 	/** Returns the row index of collapsed record.
 	*/
-	recordIndex?: Number;
+	recordIndex?: number;
 
 	/** Returns the data of collapsed record.
 	*/
@@ -30662,7 +31164,7 @@ export interface CollapsingEventArgs {
 
 	/** Returns the row index of collapsing record.
 	*/
-	recordIndex?: Number;
+	recordIndex?: number;
 
 	/** Returns the data of edited cell record..
 	*/
@@ -31216,26 +31718,26 @@ enum BeginEditAction{
 
 enum TaskType{
 
-	///Resource unit reamins constant while editing the work and duration values.
+	///Resource unit remains constant while editing the work and duration values.
 	FixedUnit,
 
-	///Work value of a task remains constant while editing duration and resoruce unit values.
+	///Work value of a task remains constant while editing duration and resource unit values.
 	FixedWork,
 
-	///Duration value remains constant while editing work and resoruce unit values.
+	///Duration value remains constant while editing work and resource unit values.
 	FixedDuration
 }
 
 
 enum WorkUnit{
 
-	///Dislays the work involved in a task in days.
+	///Displays the work involved in a task in days.
 	Day,
 
-	///Dislays the work involved in a task in hours.
+	///Displays the work involved in a task in hours.
 	Hour,
 
-	///Dislays the work involved in a task in minutes
+	///Displays the work involved in a task in minutes
 	Minute
 }
 
@@ -31983,7 +32485,7 @@ class TreeGrid extends ej.Widget {
 	model:TreeGrid.Model;
 	defaults:TreeGrid.Model;
 
-	/** Adds a new row in TreeGrid, while allowAdding is set to true
+	/** Add a new row in TreeGrid, while allowAdding is set to true
 	*   @param {any} Item to add in TreeGrid row.
 	*   @param {string} Defines in which position the row wants to be added
 	*   @returns {void}
@@ -32005,7 +32507,7 @@ class TreeGrid extends ej.Widget {
 
 	/** To rename a column with the specified name
 	*   @param {number} Index of the column to be renamed
-	*   @param {string} Header text of the column
+	*   @param {string} Header text of the column 
 	*   @returns {void}
 	*/
 	renameColumn(columnIndex: number, name: string): void;
@@ -33594,10 +34096,9 @@ class GroupButton extends ej.Widget {
 	getIndex(element: JQuery): number;
 
 	/** This method returns the list of active state button elements from the GroupButton control.
-	*   @param {JQuery} Specific button element
-	*   @returns {number}
+	*   @returns {any}
 	*/
-	getSelectedItem(element: JQuery): number;
+	getSelectedItem(): any;
 
 	/** Hides the GroupButton control
 	*   @returns {void}
@@ -33611,14 +34112,14 @@ class GroupButton extends ej.Widget {
 	hideItem(element: JQuery): void;
 
 	/** Returns the disabled state of the specified element button element in GroupButton as Boolean.
-	*   @returns {Boolean}
+	*   @returns {boolean}
 	*/
-	isDisabled(): Boolean;
+	isDisabled(): boolean;
 
 	/** Returns the state of the specified button element as Boolean.
-	*   @returns {Boolean}
+	*   @returns {boolean}
 	*/
-	isSelected(): Boolean;
+	isSelected(): boolean;
 
 	/** Public method used to select the specified button element from the ejGroupButton control.
 	*   @param {JQuery} Specific button element
@@ -33874,9 +34375,9 @@ export interface SelectEventArgs {
 }
 enum GroupButtonMode
 {
-//Sets the GroupButton to work as checkbox mode
+//Sets the GroupButton to work as checkbox mode 
 CheckBox,
-//Sets the RadioButton to work as radio button mode
+//Sets the RadioButton to work as radio button mode  
 RadioButton,
 }
 
@@ -33893,6 +34394,11 @@ class NavigationDrawer extends ej.Widget {
 	*/
 	close(): void;
 
+	/** To load AJAX content into NavigationDrawer container.
+	*   @returns {void}
+	*/
+	loadContent(): void;
+
 	/** To open the navigation drawer control
 	*   @returns {void}
 	*/
@@ -33906,6 +34412,11 @@ class NavigationDrawer extends ej.Widget {
 export module NavigationDrawer{
 
 export interface Model {
+
+	/** Specifies the ajaxSettings option to load the content to the NavigationDrawer control.
+	*   @Default {null}
+	*/
+	ajaxSettings?: AjaxSettings;
 
 	/** Specifies the contentId for navigation drawer, where the AJAX content need to updated
 	*   @Default {null}
@@ -33959,6 +34470,15 @@ export interface Model {
 	*/
 	isPaneOpen?: boolean;
 
+	/** Event triggers after the AJAX content loaded completely. */
+	ajaxComplete? (e: AjaxCompleteEventArgs): void;
+
+	/** Event triggers when the AJAX request failed. */
+	ajaxError? (e: AjaxErrorEventArgs): void;
+
+	/** Event triggers after the AJAX content loaded successfully. */
+	ajaxSuccess? (e: AjaxSuccessEventArgs): void;
+
 	/** Event triggers before the control gets closed. */
 	beforeClose? (e: BeforeCloseEventArgs): void;
 
@@ -33967,6 +34487,67 @@ export interface Model {
 
 	/** Event triggers when the Swipe happens. */
 	swipe? (e: SwipeEventArgs): void;
+}
+
+export interface AjaxCompleteEventArgs {
+
+	/** returns true if the event should be canceled; otherwise, false.
+	*/
+	cancel?: boolean;
+
+	/** returns the name of the event.
+	*/
+	type?: string;
+
+	/** returns the model value of the control.
+	*/
+	model?: ej.NavigationDrawer.Model;
+}
+
+export interface AjaxErrorEventArgs {
+
+	/** returns true if the event should be canceled; otherwise, false.
+	*/
+	cancel?: boolean;
+
+	/** returns the name of the event.
+	*/
+	type?: string;
+
+	/** returns the model value of the control.
+	*/
+	model?: ej.NavigationDrawer.Model;
+
+	/** returns the error thrown in the AJAX post.
+	*/
+	errorThrown?: any;
+
+	/** returns the status.
+	*/
+	textStatus?: any;
+}
+
+export interface AjaxSuccessEventArgs {
+
+	/** returns true if the event should be canceled; otherwise, false.
+	*/
+	cancel?: boolean;
+
+	/** returns the name of the event.
+	*/
+	type?: string;
+
+	/** returns the model value of the control.
+	*/
+	model?: ej.NavigationDrawer.Model;
+
+	/** returns the AJAX current content.
+	*/
+	content?: string;
+
+	/** returns the current URL of the AJAX post.
+	*/
+	URL?: string;
 }
 
 export interface BeforeCloseEventArgs {
@@ -34010,6 +34591,33 @@ export interface SwipeEventArgs {
 	model?: ej.NavigationDrawer.Model;
 
 	/** returns the name of the event
+	*/
+	type?: string;
+}
+
+export interface AjaxSettings {
+
+	/** It specifies, whether to enable or disable asynchronous request.
+	*/
+	async?: boolean;
+
+	/** It specifies the page will be cached in the web browser.
+	*/
+	cache?: boolean;
+
+	/** It specifies the type of data is send in the query string.
+	*/
+	contentType?: string;
+
+	/** It specifies the data as an object, will be passed in the query string.
+	*/
+	data?: any;
+
+	/** It specifies the type of data that you're expecting back from the response.
+	*/
+	dataType?: string;
+
+	/** It specifies the HTTP request type.
 	*/
 	type?: string;
 }
@@ -34068,16 +34676,16 @@ class RadialMenu extends ej.Widget {
 	disableItemsByIndices(itemIndices: Array<any>): void;
 
 	/** To enable menu item using item text
-	*   @param {String} item of the Radialmenu item to enable.
+	*   @param {string} item of the Radialmenu item to enable.
 	*   @returns {void}
 	*/
-	enableItem(item: String): void;
+	enableItem(item: string): void;
 
 	/** To disable menu item using item text
-	*   @param {String} item of the Radialmenu item to disable.
+	*   @param {string} item of the Radialmenu item to disable.
 	*   @returns {void}
 	*/
-	disableItem(item: String): void;
+	disableItem(item: string): void;
 
 	/** To enable menu items using item texts
 	*   @param {Array<any>} items of the Radialmenu item to enable.
@@ -34180,7 +34788,7 @@ export interface ClickEventArgs {
 
 	/** returns the name of item
 	*/
-	itemName?: String;
+	itemName?: string;
 }
 
 export interface OpenEventArgs {
@@ -34336,6 +34944,10 @@ export interface Model {
 	*/
 	imageUrl?: string;
 
+	/** Set the localization culture for Tile Widget.
+	*/
+	locale?: String;
+
 	/** Section for liveTile specific functionalities.
 	*/
 	liveTile?: LiveTile;
@@ -34390,7 +35002,7 @@ export interface MouseDownEventArgs {
 	*/
 	text?: string;
 
-	/** returns the index of current tile item
+	/** returns the index of current tile item 
 	*/
 	index?: number;
 }
@@ -34413,7 +35025,7 @@ export interface MouseUpEventArgs {
 	*/
 	text?: boolean;
 
-	/** returns the index of current tile item
+	/** returns the index of current tile item 
 	*/
 	index?: number;
 }
@@ -34689,7 +35301,7 @@ export interface Model {
 	/** Enables or disables the Signature textbox widget.
 	*   @Default {true}
 	*/
-	enabled?: Boolean;
+	enabled?: boolean;
 
 	/** Sets the height of the Signature control.
 	*   @Default {100%}
@@ -34699,7 +35311,7 @@ export interface Model {
 	/** Enables/disables responsive support for the signature control (i.e) maintain the signature drawing during the window resizing time.
 	*   @Default {false}
 	*/
-	isResponsive?: Boolean;
+	isResponsive?: boolean;
 
 	/** Allows the type of the image format to be saved when the signature image is saved.
 	*/
@@ -34708,12 +35320,12 @@ export interface Model {
 	/** Allows the signature image to be saved along with its background.
 	*   @Default {false}
 	*/
-	saveWithBackground?: Boolean;
+	saveWithBackground?: boolean;
 
 	/** Enables or disables rounded corner.
 	*   @Default {true}
 	*/
-	showRoundedCorner?: Boolean;
+	showRoundedCorner?: boolean;
 
 	/** Sets the stroke color for the stroke of the signature.
 	*   @Default {#000000}
@@ -34723,7 +35335,7 @@ export interface Model {
 	/** Sets the stroke width for the stroke of the signature.
 	*   @Default {2}
 	*/
-	strokeWidth?: Number;
+	strokeWidth?: number;
 
 	/** Sets the width of the Signature control.
 	*   @Default {100%}
@@ -34747,34 +35359,34 @@ export interface ChangeEventArgs {
 
 	/** Set this option to true to cancel the event.
 	*/
-	cancel?: Boolean;
+	cancel?: boolean;
 
 	/** Instance of the signature model object.
 	*/
-	model?: any;
+	model?: ej.Signature.Model;
 
 	/** Name of the event.
 	*/
-	type?: String;
+	type?: string;
 
 	/** Gives the last stored image
 	*/
-	lastImage?: String;
+	lastImage?: string;
 }
 
 export interface MouseDownEventArgs {
 
 	/** Set this option to true to cancel the event.
 	*/
-	cancel?: Boolean;
+	cancel?: boolean;
 
 	/** Instance of the signature model object.
 	*/
-	model?: any;
+	model?: ej.Signature.Model;
 
 	/** Name of the event.
 	*/
-	type?: String;
+	type?: string;
 
 	/** returns all the event values
 	*/
@@ -34785,15 +35397,15 @@ export interface MouseMoveEventArgs {
 
 	/** Set this option to true to cancel the event.
 	*/
-	cancel?: Boolean;
+	cancel?: boolean;
 
 	/** Instance of the signature model object.
 	*/
-	model?: any;
+	model?: ej.Signature.Model;
 
 	/** Name of the event.
 	*/
-	type?: String;
+	type?: string;
 
 	/** returns all the event values
 	*/
@@ -34804,15 +35416,15 @@ export interface MouseUpEventArgs {
 
 	/** Set this option to true to cancel the event.
 	*/
-	cancel?: Boolean;
+	cancel?: boolean;
 
 	/** Instance of the signature model object.
 	*/
-	model?: any;
+	model?: ej.Signature.Model;
 
 	/** Name of the event.
 	*/
-	type?: String;
+	type?: string;
 
 	/** returns all the event values
 	*/
@@ -34861,66 +35473,66 @@ export interface Model {
 	/** To show the RadialSlider in initial render.
 	*   @Default {false}
 	*/
-	autoOpen?: Boolean;
+	autoOpen?: boolean;
 
 	/** Sets the root class for RadialSlider theme. This cssClass API helps to use custom skinning option for RadialSlider control. By defining the root class using this API, we need to include this root class in CSS.
 	*/
-	cssClass?: String;
+	cssClass?: string;
 
 	/** To enable Animation for Radial Slider.
 	*   @Default {true}
 	*/
-	enableAnimation?: Boolean;
+	enableAnimation?: boolean;
 
 	/** Enable/Disable the Roundoff property of RadialSlider
 	*   @Default {true}
 	*/
-	enableRoundOff?: Boolean;
+	enableRoundOff?: boolean;
 
 	/** Specifies the endAngle value for radial slider circle.
 	*   @Default {360}
 	*/
-	endAngle?: Number;
+	endAngle?: number;
 
 	/** Specifies the inline for label show or not on given radius.
 	*   @Default {false}
 	*/
-	inline?: Boolean;
+	inline?: boolean;
 
 	/** Specifies innerCircleImageClass, using this property we can give images for center radial circle through CSS classes.
 	*   @Default {null}
 	*/
-	innerCircleImageClass?: String;
+	innerCircleImageClass?: string;
 
 	/** Specifies the file name of center circle icon
 	*   @Default {null}
 	*/
-	innerCircleImageUrl?: String;
+	innerCircleImageUrl?: string;
 
 	/** Specifies the Space between the radial slider element and the label.
 	*   @Default {30}
 	*/
-	labelSpace?: Number;
+	labelSpace?: number;
 
 	/** Specifies the radius of radial slider
 	*   @Default {200}
 	*/
-	radius?: Number;
+	radius?: number;
 
 	/** To show the RadialSlider inner circle.
 	*   @Default {true}
 	*/
-	showInnerCircle?: Boolean;
+	showInnerCircle?: boolean;
 
 	/** Specifies the endAngle value for radial slider circle.
 	*   @Default {0}
 	*/
-	startAngle?: Number;
+	startAngle?: number;
 
 	/** Specifies the  strokeWidth for customize the needle, outer circle and inner circle.
 	*   @Default {2}
 	*/
-	strokeWidth?: Number;
+	strokeWidth?: number;
 
 	/** Specifies the ticks value of radial slider
 	*/
@@ -34929,7 +35541,7 @@ export interface Model {
 	/** Specifies the value of radial slider
 	*   @Default {10}
 	*/
-	value?: Number;
+	value?: number;
 
 	/** Event triggers when the change occurs. */
 	change? (e: ChangeEventArgs): void;
@@ -34952,30 +35564,30 @@ export interface Model {
 
 export interface ChangeEventArgs {
 
-	/**  returns the Radialslider model
+	/**  returns the Radialslider model 
 	*/
 	model?: any;
 
-	/**  if the event should be canceled; otherwise, false.
+	/**  if the event should be canceled; otherwise, false. 
 	*/
 	cancel?: boolean;
 
-	/**  returns the initial value of Radial slider
+	/**  returns the initial value of Radial slider 
 	*/
-	oldValue?: Number;
+	oldValue?: number;
 
-	/**  returns the name of the event
+	/**  returns the name of the event 
 	*/
 	type?: string;
 
-	/**  returns the current value of the Radial slider
+	/**  returns the current value of the Radial slider 
 	*/
-	value?: Number;
+	value?: number;
 }
 
 export interface CreateEventArgs {
 
-	/**  if the event should be canceled; otherwise, false.
+	/**  if the event should be canceled; otherwise, false. 
 	*/
 	cancel?: boolean;
 
@@ -34983,93 +35595,93 @@ export interface CreateEventArgs {
 	*/
 	model?: any;
 
-	/**  returns the name of the event
+	/**  returns the name of the event 
 	*/
 	type?: string;
 }
 
 export interface MouseoverEventArgs {
 
-	/**  if the event should be canceled; otherwise, false.
+	/**  if the event should be canceled; otherwise, false. 
 	*/
 	cancel?: boolean;
 
-	/**  returns the Radialslider model
+	/**  returns the Radialslider model 
 	*/
 	model?: any;
 
-	/**  returns the value selected
+	/**  returns the value selected 
 	*/
-	selectedValue?: Number;
+	selectedValue?: number;
 
-	/**  returns the name of the event
+	/**  returns the name of the event 
 	*/
 	type?: string;
 
-	/**  returns the current value selected in Radial slider
+	/**  returns the current value selected in Radial slider 
 	*/
-	value?: Number;
+	value?: number;
 }
 
 export interface SlideEventArgs {
 
-	/**  if the event should be canceled; otherwise, false.
+	/**  if the event should be canceled; otherwise, false. 
 	*/
 	cancel?: boolean;
 
-	/**  returns the Radialslider model
+	/**  returns the Radialslider model 
 	*/
 	model?: any;
 
-	/**  returns the value selected in Radial slider
+	/**  returns the value selected in Radial slider 
 	*/
-	selectedValue?: Number;
+	selectedValue?: number;
 
-	/**  returns the name of the event
+	/**  returns the name of the event 
 	*/
 	type?: string;
 
-	/**  returns the currently selected value
+	/**  returns the currently selected value 
 	*/
-	value?: Number;
+	value?: number;
 }
 
 export interface StartEventArgs {
 
-	/**  if the event should be canceled; otherwise, false.
+	/**  if the event should be canceled; otherwise, false. 
 	*/
 	cancel?: boolean;
 
-	/**  returns the Radialslider model
+	/**  returns the Radialslider model 
 	*/
 	model?: any;
 
-	/**  returns the name of the event
+	/**  returns the name of the event 
 	*/
 	type?: string;
 
-	/**  returns the current value selected in Radial slider
+	/**  returns the current value selected in Radial slider 
 	*/
-	value?: Number;
+	value?: number;
 }
 
 export interface StopEventArgs {
 
-	/**  if the event should be canceled; otherwise, false.
+	/**  if the event should be canceled; otherwise, false. 
 	*/
 	cancel?: boolean;
 
-	/**  returns the Radialslider model
+	/**  returns the Radialslider model 
 	*/
 	model?: any;
 
-	/**  returns the name of the event
+	/**  returns the name of the event 
 	*/
 	type?: string;
 
-	/**  returns the current value selected in Radial slider
+	/**  returns the current value selected in Radial slider 
 	*/
-	value?: Number;
+	value?: number;
 }
 }
 
@@ -35082,11 +35694,11 @@ class Spreadsheet extends ej.Widget {
 	defaults:Spreadsheet.Model;
 
 	/** This method is used to add custom formulas in Spreadsheet.
-	*   @param {String} Pass the name of the formula.
-	*   @param {String} Pass the name of the function.
+	*   @param {string} Pass the name of the formula.
+	*   @param {string} Pass the name of the function.
 	*   @returns {void}
 	*/
-	addCustomFormula(formulaName: String, functionName: String): void;
+	addCustomFormula(formulaName: string, functionName: string): void;
 
 	/** This method is used to add a new sheet in the last position of the sheet container.
 	*   @returns {void}
@@ -35094,28 +35706,28 @@ class Spreadsheet extends ej.Widget {
 	addNewSheet(): void;
 
 	/** It is used to clear all the data and format in the specified range of cells in Spreadsheet.
-	*   @param {string} Optional.  If range is specified, then it will clear all content in the specified range else it will use the current selected range.
+	*   @param {string|Array<any>} Optional. If range is specified, then it will clear all content in the specified range else it will use the current selected range. 
 	*   @returns {void}
 	*/
-	clearAll(range?: string): void;
+	clearAll(range?: string|Array<any>): void;
 
 	/** This property is used to clear all the formats applied in the specified range in Spreadsheet.
-	*   @param {string} Optional.  If range is specified, then it will clear all format in the specified range else it will use the current selected range.
+	*   @param {string|Array<any>} Optional. If range is specified, then it will clear all format in the specified range else it will use the current selected range. 
 	*   @returns {void}
 	*/
-	clearAllFormat(range?: string): void;
+	clearAllFormat(range?: string|Array<any>): void;
 
 	/** Used to clear the applied border in the specified range in Spreadsheet.
-	*   @param {string} Optional.  If range is specified, then it will clear border in the specified range else it will use the current selected range.
+	*   @param {string|Array<any>} Optional. If range is specified, then it will clear border in the specified range else it will use the current selected range.
 	*   @returns {void}
 	*/
-	clearBorder(range?: string): void;
+	clearBorder(range?: string|Array<any>): void;
 
 	/** This property is used to clear the contents in the specified range in Spreadsheet.
-	*   @param {string} Optional.  If the range is specified, then it will clear the content in the specified range else it will use the current selected range.
+	*   @param {string|Array<any>} Optional. If the range is specified, then it will clear the content in the specified range else it will use the current selected range. 
 	*   @returns {void}
 	*/
-	clearContents(range?: string): void;
+	clearContents(range?: string|Array<any>): void;
 
 	/** This method is used to remove only the data in the range denoted by the specified range name.
 	*   @param {string} Pass the defined rangeSettings property name.
@@ -35124,10 +35736,10 @@ class Spreadsheet extends ej.Widget {
 	clearRange(rangeName: string): void;
 
 	/** It is used to remove data in the specified range of cells based on the defined property.
-	*   @param {Array<any>|string} Optional.  If range is specified, it will clear data for the specified range else it will use the current selected range.
-	*   @param {string} Optional.  If property is specified, it will remove the specified property in the range else it will remove default properties
+	*   @param {Array<any>|string} Optional. If range is specified, it will clear data for the specified range else it will use the current selected range. 
+	*   @param {string} Optional. If property is specified, it will remove the specified property in the range else it will remove default properties 
 	*   @param {any} Optional.
-	*   @param {boolean} Optional.  If pass true, if you want to skip the hidden rows
+	*   @param {boolean} Optional. pass `true`, if you want to skip the hidden rows 
 	*   @param {any} Optional. Pass the status to perform undo and redo operation.
 	*   @param {any} Optional. It specifies whether to skip element processing or not.
 	*   @returns {void}
@@ -35137,7 +35749,7 @@ class Spreadsheet extends ej.Widget {
 	/** This method is used to copy or move the sheets in Spreadsheet.
 	*   @param {number} Pass the sheet index that you want to copy or move.
 	*   @param {number} Pass the position index where you want to copy or move.
-	*   @param {boolean} Pass true,If you want to copy sheet or else it will move sheet.
+	*   @param {boolean} Pass `true`,If you want to copy sheet or else it will move sheet.
 	*   @returns {void}
 	*/
 	copySheet(fromIdx: number, toIdx: number, isCopySheet: boolean): void;
@@ -35189,13 +35801,13 @@ class Spreadsheet extends ej.Widget {
 	getActivationPanel(): HTMLElement;
 
 	/** This method is used to get the active cell object in Spreadsheet. It will returns object which contains rowIndex and colIndex of the active cell.
-	*   @param {number} Optional.  If sheetIdx is specified, it will return the active cell object in specified sheet index else it will use the current sheet index
+	*   @param {number} Optional. If sheetIdx is specified, it will return the active cell object in specified sheet index else it will use the current sheet index
 	*   @returns {any}
 	*/
 	getActiveCell(sheetIdx?: number): any;
 
 	/** This method is used to get the active cell element based on the given sheet index in the Spreadsheet.
-	*   @param {number} Optional.  If sheetIndex is specified, it will return the active cell element in specified sheet index else it will use the current active sheet index.
+	*   @param {number} Optional. If sheetIndex is specified, it will return the active cell element in specified sheet index else it will use the current active sheet index.
 	*   @returns {HTMLElement}
 	*/
 	getActiveCellElem(sheetIdx?: number): HTMLElement;
@@ -35213,7 +35825,7 @@ class Spreadsheet extends ej.Widget {
 	/** This method is used to get the cell element based on specified row and column index in the Spreadsheet.
 	*   @param {number} Pass the row index.
 	*   @param {number} Pass the column index.
-	*   @param {number} Optional.  Pass the sheet index that you want to get cell.
+	*   @param {number} Optional. Pass the sheet index that you want to get cell.
 	*   @returns {HTMLElement}
 	*/
 	getCell(rowIdx: number, colIdx: number, sheetIdx?: number): HTMLElement;
@@ -35243,17 +35855,15 @@ class Spreadsheet extends ej.Widget {
 	getHyperlink(cell: HTMLElement): any;
 
 	/** This method is used to get all cell elements in the specified range.
-	*   @param {number} Pass the row index of the start cell.
-	*   @param {number} Pass the column index of the start cell.
-	*   @param {number} Pass the row index of the end cell.
-	*   @param {number} Pass the column index of the end cell.
+	*   @param {string} Pass the range that you want to get the cells.
 	*   @param {number} Pass the index of the sheet.
+	*   @param {boolean} Optional. Pass `true`, if you want to skip the hidden rows.
 	*   @returns {HTMLElement}
 	*/
-	getRange(startRIndex: number, startCIndex: number, endRIndex: number, endCIndex: number, sheetIdx: number): HTMLElement;
+	getRange(range: string, sheetIdx: number, skipHiddenRow?: boolean): HTMLElement;
 
 	/** This method is used to get the data in specified range in Spreadsheet.
-	*   @param {any} Optional.  Pass the range, property, sheetIdx, valueOnly in options.
+	*   @param {any} Optional. Pass the range, property, sheetIdx, valueOnly in options. 
 	*   @returns {Array<any>}
 	*/
 	getRangeData(options?: any): Array<any>;
@@ -35278,7 +35888,7 @@ class Spreadsheet extends ej.Widget {
 
 	/** This method is used to send a paging request to the specified sheet Index in the Spreadsheet.
 	*   @param {number} Pass the sheet index to perform paging at specified sheet index
-	*   @param {boolean} Pass 'true' to create a new sheet. If the specified sheet index is already exist, it navigate to that sheet else it create a new sheet.
+	*   @param {boolean} Pass `true` to create a new sheet. If the specified sheet index is already exist, it navigate to that sheet else it create a new sheet.
 	*   @returns {void}
 	*/
 	gotoPage(sheetIdx: number, newSheet: boolean): void;
@@ -35352,29 +35962,35 @@ class Spreadsheet extends ej.Widget {
 	*/
 	import(importRequest: any): void;
 
+	/** This method is used to load JSON data in Spreadsheet.
+	*   @param {any} Pass the response that you want to load.
+	*   @returns {void}
+	*/
+	loadFromJSON(response: any): void;
+
 	/** This method is used to lock/unlock the range of cells in active sheet. Lock cells are activated only after the sheet is protected. Once the sheet is protected it is unable to lock/unlock cells.
 	*   @param {string|Array<any>} Pass the alpha range cells or array range of cells.
-	*   @param {string} Optional.  By default is true. If it is false locked cells are unlocked.
+	*   @param {string} Optional. By default is `true`. If it is `false` locked cells are unlocked.
 	*   @returns {void}
 	*/
 	lockCells(range: string|Array<any>, isLocked?: string): void;
 
 	/** This method is used to merge cells by across in the Spreadsheet.
-	*   @param {string} Optional.  To pass the cell range or selected cells are process.
-	*   @param {boolean} Optional.  If pass true it does not show alert.
+	*   @param {string} Optional. To pass the cell range or selected cells are process.
+	*   @param {boolean} Optional. If pass `true` it does not show alert.
 	*   @returns {void}
 	*/
 	mergeAcrossCells(range?: string, alertStatus?: boolean): void;
 
 	/** This method is used to merge the selected cells in the Spreadsheet.
-	*   @param {string} Optional.  To pass the cell range or selected cells are process.
-	*   @param {boolean} Optional.  If pass true it does not show alert.
+	*   @param {string|Array<any>} Optional. To pass the cell range or selected cells are process.
+	*   @param {boolean} Optional. If pass `true` it does not show alert.
 	*   @returns {void}
 	*/
-	mergeCells(range?: string, alertStatus?: boolean): void;
+	mergeCells(range?: string|Array<any>, alertStatus?: boolean): void;
 
 	/** This method is used to protect or unprotect active sheet.
-	*   @param {boolean} Optional.   By default is true. If it is false active sheet is unprotected.
+	*   @param {boolean} Optional. By default is `true`. If it is `false` active sheet is unprotected.
 	*   @returns {void}
 	*/
 	protectSheet(isProtected?: boolean): void;
@@ -35391,18 +36007,18 @@ class Spreadsheet extends ej.Widget {
 	refreshSpreadsheet(): void;
 
 	/** This method is used to remove custom formulae in Spreadsheet.
-	*   @param {String} Pass the name of the formula.
-	*   @param {String} Pass the name of the function.
+	*   @param {string} Pass the name of the formula.
+	*   @param {string} Pass the name of the function.
 	*   @returns {void}
 	*/
-	removeCustomFormula(formulaName: String, functionName: String): void;
+	removeCustomFormula(formulaName: string, functionName: string): void;
 
 	/** This method is used to remove the hyperlink from selected cells of current sheet.
 	*   @param {string} Hyperlink remove from the specified range.
-	*   @param {boolean} Optional.  If it is true, It will clear link only not format.
-	*   @param {boolean} Optional.  Pass the status to perform undo and redo operations.
-	*   @param {any} Optional.  Pass the cells that you want to remove hyperlink.
-	*   @param {boolean} Optional.  Pass true, if you want to skip the hidden rows.
+	*   @param {boolean} Optional. If it is `true`, It will clear link only not format.
+	*   @param {boolean} Optional. Pass the status to perform undo and redo operations.
+	*   @param {any} Optional. Pass the cells that you want to remove hyperlink.
+	*   @param {boolean} Optional. Pass `true`, if you want to skip the hidden rows.
 	*   @returns {void}
 	*/
 	removeHyperlink(range: string, isClearHLink?: boolean, status?: boolean, cells?: any, skipHiddenRow?: boolean): void;
@@ -35414,9 +36030,9 @@ class Spreadsheet extends ej.Widget {
 	removeRange(rangeName: string): void;
 
 	/** This method is used to save JSON data in Spreadsheet.
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	saveAsJSON(): void;
+	saveAsJSON(): any;
 
 	/** This method is used to save batch changes in Spreadsheet.
 	*   @param {number} Pass the sheet index for Spreadsheet.
@@ -35440,18 +36056,18 @@ class Spreadsheet extends ej.Widget {
 
 	/** This method is used to set border for the specified range of cells in the Spreadsheet.
 	*   @param {any} Pass the border properties that you want to set.
-	*   @param {string} Optional.  If range is specified, it will set border for the specified range else it will use the selected range.
+	*   @param {string} Optional. If range is specified, it will set border for the specified range else it will use the selected range.
 	*   @returns {void}
 	*/
 	setBorder(property: any, range?: string): void;
 
 	/** This method is used to set the hyperlink in selected cells of the current sheet.
-	*   @param {string} If range is specified, it will set the hyperlink in range of the cells.
+	*   @param {string|Array<any>} If range is specified, it will set the hyperlink in range of the cells.
 	*   @param {any} Pass cellAddress or webAddress
 	*   @param {number} If we pass cellAddress then which sheet to be navigate in the applied link.
 	*   @returns {void}
 	*/
-	setHyperlink(range: string, link: any, sheetIdx: number): void;
+	setHyperlink(range: string|Array<any>, link: any, sheetIdx: number): void;
 
 	/** This method is used to set the focus to the Spreadsheet.
 	*   @returns {void}
@@ -35489,13 +36105,13 @@ class Spreadsheet extends ej.Widget {
 	showFormulaBar(): void;
 
 	/** This method is used to show/hide gridlines in active sheet in the Spreadsheet.
-	*   @param {boolean} Pass true to show the gridlines
+	*   @param {boolean} Pass `true` to show the gridlines
 	*   @returns {void}
 	*/
 	showGridlines(status: boolean): void;
 
 	/** This method is used to show/hide the headers in active sheet in the Spreadsheet.
-	*   @param {boolean} Pass true to show the sheet headers.
+	*   @param {boolean} Pass `true` to show the sheet headers.
 	*   @returns {void}
 	*/
 	showHeadings(startRow: boolean): void;
@@ -35524,23 +36140,23 @@ class Spreadsheet extends ej.Widget {
 	unhideSheet(sheetInfo: string|number): void;
 
 	/** This method is used to unmerge the selected range of cells in the Spreadsheet.
-	*   @param {string} Optional.  If the range is specified, then it will un merge the specified range else it will use the current selected range.
+	*   @param {string} Optional. If the range is specified, then it will un merge the specified range else it will use the current selected range.
 	*   @returns {void}
 	*/
 	unmergeCells(range?: string): void;
 
 	/** This method is used to unwrap the selected range of cells in the Spreadsheet.
-	*   @param {Array<any>|string} Optional.  If the range is specified, then it will update unwrap in the specified range else it will use the current selected range.
+	*   @param {Array<any>|string} Optional. If the range is specified, then it will update unwrap in the specified range else it will use the current selected range.
 	*   @returns {void}
 	*/
 	unWrapText(range?: Array<any>|string): void;
 
 	/** This method is used to update the data for the specified range of cells in the Spreadsheet.
 	*   @param {any} Pass the cells data that you want to update.
-	*   @param {Array<any>} Optional.  If range is specified, it will update data for the specified range  else it will use the current selected range.
+	*   @param {Array<any>|string} Optional. If range is specified, it will update data for the specified range  else it will use the current selected range. 
 	*   @returns {void}
 	*/
-	updateData(data: any, range?: Array<any>): void;
+	updateData(data: any, range?: Array<any>|string): void;
 
 	/** This method is used to update the formula bar in the Spreadsheet.
 	*   @returns {void}
@@ -35556,13 +36172,14 @@ class Spreadsheet extends ej.Widget {
 
 	/** This method is used to update the unique data for the specified range of cells in Spreadsheet.
 	*   @param {any} Pass the  data that you want to update in the particular range
-	*   @param {Array<any>|string} Optional.  If range is specified, it will update data for the specified range else it will use the current selected range.
+	*   @param {Array<any>|string} Optional. If range is specified, it will update data for the specified range else it will use the current selected range.
+	*   @param {any} Optional. It specifies whether to skip element processing or not.
 	*   @returns {void}
 	*/
-	updateUniqueData(data: any, range?: Array<any>|string): void;
+	updateUniqueData(data: any, range?: Array<any>|string, skipCell?: any): void;
 
 	/** This method is used to wrap the selected range of cells in the Spreadsheet.
-	*   @param {Array<any>|string} Optional.  If the range is specified, then it will update wrap in the specified  range else it will use the current selected range.
+	*   @param {Array<any>|string} Optional. If the range is specified, then it will update wrap in the specified  range else it will use the current selected range.
 	*   @returns {void}
 	*/
 	wrapText(range?: Array<any>|string): void;
@@ -35577,6 +36194,8 @@ class Spreadsheet extends ej.Widget {
 
 	XLComment: Spreadsheet.XLComment;
 
+	XLCMenu: Spreadsheet.XLCMenu;
+
 	XLDragDrop: Spreadsheet.XLDragDrop;
 
 	XLDragFill: Spreadsheet.XLDragFill;
@@ -35584,6 +36203,11 @@ class Spreadsheet extends ej.Widget {
 	XLEdit: Spreadsheet.XLEdit;
 
 	XLExport: Spreadsheet.XLExport;
+
+	/** This method is used to get the export properties in the Spreadsheet.
+	*   @returns {any}
+	*/
+	getExportProps(): any;
 
 	XLFilter: Spreadsheet.XLFilter;
 
@@ -35603,6 +36227,8 @@ class Spreadsheet extends ej.Widget {
 
 	XLSelection: Spreadsheet.XLSelection;
 
+	XLShape: Spreadsheet.XLShape;
+
 	XLSort: Spreadsheet.XLSort;
 
 	XLValidate: Spreadsheet.XLValidate;
@@ -35620,18 +36246,18 @@ export interface XLCellType {
 	addCellTypes(range: string,settings: any,sheetIdx: number): void;
 
 	/** This method is used to remove cell type from the specified range of cells in the Spreadsheet.
-	*   @param {string} Pass the range where you want remove cell type.
-	*   @param {number} Optional.  Pass sheet index.
+	*   @param {string|Array<any>} Pass the range where you want remove cell type.
+	*   @param {number} Optional. Pass sheet index.
 	*   @returns {void}
 	*/
-	removeCellTypes(range: string,sheetIdx: number): void;
+	removeCellTypes(range: string|Array<any>,sheetIdx: number): void;
 }
 
 export interface XLCFormat {
 
 	/** This method is used to clear the applied conditional formatting rules in the Spreadsheet.
-	*   @param {boolean} Pass true if you want to clear rules from selected cells else it will clear rules from entire sheet.
-	*   @param {Array<any>|string} Optional.   If range is specified, it will clear rules for the specified range else it will use the current selected range.
+	*   @param {boolean} Pass `true` if you want to clear rules from selected cells else it will clear rules from entire sheet.
+	*   @param {Array<any>|string} Optional. If range is specified, it will clear rules for the specified range else it will use the current selected range.
 	*   @returns {void}
 	*/
 	clearCF(isSelected: boolean,range: Array<any>|string): void;
@@ -35652,12 +36278,28 @@ export interface XLCFormat {
 
 export interface XLChart {
 
-	/** This method is used to create a chart for specified range in Spreadsheet.
-	*   @param {string} Optional.  If range is specified, it will create chart for the specified range else it will use the current selected range.
-	*   @param {any} Optional.  To pass the type of chart and chart name.
+	/** This method is used to change the theme of the chart in the Spreadsheet.
+	*   @param {string} Pass the chart id.
+	*   @param {ej.datavisualization.Chart.Theme} Pass the chart theme which want to update.
 	*   @returns {void}
 	*/
-	createChart(range: string,options: any): void;
+	changeTheme(chartId: string,theme: ej.datavisualization.Chart.Theme): void;
+
+	/** This method is used to change the data range of the chart in the Spreadsheet.
+	*   @param {string} Pass the chart id.
+	*   @param {string} X axis range of chart data.
+	*   @param {string} Y axis range of chart data.
+	*   @param {string} Legend range of chart data.
+	*   @returns {void}
+	*/
+	changeDataRange(chartId: string,xRange: string,yRange: string,lRange: string): void;
+
+	/** This method is used to create a chart for specified range in Spreadsheet.
+	*   @param {string|Array<any>} Optional. If range is specified, it will create chart for the specified range else it will use the current selected range.
+	*   @param {any} Optional. To pass the type of chart and chart name.
+	*   @returns {void}
+	*/
+	createChart(range: string|Array<any>,options: any): void;
 
 	/** This method is used to refresh the chart in the Spreadsheet.
 	*   @param {string} To pass the chart Id.
@@ -35673,6 +36315,19 @@ export interface XLChart {
 	*   @returns {void}
 	*/
 	resizeChart(id: string,height: number,width: number): void;
+
+	/** This method is used to update the chart element, such as axes, titles, data labels, grid lines and legends in the Spreadsheet.
+	*   @param {string} Pass the chart id.
+	*   @param {ej.Spreadsheet.ChartProperties} Pass chart element value which you want to update.
+	*   @returns {void}
+	*/
+	updateChartElement(chartId: string,value: ej.Spreadsheet.ChartProperties): void;
+
+	/** This method is used switch row to columns and vice versa for chart in the Spreadsheet. So that the data is displayed in the chart the way you want.
+	*   @param {string} Pass the chart id.
+	*   @returns {void}
+	*/
+	switchRowColumn(chartId: string): void;
 }
 
 export interface XLClipboard {
@@ -35696,15 +36351,15 @@ export interface XLClipboard {
 export interface XLComment {
 
 	/** This method is used to delete the comment in the specified range in Spreadsheet.
-	*   @param {Array<any>|string} Optional.  If range is specified, it will delete comments for the specified range else it will use the current selected range.
-	*   @param {number} Optional.  If sheetIdx is specified, it will delete comment in specified sheet else it will use active sheet.
-	*   @param {boolean} Optional.  Pass true, if you want to skip the hidden rows data.
+	*   @param {Array<any>|string} Optional. If range is specified, it will delete comments for the specified range else it will use the current selected range. 
+	*   @param {number} Optional. If sheetIdx is specified, it will delete comment in specified sheet else it will use active sheet.
+	*   @param {boolean} Optional. Pass `true`, if you want to skip the hidden rows data.
 	*   @returns {void}
 	*/
 	deleteComment(range: Array<any>|string,sheetIdx: number,skipHiddenRow: boolean): void;
 
 	/** This method is used to edit the comment in the target Cell in Spreadsheet.
-	*   @param {any} Optional.  Pass the row index and column index of the cell which contains comment.
+	*   @param {any} Optional. Pass the row index and column index of the cell which contains comment. 
 	*   @returns {void}
 	*/
 	editComment(targetCell: any): void;
@@ -35726,12 +36381,13 @@ export interface XLComment {
 	getComment(cell: HTMLElement): any;
 
 	/** This method is used to set new comment in Spreadsheet.
-	*   @param {string|Array<any>} Optional.  If we pass the range comment will set in the range otherwise it will set with selected cells.
-	*   @param {string} Optional.  Pass the comment data.
-	*   @param {boolean} Optional.  Pass true to show comment in edit mode
+	*   @param {string|Array<any>} Optional. If we pass the range comment will set in the range otherwise it will set with selected cells. 
+	*   @param {string} Optional. Pass the comment data.
+	*   @param {boolean} Optional. Pass `true` to show comment in edit mode 
+	*   @param {boolean} Optional. Pass `true` to show the user name 
 	*   @returns {void}
 	*/
-	setComment(range: string|Array<any>,data: string,showEditPanel: boolean): void;
+	setComment(range: string|Array<any>,data: string,showEditPanel: boolean,showUserName: boolean): void;
 
 	/** This method is used to show all the comments in the Spreadsheet.
 	*   @returns {void}
@@ -35739,10 +36395,49 @@ export interface XLComment {
 	showAllComments(): void;
 
 	/** This method is used to show or hide the specific comment in the Spreadsheet.
-	*   @param {HTMLElement} Optional.  Pass the cell DOM element to show or hide its comment. If pass empty argument active cell will processed.
+	*   @param {HTMLElement} Optional. Pass the cell DOM element to show or hide its comment. If pass empty argument active cell will processed.
 	*   @returns {void}
 	*/
 	showHideComment(targetCell: HTMLElement): void;
+}
+
+export interface XLCMenu {
+
+	/** This method is used to dynamically add items in the context menu.
+	*   @param {string} Specifies the context menu type in which the item to be inserted.
+	*   @param {Array<any>} Pass the items to be inserted
+	*   @param {string} Specifies the type of operation to be performed
+	*   @returns {void}
+	*/
+	addItem(target: string,itemColl: Array<any>,operation: string): void;
+
+	/** This method is used to change data source in the context menu.
+	*   @param {string} Specifies the context menu type to bind the data source.
+	*   @param {Array<any>} Pass the data source to be binded
+	*   @returns {void}
+	*/
+	changeDataSource(target: string,data: Array<any>): void;
+
+	/** This method is used to disable the items in the context menu.
+	*   @param {string} Specifies the context menu type in which the item to be disabled.
+	*   @param {Array<any>} Specifies the Menu Item id collection to be disabled
+	*   @returns {void}
+	*/
+	disableItem(target: string,idxColl: Array<any>): void;
+
+	/** This method is used to enable the items in the context menu.
+	*   @param {string} Specifies the context menu type in which the item to be enabled.
+	*   @param {Array<any>} Specifies the Menu Item id collection to be enabled
+	*   @returns {void}
+	*/
+	enableItem(target: string,idxColl: Array<any>): void;
+
+	/** This method is used to remove the items in the context menu.
+	*   @param {string} Specifies the context menu type in which the item to be removed.
+	*   @param {Array<any>} Specifies the Menu Item id collection to be removed
+	*   @returns {void}
+	*/
+	removeItem(target: string,idxColl: Array<any>): void;
 }
 
 export interface XLDragDrop {
@@ -35774,7 +36469,7 @@ export interface XLDragFill {
 	hideAutoFillOptions(): void;
 
 	/** This method is used to set position of the auto fill element in the Spreadsheet.
-	*   @param {boolean} Pass the drag fill status as boolean value for show auto fill options in Spreadsheet.
+	*   @param {boolean} Pass the isDragFill option as `boolean` value to show auto fill options in Spreadsheet.
 	*   @returns {void}
 	*/
 	positionAutoFillElement(isDragFill: boolean): void;
@@ -35783,7 +36478,7 @@ export interface XLDragFill {
 export interface XLEdit {
 
 	/** This method is used to calculate formulas in the specified sheet.
-	*   @param {number} Optional.  If sheet index is specified, then it will calculate formulas in the specified sheet only else it will calculate formulas in all sheets.
+	*   @param {number} Optional. If sheet index is specified, then it will calculate formulas in the specified sheet only else it will calculate formulas in all sheets.
 	*   @returns {void}
 	*/
 	calcNow(sheetIdx: number): void;
@@ -35791,7 +36486,7 @@ export interface XLEdit {
 	/** This method is used to edit a particular cell based on the row index and column index in the Spreadsheet.
 	*   @param {number} Pass the row index to edit particular cell.
 	*   @param {number} Pass the column index to edit particular cell.
-	*   @param {boolean} Pass true, if you want to maintain previous cell value.
+	*   @param {boolean} Pass `true`, if you want to maintain previous cell value.
 	*   @returns {void}
 	*/
 	editCell(rowIdx: number,colIdx: number,oldData: boolean): void;
@@ -35800,7 +36495,7 @@ export interface XLEdit {
 	*   @param {number} Pass the row index to get the property value.
 	*   @param {number} Pass the column index to get the property value.
 	*   @param {string} Optional. Pass the property name that you want("value", "value2", "type", "cFormatRule", "range", "thousandSeparator", "rule", "format", "border", "picture", "chart", "calcValue", "align", "hyperlink", "formats", "borders", "tformats", "tborders", "isFilterHeader",  "filterState", "tableName", "comment", "formatStr", "decimalPlaces", "cellType").
-	*   @param {number} Optional.  Pass the index of the sheet.
+	*   @param {number} Optional. Pass the index of the sheet.
 	*   @returns {any|String|Array<any>}
 	*/
 	getPropertyValue(rowIdx: number,colIdx: number,prop: string,sheetIdx: number): any|String|Array<any>;
@@ -35809,9 +36504,9 @@ export interface XLEdit {
 	*   @param {HTMLElement} Pass the cell element to get property value.
 	*   @param {string} Pass the property name that you want ("value", "value2", "type", "cFormatRule", "range", "thousandSeparator", "rule", "format", "border", "picture", "chart", "calcValue", "align", "hyperlink", "formats", "borders", "tformats", "tborders", "isFilterHeader", "filterState", "tableName", "comment", "formatStr", "decimalPlaces", "cellType").
 	*   @param {number} Pass the index of sheet.
-	*   @returns {void}
+	*   @returns {any|String|Array<any>}
 	*/
-	getPropertyValueByElem(elem: HTMLElement,property: string,sheetIdx: number): void;
+	getPropertyValueByElem(elem: HTMLElement,property: string,sheetIdx: number): any|String|Array<any>;
 
 	/** This method is used to save the edited cell value in the Spreadsheet.
 	*   @returns {void}
@@ -35828,7 +36523,7 @@ export interface XLEdit {
 	/** This method is used to update a particular cell value and its format in the Spreadsheet.
 	*   @param {any} Pass row index and column index of the cell.
 	*   @param {string|number} Pass the cell value.
-	*   @param {string} Pass the class name to update format.
+	*   @param {string} Pass the class name to update format. 
 	*   @param {number} Pass sheet index.
 	*   @returns {void}
 	*/
@@ -35837,11 +36532,16 @@ export interface XLEdit {
 
 export interface XLExport {
 
-	/** This method is used to save the sheet data as Excel or CSV document (.xls, .xlsx and .csv) in Spreadsheet.
-	*   @param {string} Pass the export type that you want.
+	/** This method is used to save the sheet data as Excel ,CSV or PDF document (.xls, .xlsx .csv, .pdf) in Spreadsheet.
+	*   @param {string} Pass the export type that you want. 
 	*   @returns {void}
 	*/
 	export(type: string): void;
+
+	/** This method is used to get the export properties in the Spreadsheet.
+	*   @returns {any}
+	*/
+	getExportProps(): any;
 }
 
 export interface XLFilter {
@@ -35852,10 +36552,10 @@ export interface XLFilter {
 	clearFilter(): void;
 
 	/** This method is used to apply filter for the selected range of cells in the Spreadsheet.
-	*   @param {string} Pass the range of the selected cells.
+	*   @param {string|Array<any>} Pass the range of the selected cells.
 	*   @returns {void}
 	*/
-	filter(range: string): void;
+	filter(range: string|Array<any>): void;
 
 	/** This method is used to apply filter for the column by active cell's value in the Spreadsheet.
 	*   @returns {void}
@@ -35867,14 +36567,14 @@ export interface XLFormat {
 
 	/** This method is used to create a table for the selected range of cells in the Spreadsheet.
 	*   @param {any} Pass the table object.
-	*   @param {string} Optional.   If the range is specified, then it will create table in the specified range else it will use the current selected range.
-	*   @returns {void}
+	*   @param {string|Array<any>} Optional. If the range is specified, then it will create table in the specified range else it will use the current selected range. 
+	*   @returns {String}
 	*/
-	createTable(tableObject: any,range: string): void;
+	createTable(tableObject: any,range: string|Array<any>): String;
 
 	/** This method is used to set format style and values in a cell or range of cells.
 	*   @param {any} Pass the formatObject which contains style, type, format, groupSeparator and decimalPlaces.
-	*   @param {string} Pass the range indices to format cells.
+	*   @param {string} Pass the range to format cells.
 	*   @returns {void}
 	*/
 	format(formatObj: any,range: string): void;
@@ -35894,21 +36594,21 @@ export interface XLFormat {
 
 	/** This method is used to update the decimal places for numeric value for the selected range of cells in the Spreadsheet.
 	*   @param {string} Pass the decimal places type in increment/decrement.
-	*   @param {string} Pass the range indices.
+	*   @param {string|Array<any>} Pass the range.
 	*   @returns {void}
 	*/
-	updateDecimalPlaces(type: string,range: string): void;
+	updateDecimalPlaces(type: string,range: string|Array<any>): void;
 
 	/** This method is used to update the format for the selected range of cells in the Spreadsheet.
 	*   @param {any} Pass the format object that you want to update.
-	*   @param {Array<any>} Optional.  If the range is specified, then it will update format in the specified range else it will use the current selected range.
+	*   @param {Array<any>} Optional. If the range is specified, then it will update format in the specified range else it will use the current selected range. 
 	*   @returns {void}
 	*/
 	updateFormat(formatObj: any,range: Array<any>): void;
 
 	/** This method is used to update the unique format for selected range of cells in the Spreadsheet.
 	*   @param {string} Pass the unique format class.
-	*   @param {Array<any>} Optional.  If the range is specified, then it will update format in the specified range else it will use the current selected range.
+	*   @param {Array<any>} Optional. If the range is specified, then it will update format in the specified range else it will use the current selected range.
 	*   @returns {void}
 	*/
 	updateUniqueFormat(formatClass: string,range: Array<any>): void;
@@ -35948,7 +36648,7 @@ export interface XLFreeze {
 export interface XLPivot {
 
 	/** This property is used to clear the pivot table list in Spreadsheet.
-	*   @param {string} Pass the name of the pivot table.
+	*   @param {string} Pass the name of the pivot table. 
 	*   @returns {void}
 	*/
 	clearPivotFieldList(pivotName: string): void;
@@ -35959,15 +36659,15 @@ export interface XLPivot {
 	*   @param {string} It specifies the name of the pivot table.
 	*   @param {any} Pass the pivot table settings.
 	*   @param {any} Pass the pivot range, sheet index, address and data source .
-	*   @returns {void}
+	*   @returns {String}
 	*/
-	createPivotTable(range: string,location: string,name: string,settings: any,pvt: any): void;
+	createPivotTable(range: string,location: string,name: string,settings: any,pvt: any): String;
 
 	/** This method is used to delete the pivot table which is selected.
-	*   @param {String} Pass the name of the pivot table.
+	*   @param {string} Pass the name of the pivot table.
 	*   @returns {void}
 	*/
-	deletePivotTable(pivotName: String): void;
+	deletePivotTable(pivotName: string): void;
 
 	/** This method is used to refresh data in pivot table.
 	*   @param {string} Optional. Pass the name of the pivot table.
@@ -35991,6 +36691,18 @@ export interface XLPrint {
 }
 
 export interface XLResize {
+
+	/** This method is used to fit the height of rows in the Spreadsheet.
+	*   @param {Array<any>} Optional. Pass row index collection that you want to fit its height.
+	*   @returns {void}
+	*/
+	fitHeight(rowIndexes: Array<any>): void;
+
+	/** This method is used to fit the width of columns in the Spreadsheet.
+	*   @param {Array<any>} Optional. Pass column index collection that you want to fit its width.
+	*   @returns {void}
+	*/
+	fitWidth(colIndexes: Array<any>): void;
 
 	/** This method is used to get the column width of the specified column index in the Spreadsheet.
 	*   @param {number} Pass the column index.
@@ -36021,27 +36733,107 @@ export interface XLResize {
 
 export interface XLRibbon {
 
+	/** This method is used to add a new item in the backstage.
+	*   @param {any} Specifies the item to be added in the backstage.
+	*   @param {number} pass the index of the item to be added in the backstage.
+	*   @returns {void}
+	*/
+	addBackStageItem(pageItem: any,index: number): void;
+
+	/** This method is used to dynamically add the contextual tabs in the ribbon.
+	*   @param {any} Specifies the contextual tab set object.
+	*   @param {number} pass the index of the contextual tab.
+	*   @returns {void}
+	*/
+	addContextualTabs(contextualTabSet: any,index: number): void;
+
+	/** This method is used to dynamically add the menu item in the file menu.
+	*   @param {Array<any>} Specifies the item to be added
+	*   @param {number} pass the index of the menu item.
+	*   @returns {void}
+	*/
+	addMenuItem(item: Array<any>,index: number): void;
+
 	/** This method is used to add a new name in the Spreadsheet name manager.
 	*   @param {string} Pass the name that you want to define in name manager.
 	*   @param {string} Pass the cell reference.
-	*   @param {string} Optional.  Pass comment, if you want.
-	*   @param {number} Optional.   Pass the sheet index.
+	*   @param {string} Optional. Pass comment, if you want.
+	*   @param {number} Optional. Pass the sheet index.
 	*   @returns {void}
 	*/
 	addNamedRange(name: string,refersTo: string,comment: string,sheetIdx: number): void;
 
-	/** This method is used to insert the few type (SUM, MAX, MIN, AVG, COUNT) of formulas in the selected range of cells in the Spreadsheet.
-	*   @param {string} To pass the type("SUM","MAX","MIN","AVG","COUNT").
-	*   @param {string} If range is specified, it will apply auto sum for the specified range else it will use the current selected range.
+	/** This method is used to dynamically add the tab in the ribbon.
+	*   @param {Array<any>} Specifies the text to be displayed in the tab.
+	*   @param {number} pass the groups to be displayed in the ribbon tab.
+	*   @param {number} pass the index of the tab.
 	*   @returns {void}
 	*/
-	autoSum(type: string,range: string): void;
+	addTab(tabText: Array<any>,ribbonGroups: number,index: number): void;
+
+	/** This method is used to dynamically add the tab group in the ribbon.
+	*   @param {number} Specifies the ribbon tab index.
+	*   @param {any} pass the groups to be displayed in the ribbon tab.
+	*   @param {number} pass the index of the ribbon group.
+	*   @returns {void}
+	*/
+	addTabGroup(tabIndex: number,tabGroup: any,groupIndex: number): void;
+
+	/** This method is used to insert the few type (SUM, MAX, MIN, AVG, COUNT) of formulas in the selected range of cells in the Spreadsheet.
+	*   @param {string} To pass the type("SUM","MAX","MIN","AVG","COUNT").
+	*   @param {string|Array<any>} If range is specified, it will apply auto sum for the specified range else it will use the current selected range.
+	*   @returns {void}
+	*/
+	autoSum(type: string,range: string|Array<any>): void;
+
+	/** This method is used to hide the file menu in the ribbon tab.
+	*   @returns {void}
+	*/
+	hideMenu(): void;
+
+	/** This method is used to remove the item from the backstage in the spreadsheet.
+	*   @param {number} Specifies the index of the item to be removed from backstage.
+	*   @returns {void}
+	*/
+	removeBackStageItem(index: number): void;
+
+	/** This method is used to remove the menu item form file menu in spreadsheet.
+	*   @param {number} Specifies the index of the item to be removed from the file menu.
+	*   @returns {void}
+	*/
+	removeMenuItem(index: number): void;
 
 	/** This method is used to delete the defined name in the Spreadsheet name manager.
 	*   @param {string} Pass the defined name that you want to remove from name manager.
 	*   @returns {void}
 	*/
 	removeNamedRange(name: string): void;
+
+	/** This method is used to remove the tab form ribbon in the spreadsheet.
+	*   @param {number} Specifies the index of the tab to be removed from the ribbon.
+	*   @param {boolean} pass the boolean value to remove the tab from ribbon
+	*   @returns {void}
+	*/
+	removeTab(index: number,isRemoveMenu: boolean): void;
+
+	/** This method is used to remove the tab group form ribbon in the spreadsheet.
+	*   @param {number} Specifies the index of the tab group to be removed from the ribbon.
+	*   @param {string} Specifies the text to be displayed in the tab group
+	*   @returns {void}
+	*/
+	removeTabGroup(tabIndex: number,groupText: string): void;
+
+	/** This method is used to show the file menu in the ribbon tab.
+	*   @returns {void}
+	*/
+	showMenu(): void;
+
+	/** This method is used to update the menu item in the file menu.
+	*   @param {any} Specifies the menu item to be updated in the ribbon
+	*   @param {number} pass the index of the item to be updated
+	*   @returns {void}
+	*/
+	updateMenuItem(item: any,index: number): void;
 
 	/** This method is used to update the ribbon icons in the Spreadsheet.
 	*   @returns {void}
@@ -36054,8 +36846,8 @@ export interface XLSearch {
 	/** This method is used to find and replace all data by workbook in the Spreadsheet.
 	*   @param {string} Pass the search data.
 	*   @param {string} Pass the replace data.
-	*   @param {boolean} Pass true, if you want to match with case-sensitive.
-	*   @param {boolean} Pass true, if you want to match with entire cell contents.
+	*   @param {boolean} Pass `true`, if you want to match with case-sensitive.
+	*   @param {boolean} Pass `true`, if you want to match with entire cell contents.
 	*   @returns {void}
 	*/
 	replaceAllByBook(findData: string,replaceData: string,isCSen: boolean,isEMatch: boolean): void;
@@ -36063,14 +36855,19 @@ export interface XLSearch {
 	/** This method is used to find and replace all data by sheet in Spreadsheet.
 	*   @param {string} Pass the search data.
 	*   @param {string} Pass the replace data.
-	*   @param {boolean} Pass true, if you want to match with case-sensitive.
-	*   @param {boolean} Pass true, if you want to match with entire cell contents.
+	*   @param {boolean} Pass `true`, if you want to match with case-sensitive.
+	*   @param {boolean} Pass `true`, if you want to match with entire cell contents.
 	*   @returns {void}
 	*/
 	replaceAllBySheet(findData: string,replaceData: string,isCSen: boolean,isEMatch: boolean): void;
 }
 
 export interface XLSelection {
+
+	/** This method is used to clear the selection of the active sheet in the Spreadsheet.
+	*   @returns {void}
+	*/
+	clearAll(): void;
 
 	/** This method is used to get the selected cells element based on specified sheet index in the Spreadsheet.
 	*   @param {number} Pass the sheet index to get the cells element.
@@ -36079,10 +36876,10 @@ export interface XLSelection {
 	getSelectedCells(sheetIdx: number): HTMLElement;
 
 	/** This method is used to refresh the selection in the Spreadsheet.
-	*   @param {Array<any>} Optional.  Pass range to refresh selection.
+	*   @param {Array<any>|string} Optional. Pass range to refresh selection.
 	*   @returns {void}
 	*/
-	refreshSelection(range: Array<any>): void;
+	refreshSelection(range: Array<any>|string): void;
 
 	/** This method is used to select a single column in the Spreadsheet.
 	*   @param {number} Pass the column index value.
@@ -36122,6 +36919,20 @@ export interface XLSelection {
 	selectSheet(): void;
 }
 
+export interface XLShape {
+
+	/** This method is used to set a picture in the Spreadsheet.
+	*   @param {string} Pass the range of the cell.
+	*   @param {string} Pass the path of the specified image.
+	*   @param {number} Optional. Pass the width of the image that you want to set.
+	*   @param {number} Optional. Pass the height of the image that you want to set.
+	*   @param {number} Optional. Pass the top of the image that you want to set.
+	*   @param {number} Optional. Pass the left of the image that you want to set.
+	*   @returns {String}
+	*/
+	setPicture(range: string,url: string,width: number,height: number,top: number,left: number): String;
+}
+
 export interface XLSort {
 
 	/** This method is used to sort a particular range of cells based on its cell or font color in the Spreadsheet.
@@ -36136,34 +36947,34 @@ export interface XLSort {
 	*   @param {Array<any>|string} Pass the range to sort.
 	*   @param {string} Pass the column name.
 	*   @param {any} Pass the direction to sort (ascending or descending).
-	*   @returns {void}
+	*   @returns {Boolean}
 	*/
-	sortByRange(range: Array<any>|string,columnName: string,direction: any): void;
+	sortByRange(range: Array<any>|string,columnName: string,direction: any): Boolean;
 }
 
 export interface XLValidate {
 
 	/** This method is used to apply data validation rules in a selected range of cells based on the defined condition in the Spreadsheet.
-	*   @param {string} If range is specified, it will apply rules for the specified range else it will use the current selected range.
+	*   @param {string|Array<any>} If range is specified, it will apply rules for the specified range else it will use the current selected range. 
 	*   @param {Array<any>} Pass the validation condition, value1 and value2.
 	*   @param {string} Pass the data type.
-	*   @param {boolean} Pass 'true' if you ignore blank values.
-	*   @param {boolean} Pass 'true' if you want to show an error alert.
+	*   @param {boolean} Pass `true` if you ignore blank values.
+	*   @param {boolean} Pass `true` if you want to show an error alert.
 	*   @returns {void}
 	*/
-	applyDVRules(range: string,values: Array<any>,type: string,required: boolean,showErrorAlert: boolean): void;
+	applyDVRules(range: string|Array<any>,values: Array<any>,type: string,required: boolean,showErrorAlert: boolean): void;
 
 	/** This method is used to clear the applied validation rules in a specified range of cells in the Spreadsheet.
-	*   @param {string} Optional.  If range is specified, it will clear rules for the specified range else it will use the current selected range.
+	*   @param {string|Array<any>} Optional. If range is specified, it will clear rules for the specified range else it will use the current selected range. 
 	*   @returns {void}
 	*/
-	clearDV(range: string): void;
+	clearDV(range: string|Array<any>): void;
 
 	/** This method is used to highlight invalid data in a specified range of cells in the Spreadsheet.
-	*   @param {string} Optional.  If range is specified, it will clear rules for the specified range else it will use the current selected range.
+	*   @param {string|Array<any>} Optional. If range is specified, it will clear rules for the specified range else it will use the current selected range.
 	*   @returns {void}
 	*/
-	highlightInvalidData(range: string): void;
+	highlightInvalidData(range: string|Array<any>): void;
 }
 
 export interface Model {
@@ -36176,152 +36987,162 @@ export interface Model {
 	/** Gets or sets a value that indicates whether to enable or disable auto rendering of cell type in the Spreadsheet.
 	*   @Default {false}
 	*/
-	allowAutoCellType?: Boolean;
+	allowAutoCellType?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable auto fill feature in the Spreadsheet.
 	*   @Default {true}
 	*/
-	allowAutoFill?: Boolean;
+	allowAutoFill?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable auto sum feature in the Spreadsheet.
 	*   @Default {true}
 	*/
-	allowAutoSum?: Boolean;
+	allowAutoSum?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable cell format feature in the Spreadsheet. By enabling this, you can customize styles and number formats.
 	*   @Default {true}
 	*/
-	allowCellFormatting?: Boolean;
+	allowCellFormatting?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable cell type feature in the Spreadsheet.
 	*   @Default {false}
 	*/
-	allowCellType?: Boolean;
+	allowCellType?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable chart feature in the Spreadsheet. By enabling this feature, you can create and customize charts in Spreadsheet.
 	*   @Default {true}
 	*/
-	allowCharts?: Boolean;
+	allowCharts?: boolean;
+
+	/** Gets or sets a value that indicates whether to enable or disable clear feature in the Spreadsheet.
+	*   @Default {true}
+	*/
+	allowClear?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable clipboard feature in the Spreadsheet. By enabling this feature, you can perform cut/copy and paste operations in Spreadsheet.
 	*   @Default {true}
 	*/
-	allowClipboard?: Boolean;
+	allowClipboard?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable comment feature in the Spreadsheet. By enabling this, you can add/delete/modify comments in Spreadsheet.
 	*   @Default {true}
 	*/
-	allowComments?: Boolean;
+	allowComments?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable Conditional Format feature in the Spreadsheet. By enabling this, you can apply formatting to the selected range of cells based on the provided conditions (Greater than, Less than, Equal, Between, Contains, etc.).
 	*   @Default {true}
 	*/
-	allowConditionalFormats?: Boolean;
+	allowConditionalFormats?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable data validation feature in the Spreadsheet.
 	*   @Default {true}
 	*/
-	allowDataValidation?: Boolean;
+	allowDataValidation?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable the delete action in the Spreadsheet. By enabling this feature, you can delete existing rows, columns, cells and sheet.
 	*   @Default {true}
 	*/
-	allowDelete?: Boolean;
+	allowDelete?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable drag and drop feature in the Spreadsheet.
 	*   @Default {true}
 	*/
-	allowDragAndDrop?: Boolean;
+	allowDragAndDrop?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable the edit action in the Spreadsheet.
 	*   @Default {true}
 	*/
-	allowEditing?: Boolean;
+	allowEditing?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable filtering feature in the Spreadsheet. Filtering can be used to limit the data displayed using required criteria.
 	*   @Default {true}
 	*/
-	allowFiltering?: Boolean;
+	allowFiltering?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable table feature in the Spreadsheet. By enabling this, you can render table in selected range.
 	*   @Default {true}
 	*/
-	allowFormatAsTable?: Boolean;
+	allowFormatAsTable?: boolean;
 
 	/** Get or sets a value that indicates whether to enable or disable format painter feature in the Spreadsheet. By enabling this feature, you can copy the format from the selected range and apply it to another range.
 	*   @Default {true}
 	*/
-	allowFormatPainter?: Boolean;
+	allowFormatPainter?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable formula bar in the Spreadsheet.
 	*   @Default {true}
 	*/
-	allowFormulaBar?: Boolean;
+	allowFormulaBar?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable freeze pane support in Spreadsheet. After enabling this feature, you can use freeze top row, freeze first column and freeze panes options.
-	*   @Default {true}
+	*   @Default {false}
 	*/
-	allowFreezing?: Boolean;
+	allowFreezing?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable hyperlink feature in the Spreadsheet. By enabling this feature, you can add hyperlink which is used to easily navigate to the cell reference from one sheet to another or a web page.
 	*   @Default {true}
 	*/
-	allowHyperlink?: Boolean;
+	allowHyperlink?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable import feature in the Spreadsheet. By enabling this feature, you can open existing Spreadsheet documents.
 	*   @Default {true}
 	*/
-	allowImport?: Boolean;
+	allowImport?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable the insert action in the Spreadsheet. By enabling this feature, you can insert new rows, columns, cells and sheet.
 	*   @Default {true}
 	*/
-	allowInsert?: Boolean;
+	allowInsert?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable keyboard navigation feature in the Spreadsheet.
 	*   @Default {true}
 	*/
-	allowKeyboardNavigation?: Boolean;
+	allowKeyboardNavigation?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable lock cell feature in the Spreadsheet.
 	*   @Default {true}
 	*/
-	allowLockCell?: Boolean;
+	allowLockCell?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable merge feature in the Spreadsheet.
 	*   @Default {true}
 	*/
-	allowMerging?: Boolean;
+	allowMerging?: boolean;
+
+	/** Gets or sets a value that indicates whether to enable or disable overflow feature in the Spreadsheet.
+	*   @Default {true}
+	*/
+	allowOverflow?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable resizing feature in the Spreadsheet. By enabling this feature, you can change the column width and row height by dragging its header boundaries.
 	*   @Default {true}
 	*/
-	allowResizing?: Boolean;
+	allowResizing?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable find and replace feature in the Spreadsheet. By enabling this, you can easily find and replace a specific value in the sheet or workbook. By using goto behavior, you can select and highlight all cells that contains specific data or data types.
 	*   @Default {true}
 	*/
-	allowSearching?: Boolean;
+	allowSearching?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable selection in the Spreadsheet. By enabling this feature, selected items will be highlighted.
 	*   @Default {true}
 	*/
-	allowSelection?: Boolean;
+	allowSelection?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable the sorting feature in the Spreadsheet.
 	*   @Default {true}
 	*/
-	allowSorting?: Boolean;
+	allowSorting?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable undo and redo feature in the Spreadsheet.
 	*   @Default {true}
 	*/
-	allowUndoRedo?: Boolean;
+	allowUndoRedo?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable wrap text feature in the Spreadsheet. By enabling this, cell content can wrap to the next line, if the cell content exceeds the boundary of the cell.
 	*   @Default {true}
 	*/
-	allowWrap?: Boolean;
+	allowWrap?: boolean;
 
 	/** Gets or sets a value that indicates to define the width of the activation panel in Spreadsheet.
 	*   @Default {300}
@@ -36348,7 +37169,7 @@ export interface Model {
 
 	/** Gets or sets a value to add root CSS class for customizing Spreadsheet skins.
 	*/
-	cssClass?: String;
+	cssClass?: string;
 
 	/** Gets or sets a value that indicates custom formulas in Spreadsheet.
 	*   @Default {[]}
@@ -36358,17 +37179,17 @@ export interface Model {
 	/** Gets or sets a value that indicates whether to enable or disable context menu in the Spreadsheet.
 	*   @Default {true}
 	*/
-	enableContextMenu?: Boolean;
+	enableContextMenu?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable pivot table in the Spreadsheet.
 	*   @Default {false}
 	*/
-	enablePivotTable?: Boolean;
+	enablePivotTable?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable touch support in the Spreadsheet.
 	*   @Default {true}
 	*/
-	enableTouch?: Boolean;
+	enableTouch?: boolean;
 
 	/** Gets or sets an object that indicates to customize the exporting behavior in Spreadsheet.
 	*/
@@ -36382,10 +37203,15 @@ export interface Model {
 	*/
 	importSettings?: ImportSettings;
 
+	/** Gets or sets a value that indicates whether to enable or disable readonly support in the Spreadsheet.
+	*   @Default {false}
+	*/
+	isReadOnly?: boolean;
+
 	/** Gets or sets a value that indicates whether to customizing the user interface (UI) as locale-specific in order to display regional data (i.e.) in a language and culture specific to a particular country or region.
 	*   @Default {en-US}
 	*/
-	locale?: String;
+	locale?: string;
 
 	/** Gets or sets an object that indicates to customize the picture behavior in the Spreadsheet.
 	*/
@@ -36429,12 +37255,12 @@ export interface Model {
 	/** Gets or sets a value that indicates whether to show or hide pager in the Spreadsheet.
 	*   @Default {true}
 	*/
-	showPager?: Boolean;
+	showPager?: boolean;
 
 	/** Gets or sets a value that indicates whether to show or hide ribbon in the Spreadsheet.
 	*   @Default {true}
 	*/
-	showRibbon?: Boolean;
+	showRibbon?: boolean;
 
 	/** This is used to set the number of undo-redo steps in the Spreadsheet.
 	*   @Default {20}
@@ -36444,7 +37270,7 @@ export interface Model {
 	/** Define the username for the Spreadsheet which is displayed in comment.
 	*   @Default {User Name}
 	*/
-	userName?: String;
+	userName?: string;
 
 	/** Triggered for every action before its starts. */
 	actionBegin? (e: ActionBeginEventArgs): void;
@@ -36469,6 +37295,9 @@ export interface Model {
 
 	/** Triggered before the selected cells are dropped. */
 	beforeDrop? (e: BeforeDropEventArgs): void;
+
+	/** Triggered while start to edit the comment. */
+	beforeEditComment? (e: BeforeEditCommentEventArgs): void;
 
 	/** Triggered before the contextmenu is open. */
 	beforeOpen? (e: BeforeOpenEventArgs): void;
@@ -36500,6 +37329,9 @@ export interface Model {
 	/** Triggered when the selected cells are being dragged. */
 	drag? (e: DragEventArgs): void;
 
+	/** Triggered when you start to drag the picture or chart. */
+	dragShape? (e: DragShapeEventArgs): void;
+
 	/** Triggered when the selected cells are initiated to drag. */
 	dragStart? (e: DragStartEventArgs): void;
 
@@ -36529,6 +37361,12 @@ export interface Model {
 
 	/** Triggered when pager item is clicked in the Spreadsheet. */
 	pagerClick? (e: PagerClickEventArgs): void;
+
+	/** Triggered when you start resizing the chart, picture, row and column. */
+	resizeStart? (e: ResizeStartEventArgs): void;
+
+	/** Triggered after end of resizing the chart, picture, row and column. */
+	resizeEnd? (e: ResizeEndEventArgs): void;
 
 	/** Triggered when click on the ribbon. */
 	ribbonClick? (e: RibbonClickEventArgs): void;
@@ -36687,7 +37525,7 @@ export interface BeforeBatchSaveEventArgs {
 
 	/** Returns the sheet index.
 	*/
-	sheetIdx?: Number;
+	sheetIdx?: number;
 
 	/** Returns the query, primary key,batch changes for the data Source.
 	*/
@@ -36773,6 +37611,37 @@ export interface BeforeDropEventArgs {
 	/** Returns the target item.
 	*/
 	target?: HTMLElement;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
+}
+
+export interface BeforeEditCommentEventArgs {
+
+	/** Returns the sheet index.
+	*/
+	sheetIdx?: number;
+
+	/** Returns the comment cell index.
+	*/
+	cellIndex?: any;
+
+	/** Returns the disable option value.
+	*/
+	disable?: boolean;
+
+	/** Returns the Spreadsheet model.
+	*/
+	model?: any;
+
+	/** Returns the value of the comment
+	*/
+	value?: string;
 
 	/** Returns the name of the event.
 	*/
@@ -36969,11 +37838,11 @@ export interface CellSaveEventArgs {
 
 	/** Returns the index of the row.
 	*/
-	rowIndex?: Number;
+	rowIndex?: number;
 
 	/** Returns the index of the column.
 	*/
-	colIndex?: Number;
+	colIndex?: number;
 
 	/** Returns the Spreadsheet model.
 	*/
@@ -37004,7 +37873,7 @@ export interface CellSelectedEventArgs {
 
 	/** Returns the active sheet index.
 	*/
-	sheetIdx?: Number;
+	sheetIdx?: number;
 
 	/** Returns the selected range.
 	*/
@@ -37095,6 +37964,25 @@ export interface DragEventArgs {
 	/** Returns the name of the event.
 	*/
 	type?: string;
+
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
+}
+
+export interface DragShapeEventArgs {
+
+	/** Returns the Spreadsheet model.
+	*/
+	model?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+
+	/** Returns the target element.
+	*/
+	target?: HTMLElement;
 
 	/** Returns the cancel option value.
 	*/
@@ -37355,6 +38243,76 @@ export interface PagerClickEventArgs {
 	cancel?: boolean;
 }
 
+export interface ResizeStartEventArgs {
+
+	/** Returns the column index which column you start to resize.
+	*/
+	colIndex?: number;
+
+	/** Returns the row index which row you start to resize.
+	*/
+	rowIndex?: number;
+
+	/** Returns the Spreadsheet model.
+	*/
+	model?: any;
+
+	/** Returns type of the request.
+	*/
+	reqType?: string;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
+}
+
+export interface ResizeEndEventArgs {
+
+	/** Returns the column index which you resized.
+	*/
+	colIndex?: number;
+
+	/** Returns old width of the column or shape.
+	*/
+	oldWidth?: number;
+
+	/** Returns new width of the column or shape.
+	*/
+	newWidth?: number;
+
+	/** Returns the row index which you resized.
+	*/
+	rowIndex?: number;
+
+	/** Returns old height of the row or shape.
+	*/
+	oldHeight?: number;
+
+	/** Returns new height of the row or shape.
+	*/
+	newHeight?: number;
+
+	/** Returns the Spreadsheet model.
+	*/
+	model?: any;
+
+	/** Returns type of the request.
+	*/
+	reqType?: string;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
+}
+
 export interface RibbonClickEventArgs {
 
 	/** Returns element Id.
@@ -37489,7 +38447,7 @@ export interface AutoFillSettings {
 	/** Gets or sets a value that indicates to enable or disable auto fill options in the Spreadsheet.
 	*   @Default {true}
 	*/
-	showFillOptions?: Boolean;
+	showFillOptions?: boolean;
 }
 
 export interface ChartSettings {
@@ -37510,27 +38468,27 @@ export interface ExportSettings {
 	/** Gets or sets a value that indicates whether to enable or disable save feature in Spreadsheet. By enabling this feature, you can save existing Spreadsheet.
 	*   @Default {true}
 	*/
-	allowExporting?: Boolean;
+	allowExporting?: boolean;
 
 	/** Gets or sets a value that indicates to define csvUrl for export to CSV format.
 	*   @Default {null}
 	*/
-	csvUrl?: String;
+	csvUrl?: string;
 
 	/** Gets or sets a value that indicates to define excelUrl for export to excel format.
 	*   @Default {null}
 	*/
-	excelUrl?: String;
+	excelUrl?: string;
 
 	/** Gets or sets a value that indicates to define password while export to excel format.
 	*   @Default {null}
 	*/
-	password?: String;
+	password?: string;
 
 	/** Gets or sets a value that indicates to define pdfUrl for export to PDF format.
 	*   @Default {null}
 	*/
-	pdfUrl?: String;
+	pdfUrl?: string;
 }
 
 export interface FormatSettings {
@@ -37538,37 +38496,37 @@ export interface FormatSettings {
 	/** Gets or sets a value that indicates whether to enable or disable cell border feature in the Spreadsheet.
 	*   @Default {true}
 	*/
-	allowCellBorder?: Boolean;
+	allowCellBorder?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable decimal places in the Spreadsheet.
 	*   @Default {true}
 	*/
-	allowDecimalPlaces?: Boolean;
+	allowDecimalPlaces?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable font family feature in Spreadsheet.
 	*   @Default {true}
 	*/
-	allowFontFamily?: Boolean;
+	allowFontFamily?: boolean;
 }
 
 export interface ImportSettings {
 
 	/** Sets import mapper to perform import feature in Spreadsheet.
 	*/
-	importMapper?: String;
+	importMapper?: string;
 
 	/** Gets or sets a value that indicates whether to enable or disable import while initial loading.
 	*   @Default {false}
 	*/
-	importOnLoad?: Boolean;
+	importOnLoad?: boolean;
 
 	/** Sets import URL to access the online files in the Spreadsheet.
 	*/
-	importUrl?: String;
+	importUrl?: string;
 
 	/** Gets or sets a value that indicates to define password while importing in the Spreadsheet.
 	*/
-	password?: String;
+	password?: string;
 }
 
 export interface PictureSettings {
@@ -37576,7 +38534,7 @@ export interface PictureSettings {
 	/** Gets or sets a value that indicates whether to enable or disable picture feature in Spreadsheet. By enabling this, you can add pictures in Spreadsheet.
 	*   @Default {true}
 	*/
-	allowPictures?: Boolean;
+	allowPictures?: boolean;
 
 	/** Gets or sets a value that indicates to define height to picture in the Spreadsheet.
 	*   @Default {220}
@@ -37594,17 +38552,17 @@ export interface PrintSettings {
 	/** Gets or sets a value that indicates whether to enable or disable page setup support for printing in Spreadsheet.
 	*   @Default {true}
 	*/
-	allowPageSetup?: Boolean;
+	allowPageSetup?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable page size support for printing in Spreadsheet.
 	*   @Default {false}
 	*/
-	allowPageSize?: Boolean;
+	allowPageSize?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable print feature in the Spreadsheet.
 	*   @Default {true}
 	*/
-	allowPrinting?: Boolean;
+	allowPrinting?: boolean;
 }
 
 export interface RibbonSettingsApplicationTabMenuSettings {
@@ -37612,7 +38570,7 @@ export interface RibbonSettingsApplicationTabMenuSettings {
 	/** Gets or sets a value that indicates whether to enable or disable isAppend property in ribbon settings.
 	*   @Default {false}
 	*/
-	isAppend?: Boolean;
+	isAppend?: boolean;
 
 	/** Specifies the data source to append in application tab.
 	*   @Default {[]}
@@ -37644,27 +38602,27 @@ export interface ScrollSettings {
 	/** Gets or sets a value that indicates whether to enable or disable scrolling in Spreadsheet.
 	*   @Default {true}
 	*/
-	allowScrolling?: Boolean;
+	allowScrolling?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable sheet on demand. By enabling this, it render only the active sheet element while paging remaining sheets are created one by one.
 	*   @Default {false}
 	*/
-	allowSheetOnDemand?: Boolean;
+	allowSheetOnDemand?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable virtual scrolling feature in the Spreadsheet.
 	*   @Default {true}
 	*/
-	allowVirtualScrolling?: Boolean;
+	allowVirtualScrolling?: boolean;
 
 	/** Gets or sets the value that indicates to define the height of spreadsheet.
 	*   @Default {100%}
 	*/
-	height?: Number|String;
+	height?: Number|string;
 
 	/** Gets or sets the value that indicates whether to enable or disable responsive mode in the Spreadsheet.
 	*   @Default {true}
 	*/
-	isResponsive?: Boolean;
+	isResponsive?: boolean;
 
 	/** Gets or sets a value that indicates to set scroll mode in Spreadsheet. It has two scroll modes, Normal and Infinite.
 	*   @Default {ej.Spreadsheet.scrollMode.Infinite}
@@ -37674,14 +38632,14 @@ export interface ScrollSettings {
 	/** Gets or sets the value that indicates to define the height of the spreadsheet.
 	*   @Default {100%}
 	*/
-	width?: Number|String;
+	width?: Number|string;
 }
 
 export interface SelectionSettings {
 
 	/** Gets or sets a value that indicates to define active cell in spreadsheet.
 	*/
-	activeCell?: String;
+	activeCell?: string;
 
 	/** Gets or sets a value that indicates to define animation time while selection in the Spreadsheet.
 	*   @Default {0.001}
@@ -37691,7 +38649,7 @@ export interface SelectionSettings {
 	/** Gets or sets a value that indicates to enable or disable animation while selection.
 	*   @Default {false}
 	*/
-	enableAnimation?: Boolean;
+	enableAnimation?: boolean;
 
 	/** Gets or sets a value that indicates to set selection type in Spreadsheet. It has three types which are Column, Row and Default.
 	*   @Default {ej.Spreadsheet.SelectionType.Default}
@@ -37706,17 +38664,17 @@ export interface SelectionSettings {
 
 export interface SheetsBorder {
 
-	/**
+	/**  
 	*/
 	type?: ej.Spreadsheet.BorderType|string;
 
 	/** Specifies border color for range of cells in Spreadsheet.
 	*/
-	color?: String;
+	color?: string;
 
 	/** To apply border for the specified range of cell.
 	*/
-	range?: String;
+	range?: string;
 }
 
 export interface SheetsCFormatRule {
@@ -37736,7 +38694,7 @@ export interface SheetsCFormatRule {
 
 	/** Specifies the range for conditional formatting in Spreadsheet.
 	*/
-	range?: String;
+	range?: string;
 }
 
 export interface SheetsRangeSetting {
@@ -37753,7 +38711,7 @@ export interface SheetsRangeSetting {
 
 	/** Specifies the primary key for the datasource in Spreadsheet.
 	*/
-	primaryKey?: String;
+	primaryKey?: string;
 
 	/** Specifies the query for the datasource in Spreadsheet.
 	*   @Default {null}
@@ -37761,14 +38719,14 @@ export interface SheetsRangeSetting {
 	query?: any;
 
 	/** Gets or sets a value that indicates whether to enable or disable the datasource header in Spreadsheet.
-	*   @Default {false}
+	*   @Default {true}
 	*/
-	showHeader?: Boolean;
+	showHeader?: boolean;
 
 	/** Specifies the start cell for the datasource range in Spreadsheet.
 	*   @Default {A1}
 	*/
-	startCell?: String;
+	startCell?: string;
 }
 
 export interface SheetsRowsCellsComment {
@@ -37776,29 +38734,29 @@ export interface SheetsRowsCellsComment {
 	/** Get or sets the value that indicates whether to show or hide comments in Spreadsheet.
 	*   @Default {false}
 	*/
-	isVisible?: Boolean;
+	isVisible?: boolean;
 
 	/** Specifies the value for the comment in Spreadsheet.
 	*/
-	value?: String;
+	value?: string;
 }
 
 export interface SheetsRowsCellsFormat {
 
 	/** Specifies the type of the format in Spreadsheet.
 	*/
-	type?: String;
+	type?: string;
 }
 
 export interface SheetsRowsCellsHyperlink {
 
 	/** Specifies the web address for the hyperlink of a cell.
 	*/
-	webAddr?: String;
+	webAddr?: string;
 
 	/** Specifies the cell address for the hyperlink of a cell.
 	*/
-	cellAddr?: String;
+	cellAddr?: string;
 
 	/** Specifies the sheet index to which the cell is referred.
 	*   @Default {1}
@@ -37810,15 +38768,15 @@ export interface SheetsRowsCellsStyle {
 
 	/** Specifies the background color of a cell in the Spreadsheet.
 	*/
-	backgroundColor?: String;
+	backgroundColor?: string;
 
 	/** Specifies the font color of a cell in the Spreadsheet.
 	*/
-	color?: String;
+	color?: string;
 
 	/** Specifies the font weight of a cell in the Spreadsheet.
 	*/
-	fontWeight?: String;
+	fontWeight?: string;
 }
 
 export interface SheetsRowsCell {
@@ -37850,7 +38808,7 @@ export interface SheetsRowsCell {
 
 	/** Specifies the value for a cell in Spreadsheet.
 	*/
-	value?: String;
+	value?: string;
 }
 
 export interface SheetsRow {
@@ -37901,7 +38859,7 @@ export interface Sheet {
 	/** Gets or sets a value that indicates whether to enable or disable field as column header in the Spreadsheet.
 	*   @Default {false}
 	*/
-	fieldAsColumnHeader?: Boolean;
+	fieldAsColumnHeader?: boolean;
 
 	/** Specifies the header styles for the headers in datasource range.
 	*   @Default {null}
@@ -37925,7 +38883,7 @@ export interface Sheet {
 
 	/** Specifies the primary key for the datasource in Spreadsheet.
 	*/
-	primaryKey?: String;
+	primaryKey?: string;
 
 	/** Specifies the query for the dataSource in Spreadsheet.
 	*   @Default {null}
@@ -37950,22 +38908,22 @@ export interface Sheet {
 	/** Gets or sets a value that indicates whether to show or hide grid lines in the Spreadsheet.
 	*   @Default {true}
 	*/
-	showGridlines?: Boolean;
+	showGridlines?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable or disable the datasource header in Spreadsheet.
-	*   @Default {false}
+	*   @Default {true}
 	*/
-	showHeader?: Boolean;
+	showHeader?: boolean;
 
 	/** Gets or sets a value that indicates whether to show or hide headings in the Spreadsheet.
 	*   @Default {true}
 	*/
-	showHeadings?: Boolean;
+	showHeadings?: boolean;
 
 	/** Specifies the start cell for the datasource range in Spreadsheet.
 	*   @Default {A1}
 	*/
-	startCell?: String;
+	startCell?: string;
 }
 
 enum AutoFillOptions{
@@ -38095,6 +39053,76 @@ enum CFormatHighlightColor{
 
 	///Highlights with red text.
 	RedText
+}
+
+
+enum ChartProperties{
+
+	///Specifies to make the data label center of the chart.
+	DataLabelCenter,
+
+	///Specifies to make the data label inside base of the chart.
+	DataLabelInsideBase,
+
+	///Specifies to make the data label inside end of the chart.
+	DataLabelInsideEnd,
+
+	///Specifies to make the data label none of the chart.
+	DataLabelNone,
+
+	///Specifies to make the data label outside end of the chart.
+	DataLabelOutsideEnd,
+
+	///Specifies to make the legends to bottom of the chart.
+	LegendsBottom,
+
+	///Specifies to make the legends to left of the chart.
+	LegendsLeft,
+
+	///Specifies to make the legends to none of the chart.
+	LegendsNone,
+
+	///Specifies to make the legends to right of the chart.
+	LegendsRight,
+
+	///Specifies to make the legends to top of the chart.
+	LegendsTop,
+
+	///To set the primary horizontal of the chart.
+	PrimaryHorizontal,
+
+	///To set the primary horizontal axis title of the chart.
+	PrimaryHorizontalAxisTitle,
+
+	///To set the primary major horizontal of the chart.
+	PrimaryMajorHorizontal,
+
+	///To set the primary major vertical of the chart.
+	PrimaryMajorVertical,
+
+	///To set the primary minor horizontal of the chart.
+	PrimaryMinorHorizontal,
+
+	///To set the primary minor vertical of the chart.
+	PrimaryMinorVertical,
+
+	///To set the primary vertical of the chart.
+	PrimaryVertical,
+
+	///To set the primary vertical axis title of the chart.
+	PrimaryVerticalAxisTitle,
+
+	///Specifies to make the title to center of the chart.
+	TitleCenter,
+
+	///Specifies to make the title to far of the chart.
+	TitleFar,
+
+	///Specifies to make the title to near of the chart.
+	TitleNear,
+
+	///Specifies to make the title to none of the chart.
+	TitleNone
 }
 
 }
@@ -38457,7 +39485,7 @@ enum PdfService{
 
 enum LinkTarget{
 
-	///Opens the hyperlink in the same tab of the browser.
+	///Opens the hyperlink in the same tab of the browser. 
 	Default,
 
 	///Opens the hyperlink in a new tab of the browser.
@@ -38490,47 +39518,47 @@ class SpellCheck extends ej.Widget {
 	/** To get the error word highlighted string by passing the given input sentence.
 	*   @param {string} Content to be spell check
 	*   @param {string} Class name that contains style value to highlight the error word
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	spellCheck(targetSentence: string, misspellWordCss: string): void;
+	spellCheck(targetSentence: string, misspellWordCss: string): any;
 
 	/** To ignore all the error word occurrences from the given input sentence.
 	*   @param {string} Error word to ignore from the target content
 	*   @param {string} Content to perform the ignore all operation
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	ignoreAll(word: string, targetSentence: string): void;
+	ignoreAll(word: string, targetSentence: string): any;
 
 	/** To ignore the error word once from the given input sentence.
 	*   @param {string} Error word to ignore from the target content
 	*   @param {string} Content to perform the ignore operation
 	*   @param {number} Index of the error word present in the target content
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	ignore(word: string, targetSentence: string, index: number): void;
+	ignore(word: string, targetSentence: string, index: number): any;
 
 	/** To change the error word once from the given input sentence.
 	*   @param {string} Error word to change from the target content
 	*   @param {string} Content to perform the change operation
 	*   @param {string} Word to replace with the error word
 	*   @param {number} Index of the error word present in the target content
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	change(word: string, targetSentence: string, changeWord: string, index: number): void;
+	change(word: string, targetSentence: string, changeWord: string, index: number): any;
 
 	/** To change all the error word occurrences from the given input sentence.
 	*   @param {string} Error word to change from the target content
 	*   @param {string} Content to perform the change all operation
 	*   @param {string} Word to replace with the error word
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	changeAll(word: string, targetSentence: string, changeWord: string): void;
+	changeAll(word: string, targetSentence: string, changeWord: string): any;
 
 	/** To add the words into the custom dictionary.
 	*   @param {string} Word to add into the dictionary file
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	addToDictionary(customWord: string): void;
+	addToDictionary(customWord: string): any;
 }
 export module SpellCheck{
 
@@ -38955,7 +39983,7 @@ export interface IgnoreSettings {
 
 }
 declare module ej.datavisualization {
-
+	
 class SymbolPalette extends ej.Widget {
 	static fn: SymbolPalette;
 	constructor(element: JQuery, options?: SymbolPalette.Model);
@@ -38971,12 +39999,12 @@ export interface Model {
 	/** Defines whether the symbols can be dragged from palette or not
 	*   @Default {true}
 	*/
-	allowDrag?: Boolean;
+	allowDrag?: boolean;
 
 	/** Customizes the style of the symbol palette
 	*   @Default {e-symbolpalette}
 	*/
-	cssClass?: String;
+	cssClass?: string;
 
 	/** Defines the default properties of nodes and connectors
 	*/
@@ -38985,27 +40013,27 @@ export interface Model {
 	/** Sets the Id of the diagram, over which the symbols will be dropped
 	*   @Default {null}
 	*/
-	diagramId?: String;
+	diagramId?: string;
 
 	/** Sets the height of the palette headers
 	*   @Default {30}
 	*/
-	headerHeight?: Number;
+	headerHeight?: number;
 
 	/** Defines the height of the symbol palette
 	*   @Default {400}
 	*/
-	height?: Number;
+	height?: number;
 
 	/** Defines the height of the palette items
 	*   @Default {50}
 	*/
-	paletteItemHeight?: Number;
+	paletteItemHeight?: number;
 
 	/** Defines the width of the palette items
 	*   @Default {50}
 	*/
-	paletteItemWidth?: Number;
+	paletteItemWidth?: number;
 
 	/** An array of JSON objects, where each object represents a node/connector
 	*   @Default {[]}
@@ -39015,7 +40043,7 @@ export interface Model {
 	/** Defines the preview height of the symbols
 	*   @Default {100}
 	*/
-	previewHeight?: Number;
+	previewHeight?: number;
 
 	/** Defines the offset value to be left between the mouse cursor and symbol previews
 	*   @Default {(110, 110)}
@@ -39025,17 +40053,17 @@ export interface Model {
 	/** Defines the width of the symbol previews
 	*   @Default {100}
 	*/
-	previewWidth?: Number;
+	previewWidth?: number;
 
 	/** Enable or disable the palette item text
 	*   @Default {true}
 	*/
-	showPaletteItemText?: Boolean;
+	showPaletteItemText?: boolean;
 
 	/** The width of the palette
 	*   @Default {250}
 	*/
-	width?: Number;
+	width?: number;
 
 	/** Triggers when a palette item is selected or unselected */
 	selectionChange? (e: SelectionChangeEventArgs): void;
@@ -39045,7 +40073,7 @@ export interface SelectionChangeEventArgs {
 
 	/** returns whether an element is selected or unselected
 	*/
-	changeType?: String;
+	changeType?: string;
 
 	/** returns the node or connector that is selected or unselected
 	*/
@@ -39103,204 +40131,204 @@ class LinearGauge extends ej.Widget {
 	exportImage(): void;
 
 	/** To get Bar Distance From Scale in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getBarDistanceFromScale(): void;
+	getBarDistanceFromScale(): any;
 
 	/** To get Bar Pointer Value in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getBarPointerValue(): void;
+	getBarPointerValue(): any;
 
 	/** To get Bar Width in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getBarWidth(): void;
+	getBarWidth(): any;
 
 	/** To get CustomLabel Angle in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getCustomLabelAngle(): void;
+	getCustomLabelAngle(): any;
 
 	/** To get CustomLabel Value in string
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getCustomLabelValue(): void;
+	getCustomLabelValue(): any;
 
 	/** To get Label Angle in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getLabelAngle(): void;
+	getLabelAngle(): any;
 
 	/** To get LabelPlacement in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getLabelPlacement(): void;
+	getLabelPlacement(): any;
 
 	/** To get LabelStyle in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getLabelStyle(): void;
+	getLabelStyle(): any;
 
 	/** To get Label XDistance From Scale in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getLabelXDistanceFromScale(): void;
+	getLabelXDistanceFromScale(): any;
 
 	/** To get PointerValue in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getLabelYDistanceFromScale(): void;
+	getLabelYDistanceFromScale(): any;
 
 	/** To get Major Interval Value in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getMajorIntervalValue(): void;
+	getMajorIntervalValue(): any;
 
 	/** To get MarkerStyle in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getMarkerStyle(): void;
+	getMarkerStyle(): any;
 
 	/** To get Maximum Value in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getMaximumValue(): void;
+	getMaximumValue(): any;
 
 	/** To get PointerValue in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getMinimumValue(): void;
+	getMinimumValue(): any;
 
 	/** To get Minor Interval Value in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getMinorIntervalValue(): void;
+	getMinorIntervalValue(): any;
 
 	/** To get Pointer Distance From Scale in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getPointerDistanceFromScale(): void;
+	getPointerDistanceFromScale(): any;
 
 	/** To get PointerHeight in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getPointerHeight(): void;
+	getPointerHeight(): any;
 
 	/** To get Pointer Placement in String
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getPointerPlacement(): void;
+	getPointerPlacement(): any;
 
 	/** To get PointerValue in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getPointerValue(): void;
+	getPointerValue(): any;
 
 	/** To get PointerWidth in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getPointerWidth(): void;
+	getPointerWidth(): any;
 
 	/** To get Range Border Width in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getRangeBorderWidth(): void;
+	getRangeBorderWidth(): any;
 
 	/** To get Range Distance From Scale in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getRangeDistanceFromScale(): void;
+	getRangeDistanceFromScale(): any;
 
 	/** To get Range End Value in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getRangeEndValue(): void;
+	getRangeEndValue(): any;
 
 	/** To get Range End Width in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getRangeEndWidth(): void;
+	getRangeEndWidth(): any;
 
 	/** To get Range Position in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getRangePosition(): void;
+	getRangePosition(): any;
 
 	/** To get Range Start Value in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getRangeStartValue(): void;
+	getRangeStartValue(): any;
 
 	/** To get Range Start Width in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getRangeStartWidth(): void;
+	getRangeStartWidth(): any;
 
 	/** To get ScaleBarLength in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getScaleBarLength(): void;
+	getScaleBarLength(): any;
 
 	/** To get Scale Bar Size in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getScaleBarSize(): void;
+	getScaleBarSize(): any;
 
 	/** To get Scale Border Width in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getScaleBorderWidth(): void;
+	getScaleBorderWidth(): any;
 
 	/** To get Scale Direction in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getScaleDirection(): void;
+	getScaleDirection(): any;
 
 	/** To get Scale Location in object
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getScaleLocation(): void;
+	getScaleLocation(): any;
 
 	/** To get Scale Style in string
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getScaleStyle(): void;
+	getScaleStyle(): any;
 
 	/** To get Tick Angle in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getTickAngle(): void;
+	getTickAngle(): any;
 
 	/** To get Tick Height in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getTickHeight(): void;
+	getTickHeight(): any;
 
 	/** To get getTickPlacement in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getTickPlacement(): void;
+	getTickPlacement(): any;
 
 	/** To get Tick Style in string
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getTickStyle(): void;
+	getTickStyle(): any;
 
 	/** To get Tick Width in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getTickWidth(): void;
+	getTickWidth(): any;
 
 	/** To get get Tick XDistance From Scale in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getTickXDistanceFromScale(): void;
+	getTickXDistanceFromScale(): any;
 
 	/** To get Tick YDistance From Scale in number
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getTickYDistanceFromScale(): void;
+	getTickYDistanceFromScale(): any;
 
 	/** Specifies the scales.
 	*   @returns {void}
@@ -41135,209 +42163,209 @@ class CircularGauge extends ej.Widget {
 	destroy(): void;
 
 	/** To export Image
-	*   @returns {void}
+	*   @returns {boolean}
 	*/
-	exportImage(): void;
+	exportImage(): boolean;
 
 	/** To get BackNeedleLength
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getBackNeedleLength(): void;
+	getBackNeedleLength(): any;
 
 	/** To get CustomLabelAngle
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getCustomLabelAngle(): void;
+	getCustomLabelAngle(): any;
 
 	/** To get CustomLabelValue
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getCustomLabelValue(): void;
+	getCustomLabelValue(): any;
 
 	/** To get LabelAngle
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getLabelAngle(): void;
+	getLabelAngle(): any;
 
 	/** To get LabelDistanceFromScale
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getLabelDistanceFromScale(): void;
+	getLabelDistanceFromScale(): any;
 
 	/** To get LabelPlacement
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getLabelPlacement(): void;
+	getLabelPlacement(): any;
 
 	/** To get LabelStyle
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getLabelStyle(): void;
+	getLabelStyle(): any;
 
 	/** To get MajorIntervalValue
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getMajorIntervalValue(): void;
+	getMajorIntervalValue(): any;
 
 	/** To get MarkerDistanceFromScale
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getMarkerDistanceFromScale(): void;
+	getMarkerDistanceFromScale(): any;
 
 	/** To get MarkerStyle
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getMarkerStyle(): void;
+	getMarkerStyle(): any;
 
 	/** To get MaximumValue
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getMaximumValue(): void;
+	getMaximumValue(): any;
 
 	/** To get MinimumValue
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getMinimumValue(): void;
+	getMinimumValue(): any;
 
 	/** To get MinorIntervalValue
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getMinorIntervalValue(): void;
+	getMinorIntervalValue(): any;
 
 	/** To get NeedleStyle
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getNeedleStyle(): void;
+	getNeedleStyle(): any;
 
 	/** To get PointerCapBorderWidth
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getPointerCapBorderWidth(): void;
+	getPointerCapBorderWidth(): any;
 
 	/** To get PointerCapRadius
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getPointerCapRadius(): void;
+	getPointerCapRadius(): any;
 
 	/** To get PointerLength
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getPointerLength(): void;
+	getPointerLength(): any;
 
 	/** To get PointerNeedleType
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getPointerNeedleType(): void;
+	getPointerNeedleType(): any;
 
 	/** To get PointerPlacement
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getPointerPlacement(): void;
+	getPointerPlacement(): any;
 
 	/** To get PointerValue
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getPointerValue(): void;
+	getPointerValue(): any;
 
 	/** To get PointerWidth
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getPointerWidth(): void;
+	getPointerWidth(): any;
 
 	/** To get RangeBorderWidth
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getRangeBorderWidth(): void;
+	getRangeBorderWidth(): any;
 
 	/** To get RangeDistanceFromScale
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getRangeDistanceFromScale(): void;
+	getRangeDistanceFromScale(): any;
 
 	/** To get RangeEndValue
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getRangeEndValue(): void;
+	getRangeEndValue(): any;
 
 	/** To get RangePosition
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getRangePosition(): void;
+	getRangePosition(): any;
 
 	/** To get RangeSize
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getRangeSize(): void;
+	getRangeSize(): any;
 
 	/** To get RangeStartValue
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getRangeStartValue(): void;
+	getRangeStartValue(): any;
 
 	/** To get ScaleBarSize
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getScaleBarSize(): void;
+	getScaleBarSize(): any;
 
 	/** To get ScaleBorderWidth
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getScaleBorderWidth(): void;
+	getScaleBorderWidth(): any;
 
 	/** To get ScaleDirection
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getScaleDirection(): void;
+	getScaleDirection(): any;
 
 	/** To get ScaleRadius
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getScaleRadius(): void;
+	getScaleRadius(): any;
 
 	/** To get StartAngle
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getStartAngle(): void;
+	getStartAngle(): any;
 
 	/** To get SubGaugeLocation
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getSubGaugeLocation(): void;
+	getSubGaugeLocation(): any;
 
 	/** To get SweepAngle
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getSweepAngle(): void;
+	getSweepAngle(): any;
 
 	/** To get TickAngle
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getTickAngle(): void;
+	getTickAngle(): any;
 
 	/** To get TickDistanceFromScale
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getTickDistanceFromScale(): void;
+	getTickDistanceFromScale(): any;
 
 	/** To get TickHeight
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getTickHeight(): void;
+	getTickHeight(): any;
 
 	/** To get TickPlacement
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getTickPlacement(): void;
+	getTickPlacement(): any;
 
 	/** To get TickStyle
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getTickStyle(): void;
+	getTickStyle(): any;
 
 	/** To get TickWidth
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getTickWidth(): void;
+	getTickWidth(): any;
 
 	/** To set includeFirstValue
 	*   @returns {void}
@@ -42645,6 +43673,11 @@ export interface ScalesPointer {
 	*/
 	opacity?: number;
 
+	/** Specify radius value for pointer of circular gauge
+	*   @Default {null}
+	*/
+	radius?: number;
+
 	/** Specify pointer Placement value of circular gauge. See PointerPlacement
 	*   @Default {Near}
 	*/
@@ -43149,21 +44182,21 @@ class DigitalGauge extends ej.Widget {
 	/** To export Digital Gauge as Image
 	*   @param {string} fileName for the Image
 	*   @param {string} fileType for the Image
-	*   @returns {void}
+	*   @returns {boolean}
 	*/
-	exportImage(fileName: string, fileType: string): void;
+	exportImage(fileName: string, fileType: string): boolean;
 
 	/** Gets the location of an item that is displayed on the gauge.
 	*   @param {number} Position value of an item that is displayed on the gauge.
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getPosition(itemIndex: number): void;
+	getPosition(itemIndex: number): any;
 
 	/** ClientSideMethod getValue Gets the value of an item that is displayed on the gauge
 	*   @param {number} Index value of an item that displayed on the gauge
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	getValue(itemIndex: number): void;
+	getValue(itemIndex: number): any;
 
 	/** Refresh the digital gauge widget
 	*   @returns {void}
@@ -43268,7 +44301,7 @@ export interface InitEventArgs {
 
 	/** returns the name of the event
 	*/
-	type?: String;
+	type?: string;
 }
 
 export interface ItemRenderingEventArgs {
@@ -43295,7 +44328,7 @@ export interface ItemRenderingEventArgs {
 
 	/** returns the name of the event
 	*/
-	type?: String;
+	type?: string;
 }
 
 export interface LoadEventArgs {
@@ -43322,7 +44355,7 @@ export interface LoadEventArgs {
 
 	/** returns the name of the event
 	*/
-	type?: String;
+	type?: string;
 }
 
 export interface RenderCompleteEventArgs {
@@ -43349,7 +44382,7 @@ export interface RenderCompleteEventArgs {
 
 	/** returns the name of the event
 	*/
-	type?: String;
+	type?: string;
 }
 
 export interface Frame {
@@ -43571,9 +44604,9 @@ class Chart extends ej.Widget {
 	*   @param {string} Type of the export operation to be performed. Following are the two export types that are supported now,1. 'image'2. 'excel'Example
 	*   @param {string} URL of the service, where the chart will be exported to excel.Example,
 	*   @param {boolean} When this parameter is true, all the chart objects initialized to the same document are exported to a single excel file. This is an optional parameter. By default, it is false.Example,
-	*   @returns {void}
+	*   @returns {any}
 	*/
-	export(type: string, URL: string, exportMultipleChart: boolean): void;
+	export(type: string, URL: string, exportMultipleChart: boolean): any;
 
 	/** Redraws the entire chart. You can call this method whenever you update, add or remove points from the data source or whenever you want to refresh the UI.
 	*   @returns {void}
@@ -43862,11 +44895,11 @@ export interface AxesLabelRenderingEventArgs {
 
 	/** Formatted text of the respective label. You can also add custom text to the label.
 	*/
-	LabelText?: String;
+	LabelText?: string;
 
 	/** Actual value of the label.
 	*/
-	LabelValue?: String;
+	LabelValue?: string;
 
 	/** Set this option to true to cancel the event.
 	*/
@@ -44037,11 +45070,11 @@ export interface DisplayTextRenderingEventArgs {
 	*/
 	locationY?: number;
 
-	/** Index of the series in series Collection whose data label is being rendered
+	/** Index of the series in series Collection whose data label is being rendered 
 	*/
 	seriesIndex?: number;
 
-	/** Index of the point in series whose data label is being rendered
+	/** Index of the point in series whose data label is being rendered 
 	*/
 	pointIndex?: number;
 
@@ -44342,7 +45375,7 @@ export interface SeriesRenderingEventArgs {
 
 export interface SymbolRenderingEventArgs {
 
-	/** Set this option to true to cancel the event
+	/** Set this option to true to cancel the event    
 	*/
 	cancel?: boolean;
 
@@ -44365,7 +45398,7 @@ export interface SymbolRenderingEventArgs {
 
 export interface TitleRenderingEventArgs {
 
-	/** Set this option to true to cancel the event
+	/** Set this option to true to cancel the event    
 	*/
 	cancel?: boolean;
 
@@ -44392,7 +45425,7 @@ export interface TitleRenderingEventArgs {
 
 export interface ToolTipInitializeEventArgs {
 
-	/** Set this option to true to cancel the event
+	/** Set this option to true to cancel the event    
 	*/
 	cancel?: boolean;
 
@@ -44419,7 +45452,7 @@ export interface ToolTipInitializeEventArgs {
 
 export interface TrackAxisToolTipEventArgs {
 
-	/** Set this option to true to cancel the event
+	/** Set this option to true to cancel the event    
 	*/
 	cancel?: boolean;
 
@@ -44450,7 +45483,7 @@ export interface TrackAxisToolTipEventArgs {
 
 export interface TrackToolTipEventArgs {
 
-	/** Set this option to true to cancel the event
+	/** Set this option to true to cancel the event    
 	*/
 	cancel?: boolean;
 
@@ -44485,7 +45518,7 @@ export interface TrackToolTipEventArgs {
 
 export interface AxisLabelClickEventArgs {
 
-	/** Set this option to true to cancel the event
+	/** Set this option to true to cancel the event    
 	*/
 	cancel?: boolean;
 
@@ -44497,7 +45530,7 @@ export interface AxisLabelClickEventArgs {
 	*/
 	type?: string;
 
-	/** X and Y co-ordinate of the labels in chart area.
+	/** X and Y co-ordinate of the labels in chart area. 
 	*/
 	location?: any;
 
@@ -44516,7 +45549,7 @@ export interface AxisLabelClickEventArgs {
 
 export interface AxisLabelMouseMoveEventArgs {
 
-	/** Set this option to true to cancel the event
+	/** Set this option to true to cancel the event    
 	*/
 	cancel?: boolean;
 
@@ -44528,7 +45561,7 @@ export interface AxisLabelMouseMoveEventArgs {
 	*/
 	type?: string;
 
-	/** X and Y co-ordinate of the labels in chart area.
+	/** X and Y co-ordinate of the labels in chart area. 
 	*/
 	location?: any;
 
@@ -44547,7 +45580,7 @@ export interface AxisLabelMouseMoveEventArgs {
 
 export interface ChartClickEventArgs {
 
-	/** Set this option to true to cancel the event
+	/** Set this option to true to cancel the event    
 	*/
 	cancel?: boolean;
 
@@ -44559,30 +45592,30 @@ export interface ChartClickEventArgs {
 	*/
 	type?: string;
 
-	/** X and Y co-ordinate of the points with respect to chart area.
+	/** X and Y co-ordinate of the points with respect to chart area.  
 	*/
 	location?: any;
 
-	/** ID of the target element.
+	/** ID of the target element. 
 	*/
 	id?: string;
 
-	/** Width and height of the chart.
+	/** Width and height of the chart. 
 	*/
 	size?: any;
 
-	/** x-coordinate of the pointer, relative to the page
+	/** x-coordinate of the pointer, relative to the page 
 	*/
 	pageX?: number;
 
-	/** y-coordinate of the pointer, relative to the page
+	/** y-coordinate of the pointer, relative to the page 
 	*/
 	pageY?: number;
 }
 
 export interface ChartMouseMoveEventArgs {
 
-	/** Set this option to true to cancel the event
+	/** Set this option to true to cancel the event    
 	*/
 	cancel?: boolean;
 
@@ -44594,30 +45627,30 @@ export interface ChartMouseMoveEventArgs {
 	*/
 	type?: string;
 
-	/** X and Y co-ordinate of the points with respect to chart area.
+	/** X and Y co-ordinate of the points with respect to chart area.  
 	*/
 	location?: any;
 
-	/** ID of the target element.
+	/** ID of the target element. 
 	*/
 	id?: string;
 
-	/** Width and height of the chart.
+	/** Width and height of the chart. 
 	*/
 	size?: any;
 
-	/** x-coordinate of the pointer, relative to the page
+	/** x-coordinate of the pointer, relative to the page 
 	*/
 	pageX?: number;
 
-	/** y-coordinate of the pointer, relative to the page
+	/** y-coordinate of the pointer, relative to the page 
 	*/
 	pageY?: number;
 }
 
 export interface ChartDoubleClickEventArgs {
 
-	/** Set this option to true to cancel the event
+	/** Set this option to true to cancel the event    
 	*/
 	cancel?: boolean;
 
@@ -44629,30 +45662,30 @@ export interface ChartDoubleClickEventArgs {
 	*/
 	type?: string;
 
-	/** X and Y co-ordinate of the points with respect to chart area.
+	/** X and Y co-ordinate of the points with respect to chart area.  
 	*/
 	location?: any;
 
-	/** ID of the target element.
+	/** ID of the target element. 
 	*/
 	id?: string;
 
-	/** Width and height of the chart.
+	/** Width and height of the chart. 
 	*/
 	size?: any;
 
-	/** x-coordinate of the pointer, relative to the page
+	/** x-coordinate of the pointer, relative to the page 
 	*/
 	pageX?: number;
 
-	/** y-coordinate of the pointer, relative to the page
+	/** y-coordinate of the pointer, relative to the page 
 	*/
 	pageY?: number;
 }
 
 export interface AnnotationClickEventArgs {
 
-	/** Set this option to true to cancel the event
+	/** Set this option to true to cancel the event    
 	*/
 	cancel?: boolean;
 
@@ -44664,26 +45697,26 @@ export interface AnnotationClickEventArgs {
 	*/
 	type?: string;
 
-	/** X and Y co-ordinate of the annotation in chart area.
+	/** X and Y co-ordinate of the annotation in chart area.  
 	*/
 	location?: any;
 
-	/** Information about the annotation, like Coordinate unit, Region, content
+	/** Information about the annotation, like Coordinate unit, Region, content 
 	*/
 	contentData?: any;
 
-	/** x-coordinate of the pointer, relative to the page
+	/** x-coordinate of the pointer, relative to the page  
 	*/
 	pageX?: number;
 
-	/** y-coordinate of the pointer, relative to the page
+	/** y-coordinate of the pointer, relative to the page 
 	*/
 	pageY?: number;
 }
 
 export interface AfterResizeEventArgs {
 
-	/** Set this option to true to cancel the event
+	/** Set this option to true to cancel the event    
 	*/
 	cancel?: boolean;
 
@@ -44695,34 +45728,34 @@ export interface AfterResizeEventArgs {
 	*/
 	type?: string;
 
-	/** Chart width, after resize
+	/** Chart width, after resize  
 	*/
 	width?: number;
 
-	/** Chart height, after resize
+	/** Chart height, after resize  
 	*/
 	height?: number;
 
-	/** Chart width, before resize
+	/** Chart width, before resize  
 	*/
 	prevWidth?: number;
 
-	/** Chart height, before resize
+	/** Chart height, before resize  
 	*/
 	prevHeight?: number;
 
-	/** Chart width, when the chart was first rendered
+	/** Chart width, when the chart was first rendered  
 	*/
 	originalWidth?: number;
 
-	/** Chart height, when the chart was first rendered
+	/** Chart height, when the chart was first rendered  
 	*/
 	originalHeight?: number;
 }
 
 export interface BeforeResizeEventArgs {
 
-	/** Set this option to true to cancel the event
+	/** Set this option to true to cancel the event    
 	*/
 	cancel?: boolean;
 
@@ -44734,26 +45767,26 @@ export interface BeforeResizeEventArgs {
 	*/
 	type?: string;
 
-	/** Chart width, before resize
+	/** Chart width, before resize  
 	*/
 	currentWidth?: number;
 
-	/** Chart height, before resize
+	/** Chart height, before resize  
 	*/
 	currentHeight?: number;
 
-	/** Chart width, after resize
+	/** Chart width, after resize   
 	*/
 	newWidth?: number;
 
-	/** Chart height, after resize
+	/** Chart height, after resize   
 	*/
 	newHeight?: number;
 }
 
 export interface ErrorBarRenderingEventArgs {
 
-	/** Set this option to true to cancel the event
+	/** Set this option to true to cancel the event    
 	*/
 	cancel?: boolean;
 
@@ -44765,7 +45798,7 @@ export interface ErrorBarRenderingEventArgs {
 	*/
 	type?: string;
 
-	/** Error bar Object
+	/** Error bar Object  
 	*/
 	errorbar?: any;
 }
@@ -45254,6 +46287,10 @@ export interface CommonSeriesOptionsMarkerDataLabel {
 	*   @Default {none. See Shape}
 	*/
 	shape?: ej.datavisualization.Chart.Shape|string;
+
+	/** Custom template to format the data label content. Use â€œpoint.xâ€ and â€œpoint.yâ€ as a placeholder text to display the corresponding data pointâ€™s x and y value.
+	*/
+	template?: string;
 
 	/** Name of a field in data source, where datalabel text is displayed.
 	*/
@@ -50087,6 +51124,11 @@ export interface Zooming {
 	*/
 	type?: string;
 
+	/** Toggles the visibility of the scrollbar, which will be displayed while zooming.
+	*   @Default {false}
+	*/
+	enableScrollbar?: boolean;
+
 	/** To display user specified buttons in zooming toolbar.
 	*   @Default {[zoomIn, zoomOut, zoom, pan, reset]}
 	*/
@@ -51961,6 +53003,11 @@ export interface Model {
 	*/
 	quantitativeScaleSettings?: QuantitativeScaleSettings;
 
+	/** Contains property to add dataSource and dataSource fields.
+	*   @Default {null}
+	*/
+	fields?: any;
+
 	/** By specifying this property the user can change the theme of the bullet graph.
 	*   @Default {flatlight}
 	*/
@@ -53667,7 +54714,7 @@ export interface Layer {
 	*/
 	enableSelection?: boolean;
 
-	/** }
+	/** to get the key of bing map
 	*   @Default {null}
 	*/
 	key?: string;
@@ -54418,9 +55465,9 @@ class Diagram extends ej.Widget {
 
 	/** Add nodes and connectors to diagram at runtime
 	*   @param {any} a JSON to define a node/connector or an array of nodes and connector
-	*   @returns {void}
+	*   @returns {boolean}
 	*/
-	add(node: any): void;
+	add(node: any): boolean;
 
 	/** Add a label to a node at runtime
 	*   @param {string} name of the node to which label will be added
@@ -54500,9 +55547,9 @@ class Diagram extends ej.Widget {
 
 	/** Export the diagram as downloadable files or as data
 	*   @param {Diagram.Options} options to export the desired region of diagram to the desired formats.NameTypeDescriptionfileNamestringname of the file to be downloaded.formatstringformat of the exported file/data. See [File Formats](/api/js/global#fileformats).modestringto set whether to export diagram as a file or as raw data. See [Export Modes](/api/js/global#exportmodes).regionstringto set the region of the diagram to be exported. See [Region](/api/js/global#region).boundsobjectto export any custom region of diagram.marginobjectto set margin to the exported data.
-	*   @returns {String}
+	*   @returns {string}
 	*/
-	exportDiagram(options?: Diagram.Options): String;
+	exportDiagram(options?: Diagram.Options): string;
 
 	/** Read a node/connector object by its name
 	*   @param {string} name of the node/connector that is to be identified
@@ -54812,12 +55859,12 @@ export interface Model {
 	/** Enables or disables auto scroll in diagram
 	*   @Default {true}
 	*/
-	enableAutoScroll?: Boolean;
+	enableAutoScroll?: boolean;
 
 	/** Enables or disables diagram context menu
 	*   @Default {true}
 	*/
-	enableContextMenu?: Boolean;
+	enableContextMenu?: boolean;
 
 	/** Specifies the height of the diagram
 	*   @Default {null}
@@ -54862,7 +55909,7 @@ export interface Model {
 	/** Enables or disables tooltip of diagram
 	*   @Default {true}
 	*/
-	showTooltip?: Boolean;
+	showTooltip?: boolean;
 
 	/** Defines the gridlines and defines how and when the objects have to be snapped
 	*/
@@ -55298,7 +56345,7 @@ export interface DropEventArgs {
 
 	/** parameter returns the enum which defines the type of the source
 	*/
-	sourceType?: String;
+	sourceType?: string;
 
 	/** parameter returns the id of the diagram
 	*/
@@ -55457,7 +56504,7 @@ export interface PropertyChangeEventArgs {
 
 	/** parameter returns the action is nudge or not
 	*/
-	cause?: String;
+	cause?: string;
 
 	/** parameter returns the new value of the node property that is being changed
 	*/
@@ -55719,7 +56766,7 @@ export interface ConnectorsLabel {
 	/** Enables/disables the bold style
 	*   @Default {false}
 	*/
-	bold?: Boolean;
+	bold?: boolean;
 
 	/** Sets the border color of the label
 	*   @Default {transparent}
@@ -55734,7 +56781,7 @@ export interface ConnectorsLabel {
 	/** Defines whether the label should be aligned within the connector boundaries
 	*   @Default {true}
 	*/
-	boundaryConstraints?: Boolean;
+	boundaryConstraints?: boolean;
 
 	/** Sets the fill color of the text area
 	*   @Default {transparent}
@@ -55764,7 +56811,7 @@ export interface ConnectorsLabel {
 	/** Enables/disables the italic style
 	*   @Default {false}
 	*/
-	italic?: Boolean;
+	italic?: boolean;
 
 	/** Gets whether the label is currently being edited or not.
 	*   @Default {ej.datavisualization.Diagram.LabelEditMode.Edit}
@@ -55793,7 +56840,7 @@ export interface ConnectorsLabel {
 	/** Defines whether the label is editable or not
 	*   @Default {false}
 	*/
-	readOnly?: Boolean;
+	readOnly?: boolean;
 
 	/** Defines whether the label should be positioned whether relative to segments or connector boundaries
 	*   @Default {ej.datavisualization.Diagram.LabelRelativeMode.SegmentPath}
@@ -55832,7 +56879,7 @@ export interface ConnectorsLabel {
 	/** Enables or disables the visibility of the label
 	*   @Default {true}
 	*/
-	visible?: Boolean;
+	visible?: boolean;
 
 	/** Sets the width of the label(the maximum value of label width and the connector width will be considered as label width)
 	*   @Default {50}
@@ -55859,17 +56906,17 @@ export interface ConnectorsSegment {
 	/** Describes the end point of bezier/straight segment
 	*   @Default {Diagram.Point()}
 	*/
-	point?: ej.datavisualization.Diagram.ConnectorsSourcePoint|string;
+	point?: ej.datavisualization.Diagram.ConnectorsSourcePoint;
 
 	/** Defines the first control point of the bezier segment
 	*   @Default {null}
 	*/
-	point1?: ej.datavisualization.Diagram.ConnectorsSourcePoint|string;
+	point1?: ej.datavisualization.Diagram.ConnectorsSourcePoint;
 
 	/** Defines the second control point of bezier segment
 	*   @Default {null}
 	*/
-	point2?: ej.datavisualization.Diagram.ConnectorsSourcePoint|string;
+	point2?: ej.datavisualization.Diagram.ConnectorsSourcePoint;
 
 	/** Sets the type of the segment.
 	*   @Default {ej.datavisualization.Diagram.Segments.Straight}
@@ -55919,7 +56966,7 @@ export interface ConnectorsShapeMultiplicity {
 	/** Defines the target label to connector. Applicable, if the connector is of type &quot;UML&quot;
 	*   @Default {true}
 	*/
-	target?: ej.datavisualization.Diagram.ConnectorsShapeMultiplicitySource|string;
+	target?: ej.datavisualization.Diagram.ConnectorsShapeMultiplicitySource;
 }
 
 export interface ConnectorsShape {
@@ -56185,7 +57232,7 @@ export interface Connector {
 	/** Describes the end point of the connector
 	*   @Default {ej.datavisualization.Diagram.Point()}
 	*/
-	targetPoint?: ej.datavisualization.Diagram.ConnectorsSourcePoint|string;
+	targetPoint?: ej.datavisualization.Diagram.ConnectorsSourcePoint;
 
 	/** Sets the targetPort of the connector
 	*/
@@ -56204,7 +57251,7 @@ export interface Connector {
 	/** Enables or disables the visibility of connector
 	*   @Default {true}
 	*/
-	visible?: Boolean;
+	visible?: boolean;
 
 	/** Sets the z-index of the connector
 	*   @Default {0}
@@ -56222,7 +57269,7 @@ export interface ContextMenu {
 	/** To set whether to display the default context menu items or not
 	*   @Default {false}
 	*/
-	showCustomMenuItemsOnly?: Boolean;
+	showCustomMenuItemsOnly?: boolean;
 }
 
 export interface DataSourceSettings {
@@ -56517,7 +57564,7 @@ export interface NodesData {
 	/** Defines whether the BPMN data object is a collection or not
 	*   @Default {false}
 	*/
-	collection?: Boolean;
+	collection?: boolean;
 }
 
 export interface NodesEnumerationMember {
@@ -56719,7 +57766,7 @@ export interface NodesLabel {
 	/** Enables/disables the bold style
 	*   @Default {false}
 	*/
-	bold?: Boolean;
+	bold?: boolean;
 
 	/** Sets the border color of the label
 	*   @Default {transparent}
@@ -56759,7 +57806,7 @@ export interface NodesLabel {
 	/** Enables/disables the italic style
 	*   @Default {false}
 	*/
-	italic?: Boolean;
+	italic?: boolean;
 
 	/** To set the margin of the label
 	*   @Default {ej.datavisualization.Diagram.Margin()}
@@ -56788,7 +57835,7 @@ export interface NodesLabel {
 	/** Defines whether the label is editable or not
 	*   @Default {false}
 	*/
-	readOnly?: Boolean;
+	readOnly?: boolean;
 
 	/** Defines the angle to which the label needs to be rotated
 	*   @Default {0}
@@ -56817,7 +57864,7 @@ export interface NodesLabel {
 	/** Enables or disables the visibility of the label
 	*   @Default {true}
 	*/
-	visible?: Boolean;
+	visible?: boolean;
 
 	/** Sets the width of the label(the maximum value of label width and the node width will be considered as label width)
 	*   @Default {50}
@@ -56870,7 +57917,7 @@ export interface NodesLane {
 	/** Defines the object as a lane
 	*   @Default {false}
 	*/
-	isLane?: Boolean;
+	isLane?: boolean;
 
 	/** Sets the unique identifier of the lane
 	*/
@@ -56887,7 +57934,7 @@ export interface NodesPaletteItem {
 	/** Defines whether the symbol should be drawn at its actual size regardless of precedence factors or not
 	*   @Default {true}
 	*/
-	enableScale?: Boolean;
+	enableScale?: boolean;
 
 	/** Defines the height of the symbol
 	*   @Default {0}
@@ -57036,7 +58083,7 @@ export interface NodesSubProcess {
 	/** Defines whether the BPMN sub process is without any prescribed order or not
 	*   @Default {false}
 	*/
-	adhoc?: Boolean;
+	adhoc?: boolean;
 
 	/** Sets the boundary of the BPMN process
 	*   @Default {ej.datavisualization.Diagram.BPMNBoundary.Default}
@@ -57046,12 +58093,12 @@ export interface NodesSubProcess {
 	/** Sets whether the BPMN subprocess is triggered as a compensation of a specific activity
 	*   @Default {false}
 	*/
-	compensation?: Boolean;
+	compensation?: boolean;
 
 	/** Sets whether the BPMN subprocess is triggered as a collapsed of a specific activity
 	*   @Default {true}
 	*/
-	collapsed?: Boolean;
+	collapsed?: boolean;
 
 	/** Sets the type of the event by which the sub-process will be triggered
 	*   @Default {ej.datavisualization.Diagram.BPMNEvents.Start}
@@ -57088,12 +58135,12 @@ export interface NodesTask {
 	/** To set whether the task is a global task or not
 	*   @Default {false}
 	*/
-	call?: Boolean;
+	call?: boolean;
 
 	/** Sets whether the task is triggered as a compensation of another specific activity
 	*   @Default {false}
 	*/
-	compensation?: Boolean;
+	compensation?: boolean;
 
 	/** Sets the loop type of a BPMN task.
 	*   @Default {ej.datavisualization.Diagram.BPMNLoops.None}
@@ -57140,7 +58187,7 @@ export interface Node {
 	/** Defines whether the group can be ungrouped or not
 	*   @Default {true}
 	*/
-	canUngroup?: Boolean;
+	canUngroup?: boolean;
 
 	/** Array of JSON objects where each object represents a child node/connector
 	*   @Default {[]}
@@ -57202,7 +58249,7 @@ export interface Node {
 	/** Defines whether the node can be automatically arranged using layout or not
 	*   @Default {false}
 	*/
-	excludeFromLayout?: Boolean;
+	excludeFromLayout?: boolean;
 
 	/** Defines the state of the node is expanded or collapsed.
 	*/
@@ -57255,12 +58302,12 @@ export interface Node {
 	/** Defines whether the sub tree of the node is expanded or collapsed
 	*   @Default {true}
 	*/
-	isExpanded?: Boolean;
+	isExpanded?: boolean;
 
 	/** Sets the node as a swimlane
 	*   @Default {false}
 	*/
-	isSwimlane?: Boolean;
+	isSwimlane?: boolean;
 
 	/** A collection of objects where each object represents a label
 	*   @Default {[]}
@@ -57460,7 +58507,7 @@ export interface Node {
 	/** Defines the visibility of the node
 	*   @Default {true}
 	*/
-	visible?: Boolean;
+	visible?: boolean;
 
 	/** Defines the width of the node
 	*   @Default {0}
@@ -57483,7 +58530,7 @@ export interface PageSettings {
 	/** Sets whether multiple pages can be created to fit all nodes and connectors
 	*   @Default {false}
 	*/
-	multiplePage?: Boolean;
+	multiplePage?: boolean;
 
 	/** Defines the background color of diagram pages
 	*   @Default {#ffffff}
@@ -57538,7 +58585,7 @@ export interface PageSettings {
 	/** Enables or disables the page breaks
 	*   @Default {false}
 	*/
-	showPageBreak?: Boolean;
+	showPageBreak?: boolean;
 }
 
 export interface ScrollSettings {
@@ -57589,7 +58636,7 @@ export interface SelectedItemsUserHandle {
 	/** Defines whether the user handle should be added, when more than one element is selected
 	*   @Default {false}
 	*/
-	enableMultiSelection?: Boolean;
+	enableMultiSelection?: boolean;
 
 	/** Sets the stroke color of the user handle
 	*   @Default {transparent}
@@ -57617,7 +58664,7 @@ export interface SelectedItemsUserHandle {
 	/** Defines the visibility of the user handle
 	*   @Default {true}
 	*/
-	visible?: Boolean;
+	visible?: boolean;
 }
 
 export interface SelectedItems {
@@ -57722,7 +58769,7 @@ export interface SnapSettings {
 	/** Enables or disables snapping nodes/connectors to objects
 	*   @Default {true}
 	*/
-	enableSnapToObject?: Boolean;
+	enableSnapToObject?: boolean;
 
 	/** Defines the appearance of horizontal gridlines
 	*/
@@ -57783,11 +58830,11 @@ export interface Tooltip {
 }
 module Diagram
 {
-enum ImageAlignment
+enum ImageAlignment 
 {
 //Scales the graphic content non-uniformly to the width and height of the diagram area
 None,
-//Used to align the image at the top left of diagram area
+//Used to align the image at the top left of diagram area 
 XMinYMin,
 //Used to align the image at the left center of diagram area
 XMinYMid,
@@ -58025,7 +59072,7 @@ enum BPMNFlows
 {
 //Used to specify the Sequence flow in a BPMN Process
 Sequence,
-//Used to specify the Association flow in a BPMN Process
+//Used to specify the Association flow in a BPMN Process 
 Association,
 //Used to specify the Message flow in a BPMN Process
 Message,
@@ -58633,7 +59680,7 @@ All,
 }
 module Diagram
 {
-enum UserHandlePositions
+enum UserHandlePositions 
 {
 //Set the position of the userhandle as topleft
 TopLeft,
@@ -58729,7 +59776,7 @@ export interface Model {
 	/** Specifies the name of the heat map.
 	*   @Default {null}
 	*/
-	id?: Number;
+	id?: number;
 
 	/** Specifies the source data of the heat map.
 	*   @Default {[]}
@@ -58744,12 +59791,12 @@ export interface Model {
 	/** Specifies can enable responsive mode or not for heat map.
 	*   @Default {false}
 	*/
-	isResponsive?: Boolean;
+	isResponsive?: boolean;
 
 	/** Specifies whether the virtualization can be enable or not.
 	*   @Default {false}
 	*/
-	enableVirtualization?: Boolean;
+	enableVirtualization?: boolean;
 
 	/** Specifies the default column properties for all the column style not specified in column properties.
 	*   @Default {[]}
@@ -58854,7 +59901,7 @@ export interface HeatMapCell {
 	/** Specifies whether the cell color can be visible or not.
 	*   @Default {true}
 	*/
-	showColor?: Boolean;
+	showColor?: boolean;
 }
 
 export interface DefaultColumnStyle {
@@ -58866,11 +59913,11 @@ export interface DefaultColumnStyle {
 
 	/** Specifies the template id of the heat map column header.
 	*/
-	headerTemplateID?: String;
+	headerTemplateID?: string;
 
 	/** Specifies the template id of all individual cell data of the heat map.
 	*/
-	templateID?: String;
+	templateID?: string;
 }
 
 export interface ItemsMappingColumnStyle {
@@ -58878,7 +59925,7 @@ export interface ItemsMappingColumnStyle {
 	/** Specifies the width of the heat map column.
 	*   @Default {0}
 	*/
-	width?: Number;
+	width?: number;
 
 	/** Specifies the text align mode of the heat map column.
 	*   @Default {ej.HeatMap.TextAlign.Center}
@@ -58981,16 +60028,16 @@ export interface ColorMappingCollectionLabel {
 	/** Enables/disables the bold style of the heat map label.
 	*   @Default {false}
 	*/
-	bold?: Boolean;
+	bold?: boolean;
 
 	/** Enables/disables the italic style of the heat map label.
 	*   @Default {false}
 	*/
-	italic?: Boolean;
+	italic?: boolean;
 
 	/** specifies the text value of the heat map label.
 	*/
-	text?: String;
+	text?: string;
 
 	/** Specifies the text style of the heat map label.
 	*   @Default {ej.HeatMap.TextDecoration.None}
@@ -59000,17 +60047,17 @@ export interface ColorMappingCollectionLabel {
 	/** Specifies the font size of the heat map label.
 	*   @Default {10}
 	*/
-	fontSize?: Number;
+	fontSize?: number;
 
 	/** Specifies the font family of the heat map label.
 	*   @Default {Arial}
 	*/
-	fontFamily?: String;
+	fontFamily?: string;
 
 	/** Specifies the font color of the heat map label.
 	*   @Default {black}
 	*/
-	fontColor?: String;
+	fontColor?: string;
 }
 
 export interface ColorMappingCollection {
@@ -59018,12 +60065,12 @@ export interface ColorMappingCollection {
 	/** Specifies the color of the heat map column data.
 	*   @Default {white}
 	*/
-	color?: String;
+	color?: string;
 
 	/** Specifies the color values of the heat map column data.
 	*   @Default {0}
 	*/
-	value?: Number;
+	value?: number;
 
 	/** Specifies the label properties of the heat map color.
 	*   @Default {null}
@@ -59035,17 +60082,17 @@ module HeatMap
 {
 enum CellVisibility
 {
-//Display the content of the cell
+//Display the content of the cell              
 Visible,
-//Hide the content of the cell
+//Hide the content of the cell  
 Hidden,
 }
 }
 module HeatMap
 {
-enum TextDecoration
+enum TextDecoration 
 {
-//Defines a line below the text
+//Defines a line below the text            
 Underline,
 //Defines a line above the text
 Overline,
@@ -59081,12 +60128,12 @@ export interface Model {
 	/** Specifies can enable responsive mode or not for heatmap legend.
 	*   @Default {false}
 	*/
-	isResponsive?: Boolean;
+	isResponsive?: boolean;
 
 	/** Specifies whether the cell label can be shown or not.
 	*   @Default {false}
 	*/
-	showLabel?: Boolean;
+	showLabel?: boolean;
 
 	/** Specifies the color values of the column data.
 	*   @Default {[]}
@@ -59109,16 +60156,16 @@ export interface ColorMappingCollectionLabel {
 	/** Enables/disables the bold style of the heatmap legend label.
 	*   @Default {false}
 	*/
-	bold?: Boolean;
+	bold?: boolean;
 
 	/** Enables/disables the italic style of the heatmap legend label.
 	*   @Default {false}
 	*/
-	italic?: Boolean;
+	italic?: boolean;
 
 	/** specifies the text value of the heatmap legend label.
 	*/
-	text?: String;
+	text?: string;
 
 	/** Specifies the text style of the heatmap legend label.
 	*   @Default {ej.HeatMap.TextDecoration.None}
@@ -59128,17 +60175,17 @@ export interface ColorMappingCollectionLabel {
 	/** Specifies the font size of the heatmap legend label.
 	*   @Default {10}
 	*/
-	fontSize?: Number;
+	fontSize?: number;
 
 	/** Specifies the font family of the heatmap legend label.
 	*   @Default {Arial}
 	*/
-	fontFamily?: String;
+	fontFamily?: string;
 
 	/** Specifies the font color of the heatmap legend label.
 	*   @Default {black}
 	*/
-	fontColor?: String;
+	fontColor?: string;
 }
 
 export interface ColorMappingCollection {
@@ -59146,12 +60193,12 @@ export interface ColorMappingCollection {
 	/** Specifies the color of the heatmap legend data.
 	*   @Default {white}
 	*/
-	color?: String;
+	color?: string;
 
 	/** Specifies the color values of the heatmap legend column data.
 	*   @Default {0}
 	*/
-	value?: Number;
+	value?: number;
 
 	/** Specifies the label properties of the heatmap legend color.
 	*   @Default {null}
@@ -59163,9 +60210,9 @@ module HeatMap
 {
 enum LegendOrientation
 {
-//Scales the graphic content non-uniformly to the width and height of the diagram area
+//Scales the graphic content non-uniformly to the width and height of the diagram area            
 Horizontal,
-//Used to align the image at the top left of diagram area
+//Used to align the image at the top left of diagram area 
 Vertical,
 }
 }
@@ -59173,9 +60220,9 @@ module HeatMap
 {
 enum LegendMode
 {
-//Scales the graphic content non-uniformly to the width and height of the diagram area
+//Scales the graphic content non-uniformly to the width and height of the diagram area            
 Gradient,
-//Used to align the image at the top left of diagram area
+//Used to align the image at the top left of diagram area 
 List,
 }
 }
@@ -59372,7 +60419,7 @@ export interface LoadedEventArgs {
 
 export interface TooltipInitializeEventArgs {
 
-	/** Set this option to true to cancel the event
+	/** Set this option to true to cancel the event    
 	*/
 	cancel?: boolean;
 
@@ -59496,7 +60543,7 @@ export interface PointRegionMouseClickEventArgs {
 
 export interface SparklineMouseMoveEventArgs {
 
-	/** Set this option to true to cancel the event
+	/** Set this option to true to cancel the event    
 	*/
 	cancel?: boolean;
 
@@ -59511,7 +60558,7 @@ export interface SparklineMouseMoveEventArgs {
 
 export interface SparklineMouseLeaveEventArgs {
 
-	/** Set this option to true to cancel the event
+	/** Set this option to true to cancel the event    
 	*/
 	cancel?: boolean;
 
@@ -59879,6 +60926,11 @@ ejDatePicker(options?: ej.DatePicker.Model): JQuery;
 ejDatePicker(memberName: any, value?: any, param?: any): any;
 data(key: "ejDatePicker"): ej.DatePicker;
 
+ejDateRangePicker(): JQuery;
+ejDateRangePicker(options?: ej.DateRangePicker.Model): JQuery;
+ejDateRangePicker(memberName: any, value?: any, param?: any): any;
+data(key: "ejDateRangePicker"): ej.DateRangePicker;
+
 ejDateTimePicker(): JQuery;
 ejDateTimePicker(options?: ej.DateTimePicker.Model): JQuery;
 ejDateTimePicker(memberName: any, value?: any, param?: any): any;
@@ -60159,10 +61211,20 @@ ejTagCloud(options?: ej.TagCloud.Model): JQuery;
 ejTagCloud(memberName: any, value?: any, param?: any): any;
 data(key: "ejTagCloud"): ej.TagCloud;
 
-ejEditor(): JQuery;
-ejEditor(options?: ej.Editor.Model): JQuery;
-ejEditor(memberName: any, value?: any, param?: any): any;
-data(key: "ejEditor"): ej.Editor;
+ejNumericTextbox(): JQuery;
+ejNumericTextbox(options?: ej.Editor.Model): JQuery;
+ejNumericTextbox(memberName: any, value?: any, param?: any): any;
+data(key: "ejNumericTextbox"): ej.NumericTextbox;
+
+ejCurrencyTextbox(): JQuery;
+ejCurrencyTextbox(options?: ej.Editor.Model): JQuery;
+ejCurrencyTextbox(memberName: any, value?: any, param?: any): any;
+data(key: "ejCurrencyTextbox"): ej.CurrencyTextbox;
+
+ejPercentageTextbox(): JQuery;
+ejPercentageTextbox(options?: ej.Editor.Model): JQuery;
+ejPercentageTextbox(memberName: any, value?: any, param?: any): any;
+data(key: "ejPercentageTextbox"): ej.PercentageTextbox;
 
 ejTile(): JQuery;
 ejTile(options?: ej.Tile.Model): JQuery;
