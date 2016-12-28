@@ -1,17 +1,13 @@
-// Type definitions for bson 0.4.21
+// Type definitions for bson 0.4
 // Project: https://github.com/mongodb/js-bson
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
 
-
-
-
 declare namespace bson {
 
-    export module BSONPure {
-
+    export namespace BSONPure {
         export interface DeserializeOptions {
             /** {Boolean, default:false}, evaluate functions in the BSON document scoped to the object deserialized. */
             evalFunctions?: boolean;
@@ -34,98 +30,67 @@ declare namespace bson {
             deserialize(buffer: Buffer, options?: DeserializeOptions, isArray?: boolean): any;
         }
 
+        export class Binary {
+            static SUBTYPE_DEFAULT: number;
+            static SUBTYPE_FUNCTION: number;
+            static SUBTYPE_BYTE_ARRAY: number;
+            static SUBTYPE_UUID_OLD: number;
+            static SUBTYPE_UUID: number;
+            static SUBTYPE_MD5: number;
+            static SUBTYPE_USER_DEFINED: number;
 
-        export interface Binary { }
-        export interface BinaryStatic {
-            SUBTYPE_DEFAULT: number;
-            SUBTYPE_FUNCTION: number;
-            SUBTYPE_BYTE_ARRAY: number;
-            SUBTYPE_UUID_OLD: number;
-            SUBTYPE_UUID: number;
-            SUBTYPE_MD5: number;
-            SUBTYPE_USER_DEFINED: number;
-
-            new (buffer: Buffer, subType?: number): Binary;
+            constructor(buffer: Buffer, subType?: number);
         }
-        export let Binary: BinaryStatic;
-
-        export interface Code { }
-        export interface CodeStatic {
-            new (code: string | Function, scope?: any): Code;
+        export class Code {
+            constructor(code: string | Function, scope?: any);
         }
-        export let Code: CodeStatic;
-
-        export interface DBRef { }
-        export interface DBRefStatic {
-            new (namespace: string, oid: ObjectID, db?: string): DBRef;
+        export class DBRef {
+            constructor(namespace: string, oid: ObjectID, db?: string);
         }
-        export let DBRef: DBRefStatic;
-
-        export interface Double { }
-        export interface DoubleStatic {
-            new (value: number): Double;
+        export class Double {
+            constructor (value: number);
         }
-        export let Double: DoubleStatic;
+        export class Long {
+            static fromInt(i: number): Long;
+            static fromNumber(n: number): Long;
+            static fromBits(lowBits: number, highBits: number): Long;
+            static fromString(s: string, opt_radix?: number): Long;
 
-        export interface Long { }
-        export interface LongStatic {
-            new (low: number, high: number): Long;
-            fromInt(i: number): Long;
-            fromNumber(n: number): Long;
-            fromBits(lowBits: number, highBits: number): Long;
-            fromString(s: string, opt_radix?: number): Long;
+            constructor(low: number, high: number);
         }
-        export let Long: LongStatic;
-
-        export interface MaxKey { }
-        export interface MaxKeyStatic {
-            new (): MaxKey;
+        export class MaxKey {
+            constructor();
         }
-        export let MaxKey: MaxKeyStatic;
-
-        export interface MinKey { }
-        export interface MinKeyStatic {
-            new (): MinKey;
+        export class MinKey {
+            constructor();
         }
-        export let MinKey: MinKeyStatic;
+        export class ObjectId {
+            static createPk(): ObjectId;
+            static createFromTime(time: number): ObjectId;
+            static createFromHexString(hexString: string): ObjectId;
+            static isValid(id: number | string | ObjectId): boolean;
 
-        export interface ObjectID { }
-        export interface ObjectIDStatic {
-            new (id?: number | string | ObjectID): ObjectID;
-            createPk(): ObjectID;
-            createFromTime(time: number): ObjectID;
-            createFromHexString(hexString: string): ObjectID;
-            isValid(id: number | string | ObjectID): boolean;
+            constructor(id?: number | string | ObjectId);
         }
-        export let ObjectID: ObjectIDStatic;
-        export let ObjectId: ObjectIDStatic;
-
-        export interface BSONRegExp { }
-        export interface BSONRegExpStatic {
-            new (pattern: string, options: string): BSONRegExp;
+        export type ObjectID = ObjectId;
+        export class BSONRegExp {
+            constructor(pattern: string, options: string);
         }
-        export let BSONRegExp: BSONRegExpStatic;
-
-        export interface Symbol { }
-        export interface SymbolStatic {
-            new (value: string): Symbol;
+        export class Symbol {
+            constructor(value: string);
         }
-        export let Symbol: SymbolStatic;
+        export class Timestamp {
+            static fromInt(i: number): Timestamp;
+            static fromNumber(n: number): Timestamp;
+            static fromBits(lowBits: number, highBits: number): Timestamp;
+            static fromString(s: string, opt_radix?: number): Timestamp;
 
-        export interface Timestamp { }
-        export interface TimestampStatic {
-            new (low: number, high: number): Timestamp;
-            fromInt(i: number): Timestamp;
-            fromNumber(n: number): Timestamp;
-            fromBits(lowBits: number, highBits: number): Timestamp;
-            fromString(s: string, opt_radix?: number): Timestamp;
+            constructor(low: number, high: number);
         }
-        export let Timestamp: TimestampStatic;
-
     }
-
     export let BSONNative: typeof BSONPure;
 
 }
 
 export = bson;
+
