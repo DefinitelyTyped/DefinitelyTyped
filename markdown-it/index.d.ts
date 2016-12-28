@@ -1,14 +1,14 @@
 // Type definitions for markdown-it
 // Project: https://github.com/markdown-it/markdown-it
-// Definitions by: York Yao <https://github.com/plantain-00/>
+// Definitions by: York Yao <https://github.com/plantain-00/>, Robert Coie <https://github.com/rapropos/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface MarkdownItStatic {
     new (): MarkdownIt.MarkdownIt;
-    new (presetName: "commonmark" | "zero" | "default"): MarkdownIt.MarkdownIt;
+    new (presetName: "commonmark" | "zero" | "default", options?: MarkdownIt.Options): MarkdownIt.MarkdownIt;
     new (options: MarkdownIt.Options): MarkdownIt.MarkdownIt;
     (): MarkdownIt.MarkdownIt;
-    (presetName: "commonmark" | "zero" | "default"): MarkdownIt.MarkdownIt;
+    (presetName: "commonmark" | "zero" | "default", options ?: MarkdownIt.Options): MarkdownIt.MarkdownIt;
     (options: MarkdownIt.Options): MarkdownIt.MarkdownIt;
 }
 
@@ -19,6 +19,8 @@ declare module MarkdownIt {
     interface MarkdownIt {
         render(md: string, env?: any): string;
         renderInline(md: string, env?: any): string;
+        parse(src: string, env: any): Token[];
+        parseInline(src: string, env: any): Token[];
         use(plugin: any, ...params: any[]): MarkdownIt;
         utils: {
             assign(obj: any): any;
@@ -43,10 +45,10 @@ declare module MarkdownIt {
         normalizeLink(url: string): string;
         normalizeLinkText(url: string): string;
         validateLink(url: string): boolean;
-        block: any;
-        core: any;
+        block: ParserBlock;
+        core: Core;
         helpers: any;
-        inline: any;
+        inline: ParserInline;
         linkify: LinkifyIt;
         renderer: Renderer;
     }
@@ -92,4 +94,35 @@ declare module MarkdownIt {
     }
 
     type TokenRender = (tokens: Token[], index: number, options: any, env: any, self: Renderer) => void;
+
+    interface Rule {
+        (state: any): void;
+    }
+
+    interface Ruler {
+        after(afterName: string, ruleName: string, rule: Rule, options?: any): void;
+        at(name: string, rule: Rule, options?: any): void;
+        before(beforeName: string, ruleName: string, rule: Rule, options?: any): void;
+        disable(rules: string | string[], ignoreInvalid?: boolean): string[];
+        enable(rules: string | string[], ignoreInvalid?: boolean): string[];
+        enableOnly(rule: string, ignoreInvalid?: boolean): void;
+        getRules(chain: string): Rule[];
+        push(ruleName: string, rule: Rule, options?: any): void;
+    }
+
+    interface ParserBlock {
+        parse(src: string, md: MarkdownIt, env: any, outTokens: Token[]): void;
+        ruler: Ruler;
+    }
+
+    interface Core {
+        process(state: any): void;
+        ruler: Ruler;
+    }
+
+    interface ParserInline {
+        parse(src: string, md: MarkdownIt, env: any, outTokens: Token[]): void;
+        ruler: Ruler;
+        ruler2: Ruler;
+    }
 }
