@@ -1,4 +1,4 @@
-// Type definitions for http-link-header v0.6.0
+// Type definitions for http-link-header 0.6
 // Project: https://github.com/jhermsmeier/node-http-link-header
 // Definitions by: Christian Rackerseder <https://www.echooff.de/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
