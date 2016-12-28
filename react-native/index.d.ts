@@ -1,6 +1,6 @@
 // Type definitions for react-native 0.37
 // Project: https://github.com/facebook/react-native
-// Definitions by: Bruno Grieder <https://github.com/bgrieder>
+// Definitions by: Needs A Maintainer <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1931,7 +1931,7 @@ declare module "react" {
 	 */
 	data: string
     }
-    
+
     export interface WebViewPropertiesAndroid {
 
         /**
@@ -2094,7 +2094,7 @@ declare module "react" {
          * Invoked when window.postMessage is called from WebView.
          */
 	onMessage?: ( event: NativeSyntheticEvent<WebViewMessageEventData> ) => void
-	
+
         /**
          * Function that is invoked when the `WebView` loading starts or ends.
          */
@@ -2133,7 +2133,7 @@ declare module "react" {
          * sets whether the webpage scales to fit the view and the user can change the scale
          */
         scalesPageToFit?: boolean
-        
+
         ref?: Ref<WebViewStatic & ViewStatic>
     }
 
@@ -2902,7 +2902,7 @@ declare module "react" {
          * Whether the view should be indicating an active refresh.
          */
         refreshing: boolean
-        
+
         ref?: Ref<RefreshControlStatic>
     }
 
@@ -4882,7 +4882,7 @@ declare module "react" {
          * Color of text on unselected tabs
          */
         unselectedTintColor?: string
-        
+
         ref?: Ref<TabBarIOSStatic & ViewStatic>
     }
 
@@ -6775,7 +6775,7 @@ declare module "react" {
          * dialog box.
          */
         requestPermissions( permissions?: PushNotificationPermissions ): Promise<PushNotificationPermissions>
-        
+
         /**
          * Unregister for all remote notifications received via Apple Push
          * Notification service.
