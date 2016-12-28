@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "immutable-tests.ts"
+        "swagger-node-runner-tests.ts"
     ]
 }
