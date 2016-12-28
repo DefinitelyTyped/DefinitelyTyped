@@ -1,4 +1,4 @@
-import { Path, LocationState, LocationKey, Location, LocationDescriptor } from './';
+import { Path, LocationState, LocationKey, Location, LocationDescriptor } from './index';
 
 export function locationsAreEqual(lv: Location, rv: Location): boolean;
 export function createLocation(options: LocationDescriptor): Location;

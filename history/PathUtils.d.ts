@@ -1,4 +1,4 @@
-import { Path, Location, LocationDescriptor } from './';
+import { Path, Location, LocationDescriptor } from './index';
 
 export function addLeadingSlash(path: Path): Path;
 export function stripLeadingSlash(path: Path): Path;
