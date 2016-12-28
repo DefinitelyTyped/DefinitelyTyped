@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers v3.18.2
+// Type definitions for OpenLayers v3.20.1
 // Project: http://openlayers.org/
 // Definitions by: Olivier Sechet <https://github.com/osechet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
