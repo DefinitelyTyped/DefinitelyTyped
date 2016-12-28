@@ -3,6 +3,8 @@
 // Definitions by: Andy Hawkins <https://github.com/a904guy/,http://a904guy.com>, Eric J. Smith <https://github.com/ejsmith/>, Amrit Kahlon <https://github.com/amritk/>, Adam Cmiel <https://github.com/adamcmiel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare const Stripe: StripeStatic;
+
 interface StripeStatic {
     applePay: StripeApplePay;
     setPublishableKey(key: string): void;
