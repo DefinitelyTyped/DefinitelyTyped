@@ -22,7 +22,7 @@ export namespace pre {
   /**
    * This pre handler fixes issues with node hanging when an asyncHandler is used prior to bodyParser.
    */
-  function pause(): void;
+  function pause(): RequestHandler;
 
   /**
    * Cleans up duplicate or trailing / on the URL
