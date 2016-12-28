@@ -1,6 +1,6 @@
-// Type definitions for leaflet-draw 0.2.4
+// Type definitions for leaflet-draw 0.4.6
 // Project: https://github.com/Leaflet/Leaflet.draw
-// Definitions by: Matt Guest <https://github.com/matt-guest>
+// Definitions by: Matt Guest <https://github.com/matt-guest>, Ryan Blace <https://github.com/reblace>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="leaflet" />
@@ -10,17 +10,9 @@ declare namespace L {
 		drawControl?: boolean;
 	}
 
-	export interface ControlStatic {
-		Draw: Control.DrawStatic;
-	}
-
 	namespace Control {
 
-		export interface DrawStatic {
-			new (options?: IDrawConstructorOptions): Draw;
-		}
-
-		export interface IDrawConstructorOptions {
+		export interface DrawConstructorOptions {
 
 			/**
 			 * The initial position of the control (one of the map corners).
@@ -91,7 +83,7 @@ declare namespace L {
 			 *
 			 * Default value: null
 			 */
-			featureGroup: FeatureGroup<ILayer>;
+			featureGroup: FeatureGroup;
 
 			/**
 			 * Edit handler options. Set to false to disable handler.
@@ -108,9 +100,14 @@ declare namespace L {
 			remove?: DrawOptions.DeleteHandlerOptions;
 		}
 
-		export interface Draw extends IControl {
-
+		export interface Draw extends Control {
+			setDrawingOptions(options: DrawOptions): void;
 		}
+
+		export class Draw {
+			constructor(options?: DrawConstructorOptions);
+		}
+
 	}
 
 
@@ -252,6 +249,28 @@ declare namespace L {
 
 	}
 
+	namespace Draw {
+
+		namespace Event {
+
+			export const CREATED: string;
+			export const EDITED: string;
+			export const DELETED: string;
+			export const DRAWSTART: string;
+			export const DRAWSTOP: string;
+			export const DRAWVERTEX: string;
+			export const EDITSTART: string;
+			export const EDITMOVE: string;
+			export const EDITRESIZE: string;
+			export const EDITVERTEX: string;
+			export const EDITSTOP: string;
+			export const DELETESTART: string;
+			export const DELETESTOP: string;
+
+		}
+
+	}
+
 	namespace DrawEvents {
 
 		export interface Created {
@@ -259,7 +278,7 @@ declare namespace L {
 			/**
 			 * Layer that was just created.
 			 */
-			layer: ILayer;
+			layer: Layer;
 
 			/**
 			 * The type of layer this is. One of: polyline, polygon, rectangle, circle, marker.
@@ -272,7 +291,7 @@ declare namespace L {
 			/**
 			 * List of all layers just edited on the map.
 			 */
-			layers: LayerGroup<ILayer>;
+			layers: LayerGroup;
 		}
 
 		/**
@@ -283,7 +302,7 @@ declare namespace L {
 			/**
 			 * List of all layers just removed from the map.
 			 */
-			layers: LayerGroup<ILayer>;
+			layers: LayerGroup;
 		}
 
 		export interface DrawStart {
@@ -302,7 +321,7 @@ declare namespace L {
 			layerType: string;
 		}
 
-        export interface EditStart {
+		export interface EditStart {
 			/**
 			 * The type of edit this is. One of: edit
 			 */

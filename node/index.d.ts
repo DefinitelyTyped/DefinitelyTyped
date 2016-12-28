@@ -2073,8 +2073,8 @@ declare module "dgram" {
         setMulticastLoopback(flag: boolean): void;
         addMembership(multicastAddress: string, multicastInterface?: string): void;
         dropMembership(multicastAddress: string, multicastInterface?: string): void;
-        ref(): void;
-        unref(): void;
+        ref(): this;
+        unref(): this;
 
         /**
          * events.EventEmitter

@@ -172,11 +172,11 @@ interface ChartAnimationOptions {
 interface ChartElementsOptions {
     point?: ChartPointOptions;
     line?: ChartLineOptions;
-    arg?: ChartArcOtpions;
+    arc?: ChartArcOptions;
     rectangle?: ChartRectangleOptions;
 }
 
-interface ChartArcOtpions {
+interface ChartArcOptions {
     backgroundColor?: ChartColor;
     borderColor?: ChartColor;
     borderWidth?: number;
@@ -394,6 +394,7 @@ interface RadialLinearScale {
 declare class Chart {
     constructor (context: CanvasRenderingContext2D | HTMLCanvasElement, options: ChartConfiguration);
     config: ChartConfiguration;
+    data: ChartData;
     destroy: () => {};
     update: (duration?: any, lazy?: any) => {};
     render: (duration?: any, lazy?: any) => {};

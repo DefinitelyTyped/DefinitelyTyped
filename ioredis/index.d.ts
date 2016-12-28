@@ -338,6 +338,7 @@ declare module IORedis {
 
         scanStream(options?: IORedis.ScanStreamOption): NodeJS.EventEmitter;
         hscanStream(key: string, options?: IORedis.ScanStreamOption): NodeJS.EventEmitter;
+        zscanStream(key: string, options?: IORedis.ScanStreamOption): NodeJS.EventEmitter;
     }
 
     interface Pipeline {
