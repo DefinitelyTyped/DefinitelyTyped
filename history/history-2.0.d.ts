@@ -1,8 +1,8 @@
 // Back-compat declarations for history 2.0
 
-import { History, Location, LocationDescriptorObject } from './index';
+import { History } from './index';
 
-export type LocationDescriptor = History.LocationDescriptor;
+export type LocationDescriptor = History.LocationDescriptor | Path;
 export type LocationKey = History.LocationKey;
 export type LocationListener = History.LocationListener;
 export type LocationState = History.LocationState;
@@ -11,22 +11,17 @@ export type Pathname = History.Pathname;
 export type Search = History.Search;
 export type TransitionHook = History.TransitionHook;
 export type Hash = History.Hash;
-export type Href = Path;
-export type Query = any;
-export type QueryString = string;
+export type Href = History.Href;
+export type Query = History.Query;
+export type QueryString = History.QueryString;
 
+/** @deprecated **/
 export interface HistoryBeforeUnload {
+  /** @deprecated **/
   listenBeforeUnload(hook: TransitionHook): () => void;
 }
 
-export interface LocationDescriptorObject extends LocationDescriptorObject {
-  query?: Query;
-}
-
-export interface Location extends Location {
-  query?: Query;
-}
-
+/** @deprecated **/
 export interface HistoryQueries {
   pushState(state: LocationState, pathname: Pathname | Path, query?: Query): void;
   replaceState(state: LocationState, pathname: Pathname | Path, query?: Query): void;
@@ -34,6 +29,7 @@ export interface HistoryQueries {
   createHref(path: Path, query?: Query): Href;
 }
 
+/** @deprecated **/
 export interface HistoryOptions {
   getCurrentLocation?: () => Location;
   finishTransition?: (nextLocation: Location) => boolean;
@@ -49,6 +45,8 @@ export interface HistoryOptions {
   current?: number;
 }
 
+/** @deprecated **/
 export type CreateHistory<T> = (options?: HistoryOptions) => T;
 
+/** @deprecated **/
 export type CreateHistoryEnhancer<T, E> = (createHistory: CreateHistory<T>) => CreateHistory<T & E>;

@@ -54,7 +54,7 @@ let input = { value: "" };
     let location = createLocation('/a/path?a=query', { the: 'state' });
 
     // Extending an existing location object.
-    history.push({pathname: location.pathname, search: '?other=search' });
+    history.push({ pathname: location.pathname, search: '?other=search' });
 
     if (history.canGo(-1)) {
         history.go(-1);
@@ -97,7 +97,7 @@ let input = { value: "" };
 
 {
     let location1 = LocationUtils.createLocation('path/1', { state: 1 });
-    let location2 = LocationUtils.createLocation({ pathname: 'pathname', state: 2 });
+    let location2 = LocationUtils.createLocation({ pathname: 'pathname', state: 2, query: { a: 'b' } });
     LocationUtils.locationsAreEqual(location1, location2);
 }
 

@@ -16,7 +16,7 @@
     "files": [
         "index.d.ts",
         "history-tests.ts",
-        "history-2.0.ts",
+        "history-2.0.d.ts",
         "createBrowserHistory.d.ts",
         "createMemoryHistory.d.ts",
         "createHashHistory.d.ts",
