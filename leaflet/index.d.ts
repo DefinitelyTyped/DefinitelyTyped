@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.js 1.0.2
+// Type definitions for Leaflet.js 1.0
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
