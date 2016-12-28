@@ -1,4 +1,4 @@
-import { History, Location } from './';
+import { History, Location } from './index';
 import { getConfirmation } from './DOMUtils';
 
 export interface MemoryHistoryBuildOptions {
