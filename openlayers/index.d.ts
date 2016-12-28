@@ -12028,6 +12028,7 @@ declare module olx {
          */
         interface GeoJSONOptions {
             defaultDataProjection: ol.ProjectionLike;
+            featureProjection: ol.ProjectionLike;
             geometryName?: string;
         }
 
