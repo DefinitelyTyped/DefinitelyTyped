@@ -1,6 +1,5 @@
-/// <reference types="assert" />
 import cucumber = require("cucumber");
-
+import * as assert from "power-assert";
 
 function StepSample() {
 	type Callback = cucumber.CallbackStepDefinition;
@@ -39,19 +38,19 @@ function StepSample() {
 			callback(new Error("Expected to be on page with title " + title));
 		}
 	});
-  
-	// Type for data_table.js on 
+
+	// Type for data_table.js on
 	// https://github.com/cucumber/cucumber-js/blob/a5fd8251918c278ab2e389226d165cedb44df14a/lib/cucumber/ast/data_table.js
-	
+
 	step.Given(/^a table step with Table raw$/, function(table:Table){
 		var expected = [
 			['Cucumber', 'Cucumis sativus'],
 			['Burr Gherkin', 'Cucumis anguria']
 		];
-	
+
 		assert.deepEqual(table.raw(), expected);
 	});
-	
+
 	step.Given(/^a table step with Table rows$/, function(table: Table){
 		var expected = [
 			['Apricot', '5'],
@@ -60,7 +59,7 @@ function StepSample() {
 		];
 		assert.deepEqual(table.rows(), expected)
 	});
-	
+
 	step.Given(/^a table step with Table rowHash$/, function(table:Table){
 		var expected = {
 			'Cucumber': 'Cucumis sativus',
@@ -68,7 +67,7 @@ function StepSample() {
 		};
 		assert.deepEqual(table.rowsHash(), expected)
 	});
-	
+
 	step.Given(/^a table step$/, function(table:Table){
 		var expected = [
 			{'Vegetable': 'Apricot', 'Rating': '5'},
