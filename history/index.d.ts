@@ -20,7 +20,7 @@ export interface History {
     goForward(): void;
     block(prompt?: boolean): UnregisterCallback;
     listen(listener: LocationListener): UnregisterCallback;
-    createHref(location: LocationDescriptor): Path;
+    createHref(location: LocationDescriptor): Href;
 }
 
 export interface Location {
@@ -49,9 +49,9 @@ export namespace History {
     export type Search = string;
     export type TransitionHook = (location: Location, callback: (result: any) => void) => any;
     export type Hash = string;
+    export type Href = string;
 }
 
-// Back-compat aliases
 export type LocationDescriptor = History.LocationDescriptor;
 export type LocationKey = History.LocationKey;
 export type LocationListener = History.LocationListener;
@@ -61,6 +61,7 @@ export type Pathname = History.Pathname;
 export type Search = History.Search;
 export type TransitionHook = History.TransitionHook;
 export type Hash = History.Hash;
+export type Href = History.Href;
 
 import { default as createBrowserHistory } from "./createBrowserHistory";
 import { default as createHashHistory } from "./createHashHistory";
@@ -84,6 +85,7 @@ export interface Module {
 export * from "./createBrowserHistory";
 export * from "./createHashHistory";
 export * from "./createMemoryHistory";
+export * from "./history-compat";
 export { createLocation, locationsAreEqual } from "./LocationUtils";
 export { parsePath, createPath } from "./PathUtils";
 export { createBrowserHistory, createHashHistory, createMemoryHistory };

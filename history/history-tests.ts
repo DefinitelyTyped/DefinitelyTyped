@@ -32,7 +32,7 @@ let input = { value: "" };
     });
 
     // Change just the search on an existing location.
-    history.push({ ...location, search: '?the=other+search' });
+    history.push({ pathname: location.pathname, search: '?the=other+search' });
 
     // Go back to the previous history entry. The following
     // two lines are synonymous.
@@ -54,7 +54,7 @@ let input = { value: "" };
     let location = createLocation('/a/path?a=query', { the: 'state' });
 
     // Extending an existing location object.
-    history.push({ ...location, search: '?other=search' });
+    history.push({pathname: location.pathname, search: '?other=search' });
 
     if (history.canGo(-1)) {
         history.go(-1);
