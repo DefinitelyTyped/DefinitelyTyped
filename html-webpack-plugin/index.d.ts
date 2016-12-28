@@ -3,13 +3,14 @@
 // Definitions by: Simon Hartcher <https://github.com/deevus>, Benjamin Lim <https://github.com/bumbleblym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin } from "webpack";
+import { Plugin, Webpack } from "webpack";
 import { Options } from "html-minifier";
 
 export = HtmlWebpackPlugin;
 
 declare class HtmlWebpackPlugin implements Plugin {
     constructor(options?: HtmlWebpackPlugin.Config);
+    apply(thisArg: Webpack, ...args: any[]): void;
 }
 
 declare namespace HtmlWebpackPlugin {

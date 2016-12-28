@@ -5,6 +5,7 @@
       false
     ],
     "dt-header": false,
+    "interface-name": false,
     "no-empty-interface": false,
     "unified-signatures": false,
     "no-single-declare-module": false
