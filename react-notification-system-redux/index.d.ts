@@ -7,7 +7,7 @@ import { Component } from "react";
 import { Action } from "redux";
 import { Attributes, Notification } from "react-notification-system";
 
-export as namespace Notifications
+export as namespace Notifications;
 
 export = Notifications;
 
