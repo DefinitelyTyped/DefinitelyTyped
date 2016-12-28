@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+/// <reference types="debug" />
 
 declare namespace PouchDB {
     namespace Core {
@@ -399,22 +400,26 @@ declare namespace PouchDB {
             headers?: {
                 [name: string]: string;
             }
-            username?: string;
-            password?: string;
+
             /**
              * Enables transferring cookies and HTTP Authorization information.
              *
              * Defaults to true.
              */
             withCredentials?: boolean;
-            /**
-             * Disables automatic creation of databases.
-             */
-            skip_setup?: boolean;
         }
 
         interface RemoteDatabaseConfiguration extends CommonDatabaseConfiguration {
             ajax?: RemoteRequesterConfiguration;
+
+            auth?: {
+                username?: string;
+                password?: string;
+            }
+            /**
+             * Disables automatic creation of databases.
+             */
+            skip_setup?: boolean;
         }
 
         type DatabaseConfiguration = LocalDatabaseConfiguration |
@@ -433,6 +438,8 @@ declare namespace PouchDB {
 
         on(event: 'created', listener: (dbName: string) => any): this;
         on(event: 'destroyed', listener: (dbName: string) => any): this;
+
+        debug: debug.IDebug;
 
         new<Content extends Core.Encodable>(name?: string,
             options?: Configuration.DatabaseConfiguration): Database<Content>;
