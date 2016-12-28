@@ -2,6 +2,7 @@
 // Project: https://github.com/balloob/react-sidebar#readme
 // Definitions by: Jeroen Vervaeke <https://github.com/jeroenvervaeke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypesScript Version: 2.1
 import { Component } from "react";
 
 export interface SidebarProps {
@@ -31,4 +32,3 @@ export interface SidebarStyles {
 }
 
 export default class Sidebar extends Component<SidebarProps, {}> {}
-// TypesScript Version: 2.1
