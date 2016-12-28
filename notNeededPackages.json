@@ -220,6 +220,12 @@
             "typingsPackageName": "vue",
             "sourceRepoURL": "https://github.com/vuejs/vue",
             "asOfVersion": "2.0.0"
-         }
+         },
+         {
+            "libraryName": "immutable",
+            "typingsPackageName": "Facebook's Immutable",
+            "sourceRepoURL": "https://github.com/facebook/immutable-js",
+            "asOfVersion": "3.8.7"
+        }
     ]
 }
