@@ -23,11 +23,12 @@ export interface SidebarProps {
 }
 
 export interface SidebarStyles {
-    content?: CSSStyleDeclaration;
-    dragHandle?: CSSStyleDeclaration;
-    overlay?: CSSStyleDeclaration;
-    root?: CSSStyleDeclaration;
-    sidebar?: CSSStyleDeclaration;
+    content?: Partial<CSSStyleDeclaration>;
+    dragHandle?: Partial<CSSStyleDeclaration>;
+    overlay?: Partial<CSSStyleDeclaration>;
+    root?: Partial<CSSStyleDeclaration>;
+    sidebar?: Partial<CSSStyleDeclaration>;
 }
 
 export default class Sidebar extends Component<SidebarProps, {}> {}
+// TypesScript Version: 2.1
