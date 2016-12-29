@@ -1,4 +1,4 @@
-// Type definitions for inversify-inject-decorators 1.0.0-beta.1
+// Type definitions for inversify-inject-decorators 1.0
 // Project: https://github.com/inversify/inversify-inject-decorators
 // Definitions by: inversify <https://github.com/inversify/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
