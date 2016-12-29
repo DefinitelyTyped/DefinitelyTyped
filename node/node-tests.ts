@@ -927,7 +927,7 @@ namespace dgram_tests {
         })
         _socket = _socket.addListener("listening", () => {});
         _socket = _socket.addListener("message", (msg, rinfo) => {
-            let _msg: string = msg;
+            let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
         })
 
@@ -942,7 +942,7 @@ namespace dgram_tests {
         })
         _socket = _socket.on("listening", () => {});
         _socket = _socket.on("message", (msg, rinfo) => {
-            let _msg: string = msg;
+            let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
         })
 
@@ -952,7 +952,7 @@ namespace dgram_tests {
         })
         _socket = _socket.once("listening", () => {});
         _socket = _socket.once("message", (msg, rinfo) => {
-            let _msg: string = msg;
+            let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
         })
 
@@ -962,7 +962,7 @@ namespace dgram_tests {
         })
         _socket = _socket.prependListener("listening", () => {});
         _socket = _socket.prependListener("message", (msg, rinfo) => {
-            let _msg: string = msg;
+            let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
         })
 
@@ -972,7 +972,7 @@ namespace dgram_tests {
         })
         _socket = _socket.prependOnceListener("listening", () => {});
         _socket = _socket.prependOnceListener("message", (msg, rinfo) => {
-            let _msg: string = msg;
+            let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
         })
     }
