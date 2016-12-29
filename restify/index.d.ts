@@ -456,6 +456,7 @@ interface ServerOptions {
 interface ClientOptions {
     accept?: string;
     connectTimeout?: number;
+    requestTimeout?: number;
     dtrace?: Object;
     gzip?: Object;
     headers?: Object;

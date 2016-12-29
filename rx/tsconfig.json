@@ -15,7 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "rx-lite-tests.ts",
+        "rx-tests.ts",
         "rx-lite.d.ts",
         "rx.aggregates.d.ts",
         "rx.all.d.ts",

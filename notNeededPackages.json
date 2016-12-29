@@ -96,6 +96,7 @@
             "asOfVersion": "2.0.18"
         },
         {
+<<<<<<< HEAD
             "libraryName": "camel-case",
             "typingsPackageName": "camel-case",
             "sourceRepoURL": "https://github.com/blakeembrey/camel-case",
