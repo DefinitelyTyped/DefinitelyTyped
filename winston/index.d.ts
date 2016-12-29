@@ -242,7 +242,8 @@ declare namespace winston {
 
     export interface LoggerOptions {
         transports?: TransportInstance[];
-        rewriters?: TransportInstance[];
+        rewriters?: MetadataRewriter[];
+        filters?: MetadataFilter[];
         exceptionHandlers?: TransportInstance[];
         handleExceptions?: boolean;
         level?: string;
