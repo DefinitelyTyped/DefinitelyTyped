@@ -1,10 +1,10 @@
-// Type definitions for gaea 1.0
-// Project: https://github.com/ascoders/gaea-editor
+// Type definitions for gaea-model 1.0
+// Project: https://github.com/ascoders/gaea-model
 // Definitions by: ascoders <https://github.com/ascoders>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import * as React from 'react'
 
-export as namespace Gaea
+export as namespace GaeaModel
 
 export type Component = React.ComponentClass<ComponentProps>
 
@@ -137,7 +137,7 @@ export interface ComponentPropsGaeaEdit {
     /**
      * 值类型, 默认为字符串
      */
-        type?: string
+    type?: string
     /**
      * 为空时的值，默认为 null
      */
@@ -145,7 +145,7 @@ export interface ComponentPropsGaeaEdit {
     /**
      * 控制 number 单位
      */
-        number?: {
+    number?: {
         units: Array<Number>
         currentUnit: string
         max?: number
@@ -281,7 +281,7 @@ export interface ExternalParameter {
      * 类型
      * number string boolean
      */
-        type: string
+    type: string
 }
 
 /**
