@@ -97,7 +97,7 @@ let input = { value: "" };
 
 {
     let location1 = LocationUtils.createLocation('path/1', { state: 1 });
-    let location2 = LocationUtils.createLocation({ pathname: 'pathname', state: 2, query: { a: 'b' } });
+    let location2 = LocationUtils.createLocation({ pathname: 'pathname', state: 2 });
     LocationUtils.locationsAreEqual(location1, location2);
 }
 

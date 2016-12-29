@@ -1,8 +1,11 @@
 import * as React from "react"
-import * as ReactDOM from "react-dom"
-import {renderToString} from "react-dom/server";
 
-import { applyRouterMiddleware, browserHistory, hashHistory, match, createMemoryHistory, withRouter, routerShape, Router, Route, IndexRoute, InjectedRouter, Link, RouterOnContext, RouterContext} from "react-router";
+namespace ReactDOM {
+	export function render(...args: any[]): any { /* Mock function */ };
+}
+export function renderToString(...args: any[]): any { /* Mock function */ };
+
+import { applyRouterMiddleware, browserHistory, hashHistory, match, createMemoryHistory, withRouter, routerShape, Router, Route, IndexRoute, InjectedRouter, Link, RouterOnContext, RouterContext } from "./index";
 
 interface MasterContext {
 	router: RouterOnContext;
@@ -82,13 +85,12 @@ class Users extends React.Component<{}, {}> {
 
 }
 
-
 ReactDOM.render((
 	<Router history={hashHistory}>
 		<Route path="/" component={Master}>
 			<IndexRoute component={DashboardWithRouter} />
-			<Route path="users" component={Users}/>
-			<Route path="*" component={NotFound}/>
+			<Route path="users" component={Users} />
+			<Route path="*" component={NotFound} />
 		</Route>
 	</Router>
 ), document.body)
@@ -98,11 +100,11 @@ const history = createMemoryHistory("baseurl");
 const routes = (
 	<Route path="/" component={Master}>
 		<IndexRoute component={DashboardWithRouter} />
-		<Route path="users" component={Users}/>
+		<Route path="users" component={Users} />
 	</Route>
 );
 
-match({history, routes, location: "baseurl"}, (error, redirectLocation, renderProps) => {
+match({ history, routes, location: "baseurl" }, (error, redirectLocation, renderProps) => {
 	renderToString(<RouterContext {...renderProps} />);
 });
 
@@ -114,6 +116,6 @@ ReactDOM.render((
 		render={applyRouterMiddleware({
 			renderRouteComponent: child => child
 		})}
-	>
+		>
 	</Router>
 ), document.body);

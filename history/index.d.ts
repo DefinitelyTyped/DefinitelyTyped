@@ -29,8 +29,6 @@ export interface Location {
     state: LocationState;
     hash: Hash;
     key: LocationKey;
-    /** @deprecated **/
-    query?: Query;
 }
 
 export interface LocationDescriptorObject {
@@ -39,8 +37,6 @@ export interface LocationDescriptorObject {
     state?: LocationState;
     hash?: Hash;
     key?: LocationKey;
-    /** @deprecated **/
-    query?: Query;
 }
 
 export namespace History {
@@ -54,13 +50,9 @@ export namespace History {
     export type TransitionHook = (location: Location, callback: (result: any) => void) => any;
     export type Hash = string;
     export type Href = string;
-    /** @deprecated **/
-    export type Query = any;
-    /** @deprecated **/
-    export type QueryString = string;
 }
 
-export type LocationDescriptor = History.LocationDescriptor | Path;
+export type LocationDescriptor = History.LocationDescriptor;
 export type LocationKey = History.LocationKey;
 export type LocationListener = History.LocationListener;
 export type LocationState = History.LocationState;
@@ -70,8 +62,6 @@ export type Search = History.Search;
 export type TransitionHook = History.TransitionHook;
 export type Hash = History.Hash;
 export type Href = History.Href;
-export type Query = History.Query;
-export type QueryString = History.QueryString;
 
 import { default as createBrowserHistory } from "./createBrowserHistory";
 import { default as createHashHistory } from "./createHashHistory";
@@ -95,7 +85,6 @@ export interface Module {
 export * from "./createBrowserHistory";
 export * from "./createHashHistory";
 export * from "./createMemoryHistory";
-export * from "./history-2.0";
 export { createLocation, locationsAreEqual } from "./LocationUtils";
 export { parsePath, createPath } from "./PathUtils";
 export { createBrowserHistory, createHashHistory, createMemoryHistory };
