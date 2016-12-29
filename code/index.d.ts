@@ -1,20 +1,22 @@
-// Type definitions for code 4.0.0
+// Type definitions for code 4.0
 // Project: https://github.com/hapijs/code
 // Definitions by: Prashant Tiwari <https://github.com/prashaantt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** Generates an assertion object. */
-export function expect<T>(value: T | T[], prefix?: string): AssertionChain<T>;
+declare function expect<T>(value: T | T[], prefix?: string): AssertionChain<T>;
 /** Makes the test fail with the given message. */
-export function fail(message: string): void;
+declare function fail(message: string): void;
 /** Returns the total number of assertions created using the expect() method. */
-export function count(): number;
+declare function count(): number;
 /** Returns an array of the locations where incomplete assertions were declared or null if no incomplete assertions found. */
-export function incomplete(): Array<string> | null;
+declare function incomplete(): Array<string> | null;
 /** Returns the filename, line number, and column number of where the error was created. */
-export function thrownAt(error?: Error): CodeError;
+declare function thrownAt(error?: Error): CodeError;
 /** Configure code. */
-export const settings: Settings;
+declare const settings: Settings;
+
+export { expect, fail, count, incomplete, thrownAt, settings };
 
 type AssertionChain<T> = Assertion<T> & Expectation<T>;
 
@@ -165,7 +167,9 @@ interface Values<T> {
     /** Asserts that the reference value satisfies the provided validator function. */
     satisfies(validator: (value: T) => boolean): AssertionChain<T>;
     /** Asserts that the function reference value throws an exception when called. */
-    throw(type: Object, message: string | RegExp): AssertionChain<T>;
+    throw(type?: Object, message?: string | RegExp): AssertionChain<T>;
+    /** Asserts that the function reference value throws an exception when called. */
+    throws(type?: Object, message?: string | RegExp): AssertionChain<T>;
 }
 
 interface Settings {

@@ -31,7 +31,7 @@ expect(err).to.be.an.error(Error);
 expect(err).to.be.an.error("Oops an error occured.");
 expect(err).to.be.an.error(Error, /occured/);
 
-expect(function () { }).to.be.a.function();
+expect(function () { return; }).to.be.a.function();
 
 expect(123).to.be.a.number();
 
@@ -147,7 +147,7 @@ fail("This should not occur");
 
 expect(count()).to.be.a.number();
 
-expect(<null>incomplete()).to.be.null().and.not.be.an.array();
+expect(incomplete() as null).to.be.null().and.not.be.an.array();
 
 const error = thrownAt(new Error("oops"));
 expect(error).to.not.be.undefined();
