@@ -11,6 +11,11 @@ function test_attr() {
     expect($('#foo')).to.have.attr('class', 'container');
 }
 
+function test_prop() {
+    expect($('#foo')).to.have.prop('disabled');
+    expect($('#foo')).to.have.prop('disabled', false);
+}
+
 function test_css() {
     expect($('#foo')).to.have.css('color');
     expect($('#foo')).to.have.css('font-family', 'serif');
