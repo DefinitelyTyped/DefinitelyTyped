@@ -223,6 +223,12 @@ For an NPM package, `export =` is accurate if `node -p 'require("foo")'` is the 
 Then you will have to add a comment to your definition header: `// TypeScript Version: 2.1`.
 If it is merged before January 7, it will be published as a prerelease version, such as `4.3.0-next.0`.
 
+#### I want to add a DOM API not present in TypeScript by default.
+
+This may belong in [TSJS-Lib-Generator](https://github.com/Microsoft/TSJS-lib-generator#readme). See the guidelines there.
+If the standard is still a draft, it belongs here.
+Use a name beginning with `dom-` and include a link to the standard as the "Project" link in the header.
+When it graduates draft mode, we may remove it from DefinitelyTyped and deprecate the associated `@types` package.
 
 ## License
 
