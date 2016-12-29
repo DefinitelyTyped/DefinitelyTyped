@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "verror-tests.ts"
+        "verror-tests.ts",
+        "verror-tests-1.ts"
     ]
 }

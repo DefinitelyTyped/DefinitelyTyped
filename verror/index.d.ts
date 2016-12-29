@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-type VErrorInfo = { [key: string]: any };
+export type VErrorInfo = { [key: string]: any };
 
-declare interface VErrorOptions {
+export interface VErrorOptions {
     cause: Error;
     name?: string;
     strict?: boolean;
@@ -28,7 +28,7 @@ declare interface VErrorOptions {
  * new VError(err, 'open failed')          "open failed: file not found"
  *   with err.message = 'file not found'
  */
-declare class VError extends Error {
+export default class VError extends Error {
     static VError: typeof VError;
     static SError: typeof SError;
     static MultiError: typeof MultiError;
@@ -51,7 +51,7 @@ declare class VError extends Error {
  * different function, not really a different class, we don't set
  * SError.prototype.name.
  */
-declare class SError extends VError {
+export class SError extends VError {
 }
 
 /*
@@ -60,7 +60,7 @@ declare class SError extends VError {
  * contained in this object, but may also just treat it as a normal single
  * error, in which case a summary message will be printed.
  */
-declare class MultiError extends VError {
+export class MultiError extends VError {
     constructor(errors: Error[]);
     errors(): Error[];
 }
@@ -70,10 +70,10 @@ declare class MultiError extends VError {
  * is wrapped, not "folded in" as with VError.	Accepts a printf-style message.
  * The cause argument can be null.
  */
-declare class WError extends Error {
+export class WError extends Error {
     cause(): Error;
     constructor(cause: Error, message: string, ...params: any[]);
     constructor(message: string, ...params: any[]);
 }
 
-export = VError;
+export as namespace VError;
