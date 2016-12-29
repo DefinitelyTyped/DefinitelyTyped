@@ -38,16 +38,18 @@ export interface SignOptions {
      * - none:     No digital signature or MAC value included
      */
     algorithm?: string;
+    keyid?: string;
     /** @member {string} - Lifetime for the token expressed in a string describing a time span [rauchg/ms](https://github.com/rauchg/ms.js). Eg: `60`, `"2 days"`, `"10h"`, `"7d"` */
     expiresIn?: string | number;
     notBefore?: string;
-    audience?: string;
+    audience?: string | string[];
     subject?: string;
     issuer?: string;
     jwtid?: string;
     noTimestamp?: boolean;
     header?: Object;
     encoding?: string;
+
 }
 
 export interface VerifyOptions {
