@@ -9,7 +9,7 @@ export function expect<T>(value: T | T[], prefix?: string): AssertionChain<T>;
 export function fail(message: string): void;
 /** Returns the total number of assertions created using the expect() method. */
 export function count(): number;
-/** Returns an array of the locations where incomplete assertions were exportd or null if no incomplete assertions found. */
+/** Returns an array of the locations where incomplete assertions were declared or null if no incomplete assertions found. */
 export function incomplete(): string[] | null;
 /** Returns the filename, line number, and column number of where the error was created. */
 export function thrownAt(error?: Error): CodeError;
