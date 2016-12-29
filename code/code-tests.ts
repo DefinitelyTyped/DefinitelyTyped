@@ -31,7 +31,7 @@ expect(err).to.be.an.error(Error);
 expect(err).to.be.an.error("Oops an error occured.");
 expect(err).to.be.an.error(Error, /occured/);
 
-expect(function () { return; }).to.be.a.function();
+expect(func).to.be.a.function();
 
 expect(123).to.be.a.number();
 

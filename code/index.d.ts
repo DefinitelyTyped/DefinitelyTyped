@@ -10,7 +10,7 @@ declare function fail(message: string): void;
 /** Returns the total number of assertions created using the expect() method. */
 declare function count(): number;
 /** Returns an array of the locations where incomplete assertions were declared or null if no incomplete assertions found. */
-declare function incomplete(): Array<string> | null;
+declare function incomplete(): string[] | null;
 /** Returns the filename, line number, and column number of where the error was created. */
 declare function thrownAt(error?: Error): CodeError;
 /** Configure code. */
@@ -20,9 +20,9 @@ export { expect, fail, count, incomplete, thrownAt, settings };
 
 type AssertionChain<T> = Assertion<T> & Expectation<T>;
 
-interface Assertion<T> extends Grammar<T>, Flags<T> { }
+type Assertion<T> = Grammar<T> & Flags<T>;
 
-interface Expectation<T> extends Types<T>, Values<T> { }
+type Expectation<T> = Types<T> & Values<T>;
 
 interface Grammar<T> {
     /** Connecting word. */
@@ -80,7 +80,7 @@ interface Types<T> {
     /** Asserts that the reference value is a Date. */
     date(): AssertionChain<T>;
     /** Asserts that the reference value is an error. */
-    error(type?: Object, message?: string | RegExp): AssertionChain<T>;
+    error(type?: any, message?: string | RegExp): AssertionChain<T>;
     /** Asserts that the reference value is a function. */
     function(): AssertionChain<T>;
     /** Asserts that the reference value is a number. */
@@ -155,9 +155,9 @@ interface Values<T> {
     /** Asserts that the reference value is about the provided value within a delta margin of difference. */
     about(value: number, delta: number): AssertionChain<T>;
     /** Asserts that the reference value has the provided instanceof value. */
-    instanceof(type: Object): AssertionChain<T>;
+    instanceof(type: any): AssertionChain<T>;
     /** Asserts that the reference value has the provided instanceof value. */
-    instanceOf(type: Object): AssertionChain<T>;
+    instanceOf(type: any): AssertionChain<T>;
     /** Asserts that the reference value's toString() representation matches the provided regular expression. */
     match(regex: RegExp): AssertionChain<T>;
     /** Asserts that the reference value's toString() representation matches the provided regular expression. */
@@ -167,9 +167,9 @@ interface Values<T> {
     /** Asserts that the reference value satisfies the provided validator function. */
     satisfies(validator: (value: T) => boolean): AssertionChain<T>;
     /** Asserts that the function reference value throws an exception when called. */
-    throw(type?: Object, message?: string | RegExp): AssertionChain<T>;
+    throw(type?: any, message?: string | RegExp): AssertionChain<T>;
     /** Asserts that the function reference value throws an exception when called. */
-    throws(type?: Object, message?: string | RegExp): AssertionChain<T>;
+    throws(type?: any, message?: string | RegExp): AssertionChain<T>;
 }
 
 interface Settings {
