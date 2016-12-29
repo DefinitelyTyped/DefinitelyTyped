@@ -1,7 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
-import * as BigCalendar from "react-big-calendar";
+import BigCalendar = require("react-big-calendar");
+
 // Don't want to add this as a dependency, because it is only used for tests.
 declare const moment: any;
 
