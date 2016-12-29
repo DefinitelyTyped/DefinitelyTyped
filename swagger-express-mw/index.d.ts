@@ -25,13 +25,13 @@ SwaggerExpress.create(config, (err, middleware) => {
 
  =============================================== */
 
-import { Config, ConnectMiddleware } from "../swagger-node-runner";
+import { Config, ConnectMiddleware } from "swagger-node-runner";
 
 /** export interfaces */
-export { Config, ConnectMiddleware } from "../swagger-node-runner";
+export { Config, ConnectMiddleware } from "swagger-node-runner";
 
 /**
- * Create a new instance of a Connect specific `SwaggerNodeRunner`
+ * Create a new instance of a Connect specific `SwaggerNodeRunner` middleware
  *
  * The `swagger-node-runner` module has the following config priority:
  *   1. `swagger_*` environment vars
