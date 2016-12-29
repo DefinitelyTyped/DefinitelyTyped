@@ -1,6 +1,7 @@
 import * as SwaggerNodeRunner from "swagger-node-runner";
 import * as express from "express";
 import * as Hapi from "hapi";
+import * as restify from "restify";
 
 let config: SwaggerNodeRunner.Config = {
     appRoot: __dirname
@@ -42,6 +43,22 @@ SwaggerNodeRunner.create(config, function(err, runner) {
     if (err) { return console.error("Failed to load plugin:", err); }
     // stat app etc..
   });
+});
+
+
+// Restify Middelware
+
+let app = restify.createServer();
+SwaggerNodeRunner.create(config, function(err, runner) {
+// SwaggerRestify.create(config, function(err, swaggerRestify) {
+  if (err) { throw err; }
+
+  let restifyMiddelware = runner.restifyMiddleware()
+
+  restifyMiddelware.register(app);
+
+  let port = process.env.PORT || 10010;
+  app.listen(port);
 });
 
 
