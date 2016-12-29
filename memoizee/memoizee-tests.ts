@@ -1,6 +1,6 @@
 import memoize = require('memoizee');
 
-var fn = function (one:any, two:any, three:any) { /* ... */ };
+var fn = function (one: string, two?: number, three?: any) { /* ... */ };
 
 let memoized = memoize(fn);
 memoized('foo', 3, 'bar');
@@ -23,7 +23,7 @@ var foo3 = memoized('foo', 3);
 var bar7 = memoized('bar', 7);
 memoized.clear('foo', 3); // Dispose called with foo3 value
 memoized.clear('bar', 7); // Dispose called with bar7 value
-memoized.delete('foo', true);
+memoized.delete('foo', 0);
 var mFn = memoize(function (hash:any) {
     // body of memoized function
 }, { normalizer: function (args:any) {
@@ -34,17 +34,18 @@ var mFn = memoize(function (hash:any) {
 mFn({ foo: 'bar' });
 
 memoized = memoize(fn, { length: 2, resolvers: [String, Boolean] });
-memoized(12, [1,2,3].length);
-memoized("12", true);
-memoized({ toString: function () { return "12"; } }, {});
+memoized(String(12), [1,2,3].length);
+memoized("12", Number(true));
+memoized(String({ toString: function () { return "12"; } }), Number({}));
 
-var afn = function (a:number, b:number) {
-    return new Promise(function (res) { res(a + b); });
-};
-memoized = memoize(afn, { promise: true });
-
-memoized(3, 7);
-memoized(3, 7);
+{
+    var afn = function (a:number, b:number) {
+        return new Promise(function (res) { res(a + b); });
+    };
+    let memoized = memoize(afn, { promise: true });
+    memoized(3, 7);
+    memoized(3, 7);
+}
 
 memoized = memoize(fn, { maxAge: 1000, preFetch: 0.6 });
 

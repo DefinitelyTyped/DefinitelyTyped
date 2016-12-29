@@ -3,47 +3,27 @@
 // Definitions by: Juan Picado <https://github.com/juanpicado>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/**
- * Resolver options
- * @interface RevolversArray
- */
-interface RevolversArray {
-  [index: number]: {};
+declare namespace memoizee {
+  interface Options {
+    length?: number;
+    maxAge?: number;
+    max?: number;
+    preFetch?: number | true;
+    promise?: boolean;
+    dispose?: (value: any) => void;
+    async?: boolean;
+    primitive?: boolean;
+    normalizer?: (value: any) => void;
+    resolvers?: Array<(arg: any) => any>;
+  }
+
+  interface Memoized<F> {
+    delete: F;
+    clear: F & (() => void);
+  }
 }
 
-/**
- * List of options
- * @interface IMemoizeeOptions
- */
-interface IMemoizeeOptions {
-  length?: number;
-  maxAge?: number;
-  max?: number;
-  preFetch?: number;
-  promise?: boolean;
-  dispose?: (value: any) => void;
-  async?: boolean;
-  primitive?: boolean;
-  normalizer?: (value: any ) => void;
-  resolvers?: RevolversArray;
-}
-
-/**
- * Main interface functions
- * @interface IMemoizee
- * @extends {Function}
- */
-interface IMemoizee extends Function {
-  delete: (...params: any[]) => void;
-  clear: (...params: any[]) => void;
-}
-
-/**
- * Memoize function
- * @param {*} f
- * @param {IMemoizeeOptions} [options]
- * @returns {IMemoizee}
- */
-declare function memoizee(f: (...params: any[]) => void, options?: IMemoizeeOptions): IMemoizee;
+// tslint:disable:forbidden-types
+declare function memoizee<F extends Function>(f: F, options?: memoizee.Options): F & memoizee.Memoized<F>;
 
 export = memoizee;
