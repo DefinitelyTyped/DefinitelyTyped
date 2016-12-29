@@ -741,10 +741,57 @@ declare module "react" {
         timestamp: number
     }
 
+    interface PerpectiveTransform {
+        perspective: number;
+    }
+
+    interface RotateTransform {
+        rotate: string;
+    }
+
+    interface RotateXTransform {
+        rotateX: string;
+    }
+
+    interface RotateYTransform {
+        rotateY: string;
+    }
+
+    interface RotateZTransform {
+        rotateZ: string;
+    }
+
+    interface ScaleTransform {
+        scale: number;
+    }
+
+    interface ScaleXTransform {
+        scaleX: number;
+    }
+
+    interface ScaleYTransform {
+        scaleY: number;
+    }
+
+    interface TranslateXTransform {
+        translateX: number;
+    }
+
+    interface TranslateYTransform {
+        translateY: number;
+    }
+
+    interface SkewXTransform {
+        skewX: string;
+    }
+
+    interface SkewYTransform {
+        skewY: string;
+    }
 
     export interface TransformsStyle {
 
-        transform?: [{ perspective: number }, { rotate: string }, { rotateX: string }, { rotateY: string }, { rotateZ: string }, { scale: number }, { scaleX: number }, { scaleY: number }, { translateX: number }, { translateY: number }, { skewX: string }, { skewY: string }]
+        transform?: (PerpectiveTransform|RotateTransform|RotateXTransform|RotateYTransform|RotateZTransform|ScaleTransform|ScaleXTransform|ScaleYTransform|TranslateXTransform|TranslateYTransform|SkewXTransform|SkewYTransform)[]
         transformMatrix?: Array<number>
         rotation?: number
         scaleX?: number
@@ -3772,13 +3819,13 @@ declare module "react" {
          * On iOS, the modal is still restricted by what's specified in your app's Info.plist's UISupportedInterfaceOrientations field.
          * @platform ios
          */
-        supportedOrientations: ('portrait' | 'portrait-upside-down' | 'landscape' | 'landscape-left' | 'landscape-right')[]
+        supportedOrientations?: ('portrait' | 'portrait-upside-down' | 'landscape' | 'landscape-left' | 'landscape-right')[]
         /**
          * The `onOrientationChange` callback is called when the orientation changes while the modal is being displayed.
          * The orientation provided is only 'portrait' or 'landscape'. This callback is also called on initial render, regardless of the current orientation.
          * @platform ios
          */
-        onOrientationChange: () => void,
+        onOrientationChange?: () => void
     }
 
     export interface ModalStatic extends React.ComponentClass<ModalProperties> {
@@ -5576,7 +5623,17 @@ declare module "react" {
          * Fires at most once per frame during scrolling.
          * The frequency of the events can be contolled using the scrollEventThrottle prop.
          */
-        onScroll?: (event?: { nativeEvent: NativeScrollEvent }) => void
+        onScroll?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
+
+        /**
+         * Fires if a user initiates a scroll gesture.
+         */
+        onScrollBeginDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
+
+	/**
+         * Fires when a user has finished scrolling.
+         */
+        onScrollEndDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
 
         /**
          * When true the scroll view stops on multiples of the scroll view's size

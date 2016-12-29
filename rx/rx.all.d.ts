@@ -14,7 +14,6 @@
 /// <reference path="rx.virtualtime.d.ts"/>
 /// <reference path="rx.testing.d.ts"/>
 
-
 declare module "rx.all" {
 	export = Rx;
 }
