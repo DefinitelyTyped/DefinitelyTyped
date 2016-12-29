@@ -3,6 +3,8 @@
 // Definitions by: Gaelan <https://github.com/Gaelan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <references types="jquery" />
+
 export as namespace GeoPattern;
 
 /**
@@ -11,7 +13,7 @@ export as namespace GeoPattern;
  * @param string Will be hashed using the SHA1 algorithm, and the resulting hash
  * will be used as the seed for generation.
  */
-export function generate(string: string, options?: PatternOptions): Pattern;
+export function generate(string?: string, options?: PatternOptions): Pattern;
 
 export interface PatternOptions {
     /**
@@ -67,4 +69,8 @@ export interface Pattern {
     toDataUrl(): string;
 }
 
-// TODO: implement the jQuery plugin.
+declare global {
+	interface JQuery {
+		geopattern(string: string, options?: PatternOptions): JQuery;
+	}
+}
