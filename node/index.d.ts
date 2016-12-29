@@ -2087,37 +2087,37 @@ declare module "dgram" {
         addListener(event: "close", listener: () => void): this;
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "listening", listener: () => void): this;
-        addListener(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
+        addListener(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
 
         emit(event: string, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: "listening"): boolean;
-        emit(event: "message", msg: string, rinfo: AddressInfo): boolean;
+        emit(event: "message", msg: Buffer, rinfo: AddressInfo): boolean;
 
         on(event: string, listener: Function): this;
         on(event: "close", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
         on(event: "listening", listener: () => void): this;
-        on(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
+        on(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
 
         once(event: string, listener: Function): this;
         once(event: "close", listener: () => void): this;
         once(event: "error", listener: (err: Error) => void): this;
         once(event: "listening", listener: () => void): this;
-        once(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
+        once(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
 
         prependListener(event: string, listener: Function): this;
         prependListener(event: "close", listener: () => void): this;
         prependListener(event: "error", listener: (err: Error) => void): this;
         prependListener(event: "listening", listener: () => void): this;
-        prependListener(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
+        prependListener(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
 
         prependOnceListener(event: string, listener: Function): this;
         prependOnceListener(event: "close", listener: () => void): this;
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
         prependOnceListener(event: "listening", listener: () => void): this;
-        prependOnceListener(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
+        prependOnceListener(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
     }
 }
 
