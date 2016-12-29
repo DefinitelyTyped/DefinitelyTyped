@@ -1,4 +1,4 @@
-// Type definitions for react-big-calendar v0.10.X
+// Type definitions for react-big-calendar v0.11.X
 // Project: https://github.com/intljusticemission/react-big-calendar
 // Definitions by: Piotr Witek <http://piotrwitek.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -35,9 +35,11 @@ declare module 'react-big-calendar' {
         formats?: Object;
         components?: Object;
         messages?: Object;
+        timeslots?: number;
+        defaultView?: string;
     }
 
-    export class BigCalendar extends React.Component<BigCalendarProps, {}> {
+    class BigCalendar extends React.Component<BigCalendarProps, {}> {
         /**
          * Setup the localizer by providing the moment Object
          */
@@ -48,5 +50,9 @@ declare module 'react-big-calendar' {
         static globalizeLocalizer(globalizeInstance: Object): void;
     }
 
-     export default BigCalendar;
+    /* This enables 'import * as BigCalendar' syntax when compiling to es2015 */
+    namespace BigCalendar {}
+
+    /* react-big-calendar is exported as a commonjs module (it uses babel-preset-jason) */
+    export = BigCalendar;
 }
