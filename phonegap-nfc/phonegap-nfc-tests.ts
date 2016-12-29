@@ -97,7 +97,7 @@ let eventTarget: EventTarget = {
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean) { return; }
 }
 
-let ndefTagEvent: NdefTagEvent = {
+let ndefTagEvent = {
     bubbles: false,
     cancelBubble: false,
     cancelable: false,
@@ -121,3 +121,5 @@ let ndefTagEvent: NdefTagEvent = {
     deepPath(): any { },
     tag: ndefTag
 };
+
+let event: NdefTagEvent = ndefTagEvent;
