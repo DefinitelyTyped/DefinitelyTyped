@@ -6,8 +6,6 @@
 ///<reference types="react" />
 
 declare namespace ReactIntl {
-    // Import React
-    import React = __React;
 
     interface Locale {
         locale: string;
