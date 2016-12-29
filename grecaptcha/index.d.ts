@@ -1,4 +1,4 @@
-// Type definitions for Google Recaptcha v2
+// Type definitions for Google Recaptcha 2.0
 // Project: https://www.google.com/recaptcha
 // Definitions by: Kristof Mattei <http://kristofmattei.be>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

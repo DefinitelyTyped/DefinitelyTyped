@@ -1,4 +1,4 @@
-// Type definitions for HERE Maps API for JavaScript v3.0.12.4
+// Type definitions for HERE Maps API for JavaScript 3.0s
 // Project: https://developer.here.com/
 // Definitions by: Joshua Efiong <https://github.com/Josh-ES/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
