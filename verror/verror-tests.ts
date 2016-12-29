@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-import VError = require("verror");
+import VError from "verror";
 
 var error = new Error("foo");
 var verror1 = new VError(error, "bar");
