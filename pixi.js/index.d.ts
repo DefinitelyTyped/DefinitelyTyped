@@ -1283,7 +1283,7 @@ declare module PIXI {
     }
 
     // text
-    export interface ITextStyleStyle {
+    export interface TextStyleOptions {
         align?: string;
         breakWords?: boolean;
         dropShadow?: boolean;
@@ -1311,7 +1311,7 @@ declare module PIXI {
         wordWrapWidth?: number;
     }
 
-    export class TextStyle implements ITextStyleStyle {
+    export class TextStyle implements TextStyleOptions {
         align: string;
         breakWords: boolean;
         dropShadow: boolean;
@@ -1337,17 +1337,17 @@ declare module PIXI {
         textBaseline: string;
         wordWrap: boolean;
         wordWrapWidth: number;
-        constructor(style?: ITextStyleStyle);
+        constructor(style?: TextStyleOptions);
         public clone(): TextStyle;
         public reset(): void;
     }
 
     export class Text extends Sprite {
 
-        static getFontStyle(style: ITextStyleStyle): string;
+        static getFontStyle(style: TextStyleOptions): string;
         static calculateFontProperties(style: string): any;
 
-        constructor(text?: string, style?: ITextStyleStyle);
+        constructor(text?: string, style?: TextStyleOptions);
 
         canvas: HTMLCanvasElement;
         context: CanvasRenderingContext2D;
