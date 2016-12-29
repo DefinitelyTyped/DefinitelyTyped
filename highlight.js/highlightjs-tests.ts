@@ -5,9 +5,7 @@
 	Project Page: http://softwaremaniacs.org/soft/highlight/en/
 */
 
-
-
-import hljs = require("highlight.js");
+import * as hljs from 'highlight.js';
 
 var code = "using System;\npublic class Test\n{\npublic static void Main()\n{\n// your code goes here\n}\n}";
 var lang = "cs";

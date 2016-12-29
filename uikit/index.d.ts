@@ -150,7 +150,7 @@ declare namespace UIkit {
 	     * }
          * </code></pre>
          */
-        (selector: string|JQuery): ModalElement;
+        (selector: string|JQuery, options?: ModalOptions): ModalElement;
     }
     /**
      * Create a smooth off-canvas sidebar that slides in and out of the page

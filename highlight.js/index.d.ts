@@ -3,10 +3,7 @@
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee/>, Jeremy Hull <https://github.com/sourrust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = hljs;
-export as namespace hljs;
-
-declare  namespace hljs
+declare namespace hljs
 {
 	export function highlight(
 		name: string,
@@ -155,4 +152,8 @@ declare  namespace hljs
 		useBR?: boolean;
 		languages?: string[];
 	}
+}
+
+declare module 'highlight.js' {
+	export = hljs;
 }

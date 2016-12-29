@@ -75,6 +75,7 @@ var err = new createError['404']();
 
 // Error messages can have custom messages
 var err = new createError.NotFound('This might be a problem');
+var err = new createError['404']('This might be a problem');
 
 // 1.5.0 supports 421 - Misdirected Request
 var err = new createError.MisdirectedRequest();

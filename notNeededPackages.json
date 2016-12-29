@@ -204,10 +204,34 @@
             "asOfVersion": "2.0.2"
         },
         {
-             "libraryName": "ajv",
-             "typingsPackageName": "ajv",
-             "sourceRepoURL": "https://github.com/epoberezkin/ajv",
-             "asOfVersion": "1.0.0"
+            "libraryName": "ajv",
+            "typingsPackageName": "ajv",
+            "sourceRepoURL": "https://github.com/epoberezkin/ajv",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "date-fns",
+            "typingsPackageName": "date-fns",
+            "sourceRepoURL": "https://github.com/date-fns/date-fns",
+            "asOfVersion": "2.6.0"
+        },
+        {
+            "libraryName": "vuejs",
+            "typingsPackageName": "vue",
+            "sourceRepoURL": "https://github.com/vuejs/vue",
+            "asOfVersion": "2.0.0"
+         },
+         {
+            "libraryName": "immutable",
+            "typingsPackageName": "Facebook's Immutable",
+            "sourceRepoURL": "https://github.com/facebook/immutable-js",
+            "asOfVersion": "3.8.7"
+         },
+         {
+            "libraryName": "dva",
+            "typingsPackageName": "dva",
+            "sourceRepoURL": "https://github.com/dvajs/dva",
+            "asOfVersion": "1.1.0"
         }
     ]
 }

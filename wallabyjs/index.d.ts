@@ -11,7 +11,7 @@ declare module 'wallabyjs' {
    *
    * @property {IWallabyCompiler=}     compilers - File patterns as keys and compiler functions as values.
    * @property {boolean=}              debug - Flag if debug messages written to Wallaby console (default=false).
-   * @prooperty {IWallabyEnvironment=} env - Specify a different test runner or change the runner settings.
+   * @property {IWallabyEnvironment=} env - Specify a different test runner or change the runner settings.
    * @property {string[] | IWallabyFilePattern[]}   files - Specifies an array of source files or file name patterns to copy
    *                                                        to the local cache.
    * @property {Function=}             postprocessor - Function that runs for every batch of file changes after all compilers and preprocessors.
@@ -155,6 +155,7 @@ declare module 'wallabyjs' {
     params?: IWallabyEnvironmentParameters;
     runner?: string;
     type?: string;
+    viewportSize?: IWallabyEnvironmentViewportSize
   }
 
   /**
@@ -170,6 +171,19 @@ declare module 'wallabyjs' {
   export interface IWallabyEnvironmentParameters {
     env?: string;
     runner?: string;
+  }
+
+  /**
+   * Wallaby viewport settings for testing.
+   *
+   * @interface IWallabyEnvironmentViewportSize
+   *
+   * @property  {number=} width - Width in pixels for the viewport size in PhantomJs/Electron.
+   * @property  {number=} height - height in pixels for the viewport size in PhantomJs/Electron.
+   */
+  export interface IWallabyEnvironmentViewportSize {
+    width?: number;
+    height?: number;
   }
 
   /**

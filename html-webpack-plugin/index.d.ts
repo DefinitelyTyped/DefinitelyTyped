@@ -1,14 +1,34 @@
-// Type definitions for html-webpack-plugin v2.22.2
+// Type definitions for html-webpack-plugin 2.11
 // Project: https://github.com/ampedandwired/html-webpack-plugin
-// Definitions by: Simon Hartcher <http://github.com/deevus>
+// Definitions by: Simon Hartcher <https://github.com/deevus>, Benjamin Lim <https://github.com/bumbleblym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="webpack" />
+import { Plugin } from "webpack";
+import { Options } from "html-minifier";
 
-declare module "html-webpack-plugin" {
-    import {Plugin} from "webpack";
+export = HtmlWebpackPlugin;
 
-    interface HtmlWebpackPluginConfiguration {
+declare class HtmlWebpackPlugin implements Plugin {
+    constructor(options?: HtmlWebpackPlugin.Config);
+}
+
+declare namespace HtmlWebpackPlugin {
+    export type MinifyConfig = Options;
+
+    /**
+    * It is assumed that each [chunk] contains at least the properties "id"
+    * (containing the chunk id) and "parents" (array containing the ids of the
+    * parent chunks).
+    */
+    export interface Chunk { // TODO: Import from webpack?
+        id: string;
+        parents: string[];
+        [propName: string]: any; // TODO: Narrow type
+    }
+
+    export type ChunkComparator = (a: Chunk, b: Chunk) => number;
+
+    export interface Config {
         /**
          * The title to use for the generated HTML document.
          */
@@ -37,11 +57,11 @@ declare module "html-webpack-plugin" {
         favicon?: string;
 
         /**
-         * Pass a html-minifier options object to minify the output.
+         * `{...} | false` Pass a html-minifier options object to minify the output.
          *
          * https://github.com/kangax/html-minifier#options-quick-reference
          */
-        minify?: any;
+        minify?: MinifyConfig | false;
 
         /**
          * `true | false` if `true` then append a unique webpack compilation hash to all included scripts and css files. This is useful for cache busting.
@@ -66,7 +86,7 @@ declare module "html-webpack-plugin" {
         /**
          * Allows to control how chunks should be sorted before they are included to the html. Allowed values: `'none' | 'auto' | 'dependency' | {function}` - default: `'auto'`
          */
-        chunksSortMode?: "none" | "auto" | "dependency" | Function;
+        chunksSortMode?: "none" | "auto" | "dependency" | ChunkComparator;
 
         /**
          * Allows you to skip some chunks (e.g. don't add the unit-test chunk)
@@ -77,13 +97,11 @@ declare module "html-webpack-plugin" {
          * `true | false` If `true` render the link tags as self-closing, XHTML compliant. Default is `false`
          */
         xhtml?: boolean;
-    }
 
-    interface HtmlWebpackPlugin {
-        new (): Plugin;
-        new (options: HtmlWebpackPluginConfiguration): Plugin;
+        /**
+         * In addition to the options actually used by this plugin, you can use
+         * this hash to pass arbitrary data through to your template.
+         */
+        [option: string]: any;
     }
-
-    const htmlWebpackPlugin: HtmlWebpackPlugin;
-    export = htmlWebpackPlugin;
 }
