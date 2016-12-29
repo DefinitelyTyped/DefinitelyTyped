@@ -3,5 +3,5 @@
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = camelcase_keys;
-declare function camelcase_keys(input: any, options?: { exclude?: string[] | RegExp[], deep?: boolean }): any;
+export = camelcaseKeys;
+declare function camelcaseKeys(input: any, options?: { exclude?: string[] | RegExp[], deep?: boolean }): any;

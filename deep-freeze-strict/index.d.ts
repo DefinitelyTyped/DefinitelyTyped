@@ -3,5 +3,5 @@
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = deep_freeze_strict;
-declare function deep_freeze_strict<T>(o: T): T;
+export = deepFreezeStrict;
+declare function deepFreezeStrict<T>(o: T): T;

@@ -4,4 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = number_is_nan;
-declare function number_is_nan(p0: any): boolean;
+declare function number_is_nan(p0: number): boolean;
