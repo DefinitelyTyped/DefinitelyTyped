@@ -1,16 +1,19 @@
-// Type definitions for verror v1.9.0
+// Type definitions for verror 1.9
 // Project: https://github.com/davepacheco/node-verror
-// Definitions by: Sven Reglitzki <https://github.com/svi3c/>
+// Definitions by: Sven Reglitzki <https://github.com/svi3c/>, Maxime Toumi-M <https://github.com/max4t/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-type VErrorInfo = { [key: string]: any };
+// tslint:disable-next-line:functional-interfaces
+interface VErrorInfo {
+    [key: string]: any;
+}
 
 declare interface VErrorOptions {
-    cause: Error;
+    cause?: Error | null | undefined;
     name?: string;
     strict?: boolean;
-    constructorOpt?: Function;
+    constructorOpt?: (...args: any[]) => void;
     info?: VErrorInfo;
 }
 
@@ -70,10 +73,7 @@ declare class MultiError extends VError {
  * is wrapped, not "folded in" as with VError.	Accepts a printf-style message.
  * The cause argument can be null.
  */
-declare class WError extends Error {
-    cause(): Error;
-    constructor(cause: Error, message: string, ...params: any[]);
-    constructor(message: string, ...params: any[]);
+declare class WError extends VError {
 }
 
 export = VError;
