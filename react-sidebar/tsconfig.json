@@ -6,6 +6,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "baseUrl": "../",
+        "jsx": "react",
         "typeRoots": [
             "../"
         ],
@@ -15,6 +16,6 @@
     },
     "files": [
         "index.d.ts",
-        "immutable-tests.ts"
+        "react-sidebar-tests.tsx"
     ]
 }

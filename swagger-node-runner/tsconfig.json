@@ -4,18 +4,17 @@
         "target": "es6",
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "react"
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "dva-tests.tsx"
+        "swagger-node-runner-tests.ts"
     ]
 }

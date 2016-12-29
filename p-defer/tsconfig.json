@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "bson-tests.ts"
+        "p-defer-tests.ts"
     ]
 }

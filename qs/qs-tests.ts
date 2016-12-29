@@ -1,6 +1,5 @@
-/// <reference types="assert" />
-
 import qs = require('qs');
+import * as assert from "power-assert";
 
 qs.stringify({ a: 'b' });
 qs.stringify({ a: 'b', c: 'd' }, { delimiter: '&' });

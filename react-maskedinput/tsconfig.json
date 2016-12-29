@@ -11,10 +11,11 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react"
     },
     "files": [
         "index.d.ts",
-        "bson-tests.ts"
+        "react-maskedinput-tests.tsx"
     ]
 }
