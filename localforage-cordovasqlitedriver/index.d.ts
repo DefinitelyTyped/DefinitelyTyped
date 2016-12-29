@@ -3,9 +3,7 @@
 // Definitions by: Thodoris Greasidis <https://github.com/thgreasi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="localForage" />
+/// <reference types="localforage" />
 
-declare module "localforage-cordovasqlitedriver" {
-    var cordovaSQLiteDriver: LocalForageDriver;
-    export = cordovaSQLiteDriver;
-}
+declare var cordovaSQLiteDriver: LocalForageDriver;
+export = cordovaSQLiteDriver;
