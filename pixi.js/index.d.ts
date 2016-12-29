@@ -1,6 +1,6 @@
 // Type definitions for Pixi.js v4.3.0
-// Project: https://github.com/pixijs/pixi.js/tree/dev
-// Definitions by: clark-stevenson <https://github.com/pixijs/pixi-typescript>
+// Project: https://github.com/pixijs/pixi.js/
+// Definitions by: Clark Stevenson <https://github.com/clark-stevenson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module PIXI {
