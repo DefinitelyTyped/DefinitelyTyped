@@ -4,19 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** Generates an assertion object. */
-declare function expect<T>(value: T | T[], prefix?: string): AssertionChain<T>;
+export function expect<T>(value: T | T[], prefix?: string): AssertionChain<T>;
 /** Makes the test fail with the given message. */
-declare function fail(message: string): void;
+export function fail(message: string): void;
 /** Returns the total number of assertions created using the expect() method. */
-declare function count(): number;
-/** Returns an array of the locations where incomplete assertions were declared or null if no incomplete assertions found. */
-declare function incomplete(): string[] | null;
+export function count(): number;
+/** Returns an array of the locations where incomplete assertions were exportd or null if no incomplete assertions found. */
+export function incomplete(): string[] | null;
 /** Returns the filename, line number, and column number of where the error was created. */
-declare function thrownAt(error?: Error): CodeError;
+export function thrownAt(error?: Error): CodeError;
 /** Configure code. */
-declare const settings: Settings;
-
-export { expect, fail, count, incomplete, thrownAt, settings };
+export const settings: Settings;
 
 type AssertionChain<T> = Assertion<T> & Expectation<T>;
 
