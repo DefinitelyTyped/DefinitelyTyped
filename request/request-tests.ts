@@ -387,6 +387,12 @@ request.get('http://some.server.com/', {
     'bearer': 'bearerToken'
   }
 });
+// or
+request.get('http://some.server.com/', {
+  'auth': {
+    'bearer': () => 'bearerToken'
+  }
+});
 
 var username = 'username',
     password = 'password',
