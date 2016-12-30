@@ -33,6 +33,7 @@ SwaggerNodeRunner.create(config, (err, runner) => {
 import { Express, NextFunction } from "express";
 import { Spec } from "swagger-schema-official";
 import { EventEmitter } from "events";
+import * as Hapi from "hapi";
 
 /**
  * Config object for SwaggerNodeRunner
@@ -223,32 +224,34 @@ export interface SailsMiddleware extends Middleware {
     chain: () => (req: Express.Request, res: Express.Response, next: NextFunction) => void;
 }
 
-/** Simplified interface of Hapi Server object */
-interface HapiServerMock {
-    // tslint:disable-next-line:forbidden-types
-    ext: (name: string, cb: Function) => void;
-    // tslint:disable-next-line:forbidden-types
-    on: (name: string, cb: Function) => void;
-}
-
 /** Hapi specific Middleware */
 export interface HapiMiddleware extends Middleware {
     /** Back-reference to Config object of `Runner` that has created this middleware */
     config: ConfigInternal;
-    /** swagger spec */
-    sysConfig: Config;
-    /** Register this Middleware with `app`  */
-    // tslint:disable-next-line:forbidden-types
-    register: (app: any, cb: Function) => void;
+
+    /** Hapi Plugin */
     plugin: {
         /**
-         * Registers middleware with `onRequest` and traces `request-error` callbacks
-         * @param  {HapiServerMock} server - Hapi server
-         * @param  {any} options - not used in the moment
-         * @param  {Function} next - callback called when register is done
+         * Hapi plugin `register` implementation.
+         * @see {@link https://hapijs.com/tutorials/plugins|Hapi Docs}
          */
-        // tslint:disable-next-line:forbidden-types
-        register: (server: HapiServerMock, options: any, next: Function) => void
+        register: {
+            /**
+             * Registers Plugin with `onRequest` and traces `request-error` callbacks
+             *             *
+             * @param  {Hapi.Server} server - Hapi server
+             * @param  {any} options - options for plugin (not used in the moment)
+             * @param  {()=>void} next - callback called when register is done
+             */
+            (server: Hapi.Server, options: any, next: () => void): void;
+            /** Object attached to `register` function to provide hapi with some additional information about the plugin */
+            attributes: {
+                /**  Name of Plugin (e.g. `swagger-node-runner`) */
+                name: string
+                /** Version of Plugin*/
+                version: string
+            }
+        }
     };
 }
 
