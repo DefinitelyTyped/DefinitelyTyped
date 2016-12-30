@@ -20,7 +20,7 @@ export interface PatternOptions {
      * Specify an exact background color. This is a CSS hexadecimal color
      * value.
      */
-    color: string;
+    color?: string;
 
     /**
      * Controls the relative background color of the generated image. The color
@@ -28,14 +28,14 @@ export interface PatternOptions {
      * by the generator. This is a CSS hexadecimal color value, which defaults
      * to #933c3c.
      */
-    baseColor: string;
+    baseColor?: string;
 
     /**
      * Determines the pattern. All of the original patterns from the Ruby
      * version at jasonlong/geo_pattern are available in this port, and their
      * names are camelCased.
      */
-    generator: GeneratorType;
+    generator?: GeneratorType;
 }
 
 export type GeneratorType = 'chevrons' | 'octagons' | 'overlappingCircles' |
