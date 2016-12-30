@@ -11771,17 +11771,6 @@ declare module olx {
             easing?: ((t: number) => number);
         }
 
-        /**
-         * Object literal with options for the {@link ol.Map#forEachFeatureAtPixel} and
-         * {@link ol.Map#hasFeatureAtPixel} methods.
-         * @typedef {{layerFilter: ((function(ol.layer.Layer): boolean)|undefined),
-         *     hitTolerance: (number|undefined)}}
-         */
-        interface AtPixelOptions {
-            layerFilter?: ((layer: ol.layer.Layer) => boolean)
-            hitTolerance?: number
-        }
-
     }
 
     /**
@@ -13782,7 +13771,17 @@ declare module olx {
         zoom?: number;
         zoomFactor?: number;
     }
-
+		
+    /**
+    * Object literal with options for the {@link ol.Map#forEachFeatureAtPixel} and
+    * {@link ol.Map#hasFeatureAtPixel} methods.
+    * @typedef {{layerFilter: ((function(ol.layer.Layer): boolean)|undefined),
+    *     hitTolerance: (number|undefined)}}
+    */
+    interface AtPixelOptions {
+        layerFilter?: ((layer: ol.layer.Layer) => boolean)
+        hitTolerance?: number
+    }
 
     /**
      * @typedef {{animate: boolean,
