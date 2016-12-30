@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "sylvester-tests.ts"
+        "sylvester-tests.ts",
+        "sylvester-global-tests.ts"
     ]
 }

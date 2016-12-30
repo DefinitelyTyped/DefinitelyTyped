@@ -7,8 +7,6 @@
 // Vector and Matrix mathematics modules for JavaScript
 // Copyright (c) 2007 James Coglan
 
-declare namespace sylvester {
-
     export class Vector {
         /**
          * Gets an array containing the vector's elements.
@@ -764,10 +762,26 @@ declare namespace sylvester {
         static YX: Plane;
     }
 
-    export interface Sylvester {
-        version: string;
-        precision: number;
-    }
+export namespace Sylvester {
+    export const version: string;
+    export const precision: number;
 }
 
-export = sylvester;
+import * as s from 'sylvester';
+
+declare global {
+    const Vector: typeof s.Vector;
+    type Vector = s.Vector;
+    const Matrix: typeof s.Matrix;
+    type Matrix = s.Matrix;
+    const Line: typeof s.Line;
+    type Line = s.Line;
+    const Plane: typeof s.Plane;
+    type Plane = s.Plane;
+    const Sylvester: typeof s.Sylvester;
+
+    const $V: typeof Vector.create;
+    const $P: typeof Plane.create;
+    const $M: typeof Matrix.create;
+    const $L: typeof Line.create;
+}
