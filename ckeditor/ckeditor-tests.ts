@@ -274,23 +274,23 @@ function test_adding_command_and_buttons() {
     var textarea = document.createElement('textarea');
     var instance = CKEDITOR.replace(textarea);
 
-    instance.addCommand("aCommand", {
-        exec: function(edt) {
+    instance.addCommand( 'aCommand', {
+        exec: function( editor: CKEDITOR.editor ) {
             // empty logic
             return true;
         }
     });
 
-    instance.ui.addButton('firstButton', {
+    instance.ui.addButton( 'firstButton', {
         icon: 'http://www.example.com/assets/images/icons.png',
         iconOffset: -32,
-        label: "Label 1",
+        label: 'Label 1',
         command: 'aCommand',
         toolbar: 'tools'
     });
 
-    instance.ui.addButton('secondButton', {
-        label: "Label 2",
+    instance.ui.addButton( 'secondButton', {
+        label: 'Label 2',
         command: 'aCommand',
         toolbar: 'tools'
     });
