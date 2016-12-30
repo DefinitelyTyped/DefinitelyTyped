@@ -1,6 +1,7 @@
+// TypeScript Version: 2.1
 // Type definitions for [cayasso/mongo-oplog]
-// Project: [https://github.com/cayasso/mongo-oplog]
-// Definitions by: [FinalDes] <[https://github.com/FinalDes]>
+// Project: https://github.com/cayasso/mongo-oplog
+// Definitions by: FinalDes <https://github.com/FinalDes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function MongoOplog(url:string,option:any): MongoOplog.OplogTrigger;
