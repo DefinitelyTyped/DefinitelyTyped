@@ -91,12 +91,14 @@ declare namespace ReduxActions {
 
     export function handleAction<State, Payload>(
         actionType: string | ActionFunctions<Payload>,
-        reducer: Reducer<State, Payload> | ReducerNextThrow<State, Payload>
+        reducer: Reducer<State, Payload> | ReducerNextThrow<State, Payload>,
+        initialState: State
     ): Reducer<State, Payload>;
 
     export function handleAction<State, Payload, Meta>(
         actionType: { toString(): string },
-        reducer: ReducerMeta<State, Payload, Meta> | ReducerNextThrowMeta<State, Payload, Meta>
+        reducer: ReducerMeta<State, Payload, Meta> | ReducerNextThrowMeta<State, Payload, Meta>,
+        initialState: State
     ): Reducer<State, Payload>;
 
     export function handleActions<StateAndPayload>(
