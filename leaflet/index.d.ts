@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.js 1.0.2
+// Type definitions for Leaflet.js 1.0
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -47,20 +47,20 @@ declare namespace L {
         static get(id: string): HTMLElement;
         static get(id: HTMLElement): HTMLElement;
         static getStyle(el: HTMLElement, styleAttrib: string): string;
-        static create(tagName: String, className?: String, container?: HTMLElement): HTMLElement;
-        static remove(el: HTMLElement):void;
-        static empty(el: HTMLElement):void;
-        static toFront(el: HTMLElement):void;
-        static toBack(el: HTMLElement):void;
-        static hasClass(el: HTMLElement, name: String): Boolean;
-        static addClass(el: HTMLElement, name: String):void;
-        static removeClass(el: HTMLElement, name: String):void;
-        static setClass(el: HTMLElement, name: String):void;
-        static getClass(el: HTMLElement): String;
-        static setOpacity(el: HTMLElement, opacity: Number):void;
-        static testProp(props: String[]): String|boolean/*=false*/;
-        static setTransform(el: HTMLElement, offset: Point, scale?: Number):void;
-        static setPosition(el: HTMLElement, position: Point):void;
+        static create(tagName: string, className?: string, container?: HTMLElement): HTMLElement;
+        static remove(el: HTMLElement): void;
+        static empty(el: HTMLElement): void;
+        static toFront(el: HTMLElement): void;
+        static toBack(el: HTMLElement): void;
+        static hasClass(el: HTMLElement, name: string): Boolean;
+        static addClass(el: HTMLElement, name: string): void;
+        static removeClass(el: HTMLElement, name: string): void;
+        static setClass(el: HTMLElement, name: string): void;
+        static getClass(el: HTMLElement): string;
+        static setOpacity(el: HTMLElement, opacity: Number): void;
+        static testProp(props: string[]): string | boolean/*=false*/;
+        static setTransform(el: HTMLElement, offset: Point, scale?: Number): void;
+        static setPosition(el: HTMLElement, position: Point): void;
         static getPosition(el: HTMLElement): Point;
         static disableTextSelection(): void;
         static enableTextSelection(): void;
@@ -110,7 +110,7 @@ declare namespace L {
 
     export interface LatLng {
         equals(otherLatLng: LatLngExpression, maxMargin?: number): boolean;
-        toString(): string;
+        tostring(): string;
         distanceTo(otherLatLng: LatLngExpression): number;
         wrap(): LatLng;
         toBounds(sizeInMeters: number): LatLngBounds;
@@ -137,7 +137,7 @@ declare namespace L {
 
     export function latLng(coords: LatLngLiteral): LatLng;
 
-    export function latLng(coords: {lat: number, lng: number, alt: number}): LatLng;
+    export function latLng(coords: { lat: number, lng: number, alt: number }): LatLng;
 
     export interface LatLngBounds {
         extend(latlng: LatLngExpression): this;
@@ -156,7 +156,7 @@ declare namespace L {
         contains(latlng: LatLngExpression): boolean;
         intersects(otherBounds: LatLngBoundsExpression): boolean;
         overlaps(otherBounds: BoundsExpression): boolean; // investigate if this is really bounds and not latlngbounds
-        toBBoxString(): string;
+        toBBoxstring(): string;
         equals(otherBounds: LatLngBoundsExpression): boolean;
         isValid(): boolean;
     }
@@ -185,7 +185,7 @@ declare namespace L {
         distanceTo(otherPoint: PointExpression): number;
         equals(otherPoint: PointExpression): boolean;
         contains(otherPoint: PointExpression): boolean;
-        toString(): string;
+        tostring(): string;
     }
 
     type PointExpression = Point | PointTuple;
@@ -194,7 +194,7 @@ declare namespace L {
 
     export function point(coords: PointTuple): Point;
 
-    export function point(coords: {x: number, y: number}): Point;
+    export function point(coords: { x: number, y: number }): Point;
 
     export type BoundsLiteral = Array<PointTuple>;
 
@@ -223,7 +223,7 @@ declare namespace L {
 
     export type EventHandlerFn = (event: Event) => void;
 
-    export type EventHandlerFnMap = {[type: string]: EventHandlerFn};
+    export type EventHandlerFnMap = { [type: string]: EventHandlerFn };
 
     /**
      * A set of methods shared between event-powered classes (like Map and Marker).
@@ -432,7 +432,7 @@ declare namespace L {
         // Extension methods
         onAdd(map: Map): this;
         onRemove(map: Map): this;
-        getEvents(): {[name: string]: (event: Event) => void};
+        getEvents(): { [name: string]: (event: Event) => void };
         getAttribution(): string;
         beforeAdd(map: Map): this;
     }
@@ -629,9 +629,9 @@ declare namespace L {
         padding?: number;
     }
 
-    export interface Renderer extends Layer {}
+    export interface Renderer extends Layer { }
 
-    export interface SVG extends Renderer {}
+    export interface SVG extends Renderer { }
 
     export namespace SVG {
         export function create(name: string): SVGElement;
@@ -643,7 +643,7 @@ declare namespace L {
 
     export function svg(options?: RendererOptions): SVG;
 
-    export interface Canvas extends Renderer {}
+    export interface Canvas extends Renderer { }
 
     export function canvas(options?: RendererOptions): Canvas;
 
@@ -974,7 +974,7 @@ declare namespace L {
             zoomOutTitle?: string;
         }
 
-        export interface Zoom extends Control {}
+        export interface Zoom extends Control { }
 
         export interface AttributionOptions extends ControlOptions {
             prefix?: string | boolean;
@@ -1007,7 +1007,7 @@ declare namespace L {
             updateWhenIdle?: boolean;
         }
 
-        export interface Scale extends Control {}
+        export interface Scale extends Control { }
     }
 
     export namespace control {
@@ -1015,7 +1015,7 @@ declare namespace L {
 
         export function attribution(options: Control.AttributionOptions): Control.Attribution;
 
-        type LayersObject = {[name: string]: Layer};
+        type LayersObject = { [name: string]: Layer };
 
         export function layers(baseLayers?: LayersObject, overlays?: LayersObject, options?: Control.LayersOptions): Control.Layers;
 
@@ -1073,7 +1073,7 @@ declare namespace L {
         opacity?: number;
     }
 
-    export interface Tooltip extends Layer {}
+    export interface Tooltip extends Layer { }
 
     export function tooltip(options?: TooltipOptions, source?: Layer): Tooltip;
 
@@ -1088,7 +1088,7 @@ declare namespace L {
         noMoveStart?: boolean;
     }
 
-    export interface ZoomPanOptions extends ZoomOptions, PanOptions {}
+    export interface ZoomPanOptions extends ZoomOptions, PanOptions { }
 
     export interface FitBoundsOptions extends ZoomOptions, PanOptions {
         paddingTopLeft?: PointExpression;
@@ -1188,11 +1188,11 @@ declare namespace L {
     export namespace DomEvent {
         export function on(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: any): typeof DomEvent;
 
-        export function on(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: any): typeof DomEvent;
+        export function on(el: HTMLElement, eventMap: { [eventName: string]: Function }, context?: any): typeof DomEvent;
 
         export function off(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: any): typeof DomEvent;
 
-        export function off(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: any): typeof DomEvent;
+        export function off(el: HTMLElement, eventMap: { [eventName: string]: Function }, context?: any): typeof DomEvent;
 
         export function stopPropagation(ev: Event): typeof DomEvent;
 
@@ -1210,11 +1210,11 @@ declare namespace L {
 
         export function addListener(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: any): typeof DomEvent;
 
-        export function addListener(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: any): typeof DomEvent;
+        export function addListener(el: HTMLElement, eventMap: { [eventName: string]: Function }, context?: any): typeof DomEvent;
 
         export function removeListener(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: any): typeof DomEvent;
 
-        export function removeListener(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: any): typeof DomEvent;
+        export function removeListener(el: HTMLElement, eventMap: { [eventName: string]: Function }, context?: any): typeof DomEvent;
     }
 
     interface DefaultMapPanes {
@@ -1273,7 +1273,7 @@ declare namespace L {
         createPane(name: string, container?: HTMLElement): HTMLElement;
         getPane(pane: string): HTMLElement;
         getPane(pane: HTMLElement): HTMLElement;
-        getPanes(): {[name: string]: HTMLElement} & DefaultMapPanes;
+        getPanes(): { [name: string]: HTMLElement } & DefaultMapPanes;
         getContainer(): HTMLElement;
         whenReady(fn: () => void, context?: any): this;
 
