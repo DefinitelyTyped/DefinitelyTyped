@@ -5,40 +5,35 @@
 
 /// <reference types="node" />
 
-declare namespace argon2 {
+export var defaults: {
+    timeCost: number;
+    memoryCost: number;
+    parallelism: number;
+    argon2d: boolean;
+};
 
-    export var defaults: {
-        timeCost: number;
-        memoryCost: number;
-        parallelism: number;
-        argon2d: boolean;
+export var limits: {
+    memoryCost: {
+        min: number;
+        max: number;
     };
-
-    export var limits: {
-        memoryCost: {
-            min: number;
-            max: number;
-        };
-        timeCost: {
-            min: number;
-            max: number;
-        };
-        parallelism: {
-            min: number;
-            max: number;
-        };
+    timeCost: {
+        min: number;
+        max: number;
     };
+    parallelism: {
+        min: number;
+        max: number;
+    };
+};
 
-    export function hash(plain: string, salt: Buffer, options?: {
-        timeCost?: number;
-        memoryCost?: number;
-        parallelism?: number;
-        argon2d?: boolean;
-    }): Promise<string>;
+export function hash(plain: string, salt: Buffer, options?: {
+    timeCost?: number;
+    memoryCost?: number;
+    parallelism?: number;
+    argon2d?: boolean;
+}): Promise<string>;
 
-    export function verify(hash: string, plain: string): Promise<boolean>;
+export function verify(hash: string, plain: string): Promise<boolean>;
 
-    export function generateSalt(length?: number): Promise<Buffer>;
-}
-
-export = argon2;
+export function generateSalt(length?: number): Promise<Buffer>;
