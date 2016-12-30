@@ -3,6 +3,8 @@
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import * as React from "react";
+
 declare namespace ReactOnClickOutside {
     interface OnClickOutsideComponent {
         handleClickOutside(e: React.MouseEvent<any>): void
