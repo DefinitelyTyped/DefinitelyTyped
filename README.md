@@ -121,17 +121,11 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 #### Common mistakes
 
 * First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatting: Either use all tabs, or always use 4 spaces. Also, always use semicolons, and use egyptian braces.
-* `interface X {}`: An empty interface is essentially the `{}` type: it places no constraints on an object.
-* `interface IFoo {}`: Don't add `I` to the front of an interface name.
+* Formatting: Either use all tabs, or always use 4 spaces.
 * `interface Foo { new(): Foo; }`:
     This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
 * `const Class: { new(): IClass; }`:
     Prefer to use a class declaration `class Class { constructor(); }` instead of a new-able constant.
-* `namespace foo {}`:
-    Do not add a namespace just so that the `import * as foo` syntax will work.
-    If it is commonJs module with a single export, you should use the `import foo = require("foo")` syntax.
-    See more explanation [here](https://stackoverflow.com/questions/39415661/why-cant-i-import-a-class-or-function-with-import-as-x-from-y).
 * `getMeAT<T>(): T`:
     If a type parameter does not appear in the types of any parameters, you don't really have a generic function, you just have a disguised type assertion.
     Prefer to use a real type assertion, e.g. `getMeAT() as number`.
