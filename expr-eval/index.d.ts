@@ -18,7 +18,7 @@ declare namespace exprEval {
         substitute(values: any): Expression;
         symbols(): string[];
         variables(): string[];
-        toJSFunction(params: string, values?: any): Function;
+        toJSFunction(params: string, values?: any): (...args: any[]) => number;
     }
 }
 
