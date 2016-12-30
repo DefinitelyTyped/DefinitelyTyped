@@ -1,4 +1,4 @@
-// Type definitions for Pixi-spine v1.3, works with pixi.js v4
+// Type definitions for Pixi-spine 1.3
 // Project: https://github.com/pixijs/pixi-spine/tree/master
 // Definitions by: Ivan Popelyshev <https://github.com/pixijs/pixi-spine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

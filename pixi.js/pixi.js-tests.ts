@@ -459,7 +459,7 @@ namespace basics {
 
             this.stage.addChild(this.basicText);
 
-            var style: PIXI.TextStyle = {
+            var style: PIXI.TextStyleOptions = {
                 fontSize: 36,
                 fontFamily: 'Arial',
                 fontWeight: 'bold',
