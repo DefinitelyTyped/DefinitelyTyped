@@ -15,7 +15,8 @@ const action: ReduxActions.Action<number> = incrementAction();
 
 const actionHandler = ReduxActions.handleAction<number, number>(
     'INCREMENT',
-    (state: number, action: ReduxActions.Action<number>) => state + action.payload
+    (state: number, action: ReduxActions.Action<number>) => state + action.payload,
+    0
 );
 
 state = actionHandler(0, incrementAction());
@@ -26,7 +27,8 @@ const actionHandlerWithReduceMap = ReduxActions.handleAction<number, number>(
             return state * action.payload;
         },
         throw(state: number) { return state }
-    }
+    },
+    0
 );
 
 state = actionHandlerWithReduceMap(0, multiplyAction(10));
@@ -83,7 +85,8 @@ const typedIncrementAction: () => ReduxActions.Action<TypedPayload> = ReduxActio
 
 const typedActionHandler = ReduxActions.handleAction<TypedState, TypedPayload>(
     'INCREMENT',
-    (state: TypedState, action: ReduxActions.Action<TypedPayload>) => ({ value: state.value + 1 })
+    (state: TypedState, action: ReduxActions.Action<TypedPayload>) => ({ value: state.value + 1 }),
+    {value: 1}
 );
 
 typedState = typedActionHandler({ value: 0 }, typedIncrementAction());
@@ -101,7 +104,8 @@ const typedActionHandlerWithReduceMap = ReduxActions.handleAction<TypedState, Ty
             return { value: state.value + action.payload.increase };
         },
         throw(state: TypedState) { return state }
-    }
+    },
+    {value: 1}
 );
 
 typedState = typedActionHandlerWithReduceMap({ value: 0 }, typedIncrementByActionWithMeta(10));
@@ -117,19 +121,19 @@ act3('hello').payload.s == 'hello'
 
 ReduxActions.handleAction<{ hello: string }, string>(act, (state, action) => {
     return { hello: action.payload }
-})
+}, {hello: 'greetings'})
 
 ReduxActions.handleAction<{ hello: { load: boolean } }, { load: boolean }>(act2, (state, action) => {
     return { hello: action.payload }
-})
+}, {hello: {load: true}})
 
 ReduxActions.handleAction(act3, (state, action) => {
     return { hello: action.payload.s }
-})
+}, {hello: 'greetings'})
 
-ReduxActions.handleAction(ReduxActions.combineActions(act, act3, act2), () => {
+ReduxActions.handleAction(ReduxActions.combineActions(act, act3, act2), (state, action) => {
 
-})
+}, 0)
 
 /* can't do this until it lands in 2.2, HKTs
 ReduxActions.handleAction(act, (state, action) => {
