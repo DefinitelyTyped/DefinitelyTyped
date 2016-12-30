@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function isWindows(): boolean;
-declare namespace isWindows {}
 export = isWindows;

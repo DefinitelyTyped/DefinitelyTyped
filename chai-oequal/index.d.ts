@@ -23,6 +23,5 @@ declare namespace Chai {
 
 declare module 'chai-oequal' {
     function chaiOequal(chai: any, utils: any): void;
-    namespace chaiOequal {}
     export = chaiOequal;
 }
