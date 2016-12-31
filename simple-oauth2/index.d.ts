@@ -54,8 +54,8 @@ interface AccessToken {
     revoke(tokenType: TokenType, callback?: (error: any) => void): Bluebird<void>;
 }
 
-interface AuthorizationToken {
-    __authorizationTokenBrand: any;
+interface Token {
+    [x: string]: any;
 }
 type AuthorizationCode = string;
 interface AuthorizationTokenConfig {
@@ -63,9 +63,6 @@ interface AuthorizationTokenConfig {
     redirect_uri: string;
 }
 
-interface PasswordToken {
-    __passwordTokenBrand: any;
-}
 interface PasswordTokenConfig {
     /** A string that represents the registered username */
     username: string;
@@ -75,9 +72,6 @@ interface PasswordTokenConfig {
     scope: string;
 }
 
-interface ClientCredentialToken {
-    __clientCredentialTokenBrand: any;
-}
 interface ClientCredentialTokenConfig {
     /** A string that represents the application privileges */
     scope?: string;
@@ -99,21 +93,21 @@ export interface OAuthClient {
         }): string,
 
         /** Returns the Access Token object */
-        getToken(params: AuthorizationTokenConfig, callback?: (error: any, result: AuthorizationToken) => void): Bluebird<AuthorizationToken>;
+        getToken(params: AuthorizationTokenConfig, callback?: (error: any, result: Token) => void): Bluebird<Token>;
     };
 
     ownerPassword: {
         /** Returns the Access Token Object */
-        getToken(params: PasswordTokenConfig, callback?: (error: any, result: PasswordToken) => void): Bluebird<PasswordToken>;
+        getToken(params: PasswordTokenConfig, callback?: (error: any, result: Token) => void): Bluebird<Token>;
     };
 
     clientCredentials: {
         /** Returns the Access Token Object */
-        getToken(params: ClientCredentialTokenConfig, callback?: (error: any, result: ClientCredentialToken) => void): Bluebird<ClientCredentialToken>;
+        getToken(params: ClientCredentialTokenConfig, callback?: (error: any, result: Token) => void): Bluebird<Token>;
     };
 
     accessToken: {
         /** Creates an OAuth2.AccessToken instance */
-        create(tokenToUse: AuthorizationToken): AccessToken;
+        create(tokenToUse: Token): AccessToken;
     };
 }
