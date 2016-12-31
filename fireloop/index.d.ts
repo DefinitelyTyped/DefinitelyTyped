@@ -18,7 +18,7 @@ interface ModelConstructor {
     /**
      * @see https://docs.strongloop.com/display/public/APIC/Basic+model+object#Basicmodelobject-Events
      */
-    on(event:'attached'|'dataSourceAttached'|'set'|'changed'|'deleted'|'deletedAll', listener: Function);
+    on(event:'attached'|'dataSourceAttached'|'set'|'changed'|'deleted'|'deletedAll', listener: Function): void;
 
     // Persistedmodel
     /**
@@ -90,7 +90,7 @@ interface ModelConstructor {
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-destroybyid
      */
-    destroyById(id, callback: Function): PromiseLike<any>;   
+    destroyById(id: any, callback: Function): PromiseLike<any>;   
     
     /**
      * Override this to customize core find behavior
@@ -104,14 +104,14 @@ interface ModelConstructor {
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-enablechangetracking
      */
-    enableChangeTracking(id, callback: Function): PromiseLike<any>;   
+    enableChangeTracking(id: any, callback: Function): PromiseLike<any>;   
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-exists
      */
-    exists(id, callback: Function): PromiseLike<any>;   
+    exists(id: any, callback: Function): PromiseLike<any>;   
 
     //Find stuff//
     /**
@@ -175,14 +175,14 @@ interface ModelConstructor {
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-rectifychange
      */
-    rectifyChange(id, callback: Function): any;
+    rectifyChange(id: any, callback: Function): any;
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-replacebyid
      */
-    replaceById(id, data: Object, callback: findCallbackById): PromiseLike<Object>;
+    replaceById(id: any, data: Object, callback: findCallbackById): PromiseLike<Object>;
 
     /**
      * Override this to customize core find behavior
