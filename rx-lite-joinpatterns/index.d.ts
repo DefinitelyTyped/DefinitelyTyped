@@ -1,9 +1,9 @@
-// Type definitions for RxJS-Join v2.2.28
-// Project: http://rx.codeplex.com/
+// Type definitions for rx-lite-joinpatterns 4.0
+// Project: https://github.com/Reactive-Extensions/RxJS
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="index.d.ts" />
+/// <reference types="rx" />
 
 declare namespace Rx {
 
@@ -55,6 +55,6 @@ declare namespace Rx {
 	}
 }
 
-declare module "rx.joinpatterns" {
+declare module "rx-lite-joinpatterns" {
 	export = Rx;
 }
