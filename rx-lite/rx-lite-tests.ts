@@ -8,42 +8,42 @@ namespace Tests.Async {
 
 	function fromCallback() {
 		// 0 arguments
-		var func0: (cb: (result: number) => void) => void;
+		var func0: (cb: (result: number) => void) => void = () => { };
 		obsNum = Rx.Observable.fromCallback(func0)();
 		obsNum = Rx.Observable.fromCallback(func0, obsStr)();
 		obsNum = Rx.Observable.fromCallback(func0, obsStr, (results: number[]) => results[0])();
 
 		// 1 argument
-		var func1: (a: string, cb: (result: number) => void) => number;
+		var func1: (a: string, cb: (result: number) => void) => number = () => 0;
 		obsNum = Rx.Observable.fromCallback(func1)("");
 		obsNum = Rx.Observable.fromCallback(func1, {})("");
 		obsNum = Rx.Observable.fromCallback(func1, {}, (results: number[]) => results[0])("");
 
 		// 2 arguments
-		var func2: (a: number, b: string, cb: (result: string) => number) => Date;
+		var func2: (a: number, b: string, cb: (result: string) => number) => Date = () => new Date();
 		obsStr = Rx.Observable.fromCallback(func2)(1, "");
 		obsStr = Rx.Observable.fromCallback(func2, {})(1, "");
 		obsStr = Rx.Observable.fromCallback(func2, {}, (results: string[]) => results[0])(1, "");
 
 		// 3 arguments
-		var func3: (a: number, b: string, c: boolean, cb: (result: string) => number) => Date;
+		var func3: (a: number, b: string, c: boolean, cb: (result: string) => number) => Date = () => new Date();
 		obsStr = Rx.Observable.fromCallback(func3)(1, "", true);
 		obsStr = Rx.Observable.fromCallback(func3, {})(1, "", true);
 		obsStr = Rx.Observable.fromCallback(func3, {}, (results: string[]) => results[0])(1, "", true);
 
 		// multiple results
-		var func0m: (cb: (result1: number, result2: number, result3: number) => void) => void;
+		var func0m: (cb: (result1: number, result2: number, result3: number) => void) => void = () => { };
 		obsNum = Rx.Observable.fromCallback(func0m, obsStr, (results: number[]) => results[0])();
-		var func1m: (a: string, cb: (result1: number, result2: number, result3: number) => void) => void;
+		var func1m: (a: string, cb: (result1: number, result2: number, result3: number) => void) => void = () => { };
 		obsNum = Rx.Observable.fromCallback(func1m, obsStr, (results: number[]) => results[0])("");
-		var func2m: (a: string, b: number, cb: (result1: string, result2: string, result3: string) => void) => void;
+		var func2m: (a: string, b: number, cb: (result1: string, result2: string, result3: string) => void) => void = () => { };
 		obsStr = Rx.Observable.fromCallback(func2m, obsStr, (results: string[]) => results[0])("", 10);
 	}
 
 	function toPromise() {
 		var promiseImpl: {
 			new <T>(resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): Rx.IPromise<T>;
-		};
+		} = undefined as any;
 
 		Rx.config.Promise = promiseImpl;
 
@@ -54,7 +54,7 @@ namespace Tests.Async {
 		p = p.then(x => x);
 		p = p.then(x => p);
 		p = p.then(undefined, reason => 10);
-		p = p.then(undefined, reason => p);
+		//p = p.then(undefined, reason => p);
 
 		var ps: Rx.IPromise<string> = p.then(undefined, reason => "error");
 		ps = p.then(x => "");
