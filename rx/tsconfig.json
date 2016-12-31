@@ -29,7 +29,6 @@
         "rx.binding.d.ts",
         "rx.coincidence-lite.d.ts",
         "rx.coincidence.d.ts",
-        "rx.experimental.d.ts",
         "rx.lite.d.ts",
         "rx.time-lite.d.ts"
     ]
