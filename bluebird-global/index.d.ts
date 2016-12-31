@@ -26,6 +26,12 @@
  * If a promise-polyfilling library wants to play nicely with TypeScript, it needs to augment
  * the Promise<T> and PromiseConstructor interfaces defined in the standard ts library.
  * For various reasons this couldn't be done in The `bluebird` typings.
+ *
+ * 4. Contributors: After changing this file please manually test these cases (via altering ./tsconfig.json ):
+ *   a. target es5, no `lib` key
+ *   b. target es6, no `lib` key
+ *   c. target es5, latest "es20xx", e.g. "es2017"
+ *   d. target es6, latest "es20xx", e.g. "es2017"
  */
 
 import * as Bluebird from "bluebird";
