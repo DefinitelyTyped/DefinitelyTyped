@@ -1,5 +1,10 @@
-// This file contains common part of defintions for rx.d.ts and rx.lite.d.ts
-// Do not include the file separately.
+// Type definitions for rx-lite 4.0
+// Project: https://github.com/Reactive-Extensions/RxJS
+// Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>, Igor Oleinikov <https://github.com/Igorbek>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="rx" />
+/// <reference types="rx-core-binding" />
 
 declare namespace Rx {
 	export namespace internals {
