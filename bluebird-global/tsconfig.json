@@ -1,13 +1,25 @@
 {
+    /*
+     * When manually testing, please test these cases:
+     *   1. target es5, no `lib` key
+     *   2. target es6, no `lib` key
+     *   3. target es5, latest "es20xx", e.g. "es2017"
+     *   4. target es6, latest "es20xx", e.g. "es2017"
+     */
     "compilerOptions": {
         "module": "commonjs",
         "target": "es5",
+//        "target": "es6",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
+        ],
+        "lib": [
+          "es2017",
+          "dom"
         ],
         "types": [],
         "noEmit": true,
