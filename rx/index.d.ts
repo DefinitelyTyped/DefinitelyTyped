@@ -3,7 +3,6 @@
 // Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>, Igor Oleinikov <https://github.com/Igorbek>, Mizunashi Mana <https://github.com/mizunashi-mana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="rx-lite.d.ts"/>
 
 declare namespace Rx {
     export interface IScheduler {
