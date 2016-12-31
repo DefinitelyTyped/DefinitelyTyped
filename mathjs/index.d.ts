@@ -1304,10 +1304,6 @@ declare namespace mathjs {
 		size(): number[];
 		map(callback: (a: any, b: number, c: Matrix) => any, skipZeros?: boolean): Matrix;
 		forEach(callback: (a: any, b: number, c: Matrix) => void, skipZeros?: boolean): void;
-		toArray(): any[];
-		valueOf(): any[];
-		format(): any[];
-		toString(): string;
 		toJSON(): any;
 		diagonal(k?: number|BigNumber): any[];
 		swapRows(i: number, j: number): Matrix;
