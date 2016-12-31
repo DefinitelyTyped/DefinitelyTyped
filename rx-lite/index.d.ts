@@ -592,29 +592,6 @@ declare namespace Rx {
 	}
 
 	export var Observable: ObservableStatic;
-
-	interface ISubject<T> extends Observable<T>, Observer<T>, IDisposable {
-		hasObservers(): boolean;
-	}
-
-    export interface Subject<T> extends ISubject<T> {
-    }
-
-    interface SubjectStatic {
-        new <T>(): Subject<T>;
-		create<T>(observer?: Observer<T>, observable?: Observable<T>): ISubject<T>;
-	}
-
-	export var Subject: SubjectStatic;
-
-	export interface AsyncSubject<T> extends Subject<T> {
-	}
-
-	interface AsyncSubjectStatic {
-		new <T>(): AsyncSubject<T>;
-	}
-
-	export var AsyncSubject: AsyncSubjectStatic;
 }
 
 // Async
