@@ -223,3 +223,49 @@ class SelectCreatableTest extends React.Component<React.Props<{}>, {}> {
     }
 
 }
+
+class SelectAsyncCreatableTest extends React.Component<React.Props<{}>, {}> {
+
+    render() {
+        const getOptions = (input: string, callback: Function) => {
+            setTimeout(function() {
+                callback(null, options);
+            }, 500);
+        };
+        const options: Option[] = [{ label: "Foo", value: "bar" }];
+        const onChange = (value: any) => console.log(value);
+
+        const asyncCreatableSelectProps: ReactCreatableSelectProps & ReactAsyncSelectProps = {
+            name: "test-select-async-creatable",
+            className: "test-select-async-creatable",
+            key: "1",
+            matchPos: "any",
+            matchProp: "any",
+            multi: true,
+            onValueClick: onChange,
+            valueKey: "github",
+            labelKey: "name",
+            onChange: onChange,
+            simpleValue: undefined,
+            value: options,
+            loadOptions: getOptions,
+            cache: {},
+            ignoreAccents: false,
+            ignoreCase: true,
+            isLoading: false,
+            minimumInput: 5,
+            searchPromptText: "search...",
+            searchingText: "searching...",
+            isOptionUnique: () => { return true; },
+            isValidNewOption: () => { return true; },
+            newOptionCreator: () => { return { label: "NewFoo", value: "newBar" }; },
+            promptTextCreator: () => { return ""; },
+            shouldKeyDownEventCreateNewOption: () => { return true; }
+        };
+
+        return <div>
+            <Select.AsyncCreatable {...asyncCreatableSelectProps} />
+        </div>
+    }
+
+}
