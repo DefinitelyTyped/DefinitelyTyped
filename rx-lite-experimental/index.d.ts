@@ -1,9 +1,9 @@
-// Type definitions for RxJS-Experimental v2.2.28
-// Project: https://github.com/Reactive-Extensions/RxJS/
+// Type definitions for rx-lite-experimental 4.0
+// Project: https://github.com/Reactive-Extensions/RxJS
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="index.d.ts"/>
+/// <reference types="rx"/>
 
 declare namespace Rx {
 
@@ -316,6 +316,6 @@ declare namespace Rx {
 	}
 }
 
-declare module "rx.experimental" {
+declare module "rx-lite-experimental" {
 	export = Rx;
 }
