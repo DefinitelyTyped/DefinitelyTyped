@@ -1,10 +1,9 @@
-// Type definitions for RxJS-Async v2.2.28
-// Project: http://rx.codeplex.com/
+// Type definitions for rx-lite-async 4.0
+// Project: https://github.com/Reactive-Extensions/RxJS
 // Definitions by: zoetrope <https://github.com/zoetrope>, Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="index.d.ts" />
-///<reference path="rx.async-lite.d.ts" />
+///<reference types="rx" />
 
 declare namespace Rx {
     interface ObservableStatic {
@@ -38,6 +37,6 @@ declare namespace Rx {
 	}
 }
 
-declare module "rx.async" {
+declare module "rx-lite-async" {
 	export = Rx;
 }
