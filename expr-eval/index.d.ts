@@ -22,12 +22,12 @@ declare namespace exprEval {
     }
 
     export interface Expression {
-        simplify(values?: Value): Expression;
-        evaluate(values?: Value): number;
-        substitute(values: Value): Expression;
+        simplify(values?: Values): Expression;
+        evaluate(values?: Values): number;
+        substitute(values: Values): Expression;
         symbols(): string[];
         variables(): string[];
-        toJSFunction(params: string, values?: Value): (...args: any[]) => number;
+        toJSFunction(params: string, values?: Values): (...args: Value[]) => number;
     }
 }
 

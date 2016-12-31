@@ -11,4 +11,4 @@ expr.simplify({ x: 2 });
 expr.variables().forEach(str => str.toUpperCase());
 expr.symbols().forEach(str => str.toUpperCase());
 expr.toJSFunction('y, x');
-expr.toJSFunction('y, z', { x: 2 })(1, 2);
+expr.toJSFunction('y, z', { y: 2 })({ z: 3 });
