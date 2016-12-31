@@ -317,28 +317,29 @@ interface JQueryPromise<T> extends JQueryGenericPromise<T> {
     /**
      * Add handlers to be called when the Deferred object is either resolved or rejected.
      *
-     * @param alwaysCallbacks1 A function, or array of functions, that is called when the Deferred is resolved or rejected.
-     * @param alwaysCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
+     * @param alwaysCallback1 A function, or array of functions, that is called when the Deferred is resolved or rejected.
+     * @param alwaysCallbackN Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
      */
-    always(alwaysCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...alwaysCallbacksN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryPromise<T>;
+    always(alwaysCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...alwaysCallbackN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryPromise<T>;
     /**
      * Add handlers to be called when the Deferred object is resolved.
      *
-     * @param doneCallbacks1 A function, or array of functions, that are called when the Deferred is resolved.
-     * @param doneCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
+     * @param doneCallback1 A function, or array of functions, that are called when the Deferred is resolved.
+     * @param doneCallbackN Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
      */
     done(doneCallback1?: JQueryPromiseCallback<T>|JQueryPromiseCallback<T>[], ...doneCallbackN: Array<JQueryPromiseCallback<T>|JQueryPromiseCallback<T>[]>): JQueryPromise<T>;
     /**
      * Add handlers to be called when the Deferred object is rejected.
      *
-     * @param failCallbacks1 A function, or array of functions, that are called when the Deferred is rejected.
-     * @param failCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
+     * @param failCallback1 A function, or array of functions, that are called when the Deferred is rejected.
+     * @param failCallbackN Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
      */
-    fail(failCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...failCallbacksN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryPromise<T>;
+    fail(failCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...failCallbackN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryPromise<T>;
     /**
      * Add handlers to be called when the Deferred object generates progress notifications.
      *
-     * @param progressCallbacks A function, or array of functions, to be called when the Deferred generates progress notifications.
+     * @param progressCallback1 A function, or array of functions, to be called when the Deferred generates progress notifications.
+     * @param progressCallbackN Optional additional functions, or arrays of functions, to be called when the Deferred generates progress notifications.
      */
     progress(progressCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...progressCallbackN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryPromise<T>;
 
@@ -364,28 +365,29 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
     /**
      * Add handlers to be called when the Deferred object is either resolved or rejected.
      *
-     * @param alwaysCallbacks1 A function, or array of functions, that is called when the Deferred is resolved or rejected.
-     * @param alwaysCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
+     * @param alwaysCallback1 A function, or array of functions, that is called when the Deferred is resolved or rejected.
+     * @param alwaysCallbackN Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
      */
-    always(alwaysCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...alwaysCallbacksN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryDeferred<T>;
+    always(alwaysCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...alwaysCallbackN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryDeferred<T>;
     /**
      * Add handlers to be called when the Deferred object is resolved.
      *
-     * @param doneCallbacks1 A function, or array of functions, that are called when the Deferred is resolved.
-     * @param doneCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
+     * @param doneCallback1 A function, or array of functions, that are called when the Deferred is resolved.
+     * @param doneCallbackN Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
      */
     done(doneCallback1?: JQueryPromiseCallback<T>|JQueryPromiseCallback<T>[], ...doneCallbackN: Array<JQueryPromiseCallback<T>|JQueryPromiseCallback<T>[]>): JQueryDeferred<T>;
     /**
      * Add handlers to be called when the Deferred object is rejected.
      *
-     * @param failCallbacks1 A function, or array of functions, that are called when the Deferred is rejected.
-     * @param failCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
+     * @param failCallback1 A function, or array of functions, that are called when the Deferred is rejected.
+     * @param failCallbackN Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
      */
-    fail(failCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...failCallbacksN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryDeferred<T>;
+    fail(failCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...failCallbackN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryDeferred<T>;
     /**
      * Add handlers to be called when the Deferred object generates progress notifications.
      *
-     * @param progressCallbacks A function, or array of functions, to be called when the Deferred generates progress notifications.
+     * @param progressCallback1 A function, or array of functions, to be called when the Deferred generates progress notifications.
+     * @param progressCallbackN Optional additional functions, or arrays of functions, to be called when the Deferred generates progress notifications.
      */
     progress(progressCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...progressCallbackN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryDeferred<T>;
 
@@ -402,7 +404,7 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param context Context passed to the progressCallbacks as the this object.
      * @param args Optional arguments that are passed to the progressCallbacks.
      */
-    notifyWith(context: any, value?: any[]): JQueryDeferred<T>;
+    notifyWith(context: any, args?: any[]): JQueryDeferred<T>;
 
     /**
      * Reject a Deferred object and call any failCallbacks with the given args.
@@ -416,7 +418,7 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param context Context passed to the failCallbacks as the this object.
      * @param args An optional array of arguments that are passed to the failCallbacks.
      */
-    rejectWith(context: any, value?: any[]): JQueryDeferred<T>;
+    rejectWith(context: any, args?: any[]): JQueryDeferred<T>;
 
     /**
      * Resolve a Deferred object and call any doneCallbacks with the given args.
@@ -432,7 +434,7 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param context Context passed to the doneCallbacks as the this object.
      * @param args An optional array of arguments that are passed to the doneCallbacks.
      */
-    resolveWith(context: any, value?: T[]): JQueryDeferred<T>;
+    resolveWith(context: any, args?: T[]): JQueryDeferred<T>;
 
     /**
      * Return a Deferred's Promise object.
@@ -1064,7 +1066,7 @@ interface JQueryStatic {
     /**
      * Determines whether its argument is a number.
      *
-     * @param obj The value to be tested.
+     * @param value The value to be tested.
      */
     isNumeric(value: any): boolean;
     /**
@@ -1248,7 +1250,7 @@ interface JQuery {
     /**
      * Adds the specified class(es) to each of the set of matched elements.
      *
-     * @param function A function returning one or more space-separated class names to be added to the existing class name(s). Receives the index position of the element in the set and the existing class name(s) as arguments. Within the function, this refers to the current element in the set.
+     * @param func A function returning one or more space-separated class names to be added to the existing class name(s). Receives the index position of the element in the set and the existing class name(s) as arguments. Within the function, this refers to the current element in the set.
      */
     addClass(func: (index: number, className: string) => string): JQuery;
 
@@ -1356,7 +1358,7 @@ interface JQuery {
     /**
      * Remove a single class, multiple classes, or all classes from each element in the set of matched elements.
      *
-     * @param function A function returning one or more space-separated class names to be removed. Receives the index position of the element in the set and the old class value as arguments.
+     * @param func A function returning one or more space-separated class names to be removed. Receives the index position of the element in the set and the old class value as arguments.
      */
     removeClass(func: (index: number, className: string) => string): JQuery;
 
@@ -1460,7 +1462,7 @@ interface JQuery {
      *
      * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
      */
-    innerHeight(height: number|string): JQuery;
+    innerHeight(value: number|string): JQuery;
 
     /**
      * Get the current computed width for the first element in the set of matched elements, including padding but not border.
@@ -1472,7 +1474,7 @@ interface JQuery {
      *
      * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
      */
-    innerWidth(width: number|string): JQuery;
+    innerWidth(value: number|string): JQuery;
 
     /**
      * Get the current coordinates of the first element in the set of matched elements, relative to the document.
@@ -1503,7 +1505,7 @@ interface JQuery {
      *
      * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
      */
-    outerHeight(height: number|string): JQuery;
+    outerHeight(value: number|string): JQuery;
 
     /**
      * Get the current computed width for the first element in the set of matched elements, including padding and border.
@@ -1517,7 +1519,7 @@ interface JQuery {
      *
      * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
      */
-    outerWidth(width: number|string): JQuery;
+    outerWidth(value: number|string): JQuery;
 
     /**
      * Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.
@@ -1984,7 +1986,7 @@ interface JQuery {
     /**
      * Bind an event handler to the "click" JavaScript event
      *
-     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
      */
     click(handler: (eventObject: JQueryEventObject) => any): JQuery;
     /**
