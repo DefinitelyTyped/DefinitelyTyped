@@ -3,7 +3,6 @@
 // Definitions by: Qubo <https://github.com/tkqubo>, Sean Kelley <https://github.com/seansfkelley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 import * as React from 'react';
 import * as Redux from 'redux';
 
