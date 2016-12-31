@@ -1,4 +1,4 @@
-// Type definitions for simple-oauth2 v1.0.2
+// Type definitions for simple-oauth2 1.0
 // Project: https://github.com/lelylan/simple-oauth2
 // Definitions by: [Michael Müller] <https://github.com/mad-mike>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -32,49 +32,49 @@ interface ModuleOptions {
         authorizePath?: string
     };
     /** optional object used to set global options to the internal http library (request-js). */
-    http?: Object;
+    http?: {};
     options?: {
         /** Wheather or not the client.id/client.secret params are sent in the request body. Defaults to true. */
         useBodyAuth?: boolean,
         useBasicAuthorizationHeader?: boolean
-    }
+    };
 }
 
 type TokenType = "access_token" | "refresh_token";
 
 interface AccessToken {
-    token: Object;
+    token: {};
 
     /** Check if the access token is expired or not */
     expired(): boolean;
     /** Refresh the access token */
-    refresh(params: Object, callback: (error: any, result: AccessToken) => void): Bluebird<AccessToken>;
+    refresh(params: {}, callback: (error: any, result: AccessToken) => void): Bluebird<AccessToken>;
     refresh(callback?: (error: any, result: AccessToken) => void): Bluebird<AccessToken>;
     /** Revoke access or refresh token */
     revoke(tokenType: TokenType, callback?: (error: any) => void): Bluebird<void>;
 }
 
-type AuthorizationToken = Object;
+type AuthorizationToken = {};
 type AuthorizationCode = string;
 interface AuthorizationTokenConfig {
-    code: AuthorizationCode,
-    redirect_uri: string
+    code: AuthorizationCode;
+    redirect_uri: string;
 }
 
-type PasswordToken = Object;
+type PasswordToken = {};
 interface PasswordTokenConfig {
     /** A string that represents the registered username */
-    username: string,
+    username: string;
     /** A string that represents the registered password. */
-    password: string,
+    password: string;
     /** A string that represents the application privileges */
-    scope: string
+    scope: string;
 }
 
-type ClientCredentialToken = Object;
+type ClientCredentialToken = {};
 interface ClientCredentialTokenConfig {
     /** A string that represents the application privileges */
-    scope?: string
+    scope?: string;
 }
 
 export interface OAuthClient {
@@ -94,18 +94,20 @@ export interface OAuthClient {
 
         /** Returns the Access Token object */
         getToken(params: AuthorizationTokenConfig, callback?: (error: any, result: AuthorizationToken) => void): Bluebird<AuthorizationToken>;
-    },
+    };
 
     ownerPassword: {
         /** Returns the Access Token Object */
         getToken(params: PasswordTokenConfig, callback?: (error: any, result: PasswordToken) => void): Bluebird<PasswordToken>;
-    },
+    };
+
     clientCredentials: {
         /** Returns the Access Token Object */
         getToken(params: ClientCredentialTokenConfig, callback?: (error: any, result: ClientCredentialToken) => void): Bluebird<ClientCredentialToken>;
-    },
+    };
+
     accessToken: {
         /** Creates an OAuth2.AccessToken instance */
         create(tokenToUse: AuthorizationToken): AccessToken;
-    }
+    };
 }
