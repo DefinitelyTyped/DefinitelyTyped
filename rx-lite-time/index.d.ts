@@ -1,10 +1,9 @@
-// Type definitions for RxJS-Time v2.2.28
-// Project: http://rx.codeplex.com/
+// Type definitions for rx-lite-time 4.0
+// Project: https://github.com/Reactive-Extensions/RxJS
 // Definitions by: Carl de Billy <http://carl.debilly.net/>, Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="index.d.ts" />
-///<reference path="rx.time-lite.d.ts" />
+///<reference types="rx" />
 
 declare namespace Rx {
 	export interface Observable<T> {
@@ -61,6 +60,6 @@ declare namespace Rx {
 	}
 }
 
-declare module "rx.time" {
+declare module "rx-lite-time" {
 	export = Rx;
 }
