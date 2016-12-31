@@ -34,7 +34,6 @@
         "rx.lite.d.ts",
         "rx.testing.d.ts",
         "rx.time-lite.d.ts",
-        "rx.time.d.ts",
-        "rx.virtualtime.d.ts"
+        "rx.time.d.ts"
     ]
 }

@@ -11,7 +11,7 @@
 /// <reference path="rx.coincidence.d.ts"/>
 /// <reference path="rx.experimental.d.ts"/>
 /// <reference path="rx.joinpatterns.d.ts"/>
-/// <reference path="rx.virtualtime.d.ts"/>
+//// <reference path="rx.virtualtime.d.ts"/>
 /// <reference path="rx.testing.d.ts"/>
 
 declare module "rx.all" {

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="index.d.ts" />
-///<reference path="rx.virtualtime.d.ts" />
+////<reference path="rx.virtualtime.d.ts" />
 
 declare namespace Rx {
 	export interface TestScheduler extends VirtualTimeScheduler<number, number> {
