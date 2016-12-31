@@ -1,19 +1,20 @@
-// Type definitions for RxJS-All v2.2.28
-// Project: http://rx.codeplex.com/
-// Definitions by: Carl de Billy <http://carl.debilly.net/>, Igor Oleinikov <https://github.com/Igorbek>
+// Type definitions for rx 4.1
+// Project: https://github.com/Reactive-Extensions/RxJS
+// Definitions by: Carl de Billy <http://carl.debilly.net/>, gsino <http://www.codeplex.com/site/users/view/gsino>, Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="index.d.ts"/>
-//// <reference path="rx.aggregates.d.ts"/>
-//// <reference path="rx.time.d.ts"/>
-//// <reference path="rx.async.d.ts"/>
-//// <reference path="rx.binding.d.ts"/>
-///// <reference path="rx.coincidence.d.ts"/>
-//// <reference path="rx.experimental.d.ts"/>
-//// <reference path="rx.joinpatterns.d.ts"/>
-//// <reference path="rx.virtualtime.d.ts"/>
-//// <reference path="rx.testing.d.ts"/>
+/// <reference types="rx-core"/>
+/// <reference types="rx-core-binding"/>
+/// <reference types="rx-lite-aggregates"/>
+/// <reference types="rx-lite-async"/>
+/// <reference types="rx-lite-backpressure"/>
+/// <reference types="rx-lite-coincidence"/>
+/// <reference types="rx-lite-experimental"/>
+/// <reference types="rx-lite-joinpatterns"/>
+/// <reference types="rx-lite-testing"/>
+/// <reference types="rx-lite-time"/>
+/// <reference types="rx-lite-virtualtime"/>
 
-declare module "rx.all" {
+declare module "rx" {
 	export = Rx;
 }
