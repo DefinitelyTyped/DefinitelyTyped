@@ -5,7 +5,7 @@
 
 /// <reference path="index.d.ts"/>
 /// <reference path="rx.aggregates.d.ts"/>
-/// <reference path="rx.time.d.ts"/>
+//// <reference path="rx.time.d.ts"/>
 /// <reference path="rx.async.d.ts"/>
 /// <reference path="rx.binding.d.ts"/>
 /// <reference path="rx.coincidence.d.ts"/>
