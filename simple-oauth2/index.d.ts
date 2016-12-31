@@ -54,14 +54,18 @@ interface AccessToken {
     revoke(tokenType: TokenType, callback?: (error: any) => void): Bluebird<void>;
 }
 
-type AuthorizationToken = {};
+interface AuthorizationToken {
+    __authorizationTokenBrand: any;
+}
 type AuthorizationCode = string;
 interface AuthorizationTokenConfig {
     code: AuthorizationCode;
     redirect_uri: string;
 }
 
-type PasswordToken = {};
+interface PasswordToken {
+    __passwordTokenBrand: any;
+}
 interface PasswordTokenConfig {
     /** A string that represents the registered username */
     username: string;
@@ -71,7 +75,9 @@ interface PasswordTokenConfig {
     scope: string;
 }
 
-type ClientCredentialToken = {};
+interface ClientCredentialToken {
+    __clientCredentialTokenBrand: any;
+}
 interface ClientCredentialTokenConfig {
     /** A string that represents the application privileges */
     scope?: string;
