@@ -1,4 +1,4 @@
-import * as Rx from 'rx';
+import * as Rx from 'rx-lite';
 
 namespace Tests.Async {
 
