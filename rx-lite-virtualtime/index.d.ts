@@ -36,6 +36,6 @@ declare namespace Rx {
 	};
 }
 
-declare module "rx.virtualtime" {
+declare module "rx-lite-virtualtime" {
 	export = Rx;
 }
