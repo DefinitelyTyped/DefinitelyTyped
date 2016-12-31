@@ -1,7 +1,9 @@
-// This file contains common part of defintions for rx.binding.d.ts and rx.lite.d.ts
-// Do not include the file separately.
+// Type definitions for rx-core-binding 4.0
+// Project: https://github.com/Reactive-Extensions/RxJS
+// Definitions by: Carl de Billy <http://carl.debilly.net/>, Igor Oleinikov <https://github.com/Igorbek>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="rx-lite.d.ts"/>
+///<reference types="rx"/>
 
 declare namespace Rx {
 	export interface BehaviorSubject<T> extends Subject<T> {
@@ -68,4 +70,8 @@ declare namespace Rx {
 		replay(selector: (source: ConnectableObservable<T>) => Observable<T>, bufferSize?: number, window?: number, scheduler?: IScheduler): Observable<T>;
 		shareReplay(bufferSize?: number, window?: number, scheduler?: IScheduler): Observable<T>;
 	}
+}
+
+declare module "rx-core-binding" {
+	export = Rx;
 }
