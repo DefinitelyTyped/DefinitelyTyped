@@ -14,13 +14,6 @@ declare namespace Rx {
 	}
 
     interface ObservableStatic {
-		/**
-		* Invokes the asynchronous function, surfacing the result through an observable sequence.
-		* @param functionAsync Asynchronous function which returns a Promise to run.
-		* @returns An observable sequence exposing the function's result value, or an exception.
-		*/
-		startAsync<T>(functionAsync: () => IPromise<T>): Observable<T>;
-
 		fromCallback: {
 			// with single result callback without selector
 			<TResult>(func: (callback: (result: TResult) => any) => any, context?: any): () => Observable<TResult>;
