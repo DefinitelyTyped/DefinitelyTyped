@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "base64-js-tests.ts"
+        "fireloop-tests.ts"
     ]
 }
