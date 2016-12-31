@@ -34,9 +34,7 @@ declare namespace Rx {
 		disposed: number;
 
 		onNext(ticks: number, value: any): Recorded;
-		onNext(ticks: number, predicate: (value: any) => boolean): Recorded;
 		onError(ticks: number, exception: any): Recorded;
-		onError(ticks: number, predicate: (exception: any) => boolean): Recorded;
 		onCompleted(ticks: number): Recorded;
 
 		subscribe(subscribeAt: number, unsubscribeAt?: number): Subscription;

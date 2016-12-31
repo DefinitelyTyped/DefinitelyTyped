@@ -49,7 +49,7 @@ declare namespace Rx {
 		*    An array of observables. The first triggers when the predicate returns true,
 		*    and the second triggers when the predicate returns false.
 		*/
-		partition(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>[];
+		partition(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Array<Observable<T>>;
 	}
 }
 

@@ -300,8 +300,8 @@ declare namespace Rx {
 		 * @param sources Array of source sequences or promises.
 		 * @returns An observable sequence with an array collecting the last elements of all the input sequences.
 		 */
-		forkJoin<T>(sources: Observable<T>[]): Observable<T[]>;
-		forkJoin<T>(sources: IPromise<T>[]): Observable<T[]>;
+		forkJoin<T>(sources: Array<Observable<T>>): Observable<T[]>;
+		forkJoin<T>(sources: Array<IPromise<T>>): Observable<T[]>;
 
 		/**
 		 *  Runs all observable sequences in parallel and collect their last elements.
@@ -311,8 +311,8 @@ declare namespace Rx {
 		 * @param args Source sequences or promises.
 		 * @returns An observable sequence with an array collecting the last elements of all the input sequences.
 		 */
-		forkJoin<T>(...args: Observable<T>[]): Observable<T[]>;
-		forkJoin<T>(...args: IPromise<T>[]): Observable<T[]>;
+		forkJoin<T>(...args: Array<Observable<T>>): Observable<T[]>;
+		forkJoin<T>(...args: Array<IPromise<T>>): Observable<T[]>;
 	}
 }
 
