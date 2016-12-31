@@ -7,7 +7,7 @@
 ///<reference path="rx.async-lite.d.ts" />
 ////<reference path="rx.binding-lite.d.ts" />
 ///<reference path="rx.time-lite.d.ts" />
-///<reference path="rx.backpressure-lite.d.ts" />
+////<reference path="rx.backpressure-lite.d.ts" />
 
 declare module "rx-lite" {
 	export = Rx;

@@ -4,7 +4,7 @@
         "target": "es6",
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -15,14 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "rx-tests.ts",
-        "rx-lite.d.ts",
-        "rx.aggregates.d.ts",
-        "rx.all.d.ts",
-        "rx.async-lite.d.ts",
-        "rx.async-tests.ts",
-        "rx.async.d.ts",
-        "rx.lite.d.ts",
-        "rx.time-lite.d.ts"
+        "rx-lite-backpressure-tests.ts"
     ]
 }
