@@ -1,7 +1,9 @@
-// This file contains common part of defintions for rx.backpressure.d.ts and rx.lite.d.ts
-// Do not include the file separately.
+// Type definitions for rx-lite-backpressure 4.0
+// Project: https://github.com/Reactive-Extensions/RxJS
+// Definitions by: Igor Oleinikov <https://github.com/Igorbek>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="rx-lite.d.ts"/>
+///<reference types="rx"/>
 
 declare namespace Rx {
 	export interface Observable<T> {
@@ -43,4 +45,8 @@ declare namespace Rx {
 		pause(): void;
 		resume(): void;
 	}
+}
+
+declare module "rx-lite-backpressure" {
+	export = Rx;
 }

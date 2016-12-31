@@ -1,11 +1,8 @@
 // Tests for RxJS-BackPressure TypeScript definitions
 // Tests by Igor Oleinikov <https://github.com/Igorbek>
 
-///<reference path="index.d.ts" />
-///<reference path="rx.backpressure.d.ts" />
-
 function testPausable() {
-	var o: Rx.Observable<string>;
+	var o: Rx.Observable<string> = {} as any;
 
 	var pauser = new Rx.Subject<boolean>();
 
@@ -14,7 +11,7 @@ function testPausable() {
 }
 
 function testControlled() {
-	var o: Rx.Observable<string>;
+	var o: Rx.Observable<string> = {} as any;
 	var c = o.controlled();
 
 	var d: Rx.IDisposable = c.request();
