@@ -3,7 +3,7 @@
 
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { browserHistory } from 'react-router';
-import { syncHistoryWithStore, routerReducer, routerMiddleware, push, replace, go, goForward, goBack } from 'react-router-redux';
+import { syncHistoryWithStore, routerReducer, routerMiddleware, push, replace, go, goForward, goBack } from './index';
 
 const reducer = combineReducers({ routing: routerReducer });
 
@@ -16,7 +16,7 @@ const store = createStore(
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
-history.listen(location => console.log(location) );
+history.listen(location => console.log(location.pathname));
 history.unsubscribe();
 
 // Dispatch from anywhere like normal.

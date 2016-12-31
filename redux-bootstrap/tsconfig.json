@@ -5,8 +5,8 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
-        "baseUrl": "../",
         "typeRoots": [
+            "node_modules/@types",
             "../"
         ],
         "types": [],
