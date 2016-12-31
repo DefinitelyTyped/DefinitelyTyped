@@ -1,9 +1,9 @@
-// Type definitions for RxJS-VirtualTime v2.2.28
-// Project: http://rx.codeplex.com/
+// Type definitions for rx-lite-virtualtime 4.0
+// Project: https://github.com/Reactive-Extensions/RxJS
 // Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>, Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="index.d.ts" />
+///<reference types="rx" />
 
 declare namespace Rx {
 	export interface VirtualTimeScheduler<TAbsolute, TRelative> extends Scheduler {
