@@ -31,8 +31,7 @@
         "rx.coincidence.d.ts",
         "rx.experimental.d.ts",
         "rx.joinpatterns.d.ts",
-        "rx.lite.d.ts",
-        "rx.testing.d.ts",
+        "rx.lite.d.ts"
         "rx.time-lite.d.ts"
     ]
 }
