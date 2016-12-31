@@ -527,7 +527,6 @@ declare namespace mathjs {
 		 * storage formats are 'dense' and 'sparse'.
 		 */
 		matrix(format?: 'sparse'|'dense'): Matrix;
-		matrix(data: MathArray|Matrix, format?: 'sparse'|'dense'): Matrix;
 		matrix(data: MathArray|Matrix, format?: 'sparse'|'dense', dataType?: string): Matrix;
 
 		/**
