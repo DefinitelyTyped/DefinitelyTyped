@@ -17,8 +17,11 @@ declare namespace exprEval {
         constructor(options?: { allowMemberAccess?: boolean });
         parse(expression: string): Expression;
         evaluate(expression: string, values?: Value): number;
-        static parse(expression: string): Expression;
-        static evaluate(expression: string, values?: Value): number;
+
+        // todo(connor4312): tslint is disabled on the following two lines, as
+        // thinks that the above instance methods are overloads for the static methods.
+        static parse(expression: string): Expression; // tslint:disable-line
+        static evaluate(expression: string, values?: Value): number; // tslint:disable-line
     }
 
     export interface Expression {
