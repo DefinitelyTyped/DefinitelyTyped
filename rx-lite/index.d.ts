@@ -65,10 +65,6 @@ declare namespace Rx {
 		function isFunction(value: any): boolean;
 	}
 
-	export interface IDisposable {
-		dispose(): void;
-	}
-
 	export class CompositeDisposable implements IDisposable {
 		constructor (...disposables: IDisposable[]);
 		constructor (disposables: IDisposable[]);
@@ -178,16 +174,6 @@ declare namespace Rx {
 		static createOnNext<T>(value: T): Notification<T>;
 		static createOnError<T>(exception: any): Notification<T>;
 		static createOnCompleted<T>(): Notification<T>;
-	}
-
-	/**
-	 * Promise A+
-	 */
-	export interface IPromise<T> {
-		then<R>(onFulfilled: (value: T) => IPromise<R>, onRejected: (reason: any) => IPromise<R>): IPromise<R>;
-		then<R>(onFulfilled: (value: T) => IPromise<R>, onRejected?: (reason: any) => R): IPromise<R>;
-		then<R>(onFulfilled: (value: T) => R, onRejected: (reason: any) => IPromise<R>): IPromise<R>;
-		then<R>(onFulfilled?: (value: T) => R, onRejected?: (reason: any) => R): IPromise<R>;
 	}
 
 	// Observer

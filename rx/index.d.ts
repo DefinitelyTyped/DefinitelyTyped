@@ -5,6 +5,20 @@
 
 
 declare namespace Rx {
+	/**
+	 * Promise A+
+	 */
+	export interface IPromise<T> {
+		then<R>(onFulfilled: (value: T) => IPromise<R>, onRejected: (reason: any) => IPromise<R>): IPromise<R>;
+		then<R>(onFulfilled: (value: T) => IPromise<R>, onRejected?: (reason: any) => R): IPromise<R>;
+		then<R>(onFulfilled: (value: T) => R, onRejected: (reason: any) => IPromise<R>): IPromise<R>;
+		then<R>(onFulfilled?: (value: T) => R, onRejected?: (reason: any) => R): IPromise<R>;
+	}
+
+	export interface IDisposable {
+		dispose(): void;
+	}
+
     export interface IScheduler {
 		catch(handler: (exception: any) => boolean): IScheduler;
 		catchException(handler: (exception: any) => boolean): IScheduler;
