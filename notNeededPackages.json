@@ -220,18 +220,54 @@
             "typingsPackageName": "vue",
             "sourceRepoURL": "https://github.com/vuejs/vue",
             "asOfVersion": "2.0.0"
-         },
-         {
+        },
+        {
             "libraryName": "Facebook's Immutable",
             "typingsPackageName": "immutable",
             "sourceRepoURL": "https://github.com/facebook/immutable-js",
             "asOfVersion": "3.8.7"
-         },
-         {
+        },
+        {
             "libraryName": "dva",
             "typingsPackageName": "dva",
             "sourceRepoURL": "https://github.com/dvajs/dva",
             "asOfVersion": "1.1.0"
+        },
+        {
+            "libraryName": "inversify",
+            "typingsPackageName": "inversify",
+            "sourceRepoURL": "http://inversify.io",
+            "asOfVersion": "2.0.33"
+        },
+        {
+            "libraryName": "inversify-express-utils",
+            "typingsPackageName": "inversify-express-utils",
+            "sourceRepoURL": "https://github.com/inversify/inversify-express-utils",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "inversify-binding-decorators",
+            "typingsPackageName": "inversify-binding-decorators",
+            "sourceRepoURL": "https://github.com/inversify/inversify-binding-decorators",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "inversify-logger-middleware",
+            "typingsPackageName": "inversify-logger-middleware",
+            "sourceRepoURL": "https://github.com/inversify/inversify-logger-middleware",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "inversify-inject-decorators",
+            "typingsPackageName": "inversify-inject-decorators",
+            "sourceRepoURL": "https://github.com/inversify/inversify-inject-decorators",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "inversify-restify-utils",
+            "typingsPackageName": "inversify-restify-utils",
+            "sourceRepoURL": "https://github.com/inversify/inversify-restify-utils",
+            "asOfVersion": "2.0.0"
         }
     ]
 }
