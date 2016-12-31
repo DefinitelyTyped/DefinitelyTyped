@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference types="rx" />
+/// <reference types="rx-core" />
 /// <reference types="rx-lite-virtualtime" />
 
 declare namespace Rx {

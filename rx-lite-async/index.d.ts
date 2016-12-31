@@ -3,7 +3,7 @@
 // Definitions by: zoetrope <https://github.com/zoetrope>, Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="rx" />
+///<reference types="rx-core" />
 
 declare namespace Rx {
 	interface ObservableStatic {

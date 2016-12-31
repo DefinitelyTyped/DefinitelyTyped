@@ -3,7 +3,7 @@
 // Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>, Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="rx" />
+///<reference types="rx-core" />
 
 declare namespace Rx {
 	export interface VirtualTimeScheduler<TAbsolute, TRelative> extends Scheduler {
