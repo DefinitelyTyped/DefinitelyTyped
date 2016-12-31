@@ -2,6 +2,7 @@
   "extends": "../tslint.json",
   "rules": {
     "interface-name": false,
-    "no-empty-interface": false
+    "no-empty-interface": false,
+    "no-single-declare-module": false
   }
 }
