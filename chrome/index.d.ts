@@ -4952,7 +4952,7 @@ declare namespace chrome.runtime {
          */
         sender?: MessageSender;
         /** An object which allows the addition and removal of listeners for a Chrome event. */
-        onDisconnect: chrome.events.Event<() => void>;
+        onDisconnect: PortDisconnectEvent;
         /** An object which allows the addition and removal of listeners for a Chrome event. */
         onMessage: PortMessageEvent;
         name: string;
@@ -4967,6 +4967,8 @@ declare namespace chrome.runtime {
         /** The version of the available update. */
         version: string;
     }
+
+	interface PortDisconnectEvent extends chrome.events.Event<(port: Port) => void> {}
 
     interface PortMessageEvent extends chrome.events.Event<(message: Object, port: Port) => void> {}
 
@@ -5517,7 +5519,7 @@ declare namespace chrome.storage {
 		get(callback: (items: { [key: string]: any }) => void): void;
 		/**
 		 * Gets one or more items from storage.
-		 * @param keys A single key to get, list of keys to get, or a dictionary specifying default values. 
+		 * @param keys A single key to get, list of keys to get, or a dictionary specifying default values.
 		 * An empty list or object will return an empty result object. Pass in null to get the entire contents of storage.
 		 * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
 		 * Parameter items: Object with items in their key-value mappings.
