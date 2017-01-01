@@ -284,7 +284,7 @@ declare namespace React {
         stopPropagation(): void;
         isPropagationStopped(): boolean;
         persist(): void;
-        target: EventTarget;
+        target: EventTarget & T;
         timeStamp: Date;
         type: string;
     }
