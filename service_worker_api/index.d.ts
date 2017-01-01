@@ -1,3 +1,4 @@
+// TypeScript Version: 2.1
 // Type definitions for service_worker_api
 // Project: https://developer.mozilla.org/fr/docs/Web/API/ServiceWorker_API
 // Definitions by: Tristan Caron <https://github.com/tristancaron>
@@ -661,7 +662,11 @@ interface ServiceWorkerContainer extends EventTarget {
      */
     getRegistrations(): Promise<Array<ServiceWorkerRegistration>>;
 
-    addEventListener<K extends keyof ServiceWorkerContainerEventMap>(type: K, listener: (event: ServiceWorkerContainerEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener<K extends keyof ServiceWorkerContainerEventMap>(
+        type: K,
+        listener: (event: ServiceWorkerContainerEventMap[K]) => any,
+        useCapture?: boolean
+    ): void;
 }
 
 interface ServiceWorkerGlobalScope extends EventTarget {
@@ -759,7 +764,11 @@ interface ServiceWorkerGlobalScope extends EventTarget {
      */
     fetch(url: string | Request, init?: Object): Promise<Response>;
 
-    addEventListener<K extends keyof ServiceWorkerEventMap>(type: K, listener: (event: ServiceWorkerEventMap[K]) => any, useCapture?: boolean): void;
+    addEventListener<K extends keyof ServiceWorkerEventMap>(
+        type: K,
+        listener: (event: ServiceWorkerEventMap[K]) => any,
+        useCapture?: boolean
+    ): void;
 }
 
 interface Navigator {
