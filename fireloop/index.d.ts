@@ -1,7 +1,8 @@
-// Type definitions for fireloop 1.0.0-beta.1.3
+// Type definitions for fireloop 1.0.0
 // Project: http://fireloop.io/
-// Definitions by: Andres Jimenez <https://github.com/kattsushi/>, forked: Sequoia McDowell <https://github.com/Sequoia/loopback-type-definitions>
+// Definitions by: Andres Jimenez <https://github.com/kattsushi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 interface ModelLoopback {
     modelName?: string;
@@ -363,5 +364,6 @@ interface RemoteMethodArgument {
 declare var ModelConstructor: ModelConstructor;
 
 declare module 'fireloop' {
-    export = ModelConstructor;
+    var model: ModelConstructor;
+    export = model;
 }
