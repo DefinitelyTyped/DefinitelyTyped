@@ -6669,20 +6669,13 @@ declare module ol {
          *     the {@link ol.layer.Layer layer} of the feature and will be null for
          *     unmanaged layers. To stop detection, callback functions can return a
          *     truthy value.
-         * @param {S=} opt_this Value to use as `this` when executing `callback`.
-         * @param {(function(this: U, ol.layer.Layer): boolean)=} opt_layerFilter Layer
-         *     filter function. The filter function will receive one argument, the
-         *     {@link ol.layer.Layer layer-candidate} and it should return a boolean
-         *     value. Only layers which are visible and for which this function returns
-         *     `true` will be tested for features. By default, all visible layers will
-         *     be tested.
-         * @param {U=} opt_this2 Value to use as `this` when executing `layerFilter`.
+         * @param {olx.AtPixelOptions=} opt_options Optional options.
          * @return {T|undefined} Callback result, i.e. the return value of last
          * callback execution, or the first truthy callback return value.
-         * @template S,T,U
+         * @template S,T
          * @api stable
          */
-        forEachFeatureAtPixel<S, T, U>(pixel: ol.Pixel, callback: ((feature: (ol.Feature | ol.render.Feature), layer: ol.layer.Layer) => T), opt_this?: S, opt_layerFilter?: ((layer: ol.layer.Layer) => boolean), opt_this2?: U): (T);
+        forEachFeatureAtPixel<S, T>(pixel: ol.Pixel, callback: ((feature: (ol.Feature | ol.render.Feature), layer: ol.layer.Layer) => T), opt_options?: olx.AtPixelOptions): (T);
 
         /**
          * Detect layers that have a color value at a pixel on the viewport, and
@@ -11778,7 +11771,6 @@ declare module olx {
             easing?: ((t: number) => number);
         }
 
-
     }
 
     /**
@@ -13779,7 +13771,17 @@ declare module olx {
         zoom?: number;
         zoomFactor?: number;
     }
-
+		
+    /**
+    * Object literal with options for the {@link ol.Map#forEachFeatureAtPixel} and
+    * {@link ol.Map#hasFeatureAtPixel} methods.
+    * @typedef {{layerFilter: ((function(ol.layer.Layer): boolean)|undefined),
+    *     hitTolerance: (number|undefined)}}
+    */
+    interface AtPixelOptions {
+        layerFilter?: ((layer: ol.layer.Layer) => boolean)
+        hitTolerance?: number
+    }
 
     /**
      * @typedef {{animate: boolean,
