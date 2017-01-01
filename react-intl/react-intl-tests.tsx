@@ -32,7 +32,7 @@ console.log(hasLocaleData("en"));
 
 interface SomeComponentProps {
   className: string,
-  intl: InjectedIntl
+  intl?: InjectedIntl
 }
 
 class SomeComponent extends React.Component<SomeComponentProps, void> {
