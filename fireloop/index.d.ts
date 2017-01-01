@@ -4,17 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-interface ModelLoopback {
-    modelName?: string;
-    dataSource?: {
-        name: string;
-        config: any;
-    };
-    sharedMethod?: any;
-    settings: any;
-}
-
 declare namespace fireloop {
+    interface ModelLoopback {
+        modelName?: string;
+        dataSource?: {
+            name: string;
+            config: any;
+        };
+        sharedMethod?: any;
+        settings: any;
+    }
+
     interface Model {
         //Event stuff//
         /**
@@ -319,46 +319,48 @@ declare namespace fireloop {
         */
         validatesUniquenessOf(propertyName: string): void;
     }
+
+    interface Filter {
+        fields?: string|any|string[];
+        include?: string|any|any[];
+        limit?: number;
+        order?: string;
+        skip?: number;
+        where?: any;
+    }
+
+    type Next = (err?: Error, result?: any) => void;
+
+    type findCallbackById = (error?: Error, result?: any) => void;
+
+    type findCallback = (error?: Error, result?: any[]) => void;
+
+    type countCallback = (error?: Error, result?: number) => void;
+
+
+    interface RemoteMethodOptions {
+        accepts: RemoteMethodArgument[];
+        description?: string|string[];
+        http: {
+            path?: string;
+            verb?: 'get' | 'post' | 'patch' | 'put' | 'del' | 'all';
+            status?: number;
+            errorStatus?: number;
+        };
+        isStatic?:	boolean;
+        notes?: string | string[];
+        returns: RemoteMethodArgument;
+    }
+
+    interface RemoteMethodArgument {
+        arg: string;
+        description: string | string[];
+        http: any;
+        required: boolean;
+        root: boolean;
+        type: 'any' | 'Array' | 'boolean' | 'Buffer' | 'Date' | 'GeoPoint' | 'null' | 'number' | 'any' | 'string';
+        default: string;
+    }
 }
 
-interface Filter {
-    fields?: string|any|string[];
-    include?: string|any|any[];
-    limit?: number;
-    order?: string;
-    skip?: number;
-    where?: any;
-}
-
-type Next = (err?: Error, result?: any) => void;
-
-type findCallbackById = (error?: Error, result?: any) => void;
-
-type findCallback = (error?: Error, result?: any[]) => void;
-
-type countCallback = (error?: Error, result?: number) => void;
-
-
-interface RemoteMethodOptions {
-    accepts: RemoteMethodArgument[];
-    description?: string|string[];
-    http: {
-        path?: string;
-        verb?: 'get' | 'post' | 'patch' | 'put' | 'del' | 'all';
-        status?: number;
-        errorStatus?: number;
-    };
-    isStatic?:	boolean;
-    notes?: string | string[];
-    returns: RemoteMethodArgument;
-}
-
-interface RemoteMethodArgument {
-    arg: string;
-    description: string | string[];
-    http: any;
-    required: boolean;
-    root: boolean;
-    type: 'any' | 'Array' | 'boolean' | 'Buffer' | 'Date' | 'GeoPoint' | 'null' | 'number' | 'any' | 'string';
-    default: string;
-}
+export = fireloop;

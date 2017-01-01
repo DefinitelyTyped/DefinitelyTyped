@@ -1,14 +1,16 @@
 /// <reference path="index.d.ts" />
 
+import { Model } from 'fireloop';
+
 class User {
-    constructor( public model: fireloop.Model) { };
+    constructor( public model: Model) { };
 
     myRemote(id: any) {
         this.model.find({
             fields: {},
             limit: 1,
             where : { },
-        }, (data) => {
+        }, (data: any) => {
             console.log(data);
         });
 
