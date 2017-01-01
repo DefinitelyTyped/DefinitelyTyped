@@ -1,6 +1,6 @@
 // Type definitions for react-intl 2.1.5
 // Project: http://formatjs.io/react/
-// Definitions by: Bruno Grieder <https://github.com/bgrieder>, Christian Droulers <https://github.com/cdroulers>, Fedor Nezhivoi <https://github.com/gyzerok>
+// Definitions by: Bruno Grieder <https://github.com/bgrieder>, Christian Droulers <https://github.com/cdroulers>, Fedor Nezhivoi <https://github.com/gyzerok>, Till Wolff <https://github.com/tillwolff> 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="react" />
@@ -12,7 +12,7 @@ declare namespace ReactIntl {
         pluralRuleFunction?: (n: number, ord: boolean) => string;
     }
 
-    function injectIntl<P> (component: React.ComponentClass<P>): React.ComponentClass<P>;
+    function injectIntl<T extends React.ComponentClass<InjectedIntlProps> | React.StatelessComponent<InjectedIntlProps>>(component: T): T;
 
     function addLocaleData(data: Locale[] | Locale): void;
 
