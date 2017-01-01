@@ -12,5 +12,9 @@ class User {
             console.log(data);
         });
 
+        this.model.on('changed', () => {
+            console.log('success');
+        });
+
     }
 }
