@@ -513,7 +513,8 @@ interface ServiceWorkerEventMap {
     "activate": ExtendableEvent;
     "fetch": FetchEvent;
     "install": InstallEvent;
-    "message": ExtendableMessageEvent;
+    // "message": ExtendableMessageEvent;
+    "message": MessageEvent;
     "notificationclick": NotificationEvent;
     "push": PushEvent;
     "pushsubscriptionchang": PushEvent;
@@ -719,7 +720,11 @@ interface ServiceWorkerGlobalScope extends EventTarget {
      *
      * @param [messageevent]
      */
-    onmessage: (messageevent: ExtendableMessageEvent) => void;
+    // `onmessage` is actually fired with `ExtendableMessageEvent`, but
+    // since we are merging the interface into `Window`, we should
+    // make sure it's compatible with `window.onmessage`
+    // onmessage: (messageevent: ExtendableMessageEvent) => void;
+    onmessage: (messageevent: MessageEvent) => void;
 
     /**
      * An event handler fired whenever a notificationclick event occurs — when
