@@ -34,18 +34,18 @@ declare namespace ReactIntl {
         formats?: any;
     }
 
-    type InjectedIntl = {
-      formatDate: (date: Date, options?: FormattedDate.PropsBase) => string;
-      formatTime: (date: Date, options?: FormattedTime.PropsBase) => string;
-      formatRelative: (value: number, options?: FormattedRelative.PropsBase) => string;
-      formatNumber: (value: number, options?: FormattedNumber.PropsBase) => string;
-      formatPlural: (value: number, options?: FormattedPlural.PropsBase) => string;
-      formatMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: Object) => string;
-      formatHTMLMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: Object) => string;
+    interface InjectedIntl {
+        formatDate: (date: Date, options?: FormattedDate.PropsBase) => string;
+        formatTime: (date: Date, options?: FormattedTime.PropsBase) => string;
+        formatRelative: (value: number, options?: FormattedRelative.PropsBase) => string;
+        formatNumber: (value: number, options?: FormattedNumber.PropsBase) => string;
+        formatPlural: (value: number, options?: FormattedPlural.PropsBase) => string;
+        formatMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: Object) => string;
+        formatHTMLMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: Object) => string;
     }
 
     interface InjectedIntlProps {
-      intl?: InjectedIntl
+        intl?: InjectedIntl
     }
 
     namespace IntlComponent {
