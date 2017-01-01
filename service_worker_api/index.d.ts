@@ -1,8 +1,8 @@
-// TypeScript Version: 2.1
 // Type definitions for service_worker_api
 // Project: https://developer.mozilla.org/fr/docs/Web/API/ServiceWorker_API
 // Definitions by: Tristan Caron <https://github.com/tristancaron>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.1
 
 // <reference path="../es6-promise/es6-promise.d.ts" /> // REMOVED third "/" so this doesn't fire. Problem with duplicate Promises
 // <reference path="../whatwg-fetch/index.d.ts" />
