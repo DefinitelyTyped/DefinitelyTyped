@@ -1,7 +1,7 @@
 /// <reference path="index.d.ts" />
 
 class User {
-    constructor( public model: ModelConstructor) { };
+    constructor( public model: fireloop.Model) { };
 
     myRemote(id: any) {
         this.model.find({
