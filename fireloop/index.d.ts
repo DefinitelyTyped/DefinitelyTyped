@@ -7,18 +7,18 @@ interface ModelLoopback {
     modelName?: string;
     dataSource?: {
         name: string;
-        config: Object;
+        config: any;
     };
-    sharedMethod?: Object;
-    settings: Object;
+    sharedMethod?: any;
+    settings: any;
 }
 
 interface ModelConstructor {
     //Event stuff//
     /**
-     * @see https://docs.strongloop.com/display/public/APIC/Basic+model+object#Basicmodelobject-Events
+     * @see https://docs.strongloop.com/display/public/APIC/Basic+model+any#Basicmodelany-Events
      */
-    on(event: 'attached'|'dataSourceAttached'|'set'|'changed'|'deleted'|'deletedAll', listener: Function): void;
+    on(event: 'attached'|'dataSourceAttached'|'set'|'changed'|'deleted'|'deletedAll', listener: () => void): void;
 
     // Persistedmodel
     /**
@@ -26,14 +26,14 @@ interface ModelConstructor {
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-bulkupdate
      */
-    bulkUpdate(updates: Array<Object >, options: Object, callback: findCallback): void;
+    bulkUpdate(updates: any[], options: any, callback: findCallback): void;
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-bulkupdate
      */
-    changes(since: Number, filter: Filter, callback: findCallback): void;
+    changes(since: number, filter: Filter, callback: findCallback): void;
 
     /**
      * Override this to customize core find behavior
@@ -47,71 +47,71 @@ interface ModelConstructor {
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-checkpoint
      */
-    count(where: Object, callback: countCallback): PromiseLike<Number>;
+    count(where: any, callback: countCallback): PromiseLike<number>;
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-create
      */
-    create(data: Object | Array<Object>, callback: findCallbackById): PromiseLike<Object>;
+    create(data: any | any[], callback: findCallbackById): PromiseLike<any>;
 
     /**
-     * Check Fireloop Functionality for this method in RealTime
+     * Check Fireloop () => voidality for this method in RealTime
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-create
      */
-    // createChangeStream(data: Object | Array<Object>, callback: findCallbackById): PromiseLike<Object>;
+    // createChangeStream(data: any | any[], callback: findCallbackById): PromiseLike<any>;
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-createupdates
      */
-    createUpdates(deltas: Array<Object>, callback: Function): PromiseLike<Array<Object>>;
+    createUpdates(deltas: any[], callback: () => void): PromiseLike<any[]>;
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-currentcheckpoint
      */
-    currentCheckpoint(callback: Function): PromiseLike<number>;
+    currentCheckpoint(callback: () => void): PromiseLike<number>;
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-destroyall
      */
-    destroyAll(where: Object, callback: Function): PromiseLike<number>;
+    destroyAll(where: any, callback: () => void): PromiseLike<number>;
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-destroybyid
      */
-    destroyById(id: string, callback: Function): PromiseLike<Object>;
+    destroyById(id: string, callback: () => void): PromiseLike<any>;
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-diff
      */
-    diff(since: Number, remoteChanges: Array<Object>, callback: Function): PromiseLike<Object>;
+    diff(since: number, remoteChanges: any[], callback: () => void): PromiseLike<any>;
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-enablechangetracking
      */
-    enableChangeTracking(id: string, callback: Function): PromiseLike<Object>;
+    enableChangeTracking(id: string, callback: () => void): PromiseLike<any>;
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-exists
      */
-    exists(id: string, callback: Function): PromiseLike<Object>;
+    exists(id: string, callback: () => void): PromiseLike<any>;
 
     //Find stuff//
     /**
@@ -119,28 +119,28 @@ interface ModelConstructor {
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-find
      */
-    find(filter: Filter, callback: findCallback): PromiseLike<Array<Object>>;
+    find(filter: Filter, callback: findCallback): PromiseLike<any[]>;
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-findbyid
      */
-    findById(id: string, filter: Filter, callback: findCallbackById): PromiseLike<Object>;
+    findById(id: string, filter: Filter, callback: findCallbackById): PromiseLike<any>;
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-findone
      */
-    findOne(filter: Filter, callback: findCallbackById): PromiseLike<Object>;
+    findOne(filter: Filter, callback: findCallbackById): PromiseLike<any>;
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-findorcreate
      */
-    findOrCreate(filter: Filter, data: Object, callback: findCallbackById): PromiseLike<Object>;
+    findOrCreate(filter: Filter, data: any, callback: findCallbackById): PromiseLike<any>;
 
     /**
      * Override this to customize core find behavior
@@ -154,14 +154,14 @@ interface ModelConstructor {
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-getidname
      */
-    getIdName(): String;
+    getIdName(): string;
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-getsourceid
      */
-    getSourceId(callback: Function): String;
+    getSourceId(callback: () => void): string;
 
     /**
      * Override this to customize core find behavior
@@ -175,49 +175,49 @@ interface ModelConstructor {
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-rectifychange
      */
-    rectifyChange(id: string, callback: Function): void;
+    rectifyChange(id: string, callback: () => void): void;
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-replacebyid
      */
-    replaceById(id: string, data: Object, callback: findCallbackById): PromiseLike<Object>;
+    replaceById(id: string, data: any, callback: findCallbackById): PromiseLike<any>;
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-replaceorcreate
      */
-    replaceOrCreate(data: Object, options: Object, callback: findCallbackById): PromiseLike<Object>;
+    replaceOrCreate(data: any, options: any, callback: findCallbackById): PromiseLike<any>;
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-replicate
      */
-    replicate(since: Number, targetModel: ModelConstructor, options: Object, filter: Object, callback: Function): void;
+    replicate(since: number, targetModel: ModelConstructor, options: any, filter: any, callback: () => void): void;
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-updateall
      */
-    updateAll(where: Object, data: Object, callback: findCallback): void;
+    updateAll(where: any, data: any, callback: findCallback): void;
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-upsert
      */
-    upsert(data: Object, callback: findCallback): PromiseLike<Object>;
+    upsert(data: any, callback: findCallback): PromiseLike<any>;
 
     /**
      * Override this to customize core find behavior
      * 
      * @see https://apidocs.strongloop.com/loopback/#persistedmodel-upsertwithwhere
      */
-    upsertWithWhere(where: Object, data: Object, callback: findCallback): PromiseLike<Object>;
+    upsertWithWhere(where: any, data: any, callback: findCallback): PromiseLike<any>;
 
     //Remote method stuff//
 
@@ -231,10 +231,10 @@ interface ModelConstructor {
     /**
      * Check if the given access token can invoke the specified method.
      */
-    checkAccess(token: Object, modelId: string, sharedMethod: Object, ctx: Object, callback: (err: String|Error, allowed: boolean) => void ): void;
+    checkAccess(token: any, modelId: string, sharedMethod: any, ctx: any, callback: (err: string|Error, allowed: boolean) => void ): void;
 
     /**
-     * Get the `Application` object to which the Model is attached.
+     * Get the `Application` any to which the Model is attached.
      */
     getApp(callback: findCallback): void;
 
@@ -242,71 +242,71 @@ interface ModelConstructor {
      * Enable remote invocation for the specified method.
      * See [Remote methods](http://docs.strongloop.com/display/LB/Remote+methods) for more information.
      */
-    remoteMethod(name: String, options: RemoteMethodOptions): void;
+    remoteMethod(name: string, options: RemoteMethodOptions): void;
 
     /**
      * Disable remote invocation for the method with the given name.
      */
-    disableRemoteMethod(name: String, isStatic: Boolean): void;
+    disableRemoteMethod(name: string, isStatic: boolean): void;
 
     /**
      * Disable remote invocation for the method with the given name.
      */
-    disableRemoteMethodByName(name: String): void;
+    disableRemoteMethodByName(name: string): void;
 
     /**
     * Enabled deeply-nested queries of related models via REST API.
     */
-    nestRemoting(relationName: String, options: Object, filterCallback: findCallback): void;
+    nestRemoting(relationName: string, options: any, filterCallback: findCallback): void;
 
     //Validatable stuff//
     /**
      * Validate presence of one or more specified properties.
      * Requires a model to include a property to be considered valid; fails when validated field is blank.
      */
-    validatesPresenceOf(propertyName: String): void;
+    validatesPresenceOf(propertyName: string): void;
 
     /**
      * Validate absence of one or more specified properties.
      * A model should not include a property to be considered valid; fails when validated field not blank.
      */
-    validatesAbsenceOf(propertyName: String): void;
+    validatesAbsenceOf(propertyName: string): void;
 
     /**
      * Validate length. Require a property length to be within a specified range.
      * Three kinds of validations: min, max, is.
      */
-    validatesLengthOf(propertyName: String): void;
+    validatesLengthOf(propertyName: string): void;
 
     /**
      * Validate numericality.  Requires a value for property to be either an integer or number.
      */
-    validatesNumericalityOf(propertyName: String): void;
+    validatesNumericalityOf(propertyName: string): void;
 
     /**
      * Validate inclusion in set.  Require a value for property to be in the specified array.
      */
-    validatesInclusionOf(propertyName: String): void;
+    validatesInclusionOf(propertyName: string): void;
 
     /**
      * Validate exclusion.  Require a property value not be in the specified array
      */
-    validatesExclusionOf(propertyName: String): void;
+    validatesExclusionOf(propertyName: string): void;
 
     /**
      * Validate format. Require a model to include a property that matches the given format.
      */
-    validatesFormatOf(propertyName: String): void;
+    validatesFormatOf(propertyName: string): void;
 
     /**
-     * Validate using custom validation function.
+     * Validate using custom validation () => void.
      */
-    validate(propertyName: string, validatorFn: Function): void;
+    validate(propertyName: string, validatorFn: () => void): void;
 
     /**
-     * Validate using custom asynchronous validation function.
+     * Validate using custom asynchronous validation () => void.
      */
-    validateAsync(propertyName: String, validatorFn: Function): void;
+    validateAsync(propertyName: string, validatorFn: () => void): void;
 
     /**
      * Validate uniqueness. Ensure the value for property is unique in the collection of models.
@@ -315,48 +315,49 @@ interface ModelConstructor {
      *  - Oracle
      *  - MongoDB
     */
-    validatesUniquenessOf(propertyName: String): void;
+    validatesUniquenessOf(propertyName: string): void;
 }
 
 interface Filter {
-    fields?: string|Object|Array<string>;
-    include?: string|Object|Array<Object>;
-    limit?: Number;
-    order?: String;
-    skip?: Number;
-    where?: Object;
+    fields?: string|any|string[];
+    include?: string|any|any[];
+    limit?: number;
+    order?: string;
+    skip?: number;
+    where?: any;
 }
 
-interface Next { (err?: Error, result?: Object): void; }
+type Next = (err?: Error, result?: any) => void;
 
-interface findCallbackById { (error?: Error, result?: Object): void; }
+type findCallbackById = (error?: Error, result?: any) => void;
 
-interface findCallback { (error?: Error, result?: Array<Object>): void; }
-interface countCallback { (error?: Error, result?: Number): void; }
+type findCallback = (error?: Error, result?: any[]) => void;
+
+type countCallback = (error?: Error, result?: number) => void;
 
 
 interface RemoteMethodOptions {
-    accepts: Array<RemoteMethodArgument>;
-    description?: String|String[];
+    accepts: RemoteMethodArgument[];
+    description?: string|string[];
     http: {
-        path?: String;
+        path?: string;
         verb?: 'get' | 'post' | 'patch' | 'put' | 'del' | 'all';
-        status?: Number;
-        errorStatus?: Number;
+        status?: number;
+        errorStatus?: number;
     };
-    isStatic?:	Boolean;
-    notes?: String | String[];
+    isStatic?:	boolean;
+    notes?: string | string[];
     returns: RemoteMethodArgument;
 }
 
 interface RemoteMethodArgument {
-    arg: String;
-    description: String | String[];
-    http: Object;
-    required: Boolean;
-    root: Boolean;
-    type: 'any' | 'Array' | 'Boolean' | 'Buffer' | 'Date' | 'GeoPoint' | 'null' | 'Number' | 'Object' | 'String';
-    default: String;
+    arg: string;
+    description: string | string[];
+    http: any;
+    required: boolean;
+    root: boolean;
+    type: 'any' | 'Array' | 'boolean' | 'Buffer' | 'Date' | 'GeoPoint' | 'null' | 'number' | 'any' | 'string';
+    default: string;
 }
 
 declare var ModelConstructor: ModelConstructor;
