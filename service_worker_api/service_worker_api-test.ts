@@ -1,3 +1,5 @@
+/// <reference path="../whatwg-fetch/index.d.ts" />
+
 var OFFLINE_CACHE = "cache_test";
 var OFFLINE_URL = "localhost";
 
@@ -104,7 +106,7 @@ self.addEventListener('activate', function(event: ExtendableEvent) {
     );
 });
 
-function sendMessage(message: string) {
+function sendMessage(message: any) {
     return new Promise(function(resolve, reject) {
         var messageChannel = new MessageChannel();
         messageChannel.port1.onmessage = function(event) {
@@ -117,6 +119,14 @@ function sendMessage(message: string) {
         navigator.serviceWorker.controller.postMessage(message, [messageChannel.port2]);
     });
 }
+
+self.addEventListener('message', function(evt: ExtendableMessageEvent) {
+    evt.ports[0].postMessage(evt.source.id);
+});
+
+sendMessage('test').then(function(clientId: string) {
+    console.log(clientId);
+});
 
 self.clients.matchAll({type: "test"}).then(function(clients) {
     for(var i = 0 ; i < clients.length ; i++) {
