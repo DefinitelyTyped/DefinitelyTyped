@@ -218,6 +218,12 @@ interface ServiceWorkerClientsMatchOptions {
  */
 interface ServiceWorkerClients {
     /**
+     * Gets a service worker client matching a given id and returns it in a Promise.
+     * @param clientId
+     */
+    get(clientId: string): Promise<ServiceWorkerClient>;
+
+    /**
      * Gets a list of service worker clients and returns them in a Promise.
      * Include the options parameter to return all service worker clients whose
      * origin is the same as the associated service worker's origin. If options
@@ -226,7 +232,7 @@ interface ServiceWorkerClients {
      *
      * @param options
      */
-    matchAll(options: ServiceWorkerClientsMatchOptions): Promise<Array<ServiceWorkerClient>>;
+    matchAll(options?: ServiceWorkerClientsMatchOptions): Promise<Array<ServiceWorkerClient>>;
 
     /**
      * Opens a service worker Client in a new browser window.
@@ -292,11 +298,57 @@ interface FetchEvent extends Event {
     client: ServiceWorkerClient;
 
     /**
+     * Returns the id of the client that the current service worker is controlling.
+     * @readonly
+     */
+    clientId: string;
+
+    /**
      * Resolves by returning a Response or a network error to Fetch.
      *
      * @param all
      */
     respondWith(all: any): Response;
+}
+
+/**
+ * The ExtendableMessageEvent interface of the ServiceWorker API
+ * represents the event object of a message event fired on
+ * a service worker (when a channel message is received on
+ * the ServiceWorkerGlobalScope from another context)
+ * — extends the lifetime of such events.
+ */
+interface ExtendableMessageEvent extends ExtendableEvent {
+    /**
+     * Returns the event's data. It can be any data type.
+     * @readonly
+     */
+    data: any;
+
+    /**
+     * Returns the origin of the ServiceWorkerClient that sent the message
+     * @readonly
+     */
+    origin: string;
+
+    /**
+     * Represents, in server-sent events, the last event ID of the event source.
+     * @readonly
+     */
+    lastEventId: string;
+
+    /**
+     * Returns a reference to the service worker that sent the message.
+     * @readonly
+     */
+    source: ServiceWorkerClient;
+
+    /**
+     * Returns the array containing the MessagePort objects
+     * representing the ports of the associated message channel.
+     * @readonly
+     */
+    ports?: MessagePort[];
 }
 
 /**
@@ -355,7 +407,7 @@ interface PushSubscriptionOptions {
      * messages whose effect is made visible to the user.
      * @readonly
      */
-	userVisibleOnly: boolean;
+    userVisibleOnly: boolean;
 
     /**
      * A public key your push server will use to send messages to client apps via a push server.
@@ -363,7 +415,7 @@ interface PushSubscriptionOptions {
      * with elliptic curve digital signature (ECDSA) over the P-256 curve.
      * @readonly
      */
-	applicationServerKey?: Uint8Array;
+    applicationServerKey?: Uint8Array;
 }
 
 /**
@@ -466,7 +518,7 @@ interface ServiceWorkerRegisterOptions {
  * service workers, and access the state of service workers
  * and their registrations.
  */
-interface ServiceWorkerContainer {
+interface ServiceWorkerContainer extends EventTarget {
     /**
      * Returns a ServiceWorker object if its state is activated (the same object
      * returned by ServiceWorkerRegistration.active). This property returns null
@@ -556,7 +608,7 @@ interface InstallEvent extends ExtendableEvent {
     activeWorker: ServiceWorker;
 }
 
-interface ServiceWorkerGlobalScope {
+interface ServiceWorkerGlobalScope extends EventTarget {
     /**
      * Contains the Clients object associated with the service worker.
      * @readonly
@@ -625,7 +677,7 @@ interface ServiceWorkerGlobalScope {
      *
      * @param [messageevent]
      */
-    onmessage: (messageevent?: MessageEvent) => void;
+    onmessage: (messageevent?: ExtendableMessageEvent) => void;
 
     /**
      * An event handler fired whenever a notificationclick event occurs — when
