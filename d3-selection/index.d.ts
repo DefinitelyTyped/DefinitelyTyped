@@ -509,7 +509,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * (for example, svg implies svg:svg)
      * @param before A CSS selector string for the element before which the insertion should occur.
      */
-    insert<ChildElement extends BaseType>(type: string, before: string): Selection<ChildElement, Datum, PElement, PDatum>;
+    insert<ChildElement extends BaseType>(type: string, before?: string): Selection<ChildElement, Datum, PElement, PDatum>;
     /**
      * Inserts a new element of the type provided by the element creator function before the element matching the specified "before"
      * selector string for each selected element.
@@ -524,7 +524,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * an element to be inserted. (The function typically creates a new element, but it may instead return an existing element.)
      * @param before A CSS selector string for the element before which the insertion should occur.
      */
-    insert<ChildElement extends BaseType>(type: ValueFn<GElement, Datum, ChildElement>, before: string): Selection<ChildElement, Datum, PElement, PDatum>;
+    insert<ChildElement extends BaseType>(type: ValueFn<GElement, Datum, ChildElement>, before?: string): Selection<ChildElement, Datum, PElement, PDatum>;
     /**
      * Inserts a new element of the specified type (tag name) before the element returned by the "before" child selector function
      * for each selected element.

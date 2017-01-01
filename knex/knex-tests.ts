@@ -33,6 +33,19 @@ var knex = Knex({
   }
 });
 
+// Mysql configuration
+var knex = Knex({
+  debug: true,
+  client: 'mysql',
+  connection: {
+    host     : '127.0.0.1',
+    user     : 'your_database_user',
+    password : 'your_database_password',
+    db       : 'myapp_test',
+    trace: false
+  }
+});
+
 // Pooling
 var knex = Knex({
   client: 'mysql',
@@ -419,6 +432,7 @@ knex.schema.createTable('users', function (table) {
   table.enu('favorite_color', ['red', 'blue', 'green']);
   table.timestamps();
   table.timestamp('created_at').defaultTo(knex.fn.now());
+  table.timestamps(true, true);
 });
 
 knex.schema.renameTable('users', 'old_users');

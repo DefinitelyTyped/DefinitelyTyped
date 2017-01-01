@@ -1,4 +1,4 @@
-import codeFrame from "babel-code-frame";
+import codeFrame = require("babel-code-frame");
 
 const code = `
     const number = 1;

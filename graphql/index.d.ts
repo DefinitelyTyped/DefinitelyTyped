@@ -319,6 +319,7 @@ declare module "graphql/language/ast" {
         | FloatValueNode
         | StringValueNode
         | BooleanValueNode
+        | NullValueNode
         | EnumValueNode
         | ListValueNode
         | ObjectValueNode
@@ -450,6 +451,7 @@ declare module "graphql/language/ast" {
         | FloatValueNode
         | StringValueNode
         | BooleanValueNode
+        | NullValueNode
         | EnumValueNode
         | ListValueNode
         | ObjectValueNode
@@ -476,6 +478,11 @@ declare module "graphql/language/ast" {
         kind: 'BooleanValue';
         loc?: Location;
         value: boolean;
+    }
+
+    export type NullValueNode = {
+        kind: 'NullValue';
+        loc?: Location;
     }
 
     export type EnumValueNode = {
@@ -1185,9 +1192,9 @@ declare module "graphql/type/definition" {
     export interface GraphQLScalarTypeConfig<TInternal, TExternal> {
         name: string;
         description?: string;
-        serialize: (value: any) => TInternal;
-        parseValue?: (value: any) => TExternal;
-        parseLiteral?: (valueNode: ValueNode) => TInternal;
+        serialize: (value: any) => TExternal | null | undefined;
+        parseValue?: (value: any) => TInternal | null | undefined;
+        parseLiteral?: (valueNode: ValueNode) => TInternal | null | undefined;
     }
 
     /**

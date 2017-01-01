@@ -36,5 +36,5 @@ declare module "react-dropzone" {
     }
 
     let Dropzone: React.ClassicComponentClass<DropzoneProps>;
-    export default Dropzone;
+    export = Dropzone;
 }
