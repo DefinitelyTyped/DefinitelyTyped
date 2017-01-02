@@ -1,3 +1,5 @@
+import * as gaussian from ".";
+
 const d = gaussian(0, 1);
 const a = d.mean !== d.variance;
 const b = d.mean * d.standardDeviation;
