@@ -660,7 +660,11 @@ declare namespace angular {
     interface IFilterFilterComparatorFunc<T> {
         (actual: T, expected: T): boolean;
     }
-
+    
+    interface IFilterOrderByComparatorFunc<T> {
+        (left: T, right: T): boolean;
+    }
+    
     interface IFilterCurrency {
         /**
          * Formats a number as a currency (ie $1,234.56). When no currency symbol is provided, default symbol for current locale is used.
@@ -743,9 +747,10 @@ declare namespace angular {
          * @param array The array to sort.
          * @param expression A predicate to be used by the comparator to determine the order of elements.
          * @param reverse Reverse the order of the array.
+         * @param comparator Function used to determine the relative order of value pairs.
          * @return Reverse the order of the array.
          */
-        <T>(array: T[], expression: string|((value: T) => any)|(((value: T) => any)|string)[], reverse?: boolean): T[];
+        <T>(array: T[], expression: string|((value: T) => any)|(((value: T) => any)|string)[], reverse?: boolean, comparator?: IFilterOrderByComparatorFunc<T>): T[];
     }
 
     /**
