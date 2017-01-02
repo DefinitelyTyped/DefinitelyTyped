@@ -1,5 +1,4 @@
-﻿/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="devexpress-web.d.ts" />
+﻿/// <reference types="jquery" />
 
 declare var hiddenField: ASPxClientHiddenField;
 declare var mainCallbackPanel: ASPxClientCallbackPanel;

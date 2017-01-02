@@ -1,7 +1,5 @@
-///<reference path="redux-ui.d.ts" />
-/// <reference path="../react/react.d.ts"/>
-
 import * as React from 'react'
+import * as Redux from 'redux'
 import ui, { ReduxUIProps, reducer } from 'redux-ui'
 
 type UIShape = {

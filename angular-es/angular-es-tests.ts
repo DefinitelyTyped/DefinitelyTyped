@@ -1,5 +1,3 @@
-/// <reference path="./angular-es.d.ts" />
-
 //
 //  @Component
 //

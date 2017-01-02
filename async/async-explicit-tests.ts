@@ -1,4 +1,4 @@
-/// <reference path="async.d.ts" />
+
 
 interface StringCallback { (err: Error, result: string): void; }
 interface AsyncStringGetter { (callback: StringCallback): void; }

@@ -1,4 +1,4 @@
-/// <reference path="ckeditor.d.ts" />
+
 
 function test_CKEDITOR() {
     CKEDITOR.basePath = 'test';
@@ -335,4 +335,31 @@ function test_focusManager() {
     var focusManager = new CKEDITOR.focusManager(instance);
     var object: CKEDITOR.dom.domObject = focusManager.currentActive;
     var bool: boolean = focusManager.hasFocus;
+}
+
+function test_basicWriter() {
+    var writer = new CKEDITOR.htmlParser.basicWriter();
+    writer.openTag('p', {});
+    writer.attribute('class', 'MyClass');
+    writer.openTagClose('p', false);
+    writer.text('Hello');
+    writer.closeTag('p');
+    alert(writer.getHtml(true)); // '<p class="MyClass">Hello</p>'
+}
+
+function test_htmlWriter() {
+    var writer = new CKEDITOR.htmlWriter();
+    writer.openTag('p', {});
+    writer.attribute('class', 'MyClass');
+    writer.openTagClose('p', false);
+    writer.text('Hello');
+    writer.closeTag('p');
+    alert(writer.getHtml(true)); // '<p class="MyClass">Hello</p>'
+
+    writer.indentationChars = '\t';
+    writer.lineBreakChars = '\r\n';
+    writer.selfClosingEnd = '>';
+    writer.indentation();
+    writer.lineBreak();
+    writer.setRules('img', {breakBeforeOpen: true, breakAfterOpen: true});
 }

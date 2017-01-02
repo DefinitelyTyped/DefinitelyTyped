@@ -1,4 +1,4 @@
-/// <reference path="cachefactory.d.ts" />
+/// <reference types="cachefactory" />
 
 CacheFactory.get('test');
 

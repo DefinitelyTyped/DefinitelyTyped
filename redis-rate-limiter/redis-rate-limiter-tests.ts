@@ -1,7 +1,3 @@
-/// <reference path="../express/express.d.ts" />
-/// <reference path="../redis/redis.d.ts" />
-/// <reference path="redis-rate-limiter.d.ts" />
-
 import * as express from 'express';
 import * as redis from 'redis';
 import * as rateLimiter from 'redis-rate-limiter';

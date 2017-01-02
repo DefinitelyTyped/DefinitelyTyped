@@ -1,5 +1,3 @@
-/// <reference path="./dropzone.d.ts"/>
-
 const dropzoneFromString = new Dropzone(".test");
 const dropzoneFromElement = new Dropzone(document.getElementById("test"));
 const dropzoneRenameFunction = function (name:string):string {
@@ -149,6 +147,9 @@ dropzone.enable();
 dropzone.disable();
 
 dropzone.files.forEach(f => {
+	if (f.xhr) {
+		console.log(f.xhr.readyState)
+	}
 	if (f.accepted) {
 		f.previewElement.classList.add("accepted");
 		f.previewTemplate.classList.add("accepted");

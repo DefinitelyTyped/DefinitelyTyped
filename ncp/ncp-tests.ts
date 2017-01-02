@@ -1,5 +1,3 @@
-/// <reference path="ncp.d.ts" />
-
 import ncp = require('ncp');
 import stream = require('stream');
 

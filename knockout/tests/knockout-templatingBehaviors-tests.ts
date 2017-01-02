@@ -1,7 +1,5 @@
-/// <reference path="../../jasmine/jasmine.d.ts" />
-/// <reference path="jasmine.extensions.d.ts" />
-/// <reference path="../knockout.d.ts" />
-/// <reference path="../../knockout.mapping/knockout.mapping.d.ts" />
+/// <reference types="jasmine" />
+/// <reference types="knockout.mapping" />
 
 var dummyTemplateEngine = function (templates?) {
     var inMemoryTemplates = templates || {};
@@ -122,7 +120,7 @@ describe('Templating', function() {
     });
 
     it('Should be able to access newly rendered/inserted elements in \'afterRender\' callaback', function () {
-        var passedElement, passedDataItem;
+        var passedElement:any, passedDataItem;
         var myCallback = function(elementsArray, dataItem) {
             expect(elementsArray.length).toEqual(1);
             passedElement = elementsArray[0];
@@ -218,11 +216,15 @@ describe('Templating', function() {
         var myData = ko.observable({ childProp: 123 });
         ko.applyBindings({ someProp: myData }, testNode);
         expect(testNode.childNodes[0].innerHTML).toEqual("result = 123");
-
+        expect(myData).toBeDefined();
         // Now mutate and notify
-        myData().childProp = 456;
-        myData.valueHasMutated();
-        expect(testNode.childNodes[0].innerHTML).toEqual("result = 456");
+        if (myData) {
+            myData().childProp = 456;
+            if (myData.valueHasMutated) {
+                myData.valueHasMutated();
+            }
+            expect(testNode.childNodes[0].innerHTML).toEqual("result = 456");
+        }
     });
 
     it('Should stop tracking inner observables immediately when the container node is removed from the document', function() {
@@ -302,7 +304,11 @@ describe('Templating', function() {
         ko.applyBindings({ someProp: { childProp: innerObservable} }, testNode);
 
         expect(innerObservable.getSubscriptionsCount()).toEqual(1);
-        ko.removeNode(document.getElementById('innerTemplateOutput'));
+        let innerTemplateOutputEl = document.getElementById('innerTemplateOutput');
+        expect(innerTemplateOutputEl).not.toBeNull();
+        if (innerTemplateOutputEl) {
+            ko.removeNode(innerTemplateOutputEl);
+        }
         expect(innerObservable.getSubscriptionsCount()).toEqual(0);
     });
 

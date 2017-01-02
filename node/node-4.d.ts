@@ -52,7 +52,7 @@ interface NodeRequire extends NodeRequireFunction {
     resolve(id:string): string;
     cache: any;
     extensions: any;
-    main: any;
+    main: NodeModule | undefined;
 }
 
 declare var require: NodeRequire;
@@ -63,8 +63,8 @@ interface NodeModule {
     id: string;
     filename: string;
     loaded: boolean;
-    parent: any;
-    children: any[];
+    parent: NodeModule | null;
+    children: NodeModule[];
 }
 
 declare var module: NodeModule;
@@ -232,6 +232,7 @@ declare namespace NodeJS {
 
     export interface ReadableStream extends EventEmitter {
         readable: boolean;
+        isTTY?: boolean;
         read(size?: number): string|Buffer;
         setEncoding(encoding: string): void;
         pause(): void;
@@ -245,6 +246,7 @@ declare namespace NodeJS {
 
     export interface WritableStream extends EventEmitter {
         writable: boolean;
+        isTTY?: boolean;
         write(buffer: Buffer|string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
         end(): void;
@@ -339,6 +341,7 @@ declare namespace NodeJS {
         title: string;
         arch: string;
         platform: string;
+        mainModule?: NodeModule;
         memoryUsage(): MemoryUsage;
         nextTick(callback: Function): void;
         umask(mask?: number): number;
@@ -548,7 +551,7 @@ declare module "http" {
         agent?: Agent|boolean;
     }
 
-    export interface Server extends events.EventEmitter, net.Server {
+    export interface Server extends net.Server {
         setTimeout(msecs: number, callback: Function): void;
         maxHeadersCount: number;
         timeout: number;
@@ -970,10 +973,7 @@ declare module "readline" {
         (line: string, callback: (err: any, result: CompleterResult) => void): any;
     }
 
-    export interface CompleterResult {
-        completions: string[];
-        line: string;
-    }
+    export type CompleterResult = [string[], string];
 
     export interface ReadLineOptions {
         input: NodeJS.ReadableStream;
@@ -1236,6 +1236,7 @@ declare module "dns" {
 
 declare module "net" {
     import * as stream from "stream";
+    import * as events from "events";
 
     export interface Socket extends stream.Duplex {
         // Extended base methods
@@ -1288,7 +1289,7 @@ declare module "net" {
         exclusive?: boolean;
     }
 
-    export interface Server extends Socket {
+    export interface Server extends events.EventEmitter {
         listen(port: number, hostname?: string, backlog?: number, listeningListener?: Function): Server;
         listen(port: number, hostname?: string, listeningListener?: Function): Server;
         listen(port: number, backlog?: number, listeningListener?: Function): Server;
@@ -1305,6 +1306,49 @@ declare module "net" {
         unref(): Server;
         maxConnections: number;
         connections: number;
+
+        /**
+         * events.EventEmitter
+         *   1. close
+         *   2. connection
+         *   3. error
+         *   4. listening
+         */
+        addListener(event: string, listener: Function): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "connection", listener: (socket: Socket) => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "listening", listener: () => void): this;
+
+        emit(event: string, ...args: any[]): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "connection", socket: Socket): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "listening"): boolean;
+
+        on(event: string, listener: Function): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "connection", listener: (socket: Socket) => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "listening", listener: () => void): this;
+
+        once(event: string, listener: Function): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "connection", listener: (socket: Socket) => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "listening", listener: () => void): this;
+
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "connection", listener: (socket: Socket) => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "listening", listener: () => void): this;
+
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "connection", listener: (socket: Socket) => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "listening", listener: () => void): this;
     }
     export function createServer(connectionListener?: (socket: Socket) =>void ): Server;
     export function createServer(options?: { allowHalfOpen?: boolean; }, connectionListener?: (socket: Socket) =>void ): Server;
@@ -2008,7 +2052,7 @@ declare module "stream" {
     export class Readable extends events.EventEmitter implements NodeJS.ReadableStream {
         readable: boolean;
         constructor(opts?: ReadableOptions);
-        _read(size: number): void;
+        protected _read(size: number): void;
         read(size?: number): any;
         setEncoding(encoding: string): void;
         pause(): void;
@@ -2029,7 +2073,7 @@ declare module "stream" {
     export class Writable extends events.EventEmitter implements NodeJS.WritableStream {
         writable: boolean;
         constructor(opts?: WritableOptions);
-        _write(chunk: any, encoding: string, callback: Function): void;
+        protected _write(chunk: any, encoding: string, callback: Function): void;
         write(chunk: any, cb?: Function): boolean;
         write(chunk: any, encoding?: string, cb?: Function): boolean;
         end(): void;
@@ -2045,7 +2089,7 @@ declare module "stream" {
     export class Duplex extends Readable implements NodeJS.ReadWriteStream {
         writable: boolean;
         constructor(opts?: DuplexOptions);
-        _write(chunk: any, encoding: string, callback: Function): void;
+        protected _write(chunk: any, encoding: string, callback: Function): void;
         write(chunk: any, cb?: Function): boolean;
         write(chunk: any, encoding?: string, cb?: Function): boolean;
         end(): void;
@@ -2060,8 +2104,8 @@ declare module "stream" {
         readable: boolean;
         writable: boolean;
         constructor(opts?: TransformOptions);
-        _transform(chunk: any, encoding: string, callback: Function): void;
-        _flush(callback: Function): void;
+        protected _transform(chunk: any, encoding: string, callback: Function): void;
+        protected _flush(callback: Function): void;
         read(size?: number): any;
         setEncoding(encoding: string): void;
         pause(): void;

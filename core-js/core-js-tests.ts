@@ -1,4 +1,4 @@
-﻿/// <reference path="core-js.d.ts" />
+﻿
 
 interface Point { x: number; y: number; }
 interface Point3D extends Point { z: number; }
@@ -334,15 +334,15 @@ b = Reflect.setPrototypeOf(a, a);
 
 // #############################################################################################
 // ECMAScript 7
-// Modules: es7.array.includes, es7.string.at, es7.string.lpad, es7.string.rpad, 
+// Modules: es7.array.includes, es7.string.at, ees7.string.pad-start, es7.string.pad-end,
 //          es7.object.to-array, es7.object.get-own-property-descriptors, es7.regexp.escape,
 //          es7.map.to-json, and es7.set.to-json
 // #############################################################################################
 
 b = arrayOfPoint.includes(point, i);
 s = s.at(i);
-s = s.lpad(i, s);
-s = s.rpad(i, s);
+s = s.padStart(i, s);
+s = s.padEnd(i, s);
 arrayOfAny = Object.values(a);
 arrayOfStringAny = Object.entries(a);
 pdm = Object.getOwnPropertyDescriptors(a);

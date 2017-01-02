@@ -1,4 +1,4 @@
-/// <reference path="./stream-meter.d.ts" />
+
 import * as meter from 'stream-meter';
 
 var m:meter.StreamMeter = meter();

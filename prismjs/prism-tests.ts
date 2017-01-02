@@ -1,4 +1,4 @@
-/// <reference path="./prism.d.ts" />
+
 
 var element = document.createElement("code");
 var callback = (element: Element) => console.log(element);

@@ -1,5 +1,4 @@
-﻿/// <reference path="bootstrap-datepicker.d.ts"/>
-
+﻿/// <reference path="index.d.ts"/>
 function tests_simple() {
     $('#datepicker').datepicker();
     $('#datepicker').datepicker({
@@ -10,8 +9,7 @@ function tests_simple() {
     $('#datepicker').datepicker('setEndDate', '2012-12-31');
     $('#date-end')
         .datepicker()
-		.on('changeDate', function (ev) { ev; });
-
+        .on('changeDate', function (ev) { ev; });
     var startDate = new Date(2012, 1, 20);
     var endDate = new Date(2012, 1, 25);
     $('#date-start')

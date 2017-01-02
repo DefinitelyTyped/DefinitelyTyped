@@ -1,4 +1,4 @@
-///<reference path="victor.d.ts"/>
+import Victor = require('victor');
 
 var vector1 = new Victor(10,10)
 var vector2 = new Victor(20,20)
@@ -42,11 +42,3 @@ vector1.angle()
 vector1.angleDeg()
 vector1.verticalAngle()
 vector1.verticalAngleDeg()
-
-
-
-
-
-
-
-

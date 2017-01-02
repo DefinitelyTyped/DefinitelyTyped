@@ -1,6 +1,6 @@
-/// <reference path="chai-string.d.ts" />
-/// <reference path="../mocha/mocha.d.ts" />
-/// <reference path="../node/node.d.ts" />
+
+/// <reference types="mocha" />
+/// <reference types="node" />
 
 var should = chai.should();
 var assert = chai.assert;
@@ -53,46 +53,48 @@ describe('chai-string', function() {
   });
 
   describe('tdd alias', function() {
+    let str: string;
+    let str2: string;
 
     beforeEach(function() {
-      this.str = 'abcdef';
-      this.str2 = 'a\nb\tc\r d  ef';
+      str = 'abcdef';
+      str2 = 'a\nb\tc\r d  ef';
     });
 
     it('.startsWith', function() {
-      assert.startsWith(this.str, 'abc');
+      assert.startsWith(str, 'abc');
     });
 
     it('.notStartsWith', function() {
-      assert.notStartsWith(this.str, 'cba');
+      assert.notStartsWith(str, 'cba');
     });
 
     it('.endsWith', function() {
-      assert.endsWith(this.str, 'def');
+      assert.endsWith(str, 'def');
     });
 
     it('.notEndsWith', function() {
-      assert.notEndsWith(this.str, 'fed');
+      assert.notEndsWith(str, 'fed');
     });
 
     it('.equalIgnoreCase', function() {
-      assert.equalIgnoreCase(this.str, 'AbCdEf');
+      assert.equalIgnoreCase(str, 'AbCdEf');
     });
 
     it('.notEqualIgnoreCase', function() {
-      assert.notEqualIgnoreCase(this.str, 'abDDD');
+      assert.notEqualIgnoreCase(str, 'abDDD');
     });
 
     it('.equalIgnoreSpaces', function() {
-      assert.equalIgnoreSpaces(this.str, this.str2);
+      assert.equalIgnoreSpaces(str, str2);
     });
 
     it('.notEqualIgnoreSpaces', function() {
-      assert.notEqualIgnoreSpaces(this.str, this.str2 + 'g');
+      assert.notEqualIgnoreSpaces(str, str2 + 'g');
     });
 
     it('.singleLine', function() {
-      assert.singleLine(this.str);
+      assert.singleLine(str);
     });
 
     it('.notSingleLine', function() {
@@ -100,11 +102,11 @@ describe('chai-string', function() {
     });
 
     it('.reverseOf', function() {
-      assert.reverseOf(this.str, 'fedcba');
+      assert.reverseOf(str, 'fedcba');
     });
 
     it('.notReverseOf', function() {
-      assert.notReverseOf(this.str, 'aaaaa');
+      assert.notReverseOf(str, 'aaaaa');
     });
 
     it('.palindrome', function() {
@@ -114,7 +116,7 @@ describe('chai-string', function() {
     });
 
     it('.notPalindrome', function() {
-      assert.notPalindrome(this.str);
+      assert.notPalindrome(str);
     });
 
     it('.entriesCount', function() {

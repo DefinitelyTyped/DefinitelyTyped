@@ -1,4 +1,3 @@
-/// <reference path="ngmap.d.ts" />
 class NgMapTestController {
     constructor(public $scope: ng.IScope, public $window: ng.IWindowService, public NgMap: angular.map.INgMap) {
         this.showMap();
@@ -17,9 +16,9 @@ app.config(function(NgMapProvider: angular.map.INgMapProvider) {
    NgMapProvider.setDefaultOptions({
      	marker: {
        		optimized: false
-    	} 
+    	}
    	});
  });
 
-app.controller('testCtrl', ['$scope', '$window', 'ngMap',  
+app.controller('testCtrl', ['$scope', '$window', 'ngMap',
 	($scope: ng.IScope, $window: ng.IWindowService, NgMap: angular.map.INgMap) => new NgMapTestController($scope, $window, NgMap)]);

@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "rx-tests.ts",
+        "rx-lite.d.ts",
+        "rx.aggregates.d.ts",
+        "rx.all.d.ts",
+        "rx.async-lite.d.ts",
+        "rx.async-tests.ts",
+        "rx.async.d.ts",
+        "rx.backpressure-lite.d.ts",
+        "rx.backpressure-tests.ts",
+        "rx.backpressure.d.ts",
+        "rx.binding-lite.d.ts",
+        "rx.binding.d.ts",
+        "rx.coincidence-lite.d.ts",
+        "rx.coincidence.d.ts",
+        "rx.experimental.d.ts",
+        "rx.joinpatterns.d.ts",
+        "rx.lite.d.ts",
+        "rx.testing.d.ts",
+        "rx.time-lite.d.ts",
+        "rx.time.d.ts",
+        "rx.virtualtime.d.ts"
+    ]
+}

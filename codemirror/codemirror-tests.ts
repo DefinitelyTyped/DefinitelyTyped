@@ -1,4 +1,4 @@
-/// <reference path="codemirror.d.ts" />
+import CodeMirror = require('codemirror');
 
 var myCodeMirror: CodeMirror.Editor = CodeMirror(document.body);
 
@@ -48,5 +48,9 @@ myCodeMirror.getValue();
 myCodeMirror.getValue("foo")
 myCodeMirror.setValue("bar");
 
-CodeMirror.registerHelper("lint", "javascript", {});
+myCodeMirror.on(
+  "renderLine",
+  (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => { }
+);
 
+CodeMirror.registerHelper("lint", "javascript", {});

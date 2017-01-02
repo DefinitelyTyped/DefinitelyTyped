@@ -1,9 +1,7 @@
-/// <reference path="chalk.d.ts" />
-
 import chalk = require('chalk');
 
-var str: string;
-var bool: boolean;
+var str = '';
+var bool = false;
 var chain: chalk.ChalkChain;
 
 chalk.enabled = bool;
@@ -35,3 +33,10 @@ chain = chain.underline;
 str = chain('someString');
 
 chalk.enabled = chalk.supportsColor = bool;
+
+var chalkObj = new chalk.constructor({enabled: false});
+
+chain = chalkObj.green;
+chain = chalkObj.underline;
+chalkObj.enabled = true;
+str = chain('foo');

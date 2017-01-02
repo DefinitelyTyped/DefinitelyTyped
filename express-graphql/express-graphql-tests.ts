@@ -1,8 +1,5 @@
-/// <reference path="./express-graphql.d.ts" />
-/// <reference path="../express/express.d.ts" />
-/// <reference path="../express-session/express-session.d.ts" />
-
 import * as express from "express";
+import 'express-session';
 import * as graphqlHTTP from "express-graphql";
 
 const app = express();

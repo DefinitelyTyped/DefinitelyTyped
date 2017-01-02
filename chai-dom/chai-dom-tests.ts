@@ -1,5 +1,3 @@
-/// <reference path="chai-dom.d.ts" />
-
 import * as chai from 'chai';
 import * as chaiDom from 'chai-dom';
 

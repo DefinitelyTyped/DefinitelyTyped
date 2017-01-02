@@ -1,4 +1,4 @@
-/// <reference path="chai.d.ts" />
+
 import chai = require('chai');
 
 // ReSharper disable WrongExpressionStatement
