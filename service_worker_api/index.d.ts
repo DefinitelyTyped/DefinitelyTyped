@@ -4,8 +4,8 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // TypeScript Version: 2.1
 
+/// <reference types="whatwg-fetch" />
 // <reference path="../es6-promise/es6-promise.d.ts" /> // REMOVED third "/" so this doesn't fire. Problem with duplicate Promises
-// <reference path="../whatwg-fetch/index.d.ts" />
 // between es6 and typescript - https://github.com/DefinitelyTyped/DefinitelyTyped/issues/5015
 
 /**
