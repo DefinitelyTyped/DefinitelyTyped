@@ -191,28 +191,28 @@ mapPixelBounds = map.getPixelWorldBounds(12);
 
 let tileLayerOptions: L.TileLayerOptions = {};
 tileLayerOptions = {
-    minZoom: 0,
-    maxZoom: 18,
-    maxNativeZoom: 2,
-    errorTileUrl: '',
-    zoomOffset: 0,
-    tms: true,
-    zoomReverse: true,
-    detectRetina: true,
-    crossOrigin: false,
-    opacity: 1,
-    updateWhenIdle: true,
-    updateWhenZooming: true,
-    updateInterval: 500,
-    attribution: '',
-    zIndex: 1,
-    noWrap: true,
-    pane: '',
-    className: '',
-    keepBuffer: 1,
-    foo: 'bar',
-    bar: () => 'foo',
-    abc: (data: any) => 'foobar'
+	minZoom: 0,
+	maxZoom: 18,
+	maxNativeZoom: 2,
+	errorTileUrl: '',
+	zoomOffset: 0,
+	tms: true,
+	zoomReverse: true,
+	detectRetina: true,
+	crossOrigin: false,
+	opacity: 1,
+	updateWhenIdle: true,
+	updateWhenZooming: true,
+	updateInterval: 500,
+	attribution: '',
+	zIndex: 1,
+	noWrap: true,
+	pane: '',
+	className: '',
+	keepBuffer: 1,
+	foo: 'bar',
+	bar: () => 'foo',
+	abc: (data: any) => 'foobar'
 };
 
 tileLayerOptions.subdomains = 'a';
@@ -251,8 +251,8 @@ point = L.DomEvent.getMousePosition(domEvent, htmlElement);
 const wheelDelta: number = L.DomEvent.getWheelDelta(domEvent);
 
 map = map
-	// addControl
-	// removeControl
+// addControl
+// removeControl
 	.addLayer(tileLayer)
 	.removeLayer(tileLayer) // use a different type of layer
 	.eachLayer((currentLayer) => {
@@ -355,3 +355,15 @@ let draggable = new L.Draggable(elementToDrag);
 draggable.enable();
 draggable.disable();
 draggable.on('drag', () => {});
+
+let twoCoords: [number, number] = [1, 2];
+latLng = L.GeoJSON.coordsToLatLng(twoCoords);
+let coords: number[] = L.GeoJSON.latLngToCoords(latLng);
+
+let threeCoords: [number, number, number] = [1, 2, 3];
+latLng = L.GeoJSON.coordsToLatLng(threeCoords);
+coords = L.GeoJSON.latLngToCoords(latLng);
+
+let nestedTwoCoords = [ [12, 13], [13, 14], [14, 15] ];
+let nestedLatLngs: L.LatLng[] = L.GeoJSON.coordsToLatLngs(nestedTwoCoords, 1);
+nestedTwoCoords = L.GeoJSON.latLngsToCoords(nestedLatLngs, 1);
