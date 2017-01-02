@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
+        "codemirror-matchbrackets.d.ts",
         "codemirror-tests.ts"
     ]
 }
