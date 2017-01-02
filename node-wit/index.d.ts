@@ -12,10 +12,10 @@ export namespace log {
         constructor(lvl: string);
     }
 
-    const DEBUG;
-    const INFO;
-    const WARN;
-    const ERROR;
+    const DEBUG: string;
+    const INFO: string;
+    const WARN: string;
+    const ERROR: string;
 }
 
 export interface WitEntityValue {
