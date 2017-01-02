@@ -1,4 +1,4 @@
-/// <reference path="../whatwg-fetch/index.d.ts" />
+/// <reference types="whatwg-fetch" />
 
 var OFFLINE_CACHE = "cache_test";
 var OFFLINE_URL = "localhost";
