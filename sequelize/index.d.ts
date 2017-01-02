@@ -1,14 +1,12 @@
 // Type definitions for Sequelize 4.0.0
-// TypeScript Version: 2.1
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
-
 /// <reference types="lodash" />
 /// <reference types="bluebird" />
 /// <reference types="validator" />
+// TypeScript Version: 2.1
 
 
 import * as _ from "lodash";
