@@ -1,6 +1,6 @@
 const d = gaussian(0, 1);
-const _ = d.mean !== d.variance;
-const __ = d.mean * d.standardDeviation;
+const a = d.mean !== d.variance;
+const b = d.mean * d.standardDeviation;
 d.pdf(-2);
 d.cdf(-1.28155);
 d.ppf(0.1);
