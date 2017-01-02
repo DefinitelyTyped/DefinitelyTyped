@@ -1,6 +1,6 @@
 // Type definitions for Reveal 3.3.0
 // Project: https://github.com/hakimel/reveal.js/
-// Definitions by: robertop87 <https://github.com/robertop87/>
+// Definitions by: robertop87 <https://github.com/robertop87/>, Nava2 <https://github.com/Nava2/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Reveal:RevealStatic;
@@ -70,8 +70,12 @@ interface RevealOptions {
     // Configuration
     controls?:boolean;
     progress?:boolean;
-    slideNumber?:boolean;
+    // https://github.com/hakimel/reveal.js/#slide-number
+    slideNumber?:boolean|string;
+   
     history?:boolean;
+
+    // https://github.com/hakimel/reveal.js/#keyboard-bindings
     keyboard?:any;
     overview?:boolean;
     center?:boolean;
@@ -102,18 +106,56 @@ interface RevealOptions {
     theme?:string;
 
     // Presentation Size
-    width?:number;
-    height?:number;
-    margin?:number;
-    minScale?:number;
-    maxScale?:number;
+    // https://github.com/hakimel/reveal.js/#presentation-size
+    width?:number|string;
+    height?:number|string;
+    margin?:number|string;
+    minScale?:number|string;
+    maxScale?:number|string;
 
     // Dependencies
-    dependencies?:RevealDependency[];
+    // https://github.com/hakimel/reveal.js/#dependencies
+    dependencies?: RevealDependency[];
+
+    // Exposes the reveal.js API through window.postMessage
+    postMessage?: boolean;
+
+    // Dispatches all reveal.js events to the parent window through postMessage
+    postMessageEvents?: boolean;
+
+    // https://github.com/hakimel/reveal.js/#multiplexing
+    multiplex?: MultiplexConfig;
+
+    // https://github.com/hakimel/reveal.js/#mathjax
+    math?: MathConfig;
 }
 
+// https://github.com/hakimel/reveal.js/#multiplexing
+interface MultiplexConfig {
+    // Obtained from the socket.io server. Gives this (the master) control of the presentation
+    secret?: string;
+    // Obtained from the socket.io server
+    id: string;
+
+    // Location of socket.io server
+    url: string;
+}
+
+// https://github.com/hakimel/reveal.js/#mathjax
+interface MathConfig {
+    // Obtained from the socket.io server. Gives this (the master) control of the presentation
+    mathjax: string;
+    // Obtained from the socket.io server
+    config: string;
+
+    // Location of socket.io server
+    url: string;
+}
+
+// https://github.com/hakimel/reveal.js/#dependencies
 interface RevealDependency {
     src:string;
-    condition:()=>boolean;
+    condition?: ()=>boolean;
     async?:boolean;
+    callback?: ()=>void;
 }
