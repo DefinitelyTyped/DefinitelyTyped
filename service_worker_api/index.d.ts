@@ -57,7 +57,7 @@ interface Cache {
      * @param request The Request you are attempting to find in the Cache.
      * @param {CacheOptions} options
      */
-    matchAll(request: Request | string, options?: CacheOptions): Promise<Array<Response>>;
+    matchAll(request: Request | string, options?: CacheOptions): Promise<Response[]>;
 
     /**
      * Returns a Promise that resolves to a new Cache entry whose key
@@ -99,7 +99,7 @@ interface Cache {
      * @param request The Request want to return, if a specific key is desired.
      * @param {CacheOptions} options
      */
-    keys(request?: Request, options?: CacheOptions): Promise<Array<Request>>;
+    keys(request?: Request, options?: CacheOptions): Promise<Request[]>;
 }
 
 /**
@@ -150,7 +150,7 @@ interface CacheStorage {
      * CacheStorage. Use this method to iterate over a list of all the
      * Cache objects.
      */
-    keys(): Promise<Array<string>>;
+    keys(): Promise<string[]>;
 }
 
 /**
@@ -228,7 +228,7 @@ interface ServiceWorkerClients {
      *
      * @param options
      */
-    matchAll(options?: ServiceWorkerClientsMatchOptions): Promise<Array<ServiceWorkerClient>>;
+    matchAll(options?: ServiceWorkerClientsMatchOptions): Promise<ServiceWorkerClient[]>;
 
     /**
      * Opens a service worker Client in a new browser window.
@@ -660,7 +660,7 @@ interface ServiceWorkerContainer extends EventTarget {
      * ServiceWorkerContainer in an array.  If the method can't return
      * ServiceWorkerRegistrations, it returns a Promise.
      */
-    getRegistrations(): Promise<Array<ServiceWorkerRegistration>>;
+    getRegistrations(): Promise<ServiceWorkerRegistration[]>;
 
     addEventListener<K extends keyof ServiceWorkerContainerEventMap>(
         type: K,
@@ -758,12 +758,6 @@ interface ServiceWorkerGlobalScope extends EventTarget {
      */
     skipWaiting(): Promise<void>;
 
-    /**
-     * @param url
-     * @param init
-     */
-    fetch(url: string | Request, init?: Object): Promise<Response>;
-
     addEventListener<K extends keyof ServiceWorkerEventMap>(
         type: K,
         listener: (event: ServiceWorkerEventMap[K]) => any,
@@ -780,4 +774,5 @@ interface Navigator {
     serviceWorker: ServiceWorkerContainer;
 }
 
+// tslint:disable-next-line no-empty-interface
 interface Window extends ServiceWorkerGlobalScope {}
