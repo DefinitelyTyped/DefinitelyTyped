@@ -23,5 +23,8 @@
   },
   "devDependencies": {
     "types-publisher": "Microsoft/types-publisher#production"
+  },
+  "dependencies": {
+    "tslint": "^4.2.0"
   }
 }
