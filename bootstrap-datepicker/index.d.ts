@@ -42,6 +42,7 @@ interface DatepickerOptions {
     showOnFocus?: boolean;
     immediateUpdates?: boolean;
     title?: string;
+    contains?: string;
 }
 
 interface DatepickerCustomFormatOptions {
