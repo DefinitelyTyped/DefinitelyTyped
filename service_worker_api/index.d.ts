@@ -46,7 +46,7 @@ interface Cache {
      * matching request in the Cache object.
      *
      * @param request The Request you are attempting to find in the Cache.
-     * @param {CacheOptions} options
+     * @param [options] An object that sets options for the match operation.
      */
     match(request: Request | string, options?: CacheOptions): Promise<Response>;
 
@@ -55,7 +55,7 @@ interface Cache {
      * the Cache object.
      *
      * @param request The Request you are attempting to find in the Cache.
-     * @param {CacheOptions} options
+     * @param [options] An object that sets options for the match operation.
      */
     matchAll(request: Request | string, options?: CacheOptions): Promise<Response[]>;
 
@@ -89,7 +89,7 @@ interface Cache {
      * entry is found, it returns false.
      *
      * @param request The Request you are looking to delete.
-     * @param {CacheOptions} options
+     * @param [options] An object that sets options for the match operation.
      */
     delete(request: Request | string, options?: CacheOptions): Promise<boolean>;
 
@@ -97,7 +97,7 @@ interface Cache {
      * Returns a Promise that resolves to an array of Cache keys.
      *
      * @param request The Request want to return, if a specific key is desired.
-     * @param {CacheOptions} options
+     * @param [options] An object that sets options for the match operation.
      */
     keys(request?: Request, options?: CacheOptions): Promise<Request[]>;
 }
@@ -114,7 +114,7 @@ interface CacheStorage {
      * to that match.
      *
      * @param request The Request you are looking for a match for in the CacheStorage.
-     * @param {CacheOptions} options
+     * @param [options] An object that sets options for the match operation.
      */
     match(request: Request | string, options?: CacheOptions): Promise<Response>;
 
@@ -215,7 +215,7 @@ interface ServiceWorkerClientsMatchOptions {
 interface ServiceWorkerClients {
     /**
      * Gets a service worker client matching a given id and returns it in a Promise.
-     * @param clientId
+     * @param clientId The ID of the client you want to get.
      */
     get(clientId: string): Promise<ServiceWorkerClient>;
 
@@ -226,7 +226,7 @@ interface ServiceWorkerClients {
      * are not included, the method returns only the service worker clients
      * controlled by the service worker.
      *
-     * @param options
+     * @param [options] An options object allowing you to set options for the matching operation.
      */
     matchAll(options?: ServiceWorkerClientsMatchOptions): Promise<ServiceWorkerClient[]>;
 
@@ -266,8 +266,6 @@ interface ServiceWorker extends Worker {
     /**
      * An EventListener property called whenever an event of type statechange
      * is fired; it is basically fired anytime the ServiceWorker.state changes.
-     *
-     * @param [statechangeevent]
      */
     onstatechange: (statechangeevent: Event) => void;
 }
@@ -343,6 +341,8 @@ interface PushManager {
     /**
      * Returns a promise that resolves to a PushSubscription with details of a
      * new push subscription.
+     *
+     * @param [options] An object containing optional configuration parameters.
      */
     subscribe(options?: PushSubscriptionOptions): Promise<PushSubscription>;
 
@@ -374,7 +374,7 @@ interface ExtendableEvent extends Event {
      * It is intended to be called in the install EventHandler for the
      * installing worker and on the active EventHandler for the active worker.
      *
-     * @param all
+     * @param promise
      */
     waitUntil(promise: Promise<any>): void;
 }
@@ -414,7 +414,7 @@ interface FetchEvent extends Event {
     /**
      * Resolves by returning a Response or a network error to Fetch.
      *
-     * @param all
+     * @param all Any custom response-generating code.
      */
     respondWith(all: any): Response;
 }
@@ -610,16 +610,12 @@ interface ServiceWorkerContainer extends EventTarget {
      * An event handler fired whenever a controllerchange event occurs — when
      * the document's associated ServiceWorkerRegistration acquires a new
      * ServiceWorkerRegistration.active worker.
-     *
-     * @param [controllerchangeevent]
      */
     oncontrollerchange: (controllerchangeevent: Event) => void;
 
     /**
      * An event handler fired whenever an error event occurs in the associated
      * service workers.
-     *
-     * @param [errorevent]
      */
     onerror: (errorevent: ErrorEvent) => void;
 
@@ -627,8 +623,6 @@ interface ServiceWorkerContainer extends EventTarget {
      * An event handler fired whenever a message event occurs — when incoming
      * messages are received to the ServiceWorkerContainer object (e.g. via a
      * MessagePort.postMessage() call.)
-     *
-     * @param [messageevent]
      */
     onmessage: (messageevent: MessageEvent) => void;
 
@@ -689,16 +683,12 @@ interface ServiceWorkerGlobalScope extends EventTarget {
      * An event handler fired whenever an activate event occurs — when a
      * ServiceWorkerRegistration acquires a new ServiceWorkerRegistration.active
      * worker.
-     *
-     * @param [activateevent]
      */
     onactivate: (activateevent: ExtendableEvent) => void;
 
     /**
      * An event handler fired whenever a fetch event occurs — when a fetch()
      * is called.
-     *
-     * @param [fetchevent]
      */
     onfetch: (fetchevent: FetchEvent) => void;
 
@@ -706,8 +696,6 @@ interface ServiceWorkerGlobalScope extends EventTarget {
      * An event handler fired whenever an install event occurs — when a
      * ServiceWorkerRegistration acquires a new
      * ServiceWorkerRegistration.installing worker.
-     *
-     * @param [installevent]
      */
     oninstall: (installevent: InstallEvent) => void;
 
@@ -719,27 +707,22 @@ interface ServiceWorkerGlobalScope extends EventTarget {
      * MessagePort exposed in event.data.port, corresponding to the controlled
      * page.
      *
-     * @param [messageevent]
+     * `onmessage` is actually fired with `ExtendableMessageEvent`, but
+     * since we are merging the interface into `Window`, we should
+     * make sure it's compatible with `window.onmessage`
      */
-    // `onmessage` is actually fired with `ExtendableMessageEvent`, but
-    // since we are merging the interface into `Window`, we should
-    // make sure it's compatible with `window.onmessage`
     // onmessage: (messageevent: ExtendableMessageEvent) => void;
     onmessage: (messageevent: MessageEvent) => void;
 
     /**
      * An event handler fired whenever a notificationclick event occurs — when
      * a user clicks on a displayed notification.
-     *
-     * @param [notificationclickevent]
      */
     onnotificationclick: (notificationclickevent: NotificationEvent) => void;
 
     /**
      * An event handler fired whenever a push event occurs — when a server
      * push notification is received.
-     *
-     * @param [onpushevent]
      */
     onpush: (onpushevent: PushEvent) => void;
 
@@ -747,8 +730,6 @@ interface ServiceWorkerGlobalScope extends EventTarget {
      * An event handler fired whenever a pushsubscriptionchange event occurs —
      * when a push subscription has been invalidated, or is about to be
      * invalidated (e.g. when a push service sets an expiration time).
-     *
-     * @param [pushsubscriptionchangeevent]
      */
     onpushsubscriptionchange: (pushsubscriptionchangeevent: PushEvent) => void;
 
