@@ -50,7 +50,6 @@ SwaggerNodeRunner.create(config, function(err, runner) {
 
 let app = restify.createServer();
 SwaggerNodeRunner.create(config, function(err, runner) {
-// SwaggerRestify.create(config, function(err, swaggerRestify) {
   if (err) { throw err; }
 
   let restifyMiddelware = runner.restifyMiddleware()
