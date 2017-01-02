@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers v3.18.2
+// Type definitions for OpenLayers v3.20.0
 // Project: http://openlayers.org/
 // Definitions by: Olivier Sechet <https://github.com/osechet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -827,7 +827,7 @@ declare module ol {
             * `'nautical'`, `'metric'`, `'us'`.
             * @enum {string}
             */
-            type Units = string;
+            type Units = "degrees" | "imperial" | "nautical" | "metric" | "us";
         }
 
         /**
@@ -2535,7 +2535,7 @@ declare module ol {
          * IGC altitude/z. One of 'barometric', 'gps', 'none'.
          * @enum {string}
          */
-        type IGCZ = string;
+        type IGCZ = "barometric" | "gps" | "none";
 
         /**
          * @classdesc
@@ -3608,7 +3608,7 @@ declare module ol {
          * `'GeometryCollection'`, `'Circle'`.
          * @enum {string}
          */
-        type GeometryType = string;
+        type GeometryType = "Point" | "LineString" | "LinearRing" | "Polygon" | "MultiPoint" | "MultiLineString" | "MultiPolygon" | "GeometryCollection" | "Circle";
 
         /**
          * The coordinate layout for geometries, indicating whether a 3rd or 4th z ('Z')
@@ -3616,7 +3616,7 @@ declare module ol {
          * `'XYZ'`, `'XYM'`, `'XYZM'`.
          * @enum {string}
          */
-        type GeometryLayout = string;
+        type GeometryLayout = "XY" | "XYZ" | "XYM" | "XYZM";
 
         /**
          * @classdesc
@@ -6417,7 +6417,7 @@ declare module ol {
          *    even during animations, but slower performance than the other options.
          * @api
          */
-        type VectorTileRenderType = string;
+        type VectorTileRenderType = "image" | "hybrid" | "vector";
 
         /**
          * @classdesc
@@ -6669,20 +6669,13 @@ declare module ol {
          *     the {@link ol.layer.Layer layer} of the feature and will be null for
          *     unmanaged layers. To stop detection, callback functions can return a
          *     truthy value.
-         * @param {S=} opt_this Value to use as `this` when executing `callback`.
-         * @param {(function(this: U, ol.layer.Layer): boolean)=} opt_layerFilter Layer
-         *     filter function. The filter function will receive one argument, the
-         *     {@link ol.layer.Layer layer-candidate} and it should return a boolean
-         *     value. Only layers which are visible and for which this function returns
-         *     `true` will be tested for features. By default, all visible layers will
-         *     be tested.
-         * @param {U=} opt_this2 Value to use as `this` when executing `layerFilter`.
+         * @param {olx.AtPixelOptions=} opt_options Optional options.
          * @return {T|undefined} Callback result, i.e. the return value of last
          * callback execution, or the first truthy callback return value.
-         * @template S,T,U
+         * @template S,T
          * @api stable
          */
-        forEachFeatureAtPixel<S, T, U>(pixel: ol.Pixel, callback: ((feature: (ol.Feature | ol.render.Feature), layer: ol.layer.Layer) => T), opt_this?: S, opt_layerFilter?: ((layer: ol.layer.Layer) => boolean), opt_this2?: U): (T);
+        forEachFeatureAtPixel<S, T>(pixel: ol.Pixel, callback: ((feature: (ol.Feature | ol.render.Feature), layer: ol.layer.Layer) => T), opt_options?: olx.AtPixelOptions): (T);
 
         /**
          * Detect layers that have a color value at a pixel on the viewport, and
@@ -7386,7 +7379,7 @@ declare module ol {
      * `'top-center'`, `'top-right'`
      * @enum {string}
      */
-    type OverlayPositioning = string;
+    type OverlayPositioning = "bottom-left" | "bottom-center" | "bottom-right" | "center-left" | "center-center" | "center-right" | "top-left" | "top-center" | "top-right"; 
 
     /**
      * @classdesc
@@ -7608,7 +7601,7 @@ declare module ol {
          * `'us-ft'`.
          * @enum {string}
          */
-        type Units = string;
+        type Units = "degress" | "ft" | "m" | "pixels" | "tile-pixels" | "us-ft";
 
         /**
          * Meters per unit lookup table.
@@ -8170,13 +8163,13 @@ declare module ol {
      * Available renderers: `'canvas'`, `'dom'` or `'webgl'`.
      * @enum {string}
      */
-    type RendererType = string;
+    type RendererType = "canvas" | "dom" | "webgl";
 
     /**
      * Raster operation type. Supported values are `'pixel'` and `'image'`.
      * @enum {string}
      */
-    type RasterOperationType = string;
+    type RasterOperationType = "pixel" | "image";
 
     /**
      * @namespace ol.source
@@ -8825,7 +8818,7 @@ declare module ol {
          * State of the source, one of 'undefined', 'loading', 'ready' or 'error'.
          * @enum {string}
          */
-        type State = string;
+        type State = "undefined" | "loading" | "ready" | "error";
 
         /**
          * @classdesc
@@ -9606,7 +9599,7 @@ declare module ol {
              *     specification that OpenLayers can make use of.
              * @enum {string}
              */
-            type ServerType = string;
+            type ServerType = "carmentaserver" | "geoserver" | "mapserver" | "qgis";
 
         }
 
@@ -9614,7 +9607,7 @@ declare module ol {
          * Request encoding. One of 'KVP', 'REST'.
          * @enum {string}
          */
-        type WMTSRequestEncoding = string;
+        type WMTSRequestEncoding = "KVP" | "REST";
 
         /**
          * @classdesc
@@ -10029,6 +10022,14 @@ declare module ol {
              */
             getStroke(): ol.style.Stroke;
 
+            /**
+             * Set the circle radius.
+             *
+             * @param {number} radius Circle radius.
+             * @api
+             */
+            setRadius(radius: number): void;
+
         }
 
         /**
@@ -10071,13 +10072,13 @@ declare module ol {
          * Icon anchor units. One of 'fraction', 'pixels'.
          * @enum {string}
          */
-        type IconAnchorUnits = string;
+        type IconAnchorUnits = "fraction" | "pixels";
 
         /**
          * Icon origin. One of 'bottom-left', 'bottom-right', 'top-left', 'top-right'.
          * @enum {string}
          */
-        type IconOrigin = string;
+        type IconOrigin = "bottom-left" | "bottom-right" | "top-left" | "top-right";
 
         /**
          * @classdesc
@@ -10522,6 +10523,13 @@ declare module ol {
             getZIndex(): (number);
 
             /**
+             * Set the fill style.
+             * @param {ol.style.Fill} fill Fill style.
+             * @api
+             */
+            setFill(fill: ol.style.Fill):void;
+
+            /**
              * Set a geometry that is rendered instead of the feature's geometry.
              *
              * @param {string|ol.geom.Geometry|ol.StyleGeometryFunction} geometry
@@ -10530,6 +10538,27 @@ declare module ol {
              * @api
              */
             setGeometry(geometry: (string | ol.geom.Geometry | ol.StyleGeometryFunction)): void;
+            
+            /**
+             * Set the image style.
+             * @param {ol.style.Image} image Image style.
+             * @api
+             */
+            setImage(image: ol.style.Image): void;
+
+            /**
+             * Set the stroke style.
+             * @param {ol.style.Stroke} stroke Stroke style.
+             * @api
+             */
+            setStroke(stroke: ol.style.Stroke): void;
+            
+            /**
+             * Set the text style.
+             * @param {ol.style.Text} text Text style.
+             * @api
+             */
+            setText(text: ol.style.Text): void;
 
             /**
              * Set the z-index.
@@ -11130,7 +11159,7 @@ declare module ol {
      * undefined.
      * @typedef {ol.proj.Projection|string|undefined} ol.ProjectionLike
      */
-    type ProjectionLike = (ol.proj.Projection | string);
+    type ProjectionLike = (ol.proj.Projection | string | undefined);
 
     /**
      * A function that takes an array of input data, performs some operation, and
@@ -11695,7 +11724,7 @@ declare module olx {
             resolution: number;
             start?: number;
             duration?: number;
-            easing: ((t: number) => number);
+            easing?: ((t: number) => number);
         }
 
 
@@ -11709,7 +11738,7 @@ declare module olx {
             source: ol.Coordinate;
             start?: number;
             duration?: number;
-            easing: ((t: number) => number);
+            easing?: ((t: number) => number);
         }
 
 
@@ -11725,7 +11754,7 @@ declare module olx {
             anchor?: ol.Coordinate;
             start?: number;
             duration?: number;
-            easing: ((t: number) => number);
+            easing?: ((t: number) => number);
         }
 
 
@@ -11739,9 +11768,8 @@ declare module olx {
             resolution: number;
             start?: number;
             duration?: number;
-            easing: ((t: number) => number);
+            easing?: ((t: number) => number);
         }
-
 
     }
 
@@ -11980,7 +12008,7 @@ declare module olx {
          */
         interface WriteOptions {
             dataProjection: ol.ProjectionLike;
-            featureProjection: ol.ProjectionLike;
+            featureProjection?: ol.ProjectionLike;
             rightHanded?: boolean;
             decimals?: number;
         }
@@ -11992,6 +12020,7 @@ declare module olx {
          */
         interface GeoJSONOptions {
             defaultDataProjection: ol.ProjectionLike;
+            featureProjection: ol.ProjectionLike;
             geometryName?: string;
         }
 
@@ -13742,7 +13771,17 @@ declare module olx {
         zoom?: number;
         zoomFactor?: number;
     }
-
+		
+    /**
+    * Object literal with options for the {@link ol.Map#forEachFeatureAtPixel} and
+    * {@link ol.Map#hasFeatureAtPixel} methods.
+    * @typedef {{layerFilter: ((function(ol.layer.Layer): boolean)|undefined),
+    *     hitTolerance: (number|undefined)}}
+    */
+    interface AtPixelOptions {
+        layerFilter?: ((layer: ol.layer.Layer) => boolean)
+        hitTolerance?: number
+    }
 
     /**
      * @typedef {{animate: boolean,

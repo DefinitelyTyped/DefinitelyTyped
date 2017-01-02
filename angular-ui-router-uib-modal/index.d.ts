@@ -1,4 +1,4 @@
-// Type definitions for angular-ui-uib-modal 0.11+ (ui.router module)
+// Type definitions for angular-ui-uib-modal (ui.router module) 0.11
 // Project: https://github.com/nonplus/angular-ui-router-uib-modal
 // Definitions by: Stepan Riha <https://github.com/nonplus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

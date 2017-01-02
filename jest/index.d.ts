@@ -134,7 +134,9 @@ declare namespace jest {
         toHaveBeenCalled(): boolean;
         toHaveBeenCalledTimes(expected: number): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;
+        toHaveBeenLastCalledWith(...params: any[]): boolean;
         toMatch(expected: string | RegExp): void;
+        toMatchObject(expected: {}): void;
         toMatchSnapshot(): void;
         toThrow(): void;
         toThrowError(error?: string | Constructable | RegExp): void;

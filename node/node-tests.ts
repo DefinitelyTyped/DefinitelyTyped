@@ -1,7 +1,7 @@
-/// <reference path="index.d.ts" />
 import * as assert from "assert";
 import * as fs from "fs";
 import * as events from "events";
+import events2 = require("events");
 import * as zlib from "zlib";
 import * as url from "url";
 import * as util from "util";
@@ -142,6 +142,10 @@ namespace events_tests {
                 this.emit("mingling");
             }
         }
+    }
+
+    {
+        new events2();
     }
 }
 
@@ -923,7 +927,7 @@ namespace dgram_tests {
         })
         _socket = _socket.addListener("listening", () => {});
         _socket = _socket.addListener("message", (msg, rinfo) => {
-            let _msg: string = msg;
+            let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
         })
 
@@ -938,7 +942,7 @@ namespace dgram_tests {
         })
         _socket = _socket.on("listening", () => {});
         _socket = _socket.on("message", (msg, rinfo) => {
-            let _msg: string = msg;
+            let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
         })
 
@@ -948,7 +952,7 @@ namespace dgram_tests {
         })
         _socket = _socket.once("listening", () => {});
         _socket = _socket.once("message", (msg, rinfo) => {
-            let _msg: string = msg;
+            let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
         })
 
@@ -958,7 +962,7 @@ namespace dgram_tests {
         })
         _socket = _socket.prependListener("listening", () => {});
         _socket = _socket.prependListener("message", (msg, rinfo) => {
-            let _msg: string = msg;
+            let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
         })
 
@@ -968,7 +972,7 @@ namespace dgram_tests {
         })
         _socket = _socket.prependOnceListener("listening", () => {});
         _socket = _socket.prependOnceListener("message", (msg, rinfo) => {
-            let _msg: string = msg;
+            let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
         })
     }
@@ -2063,3 +2067,16 @@ namespace constants_tests {
     str = constants.defaultCoreCipherList
     str = constants.defaultCipherList
 }
+
+///////////////////////////////////////////////////////////
+/// Debugger Tests                                      ///
+///////////////////////////////////////////////////////////
+
+import { Client } from  "_debugger";
+
+var client = new Client();
+
+client.connect(8888, 'localhost');
+client.listbreakpoints((err, body, packet) => {
+
+});

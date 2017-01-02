@@ -76,7 +76,7 @@ declare namespace Sinon {
         alwaysThrew(): boolean;
         alwaysThrew(type: string): boolean;
         alwaysThrew(obj: any): boolean;
-        alwaysReturned(): boolean;
+        alwaysReturned(obj: any): boolean;
         invokeCallback(...args: any[]): void;
         getCall(n: number): SinonSpyCall;
         reset(): void;
@@ -427,7 +427,7 @@ declare namespace Sinon {
 
     // Utility overridables
     interface SinonStatic {
-        createStubInstance(constructor: any): SinonStub;
+        createStubInstance(constructor: any): any;
         format(obj: any): string;
         log(message: string): void;
         restore(object: any): void;

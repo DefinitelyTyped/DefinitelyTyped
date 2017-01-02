@@ -1,7 +1,7 @@
-// Type definitions for math3.d.ts
+// Type definitions for math3d 0.2
 // Project: https://github.com/adragonite/math3d
 // Definitions by: Laszlo Jakab <https://github.com/laszlojakab>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped 
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export class Vector3 {
     constructor(x?: number, y?: number, z?: number);

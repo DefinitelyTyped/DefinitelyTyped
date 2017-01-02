@@ -6,15 +6,13 @@
 
 import * as Koa from "koa";
 
-interface Function { (ctx: Koa.Context, next?: () => any): any }
+declare function mount(app: Koa.Middleware): Koa.Middleware;
 
-declare function mount(app: Function): Function;
+declare function mount(app: Koa): Koa.Middleware;
 
-declare function mount(app: Koa): Function;
+declare function mount(prefix: string, app: Koa.Middleware): Koa.Middleware;
 
-declare function mount(prefix: string, app: Function): Function;
-
-declare function mount(prefix: string, app: Koa): Function;
+declare function mount(prefix: string, app: Koa): Koa.Middleware;
 
 declare namespace mount { }
 

@@ -1,11 +1,34 @@
 // Type definitions for Angular UI Bootstrap 0.13.3
 // Project: https://github.com/angular-ui/bootstrap
-// Definitions by: Brian Surowiec <https://github.com/xt0rted>
+// Definitions by: Brian Surowiec <https://github.com/xt0rted>, Ryan Southgate <https://github.com/ry8806>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="angular" />
 
 import * as angular from 'angular';
+
+export type IAccordionConfig = angular.ui.bootstrap.IAccordionConfig;
+export type IButtonConfig = angular.ui.bootstrap.IButtonConfig;
+export type IDatepickerConfig = angular.ui.bootstrap.IDatepickerConfig;
+export type IDatepickerPopupConfig = angular.ui.bootstrap.IDatepickerPopupConfig;
+export type IModalProvider = angular.ui.bootstrap.IModalProvider;
+export type IModalService = angular.ui.bootstrap.IModalService;
+export type IModalServiceInstance = angular.ui.bootstrap.IModalServiceInstance;
+export type IModalScope = angular.ui.bootstrap.IModalScope;
+export type IModalSettings = angular.ui.bootstrap.IModalSettings;
+export type IModalStackService = angular.ui.bootstrap.IModalStackService;
+export type IModalStackedMapKeyValuePair = angular.ui.bootstrap.IModalStackedMapKeyValuePair;
+export type IPaginationConfig = angular.ui.bootstrap.IPaginationConfig;
+export type IPagerConfig = angular.ui.bootstrap.IPagerConfig;
+export type IPositionCoordinates = angular.ui.bootstrap.IPositionCoordinates;
+export type IPositionService = angular.ui.bootstrap.IPositionService;
+export type IProgressConfig = angular.ui.bootstrap.IProgressConfig;
+export type IRatingConfig = angular.ui.bootstrap.IRatingConfig;
+export type ITimepickerConfig = angular.ui.bootstrap.ITimepickerConfig;
+export type ITooltipOptions = angular.ui.bootstrap.ITooltipOptions;
+export type ITooltipProvider = angular.ui.bootstrap.ITooltipProvider;
+export type ITransitionService = angular.ui.bootstrap.ITransitionService;
+export type ITransitionServiceOptions = angular.ui.bootstrap.ITransitionServiceOptions;
 
 declare module 'angular' {
     export namespace ui.bootstrap {
@@ -19,7 +42,6 @@ declare module 'angular' {
             closeOthers?: boolean;
         }
 
-
         interface IButtonConfig {
             /**
              * @default: 'active'
@@ -31,7 +53,6 @@ declare module 'angular' {
              */
             toggleEvent?: string;
         }
-
 
         interface IDatepickerConfig {
             /**
@@ -131,6 +152,13 @@ declare module 'angular' {
              * @default null
              */
             maxDate?: any;
+
+            /**
+             * Defines the initial date, when no model value is specified.
+             * 
+             * @default null
+             */
+            initDate?: any;
 
             /**
              * An option to disable or enable shortcut's event propagation
@@ -402,6 +430,22 @@ declare module 'angular' {
              *   - `resolve` - An object of the modal resolve values. See [UI Router resolves] for details.
              */
             component?: string;
+
+            /**
+             * Sets the `aria-describedby` property on the modal.
+             * The string should be an id (without the leading '#') pointing to the element that describes your modal.
+             * @type {string}
+             * @memberOf IModalSettings
+             */
+            ariaDescribedBy?: string;
+
+            /**
+             * Sets the `aria-labelledby` property on the modal.
+             * The string should be an id (without the leading '#') pointing to the element that labels your modal.
+             * @type {string}
+             * @memberOf IModalSettings
+             */
+            ariaLabelledBy?: string;
         }
 
         interface IModalStackService {

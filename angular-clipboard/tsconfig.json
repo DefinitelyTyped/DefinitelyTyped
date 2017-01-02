@@ -1,19 +1,20 @@
 {
-  "files": [
-    "index.d.ts",
-    "angular-clipboard-tests.ts"
-  ],
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "es6",
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "baseUrl": "../",
-    "typeRoots": [
-      "../"
+    "files": [
+        "index.d.ts",
+        "angular-clipboard-tests.ts"
     ],
-    "types": [],
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true
-  }
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
 }

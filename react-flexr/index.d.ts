@@ -3,7 +3,7 @@
 // Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// <reference types="react" />
+/// <reference types="react" />
 
 declare namespace __ReactFlexr {
     interface GridProps extends React.Props<Grid> {

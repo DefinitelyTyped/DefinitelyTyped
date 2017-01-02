@@ -55,15 +55,15 @@ async function getIndex() {
     let version = "x.x"
     let project = "https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)"
     try {
-        const reg: Registry = await loadString(`http://registry.npmjs.org/${newPackageName}`).then(JSON.parse)
+        const reg: Registry = JSON.parse(await loadString(`http://registry.npmjs.org/${newPackageName}`))
 
         const { latest } = reg["dist-tags"]
         const { homepage } = reg.versions[latest]
-        
+
         version = latest.split(".").slice(0, 2).join(".")
         if (homepage !== undefined) project = homepage
     } catch (e) {
-        console.warn(`Could not retrieve version/homepage information: ${e.stack}`)
+        console.warn(`Warning: could not retrieve version/homepage information: ${e.message}`)
     }
 
     return `// Type definitions for ${newPackageName} ${version}
@@ -81,6 +81,7 @@ function getTSConfig() {
             "module": "commonjs",
             "target": "es6",
             "noImplicitAny": true,
+            "noImplicitThis": true,
             "strictNullChecks": true,
             "baseUrl": "../",
             "typeRoots": [

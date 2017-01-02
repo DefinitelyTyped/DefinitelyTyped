@@ -330,6 +330,11 @@ declare namespace NodeJS {
         heapUsed: number;
     }
 
+    export interface CpuUsage {
+        user: number;
+        system: number;
+    }
+
     export interface ProcessVersions {
         http_parser: string;
         node: string;
@@ -396,6 +401,7 @@ declare namespace NodeJS {
         platform: string;
         mainModule?: NodeModule;
         memoryUsage(): MemoryUsage;
+        cpuUsage(previousValue?: CpuUsage): CpuUsage;
         nextTick(callback: Function, ...args: any[]): void;
         umask(mask?: number): number;
         uptime(): number;
@@ -571,25 +577,30 @@ declare module "querystring" {
 }
 
 declare module "events" {
-    export class EventEmitter extends NodeJS.EventEmitter {
-        static EventEmitter: EventEmitter;
-        static listenerCount(emitter: EventEmitter, event: string | symbol): number; // deprecated
-        static defaultMaxListeners: number;
+    class internal extends NodeJS.EventEmitter { }
 
-        addListener(event: string | symbol, listener: Function): this;
-        on(event: string | symbol, listener: Function): this;
-        once(event: string | symbol, listener: Function): this;
-        prependListener(event: string | symbol, listener: Function): this;
-        prependOnceListener(event: string | symbol, listener: Function): this;
-        removeListener(event: string | symbol, listener: Function): this;
-        removeAllListeners(event?: string | symbol): this;
-        setMaxListeners(n: number): this;
-        getMaxListeners(): number;
-        listeners(event: string | symbol): Function[];
-        emit(event: string | symbol, ...args: any[]): boolean;
-        eventNames(): (string | symbol)[];
-        listenerCount(type: string | symbol): number;
+    namespace internal {
+        export class EventEmitter extends internal {
+            static listenerCount(emitter: EventEmitter, event: string | symbol): number; // deprecated
+            static defaultMaxListeners: number;
+
+            addListener(event: string | symbol, listener: Function): this;
+            on(event: string | symbol, listener: Function): this;
+            once(event: string | symbol, listener: Function): this;
+            prependListener(event: string | symbol, listener: Function): this;
+            prependOnceListener(event: string | symbol, listener: Function): this;
+            removeListener(event: string | symbol, listener: Function): this;
+            removeAllListeners(event?: string | symbol): this;
+            setMaxListeners(n: number): this;
+            getMaxListeners(): number;
+            listeners(event: string | symbol): Function[];
+            emit(event: string | symbol, ...args: any[]): boolean;
+            eventNames(): (string | symbol)[];
+            listenerCount(type: string | symbol): number;
+        }
     }
+
+    export = internal;
 }
 
 declare module "http" {
@@ -2062,8 +2073,8 @@ declare module "dgram" {
         setMulticastLoopback(flag: boolean): void;
         addMembership(multicastAddress: string, multicastInterface?: string): void;
         dropMembership(multicastAddress: string, multicastInterface?: string): void;
-        ref(): void;
-        unref(): void;
+        ref(): this;
+        unref(): this;
 
         /**
          * events.EventEmitter
@@ -2076,37 +2087,37 @@ declare module "dgram" {
         addListener(event: "close", listener: () => void): this;
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "listening", listener: () => void): this;
-        addListener(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
+        addListener(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
 
         emit(event: string, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: "listening"): boolean;
-        emit(event: "message", msg: string, rinfo: AddressInfo): boolean;
+        emit(event: "message", msg: Buffer, rinfo: AddressInfo): boolean;
 
         on(event: string, listener: Function): this;
         on(event: "close", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
         on(event: "listening", listener: () => void): this;
-        on(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
+        on(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
 
         once(event: string, listener: Function): this;
         once(event: "close", listener: () => void): this;
         once(event: "error", listener: (err: Error) => void): this;
         once(event: "listening", listener: () => void): this;
-        once(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
+        once(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
 
         prependListener(event: string, listener: Function): this;
         prependListener(event: "close", listener: () => void): this;
         prependListener(event: "error", listener: (err: Error) => void): this;
         prependListener(event: "listening", listener: () => void): this;
-        prependListener(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
+        prependListener(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
 
         prependOnceListener(event: string, listener: Function): this;
         prependOnceListener(event: "close", listener: () => void): this;
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
         prependOnceListener(event: "listening", listener: () => void): this;
-        prependOnceListener(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
+        prependOnceListener(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
     }
 }
 
@@ -3966,4 +3977,131 @@ declare module "timers" {
 
 declare module "console" {
     export = console;
+}
+
+/**
+ * _debugger module is not documented.
+ * Source code is at https://github.com/nodejs/node/blob/master/lib/_debugger.js
+ */
+declare module "_debugger" {
+    export interface Packet {
+        raw: string;
+        headers: string[];
+        body: Message;
+    }
+
+    export interface Message {
+        seq: number;
+        type: string;
+    }
+
+    export interface RequestInfo {
+        command: string;
+        arguments: any;
+    }
+
+    export interface Request extends Message, RequestInfo {
+    }
+
+    export interface Event extends Message {
+        event: string;
+        body?: any;
+    }
+
+    export interface Response extends Message {
+        request_seq: number;
+        success: boolean;
+        /** Contains error message if success === false. */
+        message?: string;
+        /** Contains message body if success === true. */
+        body?: any;
+    }
+
+    export interface BreakpointMessageBody {
+        type: string;
+        target: number;
+        line: number;
+    }
+
+    export class Protocol {
+        res: Packet;
+        state: string;
+        execute(data: string): void;
+        serialize(rq: Request): string;
+        onResponse: (pkt: Packet) => void;
+    }
+
+    export var NO_FRAME: number;
+    export var port: number;
+
+    export interface ScriptDesc {
+        name: string;
+        id: number;
+        isNative?: boolean;
+        handle?: number;
+        type: string;
+        lineOffset?: number;
+        columnOffset?: number;
+        lineCount?: number;
+    }
+
+    export interface Breakpoint {
+        id: number;
+        scriptId: number;
+        script: ScriptDesc;
+        line: number;
+        condition?: string;
+        scriptReq?: string;
+    }
+
+    export interface RequestHandler {
+        (err: boolean, body: Message, res: Packet): void;
+        request_seq?: number;
+    }
+
+    export interface ResponseBodyHandler {
+        (err: boolean, body?: any): void;
+        request_seq?: number;
+    }
+
+    export interface ExceptionInfo {
+        text: string;
+    }
+
+    export interface BreakResponse {
+        script?: ScriptDesc;
+        exception?: ExceptionInfo;
+        sourceLine: number;
+        sourceLineText: string;
+        sourceColumn: number;
+    }
+
+    export function SourceInfo(body: BreakResponse): string;
+
+    export interface ClientInstance extends NodeJS.EventEmitter {
+        protocol: Protocol;
+        scripts: ScriptDesc[];
+        handles: ScriptDesc[];
+        breakpoints: Breakpoint[];
+        currentSourceLine: number;
+        currentSourceColumn: number;
+        currentSourceLineText: string;
+        currentFrame: number;
+        currentScript: string;
+
+        connect(port: number, host: string): void;
+        req(req: any, cb: RequestHandler): void;
+        reqFrameEval(code: string, frame: number, cb: RequestHandler): void;
+        mirrorObject(obj: any, depth: number, cb: ResponseBodyHandler): void;
+        setBreakpoint(rq: BreakpointMessageBody, cb: RequestHandler): void;
+        clearBreakpoint(rq: Request, cb: RequestHandler): void;
+        listbreakpoints(cb: RequestHandler): void;
+        reqSource(from: number, to: number, cb: RequestHandler): void;
+        reqScripts(cb: any): void;
+        reqContinue(cb: RequestHandler): void;
+    }
+
+    export var Client : {
+        new (): ClientInstance
+    }
 }

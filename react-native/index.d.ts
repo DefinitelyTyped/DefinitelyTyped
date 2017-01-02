@@ -1,6 +1,6 @@
 // Type definitions for react-native 0.37
 // Project: https://github.com/facebook/react-native
-// Definitions by: Bruno Grieder <https://github.com/bgrieder>
+// Definitions by: Needs A Maintainer <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -741,10 +741,57 @@ declare module "react" {
         timestamp: number
     }
 
+    interface PerpectiveTransform {
+        perspective: number;
+    }
+
+    interface RotateTransform {
+        rotate: string;
+    }
+
+    interface RotateXTransform {
+        rotateX: string;
+    }
+
+    interface RotateYTransform {
+        rotateY: string;
+    }
+
+    interface RotateZTransform {
+        rotateZ: string;
+    }
+
+    interface ScaleTransform {
+        scale: number;
+    }
+
+    interface ScaleXTransform {
+        scaleX: number;
+    }
+
+    interface ScaleYTransform {
+        scaleY: number;
+    }
+
+    interface TranslateXTransform {
+        translateX: number;
+    }
+
+    interface TranslateYTransform {
+        translateY: number;
+    }
+
+    interface SkewXTransform {
+        skewX: string;
+    }
+
+    interface SkewYTransform {
+        skewY: string;
+    }
 
     export interface TransformsStyle {
 
-        transform?: [{ perspective: number }, { rotate: string }, { rotateX: string }, { rotateY: string }, { rotateZ: string }, { scale: number }, { scaleX: number }, { scaleY: number }, { translateX: number }, { translateY: number }, { skewX: string }, { skewY: string }]
+        transform?: (PerpectiveTransform|RotateTransform|RotateXTransform|RotateYTransform|RotateZTransform|ScaleTransform|ScaleXTransform|ScaleYTransform|TranslateXTransform|TranslateYTransform|SkewXTransform|SkewYTransform)[]
         transformMatrix?: Array<number>
         rotation?: number
         scaleX?: number
@@ -1931,7 +1978,7 @@ declare module "react" {
 	 */
 	data: string
     }
-    
+
     export interface WebViewPropertiesAndroid {
 
         /**
@@ -2094,7 +2141,7 @@ declare module "react" {
          * Invoked when window.postMessage is called from WebView.
          */
 	onMessage?: ( event: NativeSyntheticEvent<WebViewMessageEventData> ) => void
-	
+
         /**
          * Function that is invoked when the `WebView` loading starts or ends.
          */
@@ -2133,7 +2180,7 @@ declare module "react" {
          * sets whether the webpage scales to fit the view and the user can change the scale
          */
         scalesPageToFit?: boolean
-        
+
         ref?: Ref<WebViewStatic & ViewStatic>
     }
 
@@ -2902,7 +2949,7 @@ declare module "react" {
          * Whether the view should be indicating an active refresh.
          */
         refreshing: boolean
-        
+
         ref?: Ref<RefreshControlStatic>
     }
 
@@ -3772,13 +3819,13 @@ declare module "react" {
          * On iOS, the modal is still restricted by what's specified in your app's Info.plist's UISupportedInterfaceOrientations field.
          * @platform ios
          */
-        supportedOrientations: ('portrait' | 'portrait-upside-down' | 'landscape' | 'landscape-left' | 'landscape-right')[]
+        supportedOrientations?: ('portrait' | 'portrait-upside-down' | 'landscape' | 'landscape-left' | 'landscape-right')[]
         /**
          * The `onOrientationChange` callback is called when the orientation changes while the modal is being displayed.
          * The orientation provided is only 'portrait' or 'landscape'. This callback is also called on initial render, regardless of the current orientation.
          * @platform ios
          */
-        onOrientationChange: () => void,
+        onOrientationChange?: () => void
     }
 
     export interface ModalStatic extends React.ComponentClass<ModalProperties> {
@@ -4882,7 +4929,7 @@ declare module "react" {
          * Color of text on unselected tabs
          */
         unselectedTintColor?: string
-        
+
         ref?: Ref<TabBarIOSStatic & ViewStatic>
     }
 
@@ -5576,7 +5623,17 @@ declare module "react" {
          * Fires at most once per frame during scrolling.
          * The frequency of the events can be contolled using the scrollEventThrottle prop.
          */
-        onScroll?: (event?: { nativeEvent: NativeScrollEvent }) => void
+        onScroll?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
+
+        /**
+         * Fires if a user initiates a scroll gesture.
+         */
+        onScrollBeginDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
+
+	/**
+         * Fires when a user has finished scrolling.
+         */
+        onScrollEndDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
 
         /**
          * When true the scroll view stops on multiples of the scroll view's size
@@ -6775,7 +6832,7 @@ declare module "react" {
          * dialog box.
          */
         requestPermissions( permissions?: PushNotificationPermissions ): Promise<PushNotificationPermissions>
-        
+
         /**
          * Unregister for all remote notifications received via Apple Push
          * Notification service.
@@ -7867,7 +7924,7 @@ declare module "react" {
     export type NavigationTransitionSpec = {
         duration?: number,
         // An easing function from `Easing`.
-        easing?: () => any,
+        easing?: EasingFunction,
         // A timing function such as `Animated.timing`.
         timing?: (value: NavigationAnimatedValue, config: any) => any,
     }

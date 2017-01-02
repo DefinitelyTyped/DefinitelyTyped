@@ -6,7 +6,13 @@ var dir: string;
 var path: string;
 var data: any;
 var writeOptions: fs.WriteOptions;
-var writeJsonOptions: fs.WriteJsonOptions;
+var writeJsonOptions: fs.WriteJsonOptions = {
+    spaces: 2,
+    replacer(key, value) {
+        src = key;
+        return value;
+    }
+};
 var readJsonOptions: fs.ReadJsonOptions;
 
 async function test() {

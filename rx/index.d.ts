@@ -1,6 +1,6 @@
-// Type definitions for RxJS v2.5.3
+// Type definitions for RxJS 4.1
 // Project: http://rx.codeplex.com/
-// Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>, Igor Oleinikov <https://github.com/Igorbek>
+// Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>, Igor Oleinikov <https://github.com/Igorbek>, Mizunashi Mana <https://github.com/mizunashi-mana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="rx-lite.d.ts"/>
@@ -29,10 +29,8 @@ declare namespace Rx {
 		observeOn(scheduler: IScheduler): Observable<T>;
 		subscribeOn(scheduler: IScheduler): Observable<T>;
 
-		amb(rightSource: Observable<T>): Observable<T>;
-		amb(rightSource: IPromise<T>): Observable<T>;
-		onErrorResumeNext(second: Observable<T>): Observable<T>;
-		onErrorResumeNext(second: IPromise<T>): Observable<T>;
+		amb(rightSource: IPromise<T> | Observable<T>): Observable<T>;
+		onErrorResumeNext(second: IPromise<T> | Observable<T>): Observable<T>;
 		bufferWithCount(count: number, skip?: number): Observable<T[]>;
 		windowWithCount(count: number, skip?: number): Observable<Observable<T>>;
 		defaultIfEmpty(defaultValue?: T): Observable<T>;
@@ -46,14 +44,12 @@ declare namespace Rx {
 
 	interface ObservableStatic {
 		using<TSource, TResource extends IDisposable>(resourceFactory: () => TResource, observableFactory: (resource: TResource) => Observable<TSource>): Observable<TSource>;
-		amb<T>(...sources: Observable<T>[]): Observable<T>;
 		amb<T>(...sources: IPromise<T>[]): Observable<T>;
-		amb<T>(sources: Observable<T>[]): Observable<T>;
-		amb<T>(sources: IPromise<T>[]): Observable<T>;
-		onErrorResumeNext<T>(...sources: Observable<T>[]): Observable<T>;
+		amb<T>(...sources: Observable<T>[]): Observable<T>;
+		amb<T>(sources: IPromise<T>[] | Observable<T>[]): Observable<T>;
 		onErrorResumeNext<T>(...sources: IPromise<T>[]): Observable<T>;
-		onErrorResumeNext<T>(sources: Observable<T>[]): Observable<T>;
-		onErrorResumeNext<T>(sources: IPromise<T>[]): Observable<T>;
+		onErrorResumeNext<T>(...sources: Observable<T>[]): Observable<T>;
+		onErrorResumeNext<T>(sources: IPromise<T>[] | Observable<T>[]): Observable<T>;
 	}
 
 	interface GroupedObservable<TKey, TElement> extends Observable<TElement> {
@@ -63,5 +59,5 @@ declare namespace Rx {
 }
 
 declare module "rx" {
-    export = Rx
+	export = Rx;
 }

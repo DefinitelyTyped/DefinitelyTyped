@@ -266,7 +266,7 @@ schema.plugin(function (schema, opts) {
 schema.get('path');
   opts.hasOwnProperty('');
 }).plugin(cb, {opts: true});
-import { Schema, Model, Document, NativeError } from 'mongoose';
+
 schema
 .post('save', function (error, doc, next) {
   error.stack;
@@ -318,7 +318,14 @@ new mongoose.Schema({
   hidden: Boolean,
   meta: {
     votes: Number,
-    favs:  Number
+    favs:  Number,
+    text: String
+  },
+  meta2: {
+    text: mongoose.Schema.Types.Number,
+    select: {
+      type: String
+    }
   }
 });
 new mongoose.Schema({ name: { type: String, index: true }});

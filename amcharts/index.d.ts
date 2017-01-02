@@ -31,7 +31,7 @@ declare namespace AmCharts {
     function clear(): void;
 
     /** Handle ready event */
-    function ready(Function): void;
+    function ready(f: Function): void;
 
     /** Create chart by params. */
     function makeChart(selector: string, params: any, delay?: number): AmChart;
@@ -44,7 +44,7 @@ declare namespace AmCharts {
      * @param {string[]} types - Which chart types should call this method. Defaults to all
      * if none is passed.
      */
-    function addInitHandler(handler: Function, types: string[]);
+    function addInitHandler(handler: Function, types: string[]): any;
 
     /** AmPieChart class creates pie/donut chart. In order to display pie chart you need to set at least three properties - dataProvider, titleField and valueField.
         @example
@@ -1035,7 +1035,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             bold - specifies if text is bold (true/false),
             url - url
         */
-        addLabel(x: number|string, y: number|string, text: string, align: string, size?: number, color?: string, rotation?: number, alpha?: number, bold?: boolean, url?: string);
+        addLabel(x: number|string, y: number|string, text: string, align: string, size?: number, color?: string, rotation?: number, alpha?: number, bold?: boolean, url?: string): any;
         /** Adds a legend to the chart.
             By default, you don't need to create div for your legend, however if you want it to be positioned in some different way, you can create div anywhere you want and pass id or reference to your div as a second parameter.
             (NOTE: This method will not work on StockPanel.)
@@ -2321,6 +2321,8 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         numberFormatter: Object;
         /** Name of the open field (used by floating columns, candlesticks and ohlc) in your dataProvider. */
         openField: string;
+        /**Precision of values. Will use chart's precision if not set any.*/
+        precision: number;
         /** Specifies where data points should be placed - on the beginning of the period (day, hour, etc) or in the middle (only when parseDates property of categoryAxis is set to true). This setting affects Serial chart only. Possible values are "start" and "middle". middle */
         pointPosition: string;
         /** If graph's type is column and labelText is set, graph hides labels which do not fit into the column's space. If you don't want these labels to be hidden, set this to true. */
@@ -2594,5 +2596,8 @@ Your function should return string.*/
         enabled: boolean;
         libs: Object;
         menu: Object;
+        config: any;
+        capture(config: any, callback: () => void): any;
+        toJPG(config: any, callback: (config:any) => void): any;
     }
 }

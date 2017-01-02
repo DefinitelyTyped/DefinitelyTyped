@@ -3,6 +3,7 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
@@ -14,7 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "rx-lite-tests.ts",
+        "rx-tests.ts",
         "rx-lite.d.ts",
         "rx.aggregates.d.ts",
         "rx.all.d.ts",

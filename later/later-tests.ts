@@ -1,10 +1,12 @@
-﻿namespace LaterTest_DefineSchedule {
+﻿import later = require("later");
+
+namespace LaterTest_DefineSchedule {
 
     // define a new schedule
     var textSched = later.parse.text('at 10:15am every weekday');
     var cronSched = later.parse.cron('0 0/5 14,18 * * ?');
     var recurSched = later.parse.recur().last().dayOfMonth();
-    var manualSched = <Later.IScheduleData>{ schedules: [ <Later.IRecurrence>{ M: [ 3 ], D: [ 21 ] } ] };
+    var manualSched = <later.ScheduleData>{ schedules: [ <later.Recurrence>{ M: [ 3 ], D: [ 21 ] } ] };
 
     // this schedule will fire on the closest weekday to the 15th
     // every month at 2:00 am except in March
@@ -404,8 +406,8 @@ namespace LaterTest_TimePeriods {
         // 'Mon, 31 Dec 2012 23:59:59 GMT'
     }
 
-    export interface IPartOfDayLater extends Later.IStatic {
-        partOfDay: Later.ITimePeriod;
+    export interface IPartOfDayLater extends later.Static {
+        partOfDay: later.TimePeriod;
     }
 
     export function custom() {

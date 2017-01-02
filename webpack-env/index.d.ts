@@ -1,4 +1,4 @@
-// Type definitions for webpack 1.12.2 (module API)
+// Type definitions for webpack (module API) 1.12
 // Project: https://github.com/webpack/webpack
 // Definitions by: use-strict <https://github.com/use-strict>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

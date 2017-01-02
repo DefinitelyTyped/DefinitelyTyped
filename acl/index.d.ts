@@ -1,13 +1,15 @@
-// Type definitions for node_acl 0.4.7
+// Type definitions for node_acl 0.4.8
 // Project: https://github.com/optimalbits/node_acl
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="bluebird" />
 /// <reference types="node"/>
+/// <reference types="express"/>
 
 import http = require('http');
 import Promise = require("bluebird");
+import express = require("express");
 
 type strings = string|string[];
 type Value = string|number;
@@ -49,7 +51,7 @@ interface Acl {
     areAnyRolesAllowed: (roles: strings, resource: strings, permissions: strings, cb?: AllowedCallback) => Promise<any>;
     whatResources: (roles: strings, permissions: strings, cb?: AnyCallback) => Promise<any>;
     permittedResources: (roles: strings, permissions: strings, cb?: Function) => Promise<void>;
-    middleware: (numPathComponents: number, userId: Value | GetUserId, actions: strings) => Promise<any>;
+    middleware: (numPathComponents?: number, userId?: Value | GetUserId, actions?: strings) => express.RequestHandler;
 }
 
 interface Option {
