@@ -3,10 +3,7 @@
 // Definitions by: Julien Dufresne <https://github.com/julienduf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="bluebird" />
-
 import * as Promise from "bluebird";
-
 
 export namespace log {
 
@@ -51,15 +48,14 @@ export interface WitRequest {
 }
 
 export interface WitResponse {
-    
     text?: string;
-    qickReplies?: Object;
+    qickReplies?: any;
 }
 
 export interface WitOption {
 
     accessToken?: string;
-    actions?: Object;
+    actions?: any;
     logger?: log.Logger;
 }
 
@@ -73,7 +69,7 @@ export interface MessageResponse {
 
     msg_id: string;
     _text: string;
-    entities: Array<MessageResponseEntity>;
+    entities: MessageResponseEntity[];
 }
 
 export declare class Wit {
