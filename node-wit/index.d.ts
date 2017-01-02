@@ -7,15 +7,15 @@ import * as Promise from "bluebird";
 
 export namespace log {
 
-    class Logger {
+    declare class Logger {
 
         constructor(lvl: string);
     }
 
-    const DEBUG = 'debug';
-    const INFO = 'info';
-    const WARN = 'warn';
-    const ERROR = 'error';
+    declare const DEBUG = 'debug';
+    declare const INFO = 'info';
+    declare const WARN = 'warn';
+    declare const ERROR = 'error';
 }
 
 export interface WitEntityValue {
