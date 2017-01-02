@@ -1,4 +1,4 @@
-// Type definitions for service_worker_api
+// Type definitions for service_worker_api 0.0
 // Project: https://developer.mozilla.org/fr/docs/Web/API/ServiceWorker_API
 // Definitions by: Tristan Caron <https://github.com/tristancaron>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
