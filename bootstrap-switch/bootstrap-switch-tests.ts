@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="bootstrap-switch.d.ts" />
+/// <reference types="jquery"/>
+
 
 function test_cases() {
 	$('#switch').bootstrapSwitch();
@@ -18,6 +18,9 @@ function test_cases() {
 	
 	$('#switch').bootstrapSwitch('state', true, true);
 
+	$('#switch').bootstrapSwitch('state') === true;
+
+	$('#switch').bootstrapSwitch('onText') === 'test';
 
 	$('#switch').on('switchChange.bootstrapSwitch', (event) => {
 		console.log($(event.target).val());

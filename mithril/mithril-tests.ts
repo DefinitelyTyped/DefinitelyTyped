@@ -1,4 +1,4 @@
-/// <reference path="mithril.d.ts" />
+
 // This is the todolist example from http://lhorie.github.io/mithril/getting-started.html
 
 var todo = {

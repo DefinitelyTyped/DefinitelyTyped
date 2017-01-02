@@ -1,6 +1,3 @@
-/// <reference path="mongoose.d.ts" />
-/// <reference path="../lodash/lodash.d.ts"/>
-
 import * as mongoose from 'mongoose';
 
 // test compatibility with other libraries
@@ -196,6 +193,18 @@ QCModel.find({}).cursor({}).on('data', function (doc: any) {
 }).on('error', function (error: any) {
   throw error;
 }).close().then(cb).catch(cb);
+querycursor.map(function (doc) {
+  doc.foo = "bar";
+  return doc;
+}).on('data', function (doc: any) {
+  console.log(doc.foo);
+});
+querycursor.map(function (doc) {
+  doc.foo = "bar";
+  return doc;
+}).next(function (error, doc) {
+  console.log(doc.foo);
+});
 
 /*
  * section virtualtype.js
@@ -254,11 +263,22 @@ schema.method('name', cb).method({
 schema.path('a', mongoose.Schema.Types.Buffer).path('a');
 schema.pathType('m1').toLowerCase();
 schema.plugin(function (schema, opts) {
-  schema.get('path');
+schema.get('path');
   opts.hasOwnProperty('');
 }).plugin(cb, {opts: true});
-schema.post('post', function (doc) {}).post('post', function (doc, next) {
+
+schema
+.post('save', function (error, doc, next) {
+  error.stack;
+  doc.model;
+  next.apply;
+})
+.post('save', function (doc: mongoose.Document, next: Function) {
+  doc.model;
   next(new Error());
+})
+.post('save', function (doc: mongoose.Document) {
+  doc.model;
 });
 schema.queue('m1', [1, 2, 3]).queue('m2', [[]]);
 schema.remove('path');
@@ -298,9 +318,58 @@ new mongoose.Schema({
   hidden: Boolean,
   meta: {
     votes: Number,
-    favs:  Number
+    favs:  Number,
+    text: String
+  },
+  meta2: {
+    text: mongoose.Schema.Types.Number,
+    select: {
+      type: String
+    }
   }
 });
+new mongoose.Schema({ name: { type: String, index: true }});
+new mongoose.Schema({ loc: { type: [Number], index: 'hashed' }});
+new mongoose.Schema({ loc: { type: [Number], index: '2d', sparse: true }});
+new mongoose.Schema({ loc: { type: [Number], index: { type: '2dsphere', sparse: true }}});
+new mongoose.Schema({ date: { type: Date, index: { unique: true, expires: '1d' }}});
+new mongoose.Schema({ born: { type: Date, required: '{PATH} is required!' }});
+new mongoose.Schema({ born: { type: Date, required: function() {
+  return this.age >= 18;
+}}});
+new mongoose.Schema({ state: { type: String, enum: ['opening', 'open', 'closing', 'closed'] }});
+new mongoose.Schema({ state: { type: String, enum: {
+  values: ['opening', 'open', 'closing', 'closed'],
+  message: 'enum validator failed for path `{PATH}` with value `{VALUE}`'
+}}});
+new mongoose.Schema({ name: { type: String, match: /^a/ }});
+new mongoose.Schema({ name: { type: String, match: [
+  /\.html$/, "That file doesn't end in .html ({VALUE})"
+]}});
+new mongoose.Schema({
+  createdAt: {type: Date, expires: 60 * 60 * 24}
+});
+new mongoose.Schema({ createdAt: { type: Date, expires: '1.5h' }});
+new mongoose.Schema({ d: { type: Date, max: new Date('2014-01-01') }});
+new mongoose.Schema({ d: { type: Date, max: [
+  new Date('2014-01-01'),
+  'The value of path `{PATH}` ({VALUE}) exceeds the limit ({MAX}).'
+]}});
+new mongoose.Schema({d: {type: Date, min: [
+  new Date('1970-01-01'),
+  'The value of path `{PATH}` ({VALUE}) is beneath the limit ({MIN}).'
+]}});
+new mongoose.Schema({
+  integerOnly: {
+    type: Number,
+    get: v => Math.round(v),
+    set: v => Math.round(v)
+  }
+});
+new mongoose.Schema({ name: { type: String, validate: [
+  { validator: () => {return true}, msg: 'uh oh' },
+  { validator: () => {return true}, msg: 'failed' }
+]}});
 animalSchema.statics.findByName = function(name: any, cb: any) {
   return this.find({ name: new RegExp(name, 'i') }, cb);
 };
@@ -311,7 +380,7 @@ animalSchema.virtual('name.full').get(function () {
   return this.name.first + ' ' + this.name.last;
 });
 new mongoose.Schema({
-  child: new mongoose.Schema({ name: 'string' })
+  child: new mongoose.Schema({ name: String })
 });
 new mongoose.Schema({
   eggs: {
@@ -492,6 +561,16 @@ documentArray.toObject({}).length;
 documentArray.$shift();
 /* inherited from Native Array */
 documentArray.concat();
+/* practical example */
+interface MySubEntity1 extends mongoose.Types.Subdocument {
+  property1: string;
+  property2: string;
+}
+interface MyEntity1 extends mongoose.Document {
+  sub: mongoose.Types.DocumentArray<MySubEntity>
+}
+var newEnt: MyEntity1;
+var newSub: MySubEntity1 = newEnt.sub.create({ property1: "example", property2: "example" });
 
 /*
  * section types/buffer.js
@@ -515,6 +594,7 @@ mongoose.Types.Buffer.from([1, 2, 3]);
  */
 var objectId: mongoose.Types.ObjectId = mongoose.Types.ObjectId.createFromHexString('0x1234');
 objectId = new mongoose.Types.ObjectId(12345);
+objectId = mongoose.Types.ObjectId(12345);
 objectId.getTimestamp();
 /* practical examples */
 export interface IManagerSchema extends mongoose.MongooseDocument {
@@ -927,8 +1007,8 @@ aggregate.project({
     newField: '$b.nested'
   , plusTen: { $add: ['$val', 10]}
   , sub: {
-       name: '$a'
-    }
+    name: '$a'
+  }
 })
 aggregate.project({ salary_k: { $divide: [ "$salary", 1000 ]}});
 aggregate.read('primaryPreferred').read('pp');
@@ -961,7 +1041,6 @@ schematype.unique(true).unique(true);
 schematype.validate(/re/)
   .validate({}, 'error')
   .validate(cb, 'try', 'tri');
-schematype.options.required;
 
 /*
  * section promise.js
@@ -1404,8 +1483,7 @@ Final2.staticMethod();
 Final2.staticProp;
 var final2 = new Final2();
 final2.prop;
-final2.method;
-interface ibase extends mongoose.Document {
+final2.method;interface ibase extends mongoose.Document {
   username: string;
 }
 interface extended extends ibase {

@@ -1,4 +1,4 @@
-/// <reference path="google-drive-realtime-api.d.ts" />
+
 
 // Don't use this as a reference. Use the examples at
 //   https://developers.google.com/google-apps/realtime/

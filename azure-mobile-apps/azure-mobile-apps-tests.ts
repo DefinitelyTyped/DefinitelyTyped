@@ -1,4 +1,4 @@
-/// <reference path="azure-mobile-apps.d.ts" />
+
 
 import express = require('express');
 import mobileApps = require('azure-mobile-apps');
@@ -8,7 +8,7 @@ import queries = require('azure-mobile-apps/src/query');
 var app = express(),
     mobileApp = mobileApps();
 
-// various configuration permutations
+// various configuration permutations   
 mobileApps({
     debug: true,
     data: {
@@ -30,7 +30,7 @@ mobileApps({
 // it would be nice to integrate with winston
 mobileApps({ logging: { level: 'silly', transports: [{}] } })
 
-// various custom middleware syntaxes
+// various custom middleware syntaxes     
 mobileApp.use(function (req: any, res: any, next: any) { next(); });
 mobileApp.use([function () {}, function () {}]);
 mobileApp.use(function () {}, function () {});
@@ -65,7 +65,7 @@ table.read(function (context: Azure.MobileApps.Context) {
 table.insert(function (context: Azure.MobileApps.Context) {
     context.query.id = 'anotherId';
     context.query.single = true;
-    context.item.userId = context.user.id;
+    context.item.userId = context.user.id;    
     context.push.send('tag', {}, function (error, result) {});
     context.push.gcm.send('tag', {}, function (error, result) {});
     context.push.apns.send('tag', { payload: { } }, function (error, result) {});
@@ -122,4 +122,4 @@ mobileApp.api.add('query', { authorize: true, get: (req, res, next) => {
             { name: 'complete', value: 1 }
         ]
     }).then(x => {});
-}, delete: function () {} }); 
+}, delete: function () {} });

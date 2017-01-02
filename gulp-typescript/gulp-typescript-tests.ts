@@ -1,5 +1,3 @@
-/// <reference path="./gulp-typescript.d.ts"/>
-/// <reference path="../gulp/gulp.d.ts"/>
 import gulp = require("gulp");
 import typescript = require("gulp-typescript");
 
@@ -11,7 +9,8 @@ gulp.task('scripts', function() {
     var tsResult = gulp.src('lib/*.ts')
         .pipe(typescript({
             declarationFiles: true,
-            noExternalResolve: true
+            noExternalResolve: true,
+            skipLibCheck: true
         }));
 
     return merge([

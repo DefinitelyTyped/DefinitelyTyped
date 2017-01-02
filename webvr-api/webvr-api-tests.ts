@@ -1,4 +1,4 @@
-/// <reference path="./webvr-api.d.ts" />
+
 
 function fieldOfViewToProjectionMatrix(fov: VRFieldOfView, zNear: number, zFar: number) {
     var upTan = Math.tan(fov.upDegrees * Math.PI/180.0);

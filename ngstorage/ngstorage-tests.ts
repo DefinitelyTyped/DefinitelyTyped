@@ -1,5 +1,5 @@
-/// <reference path="../angularjs/angular.d.ts" />
-/// <reference path="ngstorage.d.ts" />
+/// <reference types="angular" />
+
 
 var app: any;
 

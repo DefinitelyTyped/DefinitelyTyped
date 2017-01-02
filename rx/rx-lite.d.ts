@@ -1,10 +1,8 @@
-﻿// DefinitelyTyped: partial
-
 // This file contains common part of defintions for rx.d.ts and rx.lite.d.ts
 // Do not include the file separately.
 
 declare namespace Rx {
-	export module internals {
+	export namespace internals {
 		function isEqual(left: any, right: any): boolean;
 		function addRef<T>(xs: Observable<T>, r: { getDisposable(): IDisposable; }): Observable<T>;
 
@@ -43,11 +41,11 @@ declare namespace Rx {
 		}
 	}
 
-	export module config {
+	export namespace config {
 		export var Promise: { new <T>(resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): IPromise<T>; };
 	}
 
-	export module helpers {
+	export namespace helpers {
 		function noop(): void;
 		function notDefined(value: any): boolean;
 		function identity<T>(value: T): T;
@@ -116,21 +114,21 @@ declare namespace Rx {
 
 	export interface IScheduler {
 		now(): number;
-	  isScheduler(value: any): boolean;
+		isScheduler(value: any): boolean;
 
 		schedule(action: () => void): IDisposable;
 		scheduleWithState<TState>(state: TState, action: (scheduler: IScheduler, state: TState) => IDisposable): IDisposable;
 		scheduleWithAbsolute(dueTime: number, action: () => void): IDisposable;
-		scheduleWithAbsoluteAndState<TState>(state: TState, dueTime: number, action: (scheduler: IScheduler, state: TState) =>IDisposable): IDisposable;
+		scheduleWithAbsoluteAndState<TState>(state: TState, dueTime: number, action: (scheduler: IScheduler, state: TState) => IDisposable): IDisposable;
 		scheduleWithRelative(dueTime: number, action: () => void): IDisposable;
-		scheduleWithRelativeAndState<TState>(state: TState, dueTime: number, action: (scheduler: IScheduler, state: TState) =>IDisposable): IDisposable;
+		scheduleWithRelativeAndState<TState>(state: TState, dueTime: number, action: (scheduler: IScheduler, state: TState) => IDisposable): IDisposable;
 
-		scheduleRecursive(action: (action: () =>void ) =>void ): IDisposable;
-		scheduleRecursiveWithState<TState>(state: TState, action: (state: TState, action: (state: TState) =>void ) =>void ): IDisposable;
+		scheduleRecursive(action: (action: () => void) => void): IDisposable;
+		scheduleRecursiveWithState<TState>(state: TState, action: (state: TState, action: (state: TState) => void) => void): IDisposable;
 		scheduleRecursiveWithAbsolute(dueTime: number, action: (action: (dueTime: number) => void) => void): IDisposable;
 		scheduleRecursiveWithAbsoluteAndState<TState>(state: TState, dueTime: number, action: (state: TState, action: (state: TState, dueTime: number) => void) => void): IDisposable;
-		scheduleRecursiveWithRelative(dueTime: number, action: (action: (dueTime: number) =>void ) =>void ): IDisposable;
-		scheduleRecursiveWithRelativeAndState<TState>(state: TState, dueTime: number, action: (state: TState, action: (state: TState, dueTime: number) =>void ) =>void ): IDisposable;
+		scheduleRecursiveWithRelative(dueTime: number, action: (action: (dueTime: number) => void) => void): IDisposable;
+		scheduleRecursiveWithRelativeAndState<TState>(state: TState, dueTime: number, action: (state: TState, action: (state: TState, dueTime: number) => void) => void): IDisposable;
 
 		schedulePeriodic(period: number, action: () => void): IDisposable;
 		schedulePeriodicWithState<TState>(state: TState, period: number, action: (state: TState) => TState): IDisposable;
@@ -219,11 +217,9 @@ declare namespace Rx {
 		forEach(onNext?: (value: T) => void, onError?: (exception: any) => void, onCompleted?: () => void): IDisposable;	// alias for subscribe
 		toArray(): Observable<T[]>;
 
-		catch(handler: (exception: any) => Observable<T>): Observable<T>;
-		catchException(handler: (exception: any) => Observable<T>): Observable<T>;	// alias for catch
-		catch(handler: (exception: any) => IPromise<T>): Observable<T>;
-		catchException(handler: (exception: any) => IPromise<T>): Observable<T>;	// alias for catch
+		catch(handler: (exception: Error) => IPromise<T> | Observable<T>): Observable<T>;
 		catch(second: Observable<T>): Observable<T>;
+		catchException(handler: (exception: Error) => IPromise<T> | Observable<T>): Observable<T>;	// alias for catch
 		catchException(second: Observable<T>): Observable<T>;	// alias for catch
 		combineLatest<T2>(second: Observable<T2>|IPromise<T2>): Observable<[T, T2]>;
                 combineLatest<T2, TResult>(second: Observable<T2>|IPromise<T2>, resultSelector: (v1: T, v2: T2) => TResult): Observable<TResult>;
@@ -261,8 +257,8 @@ declare namespace Rx {
 		mergeObservable(): Observable<T>;	// alias for mergeAll
 		skipUntil<T2>(other: Observable<T2>): Observable<T>;
 		skipUntil<T2>(other: IPromise<T2>): Observable<T>;
-		switch(): Observable<T>;
-		switchLatest(): Observable<T>;	// alias for switch
+		switch(): T;
+		switchLatest(): T;	// alias for switch
 		takeUntil<T2>(other: Observable<T2>): Observable<T>;
 		takeUntil<T2>(other: IPromise<T2>): Observable<T>;
 		zip<T2>(second: Observable<T2>|IPromise<T2>): Observable<[T, T2]>;
@@ -280,11 +276,11 @@ declare namespace Rx {
 		distinctUntilChanged(skipParameter: boolean, comparer: (x: T, y: T) => boolean): Observable<T>;
 		distinctUntilChanged<TValue>(keySelector?: (value: T) => TValue, comparer?: (x: TValue, y: TValue) => boolean): Observable<T>;
 		do(observer: Observer<T>): Observable<T>;
+		do(onNext?: (value: T) => void, onError?: (exception: Error) => void, onCompleted?: () => void): Observable<T>;
 		doAction(observer: Observer<T>): Observable<T>;	// alias for do
+		doAction(onNext?: (value: T) => void, onError?: (exception: Error) => void, onCompleted?: () => void): Observable<T>;	// alias for do
 		tap(observer: Observer<T>): Observable<T>;	// alias for do
-		do(onNext?: (value: T) => void, onError?: (exception: any) => void, onCompleted?: () => void): Observable<T>;
-		doAction(onNext?: (value: T) => void, onError?: (exception: any) => void, onCompleted?: () => void): Observable<T>;	// alias for do
-		tap(onNext?: (value: T) => void, onError?: (exception: any) => void, onCompleted?: () => void): Observable<T>;	// alias for do
+		tap(onNext?: (value: T) => void, onError?: (exception: Error) => void, onCompleted?: () => void): Observable<T>;	// alias for do
 
 		doOnNext(onNext: (value: T) => void, thisArg?: any): Observable<T>;
 		doOnError(onError: (exception: any) => void, thisArg?: any): Observable<T>;
@@ -442,6 +438,12 @@ declare namespace Rx {
 		* @returns {An exclusive observable with only the results that happen when subscribed.
 		*/
 		exclusiveMap<I, R>(selector: (value: I, index: number, source: Observable<I>) => R, thisArg?: any): Observable<R>;
+
+		publish(): ConnectableObservable<T>;
+	}
+
+	interface ConnectableObservable<T> extends Observable<T> {
+		connect(): Disposable;
 	}
 
 	interface ObservableStatic {
@@ -477,7 +479,7 @@ declare namespace Rx {
 		* @param [thisArg] The context to use calling the mapFn if provided.
 		* @param [scheduler] Optional scheduler to use for scheduling.  If not provided, defaults to Scheduler.currentThread.
 		*/
-		from<T, TResult>(array: { length: number;[index: number]: T; }, mapFn: (value: T, index: number) => TResult, thisArg?: any, scheduler?: IScheduler): Observable<TResult>;
+		from<T, TResult>(array: { length: number; [index: number]: T; }, mapFn: (value: T, index: number) => TResult, thisArg?: any, scheduler?: IScheduler): Observable<TResult>;
 		/**
 		* This method creates a new Observable sequence from an array-like object.
 		* @param array An array-like or iterable object to convert to an Observable sequence.
@@ -485,7 +487,7 @@ declare namespace Rx {
 		* @param [thisArg] The context to use calling the mapFn if provided.
 		* @param [scheduler] Optional scheduler to use for scheduling.  If not provided, defaults to Scheduler.currentThread.
 		*/
-		from<T>(array: { length: number;[index: number]: T; }, mapFn?: (value: T, index: number) => T, thisArg?: any, scheduler?: IScheduler): Observable<T>;
+		from<T>(array: { length: number; [index: number]: T; }, mapFn?: (value: T, index: number) => T, thisArg?: any, scheduler?: IScheduler): Observable<T>;
 
 		/**
 		* This method creates a new Observable sequence from an array-like or iterable object.
@@ -497,7 +499,7 @@ declare namespace Rx {
 		from<T>(iterable: any, mapFn?: (value: any, index: number) => T, thisArg?: any, scheduler?: IScheduler): Observable<T>;
 
 		fromArray<T>(array: T[], scheduler?: IScheduler): Observable<T>;
-		fromArray<T>(array: { length: number;[index: number]: T; }, scheduler?: IScheduler): Observable<T>;
+		fromArray<T>(array: { length: number; [index: number]: T; }, scheduler?: IScheduler): Observable<T>;
 
 		generate<TState, TResult>(initialState: TState, condition: (state: TState) => boolean, iterate: (state: TState) => TState, resultSelector: (state: TState) => TResult, scheduler?: IScheduler): Observable<TResult>;
 		never<T>(): Observable<T>;
@@ -530,22 +532,16 @@ declare namespace Rx {
 		just<T>(value: T, scheduler?: IScheduler): Observable<T>;	// alias for return
 		returnValue<T>(value: T, scheduler?: IScheduler): Observable<T>;	// alias for return
 		throw<T>(exception: Error, scheduler?: IScheduler): Observable<T>;
-		throw<T>(exception: any, scheduler?: IScheduler): Observable<T>;
 		throwException<T>(exception: Error, scheduler?: IScheduler): Observable<T>;	// alias for throw
-		throwException<T>(exception: any, scheduler?: IScheduler): Observable<T>;	// alias for throw
 		throwError<T>(error: Error, scheduler?: IScheduler): Observable<T>;	// alias for throw
-		throwError<T>(error: any, scheduler?: IScheduler): Observable<T>;	// alias for throw
 
-		catch<T>(sources: Observable<T>[]): Observable<T>;
-		catch<T>(sources: IPromise<T>[]): Observable<T>;
-		catchException<T>(sources: Observable<T>[]): Observable<T>;	// alias for catch
-		catchException<T>(sources: IPromise<T>[]): Observable<T>;	// alias for catch
-		catchError<T>(sources: Observable<T>[]): Observable<T>;	// alias for catch
-		catchError<T>(sources: IPromise<T>[]): Observable<T>;	// alias for catch
+		catch<T>(sources: IPromise<T>[] | Observable<T>[]): Observable<T>;
 		catch<T>(...sources: Observable<T>[]): Observable<T>;
 		catch<T>(...sources: IPromise<T>[]): Observable<T>;
+		catchException<T>(sources: IPromise<T>[] | Observable<T>[]): Observable<T>;	// alias for catch
 		catchException<T>(...sources: Observable<T>[]): Observable<T>;	// alias for catch
 		catchException<T>(...sources: IPromise<T>[]): Observable<T>;	// alias for catch
+		catchError<T>(sources: IPromise<T>[] | Observable<T>[]): Observable<T>;	// alias for catch
 		catchError<T>(...sources: Observable<T>[]): Observable<T>;	// alias for catch
 		catchError<T>(...sources: IPromise<T>[]): Observable<T>;	// alias for catch
 
@@ -560,40 +556,36 @@ declare namespace Rx {
 		combineLatest<T>(sources: (Observable<T>|IPromise<T>)[]): Observable<T[]>;
 		combineLatest<TOther, TResult>(sources: (Observable<TOther>|IPromise<TOther>)[], resultSelector: (...otherValues: TOther[]) => TResult): Observable<TResult>;
 
-                withLatestFrom<T, T2>(first: Observable<T>|IPromise<T>, second: Observable<T2>|IPromise<T2>): Observable<[T, T2]>;
+		withLatestFrom<T, T2>(first: Observable<T>|IPromise<T>, second: Observable<T2>|IPromise<T2>): Observable<[T, T2]>;
 		withLatestFrom<T, T2, TResult>(first: Observable<T>|IPromise<T>, second: Observable<T2>|IPromise<T2>, resultSelector: (v1: T, v2: T2) => TResult): Observable<TResult>;
-                withLatestFrom<T, T2, T3>(first: Observable<T>|IPromise<T>, second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>): Observable<[T, T2, T3]>;
+		withLatestFrom<T, T2, T3>(first: Observable<T>|IPromise<T>, second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>): Observable<[T, T2, T3]>;
 		withLatestFrom<T, T2, T3, TResult>(first: Observable<T>|IPromise<T>, second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, resultSelector: (v1: T, v2: T2, v3: T3) => TResult): Observable<TResult>;
-                withLatestFrom<T, T2, T3, T4>(first: Observable<T>|IPromise<T>, second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>): Observable<[T, T2, T3, T4]>;
+		withLatestFrom<T, T2, T3, T4>(first: Observable<T>|IPromise<T>, second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>): Observable<[T, T2, T3, T4]>;
 		withLatestFrom<T, T2, T3, T4, TResult>(first: Observable<T>|IPromise<T>, second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>, resultSelector: (v1: T, v2: T2, v3: T3, v4: T4) => TResult): Observable<TResult>;
-                withLatestFrom<T, T2, T3, T4, T5>(first: Observable<T>|IPromise<T>, second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>, fifth: Observable<T5>|IPromise<T5>): Observable<[T, T2, T3, T4, T5]>;
+		withLatestFrom<T, T2, T3, T4, T5>(first: Observable<T>|IPromise<T>, second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>, fifth: Observable<T5>|IPromise<T5>): Observable<[T, T2, T3, T4, T5]>;
 		withLatestFrom<T, T2, T3, T4, T5, TResult>(first: Observable<T>|IPromise<T>, second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>, fifth: Observable<T5>|IPromise<T5>, resultSelector: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5) => TResult): Observable<TResult>;
 		withLatestFrom<TOther, TResult>(souces: (Observable<TOther>|IPromise<TOther>)[], resultSelector: (...otherValues: TOther[]) => TResult): Observable<TResult>;
 
 		concat<T>(...sources: Observable<T>[]): Observable<T>;
 		concat<T>(...sources: IPromise<T>[]): Observable<T>;
-		concat<T>(sources: Observable<T>[]): Observable<T>;
-		concat<T>(sources: IPromise<T>[]): Observable<T>;
+		concat<T>(sources: IPromise<T>[] | Observable<T>[]): Observable<T>;
 		merge<T>(...sources: Observable<T>[]): Observable<T>;
 		merge<T>(...sources: IPromise<T>[]): Observable<T>;
-		merge<T>(sources: Observable<T>[]): Observable<T>;
-		merge<T>(sources: IPromise<T>[]): Observable<T>;
+		merge<T>(sources: IPromise<T>[] | Observable<T>[]): Observable<T>;
 		merge<T>(scheduler: IScheduler, ...sources: Observable<T>[]): Observable<T>;
 		merge<T>(scheduler: IScheduler, ...sources: IPromise<T>[]): Observable<T>;
-		merge<T>(scheduler: IScheduler, sources: Observable<T>[]): Observable<T>;
-		merge<T>(scheduler: IScheduler, sources: IPromise<T>[]): Observable<T>;
+		merge<T>(scheduler: IScheduler, sources: IPromise<T>[] | Observable<T>[]): Observable<T>;
 
 		pairs<T>(obj: { [key: string]: T }, scheduler?: IScheduler): Observable<[string, T]>;
 
-                zip<T1, T2>(first: Observable<T1>|IPromise<T1>, sources: (Observable<T2>|IPromise<T2>)[]): Observable<[T1, T2]>;
+		zip<T1, T2>(first: Observable<T1> | IPromise<T1>, sources: Observable<T2> | IPromise<T2> | (Observable<T2> | IPromise<T2>)[]): Observable<[T1, T2]>;
 		zip<T1, T2, TResult>(first: Observable<T1>|IPromise<T1>, sources: (Observable<T2>|IPromise<T2>)[], resultSelector: (item1: T1, ...right: T2[]) => TResult): Observable<TResult>;
-                zip<T1, T2>(source1: Observable<T1>|IPromise<T1>, source2: Observable<T2>|IPromise<T2>): Observable<[T1, T2]>;
 		zip<T1, T2, TResult>(source1: Observable<T1>|IPromise<T1>, source2: Observable<T2>|IPromise<T2>, resultSelector: (item1: T1, item2: T2) => TResult): Observable<TResult>;
-                zip<T1, T2, T3>(source1: Observable<T1>|IPromise<T1>, source2: Observable<T2>|IPromise<T2>, source3: Observable<T3>|IPromise<T3>): Observable<[T1, T2, T3]>;
+		zip<T1, T2, T3>(source1: Observable<T1>|IPromise<T1>, source2: Observable<T2>|IPromise<T2>, source3: Observable<T3>|IPromise<T3>): Observable<[T1, T2, T3]>;
 		zip<T1, T2, T3, TResult>(source1: Observable<T1>|IPromise<T1>, source2: Observable<T2>|IPromise<T2>, source3: Observable<T3>|IPromise<T3>, resultSelector: (item1: T1, item2: T2, item3: T3) => TResult): Observable<TResult>;
-                zip<T1, T2, T3, T4>(source1: Observable<T1>|IPromise<T1>, source2: Observable<T2>|IPromise<T2>, source3: Observable<T3>|IPromise<T3>, source4: Observable<T4>|IPromise<T4>): Observable<[T1, T2, T3, T4]>;
+		zip<T1, T2, T3, T4>(source1: Observable<T1>|IPromise<T1>, source2: Observable<T2>|IPromise<T2>, source3: Observable<T3>|IPromise<T3>, source4: Observable<T4>|IPromise<T4>): Observable<[T1, T2, T3, T4]>;
 		zip<T1, T2, T3, T4, TResult>(source1: Observable<T1>|IPromise<T1>, source2: Observable<T2>|IPromise<T2>, source3: Observable<T3>|IPromise<T3>, source4: Observable<T4>|IPromise<T4>, resultSelector: (item1: T1, item2: T2, item3: T3, item4: T4) => TResult): Observable<TResult>;
-                zip<T1, T2, T3, T4, T5>(source1: Observable<T1>|IPromise<T1>, source2: Observable<T2>|IPromise<T2>, source3: Observable<T3>|IPromise<T3>, source4: Observable<T4>|IPromise<T4>, source5: Observable<T5>|IPromise<T5>): Observable<[T1, T2, T3, T4, T5]>;
+		zip<T1, T2, T3, T4, T5>(source1: Observable<T1>|IPromise<T1>, source2: Observable<T2>|IPromise<T2>, source3: Observable<T3>|IPromise<T3>, source4: Observable<T4>|IPromise<T4>, source5: Observable<T5>|IPromise<T5>): Observable<[T1, T2, T3, T4, T5]>;
 		zip<T1, T2, T3, T4, T5, TResult>(source1: Observable<T1>|IPromise<T1>, source2: Observable<T2>|IPromise<T2>, source3: Observable<T3>|IPromise<T3>, source4: Observable<T4>|IPromise<T4>, source5: Observable<T5>|IPromise<T5>, resultSelector: (item1: T1, item2: T2, item3: T3, item4: T4, item5: T5) => TResult): Observable<TResult>;
 		zipArray<T>(...sources: (Observable<T>|IPromise<T>)[]): Observable<T[]>;
 		zipArray<T>(sources: (Observable<T>|IPromise<T>)[]): Observable<T[]>;

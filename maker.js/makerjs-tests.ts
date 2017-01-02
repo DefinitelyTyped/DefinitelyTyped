@@ -1,7 +1,7 @@
-/// <reference path="./makerjs.d.ts" />
+
 
 function test() {
-	
+
 	var makerjs: typeof MakerJs;
 
 	var p1: MakerJs.IPoint = [0, 0];
@@ -9,7 +9,7 @@ function test() {
 	var paths = testPaths();
 	var models = testModels();
 	var model: MakerJs.IModel = models[0];
-	
+
 	function testRoot() {
 		makerjs.cloneObject({});
 		makerjs.createRouteKey([]);
@@ -29,7 +29,7 @@ function test() {
 		makerjs.unitType.Millimeter;
 		new makerjs.Collector();
 	}
-	
+
 	function testAngle() {
 		makerjs.angle.mirror(45, true, false);
 		makerjs.angle.noRevolutions(90);
@@ -49,22 +49,22 @@ function test() {
 		makerjs.exporter.toOpenJsCad(model);
 		makerjs.exporter.toPDF({} as PDFKit.PDFDocument, model);
 		makerjs.exporter.toSTL(model);
-		makerjs.exporter.toSVG(model, 
-            { 
-                annotate: true, 
-                fontSize: '', 
-                origin: [], 
-                scale: 9.9, 
-                stroke: '', 
-                strokeWidth: '', 
-                svgAttrs: {}, 
-                units: '', 
+		makerjs.exporter.toSVG(model,
+            {
+                annotate: true,
+                fontSize: '',
+                origin: [],
+                scale: 9.9,
+                stroke: '',
+                strokeWidth: '',
+                svgAttrs: {},
+                units: '',
                 useSvgPathOnly: false,
                 viewBox: false
              });
 		makerjs.exporter.tryGetModelUnits(model);
 	}
-	
+
 	function testImporter() {
 		makerjs.importer.fromSVGPathData('');
 		makerjs.importer.parseNumericList('');
@@ -77,7 +77,7 @@ function test() {
 		(<MakerJs.IKit>{}).metaParameters;
 		(<MakerJs.IKit>{}).notes;
 	}
-	
+
 	function testMeasure() {
 		makerjs.measure.increase(mp, mm);
 		makerjs.measure.isPointEqual(p1, p2);
@@ -102,7 +102,7 @@ function test() {
 		makerjs.measure.isPointOnSlope([], s);
 		makerjs.measure.isSlopeEqual(s, s);
 	}
-	
+
 	function testModel(){
 		makerjs.model.breakPathsAtIntersections(model, { paths:{ } });
 		var opts: MakerJs.ICombineOptions = { trimDeadEnds: true, pointMatchingDistance: 2 };
@@ -153,10 +153,10 @@ function test() {
 			new makerjs.models.Slot([0, 0], [1, 1], 7),
 			new makerjs.models.Square(8),
 			new makerjs.models.Star(5, 10, 5),
-			new makerjs.models.Text({} as opentypejs.Font, 'z', 12)
+			new makerjs.models.Text({} as opentype.Font, 'z', 12)
 		];
 	}
-	
+
 	function testPath() {
 		makerjs.path.breakAtPoint(paths.arc, [0,0]).type;
 		makerjs.path.clone(paths.line);
@@ -174,9 +174,9 @@ function test() {
 		makerjs.path.scale(paths.arc, 8);
 		makerjs.path.straighten(paths.arc);
 	}
-	
+
 	function testPaths() {
-		var paths =  {	
+		var paths =  {
 			arc: new makerjs.paths.Arc([0,0], 7, 0, 180),
 			circle: new MakerJs.paths.Circle([0,0], 5),
 			line: new makerjs.paths.Line([0,0], [1,1])
@@ -186,17 +186,17 @@ function test() {
 		new makerjs.paths.Parallel(paths.line, 4, [1,1]);
 
 		//paths.line.layer = "0";
-		
-		var x: MakerJs.IPathLine = { 
-			type: "line", 
-			origin: [9,9], 
-			end: [8,8], 
+
+		var x: MakerJs.IPathLine = {
+			type: "line",
+			origin: [9,9],
+			end: [8,8],
 			layer: "4"
 		};
-		
+
 		return paths;
 	}
-	
+
 	function testPoint() {
 		makerjs.point.add(p1, p2);
 		makerjs.point.average(p1, p2);
@@ -216,14 +216,14 @@ function test() {
 		makerjs.point.subtract(p2, p1);
 		makerjs.point.zero();
 	}
-	
-	function testSolvers() {	
+
+	function testSolvers() {
 		makerjs.solvers.solveTriangleASA(4, 4, 4);
 		makerjs.solvers.solveTriangleSSS(9, 9, 9);
 	}
-	
-	function testUnits() {	
+
+	function testUnits() {
 		makerjs.units.conversionScale(makerjs.unitType.Centimeter, makerjs.unitType.Foot);
 	}
-		
+
 }

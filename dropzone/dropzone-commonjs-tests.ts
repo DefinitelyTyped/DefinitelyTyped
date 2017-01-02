@@ -141,6 +141,9 @@ dropzone.enable();
 dropzone.disable();
 
 dropzone.files.forEach(f => {
+	if (f.xhr) {
+		console.log(f.xhr.readyState)
+	}
 	if (f.accepted) {
 		f.previewElement.classList.add("accepted");
 		f.previewTemplate.classList.add("accepted");

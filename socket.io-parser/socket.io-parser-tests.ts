@@ -1,6 +1,3 @@
-/// <reference path="socket.io-parser.d.ts" />
-/// <reference path="../node/node.d.ts" />
-
 import * as parser from 'socket.io-parser';
 var encoder = new parser.Encoder();
 var packet = {

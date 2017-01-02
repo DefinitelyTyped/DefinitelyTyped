@@ -1,4 +1,4 @@
-/// <reference path="./angular-permission-2.3.1.d.ts" />
+
 
 import permission = angular.permission;
 

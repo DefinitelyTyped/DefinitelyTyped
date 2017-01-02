@@ -1,5 +1,3 @@
-/// <reference path="phoenix.d.ts" />
-
 import { Socket, Channel, Presence } from 'phoenix';
 
 function test_socket() {
