@@ -1,4 +1,4 @@
-// Type definitions for msgpack-lite v0.1.26
+// Type definitions for msgpack-lite 0.1
 // Project: https://github.com/kawanet/msgpack-lite
 // Definitions by: Endel Dreyer <https://github.com/endel/>, Edmund Fokschaner <https://github.com/efokschaner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,7 +16,7 @@ declare module 'msgpack-lite' {
     /**
      * decode from MessagePack to JS Object
      */
-    function decode(input: Buffer | Uint8Array | Array<number>, options?: DecoderOptions): any;
+    function decode(input: Buffer | Uint8Array | number[], options?: DecoderOptions): any;
 
     /**
      * create a stream that encodes from JS Object to MessagePack
@@ -147,11 +147,11 @@ declare module 'msgpack-lite' {
     }
 
     interface EncoderOptions {
-      codec?: Codec
+      codec?: Codec;
     }
 
     interface DecoderOptions {
-      codec?: Codec
+      codec?: Codec;
     }
   }
 
