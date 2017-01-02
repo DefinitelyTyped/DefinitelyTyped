@@ -16,9 +16,9 @@ namespace Rx.Tests.Async {
 	function toAsync() {
 		obsNum = Rx.Observable.toAsync(()=> 1, sch)();
 		obsNum = Rx.Observable.toAsync((a1: number)=> a1)(1);
-        obsStr = <any>Rx.Observable.toAsync((a1: string, a2: number)=> a1 + a2.toFixed(0))("", 1);
+		obsStr = <any>Rx.Observable.toAsync((a1: string, a2: number)=> a1 + a2.toFixed(0))("", 1);
 		obsStr = <any>Rx.Observable.toAsync((a1: string, a2: number, a3: Date)=> a1 + a2.toFixed(0) + a3.toDateString())("", 1, new Date());
-        obsStr = <any>Rx.Observable.toAsync((a1: string, a2: number, a3: Date, a4: boolean)=> a1 + a2.toFixed(0) + a3.toDateString() + (a4 ? 1 : 0))("", 1, new Date(), false);
+		obsStr = <any>Rx.Observable.toAsync((a1: string, a2: number, a3: Date, a4: boolean)=> a1 + a2.toFixed(0) + a3.toDateString() + (a4 ? 1 : 0))("", 1, new Date(), false);
 	}
 
 	function startAsync() {
