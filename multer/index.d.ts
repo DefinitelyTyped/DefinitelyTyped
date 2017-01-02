@@ -86,7 +86,7 @@ declare global {
         export interface Request {
             file: Multer.File;
             files: {
-                [fieldname: string]: Multer.File[];
+                [fieldname: string]: Multer.File;
             };
         }
 
