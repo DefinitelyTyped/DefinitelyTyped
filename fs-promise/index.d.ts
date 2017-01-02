@@ -15,7 +15,7 @@ export interface WriteOptions {
 
 type JsonReplacerArray = Array<number | string>;
 
-type JsonReplacerFunction = (key: any, value: any) => any;
+type JsonReplacerFunction = (key: string, value: any) => any;
 
 type JsonReplacer = JsonReplacerArray | JsonReplacerFunction;
 
