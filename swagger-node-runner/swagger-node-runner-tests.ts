@@ -1,7 +1,9 @@
 import * as SwaggerNodeRunner from "swagger-node-runner";
 import * as express from "express";
+import * as connect from "connect";
 import * as Hapi from "hapi";
 import * as restify from "restify";
+import * as sails from "sails.io.js";
 
 let config: SwaggerNodeRunner.Config = {
     appRoot: __dirname
@@ -18,6 +20,30 @@ SwaggerNodeRunner.create(config, (err, runner) => {
 
     const port = process.env.PORT || 10010;
     expressApp.listen(port);
+});
+
+
+//Connect middleware
+let connectApp = connect();
+SwaggerNodeRunner.create(config, (err, runner) => {
+  if (err) { throw err; }
+
+  let conncetMiddleware = runner.connectMiddleware();
+
+  conncetMiddleware.register(connectApp);
+  var port = process.env.PORT || 10010;
+  connectApp.listen(port);
+});
+
+
+// Sails Middleware (chain) test
+SwaggerNodeRunner.create(config, (err, runner) => {
+  if (err) { throw err; }
+
+  let sailsMw = runner.sailsMiddleware();
+  if(typeof sailsMw.chain !== 'function' || !sailsMw.runner) {
+      // do nothing
+  }
 });
 
 
@@ -47,7 +73,6 @@ SwaggerNodeRunner.create(config, function(err, runner) {
 
 
 // Restify Middelware
-
 let app = restify.createServer();
 SwaggerNodeRunner.create(config, function(err, runner) {
   if (err) { throw err; }
