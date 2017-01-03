@@ -49,12 +49,6 @@ declare class Configstore {
      * Delete an item.
      * @param {string} key The key to delete
      */
-    del(key: string): void;
-
-    /**
-     * Delete an item.
-     * @param {string} key The key to delete
-     */
     delete(key: string): void;
 
     /**
