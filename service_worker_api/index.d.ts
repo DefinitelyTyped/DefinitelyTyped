@@ -1,244 +1,10 @@
-// Type definitions for service_worker_api
+// Type definitions for service_worker_api 0.0
 // Project: https://developer.mozilla.org/fr/docs/Web/API/ServiceWorker_API
 // Definitions by: Tristan Caron <https://github.com/tristancaron>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.1
 
-// <reference path="../es6-promise/es6-promise.d.ts" /> // REMOVED third "/" so this doesn't fire. Problem with duplicate Promises
-// between es6 and typescript - https://github.com/DefinitelyTyped/DefinitelyTyped/issues/5015
-
-/**
- * Provides methods relating to the body of the response/request, allowing you
- * to declare what its content type is and how it should be handled.
- */
-interface Body {
-    /**
-     * Contains a Boolean that indicates whether the body has been read.
-     * @readonly
-     */
-    bodyUsed: boolean;
-
-    /**
-     * Takes a Response stream and reads it to completion.
-     * It returns a promise that resolves with an ArrayBuffer.
-     */
-    arrayBuffer(): Promise<ArrayBuffer>;
-
-    /**
-     * Takes a Response stream and reads it to completion.
-     * It returns a promise that resolves with a Blob.
-     */
-    blob(): Promise<Blob>;
-
-    /**
-     * Takes a Response stream and reads it to completion.
-     * It returns a promise that resolves with a FormData object.
-     */
-    formData(): Promise<FormData>;
-
-    /**
-     * Takes a Response stream and reads it to completion.
-     * It returns a promise that resolves with a JSON object.
-     */
-    json(): Promise<JSON>;
-
-    /**
-     * Takes a Response stream and reads it to completion.
-     * It returns a promise that resolves with a USVString (text).
-     */
-    text(): Promise<Text>;
-
-}
-
-/**
- * Represents response/request headers, allowing you to query them and take
- * different actions depending on the results.
- */
-interface Header {
-    new(): Header;
-
-    /**
-     * Appends a new value onto an existing header inside a Headers object, or
-     * adds the header if it does not already exist.
-     *
-     * @param name The name of the HTTP header you want to add to the Headers
-     * object.
-     * @param value The value of the HTTP header you want to add.
-     */
-    append(name: string, value: string): void;
-
-    /**
-     * Deletes a header from a Headers object.
-     *
-     * @param name The name of the HTTP header you want to delete from the
-     * Headers object.
-     */
-    delete(name: string): void;
-
-    /**
-     * Returns the first value of a given header from within a Headers object.
-     *
-     * @param name The name of the HTTP header whose value you want to retrieve
-     * from the Headers object. If the given name is not the name of an
-     * HTTP header, this method throws a TypeError.
-     */
-    get(name: string): string;
-
-    /**
-     * Returns an array of all the values of a header within a Headers object
-     * with a given name.
-     *
-     * @param name The name of the HTTP header whose values you want to retrieve
-     * from the Headers object. If the given name is not the name of an
-     * HTTP header, this method throws a TypeError.
-     */
-    getAll(name:string): Array<string>;
-
-    /**
-     * Returns a boolean stating whether a Headers object contains a
-     * certain header.
-     *
-     * @param name The name of the HTTP header you want to test for. If the
-     * given name is not the name of an HTTP header, this method throws
-     * a TypeError.
-     */
-    has(name: string): boolean;
-
-    /**
-     * Sets a new value for an existing header inside a Headers object, or
-     * adds the header if it does not already exist.
-     *
-     * @param name The name of the HTTP header you want to set to a new value.
-     * If the given name is not the name of an HTTP header, this method throws
-     * a TypeError.
-     * @param value The new value you want to set.
-     */
-    set(name: string, value: string): void;
-}
-
-/**
- * Represents the response to a request.
- */
-interface Response extends Body {
-    new(): Response;
-
-    /**
-     * Contains the type of the response (e.g., basic, cors).
-     * @readonly
-     */
-    type: string;
-
-    /**
-     * Contains the URL of the response.
-     * @readonly
-     */
-    url: string;
-
-    /**
-     * Contains a boolean stating whether this is the final URL of the response.
-     */
-    useFinalURL: boolean;
-
-    /**
-     * Contains the status code of the response (e.g., 200 for a success).
-     * @readonly
-     */
-    status: number;
-
-    /**
-     * Contains a boolean stating whether the response was successful
-     * (status in the range 200-299) or not.
-     * @readonly
-     */
-    ok: boolean;
-
-    /**
-     * Contains the status message corresponding to the status code
-     * (e.g., OK for 200).
-     * @readonly
-     */
-    statusText: string;
-
-    /**
-     * Contains the Headers object associated with the response.
-     * @readonly
-     */
-    headers: Header;
-
-    /**
-     * Creates a clone of a Response object.
-     */
-    clone(): Response;
-
-    /**
-     * Returns a new Response object associated with a network error.
-     */
-    error(): Response;
-
-    /**
-     * Creates a new response with a different URL.
-     */
-    redirect(): Response;
-}
-
-/**
- * Represents a resource request.
- */
-interface Request extends Body {
-    new(): Request;
-
-    /**
-     * Contains the request's method (GET, POST, etc.).
-     * @readonly
-     */
-    method: string;
-
-    /**
-     * Contains the URL of the request.
-     * @readonly
-     */
-    url: string;
-
-    /**
-     * Contains the associated Headers object of the request.
-     * @readonly
-     */
-    headers: Header;
-
-    /**
-     * Contains the context of the request (e.g., audio, image, iframe, etc.).
-     * @readonly
-     */
-    context: string;
-
-    /**
-     * Contains the referrer of the request (e.g., client).
-     * @readonly
-     */
-    referrer: string;
-
-    /**
-     * Contains the mode of the request (e.g., cors, no-cors, same-origin).
-     * @readonly
-     */
-    mode: string;
-
-    /**
-     * Contains the credentials of the request (e.g., omit, same-origin).
-     * @readonly
-     */
-    credentials: string;
-
-    /**
-     * Contains the cache mode of the request (e.g., default, reload, no-cache).
-     * @readonly
-     */
-    cache: string;
-
-    /**
-     * Creates a copy of the current Request object.
-     */
-    clone(): Request;
-}
+/// <reference types="whatwg-fetch" />
 
 /**
  * An CacheOptions object allowing you to set specific control options for the
@@ -278,7 +44,7 @@ interface Cache {
      * matching request in the Cache object.
      *
      * @param request The Request you are attempting to find in the Cache.
-     * @param {CacheOptions} options
+     * @param [options] An object that sets options for the match operation.
      */
     match(request: Request | string, options?: CacheOptions): Promise<Response>;
 
@@ -287,9 +53,9 @@ interface Cache {
      * the Cache object.
      *
      * @param request The Request you are attempting to find in the Cache.
-     * @param {CacheOptions} options
+     * @param [options] An object that sets options for the match operation.
      */
-    matchAll(request: Request | string, options?: CacheOptions): Promise<Array<Response>>;
+    matchAll(request: Request | string, options?: CacheOptions): Promise<Response[]>;
 
     /**
      * Returns a Promise that resolves to a new Cache entry whose key
@@ -321,7 +87,7 @@ interface Cache {
      * entry is found, it returns false.
      *
      * @param request The Request you are looking to delete.
-     * @param {CacheOptions} options
+     * @param [options] An object that sets options for the match operation.
      */
     delete(request: Request | string, options?: CacheOptions): Promise<boolean>;
 
@@ -329,9 +95,9 @@ interface Cache {
      * Returns a Promise that resolves to an array of Cache keys.
      *
      * @param request The Request want to return, if a specific key is desired.
-     * @param {CacheOptions} options
+     * @param [options] An object that sets options for the match operation.
      */
-    keys(request?: Request, options?: CacheOptions): Promise<Array<Request>>;
+    keys(request?: Request, options?: CacheOptions): Promise<Request[]>;
 }
 
 /**
@@ -346,7 +112,7 @@ interface CacheStorage {
      * to that match.
      *
      * @param request The Request you are looking for a match for in the CacheStorage.
-     * @param {CacheOptions} options
+     * @param [options] An object that sets options for the match operation.
      */
     match(request: Request | string, options?: CacheOptions): Promise<Response>;
 
@@ -382,7 +148,7 @@ interface CacheStorage {
      * CacheStorage. Use this method to iterate over a list of all the
      * Cache objects.
      */
-    keys(): Promise<Array<string>>;
+    keys(): Promise<string[]>;
 }
 
 /**
@@ -398,26 +164,23 @@ interface ServiceWorkerClient {
      * @param [transfer] A transferable object such as, for example, a reference
      * to a port.
      */
-    postMessage(message: string, transfer?: Object): void;
+    postMessage(message: any, transfer?: any): void;
 
     /**
      * Indicates the type of browsing context of the current client.
      * This value can be one of auxiliary, top-level, nested, or none.
-     * @readonly
      */
-    frameType: string;
+    readonly frameType: string;
 
     /**
      * Returns the id of the Client object.
-     * @readonly
      */
-    id: string;
+    readonly id: string;
 
     /**
      * The URL of the current service worker client.
-     * @readonly
      */
-    url: string;
+    readonly url: string;
 }
 
 interface WindowClient extends ServiceWorkerClient {
@@ -428,16 +191,14 @@ interface WindowClient extends ServiceWorkerClient {
 
     /**
      * A boolean that indicates whether the current client has focus.
-     * @readonly
      */
-    focused: boolean;
+    readonly focused: boolean;
 
     /**
      * Indicates the visibility of the current client. This value can be one of
      * hidden, visible, prerender, or unloaded.
-     * @readonly
      */
-    visibilityState: string;
+    readonly visibilityState: string;
 }
 
 interface ServiceWorkerClientsMatchOptions {
@@ -451,15 +212,21 @@ interface ServiceWorkerClientsMatchOptions {
  */
 interface ServiceWorkerClients {
     /**
+     * Gets a service worker client matching a given id and returns it in a Promise.
+     * @param clientId The ID of the client you want to get.
+     */
+    get(clientId: string): Promise<ServiceWorkerClient>;
+
+    /**
      * Gets a list of service worker clients and returns them in a Promise.
      * Include the options parameter to return all service worker clients whose
      * origin is the same as the associated service worker's origin. If options
      * are not included, the method returns only the service worker clients
      * controlled by the service worker.
      *
-     * @param options
+     * @param [options] An options object allowing you to set options for the matching operation.
      */
-    matchAll(options: ServiceWorkerClientsMatchOptions): Promise<Array<ServiceWorkerClient>>;
+    matchAll(options?: ServiceWorkerClientsMatchOptions): Promise<ServiceWorkerClient[]>;
 
     /**
      * Opens a service worker Client in a new browser window.
@@ -477,62 +244,6 @@ interface ServiceWorkerClients {
 }
 
 /**
- * Extends the lifetime of the install and activate events dispatched on the
- * ServiceWorkerGlobalScope as part of the service worker lifecycle. This
- * ensures that any functional events (like FetchEvent) are not dispatched to
- * the ServiceWorker until it upgrades database schemas, deletes outdated cache
- * entries, etc.
- */
-interface ExtendableEvent extends Event {
-    /**
-     * Extends the lifetime of the event.
-     * It is intended to be called in the install EventHandler for the
-     * installing worker and on the active EventHandler for the active worker.
-     *
-     * @param all
-     */
-    waitUntil(all: any): any;
-}
-
-/**
- * The parameter passed into the ServiceWorkerGlobalScope.onfetch handler,
- * FetchEvent represents a fetch action that is dispatched on the
- * ServiceWorkerGlobalScope of a ServiceWorker. It contains information about
- * the request and resulting response, and provides the FetchEvent.respondWith()
- * method, which allows us to provide an arbitrary response back to the
- * controlled page.
- */
-interface FetchEvent extends Event {
-    /**
-     * Returns a Boolean that is true if the event was dispatched with the
-     * user's intention for the page to reload, and false otherwise. Typically,
-     * pressing the refresh button in a browser is a reload, while clicking a
-     * link and pressing the back button is not.
-     * @readonly
-     */
-    isReload: boolean;
-
-    /**
-     * Returns the Request that triggered the event handler.
-     * @readonly
-     */
-    request: Request;
-
-    /**
-     * Returns the Client that the current service worker is controlling.
-     * @readonly
-     */
-    client: ServiceWorkerClient;
-
-    /**
-     * Resolves by returning a Response or a network error to Fetch.
-     *
-     * @param all
-     */
-    respondWith(all: any): Response;
-}
-
-/**
  * Represents a service worker. Multiple browsing contexts (e.g. pages, workers,
  * etc.) can be associated with the same ServiceWorker object.
  */
@@ -541,24 +252,47 @@ interface ServiceWorker extends Worker {
      * Returns the ServiceWorker serialized script URL defined as part of
      * ServiceWorkerRegistration. The URL must be on the same origin as the
      * document that registers the ServiceWorker.
-     * @readonly
      */
-    scriptURL: string;
+    readonly scriptURL: string;
 
     /**
      * Returns the state of the service worker. It returns one of the following
      * values: installing, installed, activating, activated, or redundant.
-     * @readonly
      */
-    state: string;
+    readonly state: string;
 
     /**
      * An EventListener property called whenever an event of type statechange
      * is fired; it is basically fired anytime the ServiceWorker.state changes.
-     *
-     * @param [statechangeevent]
      */
-    onstatechange: (statechangeevent?: any) => void;
+    onstatechange: (statechangeevent: Event) => void;
+}
+
+/**
+ * The PushMessageData interface of the Push API provides
+ * methods which let you retrieve the push data sent by a server in various formats.
+ */
+interface PushMessageData {
+    /**
+     * Extracts the data as an ArrayBuffer object.
+     */
+    arrayBuffer(): ArrayBuffer;
+
+    /**
+     * Extracts the data as a Blob object.
+     */
+    blob(): Blob;
+
+    /**
+     * Extracts the data as a JSON object.
+     */
+    json(): any;
+    json<T>(): T;
+
+    /**
+     * Extracts the data as a plain text string.
+     */
+    text(): string;
 }
 
 /**
@@ -568,15 +302,13 @@ interface ServiceWorker extends Worker {
 interface PushSubscription {
     /**
      * The endpoint associated with the push subscription.
-     * @readonly
      */
-    endpoint: any;
+    readonly endpoint: any;
 
     /**
      * The subscription ID associated with the push subscription.
-     * @readonly
      */
-    subscriptionId: any;
+    readonly subscriptionId: any;
 }
 
 /**
@@ -586,17 +318,15 @@ interface PushSubscriptionOptions {
     /**
      * A boolean indicating that the returned push subscription will only be used for
      * messages whose effect is made visible to the user.
-     * @readonly
      */
-	userVisibleOnly: boolean;
+    readonly userVisibleOnly: boolean;
 
     /**
      * A public key your push server will use to send messages to client apps via a push server.
      * This value is part of a signing key pair generated by your application server and usable
      * with elliptic curve digital signature (ECDSA) over the P-256 curve.
-     * @readonly
      */
-	applicationServerKey?: Uint8Array;
+    readonly applicationServerKey?: Uint8Array;
 }
 
 /**
@@ -609,6 +339,8 @@ interface PushManager {
     /**
      * Returns a promise that resolves to a PushSubscription with details of a
      * new push subscription.
+     *
+     * @param [options] An object containing optional configuration parameters.
      */
     subscribe(options?: PushSubscriptionOptions): Promise<PushSubscription>;
 
@@ -625,6 +357,168 @@ interface PushManager {
     hasPermission(): Promise<any>;
 }
 
+/////// Service Worker Events ///////
+
+/**
+ * Extends the lifetime of the install and activate events dispatched on the
+ * ServiceWorkerGlobalScope as part of the service worker lifecycle. This
+ * ensures that any functional events (like FetchEvent) are not dispatched to
+ * the ServiceWorker until it upgrades database schemas, deletes outdated cache
+ * entries, etc.
+ */
+interface ExtendableEvent extends Event {
+    /**
+     * Extends the lifetime of the event.
+     * It is intended to be called in the install EventHandler for the
+     * installing worker and on the active EventHandler for the active worker.
+     *
+     * @param promise
+     */
+    waitUntil(promise: Promise<any>): void;
+}
+
+/**
+ * The parameter passed into the ServiceWorkerGlobalScope.onfetch handler,
+ * FetchEvent represents a fetch action that is dispatched on the
+ * ServiceWorkerGlobalScope of a ServiceWorker. It contains information about
+ * the request and resulting response, and provides the FetchEvent.respondWith()
+ * method, which allows us to provide an arbitrary response back to the
+ * controlled page.
+ */
+interface FetchEvent extends Event {
+    /**
+     * Returns a Boolean that is true if the event was dispatched with the
+     * user's intention for the page to reload, and false otherwise. Typically,
+     * pressing the refresh button in a browser is a reload, while clicking a
+     * link and pressing the back button is not.
+     */
+    readonly isReload: boolean;
+
+    /**
+     * Returns the Request that triggered the event handler.
+     */
+    readonly request: Request;
+
+    /**
+     * Returns the Client that the current service worker is controlling.
+     */
+    readonly client: ServiceWorkerClient;
+
+    /**
+     * Returns the id of the client that the current service worker is controlling.
+     */
+    readonly clientId: string;
+
+    /**
+     * Resolves by returning a Response or a network error to Fetch.
+     *
+     * @param all Any custom response-generating code.
+     */
+    respondWith(all: any): Response;
+}
+
+/**
+ * The ExtendableMessageEvent interface of the ServiceWorker API represents
+ * the event object of a message event fired on
+ * a service worker (when a channel message is received on
+ * the ServiceWorkerGlobalScope from another context)
+ * — extends the lifetime of such events.
+ */
+interface ExtendableMessageEvent extends ExtendableEvent {
+    /**
+     * Returns the event's data. It can be any data type.
+     */
+    readonly data: any;
+
+    /**
+     * Returns the origin of the ServiceWorkerClient that sent the message
+     */
+    readonly origin: string;
+
+    /**
+     * Represents, in server-sent events, the last event ID of the event source.
+     */
+    readonly lastEventId: string;
+
+    /**
+     * Returns a reference to the service worker that sent the message.
+     */
+    readonly source: ServiceWorkerClient;
+
+    /**
+     * Returns the array containing the MessagePort objects
+     * representing the ports of the associated message channel.
+     */
+    readonly ports: MessagePort[];
+}
+
+/**
+ * The parameter passed into the oninstall handler, the InstallEvent interface
+ * represents an install action that is dispatched on the
+ * ServiceWorkerGlobalScope of a ServiceWorker. As a child of ExtendableEvent,
+ * it ensures that functional events such as FetchEvent are not dispatched
+ * during installation.
+ */
+interface InstallEvent extends ExtendableEvent {
+    /**
+     * Returns the ServiceWorker that is currently actively controlling the page.
+     */
+    readonly activeWorker: ServiceWorker;
+}
+
+/**
+ * The parameter passed into the onnotificationclick handler,
+ * the NotificationEvent interface represents
+ * a notification click event that is dispatched on
+ * the ServiceWorkerGlobalScope of a ServiceWorker.
+ */
+interface NotificationEvent extends ExtendableEvent {
+    /**
+     * Returns a Notification object representing
+     * the notification that was clicked to fire the event.
+     */
+    notification: any; // need to be replaced with `Notification` when possible
+
+    /**
+     * Returns the string ID of the notification button the user clicked.
+     * This value returns undefined if the user clicked
+     * the notification somewhere other than an action button,
+     * or the notification does not have a button.
+     */
+    action: string;
+}
+
+/**
+ * The PushEvent interface of the Push API represents
+ * a push message that has been received.
+ * This event is sent to the global scope of a ServiceWorker.
+ * It contains the information sent from an application server to a PushSubscription.
+ */
+interface PushEvent extends ExtendableEvent {
+    /**
+     * Returns a reference to a PushMessageData object containing
+     * data sent to the PushSubscription.
+     */
+    readonly data: PushMessageData;
+}
+
+interface ServiceWorkerContainerEventMap {
+    "message": MessageEvent;
+    "error": ErrorEvent;
+    "controllerchange": Event;
+}
+
+interface ServiceWorkerEventMap {
+    "activate": ExtendableEvent;
+    "fetch": FetchEvent;
+    "install": InstallEvent;
+    // "message": ExtendableMessageEvent;
+    "message": MessageEvent;
+    "notificationclick": NotificationEvent;
+    "push": PushEvent;
+    "pushsubscriptionchang": PushEvent;
+}
+
 /**
  * Represents a service worker registration.
  */
@@ -633,23 +527,20 @@ interface ServiceWorkerRegistration extends EventTarget {
      * Returns a unique identifier for a service worker registration.
      * This must be on the same origin as the document that registers
      * the ServiceWorker.
-     * @readonly
      */
-    scope: any;
+    readonly scope: any;
 
     /**
      * Returns a service worker whose state is installing. This is initially
      * set to null.
-     * @readonly
      */
-    installing: ServiceWorker;
+    readonly installing: ServiceWorker;
 
     /**
      * Returns a service worker whose state is installed. This is initially
      * set to null.
-     * @readonly
      */
-    waiting: ServiceWorker;
+    readonly waiting: ServiceWorker;
 
     /**
      * Returns a service worker whose state is either activating or activated.
@@ -657,17 +548,15 @@ interface ServiceWorkerRegistration extends EventTarget {
      * ServiceWorkerClient if the client's URL falls within the scope of the
      * registration (the scope option set when ServiceWorkerContainer.register
      * is first called).
-     * @readonly
      */
-    active: ServiceWorker;
+    readonly active: ServiceWorker;
 
     /**
      * Returns an interface to for managing push subscriptions, including
      * subcribing, getting an anctive subscription, and accessing push
      * permission status.
-     * @readonly
      */
-    pushManager: PushManager;
+    readonly pushManager: PushManager;
 
     /**
      * An EventListener property called whenever an event of type updatefound
@@ -699,49 +588,41 @@ interface ServiceWorkerRegisterOptions {
  * service workers, and access the state of service workers
  * and their registrations.
  */
-interface ServiceWorkerContainer {
+interface ServiceWorkerContainer extends EventTarget {
     /**
      * Returns a ServiceWorker object if its state is activated (the same object
      * returned by ServiceWorkerRegistration.active). This property returns null
      * if the request is a force refresh (Shift + refresh) or if there is no
      * active worker.
-     * @readonly
      */
-    controller: ServiceWorker;
+    readonly controller: ServiceWorker;
 
     /**
      * Defines whether a service worker is ready to control a page or not.
      * It returns a Promise that will never reject, which resolves to a
      * ServiceWorkerRegistration with an ServiceWorkerRegistration.active worker.
-     * @readonly
      */
-    ready: Promise<ServiceWorkerRegistration>;
+    readonly ready: Promise<ServiceWorkerRegistration>;
 
     /**
      * An event handler fired whenever a controllerchange event occurs — when
      * the document's associated ServiceWorkerRegistration acquires a new
      * ServiceWorkerRegistration.active worker.
-     *
-     * @param [controllerchangeevent]
      */
-    oncontrollerchange: (controllerchangeevent?: Event) => void;
+    oncontrollerchange: (controllerchangeevent: Event) => void;
 
     /**
      * An event handler fired whenever an error event occurs in the associated
      * service workers.
-     *
-     * @param [errorevent]
      */
-    onerror: (errorevent?: ErrorEvent) => void;
+    onerror: (errorevent: ErrorEvent) => void;
 
     /**
      * An event handler fired whenever a message event occurs — when incoming
      * messages are received to the ServiceWorkerContainer object (e.g. via a
      * MessagePort.postMessage() call.)
-     *
-     * @param [messageevent]
      */
-    onmessage: (messageevent?: MessageEvent) => void;
+    onmessage: (messageevent: MessageEvent) => void;
 
     /**
      * Creates or updates a ServiceWorkerRegistration for the given scriptURL.
@@ -771,82 +652,50 @@ interface ServiceWorkerContainer {
      * ServiceWorkerContainer in an array.  If the method can't return
      * ServiceWorkerRegistrations, it returns a Promise.
      */
-    getRegistrations(): Promise<Array<ServiceWorkerRegistration>>;
+    getRegistrations(): Promise<ServiceWorkerRegistration[]>;
+
+    addEventListener<K extends keyof ServiceWorkerContainerEventMap>(
+        type: K,
+        listener: (event: ServiceWorkerContainerEventMap[K]) => any,
+        useCapture?: boolean
+    ): void;
 }
 
-/**
- * The parameter passed into the oninstall handler, the InstallEvent interface
- * represents an install action that is dispatched on the
- * ServiceWorkerGlobalScope of a ServiceWorker. As a child of ExtendableEvent,
- * it ensures that functional events such as FetchEvent are not dispatched
- * during installation.
- */
-interface InstallEvent extends ExtendableEvent {
+interface ServiceWorkerGlobalScope extends EventTarget {
     /**
-     * Returns the ServiceWorker that is currently actively controlling the page.
-     * @readonly
+     * Contains the CacheStorage object associated with the service worker.
      */
-    activeWorker: ServiceWorker;
-}
-
-interface ServiceWorkerGlobalScope {
+    readonly caches: CacheStorage;
     /**
      * Contains the Clients object associated with the service worker.
-     * @readonly
      */
-    clients: ServiceWorkerClients;
+    readonly clients: ServiceWorkerClients;
 
     /**
      * Contains the ServiceWorkerRegistration object that represents the
      * service worker's registration.
-     * @readonly
      */
-    registration: ServiceWorkerRegistration;
+    readonly registration: ServiceWorkerRegistration;
 
     /**
      * An event handler fired whenever an activate event occurs — when a
      * ServiceWorkerRegistration acquires a new ServiceWorkerRegistration.active
      * worker.
-     *
-     * @param [activateevent]
      */
-    onactivate: (activateevent?: ExtendableEvent) => void;
-
-    /**
-     * Not defined in the spec yet, but it looks like this will be fired when
-     * the device is nearly out of storage space, prompting the UA to start
-     * claiming back some space from web apps that are using client-side storage,
-     * and the current app is targeted.
-     *
-     * @param [beforeevictedevent]
-     */
-    onbeforeevicted: (beforeevictedevent?: Event) => void;
-
-    /**
-     * Not defined in the spec yet, but it looks like this will be fired when
-     * the device is out of storage space, and the UA claims back some space
-     * from the current app.
-     *
-     * @param [evictedevent]
-     */
-    onevicted: (evictedevent?: Event) => void;
+    onactivate: (activateevent: ExtendableEvent) => void;
 
     /**
      * An event handler fired whenever a fetch event occurs — when a fetch()
      * is called.
-     *
-     * @param [fetchevent]
      */
-    onfetch: (fetchevent?: FetchEvent) => void;
+    onfetch: (fetchevent: FetchEvent) => void;
 
     /**
      * An event handler fired whenever an install event occurs — when a
      * ServiceWorkerRegistration acquires a new
      * ServiceWorkerRegistration.installing worker.
-     *
-     * @param [installevent]
      */
-    oninstall: (installevent?: InstallEvent) => void;
+    oninstall: (installevent: InstallEvent) => void;
 
     /**
      * An event handler fired whenever a message event occurs — when incoming
@@ -856,34 +705,31 @@ interface ServiceWorkerGlobalScope {
      * MessagePort exposed in event.data.port, corresponding to the controlled
      * page.
      *
-     * @param [messageevent]
+     * `onmessage` is actually fired with `ExtendableMessageEvent`, but
+     * since we are merging the interface into `Window`, we should
+     * make sure it's compatible with `window.onmessage`
      */
-    onmessage: (messageevent?: MessageEvent) => void;
+    // onmessage: (messageevent: ExtendableMessageEvent) => void;
+    onmessage: (messageevent: MessageEvent) => void;
 
     /**
      * An event handler fired whenever a notificationclick event occurs — when
      * a user clicks on a displayed notification.
-     *
-     * @param [notificationclickevent]
      */
-    onnotificationclick: (notificationclickevent?: NotificationEvent) => void;
+    onnotificationclick: (notificationclickevent: NotificationEvent) => void;
 
     /**
      * An event handler fired whenever a push event occurs — when a server
      * push notification is received.
-     *
-     * @param [onpushevent]
      */
-    onpush: (onpushevent?: Event) => void;
+    onpush: (onpushevent: PushEvent) => void;
 
     /**
      * An event handler fired whenever a pushsubscriptionchange event occurs —
      * when a push subscription has been invalidated, or is about to be
      * invalidated (e.g. when a push service sets an expiration time).
-     *
-     * @param [pushsubscriptionchangeevent]
      */
-    onpushsubscriptionchange: (pushsubscriptionchangeevent?: Event) => void;
+    onpushsubscriptionchange: (pushsubscriptionchangeevent: PushEvent) => void;
 
     /**
      * Allows the current service worker registration to progress from waiting
@@ -891,12 +737,11 @@ interface ServiceWorkerGlobalScope {
      */
     skipWaiting(): Promise<void>;
 
-    /**
-     * TODO GlobalFetch
-     * @param url
-     * @param init
-     */
-    fetch(url: string | Request, init?: Object): Promise<Response>;
+    addEventListener<K extends keyof ServiceWorkerEventMap>(
+        type: K,
+        listener: (event: ServiceWorkerEventMap[K]) => any,
+        useCapture?: boolean
+    ): void;
 }
 
 interface Navigator {
@@ -908,10 +753,5 @@ interface Navigator {
     serviceWorker: ServiceWorkerContainer;
 }
 
-interface Window extends ServiceWorkerGlobalScope {
-    caches: CacheStorage;
-}
-
-interface NotificationEvent extends Event, ExtendableEvent {
-    notification: any;
-}
+// tslint:disable-next-line no-empty-interface
+interface Window extends ServiceWorkerGlobalScope {}

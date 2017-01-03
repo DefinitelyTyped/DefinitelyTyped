@@ -9,6 +9,10 @@
         "typeRoots": [
             "../"
         ],
+        "lib": [
+          "es2017",
+          "dom"
+        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
