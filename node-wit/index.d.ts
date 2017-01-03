@@ -3,13 +3,9 @@
 // Definitions by: Julien Dufresne <https://github.com/julienduf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as Promise from "bluebird";
-
 export namespace log {
-
     class Logger {
-
-        constructor(lvl: string);
+        constructor(level: string);
     }
 
     const DEBUG: string;
@@ -19,19 +15,16 @@ export namespace log {
 }
 
 export interface WitEntityValue {
-
     value?: string;
     expressions?: string[];
 }
 
 export interface WitEntity {
-
     id?: string;
     values?: WitEntityValue[];
 }
 
 export interface WitContext {
-
     state?: string[];
     reference_time?: string;
     timezone?: string;
@@ -40,8 +33,7 @@ export interface WitContext {
 }
 
 export interface WitRequest {
-
-    sessinId?: string;
+    sessionId?: string;
     context?: WitContext;
     text?: string;
     entities?: WitEntity[];
@@ -49,33 +41,29 @@ export interface WitRequest {
 
 export interface WitResponse {
     text?: string;
-    qickReplies?: any;
+    quickReplies?: any;
 }
 
 export interface WitOption {
-
-    accessToken?: string;
+    accessToken: string;
     actions?: any;
     logger?: log.Logger;
 }
 
 export interface MessageResponseEntity {
-
-    confidence?: number;
-    value?: string;
+    confidence: number;
+    value: string;
 }
 
 export interface MessageResponse {
-
     msg_id: string;
     _text: string;
     entities: MessageResponseEntity[];
 }
 
 export declare class Wit {
-
     constructor(option: WitOption);
     message(message: string, context: WitContext): Promise<MessageResponse>;
-    converse(sessinId: string, message: string, context: WitContext, reset?: boolean): Promise<MessageResponse>;
-    runActions(sessinId: string, message: string, context: WitContext, maxSteps?: number): Promise<WitContext>;
+    converse(sessionId: string, message: string, context: WitContext, reset?: boolean): Promise<MessageResponse>;
+    runActions(sessionId: string, message: string, context: WitContext, maxSteps?: number): Promise<WitContext>;
 }
