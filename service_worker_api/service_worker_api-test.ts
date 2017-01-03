@@ -17,7 +17,7 @@ self.addEventListener('fetch', function(event: FetchEvent) {
 });
 
 self.caches.open('v1').then(function(cache: Cache) {
-    cache.matchAll('/images/').then(function(response: Array<Response>) {
+    cache.matchAll('/images/').then(function(response: Response[]) {
         response.forEach(function(element, index, array) {
             cache.delete(element.url);
         });
@@ -86,7 +86,7 @@ self.caches.open('v1').then(function(cache: Cache) {
 
 self.caches.has('v1').then(function() {
     self.caches.delete('v1').then(function() {
-
+        console.log('done');
     });
 });
 
@@ -95,16 +95,16 @@ self.addEventListener('activate', function(event: ExtendableEvent) {
 
     event.waitUntil(
         self.caches.keys().then(function(keyList) {
-            for(var i = 0; i < keyList.length; i++) {
-                if (cacheWhitelist.indexOf(keyList[i]) === -1) {
-                    return self.caches.delete(keyList[i]);
+            for (var item of keyList) {
+                if (cacheWhitelist.indexOf(item) === -1) {
+                    return self.caches.delete(item);
                 }
             }
         })
     );
 });
 
-function sendMessage(message: string) {
+function sendMessage(message: any) {
     return new Promise(function(resolve, reject) {
         var messageChannel = new MessageChannel();
         messageChannel.port1.onmessage = function(event) {
@@ -118,10 +118,18 @@ function sendMessage(message: string) {
     });
 }
 
+self.addEventListener('message', function(evt: ExtendableMessageEvent) {
+    evt.ports[0].postMessage(evt.source.id);
+});
+
+sendMessage('test').then(function(clientId: string) {
+    console.log(clientId);
+});
+
 self.clients.matchAll({type: "test"}).then(function(clients) {
-    for(var i = 0 ; i < clients.length ; i++) {
-        if(clients[i].url === 'index.html') {
-            self.clients.openWindow(clients[i].url);
+    for (var cli of clients) {
+        if(cli.url === 'index.html') {
+            self.clients.openWindow(cli.url);
             // or do something else involving the matching client
         }
     }
@@ -157,11 +165,11 @@ navigator.serviceWorker.register('service-worker.js', {scope: './'}).then(functi
 });
 
 navigator.serviceWorker.getRegistration('/app').then(function(registration: ServiceWorkerRegistration) {
-
+    console.log(registration);
 });
 
-navigator.serviceWorker.getRegistrations().then(function(registrations: Array<ServiceWorkerRegistration>) {
-
+navigator.serviceWorker.getRegistrations().then(function(registrations: ServiceWorkerRegistration[]) {
+    console.log(registrations);
 });
 
 self.registration.unregister();
@@ -179,9 +187,6 @@ self.addEventListener('notificationclick', function(event: NotificationEvent) {
     event.waitUntil(self.clients.matchAll({
         type: "window"
     }).then(function(clientList) {
-        for (var i = 0; i < clientList.length; i++) {
-            var client = clientList[i];
-        }
         if (self.clients.openWindow)
             return self.clients.openWindow('/');
     }));

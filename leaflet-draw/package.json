@@ -1,5 +1,5 @@
 {
     "dependencies": {
-        "@types/leaflet": "^0.7"
+        "@types/leaflet": "^1.0"
     }
 }

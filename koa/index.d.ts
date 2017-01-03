@@ -19,7 +19,7 @@ import * as cookies from "cookies";
 import * as http from "http";
 import * as net from "net";
 
-declare namespace Koa { }
+
 export = Koa;
 
 declare namespace Koa {

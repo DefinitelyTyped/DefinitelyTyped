@@ -38,7 +38,7 @@ or just look for any ".d.ts" files in the package and manually include them with
 These can be used by TypeScript 1.0.
 
 * [Typings](https://github.com/typings/typings)
-* [NuGet](http://nuget.org/Tpackages?q=DefinitelyTyped)
+* ~~[NuGet](http://nuget.org/Tpackages?q=DefinitelyTyped)~~ (use preferred alternatives, nuget DT type publishing has been turned off)
 * Manually download from the `master` branch of this repository
 
 You may need to add manual [references](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
@@ -200,7 +200,7 @@ A `package.json` may be included for the sake of specifying dependencies. Here's
 We do not allow other fields, such as `"description"`, to be defined manually.
 Also, if you need to reference an older version of typings, you must do that by adding `"dependencies": { "@types/foo": "x.y.z" }` to the package.json.
 
-#### I notice some `tsconfig.json` are missing `"noImplicitAny": true`, `"noImplicitThis": true`, or `"strictNullChecks": true`.
+#### Some packages have no `tslint.json`, and some `tsconfig.json` are missing `"noImplicitAny": true`, `"noImplicitThis": true`, or `"strictNullChecks": true`.
 
 Then they are wrong. You can help by submitting a pull request to fix them.
 
@@ -223,6 +223,12 @@ For an NPM package, `export =` is accurate if `node -p 'require("foo")'` is the 
 Then you will have to add a comment to your definition header: `// TypeScript Version: 2.1`.
 If it is merged before January 7, it will be published as a prerelease version, such as `4.3.0-next.0`.
 
+#### I want to add a DOM API not present in TypeScript by default.
+
+This may belong in [TSJS-Lib-Generator](https://github.com/Microsoft/TSJS-lib-generator#readme). See the guidelines there.
+If the standard is still a draft, it belongs here.
+Use a name beginning with `dom-` and include a link to the standard as the "Project" link in the header.
+When it graduates draft mode, we may remove it from DefinitelyTyped and deprecate the associated `@types` package.
 
 ## License
 

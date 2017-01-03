@@ -1,4 +1,4 @@
-// Type definitions for Mapbox 1.6.3
+// Type definitions for Mapbox 1.6
 // Project: https://www.mapbox.com/mapbox.js/
 // Definitions by: Maxime Fabre <https://github.com/anahkiasen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,36 +18,32 @@ declare namespace L.mapbox {
 	/**
 	 * Create and automatically configure a map with layers, markers, and interactivity.
 	 */
-	function map(element: string|Element, id: string, options?: MapOptions): L.mapbox.Map;
-	function map(element: string|Element, tilejson: any, options?: MapOptions): L.mapbox.Map;
+	function map(element: string|Element, idOrTileJson: any, options?: MapOptions): L.mapbox.Map;
 
 	interface MapOptions extends L.Map.MapOptions {
-		featureLayer?  : FeatureLayerOptions;
-		gridLayer?     : any;
-		tileLayer?     : TileLayerOptions;
-		infoControl?   : ControlOptions;
-		legendControl? : ControlOptions;
-		shareControl?  : ShareControlOptions;
+		featureLayer?: FeatureLayerOptions;
+		gridLayer?: any;
+		tileLayer?: TileLayerOptions;
+		infoControl?: ControlOptions;
+		legendControl?: ControlOptions;
+		shareControl?: ShareControlOptions;
 	}
 
-	interface FilterFunction {
-		(feature: any): boolean;
-	}
+	type FilterFunction = (feature: any) => boolean;
 
 	interface Map extends L.Map {
-		tileLayer    : L.mapbox.TileLayer;
-		gridLayer    : L.mapbox.GridLayer;
-		featureLayer : L.mapbox.FeatureLayer;
+		tileLayer: L.mapbox.TileLayer;
+		gridLayer: L.mapbox.GridLayer;
+		featureLayer: L.mapbox.FeatureLayer;
 
-		gridControl   : L.mapbox.GridControl;
-		infoControl   : L.mapbox.InfoControl;
-		legendControl : L.mapbox.LegendControl;
-		shareControl  : L.mapbox.ShareControl;
+		gridControl: L.mapbox.GridControl;
+		infoControl: L.mapbox.InfoControl;
+		legendControl: L.mapbox.LegendControl;
+		shareControl: L.mapbox.ShareControl;
 
 		getTileJSON(): any;
 
 	}
-
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -58,12 +54,10 @@ declare namespace L.mapbox {
 //////////////////////////////////////////////////////////////////////
 
 declare namespace L.mapbox {
-
 	/**
 	 * You can add a tiled layer to your map with L.mapbox.tileLayer(), a simple interface to layers from Mapbox and elsewhere.
 	 */
-	function tileLayer(id: string, options?: TileLayerOptions): L.mapbox.TileLayer;
-	function tileLayer(tilejson: any, options?: TileLayerOptions): L.mapbox.TileLayer;
+	function tileLayer(idOrTileJson: string, options?: TileLayerOptions): L.mapbox.TileLayer;
 
 	interface TileLayerOptions extends L.TileLayerOptions {
 		retinaVersion?: string;
@@ -82,19 +76,16 @@ declare namespace L.mapbox {
 		setFormat(format: string): TileLayer;
 
 	}
-
 }
 
 // GridLayer
 //////////////////////////////////////////////////////////////////////
 
 declare namespace L.mapbox {
-
 	/**
 	 * An L.mapbox.gridLayer loads UTFGrid tiles of interactivity into your map, which you can easily access with L.mapbox.gridControl.
 	 */
-	function gridLayer(id: string): L.mapbox.GridLayer;
-	function gridLayer(tilejson: any): L.mapbox.GridLayer;
+	function gridLayer(idOrTileJson: any): L.mapbox.GridLayer;
 
 	interface GridLayer {
 
@@ -119,24 +110,20 @@ declare namespace L.mapbox {
 		getData(latlng: L.LatLng, callback: Function): any;
 
 	}
-
 }
 
 // FeatureLayer
 //////////////////////////////////////////////////////////////////////
 
 declare namespace L.mapbox {
-
 	/**
 	 * L.mapbox.featureLayer provides an easy way to integrate GeoJSON from Mapbox and elsewhere into your map.
 	 */
-	function featureLayer(): L.mapbox.FeatureLayer;
-	function featureLayer(id: string, options?: FeatureLayerOptions): L.mapbox.FeatureLayer;
-	function featureLayer(geojson: any, options?: FeatureLayerOptions): L.mapbox.FeatureLayer;
+	function featureLayer(idOrGeoJson?: any, options?: FeatureLayerOptions): L.mapbox.FeatureLayer;
 
 	interface FeatureLayerOptions {
-		filter?    : FilterFunction;
-		sanitizer? : (template: string) => string;
+		filter?: FilterFunction;
+		sanitizer?: (template: string) => string;
 	}
 
 	interface FeatureLayer extends L.FeatureGroup<L.ILayer> {
@@ -176,7 +163,6 @@ declare namespace L.mapbox {
 		getGeoJSON(): any;
 
 	}
-
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -187,7 +173,6 @@ declare namespace L.mapbox {
 //////////////////////////////////////////////////////////////////////
 
 declare namespace L.mapbox {
-
 	/**
 	 * A low-level interface to geocoding, useful for more complex uses and reverse-geocoding.
 	 */
@@ -210,7 +195,6 @@ declare namespace L.mapbox {
 		 * Queries the geocoder with a location, and returns its result, if any.
 		 */
 		reverseQuery(location: any, callback: Function): any;
-
 	}
 }
 
@@ -228,7 +212,6 @@ declare namespace L.mapbox {
 //////////////////////////////////////////////////////////////////////
 
 declare namespace L.mapbox {
-
 	/**
 	 * A map control that shows a toggleable info container. If set, attribution is auto-detected from active layers and added to the info container.
 	 */
@@ -250,14 +233,12 @@ declare namespace L.mapbox {
 		removeInfo(info: string): any;
 
 	}
-
 }
 
 // LegendControl
 //////////////////////////////////////////////////////////////////////
 
 declare namespace L.mapbox {
-
 	/**
 	 * A map control that shows legends added to maps in Mapbox.
 	 * Legends are auto-detected from active layers.
@@ -279,14 +260,12 @@ declare namespace L.mapbox {
 		removeLegend(legend: string): any;
 
 	}
-
 }
 
 // GridControl
 //////////////////////////////////////////////////////////////////////
 
 declare namespace L.mapbox {
-
 	/**
 	 * Interaction is what we call interactive parts of maps that are created with
 	 * the powerful tooltips & regions system in TileMill. Under the hood, it's powered by the open UTFGrid specification.
@@ -294,15 +273,14 @@ declare namespace L.mapbox {
 	function gridControl(layer: string, options?: GridControlOptions): GridControl;
 
 	interface GridControlOptions extends ControlOptions {
-		template?    : string;
-		follow?      : boolean;
-		pinnable?    : boolean;
-		touchTeaser? : boolean;
-		location?    : boolean;
+		template?: string;
+		follow?: boolean;
+		pinnable?: boolean;
+		touchTeaser?: boolean;
+		location?: boolean;
 	}
 
 	interface GridControl extends L.Control {
-
 		onAdd(map: L.mapbox.Map): any;
 		onRemove(map: L.mapbox.Map): any;
 
@@ -315,16 +293,13 @@ declare namespace L.mapbox {
 		 * Change the Mustache template used to transform the UTFGrid data in the map's interactivity into HTML for display.
 		 */
 		setTemplate(template: string): any;
-
 	}
-
 }
 
 // GeocoderControl
 //////////////////////////////////////////////////////////////////////
 
 declare namespace L.mapbox {
-
 	/**
 	 * Adds geocoder functionality as well as a UI element to a map. This uses the Mapbox Geocoding API.
 	 */
@@ -335,10 +310,8 @@ declare namespace L.mapbox {
 	}
 
 	interface GeocoderControl {
-
 		getURL(): string;
 		onAdd(map: L.mapbox.Map): any;
-
 
 		/**
 		 * Set the url used for geocoding.
@@ -359,16 +332,13 @@ declare namespace L.mapbox {
 		 * Bind a listener to an event emitted by the geocoder control. Supported additional events are
 		 */
 		on(event: string, callback: Function): any;
-
 	}
-
 }
 
 // ShareControl
 //////////////////////////////////////////////////////////////////////
 
 declare namespace L.mapbox {
-
 	/**
 	 * Adds a "Share" button to the map, which can be used to share the map to Twitter or Facebook, or generate HTML for a map embed.
 	 */
@@ -379,11 +349,8 @@ declare namespace L.mapbox {
 	}
 
 	interface ShareControl extends L.Control {
-
 		onAdd(map: L.mapbox.Map): any;
-
 	}
-
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -391,7 +358,6 @@ declare namespace L.mapbox {
 //////////////////////////////////////////////////////////////////////
 
 declare namespace L.mapbox.marker {
-
 	/**
 	 * A core icon generator used in L.mapbox.marker.style
 	 */
@@ -401,7 +367,6 @@ declare namespace L.mapbox.marker {
 	 * An icon generator for use in conjunction with pointToLayer to generate markers from the Mapbox Markers API and support the simplestyle-spec for features.
 	 */
 	function style(feature: any, latlng: any): L.Marker;
-
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -409,12 +374,10 @@ declare namespace L.mapbox.marker {
 //////////////////////////////////////////////////////////////////////
 
 declare namespace L.mapbox.simplestyle {
-
 	/**
 	 * Given a GeoJSON Feature with optional simplestyle-spec properties, return an options object formatted to be used as Leaflet Path options.
 	 */
 	function style(feature: any): L.PathOptions;
-
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -422,7 +385,6 @@ declare namespace L.mapbox.simplestyle {
 //////////////////////////////////////////////////////////////////////
 
 declare namespace L.mapbox {
-
 	/**
 	 * A HTML sanitization function, with the same effect as the default value of the sanitizer option of L.mapbox.featureLayer, L.mapbox.gridControl, and L.mapbox.legendControl.
 	 */
@@ -432,7 +394,6 @@ declare namespace L.mapbox {
 	 * A mustache template rendering function, as used by the templating feature provided by L.mapbox.gridControl.
 	 */
 	function template(template: string, data?: any): string;
-
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -441,12 +402,10 @@ declare namespace L.mapbox {
 
 declare namespace L.mapbox {
 	export class config {
-
 		static FORCE_HTTPS: boolean;
 
 		static HTTP_URLS: string[];
 
 		static HTTPS_URLS: string[];
-
 	}
 }

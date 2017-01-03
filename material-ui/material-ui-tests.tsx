@@ -422,7 +422,12 @@ export class AutoCompleteExampleSimple extends React.Component<{}, {dataSource: 
         />
         <AutoComplete
           hintText="Type anything"
-          dataSource={this.state.dataSource}
+          dataSource={[
+            {
+              textKey: 'hello',
+              valueKey: 'world',
+            },
+          ]}
           dataSourceConfig={this.dataSourceConfig}
           onUpdateInput={this.handleUpdateInput}
         />

@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
+import { ViewStyle } from 'react-native';
 
 type DataKey = string | number;
 
@@ -42,12 +43,12 @@ interface SortableListProps {
     /**
      * style of HOC
      */
-    style?: React.ViewStyle
+    style?: ViewStyle
 
     /**
      * these styles will be applied to the inner scroll view content container
      */
-    contentContainerStyle?: React.ViewStyle
+    contentContainerStyle?: ViewStyle
 
     /**
      * when false, rows are not sortable. The default value is true.

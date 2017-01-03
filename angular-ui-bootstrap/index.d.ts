@@ -42,7 +42,6 @@ declare module 'angular' {
             closeOthers?: boolean;
         }
 
-
         interface IButtonConfig {
             /**
              * @default: 'active'
@@ -54,7 +53,6 @@ declare module 'angular' {
              */
             toggleEvent?: string;
         }
-
 
         interface IDatepickerConfig {
             /**
@@ -154,6 +152,13 @@ declare module 'angular' {
              * @default null
              */
             maxDate?: any;
+
+            /**
+             * Defines the initial date, when no model value is specified.
+             * 
+             * @default null
+             */
+            initDate?: any;
 
             /**
              * An option to disable or enable shortcut's event propagation
