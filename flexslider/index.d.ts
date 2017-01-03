@@ -21,7 +21,7 @@ interface SliderObject { //Object: The slider element itself
 	flexAnimate(target:any, pause?: any) :any;    //Function: Move slider - (target, pause) parameters
 	pause(): any;                //Function: Pause slider slideshow interval
 	resume(): any;               //Function: Resume slider slideshow interval
-	canAdvance(target:any): any;     //Function: returns boolean if slider can advance - (target) parameter
+	canAdvance(target:any): boolean;     //Function: returns boolean if slider can advance - (target) parameter
 	getTarget(dir: any): any;         //Function: get target given a direction - "next" or "prev" parameter
 }
 
