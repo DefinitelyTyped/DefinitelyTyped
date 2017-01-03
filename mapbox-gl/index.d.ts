@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS v0.27.0
+// Type definitions for Mapbox GL JS v0.29.0
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -63,6 +63,8 @@ declare namespace mapboxgl {
 		getSource(id: string): VectorSource | RasterSource | GeoJSONSource | ImageSource | VideoSource;
 
 		addLayer(layer: mapboxgl.Layer, before?: string): this;
+
+		moveLayer(id: string, beforeId?: string): this;
 
 		removeLayer(id: string): this;
 
@@ -330,6 +332,12 @@ declare namespace mapboxgl {
 		enableRotation(): void;
 	}
 
+	export interface IControl {
+		onAdd(map: Map): HTMLElement;
+		onRemove(map: Map): any;
+		getDefaultPosition(): string;
+	}
+
 	/**
 	 * Control
 	 */
@@ -343,11 +351,17 @@ declare namespace mapboxgl {
 		constructor();
 	}
 
+	export class PositionOptions {
+		enableHighAccuracy?: boolean;
+		timeout?: number;
+		maximumAge?: number;
+	}
+
 	/**
 	 * Geolocate
 	 */
 	export class GeolocateControl extends Control {
-		constructor();
+		constructor(options?: {positionOptions?: PositionOptions, watchPosition?: boolean});
 	}
 
 	/**
@@ -704,6 +718,9 @@ declare namespace mapboxgl {
 	export class MapDataEvent {
 		type: string;
 		dataType: "source" | "style" | "tile";
+		isSourceLoaded?: boolean;
+		source?: mapboxgl.Source;
+		coord?: any;
 	}
 
 	/**
@@ -760,6 +777,9 @@ declare namespace mapboxgl {
 		contextmenu?: {data: mapboxgl.MapMouseEvent};
 		dblclick?: {data: mapboxgl.MapMouseEvent};
 		click?: {data: mapboxgl.MapMouseEvent};
+		tiledataloading?: {data: mapboxgl.MapDataEvent};
+		sourcedataloading?: {data: mapboxgl.MapDataEvent};
+		styledataloading?: {data: mapboxgl.MapDataEvent};
 		touchcancel?: {data: mapboxgl.MapTouchEvent};
 		touchmove?: {data: mapboxgl.MapTouchEvent};
 		touchend?: {data: mapboxgl.MapTouchEvent};
@@ -772,6 +792,8 @@ declare namespace mapboxgl {
 		movestart?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
 		mouseout?:{data: mapboxgl.MapMouseEvent};
 		load?: void;
+		sourcedata?: {data: mapboxgl.MapDataEvent};
+		styledata?: {data: mapboxgl.MapDataEvent};
 		zoomend?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
 		zoom?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
 		zoomstart?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
@@ -845,6 +867,7 @@ declare namespace mapboxgl {
 		"fill-extrusion-color"?: string | StyleFunction;
 		"fill-extrusion-translate"?: number[];
 		"fill-extrusion-translate-anchor"?: "map" | "viewport";
+		"fill-extrusion-pattern": string;
 		"fill-extrusion-height"?: number | StyleFunction;
 		"fill-extrusion-base"?: number;
 	}
@@ -888,7 +911,7 @@ declare namespace mapboxgl {
 		"icon-rotate"?: number | StyleFunction;
 		"icon-padding"?: number;
 		"icon-keep-upright"?: boolean;
-		"icon-offset"?: number[];
+		"icon-offset"?: number[] | StyleFunction;
 		"text-pitch-alignment"?: "map" | "viewport" | "auto";
 		"text-rotation-alignment"?: "map" | "viewport" | "auto";
 		"text-field"?: string;
@@ -954,6 +977,9 @@ declare namespace mapboxgl {
 		"circle-translate"?: number[];
 		"circle-translate-anchor"?: "map" | "viewport";
 		"circle-pitch-scale"?: "map" | "viewport";
+		"circle-stroke-width"?: number | StyleFunction;
+		"circle-stoke-color"?: string | StyleFunction;
+		"circle-stroke-opactiy"?: number | StyleFunction;
 	}
 }
 
