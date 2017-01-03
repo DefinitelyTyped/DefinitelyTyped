@@ -3962,6 +3962,11 @@ declare module "v8" {
         physical_space_size: number;
     }
 
+    const enum DoesZapCodeSpaceFlag {
+        Disabled = 0,
+        Enabled = 1
+    }
+
     interface HeapInfo { 
         total_heap_size: number;
         total_heap_size_executable: number;
@@ -3971,7 +3976,7 @@ declare module "v8" {
         heap_size_limit: number;
         malloced_memory: number;
         peak_malloced_memory: number;
-        does_zap_garbage: 0|1;
+        does_zap_garbage: DoesZapCodeSpaceFlag;
     }
 
     export function getHeapStatistics(): HeapInfo;
