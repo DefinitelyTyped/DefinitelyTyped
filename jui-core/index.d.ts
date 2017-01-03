@@ -3,8 +3,11 @@
 // Definitions by: JinHo Park <https://github.com/easylogic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="jquery" />
 
-class UtilBase {
+declare var jui: JuiStatic;
+
+interface UtilBase {
     /**
      * @property browser check browser agent
      * @property {Boolean} browser.webkit  Webkit 브라우저 체크
@@ -335,7 +338,7 @@ interface JuiStatic {
      *
      * @param {Function} callback
      */
-    ready(callback: () => void): void;
+    ready(depends?: string[], callback?: (...args: any[]) => void): void;
 
     /**
      * @method defineUI
@@ -544,10 +547,10 @@ interface UIEvent extends UICore {
      * @param {String/HTMLElement} Selector
      * @returns {*|jQuery}
      */
-     find(selector: any): jQueryStatic;
+     find(selector: any): jQuery;
 }
 
-class UtilColor {
+export interface UtilColor {
     /**
      * @method format
      *
@@ -663,12 +666,12 @@ class UtilColor {
     darken(color: string, rate: number): string;
 }
 
-class UtilBase64 {
+interface UtilBase64 {
     encode(input: string): string;
     decode(input: string): string;
 }
 
-class UtilKeyParser {
+interface UtilKeyParser {
     /**
      * @method isIndexDepth
      *
@@ -714,7 +717,7 @@ class UtilKeyParser {
     getParentIndex(index: string): string;
 }
 
-class UtilMath {
+interface UtilMath {
     /**
      * @method rotate
      *
@@ -809,10 +812,6 @@ export interface UtilScaleOrdinal extends Function  {
 
 export type UtilQuickSort = (array: number[], isClone: boolean) => this;
 
+interface jQuery {
 
-
-declare module "jui" {
-    export = jui;
 }
-
-declare var jui: JuiStatic;
