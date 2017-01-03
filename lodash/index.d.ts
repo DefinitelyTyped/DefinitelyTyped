@@ -17131,12 +17131,33 @@ declare namespace _ {
          * @param object The object to query.
          * @return Returns an array of property values.
          */
-        values<T>(object?: Dictionary<T>): T[];
+        values<T>(object?: Dictionary<T>|NumericDictionary<T>|List<T>): T[];
 
-         /**
-          * @see _.values
-          */
+        /**
+         * @see _.values
+         */
         values<T>(object?: any): T[];
+    }
+
+    interface LoDashImplicitStringWrapper {
+        /**
+         * @see _.values
+         */
+        values(): LoDashImplicitArrayWrapper<string>;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.values
+         */
+        values(): LoDashImplicitArrayWrapper<any>;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.values
+         */
+        values(): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -17144,6 +17165,20 @@ declare namespace _ {
          * @see _.values
          */
         values<T>(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.values
+         */
+        values<T>(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.values
+         */
+        values(): LoDashExplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
