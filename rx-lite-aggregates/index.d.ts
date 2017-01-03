@@ -12,14 +12,14 @@ declare namespace Rx {
         aggregate<TAcc>(seed: TAcc, accumulator: (acc: TAcc, value: T) => TAcc): Observable<TAcc>;
 
         reduce(accumulator: (acc: T, value: T) => T): Observable<T>;
-        reduce<TAcc>(accumulator: (acc: TAcc, value: T) => TAcc, seed: TAcc): Observable<TAcc>;		// TS0.9.5: won't work https://typescript.codeplex.com/discussions/471751
+        reduce<TAcc>(accumulator: (acc: TAcc, value: T) => TAcc, seed: TAcc): Observable<TAcc>;        // TS0.9.5: won't work https://typescript.codeplex.com/discussions/471751
 
         any(predicate?: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<boolean>;
-        some(predicate?: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<boolean>;	// alias for any
+        some(predicate?: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<boolean>;    // alias for any
 
         isEmpty(): Observable<boolean>;
         all(predicate?: (value: T) => boolean, thisArg?: any): Observable<boolean>;
-        every(predicate?: (value: T) => boolean, thisArg?: any): Observable<boolean>;	// alias for all
+        every(predicate?: (value: T) => boolean, thisArg?: any): Observable<boolean>;    // alias for all
         contains(value: T): Observable<boolean>;
         contains<TOther>(value: TOther, comparer: (value1: T, value2: TOther) => boolean): Observable<boolean>;
         count(predicate?: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<number>;

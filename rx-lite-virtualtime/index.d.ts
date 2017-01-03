@@ -21,11 +21,11 @@ declare namespace Rx {
 
         isEnabled: boolean;
 
-		/* protected abstract */ add(from: TAbsolute, by: TRelative): TAbsolute;
-		/* protected abstract */ toDateTimeOffset(duetime: TAbsolute): number;
-		/* protected abstract */ toRelative(duetime: number): TRelative;
+        /* protected abstract */ add(from: TAbsolute, by: TRelative): TAbsolute;
+        /* protected abstract */ toDateTimeOffset(duetime: TAbsolute): number;
+        /* protected abstract */ toRelative(duetime: number): TRelative;
 
-		/* protected */ getNext(): internals.ScheduledItem<TAbsolute>;
+        /* protected */ getNext(): internals.ScheduledItem<TAbsolute>;
     }
 
     export interface HistoricalScheduler extends VirtualTimeScheduler<number, number> {

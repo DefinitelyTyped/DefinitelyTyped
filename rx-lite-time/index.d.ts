@@ -14,9 +14,9 @@ declare namespace Rx {
         timeoutWithSelector<TTimeout>(firstTimeout: Observable<TTimeout>, timeoutdurationSelector?: (item: T) => Observable<TTimeout>, other?: Observable<T>): Observable<T>;
 
         debounceWithSelector<TTimeout>(debounceDurationSelector: (item: T) => Observable<TTimeout>): Observable<T>;
-		/**
-		* @deprecated use #debounceWithSelector instead.
-		*/
+        /**
+        * @deprecated use #debounceWithSelector instead.
+        */
         throttleWithSelector<TTimeout>(debounceDurationSelector: (item: T) => Observable<TTimeout>): Observable<T>;
 
         skipLastWithTime(duration: number, scheduler?: IScheduler): Observable<T>;
