@@ -107,4 +107,3 @@ readlineSync.setEncoding('utf-16');
 readlineSync.setMask('%');
 
 readlineSync.setBufferSize(128);
-
