@@ -62,7 +62,7 @@ $(window).load(function() {
 	var player = document.getElementById('player_1');
 	$(player).on('ready', ready);
 
-	function addEvent(element, eventName, callback) {
+	function addEvent(element:any, eventName:any, callback:any) {
 		if (element.addEventListener) {
 			element.addEventListener(eventName, callback, false)
 		} else {
@@ -70,7 +70,7 @@ $(window).load(function() {
 		}
 	}
 
-	function ready(player_id) {
+	function ready(player_id: any) {
 		var froogaloop = $(player_id);
 		froogaloop.on('play', function(data) {
 			$('.flexslider').flexslider("pause");
