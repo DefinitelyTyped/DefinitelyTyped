@@ -685,3 +685,698 @@ export interface UIProperty {
     getAllValue(key: string): any;
     refreshValue($dom: any, newValue:any): void;
 }
+
+export interface UISelect {
+    (selector: any, options?: {
+        tpl?: any,
+        event?: any,
+        items?: any[],
+        placeholder?: string,
+        align?: 'left'|'right',
+        valign?: 'top'|'bottom',
+        multi?: boolean
+    }): this;
+
+    setValue(value: any|any[]): void;
+    getValue(): any| any[];
+    setSelectedIndex(index: number): void;
+    getSelectedIndex(): number;
+    update(data: any[]): void;
+}
+
+export interface UISlider {
+    (selector: any, options?: {
+        tpl?: any,
+        event?: any,
+        type?: "single"|"double", // or double
+        orient?: "horizontal"|"vertical", // or vertical,
+        min?: number,
+        max?: number,
+        step?: number,
+        from?: number,
+        to?: number,
+        tooltip?: boolean,
+        format?: string,
+        progress?: boolean
+
+    }):this;
+
+    /**
+     * @method setFromValue
+     * set FromHandle's value
+     *
+     * @param {Number}
+     */
+    setFromValue(value: number): void;
+
+    /**
+     * @method setToValue
+     * set ToHandle's value
+     *
+     * @param {Number}
+     */
+    setToValue(value: number): void;
+
+    /**
+     * @method getFromValue
+     * get FromHandle's value
+     *
+     * @return {Number} value
+     */
+    getFromValue(): number;
+
+    /**
+     * @method getToValue
+     * get ToHandle's value
+     *
+     * @return {Number} value
+     */
+    getToValue(): number;
+
+}
+
+
+export interface UISplitter {
+    (selector: any, options?: {
+        tpl?: any,
+        event?: any,
+        /**
+         * @cfg {String} [splitterClass='ui-splitter']
+         * set splitter's class for design
+         */
+        splitterClass?: string,
+
+        /**
+         * @cfg {String} [hideClass='hide']
+         * set splitter's hide class for design
+         */
+        hideClass?: string,
+
+        /**
+         * @cfg {Number} [barSize=4]
+         * set splitter's bar size
+         */
+        barSize?: number,
+
+        /**
+         * @cfg {Object} [barStyle={}]
+         * set custom splitter bar style
+         */
+        barStyle?: {},
+
+        /**
+         * @cfg {"vertical"/"horizontal"} [direction='vertical']
+         * set bar's direction
+         */
+        direction?: 'vertical'|'horizontal',
+
+        /**
+         * @cfg {String/Number} [initSize='50%']
+         * set first panel's default width or height
+         */
+        initSize?: string|number,
+
+        /**
+         * @cfg {Number/Array} [minSize=30]
+         * set panel's minimum width or height
+         *
+         * if minSize is number , minSize is conver to array
+         *
+         * minSize[0] is first panel's minimum size
+         * minSize[1] is second panel's minimum size
+         *
+         */
+        minSize?: number|number[],
+
+        /**
+         * @cfg {String} [items=[]]
+         *
+         * set items  to placed in vertical or horizontal
+         *
+         * support max two times
+         *
+         */
+        items?: any[],
+
+        /**
+         * @cfg {Boolean} [fixed=false]
+         *
+         * if fixed is true, panels can not resize.
+         *
+         */
+        fixed?: boolean
+    }): this;
+
+    setDirection(d: 'horizontal' | 'vertical'): void;
+
+    setInitSize(size: number): void;
+    setHide(index: number): void;
+    setShow(index: number): void;
+    toggle(index: number): void;
+}
+
+export interface UISwitch {
+    (selector: any, options?: {
+        tpl?: any,
+        event?: any,
+        checked?: boolean,
+        toggleEvent?: string
+    }): this;
+
+    getValue(): boolean;
+
+    setValue(value: boolean): void;
+
+    toggle(): void;
+}
+
+export interface UITab {
+
+    (selector: any, options?: {
+        tpl?: any,
+        event?: any,
+        /**
+         * @cfg {String/DOMElement} [target=""]
+         * Determines a selector in the area to become the content of a tab
+         */
+        target?: string|any,
+
+        /**
+         * @cfg {Integer} [index=0]
+         * Sets an enabled tab
+         */
+        index?: number,
+
+        /**
+         * @cfg {Boolean} [drag=false]
+         * Changes the tab location through dragging
+         */
+        drag?: boolean,
+
+        /**
+         * @cfg {Array} nodes
+         * Sets a tab list to data rather than markup
+         */
+        nodes?: any[]
+    }): this;
+    /**
+     * @method update
+     * Changes the tab list
+     *
+     * @param {Array} nodes
+     */
+    update(nodes: any[]): void;
+
+    /**
+     * @method insert
+     * Adds a tab at a specified index
+     *
+     * @param {Integer} index
+     * @param {Object} node
+     */
+    insert(index: number, node: {}): void;
+
+    /**
+     * @method append
+     * Adds a tab to the last node
+     *
+     * @param {Object} node
+     */
+    append(node: {}): void;
+
+    /**
+     * @method prepend
+     * Adds a tab to the first node
+     *
+     * @param {Object} node
+     */
+    prepend(node: {}): void;
+
+    /**
+     * @method remove
+     * Removes a tab at a specified index
+     *
+     * @param {Integer} index
+     */
+    remove(index:number): void;
+
+    /**
+     * @method move
+     * Changes a specified tab to a tab at a target index
+     *
+     * @param {Integer} index
+     * @param {Integer} targetIndex
+     */
+    move(index: number, targetIndex:number): void;
+
+    /**
+     * @method show
+     * Enables the tab at a specified index
+     *
+     * @param {Integer} index
+     */
+    show(index: number): void;
+
+    /**
+     * @method enable
+     * Enables the tab at a specified index
+     *
+     * @param {Integer} index
+     */
+    enable(index: number): void;
+
+    /**
+     * @method disable
+     * Disables the tab at a specified index
+     *
+     * @param {Integer} index
+     */
+    disable(index: number): void;
+
+    /**
+     * @method activeIndex
+     * Gets the index of the currently enabled tab
+     *
+     * @return {Integer}
+     */
+    activeIndex(): number
+}
+
+export interface UITooltip {
+    (selector: any, options?: {
+        tpl?: any,
+        event?: any,
+        /**
+         * @cfg {String} [color="black"]
+         * Determines the color of a tooltip
+         */
+        color?: string,
+
+        /**
+         * @cfg {"top"/"bottom"/"left"/"right"} [position="top"]
+         * Determines the location where a tooltip is shown
+         */
+        position?: "top"|"bottom"|"left"|"right",
+
+        /**
+         * @cfg {Integer} [width=150]
+         * Determines the horizontal size of a tooltip
+         */
+        width?: number,
+
+        /**
+         * @cfg {"left"/"right"/"center"} [align="left"]
+         * Determines the alignment state inside a tooltip
+         */
+        align?: "left"|"right"|"center",
+
+        /**
+         * @cfg {Integer} [delay=0]
+         * Determines the event time when a tooltip is shown
+         */
+        delay?: number,
+
+        /**
+         * @cfg {String} [showType="mouseover"]
+         * Determines the type of event that triggers a tooltip
+         */
+        showType?: string,
+
+        /**
+         * @cfg {String} [hideType="mouseout"]
+         * Determines the type of event that hides a tooltip
+         */
+        hideType?: string,
+
+        /**
+         * @cfg {String} [title=""]
+         * Sets the content of a tooltip (referring to the title properties in markup)
+         */
+        title?: string,
+
+    }): this;
+
+    /**
+     * @method update
+     * Changes the content of a tooltip
+     *
+     * @param {String} text
+     */
+    update(newTitle:string): void;
+}
+
+export interface UITreeNode {
+    /** @property {Array} [data=null] Data of a specifiednode */
+    data?: any[];
+
+    /** @property {HTMLElement} [element=null] LI element of a specified node */
+    element?: any;
+
+    /** @property {Integer} [index=null] Index of a specified node */
+    index?: number;
+
+    /** @property {Integer} [nodenum=null] Unique number of a specifiede node at the current depth */
+    nodenum?: number;
+
+    /** @property {ui.tree.node} [parent=null] Variable that refers to the parent of the current node */
+    parent?: UITreeNode;
+
+    /** @property {Array} [children=null] List of child nodes of a specified node */
+    children?: UITreeNode[];
+
+    /** @property {Integer} [depth=0] Depth of a specified node */
+    depth?: number;
+
+    /** @property {String} [type='open'] State value that indicates whether a child node is shown or hidden */
+    type?: string;
+}
+
+export interface UITreeBase {
+    appendNode(...args:any[]): UITreeNode;
+    insertNode(index: string, data: any):UITreeNode;
+    updateNode(index: string, data: any):UITreeNode;
+    removeNode(index: string): void;
+    removeNodes(): void;
+    openNode(index: string): void;
+    foldNode(index: string): void;
+    openNodeAll(index: string): void;
+    foldNodeAll(index: string): void;
+
+    moveNode(index: string, targetIndex: number): void;
+
+    getNode(index: string): UITreeNode;
+
+    getNodeAll(index: string): UITreeNode[];
+
+    getNodeParent(index: string): UITreeNode;
+
+    getRoot(): UITreeNode;
+}
+
+export interface UITree {
+    (selector: any, options?: {
+        tpl?: any,
+        event?: any,
+        /**
+         * @cfg {NodeObject} [root=null]
+         * Adds a root node (required).
+         */
+        root?: UITreeNode,
+
+        /**
+         * @cfg {Boolean} [rootHide=false]
+         * Hides a root node.
+         */
+        rootHide?: boolean,
+
+        /**
+         * @cfg {Boolean} [rootFold=false]
+         * Folds up a root node.
+         */
+        rootFold?: boolean,
+
+        /**
+         * @cfg {Boolean} [drag=false]
+         * It is possible to drag the movement of a node.
+         */
+        drag?: boolean,
+
+        /**
+         * @cfg {Boolean} [dragChild=true]
+         * It is possible to drag the node movement but the node is not changed to a child node of the target node.
+         */
+        dragChild?: boolean
+    }): this;
+
+    /**
+     * @method update
+     * Changes to the node at a specified index.
+     *
+     * @param {String} index
+     * @param {Array} data
+     */
+    update(index: string, data: any[]): void;
+
+    /**
+     * @method append
+     * Adds to a child node at a specified index.
+     *
+     * @param {Array/String} param1 index or data
+     * @param {Array} param2 null or data
+     */
+    append(...args:any[]): void;
+
+    /**
+     * @method insert
+     * Adds a node at a specified index.
+     *
+     * @param {String} index
+     * @param {Array} data
+     */
+    insert(index: string, data: any[]): void;
+
+    /**
+     * @method select
+     * Adds a node at a specified index.
+     *
+     * @param {String} index
+     * @return {NodeObject} node
+     */
+    select(index: string): UITreeNode;
+
+    /**
+     * @method unselect
+     * Removes the 'active' class from a selected node and gets an instance of the specified node.
+     */
+    unselect(): void;
+
+    /**
+     * @method remove
+     * Deletes a node at a specified index.
+     *
+     * @param {String} index
+     */
+    remove(index: string): void;
+    /**
+     * @method reset
+     * Deletes all child nodes except for a root.
+     */
+    reset(): void;
+
+    /**
+     * @method move
+     * Moves a node at a specified index to the target index.
+     *
+     * @param {String} index
+     * @param {String} targetIndex
+     */
+    move(index: string, targetIndex: string): void;
+    /**
+     * @method open
+     * Shows a child node at a specified index.
+     *
+     * @param {String} index
+     */
+    open(index: string, e: any): void;
+
+    /**
+     * @method fold
+     * Folds up a child node at a specified index.
+     *
+     * @param {String} index
+     */
+    fold(index: string, e: any): void;
+    /**
+     * @method openAll
+     * Shows all child nodes at a specified index.
+     *
+     * @param {String} index
+     */
+    openAll(index: string): void;
+
+    /**
+     * @method foldAll
+     * Folds up all child nodes at a specified index.
+     *
+     * @param {String} index
+     */
+    foldAll(index: string): void;
+
+    /**
+     * @method list
+     * Return all nodes of the root.
+     *
+     * @return {Array} nodes
+     */
+    list(): UITreeNode[];
+
+    /**
+     * @method listAll
+     * Returns all child nodes.
+     *
+     * @return {Array} nodes
+     */
+    listAll(): UITreeNode[];
+
+    /**
+     * @method listParent
+     * Returns all parent nodes at a specified index.
+     *
+     * @param {String} index
+     * @return {Array} nodes
+     */
+    listParents(index: string): UITreeNode[];
+
+    /**
+     * @method get
+     * Gets a node at a specified index
+     *
+     * @param {String} index
+     * @return {NodeObject} node
+     */
+    get(index: string): UITreeNode;
+
+    /**
+     * @method getAll
+     * Gets all nodes at a specified index including child nodes.
+     *
+     * @param {String} index
+     * @return {Array} nodes
+     */
+    getAll(index: string): UITreeNode[];
+
+    /**
+     * @method activeIndex
+     * Gets the index of a node that is activated in an active state.
+     *
+     * @return {Integer} index
+     */
+    activeIndex(): number;
+}
+
+export interface UIWindow {
+    (selector: any, options?: {
+        tpl?: any,
+        event?: any,
+        /**
+         * @cfg {Integer} [width=400]
+         * Determines the horizontal size of a window
+         */
+        width?: number,
+
+        /**
+         * @cfg {Integer} [height=300]
+         * Determines the height of a window
+         */
+        height?: number,
+
+        /**
+         * @cfg {String/Integer} [left="auto"]
+         * Determines the X coordinate of a window
+         */
+        left?: string|number,
+
+        /**
+         * @cfg {String/Integer} [top="auto"]
+         * Determines the Y coordinate of a window
+         */
+        top?: string|number,
+
+        /**
+         * @cfg {String/Integer} [right="auto"]
+         * Determines the X coordinate based on the right side of a window
+         */
+        right?: string|number,
+
+        /**
+         * @cfg {String/Integer} [bottom="auto"]
+         * Determines the Y coordinate based on the bottom side of a window
+         */
+        bottom?: string|number,
+
+        /**
+         * @cfg {Boolean} [modal=false]
+         * Applies a modal UI to a window
+         */
+        modal?: boolean,
+
+        /**
+         * @cfg {Boolean} [move=true]
+         * It is possible to move a window
+         */
+        move?: boolean,
+
+        /**
+         * @cfg {Boolean} [resize=true]
+         * It is possible to resize a window
+         */
+        resize?: boolean,
+
+        /**
+         * @cfg {Integer} [modalIndex=0]
+         * Determines the z-index property of a modal UI
+         */
+        modalIndex?: number
+    }): this;
+
+    /**
+     * @method hide
+     * Hides a window
+     */
+    hide(): void;
+
+    /**
+     * @method show
+     * Shows a window at specified coordinates
+     *
+     * @param {Integer} x
+     * @param {Integer} y
+     */
+    show(x: number, y: number): void;
+
+    /**
+     * @method move
+     * Moves a window at specified coordinates
+     *
+     * @param {Integer} x
+     * @param {Integer} y
+     */
+    move(x: number, y: number): void;
+
+    /**
+     * @method update
+     * Changes the markup in the body area of a window
+     *
+     * @param {String} html
+     */
+    update(html: string): void;
+
+    /**
+     * @method setTitle
+     * Changes the markup of the title tag in the head area of a window
+     *
+     * @param {String} title
+     */
+    setTitle(html: string): void;
+
+    /**
+     * @method setSize
+     * Changes the horizontal/vertical size of a window
+     *
+     * @param {Integer} width
+     * @param {Integer} height
+     */
+    setSize(w: number, h: number): void;
+
+    /**
+     * @method resize
+     * Designates a scroll area if there is a lot of content in the window body area
+     */
+    resize(): void;
+
+    /**
+     * @method resizeModal
+     * Re-adjust the location of a modal window
+     */
+    resizeModal(): void;
+}

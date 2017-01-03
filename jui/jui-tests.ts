@@ -3,7 +3,7 @@
 import {jui} from 'jui-core';
 import {
     UIAccordion, UIAutoComplete, UIColorPicker, UICombo, UIDatePicker, UIDropdown, UIModal, UINotify,
-    UIPaging, UIProgress, UIProperty
+    UIPaging, UIProgress, UIProperty, UISelect
 } from 'jui';
 
 jui.ready([
@@ -17,7 +17,8 @@ jui.ready([
     'ui.notify',
     'ui.paging',
     'ui.progress',
-    'ui.property'
+    'ui.property',
+    'ui.select'
 ], function (
     accordion: UIAccordion,
     autocomplete: UIAutoComplete,
@@ -29,7 +30,8 @@ jui.ready([
     notify: UINotify,
     paging: UIPaging,
     progress: UIProgress,
-    property: UIProperty
+    property: UIProperty,
+    select: UISelect
 ) {
     let a: UIAccordion = accordion("#test", {
         multipanel: false
@@ -107,5 +109,16 @@ jui.ready([
     })
 
     console.log(propertyView.getValue());
+
+    let selectInstance: UISelect = select("#test", {
+        items : [
+            { type : 'item', value : '0', text : 'first', html : '<div>test</div>', selected : true },
+            { type : 'divider' }
+        ],
+        multi: true,
+        placeholder: 'Sample Select'
+    });
+
+    console.log(selectInstance.getValue());
 
 });
