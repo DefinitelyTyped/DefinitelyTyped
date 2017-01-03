@@ -21,34 +21,34 @@ declare class Configstore {
 
     /**
      * Get an item
-     * @param {string} key The string key to get
+     * @param key The string key to get
      * @return The contents of the config from key $key
      */
     get(key: string): any;
 
     /**
      * Set an item
-     * @param {string} key The string key
-     * @param {*} val The value to set
+     * @param key The string key
+     * @param val The value to set
      */
     set(key: string, val: any): void;
 
     /**
      * Set all key/value pairs declared in $values
-     * @param {*} values The values object.
+     * @param values The values object.
      */
     set(values: any): void;
 
     /**
      * Determines if a key is present in the config
-     * @param {string} key The string key to test for
+     * @param key The string key to test for
      * @return True if the key is present
      */
     has(key: string): boolean;
 
     /**
      * Delete an item.
-     * @param {string} key The key to delete
+     * @param key The key to delete
      */
     delete(key: string): void;
 
