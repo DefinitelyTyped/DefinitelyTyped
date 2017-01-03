@@ -1,13 +1,6 @@
 {
-  "dependencies": {
-    "@types/node": "^6.0.56",
-    "browser-bunyan": "^0.4.0"
-  },
-  "name": "browser-bunyan-typings",
-  "version": "0.4.0",
-  "description": "Typings for browser-bunyan",
-  "main": "index.d.ts",
-  "repository": "https://github.com/PaulLockwood/types-browser-bunyan",
-  "author": "Paul Lockwood",
-  "license": "MIT"
+    "dependencies": {
+        "@types/node": "^6.0.56",
+        "browser-bunyan": "^0.4.0"
+    }
 }
