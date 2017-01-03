@@ -1,37 +1,71 @@
-// Type definitions for configstore 0.3.0
+// Type definitions for Configstore
 // Project: https://github.com/yeoman/configstore
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Definitions by: ArcticLight <https://github.com/ArcticLight/>
 
+export = Configstore
 
-/*
- Set an item
- */
-export declare function set(key: string, val: any): void;
+declare class Configstore {
+    constructor(packageName: string, defaults?: any, options?: Configstore.ConfigstoreOptions);
 
-/*
- Get an item
- */
-export declare function get(key: string): any;
+    /**
+     * Get the path to the config file. Can be used to show the user
+     * where it is, or better, open it for them.
+     */
+    path: string;
 
-/*
- Delete an item
- */
-export declare function del(key: string): void;
+    /**
+     * Get all items as an object or replace the current config with an object.
+     */
+    all: any;
 
-/*
- Get all items as an object or replace the current config with an object:
+    /**
+     * Get an item
+     * @param {string} key The string key to get
+     * @return The contents of the config from key $key
+     */
+    get(key: string): any;
 
- conf.all = {
-    hello: 'world'
- };
- */
-export declare var all: Object;
-/*
- Get the item count
- */
-export declare var size: number;
-/*
- Get the path to the config file. Can be used to show the user where the config file is located or even better open it for them.
- */
-export declare var path: string;
+    /**
+     * Set an item
+     * @param {string} key The string key
+     * @param {*} val The value to set
+     */
+    set(key: string, val: any): void;
+
+    /**
+     * Set all key/value pairs declared in $values
+     * @param {*} values The values object.
+     */
+    set(values: any): void;
+
+    /**
+     * Determines if a key is present in the config
+     * @param {string} key The string key to test for
+     * @return True if the key is present
+     */
+    has(key: string): boolean;
+
+    /**
+     * Delete an item.
+     * @param {string} key The key to delete
+     */
+    del(key: string): void;
+
+    /**
+     * Delete an item.
+     * @param {string} key The key to delete
+     */
+    delete(key: string): void;
+
+    /**
+     * Clear the config.
+     * Equivalent to <code>Configstore.all = {};</code>
+     */
+    clear(): void;
+  }
+
+declare namespace Configstore {
+    export interface ConfigstoreOptions {
+        globalConfigPath?: string;
+    }
+}
