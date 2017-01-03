@@ -16,14 +16,18 @@ declare namespace HtmlWebpackTemplate {
         pageViewOnLoad?: boolean;
     }
 
-    type Resource = string | {};
+    export interface Attributes {
+        [name: string]: any;
+    }
+
+    type Resource = string | Attributes;
 
     /**
     * string: value is assigned to the href attribute and the rel attribute is
     *         set to "stylesheet"
     *
     * object: properties and values are used as the attribute names and values,
-    *         respectively.
+    *         respectively:
     */
     export type Link = Resource;
 
@@ -71,7 +75,7 @@ declare namespace HtmlWebpackTemplate {
         links?: Link[];
 
         // Array of objects containing key value pairs to be included as meta tags.
-        meta?: Array<{}>;
+        meta?: Attributes[];
 
         // Sets appropriate meta tag for page scaling.
         mobile?: boolean;
