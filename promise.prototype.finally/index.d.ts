@@ -5,7 +5,7 @@
 
 declare global {
     interface Promise<T> {
-        finally<U>(onFinally?: () => U | Promise<U>): Promise<U>;
+        finally<U>(onFinally?: () => U | Promise<U>): Promise<T>;
     }
 }
 
