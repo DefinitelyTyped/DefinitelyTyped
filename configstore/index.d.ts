@@ -61,6 +61,6 @@ declare class Configstore {
 
 declare namespace Configstore {
     export interface ConfigstoreOptions {
-        globalConfigPath?: string;
+        globalConfigPath?: boolean;
     }
 }
