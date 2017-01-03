@@ -7,8 +7,7 @@
 // --------------------------------------------------------------------------------
 import * as React from 'react';
 import { Component, CSSProperties } from 'react';
-import { Button } from 'react-bootstrap';
-import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
+import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
 
 
 export class ReactRouterBootstrapTest extends Component<any, any> {
@@ -20,10 +19,10 @@ export class ReactRouterBootstrapTest extends Component<any, any> {
         let style: CSSProperties = { padding: '50px' };
         return (
             <div style={style}>
-                
+
                 <div style={style}>
-                    <LinkContainer to="/page"><Button>Link</Button></LinkContainer>
-                    <IndexLinkContainer to="/index"><Button>Link</Button></IndexLinkContainer>
+                    <LinkContainer to="/page"><button>Link</button></LinkContainer>
+                    <IndexLinkContainer to="/index"><button>Link</button></IndexLinkContainer>
                 </div>
             </div>
         );

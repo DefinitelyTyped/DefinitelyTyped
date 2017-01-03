@@ -1,8 +1,10 @@
-import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import * as i18n from 'i18next';
-import { translate, I18nextProvider, Interpolate, InjectedTranslateProps, TranslationFunction } from 'react-i18next';
+import { translate, I18nextProvider, Interpolate, InjectedTranslateProps, TranslationFunction } from './index';
 
+namespace ReactDOM {
+    export function render(...args: any[]): any { /* mock function */ }
+}
 
 i18n
     .init({
@@ -69,7 +71,7 @@ class TranslatableView extends React.Component<TranslatableViewProps, {}> {
                     i18nKey='common:interpolateSample'
                     value='"some value in props"'
                     component={interpolateComponent}
-                />
+                    />
                 <Interpolate
                     parent='p'
                     i18nKey='common:interpolateSample'
@@ -77,7 +79,7 @@ class TranslatableView extends React.Component<TranslatableViewProps, {}> {
                     dangerouslySetInnerHTMLPartElement='span'
                     value='"some value in props"'
                     component={interpolateComponent}
-                />
+                    />
                 <a href='https://github.com/i18next/react-i18next' target='_blank'>{t('nav:link1')}</a>
             </div>
         )
@@ -98,6 +100,6 @@ class App extends React.Component<{}, {}> {
 
 
 ReactDOM.render(
-    <I18nextProvider i18n={ i18n }><App /></I18nextProvider>,
+    <I18nextProvider i18n={i18n}><App /></I18nextProvider>,
     document.getElementById('app')
 );

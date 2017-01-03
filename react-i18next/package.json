@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@types/i18next": "^2.3.34",
+    "@types/react": "^0.14.55",
+    "@types/react-router": "^2.0.41"
+  }
+}
