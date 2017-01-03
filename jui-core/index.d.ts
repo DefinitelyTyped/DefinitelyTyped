@@ -539,7 +539,7 @@ interface UICore {
      destroy(): void;
 }
 
-interface UIEvent extends UICore {
+export interface UIEvent extends UICore {
     /**
      * @method find
      * Get the child element of the root element
