@@ -661,14 +661,14 @@ declare namespace angular {
         (actual: T, expected: T): boolean;
     }
     
-    interface IFilterOrderByItem<T> {
-        value: T,
+    interface IFilterOrderByItem {
+        value: any,
         type: string,
         index: any
     }
 
-    interface IFilterOrderByComparatorFunc<T> {
-        (left: IFilterOrderByItem<T>, right: IFilterOrderByItem<T>): -1 | 0 | 1;
+    interface IFilterOrderByComparatorFunc {
+        (left: IFilterOrderByItem, right: IFilterOrderByItem): -1 | 0 | 1;
     }
 
     interface IFilterCurrency {
@@ -756,7 +756,7 @@ declare namespace angular {
          * @param comparator Function used to determine the relative order of value pairs.
          * @return An array containing the items from the specified collection, ordered by a comparator function based on the values computed using the expression predicate.
          */
-        <T>(array: T[], expression: string|((value: T) => any)|(((value: T) => any)|string)[], reverse?: boolean, comparator?: IFilterOrderByComparatorFunc<T>): T[];
+        <T>(array: T[], expression: string|((value: T) => any)|(((value: T) => any)|string)[], reverse?: boolean, comparator?: IFilterOrderByComparatorFunc): T[];
     }
 
     /**
