@@ -1223,7 +1223,7 @@ declare module "react" {
         /**
          * Callback that is called when the text input selection is changed.
          */
-        onSelectionChange?: () => void
+        onSelectionChange?: (event: { nativeEvent: { selection: { start: number, end: number }, target: number } }) => void
 
         /**
          * Callback that is called when the text input's submit button is pressed.

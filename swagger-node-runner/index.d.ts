@@ -34,6 +34,7 @@ import { Express, NextFunction } from "express";
 import { Spec } from "swagger-schema-official";
 import { EventEmitter } from "events";
 import * as Hapi from "hapi";
+import * as Restify from "restify";
 
 /**
  * Config object for SwaggerNodeRunner
@@ -258,7 +259,7 @@ export interface HapiMiddleware extends Middleware {
 /** Restify specific Middleware */
 export interface RestifyMiddleware extends Middleware {
     /** Register this Middleware with `app`  */
-    register: (app: any) => void;
+    register: (app: Restify.Server) => void;
 }
 
 
