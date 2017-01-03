@@ -3971,7 +3971,7 @@ declare module "v8" {
         heap_size_limit: number;
         malloced_memory: number;
         peak_malloced_memory: number;
-        does_zap_garbage: number;
+        does_zap_garbage: 0|1;
     }
 
     export function getHeapStatistics(): HeapInfo;
