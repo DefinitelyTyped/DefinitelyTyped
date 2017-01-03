@@ -16,6 +16,7 @@
     },
     "files": [
         "index.d.ts",
+        "react-native-tests.tsx",
         "react-native-animated-tests.tsx"
     ]
 }

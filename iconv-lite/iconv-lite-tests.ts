@@ -1,6 +1,6 @@
 // Code examples from iconv-lite README
 
-import * as iconv from "./";
+import * as iconv from "iconv-lite";
 
 import * as assert from "assert";
 import * as fs from "fs";

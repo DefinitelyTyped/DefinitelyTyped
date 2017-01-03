@@ -3,7 +3,7 @@
  * Created by Maxime LUCE <https://github.com/SomaticIT>.
  */
 
-import express = require("../express");
+import express = require("express");
 import passport = require('passport');
 import local = require('passport-local');
 

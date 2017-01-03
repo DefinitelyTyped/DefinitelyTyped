@@ -1,6 +1,7 @@
 {
     "files": [
         "index.d.ts",
+        "angular-component-router.d.ts",
         "angular-tests.ts"
     ],
     "compilerOptions": {

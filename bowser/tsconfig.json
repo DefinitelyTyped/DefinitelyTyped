@@ -15,7 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "bowser-tests-module.ts",
-        "bowser-tests-global.ts"
+        "bowser-module-tests.ts",
+        "bowser-global-tests.ts"
     ]
 }
