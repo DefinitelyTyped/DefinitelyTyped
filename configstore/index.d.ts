@@ -20,6 +20,11 @@ declare class Configstore {
     all: any;
 
     /**
+     * Get the item count
+     */
+    size: number;
+
+    /**
      * Get an item
      * @param key The string key to get
      * @return The contents of the config from key $key
