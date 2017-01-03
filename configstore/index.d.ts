@@ -1,4 +1,4 @@
-// Type definitions for Configstore
+// Type definitions for Configstore 2.1.0
 // Project: https://github.com/yeoman/configstore
 // Definitions by: ArcticLight <https://github.com/ArcticLight/>
 
