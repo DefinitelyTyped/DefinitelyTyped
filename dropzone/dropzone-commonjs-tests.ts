@@ -48,7 +48,7 @@ const dropzoneWithOptions = new Dropzone(".test", {
 	dictRemoveFileConfirmation: "",
 	dictMaxFilesExceeded: "",
 
-	accept: (file:DropzoneFile, done:(error?:string|Error) => void) => {
+	accept: (file:Dropzone.DropzoneFile, done:(error?:string|Error) => void) => {
 		if (file.accepted) {
 			file.previewElement.classList.add("accepted");
 			file.previewTemplate.classList.add("accepted");
@@ -62,7 +62,7 @@ const dropzoneWithOptions = new Dropzone(".test", {
 	init: () => console.log("Initialized"),
 	forceFallback: false,
 	fallback: () => console.log("Fallback"),
-	resize: (file:DropzoneFile) => ({
+	resize: (file:Dropzone.DropzoneFile) => ({
 		srcX: 0,
 		srcY: 0,
 		trgX: 10,
@@ -85,34 +85,34 @@ const dropzoneWithOptions = new Dropzone(".test", {
 
 	reset: () => console.log("Reset"),
 
-	addedfile: (file:DropzoneFile) => console.log("Addedfile"),
-	addedfiles: (files:DropzoneFile[]) => console.log("Addedfiles"),
-	removedfile: (file:DropzoneFile) => console.log("Removedfile"),
-	thumbnail: (file:DropzoneFile, dataUrl:string) => console.log("Thumbnail"),
+	addedfile: (file:Dropzone.DropzoneFile) => console.log("Addedfile"),
+	addedfiles: (files:Dropzone.DropzoneFile[]) => console.log("Addedfiles"),
+	removedfile: (file:Dropzone.DropzoneFile) => console.log("Removedfile"),
+	thumbnail: (file:Dropzone.DropzoneFile, dataUrl:string) => console.log("Thumbnail"),
 
-	error: (file:DropzoneFile, message:string|Error) => console.log("Error"),
-	errormultiple: (files:DropzoneFile[], message:string|Error) => console.log("Errormultiple"),
+	error: (file:Dropzone.DropzoneFile, message:string|Error) => console.log("Error"),
+	errormultiple: (files:Dropzone.DropzoneFile[], message:string|Error) => console.log("Errormultiple"),
 
-	processing: (file:DropzoneFile) => console.log("Processing"),
-	processingmultiple: (files:DropzoneFile[]) => console.log("Processingmultiple"),
+	processing: (file:Dropzone.DropzoneFile) => console.log("Processing"),
+	processingmultiple: (files:Dropzone.DropzoneFile[]) => console.log("Processingmultiple"),
 
-	uploadprogress: (file:DropzoneFile, progress:number, bytesSent:number) => console.log("Uploadprogress"),
+	uploadprogress: (file:Dropzone.DropzoneFile, progress:number, bytesSent:number) => console.log("Uploadprogress"),
 	totaluploadprogress: (totalProgress:number, totalBytes:number, totalBytesSent:number) => console.log("Totaluploadprogress"),
 
-	sending: (file:DropzoneFile, xhr:XMLHttpRequest, formData:{}) => console.log("Sending"),
-	sendingmultiple: (files:DropzoneFile[], xhr:XMLHttpRequest, formData:{}) => console.log("Sendingmultiple"),
+	sending: (file:Dropzone.DropzoneFile, xhr:XMLHttpRequest, formData:{}) => console.log("Sending"),
+	sendingmultiple: (files:Dropzone.DropzoneFile[], xhr:XMLHttpRequest, formData:{}) => console.log("Sendingmultiple"),
 
-	success: (file:DropzoneFile) => console.log("Success"),
-	successmultiple: (files:DropzoneFile[]) => console.log("Successmultiple"),
+	success: (file:Dropzone.DropzoneFile) => console.log("Success"),
+	successmultiple: (files:Dropzone.DropzoneFile[]) => console.log("Successmultiple"),
 
-	canceled: (file:DropzoneFile) => console.log("Canceled"),
-	canceledmultiple: (file:DropzoneFile[]) => console.log("Canceledmultiple"),
+	canceled: (file:Dropzone.DropzoneFile) => console.log("Canceled"),
+	canceledmultiple: (file:Dropzone.DropzoneFile[]) => console.log("Canceledmultiple"),
 
-	complete: (file:DropzoneFile) => console.log("Complete"),
-	completemultiple: (file:DropzoneFile[]) => console.log("Completemultiple"),
+	complete: (file:Dropzone.DropzoneFile) => console.log("Complete"),
+	completemultiple: (file:Dropzone.DropzoneFile[]) => console.log("Completemultiple"),
 
-	maxfilesexceeded: (file:DropzoneFile) => console.log("Maxfilesexceeded"),
-	maxfilesreached: (files:DropzoneFile[]) => console.log("Maxfilesreached"),
+	maxfilesexceeded: (file:Dropzone.DropzoneFile) => console.log("Maxfilesexceeded"),
+	maxfilesreached: (files:Dropzone.DropzoneFile[]) => console.log("Maxfilesreached"),
 	queuecomplete: () => console.log("Queuecomplete"),
 
 	previewTemplate: "<div></div>",
