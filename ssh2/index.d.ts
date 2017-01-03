@@ -1087,7 +1087,7 @@ export interface PseudoTtyInfo {
 }
 
 export interface TerminalModes {
-    [mode: string]: number;
+    [mode: string]: number|undefined;
     /** Interrupt character; `255` if none. Not all of these characters are supported on all systems. */
     VINTR?: number;
     /** The quit character (sends `SIGQUIT` signal on POSIX systems). */

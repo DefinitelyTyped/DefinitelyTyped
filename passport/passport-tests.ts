@@ -1,9 +1,7 @@
+import * as express from 'express';
+import 'express-session';
+import * as passport from 'passport';
 
-
-/// <reference types="express-session" />
-
-import express = require('express');
-import passport = require('passport');
 
 class TestStrategy implements passport.Strategy {
   public name: string = 'test';
@@ -45,7 +43,7 @@ app.configure(() => {
   app.use(passport.session());
 });
 
-app.post('/login', 
+app.post('/login',
   passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
   function (req, res) {
     res.redirect('/');
@@ -55,7 +53,9 @@ app.post('/login', function (req, res, next) {
   passport.authenticate('local', function (err: any, user: { username: string; }, info: { message: string; }) {
     if (err) { return next(err) }
     if (!user) {
-      req.session['error'] = info.message;
+      if (req.session) {
+        req.session['error'] = info.message;
+      }
       return res.redirect('/login')
     }
     req.logIn(user, function (err) {

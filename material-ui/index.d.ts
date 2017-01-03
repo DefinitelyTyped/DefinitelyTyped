@@ -998,7 +998,7 @@ declare namespace __MaterialUI {
 
     namespace GridList {
         interface GridListProps {
-            cellHeight?: number;
+            cellHeight?: number|'auto';
             cols?: number;
             padding?: number;
             style?: React.CSSProperties;
@@ -1496,7 +1496,7 @@ declare namespace __MaterialUI {
         contentStyle?: React.CSSProperties;
         message: React.ReactNode;
         onActionTouchTap?: React.TouchEventHandler<{}>;
-        onRequestClose: (reason: string) => void;
+        onRequestClose?: (reason: string) => void;
         open: boolean;
         style?: React.CSSProperties;
     }

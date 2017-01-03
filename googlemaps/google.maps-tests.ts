@@ -236,3 +236,16 @@ function addMarker(location: google.maps.LatLngLiteral, map: google.maps.Map) {
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
+
+/***** OverlayView *****/
+var div =  document.createElement('div');
+var overlay = new google.maps.OverlayView();
+var panes = overlay.getPanes();
+panes.floatPane.appendChild(div);
+panes.floatShadow.appendChild(div);
+panes.mapPane.appendChild(div);
+panes.markerLayer.appendChild(div);
+panes.overlayImage.appendChild(div);
+panes.overlayLayer.appendChild(div);
+panes.overlayMouseTarget.appendChild(div);
+panes.overlayShadow.appendChild(div);
