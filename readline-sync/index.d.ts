@@ -3,22 +3,22 @@
 // Definitions by: Tristan Jones <https://github.com/jonestristand>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type optionType = string | number | RegExp | ((input:string) => boolean);
+type optionType = string | number | RegExp | ((input: string) => boolean);
 
 interface BasicOptions {
     prompt?: any;
     hideEchoBack?: boolean;
     mask?: string;
-    limit?: optionType | Array<optionType>;
+    limit?: optionType | optionType[];
     limitMessage?: string;
     defaultInput?: string;
-    trueValue?: optionType | Array<optionType>;
-    falseValue?: optionType | Array<optionType>;
+    trueValue?: optionType | optionType[];
+    falseValue?: optionType | optionType[];
     caseSensitive?: boolean;
     keepWhitespace?: boolean;
     encoding?: string;
     bufferSize?: number;
-    print?: ((display:string, encoding:string) => void);
+    print?: ((display: string, encoding: string) => void);
     history?: boolean;
     cd?: boolean;
     charlist?: string;
@@ -29,7 +29,7 @@ interface BasicOptions {
     exists?: any;
     isFile?: boolean;
     isDirectory?: boolean;
-    validate?: ((path:string) => boolean | string);
+    validate?: ((path: string) => boolean | string);
     create?: boolean;
     guide?: boolean;
 }
@@ -47,9 +47,9 @@ export function questionInt(query?: any, options?: BasicOptions): number;
 export function questionFloat(query?: any, options?: BasicOptions): number;
 export function questionPath(query?: any, options?: BasicOptions): string;
 
-export function promptCL(commandHandler?: { [id:string]: ((...args:string[]) => void) } | ((command:string, ...args:string[]) => void), options?: BasicOptions): string[];
-export function promptLoop(inputHandler: ((value:string) => boolean), options?: BasicOptions): void;
-export function promptCLLoop(commandHandler?: { [id:string]: ((...args:string[]) => boolean | void) } | ((command:string, ...args:string[]) => boolean | void), options?: BasicOptions): void;
+export function promptCL(commandHandler?: { [id: string]: ((...args: string[]) => void) } | ((command: string, ...args: string[]) => void), options?: BasicOptions): string[];
+export function promptLoop(inputHandler: ((value: string) => boolean), options?: BasicOptions): void;
+export function promptCLLoop(commandHandler?: { [id: string]: ((...args: string[]) => boolean | void) } | ((command: string, ...args: string[]) => boolean | void), options?: BasicOptions): void;
 export function promptSimShell(options?: BasicOptions): string;
 
 export function keyInYN(query?: any, options?: BasicOptions): boolean | string;
@@ -63,5 +63,5 @@ export function getRawInput(): string;
 export function setBufferSize(value: number): void;
 export function setEncoding(value: string): void;
 export function setMask(value: string): void;
-export function setPrint(value: ((display:string, encoding:string) => void)): void;
+export function setPrint(value: ((display: string, encoding: string) => void)): void;
 export function setPrompt(value: any): void;
