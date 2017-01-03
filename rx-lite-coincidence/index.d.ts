@@ -7,26 +7,26 @@
 
 declare namespace Rx {
 
-	interface Observable<T> {
-		join<TRight, TDurationLeft, TDurationRight, TResult>(
-			right: Observable<TRight>,
-			leftDurationSelector: (leftItem: T) => Observable<TDurationLeft>,
-			rightDurationSelector: (rightItem: TRight) => Observable<TDurationRight>,
-			resultSelector: (leftItem: T, rightItem: TRight) => TResult): Observable<TResult>;
+    interface Observable<T> {
+        join<TRight, TDurationLeft, TDurationRight, TResult>(
+            right: Observable<TRight>,
+            leftDurationSelector: (leftItem: T) => Observable<TDurationLeft>,
+            rightDurationSelector: (rightItem: TRight) => Observable<TDurationRight>,
+            resultSelector: (leftItem: T, rightItem: TRight) => TResult): Observable<TResult>;
 
-		groupJoin<TRight, TDurationLeft, TDurationRight, TResult>(
-			right: Observable<TRight>,
-			leftDurationSelector: (leftItem: T) => Observable<TDurationLeft>,
-			rightDurationSelector: (rightItem: TRight) => Observable<TDurationRight>,
-			resultSelector: (leftItem: T, rightItem: Observable<TRight>) => TResult): Observable<TResult>;
+        groupJoin<TRight, TDurationLeft, TDurationRight, TResult>(
+            right: Observable<TRight>,
+            leftDurationSelector: (leftItem: T) => Observable<TDurationLeft>,
+            rightDurationSelector: (rightItem: TRight) => Observable<TDurationRight>,
+            resultSelector: (leftItem: T, rightItem: Observable<TRight>) => TResult): Observable<TResult>;
 
-		window<TWindowOpening>(windowOpenings: Observable<TWindowOpening>): Observable<Observable<T>>;
-		window<TWindowClosing>(windowClosingSelector: () => Observable<TWindowClosing>): Observable<Observable<T>>;
-		window<TWindowOpening, TWindowClosing>(windowOpenings: Observable<TWindowOpening>, windowClosingSelector: () => Observable<TWindowClosing>): Observable<Observable<T>>;
+        window<TWindowOpening>(windowOpenings: Observable<TWindowOpening>): Observable<Observable<T>>;
+        window<TWindowClosing>(windowClosingSelector: () => Observable<TWindowClosing>): Observable<Observable<T>>;
+        window<TWindowOpening, TWindowClosing>(windowOpenings: Observable<TWindowOpening>, windowClosingSelector: () => Observable<TWindowClosing>): Observable<Observable<T>>;
 
-		buffer<TBufferOpening>(bufferOpenings: Observable<TBufferOpening>): Observable<T[]>;
-		buffer<TBufferClosing>(bufferClosingSelector: () => Observable<TBufferClosing>): Observable<T[]>;
-		buffer<TBufferOpening, TBufferClosing>(bufferOpenings: Observable<TBufferOpening>, bufferClosingSelector: () => Observable<TBufferClosing>): Observable<T[]>;
+        buffer<TBufferOpening>(bufferOpenings: Observable<TBufferOpening>): Observable<T[]>;
+        buffer<TBufferClosing>(bufferClosingSelector: () => Observable<TBufferClosing>): Observable<T[]>;
+        buffer<TBufferOpening, TBufferClosing>(bufferOpenings: Observable<TBufferOpening>, bufferClosingSelector: () => Observable<TBufferClosing>): Observable<T[]>;
 
 		/**
 		* Returns a new observable that triggers on the second and subsequent triggerings of the input observable.
@@ -34,7 +34,7 @@ declare namespace Rx {
 		* The argument passed to the N-1th triggering is held in hidden internal state until the Nth triggering occurs.
 		* @returns An observable that triggers on successive pairs of observations from the input observable as an array.
 		*/
-		pairwise(): Observable<T[]>;
+        pairwise(): Observable<T[]>;
 
 		/**
 		* Returns two observables which partition the observations of the source by the given function.
@@ -49,10 +49,10 @@ declare namespace Rx {
 		*    An array of observables. The first triggers when the predicate returns true,
 		*    and the second triggers when the predicate returns false.
 		*/
-		partition(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Array<Observable<T>>;
-	}
+        partition(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Array<Observable<T>>;
+    }
 }
 
 declare module "rx-lite-coincidence" {
-	export = Rx;
+    export = Rx;
 }

@@ -6,7 +6,7 @@
 ///<reference types="rx-lite"/>
 
 declare namespace Rx {
-	export interface Observable<T> {
+    export interface Observable<T> {
 		/**
 		* Pauses the underlying observable sequence based upon the observable sequence which yields true/false.
 		* @example
@@ -15,7 +15,7 @@ declare namespace Rx {
 		* @param pauser The observable sequence used to pause the underlying sequence.
 		* @returns The observable sequence which is paused based upon the pauser.
 		*/
-		pausable(pauser?: Observable<boolean>): PausableObservable<T>;
+        pausable(pauser?: Observable<boolean>): PausableObservable<T>;
 
 		/**
 		* Pauses the underlying observable sequence based upon the observable sequence which yields true/false,
@@ -26,7 +26,7 @@ declare namespace Rx {
 		* @param pauser The observable sequence used to pause the underlying sequence.
 		* @returns The observable sequence which is paused based upon the pauser.
 		*/
-		pausableBuffered(pauser?: Observable<boolean>): PausableObservable<T>;
+        pausableBuffered(pauser?: Observable<boolean>): PausableObservable<T>;
 
 		/**
 		* Attaches a controller to the observable sequence with the ability to queue.
@@ -34,19 +34,19 @@ declare namespace Rx {
 		* var source = Rx.Observable.interval(100).controlled();
 		* source.request(3); // Reads 3 values
 		*/
-		controlled(enableQueue?: boolean): ControlledObservable<T>;
-	}
+        controlled(enableQueue?: boolean): ControlledObservable<T>;
+    }
 
-	export interface ControlledObservable<T> extends Observable<T> {
-		request(numberOfItems?: number): IDisposable;
-	}
+    export interface ControlledObservable<T> extends Observable<T> {
+        request(numberOfItems?: number): IDisposable;
+    }
 
-	export interface PausableObservable<T> extends Observable<T> {
-		pause(): void;
-		resume(): void;
-	}
+    export interface PausableObservable<T> extends Observable<T> {
+        pause(): void;
+        resume(): void;
+    }
 }
 
 declare module "rx-lite-backpressure" {
-	export = Rx;
+    export = Rx;
 }
