@@ -213,6 +213,18 @@ interface JQueryFileInputOptions {
     progress?: (e: JQueryEventObject, data: JQueryFileUploadProgressObject) => void;
     send?: (e: JQueryEventObject, data: JQueryFileUploadProgressObject) => void;
 
+    // Validation
+
+    /**
+    * The maximum allowed file size in bytes.
+    * Type: integer
+    * Default: undefined
+    * Example: 10000000 // 10 MB
+    * Note: This option has only an effect for browsers supporting the File API.
+    * @see https://github.com/blueimp/jQuery-File-Upload/wiki/Options#maxfilesize
+    */
+    maxFileSize?: number;
+
     // Other callbacks:
     submit?: Function;
     done?: (e: JQueryEventObject, data: JQueryFileUploadDone) => void;
