@@ -844,7 +844,8 @@ declare namespace L {
         /**
          * Reverse of coordsToLatLng
          */
-        static latLngToCoords(latlng: LatLng): number[];
+        static latLngToCoords(latlng: LatLng): [number, number, number]; // A three tuple can be assigned to a two or three tuple
+
 
         /**
          * Reverse of coordsToLatLngs closed determines whether the first point should be
