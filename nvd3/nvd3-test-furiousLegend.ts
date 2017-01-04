@@ -1,4 +1,4 @@
-﻿
+
 namespace nvd3_test_furiousLegend {
     var width = 500,
         height = 40;

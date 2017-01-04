@@ -1,4 +1,4 @@
-﻿
+
 import {
 	ipcRenderer,
 	remote,

@@ -1,4 +1,4 @@
-﻿
+
 namespace nvd3_test_multibarChart {
     //todo resolve stream_layers var test_data = stream_layers(3, 10 + Math.random() * 100, .1).map(function (data, i) {
     var test_data = [3, 10 + Math.random() * 100, .1].map(function (data, i) {

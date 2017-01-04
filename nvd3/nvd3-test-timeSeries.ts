@@ -1,4 +1,4 @@
-﻿
+
 namespace nvd3_test_timeSeries {
     var data = [{
         values: []

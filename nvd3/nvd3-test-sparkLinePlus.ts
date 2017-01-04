@@ -1,4 +1,4 @@
-﻿
+
 namespace nvd3_test_sparkLinePlus {
     function defaultChartConfig(containerId, data) {
         nv.addGraph(function () {

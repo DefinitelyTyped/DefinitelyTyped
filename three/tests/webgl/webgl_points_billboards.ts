@@ -1,4 +1,4 @@
-﻿/// <reference types="three" />
+/// <reference types="three" />
 /// <reference path="../three-tests-setup.ts" />
 
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_particles_billboards.html
