@@ -67,7 +67,7 @@ interface JQueryAjaxSettings {
      */
     crossDomain?: boolean;
     /**
-     * Data to be sent to the server. It is converted to a query string, if not already a string. It's appended to the url for GET-requests. See processData option to prevent this automatic processing. Object must be Key/Value pairs. If value is an Array, jQuery serializes multiple values with same key based on the value of the traditional setting (described below).
+     * Data to be sent to the server. It is converted to a query string, if not already a string. It's appended to the url for GET-requests. See processData option to prevent this automatic processing. Object must be key-value pairs. If value is an Array, jQuery serializes multiple values with same key based on the value of the traditional setting (described below).
      */
     data?: any;
     /**
@@ -1220,7 +1220,7 @@ interface JQueryStatic {
      *
      * @param value The value to search for.
      * @param array An array through which to search.
-     * @param fromIndex the index of the array at which to begin the search. The default is 0, which will search the whole array.
+     * @param fromIndex The index of the array at which to begin the search. The default is 0, which will search the whole array.
      * @see {@link https://api.jquery.com/jQuery.inArray/}
      */
     inArray<T>(value: T, array: T[], fromIndex?: number): number;
@@ -1270,7 +1270,7 @@ interface JQueryStatic {
     /**
      * Check to see if a DOM node is within an XML document (or is an XML document).
      *
-     * @param node the DOM node that will be checked to see if it's in an XML document.
+     * @param node The DOM node that will be checked to see if it's in an XML document.
      * @see {@link https://api.jquery.com/jQuery.isXMLDoc/}
      */
     isXMLDoc(node: Node): boolean;
