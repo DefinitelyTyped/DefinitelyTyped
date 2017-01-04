@@ -1,4 +1,4 @@
-
+/// <reference path="index.d.ts" />
 
 import Long = require("long");
 

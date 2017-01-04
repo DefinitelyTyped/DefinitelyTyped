@@ -2,12 +2,8 @@
 // Project: https://github.com/dcodeIO/long.js
 // Definitions by: Peter Kooijmans <https://github.com/peterkooijmans/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Definitions by: Denis Cappellin <http://github.com/cappellin>
+// Definitions by: Denis Cappellin <http://github.com/cappellin>, woooha <https://github.com/woooha>
 
-export = Long;
-export as namespace Long;
-
-declare namespace Long {}
 declare class Long
 {
     /**
@@ -349,4 +345,8 @@ declare class Long
      * Returns the bitwise XOR of this Long and the given one.
      */
     xor( other: Long | number | string ): Long;
+}
+
+declare module 'long' {
+    export = Long;
 }
