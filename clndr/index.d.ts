@@ -5,7 +5,6 @@
 
 /// <reference types="jquery" />
 import * as moment from 'moment';
-// import moment from 'moment';
 
 declare namespace Clndr {
     interface ClndrInstance {
