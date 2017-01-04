@@ -125,6 +125,10 @@ namespace ShallowWrapperTest {
         boolVal = shallowWrapper.isEmpty()
     }
 
+    function test_exists() {
+        boolVal = shallowWrapper.exists()
+    }
+
     function test_not() {
         elementWrapper = shallowWrapper.find('.foo').not('.bar');
     }
