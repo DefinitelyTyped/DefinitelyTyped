@@ -649,7 +649,7 @@ declare namespace Rx {
             <T>(func: Function, context?: any): (...args: any[]) => Observable<T>;
         };
 
-        fromEvent<T>(element: ArrayLike<DOMEventTarget> | DOMEventTarget | NodeEventTarget| NativeEventTarget, eventName: string, selector?: (arguments: any[]) => T): Observable<T>;
+        fromEvent<T>(element: ArrayLike<DOMEventTarget> | DOMEventTarget | NodeEventTarget| NativeEventTarget, eventName: string, selector?: (...args: any[]) => T): Observable<T>;
 
         fromEventPattern<T>(addHandler: (handler: Function) => void, removeHandler: (handler: Function) => void, selector?: (arguments: any[]) => T): Observable<T>;
     }
