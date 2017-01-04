@@ -1034,7 +1034,7 @@ namespace path_tests {
     //'/foo/bar/baz/asdf'
 
     try {
-        path.join('foo', {}, 'bar');
+        path.join('foo', 'bar');
     }
     catch (error) {
 
