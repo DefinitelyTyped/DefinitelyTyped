@@ -7,9 +7,9 @@
 
 declare namespace TinyMCE {
   export interface Observable {
-    off: (name?: string, callback?: Function) => Object;
-    on: (name: string, callback: Function) => Object;
-    fire: (name: string, args?: Object, bubble?: Boolean) => Event;
+    off: (name?: string, callback?: () => void) => any;
+    on: (name: string, callback: () => void) => any;
+    fire: (name: string, args?: any, bubble?: boolean) => Event;
   }
 
   export interface Editor extends Observable {
@@ -17,26 +17,26 @@ declare namespace TinyMCE {
     remove: () => void;
     hide: () => void;
     show: () => void;
-    getContent: (args?: Object) => string;
-    setContent: (content: string, args?: Object) => string;
-    focus: (skip_focus?: Boolean) => void;
+    getContent: (args?: any) => string;
+    setContent: (content: string, args?: any) => string;
+    focus: (skip_focus?: boolean) => void;
     undoManager: UndoManager;
-    settings: Object;
+    settings: any;
     getDoc: () => Document;
     editorUpload: any;
   }
 
   export interface UndoManager {
-    undo: () => Object;
+    undo: () => any;
     clear: () => void;
-    hasUndo: () => Boolean;
+    hasUndo: () => boolean;
   }
 
   export interface Static extends Observable {
-    init: (settings: Object) => void;
-    execCommand: (c: string, u: Boolean, v: string) => Boolean;
+    init: (settings: any) => void;
+    execCommand: (c: string, u: boolean, v: string) => boolean;
     activeEditor: Editor;
-    get: (id: String) => Editor;
+    get: (id: string) => Editor;
     triggerSave: () => void;
   }
 }
