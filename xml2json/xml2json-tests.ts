@@ -1,29 +1,24 @@
 import * as parser from 'xml2json'
 
 var xml = "<foo attr=\"value\">bar</foo>";
-console.log("input -> %s", xml)
 
 // xml to json 
-var json = parser.toJson(xml);
-console.log("to json -> %s", json);
+var jsonString: string = parser.toJson(xml);
 
 // json to xml 
-var xml = parser.toXml(json);
-console.log("back to xml -> %s", xml)
+var xml: string = parser.toXml(jsonString);
 
-// xml to json 
-var json = parser.toJson(xml, {
-    object: false,
+// xml to json in object mode and JsonOptions
+var jsonObject: Object = parser.toJson(xml, {
+    object: true,
     reversible: false,
     coerce: false,
     sanitize: true,
     trim: true,
     arrayNotation: false
 });
-console.log("to json -> %s", json);
 
-// json to xml 
-var xml = parser.toXml(json, {
+// json to xml with XmlOptions
+var xml: string = parser.toXml(jsonObject, {
     sanitize: true
 });
-console.log("back to xml -> %s", xml)

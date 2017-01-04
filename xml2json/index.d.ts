@@ -2,8 +2,12 @@
 // Project: https://github.com/buglabs/node-xml2json
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-export function toJson(xml: string, options?: JsonOptions): Object;
-export function toXml(json: Object, options?: XmlOptions): string;
+export function toJson(xml: string, options?: { object?: false } & JsonOptions): string;
+export function toJson(xml: string, options?: { object: true } & JsonOptions): {};
+
+export function toXml(json: {}, options?: XmlOptions): string;
+export function toXml(json: string, options?: XmlOptions): string;
+
 export interface XmlOptions {
     /**
      * Sanitizes the following characters present in element values (default false):
@@ -27,7 +31,7 @@ export interface JsonOptions {
     /**
      * Returns a Javascript object instead of a JSON string.
      */
-    object?: boolean;
+    // object?: boolean; // This is now overloaded in the toJson method
     /**
      * Makes the JSON reversible to XML.
      * xml2json tranforms CDATA content to JSON, but it doesn't generate a reversible structure.
