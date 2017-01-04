@@ -17,7 +17,7 @@ declare class Logger extends EventEmitter {
     addStream(stream: Stream): void;
     addSerializers(serializers: Serializers | StdSerializers): void;
     child(options: LoggerOptions, simple?: boolean): Logger;
-    child(obj: Object, simple?: boolean): Logger;
+    child(obj: any, simple?: boolean): Logger | any;
     reopenFileStreams(): void;
 
     level(): string | number;
@@ -27,29 +27,22 @@ declare class Logger extends EventEmitter {
     fields: any;
     src: boolean;
 
-    trace(error: Error, format?: any, ...params: any[]): void;
-    trace(buffer: Buffer, format?: any, ...params: any[]): void;
-    trace(obj: Object, format?: any, ...params: any[]): void;
+    trace(obj: Error | Buffer | any, format?: any, ...params: any[]): void;
     trace(format: string, ...params: any[]): void;
-    debug(error: Error, format?: any, ...params: any[]): void;
-    debug(buffer: Buffer, format?: any, ...params: any[]): void;
-    debug(obj: Object, format?: any, ...params: any[]): void;
+
+    debug(obj: Error | Buffer | any, format?: any, ...params: any[]): void;
     debug(format: string, ...params: any[]): void;
-    info(error: Error, format?: any, ...params: any[]): void;
-    info(buffer: Buffer, format?: any, ...params: any[]): void;
-    info(obj: Object, format?: any, ...params: any[]): void;
+
+    info(obj: Error | Buffer | any, format?: any, ...params: any[]): void;
     info(format: string, ...params: any[]): void;
-    warn(error: Error, format?: any, ...params: any[]): void;
-    warn(buffer: Buffer, format?: any, ...params: any[]): void;
-    warn(obj: Object, format?: any, ...params: any[]): void;
+
+    warn(obj: Error | Buffer | any, format?: any, ...params: any[]): void;
     warn(format: string, ...params: any[]): void;
-    error(error: Error, format?: any, ...params: any[]): void;
-    error(buffer: Buffer, format?: any, ...params: any[]): void;
-    error(obj: Object, format?: any, ...params: any[]): void;
+
+    error(obj: Error | Buffer | any, format?: any, ...params: any[]): void;
     error(format: string, ...params: any[]): void;
-    fatal(error: Error, format?: any, ...params: any[]): void;
-    fatal(buffer: Buffer, format?: any, ...params: any[]): void;
-    fatal(obj: Object, format?: any, ...params: any[]): void;
+
+    fatal(obj: Error | Buffer | any, format?: any, ...params: any[]): void;
     fatal(format: string, ...params: any[]): void;
 }
 
@@ -63,12 +56,10 @@ interface LoggerOptions {
     [custom: string]: any;
 }
 
-interface Serializer {
-    (input: any): any;
-}
+type Serializer = (input: any) => any;
 
 interface Serializers {
-    [key: string]: Serializer
+    [key: string]: Serializer;
 }
 
 interface StdSerializers {
