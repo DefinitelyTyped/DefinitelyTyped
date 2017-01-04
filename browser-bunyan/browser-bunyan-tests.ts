@@ -1,4 +1,5 @@
-var bunyan = require('browser-bunyan');
+import * as bunyan from "browser-bunyan";
+
 var log = bunyan.createLogger({
         name: 'play',
         serializers: bunyan.stdSerializers

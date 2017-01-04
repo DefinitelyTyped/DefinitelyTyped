@@ -1,6 +1,0 @@
-{
-    "dependencies": {
-        "@types/node": "^6.0.56",
-        "browser-bunyan": "^0.4.0"
-    }
-}
