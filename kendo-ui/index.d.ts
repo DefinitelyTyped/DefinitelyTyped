@@ -677,9 +677,9 @@ declare namespace kendo.data {
         static idField: string;
         static fields: DataSourceSchemaModelFields;
 
-        id: string | number | Object;
-        predecessorId: string | number | Object;
-        successorId: string | number | Object;
+        id: any;
+        predecessorId: any;
+        successorId: any;
         type: number;
 
         static define(options: DataSourceSchemaModelWithFieldsObject): typeof GanttDependency;
