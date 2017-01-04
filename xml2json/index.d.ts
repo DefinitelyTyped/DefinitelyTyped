@@ -5,8 +5,7 @@
 export function toJson(xml: string, options?: { object?: false } & JsonOptions): string;
 export function toJson(xml: string, options?: { object: true } & JsonOptions): {};
 
-export function toXml(json: {}, options?: XmlOptions): string;
-export function toXml(json: string, options?: XmlOptions): string;
+export function toXml(json: {} | string, options?: XmlOptions): string;
 
 export interface XmlOptions {
     /**
