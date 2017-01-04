@@ -13,7 +13,7 @@ declare namespace ReactIntl {
         pluralRuleFunction?: (n: number, ord: boolean) => string;
     }
 
-    function injectIntl<TOriginalProps, TOwnProps>(component: React.ComponentClass<TOriginalProps> | React.StatelessComponent<TOriginalProps>): React.ComponentClass<TOwnProps>;
+    function injectIntl<TOriginalProps>(component: React.ComponentClass<TOriginalProps> | React.StatelessComponent<TOriginalProps>): React.ComponentClass<TOriginalProps & { intl: InjectedIntl }>;
 
     function addLocaleData(data: Locale[] | Locale): void;
 
