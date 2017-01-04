@@ -230,7 +230,7 @@ declare namespace PDFKit {
         compress?: boolean;
         info?: DocumentInfo;
         autoFirstPage?: boolean;
-        size?: number[];
+        size?: number[]|string;
         margin?: number;
         margins?: { top: number; left: number; bottom: number; right: number };
         layout?: "portrait" | "landscape";
