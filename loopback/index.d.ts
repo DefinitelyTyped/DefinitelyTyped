@@ -306,9 +306,11 @@ declare function middleware(name: string, paths?: any[]|string|RegExp, handler?:
 * @header loopback
 */
 
-declare function loopback():LoopBackApplication;
+declare function loopback(): LoopBackApplication;
 
-declare module 'loopback' {export = loopback;}
+declare module 'loopback' {
+      export = loopback;
+}
 
 declare namespace loopback {
 
@@ -330,7 +332,7 @@ declare namespace loopback {
       * @returns {() => void}
       */
 
-      function template(path: string):() => void;
+      function template(path: string): () => void;
 
       /**
       * Create a named vanilla JavaScript class constructor with an attached
@@ -419,7 +421,7 @@ declare namespace loopback {
       * @header loopback.findModel(modelName)
       */
 
-      function findModel(modelName: string):Model;
+      function findModel(modelName: string): Model;
 
       /**
       * Look up a model class by name from all models created by
@@ -431,7 +433,7 @@ declare namespace loopback {
       * @header loopback.getModel(modelName)
       */
 
-      function getModel(modelName: string):Model;
+      function getModel(modelName: string): Model;
 
       /**
       * Look up a model class by the base model class.
@@ -443,7 +445,7 @@ declare namespace loopback {
       * @header loopback.getModelByType(modelType)
       */
 
-      function getModelByType(modelType: Model):Model;
+      function getModelByType(modelType: Model): Model;
 
       /**
       * Create a data source with passing the provided options to the connector.
@@ -475,7 +477,7 @@ declare namespace loopback {
       * @header loopback.setDefaultDataSourceForType(type, dataSource)
       */
 
-      function setDefaultDataSourceForType(type: string, dataSource: any|DataSource):DataSource;
+      function setDefaultDataSourceForType(type: string, dataSource: any|DataSource): DataSource;
 
       /**
       * Get the default `dataSource` for a given `type`.
@@ -483,7 +485,7 @@ declare namespace loopback {
       * @returns {DataSource} The data source instance
       */
 
-      function getDefaultDataSourceForType(type: string):DataSource;
+      function getDefaultDataSourceForType(type: string): DataSource;
 
       /**
       * Attach any model that does not have a dataSource to
@@ -613,7 +615,7 @@ declare class Registry {
       * @header loopback.getModelByType(modelType)
       */
 
-      getModelByType(modelType: Model):Model;
+      getModelByType(modelType: Model): Model;
 
       /**
       * Create a data source with passing the provided options to the connector.
@@ -645,7 +647,7 @@ declare class Registry {
       * @header loopback.setDefaultDataSourceForType(type, dataSource)
       */
 
-      setDefaultDataSourceForType(type: string, dataSource: any|DataSource):DataSource;
+      setDefaultDataSourceForType(type: string, dataSource: any|DataSource): DataSource;
 
       /**
       * Get the default `dataSource` for a given `type`.
@@ -653,7 +655,7 @@ declare class Registry {
       * @returns {DataSource} The data source instance
       */
 
-      getDefaultDataSourceForType(type: string):DataSource;
+      getDefaultDataSourceForType(type: string): DataSource;
 
       /**
       * Attach any model that does not have a dataSource to
@@ -693,7 +695,7 @@ declare class AccessContext {
       * @returns {boolean}
       */
 
-      addPrincipal(principalType: string, principalId: any, principalName?: string):boolean;
+      addPrincipal(principalType: string, principalId: any, principalName?: string): boolean;
 
       /**
       * Get the user id
@@ -714,7 +716,7 @@ declare class AccessContext {
       * @returns {boolean}
       */
 
-      isAuthenticated():boolean;
+      isAuthenticated(): boolean;
 
       /**
       * This class represents the abstract notion of a principal, which can be used
@@ -758,7 +760,7 @@ declare class AccessContext {
       * @returns {boolean}
       */
 
-      isWildcard():boolean;
+      isWildcard(): boolean;
 
       /**
       * Does the given `ACL` apply to this `AccessRequest`.
@@ -774,7 +776,7 @@ declare class AccessContext {
       * @returns {boolean}
       */
 
-      isAllowed():boolean;
+      isAllowed(): boolean;
 
 }
 
@@ -1252,7 +1254,7 @@ declare class PersistedModel {
       * @returns {boolean} Returns true if the data model is new; false otherwise.
       */
 
-      isNewRecord():boolean;
+      isNewRecord(): boolean;
 
       /**
       * Deletes the model from persistence.
@@ -1364,7 +1366,7 @@ declare class PersistedModel {
       * @returns {string} The `id` property name
       */
 
-      getIdName():string;
+      getIdName(): string;
 
       /**
       * Get the `id` property name of the constructor.
@@ -1372,7 +1374,7 @@ declare class PersistedModel {
       * @returns {string} The `id` property name
       */
 
-      getIdName():string;
+      getIdName(): string;
 
       /**
       * Get a set of deltas and conflicts since the given checkpoint.
@@ -1724,7 +1726,7 @@ declare class ACL {
       * @returns {number}
       */
 
-      getMatchingScore(rule: ACL, req: AccessRequest):number;
+      getMatchingScore(rule: ACL, req: AccessRequest): number;
 
       /**
       * Get matching score for the given `AccessRequest`.
@@ -1732,7 +1734,7 @@ declare class ACL {
       * @returns {number} score
       */
 
-      score(req: AccessRequest):number;
+      score(req: AccessRequest): number;
 
       /**
       * Check if the given principal is allowed to access the model/property
@@ -2168,7 +2170,7 @@ declare class Change {
       * @returns {Conflict} A new Conflict instance.
       */
 
-      swapParties():Conflict;
+      swapParties(): Conflict;
 
       /**
       * Resolve the conflict using the supplied instance data.
