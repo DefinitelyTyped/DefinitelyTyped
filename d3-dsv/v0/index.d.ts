@@ -1,4 +1,4 @@
-﻿// Type definitions for d3-dsv
+// Type definitions for d3-dsv
 // Project: https://www.npmjs.com/package/d3-dsv
 // Definitions by: Jason Swearingen <https://jasonswearingen.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

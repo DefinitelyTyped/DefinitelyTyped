@@ -1,4 +1,4 @@
-﻿// setting defaults for notification plugin
+// setting defaults for notification plugin
 $.notify.defaults({
     clickToHide: true,
     autoHide: false,

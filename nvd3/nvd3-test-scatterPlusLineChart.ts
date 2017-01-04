@@ -1,4 +1,4 @@
-﻿
+
 namespace nvd3_test_scatterPlusLineChart {
     var chart;
     nv.addGraph(function () {

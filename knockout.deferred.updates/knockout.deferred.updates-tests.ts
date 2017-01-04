@@ -1,4 +1,4 @@
-﻿
+
 // Turn *off* deferred updates for computed observables and subscriptions
 ko.computed.deferUpdates = false;
 
