@@ -649,12 +649,28 @@ declare namespace Rx {
             <T>(func: Function, context?: any): (...args: any[]) => Observable<T>;
         };
 
-        fromEvent<T>(element: NodeList, eventName: string, selector?: (arguments: any[]) => T): Observable<T>;
-        fromEvent<T>(element: Node, eventName: string, selector?: (arguments: any[]) => T): Observable<T>;
-        fromEvent<T>(element: { on: (name: string, cb: (e: any) => any) => void; off: (name: string, cb: (e: any) => any) => void }, eventName: string, selector?: (arguments: any[]) => T): Observable<T>;
+        fromEvent<T>(element: ArrayLike<DOMEventTarget> | DOMEventTarget | NodeEventTarget| NativeEventTarget, eventName: string, selector?: (arguments: any[]) => T): Observable<T>;
+
         fromEventPattern<T>(addHandler: (handler: Function) => void, removeHandler: (handler: Function) => void, selector?: (arguments: any[]) => T): Observable<T>;
     }
+
+    type NodeEventTarget = {
+        addListener: (name: string, cb: (e: any) => any) => void;
+    };
+
+    type NativeEventTarget = {
+        on: (name: string, cb: (e: any) => any) => void;
+        off: (name: string, cb: (e: any) => any) => void;
+    }
+
+    type DOMEventTarget = {
+        addEventListener(type: string, listener: (e: any) => any, useCapture: boolean): void;
+        removeEventListener(type: string, listener: (e: any) => any, useCapture: boolean): void;
+    }
+
+    type DOMEventTargetList = ArrayLike<DOMEventTarget>;
 }
+
 
 // time
 
