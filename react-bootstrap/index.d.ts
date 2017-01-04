@@ -74,6 +74,7 @@ declare namespace ReactBootstrap {
 
     // <Button />
     interface ButtonProps extends React.HTMLProps<Button> {
+        bsClass?: string;
         active?: boolean;
         block?: boolean;
         bsStyle?: string;
