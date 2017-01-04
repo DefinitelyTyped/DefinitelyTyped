@@ -15,12 +15,12 @@ interface BigScreenStatic {
     onerror(element: Element, reason: string): void;
     onexit(): void;
     request(element: Element, onEnter?: (element: Element) => void, onExit?: () => void, onError?: (element: Element, reason: string) => void): void;
-    toggle(element: Element, onEnter?: (element: Element) => void, onExit?: () => void, onError?: (element: Element, reason: string) => void): void;
+    toggle(element?: Element, onEnter?: (element: Element) => void, onExit?: () => void, onError?: (element: Element, reason: string) => void): void;
     videoEnabled(video: HTMLVideoElement): boolean;
 }
 
-declare var bigscreen: BigScreenStatic;
+declare var BigScreen: BigScreenStatic;
 
-declare module "bigscreen" {
-    export = bigscreen;
+declare module "BigScreen" {
+    export = BigScreen;
 }
