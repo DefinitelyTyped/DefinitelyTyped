@@ -1,8 +1,4 @@
 {
-    "files": [
-        "index.d.ts",
-        "jquery.dataTables-tests.ts"
-    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
@@ -15,5 +11,9 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "jquery.dataTables-tests.ts"
+    ]
 }

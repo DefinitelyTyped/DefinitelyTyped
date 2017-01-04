@@ -1,7 +1,7 @@
 import Resolver = require('./Resolver');
 declare class AliasFieldPlugin {
-    source: string;
     field: string;
+    source: string;
     target: string;
 
     constructor(source: string, field: string, target: string);

@@ -1,4 +1,4 @@
-// Type definitions for webdriverio 4.0.4
+// Type definitions for webdriverio 4.4.0
 // Project: http://www.webdriver.io/
 // Definitions by: Nick Malaguti <https://github.com/nmalaguti/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -30,96 +30,118 @@ declare namespace WebdriverIO {
 
     // Action
     export interface Client<T> {
-        addValue(selector: string, value: string | number): Client<void>;
+        addValue(
+            selector: string,
+            value: string | number
+        ): Client<void>;
+        addValue(value: string | number): Client<void>;
         addValue<P>(
             selector: string,
             value: string | number,
-            callback: (err: any) => P
         ): Client<P>;
+        addValue<P>(value: string | number): Client<P>;
 
-        clearElement(selector: string): Client<void>;
-        clearElement<P>(
-            selector: string,
-            callback: (err: any) => P
-        ): Client<P>;
+        clearElement(selector?: string): Client<void>;
+        clearElement<P>(selector?: string): Client<P>;
 
-        click(selector: string): Client<void>;
-        click<P>(
-            selector: string,
-            callback: (err: any) => P
-        ): Client<P>;
+        click(selector?: string): Client<void>;
+        click<P>(selector?: string): Client<P>;
 
-        doubleClick(selector: string): Client<void>;
-        doubleClick<P>(
-            selector: string,
-            callback: (err: any) => P
-        ): Client<P>;
+        doubleClick(selector?: string): Client<void>;
+        doubleClick<P>(selector?: string): Client<P>;
 
-        dragAndDrop(sourceElem: string, destinationElem: string): Client<void>;
+        dragAndDrop(
+            sourceElem: string,
+            destinationElem: string
+        ): Client<void>;
+        dragAndDrop(destinationElem: string): Client<void>;
         dragAndDrop<P>(
             sourceElem: string,
-            destinationElem: string, callback: (err: any) => P
+            destinationElem: string
         ): Client<P>;
+        dragAndDrop<P>(destinationElem: string): Client<P>;
 
-        leftClick(selector: string): Client<void>;
-        leftClick<P>(
-            selector: string,
-            callback: (err: any) => P
-        ): Client<P>;
+        leftClick(selector?: string): Client<void>;
+        leftClick<P>(selector?: string): Client<P>;
 
-        middleClick(selector: string): Client<void>;
-        middleClick<P>(
-            selector: string,
-            callback: (err: any) => P
-        ): Client<P>;
+        middleClick(selector?: string): Client<void>;
+        middleClick<P>(selector?: string): Client<P>;
 
-        moveToObject(selector: string): Client<void>;
-        moveToObject(selector: string, xoffset: number, yoffset: number): Client<void>;
-        moveToObject<P>(
+        moveToObject(selector?: string): Client<void>;
+        moveToObject(
             selector: string,
-            callback: (err: any) => P
-        ): Client<P>;
+            xoffset: number,
+            yoffset: number
+        ): Client<void>;
+        moveToObject(
+            xoffset: number,
+            yoffset: number
+        ): Client<void>;
+        moveToObject<P>(selector?: string): Client<P>;
         moveToObject<P>(
             selector: string,
             xoffset: number,
-            yoffset: number,
-            callback: (err: any) => P
+            yoffset: number
+        ): Client<P>;
+        moveToObject<P>(
+            xoffset: number,
+            yoffset: number
         ): Client<P>;
 
-        rightClick(selector: string): Client<void>;
-        rightClick<P>(
+        rightClick(selector?: string): Client<void>;
+        rightClick<P>(selector?: string): Client<P>;
+
+        selectByAttribute(
             selector: string,
-            callback: (err: any) => P
-        ): Client<P>;
-
-        selectByAttribute(selector: string, attribute: string, value: string): Client<void>;
+            attribute: string,
+            value: string
+        ): Client<void>;
+        selectByAttribute(
+            attribute: string,
+            value: string
+        ): Client<void>;
         selectByAttribute<P>(
             selector: string,
             attribute: string,
-            value: string,
-            callback: (err: any) => P
+            value: string
+        ): Client<P>;
+        selectByAttribute<P>(
+            attribute: string,
+            value: string
         ): Client<P>;
 
-        selectByIndex(selectElem: string, index: number): Client<void>;
+        selectByIndex(
+            selectElem: string,
+            index: number
+        ): Client<void>;
+        selectByIndex(index: number): Client<void>;
         selectByIndex<P>(
             selectElem: string,
-            index: number,
-            callback: (err: any) => P
+            index: number
         ): Client<P>;
+        selectByIndex<P>(index: number): Client<P>;
 
-        selectByValue(selectElem: string, value: string): Client<void>;
+        selectByValue(
+            selectElem: string,
+            value: string
+        ): Client<void>;
+        selectByValue(value: string): Client<void>;
         selectByValue<P>(
             selectElem: string,
-            value: string,
-            callback: (err: any) => P
+            value: string
         ): Client<P>;
+        selectByValue<P>(value: string): Client<P>;
 
-        selectByVisibleText(selectElem: string, text: string): Client<void>;
+        selectByVisibleText(
+            selectElem: string,
+            text: string
+        ): Client<void>;
+        selectByVisibleText(text: string): Client<void>;
         selectByVisibleText<P>(
             selectElem: string,
-            text: string,
-            callback: (err: any) => P
+            text: string
         ): Client<P>;
+        selectByVisibleText<P>(text: string): Client<P>;
 
         selectorExecute<P>(
             selectors: string | string[],
@@ -133,18 +155,23 @@ declare namespace WebdriverIO {
             ...args: any[]
         ): Client<P>;
 
-        setValue(selector: string, values: number | string | Array<string>): Client<void>;
+        setValue(
+            selector: string,
+            values: number | string | Array<string>
+        ): Client<void>;
+        setValue(
+            values: number | string | Array<string>
+        ): Client<void>;
         setValue<P>(
             selector: string,
-            values: number | string | Array<string>,
-            callback: (err: any) => P
+            values: number | string | Array<string>
+        ): Client<void>;
+        setValue<P>(
+            values: number | string | Array<string>
         ): Client<void>;
 
-        submitForm(selector: string): Client<void>;
-        submitForm<P>(
-            selector: string,
-            callback: (err: any) => P
-        ): Client<void>;
+        submitForm(selector?: string): Client<void>;
+        submitForm<P>(selector?: string): Client<P>;
     }
 
     // Appium
@@ -187,51 +214,31 @@ declare namespace WebdriverIO {
     // Cookie
     export interface Client<T> {
         deleteCookie(name?: string): Client<void>;
-        deleteCookie<P>(
-            callback: (err: any) => P
-        ): Client<P>;
-        deleteCookie<P>(
-            name: string,
-            callback: (err: any) => P
-        ): Client<P>;
+        deleteCookie<P>(name?: string): Client<P>;
 
         getCookie(): Client<Cookie[]>;
         getCookie(name: string): Client<Cookie>;
-        getCookie<P>(
-            callback: (err: any, cookies: Cookie[]) => P
-        ): Client<P>;
-        getCookie<P>(
-            name: string,
-            callback: (err: any, cookie: Cookie) => P
-        ): Client<P>;
+        getCookie<P>(name?: string): Client<P>;
 
         setCookie(cookie: Cookie): Client<void>;
-        setCookie<P>(
-            cookie: Cookie,
-            callback: (err: any) => P
-        ): Client<P>;
+        setCookie<P>(cookie: Cookie): Client<P>;
     }
 
     export interface Client<T> {
-        session(action?: string, sessionId?: string): Client<RawResult<any>>;
-        session<P>(
-            callback: (err: any, result: RawResult<any>) => P
-        ): Client<P>;
+        session(
+            action?: string,
+            sessionId?: string
+        ): Client<RawResult<any>>;
+        session<P>(): Client<P>;
 
         getGridNodeDetails(): Client<Object>;
-        getGridNodeDetails<P>(
-            callback: (err: any, details: Object) => P
-        ): Client<P>;
+        getGridNodeDetails<P>(): Client<P>;
 
         gridProxyDetails(): Client<Object>;
-        gridProxyDetails<P>(
-            callback: (err: any, result: Object) => P
-        ): Client <P>;
+        gridProxyDetails<P>(): Client <P>;
 
         gridTestSession(): Client<Object>;
-        gridProxyDetails<P>(
-            callback: (err: any, result: Object) => P
-        ): Client <P>;
+        gridProxyDetails<P>(): Client <P>;
     }
 
     // Mobile
@@ -276,97 +283,123 @@ declare namespace WebdriverIO {
 
     // Property
     export interface Client<T> {
-        getAttribute(selector: string, attributeName: string): Client<string | string[]>;
+        getAttribute(
+            selector: string,
+            attributeName: string
+        ): Client<string> & string;
+        getAttribute(
+            selector: string,
+            attributeName: string
+        ): Client<string[]> & string[];
+        getAttribute(attributeName: string): Client<string> & string;
+        getAttribute(attributeName: string): Client<string[]> & string[];
         getAttribute<P>(
             selector: string,
-            attributeName: string,
-            callback: (err: any, attribute: string | string[]) => P
+            attributeName: string
         ): Client<P>;
+        getAttribute<P>(attributeName: string): Client<P>;
 
-        getCssProperty(selector: string, cssProperty: string): Client<CssProperty | CssProperty[]>;
+        getCssProperty(
+            selector: string,
+            cssProperty: string
+        ): CssProperty;
+        getCssProperty(
+            selector: string,
+            cssProperty: string
+        ): CssProperty[];
+        getCssProperty(cssProperty: string): CssProperty;
+        getCssProperty(cssProperty: string): CssProperty[];
         getCssProperty<P>(
             selector: string,
-            cssProperty: string,
-            callback: (err: any, cssProperty: CssProperty | CssProperty[]) => P
+            cssProperty: string
         ): Client<P>;
+        getCssProperty<P>(cssProperty: string): Client<P>;
 
-        getElementSize(selector: string): Client<Size | Size[]>;
-        getElementSize(selector: string, dimension: string): Client<number | number[]>;
+        getElementSize(selector: string): Client<Size> & Size;
+        getElementSize(selector: string): Client<Size[]> & Size[];
+        getElementSize(): Client<Size|Size[]> & Size|Size[];
+        getElementSize(
+            selector: string,
+            dimension: string
+        ): number;
+        getElementSize(
+            selector: string,
+            dimension: string
+        ): number[];
+        getElementSize(dimension: string): number ;
+        getElementSize(dimension: string): number[];
+        getElementSize<P>(selector?: string): Client<P>;
         getElementSize<P>(
             selector: string,
-            callback: (err: any, size: Size | Size[]) => P
+            dimension: string
         ): Client<P>;
-        getElementSize<P>(
-            selector: string,
-            dimension: string,
-            callback: (err: any, elementSize: number | number[]) => P
-        ): Client<P>;
+        getElementSize<P>(dimension: string): Client<P>;
 
-        getHTML(selector: string, includeSelectorTag?: boolean): Client<string | string[]>;
+        getHTML(
+            selector: string,
+            includeSelectorTag?: boolean
+        ): string;
+        getHTML(
+            selector: string,
+            includeSelectorTag?: boolean
+        ): string[];
+        getHTML(includeSelectorTag?: boolean): string;
+        getHTML(includeSelectorTag?: boolean): string[];
+        getHTML<P>(selector?: string): Client<P>;
         getHTML<P>(
             selector: string,
-            callback: (err: any, html: string | string[]) => P
+            includeSelectorTag: boolean
         ): Client<P>;
-        getHTML<P>(
-            selector: string,
-            includeSelectorTag: boolean,
-            callback: (err: any, html: string | string[]) => P
-        ): Client<P>;
+        getHTML<P>(includeSelectorTag: boolean): Client<P>;
 
-        getLocation(selector: string): Client<Location>;
-        getLocation(selector: string, axis: string): Client<number>;
+        getLocation(selector?: string): Size;
+        getLocation(selector: string, axis: string): number;
+        getLocation(axis: string): number;
+        getLocation<P>(selector?: string): Client<P>;
         getLocation<P>(
             selector: string,
-            callback: (err: any, location: Location) => P
+            axis: string
         ): Client<P>;
-        getLocation<P>(
-            selector: string,
-            axis: string,
-            callback: (err: any, location: number) => P
-        ): Client<P>;
+        getLocation<P>(axis: string): Client<P>;
 
-        getLocationInView(selector: string): Client<Location | Location[]>;
-        getLocationInView(selector: string, axis: string): Client<number | number[]>;
+        getLocationInView(selector: string): Size;
+        getLocationInView(selector: string): Size[];
+        getLocationInView(): Size;
+        getLocationInView(): Size[];
+        getLocationInView(
+            selector: string,
+            axis: string
+        ): number;
+        getLocationInView(
+            selector: string,
+            axis: string
+        ): number[];
+        getLocationInView(axis: string): number;
+        getLocationInView(axis: string): number[];
+        getLocationInView<P>(selector?: string): Client<P>;
         getLocationInView<P>(
             selector: string,
-            callback: (err: any, location: Location | Location[]) => P
+            axis: string
         ): Client<P>;
-        getLocationInView<P>(
-            selector: string,
-            axis: string,
-            callback: (err: any, location: number | number[]) => P
-        ): Client<P>;
+        getLocationInView<P>(axis: string): Client<P>;
 
         getSource(): Client<string>;
-        getSource<P>(callback: (err: any, source: string) => P): Client<P>;
+        getSource<P>(): Client<P>;
 
-        getTagName(selector: string): Client<string | string[]>;
-        getTagName<P>(
-            selector: string,
-            callback: (err: any, tagName: string | string[]) => P
-        ): Client<P>;
+        getTagName(selector?: string): string | string[];
+        getTagName<P>(selector?: string): Client<P>;
 
-        getText(selector: string): Client<string | string[]>;
-        getText<P>(
-            selector: string,
-            callback: (err: any, text: string | string[]) => P
-        ): Client<P>;
+        getText(selector?: string): string | string[];
+        getText<P>(selector?: string): Client<P>;
 
         getTitle(): Client<string>;
-        getTitle<P>(
-            callback: (err: any, title: string) => P
-        ): Client<P>;
+        getTitle<P>(): Client<P>;
 
         getUrl(): Client<string>;
-        getUrl<P>(
-            callback: (err: any, title: string) => P
-        ): Client<P>;
+        getUrl<P>(): Client<P>;
 
-        getValue(selector: string): Client<string | string[]>;
-        getValue<P>(
-            selector: string,
-            callback: (err: any, value: string | string[]) => P
-        ): Client<P>;
+        getValue(selector?: string): string | string[];
+        getValue<P>(selector?: string): Client<P>;
     }
 
     export interface LogEntry {
@@ -395,7 +428,7 @@ declare namespace WebdriverIO {
         value: any;
     }
 
-    export interface GeoLocation {
+    export interface Location {
         latitude: number;
         longitude: number;
         altitude: number;
@@ -413,94 +446,56 @@ declare namespace WebdriverIO {
     // Navigation
     export interface Client<T> {
         back(): Client<void>;
-        back<P>(
-            callback: (err: any) => P
-        ): Client<P>;
+        back<P>(): Client<P>;
 
         forward(): Client<void>;
-        forward<P>(
-            callback: (err: any) => P
-        ): Client<P>;
+        forward<P>(): Client<P>;
 
         refresh(): Client<void>;
-        refresh<P>(
-            callback: (err: any) => P
-        ): Client<P>;
+        refresh<P>(): Client<P>;
 
-        url(): Client<RawResult<string>>;
+        url(): Client<RawResult<string>> & RawResult<string>;
         url(url: string): Client<void>;
-        url<P>(
-            callback: (err: any, result: RawResult<string>) => P
-        ): Client<P>;
-        url<P>(
-            url: string,
-            callback: (err: any) => P
-        ): Client<P>;
+        url<P>(url?: string): Client<P>;
     }
 
     // Advanced input
     export interface Client<T> {
         // you probably want to use the click and drag and drop commands instead
         buttonDown(button?: string | Button): Client<void>;
-        buttonDown<P>(
-            callback: (err: any) => P
-        ): Client<P>;
-        buttonDown<P>(
-            button: string | Button,
-            callback: (err: any) => P
-        ): Client<P>;
+        buttonDown<P>(button?: string | Button): Client<P>;
 
         // you probably want to use the click and drag and drop commands instead
         buttonPress(button?: string | Button): Client<void>;
-        buttonPress<P>(
-            callback: (err: any) => P
-        ): Client<P>;
-        buttonPress<P>(
-            button: string | Button,
-            callback: (err: any) => P
-        ): Client<P>;
+        buttonPress<P>(button?: string | Button): Client<P>;
 
         // you probably want to use the click and drag and drop commands instead
         buttonUp(button?: string | Button): Client<void>;
-        buttonUp<P>(
-            callback: (err: any) => P
-        ): Client<P>;
-        buttonUp(button?: string | Button): Client<void>;
-        buttonUp<P>(
-            button: string | Button,
-            callback: (err: any) => P
-        ): Client<P>;
+        buttonUp<P>(button?: string | Button): Client<P>;
 
         // you probably want to use the click and drag and drop commands instead
         doDoubleClick(): Client<void>;
-        doDoubleClick<P>(
-            callback: (err: any) => P
-        ): Client<P>;
+        doDoubleClick<P>(): Client<P>;
 
         // you probably want to use addValue and setValue instead
         keys(value: string | string[]): Client<void>;
-        keys<P>(
-            value: string | string[],
-            callback: (err: any) => P
-        ): Client<P>;
+        keys<P>(value: string | string[]): Client<P>;
 
         // you probably want to use the moveToObject command instead
-        moveTo(id: ElementId, xoffset?: number, yoffset?: number): Client<void>;
-        moveTo(xoffset?: number, yoffset?: number): Client<void>;
-        moveTo<P>(
+        moveTo(
             id: ElementId,
-            callback: (err: any) => P
-        ): Client<P>;
+            xoffset?: number,
+            yoffset?: number
+        ): Client<void>;
+        moveTo(
+            xoffset?: number,
+            yoffset?: number
+        ): Client<void>;
+        moveTo<P>(id: ElementId): Client<P>;
         moveTo<P>(
             id: ElementId,
             xoffset: number,
-            callback: (err: any) => P
-        ): Client<P>;
-        moveTo<P>(
-            id: ElementId,
-            xoffset: number,
-            yoffset: number,
-            callback: (err: any) => P
+            yoffset?: number
         ): Client<P>;
 
         // touchClick
@@ -516,73 +511,42 @@ declare namespace WebdriverIO {
     // Useful Protocol
     export interface Client<T> {
         alertAccept(): Client<void>;
-        alertAccept<P>(
-            callback: (err: any) => P
-        ): Client<P>;
+        alertAccept<P>(): Client<P>;
 
         alertDismiss(): Client<void>;
-        alertDismiss<P>(
-            callback: (err: any) => P
-        ): Client<P>;
+        alertDismiss<P>(): Client<P>;
 
         alertText(text?: string): Client<string>;
-        alertText<P>(
-            callback: (err: any, text: string) => P
-        ): Client<P>;
-        alertText<P>(
-            text: string,
-            callback: (err: any, text: string) => P
-        ): Client<P>;
+        alertText<P>(): Client<P>;
+        alertText<P>(text: string): Client<P>;
 
         frame(id: any): Client<void>;
-        frame<P>(
-            id: any,
-            callback: (err: any) => P
-        ): Client<P>;
+        frame<P>(id: any): Client<P>;
 
         frameParent(): Client<void>;
-        frameParent<P>(
-            callback: (err: any) => P
-        ): Client<P>;
+        frameParent<P>(): Client<P>;
 
         init(capabilities?: DesiredCapabilities): Client<void>;
-        init<P>(
-            callback: (err: any) => P
-        ): Client<P>;
-        init<P>(
-            capabilities: DesiredCapabilities,
-            callback: (err: any) => P
-        ): Client<P>;
+        init<P>(capabilities?: DesiredCapabilities): Client<P>;
 
         log(type: string): Client<RawResult<LogEntry[]>>;
-        log<P>(
-            type: string,
-            callback: (err: any, result: RawResult<LogEntry[]>) => P
-        ): Client<P>;
+        log<P>(type: string): Client<P>;
 
-        logTypes(): Client<RawResult<string[]>>;
-        logTypes<P>(
-            callback: (err: any, result: RawResult<string[]>) => P
-        ): Client<P>;
+        logTypes(): Client<RawResult<string[]>> & RawResult<string[]>;
+        logTypes<P>(): Client<P>;
 
-        session(action?: string, sessionId?: string): Client<RawResult<any>>;
-        session<P>(
-            callback: (err: any, result: RawResult<any>) => P
-        ): Client<P>;
+        session(
+            action?: string,
+            sessionId?: string
+        ): Client<RawResult<any>> & RawResult<any>;
+        session<P>(action?: string): Client<P>;
         session<P>(
             action: string,
-            callback: (err: any, result: RawResult<any>) => P
-        ): Client<P>;
-        session<P>(
-            action: string,
-            sessionId: string,
-            callback: (err: any, result: RawResult<any>) => P
+            sessionId: string
         ): Client<P>;
 
         sessions(): Client<RawResult<Session[]>>;
-        sessions<P>(
-            callback: (err: any, sessions: RawResult<Session[]>) => P
-        ): Client<P>;
+        sessions<P>(): Client<P>;
 
         // timeouts
         // timeoutsAsyncScript
@@ -604,117 +568,89 @@ declare namespace WebdriverIO {
 
     // Element
     export interface Client<T> {
-        element(selector: string): Client<RawResult<Element>>;
-        element<P>(
-            selector: string,
-            callback: (err: any, result: RawResult<Element>) => P
-        ): Client<P>;
+        element(selector: string): Client<RawResult<Element>> & RawResult<Element>;
+        element<P>(selector: string): Client<P>;
 
-        elementActive(): Client<RawResult<Element>>;
-        elementActive<P>(
-            callback: (err: any, element: Element) => P
-        ): Client<P>;
+        elementActive(): Client<RawResult<Element>> & RawResult<Element>;
+        elementActive<P>(): Client<P>;
 
-        elementIdAttribute(id: ElementId, attributeName: string): Client<RawResult<string>>;
+        elementIdAttribute(
+            id: ElementId,
+            attributeName: string
+        ): Client<RawResult<string>> & RawResult<string>;
         elementIdAttribute<P>(
             id: ElementId,
-            attributeName: string,
-            callback: (err: any, result: RawResult<string>) => P
+            attributeName: string
         ): Client<P>;
 
         elementIdClear(id: ElementId): Client<void>;
-        elementIdClear<P>(
-            id: ElementId,
-            callback: (err: any) => P
-        ): Client<P>;
+        elementIdClear<P>(id: ElementId): Client<P>;
 
         elementIdClick(id: ElementId): Client<void>;
-        elementIdClick<P>(
-            id: ElementId,
-            callback: (err: any) => P
-        ): Client<P>;
+        elementIdClick<P>(id: ElementId): Client<P>;
 
-        elementIdCssProperty(id: ElementId, propertyName: string): Client<RawResult<string>>;
+        elementIdCssProperty(
+            id: ElementId,
+            propertyName: string
+        ): Client<RawResult<string>> & RawResult<string>;
         elementIdCssProperty<P>(
             id: ElementId,
-            propertyName: string,
-            callback: (err: any, result: RawResult<string>) => P
+            propertyName: string
         ): Client<P>;
 
-        elementIdDisplayed(id: ElementId): Client<RawResult<boolean>>;
-        elementIdDisplayed<P>(
+        elementIdDisplayed(id: ElementId): Client<RawResult<boolean>> & RawResult<boolean>;
+        elementIdDisplayed<P>(id: ElementId): Client<P>;
+
+        elementIdElement(
             id: ElementId,
-            callback: (err: any, result: RawResult<boolean>) => P
-        ): Client<P>;
-
-        elementIdElement(id: ElementId, selector: string): Client<RawResult<Element>>;
+            selector: string
+        ): Client<RawResult<Element>> & RawResult<Element>;
         elementIdElement<P>(
             id: ElementId,
-            selector: string,
-            callback: (err: any, result: RawResult<Element>) => P
+            selector: string
         ): Client<P>;
 
-        elementIdElements(id: ElementId, selector: string): Client<RawResult<Element[]>>;
+        elementIdElements(
+            id: ElementId,
+            selector: string
+        ): Client<RawResult<Element[]>> & RawResult<Element[]>;
         elementIdElements<P>(
             id: ElementId,
-            selector: string,
-            callback: (err: any, result: RawResult<Element[]>) => P
+            selector: string
         ): Client<P>;
 
-        elementIdEnabled(id: ElementId): Client<RawResult<boolean>>;
-        elementIdEnabled<P>(
+        elementIdEnabled(id: ElementId): Client<RawResult<boolean>> & RawResult<boolean>;
+        elementIdEnabled<P>(id: ElementId): Client<P>;
+
+        elementIdLocation(id: ElementId): Client<RawResult<Location>> & RawResult<Location>;
+        elementIdLocation<P>(id: ElementId): Client<P>;
+
+        elementIdLocationInView(id: ElementId): Client<RawResult<Location>> & RawResult<Location>;
+        elementIdLocationInView<P>(id: ElementId): Client<P>;
+
+        elementIdName(id: ElementId): RawResult<string>;
+        elementIdName<P>(id: ElementId): Client<P>;
+
+        elementIdSelected(id: ElementId): Client<RawResult<boolean>> & RawResult<boolean>;
+        elementIdSelected<P>(id: ElementId): Client<P>;
+
+        elementIdSize(id: ElementId): Client<RawResult<Size>> & RawResult<Size>;
+        elementIdSize<P>(id: ElementId): Client<P>;
+
+        elementIdText(id: ElementId): Client<RawResult<string>> & RawResult<string>;
+        elementIdText<P>(id: ElementId): Client<P>;
+
+        elementIdValue(
             id: ElementId,
-            callback: (err: any, result: RawResult<boolean>) => P
-        ): Client<P>;
-
-        elementIdLocation(id: ElementId): Client<RawResult<Location>>;
-        elementIdLocation<P>(
-            id: ElementId,
-            callback: (err: any, result: RawResult<Location>) => P
-        ): Client<P>;
-
-        elementIdLocationInView(id: ElementId): Client<RawResult<Location>>;
-        elementIdLocationInView<P>(
-            id: ElementId,
-            callback: (err: any, result: RawResult<Location>) => P
-        ): Client<P>;
-
-        elementIdName(id: ElementId): Client<RawResult<string>>;
-        elementIdName<P>(
-            id: ElementId,
-            callback: (err: any, result: RawResult<string>) => P
-        ): Client<P>;
-
-        elementIdSelected(id: ElementId): Client<RawResult<boolean>>;
-        elementIdSelected<P>(
-            id: ElementId,
-            callback: (err: any, result: RawResult<boolean>) => P
-        ): Client<P>;
-
-        elementIdSize(id: ElementId): Client<RawResult<Size>>;
-        elementIdSize<P>(
-            id: ElementId,
-            callback: (err: any, result: RawResult<Size>) => P
-        ): Client<P>;
-
-        elementIdText(id: ElementId): Client<RawResult<string>>;
-        elementIdText<P>(
-            id: ElementId,
-            callback: (err: any, result: RawResult<string>) => P
-        ): Client<P>;
-
-        elementIdValue(id: ElementId, values: string | string[]): Client<RawResult<void>>;
+            values: string | string[]
+        ): Client<RawResult<void>>;
         elementIdValue<P>(
             id: ElementId,
-            values: string | string[],
-            callback: (err: any, result: RawResult<void>) => P
+            values: string | string[]
         ): Client<P>;
 
-        elements(selector: string): Client<RawResult<Element[]>>;
-        elements<P>(
-            selector: string,
-            callback: (err: any, result: RawResult<Element[]>) => P
-        ): Client<P>;
+        elements(selector: string): Client<RawResult<Element[]>> & RawResult<Element[]>;
+        elements<P>(selector: string): Client<P>;
     }
 
     // Unuseful Protocol
@@ -723,10 +659,10 @@ declare namespace WebdriverIO {
         // cookie
 
         // use selectorExecute instead
-        execute(script: string | Function, ...args: any[]): Client<RawResult<any>>;
+        execute(script: string | Function, ...args: any[]): Client<RawResult<any>> & RawResult<any>;
 
         // use selectorExecuteAsync instead
-        executeAsync(script: string | Function, ...args: any[]): Client<RawResult<any>>;
+        executeAsync(script: string | Function, ...args: any[]): Client<RawResult<any>> & RawResult<any>;
 
         // file
         // imeActivate
@@ -746,45 +682,27 @@ declare namespace WebdriverIO {
 
         // use submitForm instead
         submit(id: ElementId): Client<void>;
-        submit<P>(
-            id: ElementId,
-            callback: (err: any) => P
-        ): Client<P>;
+        submit<P>(id: ElementId): Client<P>;
 
         // title
     }
 
     // State
     export interface Client<T> {
-        isEnabled(selector: string): Client<boolean>;
-        isEnabled<P>(
-            selector: string,
-            callback: (err: any, isEnabled: boolean) => P
-        ): Client<P>;
+        isEnabled(selector?: string): Client<boolean>;
+        isEnabled<P>(selector?: string): Client<P>;
 
-        isExisting(selector: string): Client<boolean>;
-        isExisting<P>(
-            selector: string,
-            callback: (err: any, isExisting: boolean) => P
-        ): Client<P>;
+        isExisting(selector?: string): Client<boolean>;
+        isExisting<P>(selector?: string): Client<P>;
 
-        isSelected(selector: string): Client<boolean>;
-        isSelected<P>(
-            selector: string,
-            callback: (err: any, isSelected: boolean) => P
-        ): Client<P>;
+        isSelected(selector?: string): Client<boolean>;
+        isSelected<P>(selector?: string): Client<P>;
 
-        isVisible(selector: string): Client<boolean>;
-        isVisible<P>(
-            selector: string,
-            callback: (err: any, isVisible: boolean) => P
-        ): Client<P>;
+        isVisible(selector?: string): Client<boolean>;
+        isVisible<P>(selector?: string): Client<P>;
 
-        isVisibleWithinViewport(selector: string): Client<boolean>;
-        isVisibleWithinViewport<P>(
-            selector: string,
-            callback: (err: any, isVisible: boolean) => P
-        ): Client<P>;
+        isVisibleWithinViewport(selector?: string): Client<boolean>;
+        isVisibleWithinViewport<P>(selector?: string): Client<P>;
     }
 
     export interface CommandHistoryEntry {
@@ -794,183 +712,220 @@ declare namespace WebdriverIO {
 
     // Utility
     export interface Client<T> {
-        addCommand(commandName: string, customMethod: Function, overwrite?: boolean): Client<void>;
+        addCommand(
+            commandName: string,
+            customMethod: Function,
+            overwrite?: boolean
+        ): Client<void>;
         addCommand<P>(
             commandName: string,
             customMethod: Function,
-            callback: (err: any) => P
-        ): Client<P>;
-        addCommand<P>(
-            commandName: string,
-            customMethod: Function,
-            overwrite: boolean,
-            callback: (err: any) => P
+            overwrite?: boolean
         ): Client<P>;
 
-        chooseFile(selector: string, localPath: string): Client<void>;
+        chooseFile(
+            selector: string,
+            localPath: string
+        ): Client<void>;
+        chooseFile(localPath: string): Client<void>;
         chooseFile<P>(
             selector: string,
-            localPath: string,
-            callback: (err: any) => P
+            localPath: string
         ): Client<P>;
+        chooseFile<P>(localPath: string): Client<P>;
 
         debug(): Client<void>;
-        debug<P>(
-            callback: (err: any) => P
-        ): Client<P>;
+        debug<P>(): Client<P>;
 
         end(): Client<void>;
-        end<P>(
-            callback: (err: any) => P
-        ): Client<P>;
+        end<P>(): Client<P>;
 
         endAll(): Client<void>;
-        endAll<P>(
-            callback: (err: any) => P
-        ): Client<P>;
+        endAll<P>(): Client<P>;
 
         getCommandHistory(): Client<CommandHistoryEntry[]>;
-        getCommandHistory<P>(
-            callback: (err: any, history: CommandHistoryEntry[]) => P
-        ): Client<P>;
+        getCommandHistory<P>(): Client<P>;
 
         pause(milliseconds: number): Client<void>;
-        pause<P>(milliseconds: number, callback: (err: any) => P): Client<P>;
+        pause<P>(milliseconds: number): Client<P>;
 
         saveScreenshot(filename?: string): Client<Buffer>;
-        saveScreenshot<P>(
-            callback: (err: any, screenshot: Buffer) => P
-        ): Client<P>;
-        saveScreenshot<P>(
-            filename: string,
-            callback: (err: any, screenshot: Buffer) => P
-        ): Client<P>;
+        saveScreenshot<P>(filename?: string): Client<P>;
 
-        scroll(selector: string): Client<void>;
-        scroll(selector: string, xoffset: number, yoffset: number): Client<void>;
-        scroll(xoffset: number, yoffset: number): Client<void>;
-        scroll<P>(
+        scroll(selector?: string): Client<void>;
+        scroll(
             selector: string,
-            callback: (err: any) => P
-        ): Client<P>;
+            xoffset: number,
+            yoffset: number
+        ): Client<void>;
+        scroll(
+            xoffset: number,
+            yoffset: number
+        ): Client<void>;
+        scroll<P>(selector?: string): Client<P>;
         scroll<P>(
             selector: string,
             xoffset: number,
-            yoffset: number,
-            callback: (err: any) => P
+            yoffset: number
         ): Client<P>;
         scroll<P>(
             xoffset: number,
-            yoffset: number,
-            callback: (err: any) => P
+            yoffset: number
         ): Client<P>;
 
         uploadFile(localPath: string): Client<void>;
-        uploadFile<P>(
-            localPath: string,
-            callback: (err: any) => P
-        ): Client<P>;
+        uploadFile<P>(localPath: string): Client<P>;
 
-        waitForEnabled(selector: string, milliseconds?: number, reverse?: boolean): Client<boolean>;
-        waitForEnabled<P>(
+        waitForEnabled(
             selector: string,
-            callback: (err: any, enabled: boolean) => P
-        ): Client<P>;
-        waitForEnabled<P>(
-            selector: string,
-            milliseconds: number,
-            callback: (err: any, enabled: boolean) => P
-        ): Client<P>;
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForEnabled(
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForEnabled<P>(selector?: string): Client<P>;
         waitForEnabled<P>(
             selector: string,
             milliseconds: number,
-            reverse: boolean,
-            callback: (err: any, enabled: boolean) => P
+        ): Client<P>;
+        waitForEnabled<P>(milliseconds: number): Client<P>;
+        waitForEnabled<P>(
+            selector: string,
+            milliseconds: number,
+            reverse: boolean
+        ): Client<P>;
+        waitForEnabled<P>(
+            milliseconds: number,
+            reverse: boolean
         ): Client<P>;
 
-        waitForExist(selector: string, milliseconds?: number, reverse?: boolean): Client<boolean>;
+        waitForExist(
+            selector: string,
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForExist(
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForExist<P>(selector?: string): Client<P>;
         waitForExist<P>(
             selector: string,
-            callback: (err: any, enabled: boolean) => P
+            milliseconds: number
         ): Client<P>;
+        waitForExist<P>(milliseconds: number): Client<P>;
         waitForExist<P>(
             selector: string,
             milliseconds: number,
-            callback: (err: any, enabled: boolean) => P
+            reverse: boolean
         ): Client<P>;
         waitForExist<P>(
-            selector: string,
             milliseconds: number,
-            reverse: boolean,
-            callback: (err: any, enabled: boolean) => P
+            reverse: boolean
         ): Client<P>;
 
-        waitForSelected(selector: string, milliseconds?: number, reverse?: boolean): Client<boolean>;
+        waitForSelected(
+            selector: string,
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForSelected(
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForSelected<P>(selector?: string): Client<P>;
         waitForSelected<P>(
             selector: string,
-            callback: (err: any, enabled: boolean) => P
+            milliseconds: number
         ): Client<P>;
+        waitForSelected<P>(milliseconds: number): Client<P>;
         waitForSelected<P>(
             selector: string,
             milliseconds: number,
-            callback: (err: any, enabled: boolean) => P
+            reverse: boolean
         ): Client<P>;
         waitForSelected<P>(
-            selector: string,
             milliseconds: number,
-            reverse: boolean,
-            callback: (err: any, enabled: boolean) => P
+            reverse: boolean
         ): Client<P>;
 
-        waitForText(selector: string, milliseconds?: number, reverse?: boolean): Client<boolean>;
+        waitForText(
+            selector: string,
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForText(
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForText<P>(selector?: string): Client<P>;
         waitForText<P>(
             selector: string,
-            callback: (err: any, enabled: boolean) => P
+            milliseconds: number
         ): Client<P>;
+        waitForText<P>(milliseconds: number): Client<P>;
         waitForText<P>(
             selector: string,
             milliseconds: number,
-            callback: (err: any, enabled: boolean) => P
+            reverse: boolean
         ): Client<P>;
         waitForText<P>(
-            selector: string,
             milliseconds: number,
-            reverse: boolean,
-            callback: (err: any, enabled: boolean) => P
+            reverse: boolean
         ): Client<P>;
 
-        waitForValue(selector: string, milliseconds?: number, reverse?: boolean): Client<boolean>;
+        waitForValue(
+            selector: string,
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForValue(
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForValue<P>(selector?: string): Client<P>;
         waitForValue<P>(
             selector: string,
-            callback: (err: any, enabled: boolean) => P
+            milliseconds: number
         ): Client<P>;
-        waitForValue<P>(
-            selector: string,
-            milliseconds: number,
-            callback: (err: any, enabled: boolean) => P
-        ): Client<P>;
+        waitForValue<P>(milliseconds: number): Client<P>;
         waitForValue<P>(
             selector: string,
             milliseconds: number,
             reverse: boolean,
-            callback: (err: any, enabled: boolean) => P
+
+        ): Client<P>;
+        waitForValue<P>(
+            milliseconds: number,
+            reverse: boolean,
+
         ): Client<P>;
 
-        waitForVisible(selector: string, milliseconds?: number, reverse?: boolean): Client<boolean>;
+        waitForVisible(
+            selector: string,
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForVisible(
+            milliseconds?: number,
+            reverse?: boolean
+        ): Client<boolean>;
+        waitForVisible<P>(selector?: string): Client<P>;
         waitForVisible<P>(
             selector: string,
-            callback: (err: any, enabled: boolean) => P
+            milliseconds: number
         ): Client<P>;
+        waitForVisible<P>(milliseconds: number): Client<P>;
         waitForVisible<P>(
             selector: string,
             milliseconds: number,
-            callback: (err: any, enabled: boolean) => P
+            reverse: boolean
         ): Client<P>;
         waitForVisible<P>(
-            selector: string,
             milliseconds: number,
-            reverse: boolean,
-            callback: (err: any, enabled: boolean) => P
+            reverse: boolean
         ): Client<P>;
 
         waitUntil(
@@ -983,65 +938,49 @@ declare namespace WebdriverIO {
             condition: () => boolean | Q.IPromise<boolean>,
             timeout?: number,
             timeoutMsg?: string,
-            interval?: number,
-            callback?: (err: any, enabled: boolean) => P
+            interval?: number
         ): Client<P>;
     }
 
     // Window
     export interface Client<T> {
+
+
         close(windowHandle?: string): Client<void>;
-        close<P>(
-            callback: (err: any) => P
-        ): Client<P>;
-        close<P>(
-            windowHandle: string,
-            callback: (err: any) => P
-        ): Client<P>;
+        close<P>(windowHandle?: string): Client<P>;
 
         getCurrentTabId(): Client<string>;
-        getCurrentTabId<P>(
-            callback: (err: any, tabId: string) => P
-        ): Client<P>;
+        getCurrentTabId<P>(): Client<P>;
 
         getTabIds(): Client<string[]>;
-        getTabIds<P>(
-            callback: (err: any, tabIds: string[]) => P
-        ): Client<P>;
+        getTabIds<P>(): Client<P>;
 
-        getViewportSize(): Client<Size>;
+        getViewportSize(): Client<Size> & Size;
         getViewportSize(dimension: string): Client<number>;
-        getViewportSize<P>(
-            callback: (err: any, size: Size) => P
-        ): Client<P>;
-        getViewportSize<P>(
-            dimension: string,
-            callback: (err: any, viewportSize: number) => P
-        ): Client<P>;
+        getViewportSize<P>(dimension?: string): Client<P>;
 
-        newWindow(url: string, windowName: string, windowFeatures: string): Client<string>;
+        newWindow(
+            url: string,
+            windowName: string,
+            windowFeatures: string
+        ): Client<string>;
         newWindow<P>(
             url: string,
             windowName: string,
-            windowFeatures: string,
-            callback: (err: any, windowId: string) => P
+            windowFeatures: string
         ): Client<P>;
 
-        setViewportSize(size: Size, type: boolean): Client<void>;
+        setViewportSize(
+            size: Size,
+            type: boolean
+        ): Client<void>;
         setViewportSize<P>(
             size: Size,
-            type: boolean,
-            callback: (err: any) => P
+            type: boolean
         ): Client<P>;
 
         switchTab(windowHandle?: string): Client<void>;
-        switchTab<P>(
-            callback: (err: any) => P
-        ): Client<P>;
-        switchTab<P>(
-            windowHandle: string,
-            callback: (err: any) => P
-        ): Client<P>;
+        switchTab<P>(windowHandle?: string): Client<P>;
     }
 
     export interface Options {
@@ -1085,3 +1024,4 @@ declare var browser: WebdriverIO.Client<void>;
 declare module "webdriverio" {
     export = WebdriverIO;
 }
+
