@@ -39,7 +39,7 @@ declare namespace jQueryMask {
     }
 
     interface Translation {
-        [key: string]: Pattern | {} | undefined
+        [key: string]: Pattern | {} | undefined;
         placeholder?: string;
     }
 
