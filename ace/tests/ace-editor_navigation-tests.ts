@@ -1,8 +1,5 @@
-
-
-var assert: any;
 var renderer: AceAjax.VirtualRenderer;
-var exports = {
+const aceEditorNavigationTests = {
     createEditSession: function (rows, cols) {
         var line = new Array(cols + 1).join("a");
         var text = new Array(rows).join(line + "\n") + line;

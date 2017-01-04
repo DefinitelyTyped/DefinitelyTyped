@@ -1,7 +1,4 @@
-
-
-var assert: any;
-var exports = {
+const aceSelectionTests = {
     createSession: function (rows, cols) {
         var line = new Array(cols + 1).join("a");
         var text = new Array(rows).join(line + "\n") + line;
@@ -126,7 +123,7 @@ var exports = {
     },
 
     "test: moveCursor word left with umlauts": function () {
-        var session = new AceAjax.EditSession(" Fuß Füße");
+        var session = new AceAjax.EditSession(" Fuï¿½ Fï¿½ï¿½e");
 
         var selection = session.getSelection();
         selection.moveCursorTo(0, 9)
