@@ -1,4 +1,4 @@
-﻿/**  
+/**  
  * Test suite created by Maxime LUCE <https://github.com/SomaticIT>  
  *   
  * Created by using code samples from https://github.com/LearnBoost/stylus/blob/master/docs/js.md.

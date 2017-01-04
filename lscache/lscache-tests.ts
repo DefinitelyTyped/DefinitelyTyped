@@ -1,4 +1,4 @@
-﻿
+
 
 // Copied examples directly from lscache github site with slight modifications
 alert(lscache.supported());

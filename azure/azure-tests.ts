@@ -1,4 +1,4 @@
-﻿import Azure = require("azure");
+import Azure = require("azure");
 
 var ts = new Azure.TableService();
 

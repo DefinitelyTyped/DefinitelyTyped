@@ -1,4 +1,4 @@
-﻿
+
 namespace nvd3_test_lineWithFocusChart {
     nv.addGraph(function () {
         var chart = nv.models.lineWithFocusChart();

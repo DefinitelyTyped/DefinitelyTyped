@@ -1,4 +1,4 @@
-﻿/// <reference types="three" />
+/// <reference types="three" />
 /// <reference path="../../../qunit/qunit-1.16.d.ts" />
 /// <reference path="../three-tests-setup.ts" />
 

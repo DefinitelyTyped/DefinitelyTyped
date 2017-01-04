@@ -1,4 +1,4 @@
-﻿
+
 namespace nvd3_test_lineWithFocusChartx2AxisLabel {
 
     nv.addGraph(function () {

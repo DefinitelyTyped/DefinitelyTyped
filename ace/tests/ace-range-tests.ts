@@ -1,4 +1,4 @@
-﻿const aceRangeTests = {
+const aceRangeTests = {
 
     name: "ACE range.js",
 

@@ -1,4 +1,4 @@
-﻿// Type definitions for Microsoft Dynamics xRM API v7.0
+// Type definitions for Microsoft Dynamics xRM API v7.0
 // Project: http://www.microsoft.com/en-us/download/details.aspx?id=44567
 // Definitions by: David Berry <https://github.com/6ix4our/>, Matt Ngan <https://github.com/mattngan/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
