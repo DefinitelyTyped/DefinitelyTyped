@@ -108,7 +108,7 @@ declare namespace PDFKit.Mixins {
         /** The amount in PDF points (72 per inch) to indent each paragraph of text */
         indent?: number;
         /** the amount of space between each paragraph of text */
-        paragrahGap?: number;
+        paragraphGap?: number;
         /** the amount of space between each line of text */
         lineGap?: number;
         /** the amount of space between each word in the text */
