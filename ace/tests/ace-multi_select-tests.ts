@@ -1,8 +1,3 @@
-
-
-var assert: any;
-var editor: any;
-var renderer: any;
 var exec = function (name?, times?, args?) {
     do {
         editor.commands.exec(name, editor, args);
@@ -12,7 +7,7 @@ var testRanges = function (str) {
     assert.equal(editor.selection.getAllRanges() + "", str + "");
 }
 
-var exports = {
+const aceMultiSelectTests = {
 
         name: "ACE multi_select.js",
 
