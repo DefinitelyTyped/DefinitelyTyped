@@ -654,21 +654,19 @@ declare namespace Rx {
         fromEventPattern<T>(addHandler: (handler: Function) => void, removeHandler: (handler: Function) => void, selector?: (arguments: any[]) => T): Observable<T>;
     }
 
-    type NodeEventTarget = {
+    interface NodeEventTarget {
         addListener: (name: string, cb: (e: any) => any) => void;
-    };
+    }
 
-    type NativeEventTarget = {
+    interface NativeEventTarget {
         on: (name: string, cb: (e: any) => any) => void;
         off: (name: string, cb: (e: any) => any) => void;
     }
 
-    type DOMEventTarget = {
+    interface DOMEventTarget {
         addEventListener(type: string, listener: (e: any) => any, useCapture: boolean): void;
         removeEventListener(type: string, listener: (e: any) => any, useCapture: boolean): void;
     }
-
-    type DOMEventTargetList = ArrayLike<DOMEventTarget>;
 }
 
 
