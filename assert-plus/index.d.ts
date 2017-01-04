@@ -10,137 +10,137 @@ import {Stream} from 'stream';
 /**
  * 
  */
-export function array(options: any[], message ?: string): void;
+export function array(arr: any[], message ?: string): void;
 
 /**
  * 
  */
-export function bool(options: boolean, message ?: string): void;
+export function bool(bool: boolean, message ?: string): void;
 
 /**
  * 
  */
-export function buffer(options: Buffer, message ?: string): void;
+export function buffer(buffer: Buffer, message ?: string): void;
 
 /**
  * 
  */
-export function func(options: any, message ?: string): void;
+export function func(func: any, message ?: string): void;
 
 /**
  * 
  */
-export function number(options: number, message ?: string): void;
+export function number(number: number, message ?: string): void;
 
 /**
  * 
  */
-export function finite(options: number, message ?: string): void;
+export function finite(finite: number, message ?: string): void;
 
 /**
  * 
  */
-export function object(options: any, message ?: string): void;
+export function object(obj: any, message ?: string): void;
 
 /**
  * 
  */
-export function string(options: string, message ?: string): void;
+export function string(str: string, message ?: string): void;
 
 /**
  * 
  */
-export function stream(options: Stream, message ?: string): void;
+export function stream(stream: Stream, message ?: string): void;
 
 /**
  * 
  */
-export function date(options: Date, message ?: string): void;
+export function date(date: Date, message ?: string): void;
 
 /**
  * 
  */
-export function regexp(options: RegExp, message ?: string): void;
+export function regexp(regexp: RegExp, message ?: string): void;
 
 /**
  * 
  */
-export function uuid(options: string, message ?: string): void;
+export function uuid(uuid: string, message ?: string): void;
 
 /**
  * 
  */
-export function arrayOfArray(options: any[][], message ?: string): void;
+export function arrayOfArray(arr: any[][], message ?: string): void;
 
 /**
  * 
  */
-export function arrayOfBool(options: boolean[], message ?: string): void;
+export function arrayOfBool(arr: boolean[], message ?: string): void;
 
 /**
  * 
  */
-export function arrayOfBuffer(options: Buffer[], message ?: string): void;
+export function arrayOfBuffer(arr: Buffer[], message ?: string): void;
 
 /**
  * 
  */
-export function arrayOfFunc(options: any[], message ?: string): void;
+export function arrayOfFunc(arr: any[], message ?: string): void;
 
 /**
  * 
  */
-export function arrayOfNumber(options: number[], message ?: string): void;
+export function arrayOfNumber(arr: number[], message ?: string): void;
 
 /**
  * 
  */
-export function arrayOfFinite(options: number[], message ?: string): void;
+export function arrayOfFinite(arr: number[], message ?: string): void;
 
 /**
  * 
  */
-export function arrayOfObject(options: any[], message ?: string): void;
+export function arrayOfObject(arr: any[], message ?: string): void;
 
 /**
  * 
  */
-export function arrayOfString(options: string[], message ?: string): void;
+export function arrayOfString(arr: string[], message ?: string): void;
 
 /**
  * 
  */
-export function arrayOfStream(options: Stream[], message ?: string): void;
+export function arrayOfStream(arr: Stream[], message ?: string): void;
 
 /**
  * 
  */
-export function arrayOfDate(options: Date[], message ?: string): void;
+export function arrayOfDate(arr: Date[], message ?: string): void;
 
 /**
  * 
  */
-export function arrayOfRegexp(options: RegExp[], message ?: string): void;
+export function arrayOfRegexp(arr: RegExp[], message ?: string): void;
 
 /**
  * 
  */
-export function arrayOfUuid(options: string[], message ?: string): void;
+export function arrayOfUuid(arr: string[], message ?: string): void;
 
 /**
  * 
  */
-export function optionalArray(options ?: any[], message ?: string): void;
+export function optionalArray(arr ?: any[], message ?: string): void;
 
 /**
  * 
  */
-export function optionalBool(options ?: boolean, message ?: string): void;
+export function optionalBool(bool ?: boolean, message ?: string): void;
 
 /**
  * 
  */
-export function optionalBuffer(options ?: Buffer, message ?: string): void;
+export function optionalBuffer(buffer ?: Buffer, message ?: string): void;
 
 /**
  * 
@@ -190,62 +190,62 @@ export function optionalUuid(options ?: string, message ?: string): void;
 /**
  * 
  */
-export function optionalArrayOfArray(options ?: any[][], message ?: string): void;
+export function optionalArrayOfArray(arr ?: any[][], message ?: string): void;
 
 /**
  * 
  */
-export function optionalArrayOfBool(options ?: boolean[], message ?: string): void;
+export function optionalArrayOfBool(arr ?: boolean[], message ?: string): void;
 
 /**
  * 
  */
-export function optionalArrayOfBuffer(options ?: Buffer[], message ?: string): void;
+export function optionalArrayOfBuffer(arr ?: Buffer[], message ?: string): void;
 
 /**
  * 
  */
-export function optionalArrayOfFunc(options ?: any[], message ?: string): void;
+export function optionalArrayOfFunc(arr ?: any[], message ?: string): void;
 
 /**
  * 
  */
-export function optionalArrayOfNumber(options ?: number[], message ?: string): void;
+export function optionalArrayOfNumber(arr ?: number[], message ?: string): void;
 
 /**
  * 
  */
-export function optionalArrayOfFinite(options ?: number[], message ?: string): void;
+export function optionalArrayOfFinite(arr ?: number[], message ?: string): void;
 
 /**
  * 
  */
-export function optionalArrayOfObject(options ?: any[], message ?: string): void;
+export function optionalArrayOfObject(arr ?: any[], message ?: string): void;
 
 /**
  * 
  */
-export function optionalArrayOfString(options ?: string[], message ?: string): void;
+export function optionalArrayOfString(arr ?: string[], message ?: string): void;
 
 /**
  * 
  */
-export function optionalArrayOfStream(options ?: Stream[], message ?: string): void;
+export function optionalArrayOfStream(arr ?: Stream[], message ?: string): void;
 
 /**
  * 
  */
-export function optionalArrayOfDate(options ?: Date[], message ?: string): void;
+export function optionalArrayOfDate(arr ?: Date[], message ?: string): void;
 
 /**
  * 
  */
-export function optionalArrayOfRegexp(options ?: RegExp[], message ?: string): void;
+export function optionalArrayOfRegexp(arr ?: RegExp[], message ?: string): void;
 
 /**
  * 
  */
-export function optionalArrayOfUuid(options ?: string[], message ?: string): void;
+export function optionalArrayOfUuid(arr ?: string[], message ?: string): void;
 
 /**
  * 
@@ -316,7 +316,7 @@ export function ok(options: any, message ?: string): void;
  * a `message` property set equal to the value of the `message` parameter.
  * If the `message` parameter is undefined, a default error message is assigned.
  */
-export function equal(actual: any, expected: any, message ?: string): void;
+export function equal<T>(actual: T, expected: T, message ?: string): void;
 
 /**
  * Tests shallow, coercive inequality with the not equal comparison operator ( `!=` ).
@@ -338,7 +338,7 @@ export function equal(actual: any, expected: any, message ?: string): void;
  * a `message` property set equal to the value of the `message` parameter.
  * If the `message` parameter is undefined, a default error message is assigned.
  */
-export function notEqual(actual: any, expected: any, message ?: string): void;
+export function notEqual<T>(actual: T, expected: T, message ?: string): void;
 
 /**
  * Tests for deep equality between the `actual` and `expected` parameters.
@@ -361,7 +361,7 @@ export function notEqual(actual: any, expected: any, message ?: string): void;
  * set equal to the value of the `message` parameter. If the `message` parameter is undefined,
  * a default error message is assigned.
  */
-export function deepEqual(actual: any, expected: any, message ?: string): void;
+export function deepEqual<T>(actual: T, expected: T, message ?: string): void;
 
 /**
  * Tests for any deep inequality. Opposite of `assert.deepEqual()`.
@@ -391,7 +391,7 @@ export function deepEqual(actual: any, expected: any, message ?: string): void;
  * a `message` property set equal to the value of the `message` parameter.
  * If the `message` parameter is undefined, a default error message is assigned.
  */
-export function notDeepEqual(actual: any, expected: any, message ?: string): void;
+export function notDeepEqual<T>(actual: T, expected: T, message ?: string): void;
 
 /**
  * Tests strict equality as determined by the strict equality operator ( `===` ).
@@ -413,7 +413,7 @@ export function notDeepEqual(actual: any, expected: any, message ?: string): voi
  * a `message` property set equal to the value of the `message` parameter.
  * If the `message` parameter is undefined, a default error message is assigned.
  */
-export function strictEqual(actual: any, expected: any, message ?: string): void;
+export function strictEqual<T>(actual: T, expected: T, message ?: string): void;
 
 /**
  * Tests strict inequality as determined by the strict not equal operator ( `!==` ).
@@ -435,7 +435,7 @@ export function strictEqual(actual: any, expected: any, message ?: string): void
  * set equal to the value of the `message` parameter. If the `message` parameter is undefined,
  * a default error message is assigned.
  */
-export function notStrictEqual(actual: any, expected: any, message ?: string): void;
+export function notStrictEqual<T>(actual: T, expected: T, message ?: string): void;
 
 /**
  * 
