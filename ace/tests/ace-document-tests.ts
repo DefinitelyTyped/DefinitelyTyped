@@ -1,7 +1,4 @@
-
-
-var assert: any;
-var exports = {
+const aceDocumentTests = {
     "test: insert text in line": function() {
         var doc = new AceAjax.Document(["12", "34"]);
 

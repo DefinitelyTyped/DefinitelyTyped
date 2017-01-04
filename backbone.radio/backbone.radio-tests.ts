@@ -1,4 +1,4 @@
-﻿
+
 /// <reference types="jquery" />
 
 import * as Backbone from 'backbone';

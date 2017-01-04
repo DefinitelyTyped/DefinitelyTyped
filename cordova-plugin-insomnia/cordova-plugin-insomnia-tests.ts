@@ -1,4 +1,4 @@
-﻿window.plugins.insomnia.allowSleepAgain(
+window.plugins.insomnia.allowSleepAgain(
 	() => { console.log("success"); },
 	() => { console.log("fail"); }
 );

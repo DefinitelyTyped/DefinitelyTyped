@@ -205,4 +205,12 @@ declare namespace cucumber {
 	interface EventHook {
 		(event: events.Event, callback?: ()=>void): void;
 	}
+
+	export interface SupportCodeConsumer {
+		(stepDefinitions:StepDefinitions | Hooks):void;
+	}
+
+	export function defineSupportCode(consumer:SupportCodeConsumer): void;
+	export function getSupportCodeFns(): SupportCodeConsumer[];
+	export function clearSupportCodeFns(): void;
 }

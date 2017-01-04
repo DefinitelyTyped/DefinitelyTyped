@@ -1,4 +1,4 @@
-﻿$("#tree").fancytree({
+$("#tree").fancytree({
 	source: [
 		{ title: "Node 1", key: "1" },
 		{

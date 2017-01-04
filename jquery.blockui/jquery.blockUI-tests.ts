@@ -1,4 +1,4 @@
-﻿
+
 
 $.blockUI();
 var opt: JQBlockUIOptions = {

@@ -1,4 +1,4 @@
-// Type definitions for jasmine-expect 2.0.0-beta2
+// Type definitions for jasmine-expect 2.0
 // Project: https://github.com/JamieMason/Jasmine-Matchers
 // Definitions by: UserPixel <https://github.com/UserPixel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -1,4 +1,4 @@
-﻿/// <reference types="three" />
+/// <reference types="three" />
 /// <reference path="../three-tests-setup.ts" />
 /// <reference types="tween.js" />
 

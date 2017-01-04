@@ -1,4 +1,4 @@
-﻿
+
 
 // Test overloads for `add` method
 $.validator.unobtrusive.adapters.add("adapter", () => { });

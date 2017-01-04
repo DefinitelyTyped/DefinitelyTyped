@@ -1,6 +1,3 @@
-
-
-var assert: any;
 function flatten(rangeList) {
     var points = [];
     rangeList.ranges.forEach(function (r) {
@@ -12,7 +9,7 @@ function testRangeList(rangeList, points) {
     assert.equal("" + flatten(rangeList), "" + points);
 }
 
-var exports = {
+const aceRangeListTests = {
 
         name: "ACE range_list.js",
 
