@@ -3,7 +3,7 @@
 // Definitions by: Paul Lockwood <https://github.com/PaulLockwood> 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from "@types/bunyan";
+export * from "bunyan";
 
 // browser-bunyan specific
 export function ConsoleFormattedStream(): void;
