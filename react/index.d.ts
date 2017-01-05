@@ -163,8 +163,8 @@ declare namespace React {
 
     // Base component for plain JS classes
     class Component<P, S> implements ComponentLifecycle<P, S> {
-        constructor(...args: any[]);
         constructor(props?: P, context?: any);
+        constructor(...args: any[]);
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
         forceUpdate(callBack?: () => any): void;
