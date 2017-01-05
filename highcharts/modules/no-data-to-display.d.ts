@@ -1,7 +1,6 @@
-// Type definitions for Highcharts No Data to Display 4.2.7 
+// Type definitions for Highcharts No Data to Display 4.2.7
 // Project: http://www.highcharts.com/
-// Definitions by: Andrey Zolotin <http://github.com/nitoloz>
-// Definitions byt: Rowell Heria <http://github.com/rowellx68>
+// Definitions by: Andrey Zolotin <http://github.com/nitoloz>, Rowell Heria <http://github.com/rowellx68>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Static } from "highcharts";
