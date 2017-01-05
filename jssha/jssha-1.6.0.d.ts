@@ -1,10 +1,10 @@
 // Type definitions for jsSHA-1.6.0
 // Project: https://github.com/Caligatio/jsSHA
 // Definitions by: David Li <https://github.com/randombk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare module jsSHA {
+declare namespace jsSHA {
     export interface OutputFormatOptions {
         outputUpper? : boolean;
         b64Pad? : string;

@@ -1,12 +1,13 @@
-/// <reference path="../backbone/backbone.d.ts" />
-/// <reference path="backbone-associations.d.ts" />
-
 // borrowed from the Backbone.Associations tutorials
 // separated out into modules to avoid namespace clashes
-module Backbone.Associations.Tests {
-    module OneToOne {
+
+import * as Backbone from 'backbone';
+
+namespace BackboneAssociationsTests {
+    namespace OneToOne {
         class EmployeeWithManager extends Backbone.AssociatedModel {
             constructor(options?) {
+                super(options);
                 this.relations = [
                     {
                         type: Backbone.One, //nature of the relationship
@@ -14,7 +15,6 @@ module Backbone.Associations.Tests {
                         relatedModel: 'Employee' //AssociatedModel for attribute key
                     }
                 ];
-                super(options);
             }
 
             defaults() {
@@ -28,7 +28,7 @@ module Backbone.Associations.Tests {
         }
     }
 
-    module OneToMany {
+    namespace OneToMany {
         class Location extends Backbone.AssociatedModel {
             defaults() {
                 return {
@@ -41,13 +41,14 @@ module Backbone.Associations.Tests {
         }
 
         class Locations extends Backbone.Collection<Location> {
-            comparator(c: Backbone.Model) {
+            comparator = (c: Backbone.Model) => {
                 return c.get("Number");
             }
         }
 
         class Project extends Backbone.AssociatedModel {
             constructor(options?) {
+                super(options);
                 this.relations = [
                     {
                         type: Backbone.Many, //nature of the relation
@@ -56,7 +57,6 @@ module Backbone.Associations.Tests {
                         relatedModel: Location //Optional
                     }
                 ];
-                super(options);
             }
 
             defaults() {

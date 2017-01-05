@@ -1,9 +1,8 @@
-﻿/**
+/**
 * Maintained by: jbondc <https://github.com/jbondc>
 */
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="nopt.d.ts" />
+/// <reference types="node" />
 
 import nopt = require("nopt");
 

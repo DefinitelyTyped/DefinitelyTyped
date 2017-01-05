@@ -1,7 +1,7 @@
 // Type definitions for xJSFL
 // Project: http://www.xjsfl.com/
 // Definitions by: soywiz <https://github.com/soywiz/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="./jsfl.d.ts" />
 

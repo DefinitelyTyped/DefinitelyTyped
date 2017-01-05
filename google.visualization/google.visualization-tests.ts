@@ -1,4 +1,4 @@
-/// <reference path="google.visualization.d.ts" />
+
 
 function test_arrayToDataTable() {
     var array = [
@@ -156,10 +156,17 @@ function test_areaChart() {
         ['2016',  1030,      540]
     ]);
 
-    var options = {
+    var options:google.visualization.AreaChartOptions = {
         title: 'Company Performance',
         hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
-        vAxis: {minValue: 0}
+        vAxis: {minValue: 0},
+        annotations: {
+            textStyle: {
+                bold: true,
+                italic: true,
+                color: "black"
+            }
+        }
     };
 
     var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
@@ -342,4 +349,275 @@ function test_candlestickChart() {
 
     var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
     chart.draw(data, options);
+}
+
+function test_formatter_ArrowFormat() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Department');
+    data.addColumn('number', 'Revenues Change');
+    data.addRows([
+        ['Shoes', { v: 12, f: '12.0%' }],
+        ['Sports', { v: -7.3, f: '-7.3%' }],
+        ['Toys', { v: 0, f: '0%' }],
+        ['Electronics', { v: -2.1, f: '-2.1%' }],
+        ['Food', { v: 22, f: '22.0%' }]
+    ]);
+
+    var table = new google.visualization.Table(document.getElementById('arrowformat_div'));
+
+    var formatter = new google.visualization.ArrowFormat();
+    formatter.format(data, 1); // Apply formatter to second column
+
+    table.draw(data, { allowHtml: true, showRowNumber: true });
+}
+
+function test_formatter_BarFormat() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Department');
+    data.addColumn('number', 'Revenues');
+    data.addRows([
+        ['Shoes', 10700],
+        ['Sports', -15400],
+        ['Toys', 12500],
+        ['Electronics', -2100],
+        ['Food', 22600],
+        ['Art', 1100]
+    ]);
+
+    var table = new google.visualization.Table(document.getElementById('barformat_div'));
+
+    var formatter = new google.visualization.BarFormat({ width: 120 });
+    formatter.format(data, 1); // Apply formatter to second column
+
+    table.draw(data, { allowHtml: true, showRowNumber: true, width: '100%', height: '100%' });
+}
+
+function test_formatter_ColorFormat() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Department');
+    data.addColumn('number', 'Revenues');
+    data.addRows([
+        ['Shoes', 10700],
+        ['Sports', -15400],
+        ['Toys', 12500],
+        ['Electronics', -2100],
+        ['Food', 22600],
+        ['Art', 1100]
+    ]);
+
+    var table = new google.visualization.Table(document.getElementById('colorformat_div'));
+
+    var formatter = new google.visualization.ColorFormat();
+    formatter.addRange(-20000, 0, 'white', 'orange');
+    formatter.addRange(20000, null, 'red', '#33ff33');
+    formatter.format(data, 1); // Apply formatter to second column
+
+    table.draw(data, { allowHtml: true, showRowNumber: true, width: '100%', height: '100%' });
+}
+
+function test_formatter_DateFormat() {
+    function drawDateFormatTable() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Employee Name');
+        data.addColumn('date', 'Start Date (Long)');
+        data.addColumn('date', 'Start Date (Medium)');
+        data.addColumn('date', 'Start Date (Short)');
+        data.addRows([
+            ['Mike', new Date(2008, 1, 28, 0, 31, 26),
+                new Date(2008, 1, 28, 0, 31, 26),
+                new Date(2008, 1, 28, 0, 31, 26)],
+            ['Bob', new Date(2007, 5, 1, 0),
+                new Date(2007, 5, 1, 0),
+                new Date(2007, 5, 1, 0)],
+            ['Alice', new Date(2006, 7, 16),
+                new Date(2006, 7, 16),
+                new Date(2006, 7, 16)]
+        ]);
+
+        // Create three formatters in three styles.
+        var formatter_long = new google.visualization.DateFormat({ formatType: 'long' });
+        var formatter_medium = new google.visualization.DateFormat({ formatType: 'medium' });
+        var formatter_short = new google.visualization.DateFormat({ formatType: 'short' });
+
+        // Reformat our data.
+        formatter_long.format(data, 1);
+        formatter_medium.format(data, 2);
+        formatter_short.format(data, 3);
+
+        // Draw our data
+        var table = new google.visualization.Table(document.getElementById('dateformat_div'));
+        table.draw(data, { showRowNumber: true, width: '100%', height: '100%' });
+    }
+}
+
+function test_formatter_NumberFormat() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Department');
+    data.addColumn('number', 'Revenues');
+    data.addRows([
+        ['Shoes', 10700],
+        ['Sports', -15400],
+        ['Toys', 12500],
+        ['Electronics', -2100],
+        ['Food', 22600],
+        ['Art', 1100]
+    ]);
+
+    var table = new google.visualization.Table(document.getElementById('numberformat_div'));
+
+    var formatter = new google.visualization.NumberFormat(
+        { prefix: '$', negativeColor: 'red', negativeParens: true });
+    formatter.format(data, 1); // Apply formatter to second column
+
+    table.draw(data, { allowHtml: true, showRowNumber: true, width: '100%', height: '100%' });
+}
+
+function test_formatter_PatternFormat() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Name');
+    data.addColumn('string', 'Email');
+    data.addRows([
+        ['John Lennon', 'john@beatles.co.uk'],
+        ['Paul McCartney', 'paul@beatles.co.uk'],
+        ['George Harrison', 'george@beatles.co.uk'],
+        ['Ringo Starr', 'ringo@beatles.co.uk']
+    ]);
+
+    var table = new google.visualization.Table(document.getElementById('patternformat_div'));
+
+    var formatter = new google.visualization.PatternFormat(
+        '<a href="mailto:{1}">{0}</a>');
+    // Apply formatter and set the formatted value of the first column.
+    formatter.format(data, [0, 1]);
+
+    var view = new google.visualization.DataView(data);
+    view.setColumns([0]); // Create a view with the first column only.
+
+    table.draw(view, { allowHtml: true, showRowNumber: true, width: '100%', height: '100%' });
+}
+
+function test_ChartsLoad() {
+    google.charts.load('current', {packages: ['corechart', 'table', 'sankey']});
+
+    function drawChart() {
+        // Define the chart to be drawn.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Element');
+        data.addColumn('number', 'Percentage');
+        data.addRows([
+            ['Nitrogen', 0.78],
+            ['Oxygen', 0.21],
+            ['Other', 0.01]
+        ]);
+
+        // Instantiate and draw the chart.
+        var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
+        chart.draw(data, null);
+    }
+
+    google.charts.setOnLoadCallback(drawChart);
+}
+
+
+function test_ChartAnnotations() {
+    var annotations:google.visualization.ChartAnnotations = {
+        boxStyle: {
+            // Color of the box outline.
+            stroke: '#888',
+            // Thickness of the box outline.
+            strokeWidth: 1,
+            // x-radius of the corner curvature.
+            rx: 10,
+            // y-radius of the corner curvature.
+            ry: 10,
+            // Attributes for linear gradient fill.
+            gradient: {
+                // Start color for gradient.
+                color1: '#fbf6a7',
+                // Finish color for gradient.
+                color2: '#33b679',
+                // Where on the boundary to start and
+                // end the color1/color2 gradient,
+                // relative to the upper left corner
+                // of the boundary.
+                x1: '0%', y1: '0%',
+                x2: '100%', y2: '100%',
+                // If true, the boundary for x1,
+                // y1, x2, and y2 is the box. If
+                // false, it's the entire chart.
+                useObjectBoundingBoxUnits: true
+            }
+        },
+        datum: {
+            stem: {
+                color: 'black',
+                length: 12
+            },
+            style: 'point'
+        },
+        domain: {
+            stem: {
+                color: 'black',
+                length: 5
+            },
+            style: 'point'
+        },
+        highContrast: true,
+        stem: {
+            color: 'black',
+            length: 5
+        },
+        style: 'line',
+        textStyle: {
+            fontName: 'Times-Roman',
+            fontSize: 18,
+            bold: true,
+            italic: true,
+            // The color of the text.
+            color: '#871b47',
+            // The color of the text outline.
+            auraColor: '#d799ae',
+            // The transparency of the text.
+            opacity: 0.8
+        }
+    };
+
+    var barAnnotations:google.visualization.ChartBarColumnAnnotations = {
+        alwaysOutside: true,
+        textStyle: {
+            fontName: 'Times-Roman',
+            fontSize: 18,
+            bold: true
+        }
+    };
+}
+
+
+function test_OrgChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Name');
+    data.addColumn('string', 'Manager');
+    data.addColumn('string', 'ToolTip');
+
+    // For each orgchart box, provide the name, manager, and tooltip to show.
+    data.addRows([
+        [{v:'Mike', f:'Mike<div style="color:red; font-style:italic">President</div>'}, '', 'The President'],
+        [{v:'Jim', f:'Jim<div style="color:red; font-style:italic">Vice President</div>'}, 'Mike', 'VP'],
+        ['Alice', 'Mike', ''],
+        ['Bob', 'Jim', 'Bob Sponge'],
+        ['Carol', 'Bob', '']
+    ]);
+
+    var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+    chart.draw(data, {
+        allowCollapse: true,
+        allowHtml: true,
+        nodeClass: 'node',
+        selectedNodeClass: 'selected',
+        size: 'small'
+    });
+    chart.collapse(1, true);
+    var children = chart.getChildrenIndexes(0);
+    var collapsed = chart.getCollapsedNodes();
+
 }

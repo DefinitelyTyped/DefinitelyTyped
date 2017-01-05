@@ -1,5 +1,5 @@
 // Tests for Video.js API
-/// <reference path="videojs.d.ts" />
+
 
 videojs("example_video_1").ready(function(){
 
@@ -63,7 +63,7 @@ videojs("example_video_1").ready(function(){
 
 	myPlayer.cancelFullScreen();
 
-	
+
 	var myFunc = function(){
 		var myPlayer: VideoJSPlayer = this;
 		// Do something when the event is fired

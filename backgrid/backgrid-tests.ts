@@ -1,7 +1,7 @@
-/// <reference path="backgrid.d.ts" />
-/// <reference path="../backbone/backbone.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
+import * as Backgrid from 'backgrid';
+import * as Backbone from 'backbone';
 
 /*
   Uses getters and setters and requires ES >= 5
@@ -26,8 +26,8 @@ class TestModel extends Backbone.Model {
 class TestCollection extends Backbone.Collection<TestModel> {
 
     constructor(models?: any, options?: any) {
-	this.model = TestModel;
 	super(models, options);
+	this.model = TestModel;
     }
 
     initialize() {
@@ -46,6 +46,7 @@ class TestView extends Backbone.View<TestModel> {
     testCollection: TestCollection;
     
     constructor(viewOptions?: Backbone.ViewOptions<TestModel>) {
+	super(viewOptions);
 	this.testCollection = new TestCollection();
 	this.gridView = new Backgrid.Grid({
             columns: [new Backgrid.Column({name: "FirstName", cell: "string", label: "First Name"}), 
@@ -54,7 +55,6 @@ class TestView extends Backbone.View<TestModel> {
 		      collection:this.testCollection,
 		     });
 					  
-	super(viewOptions);
 	
     }
     

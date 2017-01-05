@@ -1,8 +1,9 @@
-/// <reference path="tsd.d.ts" />
-/// <reference path="../angularjs/angular.d.ts" />
-/// <reference path="../cordova/cordova.d.ts" />
+/// <reference path="fileTransfer.d.ts" />
+/// <reference path="../angular/index.d.ts" />
+/// <reference path="../cordova/index.d.ts" />
+/// <reference path="../cordova-plugin-file-transfer/index.d.ts" />
 
-module ngCordova {
+namespace ngCordova {
     'use strict';
 
     angular.module('test')

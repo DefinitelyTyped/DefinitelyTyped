@@ -1,5 +1,3 @@
-/// <reference path="polymer.d.ts"/>
-
 Polymer({
   is: "my-element",
 
@@ -12,7 +10,11 @@ Polymer({
       reflectToAttribute: true,
       notify: true,
       computed: "__prop2()"
-    }
+    },
+    prop3: {
+        type: Object,
+        value: { "foo": "bar" },
+    },
   },
 
   hostAttributes: {

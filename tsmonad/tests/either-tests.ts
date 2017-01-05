@@ -1,4 +1,4 @@
-/// <reference path="../tsmonad.d.ts" />
+
 
 class User {
 
@@ -17,7 +17,7 @@ class User {
     }
 }
 
-module Station {
+namespace Station {
 
     export class BusPass {
 

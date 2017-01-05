@@ -1,6 +1,6 @@
 // From https://github.com/jprichardson/field/blob/e968fd979ba1a06e35571695ddfdad513e516eae/README.md
 
-/// <reference path="field.d.ts" />
+
 import * as field from 'field';
 
 // get

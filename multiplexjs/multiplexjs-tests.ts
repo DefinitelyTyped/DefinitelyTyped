@@ -1,8 +1,7 @@
-﻿/// <reference path="multiplexjs.d.ts" />
-/// <reference path='../qunit/qunit.d.ts'/>
+/// <reference types="qunit"/>
 
 
-module MxTests {
+namespace MxTests {
 
     "use strict";
 
@@ -85,7 +84,7 @@ module MxTests {
     /* Tests
     ---------------------------------------------------------------------- */
 
-    module MultiplexTests {
+    namespace MultiplexTests {
 
         QUnit.module("Multiplex");
 
@@ -240,7 +239,7 @@ module MxTests {
     }
 
 
-    module RuntimeTests {
+    namespace RuntimeTests {
 
         QUnit.module("Runtime");
 
@@ -303,7 +302,7 @@ module MxTests {
     }
 
 
-    module LinqTests {
+    namespace LinqTests {
 
         QUnit.module("Linq");
 
@@ -879,7 +878,7 @@ module MxTests {
     }
 
 
-    module CollectionTests {
+    namespace CollectionTests {
 
         QUnit.module("Collection");
 
@@ -927,7 +926,7 @@ module MxTests {
     }
 
 
-    module ListTests {
+    namespace ListTests {
 
         QUnit.module("List");
 
@@ -1262,7 +1261,7 @@ module MxTests {
     }
 
 
-    module ReadOnlyCollectionTests {
+    namespace ReadOnlyCollectionTests {
 
         QUnit.module("ReadOnlyCollection");
 
@@ -1348,7 +1347,7 @@ module MxTests {
     }
 
 
-    module SortedListTests {
+    namespace SortedListTests {
 
         QUnit.module("SortedList");
 
@@ -1604,7 +1603,7 @@ module MxTests {
     }
 
 
-    module DictionaryTests {
+    namespace DictionaryTests {
 
         QUnit.module("Dictionary");
 
@@ -1786,7 +1785,7 @@ module MxTests {
     }
 
 
-    module HashSetTests {
+    namespace HashSetTests {
 
         QUnit.module("Hashset");
 
@@ -2049,7 +2048,7 @@ module MxTests {
     }
 
 
-    module LinkedListTests {
+    namespace LinkedListTests {
 
         QUnit.module("LinkedList");
 
@@ -2248,7 +2247,7 @@ module MxTests {
     }
 
 
-    module QueueTests {
+    namespace QueueTests {
 
         QUnit.module("Queue");
 
@@ -2346,7 +2345,7 @@ module MxTests {
     }
 
 
-    module StackTests {
+    namespace StackTests {
 
         QUnit.module("Stack");
 
@@ -2444,7 +2443,7 @@ module MxTests {
     }
 
 
-    module LookupTests {
+    namespace LookupTests {
 
         QUnit.module("Lookup");
 

@@ -1,6 +1,5 @@
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../tabtab/tabtab.d.ts" />
+/// <reference types="node" />
 
 import tabtab = require('tabtab');
 import child_process = require('child_process');
@@ -13,7 +12,7 @@ if (process.argv.slice(2)[0] === 'completion') {
         if (/^-\w?/.test(data.last)) return tabtab.log(['n', 'o', 'd', 'e'], data, '-');
         tabtab.log(['list', 'of', 'commands'], data);
 
-        child_process.exec('rake -H', function(err, stdout, stderr) {
+        child_process.exec('rake -H', {encoding: null as string}, function(err, stdout, stderr) {
             if (err) return;
             var decoder = new string_decoder.StringDecoder('utf8');
             var parsed = tabtab.parseOut(decoder.write(stdout));
@@ -21,7 +20,7 @@ if (process.argv.slice(2)[0] === 'completion') {
             if (/^-\w?/.test(data.last)) return tabtab.log(parsed.shorts, data, '-');
         });
 
-        child_process.exec('cake', function(err, stdout, stderr) {
+        child_process.exec('cake', {encoding: null as string}, function(err, stdout, stderr) {
             if (err) return;
             var decoder = new string_decoder.StringDecoder('utf8');
             var tasks = tabtab.parseTasks(decoder.write(stdout), 'cake');

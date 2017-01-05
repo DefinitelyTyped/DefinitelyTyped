@@ -1,5 +1,5 @@
-﻿/// <reference path="nvd3.d.ts" />
-module nvd3_test_stackArea {
+
+namespace nvd3_test_stackArea {
     nv.addGraph({
         generate: function () {
             var n = 10, // number of layers
@@ -25,7 +25,7 @@ module nvd3_test_stackArea {
             svg.transition().duration(500).call(chart);
             return chart;
         },
-        callback: function (graph) {
+        callback: function (graph: nv.StackedAreaChart) {
 
             graph.dispatch.on('tooltipShow', function (e) {
                 var offsetElement = document.getElementById("chart"),
@@ -92,5 +92,5 @@ module nvd3_test_stackArea {
         return { x: i, y: Math.max(0, d) };
     }
 
-  
+
 }

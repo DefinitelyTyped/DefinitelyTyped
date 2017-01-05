@@ -1,4 +1,3 @@
-/// <reference path="xmldom.d.ts" />
 
 import * as xmldom from 'xmldom';
 
@@ -34,3 +33,7 @@ new xmldom.DOMParser({
   //errorHandler:function(level,msg){console.log(level,msg)}
 });
 
+
+// XMLSerializer provides serializeToString method
+new xmldom.XMLSerializer().serializeToString(doc) == "string";
+new xmldom.XMLSerializer().serializeToString(doc.documentElement) == "string";

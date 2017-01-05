@@ -1,7 +1,20 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../knockout/knockout.d.ts" />
-/// <reference path="kolite.d.ts" />
+/// <reference types="jquery" />
+/// <reference types="knockout" />
 
+function test_activityDefaults() {
+    ko.bindingHandlers.activity.defaultOptions = {
+        activityClass: 'fa fa-spinner fa-spin',
+        container: 'i',
+        inactiveClass: ''
+    };
+
+    ko.bindingHandlers.activity.defaultOptions = {
+        activityClass: 'some Value'
+    };
+
+    ko.bindingHandlers.activity.defaultOptions = {
+    };
+}
 function test_asyncCommand() {
     var saveCmd = ko.asyncCommand({
         execute: function (complete) {
@@ -47,12 +60,12 @@ function test_asyncCommand_isExecuting() {
 }
 
 function test_dirtyFlag() {
-    var viewModel;
+    var viewModel: any;
     viewModel.dirtyFlag = new ko.DirtyFlag(viewModel.model);
     viewModel.dirtyFlag().isDirty();
     viewModel.dirtyFlag().reset();
 
-    var self;
+    var self: any;
     this.dirtyFlag = new ko.DirtyFlag(
        self.firstName,
        self.lastName);
@@ -115,7 +128,7 @@ function test_full() {
             };
             return self;
         };
-    })(ko);
+    })(ko as any);
     (function (ko) {
         ko.utils.wrapAccessor = function (accessor) {
             return function () {
@@ -176,7 +189,7 @@ function test_full() {
                 ko.bindingHandlers.enable.update(element, canExecute, allBindingsAccessor, viewModel);
             }
         };
-    })(ko);
+    })(ko as any);
 
     var my: any = {};
     my.TwitterService = function () {

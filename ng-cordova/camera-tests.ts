@@ -1,6 +1,9 @@
 /// <reference path="camera.d.ts" />
+/// <reference path="../cordova-plugin-camera/index.d.ts" />
 
-module ngCordova {
+
+
+namespace ngCordova {
     function cameraTest($cordovaCamera: ICameraService) {
         var options = {
             quality: 50,

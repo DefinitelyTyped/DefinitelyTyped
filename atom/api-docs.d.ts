@@ -1,7 +1,7 @@
 // Type definitions for Atom API docs
 // Project: https://github.com/atom/atom/blob/master/build/tasks/docs-task.coffee
 // Definitions by: vvakame <https://github.com/vvakame/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
  How to generate.
@@ -16,7 +16,7 @@
  api.json example https://gist.github.com/vvakame/10f8d2f3884affc32476
  */
 
-declare module AtomDocTypes {
+declare namespace AtomDocTypes {
     interface Metadata {
         classes: { [className: string]: ClassInfo; };
     }

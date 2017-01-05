@@ -1,8 +1,8 @@
-﻿/// <reference path="lokijs.d.ts" />
+
 
 import Loki = require("lokijs");
 
-module LokijsTest {
+namespace LokijsTest {
 
     class Ant {
         static uniqueId = 1;

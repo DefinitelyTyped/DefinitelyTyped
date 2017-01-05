@@ -3,10 +3,10 @@
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="google-apps-script.types.d.ts" />
-/// <reference path="google-apps-script.base.d.ts" />
 
-declare module GoogleAppsScript {
+
+
+declare namespace GoogleAppsScript {
   export module Contacts {
     /**
      * Address field in a contact.

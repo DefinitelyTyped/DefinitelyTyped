@@ -1,6 +1,6 @@
-/// <reference path="./power-assert.d.ts" />
 
-import assert from "power-assert";
+
+import assert = require("power-assert");
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -10,12 +10,16 @@ assert.equal(3, "3", "uses == comparator");
 
 assert.notStrictEqual(2, "2", "uses === comparator");
 
+assert.deepStrictEqual([{a:1}], [{a:1}], "uses === comparator");
+
+assert.notDeepStrictEqual([{a:1}], [{a:1}], "uses === comparator");
+
 assert.throws(() => {
     throw "a hammer at your face";
 }, undefined, "DODGED IT");
 
 assert.doesNotThrow(() => {
-    if (false) {
+    if (!!false) {
         throw "a hammer at your face";
     }
 }, undefined, "What the...*crunch*");
@@ -40,7 +44,7 @@ customizedAssert1.throws(() => {
 }, undefined, "DODGED IT");
 
 customizedAssert1.doesNotThrow(() => {
-    if (false) {
+    if (!!false) {
         throw "a hammer at your face";
     }
 }, undefined, "What the...*crunch*");

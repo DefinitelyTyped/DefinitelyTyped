@@ -1,7 +1,3 @@
-/// <reference path="ember.d.ts" />
-/// <reference path="../handlebars/handlebars-1.0.0.d.ts" />
-
-
 var App : any;
 
 App = Em.Application.create<Em.Application>();
@@ -93,35 +89,12 @@ App.wife.get('householdIncome');
 App.user = Em.Object.create({
     fullName: 'Kara Gates'
 });
-App.userView = Em.View.create({
-    userNameBinding: Em.Binding.oneWay('App.user.fullName')
-});
 App.user.set('fullName', 'Krang Gates');
 App.userView.set('userName', 'Truckasaurus Gates');
 App.user.get('fullName');
 
 App = Em.Application.create({
     rootElement: '#sidebar'
-});
-
-var view = Em.View.create<Em.View>({
-    templateName: 'say-hello',
-    name: 'Bob'
-});
-view.appendTo('#container');
-view.append();
-view.remove();
-
-App.AlertView = Em.View.extend({
-    priority: 'p4',
-    isUrgent: true
-});
-
-App.ListingView = Em.View.extend({
-    templateName: 'listing',
-    edit: (event: any) => {
-        event.view.set('isEditing', true);
-    }
 });
 
 App.userController = Em.Object.create({
@@ -134,32 +107,10 @@ App.userController = Em.Object.create({
 });
 
 Handlebars.registerHelper('highlight', function(property: string, options: any) {
-    var value = Em.Handlebars.get(this, property, options);
-    return new Handlebars.SafeString('<span class="highlight">' + value + '</span>');
+    return new Handlebars.SafeString('<span class="highlight">' + "some value" + '</span>');
 });
 
-App.MyText = Em.TextField.extend({
-    formBlurredBinding: 'App.adminController.formBlurred',
-    change: function() {
-        this.set('formBlurred', true);
-    }
-});
-
-var textArea = Em.TextArea.create({
-    valueBinding: 'TestObject.value'
-});
-
-App.ClickableView = Em.View.extend({
-    click: () => {
-        alert('ClickableView was clicked!');
-    }
-});
-
-var container = Em.ContainerView.create<Em.ContainerView>();
-container.append();
-var coolView = App.CoolView.create(),
-    childViews = container.get('childViews');
-childViews.pushObject(coolView);
+var coolView = App.CoolView.create();
 
 var Person2 = Em.Object.extend<typeof Em.Object>({
     sayHello: function() {
@@ -194,8 +145,8 @@ people2.some((person: Em.Object) => {
 people2.everyProperty('isHappy', true);
 people2.someProperty('isHappy', true);
 
-// Examples taken from http://emberjs.com/api/classes/Ember.RSVP.Promise.html
-var promise = new Ember.RSVP.Promise(function(resolve: Function, reject: Function) {
+// Examples taken from http://emberjs.com/api/classes/Em.RSVP.Promise.html
+var promise = new Em.RSVP.Promise<string, string>(function(resolve: Function, reject: Function) {
   // on success
   resolve('ok!');
 
@@ -207,4 +158,17 @@ promise.then(function(value: any) {
   // on fulfillment
 }, function(reason: any) {
   // on rejection
+});
+
+var mix1 = Ember.Mixin.create({
+  foo: 1
+});
+
+var mix2 = Ember.Mixin.create({
+  bar: 2
+});
+
+var component1 = Ember.Component.extend( mix1, mix2, {
+  lyft: Ember.inject.service(),
+  cars: Ember.computed.readOnly('lyft.cars')
 });

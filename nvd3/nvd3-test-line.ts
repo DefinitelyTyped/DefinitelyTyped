@@ -1,5 +1,5 @@
-﻿/// <reference path="nvd3.d.ts" />
-module nvd3_test_line {
+
+namespace nvd3_test_line {
     nv.addGraph({
         generate: function () {
             var width = nv.utils.windowSize().width - 40,
@@ -22,7 +22,7 @@ module nvd3_test_line {
 
             return chart;
         },
-        callback: function (graph) {
+        callback: function (graph: any) {
             window.onresize = function () {
                 var width = nv.utils.windowSize().width - 40,
                     height = nv.utils.windowSize().height - 40,

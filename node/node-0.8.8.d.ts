@@ -1,7 +1,7 @@
 // Type definitions for Node.js v0.8.8
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
 *                                               *
@@ -89,6 +89,7 @@ interface EventEmitter {
 
 interface WritableStream extends EventEmitter {
     writable: boolean;
+    isTTY?: boolean;
     write(str: string, encoding?: string, fd?: string): boolean;
     write(buffer: Buffer): boolean;
     end(): void;
@@ -100,6 +101,7 @@ interface WritableStream extends EventEmitter {
 
 interface ReadableStream extends EventEmitter {
     readable: boolean;
+    isTTY?: boolean;
     setEncoding(encoding: string): void;
     pause(): void;
     resume(): void;
@@ -170,7 +172,7 @@ interface Buffer {
     length: number;
     copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): Buffer;
-    readUInt8(offset: number, noAsset?: boolean): number;
+    readUInt8(offset: number, noAssert?: boolean): number;
     readUInt16LE(offset: number, noAssert?: boolean): number;
     readUInt16BE(offset: number, noAssert?: boolean): number;
     readUInt32LE(offset: number, noAssert?: boolean): number;
@@ -545,6 +547,7 @@ declare module "child_process" {
         pid: number;
         kill(signal?: string): void;
         send(message: any, sendHandle: any): void;
+        connected: boolean;
         disconnect(): void;
     }
 
@@ -619,6 +622,7 @@ declare module "dns" {
 
 declare module "net" {
     import stream = require("stream");
+    import events = require("events");
 
     export interface NodeSocket extends stream.ReadWriteStream {
         // Extended base methods
@@ -648,7 +652,7 @@ declare module "net" {
         new (options?: { fd?: string; type?: string; allowHalfOpen?: boolean; }): NodeSocket;
     };
 
-    export interface Server extends NodeSocket {
+    export interface Server extends events.NodeEventEmitter {
         listen(port: number, host?: string, backlog?: number, listeningListener?: Function): void;
         listen(path: string, listeningListener?: Function): void;
         listen(handle: any, listeningListener?: Function): void;
@@ -656,6 +660,49 @@ declare module "net" {
         address(): { port: number; family: string; address: string; };
         maxConnections: number;
         connections: number;
+
+        /**
+         * events.EventEmitter
+         *   1. close
+         *   2. connection
+         *   3. error
+         *   4. listening
+         */
+        addListener(event: string, listener: Function): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "connection", listener: (socket: NodeSocket) => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "listening", listener: () => void): this;
+
+        emit(event: string, ...args: any[]): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "connection", socket: NodeSocket): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "listening"): boolean;
+
+        on(event: string, listener: Function): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "connection", listener: (socket: NodeSocket) => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "listening", listener: () => void): this;
+
+        once(event: string, listener: Function): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "connection", listener: (socket: NodeSocket) => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "listening", listener: () => void): this;
+
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "connection", listener: (socket: NodeSocket) => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "listening", listener: () => void): this;
+
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "connection", listener: (socket: NodeSocket) => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "listening", listener: () => void): this;
     }
     export function createServer(connectionListener?: (socket: NodeSocket) =>void ): Server;
     export function createServer(options?: { allowHalfOpen?: boolean; }, connectionListener?: (socket: NodeSocket) =>void ): Server;
@@ -772,7 +819,7 @@ declare module "fs" {
     export function write(fd: string, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: Error, written: number, buffer: Buffer) =>any): void;
     export function writeSync(fd: string, buffer: Buffer, offset: number, length: number, position: number): void;
     export function read(fd: string, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: Error, bytesRead: number, buffer: Buffer) => void): void;
-    export function readSync(fd: string, buffer: Buffer, offset: number, length: number, position: number): any[];
+    export function readSync(fd: string, buffer: Buffer, offset: number, length: number, position?: number): any[];
     export function readFile(filename: string, encoding: string, callback: (err: ErrnoException, data: string) => void ): void;
     export function readFile(filename: string, callback: (err: ErrnoException, data: Buffer) => void ): void;
     export function readFileSync(filename: string): Buffer;

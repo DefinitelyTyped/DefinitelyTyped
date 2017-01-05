@@ -1,10 +1,10 @@
-/// <reference path="valerie.d.ts" />
-/// <reference path="../knockout/knockout.d.ts" />
+
+/// <reference types="knockout" />
 
 // Tests for valerie.d.ts
 // Project: https://github.com/davewatts/valerie
 // Definitions by: Howard Richards <https://github.com/conficient>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
     Checks the .d.ts definition work. Not a fully comprehensive set of tests yet.
@@ -294,7 +294,7 @@ function ModelValidation() {
     var validatedModel = valerie.validatableModel(model)
         .validateAll()
         .end();
-    
+
 }
 
 function UtilsStaticTests() {
@@ -303,7 +303,7 @@ function UtilsStaticTests() {
     var t2 = valerie.utils.asArray([1,2]);
 
     var t3 = valerie.utils.asFunction(1);
-    var t4 = valerie.utils.asFunction(() => { return 1; });
+    var t4 = valerie.utils.asFunction((): number => { return 1; });
 
     var t5 = valerie.utils.isArray([1, 2]);
     var t5 = valerie.utils.isArrayOrObject(1);

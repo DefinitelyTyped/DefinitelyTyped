@@ -1,4 +1,4 @@
-/// <reference path="axios.d.ts" />
+
 
 enum HttpMethod { GET, PUT, POST, DELETE, CONNECT, HEAD, OPTIONS, TRACE, PATCH }
 enum ResponseType { arraybuffer, blob, document, json, text }
@@ -18,10 +18,32 @@ axios.interceptors.request.use<any>(config => {
     return config;
 });
 
+
+const requestId: number = axios.interceptors.request.use<any>(
+    (config) => {
+        console.log("Method:" + config.method + " Url:" +config.url);
+        return config;
+    },
+    (error: any) => error);
+
+
+axios.interceptors.request.eject(requestId);
+axios.interceptors.request.eject(7);
+
+
 axios.interceptors.response.use<any>(config => {
     console.log("Status:" + config.status);
     return config;
 });
+
+const responseId: number = axios.interceptors.response.use<any>(
+    config => {
+        console.log("Status:" + config.status);
+        return config;
+    },
+    (error: any) => error);
+
+axios.interceptors.response.eject(responseId);
 
 axios.get<Repository>("https://api.github.com/repos/mzabriskie/axios")
      .then(r => console.log(r.config.method));
@@ -47,6 +69,10 @@ axios.post("http://example.com/", {
     ]
 });
 
+var config: Axios.AxiosXHRConfigBase<any> = {headers: {}};
+config.headers['X-Custom-Header'] = 'baz';
+axios.post("http://example.com/", config);
+
 var getRepoIssue = axios.get<Issue>("https://api.github.com/repos/mzabriskie/axios/issues/1");
 
 var axiosInstance = axios.create({
@@ -54,7 +80,11 @@ var axiosInstance = axios.create({
     timeout: 1000
 });
 
-axiosInstance.request({url: "issues/1"});
+axiosInstance.request({url: "issues/1"}).then(res => {
+    if (res.headers['content-type'].startsWith('application/json')) {
+        throw new Error('Unexpected content-type');
+    }
+});
 
 axios.all<Repository, Repository>([getRepoDetails, getRepoDetails]).then(([repo1, repo2]) => {
     var sumIds = repo1.data.id + repo2.data.id;
@@ -69,3 +99,9 @@ var repoSum = (repo1: Axios.AxiosXHR<Repository>, repo2: Axios.AxiosXHR<Reposito
 };
 
 axios.all<Repository, Repository>([getRepoDetails, getRepoDetails]).then(axios.spread(repoSum));
+
+axios.defaults.baseURL = 'https://api.example.com';
+axios.defaults.headers.common['Authorization'] = "AUTH_TOKEN";
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+axiosInstance.defaults.headers.common['Authorization'] = "AUTH_TOKEN";

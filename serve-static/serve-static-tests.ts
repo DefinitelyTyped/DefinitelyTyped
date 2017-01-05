@@ -1,7 +1,7 @@
-/// <reference path="serve-static.d.ts" />
+
 
 import * as express from 'express';
-import * as serveStatic from 'serve-static';
+import * as serveStatic from './';
 var app = express();
 
 app.use(serveStatic('/1'));
@@ -10,6 +10,7 @@ app.use(serveStatic('/3', {
     dotfiles: 'ignore',
     etag: true,
     extensions: ['html'],
+    fallthrough: true,
     index: true,
     lastModified: true,
     maxAge: 0,

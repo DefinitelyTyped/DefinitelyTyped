@@ -1,5 +1,3 @@
-/// <reference path="needle.d.ts" />
-
 import needle = require("needle");
 
 function Usage() {

@@ -1,6 +1,6 @@
 // Tests based on examples at http://hammerjs.github.io/examples/
 
-/// <reference path="hammerjs.d.ts" />
+
 
 import Hammer = require("hammerjs");
 

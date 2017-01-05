@@ -1,6 +1,4 @@
-/// <reference path="yfiles.d.ts"/>
-
-module yfilesTest {
+namespace yfilesTest {
 
     export class BasicTest {
         private graphComponent:yfiles.view.GraphComponent;

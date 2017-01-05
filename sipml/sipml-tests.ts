@@ -1,4 +1,4 @@
-/// <reference path="sipml.d.ts" />
+
 
 /* Code borrowed from http://sipml5.org/docgen/index.html?svn=224 */
 

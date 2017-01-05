@@ -1,5 +1,5 @@
-/// <reference path="./fixed-data-table.d.ts"" />
-/// <reference path="../react/react.d.ts"/>
+
+/// <reference types="react"/>
 
 import * as React from "react";
 import {Table, Cell, Column, CellProps} from "fixed-data-table";
@@ -88,16 +88,16 @@ interface RowData {
 interface MyCellProps extends CellProps {
     rowIndex?: number;
     field: string;
-    data: RowData[];
+    myData: RowData[];
 }
 
 class MyTextCell extends React.Component<MyCellProps, {}> {
     render(): React.ReactElement<any> {
-        const {rowIndex, field, data} = this.props;
+        const {rowIndex, field, myData} = this.props;
 
         return (
-                <Cell {...this.props}>
-                    {data[rowIndex][field]}
+                <Cell {...this.props} className="text-cell">
+                    {myData[rowIndex][field]}
                 </Cell>
             );
     }
@@ -105,11 +105,11 @@ class MyTextCell extends React.Component<MyCellProps, {}> {
 
 class MyLinkCell extends React.Component<MyCellProps, {}> {
     render(): React.ReactElement<any> {
-        const {rowIndex, field, data} = this.props;
-        const link: string = data[rowIndex][field];
+        const {rowIndex, field, myData} = this.props;
+        const link: string = myData[rowIndex][field];
 
         return (
-            <Cell {...this.props}>
+            <Cell {...this.props} className="link-cell">
                 <a href={link}>{link}</a>
             </Cell>
         );
@@ -150,7 +150,7 @@ class MyTable4 extends React.Component<{}, MyTable4State> {
                             header={<Cell>{field}</Cell>}
                             cell={
                                 <MyTextCell
-                                    data={this.state.tableData}
+                                    myData={this.state.tableData}
                                     field={field}
                                 />
                             }
@@ -174,11 +174,11 @@ class MyTable5 extends React.Component<{}, {}> {
                 onScrollStart={(x: number, y: number) => {}}
                 onScrollEnd={(x: number, y: number) => {}}
                 onContentHeightChange={(newHeight: number) => {}}
-                onRowClick={(event: React.SyntheticEvent, rowIndex: number) => {}}
-                onRowDoubleClick={(event: React.SyntheticEvent, rowIndex: number) => {}}
-                onRowMouseDown={(event: React.SyntheticEvent, rowIndex: number) => {}}
-                onRowMouseEnter={(event: React.SyntheticEvent, rowIndex: number) => {}}
-                onRowMouseLeave={(event: React.SyntheticEvent, rowIndex: number) => {}}
+                onRowClick={(event: React.SyntheticEvent<Table>, rowIndex: number) => {}}
+                onRowDoubleClick={(event: React.SyntheticEvent<Table>, rowIndex: number) => {}}
+                onRowMouseDown={(event: React.SyntheticEvent<Table>, rowIndex: number) => {}}
+                onRowMouseEnter={(event: React.SyntheticEvent<Table>, rowIndex: number) => {}}
+                onRowMouseLeave={(event: React.SyntheticEvent<Table>, rowIndex: number) => {}}
                 onColumnResizeEndCallback={(newColumnWidth: number, columnKey: string) => {}}>
                 // add columns
             </Table>

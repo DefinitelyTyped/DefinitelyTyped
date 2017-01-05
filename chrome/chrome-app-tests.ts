@@ -1,4 +1,4 @@
-﻿/// <reference path="chrome-app.d.ts" />
+
 
 import runtime = chrome.app.runtime;
 import cwindow = chrome.app.window;
@@ -71,10 +71,10 @@ function test_fileSystem(): void {
 // Sockets
 // https://developer.chrome.com/apps/sockets_tcp
 function test_socketsTcp(): void {
-    var socketId: number;
+    var socketId: number = 0;
     var properties: chrome.sockets.tcp.SocketProperties = {};
     var buffer: ArrayBuffer = new ArrayBuffer(256);
-    
+
     // create
     chrome.sockets.tcp.create((info) => {
         socketId = info.socketId;
@@ -117,7 +117,7 @@ function test_socketsTcp(): void {
     chrome.sockets.tcp.getInfo(socketId, (info: chrome.sockets.tcp.SocketInfo) => { });
 
     // getSockets
-    chrome.sockets.tcp.getSockets(socketId, (infos: chrome.sockets.tcp.SocketInfo[]) => { });
+    chrome.sockets.tcp.getSockets((infos: chrome.sockets.tcp.SocketInfo[]) => { });
 }
 
 function test_socketsTcpEvents(): void {
@@ -158,7 +158,7 @@ function testSocketsTcpTypes(): void {
 
 // https://developer.chrome.com/apps/sockets_udp
 function test_socketsUdp(): void {
-    var socketId: number;
+    var socketId: number = 0
     var properties: chrome.sockets.udp.SocketProperties = {};
     var buffer: ArrayBuffer = new ArrayBuffer(256);
 
@@ -246,7 +246,7 @@ function testSocketsUdpTypes(): void {
 
 // https://developer.chrome.com/apps/sockets_tcpServer
 function test_socketsTcpServer(): void {
-    var socketId: number;
+    var socketId: number = 0;
     var properties: chrome.sockets.tcpServer.SocketProperties = {};
     var buffer: ArrayBuffer = new ArrayBuffer(256);
 
@@ -283,7 +283,7 @@ function test_socketsTcpServer(): void {
     chrome.sockets.udp.getInfo(socketId, (info: chrome.sockets.udp.SocketInfo) => { });
 
     // getSockets
-    chrome.sockets.tcp.getSockets(socketId, (infos: chrome.sockets.tcp.SocketInfo[]) => { });
+    chrome.sockets.tcp.getSockets((infos: chrome.sockets.tcp.SocketInfo[]) => { });
 }
 
 function test_socketsTcpServerEvents(): void {

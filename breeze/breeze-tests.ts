@@ -1,4 +1,4 @@
-/// <reference path="breeze.d.ts" />
+
 
 import core = breeze.core;
 import config = breeze.config;
@@ -133,7 +133,7 @@ function test_entityManager() {
         metadataStore: metadataStore
     });
 
-    return new breeze.QueryOptions({
+    new breeze.QueryOptions({
         mergeStrategy: null,
         fetchStrategy: this.fetchStrategy
     });
@@ -415,25 +415,25 @@ function test_entityQuery() {
 function test_entityState() {
     var anEntity: breeze.Entity;
     var es = anEntity.entityAspect.entityState;
-    return es.isAdded();
-    return es === breeze.EntityState.Added;
+    es.isAdded();
+    es === breeze.EntityState.Added;
     var es = anEntity.entityAspect.entityState;
-    return es.isAddedModifiedOrDeleted();
-    return es === breeze.EntityState.Added || es === breeze.EntityState.Modified || es === breeze.EntityState.Deleted;
+    es.isAddedModifiedOrDeleted();
+    es === breeze.EntityState.Added || es === breeze.EntityState.Modified || es === breeze.EntityState.Deleted;
     var es = anEntity.entityAspect.entityState;
-    return es.isDeleted();
-    return es === breeze.EntityState.Deleted;
+    es.isDeleted();
+    es === breeze.EntityState.Deleted;
     var es = anEntity.entityAspect.entityState;
-    return es.isDetached();
-    return es === breeze.EntityState.Detached;
+    es.isDetached();
+    es === breeze.EntityState.Detached;
     var es = anEntity.entityAspect.entityState;
-    return es.isModified();
-    return es === breeze.EntityState.Modified;
+    es.isModified();
+    es === breeze.EntityState.Modified;
     var es = anEntity.entityAspect.entityState;
-    return es.isUnchanged();
-    return es === breeze.EntityState.Unchanged;
+    es.isUnchanged();
+    es === breeze.EntityState.Unchanged;
     var es = anEntity.entityAspect.entityState;
-    return es.isUnchangedOrModified();
+    es.isUnchangedOrModified();
 
     return es === breeze.EntityState.Unchanged || es === breeze.EntityState.Modified;
 }
@@ -443,7 +443,7 @@ function test_entityType() {
     var myEntityType: breeze.EntityType;
     var dataProperty1: breeze.DataProperty, dataProperty2: breeze.DataProperty, navigationProperty1: breeze.DataProperty;
     var em1: breeze.EntityManager;
-    /* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+    /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
     var entityManager = new breeze.EntityType({
         metadataStore: myMetadataStore,
         serviceName: "breeze/NorthwindIBModel",
@@ -761,7 +761,7 @@ function test_validator() {
     orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
     var orderDateProperty = orderType.getProperty("OrderDate");
     orderDateProperty.validators.push(breeze.Validator.date());
-    /* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+    /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
     var v0 = breeze.Validator.maxLength({ maxLength: 5, displayName: "City" });
     v0.validate("adasdfasdf");
     var errMessage = v0.getMessage();
@@ -792,7 +792,7 @@ function test_validator() {
     regionProperty.validators.push(breeze.Validator.string());
     custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
      regionProperty = custType.getProperty("Region");
-    /* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+    /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
     regionProperty.validators.push(breeze.Validator.stringLength({ minLength: 2, maxLength: 5 }));
     var validator = breeze.Validator.maxLength({ maxLength: 5, displayName: "City" });
     var result = validator.validate("asdf");
@@ -883,7 +883,7 @@ function test_config() {
     o = config.getAdapter("myInterfaceName", "myAdapterName");
     o = config.getAdapterInstance("myInterfaceName", "myAdapterName");
     config.initializeAdapterInstance("myInterfaceName", "myAdapterName", true);
-    config.initializeAdapterInstances({ x: 3, y: "not" });
+    config.initializeAdapterInstances({ ajax: "", dataService: "" });
     s = config.interfaceInitialized.type;
     o = config.interfaceRegistry;
     o = config.objectRegistry;

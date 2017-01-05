@@ -1,10 +1,10 @@
 // Type definitions for react-router v1.0.0
 // Project: https://github.com/rackt/react-router
 // Definitions by: Sergey Buturlakin <http://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../react/react.d.ts" />
+/// <reference types="react" />
 /// <reference path="./history.d.ts"/>
 
 
@@ -31,10 +31,10 @@ declare namespace ReactRouter {
     type RouteComponent = Component
 
     // use the following interface in an app code to get access to route param values, history, location...
-    // interface MyComponentProps extends ReactRouter.RouteComponentProps<{}, { id: number }> {}
+    // interface MyComponentProps extends ReactRouter.RouteComponentProps<{}, { id: string }> {}
     // somewhere in MyComponent
     // ...
-    //   let id = this.props.routeParams.id
+    //   let id = parseInt(this.props.routeParams.id, 10);
     // ...
     //   this.props.history. ...
     // ...

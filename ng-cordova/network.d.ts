@@ -3,9 +3,9 @@
 // Definitions by: Kapil Sachdeva <https://github.com/ksachdeva>
 // Definitions: https://github.com/ksachdeva/DefinitelyTyped
 
-/// <reference path="../angularjs/angular.d.ts" />
+/// <reference types="angular" />
 
-declare module ngCordova {
+declare namespace ngCordova {
 
   export interface INetworkInformationService {
 

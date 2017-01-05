@@ -1,12 +1,10 @@
 // Type definitions for WebRTC
 // Project: http://dev.w3.org/2011/webrtc/
 // Definitions by: Ken Smith <https://github.com/smithkl42/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Taken from http://dev.w3.org/2011/webrtc/editor/getusermedia.html
 // version: W3C Editor's Draft 29 June 2015
-
-/// <reference path="../es6-promise/es6-promise.d.ts" />
 
 interface ConstrainBooleanParameters {
     exact?: boolean;
@@ -33,7 +31,7 @@ interface MediaStreamConstraints {
     audio?: boolean | MediaTrackConstraints;
 }
 
-declare module W3C {
+declare namespace W3C {
     type LongRange = NumberRange;
     type DoubleRange = NumberRange;
     type ConstrainBoolean = boolean | ConstrainBooleanParameters;
@@ -78,13 +76,13 @@ interface MediaTrackSupportedConstraints {
 }
 
 interface MediaStream extends EventTarget {
-    id: string;
-    active: boolean;
+    //id: string;
+    //active: boolean;
 
-    onactive: EventListener;
-    oninactive: EventListener;
-    onaddtrack: (event: MediaStreamTrackEvent) => any;
-    onremovetrack: (event: MediaStreamTrackEvent) => any;
+    //onactive: EventListener;
+    //oninactive: EventListener;
+    //onaddtrack: (event: MediaStreamTrackEvent) => any;
+    //onremovetrack: (event: MediaStreamTrackEvent) => any;
 
     clone(): MediaStream;
     stop(): void;
@@ -100,7 +98,7 @@ interface MediaStream extends EventTarget {
 }
 
 interface MediaStreamTrackEvent extends Event {
-    track: MediaStreamTrack;
+    //track: MediaStreamTrack;
 }
 
 declare enum MediaStreamTrackState {
@@ -109,18 +107,18 @@ declare enum MediaStreamTrackState {
 }
 
 interface MediaStreamTrack extends EventTarget {
-    id: string;
-    kind: string;
-    label: string;
+    //id: string;
+    //kind: string;
+    //label: string;
     enabled: boolean;
-    muted: boolean;
-    remote: boolean;
-    readyState: MediaStreamTrackState;
+    //muted: boolean;
+    //remote: boolean;
+    //readyState: MediaStreamTrackState;
 
-    onmute: EventListener;
-    onunmute: EventListener;
-    onended: EventListener;
-    onoverconstrained: EventListener;
+    //onmute: EventListener;
+    //onunmute: EventListener;
+    //onended: EventListener;
+    //onoverconstrained: EventListener;
 
     clone(): MediaStreamTrack;
 
@@ -133,39 +131,39 @@ interface MediaStreamTrack extends EventTarget {
 }
 
 interface MediaTrackCapabilities {
-    width: number | W3C.LongRange;
-    height: number | W3C.LongRange;
-    aspectRatio: number | W3C.DoubleRange;
-    frameRate: number | W3C.DoubleRange;
-    facingMode: string;
-    volume: number | W3C.DoubleRange;
-    sampleRate: number | W3C.LongRange;
-    sampleSize: number | W3C.LongRange;
-    echoCancellation: boolean[];
+    //width: number | W3C.LongRange;
+    //height: number | W3C.LongRange;
+    //aspectRatio: number | W3C.DoubleRange;
+    //frameRate: number | W3C.DoubleRange;
+    //facingMode: string;
+    //volume: number | W3C.DoubleRange;
+    //sampleRate: number | W3C.LongRange;
+    //sampleSize: number | W3C.LongRange;
+    //echoCancellation: boolean[];
     latency: number | W3C.DoubleRange;
-    deviceId: string;
-    groupId: string;
+    //deviceId: string;
+    //groupId: string;
 }
 
 interface MediaTrackSettings {
-    width: number;
-    height: number;
-    aspectRatio: number;
-    frameRate: number;
-    facingMode: string;
-    volume: number;
-    sampleRate: number;
-    sampleSize: number;
-    echoCancellation: boolean;
+    //width: number;
+    //height: number;
+    //aspectRatio: number;
+    //frameRate: number;
+    //facingMode: string;
+    //volume: number;
+    //sampleRate: number;
+    //sampleSize: number;
+    //echoCancellation: boolean;
     latency: number;
-    deviceId: string;
-    groupId: string;
+    //deviceId: string;
+    //groupId: string;
 }
 
 interface MediaStreamError {
-    name: string;
-    message: string;
-    constraintName: string;
+    //name: string;
+    //message: string;
+    //constraintName: string;
 }
 
 interface NavigatorGetUserMedia {
@@ -173,6 +171,9 @@ interface NavigatorGetUserMedia {
      successCallback: (stream: MediaStream) => void,
      errorCallback: (error: MediaStreamError) => void): void;
 }
+
+// to use with adapter.js, see: https://github.com/webrtc/adapter
+declare var getUserMedia: NavigatorGetUserMedia;
 
 interface Navigator {
     getUserMedia: NavigatorGetUserMedia;
@@ -194,8 +195,8 @@ interface MediaDevices {
 }
 
 interface MediaDeviceInfo {
-    label: string;
-    id: string;
-    kind: string;
-    facing: string;
+    //label: string;
+    //deviceId: string;
+    //kind: string;
+    //groupId: string;
 }

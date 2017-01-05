@@ -1,13 +1,12 @@
-﻿/// <reference path="./later.d.ts"/>
+import later = require("later");
 
-
-module LaterTest_DefineSchedule {
+namespace LaterTest_DefineSchedule {
 
     // define a new schedule
     var textSched = later.parse.text('at 10:15am every weekday');
     var cronSched = later.parse.cron('0 0/5 14,18 * * ?');
     var recurSched = later.parse.recur().last().dayOfMonth();
-    var manualSched = <Later.IScheduleData>{ schedules: [ <Later.IRecurrence>{ M: [ 3 ], D: [ 21 ] } ] };
+    var manualSched = <later.ScheduleData>{ schedules: [ <later.Recurrence>{ M: [ 3 ], D: [ 21 ] } ] };
 
     // this schedule will fire on the closest weekday to the 15th
     // every month at 2:00 am except in March
@@ -21,7 +20,7 @@ module LaterTest_DefineSchedule {
         .on(3).month();
 }
 
-module LaterTest_ConfigureTimezone {
+namespace LaterTest_ConfigureTimezone {
 
     // set later to use UTC (the default)
     later.date.UTC();
@@ -30,7 +29,7 @@ module LaterTest_ConfigureTimezone {
     later.date.localTime();
 }
 
-module LaterTest_TimePeriods {
+namespace LaterTest_TimePeriods {
     export function second() {
         var d = new Date('2013-03-22T10:02:05Z');
 
@@ -407,8 +406,8 @@ module LaterTest_TimePeriods {
         // 'Mon, 31 Dec 2012 23:59:59 GMT'
     }
 
-    export interface IPartOfDayLater extends Later.IStatic {
-        partOfDay: Later.ITimePeriod;
+    export interface IPartOfDayLater extends later.Static {
+        partOfDay: later.TimePeriod;
     }
 
     export function custom() {
@@ -502,7 +501,7 @@ module LaterTest_TimePeriods {
     }
 }
 
-module LaterTest_GenerateRecurences {
+namespace LaterTest_GenerateRecurences {
 
     export function on_method() {
         // fires on the 2nd minute every hour
@@ -594,7 +593,7 @@ module LaterTest_GenerateRecurences {
 
 }
 
-module LaterTest_CalculateOccurences {
+namespace LaterTest_CalculateOccurences {
 
     // Initialise next variable.
     var next: Date[] = [];
@@ -610,7 +609,7 @@ module LaterTest_CalculateOccurences {
     next = later.schedule(cronSched).prev(1, new Date(2013, 2, 21));
 }
 
-module LaterTest_ExecuteCodeUsingSchedule {
+namespace LaterTest_ExecuteCodeUsingSchedule {
 
     // will fire every 5 minutes
     var textSched = later.parse.text('every 5 min');

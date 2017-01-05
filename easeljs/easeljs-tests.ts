@@ -1,4 +1,4 @@
-/// <reference path="easeljs.d.ts" />
+
 
 var stage: any;
 var myContext2D: any;
@@ -86,4 +86,18 @@ function matrixDecompose() {
     shape.skewX = transformData.skewX;
     shape.skewY = transformData.skewY;
     shape.rotation = transformData.rotation;
+}
+
+function test_addChild()
+{
+    var container: createjs.Container;
+    var textChild: createjs.Text;
+    var displayObject: createjs.DisplayObject;
+
+    container.addChild(textChild).text = "abc";
+    container.addChild(displayObject, textChild).text = "abc";
+    container.addChild(displayObject, displayObject, textChild).text = "abc";
+    container.addChild(displayObject, displayObject, displayObject, displayObject, displayObject, textChild);
+    container.addChildAt(textChild, 0).text = "abc";
+    container.addChildAt(displayObject, textChild, 0).text = "abc";
 }

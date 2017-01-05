@@ -1,6 +1,6 @@
-/// <reference path="devextreme.d.ts" />
 
-module Tests.ui {
+
+namespace Tests.ui {
     var dataGridOptions: DevExpress.ui.dxDataGridOptions = {
         activeStateEnabled: true,
         allowColumnReordering: true,
@@ -194,7 +194,7 @@ module Tests.ui {
     $("#data-grid").dxDataGrid(dataGridOptions);
 }
 
-module Tests.viz {
+namespace Tests.viz {
     var chartOptions: DevExpress.viz.charts.dxChartOptions = {
         dataSource: [
             { arg: "Illinois", s1: 100, s2: 50, s3: 75, s4: 25, s5: 50, s6: 100, s7: 25, s8: 75 },
@@ -258,16 +258,16 @@ module Tests.viz {
         title: 'Long PieChart\'s Title'
     };
 
-    new DevExpress.viz.charts.dxChart($("chart"), chartOptions);
-    new DevExpress.viz.charts.dxChart($("#chart").get(0), chartOptions);
+    new DevExpress.viz.dxChart($("chart"), chartOptions);
+    new DevExpress.viz.dxChart($("#chart").get(0), chartOptions);
     $("#chart").dxChart(chartOptions);
 
-    new DevExpress.viz.charts.dxPieChart($("#pie-chart"), pieChartOptions);
-    new DevExpress.viz.charts.dxPieChart($("#pie-chart").get(0), pieChartOptions);
+    new DevExpress.viz.dxPieChart($("#pie-chart"), pieChartOptions);
+    new DevExpress.viz.dxPieChart($("#pie-chart").get(0), pieChartOptions);
     $("#pie-chart").dxPieChart(pieChartOptions);
 }
 
-module Tests.framework {
+namespace Tests.framework {
     var app = new DevExpress.framework.html.HtmlApplication(<DevExpress.framework.html.HtmlApplicationOptions>{
         namespace: "Application",
         navigation: [
@@ -288,7 +288,7 @@ module Tests.framework {
     app.navigate();
 }
 
-module Tests.data {
+namespace Tests.data {
     new DevExpress.data.DataSource(<DevExpress.data.DataSourceOptions>{
         sort: ["value", true],
         group: ["id", false],

@@ -1,10 +1,10 @@
-/// <reference path="ko.plus.d.ts" />
-/// <reference path="../knockout/knockout.d.ts" />
+
+/// <reference types="knockout" />
 
 // Tests for ko.plus.d.ts
 // Project: https://github.com/stevegreatrex/ko.plus
 // Definitions by: Howard Richards <https://github.com/conficient>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
     Version 1.0 - initial commit

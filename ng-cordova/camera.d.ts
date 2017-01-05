@@ -3,10 +3,9 @@
 // Definitions by: Jacques Kang <https://www.linkedin.com/in/jacqueskang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../cordova/plugins/Camera.d.ts" />
-/// <reference path="../angularjs/angular.d.ts" />
+/// <reference types="cordova-plugin-camera" />
 
-declare module ngCordova {
+declare namespace ngCordova {
     export interface ICameraService {
         getPicture(options?: CameraOptions): ng.IPromise<string>;
         cleanup(): ng.IPromise<void>;

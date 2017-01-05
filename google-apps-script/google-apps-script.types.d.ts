@@ -3,7 +3,7 @@
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module GoogleAppsScript {
+declare namespace GoogleAppsScript {
   type BigNumber = any;
   type Byte = number;
   type Integer = number;
