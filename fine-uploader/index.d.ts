@@ -1,8 +1,7 @@
-// Type definitions for FineUploader for 5.11.10
+// Type definitions for FineUploader for 5.11
 // Project: http://fineuploader.com/
 // Definitions by: Bradford Wagner <https://github.com/bradfordwagner/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 declare namespace qq {
     interface BlobsOptions {
