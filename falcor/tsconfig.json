@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "falcor-tests.ts"
+        "falcor-tests.ts",
+        "falcor-browser-tests.ts"
     ]
 }
