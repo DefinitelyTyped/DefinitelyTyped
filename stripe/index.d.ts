@@ -1,9 +1,7 @@
-// Type definitions for stripe 0.0
+// Type definitions for stripe
 // Project: https://stripe.com/
 // Definitions by: Andy Hawkins <https://github.com/a904guy/,http://a904guy.com>, Eric J. Smith <https://github.com/ejsmith/>, Amrit Kahlon <https://github.com/amritk/>, Adam Cmiel <https://github.com/adamcmiel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-declare const Stripe: StripeStatic;
 
 interface StripeStatic {
     applePay: StripeApplePay;
@@ -51,8 +49,6 @@ interface StripeError {
     param?: string;
 }
 
-type StripeCardDataBrand = 'Visa' | 'American Express' | 'MasterCard' | 'Discover JCB' | 'Diners Club' | 'Unknown';
-
 interface StripeCardData {
     object: string;
     last4: string;
@@ -66,17 +62,18 @@ interface StripeCardData {
     address_state?: string;
     address_zip?: string;
     address_country?: string;
-    brand?: StripeCardDataBrand;
     createToken(data: StripeTokenData, responseHandler: (status: number, response: StripeTokenResponse) => void): void;
 }
 
-interface StripeBankAccount {
-    createToken(params: StripeBankTokenParams, stripeResponseHandler: (status: number, response: StripeBankTokenResponse) => void): void;
+interface StripeBankAccount
+{
+    createToken(params: StripeBankTokenParams, stripeResponseHandler: (status:number, response: StripeBankTokenResponse) => void): void;
     validateRoutingNumber(routingNumber: number | string, countryCode: string): boolean;
     validateAccountNumber(accountNumber: number | string, countryCode: string): boolean;
 }
 
-interface StripeBankTokenParams {
+interface StripeBankTokenParams
+{
     country: string;
     currency: string;
     account_number: number | string;
@@ -85,7 +82,8 @@ interface StripeBankTokenParams {
     account_holder_type: string;
 }
 
-interface StripeBankTokenResponse {
+interface StripeBankTokenResponse
+{
     id: string;
     bank_account: {
         country: string;
@@ -102,7 +100,13 @@ interface StripeBankTokenResponse {
     error?: StripeError;
 }
 
-interface StripeApplePay {
+declare var Stripe: StripeStatic;
+declare module "Stripe" {
+    export = StripeStatic;
+}
+
+interface StripeApplePay
+{
     checkAvailability(resopnseHandler: (result: boolean) => void): void;
     buildSession(data: StripeApplePayPaymentRequest,
                  onSuccessHandler: (result: StripeApplePaySessionResult, completion: ((value: any) => void)) => void,
@@ -113,7 +117,8 @@ type StripeApplePayBillingContactField = 'postalAddress' | 'name';
 type StripeApplePayShippingContactField = StripeApplePayBillingContactField | 'phone' | 'email';
 type StripeApplePayShipping = 'shipping' | 'delivery' | 'storePickup' | 'servicePickup';
 
-interface StripeApplePayPaymentRequest {
+interface StripeApplePayPaymentRequest
+{
     billingContact: StripeApplePayPaymentContact;
     countryCode: string;
     currencyCode: string;
@@ -127,26 +132,30 @@ interface StripeApplePayPaymentRequest {
 }
 
 // https://developer.apple.com/reference/applepayjs/1916082-applepay_js_data_types
-interface StripeApplePayLineItem {
+interface StripeApplePayLineItem
+{
     type: 'pending' | 'final';
     label: string;
     amount: number;
 }
 
-interface StripeApplePaySessionResult {
+interface StripeApplePaySessionResult
+{
     token: StripeTokenResponse;
     shippingContact?: StripeApplePayPaymentContact;
     shippingMethod?: StripeApplePayShippingMethod;
 }
 
-interface StripeApplePayShippingMethod {
+interface StripeApplePayShippingMethod
+{
     label: string;
     detail: string;
     amount: number;
     identifier: string;
 }
 
-interface StripeApplePayPaymentContact {
+interface StripeApplePayPaymentContact
+{
     emailAddress: string;
     phoneNumber: string;
     givenName: string;
@@ -157,7 +166,3 @@ interface StripeApplePayPaymentContact {
     postalCode: string;
     countryCode: string;
 }
-
-// The Stripe client side APIs are not made available to package managers for direct installation.
-// As explained compliance reasons. Source: https://github.com/stripe/stripe-node/blob/master/README.md#these-are-serverside-bindings-only
-// A release date versioning schema is used to version these APIs.

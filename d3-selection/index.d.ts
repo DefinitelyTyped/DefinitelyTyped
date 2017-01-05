@@ -519,7 +519,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      */
     insert<ChildElement extends BaseType>(
         type: string | ValueFn<GElement, Datum, ChildElement>,
-        before?: string | ValueFn<GElement, Datum, BaseType>
+        before: string | ValueFn<GElement, Datum, BaseType>
         ): Selection<ChildElement, Datum, PElement, PDatum>;
 
     /**

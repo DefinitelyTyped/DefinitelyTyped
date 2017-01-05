@@ -141,101 +141,18 @@ var mapTypeStyle: google.maps.MapTypeStyle ={
     stylers: [],
 };
 
-// https://developers.google.com/maps/documentation/javascript/markers
-function initMap1() {
-    var myLatLng = {lat: -25.363, lng: 131.044};
-
+// https://developers.google.com/maps/documentation/javascript/adding-a-google-map
+function initMap() {
+    var uluru = {lat: -25.363, lng: 131.044};
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 4,
-        center: myLatLng
+        center: uluru
     });
-
     var marker = new google.maps.Marker({
-        position: myLatLng,
-        map: map,
-        title: 'Hello World!'
-    });
-}
-
-var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
-var mapOptions = {
-    zoom: 4,
-    center: myLatlng
-}
-var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-var marker = new google.maps.Marker({
-    position: myLatlng,
-    title:"Hello World!"
-});
-
-// To add the marker to the map, call setMap();
-marker.setMap(map);
-
-marker.setMap(null);
-
-// The following example creates a marker in Stockholm, Sweden using a DROP
-// animation. Clicking on the marker will toggle the animation between a BOUNCE
-// animation and no animation.
-
-var marker: google.maps.Marker;
-
-function initMap2() {
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 13,
-        center: {lat: 59.325, lng: 18.070}
-    });
-
-    marker = new google.maps.Marker({
-        map: map,
-        draggable: true,
-        animation: google.maps.Animation.DROP,
-        position: {lat: 59.327, lng: 18.067}
-    });
-    marker.addListener('click', toggleBounce);
-}
-
-function toggleBounce() {
-    if (marker.getAnimation() !== null) {
-        marker.setAnimation(null);
-    } else {
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-    }
-}
-
-// In the following example, markers appear when the user clicks on the map.
-// Each marker is labeled with a single alphabetical character.
-var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-var labelIndex = 0;
-
-function initialize() {
-    var bangalore = { lat: 12.97, lng: 77.59 };
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 12,
-        center: bangalore
-    });
-
-    // This event listener calls addMarker() when the map is clicked.
-    google.maps.event.addListener(map, 'click', function(event: any) {
-        addMarker(event.latLng, map);
-    });
-
-    // Add a marker at the center of the map.
-    addMarker(bangalore, map);
-}
-
-// Adds a marker to the map.
-function addMarker(location: google.maps.LatLngLiteral, map: google.maps.Map) {
-    // Add the marker at the clicked location, and add the next-available label
-    // from the array of alphabetical characters.
-    var marker = new google.maps.Marker({
-        position: location,
-        label: labels[labelIndex++ % labels.length],
+        position: uluru,
         map: map
     });
 }
-
-google.maps.event.addDomListener(window, 'load', initialize);
 
 /***** OverlayView *****/
 // https://developers.google.com/maps/documentation/javascript/customoverlays

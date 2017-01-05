@@ -846,43 +846,60 @@ newDiv2 = body.append(function (d, i, g) {
 // without insert<...> typing returned selection has group element of type BaseType
 let newParagraph: d3Selection.Selection<d3Selection.BaseType, BodyDatum, HTMLElement, any>;
 newParagraph = body.insert('p', 'p.second-paragraph');
-newParagraph = body.insert('p');
-
-// Two arguments; the first can be string, selection , or a
-
-const typeValueFunction = function (
-  this: HTMLBodyElement,
-  d: BodyDatum,
-  i: number,
-  g: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement>
-) {
-    return this.ownerDocument.createElement('p'); // this-type HTMLParagraphElement
-}
-
-const beforeValueFunction = function (
-  this: HTMLBodyElement,
-  d: BodyDatum,
-  i: number,
-  g: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement>
-) {
-    return this.children[0]; 
-}
 
 let newParagraph2: d3Selection.Selection<HTMLParagraphElement, BodyDatum, HTMLElement, any>;
-
-// 2 args, with 3 possibilities each, makes 9 possible combinations:
 newParagraph2 = body.insert<HTMLParagraphElement>('p', 'p.second-paragraph');
-newParagraph2 = body.insert<HTMLParagraphElement>('p', beforeValueFunction);
-newParagraph2 = body.insert<HTMLParagraphElement>('p');
 
 newParagraph2 = body.insert(d3Selection.creator<HTMLParagraphElement>('p'), 'p.second-paragraph');
-newParagraph2 = body.insert(d3Selection.creator<HTMLParagraphElement>('p'), beforeValueFunction);
-newParagraph2 = body.insert(d3Selection.creator<HTMLParagraphElement>('p'));
+newParagraph2 = body.insert(function (d, i, g) {
+    let that: HTMLBodyElement = this;
+    // let that2: SVGElement  = this; // fails, type mismatch
+    let datum: BodyDatum = d;
+    let index: number = i;
+    let group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
+    console.log('Body element foo property: ', d.foo); // data of type BodyDatum
+    return this.ownerDocument.createElement('p'); // this-type HTMLParagraphElement
+}, 'p.second-paragraph');
 
-newParagraph2 = body.insert(typeValueFunction, 'p.second-paragraph');
-newParagraph2 = body.insert(typeValueFunction, beforeValueFunction);
-newParagraph2 = body.insert(typeValueFunction);
+// newParagraph2 = body.insert<HTMLParagraphElement>(function(d) {
+//     return this.ownerDocument.createElement('a'); // fails, HTMLParagraphElement expected by type parameter, HTMLAnchorElement returned
+// }, 'p.second-paragraph');
 
+// newParagraph2 = body.insert(function(d) {
+//     return this.ownerDocument.createElement('a'); // fails, HTMLParagraphElement expected by type inference, HTMLAnchorElement returned
+// }, 'p.second-paragraph');
+
+newParagraph2 = body.insert(d3Selection.creator<HTMLParagraphElement>('p'), function (d, i, g) {
+    let that: HTMLBodyElement = this;
+    // let that2: SVGElement  = this; // fails, type mismatch
+    let datum: BodyDatum = d;
+    let index: number = i;
+    let group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
+    console.log('Body element foo property: ', d.foo); // data of type BodyDatum
+    return this.children[0]; // this type HTMLBodyElement
+});
+
+newParagraph2 = body.insert(
+    // type
+    function (d, i, g) {
+        let that: HTMLBodyElement = this;
+        // let that2: SVGElement  = this; // fails, type mismatch
+        let datum: BodyDatum = d;
+        let index: number = i;
+        let group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
+        console.log('Body element foo property: ', d.foo); // data of type BodyDatum
+        return this.ownerDocument.createElement('p'); // this-type HTMLParagraphElement
+    },
+    // before
+    function (d, i, g) {
+        let that: HTMLBodyElement = this;
+        // let that2: SVGElement  = this; // fails, type mismatch
+        let datum: BodyDatum = d;
+        let index: number = i;
+        let group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
+        console.log('Body element foo property: ', d.foo); // data of type BodyDatum
+        return this.children[0]; // this type HTMLBodyElement
+    });
 
 // sort(...) -----------------------------------------------------------------------------
 
