@@ -1,5 +1,5 @@
-import * as webdriver from "./index";
-import * as remote from "./remote";
+import * as webdriver from './index';
+import * as remote from './remote';
 
 declare namespace edge {
 
@@ -44,7 +44,7 @@ declare namespace edge {
 
         /**
          * Sets the page load strategy for Edge.
-         * Supported values are "normal", "eager", and "none";
+         * Supported values are 'normal', 'eager', and 'none';
          *
          * @param {string} pageLoadStrategy The page load strategy to use.
          * @return {!Options} A self reference.
