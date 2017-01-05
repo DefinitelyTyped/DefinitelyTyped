@@ -9,8 +9,17 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
-        "baseUrl": "../",
+        "baseUrl": ".",
+        "paths": {
+            "*": [
+                "node_modules/@types/*",
+                "node_modules/*",
+                "../*"
+            ]
+        },
         "typeRoots": [
+            "node_modules/@types",
+            "node_modules",
             "../"
         ],
         "types": [],
