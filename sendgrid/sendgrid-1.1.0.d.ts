@@ -1,4 +1,4 @@
-﻿// Type definitions for sendgrid 1.1.0
+// Type definitions for sendgrid 1.1.0
 // Project: https://github.com/sendgrid/sendgrid-nodejs
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped

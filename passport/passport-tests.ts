@@ -1,9 +1,6 @@
-/// <reference path="passport.d.ts" />
-/// <reference path="../express/express.d.ts" />
-/// <reference path="../express-session/express-session.d.ts" />
-
-import express = require('express');
-import passport = require('passport');
+import * as passport from 'passport';
+import * as express from 'express';
+import 'express-session';
 
 class TestStrategy implements passport.Strategy {
   public name: string = 'test';
@@ -55,7 +52,9 @@ app.post('/login', function (req, res, next) {
   passport.authenticate('local', function (err: any, user: { username: string; }, info: { message: string; }) {
     if (err) { return next(err) }
     if (!user) {
-      req.session['error'] = info.message;
+      if (req.session) {
+        req.session['error'] = info.message;
+      }
       return res.redirect('/login')
     }
     req.logIn(user, function (err) {
@@ -83,14 +82,14 @@ function authSetting(): void {
   };
 
   app.get('/auth/facebook',
-    passport.authenticate('facebook'));
+      passport.authenticate('facebook'));
   app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', authOption), successCallback);
+      passport.authenticate('facebook', authOption), successCallback);
 
   app.get('/auth/twitter',
-    passport.authenticate('twitter'));
+      passport.authenticate('twitter'));
   app.get('/auth/twitter/callback',
-    passport.authenticate('twitter', authOption));
+      passport.authenticate('twitter', authOption));
 
   app.get('/auth/google',
     passport.authenticate('google', {
@@ -98,7 +97,7 @@ function authSetting(): void {
       ['https://www.googleapis.com/auth/userinfo.profile']
     }));
   app.get('/auth/google/callback',
-    passport.authenticate('google', authOption), successCallback);
+      passport.authenticate('google', authOption), successCallback);
 
 }
 

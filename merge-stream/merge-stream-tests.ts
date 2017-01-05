@@ -1,4 +1,3 @@
-/// <reference path="./merge-stream.d.ts" />
 
 import stream = require("stream");
 import Stream = stream.Readable;

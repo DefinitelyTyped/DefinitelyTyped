@@ -1,5 +1,3 @@
-/// <reference path="df-visible.d.ts" />
-
 // https://github.com/customd/jquery-visible/blob/master/examples/demo-basic.html
 $(function(){
 

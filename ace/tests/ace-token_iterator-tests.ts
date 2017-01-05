@@ -1,8 +1,4 @@
-/// <reference path="../ace.d.ts" />
-
-var assert: any;
-var mode: any;
-var exports = {
+const aceTokenIteratorTests = {
     "test: token iterator initialization in JavaScript document": function () {
         var lines = [
             "function foo(items) {",

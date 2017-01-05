@@ -1,9 +1,6 @@
-/// <reference path="../ace.d.ts" />
-
-var assert: any;
 var renderer: AceAjax.VirtualRenderer;
 var mode: any;
-var exports = {
+const aceEditorTextEditTests = {
     "test: delete line from the middle": function () {
         var session = new AceAjax.EditSession(["a", "b", "c", "d"].join("\n"));
         var editor = new AceAjax.Editor(renderer, session);

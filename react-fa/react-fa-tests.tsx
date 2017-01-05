@@ -1,23 +1,33 @@
-// React Fa Test
-// ================================================================================
-/// <reference path="react-fa.d.ts"/>
-/// <reference path="../react/react-dom.d.ts"/>
+import * as React from 'react';
+import { Icon, IconStack, IconProps } from 'react-fa';
+import DefaultIcon from 'react-fa';
 
-// Imports
-// --------------------------------------------------------------------------------
-import * as React from "react"
-import { render } from "react-dom"
-import { Icon, IconStack } from "react-fa"
+export class ReactFATest extends React.Component<any, any> {
+    render() {
+        const defaultProps = {
+            name: 'flask',
+            Component: 'div',
+        };
 
-render(
-	<Icon spin name="spinner" rotate="90" size="2x" Component="span" />,
-	document.getElementById("main")
-)
+        return (
+            <div>
+                <Icon { ...defaultProps } />
+                <Icon { ...defaultProps } size='lg' />
+                <Icon { ...defaultProps } spin />
+                <Icon { ...defaultProps } rotate='90' />
+                <Icon { ...defaultProps } flip='vertical' />
+                <Icon { ...defaultProps } fixedWidth />
+                <Icon { ...defaultProps } pulse />
 
-render(
-	<IconStack size="2x">
-		<Icon name="test" stack="2x" />
-		<Icon name="test" stack="1x" />
-	</IconStack>,
-	document.getElementById("main")
-)
+                <Icon { ...defaultProps } className="test" onClick={ () => {} } />
+
+                <DefaultIcon { ...defaultProps } />
+
+                <IconStack size='lg'>
+                    <Icon name='circle' stack='2x' />
+                    <Icon name='flask' stack='1x' inverse />
+                </IconStack>
+            </div>
+        );
+    }
+}

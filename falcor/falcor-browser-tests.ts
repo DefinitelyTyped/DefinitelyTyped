@@ -1,4 +1,4 @@
-/// <reference path="falcor-browser.d.ts" />
+
 
 var model = new falcor.Model({source: new falcor.HttpDataSource('/model.json')});
 

@@ -1,4 +1,4 @@
-/// <reference path="../tsmonad.d.ts" />
+
 
 var turns_out_to_be_100 = TsMonad.Maybe.just(10)
     .caseOf({

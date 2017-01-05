@@ -1,4 +1,4 @@
-/// <reference path="../ace.d.ts" />
+
 
 var lipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
              "Mauris at arcu mi, eu lobortis mauris. Quisque ut libero eget " +
@@ -30,7 +30,7 @@ function callHighlighterUpdate(session: AceAjax.IEditSession, firstRow: number, 
 var assert: any;
 var renderer: AceAjax.VirtualRenderer;
 
-var exports = {
+const aceEditorHighlighSelectedWorkTests = {
     setUp: function(next) {
         var session = new AceAjax.EditSession(lipsum);
         var editor = new AceAjax.Editor(renderer, session);

@@ -1,11 +1,3 @@
-﻿// Type definitions for GSAP v1.16.0
-// Project: http://greensock.com/
-// Definitions by: VILIC VANE <https://vilic.github.io/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="Core.d.ts" />
-/// <reference path="Ease.d.ts" />
-
 declare class TweenLite {
     constructor(target: any, duration: number, vars: any);
 
@@ -70,7 +62,7 @@ declare class TweenLite {
     /** Gets or sets an event callback like "onComplete", "onUpdate", "onStart", "onReverseComplete" or "onRepeat" (onRepeat only applies to TweenMax or TimelineMax instances) along with any parameters that should be passed to that callback. */
     eventCallback(type: string): Function;
     eventCallback(type: string, callback: Function, params?: any[], scope?: any): TweenLite;
-    
+
     /** Kills the animation entirely or in part depending on the parameters. */
     kill(vars?: any, target?: any): TweenLite;
 

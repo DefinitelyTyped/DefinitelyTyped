@@ -1,4 +1,3 @@
-/// <reference path="lockr.d.ts" />
 
 Lockr.set('test', 123);
 Lockr.sadd('array', 2);

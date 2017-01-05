@@ -1,4 +1,4 @@
-﻿/// <reference path="nvd3.d.ts" />
+
 namespace nvd3_test_multibarHorizontalChart {
     var long_short_data = [
         {

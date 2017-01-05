@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="jquerymobile.d.ts" />
+/// <reference types="jquery" />
+
 
 function test_api() {
     $.mobile.changePage("about/us.html", { transition: "slideup" });

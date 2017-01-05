@@ -1,4 +1,4 @@
-﻿/// <reference path="./github-electron.d.ts" />
+
 import {
 	app,
 	autoUpdater,
@@ -9,6 +9,7 @@ import {
 	ipcMain,
 	Menu,
 	MenuItem,
+	net,
 	powerMonitor,
 	powerSaveBlocker,
 	protocol,
@@ -62,6 +63,7 @@ app.on('ready', () => {
 	mainWindow.loadURL(`file://${__dirname}/index.html`);
 	mainWindow.loadURL('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer'});
 	mainWindow.webContents.loadURL('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer'});
+	mainWindow.webContents.loadURL('file://foo/bar', {userAgent: 'cool-agent', httpReferrer: 'greateRefferer', postData: [{type: 'blob', blobUUID: 'hogefuga'}]});
 
 	mainWindow.webContents.openDevTools();
 	mainWindow.webContents.toggleDevTools();
@@ -79,6 +81,9 @@ app.on('ready', () => {
 		mainWindow = null;
 	});
 
+	mainWindow.webContents.setVisualZoomLevelLimits(50, 200);
+	mainWindow.webContents.setLayoutZoomLevelLimits(50, 200);
+
 	mainWindow.webContents.print({silent: true, printBackground: false});
 	mainWindow.webContents.print();
 
@@ -92,7 +97,7 @@ app.on('ready', () => {
 
 	mainWindow.webContents.printToPDF({}, (err, data) => {});
 
-	mainWindow.webContents.executeJavaScript('return true;');
+	mainWindow.webContents.executeJavaScript('return true;').then((v: boolean) => console.log(v));
 	mainWindow.webContents.executeJavaScript('return true;', true);
 	mainWindow.webContents.executeJavaScript('return true;', true, (result: boolean) => console.log(result));
 	mainWindow.webContents.insertText('blah, blah, blah');
@@ -312,6 +317,10 @@ var window = new BrowserWindow();
 window.setProgressBar(0.5);
 window.setRepresentedFilename('/etc/passwd');
 window.setDocumentEdited(true);
+window.previewFile('/path/to/file');
+window.previewFile('/path/to/file', 'Displayed Name');
+window.setVibrancy('light');
+window.setVibrancy('titlebar');
 
 // Online/Offline Event Detection
 // https://github.com/atom/electron/blob/master/docs/tutorial/online-offline-events.md
@@ -319,7 +328,7 @@ window.setDocumentEdited(true);
 var onlineStatusWindow: Electron.BrowserWindow;
 
 app.on('ready', () => {
-	onlineStatusWindow = new BrowserWindow({ width: 0, height: 0, show: false });
+	onlineStatusWindow = new BrowserWindow({ width: 0, height: 0, show: false, vibrancy: 'sidebar' });
 	onlineStatusWindow.loadURL(`file://${__dirname}/online-status.html`);
 });
 app.on('accessibility-support-changed', (_, enabled) => console.log('accessibility: ' + enabled));
@@ -732,6 +741,51 @@ Menu.buildFromTemplate([
 	{ label: '3', position: 'endof=numbers' }
 ]);
 
+// net
+// https://github.com/electron/electron/blob/master/docs/api/net.md
+
+app.on('ready', () => {
+	const request = net.request('https://github.com')
+	request.setHeader('Some-Custom-Header-Name', 'Some-Custom-Header-Value');
+	let header = request.getHeader('Some-Custom-Header-Name');
+	request.removeHeader('Some-Custom-Header-Name');
+	request.on('response', (response) => {
+		console.log(`Status code: ${response.statusCode}`);
+		console.log(`Status message: ${response.statusMessage}`);
+		console.log(`Headers: ${JSON.stringify(response.headers)}`);
+		console.log(`Http version: ${response.httpVersion}`);
+		console.log(`Major Http version: ${response.httpVersionMajor}`);
+		console.log(`Minor Http version: ${response.httpVersionMinor}`);
+		response.on('data', (chunk) => {
+			console.log(`BODY: ${chunk}`);
+		})
+		response.on('end', () => {
+			console.log('No more data in response.');
+		})
+		response.on('error', () => {
+			console.log('"error" event emitted');
+		});
+		response.on('aborted', () => {
+			console.log('"aborted" event emitted');
+		});
+	})
+	request.on('login', (authInfo, callback) => {
+		callback('username', 'password');
+	});
+	request.on('finish', () => {
+		console.log('"finish" event emitted');
+	});
+	request.on('abort', () => {
+		console.log('"abort" event emitted');
+	});
+	request.on('error', () => {
+		console.log('"error" event emitted');
+	});
+	request.write('Hello World!', 'utf-8', () => { });
+	request.end('Hello World!', 'utf-8', () => { });
+	request.abort();
+})
+
 // power-monitor
 // https://github.com/atom/electron/blob/master/docs/api/power-monitor.md
 
@@ -823,20 +877,25 @@ app.on('ready', () => {
 // clipboard
 // https://github.com/atom/electron/blob/master/docs/api/clipboard.md
 
-clipboard.writeText('Example String');
-clipboard.writeText('Example String', 'selection');
-clipboard.writeBookmark('foo', 'http://example.com');
-clipboard.writeBookmark('foo', 'http://example.com', 'selection');
-console.log(clipboard.readText('selection'));
-console.log(clipboard.availableFormats());
-console.log(clipboard.readBookmark().title);
-clipboard.clear();
+{
+    let str: string;
+    clipboard.writeText('Example String');
+    clipboard.writeText('Example String', 'selection');
+    clipboard.writeBookmark('foo', 'http://example.com');
+    clipboard.writeBookmark('foo', 'http://example.com', 'selection');
+    clipboard.writeFindText('foo');
+    str = clipboard.readText('selection');
+    str = clipboard.readFindText();
+    console.log(clipboard.availableFormats());
+    console.log(clipboard.readBookmark().title);
+    clipboard.clear();
 
-clipboard.write({
-	html: '<html></html>',
-	text: 'Hello World!',
-	image: clipboard.readImage()
-});
+    clipboard.write({
+        html: '<html></html>',
+        text: 'Hello World!',
+        image: clipboard.readImage()
+    });
+}
 
 // crash-reporter
 // https://github.com/atom/electron/blob/master/docs/api/crash-reporter.md
@@ -1005,6 +1064,7 @@ session.defaultSession.enableNetworkEmulation({
 
 session.defaultSession.setCertificateVerifyProc((hostname, cert, callback) => {
 	callback((hostname === 'github.com') ? true : false);
+	console.log(cert.issuer.commonName);
 });
 
 session.defaultSession.setPermissionRequestHandler(function(webContents, permission, callback) {

@@ -1,6 +1,6 @@
-/// <reference path="create-error.d.ts" />
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../mocha/mocha.d.ts" />
+
+/// <reference types="node" />
+/// <reference types="mocha" />
 
 import * as createError from 'create-error';
 import * as assert from 'assert';

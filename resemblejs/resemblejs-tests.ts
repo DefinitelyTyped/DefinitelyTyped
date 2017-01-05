@@ -1,4 +1,4 @@
-/// <reference path="resemblejs.d.ts" />
+
 
 resemble.outputSettings({
   errorColor: {

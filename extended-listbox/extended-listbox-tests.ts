@@ -1,4 +1,4 @@
-/// <reference path="extended-listbox.d.ts" />
+
 
 
 var $test = $("#test");

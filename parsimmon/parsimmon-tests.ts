@@ -1,10 +1,6 @@
-/// <reference path="parsimmon.d.ts" />
 
 import P = require('parsimmon');
-import Parser = P.Parser;
-import Mark = P.Mark;
-import Result = P.Result;
-import Index = P.Index;
+import { Parser, Mark, Result, Index } from "parsimmon";
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -19,6 +15,7 @@ class Bar {
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
 var str: string;
+var strArr: string[];
 var bool: boolean;
 var num: number;
 var index: Index;
@@ -41,6 +38,7 @@ var indexPar: Parser<Index>;
 
 var fooPar: Parser<Foo>;
 var barPar: Parser<Bar>;
+var fooOrBarPar: Parser<Foo | Bar>;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -54,23 +52,29 @@ var barArrPar: Parser<Bar[]>;
 
 var fooMarkPar: Parser<Mark<Foo>>;
 
-index = fooMarkPar.parse(str).value.start;
-index = fooMarkPar.parse(str).value.end;
-foo = fooMarkPar.parse(str).value.value;
+const result = fooMarkPar.parse(str);
+if (result.status) {
+	index = result.value.start;
+	index = result.value.end;
+	foo = result.value.value;
+}
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
 var fooResult: Result<Foo>;
 
-bool = fooResult.status;
-foo = fooResult.value;
-str = fooResult.expected;
-index = fooResult.index;
+// https://github.com/Microsoft/TypeScript/issues/12882
+if (fooResult.status === true) {
+	foo = fooResult.value;
+} else {
+	strArr = fooResult.expected;
+	index = fooResult.index;
+}
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
 fooResult = P.makeSuccess(0, foo);
-fooResult = P.makeFailure<Foo>(0, '');
+fooResult = P.makeFailure(0, '');
 
 fooPar = P((input: string, i: number) => P.makeSuccess(0, foo));
 fooPar = P.Parser((input: string, i: number) => P.makeSuccess(0, foo));
@@ -81,7 +85,7 @@ fooResult = fooPar.parse(str);
 foo = fooPar.tryParse(str);
 
 fooPar = fooPar.or(fooPar);
-anyPar = fooPar.or(barPar);
+fooOrBarPar = fooPar.or(barPar);
 
 barPar = fooPar.chain((f) => {
 	foo = f;
@@ -104,6 +108,8 @@ barPar = fooPar.map((f) => {
 fooPar = fooPar.skip(barPar);
 
 barPar = barPar = fooPar.result(bar);
+
+fooOrBarPar = fooPar.fallback(bar);
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -140,7 +146,7 @@ fooPar = P.lazy(() => {
 });
 
 voidPar = P.fail(str);
-fooPar = P.fail<Foo>(str);
+fooPar = P.fail(str);
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 

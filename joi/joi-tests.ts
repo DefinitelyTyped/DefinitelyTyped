@@ -1,5 +1,5 @@
-/// <reference path="joi.d.ts" />
-/// <reference path="../node/node.d.ts" />
+
+/// <reference types="node" />
 
 import Joi = require('joi');
 
@@ -126,7 +126,8 @@ validErrItem = {
 	message: str,
 	type: str,
 	path: str,
-	options: validOpts
+	options: validOpts,
+	context: obj
 };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -222,7 +223,7 @@ namespace common {
 	anySchema = anySchema.empty();
 	anySchema = anySchema.empty(str);
 	anySchema = anySchema.empty(anySchema);
-	
+
 	anySchema = anySchema.error(err);
 }
 
@@ -765,22 +766,22 @@ namespace validate_tests {
         Joi.validate(value, schema);
         Joi.validate(value, schema, validOpts);
         Joi.validate(value, schema, validOpts, (err, value) => {
-            x = value;
-            str = err.message;
-            str = err.details[0].path;
-            str = err.details[0].message;
-            str = err.details[0].type;
+	x = value;
+	str = err.message;
+	str = err.details[0].path;
+	str = err.details[0].message;
+	str = err.details[0].type;
         });
         Joi.validate(value, schema, (err, value) => {
-            x = value;
-            str = err.message;
-            str = err.details[0].path;
-            str = err.details[0].message;
-            str = err.details[0].type;
+	x = value;
+	str = err.message;
+	str = err.details[0].path;
+	str = err.details[0].message;
+	str = err.details[0].type;
         });
         // variant
         Joi.validate(num, schema, validOpts, (err, value) => {
-            num = value;
+	num = value;
         });
 
         // plain opts

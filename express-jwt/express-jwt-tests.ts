@@ -1,4 +1,3 @@
-/// <reference path="./express-jwt.d.ts" />
 
 import express = require('express');
 import jwt = require('express-jwt');

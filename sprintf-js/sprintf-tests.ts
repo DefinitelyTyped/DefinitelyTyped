@@ -1,4 +1,4 @@
-/// <reference path="sprintf-js.d.ts" />
+
 
 import sprintf = require('sprintf-js');
 

@@ -1,11 +1,4 @@
-// Redux Localstorage Test
-// ================================================================================
-/// <reference path="./redux-localstorage.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
-
-// Imports
-// --------------------------------------------------------------------------------
-import { compose, combineReducers, createStore } from "redux"
+import { Reducer, compose, combineReducers, createStore } from "redux"
 import {
     default as persistState,
     mergePersistedState,
@@ -17,7 +10,7 @@ import * as adapterSessionStorage from "redux-localstorage/lib/adapters/sessionS
 
 const AsyncStorage: any = {}
 
-const rootReducer: Redux.Reducer<any> = (state: any, action: any) => state
+const rootReducer: Reducer<any> = (state: any, action: any) => state
 
 const reducer = compose(
     mergePersistedState()

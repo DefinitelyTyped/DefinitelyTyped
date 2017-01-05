@@ -1,5 +1,5 @@
-/// <reference path="angulartics.d.ts" />
-/// <reference path="../angularjs/angular.d.ts" />
+import * as angular from 'angular';
+import { angulartics } from 'angulartics';
 
 namespace Analytics {
     angular.module("angulartics.app", ["angulartics"])
@@ -39,3 +39,4 @@ namespace Analytics {
             $analytics.setSuperProperties({ role: 'admin' });
         });
 }
+

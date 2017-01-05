@@ -205,11 +205,10 @@ interface IUser extends mongoose.Document {
 ...
 user.id = new mongoose.Types.ObjectId();
 ```
-You are assigning a `mongoose.Types.ObjectId`, which is a different and incompatible type from
-`mongoose.Schema.Types.ObjectId`.
+To use it, you will need to `/// <reference path="promise-bluebird.d.ts" />` in one of your source code files,
 
-For proper type-checking, do this:
-```typescript
+
+To assign the new promise library in your code, you will need to use one of the following options (since
 interface IUser extends mongoose.Document {
   id: mongoose.Types.ObjectId;     // for type-checking, doesn't affect code behaviour
 }

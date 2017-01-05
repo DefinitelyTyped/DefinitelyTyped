@@ -3,8 +3,8 @@
 // Definitions by: DeCareSystemsIreland <https://github.com/DeCareSystemsIreland>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="umbraco.d.ts" />
-/// <reference path="../angularjs/angular.d.ts" />
+
+/// <reference types="angular" />
 
 declare namespace umbraco.services {
 
@@ -1120,10 +1120,23 @@ declare namespace umbraco.services {
     * @description A helper object used for dealing with media items
     */
     interface IMediaHelper {
+	    
+	/**
+        * @ngdoc function
+        * @name umbraco.services.mediaHelper#formatFileTypes
+        * @methodOf umbraco.services.mediaHelper
+        * @function
+        *
+        * @description
+        * Returns a string with correctly formated file types for ng-file-upload
+        *
+        * @param {string} file types, ex: jpg,png,tiff
+        */
+        formatFileTypes(file: string): string;
 
         /**
         * @ngdoc function
-        * @name umbraco.services.mediaHelper#getImagePropertyValue
+        * @name umbraco.services.mediaHelper#getMediaPropertyValue
         * @methodOf umbraco.services.mediaHelper
         * @function
         *
