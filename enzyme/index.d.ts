@@ -346,7 +346,7 @@ interface CommonWrapper<P, S> {
      * @param fn
      * @param initialValue
      */
-    reduce<R>(fn: (prevVal: R, wrapper: this, index: number) => R, initialValue?: R): R[];
+    reduce<R>(fn: (prevVal: R, wrapper: this, index: number) => R, initialValue?: R): R;
 
     /**
      * Applies the provided reducing function to every node in the wrapper to reduce to a single value.
@@ -354,7 +354,7 @@ interface CommonWrapper<P, S> {
      * @param fn
      * @param initialValue
      */
-    reduceRight<R>(fn: (prevVal: R, wrapper: this, index: number) => R, initialValue?: R): R[];
+    reduceRight<R>(fn: (prevVal: R, wrapper: this, index: number) => R, initialValue?: R): R;
 
     /**
      * Returns whether or not any of the nodes in the wrapper match the provided selector.
