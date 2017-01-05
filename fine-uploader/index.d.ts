@@ -35,7 +35,7 @@ declare namespace qq {
     }
 
     interface ChunkingSuccess {
-        endpoint?: string;          // default: null
+        endpoint?: string | null;   // default: null
     }
 
     interface CorsOptions {
@@ -53,11 +53,11 @@ declare namespace qq {
     }
 
     interface ExtraButtonsOptions<V> {
-        element: HTMLElement;        // default: undefined
-        fileInputTitle?: string;     // default: file input
-        folders?: boolean;           // default: false
-        multiple?: boolean;          // default: true
-        validation?: V;              // default: 'validation'
+        element: HTMLElement | undefined;   // default: undefined
+        fileInputTitle?: string;            // default: file input
+        folders?: boolean;                  // default: false
+        multiple?: boolean;                 // default: true
+        validation?: V;                     // default: 'validation'
     }
 
     interface FormOptions {
@@ -82,7 +82,7 @@ declare namespace qq {
 
     interface PasteOptions {
         defaultName?: string;                   // default: pasted_image
-        targetElement?: HTMLElement;            // default: null
+        targetElement?: HTMLElement | null;     // default: null
     }
 
     interface ResumeOptions {
@@ -116,14 +116,14 @@ declare namespace qq {
     }
 
     interface ScalingOptions {
-        customResizer?: (blob: File | Blob, height: number, image: HTMLImageElement, sourceCanvas: HTMLCanvasElement, targetCanvas: HTMLCanvasElement, width: number) => Promise<File | Blob>; // default: undefined
-        defaultQuality?: number;    // default: 80
-        defaultType?: string;       // default: null
-        failureText?: string;       // default: Failed to scale
-        includeExif?: boolean;      // default: false
-        orient?: boolean;           // default: true
-        sendOriginal?: boolean;     // default: false
-        sizes?: Size[];             // default: []
+        customResizer?: (blob: File | Blob, height: number, image: HTMLImageElement, sourceCanvas: HTMLCanvasElement, targetCanvas: HTMLCanvasElement, width: number) => Promise<File | Blob> | undefined; // default: undefined
+        defaultQuality?: number;        // default: 80
+        defaultType?: string | null;    // default: null
+        failureText?: string;           // default: Failed to scale
+        includeExif?: boolean;          // default: false
+        orient?: boolean;               // default: true
+        sendOriginal?: boolean;         // default: false
+        sizes?: Size[];                 // default: []
     }
 
     /**
@@ -138,7 +138,7 @@ declare namespace qq {
 
     interface SessionOptions<H, P> {
         customHeaders?: H;          // default: {}
-        endpoint?: string;          // default: null
+        endpoint?: string | null;   // default: null
         params?: P;                 // default: {}
         refreshOnReset?: boolean;   // default: true
     }
@@ -150,7 +150,7 @@ declare namespace qq {
     }
 
     interface ValidationOptions {
-        acceptFiles?: MimeType[];           // default: null
+        acceptFiles?: MimeType[] | null;    // default: null
         allowExtensions?: string[];         // default: []
         itemLimit?: number;                 // default: 0
         minSizeLimit?: number;              // default: 0
