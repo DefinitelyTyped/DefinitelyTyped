@@ -1,5 +1,3 @@
-/// <reference path="file-type.d.ts" />
-
 "use strict";
 
 import fileType = require("file-type")

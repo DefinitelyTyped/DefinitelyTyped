@@ -1,11 +1,9 @@
-/// <reference path="../jasmine/jasmine.d.ts" />
-/// <reference path="../angularjs/angular.d.ts" />
-/// <reference path="../angularjs/angular-mocks.d.ts" />
-
-/// <reference path="angular-wizard.d.ts" />
+/// <reference types="jasmine" />
 
 // test file taken from https://github.com/mgonto/angular-wizard
 
+import * as ng from "angular";
+import * as angular from "angular";
 
 interface IWizardScope extends ng.IScope {
     referenceCurrentStep: string;
@@ -24,18 +22,6 @@ describe('AngularWizard', function () {
         WizardHandler: angular.mgoAngularWizard.WizardHandler;
 
     beforeEach(() => angular.module('mgo-angular-wizard'));
-
-    beforeEach(inject(function (_$compile_: ng.ICompileService,
-                                _$q_: ng.IQService,
-                                _$rootScope_: ng.IRootScopeService,
-                                _$timeout_: ng.ITimeoutService,
-                                _WizardHandler_: angular.mgoAngularWizard.WizardHandler) {
-        $compile = _$compile_;
-        $q = _$q_;
-        $rootScope = _$rootScope_;
-        $timeout = _$timeout_;
-        WizardHandler = _WizardHandler_;
-    }));
 
     /**
      * Create the generic view with wizard to test
@@ -276,7 +262,6 @@ describe('AngularWizard', function () {
         $rootScope.$digest();
         expect(scope.referenceCurrentStep).toEqual('Continuing');
         WizardHandler.wizard().next();
-        $timeout.flush();
         expect(scope.referenceCurrentStep).toEqual('More steps');
     });
     it("should go to the next step because CANEXIT is set to true", function () {

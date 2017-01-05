@@ -52,7 +52,7 @@ interface NodeRequire extends NodeRequireFunction {
     resolve(id:string): string;
     cache: any;
     extensions: any;
-    main: NodeModule;
+    main: NodeModule | undefined;
 }
 
 declare var require: NodeRequire;
@@ -63,7 +63,7 @@ interface NodeModule {
     id: string;
     filename: string;
     loaded: boolean;
-    parent: NodeModule;
+    parent: NodeModule | null;
     children: NodeModule[];
 }
 
@@ -973,10 +973,7 @@ declare module "readline" {
         (line: string, callback: (err: any, result: CompleterResult) => void): any;
     }
 
-    export interface CompleterResult {
-        completions: string[];
-        line: string;
-    }
+    export type CompleterResult = [string[], string];
 
     export interface ReadLineOptions {
         input: NodeJS.ReadableStream;

@@ -1,4 +1,4 @@
-﻿// Type definitions for DevExtreme 16.1.7
+// Type definitions for DevExtreme 16.1.7
 // Project: http://js.devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

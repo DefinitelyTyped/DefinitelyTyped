@@ -1,4 +1,3 @@
-/// <reference path="graphlib.d.ts" />
 
 import * as graphlib from 'graphlib';
 

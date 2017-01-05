@@ -1,8 +1,6 @@
-/// <reference path="../koa/koa.d.ts" />
-/// <reference path="koa-send.d.ts" />
 
-import * as Koa from "koa";
-import * as send from "koa-send";
+import * as Koa from 'koa';
+import * as send from 'koa-send';
 
 const app = new Koa();
 

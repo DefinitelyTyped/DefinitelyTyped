@@ -1,4 +1,4 @@
-/// <reference path="node-0.11.d.ts" />
+
 
 import assert = require("assert");
 import fs = require("fs");

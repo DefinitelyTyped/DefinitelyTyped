@@ -1,4 +1,4 @@
-/// <reference path="angular-ui-bootstrap.d.ts" />
+
 
 var testApp = angular.module('testApp');
 
@@ -38,6 +38,7 @@ testApp.config((
     $datepickerConfig.formatMonth = 'M';
     $datepickerConfig.formatMonthTitle = 'yy';
     $datepickerConfig.formatYear = 'y';
+    $datepickerConfig.initDate = '1389586124979';
     $datepickerConfig.maxDate = '1389586124979';
     $datepickerConfig.maxMode = 'month';
     $datepickerConfig.minDate = '1389586124979';

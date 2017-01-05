@@ -1,5 +1,3 @@
-/// <reference path="bigscreen.d.ts"/>
-
 import BigScreen = require("bigscreen");
 
 BigScreen.onchange = function(element: Element) {

@@ -1,7 +1,4 @@
-/// <reference path="../ace.d.ts" />
-
-var assert: any;
-var exports = {
+const aceVirtualRendererTests = {
     "test: screen2text the column should be rounded to the next character edge": function () {
         var el = document.createElement("div");
 

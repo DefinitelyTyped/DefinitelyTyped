@@ -3,18 +3,18 @@
 // Definitions by: horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "phantom" {
 
-  function create(callback: (ph: PhantomJS) => void): void;
-  function create(options: ICreateOptions, callback: (ph: PhantomJS) => void): void;
-  function create(arg: string, callback: (ph: PhantomJS) => void): void;
-  function create(arg: string, options: ICreateOptions, callback: (ph: PhantomJS) => void): void;
-  function create(arg1: string, arg2: string, callback: (ph: PhantomJS) => void): void;
-  function create(arg1: string, arg2: string, options: ICreateOptions, callback: (ph: PhantomJS) => void): void;
-  function create(arg1: string, arg2: string, arg3: string, callback: (ph: PhantomJS) => void): void;
-  function create(arg1: string, arg2: string, arg3: string, options: ICreateOptions, callback: (ph: PhantomJS) => void): void;
 
-  interface PhantomJS {
+declare function create(callback: (ph: PhantomJS) => void): void;
+declare function create(options: ICreateOptions, callback: (ph: PhantomJS) => void): void;
+declare function create(arg: string, callback: (ph: PhantomJS) => void): void;
+declare function create(arg: string, options: ICreateOptions, callback: (ph: PhantomJS) => void): void;
+declare function create(arg1: string, arg2: string, callback: (ph: PhantomJS) => void): void;
+declare function create(arg1: string, arg2: string, options: ICreateOptions, callback: (ph: PhantomJS) => void): void;
+declare function create(arg1: string, arg2: string, arg3: string, callback: (ph: PhantomJS) => void): void;
+declare function create(arg1: string, arg2: string, arg3: string, options: ICreateOptions, callback: (ph: PhantomJS) => void): void;
+
+interface PhantomJS {
     createPage(callback: (page: WebPage) => void): void;
     exit(returnValue?: number): void;
     injectJs(filename: string, callback?: (result: boolean) => void): void;
@@ -22,9 +22,9 @@ declare module "phantom" {
     addCookie(name: string, value: string, domain: string, callback?: (res: boolean) => void): void;
     clearCookies(callback?: () => void): void;
     getCookies(callback: (cookies: { name: string; value: string; domain?: string; }[]) => void): void;
-  }
+}
 
-  interface WebPage {
+interface WebPage {
     open(url: string, callback: (status: string) => void): void;
     close(): void;
 
@@ -58,21 +58,18 @@ declare module "phantom" {
     getContent(callback: (content: string) => void): void;
     setContent(html: string, url: string, callback?: (status: string) => void): void;
     getCookies(callback: (cookies: { name: string; value: string; domain?: string; }[]) => void): void;
-  }
+}
 
-  interface ICreateOptions {
+interface ICreateOptions {
     binary?: string;
     hostname?: string;
     path?: string;
     port?: number;
-  }
-  interface IPaperSizeOptions {
+}
+interface IPaperSizeOptions {
     width?: string;
     height?: string;
     format?: string;
     orientation?: string;
     margin?: any; // string | { top?: string; left?: string; bottom?: string; right?: string;  }
-  }
-
 }
-

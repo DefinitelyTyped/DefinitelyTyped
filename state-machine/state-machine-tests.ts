@@ -1,4 +1,4 @@
-/// <reference path="state-machine.d.ts" />
+
 
 interface StateMachineTest extends StateMachine {
 	warn?: StateMachineEvent;

@@ -1,5 +1,5 @@
-/// <reference path="../knockout.d.ts" />
-/// <reference path="../../knockout.mapping/knockout.mapping.d.ts" />
+
+/// <reference types="knockout.mapping" />
 
 declare var $;
 
@@ -170,7 +170,7 @@ function test_bindings() {
     };
     ko.bindingHandlers.slideVisible = {
         update: function (element, valueAccessor, allBindingsAccessor) {
-            var value = valueAccessor(), allBindings = allBindingsAccessor();
+            var value = valueAccessor(), allBindings = allBindingsAccessor ? allBindingsAccessor() : null;
             var valueUnwrapped = ko.utils.unwrapObservable(value);
             var duration = allBindings.slideDuration || 400;
             if (valueUnwrapped == true)
@@ -211,7 +211,7 @@ function test_bindings() {
     ko.bindingHandlers.withProperties = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
             var newProperties = valueAccessor(),
-                innerBindingContext = bindingContext.extend(newProperties);
+                innerBindingContext = bindingContext ? bindingContext.extend(newProperties) : null;
             ko.applyBindingsToDescendants(innerBindingContext, element);
             return { controlsDescendantBindings: true };
         }
@@ -219,7 +219,7 @@ function test_bindings() {
     ko.bindingHandlers.withProperties = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
             var newProperties = valueAccessor(),
-                childBindingContext = bindingContext.createChildContext(viewModel);
+                childBindingContext = bindingContext ? bindingContext.createChildContext(viewModel) : null;
             ko.utils.extend(childBindingContext, newProperties);
             ko.applyBindingsToDescendants(childBindingContext, element);
             return { controlsDescendantBindings: true };
@@ -227,8 +227,8 @@ function test_bindings() {
     };
     ko.bindingHandlers.randomOrder = {
         init: function (elem, valueAccessor) {
-            var child = ko.virtualElements.firstChild(elem),
-                childElems = [];
+            var child = ko.virtualElements.firstChild(elem) as Node,
+                childElems: Node[] = [];
             while (child) {
                 childElems.push(child);
                 child = ko.virtualElements.nextSibling(child);
@@ -242,7 +242,13 @@ function test_bindings() {
         }
     };
 
-    var node, containerElem, nodeToInsert, insertAfter, nodeToPrepend, arrayOfNodes;
+    var node: Node = <any>{};
+    var insertAfter: Node = <any>{};
+    var nodeToPrepend: Node = <any>{};
+    var arrayOfNodes: Node[] = <any>[];
+    var containerElem: KnockoutVirtualElement = <any>{};
+    var nodeToInsert: Node = <any>{}
+
     ko.virtualElements.emptyNode(containerElem);
     ko.virtualElements.firstChild(containerElem);
     ko.virtualElements.insertAfter(containerElem, nodeToInsert, insertAfter);
@@ -342,8 +348,9 @@ function test_more() {
     var first;
     this.firstName = ko.observable(first).extend({ required: "Please enter a first name", logChange: "first name" });
 
+    const name = "My Name";
     var upperCaseName = ko.computed(function () {
-        return name.toUpperCase();
+        return (name as string).toUpperCase();
     }).extend({ throttle: 500 });
 
     function AppViewModel3() {
@@ -405,7 +412,7 @@ function test_more() {
     });
     ko.observableArray.fn.filterByProperty = function (propName, matchValue) {
         return ko.computed(function () {
-            var allItems = this(), matchingItems = [];
+            var allItems = this(), matchingItems: string[] = [];
             for (var i = 0; i < allItems.length; i++) {
                 var current = allItems[i];
                 if (ko.utils.unwrapObservable(current[propName]) === matchValue)
@@ -431,7 +438,7 @@ function test_more() {
 
     ko.applyBindings(new AppViewModel4());
     this.doneTasks = ko.computed(function () {
-    var all = this.tasks(), done = [];
+    var all = this.tasks(), done: string[] = [];
         for (var i = 0; i < all.length; i++)
             if (all[i].done())
                 done.push(all[i]);
@@ -545,7 +552,9 @@ function test_misc() {
             ko.computed({
                 read: function () {
                     ko.utils.unwrapObservable(valueAccessor());
-                    ko.bindingHandlers.options.update.apply(this, args);
+                    if (ko.bindingHandlers.options.update) {
+                        ko.bindingHandlers.options.update.apply(this, args);
+                    }
                 },
                 owner: this,
                 disposeWhenNodeIsRemoved: element
@@ -565,23 +574,23 @@ function test_misc() {
 
     var x = ko.observableArray([1, 2, 3]);
 
-    var element;
+    var element: Element = <any>{};
     ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
         $(element).datepicker("destroy");
     });
-	
+
 	this.observableFactory = function(flag = true): KnockoutObservable<number>{
 	    if (flag) {
 			return ko.computed({
-				read:function(){ 
-					return 3; 
+				read:function(){
+					return 3;
 				}
 			});
 		} else {
 			return ko.observable(3);
 		}
 	}
-	
+
 }
 
 interface KnockoutBindingHandlers {
@@ -626,21 +635,21 @@ function test_Components() {
         // viewModel from createViewModel factory method
         ko.components.register("name", { template: "string-template", viewModel: { createViewModel: function (params: any, componentInfo: KnockoutComponentTypes.ComponentInfo) { return null; } } });
 
-        // viewModel from an AMD module 
+        // viewModel from an AMD module
         ko.components.register("name", { template: "string-template", viewModel: { require: "module" } });
 
         // ------- template overloads
 
         // template from named element
         ko.components.register("name", { template: { element: "elementID" }, viewModel: viewModelFn });
-        
+
         // template using single Node
         ko.components.register("name", { template: { element: singleNode }, viewModel: viewModelFn });
-        
+
         // template using Node array
         ko.components.register("name", { template: nodeArray, viewModel: viewModelFn });
-        
-        // template using an AMD module 
+
+        // template using an AMD module
         ko.components.register("name", { template: { require: "text!module" }, viewModel: viewModelFn });
 
         // Empty config for registering custom elements that are handled by name convention
@@ -650,8 +659,8 @@ function test_Components() {
 
 
 function testUnwrapUnion() {
-    
-    var possibleObs: KnockoutObservable<number> | number;
+
+    var possibleObs: KnockoutObservable<number> | number = 0;
     var num = ko.unwrap(possibleObs);
 
 }
@@ -660,21 +669,21 @@ function test_tasks() {
     // Schedule an empty task
     ko.tasks.schedule(function() {
     });
-    
+
     // Schedule a task with arguments and return type
     let logSomethingTask = (message: string) => {
         console.log("Log message");
         return true;
     };
-    
+
     let taskHandle = ko.tasks.schedule(logSomethingTask);
-    
+
     // Cancel a task
     ko.tasks.cancel(taskHandle);
-    
+
     // Process the current microtask queue on demand
     ko.tasks.runEarly();
-    
+
     // Redefine or augment how Knockout schedules the event to process and flush the queue
     ko.tasks.scheduler = function (callback) {
         setTimeout(callback, 0);

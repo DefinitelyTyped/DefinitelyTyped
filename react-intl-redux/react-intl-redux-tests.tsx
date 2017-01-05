@@ -1,11 +1,3 @@
-// React Intl Redux Test
-// ================================================================================
-/// <reference path="react-intl-redux.d.ts"/>
-/// <reference path="../react/react.d.ts"/>
-/// <reference path="../react/react-dom.d.ts"/>
-
-// Imports
-// --------------------------------------------------------------------------------
 import * as React from "react"
 import { render } from "react-dom"
 import { Provider, IntlProvider, IntlState, IntlAction, intlReducer, updateIntl } from "react-intl-redux"

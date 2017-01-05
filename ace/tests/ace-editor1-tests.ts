@@ -1,7 +1,4 @@
-/// <reference path="../ace.d.ts" />
-
-var assert: any;
-var exports = {
+const aceEditor1Tests = {
 
     setUp: function(next) {
         this.session1 = new AceAjax.EditSession(["abc", "def"]);

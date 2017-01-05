@@ -1,4 +1,4 @@
-/// <reference path="./angular-http-auth.d.ts" />
+
 
 (function () {
     'use strict';

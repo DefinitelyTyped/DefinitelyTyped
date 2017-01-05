@@ -1,6 +1,3 @@
-/// <reference path="../gulp/gulp.d.ts" />
-/// <reference path="gulp-copy.d.ts" />
-
 import * as gulp from "gulp";
 import * as gulpCopy from "gulp-copy";
 

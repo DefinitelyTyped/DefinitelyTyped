@@ -1,4 +1,4 @@
-/// <reference path="hapi.d.ts" />
+
 
 import Hapi = require("hapi");
 

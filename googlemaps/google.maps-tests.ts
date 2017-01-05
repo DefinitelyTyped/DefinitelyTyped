@@ -1,13 +1,13 @@
 // Test file for Google Maps JavaScript API Definition file
-/// <reference path="google.maps.d.ts" />
+
 
 var map = new google.maps.Map(document.querySelector("☺"));
 
 /***** Data *****/
- 
+
 new google.maps.Data();
 new google.maps.Data({ map: map });
- 
+
 var latLng = new google.maps.LatLng(52.201203, -1.724370),
     feature = new google.maps.Data.Feature(),
     geometry = new google.maps.Data.Geometry();
@@ -61,7 +61,7 @@ data.loadGeoJson("http://magicGeoJsonSource.com");
 data.loadGeoJson(
     "http://magicGeoJsonSource.com",
     { idPropertyName: "test" });
-    
+
 data.loadGeoJson(
     "http://magicGeoJsonSource.com",
     { idPropertyName: "test" },
@@ -99,7 +99,7 @@ var setPropertyEvent: google.maps.Data.SetPropertyEvent = {
     newValue: {},
     oldValue: {}
 };
- 
+
 var removePropertyEvent: google.maps.Data.RemovePropertyEvent = {
     feature: feature,
     name: "test",
@@ -141,7 +141,21 @@ var mapTypeStyle: google.maps.MapTypeStyle ={
     stylers: [],
 };
 
+// https://developers.google.com/maps/documentation/javascript/adding-a-google-map
+function initMap() {
+    var uluru = {lat: -25.363, lng: 131.044};
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 4,
+        center: uluru
+    });
+    var marker = new google.maps.Marker({
+        position: uluru,
+        map: map
+    });
+}
+
 /***** OverlayView *****/
+// https://developers.google.com/maps/documentation/javascript/customoverlays
 var div =  document.createElement('div');
 var overlay = new google.maps.OverlayView();
 var panes = overlay.getPanes();
@@ -153,3 +167,20 @@ panes.overlayImage.appendChild(div);
 panes.overlayLayer.appendChild(div);
 panes.overlayMouseTarget.appendChild(div);
 panes.overlayShadow.appendChild(div);
+
+/***** Rectangles *****/
+// https://developers.google.com/maps/documentation/javascript/examples/rectangle-simple
+var rectangle = new google.maps.Rectangle({
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF0000',
+    fillOpacity: 0.35,
+    map: map,
+    bounds: {
+        north: 33.685,
+        south: 33.671,
+        east: -116.234,
+        west: -116.251
+    }
+});

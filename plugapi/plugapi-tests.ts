@@ -1,6 +1,4 @@
-/// <reference path="./plugapi.d.ts" />
-
-import * as PlugAPI from "plugapi";
+import PlugAPI = require("plugapi");
 
 new PlugAPI({
     email: "",

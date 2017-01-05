@@ -1,6 +1,3 @@
-/// <reference path="mongoose.d.ts" />
-/// <reference path="../lodash/lodash.d.ts"/>
-
 import * as mongoose from 'mongoose';
 
 // test compatibility with other libraries
@@ -266,9 +263,10 @@ schema.method('name', cb).method({
 schema.path('a', mongoose.Schema.Types.Buffer).path('a');
 schema.pathType('m1').toLowerCase();
 schema.plugin(function (schema, opts) {
-  schema.get('path');
+schema.get('path');
   opts.hasOwnProperty('');
 }).plugin(cb, {opts: true});
+
 schema
 .post('save', function (error, doc, next) {
   error.stack;
@@ -320,7 +318,14 @@ new mongoose.Schema({
   hidden: Boolean,
   meta: {
     votes: Number,
-    favs:  Number
+    favs:  Number,
+    text: String
+  },
+  meta2: {
+    text: mongoose.Schema.Types.Number,
+    select: {
+      type: String
+    }
   }
 });
 new mongoose.Schema({ name: { type: String, index: true }});
@@ -1002,8 +1007,8 @@ aggregate.project({
     newField: '$b.nested'
   , plusTen: { $add: ['$val', 10]}
   , sub: {
-       name: '$a'
-    }
+    name: '$a'
+  }
 })
 aggregate.project({ salary_k: { $divide: [ "$salary", 1000 ]}});
 aggregate.read('primaryPreferred').read('pp');
@@ -1478,8 +1483,7 @@ Final2.staticMethod();
 Final2.staticProp;
 var final2 = new Final2();
 final2.prop;
-final2.method;
-interface ibase extends mongoose.Document {
+final2.method;interface ibase extends mongoose.Document {
   username: string;
 }
 interface extended extends ibase {

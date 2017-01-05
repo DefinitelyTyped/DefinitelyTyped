@@ -1,4 +1,3 @@
-/// <reference path="elasticsearch.d.ts"/>
 import elasticsearch = require("elasticsearch");
 
 var client = new elasticsearch.Client({
@@ -15,8 +14,7 @@ client = new elasticsearch.Client({
 });
 
 client.ping({
-  requestTimeout: 30000,
-  hello: "elasticsearch"
+  requestTimeout: 30000
 }, function (error) {
 });
 
@@ -48,12 +46,12 @@ client.create({
 });
 
 client.cluster.getSettings({
-  masterTimeout: 100
+  masterTimeout: '100s'
 }, (err, response) => {
 });
 
 client.cluster.health({
-  masterTimeout: 100
+  masterTimeout: '100s'
 }, (err, response) => {
 });
 
@@ -87,9 +85,165 @@ client.cluster.stats({
 }, (err, response) => {
 });
 
-client.deleteByQuery({
-  index : 'index',
-  type : 'type'
-}, (err, response) => {
+client.count({
+  index: 'index_name'
+}, function (error, response) {
+  // ...
+});
 
+client.count({
+  index: 'index_name',
+  body: {
+    query: {
+      filtered: {
+        filter: {
+          terms: {
+            foo: ['bar']
+          }
+        }
+      }
+    }
+  }
+}, function (err, response) {
+  // ...
+});
+
+client.explain({
+  // the document to test
+  index: 'myindex',
+  type: 'mytype',
+  id: '1',
+
+  // the query to score it against
+  q: 'field:value'
+}, function (error, response) {
+  // ...
+});
+
+client.explain({
+  index: 'myindex',
+  type: 'mytype',
+  id: '1',
+  body: {
+    query: {
+      match: { title: 'test' }
+    }
+  }
+}, function (error, response) {
+  // ...
+});
+
+client.index({
+  index: 'myindex',
+  type: 'mytype',
+  id: '1',
+  body: {
+    title: 'Test 1',
+    tags: ['y', 'z'],
+    published: true,
+  }
+}, function (error, response) {
+
+});
+
+client.mget({
+  body: {
+    docs: [
+      { _index: 'indexA', _type: 'typeA', _id: '1' },
+      { _index: 'indexB', _type: 'typeB', _id: '1' },
+      { _index: 'indexC', _type: 'typeC', _id: '1' }
+    ]
+  }
+}, function (error, response) {
+  // ...
+});
+
+client.mget({
+  index: 'myindex',
+  type: 'mytype',
+  body: {
+    ids: [1, 2, 3]
+  }
+}, function (error, response) {
+  // ...
+});
+
+client.search({
+  index: 'myindex',
+  q: 'title:test'
+}, function (error, response) {
+  // ...
+});
+
+client.search({
+  index: 'myindex',
+  body: {
+    query: {
+      match: {
+        title: 'test'
+      }
+    },
+    facets: {
+      tags: {
+        terms: {
+          field: 'tags'
+        }
+      }
+    }
+  }
+}, function (error, response) {
+  // ...
+});
+
+client.suggest({
+  index: 'myindex',
+  body: {
+    mysuggester: {
+      text: 'tset',
+      term: {
+        field: 'title'
+      }
+    }
+  }
+}, function (error, response) {
+});
+
+
+// first we do a search, and specify a scroll timeout
+var allTitles: string[] = [];
+client.search({
+  index: 'myindex',
+  // Set to 30 seconds because we are calling right back
+  scroll: '30s',
+  searchType: 'query_then_fetch',
+  docvalueFields: ['title'],
+  q: 'title:test'
+}, function getMoreUntilDone(error, response) {
+  // collect the title from each response
+  response.hits.hits.forEach(function (hit) {
+    allTitles.push(hit.fields.title);
+  });
+
+  if (response.hits.total !== allTitles.length) {
+    // now we can call scroll over and over
+    client.scroll({
+      scrollId: response._scroll_id,
+      scroll: '30s'
+    }, getMoreUntilDone);
+  } else {
+    console.log('every "test" title', allTitles);
+  }
+});
+
+client.indices.updateAliases({
+  body: {
+    actions: [
+      { remove: { index: 'logstash-2014.04', alias: 'logstash-current' } },
+      { add: { index: 'logstash-2014.05', alias: 'logstash-current' } }
+    ]
+  }
+}).then(function (response) {
+  // ...
+}, function (error) {
+  // ...
 });

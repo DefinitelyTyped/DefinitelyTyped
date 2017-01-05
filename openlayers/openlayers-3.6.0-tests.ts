@@ -1,4 +1,4 @@
-﻿/// <reference path="openlayers-3.6.0.d.ts" />
+/// <reference path="openlayers-3.6.0.d.ts" />
 
 // Basic type variables for test functions
 var voidValue: void;

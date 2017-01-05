@@ -1,6 +1,3 @@
-/// <reference path="./wiredep.d.ts" />
-/// <reference path="../gulp/gulp.d.ts" />
-
 import gulp = require('gulp');
 import wiredep = require('wiredep');
 

@@ -1,4 +1,4 @@
-/// <reference path="streamjs.d.ts" />
+
 
 var numStream: Stream<number>;
 numStream = Stream.of(1, 2, 3);
