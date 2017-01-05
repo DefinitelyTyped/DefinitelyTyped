@@ -1,4 +1,6 @@
-let myCalendar = $('.parent-element').clndr({
+import * as Clndr from 'clndr';
+
+let options: Clndr.ClndrOptions = {
     template: '',
     startWithMonth: "YYYY-MM-DD",
     weekOffset: 0,
@@ -65,7 +67,9 @@ let myCalendar = $('.parent-element').clndr({
         endDate: '2018-01-09'
     },
     moment: null
-});
+};
+
+let myCalendar = $('.parent-element').clndr(options);
 
 myCalendar
     .forward()
