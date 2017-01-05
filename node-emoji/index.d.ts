@@ -1347,7 +1347,7 @@ export const emoji: {
     zzz: string;
 };
 
-export function emojify(str: string, on_missing: (emoji_name: string) => string): string;
+export function emojify(str: string, on_missing?: (emoji_name: string) => string): string;
 export function get(emoji: string): string;
 export function random(): string;
 export function which(emoji_code: string): string;
