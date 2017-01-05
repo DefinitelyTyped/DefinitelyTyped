@@ -150,7 +150,7 @@ declare namespace qq {
 
     interface ValidationOptions {
         acceptFiles?: MimeType[] | null;    // default: null
-        allowExtensions?: string[];         // default: []
+        allowedExtensions?: string[];       // default: []
         itemLimit?: number;                 // default: 0
         minSizeLimit?: number;              // default: 0
         sizeLimit?: number;                 // default: 0
