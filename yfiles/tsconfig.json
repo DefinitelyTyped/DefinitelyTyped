@@ -1,35 +1,21 @@
 {
-<<<<<<< HEAD
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es6",
-    "moduleResolution": "classic",
-    "noImplicitAny": true,
-    "strictNullChecks": false
+      "module": "commonjs",
+      "target": "es6",
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "strictNullChecks": false,
+      "baseUrl": "../",
+      "typeRoots": [
+          "../"
+      ],
+      "types": [],
+      "noEmit": true,
+      "forceConsistentCasingInFileNames": true
   },
   "files": [
-    "yfiles.d.ts",
-    "yfiles-tests.ts"
+      "index.d.ts",
+      "yfiles-tests.ts"
   ]
 }
-=======
-    "compilerOptions": {
-        "module": "commonjs",
-        "target": "es6",
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": false,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "types": [],
-        "noEmit": true,
-        "forceConsistentCasingInFileNames": true
-    },
-    "files": [
-        "index.d.ts",
-        "yfiles-tests.ts"
-    ]
-}
->>>>>>> 7f88646e1725c23ed4200c7585a6790160ed4fcc
+
