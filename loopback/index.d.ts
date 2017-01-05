@@ -1,4 +1,4 @@
-// Type definitions for loopback 2.3.4
+// Type definitions for Loopback 2.3
 // Project: https://github.com/strongloop/loopback
 // Definitions by: Andres D Jimenez <https://github.comhttps://github.com/kattsushi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -687,6 +687,33 @@ declare class Registry {
 
 declare class AccessContext {
 
+      /** An Array of principals */
+      principals: Principal[];
+
+      /** The model class */
+      model: () => void;
+
+      /** The model name */
+      modelName: string;
+
+      /** The model id */
+      modelId: string;
+
+      /** The model property/method/relation name */
+      property: string;
+
+      /** The model method to be invoked */
+      method: string;
+
+      /** The access type */
+      accesType: string;
+
+      /** The access token */
+      accessToken: AccessToken;
+
+      /** context The context object */
+      constructor(context: {});
+
       /**
       * Add a principal to the context
       * @param {string} principalType The principal type
@@ -717,20 +744,20 @@ declare class AccessContext {
       */
 
       isAuthenticated(): boolean;
-
-      /**
-      * This class represents the abstract notion of a principal, which can be used
-      * to represent any entity, such as an individual, a corporation, and a login id
-      * @param {string} type The principal type
-      * @param {*} id The princiapl id
-      * @param {string} [name] The principal name
-      * @returns {Principal}
-      * @class
-      */
-
 }
 
-      declare class Principal {
+/**
+* This class represents the abstract notion of a principal, which can be used
+* to represent any entity, such as an individual, a corporation, and a login id
+* @param {string} type The principal type
+* @param {*} id The princiapl id
+* @param {string} [name] The principal name
+* @returns {Principal}
+* @class
+*/
+
+declare class Principal {
+      constructor(type: string, id: any, name: string);
 
       /**
       * Compare if two principals are equal
@@ -739,20 +766,21 @@ declare class AccessContext {
       */
 
       equals(p: any): void;
-
-      /**
-      * A request to access protected resources.
-      * @param {string} model The model name
-      * @param {string} property
-      * @param {string} accessType The access type
-      * @param {string} permission The requested permission
-      * @returns {AccessRequest}
-      * @class
-      */
-
 }
 
-      declare class AccessRequest {
+
+/**
+* A request to access protected resources.
+* @param {string} model The model name
+* @param {string} property
+* @param {string} accessType The access type
+* @param {string} permission The requested permission
+* @returns {AccessRequest}
+* @class
+*/
+
+declare class AccessRequest {
+      constructor(model: string, property: string, accessType: string, permission: string);
 
       /**
       * Does the request contain any wildcards?
@@ -870,6 +898,17 @@ declare class AccessContext {
 
 declare class Model {
 
+      /** The name of the model. */
+      static modelName: string;
+
+      /** Data source to which the model is connected, if any. */
+      static dataSource: DataSource;
+
+      /** The `strong-remoting` */
+      static sharedMethod: any;
+
+      /** Contains additional model settings. */
+      static settings: Settings;
       /**
       * The `loopback.Model.extend()` method calls this when you create a model that extends another model.
       * Add any setup or configuration code you want executed when the model is created.
@@ -948,6 +987,13 @@ declare class Model {
 
       nestRemoting(relationName: string, pathName: string, filterMethod: string, paramName: string, getterName: string, hooks: boolean, options?: {}, filterCallback?: (SharedMethod: any, RelationDefinition: any) => void): void;
 
+}
+
+interface Settings {
+      http: {
+            path: string;
+      };
+      acls: ACL[];
 }
 
 /**
@@ -1369,14 +1415,6 @@ declare class PersistedModel {
       getIdName(): string;
 
       /**
-      * Get the `id` property name of the constructor.
-      *
-      * @returns {string} The `id` property name
-      */
-
-      getIdName(): string;
-
-      /**
       * Get a set of deltas and conflicts since the given checkpoint.
       *
       * See [Change.diff()](#change-diff) for details.
@@ -1638,7 +1676,19 @@ declare class DataSource {
 * @inherits {PersistedModel}
 */
 
-declare class AccessToken {
+declare class AccessToken extends PersistedModel {
+      
+      /** Generated token ID */
+      id: string;
+
+      /** Time to live in seconds, 2 weeks by default. */
+      ttl: number;
+
+      /** When the token was created. */
+      created: Date;
+
+      /** Extends the `Model.settings` object. */
+      settings: { http: { path: string }; acls: ACL, accessTokenIdLength: number};
 
       /**
       * Anonymous Token
@@ -1717,7 +1767,32 @@ declare class AccessToken {
 * @inherits PersistedModel
 */
 
-declare class ACL {
+declare class ACL extends PersistedModel {
+      /** model Name of the model. */
+      model: string;
+
+      /** property Name of the property, method, scope, or relation. */
+      property: string;
+
+      /** accessType Type of access being granted: one of READ, WRITE, or EXECUTE. */
+      accesType: 'READ' | 'WRITE' | 'EXECUTE';
+
+      /**permission Type of permission granted  One of:
+       *  - ALARM: Generate an alarm, in a system-dependent way, the access specified in the permissions component of the ACL entry.
+       *  - ALLOW: Explicitly grants access to the resource.
+       *  - AUDIT: Log, in a system-dependent way, the access specified in the permissions component of the ACL entry.
+       *  - DENY: Explicitly denies access to the resource.
+      */
+      permission: 'ALARM' | 'ALLOW' | 'AUDIT' | 'DENY';
+
+      /** principalType Type of the principal; one of: Application, Use, Role. */
+      principalType: 'Aplication' | 'User' | 'Role' | string;
+
+      /** principalId ID of the principal - such as appId, userId or roleId. */
+      principalId: string;
+
+      /** settings Extends the `Model.settings` object. */
+      settings: { http: { path: string }; acls: ACL, defaultPermission: 'DENY'}; 
 
       /**
       * Calculate the matching score for the given rule and request
@@ -1809,7 +1884,7 @@ declare class ACL {
 * @property {string} email E-mail address
 * @property {boolean} emailVerified Whether the e-mail is verified.
 * @property {string} url OAuth 2.0  application URL.
-* @property {string}[] callbackUrls The OAuth 2.0 code/token callback URL.
+* @property {string}[]} callbackUrls The OAuth 2.0 code/token callback URL.
 * @property {string} status Status of the application; Either `production`, `sandbox` (default), or `disabled`.
 * @property {Date} created Date Application object was created.  Default: current date.
 * @property {Date} modified Date Application object was modified.  Default: current date.
@@ -1844,8 +1919,44 @@ declare class ACL {
 * @inherits {PersistedModel}
 */
 
-declare class Application {
-
+declare class Application extends PersistedModel {
+      /** Generated ID. */
+      id: string;
+      name: string;
+      description: string;
+      icon: string;
+      owner: string;
+      email: string;
+      emailVerified: string;
+      url: string;
+      callBackUrl: string[];
+      status: string;
+      created: Date;
+      modified: Date;
+      pushSetings: {
+            apns: {
+                  production: boolean;
+                  cerData: string;
+                  keyData: string;
+                  pushOptions: {
+                        gateway: string;
+                        port: number;
+                  };
+                  feedBackOptions: {
+                        gateway: string;
+                        port: number;
+                        batchFeedback: boolean;
+                        interval: number;
+                  };
+            };
+            gcm: {
+                  serverApiKey: string;
+            }
+      };
+      authenticationEnabled: boolean;
+      anonymousAllowed: boolean;
+      authenticationSchemes: string[];
+      
       /**
       * Register a new application
       * @param {string} owner Owner's user ID.
@@ -2213,7 +2324,7 @@ declare class Change {
 * @inherits {Model}
 */
 
-declare class Email {
+declare class Email extends Model {
 
       /**
       * Send an email with the given `options`.
