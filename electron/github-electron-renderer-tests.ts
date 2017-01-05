@@ -1,4 +1,4 @@
-﻿/// <reference path="./github-electron.d.ts" />
+
 import {
 	ipcRenderer,
 	remote,
@@ -57,7 +57,8 @@ console.log(webFrame.getZoomFactor());
 webFrame.setZoomLevel(200);
 console.log(webFrame.getZoomLevel());
 
-webFrame.setZoomLevelLimits(50, 200);
+webFrame.setVisualZoomLevelLimits(50, 200);
+webFrame.setLayoutZoomLevelLimits(50, 200);
 
 webFrame.setSpellCheckProvider('en-US', true, {
 	spellCheck: text => {
@@ -68,12 +69,16 @@ webFrame.setSpellCheckProvider('en-US', true, {
 webFrame.registerURLSchemeAsSecure('app');
 webFrame.registerURLSchemeAsBypassingCSP('app');
 webFrame.registerURLSchemeAsPrivileged('app');
+webFrame.registerURLSchemeAsPrivileged('app', {
+	secure: true,
+	supportFetchAPI: true,
+});
 
 webFrame.insertText('text');
 
 webFrame.executeJavaScript('JSON.stringify({})', false, (result) => {
     console.log(result);
-});
+}).then((result: string) => console.log('OK:' + result));
 
 console.log(webFrame.getResourceUsage());
 webFrame.clearCache();
@@ -90,6 +95,7 @@ clipboard.clear();
 clipboard.write({
 	html: '<html></html>',
 	text: 'Hello World!',
+	bookmark: "Bookmark name",
 	image: clipboard.readImage()
 });
 
@@ -251,6 +257,12 @@ webview.addEventListener('ipc-message', function(event) {
 });
 webview.send('ping');
 webview.capturePage((image) => { console.log(image); });
+
+{
+    const opened: boolean = webview.isDevToolsOpened();
+    const focused: boolean = webview.isDevToolsFocused();
+    const focused2: boolean = webview.getWebContents().isFocused();
+}
 
 // In guest page.
 ipcRenderer.on('ping', function() {

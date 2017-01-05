@@ -1,5 +1,3 @@
-/// <reference path="backlog-js.d.ts" />
-
 import * as backlogjs from 'backlog-js';
 
 const host = 'example.backlog.jp';

@@ -1,4 +1,4 @@
-/// <reference path="bugsnag.d.ts" />
+
 
 Bugsnag.apiKey = "API-KEY";
 

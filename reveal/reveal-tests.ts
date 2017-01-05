@@ -1,4 +1,4 @@
-/// <reference path="reveal.d.ts" />
+
 
 Reveal.initialize({
     controls: true,

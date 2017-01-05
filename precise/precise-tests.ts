@@ -1,4 +1,3 @@
-/// <reference path="precise.d.ts" />
 
 import precise = require("precise");
 

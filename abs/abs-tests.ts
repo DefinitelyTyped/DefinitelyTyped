@@ -1,5 +1,3 @@
-/// <reference path="./abs.d.ts" />
-
-import Abs from 'abs';
+import Abs = require('abs');
 
 const x: string = Abs('/foo');

@@ -3,7 +3,7 @@
 // Definitions by: Richard Natal <https://github.com/Bigous>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare module 'oracledb' {
 	import * as stream from "stream";

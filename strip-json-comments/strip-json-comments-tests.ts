@@ -2,7 +2,7 @@
 // Project: https://github.com/sindresorhus/strip-json-comments
 // Definitions by: Dylan R. E. Moonfire <https://github.com/dmoonfire/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-///<reference path="strip-json-comments.d.ts" />
+
 import stripJsonComments = require("strip-json-comments");
 
 const json = '{/*rainbows*/"unicorn":"cake"}';

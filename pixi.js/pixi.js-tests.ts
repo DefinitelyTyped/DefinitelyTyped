@@ -1,4 +1,4 @@
-﻿/// <reference path="pixi.js.d.ts" />
+import PIXI = require("pixi.js");
 namespace basics {
 
     export class Basics {
@@ -209,7 +209,7 @@ namespace basics {
 
         private animate = (): void => {
 
-            this.filter.uniforms.customUniform.value += 0.04;
+            this.filter.uniforms['customUniform'].value += 0.04;
 
             this.renderer.render(this.stage);
             requestAnimationFrame(this.animate);
@@ -218,9 +218,9 @@ namespace basics {
 
     }
 
-    export class CustomizedFilter extends PIXI.AbstractFilter {
+    export class CustomizedFilter extends PIXI.Filter {
 
-        constructor(fragmentSource: string | string[]) {
+        constructor(fragmentSource: string) {
             super(null, fragmentSource, {
                 customUniform: {
                     type: '1f',
@@ -337,7 +337,7 @@ namespace basics {
 
             };
 
-            this.renderTexture = new PIXI.RenderTexture(this.renderer, 300, 200, PIXI.SCALE_MODES.LINEAR, 0.1);
+            this.renderTexture = PIXI.RenderTexture.create(300, 200, PIXI.SCALE_MODES.LINEAR, 0.1);
 
             this.sprite = new PIXI.Sprite(this.renderTexture);
             this.sprite.x = 450;
@@ -354,7 +354,7 @@ namespace basics {
 
         private animate = (): void => {
 
-            this.renderTexture.render(this.container);
+            this.renderer.render(this.container, this.renderTexture)
 
             requestAnimationFrame(this.animate);
 
@@ -374,7 +374,7 @@ namespace basics {
 
         private stage: PIXI.Container;
 
-        private movie: PIXI.extras.MovieClip;
+        private movie: PIXI.extras.AnimatedSprite;
 
         constructor() {
 
@@ -398,11 +398,11 @@ namespace basics {
                 }
 
 
-                // create a MovieClip (brings back memories from the days of Flash, right ?)
-                this.movie = new PIXI.extras.MovieClip(frames);
+                // create a AnimatedSprite (brings back memories from the days of Flash, right ?)
+                this.movie = new PIXI.extras.AnimatedSprite(frames);
 
                 /*
-                 * A MovieClip inherits all the properties of a PIXI sprite
+                 * A AnimatedSprite inherits all the properties of a PIXI sprite
                  * so you can change its position, its anchor, mask it, etc
                  */
                 this.movie.position.set(300);
@@ -459,8 +459,11 @@ namespace basics {
 
             this.stage.addChild(this.basicText);
 
-            var style: PIXI.TextStyle = {
-                font: '36px Arial bold italic',
+            var style: PIXI.TextStyleOptions = {
+                fontSize: 36,
+                fontFamily: 'Arial',
+                fontWeight: 'bold',
+                fontStyle: 'italic',
                 fill: '#F7EDCA',
                 stroke: '#4a1850',
                 strokeThickness: 5,
@@ -783,7 +786,7 @@ namespace demos {
 
         private stage: PIXI.Container;
 
-        private sprites: PIXI.ParticleContainer;
+        private sprites: PIXI.particles.ParticleContainer;
 
         private maggots: BatchDude[];
 
@@ -799,7 +802,7 @@ namespace demos {
             // create the root of the scene graph
             this.stage = new PIXI.Container();
 
-            this.sprites = new PIXI.ParticleContainer(10000, {
+            this.sprites = new PIXI.particles.ParticleContainer(10000, {
 
                 scale: true,
                 position: true,
@@ -1706,7 +1709,7 @@ namespace demos {
             this.stage.on('click', this.onClick);
             this.stage.on('tap', this.onClick);
 
-            this.help = new PIXI.Text('Click to turn masking on / off.', { font: 'bold 12pt Arial', fill: 'white' });
+            this.help = new PIXI.Text('Click to turn masking on / off.', { fontFamily: 'Arial', fontSize: 12, fontWeight: 'bold', fill: 'white' });
             this.help.position.y = this.renderer.height - 26;
             this.help.position.x = 10;
             this.stage.addChild(this.help);
@@ -1763,7 +1766,7 @@ namespace demos {
 
 namespace demos {
 
-    export class MovieClipDemo {
+    export class AnimatedSpriteDemo {
 
         private renderer: PIXI.CanvasRenderer | PIXI.WebGLRenderer;
 
@@ -1801,8 +1804,8 @@ namespace demos {
 
             for (i = 0; i < 50; i++) {
 
-                // create an explosion MovieClip
-                var explosion = new PIXI.extras.MovieClip(explosionTextures);
+                // create an explosion AnimatedSprite
+                var explosion = new PIXI.extras.AnimatedSprite(explosionTextures);
 
                 explosion.position.x = Math.random() * 800;
                 explosion.position.y = Math.random() * 600;
@@ -1862,8 +1865,8 @@ namespace demos {
             this.stage = new PIXI.Container();
 
             // create two render textures... these dynamic textures will be used to draw the scene into itself
-            this.renderTexture = new PIXI.RenderTexture(this.renderer, this.renderer.width, this.renderer.height);
-            this.renderTexture2 = new PIXI.RenderTexture(this.renderer, this.renderer.width, this.renderer.height);
+            this.renderTexture = PIXI.RenderTexture.create(this.renderer.width, this.renderer.height);
+            this.renderTexture2 = PIXI.RenderTexture.create(this.renderer.width, this.renderer.height);
             this.currentTexture = this.renderTexture;
 
             // create a new sprite that uses the render texture we created above
@@ -1946,7 +1949,7 @@ namespace demos {
 
             // render the stage to the texture
             // the 'true' clears the texture before the content is rendered
-            this.renderTexture2.render(this.stage, null, false);
+            this.renderer.render(this.stage, this.renderTexture2, false);
 
             // and finally render the stage
             this.renderer.render(this.stage);
@@ -2087,11 +2090,11 @@ namespace demos {
             this.stage.addChild(this.background);
 
             // create some white text using the Snippet webfont
-            this.textSample = new PIXI.Text('Pixi.js can has\n multiline text!', { font: '35px Snippet', fill: 'white', align: 'left' });
+            this.textSample = new PIXI.Text('Pixi.js can has\n multiline text!', { fontSize: 35, fontFamily: 'Snippet', fill: 'white', align: 'left' });
             this.textSample.position.set(20);
 
             // create a text object with a nice stroke
-            this.spinningText = new PIXI.Text('I\'m fun!', { font: 'bold 60px Arial', fill: '#cc00ff', align: 'center', stroke: '#FFFFFF', strokeThickness: 6 });
+            this.spinningText = new PIXI.Text('I\'m fun!', { fontWeight: 'bold', fontSize: 60, fontFamily: 'Arial', fill: '#cc00ff', align: 'center', stroke: '#FFFFFF', strokeThickness: 6 });
 
             // setting the anchor point to 0.5 will center align the text... great for spinning!
             this.spinningText.anchor.set(0.5);
@@ -2099,7 +2102,7 @@ namespace demos {
             this.spinningText.position.y = 200;
 
             // create a text object that will be updated...
-            this.countingText = new PIXI.Text('COUNT 4EVAR: 0', { font: 'bold italic 60px Arvo', fill: '#3e1707', align: 'center', stroke: '#a4410e', strokeThickness: 7 });
+            this.countingText = new PIXI.Text('COUNT 4EVAR: 0', { fontWeight: 'bold', fontStyle: 'italic', fontSize: 60, fontFamily: 'Arvo', fill: '#3e1707', align: 'center', stroke: '#a4410e', strokeThickness: 7 });
 
             this.countingText.position.x = 310;
             this.countingText.position.y = 320;
@@ -2704,7 +2707,7 @@ namespace filters {
             this.stage.on('tap', this.onClick);
 
 
-            this.help = new PIXI.Text('Click to turn filters on / off.', { font: 'bold 12pt Arial', fill: 'white' });
+            this.help = new PIXI.Text('Click to turn filters on / off.', { fontWeight: 'bold', fontSize: 12, fontFamily: 'Arial', fill: 'white' });
             this.help.position.y = this.renderer.height - 25;
             this.help.position.x = 10;
 

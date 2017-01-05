@@ -685,6 +685,16 @@ draw = new ol.interaction.Draw({
     type: "Point",
     style: styleFunction
 });
+var styleFunctionAsStyle = function(feature: ol.Feature, resolution: number): ol.style.Style { return style; }
+draw = new ol.interaction.Draw({
+    type: "Point",
+    style: styleFunctionAsStyle
+});
+var styleFunctionAsArray = function(feature: ol.Feature, resolution: number): ol.style.Style[] { return styleArray; }
+draw = new ol.interaction.Draw({
+    type: "Point",
+    style: styleFunctionAsArray
+});
 
 var dragbox: ol.interaction.DragBox = new ol.interaction.DragBox({
     className: stringValue,

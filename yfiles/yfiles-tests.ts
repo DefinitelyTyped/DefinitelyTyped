@@ -1,43 +1,41 @@
-/// <reference path="yfiles.d.ts"/>
-
 namespace yfilesTest {
 
     export class BasicTest {
-        private graphControl:yfiles.canvas.GraphControl;
+        private graphComponent:yfiles.view.GraphComponent;
 
         constructor() {
-            this.graphControl = new yfiles.canvas.GraphControl.ForId("graphControl");
+            this.graphComponent = new yfiles.view.GraphComponent("graphControl");
 
-            var graphEditorInputMode = new yfiles.input.GraphEditorInputMode();
+            let graphEditorInputMode = new yfiles.input.GraphEditorInputMode();
 
             // Modify the MyHitTestable class to be usable with our class framework
-            yfiles.lang.Class.injectInterfaces(MyHitTestable.prototype, [yfiles.drawing.IHitTestable]);
-            var myHitTestable = new MyHitTestable();
+            yfiles.lang.Class.injectInterfaces(MyHitTestable.prototype, [yfiles.input.IHitTestable]);
+            let myHitTestable = new MyHitTestable();
 
-            if (yfiles.drawing.IHitTestable.isInstance(myHitTestable)) {
+            if (yfiles.input.IHitTestable.isInstance(myHitTestable)) {
                 // If myHitTestable is recognized as instance of yfiles.drawing.IHitTestable by the yFiles class
                 // framework, set it as hit testable to prevent clicking any item.
                 // If you cannot click-select the nodes in the GraphControl, this worked correctly.
                 graphEditorInputMode.clickInputMode.validClickHitTestable = myHitTestable;
             }
 
-            this.graphControl.inputMode = graphEditorInputMode;
+            this.graphComponent.inputMode = graphEditorInputMode;
 
-            this.graphControl.graph.nodeDefaults.style = new yfiles.drawing.ShinyPlateNodeStyle.WithBrush(yfiles.system.Brushes.ORANGE);
+            this.graphComponent.graph.nodeDefaults.style = new yfiles.styles.ShinyPlateNodeStyle(yfiles.view.Fill.ORANGE);
 
-            this.graphControl.graph.createNodeWithBoundsAndStyle(new yfiles.geometry.RectD(0, 0, 10, 10), new MyNodeStyle());
+            this.graphComponent.graph.createNode(new yfiles.geometry.Rect(0, 0, 10, 10), new MyNodeStyle());
 
             this.layout();
         }
 
         start() {
-            for (var i = 0; i < 5; i++) {
-                for (var j = 0; j < 5; j++) {
-                    this.graphControl.graph.createNodeWithCenter(new yfiles.geometry.PointD(100 * i, 100 * j));
+            for (let i = 0; i < 5; i++) {
+                for (let j = 0; j < 5; j++) {
+                    this.graphComponent.graph.createNodeAt(new yfiles.geometry.Point(100 * i, 100 * j));
                 }
             }
-            this.graphControl.graph.nodes.forEach((node) => this.graphControl.graph.addLabel(node, "Label"));
-            this.graphControl.fitGraphBounds();
+            this.graphComponent.graph.nodes.forEach((node) => this.graphComponent.graph.addLabel(node, "Label"));
+            this.graphComponent.fitGraphBounds();
         }
 
 
@@ -45,105 +43,97 @@ namespace yfilesTest {
          * Runs a layout algorithm and animates the transition to the new layout.
          */
         layout() {
-            var layouter = new yfiles.hierarchic.IncrementalHierarchicLayouter();
-            var layoutExecutor = new yfiles.graph.LayoutExecutor.FromControlAndLayouter(this.graphControl,
-                new yfiles.layout.MinNodeSizeStage(layouter));
+            let layouter = new yfiles.hierarchic.HierarchicLayout();
+            let layoutExecutor = new yfiles.layout.LayoutExecutor(this.graphComponent,
+                new yfiles.layout.MinimumNodeSizeStage(layouter));
 
-            layoutExecutor.duration = yfiles.system.TimeSpan.fromSeconds(1);
+            layoutExecutor.duration = yfiles.lang.TimeSpan.fromSeconds(1);
             layoutExecutor.animateViewport = true;
             layoutExecutor.updateContentRect = true;
-            layoutExecutor.finishHandler = function (s, args) {
-                if (args instanceof yfiles.graph.LayoutExceptionEventArgs && typeof(window.console) !== "undefined") {
-                    var exception = args.exception;
-                    console.log(exception.message);
-                }
-            };
-            layoutExecutor.start();
+            layoutExecutor.start().then(() => {
+                return null;
+            })
+            .catch(error => {
+                throw error;
+            });
         }
 
         /**
          * Runs a shortest path analysis.
          */
         analyze() {
-            var graph = this.graphControl.graph;
+            let graph = this.graphComponent.graph;
 
             // Create the graph model adapter to get a proper analysis graph structure.
-            var graphAdapter = new yfiles.graph.YGraphAdapter(graph);
+            let graphAdapter = new yfiles.layout.YGraphAdapter(graph);
 
             // Create an array the size of the edge set with costs for each edge.
-            var cost = new Array(graph.edges.count);
-            for (var i = 0; i < graph.edges.count; i++) {
+            let cost = new Array(graph.edges.size);
+            for (let i = 0; i < graph.edges.size; i++) {
                 cost[i] = Math.random();
             }
 
-            var pred:yfiles.algorithms.Edge[] = null;
+            let pred:yfiles.algorithms.Edge[] = null;
 
             // Suppose the first node from the graph is the node named "Start."
-            var startNode = graphAdapter.getCopiedNode(graph.nodes.getFirstElement());
+            let startNode = graphAdapter.getCopiedNode(graph.nodes.first());
             // Suppose the last node from the graph is the node named "Destination."
-            var destinationNode = graphAdapter.getCopiedNode(graph.nodes.getLastElement());
+            let destinationNode = graphAdapter.getCopiedNode(graph.nodes.last());
 
             // Run the single-source single-sink algorithm on the graph.
-            var result = yfiles.algorithms.ShortestPaths.singleSourceSingleSinkToArray(graphAdapter.yGraph, startNode,
+            let result = yfiles.algorithms.ShortestPaths.singleSourceSingleSink(graphAdapter.yGraph, startNode,
                 destinationNode, true, cost, pred);
             // Transfer back the result.
-            var predIGraph = new Array(pred.length);
-            for (var i = 0; i < pred.length; i++) {
+            let predIGraph = new Array(pred.length);
+            for (let i = 0; i < pred.length; i++) {
                 predIGraph[i] = graphAdapter.getOriginalEdge(pred[i]);
             }
         }
 
         coreLib() {
-            new yfiles.AttributeDefinition(() => { return {} });
-            new yfiles.ClassDefinition(() => { return {} });
-            new yfiles.EnumDefinition(() => { return {} });
-            new yfiles.StructDefinition(() => { return {} });
+            new yfiles.lang.AttributeDefinition(() => { return {} });
+            new yfiles.lang.ClassDefinition(() => { return {} });
+            new yfiles.lang.EnumDefinition(() => { return {} });
+            new yfiles.lang.StructDefinition(() => { return {} });
         }
 
         namespacesExist() {
-            new yfiles.algorithms.AbortHandler();
-            new yfiles.binding.AdjacentEdgesGraphSource();
-            new yfiles.canvas.CanvasContainer();
-            new yfiles.circular.CircularLayouter();
-            new yfiles.collections.HashSet();
-            new yfiles.drawing.ArcEdgeStyle();
-            new yfiles.genealogy.FamilyTreeLayouter();
-            new yfiles.geometry.Matrix2D();
-            new yfiles.graph.YGraphAdapter(this.graphControl.graph);
-            var a:yfiles.graphml.ChildParseContext;
-            new yfiles.hierarchic.AsIsLayerer();
-            new yfiles.labeling.GreedyMISLabeling();
-            var b:yfiles.lang.Abstract;
-            new yfiles.layout.BendConverter();
-            new yfiles.markup.ArrayExtension();
-            new yfiles.model.BridgeManager();
-            var c:yfiles.multipage.IEdgeInfo;
-            var d:yfiles.objectcollections.ICollection;
-            new yfiles.organic.GroupedShuffleLayouter();
-            new yfiles.orthogonal.CompactOrthogonalLayouter();
-            var e = yfiles.partial.ComponentAssignmentStrategy.CLUSTERING;
-            var f = yfiles.radial.CenterNodesPolicy.CENTRALITY;
-            new yfiles.random.RandomLayouter();
-            var g:yfiles.router.BusDescriptor;
-            new yfiles.seriesparallel.SeriesParallelLayouter();
-            var h:yfiles.support.AbstractContextLookupChainLink;
-            new yfiles.system.ApplicationException();
-            new yfiles.tree.ARTreeLayouter();
+            let a01 = new yfiles.algorithms.AbortHandler();
+            let a02 = new yfiles.binding.AdjacentNodesGraphBuilder(this.graphComponent.graph);
+            let a03 = new yfiles.circular.CircularLayout();
+            let a04 = new yfiles.collections.List();
+            let a05 = new yfiles.genealogy.FamilyTreeLayout();
+            let a06 = new yfiles.geometry.Matrix();
+            let a07 = new yfiles.graph.GraphClipboard();
+            let a08:yfiles.graphml.ChildParseContext;
+            let a09 = new yfiles.hierarchic.AsIsLayerer();
+            let a10 = new yfiles.input.GraphEditorInputMode();
+            let a11 = new yfiles.labeling.GenericLabeling();
+            let a12 = new yfiles.lang.Attribute();
+            let a13 = new yfiles.layout.BendConverter();
+            let a14 = new yfiles.multipage.DefaultElementFactory();
+            let a15 = new yfiles.organic.OrganicLayout();
+            let a16 = new yfiles.orthogonal.CompactOrthogonalLayout();
+            let a17 = new yfiles.partial.PartialLayout();
+            let a18 = new yfiles.radial.RadialLayout();
+            let a19 = new yfiles.router.BusRouter();
+            let a20 = new yfiles.seriesparallel.SeriesParallelLayout();
+            let a21 = new yfiles.styles.ArcEdgeStyle();
+            let a22 = new yfiles.tree.AspectRatioTreeLayout();
+            let a23 = new yfiles.view.GraphComponent();
         }
     }
 
-    class MyHitTestable implements yfiles.drawing.IHitTestable {
-        isHit(p:yfiles.geometry.PointD, ctx:yfiles.canvas.ICanvasContext):boolean {
+    class MyHitTestable extends yfiles.lang.BaseClass<Object>(yfiles.input.IHitTestable) implements yfiles.input.IHitTestable {
+        isHit(ctx:yfiles.input.IInputModeContext, p:yfiles.geometry.Point):boolean {
             return false;
         }
     }
 
-    class MyNodeStyle extends yfiles.drawing.SimpleAbstractNodeStyle<yfiles.drawing.RectVisual> {
-        constructor() {
-            super(null);
-        }
-        createVisual(node:yfiles.graph.INode, renderContext:yfiles.drawing.IRenderContext):yfiles.drawing.RectVisual {
-            return new yfiles.drawing.RectVisual.FromRectangle(new yfiles.geometry.Rectangle(0, 0, 10, 10));
+    class MyNodeStyle extends yfiles.styles.NodeStyleBase {
+        createVisual(renderContext:yfiles.view.IRenderContext, node:yfiles.graph.INode):yfiles.view.SvgVisual {
+            let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+            return new yfiles.view.SvgVisual(g);
         }
     }
 }

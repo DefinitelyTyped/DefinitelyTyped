@@ -452,7 +452,7 @@ declare namespace Xrm
 
         setFormNotification(message: string, level: Page.ui.FormNotificationLevel | string, uniqueId: string ): boolean;
 
-        process: Page.data.ProcessManager;
+        process: Page.ui.ProcessManager;
 
         /**
          * A reference to the collection of controls on the form.
@@ -2488,7 +2488,7 @@ declare namespace Xrm
             /**
              * The identifier of the form to use, when several are available.
              */
-            formid: string;
+            formid?: string;
 
             /**
              * Controls whether the Navigation bar is displayed on the form.

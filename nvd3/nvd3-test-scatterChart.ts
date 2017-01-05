@@ -1,4 +1,4 @@
-﻿/// <reference path="nvd3.d.ts" />
+
 namespace nvd3_test_scatterChart {
     // register our custom symbols to nvd3
     // make sure your path is valid given any size because size scales if the chart scales.

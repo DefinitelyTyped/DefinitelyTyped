@@ -1,4 +1,3 @@
-/// <reference path="./through.d.ts" />
 
 import through = require('through');
 

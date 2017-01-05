@@ -1,4 +1,4 @@
-﻿/// <reference path="nvd3.d.ts" />
+
 namespace nvd3_test_stackArea {
     nv.addGraph({
         generate: function () {
@@ -25,7 +25,7 @@ namespace nvd3_test_stackArea {
             svg.transition().duration(500).call(chart);
             return chart;
         },
-        callback: function (graph) {
+        callback: function (graph: nv.StackedAreaChart) {
 
             graph.dispatch.on('tooltipShow', function (e) {
                 var offsetElement = document.getElementById("chart"),
