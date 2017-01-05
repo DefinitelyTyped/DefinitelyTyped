@@ -1,4 +1,4 @@
-// Type definitions for FineUploader 5.11.10
+// Type definitions for FineUploader
 // Project: http://fineuploader.com/
 // Definitions by: Bradford Wagner <https://github.com/bradfordwagner/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
