@@ -101,7 +101,7 @@ declare namespace qq {
         preventRetryResponseProperty?: string;  // default: preventRetry
     }
 
-    interface RequestOptions <H ,P> {
+    interface RequestOptions <H, P> {
         customHeaders?: H;          // default: {}
         endpoint?: string;          // default: /server/upload
         filenameParam?: string;     // default: qqfilename
@@ -184,7 +184,7 @@ declare namespace qq {
     }
 
     interface CallbackOptions {
-        onAutoRetry? : (id: number, name: string, attemptNumber: number) => void;
+        onAutoRetry?: (id: number, name: string, attemptNumber: number) => void;
         onCancel?: (id: number, name: string) => void;
         onComplete?: <T>(id: number, name: string, responseJSON: T, xhr: XMLHttpRequest) => void; // ignore xhr: XDomainRequest as it is not compatible for all versions of TypeScript
         onAllComplete?: (succeeded: number[], failed: number[]) => void;
@@ -222,7 +222,7 @@ declare namespace qq {
         camera?: CameraOptions;
         chunking?: ChunkingOptions;
         cors?: CorsOptions;
-        deleteFile?: DeleteFileOptions<any,any>;
+        deleteFile?: DeleteFileOptions<any, any>;
         extraButtons?: ExtraButtonsOptions<any>;
         form?: FormOptions;
         messages?: MessagesOptions;
@@ -293,7 +293,7 @@ declare namespace qq {
         cancelAll(): void;
         clearStoredFiles(): void;
         continueUpload(id: number): boolean; // true if successful
-        deleteFile(id: number) : void;
+        deleteFile(id: number): void;
 
         /**
          * TODO: need someone who has used this to update the returned promise related fields
@@ -327,7 +327,7 @@ declare namespace qq {
         uploadStoredFiles(): void; // throws NoFilesError
 
         // ui
-        addExtraDropzone(element: HTMLElement):void;
+        addExtraDropzone(element: HTMLElement): void;
         getDropTarget(id: number): HTMLElement;
         getId(element: HTMLElement): number;
         getItemByFileId(id: number): HTMLElement;
