@@ -1,7 +1,5 @@
 // Tests by: Kaur Kuut <https://github.com/xStrom>
-
-///<reference path="scrypt-async.d.ts" />
-
+import scrypt = require("scrypt-async");
 var callback = function(key: string | number[]) { };
 
 scrypt("abc", "def", 10, 8, 32, 1000, callback, "base64");

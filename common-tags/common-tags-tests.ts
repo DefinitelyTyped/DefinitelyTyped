@@ -1,5 +1,3 @@
-/// <reference path="common-tags.d.ts" />
-
 import * as commonTags from 'common-tags';
 
 /* Test Built-in Tags */

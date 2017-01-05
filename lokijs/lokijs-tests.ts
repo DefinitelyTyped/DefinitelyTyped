@@ -1,4 +1,4 @@
-﻿/// <reference path="lokijs.d.ts" />
+
 
 import Loki = require("lokijs");
 

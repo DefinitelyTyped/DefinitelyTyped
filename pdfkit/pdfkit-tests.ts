@@ -1,4 +1,4 @@
-/// <reference path="pdfkit.d.ts" />
+
 
 import PDFGradient = require("pdfkit/js/gradient");
 
@@ -24,12 +24,16 @@ doc.addPage({
 });
 
 doc.addPage({
-  margin: {
+  margins: {
     top: 50,
     bottom: 50,
     left: 72,
     right: 72
   }
+});
+
+doc.addPage({
+  layout: "landscape"
 });
 
 doc.info.Title = "Sample";
@@ -48,6 +52,8 @@ doc.path("M 0,20 L 100,160 Q 130,200 150,120 C 190,-40 200,200 300,150 L 400,90"
 
 //Rectangle shape helper sample
 doc.rect(100,200,100,100);
+// Rounded rectangle
+doc.roundedRect(150,250,150,150,10);
 
 //polygon
 doc.polygon([100,0],[50,100],[50,100]);

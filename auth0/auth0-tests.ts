@@ -1,23 +1,78 @@
-/// <reference path="../auth0/auth0.d.ts" />
+/// <reference types="auth0" />
 
-var auth0 = new Auth0({
-    domain: 'mine.auth0.com',
-    clientID: 'dsa7d77dsa7d7',
-    callbackURL: 'http://my-app.com/callback',
-    callbackOnLocationHash: true
+import * as auth0 from 'auth0';
+
+const management = new auth0.ManagementClient({
+  token: '{YOUR_API_V2_TOKEN}',
+  domain: '{YOUR_ACCOUNT}.auth0.com'
 });
 
-auth0.login({
-    connection: 'google-oauth2',
-    popup: true,
-    popupOptions: {
-        width: 450,
-        height: 800
-    }
-}, (err, profile, idToken, accessToken, state) => {
-        if (err) {
-            alert("something went wrong: " + err.message);
-            return;
-        }
-        alert('hello ' + profile.name);
-    });
+const auth = new auth0.AuthenticationClient({
+  domain: '{YOUR_ACCOUNT}.auth0.com',
+  clientId: '{OPTIONAL_CLIENT_ID}'
+});
+
+// Using a callback.
+management.getUsers((err: Error, users: auth0.User[]) => {
+  if (err) {
+    // Handle error.
+  }
+  console.log(users);
+});
+
+// Using a Promise.
+management
+  .getUsers()
+  .then((users) => {
+    console.log(users);
+  })
+  .catch((err) => {
+    // Handle the error.
+  });
+
+management
+  .createUser({
+    connection: 'My-Connection',
+    email: 'hi@me.co',
+  }).then((user) => {
+    console.log(user);
+  }).catch((err) => {
+    // Handle the error.
+  });
+
+auth
+  .requestChangePasswordEmail({
+    connection: 'My-Connection',
+    email: 'hi@me.co',
+  }).then((response) => {
+    console.log(response);
+  }).catch((err) => {
+    // Handle the error.
+  });
+
+
+// Update a user
+management
+  .updateUser({id: "user_id"}, {"email": "hi@me.co"});
+
+// Update a user using callback
+management
+  .updateUser({id: "user_id"}, {"email": "hi@me.co"}, (err: Error, users: auth0.User) => {});
+
+
+// Update user metadata
+management
+  .updateUserMetadata({id: "user_id"}, {"key": "value"});
+
+// Update user metadata using callback
+management
+  .updateUserMetadata({id: "user_id"}, {"key": "value"}, (err: Error, users: auth0.User) => {});
+
+
+// Update app metadata
+management
+  .updateAppMetadata({id: "user_id"}, {"key": "value"});
+
+// Update app metadata using callback
+management
+  .updateAppMetadata({id: "user_id"}, {"key": "value"}, (err: Error, users: auth0.User) => {});

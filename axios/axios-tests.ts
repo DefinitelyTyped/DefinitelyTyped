@@ -1,4 +1,4 @@
-/// <reference path="axios.d.ts" />
+
 
 enum HttpMethod { GET, PUT, POST, DELETE, CONNECT, HEAD, OPTIONS, TRACE, PATCH }
 enum ResponseType { arraybuffer, blob, document, json, text }
@@ -69,6 +69,10 @@ axios.post("http://example.com/", {
     ]
 });
 
+var config: Axios.AxiosXHRConfigBase<any> = {headers: {}};
+config.headers['X-Custom-Header'] = 'baz';
+axios.post("http://example.com/", config);
+
 var getRepoIssue = axios.get<Issue>("https://api.github.com/repos/mzabriskie/axios/issues/1");
 
 var axiosInstance = axios.create({
@@ -76,7 +80,11 @@ var axiosInstance = axios.create({
     timeout: 1000
 });
 
-axiosInstance.request({url: "issues/1"});
+axiosInstance.request({url: "issues/1"}).then(res => {
+    if (res.headers['content-type'].startsWith('application/json')) {
+        throw new Error('Unexpected content-type');
+    }
+});
 
 axios.all<Repository, Repository>([getRepoDetails, getRepoDetails]).then(([repo1, repo2]) => {
     var sumIds = repo1.data.id + repo2.data.id;

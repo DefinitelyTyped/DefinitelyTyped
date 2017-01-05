@@ -1,5 +1,3 @@
-/// <reference path="lodash.d.ts" />
-
 declare var $: any, jQuery: any;
 
 interface IFoodOrganic {
@@ -140,6 +138,14 @@ result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).sort((a, b) => 1)
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1);
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1, 2, 5, 6);
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).unshift(5, 6);
+
+result = <_.LoDashExplicitObjectWrapper<number>>_.chain([1, 2, 3, 4]).pop();
+result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).push(5, 6, 7);
+result = <_.LoDashExplicitObjectWrapper<number>>_.chain([1, 2, 3, 4]).shift();
+result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).sort((a, b) => 1);
+result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).splice(1);
+result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).splice(1, 2, 5, 6);
+result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).unshift(5, 6);
 
 /*********
  * Array *
@@ -673,6 +679,7 @@ namespace TestFindIndex {
     let array: TResult[];
     let list: _.List<TResult>;
     let predicateFn: (value: TResult, index?: number, collection?: _.List<TResult>) => boolean;
+    let fromIndex: number;
 
     {
         let result: number;
@@ -681,21 +688,25 @@ namespace TestFindIndex {
         result = _.findIndex<TResult>(array, predicateFn);
         result = _.findIndex<TResult>(array, '');
         result = _.findIndex<{a: number}, TResult>(array, {a: 42});
+        result = _.findIndex<TResult>(array, predicateFn, fromIndex);
 
         result = _.findIndex<TResult>(list);
         result = _.findIndex<TResult>(list, predicateFn);
         result = _.findIndex<TResult>(list, '');
         result = _.findIndex<{a: number}, TResult>(list, {a: 42});
+        result = _.findIndex<TResult>(list, predicateFn, fromIndex);
 
         result = _<TResult>(array).findIndex();
         result = _<TResult>(array).findIndex(predicateFn);
         result = _<TResult>(array).findIndex('');
         result = _<TResult>(array).findIndex<{a: number}>({a: 42});
+        result = _<TResult>(array).findIndex(predicateFn, fromIndex);
 
         result = _(list).findIndex();
         result = _(list).findIndex<TResult>(predicateFn);
         result = _(list).findIndex('');
         result = _(list).findIndex<{a: number}>({a: 42});
+        result = _(list).findIndex<TResult>(predicateFn, fromIndex);
     }
 
     {
@@ -705,11 +716,13 @@ namespace TestFindIndex {
         result = _<TResult>(array).chain().findIndex(predicateFn);
         result = _<TResult>(array).chain().findIndex('');
         result = _<TResult>(array).chain().findIndex<{a: number}>({a: 42});
+        result = _<TResult>(array).chain().findIndex(predicateFn, fromIndex);
 
         result = _(list).chain().findIndex();
         result = _(list).chain().findIndex<TResult>(predicateFn);
         result = _(list).chain().findIndex('');
         result = _(list).chain().findIndex<{a: number}>({a: 42});
+        result = _(list).chain().findIndex<TResult>(predicateFn, fromIndex);
     }
 }
 
@@ -719,6 +732,7 @@ namespace TestFindLastIndex {
     let list: _.List<TResult>;
 
     let predicateFn: (value: TResult, index?: number, collection?: _.List<TResult>) => boolean;
+    let fromIndex: number;
 
     {
         let result: number;
@@ -727,21 +741,25 @@ namespace TestFindLastIndex {
         result = _.findLastIndex<TResult>(array, predicateFn);
         result = _.findLastIndex<TResult>(array, '');
         result = _.findLastIndex<{a: number}, TResult>(array, {a: 42});
+        result = _.findLastIndex<TResult>(array, predicateFn, fromIndex);
 
         result = _.findLastIndex<TResult>(list);
         result = _.findLastIndex<TResult>(list, predicateFn);
         result = _.findLastIndex<TResult>(list, '');
         result = _.findLastIndex<{a: number}, TResult>(list, {a: 42});
+        result = _.findLastIndex<TResult>(list, predicateFn, fromIndex);
 
         result = _<TResult>(array).findLastIndex();
         result = _<TResult>(array).findLastIndex(predicateFn);
         result = _<TResult>(array).findLastIndex('');
         result = _<TResult>(array).findLastIndex<{a: number}>({a: 42});
+        result = _<TResult>(array).findLastIndex(predicateFn, fromIndex);
 
         result = _(list).findLastIndex();
         result = _(list).findLastIndex<TResult>(predicateFn);
         result = _(list).findLastIndex('');
         result = _(list).findLastIndex<{a: number}>({a: 42});
+        result = _(list).findLastIndex<TResult>(predicateFn, fromIndex);
     }
 
     {
@@ -751,11 +769,13 @@ namespace TestFindLastIndex {
         result = _<TResult>(array).chain().findLastIndex(predicateFn);
         result = _<TResult>(array).chain().findLastIndex('');
         result = _<TResult>(array).chain().findLastIndex<{a: number}>({a: 42});
+        result = _<TResult>(array).chain().findLastIndex(predicateFn, fromIndex);
 
         result = _(list).chain().findLastIndex();
         result = _(list).chain().findLastIndex<TResult>(predicateFn);
         result = _(list).chain().findLastIndex('');
         result = _(list).chain().findLastIndex<{a: number}>({a: 42});
+        result = _(list).chain().findLastIndex<TResult>(predicateFn, fromIndex);
     }
 }
 
@@ -3674,33 +3694,51 @@ namespace TestFind {
 
     result = _.find<TResult>(array);
     result = _.find<TResult>(array, listIterator);
+    result = _.find<TResult>(array, listIterator, 1);
     result = _.find<TResult>(array, '');
+    result = _.find<TResult>(array, '', 1);
     result = _.find<{a: number}, TResult>(array, {a: 42});
+    result = _.find<{a: number}, TResult>(array, {a: 42}, 1);
 
     result = _.find<TResult>(list);
     result = _.find<TResult>(list, listIterator);
+    result = _.find<TResult>(list, listIterator, 1);
     result = _.find<TResult>(list, '');
+    result = _.find<TResult>(list, '', 1);
     result = _.find<{a: number}, TResult>(list, {a: 42});
+    result = _.find<{a: number}, TResult>(list, {a: 42}, 1);
 
     result = _.find<TResult>(dictionary);
     result = _.find<TResult>(dictionary, dictionaryIterator);
+    result = _.find<TResult>(dictionary, dictionaryIterator, 1);
     result = _.find<TResult>(dictionary, '');
+    result = _.find<TResult>(dictionary, '', 1);
     result = _.find<{a: number}, TResult>(dictionary, {a: 42});
+    result = _.find<{a: number}, TResult>(dictionary, {a: 42}, 1);
 
     result = _(array).find();
     result = _(array).find(listIterator);
+    result = _(array).find(listIterator, 1);
     result = _(array).find('');
+    result = _(array).find('', 1);
     result = _(array).find<{a: number}>({a: 42});
+    result = _(array).find<{a: number}>({a: 42}, 1);
 
     result = _(list).find<TResult>();
     result = _(list).find<TResult>(listIterator);
+    result = _(list).find<TResult>(listIterator, 1);
     result = _(list).find<TResult>('');
+    result = _(list).find<TResult>('', 1);
     result = _(list).find<{a: number}, TResult>({a: 42});
+    result = _(list).find<{a: number}, TResult>({a: 42}, 1);
 
     result = _(dictionary).find<TResult>();
     result = _(dictionary).find<TResult>(dictionaryIterator);
+    result = _(dictionary).find<TResult>(dictionaryIterator, 1);
     result = _(dictionary).find<TResult>('');
+    result = _(dictionary).find<TResult>('', 1);
     result = _(dictionary).find<{a: number}, TResult>({a: 42});
+    result = _(dictionary).find<{a: number}, TResult>({a: 42}, 1);
 }
 
 result = <number>_.findLast([1, 2, 3, 4], function (num) {
@@ -3709,11 +3747,15 @@ result = <number>_.findLast([1, 2, 3, 4], function (num) {
 result = <IFoodCombined>_.findLast(foodsCombined, { 'type': 'vegetable' });
 result = <IFoodCombined>_.findLast(foodsCombined, 'organic');
 
+result = <IFoodCombined>_.findLast(foodsCombined, 'organic', 1);
+
 result = <number>_([1, 2, 3, 4]).findLast(function (num) {
     return num % 2 == 0;
 });
 result = <IFoodCombined>_(foodsCombined).findLast({ 'type': 'vegetable' });
 result = <IFoodCombined>_(foodsCombined).findLast('organic');
+
+result = <IFoodCombined>_(foodsCombined).findLast('organic', 1);
 
 // _.flatMap
 namespace TestFlatMap {
@@ -4661,32 +4703,38 @@ result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}>('a', 
 //         result = _(dictionary).chain().map<TResult>(['d', 0, 'b']);
 //     }
 // }
+namespace TestReduce {
+    interface ABC {
+        [index: string]: number;
+        a: number;
+        b: number;
+        c: number;
+    }
 
-interface ABC {
-    [index: string]: number;
-    a: number;
-    b: number;
-    c: number;
+    result = <number>_.reduce<number, number>([1, 2, 3], function (sum: number, num: number) {
+        return sum + num;
+    });
+
+    // chained
+    result = _.chain([1, 2 ,3]).reduce(function (sum: number, num: number) {
+        return sum + num;
+    }).value();
+
+    result = <ABC>_.reduce({ 'a': 1, 'b': 2, 'c': 3 }, function (r: ABC, num: number, key: string) {
+        r[key] = num * 3;
+        return r;
+    }, {});
+
+    result = <number>_([1, 2, 3]).reduce<number>(function (sum: number, num: number) {
+        return sum + num;
+    });
+    result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).reduce<number, ABC>(function (r: ABC, num: number, key: string) {
+        r[key] = num * 3;
+        return r;
+    }, <ABC> {});
+
+    result = <number[]>_.reduceRight([[0, 1], [2, 3], [4, 5]], function (a: number[], b: number[]) { return a.concat(b); }, <number[]>[]);
 }
-
-result = <number>_.reduce<number, number>([1, 2, 3], function (sum: number, num: number) {
-    return sum + num;
-});
-result = <ABC>_.reduce({ 'a': 1, 'b': 2, 'c': 3 }, function (r: ABC, num: number, key: string) {
-    r[key] = num * 3;
-    return r;
-}, {});
-
-result = <number>_([1, 2, 3]).reduce<number>(function (sum: number, num: number) {
-    return sum + num;
-});
-result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).reduce<number, ABC>(function (r: ABC, num: number, key: string) {
-    r[key] = num * 3;
-    return r;
-}, <ABC> {});
-
-result = <number[]>_.reduceRight([[0, 1], [2, 3], [4, 5]], function (a: number[], b: number[]) { return a.concat(b); }, <number[]>[]);
-
 // _.reject
 namespace TestReject {
     let array: TResult[];
@@ -5733,11 +5781,11 @@ namespace TestFlow {
     let Fn2: (m: number, n: number) => number;
     let Fn3: (a: number) => string;
     let Fn4: (a: string) => number;
-    
+
     {
         // type infer test
         let result: (m: number, n: number) => number;
-        
+
         result = _.flow(Fn2, Fn1);
         result = _.flow(Fn2, Fn1, Fn1);
         result = _.flow(Fn2, Fn1, Fn1, Fn1);
@@ -5840,12 +5888,18 @@ namespace TestMemoize {
         result = _(memoizeFn).chain().memoize(memoizeResolverFn);
     }
 
-    _.memoize.Cache = {
-        delete: key => false,
-        get: key => undefined,
-        has: key => false,
-        set(key, value) { return this; }
-    };
+    interface MemoizeCache<K, V> {
+        delete(key: K): boolean;
+        get(key: K): V;
+        has(key: K): boolean;
+        set(key: K, value: V): this;
+    }
+    interface MemoizeCacheConstructor {
+        new (): MemoizeCache<any, any>;
+    }
+    let MemoizeCache: MemoizeCacheConstructor
+
+    _.memoize.Cache = MemoizeCache;
 }
 
 // _.overArgs
@@ -6840,7 +6894,9 @@ namespace TestIsError {
     }
 
     {
-        class CustomError extends Error {}
+        class CustomError extends Error {
+            custom: string
+        }
 
         let value: number|CustomError;
 
@@ -8544,128 +8600,128 @@ namespace TestDefaults {
   interface S4 { d: number };
   interface S5 { e: number };
 
-  let obj: Obj;
-  let s1: S1;
-  let s2: S2;
-  let s3: S3;
-  let s4: S4;
-  let s5: S5;
+    let obj: Obj;
+    let s1: S1;
+    let s2: S2;
+    let s3: S3;
+    let s4: S4;
+    let s5: S5;
 
-  {
-    let result: Obj;
+    {
+        let result: Obj;
 
     result = _.defaults(obj);
-  }
+    }
 
-  {
+    {
     let result: { a: string };
 
     result = _.defaults(obj, s1);
-  }
+    }
 
-  {
+    {
     let result: { a: string, b: number };
 
     result = _.defaults(obj, s1, s2);
-  }
+    }
 
-  {
+    {
     let result: { a: string, b: number, c: number };
 
     result = _.defaults(obj, s1, s2, s3);
-  }
+    }
 
-  {
+    {
     let result: { a: string, b: number, c: number, d: number };
 
     result = _.defaults(obj, s1, s2, s3, s4);
-  }
+    }
 
-  {
+    {
     let result: { a: string, b: number, c: number, d: number, e: number };
 
     result = _.defaults<{ a: string, b: number, c: number, d: number, e: number }>(obj, s1, s2, s3, s4, s5);
-  }
+    }
 
-  {
-    let result: _.LoDashImplicitObjectWrapper<Obj>;
+    {
+        let result: _.LoDashImplicitObjectWrapper<Obj>;
 
-    result = _(obj).defaults();
-  }
+        result = _(obj).defaults();
+    }
 
-  {
+    {
     let result: _.LoDashImplicitObjectWrapper<{ a: string }>;
 
     result = _(obj).defaults(s1);
-  }
+    }
 
-  {
+    {
     let result: _.LoDashImplicitObjectWrapper<{ a: string, b: number }>;
 
     result = _(obj).defaults(s1, s2);
-  }
+    }
 
-  {
+    {
     let result: _.LoDashImplicitObjectWrapper<{ a: string, b: number, c: number }>;
 
     result = _(obj).defaults(s1, s2, s3);
-  }
+    }
 
-  {
+    {
     let result: _.LoDashImplicitObjectWrapper<{ a: string, b: number, c: number, d: number }>;
 
     result = _(obj).defaults(s1, s2, s3, s4);
-  }
+    }
 
-  {
+    {
     let result: _.LoDashImplicitObjectWrapper<{ a: string, b: number, c: number, d: number, e: number }>;
 
     result = _(obj).defaults<{ a: string, b: number, c: number, d: number, e: number }>(s1, s2, s3, s4, s5);
-  }
+    }
 
-  {
-    let result: _.LoDashExplicitObjectWrapper<Obj>;
+    {
+        let result: _.LoDashExplicitObjectWrapper<Obj>;
 
-    result = _(obj).chain().defaults();
-  }
+        result = _(obj).chain().defaults();
+    }
 
-  {
+    {
     let result: _.LoDashExplicitObjectWrapper<{ a: string }>;
 
     result = _(obj).chain().defaults(s1);
-  }
+    }
 
-  {
+    {
     let result: _.LoDashExplicitObjectWrapper<{ a: string, b: number }>;
 
     result = _(obj).chain().defaults(s1, s2);
-  }
+    }
 
-  {
+    {
     let result: _.LoDashExplicitObjectWrapper<{ a: string, b: number, c: number }>;
 
     result = _(obj).chain().defaults(s1, s2, s3);
-  }
+    }
 
-  {
+    {
     let result: _.LoDashExplicitObjectWrapper<{ a: string, b: number, c: number, d: number }>;
 
     result = _(obj).chain().defaults(s1, s2, s3, s4);
-  }
+    }
 
-  {
+    {
     let result: _.LoDashExplicitObjectWrapper<{ a: string, b: number, c: number, d: number, e: number }>;
 
     result = _(obj).chain().defaults<{ a: string, b: number, c: number, d: number, e: number }>(s1, s2, s3, s4, s5);
-  }
+    }
 }
 
 //_.defaultsDeep
 interface DefaultsDeepResult {
-  user: {
-    name: string;
-    age: number;
-  }
+    user: {
+        name: string;
+        age: number;
+    }
 }
 var TestDefaultsDeepObject = { 'user': { 'name': 'barney' } };
 var TestDefaultsDeepSource = { 'user': { 'name': 'fred', 'age': 36 } };
@@ -11069,6 +11125,125 @@ namespace TestConstant {
         let result: _.LoDashExplicitObjectWrapper<() => {a: string}>;
         result = _({a: 'a'}).chain().constant<{a: string}>();
     }
+}
+
+// _.defaultTo
+namespace TestDefaultTo {
+    {
+        let result: number;
+        result = _.defaultTo<number>(42, 42);
+        result = _.defaultTo<number>(undefined, 42);
+        result = _.defaultTo<number>(null, 42);
+        result = _.defaultTo<number>(NaN, 42);
+    }
+
+    {
+        let result: string;
+        result = _.defaultTo<string>('a', 'default');
+        result = _.defaultTo<string>(undefined, 'default');
+        result = _.defaultTo<string>(null, 'default');
+    }
+
+    {
+        let result: boolean;
+        result = _.defaultTo<boolean>(true, true);
+        result = _.defaultTo<boolean>(undefined, true);
+        result = _.defaultTo<boolean>(null, true);
+    }
+
+    {
+        let result: string[];
+        result = _.defaultTo<string[]>(['a'], ['default']);
+        result = _.defaultTo<string[]>(undefined, ['default']);
+        result = _.defaultTo<string[]>(null, ['default']);
+    }
+
+    {
+        let result: {a: string};
+        result = _.defaultTo<{a: string}>({a: 'a'}, {a: 'a'});
+        result = _.defaultTo<{a: string}>(undefined, {a: 'a'});
+        result = _.defaultTo<{a: string}>(null, {a: 'a'});
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<number>;
+        result = _(42).defaultTo(42);
+        result = _(undefined).defaultTo(42);
+        result = _(null).defaultTo(42);
+        result = _(NaN).defaultTo(42);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<string>;
+        result = _('a').defaultTo('default');
+        result = _(null).defaultTo('default');
+        result = _(NaN).defaultTo('default');
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<boolean>;
+        result = _(true).defaultTo(true);
+        result = _(undefined).defaultTo(true);
+        result = _(null).defaultTo(true);
+        result = _(NaN).defaultTo(true);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<string[]>;
+        result = _(['a']).defaultTo(['default']);
+        result = _(undefined).defaultTo(['default']);
+        result = _(null).defaultTo(['default']);
+        result = _(NaN).defaultTo(['default']);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<{ a: string }>;
+        result = _({ a: 'a' }).defaultTo({a : 'a'});
+        result = _(undefined).defaultTo({a : 'a'});
+        result = _(null).defaultTo({a : 'a'});
+        result = _(NaN).defaultTo({a : 'a'});
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<number>;
+        result = _(42).chain().defaultTo(42);
+        result = _(undefined).chain().defaultTo(42);
+        result = _(null).chain().defaultTo(42);
+        result = _(NaN).chain().defaultTo(42);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<string>;
+        result = _('a').chain().defaultTo('default');
+        result = _(undefined).chain().defaultTo('default');
+        result = _(null).chain().defaultTo('default');
+        result = _(NaN).chain().defaultTo('default');
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<boolean>;
+        result = _(true).chain().defaultTo(true);
+        result = _(undefined).chain().defaultTo(true);
+        result = _(null).chain().defaultTo(true);
+        result = _(NaN).chain().defaultTo(true);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<string[]>;
+        result = _(['a']).chain().defaultTo(['default']);
+        result = _(undefined).chain().defaultTo(['default']);
+        result = _(null).chain().defaultTo(['default']);
+        result = _(NaN).chain().defaultTo(['default']);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<{ a: string }>;
+        result = _({ a: 'a' }).chain().defaultTo({a : 'a'});
+        result = _(undefined).chain().defaultTo({a : 'a'});
+        result = _(null).chain().defaultTo({a : 'a'});
+        result = _(NaN).chain().defaultTo({a : 'a'});
+    }
+
 }
 
 // _.identity

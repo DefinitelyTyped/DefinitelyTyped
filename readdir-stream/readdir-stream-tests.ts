@@ -1,5 +1,5 @@
-/// <reference path="./readdir-stream.d.ts" />
-/// <reference path="../node/node.d.ts" />
+
+/// <reference types="node" />
 
 import readdir = require('readdir-stream');
 

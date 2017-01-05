@@ -1,8 +1,9 @@
-﻿// Test file for react-mdl Definition file
-/// <reference path="react-mdl.d.ts" />
+// Test file for react-mdl Definition file
+
 
 import * as React from 'react';
-import {Badge,
+import {Chip, ChipContact,
+    Badge,
     FABButton, Button, IconButton,
     Card, CardActions, CardTitle, CardText, CardMenu, CardMedia,
     Checkbox,
@@ -48,6 +49,34 @@ React.createClass({
             </div>
         );
     }
+});
+
+// Chip tests
+React.createClass({
+    render: function() {
+        return (
+            <div>
+                <Chip>Basic chip</Chip>
+
+                <Chip onClose={e => { alert('Close icon clicked!'); }}>Deletable Chip</Chip>
+
+                <Chip onClick={e => { alert('Clicked!'); }}>Button Chip</Chip>
+                {/* Contact Chip */}
+                <Chip>
+                    <ChipContact className="mdl-color--teal mdl-color-text--white">A</ChipContact>
+                    Contact chip
+                </Chip>
+
+                {/* User Contact Chip */}
+                <Chip onClose={e => { alert('Close icon clicked!'); }}>
+                    <ChipContact
+                        style={{ background: 'url("https://placekitten.com/150/150") 0 0 / cover' }}
+                    />
+                    Deletable user contact chip
+                </Chip>
+            </div>
+        );
+    } 
 });
 
 // Button tests
@@ -166,7 +195,7 @@ React.createClass({
                 <Card shadow={0} style={{width: '256px', height: '256px', background: 'url(http://www.getmdl.io/assets/demos/image_card.jpg) center / cover', margin: 'auto'}}>
                     <CardTitle expand />
                     <CardActions style={{height: '52px', padding: '16px', background: 'rgba(0,0,0,0.2)'}}>
-                        <span style={{color: '#fff', fontSize: '14px', fontWeight: '500'}}>
+                        <span style={{color: '#fff', fontSize: '14px', fontWeight: 500 }}>
                             Image.jpg
                         </span>
                     </CardActions>
@@ -310,8 +339,8 @@ React.createClass({
                 </div>
                 
                 <div>
-                    <Button colored onClick={this.handleOpenDialog} onCancel={this.handleCloseDialog} raised ripple>Show Dialog</Button>
-                    <Dialog open={this.state.openDialog} onCancel={this.handleCloseDialog}>
+                    <Button colored onClick={this.handleOpenDialog} onAbort={this.handleCloseDialog} raised ripple>Show Dialog</Button>
+                    <Dialog open={this.state.openDialog} onAbort={this.handleCloseDialog}>
                     <DialogTitle>Allow data collection?</DialogTitle>
                     <DialogContent>
                         <p>Allowing us to collect data will let us get you the information you want faster.</p>

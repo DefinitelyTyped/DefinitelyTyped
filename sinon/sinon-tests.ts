@@ -1,4 +1,4 @@
-/// <reference path="sinon.d.ts" />
+import sinon = require("sinon");
 
 function once(fn: Function) {
     var returnValue: any, called = false;
@@ -110,8 +110,12 @@ testSeven();
 testEight();
 testNine();
 
-var clock: Sinon.SinonFakeTimers = sinon.useFakeTimers();
+var clock = sinon.useFakeTimers();
 clock.setSystemTime(1000);
 clock.setSystemTime(new Date());
 
+class TestCreateStubInstance {
+    someTestMethod(testArg : string) {};
+}
 
+sinon.createStubInstance(TestCreateStubInstance).someTestMethod('some argument');

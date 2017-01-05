@@ -1,5 +1,3 @@
-/// <reference path="ssh2-sftp-client.d.ts"/>
-
 import * as Client from 'ssh2-sftp-client';
 var client = new Client();
 

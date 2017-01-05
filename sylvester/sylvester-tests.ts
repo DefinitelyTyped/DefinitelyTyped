@@ -1,4 +1,3 @@
-﻿/// <reference path="sylvester.d.ts" />
 interface IAny {
     a: any;
 }

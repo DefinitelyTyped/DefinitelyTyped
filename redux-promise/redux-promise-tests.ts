@@ -1,10 +1,6 @@
-/// <reference path="redux-promise.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="../redux-actions/redux-actions.d.ts" />
-
 import {createAction} from 'redux-actions';
 import { createStore, applyMiddleware, PromiseAction } from 'redux';
-import promise from 'redux-promise';
+import promise = require('redux-promise');
 
 declare var userReducer: any;
 

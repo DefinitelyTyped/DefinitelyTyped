@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "slickgrid-tests.ts",
+        "slick.autotooltips.d.ts",
+        "slick.autotooltips-tests.ts",
+        "slick.checkboxselectcolumn.d.ts",
+        "slick.checkboxselectcolumn-tests.ts",
+        "slick.columnpicker.d.ts",
+        "slick.headerbuttons.d.ts",
+        "slick.rowselectionmodel.d.ts"
+    ]
+}

@@ -1,4 +1,4 @@
-/// <reference path="contentful-resolve-response.d.ts" />
+
 import resolveResponse = require('contentful-resolve-response');
 
 var response = {

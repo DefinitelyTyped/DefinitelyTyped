@@ -1,5 +1,5 @@
-/// <reference path="../../stats/stats.d.ts" />
-/// <reference path="../physijs.d.ts" />
+/// <reference types="stats.js" />
+
 
 
 var TWEEN: any;
@@ -18,20 +18,20 @@ initScene = function() {
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize( window.innerWidth, window.innerHeight );
     renderer.shadowMapEnabled = true;
-    renderer.shadowMapSoft = true;
+    // renderer.shadowMapSoft = true;
     document.getElementById( 'viewport' ).appendChild( renderer.domElement );
 
     render_stats = new Stats();
-    render_stats.domElement.style.position = 'absolute';
-    render_stats.domElement.style.top = '0px';
-    render_stats.domElement.style.zIndex = 100;
-    document.getElementById( 'viewport' ).appendChild( render_stats.domElement );
+    render_stats.dom.style.position = 'absolute';
+    render_stats.dom.style.top = '0px';
+    render_stats.dom.style.zIndex = '100';
+    document.getElementById( 'viewport' ).appendChild( render_stats.dom );
 
     physics_stats = new Stats();
-    physics_stats.domElement.style.position = 'absolute';
-    physics_stats.domElement.style.top = '50px';
-    physics_stats.domElement.style.zIndex = 100;
-    document.getElementById( 'viewport' ).appendChild( physics_stats.domElement );
+    physics_stats.dom.style.position = 'absolute';
+    physics_stats.dom.style.top = '50px';
+    physics_stats.dom.style.zIndex = '100';
+    document.getElementById( 'viewport' ).appendChild( physics_stats.dom );
 
     scene = new Physijs.Scene({ fixedTimeStep: 1 / 120 });
     scene.setGravity(new THREE.Vector3( 0, -30, 0 ));
@@ -66,7 +66,7 @@ initScene = function() {
     light.shadowCameraFar = 200;
     light.shadowBias = -.0001
     light.shadowMapWidth = light.shadowMapHeight = 2048;
-    light.shadowDarkness = .7;
+    // light.shadowDarkness = .7;
     scene.add( light );
 
     // Materials
@@ -75,8 +75,8 @@ initScene = function() {
         .8, // high friction
         .4 // low restitution
     );
-    ground_material.map.wrapS = ground_material.map.wrapT = THREE.RepeatWrapping;
-    ground_material.map.repeat.set( 2.5, 2.5 );
+    // ground_material.map.wrapS = ground_material.map.wrapT = THREE.RepeatWrapping;
+    // ground_material.map.repeat.set( 2.5, 2.5 );
 
     // Ground
     ground = new Physijs.BoxMesh(
@@ -204,7 +204,7 @@ createShape = (function() {
                 break;
         }
 
-        shape.material.color.setRGB( Math.random() * 100 / 100, Math.random() * 100 / 100, Math.random() * 100 / 100 );
+        // shape.material.color.setRGB( Math.random() * 100 / 100, Math.random() * 100 / 100, Math.random() * 100 / 100 );
         shape.castShadow = true;
         shape.receiveShadow = true;
 

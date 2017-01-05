@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "noImplicitAny": true,
+        "noImplicitThis": false,
+        "strictNullChecks": false,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "chrome.d.ts",
+        "edge.d.ts",
+        "executors.d.ts",
+        "firefox.d.ts",
+        "http.d.ts",
+        "ie.d.ts",
+        "opera.d.ts",
+        "remote.d.ts",
+        "safari.d.ts",
+        "testing.d.ts",
+        "selenium-webdriver-tests.ts"
+    ]
+}
