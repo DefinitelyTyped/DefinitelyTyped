@@ -17,7 +17,7 @@ declare namespace qq {
         concurrent?: ChunkingConcurrentOptions;
         enabled?: boolean;          // default false
         mandatory?: boolean;        // default false
-        partSize?: number           // default 2,000,000
+        partSize?: number;          // default 2,000,000
         paramNames?: ChunkingParamNames;
         success?: ChunkingSuccess;
     }
@@ -60,7 +60,7 @@ declare namespace qq {
     }
 
     interface FormOptions {
-        element?: String | HTMLElement; // default: qq-form
+        element?: string | HTMLElement; // default: qq-form
         autoUpload?: boolean;           // default: false
         interceptSubmit?: boolean;      // default: true
     }
@@ -101,7 +101,7 @@ declare namespace qq {
         preventRetryResponseProperty?: string;  // default: preventRetry
     }
 
-    interface RequestOptions<H,P> {
+    interface RequestOptions <H ,P> {
         customHeaders?: H;          // default: {}
         endpoint?: string;          // default: /server/upload
         filenameParam?: string;     // default: qqfilename
@@ -240,7 +240,7 @@ declare namespace qq {
     }
 
     interface BlobWrapper {
-        blob: Blob,
+        blob: Blob;
         name: string;
     }
 
@@ -255,7 +255,9 @@ declare namespace qq {
         blob: File | Blob;
         height: number;
         image: HTMLImageElement;
-         sourceCanvas: HTMLCanvasElement; targetCanvas: HTMLCanvasElement; width: number
+        sourceCanvas: HTMLCanvasElement;
+        targetCanvas: HTMLCanvasElement;
+        width: number;
     }
 
     interface ResumableItem {
@@ -332,4 +334,3 @@ declare namespace qq {
         removeExtraDropzone(element: HTMLElement): void;
     }
 }
-
