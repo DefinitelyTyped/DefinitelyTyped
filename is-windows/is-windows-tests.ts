@@ -1,3 +1,2 @@
-import * as isWindows from 'is-windows';
-
+import isWindows = require("is-windows");
 var bool: boolean = isWindows();
