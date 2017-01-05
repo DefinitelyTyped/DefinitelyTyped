@@ -1,117 +1,12 @@
-import * as webdriver from "selenium-webdriver";
-import * as chrome from "selenium-webdriver/chrome";
-import * as remote from "selenium-webdriver/remote";
-import * as executors from "selenium-webdriver/executors";
-import * as firefox from "selenium-webdriver/firefox";
-import * as testing from "selenium-webdriver/testing";
-
-function TestChromeDriver() {
-    var driver: chrome.Driver = new chrome.Driver();
-    driver = new chrome.Driver(webdriver.Capabilities.chrome());
-    driver = new chrome.Driver(webdriver.Capabilities.chrome(), new remote.DriverService('executable', new chrome.Options()), new webdriver.promise.ControlFlow());
-
-    var baseDriver: webdriver.WebDriver = driver;
-}
-
-function TestChromeOptions() {
-    var options: chrome.Options = new chrome.Options();
-    options = chrome.Options.fromCapabilities(webdriver.Capabilities.chrome());
-
-    options = options.addArguments("a", "b", "c");
-    options = options.addExtensions("a", "b", "c");
-    options = options.excludeSwitches("a", "b", "c");
-    options = options.detachDriver(true);
-    options = options.setChromeBinaryPath("path");
-    options = options.setChromeLogFile("logfile");
-    options = options.setLocalState("state");
-    options = options.androidActivity("com.example.Activity");
-    options = options.androidDeviceSerial("emulator-5554");
-    options = options.androidChrome();
-    options = options.androidPackage("com.android.chrome");
-    options = options.androidProcess("com.android.chrome");
-    options = options.androidUseRunningApp(true);
-    options = options.setLoggingPrefs(new webdriver.logging.Preferences());
-    options = options.setPerfLoggingPrefs({ enableNetwork: true, enablePage: true, enableTimeline: true, tracingCategories: "category", bufferUsageReportingInterval: 1000 });
-    options = options.setProxy({ proxyType: "proxyType" });
-    options = options.setUserPreferences("preferences");
-    var capabilities: webdriver.Capabilities = options.toCapabilities();
-    capabilities = options.toCapabilities(webdriver.Capabilities.chrome());
-}
-
-function TestServiceBuilder() {
-    var builder: chrome.ServiceBuilder = new chrome.ServiceBuilder();
-    builder = new chrome.ServiceBuilder("exe");
-
-    var anything: any = builder.build();
-    builder = builder.usingPort(8080);
-    builder = builder.setAdbPort(5037);
-    builder = builder.loggingTo("path");
-    builder = builder.enableVerboseLogging();
-    builder = builder.setNumHttpThreads(5);
-    builder = builder.setUrlBasePath("path");
-    builder = builder.setStdio("config");
-    builder = builder.setStdio(["A", "B"]);
-    builder = builder.withEnvironment({ "A": "a", "B": "b" });
-}
-
-function TestChromeModule() {
-    var service: any = chrome.getDefaultService();
-    chrome.setDefaultService(new remote.DriverService('executable', new chrome.Options()));
-}
-
-function TestBinary() {
-    var binary: firefox.Binary = new firefox.Binary();
-    binary = new firefox.Binary("exe");
-
-    binary.addArguments("A", "B", "C");
-    var promise: webdriver.promise.Promise<void> = binary.kill();
-    binary.launch("profile").then(function (result: any) { });
-}
-
-function TestFirefoxDriver() {
-    var driver: firefox.Driver = new firefox.Driver();
-    driver = new firefox.Driver(webdriver.Capabilities.firefox());
-    driver = new firefox.Driver(webdriver.Capabilities.firefox(), new webdriver.promise.ControlFlow());
-
-    var baseDriver: webdriver.WebDriver = driver;
-}
-
-function TestFirefoxOptions() {
-    var options: firefox.Options = new firefox.Options();
-
-    options = options.setBinary("binary");
-    options = options.setBinary(new firefox.Binary());
-    options = options.setLoggingPreferences(new webdriver.logging.Preferences());
-    options = options.setProfile("profile");
-    options = options.setProfile(new firefox.Profile());
-    options = options.setProxy({ proxyType: "proxy" });
-    var capabilities: webdriver.Capabilities = options.toCapabilities();
-}
-
-function TestFirefoxProfile() {
-    var profile: firefox.Profile = new firefox.Profile();
-    profile = new firefox.Profile("dir");
-
-    var bool: boolean = profile.acceptUntrustedCerts();
-    profile.addExtension("ext");
-    bool = profile.assumeUntrustedCertIssuer();
-    profile.encode().then(function (prof: string) { });
-    var num: number = profile.getPort();
-    var anything: any = profile.getPreference("key");
-    bool = profile.nativeEventsEnabled();
-    profile.setAcceptUntrustedCerts(true);
-    profile.setAssumeUntrustedCertIssuer(true);
-    profile.setNativeEventsEnabled(true);
-    profile.setPort(8080);
-    profile.setPreference("key", "value");
-    profile.setPreference("key", 5);
-    profile.setPreference("key", true);
-    var stringPromise: webdriver.promise.Promise<string> = profile.writeToDisk();
-    stringPromise = profile.writeToDisk(true);
-}
+import * as webdriver from 'selenium-webdriver';
+import * as chrome from 'selenium-webdriver/chrome';
+import * as firefox from 'selenium-webdriver/firefox';
+import * as remote from 'selenium-webdriver/remote';
+import * as executors from 'selenium-webdriver/executors';
+import * as testing from 'selenium-webdriver/testing';
 
 function TestExecutors() {
-    var exec: webdriver.Executor = executors.createExecutor("url");
+    var exec: webdriver.Executor = executors.createExecutor('url');
     var promise: webdriver.promise.Promise<string>;
     exec = executors.createExecutor(promise);
 }
@@ -133,7 +28,7 @@ function TestBuilder() {
     builder = builder.setEnableNativeEvents(true);
     builder = builder.setFirefoxOptions(new firefox.Options());
     builder = builder.setLoggingPrefs(new webdriver.logging.Preferences());
-    builder = builder.setLoggingPrefs({ "key": "value" });
+    builder = builder.setLoggingPrefs({ 'key': 'value' });
     builder = builder.setProxy({ proxyType: 'type' });
     builder = builder.setScrollBehavior(1);
     builder = builder.usingServer('http://someserver');
@@ -191,7 +86,8 @@ function TestActionSequence() {
     sequence = sequence.mouseUp(element, webdriver.Button.LEFT);
 
     // SendKeys
-    sequence = sequence.sendKeys("A", "B", "C");
+    sequence = sequence.sendKeys('A', 'B', 'C');
+    sequence = sequence.sendKeys('A', webdriver.Key.NULL);
 
     sequence.perform().then(function () { });
 }
@@ -228,7 +124,7 @@ function TestAlert() {
     alert.accept().then(function () { });
     alert.dismiss().then(function () { });
     alert.getText().then(function (text: string) { });
-    alert.sendKeys("ABC").then(function () { });
+    alert.sendKeys('ABC').then(function () { });
 }
 
 function TestBrowser() {
@@ -268,7 +164,7 @@ function TestCapabilities() {
     capabilities = capabilities.set(webdriver.Capability.VERSION, { abc: 'def' });
     capabilities = capabilities.set(webdriver.Capability.VERSION, null);
     capabilities = capabilities.setLoggingPrefs(new webdriver.logging.Preferences());
-    capabilities = capabilities.setLoggingPrefs({ "key": "value" });
+    capabilities = capabilities.setLoggingPrefs({ 'key': 'value' });
     capabilities = capabilities.setProxy({ proxyType: 'Type' });
     capabilities = capabilities.setEnableNativeEvents(true);
     capabilities = capabilities.setScrollBehavior(1);
@@ -315,11 +211,11 @@ function TestCommand() {
     var command: webdriver.Command = new webdriver.Command(webdriver.CommandName.ADD_COOKIE);
 
     var name: string = command.getName();
-    var param: any = command.getParameter("param");
+    var param: any = command.getParameter('param');
 
     var params: any = command.getParameters();
 
-    command = command.setParameter("param", 123);
+    command = command.setParameter('param', 123);
     command = command.setParameters({ param: 123 });
 }
 
@@ -544,7 +440,7 @@ function TestBy() {
     locator = webdriver.By.tagName('tag');
     locator = webdriver.By.xpath('xpath');
 
-    // Can import "By" without import declarations
+    // Can import 'By' without import declarations
     var By = webdriver.By;
 
     var locatorHash: webdriver.ByHash;
@@ -689,7 +585,7 @@ function TestWebDriverWindow() {
 function TestWebDriver() {
     var session: webdriver.Session = new webdriver.Session('ABC', webdriver.Capabilities.android());
     var sessionPromise: webdriver.promise.Promise<webdriver.Session>;
-    var executor: webdriver.Executor = executors.createExecutor("http://someserver");
+    var executor: webdriver.Executor = executors.createExecutor('http://someserver');
     var flow: webdriver.promise.ControlFlow = new webdriver.promise.ControlFlow();
     var driver: webdriver.WebDriver = new webdriver.WebDriver(session, executor);
     driver = new webdriver.WebDriver(session, executor, flow);
@@ -810,7 +706,10 @@ function TestWebElement() {
     booleanPromise = element.isEnabled();
     booleanPromise = element.isSelected();
     voidPromise = element.sendKeys('A', 'B', 'C');
+    voidPromise = element.sendKeys(1, 2, 3);
+    voidPromise = element.sendKeys(webdriver.Key.BACK_SPACE);
     voidPromise = element.sendKeys(stringPromise, stringPromise, stringPromise);
+    voidPromise = element.sendKeys('A', 1, webdriver.Key.BACK_SPACE, stringPromise);
     voidPromise = element.submit();
     element.getId().then(function (id: string) { });
     element.getRawId().then(function (id: string) { });
@@ -834,7 +733,7 @@ function TestWebElementPromise() {
     elementPromise.then();
     elementPromise.then(function (element: webdriver.WebElement) { });
     elementPromise.then(function (element: webdriver.WebElement) { }, function (error: any) { });
-    elementPromise.then(function (element: webdriver.WebElement) { return "foo"; }, function (error: any) { }).then(function (result: string) { });
+    elementPromise.then(function (element: webdriver.WebElement) { return 'foo'; }, function (error: any) { }).then(function (result: string) { });
 
     elementPromise.thenCatch(function (error: any) { }).then(function (value: any) { });
 
@@ -886,7 +785,7 @@ function TestLoggingEntry() {
 
 function TestPromiseModule() {
     var cancellationError: webdriver.promise.CancellationError = new webdriver.promise.CancellationError();
-    cancellationError = new webdriver.promise.CancellationError("message");
+    cancellationError = new webdriver.promise.CancellationError('message');
     var str: string = cancellationError.message;
     str = cancellationError.name;
 
@@ -1079,7 +978,7 @@ function TestPromiseClass() {
 
 function TestThenableClass() {
     var thenable: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>((resolve, reject) => {
-        resolve("a");
+        resolve('a');
     });
 
     thenable.cancel('Abort');
@@ -1123,6 +1022,7 @@ function TestErrorCode() {
     errorCode = new webdriver.error.UnknownMethodError().code();
     errorCode = new webdriver.error.UnsupportedOperationError().code();
 }
+
 async function TestAsyncAwaitable() {
     var thenable: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>((resolve, reject) => resolve('foo'));
     var str: string = await thenable;
@@ -1135,17 +1035,17 @@ function TestTestingModule() {
     testing.beforeEach(function () {
     });
 
-    testing.describe("My test suite", function () {
-        testing.it("My test", function () {
+    testing.describe('My test suite', function () {
+        testing.it('My test', function () {
         });
 
-        testing.iit("My exclusive test.", function () {
+        testing.iit('My exclusive test.', function () {
         });
 
     });
 
-    testing.xdescribe("My disabled suite", function () {
-        testing.xit("My disabled test.", function () {
+    testing.xdescribe('My disabled suite', function () {
+        testing.xit('My disabled test.', function () {
         });
     });
 
