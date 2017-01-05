@@ -1,4 +1,4 @@
-import mockdate from 'mockdate';
+import * as mockdate from 'mockdate';
 
 mockdate.set(new Date());
 mockdate.set('2017-01-05');
