@@ -4,7 +4,7 @@
         "target": "es6",
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -14,7 +14,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "stripe-tests.ts"
+        "index.d.ts"
     ]
 }

@@ -1,6 +1,6 @@
 // Type definitions for Google Maps JavaScript API 3.25
 // Project: https://developers.google.com/maps/
-// Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,  Grant Hutchins <https://github.com/nertzy>
+// Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -30,7 +30,7 @@ THE SOFTWARE.
 declare namespace google.maps {
     /***** Map *****/
     export class Map extends MVCObject {
-        constructor(mapDiv: Element|null, opts?: MapOptions);
+        constructor(mapDiv: Element, opts?: MapOptions);
         fitBounds(bounds: LatLngBounds|LatLngBoundsLiteral): void;
         getBounds(): LatLngBounds;
         getCenter(): LatLng;
@@ -536,14 +536,14 @@ declare namespace google.maps {
         getTitle(): string;
         getVisible(): boolean;
         getZIndex(): number;
-        setAnimation(animation: Animation|null): void;
+        setAnimation(animation: Animation): void;
         setAttribution(attribution: Attribution): void;
         setClickable(flag: boolean): void;
         setCursor(cursor: string): void;
         setDraggable(flag: boolean): void;
         setIcon(icon: string|Icon|Symbol): void;
         setLabel(label: string|MarkerLabel): void;
-        setMap(map: Map|StreetViewPanorama|null): void;
+        setMap(map: Map|StreetViewPanorama): void;
         setOpacity(opacity: number): void;
         setOptions(options: MarkerOptions): void;
         setPlace(place: Place): void;

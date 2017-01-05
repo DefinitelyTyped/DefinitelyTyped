@@ -6,19 +6,19 @@
 // <reference types="node"/>
 // <reference types="chai" />
 
-declare global {
-	namespace Chai {
-		export interface Assert {
-			jsonSchema(value: any, schema: any, msg?: string): void;
-			notJsonSchema(value: any, schema: any, msg?: string): void;
-		}
+declare namespace Chai {
+	export interface Assert {
+		jsonSchema(value: any, schema: any, msg?: string): void;
+		notJsonSchema(value: any, schema: any, msg?: string): void;
+	}
 
-		export interface LanguageChains {
-			jsonSchema(schema: any, msg?: string): void;
-		}
+	export interface LanguageChains {
+		jsonSchema(schema: any, msg?: string): void;
 	}
 }
 
-declare function chaiJsonSchema(chai: any, utils: any): void;
-declare namespace chaiJsonSchema { }
-export = chaiJsonSchema;
+declare module "chai-json-schema" {
+	function chaiJsonSchema(chai: any, utils: any): void;
+    namespace chaiJsonSchema {}
+	export = chaiJsonSchema;
+}

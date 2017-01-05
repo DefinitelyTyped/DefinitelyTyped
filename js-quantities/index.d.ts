@@ -1,73 +1,79 @@
-// Type definitions for JS-quantities 1.6
+// Type definitions for JS-quantities
 // Project: http://gentooboontoo.github.io/js-quantities/
-// Definitions by: William Rummler <https://github.com/wrummler>
+// Definitions by: William Comartin <https://github.com/wcomartin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare const Qty: Qty.Type;
+declare var Qty: QtyModule.QtyStatic;
 
-declare interface Qty {
-    readonly numerator: string[];
-    readonly denominator: string[];
-    readonly scalar: number;
-    readonly baseScalar: number;
-    readonly initValue: string;
-    units(): string;
-    isCompatible(value: Qty.UnitSource): boolean;
-    kind(): string;
-    isUnitless(): boolean;
-    isBase(): boolean;
-    toBase(): Qty;
+declare namespace QtyModule {
+  interface QtyStatic {
+    (value: string): Qty;
+    (value: number): Qty;
+    (value: number, unit: string): Qty;
+    (value: Qty): Qty;
+  }
+
+  interface Qty {
+    version: string;
+
+    scalar: number;
+    baseScalar: number;
+
+    parse(value: string): Qty;
+
+    swiftConverter(srcUnits:string, dstUnits:string): (value:number) => number;
+
+    getkinds(): string[];
+
+    getUnits(kind:string): string[];
+
+    getAliases(unitName:string): string[];
+
+    formatter(scalar:number, units:string):string;
+
     toFloat(): number;
-    to(value: Qty.UnitSource): Qty;
+
+    isUnitless(): boolean;
+
+    isCompatible(other:string|Qty): boolean;
+
+    isInverse(other:string|Qty): boolean
+
+    kind(): string;
+
+    isBase(): boolean;
+
+    toBase(): Qty;
+
+    units(): string;
+
+    eq(other:Qty): boolean;
+    lt(other:Qty): boolean;
+    lte(other:Qty): boolean;
+    gt(other:Qty): boolean;
+    gte(other:Qty): boolean;
+
+    toPrec(precQuantity: Qty|string|number): Qty;
+
+    toString(targetUnitsOrMaxDecimalsOrPrec?:number|string|Qty, maxDecimals?: number): string;
+
+    format(targetUnits?:string, formatter?:(scalar:number, units:string) => string): string;
+
+    compareTo(other:Qty|string): number;
+
+    same(other: Qty): boolean;
+
     inverse(): Qty;
-    eq(value: Qty.UnitSource): boolean;
-    same(value: Qty.UnitSource): boolean;
-    lt(value: Qty.UnitSource): boolean;
-    lte(value: Qty.UnitSource): boolean;
-    gt(value: Qty.UnitSource): boolean;
-    gte(value: Qty.UnitSource): boolean;
-    compareTo(value: Qty): Qty.ComparisonResult;
-    add(value: Qty.Source): Qty;
-    sub(value: Qty.Source): Qty;
-    mul(value: Qty.Source): Qty;
-    div(value: Qty.Source): Qty;
-    toPrec(value: Qty.Source): Qty;
-    toString(valueOrPrecision?: Qty.Source): string;
-    toString(value: string, precision: number): string;
-    format(formatter?: Qty.Formatter): string;
-    format(value: string, formatter?: Qty.Formatter): string;
+
+    isDegrees(): boolean;
+
+    isTemperature(): boolean;
+
+    to(other:string|Qty): Qty;
+
+    add(other:string|Qty): Qty;
+    sub(other:string|Qty): Qty;
+    mul(other:number|string|Qty): Qty;
+    div(other:number|string|Qty): Qty;
+  }
 }
-
-declare namespace Qty {
-
-    interface Type {
-        (value: Source): Qty;
-        (value: number, unit: string): Qty;
-        new (value: Source): Qty;
-        new (value: number, unit: string): Qty;
-        parse(value: string): Qty;
-        getKinds(): string[];
-        getUnits(kind?: string): string[];
-        getAliases(unit: string): string[];
-        swiftConverter(sourceUnit: string, targetUnit: string): Converter;
-        formatter: Formatter;
-        readonly Error: any;
-        mulSafe(n1: number, n2: number): number;
-        divSafe(n1: number, n2: number): number;
-    }
-
-    interface Converter {
-        (sourceValue: number): number;
-        (sourceValues: number[]): number[];
-    }
-
-    type Formatter = (scalar: number, unit: string) => string;
-
-    type ComparisonResult = -1 | 0 | 1;
-
-    type Source = UnitSource | number;
-
-    type UnitSource = Qty | string;
-}
-
-export default Qty;
