@@ -14,6 +14,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "index.d.ts",
         "jquery.sap.d.ts",
         "sap.m.d.ts",
         "sap.ui.d.ts",

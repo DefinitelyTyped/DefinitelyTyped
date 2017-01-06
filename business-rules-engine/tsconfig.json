@@ -1,8 +1,4 @@
 {
-    "files": [
-        "index.d.ts",
-        "business-rules-engine-tests.ts"
-    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
@@ -16,5 +12,11 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "Utils.d.ts",
+        "Validation.d.ts",
+        "business-rules-engine-tests.ts"
+    ]
 }

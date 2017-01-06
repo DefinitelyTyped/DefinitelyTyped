@@ -16,6 +16,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-relay-test.tsx"
+        "react-relay-tests.tsx"
     ]
 }

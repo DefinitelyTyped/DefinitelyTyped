@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "react-addons-shallow-compare-tests.ts"
+        "react-addons-shallow-compare-tests.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",

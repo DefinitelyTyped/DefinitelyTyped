@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "base64url-test.ts"
+        "base64url-tests.ts"
     ]
 }

@@ -1,4 +1,4 @@
-import isPromise = require("./");
+import isPromise = require("is-promise");
 
 isPromise({ then() { }});
 isPromise(null);
