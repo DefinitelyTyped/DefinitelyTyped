@@ -1,3 +1,5 @@
+/// <reference path="index.d.ts" />
+/// <reference path="../parature.d.ts" />
 
 
 function _getContext()
@@ -42,6 +44,9 @@ var lookupValues = lookupAttribute.getAttribute().getValue();
 if ( lookupValues !== null )
     if ( !lookupValues[0].id || !lookupValues[0].entityType )
         throw new Error("Invalid value in Lookup control.");
+
+if (Xrm.Page.data.process != null)
+    Xrm.Page.data.process.moveNext(( status ) => { alert( `Process moved forward with status: ${status}` ) });
 
 Xrm.Page.ui.controls.forEach(( control ) => { control.setVisible( true ); });
 
