@@ -101,3 +101,12 @@ fs.ensureSymlink(path, errorCallback);
 fs.ensureSymlinkSync(path);
 fs.emptyDir(path, errorCallback);
 fs.emptyDirSync(path);
+
+var items: string[];
+fs.walk("my-path")
+  .on('data', function (item) {
+    items.push(item.path);
+  })
+  .on('end', function () {
+    console.dir(items);
+  });
