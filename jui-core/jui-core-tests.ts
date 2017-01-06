@@ -1,3 +1,5 @@
+/// <reference types="jquery"/>
+
 import {jui, UtilColor, UtilBase} from "./index";
 
 jui.ready(["util.color"], function(color: UtilColor) {
