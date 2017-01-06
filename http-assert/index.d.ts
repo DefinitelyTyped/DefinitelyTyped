@@ -3,16 +3,50 @@
 // Definitions by: jKey Lu <https://github.com/jkeylu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare interface createAssert {
-    (value: any, status?: number, msg?: string, opts?: {}): void;
-    equal(a: any, b: any, status?: number, msg?: string, opts?: {}): void;
-    notEqual(a: any, b: any, status?: number, msg?: string, opts?: {}): void;
-    strictEqual(a: any, b: any, status?: number, msg?: string, opts?: {}): void;
-    notStrictEqual(a: any, b: any, status?: number, msg?: string, opts?: {}): void;
-    deepEqual(a: any, b: any, status?: number, msg?: string, opts?: {}): void;
-    notDeepEqual(a: any, b: any, status?: number, msg?: string, opts?: {}): void;
-}
+/**
+ * @param {number} [status] the status code
+ * @param {string} [msg] the message of the error, defaulting to node's text for that status code
+ * @param {object} [opts] custom properties to attach to the error object
+ */
+declare function assert(value: any, status?: number, msg?: string, opts?: {}): void;
 
-declare const assert: createAssert;
+declare namespace assert {
+    /**
+     * @param {number} [status] the status code
+     * @param {string} [msg] the message of the error, defaulting to node's text for that status code
+     * @param {object} [opts] custom properties to attach to the error object
+     */
+    function equal<T>(a: T, b: T, status?: number, msg?: string, opts?: {}): void;
+    /**
+     * @param {number} [status] the status code
+     * @param {string} [msg] the message of the error, defaulting to node's text for that status code
+     * @param {object} [opts] custom properties to attach to the error object
+     */
+    function notEqual<T>(a: T, b: T, status?: number, msg?: string, opts?: {}): void;
+    /**
+     * @param {number} [status] the status code
+     * @param {string} [msg] the message of the error, defaulting to node's text for that status code
+     * @param {object} [opts] custom properties to attach to the error object
+     */
+    function strictEqual<T>(a: T, b: T, status?: number, msg?: string, opts?: {}): void;
+    /**
+     * @param {number} [status] the status code
+     * @param {string} [msg] the message of the error, defaulting to node's text for that status code
+     * @param {object} [opts] custom properties to attach to the error object
+     */
+    function notStrictEqual<T>(a: T, b: T, status?: number, msg?: string, opts?: {}): void;
+    /**
+     * @param {number} [status] the status code
+     * @param {string} [msg] the message of the error, defaulting to node's text for that status code
+     * @param {object} [opts] custom properties to attach to the error object
+     */
+    function deepEqual<T>(a: T, b: T, status?: number, msg?: string, opts?: {}): void;
+    /**
+     * @param {number} [status] the status code
+     * @param {string} [msg] the message of the error, defaulting to node's text for that status code
+     * @param {object} [opts] custom properties to attach to the error object
+     */
+    function notDeepEqual<T>(a: T, b: T, status?: number, msg?: string, opts?: {}): void;
+}
 
 export = assert;
