@@ -73,7 +73,7 @@ declare namespace Draft {
 
                 // Provide a function that will construct CSS style objects given inline
                 // style names.
-                customStyleFn?: (style: DraftInlineStyle, block: ContentBlock) => Object;
+                customStyleFn?: (style: DraftInlineStyle) => Object;
 
                 // A function that accepts a synthetic key event and returns
                 // the matching DraftEditorCommand constant, or null if no command should
