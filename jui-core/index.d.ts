@@ -9,7 +9,7 @@ declare var jui: JuiStatic;
 
 declare type ClassFunction = (() => any);
 declare type VoidFunction = (() => void);
-declare type AnyFunction = ((...args:any[]) => any);
+declare type AnyFunction = ((...args: any[]) => any);
 
 interface UtilBase {
     /**
@@ -37,7 +37,7 @@ interface UtilBase {
      * @param {Function} ctor base Class
      * @param {Function} superCtor super Class
      */
-    inherit ( ctor: ClassFunction, superCtor: ClassFunction ): void;
+    inherit( ctor: ClassFunction, superCtor: ClassFunction ): void;
 
     /**
      * @method extend
@@ -149,7 +149,7 @@ interface UtilBase {
      * @param {Number} dataSize
      * @return {String}  변환된 csv 문자열
      */
-    dataToCsv (keys: string[] , dataList: any[], dataSize: number): string;
+    dataToCsv(keys: string[] , dataList: any[], dataSize: number): string;
 
     /**
      * @method dataToCsv2
@@ -318,7 +318,7 @@ interface UtilBase {
      * @param {String} searchString
      * @return {Number} position
      */
-    endsWith (str: string, searchString: string, position?: number): number;
+    endsWith(str: string, searchString: string, position?: number): number;
 
     inArray(target: any, list: any[]): number;
 
@@ -637,7 +637,7 @@ export interface UtilColor {
      * @param {Number} V  Value number 		(min : 0, max : 1 )
      * @returns {Object}
      */
-    HSVtoRGB (H: number, S: number, V: number): any;
+    HSVtoRGB(H: number, S: number, V: number): any;
 
     /**
      * @method RGBtoHSV
