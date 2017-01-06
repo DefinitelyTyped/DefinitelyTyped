@@ -78,13 +78,7 @@ Once you've tested your definitions with real code, make a PR contributing the d
 
 Once you've tested your package, you can share it on DefinitelyTyped.
 
-First, [fork](https://guides.github.com/activities/forking/) this repository.
-Then inside your repository:
-
-* `git checkout types-2.0`
-
-New work should generally be done on the `types-2.0` branch.
-If you want your changes to be available to `typings` users, then you may edit `master` instead.
+First, [fork](https://guides.github.com/activities/forking/) this repository, install [node](https://nodejs.org/), and run `npm install`.
 
 
 #### Edit an existing package
@@ -121,7 +115,7 @@ You may edit the `tsconfig.json` to add new files or to add the `"jsx"` compiler
 
 DefinitelyTyped members routinely monitor for new PRs, though keep in mind that the number of other PRs may slow things down.
 
-For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/types-2.0/base64-js).
+For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/base64-js).
 
 
 #### Common mistakes
@@ -187,10 +181,8 @@ Test the linter by running `npm run lint -- package-name`. Do not use a globally
 
 #### What exactly is the relationship between this repository and the `@types` packages on NPM?
 
-The `types-2.0` branch is automatically published to the `@types` scope on NPM thanks to [types-publisher](https://github.com/Microsoft/types-publisher).
+The `master` branch is automatically published to the `@types` scope on NPM thanks to [types-publisher](https://github.com/Microsoft/types-publisher).
 This usually happens within an hour of changes being merged.
-
-Changes to the `master` branch are also manually merged into the `types-2.0` branch, but this takes longer.
 
 #### I'm writing a definition that depends on another definition. Should I use `<reference types="" />` or an import?
 
@@ -205,18 +197,13 @@ If you're adding a new major version of a library, you can copy `index.d.ts` to 
 #### I notice some packages having a `package.json` here.
 
 Usually you won't need this. When publishing a package we will normally automatically create a `package.json` for it.
-A `package.json` may be included for the sake of specifying dependencies. Here's an [example](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/types-2.0/pikaday/package.json).
+A `package.json` may be included for the sake of specifying dependencies. Here's an [example](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/pikaday/package.json).
 We do not allow other fields, such as `"description"`, to be defined manually.
 Also, if you need to reference an older version of typings, you must do that by adding `"dependencies": { "@types/foo": "x.y.z" }` to the package.json.
 
 #### I notice some `tsconfig.json` are missing `"noImplicitAny": true` or `"strictNullChecks": true`.
 
 Then they are wrong. You can help by submitting a pull request to fix them.
-
-#### Definitions in types-2.0 seem written differently than in master.
-
-If you're targeting types-2.0, write it like the types-2.0 definitions.
-If you're targeting master, we may change it to the new style when merging from master to types-2.0.
 
 #### Can I request a definition?
 
