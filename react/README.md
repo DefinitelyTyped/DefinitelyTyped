@@ -17,9 +17,6 @@ This directory contains type definitions for the following React packages:
 If you are using modules you should use `react.d.ts`, `react-dom.d.ts` or any of the `react-addons-*.d.ts` definition files. If `React` is in your global namespace, you should use `react-global.d.ts`.
 
 ## Known Problems & Workarounds
-
-### **The type of `setState` is incorrect.**
-The `setState(state)` method on `React.Component<P, S>` takes an object with a subset of the properties on `S`, but there's no way to express this in TypeScript currently. The workaround is simple: make all properties on `S` optional. There are a number of [proposals](https://github.com/Microsoft/TypeScript/issues/2710) on [ways](https://github.com/Microsoft/TypeScript/issues/4889) to [solve](https://github.com/Microsoft/TypeScript/issues/7355) this problem, but nothing seems to have been approved yet.
   
 ### **The type of `cloneElement` is incorrect.**
 This is similar to the `setState` problem, in that `cloneElement(element, props)` should should accept a `props` object with a subset of the properties on `element.props`. There is an additional complication, however—React attributes, such as `key` and `ref`, should also be accepted in `props`, but should not exist on `element.props`. The "correct" way to model this, then, is with
