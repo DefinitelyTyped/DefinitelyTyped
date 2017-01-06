@@ -175,5 +175,7 @@ namespace PouchDBCoreTests {
             heartbeat: false,
             filter: (doc: any, params: any) => {}
         });
+
+        db.changes({ limit: 50 }).then(() => {});
     }
 }
