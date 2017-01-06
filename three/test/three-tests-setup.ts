@@ -5,16 +5,6 @@
 /// <reference types="stats.js" />
 /// <reference types="dat-gui" />
 
-
-
-
-
-
-
-
-
-
-
 declare namespace THREE {
     var AWDLoader: any;
     var FlyControls: any;
