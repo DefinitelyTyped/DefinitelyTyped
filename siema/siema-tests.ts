@@ -13,5 +13,4 @@ const siema = new Siema({
 
 siema.next();
 siema.prev();
-siema.goTo(0);
-siema.currentSlide;
+siema.goTo(siema.currentSlide);
