@@ -1,5 +1,5 @@
-/// <reference path="xrm.d.ts" />
-/// <reference path="parature.d.ts" />
+/// <reference path="index.d.ts" />
+/// <reference path="../parature.d.ts" />
 
 /// Demonstrate usage in the browser's window object
 
@@ -41,7 +41,7 @@ grids.forEach(( gridControl: Xrm.Page.GridControl ) =>
     gridControl.getGrid().getSelectedRows().forEach(( row ) =>
     {
         selectedGridReferences.push( row.getData().getEntity().getEntityReference() );
-    })
+    });
 });
 
 /// Demonstrate generic overload vs typecast
