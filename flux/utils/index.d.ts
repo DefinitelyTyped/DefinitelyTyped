@@ -46,35 +46,6 @@ declare namespace FluxUtils {
         static create<TComponent>(base: React.ComponentClass<TComponent>, options?: RealOptions): React.ComponentClass<TComponent>;
     }
 
-    /**
-    * This class extends ReduceStore and defines the state as an immutable map.
-    */
-    export class MapStore<K extends string | number, V, TPayload> extends ReduceStore<immutable.Map<K, V>, TPayload> {
-        /**
-        * Access the value at the given key.
-        * Throws an error if the key does not exist in the cache.
-        */
-        at(key: K): V;
-
-        /**
-        *  Check if the cache has a particular key
-        */
-        has(key: K): boolean;
-
-        /**
-        * Get the value of a particular key.
-        * Returns undefined if the key does not exist in the cache.
-        */
-        get(key: K): V;
-
-        /**
-        * Gets an array of keys and puts the values in a map if they exist,
-        * it allows providing a previous result to update instead of generating a new map.
-        * Providing a previous result allows the possibility of keeping the same reference if the keys did not change.
-        */
-        getAll(keys: immutable.Iterable.Indexed<K>, prev?: immutable.Map<K, V>): immutable.Map<K, V>;
-    }
-
     export class ReduceStore<T, TPayload> extends Store<TPayload> {
         /**
         * Getter that exposes the entire state of this store.
