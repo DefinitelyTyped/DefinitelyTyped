@@ -2,6 +2,7 @@
 // Project: https://facebook.github.io/draft-js/
 // Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>, Eelco Lempsink <https://github.com/eelco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as React from 'react';
 import * as Immutable from 'immutable';
