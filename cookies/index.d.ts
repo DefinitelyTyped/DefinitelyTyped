@@ -29,6 +29,15 @@ declare interface Cookies {
 
 
 declare namespace Cookies {
+    /**
+     * for backward-compatibility
+     */
+    export type ICookies = Cookies;
+    /**
+     * for backward-compatibility
+     */
+    export type IOptions = SetOption;
+
     export interface Option {
         keys: string[] | Keygrip;
         secure?: boolean;
@@ -127,10 +136,12 @@ declare interface CookiesFunction {
     /**
      * "options" array of key strings is deprecated, provide using options {"keys": keygrip}
      */
+    // tslint:disable-next-line:unified-signatures
     new (request: IncomingMessage, response: ServerResponse, options: string[]): Cookies;
     /**
      * "options" instance of Keygrip is deprecated, provide using options {"keys": keygrip}
      */
+    // tslint:disable-next-line:unified-signatures
     new (request: IncomingMessage, response: ServerResponse, options: Keygrip): Cookies;
 
     Cookie: {
