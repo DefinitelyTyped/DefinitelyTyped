@@ -33,9 +33,9 @@ interface UtilBase {
      * @param {Function} ctor base Class
      * @param {Function} superCtor super Class
      */
-    // tslint:disable-next-line:callable-types
+    /* tslint:disable-next-line:callable-types */
     inherit (ctor: () => void, superCtor: () => void): void;
-
+    /* tslint:enable-next-line:callable-types */
     /**
      * @method extend
      *
