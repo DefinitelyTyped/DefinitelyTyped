@@ -1,0 +1,20 @@
+{
+    "files": [
+        "index.d.ts",
+        "xrm-v7.0-tests.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}
