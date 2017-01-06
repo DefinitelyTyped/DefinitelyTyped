@@ -1,11 +1,9 @@
-// Type definitions for csv-stringify 0.0.6
+// Type definitions for csv-stringify 1.0
 // Project: https://github.com/wdavidw/node-csv-stringify
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-
-
 
 declare namespace stringify {
     interface StringifyOpts {
@@ -57,26 +55,24 @@ declare namespace stringify {
     }
 
     interface Stringifier extends NodeJS.ReadWriteStream {
-
-			// Stringifier stream takes array of strings or Object
-			write(line: string[] | Object): boolean;
+        // Stringifier stream takes array of strings or Object
+        write(line: string[] | any): boolean;
 
         // repeat declarations from NodeJS.WritableStream to avoid compile error
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
+        write(buffer: string | Buffer, cb?: () => void): boolean;
+        write(str: string, encoding?: string, cb?: () => void): boolean;
     }
 }
 
 /**
- * Callback version: string in --> callback with string out
- */
-declare function stringify(input: any[][], opts: stringify.StringifyOpts, callback: (error: Error, output: string) => void): void;
-declare function stringify(input: any[][], callback: (error: Error, output: string) => void): void;
-
-/**
  * Streaming stringifier
  */
-declare function stringify(opts: stringify.StringifyOpts): stringify.Stringifier;
+declare function stringify(opts?: stringify.StringifyOpts): stringify.Stringifier;
+
+/**
+ * Callback version: string in --> callback with string out
+ */
+declare function stringify(input: any[][], opts: stringify.StringifyOpts, callback: (error: Error | undefined, output: string) => void): void;
+declare function stringify(input: any[][], callback: (error: Error | undefined, output: string) => void): void;
 
 export = stringify;

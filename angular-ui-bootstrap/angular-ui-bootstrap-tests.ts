@@ -38,6 +38,7 @@ testApp.config((
     $datepickerConfig.formatMonth = 'M';
     $datepickerConfig.formatMonthTitle = 'yy';
     $datepickerConfig.formatYear = 'y';
+    $datepickerConfig.initDate = '1389586124979';
     $datepickerConfig.maxDate = '1389586124979';
     $datepickerConfig.maxMode = 'month';
     $datepickerConfig.minDate = '1389586124979';
@@ -154,6 +155,8 @@ testApp.controller('TestCtrl', (
      * test the $modal service
      */
     var modalInstance = $modal.open({
+        ariaLabelledBy: "label",
+        ariaDescribedBy: "description",
         animation: false,
         backdrop: 'static',
         backdropClass: 'modal-backdrop-test',

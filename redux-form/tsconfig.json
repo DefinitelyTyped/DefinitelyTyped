@@ -2,8 +2,11 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
+        "experimentalDecorators": true,
         "noImplicitAny": true,
-        "strictNullChecks": false,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "jsx": "react",
         "typeRoots": [

@@ -26,6 +26,10 @@ import getPaths, { basename } from 'enhanced-resolve/lib/getPaths';
 
 import { globToRegExp } from 'enhanced-resolve/lib/globToRegExp';
 
+import Storage from 'enhanced-resolve/lib/Storage';
+
+import { AbstractInputFileSystem } from 'enhanced-resolve/lib/common-types';
+
 import JoinRequestPlugin = require('enhanced-resolve/lib/JoinRequestPlugin');
 
 import LogInfoPlugin = require('enhanced-resolve/lib/LogInfoPlugin');
@@ -48,8 +52,6 @@ import Resolver = require('enhanced-resolve/lib/Resolver');
 
 import ResultPlugin = require('enhanced-resolve/lib/ResultPlugin');
 
-import Storage from 'enhanced-resolve/lib/Storage'
-
 import SymlinkPlugin = require('enhanced-resolve/lib/SymlinkPlugin');
 
 import TryNextPlugin = require('enhanced-resolve/lib/TryNextPlugin');
@@ -59,8 +61,6 @@ import UnsafeCachePlugin = require('enhanced-resolve/lib/UnsafeCachePlugin');
 import UseFilePlugin = require('enhanced-resolve/lib/UseFilePlugin');
 
 import resolve = require('../');
-
-import { BaseFileSystem } from 'enhanced-resolve/lib/common-types'
 
 const aplugin = new AliasFieldPlugin('a', 'b', 'c');
 
@@ -95,7 +95,7 @@ DescriptionFileUtils.cdUp('./lib');
 DescriptionFileUtils.getField({}, 'hi');
 DescriptionFileUtils.loadDescriptionFile(resolve.ResolverFactory.createResolver({
     extensions: [''],
-    fileSystem: {}
+    fileSystem: {} as AbstractInputFileSystem
 }), './lib', ['file'], function () { });
 
 const dplugin1 = new DirectoryExistsPlugin('string', 'string');
@@ -131,7 +131,7 @@ const nplugin = new NextPlugin('string', 'ap');
 
 const pplugin = new ParsePlugin('string', 'ap');
 
-const resolver = new Resolver({} as BaseFileSystem);
+const resolver = new Resolver({} as AbstractInputFileSystem);
 
 const rplugin = new ResultPlugin('string');
 

@@ -8,6 +8,7 @@
 /// <reference types="node" />
 
 import * as stream from 'stream';
+import { Stats } from "fs";
 export * from "fs";
 
 export declare function copy(src: string, dest: string, callback?: (err: Error) => void): void;
@@ -72,8 +73,21 @@ export declare function ensureSymlinkSync(path: string): void;
 
 export declare function emptyDir(path: string, callback?: (err: Error) => void): void;
 export declare function emptyDirSync(path: string): boolean;
-	
-    export interface CopyFilterFunction {
+
+export interface WalkEventEmitter {
+    on(event: 'data', callback: (file: WalkEventFile) => void): WalkEventEmitter;
+    on(event: 'end', callback: () => void): WalkEventEmitter;
+    on(event: string, callback: Function): WalkEventEmitter;
+}
+
+export interface WalkEventFile {
+    path: string;
+    stats: Stats;
+}
+
+export function walk(path: string, options?: {}): WalkEventEmitter;
+
+export interface CopyFilterFunction {
     (src: string): boolean
 }
 
@@ -86,11 +100,11 @@ export interface CopyOptions {
     filter?: CopyFilter
     recursive?: boolean
 }
-	
-	export interface MoveOptions {
-		clobber? : boolean;
-		limit?: number;
-	}
+
+export interface MoveOptions {
+    clobber? : boolean;
+    limit?: number;
+}
 
 export interface MoveOptions {
     clobber? : boolean;

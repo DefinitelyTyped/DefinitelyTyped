@@ -1,4 +1,4 @@
-/// <reference types="stats" />
+/// <reference types="stats.js" />
 
 
 

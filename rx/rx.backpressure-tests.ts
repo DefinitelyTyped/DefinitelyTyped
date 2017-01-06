@@ -1,4 +1,4 @@
-﻿// Tests for RxJS-BackPressure TypeScript definitions
+// Tests for RxJS-BackPressure TypeScript definitions
 // Tests by Igor Oleinikov <https://github.com/Igorbek>
 
 ///<reference path="index.d.ts" />
