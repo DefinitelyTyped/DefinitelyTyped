@@ -635,7 +635,7 @@ declare namespace fabric {
     /**
      * Intersection class
      */
-    new (status?: string): void;
+    new (status?: string): IIntersection;
     /**
      * Checks if polygon intersects another polygon
      */
