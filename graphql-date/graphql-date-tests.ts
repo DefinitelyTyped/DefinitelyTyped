@@ -1,5 +1,5 @@
-import {GraphQLObjectType} from 'graphql'
-import * as GraphQLDate from 'graphql-date'
+import {GraphQLObjectType} from 'graphql';
+import * as GraphQLDate from 'graphql-date';
 
 const fooType = new GraphQLObjectType({
     name: 'Foo',
@@ -10,4 +10,4 @@ const fooType = new GraphQLObjectType({
             description: 'Date foo was created',
         }
     }
-})
+});
