@@ -61,28 +61,28 @@ generator.bowerInstall();
 generator.bowerInstall('pkg');
 generator.bowerInstall(['pkg1', 'pkg2']);
 generator.bowerInstall('pkg', {});
-generator.bowerInstall('pkg', {}, () => {});
+generator.bowerInstall('pkg', { 'custom-option': 3 }, () => {});
 generator.bowerInstall('pkg', {}, () => {}, {});
 
 generator.npmInstall();
 generator.npmInstall('pkg');
 generator.npmInstall(['pkg1', 'pkg2']);
 generator.npmInstall('pkg', {});
-generator.npmInstall('pkg', {}, () => {});
+generator.npmInstall('pkg', { 'custom-option': 3 }, () => {});
 generator.npmInstall('pkg', {}, () => {}, {});
 
 generator.yarnInstall();
 generator.yarnInstall('pkg');
 generator.yarnInstall(['pkg1', 'pkg2']);
 generator.yarnInstall('pkg', {});
-generator.yarnInstall('pkg', {}, () => {});
+generator.yarnInstall('pkg', { 'custom-option': 3 }, () => {});
 generator.yarnInstall('pkg', {}, () => {}, {});
 
 generator.runInstall('installer');
 generator.runInstall('installer', 'pkg');
 generator.runInstall('installer', ['pkg1', 'pkg2']);
 generator.runInstall('installer', 'pkg', {});
-generator.runInstall('installer', 'pkg', {}, () => {});
+generator.runInstall('installer', 'pkg', { 'custom-option': 3 }, () => {});
 generator.runInstall('installer', 'pkg', {}, () => {}, {});
 
 

@@ -12,7 +12,7 @@ declare namespace Base {
     class Storage {
         constructor(name: string, fs: MemFsEditor, configPath: string);
 
-        defaults(defaults: Object): Object;
+        defaults(defaults: {}): {};
         delete(key: string): void;
         get(key: string): any;
         getAll(): { [key: string]: any };
@@ -41,34 +41,34 @@ declare namespace Base {
         type?: typeof Boolean|typeof String|typeof Number;
     }
     interface MemFsEditor {
-        read(filepath: string, options?: Object): string;
-        readJSON(filepath: string, defaults?: Object): any;
+        read(filepath: string, options?: {}): string;
+        readJSON(filepath: string, defaults?: {}): any;
         write(filepath: string, contents: string): void;
-        writeJSON(filepath: string, contents: Object, replacer?: Function, space?: number): void;
-        extendJSON(filepath: string, contents: Object, replacer?: Function, space?: number): void;
-        delete(filepath: string, options?: Object): void;
-        copy(from: string, to: string, options?: Object): void;
-        copyTpl(from: string, to: string, context: Object, templateOptions?: Object, copyOptions?: Object): void;
-        move(from: string, to: string, options?: Object): void;
+        writeJSON(filepath: string, contents: {}, replacer?: (key: string, value: any) => any, space?: number): void;
+        extendJSON(filepath: string, contents: {}, replacer?: (key: string, value: any) => any, space?: number): void;
+        delete(filepath: string, options?: {}): void;
+        copy(from: string, to: string, options?: {}): void;
+        copyTpl(from: string, to: string, context: {}, templateOptions?: {}, copyOptions?: {}): void;
+        move(from: string, to: string, options?: {}): void;
         exists(filepath: string): boolean;
-        commit(callback: Function): void;
-        commit(filters: any[], callback: Function): void;
+        commit(callback: Callback): void;
+        commit(filters: any[], callback: Callback): void;
     }
 }
 
 declare class Base extends EventEmitter {
     static extend(protoProps?: any, staticProps?: any): Base;
 
-    constructor(args: string|any[], options: any);
+    constructor(args: string|string[], options: {});
 
-    env: Object;
-    args: Object;
+    env: {};
+    args: {};
     resolved: string;
     description: string;
     appname: string;
     config: Base.Storage;
     fs: Base.MemFsEditor;
-    log: Function;
+    log(message?: string, context?: any): void;
 
     argument(name: string, config: Base.ArgumentConfig): this;
     composeWith(namespace: string, options: { [name: string]: any }, settings?: { local: string, link: 'weak'|'strong' }): this;
@@ -77,7 +77,7 @@ declare class Base extends EventEmitter {
     determineAppname(): string;
     option(name: string, config: Base.OptionConfig): this;
     prompt(questions: Questions): Promise<Answers>;
-    registerTransformStream(stream: Object|Object[]): this;
+    registerTransformStream(stream: {}|Array<{}>): this;
     rootGeneratorName(): string;
     rootGeneratorVersion(): string;
     run(cb?: Callback): this;
@@ -92,15 +92,15 @@ declare class Base extends EventEmitter {
     usage(): string;
 
     // actions/spawn_command mixin
-    spawnCommand(command: string, args: string[], opt?: Object): any;
-    spawnCommandSync(command: string, args: string[], opt?: Object): any;
+    spawnCommand(command: string, args: string[], opt?: {}): any;
+    spawnCommandSync(command: string, args: string[], opt?: {}): any;
 
     // actions/install mixin
-    bowerInstall(component?: string|string[], options?: Object, cb?: Callback, spawnOptions?: Object): this;
+    bowerInstall(component?: string|string[], options?: {}, cb?: Callback, spawnOptions?: {}): this;
     installDependencies(options?: Base.InstallOptions): this;
-    npmInstall(pkgs?: string|string[], options?: Object, cb?: Callback, spawnOptions?: Object): this;
-    runInstall(installer: string, paths?: string|string[], options?: Object, cb?: Callback, spawnOptions?: Object): this;
-    yarnInstall(pkgs?: string|string[], options?: Object, cb?: Callback, spawnOptions?: Object): this;
+    npmInstall(pkgs?: string|string[], options?: {}, cb?: Callback, spawnOptions?: {}): this;
+    runInstall(installer: string, paths?: string|string[], options?: {}, cb?: Callback, spawnOptions?: {}): this;
+    yarnInstall(pkgs?: string|string[], options?: {}, cb?: Callback, spawnOptions?: {}): this;
 
     // actions/user mixin
     readonly user: {
