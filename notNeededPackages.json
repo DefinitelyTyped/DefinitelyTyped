@@ -106,6 +106,12 @@
             "typingsPackageName": "oidc-client",
             "sourceRepoURL": "https://github.com/IdentityModel/oidc-client-js",
             "asOfVersion": "1.2.2"
+        },
+        {
+            "libraryName": "json-tkit",
+            "typingsPackageName": "json-tkit",
+            "sourceRepoURL": "https://github.com/Yaojian/json-tkit",
+            "asOfVersion": "0.1.1"
         }
     ]
 }
