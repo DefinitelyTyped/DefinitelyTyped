@@ -10,9 +10,9 @@ export interface Reference {
 }
 export interface Link {
     refs: Reference[];
-    has: (attribute: string, value: string) => boolean;
-    get: (attribute: string, value: string) => Reference;
-    rel: (value: string) => Reference;
-    set: (ref: Reference) => Reference;
+    has(attribute: string, value: string): boolean;
+    get(attribute: string, value: string): Reference;
+    rel(value: string): Reference;
+    set(ref: Reference): Reference;
 }
 export function parse(header: string): Link;
