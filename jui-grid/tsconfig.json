@@ -15,7 +15,6 @@
     },
     "files": [
       "index.d.ts",
-      "jui-grid-tests.ts",
-      "../jquery/index.d.ts"
+      "jui-grid-tests.ts"
     ]
 }

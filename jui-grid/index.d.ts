@@ -243,7 +243,7 @@ export interface GridTable extends UIEvent {
      *
      * @param {Array} rows
      */
-     update(indexOrRows?: number|any[]|any, rows?: any[]|any): void;
+     update(indexOrRows?: any, rows?: any): void;
     /**
      * @method updateTree
      * It is possible to configure a tree table using an object array with the index and data properties.

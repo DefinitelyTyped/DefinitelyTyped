@@ -1,3 +1,5 @@
+/// <reference types="jquery" />
+
 import {jui} from 'jui-core';
 import {GridTable, GridXTable, GridRow} from "./index";
 

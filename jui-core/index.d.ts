@@ -33,6 +33,7 @@ interface UtilBase {
      * @param {Function} ctor base Class
      * @param {Function} superCtor super Class
      */
+    // tslint:disable-next-line:callable-types
     inherit (ctor: () => void, superCtor: () => void): void;
 
     /**
@@ -52,7 +53,7 @@ interface UtilBase {
      * @param {String or Number} px
      * @return {Number}
      */
-    pxToInt(px: any): number;
+    pxToInt(px: string| number): number;
 
     /**
      * @method clone
@@ -799,9 +800,9 @@ interface UtilMath {
      */
     nice(min: number, max: number, ticks: number, isNice: boolean): any;
 
-    matrix(a: any[], b: any[]): any[];
+    matrix<T>(a: T[], b: T[]): T[];
 
-    matrix3d(a: any[], b: any[]): any[];
+    matrix3d<T>(a: T[], b: T[]): T[];
 
     inverseMatrix3d(a: any[]): any[];
 
