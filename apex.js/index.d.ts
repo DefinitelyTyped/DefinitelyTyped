@@ -5,4 +5,4 @@
 
 /// <reference types="aws-lambda" />
 
-export default function λ(fn: (event?: any, context?: AWSLambda.Context) => any): (event: any, context: AWSLambda.Context, callback: AWSLambda.Callback) => void;
+export default function λ(fn: (event: any, context: AWSLambda.Context) => any): (event: any, context: AWSLambda.Context, callback: AWSLambda.Callback) => void;
