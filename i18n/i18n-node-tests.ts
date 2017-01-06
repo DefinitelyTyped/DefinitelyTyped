@@ -1,6 +1,6 @@
-/**  
- * Test suite created by Maxime LUCE <https://github.com/SomaticIT>  
- *   
+/**
+ * Test suite created by Maxime LUCE <https://github.com/SomaticIT>
+ *
  * Created by using code samples from https://github.com/mashpie/i18n-node.
  */
 
@@ -8,7 +8,7 @@
 
 
 
-import express = require("../express");
+import express = require("express");
 import i18n = require("i18n");
 
 var app = express();

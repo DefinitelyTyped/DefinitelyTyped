@@ -4,7 +4,7 @@
         "target": "es6",
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "async-tests.ts"
+        "async-tests.ts",
+        "async-explicit-tests.ts"
     ]
 }

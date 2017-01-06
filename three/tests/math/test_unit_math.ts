@@ -1,7 +1,10 @@
 /// <reference types="three" />
-/// <reference path="../../../qunit/qunit-1.16.d.ts" />
 /// <reference path="../three-tests-setup.ts" />
 
+declare function test(desc: string, body: () => void): void;
+declare function ok(cond: any, desc?: string): void;
+declare function deepEqual<T>(a: T, b: T, desc?: string): void;
+declare function equal<T>(a: T, b: T, desc?: string): void;
 
 // https://github.com/mrdoob/three.js/tree/master/test/unit/math
 
@@ -865,7 +868,7 @@
 
             v.reorder( 'YZX' );
             var q2 = new THREE.Quaternion().setFromEuler( v );
-            ok(quatEquals(q, q2), "Passed!");	
+            ok(quatEquals(q, q2), "Passed!");
 
             v.reorder( 'ZXY' );
             var q3 = new THREE.Quaternion().setFromEuler( v );
@@ -3541,7 +3544,7 @@
 
     test( "setAxisAngleFromRotationMatrix", function() {
         var TOL = 1e-9;
-        
+
         // not sure what to do here since THREE.Vector4().setAxisAngleFromRotationMatrix() only accept Matrix3s
         /*var r = new THREE.Matrix4().makeRotationZ(Math.PI / 2);
         var v = new THREE.Vector4().setAxisAngleFromRotationMatrix(r);

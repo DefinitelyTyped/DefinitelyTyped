@@ -1,4 +1,4 @@
-import * as Nodal from './index.d';
+import * as Nodal from 'nodal';
 
 let BlogPost: typeof Nodal.Model;
 

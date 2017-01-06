@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "numeraljs-commonjs-tests.ts"
+        "numeraljs-tests.ts"
     ]
 }

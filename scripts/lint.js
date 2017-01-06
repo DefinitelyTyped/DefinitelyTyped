@@ -6,10 +6,17 @@ const path = require("path");
 
 // Path of tslint when `types-publisher` is symlinked
 const symlinkedTslintPath = "../node_modules/types-publisher/node_modules/tslint"
-const tslintPath =  existsSync(path.join(pkg, symlinkedTslintPath)) ? symlinkedTslintPath : "../node_modules/tslint";
+let tslintPath =  existsSync(path.join(pkg, symlinkedTslintPath)) ? symlinkedTslintPath : "../node_modules/tslint";
+// An older version (e.g. abs/v0) is in a nested directory, so needs to look one more level up for tslint.
+if (pkg.includes("/")) {
+    tslintPath = path.join("..", tslintPath);
+}
+
 const cmd = `node ${tslintPath}/lib/tslint-cli --format stylish "**/*.d.ts"`;
 console.log(cmd);
 
+console.log(pkg);
+process.exit(0);
 try {
     // Child process writes directly to our own stdout
     execSync(cmd, { cwd: pkg, stdio: "inherit" });

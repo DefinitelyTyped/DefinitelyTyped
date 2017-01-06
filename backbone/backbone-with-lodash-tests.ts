@@ -1,6 +1,5 @@
-/// <reference types="jquery" />
-/// <reference types="lodash" />
-/// <reference types="index.d.ts" />
+import * as Backbone from "backbone";
+import * as _ from "lodash";
 
 function test_events() {
 
