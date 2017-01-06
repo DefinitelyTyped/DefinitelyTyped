@@ -116,6 +116,9 @@ export interface GridBase {
 
 export interface GridTable extends UIEvent {
     (selector: any, options?: {
+        tpl?: any,
+
+        event?: any,
         /**
          * @cfg {Array} [fields=null]
          * Sets the name of columns in the order of being displayed on the table screen.
@@ -232,14 +235,15 @@ export interface GridTable extends UIEvent {
 
     }): this;
 
+    root?: any,
+
     /**
      * @method update
      * Updates the list of rows or modifies the row at a specified index.
      *
      * @param {Array} rows
      */
-     update(rows: any[]): void;
-
+     update(indexOrRows?: number|any[]|any, rows?: any[]|any): void;
     /**
      * @method updateTree
      * It is possible to configure a tree table using an object array with the index and data properties.
@@ -661,7 +665,7 @@ export interface GridXTable extends UIEvent {
      *
      * @param {Integer} index
      */
-    open(index: number): void;
+    open(index: number|string): void;
 
     /**
      * @method fold
@@ -669,19 +673,19 @@ export interface GridXTable extends UIEvent {
      *
      * @param {Integer} index
      */
-    fold(index: number): void;
+    fold(index: number|string): void;
 
     /**
      * @method openAll
      * Shows all child rows of a specified index.
      */
-    openAll(index: number): void;
+    openAll(index: number|string): void;
 
     /**
      * @method foldAll
      * Hides all child rows of a specified index.
      */
-    foldAll(index: number): void;
+    foldAll(index: number|string): void;
 
     /**
      * @method next

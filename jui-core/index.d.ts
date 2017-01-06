@@ -448,6 +448,8 @@ interface UICore {
 
     event?: any;
 
+    root?: any;
+
     /**
      * @method emit
      * Generates a custom event. The first parameter is the type of a custom event. A function defined as an option or on method is called
@@ -540,6 +542,9 @@ interface UICore {
 }
 
 export interface UIEvent extends UICore {
+
+    root?: any,
+
     /**
      * @method find
      * Get the child element of the root element

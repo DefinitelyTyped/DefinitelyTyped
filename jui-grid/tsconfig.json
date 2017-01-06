@@ -14,7 +14,8 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "jui-grid-tests.ts"
+      "index.d.ts",
+      "jui-grid-tests.ts",
+      "../jquery/index.d.ts"
     ]
 }
