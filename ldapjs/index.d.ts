@@ -1,7 +1,7 @@
-// Type definitions for ldapjs v1.0.1
+// Type definitions for ldapjs 1.0
 // Project: http://ldapjs.org
-// Definitions by: Charles Villemure <https://github.com/cvillemure/>, Updated from (0.7.1) Peter Kooijmans <https://github.com/peterkooijmans/>
-// Definitions: https://github.com/cvillemure/DefinitelyTyped/tree/types-2.0/ldapjs
+// Definitions by: Charles Villemure <https://github.com/cvillemure/>, Peter Kooijmans <https://github.com/peterkooijmans/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
