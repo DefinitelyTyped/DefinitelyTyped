@@ -7,6 +7,10 @@
 
 declare var jui: JuiStatic;
 
+declare type ClassFunction = (() => any);
+declare type VoidFunction = (() => void);
+declare type AnyFunction = ((...args:any[]) => any);
+
 interface UtilBase {
     /**
      * @property browser check browser agent
@@ -33,9 +37,8 @@ interface UtilBase {
      * @param {Function} ctor base Class
      * @param {Function} superCtor super Class
      */
-    /* tslint:disable-next-line:callable-types */
-    inherit (ctor: () => void, superCtor: () => void): void;
-    /* tslint:enable-next-line:callable-types */
+    inherit ( ctor: ClassFunction, superCtor: ClassFunction ): void;
+
     /**
      * @method extend
      *
@@ -88,7 +91,7 @@ interface UtilBase {
      * @param {String} name
      * @param {Function} callback
      */
-    runtime(name: string, callback: () => void): void;
+    runtime(name: string, callback: VoidFunction): void;
 
     /**
      * @method template
@@ -96,7 +99,7 @@ interface UtilBase {
      * @param html
      * @param obj
      */
-    template(html: string, obj: any): () => void;
+    template(html: string, obj: any): AnyFunction;
 
     /**
      * @method resize
@@ -104,7 +107,7 @@ interface UtilBase {
      * @param {Function} callback
      * @param {Number} ms delay time
      */
-    resize(callback: () => void, ms: number): void;
+    resize(callback: VoidFunction, ms: number): void;
 
     /**
      * @method index
@@ -164,7 +167,7 @@ interface UtilBase {
      * @param {File} file
      * @param {Function} callback
      */
-    fileToCsv(fileText: string, callback: () => void): void;
+    fileToCsv(fileText: string, callback: AnyFunction): void;
 
     /**
      * @method csvToBase64
@@ -258,7 +261,7 @@ interface UtilBase {
      * @param {Object} context
      * @returns {Function}
      */
-    timeLoop(total: number, context?: any): () => void;
+    timeLoop(total: number, context?: any): AnyFunction;
 
     /**
      * @method loop
@@ -269,7 +272,7 @@ interface UtilBase {
      * @param {Object} [context=null]
      * @return {Function} 최적화된 루프 콜백 (index, groupIndex 2가지 파라미터를 받는다.)
      */
-    loop(total: number, context?: any): () => void;
+    loop(total: number, context?: any): AnyFunction;
 
     /**
      * @method loopArray
@@ -322,7 +325,7 @@ interface UtilBase {
 
     trim(text: string): string;
 
-    ready: () => void;
+    ready: VoidFunction;
 
     param(data: any): string;
 
@@ -593,7 +596,7 @@ export interface UtilColor {
      *
      * @returns {func} scale function
      */
-    scale(): () => void;
+    scale(): AnyFunction;
 
     /**
      * @method map
