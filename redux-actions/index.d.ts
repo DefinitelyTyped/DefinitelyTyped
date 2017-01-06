@@ -19,7 +19,7 @@ declare namespace ReduxActions {
     }
 
     export interface ActionMeta<Payload, Meta> extends Action<Payload> {
-        meta: Meta;
+        meta?: Meta;
     }
 
     interface ReducerMap<State, Payload> {
