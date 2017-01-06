@@ -319,7 +319,7 @@ declare namespace polymer {
     Settings: Settings;
 
     isInstance(element: string): boolean;
-
+    Base: Base;
     dom: DomApiStatic;
 
     (prototype: Base | { new (): Base }): webcomponents.CustomElementConstructor;
