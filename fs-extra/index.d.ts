@@ -74,10 +74,10 @@ export declare function ensureSymlinkSync(path: string): void;
 export declare function emptyDir(path: string, callback?: (err: Error) => void): void;
 export declare function emptyDirSync(path: string): boolean;
 
-export interface WalkEventEmitter {
-    on(event: 'data', callback: (file: WalkEventFile) => void): WalkEventEmitter;
-    on(event: 'end', callback: () => void): WalkEventEmitter;
-    on(event: string, callback: Function): WalkEventEmitter;
+export interface WalkEventEmitter extends NodeJS.ReadableStream {
+    on(event: 'data', callback: (file: WalkEventFile) => void): this;
+    on(event: 'end', callback: () => void): this;
+    on(event: string | symbol, callback: Function): this;
 }
 
 export interface WalkEventFile {
