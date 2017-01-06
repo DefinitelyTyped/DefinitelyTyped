@@ -1,4 +1,4 @@
-# React v0.14.4 Type Definitions
+# React v15 Type Definitions
 
 This directory contains type definitions for the following React packages:
 - `react`
