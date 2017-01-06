@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "jui-core-tests.ts"
+        "jui-core-tests.ts",
+        "../jquery/index.d.ts"
     ]
 }

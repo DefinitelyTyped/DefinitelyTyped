@@ -71,21 +71,21 @@ export interface GridRow {
     type: "open"|"fold";
 
     /** @property {Function} [type="null"] State value that indicates whether a child row is shown or hidden. */
-    tpl?: Function;
+    tpl?: () => void;
 
     setIndex(rownum: number|string): void;
-    reload(columns:GridColumn[], seq: any, xssFilter: any): void;
-    destroy():void;
-    isLeaf():boolean;
-    fold():void;
-    open():void;
-    appendChild(row:GridRow):void;
-    insertChild(rownum:number, row:GridRow, isReload?:any):void;
-    removeChild(index:number|string):void;
+    reload(columns: GridColumn[], seq: any, xssFilter: any): void;
+    destroy(): void;
+    isLeaf(): boolean;
+    fold(): void;
+    open(): void;
+    appendChild(row: GridRow): void;
+    insertChild(rownum: number, row: GridRow, isReload?: any): void;
+    removeChild(index: number|string): void;
     lastChild(): GridRow;
-    lastChildLeaf(lastRow:GridRow):GridRow|any;
-    showCell(index:number):void;
-    hideCell(index:number):void;
+    lastChildLeaf(lastRow: GridRow): GridRow|any;
+    showCell(index: number): void;
+    hideCell(index: number): void;
 }
 
 export interface GridBase {
@@ -111,7 +111,7 @@ export interface GridBase {
     getRowAll(index: number|string): GridRow[];
     getRowParent(index: number|string): GridRow;
     setColumn(index: number|string, column: GridColumn): void;
-    setRow(index: number|string, row:GridRow): void;
+    setRow(index: number|string, row: GridRow): void;
 }
 
 export interface GridTable extends UIEvent {
@@ -235,7 +235,7 @@ export interface GridTable extends UIEvent {
 
     }): this;
 
-    root?: any,
+    root?: any;
 
     /**
      * @method update
@@ -362,7 +362,7 @@ export interface GridTable extends UIEvent {
      *
      * @param {Integer} index
      */
-    fold(index: number): void
+    fold(index: number): void;
 
     /**
      * @method openAll
@@ -716,7 +716,7 @@ export interface GridXTable extends UIEvent {
      *
      * @param {Function} callback
      */
-    filter(callback: Function): void;
+    filter(callback: (data: any) => void): void;
 
     /**
      * @method rollback
@@ -765,7 +765,7 @@ export interface GridXTable extends UIEvent {
      * @param {Integer|String} index
      * @param {Integer} dist
      */
-    scrollTop(index:number|string, dist:number): void;
+    scrollTop(index: number|string, dist: number): void;
 
     /**
      * @deprecated
@@ -976,7 +976,7 @@ export interface GridXTable extends UIEvent {
      * @param {Integer} columnIndex
      * @param {Function} callback
      */
-    rowFunc(type: "sum"|"avg", index: number, callback: Function): any;
+    rowFunc(type: "sum"|"avg", index: number, callback: (data: any) => void): any;
 
     /**
      * @method getPage

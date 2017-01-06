@@ -3,8 +3,6 @@
 // Definitions by: Jin-Ho Park <https://github.com/easylogic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="jui-core" />
-
 import {UIEvent} from 'jui-core';
 
 export interface UIAccordion extends UIEvent {
@@ -274,7 +272,7 @@ export interface UIDatePicker {
      *
      * @param {"year"/"month"/"date"/"timestamp"/"Date"}
      */
-    select(...args:any[]): void;
+    select( ...args: any[]): void;
 
     /**
      * @method addTime
@@ -611,7 +609,7 @@ export interface UIProgress {
 
     setAnimated(isAnimated: boolean): void;
     setStriped(isStriped: boolean): void;
-    setValue(v:number): void;
+    setValue(v: number): void;
     getValue(): number;
 
 }
@@ -683,7 +681,7 @@ export interface UIProperty {
     findItem(key: string): any;
     updateValue(key: string, value: any): void;
     getAllValue(key: string): any;
-    refreshValue($dom: any, newValue:any): void;
+    refreshValue($dom: any, newValue: any): void;
 }
 
 export interface UISelect {
@@ -719,7 +717,7 @@ export interface UISlider {
         format?: string,
         progress?: boolean
 
-    }):this;
+    }): this;
 
     /**
      * @method setFromValue
@@ -918,7 +916,7 @@ export interface UITab {
      *
      * @param {Integer} index
      */
-    remove(index:number): void;
+    remove(index: number): void;
 
     /**
      * @method move
@@ -927,7 +925,7 @@ export interface UITab {
      * @param {Integer} index
      * @param {Integer} targetIndex
      */
-    move(index: number, targetIndex:number): void;
+    move(index: number, targetIndex: number): void;
 
     /**
      * @method show
@@ -959,7 +957,7 @@ export interface UITab {
      *
      * @return {Integer}
      */
-    activeIndex(): number
+    activeIndex(): number;
 }
 
 export interface UITooltip {
@@ -1022,7 +1020,7 @@ export interface UITooltip {
      *
      * @param {String} text
      */
-    update(newTitle:string): void;
+    update(newTitle: string): void;
 }
 
 export interface UITreeNode {
@@ -1052,9 +1050,9 @@ export interface UITreeNode {
 }
 
 export interface UITreeBase {
-    appendNode(...args:any[]): UITreeNode;
-    insertNode(index: string, data: any):UITreeNode;
-    updateNode(index: string, data: any):UITreeNode;
+    appendNode(...args: any[]): UITreeNode;
+    insertNode(index: string, data: any): UITreeNode;
+    updateNode(index: string, data: any): UITreeNode;
     removeNode(index: string): void;
     removeNodes(): void;
     openNode(index: string): void;
@@ -1124,7 +1122,7 @@ export interface UITree {
      * @param {Array/String} param1 index or data
      * @param {Array} param2 null or data
      */
-    append(...args:any[]): void;
+    append(...args: any[]): void;
 
     /**
      * @method insert

@@ -3,7 +3,7 @@
 // Definitions by: JinHo Park <https://github.com/easylogic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="jquery" />
+/// <reference types="jquery"/>
 
 declare var jui: JuiStatic;
 
@@ -87,7 +87,7 @@ interface UtilBase {
      * @param {String} name
      * @param {Function} callback
      */
-    runtime(name: string, callback: () => void): void
+    runtime(name: string, callback: () => void): void;
 
     /**
      * @method template
@@ -133,7 +133,7 @@ interface UtilBase {
     typeCheck(typeName: string, value: any): boolean;
 
 
-    typeCheckObj(uiObj: any, list: any): void
+    typeCheckObj(uiObj: any, list: any): void;
 
     /**
      * @method dataToCsv
@@ -304,7 +304,7 @@ interface UtilBase {
      * @param {Number} [position=0]
      * @return {Number} position
      */
-    startsWith(str: string, searchString: string, position?: number): number
+    startsWith(str: string, searchString: string, position?: number): number;
 
     /**
      * @method endsWith
@@ -541,9 +541,10 @@ interface UICore {
      destroy(): void;
 }
 
+//noinspection TypeScriptUnresolvedVariable
 export interface UIEvent extends UICore {
 
-    root?: any,
+    root?: any;
 
     /**
      * @method find
@@ -552,7 +553,7 @@ export interface UIEvent extends UICore {
      * @param {String/HTMLElement} Selector
      * @returns {*|jQuery}
      */
-     find(selector: any): jQuery;
+     find(selector: any): JQuery;
 }
 
 export interface UtilColor {
@@ -816,7 +817,3 @@ export interface UtilScaleOrdinal extends Function  {
 }
 
 export type UtilQuickSort = (array: number[], isClone: boolean) => this;
-
-interface jQuery {
-
-}
