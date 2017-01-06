@@ -154,7 +154,7 @@ declare namespace qq {
         itemLimit?: number;                 // default: 0
         minSizeLimit?: number;              // default: 0
         sizeLimit?: number;                 // default: 0
-        stopOnFirstInvalidFile: boolean;    // default: true
+        stopOnFirstInvalidFile?: boolean;   // default: true
         image?: ValidationImageOptions;
     }
 
