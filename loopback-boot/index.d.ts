@@ -12,7 +12,6 @@
 
 import * as loopback from "loopback";
 
-
 /**
  * Use this API in the app.js file of your server-side Node.js application.
  * ```
@@ -185,6 +184,7 @@ interface OptionsLB {
 }
 
 declare namespace lb {
+
       /**
        * compileToBrowserify
        * 
@@ -194,6 +194,7 @@ declare namespace lb {
        * @class
        * @constructor
        */
+
       class compileToBrowserify {
 
             /**
@@ -203,7 +204,6 @@ declare namespace lb {
             appId: string;
             constructor(options: string|any, bundler: any);
       }
-
 }
 
 export = lb;
