@@ -1,6 +1,6 @@
 // Type definitions for Loopback 3.1
 // Project: https://github.com/strongloop/loopback
-// Definitions by: Andres D Jimenez <https://github.comhttps://github.com/kattsushi/>
+// Definitions by: Andres D Jimenez <https://github.com/kattsushi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
