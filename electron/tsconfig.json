@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
+        "electron-tests.ts",
         "github-electron-renderer-tests.ts",
         "github-electron-main-tests.ts"
     ]

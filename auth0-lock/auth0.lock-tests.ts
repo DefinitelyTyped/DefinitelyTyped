@@ -26,6 +26,18 @@ lock.on("authenticated", function(authResult : any) {
   });
 });
 
+lock.on("authenticated", function(authResult : any) {
+  lock.getUserInfo(authResult.accessToken, function(error, profile) {
+    if (error) {
+      // Handle error
+      return;
+    }
+
+    localStorage.setItem("idToken", authResult.idToken);
+    localStorage.setItem("profile", JSON.stringify(profile));
+  });
+});
+
 
 // test theme
 

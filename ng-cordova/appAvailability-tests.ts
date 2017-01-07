@@ -1,12 +1,7 @@
-
-/// <reference types="appAvailability" />
-/// <reference path="device.d.ts" />
-/// <reference types="angular" />
-/// <reference types="cordova" />
-/// <reference types="ionic" />
-
 // For the full application demo please see following repo :
 // https://github.com/ksachdeva/ngCordova-typescript-demo
+
+/// <reference types="ionic" />
 
 namespace demo.appavailability {
   'use strict';

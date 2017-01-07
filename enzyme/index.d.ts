@@ -1,6 +1,6 @@
-// Type definitions for Enzyme v2.5.1
+// Type definitions for Enzyme v2.7.0
 // Project: https://github.com/airbnb/enzyme
-// Definitions by: Marian Palkus <https://github.com/MarianPalkus>, Cap3 <http://www.cap3.de>, Ivo Stratev <https://github.com/NoHomey>
+// Definitions by: Marian Palkus <https://github.com/MarianPalkus>, Cap3 <http://www.cap3.de>, Ivo Stratev <https://github.com/NoHomey>, Tom Crockett <https://github.com/pelotom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { ReactElement, Component, StatelessComponent, ComponentClass, HTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
@@ -101,11 +101,16 @@ interface CommonWrapper<P, S> {
     is(selector: EnzymeSelector): boolean;
 
     /**
-         * Returns whether or not the current node is empty.
-         */
-        isEmpty(): boolean;
+     * Returns whether or not the current node is empty.
+     */
+    isEmpty(): boolean;
 
-        /**
+    /**
+     * Returns whether or not the current node exists.
+     */
+    exists(): boolean;
+
+    /**
      * Returns a new wrapper with only the nodes of the current wrapper that don't match the provided selector.
      * This method is effectively the negation or inverse of filter.
      * @param selector
@@ -341,7 +346,7 @@ interface CommonWrapper<P, S> {
      * @param fn
      * @param initialValue
      */
-    reduce<R>(fn: (prevVal: R, wrapper: this, index: number) => R, initialValue?: R): R[];
+    reduce<R>(fn: (prevVal: R, wrapper: this, index: number) => R, initialValue?: R): R;
 
     /**
      * Applies the provided reducing function to every node in the wrapper to reduce to a single value.
@@ -349,7 +354,7 @@ interface CommonWrapper<P, S> {
      * @param fn
      * @param initialValue
      */
-    reduceRight<R>(fn: (prevVal: R, wrapper: this, index: number) => R, initialValue?: R): R[];
+    reduceRight<R>(fn: (prevVal: R, wrapper: this, index: number) => R, initialValue?: R): R;
 
     /**
      * Returns whether or not any of the nodes in the wrapper match the provided selector.

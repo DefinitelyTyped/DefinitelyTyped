@@ -1864,12 +1864,7 @@ declare namespace Electron {
 		/**
 		 * Writes data to the clipboard.
 		 */
-		write(data: {
-			text?: string;
-			rtf?: string;
-			html?: string;
-			image?: NativeImage;
-		}, type?: ClipboardType): void;
+		write(data: { text: string; bookmark?: string; } | { rtf: string; } | { html: string; } | { image: NativeImage; }, type?: ClipboardType): void;
 		/**
 		 * @returns An Object containing title and url keys representing the bookmark in the clipboard.
 		 *

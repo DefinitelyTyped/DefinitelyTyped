@@ -1,6 +1,3 @@
-/// <reference path="./index.d.ts" />
-/// <reference path="../angular/index.d.ts" />
-
 import * as angular from "angular";
 import {ClipboardService} from "angular-clipboard";
 

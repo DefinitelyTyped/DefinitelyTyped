@@ -1,9 +1,6 @@
-
-
-var assert: any;
 var renderer: AceAjax.VirtualRenderer;
 var mode: any;
-var exports = {
+const acePlaceholderTests = {
 
     "test: simple at the end appending of text": function () {
         var session = new AceAjax.EditSession("var a = 10;\nconsole.log(a, a);", mode);

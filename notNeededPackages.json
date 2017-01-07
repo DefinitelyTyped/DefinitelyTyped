@@ -1,11 +1,6 @@
 {
     "packages": [
         {
-            "libraryName": "Angular 2",
-            "typingsPackageName": "angular2",
-            "sourceRepoURL": "https://github.com/angular/angular"
-        },
-        {
             "libraryName": "Moment",
             "typingsPackageName": "moment",
             "sourceRepoURL": "https://github.com/moment/moment",
@@ -268,6 +263,12 @@
             "typingsPackageName": "inversify-restify-utils",
             "sourceRepoURL": "https://github.com/inversify/inversify-restify-utils",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "Argon2",
+            "typingsPackageName": "argon2",
+            "sourceRepoURL": "https://github.com/ranisalt/node-argon2",
+            "asOfVersion": "0.15.0"
         }
     ]
 }
