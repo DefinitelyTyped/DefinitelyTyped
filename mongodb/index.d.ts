@@ -1173,7 +1173,7 @@ export interface Cursor extends Readable {
     next(): Promise<CursorResult>;
     next(callback: MongoCallback<CursorResult>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#pipe
-    pipe(destination: Writable, options?: Object): void;
+    pipe(destination: Writable, options?: Object): this;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#project
     project(value: Object): Cursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#read
@@ -1202,7 +1202,7 @@ export interface Cursor extends Readable {
     toArray(): Promise<any[]>;
     toArray(callback: MongoCallback<any[]>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#unpipe
-    unpipe(destination?: Writable): void;
+    unpipe(destination?: Writable): this;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#unshift
     unshift(stream: Buffer | string): void;
 }
@@ -1261,7 +1261,7 @@ export interface AggregationCursor extends Readable {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#out
     out(destination: string): AggregationCursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#pipe
-    pipe(destination: Writable, options?: Object): void;
+    pipe(destination: Writable, options?: Object): this;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#project
     project(document: Object): AggregationCursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#read
@@ -1280,7 +1280,7 @@ export interface AggregationCursor extends Readable {
     toArray(): Promise<any[]>;
     toArray(callback: MongoCallback<any[]>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#unpipe
-    unpipe(destination?: Writable): void;
+    unpipe(destination?: Writable): this;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#unshift
     unshift(stream: Buffer | string): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#unwind
@@ -1306,7 +1306,7 @@ export interface CommandCursor extends Readable {
     next(): Promise<AggregationCursorResult>;
     next(callback: MongoCallback<AggregationCursorResult>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#pipe
-    pipe(destination: Writable, options?: Object): void;
+    pipe(destination: Writable, options?: Object): this;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#read
     read(size: number): string | Buffer | void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#rewind
@@ -1319,7 +1319,7 @@ export interface CommandCursor extends Readable {
     toArray(): Promise<any[]>;
     toArray(callback: MongoCallback<any[]>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#unpipe
-    unpipe(destination?: Writable): void;
+    unpipe(destination?: Writable): this;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#unshift
     unshift(stream: Buffer | string): void;
 }
