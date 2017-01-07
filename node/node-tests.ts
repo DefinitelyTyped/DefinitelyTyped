@@ -1630,6 +1630,11 @@ namespace console_tests {
         var _c: Console = console;
         _c = c;
     }
+    {
+        var writeStream     = fs.createWriteStream('./index.d.ts');
+        var consoleInstance = new console.Console(writeStream)
+
+    }
 }
 
 ///////////////////////////////////////////////////
