@@ -90,3 +90,6 @@ declare namespace dat {
         remove(): GUIController;
     }
 }
+declare module "dat-gui" {
+    export = dat;
+}
