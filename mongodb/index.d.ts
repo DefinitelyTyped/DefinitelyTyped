@@ -1185,7 +1185,7 @@ export interface Cursor extends Readable {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#setCursorOption
     setCursorOption(field: string, value: Object): Cursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#setEncoding
-    setEncoding(encoding: string): void;
+    setEncoding(encoding: string): this;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#setReadPreference
     setReadPreference(readPreference: string | ReadPreference): Cursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#showRecordId
@@ -1271,7 +1271,7 @@ export interface AggregationCursor extends Readable {
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#rewind
     rewind(): AggregationCursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#setEncoding
-    setEncoding(encoding: string): void;
+    setEncoding(encoding: string): this;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#skip
     skip(value: number): AggregationCursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#sort
@@ -1312,7 +1312,7 @@ export interface CommandCursor extends Readable {
     //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#rewind
     rewind(): CommandCursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#setEncoding
-    setEncoding(encoding: string): void;
+    setEncoding(encoding: string): this;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#setReadPreference
     setReadPreference(readPreference: string | ReadPreference): CommandCursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#toArray
