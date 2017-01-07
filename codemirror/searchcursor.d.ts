@@ -3,7 +3,9 @@
 // Definitions by: jacqt <https://github.com/jacqt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace CodeMirror {
+import * as CodeMirror from "codemirror";
+
+declare module "codemirror" {
     interface Doc {
         /** This method can be used to implement search/replace functionality.
          *  `query`: This can be a regular * expression or a string (only strings will match across lines -

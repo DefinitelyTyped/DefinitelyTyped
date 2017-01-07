@@ -417,7 +417,7 @@ export class ObjectID {
     static createFromTime(time: number): ObjectID;
     // Checks if a value is a valid bson ObjectId
     // id - Value to be checked
-    static isValid(id: string | number): boolean;
+    static isValid(id: any): boolean;
     //Compares the equality of this ObjectID with otherID.
     equals(otherID: ObjectID): boolean;
     // Generate a 12 byte id string used in ObjectID's

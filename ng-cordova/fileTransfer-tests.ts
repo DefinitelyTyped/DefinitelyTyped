@@ -1,8 +1,3 @@
-/// <reference path="fileTransfer.d.ts" />
-/// <reference path="../angular/index.d.ts" />
-/// <reference path="../cordova/index.d.ts" />
-/// <reference path="../cordova-plugin-file-transfer/index.d.ts" />
-
 namespace ngCordova {
     'use strict';
 
