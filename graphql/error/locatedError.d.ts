@@ -5,7 +5,7 @@ import { GraphQLError } from 'graphql/error/GraphQLError';
  * GraphQL operation, produce a new GraphQLError aware of the location in the
  * document responsible for the original Error.
  */
-function locatedError<T>(
+export function locatedError<T>(
     originalError: Error,
     nodes: Array<T>,
     path: Array<string | number>
