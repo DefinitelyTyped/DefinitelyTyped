@@ -9,9 +9,10 @@
 *               LoopBack v3.x API               *
 *                                               *
 ************************************************/
-/// <reference types="express" />
 
-import * as express from "express"
+/// <reference types="express-serve-static-core" />
+
+import * as core from "express-serve-static-core";
 
 declare function l(): l.LoopBackApplication;
 declare namespace l {
@@ -35,7 +36,7 @@ declare namespace l {
 
       // interface ILoopbackAplication extends express.Application { };
 
-      interface LoopBackApplication extends express.Application {
+      interface LoopBackApplication extends core.Application {
 
             start(): void;
 
@@ -249,22 +250,22 @@ declare namespace l {
             middleware(name: string, paths?: any[]|string|RegExp, handler?: () => void): any;
       }
 
-      interface CookieOptions extends express.CookieOptions { }
-      interface Errback extends express.Errback { }
-      interface ErrorRequestHandler extends express.ErrorRequestHandler { }
-      interface Express extends express.Express { }
-      interface Handler extends express.Handler { }
-      interface IRoute extends express.IRoute { }
-      interface IRouter<T> extends express.IRouter<T> { }
-      interface IRouterMatcher<T> extends express.IRouterMatcher<T> { }
-      interface MediaType extends express.MediaType { }
-      interface NextFunction extends express.NextFunction { }
-      interface Request extends express.Request { }
-      interface RequestHandler extends express.RequestHandler { }
-      interface RequestParamHandler extends express.RequestParamHandler { }
-      export interface Response extends express.Response { }
-      interface Router extends express.Router { }
-      interface Send extends express.Send { }
+      // interface CookieOptions extends core.CookieOptions { }
+      // interface Errback extends core.Errback { }
+      // interface ErrorRequestHandler extends core.ErrorRequestHandler { }
+      // interface Express extends core.Express { }
+      // interface Handler extends core.Handler { }
+      // interface Route extends core.IRoute { }
+      // interface Routers<T> extends core.IRouter<T> { }
+      // interface RouterMatcher<T> extends core.IRouterMatcher<T> { }
+      // interface MediaType extends core.MediaType { }
+      // interface NextFunction extends core.NextFunction { }
+      // interface Request extends core.Request { }
+      // interface RequestHandler extends core.RequestHandler { }
+      // interface RequestParamHandler extends core.RequestParamHandler { }
+      // export interface Response extends core.Response { }
+      // interface Router extends core.Router { }
+      // interface Send extends core.Send { }
 
 
       /**
@@ -389,7 +390,6 @@ declare namespace l {
 
             static createModel(name: string, properties: any, options: any): void;
 
-            
             /**
              * Look up a model class by name from all models created by
              * `loopback.createModel()`
@@ -438,8 +438,6 @@ declare namespace l {
 
             static remoteMethod(fn: () => void, options: any): void;
 
-            
-
             /**
              * Create a template helper
              *     var render = loopback.template('foo.ejs');
@@ -449,7 +447,6 @@ declare namespace l {
              */
 
             static template(path: string): void;
-
 
             // NOTE*** DEPRECATE in 3.0
             // /**
@@ -1043,7 +1040,7 @@ declare namespace l {
              * @param {() => void} resolver The resolver function.
              */
 
-            resolve(resolver: ()=> void): void;
+            resolve(resolver: () => void): void;
       }
 
       interface Settings {
@@ -1124,10 +1121,10 @@ declare namespace l {
             /** 
              * Create a change stream. See here for more info http://loopback.io/doc/en/lb2/Realtime-server-sent-events.html
              * @param {any} options Only changes to models matching this where filter will be included in the ChangeStream.
-             * @param {()=> void} callback 
+             * @param {() => void} callback 
              */
 
-            static createChangeStream(options: {where: any}, callback: (err: Error, changes: any)=> void): void;
+            static createChangeStream(options: {where: any}, callback: (err: Error, changes: any) => void): void;
 
             /**
              * Create an update list (for `Model.bulkUpdate()`) from a delta list
@@ -1226,7 +1223,7 @@ declare namespace l {
              * @param {Array} models Model instances matching the filter, or null if none found
              */
 
-            static find(filter?: {fields?: string|any|any[]; include?: string|any|any[]; limit?: number; order?: string; skip?: number; where?: any;}, callback?: (err: Error, models: any[]) => void): void;
+            static find(filter?: {fields?: string|any|any[]; include?: string|any|any[]; limit?: number; order?: string; skip?: number; where?: any; }, callback?: (err: Error, models: any[]) => void): void;
 
             /**
              * Find object by ID with an optional filter for include/fields
@@ -1241,7 +1238,7 @@ declare namespace l {
              * @param {any} instance Model instance matching the specified ID or null if no instance matches
              */
 
-            static findById(id: any, filter?: {fields?: string|any|any[]; include?: string|any|any[];}, callback?: (err: Error, instance: any) => void): void;
+            static findById(id: any, filter?: {fields?: string|any|any[]; include?: string|any|any[]; }, callback?: (err: Error, instance: any) => void): void;
 
             /**
              * Find one model instance that matches `filter` specification.
@@ -1267,7 +1264,7 @@ declare namespace l {
              * @param {Array} model First model instance that matches the filter or null if none found
              */
 
-            static findOne(filter?: {fields: string|any|any[]; include: string|any|any[]; order: string; skip: number; where: any;}, callback?: (err: Error, model: any[]) => void): void;
+            static findOne(filter?: {fields: string|any|any[]; include: string|any|any[]; order: string; skip: number; where: any; }, callback?: (err: Error, model: any[]) => void): void;
 
             /**
              * Finds one record matching the optional filter object. If not found, creates
@@ -1300,7 +1297,7 @@ declare namespace l {
              * @param {boolean} created True if the instance matching the `where` filter was created
              */
 
-            static findOrCreate(data: any, filter?: {fields?: string|any|any[]; include?: string|any|any[]; limit?: number; order?: string; skip?: number; where?: any;}, callback?: (err: Error, instance: any, created: boolean) => void): void;
+            static findOrCreate(data: any, filter?: {fields?: string|any|any[]; include?: string|any|any[]; limit?: number; order?: string; skip?: number; where?: any; }, callback?: (err: Error, instance: any, created: boolean) => void): void;
 
             /**
              * Get the `Change` model.
@@ -1355,7 +1352,7 @@ declare namespace l {
              * @param {any} instance Replaced instance
              */
 
-            static replaceById(id: any, data: any, options?: {validate: boolean;}, callback?: (err: Error, instance: any) => void): void;
+            static replaceById(id: any, data: any, options?: {validate: boolean; }, callback?: (err: Error, instance: any) => void): void;
 
             /**
              * Replace or insert a model instance; replace existing record if one is found,
@@ -1369,7 +1366,7 @@ declare namespace l {
              * @param {any} model Replaced model instance.
              */
 
-            static replaceOrCreate(data: any, options?: {validate: boolean;}, callback?: (err: Error, model: any) => void): void;
+            static replaceOrCreate(data: any, options?: {validate: boolean; }, callback?: (err: Error, model: any) => void): void;
 
             /**
              * Replicate changes since the given checkpoint to the given target model
@@ -1708,7 +1705,7 @@ declare namespace l {
        */
 
       class AccessToken extends PersistedModel {
-            
+
             /** Generated token ID */
             id: string;
 
@@ -1750,7 +1747,7 @@ declare namespace l {
             */
 
             validate(callback: (err: Error, isValid: boolean) => void): void;
-            
+
             // **NOTE** Deprecate for 3.x
             // /**
             // * Anonymous Token
@@ -1830,7 +1827,7 @@ declare namespace l {
              * @param {() => void} callback Callback functio
              */
 
-            static checkAccessForContext(context: {principals: any[]; model: string|Model; id: any; property: string; accessType: string;}, callback: () => void): void;
+            static checkAccessForContext(context: {principals: any[]; model: string|Model; id: any; property: string; accessType: string; }, callback: () => void): void;
 
             /**
              * Check if the given access token can invoke the method
@@ -2031,7 +2028,7 @@ declare namespace l {
              */
 
             static authenticate(appId: any, key: string, callback: (err: Error, matched: string) => void): void;
-            
+
             /**
              * Register a new application
              * @param {string} owner Owner's user ID.
@@ -2103,7 +2100,7 @@ declare namespace l {
              * settings.ignoreErrors By default, when changes are rectified, an error will throw an exception.
              * However, if this setting is true, then errors will not throw exceptions.
              */
-            settings: { http: { path: string }; acls: ACL; hashAlgorithm: string; ignoreErrors: boolean;};
+            settings: { http: { path: string }; acls: ACL; hashAlgorithm: string; ignoreErrors: boolean; };
 
             /**
              * Are both changes deletes?
@@ -2218,7 +2215,7 @@ declare namespace l {
              * @param {Error} err
              * @param {string} rev The current revisio
              */
-            
+
             currentRevision(callback: (err: Error, rev: string) => void): void;
 
             /**
@@ -2417,7 +2414,7 @@ declare namespace l {
              * @param {() => void} callback Called after the e-mail is sent or the sending faile
              */
 
-            static send(callback: () => void, options: { from: string; to: string; subject: string; text: string; html: string;}): void;
+            static send(callback: () => void, options: { from: string; to: string; subject: string; text: string; html: string; }): void;
 
             /**
             * A shortcut for Email.send(this).
@@ -2446,10 +2443,10 @@ declare namespace l {
              * @param {string} key Key to use when searching the database.
              * @param {number} ttl TTL in ms to set for the key.
              * @param {any} options
-             * @param {()=> void} callback
+             * @param {() => void} callback
              */
 
-            static expire(key: string, ttl: number, options: any, callback: ()=> void): PromiseLike<any>;
+            static expire(key: string, ttl: number, options: any, callback: () => void): PromiseLike<any>;
 
             /**
              * Return the value associated with a given key.
@@ -2463,10 +2460,10 @@ declare namespace l {
              * 
              * @param {string} key Key to use when searching the database.
              * @param {any} options
-             * @param {()=> void} callback
+             * @param {() => void} callback
              */
 
-            static get(key: string, option?: any, callback?: (err: Error, result: any)=> void): PromiseLike<any>;
+            static get(key: string, option?: any, callback?: (err: Error, result: any) => void): PromiseLike<any>;
 
             /**
              * Asynchronously iterate all keys in the database. Similar to .keys() 
@@ -2525,11 +2522,11 @@ declare namespace l {
              * All connectors are required to support * and ?, but may also support additional special 
              * characters specific to the database.
              * @param {any} filter.options 
-             * @param {()=> void} callback
+             * @param {() => void} callback
              * @return {PromiseLike<any>} 
              */
 
-            static keys(filter: {match: string; options: any}, callback: ()=> void): PromiseLike<any>;
+            static keys(filter: {match: string; options: any}, callback: () => void): PromiseLike<any>;
 
             /**
              * Persist a value and associate it with the given key.
@@ -2544,10 +2541,10 @@ declare namespace l {
              * @param {string} key Key to associate with the given value.
              * @param {any} value Value to persist.
              * @param {number|any} Optional settings for the key-value pair. If a Number is provided, it is set as the TTL (time to live) in ms (milliseconds) for the key-value pair.
-             * @param {()=> void} callback
+             * @param {() => void} callback
              */
 
-            static set(key: string, value: any, options?: number|any, callback?: (err: Error)=> void): PromiseLike<any>;
+            static set(key: string, value: any, options?: number|any, callback?: (err: Error) => void): PromiseLike<any>;
 
             /**
              * Return the TTL (time to live) for a given key. 
@@ -2559,10 +2556,10 @@ declare namespace l {
              * 
              * @param {string} key Key to use when searching the database.
              * @param {any} options 
-             * @param {()=> void} callback
+             * @param {() => void} callback
              */
 
-            static ttl(key: string, options?: any, cb?: (error: Error)=> void): PromiseLike<any>;
+            static ttl(key: string, options?: any, cb?: (error: Error) => void): PromiseLike<any>;
       }
 
       /**
@@ -2618,7 +2615,7 @@ declare namespace l {
              * @param {() => void} resolver () => void that determines
              * if a principal is in the specified role.
              * Should provide a callback or return a promise.
-             */ 
+             */
 
             static registerResolver(role: string, resolver: () => void): void;
       }
@@ -2630,7 +2627,7 @@ declare namespace l {
        * @property {string} Description Text description.
        * @class RoleMapping
        * @inherits {PersistedModel}
-      */
+       */
 
       class RoleMapping extends PersistedModel {
 
@@ -2651,7 +2648,7 @@ declare namespace l {
              */
 
             application(callback: (err: Error, application: Application) => void): void;
-                  
+
             /**
              * Get the child role principal
              * @callback {() => void} callback
@@ -2680,6 +2677,7 @@ declare namespace l {
        */
 
       class Scope {
+
             /**
              * Check if the given scope is allowed to access the model/property
              * @param {string} scope The scope name
@@ -2775,8 +2773,8 @@ declare namespace l {
              * settings.saltWorkFactor The `bcrypt` salt work factor. Default is `10`.
              * settings.caseSensitiveEmail Enable case sensitive email.
              */
-            settings: { http: { path: string }; acls: ACL; emailVerificationRequired: boolean; ttl: number; maxTTL: number; realmRequired: boolean; realmDelimiter: string; resetPasswordTokenTTL: number; saltWorkFactor: number; caseSensitiveEmail: boolean;}
-            
+            settings: { http: { path: string }; acls: ACL; emailVerificationRequired: boolean; ttl: number; maxTTL: number; realmRequired: boolean; realmDelimiter: string; resetPasswordTokenTTL: number; saltWorkFactor: number; caseSensitiveEmail: boolean; };
+
             /**
              * Confirm the user's identity
              * @param {Any} userId
