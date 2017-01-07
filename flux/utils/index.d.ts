@@ -34,6 +34,12 @@ declare namespace FluxUtils {
          * @type {boolean}
          */
         withProps?: boolean;
+        /**
+         * Default value: false
+         *
+         * @type {boolean}
+         */
+        withContext?: boolean;
     }
 
     export class Container {
@@ -44,6 +50,18 @@ declare namespace FluxUtils {
         * The provided base class must have static methods getStores() and calculateState().
         */
         static create<TComponent>(base: React.ComponentClass<TComponent>, options?: RealOptions): React.ComponentClass<TComponent>;
+
+
+
+        /**
+         * This is a way to connect stores to a functional stateless view
+         */
+        static createFunctional<Props, State>(
+            viewFn: (props: State) => React.ReactElement<State>,
+            getStores: (props?: Props, context?: any) => FluxUtils.Store<any>[],
+            calculateState: (prevState?: State, props?: Props, context?: any) => State,
+            options?: RealOptions
+        ): React.ComponentClass<Props>;
     }
 
     export class ReduceStore<T, TPayload> extends Store<TPayload> {
