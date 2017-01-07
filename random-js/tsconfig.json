@@ -15,7 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "random-js-ambient-tests.ts",
-        "random-js-commonjs-tests.ts"
+        "random-js-ambient-tests.ts"
     ]
 }

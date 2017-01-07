@@ -4,3 +4,5 @@ function test_NoDataToDisplay() {
     chart.hideNoData();
     chart.showNoData("Custom no data message");
 }
+
+HighchartsNoDataToDisplay(Highcharts);

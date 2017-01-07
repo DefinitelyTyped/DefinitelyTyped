@@ -358,6 +358,18 @@ draggable.enable();
 draggable.disable();
 draggable.on('drag', () => {});
 
+let twoCoords: [number, number] = [1, 2];
+latLng = L.GeoJSON.coordsToLatLng(twoCoords);
+twoCoords = L.GeoJSON.latLngToCoords(latLng);
+
+let threeCoords: [number, number, number] = [1, 2, 3];
+latLng = L.GeoJSON.coordsToLatLng(threeCoords);
+threeCoords = L.GeoJSON.latLngToCoords(latLng);
+
+let nestedTwoCoords = [ [12, 13], [13, 14], [14, 15] ];
+let nestedLatLngs: L.LatLng[] = L.GeoJSON.coordsToLatLngs(nestedTwoCoords, 1);
+nestedTwoCoords = L.GeoJSON.latLngsToCoords(nestedLatLngs, 1);
+
 class MyMarker extends L.Marker {
 	constructor() {
 		super([12, 13]);

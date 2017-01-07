@@ -4,7 +4,7 @@ function validationTest() {
 
     const validationOptions: qq.ValidationOptions = {
         acceptFiles: [new MimeType()],
-        allowExtensions: ['csv, xls'],
+        allowedExtensions: ['csv, xls'],
         itemLimit: 5,
         sizeLimit: 10000000,
         stopOnFirstInvalidFile: false,

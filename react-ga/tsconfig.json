@@ -11,9 +11,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+
+        "jsx": "react"
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "react-ga-tests.tsx"
     ]
 }
