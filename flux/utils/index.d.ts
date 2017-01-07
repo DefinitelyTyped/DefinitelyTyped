@@ -1,4 +1,4 @@
-// Type definitions for Flux Utils
+// Type definitions for Flux Utils 3.0
 // Project: http://facebook.github.io/flux/
 // Definitions by: Steve Baker <https://github.com/stkb/>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
