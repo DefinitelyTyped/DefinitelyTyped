@@ -11823,7 +11823,6 @@ declare module olx {
         }
 
         type AnimateCallback = (completed: boolean) => void;
-
     }
 
     /**
