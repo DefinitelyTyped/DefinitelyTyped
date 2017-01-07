@@ -15,8 +15,6 @@ if (pkg.includes("/")) {
 const cmd = `node ${tslintPath}/lib/tslint-cli --format stylish "**/*.d.ts"`;
 console.log(cmd);
 
-console.log(pkg);
-process.exit(0);
 try {
     // Child process writes directly to our own stdout
     execSync(cmd, { cwd: pkg, stdio: "inherit" });
