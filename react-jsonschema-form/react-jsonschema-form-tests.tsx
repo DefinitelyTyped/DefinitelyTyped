@@ -76,7 +76,7 @@ export class Example extends React.Component<any, IExampleState> {
                         showErrorList={false}
                         noValidate={false}
                         formData={this.state}
-                        onChange={(formData) => this.setState({formData})} /> }
+                        onChange={(formData) => { this.setState({formData})} } /> }
           </div>
       );
     }

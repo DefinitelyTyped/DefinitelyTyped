@@ -18,8 +18,8 @@ interface Props {
 }
 
 interface State {
-    inputValue?: string;
-    seconds?: number;
+    inputValue: string;
+    seconds: number;
 }
 
 interface Context {
@@ -266,6 +266,10 @@ var propTypes: React.ValidationMap<Props> | undefined = ClassicComponent.propTyp
 // modern
 var componentState: State = component.state;
 component.setState({ inputValue: "!!!" });
+
+// This should not compile, which is good.
+// component.setState({ wrong: "!!!" });
+
 component.forceUpdate();
 
 // classic
