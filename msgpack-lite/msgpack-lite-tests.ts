@@ -28,7 +28,6 @@ function writingToStream() {
 // https://github.com/kawanet/msgpack-lite#reading-from-messagepack-stream
 function readingFromStream() {
   var fs = require("fs");
-  var msgpack = require("msgpack-lite");
 
   var readStream = fs.createReadStream("test.msp");
   var decodeStream = msgpack.createDecodeStream();
