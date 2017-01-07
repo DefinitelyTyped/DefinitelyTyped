@@ -68,8 +68,8 @@ the equivalent TypeScript version is next, explanation of each section below:
 
 /// <amd-dependency path="dijit/form/TextBox" />
 
-/// <reference path="../typings/dojo.d.ts" />
-/// <reference path="../typings/dijit.d.ts" />
+/// <reference types="dojo" />
+/// <reference types="dijit" />
 
 declare var require: (moduleId: string) => any;
 

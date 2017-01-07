@@ -1,6 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path='../lodash/lodash-3.10.d.ts' />
-/// <reference path="./backbone-global.d.ts" />
+import * as Backbone from "backbone";
+import * as _ from "lodash";
 
 function test_events() {
 

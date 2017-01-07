@@ -1,7 +1,4 @@
-﻿/// <reference path="../ace.d.ts" />
-
-var assert: any;
-var exports = {
+const aceRangeTests = {
 
     name: "ACE range.js",
 

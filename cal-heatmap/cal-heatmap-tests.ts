@@ -1,6 +1,6 @@
-﻿/// <reference path="cal-heatmap.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../d3/d3.d.ts" />
+
+/// <reference types="jquery" />
+/// <reference types="d3" />
 
 var cal = new CalHeatMap();
 cal.init();

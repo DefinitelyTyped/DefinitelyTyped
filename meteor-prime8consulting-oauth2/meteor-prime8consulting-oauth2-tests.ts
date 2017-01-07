@@ -1,4 +1,4 @@
-/// <reference path="meteor-prime8consulting-oauth2.d.ts" />
+
 
 let str : string;
 str = oAuth2Server.pubSubNames.authCodes;

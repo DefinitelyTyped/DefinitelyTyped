@@ -1,4 +1,4 @@
-/// <reference path="html-to-text.d.ts" />
+
 
 import * as htmlToText from 'html-to-text';
 

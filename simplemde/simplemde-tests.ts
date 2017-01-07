@@ -1,5 +1,3 @@
-﻿/// <reference path="simplemde.d.ts" />
-
 function testSimplemde() {
 
     function customMarkdownParser(markdown: string) {

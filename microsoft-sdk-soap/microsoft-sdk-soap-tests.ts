@@ -1,4 +1,4 @@
-/// <reference path="microsoft-sdk-soap.d.ts" />
+
 
 // QueryByAttribute
 var queryByAttribute = new Sdk.Query.QueryByAttribute( "account" );

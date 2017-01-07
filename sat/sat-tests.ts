@@ -1,4 +1,5 @@
-/// <reference path="sat.d.ts" />
+import SAT = require("sat");
+
 class SatTest{
 	public vectorTest(){
 		let v1: SAT.Vector = new SAT.Vector(10, 10);

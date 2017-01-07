@@ -1,6 +1,6 @@
-/// <reference path="react-virtualized.d.ts"/>
-/// <reference path="../react/react.d.ts"/>
-/// <reference path="../react/react-dom.d.ts"/>
+/// <reference types="react-virtualized"/>
+/// <reference types="react"/>
+/// <reference types="react-dom"/>
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
@@ -291,9 +291,11 @@ function ScrollSyncTest() {
 }
 
 function WindowScrollerTest() {
+    const onScroll = function({scrollTop}: WindowScroller.OnScrollArg) {};
+    const onResize = function({height}: WindowScroller.OnResizeArg) {};
     ReactDOM.render(
-        <WindowScroller>
-            {({ height, isScrolling, scrollTop }) => (
+        <WindowScroller onScroll={onScroll} onResize={onResize}>
+            {({ height, isScrolling, scrollTop }: WindowScroller.RenderCallbackArg) => (
                 <VirtualScroll
                     autoHeight
                     height={height}
@@ -304,6 +306,11 @@ function WindowScrollerTest() {
                     width={120}/>
             ) }
         </WindowScroller>,
+        document.getElementById('example')
+    );
+    // test that onScroll & onResize are optional
+    ReactDOM.render(
+        <WindowScroller />,
         document.getElementById('example')
     );
 }

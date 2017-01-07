@@ -1,4 +1,4 @@
-﻿/// <reference path="match-media.d.ts" />
+
 
 var myApp = angular.module('testModule', ['matchMedia']);
 

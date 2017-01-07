@@ -3,7 +3,6 @@
 // Definitions by: Cyprien Autexier <https://github.com/sandorfr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="./tedious-connection-pool.d.ts" />
 
 "use strict";
 

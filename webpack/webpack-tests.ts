@@ -1,11 +1,10 @@
-/// <reference path="webpack.d.ts" />
 
 import * as webpack from 'webpack';
 
-var configuration: webpack.Configuration;
-var loader: webpack.Loader;
-var plugin: webpack.Plugin;
-declare var __dirname: string;
+let configuration: webpack.Configuration;
+let rule: webpack.Rule;
+let plugin: webpack.Plugin;
+declare const __dirname: string;
 
 //
 // https://webpack.github.io/docs/using-loaders.html
@@ -25,9 +24,9 @@ configuration = {
     }
 };
 
-loader = { test: /\.png$/, loader: "url-loader?mimetype=image/png" };
+rule = { test: /\.png$/, loader: "url-loader?mimetype=image/png" };
 
-loader = {
+rule = {
     test: /\.png$/,
     loader: "url-loader",
     query: { mimetype: "image/png" }
@@ -96,61 +95,6 @@ configuration = {
             { test: /\.css$/, loader: "style-loader!css-loader" }
         ]
     }
-};
-
-class ExtractTextPlugin implements webpack.Plugin {
-    static extract(...loaders: string[]): string { return null; }
-    constructor(...args: any[]) {}
-}
-
-configuration = {
-    // The standard entry point and output config
-    entry: {
-        posts: "./posts",
-        post: "./post",
-        about: "./about"
-    },
-    output: {
-        filename: "[name].js",
-        chunkFilename: "[id].js"
-    },
-    module: {
-        loaders: [
-            // Extract css files
-            {
-                test: /\.css$/,
-                loader: ExtractTextPlugin.extract("style-loader", "css-loader")
-            },
-            // Optionally extract less files
-            // or any other compile-to-css language
-            {
-                test: /\.less$/,
-                loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
-            }
-            // You could also use other loaders the same way. I. e. the autoprefixer-loader
-        ]
-    },
-    // Use the plugin to specify the resulting filename (and add needed behavior to the compiler)
-    plugins: [
-        new ExtractTextPlugin("[name].css")
-    ]
-};
-
-configuration = {
-    // ...
-    plugins: [
-        new ExtractTextPlugin("style.css", {
-            allChunks: true
-        })
-    ]
-};
-
-configuration = {
-    // ...
-    plugins: [
-        new webpack.optimize.CommonsChunkPlugin("commons", "commons.js"),
-        new ExtractTextPlugin("[name].css")
-    ]
 };
 
 //
@@ -253,7 +197,7 @@ configuration = {
   }
 };
 
-loader = {
+rule = {
     test: /\.jsx$/,
     include: [
         path.resolve(__dirname, "app/src"),
@@ -283,23 +227,22 @@ configuration = {
 // https://webpack.github.io/docs/list-of-plugins.html
 //
 
-var plugin: webpack.Plugin;
-var resourceRegExp: any;
-var newResource: any;
-var contextRegExp: any;
-var newContentResource: any;
-var newContentRecursive: any;
-var newContentRegExp: any;
-var requestRegExp: any;
-var options: any;
-var definitions: any;
-var paths: any;
-var preferEntry = true;
-var context: any;
-var request: any;
-var types: any;
-var banner: any;
-var plugins: webpack.Plugin[];
+let resourceRegExp: any;
+let newResource: any;
+let contextRegExp: any;
+let newContentResource: any;
+let newContentRecursive: any;
+let newContentRegExp: any;
+let requestRegExp: any;
+let options: any;
+let definitions: any;
+let paths: any;
+let preferEntry = true;
+let context: any;
+let request: any;
+let types: any;
+let banner: any;
+let plugins: webpack.Plugin[] = [];
 
 plugin = new webpack.NormalModuleReplacementPlugin(resourceRegExp, newResource);
 plugin = new webpack.ContextReplacementPlugin(
@@ -398,23 +341,25 @@ plugin = new webpack.ProvidePlugin({
 });
 plugin = new webpack.SourceMapDevToolPlugin({
     //// asset matching
-    //test: string | RegExp | Array,
-    //include: string | RegExp | Array,
-    //exclude: string | RegExp | Array,
+    test: /\.js$/,
+    //include: Condition | Condition[],
+    exclude: [
+        /node_modules/
+    ],
     //
     //// file and reference
-    //filename: string,
-    //append: bool | string,
-    //
+    filename: null, // | string
+    //append: false | string,
     //// sources naming
     //moduleFilenameTemplate: string,
     //fallbackModuleFilenameTemplate: string,
     //
     //// quality/performance
-    //module: bool,
-    //columns: bool,
-    //lineToLine: bool | object
+    module: true,
+    columns: true,
+    lineToLine: false // | { test?: Condition | Condition[], ... }
 });
+plugin = new webpack.EvalSourceMapDevToolPlugin(false);
 plugin = new webpack.HotModuleReplacementPlugin();
 plugin = new webpack.ExtendedAPIPlugin();
 plugin = new webpack.NoErrorsPlugin();
@@ -474,3 +419,70 @@ compiler.run(function(err, stats) {
     // ...
     var fileContent = fs.readFileSync("...");
 });
+
+//
+// https://github.com/webpack/webpack/blob/master/test/configCases/rule-set/simple/webpack.config.js
+//
+
+rule = {
+    test: {
+        or: [
+            require.resolve("./a"),
+            require.resolve("./c"),
+        ]
+    },
+    loader: "./loader",
+    options: "third"
+}
+
+configuration = {
+	module: {
+		rules: [
+			{ oneOf: [
+				{
+					test: {
+						and: [
+							/a.\.js$/,
+							/b\.js$/
+						]
+					},
+					loader: "./loader?first"
+				},
+				{
+					test: [
+						require.resolve("./a"),
+						require.resolve("./c"),
+					],
+					issuer: require.resolve("./b"),
+					use: [
+						"./loader?second-1",
+						{
+							loader: "./loader",
+							options: "second-2"
+						},
+						{
+							loader: "./loader",
+							options: {
+								get: function() { return "second-3"; }
+							}
+						}
+					]
+				},
+				{
+					test: {
+						or: [
+							require.resolve("./a"),
+							require.resolve("./c"),
+						]
+					},
+					loader: "./loader",
+					options: "third"
+				}
+			]}
+		]
+	}
+}
+
+const resolve: webpack.Resolve = {
+    cachePredicate: 'boo' // why does this test _not_ fail!?
+}

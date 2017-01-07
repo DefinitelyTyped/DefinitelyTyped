@@ -1,4 +1,3 @@
-/// <reference path="./forge-di.d.ts" />
 
 import Forge = require('forge-di');
 

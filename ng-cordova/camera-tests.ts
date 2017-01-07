@@ -1,5 +1,3 @@
-/// <reference path="camera.d.ts" />
-
 namespace ngCordova {
     function cameraTest($cordovaCamera: ICameraService) {
         var options = {

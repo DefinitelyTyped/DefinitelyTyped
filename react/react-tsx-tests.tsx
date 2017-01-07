@@ -1,4 +1,3 @@
-/// <reference path="react.d.ts" />
 import React = require("react");
 
 interface SCProps {
@@ -14,3 +13,22 @@ StatelessComponent.defaultProps = {
 };
 
 <StatelessComponent />;
+
+var StatelessComponent2: React.SFC<SCProps> = ({ foo, children }) => {
+    return <div>{ foo }{ children }</div>;
+};
+StatelessComponent2.displayName = "StatelessComponent4";
+StatelessComponent2.defaultProps = {
+    foo: 42
+};
+
+<StatelessComponent2>24</StatelessComponent2>;
+
+// svg sanity check
+<svg viewBox="0 0 1000 1000">
+    <g>
+        <text x="200" y="300" strokeWidth="5" stroke="black" alignmentBaseline="middle">
+            Hello, world!
+        </text>
+    </g>
+</svg>;

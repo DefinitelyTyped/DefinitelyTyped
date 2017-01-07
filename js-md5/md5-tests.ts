@@ -1,4 +1,4 @@
-/// <reference path="md5.d.ts" />
+
 
 md5('Message to hash');
 md5('');

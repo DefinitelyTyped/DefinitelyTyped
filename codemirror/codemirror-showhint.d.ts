@@ -5,7 +5,9 @@
 
 // See docs https://codemirror.net/doc/manual.html#addon_show-hint
 
-declare namespace CodeMirror {
+import * as CodeMirror from "codemirror";
+
+declare module "codemirror" {
     var commands: any;
 
     /** Provides a framework for showing autocompletion hints. Defines editor.showHint, which takes an optional
