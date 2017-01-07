@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts" />
-
 import * as loopback from 'loopback';
 import * as express from 'express';
 import * as boot from 'loopback-boot';
