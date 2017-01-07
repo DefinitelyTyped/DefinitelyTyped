@@ -1,4 +1,4 @@
-///<reference path="artyom.d.ts"/>
+///<reference path="index.d.ts"/>
 import artyomjs = require('artyom.js');
 
 // Get an unique ArtyomJS instance
