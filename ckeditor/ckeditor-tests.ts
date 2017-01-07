@@ -270,6 +270,32 @@ function test_dom_window() {
     alert(size.height);
 }
 
+function test_adding_command_and_buttons() {
+    var textarea = document.createElement('textarea');
+    var instance = CKEDITOR.replace(textarea);
+
+    instance.addCommand( 'aCommand', {
+        exec: function( editor: CKEDITOR.editor ) {
+            // empty logic
+            return true;
+        }
+    });
+
+    instance.ui.addButton( 'firstButton', {
+        icon: 'http://www.example.com/assets/images/icons.png',
+        iconOffset: -32,
+        label: 'Label 1',
+        command: 'aCommand',
+        toolbar: 'tools'
+    });
+
+    instance.ui.addButton( 'secondButton', {
+        label: 'Label 2',
+        command: 'aCommand',
+        toolbar: 'tools'
+    });
+}
+
 function test_adding_dialog_by_path() {
     CKEDITOR.dialog.add( 'abbrDialog', this.path + 'dialogs/abbr.js' );
 }

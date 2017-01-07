@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "loader-runner-tests"
+        "loader-runner-tests.ts"
     ]
 }

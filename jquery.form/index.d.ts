@@ -1,4 +1,4 @@
-// Type definitions for jQuery.form.js 3.26.0-2013.01.28
+// Type definitions for jQuery.form.js 3.26
 // Project: http://malsup.com/jquery/form/
 // Definitions by: François Guillot <http://fguillot.developpez.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -158,6 +158,7 @@
         "max/index.d.ts",
         "maxBy/index.d.ts",
         "mean/index.d.ts",
+        "meanBy/index.d.ts",
         "memoize/index.d.ts",
         "merge/index.d.ts",
         "mergeWith/index.d.ts",

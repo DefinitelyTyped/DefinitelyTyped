@@ -1,4 +1,4 @@
-﻿
+
 
 import runtime = chrome.app.runtime;
 import cwindow = chrome.app.window;

@@ -22,7 +22,7 @@ declare namespace meow {
         flags: { [name: string]: any };
         pkg: any;
         help: string;
-        showHelp(code: number): void;
+        showHelp(code?: number): void;
     }
 
 }

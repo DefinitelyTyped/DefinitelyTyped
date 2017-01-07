@@ -1,4 +1,4 @@
-﻿/// <reference types="mocha" />
+/// <reference types="mocha" />
 /// <reference types="should" />
 
 import gulp = require('gulp');

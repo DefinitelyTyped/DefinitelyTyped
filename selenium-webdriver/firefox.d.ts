@@ -1,5 +1,5 @@
-import * as webdriver from "./index";
-import * as remote from "./remote";
+import * as webdriver from './index';
+import * as remote from './remote';
 
 declare namespace firefox {
     /**

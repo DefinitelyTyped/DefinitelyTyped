@@ -15,9 +15,10 @@
         "jsx": "react"
     },
     "files": [
-        "index.d.ts"
-    ],
-    "include": [
-        "halogen-*-loader-tests.tsx"
+        "index.d.ts",
+        "halogen-clip-loader-tests.tsx",
+        "halogen-fade-loader-tests.tsx",
+        "halogen-pacman-loader-tests.tsx",
+        "halogen-rotate-loader-tests.tsx"
     ]
 }

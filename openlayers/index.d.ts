@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers v3.18.2
+// Type definitions for OpenLayers v3.20.0
 // Project: http://openlayers.org/
 // Definitions by: Olivier Sechet <https://github.com/osechet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10047,6 +10047,14 @@ declare module ol {
              */
             getStroke(): ol.style.Stroke;
 
+            /**
+             * Set the circle radius.
+             *
+             * @param {number} radius Circle radius.
+             * @api
+             */
+            setRadius(radius: number): void;
+
         }
 
         /**
@@ -10540,6 +10548,13 @@ declare module ol {
             getZIndex(): (number);
 
             /**
+             * Set the fill style.
+             * @param {ol.style.Fill} fill Fill style.
+             * @api
+             */
+            setFill(fill: ol.style.Fill):void;
+
+            /**
              * Set a geometry that is rendered instead of the feature's geometry.
              *
              * @param {string|ol.geom.Geometry|ol.StyleGeometryFunction} geometry
@@ -10548,6 +10563,27 @@ declare module ol {
              * @api
              */
             setGeometry(geometry: (string | ol.geom.Geometry | ol.StyleGeometryFunction)): void;
+            
+            /**
+             * Set the image style.
+             * @param {ol.style.Image} image Image style.
+             * @api
+             */
+            setImage(image: ol.style.Image): void;
+
+            /**
+             * Set the stroke style.
+             * @param {ol.style.Stroke} stroke Stroke style.
+             * @api
+             */
+            setStroke(stroke: ol.style.Stroke): void;
+            
+            /**
+             * Set the text style.
+             * @param {ol.style.Text} text Text style.
+             * @api
+             */
+            setText(text: ol.style.Text): void;
 
             /**
              * Set the z-index.
@@ -11148,7 +11184,7 @@ declare module ol {
      * undefined.
      * @typedef {ol.proj.Projection|string|undefined} ol.ProjectionLike
      */
-    type ProjectionLike = (ol.proj.Projection | string);
+    type ProjectionLike = (ol.proj.Projection | string | undefined);
 
     /**
      * A function that takes an array of input data, performs some operation, and
@@ -11722,7 +11758,7 @@ declare module olx {
             resolution: number;
             start?: number;
             duration?: number;
-            easing: ((t: number) => number);
+            easing?: ((t: number) => number);
         }
 
 
@@ -11736,7 +11772,7 @@ declare module olx {
             source: ol.Coordinate;
             start?: number;
             duration?: number;
-            easing: ((t: number) => number);
+            easing?: ((t: number) => number);
         }
 
 
@@ -11752,7 +11788,7 @@ declare module olx {
             anchor?: ol.Coordinate;
             start?: number;
             duration?: number;
-            easing: ((t: number) => number);
+            easing?: ((t: number) => number);
         }
 
 
@@ -11766,7 +11802,7 @@ declare module olx {
             resolution: number;
             start?: number;
             duration?: number;
-            easing: ((t: number) => number);
+            easing?: ((t: number) => number);
         }
 
         /**
@@ -12025,7 +12061,7 @@ declare module olx {
          */
         interface WriteOptions {
             dataProjection: ol.ProjectionLike;
-            featureProjection: ol.ProjectionLike;
+            featureProjection?: ol.ProjectionLike;
             rightHanded?: boolean;
             decimals?: number;
         }
@@ -12037,6 +12073,7 @@ declare module olx {
          */
         interface GeoJSONOptions {
             defaultDataProjection: ol.ProjectionLike;
+            featureProjection: ol.ProjectionLike;
             geometryName?: string;
         }
 
@@ -13787,7 +13824,17 @@ declare module olx {
         zoom?: number;
         zoomFactor?: number;
     }
-
+		
+    /**
+    * Object literal with options for the {@link ol.Map#forEachFeatureAtPixel} and
+    * {@link ol.Map#hasFeatureAtPixel} methods.
+    * @typedef {{layerFilter: ((function(ol.layer.Layer): boolean)|undefined),
+    *     hitTolerance: (number|undefined)}}
+    */
+    interface AtPixelOptions {
+        layerFilter?: ((layer: ol.layer.Layer) => boolean)
+        hitTolerance?: number
+    }
 
     /**
      * @typedef {{animate: boolean,

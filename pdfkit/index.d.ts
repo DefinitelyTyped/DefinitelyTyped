@@ -108,7 +108,7 @@ declare namespace PDFKit.Mixins {
         /** The amount in PDF points (72 per inch) to indent each paragraph of text */
         indent?: number;
         /** the amount of space between each paragraph of text */
-        paragrahGap?: number;
+        paragraphGap?: number;
         /** the amount of space between each line of text */
         lineGap?: number;
         /** the amount of space between each word in the text */
@@ -160,7 +160,7 @@ declare namespace PDFKit.Mixins {
         bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): TDocument;
         quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): TDocument;
         rect(x: number, y: number, w: number, h: number): TDocument;
-        roundRect(x: number, y: number, w: number, h: number, r?: number): TDocument;
+        roundedRect(x: number, y: number, w: number, h: number, r?: number): TDocument;
         ellipse(x: number, y: number, r1: number, r2?: number): TDocument;
         circle(x: number, y: number, raduis: number): TDocument;
         polygon(...points: number[][]): TDocument;
@@ -230,7 +230,7 @@ declare namespace PDFKit {
         compress?: boolean;
         info?: DocumentInfo;
         autoFirstPage?: boolean;
-        size?: number[];
+        size?: number[]|string;
         margin?: number;
         margins?: { top: number; left: number; bottom: number; right: number };
         layout?: "portrait" | "landscape";

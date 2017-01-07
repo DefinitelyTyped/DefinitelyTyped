@@ -1,4 +1,4 @@
-// Type definitions for react-modal v1.3.0
+// Type definitions for react-modal v1.6.1
 // Project: https://github.com/reactjs/react-modal
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -24,6 +24,7 @@ declare module "react-modal" {
         shouldCloseOnOverlayClick?: boolean,
         overlayClassName?: string,
         className?: string
+        contentLabel?: string
     }
     let ReactModal: React.ClassicComponentClass<ReactModal>;
     export = ReactModal;

@@ -1,6 +1,3 @@
-/// <reference path="react-highlighter.d.ts" />
-/// <reference path="../react/react.d.ts" />
-
 import * as React from 'react';
 import * as Highlight from 'react-highlighter';
 

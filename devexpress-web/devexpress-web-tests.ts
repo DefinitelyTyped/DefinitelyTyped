@@ -1,4 +1,4 @@
-﻿/// <reference types="jquery" />
+/// <reference types="jquery" />
 
 declare var hiddenField: ASPxClientHiddenField;
 declare var mainCallbackPanel: ASPxClientCallbackPanel;

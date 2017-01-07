@@ -1,5 +1,3 @@
-/// <reference path="format-unicorn-safe.d.ts"/>
-
 import formatUnicorn = require('format-unicorn/safe');
 
 // Safe version
