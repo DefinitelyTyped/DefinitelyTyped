@@ -1,4 +1,4 @@
-// Type definitions for Loopback 3.1.1
+// Type definitions for Loopback 3.1
 // Project: https://github.com/strongloop/loopback
 // Definitions by: Andres D Jimenez <https://github.comhttps://github.com/kattsushi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,8 +9,6 @@
 *               LoopBack v3.x API               *
 *                                               *
 ************************************************/
-
-/// <reference types="express-serve-static-core" />
 
 import * as core from "express-serve-static-core";
 
@@ -995,7 +993,7 @@ declare namespace l {
              * @return {any} SharedMethod https://apidocs.strongloop.com/strong-remoting/#sharedmethod
              */
 
-            find(fn: string|Function, isStatic: boolean ): any;
+            find(fn: () => void|string, isStatic: boolean ): any;
 
             /**
              * Find a sharedMethod with the given static or prototype method name.
