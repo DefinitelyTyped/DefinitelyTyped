@@ -1,6 +1,6 @@
-// Type definitions for bcryptjs v2.3.0
+// Type definitions for bcryptjs v2.4.0
 // Project: https://github.com/dcodeIO/bcrypt.js
-// Definitions by: Joshua Filby <https://github.com/Joshua-F/>
+// Definitions by: Joshua Filby <https://github.com/Joshua-F/>, Rafael Kraut <https://github.com/RafaelKr/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -16,21 +16,26 @@ export declare function setRandomFallback(random: (random: number) => number[]):
  * Synchronously generates a salt.
  * @param  rounds Number of rounds to use, defaults to 10 if omitted
  * @return Resulting salt
+ * @throws If a random fallback is required but not set
  */
 export declare function genSaltSync(rounds?: number): string;
 
 /**
  * Asynchronously generates a salt.
- * @param callback Callback receiving the error, if any, and the resulting salt
+ * @param  callback Callback receiving the error, if any, and the resulting salt
+ * @return Promise with resulting salt, if callback has been omitted
+ * @throws If callback is present but not a function
  */
-export declare function genSalt(callback: (err: Error, salt: string) => void): void;
+export declare function genSalt(callback?: (err: Error, salt: string) => void): Promise<string>;
 
 /**
  * Asynchronously generates a salt.
  * @param  rounds   Number of rounds to use, defaults to 10 if omitted
  * @param  callback Callback receiving the error, if any, and the resulting salt
+ * @return Promise with resulting salt, if callback has been omitted
+ * @throws If callback is present but not a function
  */
-export declare function genSalt(rounds: number, callback: (err: Error, salt: string) => void): void;
+export declare function genSalt(rounds?: number, callback?: (err: Error, salt: string) => void): Promise<string>;
 
 /**
  * Synchronously generates a hash for the given string.
@@ -46,8 +51,10 @@ export declare function hashSync(s: string, salt?: number | string): string;
  * @param salt             Salt length to generate or salt to use
  * @param callback         Callback receiving the error, if any, and the resulting hash
  * @param progressCallback Callback successively called with the percentage of rounds completed (0.0 - 1.0), maximally once per MAX_EXECUTION_TIME = 100 ms.
+ * @return Promise with resulting hash, if callback has been omitted
+ * @throws If callback is present but not a function
  */
-export declare function hash(s: string, salt: number | string, callback: (err: Error, hash: string) => void, progressCallback?: (percent: number) => void): void;
+export declare function hash(s: string, salt: number | string, callback?: (err: Error, hash: string) => void, progressCallback?: (percent: number) => void): Promise<string>;
 
 /**
  * Synchronously tests a string against a hash.
@@ -63,13 +70,16 @@ export declare function compareSync(s: string, hash: string): boolean;
  * @param  hash             Data to be compared to
  * @param  callback         Callback receiving the error, if any, otherwise the result
  * @param  progressCallback Callback successively called with the percentage of rounds completed (0.0 - 1.0), maximally once per MAX_EXECUTION_TIME = 100 ms.
+ * @return Promise, if callback has been omitted
+ * @throws If callback is present but not a function
  */
-export declare function compare(s: string, hash: string, callback: (err: Error, success: boolean) => void, progressCallback?: (percent: number) => void): void;
+export declare function compare(s: string, hash: string, callback?: (err: Error, success: boolean) => void, progressCallback?: (percent: number) => void): Promise<boolean>;
 
 /**
  * Gets the number of rounds used to encrypt the specified hash.
  * @param  hash Hash to extract the used number of rounds from
  * @return Number of rounds used
+ * @throws If hash is not a string
  */
 export declare function getRounds(hash: string): number;
 
