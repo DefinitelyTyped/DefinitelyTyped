@@ -18,25 +18,145 @@ declare module "graphlib" {
     name?: string;
   }
 
-  // TODO: add template parameters for edge and vertex labels?
   export class Graph {
     constructor(options?: GraphOptions);
 
     /**
+     * Sets the default node label. This label will be assigned as default label
+     * in case if no label was specified while setting a node.
+     * Complexity: O(1).
+     * 
+     * @argument label - default node label.
+     * @returns the graph, allowing this to be chained with other functions.
+     */
+    setDefaultNodeLabel(label: any): Graph;
+
+    /**
+     * Sets the default node label factory function. This function will be invoked
+     * each time when setting a node with no label specified and returned value 
+     * will be used as a label for node.
+     * Complexity: O(1).
+     * 
+     * @argument labelFn - default node label factory function.
+     * @returns the graph, allowing this to be chained with other functions.
+     */
+    setDefaultNodeLabel(labelFn: (v: string) => any): Graph;
+
+
+
+    /**
      * Creates or updates the value for the node v in the graph. If label is supplied
      * it is set as the value for the node. If label is not supplied and the node was
-     * created by this call then the default node label will be assigned. Returns the
-     * graph, allowing this to be chained with other functions. Takes O(1) time.
+     * created by this call then the default node label will be assigned.
+     * Complexity: O(1).
+     * 
+     * @argument name - node name.
+     * @argument label - value to set for node.
+     * @returns the graph, allowing this to be chained with other functions.
      */
     setNode(name: string, label?: any): Graph;
 
+    /**
+     * Invokes setNode method for each node in names list.
+     * Complexity: O(|names|).
+     * 
+     * @argument names - list of nodes names to be set.
+     * @argument label - value to set for each node in list.
+     * @returns the graph, allowing this to be chained with other functions.
+     */
+    setNodes(names: string[], label?: any): Graph;
+
+    /**
+     * Sets node p as a parent for node v. Method throws an exception in case of
+     * invoking it in context of noncompound graph.
+     * Average-case complexity: O(1).
+     * 
+     * @argument v - node to be child for p.
+     * @argument p - node to be parent for v.
+     * @returns the graph, allowing this to be chained with other functions.
+     */
+    setParent(v: string, p: string): Graph;
+
+    /**
+     * Gets parent node for node v.
+     * Complexity: O(1).
+     * 
+     * @argument v - node to get parent of.
+     * @returns parent node name or void if v has no parent.
+     */
+    parent(v: string): string | void;
+
+    /**
+     * Gets list of direct children of node v.
+     * Complexity: O(1).
+     * 
+     * @argument v - node to get children of.
+     * @returns children nodes names list.
+     */
+    children(v: string): string[];
+
+    /**
+     * Creates new graph with nodes filtered via filter. Edges incident to rejected node
+     * are also removed. In case of compound graph, if parent is rejected by filter,
+     * than all its children are rejected too.
+     * Average-case complexity: O(|E|+|V|).
+     * 
+     * @argument filter - filtration function detecting whether the node should stay or not.
+     * @returns new graph made from current and nodes filtered.
+     */
+    filterNodes(filter: (v: string) => boolean): Graph;
+
+    /**
+     * Sets the default edge label. This label will be assigned as default label
+     * in case if no label was specified while setting an edge.
+     * Complexity: O(1).
+     * 
+     * @argument label - default edge label.
+     * @returns the graph, allowing this to be chained with other functions.
+     */
+    setDefaultEdgeLabel(label: any): Graph;
+
+    /**
+     * Sets the default edge label factory function. This function will be invoked
+     * each time when setting an edge with no label specified and returned value 
+     * will be used as a label for edge.
+     * Complexity: O(1).
+     * 
+     * @argument labelFn - default edge label factory function.
+     * @returns the graph, allowing this to be chained with other functions.
+     */
+    setDefaultEdgeLabel(labelFn: (v: string) => any): Graph;
+
+    /**
+     * Establish an edges path over the nodes in nodes list. If some edge is already
+     * exists, it will update its label, otherwise it will create an edge between pair
+     * of nodes with label provided or default label if no label provided.
+     * Complexity: O(|nodes|).
+     * 
+     * @argument nodes - list of nodes to be connected in series.
+     * @argument label - value to set for each edge between pairs of nodes.
+     * @returns the graph, allowing this to be chained with other functions.
+     */
+    setPath(nodes: string[], label?: any): Graph;
+
+    /**
+     * Detects whether graph has a node with specified name or not.
+     
+     * 
+     * @argument name - name of the node.
+     * @returns true if graph has node with specified name, false - otherwise.
+     */
     hasNode(name: string): boolean;
 
     /**
-     * Remove the node with the id v in the graph or do nothing if the node is not in
+     * Remove the node with the name from the graph or do nothing if the node is not in
      * the graph. If the node was removed this function also removes any incident
-     * edges. Returns the graph, allowing this to be chained with other functions.
-     * Takes O(|E|) time. */
+     * edges.
+     * Complexity: O(1).
+     *
+     * @argument name - name of the node.
+     * @returns the graph, allowing this to be chained with other functions.
+     */
     removeNode(name: string): Graph;
 
     nodes(): string[];
@@ -51,13 +171,20 @@ declare module "graphlib" {
      * be assigned. The name parameter is only useful with multigraphs. Returns the
      * graph, allowing this to be chained with other functions. Takes O(1) time.
      */
-    setEdge(v: string, w: string, label?: any): Graph;
+    setEdge(v: string, w: string, label?: any, name?: string): Graph;
+    setEdge(edge: Edge, label?: any): Graph;
 
     edges(): Edge[];
 
     /** Returns the label for this edge. */
     edge(v: string, w: string): any;
     edge(e: Edge): any;
+
+    hasEdge(v: string, w: string, name?: string): boolean;
+    hasEdge(edge: Edge): boolean;
+
+    removeEdge(edge: Edge): Graph;
+    removeEdge(v: string, w: string, name?: string): Graph;
 
     /**
      * Return all edges that point to the node v. Optionally filters those edges down to just those
@@ -105,7 +232,7 @@ declare module "graphlib" {
     isCompound(): boolean;
 
     /** Sets the label for the graph to label. */
-    setGraph(label: string): void;
+    setGraph(label: string): Graph;
 
     /**
      * Returns the currently assigned label for the graph. If no label has been assigned,
