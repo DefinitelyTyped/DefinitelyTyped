@@ -72,7 +72,7 @@ declare namespace L {
 
     export interface CRS {
         latLngToPoint(latlng: LatLngExpression, zoom: number): Point;
-        pointToLatLng(point: PointExpression): LatLng;
+        pointToLatLng(point: PointExpression, zoom: number): LatLng;
         project(latlng: LatLngExpression): Point;
         unproject(point: PointExpression): LatLng;
         scale(zoom: number): number;
