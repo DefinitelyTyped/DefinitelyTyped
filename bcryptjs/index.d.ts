@@ -53,7 +53,6 @@ export declare function hashSync(s: string, salt?: number | string): string;
  * @param s                String to hash
  * @param salt             Salt length to generate or salt to use
  * @return Promise with resulting hash, if callback has been omitted
- * @throws If callback is present but not a function
  */
 export declare function hash(s: string, salt: number | string): Promise<string>;
 
@@ -95,7 +94,6 @@ export declare function compare(s: string, hash: string, callback?: (err: Error,
  * Gets the number of rounds used to encrypt the specified hash.
  * @param  hash Hash to extract the used number of rounds from
  * @return Number of rounds used
- * @throws If hash is not a string
  */
 export declare function getRounds(hash: string): number;
 
