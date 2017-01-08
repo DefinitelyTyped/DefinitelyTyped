@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "colors-tests.ts"
+        "colors-tests.ts",
+        "safe.d.ts"
     ]
 }

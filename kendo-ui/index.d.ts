@@ -668,6 +668,9 @@ declare namespace kendo.data {
 
         constructor(data?: any);
         init(data?: any): void;
+
+        duration(): number;
+        isMilestone(): boolean;
     }
 
     class GanttDependency extends Model {
@@ -675,8 +678,8 @@ declare namespace kendo.data {
         static fields: DataSourceSchemaModelFields;
 
         id: any;
-        predecessorId: number;
-        successorId: number;
+        predecessorId: any;
+        successorId: any;
         type: number;
 
         static define(options: DataSourceSchemaModelWithFieldsObject): typeof GanttDependency;
@@ -721,6 +724,13 @@ declare namespace kendo.data {
         insert(index: number, model: Object): kendo.data.GanttTask;
         insert(index: number, model: kendo.data.GanttTask): kendo.data.GanttTask;
         remove(model: kendo.data.GanttTask): void;
+        taskAllChildren(task?: kendo.data.GanttTask): kendo.data.GanttTask[];
+        taskChildren(task?: kendo.data.GanttTask): kendo.data.GanttTask[];
+        taskLevel(task: kendo.data.GanttTask): number;
+        taskParent(task: kendo.data.GanttTask): kendo.data.GanttTask;
+        taskSibling(task: kendo.data.GanttTask): kendo.data.GanttTask[];
+        taskTree(task?: kendo.data.GanttTask): kendo.data.GanttTask[];
+        update(task: kendo.data.GanttTask, taskInfo: Object): void;
     }
 
     class GanttDependencyDataSource extends DataSource {
@@ -734,6 +744,9 @@ declare namespace kendo.data {
         insert(index: number, model: Object): kendo.data.GanttDependency;
         insert(index: number, model: kendo.data.GanttDependency): kendo.data.GanttDependency;
         remove(model: kendo.data.GanttDependency): void;
+        successors(id: string | number | Object): kendo.data.GanttDependency[];
+        predecessors(id: string | number | Object): kendo.data.GanttDependency[];
+        dependencies(id: string | number | Object): kendo.data.GanttDependency[];
     }
 
     class HierarchicalDataSource extends DataSource {
@@ -1086,6 +1099,7 @@ declare namespace kendo.data {
         static process(data: any[], options: DataSourceTransportReadOptionsData): QueryResult;
 
         constructor(data: any[]);
+        constructor(data: ObservableArray);
         toArray(): any[];
         range(intex: number, count: number): kendo.data.Query;
         skip(count: number): kendo.data.Query;
@@ -1121,7 +1135,7 @@ declare namespace kendo.data {
 
     interface DataSourceFilters extends DataSourceFilter {
         logic?: string;
-        filters?: DataSourceFilter[];
+        filters?: DataSourceFilter[];        
     }
 
     interface DataSourceGroupItemAggregate {

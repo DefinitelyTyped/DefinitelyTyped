@@ -1,5 +1,3 @@
-/// <reference path="mousetrap-global-bind.d.ts"/>
-
 Mousetrap.bindGlobal('4', function() { console.log('4'); });
 Mousetrap.bindGlobal("?", function() { console.log('show shortcuts!'); });
 Mousetrap.bindGlobal('esc', function() { console.log('escape'); }, 'keyup');

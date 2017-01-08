@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "promisify-node-tests"
+        "promisify-node-tests.ts"
     ]
 }

@@ -1,3 +1,5 @@
+import * as fabric from "fabric";
+
 function sample1() {
   var canvas = new fabric.Canvas('c', {
     hoverCursor: 'pointer',
@@ -32,7 +34,7 @@ function sample1() {
 
 function sample2() {
 
-  var dot: fabric.ICircle, i: number,
+  var dot: fabric.Circle, i: number,
     t1: number, t2: number,
     startTimer = function() {
       t1 = new Date().getTime();
@@ -90,13 +92,13 @@ function sample3() {
   var $: (id: string) => HTMLElement = function(id: string) { return document.getElementById(id) };
 
   function applyFilter(index: number, filter: any) {
-    var obj: fabric.IImage = <fabric.IImage>canvas.getActiveObject();
+    var obj: fabric.Image = <fabric.Image>canvas.getActiveObject();
     obj.filters[index] = filter;
     obj.applyFilters(canvas.renderAll.bind(canvas));
   }
 
   function applyFilterValue(index: number, prop: string, value: any) {
-    var obj: fabric.IImage = <fabric.IImage>canvas.getActiveObject();
+    var obj: fabric.Image = <fabric.Image>canvas.getActiveObject();
     if (obj.filters[index]) {
       obj.applyFilters(canvas.renderAll.bind(canvas));
     }
@@ -114,7 +116,7 @@ function sample3() {
 
       for (var i = 0; i < filters.length; i++) {
         var checkBox = <HTMLInputElement>$(filters[i]);
-        var image = <fabric.IImage>canvas.getActiveObject();
+        var image = <fabric.Image>canvas.getActiveObject();
         checkBox.checked = !!image.filters[i];
       }
     },
@@ -262,17 +264,17 @@ function sample4() {
 }
 
 
-namespace fabric {
-  export interface CircleWithLineInfos extends ICircle {
-    line1?: ILine;
-    line2?: ILine;
-    line3?: ILine;
-    line4?: ILine;
+declare module "fabric" {
+  export interface CircleWithLineInfos extends Circle {
+    line1?: Line;
+    line2?: Line;
+    line3?: Line;
+    line4?: Line;
   }
 }
 
 function sample5() {
-  var makeCircle = function(left: number, top: number, line1?: fabric.ILine, line2?: fabric.ILine, line3?: fabric.ILine, line4?: fabric.ILine): fabric.ICircle {
+  var makeCircle = function(left: number, top: number, line1?: fabric.Line, line2?: fabric.Line, line3?: fabric.Line, line4?: fabric.Line): fabric.Circle {
     var c = <fabric.CircleWithLineInfos>new fabric.Circle({
       left: left,
       top: top,
@@ -356,8 +358,8 @@ function sample6() {
   });
 }
 
-namespace fabric {
-  export interface ImageWithInfo extends IImage {
+declare module "fabric" {
+  export interface ImageWithInfo extends Image {
     movingLeft: boolean;
   }
 }
@@ -419,7 +421,7 @@ function sample8() {
   }
 
   if (/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) {
-    fabric.Object.prototype.cornersize = 30;
+    (fabric.Object.prototype as any).cornersize = 30;
   }
 
   var canvas = new fabric.Canvas('canvas');
@@ -866,7 +868,7 @@ function sample8() {
       var activeObject = canvas.getActiveObject();
 
       if (activeObject && activeObject.type === 'text') {
-        this.value = (<fabric.IText>activeObject).text;
+        this.value = (<fabric.Text>activeObject).text;
       }
     };
     textEl.onkeyup = function(e) {
@@ -876,7 +878,7 @@ function sample8() {
           canvas.discardActiveObject();
         }
         else {
-          (<fabric.IText>activeObject).text = this.value;
+          (<fabric.Text>activeObject).text = this.value;
         }
         canvas.renderAll();
       }
@@ -887,7 +889,7 @@ function sample8() {
   if (cmdUnderlineBtn) {
     activeObjectButtons.push(cmdUnderlineBtn);
     cmdUnderlineBtn.onclick = function() {
-      var activeObject = <fabric.IText>canvas.getActiveObject();
+      var activeObject = <fabric.Text>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.textDecoration = (activeObject.textDecoration == 'underline' ? '' : 'underline');
         this.className = activeObject.textDecoration ? 'selected' : '';
@@ -900,7 +902,7 @@ function sample8() {
   if (cmdLinethroughBtn) {
     activeObjectButtons.push(cmdLinethroughBtn);
     cmdLinethroughBtn.onclick = function() {
-      var activeObject = <fabric.IText>canvas.getActiveObject();
+      var activeObject = <fabric.Text>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.textDecoration = (activeObject.textDecoration == 'line-through' ? '' : 'line-through');
         this.className = activeObject.textDecoration ? 'selected' : '';
@@ -913,7 +915,7 @@ function sample8() {
   if (cmdOverlineBtn) {
     activeObjectButtons.push(cmdOverlineBtn);
     cmdOverlineBtn.onclick = function() {
-      var activeObject = <fabric.IText>canvas.getActiveObject();
+      var activeObject = <fabric.Text>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.textDecoration = (activeObject.textDecoration == 'overline' ? '' : 'overline');
         this.className = activeObject.textDecoration ? 'selected' : '';
@@ -926,7 +928,7 @@ function sample8() {
   if (cmdBoldBtn) {
     activeObjectButtons.push(cmdBoldBtn);
     cmdBoldBtn.onclick = function() {
-      var activeObject = <fabric.IText>canvas.getActiveObject();
+      var activeObject = <fabric.Text>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.fontWeight = (activeObject.fontWeight == 'bold' ? '' : 'bold');
         this.className = activeObject.fontWeight ? 'selected' : '';
@@ -939,7 +941,7 @@ function sample8() {
   if (cmdItalicBtn) {
     activeObjectButtons.push(cmdItalicBtn);
     cmdItalicBtn.onclick = function() {
-      var activeObject = <fabric.IText>canvas.getActiveObject();
+      var activeObject = <fabric.Text>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.fontStyle = (activeObject.fontStyle == 'italic' ? '' : 'italic');
         this.className = activeObject.fontStyle ? 'selected' : '';
@@ -952,7 +954,7 @@ function sample8() {
   if (cmdShadowBtn) {
     activeObjectButtons.push(cmdShadowBtn);
     cmdShadowBtn.onclick = function() {
-      var activeObject = <fabric.IText>canvas.getActiveObject();
+      var activeObject = <fabric.Text>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.shadow = !activeObject.shadow ? 'rgba(0,0,0,0.2) 2px 2px 10px' : '';
         this.className = activeObject.shadow ? 'selected' : '';
@@ -965,7 +967,7 @@ function sample8() {
   if (textAlignSwitch) {
     activeObjectButtons.push(textAlignSwitch);
     textAlignSwitch.onchange = function(this: HTMLInputElement) {
-      var activeObject = <fabric.IText>canvas.getActiveObject();
+      var activeObject = <fabric.Text>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.textAlign = this.value.toLowerCase();
         canvas.renderAll();
@@ -977,7 +979,7 @@ function sample8() {
   if (fontFamilySwitch) {
     activeObjectButtons.push(fontFamilySwitch);
     fontFamilySwitch.onchange = function(this: HTMLInputElement) {
-      var activeObject = <fabric.IText>canvas.getActiveObject();
+      var activeObject = <fabric.Text>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.fontFamily = this.value;
         canvas.renderAll();
@@ -988,7 +990,7 @@ function sample8() {
   var bgColorField = document.getElementById('text-bg-color');
   if (bgColorField) {
     bgColorField.onchange = function(this: HTMLInputElement) {
-      var activeObject = <fabric.IText>canvas.getActiveObject();
+      var activeObject = <fabric.Text>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.backgroundColor = this.value;
         canvas.renderAll();
@@ -999,7 +1001,7 @@ function sample8() {
   var strokeColorField = document.getElementById('text-stroke-color');
   if (strokeColorField) {
     strokeColorField.onchange = function(this: HTMLInputElement) {
-      var activeObject = <fabric.IText>canvas.getActiveObject();
+      var activeObject = <fabric.Text>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.stroke = this.value;
         canvas.renderAll();
@@ -1022,7 +1024,7 @@ function sample8() {
       label.appendChild(slider);
       slider.title = "Line height";
       slider.onchange = function() {
-        var activeObject = <fabric.IText>canvas.getActiveObject();
+        var activeObject = <fabric.Text>canvas.getActiveObject();
         if (activeObject && activeObject.type === 'text') {
           activeObject.lineHeight = +this.value;
           canvas.renderAll();
@@ -1030,7 +1032,7 @@ function sample8() {
       };
 
       canvas.on('object:selected', function(e: fabric.IEvent) {
-        slider.value = String((<fabric.IText>e.target).lineHeight);
+        slider.value = String((<fabric.Text>e.target).lineHeight);
       });
     })();
   }
