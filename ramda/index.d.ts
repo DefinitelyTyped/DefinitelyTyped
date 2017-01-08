@@ -1064,7 +1064,7 @@ declare namespace R {
         /**
          * Returns a partial copy of an object omitting the keys specified.
          */
-        omit<T>(names: string[], obj: T): T;
+        omit<T>(names: string[], obj: Object): T;
         omit(names: string[]): <T>(obj: Object) => Object;
 
         /**
