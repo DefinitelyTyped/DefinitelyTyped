@@ -1065,7 +1065,7 @@ declare namespace R {
          * Returns a partial copy of an object omitting the keys specified.
          */
         omit<T>(names: string[], obj: T): T;
-        omit(names: string[]): <T>(obj: T) => T;
+        omit(names: string[]): <T>(obj: Object) => Object;
 
         /**
          * Accepts a function fn and returns a function that guards invocation of fn such that fn can only ever be
