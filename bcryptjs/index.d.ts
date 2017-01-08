@@ -22,20 +22,23 @@ export declare function genSaltSync(rounds?: number): string;
 
 /**
  * Asynchronously generates a salt.
- * @param  callback Callback receiving the error, if any, and the resulting salt
+ * @param  rounds  Number of rounds to use, defaults to 10 if omitted
  * @return Promise with resulting salt, if callback has been omitted
- * @throws If callback is present but not a function
  */
-export declare function genSalt(callback?: (err: Error, salt: string) => void): Promise<string>;
+export declare function genSalt(rounds?: number): Promise<string>;
+
+/**
+ * Asynchronously generates a salt.
+ * @param callback Callback receiving the error, if any, and the resulting salt
+ */
+export declare function genSalt(callback: (err: Error, salt: string) => void): void;
 
 /**
  * Asynchronously generates a salt.
  * @param  rounds   Number of rounds to use, defaults to 10 if omitted
  * @param  callback Callback receiving the error, if any, and the resulting salt
- * @return Promise with resulting salt, if callback has been omitted
- * @throws If callback is present but not a function
  */
-export declare function genSalt(rounds?: number, callback?: (err: Error, salt: string) => void): Promise<string>;
+export declare function genSalt(rounds: number, callback: (err: Error, salt: string) => void): void;
 
 /**
  * Synchronously generates a hash for the given string.
@@ -49,12 +52,19 @@ export declare function hashSync(s: string, salt?: number | string): string;
  * Asynchronously generates a hash for the given string.
  * @param s                String to hash
  * @param salt             Salt length to generate or salt to use
- * @param callback         Callback receiving the error, if any, and the resulting hash
- * @param progressCallback Callback successively called with the percentage of rounds completed (0.0 - 1.0), maximally once per MAX_EXECUTION_TIME = 100 ms.
  * @return Promise with resulting hash, if callback has been omitted
  * @throws If callback is present but not a function
  */
-export declare function hash(s: string, salt: number | string, callback?: (err: Error, hash: string) => void, progressCallback?: (percent: number) => void): Promise<string>;
+export declare function hash(s: string, salt: number | string): Promise<string>;
+
+/**
+ * Asynchronously generates a hash for the given string.
+ * @param s                String to hash
+ * @param salt             Salt length to generate or salt to use
+ * @param callback         Callback receiving the error, if any, and the resulting hash
+ * @param progressCallback Callback successively called with the percentage of rounds completed (0.0 - 1.0), maximally once per MAX_EXECUTION_TIME = 100 ms.
+ */
+export declare function hash(s: string, salt: number | string, callback?: (err: Error, hash: string) => void, progressCallback?: (percent: number) => void): void;
 
 /**
  * Synchronously tests a string against a hash.
@@ -68,12 +78,18 @@ export declare function compareSync(s: string, hash: string): boolean;
  * Asynchronously compares the given data against the given hash.
  * @param  s                Data to compare
  * @param  hash             Data to be compared to
+ * @return Promise, if callback has been omitted
+ */
+export declare function compare(s: string, hash: string): Promise<boolean>;
+
+/**
+ * Asynchronously compares the given data against the given hash.
+ * @param  s                Data to compare
+ * @param  hash             Data to be compared to
  * @param  callback         Callback receiving the error, if any, otherwise the result
  * @param  progressCallback Callback successively called with the percentage of rounds completed (0.0 - 1.0), maximally once per MAX_EXECUTION_TIME = 100 ms.
- * @return Promise, if callback has been omitted
- * @throws If callback is present but not a function
  */
-export declare function compare(s: string, hash: string, callback?: (err: Error, success: boolean) => void, progressCallback?: (percent: number) => void): Promise<boolean>;
+export declare function compare(s: string, hash: string, callback?: (err: Error, success: boolean) => void, progressCallback?: (percent: number) => void): void;
 
 /**
  * Gets the number of rounds used to encrypt the specified hash.
