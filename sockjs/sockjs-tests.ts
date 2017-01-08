@@ -1,4 +1,4 @@
-import sockjs = require("sockjs-node");
+import sockjs = require("sockjs");
 import http = require("http");
 import stream = require("stream");
 
