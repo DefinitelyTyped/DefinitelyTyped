@@ -284,6 +284,7 @@ declare namespace NodeJS {
         setEncoding(encoding: string | null): this;
         pause(): this;
         resume(): this;
+        isPaused(): boolean;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): this;
         unpipe<T extends WritableStream>(destination?: T): this;
         unshift(chunk: string): void;
@@ -3339,6 +3340,7 @@ declare module "stream" {
             setEncoding(encoding: string): this;
             pause(): this;
             resume(): this;
+            isPaused(): boolean;
             pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): this;
             unpipe<T extends NodeJS.WritableStream>(destination?: T): this;
             unshift(chunk: any): void;
@@ -3528,6 +3530,7 @@ declare module "stream" {
             setEncoding(encoding: string): this;
             pause(): this;
             resume(): this;
+            isPaused(): boolean;
             pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): this;
             unpipe<T extends NodeJS.WritableStream>(destination?: T): this;
             unshift(chunk: any): void;

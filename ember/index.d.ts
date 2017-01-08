@@ -1514,7 +1514,7 @@ declare namespace Ember {
         toArray(): any[];
     }
     class Registry {
-        constructor (options: any);
+        constructor(options: any);
         static set: typeof Ember.set;
     }
 
@@ -2242,10 +2242,10 @@ declare namespace Ember {
     }
     namespace Test {
         class Adapter extends Ember.Object {
-            constructor ();
+            constructor();
         }
         class Promise<T, U> extends Ember.RSVP.Promise<T, U> {
-            constructor ();
+            constructor();
         }
         function oninjectHelpers(callback: Function): void;
         function promise<T, U>(resolver: (a: T) => any, label: string): Ember.Test.Promise<T, U>;

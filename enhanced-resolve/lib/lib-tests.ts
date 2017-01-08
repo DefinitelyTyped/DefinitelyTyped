@@ -60,7 +60,7 @@ import UnsafeCachePlugin = require('enhanced-resolve/lib/UnsafeCachePlugin');
 
 import UseFilePlugin = require('enhanced-resolve/lib/UseFilePlugin');
 
-import resolve = require('../');
+import resolve = require('enhanced-resolve');
 
 const aplugin = new AliasFieldPlugin('a', 'b', 'c');
 

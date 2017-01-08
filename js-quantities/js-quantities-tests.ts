@@ -1,5 +1,5 @@
-import "../jasmine";
-import Qty from ".";
+/// <reference types="jasmine" />
+import Qty from "js-quantities";
 
 // From project readme
 

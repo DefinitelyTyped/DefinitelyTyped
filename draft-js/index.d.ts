@@ -1,7 +1,8 @@
-// Type definitions for Draft.js v0.7.0
+// Type definitions for Draft.js v0.9.0
 // Project: https://facebook.github.io/draft-js/
-// Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>
+// Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>, Eelco Lempsink <https://github.com/eelco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as React from 'react';
 import * as Immutable from 'immutable';
@@ -15,10 +16,12 @@ declare namespace Draft {
             import DraftEditorCommand = Draft.Model.Constants.DraftEditorCommand;
             import DraftBlockType = Draft.Model.Constants.DraftBlockType;
             import DraftDragType = Draft.Model.Constants.DraftDragType;
+            import DraftHandleValue = Draft.Model.Constants.DraftHandleValue;
 
             import EditorState = Draft.Model.ImmutableData.EditorState;
             import ContentBlock = Draft.Model.ImmutableData.ContentBlock;
             import SelectionState = Draft.Model.ImmutableData.SelectionState;
+            import DraftInlineStyle = Draft.Model.ImmutableData.DraftInlineStyle;
 
             import DraftBlockRenderConfig = Draft.Model.ImmutableData.DraftBlockRenderConfig;
 
@@ -61,12 +64,16 @@ declare namespace Draft {
                 // the default `TextEditorBlock` is used.
                 blockRendererFn?(block: ContentBlock): any;
 
-                // Function that allows to define class names to apply to the given block when it is rendered. 
+                // Function that allows to define class names to apply to the given block when it is rendered.
                 blockStyleFn?(block: ContentBlock): string;
 
                 // Provide a map of inline style names corresponding to CSS style objects
                 // that will be rendered for matching ranges.
-                customStyleMap?: any,
+                customStyleMap?: any;
+
+                // Provide a function that will construct CSS style objects given inline
+                // style names.
+                customStyleFn?: (style: DraftInlineStyle) => Object;
 
                 // A function that accepts a synthetic key event and returns
                 // the matching DraftEditorCommand constant, or null if no command should
@@ -77,42 +84,42 @@ declare namespace Draft {
                 // Set whether the `DraftEditor` component should be editable. Useful for
                 // temporarily disabling edit behavior or allowing `DraftEditor` rendering
                 // to be used for consumption purposes.
-                readOnly?: boolean,
+                readOnly?: boolean;
 
                 // Note: spellcheck is always disabled for IE. If enabled in Safari, OSX
                 // autocorrect is enabled as well.
-                spellCheck?: boolean,
+                spellCheck?: boolean;
 
                 // Set whether to remove all style information from pasted content. If your
                 // use case should not have any block or inline styles, it is recommended
                 // that you set this to `true`.
-                stripPastedStyles?: boolean,
+                stripPastedStyles?: boolean;
 
-                tabIndex?: number,
+                tabIndex?: number;
 
-                ariaActiveDescendantID?: string,
-                ariaAutoComplete?: string,
-                ariaDescribedBy?: string,
-                ariaExpanded?: boolean,
-                ariaHasPopup?: boolean,
-                ariaLabel?: string,
-                ariaOwneeID?: string,
+                ariaActiveDescendantID?: string;
+                ariaAutoComplete?: string;
+                ariaDescribedBy?: string;
+                ariaExpanded?: boolean;
+                ariaHasPopup?: boolean;
+                ariaLabel?: string;
+                ariaOwneeID?: string;
 
-                webDriverTestID?: string,
+                webDriverTestID?: string;
 
                 /**
                  * Cancelable event handlers, handled from the top level down. A handler
-                 * that returns true will be the last handler to execute for that event.
+                 * that returns `handled` will be the last handler to execute for that event.
                  */
 
                 // Useful for managing special behavior for pressing the `Return` key. E.g.
                 // removing the style from an empty list item.
-                handleReturn?(e: SyntheticKeyboardEvent): boolean,
+                handleReturn?(e: SyntheticKeyboardEvent): DraftHandleValue,
 
                 // Map a key command string provided by your key binding function to a
-                // specified behavior.                
-                handleKeyCommand?(command: DraftEditorCommand): boolean,
-                handleKeyCommand?(command: string): boolean,
+                // specified behavior.
+                handleKeyCommand?(command: DraftEditorCommand): DraftHandleValue,
+                handleKeyCommand?(command: string): DraftHandleValue,
 
 
                 // Handle intended text insertion before the insertion occurs. This may be
@@ -120,17 +127,17 @@ declare namespace Draft {
                 // to trigger some special behavior. E.g. immediately converting `:)` to an
                 // emoji Unicode character, or replacing ASCII quote characters with smart
                 // quotes.
-                handleBeforeInput?(chars: string): boolean,
+                handleBeforeInput?(chars: string): DraftHandleValue,
 
-                handlePastedText?(text: string, html?: string): boolean,
+                handlePastedText?(text: string, html?: string): DraftHandleValue,
 
-                handlePastedFiles?(files: Array<Blob>): boolean,
+                handlePastedFiles?(files: Array<Blob>): DraftHandleValue,
 
                 // Handle dropped files
-                handleDroppedFiles?(selection: SelectionState, files: Array<Blob>): boolean,
+                handleDroppedFiles?(selection: SelectionState, files: Array<Blob>): DraftHandleValue,
 
                 // Handle other drops to prevent default text movement/insertion behaviour
-                handleDrop?(selection: SelectionState, dataTransfer: Object, isInternal: DraftDragType): boolean,
+                handleDrop?(selection: SelectionState, dataTransfer: Object, isInternal: DraftDragType): DraftHandleValue,
 
                 /**
                  * Non-cancelable event triggers.
@@ -298,6 +305,12 @@ declare namespace Draft {
              * around to indicate whether a deletion is forward or backward.
              */
             type DraftRemovalDirection = "backward" | "forward";
+
+            /**
+             * A type that allows us to avoid returning boolean values
+             * to indicate whether an event was handled or not.
+             */
+            type DraftHandleValue = "handled" | "not-handled";
         }
 
         namespace Decorators {
@@ -887,6 +900,7 @@ import CharacterMetadata = Draft.Model.ImmutableData.CharacterMetadata;
 import ContentBlock = Draft.Model.ImmutableData.ContentBlock;
 import ContentState = Draft.Model.ImmutableData.ContentState;
 import SelectionState = Draft.Model.ImmutableData.SelectionState;
+import DraftInlineStyle = Draft.Model.ImmutableData.DraftInlineStyle;
 
 import AtomicBlockUtils = Draft.Model.Modifier.AtomicBlockUtils;
 import KeyBindingUtil = Draft.Component.Utils.KeyBindingUtil;
@@ -919,6 +933,7 @@ export {
     ContentBlock,
     ContentState,
     SelectionState,
+    DraftInlineStyle,
 
     AtomicBlockUtils,
     KeyBindingUtil,
@@ -932,7 +947,7 @@ export {
     convertFromRaw,
     convertToRaw,
     convertFromHTML,
-  
+
     genKey,
     getDefaultKeyBinding,
     getVisibleSelectionRect

@@ -1,6 +1,3 @@
-/// <reference path="badge.d.ts" />
-/// <reference path="../angular/index.d.ts" />
-
 namespace ngCordova {
     'use strict';
 
