@@ -6,12 +6,10 @@
 /// <reference types="react" />
 /// <reference types="flux" />
 /// <reference types="fbemitter" />
-/// <reference types="immutable" />
 
 import * as React from 'react';
 import * as Flux from 'flux';
 import * as fbEmitter from 'fbemitter';
-import * as immutable from 'immutable';
 
 export = FluxUtils;
 

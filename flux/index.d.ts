@@ -5,7 +5,6 @@
 
 /// <reference types="react" />
 /// <reference types="fbemitter" />
-/// <reference types="immutable" />
 
 export = Flux;
 
