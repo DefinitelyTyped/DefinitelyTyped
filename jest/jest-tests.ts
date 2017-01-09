@@ -171,6 +171,60 @@ describe('toThrow API', function () {
    });
 });
 
+describe('Assymetric matchers', function () {
+    it('works', function () {
+        expect({
+            timestamp: 1480807810388,
+            text: 'Some text content, but we care only about *this part*'
+        }).toEqual({
+            timestamp: expect.any(Number),
+            text: expect.stringMatching('*this part*')
+        });
+
+        const callback = jest.fn();
+        expect(callback).toEqual(expect.any(Function));
+        callback(5, "test");
+        expect(callback).toBeCalledWith(expect.any(Number), expect.any(String))
+        const obj = {
+            items: [1]
+        };
+        expect(obj).toEqual(expect.objectContaining({
+            items: expect.arrayContaining([
+                expect.any(Number)
+            ])
+        }));
+
+        expect.assertions(4);
+    });
+});
+
+describe('Extending extend', function () {
+    it('works', function () {
+        expect.extend({
+            toBeNumber(received: any, actual: any) {
+                const pass = received === actual;
+                const message =
+                    () => `expected ${received} ${pass ? 'not ' : ''} to be ${actual}`;
+                return { message, pass };
+            },
+            toBeTest(received: any, actual: any) {
+                this.utils.ensureNoExpected(received);
+                this.utils.ensureActualIsNumber(received);
+                this.utils.ensureExpectedIsNumber(actual);
+                this.utils.ensureNumbers(received, actual);
+
+                return {
+                    message: () => `
+                    ${this.utils.getType(received).toLowerCase()} \n\n
+                    ${this.utils.matcherHint(".not.toBe")} ${this.utils.printExpected(actual)} ${this.utils.printReceived(received)}\n\n
+                    `,
+                    pass: true
+                };
+            }
+        });
+    });
+});
+
 describe('missing tests', function () {
     it('creates closures', function () {
        class Closure<T> {
@@ -208,7 +262,7 @@ describe('missing tests', function () {
        expect(getFruits()).toContain('Orange');
        mock.mockReturnValueOnce(['Apple', 'Plum']);
        expect(mock()).not.toContain('Orange');
-       const myBeverage: any = {delicious: true, sour: false}; 
+       const myBeverage: any = {delicious: true, sour: false};
        expect(myBeverage).toContainEqual({delicious: true, sour: false});
        mock.mockReturnValue([]); //Deprecated: Use jest.fn(() => value) instead.
        mock.mockClear();
@@ -248,6 +302,10 @@ describe('toMatchSnapshot', function () {
    it('compares snapshots', function () {
         expect({ type: 'a', props: { href: 'https://www.facebook.com/' }, children: [ 'Facebook' ] }).toMatchSnapshot();
     });
+
+   it('can give name to snapshot', function () {
+        expect({ type: 'a', props: { href: 'https://www.facebook.com/' }, children: [ 'Facebook' ] }).toMatchSnapshot('given name');
+   });
 });
 
 describe('toThrowErrorMatchingSnapshot', function () {
@@ -366,4 +424,23 @@ describe('strictNullChecks', function () {
     it('does not complain when using done callback', (done) => {
         done();
     })
+});
+
+interface TestApi {
+    testProp: boolean;
+    testMethod(a: number): void;
+}
+
+describe("Mocked type", function () {
+    it("Works", function () {
+        const mock: jest.Mocked<TestApi> = jest.fn(() => ({
+            testProp: true,
+            testMethod1: jest.fn(),
+            testMethod2: jest.fn()
+        })) as any;
+        mock.testProp;
+        mock.testMethod.mockImplementation(() => "test");
+        mock.testMethod(5);
+        mock.mockClear();
+    });
 });

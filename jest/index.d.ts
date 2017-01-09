@@ -1,7 +1,8 @@
-// Type definitions for Jest 16.0.0
+// Type definitions for Jest 18.0.0
 // Project: http://facebook.github.io/jest/
-// Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>
+// Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>, Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
@@ -16,7 +17,7 @@ declare var xit: jest.It;
 declare var test: jest.It;
 declare var xtest: jest.It;
 
-declare function expect(actual: any): jest.Matchers;
+declare const expect: jest.Expect;
 
 interface NodeRequire {
     /** Returns the actual module instead of a mock, bypassing all checks on whether the module should receive a mock implementation or not. */
@@ -31,8 +32,10 @@ declare namespace jest {
     function autoMockOff(): typeof jest;
     /** Enables automatic mocking in the module loader. */
     function autoMockOn(): typeof jest;
-    /** Clears the mock.calls and mock.instances properties of all mocks. Equivalent to calling .mockClear() on every mocked function. */
+    /** @deprecated */
     function clearAllMocks(): typeof jest;
+    /** Clears the mock.calls and mock.instances properties of all mocks. Equivalent to calling .mockClear() on every mocked function. */
+    function resetAllMocks(): typeof jest;
     /** Removes any pending timers from the timer system. If any timers have been scheduled, they will be cleared and will never have the opportunity to execute in the future. */
     function clearAllTimers(): typeof jest;
     /** Indicates that the module system should never return a mocked version of the specified module, including all of the specificied module's dependencies. */
@@ -111,6 +114,41 @@ declare namespace jest {
         skip: Describe;
     }
 
+    interface MatcherUtils {
+        readonly isNot: boolean;
+        utils: {
+            readonly EXPECTED_COLOR: string;
+            readonly RECEIVED_COLOR: string;
+            ensureActualIsNumber(actual: any, matcherName?: string): void;
+            ensureExpectedIsNumber(actual: any, matcherName?: string): void;
+            ensureNoExpected(actual: any, matcherName?: string): void;
+            ensureNumbers(actual: any, expected: any, matcherName?: string): void;
+            /** get the type of a value with handling the edge cases like `typeof []` and `typeof null` */
+            getType(value: any): string;
+            matcherHint(matcherName: string, received?: string, expected?: string, options?: { secondArgument?: string, isDirectExpectCall?: boolean }): string;
+            pluralize(word: string, count: number): string;
+            printExpected(value: any): string;
+            printReceived(value: any): string;
+            printWithType(name: string, received: any, print: (value: any) => string): string;
+            stringify(object: {}, maxDepth?: number): string;
+        }
+    }
+
+    interface ExpectExtendMap {
+        [key: string]: (this: MatcherUtils, received: any, actual: any) => { message: () => string, pass: boolean };
+    }
+
+    interface Expect {
+        (actual: any): Matchers;
+        anything(): void;
+        any(cs: any): void;
+        arrayContaining(arr: any[]): void;
+        assertions(num: number): void;
+        extend(obj: ExpectExtendMap): void;
+        objectContaining(obj: {}): void;
+        stringMatching(str: string | RegExp): void;
+    }
+
     interface Matchers {
         not: Matchers;
         lastCalledWith(...args: any[]): void;
@@ -135,9 +173,11 @@ declare namespace jest {
         toHaveBeenCalledTimes(expected: number): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;
         toHaveBeenLastCalledWith(...params: any[]): boolean;
+        toHaveLength(expected: number): void;
+        toHaveProperty(propertyPath: string, value?: any): void;
         toMatch(expected: string | RegExp): void;
         toMatchObject(expected: {}): void;
-        toMatchSnapshot(): void;
+        toMatchSnapshot(snapshotName?: string): void;
         toThrow(): void;
         toThrowError(error?: string | Constructable | RegExp): void;
         toThrowErrorMatchingSnapshot(): void;
@@ -147,9 +187,25 @@ declare namespace jest {
         new (...args: any[]): any
     }
 
-    interface Mock<T> extends Function {
+    interface Mock<T> extends Function, MockInstance<T> {
         new (): T;
         (...args: any[]): any;
+    }
+
+    /**
+     * Wrap module with mock definitions
+     * @example
+     *  jest.mock("../api");
+     *  import { Api } from "../api";
+     *
+     *  const myApi: jest.Mocked<Api> = new Api() as any;
+     *  myApi.myApiMethod.mockImplementation(() => "test");
+     */
+    type Mocked<T> = T & {
+        [P in keyof T]: T[P] & MockInstance<T>;
+    } & MockInstance<T>;
+
+    interface MockInstance<T> {
         mock: MockContext<T>;
         mockClear(): void;
         mockImplementation(fn: Function): Mock<T>;
