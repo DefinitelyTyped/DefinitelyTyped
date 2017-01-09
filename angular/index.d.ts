@@ -1059,6 +1059,25 @@ declare namespace angular {
         when(): IPromise<void>;
     }
 
+    interface IQProvider {
+        /**
+         * Retrieves or overrides whether to generate an error when a rejected promise is not handled.
+         * This feature is enabled by default.
+         *
+         * @returns {boolean} Current value
+         */
+        errorOnUnhandledRejections(): boolean;
+
+        /**
+         * Retrieves or overrides whether to generate an error when a rejected promise is not handled.
+         * This feature is enabled by default.
+         *
+         * @param {boolean} value Whether to generate an error when a rejected promise is not handled.
+         * @returns {ng.IQProvider} Self for chaining otherwise.
+         */
+        errorOnUnhandledRejections(value: boolean): IQProvider;
+    }
+
     interface IPromise<T> {
         /**
          * Regardless of when the promise was or will be resolved or rejected, then calls one of the success or error callbacks asynchronously as soon as the result is available. The callbacks are called with a single argument: the result or rejection reason. Additionally, the notify callback may be called zero or more times to provide a progress indication, before the promise is resolved or rejected.
