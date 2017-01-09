@@ -49,6 +49,7 @@ declare namespace jest {
     /** Enables automatic mocking in the module loader. */
     function enableAutomock(): typeof jest;
     /** Creates a mock function. Optionally takes a mock implementation. */
+    function fn<T extends {}>(implementation: (...args: any[]) => T): Mock<T>;
     function fn<T>(implementation?: Function): Mock<T>;
     /** Use the automatic mocking system to generate a mocked version of the given module. */
     function genMockFromModule<T>(moduleName: string): T;
