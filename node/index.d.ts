@@ -3958,7 +3958,7 @@ declare module "v8" {
         physical_space_size: number;
     }
 
-    const enum DoesZapCodeSpaceFlag {
+    enum DoesZapCodeSpaceFlag {
         Disabled = 0,
         Enabled = 1
     }
