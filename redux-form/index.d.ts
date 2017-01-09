@@ -16,9 +16,13 @@ export type FieldType = 'Field' | 'FieldArray';
 
 export type DataShape = {[fieldName:string]: FieldValue};
 
-export type FormErrors<FormData extends DataShape> = FormData & { _error?: string };
+export type FormErrors<FormData extends DataShape> = {
+  [P in keyof FormData]?: string;
+} & { _error?: string };
 
-export type FormWarnings<FormData extends DataShape> = FormData & { _warning?: string };
+export type FormWarnings<FormData extends DataShape> = {
+  [P in keyof FormData]?: string;
+} & { _warning?: string };
 
 /**
  * A component class or stateless function component.
