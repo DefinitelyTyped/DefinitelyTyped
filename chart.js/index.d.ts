@@ -285,7 +285,7 @@ interface LogarithmicTickOptions extends TickOptions {
     max?: number;
 }
 
-type ChartColor = string | CanvasGradient | CanvasPattern;
+declare type ChartColor = string | CanvasGradient | CanvasPattern;
 
 interface ChartDataSets {
     backgroundColor?: ChartColor;
