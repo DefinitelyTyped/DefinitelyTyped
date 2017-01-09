@@ -433,20 +433,53 @@ interface TestApi {
 
 declare function mockedFunc(a: number): string;
 
-describe("Mocked type", function () {
-    it("Works", function () {
+describe('Mocked type', function () {
+    it('Works', function () {
         const mock: jest.Mocked<TestApi> = jest.fn(() => ({
             testProp: true,
             testMethod1: jest.fn(),
             testMethod2: jest.fn()
         })) as any;
         mock.testProp;
-        mock.testMethod.mockImplementation(() => "test");
+        mock.testMethod.mockImplementation(() => 'test');
         mock.testMethod(5);
         mock.mockClear();
 
-        const funcMock: jest.Mocked<typeof mockedFunc> = require("./mockedFunc");
-        funcMock.mockImplementation(() => "test");
+        const funcMock: jest.Mocked<typeof mockedFunc> = require('./mockedFunc');
+        funcMock.mockImplementation(() => 'test');
         funcMock(5).toUpperCase();
+    });
+});
+
+describe('Mocks', function () {
+    it('jest.fn() without args is a function type', function () {
+        const test = jest.fn();
+        test();
+        new test();
+        test.mock.instances[0];
+        test.mockImplementation(() => { });
+    });
+
+    it('jest.fn() with returned object infers type', function () {
+        const testMock = jest.fn(() => ({ a: 5, test: jest.fn() }));
+
+        testMock(5, 5, 'a');
+        testMock.mockImplementation(() => { });
+        testMock.caller;
+
+        const ins = new testMock();
+        ins.a;
+        ins.test();
+        ins.test.mockImplementation(() => 5);
+        ins.test.mock.calls;
+
+        const anotherMock = jest.fn(() => {
+            const api: Partial<TestApi> = {
+                testMethod: jest.fn()
+            };
+            return api;
+        });
+        const anotherIns: jest.Mocked<TestApi> = new anotherMock() as any;
+        anotherIns.testMethod.mockImplementation(() => 1);
     });
 });
