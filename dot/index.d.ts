@@ -48,3 +48,5 @@ declare namespace doT {
 interface String {
 	encodeHTML(): string;
 }
+
+export = doT;
