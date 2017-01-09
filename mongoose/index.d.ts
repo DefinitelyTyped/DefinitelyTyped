@@ -1010,9 +1010,9 @@ declare module "mongoose" {
      * @param type optionally specify a type for "on-the-fly" attributes
      * @param options optionally specify options that modify the behavior of the set
      */
-    set(path: string, val: any, options?: Object): void;
-    set(path: string, val: any, type: any, options?: Object): void;
-    set(value: Object): void;
+    set(path: string, val: any, options?: Object): this;
+    set(path: string, val: any, type: any, options?: Object): this;
+    set(value: Object): this;
 
     /**
      * The return value of this method is used in calls to JSON.stringify(doc).
