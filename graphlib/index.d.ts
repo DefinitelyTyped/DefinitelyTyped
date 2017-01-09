@@ -159,25 +159,61 @@ declare module "graphlib" {
      */
     removeNode(name: string): Graph;
 
+    /**
+     * Gets all nodes of the graph. Note, the in case of compound graph subnodes are
+     * not included in list.
+     * Complexity: O(1).
+     * 
+     * @returns list of graph nodes.
+     */
     nodes(): string[];
 
-    /** Returns the label for this node. */
+    /**
+     * Gets the label of node with specified name.
+     * Complexity: O(|V|).
+     * 
+     * @returns label value of the node.
+     */
     node(name: string): any;
 
     /**
      * Creates or updates the label for the edge (v, w) with the optionally supplied
      * name. If label is supplied it is set as the value for the edge. If label is not
      * supplied and the edge was created by this call then the default edge label will
-     * be assigned. The name parameter is only useful with multigraphs. Returns the
-     * graph, allowing this to be chained with other functions. Takes O(1) time.
+     * be assigned. The name parameter is only useful with multigraphs.
+     * Complexity: O(1).
+     * 
+     * @argument v - edge source node.
+     * @argument w - edge sink node.
+     * @argument label - value to associate with the edge.
+     * @argument name - unique name of the edge in order to identify it in multigraph.
+     * @returns the graph, allowing this to be chained with other functions.
      */
     setEdge(v: string, w: string, label?: any, name?: string): Graph;
+
+    /**
+     * Creates or updates the label for the specified edge. If label is supplied it is 
+     * set as the value for the edge. If label is not supplied and the edge was created 
+     * by this call then the default edge label will be assigned. The name parameter is 
+     * only useful with multigraphs.
+     * Complexity: O(1).
+     * 
+     * @argument edge - edge descriptor.
+     * @argument label - value to associate with the edge.
+     * @returns the graph, allowing this to be chained with other functions.
+     */
     setEdge(edge: Edge, label?: any): Graph;
 
+    /**
+     * Gets edges of the graph. In case of compound graph subgraphs are not considered.
+     * Complexity: O(|E|).
+     * 
+     * @return graph edges list.
+     */
     edges(): Edge[];
 
     /** Returns the label for this edge. */
-    edge(v: string, w: string): any;
+    edge(v: string, w: string, name?: string): any;
     edge(e: Edge): any;
 
     hasEdge(v: string, w: string, name?: string): boolean;
