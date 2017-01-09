@@ -18,7 +18,8 @@ declare module "chokidar"
         on(event: 'add', fn: (path: string, stats?: fs.Stats) => void): this;
         on(event: 'change', fn: (path: string, stats?: fs.Stats) => void): this;
         on(event: 'unlink', fn: (path: string) => void): this;
-        on(event: 'raw', fn: (event: Event, path:string, details:any) => void): this;
+        on(event: 'raw', fn: (event: string, path:string, details:any) => void): this;
+        on(event: 'all', fn: (event: string, path: string) => void): this;
         on(event: string, fn: (path: string) => void): this;
         close(): this;
     }

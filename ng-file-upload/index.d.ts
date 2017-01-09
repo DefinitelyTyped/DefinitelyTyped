@@ -106,20 +106,6 @@ declare module 'angular' {
             width?: number;
         }
 
-        interface ResizeIfFunction {
-            (width: number, height: number): boolean;
-        }
-
-        interface FileResizeOptions {
-            centerCrop?: boolean;
-            height?: number;
-            ratio?: number;
-            resizeIf?: ResizeIfFunction;
-            restoreExif?: boolean;
-            quality?: number;
-            width?: number;
-        }
-
         interface IUploadService {
             /**
              * Convert a single file or array of files to a single or array of

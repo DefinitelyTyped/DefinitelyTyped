@@ -4,6 +4,7 @@
         "moduleResolution": "node",
         "target": "es6",
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -15,6 +16,6 @@
     },
     "files": [
         "index.d.ts",
-        "msgpack5-test.ts"
+        "msgpack5-tests.ts"
     ]
 }

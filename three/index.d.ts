@@ -1,4 +1,4 @@
-// Type definitions for three.js r81
+// Type definitions for three.js 0.81
 // Project: http://mrdoob.github.com/three.js/
 // Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>, Florent Poujol <https://github.com/florentpoujol>, SereznoKot <https://github.com/SereznoKot>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -261,7 +261,7 @@ declare namespace THREE {
         reset(): AnimationAction;
         isRunning(): boolean;
         startAt(time: number): AnimationAction;
-        setLoop(mode: boolean, repetitions: number): AnimationAction;
+        setLoop(mode: AnimationActionLoopStyles, repetitions: number): AnimationAction;
         setEffectiveWeight(weight: number): AnimationAction;
         getEffectiveWeight(): number;
         fadeIn(duration: number): AnimationAction;
@@ -1284,6 +1284,11 @@ declare namespace THREE {
          * Face normals must be existing / computed beforehand.
          */
         computeVertexNormals(areaWeighted?: boolean): void;
+
+        /**
+         * Compute vertex normals, but duplicating face normals.
+         */
+        computeFlatVertexNormals(): void;
 
         /**
          * Computes morph normals.
@@ -5729,7 +5734,7 @@ declare namespace THREE {
             encoding?: TextureEncoding
         );
 
-        image: { data: ImageData; width: number; height: number; };
+        image: ImageData;
     }
 
     export class VideoTexture extends Texture {
@@ -6478,10 +6483,10 @@ declare namespace THREE {
     }
 
     export class TubeGeometry extends Geometry {
-        constructor(path: Path, segments?: number, radius?: number, radiusSegments?: number, closed?: boolean, taper?: (u: number) => number);
+        constructor(path: Curve<Vector3>, segments?: number, radius?: number, radiusSegments?: number, closed?: boolean, taper?: (u: number) => number);
 
         parameters: {
-            path: Path;
+            path: Curve<Vector3>;
             segments: number;
             radius: number;
             radialSegments: number;

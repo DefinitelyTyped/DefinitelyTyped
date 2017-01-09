@@ -5,7 +5,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
         function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments)).next());
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
 const http_1 = require("http");
@@ -49,7 +49,7 @@ function getIndex() {
         let version = "x.x";
         let project = "https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)";
         try {
-            const reg = yield loadString(`http://registry.npmjs.org/${newPackageName}`).then(JSON.parse);
+            const reg = JSON.parse(yield loadString(`http://registry.npmjs.org/${newPackageName}`));
             const { latest } = reg["dist-tags"];
             const { homepage } = reg.versions[latest];
             version = latest.split(".").slice(0, 2).join(".");
@@ -57,7 +57,7 @@ function getIndex() {
                 project = homepage;
         }
         catch (e) {
-            console.warn(`Could not retrieve version/homepage information: ${e.stack}`);
+            console.warn(`Warning: could not retrieve version/homepage information: ${e.message}`);
         }
         return `// Type definitions for ${newPackageName} ${version}
 // Project: ${project}
@@ -74,6 +74,7 @@ function getTSConfig() {
             "module": "commonjs",
             "target": "es6",
             "noImplicitAny": true,
+            "noImplicitThis": true,
             "strictNullChecks": true,
             "baseUrl": "../",
             "typeRoots": [

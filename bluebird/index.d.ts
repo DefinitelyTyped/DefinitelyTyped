@@ -7,6 +7,9 @@
  * The code following this comment originates from:
  *   https://github.com/types/npm-bluebird
  *
+ * Note for browser users: use bluebird-global typings instead of this one
+ * if you want to use Bluebird via the global Promise symbol.
+ *
  * Licensed under:
  *   The MIT License (MIT)
  *

@@ -19,9 +19,19 @@ var cert: Buffer;
 // sign with default (HMAC SHA256)
 token = jwt.sign({ foo: 'bar' }, 'shhhhh');
 
+// sign with default (HMAC SHA256) and single audience
+token = jwt.sign({ foo: 'bar' }, 'shhhhh', { audience: "theAudience"});
+
+// sign with default (HMAC SHA256) and multiple audiences
+token = jwt.sign({ foo: 'bar' }, 'shhhhh', { audience: ["audience1", "audience2"]});
+
+// sign with default (HMAC SHA256) and a keyid
+token = jwt.sign({ foo: 'bar' }, 'shhhhh', { keyid: "theKeyId"});
+
 // sign with RSA SHA256
 cert = fs.readFileSync('private.key');  // get private key
 token = jwt.sign({ foo: 'bar' }, cert, { algorithm: 'RS256'});
+
 
 // sign asynchronously
 jwt.sign({ foo: 'bar' }, cert, { algorithm: 'RS256' }, function(err: Error, token: string) {

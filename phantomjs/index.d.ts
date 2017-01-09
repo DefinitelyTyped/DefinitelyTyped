@@ -1,4 +1,4 @@
-// Type definitions for PhantomJS v1.9.0 API
+// Type definitions for PhantomJS API 1.9
 // Project: https://github.com/ariya/phantomjs/wiki/API-Reference
 // Definitions by: Jed Hunsaker <https://github.com/jedhunsaker>, Mike Keesey <https://github.com/keesey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -45,7 +45,7 @@ interface System {
 }
 
 interface WebPage {
-	
+
 	// Properties
 	canGoBack: boolean;
 	canGoForward: boolean;
@@ -205,13 +205,13 @@ interface WebPageSettings {
 }
 
 interface FileSystem {
-	
+
 	// Properties
 	separator: string;
 	workingDirectory: string;
-	
+
 	// Functions
-	
+
 	// Query Functions
 	list(path: string): string[];
 	absolute(path: string): string;

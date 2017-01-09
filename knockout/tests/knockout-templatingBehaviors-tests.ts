@@ -1,6 +1,13 @@
 /// <reference types="jasmine" />
 /// <reference types="knockout.mapping" />
 
+declare namespace jasmine {
+  interface Matchers {
+    toContainHtml(expected: string): boolean;
+    toContainText(expected: string): boolean;
+  }
+}
+
 var dummyTemplateEngine = function (templates?) {
     var inMemoryTemplates = templates || {};
     var inMemoryTemplateData = {};

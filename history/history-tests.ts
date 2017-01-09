@@ -1,6 +1,5 @@
+import { createHistory, createLocation, useBasename, useBeforeUnload, useQueries } from 'history'
 
-
-import { createHistory, createLocation, useBeforeUnload, useQueries, useBasename } from 'history'
 import { getUserConfirmation } from 'history/lib/DOMUtils'
 
 interface Promise<T> {

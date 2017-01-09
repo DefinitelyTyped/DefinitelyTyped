@@ -4,7 +4,7 @@
 
 import cheerio = require('gulp-cheerio');
 import gulp = require('gulp');
-import Vinyl = require('../vinyl');
+import Vinyl = require('vinyl');
 
 //
 // There are two ways to use gulp-cheerio: synchronous and asynchronous. See the following usage examples:

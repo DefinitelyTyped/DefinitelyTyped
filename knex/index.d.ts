@@ -365,7 +365,7 @@ declare namespace Knex {
         dateTime(columnName: string): ColumnBuilder;
         time(columnName: string): ColumnBuilder;
         timestamp(columnName: string): ColumnBuilder;
-        timestamps(): ColumnBuilder;
+        timestamps(useTimestampType?: boolean, makeDefaultNow?: boolean): ColumnBuilder;
         binary(columnName: string): ColumnBuilder;
         enum(columnName: string, values: Value[]): ColumnBuilder;
         enu(columnName: string, values: Value[]): ColumnBuilder;
@@ -380,8 +380,8 @@ declare namespace Knex {
         foreign(column: string): ForeignConstraintBuilder;
         foreign(columns: string[]): MultikeyForeignConstraintBuilder;
         dropForeign(columnNames: string[], foreignKeyName?: string): TableBuilder;
-      dropUnique(columnNames: string[], indexName?: string): TableBuilder;
-      dropPrimary(constraintName?: string): TableBuilder;
+        dropUnique(columnNames: string[], indexName?: string): TableBuilder;
+        dropPrimary(constraintName?: string): TableBuilder;
     }
 
     interface CreateTableBuilder extends TableBuilder {
@@ -466,6 +466,8 @@ declare namespace Knex {
         user: string;
         password: string;
         database: string;
+        domain?: string;
+        instanceName?: string;
         debug?: boolean;
     }
 

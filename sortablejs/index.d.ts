@@ -1,4 +1,4 @@
-// Type definitions for Sortable.js v1.3.0-rc1
+// Type definitions for Sortable.js 1.3
 // Project: https://github.com/RubaXa/Sortable
 // Definitions by: Maw-Fox <http://github.com/Maw-Fox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
