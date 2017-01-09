@@ -1,6 +1,3 @@
-/// <reference path="MediaStream.d.ts" />
-/// <reference path="RTCPeerConnection.d.ts" />
-
 let defaultIceServers: RTCIceServer[] = RTCPeerConnection.defaultIceServers;
 if (defaultIceServers.length > 0) {
     let urls = defaultIceServers[0].urls;

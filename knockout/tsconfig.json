@@ -15,7 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "tests/knockout-templatingBehaviors-tests.ts",
-        "tests/knockout-tests.ts"
+        "test/templatingBehaviors.ts",
+        "test/index.ts"
     ]
 }
