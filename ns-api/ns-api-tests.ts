@@ -7,26 +7,50 @@ let ns: NsApi = NsApi({
 });
 
 ns.vertrektijden("", (err: any, data: Object) => {
-    // Response
+    if(err) {
+        console.log(err);
+    } else {
+        console.log(data);
+    }
 });
 
 // Get travel advise
 ns.reisadvies ({}, (err: any, data: Object) => {
-    // Response
+    if(err) {
+        console.log(err);
+    } else {
+        console.log(data);
+    }
 });
 
 ns.prijzen({}, (err: any, data: Object) => {
-    // Response
+    if(err) {
+        console.log(err);
+    } else {
+        console.log(data);
+    }
 });
 
 ns.stations("code", (err: any, data: Object) => {
-    // Response
+    if(err) {
+        console.log(err);
+    } else {
+        console.log(data);
+    }
 });
 
 ns.stations((err: any, data: Object) => {
-    // Response
+    if(err) {
+        console.log(err);
+    } else {
+        console.log(data);
+    }
 });
 
 ns.storingen({}, (err: any, data: Object) => {
-    // Response
+    if(err) {
+        console.log(err);
+    } else {
+        console.log(data);
+    }
 });
