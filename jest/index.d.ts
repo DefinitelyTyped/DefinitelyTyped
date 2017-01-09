@@ -200,6 +200,11 @@ declare namespace jest {
      *
      *  const myApi: jest.Mocked<Api> = new Api() as any;
      *  myApi.myApiMethod.mockImplementation(() => "test");
+     *
+     *  jest.mock("./func");
+     *  const myFuncMock: jest.Mocked<typeof myFunc> = require("./func");
+     *  myFuncMock.mockImplementation(() => 5);
+     *  myFuncMock();
      */
     type Mocked<T> = T & {
         [P in keyof T]: T[P] & MockInstance<T>;
