@@ -976,6 +976,7 @@ declare namespace L {
         export interface Zoom extends Control {}
 
         export interface AttributionOptions extends ControlOptions {
+            position?: ControlPosition;
             prefix?: string | boolean;
         }
 
