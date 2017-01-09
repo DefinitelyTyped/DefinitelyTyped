@@ -622,6 +622,7 @@ declare module "http" {
         headers?: { [key: string]: any };
         auth?: string;
         agent?: Agent | boolean;
+        timeout?: number;
     }
 
     export interface Server extends net.Server {
