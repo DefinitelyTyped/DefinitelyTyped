@@ -125,8 +125,8 @@ const options = {
 }
 
 fs.walk(path, options)
-  .on('readable', () => {
-    let item: { path: string, stats: fs.Stats } | undefined
+  .on('readable', function (this: fs.PathEntryStream) {
+    let item: fs.PathEntry | undefined
     while ((item = this.read())) {
       items.push(item.path)
     }
