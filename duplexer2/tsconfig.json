@@ -1,10 +1,14 @@
 {
+    "files": [
+        "index.d.ts",
+        "duplexer2-tests.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
+        "strictNullChecks": false,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -12,9 +16,5 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    },
-    "files": [
-        "index.d.ts",
-        "xsd-schema-validator-tests.ts"
-    ]
+    }
 }
