@@ -431,6 +431,8 @@ interface TestApi {
     testMethod(a: number): void;
 }
 
+declare function mockedFunc(a: number): string;
+
 describe("Mocked type", function () {
     it("Works", function () {
         const mock: jest.Mocked<TestApi> = jest.fn(() => ({
@@ -442,5 +444,9 @@ describe("Mocked type", function () {
         mock.testMethod.mockImplementation(() => "test");
         mock.testMethod(5);
         mock.mockClear();
+
+        const funcMock: jest.Mocked<typeof mockedFunc> = require("./mockedFunc");
+        funcMock.mockImplementation(() => "test");
+        funcMock(5).toUpperCase();
     });
 });
