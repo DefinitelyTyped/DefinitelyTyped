@@ -16,6 +16,6 @@
     "files": [
         "index.d.ts",
         "node-ffi-buffer.d.ts",
-        "node-ffi-tests.ts"
+        "ffi-tests.ts"
     ]
 }

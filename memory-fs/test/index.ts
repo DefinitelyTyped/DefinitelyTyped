@@ -1,5 +1,3 @@
-/// <reference path="./index.d.ts" />
-
 import MemoryFileSystem = require('memory-fs');
 
 const fs = new MemoryFileSystem({});

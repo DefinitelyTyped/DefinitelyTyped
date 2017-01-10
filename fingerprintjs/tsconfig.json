@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "fingerprint-tests.ts"
+        "fingerprintjs-tests.ts"
     ]
 }

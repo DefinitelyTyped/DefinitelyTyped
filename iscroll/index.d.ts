@@ -1,4 +1,4 @@
-// Type definitions for iScroll 5
+// Type definitions for iScroll 5.0
 // Project: http://cubiq.org/iscroll-5-ready-for-beta-test
 // Definitions by: Christiaan Rakowski <https://github.com/csrakowski/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
