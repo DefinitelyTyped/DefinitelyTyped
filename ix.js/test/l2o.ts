@@ -1,5 +1,3 @@
-///<reference path="l2o.d.ts"/>
-
 var ec_ns = (a: number, b: string) => a.toString() == b;	//equality comparer on number,string
 var ec_nn = (a: number, b: number) => a === b;				//equality comparer on number,number
 var c_nn = (a: number, b: number) => a - b;					//comparer on number,number

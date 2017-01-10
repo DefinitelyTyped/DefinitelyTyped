@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "is_js-tests.ts"
+        "is-tests.ts"
     ]
 }

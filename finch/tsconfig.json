@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "Finch-tests.ts"
+        "finch-tests.ts"
     ]
 }

@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "konami-tests.ts"
+        "konami.js-tests.ts"
     ]
 }
