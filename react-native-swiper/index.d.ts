@@ -1,3 +1,8 @@
+// Type definitions for react-native-swiper
+// Project: https://github.com/leecade/react-native-swiper.git
+// Definitions by: CaiHuan <https://github.com/CaiHuan>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 import * as React from 'react';
 import {
   ViewStyle
