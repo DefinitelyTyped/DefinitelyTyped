@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 interface SwiperProperties {
-  
+
   horizontal?: boolean;
 
   children?: React.ReactElement<any>;
@@ -57,15 +57,15 @@ interface SwiperProperties {
   activeDotStyle?: ViewStyle;
 
   dotColor?: string;
-  
+
   activeDotColor?: string;
 }
 
 
-export interface SwiperStatic extends React.ComponentClass<SwiperProperties> {
+interface SwiperStatic extends React.ComponentClass<SwiperProperties> {
 }
 
-declare let Swiper: SwiperStatic;
+declare const Swiper: SwiperStatic;
 declare type Swiper = SwiperStatic;
 
 export default Swiper;
