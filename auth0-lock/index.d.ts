@@ -110,8 +110,9 @@ interface Auth0LockFlashMessageOptions {
 
 interface Auth0LockShowOptions {
     allowedConnections?: string[];
-    allowSignUp?: boolean;
     allowForgotPassword?: boolean;
+    allowLogin?: boolean;
+    allowSignUp?: boolean;
     auth?: Auth0LockAuthOptions;
     initialScreen?: "login" | "signUp" | "forgotPassword";
     flashMessage?: Auth0LockFlashMessageOptions;
