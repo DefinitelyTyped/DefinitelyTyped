@@ -1,7 +1,3 @@
-/// <reference path="slick.checkboxselectcolumn.d.ts" />
-/// <reference path="slick.columnpicker.d.ts" />
-/// <reference path="slick.rowselectionmodel.d.ts" />
-
 /**
  * Extracted from https://github.com/mleibman/SlickGrid/blob/master/examples/example-checkbox-row-select.html
  */

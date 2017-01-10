@@ -16,9 +16,9 @@
     },
     "files": [
         "index.d.ts",
-        "halogen-clip-loader-tests.tsx",
-        "halogen-fade-loader-tests.tsx",
-        "halogen-pacman-loader-tests.tsx",
-        "halogen-rotate-loader-tests.tsx"
+        "test/clip-loader.tsx",
+        "test/fade-loader.tsx",
+        "test/pacman-loader.tsx",
+        "test/rotate-loader.tsx"
     ]
 }

@@ -15,14 +15,14 @@
     },
     "files": [
         "index.d.ts",
-        "codemirror-tests.ts",
         "codemirror-matchbrackets.d.ts",
-        "codemirror-matchbrackets-tests.ts",
         "codemirror-runmode.d.ts",
-        "codemirror-runmode-tests.ts",
         "codemirror-showhint.d.ts",
-        "codemirror-showhint-tests.ts",
         "searchcursor.d.ts",
-        "searchcursor-tests.ts"
+        "test/index.ts",
+        "test/matchbrackets.ts",
+        "test/runmode.ts",
+        "test/searchcursor.ts",
+        "test/showhint.ts"
     ]
 }

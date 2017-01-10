@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "xml2json-tests.ts"
+        "x2js-tests.ts"
     ]
 }

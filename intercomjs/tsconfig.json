@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "intercom-tests.ts"
+        "intercomjs-tests.ts"
     ]
 }

@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "ion.rangeSlider-tests.ts"
+        "ion.rangeslider-tests.ts"
     ]
 }
