@@ -6,6 +6,9 @@
 declare var doT: doT.doTStatic;
 
 declare namespace doT {
+	interface renderFunction {
+		(...args: {}[]): string;
+	}
 
 	interface doTStatic {
 		/**
@@ -20,12 +23,12 @@ declare namespace doT {
 		/**
 	* Compile template
 	*/
-		template(tmpl: string, c?: TemplateSettings, def?: {}): () => string;
+		template(tmpl: string, c?: TemplateSettings, def?: {}): renderFunction;
 
 		/**
 	* For express
 	*/
-		compile(tmpl: string, def?: {}): () => string;
+		compile(tmpl: string, def?: {}): renderFunction;
 	}
 
 	interface TemplateSettings {
@@ -49,4 +52,6 @@ interface String {
 	encodeHTML(): string;
 }
 
-export = doT;
+declare module "doT" {
+  export = doT;
+}
