@@ -14,20 +14,19 @@ lock.logout(() => {});
 
 var showOptions : Auth0LockShowOptions = {
   allowedConnections: [ "twitter", "facebook" ],
-  autoclose: false,
-  autofocus: true,
-  closable: true,
-  container: "somediv",
+  allowSignUp: true,
+  allowForgotPassword: false,
+  auth: {
+    params: { state: "foo" },
+    redirect: true,
+    redirectUrl: "some url",
+    responseType: "token",
+    sso: true
+  },
+  initialScreen: "login",
   flashMessage: {
     type: "error",
     text: "an error has occurred"
-  },
-  language: "en",
-  popupOptions: {
-    width: 100,
-    height: 400,
-    left: 200,
-    top: 200
   },
   rememberLastLogin: false
 };
