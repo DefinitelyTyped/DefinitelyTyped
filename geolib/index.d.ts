@@ -3,8 +3,7 @@
 // Definitions by: Vladimir Venegas <https://github.com/vvenegasv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace geolib {
-
+declare module geolib {
     export interface PositionAsDecimal {
         latitude: number;
         longitude: number;
@@ -52,30 +51,14 @@ declare namespace geolib {
      *
      * Return value is always float and represents the distance in meters.
      */
-    function getDistance(start: PositionAsDecimal|PositionAsSexadecimal, end: PositionAsDecimal|PositionAsSexadecimal): number;
-
-
-    /** Calculates the distance between two geo coordinates
-     *
-     * Return value is always float and represents the distance in meters.
-     */
-    function getDistance(start: PositionAsDecimal|PositionAsSexadecimal, end: PositionAsDecimal|PositionAsSexadecimal, accuracy: number, precision: number): number;
-
+    function getDistance(start: PositionAsDecimal|PositionAsSexadecimal, end: PositionAsDecimal|PositionAsSexadecimal, accuracy?: number, precision?: number): number;
 
     /** Calculates the distance between two geo coordinates but this method is far more inaccurate as compared to getDistance.
      * It can take up 2 to 3 arguments. start, end and accuracy can be defined in the same as in getDistance.
      *
      * Return value is always float that represents the distance in meters.
      */
-    function getDistanceSimple(start: PositionAsDecimal|PositionAsSexadecimal, end: PositionAsDecimal|PositionAsSexadecimal): number;
-
-
-    /** Calculates the distance between two geo coordinates but this method is far more inaccurate as compared to getDistance.
-     * It can take up 2 to 3 arguments. start, end and accuracy can be defined in the same as in getDistance.
-     *
-     * Return value is always float that represents the distance in meters.
-     */
-    function getDistanceSimple(start: PositionAsDecimal|PositionAsSexadecimal, end: PositionAsDecimal|PositionAsSexadecimal, accuracy: number): number;
+    function getDistanceSimple(start: PositionAsDecimal|PositionAsSexadecimal, end: PositionAsDecimal|PositionAsSexadecimal, accuracy?: number): number;
 
 
     /** Calculates the geographical center of all points in a collection of geo coordinates
@@ -137,15 +120,7 @@ declare namespace geolib {
      *
      * Returns an object with a rough (NESW) and an exact direction (NNE, NE, ENE, E, ESE, etc).
      */
-    function getCompassDirection(originLL: PositionAsDecimal, destLL: PositionAsDecimal): CompassDirection;
-
-
-    /** Gets the compass direction from an origin coordinate (originLL) to a destination coordinate (destLL).
-     * Bearing mode. Can be either circle or rhumbline (default).
-     *
-     * Returns an object with a rough (NESW) and an exact direction (NNE, NE, ENE, E, ESE, etc).
-     */
-    function getCompassDirection(originLL: PositionAsDecimal, destLL: PositionAsDecimal, bearingMode: string): CompassDirection;
+    function getCompassDirection(originLL: PositionAsDecimal, destLL: PositionAsDecimal, bearingMode?: string): CompassDirection;
 
 
     /** Sorts an object or array of coords by distance from a reference coordinate */
@@ -161,19 +136,11 @@ declare namespace geolib {
      * Returns the length of the path in meters */
     function getPathLength(coords: PositionAsDecimal[]): number;
 
-
     /** Calculates the speed between two points within a given time span.
      *
      * Returns the speed in options.unit (default is km/h).
      */
-    function getSpeed(coords: PositionInTime[]): number;
-
-
-    /** Calculates the speed between two points within a given time span.
-     *
-     * Returns the speed in options.unit (default is km/h).
-     */
-    function getSpeed(coords: PositionInTime[], option: SpeedOption): number;
+    function getSpeed(coords: PositionInTime[], option?: SpeedOption): number;
 
 
     /** Calculates if given point lies in a line formed by start and end */
@@ -192,22 +159,7 @@ declare namespace geolib {
      * - in (inch)
      * - yd (yards)
      */
-    function convertUnit(unit: string, distance: number): number;
-
-
-    /** Converts a given distance (in meters) to another unit.
-     * distance distance to be converted (source must be in meter). unit can be one of:
-     * - m (meter)
-     * - km (kilometers)
-     * - cm (centimeters)
-     * - mm (millimeters)
-     * - mi (miles)
-     * - sm (seamiles)
-     * - ft (foot)
-     * - in (inch)
-     * - yd (yards)
-     */
-    function convertUnit(unit: string, distance: number, round: number): number;
+    function convertUnit(unit: string, distance: number, round?: number): number;
 
 
     /** Converts a sexagesimal coordinate to decimal format */
@@ -243,18 +195,5 @@ declare namespace geolib {
      * Returns an object: `{"latitude": destLat, "longitude": destLng}`
      * (Attention: this formula is not *100%* accurate (but very close though))
      */
-    function computeDestinationPoint(start: PositionAsDecimal, distance: number, bearing: number): PositionAsDecimal;
-
-
-    /** Computes the destination point given an initial point, a distance (in meters) and a bearing (in degrees).
-     * If no radius is given it defaults to the mean earth radius of 6371000 meter.
-     *
-     * Returns an object: `{"latitude": destLat, "longitude": destLng}`
-     * (Attention: this formula is not *100%* accurate (but very close though))
-     */
-    function computeDestinationPoint(start: PositionAsDecimal, distance: number, bearing: number, radius: number): PositionAsDecimal;
-}
-
-declare module "geolib" {
-    export = geolib;
+    function computeDestinationPoint(start: PositionAsDecimal, distance: number, bearing: number, radius?: number): PositionAsDecimal;
 }
