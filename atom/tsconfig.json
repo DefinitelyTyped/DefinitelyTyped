@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
+        "api-docs.d.ts",
         "atom-tests.ts"
     ]
 }

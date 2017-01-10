@@ -1,4 +1,4 @@
-﻿
+
 import {
 	ipcRenderer,
 	remote,
@@ -95,6 +95,7 @@ clipboard.clear();
 clipboard.write({
 	html: '<html></html>',
 	text: 'Hello World!',
+	bookmark: "Bookmark name",
 	image: clipboard.readImage()
 });
 

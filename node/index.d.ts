@@ -284,6 +284,7 @@ declare namespace NodeJS {
         setEncoding(encoding: string | null): void;
         pause(): ReadableStream;
         resume(): ReadableStream;
+        isPaused(): boolean;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe<T extends WritableStream>(destination?: T): void;
         unshift(chunk: string): void;
@@ -2661,14 +2662,7 @@ declare module "path" {
      * Join all arguments together and normalize the resulting path.
      * Arguments must be strings. In v0.8, non-string arguments were silently ignored. In v0.10 and up, an exception is thrown.
      *
-     * @param paths string paths to join.
-     */
-    export function join(...paths: any[]): string;
-    /**
-     * Join all arguments together and normalize the resulting path.
-     * Arguments must be strings. In v0.8, non-string arguments were silently ignored. In v0.10 and up, an exception is thrown.
-     *
-     * @param paths string paths to join.
+     * @param paths paths to join.
      */
     export function join(...paths: string[]): string;
     /**
@@ -3349,6 +3343,7 @@ declare module "stream" {
             setEncoding(encoding: string): void;
             pause(): Readable;
             resume(): Readable;
+            isPaused(): boolean;
             pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
             unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
             unshift(chunk: any): void;
@@ -3538,6 +3533,7 @@ declare module "stream" {
             setEncoding(encoding: string): void;
             pause(): Transform;
             resume(): Transform;
+            isPaused(): boolean;
             pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
             unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
             unshift(chunk: any): void;
@@ -3961,7 +3957,25 @@ declare module "v8" {
         space_available_size: number;
         physical_space_size: number;
     }
-    export function getHeapStatistics(): { total_heap_size: number, total_heap_size_executable: number, total_physical_size: number, total_avaialble_size: number, used_heap_size: number, heap_size_limit: number };
+
+    enum DoesZapCodeSpaceFlag {
+        Disabled = 0,
+        Enabled = 1
+    }
+
+    interface HeapInfo {
+        total_heap_size: number;
+        total_heap_size_executable: number;
+        total_physical_size: number;
+        total_available_size: number;
+        used_heap_size: number;
+        heap_size_limit: number;
+        malloced_memory: number;
+        peak_malloced_memory: number;
+        does_zap_garbage: DoesZapCodeSpaceFlag;
+    }
+
+    export function getHeapStatistics(): HeapInfo;
     export function getHeapSpaceStatistics(): HeapSpaceInfo[];
     export function setFlagsFromString(flags: string): void;
 }

@@ -1,4 +1,4 @@
-﻿# JointJS Definitions Usage Notes
+# JointJS Definitions Usage Notes
 
 TypeScript definitions for the JointJS framework available at http://www.jointjs.com
 

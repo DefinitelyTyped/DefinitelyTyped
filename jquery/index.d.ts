@@ -67,7 +67,7 @@ interface JQueryAjaxSettings {
      */
     crossDomain?: boolean;
     /**
-     * Data to be sent to the server. It is converted to a query string, if not already a string. It's appended to the url for GET-requests. See processData option to prevent this automatic processing. Object must be Key/Value pairs. If value is an Array, jQuery serializes multiple values with same key based on the value of the traditional setting (described below).
+     * Data to be sent to the server. It is converted to a query string, if not already a string. It's appended to the url for GET-requests. See processData option to prevent this automatic processing. Object must be key-value pairs. If value is an Array, jQuery serializes multiple values with same key based on the value of the traditional setting (described below).
      */
     data?: any;
     /**
@@ -111,7 +111,7 @@ interface JQueryAjaxSettings {
      */
     method?: string;
     /**
-     * A mime type to override the XHR mime type. (version added: 1.5.1)
+     * A MIME type to override the XHR MIME type. (version added: 1.5.1)
      */
     mimeType?: string;
     /**
@@ -139,7 +139,7 @@ interface JQueryAjaxSettings {
      */
     timeout?: number;
     /**
-     * Set this to true if you wish to use the traditional style of param serialization.
+     * Set this to true if you wish to use the traditional style of parameter serialization.
      */
     traditional?: boolean;
     /**
@@ -184,7 +184,7 @@ interface JQueryXHR extends XMLHttpRequest, JQueryPromise<any> {
      */
     then<R>(doneCallback: (data: any, textStatus: string, jqXHR: JQueryXHR) => R|JQueryPromise<R>, failCallback?: (jqXHR: JQueryXHR, textStatus: string, errorThrown: any) => void): JQueryPromise<R>;
     /**
-     * Property containing the parsed response if the response Content-Type is json
+     * Property containing the parsed response if the response content type is json
      */
     responseJSON?: any;
     /**
@@ -1220,7 +1220,7 @@ interface JQueryStatic {
      *
      * @param value The value to search for.
      * @param array An array through which to search.
-     * @param fromIndex he index of the array at which to begin the search. The default is 0, which will search the whole array.
+     * @param fromIndex The index of the array at which to begin the search. The default is 0, which will search the whole array.
      * @see {@link https://api.jquery.com/jQuery.inArray/}
      */
     inArray<T>(value: T, array: T[], fromIndex?: number): number;
@@ -1240,7 +1240,7 @@ interface JQueryStatic {
      */
     isEmptyObject(obj: any): boolean;
     /**
-     * Determine if the argument passed is a Javascript function object.
+     * Determine if the argument passed is a JavaScript function object.
      *
      * @param obj Object to test whether or not it is a function.
      * @see {@link https://api.jquery.com/jQuery.isFunction/}
@@ -1270,7 +1270,7 @@ interface JQueryStatic {
     /**
      * Check to see if a DOM node is within an XML document (or is an XML document).
      *
-     * @param node he DOM node that will be checked to see if it's in an XML document.
+     * @param node The DOM node that will be checked to see if it's in an XML document.
      * @see {@link https://api.jquery.com/jQuery.isXMLDoc/}
      */
     isXMLDoc(node: Node): boolean;
@@ -1833,7 +1833,7 @@ interface JQuery {
      * Store arbitrary data associated with the matched elements.
      *
      * @param key A string naming the piece of data to set.
-     * @param value The new data value; it can be any Javascript type including Array or Object.
+     * @param value The new data value; it can be any JavaScript type including Array or Object.
      * @see {@link https://api.jquery.com/data/#data-key-value}
      */
     data(key: string, value: any): JQuery;

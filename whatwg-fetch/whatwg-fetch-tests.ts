@@ -1,4 +1,4 @@
-﻿
+
 
 function test_HeadersCopiedFromHeaders() {
 	var source = new Headers();

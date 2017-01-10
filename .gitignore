@@ -9,7 +9,6 @@
 *.cs
 *.sln
 *.csproj
-*.txt
 *.map
 *.swp
 .DS_Store

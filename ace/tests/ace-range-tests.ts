@@ -1,7 +1,4 @@
-﻿
-
-var assert: any;
-var exports = {
+const aceRangeTests = {
 
     name: "ACE range.js",
 

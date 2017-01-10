@@ -1,12 +1,9 @@
 {
-    "files": [
-        "index.d.ts"
-    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
-        "noImplicitThis": true,
+        "noImplicitThis": false,
         "strictNullChecks": false,
         "baseUrl": "../",
         "experimentalDecorators": true,
@@ -16,5 +13,24 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "actionSheet-tests.ts",
+        "app-version-tests.ts",
+        "appAvailability-tests.ts",
+        "badge-tests.ts",
+        "camera-tests.ts",
+        "datepicker-tests.ts",
+        "device-tests.ts",
+        "deviceMotion-tests.ts",
+        "deviceOrientation-tests.ts",
+        "dialogs-tests.ts",
+        "emailComposer-tests.ts",
+        "file-tests.ts",
+        "fileTransfer-tests.ts",
+        "geolocation-tests.ts",
+        "network-tests.ts",
+        "toast-tests.ts"
+    ]
 }

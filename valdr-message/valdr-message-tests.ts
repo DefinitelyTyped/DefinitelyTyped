@@ -1,4 +1,4 @@
-﻿function ValdrMessageTests() {
+function ValdrMessageTests() {
     var valdrMessage: valdr.message.ValdrMessage;
 
     valdrMessage.templateUrl = 'valdrMesssageTemplate.html';
