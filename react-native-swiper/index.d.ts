@@ -50,7 +50,7 @@ interface SwiperProperties {
 
   index?: number;
 
-  renderPagination?: (index: number, total: number, thisObject: SwiperStatic)=> React.ReactElement<any>;
+  renderPagination?: (index: number, total: number, thisObject: SwiperStatic) => React.ReactElement<any>;
 
   dotStyle?: ViewStyle;
 
