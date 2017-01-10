@@ -62,7 +62,7 @@ declare namespace Chart {
         afterBody?: (item?: ChartTooltipItem[], data?: any) => void;
         beforeFooter?: (item?: ChartTooltipItem[], data?: any) => void;
         footer?: (item?: ChartTooltipItem[], data?: any) => void;
-        afterfooter?: (item?: ChartTooltipItem[], data?: any) => void;
+        afterFooter?: (item?: ChartTooltipItem[], data?: any) => void;
     }
 
     export interface ChartAnimationParameter {
