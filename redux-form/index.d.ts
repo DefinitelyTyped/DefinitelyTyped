@@ -17,11 +17,11 @@ export type FieldType = 'Field' | 'FieldArray';
 export type DataShape = {[fieldName:string]: FieldValue};
 
 export type FormErrors<FormData extends DataShape> = {
-  [P in keyof FormData]?: string;
+  [P in keyof FormData]?: React.ReactElement<any> | string;
 } & { _error?: string };
 
 export type FormWarnings<FormData extends DataShape> = {
-  [P in keyof FormData]?: string;
+  [P in keyof FormData]?: React.ReactElement<any> | string;
 } & { _warning?: string };
 
 /**
