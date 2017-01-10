@@ -1,4 +1,4 @@
-import * as geolib from "geolib";
+﻿import "geolib";
 import PositionAsDecimal = geolib.PositionAsDecimal;
 import CompassDirection = geolib.CompassDirection;
 import Distance = geolib.Distance;
