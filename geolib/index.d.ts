@@ -3,7 +3,7 @@
 // Definitions by: Vladimir Venegas <https://github.com/vvenegasv>, Alex Efimov <https://github.com/dotnetpart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module geolib {
+declare namespace geolib {
     export interface PositionAsDecimal {
         latitude: number;
         longitude: number;
