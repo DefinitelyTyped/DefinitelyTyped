@@ -1,9 +1,8 @@
-///<reference path="geolib.d.ts"/>
-
 import * as geolib from "geolib";
 import PositionAsDecimal = geolib.PositionAsDecimal;
 import CompassDirection = geolib.CompassDirection;
 import Distance = geolib.Distance;
+import Bound = geolib.Bound;
 
 let dist: number = geolib.getDistance(
   {latitude: 51.5103, longitude: 7.49347},
@@ -13,6 +12,13 @@ let dist: number = geolib.getDistance(
 dist = geolib.getDistance(
   {latitude: 51.5103, longitude: 7.49347},
   {latitude: "51° 31' N", longitude: "7° 28' E"}
+);
+
+dist = geolib.getDistance(
+  {latitude: 51.5103, longitude: 7.49347},
+  {latitude: "51° 31' N", longitude: "7° 28' E"},
+  1,
+  1
 );
 
 // Working with W3C Geolocation API
@@ -37,6 +43,12 @@ dist = geolib.getDistanceSimple(
   {latitude: "51° 31' N", longitude: "7° 28' E"}
 );
 
+dist = geolib.getDistanceSimple(
+  {latitude: 51.5103, longitude: 7.49347},
+  {latitude: "51° 31' N", longitude: "7° 28' E"},
+  1
+);
+
 let posAsDecimal: PositionAsDecimal = geolib.getCenter([
   {latitude: 52.516272, longitude: 13.377722},
   {latitude: 51.515, longitude: 7.453619},
@@ -48,6 +60,20 @@ posAsDecimal = geolib.getCenter([
   {latitude: 51.515, longitude: 7.453619},
   {latitude: 51.503333, longitude: -0.119722}
 ]);
+
+posAsDecimal = geolib.getCenterOfBounds([
+  {latitude: 52.516272, longitude: 13.377722},
+  {latitude: 51.515, longitude: 7.453619},
+  {latitude: 51.503333, longitude: -0.119722},
+  {latitude: 51.503333, longitude: -1.119722}
+]);
+
+
+
+let bound: Bound = geolib.getBounds([
+  {latitude: 52.516272, longitude: 13.377722, elevation: 1},
+  {latitude: 51.515, longitude: 7.453619, elevation: 1},
+  {latitude: 51.503333, longitude: -0.119722, elevation: 1}]);
 
 let isInside: boolean = geolib.isPointInside(
   {latitude: 51.5125, longitude: 7.485},
@@ -79,6 +105,12 @@ bearing = geolib.getBearing(
 let compassDirection: CompassDirection = geolib.getCompassDirection(
   {latitude: 52.518611, longitude: 13.408056},
   {latitude: 51.519475, longitude: 7.46694444}
+);
+
+compassDirection = geolib.getCompassDirection(
+  {latitude: 52.518611, longitude: 13.408056},
+  {latitude: 51.519475, longitude: 7.46694444},
+  'circle'
 );
 
 // coords array
@@ -125,6 +157,13 @@ let speed: number = geolib.getSpeed(
   {unit: 'mph'}
 ); // -> 66.9408 (mph)
 
+speed= geolib.getSpeed(
+  [
+    {latitude: 51.567294, longitude: 7.38896, time: 1360231200880},
+    {latitude: 52.54944, longitude: 13.468509, time: 1360245600880}
+  ]
+); // -> 66.9408 (mph)
+
 let point1 = {latitude: 0.5, longitude: 0};
 let point2 = {latitude: 0, longitude: 10};
 let point3 = {latitude: 0, longitude: 15.5};
@@ -137,6 +176,7 @@ let isInLine3 = geolib.isPointInLine(point3, start, end) //-> false;
 
 
 let convertResult: number = geolib.convertUnit('km', 14213, 2) // -> 14,21
+convertResult = geolib.convertUnit('km', 14213) // -> 14,21
 
 let result: number = geolib.sexagesimal2decimal("51° 29' 46\" N")
 
@@ -148,10 +188,14 @@ result = geolib.longitude({lat: 51.49611, lng: 7.38896}); // -> 7.38896
 result = geolib.useDecimal("51° 29' 46\" N"); // -> 51.59611111
 result = geolib.useDecimal(51.59611111) // -> 51.59611111
 
+result = geolib.elevation({lat: 51.49611, lng: 7.38896});
 
 let initialPoint = {latitude: 51.516272, longitude: 0.45425}
+let radius = 100;
 dist = 1234;
 bearing = 45;
 
-geolib.computeDestinationPoint(initialPoint, dist, bearing);
+
+posAsDecimal = geolib.computeDestinationPoint(initialPoint, dist, bearing);
+posAsDecimal = geolib.computeDestinationPoint(initialPoint, dist, bearing, radius);
 // -> {"latitude":51.52411853234181,"longitude":0.4668623365950795}
