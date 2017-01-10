@@ -79,3 +79,7 @@ declare namespace L {
 		setOpacity(opacity: number): void;
 	}
 }
+
+declare module 'leaflet.label' {
+    export = L;
+}
