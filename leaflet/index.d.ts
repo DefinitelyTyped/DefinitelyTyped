@@ -1046,6 +1046,7 @@ declare namespace L {
         keepInView?: boolean;
         closeButton?: boolean;
         autoClose?: boolean;
+        closeOnClick?: boolean;
     }
 
     type Content = string | HTMLElement;
