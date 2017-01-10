@@ -1,59 +1,56 @@
-// Type definitions for SockJS 0.3.x
-// Project: https://github.com/sockjs/sockjs-client
-// Definitions by: Emil Ivanov <https://github.com/vladev>
+// Type definitions for sockjs-node 0.3.x
+// Project: https://github.com/sockjs/sockjs-node
+// Definitions by: Phil McCloghry-Laing <https://github.com/pmccloghrylaing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace SockJS;
-export = SockJS;
+/// <reference types="node" />
 
-interface SockJSSimpleEvent {
-    type: string;
-    toString(): string;
+
+import http = require('http');
+
+export interface ServerOptions {
+    sockjs_url?: string;
+    prefix?: string;
+    response_limit?: number;
+    websocket?: boolean;
+    jsessionid?: any;
+    log?: (severity: string, message: string) => void;
+    heartbeat_delay?: number;
+    disconnect_delay?: number;
 }
 
-interface SJSOpenEvent extends SockJSSimpleEvent, Event {
-    type: string;
+export declare function createServer(options?: ServerOptions): Server;
+
+export interface Server extends NodeJS.EventEmitter {
+    installHandlers(server: http.Server, options?: ServerOptions): any;
+
+    on(event: 'connection', listener: (conn: Connection) => any): this;
+    on(event: string, listener: Function): this;
 }
 
-interface SJSCloseEvent extends SockJSSimpleEvent, CloseEvent {
-    code: number;
-    reason: string;
-    wasClean: boolean;
-    type: string;
-}
-
-interface SJSMessageEvent extends SockJSSimpleEvent, MessageEvent {
-    data: string;
-    type: string;
-}
-
-interface SockJS extends WebSocket {
+export interface Connection extends NodeJS.ReadWriteStream {
+    remoteAddress: string;
+    remotePort: number;
+    address: {
+        [key: string]: {
+            address: string;
+            port: number;
+        };
+    };
+    headers: {
+        [key: string]: string;
+    };
+    url: string;
+    pathname: string;
+    prefix: string;
     protocol: string;
     readyState: number;
-    onopen: (ev: SJSOpenEvent) => any;
-    onmessage: (ev: SJSMessageEvent) => any;
-    onclose: (ev: SJSCloseEvent) => any;
-    send(data: any): void;
-    close(code?: number, reason?: string): void;
-    OPEN: number;
-    CLOSING: number;
-    CONNECTING: number;
-    CLOSED: number;
-}
+    id: string;
 
-declare var SockJS: {
-    prototype: SockJS;
-    new (url: string, _reserved?: any, options?: {
-        debug?: boolean;
-        devel?: boolean;
-        protocols_whitelist?: string[];
-        server?: string;
-        rtt?: number;
-        rto?: number;
-        info?: {
-            websocket?: boolean;
-            cookie_needed?: boolean;
-            null_origin?: boolean;
-        };
-    }): SockJS;
-};
+    close(code?: string, reason?: string): boolean;
+    destroy(): void;
+
+    on(event: 'data', listener: (message: string) => any): this;
+    on(event: 'close', listener: () => void): this;
+    on(event: string, listener: Function): this;
+}

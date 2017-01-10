@@ -1,4 +1,4 @@
-import sockjs = require("sockjs-node");
+import sockjs = require("sockjs");
 import http = require("http");
 import stream = require("stream");
 
@@ -15,8 +15,7 @@ server.installHandlers(httpServer);
 server.installHandlers(httpServer, serverOptions);
 
 // serverOptions
-serverOptions.sockjs_url = 'http://cdn.sockjs.org/sockjs-0.3.min.js';
-serverOptions.prefix = '/prefix';
+serverOptions.sockjs_url = 'https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js';
 serverOptions.response_limit = 128000;
 serverOptions.websocket = true;
 
