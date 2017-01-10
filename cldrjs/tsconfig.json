@@ -16,8 +16,8 @@
     "files": [
         "index.d.ts",
         "cldr.js-supplemental.d.ts",
-        "cldr.js-tests.ts",
-        "cldr.js-event-tests.ts",
-        "cldr.js-supplemental-tests.ts"
+        "test/index.ts",
+        "test/event.ts",
+        "test/supplemental.ts"
     ]
 }

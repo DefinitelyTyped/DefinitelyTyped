@@ -15,7 +15,6 @@
   },
   "files": [
     "index.d.ts",
-    "enhanced-resolve-tests.ts",
     "lib/AliasFieldPlugin.d.ts",
     "lib/AliasPlugin.d.ts",
     "lib/AppendPlugin.d.ts",
@@ -33,7 +32,6 @@
     "lib/getPaths.d.ts",
     "lib/globToRegExp.d.ts",
     "lib/JoinRequestPlugin.d.ts",
-    "lib/lib-tests.ts",
     "lib/LogInfoPlugin.d.ts",
     "lib/MainFieldPlugin.d.ts",
     "lib/ModuleAppendPlugin.d.ts",
@@ -49,6 +47,8 @@
     "lib/SyncAsyncFileSystemDecorator.d.ts",
     "lib/TryNextPlugin.d.ts",
     "lib/UnsafeCachePlugin.d.ts",
-    "lib/UseFilePlugin.d.ts"
+    "lib/UseFilePlugin.d.ts",
+    "test/index.ts",
+    "test/lib.ts"
   ]
 }

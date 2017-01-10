@@ -15,7 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "metric-suffix-tests.ts",
-        "metric-suffix-external-tests.ts"
+        "metric-suffix-tests.ts"
     ]
 }
