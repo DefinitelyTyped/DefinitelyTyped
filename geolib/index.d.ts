@@ -3,7 +3,7 @@
 // Definitions by: Vladimir Venegas <https://github.com/vvenegasv>, Alex Efimov <https://github.com/dotnetpart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace geolib {
+declare module geolib {
     export interface PositionAsDecimal {
         latitude: number;
         longitude: number;
@@ -197,5 +197,3 @@ declare namespace geolib {
      */
     function computeDestinationPoint(start: PositionAsDecimal, distance: number, bearing: number, radius?: number): PositionAsDecimal;
 }
-
-export = geolib;
