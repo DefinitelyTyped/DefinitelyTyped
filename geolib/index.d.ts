@@ -6,46 +6,46 @@
 declare namespace geolib {
 
     export interface PositionAsDecimal {
-        latitude: number,
-        longitude: number
+        latitude: number;
+        longitude: number;
     }
 
     export interface PositionAsSexadecimal {
-        latitude: string,
-        longitude: string
+        latitude: string;
+        longitude: string;
     }
 
     export interface PositionWithElevation extends PositionAsDecimal {
-        elevation?: number
+        elevation?: number;
     }
 
     export interface PositionInTime extends PositionAsDecimal {
-        time: number
+        time: number;
     }
 
     export interface Bound {
-        minLat: number,
-        maxLat: number,
-        minLng: number,
-        maxLng: number,
-        minElev?: number,
-        maxElev?: number
+        minLat: number;
+        maxLat: number;
+        minLng: number;
+        maxLng: number;
+        minElev?: number;
+        maxElev?: number;
     }
 
     export interface CompassDirection {
-        rough: string,
-        exact: string
+        rough: string;
+        exact: string;
     }
 
     export interface Distance {
-        latitude: number,
-        longitude: number,
-        distance: number,
-        key: string
+        latitude: number;
+        longitude: number;
+        distance: number;
+        key: string;
     }
 
     export interface SpeedOption {
-        unit: string
+        unit: string;
     }
 
     /** Calculates the distance between two geo coordinates
