@@ -110,15 +110,11 @@ interface Auth0LockFlashMessageOptions {
 
 interface Auth0LockShowOptions {
     allowedConnections?: string[];
-    autoclose?: boolean;
-    autofocus?: boolean;
-    avatar?: Auth0LockAvatarOptions;
-    closable?: boolean;
-    container?: string;
+    allowSignUp?: boolean;
+    allowForgotPassword?: boolean;
+    auth?: Auth0LockAuthOptions;
+    initialScreen?: "login" | "signUp" | "forgotPassword";
     flashMessage?: Auth0LockFlashMessageOptions;
-    language?: string;
-    languageDictionary?: any;
-    popupOptions?: Auth0LockPopupOptions;
     rememberLastLogin?: boolean;
 }
 
