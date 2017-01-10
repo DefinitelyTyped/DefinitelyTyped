@@ -1,4 +1,4 @@
-import * as webdriver from "./index";
+import * as webdriver from './index';
 
 declare namespace ie {
 
@@ -39,7 +39,7 @@ declare namespace ie {
         /**
          * Whether to disable the protected mode settings check when the session is
          * created. Disbling this setting may lead to significant instability as the
-         * browser may become unresponsive/hang. Only "best effort" support is provided
+         * browser may become unresponsive/hang. Only 'best effort' support is provided
          * when using this capability.
          *
          * For more information, refer to the IEDriver's
@@ -63,7 +63,7 @@ declare namespace ie {
          * Sets the initial URL loaded when IE starts. This is intended to be used with
          * {@link #ignoreProtectedModeSettings} to allow the user to initialize IE in
          * the proper Protected Mode zone. Setting this option may cause browser
-         * instability or flaky and unresponsive code. Only "best effort" support is
+         * instability or flaky and unresponsive code. Only 'best effort' support is
          * provided when using this option.
          *
          * @param {string} url The initial browser URL.

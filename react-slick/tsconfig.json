@@ -16,6 +16,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-slick-test.tsx"
+        "react-slick-tests.tsx"
     ]
 }

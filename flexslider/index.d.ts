@@ -18,11 +18,11 @@ interface SliderObject { //Object: The slider element itself
 	directionNav: Object;            //Object: The slider directionNav
 	controlsContainer: Object;      //Object: The controlsContainer element of the slider
 	manualControls: Object;         //Object: The manualControls element of the slider
-	flexAnimate(target, pause?);    //Function: Move slider - (target, pause) parameters
-	pause();                //Function: Pause slider slideshow interval
-	resume();               //Function: Resume slider slideshow interval
-	canAdvance(target);     //Function: returns boolean if slider can advance - (target) parameter
-	getTarget(dir);         //Function: get target given a direction - "next" or "prev" parameter
+	flexAnimate(target:any, pause?: any) :any;    //Function: Move slider - (target, pause) parameters
+	pause(): any;                //Function: Pause slider slideshow interval
+	resume(): any;               //Function: Resume slider slideshow interval
+	canAdvance(target:any): boolean;     //Function: returns boolean if slider can advance - (target) parameter
+	getTarget(dir: any): any;         //Function: get target given a direction - "next" or "prev" parameter
 }
 
 interface FlexSliderOptions {
@@ -86,5 +86,5 @@ interface FlexSliderOptions {
 
 
 interface JQuery {
-    flexslider(options?: FlexSliderOptions);
+    flexslider(options?: FlexSliderOptions): any;
 }

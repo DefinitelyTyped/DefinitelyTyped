@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "ix-tests.ts"
+        "ix-tests.ts",
+        "l2o-tests.ts"
     ]
 }

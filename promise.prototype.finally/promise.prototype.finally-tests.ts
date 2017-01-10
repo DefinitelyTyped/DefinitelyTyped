@@ -1,3 +1,7 @@
+import promiseFinally = require('promise.prototype.finally');
+
+promiseFinally.shim();
+
 var promise = new Promise<Boolean>((resolve, reject) => {
 	resolve(true);
 });

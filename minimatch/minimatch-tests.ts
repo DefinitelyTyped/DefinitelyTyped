@@ -1,4 +1,4 @@
-import mm = require("./");
+import mm = require("minimatch");
 
 var pattern = "**/*.ts";
 var options = {
