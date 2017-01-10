@@ -4,13 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import 'react-addons-transition-group';
-import { ComponentClass, TransitionGroupProps } from 'react';
+import { ComponentClass, TransitionGroupProps, CSSTransitionGroupProps } from 'react';
 
-declare var CSSTransitionGroup: CSSTransitionGroup;
-type CSSTransitionGroup = ComponentClass<CSSTransitionGroup.CSSTransitionGroupProps>;
-export = CSSTransitionGroup;
-
-declare namespace CSSTransitionGroup {
+declare module 'react' {
     interface CSSTransitionGroupTransitionName {
         enter: string;
         enterActive?: string;
@@ -20,7 +16,7 @@ declare namespace CSSTransitionGroup {
         appearActive?: string;
     }
 
-    interface CSSTransitionGroupProps extends TransitionGroupProps {
+    export interface CSSTransitionGroupProps extends TransitionGroupProps {
         transitionName: string | CSSTransitionGroupTransitionName;
         transitionAppear?: boolean;
         transitionAppearTimeout?: number;
@@ -30,3 +26,8 @@ declare namespace CSSTransitionGroup {
         transitionLeaveTimeout?: number;
     }
 }
+
+declare var CSSTransitionGroup: CSSTransitionGroup;
+type CSSTransitionGroup = ComponentClass<CSSTransitionGroupProps>;
+export = CSSTransitionGroup;
+
