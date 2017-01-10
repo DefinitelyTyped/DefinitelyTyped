@@ -975,6 +975,17 @@ angular.module('componentExample', [])
         transclude: true
     });
 
+angular.module('greetComponent', [])
+    .component('greeter', {
+        bindings: {
+            greeting: '@',
+            giftBasketOfThingsWithWhichToGreet: '<',
+        },
+        controller: 'GreeterCtrl',
+        controllerAs: 'greeter',
+        template: '<div>{{greeter.greeting}}',
+    });
+
 interface copyExampleUser {
     name?: string;
     email?: string;

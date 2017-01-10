@@ -1721,7 +1721,7 @@ declare namespace angular {
          * Define DOM attribute binding to component properties. Component properties are always bound to the component
          * controller and not to the scope.
          */
-        bindings?: {[boundProperty: string]: string};
+        bindings?: {[boundProperty: string]: '<' | '@' | '&' | '=' };
         /**
          * Whether transclusion is enabled. Disabled by default.
          */
