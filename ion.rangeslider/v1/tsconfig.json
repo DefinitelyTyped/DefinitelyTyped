@@ -11,7 +11,7 @@
         ],
         "types": [],
         "paths": {
-            "ion.rangeslider": ["ion.rangeslider/v0"]
+            "ion.rangeslider": ["ion.rangeslider/v1"]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
