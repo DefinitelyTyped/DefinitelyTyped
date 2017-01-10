@@ -1,4 +1,4 @@
-// Type definitions for auth0-lock v10.0.1
+// Type definitions for auth0-lock v10.9.1
 // Project: http://auth0.com
 // Definitions by: Brian Caruso <https://github.com/carusology>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -103,13 +103,33 @@ interface Auth0LockConstructorOptions {
     usernameStyle?: string;
 }
 
+interface Auth0LockFlashMessageOptions {
+    type: "success" | "error",
+    text: string;
+}
+
+interface Auth0LockShowOptions {
+    allowedConnections?: string[];
+    autoclose?: boolean;
+    autofocus?: boolean;
+    avatar?: Auth0LockAvatarOptions;
+    closable?: boolean;
+    container?: string;
+    flashMessage?: Auth0LockFlashMessageOptions;
+    language?: string;
+    languageDictionary?: any;
+    popupOptions?: Auth0LockPopupOptions;
+    rememberLastLogin?: boolean;
+}
+
 interface Auth0LockStatic {
     new (clientId: string, domain: string, options?: Auth0LockConstructorOptions): Auth0LockStatic;
-    getProfile(token: string, callback: (error: Auth0Error, profile: Auth0UserProfile) => void) : void;
 
+    // deprecated
+    getProfile(token: string, callback: (error: Auth0Error, profile: Auth0UserProfile) => void) : void;
     getUserInfo(token: string, callback: (error: Auth0Error, profile: Auth0UserProfile) => void) : void;
 
-    show(): void;
+    show(options?: Auth0LockShowOptions): void;
     hide(): void;
     logout(query: any): void;
 

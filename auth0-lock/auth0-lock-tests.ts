@@ -1,5 +1,5 @@
 /// <reference types="auth0-js" />
-
+/// <reference path="index.d.ts" />
 
 const CLIENT_ID = "YOUR_AUTH0_APP_CLIENTID";
 const DOMAIN = "YOUR_DOMAIN_AT.auth0.com";
@@ -9,6 +9,30 @@ var lock: Auth0LockStatic = new Auth0Lock(CLIENT_ID, DOMAIN);
 lock.show();
 lock.hide();
 lock.logout(() => {});
+
+// Show supports UI arguments
+
+var showOptions : Auth0LockShowOptions = {
+  allowedConnections: [ "twitter", "facebook" ],
+  autoclose: false,
+  autofocus: true,
+  closable: true,
+  container: "somediv",
+  flashMessage: {
+    type: "error",
+    text: "an error has occurred"
+  },
+  language: "en",
+  popupOptions: {
+    width: 100,
+    height: 400,
+    left: 200,
+    top: 200
+  },
+  rememberLastLogin: false
+};
+
+lock.show(showOptions);
 
 // The examples below are lifted from auth0-lock documentation on Github
 
