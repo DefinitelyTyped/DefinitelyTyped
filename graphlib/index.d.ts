@@ -42,8 +42,6 @@ declare module "graphlib" {
      */
     setDefaultNodeLabel(labelFn: (v: string) => any): Graph;
 
-
-
     /**
      * Creates or updates the value for the node v in the graph. If label is supplied
      * it is set as the value for the node. If label is not supplied and the node was
@@ -212,56 +210,129 @@ declare module "graphlib" {
      */
     edges(): Edge[];
 
-    /** Returns the label for this edge. */
+    /**
+     * Gets the label for the specified edge.
+     * Complexity: O(1).
+     * 
+     * @argument v - edge source node.
+     * @argument w - edge sink node.
+     * @argument name - name of the edge (actual for multigraph).
+     * @returns value associated with specified edge.
+    */
     edge(v: string, w: string, name?: string): any;
+
+    /**
+     * Gets the label for the specified edge.
+     * Complexity: O(1).
+     * 
+     * @argument edge - edge descriptor.
+     * @returns value associated with specified edge.
+    */
     edge(e: Edge): any;
 
+    /**
+     * Detects whether the graph contains specified edge or not. No subgraphs are considered.
+     * Complexity: O(1).
+     * 
+     * @argument v - edge source node.
+     * @argument w - edge sink node.
+     * @argument name - name of the edge (actual for multigraph).
+     * @returns whether the graph contains the specified edge or not.
+     */
     hasEdge(v: string, w: string, name?: string): boolean;
+
+    /**
+     * Detects whether the graph contains specified edge or not. No subgraphs are considered.
+     * Complexity: O(1).
+     * 
+     * @argument edge - edge descriptor.
+     * @returns whether the graph contains the specified edge or not.
+     */
     hasEdge(edge: Edge): boolean;
 
+    /**
+     * Removes the specified edge from the graph. No subgraphs are considered.
+     * Complexity: O(1).
+     * 
+     * @argument edge - edge descriptor.
+     * @returns the graph, allowing this to be chained with other functions.
+     */
     removeEdge(edge: Edge): Graph;
+
+    /**
+     * Removes the specified edge from the graph. No subgraphs are considered.
+     * Complexity: O(1).
+     * 
+     * @argument v - edge source node.
+     * @argument w - edge sink node.
+     * @argument name - name of the edge (actual for multigraph).
+     * @returns the graph, allowing this to be chained with other functions.
+     */
     removeEdge(v: string, w: string, name?: string): Graph;
 
     /**
      * Return all edges that point to the node v. Optionally filters those edges down to just those
      * coming from node u. Behavior is undefined for undirected graphs - use nodeEdges instead.
-     * Returns undefined if node v is not in the graph. Takes O(|E|) time.
+     * Complexity: O(|E|).
+     * 
+     * @argument v - edge sink node.
+     * @argument w - edge source node.
+     * @returns edges descriptors list if v is in the graph, or undefined otherwise.
      */
-    inEdges(v: string, u?: string): Edge[];
+    inEdges(v: string, w?: string): void | Edge[];
 
     /**
      * Return all edges that are pointed at by node v. Optionally filters those edges down to just
      * those point to w. Behavior is undefined for undirected graphs - use nodeEdges instead.
-     * Returns undefined if node v is not in the graph. Takes O(|E|) time.
+     * Complexity: O(|E|).
+     * 
+     * @argument v - edge source node.
+     * @argument w - edge sink node.
+     * @returns edges descriptors list if v is in the graph, or undefined otherwise.
      */
-    outEdges(v: string, w?: string): Edge[];
+    outEdges(v: string, w?: string): void | Edge[];
 
     /**
      * Returns all edges to or from node v regardless of direction. Optionally filters those edges
-     * down to just those between nodes v and w regardless of direction. Returns undefined if node v
-     * is not in the graph. Takes O(|E|) time.
+     * down to just those between nodes v and w regardless of direction.
+     * Complexity: O(|E|).
+     * 
+     * @argument v - edge adjacent node.
+     * @argument w - edge adjacent node.
+     * @returns edges descriptors list if v is in the graph, or undefined otherwise.
      */
-    nodeEdges(v: string, w?: string): Edge[];
+    nodeEdges(v: string, w?: string): void | Edge[];
 
     /**
      * Return all nodes that are predecessors of the specified node or undefined if node v is not in
-     * the graph. Behavior is undefined for undirected graphs - use neighbors instead. Takes O(|V|)
-     * time.
+     * the graph. Behavior is undefined for undirected graphs - use neighbors instead.
+     * Complexity: O(|V|).
+     * 
+     * @argument v - node identifier.
+     * @returns node identifiers list or undefined if v is not in the graph.
      */
-    predecessors(node: string): string[];
+    predecessors(v: string): void | string[];
 
     /**
      * Return all nodes that are successors of the specified node or undefined if node v is not in
-     * the graph. Behavior is undefined for undirected graphs - use neighbors instead. Takes O(|V|)
-     * time.
+     * the graph. Behavior is undefined for undirected graphs - use neighbors instead.
+     * Complexity: O(|V|).
+     * 
+     * @argument v - node identifier.
+     * @returns node identifiers list or undefined if v is not in the graph.
      */
-    successors(node: string): string[];
+    successors(v: string): void | string[];
 
     /**
      * Return all nodes that are predecessors or successors of the specified node or undefined if
-     * node v is not in the graph. Takes O(|V|) time.
+     * node v is not in the graph.
+     * Complexity: O(|V|).
+     * 
+     * @argument v - node identifier.
+     * @returns node identifiers list or undefined if v is not in the graph.
      */
-    neighbors(node: string): string[];
+    
+    neighbors(v: string): void | string[];
 
     isDirected(): boolean;
     isMultigraph(): boolean;
