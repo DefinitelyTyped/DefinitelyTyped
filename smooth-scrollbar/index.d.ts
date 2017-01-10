@@ -65,7 +65,7 @@ export interface ScrollbarTargets {
     readonly yAxis: {
         readonly track: HTMLElement;
         readonly thumb: HTMLElement;
-    }
+    };
 }
 
 interface ScrollIntoViewOptions {
@@ -153,41 +153,41 @@ export default class Scrollbar {
     /**
      * Current scrollbar targets
      */
-    public readonly targets: ScrollbarTargets;
+    readonly targets: ScrollbarTargets;
     /**
      * Current scrolling offset
      */
-    public offset: {
+    offset: {
         x: number;
         y: number;
     };
     /**
      * Max scrolling offset
      */
-    public limit: {
+    limit: {
         x: number;
         y: number;
-    }
+    };
     /**
      * Alias for offset.y
      */
-    public scrollTop: number;
+    scrollTop: number;
     /**
      * Alias for offset.x
      */
-    public scrollLeft: number;
+    scrollLeft: number;
 
     /**
      * Scrollbars are automatically updated with 100ms debounce (or childList changes if MutationObserver is supported).
      * You can call update() to force an update, this will be useful when you modified contents inside scrollbar
      * @param {boolean} async By default, updating will operate synchronously, set to true to update asynchronously (in next frame).
      */
-    public update(async?: boolean): void;
+    update(async?: boolean): void;
     /**
      * Return the size of scrollbar container and scroll content
      * @return {Object} Container and content dimensions
      */
-    public getSize(): { container: { width: number; height: number }; content: { width: number; height: number } };
+    getSize(): { container: { width: number; height: number }; content: { width: number; height: number } };
     /**
      * Like window.scrollTo(), scroll content will be set to the given position immediately.
      * @param {number} x X position
