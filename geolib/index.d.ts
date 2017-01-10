@@ -1,4 +1,4 @@
-// Type definitions for geolib v2.0.22
+// Type definitions for geolib 2.0
 // Project: https://github.com/manuelbieh/Geolib
 // Definitions by: Vladimir Venegas <https://github.com/vvenegasv>, Alex Efimov <https://github.com/dotnetpart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
