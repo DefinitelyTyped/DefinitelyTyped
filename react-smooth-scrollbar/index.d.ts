@@ -32,7 +32,7 @@ declare class Scrollbar extends React.Component<Scrollbar.ScrollbarProps, {}> {
     /**
      * Scrollbar instance
      */
-    public readonly scrollbar: SmoothScrollbar;
+    readonly scrollbar: SmoothScrollbar;
 
 }
 
