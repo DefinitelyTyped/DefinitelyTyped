@@ -7,7 +7,7 @@ import * as React from "react";
 import * as CSSTransitionGroup from "react-addons-css-transition-group";
 
 declare namespace CSSTransitionReplace {
-    interface Props extends CSSTransitionGroup.CSSTransitionGroupProps {
+    interface Props extends React.CSSTransitionGroupProps {
         overflowHidden?: boolean
     }
 }
