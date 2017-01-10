@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.markercluster v0.4.0
+// Type definitions for Leaflet.markercluster v1.0.2
 // Project: https://github.com/Leaflet/Leaflet.markercluster
 // Definitions by: Robert Imig <https://github.com/rimig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -95,18 +95,16 @@ declare namespace L {
       chunkDelay?: number;
     }
 
-    export class MarkerClusterGroup extends FeatureGroup<ILayer> {
-      constructor();
-      constructor(options: MarkerClusterGroupOptions);
+    export interface MarkerClusterGroup extends FeatureGroup {
 
       /*
       * Bulk methods for adding and removing markers and should be favoured over the
       * single versions when doing bulk addition/removal of markers.
       */
-      addLayers(layers:ILayer[]):MarkerClusterGroup;
-      removeLayers(layers:ILayer[]):MarkerClusterGroup;
+      addLayers(layers: Layer[]): this;
+      removeLayers(layers: Layer[]): this;
 
-      clearLayers():MarkerClusterGroup;
+      clearLayers(): this;
 
       /*
       * If you have a marker in your MarkerClusterGroup and you want to get the visible
@@ -118,10 +116,10 @@ declare namespace L {
       * If you have customized the clusters icon to use some data from the contained markers,
       * and later that data changes, use this method to force a refresh of the cluster icons.
       */
-      refreshClusters():MarkerClusterGroup;
-      refreshClusters(layerGroup:LayerGroup<ILayer>):MarkerClusterGroup;
-      refreshClusters(marker: Marker):MarkerClusterGroup;
-      refreshClusters(markers: Marker[]):MarkerClusterGroup;
+      refreshClusters(): this;
+      refreshClusters(layerGroup: LayerGroup): this;
+      refreshClusters(marker: Marker): this;
+      refreshClusters(markers: Marker[]): this;
 
       /*
       * Returns the total number of markers contained within that cluster.
@@ -134,9 +132,19 @@ declare namespace L {
       getAllChildMarkers(): Marker[];
 
       /*
+      * Returns true if the given layer (marker) is in the cluster.
+      */
+      hasLayer(layer: Layer): boolean;
+
+      /*
       * Zooms to show the given marker (spiderfying if required),
       * calls the callback when the marker is visible on the map.
       */
       zoomToShowLayer(layer: any, callback: () => void): void;
     }
+
+    /*
+    * Create a marker cluster group, optionally given marker cluster group options.
+    */
+    export function markerClusterGroup(options?: MarkerClusterGroupOptions): MarkerClusterGroup;
 }

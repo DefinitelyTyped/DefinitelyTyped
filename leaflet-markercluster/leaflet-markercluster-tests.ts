@@ -1,19 +1,63 @@
 
 
-var map: L.Map;
-var markerClusterGroup: L.MarkerClusterGroup;
+let map: L.Map;
+let markerClusterGroup: L.MarkerClusterGroup;
 
-// CircleMarker
-var circleMarker: L.CircleMarker = new L.CircleMarker(new L.LatLng(0, 0));
-
-markerClusterGroup.addLayer(circleMarker);
+markerClusterGroup.addTo(map);
 map.addLayer(markerClusterGroup);
 map.removeLayer(markerClusterGroup);
 
-// Marker
-var marker = new L.Marker(new L.LatLng(0, 0));
+let polylineOptions: L.PolylineOptions;
 
-markerClusterGroup.addLayers([circleMarker, marker]);
-map.addLayer(markerClusterGroup);
-markerClusterGroup.refreshClusters();
-map.removeLayer(markerClusterGroup);
+let markerClusterGroupOptions: L.MarkerClusterGroupOptions = {};
+markerClusterGroupOptions = {
+    showCoverageOnHover: true,
+    zoomToBoundsOnClick: false,
+    spiderfyOnMaxZoom: true,
+    removeOutsideVisibleBounds: false,
+    animate: true,
+    animateAddingMarkers: false,
+    disableClusteringAtZoom: 12,
+    maxClusterRadius: 40,
+    polygonOptions: polylineOptions,
+    singleMarkerMode: true,
+    spiderLegPolylineOptions: polylineOptions,
+    spiderfyDistanceMultiplier: 2,
+    iconCreateFunction: () => {},
+    chunkedLoading: false,
+    chunkDelay: 100
+}
+
+markerClusterGroup = L.markerClusterGroup();
+markerClusterGroup = L.markerClusterGroup(markerClusterGroupOptions);
+
+let layer: L.Layer;
+let layers: L.Layer[];
+
+markerClusterGroup = markerClusterGroup.addLayer(layer);
+markerClusterGroup = markerClusterGroup.removeLayer(layer);
+markerClusterGroup = markerClusterGroup.addLayers(layers);
+markerClusterGroup = markerClusterGroup.removeLayers(layers);
+markerClusterGroup = markerClusterGroup.clearLayers();
+
+let marker: L.Marker;
+marker = markerClusterGroup.getVisibleParent(marker);
+
+let markers: L.Marker[];
+let layerGroup: L.LayerGroup;
+
+markerClusterGroup = markerClusterGroup.refreshClusters();
+markerClusterGroup = markerClusterGroup.refreshClusters(layerGroup);
+markerClusterGroup = markerClusterGroup.refreshClusters(marker);
+markerClusterGroup = markerClusterGroup.refreshClusters(markers);
+
+let childCount: number;
+childCount = markerClusterGroup.getChildCount();
+
+markers = markerClusterGroup.getAllChildMarkers();
+
+markerClusterGroup.zoomToShowLayer(marker, () => {});
+
+let hasLayer: boolean;
+hasLayer = markerClusterGroup.hasLayer(layer);
+hasLayer = markerClusterGroup.hasLayer(marker);
