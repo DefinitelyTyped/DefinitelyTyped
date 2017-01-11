@@ -1,8 +1,7 @@
-import { GraphQLInputType, GraphQLField, GraphQLArgument } from 'graphql/type/definition';
-import { GraphQLDirective } from 'graphql/type/directives';
-import { GraphQLSchema } from 'graphql/type/schema';
-import { FieldNode, DirectiveNode, VariableDefinitionNode } from 'graphql/language/ast';
-
+import { GraphQLInputType, GraphQLField, GraphQLArgument } from '../type/definition';
+import { GraphQLDirective } from '../type/directives';
+import { GraphQLSchema } from '../type/schema';
+import { FieldNode, DirectiveNode, VariableDefinitionNode } from '../language/ast';
 
 /**
  * Prepares an object map of variableValues of the correct type based on the

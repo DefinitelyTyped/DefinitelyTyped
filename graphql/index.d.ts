@@ -7,15 +7,16 @@
 // The primary entry point into fulfilling a GraphQL request.
 export {
     graphql
-} from 'graphql/graphql';
+} from './graphql';
 
+/// <reference types="graphql" />
 
 // Create and operate on GraphQL type definitions and schema.
-export * from 'graphql/type';
+export * from './type';
 
 
 // Parse and operate on GraphQL language source files.
-export * from 'graphql/language';
+export * from './language';
 
 
 // Execute GraphQL queries.
@@ -24,7 +25,7 @@ export {
     defaultFieldResolver,
     responsePathAsArray,
     ExecutionResult,
-} from 'graphql/execution';
+} from './execution';
 
 
 // Validate GraphQL queries.
@@ -32,7 +33,7 @@ export {
     validate,
     ValidationContext,
     specifiedRules,
-} from 'graphql/validation';
+} from './validation';
 
 
 // Create and format GraphQL errors.
@@ -41,7 +42,7 @@ export {
     formatError,
     GraphQLFormattedError,
     GraphQLErrorLocation,
-} from 'graphql/error';
+} from './error';
 
 
 // Utilities for operating on GraphQL type schema and parsed sources.
@@ -123,4 +124,4 @@ export {
     IntrospectionType,
     IntrospectionTypeRef,
     IntrospectionUnionType,
-} from 'graphql/utilities';
+} from './utilities';

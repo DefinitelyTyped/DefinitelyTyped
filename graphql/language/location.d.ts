@@ -1,4 +1,4 @@
-import { Source } from "graphql/language/source";
+import { Source } from "./source";
 
 
 export interface SourceLocation {

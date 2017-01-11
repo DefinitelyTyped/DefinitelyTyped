@@ -1,7 +1,7 @@
 import {
     DocumentNode,
     OperationDefinitionNode,
-} from 'graphql/language/ast';
+} from '../language/ast';
 
 export function separateOperations(
     documentAST: DocumentNode

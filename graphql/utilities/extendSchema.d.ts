@@ -1,5 +1,5 @@
-import { DocumentNode } from 'graphql/language/ast';
-import { GraphQLSchema } from 'graphql/type/schema';
+import { DocumentNode } from '../language/ast';
+import { GraphQLSchema } from '../type/schema';
 
 
 /**

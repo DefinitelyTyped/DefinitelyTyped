@@ -1,4 +1,4 @@
-import { GraphQLError } from 'graphql/error';
+import { GraphQLError } from '../error';
 import {
     DocumentNode,
     OperationDefinitionNode,
@@ -6,18 +6,18 @@ import {
     SelectionSetNode,
     FragmentSpreadNode,
     FragmentDefinitionNode,
-} from 'graphql/language/ast';
-import { GraphQLSchema } from 'graphql/type/schema';
+} from '../language/ast';
+import { GraphQLSchema } from '../type/schema';
 import {
     GraphQLInputType,
     GraphQLOutputType,
     GraphQLCompositeType,
     GraphQLField,
     GraphQLArgument
-} from 'graphql/type/definition';
-import { GraphQLDirective } from 'graphql/type/directives';
-import { TypeInfo } from 'graphql/utilities/TypeInfo';
-import { specifiedRules } from 'graphql/validation/specifiedRules';
+} from '../type/definition';
+import { GraphQLDirective } from '../type/directives';
+import { TypeInfo } from '../utilities/TypeInfo';
+import { specifiedRules } from './specifiedRules';
 
 
 //type ValidationRule = (context: ValidationContext) => any;
