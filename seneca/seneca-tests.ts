@@ -126,3 +126,13 @@ seneca.act('cmd:salestax,net:100,country:US,state:NY', function (err, result) {
 seneca.act('cmd:salestax,net:100,country:IE,category:reduced', function (err, result) {
   console.log('IE: ' + result.total)
 })
+
+
+// Test optional params in seneca.add callback
+seneca.add({ cmd : 'optional-params' }, function (args, callback) {
+	callback();
+});
+
+seneca.act('cmd:optional-params', function (err, result) {
+	console.log(err, result);
+});
