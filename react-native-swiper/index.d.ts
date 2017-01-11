@@ -12,7 +12,7 @@ interface SwiperProperties {
 
   horizontal?: boolean;
 
-  children?: React.ReactElement<any>;
+  children?: JSX.Element;
 
   style: ViewStyle;
 
@@ -38,7 +38,7 @@ interface SwiperProperties {
 
   loadMinimalSize?: number;
 
-  loadMinimalLoader?: React.ReactElement<any>;
+  loadMinimalLoader?: JSX.Element;
 
   loop?: boolean;
 
@@ -50,7 +50,7 @@ interface SwiperProperties {
 
   index?: number;
 
-  renderPagination?: (index: number, total: number, thisObject: SwiperStatic) => React.ReactElement<any>;
+  //renderPagination?: (index: number, total: number, thisObject: SwiperStatic) => JSX.Element;
 
   dotStyle?: ViewStyle;
 
