@@ -6060,7 +6060,7 @@ declare module "react" {
         /**
          * multiGet invokes callback with an array of key-value pair arrays that matches the input format of multiSet
          */
-        multiGet(keys: string[], callback?: (errors?: Error[], result?: string[][]) => void): Promise<void>
+        multiGet(keys: string[], callback?: (errors?: Error[], result?: string[][]) => void): Promise<[string, string][]>
 
         /**
          * multiSet and multiMerge take arrays of key-value array pairs that match the output of multiGet,
