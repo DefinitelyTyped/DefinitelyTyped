@@ -186,6 +186,8 @@ declare namespace L {
         equals(otherPoint: PointExpression): boolean;
         contains(otherPoint: PointExpression): boolean;
         toString(): string;
+        x: number;
+        y: number;
     }
 
     type PointExpression = Point | PointTuple;
