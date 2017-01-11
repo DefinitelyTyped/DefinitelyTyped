@@ -223,10 +223,8 @@ declare namespace LayersControl {
         name: string;
         checked?: boolean;
     }
-    //tslint:disable-next-line:no-empty-interface
-    interface BaseLayer extends React.ComponentClass<LayersControlLayerProps> { }
-    //tslint:disable-next-line:no-empty-interface
-    interface Overlay extends React.ComponentClass<LayersControlLayerProps> { }
+    type BaseLayer = React.ComponentClass<LayersControlLayerProps>;
+    type Overlay = React.ComponentClass<LayersControlLayerProps>;
 }
 
 interface ScaleControlProps {
