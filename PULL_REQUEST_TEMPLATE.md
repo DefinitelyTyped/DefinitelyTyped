@@ -14,6 +14,7 @@ If adding a new definition:
 - [ ] The package does not provide its own types, and you can not add them.
 - [ ] If this is for an NPM package, match the name. If not, do not conflict with the name of an NPM package.
 - [ ] Create it with `npm run new-package package-name`, not by basing it on an existing project.
+- [ ] `tslint.json` should be present, and `tsconfig.json` should have `noImplicitAny`, `noImplicitThis`, and `strictNullChecks` set to `true`.
 
 If changing an existing definition:
 - [ ] Provide a URL to documentation or source code which provides context for the suggested changes: <<url here>>

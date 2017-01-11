@@ -53,6 +53,10 @@ declare module "msgpack-lite" {
       new (options?: any): Codec;
       options: any;
       init (): void;
+      addExtPacker (etype: number, Class: any, packer: (value: any) => any): void;
+      getExtPacker (value: any): (value: any) => any;
+      addExtUnpacker (etype: number, unpacker: (value: any) => any): void;
+      getExtUnpacker (etype: number): (value: any) => any;
     }
 
     export function encode(input: any, options?: BufferOptions): any;

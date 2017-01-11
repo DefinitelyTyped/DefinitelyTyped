@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "touch-event-tests.ts"
+        "touch-events-tests.ts"
     ]
 }

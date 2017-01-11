@@ -18,6 +18,9 @@ opts = {
 	clobber: false
 };
 opts = {
+	dereference: false
+};
+opts = {
 	stopOnErr: false
 };
 opts = {

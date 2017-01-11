@@ -1,4 +1,4 @@
-﻿import PIXI = require("pixi.js");
+import PIXI = require("pixi.js");
 namespace basics {
 
     export class Basics {

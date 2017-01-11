@@ -1,4 +1,4 @@
-﻿/**
+/**
 * Maintained by: jbondc <https://github.com/jbondc>
 */
 

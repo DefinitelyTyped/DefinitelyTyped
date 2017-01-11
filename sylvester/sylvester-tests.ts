@@ -1,4 +1,4 @@
-﻿interface IAny {
+interface IAny {
     a: any;
 }
 

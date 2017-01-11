@@ -846,6 +846,10 @@ namespace http_tests {
         request.setNoDelay(true);
         request.abort();
     }
+	
+	const options: http.RequestOptions = {
+        timeout: 30000
+	};
 }
 
 //////////////////////////////////////////////////////
@@ -1034,7 +1038,7 @@ namespace path_tests {
     //'/foo/bar/baz/asdf'
 
     try {
-        path.join('foo', {}, 'bar');
+        path.join('foo', 'bar');
     }
     catch (error) {
 

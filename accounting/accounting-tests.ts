@@ -1,4 +1,4 @@
-﻿// formatMoney
+// formatMoney
 
 // Default usage:
 accounting.formatMoney(12345678); // $12,345,678.00

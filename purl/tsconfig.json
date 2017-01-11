@@ -14,6 +14,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "purl-jquery.d.ts"
     ]
 }
