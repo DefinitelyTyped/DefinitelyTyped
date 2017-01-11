@@ -1,4 +1,4 @@
-// Type definitions for Angular JS 1.5
+// Type definitions for Angular JS 1.6
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Georgii Dolzhykov <http://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -660,7 +660,7 @@ declare namespace angular {
     interface IFilterFilterComparatorFunc<T> {
         (actual: T, expected: T): boolean;
     }
-    
+
     interface IFilterOrderByItem {
         value: any,
         type: string,
@@ -1057,6 +1057,25 @@ declare namespace angular {
          * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
          */
         when(): IPromise<void>;
+    }
+
+    interface IQProvider {
+        /**
+         * Retrieves or overrides whether to generate an error when a rejected promise is not handled.
+         * This feature is enabled by default.
+         *
+         * @returns {boolean} Current value
+         */
+        errorOnUnhandledRejections(): boolean;
+
+        /**
+         * Retrieves or overrides whether to generate an error when a rejected promise is not handled.
+         * This feature is enabled by default.
+         *
+         * @param {boolean} value Whether to generate an error when a rejected promise is not handled.
+         * @returns {ng.IQProvider} Self for chaining otherwise.
+         */
+        errorOnUnhandledRejections(value: boolean): IQProvider;
     }
 
     interface IPromise<T> {
@@ -1878,7 +1897,7 @@ declare namespace angular {
      * like jQuery plugins do, that's why all jQuery objects have these Angular-specific methods, not
      * only those returned from angular.element.
      * See: http://docs.angularjs.org/api/angular.element
-        */
+     */
     interface IAugmentedJQueryStatic extends JQueryStatic {}
     interface IAugmentedJQuery extends JQuery {}
 
