@@ -1,4 +1,3 @@
-//tslint:disable-next-line:dt-header
 // Type definitions for artyom.js
 // Project: https://github.com/sdkcarlos/artyom.js
 // Definitions by: Sema García (José Manuel García) <https://github.com/semagarcia>
