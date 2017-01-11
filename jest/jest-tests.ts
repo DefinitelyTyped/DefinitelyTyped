@@ -426,28 +426,20 @@ describe('strictNullChecks', function () {
     })
 });
 
-interface TestApi {
+class TestApi {
+    constructor() { };
     testProp: boolean;
-    testMethod(a: number): void;
+    testMethod(a: number): string { return ""; }
 }
 
 declare function mockedFunc(a: number): string;
 
 describe('Mocked type', function () {
     it('Works', function () {
-        const mock: jest.Mocked<TestApi> = jest.fn(() => ({
-            testProp: true,
-            testMethod1: jest.fn(),
-            testMethod2: jest.fn()
-        })) as any;
+        const mock: jest.Mocked<TestApi> = new TestApi() as any;
         mock.testProp;
         mock.testMethod.mockImplementation(() => 'test');
-        mock.testMethod(5);
-        mock.mockClear();
-
-        const funcMock: jest.Mocked<typeof mockedFunc> = require('./mockedFunc');
-        funcMock.mockImplementation(() => 'test');
-        funcMock(5).toUpperCase();
+        mock.testMethod(5).toUpperCase();
     });
 });
 
