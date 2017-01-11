@@ -1,5 +1,5 @@
-// Type definitions for pkijs v2.0.48
-// Project: https://github.com/PeculiarVentures/PKI.js
+// Type definitions for PKI.js API 2.0.48
+// Project: https://github.com/PeculiarVentures/pki.js
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
