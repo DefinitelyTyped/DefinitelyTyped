@@ -1,5 +1,5 @@
 import SocketIO = require('socket.io-client');
-import SailsIOJS = require('.');
+import SailsIOJS = require('sails.io.js');
 const io = SailsIOJS(SocketIO);
 io.sails.autoConnect = true;
 io.sails.connect();

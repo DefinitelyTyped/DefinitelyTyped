@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "webrtc-tests.ts"
+        "test/MediaStream.ts",
+        "test/RTCPeerConnection.ts"
     ]
 }

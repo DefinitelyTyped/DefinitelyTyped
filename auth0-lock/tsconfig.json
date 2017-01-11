@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "auth0.lock-tests.ts"
+        "auth0-lock-tests.ts"
     ]
 }

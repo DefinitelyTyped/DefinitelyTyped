@@ -5634,6 +5634,16 @@ declare module "react" {
          * Fires when a user has finished scrolling.
          */
         onScrollEndDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
+	
+	/**
+         * Fires when scroll view has finished moving
+         */
+        onMomentumScrollEnd?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
+
+        /**
+         * Fires when scroll view has begun moving
+         */
+        onMomentumScrollBegin?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
 
         /**
          * When true the scroll view stops on multiples of the scroll view's size

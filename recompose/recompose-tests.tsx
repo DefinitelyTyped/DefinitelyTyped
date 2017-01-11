@@ -1,5 +1,3 @@
-///<reference path='recompose.d.ts' />
-
 import * as React from "react";
 import {
     Component,
@@ -65,7 +63,7 @@ function testWithPropsOnChange() {
 }
 
 function testWithHandlers() {
-    interface InnerProps { onSubmit: Function; onChange: Function; }
+    interface InnerProps { onSubmit: React.MouseEventHandler<HTMLDivElement>; onChange: Function; }
     interface OutterProps { out: string }
     const innerComponent = ({onChange, onSubmit}: InnerProps) =>
       <div onClick={onSubmit}></div>;

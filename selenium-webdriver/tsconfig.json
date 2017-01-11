@@ -25,6 +25,8 @@
         "remote.d.ts",
         "safari.d.ts",
         "testing.d.ts",
-        "selenium-webdriver-tests.ts"
+        "test/index.ts",
+        "test/chrome.ts",
+        "test/firefox.ts"
     ]
 }

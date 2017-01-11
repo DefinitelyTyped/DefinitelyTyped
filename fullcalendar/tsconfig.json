@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "fullCalendar-tests.ts"
+        "fullcalendar-tests.ts"
     ]
 }

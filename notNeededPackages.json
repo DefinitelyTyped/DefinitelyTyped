@@ -1,11 +1,6 @@
 {
     "packages": [
         {
-            "libraryName": "Angular 2",
-            "typingsPackageName": "angular2",
-            "sourceRepoURL": "https://github.com/angular/angular"
-        },
-        {
             "libraryName": "Moment",
             "typingsPackageName": "moment",
             "sourceRepoURL": "https://github.com/moment/moment",
@@ -274,6 +269,12 @@
             "typingsPackageName": "argon2",
             "sourceRepoURL": "https://github.com/ranisalt/node-argon2",
             "asOfVersion": "0.15.0"
+        },
+        {
+            "libraryName": "node-scanf",
+            "typingsPackageName": "scanf",
+            "sourceRepoURL": "https://github.com/Lellansin/node-scanf",
+            "asOfVersion": "0.7.3"
         }
     ]
 }

@@ -1,4 +1,4 @@
-﻿/// <reference path="index.d.ts"/>
+/// <reference path="index.d.ts"/>
 function tests_simple() {
     $('#datepicker').datepicker();
     $('#datepicker').datepicker({
