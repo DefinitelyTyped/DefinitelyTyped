@@ -1,13 +1,7 @@
 
 
-let map: L.Map;
-let markerClusterGroup: L.MarkerClusterGroup;
-
-markerClusterGroup.addTo(map);
-map.addLayer(markerClusterGroup);
-map.removeLayer(markerClusterGroup);
-
-let polylineOptions: L.PolylineOptions;
+const polylineOptions: L.PolylineOptions = {};
+const icon: L.Icon = L.icon({ iconUrl: 'foo' });
 
 let markerClusterGroupOptions: L.MarkerClusterGroupOptions = {};
 markerClusterGroupOptions = {
@@ -23,36 +17,50 @@ markerClusterGroupOptions = {
     singleMarkerMode: true,
     spiderLegPolylineOptions: polylineOptions,
     spiderfyDistanceMultiplier: 2,
-    iconCreateFunction: () => {},
+    iconCreateFunction: (cluster: L.MarkerClusterGroup) => {
+        return icon;
+    },
     chunkedLoading: false,
     chunkDelay: 100
 }
 
+let markerClusterGroup: L.MarkerClusterGroup;
 markerClusterGroup = L.markerClusterGroup();
 markerClusterGroup = L.markerClusterGroup(markerClusterGroupOptions);
 
-let layer: L.Layer;
-let layers: L.Layer[];
+let map = L.map('foo');
 
-markerClusterGroup = markerClusterGroup.addLayer(layer);
-markerClusterGroup = markerClusterGroup.removeLayer(layer);
-markerClusterGroup = markerClusterGroup.addLayers(layers);
-markerClusterGroup = markerClusterGroup.removeLayers(layers);
-markerClusterGroup = markerClusterGroup.clearLayers();
+markerClusterGroup = markerClusterGroup.addTo(map);
+map = map
+    .addLayer(markerClusterGroup)
+    .removeLayer(markerClusterGroup);
 
-let marker: L.Marker;
+const latLng: L.LatLng = L.latLng(10, 10);
+
+const layer: L.Layer = L.marker(latLng);
+const layers: L.Layer[] = [layer];
+
+let marker: L.Marker = L.marker(latLng);
+let markers: L.Marker[] = [marker];
+
+const layerGroup: L.LayerGroup = L.layerGroup(layers);
+
 marker = markerClusterGroup.getVisibleParent(marker);
 
-let markers: L.Marker[];
-let layerGroup: L.LayerGroup;
+markerClusterGroup = markerClusterGroup
+    // Layers
+    .addLayer(layer)
+    .removeLayer(layer)
+    .addLayers(layers)
+    .removeLayers(layers)
+    .clearLayers()
+    // RefreshClusters
+    .refreshClusters()
+    .refreshClusters(layerGroup)
+    .refreshClusters(marker)
+    .refreshClusters(markers);
 
-markerClusterGroup = markerClusterGroup.refreshClusters();
-markerClusterGroup = markerClusterGroup.refreshClusters(layerGroup);
-markerClusterGroup = markerClusterGroup.refreshClusters(marker);
-markerClusterGroup = markerClusterGroup.refreshClusters(markers);
-
-let childCount: number;
-childCount = markerClusterGroup.getChildCount();
+const childCount: number = markerClusterGroup.getChildCount();
 
 markers = markerClusterGroup.getAllChildMarkers();
 

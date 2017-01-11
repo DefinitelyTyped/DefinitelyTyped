@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.markercluster v1.0.2
+// Type definitions for Leaflet.markercluster 1.0
 // Project: https://github.com/Leaflet/Leaflet.markercluster
 // Definitions by: Robert Imig <https://github.com/rimig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -82,7 +82,7 @@ declare namespace L {
       /*
       * Function used to create the cluster icon
       */
-      iconCreateFunction?: any;
+      iconCreateFunction?: ((cluster: L.MarkerClusterGroup) => L.Icon);
 
       /*
       * Boolean to split the addLayers processing in to small intervals so that the page does not freeze.
@@ -116,10 +116,7 @@ declare namespace L {
       * If you have customized the clusters icon to use some data from the contained markers,
       * and later that data changes, use this method to force a refresh of the cluster icons.
       */
-      refreshClusters(): this;
-      refreshClusters(layerGroup: LayerGroup): this;
-      refreshClusters(marker: Marker): this;
-      refreshClusters(markers: Marker[]): this;
+      refreshClusters(clusters?: Marker | Marker[] | LayerGroup): this;
 
       /*
       * Returns the total number of markers contained within that cluster.
@@ -140,7 +137,7 @@ declare namespace L {
       * Zooms to show the given marker (spiderfying if required),
       * calls the callback when the marker is visible on the map.
       */
-      zoomToShowLayer(layer: any, callback: () => void): void;
+      zoomToShowLayer(layer: Layer, callback: () => void): void;
     }
 
     /*
