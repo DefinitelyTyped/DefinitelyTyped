@@ -1,17 +1,17 @@
 import * as asn1js from "asn1js";
 import { arrayBufferToString, stringToArrayBuffer, bufferToHexCodes } from "pvutils";
-import { getCrypto, getAlgorithmParameters } from "pkijs/src/common";
-import Certificate from "pkijs/src/Certificate";
-import CertificateRevocationList from "pkijs/src/CertificateRevocationList";
-import AttributeTypeAndValue from "pkijs/src/AttributeTypeAndValue";
-import Extension from "pkijs/src/Extension";
-import Attribute from "pkijs/src/Attribute";
-import SignedData from "pkijs/src/SignedData";
-import EncapsulatedContentInfo from "pkijs/src/EncapsulatedContentInfo";
-import SignerInfo from "pkijs/src/SignerInfo";
-import IssuerAndSerialNumber from "pkijs/src/IssuerAndSerialNumber";
-import SignedAndUnsignedAttributes from "pkijs/src/SignedAndUnsignedAttributes";
-import ContentInfo from "pkijs/src/ContentInfo";
+import { getCrypto, getAlgorithmParameters } from "pkijs";
+import { Certificate } from "pkijs";
+import { CertificateRevocationList } from "pkijs";
+import { AttributeTypeAndValue } from "pkijs";
+import { Extension } from "pkijs";
+import { Attribute } from "pkijs";
+import { SignedData } from "pkijs";
+import { EncapsulatedContentInfo } from "pkijs";
+import { SignerInfo } from "pkijs";
+import { IssuerAndSerialNumber } from "pkijs";
+import { SignedAndUnsignedAttributes } from "pkijs";
+import { ContentInfo } from "pkijs";
 // *********************************************************************************
 let cmsSignedBuffer = new ArrayBuffer(0); // ArrayBuffer with loaded or created CMS_Signed
 const trustedCertificates: Certificate[] = []; // Array of root certificates from "CA Bundle"
@@ -67,8 +67,7 @@ function parseCAbundle(buffer: ArrayBuffer) {
                     const asn1 = asn1js.fromBER(stringToArrayBuffer(window.atob(certBodyEncoded)));
                     try {
                         trustedCertificates.push(new Certificate({ schema: asn1.result }));
-                    }
-                    catch (ex) {
+                    } catch (ex) {
                         alert("Wrong certificate format");
                         return;
                     }
@@ -82,8 +81,7 @@ function parseCAbundle(buffer: ArrayBuffer) {
                     // endregion
                 }
             }
-        }
-        else {
+        } else {
             if (waitForEndLine === true) {
                 if (endLineChars.indexOf(String.fromCharCode(view[i])) === (-1)) {
                     waitForEndLine = false;
@@ -91,20 +89,17 @@ function parseCAbundle(buffer: ArrayBuffer) {
                     if (waitForEnd === true) {
                         waitForEnd = false;
                         middleStage = true;
-                    }
-                    else {
+                    } else {
                         if (waitForStart === true) {
                             waitForStart = false;
                             started = true;
 
                             certBodyEncoded = certBodyEncoded + String.fromCharCode(view[i]);
-                        }
-                        else
+                        } else
                             middleStage = true;
                     }
                 }
-            }
-            else {
+            } else {
                 if (middleStage === true) {
                     if (String.fromCharCode(view[i]) === "-") {
                         if ((i === 0) ||
@@ -114,13 +109,11 @@ function parseCAbundle(buffer: ArrayBuffer) {
                             waitForStart = true;
                         }
                     }
-                }
-                else {
+                } else {
                     if (waitForStart === true) {
                         if (startChars.indexOf(String.fromCharCode(view[i])) === (-1))
                             waitForEndLine = true;
-                    }
-                    else {
+                    } else {
                         if (waitForEnd === true) {
                             if (endChars.indexOf(String.fromCharCode(view[i])) === (-1))
                                 waitForEndLine = true;
@@ -173,10 +166,10 @@ export function parseCMSSigned() {
         "2.16.840.1.101.3.4.2.3": "SHA-512"
     };
 
-    for (let i = 0; i < cmsSignedSimpl.digestAlgorithms.length; i++) {
-        let typeval = dgstmap[cmsSignedSimpl.digestAlgorithms[i].algorithmId];
+    for (const digestAlg of cmsSignedSimpl.digestAlgorithms) {
+        let typeval = dgstmap[digestAlg.algorithmId];
         if (typeof typeval === "undefined")
-            typeval = cmsSignedSimpl.digestAlgorithms[i].algorithmId;
+            typeval = digestAlg.algorithmId;
 
         const ulrow = `<li><p><span>${typeval}</span></p></li>`;
 
@@ -213,15 +206,15 @@ export function parseCMSSigned() {
     };
 
     if ("certificates" in cmsSignedSimpl) {
-        for (let cert of cmsSignedSimpl.certificates) {
+        for (const cert of cmsSignedSimpl.certificates) {
             if (cert instanceof Certificate) {
                 let ul = "<ul>";
-                for (let i = 0; i < cert.issuer.typesAndValues.length; i++) {
-                    let typeval = rdnmap[cert.issuer.typesAndValues[i].type.toString()];
+                for (const typeValue of cert.issuer.typesAndValues) {
+                    let typeval = rdnmap[typeValue.type.toString()];
                     if (typeof typeval === "undefined")
-                        typeval = cert.issuer.typesAndValues[i].type.toString();
+                        typeval = typeValue.type.toString();
 
-                    const subjval = cert.issuer.typesAndValues[i].value.valueBlock.value;
+                    const subjval = typeValue.value.valueBlock.value;
                     const ulrow = `<li><p><span>${typeval}</span> ${subjval}</p></li>`;
 
                     ul = ul + ulrow;
@@ -243,16 +236,16 @@ export function parseCMSSigned() {
 
     // region Put information about included CRLs
     if ("crls" in cmsSignedSimpl) {
-        for (let crl of cmsSignedSimpl.crls) {
+        for (const crl of cmsSignedSimpl.crls) {
             if (crl instanceof CertificateRevocationList) {
                 let ul = "<ul>";
 
-                for (let i = 0; i < crl.issuer.typesAndValues.length; i++) {
-                    let typeval = rdnmap[crl.issuer.typesAndValues[i].type.toString()];
+                for (const typeValue of crl.issuer.typesAndValues) {
+                    let typeval = rdnmap[typeValue.type.toString()];
                     if (typeof typeval === "undefined")
-                        typeval = crl.issuer.typesAndValues[i].type.toString();
+                        typeval = typeValue.type.toString();
 
-                    const subjval = crl.issuer.typesAndValues[i].value.valueBlock.value;
+                    const subjval = typeValue.value.valueBlock.value;
                     const ulrow = `<li><p><span>${typeval}</span> ${subjval}</p></li>`;
 
                     ul = ul + ulrow;
@@ -575,8 +568,8 @@ export function createCMSSigned(buffer: ArrayBuffer) {
             let signedDataString = "";
             const view = new Uint8Array(cmsSignedBuffer);
 
-            for (let i = 0; i < view.length; i++)
-                signedDataString = signedDataString + String.fromCharCode(view[i]);
+            for (const char of view)
+                signedDataString = signedDataString + String.fromCharCode(char);
             // endregion 
 
             let resultString = document.getElementById("new_signed_data").innerHTML;
