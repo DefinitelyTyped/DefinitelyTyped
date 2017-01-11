@@ -1,9 +1,8 @@
-// Type definitions for pkijs
+// Type definitions for pkijs v2.0.48
 // Project: https://github.com/PeculiarVentures/PKI.js
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference types="asn1js" />
 /// <reference types="pvutils" />
 
 import { BitString, Enumerated, GeneralizedTime, Integer, ObjectIdentifier, OctetString, Sequence, Utf8String } from "asn1js";
@@ -15,7 +14,7 @@ declare namespace PkiJs {
     export class Attribute {
 
         type: string;
-        value: Array<any>;
+        value: any[];
 
         constructor(params?: any);
 
@@ -309,11 +308,11 @@ declare namespace PkiJs {
         toJSON(): any;
     }
 
-    type PublicKeyAlgorithm = {
+    interface PublicKeyAlgorithm {
         algorithm: {
             algorithm: Algorithm;
             usages: string[];
-        }
+        };
     }
 
     export class Certificate {
@@ -344,23 +343,6 @@ declare namespace PkiJs {
          * Create ASN.1 schema for existing values of TBS part for the certificate
          */
         encodeTBS(): Sequence;
-        /**
-         * Importing public key for current certificate
-         */
-        getPublicKey(parameters?: any): PromiseLike<CryptoKey>;
-        /**
-         * Get SHA-1 hash value for subject public key
-         */
-        getKeyHash(): PromiseLike<ArrayBuffer>;
-        /**
-         * Make a signature for current value from TBS section
-         * 
-         * @param {CryptoKey} privateKey Private key for "subjectPublicKeyInfo" structure
-         * @param {string} [hashAlgorithm="SHA-1"] Hashing algorithm
-         */
-        sign(privateKey: CryptoKey, hashAlgorithm?: string): PromiseLike<ArrayBuffer>;
-
-        verify(issuerCertificate?: Certificate): PromiseLike<boolean>;
 
         constructor(params?: any);
 
@@ -589,12 +571,6 @@ declare namespace PkiJs {
          */
         constructor(parameters?: any);
 
-        importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
-        exportKey(format: "jwk", key: CryptoKey): PromiseLike<JsonWebKey>;
-        exportKey(format: "raw" | "pkcs8" | "spki", key: CryptoKey): PromiseLike<ArrayBuffer>;
-        exportKey(format: string, key: CryptoKey): PromiseLike<JsonWebKey | ArrayBuffer>;
 
         /**
          * Convert WebCrypto keys between different export formats
@@ -614,6 +590,9 @@ declare namespace PkiJs {
         importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
         importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
         importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | DhImportKeyParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
+        exportKey(format: "jwk", key: CryptoKey): PromiseLike<JsonWebKey>;
+        exportKey(format: "raw" | "pkcs8" | "spki", key: CryptoKey): PromiseLike<ArrayBuffer>;
+        exportKey(format: string, key: CryptoKey): PromiseLike<JsonWebKey | ArrayBuffer>;
         sign(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, data: BufferSource): PromiseLike<ArrayBuffer>;
         unwrapKey(format: string, wrappedKey: BufferSource, unwrappingKey: CryptoKey, unwrapAlgorithm: NativeAlgorithmIdentifier, unwrappedKeyAlgorithm: NativeAlgorithmIdentifier, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
         verify(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, signature: BufferSource, data: BufferSource): PromiseLike<boolean>;
@@ -731,7 +710,7 @@ declare namespace PkiJs {
 
     export class EncapsulatedContentInfo {
         eContentType: string;
-        eContent: OctetString
+        eContent: OctetString;
         /**
          * Compare values with default values for all class members
          * @param {string} memberName String name for a class member
@@ -1340,8 +1319,8 @@ declare namespace PkiJs {
 
     export class PasswordRecipientinfo {
         version: number;
-        keyDerivationAlgorithm?: AlgorithmIdentifier
-        keyEncryptionAlgorithm: AlgorithmIdentifier
+        keyDerivationAlgorithm?: AlgorithmIdentifier;
+        keyEncryptionAlgorithm: AlgorithmIdentifier;
         encryptedKey: OctetString;
         password: ArrayBuffer;
         /**
@@ -1511,7 +1490,7 @@ declare namespace PkiJs {
     }
 
     export class PublicKeyInfo {
-        algorithm: AlgorithmIdentifier
+        algorithm: AlgorithmIdentifier;
         subjectPublicKey: BitString;
         parsedKey?: ECPublicKey | RSAPublicKey;
         /**
@@ -1877,7 +1856,7 @@ declare namespace PkiJs {
     interface VerifyParams {
         signer?: number;
         data?: ArrayBuffer;
-        trustedCerts?: Certificate[],
+        trustedCerts?: Certificate[];
         checkDate?: Date;
         checkChain?: boolean;
         includeSignerCertificate?: boolean;
@@ -1896,9 +1875,9 @@ declare namespace PkiJs {
     export class SignedData {
         version: number;
         digestAlgorithms: AlgorithmIdentifier[];
-        encapContentInfo: EncapsulatedContentInfo
-        certificates?: Certificate[] | OtherCertificateFormat[]
-        crls?: CertificateRevocationList[] | OtherRevocationInfoFormat[]
+        encapContentInfo: EncapsulatedContentInfo;
+        certificates?: Certificate[] | OtherCertificateFormat[];
+        crls?: CertificateRevocationList[] | OtherRevocationInfoFormat[];
         signerInfos: SignerInfo[];
         /**
          * Compare values with default values for all class members
@@ -2205,7 +2184,7 @@ declare namespace PkiJs {
      * @param {number} Counter
      * @param {ArrayBuffer} SharedInfo Usually DER encoded "ECC_CMS_SharedInfo" structure
      */
-    function kdfWithCounter(hashFunction: string, Zbuffer: ArrayBuffer, Counter: number, SharedInfo: ArrayBuffer): PromiseLike<{ counter: number; result: ArrayBuffer; }>
+    function kdfWithCounter(hashFunction: string, Zbuffer: ArrayBuffer, Counter: number, SharedInfo: ArrayBuffer): PromiseLike<{ counter: number; result: ArrayBuffer; }>;
     /**
      * ANS X9.63 Key Derivation Function
      * 
@@ -2216,7 +2195,6 @@ declare namespace PkiJs {
      */
     function kdf(hashFunction: string, Zbuffer: ArrayBuffer, keydatalen: number, SharedInfo: ArrayBuffer): PromiseLike<ArrayBuffer>;
 }
-
 
 export = PkiJs;
 export as namespace PkiJs;
