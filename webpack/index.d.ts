@@ -543,7 +543,12 @@ declare namespace webpack {
          * When there are errors while compiling this plugin skips the emitting phase (and recording phase),
          * so there are no assets emitted that include errors. The emitted flag in the stats is false for all assets.
          */
-        NoErrorsPlugin: NoErrorsPluginStatic;
+        NoEmitOnErrorsPlugin: NoEmitOnErrorsPluginStatic;
+        /**
+         * alias for NoEmitOnErrorsPlugin
+         * @deprecated
+         */
+        NoErrorsPlugin: NoEmitOnErrorsPluginStatic;
         /**
          * Does not watch specified files matching provided paths or RegExps.
          */
@@ -706,7 +711,7 @@ declare namespace webpack {
         new (): Plugin;
     }
 
-    interface NoErrorsPluginStatic {
+    interface NoEmitOnErrorsPluginStatic {
         new (): Plugin;
     }
 

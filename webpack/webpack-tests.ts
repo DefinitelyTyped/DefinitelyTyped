@@ -363,6 +363,7 @@ plugin = new webpack.EvalSourceMapDevToolPlugin(false);
 plugin = new webpack.HotModuleReplacementPlugin();
 plugin = new webpack.ExtendedAPIPlugin();
 plugin = new webpack.NoErrorsPlugin();
+plugin = new webpack.NoEmitOnErrorsPlugin();
 plugin = new webpack.WatchIgnorePlugin(paths);
 
 //
