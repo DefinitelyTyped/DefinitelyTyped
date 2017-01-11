@@ -365,6 +365,9 @@ plugin = new webpack.ExtendedAPIPlugin();
 plugin = new webpack.NoErrorsPlugin();
 plugin = new webpack.NoEmitOnErrorsPlugin();
 plugin = new webpack.WatchIgnorePlugin(paths);
+plugin = new webpack.LoaderOptionsPlugin({
+  debug: true
+});
 
 //
 // http://webpack.github.io/docs/node.js-api.html

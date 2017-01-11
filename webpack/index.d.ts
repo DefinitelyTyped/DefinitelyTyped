@@ -545,7 +545,7 @@ declare namespace webpack {
          */
         NoEmitOnErrorsPlugin: NoEmitOnErrorsPluginStatic;
         /**
-         * alias for NoEmitOnErrorsPlugin
+         * Alias for NoEmitOnErrorsPlugin
          * @deprecated
          */
         NoErrorsPlugin: NoEmitOnErrorsPluginStatic;
@@ -558,6 +558,12 @@ declare namespace webpack {
          * Helps with debugging, but increases bundle size.
          */
         NamedModulesPlugin: NamedModulesPluginStatic;
+        /**
+         * Some loaders need context information and read them from the configuration.
+         * This need to be passed via loader options in the long-term. See loader documentation for relevant options.
+         * To keep compatibility with old loaders, these options can be passed via this plugin.
+         */
+        LoaderOptionsPlugin: LoaderOptionsPluginStatic;
     }
 
     interface Optimize {
@@ -721,6 +727,10 @@ declare namespace webpack {
 
     interface NamedModulesPluginStatic {
         new (): Plugin;
+    }
+
+    interface LoaderOptionsPluginStatic {
+        new (options: any): Plugin;
     }
 
     namespace optimize {
