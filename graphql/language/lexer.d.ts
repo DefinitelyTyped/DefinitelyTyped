@@ -1,6 +1,6 @@
-import { Token } from 'graphql/language/ast';
-import { Source } from 'graphql/language/source';
-import { syntaxError } from 'graphql/error';
+import { Token } from './ast';
+import { Source } from './source';
+import { syntaxError } from '../error';
 
 /**
  * Given a Source object, this returns a Lexer for that source.

@@ -1,7 +1,7 @@
 // GraphQL Schema definition
-export { GraphQLSchema } from 'graphql/type/schema';
+export { GraphQLSchema } from './schema';
 
-export * from 'graphql/type/definition';
+export * from './definition';
 
 export {
     // "Enum" of Directive Locations
@@ -18,7 +18,7 @@ export {
 
     // Constant Deprecation Reason
     DEFAULT_DEPRECATION_REASON,
-} from 'graphql/type/directives';
+} from './directives';
 
 // Common built-in scalar instances.
 export {
@@ -27,7 +27,7 @@ export {
     GraphQLString,
     GraphQLBoolean,
     GraphQLID,
-} from 'graphql/type/scalars';
+} from './scalars';
 
 export {
     // "Enum" of Type Kinds
@@ -47,6 +47,6 @@ export {
     SchemaMetaFieldDef,
     TypeMetaFieldDef,
     TypeNameMetaFieldDef,
-} from 'graphql/type/introspection';
+} from './introspection';
 
-export { DirectiveLocationEnum } from 'graphql/type/directives';
+export { DirectiveLocationEnum } from './directives';

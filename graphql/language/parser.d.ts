@@ -1,6 +1,6 @@
-import { NamedTypeNode, TypeNode, ValueNode, DocumentNode } from "graphql/language/ast";
-import { Source } from "graphql/language/source";
-import { Lexer } from "graphql/language/lexer";
+import { NamedTypeNode, TypeNode, ValueNode, DocumentNode } from "./ast";
+import { Source } from "./source";
+import { Lexer } from "./lexer";
 
 /**
  * Configuration options to control parser behavior

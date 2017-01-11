@@ -1,4 +1,4 @@
-import { DocumentNode, OperationDefinitionNode } from 'graphql/language/ast';
+import { DocumentNode, OperationDefinitionNode } from '../language/ast';
 
 /**
  * Returns an operation AST given a document AST and optionally an operation

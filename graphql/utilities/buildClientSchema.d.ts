@@ -1,5 +1,5 @@
-import { IntrospectionQuery } from 'graphql/utilities/introspectionQuery';
-import { GraphQLSchema } from 'graphql/type/schema';
+import { IntrospectionQuery } from './introspectionQuery';
+import { GraphQLSchema } from '../type/schema';
 
 
 /**
