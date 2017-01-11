@@ -1076,6 +1076,40 @@ declare module "zlib" {
     export function unzip(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
     export function unzipSync(buf: Buffer, options?: ZlibOptions): Buffer;
 
+    export var constants: {
+      Z_NO_FLUSH: number;
+      Z_PARTIAL_FLUSH: number;
+      Z_SYNC_FLUSH: number;
+      Z_FULL_FLUSH: number;
+      Z_FINISH: number;
+      Z_BLOCK: number;
+      Z_TREES: number;
+      Z_OK: number;
+      Z_STREAM_END: number;
+      Z_NEED_DICT: number;
+      Z_ERRNO: number;
+      Z_STREAM_ERROR: number;
+      Z_DATA_ERROR: number;
+      Z_MEM_ERROR: number;
+      Z_BUF_ERROR: number;
+      Z_VERSION_ERROR: number;
+      Z_NO_COMPRESSION: number;
+      Z_BEST_SPEED: number;
+      Z_BEST_COMPRESSION: number;
+      Z_DEFAULT_COMPRESSION: number;
+      Z_FILTERED: number;
+      Z_HUFFMAN_ONLY: number;
+      Z_RLE: number;
+      Z_FIXED: number;
+      Z_DEFAULT_STRATEGY: number;
+      Z_BINARY: number;
+      Z_TEXT: number;
+      Z_ASCII: number;
+      Z_UNKNOWN: number;
+      Z_DEFLATED: number;
+      Z_NULL: number;
+    };
+
     // Constants
     export var Z_NO_FLUSH: number;
     export var Z_PARTIAL_FLUSH: number;
