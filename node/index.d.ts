@@ -285,7 +285,7 @@ declare namespace NodeJS {
         pause(): this;
         resume(): this;
         isPaused(): boolean;
-        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): this;
+        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe<T extends WritableStream>(destination?: T): this;
         unshift(chunk: string): void;
         unshift(chunk: Buffer): void;
@@ -3341,7 +3341,7 @@ declare module "stream" {
             pause(): this;
             resume(): this;
             isPaused(): boolean;
-            pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): this;
+            pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
             unpipe<T extends NodeJS.WritableStream>(destination?: T): this;
             unshift(chunk: any): void;
             wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
@@ -3531,7 +3531,7 @@ declare module "stream" {
             pause(): this;
             resume(): this;
             isPaused(): boolean;
-            pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): this;
+            pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
             unpipe<T extends NodeJS.WritableStream>(destination?: T): this;
             unshift(chunk: any): void;
             wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
