@@ -1,4 +1,4 @@
-// Type definitions for React v15
+// Type definitions for React 15.4
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -2142,7 +2142,7 @@ declare namespace React {
         unselectable?: boolean;
     }
 
-    // this list is "complete" in that it contains every SVG attribute 
+    // this list is "complete" in that it contains every SVG attribute
     // that React supports, but the types can be improved.
     // Full list here: https://facebook.github.io/react/docs/dom-elements.html
     //
