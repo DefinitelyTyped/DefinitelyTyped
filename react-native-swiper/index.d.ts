@@ -14,7 +14,7 @@ interface SwiperProperties {
 
   children?: React.ReactElement<any>;
 
-  style?: ViewStyle;
+  style: ViewStyle;
 
   pagingEnabled?: boolean;
 
