@@ -24,3 +24,13 @@ passport.use(new facebook.Strategy({
          });
     })
 );
+
+passport.use(new facebook.Strategy({
+            clientID: process.env.PASSPORT_FACEBOOK_CLIENT_ID,
+            clientSecret: process.env.PASSPORT_FACEBOOK_CLIENT_SECRET,
+            callbackURL: process.env.PASSPORT_FACEBOOK_CALLBACK_URL
+    },
+    function(accessToken:string, refreshToken:string, profile:facebook.Profile, done:(error:any, user?:any, info?:any) => void) {
+         done(null, false, { message: 'Some error.' });
+    })
+);
