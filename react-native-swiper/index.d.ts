@@ -50,7 +50,7 @@ interface SwiperProperties {
 
   index?: number;
 
-  //renderPagination?: (index: number, total: number, thisObject: SwiperStatic) => JSX.Element;
+  renderPagination?: (index: number, total: number, thisObject: SwiperStatic) => JSX.Element;
 
   dotStyle?: ViewStyle;
 
@@ -63,6 +63,7 @@ interface SwiperProperties {
 
 
 interface SwiperStatic extends React.ClassicComponentClass<SwiperProperties> {
+  test: string;
 }
 
 declare var Swiper: SwiperStatic;
