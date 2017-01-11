@@ -6036,43 +6036,43 @@ declare module "react" {
         /**
          * Sets value for key and calls callback on completion, along with an Error if there is any
          */
-        setItem(key: string, value: string, callback?: (error?: Error) => void): Promise<string>
+        setItem(key: string, value: string, callback?: (error?: Error) => void): Promise<void>
 
-        removeItem(key: string, callback?: (error?: Error) => void): Promise<string>
+        removeItem(key: string, callback?: (error?: Error) => void): Promise<void>
 
         /**
          * Merges existing value with input value, assuming they are stringified json. Returns a Promise object.
          * Not supported by all native implementation
          */
-        mergeItem(key: string, value: string, callback?: (error?: Error) => void): Promise<string>
+        mergeItem(key: string, value: string, callback?: (error?: Error) => void): Promise<void>
 
         /**
          * Erases all AsyncStorage for all clients, libraries, etc. You probably don't want to call this.
          * Use removeItem or multiRemove to clear only your own keys instead.
          */
-        clear(callback?: (error?: Error) => void): Promise<string>
+        clear(callback?: (error?: Error) => void): Promise<void>
 
         /**
          * Gets all keys known to the app, for all callers, libraries, etc
          */
-        getAllKeys(callback?: (error?: Error, keys?: string[]) => void): Promise<string>
+        getAllKeys(callback?: (error?: Error, keys?: string[]) => void): Promise<string[]>
 
         /**
          * multiGet invokes callback with an array of key-value pair arrays that matches the input format of multiSet
          */
-        multiGet(keys: string[], callback?: (errors?: Error[], result?: string[][]) => void): Promise<string>
+        multiGet(keys: string[], callback?: (errors?: Error[], result?: string[][]) => void): Promise<void>
 
         /**
          * multiSet and multiMerge take arrays of key-value array pairs that match the output of multiGet,
          *
          * multiSet([['k1', 'val1'], ['k2', 'val2']], cb);
          */
-        multiSet(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<string>
+        multiSet(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<void>
 
         /**
          * Delete all the keys in the keys array.
          */
-        multiRemove(keys: string[], callback?: (errors?: Error[]) => void): Promise<string>
+        multiRemove(keys: string[], callback?: (errors?: Error[]) => void): Promise<void>
 
         /**
          * Merges existing values with input values, assuming they are stringified json.
@@ -6080,7 +6080,7 @@ declare module "react" {
          *
          * Not supported by all native implementations.
          */
-        multiMerge(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<string>
+        multiMerge(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<void>
     }
 
     export type BackPressEventName = "hardwareBackPress"
