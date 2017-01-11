@@ -7,10 +7,6 @@
 
 declare var jui: JuiStatic;
 
-declare type ClassFunction = (() => any);
-declare type VoidFunction = (() => void);
-declare type AnyFunction = ((...args: any[]) => any);
-
 interface UtilBase {
     /**
      * @property browser check browser agent
@@ -37,7 +33,7 @@ interface UtilBase {
      * @param {Function} ctor base Class
      * @param {Function} superCtor super Class
      */
-    inherit( ctor: ClassFunction, superCtor: ClassFunction ): void;
+    inherit( ctor: ((...args: any[]) => any), superCtor: ((...args: any[]) => any) ): void;
 
     /**
      * @method extend
@@ -91,7 +87,7 @@ interface UtilBase {
      * @param {String} name
      * @param {Function} callback
      */
-    runtime(name: string, callback: VoidFunction): void;
+    runtime(name: string, callback: ((...args: any[]) => void)): void;
 
     /**
      * @method template
@@ -99,7 +95,7 @@ interface UtilBase {
      * @param html
      * @param obj
      */
-    template(html: string, obj: any): AnyFunction;
+    template(html: string, obj?: any): ((obj: any) => string) | string;
 
     /**
      * @method resize
@@ -107,7 +103,7 @@ interface UtilBase {
      * @param {Function} callback
      * @param {Number} ms delay time
      */
-    resize(callback: VoidFunction, ms: number): void;
+    resize(callback: ((...args: any[]) => void), ms: number): void;
 
     /**
      * @method index
@@ -167,7 +163,7 @@ interface UtilBase {
      * @param {File} file
      * @param {Function} callback
      */
-    fileToCsv(fileText: string, callback: AnyFunction): void;
+    fileToCsv(fileText: string, callback: ((data: any) => void)): void;
 
     /**
      * @method csvToBase64
@@ -261,7 +257,7 @@ interface UtilBase {
      * @param {Object} context
      * @returns {Function}
      */
-    timeLoop(total: number, context?: any): AnyFunction;
+    timeLoop(total: number, context?: any): ((index: number) => void);
 
     /**
      * @method loop
@@ -272,7 +268,7 @@ interface UtilBase {
      * @param {Object} [context=null]
      * @return {Function} 최적화된 루프 콜백 (index, groupIndex 2가지 파라미터를 받는다.)
      */
-    loop(total: number, context?: any): AnyFunction;
+    loop(total: number, context?: any): ((index: number, groupIndex: number) => void );
 
     /**
      * @method loopArray
@@ -284,7 +280,7 @@ interface UtilBase {
      * @param {Object} [context=null]
      * @return {Function} 최적화된 루프 콜백 (data, index, groupIndex 3가지 파라미터를 받는다.)
      */
-    loopArray(data: any[], context?: any): () => void;
+    loopArray(data: any[], context?: any): ((data: any, index: number, groupIndex: number) => void );
 
     /**
      * @method makeIndex
@@ -325,7 +321,7 @@ interface UtilBase {
 
     trim(text: string): string;
 
-    ready: VoidFunction;
+    ready: ((...args: any[]) => void);
 
     param(data: any): string;
 
@@ -560,6 +556,11 @@ export interface UIEvent extends UICore {
      find(selector: any): JQuery;
 }
 
+export class ColorScale {
+    domain(color: string, color2: string): this;
+    ticks(max: number): this;
+}
+
 export interface UtilColor {
     /**
      * @method format
@@ -596,7 +597,7 @@ export interface UtilColor {
      *
      * @returns {func} scale function
      */
-    scale(): AnyFunction;
+    scale(): ColorScale;
 
     /**
      * @method map
