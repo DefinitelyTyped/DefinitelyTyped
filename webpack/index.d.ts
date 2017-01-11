@@ -1,4 +1,4 @@
-// Type definitions for webpack 2.1
+// Type definitions for webpack 2.2
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
