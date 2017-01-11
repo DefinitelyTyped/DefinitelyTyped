@@ -1,4 +1,4 @@
-// Type definitions for artyom.js
+// Type definitions for artyom.js 1.0
 // Project: https://github.com/sdkcarlos/artyom.js
 // Definitions by: Sema García (José Manuel García) <https://github.com/semagarcia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
