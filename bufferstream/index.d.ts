@@ -109,10 +109,6 @@ declare module 'bufferstream/postbuffer' {
 			set a callback to get all post data from a http server request
 		*/
 		onEnd(callback: (data: any) => void): void;
-		/*
-		 pumps data into another stream to allow incoming streams given options will be passed to Stream.pipe
-		*/
-		pipe(stream: NodeJS.WritableStream, options?: BufferStream.Opts): NodeJS.ReadableStream;
 	}
 
 	export = PostBuffer;
