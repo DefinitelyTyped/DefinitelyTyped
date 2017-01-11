@@ -1,10 +1,10 @@
-import { GraphQLInputType } from 'graphql/type/definition';
+import { GraphQLInputType } from '../type/definition';
 import {
     ValueNode,
     VariableNode,
     ListValueNode,
     ObjectValueNode
-} from 'graphql/language/ast';
+} from '../language/ast';
 
 
 export function valueFromAST(

@@ -1,14 +1,14 @@
 import {
     GraphQLObjectType,
-} from 'graphql/type/definition';
+} from './definition';
 import {
     GraphQLType,
     GraphQLNamedType,
     GraphQLAbstractType
-} from 'graphql/type/definition';
+} from './definition';
 import {
     GraphQLDirective,
-} from 'graphql/type/directives';
+} from './directives';
 
 
 /**

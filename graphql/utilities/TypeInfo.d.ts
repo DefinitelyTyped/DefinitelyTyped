@@ -1,4 +1,4 @@
-import { GraphQLSchema } from 'graphql/type/schema';
+import { GraphQLSchema } from '../type/schema';
 import {
     GraphQLOutputType,
     GraphQLCompositeType,
@@ -6,9 +6,9 @@ import {
     GraphQLField,
     GraphQLArgument,
     GraphQLType,
-} from 'graphql/type/definition';
-import { GraphQLDirective } from 'graphql/type/directives';
-import { ASTNode, FieldNode } from 'graphql/language/ast';
+} from '../type/definition';
+import { GraphQLDirective } from '../type/directives';
+import { ASTNode, FieldNode } from '../language/ast';
 
 /**
  * TypeInfo is a utility class which, given a GraphQL schema, can keep track

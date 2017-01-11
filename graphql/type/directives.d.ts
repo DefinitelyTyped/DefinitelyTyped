@@ -1,7 +1,7 @@
 import {
     GraphQLFieldConfigArgumentMap,
     GraphQLArgument
-} from 'graphql/type/definition';
+} from './definition';
 
 
 export const DirectiveLocation: {

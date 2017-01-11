@@ -1,4 +1,4 @@
-import { DirectiveLocationEnum } from 'graphql/type/directives';
+import { DirectiveLocationEnum } from '../type/directives';
 
 /*
 query IntrospectionQuery {

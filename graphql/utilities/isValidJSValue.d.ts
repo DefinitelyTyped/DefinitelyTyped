@@ -1,4 +1,4 @@
-import { GraphQLInputType } from 'graphql/type/definition';
+import { GraphQLInputType } from '../type/definition';
 
 /**
  * Given a JavaScript value and a GraphQL type, determine if the value will be

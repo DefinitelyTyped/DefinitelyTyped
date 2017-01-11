@@ -7,8 +7,8 @@ import {
     GraphQLInputObjectType,
     GraphQLList,
     GraphQLNonNull,
-} from 'graphql/type/definition';
-import { GraphQLField } from 'graphql/type/definition';
+} from './definition';
+import { GraphQLField } from './definition';
 
 
 export const __Schema: GraphQLObjectType;

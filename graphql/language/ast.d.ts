@@ -1,4 +1,4 @@
-import { Source } from 'graphql/language/source';
+import { Source } from './source';
 
 /**
  * Contains a range of UTF-8 character offsets and token references that

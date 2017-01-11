@@ -1,4 +1,4 @@
-import { GraphQLError } from 'graphql/error/GraphQLError';
+import { GraphQLError } from './GraphQLError';
 
 /**
  * Given a GraphQLError, format it according to the rules described by the

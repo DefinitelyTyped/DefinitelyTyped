@@ -1,6 +1,6 @@
-import { getLocation } from 'graphql/language';
-import { ASTNode } from 'graphql/language/ast';
-import { Source } from 'graphql/language/source';
+import { getLocation } from '../language';
+import { ASTNode } from '../language/ast';
+import { Source } from '../language/source';
 
 /**
  * A GraphQLError describes an Error found during the parse, validate, or
