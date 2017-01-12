@@ -10342,31 +10342,131 @@ namespace TestUpdate {
 
 // _.values
 namespace TestValues {
-    let object: _.Dictionary<TResult>;
+    type SampleObject = {a: {}};
 
     {
-        let result: TResult[];
+        let result: any[];
 
-        result = _.values(object);
+        result = _.values();
+        result = _.values(123);
+        result = _.values(true);
+        result = _.values(null);
     }
 
     {
-        let result: TResult[];
+        let result: string[];
 
-        // Without this type hint, this will fail to compile, as expected.
-        result = _.values<TResult>(new Object);
+        result = _.values('hi');
+        result = _.values(['h', 'i']);
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
+        let result: number[];
 
-        result = _(object).values<TResult>();
+        result = _.values([1, 2]);
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
+        let result: boolean[];
 
-        result = _(object).chain().values<TResult>();
+        result = _.values([true, false]);
+    }
+
+    {
+        let dict: _.Dictionary<SampleObject>;
+        let numDict: _.NumericDictionary<SampleObject>;
+        let list: _.List<SampleObject>;
+        let object: {a: SampleObject};
+        let result: SampleObject[];
+
+        result = _.values(dict);
+        result = _.values(numDict);
+        result = _.values(list);
+        result = _.values<SampleObject>(object);
+    }
+
+    // Implicit wrapper
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<any>;
+
+        result = _(123).values();
+        result = _(true).values();
+        result = _(null).values();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _('hi').values();
+        result = _(['h', 'i']).values();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<number>;
+
+        result = _([1, 2]).values();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<boolean>;
+
+        result = _([true, false]).values();
+    }
+
+    {
+        let dict: _.Dictionary<SampleObject>;
+        let numDict: _.NumericDictionary<SampleObject>;
+        let list: _.List<SampleObject>;
+        let object: {a: SampleObject};
+        let result: _.LoDashImplicitArrayWrapper<SampleObject>;
+
+        result = _(dict).values<SampleObject>();
+        result = _(numDict).values<SampleObject>();
+        result = _(list).values<SampleObject>();
+        result = _(object).values<SampleObject>();
+    }
+
+    // Explicit wrapper
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<any>;
+
+        result = _(123).chain().values();
+        result = _(true).chain().values();
+        result = _(null).chain().values();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _('hi').chain().values<string>();
+        result = _(['h', 'i']).chain().values();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<number>;
+
+        result = _([1, 2]).chain().values();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<boolean>;
+
+        result = _([true, false]).chain().values();
+    }
+
+    {
+        let dict: _.Dictionary<SampleObject>;
+        let numDict: _.NumericDictionary<SampleObject>;
+        let list: _.List<SampleObject>;
+        let object: {a: SampleObject};
+        let result: _.LoDashExplicitArrayWrapper<SampleObject>;
+
+        result = _(dict).chain().values<SampleObject>();
+        result = _(numDict).chain().values<SampleObject>();
+        result = _(list).chain().values<SampleObject>();
+        result = _(object).chain().values<SampleObject>();
     }
 }
 
