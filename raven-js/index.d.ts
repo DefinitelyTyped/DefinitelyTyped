@@ -1,4 +1,4 @@
-﻿// Type definitions for Raven.js
+// Type definitions for Raven.js
 // Project: https://github.com/getsentry/raven-js
 // Original Definitions by: Santi Albo <https://github.com/santialbo>, Benjamin Pannell 
 //   <http://github.com/spartan563>; DefinitelyTyped
