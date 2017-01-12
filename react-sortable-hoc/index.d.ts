@@ -1,6 +1,6 @@
 // Type definitions for nes 0.0.7
 // Project: https://github.com/clauderic/react-sortable-hoc
-// Definitions by: Ivo Stratev <https://github.com/NoHomey>
+// Definitions by: Andrew de Waal <https://github.com/andrewdewaal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'react-sortable-hoc' {
@@ -53,6 +53,7 @@ declare module 'react-sortable-hoc' {
         index: number;
         collection?: Offset;
         disabled?: boolean;
+        value?: any;
     }
 
     export interface Config {
