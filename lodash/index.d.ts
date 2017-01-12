@@ -19132,6 +19132,123 @@ declare namespace _ {
         runInContext(): typeof _;
     }
 
+    // _.stubArray
+    interface LoDashStatic {
+        /**
+         * This method returns a new empty array.
+         *
+         * @returns Returns the new empty array.
+         */
+        stubArray(): any[];
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubArray
+         */
+        stubArray(): any[];
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubArray
+         */
+        stubArray(): _.LoDashExplicitArrayWrapper<any>;
+    }
+
+    // _.stubFalse
+    interface LoDashStatic {
+        /**
+         * This method returns `false`.
+         *
+         * @returns Returns `false`.
+         */
+        stubFalse(): boolean;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubFalse
+         */
+        stubFalse(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubFalse
+         */
+        stubFalse(): _.LoDashExplicitWrapper<boolean>;
+    }
+
+    interface LoDashStatic {
+        /**
+         * This method returns a new empty object.
+         *
+         * @returns Returns the new empty object.
+         */
+        stubObject(): Object;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubObject
+         */
+        stubObject(): Object;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubObject
+         */
+        stubObject(): _.LoDashExplicitObjectWrapper<Object>;
+    }
+
+    interface LoDashStatic {
+        /**
+         * This method returns an empty string.
+         *
+         * @returns Returns the empty string.
+         */
+        stubString(): string;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubString
+         */
+        stubString(): string;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubString
+         */
+        stubString(): _.LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashStatic {
+        /**
+         * This method returns `true`.
+         *
+         * @returns Returns `true`.
+         */
+        stubTrue(): boolean;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubTrue
+         */
+        stubTrue(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubTrue
+         */
+        stubTrue(): _.LoDashExplicitWrapper<boolean>;
+    }
+
     //_.times
     interface LoDashStatic {
         /**
