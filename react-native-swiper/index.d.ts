@@ -12,8 +12,6 @@ interface SwiperProperties extends React.Props<Swiper> {
 
   horizontal?: boolean;
 
-  children?: JSX.Element;
-
   style: ViewStyle;
 
   pagingEnabled?: boolean;
