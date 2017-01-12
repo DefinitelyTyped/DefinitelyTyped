@@ -1,4 +1,4 @@
-// Type definitions for Raven.js
+﻿// Type definitions for Raven.js
 // Project: https://github.com/getsentry/raven-js
 // Original Definitions by: Santi Albo <https://github.com/santialbo>, Benjamin Pannell 
 //   <http://github.com/spartan563>; DefinitelyTyped
@@ -8,8 +8,8 @@
 //   <https://github.com/combmag>, Luca Vazzano <https://github.com/LucaVazz>
 
 
-declare var Raven: RavenStatic;
-export = Raven;
+declare let Raven: RavenStatic;
+export default Raven;
 
 interface RavenStatic {
     /** Raven.js version. */
@@ -43,7 +43,7 @@ interface RavenStatic {
      *
      * @param dsn The public Sentry DSN
      */
-    setDSN(dsn: string);
+    setDSN(dsn: string): RavenStatic;
 
     /**
      * Installs a global window.onerror error handler to capture and report uncaught exceptions.
@@ -200,7 +200,7 @@ interface RavenStatic {
 
 
 // --- Helper Interfaces for Options --------------
-interface RavenBreadcrumOptions {
+export interface RavenBreadcrumOptions {
     /** Whether to collect XHR calls, defaults to true */
     xhr?: boolean;
 
@@ -214,7 +214,7 @@ interface RavenBreadcrumOptions {
     location?: boolean;
 }
 
-interface CommonRavenOptions {
+export interface CommonRavenOptions {
     /** The environment of the application you are monitoring with Sentry */
     environment?: string;
 
@@ -234,7 +234,7 @@ interface CommonRavenOptions {
     stacktrace?: boolean;
 }
 
-interface RavenOptions extends CommonRavenOptions {
+export interface RavenOptions extends CommonRavenOptions {
     /** The name of the server or device that the client is running on */
     server_name?: string;
 
@@ -253,7 +253,7 @@ interface RavenOptions extends CommonRavenOptions {
     platform?: string;
 }
 
-interface RavenGlobalOptions extends CommonRavenOptions  {
+export interface RavenGlobalOptions extends CommonRavenOptions  {
     /** The name of the server or device that the client is running on */
     serverName?: string;
 
@@ -294,12 +294,12 @@ interface RavenGlobalOptions extends CommonRavenOptions  {
     dataCallback?: (data: any) => any;
 }
 
-interface RavenWrapOptions extends RavenOptions {
+export interface RavenWrapOptions extends RavenOptions {
     /** Whether to run the wrap recursively. Default: false. */
     deep?: boolean;
 }
 
-interface RavenTransportOptions {
+export interface RavenTransportOptions {
     url: string;
     data: any;
     auth: {
@@ -311,7 +311,7 @@ interface RavenTransportOptions {
     onFailure: () => void;
 }
 
-interface RavenReportDialogOptions {
+export interface RavenReportDialogOptions {
     eventId?: number,
     dsn?: string,
     user?: {
@@ -322,11 +322,11 @@ interface RavenReportDialogOptions {
 
 
 // --- Helper Interfaces for complex Data Structures --------------
-interface RavenPlugin {
+export interface RavenPlugin {
     (raven: RavenStatic, ...args: any[]): RavenStatic;
 }
 
-interface RavenUserContext {
+export interface RavenUserContext {
     id?: string;
     username?: string;
     email?: string;
@@ -334,7 +334,7 @@ interface RavenUserContext {
     extra?: { [prop: string]: any };
 }
 
-interface RavenBreadcrumb {
+export interface RavenBreadcrumb {
     message: string;
     data: { [id: string]: string };
     category: string;
