@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "ravenjs-tests.ts"
+        "raven-js-tests.ts"
     ]
 }

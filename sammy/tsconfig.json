@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "sammyjs-tests.ts"
+        "sammy-tests.ts"
     ]
 }

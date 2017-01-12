@@ -1,4 +1,4 @@
-// Type definitions for ADAL.JS 1.0.8
+// Type definitions for ADAL.JS 1.0.13
 // Project: https://github.com/AzureAD/azure-activedirectory-library-for-js
 // Definitions by: mmaitre314 <https://github.com/mmaitre314>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,6 +16,7 @@ declare namespace adal {
         tenant?: string;
         clientId: string;
         redirectUri?: string;
+        instance?: string;
         cacheLocation?: string;
         displayCall?: (urlNavigate: string) => any;
         correlationId?: string;

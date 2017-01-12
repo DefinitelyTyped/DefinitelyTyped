@@ -8,7 +8,7 @@ const path = require("path");
 const symlinkedTslintPath = "../node_modules/types-publisher/node_modules/tslint"
 let tslintPath =  existsSync(path.join(pkg, symlinkedTslintPath)) ? symlinkedTslintPath : "../node_modules/tslint";
 // An older version (e.g. abs/v0) is in a nested directory, so needs to look one more level up for tslint.
-if (pkg.includes("/")) {
+if (pkg.includes("/") && pkg[pkg.length - 1] !== "/") {
     tslintPath = path.join("..", tslintPath);
 }
 

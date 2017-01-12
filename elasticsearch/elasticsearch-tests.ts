@@ -33,6 +33,11 @@ client.indices.delete({
 });
 
 client.create({
+  index: 'index',
+  type: 'type'
+});
+
+client.create({
   id: '123',
   index: 'index',
   type: 'type'

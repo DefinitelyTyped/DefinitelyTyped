@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "goJS-tests.ts"
+        "go-tests.ts"
     ]
 }

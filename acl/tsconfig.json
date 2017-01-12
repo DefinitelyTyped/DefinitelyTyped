@@ -15,8 +15,8 @@
     },
     "files": [
         "index.d.ts",
-        "acl-tests.ts",
-        "acl-mongodbBackend-tests.ts",
-        "acl-redisBackend-tests.ts"
+        "test/index.ts",
+        "test/mongodbBackend.ts",
+        "test/redisBackend.ts"
     ]
 }

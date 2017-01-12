@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "jquery.contextMenu-tests.ts"
+        "jquery.contextmenu-tests.ts"
     ]
 }

@@ -86,6 +86,7 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 * `cd my-package-to-edit`
 * Make changes. Remember to edit tests.
 * You may also want to add yourself to "Definitions by" section of the package header.
+  - Do this by adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
 * `npm install -g typescript@2.0` and run `tsc`.
 
 When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
@@ -206,7 +207,7 @@ Here are the [currently requested definitions](https://github.com/DefinitelyType
 
 If types are part of a web standard, they should be contributed to [TSJS-lib-generator](https://github.com/Microsoft/TSJS-lib-generator) so that they can become part of the default `lib.dom.d.ts`.
 
-### A package uses `export =`, but I prefer to use default imports. Can I change `export =` to `export default`?
+#### A package uses `export =`, but I prefer to use default imports. Can I change `export =` to `export default`?
 
 If default imports work in your environment, consider turning on the [`--allowSyntheticDefaultImports`](http://www.typescriptlang.org/docs/handbook/compiler-options.html) compiler option.
 Do not change the type definition if it is accurate.
@@ -214,8 +215,7 @@ For an NPM package, `export =` is accurate if `node -p 'require("foo")'` is the 
 
 #### I want to use features from TypeScript 2.1.
 
-Then you will have to add a comment to your definition header: `// TypeScript Version: 2.1`.
-If it is merged before January 7, it will be published as a prerelease version, such as `4.3.0-next.0`.
+Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 2.1`.
 
 #### I want to add a DOM API not present in TypeScript by default.
 
