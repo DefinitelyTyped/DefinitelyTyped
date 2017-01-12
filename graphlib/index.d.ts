@@ -334,33 +334,72 @@ declare module "graphlib" {
     
     neighbors(v: string): void | string[];
 
+    /**
+     * Whether graph was created with 'directed' flag set to true or not.
+     * 
+     * @returns whether the graph edges have an orientation.
+     */
     isDirected(): boolean;
+
+    /**
+     * Whether graph was created with 'multigraph' flag set to true or not.
+     * 
+     * @returns whether the pair of nodes of the graph can have multiple edges.
+     */
     isMultigraph(): boolean;
+
+    /**
+     * Whether graph was created with 'compound' flag set to true or not.
+     * 
+     * @returns whether a node of the graph can have subnodes.
+     */
     isCompound(): boolean;
 
-    /** Sets the label for the graph to label. */
+    /**
+     * Sets the label of the graph.
+     * 
+     * @argument label - label value.
+     * @returns the graph, allowing this to be chained with other functions.
+     */
     setGraph(label: string): Graph;
 
     /**
-     * Returns the currently assigned label for the graph. If no label has been assigned,
-     * returns undefined.
+     * Gets the graph label.
+     * 
+     * @returns currently assigned label for the graph or undefined if no label assigned.
      */
-    graph(): string;
+    graph(): void | string;
 
     /**
-     * Returns the number of nodes in the graph.
+     * Gets the number of nodes in the graph.
+     * Complexity: O(1).
+     * 
+     * @returns nodes count.
      */
     nodeCount(): number;
 
     /**
-     * Returns the number of edges in the graph.
+     * Gets the number of edges in the graph.
+     * Complexity: O(1).
+     * 
+     * @returns edges count.
      */
     edgeCount(): number;
 
-    /** Returns those nodes in the graph that have no in-edges. Takes O(|V|) time. */
+    /**
+     * Gets list of nodes without in-edges.
+     * Complexity: O(|V|).
+     * 
+     * @returns the graph source nodes.
+     */
     sources(): string[];
 
-    /** Returns those nodes in the graph that have no out-edges. Takes O(|V|) time. */
+    /**
+     * Gets list of nodes without out-edges.
+     * Complexity: O(|V|).
+     * 
+     * @returns the graph source nodes.
+     */
     sinks(): string[];
   }
 
