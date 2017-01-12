@@ -15,6 +15,8 @@ declare namespace Polyglot {
     interface PolyglotOptions {
         phrases?: any;
         locale?: string;
+        allowMissing?: boolean;
+        onMissingKey?: (key: string, options?: Polyglot.InterpolationOptions, locale?: string) => string;
     }
 }
 

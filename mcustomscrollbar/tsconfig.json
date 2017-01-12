@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "mCustomScrollbar-tests.ts"
+        "mcustomscrollbar-tests.ts"
     ]
 }

@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "microsoft.ajax-tests.ts"
+        "microsoft-ajax-tests.ts"
     ]
 }

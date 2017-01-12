@@ -1,4 +1,4 @@
-// Type definitions for auth0-lock v10.0.1
+// Type definitions for auth0-lock 10.9
 // Project: http://auth0.com
 // Definitions by: Brian Caruso <https://github.com/carusology>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -103,22 +103,37 @@ interface Auth0LockConstructorOptions {
     usernameStyle?: string;
 }
 
+interface Auth0LockFlashMessageOptions {
+    type: "success" | "error";
+    text: string;
+}
+
+interface Auth0LockShowOptions {
+    allowedConnections?: string[];
+    allowForgotPassword?: boolean;
+    allowLogin?: boolean;
+    allowSignUp?: boolean;
+    auth?: Auth0LockAuthOptions;
+    initialScreen?: "login" | "signUp" | "forgotPassword";
+    flashMessage?: Auth0LockFlashMessageOptions;
+    rememberLastLogin?: boolean;
+}
+
 interface Auth0LockStatic {
     new (clientId: string, domain: string, options?: Auth0LockConstructorOptions): Auth0LockStatic;
-    getProfile(token: string, callback: (error: Auth0Error, profile: Auth0UserProfile) => void) : void;
 
-    getUserInfo(token: string, callback: (error: Auth0Error, profile: Auth0UserProfile) => void) : void;
+    // deprecated
+    getProfile(token: string, callback: (error: Auth0Error, profile: Auth0UserProfile) => void): void;
+    getUserInfo(token: string, callback: (error: Auth0Error, profile: Auth0UserProfile) => void): void;
 
-    show(): void;
+    show(options?: Auth0LockShowOptions): void;
     hide(): void;
     logout(query: any): void;
 
-    on(event: "show", callback: () => void) : void;
-    on(event: "hide", callback: () => void) : void;
-    on(event: "unrecoverable_error", callback: (error: Auth0Error) => void) : void;
-    on(event: "authorization_error", callback: (error: Auth0Error) => void) : void;
-    on(event: "authenticated", callback: (authResult: any) => void) : void;
-    on(event: string, callback: (...args: any[]) => void) : void;
+    on(event: "show" | "hide", callback: () => void): void;
+    on(event: "unrecoverable_error" | "authorization_error", callback: (error: Auth0Error) => void): void;
+    on(event: "authenticated", callback: (authResult: any) => void): void;
+    on(event: string, callback: (...args: any[]) => void): void;
 }
 
 declare var Auth0Lock: Auth0LockStatic;

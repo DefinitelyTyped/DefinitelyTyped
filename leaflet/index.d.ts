@@ -72,7 +72,7 @@ declare namespace L {
 
     export interface CRS {
         latLngToPoint(latlng: LatLngExpression, zoom: number): Point;
-        pointToLatLng(point: PointExpression): LatLng;
+        pointToLatLng(point: PointExpression, zoom: number): LatLng;
         project(latlng: LatLngExpression): Point;
         unproject(point: PointExpression): LatLng;
         scale(zoom: number): number;
@@ -186,6 +186,8 @@ declare namespace L {
         equals(otherPoint: PointExpression): boolean;
         contains(otherPoint: PointExpression): boolean;
         toString(): string;
+        x: number;
+        y: number;
     }
 
     type PointExpression = Point | PointTuple;
@@ -1046,6 +1048,7 @@ declare namespace L {
         keepInView?: boolean;
         closeButton?: boolean;
         autoClose?: boolean;
+        closeOnClick?: boolean;
     }
 
     type Content = string | HTMLElement;

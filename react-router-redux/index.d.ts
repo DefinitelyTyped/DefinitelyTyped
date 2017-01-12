@@ -59,7 +59,7 @@ declare namespace ReactRouterRedux {
         locationBeforeTransitions: History.Location
     }
 
-    function routerReducer(state?: RouterState, options?: any): R.Reducer<RouterState>
+    function routerReducer(state?: RouterState, action?: R.Action): RouterState;
     function syncHistoryWithStore(history: History.History, store: R.Store<any>, options?: SyncHistoryWithStoreOptions): ReactRouterReduxHistory;
     function routerMiddleware(history: History.History): R.Middleware;
 }

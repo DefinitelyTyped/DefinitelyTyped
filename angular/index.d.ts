@@ -1,4 +1,4 @@
-// Type definitions for Angular JS 1.5
+// Type definitions for Angular JS 1.6
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Georgii Dolzhykov <http://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@ declare var angular: angular.IAngularStatic;
 // Support for painless dependency injection
 declare global {
     interface Function {
-        $inject?: string[];
+        $inject?: ReadonlyArray<string>;
     }
 }
 
@@ -660,7 +660,7 @@ declare namespace angular {
     interface IFilterFilterComparatorFunc<T> {
         (actual: T, expected: T): boolean;
     }
-    
+
     interface IFilterOrderByItem {
         value: any,
         type: string,
@@ -1059,6 +1059,25 @@ declare namespace angular {
         when(): IPromise<void>;
     }
 
+    interface IQProvider {
+        /**
+         * Retrieves or overrides whether to generate an error when a rejected promise is not handled.
+         * This feature is enabled by default.
+         *
+         * @returns {boolean} Current value
+         */
+        errorOnUnhandledRejections(): boolean;
+
+        /**
+         * Retrieves or overrides whether to generate an error when a rejected promise is not handled.
+         * This feature is enabled by default.
+         *
+         * @param {boolean} value Whether to generate an error when a rejected promise is not handled.
+         * @returns {ng.IQProvider} Self for chaining otherwise.
+         */
+        errorOnUnhandledRejections(value: boolean): IQProvider;
+    }
+
     interface IPromise<T> {
         /**
          * Regardless of when the promise was or will be resolved or rejected, then calls one of the success or error callbacks asynchronously as soon as the result is available. The callbacks are called with a single argument: the result or rejection reason. Additionally, the notify callback may be called zero or more times to provide a progress indication, before the promise is resolved or rejected.
@@ -1216,7 +1235,7 @@ declare namespace angular {
 
         debugInfoEnabled(): boolean;
         debugInfoEnabled(enabled: boolean): ICompileProvider;
-    
+
         /**
          * Sets the number of times $onChanges hooks can trigger new changes before giving up and assuming that the model is unstable.
          * Increasing the TTL could have performance implications, so you should not change it without proper justification.
@@ -1225,7 +1244,7 @@ declare namespace angular {
          */
         onChangesTtl(): number;
         onChangesTtl(limit: number): ICompileProvider;
-    
+
         /**
          * It indicates to the compiler whether or not directives on comments should be compiled.
          * It results in a compilation performance gain since the compiler doesn't have to check comments when looking for directives.
@@ -1234,7 +1253,7 @@ declare namespace angular {
          */
         commentDirectivesEnabled(): boolean;
         commentDirectivesEnabled(enabled: boolean): ICompileProvider;
-    
+
         /**
          * It indicates to the compiler whether or not directives on element classes should be compiled.
          * It results in a compilation performance gain since the compiler doesn't have to check element classes when looking for directives.
@@ -1878,7 +1897,7 @@ declare namespace angular {
      * like jQuery plugins do, that's why all jQuery objects have these Angular-specific methods, not
      * only those returned from angular.element.
      * See: http://docs.angularjs.org/api/angular.element
-        */
+     */
     interface IAugmentedJQueryStatic extends JQueryStatic {}
     interface IAugmentedJQuery extends JQuery {}
 
