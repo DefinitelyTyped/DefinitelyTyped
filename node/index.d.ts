@@ -1,11 +1,11 @@
-// Type definitions for Node.js v6.x
+// Type definitions for Node.js v7.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
 *                                               *
-*               Node.js v6.x API                *
+*               Node.js v7.x API                *
 *                                               *
 ************************************************/
 
@@ -619,6 +619,7 @@ declare module "http" {
         headers?: { [key: string]: any };
         auth?: string;
         agent?: Agent | boolean;
+        timeout?: number;
     }
 
     export interface Server extends net.Server {
@@ -3955,7 +3956,7 @@ declare module "v8" {
         physical_space_size: number;
     }
 
-    const enum DoesZapCodeSpaceFlag {
+    enum DoesZapCodeSpaceFlag {
         Disabled = 0,
         Enabled = 1
     }

@@ -20,7 +20,7 @@ import IndexRedirect from "./lib/IndexRedirect";
 import IndexRoute from "./lib/IndexRoute";
 import Redirect from "./lib/Redirect";
 import Route from "./lib/Route";
-import * as History from "./lib/History";
+import * as History from "./lib/routerHistory";
 import Lifecycle from "./lib/Lifecycle";
 import RouteContext from "./lib/RouteContext";
 import browserHistory from "./lib/browserHistory";

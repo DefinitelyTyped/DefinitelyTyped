@@ -15,13 +15,13 @@
     },
     "files": [
         "index.d.ts",
-        "slickgrid-tests.ts",
         "slick.autotooltips.d.ts",
-        "slick.autotooltips-tests.ts",
         "slick.checkboxselectcolumn.d.ts",
-        "slick.checkboxselectcolumn-tests.ts",
         "slick.columnpicker.d.ts",
         "slick.headerbuttons.d.ts",
-        "slick.rowselectionmodel.d.ts"
+        "slick.rowselectionmodel.d.ts",
+        "test/index.ts",
+        "test/slick.autotooltips.ts",
+        "test/slick.checkboxselectcolumn.ts"
     ]
 }

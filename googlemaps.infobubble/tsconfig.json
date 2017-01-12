@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "google.maps.infobubble-tests.ts"
+        "googlemaps.infobubble-tests.ts"
     ]
 }

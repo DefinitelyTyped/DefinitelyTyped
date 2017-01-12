@@ -16,7 +16,7 @@
     "files": [
         "index.d.ts",
         "safe.d.ts",
-        "format-unicorn-tests.ts",
-        "format-unicorn-safe-tests.ts"
+        "test/index.ts",
+        "test/safe.ts"
     ]
 }

@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "noVNC-tests.ts"
+        "novnc-tests.ts"
     ]
 }

@@ -63,7 +63,7 @@ function makeRequest() {
 				} else {
 					details.displayItems.splice(1, 1, shippingOption);
 				}
-				
+
 				details.shippingOptions = [shippingOption];
 			} else {
 				details.shippingOptions = [];
@@ -76,7 +76,7 @@ function makeRequest() {
 }
 
 async function processPayment(): Promise<PaymentResponse> {
-	let paymentResponse;
+	let paymentResponse: PaymentResponse;
     try {
         paymentResponse = await makeRequest()
     } catch (error) {
