@@ -1,9 +1,7 @@
-// Type definitions for angular-gridster (gridster module) 0.13.14
+// Type definitions for angular-gridster (gridster module) 0.13
 // Project: https://github.com/ManifestWebDesign/angular-gridster
 // Definitions by: Joao Monteiro <https://github.com/jpmnteiro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="angular" />
 
 import * as angular from "angular";
 
@@ -16,7 +14,7 @@ declare module "angular" {
 
     export namespace gridster {
 
-        interface IGridsterConfig {
+        interface GridsterConfig {
 
             // number of columns in the grid
             columns?: number;
@@ -42,7 +40,7 @@ declare module "angular" {
             rowHeight?: string;
 
             // margins in between grid items
-            margins?: Array<number>;
+            margins?: number[];
 
             // whether to set the outer margin
             outerMargin?: boolean;
@@ -94,7 +92,7 @@ declare module "angular" {
 
                 // location of the resize handles
                 // e.g // ['s', 'e', 'n', 'w', 'se', 'ne', 'sw', 'nw']
-                handles?: Array<string>;
+                handles?: string[];
 
                 // optional callback fired when drag is started
                 start?(event: angular.IAngularEvent, $element: angular.IAugmentedJQuery, options: any): void;
@@ -104,7 +102,7 @@ declare module "angular" {
 
                 // optional callback fired when item is finished dragging
                 stop?(event: angular.IAngularEvent, $element: angular.IAugmentedJQuery, options: any): void;
-            },
+            };
 
             // options to pass to draggable handler
             draggable?: {
@@ -129,10 +127,10 @@ declare module "angular" {
 
                 // optional callback fired when item is finished dragging
                 stop?(event: angular.IAngularEvent, $element: angular.IAugmentedJQuery, options: any): void;
-            }
+            };
         }
 
-        interface IStandardGridsterItem {
+        interface StandardGridsterItem {
 
             // width of the item expressed in terms of number of columns it will occupy
             sizeX: number;
