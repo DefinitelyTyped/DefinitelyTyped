@@ -3,12 +3,13 @@
 // Definitions by: CaiHuan <https://github.com/CaiHuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare module 'react-native-swiper' {
 import * as React from 'react';
 import {
   ViewStyle
 } from 'react-native';
 
-interface SwiperProperties {
+interface SwiperProperties extends React.Props<Swiper> {
 
   horizontal?: boolean;
 
@@ -50,7 +51,7 @@ interface SwiperProperties {
 
   index?: number;
 
-  renderPagination?: (index: number, total: number, thisObject: SwiperStatic) => JSX.Element;
+  renderPagination?: (index: number, total: number, thisObject: Swiper) => JSX.Element;
 
   dotStyle?: ViewStyle;
 
@@ -62,9 +63,7 @@ interface SwiperProperties {
 }
 
 
-export interface SwiperStatic extends React.ComponentClass<SwiperProperties> {
+export default class Swiper extends React.Component<SwiperProperties, {}> {
+}
 }
 
-export var Swiper: SwiperStatic;
-export type Swiper = SwiperStatic;
-export default Swiper;
