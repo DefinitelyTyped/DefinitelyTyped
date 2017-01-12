@@ -11953,6 +11953,106 @@ namespace TestRangeRight {
     result = _({}).runInContext();
 }
 
+// _.stubArray
+{
+    {
+        let result: any[];
+
+        result = _.stubArray();
+        result = _(any).stubArray();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<any>;
+
+        result = _('a').chain().stubArray();
+        result = _([1]).chain().stubArray();
+        result = _<string>([]).chain().stubArray();
+        result = _({}).chain().stubArray();
+        result = _(any).chain().stubArray();
+    }
+}
+
+// _.stubFalse
+{
+    {
+        let result: boolean;
+
+        result = _.stubFalse();
+        result = _(any).stubFalse();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _('a').chain().stubFalse();
+        result = _([1]).chain().stubFalse();
+        result = _<string>([]).chain().stubFalse();
+        result = _({}).chain().stubFalse();
+        result = _(any).chain().stubFalse();
+    }
+}
+
+// _.stubObject
+{
+    {
+        let result: Object;
+
+        result = _.stubObject();
+        result = _(any).stubObject();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<Object>;
+
+        result = _('a').chain().stubObject();
+        result = _([1]).chain().stubObject();
+        result = _<string>([]).chain().stubObject();
+        result = _({}).chain().stubObject();
+        result = _(any).chain().stubObject();
+    }
+}
+
+// _.stubString
+{
+    {
+        let result: string;
+
+        result = _.stubString();
+        result = _(any).stubString();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('a').chain().stubString();
+        result = _([1]).chain().stubString();
+        result = _<string>([]).chain().stubString();
+        result = _({}).chain().stubString();
+        result = _(any).chain().stubString();
+    }
+}
+
+// _.stubTrue
+{
+    {
+        let result: boolean;
+
+        result = _.stubTrue();
+        result = _(any).stubTrue();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _('a').chain().stubTrue();
+        result = _([1]).chain().stubTrue();
+        result = _<string>([]).chain().stubTrue();
+        result = _({}).chain().stubTrue();
+        result = _(any).chain().stubTrue();
+    }
+}
+
 // _.times
 namespace TestTimes {
     let iteratee: (num: number) => TResult;
