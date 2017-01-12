@@ -3,7 +3,6 @@
 // Definitions by: CaiHuan <https://github.com/CaiHuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'react-native-swiper' {
 import * as React from 'react';
 import {
   ViewStyle
@@ -62,8 +61,6 @@ interface SwiperProperties extends React.Props<Swiper> {
   activeDotColor?: string;
 }
 
-
 export default class Swiper extends React.Component<SwiperProperties, {}> {
-}
 }
 
