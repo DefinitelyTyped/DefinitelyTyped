@@ -62,11 +62,9 @@ interface SwiperProperties {
 }
 
 
-interface SwiperStatic extends React.ClassicComponentClass<SwiperProperties> {
+interface SwiperStatic extends React.ComponentClass<SwiperProperties> {
   test: string;
 }
 
-declare var Swiper: SwiperStatic;
-declare type Swiper = SwiperStatic;
-
-export default Swiper;
+export var Swiper: SwiperStatic;
+export type Swiper = SwiperStatic;
