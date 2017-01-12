@@ -1,6 +1,7 @@
 // Type definitions for angular-google-analytics v1.1.8
 // Project: https://github.com/revolunet/angular-google-analytics
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
+// Definitions by: Thomas Fuchs <https://github.com/Toxantron>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="angular" />
@@ -26,14 +27,16 @@ declare module 'angular' {
       offlineQueue: Array<Object>;
       
       /**
-       * If delayScriptTag(true) was set during configuration then manual script tag injection is required. 
+       * @summary If delayScriptTag(true) was set during configuration then manual script tag injection is required. 
+       * @return {boolean} True if scripts were registered.
        */
       registerScriptTags(): boolean;
       
       /**
-       * If delayScriptTag(true) was set during configuration then manual tracker setup is required.
+       * @summary If delayScriptTag(true) was set during configuration then manual tracker setup is required.
+       * @return {boolean} True if trackers were registered.
        */
-      registerTrackers(): boolean:
+      registerTrackers(): boolean;
 
       /**
        * @summary Returns the current URL that would be sent if a `trackPage` call was made.
