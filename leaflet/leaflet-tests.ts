@@ -390,3 +390,10 @@ class MyDivIcon extends L.DivIcon {
 		super();
 	}
 }
+
+let myControlClass = L.Control.extend({});
+let myControl = new myControlClass();
+
+L.Control.include({});
+L.Control.mergeOptions({});
+L.Control.addInitHook(() => {});

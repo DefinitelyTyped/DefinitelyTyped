@@ -962,6 +962,9 @@ declare namespace L {
         position?: ControlPosition;
     }
 
+    export class Control extends Class {
+    }
+
     export interface Control {
         getPosition(): ControlPosition;
         setPosition(position: ControlPosition): this;
