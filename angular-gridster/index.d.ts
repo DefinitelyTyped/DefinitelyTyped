@@ -7,9 +7,6 @@ import * as angular from "angular";
 
 export default "gridster";
 
-export type IGridsterConfig = angular.gridster.IGridsterConfig;
-export type IStandardGridsterItem = angular.gridster.IStandardGridsterItem;
-
 declare module "angular" {
 
     export namespace gridster {
