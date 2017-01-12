@@ -1,6 +1,7 @@
 // Type definitions for react-virtualized
 // Project: https://github.com/bvaughn/react-virtualized
 // Definitions by: Ian Ker-Seymer <https://github.com/ianks>
+// Definitions by: Andrew de Waal <https://github.com/andrewdewaal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="react" />
@@ -50,6 +51,8 @@ declare module "react-virtualized" {
     type GridProps = any;
     export class Grid extends React.Component<GridProps, {}> { }
 
+    type ListProps = any;
+    export class List extends React.Component<ListProps, {}> { }
 
     /*
      * Higher-Order Components
