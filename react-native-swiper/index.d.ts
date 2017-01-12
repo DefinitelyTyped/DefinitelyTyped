@@ -67,3 +67,4 @@ export interface SwiperStatic extends React.ComponentClass<SwiperProperties> {
 
 export var Swiper: SwiperStatic;
 export type Swiper = SwiperStatic;
+export default Swiper;
