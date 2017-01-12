@@ -1,4 +1,4 @@
-// Type definitions for bootstrap.timepicker
+// Type definitions for box2d
 // Project: http://code.google.com/p/box2dweb/
 // Definitions by: jbaldwin <https://github.com/jbaldwin/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -26,6 +26,8 @@
 * 3. This notice may not be removed or altered from any source distribution.
 **/
 
+export = Box2D;
+export as namespace Box2D;
 declare namespace Box2D.Common {
 
 	/**
