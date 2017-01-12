@@ -58,6 +58,7 @@ export type Location = {
     pathname: Pathname;
     search: Search;
     query: Query;
+    hash: Hash;
     state: LocationState;
     action: Action;
     key: LocationKey;
@@ -81,6 +82,7 @@ export namespace History {
     export type Query = Object;
     export type QueryString = string;
     export type Search = string;
+    export type Hash = string;
     export type TransitionHook = (location: Location, callback: (result: any) => void) => any
     export type Href = string;
 }
@@ -94,6 +96,7 @@ export type Pathname = History.Pathname;
 export type Query = History.Query;
 export type QueryString = History.QueryString;
 export type Search = History.Search;
+export type Hash = History.Hash;
 export type TransitionHook = History.TransitionHook;
 export type Href = History.Href;
 
