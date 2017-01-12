@@ -3,12 +3,8 @@
 // Definitions by: ZombieHunter <https://github.com/ZombieHunter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var doT: doT.doTStatic;
-
 declare namespace doT {
-	interface renderFunction {
-		(...args: {}[]): string;
-	}
+	type RenderFunction = (...args: Array<{}>) => string;
 
 	interface doTStatic {
 		/**
@@ -23,12 +19,12 @@ declare namespace doT {
 		/**
 	* Compile template
 	*/
-		template(tmpl: string, c?: TemplateSettings, def?: {}): renderFunction;
+		template(tmpl: string, c?: TemplateSettings, def?: {}): RenderFunction;
 
 		/**
 	* For express
 	*/
-		compile(tmpl: string, def?: {}): renderFunction;
+		compile(tmpl: string, def?: {}): RenderFunction;
 	}
 
 	interface TemplateSettings {
@@ -50,8 +46,4 @@ declare namespace doT {
 
 interface String {
 	encodeHTML(): string;
-}
-
-declare module "doT" {
-  export = doT;
 }
