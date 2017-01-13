@@ -616,9 +616,10 @@ export interface Collection {
     dropIndexes(): Promise<any>;
     dropIndexes(callback?: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#find
-    find(query?: Object): Cursor;
+    find(query?: Object): Cursor<any>;
+    find<T>(query?: Object): Cursor<T>;
     /** @deprecated */
-    find(query: Object, fields?: Object, skip?: number, limit?: number, timeout?: number): Cursor;
+    find(query: Object, fields?: Object, skip?: number, limit?: number, timeout?: number): Cursor<any>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOne
     /** @deprecated use find().limit(1).next(function(err, doc){}) */
     findOne(filter: Object, callback: MongoCallback<any>): void;
@@ -1200,7 +1201,7 @@ export interface Cursor<T extends any> extends Readable {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#stream
     stream(options?: { transform?: Function }): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#toArray
-    toArray(): Promise<any[]>;
+    toArray(): Promise<T[]>;
     toArray(callback: MongoCallback<any[]>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#unpipe
     unpipe(destination?: Writable): void;
