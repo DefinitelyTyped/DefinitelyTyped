@@ -405,21 +405,26 @@ declare module "graphlib" {
 
   export namespace json {
     /**
-     * Creates a JSONrepresentation of the graph that can be serialized to a string with
+     * Creates a JSON representation of the graph that can be serialized to a string with
      * JSON.stringify. The graph can later be restored using json.read.
+     * 
+     * @argument graph - target to create JSON representation of.
+     * @returns JSON serializable graph representation
      */
-    function write(g: Graph): Object;
+    function write(graph: Graph): Object;
 
     /**
-     * Takes JSON as input and returns the graph representation. For example, if we have
-     * serialized the graph in json-write to a string named str, we can restore it to a
-     * graph as follows:
+     * Takes JSON as input and returns the graph representation.
      *
-     *   var g2 = graphlib.json.read(JSON.parse(str));
-     *   g2.nodes();
-     *   // ['a', 'b']
-     *   g2.edges()
-     *   // [ { v: 'a', w: 'b' } ]
+     * @example
+     * var g2 = graphlib.json.read(JSON.parse(str));
+     * g2.nodes();
+     * // ['a', 'b']
+     * g2.edges()
+     * // [ { v: 'a', w: 'b' } ]
+     * 
+     * @argument json - JSON serializable graph representation
+     * @returns graph constructed acccording to specified representation
      */
     function read(json: Object): Graph;
   }
@@ -433,26 +438,30 @@ declare module "graphlib" {
     /**
      * Finds all connected components in a graph and returns an array of these components.
      * Each component is itself an array that contains the ids of nodes in the component.
-     * This function takes O(|V|) time.
+     * Complexity: O(|V|).
+     * 
+     * @argument graph - graph to find components in.
+     * @returns array of nodes list representing components
      */
-    function components(g: Graph): string[][];
+    function components(graph: Graph): string[][];
 
     /**
      * This function is an implementation of Dijkstra's algorithm which finds the shortest
-     * path from source to all other nodes in g. This function returns a map of
+     * path from source to all other nodes in graph. This function returns a map of
      * v -> { distance, predecessor }. The distance property holds the sum of the weights
      * from source to v along the shortest path or Number.POSITIVE_INFINITY if there is no path
      * from source. The predecessor property can be used to walk the individual elements of the
      * path from source to v in reverse order.
+     * Complexity: O((|E| + |V|) * log |V|).
      *
-     * It takes an optional weightFn(e) which returns the weight of the edge e. If no weightFn
+     * @argument graph - graph where to search pathes.
+     * @argument source - node to start pathes from.
+     * @argument weightFn - function which takes edge e and returns the weight of it. If no weightFn
      * is supplied then each edge is assumed to have a weight of 1. This function throws an
      * Error if any of the traversed edges have a negative edge weight.
-     *
-     * It takes an optional edgeFn(v) which returns the ids of all edges incident to the node v
-     * for the purposes of shortest path traversal. By default this function uses the g.outEdges.
-     *
-     * It takes O((|E| + |V|) * log |V|) time.
+     * @argument edgeFn - function which takes a node v and returns the ids of all edges incident to it
+     * for the purposes of shortest path traversal. By default this function uses the graph.outEdges.
+     * @returns shortest pathes map that starts from node source
      */
     function dijkstra(
       graph: Graph,
@@ -464,17 +473,16 @@ declare module "graphlib" {
     /**
      * This function finds the shortest path from each node to every other reachable node in
      * the graph. It is similar to alg.dijkstra, but instead of returning a single-source
-     * array, it returns a mapping of of source -> alg.dijksta(g, source, weightFn, edgeFn).
+     * array, it returns a mapping of source -> alg.dijksta(g, source, weightFn, edgeFn).
+     * Complexity: O(|V| * (|E| + |V|) * log |V|).
      *
-     * This function takes an optional weightFn(e) which returns the weight of the edge e.
-     * If no weightFn is supplied then each edge is assumed to have a weight of 1. This
-     * function throws an Error if any of the traversed edges have a negative edge weight.
-     *
-     * This function takes an optional edgeFn(u) which returns the ids of all edges incident
-     * to the node u for the purposes of shortest path traversal. By default this function
-     * uses g.outEdges.
-     *
-     * This function takes O(|V| * (|E| + |V|) * log |V|) time.
+     * @argument graph - graph where to search pathes.
+     * @argument weightFn - function which takes edge e and returns the weight of it. If no weightFn
+     * is supplied then each edge is assumed to have a weight of 1. This function throws an
+     * Error if any of the traversed edges have a negative edge weight.
+     * @argument edgeFn - function which takes a node v and returns the ids of all edges incident to it
+     * for the purposes of shortest path traversal. By default this function uses the graph.outEdges.
+     * @returns shortest pathes map.
      */
     function dijkstraAll(
       graph: Graph,
@@ -483,15 +491,27 @@ declare module "graphlib" {
     ): {[source: string]: {[node: string]: Path}};
 
     /**
-     * Given a Graph, g, this function returns all nodes that are part of a cycle. As there
+     * Given a Graph, graph, this function returns all nodes that are part of a cycle. As there
      * may be more than one cycle in a graph this function return an array of these cycles,
      * where each cycle is itself represented by an array of ids for each node involved in
-     * that cycle.
-     *
-     * alg.isAcyclic is more efficient if you only need to determine whether a graph has a
+     * that cycle. Method alg.isAcyclic is more efficient if you only need to determine whether a graph has a
      * cycle or not.
+     * Complexity: O(|V| + |E|).
+     * 
+     * @argument graph - graph where to search cycles.
+     * @returns cycles list.
      */
     function findCycles(graph: Graph): string[][];
+
+    /**
+     * Given a Graph, graph, this function returns true if the graph has no cycles and returns false if it
+     * does. This algorithm returns as soon as it detects the first cycle. You can use alg.findCycles
+     * to get the actual list of cycles in the graph.
+     * 
+     * @argument graph - graph to detect whether it acyclic ot not.
+     * @returns whether graph contain cycles or not.
+     */
+    function isAcyclic(graph: Graph): boolean;
 
     /**
      * This function is an implementation of the Floyd-Warshall algorithm, which finds the
@@ -502,15 +522,15 @@ declare module "graphlib" {
      * path of Number.POSITIVE_INFINITY if there is no path from source. The predecessor property
      * can be used to walk the individual elements of the path from source to target in reverse
      * order.
+     * Complexity: O(|V|^3).
      *
-     * This function takes an optional weightFn(e) which returns the weight of the edge e. If no
-     * weightFunc is supplied then each edge is assumed to have a weight of 1.
-     *
-     * This function takes an optional edgeFn(v) which returns the ids of all edges incident to the
-     * node v for the purposes of shortest path traversal. By default this function uses the
-     * outEdges function on the supplied graph.
-     *
-     * This algorithm takes O(|V|^3) time.
+     * @argument graph - graph where to search pathes.
+     * @argument weightFn - function which takes edge e and returns the weight of it. If no weightFn
+     * is supplied then each edge is assumed to have a weight of 1. This function throws an
+     * Error if any of the traversed edges have a negative edge weight.
+     * @argument edgeFn - function which takes a node v and returns the ids of all edges incident to it
+     * for the purposes of shortest path traversal. By default this function uses the graph.outEdges.
+     * @returns shortest pathes map.
      */
     function floydWarshall(
       graph: Graph,
@@ -519,21 +539,15 @@ declare module "graphlib" {
     ): {[source: string]: {[node: string]: Path}};
 
     /**
-     * Given a Graph, g, this function returns true if the graph has no cycles and returns false if it
-     * does. This algorithm returns as soon as it detects the first cycle. You can use alg.findCycles
-     * to get the actual list of cycles in the graph.
-     */
-    function isAcyclic(graph: Graph): boolean;
-
-    /**
      * Prim's algorithm takes a connected undirected graph and generates a minimum spanning tree. This
      * function returns the minimum spanning tree as an undirected graph. This algorithm is derived
      * from the description in "Introduction to Algorithms", Third Edition, Cormen, et al., Pg 634.
+     * Complexity: O(|E| * log |V|);
      *
-     * This function takes a weightFn(e) which returns the weight of the edge e. It throws an Error if
-     * the graph is not connected.
-     *
-     * This function takes O(|E| log |V|) time.
+     * @argument graph - graph to generate a minimum spanning tree of.
+     * @argument weightFn - function which takes edge e and returns the weight of it. It throws an Error if
+     *           the graph is not connected.
+     * @returns minimum spanning tree of graph.
      */
     function prim(graph: Graph, weightFn: (e: Edge) => number): Graph;
 
@@ -544,21 +558,44 @@ declare module "graphlib" {
      * can consist of a single node if that node cannot both reach and be reached by any other
      * specific node in the graph. Components of more than one node are guaranteed to have at least
      * one cycle.
+     * Complexity: O(|V| + |E|).
      *
-     * This function returns an array of components. Each component is itself an array that contains
-     * the ids of all nodes in the component.
+     * @argument graph - graph to find all strongly connected components of.
+     * @return  an array of components. Each component is itself an array that contains
+     *          the ids of all nodes in the component.
      */
     function tarjan(graph: Graph): string[][];
 
     /**
-     * An implementation of topological sorting.
-     *
-     * Given a Graph g this function returns an array of nodes such that for each edge u -> v, u
-     * appears before v in the array. If the graph has a cycle it is impossible to generate such a
-     * list and CycleException is thrown.
-     *
-     * Takes O(|V| + |E|) time.
+     * Given a Graph graph this function applies topological sorting to it.
+     * If the graph has a cycle it is impossible to generate such a list and CycleException is thrown.
+     * Complexity: O(|V| + |E|).
+     * 
+     * @argument graph - graph to apply topological sorting to.
+     * @returns an array of nodes such that for each edge u -> v, u appears before v in the array.
      */
     function topsort(graph: Graph): string[];
+
+    /**
+     * Performs pre-order depth first traversal on the input graph. If the graph is
+     * undirected then this algorithm will navigate using neighbors. If the graph
+     * is directed then this algorithm will navigate using successors.
+     * 
+     * @argument graph - depth first traversal target.
+     * @argument vs - nodes list to traverse.
+     * @returns the nodes in the order they were visited as a list of their names.
+     */
+    function preorder(graph: Graph, vs: string[]): string[]
+
+    /**
+     * Performs post-order depth first traversal on the input graph. If the graph is
+     * undirected then this algorithm will navigate using neighbors. If the graph
+     * is directed then this algorithm will navigate using successors.
+     * 
+     * @argument graph - depth first traversal target.
+     * @argument vs - nodes list to traverse.
+     * @returns the nodes in the order they were visited as a list of their names.
+     */
+    function postorder(graph: Graph, vs: string[]): string[]
   }
 }
