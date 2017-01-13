@@ -40,7 +40,7 @@ export interface LocationDescriptorObject {
 }
 
 export namespace History {
-    export type LocationDescriptor = LocationDescriptorObject;
+    export type LocationDescriptor = Path | LocationDescriptorObject;
     export type LocationKey = string;
     export type LocationListener = (location: Location, action: Action) => void;
     export type LocationState = any;
