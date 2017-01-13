@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@types/react-router": "^2.0.41",
     "redux": "^3.6.0"
   }
 }

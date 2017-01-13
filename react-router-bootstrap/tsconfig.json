@@ -6,17 +6,11 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "jsx": "preserve",
-        "baseUrl": ".",
+        "baseUrl": "../",
         "paths": {
-            "*": [
-                "node_modules/@types/*",
-                "node_modules/*",
-                "../*"
-            ]
+            "history": ["history/v2"]
         },
         "typeRoots": [
-            "node_modules/@types",
-            "node_modules",
             "../"
         ],
         "types": [],
