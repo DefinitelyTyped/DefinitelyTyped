@@ -4509,10 +4509,15 @@ export namespace StyleSheet {
 
     type Style = ViewStyle | TextStyle | ImageStyle
 
+    interface Styles {
+        [style: string]: Style
+    }
+
     /**
      * Creates a StyleSheet style reference from the given object.
      */
-    export function create<T>( styles: T ): T;
+    export function create(styles: Styles): Styles;
+    export function create<T> (styles: T): T;
 
     /**
      * Flattens an array of style objects, into one aggregated style object.
