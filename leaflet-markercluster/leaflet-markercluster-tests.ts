@@ -64,6 +64,7 @@ const childCount: number = markerClusterGroup.getChildCount();
 
 markers = markerClusterGroup.getAllChildMarkers();
 
+markerClusterGroup.zoomToShowLayer(marker);
 markerClusterGroup.zoomToShowLayer(marker, () => {});
 
 let hasLayer: boolean;

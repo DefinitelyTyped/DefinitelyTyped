@@ -137,7 +137,7 @@ declare namespace L {
       * Zooms to show the given marker (spiderfying if required),
       * calls the callback when the marker is visible on the map.
       */
-      zoomToShowLayer(layer: Layer, callback: () => void): void;
+      zoomToShowLayer(layer: Layer, callback?: () => void): void;
     }
 
     /*
