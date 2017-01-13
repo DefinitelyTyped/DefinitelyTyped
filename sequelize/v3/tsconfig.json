@@ -4,7 +4,7 @@
         "target": "es6",
         "noImplicitAny": true,
         "noImplicitThis": false,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"

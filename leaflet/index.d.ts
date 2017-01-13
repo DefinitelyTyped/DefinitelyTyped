@@ -6,6 +6,7 @@
 /// <reference types="geojson" />
 
 type NativeMouseEvent = MouseEvent;
+type NativeKeyboardEvent = KeyboardEvent;
 
 declare namespace L {
     export class Class {
@@ -962,7 +963,7 @@ declare namespace L {
         position?: ControlPosition;
     }
 
-    export interface Control {
+    export class Control extends Class {
         getPosition(): ControlPosition;
         setPosition(position: ControlPosition): this;
         getContainer(): HTMLElement;
@@ -1137,6 +1138,10 @@ declare namespace L {
         originalEvent: NativeMouseEvent;
     }
 
+    export interface KeyboardEvent extends Event {
+        originalEvent: NativeKeyboardEvent;
+    }
+
     export interface LocationEvent extends Event {
         latlng: LatLng;
         bounds: LatLngBounds;
@@ -1192,6 +1197,12 @@ declare namespace L {
 
     export interface DragEndEvent extends Event {
         distance: number;
+    }
+
+    export interface ZoomAnimEvent extends Event {
+        center: LatLng;
+        zoom: number;
+        noUpdate: boolean;
     }
 
     export namespace DomEvent {
