@@ -1,5 +1,5 @@
-/// <reference path="./findup-sync.d.ts" />
-/// <reference path="../node/node.d.ts" />
+
+/// <reference types="node" />
 
 import findup = require('findup-sync');
 
@@ -10,4 +10,8 @@ str = findup(['foo', 'bar']);
 
 str = findup('foo', {
 	debug: true
+});
+
+str = findup('foo', {
+	cwd: "c:\\"
 });

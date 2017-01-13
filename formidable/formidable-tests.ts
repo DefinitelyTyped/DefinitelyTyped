@@ -1,4 +1,3 @@
-/// <reference path="./formidable.d.ts" />
 
 import formidable = require('formidable');
 import http = require('http');
@@ -37,7 +36,7 @@ form.uploadDir = '/my/dir';
 form.keepExtensions = false;
 form.maxFieldsSize = 2 * 1024 * 1024;
 form.maxFields = 1000;
-// form.hash = false; TODO: Waiting on unions
+form.hash = false;
 form.hash = 'sha1';
 form.multiples = false;
 
@@ -48,7 +47,7 @@ if (form.bytesReceived > 100) {
 if (form.bytesExpected > 100) {
 }
 
-var req: http.ServerRequest;
+var req: http.IncomingMessage;
 
 form.parse(req);
 form.parse(req, (err: any, fields: formidable.Fields, files: formidable.Files) => {

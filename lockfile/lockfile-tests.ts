@@ -1,4 +1,3 @@
-/// <reference path="lockfile.d.ts" />
 
 import lockfile = require('lockfile');
 
@@ -8,6 +7,9 @@ var path: string;
 
 var opts: lockfile.Options;
 var callback: (err: Error) => {
+
+};
+var callback2: (err: Error, isLocked: boolean) => {
 
 };
 
@@ -25,7 +27,7 @@ lockfile.lockSync(path, opts);
 lockfile.unlock(path, callback);;
 lockfile.unlockSync(path);
 
-lockfile.check(path, opts, callback);
-lockfile.check(path, callback);
+lockfile.check(path, opts, callback2);
+lockfile.check(path, callback2);
 
 bool = lockfile.checkSync(path, opts);

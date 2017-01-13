@@ -1,4 +1,4 @@
-/// <reference path="microsoft-live-connect.d.ts" />
+
 
 /**
  * From: http://msdn.microsoft.com/en-us/library/live/hh550838.aspx
@@ -467,7 +467,7 @@ var calendarCollection: Microsoft.Live.IObjectCollection<Microsoft.Live.ICalenda
 
 var newCalendar: Microsoft.Live.INewCalendar = {
     "name": "Summer Events",
-    "summary": "Things we are doing this summer."
+    "description": "Things we are doing this summer."
 };
 
 var newCalendarSub: Microsoft.Live.INewCalendarSubscription = {

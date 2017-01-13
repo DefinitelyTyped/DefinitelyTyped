@@ -1,3 +1,4 @@
+
 import convert = require("convert-source-map");
 
 var json = convert

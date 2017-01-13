@@ -1,4 +1,7 @@
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="jquery.placeholder.d.ts"/>
+/// <reference types="jquery"/>
 
 $('input').placeholder();
+
+// specify custom class
+$('input').placeholder({ customClass: 'my-placeholder' });
+

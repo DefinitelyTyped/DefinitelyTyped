@@ -1,4 +1,4 @@
-/// <reference path="oboe.d.ts" />
+
 import oboe = require('oboe');
 
 oboe('friends.json')
@@ -30,5 +30,20 @@ oboe('/content')
 	.fail(function (errorReport) {
 		if (404 == errorReport.statusCode) {
 			console.error('no such content');
+		}
+	});
+
+oboe('friends.json')
+	.node('friend', function (parsedJson) {
+		console.log('friend parsed', parsedJson);
+	});
+
+oboe('friends.json')
+	.node({
+		'friend': function (parsedJson) {
+			console.log('friend parsed', parsedJson);
+		},
+		'!': function (parsedJson) {
+			console.log('root parsed', parsedJson);
 		}
 	});

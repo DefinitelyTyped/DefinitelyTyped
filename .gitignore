@@ -9,10 +9,10 @@
 *.cs
 *.sln
 *.csproj
-*.txt
 *.map
 *.swp
 .DS_Store
+npm-debug.log
 
 _Resharper.DefinitelyTyped
 bin
@@ -28,10 +28,15 @@ _infrastructure/tests/build
 .idea
 *.iml
 *.js.map
-
-#rx.js
-!rx.js
+!*.js/
+!scripts/new-package.js
+!scripts/not-needed.js
+!scripts/lint.js
 
 node_modules
 
 .sublimets
+.settings/launch.json
+
+.vscode
+yarn.lock

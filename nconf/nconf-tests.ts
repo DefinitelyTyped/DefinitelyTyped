@@ -1,4 +1,3 @@
-/// <reference path="nconf.d.ts" />
 
 import nconf = require('nconf');
 
@@ -13,6 +12,7 @@ var opts: nconf.IOptions;
 var fopts: nconf.IFileOptions;
 var store: nconf.IStore;
 var callback: (err: Error) => void;
+var fmt: nconf.IFormat;
 
 value = nconf.clear(str, callback);
 value = nconf.get (str, callback);
@@ -35,14 +35,20 @@ p = nconf.env();
 p = nconf.env(opts);
 
 p = nconf.file(str);
+p = nconf.file(str, str);
 p = nconf.file(str, fopts);
 p = nconf.file(fopts);
-
+p = nconf.file({
+    format: fmt,
+    file: 'jsonFile.custom'
+});
 p = nconf.use(str);
 p = nconf.use(str, opts);
 
 p = nconf.defaults();
 p = nconf.defaults(opts);
+
+p = nconf.defaults({foo: 'bar'});
 
 nconf.init();
 nconf.init(opts);
@@ -50,6 +56,7 @@ nconf.init(opts);
 p = nconf.overrides();
 p = nconf.overrides(opts);
 nconf.remove(str);
+bool = nconf.required(strArr);
 store = nconf.create(str, opts);
 
 str = nconf.key(value, value);
@@ -90,12 +97,33 @@ p = p.argv(opts);
 p = p.env();
 p = p.env(opts);
 p = p.file(str);
+p = p.file(str, str);
 p = p.file(str, fopts);
 p = p.file(fopts);
+p = p.file({
+    file: 'iniFile.ini',
+    format: nconf.formats.ini
+});
+p = p.file({
+    file: 'jsonFile.json',
+    format: nconf.formats.json
+});
+p = p.file({
+    file: 'jsonFile.custom',
+    format: fmt
+});
 p = p.use(str, opts);
 
 p = p.defaults(opts);
 p.init(opts);
 p = p.overrides(opts);
 p.remove(str);
+bool = p.required(strArr);
 store = p.create(str, opts);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+
+class CustomFmt implements nconf.IFormat  {
+    stringify(obj: any, replacer: any, spacing?: any): string { return ""; }
+    parse(str: string): any { return {} }
+};

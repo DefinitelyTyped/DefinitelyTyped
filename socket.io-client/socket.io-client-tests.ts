@@ -1,5 +1,3 @@
-/// <reference path="socket.io-client.d.ts"/>
-
 function testUsingWithNodeHTTPServer() {
     var socket = io('http://localhost');
     socket.on('news', function (data: any) {
@@ -54,4 +52,8 @@ function testUsingItJustAsACrossBrowserWebSocket() {
         socket.on('message', function (msg: any) {
         });
     });
+}
+
+function testSettingReconnectionAttempts() {
+    var manager = io.Manager({ reconnection: true, timeout: 0, reconnectionAttempts: 2, reconnectionDelay: 10 });
 }

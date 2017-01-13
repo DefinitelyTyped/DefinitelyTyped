@@ -1,7 +1,7 @@
-/// <reference path="../knockout/knockout.d.ts" />
-/// <reference path="ko-grid.d.ts" />
+/// <reference types="knockout" />
 
-module KoGridTests
+
+namespace KoGridTests
 {
     export interface IGridItem {
         name: string;

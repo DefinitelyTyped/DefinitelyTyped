@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="selectize.d.ts" />
+/// <reference types="jquery" />
+
 
 var $input = $(".test-input").selectize();
 var testApi = $input[0].selectize;
@@ -212,7 +212,7 @@ interface Link {
 }
 
 $('#select-links').selectize({
-    theme: 'links',
+    // NOTE ( https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590 ) theme: 'links',
     maxItems: null,
     valueField: 'id',
     searchField: 'title',
@@ -418,4 +418,3 @@ $("#select-car").selectize({
     plugins: ['optgroup_columns'],
     openOnFocus: false
 });
-

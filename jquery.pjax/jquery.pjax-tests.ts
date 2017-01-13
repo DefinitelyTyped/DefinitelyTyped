@@ -1,5 +1,5 @@
-/// <reference path="jquery.pjax.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
+
+/// <reference types="jquery" />
 
 function test_fn_pjax() {
     $(document).pjax("a");
@@ -47,14 +47,26 @@ function test_defauluts() {
         timeout: 650,
         push: true,
         replace: false,
+        maxCacheLength: 20,
+        version: $.noop,
+        scrollTo: 0,
         type: 'GET',
         dataType: 'html',
-        scrollTo: 0,
-        maxCacheLength: 20,
-        version: $.noop
+        container: "#pjax-container",
+        url: "https://jquery.com/",
+        target: <EventTarget>undefined,
+        fragment: "#pjax-response",
     };
 }
 
 function test_support() {
     console.log($.support.pjax);
+}
+
+function test_events() {
+	$(document).on('pjax:popstate', function(e: PjaxPopStateEventObject) {
+		if (e.direction === 'back') {
+			console.log('pjax:popstate is OK');
+		}
+	});
 }

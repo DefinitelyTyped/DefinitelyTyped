@@ -1,6 +1,5 @@
-/// <reference path="mime.d.ts" />
 
-import mime = require('mime');
+import * as mime from "mime";
 
 var str: string;
 var obj: Object;

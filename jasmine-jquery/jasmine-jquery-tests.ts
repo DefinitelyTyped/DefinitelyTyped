@@ -1,6 +1,6 @@
-/// <reference path="../jasmine/jasmine.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="jasmine-jquery.d.ts" />
+/// <reference types="jasmine" />
+/// <reference types="jquery" />
+
 
 describe("Jasmine jQuery extension", () => {
     it("Adds jQuery matchers", () => {
@@ -39,6 +39,10 @@ describe("Jasmine jQuery extension", () => {
         expect($('<input type="text" />').focus()).toBeFocused();
         //expect($form).toHandle("submit")
         //expect($form).toHandleWith("submit", yourSubmitCallback)
+        expect($('<div></div>')).toBeInDOM();
+        expect($('<div><span class="some-class"></span></div>')).toContainElement('span.some-class');
+        expect($('<div><ul></ul><h1>header</h1></div>')).toContainHtml('<ul></ul>');
+        expect($('<div><ul></ul><h1>header</h1></div>')).toContainText('header')
     });
 
     it("Handles HTML Fixtures", () => {
@@ -96,7 +100,6 @@ describe("Jasmine jQuery extension", () => {
 
         var data = getJSONFixture('myjsonfixture.json');
         var fixtures = loadJSONFixtures('myjsonfixture.json');
-        var data = fixtures['myjsonfixture.json'];
     });
 
     describe("Event Spies", () => {

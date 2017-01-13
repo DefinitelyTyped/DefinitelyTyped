@@ -1,7 +1,7 @@
 // Tests for knockout.projections.d.ts
 
-/// <reference path="../knockout/knockout.d.ts" />
-/// <reference path="knockout.projections.d.ts" />
+/// <reference types="knockout" />
+
 
 // Test map
 var sourceItems = ko.observableArray([1, 2, 3, 4, 5]);
@@ -26,3 +26,39 @@ sourceItems.push(9);
 
 sourceItems.push(10);
 // evenSquares now contains [36, 16, 4, 100]
+
+// Testing mapping options
+
+interface IComplexItem {
+    value: string;
+    dispose(): void;
+}
+
+var complexItems = sourceItems.map({
+    mapping: x => {
+        var item: IComplexItem = {
+            value: (x * x).toString(),
+            dispose: () => { }
+        };
+
+        return item;
+    },
+    disposeItem: (item: IComplexItem) => item.dispose()
+});
+
+var complexItems2 = sourceItems.map({
+    mappingWithDisposeCallback: x => {
+        return {
+            mappedValue: (x * x).toString(),
+            dispose: () => { }
+        };
+    }
+});
+
+// Test disposal
+
+evenSquares.dispose();
+
+complexItems.dispose();
+
+complexItems2.dispose();

@@ -1,14 +1,11 @@
-﻿/**
- * Test suite created by Maxime LUCE <https://github.com/SomaticIT>
- * 
+/**
  * Created by using code samples from https://github.com/sendgrid/sendgrid-nodejs#usage
  */
 
-///<reference path="../node/node.d.ts" />
-///<reference path="sendgrid.d.ts" />
+/// <reference types="node" />
 
-import sg = require("sendgrid");
-var sendgrid = sg("api_user", "api_key");
+import sg = require('sendgrid');
+var sendgrid  = sg('YOUR_SENDGRID_API_KEY');
 
 /*
  * Simple Usage
@@ -19,11 +16,11 @@ var payload = {
     subject: 'Saying Hi',
     text: 'This is my first email through SendGrid'
 };
+
 sendgrid.send(payload, function (err, json) {
     if (err) {
         console.error(err);
     }
-
     console.log(json);
 });
 
@@ -63,6 +60,30 @@ email.addTo('foo@bar.com');
 email.addTo('another@another.com');
 sendgrid.send(email, function (err, json) { });
 
+/**
+ * addSmtpapiTo
+ * https://github.com/sendgrid/sendgrid-nodejs#addsmtpapito
+ */
+var email = new sendgrid.Email()
+email.addSmtpapiTo('test@test.com');
+sendgrid.send(email, function(err, json) { });
+
+/**
+ * setTos
+ * https://github.com/sendgrid/sendgrid-nodejs#settos
+ */
+var email     = new sendgrid.Email();
+email.setTos(['foo@bar.com', 'another@another.com']);
+sendgrid.send(email, function(err, json) { });
+
+/**
+ * setSmtpapiTos
+ * https://github.com/sendgrid/sendgrid-nodejs#setsmtpapitos
+ */
+var email = new sendgrid.Email();
+email.setSmtpapiTos(["test@test.com","test2@test.com"]);
+sendgrid.send(email, function(err, json) { });
+
 
 /**
  * setFrom
@@ -71,6 +92,48 @@ sendgrid.send(email, function (err, json) { });
 var email = new sendgrid.Email();
 email.setFrom('foo@bar.com');
 sendgrid.send(email, function (err, json) { });
+
+/**
+ * setFromName
+ * https://github.com/sendgrid/sendgrid-nodejs#setfromname
+ */
+var email     = new sendgrid.Email();
+email.setFromName('Bob Bar');
+sendgrid.send(email, function(err, json) { });
+
+/**
+ * addCc
+ * https://github.com/sendgrid/sendgrid-nodejs#addcc
+ */
+var email     = new sendgrid.Email();
+email.addCc('foo@bar.com');
+email.addCc('another@another.com');
+sendgrid.send(email, function(err, json) { });
+
+/**
+ * setCcs
+ * https://github.com/sendgrid/sendgrid-nodejs#setccs
+ */
+var email     = new sendgrid.Email();
+email.setCcs(['foo@bar.com', 'another@another.com']);
+sendgrid.send(email, function(err, json) { });
+
+/**
+ * addBcc
+ * https://github.com/sendgrid/sendgrid-nodejs#addbcc
+ */
+var email     = new sendgrid.Email();
+email.addBcc('foo@bar.com');
+email.addBcc('another@another.com');
+sendgrid.send(email, function(err, json) { });
+
+/**
+ * setBccs
+ * https://github.com/sendgrid/sendgrid-nodejs#setbccs
+ */
+var email     = new sendgrid.Email();
+email.setBccs(['foo@bar.com', 'another@another.com']);
+sendgrid.send(email, function(err, json) { });
 
 /**
  * setSubject
@@ -95,6 +158,39 @@ sendgrid.send(email, function (err, json) { });
 var email = new sendgrid.Email();
 email.setHtml('<h1>Some html</h1>');
 sendgrid.send(email, function (err, json) { });
+
+/**
+ * setDate
+ * https://github.com/sendgrid/sendgrid-nodejs#setdate
+ */
+var email = new sendgrid.Email();
+email.setDate('Wed, 17 Dec 2014 19:21:16 +0000');
+sendgrid.send(email, function(err, json) { });
+
+/**
+ * setSendAt
+ * https://github.com/sendgrid/sendgrid-nodejs#setsendat
+ */
+var email = new sendgrid.Email();
+email.setSendAt(1409348513);
+sendgrid.send(email, function(err, json) { });
+
+/**
+ * setSendEachAt
+ * https://github.com/sendgrid/sendgrid-nodejs#setsendeachat
+ */
+var email     = new sendgrid.Email();
+email.setSendEachAt([1409348513, 1409348514]);
+sendgrid.send(email, function(err, json) { });
+
+/**
+ * addSendEachAt
+ * https://github.com/sendgrid/sendgrid-nodejs#addsendeachat
+ */
+var email     = new sendgrid.Email();
+email.addSendEachAt(1409348513);
+email.addSendEachAt(1409348514);
+sendgrid.send(email, function(err, json) { });
 
 /**
  * addHeader
@@ -199,6 +295,13 @@ email.setFilters({
         }
     }
 });
+
+/**
+ * setASMGroupID
+ * https://github.com/sendgrid/sendgrid-nodejs#setasmgroupid
+ */
+var email     = new sendgrid.Email();
+email.setASMGroupID(123);
 
 /**
  * addFile

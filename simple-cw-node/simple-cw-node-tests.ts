@@ -1,6 +1,4 @@
-/// <reference path="../node/node.d.ts" />
-
-/// <reference path="./simple-cw-node.d.ts" />
+/// <reference types="node" />
 
 import CW = require('simple-cw-node');
 var client = CW();
@@ -10,7 +8,7 @@ var Deferred:any = client.Deferred;
 client.init({ token: 'YOUR_TOKEN' });
 
 // get your info.
-client.get('me', (err, res) => {
+client.get('me', function (err, res) {
 	console.log(arguments);
 });
 

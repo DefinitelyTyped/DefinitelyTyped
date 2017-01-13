@@ -1,5 +1,5 @@
-/// <reference path="../../yui/yui.d.ts" />
-/// <reference path="../cryptojs.d.ts" />
+/// <reference types="yui" />
+
 
 YUI.add('algo-aes-test', function (Y) {
     var C = CryptoJS;
@@ -50,7 +50,7 @@ YUI.add('algo-aes-test', function (Y) {
             var expectedKey = key.toString();
             var expectedIv = iv.toString();
 
-            C.AES.encrypt(message, key, { iv: iv });
+            C.AES.encrypt(message, key, { iv });
 
             Y.Assert.areEqual(expectedMessage, message.toString());
             Y.Assert.areEqual(expectedKey, key.toString());

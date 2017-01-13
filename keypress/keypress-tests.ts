@@ -1,6 +1,4 @@
-/// <reference path="keypress.d.ts"/>
-
-module KeypressComboTests {
+namespace KeypressComboTests {
     var listener = new window.keypress.Listener();
 
     var copyCombo = <Keypress.Combo>{
@@ -44,7 +42,7 @@ module KeypressComboTests {
     listener.reset();
 }
 
-module KeypressBindingTests {
+namespace KeypressBindingTests {
     var element = document.createElement('div');
     var defaults = <Keypress.ListenerDefaults>{
         prevent_default: true,

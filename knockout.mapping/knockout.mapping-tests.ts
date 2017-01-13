@@ -1,5 +1,5 @@
-/// <reference path="knockout.mapping.d.ts" />
-/// <reference path="../knockout/knockout.d.ts" />
+
+/// <reference types="knockout" />
 
 var inputJSON = '{ name: "foo" }';
 var inputData = { name: 'foo' };
@@ -15,6 +15,7 @@ var createOptions = {
 var updateOptions = {
     data: inputData,
     parent: parent,
+    target: inputModel,
     observable: ko.observable(7)
 }
 
@@ -48,6 +49,18 @@ mapping.fromJS(inputData, inputOptions, inputModel);
 mapping.fromJSON(inputJSON);
 mapping.fromJSON(inputJSON, targetOptions);
 mapping.fromJSON(inputJSON, inputOptions, inputModel);
+
+mapping.fromJS(inputJSON, {
+    fieldNeedingCustomOptions: {
+        key: (data: any) => data.id,
+        create: (options: KnockoutMappingCreateOptions) => {
+            return mapping.fromJS(options.data);
+        },
+        update: (options: KnockoutMappingUpdateOptions) => {
+            return mapping.fromJS(options.data, options.target);
+        }
+    }
+});
 
 // toJS function
 mapping.toJS(inputModel);

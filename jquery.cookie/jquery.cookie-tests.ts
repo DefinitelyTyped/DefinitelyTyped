@@ -1,5 +1,4 @@
-///<reference path="../jquery/jquery.d.ts" />
-///<reference path="jquery.cookie.d.ts" />
+/// <reference types="jquery" />
 
 class TestObject {
     text: string;
@@ -35,3 +34,5 @@ $.cookie("test", testObject, cookieOptions);
 var result = <TestObject>$.cookie("test");
 
 console.log(result.text);
+
+$.cookie.defaults = cookieOptions;

@@ -1,4 +1,4 @@
-/// <reference path="./rest.d.ts" />
+
 
 import when = require('when');
 import rest = require('rest');
@@ -13,6 +13,7 @@ import oAuth = require('rest/interceptor/oAuth');
 import csrf = require('rest/interceptor/csrf');
 import errorCode = require('rest/interceptor/errorCode');
 import retry = require('rest/interceptor/retry');
+import template = require('rest/interceptor/template');
 import timeout = require('rest/interceptor/timeout');
 import jsonp = require('rest/interceptor/jsonp');
 import xdomain = require('rest/interceptor/ie/xdomain');
@@ -31,7 +32,7 @@ client({ path: '/data.json' }).then(function(response) {
     console.log('response: ', response);
 });
 
-client = rest.wrap(mime, { mime: 'application/json' }).wrap(errorCode, { code: 500 });
+client = rest.wrap<mime.Config>(mime, { mime: 'application/json' }).wrap(errorCode, { code: 500 });
 client({ path: '/data.json' }).then(
     function(response) {
         console.log('response: ', response);
@@ -87,6 +88,35 @@ var defaulted = interceptor({
     },
 });
 
+interface KnownConfig {
+    prop: string;
+}
+var knownConfig = interceptor({
+    success: (response: rest.Response, config: KnownConfig) => {
+        console.log(config);
+        return response;
+    },
+});
+
+var transformedConfig = interceptor({
+    init: (config: KnownConfig) => {
+        return config.prop;
+    },
+    success: (response: rest.Response, config: string) => {
+        console.log(config);
+        return response;
+    },
+});
+
+var promiseOrResponse = interceptor({
+    success: (response: rest.Response) => {
+        return response;
+    },
+    error: (response: rest.Response) => {
+        return when(response);
+    },
+});
+
 client = rest
     .wrap(defaultRequest)
     .wrap(hateoas)
@@ -98,9 +128,26 @@ client = rest
     .wrap(csrf)
     .wrap(errorCode)
     .wrap(retry)
+    .wrap(template, { template: 'auth={token}', params: { token: 'hunter2' } })
     .wrap(timeout)
     .wrap(jsonp)
     .wrap(xdomain)
     .wrap(xhr)
     .wrap(noop)
-    .wrap(fail);
+    .wrap(fail)
+    .wrap<KnownConfig>(knownConfig, { prop: 'value' })
+    .wrap(transformedConfig, { prop: 'value' });
+
+import xhrClient = require('rest/client/xhr');
+import nodeClient = require('rest/client/node');
+import jsonpClient = require('rest/client/jsonp');
+import xdrClient = require('rest/client/xdr');
+
+rest.setDefaultClient(xhrClient);
+rest.setDefaultClient(nodeClient);
+rest.setDefaultClient(jsonpClient);
+rest.setDefaultClient(xdrClient);
+
+var defaultClient: rest.Client = rest.getDefaultClient();
+
+rest.resetDefaultClient();

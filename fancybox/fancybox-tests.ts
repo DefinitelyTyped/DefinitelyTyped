@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="fancybox.d.ts" />
+/// <reference types="jquery" />
+
 
 $('.fancybox').fancybox();
 $('.fancybox').fancybox({
@@ -116,7 +116,7 @@ $(".fancybox").fancybox({
     }
 });
 $(".fancybox").fancybox({
-    beforeLoad: function () {
+    beforeLoad: () => {
         this.title = 'Image ' + (this.index + 1) + ' of ' + this.group.length + (this.title ? ' - ' + this.title : '');
     }
 });

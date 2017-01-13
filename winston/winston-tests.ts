@@ -1,4 +1,3 @@
-/// <reference path="winston.d.ts" />
 
 import winston = require('winston');
 
@@ -7,6 +6,8 @@ var bool: boolean;
 var num: number;
 var metadata: any;
 var obj: any = {};
+
+winston.level = 'debug';
 
 var queryOptions: winston.QueryOptions;
 var transportOptions: winston.TransportOptions;
@@ -74,14 +75,25 @@ winston.exitOnError = bool;
 
 winston.log(str, str);
 winston.log(str, str, metadata);
+winston.log(str, str, metadata, metadata, metadata);
+winston.silly(str, str);
+winston.silly(str, str, metadata);
+winston.silly(str, str, metadata, metadata, metadata);
 winston.debug(str);
 winston.debug(str, metadata);
+winston.debug(str, metadata, metadata, metadata);
+winston.verbose(str, str);
+winston.verbose(str, str, metadata);
+winston.verbose(str, str, metadata, metadata, metadata);
 winston.info(str);
 winston.info(str, metadata);
+winston.info(str, metadata, metadata, metadata);
 winston.warn(str);
 winston.warn(str, metadata);
+winston.warn(str, metadata, metadata, metadata);
 winston.error(str);
 winston.error(str, metadata);
+winston.error(str, metadata, metadata, metadata);
 
 winston.query(queryOptions, (err: Error, results: any): void => {
 
@@ -92,6 +104,7 @@ winston.query((err: Error, results: any): void => {
 
 logger = winston.add(transport, transportOptions);
 logger = winston.remove(transport);
+logger = winston.add(transport, {filename: 'path/to/file.log'});
 
 winston.clear();
 logger = winston.profile(str, str, metadata, (err: Error, level: string, msg: string, meta: any):void => {
@@ -116,14 +129,19 @@ readableStream.on('log', function (log:any):void {
 logger = logger.extend(obj);
 logger.log(str, str);
 logger.log(str, str, metadata);
+logger.log(str, str, metadata, metadata, metadata);
 logger.debug(str);
 logger.debug(str, metadata);
+logger.debug(str, metadata, metadata, metadata);
 logger.info(str);
 logger.info(str, metadata);
+logger.info(str, metadata, metadata, metadata);
 logger.warn(str);
 logger.warn(str, metadata);
+logger.warn(str, metadata, metadata, metadata);
 logger.error(str);
 logger.error(str, metadata);
+logger.error(str, metadata, metadata, metadata);
 
 logger.query(queryOptions, (err: Error, results: any): void => {
 
@@ -138,7 +156,8 @@ logger.handleExceptions(transport);
 logger.unhandleExceptions(transport);
 logger = logger.add(transport, transportOptions, bool);
 logger = logger.add(transport);
-logger.addRewriter(transport)[0];
+logger = logger.add(transport, {filename: 'path/to/file.log'});
+
 logger.clear();
 logger = logger.remove(transport);
 profiler = logger.startTimer();
@@ -153,7 +172,12 @@ logger = profiler.done(str);
 logger = profiler.logger;
 profiler.start = new Date();
 
+let testRewriter : winston.MetadataRewriter;
+testRewriter = function(level: string, msg: string, meta: any) {
+    return meta;
+};
 
+logger.rewriters.push(testRewriter);
 /**
  * New Logger instances with transports tests:
  */
@@ -163,25 +187,46 @@ var logger: winston.LoggerInstance = new (winston.Logger)({
     new (winston.transports.Console)({
       level: str,
       silent: bool,
+      json: bool,
       colorize: bool,
       timestamp: bool,
+      showLevel: bool,
+      label: str,
+      logstash: bool,
+      debugStdout: bool,
+      depth: num,
     }),
     new (winston.transports.DailyRotateFile)({
       level: str,
       silent: bool,
+      json: bool,
       colorize: bool,
       maxsize: num,
       maxFiles: num,
+      maxRetries: num,
       prettyPrint: bool,
       timestamp: bool,
       filename: str,
       dirname: str,
-      datePattern: str
+      datePattern: str,
+      eol: str,
+      stream: writeableStream,
     }),
     new (winston.transports.File)({
       level: str,
       silent: bool,
+      json: bool,
+      colorize: bool,
+      prettyPrint: bool,
       timestamp: bool,
+      showLevel: bool,
+      logstash: bool,
+      rotationFormat: bool,
+      depth: num,
+      zippedArchive: bool,
+      eol: str,
+      tailable: bool,
+      maxRetries: num,
       filename: str,
       maxsize: num,
       maxFiles: num,
@@ -193,7 +238,7 @@ var logger: winston.LoggerInstance = new (winston.Logger)({
       port: num,
       path: str,
       auth: { username: str, password: str },
-      ssl: {},
+      ssl: bool,
     }),
     new (winston.transports.Loggly)({
       level: str,
@@ -204,6 +249,10 @@ var logger: winston.LoggerInstance = new (winston.Logger)({
     }),
     new (winston.transports.Memory)({
       level: str,
+      json: bool,
+      colorize: bool,
+      showLevel: bool,
+      depth: num,
       timestamp: bool,
       label: str,
     }),
@@ -215,7 +264,32 @@ var logger: winston.LoggerInstance = new (winston.Logger)({
       method: str,
       path: str,
       auth: { username: str, password: str },
-      ssl: {},
+      ssl: {ca: {}},
     }),
   ]
 });
+
+/* Reconfigure logger */
+logger.configure({ level: 'silly' });
+
+winston.default.warn("Don't export reserved words in JavaScript!");
+
+winston.default.setLevels(winston.config.syslog.levels);
+winston.addColors(winston.config.syslog.colors);
+winston.default.emerg('syslog!');
+
+// module augment for custom level log
+// https://github.com/winstonjs/winston#using-custom-logging-levels
+// https://github.com/Microsoft/TypeScript/issues/7545
+declare module 'winston' {
+  interface LoggerInstance {
+    yay: winston.LeveledLogMethod;
+  }
+}
+const customLevelLogger = new winston.Logger({
+  levels: {yay: 0, haha: 1, hoho: 2},
+  transports: [
+    new (winston.transports.Console)()
+  ]
+});
+customLevelLogger.yay('yay!');

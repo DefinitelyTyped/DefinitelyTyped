@@ -1,5 +1,5 @@
-/// <reference path="../../yui/yui.d.ts" />
-/// <reference path="../cryptojs.d.ts" />
+/// <reference types="yui" />
+
 
 YUI.add('algo-tripledes-test', function (Y) {
     var C = CryptoJS;
@@ -58,7 +58,7 @@ YUI.add('algo-tripledes-test', function (Y) {
             var expectedKey = key.toString();
             var expectedIv = iv.toString();
 
-            C.TripleDES.encrypt(message, key, { iv: iv });
+            C.TripleDES.encrypt(message, key, { iv });
 
             Y.Assert.areEqual(expectedMessage, message.toString());
             Y.Assert.areEqual(expectedKey, key.toString());
