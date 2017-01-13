@@ -2,6 +2,7 @@
 // Project: http://lodash.com/
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /**
 ### 4.0.0 Changelog (https://github.com/lodash/lodash/wiki/Changelog)
@@ -242,6 +243,10 @@ export as namespace _;
 declare var _: _.LoDashStatic;
 
 declare namespace _ {
+    type PartialObject<T> = {
+      [P in keyof T]?: T[P];
+    }
+
     type Many<T> = T | T[];
 
     interface LoDashStatic {
@@ -6558,9 +6563,9 @@ declare namespace _ {
         /**
          * @see _.every
          */
-        every<TObject extends {}, T>(
+        every<T>(
             collection: List<T>|Dictionary<T>|NumericDictionary<T>,
-            predicate?: TObject
+            predicate?: PartialObject<T>
         ): boolean;
     }
 
@@ -6582,8 +6587,8 @@ declare namespace _ {
         /**
          * @see _.every
          */
-        every<TObject extends {}>(
-            predicate?: TObject
+        every(
+            predicate?: PartialObject<T>
         ): boolean;
     }
 
@@ -6605,8 +6610,8 @@ declare namespace _ {
         /**
          * @see _.every
          */
-        every<TObject extends {}>(
-            predicate?: TObject
+        every<TResult>(
+            predicate?: PartialObject<TResult>
         ): boolean;
     }
 
@@ -6628,8 +6633,8 @@ declare namespace _ {
         /**
          * @see _.every
          */
-        every<TObject extends {}>(
-            predicate?: TObject
+        every(
+            predicate?: PartialObject<T>
         ): LoDashExplicitWrapper<boolean>;
     }
 
@@ -6651,8 +6656,8 @@ declare namespace _ {
         /**
          * @see _.every
          */
-        every<TObject extends {}>(
-            predicate?: TObject
+        every<TResult>(
+            predicate?: PartialObject<TResult>
         ): LoDashExplicitWrapper<boolean>;
     }
 
@@ -6891,7 +6896,7 @@ declare namespace _ {
          * @see _.find
          */
         find<TObject extends {}>(
-            predicate?: TObject,
+            predicate?: PartialObject<T>,
             fromIndex?: number
         ): T|undefined;
     }
@@ -6916,8 +6921,8 @@ declare namespace _ {
         /**
          * @see _.find
          */
-        find<TObject extends {}, TResult>(
-            predicate?: TObject,
+        find<TResult>(
+            predicate?: PartialObject<TResult>,
             fromIndex?: number
         ): TResult|undefined;
     }
@@ -9204,9 +9209,9 @@ declare namespace _ {
         /**
          * @see _.some
          */
-        some<TObject extends {}, T>(
+        some<T>(
             collection: List<T>|Dictionary<T>|NumericDictionary<T>,
-            predicate?: TObject
+            predicate?: PartialObject<T>
         ): boolean;
 
         /**
@@ -9214,15 +9219,15 @@ declare namespace _ {
          */
         some<T>(
             collection: List<T>|Dictionary<T>|NumericDictionary<T>,
-            predicate?: Object
+            predicate?: PartialObject<T>
         ): boolean;
 
         /**
          * @see _.some
          */
-        some<TObject extends {}>(
+        some<T>(
             collection: Object,
-            predicate?: TObject
+            predicate?: PartialObject<T>
         ): boolean;
     }
 
@@ -9244,8 +9249,8 @@ declare namespace _ {
         /**
          * @see _.some
          */
-        some<TObject extends {}>(
-            predicate?: TObject
+        some(
+            predicate?: PartialObject<T>
         ): boolean;
     }
 
@@ -9267,8 +9272,8 @@ declare namespace _ {
         /**
          * @see _.some
          */
-        some<TObject extends {}>(
-            predicate?: TObject
+        some<TResult>(
+            predicate?: PartialObject<TResult>
         ): boolean;
     }
 
@@ -9290,8 +9295,8 @@ declare namespace _ {
         /**
          * @see _.some
          */
-        some<TObject extends {}>(
-            predicate?: TObject
+        some(
+            predicate?: PartialObject<T>
         ): LoDashExplicitWrapper<boolean>;
     }
 
@@ -9313,8 +9318,8 @@ declare namespace _ {
         /**
          * @see _.some
          */
-        some<TObject extends {}>(
-            predicate?: TObject
+        some<TResult>(
+            predicate?: PartialObject<TResult>
         ): LoDashExplicitWrapper<boolean>;
     }
 
