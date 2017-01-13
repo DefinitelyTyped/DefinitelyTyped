@@ -1,4 +1,4 @@
-/// <reference path="./react-input-mask.d.ts"/>
+/// <reference path="./index.d.ts"/>
 /// <reference path="../react/react.d.ts"/>
 /// <reference path="../react/react-dom.d.ts"/>
 
