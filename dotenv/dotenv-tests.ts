@@ -18,3 +18,9 @@ dotenv.config({
 dotenv.config({
     encoding: 'utf8'
 });
+
+const parsed = dotenv.parse("ENVIRONMENT=production\nDEBUG=no\n");
+const debug: string = parsed['DEBUG'];
+
+const parsedFromBuffer = dotenv.parse(new Buffer("JUSTICE=league\n"));
+const justice: string = parsedFromBuffer['JUSTICE'];

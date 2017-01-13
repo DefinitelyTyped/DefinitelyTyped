@@ -3,6 +3,13 @@
 // Definitions by: Jussi Kinnula <https://github.com/jussikinnula/>, Borek Bernard <https://github.com/borekb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
+/**
+ * Parses a string or buffer in the .env file format into an object.
+ */
+export function parse(src: string | Buffer): {[name: string]: string};
+
 /**
  * Loads `.env` into `process.env`.
  *
