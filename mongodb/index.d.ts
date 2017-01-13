@@ -576,8 +576,10 @@ export interface Collection {
     // Get current index hint for collection.
     hint: any;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#aggregate
-    aggregate(pipeline: Object[], callback: MongoCallback<any>): AggregationCursor;
-    aggregate(pipeline: Object[], options?: CollectionAggregationOptions, callback?: MongoCallback<any>): AggregationCursor;
+    aggregate(pipeline: Object[], callback: MongoCallback<any>): AggregationCursor<any>;
+    aggregate(pipeline: Object[], options?: CollectionAggregationOptions, callback?: MongoCallback<any>): AggregationCursor<any>;
+    aggregate<T>(pipeline: Object[], callback: MongoCallback<any>): AggregationCursor<T>;
+    aggregate<T>(pipeline: Object[], options?: CollectionAggregationOptions, callback?: MongoCallback<any>): AggregationCursor<T>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#bulkWrite
     bulkWrite(operations: Object[], callback: MongoCallback<BulkWriteOpResultObject>): void;
     bulkWrite(operations: Object[], options?: CollectionBluckWriteOptions): Promise<BulkWriteOpResultObject>;
@@ -1232,61 +1234,61 @@ export interface EndCallback {
 export type AggregationCursorResult = any | void;
 // TODO: change to generic version
 //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html
-export interface AggregationCursor extends Readable {
-    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#batchSize
-    batchSize(value: number): AggregationCursor;
-    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#clone
-    clone(): AggregationCursor;
-    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#close
+export interface AggregationCursor<T extends any> extends Readable {
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#batchSize
+    batchSize(value: number): AggregationCursor<any>;
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#clone
+    clone(): AggregationCursor<any>;
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#close
     close(): Promise<AggregationCursorResult>;
     close(callback: MongoCallback<AggregationCursorResult>): void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#each
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#each
     each(callback: MongoCallback<AggregationCursorResult>): void;
-    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#explain
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#explain
     explain(): Promise<AggregationCursorResult>;
     explain(callback: MongoCallback<AggregationCursorResult>): void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#geoNear
-    geoNear(document: Object): AggregationCursor;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#group
-    group(document: Object): AggregationCursor;
-    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#isClosed
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#geoNear
+    geoNear(document: Object): AggregationCursor<any>;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#group
+    group(document: Object): AggregationCursor<any>;
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#isClosed
     isClosed(): boolean;
-    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#limit
-    limit(value: number): AggregationCursor;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#match
-    match(document: Object): AggregationCursor;
-    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#maxTimeMS
-    maxTimeMS(value: number): AggregationCursor;
-    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#next
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#limit
+    limit(value: number): AggregationCursor<any>;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#match
+    match(document: Object): AggregationCursor<any>;
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#maxTimeMS
+    maxTimeMS(value: number): AggregationCursor<any>;
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#next
     next(): Promise<AggregationCursorResult>;
     next(callback: MongoCallback<AggregationCursorResult>): void;
-    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#out
-    out(destination: string): AggregationCursor;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#pipe
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#out
+    out(destination: string): AggregationCursor<any>;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#pipe
     pipe(destination: Writable, options?: Object): void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#project
-    project(document: Object): AggregationCursor;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#read
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#project
+    project(document: Object): AggregationCursor<any>;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#read
     read(size: number): string | Buffer | void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#redact
-    redact(document: Object): AggregationCursor;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#rewind
-    rewind(): AggregationCursor;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#setEncoding
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#redact
+    redact(document: Object): AggregationCursor<any>;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#rewind
+    rewind(): AggregationCursor<any>;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#setEncoding
     setEncoding(encoding: string): void;
-    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#skip
-    skip(value: number): AggregationCursor;
-    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#sort
-    sort(document: Object): AggregationCursor;
-    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#toArray
-    toArray(): Promise<any[]>;
-    toArray(callback: MongoCallback<any[]>): void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#unpipe
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#skip
+    skip(value: number): AggregationCursor<any>;
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#sort
+    sort(document: Object): AggregationCursor<any>;
+    // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#toArray
+    toArray(): Promise<T[]>;
+    toArray(callback: MongoCallback<T[]>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#unpipe
     unpipe(destination?: Writable): void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#unshift
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#unshift
     unshift(stream: Buffer | string): void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#unwind
-    unwind(field: string): AggregationCursor;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor<any>.html#unwind
+    unwind(field: string): AggregationCursor<any>;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html
