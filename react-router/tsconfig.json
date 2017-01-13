@@ -9,8 +9,11 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
-        "baseUrl": "../",
         "jsx": "react",
+        "baseUrl": "../",
+        "paths": {
+            "history": ["history/v2"]
+        },
         "typeRoots": [
             "../"
         ],
