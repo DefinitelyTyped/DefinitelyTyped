@@ -5,14 +5,13 @@
 
 /// <reference types="node" />
 
-
 import { EventEmitter } from 'events';
 
 declare class Logger extends EventEmitter {
-    constructor(options: LoggerOptions);
-    addStream(stream: Stream): void;
-    addSerializers(serializers:Serializers | StdSerializers):void;
-    child(options: LoggerOptions, simple?: boolean): Logger;
+    constructor(options: Logger.LoggerOptions);
+    addStream(stream: Logger.Stream): void;
+    addSerializers(serializers: Logger.Serializers | Logger.StdSerializers): void;
+    child(options: Logger.LoggerOptions, simple?: boolean): Logger;
     child(obj: Object, simple?: boolean): Logger;
     reopenFileStreams(): void;
 
@@ -21,7 +20,7 @@ declare class Logger extends EventEmitter {
     levels(name: number | string, value: number | string): void;
 
     fields: any;
-        src:boolean;
+    src: boolean;
 
     trace(error: Error, format?: any, ...params: any[]): void;
     trace(buffer: Buffer, format?: any, ...params: any[]): void;
@@ -49,31 +48,23 @@ declare class Logger extends EventEmitter {
     fatal(format: string, ...params: any[]): void;
 }
 
-interface LoggerOptions {
-    name: string;
-    streams?: Stream[];
-    level?: string | number;
-    stream?: NodeJS.WritableStream;
-    serializers?: Serializers | StdSerializers;
-    src?: boolean;
-    [custom: string]: any;
-}
+declare namespace Logger {
+  const TRACE: number;
+  const DEBUG: number;
+  const INFO: number;
+  const WARN: number;
+  const ERROR: number;
+  const FATAL: number;
 
-interface Serializer {
-    (input:any): any;
-}
+  const stdSerializers: StdSerializers;
 
-interface Serializers {
-    [key: string]: Serializer
-}
+  function createLogger(options: LoggerOptions): Logger;
 
-interface StdSerializers {
-    err: Serializer;
-    res: Serializer;
-    req: Serializer;
-}
+  function safeCycles(): (key: string, value: any) => any;
 
-interface Stream {
+  function resolveLevel(value: number | string): number;
+
+  interface Stream {
     type?: string;
     level?: number | string;
     path?: string;
@@ -81,22 +72,37 @@ interface Stream {
     closeOnExit?: boolean;
     period?: string;
     count?: number;
-}
+  }
 
-export declare var stdSerializers: StdSerializers;
+  interface LoggerOptions {
+    name: string;
+    streams?: Stream[];
+    level?: string | number;
+    stream?: NodeJS.WritableStream;
+    serializers?: Serializers | StdSerializers;
+    src?: boolean;
+    [custom: string]: any;
+  }
 
-export declare var TRACE: number;
-export declare var DEBUG: number;
-export declare var INFO: number;
-export declare var WARN: number;
-export declare var ERROR: number;
-export declare var FATAL: number;
+  interface Serializer {
+    (input:any): any;
+  }
 
-export declare function resolveLevel(value: number | string): number;
+  interface Serializers {
+    [key: string]: Serializer
+  }
 
-export declare function createLogger(options: LoggerOptions): Logger;
+  interface StdSerializers {
+    err: Serializer;
+    res: Serializer;
+    req: Serializer;
+  }
 
-declare class RingBuffer extends EventEmitter {
+  interface RingBufferOptions {
+    limit?: number;
+  }
+
+  class RingBuffer extends EventEmitter {
     constructor(options: RingBufferOptions);
 
     writable: boolean;
@@ -106,10 +112,7 @@ declare class RingBuffer extends EventEmitter {
     end(record?: any): void;
     destroy(): void;
     destroySoon(): void;
+  }
 }
 
-interface RingBufferOptions {
-    limit?: number;
-}
-
-export declare function safeCycles(): (key: string, value: any) => any;
+export = Logger;
