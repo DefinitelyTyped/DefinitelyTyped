@@ -209,6 +209,7 @@ declare namespace jest {
     interface MockInstance<T> {
         mock: MockContext<T>;
         mockClear(): void;
+        mockReset(): void;
         mockImplementation(fn: Function): Mock<T>;
         mockImplementationOnce(fn: Function): Mock<T>;
         mockReturnThis(): Mock<T>;
