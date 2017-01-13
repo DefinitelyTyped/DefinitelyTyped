@@ -28,16 +28,61 @@ declare module ZSchema {
         ignoreUnknownFormats?: boolean;
     }
 
-    export interface SchemaError {
-        code: string;
-        description: string;
+    export interface SchemaError extends Error {
+        /**
+         * Implements the Error.name contract.  The value is always "z-schema validation error".
+         */
+        name: string;
+
+        /**
+         * An identifier indicating the type of error.
+         * Example: "JSON_OBJECT_VALIDATION_FAILED"
+         */
         message: string;
-        params: string[];
+
+        /**
+         * Returns details for each error that occurred during validation.
+         * See Options.breakOnFirstError.
+         */
+        details: SchemaErrorDetail[];
+    }
+
+    export interface SchemaErrorDetail {
+        /**
+         * Example: "Expected type string but found type array"
+         */
+        message: string;
+        /**
+         * An error identifier that can be used to format a custom error message.
+         * Example: "INVALID_TYPE"
+         */
+        code: string;
+        /**
+         * Format parameters that can be used to format a custom error message.
+         * Example: ["string","array"]
+         */
+        params: Array<string>;
+        /**
+         * A JSON path indicating the location of the error.
+         * Example: "#/projects/1"
+         */
         path: string;
+        /**
+         * The schema rule description, which is included for certain errors where
+         * this information is useful (e.g. to describe a constraint).
+         */
+        description: string;
+
+        /**
+         * Returns details for sub-schemas that failed to match.  For example, if the schema
+         * uses the "oneOf" constraint to accept several alternative possibilities, each
+         * alternative will have its own inner detail object explaining why it failed to match.
+         */
+        inner: SchemaErrorDetail[];
     }
 
     export class Validator {
-    
+
         /**
          * Register a custom format.
          *
@@ -53,7 +98,7 @@ declare module ZSchema {
          * @param name - name of the custom format
          */
         public static unregisterFormat(name: string): void;
-        
+
         /**
          * Get the list of all registered formats.
          *
@@ -63,9 +108,9 @@ declare module ZSchema {
          * @returns {string[]} the list of all registered format names.
          */
         public static getRegisteredFormats(): string[];
-        
+
         public static getDefaultOptions(): Options;
-    
+
         constructor(options: Options);
 
         /**
@@ -87,8 +132,16 @@ declare module ZSchema {
          */
         validate(json: any, schema: any, callback: (err: any, valid: boolean) => void): void;
 
+        /**
+         * Returns an Error object for the most recent failed validation, or null if the validation was successful.
+         */
         getLastError(): SchemaError;
-        getLastErrors(): SchemaError[];
+
+        /**
+         * Returns the error details for the most recent validation, or undefined if the validation was successful.
+         * This is the same list as the SchemaError.details property.
+         */
+        getLastErrors(): SchemaErrorDetail[];
     }
 }
 
