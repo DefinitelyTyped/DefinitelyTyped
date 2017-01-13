@@ -1,11 +1,7 @@
 // Type definitions for Raven.js
 // Project: https://github.com/getsentry/raven-js
-// Original Definitions by: Santi Albo <https://github.com/santialbo>, Benjamin Pannell 
-//   <http://github.com/spartan563>; DefinitelyTyped
-// Updated by: Ben Vinegar <https://github.com/benvinegar>, Ilya Pirogov 
-//   <https://github.com/ilya-pirogov>, Eli White <https://github.com/TheSavior>, David Cramer
-//   <https://github.com/dcramer>, Connor Peet <https://github.com/connor4312>, comaz 
-//   <https://github.com/combmag>, Luca Vazzano <https://github.com/LucaVazz>
+// Definitions by: Santi Albo <https://github.com/santialbo/>, Benjamin Pannell <http://github.com/spartan563>, Gary Blackwood <http://github.com/Garee>, Rich Rout <http://github.com/richrout>, Ben Vinegar <https://github.com/benvinegar>, Ilya Pirogov <https://github.com/ilya-pirogov>, Eli White <https://github.com/TheSavior>, David Cramer <https://github.com/dcramer>, Connor Peet <https://github.com/connor4312>, comaz <https://github.com/combmag>, Luca Vazzano <https://github.com/LucaVazz>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 declare let Raven: RavenStatic;
