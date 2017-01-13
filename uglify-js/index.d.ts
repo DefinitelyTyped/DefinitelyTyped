@@ -95,8 +95,8 @@ declare namespace UglifyJS {
     }
 
     interface MinifyOutput {
-        code: string;
-        map: string;
+        code?: string;
+        map?: string;
     }
 
     function minify(files: string | Array<string>, options?: MinifyOptions): MinifyOutput;
