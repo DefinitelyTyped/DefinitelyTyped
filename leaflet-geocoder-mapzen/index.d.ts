@@ -6,7 +6,6 @@
 /// <reference types="leaflet" />
 
 declare namespace L {
-
     namespace Control {
         export interface GeocoderStatic extends ClassStatic {
             /**
