@@ -309,10 +309,16 @@ declare module "mongoose" {
     (...hookArgs:any[]): any;
   }
 
+  interface CappedOptions {
+    size: number,
+    max?: number,
+    autoIndexId?: boolean
+  }
+
   export interface SchemaOption {
     autoIndex?: boolean;
     bufferCommands?: boolean;
-    capped?: boolean|number|Object;
+    capped?: boolean|number|CappedOptions;
     collection?: string;
     id?: boolean;
     _id?: boolean;
