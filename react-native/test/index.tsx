@@ -78,6 +78,28 @@ var styles = StyleSheet.create<LocalStyles>(
     }
 )
 
+var styles2 = StyleSheet.create({
+    container: {
+        flex:            1,
+        justifyContent:  'center',
+        alignItems:      'center',
+        backgroundColor: '#F5FCFF',
+    }
+})
+
+interface TestStyles extends React.StyleSheet.Styles {
+    container: React.ViewStyle
+}
+
+var styles3 = StyleSheet.create<TestStyles>({
+    container: {
+        flex:            1,
+        justifyContent:  'center',
+        alignItems:      'center',
+        backgroundColor: '#F5FCFF',
+    }
+})
+
 //alternative declaration of styles (inline typings)
 const stylesAlt = StyleSheet.create(
     {
