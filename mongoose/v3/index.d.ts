@@ -312,7 +312,7 @@ declare module "mongoose" {
   export interface SchemaOption {
     autoIndex?: boolean;
     bufferCommands?: boolean;
-    capped?: boolean;
+    capped?: boolean|number|Object;
     collection?: string;
     id?: boolean;
     _id?: boolean;
