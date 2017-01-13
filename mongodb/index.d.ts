@@ -1151,7 +1151,7 @@ export interface Cursor<T extends any> extends Readable {
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#filter
     filter(filter: Object): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#forEach
-    forEach(iterator: IteratorCallback, callback: EndCallback): void;
+    forEach(iterator: IteratorCallback<T>, callback: EndCallback): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#hasNext
     hasNext(): Promise<boolean>;
     hasNext(callback: MongoCallback<boolean>): void;
@@ -1221,8 +1221,8 @@ export interface CursorCommentOptions {
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#~iteratorCallback
-export interface IteratorCallback {
-    (doc: any): void;
+export interface IteratorCallback<T> {
+    (doc: T): void;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#~endCallback
