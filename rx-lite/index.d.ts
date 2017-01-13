@@ -649,12 +649,26 @@ declare namespace Rx {
             <T>(func: Function, context?: any): (...args: any[]) => Observable<T>;
         };
 
-        fromEvent<T>(element: NodeList, eventName: string, selector?: (arguments: any[]) => T): Observable<T>;
-        fromEvent<T>(element: Node, eventName: string, selector?: (arguments: any[]) => T): Observable<T>;
-        fromEvent<T>(element: { on: (name: string, cb: (e: any) => any) => void; off: (name: string, cb: (e: any) => any) => void }, eventName: string, selector?: (arguments: any[]) => T): Observable<T>;
-        fromEventPattern<T>(addHandler: (handler: Function) => void, removeHandler: (handler: Function) => void, selector?: (arguments: any[]) => T): Observable<T>;
+        fromEvent<T>(element: ArrayLike<DOMEventTarget> | DOMEventTarget | NodeEventTarget| NativeEventTarget, eventName: string, selector?: (...args: any[]) => T): Observable<T>;
+
+        fromEventPattern<T>(addHandler: (handler: Function) => void, removeHandler: (handler: Function) => void, selector?: (...args: any[]) => T): Observable<T>;
+    }
+
+    interface NodeEventTarget {
+        addListener: (name: string, cb: (e: any) => any) => void;
+    }
+
+    interface NativeEventTarget {
+        on: (name: string, cb: (e: any) => any) => void;
+        off: (name: string, cb: (e: any) => any) => void;
+    }
+
+    interface DOMEventTarget {
+        addEventListener(type: string, listener: (e: any) => any, useCapture: boolean): void;
+        removeEventListener(type: string, listener: (e: any) => any, useCapture: boolean): void;
     }
 }
+
 
 // time
 

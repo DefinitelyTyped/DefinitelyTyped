@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "deployJava-tests.ts"
+        "deployjava-tests.ts"
     ]
 }

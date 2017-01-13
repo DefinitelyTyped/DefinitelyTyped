@@ -1,11 +1,11 @@
-// Type definitions for Node.js v6.x
+// Type definitions for Node.js v7.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
 *                                               *
-*               Node.js v6.x API                *
+*               Node.js v7.x API                *
 *                                               *
 ************************************************/
 
@@ -284,6 +284,7 @@ declare namespace NodeJS {
         setEncoding(encoding: string | null): void;
         pause(): ReadableStream;
         resume(): ReadableStream;
+        isPaused(): boolean;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe<T extends WritableStream>(destination?: T): void;
         unshift(chunk: string): void;
@@ -621,6 +622,7 @@ declare module "http" {
         headers?: { [key: string]: any };
         auth?: string;
         agent?: Agent | boolean;
+        timeout?: number;
     }
 
     export interface Server extends net.Server {
@@ -3342,6 +3344,7 @@ declare module "stream" {
             setEncoding(encoding: string): void;
             pause(): Readable;
             resume(): Readable;
+            isPaused(): boolean;
             pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
             unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
             unshift(chunk: any): void;
@@ -3531,6 +3534,7 @@ declare module "stream" {
             setEncoding(encoding: string): void;
             pause(): Transform;
             resume(): Transform;
+            isPaused(): boolean;
             pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
             unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
             unshift(chunk: any): void;
@@ -3955,7 +3959,7 @@ declare module "v8" {
         physical_space_size: number;
     }
 
-    const enum DoesZapCodeSpaceFlag {
+    enum DoesZapCodeSpaceFlag {
         Disabled = 0,
         Enabled = 1
     }

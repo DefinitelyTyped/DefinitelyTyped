@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "fixtures-tests.ts"
+        "js-fixtures-tests.ts"
     ]
 }

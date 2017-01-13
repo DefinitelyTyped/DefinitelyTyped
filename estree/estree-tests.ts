@@ -1,4 +1,4 @@
-import * as ESTree from './index';
+import * as ESTree from 'estree';
 
 declare var node: ESTree.Node;
 declare var program: ESTree.Program;

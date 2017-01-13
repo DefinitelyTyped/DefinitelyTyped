@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "PayPal-Cordova-Plugin-tests.ts"
+        "paypal-cordova-plugin-tests.ts"
     ]
 }

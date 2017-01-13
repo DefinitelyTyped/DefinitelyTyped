@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "all-tests.ts"
+        "test/templatingBehaviors.ts",
+        "test/index.ts"
     ]
 }

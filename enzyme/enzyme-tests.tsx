@@ -277,14 +277,14 @@ namespace ShallowWrapperTest {
     }
 
     function test_reduce() {
-        const total: number[] =
+        const total: number =
             shallowWrapper.reduce(
                 (amount: number, n: ShallowWrapper<MyComponentProps, MyComponentState>) => amount + n.props().numberProp
             );
     }
 
     function test_reduceRight() {
-        const total: number[] =
+        const total: number =
             shallowWrapper.reduceRight<number>(
                 (amount: number, n: ShallowWrapper<MyComponentProps, MyComponentState>) => amount + n.prop('amount')
             );
@@ -557,14 +557,14 @@ namespace ReactWrapperTest {
     }
 
     function test_reduce() {
-        const total: number[] =
+        const total: number =
             reactWrapper.reduce<number>(
                 (amount: number, n: ReactWrapper<MyComponentProps, MyComponentState>) => amount + n.prop('amount')
             );
     }
 
     function test_reduceRight() {
-        const total: number[] =
+        const total: number =
             reactWrapper.reduceRight<number>(
                 (amount: number, n: ReactWrapper<MyComponentProps, MyComponentState>) => amount + n.prop('amount')
             );
@@ -799,14 +799,14 @@ namespace CheerioWrapperTest {
     }
 
     function test_reduce() {
-        const total: number[] =
+        const total: number =
             cheerioWrapper.reduce<number>(
                 (amount: number, n: CheerioWrapper<MyComponentProps, MyComponentState>) => amount + n.prop('amount')
             );
     }
 
     function test_reduceRight() {
-        const total: number[] =
+        const total: number =
             cheerioWrapper.reduceRight<number>(
                 (amount: number, n: CheerioWrapper<MyComponentProps, MyComponentState>) => amount + n.prop('amount')
             );
