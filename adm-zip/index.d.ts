@@ -15,6 +15,7 @@ declare class AdmZip {
      * Read an existing archive.
      */
     constructor(fileName: string);
+    constructor(rawData: Buffer);
     /**
      * Extracts the given entry from the archive and returns the content as a
      * Buffer object.

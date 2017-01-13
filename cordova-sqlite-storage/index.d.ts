@@ -18,7 +18,7 @@ declare namespace SQLitePlugin {
     type TransactionStatementSuccessCallback = (tx: Transaction, results: Results) => void;
 
     type ErrorCallback = (err: Error) => void;
-    type TransactionStatementErrorCallback = (tx: Transaction, err: Error) => boolean|void;
+    type TransactionStatementErrorCallback = (tx: Transaction, err: Error) => boolean | void;
 
     interface OpenArgs {
         name: string;
@@ -53,7 +53,7 @@ declare namespace SQLitePlugin {
         readTransaction(fn: TransactionFunction, error?: ErrorCallback, success?: SuccessCallback): void;
 
         executeSql(statement: string, params?: any[], success?: StatementSuccessCallback, error?: ErrorCallback): void;
-        sqlBatch (sqlStatements: Array<string|[string, any[]]>, success?: SuccessCallback, error?: ErrorCallback): void;
+        sqlBatch(sqlStatements: Array<string|[string, any[]]>, success?: SuccessCallback, error?: ErrorCallback): void;
 
         close(success?: SuccessCallback, error?: ErrorCallback): void;
     }

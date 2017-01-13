@@ -56,7 +56,7 @@ declare module "react-relay" {
         supports(...options: string[]): boolean
     }
 
-    function createContainer<T>(component: React.ComponentClass<T>, params?: CreateContainerOpts): RelayContainerClass<any>
+    function createContainer<T>(component: React.ComponentClass<T> | React.StatelessComponent<T>, params?: CreateContainerOpts): RelayContainerClass<any>
     function injectNetworkLayer(networkLayer: RelayNetworkLayer): any
     function isContainer(component: React.ComponentClass<any>): boolean
     function QL(...args: any[]): string

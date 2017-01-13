@@ -49,22 +49,18 @@ interface MochaDone {
     (error?: any): any;
 }
 
-interface ActionFunction {
-    (done: MochaDone): any | PromiseLike<any>
-}
-
-declare function setup(action: ActionFunction): void;
-declare function teardown(action: ActionFunction): void;
-declare function suiteSetup(action: ActionFunction): void;
-declare function suiteTeardown(action: ActionFunction): void;
-declare function before(action: ActionFunction): void;
-declare function before(description: string, action: ActionFunction): void;
-declare function after(action: ActionFunction): void;
-declare function after(description: string, action: ActionFunction): void;
-declare function beforeEach(action: ActionFunction): void;
-declare function beforeEach(description: string, action: ActionFunction): void;
-declare function afterEach(action: ActionFunction): void;
-declare function afterEach(description: string, action: ActionFunction): void;
+declare function setup(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => any): void;
+declare function teardown(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => any): void;
+declare function suiteSetup(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
+declare function suiteTeardown(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
+declare function before(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
+declare function before(description: string, callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
+declare function after(callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
+declare function after(description: string, callback: (this: Mocha.IHookCallbackContext, done: MochaDone) => any): void;
+declare function beforeEach(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => any): void;
+declare function beforeEach(description: string, callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => any): void;
+declare function afterEach(callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => any): void;
+declare function afterEach(description: string, callback: (this: Mocha.IBeforeAndAfterContext, done: MochaDone) => any): void;
 
 declare class Mocha {
     currentTest: Mocha.ITestDefinition;
@@ -113,6 +109,25 @@ declare class Mocha {
 
 // merge the Mocha class declaration with a module
 declare namespace Mocha {
+    interface ISuiteCallbackContext {
+        timeout(ms: number): void;
+        retries(n: number): void;
+        slow(ms: number): void;
+    }
+
+    interface IHookCallbackContext {
+        skip(): void;
+        timeout(ms: number): void;
+    }
+
+
+    interface ITestCallbackContext {
+        skip(): void;
+        timeout(ms: number): void;
+        retries(n: number): void;
+        slow(ms: number): void;
+    }
+
     /** Partial interface for Mocha's `Runnable` class. */
     interface IRunnable {
         title: string;
@@ -134,24 +149,30 @@ declare namespace Mocha {
     interface ITest extends IRunnable {
         parent: ISuite;
         pending: boolean;
+        state: 'failed'|'passed'|undefined;
 
         fullTitle(): string;
     }
 
+    interface IBeforeAndAfterContext extends IHookCallbackContext {
+        currentTest: ITest;
+    }
+
+
     /** Partial interface for Mocha's `Runner` class. */
-    interface IRunner {}
+    interface IRunner { }
 
     interface IContextDefinition {
-        (description: string, spec: () => void): ISuite;
-        only(description: string, spec: () => void): ISuite;
-        skip(description: string, spec: () => void): void;
+        (description: string, callback: (this: ISuiteCallbackContext) => void): ISuite;
+        only(description: string, callback: (this: ISuiteCallbackContext) => void): ISuite;
+        skip(description: string, callback: (this: ISuiteCallbackContext) => void): void;
         timeout(ms: number): void;
     }
 
     interface ITestDefinition {
-        (expectation: string, assertion?: ActionFunction): ITest;
-        only(expectation: string, assertion?: ActionFunction): ITest;
-        skip(expectation: string, assertion?: ActionFunction): void;
+        (expectation: string, callback?: (this: ITestCallbackContext, done: MochaDone) => any): ITest;
+        only(expectation: string, callback?: (this: ITestCallbackContext, done: MochaDone) => any): ITest;
+        skip(expectation: string, callback?: (this: ITestCallbackContext, done: MochaDone) => any): void;
         timeout(ms: number): void;
         state: "failed" | "passed";
     }
@@ -169,18 +190,18 @@ declare namespace Mocha {
             constructor(runner: IRunner);
         }
 
-        export class Doc extends Base {}
-        export class Dot extends Base {}
-        export class HTML extends Base {}
-        export class HTMLCov extends Base {}
-        export class JSON extends Base {}
-        export class JSONCov extends Base {}
-        export class JSONStream extends Base {}
-        export class Landing extends Base {}
-        export class List extends Base {}
-        export class Markdown extends Base {}
-        export class Min extends Base {}
-        export class Nyan extends Base {}
+        export class Doc extends Base { }
+        export class Dot extends Base { }
+        export class HTML extends Base { }
+        export class HTMLCov extends Base { }
+        export class JSON extends Base { }
+        export class JSONCov extends Base { }
+        export class JSONStream extends Base { }
+        export class Landing extends Base { }
+        export class List extends Base { }
+        export class Markdown extends Base { }
+        export class Min extends Base { }
+        export class Nyan extends Base { }
         export class Progress extends Base {
             /**
              * @param options.open String used to indicate the start of the progress bar.
@@ -195,8 +216,8 @@ declare namespace Mocha {
                 close?: string;
             });
         }
-        export class Spec extends Base {}
-        export class TAP extends Base {}
+        export class Spec extends Base { }
+        export class TAP extends Base { }
         export class XUnit extends Base {
             constructor(runner: IRunner, options?: any);
         }

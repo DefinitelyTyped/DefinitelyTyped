@@ -3,6 +3,7 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "types": [],
@@ -11,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "heatmap-tests.ts"
+        "heatmap.js-tests.ts"
     ]
 }

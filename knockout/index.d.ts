@@ -529,6 +529,8 @@ interface KnockoutStatic {
     renderTemplateForEach(template: Function, arrayOrObservableArray: KnockoutObservable<any>, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
     renderTemplateForEach(template: any, arrayOrObservableArray: KnockoutObservable<any>, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
 
+    ignoreDependencies<T>(callback: () => T): T;
+
     expressionRewriting: {
         bindingRewriteValidators: any[];
         twoWayBindings: any;

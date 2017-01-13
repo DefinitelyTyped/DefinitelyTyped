@@ -26,7 +26,6 @@ declare module 'passport' {
     import express = require('express');
 
     namespace passport {
-
         interface AuthenticateOptions {
             authInfo?: boolean;
             assignProperty?: string;

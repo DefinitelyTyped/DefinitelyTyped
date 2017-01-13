@@ -1090,6 +1090,7 @@ declare namespace Ember {
     var GUID_KEY: string;
     namespace Handlebars {
         function compile(string: string): Function;
+        function compile(environment: any, options?: any, context?: any, asObject?: any): any;
         function precompile(string: string, options: any): void;
         class Compiler { }
         class JavaScriptCompiler { }
@@ -1105,7 +1106,6 @@ declare namespace Ember {
         function print(ast: any): void;
         var logger: typeof Ember.Logger;
         function log(level: string, str: string): void;
-        function compile(environment: any, options?: any, context?: any, asObject?: any): any;
     }
     class HashLocation extends Object {
         static detect(obj: any): boolean;
@@ -1514,7 +1514,7 @@ declare namespace Ember {
         toArray(): any[];
     }
     class Registry {
-        constructor (options: any);
+        constructor(options: any);
         static set: typeof Ember.set;
     }
 
@@ -2242,10 +2242,10 @@ declare namespace Ember {
     }
     namespace Test {
         class Adapter extends Ember.Object {
-            constructor ();
+            constructor();
         }
         class Promise<T, U> extends Ember.RSVP.Promise<T, U> {
-            constructor ();
+            constructor();
         }
         function oninjectHelpers(callback: Function): void;
         function promise<T, U>(resolver: (a: T) => any, label: string): Ember.Test.Promise<T, U>;

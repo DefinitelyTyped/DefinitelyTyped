@@ -9,7 +9,6 @@
 *.cs
 *.sln
 *.csproj
-*.txt
 *.map
 *.swp
 .DS_Store
@@ -31,6 +30,7 @@ _infrastructure/tests/build
 *.js.map
 !*.js/
 !scripts/new-package.js
+!scripts/not-needed.js
 !scripts/lint.js
 
 node_modules

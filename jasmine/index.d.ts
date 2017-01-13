@@ -182,6 +182,7 @@ declare namespace jasmine {
         allowRespy(allow: boolean): void;
         randomTests(): boolean;
         randomizeTests(b: boolean): void;
+        clearReporters(): void;
     }
 
     interface FakeTimer {
@@ -489,7 +490,6 @@ declare namespace jasmine {
         calls: Calls;
         mostRecentCall: { args: any[]; };
         argsForCall: any[];
-        wasCalled: boolean;
     }
 
     interface SpyAnd {

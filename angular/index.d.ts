@@ -1,4 +1,4 @@
-// Type definitions for Angular JS 1.5
+// Type definitions for Angular JS 1.6
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Georgii Dolzhykov <http://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@ declare var angular: angular.IAngularStatic;
 // Support for painless dependency injection
 declare global {
     interface Function {
-        $inject?: string[];
+        $inject?: ReadonlyArray<string>;
     }
 }
 
@@ -661,6 +661,16 @@ declare namespace angular {
         (actual: T, expected: T): boolean;
     }
 
+    interface IFilterOrderByItem {
+        value: any,
+        type: string,
+        index: any
+    }
+
+    interface IFilterOrderByComparatorFunc {
+        (left: IFilterOrderByItem, right: IFilterOrderByItem): -1 | 0 | 1;
+    }
+
     interface IFilterCurrency {
         /**
          * Formats a number as a currency (ie $1,234.56). When no currency symbol is provided, default symbol for current locale is used.
@@ -743,9 +753,10 @@ declare namespace angular {
          * @param array The array to sort.
          * @param expression A predicate to be used by the comparator to determine the order of elements.
          * @param reverse Reverse the order of the array.
-         * @return Reverse the order of the array.
+         * @param comparator Function used to determine the relative order of value pairs.
+         * @return An array containing the items from the specified collection, ordered by a comparator function based on the values computed using the expression predicate.
          */
-        <T>(array: T[], expression: string|((value: T) => any)|(((value: T) => any)|string)[], reverse?: boolean): T[];
+        <T>(array: T[], expression: string|((value: T) => any)|(((value: T) => any)|string)[], reverse?: boolean, comparator?: IFilterOrderByComparatorFunc): T[];
     }
 
     /**
@@ -1048,6 +1059,25 @@ declare namespace angular {
         when(): IPromise<void>;
     }
 
+    interface IQProvider {
+        /**
+         * Retrieves or overrides whether to generate an error when a rejected promise is not handled.
+         * This feature is enabled by default.
+         *
+         * @returns {boolean} Current value
+         */
+        errorOnUnhandledRejections(): boolean;
+
+        /**
+         * Retrieves or overrides whether to generate an error when a rejected promise is not handled.
+         * This feature is enabled by default.
+         *
+         * @param {boolean} value Whether to generate an error when a rejected promise is not handled.
+         * @returns {ng.IQProvider} Self for chaining otherwise.
+         */
+        errorOnUnhandledRejections(value: boolean): IQProvider;
+    }
+
     interface IPromise<T> {
         /**
          * Regardless of when the promise was or will be resolved or rejected, then calls one of the success or error callbacks asynchronously as soon as the result is available. The callbacks are called with a single argument: the result or rejection reason. Additionally, the notify callback may be called zero or more times to provide a progress indication, before the promise is resolved or rejected.
@@ -1205,7 +1235,7 @@ declare namespace angular {
 
         debugInfoEnabled(): boolean;
         debugInfoEnabled(enabled: boolean): ICompileProvider;
-    
+
         /**
          * Sets the number of times $onChanges hooks can trigger new changes before giving up and assuming that the model is unstable.
          * Increasing the TTL could have performance implications, so you should not change it without proper justification.
@@ -1214,7 +1244,7 @@ declare namespace angular {
          */
         onChangesTtl(): number;
         onChangesTtl(limit: number): ICompileProvider;
-    
+
         /**
          * It indicates to the compiler whether or not directives on comments should be compiled.
          * It results in a compilation performance gain since the compiler doesn't have to check comments when looking for directives.
@@ -1223,7 +1253,7 @@ declare namespace angular {
          */
         commentDirectivesEnabled(): boolean;
         commentDirectivesEnabled(enabled: boolean): ICompileProvider;
-    
+
         /**
          * It indicates to the compiler whether or not directives on element classes should be compiled.
          * It results in a compilation performance gain since the compiler doesn't have to check element classes when looking for directives.
@@ -1867,7 +1897,7 @@ declare namespace angular {
      * like jQuery plugins do, that's why all jQuery objects have these Angular-specific methods, not
      * only those returned from angular.element.
      * See: http://docs.angularjs.org/api/angular.element
-        */
+     */
     interface IAugmentedJQueryStatic extends JQueryStatic {}
     interface IAugmentedJQuery extends JQuery {}
 
@@ -1879,7 +1909,7 @@ declare namespace angular {
     ///////////////////////////////////////////////////////////////////////////
     // AUTO module (angular.js)
     ///////////////////////////////////////////////////////////////////////////
-    export module auto {
+    export namespace auto {
 
         ///////////////////////////////////////////////////////////////////////
         // InjectorService

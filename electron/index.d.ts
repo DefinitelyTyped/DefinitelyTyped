@@ -1864,12 +1864,7 @@ declare namespace Electron {
 		/**
 		 * Writes data to the clipboard.
 		 */
-		write(data: {
-			text?: string;
-			rtf?: string;
-			html?: string;
-			image?: NativeImage;
-		}, type?: ClipboardType): void;
+		write(data: { text: string; bookmark?: string; } | { rtf: string; } | { html: string; } | { image: NativeImage; }, type?: ClipboardType): void;
 		/**
 		 * @returns An Object containing title and url keys representing the bookmark in the clipboard.
 		 *
@@ -5528,7 +5523,7 @@ declare namespace Electron {
 		closeDevTools(): void;
 		/**
 		 * @returns Whether guest page has a DevTools window attached.
-		 
+		 */
 		isDevToolsOpened(): boolean;
 		/**
 		 * @returns Whether DevTools window of guest page is focused.

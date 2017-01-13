@@ -1,7 +1,6 @@
+import * as passport from 'passport';
 import * as express from 'express';
 import 'express-session';
-import * as passport from 'passport';
-
 
 class TestStrategy implements passport.Strategy {
   public name: string = 'test';

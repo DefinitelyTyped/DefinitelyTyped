@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+/// <reference types="debug" />
 
 declare namespace PouchDB {
     namespace Core {
@@ -201,7 +202,12 @@ declare namespace PouchDB {
             }[];
         }
 
+        interface BulkDocsOptions extends PutOptions {
+            new_edits?: boolean;
+        }
+
         interface ChangesMeta {
+            _conflicts?: RevisionId[];
             _deleted?: boolean;
             _attachments?: Attachments;
         }
@@ -286,7 +292,7 @@ declare namespace PouchDB {
             results: ChangesResponseChange<Content>[];
         }
 
-        interface Changes<Content extends Core.Encodable> extends EventEmitter {
+        interface Changes<Content extends Core.Encodable> extends EventEmitter, Promise<ChangesResponse<Content>> {
             on(event: 'change', listener: (value: ChangesResponseChange<Content>) => any): this;
             on(event: 'complete', listener: (value: ChangesResponse<Content>) => any): this;
             on(event: 'error', listener: (value: any) => any): this;
@@ -320,6 +326,9 @@ declare namespace PouchDB {
              * revisions specified in open_revs array. Leaves will be returned
              * in the same order as specified in input array. */
             open_revs: 'all' | Core.RevisionId[];
+
+            /** Include revision history of the document. */
+            revs?: boolean;
         }
 
         /** @todo does this have any other properties? */
@@ -391,22 +400,26 @@ declare namespace PouchDB {
             headers?: {
                 [name: string]: string;
             }
-            username?: string;
-            password?: string;
+
             /**
              * Enables transferring cookies and HTTP Authorization information.
              *
              * Defaults to true.
              */
             withCredentials?: boolean;
-            /**
-             * Disables automatic creation of databases.
-             */
-            skip_setup?: boolean;
         }
 
         interface RemoteDatabaseConfiguration extends CommonDatabaseConfiguration {
             ajax?: RemoteRequesterConfiguration;
+
+            auth?: {
+                username?: string;
+                password?: string;
+            }
+            /**
+             * Disables automatic creation of databases.
+             */
+            skip_setup?: boolean;
         }
 
         type DatabaseConfiguration = LocalDatabaseConfiguration |
@@ -425,6 +438,8 @@ declare namespace PouchDB {
 
         on(event: 'created', listener: (dbName: string) => any): this;
         on(event: 'destroyed', listener: (dbName: string) => any): this;
+
+        debug: debug.IDebug;
 
         new<Content extends Core.Encodable>(name?: string,
             options?: Configuration.DatabaseConfiguration): Database<Content>;
@@ -465,7 +480,7 @@ declare namespace PouchDB {
          * Finally, to delete a document, include a _deleted parameter with the value true.
          */
         bulkDocs(docs: Core.PutDocument<Content>[],
-                 options: Core.PutOptions | null,
+                 options: Core.BulkDocsOptions | null,
                  callback: Core.Callback<Core.Error, Core.Response[]>): void;
 
         /**
@@ -476,7 +491,7 @@ declare namespace PouchDB {
          * Finally, to delete a document, include a _deleted parameter with the value true.
          */
         bulkDocs(docs: Core.PutDocument<Content>[],
-                 options?: Core.PutOptions): Promise<Core.Response[]>;
+                 options?: Core.BulkDocsOptions): Promise<Core.Response[]>;
 
         /** Compact the database */
         compact(options?: Core.CompactOptions): Promise<Core.Response>;

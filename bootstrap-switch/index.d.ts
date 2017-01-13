@@ -84,6 +84,8 @@ declare namespace BootstrapSwitch {
 interface JQuery {
     bootstrapSwitch(): JQuery;
     bootstrapSwitch(options: BootstrapSwitch.BootstrapSwitchOptions): JQuery;
+    bootstrapSwitch(method: 'state' | 'radioAllOff' | 'animate' | 'disabled' | 'readonly'): boolean;
+    bootstrapSwitch(method: 'size' | 'onColor' | 'offColor' | 'onText' | 'offText' | 'labelText' | 'baseClass' | 'wrapperClass'): string;
     bootstrapSwitch(method: string): JQuery;
     bootstrapSwitch(method: string, param: any): JQuery;
     bootstrapSwitch(method: string, param1: any, param2: any): JQuery;

@@ -38,10 +38,9 @@ var selectedGridReferences: Xrm.Page.LookupValue[] = [];
 
 grids.forEach(( gridControl: Xrm.Page.GridControl ) =>
 {
-    gridControl.getGrid().getSelectedRows().forEach(( row ) =>
-    {
-        selectedGridReferences.push( row.getData().getEntity().getEntityReference() );
-    })
+    gridControl.getGrid().getSelectedRows().forEach((row) => {
+        selectedGridReferences.push(row.getData().getEntity().getEntityReference());
+    });
 });
 
 /// Demonstrate generic overload vs typecast

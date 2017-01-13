@@ -3,7 +3,7 @@
 // Definitions by: Stefan Steinhart <https://github.com/reppners>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="localForage" />
+/// <reference types="localforage" />
 /// <reference types="angular" />
 
 import * as angular from 'angular';

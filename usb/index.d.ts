@@ -57,7 +57,7 @@ export class ConfigDescriptor {
 
 export class Interface {
   descriptor: InterfaceDescriptor;
-  endpoints: IEndpoint[];
+  endpoints: Endpoint[];
   constructor(device: Device, id: number);
   claim(): void;
   release(closeEndpoints?: (err?: string) => void, cb?: (err?: string) => void): void;
@@ -65,7 +65,7 @@ export class Interface {
   detachKernelDriver(): number;
   attachKernelDriver(): number;
   setAltSetting(altSetting: number, cb: (err?: string) => void): void;
-  endpoint(addr: number): IEndpoint;
+  endpoint(addr: number): Endpoint;
 }
 
 export class InterfaceDescriptor {
@@ -81,14 +81,14 @@ export class InterfaceDescriptor {
   extra: Buffer;
 }
 
-interface IEndpoint {
+interface Endpoint {
   direction: string;
   transferType: number;
   timeout: number;
   descriptor: EndpointDescriptor;
 }
 
-export class InEndpoint implements IEndpoint {
+export class InEndpoint implements Endpoint {
   direction: string;
   transferType: number;
   timeout: number;
@@ -99,7 +99,7 @@ export class InEndpoint implements IEndpoint {
   stopPoll(cb: () => void): void;
 }
 
-export class OutEndpoint implements IEndpoint {
+export class OutEndpoint implements Endpoint {
   direction: string;
   transferType: number;
   timeout: number;

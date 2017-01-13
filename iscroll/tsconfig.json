@@ -1,12 +1,9 @@
 {
-    "files": [
-        "index.d.ts",
-        "iscroll-tests.ts"
-    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
@@ -15,5 +12,9 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "iscroll-tests.ts"
+    ]
 }

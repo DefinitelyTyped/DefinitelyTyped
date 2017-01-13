@@ -4,25 +4,25 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Chart {
-    public static readonly Chart: typeof Chart;
-        constructor(context: CanvasRenderingContext2D | HTMLCanvasElement, options: Chart.ChartConfiguration);
-        config: Chart.ChartConfiguration;
-        data: Chart.ChartData;
-        destroy: () => {};
-        update: (duration?: any, lazy?: any) => {};
-        render: (duration?: any, lazy?: any) => {};
-        stop: () => {};
-        resize: () => {};
-        clear: () => {};
-        toBase64: () => string;
-        generateLegend: () => {};
-        getElementAtEvent: (e: any) => {};
-        getElementsAtEvent: (e: any) => {}[];
-        getDatasetAtEvent: (e: any) => {}[];
+    static readonly Chart: typeof Chart;
+    constructor(context: CanvasRenderingContext2D | HTMLCanvasElement, options: Chart.ChartConfiguration);
+    config: Chart.ChartConfiguration;
+    data: Chart.ChartData;
+    destroy: () => {};
+    update: (duration?: any, lazy?: any) => {};
+    render: (duration?: any, lazy?: any) => {};
+    stop: () => {};
+    resize: () => {};
+    clear: () => {};
+    toBase64: () => string;
+    generateLegend: () => {};
+    getElementAtEvent: (e: any) => {};
+    getElementsAtEvent: (e: any) => {}[];
+    getDatasetAtEvent: (e: any) => {}[];
 
-        defaults: {
-            global: Chart.ChartOptions;
-        }
+    defaults: {
+        global: Chart.ChartOptions;
+    }
 }
 
 declare namespace Chart {
@@ -62,7 +62,7 @@ declare namespace Chart {
         afterBody?: (item?: ChartTooltipItem[], data?: any) => void;
         beforeFooter?: (item?: ChartTooltipItem[], data?: any) => void;
         footer?: (item?: ChartTooltipItem[], data?: any) => void;
-        afterfooter?: (item?: ChartTooltipItem[], data?: any) => void;
+        afterFooter?: (item?: ChartTooltipItem[], data?: any) => void;
     }
 
     export interface ChartAnimationParameter {

@@ -3,6 +3,7 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": false,
+        "noImplicitThis": false,
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -14,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "all-tests.ts"
+        "test/templatingBehaviors.ts",
+        "test/index.ts"
     ]
 }

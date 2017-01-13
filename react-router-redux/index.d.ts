@@ -55,7 +55,11 @@ declare namespace ReactRouterRedux {
         adjustUrlOnReplay?: boolean;
     }
 
-    function routerReducer(state?: any, options?: any): R.Reducer<any>;
+    interface RouterState {
+        locationBeforeTransitions: History.Location
+    }
+
+    function routerReducer(state?: RouterState, action?: R.Action): RouterState;
     function syncHistoryWithStore(history: History.History, store: R.Store<any>, options?: SyncHistoryWithStoreOptions): ReactRouterReduxHistory;
     function routerMiddleware(history: History.History): R.Middleware;
 }

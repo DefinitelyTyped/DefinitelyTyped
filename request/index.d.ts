@@ -79,7 +79,7 @@ declare namespace request {
 
     interface CoreOptions {
         baseUrl?: string;
-        callback?: (error: any, response: http.IncomingMessage, body: any) => void;
+        callback?: (error: any, response: RequestResponse, body: any) => void;
         jar?: any; // CookieJar
         formData?: any; // Object
         form?: any; // Object or string
@@ -138,8 +138,12 @@ declare namespace request {
     export type Options = OptionsWithUri | OptionsWithUrl;
 
     export interface RequestCallback {
-        (error: any, response: http.IncomingMessage, body: any): void;
+        (error: any, response: RequestResponse, body: any): void;
     }
+
+	export interface RequestResponse extends http.IncomingMessage {
+		request: Options;
+	}
 
     export interface HttpArchiveRequest {
         url?: string;
@@ -221,7 +225,7 @@ declare namespace request {
         pass?: string;
         password?: string;
         sendImmediately?: boolean;
-        bearer?: string;
+        bearer?: string | (() => string);
     }
 
     export interface OAuthOptions {

@@ -3,6 +3,7 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -14,7 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "metric-suffix-tests.ts",
-        "metric-suffix-external-tests.ts"
+        "metric-suffix-tests.ts"
     ]
 }

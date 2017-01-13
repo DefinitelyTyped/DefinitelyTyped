@@ -2,6 +2,7 @@
 // Project: http://lodash.com/
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /**
 ### 4.0.0 Changelog (https://github.com/lodash/lodash/wiki/Changelog)
@@ -242,6 +243,10 @@ export as namespace _;
 declare var _: _.LoDashStatic;
 
 declare namespace _ {
+    type PartialObject<T> = {
+      [P in keyof T]?: T[P];
+    }
+
     type Many<T> = T | T[];
 
     interface LoDashStatic {
@@ -6558,9 +6563,9 @@ declare namespace _ {
         /**
          * @see _.every
          */
-        every<TObject extends {}, T>(
+        every<T>(
             collection: List<T>|Dictionary<T>|NumericDictionary<T>,
-            predicate?: TObject
+            predicate?: PartialObject<T>
         ): boolean;
     }
 
@@ -6582,8 +6587,8 @@ declare namespace _ {
         /**
          * @see _.every
          */
-        every<TObject extends {}>(
-            predicate?: TObject
+        every(
+            predicate?: PartialObject<T>
         ): boolean;
     }
 
@@ -6605,8 +6610,8 @@ declare namespace _ {
         /**
          * @see _.every
          */
-        every<TObject extends {}>(
-            predicate?: TObject
+        every<TResult>(
+            predicate?: PartialObject<TResult>
         ): boolean;
     }
 
@@ -6628,8 +6633,8 @@ declare namespace _ {
         /**
          * @see _.every
          */
-        every<TObject extends {}>(
-            predicate?: TObject
+        every(
+            predicate?: PartialObject<T>
         ): LoDashExplicitWrapper<boolean>;
     }
 
@@ -6651,8 +6656,8 @@ declare namespace _ {
         /**
          * @see _.every
          */
-        every<TObject extends {}>(
-            predicate?: TObject
+        every<TResult>(
+            predicate?: PartialObject<TResult>
         ): LoDashExplicitWrapper<boolean>;
     }
 
@@ -6840,7 +6845,7 @@ declare namespace _ {
             collection: List<T>,
             predicate?: ListIterator<T, boolean>,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
          * @see _.find
@@ -6849,7 +6854,7 @@ declare namespace _ {
             collection: Dictionary<T>,
             predicate?: DictionaryIterator<T, boolean>,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
          * @see _.find
@@ -6858,7 +6863,7 @@ declare namespace _ {
             collection: List<T>|Dictionary<T>,
             predicate?: string,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
          * @see _.find
@@ -6867,7 +6872,7 @@ declare namespace _ {
             collection: List<T>|Dictionary<T>,
             predicate?: TObject,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -6877,7 +6882,7 @@ declare namespace _ {
         find(
             predicate?: ListIterator<T, boolean>,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
          * @see _.find
@@ -6885,15 +6890,15 @@ declare namespace _ {
         find(
             predicate?: string,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
          * @see _.find
          */
         find<TObject extends {}>(
-            predicate?: TObject,
+            predicate?: PartialObject<T>,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -6903,7 +6908,7 @@ declare namespace _ {
         find<TResult>(
             predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
             fromIndex?: number
-        ): TResult;
+        ): TResult|undefined;
 
         /**
          * @see _.find
@@ -6911,15 +6916,15 @@ declare namespace _ {
         find<TResult>(
             predicate?: string,
             fromIndex?: number
-        ): TResult;
+        ): TResult|undefined;
 
         /**
          * @see _.find
          */
-        find<TObject extends {}, TResult>(
-            predicate?: TObject,
+        find<TResult>(
+            predicate?: PartialObject<TResult>,
             fromIndex?: number
-        ): TResult;
+        ): TResult|undefined;
     }
 
     //_.findLast
@@ -6936,7 +6941,7 @@ declare namespace _ {
             collection: T[],
             callback: ListIterator<T, boolean>,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
         * @see _.find
@@ -6945,7 +6950,7 @@ declare namespace _ {
             collection: List<T>,
             callback: ListIterator<T, boolean>,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
         * @see _.find
@@ -6954,7 +6959,7 @@ declare namespace _ {
             collection: Dictionary<T>,
             callback: DictionaryIterator<T, boolean>,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
         * @see _.find
@@ -6964,7 +6969,7 @@ declare namespace _ {
             collection: T[],
             whereValue: W,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
         * @see _.find
@@ -6974,7 +6979,7 @@ declare namespace _ {
             collection: List<T>,
             whereValue: W,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
         * @see _.find
@@ -6984,7 +6989,7 @@ declare namespace _ {
             collection: Dictionary<T>,
             whereValue: W,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
         * @see _.find
@@ -6994,7 +6999,7 @@ declare namespace _ {
             collection: T[],
             pluckValue: string,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
         * @see _.find
@@ -7004,7 +7009,7 @@ declare namespace _ {
             collection: List<T>,
             pluckValue: string,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
         * @see _.find
@@ -7014,7 +7019,7 @@ declare namespace _ {
             collection: Dictionary<T>,
             pluckValue: string,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -7024,7 +7029,7 @@ declare namespace _ {
         findLast(
             callback: ListIterator<T, boolean>,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
         /**
         * @see _.findLast
         * @param _.where style callback
@@ -7032,7 +7037,7 @@ declare namespace _ {
         findLast<W>(
             whereValue: W,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
 
         /**
         * @see _.findLast
@@ -7041,7 +7046,7 @@ declare namespace _ {
         findLast(
             pluckValue: string,
             fromIndex?: number
-        ): T;
+        ): T|undefined;
     }
 
     //_.flatMap
@@ -9204,9 +9209,9 @@ declare namespace _ {
         /**
          * @see _.some
          */
-        some<TObject extends {}, T>(
+        some<T>(
             collection: List<T>|Dictionary<T>|NumericDictionary<T>,
-            predicate?: TObject
+            predicate?: PartialObject<T>
         ): boolean;
 
         /**
@@ -9214,15 +9219,15 @@ declare namespace _ {
          */
         some<T>(
             collection: List<T>|Dictionary<T>|NumericDictionary<T>,
-            predicate?: Object
+            predicate?: PartialObject<T>
         ): boolean;
 
         /**
          * @see _.some
          */
-        some<TObject extends {}>(
+        some<T>(
             collection: Object,
-            predicate?: TObject
+            predicate?: PartialObject<T>
         ): boolean;
     }
 
@@ -9244,8 +9249,8 @@ declare namespace _ {
         /**
          * @see _.some
          */
-        some<TObject extends {}>(
-            predicate?: TObject
+        some(
+            predicate?: PartialObject<T>
         ): boolean;
     }
 
@@ -9267,8 +9272,8 @@ declare namespace _ {
         /**
          * @see _.some
          */
-        some<TObject extends {}>(
-            predicate?: TObject
+        some<TResult>(
+            predicate?: PartialObject<TResult>
         ): boolean;
     }
 
@@ -9290,8 +9295,8 @@ declare namespace _ {
         /**
          * @see _.some
          */
-        some<TObject extends {}>(
-            predicate?: TObject
+        some(
+            predicate?: PartialObject<T>
         ): LoDashExplicitWrapper<boolean>;
     }
 
@@ -9313,8 +9318,8 @@ declare namespace _ {
         /**
          * @see _.some
          */
-        some<TObject extends {}>(
-            predicate?: TObject
+        some<TResult>(
+            predicate?: PartialObject<TResult>
         ): LoDashExplicitWrapper<boolean>;
     }
 
@@ -13288,6 +13293,28 @@ declare namespace _ {
         ): number;
     }
 
+    //_.meanBy
+    interface LoDashStatic {
+      /**
+       * Computes the mean of the provided propties of the objects in the `array`
+       *
+       * @static
+       * @memberOf _
+       * @category Math
+       * @param {Array} array The array to iterate over.
+       * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
+       * @returns {number} Returns the mean.
+       * @example
+       *
+       * _.mean([{ 'n': 4 }, { 'n': 2 }, { 'n': 8 }, { 'n': 6 }], 'n');
+       * // => 5
+       */
+      meanBy<T>(
+        collection: List<T>,
+        iteratee?: DictionaryIterator<T, any>
+      ): number;
+    }
+
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.mean
@@ -17131,12 +17158,33 @@ declare namespace _ {
          * @param object The object to query.
          * @return Returns an array of property values.
          */
-        values<T>(object?: Dictionary<T>): T[];
+        values<T>(object?: Dictionary<T>|NumericDictionary<T>|List<T>): T[];
 
-         /**
-          * @see _.values
-          */
+        /**
+         * @see _.values
+         */
         values<T>(object?: any): T[];
+    }
+
+    interface LoDashImplicitStringWrapper {
+        /**
+         * @see _.values
+         */
+        values(): LoDashImplicitArrayWrapper<string>;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.values
+         */
+        values(): LoDashImplicitArrayWrapper<any>;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.values
+         */
+        values(): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -17144,6 +17192,20 @@ declare namespace _ {
          * @see _.values
          */
         values<T>(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.values
+         */
+        values<T>(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.values
+         */
+        values(): LoDashExplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
@@ -19073,6 +19135,123 @@ declare namespace _ {
          * @see _.runInContext
          */
         runInContext(): typeof _;
+    }
+
+    // _.stubArray
+    interface LoDashStatic {
+        /**
+         * This method returns a new empty array.
+         *
+         * @returns Returns the new empty array.
+         */
+        stubArray(): any[];
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubArray
+         */
+        stubArray(): any[];
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubArray
+         */
+        stubArray(): _.LoDashExplicitArrayWrapper<any>;
+    }
+
+    // _.stubFalse
+    interface LoDashStatic {
+        /**
+         * This method returns `false`.
+         *
+         * @returns Returns `false`.
+         */
+        stubFalse(): boolean;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubFalse
+         */
+        stubFalse(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubFalse
+         */
+        stubFalse(): _.LoDashExplicitWrapper<boolean>;
+    }
+
+    interface LoDashStatic {
+        /**
+         * This method returns a new empty object.
+         *
+         * @returns Returns the new empty object.
+         */
+        stubObject(): Object;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubObject
+         */
+        stubObject(): Object;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubObject
+         */
+        stubObject(): _.LoDashExplicitObjectWrapper<Object>;
+    }
+
+    interface LoDashStatic {
+        /**
+         * This method returns an empty string.
+         *
+         * @returns Returns the empty string.
+         */
+        stubString(): string;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubString
+         */
+        stubString(): string;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubString
+         */
+        stubString(): _.LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashStatic {
+        /**
+         * This method returns `true`.
+         *
+         * @returns Returns `true`.
+         */
+        stubTrue(): boolean;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubTrue
+         */
+        stubTrue(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubTrue
+         */
+        stubTrue(): _.LoDashExplicitWrapper<boolean>;
     }
 
     //_.times

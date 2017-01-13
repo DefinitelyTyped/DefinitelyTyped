@@ -1,11 +1,11 @@
-// Type definitions for Node.js v6.x
+// Type definitions for Node.js v7.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
 *                                               *
-*               Node.js v6.x API                *
+*               Node.js v7.x API                *
 *                                               *
 ************************************************/
 
@@ -284,6 +284,7 @@ declare namespace NodeJS {
         setEncoding(encoding: string | null): void;
         pause(): ReadableStream;
         resume(): ReadableStream;
+        isPaused(): boolean;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe<T extends WritableStream>(destination?: T): void;
         unshift(chunk: string): void;
@@ -328,6 +329,11 @@ declare namespace NodeJS {
         rss: number;
         heapTotal: number;
         heapUsed: number;
+    }
+
+    export interface CpuUsage {
+        user: number;
+        system: number;
     }
 
     export interface ProcessVersions {
@@ -396,6 +402,7 @@ declare namespace NodeJS {
         platform: string;
         mainModule?: NodeModule;
         memoryUsage(): MemoryUsage;
+        cpuUsage(previousValue?: CpuUsage): CpuUsage;
         nextTick(callback: Function, ...args: any[]): void;
         umask(mask?: number): number;
         uptime(): number;
@@ -615,6 +622,7 @@ declare module "http" {
         headers?: { [key: string]: any };
         auth?: string;
         agent?: Agent | boolean;
+        timeout?: number;
     }
 
     export interface Server extends net.Server {
@@ -2081,37 +2089,37 @@ declare module "dgram" {
         addListener(event: "close", listener: () => void): this;
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "listening", listener: () => void): this;
-        addListener(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
+        addListener(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
 
         emit(event: string, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: "listening"): boolean;
-        emit(event: "message", msg: string, rinfo: AddressInfo): boolean;
+        emit(event: "message", msg: Buffer, rinfo: AddressInfo): boolean;
 
         on(event: string, listener: Function): this;
         on(event: "close", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
         on(event: "listening", listener: () => void): this;
-        on(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
+        on(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
 
         once(event: string, listener: Function): this;
         once(event: "close", listener: () => void): this;
         once(event: "error", listener: (err: Error) => void): this;
         once(event: "listening", listener: () => void): this;
-        once(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
+        once(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
 
         prependListener(event: string, listener: Function): this;
         prependListener(event: "close", listener: () => void): this;
         prependListener(event: "error", listener: (err: Error) => void): this;
         prependListener(event: "listening", listener: () => void): this;
-        prependListener(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
+        prependListener(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
 
         prependOnceListener(event: string, listener: Function): this;
         prependOnceListener(event: "close", listener: () => void): this;
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
         prependOnceListener(event: "listening", listener: () => void): this;
-        prependOnceListener(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
+        prependOnceListener(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
     }
 }
 
@@ -2655,14 +2663,7 @@ declare module "path" {
      * Join all arguments together and normalize the resulting path.
      * Arguments must be strings. In v0.8, non-string arguments were silently ignored. In v0.10 and up, an exception is thrown.
      *
-     * @param paths string paths to join.
-     */
-    export function join(...paths: any[]): string;
-    /**
-     * Join all arguments together and normalize the resulting path.
-     * Arguments must be strings. In v0.8, non-string arguments were silently ignored. In v0.10 and up, an exception is thrown.
-     *
-     * @param paths string paths to join.
+     * @param paths paths to join.
      */
     export function join(...paths: string[]): string;
     /**
@@ -3343,6 +3344,7 @@ declare module "stream" {
             setEncoding(encoding: string): void;
             pause(): Readable;
             resume(): Readable;
+            isPaused(): boolean;
             pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
             unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
             unshift(chunk: any): void;
@@ -3532,6 +3534,7 @@ declare module "stream" {
             setEncoding(encoding: string): void;
             pause(): Transform;
             resume(): Transform;
+            isPaused(): boolean;
             pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
             unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
             unshift(chunk: any): void;
@@ -3955,7 +3958,25 @@ declare module "v8" {
         space_available_size: number;
         physical_space_size: number;
     }
-    export function getHeapStatistics(): { total_heap_size: number, total_heap_size_executable: number, total_physical_size: number, total_avaialble_size: number, used_heap_size: number, heap_size_limit: number };
+
+    enum DoesZapCodeSpaceFlag {
+        Disabled = 0,
+        Enabled = 1
+    }
+
+    interface HeapInfo {
+        total_heap_size: number;
+        total_heap_size_executable: number;
+        total_physical_size: number;
+        total_available_size: number;
+        used_heap_size: number;
+        heap_size_limit: number;
+        malloced_memory: number;
+        peak_malloced_memory: number;
+        does_zap_garbage: DoesZapCodeSpaceFlag;
+    }
+
+    export function getHeapStatistics(): HeapInfo;
     export function getHeapSpaceStatistics(): HeapSpaceInfo[];
     export function setFlagsFromString(flags: string): void;
 }
@@ -3971,4 +3992,131 @@ declare module "timers" {
 
 declare module "console" {
     export = console;
+}
+
+/**
+ * _debugger module is not documented.
+ * Source code is at https://github.com/nodejs/node/blob/master/lib/_debugger.js
+ */
+declare module "_debugger" {
+    export interface Packet {
+        raw: string;
+        headers: string[];
+        body: Message;
+    }
+
+    export interface Message {
+        seq: number;
+        type: string;
+    }
+
+    export interface RequestInfo {
+        command: string;
+        arguments: any;
+    }
+
+    export interface Request extends Message, RequestInfo {
+    }
+
+    export interface Event extends Message {
+        event: string;
+        body?: any;
+    }
+
+    export interface Response extends Message {
+        request_seq: number;
+        success: boolean;
+        /** Contains error message if success === false. */
+        message?: string;
+        /** Contains message body if success === true. */
+        body?: any;
+    }
+
+    export interface BreakpointMessageBody {
+        type: string;
+        target: number;
+        line: number;
+    }
+
+    export class Protocol {
+        res: Packet;
+        state: string;
+        execute(data: string): void;
+        serialize(rq: Request): string;
+        onResponse: (pkt: Packet) => void;
+    }
+
+    export var NO_FRAME: number;
+    export var port: number;
+
+    export interface ScriptDesc {
+        name: string;
+        id: number;
+        isNative?: boolean;
+        handle?: number;
+        type: string;
+        lineOffset?: number;
+        columnOffset?: number;
+        lineCount?: number;
+    }
+
+    export interface Breakpoint {
+        id: number;
+        scriptId: number;
+        script: ScriptDesc;
+        line: number;
+        condition?: string;
+        scriptReq?: string;
+    }
+
+    export interface RequestHandler {
+        (err: boolean, body: Message, res: Packet): void;
+        request_seq?: number;
+    }
+
+    export interface ResponseBodyHandler {
+        (err: boolean, body?: any): void;
+        request_seq?: number;
+    }
+
+    export interface ExceptionInfo {
+        text: string;
+    }
+
+    export interface BreakResponse {
+        script?: ScriptDesc;
+        exception?: ExceptionInfo;
+        sourceLine: number;
+        sourceLineText: string;
+        sourceColumn: number;
+    }
+
+    export function SourceInfo(body: BreakResponse): string;
+
+    export interface ClientInstance extends NodeJS.EventEmitter {
+        protocol: Protocol;
+        scripts: ScriptDesc[];
+        handles: ScriptDesc[];
+        breakpoints: Breakpoint[];
+        currentSourceLine: number;
+        currentSourceColumn: number;
+        currentSourceLineText: string;
+        currentFrame: number;
+        currentScript: string;
+
+        connect(port: number, host: string): void;
+        req(req: any, cb: RequestHandler): void;
+        reqFrameEval(code: string, frame: number, cb: RequestHandler): void;
+        mirrorObject(obj: any, depth: number, cb: ResponseBodyHandler): void;
+        setBreakpoint(rq: BreakpointMessageBody, cb: RequestHandler): void;
+        clearBreakpoint(rq: Request, cb: RequestHandler): void;
+        listbreakpoints(cb: RequestHandler): void;
+        reqSource(from: number, to: number, cb: RequestHandler): void;
+        reqScripts(cb: any): void;
+        reqContinue(cb: RequestHandler): void;
+    }
+
+    export var Client : {
+        new (): ClientInstance
+    }
 }
