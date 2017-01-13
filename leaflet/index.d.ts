@@ -964,9 +964,6 @@ declare namespace L {
     }
 
     export class Control extends Class {
-    }
-
-    export interface Control {
         getPosition(): ControlPosition;
         setPosition(position: ControlPosition): this;
         getContainer(): HTMLElement;
