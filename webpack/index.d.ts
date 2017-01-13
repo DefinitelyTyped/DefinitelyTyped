@@ -732,7 +732,7 @@ declare namespace webpack {
             new (preferEntry: boolean): Plugin;
         }
         interface UglifyJsPluginStatic {
-            new (options?: UglifyJS.MinifyOptions): Plugin;
+            new (options?: UglifyJS.MinifyOptions & { sourceMap?: boolean; }): Plugin;
         }
         interface CommonsChunkPluginStatic {
             new (chunkName: string, filenames?: string | string[]): Plugin;
