@@ -310,9 +310,9 @@ declare module "mongoose" {
   }
 
   interface CappedOptions {
-    size: number,
-    max?: number,
-    autoIndexId?: boolean
+    size: number;
+    max?: number;
+    autoIndexId?: boolean;
   }
 
   export interface SchemaOption {
