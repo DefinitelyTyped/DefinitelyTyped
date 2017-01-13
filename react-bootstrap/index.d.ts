@@ -744,6 +744,7 @@ declare namespace ReactBootstrap {
     interface GridProps extends React.HTMLProps<Grid> {
         componentClass?: React.ReactType;
         fluid?: boolean;
+        bsClass?: string;        
     }
     type Grid = React.ClassicComponent<GridProps, {}>;
     var Grid: React.ClassicComponentClass<GridProps>;
