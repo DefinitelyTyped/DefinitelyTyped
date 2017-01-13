@@ -78,7 +78,7 @@ declare namespace L {
              *
              * Default value: 'topleft'.
              */
-            position?: PositionString;
+            position?: L.PositionString;
 
             /**
              * Attribution text to include.
