@@ -1,6 +1,6 @@
-// Type definitions for webpack 2.1
+// Type definitions for webpack 2.2
 // Project: https://github.com/webpack/webpack
-// Definitions by: Qubo <https://github.com/tkqubo>
+// Definitions by: Qubo <https://github.com/tkqubo>, Matt Lewis <https://github.com/mattlewis92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="uglify-js" />
@@ -543,7 +543,12 @@ declare namespace webpack {
          * When there are errors while compiling this plugin skips the emitting phase (and recording phase),
          * so there are no assets emitted that include errors. The emitted flag in the stats is false for all assets.
          */
-        NoErrorsPlugin: NoErrorsPluginStatic;
+        NoEmitOnErrorsPlugin: NoEmitOnErrorsPluginStatic;
+        /**
+         * Alias for NoEmitOnErrorsPlugin
+         * @deprecated
+         */
+        NoErrorsPlugin: NoEmitOnErrorsPluginStatic;
         /**
          * Does not watch specified files matching provided paths or RegExps.
          */
@@ -553,6 +558,12 @@ declare namespace webpack {
          * Helps with debugging, but increases bundle size.
          */
         NamedModulesPlugin: NamedModulesPluginStatic;
+        /**
+         * Some loaders need context information and read them from the configuration.
+         * This need to be passed via loader options in the long-term. See loader documentation for relevant options.
+         * To keep compatibility with old loaders, these options can be passed via this plugin.
+         */
+        LoaderOptionsPlugin: LoaderOptionsPluginStatic;
     }
 
     interface Optimize {
@@ -706,7 +717,7 @@ declare namespace webpack {
         new (): Plugin;
     }
 
-    interface NoErrorsPluginStatic {
+    interface NoEmitOnErrorsPluginStatic {
         new (): Plugin;
     }
 
@@ -716,6 +727,10 @@ declare namespace webpack {
 
     interface NamedModulesPluginStatic {
         new (): Plugin;
+    }
+
+    interface LoaderOptionsPluginStatic {
+        new (options: any): Plugin;
     }
 
     namespace optimize {
