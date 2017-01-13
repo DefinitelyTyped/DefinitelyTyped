@@ -397,3 +397,11 @@ let myControl = new myControlClass();
 L.Control.include({});
 L.Control.mergeOptions({});
 L.Control.addInitHook(() => {});
+
+export class MyNewControl extends L.Control {
+	constructor() {
+		super({
+			position: 'topleft'
+		});
+	}
+}
