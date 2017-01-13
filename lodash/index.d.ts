@@ -12292,7 +12292,7 @@ declare namespace _ {
          * _.isNil(NaN);
          * // => false
          */
-        isNil(value?: any): boolean;
+        isNil(value: any): value is null | undefined;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -12317,7 +12317,7 @@ declare namespace _ {
          * @param value The value to check.
          * @return Returns true if value is null, else false.
          */
-        isNull(value?: any): boolean;
+        isNull(value: any): value is null;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -12644,7 +12644,7 @@ declare namespace _ {
          * @param value The value to check.
          * @return Returns true if value is undefined, else false.
          */
-        isUndefined(value: any): boolean;
+        isUndefined(value: any): value is undefined;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -13286,6 +13286,28 @@ declare namespace _ {
         mean<T>(
             collection: List<T>
         ): number;
+    }
+
+    //_.meanBy
+    interface LoDashStatic {
+      /**
+       * Computes the mean of the provided propties of the objects in the `array`
+       *
+       * @static
+       * @memberOf _
+       * @category Math
+       * @param {Array} array The array to iterate over.
+       * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
+       * @returns {number} Returns the mean.
+       * @example
+       *
+       * _.mean([{ 'n': 4 }, { 'n': 2 }, { 'n': 8 }, { 'n': 6 }], 'n');
+       * // => 5
+       */
+      meanBy<T>(
+        collection: List<T>,
+        iteratee?: DictionaryIterator<T, any>
+      ): number;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -17131,12 +17153,33 @@ declare namespace _ {
          * @param object The object to query.
          * @return Returns an array of property values.
          */
-        values<T>(object?: Dictionary<T>): T[];
+        values<T>(object?: Dictionary<T>|NumericDictionary<T>|List<T>): T[];
 
-         /**
-          * @see _.values
-          */
+        /**
+         * @see _.values
+         */
         values<T>(object?: any): T[];
+    }
+
+    interface LoDashImplicitStringWrapper {
+        /**
+         * @see _.values
+         */
+        values(): LoDashImplicitArrayWrapper<string>;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.values
+         */
+        values(): LoDashImplicitArrayWrapper<any>;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.values
+         */
+        values(): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -17144,6 +17187,20 @@ declare namespace _ {
          * @see _.values
          */
         values<T>(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.values
+         */
+        values<T>(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.values
+         */
+        values(): LoDashExplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
@@ -19073,6 +19130,123 @@ declare namespace _ {
          * @see _.runInContext
          */
         runInContext(): typeof _;
+    }
+
+    // _.stubArray
+    interface LoDashStatic {
+        /**
+         * This method returns a new empty array.
+         *
+         * @returns Returns the new empty array.
+         */
+        stubArray(): any[];
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubArray
+         */
+        stubArray(): any[];
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubArray
+         */
+        stubArray(): _.LoDashExplicitArrayWrapper<any>;
+    }
+
+    // _.stubFalse
+    interface LoDashStatic {
+        /**
+         * This method returns `false`.
+         *
+         * @returns Returns `false`.
+         */
+        stubFalse(): boolean;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubFalse
+         */
+        stubFalse(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubFalse
+         */
+        stubFalse(): _.LoDashExplicitWrapper<boolean>;
+    }
+
+    interface LoDashStatic {
+        /**
+         * This method returns a new empty object.
+         *
+         * @returns Returns the new empty object.
+         */
+        stubObject(): Object;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubObject
+         */
+        stubObject(): Object;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubObject
+         */
+        stubObject(): _.LoDashExplicitObjectWrapper<Object>;
+    }
+
+    interface LoDashStatic {
+        /**
+         * This method returns an empty string.
+         *
+         * @returns Returns the empty string.
+         */
+        stubString(): string;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubString
+         */
+        stubString(): string;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubString
+         */
+        stubString(): _.LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashStatic {
+        /**
+         * This method returns `true`.
+         *
+         * @returns Returns `true`.
+         */
+        stubTrue(): boolean;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubTrue
+         */
+        stubTrue(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.stubTrue
+         */
+        stubTrue(): _.LoDashExplicitWrapper<boolean>;
     }
 
     //_.times

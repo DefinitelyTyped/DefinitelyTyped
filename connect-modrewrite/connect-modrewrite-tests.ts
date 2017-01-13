@@ -1,6 +1,5 @@
-
 import modRewrite = require('connect-modrewrite');
-import express = require('../express');
+import express = require('express');
 
 var app = express();
 

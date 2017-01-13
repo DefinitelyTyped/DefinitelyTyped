@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "rx.angular-tests.ts"
+        "rx-angular-tests.ts"
     ]
 }

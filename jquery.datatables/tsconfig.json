@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "jquery.dataTables-tests.ts"
+        "jquery.datatables-tests.ts"
     ]
 }

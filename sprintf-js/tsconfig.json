@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "sprintf-tests.ts"
+        "sprintf-js-tests.ts"
     ]
 }

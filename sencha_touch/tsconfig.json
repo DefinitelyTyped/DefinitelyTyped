@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "SenchaTouch-Tests.ts"
+        "sencha_touch-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
