@@ -1,4 +1,4 @@
-// Type definitions for geodesy 1.1.1
+// Type definitions for geodesy 1.1
 // Project: https://github.com/chrisveness/geodesy
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -91,11 +91,11 @@ export declare class Utm {
     toString(digits?: number): string;
 }
 
-declare namespace Dms {
+export declare namespace Dms {
     export let separator: string;
 }
 
-declare class Dms {
+export declare class Dms {
     static parseDMS(dmsStr: string): number;
     static toDMS(deg: number, format?: format, dp?: 0 | 2 | 4): string;
     static toLat(deg: number, format?: format, dp?: 0 | 2 | 4): string;
@@ -103,7 +103,6 @@ declare class Dms {
     static toBrng(deg: number, format?: format, dp?: 0 | 2 | 4): string;
     static compassPoint(bearing: number, precision?: 1 | 2 | 3): string;
 }
-export { Dms }
 
 export declare class Vector3d {
     x: number;
