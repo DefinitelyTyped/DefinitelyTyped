@@ -5,6 +5,7 @@
 
 import * as React from 'react';
 export = ReactBootstrap;
+export as namespace ReactBootstrap;
 
 declare namespace ReactBootstrap {
 
