@@ -1,4 +1,4 @@
-// Type definitions for dotenv 2.0.0
+// Type definitions for dotenv 2.0
 // Project: https://github.com/motdotla/dotenv
 // Definitions by: Jussi Kinnula <https://github.com/jussikinnula/>, Borek Bernard <https://github.com/borekb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,7 +9,7 @@
  * @param options
  * @return Object Object with the parsed keys and values, e.g., 'KEY=value' becomes { KEY: 'value' }
  */
-export function config(options?: DotenvOptions): Object | false;
+export function config(options?: DotenvOptions): {[name: string]: string} | false;
 
 export interface DotenvOptions {
     /**
