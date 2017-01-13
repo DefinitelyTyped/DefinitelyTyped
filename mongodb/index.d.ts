@@ -692,9 +692,9 @@ export interface Collection {
     options(): Promise<any>;
     options(callback: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#parallelCollectionScan
-    parallelCollectionScan(callback: MongoCallback<Cursor[]>): void;
-    parallelCollectionScan(options?: ParallelCollectionScanOptions): Promise<Cursor[]>;
-    parallelCollectionScan(options: ParallelCollectionScanOptions, callback: MongoCallback<Cursor[]>): void;
+    parallelCollectionScan(callback: MongoCallback<Cursor<any>[]>): void;
+    parallelCollectionScan(options?: ParallelCollectionScanOptions): Promise<Cursor<any>[]>;
+    parallelCollectionScan(options: ParallelCollectionScanOptions, callback: MongoCallback<Cursor<any>[]>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#reIndex
     reIndex(): Promise<any>;
     reIndex(callback: MongoCallback<any>): void;
@@ -1119,24 +1119,25 @@ export interface WriteOpResult {
 export type CursorResult = any | void | boolean;
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html
-export interface Cursor extends Readable {
+export interface Cursor<T extends any> extends Readable {
 
     sortValue: string;
     timeout: boolean;
     readPreference: ReadPreference;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html
-    addCursorFlag(flag: string, value: boolean): Cursor;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#addCursorFlag
+    addCursorFlag(flag: string, value: boolean): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#addQueryModifier
-    addQueryModifier(name: string, value: boolean): Cursor;
+    addQueryModifier(name: string, value: boolean): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#batchSize
-    batchSize(value: number): Cursor;
+    batchSize(value: number): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#clone
-    clone(): Cursor;
+    // https://github.com/christkv/mongodb-core/blob/2.0/lib/cursor.js#L333
+    clone(): Cursor<T>; // still returns the same type
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#close
     close(): Promise<CursorResult>;
     close(callback: MongoCallback<CursorResult>): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#comment
-    comment(value: string): Cursor;
+    comment(value: string): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#count
     count(applySkipLimit: boolean, callback: MongoCallback<number>): void;
     count(applySkipLimit: boolean, options?: CursorCommentOptions): Promise<number>;
@@ -1145,59 +1146,59 @@ export interface Cursor extends Readable {
     explain(): Promise<CursorResult>;
     explain(callback: MongoCallback<CursorResult>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#filter
-    filter(filter: Object): Cursor;
+    filter(filter: Object): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#forEach
     forEach(iterator: IteratorCallback, callback: EndCallback): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#hasNext
     hasNext(): Promise<boolean>;
     hasNext(callback: MongoCallback<boolean>): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#hint
-    hint(hint: Object): Cursor;
+    hint(hint: Object): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#isClosed
     isClosed(): boolean;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#limit
-    limit(value: number): Cursor;
+    limit(value: number): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#map
-    map(transform: Function): Cursor;
+    map(transform: Function): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#max
-    max(max: number): Cursor;
+    max(max: number): Cursor<any>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#maxAwaitTimeMS
-    maxAwaitTimeMS(value: number): Cursor;
+    maxAwaitTimeMS(value: number): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#maxScan
-    maxScan(maxScan: Object): Cursor;
+    maxScan(maxScan: Object): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#maxTimeMS
-    maxTimeMS(value: number): Cursor;
+    maxTimeMS(value: number): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#min
-    min(min: number): Cursor;
+    min(min: number): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#next
     next(): Promise<CursorResult>;
     next(callback: MongoCallback<CursorResult>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#pipe
     pipe(destination: Writable, options?: Object): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#project
-    project(value: Object): Cursor;
+    project(value: Object): Cursor<any>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#read
     read(size: number): string | Buffer | void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#next
-    returnKey(returnKey: Object): Cursor;
+    returnKey(returnKey: Object): Cursor<any>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#rewind
     rewind(): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#setCursorOption
-    setCursorOption(field: string, value: Object): Cursor;
+    setCursorOption(field: string, value: Object): Cursor<any>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#setEncoding
     setEncoding(encoding: string): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#setReadPreference
-    setReadPreference(readPreference: string | ReadPreference): Cursor;
+    setReadPreference(readPreference: string | ReadPreference): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#showRecordId
-    showRecordId(showRecordId: Object): Cursor;
+    showRecordId(showRecordId: Object): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#skip
-    skip(value: number): Cursor;
+    skip(value: number): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#snapshot
-    snapshot(snapshot: Object): Cursor;
+    snapshot(snapshot: Object): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#sort
-    sort(keyOrList: string | Object[] | Object | Object, direction?: number): Cursor;
+    sort(keyOrList: string | Object[] | Object, direction?: number): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#stream
-    stream(options?: { transform?: Function }): Cursor;
+    stream(options?: { transform?: Function }): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#toArray
     toArray(): Promise<any[]>;
     toArray(callback: MongoCallback<any[]>): void;
@@ -1228,7 +1229,7 @@ export interface EndCallback {
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#~resultCallback
 export type AggregationCursorResult = any | void;
-
+// TODO: change to generic version
 //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html
 export interface AggregationCursor extends Readable {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#batchSize
@@ -1332,7 +1333,7 @@ export class GridFSBucket {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#drop
     drop(callback?: GridFSBucketErrorCallback): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#find
-    find(filter?: Object, options?: GridFSBucketFindOptions): Cursor;
+    find(filter?: Object, options?: GridFSBucketFindOptions): Cursor<any>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#openDownloadStream
     openDownloadStream(id: ObjectID, options?: { start: number, end: number }): GridFSBucketReadStream;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#openDownloadStreamByName
