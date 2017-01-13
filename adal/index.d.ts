@@ -23,8 +23,8 @@ declare namespace adal {
         displayCall?: (urlNavigate: string) => any;
         postLogoutRedirectUri?: string; // redirect url after succesful logout operation
         cacheLocation?: string;
-        anonymousEndpoints: string[];
-        expireOffsetSeconds: number;
+        anonymousEndpoints?: string[];
+        expireOffsetSeconds?: number;
         correlationId?: string;
         loginResource?: string;
         resource?: string;
