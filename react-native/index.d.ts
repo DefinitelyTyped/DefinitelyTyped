@@ -21,102 +21,6 @@ export = React;
 
 //react-native "extends" react
 declare module "react" {
-    /**
-     * Represents the completion of an asynchronous operation
-     * @see lib.es6.d.ts
-     */
-    export interface Promise<T> {
-        /**
-         * Attaches callbacks for the resolution and/or rejection of the Promise.
-         * @param onfulfilled The callback to execute when the Promise is resolved.
-         * @param onrejected The callback to execute when the Promise is rejected.
-         * @returns A Promise for the completion of which ever callback is executed.
-         */
-        then<TResult>(onfulfilled?: (value: T) => TResult | Promise<TResult>, onrejected?: (reason: any) => TResult | Promise<TResult>): Promise<TResult>;
-
-        /**
-         * Attaches a callback for only the rejection of the Promise.
-         * @param onrejected The callback to execute when the Promise is rejected.
-         * @returns A Promise for the completion of the callback.
-         */
-        catch(onrejected?: (reason: any) => T | Promise<T>): Promise<T>;
-
-
-        // not in lib.es6.d.ts but called by react-native
-        done(callback?: (value: T) => void): void;
-    }
-
-    export interface PromiseConstructor {
-        /**
-         * A reference to the prototype.
-         */
-        prototype: Promise<any>;
-
-        /**
-         * Creates a new Promise.
-         * @param init A callback used to initialize the promise. This callback is passed two arguments:
-         * a resolve callback used resolve the promise with a value or the result of another promise,
-         * and a reject callback used to reject the promise with a provided reason or error.
-         */
-        new <T>(init: (resolve: (value?: T | Promise<T>) => void, reject: (reason?: any) => void) => void): Promise<T>;
-
-        <T>(init: (resolve: (value?: T | Promise<T>) => void, reject: (reason?: any) => void) => void): Promise<T>;
-
-        /**
-         * Creates a Promise that is resolved with an array of results when all of the provided Promises
-         * resolve, or rejected when any Promise is rejected.
-         * @param values An array of Promises.
-         * @returns A new Promise.
-         */
-        all<T>(values: (T | Promise<T>)[]): Promise<T[]>;
-
-        /**
-         * Creates a Promise that is resolved with an array of results when all of the provided Promises
-         * resolve, or rejected when any Promise is rejected.
-         * @param values An array of values.
-         * @returns A new Promise.
-         */
-        all(values: Promise<void>[]): Promise<void>;
-
-        /**
-         * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved
-         * or rejected.
-         * @param values An array of Promises.
-         * @returns A new Promise.
-         */
-        race<T>(values: (T | Promise<T>)[]): Promise<T>;
-
-        /**
-         * Creates a new rejected promise for the provided reason.
-         * @param reason The reason the promise was rejected.
-         * @returns A new rejected Promise.
-         */
-        reject(reason: any): Promise<void>;
-
-        /**
-         * Creates a new rejected promise for the provided reason.
-         * @param reason The reason the promise was rejected.
-         * @returns A new rejected Promise.
-         */
-        reject<T>(reason: any): Promise<T>;
-
-        /**
-         * Creates a new resolved promise for the provided value.
-         * @param value A promise.
-         * @returns A promise whose internal state matches the provided promise.
-         */
-        resolve<T>(value: T | Promise<T>): Promise<T>;
-
-        /**
-         * Creates a new resolved promise .
-         * @returns A resolved promise.
-         */
-        resolve(): Promise<void>;
-    }
-
-    // @see lib.es6.d.ts
-    export var Promise: PromiseConstructor;
-
     export type MeasureOnSuccessCallback = (
             x: number,
             y: number,
@@ -5634,7 +5538,7 @@ declare module "react" {
          * Fires when a user has finished scrolling.
          */
         onScrollEndDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
-	
+
 	/**
          * Fires when scroll view has finished moving
          */
@@ -6132,43 +6036,43 @@ declare module "react" {
         /**
          * Sets value for key and calls callback on completion, along with an Error if there is any
          */
-        setItem(key: string, value: string, callback?: (error?: Error) => void): Promise<string>
+        setItem(key: string, value: string, callback?: (error?: Error) => void): Promise<void>
 
-        removeItem(key: string, callback?: (error?: Error) => void): Promise<string>
+        removeItem(key: string, callback?: (error?: Error) => void): Promise<void>
 
         /**
          * Merges existing value with input value, assuming they are stringified json. Returns a Promise object.
          * Not supported by all native implementation
          */
-        mergeItem(key: string, value: string, callback?: (error?: Error) => void): Promise<string>
+        mergeItem(key: string, value: string, callback?: (error?: Error) => void): Promise<void>
 
         /**
          * Erases all AsyncStorage for all clients, libraries, etc. You probably don't want to call this.
          * Use removeItem or multiRemove to clear only your own keys instead.
          */
-        clear(callback?: (error?: Error) => void): Promise<string>
+        clear(callback?: (error?: Error) => void): Promise<void>
 
         /**
          * Gets all keys known to the app, for all callers, libraries, etc
          */
-        getAllKeys(callback?: (error?: Error, keys?: string[]) => void): Promise<string>
+        getAllKeys(callback?: (error?: Error, keys?: string[]) => void): Promise<string[]>
 
         /**
          * multiGet invokes callback with an array of key-value pair arrays that matches the input format of multiSet
          */
-        multiGet(keys: string[], callback?: (errors?: Error[], result?: string[][]) => void): Promise<string>
+        multiGet(keys: string[], callback?: (errors?: Error[], result?: [string, string][]) => void): Promise<[string, string][]>
 
         /**
          * multiSet and multiMerge take arrays of key-value array pairs that match the output of multiGet,
          *
          * multiSet([['k1', 'val1'], ['k2', 'val2']], cb);
          */
-        multiSet(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<string>
+        multiSet(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<void>
 
         /**
          * Delete all the keys in the keys array.
          */
-        multiRemove(keys: string[], callback?: (errors?: Error[]) => void): Promise<string>
+        multiRemove(keys: string[], callback?: (errors?: Error[]) => void): Promise<void>
 
         /**
          * Merges existing values with input values, assuming they are stringified json.
@@ -6176,7 +6080,7 @@ declare module "react" {
          *
          * Not supported by all native implementations.
          */
-        multiMerge(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<string>
+        multiMerge(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<void>
     }
 
     export type BackPressEventName = "hardwareBackPress"
