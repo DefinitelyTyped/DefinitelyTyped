@@ -1,11 +1,11 @@
-// Type definitions for connect-ensure-login
+// Type definitions for connect-ensure-login 0.1
 // Project: https://github.com/jaredhanson/connect-ensure-login
 // Definitions by: Pavel Puchkov <https://github.com/0x6368656174>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { RequestHandler } from "express";
 
-declare namespace ConnectEnsureLogin {
+declare namespace Types {
     interface LoggedInOptions {
         /**
          * URL to redirect to for login, defaults to _/login_
@@ -24,7 +24,7 @@ declare namespace ConnectEnsureLogin {
     }
 }
 
-declare module ConnectEnsureLoginModule {
+export declare namespace Module {
     /**
     * Ensure that a user is logged in before proceeding to next route middleware.
     *
@@ -50,7 +50,7 @@ declare module ConnectEnsureLoginModule {
     *       ensureLoggedIn({ redirectTo: '/session/new', setReturnTo: false }),
     *       function(req, res) { ... });
     */
-    function ensureLoggedIn(options?: ConnectEnsureLogin.LoggedInOptions | string): RequestHandler;
+    function ensureLoggedIn(options?: Types.LoggedInOptions | string): RequestHandler;
 
     /**
     * Ensure that no user is logged in before proceeding to next route middleware.
@@ -73,8 +73,5 @@ declare module ConnectEnsureLoginModule {
     *       ensureLoggedOut({ redirectTo: '/home' }),
     *       function(req, res) { ... });
     */
-    function ensureLoggedOut(options?: ConnectEnsureLogin.LoggedOutOptions | string): RequestHandler;
+    function ensureLoggedOut(options?: Types.LoggedOutOptions | string): RequestHandler;
 }
-
-
-export = ConnectEnsureLoginModule;
