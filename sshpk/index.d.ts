@@ -1,4 +1,4 @@
-// Type definitions for sshpk
+// Type definitions for sshpk 1.10
 // Project: github.com/arekinath/node-sshpk
 // Definitions by: Meno Abels <https://github.com/mabels>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -80,7 +80,7 @@ declare namespace SshPK {
 
     toBuffer(format: string, options: any): Buffer;
 
-    toString(format: string, options: any): String;
+    toString(format: string, options: any): string;
 
     fingerprint(algo: string): Fingerprint;
 
@@ -98,9 +98,9 @@ declare namespace SshPK {
 
     static create(subjectOrSubjects: string, key: Key, issuer: string, issuerKey: PrivateKey, options: any): Certificate;
 
-    static parse(data: String|Buffer, format: string, options: any): Certificate;
+    static parse(data: string|Buffer, format: string, options: any): Certificate;
 
-    static isCertificate(data: String|Buffer, ver: string): boolean;
+    static isCertificate(data: string|Buffer, ver: string): boolean;
 
   }
 
@@ -363,7 +363,7 @@ declare namespace SshPK {
   export function parseSignature(data: string|Buffer, type: string, format: string): Signature;
   export function parsePrivateKey(data: string|Buffer, format: string, options?: any): PrivateKey;
 
-  export function parseCertificate(data: String|Buffer, format: string, options?: any): Certificate;
+  export function parseCertificate(data: string|Buffer, format: string, options?: any): Certificate;
   export function createSelfSignedCertificate(subjectOrSubjects: string, key: Key, options?: any): Certificate;
   export function createCertificate(subjectOrSubjects: string, key: Key, issuer: string,
     issuerKey: PrivateKey, options?: any): Certificate;
