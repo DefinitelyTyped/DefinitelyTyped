@@ -108,3 +108,8 @@ function ensureAuthenticated(req: express.Request, res: express.Response, next: 
   }
 }
 
+const passportInstance: passport.Passport = new passport.Passport()
+passportInstance.use(new TestStrategy())
+
+const authenticator: passport.Passport = new passport.Authenticator()
+authenticator.use(new TestStrategy())
