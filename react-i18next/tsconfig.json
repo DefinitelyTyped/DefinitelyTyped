@@ -6,6 +6,10 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "baseUrl": "../",
+        "paths": {
+            "history": ["history/v2"],
+            "history/*": ["history/v2/*"]
+        },
         "typeRoots": [
             "../"
         ],
