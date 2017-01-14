@@ -52,13 +52,13 @@ MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err: mongodb.Mong
         cursor = cursor.sort({});
         cursor = cursor.stream();
     }
-
     // Collection .findM<T>() & .agggregate<T>() generic tests
     {
     let bag : {cost: number, color: string};
    type bag = typeof bag;
     let cursor: mongodb.Cursor<bag> = collection.find<bag>({color: 'black'})
-        cursor.toArray(function (err,r) { bag = r[0]});
+        cursor.toArray(function (err,r) { r[0].cost} );
+        cursor.forEach(function (bag  ) { bag.color }, () => {});
     }
     {
     let payment: {total: number};
