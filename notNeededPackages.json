@@ -1,11 +1,6 @@
 {
     "packages": [
         {
-            "libraryName": "Angular 2",
-            "typingsPackageName": "angular2",
-            "sourceRepoURL": "https://github.com/angular/angular"
-        },
-        {
             "libraryName": "Moment",
             "typingsPackageName": "moment",
             "sourceRepoURL": "https://github.com/moment/moment",
@@ -96,7 +91,6 @@
             "asOfVersion": "2.0.18"
         },
         {
-<<<<<<< HEAD
             "libraryName": "camel-case",
             "typingsPackageName": "camel-case",
             "sourceRepoURL": "https://github.com/blakeembrey/camel-case",
@@ -205,10 +199,82 @@
             "asOfVersion": "2.0.2"
         },
         {
-             "libraryName": "ajv",
-             "typingsPackageName": "ajv",
-             "sourceRepoURL": "https://github.com/epoberezkin/ajv",
-             "asOfVersion": "1.0.0"
+            "libraryName": "ajv",
+            "typingsPackageName": "ajv",
+            "sourceRepoURL": "https://github.com/epoberezkin/ajv",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "date-fns",
+            "typingsPackageName": "date-fns",
+            "sourceRepoURL": "https://github.com/date-fns/date-fns",
+            "asOfVersion": "2.6.0"
+        },
+        {
+            "libraryName": "vuejs",
+            "typingsPackageName": "vue",
+            "sourceRepoURL": "https://github.com/vuejs/vue",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "Facebook's Immutable",
+            "typingsPackageName": "immutable",
+            "sourceRepoURL": "https://github.com/facebook/immutable-js",
+            "asOfVersion": "3.8.7"
+        },
+        {
+            "libraryName": "dva",
+            "typingsPackageName": "dva",
+            "sourceRepoURL": "https://github.com/dvajs/dva",
+            "asOfVersion": "1.1.0"
+        },
+        {
+            "libraryName": "inversify",
+            "typingsPackageName": "inversify",
+            "sourceRepoURL": "http://inversify.io",
+            "asOfVersion": "2.0.33"
+        },
+        {
+            "libraryName": "inversify-express-utils",
+            "typingsPackageName": "inversify-express-utils",
+            "sourceRepoURL": "https://github.com/inversify/inversify-express-utils",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "inversify-binding-decorators",
+            "typingsPackageName": "inversify-binding-decorators",
+            "sourceRepoURL": "https://github.com/inversify/inversify-binding-decorators",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "inversify-logger-middleware",
+            "typingsPackageName": "inversify-logger-middleware",
+            "sourceRepoURL": "https://github.com/inversify/inversify-logger-middleware",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "inversify-inject-decorators",
+            "typingsPackageName": "inversify-inject-decorators",
+            "sourceRepoURL": "https://github.com/inversify/inversify-inject-decorators",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "inversify-restify-utils",
+            "typingsPackageName": "inversify-restify-utils",
+            "sourceRepoURL": "https://github.com/inversify/inversify-restify-utils",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "Argon2",
+            "typingsPackageName": "argon2",
+            "sourceRepoURL": "https://github.com/ranisalt/node-argon2",
+            "asOfVersion": "0.15.0"
+        },
+        {
+            "libraryName": "node-scanf",
+            "typingsPackageName": "scanf",
+            "sourceRepoURL": "https://github.com/Lellansin/node-scanf",
+            "asOfVersion": "0.7.3"
         }
     ]
 }

@@ -1,3 +1,3 @@
-import Abs from 'abs';
+import Abs = require('abs');
 
 const x: string = Abs('/foo');

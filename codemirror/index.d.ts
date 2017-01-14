@@ -178,6 +178,13 @@ declare namespace CodeMirror {
         class can be left off to remove all classes for the specified node, or be a string to remove only a specific class. */
         removeLineClass(line: any, where: string, class_: string): CodeMirror.LineHandle;
 
+        /**
+         * Compute the line at the given pixel height.
+         *
+         * `mode` is the relative element to use to compute this line - defaults to 'page' if not specified
+         */
+        lineAtHeight(height: number, mode?: 'window' | 'page' | 'local'): number
+
         /** Returns the line number, text content, and marker status of the given line, which can be either a number or a line handle. */
         lineInfo(line: any): {
             line: any;

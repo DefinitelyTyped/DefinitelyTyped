@@ -24,6 +24,10 @@ declare module "koa" {
 
 declare function bodyParser(opts?: {
     /**
+     *  parser will only parse when request type hits enableTypes, default is ['json', 'form'].
+     */
+    enableTypes?: string[];
+    /**
      * requested encoding. Default is utf-8 by co-body
      */
     encode?: string;

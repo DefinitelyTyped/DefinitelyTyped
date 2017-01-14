@@ -9,20 +9,20 @@ import * as React from "react"
 import * as reactMixin from "react-mixin"
 
 import {
-IntlProvider,
-InjectedIntl,
-addLocaleData,
-hasLocaleData,
-injectIntl,
-intlShape,
-defineMessages,
-FormattedRelative,
-FormattedMessage,
-FormattedHTMLMessage,
-FormattedNumber,
-FormattedPlural,
-FormattedDate,
-FormattedTime
+    IntlProvider,
+    InjectedIntl,
+    addLocaleData,
+    hasLocaleData,
+    injectIntl,
+    intlShape,
+    defineMessages,
+    FormattedRelative,
+    FormattedMessage,
+    FormattedHTMLMessage,
+    FormattedNumber,
+    FormattedPlural,
+    FormattedDate,
+    FormattedTime
 } from "react-intl"
 
 import reactIntlEn = require("react-intl/locale-data/en");
@@ -31,7 +31,8 @@ addLocaleData(reactIntlEn);
 console.log(hasLocaleData("en"));
 
 interface SomeComponentProps {
-  intl: InjectedIntl
+    className: string,
+    intl?: InjectedIntl
 }
 
 class SomeComponent extends React.Component<SomeComponentProps, void> {
@@ -47,14 +48,14 @@ class SomeComponent extends React.Component<SomeComponentProps, void> {
         const formattedPlural = intl.formatPlural(1, { one: "hai!" });
         const formattedMessage = intl.formatMessage({ id: "hello", defaultMessage: "Hello {name}!" }, { name: "Roger" });
         const formattedHTMLMessage = intl.formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{name}</strong>!" }, { name: "Roger" });
-        return <div>
+        return <div className={this.props.className}>
             <FormattedRelative
-                value={new Date().getTime() }
+                value={new Date().getTime()}
                 units="hour"
                 style="numeric"
                 format="yyyy-MM-dd"
                 updateInterval={123}
-                initialNow={new Date() } />
+                initialNow={new Date()} />
 
             <FormattedMessage
                 id="test"
@@ -102,7 +103,7 @@ class SomeComponent extends React.Component<SomeComponentProps, void> {
                 many="haiku" />
 
             <FormattedDate
-                value={new Date() }
+                value={new Date()}
                 format="short"
                 localeMatcher="best fit"
                 formatMatcher="basic"
@@ -119,7 +120,7 @@ class SomeComponent extends React.Component<SomeComponentProps, void> {
                 timeZoneName="short" />
 
             <FormattedTime
-                value={new Date() }
+                value={new Date()}
                 format="short"
                 localeMatcher="best fit"
                 formatMatcher="basic"
@@ -138,9 +139,9 @@ class SomeComponent extends React.Component<SomeComponentProps, void> {
             <FormattedNumber value={123}>
                 {(formattedNum: string) => (
                     <span className="number">{formattedNum}</span>
-                ) }
-                </FormattedNumber>
-            </div>
+                )}
+            </FormattedNumber>
+        </div>
     }
 }
 
@@ -159,9 +160,9 @@ class TestApp extends React.Component<{}, {}> {
             "hello": "Hello, {name}!"
         };
         return (
-          <IntlProvider locale="en" formats={{}} messages={messages} defaultLocale="en" defaultFormats={messages}>
-            <SomeComponentWithIntl />
-          </IntlProvider>
+            <IntlProvider locale="en" formats={{}} messages={messages} defaultLocale="en" defaultFormats={messages}>
+                <SomeComponentWithIntl className="just-for-test" />
+            </IntlProvider>
         );
     }
 }

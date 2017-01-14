@@ -15,7 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "inert-tests.ts",
-        "inert-tests-es6.ts"
+        "inert-tests.ts"
     ]
 }

@@ -1255,6 +1255,8 @@ declare namespace CKEDITOR {
     }
 
     interface buttonDefinition {
+        icon?: string;
+        iconOffset?: number;
         label : string;
         command : string;
         toolbar : string;

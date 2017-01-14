@@ -1,4 +1,4 @@
-import swig = require('./');
+import swig = require('swig');
 
 var swigObj: swig.Swig;
 var value: any;

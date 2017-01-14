@@ -16,6 +16,6 @@
     },
     "files": [
         "index.d.ts",
-        "msgpack5-test.ts"
+        "msgpack5-tests.ts"
     ]
 }

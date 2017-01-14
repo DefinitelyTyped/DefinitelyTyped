@@ -1,4 +1,4 @@
-﻿var myApp = angular.module('testModule', ['xeditable']);
+var myApp = angular.module('testModule', ['xeditable']);
 
 myApp.run(["editableOptions", (editableOptions: angular.xeditable.IEditableOptions) => {
 

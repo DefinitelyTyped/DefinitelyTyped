@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "angular-localForage-tests.ts"
+        "angular-localforage-tests.ts"
     ]
 }

@@ -12,5 +12,9 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "vivus-tests.ts"
+    ]
 }

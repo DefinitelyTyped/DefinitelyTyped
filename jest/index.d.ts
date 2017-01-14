@@ -136,6 +136,7 @@ declare namespace jest {
         toHaveBeenCalledWith(...params: any[]): boolean;
         toHaveBeenLastCalledWith(...params: any[]): boolean;
         toMatch(expected: string | RegExp): void;
+        toMatchObject(expected: {}): void;
         toMatchSnapshot(): void;
         toThrow(): void;
         toThrowError(error?: string | Constructable | RegExp): void;
@@ -151,6 +152,7 @@ declare namespace jest {
         (...args: any[]): any;
         mock: MockContext<T>;
         mockClear(): void;
+        mockReset(): void;
         mockImplementation(fn: Function): Mock<T>;
         mockImplementationOnce(fn: Function): Mock<T>;
         mockReturnThis(): Mock<T>;

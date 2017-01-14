@@ -1,4 +1,4 @@
-import * as webdriver from "./index";
+import * as webdriver from './index';
 
 declare namespace http {
     /**
@@ -9,7 +9,7 @@ declare namespace http {
     function headersToString(headers: any): string;
 
     /**
-     * Represents a HTTP request message. This class is a "partial" request and only
+     * Represents a HTTP request message. This class is a 'partial' request and only
      * defines the path on the server to send a request to. It is each client's
      * responsibility to build the full URL for the final request.
      * @final
@@ -108,15 +108,15 @@ declare namespace http {
         /**
          * Defines a new command for use with this executor. When a command is sent,
          * the {@code path} will be preprocessed using the command's parameters; any
-         * path segments prefixed with ":" will be replaced by the parameter of the
-         * same name. For example, given "/person/:name" and the parameters
-         * "{name: 'Bob'}", the final command path will be "/person/Bob".
+         * path segments prefixed with ':' will be replaced by the parameter of the
+         * same name. For example, given '/person/:name' and the parameters
+         * '{name: 'Bob'}', the final command path will be '/person/Bob'.
          *
          * @param {string} name The command name.
          * @param {string} method The HTTP method to use when sending this command.
          * @param {string} path The path to send the command to, relative to
          *     the WebDriver server's command root and of the form
-         *     "/path/:variable/segment".
+         *     '/path/:variable/segment'.
          */
         defineCommand(name: string, method: string, path: string): void;
 

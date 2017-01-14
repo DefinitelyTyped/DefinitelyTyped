@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Icon, IconStack } from 'react-fa';
+import { Icon, IconStack, IconProps } from 'react-fa';
 import DefaultIcon from 'react-fa';
 
 export class ReactFATest extends React.Component<any, any> {
@@ -18,6 +18,8 @@ export class ReactFATest extends React.Component<any, any> {
                 <Icon { ...defaultProps } flip='vertical' />
                 <Icon { ...defaultProps } fixedWidth />
                 <Icon { ...defaultProps } pulse />
+
+                <Icon { ...defaultProps } className="test" onClick={ () => {} } />
 
                 <DefaultIcon { ...defaultProps } />
 

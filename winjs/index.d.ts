@@ -1,4 +1,4 @@
-// Type definitions for WinJS
+// Type definitions for WinJS 4.4
 // Project: http://try.buildwinjs.com/
 // Definitions by: TypeScript samples <https://www.typescriptlang.org/>, Adam Hewitt <https://github.com/adamhewitt627>, Craig Treasure <https://github.com/craigktreasure>, Jeff Fisher <https://github.com/xirzec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

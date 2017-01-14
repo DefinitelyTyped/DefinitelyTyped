@@ -6,7 +6,7 @@
 /// <reference types="node" />
 
 import http = require('http');
-import bunyan = require('bunyan');
+import Logger = require('bunyan');
 import url = require('url');
 
 
@@ -196,7 +196,7 @@ interface Request extends http.IncomingMessage {
      */
     href: () => string;
 
-    log: bunyan.Logger;
+    log: Logger;
     /**
      * retrieves the request uuid. was created when the request was setup.
      * @public
@@ -456,6 +456,7 @@ interface ServerOptions {
 interface ClientOptions {
     accept?: string;
     connectTimeout?: number;
+    requestTimeout?: number;
     dtrace?: Object;
     gzip?: Object;
     headers?: Object;
@@ -485,7 +486,7 @@ interface HttpClient extends Client {
     patch: (opts?: string | { path?: string; [name: string]: any }, callback?: Function) => any;
     del: (opts?: string | { path?: string; [name: string]: any }, callback?: Function) => any;
 }
- 
+
 interface ThrottleOptions {
     burst?: number;
     rate?: number;

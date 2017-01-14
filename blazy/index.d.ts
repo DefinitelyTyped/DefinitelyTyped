@@ -67,6 +67,6 @@ interface Breakpoint {
   src: string;
 }
 
-declare module 'Blazy' {
+declare module 'blazy' {
   export = Blazy;
 }
