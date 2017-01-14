@@ -2,6 +2,7 @@
 // Project: https://github.com/leecade/react-native-swiper#readme
 // Definitions by: CaiHuan <https://github.com/CaiHuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+declare module 'react-native-swiper' {
 
 import * as React from 'react';
 import {
@@ -12,7 +13,7 @@ interface SwiperProperties extends React.Props<Swiper> {
 
   horizontal?: boolean;
 
-  style: ViewStyle;
+  style?: ViewStyle;
 
   pagingEnabled?: boolean;
 
@@ -62,3 +63,4 @@ interface SwiperProperties extends React.Props<Swiper> {
 export default class Swiper extends React.Component<SwiperProperties, {}> {
 }
 
+}  // declare module 'react-native-swiper'
