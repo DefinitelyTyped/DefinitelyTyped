@@ -9,10 +9,11 @@
         "typeRoots": [
             "../../"
         ],
-        "types": [],
         "paths": {
+            "history": ["history/v2"],
             "react-router-redux": ["react-router-redux/v3"]
         },
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

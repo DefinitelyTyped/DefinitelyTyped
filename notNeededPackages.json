@@ -269,6 +269,12 @@
             "typingsPackageName": "argon2",
             "sourceRepoURL": "https://github.com/ranisalt/node-argon2",
             "asOfVersion": "0.15.0"
+        },
+        {
+            "libraryName": "node-scanf",
+            "typingsPackageName": "scanf",
+            "sourceRepoURL": "https://github.com/Lellansin/node-scanf",
+            "asOfVersion": "0.7.3"
         }
     ]
 }

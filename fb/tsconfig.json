@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "fbsdk-tests.ts"
+        "fb-tests.ts"
     ]
 }

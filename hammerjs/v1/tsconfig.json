@@ -11,7 +11,7 @@
         ],
         "types": [],
         "paths": {
-            "hammerjs": ["hammerjs/v0"]
+            "hammerjs": ["hammerjs/v1"]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

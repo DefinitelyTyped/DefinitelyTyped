@@ -16,7 +16,7 @@
     "files": [
         "index.d.ts",
         "firebase-simplelogin.d.ts",
-        "firebase-tests.ts",
-        "firebase-simplelogin-tests.ts"
+        "test/index.ts",
+        "test/simplelogin.ts"
     ]
 }

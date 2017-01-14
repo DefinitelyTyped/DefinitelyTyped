@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "jquery.leanModal-tests.ts"
+        "jquery.leanmodal-tests.ts"
     ]
 }

@@ -846,6 +846,10 @@ namespace http_tests {
         request.setNoDelay(true);
         request.abort();
     }
+	
+	const options: http.RequestOptions = {
+        timeout: 30000
+	};
 }
 
 //////////////////////////////////////////////////////
