@@ -12,7 +12,7 @@ interface SwiperProperties extends React.Props<Swiper> {
 
   horizontal?: boolean;
 
-  style: ViewStyle;
+  style?: ViewStyle;
 
   pagingEnabled?: boolean;
 
@@ -61,4 +61,3 @@ interface SwiperProperties extends React.Props<Swiper> {
 
 export default class Swiper extends React.Component<SwiperProperties, {}> {
 }
-

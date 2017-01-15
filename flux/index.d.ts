@@ -1,10 +1,11 @@
-// Type definitions for Flux 3.0
+// Type definitions for Flux
 // Project: http://facebook.github.io/flux/
 // Definitions by: Steve Baker <https://github.com/stkb/>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="react" />
 /// <reference types="fbemitter" />
+/// <reference types="immutable" />
 
 export = Flux;
 

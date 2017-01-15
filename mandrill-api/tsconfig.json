@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "mandrill-api-tests.ts"
+        "mandrill-tests.ts"
     ]
 }

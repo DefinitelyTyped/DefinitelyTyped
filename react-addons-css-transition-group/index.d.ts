@@ -1,12 +1,16 @@
-// Type definitions for React (react-addons-css-transition-group) 15.0
+// Type definitions for React (react-addons-css-transition-group) 0.14
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import 'react-addons-transition-group';
-import { ComponentClass, TransitionGroupProps, CSSTransitionGroupProps } from 'react';
+import { ComponentClass, TransitionGroupProps } from 'react';
 
-declare module 'react' {
+declare var CSSTransitionGroup: CSSTransitionGroup;
+type CSSTransitionGroup = ComponentClass<CSSTransitionGroup.CSSTransitionGroupProps>;
+export = CSSTransitionGroup;
+
+declare namespace CSSTransitionGroup {
     interface CSSTransitionGroupTransitionName {
         enter: string;
         enterActive?: string;
@@ -16,7 +20,7 @@ declare module 'react' {
         appearActive?: string;
     }
 
-    export interface CSSTransitionGroupProps extends TransitionGroupProps {
+    interface CSSTransitionGroupProps extends TransitionGroupProps {
         transitionName: string | CSSTransitionGroupTransitionName;
         transitionAppear?: boolean;
         transitionAppearTimeout?: number;
@@ -26,8 +30,3 @@ declare module 'react' {
         transitionLeaveTimeout?: number;
     }
 }
-
-declare var CSSTransitionGroup: CSSTransitionGroup;
-type CSSTransitionGroup = ComponentClass<CSSTransitionGroupProps>;
-export = CSSTransitionGroup;
-

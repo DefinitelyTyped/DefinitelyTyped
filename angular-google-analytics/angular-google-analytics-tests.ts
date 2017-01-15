@@ -58,8 +58,8 @@ function RetrieveCurrentURL(Analytics: angular.google.analytics.AnalyticsService
 }
 
 function ManualScriptTagInjection(Analytics: angular.google.analytics.AnalyticsService) {
-  Analytics.registerScriptTags();
-  Analytics.registerTrackers();
+  Analytics.createScriptTag();
+  Analytics.createAnalyticsScriptTag();
 }
 
 function SetCustomDimensions(Analytics: angular.google.analytics.AnalyticsService) {

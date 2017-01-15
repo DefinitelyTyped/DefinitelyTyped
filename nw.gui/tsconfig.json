@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "nw.gui-tests.ts"
+        "node-webkit-tests.ts"
     ]
 }

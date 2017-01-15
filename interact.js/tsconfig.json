@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "interact.js-tests.ts"
+        "interact-tests.ts"
     ]
 }

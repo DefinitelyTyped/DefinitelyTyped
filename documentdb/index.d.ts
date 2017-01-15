@@ -231,7 +231,7 @@ interface IndexingPolicy {
     indexingMode: string;
 
     /** An array of {@link IndexingPath} represents The paths to be incuded for indexing. */
-    IncludedPaths: IndexingPath[];
+    IncludedPath: IndexingPath[];
 
     /** An array of strings representing the paths to be excluded from indexing. */
     ExcludedPaths: string[];

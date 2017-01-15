@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "doccookies-tests.ts"
+        "docCookies-tests.ts"
     ]
 }

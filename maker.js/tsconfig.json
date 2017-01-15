@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "maker.js-tests.ts"
+        "makerjs-tests.ts"
     ]
 }

@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "loopback-boot-tests.ts"
+        "loopback-boot-test.ts"
     ]
 }

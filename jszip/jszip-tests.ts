@@ -9,7 +9,6 @@ var SEVERITY = {
 function createTestZip(): JSZip {
 	var zip = new JSZip();
 	zip.file("test.txt", "test string");
-	zip.file("test", null, { dir: true });
 	zip.file("test/test.txt", "test string");
 	return zip
 }

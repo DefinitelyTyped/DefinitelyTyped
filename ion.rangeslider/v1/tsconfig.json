@@ -11,13 +11,13 @@
         ],
         "types": [],
         "paths": {
-            "ion.rangeslider": ["ion.rangeslider/v1"]
+            "ion.rangeslider": ["ion.rangeslider/v0"]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "ion.rangeslider-tests.ts"
+        "ion.rangeSlider-tests.ts"
     ]
 }

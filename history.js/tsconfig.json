@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "history.js-tests.ts"
+        "history-tests.ts"
     ]
 }

@@ -130,7 +130,3 @@ declare namespace GeoJSON {
         properties: { href: string; type: string }
     }
 }
-
-declare module 'geojson' {
-    export = GeoJSON;
-}

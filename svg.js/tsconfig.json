@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "svg.js-tests.ts"
+        "svgjs-tests.ts"
     ]
 }

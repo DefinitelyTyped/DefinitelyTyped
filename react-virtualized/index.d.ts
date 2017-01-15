@@ -1,6 +1,6 @@
-// Type definitions for react-virtualized 8.9.0
+// Type definitions for react-virtualized
 // Project: https://github.com/bvaughn/react-virtualized
-// Definitions by: Andrew de Waal <https://github.com/andrewdewaal>
+// Definitions by: Ian Ker-Seymer <https://github.com/ianks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="react" />
@@ -50,26 +50,6 @@ declare module "react-virtualized" {
     type GridProps = any;
     export class Grid extends React.Component<GridProps, {}> { }
 
-    interface ListProps {
-        className?: string;
-        autoHeight?: boolean;
-        estimatedRowSize?: number;
-        height: number;
-        noRowsRenderer?: Function;
-        onRowsRendered?: (info: { overscanStartIndex: number, overscanStopIndex: number, startIndex: number, stopIndex: number }) => void;
-        onScroll?: (info: { clientHeight: number, scrollHeight: number, scrollTop: number }) => void;
-        overscanRowCount?: number;
-        rowHeight: number | ((info: { index: number }) => number);
-        rowRenderer: (info: { index: number, isScrolling: boolean }) => React.ReactNode;
-        rowCount: number;
-        scrollToAlignment?: string;
-        scrollToIndex?: number;
-        scrollTop?: number;
-        style?: React.CSSProperties;
-        tabIndex?: number;
-        width: number;
-    }
-    export class List extends React.Component<ListProps, {}> { }
 
     /*
      * Higher-Order Components

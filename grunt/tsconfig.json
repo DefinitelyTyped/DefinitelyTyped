@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "grunt-tests.ts"
+        "gruntjs-tests.ts"
     ]
 }

@@ -1,7 +1,7 @@
-import Logger = require("bunyan");
+import bunyan = require("bunyan");
 import bunyanLogentries = require("bunyan-logentries");
 
-var logger: Logger = Logger.createLogger({
+var logger: bunyan.Logger = bunyan.createLogger({
   name: "foobar",
   streams: [{
     level: "info",

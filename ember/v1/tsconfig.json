@@ -11,7 +11,7 @@
         ],
         "types": [],
         "paths": {
-            "ember": ["ember/v1"]
+            "ember": ["ember/v0"]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

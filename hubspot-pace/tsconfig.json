@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "hubspot-pace-tests.ts"
+        "HubSpot-pace-tests.ts"
     ]
 }

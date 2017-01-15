@@ -148,7 +148,6 @@ interface JSZipFileOptions {
     comment?: string;
     optimizedBinaryString?: boolean;
     createFolders?: boolean;
-    dir?: boolean;
 }
 
 interface JSZipObjectOptions {

@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "bounce.js-tests.ts"
+        "bounce-tests.ts"
     ]
 }

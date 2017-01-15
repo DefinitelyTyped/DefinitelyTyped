@@ -4,8 +4,7 @@ var myApp = angular.module('testModule', ['ngMaterial']);
 
 myApp.config((
     $mdThemingProvider: ng.material.IThemingProvider,
-    $mdIconProvider: ng.material.IIconProvider,
-    $mdProgressCircularProvider: ng.material.IProgressCircularProvider) => {
+    $mdIconProvider: ng.material.IIconProvider) => {
 
     $mdThemingProvider.alwaysWatchTheme(true);
     var neonRedMap: ng.material.IPalette = $mdThemingProvider.extendPalette('red', {
@@ -28,21 +27,11 @@ myApp.config((
     };
     $mdThemingProvider.enableBrowserColor(browserColors);
 
-    // Disable theming generation at runtime
-    $mdThemingProvider.disableTheming();
-
     $mdIconProvider
         .defaultIconSet('my/app/icons.svg')       // Register a default set of SVG icons
         .iconSet('social', 'my/app/social.svg')   // Register a named icon set of SVGs
         .icon('android', 'my/app/android.svg')    // Register a specific icon (by name)
         .icon('work:chair', 'my/app/chair.svg');  // Register icon in a specific set
-
-    // Example of changing the default progress options.
-    $mdProgressCircularProvider.configure({
-        progressSize: 100,
-        strokeWidth: 20,
-        duration: 800
-    });
 });
 
 myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng.material.IBottomSheetService) => {

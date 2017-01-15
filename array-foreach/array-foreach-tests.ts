@@ -17,21 +17,21 @@ arrayForEach(array, (i: number, index: number, array: Array<number>) => {
 
 const resultThis: Array<{i: number, that: string}> = [];
 
-arrayForEach(array, function(i) {
+arrayForEach(array, function(i: number) {
 	resultThis.push({
 		i: i,
 		that: this.that
 	});
 }, { that: 'jeff' });
 
-arrayForEach(array, function(i, index) {
+arrayForEach(array, function(i: number, index: number) {
 	resultThis.push({
 		i: i + index,
 		that: this.that
 	});
 }, { that: 'jeff' });
 
-arrayForEach(array, function(i, index, array) {
+arrayForEach(array, function(i: number, index: number, array: Array<number>) {
 	resultThis.push({
 		i: array[i],
 		that: this.that

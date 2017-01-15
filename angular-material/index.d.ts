@@ -1,6 +1,6 @@
 // Type definitions for Angular Material (angular.material module) 1.1
 // Project: https://github.com/angular/material
-// Definitions by: Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>, Davide Donadello <https://github.com/Dona278>
+// Definitions by: Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as angular from 'angular';
@@ -259,15 +259,6 @@ declare module 'angular' {
             dark(isDark?: boolean): ITheme;
         }
 
-        interface IThemeConfig {
-            disableTheming: boolean;
-            generateOnDemand: boolean;        
-            nonce: string;
-            defaultTheme: string;
-            alwaysWatchTheme: boolean;
-            registeredStyles: Array<string>;
-        }
-
         interface IThemingProvider {
             alwaysWatchTheme(alwaysWatch: boolean): void;
             definePalette(name: string, palette: IPalette): IThemingProvider;
@@ -277,9 +268,6 @@ declare module 'angular' {
             setDefaultTheme(theme: string): void;
             setNonce(nonce: string): void;
             theme(name: string, inheritFrom?: string): ITheme;
-            generateThemesOnDemand(onDemand: boolean): void;
-            disableTheming(isDisabled?: boolean): void;
-            configuration(): IThemeConfig;
         }
 
         interface IDateLocaleProvider {
@@ -434,21 +422,6 @@ declare module 'angular' {
                 BOTTOM: string,
                 LEFT: string,
             };
-        }
-
-        interface IProgressCircularConfig {
-            progressSize?: number;
-            strokeWidth?: number;
-            duration?: number;
-            easeFn?: Function;
-            durationIndeterminate?: number;
-            startIndeterminate?: number;
-            endIndeterminate?: number;
-            easeFnIndeterminate?: Function;        
-        }
-
-        interface IProgressCircularProvider {
-            configure(options: IProgressCircularConfig): void;
         }
     }
 }

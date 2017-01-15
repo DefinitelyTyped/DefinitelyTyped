@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "vex-js-tests.ts"
+        "vex-tests.ts"
     ]
 }

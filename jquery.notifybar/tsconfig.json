@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "jquery.notifybar-tests.ts"
+        "jquery.notifyBar-tests.ts"
     ]
 }

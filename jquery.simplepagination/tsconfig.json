@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "jquery.simplepagination-tests.ts"
+        "jquery.simplePagination-tests.ts"
     ]
 }

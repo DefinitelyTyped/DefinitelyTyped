@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "heatmap.js-tests.ts"
+        "heatmap-tests.ts"
     ]
 }

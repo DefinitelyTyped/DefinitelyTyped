@@ -1,4 +1,8 @@
 {
+    "files": [
+        "index.d.ts",
+        "ion.rangeSlider-tests.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
@@ -12,9 +16,5 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    },
-    "files": [
-        "index.d.ts",
-        "ion.rangeslider-tests.ts"
-    ]
+    }
 }

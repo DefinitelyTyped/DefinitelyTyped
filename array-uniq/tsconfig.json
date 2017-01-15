@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "array-uniq-tests.ts"
+        "index-tests.ts"
     ]
 }

@@ -18,7 +18,7 @@ declare namespace Express {
 declare module "easy-xapi" {
     import express = require('express');
     import http = require('http');
-    import Logger = require('bunyan');
+    import bunyan = require('bunyan');
 
     interface InitConfig {
         jSend?: {partial: boolean};
@@ -40,7 +40,7 @@ declare module "easy-xapi" {
         express: any;
         app: express.Application;
         server: http.Server;
-        log: Logger;
+        log: bunyan.Logger;
         listen: () => void;
     }
 

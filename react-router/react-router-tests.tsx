@@ -2,11 +2,7 @@ import * as React from "react"
 import * as ReactDOM from "react-dom"
 import {renderToString} from "react-dom/server";
 
-import { applyRouterMiddleware, browserHistory, hashHistory, match, createMemoryHistory, withRouter, routerShape, Router, Route, IndexRoute, InjectedRouter, Link, RouterOnContext, RouterContext, LinkProps} from "react-router";
-
-const NavLink = (props: LinkProps) => (
-	<Link {...props} activeClassName="active" />
-)
+import { applyRouterMiddleware, browserHistory, hashHistory, match, createMemoryHistory, withRouter, routerShape, Router, Route, IndexRoute, InjectedRouter, Link, RouterOnContext, RouterContext} from "react-router";
 
 interface MasterContext {
 	router: RouterOnContext;
@@ -32,7 +28,7 @@ class Master extends React.Component<React.Props<{}>, {}> {
 	render() {
 		return <div>
 			<h1>Master</h1>
-			<Link to="/">Dashboard</Link> <NavLink to="/users">Users</NavLink>
+			<Link to="/">Dashboard</Link> <Link to="/users">Users</Link>
 			<p>{this.props.children}</p>
 		</div>
 	}
@@ -109,6 +105,7 @@ const routes = (
 match({history, routes, location: "baseurl"}, (error, redirectLocation, renderProps) => {
 	renderToString(<RouterContext {...renderProps} />);
 });
+
 
 ReactDOM.render((
 	<Router

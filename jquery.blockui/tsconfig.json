@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "jquery.blockui-tests.ts"
+        "jquery.blockUI-tests.ts"
     ]
 }

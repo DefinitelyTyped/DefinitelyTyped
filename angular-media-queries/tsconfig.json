@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "angular-media-queries-tests.ts"
+        "match-media-tests.ts"
     ]
 }

@@ -152,7 +152,6 @@ declare namespace jest {
         (...args: any[]): any;
         mock: MockContext<T>;
         mockClear(): void;
-        mockReset(): void;
         mockImplementation(fn: Function): Mock<T>;
         mockImplementationOnce(fn: Function): Mock<T>;
         mockReturnThis(): Mock<T>;

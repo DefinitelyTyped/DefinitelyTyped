@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "pubsub-js-tests.ts"
+        "PubSub-tests.ts"
     ]
 }

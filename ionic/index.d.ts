@@ -201,14 +201,14 @@ declare namespace ionic {
         interface IonicHistoryService {
             viewHistory(): any;
 
-            currentView(view?: any): any;
+            currentView(): any;
             currentHistoryId(): string;
             currentTitle(val?: string): string;
 
-            backView(view?: any): any;
+            backView(): any;
             backTitle(): string;
 
-            forwardView(view?: any): any;
+            forwardView(): any;
 
             currentStateName(): string;
 

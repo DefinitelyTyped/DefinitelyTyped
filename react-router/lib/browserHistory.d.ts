@@ -1,3 +1,3 @@
-import { History } from './routerHistory';
+import { History } from './History';
 declare const browserHistory: History;
 export default browserHistory;

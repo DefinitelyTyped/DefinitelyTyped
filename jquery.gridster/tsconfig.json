@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "jquery.gridster-tests.ts"
+        "gridster-tests.ts"
     ]
 }

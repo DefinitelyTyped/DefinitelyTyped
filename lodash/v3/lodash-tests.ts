@@ -7073,7 +7073,7 @@ namespace TestIsError {
             let result: CustomError = value;
         }
         else {
-            let result: number = value as number;
+            let result: number = value;
         }
     }
 

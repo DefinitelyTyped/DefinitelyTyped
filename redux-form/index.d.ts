@@ -2,7 +2,6 @@
 // Project: https://github.com/erikras/redux-form
 // Definitions by: Carson Full <https://github.com/carsonf>, Daniel Lytkin <https://github.com/aikoven>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 ///<reference types="react" />
 
@@ -17,13 +16,9 @@ export type FieldType = 'Field' | 'FieldArray';
 
 export type DataShape = {[fieldName:string]: FieldValue};
 
-export type FormErrors<FormData extends DataShape> = {
-  [P in keyof FormData]?: React.ReactElement<any> | string;
-} & { _error?: string };
+export type FormErrors<FormData extends DataShape> = FormData & { _error?: string };
 
-export type FormWarnings<FormData extends DataShape> = {
-  [P in keyof FormData]?: React.ReactElement<any> | string;
-} & { _warning?: string };
+export type FormWarnings<FormData extends DataShape> = FormData & { _warning?: string };
 
 /**
  * A component class or stateless function component.

@@ -1,8 +1,8 @@
 {
     "files": [
         "index.d.ts",
-        "test/index.ts",
-        "test/tsx.tsx"
+        "react-tests.ts",
+        "react-tsx-tests.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",

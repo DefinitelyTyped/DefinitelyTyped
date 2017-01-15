@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "box2d-tests.ts"
+        "box2dweb-tests.ts"
     ]
 }

@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "jquery.rowgrid-tests.ts"
+        "jquery.rowGrid-tests.ts"
     ]
 }

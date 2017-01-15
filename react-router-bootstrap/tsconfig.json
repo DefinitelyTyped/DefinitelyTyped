@@ -5,11 +5,8 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
-        "jsx": "preserve",
         "baseUrl": "../",
-        "paths": {
-            "history": ["history/v2"]
-        },
+        "jsx": "preserve",
         "typeRoots": [
             "../"
         ],

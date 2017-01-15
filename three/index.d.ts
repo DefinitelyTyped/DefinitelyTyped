@@ -1989,20 +1989,18 @@ declare namespace THREE {
         get(file: string): Loader;
     }
 
-    export class FileLoader {
+    export class XHRLoader {
         constructor(manager?: LoadingManager);
 
         manager: LoadingManager;
-        mimeType: MimeType;
         path: string;
         responseType: string;
-        withCredentials: string        
+        withCredentials: boolean;
 
-        load(url: string, onLoad?: (response: any) => void, onProgress?: (request: XMLHttpRequest) => void, onError?:(event: any) => void): any;
-        setMimeType(mimeType: MimeType): FileLoader;
-        setPath(path: string) : FileLoader;
-        setResponseType(responseType: string) : FileLoader;
-        setWithCredentials(value: string): FileLoader;
+        load(url: string, onLoad?: (responseText: string) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): any;
+        setPath(path: string): XHRLoader;
+        setResponseType(responseType: string): XHRLoader;
+        setWithCredentials(withCredentials: boolean): XHRLoader;
     }
 
     export class FontLoader {
@@ -5608,7 +5606,7 @@ declare namespace THREE {
 
     export class Texture extends EventDispatcher {
         constructor(
-            image?: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
+            image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
             mapping?: Mapping,
             wrapS?: Wrapping,
             wrapT?: Wrapping,

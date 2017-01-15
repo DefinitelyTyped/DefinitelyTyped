@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "sharepoint-tests.ts"
+        "SharePoint-tests.ts"
     ]
 }

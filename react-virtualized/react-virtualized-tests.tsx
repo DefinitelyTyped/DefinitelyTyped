@@ -19,7 +19,6 @@ import {
     InfiniteLoader,
     ScrollSync,
     WindowScroller,
-    List
 } from "react-virtualized";
 
 /*
@@ -103,26 +102,6 @@ function GridTest() {
             columnCount={list[0].length}
             rowCount={list.length}
             cellRenderer={({ columnIndex, isScrolling, rowIndex }) => list[rowIndex][columnIndex]}
-            />,
-        document.getElementById('example')
-    );
-}
-
-function ListTest() {
-    // List data
-    const list = [
-        {name: 'Brian Vaughn', occupation: 'Software Engineer', location: 'San Jose, CA, 95125' /* ... */}
-        // And so on...
-    ];
-
-    // Render your List
-    ReactDOM.render(
-        <List
-            width={300}
-            height={300}
-            rowHeight={30}
-            rowCount={list.length}
-            rowRenderer={({ index, isScrolling }) => list[index]}
             />,
         document.getElementById('example')
     );

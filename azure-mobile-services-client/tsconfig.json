@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "azure-mobile-services-client-tests.ts"
+        "AzureMobileServicesClient-tests.ts"
     ]
 }

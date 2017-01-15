@@ -74,7 +74,6 @@ declare namespace ReactBootstrap {
 
     // <Button />
     interface ButtonProps extends React.HTMLProps<Button> {
-        bsClass?: string;
         active?: boolean;
         block?: boolean;
         bsStyle?: string;
@@ -744,7 +743,6 @@ declare namespace ReactBootstrap {
     interface GridProps extends React.HTMLProps<Grid> {
         componentClass?: React.ReactType;
         fluid?: boolean;
-        bsClass?: string;        
     }
     type Grid = React.ClassicComponent<GridProps, {}>;
     var Grid: React.ClassicComponentClass<GridProps>;

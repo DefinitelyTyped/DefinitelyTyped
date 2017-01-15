@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "signals-tests.ts"
+        "js-signals-tests.ts"
     ]
 }
