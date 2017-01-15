@@ -652,7 +652,7 @@ describe('connecting with bad credentials', () => {
             return;
         }
 
-        assert.fail(undefined, undefined, 'Should have thrown an exception');
+        assert.fail(null, null, 'Should have thrown an exception', '');
     });
 });
 
