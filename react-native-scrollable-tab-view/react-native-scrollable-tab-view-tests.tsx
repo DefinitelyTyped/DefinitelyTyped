@@ -4,21 +4,38 @@ import {
 } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 
-class MyText implements React.TextStatic {
+interface MyTextProperties extends React.Props<MyText> {
+  tabLabel: string;
+
+  text: string;
+}
+class MyText extends React.Component<MyTextProperties, {}> {
+  public constructor(props: MyTextProperties) {
+    super(props);
+  }
+
+  public render(): JSX.Element {
+    return(
+      <Text>this.props.text</Text>
+    );
+  }
+}
+
+interface ScrollableTabViewDemoProperties {
 
 }
-class ScrollableTabViewDemo extends React.Component<IProperties, {}> {
+class ScrollableTabViewDemo extends React.Component<ScrollableTabViewDemoProperties, {}> {
   
-  public constructor(props: IProperties) {
+  public constructor(props: ScrollableTabViewDemo) {
     super(props);
   }
   
-  public render(): React.ReactElement<any> {
+  public render(): JSX.Element {
     return (
       <ScrollableTabView>
-        <Text tabLabel='t1'></Text>
-        <Text tabLabel='t2'></Text>
-        <Text tabLabel='t3'></Text>
+        <MyText tabLabel='t1' text='t1'></MyText>
+        <MyText tabLabel='t2' text='t2'></MyText>
+        <MyText tabLabel='t3' text='t3'></MyText>
       </ScrollableTabView>
     );
   }
