@@ -5,13 +5,35 @@
 
 /// <reference types="node" />
 
+import {EventEmitter} from 'events';
+import {Buffer} from 'buffer';
+
 interface NotifyMsg {
     relname: string;
     extra: string;
     be_pid: number;
 }
 
-declare class Libpq {
+interface ResultError {
+    severity: string;
+    sqlState: string;
+    messagePrimary: string;
+    messageDetail?: string;
+    messageHint?: string;
+    statementPosition?: string;
+    internalPosition?: string;
+    internalQuery?: string;
+    context?: string;
+    schemaName?: string;
+    tableName?: string;
+    dataTypeName?: string;
+    constraintName?: string;
+    sourceFile: string;
+    sourceLine: string;
+    sourceFunction: string;
+}
+
+declare class Libpq extends EventEmitter {
 
     /**
      * Current connection state.
@@ -48,23 +70,24 @@ declare class Libpq {
     /**
      * (async) Connects to a PostgreSQL backend server process.
      *
-     * This function actually calls the PQconnectdb blocking connection method in a background thread
-     * within node's internal thread-pool. There is a way to do non-blocking network I/O for some of
-     * the connecting with libpq directly, but it still blocks when your local file system looking
-     * for config files, SSL certificates, .pgpass file, and doing possible dns resolution. Because
-     * of this, the best way to get fully non-blocking is to juse use libuv_queue_work and let node
-     * do it's magic and so that's what I do. This function does not block.
+     * This function actually calls the PQconnectdb blocking connection method in a background
+     * thread within node's internal thread-pool. There is a way to do non-blocking network I/O
+     * for some of the connecting with libpq directly, but it still blocks when your local file
+     * system looking for config files, SSL certificates, .pgpass file, and doing possible dns
+     * resolution. Because of this, the best way to get fully non-blocking is to juse use
+     * libuv_queue_work and let node do it's magic and so that's what I do. This function does
+     * not block.
      *
      * @param {string} connectParams an optional string
      * @param {Function} callback mandatory. It is called when the connection has successfully been
-     *                 established.
+     *                   established.
      */
     connect(connectParams: string, callback: (err?: string) => void): void;
     connect(callback: (err?: string) => void): void;
 
     /**
-     * (sync) Attempts to connect to a PostgreSQL server. BLOCKS until it either succeedes, or fails.
-     * If it fails it will throw an exception.
+     * (sync) Attempts to connect to a PostgreSQL server. BLOCKS until it either succeedes, or
+     * fails. If it fails it will throw an exception.
      *
      * @param {string} connectionParams an optional string
      */
@@ -83,16 +106,16 @@ declare class Libpq {
     /**
      * Retrieves the last error message from the connection. This is intended to be used after most
      * functions which return an error code to get more detailed error information about the
-     * connection. You can also check this before issuing queries to see if your connection has been
-     * lost.
+     * connection. You can also check this before issuing queries to see if your connection has
+     * been lost.
      *
      * @returns {string}
      */
     errorMessage(): string;
 
     /**
-     * Exact copy of the PQescapeIdentifier function within libpq. Requires an established connection
-     * but does not perform any I/O.
+     * Exact copy of the PQescapeIdentifier function within libpq. Requires an established
+     * connection but does not perform any I/O.
      *
      * @param {string} input
      */
@@ -109,27 +132,27 @@ declare class Libpq {
     /**
      * (sync) Sends a command to the backend and blocks until a result is received.
      *
-     * @param {string} commandText a required string of the query.
+     * @param {string} [commandText=""] a required string of the query.
      */
-    exec(commandText: string): void;
+    exec(commandText?: string): void;
 
     /**
      * (sync) Sends a command and parameters to the backend and blocks until a result is received.
      *
-     * @param {string} commandText a required string of the query.
-     * @param {string[]} parameters a required array of string values corresponding to each parameter
-     *                   in the commandText.
+     * @param {string} [commandText=""] a required string of the query.
+     * @param {(string|number)[]} [parameters=[]] a required array of string values corresponding
+     *                            to each parameter in the commandText.
      */
-    execParams(commandText: string, parameters: string[]): void;
+    execParams(commandText?: string, parameters?: (string|number)[]): void;
 
     /**
-     * (sync) Sends a command to the server to execute a previously prepared statement. Blocks until
-     * the results are returned.
+     * (sync) Sends a command to the server to execute a previously prepared statement. Blocks
+     * until the results are returned.
      *
-     * @param {string} statementName a required string of the name of the prepared statement.
-     * @param {string[]} parameters the parameters to pass to the prepared statement.
+     * @param {string} [statementName=""] a required string of the name of the prepared statement.
+     * @param {string[]} [parameters=[]] the parameters to pass to the prepared statement.
      */
-    execPrepared(statementName: string, parameters: string[]): void;
+    execPrepared(statementName?: string, parameters?: (string|number)[]): void;
 
     /**
      * Disconnects from the backend and cleans up all memory used by the libpq connection.
@@ -166,21 +189,21 @@ declare class Libpq {
      * After issuing a successfuly command like COPY table TO stdout gets copy data from the
      * connection.
      *
-     * @param {boolean} async a boolean. Pass false to block waiting for data from the backend.
+     * @param {boolean} [async=false] a boolean. Pass false to block waiting for data from the backend.
      * Defaults to false
      *
      * @returns {Buffer|number} a node buffer if there is data available; 0 if the copy is still in
      * progress (only if you have called {@link Libpq#setNonBlocking}(true)); -1 if the copy is
      * completed; -2 if there was an error.
      */
-    getCopyData(async: boolean): Buffer|number;
+    getCopyData(async?: boolean): Buffer|number;
 
     /**
      * @param {number} tupleNumber
      * @param {number} fieldNumber
-     * @returns {boolean} true if the value at the given offsets is actually null. Otherwise returns
-     * false. This is because {@link Libpq#getvalue} returns an empty string for both an actual empty
-     * string and for a null value. Weird, huh?
+     * @returns {boolean} true if the value at the given offsets is actually null. Otherwise
+     * returns false. This is because {@link Libpq#getvalue} returns an empty string for both
+     * an actual empty string and for a null value. Weird, huh?
      */
     getisnull(tupleNumber: number, fieldNumber: number): boolean;
 
@@ -203,10 +226,10 @@ declare class Libpq {
      * at 0. A null value is returned as the empty string ''.
      *
      * @param {number} tupleNumber
-     * @param {number} fieldNumber
+     * @param {number} [fieldNumber]
      * @returns {string}
      */
-    getvalue(tupleNumber: number, fieldNumber: number): string;
+    getvalue(tupleNumber: number, fieldNumber?: number): string;
 
     /**
      * @returns {boolean} true if calling {@link Libpq#consumeInput} would block waiting for more
@@ -214,6 +237,11 @@ declare class Libpq {
      * safe to call {@link Libpq#getResult}.
      */
     isBusy(): boolean;
+
+    /**
+     * @returns {boolean} true if non-blocking mode is enabled; false if disabled.
+     */
+    isNonBlocking(): boolean;
 
     /**
      * Retrieve the number of fields (columns) from the result.
@@ -260,23 +288,23 @@ declare class Libpq {
      * Signals the backed your copy procedure is complete. If you pass errorMessage it will be sent
      * to the backend and effectively cancel the copy operation.
      *
-     * @param errorMessage an optional string you can pass to cancel the copy operation.
+     * @param {string} [errorMessage] an optional string you can pass to cancel the copy operation.
      *
      * @returns {number} 1 if sent succesfully; 0 if the command would block (only if you have
      * called {@link Libpq#setNonBlocking}(true)); -1 if there was an error sending the command.
      */
-    putCopyEnd(errorMessage: string): number;
+    putCopyEnd(errorMessage?: string): number;
     putCopyEnd(): number;
 
     /**
-     * (sync) Sends a named statement to the server to be prepared for later execution. blocks until
-     * a result from the prepare operation is received.
+     * (sync) Sends a named statement to the server to be prepared for later execution. blocks
+     * until a result from the prepare operation is received.
      *
-     * @param {string} statementName a required string of name of the statement to prepare.
-     * @param {string} commandText a required string of the query.
-     * @param {number} nParams a count of the number of parameters in the commandText.
+     * @param {string} [statementName=""] a required string of name of the statement to prepare.
+     * @param {string} [commandText=""] a required string of the query.
+     * @param {number} [nParams=0] a count of the number of parameters in the commandText.
      */
-    prepare(statementName: string, commandText: string, nParams: number): void;
+    prepare(statementName?: string, commandText?: string, nParams?: number): void;
 
     /**
      * Retrieves detailed error information from the current result object. Very similar to
@@ -288,11 +316,11 @@ declare class Libpq {
      * @example
      * console.log(pq.errorFields().messageDetail)
      */
-    resultErrorFields(): {[field: string]: any};
+    resultErrorFields(): ResultError;
 
     /**
-     * Retrieves the error message from the result. This will return null if the result does not have
-     * an error.
+     * Retrieves the error message from the result. This will return null if the result does not
+     * have an error.
      *
      * @returns {string}
      */
@@ -307,38 +335,39 @@ declare class Libpq {
     /**
      * (async) Sends a query to the server to be processed.
      *
-     * @param {string} commandText a required string containing the query text.
+     * @param {string} [commandText=""] a required string containing the query text.
      * @returns {boolean} true if the command was sent succesfully or false if it failed to send.
      */
-    sendQuery(commandText: string): boolean;
+    sendQuery(commandText?: string): boolean;
 
     /**
      * (async) Sends a query and to the server to be processed.
      *
-     * @param {string} commandText a required string containing the query text.
-     * @param {string[]} parameters an array of parameters as strings used in the parameterized query.
+     * @param {string} [commandText=""] a required string containing the query text.
+     * @param {(string|number)[]} [parameters=[]] an array of parameters as strings used in the
+     *                   parameterized query.
      * @returns {boolean} true if the command was sent succesfully or false if it failed to send.
      */
-    sendQueryParams(commandText: string, parameters: string[]): boolean;
+    sendQueryParams(commandText?: string, parameters?: (string|number)[]): boolean;
 
     /**
      * (async) Sends a request to the backend to prepare a named statement with the given name.
      *
-     * @param {string} statementName a required string of name of the statement to prepare.
-     * @param {string} commandText a required string of the query.
-     * @param {number} nParams a count of the number of parameters in the commandText.
+     * @param {string} [statementName=""] a required string of name of the statement to prepare.
+     * @param {string} [commandText=""] a required string of the query.
+     * @param {number} [nParams=0] a count of the number of parameters in the commandText.
      * @returns {boolean} true if the command was sent succesfully or false if it failed to send.
      */
-    sendPrepare(statementName: string, commandText: string, nParams: number): boolean;
+    sendPrepare(statementName?: string, commandText?: string, nParams?: number): boolean;
 
     /**
      * (async) Sends a request to execute a previously prepared statement.
      *
-     * @param {string} statementName a required string of the name of the prepared statement.
-     * @param {string[]} parameters the parameters to pass to the prepared statement.
+     * @param {string} [statementName=""] a required string of the name of the prepared statement.
+     * @param {string[]} [parameters=[]] the parameters to pass to the prepared statement.
      * @returns {boolean} true if the command was sent succesfully or false if it failed to send.
      */
-    sendQueryPrepared(statementName: string, parameters: string[]): boolean;
+    sendQueryPrepared(statementName?: string, parameters?: string[]): boolean;
 
     /**
      * @returns the version of the connected PostgreSQL backend server as a number.
@@ -348,13 +377,13 @@ declare class Libpq {
     /**
      * Toggle the socket blocking on write.
      *
-     * @param {boolean} nonBlocking true to set the connection to use non-blocking writes, false to
+     * @param {boolean} [nonBlocking] true to set the connection to use non-blocking writes, false to
      * use blocking writes.
      *
      * @returns {boolean} true if the socket's state was succesfully toggled, false if there was
      * an error.
      */
-    setNonBlocking(nonBlocking: boolean): boolean;
+    setNonBlocking(nonBlocking?: boolean): boolean;
 
     /**
      * @returns {number} an int representing the file descriptor for the socket used internally by

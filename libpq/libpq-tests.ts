@@ -1,65 +1,125 @@
 /// <reference types="node" />
 /// <reference types="mocha" />
 
+import {Buffer} from 'buffer';
 import * as assert from 'assert';
 import * as async from 'async';
 import * as PQ from 'libpq';
+import * as _ from 'lodash'
 
-declare const ok: any;
+declare const ok: Function;
 
-var createTable = function(pq) {
-  pq.exec('CREATE TEMP TABLE test_data(name text, age int)')
+const createTable = (pq: PQ) => {
+  pq.exec('CREATE TEMP TABLE test_data(name text, age int)');
   console.log(pq.resultErrorMessage());
   pq.exec("INSERT INTO test_data(name, age) VALUES ('brian', 32), ('aaron', 30), ('', null);")
 };
 
-var helper = {
-  setupIntegration: function() {
-    before(function() {
-      this.pq = new PQ();
-      this.pq.connectSync();
-      createTable(this.pq);
+const blink = (n: number, cb: Function) => {
+  const connections: PQ[] = [];
+  for(let i = 0; i < 30; i++) {
+    connections.push(new PQ())
+  }
+  const connect = (con: PQ, cb: (err?: string) => void) => {
+    con.connect(cb);
+  };
+  async.each(connections, connect, ok(() => {
+    connections.forEach((con) => {
+      con.finish();
+    });
+    cb();
+  }))
+};
+
+const helper = {
+  setupIntegration(): PQ {
+    let pq: PQ;
+
+    before(() => {
+      pq = new PQ();
+      pq.connectSync();
+      createTable(pq);
     });
 
-    after(function() {
-      this.pq.finish();
+    after(() => {
+      pq.finish();
     });
+
+    return pq;
   }
 };
 
+const queryText = "SELECT * FROM generate_series(1, 1000)";
+
+const query = (pq: PQ, cb: Function) => {
+  const readError = (message?: string) => {
+    cleanup();
+    return cb(new Error(message || pq.errorMessage()));
+  };
+
+  const onReadable = () => {
+    if(!pq.consumeInput()) {
+      return readError();
+    }
+
+    if(pq.isBusy()) {
+      return;
+    }
+
+    pq.getResult();
+
+    if(pq.getResult()) {
+      return readError('Only one result at a time is accepted');
+    }
+    cleanup();
+    return cb(null, [])
+  };
+
+  const sent = pq.sendQuery(queryText);
+  if(!sent) return cb(new Error(pq.errorMessage()));
+  console.log('sent query');
+
+  const cleanup = () => {
+    pq.removeListener('readable', onReadable);
+    pq.stopReader();
+  };
+
+  pq.on('readable', onReadable);
+  pq.startReader();
+};
+
 describe('async connection', () => {
-  it('works', done => {
+  it('works', (done) => {
     const pq = new PQ();
     assert(!pq.connected, 'should have connected set to falsy');
     pq.connect(err => {
       assert.ifError(err);
       pq.exec('SELECT NOW()');
-      assert.equal(pq.connected, true, 'should have connected set to true');
       assert.equal(pq.ntuples(), 1);
       done();
     });
   });
 
-  it('works with hard-coded connection parameters', done => {
+  it('works with hard-coded connection parameters', (done) => {
     const pq = new PQ();
     const conString =`host=${process.env.PGHOST || 'localhost'}`;
     pq.connect(conString, done);
   });
 
-  it('returns an error to the callback if connection fails', done => {
+  it('returns an error to the callback if connection fails', (done) => {
     new PQ().connect('host=asldkfjasldkfjalskdfjasdf', err => {
       assert(err, 'should have passed an error');
       done();
     });
   });
 
-  it('respects the active domain', done => {
+  it('respects the active domain', (done) => {
     const pq = new PQ();
     const domain = require('domain').create();
     domain.run(() => {
       const activeDomain = process.domain;
       assert(activeDomain, 'Should have an active domain');
-      pq.connect(err => {
+      pq.connect(() => {
         assert.strictEqual(process.domain, activeDomain, 'Active domain is lost');
         done();
       });
@@ -67,13 +127,13 @@ describe('async connection', () => {
   });
 });
 
-const consume = (pq, cb) => {
+const consume = (pq: PQ, cb: Function) => {
   if(!pq.isBusy()) return cb();
   pq.startReader();
   const onReadable = () => {
     assert(pq.consumeInput(), pq.errorMessage());
     if(pq.isBusy()) {
-      console.log('consuming a 2nd buffer of input later...')
+      console.log('consuming a 2nd buffer of input later...');
       return;
     }
     pq.removeListener('readable', onReadable);
@@ -84,12 +144,11 @@ const consume = (pq, cb) => {
 };
 
 describe('async simple query', () => {
-  helper.setupIntegration();
+  let pq: PQ;
 
-  it('dispatches simple query', function(done) {
-    const pq = this.pq;
-    assert(this.pq.setNonBlocking(true));
-    this.pq.writable(() => {
+  it('dispatches simple query', (done: Function) => {
+    assert(pq.setNonBlocking(true));
+    pq.writable(() => {
       const success = pq.sendQuery('SELECT 1');
       assert.strictEqual(pq.flush(), 0, 'Should have flushed all data to socket');
       assert(success, pq.errorMessage());
@@ -104,8 +163,7 @@ describe('async simple query', () => {
     });
   });
 
-  it('dispatches parameterized query', function(done) {
-    const pq = this.pq;
+  it('dispatches parameterized query', (done: Function) => {
     const success = pq.sendQueryParams('SELECT $1::text as name', ['Brian']);
     assert(success, pq.errorMessage());
     assert.strictEqual(pq.flush(), 0, 'Should have flushed query text & parameters');
@@ -119,8 +177,7 @@ describe('async simple query', () => {
     })
   });
 
-  it('dispatches named query', function(done) {
-    const pq = this.pq;
+  it('dispatches named query', (done: Function) => {
     const statementName = 'async-get-name';
     const success = pq.sendPrepare(statementName, 'SELECT $1::text as name', 1);
     assert(success, pq.errorMessage());
@@ -159,152 +216,144 @@ describe('async simple query', () => {
   });
 });
 
-describe('cancel a request', function() {
-  it('works', function(done) {
-    var pq = new PQ();
+describe('cancel a request', () => {
+  it('works', (done) => {
+    const pq = new PQ();
     pq.connectSync();
-    var sent = pq.sendQuery('pg_sleep(5000)');
+    const sent = pq.sendQuery('pg_sleep(5000)');
     assert(sent, 'should have sent');
-    var canceled = pq.cancel();
+    const canceled = pq.cancel();
     assert.strictEqual(canceled, true, 'should have canceled');
-    var hasResult = pq.getResult();
+    const hasResult = pq.getResult();
     assert(hasResult, 'should have a result');
     assert.equal(pq.resultStatus(), 'PGRES_FATAL_ERROR');
     assert.equal(pq.getResult(), false);
     pq.exec('SELECT NOW()');
     done();
   });
-
-  it('returns (not throws) an error if not connected', function(done) {
-    var pq = new PQ();
-    assert.doesNotThrow(function () {
-      pq.cancel(function (err) {
-        assert(err, 'should raise an error when not connected');
-      });
-    });
-    done();
-  });
 });
 
-describe('Constructing multiple', function() {
-  it('works all at once', function() {
-    for(var i = 0; i < 1000; i++) {
-      var pq = new PQ();
+describe('Constructing multiple', () => {
+  it('works all at once', () => {
+    for(let i = 0; i < 1000; i++) {
+      const pq = new PQ();
     }
   });
 
-  it('connects and disconnects each client', function(done) {
-    var connect = function(n, cb) {
-      var pq = new PQ();
+  it('connects and disconnects each client', (done) => {
+    const connect = (n: number, cb: (err?: string) => void) => {
+      const pq = new PQ();
       pq.connect(cb);
     };
     async.times(30, connect, done);
   });
 });
 
-describe('COPY IN', function() {
-  helper.setupIntegration();
+describe('COPY IN', () => {
+  let pq = helper.setupIntegration();
 
-  it('check existing data assuptions', function() {
-    this.pq.exec('SELECT COUNT(*) FROM test_data');
-    assert.equal(this.pq.getvalue(0, 0), 3);
+  it('check existing data assuptions', () => {
+    pq.exec('SELECT COUNT(*) FROM test_data');
+    assert.equal(pq.getvalue(0, 0), 3);
   });
 
-  it('copies data in', function() {
-    var success = this.pq.exec('COPY test_data FROM stdin');
-    assert.equal(this.pq.resultStatus(), 'PGRES_COPY_IN');
+  it('copies data in', () => {
+    const success = pq.exec('COPY test_data FROM stdin');
+    assert.equal(pq.resultStatus(), 'PGRES_COPY_IN');
 
-    var buffer = Buffer("bob\t100\n", 'utf8');
-    var res = this.pq.putCopyData(buffer);
-    assert.strictEqual(res, 1);
+    const buffer = new Buffer("bob\t100\n", 'utf8');
+    const res1 = pq.putCopyData(buffer);
+    assert.strictEqual(res1, 1);
 
-    var res = this.pq.putCopyEnd();
-    assert.strictEqual(res, 1);
+    const res2 = pq.putCopyEnd();
+    assert.strictEqual(res2, 1);
 
-    while(this.pq.getResult()) {}
+    while(pq.getResult()) {}
 
-    this.pq.exec('SELECT COUNT(*) FROM test_data');
-    assert.equal(this.pq.getvalue(0, 0), 4);
+    pq.exec('SELECT COUNT(*) FROM test_data');
+    assert.equal(pq.getvalue(0, 0), 4);
   });
 
-  it('can cancel copy data in', function() {
-    var success = this.pq.exec('COPY test_data FROM stdin');
-    assert.equal(this.pq.resultStatus(), 'PGRES_COPY_IN');
+  it('can cancel copy data in', () => {
+    const success = pq.exec('COPY test_data FROM stdin');
+    assert.equal(pq.resultStatus(), 'PGRES_COPY_IN');
 
-    var buffer = Buffer("bob\t100\n", 'utf8');
-    var res = this.pq.putCopyData(buffer);
-    assert.strictEqual(res, 1);
+    const buffer = new Buffer("bob\t100\n", 'utf8');
+    const res1 = pq.putCopyData(buffer);
+    assert.strictEqual(res1, 1);
 
-    var res = this.pq.putCopyEnd('cancel!');
-    assert.strictEqual(res, 1);
+    const res2 = pq.putCopyEnd('cancel!');
+    assert.strictEqual(res2, 1);
 
-    while(this.pq.getResult()) {}
-    assert(this.pq.errorMessage());
-    assert(this.pq.errorMessage().indexOf('cancel!') > -1, this.pq.errorMessage() + ' should have contained "cancel!"');
+    while(pq.getResult()) {}
+    assert(pq.errorMessage());
+    assert(
+      pq.errorMessage().includes('cancel!'),
+      `${pq.errorMessage()} should have contained "cancel!"`
+    );
 
-    this.pq.exec('SELECT COUNT(*) FROM test_data');
-    assert.equal(this.pq.getvalue(0, 0), 4);
+    pq.exec('SELECT COUNT(*) FROM test_data');
+    assert.equal(pq.getvalue(0, 0), 4);
   });
 });
 
-describe('COPY OUT', function() {
-  helper.setupIntegration();
+describe('COPY OUT', () => {
+  let pq = helper.setupIntegration();
 
-  var getRow = function(pq, expected) {
-    var result = pq.getCopyData(false);
+  const getRow = (pq: PQ, expected: string) => {
+    const result = <Buffer> pq.getCopyData(false);
     assert(result instanceof Buffer, 'Result should be a buffer');
     assert.equal(result.toString('utf8'), expected);
   };
 
-  it('copies data out', function() {
-    this.pq.exec('COPY test_data TO stdin');
-    assert.equal(this.pq.resultStatus(), 'PGRES_COPY_OUT');
-    getRow(this.pq, 'brian\t32\n');
-    getRow(this.pq, 'aaron\t30\n');
-    getRow(this.pq, '\t\\N\n');
-    assert.strictEqual(this.pq.getCopyData(), -1);
+  it('copies data out', () => {
+    pq.exec('COPY test_data TO stdin');
+    assert.equal(pq.resultStatus(), 'PGRES_COPY_OUT');
+    getRow(pq, 'brian\t32\n');
+    getRow(pq, 'aaron\t30\n');
+    getRow(pq, '\t\\N\n');
+    assert.strictEqual(<number> pq.getCopyData(), -1);
   });
 });
 
-describe('without being connected', function() {
-  it('exec fails', function() {
-    var pq = new PQ();
+describe('without being connected', () => {
+  it('exec fails', () => {
+    const pq = new PQ();
     pq.exec();
     assert.equal(pq.resultStatus(), 'PGRES_FATAL_ERROR');
     assert(pq.errorMessage());
   });
 
-  it('fails on async query', function() {
-    var pq = new PQ();
-    var success = pq.sendQuery('blah');
+  it('fails on async query', () => {
+    const pq = new PQ();
+    const success = pq.sendQuery('blah');
     assert.strictEqual(success, false);
     assert.equal(pq.resultStatus(), 'PGRES_FATAL_ERROR');
     assert(pq.errorMessage());
   });
 
-  it('throws when reading while not connected', function() {
-    var pq = new PQ();
-    assert.throws(function() {
+  it('throws when reading while not connected', () => {
+    const pq = new PQ();
+    assert.throws(() => {
       pq.startReader();
     });
   });
 
-  it('throws when writing while not connected', function() {
-    var pq = new PQ();
-    assert.throws(function() {
-      pq.writable(function() {
+  it('throws when writing while not connected', () => {
+    const pq = new PQ();
+    assert.throws(() => {
+      pq.writable(() => {
       });
     });
   });
-})
+});
 
-describe('error info', function() {
-  helper.setupIntegration();
+describe('error info', () => {
+  let pq = helper.setupIntegration();
 
-  describe('when there is no error', function() {
+  describe('when there is no error', () => {
 
-    it('everything is null', function() {
-      var pq = this.pq;
+    it('everything is null', () => {
       pq.exec('SELECT NOW()');
       assert(!pq.errorMessage(), pq.errorMessage());
       assert.equal(pq.ntuples(), 1);
@@ -312,13 +361,11 @@ describe('error info', function() {
     });
   });
 
-  describe('when there is an error', function() {
-
-    it('sets all error codes', function() {
-      var pq = this.pq;
+  describe('when there is an error', () => {
+    it('sets all error codes', () => {
       pq.exec('INSERT INTO test_data VALUES(1, NOW())');
       assert(pq.errorMessage());
-      var err = pq.resultErrorFields();
+      const err = pq.resultErrorFields();
       assert.notEqual(err, null);
       assert.equal(err.severity, 'ERROR');
       assert.equal(err.sqlState, 42804);
@@ -340,385 +387,368 @@ describe('error info', function() {
   });
 });
 
-describe('escapeLiteral', function() {
-  it('fails to escape when the server is not connected', function() {
-    var pq = new PQ();
-    var result = pq.escapeLiteral('test');
+describe('escapeLiteral', () => {
+  it('fails to escape when the server is not connected', () => {
+    const pq = new PQ();
+    const result = pq.escapeLiteral('test');
     assert.strictEqual(result, null);
     assert(pq.errorMessage());
   });
 
-  it('escapes a simple string', function() {
-    var pq = new PQ();
+  it('escapes a simple string', () => {
+    const pq = new PQ();
     pq.connectSync();
-    var result = pq.escapeLiteral('bang');
+    const result = pq.escapeLiteral('bang');
     assert.equal(result, "'bang'");
   });
 
-  it('escapes a bad string', function() {
-    var pq = new PQ();
+  it('escapes a bad string', () => {
+    const pq = new PQ();
     pq.connectSync();
-    var result = pq.escapeLiteral("'; TRUNCATE TABLE blah;");
+    const result = pq.escapeLiteral("'; TRUNCATE TABLE blah;");
     assert.equal(result, "'''; TRUNCATE TABLE blah;'");
   });
 });
 
-describe('escapeIdentifier', function() {
-  it('fails when the server is not connected', function() {
-    var pq = new PQ();
-    var result = pq.escapeIdentifier('test');
+describe('escapeIdentifier', () => {
+  it('fails when the server is not connected', () => {
+    const pq = new PQ();
+    const result = pq.escapeIdentifier('test');
     assert.strictEqual(result, null);
     assert(pq.errorMessage());
   });
 
-  it('escapes a simple string', function() {
-    var pq = new PQ();
+  it('escapes a simple string', () => {
+    const pq = new PQ();
     pq.connectSync();
-    var result = pq.escapeIdentifier('bang');
+    const result = pq.escapeIdentifier('bang');
     assert.equal(result, '"bang"');
   });
 });
 
-describe('connecting', function() {
-  it('works', function() {
-    var client = new PQ();
+describe('connecting', () => {
+  it('works', () => {
+    const client = new PQ();
     client.connectSync();
   });
 });
 
-var blink = function(n, cb) {
-  var connections = []
-  for(var i = 0; i < 30; i++) {
-    connections.push(new PQ())
-  }
-  var connect = function(con, cb) {
-    con.connect(cb)
-  }
-  async.each(connections, connect, ok(function() {
-    connections.forEach(function(con) {
-      con.finish()
-    })
-    cb()
-  }))
-}
-
-describe('many connections', function() {
-  it('works', function(done) {
+describe('many connections', () => {
+  it('works', (done) => {
     async.timesSeries(10, blink, done)
   })
-})
+});
 
-var queryText = "SELECT * FROM generate_series(1, 1000)"
+describe('connectSync', () => {
+  it('works 50 times in a row', () => {
+    const pqs = _.times(50, () => new PQ());
+    pqs.forEach((pq) => {
+      pq.connectSync();
+    });
+    pqs.forEach((pq) => {
+      pq.finish();
+    });
+  });
+});
 
-var query = function(pq, cb) {
-  var sent = pq.sendQuery(queryText);
-  if(!sent) return cb(new Error(pg.errorMessage()));
-  console.log('sent query')
+describe('connect async', () => {
+  const total = 50;
+  it(`works ${total} times in a row`, (done) => {
+    const pqs = _.times(total, () => new PQ());
 
-  //consume any outstanding results
-  //while(!pq.isBusy() && pq.getResult()) {
-  //console.log('consumed unused result')
-  //}
+    let count = 0;
+    const connect = (cb: Function) => {
+      pqs.forEach((pq) => {
+        pq.connect((err) => {
+          assert.ifError(err);
+          count++;
+          pq.startReader();
+          if(count == total) {
+            cb();
+          }
+        });
+      });
+    };
+    connect(() => {
+      pqs.forEach((pq) => {
+        pq.stopReader();
+        pq.finish();
+      });
+      done();
+    });
+  });
+});
 
-  var cleanup = function() {
-    pq.removeListener('readable', onReadable);
-    pq.stopReader();
-  }
+describe('multiple queries', () => {
+  const pq = new PQ();
 
-  var readError = function(message) {
-    cleanup();
-    return cb(new Error(message || pq.errorMessage));
-  };
-
-  var onReadable = function() {
-    //read waiting data from the socket
-    //e.g. clear the pending 'select'
-    if(!pq.consumeInput()) {
-      return readError();
-    }
-    //check if there is still outstanding data
-    //if so, wait for it all to come in
-    if(pq.isBusy()) {
-      return;
-    }
-    //load our result object
-    pq.getResult();
-
-    //"read until results return null"
-    //or in our case ensure we only have one result
-    if(pq.getResult()) {
-      return readError('Only one result at a time is accepted');
-    }
-    cleanup();
-    return cb(null, [])
-  };
-  pq.on('readable', onReadable);
-  pq.startReader();
-};
-
-describe('multiple queries', function() {
-  var pq = new PQ();
-
-  before(function(done) {
+  before((done) => {
     pq.connect(done)
-  })
+  });
 
-  it('first query works', function(done) {
+  it('first query works', (done) => {
     query(pq, done);
   });
 
-  it('second query works', function(done) {
+  it('second query works', (done) => {
     query(pq, done);
   });
 
-  it('third query works', function(done) {
+  it('third query works', (done) => {
     query(pq, done);
   });
 });
 
-describe('set & get non blocking', function() {
-  helper.setupIntegration();
-  it('is initially set to false', function() {
-    assert.strictEqual(this.pq.isNonBlocking(), false);
+describe('set & get non blocking', () => {
+  const pq = helper.setupIntegration();
+
+  it('is initially set to false', () => {
+    assert.strictEqual(pq.isNonBlocking(), false);
   });
 
-  it('can switch back and forth', function() {
-    assert.strictEqual(this.pq.setNonBlocking(true), true);
-    assert.strictEqual(this.pq.isNonBlocking(), true);
-    assert.strictEqual(this.pq.setNonBlocking(), true);
-    assert.strictEqual(this.pq.isNonBlocking(), false);
+  it('can switch back and forth', () => {
+    assert.strictEqual(pq.setNonBlocking(true), true);
+    assert.strictEqual(pq.isNonBlocking(), true);
+    assert.strictEqual(pq.setNonBlocking(), true);
+    assert.strictEqual(pq.isNonBlocking(), false);
   });
 });
 
-describe('LISTEN/NOTIFY', function() {
-  before(function() {
-    this.listener = new Libpq();
-    this.notifier = new Libpq();
-    this.listener.connectSync();
-    this.notifier.connectSync();
+describe('LISTEN/NOTIFY', () => {
+  let listener: PQ;
+  let notifier: PQ;
+
+  before(() => {
+    listener = new PQ();
+    notifier = new PQ();
+    listener.connectSync();
+    notifier.connectSync();
   });
 
-  it('works', function() {
-    this.notifier.exec("NOTIFY testing, 'My Payload'");
-    var notice = this.listener.notifies();
+  it('works', () => {
+    notifier.exec("NOTIFY testing, 'My Payload'");
+    let notice = listener.notifies();
     assert.equal(notice, null);
 
-    this.listener.exec('LISTEN testing');
-    this.notifier.exec("NOTIFY testing, 'My Second Payload'");
-    this.listener.exec('SELECT NOW()');
-    var notice = this.listener.notifies();
+    listener.exec('LISTEN testing');
+    notifier.exec("NOTIFY testing, 'My Second Payload'");
+    listener.exec('SELECT NOW()');
+    notice = listener.notifies();
     assert(notice, 'listener should have had a notification come in');
     assert.equal(notice.relname, 'testing', 'missing relname == testing');
     assert.equal(notice.extra, 'My Second Payload');
     assert(notice.be_pid);
   });
 
-  after(function() {
-    this.listener.finish();
-    this.notifier.finish();
+  after(() => {
+    listener.finish();
+    notifier.finish();
   });
 });
 
-describe('result accessors', function() {
-  helper.setupIntegration();
+describe('result accessors', () => {
+  const pq = helper.setupIntegration();
 
-  before(function() {
-    this.pq.exec("INSERT INTO test_data(name, age) VALUES ('bob', 80) RETURNING *");
-    assert(!this.pq.errorMessage());
+  before(() => {
+    pq.exec("INSERT INTO test_data(name, age) VALUES ('bob', 80) RETURNING *");
+    assert(!pq.errorMessage());
   });
 
-  it('has ntuples', function() {
-    assert.strictEqual(this.pq.ntuples(), 1);
+  it('has ntuples', () => {
+    assert.strictEqual(pq.ntuples(), 1);
   });
 
-  it('has cmdStatus', function() {
-    assert.equal(this.pq.cmdStatus(), 'INSERT 0 1');
+  it('has cmdStatus', () => {
+    assert.equal(pq.cmdStatus(), 'INSERT 0 1');
   });
 
-  it('has command tuples', function() {
-    assert.strictEqual(this.pq.cmdTuples(), '1');
+  it('has command tuples', () => {
+    assert.strictEqual(pq.cmdTuples(), '1');
   });
 });
 
-describe('Retrieve server version from connection', function() {
+describe('Retrieve server version from connection', () => {
 
-  it('return version number when connected', function() {
-    var pq = new Libpq();
+  it('return version number when connected', () => {
+    const pq = new PQ();
     pq.connectSync();
-    var version = pq.serverVersion();
+    const version = pq.serverVersion();
     assert.equal(typeof version, 'number');
     assert(version > 60000);
   });
 
-  it('return zero when not connected', function() {
-    var pq = new Libpq();
-    var version = pq.serverVersion();
+  it('return zero when not connected', () => {
+    const pq = new PQ();
+    const version = pq.serverVersion();
     assert.equal(typeof version, 'number');
     assert.equal(version, 0);
   });
 
 });
 
-describe('getting socket', function() {
-  helper.setupIntegration();
+describe('getting socket', () => {
+  let pq = helper.setupIntegration();
 
-  it('returns -1 when not connected', function() {
-    var pq = new LibPQ();
+  it('returns -1 when not connected', () => {
+    const pq = new PQ();
     assert.equal(pq.socket(), -1);
   });
 
-  it('returns value when connected', function() {
-    assert(this.pq.socket() > 0);
+  it('returns value when connected', () => {
+    assert(pq.socket() > 0);
   });
 });
 
-describe('low-level query integration tests', function() {
-
-  helper.setupIntegration();
-
-  describe('exec', function() {
-    before(function() {
-      this.pq.exec('SELECT * FROM test_data');
-    });
-
-    it('has correct tuples', function() {
-      assert.strictEqual(this.pq.ntuples(), 3);
-    });
-
-    it('has correct field count', function() {
-      assert.strictEqual(this.pq.nfields(), 2);
-    });
-
-    it('has correct rows', function() {
-      assert.strictEqual(this.pq.getvalue(0, 0), 'brian');
-      assert.strictEqual(this.pq.getvalue(1, 1), '30');
-      assert.strictEqual(this.pq.getvalue(2, 0), '');
-      assert.strictEqual(this.pq.getisnull(2, 0), false);
-      assert.strictEqual(this.pq.getvalue(2, 1), '');
-      assert.strictEqual(this.pq.getisnull(2, 1), true);
-    });
-  });
-});
-
-describe('sync query with parameters', function() {
-  helper.setupIntegration();
-
-  it('works with single string parameter', function() {
-    var queryText = 'SELECT $1::text as name';
-    this.pq.execParams(queryText, ['Brian']);
-    assert.strictEqual(this.pq.ntuples(), 1);
-    assert.strictEqual(this.pq.getvalue(0, 0), 'Brian');
-  });
-
-  it('works with a number parameter', function() {
-    var queryText = 'SELECT $1::int as age';
-    this.pq.execParams(queryText, [32]);
-    assert.strictEqual(this.pq.ntuples(), 1);
-    assert.strictEqual(this.pq.getvalue(0, 0), '32');
-  });
-
-  it('works with multiple parameters', function() {
-    var queryText = 'INSERT INTO test_data(name, age) VALUES($1, $2)';
-    this.pq.execParams(queryText, ['Barkley', 4]);
-    assert.equal(this.pq.resultErrorMessage(), '');
-  });
-});
-
-describe('prepare and execPrepared', function() {
-
-  helper.setupIntegration();
-
-  var statementName = 'get-name';
-
-  describe('preparing a statement', function() {
-    it('works properly', function() {
-      this.pq.prepare(statementName, 'SELECT $1::text as name', 1);
-      assert.ifError(this.pq.resultErrorMessage());
-      assert.equal(this.pq.resultStatus(), 'PGRES_COMMAND_OK');
-    });
-  });
-
-  describe('executing a prepared statement', function() {
-    it('works properly', function() {
-      this.pq.execPrepared(statementName, ['Brian']);
-      assert.ifError(this.pq.resultErrorMessage());
-      assert.strictEqual(this.pq.ntuples(), 1)
-      assert.strictEqual(this.pq.nfields(), 1);
-      assert.strictEqual(this.pq.getvalue(0, 0), 'Brian');
-    });
-  });
-});
-
-describe('connecting with bad credentials', function() {
-  it('throws an error', function() {
+describe('connecting with bad credentials', () => {
+  it('throws an error', () => {
     try {
       new PQ().connectSync('asldkfjlasdf');
     } catch(e) {
-      assert.equal(e.toString().indexOf('connection pointer is NULL'), -1)
+      assert.equal(e.toString().indexOf('connection pointer is NULL'), -1);
       return;
     }
-    assert.fail('Should have thrown an exception');
+
+    assert.fail(undefined, undefined, 'Should have thrown an exception');
   });
 });
 
-describe('connecting with no credentials', function() {
-  before(function() {
-    this.pq = new PQ();
-    this.pq.connectSync();
+describe('connecting with no credentials', () => {
+  let pq: PQ;
+
+  before(() => {
+    pq = new PQ();
+    pq.connectSync();
   });
 
-  it('is connected', function() {
-    assert(this.pq.connected, 'should have connected == true');
+  it('is connected', () => {
+    assert(pq.connected, 'should have connected == true');
   });
 
-  after(function() {
-    this.pq.finish();
-    assert(!this.pq.connected);
+  after(() => {
+    pq.finish();
+    assert(!pq.connected);
   });
 });
 
-describe('result checking', function() {
-  before(function() {
-    this.pq = new PQ();
-    this.pq.connectSync();
+describe('result checking', () => {
+  let pq: PQ;
+
+  before(() => {
+    pq = new PQ();
+    pq.connectSync();
   });
 
-  after(function() {
-    this.pq.finish();
+  after(() => {
+    pq.finish();
   });
 
-  it('executes query', function() {
-    this.pq.exec('SELECT NOW() as my_col');
-    assert.equal(this.pq.resultStatus(), 'PGRES_TUPLES_OK');
-  })
-
-  it('has 1 tuple', function() {
-    assert.equal(this.pq.ntuples(), 1);
+  it('executes query', () => {
+    pq.exec('SELECT NOW() as my_col');
+    assert.equal(pq.resultStatus(), 'PGRES_TUPLES_OK');
   });
 
-  it('has 1 field', function() {
-    assert.strictEqual(this.pq.nfields(), 1);
+  it('has 1 tuple', () => {
+    assert.equal(pq.ntuples(), 1);
   });
 
-  it('has column name', function() {
-    assert.equal(this.pq.fname(0), 'my_col');
+  it('has 1 field', () => {
+    assert.strictEqual(pq.nfields(), 1);
   });
 
-  it('has oid type of timestamptz', function() {
-    assert.strictEqual(this.pq.ftype(0), 1184);
+  it('has column name', () => {
+    assert.equal(pq.fname(0), 'my_col');
   });
 
-  it('has value as a date', function() {
-    var now = new Date();
-    var val = this.pq.getvalue(0);
-    var date = new Date(Date.parse(val));
+  it('has oid type of timestamptz', () => {
+    assert.strictEqual(pq.ftype(0), 1184);
+  });
+
+  it('has value as a date', () => {
+    const now = new Date();
+    const val = pq.getvalue(0);
+    const date = new Date(Date.parse(val));
     assert.equal(date.getFullYear(), now.getFullYear());
     assert.equal(date.getMonth(), now.getMonth());
   });
 
-  it('can manually clear result multiple times', function() {
-    this.pq.clear();
-    this.pq.clear();
-    this.pq.clear();
+  it('can manually clear result multiple times', () => {
+    pq.clear();
+    pq.clear();
+    pq.clear();
+  });
+});
+
+describe('low-level query integration tests', () => {
+  const pq = helper.setupIntegration();
+
+  describe('exec', () => {
+    before(() => {
+      pq.exec('SELECT * FROM test_data');
+    });
+
+    it('has correct tuples', () => {
+      assert.strictEqual(pq.ntuples(), 3);
+    });
+
+    it('has correct field count', () => {
+      assert.strictEqual(pq.nfields(), 2);
+    });
+
+    it('has correct rows', () => {
+      assert.strictEqual(pq.getvalue(0, 0), 'brian');
+      assert.strictEqual(pq.getvalue(1, 1), '30');
+      assert.strictEqual(pq.getvalue(2, 0), '');
+      assert.strictEqual(pq.getisnull(2, 0), false);
+      assert.strictEqual(pq.getvalue(2, 1), '');
+      assert.strictEqual(pq.getisnull(2, 1), true);
+    });
+  });
+});
+
+describe('sync query with parameters', () => {
+  let pq = helper.setupIntegration();
+
+  it('works with single string parameter', () => {
+    const queryText = 'SELECT $1::text as name';
+    pq.execParams(queryText, ['Brian']);
+    assert.strictEqual(pq.ntuples(), 1);
+    assert.strictEqual(pq.getvalue(0, 0), 'Brian');
+  });
+
+  it('works with a number parameter', () => {
+    const queryText = 'SELECT $1::int as age';
+    pq.execParams(queryText, [32]);
+    assert.strictEqual(pq.ntuples(), 1);
+    assert.strictEqual(pq.getvalue(0, 0), '32');
+  });
+
+  it('works with multiple parameters', () => {
+    const queryText = 'INSERT INTO test_data(name, age) VALUES($1, $2)';
+    pq.execParams(queryText, ['Barkley', 4]);
+    assert.equal(pq.resultErrorMessage(), '');
+  });
+});
+
+describe('prepare and execPrepared', () => {
+  const pq = helper.setupIntegration();
+
+  const statementName = 'get-name';
+
+  describe('preparing a statement', () => {
+    it('works properly', () => {
+      pq.prepare(statementName, 'SELECT $1::text as name', 1);
+      assert.ifError(pq.resultErrorMessage());
+      assert.equal(pq.resultStatus(), 'PGRES_COMMAND_OK');
+    });
+  });
+
+  describe('executing a prepared statement', () => {
+    it('works properly', () => {
+      pq.execPrepared(statementName, ['Brian']);
+      assert.ifError(pq.resultErrorMessage());
+      assert.strictEqual(pq.ntuples(), 1);
+      assert.strictEqual(pq.nfields(), 1);
+      assert.strictEqual(pq.getvalue(0, 0), 'Brian');
+    });
   });
 });
