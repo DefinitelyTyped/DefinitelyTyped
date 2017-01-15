@@ -33,7 +33,7 @@ export interface renderTabBarProperties {
   containerWidth: number;
 }
 
-interface IProperties extends React.Props<ScrollableTabView> {
+interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
 
   /**
    * tabBarPosition (String) Defaults to "top". 
@@ -103,5 +103,5 @@ interface IProperties extends React.Props<ScrollableTabView> {
   prerenderingSiblingsNumber?: number;
 }
 
-export default class ScrollableTabView extends React.Component<IProperties, {}> {
+export default class ScrollableTabView extends React.Component<ScrollableTabViewProperties, {}> {
 }
