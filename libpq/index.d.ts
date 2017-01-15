@@ -1,5 +1,5 @@
 // Type definitions for libpq 1.8.5
-// Project: https://github.com/brianc/node-libpq
+// Project: https://github.com/brianc/node-libpq#readme
 // Definitions by: Vlad Rindevich <https://github.com/Lodin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
