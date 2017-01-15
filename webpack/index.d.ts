@@ -1,6 +1,6 @@
 // Type definitions for webpack 2.2
 // Project: https://github.com/webpack/webpack
-// Definitions by: Qubo <https://github.com/tkqubo>, Matt Lewis <https://github.com/mattlewis92>
+// Definitions by: Qubo <https://github.com/tkqubo>, Matt Lewis <https://github.com/mattlewis92>, Benjamin Lim <https://github.com/bumbleblym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="uglify-js" />
@@ -66,6 +66,8 @@ declare namespace webpack {
         plugins?: Plugin[];
         /** Stats options for logging  */
         stats?: compiler.StatsToStringOptions;
+        /** Performance options */
+        performance?: PerformanceOptions;
     }
 
     interface Entry {
@@ -844,6 +846,25 @@ declare namespace webpack {
         }
 
         type CompilerCallback = (err: Error, stats: Stats) => void
+    }
+
+    interface PerformanceOptions {
+        /**
+         * Turns hints on/off. In addition, tells webpack to throw either an error or a warning when hints are found. This property is set to "warning" by default.
+         */
+        hints?: boolean | 'error' | 'warning';
+        /**
+         * An entrypoint represents all assets that would be utilized during initial load time for a specific entry. This option controls when webpack should emit performance hints based on the maximum entrypoint size. The default value is 250000 (bytes).
+         */
+        maxEntryPointSize?: number;
+        /**
+         * An asset is any emitted file from webpack. This option controls when webpack emits a performance hint based on individual asset size. The default value is 250000 (bytes).
+         */
+        maxAssetSize?: number;
+        /**
+         * This property allows webpack to control what files are used to calculate performance hints.
+         */
+        assetFilter?: (assetFilename: string) => boolean;
     }
 }
 
