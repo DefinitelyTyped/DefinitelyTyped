@@ -363,6 +363,7 @@ declare namespace webpack {
     }
     type ConditionSpec = TestConditionSpec | OrConditionSpec | AndConditionSpec | NotConditionSpec;
 
+    // tslint:disable-next-line:no-empty-interface
     interface ConditionArray extends Array<Condition> {}
     type Condition = string | RegExp | ((absPath: string) => boolean) | ConditionSpec | ConditionArray;
 
@@ -623,6 +624,7 @@ declare namespace webpack {
     }
 
     interface PrefetchPluginStatic {
+        // tslint:disable-next-line:unified-signatures
         new (context: any, request: any): Plugin;
         new (request: any): Plugin;
     }
