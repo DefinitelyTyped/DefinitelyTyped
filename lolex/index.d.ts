@@ -1,4 +1,4 @@
-// Type definitions for lolex 1.5.2
+// Type definitions for lolex 1.5
 // Project: https://github.com/sinonjs/lolex
 // Definitions by: Wim Looman <https://github.com/Nemo157>, Josh Goldberg <https://github.com/joshuakgoldberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,7 +6,7 @@
 /**
  * Timer object used in node.
  */
-export type NodeTimer = {
+export interface NodeTimer {
     /**
      * Stub method call. Does nothing.
      */
@@ -26,12 +26,12 @@ export type TimerId = number | NodeTimer;
 /**
  * Lolex clock for a browser environment.
  */
-type BrowserClock = IClock<number>;
+type BrowserClock = LolexClock<number>;
 
 /**
  * Lolex clock for a Node environment.
  */
-type NodeClock = IClock<NodeTimer> & {
+type NodeClock = LolexClock<NodeTimer> & {
     /**
      * Mimicks process.hrtime().
      * 
@@ -39,7 +39,7 @@ type NodeClock = IClock<NodeTimer> & {
      * @returns High resolution real time as [seconds, nanoseconds].
      */
     hrtime(prevTime?: [number, number]): [number, number];
-}
+};
 
 /**
  * Clock object created by lolex.
@@ -54,7 +54,7 @@ type FakeMethod = "setTimeout" | "clearTimeout" | "setImmediate" | "clearImmedia
 /**
  * Controls the flow of time.
  */
-export interface IClock<TTimerId extends TimerId> {
+export interface LolexClock<TTimerId extends TimerId> {
     /**
      * Current clock time.
      */
