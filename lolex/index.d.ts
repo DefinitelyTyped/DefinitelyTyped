@@ -1,4 +1,4 @@
-// Type definitions for lolex 1.5.1
+// Type definitions for lolex 1.5.2
 // Project: https://github.com/sinonjs/lolex
 // Definitions by: Wim Looman <https://github.com/Nemo157>, Josh Goldberg <https://github.com/joshuakgoldberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
