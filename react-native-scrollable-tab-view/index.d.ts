@@ -15,21 +15,21 @@ export interface onChangeTabProperties {
 
   // currentPage object
   ref: JSX.Element;
-  
+
   // previousPage
   from: number;
 }
 
 export interface renderTabBarProperties {
-  
+
   goToPage: (pageNumber: number) => void;
-  
+
   tabs: JSX.Element;
-  
+
   activeTab: number;
-  
+
   scrollValue: Animated.Value;
-  
+
   containerWidth: number;
 }
 
@@ -74,7 +74,7 @@ interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
    * You can manually pass the props to the TabBar component.
    */
   renderTabBar?: (value: JSX.Element) => JSX.Element;
-  
+
   /**
    * style (View.propTypes.style)
    */
