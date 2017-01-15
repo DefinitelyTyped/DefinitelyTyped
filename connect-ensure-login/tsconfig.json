@@ -4,7 +4,7 @@
         "target": "es6",
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "leaflet-draw-tests.ts"
+        "connect-ensure-login-tests.ts"
     ]
 }
