@@ -548,9 +548,9 @@ declare namespace WebdriverIO {
         sessions(): Client<RawResult<Session[]>>;
         sessions<P>(): Client<P>;
 
-        // timeouts
-        // timeoutsAsyncScript
-        // timeoutsImplicitWait
+        timeouts<P>(type: string, ms: number): Client<P>;
+        timeoutsAsyncScript<P>(ms: number): Client<P>;
+        timeoutsImplicitWait<P>(ms: number): Client<P>;
 
         // window
         // windowHandle
