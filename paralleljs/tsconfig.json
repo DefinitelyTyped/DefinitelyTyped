@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "parallel-tests.ts"
+        "paralleljs-tests.ts"
     ]
 }

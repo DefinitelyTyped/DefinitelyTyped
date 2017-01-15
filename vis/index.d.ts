@@ -1568,13 +1568,13 @@ export interface NodeOptions {
   };
 
   font?: string | {
-    color: string,
-    size: number, // px
-    face: string,
-    background: string,
-    strokeWidth: number, // px
-    strokeColor: string,
-    align: string,
+    color?: string,
+    size?: number, // px
+    face?: string,
+    background?: string,
+    strokeWidth?: number, // px
+    strokeColor?: string,
+    align?: string,
   };
 
   group?: string;

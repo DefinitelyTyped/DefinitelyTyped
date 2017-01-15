@@ -15,7 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "backbone-tests.ts",
-        "backbone-with-lodash-tests.ts"
+        "backbone-tests.ts"
     ]
 }

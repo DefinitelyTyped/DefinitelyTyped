@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "amplifyjs-tests.ts"
+        "amplify-tests.ts"
     ]
 }

@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "progress-tests.ts"
+        "progressjs-tests.ts"
     ]
 }

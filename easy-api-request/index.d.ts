@@ -9,7 +9,7 @@
 import stream = require('stream');
 import http = require('http');
 import request = require('request');
-import bunyan = require('bunyan');
+import Logger = require('bunyan');
 import express = require('express');
 import Q = require('q');
 
@@ -35,7 +35,7 @@ interface Result {
 declare class BaseRequest {
     protected base: request.Request;
     protected req: express.Request;
-    protected log: bunyan.Logger;
+    protected log: Logger;
     protected replyCookies: string[];
     protected jSend: boolean;
     constructor(opts: any);
