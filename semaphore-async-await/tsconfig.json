@@ -1,0 +1,27 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "es2015",
+		"lib": ["es2016", "dom"],
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"strictNullChecks": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noEmitOnError": true,
+		"newLine": "LF",
+		"forceConsistentCasingInFileNames": true,
+		"baseUrl": "../",
+		"typeRoots": [
+			"../"
+		],
+		"types": [],
+		"noEmit": true
+	},
+	"files": [
+		"index.d.ts",
+		"semaphore-async-await-tests.ts"
+	]
+}
