@@ -14,7 +14,7 @@ declare function createPool(config: IPoolConfig): IPool;
 declare function createPoolCluster(config?: IPoolClusterConfig): IPoolCluster;
 declare function escape(value: any): string;
 declare function format(sql: string): string;
-declare function format(sql: string, values: Array<any>): string;
+declare function format(sql: string, values: any[]): string;
 declare function format(sql: string, values: any): string;
 
 interface IMySql {
@@ -24,15 +24,15 @@ interface IMySql {
     createPoolCluster(config?: IPoolClusterConfig): IPoolCluster;
     escape(value: any): string;
     format(sql: string): string;
-    format(sql: string, values: Array<any>): string;
+    format(sql: string, values: any[]): string;
     format(sql: string, values: any): string;
 }
 
 interface IConnectionStatic {
     createQuery(sql: string): IQuery;
     createQuery(sql: string, callback: (err: IError, ...args: any[]) => void): IQuery;
-    createQuery(sql: string, values: Array<any>): IQuery;
-    createQuery(sql: string, values: Array<any>, callback: (err: IError, ...args: any[]) => void): IQuery;
+    createQuery(sql: string, values: any[]): IQuery;
+    createQuery(sql: string, values: any[], callback: (err: IError, ...args: any[]) => void): IQuery;
 }
 
 interface IConnection {
@@ -67,10 +67,10 @@ interface IConnection {
     escape(value: any): string;
 
     escapeId(value: string): string;
-    escapeId(values: Array<string>): string;
+    escapeId(values: string[]): string;
 
     format(sql: string): string;
-    format(sql: string, values: Array<any>): string;
+    format(sql: string, values: any[]): string;
     format(sql: string, values: any): string;
 
     on(ev: string, callback: (...args: any[]) => void): IConnection;
@@ -151,24 +151,24 @@ interface IQuery {
 
     on(ev: string, callback: (...args: any[]) => void): IQuery;
     on(ev: 'error', callback: (err: IError) => void): IQuery;
-    on(ev: 'fields', callback: (fields: any, index: number) => void): IQuery;
+    on(ev: 'fields', callback: (fields: IFieldInfo[], index: number) => void): IQuery;
     on(ev: 'result', callback: (row: any, index: number) => void): IQuery;
     on(ev: 'end', callback: () => void): IQuery;
 }
 
 interface IQueryFunction {
     (sql: string): IQuery;
-    (sql: string, callback: (err: IError, ...args: any[]) => void): IQuery;
-    (sql: string, values: Array<any>): IQuery;
-    (sql: string, values: Array<any>, callback: (err: IError, ...args: any[]) => void): IQuery;
+    (sql: string, callback: (err: IError, results?: any, fields?: IFieldInfo[]) => void): IQuery;
+    (sql: string, values: any[]): IQuery;
+    (sql: string, values: any[], callback: (err: IError, results?: any, fields?: IFieldInfo[]) => void): IQuery;
     (sql: string, values: any): IQuery;
-    (sql: string, values: any, callback: (err: IError, ...args: any[]) => void): IQuery;
+    (sql: string, values: any, callback: (err: IError, results?: any, fields?: IFieldInfo[]) => void): IQuery;
     (options: IQueryOptions): IQuery;
-    (options: IQueryOptions, callback: (err: IError, ...args: any[]) => void): IQuery;
-    (options: IQueryOptions, values: Array<any>): IQuery;
-    (options: IQueryOptions, values: Array<any>, callback: (err: IError, ...args: any[]) => void): IQuery;
+    (options: IQueryOptions, callback: (err: IError, results?: any, fields?: IFieldInfo[]) => void): IQuery;
+    (options: IQueryOptions, values: any[]): IQuery;
+    (options: IQueryOptions, values: any[], callback: (err: IError, results?: any, fields?: IFieldInfo[]) => void): IQuery;
     (options: IQueryOptions, values: any): IQuery;
-    (options: IQueryOptions, values: any, callback: (err: IError, ...args: any[]) => void): IQuery;
+    (options: IQueryOptions, values: any, callback: (err: IError, results?: any, fields?: IFieldInfo[]) => void): IQuery;
 }
 
 interface IQueryOptions {
@@ -362,7 +362,7 @@ interface IConnectionConfig extends IConnectionOptions {
     /**
      * List of connection flags to use other than the default ones. It is also possible to blacklist default ones
      */
-    flags?: Array<string>;
+    flags?: string[];
 
     /**
      * object with ssl parameters or a string containing name of ssl profile
@@ -447,12 +447,12 @@ interface ISslCredentials {
     /**
      * Either a string or list of strings of PEM encoded CA certificates to trust.
      */
-    ca?: Array<string>;
+    ca?: string[];
 
     /**
      * Either a string or list of strings of PEM encoded CRLs (Certificate Revocation List)
      */
-    crl?: Array<string>;
+    crl?: string[];
 
     /**
      * A string describing the ciphers to use or exclude
