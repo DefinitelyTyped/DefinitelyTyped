@@ -1,5 +1,4 @@
-/// <reference path="./browser-sync.d.ts"/>
-import browserSync = require("browser-sync");
+import * as browserSync from "browser-sync";
 
 (() => {
     //make sure that the interfaces are correctly exposed

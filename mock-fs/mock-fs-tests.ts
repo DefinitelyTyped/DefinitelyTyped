@@ -1,4 +1,3 @@
-/// <reference path="mock-fs.d.ts" />
 
 var mock = require('mock-fs');
 

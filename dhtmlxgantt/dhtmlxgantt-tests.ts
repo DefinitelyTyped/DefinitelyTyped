@@ -1,8 +1,9 @@
-/// <reference path="dhtmlxgantt.d.ts" />
+
 
 //date operations
 var start: Date = gantt.date.week_start(new Date());
 var next: Date = gantt.date.add(new Date(), 1, "week");
+var datePos: Date = gantt.dateFromPos(0);
 
 //hotkeys
 gantt.keys.edit_cancel = 13;
@@ -31,3 +32,6 @@ gantt.load("/data/events");
 gantt.attachEvent("onBeforeLightbox", function (id?: string) {
 	gantt.showTask(id);
 });
+//gantt enterprise
+var gantt2 = Gantt.getGanttInstance();
+gantt2.config.api_date = "format";

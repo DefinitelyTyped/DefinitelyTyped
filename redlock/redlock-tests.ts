@@ -1,103 +1,46 @@
-/// <reference path="./redlock.d.ts" />
-
-import Redlock = require('redlock');
-
-import NodeifyCallback = RedlockTypes.NodeifyCallback;
-import Lock = RedlockTypes.Lock;
-import RedlockOptions = RedlockTypes.RedlockOptions;
+import * as Redlock from 'redlock';
+import { Callback as NodeifyCallback, Options, Lock } from 'redlock';
+import * as Promise from 'bluebird';
+import {RedisClient} from 'redis';
 
 namespace RedlockTest {
-	// constructor
-	{
-		let redlock: Redlock;
-		let client: any;
-		let options: RedlockOptions;
-		redlock = new Redlock([client]);
-		redlock = new Redlock([client], options);
-	}
 
-	// acquire, lock
-	{
-		let redlock: Redlock;
-		let resource: string;
-		let ttl: number;
-		let callback: NodeifyCallback<Lock>;
-		let result: Promise<Lock>;
-		result = redlock.acquire(resource, ttl);
-		result = redlock.acquire(resource, ttl, callback);
-		result = redlock.lock(resource, ttl);
-		result = redlock.lock(resource, ttl, callback);
-	}
+	let redlock: Redlock;
+	let client: RedisClient;
+	let lock: Lock;
 
-	// disposer
-	{
-		let redlock: Redlock;
-		let resource: string;
-		let ttl: number;
-		let result: any;
-		result = redlock.acquire(resource, ttl);
-	}
+	redlock = new Redlock([client]);
+	redlock = new Redlock([client], {
+		driftFactor: 0.1,
+		retryCount: 2,
+		retryDelay: 3
+	});
 
-	// release, unlock
-	{
-		let redlock: Redlock;
-		let lock: Lock;
-		let callback: NodeifyCallback<void>;
-		let result: Promise<void>;
-		result = redlock.release(lock);
-		result = redlock.release(lock, callback);
-		result = redlock.unlock(lock);
-		result = redlock.unlock(lock, callback);
-	}
+	redlock.acquire('resource', 30).then((lock: Lock) => { });
+	redlock.acquire('resource', 30, (err: any, lock: Lock) => { });
+	redlock.lock('resource', 30).then((lock: Lock) => { });
+	redlock.lock('resource', 30, (err: any, lock: Lock) => { });
 
-	// extend
-	{
-		let redlock: Redlock;
-		let lock: Lock;
-		let ttl: number;
-		let callback: NodeifyCallback<Lock>;
-		let result: Promise<Lock>;
-		result = redlock.extend(lock, ttl);
-		result = redlock.extend(lock, ttl, callback);
-	}
+	// There is currently no way to test the disposer as the bluebird typings does not
+	//	expose the .using method.
+	// promise.using(redlock.disposer('resource', 30), (lock: Lock) => {});
 
-	// _lock
-	{
-		let redlock: Redlock;
-		let resource: string;
-		let value: string;
-		let ttl: number;
-		let callback: NodeifyCallback<Lock>;
-		let result: Promise<Lock>;
-		result = redlock._lock(resource, value, ttl);
-		result = redlock._lock(resource, value, ttl, callback);
-	}
+	redlock.release(lock);
+	redlock.release(lock, (err: any) => { });
+	redlock.unlock(lock);
+	redlock.unlock(lock, (err: any) => { });
 
-	// _random
-	{
-		let redlock: Redlock;
-		let result: string;
-		result = redlock._random();
-	}
+	redlock.extend(lock, 30).then((lock: Lock) => { });
+	redlock.extend(lock, 30, (err: any, lock: Lock) => { });
 }
 
 namespace LockTest {
-	// unlock
-	{
-		let lock: Lock;
-		let callback: NodeifyCallback<void>;
-		let result: Promise<void>;
-		result = lock.unlock();
-		result = lock.unlock(callback);
-	}
 
-	// extend
-	{
-		let lock: Lock;
-		let ttl: number;
-		let callback: NodeifyCallback<Lock>;
-		let result: Promise<Lock>;
-		result = lock.extend(ttl);
-		result = lock.extend(ttl, callback);
-	}
+	let lock: Lock;
+
+	lock.unlock();
+	lock.unlock((err) => { });
+
+	lock.extend(30).then((lock: Lock) => { });
+	lock.extend(30, (err: any, lock: Lock) => { });
 }

@@ -1,6 +1,7 @@
-/// <reference path="restify.d.ts" />
+
 
 import restify = require("restify");
+import url = require("url");
 
 var server = restify.createServer({
   formatters: {
@@ -40,23 +41,47 @@ server.use((req, res, next)=>{}, (req, res, next)=>{});
 function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.header('key', 'val');
     req.header('key') === 'val';
+    req.trailer('key', 'val');
+    req.trailer('key') === 'val';
     
     req.accepts('test') === true;
+    req.accepts(['test']) === true;
+    req.acceptsEncoding('test') === true;
+    req.acceptsEncoding(['test']) === true;
     req.is('test') === true;
+    req.isChunked() === true;
+    req.isKeepAlive() === true;
+    req.isSecure() === true;
+    req.isUpgradeRequest() === true;
+    req.isUpload() === true;
+    req.userAgent() === 'test';
+    req.startHandlerTimer('test');
+    req.endHandlerTimer('test');
+    req.absoluteUri('test') === 'test';
 
+    req.timers.pop() === { name: 'test', time: [0, 1234] };
     req.getLogger('test');
 
     var log = req.log;
     log.debug({params: req.params}, 'Hello there %s', 'foo');
 
-    req.contentLength === 50;
-    req.contentType === 'test';
+    req.getContentLength() === 50;
+    req.contentLength() === 50;
+    req.getContentType() === 'test';
+    req.contentType() === 'test';
+    req.getHref() === 'test';
     req.href() === 'test';
-    req.id === 'test';
+    req.getId() === 'test';
+    req.id() === 'test';
+    req.getPath() === 'test';
     req.path() === 'test';
-    req.query === 'test';
+    req.getQuery() === 'test';
+    req.query() === 'test';
     req.secure === true;
-    req.time === 50;
+    req.time() === 1463518410080;
+    req.getUrl() === url.parse('http://test.test.test/test');
+    req.getVersion() === 'test';
+    req.version() === 'test';
     req.params;
 
     res.header('test');
@@ -253,6 +278,7 @@ server.on('after', (req: restify.Request, res: restify.Response, route: restify.
     route.spec.method === 'GET';
     route.spec.name === 'routeName';
     route.spec.path === '/some/path';
+    route.spec.path === /\/some\/path\/.*/;
     route.spec.versions === ['v1'];
     restify.auditLogger({ log: ()=>{} })(req, res, route, err);
 });
@@ -286,6 +312,7 @@ client = restify.createStringClient({
 
 client.head('test', function(err: any, req: restify.Request, res: restify.Response) { });
 client.put('path', {}, function(err: any, req: restify.Request, res: restify.Response, obj: any) { });
+client.patch('path', {}, function(err: any, req: restify.Request, res: restify.Response, obj: any) { });
 client.del('path', function(err: any, req: restify.Request, res: restify.Response) { });
 
 client.post('/foo', { hello: 'world' }, function(err: any, req: restify.Request, res: restify.Response, obj: any) {

@@ -1,4 +1,4 @@
-/// <reference path="./ionic.d.ts" />
+
 
 var testIonic = angular.module('testIonic', ['ionic']);
 
@@ -167,15 +167,19 @@ class IonicTestController {
 
         var viewHistory = this.$ionicHistory.viewHistory();
         var currentView = this.$ionicHistory.currentView();
+        this.$ionicHistory.currentView({viewId: 1});
         var currentHistoryId: string = this.$ionicHistory.currentHistoryId();
         this.$ionicHistory.currentTitle("currentTitle");
         var currentTitle: string = this.$ionicHistory.currentTitle();
         var backView = this.$ionicHistory.backView();
+        this.$ionicHistory.backView({viewId: 1});
         var backTitle: string = this.$ionicHistory.backTitle();
         var forwardView = this.$ionicHistory.forwardView();
+        this.$ionicHistory.forwardView({viewId: 1});
         var currentStateName: string = this.$ionicHistory.currentStateName();
 
         this.$ionicHistory.goBack(5);
+        this.$ionicHistory.removeBackView();
         this.$ionicHistory.clearHistory();
         this.$ionicHistory.clearCache().then(() => console.log("done clearing cache!"));
         this.$ionicHistory.nextViewOptions({

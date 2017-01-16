@@ -1,5 +1,3 @@
-/// <reference path="glob-stream.d.ts" />
-
 import gs = require('glob-stream');
 
 var read: NodeJS.ReadableStream;

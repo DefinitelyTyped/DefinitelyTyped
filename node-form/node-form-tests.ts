@@ -1,10 +1,4 @@
-/// <reference path="node-form.d.ts" />
-/// <reference path="../underscore/underscore.d.ts" />
-/// <reference path="../q/Q.d.ts" />
-/// <reference path="../moment/moment.d.ts" />
-
-
-export interface IPerson{
+interface IPerson{
     Checked:boolean;
     FirstName:string;
     LastName:string;

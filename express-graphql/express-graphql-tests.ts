@@ -1,10 +1,26 @@
-/// <reference path="./express-graphql.d.ts" />
-/// <reference path="../express/express.d.ts" />
+import * as express from "express";
+import 'express-session';
+import * as graphqlHTTP from "express-graphql";
 
-var express = require("express");
-var graphqlHTTP = require("express-graphql");
-var app = express();
+const app = express();
+const schema = {};
 
-var schema = {};
+const graphqlOption: graphqlHTTP.OptionsObj = {
+    graphiql: true,
+    schema: schema,
+    formatError: (error:Error) => ({
+        message: error.message,
+    })
+};
 
-app.use("/graphql", graphqlHTTP({ schema: schema, graphiql: true }));
+const graphqlOptionRequest = (request: express.Request): graphqlHTTP.OptionsObj => ({
+    graphiql: true,
+    schema: schema,
+    context: request.session,
+});
+
+app.use("/graphql1", graphqlHTTP(graphqlOption));
+
+app.use("/graphql2", graphqlHTTP(graphqlOptionRequest));
+
+app.listen(8080);

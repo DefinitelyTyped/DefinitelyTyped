@@ -1,4 +1,4 @@
-/// <reference path="./event-kit.d.ts" />
+
 
 import { Disposable, CompositeDisposable, Emitter } from "event-kit";
 
@@ -24,6 +24,7 @@ class User {
 	}
 
 	destroy(): void {
+		this.emitter.clear();
 		this.emitter.dispose();
 	}
 }
@@ -39,6 +40,7 @@ var user = new User();
 var subscription = user.onDidChangeName((name: string) => {
 	console.log('User name change to: ' + name);
 });
+if(Disposable.isDisposable(subscription)) {}
 subscription.dispose();
 
 // CompositeDisposable

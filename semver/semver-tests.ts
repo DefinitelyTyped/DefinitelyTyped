@@ -1,4 +1,4 @@
-/// <reference path="semver.d.ts" />
+
 
 var obj:Object;
 var bool:boolean;
@@ -19,12 +19,15 @@ var versions:string[];
 var loose:boolean;
 
 str = mod.valid(str);
+str = mod.clean(str);
 
 str = mod.valid(str, loose);
+str = mod.clean(str, loose);
 str = mod.inc(str, str, loose);
 num = mod.major(str, loose);
 num = mod.minor(str, loose);
 num = mod.patch(str, loose);
+strArr = mod.prerelease(str, loose);
 
 // Comparison
 bool = mod.gt(v1, v2, loose);
@@ -42,6 +45,7 @@ diff = mod.diff(v1, v2, loose);
 str = mod.validRange(str, loose);
 bool = mod.satisfies(version, str, loose);
 str = mod.maxSatisfying(versions, str, loose);
+str = mod.minSatisfying(versions, str, loose);
 bool = mod.gtr(version, str, loose);
 bool = mod.ltr(version, str, loose);
 bool = mod.outside(version, str, str, loose);
@@ -106,7 +110,9 @@ var testBoolean: boolean;
 testString = semver.SEMVER_SPEC_VERSION;
 
 testString = semver.valid('v1.0.0');
+testString = semver.clean(' =v1.0.0 ');
 testString = semver.valid('v1.0.0', true);
+testString = semver.clean(' =v1.0.0 ', true);
 testString = semver.inc('v1.0.0', 'major');
 testString = semver.inc('v1.0.0', 'major', true);
 testNumber = semver.major('v1.0.0');

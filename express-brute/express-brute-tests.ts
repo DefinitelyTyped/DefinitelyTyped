@@ -1,5 +1,3 @@
-/// <reference path="express-brute.d.ts"/>
-
 import express = require("express");
 import ExpressBrute = require("express-brute");
 

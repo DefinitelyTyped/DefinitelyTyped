@@ -1,4 +1,4 @@
-/// <reference path="should.d.ts" />
+
 
 import should = require('should');
 
@@ -163,6 +163,8 @@ User.should.be.a.Class();
 [].should.be.iterable();
 [].should.be.an.iterator();
 [].should.be.an.Array();
+should(undefined).be.undefined();
+should(null).be.null();
 
 var res = {};
 res.should.have.status(200);

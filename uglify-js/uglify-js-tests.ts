@@ -1,5 +1,4 @@
-/// <reference path="uglify-js.d.ts" />
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 import * as UglifyJS from 'uglify-js';
 import * as fs from 'fs';

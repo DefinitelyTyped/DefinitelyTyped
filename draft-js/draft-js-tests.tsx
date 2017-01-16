@@ -1,183 +1,178 @@
-/// <reference path="draft-js.d.ts" />
-/// <reference path="../react/react-global.d.ts" />
-/// <reference path="../react/react-dom.d.ts"/>
-
 import * as React from "react";
+import * as ReactDOM from "react-dom";
+import {Map} from "immutable";
 
-import {
-Editor,
-    EditorState,
-    Entity,
-    CharacterMetadata,
-    ContentBlock,
-    Modifier,
-    SelectionState,
-    genKey
-} from "draft-js";
+import {Editor, EditorState, RichUtils, DefaultDraftBlockRenderMap, ContentBlock} from 'draft-js';
 
-export class Tag extends React.Component<any, any> {
-    constructor(props: any) {
-        super(props);
+class RichEditorExample extends React.Component<{}, { editorState: EditorState }> {
+  constructor() {
+    super();
+
+    this.state = { editorState: EditorState.createEmpty() };
     }
 
-    remove = (): void => {
-        this.props.blockProps.removeBlock(this.props.block.getKey());
+  onChange: (editorState: EditorState) => void = (editorState: EditorState) => this.setState({ editorState });
+
+  handleKeyCommand = (command: string) => {
+    const {editorState} = this.state;
+    const newState = RichUtils.handleKeyCommand(editorState, command);
+    if (newState) {
+      this.onChange(newState);
+      return "handled";
+        }
+
+    return "not-handled";
     }
 
-    render () {
-        const {block} = this.props;
-        if (block.getEntityAt(0)) {
-            const data = Entity.get(block.getEntityAt(0)).getData();
+  toggleBlockType: (blockType: string) => void = (blockType: string) => {
+    this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
+    }
+
+  toggleInlineStyle: (inlineStyle: string) => void = (inlineStyle: string) => {
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle));
+  }
+
+  render(): React.ReactElement<{}> {
+    // If the user changes block type before entering any text, we can
+    // either style the placeholder or hide it. Let's just hide it now.
+    let className = 'RichEditor-editor';
+    var contentState = this.state.editorState.getCurrentContent();
+    if (!contentState.hasText()) {
+      if (contentState.getBlockMap().first().getType() !== 'unstyled') {
+        className += ' RichEditor-hidePlaceholder';
+      }
+    }
 
             return (
-                <div className="tag" contentEditable={false} >
-                    {data.content.name}
-                    <span className="remove" onClick={this.remove}>
-                        <i className="material-icons">clear</i>
-                    </span>
+      <div className="RichEditor-root">
+        <BlockStyleControls
+          editorState={this.state.editorState}
+          onToggle={this.toggleBlockType}
+          />
+        <InlineStyleControls
+          editorState={this.state.editorState}
+          onToggle={this.toggleInlineStyle}
+          />
+        <div className={className}>
+          <Editor
+            blockStyleFn={getBlockStyle}
+            customStyleMap={styleMap}
+            editorState={this.state.editorState}
+            handleKeyCommand={this.handleKeyCommand}
+            onChange={this.onChange}
+            placeholder="Tell a story..."
+            ref="editor"
+            spellCheck={true}
+            />
+        </div>
                 </div>
             );
         }
-    }
 }
 
-export class Hint extends React.Component<any, any> {
-    constructor(props: any) {
-        super(props);
-    }
+// Custom overrides for "code" style.
+const styleMap = {
+  CODE: {
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
+    fontSize: 16,
+    padding: 2,
+  },
+};
 
-    render () {
-        const {block} = this.props;
-        if (block.getEntityAt(0)) {
-            const data = Entity.get(block.getEntityAt(0)).getData();
-
-            return (
-                <div className="hint" contentEditable={false} >
-                    <span className="autocomplete">{this.props.blockProps.autocomplete}</span>
-                    {data.content.text}
-                </div>
-            );
-        }
-    }
+function getBlockStyle(block: ContentBlock) {
+  switch (block.getType()) {
+    case 'blockquote': return 'RichEditor-blockquote';
+    default: return null;
+  }
 }
 
-export function removeBlock(editorState: EditorState, blockKey: string) {
-    const content = editorState.getCurrentContent();
+class StyleButton extends React.Component<{key: string, active: boolean, label: string, onToggle: (blockType: string) => void, style: string}, {}> {
+  constructor() {
+    super();
+  }
 
-    const targetRange = new SelectionState({
-        anchorKey: blockKey,
-        anchorOffset: 0,
-        focusKey: blockKey,
-        focusOffset: 1
-    });
+  onToggle: (event: Event) => void = (event: Event) => {
+      event.preventDefault();
+      this.props.onToggle(this.props.style);
+    };
 
-    const withoutTag = Modifier.removeRange(content, targetRange, "backward");
-    const resetBlock = Modifier.setBlockType(
-        withoutTag,
-        withoutTag.getSelectionAfter(),
-        "unstyled"
+  render(): React.ReactElement<{}> {
+    let className = 'RichEditor-styleButton';
+
+    if (this.props.active) {
+      className += ' RichEditor-activeButton';
+    }
+
+    return (
+      <span className={className} onMouseDown={e => this.onToggle(e as any)}>
+        {this.props.label}
+      </span>
     );
-
-    const newState = EditorState.push(editorState, resetBlock, "remove-range");
-    return EditorState.forceSelection(newState, resetBlock.getSelectionAfter());
+  }
 }
 
-export function applyEntity(editorState: EditorState, blockKey: string, entityKey: string) {
-    const content = editorState.getCurrentContent();
+const BLOCK_TYPES = [
+  { label: 'H1', style: 'header-one' },
+  { label: 'H2', style: 'header-two' },
+  { label: 'H3', style: 'header-three' },
+  { label: 'H4', style: 'header-four' },
+  { label: 'H5', style: 'header-five' },
+  { label: 'H6', style: 'header-six' },
+  { label: 'Blockquote', style: 'blockquote' },
+  { label: 'UL', style: 'unordered-list-item' },
+  { label: 'OL', style: 'ordered-list-item' },
+  { label: 'Code Block', style: 'code-block' },
+];
 
-    const targetRange = new SelectionState({
-        anchorKey: blockKey,
-        anchorOffset: 0,
-        focusKey: blockKey,
-        focusOffset: 1
-    });
+const BlockStyleControls = (props: {editorState: EditorState, onToggle: (blockType: string) => void}) => {
+  const {editorState} = props;
+  const selection = editorState.getSelection();
+  const blockType = editorState
+    .getCurrentContent()
+    .getBlockForKey(selection.getStartKey())
+    .getType();
 
-    const withNewEntity = Modifier.applyEntity(
-        content,
-        targetRange,
-        entityKey
-    )
-
-    const newState = EditorState.push(editorState, withNewEntity, "change-entity");
-    return EditorState.forceSelection(newState, withNewEntity.getSelectionAfter());
-}
-
-export function addTagBlock(content: any, editorState: EditorState): any {
-    const contentState = editorState.getCurrentContent();
-
-    const entityKey = Entity.create(
-        "TOKEN",
-        "IMMUTABLE",
-        {content}
+  return (
+    <div className="RichEditor-controls">
+      {BLOCK_TYPES.map((type) =>
+        <StyleButton
+          key={type.label}
+          active={type.style === blockType}
+          label={type.label}
+          onToggle={props.onToggle}
+          style={type.style}
+          />
+      ) }
+    </div>
     );
+};
 
-    const charData = CharacterMetadata.create({entity: entityKey});
-    const tag = new ContentBlock({
-        key: genKey(),
-        type: "tag",
-        text: "",
-        characterList: [],
-    });
+var INLINE_STYLES = [
+  { label: 'Bold', style: 'BOLD' },
+  { label: 'Italic', style: 'ITALIC' },
+  { label: 'Underline', style: 'UNDERLINE' },
+  { label: 'Monospace', style: 'CODE' },
+];
 
-    const withTag = contentState.set("blockMap", contentState.getBlockMap().set(tag.key, tag));
-
-    const withRemovedPreviousBlock = withTag.set("blockMap", withTag.getBlockMap().delete(contentState.getSelectionBefore().getAnchorKey()))
-
-    const withTagBlock = EditorState.push(editorState, withRemovedPreviousBlock, "insert-fragment");
-
-    return withTagBlock;
-}
-
-export function addHintBlock(content: any, editorState: EditorState): any {
-    const contentState = editorState.getCurrentContent();
-    const selectionState = editorState.getSelection();
-
-    const entityKey = Entity.create(
-        "TOKEN",
-        "IMMUTABLE",
-        {content}
-    );
-
-    const charData = CharacterMetadata.create({entity: entityKey});
-    const hint = new ContentBlock({
-        key: genKey(),
-        type: "hint",
-        text: "",
-        characterList: [],
-    });
-    const empty = new ContentBlock({
-        key: genKey(),
-        type: "unstyled",
-        text: "",
-        characterList: [],
-    });
-
-    const withEmpty = contentState.set("blockMap", contentState.getBlockMap().set(empty.key, empty));
-    const withHint = withEmpty.set("blockMap", withEmpty.getBlockMap().set(hint.key, hint));
-    return {
-        editorState: EditorState.forceSelection(EditorState.push(editorState, withHint, "insert-fragment"), selectionState),
-        blockKey: hint.key
-    }
-
-}
-
-export class SearchField extends React.Component<any, any> {
-    public onChange: any;
-
-    constructor(props: any) {
-        super(props);
-        this.onChange = (editorState: EditorState) => {
-          this.setState({editorState})
-        };
-    }
-
-    render() {
-        const {editorState} = this.state;
+const InlineStyleControls = (props: {editorState: EditorState, onToggle: (blockType: string) => void}) => {
+  var currentStyle = props.editorState.getCurrentInlineStyle();
         return (
-                <Editor suppressContentEditableWarning
-                        editorState={editorState}
-                        onChange={this.onChange}
+    <div className="RichEditor-controls">
+      {INLINE_STYLES.map(type =>
+        <StyleButton
+          key={type.label}
+          active={currentStyle.has(type.style) }
+          label={type.label}
+          onToggle={props.onToggle}
+          style={type.style}
                        />
-        )
-    }
-}
+      ) }
+    </div>
+  );
+};
+
+ReactDOM.render(
+  <RichEditorExample />,
+  document.getElementById('target')
+);

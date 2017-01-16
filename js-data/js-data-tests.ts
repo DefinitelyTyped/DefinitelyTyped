@@ -1,4 +1,4 @@
-/// <reference path="js-data.d.ts" />
+import JSData = require("js-data");
 
 interface IUser {
     id?: number;
@@ -505,7 +505,7 @@ interface MyResourceDefinition {
 
 }
 
-namespace JSData {
+namespace MyJSData {
 
     interface DS {
 
@@ -600,3 +600,5 @@ customActionResource.emit("DS.change", customActionResource, customActionResourc
 customActionResourceInstance.on("DS.change", myEvtHandler);
 customActionResourceInstance.off("DS.change", myEvtHandler);
 customActionResourceInstance.emit("DS.change", customActionResource, customActionResourceInstance);
+
+JSData.DSUtils.Promise = Promise;

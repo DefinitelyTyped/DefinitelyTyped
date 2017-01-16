@@ -1,25 +1,39 @@
-/// <reference path="passport.d.ts" />
-/// <reference path="../express/express.d.ts" />
-/// <reference path="../express-session/express-session.d.ts" />
-
-import express = require('express');
-import passport = require('passport');
+import * as passport from 'passport';
+import * as express from 'express';
+import 'express-session';
 
 class TestStrategy implements passport.Strategy {
   public name: string = 'test';
-  constructor() {}
-  authenticate(req: express.Request) {}
+  constructor() { }
+  authenticate(req: express.Request) { }
 }
 
+const newFramework:passport.Framework = {
+  initialize: function () {
+    return function () { };
+  },
+  authenticate: function (passport, name, options) {
+    return function () {
+      return 'authenticate(): ' + name + ' ' + options;
+    };
+  },
+  authorize: function (passport, name, options) {
+    return function () {
+      return 'authorize(): ' + name + ' ' + options;
+    }
+  }
+};
 passport.use(new TestStrategy());
-passport.framework('test');
-passport.serializeUser((user, done) => {});
-passport.deserializeUser((id, done) => {});
+passport.framework(newFramework);
+passport.serializeUser((user, done) => { });
+passport.serializeUser<string, number>((user, done) => { });
+passport.deserializeUser((id, done) => { });
+passport.deserializeUser<string, number>((id, done) => { });
 
 passport.use(new TestStrategy())
   .unuse('test')
   .use(new TestStrategy())
-  .framework('test-fw');
+  .framework(newFramework);
 
 
 var app = express();
@@ -28,27 +42,29 @@ app.configure(() => {
   app.use(passport.session());
 });
 
-app.post('/login', 
+app.post('/login',
   passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
-  function(req, res) {
+  function (req, res) {
     res.redirect('/');
   });
 
-app.post('/login', function(req, res, next) {
-  passport.authenticate('local', function(err: any, user: { username: string; }, info: { message: string; }) {
+app.post('/login', function (req, res, next) {
+  passport.authenticate('local', function (err: any, user: { username: string; }, info: { message: string; }) {
     if (err) { return next(err) }
     if (!user) {
-      req.session['error'] = info.message;
+      if (req.session) {
+        req.session['error'] = info.message;
+      }
       return res.redirect('/login')
     }
-    req.logIn(user, function(err) {
+    req.logIn(user, function (err) {
       if (err) { return next(err); }
       return res.redirect('/users/' + user.username);
     });
   })(req, res, next);
 });
 
-app.get('/logout', function(req, res) {
+app.get('/logout', function (req, res) {
   req.logout();
   res.redirect('/');
 });
@@ -76,8 +92,10 @@ function authSetting(): void {
       passport.authenticate('twitter', authOption));
 
   app.get('/auth/google',
-      passport.authenticate('google', { scope:
-        [ 'https://www.googleapis.com/auth/userinfo.profile' ] }));
+    passport.authenticate('google', {
+      scope:
+      ['https://www.googleapis.com/auth/userinfo.profile']
+    }));
   app.get('/auth/google/callback',
       passport.authenticate('google', authOption), successCallback);
 
@@ -90,3 +108,8 @@ function ensureAuthenticated(req: express.Request, res: express.Response, next: 
   }
 }
 
+const passportInstance: passport.Passport = new passport.Passport()
+passportInstance.use(new TestStrategy())
+
+const authenticator: passport.Passport = new passport.Authenticator()
+authenticator.use(new TestStrategy())

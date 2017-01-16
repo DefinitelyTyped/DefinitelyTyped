@@ -1,4 +1,4 @@
-/// <reference path="hapi.d.ts" />
+
 
 import Hapi = require("hapi");
 
@@ -91,6 +91,36 @@ server.route([{
 		reply('hello world2');
 	}
 }]);
+
+server.route([{
+	method: 'GET',
+	path: '/hello3',
+	handler: function (request: Hapi.Request, reply: Hapi.IReply) {
+		reply('hello world2');
+	}
+}]);
+
+interface IHello {
+	msg: string
+}
+
+server.route([{
+	method: 'GET',
+	path: '/hello4',
+	handler: function (request: Hapi.Request, reply: Hapi.IStrictReply<IHello>) {
+		reply({ msg: 'hello world' })
+	}
+}]);
+
+// Implict handler
+server.route({
+	method: 'GET',
+	path: '/hello6',
+        handler: function (request: Hapi.Request, reply: Hapi.IReply) {
+                request.log('info', { route: '/hello' }, Date.now());
+		reply('hello world');
+	}
+});
 
 // config.validate parameters should be optional
 server.route([{

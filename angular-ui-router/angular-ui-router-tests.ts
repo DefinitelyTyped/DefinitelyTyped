@@ -1,6 +1,8 @@
-/// <reference path="angular-ui-router.d.ts" />
+import * as ng from 'angular';
+import * as angular from 'angular';
 
-var myApp = angular.module('testModule');
+import uiRouterModule from "angular-ui-router";
+var myApp = angular.module("testModule", [uiRouterModule]);
 
 interface MyAppScope extends ng.IScope {
 	items: string[];
