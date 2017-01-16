@@ -1,10 +1,7 @@
-// Type definitions for WebTorrent v0.98.1
+// Type definitions for WebTorrent 0.98
 // Project: https://github.com/feross/webtorrent
 // Definitions by: Bazyli Brzóska <https://invent.life>, Tomasz Łaziuk <tlaziuk@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="node" />
-/// <reference types="parse-torrent" />
 
 import * as ParseTorrent from 'parse-torrent';
 import * as http from 'http';
@@ -21,14 +18,14 @@ declare namespace WebTorrent {
         maxConns?: number;
         nodeId?: string | Buffer;
         peerId?: string | Buffer;
-        tracker?: boolean | Object;
-        dht?: boolean | Object;
+        tracker?: boolean | {};
+        dht?: boolean | {};
         webSeeds?: boolean;
     }
 
     export interface TorrentOptions {
         announce?: any[];
-        getAnnounceOpts?: Function;
+        getAnnounceOpts?: () => void;
         maxWebConns?: number;
         path?: string;
         store?: (chunkLength: number, storeOpts: { length: number, files: File[], torrent: Torrent, }) => any;
@@ -102,7 +99,7 @@ declare namespace WebTorrent {
         // TODO: peer can be also a simple-peer instance
         removePeer(peer: string): void;
 
-        select(start: number, end: number, priority?: number, notify?: Function): void;
+        select(start: number, end: number, priority?: number, notify?: () => void): void;
 
         deselect(start: number, end: number, priority: number): void;
 
@@ -140,17 +137,17 @@ declare namespace WebTorrent {
 
         createReadStream(opts?: { start: number, end: number, }): NodeJS.ReadableStream;
 
-        getBuffer(callback: (err: string | Error | void, buffer?: Buffer) => void): void;
+        getBuffer(callback: (err: string | Error | undefined, buffer?: Buffer) => void): void;
 
-        appendTo(rootElement: HTMLElement | string, opts?: { autoplay?: boolean, controls?: boolean, maxBlobLength?: number }, callback?: (err: Error | void, element: HTMLMediaElement) => void): void;
-        appendTo(rootElement: HTMLElement | string, callback?: (err: Error | void, element: HTMLMediaElement) => void): void;
+        appendTo(rootElement: HTMLElement | string, opts?: { autoplay?: boolean, controls?: boolean, maxBlobLength?: number }, callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
+        appendTo(rootElement: HTMLElement | string, callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
 
-        renderTo(rootElement: HTMLMediaElement | string, opts?: { autoplay?: boolean, controls?: boolean, maxBlobLength?: number }, callback?: (err: Error | void, element: HTMLMediaElement) => void): void;
-        renderTo(rootElement: HTMLMediaElement | string, callback?: (err: Error | void, element: HTMLMediaElement) => void): void;
+        renderTo(rootElement: HTMLMediaElement | string, opts?: { autoplay?: boolean, controls?: boolean, maxBlobLength?: number }, callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
+        renderTo(rootElement: HTMLMediaElement | string, callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
 
-        getBlob(callback: (err: string | Error | void, blob?: Blob) => void): void;
+        getBlob(callback: (err: string | Error | undefined, blob?: Blob) => void): void;
 
-        getBlobURL(callback: (err: string | Error | void, blobURL?: string) => void): void;
+        getBlobURL(callback: (err: string | Error | undefined, blobURL?: string) => void): void;
     }
 }
 
