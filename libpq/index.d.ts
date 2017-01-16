@@ -37,7 +37,6 @@ declare class Libpq extends EventEmitter {
 
     /**
      * Current connection state.
-     * @property {boolean}
      */
     connected: boolean;
 
@@ -98,7 +97,7 @@ declare class Libpq extends EventEmitter {
      * block so be careful and only call it within the readable callback for the most part.
      *
      * @returns {boolean} true if data was read; false if there was an error. You can access
-     * error details with {@link Libpq#errorMessage}.
+     * error details with [[Libpq.errorMessage]].
      */
     consumeInput(): boolean
 
@@ -139,7 +138,7 @@ declare class Libpq extends EventEmitter {
      * (sync) Sends a command and parameters to the backend and blocks until a result is received.
      *
      * @param {string} [commandText=""] a required string of the query.
-     * @param {Array<string|number>} [parameters=[]] a required array of string values corresponding
+     * @param {Array.<(string|number)>} [parameters=[]] a required array of string values corresponding
      *                            to each parameter in the commandText.
      */
     execParams(commandText?: string, parameters?: Array<string|number>): void;
@@ -149,7 +148,7 @@ declare class Libpq extends EventEmitter {
      * until the results are returned.
      *
      * @param {string} [statementName=""] a required string of the name of the prepared statement.
-     * @param {Array<string|number>} [parameters=[]] the parameters to pass to the prepared statement.
+     * @param {Array.<(string|number)>} [parameters=[]] the parameters to pass to the prepared statement.
      */
     execPrepared(statementName?: string, parameters?: Array<string|number>): void;
 
@@ -162,8 +161,8 @@ declare class Libpq extends EventEmitter {
      * Flushes buffered data to the socket.
      *
      * @returns {number} 1 if socket is not write-ready at which case you should call
-     * {@link Libpq#writable} with a callback and wait for the socket to be writable and then call
-     * {@link Libpq#flush} again; 0 if all data was flushed; -1 if there was an
+     * [[Libpq.writable]] with a callback and wait for the socket to be writable and then call
+     * [[Libpq.flush]] again; 0 if all data was flushed; -1 if there was an
      * error.
      */
     flush(): number;
@@ -192,7 +191,7 @@ declare class Libpq extends EventEmitter {
      * Defaults to false
      *
      * @returns {Buffer|number} a node buffer if there is data available; 0 if the copy is still in
-     * progress (only if you have called {@link Libpq#setNonBlocking}(true)); -1 if the copy is
+     * progress (only if you have called [[Libpq.setNonBlocking]](true)); -1 if the copy is
      * completed; -2 if there was an error.
      */
     getCopyData(async?: boolean): Buffer|number;
@@ -201,7 +200,7 @@ declare class Libpq extends EventEmitter {
      * @param {number} tupleNumber
      * @param {number} fieldNumber
      * @returns {boolean} true if the value at the given offsets is actually null. Otherwise
-     * returns false. This is because {@link Libpq#getvalue} returns an empty string for both
+     * returns false. This is because [[Libpq.getvalue]] returns an empty string for both
      * an actual empty string and for a null value. Weird, huh?
      */
     getisnull(tupleNumber: number, fieldNumber: number): boolean;
@@ -211,7 +210,7 @@ declare class Libpq extends EventEmitter {
      * the connection object to this result.
      *
      * Warning: this function will block if libpq is waiting on async results to be returned from
-     * the server. Call {@link Libpq#isBusy} to determine if this command will block.
+     * the server. Call [[Libpq.isBusy]] to determine if this command will block.
      *
      * @returns {boolean} true if libpq was able to read buffered data & parse a result object;
      * false if there are no results waiting to be parsed. Generally doing async style
@@ -231,9 +230,9 @@ declare class Libpq extends EventEmitter {
     getvalue(tupleNumber: number, fieldNumber?: number): string;
 
     /**
-     * @returns {boolean} true if calling {@link Libpq#consumeInput} would block waiting for more
+     * @returns {boolean} true if calling [[Libpq.consumeInput]] would block waiting for more
      * data; false if all data has been read from the socket. Once this returns false it is
-     * safe to call {@link Libpq#getResult}.
+     * safe to call [[Libpq.getResult]].
      */
     isBusy(): boolean;
 
@@ -253,12 +252,14 @@ declare class Libpq extends EventEmitter {
      * Checks for NOTIFY messages that have come in. If any have been received they will be in the
      * following format:
      *
-     * @example
+     * @example ```ts
+     *
      * var msg = {
-   *   relname: 'name of channel',
-   *   extra: 'message passed to notify command',
-   *   be_pid: 130
-   * }
+     *   relname: 'name of channel',
+     *   extra: 'message passed to notify command',
+     *   be_pid: 130
+     * }
+     * ```
      *
      * @returns {NotifyMsg}
      */
@@ -279,7 +280,7 @@ declare class Libpq extends EventEmitter {
      * Buffer('column1\tcolumn2\n')
      *
      * @returns {number} 1 if sent succesfully; 0 if the command would block (only if you have
-     * called {@link Libpq#setNonBlocking}(true)); -1 if there was an error sending the command.
+     * called [[Libpq.setNonBlocking]](true)); -1 if there was an error sending the command.
      */
     putCopyData(buffer: Buffer): number;
 
@@ -290,7 +291,7 @@ declare class Libpq extends EventEmitter {
      * @param {string} [errorMessage] an optional string you can pass to cancel the copy operation.
      *
      * @returns {number} 1 if sent succesfully; 0 if the command would block (only if you have
-     * called {@link Libpq#setNonBlocking}(true)); -1 if there was an error sending the command.
+     * called [[Libpq.setNonBlocking]](true)); -1 if there was an error sending the command.
      */
     putCopyEnd(errorMessage?: string): number;
 
@@ -310,9 +311,11 @@ declare class Libpq extends EventEmitter {
      * retrieves all fields from the error at once on a single object. The object returned is a
      * simple hash, not an instance of an error object.
      *
-     * Example: if you wanted to access  PG_DIAG_MESSAGE_DETAIL you would do the following:
-     * @example
-     * console.log(pq.errorFields().messageDetail)
+     * If you wanted to access PG_DIAG_MESSAGE_DETAIL you would do the following:
+     * @example ```ts
+     *
+     * console.log(pq.errorFields().messageDetail);
+     * ```
      */
     resultErrorFields(): ResultError;
 
@@ -342,7 +345,7 @@ declare class Libpq extends EventEmitter {
      * (async) Sends a query and to the server to be processed.
      *
      * @param {string} [commandText=""] a required string containing the query text.
-     * @param {Array<string|number>} [parameters=[]] an array of parameters as strings used in the
+     * @param {Array.<(string|number)>} [parameters=[]] an array of parameters as strings used in the
      *                   parameterized query.
      * @returns {boolean} true if the command was sent succesfully or false if it failed to send.
      */
@@ -392,7 +395,7 @@ declare class Libpq extends EventEmitter {
     /**
      * This uses libuv to start a read watcher on the socket open to the backend. As soon as this
      * socket becomes readable the pq instance will emit a readable event. It is up to you to call
-     * {@link Libpq#consumeInput} one or more times to clear this read notification or it will
+     * [[Libpq.consumeInput]] one or more times to clear this read notification or it will
      * continue to emit read events over and over and over. The exact flow is outlined [here] under
      * the documentation for PQisBusy.
      */
