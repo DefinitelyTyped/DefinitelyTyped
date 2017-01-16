@@ -6,6 +6,29 @@
 /// <reference types="leaflet" />
 
 declare namespace L {
+    export interface MarkerCluster extends L.Marker {
+
+      /*
+      * Recursively retrieve all child markers of this cluster.
+      */
+      getAllChildMarkers(): Marker[];
+
+      /*
+      * Returns the count of how many child markers we have.
+      */
+      getChildCount(): number;
+
+      /*
+      * Zoom to the minimum of showing all of the child markers, or the extents of this cluster.
+      */
+      zoomToBounds(): void;
+
+      /*
+      * Returns the cluster bounds.
+      */
+      getBounds(): LatLngBounds;
+    }
+
     export interface MarkerClusterGroupOptions {
 
       /*
@@ -82,7 +105,7 @@ declare namespace L {
       /*
       * Function used to create the cluster icon
       */
-      iconCreateFunction?: ((cluster: L.MarkerClusterGroup) => L.Icon);
+      iconCreateFunction?: ((cluster: L.MarkerCluster) => L.Icon);
 
       /*
       * Boolean to split the addLayers processing in to small intervals so that the page does not freeze.
