@@ -16,6 +16,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-input-mask-tests.ts"
+        "react-input-mask-tests.tsx"
     ]
 }
