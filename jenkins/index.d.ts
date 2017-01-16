@@ -20,8 +20,8 @@ declare namespace create {
         };
         job: {
             build(name: string, callback: Function): void;
-            build(name: string, parameters: Object, callback: Function): void;
-            build(name: string, parameters: Object, token: string, callback: Function): void;
+            build(name: string, parameters: any, callback: Function): void;
+            build(name: string, parameters: any, token: string, callback: Function): void;
             build(opts: JobBuildOptions, callback: Function): void;
             config(name: string, callback: Function): void;
             config(name: string, xml: string, callback: Function): void;
@@ -76,7 +76,7 @@ declare namespace create {
             stop(name: string, n: number): Promise<any>;
         };
         job: {
-            build(name: string, parameters?: Object, token?: string): Promise<any>;
+            build(name: string, parameters?: any, token?: string): Promise<any>;
             build(opts: JobBuildOptions): Promise<any>;
             config(name: string): Promise<any>;
             config(name: string, xml: string): Promise<any>;
@@ -120,14 +120,14 @@ declare namespace create {
 
     interface JobBuildOptions {
         name: string;
-        parameters?: Object;
+        parameters?: any;
         token?: string;
     }
 
     interface JenkinsClientOptions {
         baseUrl?: string;
         crumbIssuer?: boolean;
-        headers?: Object;
+        headers?: any;
         promisify?: boolean | Function;
     }
 }
@@ -136,13 +136,13 @@ declare function create(): create.JenkinsAPI;
 declare function create(opts: {
         baseUrl?: string;
         crumbIssuer?: boolean;
-        headers?: Object;
+        headers?: any;
         promisify?: false;
     }): create.JenkinsAPI;
 declare function create(opts: {
         baseUrl?: string;
         crumbIssuer?: boolean;
-        headers?: Object;
+        headers?: any;
         promisify: true;
     }): create.JenkinsPromisifiedAPI;
 export = create;
