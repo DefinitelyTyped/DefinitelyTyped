@@ -16,6 +16,7 @@
     "files": [
         "index.d.ts",
         "test/rrule.ts",
+        "test/commonJs.ts",
         "test/global.ts"
     ]
 }

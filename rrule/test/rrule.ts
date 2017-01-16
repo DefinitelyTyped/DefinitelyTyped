@@ -1,4 +1,4 @@
-import { RRule } from 'rrule';
+import RRule = require('rrule');
 
 // Create a rule:
 let rule: RRule = new RRule({
