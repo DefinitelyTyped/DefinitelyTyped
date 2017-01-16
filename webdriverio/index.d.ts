@@ -441,6 +441,7 @@ declare namespace WebdriverIO {
 
     export interface RawResult<T> {
         value: T;
+        error: string;
     }
 
     // Navigation
