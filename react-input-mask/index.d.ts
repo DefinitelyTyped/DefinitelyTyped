@@ -35,11 +35,8 @@ declare namespace reactInputMask {
          */
         alwaysShowMask?: boolean;
     }
-    interface ReactInputMaskState { }
-    export class ReactInputMask extends React.Component<ReactInputMaskProps, ReactInputMaskState> {
+    export class ReactInputMask extends React.Component<ReactInputMaskProps, {}> {
     }
 }
-declare var ReactInputMask: typeof reactInputMask.ReactInputMask
-declare module "react-input-mask" {
-    export = ReactInputMask;
-}
+declare var ReactInputMask: typeof reactInputMask.ReactInputMask;
+export = ReactInputMask;
