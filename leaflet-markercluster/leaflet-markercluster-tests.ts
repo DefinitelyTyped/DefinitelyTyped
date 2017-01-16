@@ -62,7 +62,9 @@ markerClusterGroup = markerClusterGroup
     .refreshClusters()
     .refreshClusters(layerGroup)
     .refreshClusters(marker)
-    .refreshClusters(markers);
+    .refreshClusters(markers)
+    .refreshClusters(markerClusterGroup)
+    .refreshClusters({ id_any: layer });
 
 const childCount: number = markerClusterGroup.getChildCount();
 
