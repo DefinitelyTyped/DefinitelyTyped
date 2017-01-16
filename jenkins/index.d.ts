@@ -33,7 +33,6 @@ declare namespace create {
             exists(name: string, callback: Function): void;
             get(name: string, callback: Function): void;
             list(callback: Function): void;
-            config(name: string, xml: string, callback: Function): void;
         };
         node: {
             config(name: string, callback: Function): void;
@@ -88,7 +87,6 @@ declare namespace create {
             exists(name: string): Promise<any>;
             get(name: string): Promise<any>;
             list(): Promise<any>;
-            config(name: string, xml: string): Promise<any>;
         };
         node: {
             config(name: string): Promise<any>;
