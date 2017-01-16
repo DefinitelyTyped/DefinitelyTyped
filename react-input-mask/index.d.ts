@@ -1,4 +1,4 @@
-// Type definitions for react-input-mask
+// Type definitions for react-input-mask 0.7
 // Project: https://github.com/sanniassin/react-input-mask
 // Definitions by: Alexandre Paré <https://github.com/apare>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,7 +6,7 @@
 import * as React from "react";
 
 declare namespace reactInputMask {
-    export interface ReactInputMaskProps extends React.HTMLAttributes {
+    export interface ReactInputMaskProps extends React.HTMLAttributes<HTMLInputElement> {
         /**
          * Mask string. Format characters are:
          * * `9`: `0-9`
