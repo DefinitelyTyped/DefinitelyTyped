@@ -158,8 +158,6 @@ const consumerOptions: ConsumerGroupOptions = {
   host: 'localhost:2181/',
   groupId: 'ExampleTestGroup',
   sessionTimeout: 15000,
-  protocol: ['roundrobin'],
-  fromOffset: 'earliest' 
 };
 
 const topics: string[] = ['t1', 't2'];

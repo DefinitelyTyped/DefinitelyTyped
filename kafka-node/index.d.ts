@@ -111,7 +111,7 @@ export interface ConsumerGroupOptions {
     // DOCUMENTED OPTIONS
     host: string;               // example: 'zookeeper:2181',
     zk?: ZKOptions;             // put client zk settings if you need them (see Client)
-    batch?: Object;             // put client batch settings if you need them (see Client)
+    batch?: any;                // put client batch settings if you need them (see Client)
     ssl?: boolean;              // optional (defaults to false) or tls options hash
     groupId?: string;           // default: 'kafka-node-group'
     sessionTimeout?: number;    // default: 30000
