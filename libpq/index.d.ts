@@ -1,4 +1,4 @@
-// Type definitions for libpq 1.8.5
+// Type definitions for libpq 1.8
 // Project: https://github.com/brianc/node-libpq#readme
 // Definitions by: Vlad Rindevich <https://github.com/Lodin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -91,8 +91,7 @@ declare class Libpq extends EventEmitter {
      *
      * @param {string} connectionParams an optional string
      */
-    connectSync(connectionParams: string): void;
-    connectSync(): void;
+    connectSync(connectionParams?: string): void;
 
     /**
      * Reads waiting data from the socket. If the socket is not readable and you call this it will
@@ -140,19 +139,19 @@ declare class Libpq extends EventEmitter {
      * (sync) Sends a command and parameters to the backend and blocks until a result is received.
      *
      * @param {string} [commandText=""] a required string of the query.
-     * @param {(string|number)[]} [parameters=[]] a required array of string values corresponding
+     * @param {Array<string|number>} [parameters=[]] a required array of string values corresponding
      *                            to each parameter in the commandText.
      */
-    execParams(commandText?: string, parameters?: (string|number)[]): void;
+    execParams(commandText?: string, parameters?: Array<string|number>): void;
 
     /**
      * (sync) Sends a command to the server to execute a previously prepared statement. Blocks
      * until the results are returned.
      *
      * @param {string} [statementName=""] a required string of the name of the prepared statement.
-     * @param {string[]} [parameters=[]] the parameters to pass to the prepared statement.
+     * @param {Array<string|number>} [parameters=[]] the parameters to pass to the prepared statement.
      */
-    execPrepared(statementName?: string, parameters?: (string|number)[]): void;
+    execPrepared(statementName?: string, parameters?: Array<string|number>): void;
 
     /**
      * Disconnects from the backend and cleans up all memory used by the libpq connection.
@@ -294,7 +293,6 @@ declare class Libpq extends EventEmitter {
      * called {@link Libpq#setNonBlocking}(true)); -1 if there was an error sending the command.
      */
     putCopyEnd(errorMessage?: string): number;
-    putCopyEnd(): number;
 
     /**
      * (sync) Sends a named statement to the server to be prepared for later execution. blocks
@@ -344,11 +342,11 @@ declare class Libpq extends EventEmitter {
      * (async) Sends a query and to the server to be processed.
      *
      * @param {string} [commandText=""] a required string containing the query text.
-     * @param {(string|number)[]} [parameters=[]] an array of parameters as strings used in the
+     * @param {Array<string|number>} [parameters=[]] an array of parameters as strings used in the
      *                   parameterized query.
      * @returns {boolean} true if the command was sent succesfully or false if it failed to send.
      */
-    sendQueryParams(commandText?: string, parameters?: (string|number)[]): boolean;
+    sendQueryParams(commandText?: string, parameters?: Array<string|number>): boolean;
 
     /**
      * (async) Sends a request to the backend to prepare a named statement with the given name.
@@ -412,7 +410,7 @@ declare class Libpq extends EventEmitter {
      *
      * @param {Function} callback
      */
-    writable(callback: Function): void;
+    writable(callback: () => void): void;
 }
 
 declare namespace Libpq {
