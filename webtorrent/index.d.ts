@@ -1,4 +1,4 @@
-// Type definitions for WebTorrent 0.98.1
+// Type definitions for WebTorrent v0.98.1
 // Project: https://github.com/feross/webtorrent
 // Definitions by: Bazyli Brzóska <https://invent.life>, Tomasz Łaziuk <tlaziuk@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
