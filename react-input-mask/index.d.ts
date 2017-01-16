@@ -19,7 +19,7 @@ declare namespace reactInputMask {
         /**
          * Character to cover unfilled editable parts of mask. Default character is "_". If set to null, unfilled parts will be empty, like in ordinary input.
          */
-        maskChar?: string;
+        maskChar?: string | null;
         /**
          * Defines format characters with characters as keys and corresponding RegExp string as values. Default ones:
          * ```
