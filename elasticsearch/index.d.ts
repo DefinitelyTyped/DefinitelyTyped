@@ -143,6 +143,7 @@ declare module Elasticsearch {
     export type VersionType = "internal" | "external" | "external_gte" | "force";
     export type ExpandWildcards = "open" | "closed" | "none" | "all";
     export type DefaultOperator = "AND" | "OR";
+    export type Conflicts = "abort" | "proceed";
 
     export interface BulkIndexDocumentsParams extends GenericParams {
         waitForActiveShards?: string;
@@ -234,16 +235,37 @@ declare module Elasticsearch {
     }
 
     export interface DeleteDocumentByQueryParams extends GenericParams {
-        waitForActiveShards?: string;
-        parent?: string;
-        refresh?: Refresh;
-        routing?: string;
-        timeout?: TimeSpan;
+        analyzer?: string;
+        analyzeWildcard?: boolean;
+        defaultOperator?: DefaultOperator;
+        df: string;
+        from: number;
+        ignoreUnavailable?: boolean;
+        allowNoIndices?: boolean;
+        conflicts?: Conflicts;
+        expandWildcards?: ExpandWildcards;
+        lenient?: boolean;
+        lowercaseExpandedTerms?: boolean;
+        preference?: string;
+        q?: string;
+        routing?: string | string[] | boolean;
+        scroll?: string;
+        searchType?: "query_then_fetch" | "dfs_query_then_fetch";
+        searchTimeout?: TimeSpan;
+        size?: number;
+        sort?: NameList;
+        terminateAfter?: number;
+        stats?: string | string[] | boolean;
         version?: number;
-        versionType?: VersionType;
-        index: string;
-        type: string;
-        id: string;
+        requestCache?: boolean;
+        refresh?: Refresh;
+        timeout?: TimeSpan;
+        waitForActiveShards?: string;
+        scrollSize?: number;
+        waitForCompletion?: boolean;
+        requestsPerSecond?: number;
+        index?: string;
+        type?: string;
     }
 
     export interface DeleteDocumentByQueryResponse {
@@ -710,7 +732,7 @@ declare module Elasticsearch {
         from?: number;
         ignoreUnavailable?: boolean;
         allowNoIndices?: boolean;
-        conflicts?: "abort" | "proceed";
+        conflicts?: Conflicts;
         expandWildcards?: ExpandWildcards;
         lenient?: boolean;
         lowercaseExpandedTerms?: boolean;
