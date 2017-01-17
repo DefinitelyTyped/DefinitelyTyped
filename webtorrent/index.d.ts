@@ -3,7 +3,10 @@
 // Definitions by: Bazyli Brzóska <https://github.com/niieani>, Tomasz Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 import * as ParseTorrent from 'parse-torrent';
+import * as SimplePeer from 'simple-peer';
 import * as http from 'http';
 
 declare const WebTorrent: WebTorrent.WebTorrent;
@@ -91,13 +94,11 @@ declare namespace WebTorrent {
 
         destroy(cb?: (err: Error | string) => void): void;
 
-        // TODO: peer can be also a simple-peer instance
-        addPeer(peer: string): boolean;
+        addPeer(peer: string | SimplePeer.Instance): boolean;
 
         addWebSeed(url: string): void;
 
-        // TODO: peer can be also a simple-peer instance
-        removePeer(peer: string): void;
+        removePeer(peer: string | SimplePeer.Instance): void;
 
         select(start: number, end: number, priority?: number, notify?: () => void): void;
 
