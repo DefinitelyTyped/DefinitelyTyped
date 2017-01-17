@@ -254,6 +254,9 @@ declare module Elasticsearch {
         searchTimeout?: TimeSpan;
         size?: number;
         sort?: NameList;
+        _source?: NameList;
+        _sourceExclude?: NameList;
+        _sourceInclude?: NameList;
         terminateAfter?: number;
         stats?: string | string[] | boolean;
         version?: number;
