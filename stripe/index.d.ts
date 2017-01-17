@@ -11,7 +11,7 @@ interface StripeStatic {
     validateCardNumber(cardNumber: string): boolean;
     validateExpiry(month: string, year: string): boolean;
     validateCVC(cardCVC: string): boolean;
-    cardType(cardNumber: string): string;
+    cardType(cardNumber: string): StripeCardDataBrand;
     getToken(token: string, responseHandler: (status: number, response: StripeTokenResponse) => void): void;
     card: StripeCardData;
     createToken(data: StripeTokenData, responseHandler: (status: number, response: StripeTokenResponse) => void): void;
@@ -51,7 +51,7 @@ interface StripeError {
     param?: string;
 }
 
-type StripeCardDataBrand = 'Visa' | 'American Express' | 'MasterCard' | 'Discover JCB' | 'Diners Club' | 'Unknown';
+type StripeCardDataBrand = 'Visa' | 'American Express' | 'MasterCard' | 'Discover' | 'JCB' | 'Diners Club' | 'Unknown';
 
 interface StripeCardData {
     object: string;
