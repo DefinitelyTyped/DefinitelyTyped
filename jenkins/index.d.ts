@@ -1,4 +1,4 @@
-// Type definitions for jenkins v0.20.0
+// Type definitions for jenkins 0.20
 // Project: https://github.com/silas/node-jenkins
 // Definitions by: rhysd <https://rhysd.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,10 +19,9 @@ declare namespace create {
             stop(name: string, n: number, callback: (err: Error) => void): void;
         };
         job: {
-            build(name: string, callback: (err: Error, data: any) => void): void;
+            build(name: string | JobBuildOptions, callback: (err: Error, data: any) => void): void;
             build(name: string, parameters: any, callback: (err: Error, data: any) => void): void;
             build(name: string, parameters: any, token: string, callback: (err: Error, data: any) => void): void;
-            build(opts: JobBuildOptions, callback: (err: Error, data: any) => void): void;
             config(name: string, callback: (err: Error, data: any) => void): void;
             config(name: string, xml: string, callback: (err: Error, data: any) => void): void;
             copy(name: string, from: string, callback: (err: Error) => void): void;
@@ -77,8 +76,7 @@ declare namespace create {
         job: {
             build(name: string, parameters?: any, token?: string): Promise<any>;
             build(opts: JobBuildOptions): Promise<any>;
-            config(name: string): Promise<any>;
-            config(name: string, xml: string): Promise<any>;
+            config(name: string, xml?: string): Promise<any>;
             copy(name: string, from: string): Promise<void>;
             create(name: string, xml: string): Promise<void>;
             destroy(name: string): Promise<void>;
@@ -130,8 +128,7 @@ declare namespace create {
     }
 }
 
-declare function create(): create.JenkinsAPI;
-declare function create(opts: {
+declare function create(opts?: {
         baseUrl?: string;
         crumbIssuer?: boolean;
         headers?: any;
