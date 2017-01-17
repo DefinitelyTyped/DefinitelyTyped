@@ -238,8 +238,8 @@ declare module Elasticsearch {
         analyzer?: string;
         analyzeWildcard?: boolean;
         defaultOperator?: DefaultOperator;
-        df: string;
-        from: number;
+        df?: string;
+        from?: number;
         ignoreUnavailable?: boolean;
         allowNoIndices?: boolean;
         conflicts?: Conflicts;
