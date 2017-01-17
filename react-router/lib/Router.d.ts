@@ -16,7 +16,7 @@ export default Router;
 declare namespace Router {
     type RouteConfig = React.ReactNode | PlainRoute | PlainRoute[];
     type RoutePattern = string;
-    type RouteComponents = { [key: string]: RouteComponent };
+    interface RouteComponents { [key: string]: RouteComponent; }
 
     type ParseQueryString = (queryString: QueryString) => Query;
     type StringifyQuery = (queryObject: Query) => QueryString;
@@ -29,15 +29,15 @@ declare namespace Router {
     type ChangeHook = (prevState: RouterState, nextState: RouterState, replace: RedirectFunction, callback: Function) => void;
     type RouteHook = (nextLocation?: Location) => any;
 
-    type Params = { [param: string]: string };
+    interface Params { [param: string]: string; }
 
     type RouterListener = (error: Error, nextState: RouterState) => void;
 
-    type LocationDescriptor = {
-        pathname?: Pathname
-        query?: Query
-        hash?: Href
-        state?: HLocationState
+    interface LocationDescriptor {
+        pathname?: Pathname;
+        query?: Query;
+        hash?: Href;
+        state?: HLocationState;
     }
 
     interface RedirectFunction {
@@ -103,14 +103,14 @@ declare namespace Router {
     // https://github.com/reactjs/react-router/blob/v2.4.0/upgrade-guides/v2.4.0.md
 
     interface InjectedRouter {
-        push: (pathOrLoc: Path | LocationDescriptor) => void
-        replace: (pathOrLoc: Path | LocationDescriptor) => void
-        go: (n: number) => void
-        goBack: () => void
-        goForward: () => void
-        setRouteLeaveHook(route: PlainRoute, callback: RouteHook): void
-        createPath(path: History.Path, query?: History.Query): History.Path
-        createHref(path: History.Path, query?: History.Query): History.Href
-        isActive: (pathOrLoc: Path | LocationDescriptor, indexOnly?: boolean) => boolean
+        push: (pathOrLoc: Path | LocationDescriptor) => void;
+        replace: (pathOrLoc: Path | LocationDescriptor) => void;
+        go: (n: number) => void;
+        goBack: () => void;
+        goForward: () => void;
+        setRouteLeaveHook(route: PlainRoute, callback: RouteHook): void;
+        createPath(path: History.Path, query?: History.Query): History.Path;
+        createHref(path: History.Path, query?: History.Query): History.Href;
+        isActive: (pathOrLoc: Path | LocationDescriptor, indexOnly?: boolean) => boolean;
     }
 }

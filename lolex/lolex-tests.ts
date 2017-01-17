@@ -1,126 +1,84 @@
-
 import lolex = require("lolex");
 
-function a() {
-	var clock = lolex.createClock();
+let browserClock: lolex.BrowserClock = lolex.createClock() as lolex.BrowserClock;
+let nodeClock: lolex.NodeClock = lolex.createClock() as lolex.NodeClock;
 
-	clock.setTimeout(function () {
-		console.log("The poblano is a mild chili pepper originating in the state of Puebla, Mexico.");
-	}, 15);
+browserClock = lolex.createClock<lolex.BrowserClock>();
+nodeClock = lolex.createClock<lolex.NodeClock>();
 
-	// ...
+lolex.createClock<lolex.BrowserClock>(7);
+lolex.createClock<lolex.BrowserClock>(new Date());
+lolex.createClock<lolex.BrowserClock>(7, 9001);
+lolex.createClock<lolex.BrowserClock>(new Date(), 9001);
 
-	clock.tick(15);
-}
+lolex.createClock<lolex.NodeClock>(7);
+lolex.createClock<lolex.NodeClock>(new Date());
+lolex.createClock<lolex.NodeClock>(7, 9001);
+lolex.createClock<lolex.NodeClock>(new Date(), 9001);
 
-function b() {
-	var clock = lolex.install(window);
+lolex.install<lolex.BrowserClock>(7);
+lolex.install<lolex.BrowserClock>(new Date());
+lolex.install<lolex.BrowserClock>(7, ["setTimeout"]);
+lolex.install<lolex.BrowserClock>(new Date(), ["setTimeout"]);
 
-	window.setTimeout(() => {}, 15); // Schedules with clock.setTimeout
+lolex.install<lolex.NodeClock>(7);
+lolex.install<lolex.NodeClock>(new Date());
+lolex.install<lolex.NodeClock>(7, ["setTimeout"]);
+lolex.install<lolex.NodeClock>(new Date(), ["setTimeout"]);
 
-	clock.uninstall();
+lolex.install<lolex.BrowserClock>({}, 7);
+lolex.install<lolex.BrowserClock>({}, new Date());
+lolex.install<lolex.BrowserClock>({}, 7, ["setTimeout"]);
+lolex.install<lolex.BrowserClock>({}, new Date(), ["setTimeout"]);
 
-	// window.setTimeout is restored to the native implementation
-}
+lolex.install<lolex.NodeClock>({}, 7);
+lolex.install<lolex.NodeClock>({}, new Date());
+lolex.install<lolex.NodeClock>({}, 7, ["setTimeout"]);
+lolex.install<lolex.NodeClock>({}, new Date(), ["setTimeout"]);
 
-function c() {
-	var clock = lolex.install();
+const browserNow: number = browserClock.now;
+const browserDate: Date = new browserClock.Date();
 
-	// Equivalent to
-	// var clock = lolex.install(typeof global !== "undefined" ? global : window);
-}
+const nodeNow: number = nodeClock.now;
+const nodeDate: Date = new nodeClock.Date();
 
-var clock: lolex.Clock;
+const browserTimeout: number = browserClock.setTimeout(() => {}, 7);
+const browserInterval: number = browserClock.setInterval(() => {}, 7);
+const browserImmediate: number = browserClock.setImmediate(() => {});
+const nodeTimeout: lolex.NodeTimer = nodeClock.setTimeout(() => {}, 7);
+const nodeInterval: lolex.NodeTimer = nodeClock.setInterval(() => {}, 7);
+const nodeImmediate: lolex.NodeTimer = nodeClock.setImmediate(() => {});
 
-/**
- * var clock = lolex.createClock([now])
- */
+browserClock.clearTimeout(browserTimeout);
+browserClock.clearInterval(browserInterval);
+browserClock.clearImmediate(browserImmediate);
 
-clock = lolex.createClock();
-clock = lolex.createClock(Date.now());
+nodeClock.clearTimeout(nodeTimeout);
+nodeClock.clearInterval(nodeInterval);
+nodeClock.clearImmediate(nodeImmediate);
 
+browserClock.tick(7);
+browserClock.tick("08");
 
-/**
- * var clock = lolex.install([context[, now[, toFake]]])
- */
+nodeClock.tick(7);
+nodeClock.tick("08");
 
-clock = lolex.install();
-clock = lolex.install(window);
-clock = lolex.install(window, Date.now());
-clock = lolex.install(window, Date.now(), ['setTimeout', 'clearTimeout']);
+browserClock.next();
+nodeClock.next();
 
+browserClock.runAll();
+nodeClock.runAll();
 
-/**
- * var clock = lolex.install([now[, toFake]])
- */
+browserClock.runToLast();
+nodeClock.runToLast();
 
-clock = lolex.install(Date.now());
-clock = lolex.install(Date.now(), ['setTimeout', 'clearTimeout']);
+browserClock.setSystemTime();
+browserClock.setSystemTime(7);
+browserClock.setSystemTime(new Date());
 
-/**
- * clock.now
- */
-var n: number = clock.now;
+nodeClock.setSystemTime();
+nodeClock.setSystemTime(7);
+nodeClock.setSystemTime(new Date());
 
-
-var id: number;
-/**
- * var id = clock.setTimeout(callback, timeout)
- */
-
-id = clock.setTimeout(() => {}, 1000);
-
-
-/**
- * clock.clearTimeout(id)
- */
-
-clock.clearTimeout(id);
-
-
-/**
- * var id = clock.setInterval(callback, timeout)
- */
-
-id = clock.setInterval(() => {}, 1000);
-
-
-/**
- * clock.clearInterval(id)
- */
-
-clock.clearInterval(id);
-
-
-/**
- * var id = clock.setImmediate(callback)
- */
-
-id = clock.setImmediate(() => {});
-
-
-/**
- * clock.clearImmediate(id)
- */
-
-clock.clearImmediate(id);
-
-/**
- * clock.setSystemTime
- */
-clock.setSystemTime(0);
-clock.setSystemTime(new Date());
-
-/**
- * clock.tick(time)
- */
-
-clock.tick(1000);
-
-
-/**
- * clock.uninstall()
- */
-
-clock.uninstall();
-
+browserClock.uninstall();
+nodeClock.uninstall();

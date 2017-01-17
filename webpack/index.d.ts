@@ -1,10 +1,7 @@
-// Type definitions for webpack 2.1
+// Type definitions for webpack 2.2
 // Project: https://github.com/webpack/webpack
-// Definitions by: Qubo <https://github.com/tkqubo>
+// Definitions by: Qubo <https://github.com/tkqubo>, Matt Lewis <https://github.com/mattlewis92>, Benjamin Lim <https://github.com/bumbleblym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="uglify-js" />
-/// <reference types="tapable" />
 
 import * as UglifyJS from 'uglify-js';
 import * as tapable from 'tapable';
@@ -66,6 +63,8 @@ declare namespace webpack {
         plugins?: Plugin[];
         /** Stats options for logging  */
         stats?: compiler.StatsToStringOptions;
+        /** Performance options */
+        performance?: PerformanceOptions;
     }
 
     interface Entry {
@@ -276,14 +275,14 @@ declare namespace webpack {
          *
          * @deprecated Replaced by `mainFields` in webpack 2.
          */
-        packageMains?: (string | string[])[];
+        packageMains?: Array<string | string[]>;
 
         /**
          * Check this field in the package.json for an object. Key-value-pairs are threaded as aliasing according to this spec
          *
          * @deprecated Replaced by `aliasFields` in webpack 2.
          */
-        packageAlias?: (string | string[])[];
+        packageAlias?: Array<string | string[]>;
 
         /**
          * Enable aggressive but unsafe caching for the resolving of a part of your files.
@@ -321,9 +320,7 @@ declare namespace webpack {
         [key: string]: boolean | string;
     }
 
-    interface ExternalsFunctionElement {
-        (context: any, request: any, callback: (error: any, result: any) => void): any;
-    }
+    type ExternalsFunctionElement = (context: any, request: any, callback: (error: any, result: any) => void) => any;
 
     interface WatchOptions {
         /** Delay the rebuilt after the first change. Value is a time in ms. */
@@ -366,6 +363,7 @@ declare namespace webpack {
     }
     type ConditionSpec = TestConditionSpec | OrConditionSpec | AndConditionSpec | NotConditionSpec;
 
+    // tslint:disable-next-line:no-empty-interface
     interface ConditionArray extends Array<Condition> {}
     type Condition = string | RegExp | ((absPath: string) => boolean) | ConditionSpec | ConditionArray;
 
@@ -467,7 +465,7 @@ declare namespace webpack {
     type Rule = LoaderRule | UseRule | RulesRule | OneOfRule;
 
     interface Plugin extends tapable.Plugin {
-        apply (thisArg: Webpack, ...args: any[]): void
+        apply(thisArg: Webpack, ...args: any[]): void;
     }
 
     interface Webpack {
@@ -543,7 +541,12 @@ declare namespace webpack {
          * When there are errors while compiling this plugin skips the emitting phase (and recording phase),
          * so there are no assets emitted that include errors. The emitted flag in the stats is false for all assets.
          */
-        NoErrorsPlugin: NoErrorsPluginStatic;
+        NoEmitOnErrorsPlugin: NoEmitOnErrorsPluginStatic;
+        /**
+         * Alias for NoEmitOnErrorsPlugin
+         * @deprecated
+         */
+        NoErrorsPlugin: NoEmitOnErrorsPluginStatic;
         /**
          * Does not watch specified files matching provided paths or RegExps.
          */
@@ -553,6 +556,12 @@ declare namespace webpack {
          * Helps with debugging, but increases bundle size.
          */
         NamedModulesPlugin: NamedModulesPluginStatic;
+        /**
+         * Some loaders need context information and read them from the configuration.
+         * This need to be passed via loader options in the long-term. See loader documentation for relevant options.
+         * To keep compatibility with old loaders, these options can be passed via this plugin.
+         */
+        LoaderOptionsPlugin: LoaderOptionsPluginStatic;
     }
 
     interface Optimize {
@@ -607,7 +616,7 @@ declare namespace webpack {
     }
 
     interface ContextReplacementPluginStatic {
-        new (resourceRegExp: any, newContentResource?: any, newContentRecursive?: any, newContentRegExp?: any): Plugin
+        new (resourceRegExp: any, newContentResource?: any, newContentRecursive?: any, newContentRegExp?: any): Plugin;
     }
 
     interface IgnorePluginStatic {
@@ -615,6 +624,7 @@ declare namespace webpack {
     }
 
     interface PrefetchPluginStatic {
+        // tslint:disable-next-line:unified-signatures
         new (context: any, request: any): Plugin;
         new (request: any): Plugin;
     }
@@ -653,31 +663,31 @@ declare namespace webpack {
 
     interface SourceMapDevToolPluginOptions {
         // output filename pattern (false/null to append)
-        filename?: string | false | null,
+        filename?: string | false | null;
         // source map comment pattern (false to not append)
-        append?: false | string,
+        append?: false | string;
         // template for the module filename inside the source map
-        moduleFilenameTemplate?: string,
+        moduleFilenameTemplate?: string;
         // fallback used when the moduleFilenameTemplate produces a collision
-        fallbackModuleFilenameTemplate?: string,
+        fallbackModuleFilenameTemplate?: string;
         // test/include/exclude files
-        test?: Condition | Condition[],
-        include?: Condition | Condition[],
-        exclude?: Condition | Condition[]
+        test?: Condition | Condition[];
+        include?: Condition | Condition[];
+        exclude?: Condition | Condition[];
         // whether to include the footer comment with source information
-        noSources?: boolean,
+        noSources?: boolean;
         // the source map sourceRoot ("The URL root from which all sources are relative.")
-        sourceRoot?: string | null,
+        sourceRoot?: string | null;
         // whether to generate per-module source map
-        module?: boolean,
+        module?: boolean;
         // whether to include column information in the source map
-        columns?: boolean,
+        columns?: boolean;
         // whether to preserve line numbers between source and source map
         lineToLine?: boolean | {
-            test?: Condition | Condition[],
-            include?: Condition | Condition[],
-            exclude?: Condition | Condition[]
-        }
+            test?: Condition | Condition[];
+            include?: Condition | Condition[];
+            exclude?: Condition | Condition[];
+        };
     }
 
     interface EvalSourceMapDevToolPluginStatic {
@@ -686,16 +696,16 @@ declare namespace webpack {
     }
 
     interface EvalSourceMapDevToolPluginOptions {
-        append?: false | string,
-        moduleFilenameTemplate?: string,
-        sourceRoot?: string,
-        module?: boolean,
-        columns?: boolean,
+        append?: false | string;
+        moduleFilenameTemplate?: string;
+        sourceRoot?: string;
+        module?: boolean;
+        columns?: boolean;
         lineToLine?: boolean | {
-            test?: Condition | Condition[],
-            include?: Condition | Condition[],
-            exclude?: Condition | Condition[]
-        }
+            test?: Condition | Condition[];
+            include?: Condition | Condition[];
+            exclude?: Condition | Condition[];
+        };
     }
 
     interface HotModuleReplacementPluginStatic {
@@ -706,7 +716,7 @@ declare namespace webpack {
         new (): Plugin;
     }
 
-    interface NoErrorsPluginStatic {
+    interface NoEmitOnErrorsPluginStatic {
         new (): Plugin;
     }
 
@@ -718,12 +728,16 @@ declare namespace webpack {
         new (): Plugin;
     }
 
+    interface LoaderOptionsPluginStatic {
+        new (options: any): Plugin;
+    }
+
     namespace optimize {
         interface DedupePluginStatic {
             new (): Plugin;
         }
         interface LimitChunkCountPluginStatic {
-            new (options: any): Plugin
+            new (options: any): Plugin;
         }
         interface MinChunkSizePluginStatic {
             new (options: any): Plugin;
@@ -828,7 +842,26 @@ declare namespace webpack {
             colors?: boolean;
         }
 
-        type CompilerCallback = (err: Error, stats: Stats) => void
+        type CompilerCallback = (err: Error, stats: Stats) => void;
+    }
+
+    interface PerformanceOptions {
+        /**
+         * Turns hints on/off. In addition, tells webpack to throw either an error or a warning when hints are found. This property is set to "warning" by default.
+         */
+        hints?: boolean | 'error' | 'warning';
+        /**
+         * An entrypoint represents all assets that would be utilized during initial load time for a specific entry. This option controls when webpack should emit performance hints based on the maximum entrypoint size. The default value is 250000 (bytes).
+         */
+        maxEntryPointSize?: number;
+        /**
+         * An asset is any emitted file from webpack. This option controls when webpack emits a performance hint based on individual asset size. The default value is 250000 (bytes).
+         */
+        maxAssetSize?: number;
+        /**
+         * This property allows webpack to control what files are used to calculate performance hints.
+         */
+        assetFilter?: (assetFilename: string) => boolean;
     }
 }
 
