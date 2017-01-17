@@ -199,3 +199,7 @@ jenkins.view.add('example', 'jobExample', function(err) {
 jenkins.view.remove('example', 'jobExample', function(err) {
   if (err) throw err;
 });
+
+const jenkins2 = J({ baseUrl: 'http://user:pass@localhost:8080', crumbIssuer: true, promisify: true });
+jenkins2.info().then(info => console.log(info));
+jenkins2.job.exists('example').then(exists => { var b: boolean = exists; });
