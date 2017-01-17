@@ -1,6 +1,6 @@
 // Type definitions for Passport 0.3
 // Project: http://passportjs.org
-// Definitions by: Horiuchi_H <https://github.com/horiuchi/>
+// Definitions by: Horiuchi_H <https://github.com/horiuchi/>, Eric Naeseth <https://github.com/enaeseth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Express {
@@ -60,6 +60,11 @@ declare module 'passport' {
             transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;
         }
 
+        interface PassportStatic extends Passport {
+            Passport: {new(): Passport};
+            Authenticator: {new(): Passport};
+        }
+
         interface Strategy {
             name?: string;
             authenticate(req: express.Request, options?: any): void;
@@ -91,7 +96,7 @@ declare module 'passport' {
         }
     }
 
-    const passport: passport.Passport;
+    const passport: passport.PassportStatic;
     export = passport;
 }
 

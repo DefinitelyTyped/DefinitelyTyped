@@ -3,7 +3,10 @@ import * as webpack from 'webpack';
 import * as webpackDevMiddleware from 'webpack-dev-middleware';
 
 const compiler = webpack({});
-const webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+
+let webpackDevMiddlewareInstance = webpackDevMiddleware(compiler);
+
+webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
 	noInfo: false,
 	quiet: false,
 	lazy: true,

@@ -389,3 +389,21 @@ function test_htmlWriter() {
     writer.lineBreak();
     writer.setRules('img', {breakBeforeOpen: true, breakAfterOpen: true});
 }
+
+function test_sharedSpace() {
+    CKEDITOR.inline('content', {
+        removePlugins: 'maximize,resize',
+        sharedSpaces: {
+            top: 'someElementId',
+            bottom: document.getElementById('anotherId')
+        }
+    });
+
+    CKEDITOR.inline('content', {
+        sharedSpaces: { }
+    });
+}
+
+function test_specifying_editor_path() {
+    window.CKEDITOR_BASEPATH = '/ckeditor/';
+}
