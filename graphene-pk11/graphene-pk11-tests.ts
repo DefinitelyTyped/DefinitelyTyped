@@ -1,4 +1,3 @@
-/// <reference path="./graphene-pk11.d.ts" />
 
 import * as graphene from "graphene-pk11";
 let Module = graphene.Module;

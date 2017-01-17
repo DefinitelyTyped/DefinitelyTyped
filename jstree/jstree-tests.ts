@@ -1,4 +1,4 @@
-﻿/// <reference path="jstree.d.ts" />
+
 
 // gets version of lib
 var version: string = $.jstree.version;
@@ -99,7 +99,7 @@ var treeWithNewCoreProperties = $('#treeWithNewCoreProperties').jstree({
 // tree with new checkbox properties
 var treeWithNewCheckboxProperties = $('#treeWithNewCheckboxProperties').jstree({
     checkbox: {
-        cascade: true,
+        cascade: '',
         tie_selection: true
     }
 });
@@ -114,3 +114,15 @@ tree.get_path('nodeId');
 tree.get_path('nodeId', '/');
 tree.get_path('nodeId', '/', true);
 
+
+
+var coreThemes: JSTreeStaticDefaultsCoreThemes = {
+    ellipsis:true
+};
+
+// tree with new theme elipsis
+var treeWithNewCoreProperties = $('#treeWithNewEllipsisProperties').jstree({
+    core: {
+        themes: coreThemes
+    }
+});

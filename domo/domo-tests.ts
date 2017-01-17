@@ -1,6 +1,6 @@
-/// <reference path="domo.d.ts" />
 
-function opacity(pct) {
+
+function opacity(pct: number) {
     return { opacity: String(pct / 100), filter: "alpha(opacity=" + pct + ")" }
 }
 
@@ -31,7 +31,7 @@ var blue = "#3B5998";
 var gray = "#3B3B3B";
 var defaultRadius = 10;
 
-function roundedCorners(radius) {
+function roundedCorners(radius: number) {
     return {
         borderRadius: radius,
         WebkitBorderRadius: radius,
@@ -58,9 +58,3 @@ var normalStyles =
         STYLE.on("a img", { borderWidth: 0 })
     );
 
-var domo = domo.global(false);
-
-domo.HTML(
-  domo.HEAD(domo.TITLE("Hello, world.")),
-  domo.BODY("Hello, world.")
-);

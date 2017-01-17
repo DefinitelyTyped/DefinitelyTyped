@@ -1,4 +1,3 @@
-/// <reference path="../shuffle-array/shuffle-array.d.ts" />
 
 import shuffle = require('shuffle-array');
 

@@ -1,5 +1,3 @@
-/// <reference path="google-earth.d.ts" />
-
 google.load("earth", "1", {"other_params":"sensor=true_or_false"});
 
 google.earth.createInstance("map3d", initCB, failureCB);
@@ -15,7 +13,7 @@ function initCB(ge: google.earth.GEPlugin) {
   var placemark = ge.createPlacemark('');
   placemark.setName("placemark");
 
-  // Set the placemark's location.  
+  // Set the placemark's location.
   var point = ge.createPoint('');
   point.setLatitude(12.345);
   point.setLongitude(54.321);
@@ -109,7 +107,7 @@ function initCB(ge: google.earth.GEPlugin) {
   // Update the view in Google Earth.
   ge.getView().setAbstractView(lookAt);
 
-  // time 
+  // time
   ge.getTime().getControl().setVisibility(ge.VISIBILITY_SHOW);
   ge.getTime().setHistoricalImageryEnabled(true);
   var extents = ge.getTime().getControl().getExtents();

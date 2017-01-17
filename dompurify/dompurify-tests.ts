@@ -1,4 +1,4 @@
-/// <reference path="dompurify.d.ts" />
+
 
 import dompurify = require('dompurify');
 

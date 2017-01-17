@@ -1,6 +1,4 @@
-﻿/// <reference path="httperr.d.ts" />
 import httperr = require('httperr');
-
 
 // ----------------------------------------
 // Basic usage example from: https://github.com/pluma/httperr/blob/1.0.0/README.md
@@ -15,7 +13,6 @@ console.log(err);
   message: 'The path "/example" could not be resolved'
 }
 */
-throw err;
 /*
 NotFound: The path "/example" could not be resolved
     at ...

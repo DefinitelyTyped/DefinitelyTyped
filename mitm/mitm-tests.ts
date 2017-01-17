@@ -1,5 +1,3 @@
-///<reference path="mitm.d.ts"/>
-
 import Mitm = require('mitm');
 
 const mitm = Mitm();

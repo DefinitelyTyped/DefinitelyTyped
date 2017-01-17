@@ -1,4 +1,4 @@
-/// <reference path="google.visualization.d.ts" />
+
 
 function test_arrayToDataTable() {
     var array = [
@@ -156,10 +156,17 @@ function test_areaChart() {
         ['2016',  1030,      540]
     ]);
 
-    var options = {
+    var options:google.visualization.AreaChartOptions = {
         title: 'Company Performance',
         hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
-        vAxis: {minValue: 0}
+        vAxis: {minValue: 0},
+        annotations: {
+            textStyle: {
+                bold: true,
+                italic: true,
+                color: "black"
+            }
+        }
     };
 
     var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
@@ -509,4 +516,108 @@ function test_ChartsLoad() {
     }
 
     google.charts.setOnLoadCallback(drawChart);
+}
+
+
+function test_ChartAnnotations() {
+    var annotations:google.visualization.ChartAnnotations = {
+        boxStyle: {
+            // Color of the box outline.
+            stroke: '#888',
+            // Thickness of the box outline.
+            strokeWidth: 1,
+            // x-radius of the corner curvature.
+            rx: 10,
+            // y-radius of the corner curvature.
+            ry: 10,
+            // Attributes for linear gradient fill.
+            gradient: {
+                // Start color for gradient.
+                color1: '#fbf6a7',
+                // Finish color for gradient.
+                color2: '#33b679',
+                // Where on the boundary to start and
+                // end the color1/color2 gradient,
+                // relative to the upper left corner
+                // of the boundary.
+                x1: '0%', y1: '0%',
+                x2: '100%', y2: '100%',
+                // If true, the boundary for x1,
+                // y1, x2, and y2 is the box. If
+                // false, it's the entire chart.
+                useObjectBoundingBoxUnits: true
+            }
+        },
+        datum: {
+            stem: {
+                color: 'black',
+                length: 12
+            },
+            style: 'point'
+        },
+        domain: {
+            stem: {
+                color: 'black',
+                length: 5
+            },
+            style: 'point'
+        },
+        highContrast: true,
+        stem: {
+            color: 'black',
+            length: 5
+        },
+        style: 'line',
+        textStyle: {
+            fontName: 'Times-Roman',
+            fontSize: 18,
+            bold: true,
+            italic: true,
+            // The color of the text.
+            color: '#871b47',
+            // The color of the text outline.
+            auraColor: '#d799ae',
+            // The transparency of the text.
+            opacity: 0.8
+        }
+    };
+
+    var barAnnotations:google.visualization.ChartBarColumnAnnotations = {
+        alwaysOutside: true,
+        textStyle: {
+            fontName: 'Times-Roman',
+            fontSize: 18,
+            bold: true
+        }
+    };
+}
+
+
+function test_OrgChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Name');
+    data.addColumn('string', 'Manager');
+    data.addColumn('string', 'ToolTip');
+
+    // For each orgchart box, provide the name, manager, and tooltip to show.
+    data.addRows([
+        [{v:'Mike', f:'Mike<div style="color:red; font-style:italic">President</div>'}, '', 'The President'],
+        [{v:'Jim', f:'Jim<div style="color:red; font-style:italic">Vice President</div>'}, 'Mike', 'VP'],
+        ['Alice', 'Mike', ''],
+        ['Bob', 'Jim', 'Bob Sponge'],
+        ['Carol', 'Bob', '']
+    ]);
+
+    var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+    chart.draw(data, {
+        allowCollapse: true,
+        allowHtml: true,
+        nodeClass: 'node',
+        selectedNodeClass: 'selected',
+        size: 'small'
+    });
+    chart.collapse(1, true);
+    var children = chart.getChildrenIndexes(0);
+    var collapsed = chart.getCollapsedNodes();
+
 }

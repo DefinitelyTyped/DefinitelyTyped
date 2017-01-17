@@ -1,5 +1,3 @@
-/// <reference path="./glob.d.ts" />
-
 import glob = require("glob");
 var Glob = glob.Glob;
 

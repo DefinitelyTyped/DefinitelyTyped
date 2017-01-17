@@ -1,5 +1,4 @@
-/// <reference path="jquery.colorpicker.d.ts"/>
-/// <reference path="../jqueryui/jqueryui.d.ts" />
+/// <reference types="jqueryui" />
 
 // Default options copied from the source
 var colorpicker = $("<input type=\"text\"/>").colorpicker({

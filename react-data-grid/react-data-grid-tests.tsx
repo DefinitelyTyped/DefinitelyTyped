@@ -1,11 +1,7 @@
-/// <reference path="./react-data-grid.d.ts" />
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../faker/faker.d.ts" />
-
 import * as React from 'react';
 import * as ReactDataGrid from 'react-data-grid';
 import * as ReactDataGridPlugins from 'react-data-grid/addons';
-import * as faker from 'faker';
+import faker = require('faker');
 
 var Editors = ReactDataGridPlugins.Editors;
 var Toolbar = ReactDataGridPlugins.Toolbar;
@@ -202,7 +198,7 @@ class Example extends React.Component<any, any> {
     getColumns() {
         var clonedColumns = columns.slice();
         clonedColumns[2].events = {
-            onClick: function (ev:React.SyntheticEvent, args:{idx:number, rowIdx:number}) {
+            onClick: function (ev:React.SyntheticEvent<any>, args:{idx:number, rowIdx:number}) {
                 var idx = args.idx;
                 var rowIdx = args.rowIdx;
                 this.refs.grid.openCellEditor(rowIdx, idx);
@@ -247,7 +243,19 @@ class Example extends React.Component<any, any> {
         return this.state.rows.length;
     }
 
+    onRowsSelected(rows: Array<ReactDataGrid.SelectionParams>) {
+        var selectedIndexes = this.state.selectedIndexes as Array<number>;
+
+        this.setState({selectedIndexes: selectedIndexes.concat(rows.map(r => r.rowIdx))});
+    }
+    onRowsDeselected(rows: Array<ReactDataGrid.SelectionParams>) {
+        var rowIndexes = rows.map(r => r.rowIdx);
+        var selectedIndexes = this.state.selectedIndexes as Array<number>;
+        this.setState({selectedIndexes: selectedIndexes.filter(i => rowIndexes.indexOf(i) === -1 )});
+    }
+
     render() {
+        let selectedRows = ['id1', 'id2'];
         return (
             <ReactDataGrid
                 ref='grid'
@@ -261,6 +269,15 @@ class Example extends React.Component<any, any> {
                 rowHeight={50}
                 minHeight={600}
                 rowScrollTimeout={200}
+                rowSelection={{
+                    showCheckbox: true,
+                    enableShiftSelect: true,
+                    onRowsSelected: this.onRowsSelected,
+                    onRowsDeselected: this.onRowsDeselected,
+                    selectBy: {
+                        keys: {rowKey: 'id', values: selectedRows}
+                    }
+                }}
             />
 
         );

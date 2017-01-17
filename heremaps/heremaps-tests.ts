@@ -1,5 +1,4 @@
 // Test file for HERE Maps API for JavaScript Definition file
-/// <reference path="heremaps.d.ts" />
 
 /**
  * EXAMPLE from the HERE Maps API

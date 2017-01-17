@@ -1,0 +1,22 @@
+{
+    "files": [
+        "index.d.ts",
+        "material-ui-tests.tsx"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "noImplicitAny": false,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "baseUrl": "../",
+        "jsx": "react",
+        "experimentalDecorators": true,
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

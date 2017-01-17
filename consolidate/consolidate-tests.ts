@@ -1,4 +1,4 @@
-/// <reference path="consolidate.d.ts" />
+
 import cons = require('consolidate');
 
 var path: string = 'test/path';
@@ -91,6 +91,10 @@ cons.mustache(path, options, fn);
 cons.nunjucks(path);
 cons.nunjucks(path, options);
 cons.nunjucks(path, options, fn);
+
+cons.pug(path);
+cons.pug(path, options);
+cons.pug(path, options, fn);
 
 cons.qejs(path);
 cons.qejs(path, options);

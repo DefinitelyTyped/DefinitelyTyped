@@ -1,5 +1,5 @@
-/// <reference path="../../yui/yui.d.ts" />
-/// <reference path="../cryptojs.d.ts" />
+/// <reference types="yui" />
+
 
 YUI.add('x64-word-test', function (Y) {
     var C = CryptoJS;

@@ -1,4 +1,4 @@
-/// <reference path="./bigint.d.ts" />
+
 
 var bi: BigInt.BigInt;
 var num: number;

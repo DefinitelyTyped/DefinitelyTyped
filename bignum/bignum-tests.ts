@@ -1,4 +1,4 @@
-/// <reference path="bignum.d.ts" />
+
 
 var bignum = require('bignum');
 
