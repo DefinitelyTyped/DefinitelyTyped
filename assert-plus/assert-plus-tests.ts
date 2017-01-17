@@ -1,5 +1,5 @@
-import * as lib from 'assert-plus';
+import * as assert from 'assert-plus';
 
 let arr = ['one', 'two'];
 
-lib.array(arr, '');
+assert.array(arr, '');

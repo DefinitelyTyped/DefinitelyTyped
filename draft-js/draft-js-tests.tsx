@@ -13,15 +13,15 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
 
   onChange: (editorState: EditorState) => void = (editorState: EditorState) => this.setState({ editorState });
 
-  handleKeyCommand: (command: string) => boolean = (command: string) => {
+  handleKeyCommand = (command: string) => {
     const {editorState} = this.state;
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
       this.onChange(newState);
-      return true;
+      return "handled";
         }
 
-    return false;
+    return "not-handled";
     }
 
   toggleBlockType: (blockType: string) => void = (blockType: string) => {

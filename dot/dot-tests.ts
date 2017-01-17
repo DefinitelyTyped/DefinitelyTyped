@@ -1,4 +1,4 @@
-﻿
+
 
 var headertmpl = "<h1>{{=it.title}}</h1>";
 

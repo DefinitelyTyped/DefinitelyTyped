@@ -12292,7 +12292,7 @@ declare namespace _ {
          * _.isNil(NaN);
          * // => false
          */
-        isNil(value?: any): boolean;
+        isNil(value: any): value is null | undefined;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -12317,7 +12317,7 @@ declare namespace _ {
          * @param value The value to check.
          * @return Returns true if value is null, else false.
          */
-        isNull(value?: any): boolean;
+        isNull(value: any): value is null;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -12644,7 +12644,7 @@ declare namespace _ {
          * @param value The value to check.
          * @return Returns true if value is undefined, else false.
          */
-        isUndefined(value: any): boolean;
+        isUndefined(value: any): value is undefined;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -13286,6 +13286,28 @@ declare namespace _ {
         mean<T>(
             collection: List<T>
         ): number;
+    }
+
+    //_.meanBy
+    interface LoDashStatic {
+      /**
+       * Computes the mean of the provided propties of the objects in the `array`
+       *
+       * @static
+       * @memberOf _
+       * @category Math
+       * @param {Array} array The array to iterate over.
+       * @param {Function|Object|string} [iteratee=_.identity] The iteratee invoked per element.
+       * @returns {number} Returns the mean.
+       * @example
+       *
+       * _.mean([{ 'n': 4 }, { 'n': 2 }, { 'n': 8 }, { 'n': 6 }], 'n');
+       * // => 5
+       */
+      meanBy<T>(
+        collection: List<T>,
+        iteratee?: DictionaryIterator<T, any>
+      ): number;
     }
 
     interface LoDashImplicitArrayWrapper<T> {

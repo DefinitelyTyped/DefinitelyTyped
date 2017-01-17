@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "highlightjs-tests.ts"
+        "highlight.js-tests.ts"
     ]
 }

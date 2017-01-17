@@ -8,7 +8,8 @@
 
 import * as d3Ease from 'd3-ease';
 
-let t_in: number, t_out: number;
+let t_in: number = 0.5;
+let t_out: number;
 
 t_out = d3Ease.easeLinear(t_in);
 
@@ -22,10 +23,24 @@ t_out = d3Ease.easeCubicIn(t_in);
 t_out = d3Ease.easeCubicOut(t_in);
 t_out = d3Ease.easeCubicInOut(t_in);
 
-t_out = d3Ease.easePoly(t_in);
-t_out = d3Ease.easePolyIn(t_in);
-t_out = d3Ease.easePolyOut(t_in);
-t_out = d3Ease.easePolyInOut(t_in);
+
+let easePolyFactory: d3Ease.PolynomialEasingFactory;
+
+easePolyFactory = d3Ease.easePoly;
+easePolyFactory = d3Ease.easePoly.exponent(2);
+t_out = easePolyFactory(t_in);
+
+easePolyFactory = d3Ease.easePolyIn;
+easePolyFactory = d3Ease.easePolyIn.exponent(2);
+t_out = easePolyFactory(t_in);
+
+easePolyFactory = d3Ease.easePolyOut;
+easePolyFactory = d3Ease.easePolyOut.exponent(2);
+t_out = easePolyFactory(t_in);
+
+easePolyFactory = d3Ease.easePolyInOut;
+easePolyFactory = d3Ease.easePolyInOut.exponent(2);
+t_out = easePolyFactory(t_in);
 
 t_out = d3Ease.easeSin(t_in);
 t_out = d3Ease.easeSinIn(t_in);
@@ -47,12 +62,42 @@ t_out = d3Ease.easeBounceIn(t_in);
 t_out = d3Ease.easeBounceOut(t_in);
 t_out = d3Ease.easeBounceInOut(t_in);
 
-t_out = d3Ease.easeBack(t_in);
-t_out = d3Ease.easeBackIn(t_in);
-t_out = d3Ease.easeBackOut(t_in);
-t_out = d3Ease.easeBackInOut(t_in);
+let easeBackFactory: d3Ease.BackEasingFactory;
 
-t_out = d3Ease.easeElastic(t_in);
-t_out = d3Ease.easeElasticIn(t_in);
-t_out = d3Ease.easeElasticOut(t_in);
-t_out = d3Ease.easeElasticInOut(t_in);
+easeBackFactory = d3Ease.easeBack;
+easeBackFactory = d3Ease.easeBack.overshoot(2);
+t_out = easeBackFactory(t_in);
+
+easeBackFactory = d3Ease.easeBackIn;
+easeBackFactory = d3Ease.easeBackIn.overshoot(2);
+t_out = easeBackFactory(t_in);
+
+easeBackFactory = d3Ease.easeBackOut;
+easeBackFactory = d3Ease.easeBackOut.overshoot(2);
+t_out = easeBackFactory(t_in);
+
+easeBackFactory = d3Ease.easeBackInOut;
+easeBackFactory = d3Ease.easeBackInOut.overshoot(2);
+t_out = easeBackFactory(t_in);
+
+let easeElasticFactory: d3Ease.ElasticEasingFactory;
+
+easeElasticFactory = d3Ease.easeElastic;
+easeElasticFactory = d3Ease.easeElastic.amplitude(1.5);
+easeElasticFactory = d3Ease.easeElastic.period(0.4);
+t_out = easeElasticFactory(t_in);
+
+easeElasticFactory = d3Ease.easeElasticIn;
+easeElasticFactory = d3Ease.easeElasticIn.amplitude(1.5);
+easeElasticFactory = d3Ease.easeElasticIn.period(0.4);
+t_out = easeElasticFactory(t_in);
+
+easeElasticFactory = d3Ease.easeElasticOut;
+easeElasticFactory = d3Ease.easeElasticOut.amplitude(1.5);
+easeElasticFactory = d3Ease.easeElasticOut.period(0.4);
+t_out = easeElasticFactory(t_in);
+
+easeElasticFactory = d3Ease.easeElasticInOut;
+easeElasticFactory = d3Ease.easeElasticInOut.amplitude(1.5);
+easeElasticFactory = d3Ease.easeElasticInOut.period(0.4);
+t_out = easeElasticFactory(t_in);

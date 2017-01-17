@@ -1,5 +1,5 @@
-import * as webdriver from "./index";
-import * as remote from "./remote";
+import * as webdriver from './index';
+import * as remote from './remote';
 
 declare namespace chrome {
     /**
@@ -58,9 +58,9 @@ declare namespace chrome {
 
         /**
          * Add additional command line arguments to use when launching the Chrome
-         * browser.  Each argument may be specified with or without the "--" prefix
-         * (e.g. "--foo" and "foo"). Arguments with an associated value should be
-         * delimited by an "=": "foo=bar".
+         * browser.  Each argument may be specified with or without the '--' prefix
+         * (e.g. '--foo' and 'foo'). Arguments with an associated value should be
+         * delimited by an '=': 'foo=bar'.
          * @param {...(string|!Array.<string>)} var_args The arguments to add.
          * @return {!Options} A self reference.
          */
@@ -69,7 +69,7 @@ declare namespace chrome {
 
         /**
          * List of Chrome command line switches to exclude that ChromeDriver by default
-         * passes when starting Chrome.  Do not prefix switches with "--".
+         * passes when starting Chrome.  Do not prefix switches with '--'.
          *
          * @param {...(string|!Array<string>)} var_args The switches to exclude.
          * @return {!Options} A self reference.
@@ -91,7 +91,7 @@ declare namespace chrome {
         /**
          * Sets the path to the Chrome binary to use. On Mac OS X, this path should
          * reference the actual Chrome executable, not just the application binary
-         * (e.g. "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome").
+         * (e.g. '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome').
          *
          * The binary path be absolute or relative to the chromedriver server
          * executable, but it must exist on the machine that will launch Chrome.
@@ -114,7 +114,7 @@ declare namespace chrome {
 
 
         /**
-         * Sets the user preferences for Chrome's user profile. See the "Preferences"
+         * Sets the user preferences for Chrome's user profile. See the 'Preferences'
          * file in Chrome's user data directory for examples.
          * @param {!Object} prefs Dictionary of user preferences to use.
          * @return {!Options} A self reference.
@@ -157,7 +157,7 @@ declare namespace chrome {
 
 
         /**
-         * Sets preferences for the "Local State" file in Chrome's user data
+         * Sets preferences for the 'Local State' file in Chrome's user data
          * directory.
          * @param {!Object} state Dictionary of local state preferences.
          * @return {!Options} A self reference.
@@ -362,8 +362,8 @@ declare namespace chrome {
 
 
         /**
-         * Sets the base path for WebDriver REST commands (e.g. "/wd/hub").
-         * By default, the driver will accept commands relative to "/".
+         * Sets the base path for WebDriver REST commands (e.g. '/wd/hub').
+         * By default, the driver will accept commands relative to '/'.
          * @param {string} path The base path to use.
          * @return {!ServiceBuilder} A self reference.
          */

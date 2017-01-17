@@ -15,7 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "marker-animate-unobtrusive-tests.ts",
-        "marker-animate-unobtrusive-amd-tests.ts"
+        "marker-animate-unobtrusive-tests.ts"
     ]
 }

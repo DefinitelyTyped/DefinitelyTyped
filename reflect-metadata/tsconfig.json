@@ -11,9 +11,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+
+        "experimentalDecorators": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "reflect-metadata-tests.ts"
     ]
 }

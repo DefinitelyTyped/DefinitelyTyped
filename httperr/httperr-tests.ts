@@ -1,4 +1,4 @@
-﻿import httperr = require('httperr');
+import httperr = require('httperr');
 
 // ----------------------------------------
 // Basic usage example from: https://github.com/pluma/httperr/blob/1.0.0/README.md
