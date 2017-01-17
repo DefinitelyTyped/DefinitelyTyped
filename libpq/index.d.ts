@@ -43,8 +43,9 @@ declare class Libpq extends EventEmitter {
     /**
      * Issues a request to cancel the currently executing query on this instance of libpq.
      *
-     * @returns true if the cancel request was sent; a string error message if the cancel request
-     * failed for any reason. The string will contain the error message provided by libpq.
+     * @returns {(boolean|string)} true if the cancel request was sent; a string error message if
+     *                             the cancel request failed for any reason. The string will
+     *                             contain the error message provided by libpq.
      */
     cancel(): true|string;
 
@@ -56,13 +57,13 @@ declare class Libpq extends EventEmitter {
 
     /**
      * @returns {string} the status string associated with a result. Something akin to INSERT 3 0
-     * if you inserted 3 rows.
+     *                   if you inserted 3 rows.
      */
     cmdStatus(): string;
 
     /**
      * @returns {string} the number of tuples (rows) affected by the command. Even though this is a
-     * number, it is returned as a string to mirror libpq's behavior.
+     *                   number, it is returned as a string to mirror libpq's behavior.
      */
     cmdTuples(): string;
 
@@ -79,7 +80,7 @@ declare class Libpq extends EventEmitter {
      *
      * @param {string} connectParams an optional string
      * @param {Function} callback mandatory. It is called when the connection has successfully been
-     *                   established.
+     *                            established.
      */
     connect(connectParams: string, callback: (err?: Error) => void): void;
     connect(callback: (err?: Error) => void): void;
@@ -97,7 +98,7 @@ declare class Libpq extends EventEmitter {
      * block so be careful and only call it within the readable callback for the most part.
      *
      * @returns {boolean} true if data was read; false if there was an error. You can access
-     * error details with [[Libpq.errorMessage]].
+     *                    error details with [[Libpq.errorMessage]].
      */
     consumeInput(): boolean
 
@@ -138,8 +139,9 @@ declare class Libpq extends EventEmitter {
      * (sync) Sends a command and parameters to the backend and blocks until a result is received.
      *
      * @param {string} [commandText=""] a required string of the query.
-     * @param {Array.<(string|number)>} [parameters=[]] a required array of string values corresponding
-     *                            to each parameter in the commandText.
+     * @param {Array.<(string|number)>} [parameters=[]] a required array of string values
+     *                                                  corresponding to each parameter in the
+     *                                                  commandText.
      */
     execParams(commandText?: string, parameters?: Array<string|number>): void;
 
@@ -148,7 +150,8 @@ declare class Libpq extends EventEmitter {
      * until the results are returned.
      *
      * @param {string} [statementName=""] a required string of the name of the prepared statement.
-     * @param {Array.<(string|number)>} [parameters=[]] the parameters to pass to the prepared statement.
+     * @param {Array.<(string|number)>} [parameters=[]] the parameters to pass to the prepared
+     *                                                  statement.
      */
     execPrepared(statementName?: string, parameters?: Array<string|number>): void;
 
@@ -161,9 +164,9 @@ declare class Libpq extends EventEmitter {
      * Flushes buffered data to the socket.
      *
      * @returns {number} 1 if socket is not write-ready at which case you should call
-     * [[Libpq.writable]] with a callback and wait for the socket to be writable and then call
-     * [[Libpq.flush]] again; 0 if all data was flushed; -1 if there was an
-     * error.
+     *                   [[Libpq.writable]] with a callback and wait for the socket to be writable
+     *                   and then call [[Libpq.flush]] again; 0 if all data was flushed; -1 if
+     *                   there was an error.
      */
     flush(): number;
 
@@ -187,12 +190,12 @@ declare class Libpq extends EventEmitter {
      * After issuing a successfuly command like COPY table TO stdout gets copy data from the
      * connection.
      *
-     * @param {boolean} [async=false] a boolean. Pass false to block waiting for data from the backend.
-     * Defaults to false
+     * @param {boolean} [async=false] a boolean. Pass false to block waiting for data from the
+     *                                backend. Defaults to false.
      *
      * @returns {Buffer|number} a node buffer if there is data available; 0 if the copy is still in
-     * progress (only if you have called [[Libpq.setNonBlocking]](true)); -1 if the copy is
-     * completed; -2 if there was an error.
+     *                          progress (only if you have called [[Libpq.setNonBlocking]](true));
+     *                          -1 if the copy is completed; -2 if there was an error.
      */
     getCopyData(async?: boolean): Buffer|number;
 
@@ -200,8 +203,8 @@ declare class Libpq extends EventEmitter {
      * @param {number} tupleNumber
      * @param {number} fieldNumber
      * @returns {boolean} true if the value at the given offsets is actually null. Otherwise
-     * returns false. This is because [[Libpq.getvalue]] returns an empty string for both
-     * an actual empty string and for a null value. Weird, huh?
+     *                    returns false. This is because [[Libpq.getvalue]] returns an empty
+     *                    string for both an actual empty string and for a null value. Weird, huh?
      */
     getisnull(tupleNumber: number, fieldNumber: number): boolean;
 
@@ -213,9 +216,10 @@ declare class Libpq extends EventEmitter {
      * the server. Call [[Libpq.isBusy]] to determine if this command will block.
      *
      * @returns {boolean} true if libpq was able to read buffered data & parse a result object;
-     * false if there are no results waiting to be parsed. Generally doing async style
-     * queries you'll call this repeadedly until it returns false and then use the result accessor
-     * methods to pull results out of the current result set.
+     *                    false if there are no results waiting to be parsed. Generally doing async
+     *                    style queries you'll call this repeadedly until it returns false and then
+     *                    use the result accessor methods to pull results out of the current result
+     *                    set.
      */
     getResult(): boolean;
 
@@ -277,10 +281,11 @@ declare class Libpq extends EventEmitter {
      * directly into the databse with this function.
      *
      * @param {Buffer} buffer a required node buffer of text data such as
-     * Buffer('column1\tcolumn2\n')
+     *                        Buffer('column1\tcolumn2\n')
      *
      * @returns {number} 1 if sent succesfully; 0 if the command would block (only if you have
-     * called [[Libpq.setNonBlocking]](true)); -1 if there was an error sending the command.
+     *                   called [[Libpq.setNonBlocking]](true)); -1 if there was an error sending
+     *                   the command.
      */
     putCopyData(buffer: Buffer): number;
 
@@ -291,7 +296,8 @@ declare class Libpq extends EventEmitter {
      * @param {string} [errorMessage] an optional string you can pass to cancel the copy operation.
      *
      * @returns {number} 1 if sent succesfully; 0 if the command would block (only if you have
-     * called [[Libpq.setNonBlocking]](true)); -1 if there was an error sending the command.
+     *                   called [[Libpq.setNonBlocking]](true)); -1 if there was an error sending
+     *                   the command.
      */
     putCopyEnd(errorMessage?: string): number;
 
@@ -345,8 +351,8 @@ declare class Libpq extends EventEmitter {
      * (async) Sends a query and to the server to be processed.
      *
      * @param {string} [commandText=""] a required string containing the query text.
-     * @param {Array.<(string|number)>} [parameters=[]] an array of parameters as strings used in the
-     *                   parameterized query.
+     * @param {Array.<(string|number)>} [parameters=[]] an array of parameters as strings used in
+     *                                                  the parameterized query.
      * @returns {boolean} true if the command was sent succesfully or false if it failed to send.
      */
     sendQueryParams(commandText?: string, parameters?: Array<string|number>): boolean;
@@ -379,16 +385,16 @@ declare class Libpq extends EventEmitter {
      * Toggle the socket blocking on write.
      *
      * @param {boolean} [nonBlocking] true to set the connection to use non-blocking writes, false to
-     * use blocking writes.
+     *                                use blocking writes.
      *
      * @returns {boolean} true if the socket's state was succesfully toggled, false if there was
-     * an error.
+     *                    an error.
      */
     setNonBlocking(nonBlocking?: boolean): boolean;
 
     /**
      * @returns {number} an int representing the file descriptor for the socket used internally by
-     * the connection.
+     *                   the connection.
      */
     socket(): number;
 
