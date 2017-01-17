@@ -1,6 +1,6 @@
 // Type definitions for simple-peer 6.1
 // Project: https://github.com/feross/simple-peer
-// Definitions by: Tomek Łaziuk <https://github.com/tlaziuk>
+// Definitions by: Tomasz Łaziuk <tlaziuk@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
