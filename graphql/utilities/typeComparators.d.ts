@@ -2,10 +2,10 @@ import {
     GraphQLType,
     GraphQLCompositeType,
     GraphQLAbstractType
-} from 'graphql/type/definition';
+} from '../type/definition';
 import {
     GraphQLSchema
-} from 'graphql/type/schema';
+} from '../type/schema';
 
 
 /**

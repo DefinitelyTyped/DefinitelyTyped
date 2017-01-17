@@ -26,8 +26,7 @@ declare class VError extends Error {
     static fullStack(err: Error): string;
 
     cause(): Error | undefined;
-    constructor(options: VError.Options, message: string, ...params: any[]);
-    constructor(cause: Error, message: string, ...params: any[]);
+    constructor(options: VError.Options | Error, message: string, ...params: any[]);
     constructor(message: string, ...params: any[]);
 }
 

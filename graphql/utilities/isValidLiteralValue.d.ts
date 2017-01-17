@@ -1,5 +1,5 @@
-import { ValueNode } from 'graphql/language/ast';
-import { GraphQLInputType } from 'graphql/type/definition';
+import { ValueNode } from '../language/ast';
+import { GraphQLInputType } from '../type/definition';
 
 /**
  * Utility for validators which determines if a value literal AST is valid given

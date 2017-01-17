@@ -3,8 +3,8 @@ import {
     FieldNode,
     FragmentDefinitionNode,
     ValueNode,
-} from 'graphql/language/ast';
-import { GraphQLSchema } from 'graphql/type/schema';
+} from '../language/ast';
+import { GraphQLSchema } from './schema';
 
 /**
  * These are all of the possible kinds of types.

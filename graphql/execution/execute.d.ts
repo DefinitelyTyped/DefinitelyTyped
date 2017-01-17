@@ -1,6 +1,6 @@
-import { GraphQLError, locatedError } from 'graphql/error';
-import { GraphQLSchema } from 'graphql/type/schema';
-import { GraphQLField, GraphQLFieldResolver, ResponsePath } from 'graphql/type/definition';
+import { GraphQLError, locatedError } from '../error';
+import { GraphQLSchema } from '../type/schema';
+import { GraphQLField, GraphQLFieldResolver, ResponsePath } from '../type/definition';
 import {
     DirectiveNode,
     DocumentNode,
@@ -9,7 +9,7 @@ import {
     FieldNode,
     InlineFragmentNode,
     FragmentDefinitionNode,
-} from 'graphql/language/ast';
+} from '../language/ast';
 /**
  * Data that must be available at all points during query execution.
  *

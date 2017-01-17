@@ -1,4 +1,4 @@
-import { DocumentNode } from 'graphql/language/ast';
+import { DocumentNode } from '../language/ast';
 
 
 /**

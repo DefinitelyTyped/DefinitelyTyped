@@ -1,5 +1,5 @@
-import { GraphQLSchema } from 'graphql/type/schema';
-import { ExecutionResult } from 'graphql/execution/execute';
+import { GraphQLSchema } from './type/schema';
+import { ExecutionResult } from './execution/execute';
 
 /**
  * This is the primary entry point function for fulfilling GraphQL operations

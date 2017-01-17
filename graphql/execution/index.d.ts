@@ -3,4 +3,4 @@ export {
     defaultFieldResolver,
     responsePathAsArray,
     ExecutionResult
-} from 'graphql/execution/execute';
+} from './execute';

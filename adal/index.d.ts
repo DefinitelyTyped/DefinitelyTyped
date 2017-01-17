@@ -17,14 +17,18 @@ declare namespace adal {
         clientId: string;
         redirectUri?: string;
         instance?: string;
-        cacheLocation?: string;
+        endpoints?: any;  // If you need to send CORS api requests.
+        popUp?: boolean;
+        localLoginUrl?: string;
         displayCall?: (urlNavigate: string) => any;
+        postLogoutRedirectUri?: string; // redirect url after succesful logout operation
+        cacheLocation?: string;
+        anonymousEndpoints?: string[];
+        expireOffsetSeconds?: number;
         correlationId?: string;
         loginResource?: string;
         resource?: string;
-        endpoints?: any;  // If you need to send CORS api requests.
         extraQueryParameter?: string;
-        postLogoutRedirectUri?: string; // redirect url after succesful logout operation
     }
 
     interface User {

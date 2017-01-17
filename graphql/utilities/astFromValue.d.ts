@@ -7,8 +7,8 @@ import {
     //EnumValueNode,
     //ListValueNode,
     //ObjectValueNode,
-} from 'graphql/language/ast';
-import { GraphQLInputType } from 'graphql/type/definition';
+} from '../language/ast';
+import { GraphQLInputType } from '../type/definition';
 
 /**
  * Produces a GraphQL Value AST given a JavaScript value.

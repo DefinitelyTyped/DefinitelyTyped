@@ -7,8 +7,8 @@ import {
     GraphQLObjectType,
     GraphQLUnionType,
     GraphQLNamedType,
-} from 'graphql/type/definition';
-import { GraphQLSchema } from 'graphql/type/schema';
+} from '../type/definition';
+import { GraphQLSchema } from '../type/schema';
 
 
 export const BreakingChangeType: {
