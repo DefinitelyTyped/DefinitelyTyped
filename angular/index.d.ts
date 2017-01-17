@@ -1286,7 +1286,7 @@ declare namespace angular {
     interface ITemplateLinkingFunctionOptions {
         parentBoundTranscludeFn?: ITranscludeFunction,
         transcludeControllers?: {
-            [controller: string]: { instance: any }
+            [controller: string]: { instance: IController }
         },
         futureParentElement?: JQuery
     }
