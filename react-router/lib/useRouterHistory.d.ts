@@ -1,7 +1,5 @@
-import { History, HistoryOptions, HistoryQueries, CreateHistory } from 'history';
+import { History, CreateHistoryEnhancer } from "history";
 
-interface CreateRouterHistory {
-    (options?: HistoryOptions): History & HistoryQueries;
-}
+declare const useRouterHistory: CreateHistoryEnhancer<History, any>;
 
-export default function useRouterHistory<T>(createHistory: CreateHistory<T>): CreateRouterHistory;
+export default useRouterHistory;
