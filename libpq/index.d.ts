@@ -8,29 +8,31 @@
 import {EventEmitter} from 'events';
 import {Buffer} from 'buffer';
 
-interface NotifyMsg {
-    relname: string;
-    extra: string;
-    be_pid: number;
-}
+declare namespace Libpq {
+    export interface NotifyMsg {
+        relname: string;
+        extra: string;
+        be_pid: number;
+    }
 
-interface ResultError {
-    severity: string;
-    sqlState: string;
-    messagePrimary: string;
-    messageDetail?: string;
-    messageHint?: string;
-    statementPosition?: string;
-    internalPosition?: string;
-    internalQuery?: string;
-    context?: string;
-    schemaName?: string;
-    tableName?: string;
-    dataTypeName?: string;
-    constraintName?: string;
-    sourceFile: string;
-    sourceLine: string;
-    sourceFunction: string;
+    export interface ResultError {
+        severity: string;
+        sqlState: string;
+        messagePrimary: string;
+        messageDetail?: string;
+        messageHint?: string;
+        statementPosition?: string;
+        internalPosition?: string;
+        internalQuery?: string;
+        context?: string;
+        schemaName?: string;
+        tableName?: string;
+        dataTypeName?: string;
+        constraintName?: string;
+        sourceFile: string;
+        sourceLine: string;
+        sourceFunction: string;
+    }
 }
 
 declare class Libpq extends EventEmitter {
@@ -265,9 +267,9 @@ declare class Libpq extends EventEmitter {
      * }
      * ```
      *
-     * @returns {NotifyMsg}
+     * @returns {Libpq.NotifyMsg}
      */
-    notifies(): NotifyMsg;
+    notifies(): Libpq.NotifyMsg;
 
     /**
      * Retrieve the number of tuples (rows) from the result.
@@ -322,8 +324,9 @@ declare class Libpq extends EventEmitter {
      *
      * console.log(pq.errorFields().messageDetail);
      * ```
+     * @returns {Libpq.ResultError}
      */
-    resultErrorFields(): ResultError;
+    resultErrorFields(): Libpq.ResultError;
 
     /**
      * Retrieves the error message from the result. This will return null if the result does not
@@ -420,9 +423,6 @@ declare class Libpq extends EventEmitter {
      * @param {Function} callback
      */
     writable(callback: () => void): void;
-}
-
-declare namespace Libpq {
 }
 
 export = Libpq;

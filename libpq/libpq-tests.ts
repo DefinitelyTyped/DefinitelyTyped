@@ -5,7 +5,7 @@ import {Buffer} from 'buffer';
 import * as assert from 'assert';
 import * as async from 'async';
 import * as PQ from 'libpq';
-import * as _ from 'lodash'
+import * as _ from 'lodash';
 
 declare const ok: Function;
 
