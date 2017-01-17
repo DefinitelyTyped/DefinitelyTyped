@@ -11,9 +11,6 @@
         "strictNullChecks": false,
         "jsx": "react",
         "baseUrl": "../",
-        "paths": {
-            "history": ["history/v2"]
-        },
         "typeRoots": [
             "../"
         ],

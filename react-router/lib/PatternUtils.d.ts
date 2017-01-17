@@ -1,1 +1,3 @@
-export function formatPattern(pattern: string, params: {}): string;
+import { RoutePattern } from "react-router";
+
+export function formatPattern(pattern: RoutePattern, params: any): string;

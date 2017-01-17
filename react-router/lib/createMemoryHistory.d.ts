@@ -1,3 +1,5 @@
-import * as H from 'history';
+import { History, CreateHistory } from "history";
 
-export default function createMemoryHistory(options?: H.HistoryOptions): H.History;
+declare const createMemoryHistory: CreateHistory<History>;
+
+export default createMemoryHistory;

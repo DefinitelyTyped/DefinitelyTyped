@@ -1,91 +1,56 @@
-// Type definitions for react-router v2.0.0
+// Type definitions for react-router 3.0
 // Project: https://github.com/rackt/react-router
-// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>, Nathan Brown <https://github.com/ngbrown>, Alex Wendland <https://github.com/awendland>, Kostya Esmukov <https://github.com/KostyaEsmukov>
+// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>, Nathan Brown <https://github.com/ngbrown>, Alex Wendland <https://github.com/awendland>, Kostya Esmukov <https://github.com/KostyaEsmukov>, Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="history" />
-
-export as namespace ReactRouter;
-
-import * as React from 'react';
-
-export const routerShape: React.Requireable<any>
-
-export const locationShape: React.Requireable<any>
-
-import Router from "./lib/Router";
-import Link from "./lib/Link";
-import IndexLink from "./lib/IndexLink";
-import IndexRedirect from "./lib/IndexRedirect";
-import IndexRoute from "./lib/IndexRoute";
-import Redirect from "./lib/Redirect";
-import Route from "./lib/Route";
-import * as History from "./lib/routerHistory";
-import Lifecycle from "./lib/Lifecycle";
-import RouteContext from "./lib/RouteContext";
-import browserHistory from "./lib/browserHistory";
-import hashHistory from "./lib/hashHistory";
-import useRoutes from "./lib/useRoutes";
-import { createRoutes } from "./lib/RouteUtils";
-import { formatPattern } from "./lib/PatternUtils";
-import RouterContext from "./lib/RouterContext";
-import PropTypes from "./lib/PropTypes";
-import match from "./lib/match";
-import useRouterHistory from "./lib/useRouterHistory";
-import createMemoryHistory from "./lib/createMemoryHistory";
-import withRouter from "./lib/withRouter";
-import applyRouterMiddleware from "./lib/applyRouterMiddleware";
-
-// PlainRoute is defined in the API documented at:
-// https://github.com/rackt/react-router/blob/master/docs/API.md
-// but not included in any of the .../lib modules above.
-export type PlainRoute = Router.PlainRoute;
-
-// The following definitions are also very useful to export
-// because by using these types lots of potential type errors
-// can be exposed:
-export type EnterHook = Router.EnterHook;
-export type LeaveHook = Router.LeaveHook;
-export type ParseQueryString = Router.ParseQueryString;
-export type LocationDescriptor = Router.LocationDescriptor;
-export type RedirectFunction = Router.RedirectFunction;
-export type RouteComponent = Router.RouteComponent;
-export type RouteComponentProps<P, R> = Router.RouteComponentProps<P, R>;
-export type RouteConfig = Router.RouteConfig;
-export type RouteHook = Router.RouteHook;
-export type StringifyQuery = Router.StringifyQuery;
-export type RouterListener = Router.RouterListener;
-export type RouterState = Router.RouterState;
-export type InjectedRouter = Router.InjectedRouter;
-
-export type HistoryBase = History.HistoryBase;
-export type RouterOnContext = Router.RouterOnContext;
-export type RouteProps = Route.RouteProps;
-export type LinkProps = Link.LinkProps;
-
 export {
-    Router,
-    Link,
-    IndexLink,
-    IndexRedirect,
-    IndexRoute,
-    Redirect,
-    Route,
-    History,
-    browserHistory,
-    hashHistory,
-    Lifecycle,
-    RouteContext,
-    useRoutes,
-    createRoutes,
-    formatPattern,
-    RouterContext,
-    PropTypes,
-    match,
-    useRouterHistory,
-    createMemoryHistory,
-    withRouter,
-    applyRouterMiddleware
-};
+    Basename,
+    ChangeHook,
+    EnterHook,
+    InjectedRouter,
+    LeaveHook,
+    Location,
+    LocationDescriptor,
+    ParseQueryString,
+    RouteComponent,
+    RouteComponents,
+    RouteComponentProps,
+    RouteConfig,
+    RoutePattern,
+    RouterProps,
+    RouterState,
+    StringifyQuery,
+    Query
+} from "react-router/lib/Router";
+export { LinkProps } from "react-router/lib/Link";
+export { IndexLinkProps } from "react-router/lib/IndexLink";
+export { RouteProps, PlainRoute } from "react-router/lib/Route";
+export { IndexRouteProps } from "react-router/lib/IndexRoute";
+export { RedirectProps } from "react-router/lib/Redirect";
+export { IndexRedirectProps } from "react-router/lib/IndexRedirect";
 
-export default Router;
+/* components */
+export { default as Router } from "react-router/lib/Router";
+export { default as Link } from "react-router/lib/Link";
+export { default as IndexLink } from "react-router/lib/IndexLink";
+export { default as withRouter } from "react-router/lib/withRouter";
+
+/* components (configuration) */
+export { default as IndexRedirect } from "react-router/lib/IndexRedirect";
+export { default as IndexRoute } from "react-router/lib/IndexRoute";
+export { default as Redirect } from "react-router/lib/Redirect";
+export { default as Route } from "react-router/lib/Route";
+
+/* utils */
+export { createRoutes } from "react-router/lib/RouteUtils";
+export { default as RouterContext } from "react-router/lib/RouterContext";
+export { routerShape, locationShape } from "react-router/lib/PropTypes";
+export { default as match } from "react-router/lib/match";
+export { default as useRouterHistory } from "react-router/lib/useRouterHistory";
+export { formatPattern } from "react-router/lib/PatternUtils";
+export { default as applyRouterMiddleware } from "react-router/lib/applyRouterMiddleware";
+
+/* histories */
+export { default as browserHistory } from "react-router/lib/browserHistory";
+export { default as hashHistory } from "react-router/lib/hashHistory";
+export { default as createMemoryHistory } from "react-router/lib/createMemoryHistory";
