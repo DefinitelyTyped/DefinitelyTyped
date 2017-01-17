@@ -47,6 +47,8 @@ function test_it() {
 
     it('does something', () => { });
 
+    it('does something', function () { this['sharedState'] = true; });
+
     it('does something', (done) => { done(); });
 
     it.only('does something', () => { });
@@ -63,6 +65,8 @@ function test_it() {
 function test_test() {
 
     test('does something', () => { });
+
+    test('does something', function () { this['sharedState'] = true; });
 
     test('does something', (done) => { done(); });
 
@@ -81,6 +85,8 @@ function test_specify() {
 
     specify('does something', () => { });
 
+    specify('does something', function () { this['sharedState'] = true; });
+
     specify('does something', (done) => { done(); });
 
     specify.only('does something', () => { });
@@ -96,6 +102,8 @@ function test_specify() {
 
 function test_before() {
     before(() => { });
+
+    before(function () { this['sharedState'] = true; });
 
     before((done) => { done(); });
 
@@ -120,6 +128,17 @@ function test_setup() {
         string = this.currentTest.state;
      });
 
+    setup(function() {
+        this['sharedState'] = true;
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        string = this.currentTest.state;
+     });
+
     setup(function (done) {
         done();
         boolean = this.currentTest.async;
@@ -135,6 +154,8 @@ function test_setup() {
 function test_after() {
     after(() => { });
 
+    after(function () { this['sharedState'] = true; });
+
     after((done) => { done(); });
 
     after("my description", () => { });
@@ -144,6 +165,17 @@ function test_after() {
 
 function test_teardown() {
     teardown(function() {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        string = this.currentTest.state;
+    });
+
+    teardown(function() {
+        this['sharedState'] = true;
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
@@ -167,6 +199,17 @@ function test_teardown() {
 
 function test_beforeEach() {
     beforeEach(function () {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        string = this.currentTest.state;
+    });
+
+    beforeEach(function () {
+        this['sharedState'] = true;
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
@@ -212,11 +255,24 @@ function test_beforeEach() {
 function test_suiteSetup() {
     suiteSetup(() => { });
 
+    suiteSetup(function () { this['sharedState'] = true; });
+
     suiteSetup((done) => { done(); });
 }
 
 function test_afterEach() {
     afterEach(function () {
+        boolean = this.currentTest.async;
+        boolean = this.currentTest.pending;
+        boolean = this.currentTest.sync;
+        boolean = this.currentTest.timedOut;
+        string = this.currentTest.title;
+        string = this.currentTest.fullTitle();
+        string = this.currentTest.state;
+    });
+
+    afterEach(function () {
+        this['sharedState'] = true;
         boolean = this.currentTest.async;
         boolean = this.currentTest.pending;
         boolean = this.currentTest.sync;
@@ -262,6 +318,8 @@ function test_afterEach() {
 
 function test_suiteTeardown() {
     suiteTeardown(() => { });
+
+    suiteTeardown(function () { this['sharedState'] = true; });
 
     suiteTeardown((done) => { done(); });
 }
