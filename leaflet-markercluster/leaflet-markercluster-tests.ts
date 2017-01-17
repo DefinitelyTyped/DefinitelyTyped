@@ -18,7 +18,7 @@ markerClusterGroupOptions = {
     spiderLegPolylineOptions: polylineOptions,
     spiderfyDistanceMultiplier: 2,
     iconCreateFunction: (cluster: L.MarkerCluster) => {
-        const childMarksers: L.Marker[] = cluster.getAllChildMarkers();
+        const childMarkers: L.Marker[] = cluster.getAllChildMarkers();
         const childCount: number = cluster.getChildCount();
         cluster.zoomToBounds();
         const bounds: L.LatLngBounds = cluster.getBounds();

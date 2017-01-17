@@ -139,7 +139,7 @@ declare namespace L {
         * If you have customized the clusters icon to use some data from the contained markers,
         * and later that data changes, use this method to force a refresh of the cluster icons.
         */
-        refreshClusters(clusters?: Marker | Marker[] | LayerGroup | MarkerCluster | MarkerClusterGroup | {[index: string]: Layer}): this;
+        refreshClusters(clusters?: Marker | Marker[] | LayerGroup | {[index: string]: Layer}): this;
 
         /*
         * Returns the total number of markers contained within that cluster.
