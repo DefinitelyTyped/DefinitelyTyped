@@ -81,8 +81,8 @@ declare class Libpq extends EventEmitter {
      * @param {Function} callback mandatory. It is called when the connection has successfully been
      *                   established.
      */
-    connect(connectParams: string, callback: (err?: string) => void): void;
-    connect(callback: (err?: string) => void): void;
+    connect(connectParams: string, callback: (err?: Error) => void): void;
+    connect(callback: (err?: Error) => void): void;
 
     /**
      * (sync) Attempts to connect to a PostgreSQL server. BLOCKS until it either succeedes, or

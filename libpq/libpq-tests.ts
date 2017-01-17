@@ -20,7 +20,7 @@ const blink = (n: number, cb: Function) => {
     for (let i = 0; i < 30; i++) {
         connections.push(new PQ())
     }
-    const connect = (con: PQ, cb: (err?: string) => void) => {
+    const connect = (con: PQ, cb: (err?: Error) => void) => {
         con.connect(cb);
     };
     async.each(connections, connect, ok(() => {
@@ -223,7 +223,7 @@ describe('Constructing multiple', () => {
     });
 
     it('connects and disconnects each client', (done) => {
-        const connect = (n: number, cb: (err?: string) => void) => {
+        const connect = (n: number, cb: (err?: Error) => void) => {
             const pq = new PQ();
             pq.connect(cb);
         };
