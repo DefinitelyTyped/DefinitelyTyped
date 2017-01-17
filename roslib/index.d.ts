@@ -67,6 +67,16 @@ declare namespace ROSLIB {
 		callOnConnection(message:any):void;
 
 		/**
+		 * Retrieves list of actionlib servers in ROS as an array.
+		 *
+		 * @param callback function with params:
+		 *   * action_servers - Array of actionlib servers names
+		 * @param failedCallback - the callback function when the ros call failed (optional). Params:
+		 *   * error - the error message reported by ROS
+		 */
+    	getActionServers(callback:(action_servers:string[]) => void, failedCallback?:(error:any)=>void):void;
+
+		/**
 		 * Retrieves list of topics in ROS as an array.
 		 *
 		 * @param callback function with params:
