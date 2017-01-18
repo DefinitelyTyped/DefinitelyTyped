@@ -549,6 +549,7 @@ declare module createjs {
         getAnimations(): string[];
         getFrame(frameIndex: number): Object;
         getFrameBounds(frameIndex: number): Rectangle;
+        getNumFrames(animation?: string ): number;
         toString(): string;
 
         // events
