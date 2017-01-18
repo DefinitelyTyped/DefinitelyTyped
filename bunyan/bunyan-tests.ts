@@ -1,70 +1,83 @@
-/// <reference path="bunyan.d.ts" />
 
-import * as bunyan from 'bunyan';
+import Logger = require('bunyan');
 
-var ringBufferOptions:bunyan.RingBufferOptions = {
+var ringBufferOptions: Logger.RingBufferOptions = {
     limit: 100
 };
-var ringBuffer:bunyan.RingBuffer = new bunyan.RingBuffer(ringBufferOptions);
+var ringBuffer: Logger.RingBuffer = new Logger.RingBuffer(ringBufferOptions);
 ringBuffer.write("hello");
 ringBuffer.end();
 ringBuffer.destroy();
 ringBuffer.destroySoon();
 
-var level:number;
-level = bunyan.resolveLevel("trace");
-level = bunyan.resolveLevel("debug");
-level = bunyan.resolveLevel("info");
-level = bunyan.resolveLevel("warn");
-level = bunyan.resolveLevel("error");
-level = bunyan.resolveLevel("fatal");
-level = bunyan.resolveLevel(bunyan.TRACE);
-level = bunyan.resolveLevel(bunyan.DEBUG);
-level = bunyan.resolveLevel(bunyan.INFO);
-level = bunyan.resolveLevel(bunyan.WARN);
-level = bunyan.resolveLevel(bunyan.ERROR);
-level = bunyan.resolveLevel(bunyan.FATAL);
+var level: number;
+level = Logger.resolveLevel("trace");
+level = Logger.resolveLevel("debug");
+level = Logger.resolveLevel("info");
+level = Logger.resolveLevel("warn");
+level = Logger.resolveLevel("error");
+level = Logger.resolveLevel("fatal");
+level = Logger.resolveLevel(Logger.TRACE);
+level = Logger.resolveLevel(Logger.DEBUG);
+level = Logger.resolveLevel(Logger.INFO);
+level = Logger.resolveLevel(Logger.WARN);
+level = Logger.resolveLevel(Logger.ERROR);
+level = Logger.resolveLevel(Logger.FATAL);
 
-var options:bunyan.LoggerOptions = {
+var options: Logger.LoggerOptions = {
     name: 'test-logger',
+    serializers: Logger.stdSerializers,
     streams: [{
         type: 'stream',
         stream: process.stdout,
-        level: bunyan.TRACE
+        level: Logger.TRACE
     }, {
         type: 'file',
         path: '/tmp/test.log',
-        level: bunyan.DEBUG,
+        level: Logger.DEBUG,
         closeOnExit: true
     }, {
         type: 'rotating-file',
         path: '/tmp/test2.log',
-        level: bunyan.INFO,
+        level: Logger.INFO,
         closeOnExit: false,
         period: '1d',
         count: 3
     }, {
         type: 'raw',
         stream: process.stderr,
-        level: bunyan.WARN
+        level: Logger.WARN
     }, {
         type: 'raw',
         stream: ringBuffer,
-        level: bunyan.ERROR
+        level: Logger.ERROR
     }]
 };
 
-var log = bunyan.createLogger(options);
+var log = Logger.createLogger(options);
 
-log.addSerializers(bunyan.stdSerializers);
+var customSerializer = function(anything: any) {
+    return { obj: anything};
+};
+
+log.addSerializers({anything: customSerializer});
+log.addSerializers(Logger.stdSerializers);
+log.addSerializers(
+    {
+        err: Logger.stdSerializers.err,
+        req: Logger.stdSerializers.req,
+        res: Logger.stdSerializers.res
+    }
+);
+
 var child = log.child({name: 'child'});
 child.reopenFileStreams();
 log.addStream({path: '/dev/null'});
-child.level(bunyan.DEBUG);
+child.level(Logger.DEBUG);
 child.level('debug');
-child.levels(0, bunyan.ERROR);
+child.levels(0, Logger.ERROR);
 child.levels(0, 'error');
-child.levels('stream1', bunyan.FATAL);
+child.levels('stream1', Logger.FATAL);
 child.levels('stream1', 'fatal');
 
 var buffer = new Buffer(0);
@@ -105,4 +118,10 @@ var recursive: any = {
     }
 }
 
-JSON.stringify(recursive, bunyan.safeCycles());
+JSON.stringify(recursive, Logger.safeCycles());
+
+class MyLogger extends Logger {
+    constructor() {
+        super(options);
+    }
+}

@@ -1,5 +1,5 @@
-/// <reference path="../chai/chai.d.ts" />
-/// <reference path="protobufjs.d.ts" />
+/// <reference types="chai" />
+
 
 var assert = require('chai').assert;
 var readFileSync = require('fs').readFileSync;
@@ -180,7 +180,9 @@ function assertIsProtoEnum(pe: ProtoBuf.ProtoEnum, name: string) {
     assert.ok("values" in pe, name + " should contain property values");
     assert.ok("options" in pe, name + " should contain property options");
 
-    assertIsProtoEnumValue(pe.values, name + ".values");
+    for (var value in pe.values) {
+        assertIsProtoEnumValue(pe.values[value], name + ".values." + value);
+    }
 }
 
 function assertIsProtoEnumValue(pev: ProtoBuf.ProtoEnumValue, name: string) {

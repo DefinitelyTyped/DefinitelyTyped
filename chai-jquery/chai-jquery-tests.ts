@@ -1,4 +1,4 @@
-/// <reference path="chai-jquery.d.ts" />
+
 
 // tests taken from https://github.com/chaijs/chai-jquery
 
@@ -9,6 +9,11 @@ var expect = chai.expect;
 function test_attr() {
     expect($('#foo')).to.have.attr('id');
     expect($('#foo')).to.have.attr('class', 'container');
+}
+
+function test_prop() {
+    expect($('#foo')).to.have.prop('disabled');
+    expect($('#foo')).to.have.prop('disabled', false);
 }
 
 function test_css() {

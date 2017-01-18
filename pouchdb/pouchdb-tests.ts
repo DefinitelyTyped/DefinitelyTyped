@@ -1,4 +1,4 @@
-/// <reference path="./pouchdb.d.ts" />
+import * as PouchDB from 'pouchdb';
 
 namespace PouchDBTests {
     function isString(someString: string) {

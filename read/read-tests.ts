@@ -1,4 +1,3 @@
-/// <reference path="read.d.ts" />
 
 import read = require('read');
 

@@ -1,6 +1,23 @@
 {
-  "compilerOptions": {
-    "target": "es2015",
-    "experimentalDecorators": true
-  }
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "experimentalDecorators": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "hapi-decorators-tests.ts"
+    ]
 }

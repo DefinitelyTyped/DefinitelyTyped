@@ -1,5 +1,3 @@
-/// <reference path="./minimatch.d.ts" />
-
 import mm = require("minimatch");
 
 var pattern = "**/*.ts";

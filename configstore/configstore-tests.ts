@@ -1,6 +1,6 @@
-/// <reference path="configstore.d.ts" />
 
-import cs = require('configstore');
+import Configstore = require('configstore');
+var cs = new Configstore('foo');
 
 var value: any;
 var key: string;
@@ -10,7 +10,7 @@ var object:Object;
 
 cs.set(key, value);
 value = cs.get(key);
-cs.del(key);
+cs.delete(key);
 
 object = cs.all;
 cs.all = object;

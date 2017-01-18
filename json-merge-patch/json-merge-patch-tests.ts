@@ -1,5 +1,3 @@
-/// <reference path="./json-merge-patch.d.ts" />
-
 import * as jmp from "json-merge-patch";
 
 var merge = jmp.merge;

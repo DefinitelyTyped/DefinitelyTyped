@@ -1,4 +1,3 @@
-///<reference path='applicationinsights.d.ts' />
 import * as appInsights from "applicationinsights";
 
 // basic use

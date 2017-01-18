@@ -1,5 +1,3 @@
-/// <reference path="exorcist.d.ts" />
-
 import exorcist = require("exorcist");
 
 module ExorcistTest {

@@ -1,11 +1,11 @@
-﻿// Type definition tests for yargs
-// Project: https://github.com/chevex/yargs
-// Definitions by: Martin Poelstra <https://github.com/poelstra>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="node" />
 
-/// <reference path="yargs.d.ts" />
+import * as yargs from 'yargs';
 
-import yargs = require('yargs');
+import * as fs from 'fs';
+import * as path from 'path';
+
+const stringVal = 'string';
 
 // Examples taken from yargs website
 // https://github.com/chevex/yargs
@@ -57,6 +57,9 @@ function divide() {
 function demand_count() {
 	var argv = yargs
 		.demand(2)
+		.demand(2, false)
+		.demand(2, 2)
+		.demand(2, 2, "message")
 		.argv;
 	console.dir(argv);
 }
@@ -67,14 +70,14 @@ function default_singles() {
 		.default('x', 10)
 		.default('y', 10)
 		.argv
-		;
+	;
 	console.log(argv.x + argv.y);
 }
 function default_hash() {
 	var argv = yargs
 		.default({ x: 10, y: 10 })
 		.argv
-		;
+	;
 	console.log(argv.x + argv.y);
 }
 
@@ -83,7 +86,7 @@ function boolean_single() {
 	var argv = yargs
 		.boolean('v')
 		.argv
-		;
+	;
 	console.dir(argv.v);
 	console.dir(argv._);
 }
@@ -91,7 +94,7 @@ function boolean_double() {
 	var argv = yargs
 		.boolean(['x', 'y', 'z'])
 		.argv
-		;
+	;
 	console.dir([argv.x, argv.y, argv.z]);
 	console.dir(argv._);
 }
@@ -105,7 +108,7 @@ function line_count() {
 		.alias('f', 'file')
 		.describe('f', 'Load a file')
 		.argv
-		;
+	;
 }
 
 // Below are tests for individual methods.
@@ -131,13 +134,13 @@ function Argv$options() {
 			nargs: 3
 		})
 		.argv
-		;
+	;
 
 	var argv2 = yargs
 		.alias('f', 'file')
 		.default('f', '/etc/passwd')
 		.argv
-		;
+	;
 }
 
 function Argv$global() {
@@ -174,25 +177,24 @@ function Argv$nargs() {
 function Argv$choices() {
 	// example from documentation
 	var argv = yargs
-		.alias('i', 'ingredient')
-		.describe('i', 'choose your sandwich ingredients')
-		.choices('i', ['peanut-butter', 'jelly', 'banana', 'pickles'])
-		.help('help')
-		.argv
+	  .alias('i', 'ingredient')
+	  .describe('i', 'choose your sandwich ingredients')
+	  .choices('i', ['peanut-butter', 'jelly', 'banana', 'pickles'])
+	  .help('help')
+	  .argv
 }
 
 function command() {
 	var argv = yargs
 		.usage('npm <command>')
 		.command('install', 'tis a mighty fine package to install')
-		.command('publish', 'shiver me timbers, should you be sharing all that', yargs => {
-			argv = yargs.option('f', {
+		.command('publish', 'shiver me timbers, should you be sharing all that', yargs =>
+			yargs.option('f', {
 				alias: 'force',
 				description: 'yar, it usually be a bad idea'
 			})
-				.help('help')
-				.argv;
-		})
+			.help('help')
+		)
 		.command("build", "arghh, build it mate", {
 			tag: {
 				default: true,
@@ -204,8 +206,52 @@ function command() {
 				description:"Should i publish?"
 			}
 		})
+		.command({
+			command: "test",
+			describe: "test package",
+			builder: {
+				mateys: {
+					demand: false
+				}
+			},
+			handler: (args: any) => {
+				/* handle me mateys! */
+			}
+		})
+		.command("test", "test mateys", {
+			handler: (args: any) => {
+				/* handle me mateys! */
+			}
+		})
 		.help('help')
 		.argv;
+
+	yargs
+		.command('get', 'make a get HTTP request', function (yargs) {
+			return yargs.option('url', {
+				alias: 'u',
+				default: 'http://yargs.js.org/'
+			})
+		})
+		.help()
+		.argv
+
+	yargs
+		.command(
+			'get',
+			'make a get HTTP request',
+			function (yargs) {
+				return yargs.option('u', {
+					alias: 'url',
+					describe: 'the URL to make an HTTP request to'
+				})
+			},
+			function (argv: { url: string }) {
+				console.dir(argv.url)
+			}
+		)
+		.help()
+		.argv
 }
 
 function completion_sync() {
@@ -224,7 +270,7 @@ function completion_sync() {
 
 function completion_async() {
 	var argv = yargs
-		.completion('completion', (current, argv, done) => {
+		.completion('completion', (current: string, argv: any, done: (completion: string[]) => void) => {
 			setTimeout(function () {
 				done([
 					'apple',
@@ -260,25 +306,36 @@ function Argv$showHelp() {
 
 function Argv$version() {
 	var argv1 = yargs
-		.version('1.0.0');
+		.version();
 
 	var argv2 = yargs
-		.version('1.0.0', '--version');
+		.version('1.0.0');
 
 	var argv3 = yargs
-		.version('1.0.0', '--version', 'description');
+		.version('1.0.0', '--version');
 
 	var argv4 = yargs
+		.version('1.0.0', '--version', 'description');
+
+	var argv5 = yargs
 		.version(function () { return '1.0.0'; }, '--version', 'description');
+}
+
+function Argv$wrap() {
+	var argv1 = yargs
+		.wrap(null);
+
+	var argv2 = yargs
+		.wrap(yargs.terminalWidth());
 }
 
 function Argv$locale() {
 	var argv = yargs
 		.usage('./$0 - follow ye instructions true')
 		.option('option', {
-			alias: 'o',
-			describe: "'tis a mighty fine option",
-			demand: true
+		alias: 'o',
+		describe: "'tis a mighty fine option",
+		demand: true
 		})
 		.command('run', "Arrr, ya best be knowin' what yer doin'")
 		.example('$0 run foo', "shiver me timbers, here's an example for ye")
@@ -342,4 +399,181 @@ function Argv$commandDirWithOptions() {
 			exclude: /.*\.spec.js$/,
 		})
 		.argv
+}
+
+function Argv$normalize() {
+	var ya = yargs
+		.normalize('path')
+		.normalize(['user', 'group'])
+		.argv
+}
+
+// From http://yargs.js.org/docs/#methods-coercekey-fn
+function Argv$coerce() {
+	var ya = yargs
+		.coerce('file', function (arg: string) {
+			return fs.readFileSync(arg, 'utf8');
+		})
+		.argv
+}
+function Argv$coerces() {
+	var ya = yargs
+		.coerce({
+			date: Date.parse,
+			json: JSON.parse
+		})
+		.argv
+}
+function Argv$coerceWithKeys() {
+	var ya = yargs
+		.coerce(['src', 'dest'], path.resolve)
+		.argv
+}
+
+// From http://yargs.js.org/docs/#methods-failfn
+function Argv$fail() {
+	var ya = yargs
+		.fail(function (msg, err) {
+			if (err) throw err // preserve stack
+			console.error('You broke it!')
+			console.error(msg)
+			process.exit(1)
+		})
+		.argv
+}
+
+function Argv$implies() {
+	var ya = yargs
+		.implies('foo', 'snuh')
+		.implies({
+			x: 'y'
+		})
+		.argv
+}
+
+function Argv$count() {
+	var ya = yargs
+		.count('size')
+		.count(['w', 'h'])
+		.argv
+}
+
+function Argv$number() {
+	var ya = yargs
+		.number('n')
+		.number(['width', 'height'])
+		.argv
+}
+
+function Argv$updateStrings() {
+	var ya = yargs
+		.command('run', 'the run command')
+		.help('help')
+		.updateStrings({
+			'Commands:': 'My Commands -->\n'
+		})
+		.wrap(null)
+		.argv
+}
+
+function Argv$default() {
+	var ya = yargs
+		.default('random', function randomValue() {
+			return Math.random() * 256;
+		})
+		.argv
+}
+
+function Argv$configObject() {
+	var ya = yargs
+		.config({foo: 1, bar: 2})
+		.argv
+}
+
+function Argv$configParseFunction() {
+	var ya = yargs
+		.config('settings', function (configPath) {
+			return JSON.parse(fs.readFileSync(configPath, 'utf-8'))
+		})
+		.config('settings', 'description', function (configPath) {
+			return JSON.parse(fs.readFileSync(configPath, 'utf-8'))
+		})
+		.argv
+}
+
+function Argv$helpDescriptionExplicit() {
+	var ya = yargs
+		.help('help', 'description', true)
+		.argv
+}
+
+function Argv$showHelpConsoleLevel() {
+	yargs.showHelp("log"); //prints to stdout using console.log()
+}
+
+function Argv$getCompletion() {
+	var ya = yargs
+		.option('foobar', {})
+		.option('foobaz', {})
+		.completion()
+		.getCompletion(['./test.js', '--foo'], function (completions) {
+			console.log(completions)
+		})
+		.argv
+}
+
+function Argv$pkgConf() {
+	var ya = yargs
+		.pkgConf(['key1', 'key2'], 'configFile.json')
+		.argv
+}
+
+function Argv$recommendCommands() {
+	var ya = yargs
+		.recommendCommands()
+		.argv
+}
+
+function Argv$showCompletionScript() {
+	var ya = yargs
+		.showCompletionScript()
+		.argv
+}
+
+function Argv$skipValidation() {
+	var ya = yargs
+		.skipValidation('arg1')
+		.skipValidation(['arg2', 'arg3'])
+		.argv
+}
+
+function Argv$commandObject() {
+    var ya = yargs
+        .command("commandname", "description", {
+            "arg": {
+                alias: "string",
+                array: true,
+                boolean: true,
+                choices: ["a", "b", "c"],
+                coerce: f => JSON.stringify(f),
+                config: true,
+                configParser: t => t,
+                count: true,
+                default: "myvalue",
+                defaultDescription: "description",
+                demand: true,
+                desc: "desc",
+                describe: "describe",
+                description: "description",
+                global: false,
+                group: "group",
+                nargs: 1,
+                normalize: false,
+                number: true,
+                requiresArg: true,
+                skipValidation: false,
+                string: true,
+                type: "string"
+            }
+        })
 }
