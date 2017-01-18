@@ -3,8 +3,7 @@
 // Definitions by: pgonzal <https://github.com/pgonzal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module ZSchema {
-
+declare namespace Validator {
     export interface Options {
         asyncTimeout?: number;
         forceAdditional?: boolean;
@@ -80,71 +79,68 @@ declare module ZSchema {
          */
         inner: SchemaErrorDetail[];
     }
-
-    export class Validator {
-
-        /**
-         * Register a custom format.
-         *
-         * @param name - name of the custom format
-         * @param validatorFunction - custom format validator function.
-         *   Returns `true` if `value` matches the custom format.
-         */
-        public static registerFormat(formatName: string, validatorFunction: (value: any) => boolean): void;
-
-        /**
-         * Unregister a format.
-         *
-         * @param name - name of the custom format
-         */
-        public static unregisterFormat(name: string): void;
-
-        /**
-         * Get the list of all registered formats.
-         *
-         * Both the names of the burned-in formats and the custom format names are
-         * returned by this function.
-         *
-         * @returns {string[]} the list of all registered format names.
-         */
-        public static getRegisteredFormats(): string[];
-
-        public static getDefaultOptions(): Options;
-
-        constructor(options: Options);
-
-        /**
-         * @param schema - JSON object representing schema
-         * @returns {boolean} true if schema is valid.
-         */
-        validateSchema(schema: any): boolean;
-
-        /**
-         * @param json - either a JSON string or a parsed JSON object
-         * @param schema - the JSON object representing the schema
-         * @returns true if json matches schema
-         */
-        validate(json: any, schema: any): boolean;
-
-        /**
-         * @param json - either a JSON string or a parsed JSON object
-         * @param schema - the JSON object representing the schema
-         */
-        validate(json: any, schema: any, callback: (err: any, valid: boolean) => void): void;
-
-        /**
-         * Returns an Error object for the most recent failed validation, or null if the validation was successful.
-         */
-        getLastError(): SchemaError;
-
-        /**
-         * Returns the error details for the most recent validation, or undefined if the validation was successful.
-         * This is the same list as the SchemaError.details property.
-         */
-        getLastErrors(): SchemaErrorDetail[];
-    }
 }
 
-declare module "z-schema" {
-  export = ZSchema.Validator;
+declare class Validator {
+    /**
+     * Register a custom format.
+     *
+     * @param name - name of the custom format
+     * @param validatorFunction - custom format validator function.
+     *   Returns `true` if `value` matches the custom format.
+     */
+    public static registerFormat(formatName: string, validatorFunction: (value: any) => boolean): void;
+
+    /**
+     * Unregister a format.
+     *
+     * @param name - name of the custom format
+     */
+    public static unregisterFormat(name: string): void;
+
+    /**
+     * Get the list of all registered formats.
+     *
+     * Both the names of the burned-in formats and the custom format names are
+     * returned by this function.
+     *
+     * @returns {string[]} the list of all registered format names.
+     */
+    public static getRegisteredFormats(): string[];
+
+    public static getDefaultOptions(): Validator.Options;
+
+    constructor(options: Validator.Options);
+
+    /**
+     * @param schema - JSON object representing schema
+     * @returns {boolean} true if schema is valid.
+     */
+    validateSchema(schema: any): boolean;
+
+    /**
+     * @param json - either a JSON string or a parsed JSON object
+     * @param schema - the JSON object representing the schema
+     * @returns true if json matches schema
+     */
+    validate(json: any, schema: any): boolean;
+
+    /**
+     * @param json - either a JSON string or a parsed JSON object
+     * @param schema - the JSON object representing the schema
+     */
+    validate(json: any, schema: any, callback: (err: any, valid: boolean) => void): void;
+
+    /**
+     * Returns an Error object for the most recent failed validation, or null if the validation was successful.
+     */
+    getLastError(): Validator.SchemaError;
+
+    /**
+     * Returns the error details for the most recent validation, or undefined if the validation was successful.
+     * This is the same list as the SchemaError.details property.
+     */
+    getLastErrors(): Validator.SchemaErrorDetail[];
 }
+
+export = Validator;
