@@ -1,13 +1,13 @@
-var prom = new Promise<Boolean>((resolve, reject) => {
+var prom = new Promise<boolean>((resolve, reject) => {
 	resolve(true);
 });
 
-var prom2 = new Promise<Boolean>((resolve, reject) => {
+var prom2 = new Promise<boolean>((resolve, reject) => {
 	resolve(true);
 });
 
 prom.then((val) => {
-  console.log(val);
+  const b: boolean = val;
 }).catch(() => {
 
 });
