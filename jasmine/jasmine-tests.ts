@@ -872,6 +872,14 @@ var customMatchers: jasmine.CustomMatcherFactories = {
     }
 };
 // add the custom matchers to interface jasmine.Matchers via TypeScript declaration merging
+// if your test files import or export anything, you'll want to use:
+// declare global {
+//     namespace jasmine {
+//         interface Matchers {
+//             ...
+//         }
+//     }
+// }
 declare namespace jasmine {
     interface Matchers {
         toBeGoofy(expected?: any): boolean;
