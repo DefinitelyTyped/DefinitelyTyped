@@ -6712,9 +6712,9 @@ declare namespace _ {
         /**
          * @see _.filter
          */
-        filter<W extends {}, T>(
+        filter<T>(
             collection: List<T>|Dictionary<T>,
-            predicate: W
+            predicate: PartialObject<T>
         ): T[];
     }
 
@@ -6745,7 +6745,7 @@ declare namespace _ {
         /**
          * @see _.filter
          */
-        filter<W>(predicate: W): LoDashImplicitArrayWrapper<T>;
+        filter(predicate: PartialObject<T>): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -6766,7 +6766,7 @@ declare namespace _ {
         /**
          * @see _.filter
          */
-        filter<W, T>(predicate: W): LoDashImplicitArrayWrapper<T>;
+        filter<T>(predicate: PartialObject<T>): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitWrapper<T> {
@@ -6796,7 +6796,7 @@ declare namespace _ {
         /**
          * @see _.filter
          */
-        filter<W>(predicate: W): LoDashExplicitArrayWrapper<T>;
+        filter(predicate: PartialObject<T>): LoDashExplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
@@ -6817,7 +6817,7 @@ declare namespace _ {
         /**
          * @see _.filter
          */
-        filter<W, T>(predicate: W): LoDashExplicitArrayWrapper<T>;
+        filter<T>(predicate: PartialObject<T>): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.find

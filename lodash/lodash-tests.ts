@@ -3625,15 +3625,15 @@ namespace TestFilter {
 
         result = _.filter<TResult>(array, listIterator);
         result = _.filter<TResult>(array, '');
-        result = _.filter<{a: number}, TResult>(array, {a: 42});
+        result = _.filter<TResult>(array, {a: 42});
 
         result = _.filter<TResult>(list, listIterator);
         result = _.filter<TResult>(list, '');
-        result = _.filter<{a: number}, TResult>(list, {a: 42});
+        result = _.filter<TResult>(list, {a: 42});
 
         result = _.filter<TResult>(dictionary, dictionaryIterator);
         result = _.filter<TResult>(dictionary, '');
-        result = _.filter<{a: number}, TResult>(dictionary, {a: 42});
+        result = _.filter<TResult>(dictionary, {a: 42});
     }
 
     {
@@ -3647,15 +3647,15 @@ namespace TestFilter {
 
         result = _(array).filter(listIterator);
         result = _(array).filter('');
-        result = _(array).filter<{a: number}>({a: 42});
+        result = _(array).filter({a: 42});
 
         result = _(list).filter<TResult>(listIterator);
         result = _(list).filter<TResult>('');
-        result = _(list).filter<{a: number}, TResult>({a: 42});
+        result = _(list).filter<TResult>({a: 42});
 
         result = _(dictionary).filter<TResult>(dictionaryIterator);
         result = _(dictionary).filter<TResult>('');
-        result = _(dictionary).filter<{a: number}, TResult>({a: 42});
+        result = _(dictionary).filter<TResult>({a: 42});
     }
 
     {
@@ -3669,15 +3669,15 @@ namespace TestFilter {
 
         result = _(array).chain().filter(listIterator);
         result = _(array).chain().filter('');
-        result = _(array).chain().filter<{a: number}>({a: 42});
+        result = _(array).chain().filter({a: 42});
 
         result = _(list).chain().filter<TResult>(listIterator);
         result = _(list).chain().filter<TResult>('');
-        result = _(list).chain().filter<{a: number}, TResult>({a: 42});
+        result = _(list).chain().filter<TResult>({a: 42});
 
         result = _(dictionary).chain().filter<TResult>(dictionaryIterator);
         result = _(dictionary).chain().filter<TResult>('');
-        result = _(dictionary).chain().filter<{a: number}, TResult>({a: 42});
+        result = _(dictionary).chain().filter<TResult>({a: 42});
     }
 }
 
