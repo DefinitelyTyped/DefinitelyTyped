@@ -405,3 +405,7 @@ fooStream = fooStream.debounce(num);
 fooStream = fooStream.latest();
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+fooArrStream = fooStream.batch(num);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

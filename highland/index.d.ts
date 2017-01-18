@@ -1,6 +1,6 @@
 // Type definitions for Highland 1.14.0
 // Project: http://highlandjs.org/
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds/>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds/>, Eric Coutu <https://github.com/ecoutu/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -1008,6 +1008,19 @@ declare namespace Highland {
 		 * @api public
 		 */
 		latest(): Stream<R>;
+
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+		/**
+		 * Takes one Stream and batches incoming data into arrays of given length
+		 *
+		 * @id batch
+		 * @section Streams
+		 * @name Stream.batch(n)
+		 * @param {Number} n - length of the array to batch
+		 * @api public
+		 */
+		batch(n: number): Stream<R[]>;
 	}
 }
 
