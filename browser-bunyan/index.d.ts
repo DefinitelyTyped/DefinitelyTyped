@@ -3,6 +3,10 @@
 // Definitions by: Paul Lockwood <https://github.com/PaulLockwood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from "bunyan";
+import bunyan = require("bunyan");
 
-export function ConsoleFormattedStream(): void;
+declare module "bunyan" {
+    export function ConsoleFormattedStream(): void;
+}
+
+export = bunyan;

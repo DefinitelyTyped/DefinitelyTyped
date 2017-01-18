@@ -2,6 +2,7 @@
 // Project: https://github.com/gpbl/react-day-picker
 // Definitions by: Giampaolo Bellavite <https://github.com/gpbl>, Jason Killian <https://github.com/jkillian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.0
 
 /// <reference types="react" />
 
@@ -22,9 +23,9 @@ declare namespace ReactDayPicker {
     }
 
     interface DayModifiers {
-         selected?: boolean;
-         disabled?: boolean;
-         [name: string]: boolean;
+        selected?: boolean;
+        disabled?: boolean;
+        [name: string]: boolean | undefined;
     }
 
     interface Modifiers {
