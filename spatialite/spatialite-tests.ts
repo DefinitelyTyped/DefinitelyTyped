@@ -17,7 +17,9 @@ function applySpatialFunctions() {
 
 spatialite.verbose();
 
-var db: spatialite.Database;
+// This line is enhanced to fulfill the `strictNullChecks` option
+var db: spatialite.Database = new spatialite.Database('chain.sqlite3', () => {});
+// var db: spatialite.Database
 
 function createDb() {
     console.log("createDb chain");
