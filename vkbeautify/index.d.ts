@@ -45,4 +45,4 @@ declare namespace vkbeautify {
     function sqlmin(text: string): string;
 }
 
-export default vkbeautify;
+export = vkbeautify;
