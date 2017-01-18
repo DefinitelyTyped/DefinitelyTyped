@@ -1,5 +1,3 @@
-/// <reference types="d3" />
-
 namespace nvd3_test_parallelCoordinates {
     var chart;
     nv.addGraph(function () {
