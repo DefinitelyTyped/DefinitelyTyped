@@ -3,7 +3,7 @@
 // Definitions by: Marc Climent <https://github.com/mcliment>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="d3"/>
+import * as d3 from "d3";
 
 export = c3;
 export as namespace c3;
