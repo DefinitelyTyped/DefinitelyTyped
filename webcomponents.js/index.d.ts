@@ -40,6 +40,13 @@ declare namespace webcomponents {
         flags: any;
     }
 
+     /**
+     * I just slapped this in here - sure it could be better ... :-)
+     */
+    export interface CustomElements {
+        define( tagName:string, elementClass:any ):void;
+    }
+
 }
 
 declare module "webcomponents.js" {
@@ -59,4 +66,6 @@ interface Window {
     CustomElements: webcomponents.CustomElementsPolyfill;
     HTMLImports: webcomponents.HTMLImportsPolyfill;
     WebComponents: webcomponents.Polyfill;
+
+    customElements: webcomponents.CustomElements;
 }

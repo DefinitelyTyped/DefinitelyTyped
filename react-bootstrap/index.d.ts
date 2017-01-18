@@ -5,6 +5,7 @@
 
 import * as React from 'react';
 export = ReactBootstrap;
+export as namespace ReactBootstrap;
 
 declare namespace ReactBootstrap {
 
@@ -602,7 +603,17 @@ declare namespace ReactBootstrap {
     // <Tab />
     interface TabProps extends React.HTMLProps<Tab> {
         animation?: boolean;
+        'aria-labelledby'?:string;
+        bsClass?:string; 
         eventKey?: any; // TODO: Add more specific type
+        onEnter?: Function;
+        onEntered?: Function;
+        onEntering?: Function;
+        onExit?: Function;
+        onExited?: Function;
+        onExiting?: Function;
+        unmountOnExit?: boolean;
+        tabClassName?:string;
     }
     interface TabClass extends React.ClassicComponentClass<TabProps> {
         Container: TabContainer;

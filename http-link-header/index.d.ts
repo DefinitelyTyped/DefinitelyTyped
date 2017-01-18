@@ -6,7 +6,7 @@
 export interface Reference {
     uri: string;
     rel: string;
-    title?: string;
+    [index: string]: string;
 }
 export interface Link {
     refs: Reference[];
