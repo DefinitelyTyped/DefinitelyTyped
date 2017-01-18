@@ -32,7 +32,6 @@ declare namespace MockRaf {
 
 }
 
-declare module 'mock-raf' {
-  const mockRaf: () => MockRaf.Creator;
-  export = mockRaf;
-}
+declare function MockRaf(): MockRaf.Creator;
+
+export = MockRaf;
