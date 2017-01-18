@@ -3,7 +3,7 @@
 // Definitions by: Pavel Puchkov <https://github.com/0x6368656174>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import passport = require("passport");
+import * as passport from "passport";
 
 declare class Strategy implements passport.Strategy {
     authenticate: () => void;
