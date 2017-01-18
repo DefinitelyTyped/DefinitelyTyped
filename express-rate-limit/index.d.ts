@@ -1,4 +1,4 @@
-// Type definitions for express-rate-limit 2.6.0
+// Type definitions for express-rate-limit 2.6
 // Project: https://github.com/nfriedly/express-rate-limit
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
