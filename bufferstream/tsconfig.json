@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
+        "postbuffer.d.ts",
         "bufferstream-tests.ts"
     ]
 }
