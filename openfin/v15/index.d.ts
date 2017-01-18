@@ -1,10 +1,11 @@
-// Type definitions for OpenFin API 16.0
+// Type definitions for OpenFin API 15.0
 // Project: https://openfin.co/
 // Definitions by: Chris Barker <https://github.com/chrisbarker/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// based on v6.49.16.16
+// based on v6.49.15.18
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean
+
 
 /**
  * JavaScript API
@@ -157,25 +158,9 @@ declare namespace fin {
 	}
 
 	interface ApplicationOptions {
-		/**
-		 * The name of the application.
-		 */
-		name?: string;
-		/**
-		 * The url to the application.
-		 */
 		url?: string;
-		/**
-		 * The UUID of the application, unique within the set of all other applications running in the OpenFin Runtime. name and uuid must match.
-		 */
 		uuid?: string;
-		/**
-		 * Enable Flash at the application level. Default: false.
-		 */
-		plugins?: boolean;
-		/**
-		 * The options of the main window of the application.
-		 */
+		name?: string;
 		mainWindowOptions?: WindowOptions;
 	}
 
@@ -549,10 +534,6 @@ declare namespace fin {
 		 */
 		getEnvironmentVariable(envVar: string, callback?: (variable: string) => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Retrieves system information.
-		 */
-		getHostSpecs(callback?: (info: HostSpecInfo) => void, errorCallback?: (reason: string) => void): void;
-		/**
 		 * Retrieves the contents of the log with the specified filename.
 		 */
 		getLog(logFileName: string, callback?: (variable: string) => void, errorCallback?: (reason: string) => void): void;
@@ -696,64 +677,6 @@ declare namespace fin {
 		 */
 		left?: number;
 	}
-
-	interface HostSpecInfo {
-		/**
-		 * "x86" for 32-bit or "x86_64" for 64-bit
-		 */
-		arch: string;
-		/**
-		 * Same payload as Node's os.cpus()
-		 */
-		cpus: NodeCpuInfo[];
-		/**
-		 *
-		 */
-		gpu: {
-			/**
-			 * Graphics card name
-			 */
-			name: string;
-		};
-		/**
-		 * Same payload as Node's os.totalmem()
-		 */
-		memory: number;
-		/**
-		 * OS name and version/edition
-		 */
-		name: string;
-	}
-
-	interface NodeCpuInfo {
-        model: string;
-		/**
-		 * in MHz
-		 */
-        speed: number;
-        times: {
-			/**
-			 * The number of milliseconds the CPU has spent in user mode.
-			 */
-            user: number;
-			/**
-			 * The number of milliseconds the CPU has spent in nice mode.
-			 */
-            nice: number;
-			/**
-			 * The number of milliseconds the CPU has spent in sys mode.
-			 */
-            sys: number;
-			/**
-			 * The number of milliseconds the CPU has spent in idle mode.
-			 */
-            idle: number;
-			/**
-			 * The number of milliseconds the CPU has spent in irq mode.
-			 */
-            irq: number;
-        };
-    }
 
 	interface LogInfo {
 		/**
