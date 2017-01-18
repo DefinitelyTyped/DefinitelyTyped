@@ -112,7 +112,7 @@ Your package should have this structure:
 
 Generate these by running `npm run new-package -- new-package-name`.
 
-You may edit the `tsconfig.json` to add new files or to add the `"jsx"` compiler option.
+You may edit the `tsconfig.json` to add new files, to add to `"lib"`, or to add the `"jsx"` compiler option.
 
 DefinitelyTyped members routinely monitor for new PRs, though keep in mind that the number of other PRs may slow things down.
 

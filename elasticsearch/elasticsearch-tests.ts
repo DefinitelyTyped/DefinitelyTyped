@@ -32,6 +32,17 @@ client.indices.delete({
 }, function (error) {
 });
 
+client.deleteByQuery({
+  index: 'test_index',
+  type: 'test_type',
+  body: {
+    query: {
+    }
+  }
+}).then(function (response) {
+}, function (error) {
+});
+
 client.create({
   index: 'index',
   type: 'type'

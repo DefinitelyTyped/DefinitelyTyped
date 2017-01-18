@@ -1765,7 +1765,7 @@ declare namespace __MaterialUI {
         multiLine?: boolean;
         name?: string;
         onBlur?: React.FocusEventHandler<{}>;
-        onChange?: React.FormEventHandler<{}>;
+        onChange?: (e: React.FormEvent<{}>, newValue: string) => void;
         onEnterKeyDown?: React.KeyboardEventHandler<{}>;
         onFocus?: React.FocusEventHandler<{}>;
         onKeyDown?: React.KeyboardEventHandler<{}>;
