@@ -1,7 +1,8 @@
-// Type definitions for Umbraco v7.2.8
+// Type definitions for Umbraco v7.5.0
 // Project: https://github.com/umbraco
 // Definitions by: DeCareSystemsIreland <https://github.com/DeCareSystemsIreland>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Definitions: https://our.umbraco.org/apidocs/ui/#/api/umbraco.resources
 
 /// <reference types="angular" />
 
