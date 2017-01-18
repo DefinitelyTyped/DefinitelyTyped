@@ -1,11 +1,11 @@
-// Type definitions for mock-raf
+// Type definitions for mock-raf 1.0
 // Project: mock-raf
 // Definitions by: Daniel Pereira <https://github.com/djpereira>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'mock-raf' {
+declare namespace MockRaf {
 
-  interface MockRafOptions {
+  interface Options {
 
     /** The time that should pass during each requestAnimationFrame step in milliseconds. Default is roughly equivalent to default browser behavior. */
     time?: number;
@@ -14,7 +14,8 @@ declare module 'mock-raf' {
     count?: number;
   }
 
-  interface MockRaf {
+  /** Creates a mockRaf instance, exposing the functions you'll use to interact with the mock. */
+  interface Creator {
 
     /** Returns the current now value of the mock. Starts at 0 and increases with each step() taken. Useful for stubbing out performance.now() or a polyfill when using requestAnimationFrame with timers. */
     now(): number;
@@ -26,9 +27,12 @@ declare module 'mock-raf' {
     cancel(handle: number): void;
 
     /** Takes requestAnimationFrame steps. Fires currently queued callbacks for each step and increments now time for each step. The primary way to interact with a mockRaf instance for testing. */
-    step(options?: MockRafOptions): void;
+    step(options?: Options): void;
   }
 
-  /** Creates a mockRaf instance, exposing the functions you'll use to interact with the mock. */
-  export default function createMockRaf(): MockRaf;
+}
+
+declare module 'mock-raf' {
+  const mockRaf: () => MockRaf.Creator;
+  export = mockRaf;
 }

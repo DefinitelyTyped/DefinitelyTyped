@@ -1,4 +1,4 @@
-import createMockRaf from 'mock-raf';
+import * as createMockRaf from 'mock-raf';
 
 const mockRaf = createMockRaf();
 const id = mockRaf.raf(() => {
