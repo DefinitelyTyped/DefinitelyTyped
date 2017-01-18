@@ -25,10 +25,32 @@ const newFramework:passport.Framework = {
 };
 passport.use(new TestStrategy());
 passport.framework(newFramework);
-passport.serializeUser((user, done) => { });
-passport.serializeUser<string, number>((user, done) => { });
-passport.deserializeUser((id, done) => { });
-passport.deserializeUser<string, number>((id, done) => { });
+
+interface TestUser {
+  id: number;
+}
+passport.serializeUser((user: TestUser, done) => {
+  done(null, user.id);
+});
+passport.serializeUser<TestUser, number>((user, done) => {
+  if (user.id > 0) {
+    done(null, user.id);
+  } else {
+    done(new Error('user ID is invalid'))
+  }
+});
+passport.deserializeUser((id, done) => {
+  done(null, {id});
+});
+passport.deserializeUser<TestUser, number>((id, done) => {
+  const fetchUser = (id: number): Promise<TestUser> => {
+    return Promise.reject(new Error(`user not found: ${id}`));
+  };
+
+  fetchUser(id)
+    .then((user) => done(null, user))
+    .catch((err) => done(err));
+});
 
 passport.use(new TestStrategy())
   .unuse('test')
