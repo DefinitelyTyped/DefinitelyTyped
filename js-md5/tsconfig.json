@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "md5-tests.ts"
+        "js-md5-tests.ts"
     ]
 }

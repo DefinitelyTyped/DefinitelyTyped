@@ -1,21 +1,21 @@
-// Type definitions for LaterJS
+// Type definitions for LaterJS 1.2
 // Project: http://bunkat.github.io/later/
-// Definitions by: Jason D Dryhurst-Smith <http://jasonds.co.uk/>
+// Definitions by: Jason D Dryhurst-Smith <https://github.com/jasond-s>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace Later {
+declare namespace later {
 
-    export interface IScheduleData {
+    interface ScheduleData {
 
         /**
          * A list of recurrence information as a composite schedule.
          */
-        schedules: IRecurrence[];
+        schedules: Recurrence[];
 
         /**
          * A list of exceptions to the composite recurrence information.
          */
-        exceptions: IRecurrence[];
+        exceptions: Recurrence[];
 
         /**
          * A code to identify any errors in the composite schedule and exceptions.
@@ -24,7 +24,7 @@ declare namespace Later {
         error: number;
     }
 
-    export interface IRecurrence {
+    interface Recurrence {
 
         /** Time in seconds from midnight.
          */
@@ -145,29 +145,29 @@ declare namespace Later {
         [ timeperiodAndModifierName: string ]: number[];
     }
 
-    export interface IParseStatic {
+    interface ParseStatic {
 
         /**
          * Create a recurrence builder for building schedule data.
          */
-        recur(): IRecurrenceBuilder;
+        recur(): RecurrenceBuilder;
 
         /**
          * Create schedule data by parsing a cron string
          *
          * @param {string} [input] - A string value to parse.
          */
-        cron(input?: string): IScheduleData;
+        cron(input?: string): ScheduleData;
 
         /**
          * Create schedule data by paring a human readable string.
          *
          * @param {string} [input] - A string value to parse.
          */
-        text(input?: string): IScheduleData;
+        text(input?: string): ScheduleData;
     }
 
-    export interface ITimer {
+    interface Timer {
 
         /**
          * Clear the timer and end execution.
@@ -175,7 +175,7 @@ declare namespace Later {
         clear(): void;
     }
 
-    export interface ISchedule {
+    interface Schedule {
 
         /**
         * Finds the next valid instance or instances of the current schedule,
@@ -226,48 +226,48 @@ declare namespace Later {
         prevRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
     }
 
-    export interface IRecurrenceBuilder extends IScheduleData {
+    interface RecurrenceBuilder extends ScheduleData {
 
         /** a time period
          */
-        second(): IRecurrenceBuilder;
+        second(): RecurrenceBuilder;
         /** a time period
          */
-        minute(): IRecurrenceBuilder;
+        minute(): RecurrenceBuilder;
         /** a time period
          */
-        hour(): IRecurrenceBuilder;
+        hour(): RecurrenceBuilder;
         /** a time period
          */
-        time(): IRecurrenceBuilder;
+        time(): RecurrenceBuilder;
         /** a time period
          */
-        dayOfWeek(): IRecurrenceBuilder;
+        dayOfWeek(): RecurrenceBuilder;
         /** a time period
          */
-        dayOfWeekCount(): IRecurrenceBuilder;
+        dayOfWeekCount(): RecurrenceBuilder;
         /** a time period
          */
-        dayOfMonth(): IRecurrenceBuilder;
+        dayOfMonth(): RecurrenceBuilder;
         /** a time period
          */
-        dayOfYear(): IRecurrenceBuilder;
+        dayOfYear(): RecurrenceBuilder;
         /** a time period
          */
-        weekOfMonth(): IRecurrenceBuilder;
+        weekOfMonth(): RecurrenceBuilder;
         /** a time period
          */
-        weekOfYear(): IRecurrenceBuilder;
+        weekOfYear(): RecurrenceBuilder;
         /** a time period
          */
-        month(): IRecurrenceBuilder;
+        month(): RecurrenceBuilder;
         /** a time period
          */
-        year(): IRecurrenceBuilder;
+        year(): RecurrenceBuilder;
 
         /** a time period
          */
-        fullDate(): IRecurrenceBuilder;
+        fullDate(): RecurrenceBuilder;
 
         /**
          * Specifies one or more specific vals of a time period information provider.
@@ -275,34 +275,21 @@ declare namespace Later {
          *
          * @param {number[]} values - A list of values.
          */
-        on(...values: number[]): IRecurrenceBuilder;
+        on(...values: number[]): RecurrenceBuilder;
         /**
          * Specifies one or more specific vals of a time period information provider.
          * When used to specify a time, a string indicating the 24-hour time may be used.
          *
-         * @param {string} value - A string representing your value.
+         * @param value - A Date or string representing your value.
          */
-        on(value: string): IRecurrenceBuilder;
-        /**
-         * Specifies one or more specific vals of a time period information provider.
-         * When used to specify a time, a string indicating the 24-hour time may be used.
-         *
-         * @param {Date} date - A Date representing your value.
-         */
-        on(date: Date): IRecurrenceBuilder;
+        on(value: Date | string): RecurrenceBuilder;
 
         /**
          * Preceed a time period.
          *
-         * @param {number} [value] - A number representing your value.
+         * @param [value] - A number or string representing your value.
          */
-        every(value?: number): IRecurrenceBuilder;
-        /**
-         * Preceed a time period.
-         *
-         * @param {string} [value] - A string representing your value.
-         */
-        every(value?: string): IRecurrenceBuilder;
+        every(value?: number | string): RecurrenceBuilder;
 
         /**
          * Preceed a time period.
@@ -310,98 +297,80 @@ declare namespace Later {
          * @param {number} start - A number representing your start value.
          * @param {number} end - A number representing your end value.
          */
-        between(start: number, end: number): IRecurrenceBuilder;
+        between(start: number, end: number): RecurrenceBuilder;
         /**
          * Preceed a time period.
          *
          * @param {string} start - A string representing your start value.
          * @param {string} end - A string representing your end value.
          */
-        between(start: string, end: string): IRecurrenceBuilder;
+        between(start: string, end: string): RecurrenceBuilder;
 
         /**
          * After a time period.
          *
-         * @param {number} value - A number representing your value.
+         * @param value - A number or string representing your value.
          */
-        after(value: number): IRecurrenceBuilder;
+        after(value: number | string): RecurrenceBuilder;
+
         /**
-         * After a time period.
+         * Before a time period.
          *
-         * @param {string} value - A string representing your value.
+         * @param value - A number or string representing your value.
          */
-        after(value: string): IRecurrenceBuilder;
+        before(value: number | string): RecurrenceBuilder;
 
         /**
          * After a time period.
          *
-         * @param {number} value - A number representing your value.
+         * @param value - A number or string representing your value.
          */
-        before(value: number): IRecurrenceBuilder;
-        /**
-         * After a time period.
-         *
-         * @param {string} value - A string representing your value.
-         */
-        before(value: string): IRecurrenceBuilder;
-
-        /**
-         * After a time period.
-         *
-         * @param {number} value - A number representing your value.
-         */
-        startingOn(value: number): IRecurrenceBuilder;
-        /**
-         * After a time period.
-         *
-         * @param {string} value - A string representing your value.
-         */
-        startingOn(value: string): IRecurrenceBuilder;
+        startingOn(value: number | string): RecurrenceBuilder;
 
         /**
          * Equivalent to .on(min)
          */
-        first(): IRecurrenceBuilder;
+        first(): RecurrenceBuilder;
 
         /**
          * Equivalent to .on(max)
          */
-        last(): IRecurrenceBuilder;
+        last(): RecurrenceBuilder;
 
         /**
          * Equivalent to .on(1,7).dayOfWeek()
          */
-        onWeekend(): IRecurrenceBuilder;
+        onWeekend(): RecurrenceBuilder;
 
         /**
          * Equivalent to .on(2,3,4,5,6).dayOfWeek()
          */
-        onWeekday(): IRecurrenceBuilder;
+        onWeekday(): RecurrenceBuilder;
 
         /**
          * Add a new schedule value to schedules, composite schedule.
          */
-        and(): IRecurrenceBuilder;
+        and(): RecurrenceBuilder;
 
         /**
          * Add exceptions.
          */
-        except(): IRecurrenceBuilder;
+        except(): RecurrenceBuilder;
 
         /**
          * Custom Timeperiod Recurrences.
          * Using a key as defined by the custom period in any extension to Later.IStatic.
          */
-        customPeriod(key: string): IRecurrenceBuilder;
+        customPeriod(key: string): RecurrenceBuilder;
 
         /**
          * Customise Recurrences.
          * Using a key as defined by the custom modifier in any extension to Later.IModifierStatic.
          */
-        customModifier(key: string, values: number): IRecurrenceBuilder;
+        customModifier(key: string, values: number): RecurrenceBuilder;
     }
 
-    export interface IDateProvider {
+    interface DateProvider {
 
         /**
          * Set later to use UTC time.
@@ -449,7 +418,7 @@ declare namespace Later {
          * @param {IModifier} constraint: A modifier
          * @param {ITimePeriod} period: A time period
          */
-        nextRollover(d: Date, val: number, constraint: IModifier, period: ITimePeriod): Date;
+        nextRollover(d: Date, val: number, constraint: Modifier, period: TimePeriod): Date;
 
         /**
          * Determines if a value will cause a particular constraint to rollover to the
@@ -461,10 +430,10 @@ declare namespace Later {
          * @param {IModifier} constraint: A modifier
          * @param {ITimePeriod} period: A time period
          */
-        prevRollover(d: Date, val: number, constraint: IModifier, period: ITimePeriod): Date;
+        prevRollover(d: Date, val: number, constraint: Modifier, period: TimePeriod): Date;
     }
 
-    export interface ITimePeriod {
+    interface TimePeriod {
 
         /**
          * The name of the time period information provider.
@@ -535,46 +504,46 @@ declare namespace Later {
         prev(date: Date, value: any): Date;
     }
 
-    export interface IModifier extends ITimePeriod {
+    interface Modifier extends TimePeriod {
         /**
          * Creates a new modified constraint.
          *
          * @param {ITimePeriod} constraint: The constraint to be modified
          * @param {number} value: The starting value of the after constraint
          */
-        (constraint: ITimePeriod, value: number): ITimePeriod;
+        (constraint: TimePeriod, value: number): TimePeriod;
     }
 
-    export interface IModifierStatic {
+    interface ModifierStatic {
 
         /**
          * After Modifier
          */
-        after: IModifier;
+        after: Modifier;
 
         /**
          * Before Modifier
          */
-        before: IModifier;
+        before: Modifier;
     }
 
-    export interface IStatic {
+    interface Static {
 
         /**
          * Schedule
          * Generates instances from schedule data.
          */
-        schedule(input: any): ISchedule;
+        schedule(input: any): Schedule;
 
         /**
          * Parse
          * For generating schedule data.
          */
-        parse: IParseStatic;
+        parse: ParseStatic;
 
         /** Date Provider
          */
-        date: IDateProvider;
+        date: DateProvider;
 
         /**
          * Set timeout on window using given recurrence next.
@@ -582,63 +551,63 @@ declare namespace Later {
          * @param {function} callback - A callback called after first instance of recurrence pattern.
          * @param {Later.IReccurence} - A recurrence instance.
          */
-        setTimeout(callback: () => void, time: IScheduleData): ITimer;
+        setTimeout(callback: () => void, time: ScheduleData): Timer;
         /**
          * Set interval on window using given recurrence
          *
          * @param {function} callback - A callback called after each instance of recurrence pattern.
          * @param {Later.IReccurence} - A recurrence instance.
          */
-        setInterval(callback: () => void, time: IScheduleData): ITimer;
+        setInterval(callback: () => void, time: ScheduleData): Timer;
 
         /**
          * time period information provider.
          */
-        time: ITimePeriod;
+        time: TimePeriod;
         /**
          * Second time period information provider.
          */
-        second: ITimePeriod;
+        second: TimePeriod;
         /**
          * Minute time period information provider.
          */
-        minute: ITimePeriod;
+        minute: TimePeriod;
         /**
          * Hour time period information provider.
          */
-        hour: ITimePeriod;
+        hour: TimePeriod;
         /**
          * Day time period information provider.
          */
-        day: ITimePeriod;
+        day: TimePeriod;
         /**
          * Day of week time period information provider.
          */
-        dayOfWeek: ITimePeriod;
+        dayOfWeek: TimePeriod;
         /**
          * Day of week in month time period information provider.
          */
-        dayOfWeekCount: ITimePeriod;
+        dayOfWeekCount: TimePeriod;
         /**
          * Day in year time period information provider.
          */
-        dayOfYear: ITimePeriod;
+        dayOfYear: TimePeriod;
         /**
          * Week of mobth time period information provider.
          */
-        weekOfMonth: ITimePeriod;
+        weekOfMonth: TimePeriod;
         /**
          * Week of yearfrom ISO 8601 time period information provider.
          */
-        weekOfYear: ITimePeriod;
+        weekOfYear: TimePeriod;
         /**
          * Month time period information provider.
          */
-        month: ITimePeriod;
+        month: TimePeriod;
         /**
          * Year time period information provider.
          */
-        year: ITimePeriod;
+        year: TimePeriod;
 
         /**
          * Later Modifiers:
@@ -652,7 +621,7 @@ declare namespace Later {
          *
          * Be sure to use this interface when dealing with Later.modifier
          */
-        modifier: IModifierStatic
+        modifier: ModifierStatic;
     }
 }
 
@@ -670,4 +639,7 @@ declare namespace Later {
  *
  * Be sure to use this interface when dealing with Later.
  */
-declare var later: Later.IStatic;
+declare var later: later.Static;
+
+export = later;
+export as namespace later;

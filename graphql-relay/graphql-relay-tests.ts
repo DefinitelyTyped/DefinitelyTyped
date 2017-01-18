@@ -29,7 +29,7 @@ import {
     pluralIdentifyingRootField,
     // Mutations
     mutationWithClientMutationId,
-} from ".";
+} from "graphql-relay";
 // Connections
 // connectionArgs returns the arguments that fields should provide when they return a connection type that supports bidirectional pagination.
 connectionArgs.first = 10;

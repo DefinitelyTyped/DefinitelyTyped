@@ -36,7 +36,7 @@ declare namespace JQueryDotDotDot {
         /** Whether to update the ellipsis: true/'window'
           * Default: false
           */
-        watch?: boolean;
+        watch?: boolean | "window";
 
         /** Optionally set a max-height, if null, the height will be measured.
           * Default: null

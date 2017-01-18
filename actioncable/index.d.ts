@@ -7,10 +7,11 @@ declare module ActionCable {
   interface Channel {
     unsubscribe(): void;
     perform(action: string, data: {}): void;
+    send(data: Object): boolean;
   }
 
   interface Subscriptions {
-    create(chan_name: string, obj: CreateMixin): Channel;
+    create(channel: string|ChannelNameWithParams, obj: CreateMixin): Channel;
   }
 
   interface Cable {
@@ -22,6 +23,11 @@ declare module ActionCable {
     disconnected(): void;
     received(obj: Object): void;
     [key: string]: Function;
+  }
+
+  interface ChannelNameWithParams {
+    channel: string;
+    [key: string]: any;
   }
 
   function createConsumer(): Cable;

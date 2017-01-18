@@ -1989,18 +1989,20 @@ declare namespace THREE {
         get(file: string): Loader;
     }
 
-    export class XHRLoader {
+    export class FileLoader {
         constructor(manager?: LoadingManager);
 
         manager: LoadingManager;
+        mimeType: MimeType;
         path: string;
         responseType: string;
-        withCredentials: boolean;
+        withCredentials: string        
 
-        load(url: string, onLoad?: (responseText: string) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): any;
-        setPath(path: string): XHRLoader;
-        setResponseType(responseType: string): XHRLoader;
-        setWithCredentials(withCredentials: boolean): XHRLoader;
+        load(url: string, onLoad?: (responseText: string) => void, onProgress?: (request: ProgressEvent) => void, onError?:(event: ErrorEvent) => void): any;
+        setMimeType(mimeType: MimeType): FileLoader;
+        setPath(path: string) : FileLoader;
+        setResponseType(responseType: string) : FileLoader;
+        setWithCredentials(value: string): FileLoader;
     }
 
     export class FontLoader {
@@ -5606,7 +5608,7 @@ declare namespace THREE {
 
     export class Texture extends EventDispatcher {
         constructor(
-            image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
+            image?: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
             mapping?: Mapping,
             wrapS?: Wrapping,
             wrapT?: Wrapping,
@@ -6483,10 +6485,10 @@ declare namespace THREE {
     }
 
     export class TubeGeometry extends Geometry {
-        constructor(path: Path, segments?: number, radius?: number, radiusSegments?: number, closed?: boolean, taper?: (u: number) => number);
+        constructor(path: Curve<Vector3>, segments?: number, radius?: number, radiusSegments?: number, closed?: boolean, taper?: (u: number) => number);
 
         parameters: {
-            path: Path;
+            path: Curve<Vector3>;
             segments: number;
             radius: number;
             radialSegments: number;

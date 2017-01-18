@@ -1,43 +1,53 @@
-// Type definitions for cookie-parser v0.5.1
+// Type definitions for cookies 0.6
 // Project: https://github.com/pillarjs/cookies
-// Definitions by: Wang Zishi <https://github.com/WangZishi/>
+// Definitions by: Wang Zishi <https://github.com/WangZishi/>, jKey Lu <https://github.com/jkeylu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+import { IncomingMessage, ServerResponse } from 'http';
+import * as Keygrip from 'keygrip';
+
+declare interface Cookies {
+    secure: boolean;
+    request: IncomingMessage;
+    response: ServerResponse;
+
+    /**
+     * This extracts the cookie with the given name from the
+     * Cookie header in the request. If such a cookie exists,
+     * its value is returned. Otherwise, nothing is returned.
+     */
+    get(name: string, opts?: Cookies.GetOption): string;
+
+    /**
+     * This sets the given cookie in the response and returns
+     * the current context to allow chaining.If the value is omitted,
+     * an outbound header with an expired date is used to delete the cookie.
+     */
+    set(name: string, value?: string, opts?: Cookies.SetOption): this;
+}
 
 
-import * as http from "http"
+declare namespace Cookies {
+    /**
+     * for backward-compatibility
+     */
+    export type ICookies = Cookies;
+    /**
+     * for backward-compatibility
+     */
+    export type IOptions = SetOption;
 
-declare namespace cookies {
-    interface ICookies {
-        /**
-         * This extracts the cookie with the given name from the
-         * Cookie header in the request. If such a cookie exists,
-         * its value is returned. Otherwise, nothing is returned.
-         */
-        get(name: string): string;
-        /**
-         * This extracts the cookie with the given name from the
-         * Cookie header in the request. If such a cookie exists,
-         * its value is returned. Otherwise, nothing is returned.
-         */
-        get(name: string, opts: IOptions): string;
-
-        /**
-         * This sets the given cookie in the response and returns
-         * the current context to allow chaining.If the value is omitted,
-         * an outbound header with an expired date is used to delete the cookie.
-         */
-        set(name: string, value: string): ICookies;
-        /**
-         * This sets the given cookie in the response and returns
-         * the current context to allow chaining.If the value is omitted,
-         * an outbound header with an expired date is used to delete the cookie.
-         */
-        set(name: string, value: string, opts: IOptions): ICookies;
+    export interface Option {
+        keys: string[] | Keygrip;
+        secure?: boolean;
     }
 
-    interface IOptions {
+    export interface GetOption {
+        signed: boolean;
+    }
+
+    export interface SetOption {
         /**
          * a number representing the milliseconds from Date.now() for expiry
          */
@@ -61,8 +71,7 @@ declare namespace cookies {
          */
         secure?: boolean;
         /**
-         * a boolean indicating whether the cookie is only to be sent
-         * over HTTPS (use this if you handle SSL not in your node process).
+         * "secureProxy" option is deprecated; use "secure" option, provide "secure" to constructor if needed
          */
         secureProxy?: boolean;
         /**
@@ -87,13 +96,59 @@ declare namespace cookies {
          */
         overwrite?: boolean;
     }
+
+    export type CookieAttr = SetOption;
+
+    export interface Cookie {
+        name: string;
+        value: string;
+        /**
+         * "maxage"" is deprecated, use "maxAge" instead
+         */
+        maxage: number;
+        maxAge: number;
+        expires: Date;
+        path: string;
+        domain: string;
+        secure: boolean;
+        httpOnly: boolean;
+        overwrite: boolean;
+
+        toString(): string;
+        toHeader(): string;
+    }
 }
 
-interface CookiesStatic {
-    new (request: http.IncomingMessage, response: http.ServerResponse): cookies.ICookies;
-    new (request: http.IncomingMessage, response: http.ServerResponse, keys?: Array<string>): cookies.ICookies;
+declare interface CookiesFunction {
+    (request: IncomingMessage, response: ServerResponse, options?: Cookies.Option): Cookies;
+    /**
+     * "options" array of key strings is deprecated, provide using options {"keys": keygrip}
+     */
+    // tslint:disable-next-line:unified-signatures
+    (request: IncomingMessage, response: ServerResponse, options: string[]): Cookies;
+    /**
+     * "options" instance of Keygrip is deprecated, provide using options {"keys": keygrip}
+     */
+    // tslint:disable-next-line:unified-signatures
+    (request: IncomingMessage, response: ServerResponse, options: Keygrip): Cookies;
+
+    new (request: IncomingMessage, response: ServerResponse, options?: Cookies.Option): Cookies;
+    /**
+     * "options" array of key strings is deprecated, provide using options {"keys": keygrip}
+     */
+    // tslint:disable-next-line:unified-signatures
+    new (request: IncomingMessage, response: ServerResponse, options: string[]): Cookies;
+    /**
+     * "options" instance of Keygrip is deprecated, provide using options {"keys": keygrip}
+     */
+    // tslint:disable-next-line:unified-signatures
+    new (request: IncomingMessage, response: ServerResponse, options: Keygrip): Cookies;
+
+    Cookie: {
+        new (name: string, value?: string, attrs?: Cookies.CookieAttr): Cookies.Cookie;
+    };
 }
 
-declare const cookies: CookiesStatic;
+declare const Cookies: CookiesFunction;
 
-export = cookies
+export = Cookies;

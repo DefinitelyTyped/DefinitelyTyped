@@ -76,7 +76,7 @@ interface Select2Options {
     /**
     * Template can return both plain string that will be HTML escaped and a jquery object that can render HTML
     */
-    templateSelection?: (object: Select2SelectionObject) => any;
+    templateSelection?: (object: Select2SelectionObject, container: JQuery) => any;
     templateResult?: (object: Select2SelectionObject) => any;
     language?: string | string[] | {};
     selectOnClose?: boolean;

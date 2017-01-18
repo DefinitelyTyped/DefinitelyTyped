@@ -16,6 +16,6 @@
     },
     "files": [
         "index.d.ts",
-        "inversify-devtools-test.ts"
+        "inversify-devtools-tests.ts"
     ]
 }

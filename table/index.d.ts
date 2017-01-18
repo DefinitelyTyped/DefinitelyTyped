@@ -44,8 +44,8 @@ export interface TableUserConfig {
   columnDefault?: ColumnConfig;
 }
 
-export function table (data: any[], userConfig?: TableUserConfig): string;
+export function table(data: any[], userConfig?: TableUserConfig): string;
 
-export function createStream (userConfig: TableUserConfig): { write: string[] };
+export function createStream(userConfig: TableUserConfig): { write: string[] };
 
-export function getBorderCharacters (templateName: borderType): JoinStruct;
+export function getBorderCharacters(templateName: borderType): JoinStruct;

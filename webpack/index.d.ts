@@ -1,11 +1,10 @@
-// Type definitions for webpack 2.0.0
+// Type definitions for webpack 2.2
 // Project: https://github.com/webpack/webpack
-// Definitions by: Qubo <https://github.com/tkqubo>
+// Definitions by: Qubo <https://github.com/tkqubo>, Matt Lewis <https://github.com/mattlewis92>, Benjamin Lim <https://github.com/bumbleblym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="uglify-js" />
-
 import * as UglifyJS from 'uglify-js';
+import * as tapable from 'tapable';
 
 declare namespace webpack {
     interface Configuration {
@@ -61,9 +60,11 @@ declare namespace webpack {
         /** Store compiler state to a json file. */
         recordsOutputPath?: string;
         /** Add additional plugins to the compiler. */
-        plugins?: (Plugin | Function)[];
+        plugins?: Plugin[];
         /** Stats options for logging  */
         stats?: compiler.StatsToStringOptions;
+        /** Performance options */
+        performance?: PerformanceOptions;
     }
 
     interface Entry {
@@ -153,23 +154,115 @@ declare namespace webpack {
     }
     type Module = OldModule | NewModule;
 
-    interface Resolve {
+    interface NewResolve {
+        /**
+         * A list of directories to resolve modules from.
+         *
+         * Absolute paths will be searched once.
+         *
+         * If an entry is relative, will be resolved using node's resolution algorithm
+         * relative to the requested file.
+         *
+         * Defaults to `["node_modules"]`
+         */
+        modules?: string[];
+
+        /**
+         * A list of package description files to search for.
+         *
+         * Defaults to `["package.json"]`
+         */
+        descriptionFiles?: string[];
+
+        /**
+         * A list of fields in a package description object to use for finding
+         * the entry point.
+         *
+         * Defaults to `["browser", "module", "main"]` or `["module", "main"]`,
+         * depending on the value of the `target` `Configuration` value.
+         */
+        mainFields?: string[];
+
+        /**
+         * A list of fields in a package description object to try to parse
+         * in the same format as the `alias` resolve option.
+         *
+         * Defaults to `["browser"]` or `[]`, depending on the value of the
+         * `target` `Configuration` value.
+         *
+         * @see alias
+         */
+        aliasFields?: string[];
+
+        /**
+         * A list of file names to search for when requiring directories that
+         * don't contain a package description file.
+         *
+         * Defaults to `["index"]`.
+         */
+        mainFiles?: string[];
+
+        /**
+         * A list of file extensions to try when requesting files.
+         *
+         * An empty string is considered invalid.
+         */
+        extensions?: string[];
+
+        /**
+         * If true, requires that all requested paths must use an extension
+         * from `extensions`.
+         */
+        enforceExtension?: boolean;
+
+        /**
+         * Replace the given module requests with other modules or paths.
+         *
+         * @see aliasFields
+         */
+        alias?: { [key: string]: string; };
+
+        /**
+         * Whether to use a cache for resolving, or the specific object
+         * to use for caching. Sharing objects may be useful when running
+         * multiple webpack compilers.
+         *
+         * Defaults to `true`.
+         */
+        unsafeCache?: {} | boolean;
+
+        /**
+         * A function used to decide whether to cache the given resolve request.
+         *
+         * Defaults to `() => true`.
+         */
+        cachePredicate?: (data: { path: string, request: string }) => boolean;
+    }
+
+    interface OldResolve {
         /** Replace modules by other modules or paths. */
         alias?: { [key: string]: string; };
         /**
          * The directory (absolute path) that contains your modules.
          * May also be an array of directories.
-         * This setting should be used to add individual directories to the search path. */
+         * This setting should be used to add individual directories to the search path.
+         *
+         * @deprecated Replaced by `modules` in webpack 2.
+         */
         root?: string | string[];
         /**
          * An array of directory names to be resolved to the current directory as well as its ancestors, and searched for modules.
          * This functions similarly to how node finds “node_modules” directories.
          * For example, if the value is ["mydir"], webpack will look in “./mydir”, “../mydir”, “../../mydir”, etc.
+         *
+         * @deprecated Replaced by `modules` in webpack 2.
          */
         modulesDirectories?: string[];
         /**
          * A directory (or array of directories absolute paths),
          * in which webpack should look for modules that weren’t found in resolve.root or resolve.modulesDirectories.
+         *
+         * @deprecated Replaced by `modules` in webpack 2.
          */
         fallback?: string | string[];
         /**
@@ -177,22 +270,49 @@ declare namespace webpack {
          * For example, in order to discover CoffeeScript files, your array should contain the string ".coffee".
          */
         extensions?: string[];
-        /** Check these fields in the package.json for suitable files. */
-        packageMains?: (string | string[])[];
-        /** Check this field in the package.json for an object. Key-value-pairs are threaded as aliasing according to this spec */
-        packageAlias?: (string | string[])[];
+        /**
+         * Check these fields in the package.json for suitable files.
+         *
+         * @deprecated Replaced by `mainFields` in webpack 2.
+         */
+        packageMains?: Array<string | string[]>;
+
+        /**
+         * Check this field in the package.json for an object. Key-value-pairs are threaded as aliasing according to this spec
+         *
+         * @deprecated Replaced by `aliasFields` in webpack 2.
+         */
+        packageAlias?: Array<string | string[]>;
+
         /**
          * Enable aggressive but unsafe caching for the resolving of a part of your files.
          * Changes to cached paths may cause failure (in rare cases). An array of RegExps, only a RegExp or true (all files) is expected.
          * If the resolved path matches, it’ll be cached.
+         *
+         * @deprecated Split into `unsafeCache` and `cachePredicate` in webpack 2.
          */
         unsafeCache?: RegExp | RegExp[] | boolean;
     }
 
-    interface ResolveLoader extends Resolve {
-        /** It describes alternatives for the module name that are tried. */
+    type Resolve = OldResolve | NewResolve;
+
+    interface OldResolveLoader extends OldResolve {
+        /** It describes alternatives for the module name that are tried.
+         * @deprecated Replaced by `moduleExtensions` in webpack 2.
+         */
         moduleTemplates?: string[];
     }
+
+    interface NewResolveLoader extends NewResolve {
+        /**
+         * List of strings to append to a loader's name when trying to resolve it.
+         */
+        moduleExtensions?: string[];
+
+        enforceModuleExtension?: boolean;
+    }
+
+    type ResolveLoader = OldResolveLoader | NewResolveLoader;
 
     type ExternalsElement = string | RegExp | ExternalsObjectElement | ExternalsFunctionElement;
 
@@ -200,9 +320,7 @@ declare namespace webpack {
         [key: string]: boolean | string;
     }
 
-    interface ExternalsFunctionElement {
-        (context: any, request: any, callback: (error: any, result: any) => void): any;
-    }
+    type ExternalsFunctionElement = (context: any, request: any, callback: (error: any, result: any) => void) => any;
 
     interface WatchOptions {
         /** Delay the rebuilt after the first change. Value is a time in ms. */
@@ -245,7 +363,8 @@ declare namespace webpack {
     }
     type ConditionSpec = TestConditionSpec | OrConditionSpec | AndConditionSpec | NotConditionSpec;
 
-    interface ConditionArray extends Array<Condition> {} 
+    // tslint:disable-next-line:no-empty-interface
+    interface ConditionArray extends Array<Condition> {}
     type Condition = string | RegExp | ((absPath: string) => boolean) | ConditionSpec | ConditionArray;
 
     interface OldLoader {
@@ -258,26 +377,26 @@ declare namespace webpack {
     }
     type Loader = string | OldLoader | NewLoader;
 
-    /** 
+    /**
      * There are direct and delegate rules. Direct Rules need a test, Delegate rules delegate to subrules bringing their own.
      * Direct rules can optionally contain delegate keys (oneOf, rules).
-     * 
+     *
      * These types exist to enforce that a rule has the keys `((loader XOR loaders) AND test) OR oneOf OR rules`
      */
     interface BaseRule {
         /**
          * Specifies the category of the loader. No value means normal loader.
-         * 
+         *
          * There is also an additional category "inlined loader" which are loaders applied inline of the import/require.
-         * 
+         *
          * All loaders are sorted in the order post, inline, normal, pre and used in this order.
-         * 
+         *
          * All normal loaders can be omitted (overridden) by prefixing ! in the request.
-         * 
+         *
          * All normal and pre loaders can be omitted (overridden) by prefixing -! in the request.
-         * 
+         *
          * All normal, post and pre loaders can be omitted (overridden) by prefixing !! in the request.
-         * 
+         *
          * Inline loaders and ! prefixes should not be used as they are non-standard. They may be use by loader generated code.
          */
         enforce?: 'pre' | 'post';
@@ -293,7 +412,7 @@ declare namespace webpack {
         issuer?: Condition | Condition[];
         /**
          * An object with parser options. All applied parser options are merged.
-         * 
+         *
          * For each different parser options object a new parser is created and plugins can apply plugins depending on the parser options. Many of the default plugins apply their parser plugins only if a property in the parser options is not set or true.
          */
         parser?: { [optName: string]: any };
@@ -334,7 +453,7 @@ declare namespace webpack {
         use: Loader | Loader[];
     }
     type UseRule = OldUseRule | NewUseRule;
-    
+
     // Delegate Rules
     interface RulesRule extends BaseRule {
         /** An array of Rules that is also used when the Rule matches. */
@@ -345,7 +464,9 @@ declare namespace webpack {
     }
     type Rule = LoaderRule | UseRule | RulesRule | OneOfRule;
 
-    interface Plugin { }
+    interface Plugin extends tapable.Plugin {
+        apply(thisArg: Webpack, ...args: any[]): void;
+    }
 
     interface Webpack {
         (config: Configuration, callback?: compiler.CompilerCallback): compiler.Compiler;
@@ -402,6 +523,11 @@ declare namespace webpack {
          */
         SourceMapDevToolPlugin: SourceMapDevToolPluginStatic;
         /**
+         * Adds SourceMaps for assets, but wrapped inside eval statements.
+         * Much faster incremental build speed, but harder to debug.
+         */
+        EvalSourceMapDevToolPlugin: EvalSourceMapDevToolPluginStatic;
+        /**
          * Enables Hot Module Replacement. (This requires records data if not in dev-server mode, recordsPath)
          * Generates Hot Update Chunks of each chunk in the records.
          * It also enables the API and makes __webpack_hash__ available in the bundle.
@@ -415,11 +541,27 @@ declare namespace webpack {
          * When there are errors while compiling this plugin skips the emitting phase (and recording phase),
          * so there are no assets emitted that include errors. The emitted flag in the stats is false for all assets.
          */
-        NoErrorsPlugin: NoErrorsPluginStatic;
+        NoEmitOnErrorsPlugin: NoEmitOnErrorsPluginStatic;
+        /**
+         * Alias for NoEmitOnErrorsPlugin
+         * @deprecated
+         */
+        NoErrorsPlugin: NoEmitOnErrorsPluginStatic;
         /**
          * Does not watch specified files matching provided paths or RegExps.
          */
         WatchIgnorePlugin: WatchIgnorePluginStatic;
+        /**
+         * Uses the module name as the module id inside the bundle, instead of a number.
+         * Helps with debugging, but increases bundle size.
+         */
+        NamedModulesPlugin: NamedModulesPluginStatic;
+        /**
+         * Some loaders need context information and read them from the configuration.
+         * This need to be passed via loader options in the long-term. See loader documentation for relevant options.
+         * To keep compatibility with old loaders, these options can be passed via this plugin.
+         */
+        LoaderOptionsPlugin: LoaderOptionsPluginStatic;
     }
 
     interface Optimize {
@@ -474,7 +616,7 @@ declare namespace webpack {
     }
 
     interface ContextReplacementPluginStatic {
-        new (resourceRegExp: any, newContentResource?: any, newContentRecursive?: any, newContentRegExp?: any): Plugin
+        new (resourceRegExp: any, newContentResource?: any, newContentRecursive?: any, newContentRegExp?: any): Plugin;
     }
 
     interface IgnorePluginStatic {
@@ -482,6 +624,7 @@ declare namespace webpack {
     }
 
     interface PrefetchPluginStatic {
+        // tslint:disable-next-line:unified-signatures
         new (context: any, request: any): Plugin;
         new (request: any): Plugin;
     }
@@ -506,15 +649,63 @@ declare namespace webpack {
     }
 
     interface DefinePluginStatic {
-        new (definitions: any): Plugin;
+        new (definitions: {[key: string]: any}): Plugin;
     }
 
     interface ProvidePluginStatic {
-        new (definitions: any): Plugin;
+        new (definitions: {[key: string]: any}): Plugin;
     }
 
     interface SourceMapDevToolPluginStatic {
-        new (options: any): Plugin;
+        // if string | false | null, maps to the filename option
+        new (options?: string | false | null | SourceMapDevToolPluginOptions): Plugin;
+    }
+
+    interface SourceMapDevToolPluginOptions {
+        // output filename pattern (false/null to append)
+        filename?: string | false | null;
+        // source map comment pattern (false to not append)
+        append?: false | string;
+        // template for the module filename inside the source map
+        moduleFilenameTemplate?: string;
+        // fallback used when the moduleFilenameTemplate produces a collision
+        fallbackModuleFilenameTemplate?: string;
+        // test/include/exclude files
+        test?: Condition | Condition[];
+        include?: Condition | Condition[];
+        exclude?: Condition | Condition[];
+        // whether to include the footer comment with source information
+        noSources?: boolean;
+        // the source map sourceRoot ("The URL root from which all sources are relative.")
+        sourceRoot?: string | null;
+        // whether to generate per-module source map
+        module?: boolean;
+        // whether to include column information in the source map
+        columns?: boolean;
+        // whether to preserve line numbers between source and source map
+        lineToLine?: boolean | {
+            test?: Condition | Condition[];
+            include?: Condition | Condition[];
+            exclude?: Condition | Condition[];
+        };
+    }
+
+    interface EvalSourceMapDevToolPluginStatic {
+        // if string | false, maps to the append option
+        new (options?: string | false | EvalSourceMapDevToolPluginOptions): Plugin;
+    }
+
+    interface EvalSourceMapDevToolPluginOptions {
+        append?: false | string;
+        moduleFilenameTemplate?: string;
+        sourceRoot?: string;
+        module?: boolean;
+        columns?: boolean;
+        lineToLine?: boolean | {
+            test?: Condition | Condition[];
+            include?: Condition | Condition[];
+            exclude?: Condition | Condition[];
+        };
     }
 
     interface HotModuleReplacementPluginStatic {
@@ -525,7 +716,7 @@ declare namespace webpack {
         new (): Plugin;
     }
 
-    interface NoErrorsPluginStatic {
+    interface NoEmitOnErrorsPluginStatic {
         new (): Plugin;
     }
 
@@ -533,12 +724,20 @@ declare namespace webpack {
         new (paths: RegExp[]): Plugin;
     }
 
+    interface NamedModulesPluginStatic {
+        new (): Plugin;
+    }
+
+    interface LoaderOptionsPluginStatic {
+        new (options: any): Plugin;
+    }
+
     namespace optimize {
         interface DedupePluginStatic {
             new (): Plugin;
         }
         interface LimitChunkCountPluginStatic {
-            new (options: any): Plugin
+            new (options: any): Plugin;
         }
         interface MinChunkSizePluginStatic {
             new (options: any): Plugin;
@@ -643,7 +842,26 @@ declare namespace webpack {
             colors?: boolean;
         }
 
-        type CompilerCallback = (err: Error, stats: Stats) => void
+        type CompilerCallback = (err: Error, stats: Stats) => void;
+    }
+
+    interface PerformanceOptions {
+        /**
+         * Turns hints on/off. In addition, tells webpack to throw either an error or a warning when hints are found. This property is set to "warning" by default.
+         */
+        hints?: boolean | 'error' | 'warning';
+        /**
+         * An entrypoint represents all assets that would be utilized during initial load time for a specific entry. This option controls when webpack should emit performance hints based on the maximum entrypoint size. The default value is 250000 (bytes).
+         */
+        maxEntryPointSize?: number;
+        /**
+         * An asset is any emitted file from webpack. This option controls when webpack emits a performance hint based on individual asset size. The default value is 250000 (bytes).
+         */
+        maxAssetSize?: number;
+        /**
+         * This property allows webpack to control what files are used to calculate performance hints.
+         */
+        assetFilter?: (assetFilename: string) => boolean;
     }
 }
 

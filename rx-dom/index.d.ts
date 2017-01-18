@@ -137,6 +137,6 @@ declare module Rx.DOM {
     }
 }
 
-declare module "rx.DOM" {
+declare module "rx-dom" {
     export default Rx.DOM;
 }

@@ -1,4 +1,4 @@
-// Type definitions for jQuery.jsignature v2
+// Type definitions for jQuery.jsignature 2.0
 // Project: https://github.com/willowsystems/jSignature
 // Definitions by: Patrick Magee <https://github.com/pjmagee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,11 +8,11 @@
 
 interface JQuery {
 
-    /** 
+    /**
      * inits the jSignature widget
      */
     jSignature(): JQuery;
-    
+
     /**
      * Arguments vary per command. When provided, command is expected to be a string with a command for jSignature. Commands supported at this time: init, reset, getData, setData, listPlugins
      * @summary

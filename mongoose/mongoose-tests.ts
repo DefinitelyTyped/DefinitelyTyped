@@ -318,7 +318,14 @@ new mongoose.Schema({
   hidden: Boolean,
   meta: {
     votes: Number,
-    favs:  Number
+    favs:  Number,
+    text: String
+  },
+  meta2: {
+    text: mongoose.Schema.Types.Number,
+    select: {
+      type: String
+    }
   }
 });
 new mongoose.Schema({ name: { type: String, index: true }});
@@ -442,10 +449,7 @@ doc.populate(function (err, doc) {
   });
 });
 doc.populated('path');
-doc.set('path', 999, {});
-doc.set({
-  path: 999
-});
+doc.set('path', 999, {}).set({ path: 999 });
 doc.toJSON({
   getters: true,
   virtuals: false

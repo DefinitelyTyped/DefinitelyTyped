@@ -14,6 +14,9 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "test/rrule.ts",
+        "test/commonJs.ts",
+        "test/global.ts"
     ]
 }

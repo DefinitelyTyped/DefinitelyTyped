@@ -526,8 +526,8 @@ declare namespace mathjs {
                  * to manipulate the data in the matrix, like getting the size and getting or setting values in the matrix. Supported
 		 * storage formats are 'dense' and 'sparse'.
 		 */
-		matrix(format?: string): Matrix;
-		matrix(data: MathArray|Matrix, format?: string, dataType?:string): Matrix;
+		matrix(format?: 'sparse'|'dense'): Matrix;
+		matrix(data: MathArray|Matrix, format?: 'sparse'|'dense', dataType?: string): Matrix;
 
 		/**
 		 * Create a number or convert a string, boolean, or unit to a number. When value is a matrix, all elements will be converted to number.
@@ -1292,10 +1292,21 @@ declare namespace mathjs {
 	}
 
 	export interface Matrix {
-		size(): number[];
+		type: string;
+		storage(): string;
+		datatype(): string;
+		density(): number;
 		subset(index: Index, replacement?: any, defaultValue?: any): Matrix;
+		get(index: number[]): any;
+		set(index: number[], value: any, defaultValue?: number|string): Matrix;
 		resize(size: MathArray|Matrix, defaultValue?: number|string): Matrix;
 		clone(): Matrix;
+		size(): number[];
+		map(callback: (a: any, b: number, c: Matrix) => any, skipZeros?: boolean): Matrix;
+		forEach(callback: (a: any, b: number, c: Matrix) => void, skipZeros?: boolean): void;
+		toJSON(): any;
+		diagonal(k?: number|BigNumber): any[];
+		swapRows(i: number, j: number): Matrix;
 	}
 
 	export interface BigNumber {
