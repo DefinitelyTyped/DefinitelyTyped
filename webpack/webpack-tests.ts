@@ -541,3 +541,24 @@ const performance: webpack.PerformanceOptions = {
 configuration = {
 	performance,
 };
+
+function loader(this: webpack.loader.LoaderContext, source: string, sourcemap: string): void {
+  this.cacheable();
+
+  this.async();
+
+  this.addDependency('');
+
+  this.resolve('context', 'request', ( err: Error, result: string) => {});
+
+  this.emitError('wraning');
+
+  this.callback(null, source);
+}
+
+module loader {
+  export const raw: boolean = true;
+  export const pitch = (remainingRequest: string, precedingRequest: string, data: any) => {};
+}
+const loaderRef: webpack.loader.Loader = loader;
+console.log(loaderRef.raw === true);
