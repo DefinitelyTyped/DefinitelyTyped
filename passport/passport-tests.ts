@@ -29,7 +29,7 @@ passport.framework(newFramework);
 interface TestUser {
   id: number;
 }
-passport.serializeUser((user: TestUser, done) => {
+passport.serializeUser((user: TestUser, done: (err: any, id?: number) => void) => {
   done(null, user.id);
 });
 passport.serializeUser<TestUser, number>((user, done) => {
