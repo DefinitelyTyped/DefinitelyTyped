@@ -1,4 +1,4 @@
-// Type definitions for mssql v3.3.0
+// Type definitions for mssql 3.3
 // Project: https://www.npmjs.com/package/mssql
 // Definitions by: COLSA Corporation <http://www.colsa.com/>, Ben Farr <https://github.com/jaminfarr>, Vitor Buzinaro <https://github.com/buzinas>, Matt Richardson <https://github.com/mrrichar/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
