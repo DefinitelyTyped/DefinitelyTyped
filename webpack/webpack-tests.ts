@@ -490,3 +490,16 @@ configuration = {
 const resolve: webpack.Resolve = {
     cachePredicate: 'boo' // why does this test _not_ fail!?
 }
+
+const performance: webpack.PerformanceOptions = {
+	hints: 'error',
+	maxEntryPointSize: 400000,
+	maxAssetSize: 100000,
+	assetFilter: function(assetFilename) {
+		return assetFilename.endsWith('.js');
+	},
+};
+
+configuration = {
+	performance,
+};

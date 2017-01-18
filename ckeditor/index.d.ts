@@ -5,6 +5,10 @@
 
 // WORK-IN-PROGRESS: Any contribution support welcomed.
 // See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/1827 for more informations.
+interface Window {
+  CKEDITOR_BASEPATH: string;
+}
+
 declare namespace CKEDITOR {
 
     // Config options
@@ -784,7 +788,7 @@ declare namespace CKEDITOR {
         scayt_uiTabs?: string;
         scayt_userDictionaryName?: string;
 
-        sharedSpaces?: Object;
+        sharedSpaces?: CKEDITOR.sharedSpace;
         shiftEnterMode?: number;
         skin?: string;
         smiley_columns?: number;
@@ -831,6 +835,12 @@ declare namespace CKEDITOR {
 
     interface feature {
 
+    }
+
+
+    interface sharedSpace {
+        top?: string | HTMLElement;
+        bottom?: string | HTMLElement;
     }
 
 
