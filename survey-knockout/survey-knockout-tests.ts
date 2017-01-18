@@ -1,4 +1,4 @@
-/// <reference path="survey-knockout.d.ts" />
+
                      
 function createFromCodeTests() {
     var survey = new Survey.SurveyModel();

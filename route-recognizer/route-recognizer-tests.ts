@@ -1,4 +1,4 @@
-/// <reference path="route-recognizer.d.ts" />
+
 
 import RouteRecognizer = require('route-recognizer')
 

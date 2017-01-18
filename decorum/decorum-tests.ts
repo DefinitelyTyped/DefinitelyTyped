@@ -1,5 +1,3 @@
-/// <reference path="./decorum.d.ts" />
-
 import {Required} from 'decorum';
 import {Email} from 'decorum';
 import {MinLength} from 'decorum';
@@ -14,6 +12,7 @@ import {Validator} from 'decorum';
 import {BaseValidator} from 'decorum';
 import {IMessageOpts} from 'decorum';
 import {MessageHandlers} from 'decorum';
+import * as decorum from 'decorum';
 
 class MyModel {
     @FieldName('User name')
@@ -92,7 +91,7 @@ Validator.decorate(MyOtherModel, {
     ]
 });
 
-var otherValidator = Validator.new(new MyOtherModel());
+var otherValidator = Validator.new(MyOtherModel());
 otherValidator.validateField('foo', '');
 
 // Custom validator

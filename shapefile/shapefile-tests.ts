@@ -1,4 +1,3 @@
-/// <reference path="shapefile.d.ts"/>
 import * as shapefile from 'shapefile'
 
 shapefile.open('./example.shp')

@@ -1,4 +1,3 @@
-/// <reference path="apigee-access.d.ts"/>
 import apigee from "apigee-access";
 
 //Sample code from

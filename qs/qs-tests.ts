@@ -1,8 +1,5 @@
-/// <reference path="./qs.d.ts" />
-/// <reference path="../node/node.d.ts" />
-
 import qs = require('qs');
-import assert = require('assert');
+import * as assert from "power-assert";
 
 qs.stringify({ a: 'b' });
 qs.stringify({ a: 'b', c: 'd' }, { delimiter: '&' });

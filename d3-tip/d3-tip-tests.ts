@@ -1,6 +1,3 @@
-/// <reference path="../d3/d3.d.ts" />
-/// <reference path="d3-tip.d.ts" />
-
 // test variables
 
 interface dataType {
@@ -8,7 +5,7 @@ interface dataType {
     Number: number
 }
 
-let data: dataType[] = [ { Title: "one", Number: 1 }, { Title: "two", Number: 2} ]; 
+let data: dataType[] = [ { Title: "one", Number: 1 }, { Title: "two", Number: 2} ];
 let svgElement: SVGElement;
 let root: HTMLElement;
 

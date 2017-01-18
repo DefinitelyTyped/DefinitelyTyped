@@ -1,0 +1,27 @@
+{
+    "files": [
+        "index.d.ts",
+        "react-router-tests.tsx"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "jsx": "react",
+        "baseUrl": "../",
+        "paths": {
+            "history": ["history/v2"]
+        },
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

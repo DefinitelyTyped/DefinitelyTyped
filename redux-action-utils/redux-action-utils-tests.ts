@@ -1,5 +1,5 @@
-/// <reference path="redux-action-utils.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
+
+/// <reference types="redux" />
 
 import { actionCreator, optionsActionCreator } from 'redux-action-utils';
 import { Action, ActionCreator } from 'redux-action-utils';

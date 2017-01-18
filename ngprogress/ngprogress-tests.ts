@@ -1,4 +1,4 @@
-﻿/// <reference path="./ngprogress.d.ts" />
+
 
 
 var ngProgress: NgProgress.INgProgress = <any> {};

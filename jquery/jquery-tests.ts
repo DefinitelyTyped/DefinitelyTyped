@@ -1,4 +1,4 @@
-/// <reference path="jquery.d.ts" />
+
 
 function test_add() {
     $("p").add("div").addClass("widget");
@@ -169,6 +169,12 @@ function test_ajax() {
         console.log(data, textStatus, jqXHR);
     });
 
+    // then method can change promise type through promise chaining
+    var chainedValuePromise : JQueryPromise<number>;
+    chainedValuePromise = $.ajax({
+        url: "test.js"
+    }).then(() => $.when(1));
+
     // fail method
     $.ajax({
         url: "test.js"
@@ -209,9 +215,9 @@ function test_ajax() {
         url: "test.js"
     });
     jqXHR.abort('aborting because I can');
-	
+
     //Test the promise exposed by the jqXHR object
-	
+
     // done method
     $.ajax({
         url: "test.js"
@@ -239,7 +245,7 @@ function test_ajax() {
     }).promise().always((jqXHR, textStatus, errorThrown) => {
         console.log(jqXHR, textStatus, errorThrown);
     });
-	
+
     // then method (as of 1.8)
     $.ajax({
         url: "test.js"
@@ -252,7 +258,7 @@ function test_ajax() {
     // generic then method
     var p: JQueryPromise<number> = $.ajax({ url: "test.js" }).promise()
         .then(() => "Hello")
-        .then((x) => x.length);	
+        .then((x) => x.length);
 }
 
 function test_ajaxComplete() {
@@ -569,6 +575,7 @@ function test_appendTo() {
 
 function test_attr() {
     var title = $("em").attr("title");
+    $("em").attr("title", null); // Delete an attribute.
     $("div").text(title);
     $('#greatphoto').attr('alt', 'Beijing Brush Seller');
     $('#greatphoto')
@@ -1094,7 +1101,6 @@ function test_css() {
 function test_cssHooks() {
     if (!$.cssHooks) {
         throw ("jQuery 1.4.3 or above is required for this plugin to work");
-        return;
     }
     $.cssHooks["someCSSProp"] = {
         get: function (elem, computed, extra) { },
@@ -1398,7 +1404,8 @@ function test_each() {
     });
     var arr = ["one", "two", "three", "four", "five"];
     var obj = { one: 1, two: 2, three: 3, four: 4, five: 5 };
-    jQuery.each(arr, function () {
+    // TODO: Should not need explicit type annotation https://github.com/Microsoft/TypeScript/issues/10072
+    jQuery.each<string>(arr, function () {
         $("#" + this).text("Mine is " + this + ".");
         return (this != "three");
     });

@@ -1,5 +1,3 @@
-/// <reference path="wiring-pi.d.ts" />
-
 import * as wpi from 'wiring-pi';
 
 console.log(wpi.VERSION);
@@ -55,6 +53,7 @@ read = wpi.wiringPiI2CReadReg8(fd, 2);
 read = wpi.wiringPiI2CReadReg16(fd, 2);
 ret = wpi.wiringPiI2CWriteReg8(fd, 2, read);
 ret = wpi.wiringPiI2CWriteReg16(fd, 2, read);
+wpi.wiringPiI2CClose(fd);
 // SPI
 fd = wpi.wiringPiSPIGetFd(2);
 fd = wpi.wiringPiSPISetup(2, 32000000);
@@ -62,6 +61,7 @@ fd = wpi.wiringPiSPISetupMode(2, 32000000, 3);
 let buff: Buffer = new Buffer("spi data");
 ret = wpi.wiringPiSPIDataRW(2, buff);
 console.log(buff.toString());
+wpi.wiringPiSPIClose(fd);
 // Serial
 fd = wpi.serialOpen('/dev/AMA0', 9600);
 wpi.serialFlush(fd);

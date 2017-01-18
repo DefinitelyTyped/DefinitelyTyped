@@ -1,13 +1,11 @@
-/// <reference path="../leaflet/leaflet-0.7.d.ts" />
-/// <reference path="leaflet-draw.d.ts" />
-
+/// <reference types="leaflet" />
 
 var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     osm = L.tileLayer(osmUrl, {maxZoom: 18, attribution: osmAttrib}),
-    map = new L.Map('map', {layers: [osm], center: new L.LatLng(-37.7772, 175.2756), zoom: 15 });
+    map = L.map('map', {layers: [osm], center: L.latLng(-37.7772, 175.2756), zoom: 15 });
 
-var drawnItems = new L.FeatureGroup();
+var drawnItems = L.featureGroup();
 map.addLayer(drawnItems);
 
 var drawControl = new L.Control.Draw({
@@ -39,9 +37,10 @@ var drawControl = new L.Control.Draw({
 });
 map.addControl(drawControl);
 
-map.on('draw:created', function (e: L.DrawEvents.Created) {
-    var type = e.layerType,
-        layer = e.layer;
+map.on('draw:created', function (e: any) {
+    var drawEvent = (e as L.DrawEvents.Created);
+    var type = drawEvent.layerType,
+        layer = drawEvent.layer;
 
     drawnItems.addLayer(layer);
 });

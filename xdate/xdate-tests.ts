@@ -1,4 +1,4 @@
-/// <reference path="xdate.d.ts" />
+
 
 //Those classes were tested by compile time only!
 
