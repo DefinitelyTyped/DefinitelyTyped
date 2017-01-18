@@ -3697,32 +3697,32 @@ namespace TestFind {
     result = _.find<TResult>(array, listIterator, 1);
     result = _.find<TResult>(array, '');
     result = _.find<TResult>(array, '', 1);
-    result = _.find<{a: number}, TResult>(array, {a: 42});
-    result = _.find<{a: number}, TResult>(array, {a: 42}, 1);
+    result = _.find<TResult>(array, {a: 42});
+    result = _.find<TResult>(array, {a: 42}, 1);
 
     result = _.find<TResult>(list);
     result = _.find<TResult>(list, listIterator);
     result = _.find<TResult>(list, listIterator, 1);
     result = _.find<TResult>(list, '');
     result = _.find<TResult>(list, '', 1);
-    result = _.find<{a: number}, TResult>(list, {a: 42});
-    result = _.find<{a: number}, TResult>(list, {a: 42}, 1);
+    result = _.find<TResult>(list, {a: 42});
+    result = _.find<TResult>(list, {a: 42}, 1);
 
     result = _.find<TResult>(dictionary);
     result = _.find<TResult>(dictionary, dictionaryIterator);
     result = _.find<TResult>(dictionary, dictionaryIterator, 1);
     result = _.find<TResult>(dictionary, '');
     result = _.find<TResult>(dictionary, '', 1);
-    result = _.find<{a: number}, TResult>(dictionary, {a: 42});
-    result = _.find<{a: number}, TResult>(dictionary, {a: 42}, 1);
+    result = _.find<TResult>(dictionary, {a: 42});
+    result = _.find<TResult>(dictionary, {a: 42}, 1);
 
     result = _(array).find();
     result = _(array).find(listIterator);
     result = _(array).find(listIterator, 1);
     result = _(array).find('');
     result = _(array).find('', 1);
-    result = _(array).find<{a: number}>({a: 42});
-    result = _(array).find<{a: number}>({a: 42}, 1);
+    result = _(array).find({a: 42});
+    result = _(array).find({a: 42}, 1);
 
     result = _(list).find<TResult>();
     result = _(list).find<TResult>(listIterator);

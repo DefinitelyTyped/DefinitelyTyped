@@ -242,10 +242,9 @@ export as namespace _;
 
 declare var _: _.LoDashStatic;
 
+type PartialObject<T> = Partial<T>;
+
 declare namespace _ {
-    type PartialObject<T> = {
-      [P in keyof T]?: T[P];
-    }
 
     type Many<T> = T | T[];
 
@@ -6868,9 +6867,9 @@ declare namespace _ {
         /**
          * @see _.find
          */
-        find<TObject extends {}, T>(
+        find<T>(
             collection: List<T>|Dictionary<T>,
-            predicate?: TObject,
+            predicate?: PartialObject<T>,
             fromIndex?: number
         ): T|undefined;
     }
@@ -6895,7 +6894,7 @@ declare namespace _ {
         /**
          * @see _.find
          */
-        find<TObject extends {}>(
+        find(
             predicate?: PartialObject<T>,
             fromIndex?: number
         ): T|undefined;
