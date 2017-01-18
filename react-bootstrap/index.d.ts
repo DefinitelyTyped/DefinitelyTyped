@@ -1,6 +1,6 @@
 // Type definitions for react-bootstrap
 // Project: https://github.com/react-bootstrap/react-bootstrap
-// Definitions by: Walker Burgin <https://github.com/walkerburgin>, Vincent Siao <https://github.com/vsiao>, Danilo Barros <https://github.com/danilojrr>, Batbold Gansukh <https://github.com/Batbold-Gansukh>
+// Definitions by: Walker Burgin <https://github.com/walkerburgin>, Vincent Siao <https://github.com/vsiao>, Danilo Barros <https://github.com/danilojrr>, Batbold Gansukh <https://github.com/Batbold-Gansukh>, Raymond May Jr. <https://github.com/octatone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
@@ -286,10 +286,10 @@ declare namespace ReactBootstrap {
         onHide?: Function;
         onEnter?: Function;
         onEntered?: Function;
-        onEntering?: Function;    
+        onEntering?: Function;
         onExit?: Function;
         onExited?: Function;
-        onExiting?: Function;    
+        onExiting?: Function;
     }
     type ModalDialog = React.ClassicComponent<ModalDialogProps, {}>;
     var ModalDialog: React.ClassicComponentClass<ModalDialogProps>;
@@ -334,20 +334,30 @@ declare namespace ReactBootstrap {
 
         // Optional
         animation?: boolean;
+        autoFocus?: boolean;
         backdrop?: boolean | string;
+        backdropClassName?: string;
+        backdropStyle?: any;
+        backdropTransitionTimeout?: number;
         bsSize?: Sizes;
         container?: any; // TODO: Add more specific type
+        containerClassName?: string;
         dialogClassName?: string;
         dialogComponent?: any; // TODO: Add more specific type
+        dialogTransitionTimeout?: number;
         enforceFocus?: boolean;
         keyboard?: boolean;
+        onBackdropClick?: (node: HTMLElement) => any;
         onEnter?: (node: HTMLElement) => any;
         onEntered?: (node: HTMLElement) => any;
         onEntering?: (node: HTMLElement) => any;
+        onEscapeKeyUp?: (node: HTMLElement) => any;
         onExit?: (node: HTMLElement) => any;
         onExited?: (node: HTMLElement) => any;
         onExiting?: (node: HTMLElement) => any;
+        onShow?: (node: HTMLElement) => any;
         show?: boolean;
+        transition?: React.ReactElement<any>;
     }
     interface ModalClass extends React.ClassicComponentClass<ModalProps> {
         Body: typeof ModalBody;
@@ -358,7 +368,6 @@ declare namespace ReactBootstrap {
     }
     type Modal = React.ClassicComponent<ModalProps, {}>;
     var Modal: ModalClass;
-
 
     // <OverlayTrigger />
     interface OverlayTriggerProps {
