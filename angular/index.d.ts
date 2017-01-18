@@ -901,8 +901,17 @@ declare namespace angular {
      */
     interface ILocationService {
         absUrl(): string;
+
+        /**
+         * Returns the hash fragment
+         */
         hash(): string;
-        hash(newHash: string): ILocationService;
+
+        /**
+         * Changes the hash fragment and returns `$location`
+         */
+        hash(newHash: string|null): ILocationService;
+
         host(): string;
 
         /**
@@ -942,7 +951,7 @@ declare namespace angular {
          * @param search New search params
          * @param paramValue If search is a string or a Number, then paramValue will override only a single search property. If paramValue is null, the property specified via the first argument will be deleted. If paramValue is an array, it will override the property of the search component of $location specified via the first argument. If paramValue is true, the property specified via the first argument will be added with no value nor trailing equal sign.
          */
-        search(search: string, paramValue: string|number|string[]|boolean): ILocationService;
+        search(search: string, paramValue: string|number|null|string[]|boolean): ILocationService;
 
         state(): any;
         state(state: any): ILocationService;
@@ -1271,7 +1280,15 @@ declare namespace angular {
 
     // This corresponds to the "publicLinkFn" returned by $compile.
     interface ITemplateLinkingFunction {
-        (scope: IScope, cloneAttachFn?: ICloneAttachFunction): JQuery;
+        (scope: IScope, cloneAttachFn?: ICloneAttachFunction, options?: ITemplateLinkingFunctionOptions): JQuery;
+    }
+
+    interface ITemplateLinkingFunctionOptions {
+        parentBoundTranscludeFn?: ITranscludeFunction,
+        transcludeControllers?: {
+            [controller: string]: { instance: IController }
+        },
+        futureParentElement?: JQuery
     }
 
     /**

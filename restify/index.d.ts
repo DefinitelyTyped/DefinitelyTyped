@@ -6,7 +6,7 @@
 /// <reference types="node" />
 
 import http = require('http');
-import bunyan = require('bunyan');
+import Logger = require('bunyan');
 import url = require('url');
 
 
@@ -196,7 +196,7 @@ interface Request extends http.IncomingMessage {
      */
     href: () => string;
 
-    log: bunyan.Logger;
+    log: Logger;
     /**
      * retrieves the request uuid. was created when the request was setup.
      * @public
@@ -380,6 +380,15 @@ interface Router {
      * @returns  {String}      the name of the deleted route (or false if it was not matched)
      */
     unmount: (name: string) => string | boolean;
+
+    /**
+     * finds the route for a given request and response.
+     * @param    {Request}  req      the request object
+     * @param    {Response} res      the response object
+     * @param    {Function} callback operation callback
+     * @returns  {undefined}
+     */
+    find: (req: Request, res: Response, callback: (err: Error, route: Route) => void) => void;
 }
 
 interface Server extends http.Server {
@@ -486,7 +495,7 @@ interface HttpClient extends Client {
     patch: (opts?: string | { path?: string; [name: string]: any }, callback?: Function) => any;
     del: (opts?: string | { path?: string; [name: string]: any }, callback?: Function) => any;
 }
- 
+
 interface ThrottleOptions {
     burst?: number;
     rate?: number;

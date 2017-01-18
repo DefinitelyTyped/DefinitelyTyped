@@ -575,6 +575,8 @@ interface Obj { a: number; b: number };
     R.head(['fi', 'fo', 'fum']); //=> 'fi'
     R.head([10, 'ten']); // => 10
     R.head(['10', 10]); // => '10'
+    R.head('abc'); //=> 'a'
+    R.head(''); //=> ''
 }
 
 (() => {
@@ -591,6 +593,8 @@ interface Obj { a: number; b: number };
 
 () => {
     R.init(['fi', 'fo', 'fum']); //=> ['fi', 'fo']
+    R.init('abc'); //=> 'ab'
+    R.init(''); //=> ''
 }
 
 () => {
@@ -623,6 +627,8 @@ interface Obj { a: number; b: number };
 
 () => {
     R.last(['fi', 'fo', 'fum']); //=> 'fum'
+    R.last('abc'); //=> 'c'
+    R.last(''); //=> ''
 }
 
 () => {
@@ -862,6 +868,8 @@ type Pair = KeyValuePair<string, number>
 () => {
     R.tail(['fi', 'fo', 'fum']); //=> ['fo', 'fum']
     R.tail([1, 2, 3]); //=> [2, 3]
+    R.tail('abc');  //=> 'bc'
+    R.tail('');     //=> ''
 }
 
 () => {

@@ -363,7 +363,11 @@ plugin = new webpack.EvalSourceMapDevToolPlugin(false);
 plugin = new webpack.HotModuleReplacementPlugin();
 plugin = new webpack.ExtendedAPIPlugin();
 plugin = new webpack.NoErrorsPlugin();
+plugin = new webpack.NoEmitOnErrorsPlugin();
 plugin = new webpack.WatchIgnorePlugin(paths);
+plugin = new webpack.LoaderOptionsPlugin({
+  debug: true
+});
 
 //
 // http://webpack.github.io/docs/node.js-api.html
@@ -486,3 +490,16 @@ configuration = {
 const resolve: webpack.Resolve = {
     cachePredicate: 'boo' // why does this test _not_ fail!?
 }
+
+const performance: webpack.PerformanceOptions = {
+	hints: 'error',
+	maxEntryPointSize: 400000,
+	maxAssetSize: 100000,
+	assetFilter: function(assetFilename) {
+		return assetFilename.endsWith('.js');
+	},
+};
+
+configuration = {
+	performance,
+};
