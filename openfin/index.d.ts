@@ -63,19 +63,19 @@ declare namespace fin {
 		/**
 		 * Retrieves an array of wrapped fin.desktop.Windows for each of the application’s child windows.
 		 */
-		getChildWindows(callback?: (children: OpenFinWindow[]) => any, errorCallback?: (reason: string) => void): void;
+		getChildWindows(callback?: (children: OpenFinWindow[]) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Retrieves an array of active window groups for all of the application's windows. Each group is represented as an array of wrapped fin.desktop.Windows.
 		 */
-		getGroups(callback?: (groups: OpenFinWindow[][]) => any, errorCallback?: (reason: string) => void): void;
+		getGroups(callback?: (groups: OpenFinWindow[][]) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Retrieves the JSON manifest that was used to create the application. Invokes the error callback if the application was not created from a manifest.
 		 */
-		getManifest(callback?: (manifest: any) => any, errorCallback?: (reason: string) => void): void;
+		getManifest(callback?: (manifest: any) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Retrieves UUID of the application that launches this application. Invokes the error callback if the application was created from a manifest.
 		 */
-		getParentUuid(callback?: (uuid: string) => any, errorCallback?: (reason: string) => void): void;
+		getParentUuid(callback?: (uuid: string) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Retrieves current configuration of application's shortcuts.
 		 */
@@ -103,7 +103,7 @@ declare namespace fin {
 		/**
 		 * Runs the application. When the application is created, run must be called.
 		 */
-		run(callback?: (successObj: SuccessObj) => any, errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => any): void;
+		run(callback?: (successObj: SuccessObj) => void, errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): void;
 		/**
 		 * Tells the rvm to relaunch the main application once upon a complete shutdown
 		 */
@@ -115,7 +115,7 @@ declare namespace fin {
 		/**
 		 * Adds a customizable icon in the system tray and notifies the application when clicked.
 		 */
-		setTrayIcon(iconUrl: string, listener: (clickInfo: TrayIconClickedEvent) => any, callback?: () => void, errorCallback?: (reason: string) => void): void;
+		setTrayIcon(iconUrl: string, listener: (clickInfo: TrayIconClickedEvent) => void, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Closes the application by terminating its process.
 		 */
@@ -130,15 +130,15 @@ declare namespace fin {
 		/**
 		 * application has a shortcut on the desktop
 		 */
-		desktop: boolean;
+		desktop?: boolean;
 		/**
 		 * application has no shortcut in the start menu
 		 */
-		startMenu: boolean;
+		startMenu?: boolean;
 		/**
 		 * application will be launched on system startup
 		 */
-		systemStartup: boolean;
+		systemStartup?: boolean;
 	}
 
 	interface SuccessObj {
@@ -155,10 +155,10 @@ declare namespace fin {
 	}
 
 	interface ApplicationOptions {
-		url: string;
-		uuid: string;
-		name: string;
-		mainWindowOptions: WindowOptions;
+		url?: string;
+		uuid?: string;
+		name?: string;
+		mainWindowOptions?: WindowOptions;
 	}
 
 	interface WindowOptions {
@@ -185,8 +185,8 @@ declare namespace fin {
 		 * This defines and applies rounded corners for a frameless window. Default for both width and height: 0.
 		 */
 		cornerRounding?: {
-			width: number;
-			height: number;
+			width?: number;
+			height?: number;
 		};
 		/**
 		 * A field that the user can attach serializable data to to be ferried around with the window options. Default: ''.
@@ -267,14 +267,14 @@ declare namespace fin {
 			/**
 			 * The size in pixels (Default: 2),
 			 */
-			size: number;
+			size?: number;
 			/**
 			 * The size in pixels of an additional
 			 * square resizable region located at the 
 			 * bottom right corner of a 
 			 * frameless window. (Default: 4)
 			 */
-			bottomRightCorner: number;
+			bottomRightCorner?: number;
 		};
 		/**
 		 * A flag to show the Window's icon in the taskbar. Default: true.
@@ -310,35 +310,35 @@ declare namespace fin {
 		/**
 		 * Reads available formats for the clipboard type
 		 */
-		availableFormats(type: string | null, callback?: (formats: string[]) => any, errorCallback?: (reason: string, error: ErrorInfo) => any): void;
+		availableFormats(type: string | null, callback?: (formats: string[]) => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 		/**
 		 * Reads available formats for the clipboard type
 		 */
-		readHtml(type: string | null, callback?: (html: string) => any, errorCallback?: (reason: string, error: ErrorInfo) => any): void;
+		readHtml(type: string | null, callback?: (html: string) => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 		/**
 		 * Read the content of the clipboard as Rtf
 		 */
-		readRtf(type: string | null, callback?: (rtf: string) => any, errorCallback?: (reason: string, error: ErrorInfo) => any): void;
+		readRtf(type: string | null, callback?: (rtf: string) => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 		/**
 		 * Read the content of the clipboard as plain text
 		 */
-		readText(type: string | null, callback?: (text: string) => any, errorCallback?: (reason: string, error: ErrorInfo) => any): void;
+		readText(type: string | null, callback?: (text: string) => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 		/**
 		 * Writes data into the clipboard
 		 */
-		write(data: any, type: string | null, callback?: () => any, errorCallback?: (reason: string, error: ErrorInfo) => any): void;
+		write(data: any, type: string | null, callback?: () => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 		/**
 		 * Writes data into the clipboard as Html
 		 */
-		writeHtml(data: string, type: string | null, callback?: () => any, errorCallback?: (reason: string, error: ErrorInfo) => any): void;
+		writeHtml(data: string, type: string | null, callback?: () => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 		/**
 		 * Writes data into the clipboard as Rtf
 		 */
-		writeRtf(data: string, type: string | null, callback?: () => any, errorCallback?: (reason: string, error: ErrorInfo) => any): void;
+		writeRtf(data: string, type: string | null, callback?: () => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 		/**
 		 * Writes data into the clipboard as plain text
 		 */
-		writeText(data: string, type: string | null, callback?: () => any, errorCallback?: (reason: string, error: ErrorInfo) => any): void;
+		writeText(data: string, type: string | null, callback?: () => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 	}
 
 	/**
@@ -353,11 +353,11 @@ declare namespace fin {
 		/**
 		 * Registers an event listener on the specified event.
 		 */
-		addEventListener(type: OpenFinExternalApplicationEventType, listener: () => any, callback?: () => any, errorCallback?: (reason: string, error: ErrorInfo) => any): void;
+		addEventListener(type: OpenFinExternalApplicationEventType, listener: () => void, callback?: () => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 		/**
 		 * Removes a previously registered event listener from the specified event.
 		 */
-		removeEventListener(type: OpenFinExternalApplicationEventType, listener: () => any, callback?: () => any, errorCallback?: (reason: string, error: ErrorInfo) => any): void;
+		removeEventListener(type: OpenFinExternalApplicationEventType, listener: () => void, callback?: () => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 	}
 
 	/**
@@ -437,7 +437,7 @@ declare namespace fin {
 		/**
 		 * A message of any primitive or composite-primitive type to be passed to the notification upon creation.
 		 */
-		message: any;
+		message?: any;
 		/**
 		 * The timeout for displaying a notification.Can be in milliseconds or "never".
 		 */
@@ -445,7 +445,7 @@ declare namespace fin {
 		/**
 		 * The url of the notification
 		 */
-		url: string;
+		url?: string;
 		/**
 		 * A function that is called when a notification is clicked.
 		 */
@@ -619,70 +619,70 @@ declare namespace fin {
 	}
 
 	interface AppAssetInfo {
-		'src': string;
-		'alias': string;
-		'version': string;
-		'target': string;
-		'args': string;
+		src?: string;
+		alias?: string;
+		version?: string;
+		target?: string;
+		args?: string;
 	}
 
 	interface ApplicationInfo {
 		/**
 		 * true when the application is running.
 		 */
-        isRunning: boolean;
+        isRunning?: boolean;
 		/**
 		 * uuid of the application.
 		 */
-		uuid: string;
+		uuid?: string;
 		/**
 		 * uuid of the application that launches this application.
 		 */
-		parentUuid: string;
+		parentUuid?: string;
 	}
 
 	interface WindowDetails {
-        uuid: string;
-        mainWindow: WindowInfo;
-		childWindows: WindowInfo[];
+        uuid?: string;
+        mainWindow?: WindowInfo;
+		childWindows?: WindowInfo[];
     }
 
 	interface WindowInfo {
 		/**
 		 * name of the child window
 		 */
-		name: string;
+		name?: string;
 		/**
 		 * top-most coordinate of the child window
 		 */
-		top: number;
+		top?: number;
 		/**
 		 * right-most coordinate of the child window
 		 */
-		right: number;
+		right?: number;
 		/**
 		 * bottom-most coordinate of the child window
 		 */
-		bottom: number;
+		bottom?: number;
 		/**
 		 * left-most coordinate of the child window
 		 */
-		left: number;
+		left?: number;
 	}
 
 	interface LogInfo {
 		/**
 		 * the filename of the log
 		 */
-		name: string;
+		name?: string;
 		/**
 		 * the size of the log in bytes
 		 */
-		size: number;
+		size?: number;
 		/**
 		 * the unix time at which the log was created "Thu Jan 08 2015 14:40:30 GMT-0500 (Eastern Standard Time)"
 		 */
-		date: string;
+		date?: string;
 	}
 
 	interface ProcessInfo {
@@ -744,20 +744,20 @@ declare namespace fin {
 		/**
 		 * the configured Proxy Address
 		 */
-		proxyAddress: string;
+		proxyAddress?: string;
 		/**
 		 * the configured Proxy port
 		 */
-		proxyPort: number;
+		proxyPort?: number;
 		/**
 		 * Proxy Type
 		 */
-		type: string;
+		type?: string;
 	}
 
 	interface RvmInfo {
-		version: string;
-		"start-time": string;
+		version?: string;
+		"start-time"?: string;
 	}
 
 	interface ExternalProcessLaunchInfo {
@@ -780,15 +780,15 @@ declare namespace fin {
 			/**
 			 * "Exited" Or "released" on a call to releaseExternalProcess
 			 */
-			topic: string;
+			topic?: string;
 			/**
 			 * The mapped UUID which identifies the launched process
 			 */
-			uuid: string;
+			uuid?: string;
 			/*
 			 * Process exit code
 			 */
-			exitCode: number;
+			exitCode?: number;
 		}) => void;
 		certificate?: CertificationInfo;
 	}
@@ -801,7 +801,7 @@ declare namespace fin {
 		/**
 		 * An internally tokenized and comma delimited string allowing partial or full checks of the subject fields
 		 */
-		subject: string;
+		subject?: string;
 		/**
 		 * A hex string with or without spaces
 		 */
@@ -809,28 +809,28 @@ declare namespace fin {
 		/**
 		 * A hex string with or without spaces
 		 */
-		thumbprint: string;
+		thumbprint?: string;
 		/**
 		 * A boolean indicating that the certificate is trusted and not revoked
 		 */
-		trusted: boolean;
+		trusted?: boolean;
 	}
 
 	interface ExternalProcessInfo {
-		pid: number;
+		pid?: number;
 		listener?: (result: {
 			/**
 			 * "Exited" Or "released" on a call to releaseExternalProcess
 			 */
-			topic: string;
+			topic?: string;
 			/**
 			 * The mapped UUID which identifies the launched process
 			 */
-			uuid: string;
+			uuid?: string;
 			/*
 			 * Process exit code
 			 */
-			exitCode: number;
+			exitCode?: number;
 		}) => void;
 	}
 
@@ -1321,11 +1321,11 @@ declare namespace fin {
 			/**
 			 * This value is clamped from 0.0 to 1.0
 			 */
-			opacity: number;
+			opacity?: number;
 			/**
 			 * The total time in milliseconds this transition should take.
 			 */
-			duration: number;
+			duration?: number;
 			/**
 			 * Treat 'opacity' as absolute or as a delta. Defaults to false.
 			 */
@@ -1343,7 +1343,7 @@ declare namespace fin {
 			/**
 			 * The total time in milliseconds this transition should take.
 			 */
-			duration: number;
+			duration?: number;
 			/**
 			 * Treat 'left' and 'top' as absolute or as deltas. Defaults to false.
 			 */
@@ -1361,7 +1361,7 @@ declare namespace fin {
 			/**
 			 * The total time in milliseconds this transition should take.
 			 */
-			duration: number;
+			duration?: number;
 			/**
 			 * Treat 'width' and 'height' as absolute or as deltas. Defaults to false.
 			 */
@@ -1384,19 +1384,19 @@ declare namespace fin {
 		/**
 		 * the height of the window.
 		 */
-		height: number;
+		height?: number;
 		/**
 		 * left-most coordinate of the window.
 		 */
-		left: number;
+		left?: number;
 		/**
 		 * top-most coordinate of the window.
 		 */
-		top: number;
+		top?: number;
 		/**
 		 * the width of the window.
 		 */
-		width: number;
+		width?: number;
 	}
 
 	interface SessionChangedEvent {

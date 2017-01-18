@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "jui-core-tests.ts"
+    ]
+}
