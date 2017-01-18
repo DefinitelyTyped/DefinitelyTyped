@@ -599,6 +599,21 @@ export class ReactBootstrapTest extends Component<any, any> {
                 </div>
 
                 <div style={style}>
+                  <Tabs defaultActiveKey={1} animation={true}>
+                    <Tab animation={true}
+                     onEntered={() => {}}
+                     onEntering={() => {}}
+                     onExit={() => {}}
+                     onExited={() => {}}
+                     onExiting={()=>{}}
+                     unmountOnExit={true}
+                     bsClass="some style" tabClassName="classname"  eventKey={1} title='Tab 1'>Tab 1 content</Tab>
+                    <Tab eventKey={2} title='Tab 2'>Tab 2 content</Tab>
+                    <Tab eventKey={3} title='Tab 3' disabled>Tab 3 content</Tab>
+                  </Tabs>
+                </div>
+
+                <div style={style}>
                   <Tab.Container id="left-tabs-example" defaultActiveKey="first">
                     <Row className="clearfix">
                       <Col sm={4}>
