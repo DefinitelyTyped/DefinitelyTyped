@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface PushOpts {
-    filename?: string,
-    dropDatabase: boolean,
+    filename?: string;
+    dropDatabase: boolean;
 }
 
 // Our exports:
