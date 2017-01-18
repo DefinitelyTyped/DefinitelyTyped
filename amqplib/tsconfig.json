@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
+        "callback_api.d.ts",
         "amqplib-tests.ts"
     ]
 }
