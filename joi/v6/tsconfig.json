@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
@@ -11,7 +13,9 @@
         ],
         "types": [],
         "paths": {
-            "joi": ["joi/v6"]
+            "joi": [
+                "joi/v6"
+            ]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
