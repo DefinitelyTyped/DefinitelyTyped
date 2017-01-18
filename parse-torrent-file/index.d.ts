@@ -9,16 +9,16 @@ declare const ParseTorrentFile: ParseTorrentFile.ParseTorrentFile;
 
 declare namespace ParseTorrentFile {
     export interface TorrentInfo {
-        'name.utf-8': string;
-        name: string;
-        files: File[];
-        'piece length': number;
-        pieces: number;
-        private: boolean;
+        'name.utf-8'?: string;
+        name?: string;
+        files?: File[];
+        'piece length'?: number;
+        pieces?: number;
+        private?: boolean;
     }
 
     export interface Torrent {
-        info?: Partial<TorrentInfo>;
+        info?: TorrentInfo;
         'creation date'?: number;
         'created by'?: string;
         comment?: Buffer;
@@ -41,7 +41,7 @@ declare namespace ParseTorrentFile {
     }
 
     export interface Instance extends Object {
-        info?: Partial<TorrentInfo>;
+        info?: TorrentInfo;
         infoBuffer?: Buffer;
         infoHash?: string;
         infoHashBuffer?: Buffer;
