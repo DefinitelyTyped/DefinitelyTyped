@@ -1,6 +1,6 @@
 // Type definitions for webpack 2.2
 // Project: https://github.com/webpack/webpack
-// Definitions by: Qubo <https://github.com/tkqubo>, Matt Lewis <https://github.com/mattlewis92>, Benjamin Lim <https://github.com/bumbleblym>
+// Definitions by: Qubo <https://github.com/tkqubo>, Matt Lewis <https://github.com/mattlewis92>, Benjamin Lim <https://github.com/bumbleblym>, Boris Cherny <https://github.com/bcherny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as UglifyJS from 'uglify-js';
@@ -10,8 +10,8 @@ declare namespace webpack {
     interface Configuration {
         context?: string;
         entry?: string | string[] | Entry;
-        /** Choose a developer tool to enhance debugging. */
-        devtool?: string;
+        /** Choose a style of source mapping to enhance the debugging process. These values can affect build and rebuild speed dramatically. */
+        devtool?: 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map' | 'source-map' | 'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | '@eval' | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' | '@cheap-module-source-map' | '@eval-source-map' | '@source-map' | '@nosources-source-map' | '@hidden-source-map' | '@nosources-source-map' | '#eval' | '#inline-source-map' | '#cheap-eval-source-map' | '#cheap-source-map' | '#cheap-module-eval-source-map' | '#cheap-module-source-map' | '#eval-source-map' | '#source-map' | '#nosources-source-map' | '#hidden-source-map' | '#nosources-source-map' | '#@eval' | '#@inline-source-map' | '#@cheap-eval-source-map' | '#@cheap-source-map' | '#@cheap-module-eval-source-map' | '#@cheap-module-source-map' | '#@eval-source-map' | '#@source-map' | '#@nosources-source-map' | '#@hidden-source-map' | '#@nosources-source-map' | boolean;
         /** Options affecting the output. */
         output?: Output;
         /** Options affecting the normal modules (NormalModuleFactory) */
@@ -325,6 +325,8 @@ declare namespace webpack {
     interface WatchOptions {
         /** Delay the rebuilt after the first change. Value is a time in ms. */
         aggregateTimeout?: number;
+        /** For some systems, watching many file systems can result in a lot of CPU or memory usage. It is possible to exclude a huge folder like node_modules. It is also possible to use anymatch patterns. */
+        ignored?: RegExp | string;
         /** true: use polling, number: use polling with specified interval */
         poll?: boolean | number;
     }
@@ -785,6 +787,8 @@ declare namespace webpack {
         interface WatchOptions {
             /** After a change the watcher waits that time (in milliseconds) for more changes. Default: 300. */
             aggregateTimeout?: number;
+            /** For some systems, watching many file systems can result in a lot of CPU or memory usage. It is possible to exclude a huge folder like node_modules. It is also possible to use anymatch patterns. */
+            ignored?: RegExp | string;
             /** The watcher uses polling instead of native watchers. true uses the default interval, a number specifies a interval in milliseconds. Default: undefined (automatic). */
             poll?: number | boolean;
         }
@@ -801,40 +805,46 @@ declare namespace webpack {
         }
 
         interface StatsOptions {
-            /** context directory for request shortening */
-            context?: boolean;
-            /** add the hash of the compilation */
-            hash?: boolean;
-            /** add webpack version information */
-            version?: boolean;
-            /** add timing information */
-            timings?: boolean;
-            /** add assets information */
+            /** Add asset Information */
             assets?: boolean;
-            /** add chunk information */
-            chunks?: boolean;
-            /** add built modules information to chunk information */
-            chunkModules?: boolean;
-            /** add built modules information */
-            modules?: boolean;
-            /** add children information */
-            children?: boolean;
-            /** add also information about cached (not built) modules */
-            cached?: boolean;
-            /** add information about the reasons why modules are included */
-            reasons?: boolean;
-            /** add the source code of modules */
-            source?: boolean;
-            /** add details to errors (like resolving log) */
-            errorDetails?: boolean;
-            /** add the origins of chunks and chunk merging info */
-            chunkOrigins?: boolean;
-            /** sort the modules by that field */
-            modulesSort?: string;
-            /** sort the chunks by that field */
-            chunksSort?: string;
-            /** sort the assets by that field */
+            /** Sort assets by a field */
             assetsSort?: string;
+            /** Add information about cached (not built) modules */
+            cached?: boolean;
+            /** Add children information */
+            children?: boolean;
+            /** Add chunk information (setting this to `false` allows for a less verbose output) */
+            chunks?: boolean;
+            /** Add built modules information to chunk information */
+            chunkModules?: boolean;
+            /** Add the origins of chunks and chunk merging info */
+            chunkOrigins?: boolean;
+            /** Sort the chunks by a field */
+            chunksSort?: string;
+            /** Context directory for request shortening */
+            context?: string;
+            /** Add errors */
+            errors?: boolean;
+            /** Add details to errors (like resolving log) */
+            errorDetails?: boolean;
+            /** Add the hash of the compilation */
+            hash?: boolean;
+            /** Add built modules information */
+            modules?: boolean;
+            /** Sort the modules by a field */
+            modulesSort?: string;
+            /** Add public path information */
+            publicPath?: boolean;
+            /** Add information about the reasons why modules are included */
+            reasons?: boolean;
+            /** Add the source code of modules */
+            source?: boolean;
+            /** Add timing information */
+            timings?: boolean;
+            /** Add webpack version information */
+            version?: boolean;
+            /** Add warnings */
+            warnings?: boolean;
         }
 
         interface StatsToStringOptions extends StatsOptions {
