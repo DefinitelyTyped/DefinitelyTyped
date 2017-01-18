@@ -1,5 +1,4 @@
-﻿
-function test_application() {
+﻿function test_application() {
 	let application: fin.OpenFinApplication;
     // constructor
 	application = new fin.desktop.Application({
@@ -442,7 +441,7 @@ function test_system() {
 	}, function (err) {
 		console.log("failure: " + err);
 	});
-	// terminateExternalProcess	
+	// terminateExternalProcess
 	fin.desktop.System.launchExternalProcess({
 		// notepad is in the system’s PATH
 		path: "notepad",
