@@ -1,4 +1,4 @@
-// Type definitions for pty.js 0.2.7-1
+// Type definitions for pty.js 0.2
 // Project: https://github.com/chjj/pty.js
 // Definitions by: Vadim Macagon <https://github.com/enlight/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -28,7 +28,7 @@ export declare class Terminal implements stream.Stream {
     /** Read-only number of rows in the terminal. */
     rows: number;
     /**
-         * Read-only identifier of the spawned process associated with the slave end of the 
+         * Read-only identifier of the spawned process associated with the slave end of the
      * pseudo-terminal. This will be null if the terminal was created via [[Terminal.open]].
      */
     pid: number;
@@ -46,14 +46,14 @@ export declare class Terminal implements stream.Stream {
     stdin: Terminal;
     socket: net.Socket;
 
-    /** 
-     * Creates a new pseudo-terminal, spawns a child process, and associates it with the slave 
+    /**
+     * Creates a new pseudo-terminal, spawns a child process, and associates it with the slave
  * end of the pseudo-terminal.
  */
     constructor(file?: string, args?: string[], opt?: TerminalOptions);
 
     resize(cols?: number, rows?: number): void;
-    /** 
+    /**
  * Sends a signal to the spawned process associated with the slave end of the
  * pseudo-terminal (this only works if [[pid]] is not null).
  */
@@ -67,7 +67,7 @@ export declare class Terminal implements stream.Stream {
     pause(): void;
     resume(): void;
     setEncoding(encoding: string): void;
-    /** 
+    /**
  * Closes the master end of the pseudo-terminal, and attempts to kill the spawned process
  * associated with the slave end of the pseudo-terminal (but only if [[pid]] is not null).
  */
@@ -95,8 +95,8 @@ export declare class Terminal implements stream.Stream {
     eventNames(): string[];
 }
 
-/** 
- * Creates a new pseudo-terminal, spawns a child process, and associates it with the slave 
+/**
+ * Creates a new pseudo-terminal, spawns a child process, and associates it with the slave
 * end of the pseudo-terminal.
 */
 export declare function createTerminal(file?: string, args?: string[], opt?: TerminalOptions): Terminal;
@@ -104,7 +104,7 @@ export declare function createTerminal(file?: string, args?: string[], opt?: Ter
 export declare function fork(file?: string, args?: string[], opt?: TerminalOptions): Terminal;
 /** Alias for [[createTerminal]]. */
 export declare function spawn(file?: string, args?: string[], opt?: TerminalOptions): Terminal;
-/** 
+/**
 * Creates a new pseudo-terminal.
 * This function is not available on Windows, use [[fork]] there instead.
 */

@@ -3,6 +3,7 @@
         "module": "commonjs",
         "target": "es5",
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [

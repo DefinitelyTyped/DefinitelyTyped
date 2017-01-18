@@ -6,6 +6,7 @@
 /// <reference types="geojson" />
 
 type NativeMouseEvent = MouseEvent;
+type NativeKeyboardEvent = KeyboardEvent;
 
 declare namespace L {
     export class Class {
@@ -72,7 +73,7 @@ declare namespace L {
 
     export interface CRS {
         latLngToPoint(latlng: LatLngExpression, zoom: number): Point;
-        pointToLatLng(point: PointExpression): LatLng;
+        pointToLatLng(point: PointExpression, zoom: number): LatLng;
         project(latlng: LatLngExpression): Point;
         unproject(point: PointExpression): LatLng;
         scale(zoom: number): number;
@@ -186,6 +187,8 @@ declare namespace L {
         equals(otherPoint: PointExpression): boolean;
         contains(otherPoint: PointExpression): boolean;
         toString(): string;
+        x: number;
+        y: number;
     }
 
     type PointExpression = Point | PointTuple;
@@ -390,7 +393,8 @@ declare namespace L {
         interactive?: boolean;
     }
 
-    export interface Layer extends Evented {
+    export class Layer extends Evented {
+        constructor(options?: LayerOptions);
         addTo(map: Map): this;
         remove(): this;
         removeFrom(map: Map): this;
@@ -502,7 +506,7 @@ declare namespace L {
     }
 
     export namespace tileLayer {
-        export function wms(baseUrl: string, options: WMSOptions): WMS;
+        export function wms(baseUrl: string, options?: WMSOptions): WMS;
     }
 
     export interface ImageOverlayOptions extends LayerOptions {
@@ -816,6 +820,52 @@ declare namespace L {
         coordsToLatLng?: (coords: [number, number] | [number, number, number]) => LatLng; // check if LatLng has an altitude property
     }
 
+    export class GeoJSON {
+        /**
+         * Creates a Layer from a given GeoJSON feature. Can use a custom pointToLayer
+         * and/or coordsToLatLng functions if provided as options.
+         */
+        static geometryToLayer(featureData: GeoJSON.Feature<GeoJSON.GeometryObject>, options?: GeoJSONOptions): Layer;
+
+        /**
+         * Creates a LatLng object from an array of 2 numbers (longitude, latitude) or
+         * 3 numbers (longitude, latitude, altitude) used in GeoJSON for points.
+         */
+        static coordsToLatLng(coords: [number, number] | [number, number, number]): LatLng;
+
+        /**
+         * Creates a multidimensional array of LatLngs from a GeoJSON coordinates array.
+         * levelsDeep specifies the nesting level (0 is for an array of points, 1 for an array of
+         * arrays of points, etc., 0 by default).
+         * Can use a custom coordsToLatLng function.
+         */
+        static coordsToLatLngs(
+            coords: any[],
+            levelsDeep?: number,
+            coordsToLatLng?: (coords: [number, number] | [number, number, number]) => LatLng): any[]; // Using any[] to avoid artificially limiting valid calls
+
+        /**
+         * Reverse of coordsToLatLng
+         */
+        static latLngToCoords(latlng: LatLng): [number, number, number]; // A three tuple can be assigned to a two or three tuple
+
+
+        /**
+         * Reverse of coordsToLatLngs closed determines whether the first point should be
+         * appended to the end of the array to close the feature, only used when levelsDeep is 0.
+         * False by default.
+         */
+        static latLngsToCoords(latlngs: any[], levelsDeep?: number, closed?: boolean): any[];  // Using any[] to avoid artificially limiting valid calls
+
+        /**
+         * Normalize GeoJSON geometries/features into GeoJSON features.
+         */
+        static asFeature(geojson: GeoJSON.GeometryObject): GeoJSON.Feature<GeoJSON.GeometryObject>;
+
+        static asFeature(geojson: GeoJSON.Feature<GeoJSON.GeometryObject>): GeoJSON.Feature<GeoJSON.GeometryObject>;
+
+    }
+
     /**
      * Represents a GeoJSON object or an array of GeoJSON objects.
      * Allows you to parse GeoJSON data and display it on the map. Extends FeatureGroup.
@@ -837,46 +887,6 @@ declare namespace L {
          */
         setStyle(style: StyleFunction): this;
 
-        /**
-         * Creates a Layer from a given GeoJSON feature. Can use a custom pointToLayer
-         * and/or coordsToLatLng functions if provided as options.
-         */
-        geometryToLayer(featureData: GeoJSON.Feature<GeoJSON.GeometryObject>, options?: GeoJSONOptions): Layer;
-
-        /**
-         * Creates a LatLng object from an array of 2 numbers (longitude, latitude) or
-         * 3 numbers (longitude, latitude, altitude) used in GeoJSON for points.
-         */
-        coordsToLatLng(coords: [number, number]): LatLng;
-
-        coordsToLatLng(coords: [number, number, number]): LatLng;
-
-        /**
-         * Creates a multidimensional array of LatLngs from a GeoJSON coordinates array.
-         * levelsDeep specifies the nesting level (0 is for an array of points, 1 for an array of
-         * arrays of points, etc., 0 by default).
-         * Can use a custom coordsToLatLng function.
-         */
-        coordsToLatLngs(coords: Array<number>, levelsDeep?: number, coordsToLatLng?: (coords: [number, number] | [number, number, number]) => LatLng): LatLng[]; // Not entirely sure how to define arbitrarily nested arrays
-
-        /**
-         * Reverse of coordsToLatLng
-         */
-        latLngToCoords(latlng: LatLng): [number, number] | [number, number, number];
-
-        /**
-         * Reverse of coordsToLatLngs closed determines whether the first point should be
-         * appended to the end of the array to close the feature, only used when levelsDeep is 0.
-         * False by default.
-         */
-        latLngsToCoords(latlngs: Array<LatLng>, levelsDeep?: number, closed?: boolean): [number, number] | [number, number, number];
-
-        /**
-         * Normalize GeoJSON geometries/features into GeoJSON features.
-         */
-        asFeature(geojson: GeoJSON.GeometryObject): GeoJSON.Feature<GeoJSON.GeometryObject>;
-
-        asFeature(geojson: GeoJSON.Feature<GeoJSON.GeometryObject>): GeoJSON.Feature<GeoJSON.GeometryObject>;
     }
 
     /**
@@ -953,7 +963,8 @@ declare namespace L {
         position?: ControlPosition;
     }
 
-    export interface Control {
+    export class Control extends Class {
+        constructor (options?: ControlOptions);
         getPosition(): ControlPosition;
         setPosition(position: ControlPosition): this;
         getContainer(): HTMLElement;
@@ -1039,6 +1050,7 @@ declare namespace L {
         keepInView?: boolean;
         closeButton?: boolean;
         autoClose?: boolean;
+        closeOnClick?: boolean;
     }
 
     type Content = string | HTMLElement;
@@ -1127,6 +1139,10 @@ declare namespace L {
         originalEvent: NativeMouseEvent;
     }
 
+    export interface KeyboardEvent extends Event {
+        originalEvent: NativeKeyboardEvent;
+    }
+
     export interface LocationEvent extends Event {
         latlng: LatLng;
         bounds: LatLngBounds;
@@ -1182,6 +1198,12 @@ declare namespace L {
 
     export interface DragEndEvent extends Event {
         distance: number;
+    }
+
+    export interface ZoomAnimEvent extends Event {
+        center: LatLng;
+        zoom: number;
+        noUpdate: boolean;
     }
 
     export namespace DomEvent {
@@ -1247,12 +1269,12 @@ declare namespace L {
 
         // Methods for modifying map state
         setView(center: LatLngExpression, zoom: number, options?: ZoomPanOptions): this;
-        setZoom(zoom: number, options: ZoomPanOptions): this;
+        setZoom(zoom: number, options?: ZoomPanOptions): this;
         zoomIn(delta?: number, options?: ZoomOptions): this;
         zoomOut(delta?: number, options?: ZoomOptions): this;
-        setZoomAround(latlng: LatLngExpression, zoom: number, options: ZoomOptions): this;
-        setZoomAround(offset: Point, zoom: number, options: ZoomOptions): this;
-        fitBounds(bounds: LatLngBoundsExpression, options: FitBoundsOptions): this;
+        setZoomAround(latlng: LatLngExpression, zoom: number, options?: ZoomOptions): this;
+        setZoomAround(offset: Point, zoom: number, options?: ZoomOptions): this;
+        fitBounds(bounds: LatLngBoundsExpression, options?: FitBoundsOptions): this;
         fitWorld(options?: FitBoundsOptions): this;
         panTo(latlng: LatLngExpression, options?: PanOptions): this;
         panBy(offset: PointExpression): this;
@@ -1345,8 +1367,15 @@ declare namespace L {
         imagePath: string;
     }
 
+    export class Icon {
+        constructor(options: IconOptions);
+    }
+
     export namespace Icon {
-        export const Default: IconDefault;
+        export class Default extends Icon {
+            constructor(options?: IconOptions);
+            imagePath: string;
+        }
     }
 
     export function icon(options: IconOptions): Icon;
@@ -1360,9 +1389,11 @@ declare namespace L {
         className?: string;
     }
 
-    export interface DivIcon extends Icon {}
+    export class DivIcon extends Icon {
+        constructor(options?: DivIconOptions);
+    }
 
-    export function divIcon(options: DivIconOptions): DivIcon;
+    export function divIcon(options?: DivIconOptions): DivIcon;
 
     export interface MarkerOptions extends InteractiveLayerOptions {
         icon?: Icon;
@@ -1376,12 +1407,14 @@ declare namespace L {
         riseOffset?: number;
     }
 
-    export interface Marker extends Layer {
+    export class Marker extends Layer {
+        constructor(latlng: LatLngExpression, options?: MarkerOptions);
         getLatLng(): LatLng;
         setLatLng(latlng: LatLngExpression): this;
         setZIndexOffset(offset: number): this;
         setIcon(icon: Icon): this;
         setOpacity(opacity: number): this;
+        getElement(): Element;
 
         // Properties
         dragging: Handler;

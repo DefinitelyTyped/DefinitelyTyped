@@ -1,4 +1,4 @@
-﻿import mixin = require('merge-descriptors');
+import mixin = require('merge-descriptors');
 
 function testAssertion(condition: boolean, errorMessage: string) {
     if (!condition) {

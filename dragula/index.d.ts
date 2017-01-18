@@ -16,7 +16,7 @@ declare namespace dragula {
         accepts?: (el?: Element, target?: Element, source?: Element, sibling?: Element) => boolean;
         invalid?: (el?: Element, target?: Element) => boolean;
         direction?: string;
-        copy?: boolean;
+        copy?: ((el: Element, source: Element) => boolean) | boolean;
         revertOnSpill?: boolean;
         removeOnSpill?: boolean;
         delay?: boolean | number;

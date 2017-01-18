@@ -1,4 +1,4 @@
-// Type definitions for three.js r81
+// Type definitions for three.js 0.81
 // Project: http://mrdoob.github.com/three.js/
 // Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>, Florent Poujol <https://github.com/florentpoujol>, SereznoKot <https://github.com/SereznoKot>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -261,7 +261,7 @@ declare namespace THREE {
         reset(): AnimationAction;
         isRunning(): boolean;
         startAt(time: number): AnimationAction;
-        setLoop(mode: boolean, repetitions: number): AnimationAction;
+        setLoop(mode: AnimationActionLoopStyles, repetitions: number): AnimationAction;
         setEffectiveWeight(weight: number): AnimationAction;
         getEffectiveWeight(): number;
         fadeIn(duration: number): AnimationAction;
@@ -1286,6 +1286,11 @@ declare namespace THREE {
         computeVertexNormals(areaWeighted?: boolean): void;
 
         /**
+         * Compute vertex normals, but duplicating face normals.
+         */
+        computeFlatVertexNormals(): void;
+
+        /**
          * Computes morph normals.
          */
         computeMorphNormals(): void;
@@ -1984,18 +1989,20 @@ declare namespace THREE {
         get(file: string): Loader;
     }
 
-    export class XHRLoader {
+    export class FileLoader {
         constructor(manager?: LoadingManager);
 
         manager: LoadingManager;
+        mimeType: MimeType;
         path: string;
         responseType: string;
-        withCredentials: boolean;
+        withCredentials: string        
 
-        load(url: string, onLoad?: (responseText: string) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): any;
-        setPath(path: string): XHRLoader;
-        setResponseType(responseType: string): XHRLoader;
-        setWithCredentials(withCredentials: boolean): XHRLoader;
+        load(url: string, onLoad?: (response: any) => void, onProgress?: (request: XMLHttpRequest) => void, onError?:(event: any) => void): any;
+        setMimeType(mimeType: MimeType): FileLoader;
+        setPath(path: string) : FileLoader;
+        setResponseType(responseType: string) : FileLoader;
+        setWithCredentials(value: string): FileLoader;
     }
 
     export class FontLoader {
@@ -5601,7 +5608,7 @@ declare namespace THREE {
 
     export class Texture extends EventDispatcher {
         constructor(
-            image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
+            image?: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
             mapping?: Mapping,
             wrapS?: Wrapping,
             wrapT?: Wrapping,
@@ -5729,7 +5736,7 @@ declare namespace THREE {
             encoding?: TextureEncoding
         );
 
-        image: { data: ImageData; width: number; height: number; };
+        image: ImageData;
     }
 
     export class VideoTexture extends Texture {
@@ -6478,10 +6485,10 @@ declare namespace THREE {
     }
 
     export class TubeGeometry extends Geometry {
-        constructor(path: Path, segments?: number, radius?: number, radiusSegments?: number, closed?: boolean, taper?: (u: number) => number);
+        constructor(path: Curve<Vector3>, segments?: number, radius?: number, radiusSegments?: number, closed?: boolean, taper?: (u: number) => number);
 
         parameters: {
-            path: Path;
+            path: Curve<Vector3>;
             segments: number;
             radius: number;
             radialSegments: number;

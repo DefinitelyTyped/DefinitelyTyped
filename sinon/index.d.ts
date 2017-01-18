@@ -427,7 +427,7 @@ declare namespace Sinon {
 
     // Utility overridables
     interface SinonStatic {
-        createStubInstance(constructor: any): SinonStub;
+        createStubInstance(constructor: any): any;
         format(obj: any): string;
         log(message: string): void;
         restore(object: any): void;

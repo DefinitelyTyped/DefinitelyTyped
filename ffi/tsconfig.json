@@ -3,6 +3,7 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
@@ -14,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "node-ffi-tests.ts"
+        "node-ffi-buffer.d.ts",
+        "ffi-tests.ts"
     ]
 }

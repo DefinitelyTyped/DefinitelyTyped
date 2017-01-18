@@ -19,7 +19,7 @@ import * as cookies from "cookies";
 import * as http from "http";
 import * as net from "net";
 
-declare namespace Koa { }
+
 export = Koa;
 
 declare namespace Koa {
@@ -145,6 +145,8 @@ declare namespace Koa {
         toJSON(): any;
         inspect(): any;
     }
+
+    export type Middleware = (ctx: Koa.Context, next: () => Promise<any>) => any;
 }
 
 declare class Koa extends EventEmitter {
@@ -174,7 +176,7 @@ declare class Koa extends EventEmitter {
 
     callback(): (req: http.IncomingMessage, res: http.ServerResponse) => void;
     onerror(err: any): void;
-    use(middleware: (ctx: Koa.Context, next: () => Promise<any>) => any): Koa;
+    use(middleware: Koa.Middleware): Koa;
 
     toJSON(): any;
     inspect(): any;

@@ -38,7 +38,7 @@ or just look for any ".d.ts" files in the package and manually include them with
 These can be used by TypeScript 1.0.
 
 * [Typings](https://github.com/typings/typings)
-* [NuGet](http://nuget.org/Tpackages?q=DefinitelyTyped)
+* ~~[NuGet](http://nuget.org/Tpackages?q=DefinitelyTyped)~~ (use preferred alternatives, nuget DT type publishing has been turned off)
 * Manually download from the `master` branch of this repository
 
 You may need to add manual [references](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
@@ -86,6 +86,7 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 * `cd my-package-to-edit`
 * Make changes. Remember to edit tests.
 * You may also want to add yourself to "Definitions by" section of the package header.
+  - Do this by adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
 * `npm install -g typescript@2.0` and run `tsc`.
 
 When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
@@ -121,17 +122,11 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 #### Common mistakes
 
 * First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatting: Either use all tabs, or always use 4 spaces. Also, always use semicolons, and use egyptian braces.
-* `interface X {}`: An empty interface is essentially the `{}` type: it places no constraints on an object.
-* `interface IFoo {}`: Don't add `I` to the front of an interface name.
+* Formatting: Either use all tabs, or always use 4 spaces.
 * `interface Foo { new(): Foo; }`:
     This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
 * `const Class: { new(): IClass; }`:
     Prefer to use a class declaration `class Class { constructor(); }` instead of a new-able constant.
-* `namespace foo {}`:
-    Do not add a namespace just so that the `import * as foo` syntax will work.
-    If it is commonJs module with a single export, you should use the `import foo = require("foo")` syntax.
-    See more explanation [here](https://stackoverflow.com/questions/39415661/why-cant-i-import-a-class-or-function-with-import-as-x-from-y).
 * `getMeAT<T>(): T`:
     If a type parameter does not appear in the types of any parameters, you don't really have a generic function, you just have a disguised type assertion.
     Prefer to use a real type assertion, e.g. `getMeAT() as number`.
@@ -200,7 +195,7 @@ A `package.json` may be included for the sake of specifying dependencies. Here's
 We do not allow other fields, such as `"description"`, to be defined manually.
 Also, if you need to reference an older version of typings, you must do that by adding `"dependencies": { "@types/foo": "x.y.z" }` to the package.json.
 
-#### I notice some `tsconfig.json` are missing `"noImplicitAny": true` or `"strictNullChecks": true`.
+#### Some packages have no `tslint.json`, and some `tsconfig.json` are missing `"noImplicitAny": true`, `"noImplicitThis": true`, or `"strictNullChecks": true`.
 
 Then they are wrong. You can help by submitting a pull request to fix them.
 
@@ -212,6 +207,22 @@ Here are the [currently requested definitions](https://github.com/DefinitelyType
 
 If types are part of a web standard, they should be contributed to [TSJS-lib-generator](https://github.com/Microsoft/TSJS-lib-generator) so that they can become part of the default `lib.dom.d.ts`.
 
+#### A package uses `export =`, but I prefer to use default imports. Can I change `export =` to `export default`?
+
+If default imports work in your environment, consider turning on the [`--allowSyntheticDefaultImports`](http://www.typescriptlang.org/docs/handbook/compiler-options.html) compiler option.
+Do not change the type definition if it is accurate.
+For an NPM package, `export =` is accurate if `node -p 'require("foo")'` is the export, and `export default` is accurate if `node -p 'require("foo").default'` is the export.
+
+#### I want to use features from TypeScript 2.1.
+
+Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 2.1`.
+
+#### I want to add a DOM API not present in TypeScript by default.
+
+This may belong in [TSJS-Lib-Generator](https://github.com/Microsoft/TSJS-lib-generator#readme). See the guidelines there.
+If the standard is still a draft, it belongs here.
+Use a name beginning with `dom-` and include a link to the standard as the "Project" link in the header.
+When it graduates draft mode, we may remove it from DefinitelyTyped and deprecate the associated `@types` package.
 
 ## License
 

@@ -3,6 +3,7 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
@@ -14,7 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "marker-animate-unobtrusive-tests.ts",
-        "marker-animate-unobtrusive-amd-tests.ts"
+        "marker-animate-unobtrusive-tests.ts"
     ]
 }

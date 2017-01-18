@@ -125,6 +125,10 @@ declare namespace daterangepicker {
         * Normally, if you use the ranges option to specify pre- defined date ranges, calendars for choosing a custom date range are not shown until the user clicks "Custom Range".When this option is set to true, the calendars for choosing a custom date range are always shown instead.
         */
         alwaysShowCalendars?: boolean;
+        /**
+        * Whether to show the 'Custom Range' label or just pre-defined ranges
+        */
+        showCustomRangeLabel?: boolean;
     }
 
     interface Locale {

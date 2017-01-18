@@ -259,6 +259,13 @@ class TestProvider implements ng.IServiceProvider {
     }
 }
 
+// QProvider tests
+angular.module('qprovider-test', [])
+    .config(['$qProvider', function ($qProvider: ng.IQProvider) {
+        const provider: ng.IQProvider = $qProvider.errorOnUnhandledRejections(false);
+        const currentValue: boolean = $qProvider.errorOnUnhandledRejections();
+    }]);
+
 // Promise signature tests
 var foo: ng.IPromise<number>;
 foo.then((x) => {

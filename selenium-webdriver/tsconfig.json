@@ -3,6 +3,7 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
+        "noImplicitThis": false,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
@@ -14,6 +15,18 @@
     },
     "files": [
         "index.d.ts",
-        "selenium-webdriver-tests.ts"
+        "chrome.d.ts",
+        "edge.d.ts",
+        "executors.d.ts",
+        "firefox.d.ts",
+        "http.d.ts",
+        "ie.d.ts",
+        "opera.d.ts",
+        "remote.d.ts",
+        "safari.d.ts",
+        "testing.d.ts",
+        "test/index.ts",
+        "test/chrome.ts",
+        "test/firefox.ts"
     ]
 }

@@ -1,9 +1,9 @@
-// Type definitions for Highcharts No Data to Display
+// Type definitions for Highcharts No Data to Display 4.2.7
 // Project: http://www.highcharts.com/
-// Definitions by: Andrey Zolotin <http://github.com/nitoloz>
+// Definitions by: Andrey Zolotin <http://github.com/nitoloz>, Rowell Heria <http://github.com/rowellx68>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as Hc from "highcharts";
+import { Static } from "highcharts";
 
 declare module "highcharts" {
     interface ChartObject {
@@ -28,3 +28,7 @@ declare module "highcharts" {
         showNoData(message?: string): void;
     }
 }
+
+declare var HighchartsNoDataToDisplay: (H: Static) => Static;
+export = HighchartsNoDataToDisplay;
+export as namespace HighchartsNoDataToDisplay;
