@@ -69,6 +69,8 @@ declare class Mocha {
         ui?: string;
         reporter?: string;
         timeout?: number;
+        reporterOptions?: any;
+        slow?: number;
         bail?: boolean;
     });
 
