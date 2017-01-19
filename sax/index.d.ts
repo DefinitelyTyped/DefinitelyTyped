@@ -1,4 +1,4 @@
-// Type definitions for sax js
+// Type definitions for sax-js 1.x
 // Project: https://github.com/isaacs/sax-js
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -63,6 +63,7 @@ export declare class SAXParser {
     strict: boolean;
     opt: SAXOptions;
     tag: string;
+    ENTITIES: {[key: string]: string};
 
     // Events
     onerror(e: Error): void;
