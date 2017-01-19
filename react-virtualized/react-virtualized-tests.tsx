@@ -1,6 +1,6 @@
-/// <reference path="react-virtualized.d.ts"/>
-/// <reference path="../react/react.d.ts"/>
-/// <reference path="../react/react-dom.d.ts"/>
+/// <reference types="react-virtualized"/>
+/// <reference types="react"/>
+/// <reference types="react-dom"/>
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
@@ -19,6 +19,7 @@ import {
     InfiniteLoader,
     ScrollSync,
     WindowScroller,
+    List
 } from "react-virtualized";
 
 /*
@@ -102,6 +103,26 @@ function GridTest() {
             columnCount={list[0].length}
             rowCount={list.length}
             cellRenderer={({ columnIndex, isScrolling, rowIndex }) => list[rowIndex][columnIndex]}
+            />,
+        document.getElementById('example')
+    );
+}
+
+function ListTest() {
+    // List data
+    const list = [
+        {name: 'Brian Vaughn', occupation: 'Software Engineer', location: 'San Jose, CA, 95125' /* ... */}
+        // And so on...
+    ];
+
+    // Render your List
+    ReactDOM.render(
+        <List
+            width={300}
+            height={300}
+            rowHeight={30}
+            rowCount={list.length}
+            rowRenderer={({ index, isScrolling }) => list[index]}
             />,
         document.getElementById('example')
     );
@@ -291,9 +312,11 @@ function ScrollSyncTest() {
 }
 
 function WindowScrollerTest() {
+    const onScroll = function({scrollTop}: WindowScroller.OnScrollArg) {};
+    const onResize = function({height}: WindowScroller.OnResizeArg) {};
     ReactDOM.render(
-        <WindowScroller>
-            {({ height, isScrolling, scrollTop }) => (
+        <WindowScroller onScroll={onScroll} onResize={onResize}>
+            {({ height, isScrolling, scrollTop }: WindowScroller.RenderCallbackArg) => (
                 <VirtualScroll
                     autoHeight
                     height={height}
@@ -304,6 +327,11 @@ function WindowScrollerTest() {
                     width={120}/>
             ) }
         </WindowScroller>,
+        document.getElementById('example')
+    );
+    // test that onScroll & onResize are optional
+    ReactDOM.render(
+        <WindowScroller />,
         document.getElementById('example')
     );
 }

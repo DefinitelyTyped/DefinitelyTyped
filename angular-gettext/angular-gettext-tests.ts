@@ -1,4 +1,4 @@
-﻿/// <reference path="angular-gettext.d.ts" />
+
 
 namespace angular_gettext_tests {
 

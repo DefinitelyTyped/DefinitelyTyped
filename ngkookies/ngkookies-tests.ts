@@ -1,4 +1,4 @@
-/// <reference path="ngkookies.d.ts" />
+
 
 var app: any;
 

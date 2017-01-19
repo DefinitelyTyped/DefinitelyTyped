@@ -1,4 +1,4 @@
-/// <reference path="http-status.d.ts" />
+
 
 import httpStatus = require('http-status');
 

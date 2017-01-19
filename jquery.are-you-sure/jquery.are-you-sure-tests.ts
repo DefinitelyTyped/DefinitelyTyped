@@ -1,10 +1,9 @@
-﻿// Type definitions for jquery.are-you-sure.js
+// Type definitions for jquery.are-you-sure.js
 // Project: https://github.com/codedance/jquery.AreYouSure
 // Definitions by: Jon Egerton <https://github.com/jonegerton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="jquery.are-you-sure.d.ts"/>
+/// <reference types="jquery"/>
 
 //Use defaults
 $("test").areYouSure();

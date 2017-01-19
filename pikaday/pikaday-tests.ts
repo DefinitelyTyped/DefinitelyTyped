@@ -1,8 +1,7 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../moment/moment.d.ts" />
-/// <reference path="pikaday.d.ts" />
+/// <reference types="jquery" />
 
 import * as Pikaday from "pikaday";
+import * as moment from "moment";
 
 new Pikaday({field: document.getElementById('datepicker')});
 new Pikaday({field: $('#datepicker')[0]});

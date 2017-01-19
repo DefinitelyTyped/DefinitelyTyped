@@ -1,4 +1,4 @@
-/// <reference path="./azure-sb.d.ts" />
+
 
 var nh = new Azure.ServiceBus.NotificationHubService();
 nh.send('tag', '<payload></payload>', function (error, result) {});

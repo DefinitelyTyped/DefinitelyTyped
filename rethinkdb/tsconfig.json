@@ -1,9 +1,22 @@
 {
     "compilerOptions": {
-        "module": "es6",
-        "target": "es6"
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": false,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
-    "include": [
-      "*.ts"
+    "files": [
+        "index.d.ts",
+        "rethinkdb-tests.ts"
     ]
 }

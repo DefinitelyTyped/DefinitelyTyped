@@ -1,4 +1,4 @@
-/// <reference path="calq.d.ts" />
+
 function calq_base()
 {
     calq.init("bfff14a4e0225789be3d9d22c4bb42a1");

@@ -1,4 +1,3 @@
-/// <reference path="statsd-client.d.ts" />
 
 import SDC = require("statsd-client");
 

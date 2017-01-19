@@ -1,4 +1,3 @@
-/// <reference path="nconf.d.ts" />
 
 import nconf = require('nconf');
 
@@ -57,6 +56,7 @@ nconf.init(opts);
 p = nconf.overrides();
 p = nconf.overrides(opts);
 nconf.remove(str);
+bool = nconf.required(strArr);
 store = nconf.create(str, opts);
 
 str = nconf.key(value, value);
@@ -118,6 +118,7 @@ p = p.defaults(opts);
 p.init(opts);
 p = p.overrides(opts);
 p.remove(str);
+bool = p.required(strArr);
 store = p.create(str, opts);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - -

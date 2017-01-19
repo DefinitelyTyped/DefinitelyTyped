@@ -1,5 +1,3 @@
-/// <reference path="chunked-dc.d.ts" />
-
 // Chunker
 
 let chunker = new Chunker(1337, Uint8Array.of(1,2,3), 2);

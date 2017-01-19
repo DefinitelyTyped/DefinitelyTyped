@@ -1,4 +1,4 @@
-/// <reference path="plottable.d.ts" />
+
 
 var data = [
   { x: 1, y: 1, x2: 2, y2: 2 },

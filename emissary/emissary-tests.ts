@@ -1,4 +1,4 @@
-/// <reference path="./emissary.d.ts" />
+
 
 import emissary = require("emissary");
 

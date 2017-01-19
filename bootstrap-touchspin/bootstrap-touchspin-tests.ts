@@ -1,5 +1,5 @@
-﻿/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="bootstrap-touchspin.d.ts" />
+/// <reference types="jquery" />
+
 
 $(function () {
     // Example 1 from http://www.virtuosoft.eu/code/bootstrap-touchspin/

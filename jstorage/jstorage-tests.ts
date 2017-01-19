@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="jstorage.d.ts" />
+/// <reference types="jquery" />
+
 
 // Test set first overload
 var storedValue = $.jStorage.set("testObj", { foo: 'bar' });

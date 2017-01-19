@@ -1,4 +1,4 @@
-/// <reference path="autosize.d.ts" />
+/// <reference types="autosize" />
 
 // from a NodeList
 autosize(document.querySelectorAll('textarea'));

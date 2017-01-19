@@ -1,4 +1,4 @@
-/// <reference path="./angular-ui-router-default.d.ts" />
+import * as angular from "angular";
 
 angular.module("test", [
 	"ui.router",

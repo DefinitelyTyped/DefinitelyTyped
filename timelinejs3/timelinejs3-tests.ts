@@ -1,5 +1,3 @@
-/// <reference path="timelinejs3.d.ts" />
-
 let date1: TL.ITimelineDate = {
   year: 1999,
   month: 3,
