@@ -6,8 +6,6 @@
 import * as Redux from "redux";
 import * as History from "history";
 
-/// <reference types="react-router"/>
-
 declare namespace ReactRouterRedux {
     const TRANSITION: string;
     const UPDATE_LOCATION: string;
