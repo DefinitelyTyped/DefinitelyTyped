@@ -111,8 +111,7 @@ declare module 'rx' {
     function touchstart(element: Element, selector?: Function, useCapture?: boolean): Rx.Observable<TouchEvent>;
 
     // Ajax
-    function ajax(url: string): Rx.Observable<AjaxSuccessResponse>;
-    function ajax(settings: AjaxSettings): Rx.Observable<AjaxSuccessResponse>;
+    function ajax(settingsOrUrl: AjaxSettings | string): Rx.Observable<AjaxSuccessResponse>;
     function get(url: string): Rx.Observable<AjaxSuccessResponse>;
     function getJSON(url: string): Rx.Observable<string>;
     function post(url: string, body: any): Rx.Observable<AjaxSuccessResponse>;
