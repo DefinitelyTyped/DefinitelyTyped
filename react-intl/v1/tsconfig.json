@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -11,11 +14,12 @@
         ],
         "types": [],
         "paths": {
-            "react-intl": ["react-intl/v1"]
+            "react-intl": [
+                "react-intl/v1"
+            ]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-
         "jsx": "react",
         "experimentalDecorators": true
     },

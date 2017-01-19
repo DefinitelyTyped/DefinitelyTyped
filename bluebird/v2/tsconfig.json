@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es5",
+        "lib": [
+            "es5"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": false,
@@ -11,7 +13,9 @@
         ],
         "types": [],
         "paths": {
-            "bluebird": ["bluebird/v2"]
+            "bluebird": [
+                "bluebird/v2"
+            ]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

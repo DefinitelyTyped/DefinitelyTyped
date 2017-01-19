@@ -1,10 +1,21 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": false,
         "noImplicitThis": false,
         "strictNullChecks": false,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "paths": {
+            "d3": ["d3/v3"]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
