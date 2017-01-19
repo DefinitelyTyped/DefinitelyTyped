@@ -10,9 +10,6 @@
         "strictNullChecks": false,
         "jsx": "preserve",
         "baseUrl": "../",
-        "paths": {
-            "history": ["history/v2"]
-        },
         "typeRoots": [
             "../"
         ],
