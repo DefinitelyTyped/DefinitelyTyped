@@ -1,5 +1,3 @@
-/// <reference types="d3" />
-
 namespace nvd3_test_bulletChart {
     var width = 960,
         height = 80,
