@@ -9,11 +9,36 @@ function test() {
 	var paths = testPaths();
 	var models = testModels();
 	var model: MakerJs.IModel = models[0];
+	var seed: MakerJs.IPathBezierSeed = { type: makerjs.pathType.BezierSeed, origin: [0,0], end: [1,1], controls: []};
+	var chain: MakerJs.IChain = {
+		endless: false,
+		links: [
+			{
+				endPoints: [],
+				reversed: false,
+				pathLength: 0,
+				walkedPath: {
+					layer: '',
+					modelContext: model,
+					offset: p1,
+					pathContext: paths.line,
+					pathId: 'x',
+					route: [],
+					routeKey: ''
+				}
+			}
+		],
+		pathLength: 0		
+	};
 
 	function testRoot() {
+		makerjs.version;
+		makerjs.environment;
+		makerjs.environmentTypes.BrowserUI;
 		makerjs.cloneObject({});
 		makerjs.createRouteKey([]);
 		makerjs.extendObject({abc:123}, {xyz:789});
+		makerjs.isChain({});
 		makerjs.isFunction(function(){});
 		makerjs.isNumber(0);
 		makerjs.isObject({});
@@ -62,6 +87,7 @@ function test() {
                 useSvgPathOnly: false,
                 viewBox: false
              });
+		makerjs.exporter.toSVGPathData(model);
 		makerjs.exporter.tryGetModelUnits(model);
 	}
 
@@ -88,7 +114,7 @@ function test() {
 		makerjs.measure.isBetween(7, 8, 9, false);
 		makerjs.measure.isBetweenArcAngles(7, paths.arc, false);
 		makerjs.measure.isBetweenPoints([1,1], paths.line, true);
-		makerjs.measure.isBezierSeedLinear({type: '', origin:[], end:[], controls:[]});
+		makerjs.measure.isBezierSeedLinear(seed);
 		makerjs.measure.isLineOverlapping(paths.line, paths.line, false);
 		makerjs.measure.isMeasurementOverlapping(mm, mp);
 		var mm = makerjs.measure.modelExtents(model);
@@ -105,6 +131,7 @@ function test() {
 
 	function testModel(){
 		makerjs.model.breakPathsAtIntersections(model, { paths:{ } });
+		makerjs.model.center(model);
 		var opts: MakerJs.ICombineOptions = { trimDeadEnds: true, pointMatchingDistance: 2 };
 		makerjs.model.combine(model, model, true, false, true, false, opts);
 		makerjs.model.combineIntersection(model, model);
@@ -116,6 +143,7 @@ function test() {
 		makerjs.model.expandPaths(model, 7);
 		makerjs.model.findChains(model, function (chains: MakerJs.IChain[], loose: MakerJs.IWalkPath[], layer: string) {})
 		makerjs.model.findLoops(model);
+		makerjs.model.findSingleChain(model);
 		makerjs.model.getSimilarModelId(model, 'foo');
 		makerjs.model.getSimilarPathId(model, 'foo');
 		makerjs.model.isPathInsideModel(paths.line, model);
@@ -131,18 +159,24 @@ function test() {
 		makerjs.model.simplify(model);
 		makerjs.model.walk(model, {});
 		makerjs.model.walkPaths(model, (modelContext: MakerJs.IModel, pathId: string, pathContext: MakerJs.IPath) => {});
+		makerjs.model.zero(model);
         model.exporterOptions = { foo: 'bar' };
 	}
 
 	function testModels(): MakerJs.IModel[] {
+		makerjs.models.BezierCurve.computeLength(seed);
+		makerjs.models.BezierCurve.computePoint(seed, 0);
+		makerjs.models.BezierCurve.getBezierSeeds(new makerjs.models.BezierCurve([]));
 		return [
 			new makerjs.models.BezierCurve([]),
 			new makerjs.models.BoltCircle(7, 7, 7, 7),
 			new makerjs.models.BoltRectangle(2, 2, 2),
 			new makerjs.models.ConnectTheDots(true, [ [0,0], [1,1] ]),
+			new makerjs.models.Dogbone(1,1,1),
 			new makerjs.models.Dome(5, 7),
 			new makerjs.models.Ellipse(2,2),
 			new makerjs.models.EllipticArc(2,2,3,4),
+			new makerjs.models.Holes(1,[]),
 			new makerjs.models.Oval(7, 7),
 			new makerjs.models.OvalArc(6, 4, 2, 12, true),
 			new makerjs.models.Polygon(7, 5),
@@ -159,6 +193,7 @@ function test() {
 
 	function testPath() {
 		makerjs.path.breakAtPoint(paths.arc, [0,0]).type;
+		makerjs.path.center(paths.line);
 		makerjs.path.clone(paths.line);
 		makerjs.path.converge(paths.line, paths.line);
 		makerjs.path.distort(paths.arc, 5, 6);
@@ -173,6 +208,8 @@ function test() {
 		makerjs.path.rotate(paths.line, 5, [0,0]);
 		makerjs.path.scale(paths.arc, 8);
 		makerjs.path.straighten(paths.arc);
+		makerjs.path.toKeyPoints(paths.arc, 1);
+		makerjs.path.toPoints(paths.circle, 1);
 	}
 
 	function testPaths() {
@@ -215,6 +252,12 @@ function test() {
 		makerjs.point.scale(p2, 8);
 		makerjs.point.subtract(p2, p1);
 		makerjs.point.zero();
+	}
+
+	function testChain() {
+		makerjs.chain.fillet(chain, 1);
+		makerjs.chain.toKeyPoints(chain);
+		makerjs.chain.toPoints(chain, 1);
 	}
 
 	function testSolvers() {

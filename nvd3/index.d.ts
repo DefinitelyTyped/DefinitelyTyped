@@ -3,7 +3,13 @@
 // Definitions by: Peter Mitchell <https://github.com/PjMitchell/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="d3" />
+import * as d3 from "d3";
+
+export = nv;
+export as namespace nv;
+
+declare var nv: nv.Nvd3Static;
+
 declare namespace nv {
 
 //#region Core Interfaces
@@ -3402,9 +3408,4 @@ id(value: number|string): this;
         log(topic: string, value?: string): string //returns last argument
         log(arg: any[]): any //returns last argument
 	}
-}
-declare var nv : nv.Nvd3Static;
-
-declare module "nvd3" {
-    export = nv;
 }

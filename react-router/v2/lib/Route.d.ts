@@ -12,8 +12,8 @@ declare namespace self {
         path?: Router.RoutePattern;
         component?: Router.RouteComponent;
         components?: Router.RouteComponents;
-        getComponent?: (nextState: Router.RouterState, cb: (error: any, component?: Router.RouteComponent) => void) => void
-        getComponents?: (nextState: Router.RouterState, cb: (error: any, components?: Router.RouteComponents) => void) => void
+        getComponent?: (nextState: Router.RouterState, cb: (error: any, component?: Router.RouteComponent) => void) => void;
+        getComponents?: (nextState: Router.RouterState, cb: (error: any, components?: Router.RouteComponents) => void) => void;
         onEnter?: Router.EnterHook;
         onLeave?: Router.LeaveHook;
         onChange?: Router.ChangeHook;

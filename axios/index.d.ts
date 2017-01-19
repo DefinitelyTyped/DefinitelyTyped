@@ -99,6 +99,13 @@ declare namespace Axios {
          * change the response data to be made before it is passed to then/catch
          */
         transformResponse?: <U>(data: T) => U;
+     
+        /** 
+         * defines whether to resolve or reject the promise for a given HTTP response status code. 
+         * If returns `true` (or is set to `null` or `undefined`), the promise will be resolved; 
+         * otherwise, the promise will be rejected
+         */
+        validateStatus?: (status: number) => boolean | undefined;
     }
 
     /**
