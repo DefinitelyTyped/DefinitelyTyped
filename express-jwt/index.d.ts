@@ -37,3 +37,10 @@ declare namespace jwt {
         unless?: typeof unless;
     }
 }
+declare global {
+    namespace Express {
+        export interface Request {
+            user?: any
+        }
+    }
+}
