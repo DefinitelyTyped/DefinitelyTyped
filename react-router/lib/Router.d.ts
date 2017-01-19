@@ -1,5 +1,6 @@
 import { Component, ComponentClass, ClassAttributes, ReactNode, StatelessComponent } from "react";
 import {
+    Action,
     Hash,
     History,
     Href,
@@ -11,12 +12,13 @@ import {
 } from "history";
 import { PlainRoute } from "react-router";
 
+/* Replacement from old history definitions */
 export type Basename = string;
 export type Query = any;
-export type Action = "PUSH" | "REPLACE" | "POP";
 export interface Params {
     [key: string]: string;
 }
+
 export type RoutePattern = string;
 export type RouteComponent = ComponentClass<any> | StatelessComponent<any>;
 export interface RouteComponents {

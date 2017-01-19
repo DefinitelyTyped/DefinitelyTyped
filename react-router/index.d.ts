@@ -3,6 +3,19 @@
 // Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>, Nathan Brown <https://github.com/ngbrown>, Alex Wendland <https://github.com/awendland>, Kostya Esmukov <https://github.com/KostyaEsmukov>, Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/* Replacement from old history definitions */
+export interface HistoryOptions {
+    getCurrentLocation?(): Location;
+    getUserConfirmation?(message: string, callback: (result: boolean) => void): void;
+    pushLocation?(nextLocation: Location): void;
+    replaceLocation?(nextLocation: Location): void;
+    go?(n: number): void;
+    keyLength?: number;
+}
+
+export type CreateHistory<T> = (options?: HistoryOptions) => T;
+export type CreateHistoryEnhancer<T> = (createHistory: CreateHistory<T>) => CreateHistory<T>;
+
 export {
     Basename,
     ChangeHook,
