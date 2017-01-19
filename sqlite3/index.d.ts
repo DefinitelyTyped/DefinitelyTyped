@@ -82,7 +82,7 @@ export declare class Database extends events.EventEmitter {
     on(event: "profile", listener: (sql: string, time: number) => void): this;
     on(event: "error", listener: (err: Error) => void): this;
     on(event: "open" | "close", listener: () => void): this;
-    on(event: string, listener: Function): this;
+    on(event: string, listener: (...args: any[]) => void): this;
 }
 
 declare function verbose(): void;
