@@ -3,7 +3,9 @@
 // Definitions by: Vincent Bortone <https://github.com/vbortone/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface NumeralJSLanguage {
+
+// http://numeraljs.com/#locales
+interface NumeralJSLocale {
 	delimiters: {
 		thousands: string;
 		decimal: string;
@@ -20,12 +22,43 @@ interface NumeralJSLanguage {
 	};
 }
 
+
+// http://numeraljs.com/#custom-formats
+interface NumeralJsFormat {
+	regexps: {
+		format: RegExp,
+		unformat: RegExp,
+	},
+	format: (value: any, format: string, roundingFunction: Function) => string,
+	unformat: (value: string) => number
+}
+
+type RegisterType = 'format' | 'locale';
+
+// http://numeraljs.com/#use-it
 interface Numeral {
 	(value?: any): Numeral;
 	version: string;
 	isNumeral: boolean;
-	language(key?: string, values?: NumeralJSLanguage): Numeral | string;
-	zeroFormat(format: string): string;
+
+	/**
+	 * This function sets the current locale.  If no arguments are passed in,
+	 * it will simply return the current global locale key.
+	 */
+	locale(key?: string): string;
+
+	/**
+	 * Registers a language definition or a custom format definition.
+	 *
+	 * @param what Allowed values are: either 'format' or 'locale'
+	 * @param key The key of the registerd type, e.g. 'de' for a german locale definition
+	 * @param value The locale definition or the format definitiion
+	 */
+	register(what: RegisterType, key: string, value: NumeralJSLocale | NumeralJsFormat): NumeralJSLocale | NumeralJsFormat;
+
+	zeroFormat(format: string): void;
+	nullFormat(format: string): void;
+	defaultFormat(format: string): void;
 	clone(): Numeral;
 	format(inputString?: string): string;
 	formatCurrency(inputString?: string): string;
@@ -42,6 +75,9 @@ interface Numeral {
 
 declare var numeral: Numeral;
 
+/**
+ * Usage: <code>import * as numeral from 'numeral'</code>
+ */
 declare module "numeral" {
 
     export = numeral;
