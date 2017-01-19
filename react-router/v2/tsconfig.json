@@ -21,7 +21,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "react-router-redux-tests.ts"
+        "index.d.ts"
     ]
 }
