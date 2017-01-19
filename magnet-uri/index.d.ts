@@ -10,8 +10,8 @@ declare const MagnetUri: MagnetUri.MagnetUri;
 declare namespace MagnetUri {
     export interface MagnetUri {
         (uri: string): Instance;
-        encode(uri: string): Instance;
-        decode(parsed: Instance): string;
+        decode(uri: string): Instance;
+        encode(parsed: Instance): string;
     }
 
     export interface Instance extends Object {
