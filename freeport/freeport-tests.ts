@@ -1,9 +1,10 @@
-/// <reference path="freeport.d.ts" />
 
 import freeport = require('freeport');
 
-var num: number;
+let num: number,
+	error: Error;
 
 freeport((err, made) => {
+	error = err;
 	num = made;
 });

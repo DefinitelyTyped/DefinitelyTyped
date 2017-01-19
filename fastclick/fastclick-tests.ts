@@ -1,4 +1,4 @@
-/// <reference path="fastclick.d.ts" />
+
 
 // on browser
 new FastClick(document.body);

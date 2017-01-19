@@ -1,8 +1,8 @@
-/// <reference path="request.d.ts" />
 
 import request = require('request');
 import http = require('http');
 import stream = require('stream');
+import urlModule = require('url');
 import fs = require('fs');
 import FormData = require('form-data');
 
@@ -203,6 +203,13 @@ req = request.del(uri, callback);
 req = request.del(options);
 req = request.del(options, callback);
 
+req = request.delete(uri);
+req = request.delete(uri, options);
+req = request.delete(uri, options, callback);
+req = request.delete(uri, callback);
+req = request.delete(options);
+req = request.delete(options, callback);
+
 req = request.forever(value, value);
 jar = request.jar();
 cookie = request.cookie(str);
@@ -378,6 +385,12 @@ request.get('http://some.server.com/').auth(null, null, true, 'bearerToken');
 request.get('http://some.server.com/', {
   'auth': {
     'bearer': 'bearerToken'
+  }
+});
+// or
+request.get('http://some.server.com/', {
+  'auth': {
+    'bearer': () => 'bearerToken'
   }
 });
 
@@ -560,6 +573,7 @@ request.patch(url);
 request.post(url);
 request.head(url);
 request.del(url);
+request.delete(url);
 request.get(url);
 request.cookie('key1=value1');
 request.jar();
@@ -662,3 +676,12 @@ request(
   .on('data', function(data: Buffer | string) { })
   .on('error', function(e: Error) { })
   .on('complete', function(resp: http.IncomingMessage, body?: string | Buffer) { });
+
+// options.url / options.uri can be the Url object
+request.get({
+  url: urlModule.parse('http://example.com')
+});
+
+request.get({
+  uri: urlModule.parse('http://example.com')
+});

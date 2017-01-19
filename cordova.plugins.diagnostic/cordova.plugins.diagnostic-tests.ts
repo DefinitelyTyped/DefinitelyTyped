@@ -1,6 +1,4 @@
-﻿/// <reference path='../cordova/cordova.d.ts'  />
-/// <reference path="cordova.plugins.diagnostic.d.ts" />
-
+/// <reference types="cordova-plugin-device" />
 
 cordova.plugins.diagnostic.isLocationAvailable(function(available){
     console.log("Location is " + (available ? "available" : "not available"));

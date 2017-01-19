@@ -1,7 +1,7 @@
-/// <reference path="node.d.ts" />
 import * as assert from "assert";
 import * as fs from "fs";
 import * as events from "events";
+import events2 = require("events");
 import * as zlib from "zlib";
 import * as url from "url";
 import * as util from "util";
@@ -19,6 +19,7 @@ import * as childProcess from "child_process";
 import * as cluster from "cluster";
 import * as os from "os";
 import * as vm from "vm";
+import * as console2 from "console";
 import * as string_decoder from "string_decoder";
 import * as stream from "stream";
 import * as timers from "timers";
@@ -72,7 +73,7 @@ namespace assert_tests {
         assert.ok(true);
         assert.ok(1);
 
-        assert.strictEqual(1, 1, "uses === comparator");
+        assert.strictEqual(1, 1,  "uses === comparator");
 
         assert.throws(() => { throw "a hammer at your face"; }, undefined, "DODGED IT");
     }
@@ -142,6 +143,10 @@ namespace events_tests {
             }
         }
     }
+
+    {
+        new events2();
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -201,19 +206,19 @@ namespace fs_tests {
 
     {
         fs.watch('/tmp/foo-', (event, filename) => {
-            console.log(event, filename);
+          console.log(event, filename);
         });
 
         fs.watch('/tmp/foo-', 'utf8', (event, filename) => {
-            console.log(event, filename);
+          console.log(event, filename);
         });
 
         fs.watch('/tmp/foo-', {
-            recursive: true,
-            persistent: true,
-            encoding: 'utf8'
+          recursive: true,
+          persistent: true,
+          encoding: 'utf8'
         }, (event, filename) => {
-            console.log(event, filename);
+          console.log(event, filename);
         });
     }
 
@@ -387,8 +392,8 @@ function bufferTests() {
 
     // Buffer has Uint8Array's buffer field (an ArrayBuffer).
     {
-        let buffer = new Buffer('123');
-        let octets = new Uint8Array(buffer.buffer);
+      let buffer = new Buffer('123');
+      let octets = new Uint8Array(buffer.buffer);
     }
 }
 
@@ -434,12 +439,40 @@ namespace util_tests {
 
 // http://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
 function stream_readable_pipe_test() {
+    var rs = fs.createReadStream(Buffer.from('file.txt'));
     var r = fs.createReadStream('file.txt');
-    var z = zlib.createGzip();
+    var z = zlib.createGzip({ finishFlush: zlib.Z_FINISH });
     var w = fs.createWriteStream('file.txt.gz');
+
+    assert(typeof r.bytesRead === 'number');
+    assert(typeof r.path === 'string');
+    assert(typeof rs.path === 'Buffer');
+
     r.pipe(z).pipe(w);
+
     r.close();
+    rs.close();
 }
+
+// helpers
+const compressMe = new Buffer("some data");
+const compressMeString = "compress me!";
+
+zlib.deflate(compressMe, (err: Error, result: Buffer) => zlib.inflate(result, (err: Error, result: Buffer) => result));
+zlib.deflate(compressMeString, (err: Error, result: Buffer) => zlib.inflate(result, (err: Error, result: Buffer) => result));
+const inflated = zlib.inflateSync(zlib.deflateSync(compressMe));
+const inflatedString = zlib.inflateSync(zlib.deflateSync(compressMeString));
+
+zlib.deflateRaw(compressMe, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
+zlib.deflateRaw(compressMeString, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
+const inflatedRaw: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMe));
+const inflatedRawString: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMeString));
+
+zlib.gzip(compressMe, (err: Error, result: Buffer) => zlib.gunzip(result, (err: Error, result: Buffer) => result));
+const gunzipped: Buffer = zlib.gunzipSync(zlib.gzipSync(compressMe));
+
+zlib.unzip(compressMe, (err: Error, result: Buffer) => result);
+const unzipped: Buffer = zlib.unzipSync(compressMe);
 
 // Simplified constructors
 function simplified_stream_ctor_test() {
@@ -518,10 +551,10 @@ namespace crypto_tests {
     }
 
     {
-        let hmac: crypto.Hmac;
-        (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
+    let hmac: crypto.Hmac;
+    (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
             let hash: Buffer | string = hmac.read();
-        });
+    });
     }
 
     {
@@ -530,13 +563,13 @@ namespace crypto_tests {
         let clearText: string = "This is the clear text.";
         let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
         let cipherText: string = cipher.update(clearText, "utf8", "hex");
-        cipherText += cipher.final("hex");
+	cipherText += cipher.final("hex");
 
         let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
         let clearText2: string = decipher.update(cipherText, "hex", "utf8");
-        clearText2 += decipher.final("utf8");
+	clearText2 += decipher.final("utf8");
 
-        assert.equal(clearText2, clearText);
+	assert.equal(clearText2, clearText);
     }
 
     {
@@ -545,19 +578,19 @@ namespace crypto_tests {
         let clearText: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]);
         let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
         let cipherBuffers: Buffer[] = [];
-        cipherBuffers.push(cipher.update(clearText));
-        cipherBuffers.push(cipher.final());
+	cipherBuffers.push(cipher.update(clearText));
+	cipherBuffers.push(cipher.final());
 
         let cipherText: Buffer = Buffer.concat(cipherBuffers);
 
         let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
         let decipherBuffers: Buffer[] = [];
-        decipherBuffers.push(decipher.update(cipherText));
-        decipherBuffers.push(decipher.final());
+	decipherBuffers.push(decipher.update(cipherText));
+	decipherBuffers.push(decipher.final());
 
         let clearText2: Buffer = Buffer.concat(decipherBuffers);
 
-        assert.deepEqual(clearText2, clearText);
+	assert.deepEqual(clearText2, clearText);
     }
 
     {
@@ -576,17 +609,17 @@ namespace crypto_tests {
 
 namespace tls_tests {
     {
-        var ctx: tls.SecureContext = tls.createSecureContext({
-            key: "NOT REALLY A KEY",
-            cert: "SOME CERTIFICATE",
-        });
-        var blah = ctx.context;
+    var ctx: tls.SecureContext = tls.createSecureContext({
+    key: "NOT REALLY A KEY",
+    cert: "SOME CERTIFICATE",
+    });
+    var blah = ctx.context;
 
-        var connOpts: tls.ConnectionOptions = {
-            host: "127.0.0.1",
-            port: 55
-        };
-        var tlsSocket = tls.connect(connOpts);
+    var connOpts: tls.ConnectionOptions = {
+	host: "127.0.0.1",
+	port: 55
+    };
+    var tlsSocket = tls.connect(connOpts);
     }
 
     {
@@ -723,6 +756,14 @@ namespace tls_tests {
         _server = _server.prependOnceListener("secureConnection", (tlsSocket) => {
             let _tlsSocket: tls.TLSSocket = tlsSocket;
         })
+
+        // close callback parameter is optional
+        _server = _server.close();
+
+        // close callback parameter doesn't specify any arguments, so any
+        // function is acceptable
+        _server = _server.close(() => {});
+        _server = _server.close((...args:any[]) => {});
     }
 
     {
@@ -773,20 +814,20 @@ namespace tls_tests {
 
 namespace http_tests {
     {
-        // Status codes
-        var codeMessage = http.STATUS_CODES['400'];
-        var codeMessage = http.STATUS_CODES[400];
+    // Status codes
+    var codeMessage = http.STATUS_CODES['400'];
+    var codeMessage = http.STATUS_CODES[400];
     }
 
     {
-        var agent: http.Agent = new http.Agent({
-            keepAlive: true,
-            keepAliveMsecs: 10000,
-            maxSockets: Infinity,
-            maxFreeSockets: 256
-        });
+	var agent: http.Agent = new http.Agent({
+		keepAlive: true,
+		keepAliveMsecs: 10000,
+		maxSockets: Infinity,
+		maxFreeSockets: 256
+	});
 
-        var agent: http.Agent = http.globalAgent;
+	var agent: http.Agent = http.globalAgent;
 
         http.request({ agent: false });
         http.request({ agent: agent });
@@ -805,6 +846,10 @@ namespace http_tests {
         request.setNoDelay(true);
         request.abort();
     }
+	
+	const options: http.RequestOptions = {
+        timeout: 30000
+	};
 }
 
 //////////////////////////////////////////////////////
@@ -856,14 +901,14 @@ namespace tty_tests {
 
 namespace dgram_tests {
     {
-        var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
-        });
-        ds.bind();
-        ds.bind(41234);
-        var ai: dgram.AddressInfo = ds.address();
-        ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
-        });
-        ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+    var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
+    });
+    ds.bind();
+    ds.bind(41234);
+    var ai: dgram.AddressInfo = ds.address();
+    ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
+    });
+    ds.send(new Buffer("hello"), 5000, "127.0.0.1");
     }
 
     {
@@ -886,7 +931,7 @@ namespace dgram_tests {
         })
         _socket = _socket.addListener("listening", () => {});
         _socket = _socket.addListener("message", (msg, rinfo) => {
-            let _msg: string = msg;
+            let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
         })
 
@@ -901,7 +946,7 @@ namespace dgram_tests {
         })
         _socket = _socket.on("listening", () => {});
         _socket = _socket.on("message", (msg, rinfo) => {
-            let _msg: string = msg;
+            let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
         })
 
@@ -911,7 +956,7 @@ namespace dgram_tests {
         })
         _socket = _socket.once("listening", () => {});
         _socket = _socket.once("message", (msg, rinfo) => {
-            let _msg: string = msg;
+            let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
         })
 
@@ -921,7 +966,7 @@ namespace dgram_tests {
         })
         _socket = _socket.prependListener("listening", () => {});
         _socket = _socket.prependListener("message", (msg, rinfo) => {
-            let _msg: string = msg;
+            let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
         })
 
@@ -931,7 +976,7 @@ namespace dgram_tests {
         })
         _socket = _socket.prependOnceListener("listening", () => {});
         _socket = _socket.prependOnceListener("message", (msg, rinfo) => {
-            let _msg: string = msg;
+            let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
         })
     }
@@ -993,7 +1038,7 @@ namespace path_tests {
     //'/foo/bar/baz/asdf'
 
     try {
-        path.join('foo', {}, 'bar');
+        path.join('foo', 'bar');
     }
     catch (error) {
 
@@ -1140,6 +1185,12 @@ namespace readline_tests {
         result = readline.createInterface(input, output);
         result = readline.createInterface(input, output, completer);
         result = readline.createInterface(input, output, completer, terminal);
+        result = readline.createInterface({
+            input: input,
+            completer: function(str: string): readline.CompleterResult {
+                return [['test'], 'test'];
+            }
+        });
     }
 
     {
@@ -1303,7 +1354,7 @@ namespace child_process_tests {
         childProcess.exec("echo test");
         childProcess.spawnSync("echo test");
     }
-    
+
     {
         let _cp: childProcess.ChildProcess;
         let _boolean: boolean;
@@ -1568,7 +1619,7 @@ namespace process_tests {
         assert(process.argv[0] === process.argv0);
     }
     {
-        var module: NodeModule;
+        var module: NodeModule | undefined;
         module = process.mainModule;
     }
 }
@@ -1591,8 +1642,22 @@ namespace console_tests {
 
 namespace net_tests {
     {
-        // Make sure .listen() and .close() retuern a Server instance
-        net.createServer().listen(0).close().address();
+        let server = net.createServer();
+        // Check methods which return server instances by chaining calls
+        server = server.listen(0)
+                .close()
+                .ref()
+                .unref();
+
+        // close has an optional callback function. No callback parameters are
+        // specified, so any callback function is permissible.
+        server = server.close((...args: any[]) => {});
+
+        // test the types of the address object fields
+        let address = server.address();
+        address.port = 1234;
+        address.family = "ipv4";
+        address.address = "127.0.0.1";
     }
 
     {
@@ -1756,6 +1821,9 @@ namespace net_tests {
             str = host;
         })
         _socket = _socket.prependOnceListener("timeout", () => { })
+
+        bool = _socket.destroyed;
+        _socket.destroy();
     }
 
     {
@@ -2003,3 +2071,16 @@ namespace constants_tests {
     str = constants.defaultCoreCipherList
     str = constants.defaultCipherList
 }
+
+///////////////////////////////////////////////////////////
+/// Debugger Tests                                      ///
+///////////////////////////////////////////////////////////
+
+import { Client } from  "_debugger";
+
+var client = new Client();
+
+client.connect(8888, 'localhost');
+client.listbreakpoints((err, body, packet) => {
+
+});

@@ -1,11 +1,13 @@
-﻿// Type definitions for CodeMirror
+// Type definitions for CodeMirror
 // Project: https://github.com/marijnh/CodeMirror
 // Definitions by: Joseph Vaughan <https://github.com/Joev->
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // See docs https://codemirror.net/doc/manual.html#addon_runmode
 
-declare namespace CodeMirror {
+import * as CodeMirror from "codemirror";
+
+declare module "codemirror" {
 
     /**
      * Runs a CodeMirror mode over text without opening an editor instance.

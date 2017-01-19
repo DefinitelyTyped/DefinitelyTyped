@@ -1,5 +1,3 @@
-///  <reference path="webix.d.ts" />
-
 //ajax operations
 webix.ready(function(){
     webix.ajax().get("te").then(function(){
@@ -78,3 +76,36 @@ mObj.config.template = "";
 mObj.config.template = (obj) => obj.str;
 
 
+//getList return a list 
+var suggestBox = <webix.ui.suggest>$$("suggest");
+var list = suggestBox.getList()
+var listData = list.serialize();
+
+//creating a new UI
+
+//this is public interface
+interface myUI extends webix.ui.list{
+	customApi():number;
+}
+//and this is the actual implementations
+var next = webix.protoUI({
+	name:"myUI",
+	customApi(){
+		webix.message("test");
+		return 1;
+	}
+}, webix.ui.list, webix.EditAbility);
+
+//test method of new UI
+var my = <myUI>webix.ui({
+	view:"myUI"
+});
+var tn:number = my.customApi();
+
+//filters
+namespace webix.ui.datafilter{
+    var avgColumn = webix.extend({
+        refresh:function(){ 
+        }
+    }, webix.ui.datafilter.summColumn)
+}

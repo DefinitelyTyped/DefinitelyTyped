@@ -1,5 +1,3 @@
-/// <reference path="./multer-s3.d.ts" />
-
 "use strict";
 
 let accessKeyId: string

@@ -1,5 +1,3 @@
-﻿/// <reference path="valdr-message.d.ts" />
-
 function ValdrMessageTests() {
     var valdrMessage: valdr.message.ValdrMessage;
 

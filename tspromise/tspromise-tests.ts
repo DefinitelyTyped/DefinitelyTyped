@@ -1,4 +1,4 @@
-/// <reference path="tspromise.d.ts" />
+
 
 import Promise = require('tspromise');
 

@@ -1,4 +1,4 @@
-/// <reference path="gamepad.d.ts" />
+
 
 
 ()=>{

@@ -1,5 +1,3 @@
-/// <reference path='signature_pad.d.ts'/>
-
 /* TEST 1 - Basic structure and usage */
 function BasicTest() {
     var canvas = document.querySelector("canvas");

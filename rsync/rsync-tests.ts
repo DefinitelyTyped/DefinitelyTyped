@@ -1,5 +1,3 @@
-/// <reference path="rsync.d.ts"/>
-
 import * as Rsync from 'rsync';
 
 // --------------------------

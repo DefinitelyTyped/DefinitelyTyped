@@ -1,5 +1,5 @@
-/// <reference path="gulp-jasmine-browser.d.ts" />
-/// <reference path="../gulp/gulp.d.ts" />
+
+
 
 import gulp = require('gulp');
 import jasmineBrowser = require('gulp-jasmine-browser');

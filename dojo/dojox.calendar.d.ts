@@ -1,11 +1,11 @@
-﻿// Type definitions for Dojo v1.9
+// Type definitions for Dojo v1.9
 // Project: http://dojotoolkit.org
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="dojo.d.ts" />
-/// <reference path="dijit.d.ts" />
-/// <reference path="dojox.widget.d.ts" />
+
+
+
 declare namespace dojox {
 
     namespace calendar {

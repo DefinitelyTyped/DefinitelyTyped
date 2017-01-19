@@ -1,4 +1,4 @@
-/// <reference path="intro.js.d.ts" />
+
 
 var intro = introJs();
 var introWithElement = introJs(document.body);
@@ -35,6 +35,18 @@ intro.setOptions({
             element: '#step5',
             intro  : 'Get it, use it.'
         }
+    ],
+    hints: [
+        {
+            element: '#step1',
+            hint: 'This is a hint',
+            hintPosition: 'middle-right'
+        },
+        {
+            element: document.querySelectorAll('#step2')[0] as HTMLElement,
+            hint: 'This is another hint',
+            hintPosition: 'top-left'
+        }
     ]
 });
 
@@ -69,6 +81,10 @@ intro.start()
         alert('Hint close for Step ID ' + stepId);
     })
     .addHints()
+    .showHint(1)
+    .showHints()
+    .hideHint(1)
+    .hideHints()
     .clone();
 
 introWithElement.start()

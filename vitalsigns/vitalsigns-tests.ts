@@ -1,5 +1,3 @@
-/// <reference path="vitalsigns.d.ts"/>
-
 import * as express from "express";
 import VitalSigns = require("vitalsigns");
 
