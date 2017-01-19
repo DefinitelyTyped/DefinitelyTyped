@@ -25,7 +25,7 @@ type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" |
 interface IHeaders {
     append(name: string, value: string): void;
     delete(name: string): void;
-    get(name: string): string;
+    get(name: string): string | null;
     getAll(name: string): Array<string>;
     has(name: string): boolean;
     set(name: string, value: string): void;
@@ -44,7 +44,7 @@ declare class Headers implements IHeaders {
     constructor(init?: HeadersInit);
     append(name: string, value: string): void;
     delete(name: string): void;
-    get(name: string): string;
+    get(name: string): string | null;
     getAll(name: string): Array<string>;
     has(name: string): boolean;
     set(name: string, value: string): void;
