@@ -1,6 +1,6 @@
-// Type definitions for mssql v3.1.0
+// Type definitions for mssql 3.3
 // Project: https://www.npmjs.com/package/mssql
-// Definitions by: COLSA Corporation <http://www.colsa.com/>, Ben Farr <https://github.com/jaminfarr>, Vitor Buzinaro <https://github.com/buzinas>
+// Definitions by: COLSA Corporation <http://www.colsa.com/>, Ben Farr <https://github.com/jaminfarr>, Vitor Buzinaro <https://github.com/buzinas>, Matt Richardson <https://github.com/mrrichar/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -113,7 +113,13 @@ export declare var ISOLATION_LEVEL: {
 }
 
 export interface IOptions {
-    encrypt: boolean;
+    encrypt?: boolean;
+    instanceName?: string;
+    useUTC?: boolean;
+    tdsVersion?: string;
+    appName?: string;
+    abortTransactionOnError?: boolean;
+    trustedConnection?: boolean;
 }
 
 

@@ -1,6 +1,6 @@
 // Type definitions for Async 2.0.1
 // Project: https://github.com/caolan/async
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Arseniy Maximov <https://github.com/kern0>, Joe Herman <https://github.com/Penryn>, Angus Fenying <https://github.com/fenying>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Arseniy Maximov <https://github.com/kern0>, Joe Herman <https://github.com/Penryn>, Angus Fenying <https://github.com/fenying>, Pascal Martin <https://github.com/pascalmartin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Dictionary<T> { [key: string]: T; }
@@ -29,6 +29,7 @@ interface AsyncQueue<T> {
     idle(): boolean;
     concurrency: number;
     push<E>(task: T, callback?: ErrorCallback<E>): void;
+    push<E>(task: T, callback?: AsyncResultCallback<T, E>): void;
     push<E>(task: T[], callback?: ErrorCallback<E>): void;
     unshift<E>(task: T, callback?: ErrorCallback<E>): void;
     unshift<E>(task: T[], callback?: ErrorCallback<E>): void;
@@ -180,6 +181,7 @@ interface Async {
     applyEach(fns: Function[], argsAndCallback: any[]): void;           // applyEach(fns, args..., callback). TS does not support ... for a middle argument. Callback is optional.
     applyEachSeries(fns: Function[], argsAndCallback: any[]): void;     // applyEachSeries(fns, args..., callback). TS does not support ... for a middle argument. Callback is optional.
     queue<T, E>(worker: AsyncWorker<T, E>, concurrency?: number): AsyncQueue<T>;
+    queue<T, R, E>(worker: AsyncResultIterator<T, R, E>, concurrency?: number): AsyncQueue<T>;
     priorityQueue<T, E>(worker: AsyncWorker<T, E>, concurrency: number): AsyncPriorityQueue<T>;
     cargo<E>(worker : (tasks: any[], callback : ErrorCallback<E>) => void, payload? : number) : AsyncCargo;
     auto<E>(tasks: any, concurrency?: number, callback?: AsyncResultCallback<any, E>): void;
@@ -194,7 +196,8 @@ interface Async {
     reflect<T, E>(fn: AsyncFunction<T, E>) : (callback: (err: void, result: {error?: Error, value?: T}) => void) => void;
     reflectAll<T, E>(tasks: AsyncFunction<T, E>[]): ((callback: (err: void, result: {error?: Error, value?: T}) => void) => void)[];
 
-    timeout<T, E>(fn: AsyncFunction<T, E>, milliseconds: number, info: any): AsyncFunction<T, E>;
+    timeout<T, E>(fn: AsyncFunction<T, E>, milliseconds: number, info?: any): AsyncFunction<T, E>;
+    timeout<T, R, E>(fn: AsyncResultIterator<T, R, E>, milliseconds: number, info?: any): AsyncResultIterator<T, R, E>;
 
     times<T, E> (n: number, iterator: AsyncResultIterator<number, T, E>, callback: AsyncResultArrayCallback<T, E>): void;
     timesSeries<T, E>(n: number, iterator: AsyncResultIterator<number, T, E>, callback: AsyncResultArrayCallback<T, E>): void;
@@ -223,3 +226,4 @@ declare var async: Async;
 declare module "async" {
     export = async;
 }
+

@@ -4390,9 +4390,9 @@ declare module "react" {
 
 
         export interface NavigationBarRouteMapper {
-            Title: (route: Route, nav: Navigator, index: number, navState: NavState) => React.ReactElement<any>;
-            LeftButton: (route: Route, nav: Navigator, index: number, navState: NavState) => React.ReactElement<any>;
-            RightButton: (route: Route, nav: Navigator, index: number, navState: NavState) => React.ReactElement<any>;
+            Title: (route: Route, nav: Navigator, index: number, navState: NavState) => JSX.Element | null;
+            LeftButton: (route: Route, nav: Navigator, index: number, navState: NavState) => JSX.Element | null;
+            RightButton: (route: Route, nav: Navigator, index: number, navState: NavState) => JSX.Element | null;
         }
 
         /**
