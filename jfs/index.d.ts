@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-/// <reference types="node" />
-
 declare const JsonFileStore: JsonFileStore.JsonFileStore;
 
 declare namespace JsonFileStore {
