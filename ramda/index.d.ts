@@ -679,9 +679,10 @@ declare namespace R {
         indexOf<T>(target: T): (list: T[]) => number;
 
         /**
-         * Returns all but the last element of a list.
+         * Returns all but the last element of a list or string.
          */
         init<T>(list: T[]): T[];
+        init(list: string): string;
 
         /**
          * Inserts the supplied element into the list, at index index. Note that
@@ -1467,9 +1468,10 @@ declare namespace R {
         T(): boolean;
 
         /**
-         * Returns all but the first element of a list.
+         * Returns all but the first element of a list or string.
          */
         tail<T>(list: T[]): T[];
+        tail(list: string): string;
 
         /**
          * Returns a new list containing the first `n` elements of the given list.  If

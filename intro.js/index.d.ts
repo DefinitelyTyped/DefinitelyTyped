@@ -1,4 +1,4 @@
-// Type definitions for intro.js 2.0
+// Type definitions for intro.js 2.4
 // Project: https://github.com/usablica/intro.js
 // Definitions by: Maxime Fabre <https://github.com/anahkiasen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,6 +8,12 @@ declare namespace IntroJs {
         intro: string;
         element?: string|HTMLElement|Element;
         position?: string;
+    }
+
+    interface Hint {
+        hint: string;
+        element?: string|HTMLElement|Element;
+        hintPosition?: string;
     }
 
     interface Options {
@@ -32,6 +38,7 @@ declare namespace IntroJs {
         hintPosition?: string;
         hintButtonLabel?: string;
         steps?: Step[];
+        hints?: Hint[];
     }
 
     interface IntroJs {
@@ -55,6 +62,11 @@ declare namespace IntroJs {
         oncomplete(callback: Function): IntroJs;
 
         addHints(): IntroJs;
+
+        showHint(stepId: number): IntroJs;
+        showHints(): IntroJs;
+        hideHint(stepId: number): IntroJs;
+        hideHints(): IntroJs;
 
         onhintsadded(callback: Function): IntroJs;
         onhintclick(callback: (hintElement: HTMLElement, item: Step, stepId: number) => any): IntroJs;

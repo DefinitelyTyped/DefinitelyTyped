@@ -3,6 +3,9 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb/>, Leon Yu <https://github.com/leonyu/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = Modernizr; // support AMD require
+export as namespace Modernizr; // keep a global namespace
+
 declare namespace __Modernizr {
     interface AudioBoolean {
         ogg: boolean;
