@@ -4569,7 +4569,6 @@ declare module "react" {
         // This is for backward compatibility with previous
         // implementation where T could be an arbitrary type
         export function create<T>(styles: T): T;
-        export function create<T extends Styles>(styles: T): T;
 
         /**
          * Flattens an array of style objects, into one aggregated style object.
