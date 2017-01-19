@@ -1,4 +1,4 @@
-﻿/// <reference types="node" />
+/// <reference types="node" />
 
 // Examples taken from https://streams.spec.whatwg.org/#creating-examples
 

@@ -1,12 +1,15 @@
 {
     "files": [
         "index.d.ts",
-        "react-tests.ts",
-        "react-tsx-tests.tsx"
+        "test/index.ts",
+        "test/tsx.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": true,

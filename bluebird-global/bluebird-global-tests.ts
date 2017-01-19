@@ -29,3 +29,16 @@ function testFunctionReturningPromise() {
             console.log("finally callback");
         });
 }
+
+function testPromiseRejection() {
+    new Promise<string>((resolve, reject) => {
+        reject(new Error("problem occurred"));
+    })
+        .catch((error) => {
+            return "recovered from error";
+        })
+        .then((value) => {
+            return value.toUpperCase();
+        });
+
+}

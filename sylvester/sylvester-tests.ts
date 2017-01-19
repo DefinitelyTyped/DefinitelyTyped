@@ -1,5 +1,4 @@
-﻿import { Line, Matrix, Plane, Vector } from 'sylvester';
-import 'sylvester';
+import { Line, Matrix, Plane, Vector } from 'sylvester';
 
 interface IAny {
     a: any;

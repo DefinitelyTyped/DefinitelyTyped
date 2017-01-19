@@ -86,6 +86,7 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 * `cd my-package-to-edit`
 * Make changes. Remember to edit tests.
 * You may also want to add yourself to "Definitions by" section of the package header.
+  - Do this by adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
 * `npm install -g typescript@2.0` and run `tsc`.
 
 When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
@@ -111,7 +112,7 @@ Your package should have this structure:
 
 Generate these by running `npm run new-package -- new-package-name`.
 
-You may edit the `tsconfig.json` to add new files or to add the `"jsx"` compiler option.
+You may edit the `tsconfig.json` to add new files, to add `"target": "es6"` (needed for async functions), to add to `"lib"`, or to add the `"jsx"` compiler option.
 
 DefinitelyTyped members routinely monitor for new PRs, though keep in mind that the number of other PRs may slow things down.
 
@@ -121,17 +122,11 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 #### Common mistakes
 
 * First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatting: Either use all tabs, or always use 4 spaces. Also, always use semicolons, and use egyptian braces.
-* `interface X {}`: An empty interface is essentially the `{}` type: it places no constraints on an object.
-* `interface IFoo {}`: Don't add `I` to the front of an interface name.
+* Formatting: Either use all tabs, or always use 4 spaces.
 * `interface Foo { new(): Foo; }`:
     This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
 * `const Class: { new(): IClass; }`:
     Prefer to use a class declaration `class Class { constructor(); }` instead of a new-able constant.
-* `namespace foo {}`:
-    Do not add a namespace just so that the `import * as foo` syntax will work.
-    If it is commonJs module with a single export, you should use the `import foo = require("foo")` syntax.
-    See more explanation [here](https://stackoverflow.com/questions/39415661/why-cant-i-import-a-class-or-function-with-import-as-x-from-y).
 * `getMeAT<T>(): T`:
     If a type parameter does not appear in the types of any parameters, you don't really have a generic function, you just have a disguised type assertion.
     Prefer to use a real type assertion, e.g. `getMeAT() as number`.
@@ -212,7 +207,7 @@ Here are the [currently requested definitions](https://github.com/DefinitelyType
 
 If types are part of a web standard, they should be contributed to [TSJS-lib-generator](https://github.com/Microsoft/TSJS-lib-generator) so that they can become part of the default `lib.dom.d.ts`.
 
-### A package uses `export =`, but I prefer to use default imports. Can I change `export =` to `export default`?
+#### A package uses `export =`, but I prefer to use default imports. Can I change `export =` to `export default`?
 
 If default imports work in your environment, consider turning on the [`--allowSyntheticDefaultImports`](http://www.typescriptlang.org/docs/handbook/compiler-options.html) compiler option.
 Do not change the type definition if it is accurate.
@@ -220,8 +215,7 @@ For an NPM package, `export =` is accurate if `node -p 'require("foo")'` is the 
 
 #### I want to use features from TypeScript 2.1.
 
-Then you will have to add a comment to your definition header: `// TypeScript Version: 2.1`.
-If it is merged before January 7, it will be published as a prerelease version, such as `4.3.0-next.0`.
+Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 2.1`.
 
 #### I want to add a DOM API not present in TypeScript by default.
 

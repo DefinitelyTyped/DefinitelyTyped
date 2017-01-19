@@ -1,10 +1,12 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -15,6 +17,7 @@
     },
     "files": [
         "index.d.ts",
-        "async-tests.ts"
+        "test/index.ts",
+        "test/explicit.ts"
     ]
 }

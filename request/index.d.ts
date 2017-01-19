@@ -225,7 +225,7 @@ declare namespace request {
         pass?: string;
         password?: string;
         sendImmediately?: boolean;
-        bearer?: string;
+        bearer?: string | (() => string);
     }
 
     export interface OAuthOptions {

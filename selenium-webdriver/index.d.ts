@@ -3,12 +3,12 @@
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>, Yuki Kokubun <https://github.com/Kuniwak>, Craig Nishina <https://github.com/cnishina>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as chrome from "./chrome";
-import * as edge from "./edge";
-import * as firefox from "./firefox";
-import * as ie from "./ie";
-import * as opera from "./opera";
-import * as safari from "./safari";
+import * as chrome from './chrome';
+import * as edge from './edge';
+import * as firefox from './firefox';
+import * as ie from './ie';
+import * as opera from './opera';
+import * as safari from './safari';
 
 declare namespace webdriver {
 
@@ -393,8 +393,8 @@ declare namespace webdriver {
 
     /**
      * An object used to log debugging messages. Loggers use a hierarchical,
-     * dot-separated naming scheme. For instance, "foo" is considered the parent of
-     * the "foo.bar" and an ancestor of "foo.bar.baz".
+     * dot-separated naming scheme. For instance, 'foo' is considered the parent of
+     * the 'foo.bar' and an ancestor of 'foo.bar.baz'.
      *
      * Each logger may be assigned a {@linkplain #setLevel log level}, which
      * controls which level of messages will be reported to the
@@ -603,7 +603,7 @@ declare namespace webdriver {
 
     /**
      * Determines whether a {@code value} should be treated as a promise.
-     * Any object whose "then" property is a function will be considered a promise.
+     * Any object whose 'then' property is a function will be considered a promise.
      *
      * @param {*} value The value to test.
      * @return {boolean} Whether the value is a promise.
@@ -741,7 +741,7 @@ declare namespace webdriver {
      *     });
      *
      * @param {!Function} generatorFn The generator function to execute.
-     * @param {Object=} opt_self The object to use as "this" when invoking the
+     * @param {Object=} opt_self The object to use as 'this' when invoking the
      *     initial generator.
      * @param {...*} var_args Any arguments to pass to the initial generator.
      * @return {!ManagedPromise<?>} A promise that will resolve to the
@@ -1136,7 +1136,7 @@ declare namespace webdriver {
 
     /**
      * Represents a value that will be resolved at some point in the future. This
-     * class represents the protected "producer" half of a Promise - each Deferred
+     * class represents the protected 'producer' half of a Promise - each Deferred
      * has a {@code promise} property that may be returned to consumers for
      * registering callbacks, reserving the ability to resolve the deferred to the
      * producer.
@@ -1377,7 +1377,7 @@ declare namespace webdriver {
     class Condition<T> {
       /**
        * @param {string} message A descriptive error message. Should complete the
-       *     sentence "Waiting [...]"
+       *     sentence 'Waiting [...]'
        * @param {function(!webdriver.WebDriver): OUT} fn The condition function to
        *     evaluate on each iteration of the wait loop.
        * @constructor
@@ -1661,9 +1661,9 @@ declare namespace webdriver {
     META: string;     // alias for Windows key
 
     /**
-      * Simulate pressing many keys at once in a "chord". Takes a sequence of
+      * Simulate pressing many keys at once in a 'chord'. Takes a sequence of
       * keys or strings, appends each of the values to a string,
-      * and adds the chord termination key ({@link webdriver.Key.NULL}) and returns 
+      * and adds the chord termination key ({@link webdriver.Key.NULL}) and returns
       * the resulting string.
       *
       * Note: when the low-level webdriver key handlers see Keys.NULL, active
@@ -1671,8 +1671,8 @@ declare namespace webdriver {
       *
       * @param {...string} var_args The key sequence to concatenate.
       * @return {string} The null-terminated key sequence.
-    */
-    chord: (...var_args: string[]) => string;
+      */
+    chord: (...var_args: Array<string|IKey>) => string;
   }
 
   /**
@@ -1786,7 +1786,7 @@ declare namespace webdriver {
     mouseUp(opt_elementOrButton?: WebElement | string, opt_button?: string): ActionSequence;
 
     /**
-     * Convenience function for performing a "drag and drop" manuever. The target
+     * Convenience function for performing a 'drag and drop' manuever. The target
      * element may be moved to the location of another element, or by an offset (in
      * pixels).
      *
@@ -1863,13 +1863,14 @@ declare namespace webdriver {
     /**
      * Simulates typing multiple keys. Each modifier key encountered in the
      * sequence will not be released until it is encountered again. All key events
-     * will be targetted at the currently focused element.
-     * @param {...(string|!webdriver.Key|!Array.<(string|!webdriver.Key)>)} var_args
+     * will be targeted at the currently focused element.
+     *
+     * @param {...(string|!input.Key|!Array<(string|!input.Key)>)} var_args
      *     The keys to type.
-     * @return {!webdriver.ActionSequence} A self reference.
+     * @return {!ActionSequence} A self reference.
      * @throws {Error} If the key is not a valid modifier key.
      */
-    sendKeys(...var_args: Array<string>): ActionSequence;
+    sendKeys(...var_args: Array<string|webdriver.promise.Promise<string>>): ActionSequence;
 
     //endregion
   }
@@ -2023,7 +2024,7 @@ declare namespace webdriver {
 
     /**
      * Retrieves the message text displayed with this alert. For instance, if the
-     * alert were opened with alert("hello"), then this would return "hello".
+     * alert were opened with alert('hello'), then this would return 'hello'.
      * @return {!webdriver.promise.Promise} A promise that will be resolved to the
      *     text displayed with this alert.
      */
@@ -2263,7 +2264,7 @@ declare namespace webdriver {
    *   option always takes precedence over {@code SELENIUM_SERVER_JAR}.
    *
    * - {@code SELENIUM_SERVER_JAR}: defines the path to the
-   *   <a href="http://selenium-release.storage.googleapis.com/index.html">
+   *   <a href='http://selenium-release.storage.googleapis.com/index.html'>
    *   standalone Selenium server</a> jar to use. The server will be started the
    *   first time a WebDriver instance and be killed when the process exits.
    *
@@ -2381,8 +2382,8 @@ declare namespace webdriver {
     /**
      * Sets the default action to take with an unexpected alert before returning
      * an error.
-     * @param {string} beahvior The desired behavior; should be "accept", "dismiss",
-     *     or "ignore". Defaults to "dismiss".
+     * @param {string} beahvior The desired behavior; should be 'accept', 'dismiss',
+     *     or 'ignore'. Defaults to 'dismiss'.
      * @return {!Builder} A self reference.
      */
     setAlertBehavior(behavior: string): Builder;
@@ -2562,7 +2563,7 @@ declare namespace webdriver {
 
     /**
      * Locates eleemnts by the ID attribute. This locator uses the CSS selector
-     * `*[id="$ID"]`, _not_ `document.getElementById`.
+     * `*[id='$ID']`, _not_ `document.getElementById`.
      *
      * @param {string} id The ID to search for.
      * @return {!By} The new locator.
@@ -2753,7 +2754,7 @@ declare namespace webdriver {
 
     /**
      * Defines how the driver should handle unexpected alerts. The value should
-     * be one of "accept", "dismiss", or "ignore.
+     * be one of 'accept', 'dismiss', or 'ignore.
      */
     UNEXPECTED_ALERT_BEHAVIOR: string;
 
@@ -2834,8 +2835,8 @@ declare namespace webdriver {
     /**
      * Sets the default action to take with an unexpected alert before returning
      * an error.
-     * @param {string} behavior The desired behavior; should be "accept", "dismiss",
-     *     or "ignore". Defaults to "dismiss".
+     * @param {string} behavior The desired behavior; should be 'accept', 'dismiss',
+     *     or 'ignore'. Defaults to 'dismiss'.
      * @return {!webdriver.Capabilities} A self reference.
      */
     setAlertBehavior(behavior: string): Capabilities;
@@ -3637,7 +3638,7 @@ declare namespace webdriver {
 
   /**
    * Used with {@link webdriver.WebElement#sendKeys WebElement#sendKeys} on file
-   * input elements ({@code <input type="file">}) to detect when the entered key
+   * input elements ({@code <input type='file'>}) to detect when the entered key
    * sequence defines the path to a file.
    *
    * By default, {@linkplain webdriver.WebElement WebElement's} will enter all
@@ -3915,7 +3916,7 @@ declare namespace webdriver {
      *     driver.executeAsyncScript(function() {
      *       var callback = arguments[arguments.length - 1];
      *       var xhr = new XMLHttpRequest();
-     *       xhr.open("GET", "/resource/data.json", true);
+     *       xhr.open('GET', '/resource/data.json', true);
      *       xhr.onreadystatechange = function() {
      *         if (xhr.readyState == 4) {
      *           callback(xhr.responseText);
@@ -4193,46 +4194,62 @@ declare namespace webdriver {
     click(): webdriver.promise.Promise<void>;
 
     /**
-     * Schedules a command to type a sequence on the DOM element represented by this
-     * instance.
-     * <p/>
+     * Schedules a command to type a sequence on the DOM element represented by
+     * this instance.
+     *
      * Modifier keys (SHIFT, CONTROL, ALT, META) are stateful; once a modifier is
-     * processed in the keysequence, that key state is toggled until one of the
+     * processed in the key sequence, that key state is toggled until one of the
      * following occurs:
-     * <ul>
-     * <li>The modifier key is encountered again in the sequence. At this point the
-     * state of the key is toggled (along with the appropriate keyup/down events).
-     * </li>
-     * <li>The {@code webdriver.Key.NULL} key is encountered in the sequence. When
-     * this key is encountered, all modifier keys current in the down state are
-     * released (with accompanying keyup events). The NULL key can be used to
-     * simulate common keyboard shortcuts:
-     * <code>
-     *     element.sendKeys("text was",
-     *                      webdriver.Key.CONTROL, "a", webdriver.Key.NULL,
-     *                      "now text is");
-     *     // Alternatively:
-     *     element.sendKeys("text was",
-     *                      webdriver.Key.chord(webdriver.Key.CONTROL, "a"),
-     *                      "now text is");
-     * </code></li>
-     * <li>The end of the keysequence is encountered. When there are no more keys
-     * to type, all depressed modifier keys are released (with accompanying keyup
-     * events).
-     * </li>
-     * </ul>
-     * <strong>Note:</strong> On browsers where native keyboard events are not yet
-     * supported (e.g. Firefox on OS X), key events will be synthesized. Special
-     * punctionation keys will be synthesized according to a standard QWERTY en-us
+     *
+     * - The modifier key is encountered again in the sequence. At this point the
+     *   state of the key is toggled (along with the appropriate keyup/down
+     *   events).
+     * - The {@link input.Key.NULL} key is encountered in the sequence. When
+     *   this key is encountered, all modifier keys current in the down state are
+     *   released (with accompanying keyup events). The NULL key can be used to
+     *   simulate common keyboard shortcuts:
+     *
+     *         element.sendKeys('text was',
+     *                          Key.CONTROL, 'a', Key.NULL,
+     *                          'now text is');
+     *         // Alternatively:
+     *         element.sendKeys('text was',
+     *                          Key.chord(Key.CONTROL, 'a'),
+     *                          'now text is');
+     *
+     * - The end of the key sequence is encountered. When there are no more keys
+     *   to type, all depressed modifier keys are released (with accompanying
+     *   keyup events).
+     *
+     * If this element is a file input ({@code <input type='file'>}), the
+     * specified key sequence should specify the path to the file to attach to
+     * the element. This is analogous to the user clicking 'Browse...' and entering
+     * the path into the file select dialog.
+     *
+     *     var form = driver.findElement(By.css('form'));
+     *     var element = form.findElement(By.css('input[type=file]'));
+     *     element.sendKeys('/path/to/file.txt');
+     *     form.submit();
+     *
+     * For uploads to function correctly, the entered path must reference a file
+     * on the _browser's_ machine, not the local machine running this script. When
+     * running against a remote Selenium server, a {@link input.FileDetector}
+     * may be used to transparently copy files to the remote machine before
+     * attempting to upload them in the browser.
+     *
+     * __Note:__ On browsers where native keyboard events are not supported
+     * (e.g. Firefox on OS X), key events will be synthesized. Special
+     * punctuation keys will be synthesized according to a standard QWERTY en-us
      * keyboard layout.
      *
-     * @param {...string} var_args The sequence of keys to
-     *     type. All arguments will be joined into a single sequence (var_args is
-     *     permitted for convenience).
+     * @param {...(number|string|!IThenable<(number|string)>)} var_args The
+     *     sequence of keys to type. Number keys may be referenced numerically or
+     *     by string (1 or '1'). All arguments will be joined into a single
+     *     sequence.
      * @return {!webdriver.promise.Promise} A promise that will be resolved when all
      *     keys have been typed.
      */
-    sendKeys(...var_args: string[]): webdriver.promise.Promise<void>;
+    sendKeys(...var_args: Array<number|string|webdriver.promise.Promise<string|number>>): webdriver.promise.Promise<void>;
 
     /**
      * Schedules a command to query for the tag/node name of this element.
@@ -4264,9 +4281,9 @@ declare namespace webdriver {
      * page has been loaded. More exactly, this method will return the value of the
      * given attribute, unless that attribute is not present, in which case the
      * value of the property with the same name is returned. If neither value is
-     * set, null is returned. The "style" attribute is converted as best can be to a
+     * set, null is returned. The 'style' attribute is converted as best can be to a
      * text representation with a trailing semi-colon. The following are deemed to
-     * be "boolean" attributes and will be returned as thus:
+     * be 'boolean' attributes and will be returned as thus:
      *
      * <p>async, autofocus, autoplay, checked, compact, complete, controls, declare,
      * defaultchecked, defaultselected, defer, disabled, draggable, ended,
@@ -4278,8 +4295,8 @@ declare namespace webdriver {
      * <p>Finally, the following commonly mis-capitalized attribute/property names
      * are evaluated as expected:
      * <ul>
-     *   <li>"class"
-     *   <li>"readonly"
+     *   <li>'class'
+     *   <li>'readonly'
      * </ul>
      * @param {string} attributeName The name of the attribute to query.
      * @return {!webdriver.promise.Promise} A promise that will be resolved with the
@@ -4629,21 +4646,21 @@ declare namespace webdriver {
      *   released (with accompanying keyup events). The NULL key can be used to
      *   simulate common keyboard shortcuts:
      *
-     *         element.sendKeys("text was",
-     *                          webdriver.Key.CONTROL, "a", webdriver.Key.NULL,
-     *                          "now text is");
+     *         element.sendKeys('text was',
+     *                          webdriver.Key.CONTROL, 'a', webdriver.Key.NULL,
+     *                          'now text is');
      *         // Alternatively:
-     *         element.sendKeys("text was",
-     *                          webdriver.Key.chord(webdriver.Key.CONTROL, "a"),
-     *                          "now text is");
+     *         element.sendKeys('text was',
+     *                          webdriver.Key.chord(webdriver.Key.CONTROL, 'a'),
+     *                          'now text is');
      *
      * - The end of the keysequence is encountered. When there are no more keys
      *   to type, all depressed modifier keys are released (with accompanying keyup
      *   events).
      *
-     * If this element is a file input ({@code <input type="file">}), the
+     * If this element is a file input ({@code <input type='file'>}), the
      * specified key sequence should specify the path to the file to attach to
-     * the element. This is analgous to the user clicking "Browse..." and entering
+     * the element. This is analgous to the user clicking 'Browse...' and entering
      * the path into the file select dialog.
      *
      *     var form = driver.findElement(By.css('form'));
@@ -4667,7 +4684,7 @@ declare namespace webdriver {
      * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
      *     when all keys have been typed.
      */
-    sendKeys(...var_args: Array<string | webdriver.promise.Promise<string>>): webdriver.promise.Promise<void>;
+    sendKeys(...var_args: Array<string|number|webdriver.promise.Promise<string|number>>): webdriver.promise.Promise<void>;
 
     /**
      * Schedules a command to query for the tag/node name of this element.
@@ -4699,10 +4716,10 @@ declare namespace webdriver {
      * the page has been loaded. More exactly, this method will return the value of
      * the given attribute, unless that attribute is not present, in which case the
      * value of the property with the same name is returned. If neither value is
-     * set, null is returned (for example, the "value" property of a textarea
-     * element). The "style" attribute is converted as best can be to a
+     * set, null is returned (for example, the 'value' property of a textarea
+     * element). The 'style' attribute is converted as best can be to a
      * text representation with a trailing semi-colon. The following are deemed to
-     * be "boolean" attributes and will return either "true" or null:
+     * be 'boolean' attributes and will return either 'true' or null:
      *
      * async, autofocus, autoplay, checked, compact, complete, controls, declare,
      * defaultchecked, defaultselected, defer, disabled, draggable, ended,
@@ -4714,8 +4731,8 @@ declare namespace webdriver {
      * Finally, the following commonly mis-capitalized attribute/property names
      * are evaluated as expected:
      *
-     * - "class"
-     * - "readonly"
+     * - 'class'
+     * - 'readonly'
      *
      * @param {string} attributeName The name of the attribute to query.
      * @return {!webdriver.promise.Promise.<?string>} A promise that will be

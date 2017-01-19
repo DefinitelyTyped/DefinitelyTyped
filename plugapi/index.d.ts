@@ -357,8 +357,7 @@ declare namespace PlugAPI {
 }
 
 declare class PlugAPI {
-    constructor(login: PlugAPI.PlugLogin, callback?: (error: Error, bot: PlugAPI) => void);
-    constructor(login: PlugAPI.PlugLogin, callback?: (bot: PlugAPI) => void);
+    constructor(login: PlugAPI.PlugLogin, callback?: (error: Error, bot: PlugAPI) => void | ((bot: PlugAPI) => void));
     deleteAllChat: boolean;
     multiLine: boolean;
     multiLineLimit: number;

@@ -1,6 +1,4 @@
-"use strict";
-
-import tedious = require("./");
+import tedious = require("tedious");
 
 var config: tedious.ConnectionConfig = {
 	userName: "rogier",

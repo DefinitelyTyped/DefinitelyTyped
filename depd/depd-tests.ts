@@ -1,4 +1,4 @@
-﻿import depd = require('depd');
+import depd = require('depd');
 
 var deprecate = depd("depd-tests");
 

@@ -1,4 +1,4 @@
-// Type definitions for webpack (module API) 1.12
+// Type definitions for webpack (module API) 1.13
 // Project: https://github.com/webpack/webpack
 // Definitions by: use-strict <https://github.com/use-strict>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -35,7 +35,7 @@ declare namespace __WebpackModuleApi {
          *
          * The module id is a number in webpack (in contrast to node.js where it is a string, the filename).
          */
-        resolve(path: string): number;
+        resolve(path: string): number | string;
         /**
          * Like require.resolve, but doesn’t include the module into the bundle. It’s a weak dependency.
          */
@@ -180,7 +180,10 @@ declare namespace __WebpackModuleApi {
   }
 }
 
-declare var require: __WebpackModuleApi.RequireFunction;
+interface NodeRequire extends __WebpackModuleApi.RequireFunction {
+}
+
+declare var require: NodeRequire;
 
 /**
  * The resource query of the current module.
@@ -229,4 +232,6 @@ declare var __non_webpack_require__: any;
  */
 declare var DEBUG: boolean;
 
-declare var module: __WebpackModuleApi.Module;
+interface NodeModule extends __WebpackModuleApi.Module {}
+
+declare var module: NodeModule;

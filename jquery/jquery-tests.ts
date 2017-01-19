@@ -575,6 +575,7 @@ function test_appendTo() {
 
 function test_attr() {
     var title = $("em").attr("title");
+    $("em").attr("title", null); // Delete an attribute.
     $("div").text(title);
     $('#greatphoto').attr('alt', 'Beijing Brush Seller');
     $('#greatphoto')

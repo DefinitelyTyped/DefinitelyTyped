@@ -1,11 +1,14 @@
 {
     "files": [
         "index.d.ts",
-        "react-addons-shallow-compare-tests.ts"
+        "react-addons-shallow-compare-tests.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
