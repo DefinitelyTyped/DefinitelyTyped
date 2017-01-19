@@ -48,7 +48,7 @@ declare namespace multer {
         /** A function used to determine within which folder the uploaded files should be stored. Defaults to the system's default temporary directory. */
         destination?: string | ((req: Express.Request, file: Express.Multer.File, callback: (error: Error, destination: string) => void) => void);
         /** A function used to determine what the file should be named inside the folder. Defaults to a random name with no file extension. */
-        filename?: (req: Express.Request, file: Express.Multer.File, callback: (error?: Error, filename?: string) => void) => void;
+        filename?: (req: Express.Request, file: Express.Multer.File, callback: (error: Error | null, filename: string) => void) => void;
     }
 
     interface Instance {
