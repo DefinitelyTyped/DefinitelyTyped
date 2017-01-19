@@ -23,5 +23,5 @@
     "files": [
         "index.d.ts",
         "react-router-tests.tsx"
-    ],
+    ]
 }
