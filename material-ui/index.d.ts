@@ -452,7 +452,10 @@ declare namespace __MaterialUI {
         var lightBaseTheme: RawTheme;
         var darkBaseTheme: RawTheme;
 
-        export function muiThemeable<TComponent extends React.Component<P, S>, P, S>(): (component: TComponent) => TComponent;
+        export function muiThemeable(): <
+            TComponent extends React.ComponentClass<P> | React.StatelessComponent<P>,
+            P extends {muiTheme?: MuiTheme}
+        >(component: TComponent) => TComponent;
 
         interface MuiThemeProviderProps {
             muiTheme?: Styles.MuiTheme;
