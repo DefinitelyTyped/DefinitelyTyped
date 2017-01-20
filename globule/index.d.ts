@@ -3,43 +3,86 @@
 // Definitions by: durad <https://github.com/durad>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface IOptions {
-    debug?: boolean;
-    nobrace?: boolean;
-    noglobstar?: boolean;
-    dot?: boolean;
-    noext?: boolean;
-    nocase?: boolean;
-    nonull?: boolean;
-    matchBase?: boolean;
-    nocomment?: boolean;
-    nonegate?: boolean;
-    flipNegate?: boolean;
-}
-
-interface GlobuleOptions {
-    src?: string;
-    srcBase?: string;
-    destBase?: string;
-    ext?: string;
-    extDot?: 'first' | 'last';
-    flatten: boolean;
-    rename: (p: string) => string;
-}
-
-interface GlobuleStatic {
-    match(patterns: string[], filepaths: string[], options: IOptions): string[];
-    isMatch(patterns: string[], filepaths: string[], options: IOptions): boolean;
-    find(options: GlobuleOptions): string[];
-    find(path: string | string[], options?: GlobuleOptions): string[];
-    find(path: string, path2: string, options?: GlobuleOptions): string[];
-    find(path: string, path2: string, path3: string, options?: GlobuleOptions): string[];
-    find(path: string, path2: string, path3: string, path4: string, options?: GlobuleOptions): string[];
-    find(path: string, path2: string, path3: string, path4: string, path5: string, options?: GlobuleOptions): string[];
-}
-
-declare var globule: GlobuleStatic;
-
 declare module 'globule' {
+    import minimatch = require('minimatch');
+    import glob = require('glob');
+
+    interface FindOptions extends glob.IGlob {
+        src?: string;
+        filter?: string | ((filepath?: string, options?: any) => boolean);
+        nonull?: boolean;
+        matchBase?: boolean;
+        srcBase?: string;
+        prefixBase?: boolean;
+    }
+
+    interface MappingOptions extends FindOptions {
+        srcBase?: string;
+        destBase?: string;
+        ext?: string;
+        extDot?: 'first' | 'last';
+        flatten: boolean;
+        rename: (p: string) => string;
+    }
+
+    interface OneMapping {
+        src: string[];
+        dest: string;
+    }
+
+    interface GlobuleStatic {
+        /**
+         * Match one or more globbing patterns against one or more file paths.
+         * Returns a uniqued array of all file paths that match any of the specified globbing patterns.
+         */
+        match(patterns: string[], filepaths: string[], options: minimatch.IOptions): string[];
+
+        /**
+         * Tests pattern(s) against against one or more file paths and returns true if any files were matched, otherwise false.
+         */
+        isMatch(patterns: string | string[], filepaths: string | string[], options: minimatch.IOptions): boolean;
+
+        /**
+         * Returns a unique array of all file or directory paths that match the given globbing pattern(s)
+         */
+        find(pattern: string | string[], options?: FindOptions): string[];
+
+        /**
+         * Returns a unique array of all file or directory paths that match the given globbing pattern(s)
+         */
+        find(options: FindOptions): string[];
+
+        /**
+         * Returns a unique array of all file or directory paths that match the given globbing pattern(s)
+         */
+        find(pattern: string | string[], pattern2: string | string[], options?: FindOptions): string[];
+
+        /**
+         * Returns a unique array of all file or directory paths that match the given globbing pattern(s)
+         */
+        find(pattern: string, pattern2: string, pattern3: string | string[], options?: FindOptions): string[];
+
+        /** 
+         * Given a set of source file paths, returns an array of src-dest file mapping objects
+         */
+        mapping(filepaths: string | string[], options?: MappingOptions): OneMapping[];
+
+        /** 
+         * Given a set of source file paths, returns an array of src-dest file mapping objects
+         */
+        mapping(options?: MappingOptions): OneMapping[];
+
+        /** 
+         * Given a set of source file paths, returns an array of src-dest file mapping objects
+         */
+        mapping(filepaths: string | string[], filepaths2: string | string[], options?: MappingOptions): OneMapping[];
+
+        /** 
+         * Given a set of source file paths, returns an array of src-dest file mapping objects
+         */
+        mapping(filepaths: string | string[], filepaths2: string | string[], filepaths3: string | string[], options?: MappingOptions): OneMapping[];
+    }
+    
+    var globule: GlobuleStatic;
     export = globule;
 }

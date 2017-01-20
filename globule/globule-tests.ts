@@ -1,7 +1,10 @@
 
 import * as globule from 'globule';
 
-// globule.find('', {});
+let filepaths: string[];
+filepaths = globule.find('**/*.js');
+filepaths = globule.find(['**/*.js']);
+filepaths = globule.find('**/*.js', '**/*.less');
+// filepaths = globule.find('*.js', { nonull: true });
 
-// globule.find({src: patterns, /* other options */})
 
