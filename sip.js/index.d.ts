@@ -40,7 +40,7 @@ declare namespace SIP {
     }
 
     namespace UA.EventArgs {
-        interface ConnectedArgs { attempts: number }
+        interface ConnectedArgs { attempts: number; }
         interface UnregisteredArgs { response: string; cause: string; }
         interface RegistrationFailedArgs extends UnregisteredArgs { }
     }
@@ -55,8 +55,7 @@ declare namespace SIP {
         isConnected(): boolean;
         message(target: string | URI, body: string, options?: MessageOptions): Message;
         subscribe(target: string | URI, event: string, options?: SubscribeOptions): Subscription;
-        invite(target: string | URI, options?: InviteOptions): Session;
-        invite(target: string | URI, element?: HTMLAudioElement | HTMLVideoElement): Session;
+        invite(target: string | URI, element?: InviteOptions | HTMLAudioElement | HTMLVideoElement): Session;
         request(method: string, target: string | URI, options?: RequestOptions): ClientContext;
 
         on(name: 'connected', callback: (args: UA.EventArgs.ConnectedArgs) => void): void;
@@ -110,16 +109,13 @@ declare namespace SIP {
 
         on(name: 'progress', callback: (response: IncomingResponse) => void): void;
         on(name: 'accepted', callback: (data: { code: number, response: IncomingResponse }) => void): void;
-        on(name: 'rejected', callback: (response: IncomingResponse, cause: string) => void): void;
-        on(name: 'failed', callback: (response: IncomingResponse, cause: string) => void): void;
+        on(name: 'failed' | 'rejected', callback: (response: IncomingResponse, cause: string) => void): void;
         on(name: 'terminated', callback: (message: IncomingResponse, cause: string) => void): void;
-        on(name: 'refer', callback: (request: IncomingRequest) => void): void;
         on(name: 'cancel', callback: () => void): void;
         on(name: 'replaced', callback: (newSession: Session) => void): void;
         on(name: 'dtmf', callback: (request: IncomingRequest, dtmf: Session.DTMF) => void): void;
-        on(name: 'muted', callback: (data: Session.Muted) => void): void;
-        on(name: 'unmuted', callback: (data: Session.Muted) => void): void;
-        on(name: 'bye', callback: (request: IncomingRequest) => void): void;
+        on(name: 'muted' | 'unmuted', callback: (data: Session.Muted) => void): void;
+        on(name: 'refer' | 'bye', callback: (request: IncomingRequest) => void): void;
     }
 
     namespace Session {
@@ -144,18 +140,17 @@ declare namespace SIP {
             media?: MediaOptions;
         }
 
-        interface DTMF {
-        }
+        interface DTMF extends Object {}
 
         interface Muted {
             audio?: boolean;
-            video?: boolean
+            video?: boolean;
         }
     }
 
     interface RenderHint {
         remote?: Element;
-        local?: Element
+        local?: Element;
     }
 
     interface MediaConstraints {
@@ -185,29 +180,18 @@ declare namespace SIP {
             render(renderHint: RenderHint): void;
 
             on(name: 'userMediaRequest', callback: (constraints: MediaConstraints) => void): void;
-            on(name: 'userMedia', callback: (stream: MediaStream) => void): void;
+            on(name: 'addStream' | 'userMedia', callback: (stream: MediaStream) => void): void;
             on(name: 'userMediaFailed', callback: (error: string) => void): void;
-            on(name: 'iceGathering', callback: () => void): void;
             on(name: 'iceCandidate', callback: (candidate: RTCIceCandidate) => void): void;
-            on(name: 'iceGatheringComplete', callback: () => void): void;
-            on(name: 'iceConnection', callback: () => void): void;
-            on(name: 'iceConnectionChecking', callback: () => void): void;
-            on(name: 'iceConnectionConnected', callback: () => void): void;
-            on(name: 'iceConnectionCompleted', callback: () => void): void;
-            on(name: 'iceConnectionFailed', callback: () => void): void;
-            on(name: 'iceConnectionDisconnected', callback: () => void): void;
-            on(name: 'iceConnectionClosed', callback: () => void): void;
-            on(name: 'getDescription', callback: (sdpWrapper: { type: string, sdp: string }) => void): void;
-            on(name: 'setDescription', callback: (sdpWrapper: { type: string, sdp: string }) => void): void;
-            on(name: 'dataChannel', callback: () => void): void;
-            on(name: 'addStream', callback: (stream: MediaStream) => void): void;
+            on(name: 'iceGathering' | 'iceGatheringComplete' | 'iceConnection' | 'iceConnectionChecking' | 'iceConnectionConnected' | 'iceConnectionCompleted' | 'iceConnectionFailed' | 'iceConnectionDisconnected' | 'iceConnectionClosed', callback: () => void): void;
+            on(name: 'dataChannel' | 'getDescription' | 'setDescription', callback: (sdpWrapper: { type: string, sdp: string }) => void): void;
         }
     }
 
     /* Parameters */
     interface ConfigurationParameters {
         uri?: string;
-        wsServers?: string | string[] | { ws_uri: string; weigth: number }[];
+        wsServers?: string | string[] | Array<{ ws_uri: string; weigth: number }>;
         allowLegacyNotifications?: boolean;
         authenticationFactory?: WebRTC.MediaHandlerFactory;
         authorizationUser?: string;
@@ -304,11 +288,7 @@ declare namespace SIP {
         localIdentity: NameAddrHeader;
         remoteIdentity: NameAddrHeader;
         data: {};
-        
-        on(name: 'progress', callback: (response: IncomingMessage, cause: string) => void): void;
-        on(name: 'accepted', callback: (response: IncomingMessage, cause: string) => void): void;
-        on(name: 'rejected', callback: (response: IncomingMessage, cause: string) => void): void;
-        on(name: 'failed', callback: (response: IncomingMessage, cause: string) => void): void;
+        on(name: 'progress' | 'accepted' | 'rejected' | 'failed', callback: (response: IncomingMessage, cause: string) => void): void;
         on(name: 'notify', callback: (request: IncomingRequest) => void): void;
     }
 
@@ -341,7 +321,7 @@ declare namespace SIP {
 
     /* Header */
     class NameAddrHeader {
-        constructor(uri: string | URI, displayName: string, parameters: { key: string, value: string }[]);
+        constructor(uri: string | URI, displayName: string, parameters: Array<{ key: string, value: string }>);
 
         uri: string | URI;
         displayName: string;
