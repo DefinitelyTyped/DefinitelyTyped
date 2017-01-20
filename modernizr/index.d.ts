@@ -1,6 +1,6 @@
-// Type definitions for Modernizr 3.2.0
+// Type definitions for Modernizr 3.2
 // Project: http://modernizr.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb/>, Leon Yu <https://github.com/leonyu/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb/>, Leon Yu <https://github.com/leonyu/>, Luca Trazzi <https://github.com/lucax88x/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface AudioBoolean {
@@ -344,8 +344,7 @@ interface Dictionary<T> {
 interface ModernizrAPI {
     on(feature: string, cb: (result: boolean) => any): void;
 
-    addTest(feature: string, test: () => boolean): void;
-    addTest(feature: string, test: boolean): void;
+    addTest(feature: string, test: () => boolean | boolean): void;
     addTest(feature: Dictionary<any>): void;
 
     atRule(prop: string): boolean;
