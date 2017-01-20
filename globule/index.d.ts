@@ -64,22 +64,22 @@ interface GlobuleStatic {
     /** 
      * Given a set of source file paths, returns an array of src-dest file mapping objects
      */
-    mapping(filepaths: string | string[], options?: MappingOptions): OneMapping[];
+    mapping(filepaths: string[], options?: MappingOptions): OneMapping[];
 
     /** 
      * Given a set of source file paths, returns an array of src-dest file mapping objects
      */
-    mapping(options?: MappingOptions): OneMapping[];
+    mapping(options: MappingOptions): OneMapping[];
 
     /** 
      * Given a set of source file paths, returns an array of src-dest file mapping objects
      */
-    mapping(filepaths: string | string[], filepaths2: string | string[], options?: MappingOptions): OneMapping[];
+    mapping(filepaths: string[], filepaths2: string[], options?: MappingOptions): OneMapping[];
 
     /** 
      * Given a set of source file paths, returns an array of src-dest file mapping objects
      */
-    mapping(filepaths: string | string[], filepaths2: string | string[], filepaths3: string | string[], options?: MappingOptions): OneMapping[];
+    mapping(filepaths: string[], filepaths2: string[], filepaths3: string[], options?: MappingOptions): OneMapping[];
 }
 
 declare var globule: GlobuleStatic;
