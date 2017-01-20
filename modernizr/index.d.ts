@@ -344,7 +344,7 @@ interface Dictionary<T> {
 interface ModernizrAPI {
     on(feature: string, cb: (result: boolean) => any): void;
 
-    addTest(feature: string, test: () => boolean | boolean): void;
+    addTest(feature: string, test: (() => boolean) | boolean): void;
     addTest(feature: Dictionary<any>): void;
 
     atRule(prop: string): boolean;
