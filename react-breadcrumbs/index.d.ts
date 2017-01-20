@@ -1,13 +1,17 @@
-// Type definitions for react-breadcrumbs 1.3.16
+// Type definitions for react-breadcrumbs 1.3
 // Project: https://github.com/svenanders/react-breadcrumbs
 // Definitions by: Kostya Esmukov <https://github.com/KostyaEsmukov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="react"/>
-///<reference types="react-router"/>
+import * as React from "react";
+import * as ReactRouter from "react-router";
 
-declare namespace ReactBreadcrumbs {
-    interface BreadcrumbsProps extends React.Props<Breadcrumbs> {
+export = Breadcrumbs;
+type Breadcrumbs = React.ComponentClass<Breadcrumbs.Props>;
+declare const Breadcrumbs: Breadcrumbs;
+
+declare namespace Breadcrumbs {
+    interface Props extends React.ClassAttributes<Breadcrumbs> {
         separator?: string | JSX.Element;
         displayMissing?: boolean;
         prettify?: boolean;
@@ -26,13 +30,4 @@ declare namespace ReactBreadcrumbs {
         setDocumentTitle?: boolean;
         params?: any;  // todo make it compatible with params of the ReactRouter.RouteComponentProps<P, R>
     }
-
-    interface Breadcrumbs extends React.ComponentClass<BreadcrumbsProps> {}
-    const Breadcrumbs: Breadcrumbs;
-}
-
-declare module 'react-breadcrumbs' {
-    import Breadcrumbs = ReactBreadcrumbs.Breadcrumbs;
-
-    export = Breadcrumbs;
 }
