@@ -12,12 +12,10 @@ filepaths = globule.find({ src: '**/*.js' });
 
 filepaths = globule.match('*.js', '/home/code');
 filepaths = globule.match('*.js', '/home/code', { matchBase: true });
-filepaths = globule.match('*.js', null);
 
 let bResult: boolean;
 bResult = globule.isMatch('*.js', '/home/code');
 bResult = globule.isMatch('*.js', '/home/code', { matchBase: true });
-bResult = globule.isMatch('*.js', null);
 
 let mappings = globule.mapping(['*.js']);
 let len = mappings.length;
