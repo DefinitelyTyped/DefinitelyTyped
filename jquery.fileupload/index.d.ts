@@ -284,6 +284,7 @@ interface JQueryFileUploadXhr {
     jqXHR: JQueryXHR;
     result: any;
     textStatus: string;
+    headers: {[key: string]: any};
 }
 
 interface JQueryFileUploadFilesObject {

@@ -38,8 +38,8 @@ declare namespace WebTorrent {
         on(event: 'torrent', callback: (torrent: Torrent) => void): this;
         on(event: 'error', callback: (err: Error | string) => void): this;
 
-        add(torrent: string | Buffer | ParseTorrent.ParsedTorrent, opts?: TorrentOptions, cb?: (torrent: Torrent) => any): Torrent;
-        add(torrent: string | Buffer | ParseTorrent.ParsedTorrent, cb?: (torrent: Torrent) => any): Torrent;
+        add(torrent: string | Buffer | ParseTorrent.Instance, opts?: TorrentOptions, cb?: (torrent: Torrent) => any): Torrent;
+        add(torrent: string | Buffer | ParseTorrent.Instance, cb?: (torrent: Torrent) => any): Torrent;
 
         seed(input: string | string[] | File | File[] | FileList | Buffer | Buffer[] | NodeJS.ReadableStream | NodeJS.ReadableStream[], opts?: TorrentOptions, cb?: (torrent: Torrent) => any): Torrent;
         seed(input: string | string[] | File | File[] | FileList | Buffer | Buffer[] | NodeJS.ReadableStream | NodeJS.ReadableStream[], cb?: (torrent: Torrent) => any): Torrent;
