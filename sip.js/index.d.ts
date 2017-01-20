@@ -3,6 +3,8 @@
 // Definitions by: Kir Dergachev <https://github.com/decyrus/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="webrtc" />
+
 export = SIP;
 
 declare namespace SIP {
