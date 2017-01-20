@@ -1,13 +1,11 @@
-// Type definitions for SIP.js v0.7.6
+// Type definitions for SIP.js 0.7
 // Project: https://sipjs.com/
 // Definitions by: Kir Dergachev <https://github.com/decyrus/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="webrtc" />
 
-export = SIP;
-
-declare namespace SIP {
+export declare namespace SIP {
 
     class URI {
         constructor(
@@ -105,7 +103,7 @@ declare namespace SIP {
         accept(options?: Session.AcceptOptions): void;
         reject(options?: Session.CommonOptions): void;
         reply(options?: Session.CommonOptions): void;
-        followRefer(callback: Function): void;
+        followRefer(callback: () => void): void;
 
         on(name: 'progress', callback: (response: IncomingResponse) => void): void;
         on(name: 'accepted', callback: (data: { code: number, response: IncomingResponse }) => void): void;
@@ -273,7 +271,7 @@ declare namespace SIP {
         state: string;
         event: string;
         dialog: string;
-        timers: Object;
+        timers: {};
         errorCodes: number[];
         subscribe(): Subscription;
         unsubscribe(): void;
