@@ -10,9 +10,7 @@
         "strictNullChecks": false,
         "jsx": "react",
         "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
