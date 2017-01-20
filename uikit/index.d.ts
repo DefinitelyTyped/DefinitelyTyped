@@ -6,6 +6,89 @@
 /// <reference types="jquery" />
 
 declare namespace UIkit {
+    interface DropdownElement {
+        /**
+         * Show the dropdown
+         */
+        show(): void;
+        /**
+         * Hide the dropdown
+         * @param {boolean} force
+         */
+        hide(force?: boolean): void;
+    }
+    type DropdownPosition =
+        'bottom-left' |
+        'bottom-center' |
+        'bottom-right' |
+        'top-left' |
+        'top-center' |
+        'top-right' |
+        'left-top' |
+        'left-center' |
+        'left-bottom' |
+        'right-top' |
+        'right-center' |
+        'right-bottom';
+    interface DropdownOptions {
+        /**
+         * Dropdown position
+         * @default 'bottom-left'
+         */
+        pos?: DropdownPosition;
+        /**
+         * Dropdown trigger behaviour
+         * @default 'hover'
+         */
+        mode?: 'hover'|'click';
+        /**
+         * Remain time before auto closing dropdown in hover mode
+         * @default 800
+         */
+        remaintime?: number;
+        /**
+         * Stretch dropdown width to a specified element
+         * @default false
+         */
+        justify?: string|JQuery|false;
+        /**
+         * Referenced element to keep dropdowns visibilty
+         * @default window
+         */
+        boundary?: string|JQuery|Window;
+        /**
+         * Delay time in hover mode before a dropdown is shown in ms
+         * @default 0
+         */
+        delay?: number;
+        /**
+         * Dropdown selector
+         * @default '.uk-dropdown,.uk-dropdown-blank'
+         */
+        dropdownSelector?: string|JQuery;
+        /**
+         * Is added to the delay time when hovering from one active dropdown to another dropdown (in ms)
+         * @default 250
+         */
+        hoverDelayIdle?: number;
+        /**
+         * Prevent automatic dropdown flip
+         * Possible values: 'x', 'y', true, false
+         * @default false
+         */
+        preventflip?: 'x'|'y'|boolean;
+    }
+    /**
+     * Create a toggleable dropdown with different styles
+     * Documentation: {@link http://getuikit.org/docs/dropdown.html}
+     *
+     * Events:
+     * Name               Description
+     * show.uk.dropdown   Triggered on dropdown show
+     * hide.uk.dropdown   Triggered on dropdown hide
+     * stack.uk.dropdown  Triggered when a dropdown stacks to fit into screen
+     */
+    type Dropdown = (selector: string|JQuery, options?: DropdownOptions) => DropdownElement;
     interface ModalElement {
         /**
          * Show the modal
@@ -1347,6 +1430,7 @@ declare namespace UIkit {
      * </table>
      */
     type Upload = (element: string|JQuery, options: UploadOptions) => any;
+    var dropdown: Dropdown;
     var modal: Modal;
     var lightbox: LightBox;
     var offcanvas: OffCanvas;
