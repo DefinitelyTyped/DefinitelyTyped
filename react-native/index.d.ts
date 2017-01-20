@@ -1894,7 +1894,12 @@ declare module "react" {
          * Used on Android only, controls whether DOM Storage is enabled
          * or not android
          */
-        domStorageEnabled?: boolean
+        domStorageEnabled?: boolean,
+
+        /**
+         * Sets the user-agent for the WebView.
+         */
+        userAgent?: string
     }
 
     export interface WebViewIOSLoadRequestEvent {
@@ -2044,7 +2049,7 @@ declare module "react" {
         /**
          * Invoked when window.postMessage is called from WebView.
          */
-	onMessage?: ( event: NativeSyntheticEvent<WebViewMessageEventData> ) => void
+	    onMessage?: ( event: NativeSyntheticEvent<WebViewMessageEventData> ) => void
 
         /**
          * Function that is invoked when the `WebView` loading starts or ends.
