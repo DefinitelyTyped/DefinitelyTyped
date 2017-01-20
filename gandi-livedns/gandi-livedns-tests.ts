@@ -1,4 +1,4 @@
-/// <reference path="gandi-livedns.d.ts" />
+
 
 let zone: ZoneRecord  = {
     rrset_name: "MyZone",

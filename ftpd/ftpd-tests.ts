@@ -1,4 +1,3 @@
-/// <reference path="ftpd.d.ts" />
 
 import ftpd = require("ftpd");
 
@@ -10,7 +9,8 @@ var options: ftpd.FtpServerOptions = {
 	},
 	getRoot: function(connection: ftpd.FtpConnection): string {
 		return '/';
-	}
+	},
+	logLevel: ftpd.LogLevel.ERROR
 };
 
 var host: string = '10.0.0.42';
@@ -22,11 +22,12 @@ server.on('client:connected', function(conn: ftpd.FtpConnection): void {
 		success();
 	});
 	conn.on('command:pass', function(
-		pass: string, 
-		success: (username: string, fs?: ftpd.FtpFileSystem) => void, 
+		pass: string,
+		success: (username: string, fs?: ftpd.FtpFileSystem) => void,
 		failure: () => void) {
 		success("Rogier");
 	});
 });
 
+server.debugging = ftpd.LogLevel.TRACE;
 server.listen(21);

@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="spectrum.d.ts" />
+/// <reference types="jquery" />
+
 
 $("#picker").spectrum();
 

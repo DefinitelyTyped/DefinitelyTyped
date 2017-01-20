@@ -1,5 +1,3 @@
-/// <reference path="ncp.d.ts" />
-
 import ncp = require('ncp');
 import stream = require('stream');
 
@@ -18,6 +16,9 @@ opts = {
 };
 opts = {
 	clobber: false
+};
+opts = {
+	dereference: false
 };
 opts = {
 	stopOnErr: false

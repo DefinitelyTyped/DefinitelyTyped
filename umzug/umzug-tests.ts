@@ -1,6 +1,4 @@
-/// <reference path="./umzug.d.ts" />
-/// <reference path="../sequelize/sequelize.d.ts" />
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 import * as Umzug from "umzug";
 import * as Sequelize from "sequelize";

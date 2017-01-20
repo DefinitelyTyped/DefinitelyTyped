@@ -1,6 +1,4 @@
-/// <reference path="async-polling.d.ts" />
-
-import * as AsyncPolling from "async-polling";
+import AsyncPolling = require("async-polling");
 
 // Tests based on examples in https://github.com/cGuille/async-polling#readme
 

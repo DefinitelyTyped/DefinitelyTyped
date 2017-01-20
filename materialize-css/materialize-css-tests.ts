@@ -1,4 +1,4 @@
-/// <reference path="materialize-css.d.ts" />
+
 
 // Buttons
 
@@ -214,6 +214,7 @@ $(sideNavHtml).sideNav({});
 $(sideNavHtml).sideNav({ menuWidth: 100 });
 $(sideNavHtml).sideNav({ menuWidth: 100, edge: 'right' });
 $(sideNavHtml).sideNav({ menuWidth: 100, edge: 'right', closeOnClick: true });
+$(sideNavHtml).sideNav({ menuWidth: 100, edge: 'right', closeOnClick: true, draggable: false });
 $(sideNavHtml).sideNav("show");
 $(sideNavHtml).sideNav("hide");
 

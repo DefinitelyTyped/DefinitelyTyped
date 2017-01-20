@@ -1,5 +1,5 @@
-/// <reference path="wampy.d.ts" />
-/// <reference path="../node/node.d.ts" />
+
+/// <reference types="node" />
 
 import Wampy from 'wampy';
 

@@ -1,6 +1,30 @@
-/// <reference path="levelup.d.ts" />
-
 import levelup = require("levelup");
+
+interface BufferEncoding {
+    encode(val: any): Buffer;
+    decode(val: Buffer): any;
+    buffer: boolean;
+    type: string;
+}
+
+interface StringEncoding {
+    encode(val: any): string;
+    decode(val: string): any;
+    buffer: boolean;
+    type: string;
+}
+
+declare const bufferEncoding: BufferEncoding;
+declare const stringEncoding: StringEncoding;
+
+var db1 = levelup("db1", {
+    keyEncoding: bufferEncoding,
+    valueEncoding: bufferEncoding
+});
+var db2 = levelup("db2", {
+    keyEncoding: stringEncoding,
+    valueEncoding: stringEncoding
+});
 
 var db = levelup('./mydb')
 db.open();
@@ -46,10 +70,10 @@ db.batch()
 var open:boolean = db.isOpen();
 var closed:boolean = db.isClosed(); 
 db.createReadStream()
-    .on('data', function (data) {
+    .on('data', function (data: any) {
       console.log(data.key, '=', data.value)
     })
-    .on('error', function (err) {
+    .on('error', function (err: any) {
       console.log('Oh my!', err)
     })
     .on('close', function () {

@@ -1,5 +1,5 @@
-/// <reference path="each.d.ts" />
-/// <reference path="../node/node.d.ts" />
+
+/// <reference types="node" />
 
 function testEach() {
 	var EachStaticClass: EachStatic = function (array: any[]) {

@@ -1,4 +1,3 @@
-/// <reference path="xtend.d.ts" />
 import * as xtend from "xtend";
 
 interface Target {
