@@ -224,6 +224,33 @@ If the standard is still a draft, it belongs here.
 Use a name beginning with `dom-` and include a link to the standard as the "Project" link in the header.
 When it graduates draft mode, we may remove it from DefinitelyTyped and deprecate the associated `@types` package.
 
+#### I want to update a package to a new major version
+
+First, please create a new subfolder with the current version e.g. `v2`, and copy existing files to it. You will need to:
+
+1. Update the relative paths in `tsconfig.json` as well as `tslint.json`.
+2. Add path mapping rules to ensure that tests are running against the intended version.
+
+For example [bluebird v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/bluebird/v2/tsconfig.json) looks like:
+
+```json
+{
+    "compilerOptions": {
+        "baseUrl": "../../",
+        "typeRoots": ["../../"],
+        "paths": {
+            "bluebird": [
+                "bluebird/v2"
+            ]
+        },
+    },
+    "files": [
+        "index.d.ts",
+        "bluebird-tests.ts"
+    ]
+}
+```
+
 ## License
 
 This project is licensed under the MIT license.
