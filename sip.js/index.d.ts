@@ -1,11 +1,13 @@
-// Type definitions for SIP.js 0.7
-// Project: https://sipjs.com/
-// Definitions by: Kir Dergachev <https://github.com/decyrus/>
+// Type definitions for sip.js 0.7
+// Project: http://sipjs.com
+// Definitions by: Kir Dergachev <https://github.com/decyrus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="webrtc" />
 
-export declare namespace SIP {
+export = SIP;
+
+declare namespace SIP {
 
     class URI {
         constructor(
