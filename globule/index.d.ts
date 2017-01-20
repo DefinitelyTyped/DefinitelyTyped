@@ -7,7 +7,7 @@ declare module 'globule' {
     import minimatch = require('minimatch');
     import glob = require('glob');
 
-    interface FindOptions extends glob.IGlob {
+    interface FindOptions extends glob.IOptions {
         src?: string;
         filter?: string | ((filepath?: string, options?: any) => boolean);
         nonull?: boolean;
@@ -21,8 +21,8 @@ declare module 'globule' {
         destBase?: string;
         ext?: string;
         extDot?: 'first' | 'last';
-        flatten: boolean;
-        rename: (p: string) => string;
+        flatten?: boolean;
+        rename?: (p: string) => string;
     }
 
     interface OneMapping {
@@ -35,12 +35,12 @@ declare module 'globule' {
          * Match one or more globbing patterns against one or more file paths.
          * Returns a uniqued array of all file paths that match any of the specified globbing patterns.
          */
-        match(patterns: string[], filepaths: string[], options: minimatch.IOptions): string[];
+        match(patterns: string | string[], filepaths: string | string[], options?: minimatch.IOptions): string[];
 
         /**
          * Tests pattern(s) against against one or more file paths and returns true if any files were matched, otherwise false.
          */
-        isMatch(patterns: string | string[], filepaths: string | string[], options: minimatch.IOptions): boolean;
+        isMatch(patterns: string | string[], filepaths: string | string[], options?: minimatch.IOptions): boolean;
 
         /**
          * Returns a unique array of all file or directory paths that match the given globbing pattern(s)
