@@ -1,6 +1,7 @@
 {
     "extends": "../tslint.json",
     "rules": {
-        "no-empty-interface": false
+        "no-empty-interface": false,
+        "export-just-namespace": false
     }
 }
