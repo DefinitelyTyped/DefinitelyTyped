@@ -7,7 +7,7 @@
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "paths": {
