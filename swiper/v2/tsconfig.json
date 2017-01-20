@@ -10,6 +10,14 @@
             "../"
         ],
         "types": [],
+        "paths": {
+            "swiper": [
+                "swiper/v2"
+            ],
+            "swiper/*": [
+                "swiper/v2/*"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
