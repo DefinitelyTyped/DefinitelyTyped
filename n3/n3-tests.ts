@@ -1,5 +1,4 @@
-/// <reference path="./n3.d.ts" />
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 import * as N3 from "n3";
 import * as fs from "fs";
@@ -63,7 +62,7 @@ function test_doc_rdf_stream_to_triples_1() {
 
     var streamParser = N3.StreamParser();
     var rdfStream = fs.createReadStream('cartoons.ttl');
-    // rdfStream.pipe(streamParser);
+    rdfStream.pipe(streamParser);
     streamParser.pipe(new SlowConsumer());
 
     class SlowConsumer extends stream.Writable {
@@ -107,12 +106,12 @@ function test_doc_from_triples_to_rdf_stream() {
 }
 
 function test_doc_from_triple_stream_to_rdf_stream() {
-    var streamParser = N3.StreamParser(),
-        // inputStream = fs.createReadStream('cartoons.ttl'),
-        streamWriter = N3.StreamWriter({ prefixes: { c: 'http://example.org/cartoons#' } });
-    // inputStream.pipe(streamParser);
+    var streamParser = new N3.StreamParser(),
+        inputStream = fs.createReadStream('cartoons.ttl'),
+        streamWriter = /* new */ N3.StreamWriter({ prefixes: { c: 'http://example.org/cartoons#' } });
+    inputStream.pipe(streamParser);
     streamParser.pipe(streamWriter);
-    // streamWriter.pipe(process.stdout);
+    streamWriter.pipe(process.stdout);
 }
 
 function test_doc_blank_nodes_and_lists() {
@@ -168,7 +167,7 @@ function test_doc_utility() {
     N3Util.isLiteral('"This word is "quoted"!"'); // true
     N3Util.isLiteral('"3"^^http://www.w3.org/2001/XMLSchema#integer'); // true
 
-    N3.Parser().parse('<a> <b> "This word is \\"quoted\\"!".', console.log);
+    new N3.Parser().parse('<a> <b> "This word is \\"quoted\\"!".', console.log);
     // { subject: 'a', predicate: 'b', object: '"This word is "quoted"!"' }
 
     N3Util.createLiteral('My text', 'en-gb');

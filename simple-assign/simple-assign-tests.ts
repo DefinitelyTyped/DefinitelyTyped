@@ -1,4 +1,3 @@
-/// <reference path="simple-assign.d.ts" />
 import simpleAssign = require("simple-assign");
 
 interface Target {

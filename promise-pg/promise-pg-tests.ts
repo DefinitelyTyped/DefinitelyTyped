@@ -1,6 +1,4 @@
-/// <reference path="promise-pg.d.ts" />
-/// <reference path="../q/Q.d.ts" />
-
+import * as Q from 'q';
 import * as pg from 'promise-pg';
 
 var conString = "postgres://username:password@localhost/database";
@@ -46,7 +44,7 @@ pg.connect(conString)
       buffer: true
     }).promise.then(
       function (result) { console.log(result.rows.length + " rows returned"); },
-      function (err) { console.error("Error running query", err); throw err; },
+      function (err): void { console.error("Error running query", err); throw err; },
       function (user: any) {} // called for each returned row
     ).finally(done);
   }).done();

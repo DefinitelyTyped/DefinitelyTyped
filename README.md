@@ -38,7 +38,7 @@ or just look for any ".d.ts" files in the package and manually include them with
 These can be used by TypeScript 1.0.
 
 * [Typings](https://github.com/typings/typings)
-* [NuGet](http://nuget.org/Tpackages?q=DefinitelyTyped)
+* ~~[NuGet](http://nuget.org/Tpackages?q=DefinitelyTyped)~~ (use preferred alternatives, nuget DT type publishing has been turned off)
 * Manually download from the `master` branch of this repository
 
 You may need to add manual [references](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
@@ -52,34 +52,33 @@ DefinitelyTyped only works because of contributions by users like you!
 
 Before you share your improvement with the world, use it yourself.
 
-#### Test editing an exiting package
+#### Test editing an existing package
 
 To add new features you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html).
-You can also directly edit the types in `node_modules/@types/foo/index.d.ts`,
-or copy them from there and paste inside of `declarations.d.ts` and follow the steps below.
+You can also directly edit the types in `node_modules/@types/foo/index.d.ts`, or copy them from there and follow the steps below.
 
 
 #### Test a new package
 
-* Add a new file `declarations.d.ts` to your project.
-* Add it to the compilation, through `"includes"` or `"files"` in your [tsconfig](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html),
-or through a `/// <reference path="" />` declaration in your code.
-* Inside `declarations.d.ts`, write `declare module "foo" { }`, then write the module declaration inside.
-* Test that your code works.
-* *Then*, once you've tested your definitions, make a PR contributing the definition.
+Add to your `tsconfig.json`:
+
+```json
+"baseUrl": "types",
+"typeRoots": ["types"],
+```
+
+(You can also use `src/types`.)
+Create `types/foo/index.d.ts` containing declarations for the module "foo".
+You should now be able import from `"foo"` in your code and it will route to the new type definition.
+Then build *and* run the code to make sure your type definition actually corresponds to what happens at runtime.
+Once you've tested your definitions with real code, make a PR contributing the definition by copying `types/foo` to `DefinitelyTyped/foo` and adding a `tsconfig.json` and `foo-tests.ts`.
 
 
 ### Make a pull request
 
 Once you've tested your package, you can share it on DefinitelyTyped.
 
-First, [fork](https://guides.github.com/activities/forking/) this repository.
-Then inside your repository:
-
-* `git checkout types-2.0`
-
-New work should generally be done on the `types-2.0` branch.
-If you want your changes to be available to `typings` users, then you may edit `master` instead.
+First, [fork](https://guides.github.com/activities/forking/) this repository, install [node](https://nodejs.org/), and run `npm install`.
 
 
 #### Edit an existing package
@@ -87,6 +86,7 @@ If you want your changes to be available to `typings` users, then you may edit `
 * `cd my-package-to-edit`
 * Make changes. Remember to edit tests.
 * You may also want to add yourself to "Definitions by" section of the package header.
+  - Do this by adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
 * `npm install -g typescript@2.0` and run `tsc`.
 
 When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
@@ -95,7 +95,7 @@ If it doesn't, you can do so yourself in the comment associated with the PR.
 
 #### Create a new package
 
-If you are the library author, or can make a pull request to the library, [bundle](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) types instead of publishing to DefinitelyTyped.
+If you are the library author, or can make a pull request to the library, [bundle types](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) instead of publishing to DefinitelyTyped.
 
 If you are adding typings for an NPM package, create a directory with the same name.
 If the package you are adding typings for is not on NPM, make sure the name you choose for it does not conflict with the name of a package on NPM.
@@ -108,63 +108,25 @@ Your package should have this structure:
 | index.d.ts | This contains the typings for the package. |
 | foo-tests.ts | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
 | tsconfig.json | This allows you to run `tsc` within the package. |
+| tslint.json | Enables linting. |
 
-`index.d.ts` should start with a header looking like:
+Generate these by running `npm run new-package -- new-package-name`.
 
-```ts
-// Type definitions for foo 1.2
-// Project: https://github.com/baz/foo
-// Definitions by: My Self <https://github.com/me>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-```
-
-The `Project` link does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.
-
-`tsconfig.json` should look like this:
-
-```json
-{
-    "compilerOptions": {
-        "module": "commonjs",
-        "target": "es6",
-        "noImplicitAny": true,
-        "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "types": [],
-        "noEmit": true,
-        "forceConsistentCasingInFileNames": true
-    },
-    "files": [
-        "index.d.ts",
-        "foo-tests.ts"
-    ]
-}
-```
-
-These should be identical accross projects except that `foo-tests` will be replaced with the name of your test file,
-and you may also add the `"jsx"` compiler option if your library needs it.
+You may edit the `tsconfig.json` to add new files, to add `"target": "es6"` (needed for async functions), to add to `"lib"`, or to add the `"jsx"` compiler option.
 
 DefinitelyTyped members routinely monitor for new PRs, though keep in mind that the number of other PRs may slow things down.
 
-For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/types-2.0/base64-js).
+For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/base64-js).
+
 
 #### Common mistakes
 
 * First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatting: Either use all tabs, or always use 4 spaces. Also, always use semicolons, and use egyptian braces.
-* `interface X {}`: An empty interface is essentially the `{}` type: it places no constraints on an object.
-* `interface IFoo {}`: Don't add `I` to the front of an interface name.
+* Formatting: Either use all tabs, or always use 4 spaces.
 * `interface Foo { new(): Foo; }`:
-    This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }
+    This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
 * `const Class: { new(): IClass; }`:
     Prefer to use a class declaration `class Class { constructor(); }` instead of a new-able constant.
-* `namespace foo {}`:
-    Do not add a namespace just so that the `import * as foo` syntax will work.
-    If it is commonJs module with a single export, you should use the `import foo = require("foo")` syntax.
-    See more explanation [here](https://stackoverflow.com/questions/39415661/why-cant-i-import-a-class-or-function-with-import-as-x-from-y).
 * `getMeAT<T>(): T`:
     If a type parameter does not appear in the types of any parameters, you don't really have a generic function, you just have a disguised type assertion.
     Prefer to use a real type assertion, e.g. `getMeAT() as number`.
@@ -176,31 +138,50 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 #### Removing a package
 
 When a package [bundles](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) its own types, types should be removed from DefinitelyTyped to avoid confusion.
-Make a PR doing the following:
-* Delete the directory.
-* Add a new entry to `notNeededPackages.json`.
-    - `libraryName`: Descriptive name of the library, e.g. "Angular 2" instead of "angular2". (May be identical to "typingsPackageName".)
-    - `typingsPackageName`: This is the name of the directory you just deleted.
-    - `sourceRepoURL`: This should point to the repository that contains the typings.
-    - `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version.
-* Any other packages in DefinitelyTyped that referenced the deleted package should be updated to reference the bundled types.
-    To do this, add a `package.json` with `"dependencies": { "foo": "x.y.z" }`.
 
-When a package is bundled, it no longer needs the header comment – this is only used by DefinitelyTyped, not by the TypeScript compiler.
+You can remove it by running `npm run not-needed -- typingsPackageName asOfVersion sourceRepoURL [libraryName]`.
+- `typingsPackageName`: This is the name of the directory to delete.
+- `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version.
+- `sourceRepoURL`: This should point to the repository that contains the typings.
+- `libraryName`: Descriptive name of the library, e.g. "Angular 2" instead of "angular2". (If ommitted, will be identical to "typingsPackageName".)
+
+Any other packages in DefinitelyTyped that referenced the deleted package should be updated to reference the bundled types. To do this, add a `package.json` with `"dependencies": { "foo": "x.y.z" }`.
+
+If a package was never on DefinitelyTyped, it does not need to be added to `notNeededPackages.json`.
+
+
+#### Lint
+
+To lint a package, just add a `tslint.json` to that package containing `{ "extends": "../tslint.json" }`. All new packages must be linted.
+If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. For example:
+
+```json
+{
+    "extends": "../tslint.json",
+    "rules": {
+        // This package uses the Function type, and it will take effort to fix.
+        "forbidden-types": false
+    }
+}
+```
+
+(To indicate that a lint rule truly does not apply, use `// tslint:disable:rule-name` or better, `//tslint:disable-next-line:rule-name`.)
+
+Only `.d.ts` files are linted.
+Test the linter by running `npm run lint -- package-name`. Do not use a globally installed tslint.
+
 
 ## FAQ
 
 #### What exactly is the relationship between this repository and the `@types` packages on NPM?
 
-The `types-2.0` branch is automatically published to the `@types` scope on NPM thanks to [types-publisher](https://github.com/Microsoft/types-publisher).
+The `master` branch is automatically published to the `@types` scope on NPM thanks to [types-publisher](https://github.com/Microsoft/types-publisher).
 This usually happens within an hour of changes being merged.
-
-Changes to the `master` branch are also manually merged into the `types-2.0` branch, but this takes longer.
 
 #### I'm writing a definition that depends on another definition. Should I use `<reference types="" />` or an import?
 
 If the module you're referencing is an external module (uses `export`), use an import.
-If the module you're referenceing is an ambient module (uses `declare module`, or just declares globals), use `<reference types="" />`.
+If the module you're referencing is an ambient module (uses `declare module`, or just declares globals), use `<reference types="" />`.
 
 #### What do I do about older versions of typings?
 
@@ -210,23 +191,38 @@ If you're adding a new major version of a library, you can copy `index.d.ts` to 
 #### I notice some packages having a `package.json` here.
 
 Usually you won't need this. When publishing a package we will normally automatically create a `package.json` for it.
-A `package.json` may be included for the sake of specifying dependencies. Here's an [example](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/types-2.0/pikaday/package.json).
+A `package.json` may be included for the sake of specifying dependencies. Here's an [example](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/pikaday/package.json).
 We do not allow other fields, such as `"description"`, to be defined manually.
 Also, if you need to reference an older version of typings, you must do that by adding `"dependencies": { "@types/foo": "x.y.z" }` to the package.json.
 
-#### I notice some `tsconfig.json` are missing `"noImplicitAny": true` or `"strictNullChecks": true`.
+#### Some packages have no `tslint.json`, and some `tsconfig.json` are missing `"noImplicitAny": true`, `"noImplicitThis": true`, or `"strictNullChecks": true`.
 
 Then they are wrong. You can help by submitting a pull request to fix them.
-
-#### Definitions in types-2.0 seem written differently than in master.
-
-If you're targeting types-2.0, write it like the types-2.0 definitions.
-If you're targeting master, we may change it to the new style when merging from master to types-2.0.
 
 #### Can I request a definition?
 
 Here are the [currently requested definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
 
+#### What about type definitions for the DOM?
+
+If types are part of a web standard, they should be contributed to [TSJS-lib-generator](https://github.com/Microsoft/TSJS-lib-generator) so that they can become part of the default `lib.dom.d.ts`.
+
+#### A package uses `export =`, but I prefer to use default imports. Can I change `export =` to `export default`?
+
+If default imports work in your environment, consider turning on the [`--allowSyntheticDefaultImports`](http://www.typescriptlang.org/docs/handbook/compiler-options.html) compiler option.
+Do not change the type definition if it is accurate.
+For an NPM package, `export =` is accurate if `node -p 'require("foo")'` is the export, and `export default` is accurate if `node -p 'require("foo").default'` is the export.
+
+#### I want to use features from TypeScript 2.1.
+
+Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 2.1`.
+
+#### I want to add a DOM API not present in TypeScript by default.
+
+This may belong in [TSJS-Lib-Generator](https://github.com/Microsoft/TSJS-lib-generator#readme). See the guidelines there.
+If the standard is still a draft, it belongs here.
+Use a name beginning with `dom-` and include a link to the standard as the "Project" link in the header.
+When it graduates draft mode, we may remove it from DefinitelyTyped and deprecate the associated `@types` package.
 
 ## License
 

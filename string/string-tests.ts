@@ -1,4 +1,4 @@
-/// <reference path="string.d.ts" />
+
 
 import S = require('string');
 
@@ -164,6 +164,13 @@ S('Yes it does!').replaceAll(' ', '').s; //'Yesitdoes!'
 S(' 1 2 3--__--4 5 6-7__8__9--0').strip(' ', '_', '-').s; //'1234567890'
 S('can words also be stripped out?').strip('words', 'also', 'be').s; //'can    stripped out?'
 
+S('  hello ').stripLeft().s; //'hello '
+S('abcz').stripLeft('a-z').s; //'bcz'
+S('www.example.com').stripLeft('w.').s; //'example.com'
+
+S('  hello ').stripRight().s; //'  hello'
+S('abcz').stripRight('a-z').s; //'abc'
+
 S('I AM CRAZY').right(2).s; //'ZY'
 S('Does it work?  ').right(4).s; //'k?  '
 S('Hi').right(0).s; //''
@@ -201,6 +208,10 @@ console.log(S(str).template(values).s) //'Hello JP! How are you doing during the
 
 S(' ').times(5).s //'     '
 S('*').times(3).s //'***'
+
+S('Like ice in the sunshine').titleCase().s // 'Like Ice In The Sunshine'
+S('data_rate').titleCase().s // 'Data_Rate'
+S('background-color').titleCase().s // 'Background-Color'
 
 S('true').toBoolean() //true
 S('false').toBoolean() //false

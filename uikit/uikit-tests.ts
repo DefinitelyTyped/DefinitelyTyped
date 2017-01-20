@@ -1,10 +1,42 @@
-/// <reference path="uikit.d.ts" />
+function testDropdown() {
+    UIkit.dropdown("#parent");
+    UIkit.dropdown($("#parent"));
+
+    let options: UIkit.DropdownOptions = {
+        pos: 'bottom-center',
+        mode: 'click',
+        remaintime: 150,
+        justify: false,
+        boundary: window,
+        delay: 0,
+        dropdownSelector: '.uk-dropdown,.uk-dropdown-blank',
+        hoverDelayIdle: 200,
+        preventflip: 'x'
+    };
+    var dropdown = UIkit.dropdown("$parent", options);
+
+    dropdown.show();
+    dropdown.hide();
+    dropdown.hide(true);
+    dropdown.hide(false);
+}
 
 function testModal() {
     UIkit.modal.alert("Attention!");
-    UIkit.modal.confirm("Are you sure?", function () {
-        // will be executed on confirm.
-    });
+
+    let options: UIkit.ModalOptions = {
+        keyboard: true,
+        bgclose: true,
+        minScrollHeight: 150,
+        center: false,
+        modal: true
+    };
+    UIkit.modal.confirm("Are you sure?", () => {});
+    UIkit.modal.confirm("Are you sure?", () => {}, {});
+    UIkit.modal.confirm("Are you sure?", () => {}, () => {});
+    UIkit.modal.confirm("Are you sure?", () => {}, () => {}, {});
+    UIkit.modal.confirm("Are you sure?", () => {}, {});
+
     UIkit.modal.prompt("Name:", 'value', function (newvalue:string) {
         // will be executed on submit.
     });

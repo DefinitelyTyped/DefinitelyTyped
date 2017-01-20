@@ -1,4 +1,4 @@
-/// <reference path="tracking.d.ts" />
+
 
 // All tracking tests below are code taken verbatim (or, as close as possible) from the tracking docs: https://trackingjs.com/docs.html
 

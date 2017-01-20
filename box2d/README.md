@@ -16,7 +16,7 @@ Import Statements
 Reference the box2dweb.d.ts file in your project and in an appropriate location include the following import statements to reduce the amount of typing you will need to do to acccess deeply nested modules.
 
 ```typescript
-/// <reference path="box2dweb.d.ts" />
+
 
 // Include the following imports, or add more/less, to reduce the module nesting.
 import b2Common = Box2D.Common;

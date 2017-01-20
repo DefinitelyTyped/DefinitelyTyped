@@ -1,5 +1,3 @@
-/// <reference path="leaflet.d.ts" />
-
 import L = require('leaflet');
 
 const latLngLiteral: L.LatLngLiteral = {lat: 12, lng: 13};
@@ -28,6 +26,16 @@ point = L.point(12, 13, true);
 point = L.point(pointTuple);
 point = L.point({x: 12, y: 13});
 
+let distance: number;
+point.distanceTo(point);
+point.distanceTo(pointTuple);
+
+const transformation = new L.Transformation(1, 2, 3, 4);
+point = transformation.transform(point);
+point = transformation.transform(point, 2);
+point = transformation.untransform(point);
+point = transformation.untransform(point, 2);
+
 const boundsLiteral: L.BoundsLiteral = [[1, 1], pointTuple];
 
 let bounds: L.Bounds;
@@ -35,6 +43,21 @@ bounds = L.bounds(point, point);
 bounds = L.bounds(pointTuple, pointTuple);
 bounds = L.bounds([point, point]);
 bounds = L.bounds(boundsLiteral);
+
+let points: Array<L.Point>;
+points = L.LineUtil.simplify([point, point], 1);
+points = L.LineUtil.simplify([pointTuple, pointTuple], 2);
+
+distance = L.LineUtil.pointToSegmentDistance(point, point, point);
+distance = L.LineUtil.pointToSegmentDistance(pointTuple, pointTuple, pointTuple);
+
+point = L.LineUtil.closestPointOnSegment(point, point, point);
+point = L.LineUtil.closestPointOnSegment(pointTuple, pointTuple, pointTuple);
+
+points = L.PolyUtil.clipPolygon(points, bounds);
+points = L.PolyUtil.clipPolygon(points, bounds, true);
+points = L.PolyUtil.clipPolygon([pointTuple, pointTuple], boundsLiteral);
+points = L.PolyUtil.clipPolygon([pointTuple, pointTuple], boundsLiteral, true);
 
 let mapOptions: L.MapOptions = {};
 mapOptions = {
@@ -274,6 +297,7 @@ map = map
 	.setView(latLngLiteral, 12, zoomPanOptions)
 	.setView(latLngTuple, 12)
 	.setView(latLngTuple, 12, zoomPanOptions)
+	.setZoom(11)
 	.setZoom(12, zoomPanOptions) // investigate if zoomPanOptions are really required
 	.zoomIn()
 	.zoomIn(1)
@@ -286,6 +310,7 @@ map = map
 	.setZoomAround(latLngTuple, 12, zoomOptions)
 	.setZoomAround(point, 12, zoomOptions)
 	.setZoomAround(pointTuple, 11, zoomOptions)
+	.fitBounds(latLngBounds)
 	.fitBounds(latLngBounds, fitBoundsOptions) // investigate if fit bounds options are really required
 	.fitBounds(latLngBoundsLiteral, fitBoundsOptions)
 	.fitWorld()
@@ -326,3 +351,57 @@ map = map
 	.remove()
 	.whenReady(() => {})
 	.whenReady(() => {}, {});
+
+let elementToDrag = document.createElement('div');
+let draggable = new L.Draggable(elementToDrag);
+draggable.enable();
+draggable.disable();
+draggable.on('drag', () => {});
+
+let twoCoords: [number, number] = [1, 2];
+latLng = L.GeoJSON.coordsToLatLng(twoCoords);
+twoCoords = L.GeoJSON.latLngToCoords(latLng);
+
+let threeCoords: [number, number, number] = [1, 2, 3];
+latLng = L.GeoJSON.coordsToLatLng(threeCoords);
+threeCoords = L.GeoJSON.latLngToCoords(latLng);
+
+let nestedTwoCoords = [ [12, 13], [13, 14], [14, 15] ];
+let nestedLatLngs: L.LatLng[] = L.GeoJSON.coordsToLatLngs(nestedTwoCoords, 1);
+nestedTwoCoords = L.GeoJSON.latLngsToCoords(nestedLatLngs, 1);
+
+class MyMarker extends L.Marker {
+	constructor() {
+		super([12, 13]);
+	}
+}
+class MyLayer extends L.Layer {
+	constructor() {
+		super();
+	}
+}
+class MyIcon extends L.Icon {
+	constructor() {
+		super({iconUrl: 'icon.png'});
+	}
+}
+class MyDivIcon extends L.DivIcon {
+	constructor() {
+		super();
+	}
+}
+
+let myControlClass = L.Control.extend({});
+let myControl = new myControlClass();
+
+L.Control.include({});
+L.Control.mergeOptions({});
+L.Control.addInitHook(() => {});
+
+export class MyNewControl extends L.Control {
+	constructor() {
+		super({
+			position: 'topleft'
+		});
+	}
+}

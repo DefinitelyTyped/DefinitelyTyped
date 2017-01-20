@@ -1,9 +1,8 @@
-/// <reference path="sqlite3.d.ts" />
 
 import sqlite3 = require('sqlite3');
 sqlite3.verbose();
 
-var db: sqlite3.Database;
+var db: sqlite3.Database = new sqlite3.Database('chain.sqlite3', () => {});
 
 function createDb() {
     console.log("createDb chain");

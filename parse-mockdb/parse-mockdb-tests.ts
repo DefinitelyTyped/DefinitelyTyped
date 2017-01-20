@@ -1,5 +1,3 @@
-/// <reference path="parse-mockdb.d.ts" />
-
 import * as ParseMockDB from "parse-mockdb";
 
 ParseMockDB.mockDB(); // Mock the Parse RESTController

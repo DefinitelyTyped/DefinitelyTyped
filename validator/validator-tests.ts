@@ -1,4 +1,4 @@
-/// <reference path='./validator.d.ts' />
+/// <reference types="validator" />
 
 import * as validator from 'validator';
 
@@ -512,8 +512,9 @@ let any: any;
   result = validator.ltrim('sample', ' ');
 
   let normalizeEmailOptions: ValidatorJS.NormalizeEmailOptions;
-  result = validator.normalizeEmail('sample');
-  result = validator.normalizeEmail('sample', normalizeEmailOptions);
+  let normalizeResult: string | false;
+  normalizeResult = validator.normalizeEmail('sample');
+  normalizeResult = validator.normalizeEmail('sample', normalizeEmailOptions);
 
   result = validator.rtrim('sample');
   result = validator.rtrim('sample', ' ');

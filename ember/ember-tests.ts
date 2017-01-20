@@ -1,7 +1,3 @@
-/// <reference path="ember.d.ts" />
-/// <reference path="../handlebars/handlebars-1.0.0.d.ts" />
-
-
 var App : any;
 
 App = Em.Application.create<Em.Application>();
@@ -150,7 +146,7 @@ people2.everyProperty('isHappy', true);
 people2.someProperty('isHappy', true);
 
 // Examples taken from http://emberjs.com/api/classes/Em.RSVP.Promise.html
-var promise = new Em.RSVP.Promise(function(resolve: Function, reject: Function) {
+var promise = new Em.RSVP.Promise<string, string>(function(resolve: Function, reject: Function) {
   // on success
   resolve('ok!');
 
@@ -162,4 +158,17 @@ promise.then(function(value: any) {
   // on fulfillment
 }, function(reason: any) {
   // on rejection
+});
+
+var mix1 = Ember.Mixin.create({
+  foo: 1
+});
+
+var mix2 = Ember.Mixin.create({
+  bar: 2
+});
+
+var component1 = Ember.Component.extend( mix1, mix2, {
+  lyft: Ember.inject.service(),
+  cars: Ember.computed.readOnly('lyft.cars')
 });
