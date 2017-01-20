@@ -30,99 +30,52 @@ interface Numeric {
  * Return the maximum value in the array of numbers using natural order.
  */
 export function max(array: number[]): number | undefined;
-
-/**
- * Return the maximum value in the array of strings using natural order.
- */
 export function max(array: string[]): string | undefined;
+export function max(array: Date[]): Date | undefined;
 
-/**
- * Return the maximum value in the array of numbers using natural order.
- */
 export function max<T extends Numeric>(array: T[]): T | undefined;
 
-/**
- * Return the maximum value in the array using natural order and a projection function to map values to numbers.
- */
 export function max<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number): number | undefined;
-
-/**
- * Return the maximum value in the array using natural order and a projection function to map values to strings.
- */
 export function max<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => string): string | undefined;
+export function max<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => Date): Date | undefined;
 
-/**
- * Return the maximum value in the array using natural order and a projection function to map values to easily-sorted values.
- */
 export function max<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U): U | undefined;
 
 /**
  * Return the minimum value in the array using natural order.
  */
 export function min(array: number[]): number | undefined;
-
-/**
- * Return the minimum value in the array using natural order.
- */
 export function min(array: string[]): string | undefined;
+export function min(array: Date[]): Date | undefined;
 
-/**
- * Return the minimum value in the array using natural order.
- */
 export function min<T extends Numeric>(array: T[]): T | undefined;
 
-/**
- * Return the minimum value in the array using natural order.
- */
 export function min<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number): number | undefined;
-
-/**
- * Return the minimum value in the array using natural order.
- */
 export function min<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => string): string | undefined;
+export function min<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => Date): Date | undefined;
 
-/**
- * Return the minimum value in the array using natural order.
- */
 export function min<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U): U | undefined;
-
 
 
 /**
  * Return the min and max simultaneously.
  */
 export function extent(array: number[]): [number, number] | [undefined, undefined];
-
-/**
- * Return the min and max simultaneously.
- */
 export function extent(array: string[]): [string, string] | [undefined, undefined];
+export function extent(array: Date[]): [Date, Date] | [undefined, undefined];
 
-/**
- * Return the min and max simultaneously.
- */
 export function extent<T extends Numeric>(array: T[]): [T, T] | [undefined, undefined];
 
-/**
- * Return the min and max simultaneously.
- */
+export function extent<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number): [number, number] | [undefined, undefined];
+export function extent<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => string): [string, string] | [undefined, undefined];
+export function extent<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => Date): [Date, Date] | [undefined, undefined];
+
 export function extent<T extends Numeric>(array: Array<T | Primitive>): [T | Primitive, T | Primitive] | [undefined, undefined];
 
 /**
  * Return the min and max simultaneously.
  */
-export function extent<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number): [number, number] | [undefined, undefined];
-
-/**
- * Return the min and max simultaneously.
- */
-export function extent<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => string): [string, string] | [undefined, undefined];
-
-/**
- * Return the min and max simultaneously.
- */
 export function extent<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U): [U | Primitive, U | Primitive] | [undefined, undefined];
-
 /**
  * Return the mean of an array of numbers
  */
@@ -230,10 +183,6 @@ export function pairs<T>(array: T[]): Array<[T, T]>;
  * Given the specified array, return an array corresponding to the list of indices in 'keys'.
  */
 export function permute<T>(array: { [key: number]: T }, keys: number[]): T[];
-
-/**
- * Given the specified object, return an array corresponding to the list of property names in 'keys'.
- */
 export function permute<T>(object: { [key: string]: T }, keys: string[]): T[];
 
 
