@@ -121,7 +121,7 @@ export function extent<T>(array: T[], accessor: (datum: T, index: number, array:
 /**
  * Return the min and max simultaneously.
  */
-export function extent<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U): [U | Primitive, U | Primitive] | [undefined, undefined];
+export function extent<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U): [U, U ] | [undefined, undefined];
 
 /**
  * Return the mean of an array of numbers
