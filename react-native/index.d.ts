@@ -2106,6 +2106,11 @@ declare module "react" {
          */
         goForward: () => void
 
+	/**
+	 * Post a message to the WebView in the form of a string.
+	 */
+	postMessage: (message: string) => void
+
         /**
          * Reloads the current page.
          */
