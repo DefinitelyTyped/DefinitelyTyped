@@ -716,7 +716,11 @@ export interface IRouteAdditionalConfigurationOptions {
 	/**  ONLY WHEN ADDING NEW ROUTES (not when setting defaults).
 	 *route tags used for generating documentation (array of strings).
 	 */
-    tags?: string[]
+    tags?: string[];
+
+	/**  Enable logging of routes
+		*/
+	log?: boolean;
 }
 
 /**
