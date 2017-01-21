@@ -441,7 +441,7 @@ namespace util_tests {
 function stream_readable_pipe_test() {
     var rs = fs.createReadStream(Buffer.from('file.txt'));
     var r = fs.createReadStream('file.txt');
-    var z = zlib.createGzip({ finishFlush: zlib.Z_FINISH });
+    var z = zlib.createGzip({ finishFlush: zlib.constants.Z_FINISH });
     var w = fs.createWriteStream('file.txt.gz');
 
     assert(typeof r.bytesRead === 'number');
@@ -846,7 +846,7 @@ namespace http_tests {
         request.setNoDelay(true);
         request.abort();
     }
-	
+
 	const options: http.RequestOptions = {
         timeout: 30000
 	};
