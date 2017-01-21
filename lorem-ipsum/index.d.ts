@@ -55,6 +55,8 @@ interface LoremIpsumOptions {
     suffix?: string;
 }
 
+declare namespace loremIpsum {}
+
 /**
  * Generate a passage of lorem ipsum text.
  */
