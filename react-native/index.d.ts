@@ -1894,7 +1894,12 @@ declare module "react" {
          * Used on Android only, controls whether DOM Storage is enabled
          * or not android
          */
-        domStorageEnabled?: boolean
+        domStorageEnabled?: boolean,
+
+        /**
+         * Sets the user-agent for the WebView.
+         */
+        userAgent?: string
     }
 
     export interface WebViewIOSLoadRequestEvent {
@@ -2044,7 +2049,7 @@ declare module "react" {
         /**
          * Invoked when window.postMessage is called from WebView.
          */
-	onMessage?: ( event: NativeSyntheticEvent<WebViewMessageEventData> ) => void
+	    onMessage?: ( event: NativeSyntheticEvent<WebViewMessageEventData> ) => void
 
         /**
          * Function that is invoked when the `WebView` loading starts or ends.
@@ -2100,6 +2105,11 @@ declare module "react" {
          * Go forward one page in the webview's history.
          */
         goForward: () => void
+
+	/**
+	 * Post a message to the WebView in the form of a string.
+	 */
+	postMessage: (message: string) => void
 
         /**
          * Reloads the current page.
@@ -4390,9 +4400,9 @@ declare module "react" {
 
 
         export interface NavigationBarRouteMapper {
-            Title: (route: Route, nav: Navigator, index: number, navState: NavState) => React.ReactElement<any>;
-            LeftButton: (route: Route, nav: Navigator, index: number, navState: NavState) => React.ReactElement<any>;
-            RightButton: (route: Route, nav: Navigator, index: number, navState: NavState) => React.ReactElement<any>;
+            Title: (route: Route, nav: Navigator, index: number, navState: NavState) => JSX.Element | null;
+            LeftButton: (route: Route, nav: Navigator, index: number, navState: NavState) => JSX.Element | null;
+            RightButton: (route: Route, nav: Navigator, index: number, navState: NavState) => JSX.Element | null;
         }
 
         /**

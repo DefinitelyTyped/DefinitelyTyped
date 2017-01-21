@@ -41,3 +41,49 @@ var bVal: number = b.value();
 // 1000
 var cVal: number = c.add(10).value();
 // 1010
+
+
+// Formats
+numeral.register('format', 'percentage', {
+    regexps: {
+        format: /(%)/,
+        unformat: /(%)/
+    },
+    format: function(value, format, roundingFunction) {
+        return 'foo';
+    },
+    unformat: function(string) {
+        return 123;
+    }
+});
+
+var customFormatted = numeral().format('0%');
+
+
+// Locales
+// load a locale
+numeral.register('locale', 'fr', {
+    delimiters: {
+        thousands: ' ',
+        decimal: ','
+    },
+    abbreviations: {
+        thousand: 'k',
+        million: 'm',
+        billion: 'b',
+        trillion: 't'
+    },
+    ordinal : function (number) {
+        return number === 1 ? 'er' : 'ème';
+    },
+    currency: {
+        symbol: '€'
+    }
+});
+
+// switch between locales
+numeral.locale('fr');
+
+// return the current locale
+numeral.locale();
+// 'fr'

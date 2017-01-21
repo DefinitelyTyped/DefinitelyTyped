@@ -35,6 +35,7 @@ interface Auth0ClientOptions {
     clientID: string;
     callbackURL: string;
     callbackOnLocationHash?: boolean;
+    responseType?: string;
     domain: string;
     forceJSONP?: boolean;
 }
@@ -87,6 +88,7 @@ interface Auth0DecodedHash {
     idToken: string;
     profile: Auth0UserProfile;
     state: any;
+    error: string;
 }
 
 interface Auth0PopupOptions {

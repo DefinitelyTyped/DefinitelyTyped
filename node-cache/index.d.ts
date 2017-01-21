@@ -122,6 +122,7 @@ declare namespace NodeCache {
 		stdTTL?: number;
 		checkperiod?: number;
 		useClones?: boolean;
+		errorOnMissing?: boolean;
 	}
 
 	interface Stats {
