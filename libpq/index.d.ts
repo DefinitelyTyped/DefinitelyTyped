@@ -421,8 +421,10 @@ declare class Libpq extends EventEmitter {
      * and PQflush for async writing.
      *
      * @param {Function} callback
+     *
+     * @returns {Libpq}
      */
-    writable(callback: () => void): void;
+    writable(callback: () => void): this;
 }
 
 export = Libpq;
