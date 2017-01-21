@@ -363,12 +363,12 @@ declare class Libpq extends EventEmitter {
     /**
      * (async) Sends a request to the backend to prepare a named statement with the given name.
      *
-     * @param {string} [statementName=""] a required string of name of the statement to prepare.
-     * @param {string} [commandText=""] a required string of the query.
-     * @param {number} [nParams=0] a count of the number of parameters in the commandText.
+     * @param {string} statementName a required string of name of the statement to prepare.
+     * @param {string} commandText a required string of the query.
+     * @param {number} nParams a count of the number of parameters in the commandText.
      * @returns {boolean} true if the command was sent succesfully or false if it failed to send.
      */
-    sendPrepare(statementName?: string, commandText?: string, nParams?: number): boolean;
+    sendPrepare(statementName: string, commandText: string, nParams: number): boolean;
 
     /**
      * (async) Sends a request to execute a previously prepared statement.
