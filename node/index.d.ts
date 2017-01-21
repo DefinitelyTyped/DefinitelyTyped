@@ -1043,7 +1043,17 @@ declare module "cluster" {
 
 declare module "zlib" {
     import * as stream from "stream";
-    export interface ZlibOptions { chunkSize?: number; windowBits?: number; level?: number; memLevel?: number; strategy?: number; dictionary?: any; finishFlush?: number }
+
+    export interface ZlibOptions {
+      flush?: number; // default: zlib.constants.Z_NO_FLUSH
+      finishFlush?: number; // default: zlib.constants.Z_FINISH
+      chunkSize?: number; // default: 16*1024
+      windowBits?: number;
+      level?: number; // compression only
+      memLevel?: number; // compression only
+      strategy?: number; // compression only
+      dictionary?: any; // deflate/inflate only, empty dictionary by default
+    }
 
     export interface Gzip extends stream.Transform { }
     export interface Gunzip extends stream.Transform { }
@@ -1076,39 +1086,44 @@ declare module "zlib" {
     export function unzip(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
     export function unzipSync(buf: Buffer, options?: ZlibOptions): Buffer;
 
-    export var constants: {
-      Z_NO_FLUSH: number;
-      Z_PARTIAL_FLUSH: number;
-      Z_SYNC_FLUSH: number;
-      Z_FULL_FLUSH: number;
-      Z_FINISH: number;
-      Z_BLOCK: number;
-      Z_TREES: number;
-      Z_OK: number;
-      Z_STREAM_END: number;
-      Z_NEED_DICT: number;
-      Z_ERRNO: number;
-      Z_STREAM_ERROR: number;
-      Z_DATA_ERROR: number;
-      Z_MEM_ERROR: number;
-      Z_BUF_ERROR: number;
-      Z_VERSION_ERROR: number;
-      Z_NO_COMPRESSION: number;
-      Z_BEST_SPEED: number;
-      Z_BEST_COMPRESSION: number;
-      Z_DEFAULT_COMPRESSION: number;
-      Z_FILTERED: number;
-      Z_HUFFMAN_ONLY: number;
-      Z_RLE: number;
-      Z_FIXED: number;
-      Z_DEFAULT_STRATEGY: number;
-      Z_BINARY: number;
-      Z_TEXT: number;
-      Z_ASCII: number;
-      Z_UNKNOWN: number;
-      Z_DEFLATED: number;
-      Z_NULL: number;
-    };
+    export namespace constants {
+        // Allowed flush values.
+
+        export const Z_NO_FLUSH: number;
+        export const Z_PARTIAL_FLUSH: number;
+        export const Z_SYNC_FLUSH: number;
+        export const Z_FULL_FLUSH: number;
+        export const Z_FINISH: number;
+        export const Z_BLOCK: number;
+        export const Z_TREES: number;
+
+        // Return codes for the compression/decompression functions. Negative values are errors, positive values are used for special but normal events.
+
+        export const Z_OK: number;
+        export const Z_STREAM_END: number;
+        export const Z_NEED_DICT: number;
+        export const Z_ERRNO: number;
+        export const Z_STREAM_ERROR: number;
+        export const Z_DATA_ERROR: number;
+        export const Z_MEM_ERROR: number;
+        export const Z_BUF_ERROR: number;
+        export const Z_VERSION_ERROR: number;
+
+        // Compression levels.
+
+        export const Z_NO_COMPRESSION: number;
+        export const Z_BEST_SPEED: number;
+        export const Z_BEST_COMPRESSION: number;
+        export const Z_DEFAULT_COMPRESSION: number;
+
+        // Compression strategy.
+
+        export const Z_FILTERED: number;
+        export const Z_HUFFMAN_ONLY: number;
+        export const Z_RLE: number;
+        export const Z_FIXED: number;
+        export const Z_DEFAULT_STRATEGY: number;
+    }
 
     // Constants
     export var Z_NO_FLUSH: number;
@@ -1141,7 +1156,6 @@ declare module "zlib" {
     export var Z_ASCII: number;
     export var Z_UNKNOWN: number;
     export var Z_DEFLATED: number;
-    export var Z_NULL: number;
 }
 
 declare module "os" {
