@@ -307,11 +307,11 @@ declare class Libpq extends EventEmitter {
      * (sync) Sends a named statement to the server to be prepared for later execution. blocks
      * until a result from the prepare operation is received.
      *
-     * @param {string} [statementName=""] a required string of name of the statement to prepare.
-     * @param {string} [commandText=""] a required string of the query.
-     * @param {number} [nParams=0] a count of the number of parameters in the commandText.
+     * @param {string} statementName a required string of name of the statement to prepare.
+     * @param {string} commandText a required string of the query.
+     * @param {number} nParams a count of the number of parameters in the commandText.
      */
-    prepare(statementName?: string, commandText?: string, nParams?: number): void;
+    prepare(statementName: string, commandText: string, nParams: number): void;
 
     /**
      * Retrieves detailed error information from the current result object. Very similar to
