@@ -21,7 +21,7 @@ declare module wdCb {
     }
 }
 
-declare var global: any, window: Window;
+declare var global: any, window: any;
 declare module wdCb {
     var root: any;
 }
@@ -259,5 +259,9 @@ declare module wdCb {
         private _buildDom(dom);
         private _createElement(eleStr);
     }
+}
+
+declare module "wonder-commonlib" {
+    export = wdCb;
 }
 

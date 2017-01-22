@@ -1,4 +1,4 @@
-var wdCb = require("wonder-commonlib");
+import wdCb = require("wonder-commonlib");
 
 var list = wdCb.Collection.create();
 

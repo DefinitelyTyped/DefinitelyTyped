@@ -1,4 +1,4 @@
-var rsvp = require("rsvp");
+import rsvp = require("rsvp");
 
-var promise = new rsvp.Promise(function(resolve, rejector){
+var promise = new rsvp.Promise(function(resolve:any, rejector:any){
 });
