@@ -9,24 +9,28 @@ interface JQuery {
     md5(value: string): string;
     md5(value: Array<any>): string;
     md5(value: Uint8Array): string;
+    md5(value: ArrayBuffer): string;
 }
 
 interface JQueryStatic {
     md5(value: string): string;
     md5(value: Array<any>): string;
     md5(value: Uint8Array): string;
+    md5(value: ArrayBuffer): string;
 }
 
 interface md5 {
     (value: string): string;
     (value: Array<any>): string;
     (value: Uint8Array): string;
+    (value: ArrayBuffer): string;
 }
 
 interface String {
     md5(value: string): string;
     md5(value: Array<any>): string;
     md5(value: Uint8Array): string;
+    md5(value: ArrayBuffer): string;
 }
 
 declare module "js-md5" {
