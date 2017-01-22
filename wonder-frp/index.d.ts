@@ -3,6 +3,8 @@
 // Definitions by: YYC <https://github.com/yyc-git>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="wonder-commonlib" />
+
 declare module wdFrp {
     class JudgeUtils extends wdCb.JudgeUtils {
         static isPromise(obj: any): boolean;
@@ -101,7 +103,7 @@ declare module wdFrp {
     }
 }
 
-declare var global: any, window: Window;
+declare var global: any, window: any;
 declare module wdFrp {
     var root: any;
 }
