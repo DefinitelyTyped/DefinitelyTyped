@@ -94,6 +94,16 @@ export interface RedisClient extends NodeJS.EventEmitter {
     end(): void;
     unref(): void;
 
+    /**
+     * Stop sending commands and queue the commands.
+     */
+    cork(): void;
+
+    /**
+     * Resume and send the queued commands at once.
+     */
+    uncork(): void;
+
     // Low level command execution
     send_command(command: string, ...args: any[]): boolean;
 
