@@ -2,6 +2,8 @@
 // Project: https://github.com/ascoders/gaea-model
 // Definitions by: ascoders <https://github.com/ascoders>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
+
 import * as React from 'react';
 
 export as namespace GaeaModel;
