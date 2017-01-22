@@ -1,3 +1,8 @@
+// Type definitions for wonder-frp v0.1.0
+// Project: https://github.com/yyc-git/Wonder-FRP
+// Definitions by: YYC <https://github.com/yyc-git>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare module wdFrp {
     class JudgeUtils extends wdCb.JudgeUtils {
         static isPromise(obj: any): boolean;
