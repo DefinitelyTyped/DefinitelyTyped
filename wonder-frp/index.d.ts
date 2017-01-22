@@ -103,7 +103,7 @@ declare module wdFrp {
     }
 }
 
-declare var global: any, window: any;
+declare var global: any, window: Window;
 declare module wdFrp {
     var root: any;
 }
