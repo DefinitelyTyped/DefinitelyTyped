@@ -271,10 +271,9 @@ declare namespace React {
     //
     // Event System
     // ----------------------------------------------------------------------
-
-    interface SyntheticEvent<T> {
+    interface SyntheticEventBase<CURRENT, TARGET> {
         bubbles: boolean;
-        currentTarget: EventTarget & T;
+        currentTarget: EventTarget & CURRENT;
         cancelable: boolean;
         defaultPrevented: boolean;
         eventPhase: number;
@@ -285,10 +284,14 @@ declare namespace React {
         stopPropagation(): void;
         isPropagationStopped(): boolean;
         persist(): void;
-        // If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
-        target: EventTarget;
+        target: EventTarget & TARGET;
         timeStamp: Date;
         type: string;
+    }
+
+    interface SyntheticEvent<T> extends SyntheticEventBase<T, EventTarget> {
+      // If you thought target should be `EventTarget & T`,
+      // see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
     }
 
     interface ClipboardEvent<T> extends SyntheticEvent<T> {
@@ -308,6 +311,9 @@ declare namespace React {
     }
 
     interface FormEvent<T> extends SyntheticEvent<T> {
+    }
+
+    interface ChangeEvent<T> extends SyntheticEventBase<T, T> {
     }
 
     interface KeyboardEvent<T> extends SyntheticEvent<T> {
@@ -392,6 +398,7 @@ declare namespace React {
     type DragEventHandler<T> = EventHandler<DragEvent<T>>;
     type FocusEventHandler<T> = EventHandler<FocusEvent<T>>;
     type FormEventHandler<T> = EventHandler<FormEvent<T>>;
+    type ChangeEventHandler<T> = EventHandler<ChangeEvent<T>>;
     type KeyboardEventHandler<T> = EventHandler<KeyboardEvent<T>>;
     type MouseEventHandler<T> = EventHandler<MouseEvent<T>>;
     type TouchEventHandler<T> = EventHandler<TouchEvent<T>>;
@@ -459,7 +466,7 @@ declare namespace React {
         onBlurCapture?: FocusEventHandler<T>;
 
         // Form Events
-        onChange?: FormEventHandler<T>;
+        onChange?: ChangeEventHandler<T>;
         onChangeCapture?: FormEventHandler<T>;
         onInput?: FormEventHandler<T>;
         onInputCapture?: FormEventHandler<T>;
@@ -2143,7 +2150,7 @@ declare namespace React {
         unselectable?: boolean;
     }
 
-    // this list is "complete" in that it contains every SVG attribute 
+    // this list is "complete" in that it contains every SVG attribute
     // that React supports, but the types can be improved.
     // Full list here: https://facebook.github.io/react/docs/dom-elements.html
     //

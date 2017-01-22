@@ -275,6 +275,18 @@
             "typingsPackageName": "scanf",
             "sourceRepoURL": "https://github.com/Lellansin/node-scanf",
             "asOfVersion": "0.7.3"
+        },
+        {
+            "libraryName": "vue-router",
+            "typingsPackageName": "vue-router",
+            "sourceRepoURL": "https://github.com/vuejs/vue-router",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "ecmarkup",
+            "typingsPackageName": "ecmarkup",
+            "sourceRepoURL": "https://github.com/bterlson/ecmarkup",
+            "asOfVersion": "3.4.0"
         }
     ]
 }

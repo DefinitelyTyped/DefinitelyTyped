@@ -1,4 +1,4 @@
-// Type definitions for webdriverio 4.4.0
+// Type definitions for webdriverio 4.5.0
 // Project: http://www.webdriver.io/
 // Definitions by: Nick Malaguti <https://github.com/nmalaguti/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -243,18 +243,61 @@ declare namespace WebdriverIO {
 
     // Mobile
     export interface Client<T> {
-        // flick
-        // flickDown
-        // flickLeft
-        // flickRight
-        // flickUp
-        // getGeoLocation
-        // getOrientation
-        // hold
-        // release
-        // setGeoLocation
-        // setOrientation
-        // touch
+        background(seconds: number): Client<T>;
+        closeApp(): Client<T>;
+        context(id?: string): Client<T>;
+        contexts(): Client<T>;
+        currentActivity(): any;
+        deviceKeyEvent(keyValue: number): Client<T>;
+        getAppStrings(language: string): Client<T>;
+        getCurrentDeviceActivity(): Client<T>;
+        getDeviceTime(): Client<T>;
+        getGeoLocation(): Client<T>;
+        getNetworkConnection(): Client<T>;
+        getOrientation(): Client<T>;
+        hideDeviceKeyboard(strategy: 'tapOutside' | 'pressKey'): Client<T>;
+        hold(selector: string): Client<T>;
+        installApp(path: string): Client<T>;
+        isAppInstalled(bundleId: string): Client<T>;
+        isLocked(): boolean;
+        launch(): Client<T>;
+        lock(seconds: number): Client<T>;
+        longPressKeycode(keyCode: string, metaState: string): Client<T>;
+        openNotifications(): Client<T>;
+        orientation(setTo?: 'landscape' | 'portrait'): 'landscape' | 'portrait';
+        performMultiAction(touchAttributes: any): Client<T>;
+        performTouchAction(touchAttributes: any): Client<T>;
+        pressKeycode(keyCode: string, metaState: string): Client<T>;
+        pullFile(path: string): Client<T>;
+        pullFolder(path: string): Client<T>;
+        pushFile(path: string, data: any): Client<T>;
+        release(selector: string): Client<T>;
+        removeApp(bundleId: string): Client<T>;
+        reset(): Client<T>;
+        rotate(x: number, y: number, duration?: number, radius?: number, rotation?: number, touchCount?: number): Client<T>;
+        setGeoLocation(location: { latitude: number, longitude: number, altitude: number }): Client<T>;
+        setImmediateValue(id: string, value: string | Array<string>): Client<T>;
+        setNetworkConnection(flags: 0 | 1 | 2 | 4 | 6): Client<T>;
+        setOrientation(setTo: 'landscape' | 'portrait'): Client<T>;
+        settings(settings?: { [key: string]: string }): Client<T>;
+        shake(): Client<T>;
+        startActivity(appPackage: string, activity: string): Client<T>;
+        strings(language: string): Client<T>;
+        swipe(selector?: string, xOffset?: number, yOffset?: number, speed?: number): Client<T>;
+        swipeDown(selector: string, speed?: number): Client<T>;
+        swipeLeft(selector: string, speed?: number): Client<T>;
+        swipeRight(selector: string, speed?: number): Client<T>;
+        swipeUp(selector: string, speed?: number): Client<T>;
+        toggleAirplaneMode(): Client<T>;
+        toggleData(): Client<T>;
+        toggleLocationServices(): Client<T>;
+        toggleWiFi(): Client<T>;
+        touch(selector: string, longClick: boolean): Client<T>;
+        touchAction(selector: string, action: 'tap' | 'press'): Client<T>;
+        touchId(validFingerprint?: boolean): Client<T>;
+        touchMultiPerform(actions: any): Client<T>;
+        touchPerform(actions: any): Client<T>;
+        unlock(): Client<T>;
     }
 
     export interface CssProperty {
@@ -441,6 +484,7 @@ declare namespace WebdriverIO {
 
     export interface RawResult<T> {
         value: T;
+        error: string;
     }
 
     // Navigation
@@ -548,9 +592,9 @@ declare namespace WebdriverIO {
         sessions(): Client<RawResult<Session[]>>;
         sessions<P>(): Client<P>;
 
-        // timeouts
-        // timeoutsAsyncScript
-        // timeoutsImplicitWait
+        timeouts<P>(type: string, ms: number): Client<P>;
+        timeoutsAsyncScript<P>(ms: number): Client<P>;
+        timeoutsImplicitWait<P>(ms: number): Client<P>;
 
         // window
         // windowHandle
