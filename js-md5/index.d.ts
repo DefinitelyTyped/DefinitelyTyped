@@ -1,4 +1,4 @@
-// Type definitions for js-md5 v0.3.0
+// Type definitions for js-md5 v0.3.1
 // Project: https://github.com/emn178/js-md5
 // Definitions by: Roland Greim <https://github.com/tigerxy>, Michael McCarthy <https://github.com/mwmccarthy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
