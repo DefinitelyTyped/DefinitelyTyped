@@ -313,3 +313,7 @@ declare module RSVP {
 
 }
 
+
+declare module "rsvp" {
+    export = RSVP;
+}

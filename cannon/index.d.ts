@@ -992,3 +992,7 @@ declare module CANNON {
     }
 
 }
+
+declare module "cannon" {
+    export = CANNON;
+}

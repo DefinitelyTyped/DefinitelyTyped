@@ -721,3 +721,8 @@ declare module wdFrp {
         subscribeCore(observer: IObserver): SingleDisposable;
     }
 }
+
+declare module "wonder-frp" {
+    export = wdFrp;
+}
+
