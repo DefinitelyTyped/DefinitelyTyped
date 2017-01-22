@@ -27,5 +27,5 @@ declare module "react-modal" {
         contentLabel?: string
     }
     let ReactModal: React.ClassicComponentClass<ReactModal>;
-    export = ReactModal;
+    export default ReactModal;
 }
