@@ -1,3 +1,8 @@
+// Type definitions for wonder-commonlib v0.1.0
+// Project: https://github.com/yyc-git/Wonder-CommonLib
+// Definitions by: YYC <https://github.com/yyc-git>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare module wdCb {
     class JudgeUtils {
         static isArray(arr: any): boolean;

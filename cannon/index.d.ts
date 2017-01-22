@@ -1,3 +1,8 @@
+// Type definitions for cannon
+// Project: https://github.com/clark-stevenson/cannon.d.ts
+// Definitions by: Clark Stevenson <https://github.com/clark-stevenson>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare module CANNON {
 
     export interface IAABBOptions {
