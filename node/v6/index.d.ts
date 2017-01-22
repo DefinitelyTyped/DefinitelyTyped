@@ -348,6 +348,7 @@ declare namespace NodeJS {
     }
 
     type Platform = 'aix'
+                  | 'android'
                   | 'darwin'
                   | 'freebsd'
                   | 'linux'
