@@ -21,7 +21,7 @@ declare module wdCb {
     }
 }
 
-declare var global: any, window: any;
+declare var global: any, window: Window;
 declare module wdCb {
     var root: any;
 }
