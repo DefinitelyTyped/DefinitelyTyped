@@ -16,6 +16,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "wonder-commonlib-tests.ts"
     ]
 }
