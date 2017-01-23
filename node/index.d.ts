@@ -347,6 +347,15 @@ declare namespace NodeJS {
         openssl: string;
     }
 
+    type Platform = 'aix'
+                  | 'android'
+                  | 'darwin'
+                  | 'freebsd'
+                  | 'linux'
+                  | 'openbsd'
+                  | 'sunos'
+                  | 'win32';
+
     export interface Process extends EventEmitter {
         stdout: WritableStream;
         stderr: WritableStream;
@@ -399,7 +408,7 @@ declare namespace NodeJS {
         pid: number;
         title: string;
         arch: string;
-        platform: string;
+        platform: Platform;
         mainModule?: NodeModule;
         memoryUsage(): MemoryUsage;
         cpuUsage(previousValue?: CpuUsage): CpuUsage;
@@ -1311,7 +1320,7 @@ declare module "os" {
         },
     };
     export function arch(): string;
-    export function platform(): string;
+    export function platform(): NodeJS.Platform;
     export function tmpdir(): string;
     export var EOL: string;
     export function endianness(): "BE" | "LE";

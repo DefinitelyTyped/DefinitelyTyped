@@ -1481,7 +1481,6 @@ namespace os_tests {
         result = os.endianness();
         result = os.hostname();
         result = os.type();
-        result = os.platform();
         result = os.arch();
         result = os.release();
         result = os.EOL;
