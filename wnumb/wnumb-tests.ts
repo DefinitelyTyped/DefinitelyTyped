@@ -1,7 +1,6 @@
+import * as wNumb from 'wnumb';
 
-
-
-var moneyFormat = wNumb({
+let moneyFormat = wNumb({
 	mark: '.',
 	thousand: ',',
 	prefix: '$ ',
@@ -12,7 +11,7 @@ moneyFormat.to( 301980.62 );
 
 moneyFormat.from( '$ 301,980.62 p.p.' );
 
-var Format = wNumb({
+let Format = wNumb({
 	prefix: '$ ',
 	decimals: 3,
 	thousand: ','
