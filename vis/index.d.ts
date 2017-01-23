@@ -1497,6 +1497,7 @@ export interface Data {
 }
 
 export interface Node {
+  group?: string;
   id?: IdType;
   label?: string;
   x?: number;
