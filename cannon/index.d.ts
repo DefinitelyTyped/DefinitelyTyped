@@ -1,5 +1,5 @@
-// Type definitions for cannon
-// Project: https://github.com/clark-stevenson/cannon.d.ts v0.1.0
+// Type definitions for cannon 0.1
+// Project: https://github.com/clark-stevenson/cannon.d.ts
 // Definitions by: Clark Stevenson <https://github.com/clark-stevenson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
