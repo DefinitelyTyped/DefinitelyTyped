@@ -248,6 +248,15 @@ declare namespace c3 {
              */
             width?: number;
         };
+
+        spline?: {
+            interpolation?: {
+                /**
+                 * Set custom spline interpolation
+                 */
+                type?: 'linear' | 'linear-closed' | 'basis' | 'basis-open' | 'basis-closed' | 'bundle' | 'cardinal' | 'cardinal-open' | 'cardinal-closed' | 'monotone';
+            };
+        };
     }
 
     interface Data {
