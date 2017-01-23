@@ -590,6 +590,7 @@ declare namespace ReactBootstrap {
         active?: boolean;
         noCaret?: boolean;
         eventKey?: any;
+        title?: any; // TODO: Add more specific type
     }
     type NavDropdownProps = NavDropdownBaseProps & React.HTMLProps<NavDropdown>;
     class NavDropdown extends React.Component<NavDropdownProps, {}> { }
