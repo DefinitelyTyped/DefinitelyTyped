@@ -267,9 +267,24 @@ interface PNotifyStyling {
     success_icon?: string,
     error?: string,
     error_icon?: string,
+    // buttons
     closer?: string,
     pin_down?: string,
-    pin_up?: string
+    pin_up?: string,
+    // confirm
+    btn?: string,
+    btnhover?: string,
+    btnactive?: string,
+    btnfocus?: string,
+    input?: string,
+    text?: string,
+    // history
+    hi_menu?: string,
+    hi_btn?: string,
+    hi_btnhov?: string,
+    hi_hnd?: string,
+    // reference
+    athing?: string
 }
 
 interface PNotify {
