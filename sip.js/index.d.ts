@@ -3,21 +3,23 @@
 // Definitions by: Kir Dergachev <https://github.com/decyrus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="webrtc" />
+declare interface SIP {
+    UA: {
+        new (configuration?: sipjs.ConfigurationParameters): sipjs.UA;
+    };
+    URI: {
+        new (scheme?: string, user?: string, host?: string, port?: number, parameters?: string[], headers?: string[]): sipjs.URI;
+        parse(uri: string): sipjs.URI;
+    };
+    NameAddrHeader: {
+        new (uri: string | sipjs.URI, displayName: string, parameters: Array<{ key: string, value: string }>): sipjs.NameAddrHeader;
+        parse(name_addr_header: string): sipjs.NameAddrHeader;
+    };
+}
 
-export = SIP;
+declare namespace sipjs {
 
-declare namespace SIP {
-
-    class URI {
-        constructor(
-            scheme?: string,
-            user?: string,
-            host?: string,
-            port?: number,
-            parameters?: string[],
-            headers?: string[]);
-
+    interface URI {
         scheme?: string;
         user?: string;
         host?: string;
@@ -35,8 +37,6 @@ declare namespace SIP {
         clearHeaders(): void;
         clone(): URI;
         toString(): string;
-
-        static parse(uri: string): URI;
     }
 
     namespace UA.EventArgs {
@@ -45,8 +45,7 @@ declare namespace SIP {
         interface RegistrationFailedArgs extends UnregisteredArgs { }
     }
 
-    class UA {
-        constructor(configuration?: ConfigurationParameters);
+    interface UA {
         start(): void;
         stop(): void;
         register(options?: ExtraHeadersOptions): UA;
@@ -59,7 +58,7 @@ declare namespace SIP {
         request(method: string, target: string | URI, options?: RequestOptions): ClientContext;
 
         on(name: 'connected', callback: (args: UA.EventArgs.ConnectedArgs) => void): void;
-        on(name: 'disconnected' | 'registered', callback: () => void): void;
+        on(name: 'disconnected' | 'registered' | string, callback: () => void): void;
         on(name: 'unregistered', callback: (args: UA.EventArgs.UnregisteredArgs) => void): void;
         on(name: 'registrationFailed', callback: (args: UA.EventArgs.RegistrationFailedArgs) => void): void;
         on(name: 'invite', callback: (session: Session) => void): void;
@@ -81,7 +80,7 @@ declare namespace SIP {
         }
     }
 
-    class Session {
+    interface Session {
         startTime?: Date;
         endTime?: Date;
         ua?: UA;
@@ -95,8 +94,8 @@ declare namespace SIP {
         dtmf(tone: string | number, options?: Session.DtmfOptions): Session;
         terminate(options?: Session.CommonOptions): Session;
         bye(options?: Session.CommonOptions): Session;
-        getLocalStreams(): MediaStream[];
-        getRemoteStreams(): MediaStream[];
+        getLocalStreams(): any[];
+        getRemoteStreams(): any[];
         refer(target: string | Session, options?: ExtraHeadersOptions): Session;
         mute(options?: ExtraHeadersOptions): void;
         unmute(options?: ExtraHeadersOptions): void;
@@ -111,7 +110,7 @@ declare namespace SIP {
         on(name: 'accepted', callback: (data: { code: number, response: IncomingResponse }) => void): void;
         on(name: 'failed' | 'rejected', callback: (response: IncomingResponse, cause: string) => void): void;
         on(name: 'terminated', callback: (message: IncomingResponse, cause: string) => void): void;
-        on(name: 'cancel', callback: () => void): void;
+        on(name: 'cancel' | string, callback: () => void): void;
         on(name: 'replaced', callback: (newSession: Session) => void): void;
         on(name: 'dtmf', callback: (request: IncomingRequest, dtmf: Session.DTMF) => void): void;
         on(name: 'muted' | 'unmuted', callback: (data: Session.Muted) => void): void;
@@ -136,7 +135,7 @@ declare namespace SIP {
         }
 
         interface AcceptOptions {
-            RTCConstraints?: RTCPeerConnection;
+            RTCConstraints?: any;
             media?: MediaOptions;
         }
 
@@ -169,21 +168,21 @@ declare namespace SIP {
         interface Options {
             stunServers?: string | string[];
             turnServers?: TurnServer | TurnServer[];
-            RTCConstraints?: RTCPeerConnection;
+            RTCConstraints?: any;
         }
 
         type MediaHandlerFactory = (session: Session, options: Options) => MediaHandler;
 
         class MediaHandler {
-            getLocalStreams(): MediaStream[];
-            getRemoteStreams(): MediaStream[];
+            getLocalStreams(): any[];
+            getRemoteStreams(): any[];
             render(renderHint: RenderHint): void;
 
             on(name: 'userMediaRequest', callback: (constraints: MediaConstraints) => void): void;
-            on(name: 'addStream' | 'userMedia', callback: (stream: MediaStream) => void): void;
+            on(name: 'addStream' | 'userMedia', callback: (stream: any) => void): void;
             on(name: 'userMediaFailed', callback: (error: string) => void): void;
-            on(name: 'iceCandidate', callback: (candidate: RTCIceCandidate) => void): void;
-            on(name: 'iceGathering' | 'iceGatheringComplete' | 'iceConnection' | 'iceConnectionChecking' | 'iceConnectionConnected' | 'iceConnectionCompleted' | 'iceConnectionFailed' | 'iceConnectionDisconnected' | 'iceConnectionClosed', callback: () => void): void;
+            on(name: 'iceCandidate', callback: (candidate: any) => void): void;
+            on(name: 'iceGathering' | 'iceGatheringComplete' | 'iceConnection' | 'iceConnectionChecking' | 'iceConnectionConnected' | 'iceConnectionCompleted' | 'iceConnectionFailed' | 'iceConnectionDisconnected' | 'iceConnectionClosed' | string, callback: () => void): void;
             on(name: 'dataChannel' | 'getDescription' | 'setDescription', callback: (sdpWrapper: { type: string, sdp: string }) => void): void;
         }
     }
@@ -247,7 +246,7 @@ declare namespace SIP {
 
     interface MediaOptions {
         constraints?: MediaConstraints;
-        stream?: MediaStream;
+        stream?: any;
         render?: RenderHint;
     }
 
@@ -256,7 +255,7 @@ declare namespace SIP {
         anonymous?: boolean;
         rel100?: string;
         inviteWithoutSdp?: boolean;
-        RTCConstraints?: RTCPeerConnection;
+        RTCConstraints?: any;
     }
 
     interface RequestOptions extends ExtraHeadersOptions {
@@ -290,6 +289,7 @@ declare namespace SIP {
         data: {};
         on(name: 'progress' | 'accepted' | 'rejected' | 'failed', callback: (response: IncomingMessage, cause: string) => void): void;
         on(name: 'notify', callback: (request: IncomingRequest) => void): void;
+        on(name: string, callback: () => void): void;
     }
 
     interface ClientContext extends Context {
@@ -320,9 +320,7 @@ declare namespace SIP {
     }
 
     /* Header */
-    class NameAddrHeader {
-        constructor(uri: string | URI, displayName: string, parameters: Array<{ key: string, value: string }>);
-
+    interface NameAddrHeader {
         uri: string | URI;
         displayName: string;
 
@@ -330,7 +328,5 @@ declare namespace SIP {
         getParam(key: string): string;
         deleteParam(key: string): string;
         clearParams(): void;
-
-        static parse(name_addr_header: string): NameAddrHeader;
     }
 }
