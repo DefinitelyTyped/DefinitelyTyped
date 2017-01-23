@@ -2,6 +2,7 @@
 // Project: http://react-autosuggest.js.org/
 // Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>, Philip Ottesen <https://github.com/pjo256>, Robert Essig <https://github.com/robessog>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as React from 'react';
 

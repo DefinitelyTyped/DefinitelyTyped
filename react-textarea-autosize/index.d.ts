@@ -2,6 +2,7 @@
 // Project: https://github.com/andreypopp/react-textarea-autosize
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 declare module "react-textarea-autosize" {
     import * as React from "react";
