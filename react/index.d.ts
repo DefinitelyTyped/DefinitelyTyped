@@ -81,6 +81,9 @@ declare namespace React {
     interface HTMLFactory<T extends HTMLElement> extends DOMFactory<HTMLAttributes<T>, T> {
     }
 
+    interface ChangeTargetHTMLFactory<T extends HTMLElement> extends DOMFactory<ChangeTargetHTMLAttributes<T>, T> {
+    }
+
     interface SVGFactory extends DOMFactory<SVGAttributes<SVGElement>, SVGElement> {
     }
 
@@ -270,9 +273,10 @@ declare namespace React {
     //
     // Event System
     // ----------------------------------------------------------------------
-    interface SyntheticEventBase<CURRENT, TARGET> {
+
+    interface SyntheticEvent<T> {
         bubbles: boolean;
-        currentTarget: EventTarget & CURRENT;
+        currentTarget: EventTarget & T;
         cancelable: boolean;
         defaultPrevented: boolean;
         eventPhase: number;
@@ -283,14 +287,10 @@ declare namespace React {
         stopPropagation(): void;
         isPropagationStopped(): boolean;
         persist(): void;
-        target: EventTarget & TARGET;
+        // If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
+        target: EventTarget;
         timeStamp: Date;
         type: string;
-    }
-
-    interface SyntheticEvent<T> extends SyntheticEventBase<T, EventTarget> {
-      // If you thought target should be `EventTarget & T`,
-      // see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
     }
 
     interface ClipboardEvent<T> extends SyntheticEvent<T> {
@@ -312,7 +312,8 @@ declare namespace React {
     interface FormEvent<T> extends SyntheticEvent<T> {
     }
 
-    interface ChangeEvent<T> extends SyntheticEventBase<T, T> {
+    interface ChangeEvent<T> extends SyntheticEvent<T> {
+        target: EventTarget & T;
     }
 
     interface KeyboardEvent<T> extends SyntheticEvent<T> {
@@ -433,6 +434,9 @@ declare namespace React {
     interface HTMLProps<T> extends HTMLAttributes<T>, ClassAttributes<T> {
     }
 
+    interface ChangeTargetHTMLProps<T extends HTMLElement> extends ChangeTargetHTMLAttributes<T>, ClassAttributes<T> {
+    }
+
     interface SVGProps extends SVGAttributes<SVGElement>, ClassAttributes<SVGElement> {
     }
 
@@ -465,7 +469,7 @@ declare namespace React {
         onBlurCapture?: FocusEventHandler<T>;
 
         // Form Events
-        onChange?: ChangeEventHandler<T>;
+        onChange?: FormEventHandler<T>;
         onChangeCapture?: FormEventHandler<T>;
         onInput?: FormEventHandler<T>;
         onInputCapture?: FormEventHandler<T>;
@@ -2149,6 +2153,10 @@ declare namespace React {
         unselectable?: boolean;
     }
 
+    interface ChangeTargetHTMLAttributes<T extends HTMLElement> extends HTMLAttributes<T> {
+        onChange?: ChangeEventHandler<T>;
+    }
+
     // this list is "complete" in that it contains every SVG attribute
     // that React supports, but the types can be improved.
     // Full list here: https://facebook.github.io/react/docs/dom-elements.html
@@ -2459,7 +2467,7 @@ declare namespace React {
         i: HTMLFactory<HTMLElement>;
         iframe: HTMLFactory<HTMLIFrameElement>;
         img: HTMLFactory<HTMLImageElement>;
-        input: HTMLFactory<HTMLInputElement>;
+        input: ChangeTargetHTMLFactory<HTMLInputElement>;
         ins: HTMLFactory<HTMLModElement>;
         kbd: HTMLFactory<HTMLElement>;
         keygen: HTMLFactory<HTMLElement>;
@@ -2494,7 +2502,7 @@ declare namespace React {
         samp: HTMLFactory<HTMLElement>;
         script: HTMLFactory<HTMLElement>;
         section: HTMLFactory<HTMLElement>;
-        select: HTMLFactory<HTMLSelectElement>;
+        select: ChangeTargetHTMLFactory<HTMLSelectElement>;
         small: HTMLFactory<HTMLElement>;
         source: HTMLFactory<HTMLSourceElement>;
         span: HTMLFactory<HTMLSpanElement>;
@@ -2506,7 +2514,7 @@ declare namespace React {
         table: HTMLFactory<HTMLTableElement>;
         tbody: HTMLFactory<HTMLTableSectionElement>;
         td: HTMLFactory<HTMLTableDataCellElement>;
-        textarea: HTMLFactory<HTMLTextAreaElement>;
+        textarea: ChangeTargetHTMLFactory<HTMLTextAreaElement>;
         tfoot: HTMLFactory<HTMLTableSectionElement>;
         th: HTMLFactory<HTMLTableHeaderCellElement>;
         thead: HTMLFactory<HTMLTableSectionElement>;
@@ -2686,7 +2694,7 @@ declare global {
             i: React.HTMLProps<HTMLElement>;
             iframe: React.HTMLProps<HTMLIFrameElement>;
             img: React.HTMLProps<HTMLImageElement>;
-            input: React.HTMLProps<HTMLInputElement>;
+            input: React.ChangeTargetHTMLProps<HTMLInputElement>;
             ins: React.HTMLProps<HTMLModElement>;
             kbd: React.HTMLProps<HTMLElement>;
             keygen: React.HTMLProps<HTMLElement>;
@@ -2722,7 +2730,7 @@ declare global {
             samp: React.HTMLProps<HTMLElement>;
             script: React.HTMLProps<HTMLElement>;
             section: React.HTMLProps<HTMLElement>;
-            select: React.HTMLProps<HTMLSelectElement>;
+            select: React.ChangeTargetHTMLProps<HTMLSelectElement>;
             small: React.HTMLProps<HTMLElement>;
             source: React.HTMLProps<HTMLSourceElement>;
             span: React.HTMLProps<HTMLSpanElement>;
@@ -2734,7 +2742,7 @@ declare global {
             table: React.HTMLProps<HTMLTableElement>;
             tbody: React.HTMLProps<HTMLTableSectionElement>;
             td: React.HTMLProps<HTMLTableDataCellElement>;
-            textarea: React.HTMLProps<HTMLTextAreaElement>;
+            textarea: React.ChangeTargetHTMLProps<HTMLTextAreaElement>;
             tfoot: React.HTMLProps<HTMLTableSectionElement>;
             th: React.HTMLProps<HTMLTableHeaderCellElement>;
             thead: React.HTMLProps<HTMLTableSectionElement>;
