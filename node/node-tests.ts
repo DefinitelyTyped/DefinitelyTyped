@@ -24,6 +24,7 @@ import * as string_decoder from "string_decoder";
 import * as stream from "stream";
 import * as timers from "timers";
 import * as repl from "repl";
+import * as v8 from "v8";
 
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
@@ -2069,6 +2070,21 @@ namespace constants_tests {
     num = constants.POINT_CONVERSION_HYBRID
     str = constants.defaultCoreCipherList
     str = constants.defaultCipherList
+}
+
+
+////////////////////////////////////////////////////
+/// v8 tests : https://nodejs.org/api/v8.html
+////////////////////////////////////////////////////
+
+namespace v8_tests {
+
+    const heapStats = v8.getHeapStatistics();
+    const heapSpaceStats = v8.getHeapSpaceStatistics();
+    
+    const zapsGarbage: number = heapStats.does_zap_garbage;
+
+    v8.setFlagsFromString('--collect_maps');
 }
 
 ///////////////////////////////////////////////////////////
