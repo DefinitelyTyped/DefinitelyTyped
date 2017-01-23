@@ -1,4 +1,4 @@
-import loremIpsum = require('lorem-ipsum');
+import * as loremIpsum from 'lorem-ipsum';
 
 let result: string;
 result = loremIpsum();
