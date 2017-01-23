@@ -289,9 +289,22 @@ plugin = new webpack.optimize.UglifyJsPlugin({
     }
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
+  sourceMap: false,
+  comments: true,
+  beautify: true,
+  test: 'foo',
+  exclude: /node_modules/,
+  include: 'test'
+});
+plugin = new webpack.optimize.UglifyJsPlugin({
     mangle: {
         except: ['$super', '$', 'exports', 'require']
     }
+});
+plugin = new webpack.optimize.UglifyJsPlugin({
+  comments: function(astNode: any, comment: any) {
+    return false;
+  }
 });
 plugin = new webpack.optimize.CommonsChunkPlugin(options);
 plugin = new CommonsChunkPlugin({
