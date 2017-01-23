@@ -266,7 +266,10 @@ interface PNotifyStyling {
     success?: string,
     success_icon?: string,
     error?: string,
-    error_icon?: string
+    error_icon?: string,
+    closer?: string,
+    pin_down?: string,
+    pin_up?: string
 }
 
 interface PNotify {
