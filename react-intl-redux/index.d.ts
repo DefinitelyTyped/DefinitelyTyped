@@ -2,6 +2,7 @@
 // Project: https://github.com/ratson/react-intl-redux
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import { Action } from "redux"
 import { Provider as ReduxProvider } from "react-redux"
