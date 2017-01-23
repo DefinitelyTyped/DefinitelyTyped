@@ -1,4 +1,4 @@
-// Type definitions for wonder-commonlib v0.1.0
+// Type definitions for wonder-commonlib 0.1
 // Project: https://github.com/yyc-git/Wonder-CommonLib
 // Definitions by: YYC <https://github.com/yyc-git>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
