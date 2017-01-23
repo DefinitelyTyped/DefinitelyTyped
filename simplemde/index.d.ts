@@ -128,3 +128,7 @@ declare class SimpleMDE {
     static undo: (editor: SimpleMDE) => void;
     static redo: (editor: SimpleMDE) => void;
 }
+
+declare module "simplemde" {
+    export = SimpleMDE;
+}
