@@ -238,7 +238,7 @@ declare namespace mqtt {
         /**
          * get last message id. This is for sent messages only.
          */
-        getLastMessageId(): number
+        getLastMessageId(): number;
     }
 
     /**
