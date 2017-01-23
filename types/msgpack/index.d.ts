@@ -81,3 +81,7 @@ interface MsgPackCallbackResult {
 }
 
 declare var msgpack: MsgPackStatic;
+
+declare module "msgpack" {
+  export = msgpack;
+}
