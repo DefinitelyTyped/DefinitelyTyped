@@ -4016,10 +4016,8 @@ declare module "v8" {
         physical_space_size: number;
     }
 
-    enum DoesZapCodeSpaceFlag {
-        Disabled = 0,
-        Enabled = 1
-    }
+    //** Signifies if the --zap_code_space option is enabled or not.  1 == enabled, 0 == disabled. */
+    type DoesZapCodeSpaceFlag = 0 | 1;
 
     interface HeapInfo {
         total_heap_size: number;
