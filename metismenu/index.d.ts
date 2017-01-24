@@ -1,4 +1,4 @@
-// Type definitions for metisMenu 2.0.3
+// Type definitions for metisMenu 2.6.1
 // Project: http://github.com/onokumus/metisMenu
 // Definitions by: onokums <https://github.com/onokumus/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,8 +12,12 @@ interface MetisMenuOptions {
     collapseClass?: string;
     collapseInClass?: string;
     collapsingClass?: string;
+    preventDefault?: boolean;
 }
 
+type MetisMenuEvents = "show.metisMenu" | "shown.metisMenu" | "hide.metisMenu" | "hidden.metisMenu";
+
 interface JQuery {
-    metisMenu(options?: MetisMenuOptions): JQuery;
+    metisMenu(options?: MetisMenuOptions | "dispose"): JQuery;
+    on(events: MetisMenuEvents, handler: (eventObject: JQueryEventObject) => any): JQuery;
 }
