@@ -13,6 +13,13 @@ interface Issue {
   title: string;
 }
 
+function makePromise(val: any) {
+  return <Axios.IPromise<any>>{
+    then: () => val,
+    catch: () => val
+  };
+}
+
 axios.interceptors.request.use<any>(config => {
     console.log("Method:" + config.method + " Url:" +config.url);
     return config;
@@ -30,10 +37,21 @@ const requestId: number = axios.interceptors.request.use<any>(
 axios.interceptors.request.eject(requestId);
 axios.interceptors.request.eject(7);
 
+const requestId2: number = axios.interceptors.request.use<any>(
+  (config) => {
+    console.log("Method:" + config.method + " Url:" +config.url);
+    return makePromise(config);
+  },
+  (error: any) => error);
 
 axios.interceptors.response.use<any>(config => {
     console.log("Status:" + config.status);
     return config;
+});
+
+axios.interceptors.response.use<any>(config => {
+  console.log("Status:" + config.status);
+  return makePromise(config);
 });
 
 const responseId: number = axios.interceptors.response.use<any>(
