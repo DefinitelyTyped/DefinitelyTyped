@@ -13,7 +13,7 @@
 
 import * as Koa from "koa";
 declare module "koa" {
-    interface Request {
+    interface Context {
         authInfo?: any;
         user?: any;
 
