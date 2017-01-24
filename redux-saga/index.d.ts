@@ -41,9 +41,11 @@ declare module 'redux-saga' {
     cancel(): void;
   }
 
-  export function takeEvery(pattern: Pattern, saga: Saga, ...args: any[]): { [Symbol.iterator](): IterableIterator<any> };
+  export type SagaHelperHandler = <T>(action: T) => Iterable<any>;
 
-  export function takeLatest(pattern: Pattern, saga: Saga, ...args: any[]): { [Symbol.iterator](): IterableIterator<any> };
+  export function takeEvery(pattern: Pattern, saga: SagaHelperHandler, ...args: any[]): { [Symbol.iterator](): IterableIterator<any> };
+
+  export function takeLatest(pattern: Pattern, saga: SagaHelperHandler, ...args: any[]): { [Symbol.iterator](): IterableIterator<any> };
 
   export function delay(ms: number): Promise<boolean>;
 

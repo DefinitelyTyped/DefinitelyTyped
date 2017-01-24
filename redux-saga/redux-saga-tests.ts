@@ -1,6 +1,4 @@
 
-
-
 import sagaMiddleware, {
   storeIO,
   runSaga,
@@ -26,6 +24,11 @@ import {applyMiddleware, createStore} from 'redux';
 
 declare const delay: (ms: number) => Promise<any>;
 declare const fetchApi: (url: string) => Promise<any>;
+
+interface Action {
+  type: string;
+  payload: any;
+}
 
 namespace GettingStarted {
 
@@ -191,12 +194,12 @@ namespace DynamicallyStartingSagasWithMiddleware {
 
 namespace TestHelpers {
   function* watchAndLog(getState) {
-    yield* takeEvery('*', function* logger(action) {
+    yield* takeEvery('*', function* logger(action: Action) {
       console.log('action', action)
     })
   }
 
-  function* fetchUser(action) {
+  function* fetchUser(action: Action) {
   }
 
   function* watchLastFetchUser() {
