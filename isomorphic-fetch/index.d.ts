@@ -1,12 +1,12 @@
-// Type definitions for isomorphic-fetch
+// Type definitions for isomorphic-fetch 0.0
 // Project: https://github.com/matthew-andrews/isomorphic-fetch
 // Definitions by: Todd Lucas <https://github.com/toddlucas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type RequestType = "" | "audio" | "font" | "image" | "script" | "style" | 
+type RequestType = "" | "audio" | "font" | "image" | "script" | "style" |
     "track" | "video";
-type RequestDestination = "" | "document" | "embed" | "font" | "image" | 
-    "manifest" | "media" | "object" | "report" | "script" | "serviceworker" | 
+type RequestDestination = "" | "document" | "embed" | "font" | "image" |
+    "manifest" | "media" | "object" | "report" | "script" | "serviceworker" |
     "sharedworker" | "style" | "worker" | "xslt";
 type RequestMode = "navigate" | "same-origin" | "no-cors" | "cors";
 type RequestCredentials = "omit" | "same-origin" | "include";
@@ -15,44 +15,44 @@ type RequestCache =
     "only-if-cached";
 type RequestRedirect = "follow" | "error" | "manual";
 
-type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | 
+type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" |
     "opaqueredirect";
 
-type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | 
-    "same-origin" | "origin" | "strict-origin" | "origin-when-cross-origin" | 
+type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" |
+    "same-origin" | "origin" | "strict-origin" | "origin-when-cross-origin" |
     "strict-origin-when-cross-origin" | "unsafe-url";
 
-interface IHeaders {
+interface HeadersInterface {
     append(name: string, value: string): void;
     delete(name: string): void;
-    get(name: string): string;
-    getAll(name: string): Array<string>;
+    get(name: string): string | null;
+    getAll(name: string): string[];
     has(name: string): boolean;
     set(name: string, value: string): void;
 
     // TODO: iterable<string, string>;
-    forEach(callback: (value: string, index: number, headers: IHeaders) => void, thisArg?: any): void;
+    forEach(callback: (value: string, index: number, headers: HeadersInterface) => void, thisArg?: any): void;
     // NOTE: The following are supported by whatwg-fetch but not node-fetch.
     // entries(): IterableIterator<[string, string]>;
     // keys(): IterableIterator<string>;
-    // values(): IterableIterator<string>;    
+    // values(): IterableIterator<string>;
 }
 
-type HeadersInit = Headers | Array<string> | { [index: string]: string };
+type HeadersInit = Headers | string[] | { [index: string]: string };
 
-declare class Headers implements IHeaders {
+declare class Headers implements HeadersInterface {
     constructor(init?: HeadersInit);
     append(name: string, value: string): void;
     delete(name: string): void;
-    get(name: string): string;
-    getAll(name: string): Array<string>;
+    get(name: string): string | null;
+    getAll(name: string): string[];
     has(name: string): boolean;
     set(name: string, value: string): void;
 
-    forEach(callback: (value: string, index: number, headers: IHeaders) => void, thisArg?: any): void;
+    forEach(callback: (value: string, index: number, headers: HeadersInterface) => void, thisArg?: any): void;
 }
 
-interface IBody {
+interface BodyInterface {
     bodyUsed: boolean;
     arrayBuffer(): Promise<ArrayBuffer>;
     blob(): Promise<Blob>;
@@ -62,7 +62,7 @@ interface IBody {
     text(): Promise<string>;
 }
 
-declare class Body implements IBody {
+declare class Body implements BodyInterface {
     bodyUsed: boolean;
     arrayBuffer(): Promise<ArrayBuffer>;
     blob(): Promise<Blob>;
@@ -72,22 +72,22 @@ declare class Body implements IBody {
     text(): Promise<string>;
 }
 
-interface IRequest extends IBody {
+interface RequestInterface extends BodyInterface {
     method: string;
     url: string;
-    headers: IHeaders;
+    headers: HeadersInterface;
 
     type: RequestType;
     destination: RequestDestination;
     referrer?: string;
-    referrerPolicy?: ReferrerPolicy;    
+    referrerPolicy?: ReferrerPolicy;
     mode: RequestMode;
     credentials: RequestCredentials;
     cache: RequestCache;
     redirect?: RequestRedirect;
     integrity?: string;
-    
-    clone(): IRequest;
+
+    clone(): RequestInterface;
 }
 
 type BodyInit = Blob | ArrayBufferView | ArrayBuffer | FormData /* | URLSearchParams */ | string;
@@ -97,7 +97,7 @@ interface RequestInit {
     headers?: HeadersInit;
     body?: BodyInit;
     referrer?: string;
-    referrerPolicy?: ReferrerPolicy;    
+    referrerPolicy?: ReferrerPolicy;
     mode?: RequestMode;
     credentials?: RequestCredentials;
     cache?: RequestCache;
@@ -106,29 +106,29 @@ interface RequestInit {
     window?: any; // can only be set to null
 }
 
-type RequestInfo = IRequest | string;
+type RequestInfo = RequestInterface | string;
 
-declare class Request extends Body implements IRequest {
+declare class Request extends Body implements RequestInterface {
     constructor(input: RequestInfo, init?: RequestInit);
-    
+
     method: string;
     url: string;
-    headers: IHeaders;
+    headers: HeadersInterface;
 
-    type: RequestType
+    type: RequestType;
     destination: RequestDestination;
     referrer: string;
-    referrerPolicy: ReferrerPolicy;    
+    referrerPolicy: ReferrerPolicy;
     mode: RequestMode;
     credentials: RequestCredentials;
     cache: RequestCache;
     redirect: RequestRedirect;
     integrity: string;
 
-    clone(): IRequest;
+    clone(): RequestInterface;
 }
 
-interface IResponse extends IBody {
+interface ResponseInterface extends BodyInterface {
     type: ResponseType;
 
     url: string;
@@ -136,13 +136,13 @@ interface IResponse extends IBody {
     status: number;
     statusText: string;
     ok: boolean;
-    headers: IHeaders;
+    headers: HeadersInterface;
     // size: number;
     // timeout: number;
     body: any;
-    trailer: Promise<IHeaders>;
+    trailer: Promise<HeadersInterface>;
 
-    clone(): IResponse;
+    clone(): ResponseInterface;
 }
 
 type ResponseBodyInit = BodyInit;
@@ -153,28 +153,28 @@ interface ResponseInit {
     headers?: HeadersInit;
 }
 
-declare class Response extends Body implements IResponse {
+declare class Response extends Body implements ResponseInterface {
     constructor(body?: ResponseBodyInit, init?: ResponseInit);
 
-    static redirect(url: string, status?: number): IResponse;
-    static error(): IResponse;
+    static redirect(url: string, status?: number): ResponseInterface;
+    static error(): ResponseInterface;
 
-    type: ResponseType
+    type: ResponseType;
 
     url: string;
     redirected: boolean;
     status: number;
     statusText: string;
     ok: boolean;
-    headers: IHeaders;
+    headers: HeadersInterface;
     body: any;
-    trailer: Promise<IHeaders>;
+    trailer: Promise<HeadersInterface>;
 
-    clone(): IResponse;
+    clone(): ResponseInterface;
 }
 
 interface Window {
-    fetch(url: RequestInfo, init?: RequestInit): Promise<IResponse>;
+    fetch(url: RequestInfo, init?: RequestInit): Promise<ResponseInterface>;
 }
 
 declare var fetch: typeof window.fetch;

@@ -672,3 +672,19 @@ class ConstructorSpreadArgsPureComponent extends React.PureComponent<{}, {}> {
         super(...args);
     }
 }
+
+//
+// The SyntheticEvent.target.value should be accessible for onChange
+// --------------------------------------------------------------------------
+class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
+  constructor(props:{}) {
+    super(props);
+    this.state = { value: 'a' };
+  }
+  render() {
+    return React.DOM.textarea({
+      value: this.state.value,
+      onChange: e => this.setState({value: e.target.value})
+    });
+  }
+}

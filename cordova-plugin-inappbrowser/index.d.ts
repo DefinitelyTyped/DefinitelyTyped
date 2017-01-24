@@ -168,6 +168,8 @@ interface InAppBrowser extends Window {
     removeEventListener(type: string, callback: (event: Event) => void): void;
     /** Closes the InAppBrowser window. */
     close(): void;
+    /** Hides the InAppBrowser window. Calling this has no effect if the InAppBrowser was already hidden. */
+    hide(): void;
     /**
      * Displays an InAppBrowser window that was opened hidden. Calling this has no effect
      * if the InAppBrowser was already visible.

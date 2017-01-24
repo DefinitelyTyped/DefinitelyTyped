@@ -224,6 +224,38 @@ If the standard is still a draft, it belongs here.
 Use a name beginning with `dom-` and include a link to the standard as the "Project" link in the header.
 When it graduates draft mode, we may remove it from DefinitelyTyped and deprecate the associated `@types` package.
 
+#### I want to update a package to a new major version
+
+Before making your change, please create a new subfolder with the current version e.g. `v2`, and copy existing files to it. You will need to:
+
+1. Update the relative paths in `tsconfig.json` as well as `tslint.json`.
+2. Add path mapping rules to ensure that tests are running against the intended version.
+
+For example [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/history/v2/tsconfig.json) looks like:
+
+```json
+{
+    "compilerOptions": {
+        "baseUrl": "../../",
+        "typeRoots": ["../../"],
+        "paths": {
+            "history": [ "history/v2" ]
+        },
+    },
+    "files": [
+        "index.d.ts",
+        "history-tests.ts"
+    ]
+}
+```
+
+Please note that unless upgrading something backwards-compatible like `node`, all packages depending of the updated package need a path mapping to it, as well as packages depending on *those*.
+For example, `react-router` depends on `history@2`, so [react-router `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/react-router/tsconfig.json) has a path mapping to `"history": [ "history/v2" ]`;
+transitively `react-router-bootstrap` (which depends on `react-router`) also adds a path mapping in its [tsconfig.json](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/react-router-bootstrap/tsconfig.json).
+
+Also, `/// <reference types=".." />` will not work with path mapping, so dependencies must use `import`.
+
+
 ## License
 
 This project is licensed under the MIT license.
