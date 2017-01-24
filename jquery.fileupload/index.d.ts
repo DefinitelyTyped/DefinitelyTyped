@@ -198,7 +198,7 @@ interface JQueryFileInputOptions {
      * handlers using jQuery's Deferred callbacks:
      * data.submit().done(func).fail(func).always(func);
      */
-    add?: any;
+    add?:  (e: JQueryEventObject, data: JQueryFileInputOptions) => void;
 
     // The plugin options are used as settings object for the ajax calls.
     // The following are jQuery ajax settings required for the file uploads:
@@ -228,7 +228,7 @@ interface JQueryFileInputOptions {
     // Other callbacks:
     submit?: Function;
     done?: (e: JQueryEventObject, data: JQueryFileUploadDone) => void;
-    fail?: (e: JQueryEventObject, data: JQueryFileInputOptions) => void;
+    fail?: (e: JQueryEventObject, data: JQueryFileUploadDone) => void;
     always?: (e: JQueryEventObject, data: JQueryFileInputOptions) => void;
     progressall?: (e: JQueryEventObject, data: JQueryFileUploadProgressAllObject) => void;
     start?: (e: JQueryEventObject) => void;
@@ -284,6 +284,7 @@ interface JQueryFileUploadXhr {
     jqXHR: JQueryXHR;
     result: any;
     textStatus: string;
+    errorThrown: any;
     headers: {[key: string]: any};
 }
 
