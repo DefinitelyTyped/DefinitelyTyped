@@ -2,6 +2,7 @@
 // Project: https://github.com/rackt/redux-router
 // Definitions by: Stepan Mikhaylyuk <http://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as React from 'react';
 import * as ReactRouter from 'react-router';

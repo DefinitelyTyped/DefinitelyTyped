@@ -1624,7 +1624,7 @@ declare namespace SP {
         static isValid(uuid: string): boolean;
         toString(format?: string): string;
         equals(uuid: SP.Guid): boolean;
-        toSerialized(): string;
+        ToSerialized(): string;
     }
     /** Specifies permissions that are used to define user roles. Represents SPBasePermissions class. */
     export enum PermissionKind {

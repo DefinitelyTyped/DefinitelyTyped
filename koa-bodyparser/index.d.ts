@@ -59,6 +59,7 @@ declare function bodyParser(opts?: {
     extendTypes?: {
         json?: string[];
         form?: string[];
+        text?: string[];
     }
 
     /**

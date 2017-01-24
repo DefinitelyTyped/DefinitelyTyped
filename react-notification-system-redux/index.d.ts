@@ -2,6 +2,7 @@
 // Project: https://github.com/gor181/react-notification-system-redux
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import { Component } from "react";
 import { Action } from "redux";

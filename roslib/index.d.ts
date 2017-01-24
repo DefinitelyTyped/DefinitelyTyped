@@ -11,6 +11,7 @@
  ---------------------------------- */
 
 export = ROSLIB;
+export as namespace ROSLIB;
 
 declare namespace ROSLIB {
 	export class Ros {

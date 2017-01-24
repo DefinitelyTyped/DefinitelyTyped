@@ -2,6 +2,7 @@
 // Project: https://github.com/appleboy/react-recaptcha
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import { Component } from "react";
 export = Recaptcha;

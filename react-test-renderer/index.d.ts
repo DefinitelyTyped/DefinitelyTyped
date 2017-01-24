@@ -2,6 +2,7 @@
 // Project: https://facebook.github.io/react/
 // Definitions by: Arvitaly <https://github.com/arvitaly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import { ReactElement } from "react";
 
