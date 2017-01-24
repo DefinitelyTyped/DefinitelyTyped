@@ -217,7 +217,7 @@ declare namespace THREE {
 
     // Triangle Draw modes
     export enum TrianglesDrawModes { }
-    export const TrianglesDrawModesMode: TrianglesDrawModes;
+    export const TrianglesDrawMode: TrianglesDrawModes;
     export const TriangleStripDrawMode: TrianglesDrawModes;
     export const TriangleFanDrawMode: TrianglesDrawModes;
 
