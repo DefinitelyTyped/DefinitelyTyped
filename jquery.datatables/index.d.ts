@@ -908,7 +908,7 @@ declare namespace DataTables {
         * @param d Data to use for the row.
         */
         data(d: any[] | Object): DataTable;
-        
+
         /**
 
         * Get the id of the selected row. Since: 1.10.8
@@ -1456,9 +1456,9 @@ declare namespace DataTables {
     }
 
     export interface AjaxData {
-        draw: number;
-        recordsTotal: number;
-        recordsFiltered: number;
+        draw?: number;
+        recordsTotal?: number;
+        recordsFiltered?: number;
         data: any;
         error?: string;
     }
