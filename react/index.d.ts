@@ -2035,7 +2035,7 @@ declare namespace React {
         default?: boolean;
         defer?: boolean;
         dir?: string;
-        disabled?: boolean;
+        disabled?: boolean | string;
         download?: any;
         draggable?: boolean;
         encType?: string;
