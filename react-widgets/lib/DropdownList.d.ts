@@ -90,11 +90,11 @@ interface DropdownListProps extends React.Props<DropdownListClass> {
      * handle the opening and closing internally. 
      */
     open?: boolean;
-	/**
+    /**
      * The defaultOpen prop can be used to set an
      * initialization value for uncontrolled widgets.
      */
-	defaultOpen?: boolean;
+    defaultOpen?: boolean;
     /**
      * Called when the DropdownList is about to open or close. onToggle should be used when the
      * open prop is set otherwise the widget open buttons won't work.
