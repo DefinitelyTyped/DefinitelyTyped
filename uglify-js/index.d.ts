@@ -8,7 +8,7 @@
 
 import * as MOZ_SourceMap from 'source-map';
 
-declare namespace UglifyJS {
+export module UglifyJS {
     interface Tokenizer {
         /**
          * The type of this token.
@@ -425,5 +425,3 @@ declare namespace UglifyJS {
      */
     function TreeTransformer(before: visitor, after: visitor): TreeTransformer;
 }
-
-export = UglifyJS;
