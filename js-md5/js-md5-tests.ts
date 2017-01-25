@@ -1,4 +1,4 @@
-import * as md5 from "js-md5";
+import md5 = require("js-md5");
 
 let str: string = md5.hex('The quick brown fox jumps over the lazy dog');
 str = md5('The quick brown fox jumps over the lazy dog');
