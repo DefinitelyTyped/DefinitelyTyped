@@ -1,10 +1,10 @@
 let map = L.map('foo');
 
-let roads = L.GridLayer.googleMutant({
+let roads = L.gridLayer.googleMutant({
     type: 'roadmap'
 }).addTo(map);
 
-let styled = L.GridLayer.googleMutant({
+let styled = L.gridLayer.googleMutant({
     type: 'satellite',
     styles: [
         { elementType: 'labels', stylers: [ { visibility: 'off' } ] },

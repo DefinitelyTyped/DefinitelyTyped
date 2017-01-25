@@ -5,7 +5,7 @@
 
 /// <reference types="leaflet" />
 
-declare namespace L.GridLayer {
+declare namespace L.gridLayer {
     export interface GoogleMutant extends L.GridLayer {
         setElementSize(e: HTMLElement, size: L.Point): void ;
     }
@@ -51,7 +51,7 @@ declare namespace L.GridLayer {
         maxZoom?: number;
         maxNativeZoom?: number;
         tileSize?: number | Point;
-        subdomains?: string | Array<string>;
+        subdomains?: string | string[];
         errorTileUrl?: string;
 
         /**
@@ -60,7 +60,7 @@ declare namespace L.GridLayer {
         attribution?: string;
 
         opacity?: number;
-        continuousWorld?: boolean,
+        continuousWorld?: boolean;
         noWrap?: boolean;
 
         /**
@@ -71,7 +71,7 @@ declare namespace L.GridLayer {
         /**
          * Google's map styles.
          */
-        styles?: GoogleMutantStyle[]
+        styles?: GoogleMutantStyle[];
     }
 
     export function googleMutant(options?: GoogleMutantOptions): GoogleMutant;
