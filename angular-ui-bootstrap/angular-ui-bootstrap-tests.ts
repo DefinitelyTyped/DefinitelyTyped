@@ -155,6 +155,7 @@ testApp.config((
         placement: 'bottom',
         animation: false,
         popupDelay: 1000,
+        popupCloseDelay: 1000,
         appendToBody: true,
         trigger: 'mouseenter hover',
         useContentExp: true,
