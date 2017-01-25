@@ -1,8 +1,9 @@
 /// <reference types="jquery" />
 /// <reference types="ej.web.all" />
 
+
  
- 
+
 module AccordionComponent {
     $(function () {
         var sample = new ej.Accordion($("#basicAccordion"), {
@@ -15,8 +16,6 @@ module AccordionComponent {
             events: "click",
             expandSpeed: 500,
             headerSize: "40px",
-            height: "500px",
-            heightAdjustMode: ej.Accordion.HeightAdjustMode.Auto,
             htmlAttributes: { title: "Demo" },
             selectedItemIndex: 1,
             showCloseButton: true,
@@ -77,173 +76,57 @@ module Barcodecomponent {
 
 
 
-module Bulletgraphcomponent {
+module circulargaugecomponent {
     $(function () {
-        var bulletsample = new ej.datavisualization.BulletGraph($("#BulletGraph"), {
+        var circularsample = new ej.datavisualization.CircularGauge($("#CircularGauge"), {
+            enableAnimation: false,
             isResponsive: true,
-            tooltipSettings: { visible: true },
-            quantitativeScaleSettings: {
-                featureMeasures: [{
-                    value: 8, comparativeMeasureValue:6.7
-                }]
-            },
-            qualitativeRanges: [{
-                rangeEnd: 4.3, rangeStroke:"#ebebeb",
-            },
-                {
-                    rangeEnd: 7.3, rangeStroke:"#d8d8d8"
+            backgroundColor: "transparent", width: 500,
+            scales: [{
+                showRanges: true,
+                startAngle: 122, sweepAngle: 296, radius: 130, showScaleBar: true, size: 1, maximum: 120, majorIntervalValue: 20, minorIntervalValue: 10,
+                border: {
+                    width: 0.5,
                 },
-                {
-                    rangeEnd: 10, rangeStroke: "#7f7f7f"
-                }
-            ],
-            captionSettings: {
-                textPosition: 'right', text: 'Revenue YTD',
-                subTitle: {
-                    text: "$ in Thousands", textPosition:"right"
-                }
-            }
-        });
-    });
-}
-
-
-
-
-
-module ButtonComponent {
-    $(function () {
-        var basicButton = new ej.Button($("#buttonnormal"), {
-            size: "large",
-            showRoundedCorner: true,
-            contentType: "textandimage",
-            prefixIcon: "e-icon e-save",
-            text: "Save"
-        });
-        var toggleButton = new ej.ToggleButton($("#TextOnly"), {
-            showRoundedCorner: true,
-            size: "large",
-            contentType: "textandimage",
-            defaultPrefixIcon: "e-icon e-save",
-            activePrefixIcon: "e-icon e-delete",
-            defaultText: "Save",
-            activeText: "Delete"
-        });
-        var splitbuttonnormal = new ej.SplitButton($("#splitbuttonnormal"), {
-            showRoundedCorner: true,
-            size: "large",
-            prefixIcon: "e-icon e-file-empty",
-            targetID: "menu1",
-            contentType: "textandimage",
-            text: "File"
-        });
-        var groupButton = new ej.GroupButton($("#groupButton"), {
-            showRoundedCorner: true,
-            size: "large"
-        });
-        var check1 = new ej.CheckBox($("#check1"), {
-            size: "medium", enableTriState: true
-        });
-        var check2 = new ej.CheckBox($("#check2"), {
-            size: "medium", enableTriState: true
-        });
-        var radio1 = new ej.RadioButton($("#radio1"), {
-            size: "medium"
-        });
-        var radio2 = new ej.RadioButton($("#radio2"), {
-            size: "medium", checked: true
-        });
-    });
-}
-    
-
-
-
-module ChartComponent {
-    $(function () {
-        var chartsample = new ej.datavisualization.Chart($("#Chart"), {
-            primaryXAxis: {
-                range: { min: 2005, max: 2011, interval: 1 },
-                title: { text: "Year" },
-                valueType: "category"
-            },
-            primaryYAxis: {
-                range: { min: 25, max: 50, interval: 5 },
-                labelFormat: "{value}%",
-                title: { text: "Efficiency" },
-                
-            },
-            commonSeriesOptions:
-			{
-                type: 'line', enableAnimation: true,
-				tooltip:{ visible :true, template:'Tooltip'},
-                marker:
-                {
-                    shape: 'circle',
-                    size:
-                    {
-                        height: 10, width: 10
+                pointers: [{
+                    value: 60,
+                    showBackNeedle: true,
+                    backNeedleLength: 20,
+                    length: 95,
+                    width: 7
+                }],
+                ticks: [{
+                    type: "major",
+                    distanceFromScale: 2,
+                    height: 16,
+                    width: 1, color: "#8c8c8c"
+                }, { type: "minor", height: 8, width: 1, distanceFromScale: 2, color: "#8c8c8c" }],
+                labels: [{
+                    color: "#8c8c8c"
+                }],
+                ranges: [{
+                    distanceFromScale: -30,
+                    startValue: 0,
+                    endValue: 70
+                }, {
+                        distanceFromScale: -30,
+                        startValue: 70,
+                        endValue: 110,
+                        backgroundColor: "#fc0606",
+                        border: { color: "#fc0606" }
                     },
-                    visible: true
-                },
-                 border : {width: 2}                             
-            },	
-            series: 
-			[
-			    {
-                points: [{ x: 2005, y: 28 }, { x: 2006, y: 25 },{ x: 2007, y: 26 }, { x: 2008, y: 27 }, 
-						 { x: 2009, y: 32 }, { x: 2010, y: 35 }, { x: 2011, y: 30 }],						 
-                name: 'India'
-                },						
-                {
-                points: [{ x: 2005, y: 31 }, { x: 2006, y: 28 },{ x: 2007, y: 30 }, { x: 2008, y: 36 }, 
-						 { x: 2009, y: 36 }, { x: 2010, y: 39 }, { x: 2011, y: 37 }],						 
-                name: 'Germany'
-                },
-				{
-                points: [{ x: 2005, y: 36 }, { x: 2006, y: 32 },{ x: 2007, y: 34 }, { x: 2008, y: 41 }, 
-						 { x: 2009, y: 42 }, { x: 2010, y: 42 }, { x: 2011, y: 43 }],						 
-                name: 'England'
-                },					
-                {
-                points: [{ x: 2005, y: 39 }, { x: 2006, y: 36 },{ x: 2007, y: 40 }, { x: 2008, y: 44 }, 
-						 { x: 2009, y: 45 }, { x: 2010, y: 48 }, { x: 2011, y: 46 }],						 
-                name: 'France'
-				}
-            ],
-            isResponsive: true,
-            load: function () {
-                var sender = $("#Chart").data("ejChart");
-                if (!!window.orientation && sender) {           //to modify chart properties for mobile view
-                    var model = sender.model,
-                        seriesLength = model.series.length;
-                    model.legend.visible = false;
-                    model.size.height = null;
-                    model.size.width = null;
-                    for (var i = 0; i < seriesLength; i++) {
-                        if (!model.series[i].marker)
-                            model.series[i].marker = {};
-                        if (!model.series[i].marker.size)
-                            model.series[i].marker.size = {};
-                        model.series[i].marker.size.width = 6;
-                        model.series[i].marker.size.height = 6;
-                    }
-                    model.primaryXAxis.labelIntersectAction = "rotate45";
-                    if (model.primaryXAxis.title)
-                        model.primaryXAxis.title.text = "";
-                    if (model.primaryYAxis.title)
-                        model.primaryYAxis.title.text = "";
-                    model.primaryXAxis.edgeLabelPlacement = "hide";
-                    model.primaryYAxis.labelIntersectAction = "rotate45";
-                    model.primaryYAxis.edgeLabelPlacement = "hide";
-                }
-            },
-            title: { text: 'Efficiency of oil-fired power production' },
-            size: { height: "600" },
-            legend: { visible: true}
+                    {
+                        distanceFromScale: -30,
+                        startValue: 110,
+                        endValue: 120,
+                        backgroundColor: "#f5b43f",
+                        border: { color: "#f5b43f" }
+                    }]
+            }]	
         });
     });
 }
+
 
 
 
@@ -356,11 +239,14 @@ module DialogComponent {
             minWidth: 310,
             minHeight: 215,
 			target:".control",
-            close:()=>{this.onDialogClose()}
+            close:()=>{
+			$("#btnOpen").show();}
         });
         var btnInstance = new ej.Button($("#btnOpen"), {
             size: "medium",
-            click: ()=>{this.onOpen()},
+            click: ()=>{
+			$("#btnOpen").hide();
+        $("#basicDialog").ejDialog("open");},
             type: "button",
             height: 30,
             width: 150
@@ -368,13 +254,6 @@ module DialogComponent {
     });
 }
 
-function onDialogClose(args:any) {
-        $("#btnOpen").show();
-}
-function onOpen() {
-        $("#btnOpen").hide();
-        $("#basicDialog").ejDialog("open");
-}
 
 
 
@@ -428,9 +307,7 @@ module DropDownListComponent {
             minPopupHeight: "150px", 
             maxPopupWidth: "500px", 
             minPopupWidth: "350px",
-            selectedIndex: 1,
             showCheckbox: true,
-            showPopupOnLoad: true,   
             showRoundedCorner: true
         });
     });
@@ -445,12 +322,12 @@ module DropDownListComponent {
 module ExplorerComponent {
     $(function () {
         var file = new ej.FileExplorer($("#fileExplorer"), {
-            path: (<any>window).baseurl + "webapi/FileExplorer/FileBrowser/",
+            path: (<any>window).baseurl + "Content/FileBrowser/",
             width: "100%",
             minWidth: "150px",
             layout: "tile",
             isResponsive: true,
-            ajaxAction: (<any>window).baseurl + "api/fileoperation/doJSONAction"
+            ajaxAction: (<any>window).baseurl + "api/FileExplorer/FileOperations"
         });
     });
 }
@@ -946,15 +823,15 @@ module NavigationDrawerComponent {
             enableListView: true,
             listViewSettings: {
                 width: 300,
-                selectedItemIndex: 0,
-                mouseUp: "headChange"
+                selectedItemIndex: 0
             },
             position: "normal"
         });
+		$("#navpane_listview").click(function(e: any) {
+            var text=e.target["text"]||$(e.target).closest("li.e-list").text();
+            $("#butdrawer").parent().children("h2").text(text);
+        });
     });
-	function headChange(e:any) {
-		$("#butdrawer").parent().children("h2").text(e.text);
-	}
 }
 
 
@@ -962,17 +839,11 @@ module NavigationDrawerComponent {
 module PDFViewerComponent {
     $(function () {
         var pdfviewerControl = new ej.PdfViewer($("#pdfviewer"), {
-            serviceUrl: (<any>window).baseurl + "api/PdfViewer",
+            serviceUrl:(<any>window).baseurl+ "api/PdfViewer",
             isResponsive: true
         });
     });
 }
-
-
-
-
-
-
 
 
 
@@ -1015,8 +886,9 @@ module PivotGridOlap {
         enableGroupingBar: true, 
 		enableCellEditing: true,
 		enableCellSelection: true,
-        renderSuccess: function (args) {$("#PivotSchemaDesigner").ejPivotSchemaDesigner({ pivotControl: args, layout: "excel" });}
+        pivotTableFieldListID:"PivotSchemaDesigner"
         });
+        $("#PivotSchemaDesigner").ejPivotSchemaDesigner();
     });
 }
 
@@ -1090,9 +962,11 @@ module PivotGridRelational {
 		},
         enableGroupingBar: true, 
 		enableCellEditing: true,
-		enableCellSelection: true,
-        renderSuccess: function (args) {$("#PivotSchemaDesigner").ejPivotSchemaDesigner({ pivotControl: args, layout: "excel" });}
+            enableCellSelection: true,
+            pivotTableFieldListID:"PivotSchemaDesigner"
         });
+       $("#PivotSchemaDesigner").ejPivotSchemaDesigner(); 
+
     });
 }
 
@@ -1156,7 +1030,7 @@ declare var rteObj: any;
 declare var data: any;
 var radialEle = $('#defaultradialmenu'), action = 0, forRedo = 0;
 var rteEle = $("#rteSample1");
-module AccordionComponent {
+module RadialMenuComponent {
     $(function () {
 
         if (!(ej.browserInfo().name == "msie" && parseInt(ej.browserInfo().version) < 9)) {
@@ -1165,6 +1039,7 @@ module AccordionComponent {
                 backImageClass: "backimageclass",
                 targetElementId: "radialtarget1"
             });
+			$("#radialtarget1").parent().css("position", "relative");
         }
         else {
             $("#contentDiv").html("Radial Menu is only supported from Internet Explorer Versioned 9 and above.").css({ "font-size": "20px", "color": "red" });
@@ -1176,7 +1051,7 @@ module AccordionComponent {
             select: (e) => {
                 var target = $("#radialtarget1"), radialRadius = 150, radialDiameter = 2 * radialRadius,
                     // To get Iframe positions
-                    iframeY = target.offset().top + e.event.clientY, iframeX = target.offset().left + e.event.clientX,
+                    iframeY = e.event.clientY, iframeX = e.event.clientX,
                     // To set Radial Menu position within target
                     x = iframeX > target.width() - radialRadius ? target.width() - radialDiameter : (iframeX > radialRadius ? iframeX - radialRadius : 0),
                     y = iframeY > target.height() - radialRadius ? target.height() - radialDiameter : (iframeY > radialRadius ? iframeY - radialRadius : 0);
@@ -1357,7 +1232,7 @@ module RatingComponent {
 module ReportViewerComponent {
 	$(function () {
 		var report = new ej.ReportViewer($("#territoryReportViewer"), {
-			reportServiceUrl: (<any>window).baseurl + 'api/SSRSReport',
+			reportServiceUrl: (<any>window).baseurl + 'api/ReportViewer',
 			reportServerUrl: 'http://mvc.syncfusion.com/reportserver',
 			processingMode: ej.ReportViewer.ProcessingMode.Remote,
 			reportPath: "/SSRSSamples2/Territory Sales new",
@@ -2045,14 +1920,14 @@ module RTEComponent {
             enableResize: true,
             enableTabKeyNavigation: true,
             fileBrowser: {
-                filePath: "../FileExplorerContent/",
+                filePath: (<any>window).baseurl + "Content/FileBrowser/",
                 extensionAllow: "*.png, *.doc, *.pdf, *.txt, *.docx",
-                ajaxAction: "http://mvc.syncfusion.com/OdataServices/api/fileoperation/",
+                ajaxAction: (<any>window).baseurl + "api/FileExplorer/FileOperations"
             },
             imageBrowser: {
-                filePath: "../FileExplorerContent/",
+                filePath: (<any>window).baseurl + "Content/FileBrowser/",
                 extensionAllow: "*.png, *.gif, *.jpg, *.jpeg, *.docx",
-                ajaxAction: "http://mvc.syncfusion.com/OdataServices/api/fileoperation/",
+                ajaxAction: (<any>window).baseurl + "api/FileExplorer/FileOperations"
             },
             isResponsive: true,
             showClearAll: true,
@@ -2100,10 +1975,6 @@ module RTEComponent {
 
 
 
-declare var  window :myWindow;
-export interface myWindow extends Window{
-Default:any;
-}
 module ScheduleComponent {
     $(function () {
         var sample = new ej.Schedule($("#Schedule1"), {
@@ -2157,7 +2028,7 @@ module ScheduleComponent {
                 }
             }],
             appointmentSettings: {
-                dataSource: new ej.DataManager(window.Default).executeLocal(new ej.Query().take(10)),
+                dataSource: new ej.DataManager((<any>window).Default).executeLocal(new ej.Query().take(10)),
                 id: "Id",
                 subject: "Subject",
                 startTime: "StartTime",
@@ -2182,11 +2053,21 @@ module ScrollerComponent {
         });
         $(window).bind('resize', function () {
             scrollerSample.refresh();
-        });
-
+        });
     });
 }
 
+
+
+module SignatureComponent {
+    $(function () {
+        var basicSignature = new ej.Signature($("#signature"), {
+            height: "400px",
+            isResponsive: true,
+            strokeWidth: 3
+        });
+    });
+}
 
 
 
@@ -2373,12 +2254,12 @@ $(function () {
                 height: 550,
             },
             importSettings: {
-                importMapper: (<any>window).baseurl + "api/JSXLExport/Import"
+                importMapper: (<any>window).baseurl + "api/Spreadsheet/Import"
             },
             exportSettings: {
-                excelUrl: (<any>window).baseurl + "api/JSXLExport/ExportToExcel",
-                csvUrl: (<any>window).baseurl + "api/JSXLExport/ExportToCsv",
-                pdfUrl: (<any>window).baseurl + "api/JSXLExport/ExportToPdf"
+                excelUrl: (<any>window).baseurl + "api/Spreadsheet/ExcelExport",
+                csvUrl: (<any>window).baseurl + "api/Spreadsheet/CsvExport",
+                pdfUrl: (<any>window).baseurl + "api/Spreadsheet/PdfExport"
             },
             sheets: [{ rangeSettings: [{ dataSource: (<any>window).defaultData, startCell: "A1" }] }],
 			loadComplete: () => {  
@@ -2486,7 +2367,7 @@ module EditorComponent {
 
  
 
-module AccordionComponent {
+module TileViewComponent {
     $(function () {
         var tile1 = new ej.Tile($("#tile1"), {
             imagePosition:"fill",
@@ -2614,13 +2495,13 @@ module TooltipComponent {
             content: "The World Wide Web (WWW) is an information space where documents and other web resources are identified by URLs, interlinked by hypertext links, and can be accessed via the Internet.",
             position: {
                 stem: {
-                    horizontal: "left",
+                    horizontal: "right",
                     vertical: "center"
                 },
                 target: {
-                    horizontal: "right",
-                    vertical: "center",
-                },
+                    horizontal: "left",
+                    vertical: "center"
+                }
             },
             autoCloseTimeout: 5000,
             collision: "fit",
@@ -2685,8 +2566,8 @@ module TreeGridComponent {
         columns: [
             { field: "taskID", headerText: "Task Id", allowFiltering: false, editType: "numericedit", filterEditType: "numericedit" },
             { field: "taskName", headerText: "Task Name", editType: "stringedit", filterEditType: "stringedit" },
-            { field: "startDate", headerText: "Start Date", editType: "datepicker", filterEditType: "datepicker" },
-            { field: "endDate", headerText: "End Date", editType: "datepicker", filterEditType: "datepicker" },
+            { field: "startDate", headerText: "Start Date", editType: "datepicker", filterEditType: "datepicker", format:"{0:MM/dd/yyyy}" },
+            { field: "endDate", headerText: "End Date", editType: "datepicker", filterEditType: "datepicker", format:"{0:MM/dd/yyyy}" },
             { field: "progress", headerText: "Progress", editType: "numericedit", filterEditType: "numericedit" }
         ],
         isResponsive: true,
@@ -2760,7 +2641,7 @@ module UploadboxComponent {
             saveUrl: "uploadbox/saveFiles.ashx",
             removeUrl: "uploadbox/removeFiles.ashx",
             buttonText: {
-                browse: "Choose File", upload: "Upload the File", cancel: "Cancel the Upload"
+                browse: "Choose File", upload: "Upload", cancel: "Cancel"
             },
             cssClass: "gradient- purple",
             dialogAction: {
@@ -2782,7 +2663,9 @@ module WaitingPopupComponent {
         var sample = new ej.WaitingPopup($("#target"),{
             showOnInit: true,
             showImage: true,
-            text: 'waiting&hellip;'
+            text: 'waiting&hellip;',
+			target: "#target",
+			appendTo: "#waiting"
         });
     });
 
