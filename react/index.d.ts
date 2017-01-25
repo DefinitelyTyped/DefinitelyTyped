@@ -606,6 +606,11 @@ declare namespace React {
         onTransitionEndCapture?: TransitionEventHandler;
     }
 
+    // See CSS 3 CSS-wide keywords https://www.w3.org/TR/css3-values/#common-keywords
+    // See CSS 3 Explicit Defaulting https://www.w3.org/TR/css-cascade-3/#defaulting-keywords
+    // "all CSS properties can accept these values"
+    type CSSWideKeyword = "initial" | "inherit" | "unset";
+
     // This interface is not complete. Only properties accepting
     // unitless numbers are listed here (see CSSProperty.js in React)
     interface CSSProperties {
@@ -1143,23 +1148,29 @@ declare namespace React {
 
         /**
          * Specifies the size of the font. Used to compute em and ex units.
+         * See CSS 3 font-size property https://www.w3.org/TR/css-fonts-3/#propdef-font-size
          */
         fontSize?: number | string;
 
         /**
          * The font-size-adjust property adjusts the font-size of the fallback fonts defined with font-family, so that the x-height is the same no matter what font is used. This preserves the readability of the text when fallback happens.
+         * See CSS 3 font-size-adjust property https://www.w3.org/TR/css-fonts-3/#propdef-font-size-adjust
          */
-        fontSizeAdjust?: any;
+        fontSizeAdjust?: CSSWideKeyword | "none" | number;
 
         /**
          * Allows you to expand or condense the widths for a normal, condensed, or expanded font face.
+         * See CSS 3 font-stretch property https://drafts.csswg.org/css-fonts-3/#propdef-font-stretch
          */
-        fontStretch?: any;
+        fontStretch?: CSSWideKeyword |
+                      "normal" | "ultra-condensed" | "extra-condensed" | "condensed" | "semi-condensed" |
+                      "semi-expanded" | "expanded" | "extra-expanded" | "ultra-expanded";
 
         /**
          * The font-style property allows normal, italic, or oblique faces to be selected. Italic forms are generally cursive in nature while oblique faces are typically sloped versions of the regular face. Oblique faces can be simulated by artificially sloping the glyphs of the regular face.
+         * See CSS 3 font-style property https://www.w3.org/TR/css-fonts-3/#propdef-font-style
          */
-        fontStyle?: any;
+        fontStyle?: CSSWideKeyword | "normal" | "italic" | "oblique";
 
         /**
          * This value specifies whether the user agent is allowed to synthesize bold or oblique font faces when a font family lacks bold or italic faces.
@@ -1178,8 +1189,9 @@ declare namespace React {
 
         /**
          * Specifies the weight or boldness of the font.
+         * See CSS 3 'font-weight' property https://www.w3.org/TR/css-fonts-3/#propdef-font-weight
          */
-        fontWeight?: "normal" | "bold" | "lighter" | "bolder" | number;
+        fontWeight?: CSSWideKeyword | "normal" | "bold" | "bolder" | "lighter" | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
 
         /**
          * Lays out one or more grid items bound by 4 grid lines. Shorthand for setting grid-column-start, grid-column-end, grid-row-start, and grid-row-end in a single declaration.
