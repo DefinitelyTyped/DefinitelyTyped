@@ -5,7 +5,6 @@
 
 import * as Redux from "redux";
 
-
 // Trickery to get TypeScript to accept that our anonymous, non-default export is a function.
 // see https://github.com/Microsoft/TypeScript/issues/3612 for more
 declare namespace createLogger {
