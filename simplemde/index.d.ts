@@ -129,6 +129,5 @@ declare class SimpleMDE {
     static redo: (editor: SimpleMDE) => void;
 }
 
-declare module "simplemde" {
-    export = SimpleMDE;
-}
+export = SimpleMDE;
+export as namespace SimpleMDE;
