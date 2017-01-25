@@ -1,5 +1,6 @@
 "use strict";
 import * as Knex from 'knex';
+import * as Promise from 'bluebird';
 import * as _ from 'lodash';
 
 // Initializing the Library
