@@ -611,6 +611,9 @@ declare namespace React {
     // "all CSS properties can accept these values"
     type CSSWideKeyword = "initial" | "inherit" | "unset";
 
+    // See CSS 3 <percentage> type https://drafts.csswg.org/css-values-3/#percentages
+    type CSSPercentage = string;
+
     // This interface is not complete. Only properties accepting
     // unitless numbers are listed here (see CSSProperty.js in React)
     interface CSSProperties {
@@ -1150,7 +1153,10 @@ declare namespace React {
          * Specifies the size of the font. Used to compute em and ex units.
          * See CSS 3 font-size property https://www.w3.org/TR/css-fonts-3/#propdef-font-size
          */
-        fontSize?: number | string;
+        fontSize?: ExplicitDefaultingCSSKeywords |
+                   "xx-small" | "x-small" | "small" | "medium" | "large" | "x-large" | "xx-large" |
+                   "larger" | "smaller" |
+                   number | CSSPercentage;
 
         /**
          * The font-size-adjust property adjusts the font-size of the fallback fonts defined with font-family, so that the x-height is the same no matter what font is used. This preserves the readability of the text when fallback happens.
@@ -1309,8 +1315,9 @@ declare namespace React {
 
         /**
          * Specifies the height of an inline block level element.
+         * See CSS 2.1 line-height property https://www.w3.org/TR/CSS21/visudet.html#propdef-line-height
          */
-        lineHeight?: number | string;
+        lineHeight?: ExplicitDefaultingCSSKeywords | number | CSSPercentage;
 
         /**
          * Shorthand property that sets the list-style-type, list-style-position and list-style-image properties in one declaration.
@@ -2004,8 +2011,9 @@ declare namespace React {
 
         /**
          * Sets the initial zoom factor of a document defined by @viewport.
+         * See CSS zoom descriptor https://drafts.csswg.org/css-device-adapt/#zoom-desc
          */
-        zoom?: "auto" | number;
+        zoom?: ExplicitDefaultingCSSKeywords | "auto" | number | CSSPercentage;
 
         [propertyName: string]: any;
     }
