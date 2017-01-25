@@ -1276,8 +1276,9 @@ declare namespace React {
         /**
          * Defines how the browser distributes space between and around flex items
          * along the main-axis of their container.
+         * See CSS 3 justify-content property https://www.w3.org/TR/css-flexbox-1/#justify-content-property
          */
-        justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
+        justifyContent?: ExplicitDefaultingCSSKeywords | "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
 
         layoutGrid?: any;
 
