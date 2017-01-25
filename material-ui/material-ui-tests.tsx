@@ -166,8 +166,8 @@ const styles = {
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
-  } as React.CSSProperties,
+    justifyContent: 'space-around' as 'space-around',
+  },
   gridList: {
     width: 500,
     height: 500,
@@ -188,7 +188,7 @@ const styles = {
   },
   h3: {
     marginTop: 20,
-    fontWeight: 400,
+    fontWeight: 400 as 400,
   },
   block: {
     display: 'flex',
@@ -222,7 +222,7 @@ const styles = {
     fontSize: 24,
     paddingTop: 16,
     marginBottom: 12,
-    fontWeight: 400,
+    fontWeight: 400 as 400,
   },
   errorStyle: {
     color: orange500,
