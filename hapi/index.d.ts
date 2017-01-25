@@ -1206,7 +1206,7 @@ export class Request extends Events.EventEmitter {
     /** the raw request headers (references request.raw.headers).*/
     headers: IDictionary<string>;
     /** a unique request identifier (using the format '{now}:{connection.info.id}:{5 digits counter}').*/
-    id: number;
+    id: string;
     /**  request information */
     info: {
         /**  the request preferred encoding. */
