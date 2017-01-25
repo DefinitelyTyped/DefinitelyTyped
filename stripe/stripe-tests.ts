@@ -1,4 +1,4 @@
-function success(card: StripeCardData) {
+function success(card: StripeCard) {
     console.log(card.brand && card.brand.toString());
 }
 
@@ -6,7 +6,7 @@ const cardNumber = '4242424242424242';
 
 const isValid = Stripe.validateCardNumber(cardNumber);
 if (isValid) {
-    const tokenData: StripeTokenData = {
+    const tokenData: StripeCardTokenData = {
         number: cardNumber,
         exp_month: 1,
         exp_year: 2100,
