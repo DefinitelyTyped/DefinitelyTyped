@@ -1,40 +1,33 @@
-// Type definitions for js-md5 v0.3.1
+// Type definitions for js-md5 v0.4.2
 // Project: https://github.com/emn178/js-md5
-// Definitions by: Roland Greim <https://github.com/tigerxy>, Michael McCarthy <https://github.com/mwmccarthy>
+// Definitions by: Michael McCarthy <https://github.com/mwmccarthy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
 
-/// <reference types="jquery"/>
+declare namespace md5 {
+    type message = string | any[] | Uint8Array | ArrayBuffer;
 
-interface JQuery {
-    md5(value: string): string;
-    md5(value: Array<any>): string;
-    md5(value: Uint8Array): string;
-    md5(value: ArrayBuffer): string;
+    interface Md5 {
+        array: () => number[];
+        arrayBuffer: () => ArrayBuffer;
+        buffer: () => ArrayBuffer;
+        digest: () => number[];
+        finalize: () => void;
+        hex: () => string;
+        toString: () => string;
+        update: (message: message) => Md5;
+    }
+
+    interface md5 {
+        (message: message): string;
+        hex: (message: message) => string;
+        array: (message: message) => number[];
+        digest: (message: message) => number[];
+	arrayBuffer: (message: message) => ArrayBuffer;
+        buffer: (message: message) => ArrayBuffer;
+        create: () => Md5;
+        update: (message: message) => Md5;
+    }
 }
 
-interface JQueryStatic {
-    md5(value: string): string;
-    md5(value: Array<any>): string;
-    md5(value: Uint8Array): string;
-    md5(value: ArrayBuffer): string;
-}
-
-interface md5 {
-    (value: string): string;
-    (value: Array<any>): string;
-    (value: Uint8Array): string;
-    (value: ArrayBuffer): string;
-}
-
-interface String {
-    md5(value: string): string;
-    md5(value: Array<any>): string;
-    md5(value: Uint8Array): string;
-    md5(value: ArrayBuffer): string;
-}
-
-declare module "js-md5" {
-    export = md5;
-}
-
-declare var md5: md5;
+declare const md5: md5.md5;
+export = md5;
