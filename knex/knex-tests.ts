@@ -1,7 +1,7 @@
 "use strict";
-import * as Knex from 'knex';
-import * as Promise from 'bluebird';
-import * as _ from 'lodash';
+import Knex = require('knex');
+import Promise = require('bluebird');
+import _ = require('lodash');
 
 // Initializing the Library
 var knex = Knex({
