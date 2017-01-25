@@ -3,11 +3,11 @@
 // Definitions by: Onikiienko <https://github.com/onikiienko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="leaflet" />
+import * as L from "leaflet";
 
-declare namespace L {
+declare module "leaflet" {
 	/**
 	 * Drawing Bezier curves and other complex shapes.
 	 */
-	function  curve(path: any[], options?: L.PathOptions): Path;
+	export function curve(path: any[], options?: PathOptions): Path;
 }
