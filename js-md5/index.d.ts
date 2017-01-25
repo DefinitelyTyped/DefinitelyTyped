@@ -22,7 +22,7 @@ declare namespace md5 {
         hex: (message: message) => string;
         array: (message: message) => number[];
         digest: (message: message) => number[];
-	arrayBuffer: (message: message) => ArrayBuffer;
+        arrayBuffer: (message: message) => ArrayBuffer;
         buffer: (message: message) => ArrayBuffer;
         create: () => Md5;
         update: (message: message) => Md5;
