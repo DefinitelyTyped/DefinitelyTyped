@@ -113,5 +113,4 @@ declare namespace CryptoJS {
 			NoPadding: Padding;
 		};
 	}
-
 }

@@ -19,6 +19,7 @@
     "files": [
         "index.d.ts",
         "crypto-js-tests.ts",
+        "test/submodule-tests.ts",
         "core/index.d.ts",
         "x64-core/index.d.ts",
         "lib-typedarrays/index.d.ts",
