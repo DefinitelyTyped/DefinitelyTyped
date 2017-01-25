@@ -11,7 +11,6 @@ declare namespace md5 {
         arrayBuffer: () => ArrayBuffer;
         buffer: () => ArrayBuffer;
         digest: () => number[];
-        finalize: () => void;
         hex: () => string;
         toString: () => string;
         update: (message: message) => Md5;
