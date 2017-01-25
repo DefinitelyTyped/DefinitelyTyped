@@ -34,7 +34,7 @@ interface DateTimePickerProps extends React.Props<DateTimePickerClass> {
 	/*
      * Default value for current date. Usefull for suggesting a date when the caldenar opens without keep forcing it once 'value' is set. 
      */
-    defaultCurrentDate?: Date
+    defaultCurrentDate?: Date;
     /**
      * Change event Handler that is called when the currentDate is changed. The handler is
      * called with the currentDate object.
@@ -97,11 +97,16 @@ interface DateTimePickerProps extends React.Props<DateTimePickerClass> {
     onSelect?: (date?: Date) => void;
     /**
      * Whether or not the DateTimePicker is open. When unset (undefined) the DateTimePicker will
-     * handle the opening and closing internally. The defaultOpen prop can be used to set an
-     * initialization value for uncontrolled widgets.
+     * handle the opening and closing internally. 
      * @enum false "calendar" "time"
      */
     open?: boolean | "calendar" | "time";
+    /**
+     * The defaultOpen prop can be used to set an
+     * initialization value for uncontrolled widgets.
+     * @enum false "calendar" "time"
+     */
+    defaultOpen?: boolean | "calendar" | "time";
     /**
      * Called when the DateTimePicker is about to open or close. onToggle should be used when
      * the open prop is set otherwise the widget will never open or close.
