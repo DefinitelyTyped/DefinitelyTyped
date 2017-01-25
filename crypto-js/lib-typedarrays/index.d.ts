@@ -1,2 +1,2 @@
-declare const libWordArray: any;
-export = libWordArray;
+declare const LibTypedarrays: any;
+export = LibTypedarrays;
