@@ -5,6 +5,7 @@
 
 declare module "nodemailer-ses-transport" {
 	import * as AWS from 'aws-sdk';
+	import * as config from 'aws-sdk/lib/config';
 	import * as nodemailer from "nodemailer";
 
 	namespace sesTransport {
@@ -14,7 +15,7 @@ declare module "nodemailer-ses-transport" {
 			secretAccessKey?: string;
 			sessionToken?: string;
 			region?: string;
-			httpOptions?: AWS.HttpOptions;
+			httpOptions?: config.HTTPOptions;
 			rateLimit?: number;
 			maxConnections?: number;
 		}
