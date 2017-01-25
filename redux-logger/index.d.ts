@@ -5,46 +5,46 @@
 
 import * as Redux from "redux";
 
-type LoggerPredicate = (getState: () => any, action: any) => boolean;
-
-type StateToString = (state: any) => string;
-type ActionToString = (action: any) => string;
-type ErrorToString = (error: any, prevState: any) => string;
-
-interface ColorsObject {
-  title?: boolean | ActionToString;
-  prevState?: boolean | StateToString;
-  action?: boolean | ActionToString;
-  nextState?: boolean | StateToString;
-  error?: boolean | ErrorToString;
-}
-
-interface LevelObject {
-  prevState?: string | boolean | StateToString;
-  action?: string | boolean | ActionToString;
-  nextState?: string | boolean | StateToString;
-  error?: string | boolean | ErrorToString;
-}
-
-interface ReduxLoggerOptions {
-  level?: string | ActionToString | LevelObject;
-  duration?: boolean;
-  timestamp?: boolean;
-  colors?: ColorsObject;
-  logger?: any;
-  logErrors?: boolean;
-  collapsed?: boolean | LoggerPredicate;
-  predicate?: LoggerPredicate;
-  stateTransformer?: (state: any) => any;
-  actionTransformer?: (action: any) => any;
-  errorTransformer?: (error: any) => any;
-  diff?: boolean;
-  diffPredicate?: LoggerPredicate;
-}
-
 
 // Trickery to get TypeScript to accept that our anonymous, non-default export is a function.
 // see https://github.com/Microsoft/TypeScript/issues/3612 for more
-declare namespace createLogger { }
-declare function createLogger(options?: ReduxLoggerOptions): Redux.Middleware;
+declare namespace createLogger {
+  export type LoggerPredicate = (getState: () => any, action: any) => boolean;
+
+  export type StateToString = (state: any) => string;
+  export type ActionToString = (action: any) => string;
+  export type ErrorToString = (error: any, prevState: any) => string;
+
+  export interface ColorsObject {
+    title?: boolean | ActionToString;
+    prevState?: boolean | StateToString;
+    action?: boolean | ActionToString;
+    nextState?: boolean | StateToString;
+    error?: boolean | ErrorToString;
+  }
+
+  export interface LevelObject {
+    prevState?: string | boolean | StateToString;
+    action?: string | boolean | ActionToString;
+    nextState?: string | boolean | StateToString;
+    error?: string | boolean | ErrorToString;
+  }
+
+  export interface ReduxLoggerOptions {
+    level?: string | ActionToString | LevelObject;
+    duration?: boolean;
+    timestamp?: boolean;
+    colors?: ColorsObject;
+    logger?: any;
+    logErrors?: boolean;
+    collapsed?: boolean | LoggerPredicate;
+    predicate?: LoggerPredicate;
+    stateTransformer?: (state: any) => any;
+    actionTransformer?: (action: any) => any;
+    errorTransformer?: (error: any) => any;
+    diff?: boolean;
+    diffPredicate?: LoggerPredicate;
+  }
+}
+declare function createLogger(options?: createLogger.ReduxLoggerOptions): Redux.Middleware;
 export = createLogger;
