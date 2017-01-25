@@ -230,8 +230,8 @@ declare namespace React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         C &
-        (new () => T) &
-        (new () => { props: P });
+        (new (props?: P, context?: any) => T) &
+        (new (props?: P, context?: any) => { props: P });
 
     //
     // Component Specs and Lifecycle
