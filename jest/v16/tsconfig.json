@@ -14,7 +14,7 @@
         ],
         "paths": {
           "jest": ["jest/v16"],
-          "jest/*": ["jest/v16"]
+          "jest/*": ["jest/v16/*"]
         },
         "types": [],
         "noEmit": true,
