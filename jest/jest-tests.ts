@@ -434,12 +434,16 @@ class TestApi {
 
 declare function mockedFunc(a: number): string;
 
+declare function mockedFuncWithApi(api: TestApi): void;
+
 describe('Mocked type', function () {
     it('Works', function () {
         const mock: jest.Mocked<TestApi> = new TestApi() as any;
         mock.testProp;
         mock.testMethod.mockImplementation(() => 'test');
         mock.testMethod(5).toUpperCase();
+
+        mockedFuncWithApi(mock);
     });
 });
 

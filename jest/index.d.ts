@@ -32,7 +32,9 @@ declare namespace jest {
     function autoMockOff(): typeof jest;
     /** Enables automatic mocking in the module loader. */
     function autoMockOn(): typeof jest;
-    /** @deprecated */
+    /**
+     * @deprecated use resetAllMocks instead
+     */
     function clearAllMocks(): typeof jest;
     /** Clears the mock.calls and mock.instances properties of all mocks. Equivalent to calling .mockClear() on every mocked function. */
     function resetAllMocks(): typeof jest;
@@ -124,7 +126,7 @@ declare namespace jest {
             ensureExpectedIsNumber(actual: any, matcherName?: string): void;
             ensureNoExpected(actual: any, matcherName?: string): void;
             ensureNumbers(actual: any, expected: any, matcherName?: string): void;
-            /** get the type of a value with handling the edge cases like `typeof []` and `typeof null` */
+            /** get the type of a value with handling of edge cases like `typeof []` and `typeof null` */
             getType(value: any): string;
             matcherHint(matcherName: string, received?: string, expected?: string, options?: { secondArgument?: string, isDirectExpectCall?: boolean }): string;
             pluralize(word: string, count: number): string;
@@ -142,7 +144,7 @@ declare namespace jest {
     interface Expect {
         (actual: any): Matchers;
         anything(): void;
-        any(cs: any): void;
+        any(classType: any): void;
         arrayContaining(arr: any[]): void;
         assertions(num: number): void;
         extend(obj: ExpectExtendMap): void;
@@ -202,7 +204,7 @@ declare namespace jest {
      *  const myApi: jest.Mocked<Api> = new Api() as any;
      *  myApi.myApiMethod.mockImplementation(() => "test");
      */
-    type Mocked<T> = T & {
+    type Mocked<T> = {
         [P in keyof T]: T[P] & MockInstance<T>;
     };
 
