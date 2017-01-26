@@ -5,8 +5,6 @@
 
 /// <reference types="jquery" />
 
-// tslint:disable:unified-signatures
-
 interface JQuery {
     // TODO: Do all modules have a 'setting' behavior?
 
