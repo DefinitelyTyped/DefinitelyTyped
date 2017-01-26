@@ -132,7 +132,7 @@ export function createClient(connectionString: string, options?: Partial<Option>
 export const CreateMode: {
     PERSISTENT: number,
     PERSISTENT_SEQUENTIAL: number,
-    EPHEMERA: number,
+    EPHEMERAL: number,
     EPHEMERAL_SEQUENTIAL: number,
 };
 
