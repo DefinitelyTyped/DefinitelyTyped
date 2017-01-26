@@ -109,6 +109,7 @@ declare namespace Sinon {
         callsArgOnAsync(index: number, context: any): SinonStub;
         callsArgWithAsync(index: number, ...args: any[]): SinonStub;
         callsArgOnWithAsync(index: number, context: any, ...args: any[]): SinonStub;
+        callsFake(func: any): SinonStub;
         onCall(n: number): SinonStub;
         onFirstCall(): SinonStub;
         onSecondCall(): SinonStub;
