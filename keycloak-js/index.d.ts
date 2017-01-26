@@ -1,4 +1,4 @@
-// Type definitions for keycloak-js 2.4
+// Type definitions for keycloak-js 2.5
 // Project: https://github.com/keycloak/keycloak
 // Definitions by: Brett Epps <https://github.com/eppsilon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
