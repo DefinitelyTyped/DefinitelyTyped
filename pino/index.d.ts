@@ -10,9 +10,18 @@ import stream = require('stream');
 declare function P(optionsOrStream?: P.LoggerOptions | stream.Writable | stream.Duplex | stream.Transform): P.Logger;
 declare function P(options: P.LoggerOptions, stream: stream.Writable | stream.Duplex | stream.Transform): P.Logger;
 
+interface IPinoLog {
+    pid: number
+    hostname: string
+    level: number
+    time: string
+    msg: string
+    v: number
+}
+
 declare namespace P {
 
-    function pretty(opts?: {timeTransOnly?: boolean, levelFirst?: boolean, formatter?: (str: string) => void}): stream.Transform;
+    function pretty(opts?: {timeTransOnly?: boolean, levelFirst?: boolean, formatter?: (log: IPinoLog) => string}): stream.Transform;
 
     type Level = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent';
     interface Headers {
