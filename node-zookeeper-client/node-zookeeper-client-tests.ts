@@ -1,8 +1,8 @@
 import * as zookeeper from "node-zookeeper-client";
 
 {
-    var client = zookeeper.createClient('localhost:2181');
-    var path = process.argv[2];
+    const client = zookeeper.createClient('localhost:2181');
+    const path = process.argv[2];
 
     client.once('connected', function () {
         console.log('Connected to the server.');
@@ -44,8 +44,8 @@ function listChildren(client: zookeeper.Client, path: string) {
 }
 
 {
-    var client = zookeeper.createClient('localhost:2181');
-    var path = process.argv[2];
+    const client = zookeeper.createClient('localhost:2181');
+    const path = process.argv[2];
 
     client.once('connected', function () {
         console.log('Connected to ZooKeeper.');
@@ -55,7 +55,7 @@ function listChildren(client: zookeeper.Client, path: string) {
     client.connect();
 }
 
-var client = zookeeper.createClient(
+const client = zookeeper.createClient(
     'localhost:2181/test',
     { sessionTimeout: 10000 }
 );
@@ -188,12 +188,12 @@ var client = zookeeper.createClient(
 }
 
 {
-    var state = client.getState();
+    const state = client.getState();
     console.log('Current state is: %s', state);
 }
 
 {
-    var id = client.getSessionId();
+    const id = client.getSessionId();
     console.log('Session id is: %s', id.toString('hex'));
 }
 
