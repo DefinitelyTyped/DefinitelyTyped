@@ -36,6 +36,7 @@ interface StripeTokenData {
 interface StripeTokenResponse {
     id: string;
     card: StripeCardData;
+    client_ip: string;
     created: number;
     livemode: boolean;
     object: string;
