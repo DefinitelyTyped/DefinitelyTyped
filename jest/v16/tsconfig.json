@@ -8,10 +8,14 @@
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+          "jest": ["jest/v16"],
+          "jest/*": ["jest/v16"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
