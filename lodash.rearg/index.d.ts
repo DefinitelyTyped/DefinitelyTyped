@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { rearg } from "lodash";
+declare namespace rearg { }
 export = rearg;

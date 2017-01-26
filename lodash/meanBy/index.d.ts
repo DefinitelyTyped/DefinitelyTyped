@@ -1,3 +1,3 @@
-import * as _ from "../index";
-declare const meanBy: typeof _.meanBy;
+import { meanBy } from "../index";
+declare namespace meanBy { }
 export = meanBy;

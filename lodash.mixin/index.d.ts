@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { mixin } from "lodash";
+declare namespace mixin { }
 export = mixin;

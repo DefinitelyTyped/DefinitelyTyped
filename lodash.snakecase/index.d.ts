@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { snakeCase } from "lodash";
+declare namespace snakeCase { }
 export = snakeCase;

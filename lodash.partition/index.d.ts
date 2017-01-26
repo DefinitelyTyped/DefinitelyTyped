@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { partition } from "lodash";
+declare namespace partition { }
 export = partition;

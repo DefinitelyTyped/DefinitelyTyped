@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { castArray } from "lodash";
+declare namespace castArray { }
 export = castArray;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { bindKey } from "lodash";
+declare namespace bindKey { }
 export = bindKey;

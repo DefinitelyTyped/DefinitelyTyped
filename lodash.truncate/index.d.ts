@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { truncate } from "lodash";
+declare namespace truncate { }
 export = truncate;

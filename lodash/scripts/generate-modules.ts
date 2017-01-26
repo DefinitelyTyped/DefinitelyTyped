@@ -8,7 +8,7 @@ for (const module of allModuleNames()) {
     if (!fs.existsSync(module)) {
         fs.mkdirSync(module);
     }
-    fs.writeFileSync(`${module}/index.d.ts`, `import { ${module} } from "../index";\nexport = ${module};`);
+    fs.writeFileSync(`${module}/index.d.ts`, `import { ${module} } from "../index";\ndeclare namespace ${module} { }\nexport = ${module};`);
 }
 
 function allModuleNames() {

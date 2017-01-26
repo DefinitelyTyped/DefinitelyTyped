@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { toPath } from "lodash";
+declare namespace toPath { }
 export = toPath;

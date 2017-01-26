@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { ceil } from "lodash";
+declare namespace ceil { }
 export = ceil;

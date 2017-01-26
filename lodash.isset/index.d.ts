@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isSet } from "lodash";
+declare namespace isSet { }
 export = isSet;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { spread } from "lodash";
+declare namespace spread { }
 export = spread;

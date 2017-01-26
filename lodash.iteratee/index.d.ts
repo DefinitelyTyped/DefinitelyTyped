@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { iteratee } from "lodash";
+declare namespace iteratee { }
 export = iteratee;

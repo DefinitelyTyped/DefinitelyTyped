@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { flatMap } from "lodash";
+declare namespace flatMap { }
 export = flatMap;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isWeakSet } from "lodash";
+declare namespace isWeakSet { }
 export = isWeakSet;

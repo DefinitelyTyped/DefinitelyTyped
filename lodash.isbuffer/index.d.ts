@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isBuffer } from "lodash";
+declare namespace isBuffer { }
 export = isBuffer;

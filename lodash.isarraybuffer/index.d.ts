@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isArrayBuffer } from "lodash";
+declare namespace isArrayBuffer { }
 export = isArrayBuffer;

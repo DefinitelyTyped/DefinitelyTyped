@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { mergeWith } from "lodash";
+declare namespace mergeWith { }
 export = mergeWith;

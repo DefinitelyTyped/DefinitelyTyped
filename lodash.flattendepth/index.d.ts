@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { flattenDepth } from "lodash";
+declare namespace flattenDepth { }
 export = flattenDepth;

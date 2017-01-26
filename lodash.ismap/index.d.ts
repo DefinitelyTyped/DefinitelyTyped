@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isMap } from "lodash";
+declare namespace isMap { }
 export = isMap;

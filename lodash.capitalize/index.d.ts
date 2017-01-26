@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { capitalize } from "lodash";
+declare namespace capitalize { }
 export = capitalize;

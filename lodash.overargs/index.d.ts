@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { overArgs } from "lodash";
+declare namespace overArgs { }
 export = overArgs;

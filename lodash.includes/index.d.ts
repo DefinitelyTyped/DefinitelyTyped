@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { includes } from "lodash";
+declare namespace includes { }
 export = includes;

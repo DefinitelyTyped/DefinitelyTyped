@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { lowerFirst } from "lodash";
+declare namespace lowerFirst { }
 export = lowerFirst;

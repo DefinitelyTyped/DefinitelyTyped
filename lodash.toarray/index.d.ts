@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { toArray } from "lodash";
+declare namespace toArray { }
 export = toArray;

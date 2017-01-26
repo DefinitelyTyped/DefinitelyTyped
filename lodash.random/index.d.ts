@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { random } from "lodash";
+declare namespace random { }
 export = random;

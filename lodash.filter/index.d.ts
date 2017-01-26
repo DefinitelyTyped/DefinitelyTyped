@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { filter } from "lodash";
+declare namespace filter { }
 export = filter;

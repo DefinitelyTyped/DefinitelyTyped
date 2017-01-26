@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { methodOf } from "lodash";
+declare namespace methodOf { }
 export = methodOf;

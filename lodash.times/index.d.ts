@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { times } from "lodash";
+declare namespace times { }
 export = times;

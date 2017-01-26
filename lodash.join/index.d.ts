@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { join } from "lodash";
+declare namespace join { }
 export = join;

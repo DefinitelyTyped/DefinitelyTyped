@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { toSafeInteger } from "lodash";
+declare namespace toSafeInteger { }
 export = toSafeInteger;

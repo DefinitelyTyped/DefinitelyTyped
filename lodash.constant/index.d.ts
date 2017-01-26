@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { constant } from "lodash";
+declare namespace constant { }
 export = constant;

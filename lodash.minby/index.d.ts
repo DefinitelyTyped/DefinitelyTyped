@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { minBy } from "lodash";
+declare namespace minBy { }
 export = minBy;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { startCase } from "lodash";
+declare namespace startCase { }
 export = startCase;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { takeWhile } from "lodash";
+declare namespace takeWhile { }
 export = takeWhile;

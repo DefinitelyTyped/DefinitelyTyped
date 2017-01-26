@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isNil } from "lodash";
+declare namespace isNil { }
 export = isNil;

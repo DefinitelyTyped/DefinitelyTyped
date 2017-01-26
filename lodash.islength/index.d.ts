@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isLength } from "lodash";
+declare namespace isLength { }
 export = isLength;

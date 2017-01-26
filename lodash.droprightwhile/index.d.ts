@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { dropRightWhile } from "lodash";
+declare namespace dropRightWhile { }
 export = dropRightWhile;

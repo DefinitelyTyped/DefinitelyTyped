@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { escapeRegExp } from "lodash";
+declare namespace escapeRegExp { }
 export = escapeRegExp;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { throttle } from "lodash";
+declare namespace throttle { }
 export = throttle;

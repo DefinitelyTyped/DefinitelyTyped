@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isRegExp } from "lodash";
+declare namespace isRegExp { }
 export = isRegExp;

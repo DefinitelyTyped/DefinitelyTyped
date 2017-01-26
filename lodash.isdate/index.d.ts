@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isDate } from "lodash";
+declare namespace isDate { }
 export = isDate;

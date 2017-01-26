@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { max } from "lodash";
+declare namespace max { }
 export = max;

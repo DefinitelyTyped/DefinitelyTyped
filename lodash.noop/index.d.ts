@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { noop } from "lodash";
+declare namespace noop { }
 export = noop;

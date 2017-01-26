@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { flow } from "lodash";
+declare namespace flow { }
 export = flow;

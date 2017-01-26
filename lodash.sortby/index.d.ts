@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { sortBy } from "lodash";
+declare namespace sortBy { }
 export = sortBy;

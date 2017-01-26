@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { shuffle } from "lodash";
+declare namespace shuffle { }
 export = shuffle;

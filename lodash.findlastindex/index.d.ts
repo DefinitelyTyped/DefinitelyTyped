@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { findLastIndex } from "lodash";
+declare namespace findLastIndex { }
 export = findLastIndex;

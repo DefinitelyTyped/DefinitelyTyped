@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isEmpty } from "lodash";
+declare namespace isEmpty { }
 export = isEmpty;

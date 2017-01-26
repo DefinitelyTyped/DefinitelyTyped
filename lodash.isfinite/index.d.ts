@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isFinite } from "lodash";
+declare namespace isFinite { }
 export = isFinite;

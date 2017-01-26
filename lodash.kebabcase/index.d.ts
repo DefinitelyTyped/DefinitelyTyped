@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { kebabCase } from "lodash";
+declare namespace kebabCase { }
 export = kebabCase;

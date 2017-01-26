@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { unset } from "lodash";
+declare namespace unset { }
 export = unset;

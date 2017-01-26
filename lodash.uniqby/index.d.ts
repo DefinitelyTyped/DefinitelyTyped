@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { uniqBy } from "lodash";
+declare namespace uniqBy { }
 export = uniqBy;

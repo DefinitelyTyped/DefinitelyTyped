@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { reject } from "lodash";
+declare namespace reject { }
 export = reject;
