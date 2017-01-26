@@ -15,8 +15,8 @@
     },
     "files": [
         "index.d.ts",
-        "adal-tests.ts",
         "adal-angular.d.ts",
-        "adal-angular-tests.ts"
+        "test/index.ts",
+        "test/angular.ts"
     ]
 }

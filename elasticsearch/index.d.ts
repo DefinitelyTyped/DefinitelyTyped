@@ -195,7 +195,7 @@ declare module Elasticsearch {
         version?: number;
         versionType?: VersionType;
         pipeline?: string;
-        id: string;
+        id?: string;
         index: string;
         type: string;
     }

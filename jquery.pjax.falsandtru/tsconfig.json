@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "jquery.pjax-tests.ts"
+        "jquery.pjax.falsandtru-tests.ts"
     ]
 }

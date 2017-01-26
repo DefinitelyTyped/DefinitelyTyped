@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "i18n-node-tests.ts"
+        "i18n-tests.ts"
     ]
 }
