@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { clamp } from "lodash";
+declare namespace clamp { }
 export = clamp;

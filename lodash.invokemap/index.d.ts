@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { invokeMap } from "lodash";
+declare namespace invokeMap { }
 export = invokeMap;

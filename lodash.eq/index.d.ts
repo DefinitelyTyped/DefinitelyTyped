@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { eq } from "lodash";
+declare namespace eq { }
 export = eq;

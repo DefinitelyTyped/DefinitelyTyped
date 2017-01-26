@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { negate } from "lodash";
+declare namespace negate { }
 export = negate;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { delay } from "lodash";
+declare namespace delay { }
 export = delay;

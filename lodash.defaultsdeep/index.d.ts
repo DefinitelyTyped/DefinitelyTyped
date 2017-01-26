@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { defaultsDeep } from "lodash";
+declare namespace defaultsDeep { }
 export = defaultsDeep;

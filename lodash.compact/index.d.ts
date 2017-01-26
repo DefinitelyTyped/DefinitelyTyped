@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { compact } from "lodash";
+declare namespace compact { }
 export = compact;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isWeakMap } from "lodash";
+declare namespace isWeakMap { }
 export = isWeakMap;

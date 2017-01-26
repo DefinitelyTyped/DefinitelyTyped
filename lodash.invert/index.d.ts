@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { invert } from "lodash";
+declare namespace invert { }
 export = invert;

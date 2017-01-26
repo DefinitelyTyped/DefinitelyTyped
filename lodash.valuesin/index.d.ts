@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { valuesIn } from "lodash";
+declare namespace valuesIn { }
 export = valuesIn;

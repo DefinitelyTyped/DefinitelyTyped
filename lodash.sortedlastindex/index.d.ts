@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { sortedLastIndex } from "lodash";
+declare namespace sortedLastIndex { }
 export = sortedLastIndex;

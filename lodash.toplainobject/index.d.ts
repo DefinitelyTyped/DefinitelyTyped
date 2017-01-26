@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { toPlainObject } from "lodash";
+declare namespace toPlainObject { }
 export = toPlainObject;

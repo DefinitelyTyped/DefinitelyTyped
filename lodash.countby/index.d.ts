@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { countBy } from "lodash";
+declare namespace countBy { }
 export = countBy;

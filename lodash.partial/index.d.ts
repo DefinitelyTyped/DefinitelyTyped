@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { partial } from "lodash";
+declare namespace partial { }
 export = partial;

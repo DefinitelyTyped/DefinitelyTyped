@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isUndefined } from "lodash";
+declare namespace isUndefined { }
 export = isUndefined;

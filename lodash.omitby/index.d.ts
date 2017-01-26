@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { omitBy } from "lodash";
+declare namespace omitBy { }
 export = omitBy;

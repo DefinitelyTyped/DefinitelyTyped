@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { debounce } from "lodash";
+declare namespace debounce { }
 export = debounce;

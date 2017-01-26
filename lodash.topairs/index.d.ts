@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { toPairs } from "lodash";
+declare namespace toPairs { }
 export = toPairs;

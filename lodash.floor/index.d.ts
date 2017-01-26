@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { floor } from "lodash";
+declare namespace floor { }
 export = floor;

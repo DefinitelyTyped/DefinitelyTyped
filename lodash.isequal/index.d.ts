@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isEqual } from "lodash";
+declare namespace isEqual { }
 export = isEqual;

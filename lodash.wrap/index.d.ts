@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { wrap } from "lodash";
+declare namespace wrap { }
 export = wrap;

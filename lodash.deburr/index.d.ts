@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { deburr } from "lodash";
+declare namespace deburr { }
 export = deburr;

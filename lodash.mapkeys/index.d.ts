@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { mapKeys } from "lodash";
+declare namespace mapKeys { }
 export = mapKeys;

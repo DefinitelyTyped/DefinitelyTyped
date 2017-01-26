@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { zipObject } from "lodash";
+declare namespace zipObject { }
 export = zipObject;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { intersectionWith } from "lodash";
+declare namespace intersectionWith { }
 export = intersectionWith;

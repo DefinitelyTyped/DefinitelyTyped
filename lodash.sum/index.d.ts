@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { sum } from "lodash";
+declare namespace sum { }
 export = sum;

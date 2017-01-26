@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { toUpper } from "lodash";
+declare namespace toUpper { }
 export = toUpper;

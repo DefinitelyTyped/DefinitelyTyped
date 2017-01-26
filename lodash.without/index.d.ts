@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { without } from "lodash";
+declare namespace without { }
 export = without;

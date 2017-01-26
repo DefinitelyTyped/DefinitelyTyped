@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { round } from "lodash";
+declare namespace round { }
 export = round;

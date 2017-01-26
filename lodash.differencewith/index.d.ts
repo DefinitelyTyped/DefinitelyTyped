@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { differenceWith } from "lodash";
+declare namespace differenceWith { }
 export = differenceWith;

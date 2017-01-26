@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { startsWith } from "lodash";
+declare namespace startsWith { }
 export = startsWith;

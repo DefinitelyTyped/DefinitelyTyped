@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isNumber } from "lodash";
+declare namespace isNumber { }
 export = isNumber;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { lowerCase } from "lodash";
+declare namespace lowerCase { }
 export = lowerCase;

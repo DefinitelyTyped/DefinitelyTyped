@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { toNumber } from "lodash";
+declare namespace toNumber { }
 export = toNumber;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isObject } from "lodash";
+declare namespace isObject { }
 export = isObject;

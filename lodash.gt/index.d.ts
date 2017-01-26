@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { gt } from "lodash";
+declare namespace gt { }
 export = gt;

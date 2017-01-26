@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { padStart } from "lodash";
+declare namespace padStart { }
 export = padStart;

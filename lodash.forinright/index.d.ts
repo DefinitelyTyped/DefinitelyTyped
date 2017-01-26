@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { forInRight } from "lodash";
+declare namespace forInRight { }
 export = forInRight;

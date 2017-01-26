@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { every } from "lodash";
+declare namespace every { }
 export = every;

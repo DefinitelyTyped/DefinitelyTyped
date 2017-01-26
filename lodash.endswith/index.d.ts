@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { endsWith } from "lodash";
+declare namespace endsWith { }
 export = endsWith;

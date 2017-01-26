@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { camelCase } from "lodash";
+declare namespace camelCase { }
 export = camelCase;

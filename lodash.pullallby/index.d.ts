@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { pullAllBy } from "lodash";
+declare namespace pullAllBy { }
 export = pullAllBy;

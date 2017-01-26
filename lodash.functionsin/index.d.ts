@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { functionsIn } from "lodash";
+declare namespace functionsIn { }
 export = functionsIn;

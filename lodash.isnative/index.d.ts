@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isNative } from "lodash";
+declare namespace isNative { }
 export = isNative;

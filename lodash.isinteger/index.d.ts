@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isInteger } from "lodash";
+declare namespace isInteger { }
 export = isInteger;

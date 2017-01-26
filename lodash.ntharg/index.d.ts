@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { nthArg } from "lodash";
+declare namespace nthArg { }
 export = nthArg;

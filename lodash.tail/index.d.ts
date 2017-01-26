@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { tail } from "lodash";
+declare namespace tail { }
 export = tail;

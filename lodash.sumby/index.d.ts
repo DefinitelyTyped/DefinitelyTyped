@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { sumBy } from "lodash";
+declare namespace sumBy { }
 export = sumBy;

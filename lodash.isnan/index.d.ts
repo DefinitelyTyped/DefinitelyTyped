@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isNaN } from "lodash";
+declare namespace isNaN { }
 export = isNaN;

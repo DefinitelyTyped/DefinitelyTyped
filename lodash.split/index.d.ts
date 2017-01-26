@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { split } from "lodash";
+declare namespace split { }
 export = split;

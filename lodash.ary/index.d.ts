@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { ary } from "lodash";
+declare namespace ary { }
 export = ary;

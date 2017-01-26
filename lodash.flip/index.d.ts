@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { flip } from "lodash";
+declare namespace flip { }
 export = flip;

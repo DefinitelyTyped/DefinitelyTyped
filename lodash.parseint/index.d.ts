@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { parseInt } from "lodash";
+declare namespace parseInt { }
 export = parseInt;

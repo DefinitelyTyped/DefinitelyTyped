@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { flowRight } from "lodash";
+declare namespace flowRight { }
 export = flowRight;

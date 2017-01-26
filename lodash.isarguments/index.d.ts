@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isArguments } from "lodash";
+declare namespace isArguments { }
 export = isArguments;

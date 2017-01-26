@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { rangeRight } from "lodash";
+declare namespace rangeRight { }
 export = rangeRight;

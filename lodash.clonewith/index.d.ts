@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { cloneWith } from "lodash";
+declare namespace cloneWith { }
 export = cloneWith;

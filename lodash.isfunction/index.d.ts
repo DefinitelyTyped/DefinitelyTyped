@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isFunction } from "lodash";
+declare namespace isFunction { }
 export = isFunction;

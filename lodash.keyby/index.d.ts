@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { keyBy } from "lodash";
+declare namespace keyBy { }
 export = keyBy;

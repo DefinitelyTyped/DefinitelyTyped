@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { unzip } from "lodash";
+declare namespace unzip { }
 export = unzip;

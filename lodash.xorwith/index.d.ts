@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { xorWith } from "lodash";
+declare namespace xorWith { }
 export = xorWith;

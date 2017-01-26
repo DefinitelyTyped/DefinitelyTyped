@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { concat } from "lodash";
+declare namespace concat { }
 export = concat;

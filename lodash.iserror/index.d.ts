@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isError } from "lodash";
+declare namespace isError { }
 export = isError;

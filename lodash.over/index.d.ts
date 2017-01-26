@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { over } from "lodash";
+declare namespace over { }
 export = over;

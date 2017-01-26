@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { unary } from "lodash";
+declare namespace unary { }
 export = unary;

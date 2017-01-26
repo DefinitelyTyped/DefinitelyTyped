@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isTypedArray } from "lodash";
+declare namespace isTypedArray { }
 export = isTypedArray;

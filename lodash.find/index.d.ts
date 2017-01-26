@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { find } from "lodash";
+declare namespace find { }
 export = find;

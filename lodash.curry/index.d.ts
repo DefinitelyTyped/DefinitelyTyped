@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { curry } from "lodash";
+declare namespace curry { }
 export = curry;

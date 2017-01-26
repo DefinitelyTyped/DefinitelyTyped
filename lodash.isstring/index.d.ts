@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isString } from "lodash";
+declare namespace isString { }
 export = isString;

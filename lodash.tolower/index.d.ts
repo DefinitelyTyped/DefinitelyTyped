@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { toLower } from "lodash";
+declare namespace toLower { }
 export = toLower;

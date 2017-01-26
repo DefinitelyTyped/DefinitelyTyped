@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { invoke } from "lodash";
+declare namespace invoke { }
 export = invoke;

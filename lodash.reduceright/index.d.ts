@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { reduceRight } from "lodash";
+declare namespace reduceRight { }
 export = reduceRight;

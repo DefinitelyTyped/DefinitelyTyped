@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { trimStart } from "lodash";
+declare namespace trimStart { }
 export = trimStart;

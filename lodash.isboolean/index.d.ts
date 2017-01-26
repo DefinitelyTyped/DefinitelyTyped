@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isBoolean } from "lodash";
+declare namespace isBoolean { }
 export = isBoolean;

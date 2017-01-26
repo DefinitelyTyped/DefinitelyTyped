@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { memoize } from "lodash";
+declare namespace memoize { }
 export = memoize;

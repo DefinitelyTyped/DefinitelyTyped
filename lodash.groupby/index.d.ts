@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { groupBy } from "lodash";
+declare namespace groupBy { }
 export = groupBy;

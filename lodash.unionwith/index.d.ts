@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { unionWith } from "lodash";
+declare namespace unionWith { }
 export = unionWith;

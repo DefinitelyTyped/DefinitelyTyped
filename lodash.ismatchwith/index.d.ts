@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { isMatchWith } from "lodash";
+declare namespace isMatchWith { }
 export = isMatchWith;

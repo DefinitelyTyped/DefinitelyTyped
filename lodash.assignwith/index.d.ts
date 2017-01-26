@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { assignWith } from "lodash";
+declare namespace assignWith { }
 export = assignWith;

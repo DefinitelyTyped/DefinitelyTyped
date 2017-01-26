@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { pullAt } from "lodash";
+declare namespace pullAt { }
 export = pullAt;

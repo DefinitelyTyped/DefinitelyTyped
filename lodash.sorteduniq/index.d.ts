@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { sortedUniq } from "lodash";
+declare namespace sortedUniq { }
 export = sortedUniq;

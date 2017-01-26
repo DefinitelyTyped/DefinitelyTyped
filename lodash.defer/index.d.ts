@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { defer } from "lodash";
+declare namespace defer { }
 export = defer;
