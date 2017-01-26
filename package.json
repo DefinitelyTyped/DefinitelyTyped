@@ -22,6 +22,6 @@
     "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed --nProcesses 1"
   },
   "devDependencies": {
-    "": "Microsoft/types-publisher#production"
+    "types-publisher": "Microsoft/types-publisher#production"
   }
 }
