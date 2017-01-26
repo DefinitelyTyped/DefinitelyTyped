@@ -1,6 +1,6 @@
-// Type definitions for Pixi.js v4.3.0
-// Project: https://github.com/pixijs/pixi.js/
-// Definitions by: Clark Stevenson <https://github.com/clark-stevenson>
+// Type definitions for Pixi.js 4.3.4
+// Project: https://github.com/pixijs/pixi.js/tree/dev
+// Definitions by: clark-stevenson <https://github.com/pixijs/pixi-typescript>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module PIXI {
@@ -192,6 +192,31 @@ declare module PIXI {
 
     // display
 
+    export interface IApplicationOptions {
+
+        view?: HTMLCanvasElement;
+        transparent?: boolean;
+        antialias?: boolean;
+        preserveDrawingBuffer?: boolean;
+        resolution?: number;
+    }
+
+    export class Application {
+
+        constructor(width?: number, height?: number, options?: IApplicationOptions, noWebGL?: boolean);
+
+        renderer: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
+        stage: Container;
+        ticker: ticker.Ticker;
+
+        stop(): void;
+        start(): void;
+        render(): void;
+        destroy(removeView?: boolean): void;
+        readonly view: HTMLCanvasElement;
+
+    }
+
     export interface IDestroyOptions {
         children?: boolean;
         texture?: boolean;
@@ -313,7 +338,7 @@ declare module PIXI {
         protected _lastBoundsID: number;
         protected _boundsRect: Rectangle;
         protected _localBoundsRect: Rectangle;
-        protected _mask: Rectangle;
+        protected _mask: PIXI.Graphics | PIXI.Sprite;
         x: number;
         y: number;
         worldTransform: Matrix;
@@ -723,7 +748,7 @@ declare module PIXI {
         contains(x: number, y: number): boolean;
         pad(paddingX: number, paddingY: number): void;
         fit(rectangle: Rectangle): void;
-        enlarge(rect: Rectangle): void;
+        enlarge(rectangle: Rectangle): void;
 
     }
     export class RoundedRectangle {
@@ -810,6 +835,7 @@ declare module PIXI {
         setBlendMode(blendMode: number): void;
         destroy(removeView?: boolean): void;
         resize(w: number, h: number): void;
+        clear(clearColor?: string): void;
 
         on(event: "prerender", fn: () => void, context?: any): utils.EventEmitter;
         on(event: "postrender", fn: () => void, context?: any): utils.EventEmitter;
@@ -1189,6 +1215,8 @@ declare module PIXI {
         protected _anchor: ObservablePoint;
         anchor: ObservablePoint;
         protected _texture: Texture;
+        protected _transformTrimmedID: number;
+        protected _textureTrimmedID: number;
         protected _width: number;
         protected _height: number;
         tint: number;
@@ -1283,7 +1311,7 @@ declare module PIXI {
     }
 
     // text
-    export interface TextStyleOptions {
+    export interface ITextStyleStyle {
         align?: string;
         breakWords?: boolean;
         dropShadow?: boolean;
@@ -1293,7 +1321,7 @@ declare module PIXI {
         dropShadowDistance?: number;
         fill?: string | string[] | number | number[] | CanvasGradient | CanvasPattern;
         fillGradientType?: number;
-        fontFamily?: string;
+        fontFamily?: string | string[];
         fontSize?: number | string;
         fontStyle?: string;
         fontVariant?: string;
@@ -1311,7 +1339,7 @@ declare module PIXI {
         wordWrapWidth?: number;
     }
 
-    export class TextStyle implements TextStyleOptions {
+    export class TextStyle implements ITextStyleStyle {
         align: string;
         breakWords: boolean;
         dropShadow: boolean;
@@ -1321,7 +1349,7 @@ declare module PIXI {
         dropShadowDistance: number;
         fill: string | string[] | number | number[] | CanvasGradient | CanvasPattern;
         fillGradientType: number;
-        fontFamily: string;
+        fontFamily: string | string[];
         fontSize: number | string;
         fontStyle: string;
         fontVariant: string;
@@ -1337,17 +1365,17 @@ declare module PIXI {
         textBaseline: string;
         wordWrap: boolean;
         wordWrapWidth: number;
-        constructor(style?: TextStyleOptions);
+        constructor(style?: ITextStyleStyle);
         public clone(): TextStyle;
         public reset(): void;
     }
 
     export class Text extends Sprite {
 
-        static getFontStyle(style: TextStyleOptions): string;
+        static getFontStyle(style: ITextStyleStyle): string;
         static calculateFontProperties(style: string): any;
 
-        constructor(text?: string, style?: TextStyleOptions);
+        constructor(text?: string, style?: ITextStyleStyle, canvas?: HTMLCanvasElement);
 
         canvas: HTMLCanvasElement;
         context: CanvasRenderingContext2D;
@@ -1661,6 +1689,8 @@ declare module PIXI {
 
             constructor(text: string, style?: IBitmapTextStyle);
 
+            protected _textWidth: number;
+            protected _textHeight: number;
             textWidth: number;
             textHeight: number;
             protected _glyphs: Sprite[];
@@ -1691,8 +1721,9 @@ declare module PIXI {
         }
         export class AnimatedSprite extends Sprite {
 
-            constructor(textures: Texture[] | { texture: Texture, time?: number }[]);
+            constructor(textures: Texture[] | { texture: Texture, time?: number }[], autoUpdate?: boolean);
 
+            protected _autoUpdate: boolean;
             protected _textures: Texture[];
             protected _durations: number[];
             textures: Texture[] | { texture: Texture, time?: number }[];
@@ -1742,6 +1773,7 @@ declare module PIXI {
             protected _height: number;
             protected _canvasPattern: CanvasPattern;
             uvTransform: TextureTransform;
+            uvRespectAnchor: boolean;
 
             clampMargin: number;
             tileScale: Point | ObservablePoint;
@@ -1997,9 +2029,44 @@ declare module PIXI {
     //////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////LOADER/////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////
-    // extends
+
+    // pixi loader extends 
     // https://github.com/englercj/resource-loader/
-    // 1.6.4
+    // 2.0.4
+
+    class MiniSignalBinding {
+
+        constructor(fn: Function, once?: boolean, thisArg?: any);
+
+        protected _fn: Function;
+        protected _once: boolean;
+        protected _thisArg: any;
+        protected _next: MiniSignalBinding;
+        protected _prev: MiniSignalBinding;
+        protected _owner: MiniSignal;
+
+        detach(): boolean;
+
+    }
+    class MiniSignal {
+
+        constructor();
+
+        protected _head: MiniSignalBinding;
+        protected _tail: MiniSignalBinding;
+
+        handlers(exists?: boolean): MiniSignalBinding[] | boolean;
+        handlers(exists?: true): boolean;
+        handlers(exists?: false): MiniSignalBinding[];
+
+        has(node: MiniSignalBinding): boolean;
+        dispatch(): boolean;
+        add(fn: Function, thisArg?: any): void;
+        once(fn: Function, thisArg?: any): void;
+        detach(node: MiniSignalBinding): MiniSignal;
+        detachAll(): MiniSignal;
+
+    }
 
     export module loaders {
 
@@ -2009,6 +2076,8 @@ declare module PIXI {
             loadType?: number;
             xhrType?: string;
             metaData?: any;
+            loadElement?: HTMLImageElement | HTMLAudioElement | HTMLVideoElement;
+            skipSource?: boolean;
 
         }
         export interface IResourceDictionary {
@@ -2016,22 +2085,63 @@ declare module PIXI {
             [index: string]: PIXI.loaders.Resource;
 
         }
+
+        // As of ResourceLoader v2 we no longer require EventEmitter
+        // However, for depreciation reasons, it remains. 
         export class Loader extends utils.EventEmitter {
 
-            protected static _pixiMiddleware: Function[];
+            // pixi overrides here
             static addPixiMiddleware(fn: Function): void;
+
+            // below this line is the original non-pixi loader
+
+            static Resource: any;
+            static async: any;
+            static base64: any;
 
             constructor(baseUrl?: string, concurrency?: number);
 
             baseUrl: string;
             progress: number;
             loading: boolean;
+            defaultQueryString: string;
+
+            protected _beforeMiddleware: Function[];
+            protected _afterMiddleware: Function[];
+            protected _resourcesParsing: Resource[];
+            protected _boundLoadResource: (r: Resource, d: Function) => void;
+            protected _queue: any;
+
             resources: IResourceDictionary;
 
-            add(name: string, url: string, options?: ILoaderOptions, cb?: () => void): Loader;
-            add(url: string, options?: ILoaderOptions, cb?: () => void): Loader;
-            // todo I am not sure of object literal notional (or its options) so just allowing any but would love to improve this
-            add(obj: any, options?: ILoaderOptions, cb?: () => void): Loader;
+            onProgress: MiniSignal;
+            onError: MiniSignal;
+            onLoad: MiniSignal;
+            onStart: MiniSignal;
+            onComplete: MiniSignal;
+
+            add(...params: any[]): this;
+            add(name: string, url: string, options?: ILoaderOptions, cb?: Function): this;
+            add(url: string, options?: ILoaderOptions, cb?: Function): this;
+            add(obj: any | any[], options?: ILoaderOptions, cb?: Function): this;
+
+            pre(fn: Function): this;
+            use(fn: Function): this;
+            reset(): this;
+            load(cb?: Function): this;
+
+            protected _prepareUrl(url: string): string;
+            protected _loadResource(resource: Resource, dequeue: Function): void;
+            protected _onComplete(): void;
+            protected _onLoad(resource: Resource): void;
+
+            // these are added for spine support
+
+            spineAtlas: any;
+            spineData: any;
+            textures: ITextureDictionary;
+
+            // depreciation 
 
             on(event: "complete", fn: (loader: loaders.Loader, object: any) => void, context?: any): utils.EventEmitter;
             on(event: "error", fn: (error: Error, loader: loaders.Loader, resource: Resource) => void, context?: any): utils.EventEmitter;
@@ -2047,36 +2157,95 @@ declare module PIXI {
             once(event: "start", fn: (loader: loaders.Loader) => void, context?: any): utils.EventEmitter;
             once(event: string, fn: Function, context?: any): utils.EventEmitter;
 
-            before(fn: Function): Loader;
-            pre(fn: Function): Loader;
-
-            after(fn: Function): Loader;
-            use(fn: Function): Loader;
-
-            reset(): void;
-
-            load(cb?: (loader: loaders.Loader, object: any) => void): Loader;
-
         }
         export interface ITextureDictionary {
             [index: string]: PIXI.Texture;
         }
+        export class Resource {
 
-        export class Resource extends utils.EventEmitter {
+            static setExtensionLoadType(extname: string, loadType: number): void;
+            static setExtensionXhrType(extname: string, xhrType: number): void;
+
+            constructor(name: string, url: string | string[], options?: ILoaderOptions);
+
+            protected _flags: number;
+
+            name: string;
+            url: string;
+            data: any;
+            crossOrigin: boolean | string;
+            loadType: number;
+            xhrType: string;
+            metadata: any;
+            error: Error;
+            xhr: XMLHttpRequest;
+            children: Resource[];
+            type: number;
+            progressChunk: number;
+
+            protected _dequeue: Function;
+            protected _onLoadBinding: Function;
+            protected _boundComplete: Function;
+            protected _boundOnError: Function;
+            protected _boundOnProgress: Function;
+            protected _boundXhrOnError: Function;
+            protected _boundXhrOnAbort: Function;
+            protected _boundXhrOnLoad: Function;
+            protected _boundXdrOnTimeout: Function;
+
+            onStart: MiniSignal;
+            onProgress: MiniSignal;
+            onComplete: MiniSignal;
+            onAfterMiddleware: MiniSignal;
+
+            isDataUrl: boolean;
+            isComplete: boolean;
+            isLoading: boolean;
+            complete(): void;
+            abort(message?: string): void;
+            load(cb?: Function): void;
+
+            protected _hasFlag(flag: number): boolean;
+            protected _setFlag(flag: number, value: boolean): void;
+            protected _loadElement(type: string): void;
+            protected _loadSourceElement(type: string): void;
+            protected _loadXhr(): void;
+            protected _loadXdr(): void;
+            protected _createSource(type: string, url: string, mime?: string): HTMLSourceElement;
+            protected _onError(event?: any): void;
+            protected _onProgress(event?: any): void;
+            protected _xhrOnError(): void;
+            protected _xhrOnAbort(): void;
+            protected _xdrOnTimeout(): void;
+            protected _xhrOnLoad(): void;
+            protected _determineCrossOrigin(url: string, loc: any): string;
+            protected _determineXhrType(): number;
+            protected _determineLoadType(): number;
+            protected _getExtension(): string;
+            protected _getMimeXhrType(type: number): string;
+
+            static STATUS_FLAGS: {
+                NONE: number;
+                DATA_URL: number;
+                COMPLETE: number;
+                LOADING: number;
+            };
+
+            static TYPE: {
+                UNKNOWN: number;
+                JSON: number;
+                XML: number;
+                IMAGE: number;
+                AUDIO: number;
+                VIDEO: number;
+                TEXT: number;
+            };
 
             static LOAD_TYPE: {
                 XHR: number;
                 IMAGE: number;
                 AUDIO: number;
                 VIDEO: number;
-            };
-
-            static XHR_READ_STATE: {
-                UNSENT: number;
-                OPENED: number;
-                HEADERS_RECIEVED: number;
-                LOADING: number;
-                DONE: number;
             };
 
             static XHR_RESPONSE_TYPE: {
@@ -2088,37 +2257,7 @@ declare module PIXI {
                 TEXT: number;
             };
 
-            constructor(name?: string, url?: string | string[], options?: ILoaderOptions);
-
-            protected _loadSourceElement(type: string): void;
-            isLoading: boolean;
-            isComplete: boolean;
-
-            isJson: boolean;
-            isXml: boolean;
-            isImage: boolean;
-            isAudio: boolean;
-            isVideo: boolean;
-
-            name: string;
-            texture: Texture;
-            textures: ITextureDictionary;
-            url: string;
-            data: any;
-            crossOrigin: boolean | string;
-            loadType: number;
-            xhrType: string;
-            error: Error;
-            xhr: XMLHttpRequest;
-            SVGMetadataElement: any;
-
-            metadata: any;
-            spineAtlas: any;
-            spineData: any;
-
-            complete(): void;
-            load(cb?: () => void): void;
-            abort(message: string): void;
+            static EMPTY_GIF: string;
 
         }
     }
@@ -2484,10 +2623,11 @@ declare module PIXI {
         }
         export class GLShader {
 
-            constructor(gl: WebGLRenderingContext, vertexSrc: string | string[], fragmentSrc: string | string[]);
+            constructor(gl: WebGLRenderingContext, vertexSrc: string | string[], fragmentSrc: string | string[], precision: string, attributeLocations: { [key: string]: number });
 
             gl: WebGLRenderingContext;
             program: WebGLProgram;
+            uniformData: any;
             uniforms: any;
             attributes: any;
 
@@ -2575,6 +2715,7 @@ declare module PIXI {
             clear(): VertexArrayObject;
             draw(type: number, size: number, start: number): VertexArrayObject;
             destroy(): void;
+            getSize(): number;
 
         }
 
