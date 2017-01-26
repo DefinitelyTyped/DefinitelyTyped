@@ -37,6 +37,7 @@ declare namespace archiver {
         directory(dirpath: string, destpath: nameInterface | string): void;
         directory(dirpath: string, destpath: nameInterface | string, data: any | Function): void;
 
+        file(source: string, name: nameInterface): void;
         bulk(mappings: any): void;
         finalize(): void;
     }
