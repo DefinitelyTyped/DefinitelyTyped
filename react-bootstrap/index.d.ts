@@ -528,6 +528,7 @@ declare namespace ReactBootstrap {
 
     // <Navbar.Toggle />
     interface NavbarToggleProps {
+        onClick?: React.MouseEventHandler<{}>;
     }
     type NavbarToggle = React.ClassicComponent<NavbarToggleProps, {}>;
     var NavbarToggle: React.ClassicComponentClass<NavbarToggleProps>;
@@ -614,7 +615,7 @@ declare namespace ReactBootstrap {
     interface TabProps extends React.HTMLProps<Tab> {
         animation?: boolean;
         'aria-labelledby'?:string;
-        bsClass?:string; 
+        bsClass?:string;
         eventKey?: any; // TODO: Add more specific type
         onEnter?: Function;
         onEntered?: Function;
@@ -765,7 +766,7 @@ declare namespace ReactBootstrap {
     interface GridProps extends React.HTMLProps<Grid> {
         componentClass?: React.ReactType;
         fluid?: boolean;
-        bsClass?: string;        
+        bsClass?: string;
     }
     type Grid = React.ClassicComponent<GridProps, {}>;
     var Grid: React.ClassicComponentClass<GridProps>;
