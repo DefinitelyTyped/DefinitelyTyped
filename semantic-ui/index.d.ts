@@ -2989,7 +2989,7 @@ declare namespace SemanticUI {
          */
         onHidden?: (this: JQuery, $module: JQuery) => void;
         /**
-         * Callback after popup cannot be plaed on screen
+         * Callback after popup cannot be placed on screen
          */
         onUnplaceable?: (this: JQuery, $module: JQuery) => void;
 
