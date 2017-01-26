@@ -31,3 +31,17 @@ CodeMirror.showHint(doc, function (cm) {
         to: pos
     };
 });
+var asyncHintFunc : CodeMirror.AsyncHintFunction =
+    (doc: CodeMirror.Doc, callback: (hints: CodeMirror.Hints) => any) => {
+        callback({
+            from: pos,
+            list: ["one", "two"],
+            to: pos
+        });
+    };
+asyncHintFunc.async = true;
+
+doc.showHint({
+    completeSingle: false,
+    hint: asyncHintFunc
+})
