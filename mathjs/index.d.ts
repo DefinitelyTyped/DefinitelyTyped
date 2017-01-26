@@ -1395,8 +1395,8 @@ declare namespace mathjs {
                  * @param  {MathNode} callback(node [description]
                  * @return {[type]}                 [description]
                  */
-                forEach(callback: (node: MathNode, path: string, parent: MathNode)=>boolean): MathNode[];
-
+                forEach(callback: (node: MathNode, path: string, parent: MathNode)=>any): MathNode[];
+		
 
                 /**
                 * `traverse(callback)`
@@ -1426,9 +1426,38 @@ declare namespace mathjs {
                 */
                 traverse(callback: (node: MathNode, path: string, parent: MathNode)=> void): any;
 //addEventListener(ev: 'change', callback: (ev: EditorChangeEvent) => any);
-
-                transform(callback: (node: MathNode, path: string, parent: MathNode)=>boolean): MathNode[];
-
+                /**
+                 * Recursively transform an expression tree via a transform function. Similar to Array.map, 
+                 * but recursively executed on all nodes in the expression tree. The callback function is a 
+                 * mapping function accepting a node, and returning a replacement for the node or the original node. 
+                 * Function callback is called as callback(node: Node, path: string, parent: Node) for every node in 
+                 * the tree, and must return a Node. Parameter path is a string containing a relative JSON Path.
+                 *
+                 * For example, to replace all nodes of type SymbolNode having name ‘x’ with a ConstantNode with value 3:
+                 * ```js
+                 * var node = math.parse('x^2 + 5*x');
+                 * var transformed = node.transform(function (node, path, parent) {
+                 *   if (node.SymbolNode && node.name == 'x') {
+                 *     return new math.expression.node.ConstantNode(3);
+                 *   }
+                 *   else {
+                 *     return node;
+                 *   }
+                 * });
+                 * transformed.toString(); // returns '(3 ^ 2) + (5 * 3)'
+                 * ```
+                 */
+                transform(callback: (node: MathNode, path: string, parent: MathNode)=>MathNode): MathNode;
+                /**
+                 * Transform a node. Creates a new Node having it’s childs be the results of calling the provided 
+                 * callback function for each of the childs of the original node. The callback function is called 
+                 * as `callback(child: Node, path: string, parent: Node)` and must return a Node. 
+                 * Parameter path is a string containing a relative JSON Path.
+                 *
+                 *
+                 * See also transform, which is a recursive version of map.
+                */
+                map(callback: (node: MathNode, path: string, parent: MathNode)=>MathNode): MathNode;
 	}
 
 
