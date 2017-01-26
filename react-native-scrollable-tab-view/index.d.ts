@@ -2,6 +2,7 @@
 // Project: https://github.com/brentvatne/react-native-scrollable-tab-view#readme
 // Definitions by: CaiHuan <https://github.com/CaiHuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as React from 'react';
 import {
@@ -101,6 +102,29 @@ interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
    * the siblings, default to 0 === render current page.
    */
   prerenderingSiblingsNumber?: number;
+
+  /**
+   * style of the default tab bar's underline
+   */
+
+  tabBarUnderlineStyle?: React.ViewStyle;
+
+  /**
+   * Additional styles to the tab bar's text. Example: {fontFamily: 'Roboto', fontSize: 15}
+   */
+  tabBarTextStyle?: React.TextStyle;
+
+  /**
+   * color of the default tab bar's text when active, defaults to navy
+   */
+
+  tabBarActiveTextColor?: string;
+
+  /**
+   * color of the default tab bar's text when inactive, defaults to black
+   */
+
+  tabBarInactiveTextColor?: string;
 }
 
 export default class ScrollableTabView extends React.Component<ScrollableTabViewProperties, {}> {
