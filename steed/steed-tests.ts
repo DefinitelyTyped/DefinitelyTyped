@@ -240,14 +240,14 @@ q2.unshift(['task3', 'task4', 'task5'], function (error) {
 });
 
 
-var aq = steed.queue<number, number, Error>(function (level: number, callback: (error : Error, newLevel: number) => void) {
-    console.log('hello ' + level);
-    callback(null, level+1);
-});
-
-aq.push(1, function (err : Error, newLevel : number) {
-    console.log('finished processing bar' + newLevel);
-});
+// var aq = steed.queue<number, number, Error>(function (level: number, callback: (error : Error, newLevel: number) => void) {
+//     console.log('hello ' + level);
+//     callback(null, level+1);
+// });
+//
+// aq.push(1, function (err : Error, newLevel : number) {
+//     console.log('finished processing bar' + newLevel);
+// });
 
 
 steed.parallel([
