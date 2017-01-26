@@ -1,6 +1,6 @@
 // Type definitions for roslib.js
 // Project: http://wiki.ros.org/roslibjs
-// Definitions by: Stefan Profanter <https://github.com/Pro/>
+// Definitions by: Stefan Profanter <https://github.com/Pro/>, Cooper Benson <https://github.com/skycoop/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -340,7 +340,7 @@ declare namespace ROSLIB {
 		 *     * provided and other listeners are registered the topic won't
 		 *     * unsubscribe, just stop emitting to the passed listener
 		 */
-		unsubscribe(callback?:() => void):void;
+		unsubscribe(callback?:(callback:(message:Message) => void) => void):void;
 
 		/**
 		 * Registers as a publisher for the topic.
