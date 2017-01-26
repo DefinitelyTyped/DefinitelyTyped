@@ -64,7 +64,7 @@ const client = zookeeper.createClient(
     client.create(
         '/test/demo',
         new Buffer('data'),
-        zookeeper.CreateMode.EPHEMERA,
+        zookeeper.CreateMode.EPHEMERAL,
         function (error: Error, path) {
             if (error) {
                 console.log(error.stack);
