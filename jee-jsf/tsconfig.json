@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "jsf-tests.ts"
+        "jee-jsf-tests.ts"
     ]
 }

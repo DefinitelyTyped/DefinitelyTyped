@@ -15,18 +15,18 @@
     },
     "files": [
         "index.d.ts",
-        "highcharts-tests.ts",
         "modules/boost.d.ts",
-        "modules/boost-tests.ts",
         "modules/exporting.d.ts",
-        "modules/exporting-tests.ts",
         "modules/no-data-to-display.d.ts",
-        "modules/no-data-to-display-tests.ts",
         "modules/offline-exporting.d.ts",
-        "modules/offline-exporting-tests.ts",
         "highcharts-more.d.ts",
-        "highcharts-more-tests.ts",
         "highstock.d.ts",
-        "highstock-tests.ts"
+        "test/boost.ts",
+        "test/exporting.ts",
+        "test/highstock.ts",
+        "test/index.ts",
+        "test/more.ts",
+        "test/no-data-to-display.ts",
+        "test/offline-exporting.ts"
     ]
 }

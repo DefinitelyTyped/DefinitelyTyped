@@ -15,8 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "mocha-tests.ts",
-        "mocha-node.d.ts",
-        "mocha-node-tests.ts"
+        "mocha-tests.ts"
     ]
 }
