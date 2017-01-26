@@ -1,6 +1,6 @@
 // Type definitions for forever-monitor 1.7
 // Project: https://github.com/nodejitsu/forever-monitor#readme
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Shun Takahashi <https://github.com/shuntksh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
@@ -53,44 +53,44 @@ export declare class Monitor extends NodeJS.EventEmitter {
      * @description Start the process that this instance is configured for
      * @param [restart] - Value indicating whether this is a restart.
      */
-    public start(restart?: boolean): this;
+    start(restart?: boolean): this;
 
     /**
      * @description Tries to spawn the target Forever child process.
      */
-    public trySpawn(): boolean;
+    trySpawn(): boolean;
 
     /**
      * @description Restarts the target script associated with this instance.
      */
-    public restart(): this;
+    restart(): this;
 
     /**
      * @description Stops the target script associated with this instance. Prevents it from auto-respawning
      */
-    public stop(): this;
+    stop(): this;
 
     /**
      * @description Kills the ChildProcess object associated with this instance
      * @param [forceStop] - Value indicating whether short circuit forever auto-restart
      */
-    public kill(forceStop?: boolean): this;
+    kill(forceStop?: boolean): this;
 
     /**
      * @description Sends a message to a forked ChildProcess object associated with this instance
      */
-    public send(msg?: any): this;
+    send(msg?: any): this;
 
     /**
      * respond with JSON for this instance
      */
-    public toString(): string;
+    toString(): string;
 
     /**
      * @param command - Command string to parse
      * @param args - Additional default arguments
      */
-    public parseCommand(command: string, args?: string[]): (false | { command: string, args?: string[]});
+    parseCommand(command: string, args?: string[]): (false | { command: string, args?: string[]});
 }
 
 interface forever {
