@@ -1,2 +1,3 @@
-import * as _ from "../index";
-export = _;
+import { fb } from "../index";
+declare namespace fb { }
+export = fb;
