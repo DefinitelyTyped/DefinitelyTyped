@@ -17,6 +17,7 @@
     },
     "files": [
         "index.d.ts",
+        "keycloak-authz.d.ts",
         "keycloak-js-tests.ts"
     ]
 }
