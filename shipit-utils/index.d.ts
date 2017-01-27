@@ -3,19 +3,13 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="shipit"/>
+import shipit = require("shipit");
 
-declare module "shipit-utils" {
-    import shipit = require("shipit");
+type GruntOrShipit = typeof shipit | {};
+type EmptyCallback = () => void;
 
-    type GruntOrShipit = typeof shipit | {};
-
-    export function equalValues(value: any[]): void;
-
-    export function getShipit(gruntOrShipit: GruntOrShipit): typeof shipit;
-    export function getShipit(gruntOrShipit: GruntOrShipit): typeof shipit;
-
-    export function registerTask(gruntOrShipit: GruntOrShipit, name: string, dependenciesOrTask: string[]|Function): typeof shipit;
-
-    export function runTask(gruntOrShipit: {}): void;
-}
+export function equalValues(value: any[]): void;
+export function getShipit(gruntOrShipit: GruntOrShipit): typeof shipit;
+export function getShipit(gruntOrShipit: GruntOrShipit): typeof shipit;
+export function registerTask(gruntOrShipit: GruntOrShipit, name: string, dependenciesOrTask: string[] | EmptyCallback): typeof shipit;
+export function runTask(gruntOrShipit: {}): void;

@@ -36,26 +36,28 @@ declare namespace shipit {
         name: string;
     }
 
-    function blTask(name: string, depsOrFn: string[] | EmptyCallback, fn?: () => void): any;
-    function emit(name: string): any;
-    function initConfig(config: {}): typeof shipit;
-    function local(command: string, options?: child_process.ExecOptions, callback?: (error: Error, stdout: string, stderr: string) => void): PromiseLike<ShipitLocal>;
-    function log(log: any): void;
-    function log(...log: any[]): void;
-    function on(name: string, callback: (e: any) => void): any;
-    function remote(command: string, options?: child_process.ExecOptions, callback?: (error: Error, stdout: string, stderr: string) => void): PromiseLike<ShipitLocal>;
-    function remoteCopy(src: string, dest: string, options?: child_process.ExecOptions, callback?: (error: Error, stdout: string, stderr: string) => void): PromiseLike<ShipitLocal>;
-    function start(tasks: string | string[]): typeof shipit;
-    function start(...tasks: string[]): typeof shipit;
-    function task(name: string, depsOrFn: string[] | EmptyCallback, fn?: () => void): typeof shipit;
+    export function blTask(name: string, depsOrFn: string[] | EmptyCallback, fn?: () => void): any;
+    export function emit(name: string): any;
+    export function initConfig(config: {}): typeof shipit;
+    export function local(command: string, options?: child_process.ExecOptions, callback?: (error: Error, stdout: string, stderr: string) => void): PromiseLike<ShipitLocal>;
+    export function log(log: any): void;
+    export function log(...log: any[]): void;
+    export function on(name: string, callback: (e: any) => void): any;
+    export function remote(command: string, options?: child_process.ExecOptions, callback?: (error: Error, stdout: string, stderr: string) => void): PromiseLike<ShipitLocal>;
+    export function remoteCopy(src: string, dest: string, options?: child_process.ExecOptions, callback?: (error: Error, stdout: string, stderr: string) => void): PromiseLike<ShipitLocal>;
+    export function start(tasks: string | string[]): typeof shipit;
+    export function start(...tasks: string[]): typeof shipit;
+    export function task(name: string, depsOrFn: string[] | EmptyCallback, fn?: () => void): typeof shipit;
 
-    var config: {};
-    var domain: any;
-    var doneCallback: any;
-    var environment: string;
-    var seq: any[];
-    var tasks: Tasks;
-    var isRunning: boolean;
+    export var config: {};
+    export var domain: any;
+    export var doneCallback: any;
+    export var environment: string;
+    export var seq: any[];
+    export var tasks: Tasks;
+    export var isRunning: boolean;
 }
 
+//tslint:disable-next-line:export-just-namespace
 export = shipit;
+export as namespace shipit;
