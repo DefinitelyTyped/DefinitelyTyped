@@ -3,7 +3,7 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="shipit"/>
+/// <reference types="shipit-cli"/>
 
 declare module "shipit-utils" {
     import shipit = require("shipit-cli");

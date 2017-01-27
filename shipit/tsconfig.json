@@ -17,6 +17,6 @@
   },
   "files": [
     "index.d.ts",
-    "shipit-cli-tests.ts"
+    "shipit-tests.ts"
   ]
 }
