@@ -599,3 +599,12 @@ function Argv$demandOption() {
         .demandOption(['a', 'b'], true)
         .argv;
 }
+
+function Argv$conflicts() {
+    var ya = yargs
+        .conflicts('a', 'b')
+        .conflicts({
+            a: 'b'
+        })
+        .argv;
+}
