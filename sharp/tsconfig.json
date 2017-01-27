@@ -5,9 +5,9 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "types",
+        "baseUrl": "../",
         "typeRoots": [
-            "types"
+            "../"
         ],
         "types": [],
         "noEmit": true,

@@ -16,41 +16,41 @@ import { Duplex } from "stream";
  */
 declare function sharp(input?: string | Buffer, options?: sharp.SharpOptions): sharp.SharpInstance;
 declare namespace sharp {
-    export const gravity: sharp.GravityEnum;
-    export const strategy: sharp.StrategyEnum;
+    const gravity: sharp.GravityEnum;
+    const strategy: sharp.StrategyEnum;
     /**
      * Gets, or when options are provided sets, the limits of libvips' operation cache. Existing entries in the cache will be trimmed after any change in limits. This method always returns cache statistics, useful for determining how much working memory is required for a particular task.
      * @param {boolean|sharp.CacheOptions} options Object with the cache options, or Boolean where true uses default cache settings and false removes all caching.
      * @returns {Object}
      */
-    export function cache(options?: boolean | sharp.CacheOptions): CacheResult;
+    function cache(options?: boolean | sharp.CacheOptions): CacheResult;
     /**
      * Gets, or when a concurrency is provided sets, the number of threads libvips' should create to process each image.
      * @param {number} concurrency concurrency value
      */
-    export function concurrency(threads?: number): number;
+    function concurrency(threads?: number): number;
     /**
      * Provides access to internal task counters.
      * @returns {sharp.SharpCounters} Object containing task counters
      */
-    export function counters(): sharp.SharpCounters;
+    function counters(): sharp.SharpCounters;
     /**
      * Get and set use of SIMD vector unit instructions.
      * @param {boolean} enable enable or disable use of SIMD vector unit instructions
      * @returns {boolean} true if usage of SIMD vector unit instructions is enabled
      */
-    export function simd(enable?: boolean): boolean;
-    export const kernel: sharp.KernelEnum;
-    export const interpolator: sharp.InterpolatorEnum;
+    function simd(enable?: boolean): boolean;
+    const kernel: sharp.KernelEnum;
+    const interpolator: sharp.InterpolatorEnum;
     /**
      * Object containing nested boolean values representing the available input and output formats/methods.
      */
-    export const format: FormatEnum;
+    const format: FormatEnum;
     /** An EventEmitter that emits a change event when a task is either queued, waiting for libuv to provide a worker thread, complete */
-    export const queue: NodeJS.EventEmitter;
+    const queue: NodeJS.EventEmitter;
     /** An Object containing the version numbers of libvips and its dependencies. */
-    export const versions: string[];
-    export const bool: BoolEnum;
+    const versions: string[];
+    const bool: BoolEnum;
 
     interface SharpInstance extends Duplex {
         /**
@@ -376,14 +376,14 @@ declare namespace sharp {
         tile(options: TileOptions): SharpInstance;
     }
 
-    export interface SharpOptions {
+    interface SharpOptions {
         /** integral number representing the DPI for vector images. */
         density?: number;
         /** describes raw pixel image data. */
         raw?: Raw;
     }
 
-    export interface CacheOptions {
+    interface CacheOptions {
         /** is the maximum memory in MB to use for this cache */
         memory?: number;
         /** is the maximum number of files to hold open */
@@ -392,18 +392,18 @@ declare namespace sharp {
         items?: number;
     }
 
-    export interface SharpCounters {
+    interface SharpCounters {
         queue: number;
         process: number;
     }
 
-    export interface Raw {
+    interface Raw {
         width: number;
         height: number;
         channels: number;
     }
 
-    export interface Metadata {
+    interface Metadata {
         /** Name of decoder used to decompress image data e.g. jpeg, png, webp, gif, svg */
         format?: string;
         /** Number of pixels wide */
@@ -428,7 +428,7 @@ declare namespace sharp {
         icc?: Buffer;
     }
 
-    export interface JpegOptions extends OutputOptions {
+    interface JpegOptions extends OutputOptions {
         /** Use progressive (interlace) scan (optional, default false) */
         progressive?: boolean;
         /** Set to '4:4:4' to prevent chroma subsampling when quality <= 90 (optional, default '4:2:0') */
@@ -443,7 +443,7 @@ declare namespace sharp {
         optimizeScans?: boolean;
     }
 
-    export interface PngOptions {
+    interface PngOptions {
         /** Use progressive (interlace) scan (optional, default false) */
         progressive?: boolean;
         /** zlib compression level (optional, default 6) */
@@ -454,14 +454,14 @@ declare namespace sharp {
         force?: boolean;
     }
 
-    export interface OutputOptions {
+    interface OutputOptions {
         /** Quality, integer 1-100 (optional, default 80) */
         quality?: number;
         /** Force format output, otherwise attempt to use input format (optional, default true) */
         force?: boolean;
     }
 
-    export interface ResizeOptions {
+    interface ResizeOptions {
         /** the kernel to use for image reduction. (optional, default 'lanczos3') */
         kernel?: string;
         /** the interpolator to use for image enlargement. (optional, default 'bicubic') */
@@ -472,7 +472,7 @@ declare namespace sharp {
         centerSampling?: boolean;
     }
 
-    export interface Region {
+    interface Region {
         /** zero-indexed offset from left edge */
         left?: number;
         /** zero-indexed offset from top edge */
@@ -483,21 +483,21 @@ declare namespace sharp {
         height?: number;
     }
 
-    export interface ExtendOptions {
+    interface ExtendOptions {
         top?: number;
         left?: number;
         bottom?: number;
         right?: number;
     }
 
-    export interface RGBA {
+    interface RGBA {
         r?: number;
         g?: number;
         b?: number;
         alpha?: number;
     }
 
-    export interface Kernel {
+    interface Kernel {
         /** width of the kernel in pixels. */
         width: number;
         /** height of the kernel in pixels. */
@@ -510,14 +510,14 @@ declare namespace sharp {
         offset?: number;
     }
 
-    export interface ThresholdOptions {
+    interface ThresholdOptions {
         /** convert to single channel greyscale. (optional, default true) */
         greyscale?: boolean;
         /** alternative spelling for greyscale. (optional, default true) */
         grayscale?: boolean;
     }
 
-    export interface OverlayOptions {
+    interface OverlayOptions {
         /** gravity at which to place the overlay. (optional, default 'centre') */
         gravity?: number;
         /** the pixel offset from the top edge. */
@@ -532,7 +532,7 @@ declare namespace sharp {
         raw?: Raw;
     }
 
-    export interface TileOptions {
+    interface TileOptions {
         /** Tile size in pixels, a value between 1 and 8192. (optional, default 256) */
         size?: number;
         /** Tile overlap in pixels, a value between 0 and 8192. (optional, default 0) */
@@ -543,7 +543,7 @@ declare namespace sharp {
         layout?: string;
     }
 
-    export interface OutputInfo {
+    interface OutputInfo {
         format: string;
         size: number;
         width: number;
@@ -551,19 +551,19 @@ declare namespace sharp {
         channels: number;
     }
 
-    export interface AvailableFormatInfo {
+    interface AvailableFormatInfo {
         id: string;
         input: { file: boolean; buffer: boolean; stream: boolean; };
         output: { file: boolean; buffer: boolean; stream: boolean; };
     }
 
-    export interface KernelEnum {
+    interface KernelEnum {
         cubic: string;
         lanczos2: string;
         lanczos3: string;
     }
 
-    export interface InterpolatorEnum {
+    interface InterpolatorEnum {
         nearest: string;
         bilinear: string;
         bicubic: string;
@@ -574,13 +574,13 @@ declare namespace sharp {
         vertexSplitQuadraticBasisSpline: string;
     }
 
-    export interface BoolEnum {
+    interface BoolEnum {
         and: string;
         or: string;
         eor: string;
     }
 
-    export interface ColourspaceEnum {
+    interface ColourspaceEnum {
         multiband: string;
         "b-w": string;
         bw: string;
@@ -588,7 +588,7 @@ declare namespace sharp {
         srgb: string;
     }
 
-    export interface GravityEnum {
+    interface GravityEnum {
         north: number;
         northeast: number;
         southeast: number;
@@ -601,12 +601,12 @@ declare namespace sharp {
         centre: number;
     }
 
-    export interface StrategyEnum {
+    interface StrategyEnum {
         entropy: number;
         attention: number;
     }
 
-    export interface FormatEnum {
+    interface FormatEnum {
         jpeg: AvailableFormatInfo;
         png: AvailableFormatInfo;
         webp: AvailableFormatInfo;
@@ -632,7 +632,7 @@ declare namespace sharp {
         (): FormatEnum;
     }
 
-    export interface CacheResult {
+    interface CacheResult {
         memory: { current: number; high: number; max: number; };
         files: { current: number; max: number; };
         items: { current: number; max: number; };
