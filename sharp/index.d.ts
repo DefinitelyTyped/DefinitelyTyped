@@ -624,14 +624,6 @@ declare namespace sharp {
         v: AvailableFormatInfo;
     }
 
-    interface FormatObject extends FormatEnum {
-        /**
-         * Returns an Object containing nested boolean values representing the available input and output formats/methods.
-         * @returns Object containing available formats
-         */
-        (): FormatEnum;
-    }
-
     interface CacheResult {
         memory: { current: number; high: number; max: number; };
         files: { current: number; max: number; };
