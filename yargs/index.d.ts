@@ -39,8 +39,8 @@ declare namespace yargs {
         demandCommand(min: number, minMsg?: string): Argv;
         demandCommand(min: number, max?: number, minMsg?: string, maxMsg?: string): Argv;
 
-        demandOption(key: string|string[], msg?: string): Argv;
-        demandOption(key: string|string[], demand?: boolean): Argv;
+        demandOption(key: string | string[], msg?: string): Argv;
+        demandOption(key: string | string[], demand?: boolean): Argv;
 
         require(key: string, msg: string): Argv;
         require(key: string, required: boolean): Argv;
@@ -156,7 +156,7 @@ declare namespace yargs {
 
         fail(func: (msg: string, err: Error) => any): Argv;
 
-        coerce<T, U>(key: string|string[], func: (arg: T) => U): Argv;
+        coerce<T, U>(key: string | string[], func: (arg: T) => U): Argv;
         coerce<T, U>(opts: { [key: string]: (arg: T) => U; }): Argv;
 
         getCompletion(args: string[], done: (completions: string[]) => void): Argv;
