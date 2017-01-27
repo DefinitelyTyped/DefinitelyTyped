@@ -562,6 +562,7 @@ function Argv$commandObject() {
                 default: "myvalue",
                 defaultDescription: "description",
                 demand: true,
+                demandOption: true,
                 desc: "desc",
                 describe: "describe",
                 description: "description",
@@ -576,4 +577,25 @@ function Argv$commandObject() {
                 type: "string"
             }
         })
+}
+
+function Argv$demandCommand() {
+    var ya = yargs
+        .demandCommand(1)
+        .demandCommand(1, 'at least 1 command required')
+        .demandCommand(1, 2)
+        .demandCommand(1, 2, 'at least 1 command required')
+        .demandCommand(1, 2, 'at least 1 command required', 'at most 2 commands required')
+        .argv;
+}
+
+function Argv$demandOption() {
+    var ya = yargs
+        .demandOption('a')
+        .demandOption('a', 'a is required')
+        .demandOption('a', true)
+        .demandOption(['a', 'b'])
+        .demandOption(['a', 'b'], 'a and b are required')
+        .demandOption(['a', 'b'], true)
+        .argv;
 }

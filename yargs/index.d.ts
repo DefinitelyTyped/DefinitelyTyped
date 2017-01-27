@@ -36,6 +36,12 @@ declare namespace yargs {
         demand(positionals: number, msg: string): Argv;
         demand(positionals: number, max: number, msg?: string): Argv;
 
+        demandCommand(min: number, minMsg?: string): Argv;
+        demandCommand(min: number, max?: number, minMsg?: string, maxMsg?: string): Argv;
+
+        demandOption(key: string|string[], msg?: string): Argv;
+        demandOption(key: string|string[], demand?: boolean): Argv;
+
         require(key: string, msg: string): Argv;
         require(key: string, required: boolean): Argv;
         require(keys: number[], msg: string): Argv;
@@ -187,6 +193,7 @@ declare namespace yargs {
         default?: any;
         defaultDescription?: string;
         demand?: boolean | string;
+        demandOption?: boolean | string;
         desc?: string;
         describe?: string;
         description?: string;
