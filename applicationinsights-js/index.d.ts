@@ -1,4 +1,4 @@
-// Type definitions for ApplicationInsights-JS v0.23.2
+// Type definitions for ApplicationInsights-JS v1.0.7
 // Project: https://github.com/Microsoft/ApplicationInsights-JS
 // Definitions by: Kamil Szostak <https://github.com/kamilszostak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -567,8 +567,12 @@ declare module Microsoft.ApplicationInsights {
         disableCorrelationHeaders?: boolean;
         disableFlushOnBeforeUnload?: boolean;
         enableSessionStorageBuffer?: boolean;
+        isCookieUseDisabled?: boolean;
         cookieDomain?: string;
+        isRetryDisabled?: boolean;
+        isPerfAnalyzerEnabled?: boolean;
         url?: string;
+        isStorageUseDisabled?: boolean;
     }
 
     /**
@@ -717,16 +721,16 @@ declare module Microsoft.ApplicationInsights {
             [name: string]: number;
         }): any;
         /**
-        * Log an AJAX request
-        * @param  id  Event id
-        * @param  absoluteUrl Full url
-        * @param  pathName Leave this parameter blank
-        * @param  totalTime Total time it took for AJAX request to complete
-        * @param  success Whether AJAX request succeeded or failed
-        * @param  resultCode Result code returned from AJAX call
-        * @param  method  HTTP verb that was used (GET, POST)
-        */
-        trackAjax(id: string, absoluteUrl: string, pathName: string, totalTime: number, success: boolean, resultCode: number, method?: string): any;
+         * Log a dependency call
+         * @param id    unique id, this is used by the backend o correlate server requests. Use Util.newId() to generate a unique Id.
+         * @param method    represents request verb (GET, POST, etc.)
+         * @param absoluteUrl   absolute url used to make the dependency request
+         * @param pathName  the path part of the absolute url
+         * @param totalTime total request time
+         * @param success   indicates if the request was sessessful
+         * @param resultCode    response code returned by the dependency request
+         */
+        trackDependency(id: string, method: string, absoluteUrl: string, pathName: string, totalTime: number, success: boolean, resultCode: number): any;
         /**
          * Log an exception you have caught.
          * @param   exception   An Error from a catch clause, or the string error message.
