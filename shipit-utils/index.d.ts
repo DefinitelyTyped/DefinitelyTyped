@@ -15,8 +15,7 @@ declare module "shipit-utils" {
     export function getShipit(gruntOrShipit: GruntOrShipit): typeof shipit;
     export function getShipit(gruntOrShipit: GruntOrShipit): typeof shipit;
 
-    export function registerTask(gruntOrShipit: GruntOrShipit, name: string, task: Function): typeof shipit;
-    export function registerTask(gruntOrShipit: GruntOrShipit, name: string, dependencies: string[]): typeof shipit;
+    export function registerTask(gruntOrShipit: GruntOrShipit, name: string, dependenciesOrTask: string[]|Function): typeof shipit;
 
     export function runTask(gruntOrShipit: {}): void;
 }

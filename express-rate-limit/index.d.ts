@@ -3,8 +3,6 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="express"/>
-
 import express = require("express");
 
 declare namespace RateLimit {
@@ -19,10 +17,12 @@ declare namespace RateLimit {
     export interface Options {
         delayAfter?: number;
         delayMs?: number;
+        handlers?: () => any;
         headers?: boolean;
-        keyGenerator?: Function;
+        keyGenerator?: () => string;
         max?: number;
         message?: string;
+        skip?: () => boolean;
         statusCode?: number;
         store?: Store;
         windowMs?: number;
