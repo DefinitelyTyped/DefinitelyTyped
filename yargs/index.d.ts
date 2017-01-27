@@ -28,6 +28,9 @@ declare namespace yargs {
         default(key: string, value: any, description?: string): Argv;
         default(defaults: { [key: string]: any }, description?: string): Argv;
 
+        /**
+         * @deprecated since version 6.6.0
+         */
         demand(key: string, msg: string): Argv;
         demand(key: string, required?: boolean): Argv;
         demand(keys: string[], msg: string): Argv;
@@ -42,6 +45,9 @@ declare namespace yargs {
         demandOption(key: string | string[], msg?: string): Argv;
         demandOption(key: string | string[], demand?: boolean): Argv;
 
+        /**
+         * @deprecated since version 6.6.0
+         */
         require(key: string, msg: string): Argv;
         require(key: string, required: boolean): Argv;
         require(keys: number[], msg: string): Argv;
@@ -49,6 +55,9 @@ declare namespace yargs {
         require(positionals: number, required: boolean): Argv;
         require(positionals: number, msg: string): Argv;
 
+        /**
+         * @deprecated since version 6.6.0
+         */
         required(key: string, msg: string): Argv;
         required(key: string, required: boolean): Argv;
         required(keys: number[], msg: string): Argv;
@@ -195,6 +204,7 @@ declare namespace yargs {
         count?: boolean;
         default?: any;
         defaultDescription?: string;
+        /** @deprecated since version 6.6.0 */
         demand?: boolean | string;
         demandOption?: boolean | string;
         desc?: string;
