@@ -109,6 +109,9 @@ declare namespace yargs {
         config(key: string, parseFn: (configPath: string) => Object): Argv;
         config(keys: string[], parseFn: (configPath: string) => Object): Argv;
 
+        conflicts(key: string, value: string): Argv;
+        conflicts(conflicts: { [key: string]: string }): Argv;
+
         wrap(columns: number): Argv;
 
         strict(): Argv;
