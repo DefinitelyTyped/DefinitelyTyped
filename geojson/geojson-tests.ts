@@ -1,6 +1,3 @@
-
-
-import GeometryObject = GeoJSON.GeometryObject;
 let featureCollection: GeoJSON.FeatureCollection<any> =  {
     type: "FeatureCollection",
     features: [
@@ -134,7 +131,7 @@ let geometryCollection: GeoJSON.GeometryCollection = {
     ]
 };
 
-let feature: GeoJSON.Feature<GeometryObject> = {
+let feature: GeoJSON.Feature<GeoJSON.GeometryObject> = {
     type: "Feature",
     geometry: lineString,
     properties: null
