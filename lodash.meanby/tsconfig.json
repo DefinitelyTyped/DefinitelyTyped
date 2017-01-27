@@ -1,12 +1,12 @@
 {
+    "files": [
+        "index.d.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6",
-            "dom"
-        ],
-        "noImplicitAny": false,
-        "noImplicitThis": false,
+        "target": "es6",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
@@ -15,9 +15,5 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    },
-    "files": [
-        "index.d.ts",
-        "redux-saga-tests.ts"
-    ]
+    }
 }

@@ -544,7 +544,7 @@ const resolve: webpack.Resolve = {
 
 const performance: webpack.PerformanceOptions = {
 	hints: 'error',
-	maxEntryPointSize: 400000,
+	maxEntrypointSize: 400000,
 	maxAssetSize: 100000,
 	assetFilter: function(assetFilename) {
 		return assetFilename.endsWith('.js');
