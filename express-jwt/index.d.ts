@@ -1,6 +1,6 @@
 // Type definitions for express-jwt
 // Project: https://www.npmjs.org/package/express-jwt
-// Definitions by: Wonshik Kim <https://github.com/wokim/>
+// Definitions by: Wonshik Kim <https://github.com/wokim/>, Kacper Polak <https://github.com/kacepe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import express = require('express');
