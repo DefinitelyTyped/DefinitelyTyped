@@ -3530,49 +3530,49 @@ namespace TestEvery {
         result = _.every<SampleObject>(array, listIterator);
         result = _.every<SampleObject>(array, 'a');
         result = _.every<SampleObject>(array, ['a', 42]);
-        result = _.every<{a: number}, SampleObject>(array, {a: 42});
+        result = _.every<SampleObject>(array, {a: 42});
 
         result = _.every<SampleObject>(list);
         result = _.every<SampleObject>(list, listIterator);
         result = _.every<SampleObject>(list, 'a');
         result = _.every<SampleObject>(list, ['a', 42]);
-        result = _.every<{a: number}, SampleObject>(list, {a: 42});
+        result = _.every<SampleObject>(list, {a: 42});
 
         result = _.every<SampleObject>(dictionary);
         result = _.every<SampleObject>(dictionary, dictionaryIterator);
         result = _.every<SampleObject>(dictionary, 'a');
         result = _.every<SampleObject>(dictionary, ['a', 42]);
-        result = _.every<{a: number}, SampleObject>(dictionary, {a: 42});
+        result = _.every<SampleObject>(dictionary, {a: 42});
 
         result = _.every<SampleObject>(numericDictionary);
         result = _.every<SampleObject>(numericDictionary, numericDictionaryIterator);
         result = _.every<SampleObject>(numericDictionary, 'a');
         result = _.every<SampleObject>(numericDictionary, ['a', 42]);
-        result = _.every<{a: number}, SampleObject>(numericDictionary, {a: 42});
+        result = _.every<SampleObject>(numericDictionary, {a: 42});
 
         result = _(array).every();
         result = _(array).every(listIterator);
         result = _(array).every('a');
         result = _(array).every(['a', 42]);
-        result = _(array).every<{a: number}>({a: 42});
+        result = _(array).every({a: 42});
 
         result = _(list).every<SampleObject>();
         result = _(list).every<SampleObject>(listIterator);
         result = _(list).every('a');
         result = _(list).every(['a', 42]);
-        result = _(list).every<{a: number}>({a: 42});
+        result = _(list).every({a: 42});
 
         result = _(dictionary).every<SampleObject>();
         result = _(dictionary).every<SampleObject>(dictionaryIterator);
         result = _(dictionary).every('a');
         result = _(dictionary).every(['a', 42]);
-        result = _(dictionary).every<{a: number}>({a: 42});
+        result = _(dictionary).every({a: 42});
 
         result = _(numericDictionary).every<SampleObject>();
         result = _(numericDictionary).every<SampleObject>(numericDictionaryIterator);
         result = _(numericDictionary).every('a');
         result = _(numericDictionary).every(['a', 42]);
-        result = _(numericDictionary).every<{a: number}>({a: 42});
+        result = _(numericDictionary).every({a: 42});
     }
 
     {
@@ -3582,19 +3582,19 @@ namespace TestEvery {
         result = _(array).chain().every(listIterator);
         result = _(array).chain().every('a');
         result = _(array).chain().every(['a', 42]);
-        result = _(array).chain().every<{a: number}>({a: 42});
+        result = _(array).chain().every({a: 42});
 
         result = _(list).chain().every<SampleObject>();
         result = _(list).chain().every<SampleObject>(listIterator);
         result = _(list).chain().every('a');
         result = _(list).chain().every(['a', 42]);
-        result = _(list).chain().every<{a: number}>({a: 42});
+        result = _(list).chain().every<SampleObject>({a: 42});
 
         result = _(dictionary).chain().every<SampleObject>();
         result = _(dictionary).chain().every<SampleObject>(dictionaryIterator);
         result = _(dictionary).chain().every('a');
         result = _(dictionary).chain().every(['a', 42]);
-        result = _(dictionary).chain().every<{a: number}>({a: 42});
+        result = _(dictionary).chain().every<SampleObject>({a: 42});
 
         result = _(numericDictionary).chain().every<SampleObject>();
         result = _(numericDictionary).chain().every<SampleObject>(numericDictionaryIterator);
@@ -3625,15 +3625,15 @@ namespace TestFilter {
 
         result = _.filter<TResult>(array, listIterator);
         result = _.filter<TResult>(array, '');
-        result = _.filter<{a: number}, TResult>(array, {a: 42});
+        result = _.filter<TResult>(array, {a: 42});
 
         result = _.filter<TResult>(list, listIterator);
         result = _.filter<TResult>(list, '');
-        result = _.filter<{a: number}, TResult>(list, {a: 42});
+        result = _.filter<TResult>(list, {a: 42});
 
         result = _.filter<TResult>(dictionary, dictionaryIterator);
         result = _.filter<TResult>(dictionary, '');
-        result = _.filter<{a: number}, TResult>(dictionary, {a: 42});
+        result = _.filter<TResult>(dictionary, {a: 42});
     }
 
     {
@@ -3647,15 +3647,15 @@ namespace TestFilter {
 
         result = _(array).filter(listIterator);
         result = _(array).filter('');
-        result = _(array).filter<{a: number}>({a: 42});
+        result = _(array).filter({a: 42});
 
         result = _(list).filter<TResult>(listIterator);
         result = _(list).filter<TResult>('');
-        result = _(list).filter<{a: number}, TResult>({a: 42});
+        result = _(list).filter<TResult>({a: 42});
 
         result = _(dictionary).filter<TResult>(dictionaryIterator);
         result = _(dictionary).filter<TResult>('');
-        result = _(dictionary).filter<{a: number}, TResult>({a: 42});
+        result = _(dictionary).filter<TResult>({a: 42});
     }
 
     {
@@ -3669,15 +3669,15 @@ namespace TestFilter {
 
         result = _(array).chain().filter(listIterator);
         result = _(array).chain().filter('');
-        result = _(array).chain().filter<{a: number}>({a: 42});
+        result = _(array).chain().filter({a: 42});
 
         result = _(list).chain().filter<TResult>(listIterator);
         result = _(list).chain().filter<TResult>('');
-        result = _(list).chain().filter<{a: number}, TResult>({a: 42});
+        result = _(list).chain().filter<TResult>({a: 42});
 
         result = _(dictionary).chain().filter<TResult>(dictionaryIterator);
         result = _(dictionary).chain().filter<TResult>('');
-        result = _(dictionary).chain().filter<{a: number}, TResult>({a: 42});
+        result = _(dictionary).chain().filter<TResult>({a: 42});
     }
 }
 
@@ -3697,48 +3697,48 @@ namespace TestFind {
     result = _.find<TResult>(array, listIterator, 1);
     result = _.find<TResult>(array, '');
     result = _.find<TResult>(array, '', 1);
-    result = _.find<{a: number}, TResult>(array, {a: 42});
-    result = _.find<{a: number}, TResult>(array, {a: 42}, 1);
+    result = _.find<TResult>(array, {a: 42});
+    result = _.find<TResult>(array, {a: 42}, 1);
 
     result = _.find<TResult>(list);
     result = _.find<TResult>(list, listIterator);
     result = _.find<TResult>(list, listIterator, 1);
     result = _.find<TResult>(list, '');
     result = _.find<TResult>(list, '', 1);
-    result = _.find<{a: number}, TResult>(list, {a: 42});
-    result = _.find<{a: number}, TResult>(list, {a: 42}, 1);
+    result = _.find<TResult>(list, {a: 42});
+    result = _.find<TResult>(list, {a: 42}, 1);
 
     result = _.find<TResult>(dictionary);
     result = _.find<TResult>(dictionary, dictionaryIterator);
     result = _.find<TResult>(dictionary, dictionaryIterator, 1);
     result = _.find<TResult>(dictionary, '');
     result = _.find<TResult>(dictionary, '', 1);
-    result = _.find<{a: number}, TResult>(dictionary, {a: 42});
-    result = _.find<{a: number}, TResult>(dictionary, {a: 42}, 1);
+    result = _.find<TResult>(dictionary, {a: 42});
+    result = _.find<TResult>(dictionary, {a: 42}, 1);
 
     result = _(array).find();
     result = _(array).find(listIterator);
     result = _(array).find(listIterator, 1);
     result = _(array).find('');
     result = _(array).find('', 1);
-    result = _(array).find<{a: number}>({a: 42});
-    result = _(array).find<{a: number}>({a: 42}, 1);
+    result = _(array).find({a: 42});
+    result = _(array).find({a: 42}, 1);
 
     result = _(list).find<TResult>();
     result = _(list).find<TResult>(listIterator);
     result = _(list).find<TResult>(listIterator, 1);
     result = _(list).find<TResult>('');
     result = _(list).find<TResult>('', 1);
-    result = _(list).find<{a: number}, TResult>({a: 42});
-    result = _(list).find<{a: number}, TResult>({a: 42}, 1);
+    result = _(list).find<TResult>({a: 42});
+    result = _(list).find<TResult>({a: 42}, 1);
 
     result = _(dictionary).find<TResult>();
     result = _(dictionary).find<TResult>(dictionaryIterator);
     result = _(dictionary).find<TResult>(dictionaryIterator, 1);
     result = _(dictionary).find<TResult>('');
     result = _(dictionary).find<TResult>('', 1);
-    result = _(dictionary).find<{a: number}, TResult>({a: 42});
-    result = _(dictionary).find<{a: number}, TResult>({a: 42}, 1);
+    result = _(dictionary).find<TResult>({a: 42});
+    result = _(dictionary).find<TResult>({a: 42}, 1);
 }
 
 result = <number>_.findLast([1, 2, 3, 4], function (num) {
@@ -5014,25 +5014,25 @@ namespace TestSome {
         result = _.some<SampleObject>(array, listIterator);
         result = _.some<SampleObject>(array, 'a');
         result = _.some<SampleObject>(array, ['a', 42]);
-        result = _.some<{a: number}, SampleObject>(array, {a: 42});
+        result = _.some<SampleObject>(array, {a: 42});
 
         result = _.some<SampleObject>(list);
         result = _.some<SampleObject>(list, listIterator);
         result = _.some<SampleObject>(list, 'a');
         result = _.some<SampleObject>(list, ['a', 42]);
-        result = _.some<{a: number}, SampleObject>(list, {a: 42});
+        result = _.some<SampleObject>(list, {a: 42});
 
         result = _.some<SampleObject>(dictionary);
         result = _.some<SampleObject>(dictionary, dictionaryIterator);
         result = _.some<SampleObject>(dictionary, 'a');
         result = _.some<SampleObject>(dictionary, ['a', 42]);
-        result = _.some<{a: number}, SampleObject>(dictionary, {a: 42});
+        result = _.some<SampleObject>(dictionary, {a: 42});
 
         result = _.some<SampleObject>(numericDictionary);
         result = _.some<SampleObject>(numericDictionary, numericDictionaryIterator);
         result = _.some<SampleObject>(numericDictionary, 'a');
         result = _.some<SampleObject>(numericDictionary, ['a', 42]);
-        result = _.some<{a: number}, SampleObject>(numericDictionary, {a: 42});
+        result = _.some<SampleObject>(numericDictionary, {a: 42});
 
         result = _.some(sampleObject);
         result = _.some(sampleObject, objectIterator);
@@ -5044,31 +5044,31 @@ namespace TestSome {
         result = _(array).some(listIterator);
         result = _(array).some('a');
         result = _(array).some(['a', 42]);
-        result = _(array).some<{a: number}>({a: 42});
+        result = _(array).some({a: 42});
 
         result = _(list).some<SampleObject>();
         result = _(list).some<SampleObject>(listIterator);
         result = _(list).some('a');
         result = _(list).some(['a', 42]);
-        result = _(list).some<{a: number}>({a: 42});
+        result = _(list).some<SampleObject>({a: 42});
 
         result = _(dictionary).some<SampleObject>();
         result = _(dictionary).some<SampleObject>(dictionaryIterator);
         result = _(dictionary).some('a');
         result = _(dictionary).some(['a', 42]);
-        result = _(dictionary).some<{a: number}>({a: 42});
+        result = _(dictionary).some<SampleObject>({a: 42});
 
         result = _(numericDictionary).some<SampleObject>();
         result = _(numericDictionary).some<SampleObject>(numericDictionaryIterator);
         result = _(numericDictionary).some('a');
         result = _(numericDictionary).some(['a', 42]);
-        result = _(numericDictionary).some<{a: number}>({a: 42});
+        result = _(numericDictionary).some<SampleObject>({a: 42});
 
         result = _(sampleObject).some();
         result = _(sampleObject).some(objectIterator);
         result = _(sampleObject).some('a');
         result = _(sampleObject).some(['a', 42]);
-        result = _(sampleObject).some<{a: number}>({a: 42});
+        result = _(sampleObject).some<SampleObject>({a: 42});
     }
 
     {
@@ -5078,31 +5078,31 @@ namespace TestSome {
         result = _(array).chain().some(listIterator);
         result = _(array).chain().some('a');
         result = _(array).chain().some(['a', 42]);
-        result = _(array).chain().some<{a: number}>({a: 42});
+        result = _(array).chain().some({a: 42});
 
         result = _(list).chain().some<SampleObject>();
         result = _(list).chain().some<SampleObject>(listIterator);
         result = _(list).chain().some('a');
         result = _(list).chain().some(['a', 42]);
-        result = _(list).chain().some<{a: number}>({a: 42});
+        result = _(list).chain().some<SampleObject>({a: 42});
 
         result = _(dictionary).chain().some<SampleObject>();
         result = _(dictionary).chain().some<SampleObject>(dictionaryIterator);
         result = _(dictionary).chain().some('a');
         result = _(dictionary).chain().some(['a', 42]);
-        result = _(dictionary).chain().some<{a: number}>({a: 42});
+        result = _(dictionary).chain().some<SampleObject>({a: 42});
 
         result = _(numericDictionary).chain().some<SampleObject>();
         result = _(numericDictionary).chain().some<SampleObject>(numericDictionaryIterator);
         result = _(numericDictionary).chain().some('a');
         result = _(numericDictionary).chain().some(['a', 42]);
-        result = _(numericDictionary).chain().some<{a: number}>({a: 42});
+        result = _(numericDictionary).chain().some<SampleObject>({a: 42});
 
         result = _(sampleObject).chain().some();
         result = _(sampleObject).chain().some(objectIterator);
         result = _(sampleObject).chain().some('a');
         result = _(sampleObject).chain().some(['a', 42]);
-        result = _(sampleObject).chain().some<{a: number}>({a: 42});
+        result = _(sampleObject).chain().some<TResult>({a: 42});
     }
 }
 

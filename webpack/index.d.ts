@@ -1146,7 +1146,7 @@ declare namespace webpack {
         /**
          * An entrypoint represents all assets that would be utilized during initial load time for a specific entry. This option controls when webpack should emit performance hints based on the maximum entrypoint size. The default value is 250000 (bytes).
          */
-        maxEntryPointSize?: number;
+        maxEntrypointSize?: number;
         /**
          * An asset is any emitted file from webpack. This option controls when webpack emits a performance hint based on individual asset size. The default value is 250000 (bytes).
          */

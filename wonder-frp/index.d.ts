@@ -1,4 +1,4 @@
-// Type definitions for wonder-frp v0.1.0
+// Type definitions for wonder-frp 0.1
 // Project: https://github.com/yyc-git/Wonder-FRP
 // Definitions by: YYC <https://github.com/yyc-git>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
