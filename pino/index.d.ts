@@ -59,7 +59,8 @@ declare namespace P {
         extreme?: boolean;
         // enables logging, defaults to true.
         enabled?: boolean;
-        level?: Level;
+        level?: Level | string;
+        levelVal?: number;
     }
 
     interface Pino {
