@@ -15,7 +15,6 @@
         "paths": {
             "history": ["history/v2"],
             "react-router": ["react-router/v2"],
-            "react-router/*": ["react-router/v2/*"],
             "react-router-redux": ["react-router-redux/v3"]
         },
         "types": [],
