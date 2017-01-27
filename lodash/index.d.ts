@@ -68,7 +68,7 @@ added 23 array methods:
 - [x] _.xorBy
 - [x] _.xorWith
 
-added 18 lang methods:
+added 20 lang methods:
 - [x] _.cloneDeepWith
 - [x] _.cloneWith
 - [x] _.eq
@@ -87,6 +87,8 @@ added 18 lang methods:
 - [x] _.toNumber
 - [x] _.toSafeInteger
 - [x] _.toString
+- [X] _.conforms
+- [X] _.conformsTo
 
 added 13 object methods:
 - [x] _.assignIn
@@ -225,7 +227,6 @@ Methods:
 - [ ] _.split
 
 - [ ] _.cond
-- [ ] _.conforms
 - [ ] _.nthArg
 - [ ] _.over
 - [ ] _.overEvery
@@ -11430,6 +11431,33 @@ declare namespace _ {
         cloneWith<TResult extends Object>(
             customizer?: CloneWithCustomizer<T, TResult>
         ): LoDashExplicitObjectWrapper<TResult>;
+    }
+
+    /**
+     * An object containing predicate functions for each property of T
+     */
+    type ConformsPredicateObject<T> = {
+        [P in keyof T]: (val: T[P]) => boolean;
+    };
+
+    //_.conforms
+    interface LoDashStatic {
+        /**
+         * Creates a function that invokes the predicate properties of `source` with the corresponding
+         * property values of a given object, returning true if all predicates return truthy, else false.
+         */
+        conforms<T>(source: ConformsPredicateObject<T>): (Target: T) => boolean;
+    }
+
+    //_.conformsTo
+    interface LoDashStatic {
+        /**
+         * Checks if object conforms to source by invoking the predicate properties of source with the
+         * corresponding property values of object.
+         *
+         * Note: This method is equivalent to _.conforms when source is partially applied.
+         */
+        conformsTo<T>(object: T, source: ConformsPredicateObject<T>): boolean;
     }
 
     //_.eq

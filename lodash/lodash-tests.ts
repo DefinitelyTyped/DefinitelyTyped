@@ -6488,6 +6488,18 @@ namespace TestCloneWith {
     }
 }
 
+// _.conforms
+namespace TestConforms {
+    let result: boolean = _.conforms({foo: (v: string) => false})({foo: "foo"});
+    let result2: boolean = _.conforms({})({foo: "foo"});
+}
+
+// _.conformsTo
+namespace TestConformsTo {
+    let result: boolean = _.conformsTo({foo: "foo"}, {foo: (v: string) => false});
+    let result2: boolean = _.conformsTo({}, {foo: (v: string) => false});
+}
+
 // _.eq
 namespace TestEq {
     let customizer: (value: any, other: any, indexOrKey?: number|string) => boolean;
