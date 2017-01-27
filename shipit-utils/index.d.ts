@@ -3,10 +3,10 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="shipit-cli"/>
+/// <reference types="shipit"/>
 
 declare module "shipit-utils" {
-    import shipit = require("shipit-cli");
+    import shipit = require("shipit");
 
     type GruntOrShipit = typeof shipit | {};
 
