@@ -35,7 +35,7 @@ export interface RippleOptions {
 	position?: {
 		x: number;
 		y: number;
-	} | null
+	} | null;
 }
 
 /**
