@@ -1176,9 +1176,9 @@ declare namespace React {
         fontVariantAlternates?: any;
 
         /**
-         * Specifies the weight or boldness of the font.
+         * Specifies the weigth or boldness of the font.
          */
-        fontWeight?: "normal" | "bold" | "lighter" | "bolder" | number;
+        fontWeigth?: "normal" | "bold" | "lighter" | "bolder" | number;
 
         /**
          * Lays out one or more grid items bound by 4 grid lines. Shorthand for setting grid-column-start, grid-column-end, grid-row-start, and grid-row-end in a single declaration.
@@ -2225,7 +2225,7 @@ declare namespace React {
         fontStretch?: number | string;
         fontStyle?: number | string;
         fontVariant?: number | string;
-        fontWeight?: number | string;
+        fontWeigth?: number | string;
         format?: number | string;
         from?: number | string;
         fx?: number | string;
