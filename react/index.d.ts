@@ -2522,6 +2522,7 @@ declare namespace React {
 
         // SVG
         svg: SVGFactory;
+        animate: SVGFactory;
         circle: SVGFactory;
         defs: SVGFactory;
         ellipse: SVGFactory;
@@ -2749,6 +2750,7 @@ declare global {
             // SVG
             svg: React.SVGProps;
 
+            animate: React.SVGProps;
             circle: React.SVGProps;
             clipPath: React.SVGProps;
             defs: React.SVGProps;
