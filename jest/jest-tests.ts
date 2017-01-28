@@ -147,6 +147,10 @@ describe('compartion', function () {
     it('works sanely with simple decimals', function () {
         expect(0.2 + 0.1).toBeCloseTo(0.3, 5);
     });
+
+    it('works sanely with simple decimals and the default delta', function () {
+        expect(0.2 + 0.1).toBeCloseTo(0.3);
+    });
 });
 
 describe('toThrow API', function () {
