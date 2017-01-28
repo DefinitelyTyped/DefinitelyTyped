@@ -1,4 +1,4 @@
-// Type definitions for needle 0.7.8
+// Type definitions for needle 0.7
 // Project: https://github.com/tomas/needle
 // Definitions by: San Chen <https://github.com/bigsan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,19 +8,16 @@
 declare module "needle" {
     import * as http from 'http';
     import * as Buffer from 'buffer';
-    module Needle {
+    namespace Needle {
         interface NeedleResponse extends http.IncomingMessage {
             body: any;
             raw: Buffer;
             bytes: number;
         }
 
-        interface ReadableStream extends NodeJS.ReadableStream {
-        }
+        type ReadableStream = NodeJS.ReadableStream;
 
-        interface Callback {
-                (error: Error, response: NeedleResponse, body: any): void;
-        }
+        type NeedleCallback = (error: Error, response: NeedleResponse, body: any) => void;
 
         interface RequestOptions {
             timeout?: number;
@@ -29,7 +26,7 @@ declare module "needle" {
             multipart?: boolean;
             proxy?: string;
             agent?: string;
-                headers?: Object;
+            headers?: {};
             auth?: string; // auto | digest | basic (default)
             json?: boolean;
 
@@ -61,29 +58,23 @@ declare module "needle" {
         interface NeedleStatic {
             defaults(options?: any): void;
 
-            head(url: string): ReadableStream;
-            head(url: string, callback?: Callback): ReadableStream;
-            head(url: string, options?: RequestOptions, callback?: Callback): ReadableStream;
+            head(url: string, callback?: NeedleCallback): ReadableStream;
+            head(url: string, options?: RequestOptions, callback?: NeedleCallback): ReadableStream;
 
-            get(url: string): ReadableStream;
-            get(url: string, callback?: Callback): ReadableStream;
-            get(url: string, options?: RequestOptions, callback?: Callback): ReadableStream;
+            get(url: string, callback?: NeedleCallback): ReadableStream;
+            get(url: string, options?: RequestOptions, callback?: NeedleCallback): ReadableStream;
 
-            post(url: string, data: any): ReadableStream;
-            post(url: string, data: any, callback?: Callback): ReadableStream;
-            post(url: string, data: any, options?: RequestOptions, callback?: Callback): ReadableStream;
+            post(url: string, data: any, callback?: NeedleCallback): ReadableStream;
+            post(url: string, data: any, options?: RequestOptions, callback?: NeedleCallback): ReadableStream;
 
-            put(url: string, data: any): ReadableStream;
-            put(url: string, data: any, callback?: Callback): ReadableStream;
-            put(url: string, data: any, options?: RequestOptions, callback?: Callback): ReadableStream;
+            put(url: string, data: any, callback?: NeedleCallback): ReadableStream;
+            put(url: string, data: any, options?: RequestOptions, callback?: NeedleCallback): ReadableStream;
 
-            delete(url: string, data: any): ReadableStream;
-            delete(url: string, data: any, callback?: Callback): ReadableStream;
-            delete(url: string, data: any, options?: RequestOptions, callback?: Callback): ReadableStream;
+            delete(url: string, data: any, callback?: NeedleCallback): ReadableStream;
+            delete(url: string, data: any, options?: RequestOptions, callback?: NeedleCallback): ReadableStream;
 
-            request(method: string, url: string, data: any): ReadableStream;
-            request(method: string, url: string, data: any, callback?: Callback): ReadableStream;
-            request(method: string, url: string, data: any, options?: RequestOptions, callback?: Callback): ReadableStream;
+            request(method: string, url: string, data: any, callback?: NeedleCallback): ReadableStream;
+            request(method: string, url: string, data: any, options?: RequestOptions, callback?: NeedleCallback): ReadableStream;
         }
     }
 
