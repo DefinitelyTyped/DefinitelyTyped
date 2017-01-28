@@ -2390,9 +2390,31 @@ declare namespace umbraco.services {
             { success: ng.IHttpPromiseCallback<T>; errorMsg: string } |
             { success: ng.IHttpPromiseCallback<T>; error: ng.IHttpPromiseCallback<umb.resources.IResourcePromise> }): umb.resources.IResourcePromise| Object;
     }
+    
+     /**
+    * Application-wide service for handling localization
+    */
+    interface ILocalizationService {
+        /**
+        * @ngdoc method
+        * @name umbraco.services.localizationService#localize
+        * @methodOf umbraco.services.localizationService
+        * @description Checks the dictionary for a localized resource string
+        * @param {String} value the area/key to localize
+        * @param {Array} tokens the area/key to localize
+        * @returns {String} localized resource string
+        */
+        localize(value: string, tokens: any[]): string;
+
+        /**
+        * @ngdoc method
+        * @name umbraco.services.localizationService#tokenize
+        * @methodOf umbraco.services.localizationService
+        * @description Helper to tokenize and compile a localization string
+        * @param {String} value the value to tokenize
+        * @param {Object} scope the $scope object
+        * @returns {String} tokenized resource string
+        */
+        tokenize(value: string, scope: any): string;
+    }
 }
-
-
-
-
-
