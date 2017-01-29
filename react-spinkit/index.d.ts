@@ -6,16 +6,14 @@
 
 /// <reference types="react" />
 
-declare namespace ReactSpinkit {
-	interface Props {
+declare namespace spinner {
+	export interface SpinnerProps {
 		spinnerName?: string;
 	}
 
-	interface Spinner extends React.ComponentClass<Props> { }
-}
-declare module "react-spinkit" {
-	var spinner: ReactSpinkit.Spinner;
-	export = spinner;
+	export interface Spinner extends React.ComponentClass<SpinnerProps> {
+	}
 }
 
-
+declare const spinner: spinner.Spinner;
+export = spinner;
