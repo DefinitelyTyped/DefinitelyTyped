@@ -756,7 +756,7 @@ declare namespace angular {
          * @param comparator Function used to determine the relative order of value pairs.
          * @return An array containing the items from the specified collection, ordered by a comparator function based on the values computed using the expression predicate.
          */
-        <T>(array: T[], expression: string|((value: T) => any)|(((value: T) => any)|string)[], reverse?: boolean, comparator?: IFilterOrderByComparatorFunc): T[];
+        <T, A extends T[]|null|undefined>(array: A, expression: string|((value: T) => any)|(((value: T) => any)|string)[], reverse?: boolean, comparator?: IFilterOrderByComparatorFunc): A;
     }
 
     /**
