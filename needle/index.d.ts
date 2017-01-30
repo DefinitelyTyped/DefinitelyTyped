@@ -106,8 +106,8 @@ declare module "needle" {
             patch(url: string, data: BodyData, callback?: NeedleCallback): ReadableStream;
             patch(url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
 
-            delete(url: string, data: BodyData, callback ?: NeedleCallback): ReadableStream;
-            delete(url: string, data: BodyData, options ?: NeedleOptions, callback ?: NeedleCallback): ReadableStream;
+            delete(url: string, data: BodyData, callback?: NeedleCallback): ReadableStream;
+            delete(url: string, data: BodyData, options?: NeedleOptions, callback ?: NeedleCallback): ReadableStream;
 
             request(method: string, url: string, data: BodyData, callback?: NeedleCallback): ReadableStream;
             request(method: string, url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
