@@ -165,7 +165,7 @@ declare namespace L {
         isValid(): boolean;
     }
 
-    export type LatLngBoundsLiteral = LatLngTuple[];
+    export type LatLngBoundsLiteral = LatLngTuple[]; // Must be [LatLngTuple, LatLngTuple], cant't change because Map.setMaxBounds
 
     type LatLngBoundsExpression = LatLngBounds | LatLngBoundsLiteral;
 
@@ -202,7 +202,7 @@ declare namespace L {
 
     export function point(coords: PointTuple | {x: number, y: number}): Point;
 
-    export type BoundsLiteral = PointTuple[];
+    export type BoundsLiteral = [PointTuple, PointTuple];
 
     export class Bounds {
         constructor(topLeft: PointExpression, bottomRight: PointExpression);
