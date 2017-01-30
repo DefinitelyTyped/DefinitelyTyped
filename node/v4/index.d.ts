@@ -9,6 +9,25 @@
 *                                               *
 ************************************************/
 
+// This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
+interface Console {
+    Console: {
+        prototype: Console,
+        new(stdout: NodeJS.WritableStream, stderr?: NodeJS.WritableStream): Console;
+    };
+    assert(value: any, message?: string, ...optionalParams: any[]): void;
+    dir(obj: any, options?: {showHidden?: boolean, depth?: number, colors?: boolean}): void;
+    error(message?: any, ...optionalParams: any[]): void;
+    info(message?: any, ...optionalParams: any[]): void;
+    log(message?: any, ...optionalParams: any[]): void;
+    time(label: string): void;
+    timeEnd(label: string): void;
+    trace(message?: any, ...optionalParams: any[]): void;
+    warn(message?: any, ...optionalParams: any[]): void;
+}
+
+declare var console: Console;
+
 interface Error {
     stack?: string;
 }
