@@ -469,6 +469,7 @@ declare namespace L {
         minZoom?: number;
         maxZoom?: number;
         maxNativeZoom?: number;
+        minNativeZoom?: number;
         subdomains?: string | string[];
         errorTileUrl?: string;
         zoomOffset?: number;
@@ -598,6 +599,7 @@ declare namespace L {
         getCenter(): LatLng;
         getBounds(): LatLngBounds;
         addLatLng(latlng: LatLngExpression | LatLngExpression[]): this;
+        getElement(): HTMLElement;
 
         options: PolylineOptions;
     }
@@ -638,6 +640,7 @@ declare namespace L {
         getLatLng(): LatLng;
         setRadius(radius: number): this;
         getRadius(): number;
+        getElement(): HTMLElement;
 
         options: CircleMarkerOptions;
         feature: GeoJSONFeature<GeoJSONPoint>;
