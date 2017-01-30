@@ -854,7 +854,7 @@ declare namespace L {
      * Represents a GeoJSON object or an array of GeoJSON objects.
      * Allows you to parse GeoJSON data and display it on the map. Extends FeatureGroup.
      */
-    export class GeoJSON {
+    export class GeoJSON extends FeatureGroup {
         /**
          * Creates a Layer from a given GeoJSON feature. Can use a custom pointToLayer
          * and/or coordsToLatLng functions if provided as options.
