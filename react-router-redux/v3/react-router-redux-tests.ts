@@ -1,10 +1,11 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { browserHistory } from 'react-router';
+import { createBrowserHistory } from 'history';
 import { syncHistory, routeReducer } from 'react-router-redux';
 
 const reducer = combineReducers({ routing: routeReducer });
 
 // Sync dispatched route actions to the history
+const browserHistory = createBrowserHistory()
 const reduxRouterMiddleware = syncHistory(browserHistory);
 const createStoreWithMiddleware = applyMiddleware(reduxRouterMiddleware)(createStore);
 
