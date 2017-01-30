@@ -1429,10 +1429,6 @@ declare namespace L {
         options: IconOptions;
     }
 
-    export interface IconDefault extends InternalIcon {
-        imagePath: string;
-    }
-
     export namespace Icon {
         export class Default extends InternalIcon {
             imagePath: string;
