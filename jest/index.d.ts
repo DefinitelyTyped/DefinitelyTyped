@@ -122,7 +122,7 @@ declare namespace jest {
         toBeFalsy(): void;
         toBeGreaterThan(expected: number): void;
         toBeGreaterThanOrEqual(expected: number): void;
-        toBeInstanceOf(expected: any): void
+        toBeInstanceOf(expected: any): void;
         toBeLessThan(expected: number): void;
         toBeLessThanOrEqual(expected: number): void;
         toBeNull(): void;
@@ -135,6 +135,7 @@ declare namespace jest {
         toHaveBeenCalledTimes(expected: number): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;
         toHaveBeenLastCalledWith(...params: any[]): boolean;
+        toHaveLength(expected: number): void;
         toMatch(expected: string | RegExp): void;
         toMatchObject(expected: {}): void;
         toMatchSnapshot(): void;
