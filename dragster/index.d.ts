@@ -1,4 +1,4 @@
-// Type definitions for dragster
+// Type definitions for dragster 0.1
 // Project: https://github.com/bensmithett/dragster
 // Definitions by: Zsolt Kovacs <https://github.com/zskovacs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
