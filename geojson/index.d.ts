@@ -22,7 +22,7 @@ declare namespace GeoJSON {
     /***
     * http://geojson.org/geojson-spec.html#geometry-objects
     */
-    export interface DirectGeometryObject extends GeoJsonObject {
+    interface DirectGeometryObject extends GeoJsonObject {
         coordinates: Position[][][] | Position[][] | Position[] | Position;
     }
     /**
