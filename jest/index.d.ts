@@ -117,7 +117,7 @@ declare namespace jest {
         toBe(expected: any): void;
         toBeCalled(): void;
         toBeCalledWith(...args: any[]): void;
-        toBeCloseTo(expected: number, delta: number): void;
+        toBeCloseTo(expected: number, delta?: number): void;
         toBeDefined(): void;
         toBeFalsy(): void;
         toBeGreaterThan(expected: number): void;
