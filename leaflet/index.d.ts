@@ -252,6 +252,7 @@ declare namespace L {
          */
         on(eventMap: EventHandlerFnMap): this;
 
+        /* tslint:disable:unified-signatures */ // With an eventMap there are no additional arguments allowed
         /**
          * Removes a previously added listener function. If no function is specified,
          * it will remove all the listeners of that particular event from the object.
@@ -264,7 +265,7 @@ declare namespace L {
          * Removes a set of type/listener pairs.
          */
         off(eventMap: EventHandlerFnMap): this;
-
+        /* tslint:enable */
         /**
          * Removes all listeners to all events on the object.
          */
@@ -1152,7 +1153,9 @@ declare namespace L {
         noMoveStart?: boolean;
     }
 
+    /* tslint:disable:no-empty-interface */ // This is not empty, it extends two interfaces into one...
     export interface ZoomPanOptions extends ZoomOptions, PanOptions {}
+    /* tslint:enable */
 
     export interface FitBoundsOptions extends ZoomOptions, PanOptions {
         paddingTopLeft?: PointExpression;
