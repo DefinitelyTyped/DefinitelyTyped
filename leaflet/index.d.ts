@@ -489,7 +489,6 @@ declare namespace L {
 
     export function tileLayer(urlTemplate: string, options?: TileLayerOptions): TileLayer;
 
-
     export namespace TileLayer {
         export class WMS extends TileLayer {
             constructor(baseUrl: string, options: WMSOptions);
@@ -646,7 +645,6 @@ declare namespace L {
     }
 
     export function circleMarker(latlng: LatLngExpression, options?: CircleMarkerOptions): CircleMarker;
-
 
     export class Circle extends CircleMarker {
         constructor(latlng: LatLngExpression, options?: CircleMarkerOptions);
@@ -881,7 +879,6 @@ declare namespace L {
          * Reverse of coordsToLatLng
          */
         static latLngToCoords(latlng: LatLng): [number, number, number]; // A three tuple can be assigned to a two or three tuple
-
 
         /**
          * Reverse of coordsToLatLngs closed determines whether the first point should be
