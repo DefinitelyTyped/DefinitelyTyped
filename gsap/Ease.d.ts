@@ -95,7 +95,7 @@ declare namespace gsap {
         strength?: number;
         taper?: 'in' | 'out' | 'both' | 'none';
         template?: Ease;
-    };
+    }
 
     export class RoughEase extends Ease {
         static ease: RoughEase;
