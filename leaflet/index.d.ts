@@ -1323,7 +1323,7 @@ declare namespace L {
         openPopup(content: Content, latlng: LatLngExpression, options?: PopupOptions): this;
         closePopup(popup?: Popup): this;
         openTooltip(tooltip: Tooltip): this;
-        openTooltip(content: string | HTMLElement, latlng: LatLngExpression, options?: TooltipOptions): this;
+        openTooltip(content: Content, latlng: LatLngExpression, options?: TooltipOptions): this;
         closeTooltip(tooltip?: Tooltip): this;
 
         // Methods for modifying map state
