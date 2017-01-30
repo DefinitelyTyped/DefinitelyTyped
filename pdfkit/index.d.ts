@@ -69,6 +69,7 @@ declare namespace PDFKit.Mixins {
     }
 
     interface PDFFont<TDocument> {
+        font(buffer: Buffer): TDocument;
         font(src: string, family?: string, size?: number): TDocument;
         fontSize(size: number): TDocument;
         currentLineHeight(includeGap?: boolean): number;
