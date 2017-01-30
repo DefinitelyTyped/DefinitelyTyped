@@ -2,6 +2,7 @@
 // Project: https://github.com/sanniassin/react-input-mask
 // Definitions by: Alexandre Paré <https://github.com/apare>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as React from "react";
 

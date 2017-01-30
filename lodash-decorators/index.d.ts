@@ -2,6 +2,7 @@
 // Project: https://github.com/steelsojka/lodash-decorators
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="lodash" />
 

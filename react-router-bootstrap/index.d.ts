@@ -2,6 +2,7 @@
 // Project: https://github.com/react-bootstrap/react-router-bootstrap
 // Definitions by: Vincent Lesierse <https://github.com/vlesierse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="react"/>
 /// <reference types="react-router"/>

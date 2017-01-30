@@ -11,6 +11,8 @@ Basic usage examples
 	math.log(10000, 10);             // 4
 	math.sqrt(-4);                   // 2i
 	math.pow([[-1, 2], [3, 1]], 2);  // [[7, 0], [0, 7]]
+	var angle = 0.2;
+	math.add(math.pow(math.sin(angle), 2), math.pow(math.cos(angle), 2)); // returns number ~1
 
 	// expressions
 	math.eval('1.2 * (2 + 4.5)');    // 7.8

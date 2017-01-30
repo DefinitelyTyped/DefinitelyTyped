@@ -26,6 +26,7 @@ console.log(err.message);
 console.log(err.status);
 console.log(err.statusCode);
 console.log(err.expose);
+console.log(err.headers);
 
 // createError(status, msg)
 var err = createError(404, 'LOL');

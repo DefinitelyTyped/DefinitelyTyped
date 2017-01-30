@@ -987,7 +987,7 @@ declare module "readline" {
     export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer, terminal?: boolean): ReadLine;
     export function createInterface(options: ReadLineOptions): ReadLine;
 
-    export function cursorTo(stream: NodeJS.WritableStream, x: number, y: number): void;
+    export function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number): void;
     export function moveCursor(stream: NodeJS.WritableStream, dx: number|string, dy: number|string): void;
     export function clearLine(stream: NodeJS.WritableStream, dir: number): void;
     export function clearScreenDown(stream: NodeJS.WritableStream): void;

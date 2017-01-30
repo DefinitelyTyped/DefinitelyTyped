@@ -2,6 +2,7 @@
 // Project: https://github.com/danawoodman/react-fontawesome
 // Definitions by: Timur Rustamov <https://github.com/timurrustamov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 declare module "react-fontawesome" {
 

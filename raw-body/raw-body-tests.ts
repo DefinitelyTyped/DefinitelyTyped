@@ -2,11 +2,11 @@ import getRawBody = require("raw-body");
 
 const stream: any = {};
 
-const simple = getRawBody(stream);
+const simple: Promise<Buffer> = getRawBody(stream);
 
-const withEncoding = getRawBody(stream, "utf-8");
+const withEncoding: Promise<string> = getRawBody(stream, "utf-8");
 
-const withOptions = getRawBody(stream, {
+const withOptions: Promise<string> = getRawBody(stream, {
     encoding: "utf-8",
     length: 1024,
     limit: 512

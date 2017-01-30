@@ -32,7 +32,7 @@ declare module "angular" {
             // width of grid columns. "auto" will divide the width of the grid evenly among the columns
             colWidth?: string;
 
-            // height of grid rows. 'match' will make it the same as the column width, a numeric value will be interpreted as pixels, 
+            // height of grid rows. 'match' will make it the same as the column width, a numeric value will be interpreted as pixels,
             // '/2' is half the column width, '*5' is five times the column width, etc.
             rowHeight?: string;
 
@@ -84,7 +84,7 @@ declare module "angular" {
             // options to pass to resizable handler
             resizable?: {
 
-                // whether the items are resizable 
+                // whether the items are resizable
                 enabled?: boolean;
 
                 // location of the resize handles
@@ -104,7 +104,7 @@ declare module "angular" {
             // options to pass to draggable handler
             draggable?: {
 
-                // whether the items are resizable 
+                // whether the items are resizable
                 enabled?: boolean;
 
                 // Distance in pixels from the edge of the viewport after which the viewport should scroll, relative to pointer
