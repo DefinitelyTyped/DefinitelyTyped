@@ -168,7 +168,7 @@ declare namespace React {
         setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K>, callback?: () => any): void;
         setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
         forceUpdate(callBack?: () => any): void;
-        render(): JSX.Element | null;
+        render(): JSX.Element;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
@@ -201,7 +201,7 @@ declare namespace React {
 
     type SFC<P> = StatelessComponent<P>;
     interface StatelessComponent<P> {
-        (props: P & { children?: ReactNode }, context?: any): ReactElement<any>;
+        (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: P;
@@ -2620,9 +2620,11 @@ declare namespace React {
 
 declare global {
     namespace JSX {
-        interface Element extends React.ReactElement<any> { }
+        interface JSXElement extends React.ReactElement<any> { }
+        type Element = JSXElement | null;
+
         interface ElementClass extends React.Component<any, any> {
-            render(): JSX.Element | null;
+            render(): JSX.Element;
         }
         interface ElementAttributesProperty { props: {}; }
 
