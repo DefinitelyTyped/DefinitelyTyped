@@ -100,7 +100,7 @@ declare namespace gsap {
     export class RoughEase extends Ease {
         static ease: RoughEase;
         constructor(vars: RoughEaseConfig);
-        config(steps: number): SteppedEase;
+        config(steps?: number): RoughEase;
     }
 
 
