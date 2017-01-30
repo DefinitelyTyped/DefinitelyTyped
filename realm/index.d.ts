@@ -1,4 +1,4 @@
-// Type definitions for realm-js 0.14.3
+// Type definitions for realm-js 0.14
 // Project: https://github.com/realm/realm-js
 // Definitions by: Akim <https://github.com/Akim95>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -107,24 +107,24 @@ declare namespace Realm {
          * @param  {any[]} ...arg
          * @returns Results
          */
-        filtered(query: string, ...arg: any[]): Results<T & Object>;
+        filtered(query: string, ...arg: any[]): Results<T>;
 
         /**
          * @param  {string|SortDescriptor} descriptor
          * @param  {boolean} reverse?
          * @returns Results
          */
-        sorted(descriptor: string | SortDescriptor, reverse?: boolean): Results<T & Object>;
- 
+        sorted(descriptor: string | SortDescriptor, reverse?: boolean): Results<T>;
+
         /**
          * @returns Iterator<T|any>
          */
-        [Symbol.iterator](): Iterator<T & Object>;
+        [Symbol.iterator](): Iterator<T>;
 
         /**
          * @returns Results
          */
-        snapshot(): Results<T & Object>;
+        snapshot(): Results<T>;
 
         /**
          * @returns Iterator<any>
@@ -152,14 +152,14 @@ declare namespace Realm {
          * @param  {number} end?
          * @returns T[] | Object[]
          */
-        slice(start?: number, end?: number): (T & Object)[];
+        slice(start?: number, end?: number): T[];
 
         /**
          * @param  {(object:any,index?:any,collection?:any)=>void} callback
          * @param  {any} thisArg?
          * @returns Object|void
          */
-        find(callback: (object: any, index?: any, collection?: any) => void, thisArg?: any): (T & Object) | void;
+        find(callback: (object: any, index?: any, collection?: any) => void, thisArg?: any): T | null | undefined;
 
         /**
          * @param  {(object:any,index?:any,collection?:any)=>void} callback
@@ -230,7 +230,7 @@ declare namespace Realm {
         /**
          * @returns Object|void
          */
-        pop(): (T & Object) | void;
+        pop(): T | null | undefined;
 
         /**
          * @param  {any} object
@@ -241,7 +241,7 @@ declare namespace Realm {
         /**
          * @returns Object|void
          */
-        shift(): (T & Object) | void;
+        shift(): T | null | undefined;
 
         /**
          * @param  {number} index
@@ -249,7 +249,7 @@ declare namespace Realm {
          * @param  {any} object?
          * @returns Object
          */
-        splice(index: number, count?: number, object?: any): (T & Object)[];
+        splice(index: number, count?: number, object?: any): T[];
 
         /**
          * @param  {any} object
@@ -297,7 +297,7 @@ declare class Realm {
      * @param  {boolean} update?
      * @returns Realm.Object|T|any
      */
-    create<T>(type: string | Realm.ObjectType, properties: Realm.ObjectPropsType, update?: boolean): T & Object;
+    create<T>(type: string | Realm.ObjectType, properties: T & Realm.ObjectPropsType, update?: boolean): T;
 
     /**
      * @param  {Realm.Object|Realm.Object[]|Realm.List|Realm.Results|any} object
@@ -315,7 +315,7 @@ declare class Realm {
      * @param  {number|string} key
      * @returns Realm.Object|void
      */
-    objectForPrimaryKey<T>(type: string | Realm.ObjectType, key: number | string): (T & Object) | void;
+    objectForPrimaryKey<T>(type: string | Realm.ObjectType, key: number | string): T | void;
 
     /**
      * @param  {string|Realm.ObjectType} type
