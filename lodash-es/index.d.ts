@@ -286,3 +286,5 @@ export { default as xorWith } from './xorWith';
 export { default as zip } from './zip';
 export { default as zipObject } from './zipObject';
 export { default as zipWith } from './zipWith';
+
+// TypeScript Version: 2.1
