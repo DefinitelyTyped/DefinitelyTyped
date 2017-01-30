@@ -18,7 +18,6 @@ latLng = new L.LatLng({lat: 12, lng: 13, alt: 0});
 latLng = new L.LatLng(latLngTuple);
 latLng = new L.LatLng([12, 13, 0]);
 
-
 const latLngBoundsLiteral: L.LatLngBoundsLiteral = [[12, 13], latLngTuple];
 
 let latLngBounds: L.LatLngBounds;
