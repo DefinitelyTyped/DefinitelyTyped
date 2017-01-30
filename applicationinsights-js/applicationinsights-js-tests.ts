@@ -38,17 +38,17 @@ var appInsights: Microsoft.ApplicationInsights.IAppInsights = {
     startTrackPage(name?: string) { return null; },
     stopTrackPage(name?: string, url?: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }) { return null; },
     trackPageView(name?: string, url?: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }, duration?: number) { return null; },
-    startTrackEvent(name: string) { return null },
-    stopTrackEvent(name: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }) { return null },
-    trackEvent(name: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }) { return null },
-    trackDependency(id: string, method: string, absoluteUrl: string, pathName: string, totalTime: number, success: boolean, resultCode: number) { return null },
-    trackException(exception: Error, handledAt?: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }, severityLevel?: AI.SeverityLevel) { return null },
-    trackMetric(name: string, average: number, sampleCount?: number, min?: number, max?: number, properties?: { [name: string]: string; }) { return null },
-    trackTrace(message: string, properties?: { [name: string]: string; }) { return null },
-    flush() { return null },
-    setAuthenticatedUserContext(authenticatedUserId: string, accountId?: string) { return null },
-    clearAuthenticatedUserContext() { return null },
-    _onerror(message: string, url: string, lineNumber: number, columnNumber: number, error: Error) { return null }
+    startTrackEvent(name: string) { return null; },
+    stopTrackEvent(name: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }) { return null; },
+    trackEvent(name: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }) { return null; },
+    trackDependency(id: string, method: string, absoluteUrl: string, pathName: string, totalTime: number, success: boolean, resultCode: number) { return null; },
+    trackException(exception: Error, handledAt?: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }, severityLevel?: AI.SeverityLevel) { return null; },
+    trackMetric(name: string, average: number, sampleCount?: number, min?: number, max?: number, properties?: { [name: string]: string; }) { return null; },
+    trackTrace(message: string, properties?: { [name: string]: string; }) { return null; },
+    flush() { return null; },
+    setAuthenticatedUserContext(authenticatedUserId: string, accountId?: string) { return null; },
+    clearAuthenticatedUserContext() { return null; },
+    _onerror(message: string, url: string, lineNumber: number, columnNumber: number, error: Error) { return null; }
 };
 
 // trackPageView
