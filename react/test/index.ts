@@ -660,15 +660,17 @@ React.createFactory(TransitionGroup)({ component: "div" });
 }
 
 //
-// React Component classes super spread arguments
+// The SyntheticEvent.target.value should be accessible for onChange
 // --------------------------------------------------------------------------
-class ConstructorSpreadArgsComponent extends React.Component<{}, {}> {
-    constructor(...args: any[]) {
-        super(...args);
-    }
-}
-class ConstructorSpreadArgsPureComponent extends React.PureComponent<{}, {}> {
-    constructor(...args: any[]) {
-        super(...args);
-    }
+class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
+  constructor(props:{}) {
+    super(props);
+    this.state = { value: 'a' };
+  }
+  render() {
+    return React.DOM.textarea({
+      value: this.state.value,
+      onChange: e => this.setState({value: e.target.value})
+    });
+  }
 }

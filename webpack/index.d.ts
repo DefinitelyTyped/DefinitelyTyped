@@ -472,6 +472,17 @@ declare namespace webpack {
         apply(thisArg: Webpack, ...args: any[]): void;
     }
 
+    type UglifyCommentFunction = (astNode: any, comment: any) => boolean
+
+    interface UglifyPluginOptions extends UglifyJS.MinifyOptions {
+        beautify?: boolean;
+        comments?: boolean | RegExp | UglifyCommentFunction;
+        sourceMap?: boolean;
+        test?: Condition | Condition[];
+        include?: Condition | Condition[];
+        exclude?: Condition | Condition[];
+    }
+
     interface Webpack {
         (config: Configuration, callback?: compiler.CompilerCallback): compiler.Compiler;
         /**
@@ -1020,7 +1031,7 @@ declare namespace webpack {
             new (preferEntry: boolean): Plugin;
         }
         interface UglifyJsPluginStatic {
-            new (options?: UglifyJS.MinifyOptions): Plugin;
+            new (options?: UglifyPluginOptions): Plugin;
         }
         interface CommonsChunkPluginStatic {
             new (chunkName: string, filenames?: string | string[]): Plugin;
@@ -1135,7 +1146,7 @@ declare namespace webpack {
         /**
          * An entrypoint represents all assets that would be utilized during initial load time for a specific entry. This option controls when webpack should emit performance hints based on the maximum entrypoint size. The default value is 250000 (bytes).
          */
-        maxEntryPointSize?: number;
+        maxEntrypointSize?: number;
         /**
          * An asset is any emitted file from webpack. This option controls when webpack emits a performance hint based on individual asset size. The default value is 250000 (bytes).
          */
