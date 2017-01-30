@@ -1,8 +1,8 @@
+/* tslint:disable:dt-header variable-name */
 // Type definitions for Angular JS 1.5 component router
 // Project: http://angularjs.org
 // Definitions by: David Reher <http://github.com/davidreher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 
 declare namespace angular {
     /**
@@ -263,7 +263,7 @@ declare namespace angular {
         /**
          * Subscribe to URL updates from the router
          */
-        subscribe(onNext: (value: any) => void): Object;
+        subscribe(onNext: (value: any) => void): {};
 
         /**
          * Removes the contents of this router's outlet and all descendant outlets

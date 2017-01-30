@@ -87,6 +87,7 @@ declare namespace Router {
         params?: P;
         route?: PlainRoute;
         routeParams?: R;
+        router?: InjectedRouter;
         routes?: PlainRoute[];
         children?: React.ReactElement<any>;
     }
