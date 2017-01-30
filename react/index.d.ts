@@ -1,7 +1,8 @@
 // Type definitions for React v15.0
 // Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>
+// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>, Benoit Benezech <https://github.com/bbenezech>, Patricio Zavolinsky <https://github.com/pzavolinsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 export = React;
 export as namespace React;
@@ -164,9 +165,8 @@ declare namespace React {
     // Base component for plain JS classes
     class Component<P, S> implements ComponentLifecycle<P, S> {
         constructor(props?: P, context?: any);
-        constructor(...args: any[]);
-        setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
-        setState(state: S, callback?: () => any): void;
+        setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K>, callback?: () => any): void;
+        setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
         forceUpdate(callBack?: () => any): void;
         render(): JSX.Element | null;
 
@@ -175,8 +175,8 @@ declare namespace React {
         // always pass children as variadic arguments to `createElement`.
         // In the future, if we can define its call signature conditionally
         // on the existence of `children` in `P`, then we should remove this.
-        props: { children?: ReactNode } & P;
-        state: S;
+        props: Readonly<{ children?: ReactNode }> & Readonly<P>;
+        state: Readonly<S>;
         context: any;
         refs: {
             [key: string]: ReactInstance
@@ -229,8 +229,8 @@ declare namespace React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         C &
-        (new () => T) &
-        (new () => { props: P });
+        (new (props?: P, context?: any) => T) &
+        (new (props?: P, context?: any) => { props: P });
 
     //
     // Component Specs and Lifecycle
@@ -270,10 +270,9 @@ declare namespace React {
     //
     // Event System
     // ----------------------------------------------------------------------
-
-    interface SyntheticEvent<T> {
+    interface SyntheticEventBase<CURRENT, TARGET> {
         bubbles: boolean;
-        currentTarget: EventTarget & T;
+        currentTarget: EventTarget & CURRENT;
         cancelable: boolean;
         defaultPrevented: boolean;
         eventPhase: number;
@@ -284,10 +283,14 @@ declare namespace React {
         stopPropagation(): void;
         isPropagationStopped(): boolean;
         persist(): void;
-        // If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
-        target: EventTarget;
+        target: EventTarget & TARGET;
         timeStamp: Date;
         type: string;
+    }
+
+    interface SyntheticEvent<T> extends SyntheticEventBase<T, EventTarget> {
+      // If you thought target should be `EventTarget & T`,
+      // see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
     }
 
     interface ClipboardEvent<T> extends SyntheticEvent<T> {
@@ -307,6 +310,9 @@ declare namespace React {
     }
 
     interface FormEvent<T> extends SyntheticEvent<T> {
+    }
+
+    interface ChangeEvent<T> extends SyntheticEventBase<T, T> {
     }
 
     interface KeyboardEvent<T> extends SyntheticEvent<T> {
@@ -391,6 +397,7 @@ declare namespace React {
     type DragEventHandler<T> = EventHandler<DragEvent<T>>;
     type FocusEventHandler<T> = EventHandler<FocusEvent<T>>;
     type FormEventHandler<T> = EventHandler<FormEvent<T>>;
+    type ChangeEventHandler<T> = EventHandler<ChangeEvent<T>>;
     type KeyboardEventHandler<T> = EventHandler<KeyboardEvent<T>>;
     type MouseEventHandler<T> = EventHandler<MouseEvent<T>>;
     type TouchEventHandler<T> = EventHandler<TouchEvent<T>>;
@@ -458,7 +465,7 @@ declare namespace React {
         onBlurCapture?: FocusEventHandler<T>;
 
         // Form Events
-        onChange?: FormEventHandler<T>;
+        onChange?: ChangeEventHandler<T>;
         onChangeCapture?: FormEventHandler<T>;
         onInput?: FormEventHandler<T>;
         onInputCapture?: FormEventHandler<T>;
@@ -2142,7 +2149,7 @@ declare namespace React {
         unselectable?: boolean;
     }
 
-    // this list is "complete" in that it contains every SVG attribute 
+    // this list is "complete" in that it contains every SVG attribute
     // that React supports, but the types can be improved.
     // Full list here: https://facebook.github.io/react/docs/dom-elements.html
     //

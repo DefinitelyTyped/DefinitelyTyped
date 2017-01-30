@@ -2,6 +2,7 @@
 // Project: https://github.com/svenanders/react-breadcrumbs
 // Definitions by: Kostya Esmukov <https://github.com/KostyaEsmukov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as React from "react";
 import * as ReactRouter from "react-router";
