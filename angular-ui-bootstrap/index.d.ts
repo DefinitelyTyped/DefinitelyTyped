@@ -11,6 +11,7 @@ export type IAccordionConfig = angular.ui.bootstrap.IAccordionConfig;
 export type IButtonConfig = angular.ui.bootstrap.IButtonConfig;
 export type IDatepickerConfig = angular.ui.bootstrap.IDatepickerConfig;
 export type IDatepickerPopupConfig = angular.ui.bootstrap.IDatepickerPopupConfig;
+export type IDropdownConfig = angular.ui.bootstrap.IDropdownConfig;
 export type IModalProvider = angular.ui.bootstrap.IModalProvider;
 export type IModalService = angular.ui.bootstrap.IModalService;
 export type IModalServiceInstance = angular.ui.bootstrap.IModalServiceInstance;
@@ -52,6 +53,11 @@ declare module 'angular' {
              * @default: 'Click'
              */
             toggleEvent?: string;
+        }
+
+        interface IDropdownConfigNgOptions extends angular.INgModelOptions {
+            allowInvalid?: boolean;
+            timezone?: string;
         }
 
         interface IDatepickerConfig {
@@ -166,9 +172,45 @@ declare module 'angular' {
              * @default false
              */
             shortcutPropagation?: boolean;
+
+            /**
+             * The number of columns displayed in month selection.
+             *
+             * @default 3
+             */
+            monthColumns?: number;
+
+            /**
+             * The number of columns displayed in year selection.
+             *
+             * @default 5
+             */
+            yearColumns?: number;
+
+            /**
+             * The number of rows displayed in year selection
+             *
+             * @default 4
+             */
+            yearRows?: number;
+
+            /**
+             * All supported angular ngModelOptions plus some
+             *
+             * @default {}
+             */
+            ngModelOptions?: IDropdownConfigNgOptions
         }
 
         interface IDatepickerPopupConfig {
+
+            /**
+             * A list of alternate formats acceptable for manual entry.
+             *
+             * @default []
+             */
+            altInputFormats?: string[];
+
             /**
              * The format for displayed dates.
              *
@@ -247,8 +289,26 @@ declare module 'angular' {
              * @default true
              */
             onOpenFocus?: boolean;
+
+            /**
+             * Passing in 'auto' separated by a space before the placement will enable auto positioning, e.g: "auto bottom-left". The popup will attempt to position where it fits in the closest scrollable ancestor.
+             *
+             * @default 'auto bottom-left'
+             */
+            placement?: string;
         }
 
+        interface IDropdownConfig {
+            /**
+             * @default: 'uib-dropdown-open'
+             */
+            appendToOpenClass?: string;
+
+            /**
+             * @default: 'open'
+             */
+            openClass?: string;
+        }
 
         interface IModalProvider {
             /**
@@ -544,6 +604,13 @@ declare module 'angular' {
             boundaryLinks?: boolean;
 
             /**
+             * Whether to always display the first and last page numbers. If max-size is smaller than the number of pages, then the first and last page numbers are still shown with ellipses in-between as necessary. NOTE: max-size refers to the center of the range. This option may add up to 2 more numbers on each side of the displayed range for the end value and what would be an ellipsis but is replaced by a number because it is sequential.
+             *
+             * @default false
+             */
+            boundaryLinkNumbers?: boolean;
+
+            /**
              * Text for First button.
              *
              * @default 'First'
@@ -563,6 +630,13 @@ declare module 'angular' {
              * @default  'template/pagination/pagination.html'
              */
             templateUrl?: string;
+
+            /**
+             * Also displays ellipses when rotate is true and max-size is smaller than the number of pages.
+             *
+             * @default  false
+             */
+            forceEllipses?: boolean;
         }
 
         interface IPagerConfig {
@@ -680,6 +754,13 @@ declare module 'angular' {
             minuteStep?: number;
 
             /**
+             * Number of seconds to increase or decrease when using a button.
+             *
+             * @default 1
+             */
+            secondStep?: number;
+
+            /**
              * Whether to display 12H or 24H mode.
              *
              * @default true
@@ -720,6 +801,20 @@ declare module 'angular' {
              * @default true
              */
             showSpinners?: boolean;
+
+            /**
+             * Show seconds input.
+             *
+             * @default false
+             */
+            showSeconds?: boolean;
+
+            /**
+             * Add the ability to override the template used on the component.
+             *
+             * @default 'uib/template/timepicker/timepicker.html'
+             */
+            templateUrl?: string;
         }
 
 
