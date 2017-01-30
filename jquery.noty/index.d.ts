@@ -1,6 +1,6 @@
-// Type definitions for jQuery.noty v2.0
+// Type definitions for jQuery.noty v2.4
 // Project: http://needim.github.io/noty/
-// Definitions by: Aaron King <https://github.com/kingdango/>
+// Definitions by: Aaron King <https://github.com/kingdango/>, Tim Helfensdörfer <https://github.com/thelfensdrfer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Project by: Nedim Carter <http://needim.github.io>
 
@@ -26,8 +26,8 @@ interface NotyOptions {
     progressBar?: boolean;
 
     animation?: NotyAnimationOptions;
-    /** ['click', 'button', 'hover', 'backdrop'] // backdrop click will close all notifications */
-    closeWith?: any[];
+    /** backdrop click will close all notifications */
+    closeWith?: ('click' | 'button' | 'hover' | 'backdrop')[];
 
     /** if true adds an overlay */
     modal?: boolean;
