@@ -70,7 +70,7 @@ declare namespace Materialize {
          */
         outDuration?: number;
 
-        
+
         /**
          * If true, constrainWidth to the size of the dropdown activator.
          * Default: true
@@ -343,6 +343,35 @@ declare namespace Materialize {
         responsiveThreshold?: number;
     }
 
+    interface ChipDataObject {
+        tag: string,
+        image?: string,
+        id?: number
+    }
+
+    interface ChipOptions {
+        /**
+         * Set the chip data 
+         */
+        data?: Materialize.ChipDataObject[];
+        /**
+         * Set first placeholder when there are no tags
+         */
+        placeholder?: string;
+        /**
+         * Set second placeholder when adding additional tags.
+         */
+        secondaryPlaceholder?: string;
+        /**
+         * Set autocomplete data.
+         */
+        autocompleteData?: any;
+        /**
+         * Set autocomplete limit.
+         */
+        autocompleteLimit?: number;
+    }
+
 
     /**
      * The Materialize object
@@ -548,4 +577,18 @@ interface JQuery {
      * @name TabOptions options jQuery plugin options
      */
     tabs(options?: Materialize.TabOptions): JQuery;
+
+    /**
+     * Chip Initialization
+     * 
+     * @name ChipOptions options Material chip options
+     */
+    material_chip(options?: Materialize.ChipOptions): JQuery;
+
+    /**
+     * To access chip data
+     * 
+     * @name string method name of the method to invoke
+     */
+    material_chip(method: string): Materialize.ChipDataObject[] | Materialize.ChipDataObject;
 }
