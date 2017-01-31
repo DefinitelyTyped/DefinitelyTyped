@@ -1,6 +1,6 @@
 // Type definitions for FullCalendar 2.7.2
 // Project: http://fullcalendar.io/
-// Definitions by: Neil Stalker <https://github.com/nestalk>, Marcelo Camargo <https://github.com/hasellcamargo>
+// Definitions by: Neil Stalker <https://github.com/nestalk>, Marcelo Camargo <https://github.com/hasellcamargo>, Patrick Niemann <https://github.com/panic175>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery"/>
@@ -364,6 +364,11 @@ declare global {
         fullCalendar(method: 'updateEvent', event: EventObject): void;
 
         /**
+         * Reports changes for multiple events and renders them on the calendar.
+         */
+        fullCalendar(method: 'updateEvents', events: Array<EventObject>): void;
+
+        /**
          * Retrieves events that FullCalendar has in memory.
          */
         fullCalendar(method: 'clientEvents', idOrfilter?: any): Array<EventObject>;
@@ -402,6 +407,11 @@ declare global {
          * Renders a new event on the calendar.
          */
         fullCalendar(method: 'renderEvent', event: EventObject, stick?: boolean): void;
+        
+        /**
+         * Renders new events on the calendar.
+         */
+        fullCalendar(method: 'renderEvents', events: Array<EventObject>, stick?: boolean): void;
 
         /**
          * Rerenders all events on the calendar.
