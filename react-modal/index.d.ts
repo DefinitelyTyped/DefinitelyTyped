@@ -34,12 +34,18 @@ declare module "react-modal" {
         ariaHideApp?: boolean;
         /* Boolean indicating if the overlay should close the modal. Defaults to true. */
         shouldCloseOnOverlayClick?: boolean;
+        /* String className to be applied to the portal. Defaults to "ReactModalPortal". */
+        portalClassName?: string;
         /* String className to be applied to the overlay. */
         overlayClassName?: string;
         /* String className to be applied to the modal content. */
         className?: string;
         /* String indicating how the content container should be announced to screenreaders. */
         contentLabel?: string;
+        /* String indicating the role of the modal, allowing the 'dialog' role to be applied if desired. */
+        role?: string;
+        /* Function that will be called to get the parent element that the modal will be attached to. */
+        parentSelector?: () => HTMLElement;
     }
     let ReactModal: React.ClassicComponentClass<ReactModal> & {
         /* Override styles for all modals. */
