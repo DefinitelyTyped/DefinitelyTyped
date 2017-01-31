@@ -48,22 +48,22 @@ declare namespace multer {
         /** A function used to determine within which folder the uploaded files should be stored. Defaults to the system's default temporary directory. */
         destination?: string | ((req: Express.Request, file: Express.Multer.File, callback: (error: Error, destination: string) => void) => void);
         /** A function used to determine what the file should be named inside the folder. Defaults to a random name with no file extension. */
-        filename?: (req: Express.Request, file: Express.Multer.File, callback: (error: Error, filename: string) => void) => void;
+        filename?: (req: Express.Request, file: Express.Multer.File, callback: (error: Error | null, filename: string) => void) => void;
     }
 
     interface Instance {
-            /** In case you need to handle a text-only multipart form, you can use any of the multer methods (.single(), .array(), fields()), req.body contains the text fields */
-            single(): express.RequestHandler;
-            /** Accept a single file with the name fieldname. The single file will be stored in req.file. */
-            single(fieldame: string): express.RequestHandler;
-            /** In case you need to handle a text-only multipart form, you can use any of the multer methods (.single(), .array(), fields()), req.body contains the text fields */
-            array(): express.RequestHandler;
-            /** Accept an array of files, all with the name fieldname. Optionally error out if more than maxCount files are uploaded. The array of files will be stored in req.files. */
-            array(fieldame: string, maxCount?: number): express.RequestHandler;
-            /** Accept a mix of files, specified by fields. An object with arrays of files will be stored in req.files. */
-            fields(fields: Field[]): express.RequestHandler;
-            /** In case you need to handle a text-only multipart form, you can use any of the multer methods (.single(), .array(), fields()), req.body contains the text fields */
-            any(): express.RequestHandler;
+        /** In case you need to handle a text-only multipart form, you can use any of the multer methods (.single(), .array(), fields()), req.body contains the text fields */
+        single(): express.RequestHandler;
+        /** Accept a single file with the name fieldname. The single file will be stored in req.file. */
+        single(fieldame: string): express.RequestHandler;
+        /** In case you need to handle a text-only multipart form, you can use any of the multer methods (.single(), .array(), fields()), req.body contains the text fields */
+        array(): express.RequestHandler;
+        /** Accept an array of files, all with the name fieldname. Optionally error out if more than maxCount files are uploaded. The array of files will be stored in req.files. */
+        array(fieldame: string, maxCount?: number): express.RequestHandler;
+        /** Accept a mix of files, specified by fields. An object with arrays of files will be stored in req.files. */
+        fields(fields: Field[]): express.RequestHandler;
+        /** In case you need to handle a text-only multipart form, you can use any of the multer methods (.single(), .array(), fields()), req.body contains the text fields */
+        any(): express.RequestHandler;
     }
 }
 

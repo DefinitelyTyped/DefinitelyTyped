@@ -1,7 +1,8 @@
-// Type definitions for Jest 16.0.0
+// Type definitions for Jest 18.1.0
 // Project: http://facebook.github.io/jest/
-// Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>
+// Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>, Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
@@ -16,7 +17,7 @@ declare var xit: jest.It;
 declare var test: jest.It;
 declare var xtest: jest.It;
 
-declare function expect(actual: any): jest.Matchers;
+declare const expect: jest.Expect;
 
 interface NodeRequire {
     /** Returns the actual module instead of a mock, bypassing all checks on whether the module should receive a mock implementation or not. */
@@ -26,13 +27,18 @@ interface NodeRequire {
 }
 
 declare namespace jest {
+    /** Provides a way to add Jasmine-compatible matchers into your Jest context. */
     function addMatchers(matchers: jasmine.CustomMatcherFactories): typeof jest;
     /** Disables automatic mocking in the module loader. */
     function autoMockOff(): typeof jest;
     /** Enables automatic mocking in the module loader. */
     function autoMockOn(): typeof jest;
-    /** Clears the mock.calls and mock.instances properties of all mocks. Equivalent to calling .mockClear() on every mocked function. */
+    /**
+     * @deprecated use resetAllMocks instead
+     */
     function clearAllMocks(): typeof jest;
+    /** Clears the mock.calls and mock.instances properties of all mocks. Equivalent to calling .mockClear() on every mocked function. */
+    function resetAllMocks(): typeof jest;
     /** Removes any pending timers from the timer system. If any timers have been scheduled, they will be cleared and will never have the opportunity to execute in the future. */
     function clearAllTimers(): typeof jest;
     /** Indicates that the module system should never return a mocked version of the specified module, including all of the specificied module's dependencies. */
@@ -46,6 +52,7 @@ declare namespace jest {
     /** Enables automatic mocking in the module loader. */
     function enableAutomock(): typeof jest;
     /** Creates a mock function. Optionally takes a mock implementation. */
+    function fn<T extends {}>(implementation: (...args: any[]) => T): Mock<T>;
     function fn<T>(implementation?: Function): Mock<T>;
     /** Use the automatic mocking system to generate a mocked version of the given module. */
     function genMockFromModule<T>(moduleName: string): T;
@@ -98,8 +105,16 @@ declare namespace jest {
         (fn: ProvidesCallback): any;
     }
 
+    /** Creates a test closure */
     interface It {
+        /**
+         * Creates a test closure.
+         * 
+         * @param {string} name The name of your test
+         * @param {fn?} ProvidesCallback The function for your test
+         */
         (name: string, fn?: ProvidesCallback): void;
+        /** Only runs this test in the current file. */
         only: It;
         skip: It;
         concurrent: It;
@@ -111,35 +126,113 @@ declare namespace jest {
         skip: Describe;
     }
 
+    interface MatcherUtils {
+        readonly isNot: boolean;
+        utils: {
+            readonly EXPECTED_COLOR: string;
+            readonly RECEIVED_COLOR: string;
+            ensureActualIsNumber(actual: any, matcherName?: string): void;
+            ensureExpectedIsNumber(actual: any, matcherName?: string): void;
+            ensureNoExpected(actual: any, matcherName?: string): void;
+            ensureNumbers(actual: any, expected: any, matcherName?: string): void;
+            /** get the type of a value with handling of edge cases like `typeof []` and `typeof null` */
+            getType(value: any): string;
+            matcherHint(matcherName: string, received?: string, expected?: string, options?: { secondArgument?: string, isDirectExpectCall?: boolean }): string;
+            pluralize(word: string, count: number): string;
+            printExpected(value: any): string;
+            printReceived(value: any): string;
+            printWithType(name: string, received: any, print: (value: any) => string): string;
+            stringify(object: {}, maxDepth?: number): string;
+        }
+    }
+
+    interface ExpectExtendMap {
+        [key: string]: (this: MatcherUtils, received: any, actual: any) => { message: () => string, pass: boolean };
+    }
+
+    /** The `expect` function is used every time you want to test a value. You will rarely call `expect` by itself. */
+    interface Expect {
+        /** 
+         * The `expect` function is used every time you want to test a value. You will rarely call `expect` by itself. 
+         * 
+         * @param {any} actual The value to apply matchers against.
+        */
+        (actual: any): Matchers;
+        anything(): void;
+        /** Matches anything that was created with the given constructor. You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value. */
+        any(classType: any): void;
+        /** Matches any array made up entirely of elements in the provided array. You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value.  */
+        arrayContaining(arr: any[]): void;
+        /** Verifies that a certain number of assertions are called during a test. This is often useful when testing asynchronous code, in order to make sure that assertions in a callback actually got called. */
+        assertions(num: number): void;
+        /** You can use `expect.extend` to add your own matchers to Jest. */
+        extend(obj: ExpectExtendMap): void;
+        /** Matches any object that recursively matches the provided keys. This is often handy in conjunction with other asymmetric matchers. */
+        objectContaining(obj: {}): void;
+        /** Matches any string that contains the exact provided string */
+        stringMatching(str: string | RegExp): void;
+    }
+
     interface Matchers {
+        /** If you know how to test something, `.not` lets you test its opposite. */
         not: Matchers;
         lastCalledWith(...args: any[]): void;
+        /** Checks that a value is what you expect. It uses `===` to check strict equality. Don't use `toBe` with floating-point numbers. */
         toBe(expected: any): void;
+        /** Ensures that a mock function is called. */
         toBeCalled(): void;
+        /** Ensure that a mock function is called with specific arguments. */
         toBeCalledWith(...args: any[]): void;
-        toBeCloseTo(expected: number, delta: number): void;
+        /** Using exact equality with floating point numbers is a bad idea. Rounding means that intuitive things fail. */
+        toBeCloseTo(expected: number, delta?: number): void;
+        /** Ensure that a variable is not undefined. */
         toBeDefined(): void;
+        /** When you don't care what a value is, you just want to ensure a value is false in a boolean context. */
         toBeFalsy(): void;
+        /** For comparing floating point numbers. */
         toBeGreaterThan(expected: number): void;
+        /** For comparing floating point numbers. */
         toBeGreaterThanOrEqual(expected: number): void;
+        /** Ensure that an object is an instance of a class. This matcher uses `instanceof` underneath. */
         toBeInstanceOf(expected: any): void
+        /** For comparing floating point numbers. */
         toBeLessThan(expected: number): void;
+        /** For comparing floating point numbers. */
         toBeLessThanOrEqual(expected: number): void;
+        /** This is the same as `.toBe(null)` but the error messages are a bit nicer. So use `.toBeNull()` when you want to check that something is null. */
         toBeNull(): void;
+        /** Use when you don't care what a value is, you just want to ensure a value is true in a boolean context. In JavaScript, there are six falsy values: `false`, `0`, `''`, `null`, `undefined`, and `NaN`. Everything else is truthy. */
         toBeTruthy(): void;
+        /** Used to check that a variable is undefined. */
         toBeUndefined(): void;
+        /** Used when you want to check that an item is in a list. For testing the items in the list, this uses `===`, a strict equality check. */
         toContain(expected: any): void;
+        /** Used when you want to check that an item is in a list. For testing the items in the list, this  matcher recursively checks the equality of all fields, rather than checking for object identity. */
         toContainEqual(expected: any): void;
+        /** Used when you want to check that two objects have the same value. This matcher recursively checks the equality of all fields, rather than checking for object identity. */
         toEqual(expected: any): void;
+        /** Ensures that a mock function is called. */
         toHaveBeenCalled(): boolean;
+        /** Ensures that a mock function is called an exact number of times. */
         toHaveBeenCalledTimes(expected: number): boolean;
+        /** Ensure that a mock function is called with specific arguments. */
         toHaveBeenCalledWith(...params: any[]): boolean;
+        /** If you have a mock function, you can use `.toHaveBeenLastCalledWith` to test what arguments it was last called with. */
         toHaveBeenLastCalledWith(...params: any[]): boolean;
+        /** Used to check that an object has a `.length` property and it is set to a certain numeric value. */
+        toHaveLength(expected: number): void;
+        toHaveProperty(propertyPath: string, value?: any): void;
+        /** Check that a string matches a regular expression. */
         toMatch(expected: string | RegExp): void;
+        /** Used to check that a JavaScript object matches a subset of the properties of an objec */
         toMatchObject(expected: {}): void;
-        toMatchSnapshot(): void;
+        /** This ensures that a value matches the most recent snapshot. Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information. */
+        toMatchSnapshot(snapshotName?: string): void;
+        /** Used to test that a function throws when it is called. */
         toThrow(): void;
+        /** If you want to test that a specific error is thrown inside a function. */
         toThrowError(error?: string | Constructable | RegExp): void;
+        /** Used to test that a function throws a error matching the most recent snapshot when it is called. */
         toThrowErrorMatchingSnapshot(): void;
     }
 
@@ -147,9 +240,25 @@ declare namespace jest {
         new (...args: any[]): any
     }
 
-    interface Mock<T> extends Function {
+    interface Mock<T> extends Function, MockInstance<T> {
         new (): T;
         (...args: any[]): any;
+    }
+
+    /**
+     * Wrap module with mock definitions
+     * @example
+     *  jest.mock("../api");
+     *  import { Api } from "../api";
+     *
+     *  const myApi: jest.Mocked<Api> = new Api() as any;
+     *  myApi.myApiMethod.mockImplementation(() => "test");
+     */
+    type Mocked<T> = {
+        [P in keyof T]: T[P] & MockInstance<T>;
+    };
+
+    interface MockInstance<T> {
         mock: MockContext<T>;
         mockClear(): void;
         mockReset(): void;
