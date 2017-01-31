@@ -20,7 +20,7 @@ export declare class Producer {
 }
 
 export declare class HighLevelProducer {
-    constructor(client: Client);
+    constructor(client: Client, options: any);
     on(eventName: string, cb: () => any): void;
     on(eventName: string, cb: (error: any) => any): void;
     send(payloads: Array<ProduceRequest>, cb: (error: any, data: any) => any): void;
@@ -28,7 +28,7 @@ export declare class HighLevelProducer {
 }
 
 export declare class Consumer {
-    constructor(client: Client, fetchRequests: Array<FetchRequest>, options: ConsumerOptions);
+    constructor(client: Client, fetchRequests: Array<OffsetFetchRequest>, options: ConsumerOptions);
     on(eventName: string, cb: (message: string) => any): void;
     on(eventName: string, cb: (error: any) => any): void;
     addTopics(topics: Array<string>, cb: (error: any, added: boolean) => any): void;
@@ -157,9 +157,5 @@ export interface OffsetCommitRequest {
 export interface OffsetFetchRequest {
     topic: string;
     partition?: number;
-}
-
-export interface FetchRequest {
-    topic: string;
     offset?: number;
 }
