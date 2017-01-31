@@ -2,6 +2,7 @@
 // Project: http://lodash.com/
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 export { default as add } from './add';
 export { default as after } from './after';
@@ -286,5 +287,3 @@ export { default as xorWith } from './xorWith';
 export { default as zip } from './zip';
 export { default as zipObject } from './zipObject';
 export { default as zipWith } from './zipWith';
-
-// TypeScript Version: 2.1
