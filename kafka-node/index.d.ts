@@ -103,6 +103,7 @@ export interface ProduceRequest {
 
 export interface ConsumerOptions {
     groupId?: string;
+    id?: string;
     autoCommit?: boolean;
     autoCommitIntervalMs?: number;
     fetchMaxWaitMs?: number;
