@@ -1,10 +1,13 @@
 {
     "compilerOptions": {
-        "baseUrl": "../../",
-        "typeRoots": ["../../"],
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
         "paths": {
             "hls.js": [ "hls.js" ]
-        },
+        }
     },
     "files": [
         "index.d.ts",
