@@ -1,4 +1,3 @@
-
 import kafka = require('kafka-node');
 
 var basicClient = new kafka.Client('localhost:2181/', 'sendMessage');
