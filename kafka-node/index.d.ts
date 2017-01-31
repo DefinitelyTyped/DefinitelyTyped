@@ -13,24 +13,24 @@ export declare class Client {
 
 export declare class Producer {
     constructor(client: Client);
-    on(eventName: string, cb: () => any): Producer;
-    on(eventName: string, cb: (error: any) => any): Producer;
+    on(eventName: string, cb: () => any): void;
+    on(eventName: string, cb: (error: any) => any): void;
     send(payloads: Array<ProduceRequest>, cb: (error: any, data: any) => any): void;
     createTopics(topics: Array<string>, async: boolean, cb?: (error: any, data: any) => any): void;
 }
 
 export declare class HighLevelProducer {
     constructor(client: Client);
-    on(eventName: string, cb: () => any): HighLevelProducer;
-    on(eventName: string, cb: (error: any) => any): HighLevelProducer;
+    on(eventName: string, cb: () => any): void;
+    on(eventName: string, cb: (error: any) => any): void;
     send(payloads: Array<ProduceRequest>, cb: (error: any, data: any) => any): void;
     createTopics(topics: Array<string>, async: boolean, cb?: (error: any, data: any) => any): void;
 }
 
 export declare class Consumer {
     constructor(client: Client, fetchRequests: Array<FetchRequest>, options: ConsumerOptions);
-    on(eventName: string, cb: (message: string) => any): Consumer;
-    on(eventName: string, cb: (error: any) => any): Consumer;
+    on(eventName: string, cb: (message: string) => any): void;
+    on(eventName: string, cb: (error: any) => any): void;
     addTopics(topics: Array<string>, cb: (error: any, added: boolean) => any): void;
     addTopics(topics: Array<Topic>, cb: (error: any, added: boolean) => any, fromOffset: boolean): void;
     removeTopics(topics: Array<string>, cb: (error: any, removed: boolean) => any): void;
@@ -45,8 +45,8 @@ export declare class Consumer {
 
 export declare class HighLevelConsumer {
     constructor(client: Client, payloads: Array<Topic>, options: ConsumerOptions);
-    on(eventName: string, cb: (message: string) => any): HighLevelConsumer;
-    on(eventName: string, cb: (error: any) => any): HighLevelConsumer;
+    on(eventName: string, cb: (message: string) => any): void;
+    on(eventName: string, cb: (error: any) => any): void;
     addTopics(topics: Array<string>, cb: (error: any, added: boolean) => any): void;
     addTopics(topics: Array<Topic>, cb: (error: any, added: boolean) => any, fromOffset: boolean): void;
     removeTopics(topics: Array<string>, cb: (error: any, removed: boolean) => any): void;
@@ -68,13 +68,13 @@ export declare class ConsumerGroup {
 
 export declare class Offset {
     constructor(client: Client);
-    on(eventName: string, cb: () => any): Offset;
+    on(eventName: string, cb: () => any): void;
     fetch(payloads: Array<OffsetRequest>, cb: (error: any, data: any) => any): void;
     commit(groupId: string, payloads: Array<OffsetCommitRequest>, cb: (error: any, data: any) => any): void;
     fetchCommits(groupId: string, payloads: Array<OffsetFetchRequest>, cb: (error: any, data: any) => any): void;
     fetchLatestOffsets(topics: Array<string>, cb: (error: any, data: any) => any): void;
     fetchEarliestOffsets(topics: Array<string>, cb: (error: any, data: any) => any): void;
-    on(eventName: string, cb: (error: any) => any): Offset;
+    on(eventName: string, cb: (error: any) => any): void;
 }
 
 export declare class KeyedMessage {
