@@ -59,6 +59,13 @@ export declare class HighLevelConsumer {
     close(force: boolean, cb: () => any): void;
 }
 
+export declare class ConsumerGroup {
+    constructor(options: ConsumerGroupOptions, topics: string[]);
+    on(eventName: string, cb: (message: string) => any): void;
+    on(eventName: string, cb: (error: any) => any): void;
+    close(force: boolean, cb: (error: any) => any): void;
+}
+
 export declare class Offset {
     constructor(client: Client);
     on(eventName: string, cb: () => any): Offset;
@@ -66,6 +73,7 @@ export declare class Offset {
     commit(groupId: string, payloads: Array<OffsetCommitRequest>, cb: (error: any, data: any) => any): void;
     fetchCommits(groupId: string, payloads: Array<OffsetFetchRequest>, cb: (error: any, data: any) => any): void;
     fetchLatestOffsets(topics: Array<string>, cb: (error: any, data: any) => any): void;
+    fetchEarliestOffsets(topics: Array<string>, cb: (error: any, data: any) => any): void;
     on(eventName: string, cb: (error: any) => any): Offset;
 }
 
@@ -74,6 +82,11 @@ export declare class KeyedMessage {
 }
 
 // # Interfaces
+export interface AckBatchOptions {
+    noAckBatchSize: number | null,
+    noAckBatchAge: number | null
+}
+
 export interface ZKOptions {
     sessionTimeout?: number;
     spinDelay?: number;
@@ -97,6 +110,27 @@ export interface ConsumerOptions {
     fetchMaxBytes?: number;
     fromOffset?: boolean;
     encoding?: string;
+}
+
+export interface CustomPartitionAssignmentProtocol {
+    name: string;
+    version: number;
+    userData: {};
+    assign: (topicPattern: any, groupMembers: any, callback: (error: any, result: any) => void) => void;
+}
+
+export interface ConsumerGroupOptions {
+    host: string;
+    zk?: ZKOptions;
+    batch?: AckBatchOptions;
+    ssl?: boolean;
+    id: string;
+    groupId: string;
+    sessionTimeout: number;
+    protocol: Array<"roundrobin" | "range" | CustomPartitionAssignmentProtocol>;
+    fromOffset: "earliest" | "latest" | "none";
+    migrateHLC: false;
+    migrateRolling: true;
 }
 
 export interface Topic {
@@ -129,4 +163,3 @@ export interface FetchRequest {
     topic: string;
     offset?: number;
 }
-
