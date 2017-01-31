@@ -7,10 +7,7 @@
 /// <reference types="react"/>
 
 declare module "react-modal" {
-    interface ReactModal {
-        /* Boolean describing if the modal should be shown or not. Defaults to false. */
-        isOpen: boolean;
-        /* Object indicating styles to be used for the modal, divided into overlay and content styles. */
+    interface Styles {
         style?: {
             content?: {
                 [key: string]: any;
@@ -19,6 +16,12 @@ declare module "react-modal" {
                 [key: string]: any;
             };
         };
+    }
+    interface ReactModal {
+        /* Boolean describing if the modal should be shown or not. Defaults to false. */
+        isOpen: boolean;
+        /* Object indicating styles to be used for the modal, divided into overlay and content styles. */
+        style?: Styles;
         /* Set this to properly hide your application from assistive screenreaders and other assistive technologies while the modal is open. */
         appElement?: HTMLElement | {};
         /* Function that will be run after the modal has opened. */
@@ -38,6 +41,11 @@ declare module "react-modal" {
         /* String indicating how the content container should be announced to screenreaders. */
         contentLabel?: string;
     }
-    let ReactModal: React.ClassicComponentClass<ReactModal>;
+    let ReactModal: React.ClassicComponentClass<ReactModal> & {
+        /* Override styles for all modals. */
+        defaultStyles: Styles;
+        /* Call this to properly hide your application from assistive screenreaders and other assistive technologies while the modal is open. */
+        setAppElement(appElement: HTMLElement): void;
+    };
     export = ReactModal;
 }
