@@ -66,7 +66,8 @@ declare namespace Promise {
     function all<T1, T2, T3, T4>(values: [T1 | Thenable<T1>, T2 | Thenable<T2>, T3 | Thenable<T3>, T4 | Thenable <T4>]): Promise<[T1, T2, T3, T4]>;
     function all<T1, T2, T3>(values: [T1 | Thenable<T1>, T2 | Thenable<T2>, T3 | Thenable<T3>]): Promise<[T1, T2, T3]>;
     function all<T1, T2>(values: [T1 | Thenable<T1>, T2 | Thenable<T2>]): Promise<[T1, T2]>;
-    function all<T>(values: (T | Thenable<T>)[]): Promise<T[]>;
+	function all<T extends Object>(values: (T | Thenable<T>)[]): Promise<T[]>;
+	function all<T extends void>(values: any[]): Promise<void>;
 
 	/**
 	 * Make a Promise that fulfills when any item fulfills, and rejects if any item rejects.
