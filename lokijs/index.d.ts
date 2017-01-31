@@ -1,9 +1,10 @@
-// Type definitions for lokijs v1.2.5
+// Type definitions for lokijs v1.4.2
 // Project: https://github.com/techfort/LokiJS
 // Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// NOTE: definition last updated (2016-3-13) based on latest code as of https://github.com/techfort/LokiJS/commit/3d2cf9546cd22556444deeabc4df314f227ecf5c
+// NOTE: definition last updated (2017-1-31) based on latest documentation (v1.4.2) https://rawgit.com/techfort/LokiJS/master/jsdoc/Collection.html#find
+// NOTE: definition updated (2016-3-13) based on latest code as of https://github.com/techfort/LokiJS/commit/3d2cf9546cd22556444deeabc4df314f227ecf5c
 
 /** LokiJS
  * A lightweight document oriented javascript database
