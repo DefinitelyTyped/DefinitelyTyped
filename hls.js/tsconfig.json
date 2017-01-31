@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../../",
+        "typeRoots": ["../../"],
+        "paths": {
+            "hls.js": [ "hls.js" ]
+        },
+    },
+    "files": [
+        "index.d.ts",
+        "hls.js-tests.ts"
+    ]
+}
