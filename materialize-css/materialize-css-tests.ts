@@ -246,3 +246,33 @@ $(tabsHtml).tabs({ onShow: (currentTab: any) => { console.log(currentTab) }, swi
 Materialize.showStaggeredList('#staggered-test');
 
 Materialize.updateTextFields();
+
+let chipsHTML = '<div class="chips"></div>' +
+  '<div class="chips chips-initial"></div>' +
+  '<div class="chips chips-placeholder"></div>' +
+  '<div class="chips chips-autocomplete"></div>';
+
+$(chipsHTML).material_chip();
+$(chipsHTML).material_chip({
+  data: [{
+    tag: 'Apple',
+  }, {
+    tag: 'Microsoft',
+  }, {
+    tag: 'Google',
+  }],
+});
+
+$('.chips-placeholder').material_chip({
+  placeholder: 'Enter a tag',
+  secondaryPlaceholder: '+Tag',
+});
+$('.chips-autocomplete').material_chip({
+  autocompleteData: {
+    'Apple': null,
+    'Microsoft': null,
+    'Google': null
+  }
+});
+
+let chipData: Materialize.ChipDataObject | Materialize.ChipDataObject[] = $('.chips-initial').material_chip('data');
