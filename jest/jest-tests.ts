@@ -433,6 +433,7 @@ describe('strictNullChecks', function () {
 class TestApi {
     constructor() { };
     testProp: boolean;
+    private anotherProp: string;
     testMethod(a: number): string { return ""; }
 }
 
