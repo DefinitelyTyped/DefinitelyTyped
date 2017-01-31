@@ -18,8 +18,8 @@ declare module "react-modal" {
             };
         };
         appElement?: HTMLElement | {};
-        onAfterOpen?: Function;
-        onRequestClose?: Function;
+        onAfterOpen?: () => void;
+        onRequestClose?: () => void;
         closeTimeoutMS?: number;
         ariaHideApp?: boolean;
         shouldCloseOnOverlayClick?: boolean;
