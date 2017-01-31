@@ -10,7 +10,8 @@ declare namespace creditCardType {
     interface CreditCardTypeInfo {
         niceType?: string
         type?: CardBrand
-        pattern?: RegExp
+        prefixPattern?: RegExp
+        exactPattern?: RegExp
         gaps?: Array<number>
         lengths?: Array<number>
         code?: {

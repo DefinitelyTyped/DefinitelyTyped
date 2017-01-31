@@ -26,9 +26,9 @@ declare module "react-datepicker" {
         maxDate?: {};
         minDate?: {};
         name?: string;
-        onBlur?(handler: (e: any) => void): any;
-        onChange(handler: (date?: any, e?: any) => void): any;
-        onFocus?(handler: (e: any) => void): any;
+        onBlur?(e: any): void;
+        onChange(date?: any, e?: any): void;
+        onFocus?(e: any): void;
         peekNextMonth?: boolean;
         placeholderText?: string;
         popoverAttachment?: string;

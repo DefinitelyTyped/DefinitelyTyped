@@ -128,3 +128,6 @@ declare class SimpleMDE {
     static undo: (editor: SimpleMDE) => void;
     static redo: (editor: SimpleMDE) => void;
 }
+
+export = SimpleMDE;
+export as namespace SimpleMDE;

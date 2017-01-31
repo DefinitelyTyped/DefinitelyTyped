@@ -786,6 +786,15 @@ interface JQueryStatic {
      */
     ajaxPrefilter(handler: (opts: any, originalOpts: JQueryAjaxSettings, jqXHR: JQueryXHR) => any): void;
 
+     /**
+     * Creates an object that handles the actual transmission of Ajax data.
+     *
+     * @param dataType A string identifying the data type to use.
+     * @param handler A handler to return the new transport object to use with the data type provided in the first argument.
+     * @see {@link https://api.jquery.com/jQuery.ajaxTransport/}
+     */
+    ajaxTransport(dataType: string, handler: (opts: any, originalOpts: JQueryAjaxSettings, jqXHR: JQueryXHR) => any): void;
+    
     ajaxSettings: JQueryAjaxSettings;
 
      /**

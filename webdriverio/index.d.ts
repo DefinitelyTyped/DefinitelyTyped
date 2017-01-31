@@ -395,36 +395,22 @@ declare namespace WebdriverIO {
         ): Client<P>;
         getHTML<P>(includeSelectorTag: boolean): Client<P>;
 
-        getLocation(selector?: string): Size;
-        getLocation(selector: string, axis: string): number;
-        getLocation(axis: string): number;
+        getLocation(axis: Axis): number;
+        getLocation<P>(axis: Axis): Client<P>;
+        getLocation(selector?: string): Location;
         getLocation<P>(selector?: string): Client<P>;
-        getLocation<P>(
-            selector: string,
-            axis: string
-        ): Client<P>;
-        getLocation<P>(axis: string): Client<P>;
+        getLocation(selector: string, axis: Axis): number;
+        getLocation<P>(selector: string, axis: Axis): Client<P>;
 
-        getLocationInView(selector: string): Size;
-        getLocationInView(selector: string): Size[];
-        getLocationInView(): Size;
-        getLocationInView(): Size[];
-        getLocationInView(
-            selector: string,
-            axis: string
-        ): number;
-        getLocationInView(
-            selector: string,
-            axis: string
-        ): number[];
-        getLocationInView(axis: string): number;
-        getLocationInView(axis: string): number[];
+        getLocationInView(axis: Axis): number;
+        getLocationInView(axis: Axis): number[];
+        getLocationInView<P>(axis: Axis): Client<P>;
+        getLocationInView(selector?: string): Location;
+        getLocationInView(selector?: string): Location[];
         getLocationInView<P>(selector?: string): Client<P>;
-        getLocationInView<P>(
-            selector: string,
-            axis: string
-        ): Client<P>;
-        getLocationInView<P>(axis: string): Client<P>;
+        getLocationInView(selector: string, axis: Axis): number;
+        getLocationInView(selector: string, axis: Axis): number[];
+        getLocationInView<P>(selector: string, axis: Axis): Client<P>;
 
         getSource(): Client<string>;
         getSource<P>(): Client<P>;
@@ -471,7 +457,7 @@ declare namespace WebdriverIO {
         value: any;
     }
 
-    export interface Location {
+    export interface GeoLocation {
         latitude: number;
         longitude: number;
         altitude: number;
@@ -1026,6 +1012,8 @@ declare namespace WebdriverIO {
         switchTab(windowHandle?: string): Client<void>;
         switchTab<P>(windowHandle?: string): Client<P>;
     }
+
+    export type Axis = "x" | "y";
 
     export interface Options {
         protocol: string;
