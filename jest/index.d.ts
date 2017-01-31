@@ -109,7 +109,7 @@ declare namespace jest {
     interface It {
         /**
          * Creates a test closure.
-         * 
+         *
          * @param {string} name The name of your test
          * @param {fn?} ProvidesCallback The function for your test
          */
@@ -152,9 +152,9 @@ declare namespace jest {
 
     /** The `expect` function is used every time you want to test a value. You will rarely call `expect` by itself. */
     interface Expect {
-        /** 
-         * The `expect` function is used every time you want to test a value. You will rarely call `expect` by itself. 
-         * 
+        /**
+         * The `expect` function is used every time you want to test a value. You will rarely call `expect` by itself.
+         *
          * @param {any} actual The value to apply matchers against.
         */
         (actual: any): Matchers;
@@ -255,8 +255,8 @@ declare namespace jest {
      *  myApi.myApiMethod.mockImplementation(() => "test");
      */
     type Mocked<T> = {
-        [P in keyof T]: T[P] & MockInstance<T>;
-    };
+        [P in keyof T]: T[P] & MockInstance<T[P]>;
+    } & T;
 
     interface MockInstance<T> {
         mock: MockContext<T>;
