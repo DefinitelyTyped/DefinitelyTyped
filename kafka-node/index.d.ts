@@ -20,7 +20,7 @@ export declare class Producer {
 }
 
 export declare class HighLevelProducer {
-    constructor(client: Client, options: any);
+    constructor(client: Client, options?: any);
     on(eventName: string, cb: () => any): void;
     on(eventName: string, cb: (error: any) => any): void;
     send(payloads: Array<ProduceRequest>, cb: (error: any, data: any) => any): void;
