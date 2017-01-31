@@ -961,7 +961,7 @@ interface LokiCollection<E> extends LokiEventEmitter {
      * for more complex queries use view() and storeView()
      */
     find(): E[];
-    find(query: LokiQuery): LokiResultset<E>;
+    find(query: LokiQuery): E[];
 
     /** Find object by unindexed field by property equal to value,
      * simply iterates and returns the first element matching the query
