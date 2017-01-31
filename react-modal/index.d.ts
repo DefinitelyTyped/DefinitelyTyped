@@ -12,20 +12,20 @@ declare module "react-modal" {
         style?: {
             content?: {
                 [key: string]: any;
-            },
+            };
             overlay?: {
                 [key: string]: any;
-            }
-        },
-        appElement?: HTMLElement | {},
-        onAfterOpen?: Function,
-        onRequestClose?: Function,
-        closeTimeoutMS?: number,
-        ariaHideApp?: boolean,
-        shouldCloseOnOverlayClick?: boolean,
-        overlayClassName?: string,
-        className?: string
-        contentLabel?: string
+            };
+        };
+        appElement?: HTMLElement | {};
+        onAfterOpen?: Function;
+        onRequestClose?: Function;
+        closeTimeoutMS?: number;
+        ariaHideApp?: boolean;
+        shouldCloseOnOverlayClick?: boolean;
+        overlayClassName?: string;
+        className?: string;
+        contentLabel?: string;
     }
     let ReactModal: React.ClassicComponentClass<ReactModal>;
     export = ReactModal;
