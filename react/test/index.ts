@@ -674,3 +674,18 @@ class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
     });
   }
 }
+
+React.DOM.input({
+    onChange: event => {
+        // `event.target` is guaranteed to be HTMLInputElement
+        event.target.value;
+    }
+});
+
+// A ChangeEvent is a valid FormEvent (maintain compatibility with existing
+// event handlers)
+
+type InputChangeEvent = React.ChangeEvent<HTMLInputElement>;
+type InputFormEvent = React.FormEvent<HTMLInputElement>;
+const changeEvent:InputChangeEvent = undefined as any;
+const formEvent:InputFormEvent = changeEvent;
