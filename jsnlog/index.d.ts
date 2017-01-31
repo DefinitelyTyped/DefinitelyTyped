@@ -1,4 +1,4 @@
-// Type definitions for JSNLog 2.17.3
+// Type definitions for JSNLog 2.17.4
 // Project: https://github.com/mperdeck/jsnlog.js
 // Definitions by: Mattijs Perdeck <https://github.com/mperdeck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -33,6 +33,7 @@ declare namespace JL {
 		clientIP?: string;
 		requestId?: string;
 		defaultBeforeSend?: (xhr: XMLHttpRequest) => void;
+		serialize?: (obj: any) => string;
 	}
 
 	interface JSNLogFilterOptions {
