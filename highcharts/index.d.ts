@@ -5050,6 +5050,10 @@ declare namespace Highcharts {
          * Define the visual z index of the series.
          */
         zIndex?: number;
+        /**
+         * Individual data label for each point. The options are the same as the ones for plotOptions.series.dataLabels
+         */
+        dataLabels?: DataLabels;
     }
 
     interface SeriesOptions extends IndividualSeriesOptions, SeriesChart { }
