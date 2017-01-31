@@ -1,4 +1,4 @@
-// Type definitions for kafka-node 0.2.22
+// Type definitions for kafka-node 1.3.3
 // Project: https://github.com/SOHU-Co/kafka-node/
 // Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
