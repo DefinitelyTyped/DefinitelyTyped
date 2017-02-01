@@ -171,6 +171,29 @@ function catBlock () {
         ["blocking"]);
 }
 
+// webNavigation.onBeforeNavigate.addListener example similar api to onBeforeRequest but without extra spec
+function beforeRedditNavigation() {
+    chrome.webNavigation.onBeforeNavigate.addListener(function (requestDetails) {
+        console.log("URL we want to redirect to: " + requestDetails.url);
+        // NOTE: This will search for top level frames with the value -1.
+        if (requestDetails.parentFrameId != -1) {
+            return;
+        }
+
+        let url = new URL(requestDetails.url);
+        let splitUrl = url.hostname.split('.');
+        //` Note: Does not cover the XX.co.uk type edge case
+        let host = (splitUrl[(splitUrl.length -1) - 1]);
+
+        if (host === null) {
+            return;
+        } else if (host === "reddit") {
+            alert("Were you trying to go on reddit, during working hours? :(")
+            return;
+        }
+    },{urls: ["http://*/*"], types: ["image"]});
+}
+
 // contrived settings example
 function proxySettings() {
     chrome.proxy.settings.get({ incognito: true }, (details) => {
