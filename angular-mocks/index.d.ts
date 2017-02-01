@@ -132,7 +132,7 @@ declare module 'angular' {
 
     /**
       * Verifies that all of the requests defined via the expect api were made. If any of the requests were not made, verifyNoOutstandingExpectation throws an exception.
-      * @param digest Do digest before checking expectation. Pass anything expect false to trigger digest.
+      * @param digest Do digest before checking expectation. Pass anything except false to trigger digest. NOTE this flag is purposely undocumented by Angular, which means it's not to be used in normal client code.
       */
     verifyNoOutstandingExpectation(digest?: boolean): void;
 
