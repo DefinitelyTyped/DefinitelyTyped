@@ -1,7 +1,6 @@
 // Type definitions for react-modal 1.6
 // Project: https://github.com/reactjs/react-modal
-// Definitions by: Rajab Shakirov <https://github.com/radziksh>
-// Definitions by: Drew Noakes <https://github.com/drewnoakes>
+// Definitions by: Rajab Shakirov <https://github.com/radziksh>, Drew Noakes <https://github.com/drewnoakes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
