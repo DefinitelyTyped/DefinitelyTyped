@@ -1,4 +1,4 @@
-// Type definitions for leaflet-draw 0.4.6
+// Type definitions for leaflet-draw 0.4
 // Project: https://github.com/Leaflet/Leaflet.draw
 // Definitions by: Matt Guest <https://github.com/matt-guest>, Ryan Blace <https://github.com/reblace>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

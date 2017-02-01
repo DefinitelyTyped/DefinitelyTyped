@@ -2,6 +2,7 @@
 // Project: http://ant.design
 // Definitions by: bang88 <https://github.com/bang88>, Bruce Mitchener <https://github.com/waywardmonkeys/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="react" />
 

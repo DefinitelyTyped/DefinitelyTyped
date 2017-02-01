@@ -1,0 +1,22 @@
+{
+    "files": [
+        "index.d.ts",
+        "duplexer2-tests.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "strictNullChecks": false,
+        "noImplicitThis": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

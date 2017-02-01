@@ -2,6 +2,7 @@
 // Project: https://github.com/roadmanfong/react-cropper
 // Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="react"/>
 /// <reference types="cropperjs"/>

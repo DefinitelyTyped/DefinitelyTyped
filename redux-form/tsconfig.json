@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "experimentalDecorators": true,
         "noImplicitAny": true,
         "noImplicitReturns": true,

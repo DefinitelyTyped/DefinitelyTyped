@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
@@ -12,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "heatmap-tests.ts"
+        "heatmap.js-tests.ts"
     ]
 }

@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -11,7 +13,9 @@
         ],
         "types": [],
         "paths": {
-            "postal": ["postal/v0"]
+            "postal": [
+                "postal/v0"
+            ]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

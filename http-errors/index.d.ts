@@ -11,6 +11,9 @@ declare module 'http-errors' {
             status: number;
             statusCode: number;
             expose: boolean;
+            headers?: {
+                [key: string]: string
+            };
         }
 
         type HttpErrorConstructor = new(msg?: string) => HttpError;

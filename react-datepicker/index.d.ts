@@ -2,6 +2,7 @@
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>, Andrey Balokha <https://github.com/andrewBalekha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="react"/>
 
@@ -16,7 +17,7 @@ declare module "react-datepicker" {
         disabled?: boolean;
         endDate?: {};
         excludeDates?: any[];
-        filterDate?():any;
+        filterDate?(): any;
         fixedHeight?: boolean;
         id?: string;
         includeDates?: any[];
@@ -25,10 +26,9 @@ declare module "react-datepicker" {
         maxDate?: {};
         minDate?: {};
         name?: string;
-        onBlur?():any;
-        onChange():any;
-        onChange(date?:any):any;
-        onFocus?():any;
+        onBlur?(e: any): void;
+        onChange(date?: any, e?: any): void;
+        onFocus?(e: any): void;
         peekNextMonth?: boolean;
         placeholderText?: string;
         popoverAttachment?: string;
@@ -40,7 +40,7 @@ declare module "react-datepicker" {
         scrollableYearDropdown?: boolean;
         selected?: {};
         selectsEnd?: boolean;
-        selectsStart?: boolean; 
+        selectsStart?: boolean;
         showMonthDropdown?: boolean;
         showYearDropdown?: boolean;
         showWeekNumbers?: boolean;

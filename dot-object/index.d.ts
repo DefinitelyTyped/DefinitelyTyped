@@ -1,4 +1,4 @@
-// Type definitions for Dot-Object v1.4.1
+// Type definitions for Dot-Object v1.4.2
 // Project: https://github.com/rhalff/dot-object
 // Definitions by: Niko Kovačič <https://github.com/nkovacic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,14 +6,14 @@
 
 declare namespace DotObject {
     interface DotConstructor extends Dot {
-        new(separator: string): Dot;
+        new (separator: string): Dot;
     }
 
     interface ModifierFunctionWrapper {
         (arg: any): any;
     }
 
-    interface Dot {     
+    interface Dot {
         /**
          *
          * Copy a property from one object to another object.
@@ -34,11 +34,6 @@ declare namespace DotObject {
          * Convert object to dotted-key/value pair
          *
          * Usage:
-         *
-         *   var tgt = dot.dot(obj)
-         *
-         *   or
-         *
          *   var tgt = {}
          *   dot.dot(obj, tgt)
          *
@@ -46,6 +41,18 @@ declare namespace DotObject {
          * @param {Object} tgt target object
          */
         dot(obj: any, tgt: any): void
+        /**
+        *
+        * Convert object to dotted-key/value pair
+        *
+        * Usage:
+        *
+        *   var tgt = dot.dot(obj)
+        * @param {Object} obj source object
+        * @return {Object} result
+        */
+        dot(obj: any): any
+
         /**
          *
          * Remove value from an object using dot notation.

@@ -1,7 +1,5 @@
-
-
-import esri = require("esri");
-import Map = require("esri/map");
+import Map = require("esri/Map");
+import MapView = require("esri/views/MapView");
 import Point = require("esri/geometry/Point");
 
 export = MapController;
@@ -13,13 +11,20 @@ class MapController {
   }
 
   start() {
-    var point = new Point(-122.45, 37.75); // long, lat
+    let point = new Point({
+      latitude: 37.75,
+      longitude: -122.45
+    });
 
-    var mapOptions: esri.MapOptions = {};
-    mapOptions.basemap = "topo";
-    mapOptions.center = point;
-    mapOptions.zoom = 13;
-
-    this.map = new Map(this.mapDiv, mapOptions);
+    this.map = new Map({
+      basemap: "topo"
+    });
+    
+    let view = new MapView({
+      center: point,
+      container: this.mapDiv,
+      map: this.map,
+      zoom: 13
+    });
   }
 }

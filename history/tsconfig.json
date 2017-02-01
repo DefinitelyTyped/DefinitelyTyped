@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
@@ -16,14 +19,13 @@
     "files": [
         "index.d.ts",
         "history-tests.ts",
-        "lib/actions.d.ts",
-        "lib/createBrowserHistory.d.ts",
-        "lib/createHashHistory.d.ts",
-        "lib/createLocation.d.ts",
-        "lib/createMemoryHistory.d.ts",
-        "lib/DOMUtils.d.ts",
-        "lib/useBasename.d.ts",
-        "lib/useBeforeUnload.d.ts",
-        "lib/useQueries.d.ts"
+        "createBrowserHistory.d.ts",
+        "createMemoryHistory.d.ts",
+        "createHashHistory.d.ts",
+        "createTransitionManager.d.ts",
+        "DOMUtils.d.ts",
+        "ExecutionEnvironment.d.ts",
+        "LocationUtils.d.ts",
+        "PathUtils.d.ts"
     ]
 }

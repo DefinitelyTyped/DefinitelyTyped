@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": true,
@@ -11,13 +14,15 @@
         ],
         "types": [],
         "paths": {
-            "fullcalendar": ["fullcalendar/v1"]
+            "fullcalendar": [
+                "fullcalendar/v1"
+            ]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "fullCalendar-tests.ts"
+        "fullcalendar-tests.ts"
     ]
 }
