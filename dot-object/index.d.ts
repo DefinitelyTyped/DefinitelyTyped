@@ -1,4 +1,4 @@
-// Type definitions for Dot-Object v1.4.2
+// Type definitions for Dot-Object v1.5
 // Project: https://github.com/rhalff/dot-object
 // Definitions by: Niko Kovačič <https://github.com/nkovacic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -109,7 +109,7 @@ declare namespace DotObject {
          * @param {Object} obj
          * @param {Boolean} remove
          */
-        pick(path: string, obj: any, remove?: boolean): void;
+        pick(path: string, obj: any, remove?: boolean): any;
         /**
          *
          * Remove value from an object using dot notation.
