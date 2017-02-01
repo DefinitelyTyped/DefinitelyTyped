@@ -92,6 +92,10 @@ cons.nunjucks(path);
 cons.nunjucks(path, options);
 cons.nunjucks(path, options, fn);
 
+cons.pug(path);
+cons.pug(path, options);
+cons.pug(path, options, fn);
+
 cons.qejs(path);
 cons.qejs(path, options);
 cons.qejs(path, options, fn);

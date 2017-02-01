@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "argon2-tests.ts"
+        "readline-sync-tests.ts"
     ]
 }
