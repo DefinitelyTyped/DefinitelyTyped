@@ -6,6 +6,10 @@
 /// <reference types="react"/>
 
 interface __config {
+  accessibility?: boolean
+  nextArrow?: HTMLElement | any
+  prevArrow?: HTMLElement | any
+  pauseOnHover?: boolean
   className?: string
   adaptiveHeight?: boolean
   arrows?: boolean
