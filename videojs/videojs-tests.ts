@@ -1,9 +1,10 @@
 // Tests for Video.js API
 
+import * as videojs from 'videojs';
 
 videojs("example_video_1").ready(function(){
 
-	var myPlayer:VideoJSPlayer = this;
+	var myPlayer: videojs.Player = this;
 
 	// EXAMPLE: Start playing the video.
 	myPlayer.play();
@@ -65,7 +66,7 @@ videojs("example_video_1").ready(function(){
 
 
 	var myFunc = function(){
-		var myPlayer: VideoJSPlayer = this;
+		var myPlayer: videojs.Player = this;
 		// Do something when the event is fired
 	};
 	//myPlayer.addEvent("volumechange", myFunc);
