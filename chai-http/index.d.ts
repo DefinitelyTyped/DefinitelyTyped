@@ -55,6 +55,7 @@ declare namespace ChaiHttp {
 		send(data: Object): Request;
 		auth(user: string, name: string): Request;
 		field(name: string, val: string): Request;
+		buffer(): Request;
 		end(callback?: (err: any, res: Response) => void): FinishedRequest;
 	}
 
