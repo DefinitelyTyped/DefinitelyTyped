@@ -8,7 +8,7 @@
 // http://jsnlog.com
 // -------------------------------
 
-﻿/**
+/**
 * Copyright 2016 Mattijs Perdeck.
 *
 * This project is licensed under the MIT license.
@@ -88,7 +88,7 @@ declare namespace JL {
 
 declare function __jsnlog_configure(jsnlog: any): void;
 
-﻿
+
 // Ambient declaration of the JL function itself
 declare function JL(loggerName?: string): JL.JSNLogLogger;
 
