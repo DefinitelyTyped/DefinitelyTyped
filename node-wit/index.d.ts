@@ -51,14 +51,15 @@ export interface WitOption {
 }
 
 export interface MessageResponseEntity {
-    confidence: number;
-    value: string;
+    confidence?: number;
+    value?: string;
+    type?: string;
 }
 
 export interface MessageResponse {
     msg_id: string;
     _text: string;
-    entities: MessageResponseEntity[];
+    entities: any;
 }
 
 export declare class Wit {
