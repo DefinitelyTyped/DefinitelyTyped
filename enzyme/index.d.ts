@@ -2,6 +2,7 @@
 // Project: https://github.com/airbnb/enzyme
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>, Cap3 <http://www.cap3.de>, Ivo Stratev <https://github.com/NoHomey>, Tom Crockett <https://github.com/pelotom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import { ReactElement, Component, StatelessComponent, ComponentClass, HTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
 

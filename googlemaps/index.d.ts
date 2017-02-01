@@ -1,6 +1,6 @@
-// Type definitions for Google Maps JavaScript API 3.25
+// Type definitions for Google Maps JavaScript API 3.26
 // Project: https://developers.google.com/maps/
-// Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,  Grant Hutchins <https://github.com/nertzy>
+// Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,  Grant Hutchins <https://github.com/nertzy>, Denis Atyasov <https://github.com/xaolas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -59,15 +59,15 @@ declare namespace google.maps {
 
     export interface MapOptions {
         /**
-         * Color used for the background of the Map div. This color will be visible when 
-         * tiles have not yet loaded as the user pans. This option can only be set when 
+         * Color used for the background of the Map div. This color will be visible when
+         * tiles have not yet loaded as the user pans. This option can only be set when
          * the map is initialized.
          */
         backgroundColor?: string;
         /** The initial Map center. Required. */
         center?: LatLng|LatLngLiteral;
-        /** 
-         * When false, map icons are not clickable. A map icon represents a point of 
+        /**
+         * When false, map icons are not clickable. A map icon represents a point of
          * interest, also known as a POI. By default map icons are clickable.
          */
         clickableIcons?: boolean
@@ -79,15 +79,15 @@ declare namespace google.maps {
         draggable?: boolean;
         /**
          * The name or url of the cursor to display when mousing over a draggable map.
-         * This property uses the css cursor attribute to change the icon. As with the 
+         * This property uses the css cursor attribute to change the icon. As with the
          * css property, you must specify at least one fallback cursor that is not a URL.
          * For example: draggableCursor: 'url(http://www.example.com/icon.png), auto;'.
          */
         draggableCursor?: string;
         /**
-         * The name or url of the cursor to display when the map is being dragged. This 
-         * property uses the css cursor attribute to change the icon. As with the css 
-         * property, you must specify at least one fallback cursor that is not a URL. 
+         * The name or url of the cursor to display when the map is being dragged. This
+         * property uses the css cursor attribute to change the icon. As with the css
+         * property, you must specify at least one fallback cursor that is not a URL.
          * For example: draggingCursor: 'url(http://www.example.com/icon.png), auto;'.
          */
         draggingCursor?: string;
@@ -95,14 +95,14 @@ declare namespace google.maps {
         fullscreenControl?: boolean;
         /** The display options for the Fullscreen control. */
         fullscreenControlOptions?: FullscreenControlOptions;
-        /** 
-         * The heading for aerial imagery in degrees measured clockwise from cardinal 
-         * direction North. Headings are snapped to the nearest available angle for 
+        /**
+         * The heading for aerial imagery in degrees measured clockwise from cardinal
+         * direction North. Headings are snapped to the nearest available angle for
          * which imagery is available.
          */
         heading?: number;
-        /** 
-         * If false, prevents the map from being controlled by the keyboard. Keyboard 
+        /**
+         * If false, prevents the map from being controlled by the keyboard. Keyboard
          * shortcuts are enabled by default.
          */
         keyboardShortcuts?: boolean;
@@ -114,13 +114,13 @@ declare namespace google.maps {
         mapTypeId?: MapTypeId;
         /**
          * The maximum zoom level which will be displayed on the map. If omitted, or set
-         * to null, the maximum zoom from the current map type is used instead. Valid 
+         * to null, the maximum zoom from the current map type is used instead. Valid
          * values: Integers between zero, and up to the supported maximum zoom level.
          */
         maxZoom?: number;
         /**
          * The minimum zoom level which will be displayed on the map. If omitted, or set
-         * to null, the minimum zoom from the current map type is used instead. Valid 
+         * to null, the minimum zoom from the current map type is used instead. Valid
          * values: Integers between zero, and up to the supported maximum zoom level.
          */
         minZoom?: number;
@@ -132,8 +132,8 @@ declare namespace google.maps {
          * The enabled/disabled state of the Pan control.
          * Note: The Pan control is not available in the new set of controls introduced
          * in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you
-         * can choose to use the earlier set of controls rather than the new controls, 
-         * thus making the Pan control available as part of the old control set. 
+         * can choose to use the earlier set of controls rather than the new controls,
+         * thus making the Pan control available as part of the old control set.
          * See {@link https://developers.google.com/maps/articles/v322-controls-diff|What's New in the v3.22 Map Controls}.
          */
         panControl?: boolean;
@@ -141,8 +141,8 @@ declare namespace google.maps {
          * The display options for the Pan control.
          * Note: The Pan control is not available in the new set of controls introduced
          * in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you
-         * can choose to use the earlier set of controls rather than the new controls, 
-         * thus making the Pan control available as part of the old control set. 
+         * can choose to use the earlier set of controls rather than the new controls,
+         * thus making the Pan control available as part of the old control set.
          * See {@link https://developers.google.com/maps/articles/v322-controls-diff|What's New in the v3.22 Map Controls}.
          */
         panControlOptions?: PanControlOptions;
@@ -158,10 +158,10 @@ declare namespace google.maps {
         scrollwheel?: boolean;
         /**
          * The enabled/disabled state of the sign in control. This option only applies if
-         * signed_in=true has been passed as a URL parameter in the bootstrap request. 
+         * signed_in=true has been passed as a URL parameter in the bootstrap request.
          * You may want to use this option to hide the map's sign in control if you have
          * provided another way for your users to sign in, such as the Google Sign-In
-         * button. This option does not affect the visibility of the Google avatar shown 
+         * button. This option does not affect the visibility of the Google avatar shown
          * when the user is already signed in.
          */
         signInControl?: boolean;
@@ -172,29 +172,29 @@ declare namespace google.maps {
          */
         streetView?: StreetViewPanorama;
         /**
-         * The initial enabled/disabled state of the Street View Pegman control. This 
+         * The initial enabled/disabled state of the Street View Pegman control. This
          * control is part of the default UI, and should be set to false when displaying
-         * a map type on which the Street View road overlay should not appear 
+         * a map type on which the Street View road overlay should not appear
          * (e.g. a non-Earth map type).
          */
         streetViewControl?: boolean;
         /** The initial display options for the Street View Pegman control. */
         streetViewControlOptions?: StreetViewControlOptions;
-        /** 
-         * Styles to apply to each of the default map types. Note that for 
-         * satellite/hybrid and terrain modes, these styles will only apply to labels 
+        /**
+         * Styles to apply to each of the default map types. Note that for
+         * satellite/hybrid and terrain modes, these styles will only apply to labels
          * and geometry.
          */
         styles?: MapTypeStyle[];
-        /** 
-         * Controls the automatic switching behavior for the angle of incidence of the 
-         * map. The only allowed values are 0 and 45. The value 0 causes the map to 
-         * always use a 0� overhead view regardless of the zoom level and viewport. The 
-         * value 45 causes the tilt angle to automatically switch to 45 whenever 45� 
+        /**
+         * Controls the automatic switching behavior for the angle of incidence of the
+         * map. The only allowed values are 0 and 45. The value 0 causes the map to
+         * always use a 0째 overhead view regardless of the zoom level and viewport. The
+         * value 45 causes the tilt angle to automatically switch to 45 whenever 45째
          * imagery is available for the current zoom level and viewport, and switch back
-         * to 0 whenever 45� imagery is not available (this is the default behavior).
-         * 45� imagery is only available for satellite and hybrid map types, within some
-         * locations, and at some zoom levels. Note: getTilt returns the current tilt 
+         * to 0 whenever 45째 imagery is not available (this is the default behavior).
+         * 45째 imagery is only available for satellite and hybrid map types, within some
+         * locations, and at some zoom levels. Note: getTilt returns the current tilt
          * angle, not the value specified by this option. Because getTilt and this option
          * refer to different things, do not bind() the tilt property; doing so may yield
          * unpredictable effects.
@@ -212,7 +212,7 @@ declare namespace google.maps {
     }
 
     /**
-     * Identifiers for common MapTypes. Specify these by value, or by using the 
+     * Identifiers for common MapTypes. Specify these by value, or by using the
      * constant's name. For example, 'satellite' or google.maps.MapTypeId.SATELLITE.
      */
     export enum MapTypeId {
@@ -231,7 +231,7 @@ declare namespace google.maps {
     export interface MapTypeControlOptions {
         /** IDs of map types to show in the control. */
         mapTypeIds?: (MapTypeId|string)[];
-        /** 
+        /**
          * Position id. Used to specify the position of the control on the map.
          * The default position is TOP_RIGHT.
          */
@@ -252,7 +252,7 @@ declare namespace google.maps {
 
     /** Options for the rendering of the pan control. */
     export interface PanControlOptions {
-        /** 
+        /**
          * Position id. Used to specify the position of the control on the map.
          * The default position is TOP_LEFT.
          */
@@ -261,7 +261,7 @@ declare namespace google.maps {
 
     /** Options for the rendering of the rotate control. */
     export interface RotateControlOptions {
-        /** 
+        /**
          * Position id. Used to specify the position of the control on the map.
          * The default position is TOP_LEFT.
          */
@@ -281,10 +281,10 @@ declare namespace google.maps {
     /** Options for the rendering of the Street View pegman control on the map. */
     export interface StreetViewControlOptions {
         /**
-         * Position id. Used to specify the position of the control on the map. The 
-         * default position is embedded within the navigation (zoom and pan) controls. 
-         * If this position is empty or the same as that specified in the 
-         * zoomControlOptions or panControlOptions, the Street View control will be 
+         * Position id. Used to specify the position of the control on the map. The
+         * default position is embedded within the navigation (zoom and pan) controls.
+         * If this position is empty or the same as that specified in the
+         * zoomControlOptions or panControlOptions, the Street View control will be
          * displayed as part of the navigation controls. Otherwise, it will be displayed
          * separately.
          */
@@ -331,7 +331,7 @@ declare namespace google.maps {
         LEFT_BOTTOM,
         /** Elements are positioned in the center of the left side. */
         LEFT_CENTER,
-        /** 
+        /**
          * Elements are positioned on the left, below top-left elements, and flow downwards.
          */
         LEFT_TOP,
@@ -784,7 +784,7 @@ declare namespace google.maps {
         open(map?: Map|StreetViewPanorama, anchor?: MVCObject): void;
         setContent(content: string|Node): void;
         setOptions(options: InfoWindowOptions): void;
-        setPosition(position: LatLng): void;
+        setPosition(position: LatLng|LatLngLiteral): void;
         setZIndex(zIndex: number): void;
     }
 
@@ -2001,9 +2001,9 @@ declare namespace google.maps {
 
     export class LatLngBounds {
         constructor(sw?: LatLng|LatLngLiteral, ne?: LatLng|LatLngLiteral);
-        contains(latLng: LatLng): boolean;
+        contains(latLng: LatLng|LatLngLiteral): boolean;
         equals(other: LatLngBounds|LatLngBoundsLiteral): boolean;
-        extend(point: LatLng): LatLngBounds;
+        extend(point: LatLng|LatLngLiteral): LatLngBounds;
         getCenter(): LatLng;
         getNorthEast(): LatLng;
         getSouthWest(): LatLng;

@@ -2,6 +2,7 @@
 // Project: https://github.com/rackt/react-router-redux
 // Definitions by: Isman Usoh <http://github.com/isman-usoh>, Noah Shipley <https://github.com/noah79>, Dimitri Rosenberg <https://github.com/rosendi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="react-router"/>
 
@@ -59,7 +60,7 @@ declare namespace ReactRouterRedux {
         locationBeforeTransitions: History.Location
     }
 
-    function routerReducer(state?: RouterState, options?: any): R.Reducer<RouterState>
+    function routerReducer(state?: RouterState, action?: R.Action): RouterState;
     function syncHistoryWithStore(history: History.History, store: R.Store<any>, options?: SyncHistoryWithStoreOptions): ReactRouterReduxHistory;
     function routerMiddleware(history: History.History): R.Middleware;
 }

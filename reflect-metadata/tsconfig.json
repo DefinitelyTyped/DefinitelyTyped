@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
@@ -12,7 +14,6 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-
         "experimentalDecorators": true
     },
     "files": [

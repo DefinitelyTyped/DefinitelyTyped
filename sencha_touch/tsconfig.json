@@ -1,11 +1,14 @@
 {
     "files": [
         "index.d.ts",
-        "SenchaTouch-tests.ts"
+        "sencha_touch-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": false,
         "noImplicitThis": false,
         "strictNullChecks": false,

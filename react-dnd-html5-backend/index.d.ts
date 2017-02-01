@@ -2,6 +2,7 @@
 // Project: https://github.com/gaearon/react-dnd
 // Definitions by: Pedro Pereira <https://github.com/oizie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as ReactDnd from "react-dnd";
 

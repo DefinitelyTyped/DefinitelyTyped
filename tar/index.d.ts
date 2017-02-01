@@ -14,6 +14,7 @@ import stream = require("stream");
 export interface HeaderProperties {
     path?: string;
     mode?: number;
+    noProprietary?: boolean;
     uid?: number;
     gid?: number;
     size?: number;

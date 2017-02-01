@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/react-swipeable
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 ///<reference types='react' />
 

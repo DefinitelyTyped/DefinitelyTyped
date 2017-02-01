@@ -1,7 +1,8 @@
-// Type definitions for React v15
+// Type definitions for React v15.0
 // Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>
+// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>, Benoit Benezech <https://github.com/bbenezech>, Patricio Zavolinsky <https://github.com/pzavolinsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 export = React;
 export as namespace React;
@@ -78,6 +79,9 @@ declare namespace React {
     }
 
     interface HTMLFactory<T extends HTMLElement> extends DOMFactory<HTMLAttributes<T>, T> {
+    }
+
+    interface ChangeTargetHTMLFactory<T extends HTMLElement> extends DOMFactory<ChangeTargetHTMLAttributes<T>, T> {
     }
 
     interface SVGFactory extends DOMFactory<SVGAttributes<SVGElement>, SVGElement> {
@@ -164,19 +168,18 @@ declare namespace React {
     // Base component for plain JS classes
     class Component<P, S> implements ComponentLifecycle<P, S> {
         constructor(props?: P, context?: any);
-        constructor(...args: any[]);
-        setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
-        setState(state: S, callback?: () => any): void;
+        setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K>, callback?: () => any): void;
+        setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
         forceUpdate(callBack?: () => any): void;
-        render(): JSX.Element | null;
+        render(): JSX.Element;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
         // always pass children as variadic arguments to `createElement`.
         // In the future, if we can define its call signature conditionally
         // on the existence of `children` in `P`, then we should remove this.
-        props: { children?: ReactNode } & P;
-        state: S;
+        props: Readonly<{ children?: ReactNode }> & Readonly<P>;
+        state: Readonly<S>;
         context: any;
         refs: {
             [key: string]: ReactInstance
@@ -201,7 +204,7 @@ declare namespace React {
 
     type SFC<P> = StatelessComponent<P>;
     interface StatelessComponent<P> {
-        (props: P & { children?: ReactNode }, context?: any): ReactElement<any>;
+        (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: P;
@@ -229,8 +232,8 @@ declare namespace React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         C &
-        (new () => T) &
-        (new () => { props: P });
+        (new (props?: P, context?: any) => T) &
+        (new (props?: P, context?: any) => { props: P });
 
     //
     // Component Specs and Lifecycle
@@ -307,6 +310,10 @@ declare namespace React {
     }
 
     interface FormEvent<T> extends SyntheticEvent<T> {
+    }
+
+    interface ChangeEvent<T> extends SyntheticEvent<T> {
+        target: EventTarget & T;
     }
 
     interface KeyboardEvent<T> extends SyntheticEvent<T> {
@@ -391,6 +398,7 @@ declare namespace React {
     type DragEventHandler<T> = EventHandler<DragEvent<T>>;
     type FocusEventHandler<T> = EventHandler<FocusEvent<T>>;
     type FormEventHandler<T> = EventHandler<FormEvent<T>>;
+    type ChangeEventHandler<T> = EventHandler<ChangeEvent<T>>;
     type KeyboardEventHandler<T> = EventHandler<KeyboardEvent<T>>;
     type MouseEventHandler<T> = EventHandler<MouseEvent<T>>;
     type TouchEventHandler<T> = EventHandler<TouchEvent<T>>;
@@ -424,6 +432,9 @@ declare namespace React {
     }
 
     interface HTMLProps<T> extends HTMLAttributes<T>, ClassAttributes<T> {
+    }
+
+    interface ChangeTargetHTMLProps<T extends HTMLElement> extends ChangeTargetHTMLAttributes<T>, ClassAttributes<T> {
     }
 
     interface SVGProps extends SVGAttributes<SVGElement>, ClassAttributes<SVGElement> {
@@ -2142,7 +2153,11 @@ declare namespace React {
         unselectable?: boolean;
     }
 
-    // this list is "complete" in that it contains every SVG attribute 
+    interface ChangeTargetHTMLAttributes<T extends HTMLElement> extends HTMLAttributes<T> {
+        onChange?: ChangeEventHandler<T>;
+    }
+
+    // this list is "complete" in that it contains every SVG attribute
     // that React supports, but the types can be improved.
     // Full list here: https://facebook.github.io/react/docs/dom-elements.html
     //
@@ -2452,7 +2467,7 @@ declare namespace React {
         i: HTMLFactory<HTMLElement>;
         iframe: HTMLFactory<HTMLIFrameElement>;
         img: HTMLFactory<HTMLImageElement>;
-        input: HTMLFactory<HTMLInputElement>;
+        input: ChangeTargetHTMLFactory<HTMLInputElement>;
         ins: HTMLFactory<HTMLModElement>;
         kbd: HTMLFactory<HTMLElement>;
         keygen: HTMLFactory<HTMLElement>;
@@ -2487,7 +2502,7 @@ declare namespace React {
         samp: HTMLFactory<HTMLElement>;
         script: HTMLFactory<HTMLElement>;
         section: HTMLFactory<HTMLElement>;
-        select: HTMLFactory<HTMLSelectElement>;
+        select: ChangeTargetHTMLFactory<HTMLSelectElement>;
         small: HTMLFactory<HTMLElement>;
         source: HTMLFactory<HTMLSourceElement>;
         span: HTMLFactory<HTMLSpanElement>;
@@ -2499,7 +2514,7 @@ declare namespace React {
         table: HTMLFactory<HTMLTableElement>;
         tbody: HTMLFactory<HTMLTableSectionElement>;
         td: HTMLFactory<HTMLTableDataCellElement>;
-        textarea: HTMLFactory<HTMLTextAreaElement>;
+        textarea: ChangeTargetHTMLFactory<HTMLTextAreaElement>;
         tfoot: HTMLFactory<HTMLTableSectionElement>;
         th: HTMLFactory<HTMLTableHeaderCellElement>;
         thead: HTMLFactory<HTMLTableSectionElement>;
@@ -2613,9 +2628,11 @@ declare namespace React {
 
 declare global {
     namespace JSX {
-        interface Element extends React.ReactElement<any> { }
+        interface JSXElement extends React.ReactElement<any> { }
+        type Element = JSXElement | null;
+
         interface ElementClass extends React.Component<any, any> {
-            render(): JSX.Element | null;
+            render(): JSX.Element;
         }
         interface ElementAttributesProperty { props: {}; }
 
@@ -2677,7 +2694,7 @@ declare global {
             i: React.HTMLProps<HTMLElement>;
             iframe: React.HTMLProps<HTMLIFrameElement>;
             img: React.HTMLProps<HTMLImageElement>;
-            input: React.HTMLProps<HTMLInputElement>;
+            input: React.ChangeTargetHTMLProps<HTMLInputElement>;
             ins: React.HTMLProps<HTMLModElement>;
             kbd: React.HTMLProps<HTMLElement>;
             keygen: React.HTMLProps<HTMLElement>;
@@ -2713,7 +2730,7 @@ declare global {
             samp: React.HTMLProps<HTMLElement>;
             script: React.HTMLProps<HTMLElement>;
             section: React.HTMLProps<HTMLElement>;
-            select: React.HTMLProps<HTMLSelectElement>;
+            select: React.ChangeTargetHTMLProps<HTMLSelectElement>;
             small: React.HTMLProps<HTMLElement>;
             source: React.HTMLProps<HTMLSourceElement>;
             span: React.HTMLProps<HTMLSpanElement>;
@@ -2725,7 +2742,7 @@ declare global {
             table: React.HTMLProps<HTMLTableElement>;
             tbody: React.HTMLProps<HTMLTableSectionElement>;
             td: React.HTMLProps<HTMLTableDataCellElement>;
-            textarea: React.HTMLProps<HTMLTextAreaElement>;
+            textarea: React.ChangeTargetHTMLProps<HTMLTextAreaElement>;
             tfoot: React.HTMLProps<HTMLTableSectionElement>;
             th: React.HTMLProps<HTMLTableHeaderCellElement>;
             thead: React.HTMLProps<HTMLTableSectionElement>;

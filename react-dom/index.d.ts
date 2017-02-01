@@ -2,6 +2,7 @@
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 export as namespace ReactDOM;
 export = ReactDOM;
@@ -27,7 +28,7 @@ declare namespace ReactDOM {
         container: Element | null,
         callback?: (component: T) => any): T;
     function render<P>(
-        element: ReactElement<P>,
+        element: ReactElement<P> | null,
         container: Element | null,
         callback?: (component?: Component<P, ComponentState> | Element) => any): Component<P, ComponentState> | Element | void;
 
@@ -56,7 +57,7 @@ declare namespace ReactDOM {
         callback?: () => any): void;
     function unstable_renderSubtreeIntoContainer<P>(
         parentComponent: Component<any, any>,
-        element: ReactElement<P>,
+        element: ReactElement<P> | null,
         container: Element,
         callback?: (component?: Component<P, ComponentState> | Element) => any): Component<P, ComponentState> | Element | void;
 }
