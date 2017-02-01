@@ -57,6 +57,14 @@ interface Diagnostic {
 
 
     /**
+     * ANDROID ONLY
+     * Constants for the various NFC power states.
+     * @type {Object}
+     */
+    NFCState?: any;
+
+
+    /**
      * Checks if app is able to access device location.
      * @param successCallback
      * @param errorCallback
