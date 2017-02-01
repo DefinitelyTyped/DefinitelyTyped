@@ -1,4 +1,4 @@
-// Type definitions for Video.js
+// Type definitions for Video.js 5.16
 // Project: https://github.com/zencoder/video-js
 // Definitions by: Vincent Bortone <https://github.com/vbortone/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,23 +7,22 @@
 // Javascript, whether the browser is playing the video through HTML5
 // video, Flash, or any other supported playback technologies.
 
-declare var videojs: videojs;
+declare var videojs: videojsStatic;
 export = videojs;
 export as namespace videojs;
 
-interface videojs {
-	(id: any, options?: videojs.PlayerOptions, ready?: () => void): videojs.Player;
-}
+type videojsStatic =
+	(id: any, options?: videojs.PlayerOptions, ready?: () => void) => videojs.Player;
 
 declare namespace videojs {
 
 	interface PlayerOptions {
 		techOrder?: string[];
-		html5?: Object;
+		html5?: any;
 		width?: number;
 		height?: number;
 		defaultVolume?: number;
-		children?: Object;
+		children?: string[];
 		controls?: boolean;
 		src?: string;
 		autoplay?: boolean;
@@ -39,9 +38,7 @@ declare namespace videojs {
 		play(): Player;
 		pause(): Player;
 		paused(): boolean;
-		src(newSource: string): Player;
-		src(newSource: Source): Player;
-		src(newSource: Source[]): Player;
+		src(newSource: string | Source | Source[]): Player;
 		currentTime(seconds: number): Player;
 		currentTime(): number;
 		duration(): number;
@@ -58,13 +55,11 @@ declare namespace videojs {
 		cancelFullScreen(): Player;
 		ready(callback: () => void ): Player;
 		on(eventName: string, callback: (eventObject: Event) => void ): void;
-		off(eventName: string, callback: () => void ): void;
-		off(eventName: string): void;
-		off(): void;
+		off(eventName?: string, callback?: (eventObject: Event) => void ): void;
 		dispose(): void;
-		addRemoteTextTrack(options : {}) : HTMLTrackElement;
-		removeRemoteTextTrack(track : HTMLTrackElement) : void;
-		poster(val?: string) : string|Player;
-		playbackRate(rate?: number) : number;
+		addRemoteTextTrack(options: {}): HTMLTrackElement;
+		removeRemoteTextTrack(track: HTMLTrackElement): void;
+		poster(val?: string): string | Player;
+		playbackRate(rate?: number): number;
 	}
 }
