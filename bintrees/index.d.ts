@@ -5,7 +5,7 @@
 
 declare module 'bintrees' {
 
-    type Callback = <T>(err: Error, item: T) => void;
+    type Callback = <T>(item: T) => void;
     type Comparator = <T>(a: T, b: T) => number;
 
     class Iterator<T> {
