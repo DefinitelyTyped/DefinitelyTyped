@@ -268,6 +268,12 @@
             "typingsPackageName": "inversify-restify-utils",
             "sourceRepoURL": "https://github.com/inversify/inversify-restify-utils",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "Argon2",
+            "typingsPackageName": "argon2",
+            "sourceRepoURL": "https://github.com/ranisalt/node-argon2",
+            "asOfVersion": "0.15.0"
         }
     ]
 }

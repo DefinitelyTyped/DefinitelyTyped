@@ -3,21 +3,18 @@
 // Definitions by: Chad Burggraf <https://github.com/ChadBurggraf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = ReduxBatchedActions;
-export as namespace ReduxBatchedActions;
-
 import { Action, Reducer } from 'redux';
 
-declare namespace ReduxBatchedActions {
-    /**
-     * Batching action creator that creates a higher-order
-     * action from an array of actions.
-     */
-    export function batchActions<A extends Action>(actions: A[]): Action;
+export as namespace ReduxBatchedActions;
 
-    /**
-     * Creates a higher-order reducer that enables batching
-     * actions for the given reducer.
-     */
-    export function enableBatching<S>(reducer: Reducer<S>): Reducer<S>;
-}
+/**
+ * Batching action creator that creates a higher-order
+ * action from an array of actions.
+ */
+export function batchActions<A extends Action>(actions: A[]): Action;
+
+/**
+ * Creates a higher-order reducer that enables batching
+ * actions for the given reducer.
+ */
+export function enableBatching<S>(reducer: Reducer<S>): Reducer<S>;
