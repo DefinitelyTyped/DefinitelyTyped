@@ -1735,6 +1735,7 @@ declare namespace __MaterialUI {
         }
 
         interface TabProps extends SharedEnhancedButtonProps<Tab> {
+            buttonStyle?: React.CSSProperties;
             className?: string;
             icon?: React.ReactNode;
             label?: React.ReactNode;
