@@ -1,4 +1,4 @@
-// Type definitions for JSNLog 2.17.4
+// Type definitions for JSNLog 2.17
 // Project: https://github.com/mperdeck/jsnlog.js
 // Definitions by: Mattijs Perdeck <https://github.com/mperdeck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
