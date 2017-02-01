@@ -1,4 +1,4 @@
-import SystemJS = require('Systemjs');
+import SystemJS = require('systemjs');
 
 SystemJS.config({
     baseURL: '/app'
