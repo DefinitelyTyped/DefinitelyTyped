@@ -3586,6 +3586,10 @@ declare namespace THREE {
     export class Spherical {
         constructor(radius?: number, phi?: number, theta?: number);
 
+        radius: number;
+        phi: number;
+        theta: number;
+        
         set(radius: number, phi: number, theta: number): Spherical;
         clone(): this;
         copy(other: this): this;
