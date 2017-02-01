@@ -29,7 +29,7 @@ declare namespace SystemJSLoader {
      */
     type Transpiler = "plugin-traceur" | "plugin-babel" | "plugin-typescript" | "traceur" | "babel" | "typescript" | boolean;
 
-    type ConfigMap = PackageList<string>;
+    type ConfigMap = PackageList<string | PackageList<string>>;
 
     type ConfigMeta = PackageList<MetaConfig>;
 
