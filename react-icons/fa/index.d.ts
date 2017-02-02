@@ -1,3 +1,4 @@
+// TypeScript Version: 2.1
 import _Fa500px from "./500px";
 import _FaAdjust from "./adjust";
 import _FaAdn from "./adn";

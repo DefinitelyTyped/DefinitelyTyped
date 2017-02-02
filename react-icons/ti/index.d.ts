@@ -1,3 +1,4 @@
+// TypeScript Version: 2.1
 import _TiAdjustBrightness from "./adjust-brightness";
 import _TiAdjustContrast from "./adjust-contrast";
 import _TiAnchorOutline from "./anchor-outline";

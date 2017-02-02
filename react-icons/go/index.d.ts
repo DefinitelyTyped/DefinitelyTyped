@@ -1,3 +1,4 @@
+// TypeScript Version: 2.1
 import _GoAlert from "./alert";
 import _GoAlignmentAlign from "./alignment-align";
 import _GoAlignmentAlignedTo from "./alignment-aligned-to";
