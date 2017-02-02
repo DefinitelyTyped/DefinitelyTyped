@@ -2779,7 +2779,7 @@ declare namespace Electron {
 		 * The protocol scheme in the form ‘scheme:’. Currently supported values are ‘http:’ or ‘https:’.
 		 * Defaults to ‘http:’.
 		 */
-		Protocol?: 'http:' | 'https:';
+		protocol?: 'http:' | 'https:';
 		/**
 		 * The server host provided as a concatenation of the hostname and the port number ‘hostname:port’.
 		 */
