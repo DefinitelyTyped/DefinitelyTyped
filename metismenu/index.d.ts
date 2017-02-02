@@ -1,4 +1,4 @@
-// Type definitions for metisMenu 2.6
+// Type definitions for metisMenu 2.6.2
 // Project: http://github.com/onokumus/metisMenu
 // Definitions by: onokums <https://github.com/onokumus/>, denis <https://github.com/denisname/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,6 @@
 
 interface MetisMenuOptions {
     toggle?: boolean;
-    doubleTapToGo?: boolean;
     activeClass?: string;
     collapseClass?: string;
     collapseInClass?: string;
