@@ -14,8 +14,7 @@ interface Select2QueryOptions {
 }
 
 interface AjaxFunction {
-    (settings: JQueryAjaxSettings): JQueryXHR;
-    (url: string, settings?: JQueryAjaxSettings): JQueryXHR;
+    (settings: JQueryAjaxSettings, success?: (data: any) => null, failure?: () => null): JQueryXHR;
 }
 
 interface Select2AjaxOptions {
