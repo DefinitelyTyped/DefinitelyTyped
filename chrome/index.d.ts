@@ -7267,6 +7267,7 @@ declare namespace chrome.webRequest {
     interface WebResponseHeadersDetails extends WebResponseDetails {
         /** Optional. The HTTP response headers that have been received with this response. */
         responseHeaders?: HttpHeader[];
+        method: string; /** standard HTTP method i.e. GET, POST, PUT, etc. */
     }
 
     interface WebResponseCacheDetails extends WebResponseHeadersDetails {
