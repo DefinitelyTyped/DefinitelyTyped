@@ -34,12 +34,21 @@ declare namespace c {
         
         // Return the config for the project based on directory param if not directory then return default one (config).
         loadFileConfigs(configDir: string): any;
+
+        // Return the sources for the configurations
+        getConfigSources(): IConfigSource[];
     }
 
     interface IConfig {
         get<T>(setting: string): T;
         has(setting: string): boolean;
         util: IUtil;
+    }
+
+    interface IConfigSource {
+        name: string;
+        original?: string;
+        parsed: any;
     }
 }
 
