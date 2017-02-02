@@ -1,5 +1,5 @@
-// Type definitions for metisMenu 2.6.2
-// Project: http://github.com/onokumus/metisMenu
+// Type definitions for metismenu 2.6.2
+// Project: http://github.com/onokumus/metismenu
 // Definitions by: onokumus <https://github.com/onokumus/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
