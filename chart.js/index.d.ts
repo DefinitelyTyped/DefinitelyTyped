@@ -386,6 +386,7 @@ declare namespace Chart {
         position?: string;
         ticks?: TickOptions;
         scaleLabel?: ScaleTitleOptions;
+        gridLines?: GridLineOptions;
     }
 
     export interface LinearScale extends ChartScales {
