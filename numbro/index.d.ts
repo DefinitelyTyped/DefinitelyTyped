@@ -24,7 +24,7 @@ interface Numbro {
 	(value?: any): Numbro;
 	version: string;
 	isNumbro: boolean;
-	language(key: string, values?: NumbroLanguage): Numbro;
+	culture(key: string, values?: NumbroLanguage): Numbro;
 	zeroFormat(format: string): string;
 	clone(): Numbro;
 	format(inputString?: string): string;
