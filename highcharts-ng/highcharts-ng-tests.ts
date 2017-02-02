@@ -33,7 +33,8 @@ class AppController {
         title: {
             text: 'My Awesome Chart'
         },
-        loading: true
+        loading: true,
+        noData: 'No data here'
     };
     constructor($timeout: ng.ITimeoutService) {
         var vm = this;
