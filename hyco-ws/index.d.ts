@@ -29,7 +29,7 @@ declare module 'hyco-ws' {
             appendRelayToken(uri: string, key_name: string, key: string, expiry?: number): string;
             createRelayBaseUri(serviceBusNamespace: string, path: string): string;
             createRelaySendUri(serviceBusNamespace: string, path: string, token?: any, id?: any): string;
-            createRelayListenUri(serviceBusNamespace: string, path: string, token?: any, id?: any);
+            createRelayListenUri(serviceBusNamespace: string, path: string, token?: any, id?: any): string;
         }
     }
 

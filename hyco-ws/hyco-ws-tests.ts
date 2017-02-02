@@ -1,6 +1,7 @@
 import * as WebSocketRelay from 'hyco-ws';
+import * as WebSocket from 'ws';
 
-let wss = WebSocketRelay.createRelayedServer(
+const wss: any = WebSocketRelay.createRelayedServer(
     {
         server: WebSocketRelay.createRelayListenUri('uri_namespace', 'uri_path'),
         token: WebSocketRelay.createRelayToken(
@@ -10,11 +11,11 @@ let wss = WebSocketRelay.createRelayedServer(
     },
     (ws: WebSocket) => {
         console.log('New connection accepted');
-        ws.onmessage = function (event) {
+        ws.onmessage = (event: any) => {
             console.log('New message!!');
         };
     });
 
-wss.on('error', function (err) {
+wss.on('error', (err: any) => {
     console.log('error' + err);
 });
