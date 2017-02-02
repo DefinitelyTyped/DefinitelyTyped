@@ -1,10 +1,10 @@
-import * as WebSocketRelay from 'hyco-ws';
 import * as WebSocket from 'ws';
+import * as AzureRelay from 'hyco-ws';
 
-const wss: any = WebSocketRelay.createRelayedServer(
+const wss = AzureRelay.createRelayedServer(
     {
-        server: WebSocketRelay.createRelayListenUri('uri_namespace', 'uri_path'),
-        token: WebSocketRelay.createRelayToken(
+        server: AzureRelay.createRelayListenUri('uri_namespace', 'uri_path'),
+        token: AzureRelay.createRelayToken(
             'http://exampleurl.com}',
             'key_rule',
             'key')
