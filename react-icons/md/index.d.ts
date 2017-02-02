@@ -1,3 +1,4 @@
+// TypeScript Version: 2.1
 import _Md3dRotation from "./3d-rotation";
 import _MdAcUnit from "./ac-unit";
 import _MdAccessAlarm from "./access-alarm";

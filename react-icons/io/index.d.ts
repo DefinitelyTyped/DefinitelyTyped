@@ -1,3 +1,4 @@
+// TypeScript Version: 2.1
 import _IoAlertCircled from "./alert-circled";
 import _IoAlert from "./alert";
 import _IoAndroidAddCircle from "./android-add-circle";
