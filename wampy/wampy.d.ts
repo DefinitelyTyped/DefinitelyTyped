@@ -109,7 +109,7 @@ declare var wampy: Wampy;
 
 declare module 'wampy'
 {
-    export = wampy
+    export = wampy;
 }
 
 
