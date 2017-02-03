@@ -1,4 +1,4 @@
-// Type definitions for clean-webpack-plugin 0.1.15
+// Type definitions for clean-webpack-plugin 0.1
 // Project: https://github.com/johnagan/clean-webpack-plugin
 // Definitions by: Chase Brewer <https://github.com/chasepbrewer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -22,10 +22,10 @@ declare namespace CleanWebpackPlugin {
     }
 
     interface Constructor {
-        new (paths: string[], options?: Options): Plugin;
+        new(paths: string[], options?: Options): Plugin;
     }
 }
 
-declare let plugin: CleanWebpackPlugin.Constructor;
+declare var plugin: CleanWebpackPlugin.Constructor;
 
 export = plugin;
