@@ -1515,6 +1515,27 @@ s.define( 'User', {
     paranoid : true
 } );
 
+s.define( 'TriggerTest', {
+    id : {
+        type : Sequelize.INTEGER,
+        field : 'test_id',
+        autoIncrement : true,
+        primaryKey : true,
+        validate : {
+            min : 1
+        }
+    },
+    title : {
+        allowNull : false,
+        type : Sequelize.STRING( 255 ),
+        field : 'test_title'
+    }
+}, {
+    timestamps : false,
+    underscored : true,
+    hasTrigger : true
+} );
+
 //
 //  Transaction
 // ~~~~~~~~~~~~~
