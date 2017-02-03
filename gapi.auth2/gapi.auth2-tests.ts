@@ -19,6 +19,12 @@ function test_getAuthInstance(){
   var auth = gapi.auth2.getAuthInstance();
 }
 
+function test_getAuthResponse(){
+  var user = gapi.auth2.getAuthInstance().currentUser.get();
+  var authResponse = user.getAuthResponse();
+  var authResponseWithAuth = user.getAuthResponse(true);
+}
+
 function test_render(){
   var success = (googleUser: gapi.auth2.GoogleUser): void => {
     console.log(googleUser);
