@@ -45,7 +45,7 @@ declare namespace PouchDB {
             doc_count: number;
 
             /** Sequence number of the database. It starts at 0 and gets incremented every time a document is added or modified */
-            update_seq: number;
+            update_seq: number | string;
         }
 
         interface Revision<Content> {
@@ -221,8 +221,9 @@ declare namespace PouchDB {
             /**
              * Start the results from the change immediately after the given sequence number.
              * You can also pass `'now'` if you want only new changes (when `live` is `true`).
+             *
              */
-            since?: 'now' | number;
+            since?: 'now' | number | string;
 
             /**
              * Request timeout (in milliseconds).
