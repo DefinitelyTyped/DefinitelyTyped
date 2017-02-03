@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6" 
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -15,6 +15,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
+  
     "files": [
         "index.d.ts",
         "orientjs-tests.ts"
