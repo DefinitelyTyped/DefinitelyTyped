@@ -60,8 +60,8 @@ namespace ShallowWrapperTest {
 
     function test_filter() {
         shallowWrapper = shallowWrapper.filter(MyComponent);
-        statelessWrapper = shallowWrapper.filter(MyStatelessComponent);
-        shallowWrapper = shallowWrapper.filter({ prop: 'value' });
+        statelessWrapper = statelessWrapper.filter(MyStatelessComponent);
+        shallowWrapper = shallowWrapper.filter({ numberProp: 12 });
         elementWrapper = shallowWrapper.filter('.selector');
     }
 
@@ -384,8 +384,8 @@ namespace ReactWrapperTest {
 
     function test_filter() {
         reactWrapper = reactWrapper.filter(MyComponent);
-        statelessWrapper = reactWrapper.filter(MyStatelessComponent);
-        reactWrapper = reactWrapper.filter({ prop: 'myprop' });
+        statelessWrapper = statelessWrapper.filter(MyStatelessComponent);
+        reactWrapper = reactWrapper.filter({ numberProp: 12 });
         elementWrapper = reactWrapper.filter('.selector');
     }
 
