@@ -1,4 +1,4 @@
-// Type definitions for orientjs v2.1.0
+// Type definitions for orientjs v3.0.0
 // Project: https://github.com/orientechnologies/orientjs
 // Definitions by: [Saeed Tabrizi] <https://github.com/saeedtabrizi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -192,7 +192,7 @@ declare module "orientjs" {
             debug?: Function;
         }
 
-        interface ORID extends String {
+        interface RID extends String {
             cluster?: number;
             position?: number;
 
@@ -200,17 +200,17 @@ declare module "orientjs" {
             isValid?(): boolean;
             equals?(rid: string)
                 : boolean;
-            equals?(rid: ORID)
+            equals?(rid: RID)
                 : boolean;
             parse?(input: string)
                 : boolean;
             parse?(input: string)
-                : ORID;
+                : RID;
             parse?(input: string)
-                : ORID[];
+                : RID[];
             isValid?(input: string)
                 : boolean;
-            isValid?(input: ORID)
+            isValid?(input: RID)
                 : boolean;
             isValid?(input: any)
                 : boolean;
@@ -218,14 +218,14 @@ declare module "orientjs" {
                 : any;
         }
 
-        interface OCustomField {
+        interface CustomField {
             /**
              * Get the value of the given custom field.
              *
              * @param  {String} key The name of the field to get.
              * @return {Mixed}      The field value, or undefined if it doesn't exist.
              */
-            get(key: string): OCustomField;
+            get(key: string): CustomField;
             /**
              * Set a custom field.
              *
@@ -233,17 +233,17 @@ declare module "orientjs" {
              * @param   {String}        value The value to set, if `key` is not an object.
              * @promise {Object|null}         The new set of custom fields, or null if none are present.
              */
-            set(key: string, value: any): OCustomField;
+            set(key: string, value: any): CustomField;
             /**
              * Unset the custom field with the given name,
              *
              * @param   {String}      key The name of the custom field to remove.
              * @promise {Object|null}     The new set of custom fields, or null if none are present.
              */
-            unset(key: string): OCustomField;
+            unset(key: string): CustomField;
         }
 
-        interface OPropertyCreateConfig {
+        interface PropertyCreateConfig {
             name: string;
             type: string;
             default?: any;
@@ -258,11 +258,11 @@ declare module "orientjs" {
             min?: number;
             max?: number;
             custom?: {
-                fields?: OCustomField[]
+                fields?: CustomField[]
             }
         }
 
-        interface OPropertyUpdateConfig {
+        interface PropertyUpdateConfig {
             name: string;
             type: string;
             default?: any;
@@ -275,11 +275,11 @@ declare module "orientjs" {
             min?: number;
             max?: number;
             custom?: {
-                fields?: OCustomField[]
+                fields?: CustomField[]
             }
         }
 
-        interface OProperty {
+        interface Property {
 
             class?: Class;
             name?: string;
@@ -295,9 +295,9 @@ declare module "orientjs" {
             max?: number;
 
             configure(config?: any): void;
-            reload(): Promise<OProperty>;
-            rename(newName: string): Promise<OProperty>;
-            list(): Promise<OProperty[]>;
+            reload(): Promise<Property>;
+            rename(newName: string): Promise<Property>;
+            list(): Promise<Property[]>;
             /**
              * Create a new property.
              *
@@ -305,15 +305,15 @@ declare module "orientjs" {
              * @param   {Boolean} reload      Whether to reload the property, default to true.
              * @promise {Object}              The created property.
              */
-            create(config?: OPropertyCreateConfig | string, reload?: boolean): Promise<OProperty>;
-            create(config: OPropertyCreateConfig[], reload?: boolean): Promise<OProperty[]>;
+            create(config?: PropertyCreateConfig | string, reload?: boolean): Promise<Property>;
+            create(config: PropertyCreateConfig[], reload?: boolean): Promise<Property[]>;
             /**
  * Get the property with the given name.
  *
  * @param   {String} name   The property to get.
  * @promise {Object|null}   The retrieved property.
  */
-            get(name: string): Promise<OProperty>;
+            get(name: string): Promise<Property>;
             /**
  * Update the given property.
  *
@@ -321,13 +321,13 @@ declare module "orientjs" {
  * @param   {Boolean} reload   Whether to reload the property, default to true.
  * @promise {Object}           The updated property.
  */
-            update(config: OPropertyUpdateConfig, reload?: boolean): Promise<OProperty>;
+            update(config: PropertyUpdateConfig, reload?: boolean): Promise<Property>;
             drop(name: string, config?: {
                 ifexist?: boolean,
                 force?: boolean
             }): Promise<Class>;
             alter(name: string, setting?: any): Promise<Class>;
-            rename(oldName: string, newName: string): Promise<OProperty>;
+            rename(oldName: string, newName: string): Promise<Property>;
         }
 
         /**
@@ -426,7 +426,7 @@ declare module "orientjs" {
              * @return {Db}                The db instance.
              */
             cacheData(classes: Class[]): Db;
-            property: OProperty;
+            property: Property;
 
         }
 
@@ -528,21 +528,21 @@ declare module "orientjs" {
         }
 
         interface RecordMeta {
-            "@rid": ORID;
+            "@rid": RID;
             "@version": Version;
 
         }
 
         type ODocument = Record;
-        type OBinaryRecord = Record & Buffer;
+        type BinaryRecord = Record & Buffer;
 
 
         interface Record extends Object {
-            '@rid'?: ORID;
+            '@rid'?: RID;
             '@type'?: 'd' | 'b';
             '@class'?: string,
             '@version'?: Version;
-            rid?: ORID;
+            rid?: RID;
             /**
          * Insert the given record into the database.
          *
@@ -550,7 +550,7 @@ declare module "orientjs" {
          * @param  {Object} options The command options.
          * @promise {Object}        The inserted record.
          */
-            create(record: ODocument | Record | OBinaryRecord, options?: any): Promise<Record>;
+            create(record: ODocument | Record | BinaryRecord, options?: any): Promise<Record>;
             /**
          * Insert the given record into the database.
          *
@@ -558,7 +558,7 @@ declare module "orientjs" {
          * @param  {Object} options The command options.
          * @promise {Object}        The inserted record.
          */
-            create(records: ODocument[] | Record[] | OBinaryRecord[], options?: any): Promise<Record[]>;
+            create(records: ODocument[] | Record[] | BinaryRecord[], options?: any): Promise<Record[]>;
 
             /**
  * Read the given record.
@@ -567,7 +567,7 @@ declare module "orientjs" {
  * @param  {Object} options The query options.
  * @promise {Object}        The loaded record.
  */
-            get(record: Record | ORID, options?: any): Promise<Record | Buffer>;
+            get(record: Record | RID, options?: any): Promise<Record | Buffer>;
             /**
  * Read the given record.
  *
@@ -575,7 +575,7 @@ declare module "orientjs" {
  * @param  {Object} options The query options.
  * @promise {Object[]}        The loaded record.
  */
-            get(records: Record[] | ORID[], options?: any): Promise<Record[] | Buffer[]>;
+            get(records: Record[] | RID[], options?: any): Promise<Record[] | Buffer[]>;
             /**
  * Resolve all references within the given collection of records.
  *
@@ -591,7 +591,7 @@ declare module "orientjs" {
  * @param  {Object} options The query options.
  * @promise {Object}        The record object with loaded meta data.
  */
-            meta(record: Record | ORID | string, options?: any): Promise<RecordMeta>;
+            meta(record: Record | RID | string, options?: any): Promise<RecordMeta>;
             /**
          * Read the metadata for the given record.
          *
@@ -599,7 +599,7 @@ declare module "orientjs" {
          * @param  {Object} options The query options.
          * @promise {Object}        The record object with loaded meta data.
          */
-            meta(records: Record[] | ORID[], options?: any): Promise<RecordMeta[]>;
+            meta(records: Record[] | RID[], options?: any): Promise<RecordMeta[]>;
 
             update(): Promise<Record>;
             /**
@@ -609,7 +609,7 @@ declare module "orientjs" {
  * @param  {Object} options The query options.
  * @promise {Object}        The updated record.
  */
-            update(record: Record | ORID, options?: any): Promise<Record>;
+            update(record: Record | RID, options?: any): Promise<Record>;
 
             delete(): Promise<Record> & Promise<Record>;
             /**
@@ -619,7 +619,7 @@ declare module "orientjs" {
          * @param   {Object}            options The query options.
          * @promise {Object}                    The deleted record object.
          */
-            delete(record: Record | ORID, options?: any): Promise<Record>;
+            delete(record: Record | RID, options?: any): Promise<Record>;
         }
         interface IndexConfig {
             name: string,
@@ -633,7 +633,7 @@ declare module "orientjs" {
 
         interface IndexEntry {
             key: string,
-            value: String | ORID
+            value: String | RID
         }
         interface Index {
             cached: boolean;
@@ -645,9 +645,9 @@ declare module "orientjs" {
             configure(config: any): void;
             add(idx: IndexEntry): Promise<Index[]>;
             add(idx: IndexEntry[]): Promise<Index[]>;
-            get(key: string): Promise<ORID>;
+            get(key: string): Promise<RID>;
             set(key: string, value: string): Promise<Index>;
-            set(key: string, value: ORID): Promise<Index>;
+            set(key: string, value: RID): Promise<Index>;
             delete(name: string): Promise<Index>;
             select(): Statement;
             list(refresh?: boolean): Promise<Index[]>;
@@ -657,8 +657,8 @@ declare module "orientjs" {
             get(name: string, refresh?: boolean): Promise<Index>;
             cacheData(indices: any[]): Promise<Db>;
         }
-        type OSqlExpression = string | RawExpression | SqlFunction;
-        interface Statement extends OQuery<any> {
+        type SqlExpression = string | RawExpression | SqlFunction;
+        interface Statement extends Query<any> {
             select(param?: string | string[]): Statement;
             traverse(param?: string | string[]): Statement;
             strategy(param?: string): Statement;
@@ -692,14 +692,14 @@ declare module "orientjs" {
             let(name: string, value: Statement): Statement;
             lock(param: any): Statement;
 
-            if(condition: OSqlExpression, ...statements: Statement[]): Statement;
+            if(condition: SqlExpression, ...statements: Statement[]): Statement;
             rollback(param?: any): Statement;
             sleep(ms?: number): Statement;
 
             commit(retryLimit?: number): Statement;
             retry(retryLimit?: number): Statement;
             wait(waitLimit: number): Statement;
-            return(value: OSqlExpression): Statement;
+            return(value: SqlExpression): Statement;
             lucene(property: string, luceneQuery: string): Statement;
             lucene(property: any, luceneQuery: string): Statement;
             near(latitudeProperty: string, longitudeProperty: string, longitude: number, latitude: number, maxDistanceInKms: number): Statement;
@@ -712,11 +712,11 @@ declare module "orientjs" {
 
         }
 
-        interface OQuery<T> {
+        interface Query<T> {
 
-            transform<T>(transformer: (item: Record) => T): OQuery<T>;
-            column(name: string): OQuery<T>;
-            defaults(defaults: any): OQuery<T>;
+            transform<T>(transformer: (item: Record) => T): Query<T>;
+            column(name: string): Query<T>;
+            defaults(defaults: any): Query<T>;
             one<T>(params?: any): Promise<T>;
             all<T>(params?: any): Promise<T[]>;
             scalar<T>(params?: any): Promise<T>;
@@ -760,11 +760,11 @@ declare module "orientjs" {
         }
 
 
-        interface OAbsSqlFunction {
-            new (field: number | string): OAbsSqlFunction;
+        interface AbsSqlFunction {
+            new (field: number | string): AbsSqlFunction;
         }
-        interface OAvgSqlFunction {
-            new (field: string): OAvgSqlFunction;
+        interface AvgSqlFunction {
+            new (field: string): AvgSqlFunction;
         }
         interface SequenceSqlFunction {
             new (name: string): SequenceSqlFunction;
@@ -775,8 +775,8 @@ declare module "orientjs" {
 
         interface SqlFunction {
             db: Db;
-            abs: OAbsSqlFunction;
-            avg: OAbsSqlFunction;
+            abs: AbsSqlFunction;
+            avg: AbsSqlFunction;
             sequence: SequenceSqlFunction;
         }
 
