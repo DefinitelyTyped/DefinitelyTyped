@@ -1793,6 +1793,11 @@ declare namespace Office {
          */
         saveAsync(callback?: (result: AsyncResult) => void, userContext?: any): void;
     }
+    export interface Diagnostics {
+        hostName: string;
+        hostVersion: string;
+        OWAView: string;
+    }
     export interface EmailAddressDetails {
         emailAddress: string;
         displayName: string;
@@ -1828,6 +1833,13 @@ declare namespace Office {
     export interface Appointment extends Item {
     }
     export interface Body {
+        /**
+         * Returns the current body in a specified format
+         * @param coercionType The format of the returned body
+         * @param options Any optional parameters or state data passed to the method
+         * @param The optional method to call when the getAsync method returns
+         */
+        getAsync(coercionType: CoercionType, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Gets a value that indicates whether the content is in HTML or text format
          * @param tableData  A TableData object with the headers and rows
@@ -1866,6 +1878,8 @@ declare namespace Office {
         setAsync(location: string, options?: any, callback?: (result: AsyncResult) => void): void;
     }
     export interface Mailbox {
+        diagnostics: Diagnostics;
+        ewsUrl: string;
         item: Item;
         userProfile: UserProfile;
         /**
@@ -1900,6 +1914,12 @@ declare namespace Office {
          * @param body The body of the appointment message. The body content is limited to a maximum size of 32 KB
          */
         displayNewAppointmentForm(requiredAttendees: any, optionalAttendees: any, start: Date, end: Date, location: string, resources: string[], subject: string, body: string): void;
+        /**
+         * Displays a new message form
+         * WARNING: This api is not officially released, and may not work on all platforms
+         * @param options A dictionary containing all values to be filled in for the user in the new form
+         */
+        displayNewMessageForm(options?: any): void;
         /**
          * Gets a string that contains a token used to get an attachment or item from an Exchange Server
          * @param callback The optional method to call when the string is inserted
