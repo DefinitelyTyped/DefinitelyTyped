@@ -123,7 +123,11 @@ const routes = (
 	</Route>
 );
 
-match({history, routes, location: "baseurl"}, (error, redirectLocation, renderProps) => {
+match({ routes, location: "baseurl" }, (error, redirectLocation, renderProps) => {
+	renderToString(<RouterContext {...renderProps} />);
+});
+
+match({ history, routes }, (error, redirectLocation, renderProps) => {
 	renderToString(<RouterContext {...renderProps} />);
 });
 
