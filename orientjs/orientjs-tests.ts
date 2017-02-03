@@ -1,5 +1,5 @@
 import * as orientjs from 'orientjs';
-
+// simple test 
 let dbserver = orientjs({
     host: 'localhost',
     port: 2424,
