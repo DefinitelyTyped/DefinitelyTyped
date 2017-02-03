@@ -271,18 +271,28 @@ angular.module('qprovider-test', [])
 let foo: ng.IPromise<number>;
 foo.then((x) => {
     // x is inferred to be a number
+    x.toFixed();
     return 'asdf';
 }).then((x) => {
     // x is inferred to be string
     const len = x.length;
     return 123;
+}, (e) => {
+    return anyOf2([123], toPromise([123])); // IPromise<T> | T, both are good for the 2nd arg of .then()
 }).then((x) => {
-    // x is infered to be a number
-    const fixed = x.toFixed();
+    // x is infered to be a number or number[]
+    if (Array.isArray(x)) {
+        x[0].toFixed();
+    } else {
+        x.toFixed();
+    }
     return;
-}).then((x) => {
-    // x is infered to be void
-    // Typescript will prevent you to actually use x as a local variable
+}).catch(e => {
+    return foo || 123; // IPromise<T> | T, both are good for .catch()
+}).then(x => {
+    // x is infered to be void | number
+    x && x.toFixed();
+    // Typescript will prevent you to actually use x as a local variable before you check it is not void
     // Try object:
     return { a: 123 };
 }).then((x) => {
@@ -290,7 +300,8 @@ foo.then((x) => {
     x.a = 123;
     //Try a promise
     var y: ng.IPromise<number>;
-    return y;
+    var condition: boolean;
+    return condition ? y : x.a; // IPromise<T> | T, both are good for the 1st arg of .then()
 }).then((x) => {
     // x is infered to be a number, which is the resolved value of a promise
     x.toFixed();
@@ -307,13 +318,21 @@ namespace TestQ {
         e: number;
         f: boolean;
     }
+    interface TOther {
+        g: string;
+        h: number;
+    }
     var tResult: TResult;
     var promiseTResult: angular.IPromise<TResult>;
     var tValue: TValue;
     var promiseTValue: angular.IPromise<TValue>;
+    var tOther: TOther;
+    var promiseTOther: angular.IPromise<TOther>;
 
     var $q: angular.IQService;
     var promiseAny: angular.IPromise<any>;
+
+    const assertPromiseType = <T>(arg: angular.IPromise<T>) => arg;
 
     // $q constructor
     {
@@ -349,13 +368,20 @@ namespace TestQ {
     {
         let result: angular.IDeferred<TResult>;
         result = $q.defer<TResult>();
+        result.resolve(tResult);
+        var anyValue: any;
+        result.reject(anyValue);
+        result.promise.then(result => {
+            return $q.resolve<TResult>(result);
+        });
     }
 
     // $q.reject
     {
-        let result: angular.IPromise<any>;
+        let result: angular.IPromise<never>;
         result = $q.reject();
         result = $q.reject('');
+        result.catch(() => 5).then(x => x.toFixed());
     }
 
     // $q.resolve
@@ -367,6 +393,8 @@ namespace TestQ {
         let result: angular.IPromise<TResult>;
         result = $q.resolve<TResult>(tResult);
         result = $q.resolve<TResult>(promiseTResult);
+        result = $q.resolve<TResult | TOther>(Math.random() > 0.5 ? tResult : promiseTOther);
+        result = $q.resolve(Math.random() > 0.5 ? tResult : promiseTOther);
     }
 
     // $q.when
@@ -376,6 +404,8 @@ namespace TestQ {
     }
     {
         let result: angular.IPromise<TResult>;
+        let resultOther: angular.IPromise<TOther>;
+
         result = $q.when<TResult>(tResult);
         result = $q.when<TResult>(promiseTResult);
 
@@ -384,16 +414,20 @@ namespace TestQ {
         result = $q.when<TResult, TValue>(tValue, (result: TValue) => tResult, (any) => any, (any) => any);
 
         result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => tResult);
-        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => tResult, (any) => any);
-        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => tResult, (any) => any, (any) => any);
+        result = resultOther = $q.when<TResult, TOther, TValue>(promiseTValue, (result: TValue) => tResult, (any) => tOther);
+        result = resultOther = $q.when<TResult, TOther, TValue>(promiseTValue, (result: TValue) => tResult, (any) => tOther, (any) => any);
+        result = resultOther = $q.when<TResult, TOther, TValue>(promiseTValue, (result: TValue) => tResult, (any) => promiseTOther);
+        result = resultOther = $q.when<TResult, TOther, TValue>(promiseTValue, (result: TValue) => tResult, (any) => promiseTOther, (any) => any);
 
         result = $q.when<TResult, TValue>(tValue, (result: TValue) => promiseTResult);
         result = $q.when<TResult, TValue>(tValue, (result: TValue) => promiseTResult, (any) => any);
         result = $q.when<TResult, TValue>(tValue, (result: TValue) => promiseTResult, (any) => any, (any) => any);
 
         result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => promiseTResult);
-        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => promiseTResult, (any) => any);
-        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => promiseTResult, (any) => any, (any) => any);
+        result = resultOther = $q.when<TResult, TOther, TValue>(promiseTValue, (result: TValue) => promiseTResult, (any) => tOther);
+        result = resultOther = $q.when<TResult, TOther, TValue>(promiseTValue, (result: TValue) => promiseTResult, (any) => tOther, (any) => any);
+        result = resultOther = $q.when<TResult, TOther, TValue>(promiseTValue, (result: TValue) => promiseTResult, (any) => promiseTOther);
+        result = resultOther = $q.when<TResult, TOther, TValue>(promiseTValue, (result: TValue) => promiseTResult, (any) => promiseTOther, (any) => any);
     }
 }
 
@@ -466,18 +500,24 @@ namespace TestInjector {
 
 // Promise signature tests
 namespace TestPromise {
-    let result: any;
     var any: any;
 
     interface TResult {
+        kind: 'result';
         a: number;
         b: string;
         c: boolean;
     }
+
     interface TOther {
+        kind: 'other';
         d: number;
         e: string;
         f: boolean;
+    }
+
+    function isTResult(x: TResult | TOther): x is TResult {
+        return x.kind === 'result';
     }
 
     var tresult: TResult;
@@ -489,45 +529,83 @@ namespace TestPromise {
     var totherHttpPromise: ng.IHttpPromise<TOther>;
 
     var promise: angular.IPromise<TResult>;
+    var $q: angular.IQService;
+
+    const assertPromiseType = <T>(arg: angular.IPromise<T>) => arg;
+    const reject = $q.reject();
 
     // promise.then
-    result = promise.then((result) => any) as angular.IPromise<any>;
-    result = promise.then((result) => any, (any) => any) as angular.IPromise<any>;
-    result = promise.then((result) => any, (any) => any, (any) => any) as angular.IPromise<any>;
+    assertPromiseType<any>(promise.then((result) => any));
+    assertPromiseType<any>(promise.then((result) => any, (any) => any));
+    assertPromiseType<any>(promise.then((result) => any, (any) => any, (any) => any));
 
-    result = promise.then((result) => result) as angular.IPromise<TResult>;
-    result = promise.then((result) => result, (any) => any) as angular.IPromise<TResult>;
-    result = promise.then((result) => result, (any) => any, (any) => any) as angular.IPromise<TResult>;
-    result = promise.then((result) => tresultPromise) as angular.IPromise<TResult>;
-    result = promise.then((result) => tresultPromise, (any) => any) as angular.IPromise<TResult>;
-    result = promise.then((result) => tresultPromise, (any) => any, (any) => any) as angular.IPromise<TResult>;
-    result = promise.then((result) => tresultHttpPromise) as angular.IPromise<ng.IHttpPromiseCallbackArg<TResult>>;
-    result = promise.then((result) => tresultHttpPromise, (any) => any) as angular.IPromise<ng.IHttpPromiseCallbackArg<TResult>>;
-    result = promise.then((result) => tresultHttpPromise, (any) => any, (any) => any) as angular.IPromise<ng.IHttpPromiseCallbackArg<TResult>>;
+    assertPromiseType<never>(promise.then((result) => reject));
+    assertPromiseType<never>(promise.then((result) => reject, (any) => reject));
+    assertPromiseType<never>(promise.then((result) => reject, (any) => reject, (any) => any));
 
-    result = promise.then((result) => tother) as angular.IPromise<TOther>;
-    result = promise.then((result) => tother, (any) => any) as angular.IPromise<TOther>;
-    result = promise.then((result) => tother, (any) => any, (any) => any) as angular.IPromise<TOther>;
-    result = promise.then((result) => totherPromise) as angular.IPromise<TOther>;
-    result = promise.then((result) => totherPromise, (any) => any) as angular.IPromise<TOther>;
-    result = promise.then((result) => totherPromise, (any) => any, (any) => any) as angular.IPromise<TOther>;
-    result = promise.then((result) => totherHttpPromise) as angular.IPromise<ng.IHttpPromiseCallbackArg<TOther>>;
-    result = promise.then((result) => totherHttpPromise, (any) => any) as angular.IPromise<ng.IHttpPromiseCallbackArg<TOther>>;
-    result = promise.then((result) => totherHttpPromise, (any) => any, (any) => any) as angular.IPromise<ng.IHttpPromiseCallbackArg<TOther>>;
+    assertPromiseType<TResult>(promise.then((result) => result));
+    assertPromiseType<TResult>(promise.then((result) => tresult));
+    assertPromiseType<TResult>(promise.then((result) => tresultPromise));
+    assertPromiseType<TResult>(promise.then((result) => result, (any) => any));
+    assertPromiseType<TResult>(promise.then((result) => result, (any) => any, (any) => any));
+    assertPromiseType<TResult>(promise.then((result) => result, (any) => reject, (any) => any));
+
+    assertPromiseType<TResult>(promise.then((result) => anyOf2(reject, result)));
+    assertPromiseType<TResult>(promise.then((result) => anyOf3(result, tresultPromise, reject)));
+    assertPromiseType<TResult>(promise.then(
+        (result) => anyOf3(reject, result, tresultPromise),
+        (reason) => anyOf3(reject, tresult, tresultPromise)
+    ));
+
+
+    assertPromiseType<ng.IHttpPromiseCallbackArg<TResult>>(promise.then((result) => tresultHttpPromise));
+
+    assertPromiseType<TResult | TOther>(promise.then((result) => result, (any) => tother));
+    assertPromiseType<TResult | TOther>(promise.then(
+        (result) => anyOf3(reject, result, totherPromise),
+        (reason) => anyOf3(reject, tother, tresultPromise)
+    ));
+
+    assertPromiseType<TResult | TOther>(promise.then<TResult | TOther, TResult>(
+        (result) => anyOf3(tresultPromise, result, totherPromise)
+    ));
+
+    assertPromiseType<TResult | TOther>(promise.then((result) => result, (any) => tother, (any) => any));
+    assertPromiseType<TResult | TOther>(promise.then((result) => tresultPromise, (any) => totherPromise));
+    assertPromiseType<TResult | TOther>(promise.then((result) => tresultPromise, (any) => totherPromise, (any) => any));
+    assertPromiseType<ng.IHttpPromiseCallbackArg<TResult | TOther>>(promise.then((result) => tresultHttpPromise, (any) => totherHttpPromise));
+    assertPromiseType<ng.IHttpPromiseCallbackArg<TResult | TOther>>(promise.then((result) => tresultHttpPromise, (any) => totherHttpPromise, (any) => any));
+
+    assertPromiseType<TOther>(promise.then((result) => tother));
+    assertPromiseType<TOther>(promise.then((result) => tother, (any) => any));
+    assertPromiseType<TOther>(promise.then((result) => tother, (any) => any, (any) => any));
+    assertPromiseType<TOther>(promise.then((result) => totherPromise));
+    assertPromiseType<TOther>(promise.then((result) => totherPromise, (any) => any));
+    assertPromiseType<TOther>(promise.then((result) => totherPromise, (any) => any, (any) => any));
+    assertPromiseType<ng.IHttpPromiseCallbackArg<TOther>>(promise.then((result) => totherHttpPromise));
+    assertPromiseType<ng.IHttpPromiseCallbackArg<TOther>>(promise.then((result) => totherHttpPromise, (any) => any));
+    assertPromiseType<ng.IHttpPromiseCallbackArg<TOther>>(promise.then((result) => totherHttpPromise, (any) => any, (any) => any));
+
+    assertPromiseType<boolean>(promise.then((result) => tresult, (any) => tother).then(ambiguous => isTResult(ambiguous) ? ambiguous.c : ambiguous.f));
 
     // promise.catch
-    result = promise.catch((err) => any) as angular.IPromise<any>;
-    result = promise.catch((err) => tresult) as angular.IPromise<TResult>;
-    result = promise.catch((err) => tresultPromise) as angular.IPromise<TResult>;
-    result = promise.catch((err) => tresultHttpPromise) as angular.IPromise<ng.IHttpPromiseCallbackArg<TResult>>;
-    result = promise.catch((err) => tother) as angular.IPromise<TOther>;
-    result = promise.catch((err) => totherPromise) as angular.IPromise<TOther>;
-    result = promise.catch((err) => totherHttpPromise) as angular.IPromise<ng.IHttpPromiseCallbackArg<TOther>>;
+    assertPromiseType<any>(promise.catch((err) => err));
+    assertPromiseType<any>(promise.catch((err) => any));
+    assertPromiseType<TResult>(promise.catch((err) => tresult));
+    assertPromiseType<TResult>(promise.catch((err) => anyOf2(tresult, reject)));
+    assertPromiseType<TResult>(promise.catch((err) => anyOf3(tresult, tresultPromise, reject)));
+    assertPromiseType<TResult>(promise.catch((err) => tresultPromise));
+    assertPromiseType<ng.IHttpPromiseCallbackArg<TResult>>(promise.catch((err) => tresultHttpPromise));
+    assertPromiseType<TResult | TOther>(promise.catch((err) => tother));
+    assertPromiseType<TResult | TOther>(promise.catch((err) => totherPromise));
+    assertPromiseType<TResult | ng.IHttpPromiseCallbackArg<TOther>>(promise.catch((err) => totherHttpPromise));
+
+    assertPromiseType<boolean>(promise.catch((err) => tother).then(ambiguous => isTResult(ambiguous) ? ambiguous.c : ambiguous.f));
 
     // promise.finally
-    result = promise.finally(() => any) as angular.IPromise<TResult>;
-    result = promise.finally(() => tresult) as angular.IPromise<TResult>;
-    result = promise.finally(() => tother) as angular.IPromise<TResult>;
+    assertPromiseType<TResult>(promise.finally(() => any));
+    assertPromiseType<TResult>(promise.finally(() => tresult));
+    assertPromiseType<TResult>(promise.finally(() => tother));
 }
 
 function test_angular_forEach() {
@@ -1211,4 +1289,18 @@ function testIHttpParamSerializerJQLikeProvider() {
     serializer({
         a: 'b'
     });
+}
+
+function anyOf2<T1, T2>(v1: T1, v2: T2) {
+    return Math.random() < 1/2 ? v1 : v2;
+}
+
+function anyOf3<T1, T2, T3>(v1: T1, v2: T2, v3: T3) {
+    const rnd = Math.random();
+    return rnd < 1/3 ? v1 : rnd < 2/3 ? v2 : v3;
+}
+
+function toPromise<T>(val: T): ng.IPromise<T> {
+    var p: ng.IPromise<T>;
+    return p;
 }
