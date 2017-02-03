@@ -570,20 +570,15 @@ declare class Application extends EventEmitter {
      */
     listen(port?: number, hostname?: string, backlog?: number, listeningListener?: () => void): Server;
     listen(port: number, hostname?: string, listeningListener?: () => void): Server;
-    // tslint:disable-next-line:unified-signatures
+    /* tslint:disable:unified-signatures */
     listen(port: number, backlog?: number, listeningListener?: () => void): Server;
-    // tslint:disable-next-line:unified-signatures
     listen(port: number, listeningListener?: () => void): Server;
-    // tslint:disable-next-line:unified-signatures
     listen(path: string, backlog?: number, listeningListener?: () => void): Server;
-    // tslint:disable-next-line:unified-signatures
     listen(path: string, listeningListener?: () => void): Server;
-    // tslint:disable-next-line:unified-signatures
     listen(options: ListenOptions, listeningListener?: () => void): Server;
-    // tslint:disable-next-line:unified-signatures
     listen(handle: any, backlog?: number, listeningListener?: () => void): Server;
-    // tslint:disable-next-line:unified-signatures
     listen(handle: any, listeningListener?: () => void): Server;
+    /* tslint:enable:unified-signatures*/
 
     /**
      * Return JSON representation.
