@@ -475,8 +475,8 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * from the parent element; or, if the name is one of the known prefixes, the corresponding namespace will be used
      * (for example, svg implies svg:svg)
      */
-    append<ChildElement extends BaseType>(this: Selection<EnterElement, Datum, PElement, PDatum>, type: string)
-        : Selection<ChildElement, Datum, PElement, PDatum>
+    append<ChildElement extends BaseType>(this: Selection<EnterElement, Datum, PElement, PDatum>,
+        type: string): Selection<ChildElement, Datum, PElement, PDatum>;
 
     /**
      * Appends a new element of the specified type (tag name) as the last child of each selected element.
@@ -507,8 +507,8 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * the current index (i), and the current group (nodes), with this as the current DOM element. This function should return
      * an element to be appended. (The function typically creates a new element, but it may instead return an existing element.)
      */
-    append<ChildElement extends BaseType>(this: Selection<EnterElement, Datum, PElement, PDatum>,type: ValueFn<GElement, Datum, ChildElement>)
-        : Selection<ChildElement, Datum, PElement, PDatum>;
+    append<ChildElement extends BaseType>(this: Selection<EnterElement, Datum, PElement, PDatum>,
+        type: ValueFn<GElement, Datum, ChildElement>): Selection<ChildElement, Datum, PElement, PDatum>;
 
     /**
      * Appends a new element of the type provided by the element creator function as the last child of each selected element.
