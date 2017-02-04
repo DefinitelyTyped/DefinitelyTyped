@@ -1,12 +1,13 @@
-// Type definitions for react-datepicker v0.28.1
+// Type definitions for react-datepicker v0.40.0
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>, Andrey Balokha <https://github.com/andrewBalekha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-/// <reference types="react"/>
-
 declare module "react-datepicker" {
+    import * as React from "react";
+    import * as moment from "moment";
+
     interface ReactDatePickerProps {
         autoComplete?: string;
         autoFocus?: boolean;
@@ -15,7 +16,7 @@ declare module "react-datepicker" {
         dateFormat?: string;
         dateFormatCalendar?: string;
         disabled?: boolean;
-        endDate?: {};
+        endDate?: moment.Moment;
         excludeDates?: any[];
         filterDate?(): any;
         fixedHeight?: boolean;
@@ -23,12 +24,12 @@ declare module "react-datepicker" {
         includeDates?: any[];
         isClearable?: boolean;
         locale?: string;
-        maxDate?: {};
-        minDate?: {};
+        maxDate?: moment.Moment;
+        minDate?: moment.Moment;
         name?: string;
-        onBlur?(e: any): void;
-        onChange(date?: any, e?: any): void;
-        onFocus?(e: any): void;
+        onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
+        onChange(date: moment.Moment | null, event: React.SyntheticEvent<any> | undefined): any;
+        onFocus?(event: React.FocusEvent<HTMLInputElement>): void;
         peekNextMonth?: boolean;
         placeholderText?: string;
         popoverAttachment?: string;
@@ -38,13 +39,13 @@ declare module "react-datepicker" {
         renderCalendarTo?: any;
         required?: boolean;
         scrollableYearDropdown?: boolean;
-        selected?: {};
+        selected?: moment.Moment | null;
         selectsEnd?: boolean;
         selectsStart?: boolean;
         showMonthDropdown?: boolean;
         showYearDropdown?: boolean;
         showWeekNumbers?: boolean;
-        startDate?: {};
+        startDate?: moment.Moment;
         tabIndex?: number;
         tetherConstraints?: any[];
         title?: string;
