@@ -8,7 +8,10 @@ import { compiler } from 'webpack';
 
 export = WebpackDevMiddleware;
 
-declare function WebpackDevMiddleware(compiler: compiler.Compiler, options: WebpackDevMiddleware.Options): WebpackDevMiddleware.WebpackDevMiddleware & NextHandleFunction;
+declare function WebpackDevMiddleware(
+	compiler: compiler.Compiler,
+	options?: WebpackDevMiddleware.Options
+): WebpackDevMiddleware.WebpackDevMiddleware & NextHandleFunction;
 
 declare namespace WebpackDevMiddleware {
 	interface Options {
@@ -39,7 +42,7 @@ declare namespace WebpackDevMiddleware {
 
 	type Reporter = (reporterOptions: ReporterOptions) => void;
 
-	type Logger = (message: any) => void;
+	type Logger = (message?: any, ...optionalParams: any[]) => void;
 
 	interface WebpackDevMiddleware {
 		close(callback?: () => void): void;

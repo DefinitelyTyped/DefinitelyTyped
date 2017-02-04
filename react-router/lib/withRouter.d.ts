@@ -1,4 +1,9 @@
-import * as React from 'react';
+import { ComponentClass, StatelessComponent } from "react";
 
-declare function withRouter<C extends React.ComponentClass<any> | React.StatelessComponent<any> | React.PureComponent<any, any>>(component: C): C
-export default withRouter;
+interface Options {
+    withRef?: boolean;
+}
+
+type ComponentConstructor<P> = ComponentClass<P> | StatelessComponent<P>;
+
+export default function withRouter<P>(component: ComponentConstructor<P>, options?: Options): ComponentClass<P>;

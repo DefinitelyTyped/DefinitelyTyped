@@ -118,6 +118,7 @@ httpBackendService.flush();
 httpBackendService.flush(1234);
 httpBackendService.resetExpectations();
 httpBackendService.verifyNoOutstandingExpectation();
+httpBackendService.verifyNoOutstandingExpectation(false);
 httpBackendService.verifyNoOutstandingRequest();
 
 requestHandler = httpBackendService.expect('GET', 'http://test.local');

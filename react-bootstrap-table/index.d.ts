@@ -2,6 +2,7 @@
 // Project: https://github.com/AllenFang/react-bootstrap-table
 // Definitions by: Frank Laub <https://github.com/flaub>, Aleksander Lode <https://github.com/alelode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="react" />
 /// <reference types="node" />

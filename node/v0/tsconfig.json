@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
@@ -11,7 +14,9 @@
         ],
         "types": [],
         "paths": {
-            "node": ["node/v0"]
+            "node": [
+                "node/v0"
+            ]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

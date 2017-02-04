@@ -16,6 +16,7 @@ declare namespace Boom {
         isServer: boolean;
         message: string;
         output: Output;
+        name: string;
     }
 
     export interface Output {

@@ -188,7 +188,11 @@ configuration = {
 };
 
 configuration = {
-    devtool: "#inline-source-map"
+    devtool: "inline-source-map"
+};
+
+configuration = {
+    devtool: false
 };
 
 configuration = {
@@ -285,9 +289,22 @@ plugin = new webpack.optimize.UglifyJsPlugin({
     }
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
+  sourceMap: false,
+  comments: true,
+  beautify: true,
+  test: 'foo',
+  exclude: /node_modules/,
+  include: 'test'
+});
+plugin = new webpack.optimize.UglifyJsPlugin({
     mangle: {
         except: ['$super', '$', 'exports', 'require']
     }
+});
+plugin = new webpack.optimize.UglifyJsPlugin({
+  comments: function(astNode: any, comment: any) {
+    return false;
+  }
 });
 plugin = new webpack.optimize.CommonsChunkPlugin(options);
 plugin = new CommonsChunkPlugin({
@@ -395,7 +412,19 @@ compiler.watch({ // watch options:
     // pass a number to set the polling interval
 }, function(err, stats) {
     // ...
-});
+  });
+// or
+compiler.watch({ // watch options:
+    ignored: 'foo/**/*'
+}, function(err, stats) {
+    // ...
+  });
+// or
+compiler.watch({ // watch options:
+    ignored: /node_modules/
+}, function(err, stats) {
+    // ...
+  });
 
 declare function handleFatalError(err: Error): void;
 declare function handleSoftErrors(errs: string[]): void;
@@ -408,6 +437,28 @@ webpack({
     if(err)
         return handleFatalError(err);
     var jsonStats = stats.toJson();
+    var jsonStatsWithAllOptions = stats.toJson({
+      assets: true,
+      assetsSort: "field",
+      cached: true,
+      children: true,
+      chunks: true,
+      chunkModules: true,
+      chunkOrigins: true,
+      chunksSort: "field",
+      context: "../src/",
+      errors: true,
+      errorDetails: true,
+      hash: true,
+      modules: true,
+      modulesSort: "field",
+      publicPath: true,
+      reasons: true,
+      source: true,
+      timings: true,
+      version: true,
+      warnings: true
+    });
     if(jsonStats.errors.length > 0)
         return handleSoftErrors(jsonStats.errors);
     if(jsonStats.warnings.length > 0)
@@ -490,3 +541,37 @@ configuration = {
 const resolve: webpack.Resolve = {
     cachePredicate: 'boo' // why does this test _not_ fail!?
 }
+
+const performance: webpack.PerformanceOptions = {
+	hints: 'error',
+	maxEntrypointSize: 400000,
+	maxAssetSize: 100000,
+	assetFilter: function(assetFilename) {
+		return assetFilename.endsWith('.js');
+	},
+};
+
+configuration = {
+	performance,
+};
+
+function loader(this: webpack.loader.LoaderContext, source: string, sourcemap: string): void {
+  this.cacheable();
+
+  this.async();
+
+  this.addDependency('');
+
+  this.resolve('context', 'request', ( err: Error, result: string) => {});
+
+  this.emitError('wraning');
+
+  this.callback(null, source);
+}
+
+module loader {
+  export const raw: boolean = true;
+  export const pitch = (remainingRequest: string, precedingRequest: string, data: any) => {};
+}
+const loaderRef: webpack.loader.Loader = loader;
+console.log(loaderRef.raw === true);

@@ -380,6 +380,15 @@ interface Router {
      * @returns  {String}      the name of the deleted route (or false if it was not matched)
      */
     unmount: (name: string) => string | boolean;
+
+    /**
+     * finds the route for a given request and response.
+     * @param    {Request}  req      the request object
+     * @param    {Response} res      the response object
+     * @param    {Function} callback operation callback
+     * @returns  {undefined}
+     */
+    find: (req: Request, res: Response, callback: (err: Error, route: Route) => void) => void;
 }
 
 interface Server extends http.Server {

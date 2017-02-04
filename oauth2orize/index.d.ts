@@ -62,17 +62,35 @@ export namespace exchange {
   function code(options: Options, issue: (client: any, code: string, redirectURI: string, issued: IssuedFunction) => void): MiddlewareFunction;
   function code(issue: (client: any, code: string, redirectURI: string, issued: IssuedFunction) => void): MiddlewareFunction;
 
+  // arity == 5; issue(client, scope, req.body, req.authInfo, issued);
+  function clientCredentials(options: Options, issue: (client: any, scope: string[], body: any, authInfo: any, issued: IssuedFunction) => void): MiddlewareFunction;
+  // arity == 4; issue(client, scope, req.body, issued);
+  function clientCredentials(options: Options, issue: (client: any, scope: string[], body: any, issued: IssuedFunction) => void): MiddlewareFunction;
+  // arity == 3; issue(client, scope, issued);
   function clientCredentials(options: Options, issue: (client: any, scope: string[], issued: IssuedFunction) => void): MiddlewareFunction;
+  // arity == 2; issue(client, issued);
   function clientCredentials(options: Options, issue: (client: any, issued: IssuedFunction) => void): MiddlewareFunction;
   function clientCredentials(issue: (client: any, scope: string[], issued: IssuedFunction) => void): MiddlewareFunction;
   function clientCredentials(issue: (client: any, issued: IssuedFunction) => void): MiddlewareFunction;
 
+  // arity == 7; issue(client, username, passwd, scope, req.body, req.authInfo, issued);
+  function password(options: Options, issue: (client: any, username: string, password: string, scope: string[], body: any, authInfo: any, issued: IssuedFunction) => void): MiddlewareFunction;
+  // arity == 6; issue(client, username, passwd, scope, req.body, issued);
+  function password(options: Options, issue: (client: any, username: string, password: string, scope: string[], body: any, issued: IssuedFunction) => void): MiddlewareFunction;
+  // arity == 5; issue(client, username, passwd, scope, issued);
   function password(options: Options, issue: (client: any, username: string, password: string, scope: string[], issued: IssuedFunction) => void): MiddlewareFunction;
+  // arity == 4; issue(client, username, passwd, issued);
   function password(options: Options, issue: (client: any, username: string, password: string, issued: IssuedFunction) => void): MiddlewareFunction;
   function password(issue: (client: any, username: string, password: string, scope: string[], issued: IssuedFunction) => void): MiddlewareFunction;
   function password(issue: (client: any, username: string, password: string, issued: IssuedFunction) => void): MiddlewareFunction;
 
+  // arity == 6; issue(client, refreshToken, scope, req.body, req.authInfo, issued);
+  function refreshToken(options: Options, issue: (client: any, refreshToken: string, scope: string[], body: any, authInfo: any, issued: IssuedFunction) => void): MiddlewareFunction;
+  // arity == 5; issue(client, refreshToken, scope, req.body, issued);
+  function refreshToken(options: Options, issue: (client: any, refreshToken: string, scope: string[], body: any, issued: IssuedFunction) => void): MiddlewareFunction;
+  // arity == 4; issue(client, refreshToken, scope, issued);
   function refreshToken(options: Options, issue: (client: any, refreshToken: string, scope: string[], issued: IssuedFunction) => void): MiddlewareFunction;
+  // arity == 3; issue(client, refreshToken, issued);
   function refreshToken(options: Options, issue: (client: any, refreshToken: string, issued: IssuedFunction) => void): MiddlewareFunction;
   function refreshToken(issue: (client: any, refreshToken: string, scope: string[], issued: IssuedFunction) => void): MiddlewareFunction;
   function refreshToken(issue: (client: any, refreshToken: string, issued: IssuedFunction) => void): MiddlewareFunction;

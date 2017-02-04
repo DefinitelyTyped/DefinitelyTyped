@@ -22,9 +22,9 @@ declare namespace deepDiff {
         (path: string[], key: string): boolean;
     }
 
-    interface IDeepDiff {
-        diff(): IDiff;
+    interface IDeepDiff {        
         diff(lhs: Object, rhs: Object, prefilter?: IPrefilter, acc?: IAccumulator): IDiff[];
+        diff(): IDiff;
         observableDiff(lhs: Object, rhs: Object, changes: Function, prefilter?: IPrefilter, path?: string[], key?: string, stack?: Object[]): void;
         applyDiff(target: Object, source: Object, filter: Function): void;
         applyChange(target: Object, source: Object, change: IDiff): void;

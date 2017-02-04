@@ -21,6 +21,7 @@ isBool(has);
 const get = link.get('title', 'Example Website');
 isReference(get);
 const rel = link.rel('alternate');
+rel['title'] !== 'bar';
 isReference(rel);
 const set = link.set({ rel: 'next', uri: 'http://example.com/next' });
 isReference(set);

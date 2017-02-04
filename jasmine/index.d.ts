@@ -370,13 +370,18 @@ declare namespace jasmine {
     }
 
     interface CustomReporterResult {
-      description: string,
-      failedExpectations?: FailedExpectation[],
-      fullName: string,
-      id: string;
-      passedExpectations?: PassedExpectation[],
-      pendingReason?: string;
-      status?: string;
+        description: string,
+        failedExpectations?: FailedExpectation[],
+        fullName: string,
+        id: string;
+        passedExpectations?: PassedExpectation[],
+        pendingReason?: string;
+        status?: string;
+    }
+
+    interface RunDetails {
+        failedExpectations: ExpectationResult[];
+        order: jasmine.Order
     }
 
     interface CustomReporter {
@@ -385,7 +390,7 @@ declare namespace jasmine {
         specStarted?(result: CustomReporterResult): void;
         specDone?(result: CustomReporterResult): void;
         suiteDone?(result: CustomReporterResult): void;
-        jasmineDone?(): any;
+        jasmineDone?(runDetails: RunDetails): void;
     }
 
     interface Runner {
@@ -549,10 +554,7 @@ declare namespace jasmine {
         finished: boolean;
         result: any;
         messages: any;
-        runDetails: {
-            failedExpectations: ExpectationResult[];
-            order: jasmine.Order
-        }
+        runDetails: RunDetails
 
         new (): any;
 

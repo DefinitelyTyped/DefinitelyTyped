@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -11,7 +14,9 @@
         ],
         "types": [],
         "paths": {
-            "bootstrap.v3.datetimepicker": ["bootstrap.v3.datetimepicker/v3"]
+            "bootstrap.v3.datetimepicker": [
+                "bootstrap.v3.datetimepicker/v3"
+            ]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

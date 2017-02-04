@@ -63,3 +63,6 @@ context.succeed(anyObj);
 context.succeed(str, anyObj);
 context.fail(error);
 context.fail(str);
+
+/* Handler */
+let handler: AWSLambda.Handler = (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => {};
