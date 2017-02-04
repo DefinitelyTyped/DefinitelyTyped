@@ -16,10 +16,10 @@ var src = {
   }
 };
 
-var tgt = {name: 'Brandon'};
+var tgt = { name: 'Brandon' };
 
 dot.copy('stuff.phone', 'wanna.haves.phone', src, tgt, [(arg: any) => {
-    return arg;
+  return arg;
 }]);
 
 dot.transfer('stuff.phone', 'wanna.haves.phone', src, tgt);
@@ -37,17 +37,17 @@ var row = {
 };
 
 dot.object(row, (arg: any) => {
-    return arg;
+  return arg;
 });
 
 dot.str('this.is.my.string', 'value', tgt);
 
 var newObj = {
- some: {
-   nested: {
-     value: 'Hi there!'
-   }
- }
+  some: {
+    nested: {
+      value: 'Hi there!'
+    }
+  }
 };
 
 var val = dot.pick('some.nested.value', newObj);
@@ -61,5 +61,10 @@ val = dot.remove('some.nested.value', newObj);
 
 // or use the alias `del`
 val = dot.del('some.nested.value', newObj);
+
+// convert object to dot object
+var result = {};
+dot.dot({ test: 'something' }, result);
+result = dot.dot({ test: 'something' });
 
 var dotWithArrow = new dot('=>');

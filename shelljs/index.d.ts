@@ -1,4 +1,4 @@
-// Type definitions for ShellJS v0.3.0
+// Type definitions for ShellJS v0.6.0
 // Project: http://shelljs.org
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -463,7 +463,7 @@ export declare function exec(command: string, options: ExecOptions, callback: Ex
 export declare function exec(command: string, callback: ExecCallback): child.ChildProcess;
 
 export interface ExecCallback {
-    (code: number, output: string, error?: string): any;
+    (code: number, stdout: string, stderr: string): any;
 }
 
 export interface ExecOptions {
@@ -473,7 +473,8 @@ export interface ExecOptions {
 
 export interface ExecOutputReturnValue {
     code: number;
-    output: string;
+    stdout: string;
+    stderr: string;
 }
 
 /**

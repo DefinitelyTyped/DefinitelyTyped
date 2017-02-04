@@ -147,6 +147,10 @@ describe('compartion', function () {
     it('works sanely with simple decimals', function () {
         expect(0.2 + 0.1).toBeCloseTo(0.3, 5);
     });
+
+    it('works sanely with simple decimals and the default delta', function () {
+        expect(0.2 + 0.1).toBeCloseTo(0.3);
+    });
 });
 
 describe('toThrow API', function () {
@@ -169,6 +173,60 @@ describe('toThrow API', function () {
    it('throws \'toThorow Definition was out of date\'', function () {
       expect(throwTypeError()).toThrowError('toThrow Definition was out of date');
    });
+});
+
+describe('Assymetric matchers', function () {
+    it('works', function () {
+        expect({
+            timestamp: 1480807810388,
+            text: 'Some text content, but we care only about *this part*'
+        }).toEqual({
+            timestamp: expect.any(Number),
+            text: expect.stringMatching('*this part*')
+        });
+
+        const callback = jest.fn();
+        expect(callback).toEqual(expect.any(Function));
+        callback(5, "test");
+        expect(callback).toBeCalledWith(expect.any(Number), expect.any(String))
+        const obj = {
+            items: [1]
+        };
+        expect(obj).toEqual(expect.objectContaining({
+            items: expect.arrayContaining([
+                expect.any(Number)
+            ])
+        }));
+
+        expect.assertions(4);
+    });
+});
+
+describe('Extending extend', function () {
+    it('works', function () {
+        expect.extend({
+            toBeNumber(received: any, actual: any) {
+                const pass = received === actual;
+                const message =
+                    () => `expected ${received} ${pass ? 'not ' : ''} to be ${actual}`;
+                return { message, pass };
+            },
+            toBeTest(received: any, actual: any) {
+                this.utils.ensureNoExpected(received);
+                this.utils.ensureActualIsNumber(received);
+                this.utils.ensureExpectedIsNumber(actual);
+                this.utils.ensureNumbers(received, actual);
+
+                return {
+                    message: () => `
+                    ${this.utils.getType(received).toLowerCase()} \n\n
+                    ${this.utils.matcherHint(".not.toBe")} ${this.utils.printExpected(actual)} ${this.utils.printReceived(received)}\n\n
+                    `,
+                    pass: true
+                };
+            }
+        });
+    });
 });
 
 describe('missing tests', function () {
@@ -208,7 +266,7 @@ describe('missing tests', function () {
        expect(getFruits()).toContain('Orange');
        mock.mockReturnValueOnce(['Apple', 'Plum']);
        expect(mock()).not.toContain('Orange');
-       const myBeverage: any = {delicious: true, sour: false}; 
+       const myBeverage: any = {delicious: true, sour: false};
        expect(myBeverage).toContainEqual({delicious: true, sour: false});
        mock.mockReturnValue([]); //Deprecated: Use jest.fn(() => value) instead.
        mock.mockClear();
@@ -248,6 +306,10 @@ describe('toMatchSnapshot', function () {
    it('compares snapshots', function () {
         expect({ type: 'a', props: { href: 'https://www.facebook.com/' }, children: [ 'Facebook' ] }).toMatchSnapshot();
     });
+
+   it('can give name to snapshot', function () {
+        expect({ type: 'a', props: { href: 'https://www.facebook.com/' }, children: [ 'Facebook' ] }).toMatchSnapshot('given name');
+   });
 });
 
 describe('toThrowErrorMatchingSnapshot', function () {
@@ -366,4 +428,59 @@ describe('strictNullChecks', function () {
     it('does not complain when using done callback', (done) => {
         done();
     })
+});
+
+class TestApi {
+    constructor() { };
+    testProp: boolean;
+    private anotherProp: string;
+    testMethod(a: number): string { return ""; }
+}
+
+declare function mockedFunc(a: number): string;
+
+declare function mockedFuncWithApi(api: TestApi): void;
+
+describe('Mocked type', function () {
+    it('Works', function () {
+        const mock: jest.Mocked<TestApi> = new TestApi() as any;
+        mock.testProp;
+        mock.testMethod.mockImplementation(() => 'test');
+        mock.testMethod(5).toUpperCase();
+
+        mockedFuncWithApi(mock);
+    });
+});
+
+describe('Mocks', function () {
+    it('jest.fn() without args is a function type', function () {
+        const test = jest.fn();
+        test();
+        new test();
+        test.mock.instances[0];
+        test.mockImplementation(() => { });
+    });
+
+    it('jest.fn() with returned object infers type', function () {
+        const testMock = jest.fn(() => ({ a: 5, test: jest.fn() }));
+
+        testMock(5, 5, 'a');
+        testMock.mockImplementation(() => { });
+        testMock.caller;
+
+        const ins = new testMock();
+        ins.a;
+        ins.test();
+        ins.test.mockImplementation(() => 5);
+        ins.test.mock.calls;
+
+        const anotherMock = jest.fn(() => {
+            const api: Partial<TestApi> = {
+                testMethod: jest.fn()
+            };
+            return api;
+        });
+        const anotherIns: jest.Mocked<TestApi> = new anotherMock() as any;
+        anotherIns.testMethod.mockImplementation(() => 1);
+    });
 });

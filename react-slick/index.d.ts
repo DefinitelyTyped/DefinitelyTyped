@@ -2,6 +2,7 @@
 // Project: https://github.com/akiran/react-slick
 // Definitions by: Andrey Balokha <https://github.com/andrewBalekha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="react"/>
 
