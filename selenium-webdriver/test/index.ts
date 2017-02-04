@@ -640,7 +640,7 @@ function TestWebDriver() {
     voidPromise = driver.sleep(123);
     stringPromise = driver.takeScreenshot();
 
-    var booleanCondition: webdriver.until.Condition<boolean>;
+    var booleanCondition: webdriver.Condition<boolean>;
     booleanPromise = driver.wait(booleanPromise);
     booleanPromise = driver.wait(booleanCondition);
     booleanPromise = driver.wait((driver: webdriver.WebDriver) => true);
@@ -850,29 +850,32 @@ function TestUntilModule() {
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
-    var conditionB: webdriver.until.Condition<boolean> = new webdriver.until.Condition<boolean>('message', (driver: webdriver.WebDriver) => true);
-    var conditionBBase: webdriver.until.Condition<boolean> = conditionB;
-    var conditionWebElement: webdriver.until.Condition<webdriver.WebElement>;
-    var conditionWebElements: webdriver.until.Condition<webdriver.WebElement[]>;
+    var conditionB: webdriver.Condition<boolean> = new webdriver.Condition<boolean>('message', function (driver: webdriver.WebDriver) { return true; });
+    var conditionBBase: webdriver.Condition<boolean> = conditionB;
+    var conditionWebElement: webdriver.WebElementCondition;
+    var conditionWebElements: webdriver.Condition<webdriver.WebElement[]>;
 
     conditionB = webdriver.until.ableToSwitchToFrame(5);
-    var conditionAlert: webdriver.until.Condition<webdriver.Alert> = webdriver.until.alertIsPresent();
+    var conditionAlert: webdriver.Condition<webdriver.Alert> = webdriver.until.alertIsPresent();
     var el: webdriver.WebElement = driver.findElement(webdriver.By.id('id'));
-    conditionB = webdriver.until.elementIsDisabled(el);
-    conditionB = webdriver.until.elementIsEnabled(el);
-    conditionB = webdriver.until.elementIsNotSelected(el);
-    conditionB = webdriver.until.elementIsNotVisible(el);
-    conditionB = webdriver.until.elementIsSelected(el);
-    conditionB = webdriver.until.elementIsVisible(el);
-    conditionB = webdriver.until.elementTextContains(el, 'text');
-    conditionB = webdriver.until.elementTextIs(el, 'text');
-    conditionB = webdriver.until.elementTextMatches(el, /text/);
     conditionB = webdriver.until.stalenessOf(el);
     conditionB = webdriver.until.titleContains('text');
     conditionB = webdriver.until.titleIs('text');
     conditionB = webdriver.until.titleMatches(/text/);
+    conditionB = webdriver.until.urlContains('text');
+    conditionB = webdriver.until.urlIs('text');
+    conditionB = webdriver.until.urlMatches(/text/);
 
+    conditionWebElement = webdriver.until.elementIsDisabled(el);
+    conditionWebElement = webdriver.until.elementIsEnabled(el);
+    conditionWebElement = webdriver.until.elementIsNotSelected(el);
+    conditionWebElement = webdriver.until.elementIsNotVisible(el);
+    conditionWebElement = webdriver.until.elementIsSelected(el);
+    conditionWebElement = webdriver.until.elementIsVisible(el);
     conditionWebElement = webdriver.until.elementLocated(webdriver.By.id('id'));
+    conditionWebElement = webdriver.until.elementTextContains(el, 'text');
+    conditionWebElement = webdriver.until.elementTextIs(el, 'text');
+    conditionWebElement = webdriver.until.elementTextMatches(el, /text/);
     conditionWebElements = webdriver.until.elementsLocated(webdriver.By.className('class'));
 }
 
