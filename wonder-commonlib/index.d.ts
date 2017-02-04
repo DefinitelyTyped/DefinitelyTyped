@@ -1,4 +1,4 @@
-// Type definitions for wonder-commonlib 0.1
+// Type definitions for wonder-commonlib 0.1.1
 // Project: https://github.com/yyc-git/Wonder-CommonLib
 // Definitions by: YYC <https://github.com/yyc-git>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,7 +21,8 @@ declare module wdCb {
     }
 }
 
-declare var global: any, window: Window;
+declare var global:NodeJS.Global,window:Window;
+
 declare module wdCb {
     var root: any;
 }
