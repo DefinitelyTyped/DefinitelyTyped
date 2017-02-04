@@ -1,4 +1,4 @@
-// Type definitions for Numeral.js
+// Type definitions for Numeral.js 2.0
 // Project: https://github.com/adamwdraper/Numeral-js
 // Definitions by: Vincent Bortone <https://github.com/vbortone/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
