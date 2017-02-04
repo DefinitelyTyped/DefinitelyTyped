@@ -1,6 +1,6 @@
-// Type definitions for kafka-node 0.2.22
+// Type definitions for kafka-node 1.3.0
 // Project: https://github.com/SOHU-Co/kafka-node/
-// Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu/>
+// Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu/>, Nathan <https://github.com/nathanph>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -59,6 +59,14 @@ export declare class HighLevelConsumer {
     close(force: boolean, cb: () => any): void;
 }
 
+export declare class ConsumerGroup {
+    constructor(options: ConsumerGroupOptions, topics: string[] | string)
+    on(eventName: string, cb: (message: string) => any): ConsumerGroup;
+    on(eventName: string, cb: (error: any) => any): ConsumerGroup;
+    commit(cb: (error: any, data: any) => any): void;
+    close(force: boolean, cb: () => any): void;
+}
+
 export declare class Offset {
     constructor(client: Client);
     on(eventName: string, cb: () => any): Offset;
@@ -97,6 +105,37 @@ export interface ConsumerOptions {
     fetchMaxBytes?: number;
     fromOffset?: boolean;
     encoding?: string;
+}
+
+export interface ConsumerGroupOptions {
+    // DOCUMENTED OPTIONS
+    host: string;               // example: 'zookeeper:2181',
+    zk?: ZKOptions;             // put client zk settings if you need them (see Client)
+    batch?: any;                // put client batch settings if you need them (see Client)
+    ssl?: boolean;              // optional (defaults to false) or tls options hash
+    groupId?: string;           // default: 'kafka-node-group'
+    sessionTimeout?: number;    // default: 30000
+    protocol?: string[];        // default: ['roundrobin']
+    fromOffset?: string;        // default: 'latest'
+    outOfRangeOffset?: string;  // default: 'earliest'
+    migrateHLC?: false;         // default: false
+    migrateRolling?: true;      // default: true
+
+    // UNDOCUMENTED OPTIONS
+    // Auto commit config
+    autoCommit?: boolean;            // default: true
+    autoCommitIntervalMs?: number;   // default: 5000
+    // Fetch message config
+    fetchMaxWaitMs?: number;         // default: 100
+    paused?: boolean;                // default: false
+    maxNumSegments?: number;         // default: 1000
+    fetchMinBytes?: number;          // default: 1
+    fetchMaxBytes?: number ;         // default: 1048576 (1024 * 1024)
+    maxTickMessages?: number;        // default: 1000
+    retries?: number;                // default: 10
+    retryFactor?: number;            // default: 1.8
+    retryMinTimeout?: number;        // default 1000
+    connectOnReady?: boolean;        // default: true
 }
 
 export interface Topic {

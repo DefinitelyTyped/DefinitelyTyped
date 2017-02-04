@@ -1,4 +1,3 @@
-
 import kafka = require('kafka-node');
 
 var basicClient = new kafka.Client('localhost:2181/', 'sendMessage');
@@ -154,3 +153,24 @@ offset.commit('groupId', [
 offset.fetchCommits('groupId', [
     { topic: 't', partition: 0 }
 ], function (err, data) {});
+
+const consumerOptions: ConsumerGroupOptions = {
+  host: 'localhost:2181/',
+  groupId: 'ExampleTestGroup',
+  sessionTimeout: 15000,
+};
+
+const topics: string[] = ['t1', 't2'];
+var consumerGroup = new ConsumerGroup(consumerOptions, topics);
+consumerGroup.on('error', onError);
+consumerGroup.on('message', onMessage);
+
+function onError (error): void {
+  console.error(error);
+  console.error(error.stack);
+}
+
+function onMessage (message): void {
+  console.log('%s read msg Topic="%s" Partition=%s Offset=%d', this.client.clientId, message.topic, message.partition, message.offset);
+}
+
