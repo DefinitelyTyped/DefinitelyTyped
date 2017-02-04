@@ -1,4 +1,4 @@
-// Type definitions for cron 1.0.9
+// Type definitions for cron 1.2
 // Project: https://www.npmjs.com/package/cron
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,9 +6,9 @@
 
 
 interface CronJobStatic {
-    new (cronTime: string | Date, onTick: () => void, onComplete?: () => void, start?: boolean, timeZone?: string, context?: any): CronJob;
+    new (cronTime: string | Date, onTick: () => void, onComplete?: () => void, start?: boolean, timeZone?: string, context?: any, runOnInit?: boolean): CronJob;
     new (options: {
-        cronTime: string | Date; onTick: () => void; onComplete?: () => void; start?: boolean; timeZone?: string; context?: any
+        cronTime: string | Date; onTick: () => void; onComplete?: () => void; start?: boolean; timeZone?: string; context?: any; runOnInit?: boolean
     }): CronJob;
 }
 interface CronJob {
