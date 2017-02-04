@@ -7,6 +7,7 @@ import * as React from 'react';
 import {Component, PropTypes} from 'react';
 import * as ReactDOM from 'react-dom';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {muiThemeable} from 'material-ui/styles/muiThemeable';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import {MuiTheme} from 'material-ui/styles';
@@ -319,6 +320,35 @@ class DeepDownTheTree extends React.Component<{} & {muiTheme: MuiTheme}, {}> {
     );
   }
 }
+
+
+const MuiThemeableFunction = muiThemeable()((props: {label: string, muiTheme?: MuiTheme}) => {
+  return (
+      <span style={{color: props.muiTheme.palette.textColor}}>
+        Applied the Theme to functional component: {props.label}.
+      </span>
+  );
+});
+
+@muiThemeable()
+class MuiThemeableClass extends React.Component<{label: string} & {muiTheme?: MuiTheme}, {}> {
+  render() {
+    return (
+      <span style={{color: this.props.muiTheme.palette.textColor}}>
+        Applied the Theme to class component decorated: {this.props.label}.
+      </span>
+    );
+  }
+}
+
+const MuiThemeableContainer = (props: {}) => (
+  <MuiThemeProvider muiTheme={getMuiTheme()}>
+    <div>
+      <MuiThemeableFunction label='Hello'/>
+      <MuiThemeableClass label='Hello'/>
+    </div>
+  </MuiThemeProvider>
+);
 
 
 // "http://www.material-ui.com/#/customization/inline-styles"
