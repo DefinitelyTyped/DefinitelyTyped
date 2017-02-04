@@ -3,6 +3,9 @@
 // Definitions by: YYC <https://github.com/yyc-git>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+
+/// <reference types="node" />
+
 declare module wdCb {
     class JudgeUtils {
         static isArray(arr: any): boolean;

@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="wonder-commonlib" />
+/// <reference types="node" />
 
 declare module wdFrp {
     class JudgeUtils extends wdCb.JudgeUtils {
