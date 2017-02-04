@@ -1,3 +1,6 @@
-import * as H from 'history';
+import { History } from "history";
+import { CreateHistory } from "react-router";
 
-export default function createMemoryHistory(options?: H.HistoryOptions): H.History;
+declare const createMemoryHistory: CreateHistory<History>;
+
+export default createMemoryHistory;

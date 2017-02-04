@@ -1,7 +1,3 @@
 {
-    "extends": "../tslint.json",
-    "rules": {
-        "forbidden-types": false,
-        "no-empty-interface": false
-    }
+    "extends": "../tslint.json"
 }
