@@ -58,7 +58,7 @@ declare class BufferStream extends stream.Duplex {
 		shortcut for buffer.length
 	*/
 	length: number;
-}
+} // https://github.com/dodo/node-bufferstream/blob/master/src/buffer-stream.coffee#L28
 declare namespace BufferStream {
 
 	export interface Opts {
