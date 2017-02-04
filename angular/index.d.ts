@@ -1,4 +1,4 @@
-// Type definitions for Angular JS 1.5
+// Type definitions for Angular JS 1.6
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Georgii Dolzhykov <http://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@ declare var angular: angular.IAngularStatic;
 // Support for painless dependency injection
 declare global {
     interface Function {
-        $inject?: string[];
+        $inject?: ReadonlyArray<string>;
     }
 }
 
@@ -27,7 +27,7 @@ import ng = angular;
 ///////////////////////////////////////////////////////////////////////////////
 declare namespace angular {
 
-    type Injectable<T extends Function> = T | (string | T)[];
+    type Injectable<T extends Function> = T | Array<string | T>;
 
     // not directly implemented, but ensures that constructed class implements $get
     interface IServiceProviderClass {
@@ -64,7 +64,7 @@ declare namespace angular {
          * @param config an object for defining configuration options for the application. The following keys are supported:
          *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
          */
-        bootstrap(element: string|Element|JQuery|Document, modules?: (string|Function|any[])[], config?: IAngularBootstrapConfig): auto.IInjectorService;
+        bootstrap(element: string|Element|JQuery|Document, modules?: Array<string|Function|any[]>, config?: IAngularBootstrapConfig): auto.IInjectorService;
 
         /**
          * Creates a deep copy of source, which should be an object or an array.
@@ -122,7 +122,7 @@ declare namespace angular {
         fromJson(json: string): any;
         identity<T>(arg?: T): T;
         injector(modules?: any[], strictDi?: boolean): auto.IInjectorService;
-        isArray(value: any): value is Array<any>;
+        isArray(value: any): value is any[];
         isDate(value: any): value is Date;
         isDefined(value: any): boolean;
         isElement(value: any): boolean;
@@ -514,7 +514,7 @@ declare namespace angular {
         $watchCollection<T>(watchExpression: (scope: IScope) => T, listener: (newValue: T, oldValue: T, scope: IScope) => any): () => void;
 
         $watchGroup(watchExpressions: any[], listener: (newValue: any, oldValue: any, scope: IScope) => any): () => void;
-        $watchGroup(watchExpressions: { (scope: IScope): any }[], listener: (newValue: any, oldValue: any, scope: IScope) => any): () => void;
+        $watchGroup(watchExpressions: Array<{ (scope: IScope): any }>, listener: (newValue: any, oldValue: any, scope: IScope) => any): () => void;
 
         $parent: IScope;
         $root: IRootScopeService;
@@ -660,11 +660,11 @@ declare namespace angular {
     interface IFilterFilterComparatorFunc<T> {
         (actual: T, expected: T): boolean;
     }
-    
+
     interface IFilterOrderByItem {
-        value: any,
-        type: string,
-        index: any
+        value: any;
+        type: string;
+        index: any;
     }
 
     interface IFilterOrderByComparatorFunc {
@@ -756,7 +756,7 @@ declare namespace angular {
          * @param comparator Function used to determine the relative order of value pairs.
          * @return An array containing the items from the specified collection, ordered by a comparator function based on the values computed using the expression predicate.
          */
-        <T>(array: T[], expression: string|((value: T) => any)|(((value: T) => any)|string)[], reverse?: boolean, comparator?: IFilterOrderByComparatorFunc): T[];
+        <T>(array: T[], expression: string|((value: T) => any)|Array<((value: T) => any)|string>, reverse?: boolean, comparator?: IFilterOrderByComparatorFunc): T[];
     }
 
     /**
@@ -901,8 +901,17 @@ declare namespace angular {
      */
     interface ILocationService {
         absUrl(): string;
+
+        /**
+         * Returns the hash fragment
+         */
         hash(): string;
-        hash(newHash: string): ILocationService;
+
+        /**
+         * Changes the hash fragment and returns `$location`
+         */
+        hash(newHash: string|null): ILocationService;
+
         host(): string;
 
         /**
@@ -942,7 +951,7 @@ declare namespace angular {
          * @param search New search params
          * @param paramValue If search is a string or a Number, then paramValue will override only a single search property. If paramValue is null, the property specified via the first argument will be deleted. If paramValue is an array, it will override the property of the search component of $location specified via the first argument. If paramValue is true, the property specified via the first argument will be added with no value nor trailing equal sign.
          */
-        search(search: string, paramValue: string|number|string[]|boolean): ILocationService;
+        search(search: string, paramValue: string|number|null|string[]|boolean): ILocationService;
 
         state(): any;
         state(state: any): ILocationService;
@@ -1014,7 +1023,7 @@ declare namespace angular {
         all<T1, T2, T3, T4>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>, T3 | IPromise<T3>, T4 | IPromise <T4>]): IPromise<[T1, T2, T3, T4]>;
         all<T1, T2, T3>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>, T3 | IPromise<T3>]): IPromise<[T1, T2, T3]>;
         all<T1, T2>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>]): IPromise<[T1, T2]>;
-        all<TAll>(promises: IPromise<TAll>[]): IPromise<TAll[]>;
+        all<TAll>(promises: Array<IPromise<TAll>>): IPromise<TAll[]>;
         /**
          * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
          *
@@ -1057,6 +1066,25 @@ declare namespace angular {
          * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
          */
         when(): IPromise<void>;
+    }
+
+    interface IQProvider {
+        /**
+         * Retrieves or overrides whether to generate an error when a rejected promise is not handled.
+         * This feature is enabled by default.
+         *
+         * @returns {boolean} Current value
+         */
+        errorOnUnhandledRejections(): boolean;
+
+        /**
+         * Retrieves or overrides whether to generate an error when a rejected promise is not handled.
+         * This feature is enabled by default.
+         *
+         * @param {boolean} value Whether to generate an error when a rejected promise is not handled.
+         * @returns {ng.IQProvider} Self for chaining otherwise.
+         */
+        errorOnUnhandledRejections(value: boolean): IQProvider;
     }
 
     interface IPromise<T> {
@@ -1216,7 +1244,7 @@ declare namespace angular {
 
         debugInfoEnabled(): boolean;
         debugInfoEnabled(enabled: boolean): ICompileProvider;
-    
+
         /**
          * Sets the number of times $onChanges hooks can trigger new changes before giving up and assuming that the model is unstable.
          * Increasing the TTL could have performance implications, so you should not change it without proper justification.
@@ -1225,7 +1253,7 @@ declare namespace angular {
          */
         onChangesTtl(): number;
         onChangesTtl(limit: number): ICompileProvider;
-    
+
         /**
          * It indicates to the compiler whether or not directives on comments should be compiled.
          * It results in a compilation performance gain since the compiler doesn't have to check comments when looking for directives.
@@ -1234,7 +1262,7 @@ declare namespace angular {
          */
         commentDirectivesEnabled(): boolean;
         commentDirectivesEnabled(enabled: boolean): ICompileProvider;
-    
+
         /**
          * It indicates to the compiler whether or not directives on element classes should be compiled.
          * It results in a compilation performance gain since the compiler doesn't have to check element classes when looking for directives.
@@ -1252,7 +1280,15 @@ declare namespace angular {
 
     // This corresponds to the "publicLinkFn" returned by $compile.
     interface ITemplateLinkingFunction {
-        (scope: IScope, cloneAttachFn?: ICloneAttachFunction): JQuery;
+        (scope: IScope, cloneAttachFn?: ICloneAttachFunction, options?: ITemplateLinkingFunctionOptions): JQuery;
+    }
+
+    interface ITemplateLinkingFunctionOptions {
+        parentBoundTranscludeFn?: ITranscludeFunction;
+        transcludeControllers?: {
+            [controller: string]: { instance: IController }
+        };
+        futureParentElement?: JQuery;
     }
 
     /**
@@ -1474,7 +1510,9 @@ declare namespace angular {
         (data: any, headersGetter: IHttpHeadersGetter, status: number): any;
     }
 
-    type HttpHeaderType = {[requestType: string]:string|((config:IRequestConfig) => string)};
+    interface HttpHeaderType {
+        [requestType: string]: string|((config: IRequestConfig) => string);
+    }
 
     interface IHttpRequestConfigHeaders {
         [requestType: string]: any;
@@ -1557,7 +1595,7 @@ declare namespace angular {
          * Register service factories (names or implementations) for interceptors which are called before and after
          * each request.
          */
-        interceptors: (string | Injectable<IHttpInterceptorFactory>)[];
+        interceptors: Array<string | Injectable<IHttpInterceptorFactory>>;
         useApplyAsync(): boolean;
         useApplyAsync(value: boolean): IHttpProvider;
 
@@ -1567,7 +1605,7 @@ declare namespace angular {
          * @returns {boolean|Object} If a value is specified, returns the $httpProvider for chaining.
          *    otherwise, returns the current configured value.
          */
-        useLegacyPromiseExtensions(value:boolean) : boolean | IHttpProvider;
+        useLegacyPromiseExtensions(value: boolean): boolean | IHttpProvider;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1651,16 +1689,15 @@ declare namespace angular {
         valueOf(value: any): any;
     }
 
-
     ///////////////////////////////////////////////////////////////////////////
     // SCEDelegateProvider
     // see http://docs.angularjs.org/api/ng.$sceDelegateProvider
     ///////////////////////////////////////////////////////////////////////////
     interface ISCEDelegateProvider extends IServiceProvider {
-        resourceUrlBlacklist(blacklist: any[]): void;
-        resourceUrlWhitelist(whitelist: any[]): void;
         resourceUrlBlacklist(): any[];
+        resourceUrlBlacklist(blacklist: any[]): void;
         resourceUrlWhitelist(): any[];
+        resourceUrlWhitelist(whitelist: any[]): void;
     }
 
     /**
@@ -1878,7 +1915,7 @@ declare namespace angular {
      * like jQuery plugins do, that's why all jQuery objects have these Angular-specific methods, not
      * only those returned from angular.element.
      * See: http://docs.angularjs.org/api/angular.element
-        */
+     */
     interface IAugmentedJQueryStatic extends JQueryStatic {}
     interface IAugmentedJQuery extends JQuery {}
 
@@ -1900,33 +1937,33 @@ declare namespace angular {
             annotate(fn: Function, strictDi?: boolean): string[];
             annotate(inlineAnnotatedFunction: any[]): string[];
             get<T>(name: string, caller?: string): T;
-            get(name: '$anchorScroll'): IAnchorScrollService
-            get(name: '$cacheFactory'): ICacheFactoryService
-            get(name: '$compile'): ICompileService
-            get(name: '$controller'): IControllerService
-            get(name: '$document'): IDocumentService
-            get(name: '$exceptionHandler'): IExceptionHandlerService
-            get(name: '$filter'): IFilterService
-            get(name: '$http'): IHttpService
-            get(name: '$httpBackend'): IHttpBackendService
-            get(name: '$httpParamSerializer'): IHttpParamSerializer
-            get(name: '$httpParamSerializerJQLike'): IHttpParamSerializer
-            get(name: '$interpolate'): IInterpolateService
-            get(name: '$interval'): IIntervalService
-            get(name: '$locale'): ILocaleService
-            get(name: '$location'): ILocationService
-            get(name: '$log'): ILogService
-            get(name: '$parse'): IParseService
-            get(name: '$q'): IQService
-            get(name: '$rootElement'): IRootElementService
-            get(name: '$rootScope'): IRootScopeService
-            get(name: '$sce'): ISCEService
-            get(name: '$sceDelegate'): ISCEDelegateService
-            get(name: '$templateCache'): ITemplateCacheService
-            get(name: '$templateRequest'): ITemplateRequestService
-            get(name: '$timeout'): ITimeoutService
-            get(name: '$window'): IWindowService
-            get<T>(name: '$xhrFactory'): IXhrFactory<T>
+            get(name: '$anchorScroll'): IAnchorScrollService;
+            get(name: '$cacheFactory'): ICacheFactoryService;
+            get(name: '$compile'): ICompileService;
+            get(name: '$controller'): IControllerService;
+            get(name: '$document'): IDocumentService;
+            get(name: '$exceptionHandler'): IExceptionHandlerService;
+            get(name: '$filter'): IFilterService;
+            get(name: '$http'): IHttpService;
+            get(name: '$httpBackend'): IHttpBackendService;
+            get(name: '$httpParamSerializer'): IHttpParamSerializer;
+            get(name: '$httpParamSerializerJQLike'): IHttpParamSerializer;
+            get(name: '$interpolate'): IInterpolateService;
+            get(name: '$interval'): IIntervalService;
+            get(name: '$locale'): ILocaleService;
+            get(name: '$location'): ILocationService;
+            get(name: '$log'): ILogService;
+            get(name: '$parse'): IParseService;
+            get(name: '$q'): IQService;
+            get(name: '$rootElement'): IRootElementService;
+            get(name: '$rootScope'): IRootScopeService;
+            get(name: '$sce'): ISCEService;
+            get(name: '$sceDelegate'): ISCEDelegateService;
+            get(name: '$templateCache'): ITemplateCacheService;
+            get(name: '$templateRequest'): ITemplateRequestService;
+            get(name: '$timeout'): ITimeoutService;
+            get(name: '$window'): IWindowService;
+            get<T>(name: '$xhrFactory'): IXhrFactory<T>;
             has(name: string): boolean;
             instantiate<T>(typeConstructor: Function, locals?: any): T;
             invoke(inlineAnnotatedFunction: any[]): any;

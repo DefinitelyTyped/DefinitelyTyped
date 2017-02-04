@@ -1,16 +1,12 @@
-// Type definitions for dagre 0.7.0
+// Type definitions for dagre 0.7
 // Project: https://github.com/cpettitt/dagre
 // Definitions by: Qinfeng Chen <https://github.com/qinfchen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace Dagre {
-    interface DagreFactory {
-        graphlib: GraphLib;
-        layout(graph: Graph): void;
-    }
+export as namespace dagre;
 
-    interface Graph {
-        new (): Graph;
+export namespace graphlib {
+    class Graph {
         edges(): Edge[];
         edge(id: any): any;
         nodes(): string[];
@@ -20,19 +16,11 @@ declare namespace Dagre {
         setGraph(options: { [key: string]: any }): Graph;
         setNode(id: string, node: { [key: string]: any }): Graph;
     }
-
-    interface Edge {
-        v: string;
-        w: string;
-    }
-
-    interface GraphLib {
-        Graph: Graph;
-    }
 }
 
-declare var dagre: Dagre.DagreFactory;
+export function layout(graph: graphlib.Graph): void;
 
-declare module "dagre" {
-    export = dagre;
+interface Edge {
+    v: string;
+    w: string;
 }

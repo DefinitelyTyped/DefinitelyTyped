@@ -5,7 +5,9 @@
 
 // See docs https://codemirror.net/doc/manual.html#addon_runmode
 
-declare namespace CodeMirror {
+import * as CodeMirror from "codemirror";
+
+declare module "codemirror" {
 
     /**
      * Runs a CodeMirror mode over text without opening an editor instance.

@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -15,6 +18,9 @@
     },
     "files": [
         "index.d.ts",
+        "lib/adapters/AsyncStorage.d.ts",
+        "lib/adapters/localStorage.d.ts",
+        "lib/adapters/sessionStorage.d.ts",
         "redux-localstorage-tests.ts"
     ]
 }

@@ -2,6 +2,7 @@
 // Project: https://github.com/yuanyan/halogen
 // Definitions by: Vincent Rouffiat <https://github.com/steller>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as react from "react";
 

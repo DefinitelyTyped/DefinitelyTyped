@@ -2,6 +2,7 @@
 // Project: https://github.com/gaearon/react-side-effect
 // Definitions by: Remo H. Jansen <https://github.com/remojansen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import React = require("react");
 

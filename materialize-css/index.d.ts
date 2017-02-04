@@ -16,6 +16,18 @@ declare namespace Materialize {
         * A setting that changes the collapsible behavior to expandable instead of the default accordion style
         */
         accordion: boolean;
+
+        /**
+         * Callback for Collapsible section close.
+         * Default: function() { alert('Closed'); }
+         */
+        onClose?: Function;
+
+        /**
+         * Callback for Collapsible section open.
+         * Default: function() { alert('Opened'); }
+         */
+        onOpen?: Function;
     }
 
     interface TooltipOptions {

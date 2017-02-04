@@ -1,11 +1,10 @@
 {
-    "files": [
-        "index.d.ts",
-        "ion.rangeSlider-tests.ts"
-    ],
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
@@ -16,5 +15,9 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "ion.rangeslider-tests.ts"
+    ]
 }

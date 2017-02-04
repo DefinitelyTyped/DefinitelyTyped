@@ -1,4 +1,4 @@
-// Type definitions for three.js 0.81
+// Type definitions for three.js 0.83
 // Project: http://mrdoob.github.com/three.js/
 // Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>, Florent Poujol <https://github.com/florentpoujol>, SereznoKot <https://github.com/SereznoKot>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -217,7 +217,7 @@ declare namespace THREE {
 
     // Triangle Draw modes
     export enum TrianglesDrawModes { }
-    export const TrianglesDrawModesMode: TrianglesDrawModes;
+    export const TrianglesDrawMode: TrianglesDrawModes;
     export const TriangleStripDrawMode: TrianglesDrawModes;
     export const TriangleFanDrawMode: TrianglesDrawModes;
 
@@ -1989,18 +1989,20 @@ declare namespace THREE {
         get(file: string): Loader;
     }
 
-    export class XHRLoader {
+    export class FileLoader {
         constructor(manager?: LoadingManager);
 
         manager: LoadingManager;
+        mimeType: MimeType;
         path: string;
         responseType: string;
-        withCredentials: boolean;
+        withCredentials: string        
 
-        load(url: string, onLoad?: (responseText: string) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): any;
-        setPath(path: string): XHRLoader;
-        setResponseType(responseType: string): XHRLoader;
-        setWithCredentials(withCredentials: boolean): XHRLoader;
+        load(url: string, onLoad?: (responseText: string) => void, onProgress?: (request: ProgressEvent) => void, onError?:(event: ErrorEvent) => void): any;
+        setMimeType(mimeType: MimeType): FileLoader;
+        setPath(path: string) : FileLoader;
+        setResponseType(responseType: string) : FileLoader;
+        setWithCredentials(value: string): FileLoader;
     }
 
     export class FontLoader {
@@ -2008,7 +2010,7 @@ declare namespace THREE {
 
         manager: LoadingManager;
 
-        load(url: string, onLoad?: (responseText: string) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
+        load(url: string, onLoad?: (responseText: string) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
         parse(json: string): Font;
     }
 
@@ -2028,7 +2030,7 @@ declare namespace THREE {
          * Begin loading from url
          * @param url
          */
-        load(url: string, onLoad?: (image: HTMLImageElement) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): HTMLImageElement;
+        load(url: string, onLoad?: (image: HTMLImageElement) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): HTMLImageElement;
         setCrossOrigin(crossOrigin: string): ImageLoader;
         setWithCredentials(value: string): ImageLoader;
         setPath(value: string): ImageLoader;
@@ -2043,7 +2045,7 @@ declare namespace THREE {
         manager: LoadingManager;
         withCredentials: boolean;
 
-        load(url: string, onLoad?: (geometry: Geometry, materials: Material[]) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
+        load(url: string, onLoad?: (geometry: Geometry, materials: Material[]) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
         setTexturePath( value: string ): void;
         parse(json: any, texturePath?: string): { geometry: Geometry; materials?: Material[] };
     }
@@ -2138,7 +2140,7 @@ declare namespace THREE {
          *
          * @param url
          */
-        load(url: string, onLoad?: (texture: Texture) => void): Texture;
+        load(url: string, onLoad?: (texture: Texture) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): Texture;
         setCrossOrigin(crossOrigin: string): TextureLoader;
         setWithCredentials(value: string): TextureLoader;
         setPath(path: string): TextureLoader;
@@ -2151,7 +2153,7 @@ declare namespace THREE {
         corssOrigin: string;
         path: string;
 
-        load(urls: Array<string>, onLoad?: (texture: CubeTexture) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
+        load(urls: Array<string>, onLoad?: (texture: CubeTexture) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
         setCrossOrigin(crossOrigin: string): CubeTextureLoader;
         setPath(path: string): CubeTextureLoader;
     }
@@ -2161,7 +2163,7 @@ declare namespace THREE {
 
         manager: LoadingManager;
 
-        load(url: string, onLoad: (dataTexture: DataTexture) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
+        load(url: string, onLoad: (dataTexture: DataTexture) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
     }
     export class DataTextureLoader extends BinaryTextureLoader {}
 
@@ -2171,7 +2173,7 @@ declare namespace THREE {
         manager: LoadingManager;
         path: string;
 
-        load(url: string, onLoad: (texture: CompressedTexture) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
+        load(url: string, onLoad: (texture: CompressedTexture) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
         setPath(path: string): CompressedTextureLoader;
     }
 
@@ -5606,7 +5608,7 @@ declare namespace THREE {
 
     export class Texture extends EventDispatcher {
         constructor(
-            image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
+            image?: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
             mapping?: Mapping,
             wrapS?: Wrapping,
             wrapT?: Wrapping,

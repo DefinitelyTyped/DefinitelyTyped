@@ -49,7 +49,7 @@ declare namespace Drop {
         constrainToWindow?: boolean;
         constrainToScrollParent?: boolean;
         remove?: boolean;
-        beforeClose?: () => boolean;
+        beforeClose?: (event: Event, drop: Drop) => boolean;
         openDelay?: number;
         closeDelay?: number;
         focusDelay?: number;

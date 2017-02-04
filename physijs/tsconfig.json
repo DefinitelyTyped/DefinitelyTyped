@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": false,
         "noImplicitThis": false,
         "strictNullChecks": false,
@@ -15,6 +18,16 @@
     },
     "files": [
         "index.d.ts",
-        "physijs-tests.ts"
+        "test/body.ts",
+        "test/collisions.ts",
+        "test/compound.ts",
+        "test/constraints_car.ts",
+        "test/heightfield.ts",
+        "test/jenga.ts",
+        "test/memorytest.ts",
+        "test/memorytest-compound.ts",
+        "test/memorytest-convex.ts",
+        "test/shapes.ts",
+        "test/vehicle.ts"
     ]
 }

@@ -2,6 +2,7 @@
 // Project: https://github.com/callemall/material-ui
 // Definitions by: Nathan Brown <https://github.com/ngbrown>, Oliver Herrmann <https://github.com/herrmanno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="react" />
 /// <reference types="react-addons-linked-state-mixin" />
@@ -1765,7 +1766,7 @@ declare namespace __MaterialUI {
         multiLine?: boolean;
         name?: string;
         onBlur?: React.FocusEventHandler<{}>;
-        onChange?: React.FormEventHandler<{}>;
+        onChange?: (e: React.FormEvent<{}>, newValue: string) => void;
         onEnterKeyDown?: React.KeyboardEventHandler<{}>;
         onFocus?: React.FocusEventHandler<{}>;
         onKeyDown?: React.KeyboardEventHandler<{}>;

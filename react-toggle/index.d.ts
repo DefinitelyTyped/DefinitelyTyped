@@ -2,6 +2,7 @@
 // Project: https://github.com/aaronshaf/react-toggle
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import { Component, HTMLAttributes, ReactNode } from "react";
 
