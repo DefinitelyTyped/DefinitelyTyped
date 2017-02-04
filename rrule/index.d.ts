@@ -1,10 +1,20 @@
-// Type definitions for rrule 2.1.0
+// Type definitions for rrule 2.1
 // Project: https://github.com/jkbrzt/rrule
 // Definitions by: James Bracy <https://github.com/waratuman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'rrule' {
-    export = RRule;
+export as namespace RRule;
+
+/**
+ * Use `import rrule = require("rrule")` for AMD and `import { RRule } from "rrule"` for CommonJS loading.
+ */
+export = RRule;
+
+// For CommonJS it must be imported as `require("rrule").RRule`.
+import RRuleAlias = RRule;
+declare module "rrule" {
+    export type RRule = RRuleAlias;
+    export const RRule: typeof RRuleAlias;
 }
 
 declare namespace RRule {
@@ -17,7 +27,7 @@ declare namespace RRule {
         freq: RRule.Frequency;
         dtstart?: Date;
         interval?: number;
-        wkst?: number | Weekday
+        wkst?: number | Weekday;
         count?: number;
         until?: Date;
         bysetpos?: number | number[];
@@ -25,7 +35,7 @@ declare namespace RRule {
         bymonthday?: number | number[];
         byyearday?: number | number[];
         byweekno?: number | number[];
-        byweekday?:  Weekday | Weekday[] | number | number[];
+        byweekday?: Weekday | Weekday[] | number | number[];
         byhour?: number | number[];
         byminute?: number | number[];
         bysecond?: number | number[];

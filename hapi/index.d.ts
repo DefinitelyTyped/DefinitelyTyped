@@ -1,4 +1,4 @@
-// Type definitions for hapi 13.0.0
+// Type definitions for hapi 16.0.0
 // Project: http://github.com/spumko/hapi
 // Definitions by: Jason Swearingen <http://github.com/jasonswearingen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -716,7 +716,11 @@ export interface IRouteAdditionalConfigurationOptions {
 	/**  ONLY WHEN ADDING NEW ROUTES (not when setting defaults).
 	 *route tags used for generating documentation (array of strings).
 	 */
-    tags?: string[]
+    tags?: string[];
+
+	/**  Enable logging of routes
+		*/
+	log?: boolean;
 }
 
 /**
@@ -1202,7 +1206,7 @@ export class Request extends Events.EventEmitter {
     /** the raw request headers (references request.raw.headers).*/
     headers: IDictionary<string>;
     /** a unique request identifier (using the format '{now}:{connection.info.id}:{5 digits counter}').*/
-    id: number;
+    id: string;
     /**  request information */
     info: {
         /**  the request preferred encoding. */

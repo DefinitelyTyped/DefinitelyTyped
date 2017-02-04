@@ -1,7 +1,7 @@
 import * as bson from 'bson';
 
-let BSON = new bson.BSONPure.BSON();
-let Long = bson.BSONPure.Long;
+let BSON = new bson.BSON();
+let Long = bson.Long;
 
 let doc = {long: Long.fromNumber(100)}
 
@@ -13,9 +13,6 @@ console.log("data:", data);
 let doc_2 = BSON.deserialize(data);
 console.log("doc_2:", doc_2);
 
-
-BSON = new bson.BSONNative.BSON();
+BSON = new bson.BSON();
 data = BSON.serialize(doc);
 doc_2 = BSON.deserialize(data);
-
-

@@ -9,6 +9,7 @@ interface MyTaskData {
 
 interface MyOptions {
     sourceRoot: string;
+    repeat: number;
 }
 
 // exports should work same as module.exports 
@@ -35,8 +36,8 @@ exports = (grunt: IGrunt) => {
     grunt.registerTask('default', ['uglify']);
 
     grunt.registerMultiTask('mytask', "short description", function() {
-        var currenttask: grunt.task.IMultiTask<MyTaskData> = this;
-        var options = currenttask.options<MyOptions>({
+        var currenttask = this;
+        var options = currenttask.options({
             sourceRoot: "default"
         });
         var valid = false;

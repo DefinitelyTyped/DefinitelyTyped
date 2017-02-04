@@ -95,7 +95,7 @@ declare const Pane: React.ComponentClass<PaneProps>;
 
 
 //There is no Layer class, these are the base props for all layers on the map
-interface LayerProps {
+interface LayerProps extends LeafletInteractionEvents {
     onadd?: (event: Leaflet.Event) => void;
     onremove?: (event: Leaflet.Event) => void;
 
@@ -109,7 +109,7 @@ interface LayerProps {
 }
 
 
-interface MarkerProps extends LayerProps, LeafletInteractionEvents, LeafletDraggingEvents {
+interface MarkerProps extends LayerProps, LeafletDraggingEvents {
     position: Leaflet.LatLngExpression;
     draggable?: boolean;
     icon?: Leaflet.Icon;

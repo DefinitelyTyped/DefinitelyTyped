@@ -806,6 +806,12 @@ declare namespace Highcharts {
          */
         startOnTick?: boolean;
         /**
+         * Solid gauge series only. Color stops for the solid gauge. 
+         * Use this in cases where a linear gradient between a minColor and maxColor is not sufficient. 
+         * The stops is an array of tuples, where the first item is a float between 0 and 1 assigning the relative position in the gradient, and the second item is the color.
+         */
+        stops?: [number, string][];
+        /**
          * The amount of ticks to draw on the axis. This opens up for aligning the ticks of multiple charts or panes within
          * a chart. This option overrides the tickPixelInterval option.
          *

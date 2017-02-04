@@ -1397,6 +1397,7 @@ declare namespace L {
 
     export interface MarkerOptions extends InteractiveLayerOptions {
         icon?: Icon;
+        clickable?: boolean;
         draggable?: boolean;
         keyboard?: boolean;
         title?: string;

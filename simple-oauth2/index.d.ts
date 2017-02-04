@@ -24,7 +24,7 @@ interface ModuleOptions {
         tokenHost: string,
         /** String path to request an access token. Default to /oauth/token. */
         tokenPath?: string,
-        /** String path to revoken an access token. Default to /oauth/revoke. */
+        /** String path to revoke an access token. Default to /oauth/revoke. */
         revokePath?: string,
         /** String used to set the host to request an "authorization code". Default to the value set on auth.tokenHost. */
         authorizeHost?: string,
@@ -34,8 +34,9 @@ interface ModuleOptions {
     /** optional object used to set global options to the internal http library (request-js). */
     http?: {};
     options?: {
-        /** Wheather or not the client.id/client.secret params are sent in the request body. Defaults to true. */
+        /** Whether or not the client.id/client.secret params are sent in the request body. Defaults to true. */
         useBodyAuth?: boolean,
+        /** Whether or not the Basic Authorization header should be sent at the token request. */
         useBasicAuthorizationHeader?: boolean
     };
 }

@@ -5,16 +5,21 @@
     ],
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
-            "node_modules/@types",
             "../"
         ],
         "types": [],
+        "paths": {
+            "d3": ["d3/v3"]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     }

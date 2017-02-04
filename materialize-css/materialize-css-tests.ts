@@ -44,8 +44,8 @@ var collapseHtml = '<ul class="collapsible" data-collapsible="accordion">' +
     '</li>' +
   '</ul>';
 
-$(collapseHtml).collapsible({ accordion : false });
-$(collapseHtml).collapsible({ accordion : true });
+$(collapseHtml).collapsible({ accordion : false, onClose : function() { alert('Closed'); } });
+$(collapseHtml).collapsible({ accordion : true, onOpen : function() { alert('Opened'); } });
 
 // Dialogs - Toasts
 Materialize.toast('I am a toast!', 4000);

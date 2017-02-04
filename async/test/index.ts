@@ -349,6 +349,16 @@ q2.unshift(['task3', 'task4', 'task5'], function (error) {
     console.log('Finished tasks');
 });
 
+
+var aq = async.queue<number, number, Error>(function (level: number, callback: (error : Error, newLevel: number) => void) {
+    console.log('hello ' + level);
+    callback(null, level+1);
+});
+
+aq.push(1, function (err : Error, newLevel : number) {
+    console.log('finished processing bar' + newLevel);
+});
+
 // create a cargo object with payload 2
 var cargo = async.cargo(function (tasks, callback) {
     for (var i = 0; i < tasks.length; i++) {
@@ -794,3 +804,36 @@ async.some<number, Error>({
     console.log("async.some/any: done with result", result);
 
 });
+
+// timeout
+
+function myFunction1(foo : any, callback: (err : Error, result : any) => void ) : void {
+	console.log(`async.timeout 1 ${foo}`);
+	return callback(null, foo);
+}
+var wrapped1 = async.timeout(myFunction1, 1000);
+wrapped1({ bar: 'bar' }, function(err : Error, data : any) {
+    console.log(`async.timeout 1 end ${data}`);
+});
+
+
+function myFunction2(callback: (err : Error, result : any) => void ) : void {
+	console.log(`async.timeout 2`);
+	return callback(null, { bar: 'bar' });
+}
+
+var wrapped2 = async.timeout(myFunction2, 1000);
+wrapped2( function(err : Error, data : any) {
+    console.log(`async.timeout 2 end ${data}`);
+});
+
+function myFunction3(callback: (err : Error, result : any) => void ) : void {
+	console.log(`async.timeout 3`);
+	return callback(null, { bar: 'bar' });
+}
+
+var wrapped3 = async.timeout(myFunction3, 1000, { bar: 'bar' });
+wrapped3( function(err : Error, data : any) {
+    console.log(`async.timeout 3 end ${data}`);
+});
+

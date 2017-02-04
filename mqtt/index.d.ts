@@ -235,6 +235,10 @@ declare namespace mqtt {
          */
         handleMessage(packet: Packet, callback: Function): Client;
 
+        /**
+         * get last message id. This is for sent messages only.
+         */
+        getLastMessageId(): number;
     }
 
     /**

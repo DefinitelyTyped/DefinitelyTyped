@@ -15,6 +15,10 @@ declare namespace cropperjs {
     }
     export interface CropperOptions {
         /**
+        * Function called when crop box is ready
+        */
+        ready?: (event: CropperCustomEvent) => void;
+        /**
         * Function called when crop box is moved or resized
         */
         crop?: (event: CropperCustomEvent) => void;

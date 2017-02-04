@@ -1,6 +1,6 @@
 // Type definitions for AWS Lambda
 // Project: http://docs.aws.amazon.com/lambda
-// Definitions by: James Darbyshire <https://github.com/darbio/aws-lambda-typescript>, Michael Skarum <https://github.com/skarum>, Stef Heyenrath <https://github.com/StefH/DefinitelyTyped>
+// Definitions by: James Darbyshire <https://github.com/darbio/aws-lambda-typescript>, Michael Skarum <https://github.com/skarum>, Stef Heyenrath <https://github.com/StefH/DefinitelyTyped>, Toby Hede <https://github.com/tobyhede>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Context
@@ -17,7 +17,7 @@ interface Context {
     logStreamName: string;
     identity?: CognitoIdentity;
     clientContext?: ClientContext;
-    
+
     // Functions
     getRemainingTimeInMillis(): number;
 
@@ -28,7 +28,7 @@ interface Context {
     fail(message: string): void;
     succeed(message: string): void;
     succeed(object: any): void;
-    succeed(message: string, object: any): void; 
+    succeed(message: string, object: any): void;
 }
 
 interface CognitoIdentity {
@@ -57,6 +57,16 @@ interface ClientContextEnv {
     model: string;
     locale: string;
 }
+
+/**
+ * AWS Lambda handler function.
+ * http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html
+ *
+ * @param event – event data.
+ * @param context – runtime information of the Lambda function that is executing.
+ * @param callback – optional callback to return information to the caller, otherwise return value is null.
+ */
+export type Handler = (event: any, context: Context, callback?: Callback)  => void;
 
 /**
  * Optional callback parameter.

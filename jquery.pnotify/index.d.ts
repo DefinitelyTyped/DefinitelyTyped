@@ -1,12 +1,12 @@
 // Type definitions for jquery.pnotify 3.x
 // Project: https://github.com/sciactive/pnotify
-// Definitions by: David Sichau <https://github.com/DavidSichau>
+// Definitions by: David Sichau <https://github.com/DavidSichau>, Robin Maenhaut <https://github.com/FUNExtreme>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery"/>
 
 type NoticeTypeOptions = "notice" | "info" | "success" | "error";
-type StylingOptions = "brighttheme" | "jqueryui" | "bootstrap2" | "bootstrap3" | "fontawesome";
+type StylingOptions = "brighttheme" | "jqueryui" | "bootstrap2" | "bootstrap3" | "fontawesome" | PNotifyStyling;
 type StateOptions = "initializing" | "opening" | "open" | "closing" | "closed";
 
 interface PNotifyStack {
@@ -134,7 +134,7 @@ interface PNotifyOptions {
      */
     text_escape?: boolean;
     /**
-     * What styling classes to use. (Can be either "brighttheme", "jqueryui", "bootstrap2", "bootstrap3", or "fontawesome".)
+     * What styling classes to use. (Can be either "brighttheme", "jqueryui", "bootstrap2", "bootstrap3", "fontawesome" or a custom style object)
      */
     styling?: StylingOptions;
     /**
@@ -255,6 +255,36 @@ interface PNotifyOptions {
      * The various displayed text, helps facilitating internationalization.
      */
     labels?: PNotifyLabel;
+}
+
+interface PNotifyStyling {
+    container?: string,
+    notice?: string,
+    notice_icon?: string,
+    info?: string,
+    info_icon?: string,
+    success?: string,
+    success_icon?: string,
+    error?: string,
+    error_icon?: string,
+    // buttons
+    closer?: string,
+    pin_down?: string,
+    pin_up?: string,
+    // confirm
+    btn?: string,
+    btnhover?: string,
+    btnactive?: string,
+    btnfocus?: string,
+    input?: string,
+    text?: string,
+    // history
+    hi_menu?: string,
+    hi_btn?: string,
+    hi_btnhov?: string,
+    hi_hnd?: string,
+    // reference
+    athing?: string
 }
 
 interface PNotify {

@@ -1,15 +1,15 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
         "jsx": "preserve",
         "baseUrl": "../",
-        "paths": {
-            "history": ["history/v2"]
-        },
         "typeRoots": [
             "../"
         ],
@@ -19,6 +19,8 @@
     },
     "files": [
         "index.d.ts",
+        "lib/IndexLinkContainer.d.ts",
+        "lib/LinkContainer.d.ts",
         "react-router-bootstrap-tests.tsx"
     ]
 }
