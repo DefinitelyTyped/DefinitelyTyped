@@ -45,7 +45,7 @@ interface Numeral {
 	 * This function sets the current locale.  If no arguments are passed in,
 	 * it will simply return the current global locale key.
 	 */
-  	locale(key?: string, values?: NumeralJSLanguage): Numeral | string;
+	locale(key?: string, values?: NumeralJSLanguage): Numeral | string;
 
 	/**
 	 * Registers a language definition or a custom format definition.
