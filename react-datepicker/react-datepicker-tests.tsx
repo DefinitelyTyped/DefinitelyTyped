@@ -2,8 +2,8 @@ import * as React from "react";
 import * as moment from 'moment';
 import * as DatePicker from 'react-datepicker';
 
-class ReactDatePicker extends React.Component<{}, {startDate:any,displayName:string}> {
-     constructor(props:any) {
+class ReactDatePicker extends React.Component<{}, { startDate: moment.Moment; displayName:string; }> {
+     constructor(props: {}) {
         super();
         this.state = {
           startDate: moment(),
@@ -12,7 +12,7 @@ class ReactDatePicker extends React.Component<{}, {startDate:any,displayName:str
         this.handleChange = this.handleChange.bind(this);
      }
 
-     handleChange = function(date?:any) {
+     handleChange = function(date?: moment.Moment | null) {
         this.setState({
           startDate: date
         });
