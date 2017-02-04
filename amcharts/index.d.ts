@@ -32,6 +32,9 @@ declare namespace AmCharts {
 
     /** Handle ready event */
     function ready(f: Function): void;
+    
+    /** sets the amCharts ready status */
+    var isReady: boolean;
 
     /** Create chart by params. */
     function makeChart(selector: string, params: any, delay?: number): AmChart;
