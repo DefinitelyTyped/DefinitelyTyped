@@ -1295,28 +1295,36 @@ export namespace promise {
   }
 }
 
-export namespace until {
+/**
+ * Defines a condition for use with WebDriver's WebDriver#wait wait command.
+ */
+export class Condition<T> {
   /**
-   * Defines a condition to
+   * @param {string} message A descriptive error message. Should complete the
+   *     sentence 'Waiting [...]'
+   * @param {function(!WebDriver): OUT} fn The condition function to
+   *     evaluate on each iteration of the wait loop.
+   * @constructor
    */
-  class Condition<T> {
+  constructor(message: string, fn: (webdriver: WebDriver) => any);
+
+  /** @return {string} A description of this condition. */
+  description(): string;
+
+  /** @type {function(!WebDriver): OUT} */
+  fn(webdriver: WebDriver): any;
+}
+
+/**
+ * Defines a condition that will result in a {@link WebElement}.
+ *
+ * @extends {Condition<!(WebElement|IThenable<!WebElement>)>}
+ */
+export class WebElementCondition extends Condition<WebElement> { }
+
+export namespace until {
+
     /**
-     * @param {string} message A descriptive error message. Should complete the
-     *     sentence 'Waiting [...]'
-     * @param {function(!WebDriver): OUT} fn The condition function to
-     *     evaluate on each iteration of the wait loop.
-     * @constructor
-     */
-    constructor(message: string, fn: (webdriver: WebDriver) => any);
-
-    /** @return {string} A description of this condition. */
-    description(): string;
-
-    /** @type {function(!WebDriver): OUT} */
-    fn(webdriver: WebDriver): any;
-  }
-
-  /**
    * Creates a condition that will wait until the input driver is able to switch
    * to the designated frame. The target frame may be specified as
    *
@@ -1350,64 +1358,64 @@ export namespace until {
    * Creates a condition that will wait for the given element to be disabled.
    *
    * @param {!WebElement} element The element to test.
-   * @return {!until.Condition.<boolean>} The new condition.
+   * @return {!WebElementCondition} The new condition.
    * @see WebDriver#isEnabled
    */
-  function elementIsDisabled(element: WebElement): Condition<boolean>;
+  function elementIsDisabled(element: WebElement): WebElementCondition;
 
   /**
    * Creates a condition that will wait for the given element to be enabled.
    *
    * @param {!WebElement} element The element to test.
-   * @return {!until.Condition.<boolean>} The new condition.
+   * @return {!WebElementCondition} The new condition.
    * @see WebDriver#isEnabled
    */
-  function elementIsEnabled(element: WebElement): Condition<boolean>;
+  function elementIsEnabled(element: WebElement): WebElementCondition;
 
   /**
    * Creates a condition that will wait for the given element to be deselected.
    *
    * @param {!WebElement} element The element to test.
-   * @return {!until.Condition.<boolean>} The new condition.
+   * @return {!WebElementCondition} The new condition.
    * @see WebDriver#isSelected
    */
-  function elementIsNotSelected(element: WebElement): Condition<boolean>;
+  function elementIsNotSelected(element: WebElement): WebElementCondition;
 
   /**
    * Creates a condition that will wait for the given element to be in the DOM,
    * yet not visible to the user.
    *
    * @param {!WebElement} element The element to test.
-   * @return {!until.Condition.<boolean>} The new condition.
+   * @return {!WebElementCondition} The new condition.
    * @see WebDriver#isDisplayed
    */
-  function elementIsNotVisible(element: WebElement): Condition<boolean>;
+  function elementIsNotVisible(element: WebElement): WebElementCondition;
 
   /**
    * Creates a condition that will wait for the given element to be selected.
    * @param {!WebElement} element The element to test.
-   * @return {!until.Condition.<boolean>} The new condition.
+   * @return {!WebElementCondition} The new condition.
    * @see WebDriver#isSelected
    */
-  function elementIsSelected(element: WebElement): Condition<boolean>;
+  function elementIsSelected(element: WebElement): WebElementCondition;
 
   /**
    * Creates a condition that will wait for the given element to become visible.
    *
    * @param {!WebElement} element The element to test.
-   * @return {!until.Condition.<boolean>} The new condition.
+   * @return {!WebElementCondition} The new condition.
    * @see WebDriver#isDisplayed
    */
-  function elementIsVisible(element: WebElement): Condition<boolean>;
+  function elementIsVisible(element: WebElement): WebElementCondition;
 
   /**
    * Creates a condition that will loop until an element is
    * {@link ./WebDriver#findElement found} with the given locator.
    *
    * @param {!(By|Function)} locator The locator to use.
-   * @return {!until.Condition.<!WebElement>} The new condition.
+   * @return {!WebElementCondition} The new condition.
    */
-  function elementLocated(locator: By | Function): Condition<WebElement>;
+  function elementLocated(locator: By | Function): WebElementCondition;
 
   /**
    * Creates a condition that will wait for the given element's
@@ -1416,10 +1424,10 @@ export namespace until {
    *
    * @param {!WebElement} element The element to test.
    * @param {string} substr The substring to search for.
-   * @return {!until.Condition.<boolean>} The new condition.
+   * @return {!WebElementCondition} The new condition.
    * @see WebDriver#getText
    */
-  function elementTextContains(element: WebElement, substr: string): Condition<boolean>;
+  function elementTextContains(element: WebElement, substr: string): WebElementCondition;
 
   /**
    * Creates a condition that will wait for the given element's
@@ -1428,10 +1436,10 @@ export namespace until {
    *
    * @param {!WebElement} element The element to test.
    * @param {string} text The expected text.
-   * @return {!until.Condition.<boolean>} The new condition.
+   * @return {!WebElementCondition} The new condition.
    * @see WebDriver#getText
    */
-  function elementTextIs(element: WebElement, text: string): Condition<boolean>;
+  function elementTextIs(element: WebElement, text: string): WebElementCondition;
 
   /**
    * Creates a condition that will wait for the given element's
@@ -1440,10 +1448,10 @@ export namespace until {
    *
    * @param {!WebElement} element The element to test.
    * @param {!RegExp} regex The regular expression to test against.
-   * @return {!until.Condition<boolean>} The new condition.
+   * @return {!WebElementCondition} The new condition.
    * @see WebDriver#getText
    */
-  function elementTextMatches(element: WebElement, regex: RegExp): Condition<boolean>;
+  function elementTextMatches(element: WebElement, regex: RegExp): WebElementCondition;
 
   /**
    * Creates a condition that will loop until at least one element is
@@ -1451,7 +1459,7 @@ export namespace until {
    *
    * @param {!(Locator|By.Hash|Function)} locator The locator
    *     to use.
-   * @return {!until.Condition.<!Array.<!WebElement>>} The new
+   * @return {!Condition.<!Array.<!WebElement>>} The new
    *     condition.
    */
   function elementsLocated(locator: By | Function): Condition<WebElement[]>;
@@ -1462,7 +1470,7 @@ export namespace until {
    * has loaded.
    *
    * @param {!WebElement} element The element that should become stale.
-   * @return {!until.Condition<boolean>} The new condition.
+   * @return {!Condition<boolean>} The new condition.
    */
   function stalenessOf(element: WebElement): Condition<boolean>;
 
@@ -1472,7 +1480,7 @@ export namespace until {
    *
    * @param {string} substr The substring that should be present in the page
    *     title.
-   * @return {!until.Condition.<boolean>} The new condition.
+   * @return {!Condition.<boolean>} The new condition.
    */
   function titleContains(substr: string): Condition<boolean>;
 
@@ -1481,7 +1489,7 @@ export namespace until {
    * given value.
    *
    * @param {string} title The expected page title.
-   * @return {!until.Condition<boolean>} The new condition.
+   * @return {!Condition<boolean>} The new condition.
    */
   function titleIs(title: string): Condition<boolean>;
 
@@ -1490,9 +1498,37 @@ export namespace until {
    * given regular expression.
    *
    * @param {!RegExp} regex The regular expression to test against.
-   * @return {!until.Condition.<boolean>} The new condition.
+   * @return {!Condition.<boolean>} The new condition.
    */
   function titleMatches(regex: RegExp): Condition<boolean>;
+
+  /**
+   * Creates a condition that will wait for the current page's url to contain
+   * the given substring.
+   *
+   * @param {string} substrUrl The substring that should be present in the current
+   *     URL.
+   * @return {!Condition<boolean>} The new condition.
+   */
+  function urlContains(substrUrl: string): Condition<boolean>;
+
+  /**
+   * Creates a condition that will wait for the current page's url to match the
+   * given value.
+   *
+   * @param {string} url The expected page url.
+   * @return {!Condition<boolean>} The new condition.
+   */
+  function urlIs(url: string): Condition<boolean>;
+
+  /**
+   * Creates a condition that will wait for the current page's url to match the
+   * given regular expression.
+   *
+   * @param {!RegExp} regex The regular expression to test against.
+   * @return {!Condition<boolean>} The new condition.
+   */
+  function urlMatches(regex: RegExp): Condition<boolean>;
 }
 
 interface ILocation {
@@ -3835,10 +3871,10 @@ export class WebDriver {
 
   /**
    * Schedules a command to wait for a condition to hold. The condition may be
-   * specified by a {@link until.Condition}, as a custom function, or
+   * specified by a {@link Condition}, as a custom function, or
    * as a {@link promise.Promise}.
    *
-   * For a {@link until.Condition} or function, the wait will repeatedly
+   * For a {@link Condition} or function, the wait will repeatedly
    * evaluate the condition until it returns a truthy value. If any errors occur
    * while evaluating the condition, they will be allowed to propagate. In the
    * event a condition returns a {@link promise.Promise promise}, the
@@ -3846,6 +3882,10 @@ export class WebDriver {
    * whether the condition has been satisified. Note the resolution time for
    * a promise is factored into whether a wait has timed out.
    *
+     * Note, if the provided condition is a {@link WebElementCondition}, then
+     * the wait will return a {@link WebElementPromise} that will resolve to the
+     * element that satisified the condition.
+     *
    * *Example:* waiting up to 10 seconds for an element to be present and visible
    * on the page.
    *
@@ -3867,7 +3907,7 @@ export class WebDriver {
    *     driver.get(getServerUrl());
    *
    * @param {!(promise.Promise<T>|
-   *           until.Condition<T>|
+   *           Condition<T>|
    *           function(!WebDriver): T)} condition The condition to
    *     wait on, defined as a promise, condition object, or  a function to
    *     evaluate as a condition.
@@ -3879,7 +3919,57 @@ export class WebDriver {
    *     rejected if the condition times out.
    * @template T
    */
-  wait<T>(condition: promise.Promise<T> | until.Condition<T> | ((driver: WebDriver) => T) | Function, timeout?: number, opt_message?: string): promise.Promise<T>;
+  wait<T>(condition: promise.Promise<T> | Condition<T> | ((driver: WebDriver) => T) | Function, opt_timeout?: number, opt_message?: string): promise.Promise<T>;
+
+  /**
+   * Schedules a command to wait for a condition to hold. The condition may be
+   * specified by a {@link webdriver.Condition}, as a custom function, or
+   * as a {@link webdriver.promise.Promise}.
+   *
+   * For a {@link webdriver.Condition} or function, the wait will repeatedly
+   * evaluate the condition until it returns a truthy value. If any errors occur
+   * while evaluating the condition, they will be allowed to propagate. In the
+   * event a condition returns a {@link webdriver.promise.Promise promise}, the
+   * polling loop will wait for it to be resolved and use the resolved value for
+   * whether the condition has been satisified. Note the resolution time for
+   * a promise is factored into whether a wait has timed out.
+   *
+   * Note, if the provided condition is a {@link WebElementCondition}, then
+   * the wait will return a {@link WebElementPromise} that will resolve to the
+   * element that satisified the condition.
+   *
+   * *Example:* waiting up to 10 seconds for an element to be present and visible
+   * on the page.
+   *
+   *     var button = driver.wait(until.elementLocated(By.id('foo'), 10000);
+   *     button.click();
+   *
+   * This function may also be used to block the command flow on the resolution
+   * of a {@link webdriver.promise.Promise promise}. When given a promise, the
+   * command will simply wait for its resolution before completing. A timeout may
+   * be provided to fail the command if the promise does not resolve before the
+   * timeout expires.
+   *
+   * *Example:* Suppose you have a function, `startTestServer`, that returns a
+   * promise for when a server is ready for requests. You can block a `WebDriver`
+   * client on this promise with:
+   *
+   *     var started = startTestServer();
+   *     driver.wait(started, 5 * 1000, 'Server should start within 5 seconds');
+   *     driver.get(getServerUrl());
+   *
+   * @param {!WebElementCondition} condition The condition to
+   *     wait on, defined as a promise, condition object, or  a function to
+   *     evaluate as a condition.
+   * @param {number=} opt_timeout How long to wait for the condition to be true.
+   * @param {string=} opt_message An optional message to use if the wait times
+   *     out.
+   * @return {!WebElementPromise} A promise that will be fulfilled
+   *     with the first truthy value returned by the condition function, or
+   *     rejected if the condition times out.
+   * @template T
+   */
+  wait<T>(condition: WebElementCondition, opt_timeout?: number, opt_message?: string): WebElementPromise;
 
   /**
    * Schedules a command to make the driver sleep for the given amount of time.
