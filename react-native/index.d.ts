@@ -2,6 +2,7 @@
 // Project: https://github.com/facebook/react-native
 // Definitions by: Needs A Maintainer <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

@@ -2,7 +2,7 @@
 // Project: https://github.com/gpbl/react-day-picker
 // Definitions by: Giampaolo Bellavite <https://github.com/gpbl>, Jason Killian <https://github.com/jkillian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.0
+// TypeScript Version: 2.1
 
 /// <reference types="react" />
 
@@ -75,7 +75,7 @@ declare namespace ReactDayPicker {
         toMonth?: Date;
         localeUtils?: LocaleUtils;
         locale?: string;
-        captionElement?: React.ReactElement<CaptionElementProps>;
+        captionElement?: React.ReactElement<CaptionElementProps> | null;
         onDayClick?: (e: React.SyntheticEvent<{}>, day: Date, modifiers: DayModifiers) => any;
         onDayTouchTap?: (e: React.SyntheticEvent<{}>, day: Date, modifiers: DayModifiers) => any;
         onDayMouseEnter?: (e: React.SyntheticEvent<{}>, day: Date, modifiers: DayModifiers) => any;

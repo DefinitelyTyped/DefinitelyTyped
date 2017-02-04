@@ -2,44 +2,43 @@
 // Project: https://github.com/rackt/react-router-redux
 // Definitions by: Isman Usoh <http://github.com/isman-usoh>, Noah Shipley <https://github.com/noah79>, Dimitri Rosenberg <https://github.com/rosendi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as Redux from "redux";
 import * as History from "history";
 
-/// <reference types="react-router"/>
 
-declare namespace ReactRouterRedux {
-    const TRANSITION: string;
-    const UPDATE_LOCATION: string;
+export const TRANSITION: string;
+export const UPDATE_LOCATION: string;
 
-    const push: PushAction;
-    const replace: ReplaceAction;
-    const go: GoAction;
-    const goBack: GoForwardAction;
-    const goForward: GoBackAction;
-    const routeActions: RouteActions;
+export const push: PushAction;
+export const replace: ReplaceAction;
+export const go: GoAction;
+export const goBack: GoForwardAction;
+export const goForward: GoBackAction;
+export const routeActions: RouteActions;
 
-    type LocationDescriptor = History.LocationDescriptor;
-    type PushAction = (nextLocation: LocationDescriptor) => void;
-    type ReplaceAction = (nextLocation: LocationDescriptor) => void;
-    type GoAction = (n: number) => void;
-    type GoForwardAction = () => void;
-    type GoBackAction = () => void;
+export type LocationDescriptor = History.LocationDescriptor;
+export type PushAction = (nextLocation: LocationDescriptor) => void;
+export type ReplaceAction = (nextLocation: LocationDescriptor) => void;
+export type GoAction = (n: number) => void;
+export type GoForwardAction = () => void;
+export type GoBackAction = () => void;
 
-    interface RouteActions {
-        push: PushAction;
-        replace: ReplaceAction;
-        go: GoAction;
-        goForward: GoForwardAction;
-        goBack: GoBackAction;
-    }
-    interface HistoryMiddleware extends Redux.Middleware {
-        listenForReplays(store: Redux.Store<any>, selectLocationState?: Function): void;
-        unsubscribe(): void;
-    }
-
-    function routeReducer(state?: any, options?: any): Redux.Reducer<any>;
-    function syncHistory(history: History.History): HistoryMiddleware;
+export interface RouteActions {
+    push: PushAction;
+    replace: ReplaceAction;
+    go: GoAction;
+    goForward: GoForwardAction;
+    goBack: GoBackAction;
 }
 
-export = ReactRouterRedux;
+export interface HistoryMiddleware extends Redux.Middleware {
+    listenForReplays(store: Redux.Store<any>, selectLocationState?: Function): void;
+    unsubscribe(): void;
+}
+
+export function routeReducer(state?: any, options?: any): Redux.Reducer<any>;
+export function syncHistory(history: History.History): HistoryMiddleware;
+
+
