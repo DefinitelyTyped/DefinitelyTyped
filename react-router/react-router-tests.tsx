@@ -1,22 +1,39 @@
-import * as React from "react"
-import * as ReactDOM from "react-dom"
-import {renderToString} from "react-dom/server";
+import * as React from "react";
+import { Component, ValidationMap } from "react";
+import * as ReactDOM from "react-dom";
+import { renderToString } from "react-dom/server";
 
-import { applyRouterMiddleware, browserHistory, hashHistory, match, createMemoryHistory, withRouter, routerShape, Router, Route, IndexRoute, InjectedRouter, Link, RouterOnContext, RouterContext, LinkProps} from "react-router";
+import {
+	applyRouterMiddleware,
+	browserHistory,
+	hashHistory,
+	match,
+	createMemoryHistory,
+	withRouter,
+	routerShape,
+	Router,
+	Route,
+	IndexRoute,
+	InjectedRouter,
+	Link,
+	RouterContext,
+	LinkProps
+} from "react-router";
 
 const NavLink = (props: LinkProps) => (
 	<Link {...props} activeClassName="active" />
 )
 
 interface MasterContext {
-	router: RouterOnContext;
+	router: InjectedRouter;
 }
 
-class Master extends React.Component<React.Props<{}>, {}> {
+class Master extends Component<any, any> {
 
-	static contextTypes: React.ValidationMap<any> = {
-		router: routerShape
+	static contextTypes: ValidationMap<any> = {
+		"router": routerShape
 	};
+
 	context: MasterContext;
 
 	navigate() {
@@ -106,7 +123,11 @@ const routes = (
 	</Route>
 );
 
-match({history, routes, location: "baseurl"}, (error, redirectLocation, renderProps) => {
+match({ routes, location: "baseurl" }, (error, redirectLocation, renderProps) => {
+	renderToString(<RouterContext {...renderProps} />);
+});
+
+match({ history, routes }, (error, redirectLocation, renderProps) => {
 	renderToString(<RouterContext {...renderProps} />);
 });
 

@@ -1,30 +1,30 @@
-// Type definitions for react-bootstrap v1.0.0
+// Type definitions for react-bootstrap 1.0
 // Project: https://github.com/remojansen/redux-bootstrap
 // Definitions by: Remo H. Jansen <https://github.com/remojansen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-declare module "redux-bootstrap" {
-    import * as Redux from "redux";
-    import ReactRouterRedux = require("react-router-redux");
+import * as React from "react";
+import { Middleware, Reducer, Store } from "redux";
+import { History } from "history";
 
-    interface BootstrapOptions {
-        routes: JSX.Element;
-        reducers: ReducersOption;
-        middlewares?: Redux.Middleware[];
-        initialState?: any;
-        container?: string;
-    }
-
-    interface BootstrapResult {
-        store: Redux.Store<any>;
-        history: ReactRouterRedux.ReactRouterReduxHistory;
-        root: JSX.Element;
-    }
-
-    interface ReducersOption {
-        [index: string]: Redux.Reducer<any>;
-    }
-
-    export default function bootstrap(options: BootstrapOptions): BootstrapResult;
+export interface BootstrapOptions {
+    routes: JSX.Element;
+    reducers: ReducersOption;
+    middlewares?: Middleware[];
+    initialState?: any;
+    container?: string;
 }
+
+export interface BootstrapResult {
+    store: Store<any>;
+    history: History;
+    root: JSX.Element;
+}
+
+export interface ReducersOption {
+    [index: string]: Reducer<any>;
+}
+
+export default function bootstrap(options: BootstrapOptions): BootstrapResult;
+

@@ -1,19 +1,11 @@
-import * as React from 'react';
-import Router from './Router';
+import { ComponentClass, CSSProperties, HTMLProps } from "react";
+import { IndexLinkProps } from "react-router/lib/IndexLink";
 
+export interface LinkProps extends IndexLinkProps {
+    onlyActiveOnIndex?: boolean;
+}
+
+type Link = ComponentClass<LinkProps>;
 declare const Link: Link;
-type Link = Link.Link;
 
 export default Link;
-
-declare namespace Link {
-    interface LinkProps extends React.HTMLAttributes<Link> {
-        activeStyle?: React.CSSProperties;
-        activeClassName?: string;
-        onlyActiveOnIndex?: boolean;
-        to: Router.RoutePattern | Router.LocationDescriptor | ((...args: any[]) => Router.LocationDescriptor);
-    }
-
-    interface Link extends React.ComponentClass<LinkProps> {}
-    interface LinkElement extends React.ReactElement<LinkProps> {}
-}
