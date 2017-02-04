@@ -1,4 +1,4 @@
-// Type definitions for cron 1.2.1
+// Type definitions for cron 1.2
 // Project: https://www.npmjs.com/package/cron
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
