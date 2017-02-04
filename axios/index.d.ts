@@ -99,10 +99,10 @@ declare namespace Axios {
          * change the response data to be made before it is passed to then/catch
          */
         transformResponse?: <U>(data: T) => U;
-     
-        /** 
-         * defines whether to resolve or reject the promise for a given HTTP response status code. 
-         * If returns `true` (or is set to `null` or `undefined`), the promise will be resolved; 
+
+        /**
+         * defines whether to resolve or reject the promise for a given HTTP response status code.
+         * If returns `true` (or is set to `null` or `undefined`), the promise will be resolved;
          * otherwise, the promise will be rejected
          */
         validateStatus?: (status: number) => boolean | undefined;
@@ -199,6 +199,12 @@ declare namespace Axios {
                rejectedFn: (error: any) => any)
             : InterceptorId;
 
+        use<U>(fulfilledFn: (config: AxiosXHRConfig<U>) => IPromise<AxiosXHRConfig<U>>): InterceptorId;
+
+        use<U>(fulfilledFn: (config: AxiosXHRConfig<U>) => IPromise<AxiosXHRConfig<U>>,
+               rejectedFn: (error: any) => any)
+          : InterceptorId;
+
         eject(interceptorId: InterceptorId): void;
     }
 
@@ -209,9 +215,15 @@ declare namespace Axios {
 
         use<T>(fulfilledFn: (config: Axios.AxiosXHR<T>) => Axios.AxiosXHR<T>): InterceptorId;
 
+        use<T>(fulfilledFn: (config: Axios.AxiosXHR<T>) => IPromise<Axios.AxiosXHR<T>>): InterceptorId;
+
         use<T>(fulfilledFn: (config: Axios.AxiosXHR<T>) => Axios.AxiosXHR<T>,
                rejectedFn: (error: any) => any)
             : InterceptorId;
+
+        use<T>(fulfilledFn: (config: Axios.AxiosXHR<T>) => IPromise<Axios.AxiosXHR<T>>,
+               rejectedFn: (error: any) => any)
+          : InterceptorId;
 
         eject(interceptorId: InterceptorId): void;
     }
