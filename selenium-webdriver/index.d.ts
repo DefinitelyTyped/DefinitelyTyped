@@ -1,6 +1,6 @@
-// Type definitions for Selenium WebDriverJS 2.53
+// Type definitions for Selenium WebDriverJS 3.0.1
 // Project: https://github.com/SeleniumHQ/selenium/tree/master/javascript/node/selenium-webdriver
-// Definitions by: Bill Armstrong <https://github.com/BillArmstrong>, Yuki Kokubun <https://github.com/Kuniwak>, Craig Nishina <https://github.com/cnishina>
+// Definitions by: Bill Armstrong <https://github.com/BillArmstrong>, Yuki Kokubun <https://github.com/Kuniwak>, Craig Nishina <https://github.com/cnishina>, Simon Gellis <https://github.com/SupernaviX>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -14,8 +14,6 @@ import * as safari from './safari';
 export namespace error {
   class IError extends Error {
     constructor(opt_error?: string);
-
-    code(): number;
   }
 
   /**
@@ -1040,32 +1038,6 @@ export namespace promise {
     /**
      * Registers a listener for when this promise is rejected. This is synonymous
      * with the {@code catch} clause in a synchronous API:
-     * <pre><code>
-     *   // Synchronous API:
-     *   try {
-     *     doSynchronousWork();
-     *   } catch (ex) {
-     *     console.error(ex);
-     *   }
-     *
-     *   // Asynchronous promise API:
-     *   doAsynchronousWork().thenCatch(function(ex) {
-     *     console.error(ex);
-     *   });
-     * </code></pre>
-     *
-     * @param {function(*): (R|promise.Promise.<R>)} errback The function
-     *     to call if this promise is rejected. The function should expect a single
-     *     argument: the rejection reason.
-     * @return {!promise.Promise.<R>} A new promise which will be
-     *     resolved with the result of the invoked callback.
-     * @template R
-     */
-    thenCatch<R>(errback: (error: any) => any): Promise<R>;
-
-    /**
-     * Registers a listener for when this promise is rejected. This is synonymous
-     * with the {@code catch} clause in a synchronous API:
      *
      *     // Synchronous API:
      *     try {
@@ -1089,47 +1061,6 @@ export namespace promise {
     catch<R>(errback: Function): Promise<R>;
 
 
-    /**
-     * Registers a listener to invoke when this promise is resolved, regardless
-     * of whether the promise's value was successfully computed. This function
-     * is synonymous with the {@code finally} clause in a synchronous API:
-     * <pre><code>
-     *   // Synchronous API:
-     *   try {
-     *     doSynchronousWork();
-     *   } finally {
-     *     cleanUp();
-     *   }
-     *
-     *   // Asynchronous promise API:
-     *   doAsynchronousWork().thenFinally(cleanUp);
-     * </code></pre>
-     *
-     * <b>Note:</b> similar to the {@code finally} clause, if the registered
-     * callback returns a rejected promise or throws an error, it will silently
-     * replace the rejection error (if any) from this promise:
-     * <pre><code>
-     *   try {
-     *     throw Error('one');
-     *   } finally {
-     *     throw Error('two');  // Hides Error: one
-     *   }
-     *
-     *   promise.rejected(Error('one'))
-     *       .thenFinally(function() {
-     *         throw Error('two');  // Hides Error: one
-     *       });
-     * </code></pre>
-     *
-     *
-     * @param {function(): (R|promise.Promise.<R>)} callback The function
-     *     to call when this promise is resolved.
-     * @return {!promise.Promise.<R>} A promise that will be fulfilled
-     *     with the callback result.
-     * @template R
-     */
-    thenFinally<R>(callback: Function): Promise<R>;
-
     // endregion
   }
 
@@ -1144,13 +1075,8 @@ export namespace promise {
    * the next turn of the event loop, the rejection will be passed to the
    * {@link promise.ControlFlow} as an unhandled failure.
    *
-   * <p>If this Deferred is cancelled, the cancellation reason will be forward to
-   * the Deferred's canceller function (if provided). The canceller may return a
-   * truth-y value to override the reason provided for rejection.
-   *
-   * @extends {promise.Promise}
    */
-  class Deferred<T> extends Promise<T> {
+  class Deferred<T> {
     // region Constructors
 
     /**
@@ -2124,32 +2050,6 @@ export class AlertPromise extends Alert implements promise.IThenable<Alert> {
   /**
    * Registers a listener for when this promise is rejected. This is synonymous
    * with the {@code catch} clause in a synchronous API:
-   * <pre><code>
-   *   // Synchronous API:
-   *   try {
-   *     doSynchronousWork();
-   *   } catch (ex) {
-   *     console.error(ex);
-   *   }
-   *
-   *   // Asynchronous promise API:
-   *   doAsynchronousWork().thenCatch(function(ex) {
-   *     console.error(ex);
-   *   });
-   * </code></pre>
-   *
-   * @param {function(*): (R|promise.Promise.<R>)} errback The function
-   *     to call if this promise is rejected. The function should expect a single
-   *     argument: the rejection reason.
-   * @return {!promise.Promise.<R>} A new promise which will be
-   *     resolved with the result of the invoked callback.
-   * @template R
-   */
-  thenCatch<R>(errback: (error: any) => any): promise.Promise<R>;
-
-  /**
-   * Registers a listener for when this promise is rejected. This is synonymous
-   * with the {@code catch} clause in a synchronous API:
    *
    *     // Synchronous API:
    *     try {
@@ -2171,52 +2071,6 @@ export class AlertPromise extends Alert implements promise.IThenable<Alert> {
    * @template R
    */
   catch<R>(errback: Function): promise.Promise<R>;
-
-
-  /**
-   * Registers a listener to invoke when this promise is resolved, regardless
-   * of whether the promise's value was successfully computed. This function
-   * is synonymous with the {@code finally} clause in a synchronous API:
-   * <pre><code>
-   *   // Synchronous API:
-   *   try {
-   *     doSynchronousWork();
-   *   } finally {
-   *     cleanUp();
-   *   }
-   *
-   *   // Asynchronous promise API:
-   *   doAsynchronousWork().thenFinally(cleanUp);
-   * </code></pre>
-   *
-   * <b>Note:</b> similar to the {@code finally} clause, if the registered
-   * callback returns a rejected promise or throws an error, it will silently
-   * replace the rejection error (if any) from this promise:
-   * <pre><code>
-   *   try {
-   *     throw Error('one');
-   *   } finally {
-   *     throw Error('two');  // Hides Error: one
-   *   }
-   *
-   *   promise.rejected(Error('one'))
-   *       .thenFinally(function() {
-   *         throw Error('two');  // Hides Error: one
-   *       });
-   * </code></pre>
-   *
-   *
-   * @param {function(): (R|promise.Promise.<R>)} callback The function
-   *     to call when this promise is resolved.
-   * @return {!promise.Promise.<R>} A promise that will be fulfilled
-   *     with the callback result.
-   * @template R
-   */
-  thenFinally<R>(callback: Function): promise.Promise<R>;
-}
-
-/** @deprecated Use {@link error.UnexpectedAlertOpenError} instead. */
-export class UnhandledAlertError extends error.UnexpectedAlertOpenError {
 }
 
 /**
@@ -2495,6 +2349,15 @@ export class Builder {
   setScrollBehavior(behavior: number): Builder;
 
   /**
+     * Sets the http agent to use for each request.
+     * If this method is not called, the Builder will use http.globalAgent by default.
+     *
+     * @param {http.Agent} agent The agent to use for each request.
+     * @return {!Builder} A self reference.
+     */
+    usingHttpAgent(agent: any): Builder;
+
+    /**
    * Sets the URL of a remote WebDriver server to use. Once a remote URL has been
    * specified, the builder direct all new clients to that server. If this method
    * is never called, the Builder will attempt to create all clients locally.
@@ -3123,19 +2986,6 @@ export class Executor {
 }
 
 /**
- * Wraps a promised {@link Executor}, ensuring no commands are executed until
- * the wrapped executor has been fully resolved.
- * @implements {Executor}
- */
-export class DeferredExecutor {
-  /**
-   * @param {!promise.Promise<Executor>} delegate The promised delegate, which
-   *     may be provided by any promise-like thenable object.
-   */
-  constructor(delegate: promise.Promise<Executor>);
-}
-
-/**
  * Describes an event listener registered on an {@linkplain EventEmitter}.
  */
 export class Listener {
@@ -3287,12 +3137,53 @@ export class Navigation {
 }
 
 interface IWebDriverOptionsCookie {
+
+  /**
+   * The name of the cookie.
+   */
   name: string;
+
+  /**
+   * The cookie value.
+   */
   value: string;
+
+  /**
+   * The cookie path. Defaults to "/" when adding a cookie.
+   */
   path?: string;
+
+  /**
+   * The domain the cookie is visible to. Defaults to the current browsing
+   * context's document's URL when adding a cookie.
+   */
   domain?: string;
+
+  /**
+   * Whether the cookie is a secure cookie. Defaults to false when adding a new
+   * cookie.
+   */
   secure?: boolean;
-  expiry?: number;
+
+  /**
+   * Whether the cookie is an HTTP only cookie. Defaults to false when adding a
+   * new cookie.
+   */
+  httpOnly?: boolean;
+
+  /**
+   * When the cookie expires.
+   *
+   * When {@linkplain Options#addCookie() adding a cookie}, this may be specified
+   * in _seconds_ since Unix epoch (January 1, 1970). The expiry will default to
+   * 20 years in the future if omitted.
+   *
+   * The expiry is always returned in seconds since epoch when
+   * {@linkplain Options#getCookies() retrieving cookies} from the browser.
+   *
+   * @type {(!Date|number|undefined)}
+   */
+  expiry?: number | Date;
 }
 
 /**
@@ -3313,18 +3204,14 @@ export class Options {
 
   /**
    * Schedules a command to add a cookie.
-   * @param {string} name The cookie name.
-   * @param {string} value The cookie value.
-   * @param {string=} opt_path The cookie path.
-   * @param {string=} opt_domain The cookie domain.
-   * @param {boolean=} opt_isSecure Whether the cookie is secure.
-   * @param {(number|!Date)=} opt_expiry When the cookie expires. If specified
-   *     as a number, should be in milliseconds since midnight,
-   *     January 1, 1970 UTC.
+   * @param {IWebDriverOptionsCookie} spec Defines the cookie to add.
    * @return {!promise.Promise<void>} A promise that will be resolved
    *     when the cookie has been added to the page.
+   * @throws {error.InvalidArgumentError} if any of the cookie parameters are
+   *     invalid.
+   * @throws {TypeError} if `spec` is not a cookie object.
    */
-  addCookie(name: string, value: string, opt_path?: string, opt_domain?: string, opt_isSecure?: boolean, opt_expiry?: number | Date): promise.Promise<void>;
+  addCookie(spec: IWebDriverOptionsCookie): webdriver.promise.Promise<void>;
 
   /**
    * Schedules a command to delete all cookies visible to the current page.
@@ -4061,7 +3948,7 @@ export class WebDriver {
    * by the driver. Unlike other commands, this error cannot be suppressed. In
    * other words, scheduling a command to find an element doubles as an assert
    * that the element is present on the page. To test whether an element is
-   * present on the page, use {@link #isElementPresent} instead.
+   * present on the page, use {@link #findElements}.
    *
    * The search criteria for an element may be defined using one of the
    * factories in the {@link By} namespace, or as a short-hand
@@ -4092,24 +3979,6 @@ export class WebDriver {
    *     element will be invalidated and all scheduled commands aborted.
    */
   findElement(locator: By | Function): WebElementPromise;
-
-  /**
-   * Schedules a command to test if an element is present on the page.
-   *
-   * If given a DOM element, this function will check if it belongs to the
-   * document the driver is currently focused on. Otherwise, the function will
-   * test if at least one element can be found with the given search criteria.
-   *
-   * @param {!(by.By|Function)} locator The locator to use.
-   * @return {!promise.Promise<boolean>} A promise that will resolve
-   *     with whether the element is present on the page.
-   * @deprecated This method will be removed in Selenium 3.0 for consistency
-   *     with the other Selenium language bindings. This method is equivalent
-   *     to
-   *
-   *      driver.findElements(locator).then(e => !!e.length);
-   */
-  isElementPresent(locatorOrElement: By | Function): promise.Promise<boolean>;
 
   /**
    * Schedule a command to search for multiple elements on the page.
@@ -4367,26 +4236,12 @@ interface IWebElement {
   isDisplayed(): promise.Promise<boolean>;
 
   /**
-   * Schedules a command to retrieve the outer HTML of this element.
-   * @return {!promise.Promise} A promise that will be resolved with
-   *     the element's outer HTML.
-   */
-  getOuterHtml(): promise.Promise<string>;
-
-  /**
    * @return {!promise.Promise.<WebElement.Id>} A promise
    *     that resolves to this element's JSON representation as defined by the
    *     WebDriver wire protocol.
    * @see http://code.google.com/p/selenium/wiki/JsonWireProtocol
    */
   getId(): promise.Promise<IWebElementId>;
-
-  /**
-   * Schedules a command to retrieve the inner HTML of this element.
-   * @return {!promise.Promise} A promise that will be resolved with the
-   *     element's inner HTML.
-   */
-  getInnerHtml(): promise.Promise<string>;
 
   // endregion
 }
@@ -4398,7 +4253,7 @@ interface IWebElementFinders {
    * be returned by the driver. Unlike other commands, this error cannot be
    * suppressed. In other words, scheduling a command to find an element doubles
    * as an assert that the element is present on the page. To test whether an
-   * element is present on the page, use {@code #isElementPresent} instead.
+   * element is present on the page, use {@code #findElements}.
    *
    * <p>The search criteria for an element may be defined using one of the
    * factories in the {@link By} namespace, or as a short-hand
@@ -4433,17 +4288,6 @@ interface IWebElementFinders {
    *     element will be invalidated and all scheduled commands aborted.
    */
   findElement(locator: By | Function): WebElementPromise;
-
-  /**
-   * Schedules a command to test if there is at least one descendant of this
-   * element that matches the given search criteria.
-   *
-   * @param {!(Locator|By.Hash|Function)} locator The
-   *     locator strategy to use when searching for the element.
-   * @return {!promise.Promise.<boolean>} A promise that will be
-   *     resolved with whether an element could be located on the page.
-   */
-  isElementPresent(locator: By | Function): promise.Promise<boolean>;
 
   /**
    * Schedules a command to find all of the descendants of this element that
@@ -4552,17 +4396,12 @@ export class WebElement implements Serializable<IWebElementId> {
   getId(): promise.Promise<string>;
 
   /**
-   * @deprecated Use {@link #getId()} instead.
-   */
-  getRawId(): any;
-
-  /**
    * Schedule a command to find a descendant of this element. If the element
    * cannot be found, a {@link bot.ErrorCode.NO_SUCH_ELEMENT} result will
    * be returned by the driver. Unlike other commands, this error cannot be
    * suppressed. In other words, scheduling a command to find an element doubles
    * as an assert that the element is present on the page. To test whether an
-   * element is present on the page, use {@link #isElementPresent} instead.
+   * element is present on the page, use {@link #findElements}.
    *
    * The search criteria for an element may be defined using one of the
    * factories in the {@link By} namespace, or as a short-hand
@@ -4595,22 +4434,6 @@ export class WebElement implements Serializable<IWebElementId> {
    *     element will be invalidated and all scheduled commands aborted.
    */
   findElement(locator: By | Function): WebElementPromise;
-
-  /**
-   * Schedules a command to test if there is at least one descendant of this
-   * element that matches the given search criteria.
-   *
-   * @param {!(by.By|Function)} locator The locator strategy to use when
-   *     searching for the element.
-   * @return {!promise.Promise<boolean>} A promise that will be
-   *     resolved with whether an element could be located on the page.
-   * @deprecated This method will be removed in Selenium 3.0 for consistency
-   *     with the other Selenium language bindings. This method is equivalent
-   *     to
-   *
-   *      element.findElements(locator).then(e => !!e.length);
-   */
-  isElementPresent(locator: By | Function): promise.Promise<boolean>;
 
   /**
    * Schedules a command to find all of the descendants of this element that
@@ -4817,20 +4640,6 @@ export class WebElement implements Serializable<IWebElementId> {
    */
   takeScreenshot(opt_scroll?: boolean): promise.Promise<string>;
 
-  /**
-   * Schedules a command to retrieve the outer HTML of this element.
-   * @return {!promise.Promise.<string>} A promise that will be
-   *     resolved with the element's outer HTML.
-   */
-  getOuterHtml(): promise.Promise<string>;
-
-  /**
-   * Schedules a command to retrieve the inner HTML of this element.
-   * @return {!promise.Promise} A promise that will be resolved with the
-   *     element's inner HTML.
-   */
-  getInnerHtml(): promise.Promise<string>;
-
   /** @override */
   serialize(): promise.Promise<IWebElementId>;
 }
@@ -4907,74 +4716,6 @@ export class WebElementPromise extends WebElement implements promise.IThenable<W
    */
   then<R>(opt_callback?: (value: WebElement) => R, opt_errback?: (error: any) => any): promise.Promise<R>;
 
-
-  /**
-   * Registers a listener for when this promise is rejected. This is synonymous
-   * with the {@code catch} clause in a synchronous API:
-   * <pre><code>
-   *   // Synchronous API:
-   *   try {
-   *     doSynchronousWork();
-   *   } catch (ex) {
-   *     console.error(ex);
-   *   }
-   *
-   *   // Asynchronous promise API:
-   *   doAsynchronousWork().thenCatch(function(ex) {
-   *     console.error(ex);
-   *   });
-   * </code></pre>
-   *
-   * @param {function(*): (R|promise.Promise.<R>)} errback The function
-   *     to call if this promise is rejected. The function should expect a single
-   *     argument: the rejection reason.
-   * @return {!promise.Promise.<R>} A new promise which will be
-   *     resolved with the result of the invoked callback.
-   * @template R
-   */
-  thenCatch<R>(errback: (error: any) => any): promise.Promise<R>;
-
-
-  /**
-   * Registers a listener to invoke when this promise is resolved, regardless
-   * of whether the promise's value was successfully computed. This function
-   * is synonymous with the {@code finally} clause in a synchronous API:
-   * <pre><code>
-   *   // Synchronous API:
-   *   try {
-   *     doSynchronousWork();
-   *   } finally {
-   *     cleanUp();
-   *   }
-   *
-   *   // Asynchronous promise API:
-   *   doAsynchronousWork().thenFinally(cleanUp);
-   * </code></pre>
-   *
-   * <b>Note:</b> similar to the {@code finally} clause, if the registered
-   * callback returns a rejected promise or throws an error, it will silently
-   * replace the rejection error (if any) from this promise:
-   * <pre><code>
-   *   try {
-   *     throw Error('one');
-   *   } finally {
-   *     throw Error('two');  // Hides Error: one
-   *   }
-   *
-   *   promise.rejected(Error('one'))
-   *       .thenFinally(function() {
-   *         throw Error('two');  // Hides Error: one
-   *       });
-   * </code></pre>
-   *
-   *
-   * @param {function(): (R|promise.Promise.<R>)} callback The function
-   *     to call when this promise is resolved.
-   * @return {!promise.Promise.<R>} A promise that will be fulfilled
-   *     with the callback result.
-   * @template R
-   */
-  thenFinally<R>(callback: () => any): promise.Promise<R>;
 
   /**
    * Registers a listener for when this promise is rejected. This is synonymous

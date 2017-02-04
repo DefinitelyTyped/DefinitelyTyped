@@ -99,10 +99,11 @@ export function sendRequest(options: Object, onOk: any, onError: any, opt_data?:
  */
 export class Executor {
     /**
-     * @param {!HttpClient} client The client to use for sending requests to the
-     *     server.
+     * @param {!(HttpClient|IThenable<!HttpClient>)} client The client to use for sending
+     *     requests to the server, or a promise-like object that will resolve to
+     *     to the client.
      */
-    constructor(client: HttpClient);
+    constructor(client: HttpClient | webdriver.promise.IThenable<HttpClient>);
 
     /**
      * Defines a new command for use with this executor. When a command is sent,

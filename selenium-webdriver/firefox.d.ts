@@ -197,11 +197,13 @@ export class Options {
     setProxy(proxy: webdriver.ProxyConfig): Options;
 
     /**
-     * Sets whether to use Mozilla's Marionette to drive the browser.
+     * Sets whether to use Mozilla's geckodriver to drive the browser. This option
+     * is enabled by default and required for Firefox 47+.
      *
-     * @see https://developer.mozilla.org/en-US/docs/Mozilla/QA/Marionette/WebDriver
+     * @param {boolean} enable Whether to enable the geckodriver.
+     * @see https://github.com/mozilla/geckodriver
      */
-    useMarionette(marionette: any): Options;
+    useGeckoDriver(enable: boolean): Options;
 
     /**
      * Converts these options to a {@link capabilities.Capabilities} instance.
