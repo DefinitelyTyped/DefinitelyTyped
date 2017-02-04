@@ -90,6 +90,7 @@ declare namespace Router {
         router?: InjectedRouter;
         routes?: PlainRoute[];
         children?: React.ReactElement<any>;
+        router?: Router;
     }
 
     interface RouterOnContext extends History {
