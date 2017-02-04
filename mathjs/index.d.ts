@@ -1036,7 +1036,7 @@ declare namespace mathjs {
 		asech(x: MathArray): MathArray;
 		asech(x: Matrix): Matrix;
 
-                /**
+		/**
 		 * Calculate the inverse sine of a value. For matrices, the function is evaluated element wise.
 		 */
 		asin(x: number): number;
@@ -1162,6 +1162,16 @@ declare namespace mathjs {
 		sin(x: Unit): number;
 		sin(x: MathArray): MathArray;
 		sin(x: Matrix): Matrix;
+
+		/**
+		 * Calculate the cosine of a value. For matrices, the function is evaluated element wise.
+		 */
+		cos(x: number): number;
+		cos(x: BigNumber): BigNumber;
+		cos(x: Complex): Complex;
+		cos(x: Unit): number;
+		cos(x: MathArray): MathArray;
+		cos(x: Matrix): Matrix;
 
 		/**
 		 * Calculate the hyperbolic sine of a value, defined as sinh(x) = 1/2 * (exp(x) - exp(-x)). For matrices, the function is evaluated element wise.

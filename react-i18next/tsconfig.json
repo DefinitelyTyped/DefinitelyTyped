@@ -11,7 +11,8 @@
         "baseUrl": "../",
         "paths": {
             "history": ["history/v2"],
-            "history/*": ["history/v2/*"]
+            "history/*": ["history/v2/*"],
+            "react-router": ["react-router/v2"]
         },
         "typeRoots": [
             "../"

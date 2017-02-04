@@ -2,6 +2,7 @@
 // Project: https://github.com/betterwaysystems/packer
 // Definitions by: Jeongho Nam <http://samchon.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="typescript-stl" />
 /// <reference types="samchon-framework" />

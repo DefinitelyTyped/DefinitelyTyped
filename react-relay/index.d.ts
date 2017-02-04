@@ -2,6 +2,7 @@
 // Project: https://github.com/facebook/relay
 // Definitions by: Johannes Schickling <https://github.com/graphcool>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 declare module "react-relay" {
     import * as React from "react";

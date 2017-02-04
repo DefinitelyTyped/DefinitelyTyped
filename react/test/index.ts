@@ -660,20 +660,6 @@ React.createFactory(TransitionGroup)({ component: "div" });
 }
 
 //
-// React Component classes super spread arguments
-// --------------------------------------------------------------------------
-class ConstructorSpreadArgsComponent extends React.Component<{}, {}> {
-    constructor(...args: any[]) {
-        super(...args);
-    }
-}
-class ConstructorSpreadArgsPureComponent extends React.PureComponent<{}, {}> {
-    constructor(...args: any[]) {
-        super(...args);
-    }
-}
-
-//
 // The SyntheticEvent.target.value should be accessible for onChange
 // --------------------------------------------------------------------------
 class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
@@ -688,3 +674,18 @@ class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
     });
   }
 }
+
+React.DOM.input({
+    onChange: event => {
+        // `event.target` is guaranteed to be HTMLInputElement
+        event.target.value;
+    }
+});
+
+// A ChangeEvent is a valid FormEvent (maintain compatibility with existing
+// event handlers)
+
+type InputChangeEvent = React.ChangeEvent<HTMLInputElement>;
+type InputFormEvent = React.FormEvent<HTMLInputElement>;
+const changeEvent:InputChangeEvent = undefined as any;
+const formEvent:InputFormEvent = changeEvent;

@@ -11,7 +11,7 @@
 
 // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
 interface Console {
-    Console: typeof NodeJS.Console;
+    Console: NodeJS.ConsoleConstructor;
     assert(value: any, message?: string, ...optionalParams: any[]): void;
     dir(obj: any, options?: {showHidden?: boolean, depth?: number, colors?: boolean}): void;
     error(message?: any, ...optionalParams: any[]): void;
@@ -247,7 +247,7 @@ declare var Buffer: {
 *                                               *
 ************************************************/
 declare namespace NodeJS {
-    export var Console: {
+    export interface ConsoleConstructor {
         prototype: Console;
         new(stdout: WritableStream, stderr?: WritableStream): Console;
     }
@@ -281,12 +281,12 @@ declare namespace NodeJS {
         readable: boolean;
         isTTY?: boolean;
         read(size?: number): string | Buffer;
-        setEncoding(encoding: string | null): void;
-        pause(): ReadableStream;
-        resume(): ReadableStream;
+        setEncoding(encoding: string | null): this;
+        pause(): this;
+        resume(): this;
         isPaused(): boolean;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
-        unpipe<T extends WritableStream>(destination?: T): void;
+        unpipe<T extends WritableStream>(destination?: T): this;
         unshift(chunk: string): void;
         unshift(chunk: Buffer): void;
         wrap(oldStream: ReadableStream): ReadableStream;
@@ -303,10 +303,7 @@ declare namespace NodeJS {
         end(str: string, encoding?: string, cb?: Function): void;
     }
 
-    export interface ReadWriteStream extends ReadableStream, WritableStream {
-        pause(): ReadWriteStream;
-        resume(): ReadWriteStream;
-    }
+    export interface ReadWriteStream extends ReadableStream, WritableStream { }
 
     export interface Events extends EventEmitter { }
 
@@ -346,6 +343,15 @@ declare namespace NodeJS {
         modules: string;
         openssl: string;
     }
+
+    type Platform = 'aix'
+                  | 'android'
+                  | 'darwin'
+                  | 'freebsd'
+                  | 'linux'
+                  | 'openbsd'
+                  | 'sunos'
+                  | 'win32';
 
     export interface Process extends EventEmitter {
         stdout: WritableStream;
@@ -399,7 +405,7 @@ declare namespace NodeJS {
         pid: number;
         title: string;
         arch: string;
-        platform: string;
+        platform: Platform;
         mainModule?: NodeModule;
         memoryUsage(): MemoryUsage;
         cpuUsage(previousValue?: CpuUsage): CpuUsage;
@@ -1043,7 +1049,17 @@ declare module "cluster" {
 
 declare module "zlib" {
     import * as stream from "stream";
-    export interface ZlibOptions { chunkSize?: number; windowBits?: number; level?: number; memLevel?: number; strategy?: number; dictionary?: any; finishFlush?: number }
+
+    export interface ZlibOptions {
+      flush?: number; // default: zlib.constants.Z_NO_FLUSH
+      finishFlush?: number; // default: zlib.constants.Z_FINISH
+      chunkSize?: number; // default: 16*1024
+      windowBits?: number;
+      level?: number; // compression only
+      memLevel?: number; // compression only
+      strategy?: number; // compression only
+      dictionary?: any; // deflate/inflate only, empty dictionary by default
+    }
 
     export interface Gzip extends stream.Transform { }
     export interface Gunzip extends stream.Transform { }
@@ -1076,6 +1092,45 @@ declare module "zlib" {
     export function unzip(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
     export function unzipSync(buf: Buffer, options?: ZlibOptions): Buffer;
 
+    export namespace constants {
+        // Allowed flush values.
+
+        export const Z_NO_FLUSH: number;
+        export const Z_PARTIAL_FLUSH: number;
+        export const Z_SYNC_FLUSH: number;
+        export const Z_FULL_FLUSH: number;
+        export const Z_FINISH: number;
+        export const Z_BLOCK: number;
+        export const Z_TREES: number;
+
+        // Return codes for the compression/decompression functions. Negative values are errors, positive values are used for special but normal events.
+
+        export const Z_OK: number;
+        export const Z_STREAM_END: number;
+        export const Z_NEED_DICT: number;
+        export const Z_ERRNO: number;
+        export const Z_STREAM_ERROR: number;
+        export const Z_DATA_ERROR: number;
+        export const Z_MEM_ERROR: number;
+        export const Z_BUF_ERROR: number;
+        export const Z_VERSION_ERROR: number;
+
+        // Compression levels.
+
+        export const Z_NO_COMPRESSION: number;
+        export const Z_BEST_SPEED: number;
+        export const Z_BEST_COMPRESSION: number;
+        export const Z_DEFAULT_COMPRESSION: number;
+
+        // Compression strategy.
+
+        export const Z_FILTERED: number;
+        export const Z_HUFFMAN_ONLY: number;
+        export const Z_RLE: number;
+        export const Z_FIXED: number;
+        export const Z_DEFAULT_STRATEGY: number;
+    }
+
     // Constants
     export var Z_NO_FLUSH: number;
     export var Z_PARTIAL_FLUSH: number;
@@ -1107,7 +1162,6 @@ declare module "zlib" {
     export var Z_ASCII: number;
     export var Z_UNKNOWN: number;
     export var Z_DEFLATED: number;
-    export var Z_NULL: number;
 }
 
 declare module "os" {
@@ -1263,7 +1317,7 @@ declare module "os" {
         },
     };
     export function arch(): string;
-    export function platform(): string;
+    export function platform(): NodeJS.Platform;
     export function tmpdir(): string;
     export var EOL: string;
     export function endianness(): "BE" | "LE";
@@ -1847,11 +1901,11 @@ declare module "net" {
         connect(port: number, host?: string, connectionListener?: Function): void;
         connect(path: string, connectionListener?: Function): void;
         bufferSize: number;
-        setEncoding(encoding?: string): void;
+        setEncoding(encoding?: string): this;
         write(data: any, encoding?: string, callback?: Function): void;
         destroy(): void;
-        pause(): Socket;
-        resume(): Socket;
+        pause(): this;
+        resume(): this;
         setTimeout(timeout: number, callback?: Function): void;
         setNoDelay(noDelay?: boolean): void;
         setKeepAlive(enable?: boolean, initialDelay?: number): void;
@@ -2067,7 +2121,7 @@ declare module "dgram" {
         send(msg: Buffer | String | any[], offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
         bind(port?: number, address?: string, callback?: () => void): void;
         bind(options: BindOptions, callback?: Function): void;
-        close(callback?: any): void;
+        close(callback?: () => void): void;
         address(): AddressInfo;
         setBroadcast(flag: boolean): void;
         setTTL(ttl: number): void;
@@ -3341,12 +3395,12 @@ declare module "stream" {
             constructor(opts?: ReadableOptions);
             protected _read(size: number): void;
             read(size?: number): any;
-            setEncoding(encoding: string): void;
-            pause(): Readable;
-            resume(): Readable;
+            setEncoding(encoding: string): this;
+            pause(): this;
+            resume(): this;
             isPaused(): boolean;
             pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
-            unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
+            unpipe<T extends NodeJS.WritableStream>(destination?: T): this;
             unshift(chunk: any): void;
             wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
             push(chunk: any, encoding?: string): boolean;
@@ -3505,8 +3559,8 @@ declare module "stream" {
         // Note: Duplex extends both Readable and Writable.
         export class Duplex extends Readable implements NodeJS.ReadWriteStream {
             // Readable
-            pause(): Duplex;
-            resume(): Duplex;
+            pause(): this;
+            resume(): this;
             // Writeable
             writable: boolean;
             constructor(opts?: DuplexOptions);
@@ -3531,12 +3585,12 @@ declare module "stream" {
             protected _transform(chunk: any, encoding: string, callback: Function): void;
             protected _flush(callback: Function): void;
             read(size?: number): any;
-            setEncoding(encoding: string): void;
-            pause(): Transform;
-            resume(): Transform;
+            setEncoding(encoding: string): this;
+            pause(): this;
+            resume(): this;
             isPaused(): boolean;
             pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
-            unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
+            unpipe<T extends NodeJS.WritableStream>(destination?: T): this;
             unshift(chunk: any): void;
             wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
             push(chunk: any, encoding?: string): boolean;
@@ -3959,10 +4013,8 @@ declare module "v8" {
         physical_space_size: number;
     }
 
-    enum DoesZapCodeSpaceFlag {
-        Disabled = 0,
-        Enabled = 1
-    }
+    //** Signifies if the --zap_code_space option is enabled or not.  1 == enabled, 0 == disabled. */
+    type DoesZapCodeSpaceFlag = 0 | 1;
 
     interface HeapInfo {
         total_heap_size: number;

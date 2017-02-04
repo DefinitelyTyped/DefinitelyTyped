@@ -347,6 +347,15 @@ declare namespace NodeJS {
         openssl: string;
     }
 
+    type Platform = 'aix'
+                  | 'android'
+                  | 'darwin'
+                  | 'freebsd'
+                  | 'linux'
+                  | 'openbsd'
+                  | 'sunos'
+                  | 'win32';
+
     export interface Process extends EventEmitter {
         stdout: WritableStream;
         stderr: WritableStream;
@@ -399,7 +408,7 @@ declare namespace NodeJS {
         pid: number;
         title: string;
         arch: string;
-        platform: string;
+        platform: Platform;
         mainModule?: NodeModule;
         memoryUsage(): MemoryUsage;
         cpuUsage(previousValue?: CpuUsage): CpuUsage;
@@ -1262,7 +1271,7 @@ declare module "os" {
         },
     };
     export function arch(): string;
-    export function platform(): string;
+    export function platform(): NodeJS.Platform;
     export function tmpdir(): string;
     export var EOL: string;
     export function endianness(): "BE" | "LE";
@@ -1498,7 +1507,7 @@ declare module "readline" {
     export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer, terminal?: boolean): ReadLine;
     export function createInterface(options: ReadLineOptions): ReadLine;
 
-    export function cursorTo(stream: NodeJS.WritableStream, x: number, y: number): void;
+    export function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number): void;
     export function moveCursor(stream: NodeJS.WritableStream, dx: number | string, dy: number | string): void;
     export function clearLine(stream: NodeJS.WritableStream, dir: number): void;
     export function clearScreenDown(stream: NodeJS.WritableStream): void;
