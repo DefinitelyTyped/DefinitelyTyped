@@ -208,6 +208,7 @@ function test_methods() {
         $("#myform").submit();
         $("#myinput").attr(rules);
     });
+    $("#myform").validate().checkForm();
     $("#myform").validate().form();
     $("#myform").validate().element("#myselect");
     $("#myform").validate().element($("#myselect"));

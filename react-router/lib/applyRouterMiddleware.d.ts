@@ -1,9 +1,9 @@
-import * as React from 'react';
-import Router from './Router';
-import RouterContext from './RouterContext';
+import { RouteComponent } from "react-router";
+import RouterContext from "react-router/lib/RouterContext";
 
 export interface Middleware {
-    renderRouterContext?: (previous: RouterContext, props: React.Props<{}>) => RouterContext;
-    renderRouteComponent?: (previous: Router.RouteComponent, props: React.Props<{}>) => Router.RouteComponent;
+    renderRouterContext?: (previous: RouterContext, props: any) => RouterContext;
+    renderRouteComponent?: (previous: RouteComponent, props: any) => RouteComponent;
 }
-export default function applyRouterMiddleware(...middlewares: Middleware[]): (renderProps: React.Props<{}>) => RouterContext;
+
+export default function applyRouterMiddleware(...middlewares: Middleware[]): (renderProps: any) => RouterContext;

@@ -9,9 +9,6 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
-        "paths": {
-            "history": ["history/v2"]
-        },
         "typeRoots": [
             "../"
         ],

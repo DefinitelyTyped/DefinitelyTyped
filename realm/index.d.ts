@@ -1,4 +1,4 @@
-// Type definitions for realm-js 0.14.3
+// Type definitions for realm-js 0.14
 // Project: https://github.com/realm/realm-js
 // Definitions by: Akim <https://github.com/Akim95>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -94,7 +94,7 @@ declare namespace Realm {
     * Collection
     * @see { @link https://realm.io/docs/react-native/latest/api/Realm.Collection.html }
     */
-    export interface Collection {
+    export interface Collection<T> {
         readonly length: number;
 
         /**
@@ -107,24 +107,24 @@ declare namespace Realm {
          * @param  {any[]} ...arg
          * @returns Results
          */
-        filtered(query: string, ...arg: any[]): Results;
+        filtered(query: string, ...arg: any[]): Results<T>;
 
         /**
          * @param  {string|SortDescriptor} descriptor
          * @param  {boolean} reverse?
          * @returns Results
          */
-        sorted(descriptor: string | SortDescriptor, reverse?: boolean): Results;
- 
+        sorted(descriptor: string | SortDescriptor, reverse?: boolean): Results<T>;
+
         /**
-         * @returns Iterator<any>
+         * @returns Iterator<T|any>
          */
-        [Symbol.iterator](): Iterator<any>;
+        [Symbol.iterator](): Iterator<T>;
 
         /**
          * @returns Results
          */
-        snapshot(): Results;
+        snapshot(): Results<T>;
 
         /**
          * @returns Iterator<any>
@@ -150,65 +150,65 @@ declare namespace Realm {
         /**
          * @param  {number} start?
          * @param  {number} end?
-         * @returns Object
+         * @returns T[] | Object[]
          */
-        slice(start?: number, end?: number): Object[];
+        slice(start?: number, end?: number): T[];
 
         /**
          * @param  {(object:any,index?:any,collection?:any)=>void} callback
          * @param  {any} thisArg?
          * @returns Object|void
          */
-        find(callback: (object: any, index?: any, collection?: any) => void, thisArg?: any): Object | void;
+        find(callback: (object: any, index?: any, collection?: any) => void, thisArg?: any): T | null | undefined;
 
         /**
          * @param  {(object:any,index?:any,collection?:any)=>void} callback
          * @param  {any} thisArg?
          * @returns number
          */
-        findIndex(callback: (object: any, index?: any, collection?: any) => void, thisArg?: any): number;
+        findIndex(callback: (object: any, index?: number, collection?: any) => void, thisArg?: any): number;
 
         /**
-         * @param  {(object:any,index?:any,collection?:any)=>void} callback
+         * @param  {(object:T|any,index?:number,collection?:any)=>void} callback
          * @param  {any} thisArg?
          * @returns void
          */
-        forEach(callback: (object: any, index?: any, collection?: any) => void, thisArg?: any): void;
+        forEach(callback: (object: T, index?: number, collection?: any) => void, thisArg?: any): void;
 
         /**
-         * @param  {(object:any,index?:any,collection?:any)=>void} callback
+         * @param  {(object:T|any,index?:number,collection?:any)=>void} callback
          * @param  {any} thisArg?
          * @returns boolean
          */
-        every(callback: (object: any, index?: any, collection?: any) => void, thisArg?: any): boolean;
+        every(callback: (object: T, index?: number, collection?: any) => void, thisArg?: any): boolean;
 
         /**
-         * @param  {(object:any,index?:any,collection?:any)=>void} callback
+         * @param  {(object:any,index?:number,collection?:any)=>void} callback
          * @param  {any} thisArg?
          * @returns boolean
          */
-        some(callback: (object: any, index?: any, collection?: any) => void, thisArg?: any): boolean;
+        some(callback: (object: T, index?: number, collection?: any) => void, thisArg?: any): boolean;
 
         /**
-         * @param  {(object:any,index?:any,collection?:any)=>void} callback
+         * @param  {(object:any,index?:number,collection?:any)=>void} callback
          * @param  {any} thisArg?
          * @returns any
          */
-        map(callback: (object: any, index?: any, collection?: any) => void, thisArg?: any): any[];
+        map(callback: (object: T, index?: number, collection?: any) => void, thisArg?: any): any[];
+
+        /**
+         * @param  {(previousValue:T|any,object?:any,index?:number,collection?:any)=>void} callback
+         * @param  {any} initialValue?
+         * @returns any
+         */
+        reduce(callback: (previousValue: T, object?: T, index?: number, collection?: any) => void, initialValue?: any): any;
 
         /**
          * @param  {(previousValue:any,object?:any,index?:any,collection?:any)=>void} callback
          * @param  {any} initialValue?
          * @returns any
          */
-        reduce(callback: (previousValue: any, object?: any, index?: any, collection?: any) => void, initialValue?: any): any;
-
-        /**
-         * @param  {(previousValue:any,object?:any,index?:any,collection?:any)=>void} callback
-         * @param  {any} initialValue?
-         * @returns any
-         */
-        reduceRight(callback: (previousValue: any, object?: any, index?: any, collection?: any) => void, initialValue?: any): any;
+        reduceRight(callback: (previousValue: T, object?: T, index?: any, collection?: any) => void, initialValue?: any): any;
     }
 
     /**
@@ -226,22 +226,22 @@ declare namespace Realm {
     * List
     * @see { @link https://realm.io/docs/react-native/latest/api/Realm.List.html }
     */
-    export interface List extends Collection {
+    export interface List<T> extends Collection<T> {
         /**
          * @returns Object|void
          */
-        pop(): Object | void;
+        pop(): T | null | undefined;
 
         /**
          * @param  {any} object
          * @returns number
          */
-        push(object: any): number;
+        push(object: T): number;
 
         /**
          * @returns Object|void
          */
-        shift(): Object | void;
+        shift(): T | null | undefined;
 
         /**
          * @param  {number} index
@@ -249,20 +249,20 @@ declare namespace Realm {
          * @param  {any} object?
          * @returns Object
          */
-        splice(index: number, count?: number, object?: any): Object[];
+        splice(index: number, count?: number, object?: any): T[];
 
         /**
          * @param  {any} object
          * @returns number
          */
-        unshift(object: any): number;
+        unshift(object: T): number;
     }
 
     /**
     * Results
     * @see { @link https://realm.io/docs/react-native/latest/api/Realm.Results.html }
     */
-    export interface Results extends Collection {}
+    export type Results<T> = Collection<T>;
 }
 
 declare class Realm {
@@ -297,13 +297,13 @@ declare class Realm {
      * @param  {boolean} update?
      * @returns Realm.Object|T|any
      */
-    create<T>(type: string | Realm.ObjectType, properties: Realm.ObjectPropsType, update?: boolean): Realm.Object | T | any;
+    create<T>(type: string | Realm.ObjectType, properties: T & Realm.ObjectPropsType, update?: boolean): T;
 
     /**
      * @param  {Realm.Object|Realm.Object[]|Realm.List|Realm.Results|any} object
      * @returns void
      */
-    delete(object: Realm.Object | Realm.Object[] | Realm.List | Realm.Results | any): void;
+    delete(object: Realm.Object | Realm.Object[] | Realm.List<any> | Realm.Results<any> | any): void;
 
     /**
      * @returns void
@@ -315,13 +315,13 @@ declare class Realm {
      * @param  {number|string} key
      * @returns Realm.Object|void
      */
-    objectForPrimaryKey(type: string | Realm.ObjectType, key: number | string): Realm.Object | void;
+    objectForPrimaryKey<T>(type: string | Realm.ObjectType, key: number | string): T | void;
 
     /**
      * @param  {string|Realm.ObjectType} type
      * @returns Realm.Results
      */
-    objects(type: string | Realm.ObjectType): Realm.Results;
+    objects<T>(type: string | Realm.ObjectType): Realm.ObjectType & Realm.Results<T>;
 
     /**
      * @param  {string} name
