@@ -1122,17 +1122,17 @@ export interface WriteOpResult {
 export type CursorResult = any | void | boolean;
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html
-export interface Cursor<T extends any> extends Readable {
+export interface Cursor<T> extends Readable {
 
     sortValue: string;
     timeout: boolean;
     readPreference: ReadPreference;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#addCursorFlag
-    addCursorFlag(flag: string, value: boolean): Cursor<any>;
+    addCursorFlag(flag: string, value: boolean): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#addQueryModifier
-    addQueryModifier(name: string, value: boolean): Cursor<any>;
+    addQueryModifier(name: string, value: boolean): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#batchSize
-    batchSize(value: number): Cursor<any>;
+    batchSize(value: number): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#clone
     // https://github.com/christkv/mongodb-core/blob/2.0/lib/cursor.js#L333
     clone(): Cursor<T>; // still returns the same type
@@ -1140,7 +1140,7 @@ export interface Cursor<T extends any> extends Readable {
     close(): Promise<CursorResult>;
     close(callback: MongoCallback<CursorResult>): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#comment
-    comment(value: string): Cursor<any>;
+    comment(value: string): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#count
     count(applySkipLimit: boolean, callback: MongoCallback<number>): void;
     count(applySkipLimit: boolean, options?: CursorCommentOptions): Promise<number>;
@@ -1149,55 +1149,55 @@ export interface Cursor<T extends any> extends Readable {
     explain(): Promise<CursorResult>;
     explain(callback: MongoCallback<CursorResult>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#filter
-    filter(filter: Object): Cursor<any>;
+    filter(filter: Object): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#forEach
     forEach(iterator: IteratorCallback<T>, callback: EndCallback): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#hasNext
     hasNext(): Promise<boolean>;
     hasNext(callback: MongoCallback<boolean>): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#hint
-    hint(hint: Object): Cursor<any>;
+    hint(hint: Object): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#isClosed
     isClosed(): boolean;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#limit
-    limit(value: number): Cursor<any>;
+    limit(value: number): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#map
-    map(transform: Function): Cursor<any>;
+    map(transform: Function): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#max
-    max(max: number): Cursor<any>;
+    max(max: number): Cursor<T>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#maxAwaitTimeMS
-    maxAwaitTimeMS(value: number): Cursor<any>;
+    maxAwaitTimeMS(value: number): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#maxScan
-    maxScan(maxScan: Object): Cursor<any>;
+    maxScan(maxScan: Object): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#maxTimeMS
-    maxTimeMS(value: number): Cursor<any>;
+    maxTimeMS(value: number): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#min
-    min(min: number): Cursor<any>;
+    min(min: number): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#next
     next(): Promise<CursorResult>;
     next(callback: MongoCallback<CursorResult>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#project
-    project(value: Object): Cursor<any>;
+    project(value: Object): Cursor<T>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#read
     read(size: number): string | Buffer | void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#next
-    returnKey(returnKey: Object): Cursor<any>;
+    returnKey(returnKey: Object): Cursor<T>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#rewind
     rewind(): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#setCursorOption
-    setCursorOption(field: string, value: Object): Cursor<any>;
+    setCursorOption(field: string, value: Object): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#setReadPreference
-    setReadPreference(readPreference: string | ReadPreference): Cursor<any>;
+    setReadPreference(readPreference: string | ReadPreference): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#showRecordId
-    showRecordId(showRecordId: Object): Cursor<any>;
+    showRecordId(showRecordId: Object): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#skip
-    skip(value: number): Cursor<any>;
+    skip(value: number): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#snapshot
-    snapshot(snapshot: Object): Cursor<any>;
+    snapshot(snapshot: Object): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#sort
-    sort(keyOrList: string | Object[] | Object, direction?: number): Cursor<any>;
+    sort(keyOrList: string | Object[] | Object, direction?: number): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#stream
-    stream(options?: { transform?: Function }): Cursor<any>;
+    stream(options?: { transform?: Function }): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#toArray
     toArray(): Promise<T[]>;
     toArray(callback: MongoCallback<T[]>): void;
@@ -1228,11 +1228,11 @@ export interface EndCallback {
 export type AggregationCursorResult = any | void;
 // TODO: change to generic version
 //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html
-export interface AggregationCursor<T extends any> extends Readable {
+export interface AggregationCursor<T> extends Readable {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#batchSize
-    batchSize(value: number): AggregationCursor<any>;
+    batchSize(value: number): AggregationCursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#clone
-    clone(): AggregationCursor<any>;
+    clone(): AggregationCursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#close
     close(): Promise<AggregationCursorResult>;
     close(callback: MongoCallback<AggregationCursorResult>): void;
@@ -1242,41 +1242,41 @@ export interface AggregationCursor<T extends any> extends Readable {
     explain(): Promise<AggregationCursorResult>;
     explain(callback: MongoCallback<AggregationCursorResult>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#geoNear
-    geoNear(document: Object): AggregationCursor<any>;
+    geoNear(document: Object): AggregationCursor<T>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#group
-    group(document: Object): AggregationCursor<any>;
+    group(document: Object): AggregationCursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#isClosed
     isClosed(): boolean;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#limit
-    limit(value: number): AggregationCursor<any>;
+    limit(value: number): AggregationCursor<T>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#match
-    match(document: Object): AggregationCursor<any>;
+    match(document: Object): AggregationCursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#maxTimeMS
-    maxTimeMS(value: number): AggregationCursor<any>;
+    maxTimeMS(value: number): AggregationCursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#next
     next(): Promise<AggregationCursorResult>;
     next(callback: MongoCallback<AggregationCursorResult>): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#out
-    out(destination: string): AggregationCursor<any>;
+    out(destination: string): AggregationCursor<T>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#project
-    project(document: Object): AggregationCursor<any>;
+    project(document: Object): AggregationCursor<T>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#read
     read(size: number): string | Buffer | void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#redact
-    redact(document: Object): AggregationCursor<any>;
+    redact(document: Object): AggregationCursor<T>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#rewind
-    rewind(): AggregationCursor<any>;
+    rewind(): AggregationCursor<T>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#setEncoding
-    skip(value: number): AggregationCursor<any>;
+    skip(value: number): AggregationCursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#sort
-    sort(document: Object): AggregationCursor<any>;
+    sort(document: Object): AggregationCursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#toArray
     toArray(): Promise<T[]>;
     toArray(callback: MongoCallback<T[]>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#unshift
     unshift(stream: Buffer | string): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#unwind
-    unwind(field: string): AggregationCursor<any>;
+    unwind(field: string): AggregationCursor<T>;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html
