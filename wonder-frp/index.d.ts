@@ -1,4 +1,4 @@
-// Type definitions for wonder-frp 0.1
+// Type definitions for wonder-frp 0.1.1
 // Project: https://github.com/yyc-git/Wonder-FRP
 // Definitions by: YYC <https://github.com/yyc-git>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -103,7 +103,7 @@ declare module wdFrp {
     }
 }
 
-declare var global: any, window: Window;
+declare var global:NodeJS.Global,window:Window;
 declare module wdFrp {
     var root: any;
 }
