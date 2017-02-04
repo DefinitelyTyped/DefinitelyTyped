@@ -2,6 +2,7 @@
 // Project: https://github.com/callemall/material-ui
 // Definitions by: Nathan Brown <https://github.com/ngbrown>, Oliver Herrmann <https://github.com/herrmanno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="react" />
 /// <reference types="react-addons-linked-state-mixin" />
@@ -452,7 +453,10 @@ declare namespace __MaterialUI {
         var lightBaseTheme: RawTheme;
         var darkBaseTheme: RawTheme;
 
-        export function muiThemeable<TComponent extends React.Component<P, S>, P, S>(): (component: TComponent) => TComponent;
+        export function muiThemeable(): <
+            TComponent extends React.ComponentClass<P> | React.StatelessComponent<P>,
+            P extends {muiTheme?: MuiTheme}
+        >(component: TComponent) => TComponent;
 
         interface MuiThemeProviderProps {
             muiTheme?: Styles.MuiTheme;

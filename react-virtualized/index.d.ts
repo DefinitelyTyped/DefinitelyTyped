@@ -2,6 +2,7 @@
 // Project: https://github.com/bvaughn/react-virtualized
 // Definitions by: Andrew de Waal <https://github.com/andrewdewaal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="react" />
 

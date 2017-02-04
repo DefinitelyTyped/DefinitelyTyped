@@ -2,6 +2,7 @@
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import 'react-addons-transition-group';
 import { ComponentClass, TransitionGroupProps, CSSTransitionGroupProps } from 'react';

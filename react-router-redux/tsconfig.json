@@ -1,8 +1,4 @@
 {
-    "files": [
-        "index.d.ts",
-        "react-router-redux-tests.ts"
-    ],
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
@@ -11,16 +7,17 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
-        "paths": {
-            "history": ["history/v2"]
-        },
         "typeRoots": [
-            "../"
+          "../"
         ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "react-router-redux-tests.ts"
+    ]
 }

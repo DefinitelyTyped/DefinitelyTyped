@@ -289,9 +289,22 @@ plugin = new webpack.optimize.UglifyJsPlugin({
     }
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
+  sourceMap: false,
+  comments: true,
+  beautify: true,
+  test: 'foo',
+  exclude: /node_modules/,
+  include: 'test'
+});
+plugin = new webpack.optimize.UglifyJsPlugin({
     mangle: {
         except: ['$super', '$', 'exports', 'require']
     }
+});
+plugin = new webpack.optimize.UglifyJsPlugin({
+  comments: function(astNode: any, comment: any) {
+    return false;
+  }
 });
 plugin = new webpack.optimize.CommonsChunkPlugin(options);
 plugin = new CommonsChunkPlugin({
@@ -531,7 +544,7 @@ const resolve: webpack.Resolve = {
 
 const performance: webpack.PerformanceOptions = {
 	hints: 'error',
-	maxEntryPointSize: 400000,
+	maxEntrypointSize: 400000,
 	maxAssetSize: 100000,
 	assetFilter: function(assetFilename) {
 		return assetFilename.endsWith('.js');
