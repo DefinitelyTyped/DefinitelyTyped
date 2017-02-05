@@ -12,7 +12,7 @@ declare namespace Realm {
 
     /**
     * ObjectSchemaProperty
-    * @see { @link https://realm.io/docs/javascriptlatest/api/Realm.html#~ObjectSchemaProperty }
+    * @see { @link https://realm.io/docs/javascript/latest/api/Realm.html#~ObjectSchemaProperty }
     */
     export interface ObjectSchemaProperty {
         type: PropertyType;
@@ -284,7 +284,7 @@ declare namespace Realm {
 
     /**
     * Results
-    * @see { @link https://realm.io/docs/javascriptlatest/api/Realm.Results.html }
+    * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Results.html }
     */
     export type Results<T> = Collection<T>;
 
