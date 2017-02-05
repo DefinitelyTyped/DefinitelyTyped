@@ -1,5 +1,3 @@
-/// <reference path="universal-router.d.ts" />
-
 import {ActionContext, Params, resolve } from "universal-router";
 
 // Test 1

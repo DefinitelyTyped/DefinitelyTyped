@@ -1,5 +1,3 @@
-/// <reference path="express-mung.d.ts"/>
-
 import { Request, Response } from "express";
 import * as mung from "express-mung";
 

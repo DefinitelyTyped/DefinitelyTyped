@@ -1,6 +1,3 @@
-/// <reference path="angular-google-analytics.d.ts" />
-/// <reference path="angular-google-analytics-service.d.ts" />
-
 function ConfigurationMethodChaining(AnalyticsProvider: angular.google.analytics.AnalyticsProvider) {
     AnalyticsProvider
         .logAllCalls(true)
@@ -61,8 +58,8 @@ function RetrieveCurrentURL(Analytics: angular.google.analytics.AnalyticsService
 }
 
 function ManualScriptTagInjection(Analytics: angular.google.analytics.AnalyticsService) {
-  Analytics.createScriptTag();
-  Analytics.createAnalyticsScriptTag();
+  Analytics.registerScriptTags();
+  Analytics.registerTrackers();
 }
 
 function SetCustomDimensions(Analytics: angular.google.analytics.AnalyticsService) {

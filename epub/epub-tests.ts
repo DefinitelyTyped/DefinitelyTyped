@@ -1,4 +1,3 @@
-/// <reference path="epub.d.ts" />
 import EPub = require("epub");
 
 var epub = new EPub("./file.epub");

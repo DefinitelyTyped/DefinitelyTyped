@@ -1,4 +1,4 @@
-/// <reference path="hapi.d.ts" />
+
 
 import Hapi = require("hapi");
 
@@ -116,8 +116,8 @@ server.route([{
 server.route({
 	method: 'GET',
 	path: '/hello6',
-	handler: function (request, reply) {
-		request.log('info', { route: '/hello' }, Date.now());
+        handler: function (request: Hapi.Request, reply: Hapi.IReply) {
+                request.log('info', { route: '/hello' }, Date.now());
 		reply('hello world');
 	}
 });

@@ -1,4 +1,3 @@
-///<reference path="validate.js.d.ts"/>
 import Validator = ValidateJS.Validator;
 import Field = ValidateJS.Field;
 import Constraints = ValidateJS.Constraints;

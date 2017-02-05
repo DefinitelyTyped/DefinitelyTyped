@@ -1,18 +1,16 @@
-///<reference path='../react/react.d.ts' />
-///<reference path='../react/react-dom.d.ts' />
-///<reference path='../react-tap-event-plugin/react-tap-event-plugin.d.ts' />
-///<reference path='material-ui.d.ts' />
+/// <reference types="react" />
+/// <reference types="react-dom" />
+/// <reference types="react-tap-event-plugin" />
+/// <reference types="material-ui" />
 
 import * as React from 'react';
 import {Component, PropTypes} from 'react';
 import * as ReactDOM from 'react-dom';
-
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {muiThemeable} from 'material-ui/styles/muiThemeable';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import muiThemeable from 'material-ui/styles/muiThemeable';
-import {MuiTheme} from 'material-ui/styles'
-
+import {MuiTheme} from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import AutoComplete from 'material-ui/AutoComplete';
 import Avatar from 'material-ui/Avatar';
@@ -47,15 +45,17 @@ import TimePicker from 'material-ui/TimePicker';
 import Toggle from 'material-ui/Toggle';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import {GridList, GridTile} from 'material-ui/GridList';
-import {MakeSelectable} from 'material-ui/List';
+import {makeSelectable} from 'material-ui/List';
 import {Menu} from 'material-ui/Menu';
 import {Popover, PopoverAnimationVertical} from 'material-ui/Popover';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import {Step, Stepper, StepLabel, StepContent, StepButton} from 'material-ui/Stepper';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter} from 'material-ui/Table';
+import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
+import {
+    Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter
+} from 'material-ui/Table';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
-
 import ActionAndroid from 'material-ui/svg-icons/action/android';
 import ActionAssignment from 'material-ui/svg-icons/action/assignment';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
@@ -77,9 +77,9 @@ import ContentLink from 'material-ui/svg-icons/content/link';
 import ContentSend from 'material-ui/svg-icons/content/send';
 import Delete from 'material-ui/svg-icons/action/delete';
 import Download from 'material-ui/svg-icons/file/file-download';
+import FileFileDownload from 'material-ui/svg-icons/file/file-download';
 import EditorInsertChart from 'material-ui/svg-icons/editor/insert-chart';
 import FileCloudDownload from 'material-ui/svg-icons/file/cloud-download';
-import FileFileDownload from 'material-ui/svg-icons/file/file-download';
 import FileFolder from 'material-ui/svg-icons/file/folder';
 import FolderIcon from 'material-ui/svg-icons/file/folder-open';
 import HardwareVideogameAsset from 'material-ui/svg-icons/hardware/videogame-asset';
@@ -94,25 +94,13 @@ import RemoveRedEye from 'material-ui/svg-icons/image/remove-red-eye';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import UploadIcon from 'material-ui/svg-icons/file/cloud-upload';
 import WarningIcon from 'material-ui/svg-icons/alert/warning';
-
-import {cyan500, cyan700,
-  grey100, grey300, grey400, grey500,
-  pinkA200,
-  white, darkBlack, fullBlack, 
-  blue300,
-  indigo900,
-  orange200,
-  deepOrange300,
-  pink400,
-  purple500,
-  fullWhite,
-  blue500, red500, greenA200, yellow500,
-  transparent, yellow600, indigo500, lightBlack,
-  orange500,
+import {
+    cyan500, cyan700, grey100, grey300, grey400, grey500, pinkA200, white, darkBlack, fullBlack, blue300, indigo900,
+    orange200, deepOrange300, pink400, purple500, fullWhite, blue500, red500, greenA200, yellow500, transparent,
+    yellow600, indigo500, lightBlack, orange500
 } from 'material-ui/styles/colors';
 import {fade} from 'material-ui/utils/colorManipulator';
-
-import {SMALL, MEDIUM, LARGE, default as withWidth} from 'material-ui/utils/withWidth';
+import {default as withWidth} from 'material-ui/utils/withWidth';
 
 
 import injectTapEventPlugin = require('react-tap-event-plugin');
@@ -180,7 +168,7 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-  },
+  } as React.CSSProperties,
   gridList: {
     width: 500,
     height: 500,
@@ -334,6 +322,35 @@ class DeepDownTheTree extends React.Component<{} & {muiTheme: MuiTheme}, {}> {
 }
 
 
+const MuiThemeableFunction = muiThemeable()((props: {label: string, muiTheme?: MuiTheme}) => {
+  return (
+      <span style={{color: props.muiTheme.palette.textColor}}>
+        Applied the Theme to functional component: {props.label}.
+      </span>
+  );
+});
+
+@muiThemeable()
+class MuiThemeableClass extends React.Component<{label: string} & {muiTheme?: MuiTheme}, {}> {
+  render() {
+    return (
+      <span style={{color: this.props.muiTheme.palette.textColor}}>
+        Applied the Theme to class component decorated: {this.props.label}.
+      </span>
+    );
+  }
+}
+
+const MuiThemeableContainer = (props: {}) => (
+  <MuiThemeProvider muiTheme={getMuiTheme()}>
+    <div>
+      <MuiThemeableFunction label='Hello'/>
+      <MuiThemeableClass label='Hello'/>
+    </div>
+  </MuiThemeProvider>
+);
+
+
 // "http://www.material-ui.com/#/customization/inline-styles"
 const InlineStylesCheckbox = () => (
   <Checkbox
@@ -367,7 +384,7 @@ const AppBarExampleIconButton = () => (
     iconElementLeft={<IconButton><NavigationClose /></IconButton>}
     iconElementRight={<FlatButton label="Save" />}
   />
-);  
+);
 
 const AppBarExampleIconMenu = () => (
   <AppBar
@@ -410,6 +427,11 @@ export class AutoCompleteExampleSimple extends React.Component<{}, {dataSource: 
     });
   };
 
+  dataSourceConfig = {
+    text: 'textKey',
+    value: 'valueKey',
+  };
+
   render() {
     return (
       <div>
@@ -424,6 +446,20 @@ export class AutoCompleteExampleSimple extends React.Component<{}, {dataSource: 
           onUpdateInput={this.handleUpdateInput}
           floatingLabelText="Full width"
           fullWidth={true}
+                    popoverProps={{
+            animated: true
+          }}
+        />
+        <AutoComplete
+          hintText="Type anything"
+          dataSource={[
+            {
+              textKey: 'hello',
+              valueKey: 'world',
+            },
+          ]}
+          dataSourceConfig={this.dataSourceConfig}
+          onUpdateInput={this.handleUpdateInput}
         />
       </div>
     );
@@ -668,17 +704,17 @@ const BadgeExampleContent = () => (
 // "http://www.material-ui.com/#/components/flat-button"
 const FlatButtonExampleSimple = () => (
   <div>
-    <FlatButton label="Default" />
-    <FlatButton label="Primary" primary={true} />
-    <FlatButton label="Secondary" secondary={true} />
-    <FlatButton label="Disabled" disabled={true} />
+        <FlatButton label="Default"/>
+        <FlatButton label="Primary" primary={true}/>
+        <FlatButton label="Secondary" secondary={true}/>
+        <FlatButton label="Disabled" disabled={true}/>
   </div>
 );
 
 const FlatButtonExampleComplex = () => (
   <div>
     <FlatButton label="Choose an Image" labelPosition="before">
-      <input type="file" style={styles.exampleImageInput} />
+            <input type="file" style={styles.exampleImageInput}/>
     </FlatButton>
 
     <FlatButton
@@ -691,7 +727,6 @@ const FlatButtonExampleComplex = () => (
 
     <FlatButton
       label="GitHub Link"
-      linkButton={true}
       href="https://github.com/callemall/material-ui"
       secondary={true}
       icon={<FontIcon className="muidocs-icon-custom-github" />}
@@ -713,7 +748,6 @@ const FlatButtonExampleIcon = () => (
       style={style}
     />
     <FlatButton
-      linkButton={true}
       href="https://github.com/callemall/material-ui"
       secondary={true}
       icon={<FontIcon className="muidocs-icon-custom-github" />}
@@ -726,10 +760,10 @@ const FlatButtonExampleIcon = () => (
 // "http://www.material-ui.com/#/components/raised-button"
 const RaisedButtonExampleSimple = () => (
   <div>
-    <RaisedButton label="Default" style={style} />
-    <RaisedButton label="Primary" primary={true} style={style} />
-    <RaisedButton label="Secondary" secondary={true} style={style} />
-    <RaisedButton label="Disabled" disabled={true} style={style} />
+        <RaisedButton label="Default" style={style}/>
+        <RaisedButton label="Primary" primary={true} style={style}/>
+        <RaisedButton label="Secondary" secondary={true} style={style}/>
+        <RaisedButton label="Disabled" disabled={true} style={style}/>
   </div>
 );
 
@@ -740,18 +774,17 @@ const RaisedButtonExampleComplex = () => (
       labelPosition="before"
       style={styles.button}
     >
-      <input type="file" style={styles.exampleImageInput} />
+            <input type="file" style={styles.exampleImageInput}/>
     </RaisedButton>
     <RaisedButton
+            buttonStyle={styles.button}
       label={<span>Label before</span>}
       labelPosition="before"
       primary={true}
       icon={<ActionAndroid />}
-      style={styles.button}
     />
     <RaisedButton
       label="Github Link"
-      linkButton={true}
       href="https://github.com/callemall/material-ui"
       secondary={true}
       style={styles.button}
@@ -772,7 +805,6 @@ const RaisedButtonExampleIcon = () => (
       style={style}
     />
     <RaisedButton
-      linkButton={true}
       href="https://github.com/callemall/material-ui"
       secondary={true}
       icon={<FontIcon className="muidocs-icon-custom-github" />}
@@ -815,15 +847,15 @@ const FloatingActionButtonExampleSimple = () => (
 // "http://www.material-ui.com/#/components/icon-button"
 const IconButtonExampleSimple = () => (
   <div>
-    <IconButton iconClassName="muidocs-icon-custom-github" />
-    <IconButton iconClassName="muidocs-icon-custom-github" disabled={true} />
+        <IconButton iconClassName="muidocs-icon-custom-github"/>
+        <IconButton iconClassName="muidocs-icon-custom-github" disabled={true}/>
   </div>
 );
 
 const IconButtonExampleComplex = () => (
   <div>
     <IconButton tooltip="Font Icon">
-      <FontIcon className="muidocs-icon-action-home" />
+            <FontIcon className="muidocs-icon-action-home"/>
     </IconButton>
 
     <IconButton tooltip="SVG Icon">
@@ -932,9 +964,9 @@ const CardExampleWithAvatar = () => (
     <CardMedia
       overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
     >
-      <img src="http://lorempixel.com/600/337/nature/" />
+            <img src="http://lorempixel.com/600/337/nature/"/>
     </CardMedia>
-    <CardTitle title="Card title" subtitle="Card subtitle" />
+        <CardTitle title="Card title" subtitle="Card subtitle"/>
     <CardText>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
@@ -942,8 +974,8 @@ const CardExampleWithAvatar = () => (
       Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
     </CardText>
     <CardActions>
-      <FlatButton label="Action1" />
-      <FlatButton label="Action2" />
+            <FlatButton label="Action1"/>
+            <FlatButton label="Action2"/>
     </CardActions>
   </Card>
 );
@@ -963,8 +995,8 @@ const CardExampleWithoutAvatar = () => (
       Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
     </CardText>
     <CardActions expandable={true}>
-      <FlatButton label="Action1" />
-      <FlatButton label="Action2" />
+            <FlatButton label="Action1"/>
+            <FlatButton label="Action2"/>
     </CardActions>
   </Card>
 );
@@ -1016,9 +1048,9 @@ class CardExampleControlled extends React.Component<{}, {expanded: boolean}> {
           expandable={true}
           overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
         >
-          <img src="http://lorempixel.com/600/337/nature/" />
+                    <img src="http://lorempixel.com/600/337/nature/"/>
         </CardMedia>
-        <CardTitle title="Card title" subtitle="Card subtitle" expandable={true} />
+                <CardTitle title="Card title" subtitle="Card subtitle" expandable={true}/>
         <CardText expandable={true}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
@@ -1026,8 +1058,8 @@ class CardExampleControlled extends React.Component<{}, {expanded: boolean}> {
           Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
         </CardText>
         <CardActions>
-          <FlatButton label="Expand" onTouchTap={this.handleExpand} />
-          <FlatButton label="Reduce" onTouchTap={this.handleReduce} />
+                    <FlatButton label="Expand" onTouchTap={this.handleExpand}/>
+                    <FlatButton label="Reduce" onTouchTap={this.handleReduce}/>
         </CardActions>
       </Card>
     );
@@ -1045,7 +1077,7 @@ const ChipExampleSimple = () => (
   </div>
 );
 
-class ChipExampleComplex extends React.Component<{}, {}>{
+class ChipExampleComplex extends React.Component<{}, {}> {
   handleRequestDelete = () => {
     alert('You clicked the delete button.');
   }
@@ -1067,16 +1099,16 @@ class ChipExampleComplex extends React.Component<{}, {}>{
 // "http://www.material-ui.com/#/components/date-picker"
 const DatePickerExampleSimple = () => (
   <div>
-    <DatePicker hintText="Portrait Dialog" />
-    <DatePicker hintText="Landscape Dialog" mode="landscape" />
-    <DatePicker hintText="Dialog Disabled" disabled={true} />
+        <DatePicker hintText="Portrait Dialog"/>
+        <DatePicker hintText="Landscape Dialog" mode="landscape"/>
+        <DatePicker hintText="Dialog Disabled" disabled={true}/>
   </div>
 );
 
 const DatePickerExampleInline = () => (
   <div>
-    <DatePicker hintText="Portrait Inline Dialog" container="inline" />
-    <DatePicker hintText="Landscape Inline Dialog" container="inline" mode="landscape" />
+        <DatePicker hintText="Portrait Inline Dialog" container="inline"/>
+        <DatePicker hintText="Landscape Inline Dialog" container="inline" mode="landscape"/>
   </div>
 );
 
@@ -1209,8 +1241,8 @@ function disableRandomDates() {
 }
 const DatePickerExampleDisableDates = () => (
   <div>
-    <DatePicker hintText="Weekends Disabled" shouldDisableDate={disableWeekends} />
-    <DatePicker hintText="Random Dates Disabled" shouldDisableDate={disableRandomDates} />
+        <DatePicker hintText="Weekends Disabled" shouldDisableDate={disableWeekends}/>
+        <DatePicker hintText="Random Dates Disabled" shouldDisableDate={disableRandomDates}/>
   </div>
 );
 
@@ -1240,7 +1272,6 @@ const DatePickerExampleInternational = () => (
     />
   </div>
 );
-
 
 
 // "http://material-ui.com/#/components/dialog"
@@ -1274,7 +1305,7 @@ class DialogExampleSimple extends React.Component<{}, {open?: boolean}> {
 
     return (
       <div>
-        <RaisedButton label="Dialog" onTouchTap={this.handleOpen} />
+                <RaisedButton label="Dialog" onTouchTap={this.handleOpen}/>
         <Dialog
           title="Dialog With Actions"
           actions={actions}
@@ -1319,7 +1350,7 @@ class DialogExampleModal extends React.Component<{}, {open?: boolean}> {
 
     return (
       <div>
-        <RaisedButton label="Modal Dialog" onTouchTap={this.handleOpen} />
+                <RaisedButton label="Modal Dialog" onTouchTap={this.handleOpen}/>
         <Dialog
           title="Dialog With Actions"
           actions={actions}
@@ -1362,7 +1393,7 @@ class DialogExampleCustomWidth extends React.Component<{}, {open?: boolean}> {
 
     return (
       <div>
-        <RaisedButton label="Dialog With Custom Width" onTouchTap={this.handleOpen} />
+                <RaisedButton label="Dialog With Custom Width" onTouchTap={this.handleOpen}/>
         <Dialog
           title="Dialog With Custom Width"
           actions={actions}
@@ -1402,7 +1433,7 @@ class DialogExampleDialogDatePicker extends React.Component<{}, {open?: boolean}
 
     return (
       <div>
-        <RaisedButton label="Dialog With Date Picker" onTouchTap={this.handleOpen} />
+                <RaisedButton label="Dialog With Date Picker" onTouchTap={this.handleOpen}/>
         <Dialog
           title="Dialog With Date Picker"
           actions={actions}
@@ -1411,7 +1442,7 @@ class DialogExampleDialogDatePicker extends React.Component<{}, {open?: boolean}
           onRequestClose={this.handleClose}
         >
           Open a Date Picker dialog from within a dialog.
-          <DatePicker hintText="Date Picker" />
+                    <DatePicker hintText="Date Picker"/>
         </Dialog>
       </div>
     );
@@ -1460,7 +1491,7 @@ class DialogExampleScrollable extends React.Component<{}, {open?: boolean}> {
 
     return (
       <div>
-        <RaisedButton label="Scrollable Dialog" onTouchTap={this.handleOpen} />
+                <RaisedButton label="Scrollable Dialog" onTouchTap={this.handleOpen}/>
         <Dialog
           title="Scrollable Dialog"
           actions={actions}
@@ -1507,7 +1538,7 @@ class DialogExampleAlert extends React.Component<{}, {open?: boolean}> {
 
     return (
       <div>
-        <RaisedButton label="Alert" onTouchTap={this.handleOpen} />
+                <RaisedButton label="Alert" onTouchTap={this.handleOpen}/>
         <Dialog
           actions={actions}
           modal={false}
@@ -1525,13 +1556,13 @@ class DialogExampleAlert extends React.Component<{}, {open?: boolean}> {
 // "http://www.material-ui.com/#/components/divider"
 const DividerExampleForm = () => (
   <Paper zDepth={2}>
-    <TextField hintText="First name" style={style} underlineShow={false} />
+        <TextField hintText="First name" style={style} underlineShow={false}/>
     <Divider />
-    <TextField hintText="Middle name" style={style} underlineShow={false} />
+        <TextField hintText="Middle name" style={style} underlineShow={false}/>
     <Divider />
-    <TextField hintText="Last name" style={style} underlineShow={false} />
+        <TextField hintText="Last name" style={style} underlineShow={false}/>
     <Divider />
-    <TextField hintText="Email address" style={style} underlineShow={false} />
+        <TextField hintText="Email address" style={style} underlineShow={false}/>
     <Divider />
   </Paper>
 );
@@ -1539,23 +1570,23 @@ const DividerExampleForm = () => (
 const DividerExampleList = () => (
   <Paper height={250}>
     <List>
-      <ListItem insetChildren={true} primaryText="Janet Perkins Bennet" />
-      <ListItem insetChildren={true} primaryText="Peter Carlsson" />
+            <ListItem insetChildren={true} primaryText="Janet Perkins Bennet"/>
+            <ListItem insetChildren={true} primaryText="Peter Carlsson"/>
     </List>
-    <Divider inset={true} />
+        <Divider inset={true}/>
     <List>
-      <ListItem insetChildren={true} primaryText="Aaron Bennet" />
-      <ListItem insetChildren={true} primaryText="Abbey Christensen" />
+            <ListItem insetChildren={true} primaryText="Aaron Bennet"/>
+            <ListItem insetChildren={true} primaryText="Abbey Christensen"/>
     </List>
   </Paper>
 );
 
 const DividerExampleMenu = () => (
   <Menu desktop={true} style={style}>
-    <MenuItem primaryText="Settings" />
-    <MenuItem primaryText="Help &amp; feedback" />
+        <MenuItem primaryText="Settings"/>
+        <MenuItem primaryText="Help &amp; feedback"/>
     <Divider />
-    <MenuItem primaryText="Sign out" />
+        <MenuItem primaryText="Sign out"/>
   </Menu>
 );
 
@@ -1634,8 +1665,8 @@ class DrawerOpenRightExample extends React.Component<{}, {open?: boolean}> {
           label="Toggle Drawer"
           onTouchTap={this.handleToggle}
         />
-        <Drawer width={200} openSecondary={true} open={this.state.open} >
-          <AppBar title="AppBar" />
+                <Drawer width={200} openSecondary={true} open={this.state.open}>
+                    <AppBar title="AppBar"/>
         </Drawer>
       </div>
     );
@@ -1702,7 +1733,7 @@ const GridListExampleSimple = () => (
           subtitle={<span>by <b>{tile.author}</b></span>}
           actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
         >
-          <img src={tile.img} />
+                    <img src={tile.img}/>
         </GridTile>
       ))}
     </GridList>
@@ -1728,7 +1759,7 @@ const GridListExampleComplex = () => (
           cols={tile.featured ? 2 : 1}
           rows={tile.featured ? 2 : 1}
         >
-          <img src={tile.img} />
+                    <img src={tile.img}/>
         </GridTile>
       ))}
     </GridList>
@@ -1772,24 +1803,24 @@ const FontIconExampleIcons = () => (
 // "http://www.material-ui.com/#/components/svg-icon"
 const HomeIcon = (props) => (
   <SvgIcon {...props}>
-    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
   </SvgIcon>
 );
 
 const SvgIconExampleSimple = () => (
   <div>
-    <HomeIcon style={iconStyles} />
-    <HomeIcon style={iconStyles} color={blue500} />
-    <HomeIcon style={iconStyles} color={red500} hoverColor={greenA200} />
+        <HomeIcon style={iconStyles}/>
+        <HomeIcon style={iconStyles} color={blue500}/>
+        <HomeIcon style={iconStyles} color={red500} hoverColor={greenA200}/>
   </div>
 );
 
 const SvgIconExampleIcons = () => (
   <div>
-    <ActionHome style={iconStyles} />
-    <ActionFlightTakeoff style={iconStyles} color={red500} />
-    <FileCloudDownload style={iconStyles} color={yellow500} />
-    <HardwareVideogameAsset style={iconStyles} color={blue500} />
+        <ActionHome style={iconStyles}/>
+        <ActionFlightTakeoff style={iconStyles} color={red500}/>
+        <FileCloudDownload style={iconStyles} color={yellow500}/>
+        <HardwareVideogameAsset style={iconStyles} color={blue500}/>
   </div>
 );
 
@@ -1798,18 +1829,18 @@ const SvgIconExampleIcons = () => (
 const ListExampleSimple = () => (
   <Paper>
     <List>
-      <ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
-      <ListItem primaryText="Starred" leftIcon={<ActionGrade />} />
-      <ListItem primaryText="Sent mail" leftIcon={<ContentSend />} />
-      <ListItem primaryText="Drafts" leftIcon={<ContentDrafts />} />
-      <ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
+            <ListItem primaryText="Inbox" leftIcon={<ContentInbox />}/>
+            <ListItem primaryText="Starred" leftIcon={<ActionGrade />}/>
+            <ListItem primaryText="Sent mail" leftIcon={<ContentSend />}/>
+            <ListItem primaryText="Drafts" leftIcon={<ContentDrafts />}/>
+            <ListItem primaryText="Inbox" leftIcon={<ContentInbox />}/>
     </List>
     <Divider />
     <List>
-      <ListItem primaryText="All mail" rightIcon={<ActionInfo />} />
-      <ListItem primaryText="Trash" rightIcon={<ActionInfo />} />
-      <ListItem primaryText="Spam" rightIcon={<ActionInfo />} />
-      <ListItem primaryText="Follow up" rightIcon={<ActionInfo />} />
+            <ListItem primaryText="All mail" rightIcon={<ActionInfo />}/>
+            <ListItem primaryText="Trash" rightIcon={<ActionInfo />}/>
+            <ListItem primaryText="Spam" rightIcon={<ActionInfo />}/>
+            <ListItem primaryText="Follow up" rightIcon={<ActionInfo />}/>
     </List>
   </Paper>
 );
@@ -1883,7 +1914,7 @@ const ListExampleContacts = () => (
         rightAvatar={<Avatar src="images/kerem-128.jpg" />}
       />
     </List>
-    <Divider inset={true} />
+        <Divider inset={true}/>
     <List>
       <ListItem
         primaryText="Adelle Charles"
@@ -1939,7 +1970,7 @@ const ListExampleFolder = () => (
         secondaryText="Jan 28, 2014"
       />
     </List>
-    <Divider inset={true} />
+        <Divider inset={true}/>
     <List>
       <Subheader inset={true}>Files</Subheader>
       <ListItem
@@ -1962,12 +1993,13 @@ const ListExampleNested = () => (
   <Paper>
     <List>
       <Subheader>Nested List Items</Subheader>
-      <ListItem primaryText="Sent mail" leftIcon={<ContentSend />} />
-      <ListItem primaryText="Drafts" leftIcon={<ContentDrafts />} />
+            <ListItem primaryText="Sent mail" leftIcon={<ContentSend />}/>
+            <ListItem primaryText="Drafts" leftIcon={<ContentDrafts />}/>
       <ListItem
         primaryText="Inbox"
         leftIcon={<ContentInbox />}
         initiallyOpen={true}
+                open={true}
         primaryTogglesNestedList={true}
         nestedItems={[
           <ListItem
@@ -2034,16 +2066,16 @@ const ListExampleSettings = () => (
       <Divider />
       <List>
         <Subheader>Priority Interruptions</Subheader>
-        <ListItem primaryText="Events and reminders" rightToggle={<Toggle />} />
-        <ListItem primaryText="Calls" rightToggle={<Toggle />} />
-        <ListItem primaryText="Messages" rightToggle={<Toggle />} />
+                <ListItem primaryText="Events and reminders" rightToggle={<Toggle />}/>
+                <ListItem primaryText="Calls" rightToggle={<Toggle />}/>
+                <ListItem primaryText="Messages" rightToggle={<Toggle />}/>
       </List>
       <Divider />
       <List>
         <Subheader>Hangout Notifications</Subheader>
-        <ListItem primaryText="Notifications" leftCheckbox={<Checkbox />} />
-        <ListItem primaryText="Sounds" leftCheckbox={<Checkbox />} />
-        <ListItem primaryText="Video sounds" leftCheckbox={<Checkbox />} />
+                <ListItem primaryText="Notifications" leftCheckbox={<Checkbox />}/>
+                <ListItem primaryText="Sounds" leftCheckbox={<Checkbox />}/>
+                <ListItem primaryText="Video sounds" leftCheckbox={<Checkbox />}/>
       </List>
     </Paper>
   </div>
@@ -2065,7 +2097,7 @@ const ListExamplePhone = () => (
         secondaryText="Work"
       />
     </List>
-    <Divider inset={true} />
+        <Divider inset={true}/>
     <List>
       <ListItem
         leftIcon={<CommunicationEmail color={indigo500} />}
@@ -2087,7 +2119,7 @@ const iconButtonElement = (
     tooltip="more"
     tooltipPosition="bottom-left"
   >
-    <MoreVertIcon color={grey400} />
+        <MoreVertIcon color={grey400}/>
   </IconButton>
 );
 
@@ -2115,7 +2147,7 @@ const ListExampleMessages = () => (
           }
           secondaryTextLines={2}
         />
-        <Divider inset={true} />
+                <Divider inset={true}/>
         <ListItem
           leftAvatar={<Avatar src="images/kolage-128.jpg" />}
           primaryText={
@@ -2129,7 +2161,7 @@ const ListExampleMessages = () => (
           }
           secondaryTextLines={2}
         />
-        <Divider inset={true} />
+                <Divider inset={true}/>
         <ListItem
           leftAvatar={<Avatar src="images/uxceo-128.jpg" />}
           primaryText="Oui oui"
@@ -2141,7 +2173,7 @@ const ListExampleMessages = () => (
           }
           secondaryTextLines={2}
         />
-        <Divider inset={true} />
+                <Divider inset={true}/>
         <ListItem
           leftAvatar={<Avatar src="images/kerem-128.jpg" />}
           primaryText="Birdthday gift"
@@ -2153,7 +2185,7 @@ const ListExampleMessages = () => (
           }
           secondaryTextLines={2}
         />
-        <Divider inset={true} />
+                <Divider inset={true}/>
         <ListItem
           leftAvatar={<Avatar src="images/raquelromanp-128.jpg" />}
           primaryText="Recipe to try"
@@ -2182,7 +2214,7 @@ const ListExampleMessages = () => (
           }
           secondaryTextLines={2}
         />
-        <Divider inset={true} />
+                <Divider inset={true}/>
         <ListItem
           leftAvatar={<Avatar src="images/kolage-128.jpg" />}
           rightIconButton={rightIconMenu}
@@ -2195,7 +2227,7 @@ const ListExampleMessages = () => (
           }
           secondaryTextLines={2}
         />
-        <Divider inset={true} />
+                <Divider inset={true}/>
         <ListItem
           leftAvatar={<Avatar src="images/uxceo-128.jpg" />}
           rightIconButton={rightIconMenu}
@@ -2208,7 +2240,7 @@ const ListExampleMessages = () => (
           }
           secondaryTextLines={2}
         />
-        <Divider inset={true} />
+                <Divider inset={true}/>
         <ListItem
           leftAvatar={<Avatar src="images/kerem-128.jpg" />}
           rightIconButton={rightIconMenu}
@@ -2221,7 +2253,7 @@ const ListExampleMessages = () => (
           }
           secondaryTextLines={2}
         />
-        <Divider inset={true} />
+                <Divider inset={true}/>
         <ListItem
           leftAvatar={<Avatar src="images/raquelromanp-128.jpg" />}
           rightIconButton={rightIconMenu}
@@ -2271,7 +2303,7 @@ function wrapState(ComposedComponent: React.ComponentClass<__MaterialUI.List.Sel
   };
 }
 
-let SelectableList = wrapState(MakeSelectable(List));
+let SelectableList = wrapState(makeSelectable(List));
 
 const ListExampleSelectable = () => (
   <Paper>
@@ -2314,18 +2346,18 @@ const MenuExampleSimple = () => (
   <div>
     <Paper style={style}>
       <Menu>
-        <MenuItem primaryText="Maps" />
-        <MenuItem primaryText="Books" />
-        <MenuItem primaryText="Flights" />
-        <MenuItem primaryText="Apps" />
+                <MenuItem primaryText="Maps"/>
+                <MenuItem primaryText="Books"/>
+                <MenuItem primaryText="Flights"/>
+                <MenuItem primaryText="Apps"/>
       </Menu>
     </Paper>
     <Paper style={style}>
       <Menu>
-        <MenuItem primaryText="Refresh" />
-        <MenuItem primaryText="Help &amp; feedback" />
-        <MenuItem primaryText="Settings" />
-        <MenuItem primaryText="Sign out" />
+                <MenuItem primaryText="Refresh"/>
+                <MenuItem primaryText="Help &amp; feedback"/>
+                <MenuItem primaryText="Settings"/>
+                <MenuItem primaryText="Sign out"/>
       </Menu>
     </Paper>
   </div>
@@ -2335,22 +2367,22 @@ const MenuExampleDisable = () => (
   <div>
     <Paper style={style}>
       <Menu desktop={true}>
-        <MenuItem primaryText="Back" />
-        <MenuItem primaryText="Forward" disabled={true} />
+                <MenuItem primaryText="Back"/>
+                <MenuItem primaryText="Forward" disabled={true}/>
         <Divider />
-        <MenuItem primaryText="Recently closed" disabled={true} />
-        <MenuItem primaryText="Google" disabled={true} />
-        <MenuItem primaryText="YouTube" />
+                <MenuItem primaryText="Recently closed" disabled={true}/>
+                <MenuItem primaryText="Google" disabled={true}/>
+                <MenuItem primaryText="YouTube"/>
       </Menu>
     </Paper>
     <Paper style={style}>
       <Menu desktop={true}>
-        <MenuItem primaryText="Undo" />
-        <MenuItem primaryText="Redo" disabled={true} />
+                <MenuItem primaryText="Undo"/>
+                <MenuItem primaryText="Redo" disabled={true}/>
         <Divider />
-        <MenuItem primaryText="Cut" disabled={true} />
-        <MenuItem primaryText="Copy" disabled={true} />
-        <MenuItem primaryText="Paste" />
+                <MenuItem primaryText="Cut" disabled={true}/>
+                <MenuItem primaryText="Copy" disabled={true}/>
+                <MenuItem primaryText="Paste"/>
       </Menu>
     </Paper>
   </div>
@@ -2360,29 +2392,29 @@ const MenuExampleIcons = () => (
   <div>
     <Paper style={styles.paper}>
       <Menu>
-        <MenuItem primaryText="Preview" leftIcon={<RemoveRedEye />} />
-        <MenuItem primaryText="Share" leftIcon={<PersonAdd />} />
-        <MenuItem primaryText="Get links" leftIcon={<ContentLink />} />
+                <MenuItem primaryText="Preview" leftIcon={<RemoveRedEye />}/>
+                <MenuItem primaryText="Share" leftIcon={<PersonAdd />}/>
+                <MenuItem primaryText="Get links" leftIcon={<ContentLink />}/>
         <Divider />
-        <MenuItem primaryText="Make a copy" leftIcon={<ContentCopy />} />
-        <MenuItem primaryText="Download" leftIcon={<Download />} />
+                <MenuItem primaryText="Make a copy" leftIcon={<ContentCopy />}/>
+                <MenuItem primaryText="Download" leftIcon={<Download />}/>
         <Divider />
-        <MenuItem primaryText="Remove" leftIcon={<Delete />} />
+                <MenuItem primaryText="Remove" leftIcon={<Delete />}/>
       </Menu>
     </Paper>
     <Paper style={styles.paper}>
       <Menu>
-        <MenuItem primaryText="Clear Config" />
-        <MenuItem primaryText="New Config" rightIcon={<PersonAdd />} />
-        <MenuItem primaryText="Project" rightIcon={<FontIcon className="material-icons">settings</FontIcon>} />
+                <MenuItem primaryText="Clear Config"/>
+                <MenuItem primaryText="New Config" rightIcon={<PersonAdd />}/>
+                <MenuItem primaryText="Project" rightIcon={<FontIcon className="material-icons">settings</FontIcon>}/>
         <MenuItem
           primaryText="Workspace"
           rightIcon={
             <FontIcon className="material-icons" style={{color: '#559'}}>settings</FontIcon>
           }
         />
-        <MenuItem primaryText="Paragraph" rightIcon={<b style={styles.rightIcon}>¶</b>} />
-        <MenuItem primaryText="Section" rightIcon={<b style={styles.rightIcon}>§</b>} />
+                <MenuItem primaryText="Paragraph" rightIcon={<b style={styles.rightIcon}>¶</b>}/>
+                <MenuItem primaryText="Section" rightIcon={<b style={styles.rightIcon}>§</b>}/>
       </Menu>
     </Paper>
   </div>
@@ -2392,34 +2424,34 @@ const MenuExampleSecondary = () => (
   <div>
     <Paper style={style}>
       <Menu desktop={true} width={256}>
-        <MenuItem primaryText="Bold" secondaryText="&#8984;B" />
-        <MenuItem primaryText="Italic" secondaryText="&#8984;I" />
-        <MenuItem primaryText="Underline" secondaryText="&#8984;U" />
-        <MenuItem primaryText="Strikethrough" secondaryText="Alt+Shift+5" />
-        <MenuItem primaryText="Superscript" secondaryText="&#8984;." />
-        <MenuItem primaryText="Subscript" secondaryText="&#8984;," />
+                <MenuItem primaryText="Bold" secondaryText="&#8984;B"/>
+                <MenuItem primaryText="Italic" secondaryText="&#8984;I"/>
+                <MenuItem primaryText="Underline" secondaryText="&#8984;U"/>
+                <MenuItem primaryText="Strikethrough" secondaryText="Alt+Shift+5"/>
+                <MenuItem primaryText="Superscript" secondaryText="&#8984;."/>
+                <MenuItem primaryText="Subscript" secondaryText="&#8984;,"/>
         <Divider />
-        <MenuItem primaryText="Paragraph styles" rightIcon={<ArrowDropRight />} />
-        <MenuItem primaryText="Align" rightIcon={<ArrowDropRight />} />
-        <MenuItem primaryText="Line spacing" rightIcon={<ArrowDropRight />} />
-        <MenuItem primaryText="Numbered list" rightIcon={<ArrowDropRight />} />
-        <MenuItem primaryText="List options" rightIcon={<ArrowDropRight />} />
+                <MenuItem primaryText="Paragraph styles" rightIcon={<ArrowDropRight />}/>
+                <MenuItem primaryText="Align" rightIcon={<ArrowDropRight />}/>
+                <MenuItem primaryText="Line spacing" rightIcon={<ArrowDropRight />}/>
+                <MenuItem primaryText="Numbered list" rightIcon={<ArrowDropRight />}/>
+                <MenuItem primaryText="List options" rightIcon={<ArrowDropRight />}/>
         <Divider />
-        <MenuItem primaryText="Clear formatting" secondaryText="&#8984;/" />
+                <MenuItem primaryText="Clear formatting" secondaryText="&#8984;/"/>
       </Menu>
     </Paper>
     <Paper style={style}>
       <Menu desktop={true} width={256}>
-        <MenuItem primaryText="Open" secondaryText="Cmd + O" />
-        <MenuItem primaryText="Paste in place" secondaryText="Shift + V" />
-        <MenuItem primaryText="Research" secondaryText="Opt + Shift + Cmd + I" />
+                <MenuItem primaryText="Open" secondaryText="Cmd + O"/>
+                <MenuItem primaryText="Paste in place" secondaryText="Shift + V"/>
+                <MenuItem primaryText="Research" secondaryText="Opt + Shift + Cmd + I"/>
       </Menu>
     </Paper>
     <Paper style={style}>
       <Menu desktop={true} width={256}>
-        <MenuItem primaryText="Open" secondaryText="&#8984;O" />
-        <MenuItem primaryText="Paste in place" secondaryText="&#8679;&#8984;V" />
-        <MenuItem primaryText="Research" secondaryText="&#8997;&#8679;&#8984;I" />
+                <MenuItem primaryText="Open" secondaryText="&#8984;O"/>
+                <MenuItem primaryText="Paste in place" secondaryText="&#8679;&#8984;V"/>
+                <MenuItem primaryText="Research" secondaryText="&#8997;&#8679;&#8984;I"/>
       </Menu>
     </Paper>
   </div>
@@ -2429,9 +2461,9 @@ const MenuExampleNested = () => (
   <div>
     <Paper style={style}>
       <Menu desktop={true} width={320}>
-        <MenuItem primaryText="Single" insetChildren={true} />
-        <MenuItem primaryText="1.15" insetChildren={true} />
-        <MenuItem primaryText="Double" insetChildren={true} />
+                <MenuItem primaryText="Single" insetChildren={true}/>
+                <MenuItem primaryText="1.15" insetChildren={true}/>
+                <MenuItem primaryText="Double" insetChildren={true}/>
         <MenuItem
           primaryText="Custom: 1.2"
           checked={true}
@@ -2453,10 +2485,10 @@ const MenuExampleNested = () => (
           ]}
         />
         <Divider />
-        <MenuItem primaryText="Add space before paragraph" />
-        <MenuItem primaryText="Add space after paragraph" />
+                <MenuItem primaryText="Add space before paragraph"/>
+                <MenuItem primaryText="Add space after paragraph"/>
         <Divider />
-        <MenuItem primaryText="Custom spacing..." />
+                <MenuItem primaryText="Custom spacing..."/>
       </Menu>
     </Paper>
   </div>
@@ -2472,11 +2504,11 @@ const IconMenuExampleSimple = () => (
       anchorOrigin={{horizontal: 'left', vertical: 'top'}}
       targetOrigin={{horizontal: 'left', vertical: 'top'}}
     >
-      <MenuItem primaryText="Refresh" />
-      <MenuItem primaryText="Send feedback" />
-      <MenuItem primaryText="Settings" />
-      <MenuItem primaryText="Help" />
-      <MenuItem primaryText="Sign out" />
+            <MenuItem primaryText="Refresh"/>
+            <MenuItem primaryText="Send feedback"/>
+            <MenuItem primaryText="Settings"/>
+            <MenuItem primaryText="Help"/>
+            <MenuItem primaryText="Sign out"/>
     </IconMenu>
     <IconMenu
       animated={false}
@@ -2484,33 +2516,33 @@ const IconMenuExampleSimple = () => (
       anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
       targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
     >
-      <MenuItem primaryText="Refresh" />
-      <MenuItem primaryText="Send feedback" />
-      <MenuItem primaryText="Settings" />
-      <MenuItem primaryText="Help" />
-      <MenuItem primaryText="Sign out" />
+            <MenuItem primaryText="Refresh"/>
+            <MenuItem primaryText="Send feedback"/>
+            <MenuItem primaryText="Settings"/>
+            <MenuItem primaryText="Help"/>
+            <MenuItem primaryText="Sign out"/>
     </IconMenu>
     <IconMenu
       iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
       anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
       targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
     >
-      <MenuItem primaryText="Refresh" />
-      <MenuItem primaryText="Send feedback" />
-      <MenuItem primaryText="Settings" />
-      <MenuItem primaryText="Help" />
-      <MenuItem primaryText="Sign out" />
+            <MenuItem primaryText="Refresh"/>
+            <MenuItem primaryText="Send feedback"/>
+            <MenuItem primaryText="Settings"/>
+            <MenuItem primaryText="Help"/>
+            <MenuItem primaryText="Sign out"/>
     </IconMenu>
     <IconMenu
       iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
       anchorOrigin={{horizontal: 'right', vertical: 'top'}}
       targetOrigin={{horizontal: 'right', vertical: 'top'}}
     >
-      <MenuItem primaryText="Refresh" />
-      <MenuItem primaryText="Send feedback" />
-      <MenuItem primaryText="Settings" />
-      <MenuItem primaryText="Help" />
-      <MenuItem primaryText="Sign out" />
+            <MenuItem primaryText="Refresh"/>
+            <MenuItem primaryText="Send feedback"/>
+            <MenuItem primaryText="Settings"/>
+            <MenuItem primaryText="Help"/>
+            <MenuItem primaryText="Sign out"/>
     </IconMenu>
   </div>
 );
@@ -2563,11 +2595,11 @@ class IconMenuExampleControlled extends React.Component<{}, IconMenuExampleContr
           onChange={this.handleChangeSingle}
           value={this.state.valueSingle}
         >
-          <MenuItem value="1" primaryText="Refresh" />
-          <MenuItem value="2" primaryText="Send feedback" />
-          <MenuItem value="3" primaryText="Settings" />
-          <MenuItem value="4" primaryText="Help" />
-          <MenuItem value="5" primaryText="Sign out" />
+                    <MenuItem value="1" primaryText="Refresh"/>
+                    <MenuItem value="2" primaryText="Send feedback"/>
+                    <MenuItem value="3" primaryText="Settings"/>
+                    <MenuItem value="4" primaryText="Help"/>
+                    <MenuItem value="5" primaryText="Sign out"/>
         </IconMenu>
         <IconMenu
           iconButtonElement={<IconButton><ContentFilter /></IconButton>}
@@ -2575,24 +2607,24 @@ class IconMenuExampleControlled extends React.Component<{}, IconMenuExampleContr
           value={this.state.valueMultiple}
           multiple={true}
         >
-          <MenuItem value="1" primaryText="Blu-ray" />
-          <MenuItem value="2" primaryText="Cassette" />
-          <MenuItem value="3" primaryText="CD" />
-          <MenuItem value="4" primaryText="DVD Audio" />
-          <MenuItem value="5" primaryText="Hybrid SACD" />
-          <MenuItem value="6" primaryText="Vinyl" />
+                    <MenuItem value="1" primaryText="Blu-ray"/>
+                    <MenuItem value="2" primaryText="Cassette"/>
+                    <MenuItem value="3" primaryText="CD"/>
+                    <MenuItem value="4" primaryText="DVD Audio"/>
+                    <MenuItem value="5" primaryText="Hybrid SACD"/>
+                    <MenuItem value="6" primaryText="Vinyl"/>
         </IconMenu>
         <IconMenu
           iconButtonElement={<IconButton><FileFileDownload /></IconButton>}
           open={this.state.openMenu}
           onRequestChange={this.handleOnRequestChange}
         >
-          <MenuItem value="1" primaryText="Windows App" />
-          <MenuItem value="2" primaryText="Mac App" />
-          <MenuItem value="3" primaryText="Android App" />
-          <MenuItem value="4" primaryText="iOS App" />
+                    <MenuItem value="1" primaryText="Windows App"/>
+                    <MenuItem value="2" primaryText="Mac App"/>
+                    <MenuItem value="3" primaryText="Android App"/>
+                    <MenuItem value="4" primaryText="iOS App"/>
         </IconMenu>
-        <RaisedButton onTouchTap={this.handleOpenMenu} label="Downloads" />
+                <RaisedButton onTouchTap={this.handleOpenMenu} label="Downloads"/>
       </div>
     );
   }
@@ -2605,57 +2637,57 @@ const IconMenuExampleScrollable = () => (
     targetOrigin={{horizontal: 'left', vertical: 'top'}}
     maxHeight={272}
   >
-    <MenuItem value="AL" primaryText="Alabama" />
-    <MenuItem value="AK" primaryText="Alaska" />
-    <MenuItem value="AZ" primaryText="Arizona" />
-    <MenuItem value="AR" primaryText="Arkansas" />
-    <MenuItem value="CA" primaryText="California" />
-    <MenuItem value="CO" primaryText="Colorado" />
-    <MenuItem value="CT" primaryText="Connecticut" />
-    <MenuItem value="DE" primaryText="Delaware" />
-    <MenuItem value="DC" primaryText="District Of Columbia" />
-    <MenuItem value="FL" primaryText="Florida" />
-    <MenuItem value="GA" primaryText="Georgia" />
-    <MenuItem value="HI" primaryText="Hawaii" />
-    <MenuItem value="ID" primaryText="Idaho" />
-    <MenuItem value="IL" primaryText="Illinois" />
-    <MenuItem value="IN" primaryText="Indiana" />
-    <MenuItem value="IA" primaryText="Iowa" />
-    <MenuItem value="KS" primaryText="Kansas" />
-    <MenuItem value="KY" primaryText="Kentucky" />
-    <MenuItem value="LA" primaryText="Louisiana" />
-    <MenuItem value="ME" primaryText="Maine" />
-    <MenuItem value="MD" primaryText="Maryland" />
-    <MenuItem value="MA" primaryText="Massachusetts" />
-    <MenuItem value="MI" primaryText="Michigan" />
-    <MenuItem value="MN" primaryText="Minnesota" />
-    <MenuItem value="MS" primaryText="Mississippi" />
-    <MenuItem value="MO" primaryText="Missouri" />
-    <MenuItem value="MT" primaryText="Montana" />
-    <MenuItem value="NE" primaryText="Nebraska" />
-    <MenuItem value="NV" primaryText="Nevada" />
-    <MenuItem value="NH" primaryText="New Hampshire" />
-    <MenuItem value="NJ" primaryText="New Jersey" />
-    <MenuItem value="NM" primaryText="New Mexico" />
-    <MenuItem value="NY" primaryText="New York" />
-    <MenuItem value="NC" primaryText="North Carolina" />
-    <MenuItem value="ND" primaryText="North Dakota" />
-    <MenuItem value="OH" primaryText="Ohio" />
-    <MenuItem value="OK" primaryText="Oklahoma" />
-    <MenuItem value="OR" primaryText="Oregon" />
-    <MenuItem value="PA" primaryText="Pennsylvania" />
-    <MenuItem value="RI" primaryText="Rhode Island" />
-    <MenuItem value="SC" primaryText="South Carolina" />
-    <MenuItem value="SD" primaryText="South Dakota" />
-    <MenuItem value="TN" primaryText="Tennessee" />
-    <MenuItem value="TX" primaryText="Texas" />
-    <MenuItem value="UT" primaryText="Utah" />
-    <MenuItem value="VT" primaryText="Vermont" />
-    <MenuItem value="VA" primaryText="Virginia" />
-    <MenuItem value="WA" primaryText="Washington" />
-    <MenuItem value="WV" primaryText="West Virginia" />
-    <MenuItem value="WI" primaryText="Wisconsin" />
-    <MenuItem value="WY" primaryText="Wyoming" />
+        <MenuItem value="AL" primaryText="Alabama"/>
+        <MenuItem value="AK" primaryText="Alaska"/>
+        <MenuItem value="AZ" primaryText="Arizona"/>
+        <MenuItem value="AR" primaryText="Arkansas"/>
+        <MenuItem value="CA" primaryText="California"/>
+        <MenuItem value="CO" primaryText="Colorado"/>
+        <MenuItem value="CT" primaryText="Connecticut"/>
+        <MenuItem value="DE" primaryText="Delaware"/>
+        <MenuItem value="DC" primaryText="District Of Columbia"/>
+        <MenuItem value="FL" primaryText="Florida"/>
+        <MenuItem value="GA" primaryText="Georgia"/>
+        <MenuItem value="HI" primaryText="Hawaii"/>
+        <MenuItem value="ID" primaryText="Idaho"/>
+        <MenuItem value="IL" primaryText="Illinois"/>
+        <MenuItem value="IN" primaryText="Indiana"/>
+        <MenuItem value="IA" primaryText="Iowa"/>
+        <MenuItem value="KS" primaryText="Kansas"/>
+        <MenuItem value="KY" primaryText="Kentucky"/>
+        <MenuItem value="LA" primaryText="Louisiana"/>
+        <MenuItem value="ME" primaryText="Maine"/>
+        <MenuItem value="MD" primaryText="Maryland"/>
+        <MenuItem value="MA" primaryText="Massachusetts"/>
+        <MenuItem value="MI" primaryText="Michigan"/>
+        <MenuItem value="MN" primaryText="Minnesota"/>
+        <MenuItem value="MS" primaryText="Mississippi"/>
+        <MenuItem value="MO" primaryText="Missouri"/>
+        <MenuItem value="MT" primaryText="Montana"/>
+        <MenuItem value="NE" primaryText="Nebraska"/>
+        <MenuItem value="NV" primaryText="Nevada"/>
+        <MenuItem value="NH" primaryText="New Hampshire"/>
+        <MenuItem value="NJ" primaryText="New Jersey"/>
+        <MenuItem value="NM" primaryText="New Mexico"/>
+        <MenuItem value="NY" primaryText="New York"/>
+        <MenuItem value="NC" primaryText="North Carolina"/>
+        <MenuItem value="ND" primaryText="North Dakota"/>
+        <MenuItem value="OH" primaryText="Ohio"/>
+        <MenuItem value="OK" primaryText="Oklahoma"/>
+        <MenuItem value="OR" primaryText="Oregon"/>
+        <MenuItem value="PA" primaryText="Pennsylvania"/>
+        <MenuItem value="RI" primaryText="Rhode Island"/>
+        <MenuItem value="SC" primaryText="South Carolina"/>
+        <MenuItem value="SD" primaryText="South Dakota"/>
+        <MenuItem value="TN" primaryText="Tennessee"/>
+        <MenuItem value="TX" primaryText="Texas"/>
+        <MenuItem value="UT" primaryText="Utah"/>
+        <MenuItem value="VT" primaryText="Vermont"/>
+        <MenuItem value="VA" primaryText="Virginia"/>
+        <MenuItem value="WA" primaryText="Washington"/>
+        <MenuItem value="WV" primaryText="West Virginia"/>
+        <MenuItem value="WI" primaryText="Wisconsin"/>
+        <MenuItem value="WY" primaryText="Wyoming"/>
   </IconMenu>
 );
 
@@ -2688,9 +2720,9 @@ const IconMenuExampleNested = () => (
         ]}
       />
       <Divider />
-      <MenuItem primaryText="Download" leftIcon={<Download />} />
+            <MenuItem primaryText="Download" leftIcon={<Download />}/>
       <Divider />
-      <MenuItem value="Del" primaryText="Delete" />
+            <MenuItem value="Del" primaryText="Delete"/>
 
     </IconMenu>
   </div>
@@ -2711,11 +2743,11 @@ class DropDownMenuSimpleExample extends React.Component<{}, {value?: number}> {
     return (
       <div>
         <DropDownMenu animated={false} value={this.state.value} onChange={this.handleChange}>
-          <MenuItem value={1} primaryText="Never" />
-          <MenuItem value={2} primaryText="Every Night" />
-          <MenuItem value={3} primaryText="Weeknights" />
-          <MenuItem value={4} primaryText="Weekends" />
-          <MenuItem value={5} primaryText="Weekly" />
+                    <MenuItem value={1} primaryText="Never"/>
+                    <MenuItem value={2} primaryText="Every Night"/>
+                    <MenuItem value={3} primaryText="Weeknights"/>
+                    <MenuItem value={4} primaryText="Weekends"/>
+                    <MenuItem value={5} primaryText="Weekly"/>
         </DropDownMenu>
         <br />
         <DropDownMenu
@@ -2725,11 +2757,11 @@ class DropDownMenuSimpleExample extends React.Component<{}, {value?: number}> {
           style={styles.customWidth}
           autoWidth={false}
         >
-          <MenuItem value={1} primaryText="Custom width" />
-          <MenuItem value={2} primaryText="Every Night" />
-          <MenuItem value={3} primaryText="Weeknights" />
-          <MenuItem value={4} primaryText="Weekends" />
-          <MenuItem value={5} primaryText="Weekly" />
+                    <MenuItem value={1} primaryText="Custom width"/>
+                    <MenuItem value={2} primaryText="Every Night"/>
+                    <MenuItem value={3} primaryText="Weeknights"/>
+                    <MenuItem value={4} primaryText="Weekends"/>
+                    <MenuItem value={5} primaryText="Weekly"/>
         </DropDownMenu>
       </div>
     );
@@ -2748,19 +2780,19 @@ class DropDownMenuOpenImmediateExample extends React.Component<{}, {value?: numb
   render() {
     return (
       <DropDownMenu value={this.state.value} onChange={this.handleChange} openImmediately={true}>
-        <MenuItem value={1} primaryText="Never" />
-        <MenuItem value={2} primaryText="Every Night" />
-        <MenuItem value={3} primaryText="Weeknights" />
-        <MenuItem value={4} primaryText="Weekends" />
-        <MenuItem value={5} primaryText="Weekly" />
+                <MenuItem value={1} primaryText="Never"/>
+                <MenuItem value={2} primaryText="Every Night"/>
+                <MenuItem value={3} primaryText="Weeknights"/>
+                <MenuItem value={4} primaryText="Weekends"/>
+                <MenuItem value={5} primaryText="Weekly"/>
       </DropDownMenu>
     );
   }
 }
 
 const items: React.ReactElement<__MaterialUI.Menus.MenuItemProps>[] = [];
-for (let i = 0; i < 100; i++ ) {
-  items.push(<MenuItem value={i} key={i} primaryText={`Item ${i}`} />);
+for (let i = 0; i < 100; i++) {
+    items.push(<MenuItem value={i} key={i} primaryText={`Item ${i}`}/>);
 }
 
 class DropDownMenuLongMenuExample extends React.Component<{}, {value?: number}> {
@@ -2793,10 +2825,10 @@ class DropDownMenuLabeledExample extends React.Component<{}, {value?: number}> {
   render() {
     return (
       <DropDownMenu value={this.state.value} onChange={this.handleChange}>
-        <MenuItem value={1} label="5 am - 12 pm" primaryText="Morning" />
-        <MenuItem value={2} label="12 pm - 5 pm" primaryText="Afternoon" />
-        <MenuItem value={3} label="5 pm - 9 pm" primaryText="Evening" />
-        <MenuItem value={4} label="9 pm - 5 am" primaryText="Night" />
+                <MenuItem value={1} label="5 am - 12 pm" primaryText="Morning"/>
+                <MenuItem value={2} label="12 pm - 5 pm" primaryText="Afternoon"/>
+                <MenuItem value={3} label="5 pm - 9 pm" primaryText="Evening"/>
+                <MenuItem value={4} label="9 pm - 5 am" primaryText="Night"/>
       </DropDownMenu>
     );
   }
@@ -2806,31 +2838,31 @@ class DropDownMenuLabeledExample extends React.Component<{}, {value?: number}> {
 // "http://material-ui.com/#/components/paper"
 const PaperExampleSimple = () => (
   <div>
-    <Paper style={style} zDepth={1} />
-    <Paper style={style} zDepth={2} />
-    <Paper style={style} zDepth={3} />
-    <Paper style={style} zDepth={4} />
-    <Paper style={style} zDepth={5} />
+        <Paper style={style} zDepth={1}/>
+        <Paper style={style} zDepth={2}/>
+        <Paper style={style} zDepth={3}/>
+        <Paper style={style} zDepth={4}/>
+        <Paper style={style} zDepth={5}/>
   </div>
 );
 
 const PaperExampleRounded = () => (
   <div>
-    <Paper style={style} zDepth={1} rounded={false} />
-    <Paper style={style} zDepth={2} rounded={false} />
-    <Paper style={style} zDepth={3} rounded={false} />
-    <Paper style={style} zDepth={4} rounded={false} />
-    <Paper style={style} zDepth={5} rounded={false} />
+        <Paper style={style} zDepth={1} rounded={false}/>
+        <Paper style={style} zDepth={2} rounded={false}/>
+        <Paper style={style} zDepth={3} rounded={false}/>
+        <Paper style={style} zDepth={4} rounded={false}/>
+        <Paper style={style} zDepth={5} rounded={false}/>
   </div>
 );
 
 const PaperExampleCircle = () => (
   <div>
-    <Paper style={style} zDepth={1} circle={true} />
-    <Paper style={style} zDepth={2} circle={true} />
-    <Paper style={style} zDepth={3} circle={true} />
-    <Paper style={style} zDepth={4} circle={true} />
-    <Paper style={style} zDepth={5} circle={true} />
+        <Paper style={style} zDepth={1} circle={true}/>
+        <Paper style={style} zDepth={2} circle={true}/>
+        <Paper style={style} zDepth={3} circle={true}/>
+        <Paper style={style} zDepth={4} circle={true}/>
+        <Paper style={style} zDepth={5} circle={true}/>
   </div>
 );
 
@@ -2877,10 +2909,10 @@ class PopoverExampleSimple extends React.Component<{}, {open?: boolean, anchorEl
           onRequestClose={this.handleRequestClose}
         >
           <Menu>
-            <MenuItem primaryText="Refresh" />
-            <MenuItem primaryText="Help &amp; feedback" />
-            <MenuItem primaryText="Settings" />
-            <MenuItem primaryText="Sign out" />
+                        <MenuItem primaryText="Refresh"/>
+                        <MenuItem primaryText="Help &amp; feedback"/>
+                        <MenuItem primaryText="Settings"/>
+                        <MenuItem primaryText="Sign out"/>
           </Menu>
         </Popover>
       </div>
@@ -2929,10 +2961,10 @@ class PopoverExampleAnimation extends React.Component<{}, {open?: boolean, ancho
           animation={PopoverAnimationVertical}
         >
           <Menu>
-            <MenuItem primaryText="Refresh" />
-            <MenuItem primaryText="Help &amp; feedback" />
-            <MenuItem primaryText="Settings" />
-            <MenuItem primaryText="Sign out" />
+                        <MenuItem primaryText="Refresh"/>
+                        <MenuItem primaryText="Help &amp; feedback"/>
+                        <MenuItem primaryText="Settings"/>
+                        <MenuItem primaryText="Sign out"/>
           </Menu>
         </Popover>
       </div>
@@ -3087,10 +3119,10 @@ class PopoverExampleConfigurable extends React.Component<{}, PopoverExampleConfi
           onRequestClose={this.handleRequestClose}
         >
           <Menu>
-            <MenuItem primaryText="Refresh" />
-            <MenuItem primaryText="Help &amp; feedback" />
-            <MenuItem primaryText="Settings" />
-            <MenuItem primaryText="Sign out" />
+                        <MenuItem primaryText="Refresh"/>
+                        <MenuItem primaryText="Help &amp; feedback"/>
+                        <MenuItem primaryText="Settings"/>
+                        <MenuItem primaryText="Sign out"/>
           </Menu>
         </Popover>
       </div>
@@ -3103,8 +3135,8 @@ class PopoverExampleConfigurable extends React.Component<{}, PopoverExampleConfi
 const CircularProgressExampleSimple = () => (
   <div>
     <CircularProgress />
-    <CircularProgress size={1.5} />
-    <CircularProgress size={2} />
+        <CircularProgress size={1.5}/>
+        <CircularProgress size={2} thickness={1.5}/>
   </div>
 );
 
@@ -3140,9 +3172,9 @@ class CircularProgressExampleDeterminate extends React.Component<{}, {completed?
   render() {
     return (
       <div>
-        <CircularProgress mode="determinate" value={this.state.completed} />
-        <CircularProgress mode="determinate" value={this.state.completed} size={1.5} />
-        <CircularProgress mode="determinate" value={this.state.completed} size={2} />
+                <CircularProgress mode="determinate" value={this.state.completed}/>
+                <CircularProgress mode="determinate" value={this.state.completed} size={1.5}/>
+                <CircularProgress mode="determinate" value={this.state.completed} size={2}/>
       </div>
     );
   }
@@ -3151,7 +3183,7 @@ class CircularProgressExampleDeterminate extends React.Component<{}, {completed?
 
 // "http://www.material-ui.com/#/components/linear-progress"
 const LinearProgressExampleSimple = () => (
-  <LinearProgress mode="indeterminate" />
+    <LinearProgress mode="indeterminate"/>
 );
 
 class LinearProgressExampleDeterminate extends React.Component<{}, {completed?: number}> {
@@ -3185,7 +3217,7 @@ class LinearProgressExampleDeterminate extends React.Component<{}, {completed?: 
 
   render() {
     return (
-      <LinearProgress mode="determinate" value={this.state.completed} />
+            <LinearProgress mode="determinate" value={this.state.completed}/>
     );
   }
 }
@@ -3266,16 +3298,16 @@ class SelectFieldExampleSimple extends React.Component<{}, {value?: number}> {
     return (
       <div>
         <SelectField value={this.state.value} onChange={this.handleChange}>
-          <MenuItem value={1} primaryText="Never" />
-          <MenuItem value={2} primaryText="Every Night" />
-          <MenuItem value={3} primaryText="Weeknights" />
-          <MenuItem value={4} primaryText="Weekends" />
-          <MenuItem value={5} primaryText="Weekly" />
+                    <MenuItem value={1} primaryText="Never"/>
+                    <MenuItem value={2} primaryText="Every Night"/>
+                    <MenuItem value={3} primaryText="Weeknights"/>
+                    <MenuItem value={4} primaryText="Weekends"/>
+                    <MenuItem value={5} primaryText="Weekly"/>
         </SelectField>
         <br />
         <SelectField value={1} disabled={true}>
-          <MenuItem value={1} primaryText="Disabled" />
-          <MenuItem value={2} primaryText="Every Night" />
+                    <MenuItem value={1} primaryText="Disabled"/>
+                    <MenuItem value={2} primaryText="Every Night"/>
         </SelectField>
         <br />
         <SelectField
@@ -3283,11 +3315,11 @@ class SelectFieldExampleSimple extends React.Component<{}, {value?: number}> {
           onChange={this.handleChange}
           style={styles.customWidth}
         >
-          <MenuItem value={1} primaryText="Custom width" />
-          <MenuItem value={2} primaryText="Every Night" />
-          <MenuItem value={3} primaryText="Weeknights" />
-          <MenuItem value={4} primaryText="Weekends" />
-          <MenuItem value={5} primaryText="Weekly" />
+                    <MenuItem value={1} primaryText="Custom width"/>
+                    <MenuItem value={2} primaryText="Every Night"/>
+                    <MenuItem value={3} primaryText="Weeknights"/>
+                    <MenuItem value={4} primaryText="Weekends"/>
+                    <MenuItem value={5} primaryText="Weekly"/>
         </SelectField>
         <br />
         <SelectField
@@ -3295,11 +3327,11 @@ class SelectFieldExampleSimple extends React.Component<{}, {value?: number}> {
           onChange={this.handleChange}
           autoWidth={true}
         >
-          <MenuItem value={1} primaryText="Auto width" />
-          <MenuItem value={2} primaryText="Every Night" />
-          <MenuItem value={3} primaryText="Weeknights" />
-          <MenuItem value={4} primaryText="Weekends" />
-          <MenuItem value={5} primaryText="Weekly" />
+                    <MenuItem value={1} primaryText="Auto width"/>
+                    <MenuItem value={2} primaryText="Every Night"/>
+                    <MenuItem value={3} primaryText="Weeknights"/>
+                    <MenuItem value={4} primaryText="Weekends"/>
+                    <MenuItem value={5} primaryText="Weekly"/>
         </SelectField>
       </div>
     );
@@ -3336,21 +3368,21 @@ class SelectFieldExampleCustomLabel extends React.Component<{}, {value?: number}
   render() {
     return (
       <SelectField value={this.state.value} onChange={this.handleChange}>
-        <MenuItem value={1} label="5 am - 12 pm" primaryText="Morning" />
-        <MenuItem value={2} label="12 pm - 5 pm" primaryText="Afternoon" />
-        <MenuItem value={3} label="5 pm - 9 pm" primaryText="Evening" />
-        <MenuItem value={4} label="9 pm - 5 am" primaryText="Night" />
+                <MenuItem value={1} label="5 am - 12 pm" primaryText="Morning"/>
+                <MenuItem value={2} label="12 pm - 5 pm" primaryText="Afternoon"/>
+                <MenuItem value={3} label="5 pm - 9 pm" primaryText="Evening"/>
+                <MenuItem value={4} label="9 pm - 5 am" primaryText="Night"/>
       </SelectField>
     );
   }
 }
 
 const itemsPeriod = [
-  <MenuItem key={1} value={1} primaryText="Never" />,
-  <MenuItem key={2} value={2} primaryText="Every Night" />,
-  <MenuItem key={3} value={3} primaryText="Weeknights" />,
-  <MenuItem key={4} value={4} primaryText="Weekends" />,
-  <MenuItem key={5} value={5} primaryText="Weekly" />,
+    <MenuItem key={1} value={1} primaryText="Never"/>,
+    <MenuItem key={2} value={2} primaryText="Every Night"/>,
+    <MenuItem key={3} value={3} primaryText="Weeknights"/>,
+    <MenuItem key={4} value={4} primaryText="Weekends"/>,
+    <MenuItem key={5} value={5} primaryText="Weekly"/>,
 ];
 
 export default class SelectFieldExampleFloatingLabel extends React.Component<{}, {value?: number}> {
@@ -3429,21 +3461,21 @@ class SelectFieldExampleError extends React.Component<{}, {value?: number}> {
 const SliderExampleSimple = () => (
   <div>
     <Slider />
-    <Slider defaultValue={0.5} />
-    <Slider defaultValue={1} />
+        <Slider defaultValue={0.5}/>
+        <Slider defaultValue={1}/>
   </div>
 );
 
 const SliderExampleDisabled = () => (
   <div>
-    <Slider disabled={true} />
-    <Slider disabled={true} value={0.5} />
-    <Slider disabled={true} value={1} />
+        <Slider disabled={true}/>
+        <Slider disabled={true} value={0.5}/>
+        <Slider disabled={true} value={1}/>
   </div>
 );
 
 const SliderExampleStep = () => (
-  <Slider step={0.10} value={.5} />
+    <Slider step={0.10} value={.5}/>
 );
 
 class SliderExampleControlled extends React.Component<{}, {firstSlider?: number, secondSlider?: number}> {
@@ -3599,6 +3631,8 @@ const ToggleExampleSimple = () => (
       label="Label on the right"
       labelPosition="right"
       style={styles.toggle}
+      thumbSwitchedStyle={styles.toggle}
+      trackSwitchedStyle={styles.toggle}
     />
   </div>
 );
@@ -3638,6 +3672,7 @@ class SnackbarExampleSimple extends React.Component<{}, {open?: boolean}> {
           message="Event added to your calendar"
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
+                    contentStyle={{margin: 16}}
         />
       </div>
     );
@@ -4457,7 +4492,7 @@ class TableExampleComplex extends React.Component<{}, TableExampleComplexState> 
             showRowHover={this.state.showRowHover}
             stripedRows={this.state.stripedRows}
           >
-            {tableData.map( (row, index) => (
+                        {tableData.map((row, index) => (
               <TableRow key={index} selected={row.selected}>
                 <TableRowColumn>{index}</TableRowColumn>
                 <TableRowColumn>{row.name}</TableRowColumn>
@@ -4557,7 +4592,7 @@ function handleActive(tab) {
 
 const TabsExampleSimple = () => (
   <Tabs>
-    <Tab label="Item One" >
+        <Tab label="Item One">
       <div>
         <h2 style={styles.headline}>Tab One</h2>
         <p>
@@ -4566,10 +4601,10 @@ const TabsExampleSimple = () => (
         <p>
           You can put any sort of HTML or react component in here. It even keeps the component state!
         </p>
-        <Slider name="slider0" defaultValue={0.5} />
+                <Slider name="slider0" defaultValue={0.5}/>
       </div>
     </Tab>
-    <Tab label="Item Two" >
+        <Tab label="Item Two">
       <div>
         <h2 style={styles.headline}>Tab Two</h2>
         <p>
@@ -4613,7 +4648,7 @@ class TabsExampleControlled extends React.Component<{}, {value?: string}> {
         value={this.state.value}
         onChange={this.handleChange}
       >
-        <Tab label="Tab A" value="a" >
+                <Tab label="Tab A" value="a">
           <div>
             <h2 style={styles.headline}>Controllable Tab A</h2>
             <p>
@@ -4640,9 +4675,9 @@ class TabsExampleControlled extends React.Component<{}, {value?: string}> {
 
 const TabsExampleIcon = () => (
   <Tabs>
-    <Tab icon={<FontIcon className="muidocs-icon-action-home" />} />
-    <Tab icon={<ActionFlightTakeoff />} />
-    <Tab icon={<FontIcon className="material-icons">favorite</FontIcon>} />
+        <Tab icon={<FontIcon className="muidocs-icon-action-home" />}/>
+        <Tab icon={<ActionFlightTakeoff />}/>
+        <Tab icon={<FontIcon className="material-icons">favorite</FontIcon>}/>
   </Tabs>
 );
 
@@ -4898,20 +4933,20 @@ class ToolbarExamplesSimple extends React.Component<{}, {value?: number}> {
       <Toolbar>
         <ToolbarGroup firstChild={true}>
           <DropDownMenu value={this.state.value} onChange={this.handleChange}>
-            <MenuItem value={1} primaryText="All Broadcasts" />
-            <MenuItem value={2} primaryText="All Voice" />
-            <MenuItem value={3} primaryText="All Text" />
-            <MenuItem value={4} primaryText="Complete Voice" />
-            <MenuItem value={5} primaryText="Complete Text" />
-            <MenuItem value={6} primaryText="Active Voice" />
-            <MenuItem value={7} primaryText="Active Text" />
+                        <MenuItem value={1} primaryText="All Broadcasts"/>
+                        <MenuItem value={2} primaryText="All Voice"/>
+                        <MenuItem value={3} primaryText="All Text"/>
+                        <MenuItem value={4} primaryText="Complete Voice"/>
+                        <MenuItem value={5} primaryText="Complete Text"/>
+                        <MenuItem value={6} primaryText="Active Voice"/>
+                        <MenuItem value={7} primaryText="Active Text"/>
           </DropDownMenu>
         </ToolbarGroup>
         <ToolbarGroup>
-          <ToolbarTitle text="Options" />
-          <FontIcon className="muidocs-icon-custom-sort" />
+                    <ToolbarTitle text="Options"/>
+                    <FontIcon className="muidocs-icon-custom-sort"/>
           <ToolbarSeparator />
-          <RaisedButton label="Create Broadcast" primary={true} />
+                    <RaisedButton label="Create Broadcast" primary={true}/>
           <IconMenu
             iconButtonElement={
               <IconButton touch={true}>
@@ -4919,8 +4954,8 @@ class ToolbarExamplesSimple extends React.Component<{}, {value?: number}> {
               </IconButton>
             }
           >
-            <MenuItem primaryText="Download" />
-            <MenuItem primaryText="More Info" />
+                        <MenuItem primaryText="Download"/>
+                        <MenuItem primaryText="More Info"/>
           </IconMenu>
         </ToolbarGroup>
       </Toolbar>
@@ -4930,16 +4965,32 @@ class ToolbarExamplesSimple extends React.Component<{}, {value?: number}> {
 
 const componentWithWidth = withWidth()(ToolbarExamplesSimple);
 
+class BottomNavigationExample extends React.Component<{}, {
+  index?: number
+}> {
+  constructor() {
+    super()
+    this.state = {
+      index: 0
+    };
+  }
+  render() {
+    return <BottomNavigation selectedIndex={this.state.index}>
+      <BottomNavigationItem label='0' icon={<ActionHome/>} onTouchTap={() => this.setState({index: 0})}/>
+      <BottomNavigationItem label='1' icon={<ActionInfo/>} onTouchTap={() => this.setState({index: 1})}/>
+    </BottomNavigation>
+  }
+}
 
 interface MaterialUiTestsState {
 }
 
 class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> {
 
-  render () {
+    render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
-        <AppBar title="My AppBar" />
+                <AppBar title="My AppBar"/>
 
       </MuiThemeProvider>
     );

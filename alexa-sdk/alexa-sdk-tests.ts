@@ -1,5 +1,4 @@
-/// <reference path="../node/node.d.ts"/>
-/// <reference path="./alexa-sdk.d.ts" />
+/// <reference types="node"/>
 
 import * as Alexa from "alexa-sdk";
 
@@ -11,15 +10,12 @@ exports.handler = function(event: Alexa.RequestBody, context: Alexa.Context, cal
 
 let handlers: Alexa.Handlers = {
     'LaunchRequest': function () {
-        var self: Alexa.Handler = this;
-        self.emit('SayHello');
+        this.emit('SayHello');
     },
     'HelloWorldIntent': function () {
-        var self: Alexa.Handler = this;
-        self.emit('SayHello');
+        this.emit('SayHello');
     },
     'SayHello': function () {
-        var self: Alexa.Handler = this;
-        self.emit(':tell', 'Hello World!');
+        this.emit(':tell', 'Hello World!');
     }
 };

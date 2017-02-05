@@ -1,5 +1,3 @@
-/// <reference path="../pouchdb-mapreduce/pouchdb-mapreduce.d.ts" />
-
 namespace PouchDBBrowserTests {
     function testConstructor() {
         type MyModel = { numericProperty: number };
@@ -8,5 +6,31 @@ namespace PouchDBBrowserTests {
         let db = new PouchDB<MyModel>('mydb');
         db.viewCleanup().catch((error) => {
         });
+    }
+
+    function testQuery() {
+        let pouch = new PouchDB<{}>('mydb');
+        // find pokemon with name === 'Pika pi!'
+        pouch.query('my_index/by_name', {
+            key          : 'Pika pi!',
+            include_docs : true
+        }).then(function (result) {
+            // handle result
+        }).catch(function (err) {
+            // handle errors
+        });
+
+        // find the first 5 pokemon whose name starts with 'P'
+        pouch.query('my_index/by_name', {
+            startkey     : 'P',
+            endkey       : 'P\uffff',
+            limit        : 5,
+            include_docs : true
+        }).then(function (result) {
+            // handle result
+        }).catch(function (err) {
+            // handle errors
+        });
+
     }
 }

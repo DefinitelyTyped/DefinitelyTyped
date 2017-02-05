@@ -1,5 +1,3 @@
-/// <reference path="http-errors.d.ts" />
-/// <reference path="../express/express.d.ts" />
 
 import * as createError from 'http-errors';
 import * as express from 'express';
@@ -28,6 +26,7 @@ console.log(err.message);
 console.log(err.status);
 console.log(err.statusCode);
 console.log(err.expose);
+console.log(err.headers);
 
 // createError(status, msg)
 var err = createError(404, 'LOL');
@@ -74,5 +73,13 @@ var err = new createError['404']();
 
 //createError['404'](); // TypeScript should fail with "Did you mean to include 'new'?"
 //new createError(); // TypeScript should fail with "Only a void function can be called with the 'new' keyword"
+
+// Error messages can have custom messages
+var err = new createError.NotFound('This might be a problem');
+var err = new createError['404']('This might be a problem');
+
+// 1.5.0 supports 421 - Misdirected Request
+var err = new createError.MisdirectedRequest();
+var err = new createError.MisdirectedRequest('Where should this go?');
 
 let error: createError.HttpError;

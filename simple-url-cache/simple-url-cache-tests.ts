@@ -1,5 +1,3 @@
-/// <reference path="./simple-url-cache.d.ts" />
-
 import simpleUrlCache = require("simple-url-cache");
 
 const fileStorageConfig = {

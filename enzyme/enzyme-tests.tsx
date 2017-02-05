@@ -1,11 +1,7 @@
-/// <reference path="enzyme.d.ts" />
-/// <reference path="../react/react.d.ts"/>
-
 import { shallow, mount, render, describeWithDOM, spyLifecycle } from "enzyme";
 import * as React from "react";
 import {Component, ReactElement, HTMLAttributes} from "react";
 import {ShallowWrapper, ReactWrapper, CheerioWrapper} from "enzyme";
-
 
 // Help classes/interfaces
 interface MyComponentProps {
@@ -42,7 +38,8 @@ namespace ShallowWrapperTest {
         objectVal: Object,
         boolVal: Boolean,
         stringVal: String,
-        elementWrapper: ShallowWrapper<HTMLAttributes, {}>
+        numOrStringVal: number | string,
+        elementWrapper: ShallowWrapper<HTMLAttributes<{}>, {}>
 
     function test_shallow_options() {
         shallow(<MyComponent propsProperty={1}/>, {
@@ -96,6 +93,18 @@ namespace ShallowWrapperTest {
         boolVal = shallowWrapper.containsAnyMatchingElements([<div className="foo bar"/>]);
     }
 
+    function test_dive() {
+        interface TmpProps {
+            foo: any
+        }
+
+        interface TmpState {
+            bar: any
+        }
+
+        const diveWrapper: ShallowWrapper<TmpProps, TmpState> = shallowWrapper.dive<TmpProps, TmpState>({ context: { foobar: 'barfoo' }});
+    }
+
     function test_equals() {
         boolVal = shallowWrapper.equals(<div className="foo bar"/>);
     }
@@ -114,6 +123,10 @@ namespace ShallowWrapperTest {
 
     function test_isEmpty() {
         boolVal = shallowWrapper.isEmpty()
+    }
+
+    function test_exists() {
+        boolVal = shallowWrapper.exists()
     }
 
     function test_not() {
@@ -192,7 +205,7 @@ namespace ShallowWrapperTest {
     }
 
     function test_state() {
-        shallowWrapper.state();
+        const state: MyComponentState = shallowWrapper.state();
         shallowWrapper.state('key');
         const tmp: String = shallowWrapper.state<String>('key');
     }
@@ -222,11 +235,11 @@ namespace ShallowWrapperTest {
     }
 
     function test_setState() {
-        shallowWrapper = shallowWrapper.setState({ stateProperty: 'state' });
+        shallowWrapper = shallowWrapper.setState({ stateProperty: 'state' }, () => console.log('state updated'));
     }
 
     function test_setProps() {
-        shallowWrapper = shallowWrapper.setProps({ propsProperty: 'foo' });
+        shallowWrapper = shallowWrapper.setProps({ propsProperty: 'foo' }, () => console.log('props updated'));
     }
 
     function test_setContext() {
@@ -264,14 +277,14 @@ namespace ShallowWrapperTest {
     }
 
     function test_reduce() {
-        const total: number[] =
+        const total: number =
             shallowWrapper.reduce(
                 (amount: number, n: ShallowWrapper<MyComponentProps, MyComponentState>) => amount + n.props().numberProp
             );
     }
 
     function test_reduceRight() {
-        const total: number[] =
+        const total: number =
             shallowWrapper.reduceRight<number>(
                 (amount: number, n: ShallowWrapper<MyComponentProps, MyComponentState>) => amount + n.prop('amount')
             );
@@ -298,6 +311,10 @@ namespace ShallowWrapperTest {
     function test_isEmptyRender() {
         boolVal = shallowWrapper.isEmptyRender();
     }
+
+    function test_svg() {
+        numOrStringVal = shallowWrapper.find('svg').props().strokeWidth;
+    }
 }
 
 
@@ -310,7 +327,7 @@ namespace ReactWrapperTest {
         objectVal: Object,
         boolVal: Boolean,
         stringVal: String,
-        elementWrapper: ReactWrapper<HTMLAttributes, {}>
+        elementWrapper: ReactWrapper<HTMLAttributes<{}>, {}>
 
     function test_unmount() {
         reactWrapper = reactWrapper.unmount();
@@ -540,14 +557,14 @@ namespace ReactWrapperTest {
     }
 
     function test_reduce() {
-        const total: number[] =
+        const total: number =
             reactWrapper.reduce<number>(
                 (amount: number, n: ReactWrapper<MyComponentProps, MyComponentState>) => amount + n.prop('amount')
             );
     }
 
     function test_reduceRight() {
-        const total: number[] =
+        const total: number =
             reactWrapper.reduceRight<number>(
                 (amount: number, n: ReactWrapper<MyComponentProps, MyComponentState>) => amount + n.prop('amount')
             );
@@ -584,7 +601,7 @@ namespace CheerioWrapperTest {
         objectVal: Object,
         boolVal: Boolean,
         stringVal: String,
-        elementWrapper: CheerioWrapper<HTMLAttributes, {}>
+        elementWrapper: CheerioWrapper<HTMLAttributes<{}>, {}>
 
     function test_find() {
         elementWrapper = cheerioWrapper.find('.selector');
@@ -782,14 +799,14 @@ namespace CheerioWrapperTest {
     }
 
     function test_reduce() {
-        const total: number[] =
+        const total: number =
             cheerioWrapper.reduce<number>(
                 (amount: number, n: CheerioWrapper<MyComponentProps, MyComponentState>) => amount + n.prop('amount')
             );
     }
 
     function test_reduceRight() {
-        const total: number[] =
+        const total: number =
             cheerioWrapper.reduceRight<number>(
                 (amount: number, n: CheerioWrapper<MyComponentProps, MyComponentState>) => amount + n.prop('amount')
             );

@@ -1,4 +1,3 @@
-/// <reference path="./weighted.d.ts" />
 import * as weighted from 'weighted';
 
 function testSet() {
@@ -23,7 +22,7 @@ function testOverrideRand() {
 
     function rand() {
         return 4; // chosen by fair dice roll.
-                  // guaranteed to be random.  
+                  // guaranteed to be random.
     }
 
     console.log('Decision:', weighted.select(options, weights, rand));

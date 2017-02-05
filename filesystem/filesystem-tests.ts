@@ -1,4 +1,4 @@
-/// <reference path="filesystem.d.ts" />
+
 // http://www.w3.org/TR/file-system-api/
 
 // 2. Introduction

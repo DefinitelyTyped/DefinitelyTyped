@@ -1,6 +1,3 @@
-/// <reference path="react-jsonschema-form.d.ts" />
-/// <reference path="../react/react.d.ts" />
-
 import * as React from "react";
 import Form from "react-jsonschema-form";
 
@@ -60,15 +57,18 @@ interface IExampleState {
 }
 
 export class Example extends React.Component<any, IExampleState> {
-    constructor(props: any) {
-        super(props);
-        this.state.formData = {
+    public state: IExampleState = {
+        formData: {
             firstName: "Chuck",
             lastName: "Norris",
             age: 75,
             bio: "Roundhouse kicking asses since 1940",
             password: "noneed"
-        };
+        }
+    }
+
+    constructor(props: any) {
+        super(props);
     }
 
     public render() {
@@ -76,6 +76,8 @@ export class Example extends React.Component<any, IExampleState> {
           <div className="react-jsonschema-form-example">
               {   <Form schema={schema}
                         uiSchema={uiSchema}
+                        showErrorList={false}
+                        noValidate={false}
                         formData={this.state}
                         onChange={(formData) => this.setState({formData})} /> }
           </div>

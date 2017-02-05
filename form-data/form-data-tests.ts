@@ -1,11 +1,10 @@
-/// <reference path="form-data.d.ts" />
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../request/request.d.ts" />
-/// <reference path="../isomorphic-fetch/isomorphic-fetch.d.ts" />
+/// <reference types="node-fetch" />
+
 import FormData = require('form-data');
 import fs = require('fs');
 import http = require('http');
 import request = require('request');
+import fetch from 'node-fetch';
 
 import * as ImportUsingES6Syntax from 'form-data';
 
@@ -132,4 +131,11 @@ import * as ImportUsingES6Syntax from 'form-data';
         }).then(function (json) {
             console.log(json);
         });
+}
+
+() => {
+    var form = new FormData();
+	form.getLength((err: Error, length: number): void => {
+		// nothing
+	});
 }

@@ -1,6 +1,4 @@
 // These examples adapted from Mapbox's examples (https://www.mapbox.com/mapbox-gl-js/examples)
-/// <reference path="./mapbox-gl.d.ts" />
-/// <reference path="../geojson/geojson.d.ts" />
 
 /**
  * Set API Access Token

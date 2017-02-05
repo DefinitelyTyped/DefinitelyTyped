@@ -1,5 +1,3 @@
-///<reference path='classnames.d.ts' />
-
 import classNames = require('classnames')
 
 classNames('foo', 'bar'); // => 'foo bar'
@@ -19,6 +17,8 @@ classNames([{ foo: true, bar: false }, { baz: true }]); // => 'foo baz'
 
 classNames(["foo", ["bar", {baz: true}]]); // => 'foo bar baz'
 
-// other falsy values are just ignored
-// NOTE: We don't really want to allow this kind of thing with Typescript (otherwise what's the point!)
-//classNames(null, false, 'bar', undefined, 0, 1, { baz: null }, ''); // => 'bar 1'
+// falsey values are just ignored
+classNames(null, 'bar', undefined, 0, 1, { baz: null }, ''); // => 'bar 1'
+
+// Supporting booleans is tricky since we should only support passing in false, which is ignored
+//classNames(false, 'bar', 0, 1, { baz: null }, ''); // => 'bar 1'

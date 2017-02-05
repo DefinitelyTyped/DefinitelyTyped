@@ -1,4 +1,4 @@
-/// <reference path="observe-js.d.ts" />
+import {PathObserver, ArrayObserver, ObjectObserver, CompoundObserver, ObserverTransform} from 'observe-js';
 
 namespace observejs {
 

@@ -1,5 +1,5 @@
-/// <reference path="traceback.d.ts" />
-/// <reference path="../node/node.d.ts" />
+
+/// <reference types="node" />
 
 function testTraceback() {
 	var TracebackStaticClass: TracebackStatic = function () {

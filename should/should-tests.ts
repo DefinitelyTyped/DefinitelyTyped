@@ -1,4 +1,4 @@
-/// <reference path="should.d.ts" />
+
 
 import should = require('should');
 
