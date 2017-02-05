@@ -34,7 +34,7 @@
 declare module "orientjs" {
     import events = require('events');
     import Promise = require('bluebird');
-    function ojs(config: any): ojs.OrientJs;
+    function ojs(config: ojs.ServerConfig): ojs.OrientJs;
 
     module ojs {
 
@@ -756,7 +756,7 @@ declare module "orientjs" {
         interface RawExpression {
             db: Db;
             value: string;
-            as(alias): RawExpression;
+            as(alias:string): RawExpression;
         }
 
 
@@ -924,7 +924,7 @@ declare module "orientjs" {
              *
              * @return {SqlFunction} The sql function instance.
              */
-            sqlFunction(param: string): SqlFunction;
+            sqlFunction(options?: any): SqlFunction;
 
             /**
  * Create a create query.
