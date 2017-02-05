@@ -2106,6 +2106,9 @@ interface ProxyConfig {
   httpProxy?: string;
   sslProxy?: string;
   noProxy?: string;
+    socksProxy?: string,
+    socksUsername?: string,
+    socksPassword?: string
 }
 
 /**
