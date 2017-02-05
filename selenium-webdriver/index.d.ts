@@ -655,7 +655,8 @@ export namespace promise {
   /**
    * Creates a promise that has been resolved with the given value.
    * @param {T=} opt_value The resolved value.
-   * @return {!ManagedPromise<T>} The resolved promise.
+   * @return {!Promise<T>} The resolved promise.
+   * @deprecated Use {@link Promise#resolve Promise.resolve(value)}.
    * @template T
    */
   function fulfilled<T>(opt_value?: T): Promise<T>;
@@ -688,8 +689,8 @@ export namespace promise {
    * Creates a promise that has been rejected with the given reason.
    * @param {*=} opt_reason The rejection reason; may be any value, but is
    *     usually an Error or a string.
-   * @return {!ManagedPromise<T>} The rejected promise.
-   * @template T
+   * @return {!Promise<?>} The rejected promise.
+   * @deprecated Use {@link Promise#reject Promise.Promise(reason)}.
    */
   function rejected<T>(opt_reason?: any): Promise<T>;
 
@@ -3172,6 +3173,18 @@ interface IWebDriverOptionsCookie {
    * @type {(!Date|number|undefined)}
    */
   expiry?: number | Date;
+  }
+
+  interface IWebDriverCookie extends IWebDriverOptionsCookie {
+    /**
+     * When the cookie expires.
+     *
+     * The expiry is always returned in seconds since epoch when
+     * {@linkplain Options#getCookies() retrieving cookies} from the browser.
+     *
+     * @type {(!number|undefined)}
+     */
+    expiry?: number
 }
 
 /**
