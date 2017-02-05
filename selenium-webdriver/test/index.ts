@@ -711,8 +711,6 @@ function TestWebElementPromise() {
     elementPromise.cancel();
     elementPromise.cancel('reason');
 
-    var bool: boolean = elementPromise.isPending();
-
     elementPromise.then();
     elementPromise.then((element: webdriver.WebElement) => {});
     elementPromise.then((element: webdriver.WebElement) => {}, (error: any) => {});
@@ -939,8 +937,6 @@ function TestPromiseClass() {
 
     promise.cancel('Abort');
 
-    var isPending: boolean = promise.isPending();
-
     promise = promise.then();
     promise = promise.then((a: string) => 'cde');
     promise = promise.then((a: string) => 'cde', (e: any) => {});
@@ -951,10 +947,6 @@ function TestThenableClass() {
     var thenable: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>((resolve, reject) => {
         resolve('a');
     });
-
-    thenable.cancel('Abort');
-
-    var isPending: boolean = thenable.isPending();
 
     thenable = thenable.then((a: string) => 'cde');
     thenable = thenable.then((a: string) => 'cde', (e: any) => {});

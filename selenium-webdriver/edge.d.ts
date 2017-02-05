@@ -3,14 +3,17 @@ import * as remote from './remote';
 
 export class Driver extends webdriver.WebDriver {
     /**
+     * Creates a new browser session for Microsoft's Edge browser.
+     *
      * @param {(capabilities.Capabilities|Options)=} opt_config The configuration
      *     options.
      * @param {remote.DriverService=} opt_service The session to use; will use
      *     the {@linkplain #getDefaultService default service} by default.
      * @param {promise.ControlFlow=} opt_flow The control flow to use, or
      *     {@code null} to use the currently active flow.
+         * @return {!Driver} A new driver instance.
      */
-    constructor(opt_config?: webdriver.Capabilities | Options, opt_service?: remote.DriverService, opt_flow?: webdriver.promise.ControlFlow);
+    static createSession(opt_config?: webdriver.CreateSessionCapabilities, opt_service?: remote.DriverService, opt_flow?: webdriver.promise.ControlFlow): Driver;
 
     /**
      * This function is a no-op as file detectors are not supported by this
@@ -56,14 +59,14 @@ export class Options {
      *     merge these options into, if any.
      * @return {!capabilities.Capabilities} The capabilities.
      */
-    toCapabilities(opt_capabilities: webdriver.Capabilities): webdriver.Capabilities;
+    toCapabilities(opt_capabilities?: webdriver.Capabilities): webdriver.Capabilities;
 }
 
 /**
  * Creates {@link remote.DriverService} instances that manage a
  * MicrosoftEdgeDriver server in a child process.
  */
-export class ServiceBuilder {
+export class ServiceBuilder extends remote.DriverService.Builder {
     /**
      * @param {string=} opt_exe Path to the server executable to use. If omitted,
      *   the builder will attempt to locate the MicrosoftEdgeDriver on the current
@@ -72,40 +75,6 @@ export class ServiceBuilder {
      *   MicrosoftEdgeDriver cannot be found on the PATH.
      */
     constructor(opt_exe?: string);
-
-    /**
-     * Defines the stdio configuration for the driver service. See
-     * {@code child_process.spawn} for more information.
-     * @param {(string|!Array.<string|number|!stream.Stream|null|undefined>)}
-     *     config The configuration to use.
-     * @return {!ServiceBuilder} A self reference.
-     */
-    setStdio(config: string | Array<string | number | any>): ServiceBuilder;
-
-    /**
-     * Sets the port to start the MicrosoftEdgeDriver on.
-     * @param {number} port The port to use, or 0 for any free port.
-     * @return {!ServiceBuilder} A self reference.
-     * @throws {Error} If the port is invalid.
-     */
-    usingPort(port: number): ServiceBuilder;
-
-    /**
-     * Defines the environment to start the server under. This settings will be
-     * inherited by every browser session started by the server.
-     * @param {!Object.<string, string>} env The environment to use.
-     * @return {!ServiceBuilder} A self reference.
-     */
-    withEnvironment(env: Object): ServiceBuilder;
-
-    /**
-     * Creates a new DriverService using this instance's current configuration.
-     * @return {!remote.DriverService} A new driver service using this instance's
-     *     current configuration.
-     * @throws {Error} If the driver exectuable was not specified and a default
-     *     could not be found on the current PATH.
-     */
-    build(): remote.DriverService;
 }
 
 /**
