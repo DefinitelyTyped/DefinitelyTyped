@@ -802,19 +802,6 @@ export namespace promise {
 
   interface IThenable<T> {
     /**
-     * Cancels the computation of this promise's value, rejecting the promise in
-     * the process. This method is a no-op if the promise has already been
-     * resolved.
-     *
-     * @param {(string|Error)=} opt_reason The reason this promise is being
-     *     cancelled. This value will be wrapped in a {@link CancellationError}.
-     */
-    cancel(opt_reason?: string | Error): void;
-
-    /** @return {boolean} Whether this promise's value is still being computed. */
-    isPending(): boolean;
-
-    /**
      * Registers listeners for when this instance is resolved.
      *
      * @param {?(function(T): (R|IThenable<R>))=} opt_callback The
@@ -863,19 +850,6 @@ export namespace promise {
    * @template T
    */
   class Thenable<T> implements IThenable<T> {
-    /**
-     * Cancels the computation of this promise's value, rejecting the promise in
-     * the process. This method is a no-op if the promise has already been
-     * resolved.
-     *
-     * @param {(string|Error)=} opt_reason The reason this promise is being
-     *     cancelled. This value will be wrapped in a {@link CancellationError}.
-     */
-    cancel(opt_reason?: string | Error): void;
-
-    /** @return {boolean} Whether this promise's value is still being computed. */
-    isPending(): boolean;
-
     /**
      * Registers listeners for when this instance is resolved.
      *
@@ -1016,9 +990,6 @@ export namespace promise {
      *     representation.
      */
     cancel(opt_reason?: string | Error): void;
-
-    /** @return {boolean} Whether this promise's value is still being computed. */
-    isPending(): boolean;
 
     /**
      * Registers listeners for when this instance is resolved. This function most
@@ -2065,9 +2036,6 @@ export class AlertPromise extends Alert implements promise.IThenable<Alert> {
    */
   cancel(opt_reason?: string | Error): void;
 
-  /** @return {boolean} Whether this promise's value is still being computed. */
-  isPending(): boolean;
-
   /**
    * Registers listeners for when this instance is resolved. This function most
    * overridden by subtypes.
@@ -2203,32 +2171,16 @@ export class Builder {
    * Creates a new WebDriver client based on this builder's current
    * configuration.
    *
-   * While this method will immediately return a new WebDriver instance, any
-   * commands issued against it will be deferred until the associated browser
-   * has been fully initialized. Users may call {@link #buildAsync()} to obtain
-   * a promise that will not be fulfilled until the browser has been created
-   * (the difference is purely in style).
+   * This method will return a {@linkplain ThenableWebDriver} instance, allowing
+   * users to issue commands directly without calling `then()`. The returned
+   * thenable wraps a promise that will resolve to a concrete
+   * {@linkplain webdriver.WebDriver WebDriver} instance. The promise will be
+   * rejected if the remote end fails to create a new session.
    *
-   * @return {!WebDriver} A new WebDriver instance.
+   * @return {!ThenableWebDriver} A new WebDriver instance.
    * @throws {Error} If the current configuration is invalid.
-   * @see #buildAsync()
    */
-  build(): WebDriver;
-
-  /**
-   * Creates a new WebDriver client based on this builder's current
-   * configuration. This method returns a promise that will not be fulfilled
-   * until the new browser session has been fully initialized.
-   *
-   * __Note:__ this method is purely a convenience wrapper around
-   * {@link #build()}.
-   *
-   * @return {!promise.Promise<!WebDriver>} A promise that will be
-   *    fulfilled with the newly created WebDriver instance once the browser
-   *    has been fully initialized.
-   * @see #build()
-   */
-  buildAsync(): promise.Promise<WebDriver>;
+  build(): ThenableWebDriver;
 
   /**
    * Configures the target browser for clients created by this instance.
@@ -3593,6 +3545,11 @@ export class FileDetector {
   handleFile(driver: WebDriver, path: string): promise.Promise<string>;
 }
 
+  type CreateSessionCapabilities = Capabilities | {
+    desired?: Capabilities,
+    required?: Capabilities
+  }
+
 /**
  * Creates a new WebDriver client, which provides control over a browser.
  *
@@ -3643,17 +3600,63 @@ export class WebDriver {
 
   /**
    * Creates a new WebDriver session.
+   *
+   * By default, the requested session `capabilities` are merely "desired" and
+   * the remote end will still create a new session even if it cannot satisfy
+   * all of the requested capabilities. You can query which capabilities a
+   * session actually has using the
+   * {@linkplain #getCapabilities() getCapabilities()} method on the returned
+   * WebDriver instance.
+   *
+   * To define _required capabilities_, provide the `capabilities` as an object
+   * literal with `required` and `desired` keys. The `desired` key may be
+   * omitted if all capabilities are required, and vice versa. If the server
+   * cannot create a session with all of the required capabilities, it will
+   * return an {@linkplain error.SessionNotCreatedError}.
+   *
+   *     let required = new Capabilities().set('browserName', 'firefox');
+   *     let desired = new Capabilities().set('version', '45');
+   *     let driver = WebDriver.createSession(executor, {required, desired});
+   *
+   * This function will always return a WebDriver instance. If there is an error
+   * creating the session, such as the aforementioned SessionNotCreatedError,
+   * the driver will have a rejected {@linkplain #getSession session} promise.
+   * It is recommended that this promise is left _unhandled_ so it will
+   * propagate through the {@linkplain promise.ControlFlow control flow} and
+   * cause subsequent commands to fail.
+   *
+   *     let required = Capabilities.firefox();
+   *     let driver = WebDriver.createSession(executor, {required});
+   *
+   *     // If the createSession operation failed, then this command will also
+   *     // also fail, propagating the creation failure.
+   *     driver.get('http://www.google.com').catch(e => console.log(e));
+   *
    * @param {!command.Executor} executor The executor to create the new session
    *     with.
-   * @param {!./capabilities.Capabilities} desiredCapabilities The desired
+   * @param {(!Capabilities|
+   *          {desired: (Capabilities|undefined),
+   *           required: (Capabilities|undefined)})} capabilities The desired
    *     capabilities for the new session.
    * @param {promise.ControlFlow=} opt_flow The control flow all driver
    *     commands should execute under, including the initial session creation.
    *     Defaults to the {@link promise.controlFlow() currently active}
    *     control flow.
+   * @param {(function(new: WebDriver,
+   *                   !IThenable<!Session>,
+   *                   !command.Executor,
+   *                   promise.ControlFlow=))=} opt_ctor
+   *    A reference to the constructor of the specific type of WebDriver client
+   *    to instantiate. Will create a vanilla {@linkplain WebDriver} instance
+   *    if a constructor is not provided.
+   * @param {(function(this: void): ?)=} opt_onQuit A callback to invoke when
+   *    the newly created session is terminated. This should be used to clean
+   *    up any resources associated with the session.
    * @return {!WebDriver} The driver for the newly created session.
    */
-  static createSession(executor: Executor, desiredCapabilities: Capabilities, opt_flow?: promise.ControlFlow): WebDriver;
+  // This method's arguments are untyped so that its overloads can have correct types.
+  // Typescript doesn't allow static methods to be overridden with incompatible signatures.
+  static createSession(...var_args: any[]): WebDriver;
 
   // endregion
 
@@ -4113,6 +4116,24 @@ export class WebDriver {
 
   // endregion
 }
+
+  /**
+   * A thenable wrapper around a {@linkplain webdriver.IWebDriver IWebDriver}
+   * instance that allows commands to be issued directly instead of having to
+   * repeatedly call `then`:
+   *
+   *     let driver = new Builder().build();
+   *     driver.then(d => d.get(url));  // You can do this...
+   *     driver.get(url);               // ...or this
+   *
+   * If the driver instance fails to resolve (e.g. the session cannot be created),
+   * every issued command will fail.
+   *
+   * @extends {webdriver.IWebDriver}
+   * @extends {promise.IThenable<!webdriver.IWebDriver>}
+   * @interface
+   */
+  interface ThenableWebDriver extends WebDriver, webdriver.promise.IThenable<WebDriver> { }
 
 interface IWebElementId {
   [ELEMENT: string]: string;
@@ -4772,10 +4793,6 @@ export class WebElementPromise extends WebElement implements promise.IThenable<W
    * @param {string=} opt_reason The reason this promise is being cancelled.
    */
   cancel(opt_reason?: string): void;
-
-
-  /** @return {boolean} Whether this promise's value is still being computed. */
-  isPending(): boolean;
 
 
   /**
