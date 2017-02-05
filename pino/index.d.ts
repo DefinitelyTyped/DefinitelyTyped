@@ -12,11 +12,20 @@ declare function P(options: P.LoggerOptions, stream: stream.Writable | stream.Du
 
 declare namespace P {
 
-    function pretty(opts?: {timeTransOnly?: boolean, levelFirst?: boolean, formatter?: (str: string) => void}): stream.Transform;
+    function pretty(opts?: { timeTransOnly?: boolean, levelFirst?: boolean, formatter?: (log: IPinoLog) => string }): stream.Transform;
 
     type Level = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent';
     interface Headers {
         [header: string]: string;
+    }
+
+    interface IPinoLog {
+        pid: number
+        hostname: string
+        level: number
+        time: string
+        msg: string
+        v: number
     }
 
     interface LevelLabelsToValues {
@@ -50,7 +59,8 @@ declare namespace P {
         extreme?: boolean;
         // enables logging, defaults to true.
         enabled?: boolean;
-        level?: Level;
+        level?: Level | string;
+        levelVal?: number;
     }
 
     interface Pino {
