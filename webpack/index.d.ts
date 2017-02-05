@@ -832,16 +832,16 @@ declare namespace webpack {
              * In the example:
              * [
              *   { request: "/abc/loader1.js?xyz",
-         *     path: "/abc/loader1.js",
-         *     query: "?xyz",
-         *     module: [Function]
-         *   },
+             *     path: "/abc/loader1.js",
+             *     query: "?xyz",
+             *     module: [Function]
+             *   },
              *   { request: "/abc/node_modules/loader2/index.js",
-         *     path: "/abc/node_modules/loader2/index.js",
-         *     query: "",
-         *     module: [Function]
-         *   }
-             *]
+             *     path: "/abc/node_modules/loader2/index.js",
+             *     query: "",
+             *     module: [Function]
+             *   }
+             * ]
              */
             loaders: any[];
 
