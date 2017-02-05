@@ -1,6 +1,3 @@
-/// <reference path="../react/react.d.ts" />
-/// <reference path="./react-responsive.d.ts" />
-
 import * as React from "react";
 import * as MediaQuery from "react-responsive";
 

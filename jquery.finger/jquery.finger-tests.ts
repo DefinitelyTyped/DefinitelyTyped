@@ -1,5 +1,4 @@
-﻿/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="jquery.finger.d.ts"/>
+/// <reference types="jquery"/>
 
 $.Finger.doubleTapInterval = 400;
 $.Finger.flickDuration = 250;

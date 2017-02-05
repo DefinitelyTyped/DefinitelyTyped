@@ -1,5 +1,3 @@
-/// <reference path="./pouchdb-upsert.d.ts" />
-
 import * as pouchdbUpsert from 'pouchdb-upsert';
 PouchDB.plugin(pouchdbUpsert);
 

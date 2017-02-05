@@ -1,4 +1,3 @@
-/// <reference path="redis.d.ts" />
 
 import redis = require('redis');
 
@@ -112,3 +111,11 @@ client.monitor(resCallback);
 
 // Send command
 client.send_command(str, args, resCallback);
+// Duplicate
+client.duplicate();
+
+// Pipeline
+client.cork();
+client.set("abc", "fff", strCallback);
+client.get("abc", resCallback);
+client.uncork();

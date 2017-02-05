@@ -1,4 +1,4 @@
-/// <reference path="js-beautify.d.ts" />
+
 
 let bCss = js_beautify.css("body{display:none;}");
 bCss = js_beautify.css_beautify("body{display:none;}");

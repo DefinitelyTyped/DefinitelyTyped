@@ -1,4 +1,3 @@
-/// <reference path="./halfred.d.ts" />
 
 // run test with: $ tsc --noImplicitAny --target es6 --module commonjs halfred-tests.ts
 import { parse } from 'halfred'; // require('halfred');

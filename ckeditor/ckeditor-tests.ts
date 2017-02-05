@@ -1,4 +1,4 @@
-/// <reference path="ckeditor.d.ts" />
+
 
 function test_CKEDITOR() {
     CKEDITOR.basePath = 'test';
@@ -270,6 +270,32 @@ function test_dom_window() {
     alert(size.height);
 }
 
+function test_adding_command_and_buttons() {
+    var textarea = document.createElement('textarea');
+    var instance = CKEDITOR.replace(textarea);
+
+    instance.addCommand( 'aCommand', {
+        exec: function( editor: CKEDITOR.editor ) {
+            // empty logic
+            return true;
+        }
+    });
+
+    instance.ui.addButton( 'firstButton', {
+        icon: 'http://www.example.com/assets/images/icons.png',
+        iconOffset: -32,
+        label: 'Label 1',
+        command: 'aCommand',
+        toolbar: 'tools'
+    });
+
+    instance.ui.addButton( 'secondButton', {
+        label: 'Label 2',
+        command: 'aCommand',
+        toolbar: 'tools'
+    });
+}
+
 function test_adding_dialog_by_path() {
     CKEDITOR.dialog.add( 'abbrDialog', this.path + 'dialogs/abbr.js' );
 }
@@ -335,4 +361,49 @@ function test_focusManager() {
     var focusManager = new CKEDITOR.focusManager(instance);
     var object: CKEDITOR.dom.domObject = focusManager.currentActive;
     var bool: boolean = focusManager.hasFocus;
+}
+
+function test_basicWriter() {
+    var writer = new CKEDITOR.htmlParser.basicWriter();
+    writer.openTag('p', {});
+    writer.attribute('class', 'MyClass');
+    writer.openTagClose('p', false);
+    writer.text('Hello');
+    writer.closeTag('p');
+    alert(writer.getHtml(true)); // '<p class="MyClass">Hello</p>'
+}
+
+function test_htmlWriter() {
+    var writer = new CKEDITOR.htmlWriter();
+    writer.openTag('p', {});
+    writer.attribute('class', 'MyClass');
+    writer.openTagClose('p', false);
+    writer.text('Hello');
+    writer.closeTag('p');
+    alert(writer.getHtml(true)); // '<p class="MyClass">Hello</p>'
+
+    writer.indentationChars = '\t';
+    writer.lineBreakChars = '\r\n';
+    writer.selfClosingEnd = '>';
+    writer.indentation();
+    writer.lineBreak();
+    writer.setRules('img', {breakBeforeOpen: true, breakAfterOpen: true});
+}
+
+function test_sharedSpace() {
+    CKEDITOR.inline('content', {
+        removePlugins: 'maximize,resize',
+        sharedSpaces: {
+            top: 'someElementId',
+            bottom: document.getElementById('anotherId')
+        }
+    });
+
+    CKEDITOR.inline('content', {
+        sharedSpaces: { }
+    });
+}
+
+function test_specifying_editor_path() {
+    window.CKEDITOR_BASEPATH = '/ckeditor/';
 }

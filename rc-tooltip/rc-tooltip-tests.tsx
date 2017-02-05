@@ -1,6 +1,3 @@
-/// <reference path="./rc-tooltip.d.ts" />
-/// <reference path="../react/react-dom.d.ts" />
-
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as Tooltip from 'rc-tooltip';

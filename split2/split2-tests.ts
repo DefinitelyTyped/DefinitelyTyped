@@ -1,5 +1,3 @@
-/// <reference path="./split2.d.ts" />
-/// <reference path="../node/node.d.ts" />
 import * as split from 'split2';
 import * as fs from 'fs';
 import { Transform, TransformOptions } from 'stream';

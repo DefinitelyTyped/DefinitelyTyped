@@ -1,5 +1,5 @@
-///<reference path="../jquery/jquery.d.ts" />
-///<reference path="../slick-carousel/slick-carousel.d.ts" />
+///<reference types="jquery" />
+///<reference types="slick-carousel" />
 
 
 // --------------------------------------------------------
@@ -177,7 +177,9 @@ $('.single-item-rtl').slick({
     rtl: true
 });
 
-
+$('.no-arrows-slide').slick({
+    appendArrows: false
+})
 
 // --------------------------------------------------------
 // ---------------- TEST DEFAULT OPTIONS ------------------

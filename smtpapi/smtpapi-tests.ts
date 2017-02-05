@@ -2,8 +2,6 @@
  * Created from usage code samples from //github.com/sendgrid/smtpapi-nodejs#usage
  */
 
-///<reference path="smtpapi.d.ts" />
-
 import smtpapi = require("smtpapi");
 var header = new smtpapi();
 

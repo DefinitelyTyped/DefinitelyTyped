@@ -1,4 +1,4 @@
-/// <reference path="java-applet.d.ts" />
+
 
 /**
  * @summary Test for the typage.

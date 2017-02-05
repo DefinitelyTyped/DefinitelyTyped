@@ -1,4 +1,3 @@
-/// <reference path='mathjax.d.ts' />
 MathJax.Hub.Config({
   config: ["MMLorHTML.js"],
   jax: ["input/TeX","input/MathML","input/AsciiMath","output/HTML-CSS","output/NativeMML"],

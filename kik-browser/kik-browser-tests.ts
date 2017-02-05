@@ -1,5 +1,3 @@
-/// <reference path="kik-browser.d.ts" />
-
 if (kik.enabled) {
     // running in kik
 }

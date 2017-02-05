@@ -1,5 +1,3 @@
-/// <reference path="pdfobject.d.ts" />
-
 import * as PDFObject from "pdfobject";
 
 function test_embedding_with_url_only() {

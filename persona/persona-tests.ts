@@ -1,4 +1,4 @@
-/// <reference path="persona.d.ts" />
+
 
 
 // https://developer.mozilla.org/en-US/docs/Web/API/navigator.id.watch

@@ -1,4 +1,4 @@
-/// <reference path="axios.d.ts" />
+
 
 enum HttpMethod { GET, PUT, POST, DELETE, CONNECT, HEAD, OPTIONS, TRACE, PATCH }
 enum ResponseType { arraybuffer, blob, document, json, text }
@@ -11,6 +11,13 @@ interface Repository {
 interface Issue {
   id: number;
   title: string;
+}
+
+function makePromise(val: any) {
+  return <Axios.IPromise<any>>{
+    then: () => val,
+    catch: () => val
+  };
 }
 
 axios.interceptors.request.use<any>(config => {
@@ -30,10 +37,21 @@ const requestId: number = axios.interceptors.request.use<any>(
 axios.interceptors.request.eject(requestId);
 axios.interceptors.request.eject(7);
 
+const requestId2: number = axios.interceptors.request.use<any>(
+  (config) => {
+    console.log("Method:" + config.method + " Url:" +config.url);
+    return makePromise(config);
+  },
+  (error: any) => error);
 
 axios.interceptors.response.use<any>(config => {
     console.log("Status:" + config.status);
     return config;
+});
+
+axios.interceptors.response.use<any>(config => {
+  console.log("Status:" + config.status);
+  return makePromise(config);
 });
 
 const responseId: number = axios.interceptors.response.use<any>(
@@ -69,6 +87,10 @@ axios.post("http://example.com/", {
     ]
 });
 
+var config: Axios.AxiosXHRConfigBase<any> = {headers: {}};
+config.headers['X-Custom-Header'] = 'baz';
+axios.post("http://example.com/", config);
+
 var getRepoIssue = axios.get<Issue>("https://api.github.com/repos/mzabriskie/axios/issues/1");
 
 var axiosInstance = axios.create({
@@ -76,7 +98,11 @@ var axiosInstance = axios.create({
     timeout: 1000
 });
 
-axiosInstance.request({url: "issues/1"});
+axiosInstance.request({url: "issues/1"}).then(res => {
+    if (res.headers['content-type'].startsWith('application/json')) {
+        throw new Error('Unexpected content-type');
+    }
+});
 
 axios.all<Repository, Repository>([getRepoDetails, getRepoDetails]).then(([repo1, repo2]) => {
     var sumIds = repo1.data.id + repo2.data.id;

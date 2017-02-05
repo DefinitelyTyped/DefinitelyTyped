@@ -1,6 +1,3 @@
-///<reference path="webpack-stream.d.ts" />
-///<reference path="./../node/node.d.ts" />
-
 import webpackStream = require("webpack-stream");
 import webpack = require("webpack");
 

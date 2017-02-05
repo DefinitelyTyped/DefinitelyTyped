@@ -1,26 +1,39 @@
+import * as React from "react";
+import { Component, ValidationMap } from "react";
+import * as ReactDOM from "react-dom";
+import { renderToString } from "react-dom/server";
 
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../react/react-dom.d.ts" />
-/// <reference path="./history.d.ts" />
-/// <reference path="./react-router.d.ts" />
+import {
+	applyRouterMiddleware,
+	browserHistory,
+	hashHistory,
+	match,
+	createMemoryHistory,
+	withRouter,
+	routerShape,
+	Router,
+	Route,
+	IndexRoute,
+	InjectedRouter,
+	Link,
+	RouterContext,
+	LinkProps
+} from "react-router";
 
-
-import * as React from "react"
-import * as ReactDOM from "react-dom"
-import {renderToString} from "react-dom/server";
-
-import { browserHistory, hashHistory, createMemoryHistory, match, withRouter, Router, RouterContext, Route, IndexRoute, Link} from "react-router"
-import { routerShape, locationShape } from "react-router/lib/PropTypes"
+const NavLink = (props: LinkProps) => (
+	<Link {...props} activeClassName="active" />
+)
 
 interface MasterContext {
-	router: ReactRouter.RouterOnContext;
+	router: InjectedRouter;
 }
 
-class Master extends React.Component<React.Props<{}>, {}> {
+class Master extends Component<any, any> {
 
-	static contextTypes: React.ValidationMap<any> = {
-		router: routerShape
+	static contextTypes: ValidationMap<any> = {
+		"router": routerShape
 	};
+
 	context: MasterContext;
 
 	navigate() {
@@ -36,7 +49,7 @@ class Master extends React.Component<React.Props<{}>, {}> {
 	render() {
 		return <div>
 			<h1>Master</h1>
-			<Link to="/">Dashboard</Link> <Link to="/users">Users</Link>
+			<Link to="/">Dashboard</Link> <NavLink to="/users">Users</NavLink>
 			<p>{this.props.children}</p>
 		</div>
 	}
@@ -44,7 +57,7 @@ class Master extends React.Component<React.Props<{}>, {}> {
 }
 
 interface DashboardProps {
-	router: ReactRouter.InjectedRouter
+	router: InjectedRouter
 };
 
 class Dashboard extends React.Component<DashboardProps, {}> {
@@ -110,6 +123,21 @@ const routes = (
 	</Route>
 );
 
-match({history, routes, location: "baseurl"}, (error, redirectLocation, renderProps) => {
+match({ routes, location: "baseurl" }, (error, redirectLocation, renderProps) => {
 	renderToString(<RouterContext {...renderProps} />);
 });
+
+match({ history, routes }, (error, redirectLocation, renderProps) => {
+	renderToString(<RouterContext {...renderProps} />);
+});
+
+ReactDOM.render((
+	<Router
+		history={history}
+		routes={routes}
+		render={applyRouterMiddleware({
+			renderRouteComponent: child => child
+		})}
+	>
+	</Router>
+), document.body);

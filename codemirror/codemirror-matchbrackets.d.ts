@@ -5,7 +5,9 @@
 
 // See docs https://codemirror.net/doc/manual.html#addon_matchbrackets
 
-declare namespace CodeMirror {
+import * as CodeMirror from "codemirror";
+
+declare module "codemirror" {
     interface EditorConfiguration {
         //  when set to true, causes matching brackets to be highlighted whenever the cursor is next to them
         matchBrackets?: boolean;

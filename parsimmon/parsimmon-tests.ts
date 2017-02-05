@@ -1,9 +1,6 @@
-/// <reference path="parsimmon.d.ts" />
 
 import P = require('parsimmon');
-import Parser = P.Parser;
-import Mark = P.Mark;
-import Result = P.Result;
+import { Parser, Mark, Result, Index } from "parsimmon";
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -18,8 +15,10 @@ class Bar {
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
 var str: string;
+var strArr: string[];
 var bool: boolean;
 var num: number;
+var index: Index;
 var regex: RegExp;
 
 var foo: Foo;
@@ -35,14 +34,17 @@ var strPar: Parser<string>;
 var numPar: Parser<number>;
 var voidPar: Parser<void>;
 var anyPar: Parser<any>;
+var indexPar: Parser<Index>;
 
 var fooPar: Parser<Foo>;
 var barPar: Parser<Bar>;
+var fooOrBarPar: Parser<Foo | Bar>;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
 var anyArrPar: Parser<any[]>;
 
+var strArrPar: Parser<string[]>;
 var fooArrPar: Parser<Foo[]>;
 var barArrPar: Parser<Bar[]>;
 
@@ -50,21 +52,40 @@ var barArrPar: Parser<Bar[]>;
 
 var fooMarkPar: Parser<Mark<Foo>>;
 
+const result = fooMarkPar.parse(str);
+if (result.status) {
+	index = result.value.start;
+	index = result.value.end;
+	foo = result.value.value;
+}
+
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
 var fooResult: Result<Foo>;
 
-bool = fooResult.status;
-foo = fooResult.value;
-str = fooResult.expected;
-num = fooResult.index;
+// https://github.com/Microsoft/TypeScript/issues/12882
+if (fooResult.status === true) {
+	foo = fooResult.value;
+} else {
+	strArr = fooResult.expected;
+	index = fooResult.index;
+}
+
+// --  --  --  --  --  --  --  --  --  --  --  --  --
+
+fooResult = P.makeSuccess(0, foo);
+fooResult = P.makeFailure(0, '');
+
+fooPar = P((input: string, i: number) => P.makeSuccess(0, foo));
+fooPar = P.Parser((input: string, i: number) => P.makeSuccess(0, foo));
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
 fooResult = fooPar.parse(str);
+foo = fooPar.tryParse(str);
 
 fooPar = fooPar.or(fooPar);
-anyPar = fooPar.or(barPar);
+fooOrBarPar = fooPar.or(barPar);
 
 barPar = fooPar.chain((f) => {
 	foo = f;
@@ -87,6 +108,8 @@ barPar = fooPar.map((f) => {
 fooPar = fooPar.skip(barPar);
 
 barPar = barPar = fooPar.result(bar);
+
+fooOrBarPar = fooPar.fallback(bar);
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -123,7 +146,7 @@ fooPar = P.lazy(() => {
 });
 
 voidPar = P.fail(str);
-fooPar = P.fail<Foo>(str);
+fooPar = P.fail(str);
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -139,7 +162,7 @@ strPar = P.optWhitespace;
 strPar = P.any;
 strPar = P.all;
 voidPar = P.eof;
-numPar = P.index;
+indexPar = P.index;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -164,8 +187,8 @@ numPar = P.seqMap(P.digit, P.digits, (a: string, b: string) => 42);
 strPar = P.seqMap(P.digit, P.digits, P.letter, (a: string, b: string, c: string) => 'foo');
 strPar = P.seqMap(P.digit, P.digits, P.letter, P.letters.map(Number), (a: string, b: string, c: string, d: number) => 'foo');
 
-strPar = P.sepBy(P.string('foo'), P.string('bar'));
-strPar = P.sepBy1(P.string('foo'), P.string('bar'));
+strArrPar = P.sepBy(P.string('foo'), P.string('bar'));
+strArrPar = P.sepBy1(P.string('foo'), P.string('bar'));
 
 strPar = P.test((a: string) => false);
 

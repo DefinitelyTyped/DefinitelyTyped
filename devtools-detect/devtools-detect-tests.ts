@@ -1,5 +1,3 @@
-/// <reference path="devtools-detect.d.ts" />
-
 // check if it's open
 console.log('is DevTools open?', window.devtools.open);
 // check it's orientation, null if not open

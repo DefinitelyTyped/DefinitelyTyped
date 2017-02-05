@@ -1,7 +1,3 @@
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../react/react-dom.d.ts" />
-/// <reference path="./react-fontawesome.d.ts" />
-
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import FontAwesome = require('react-fontawesome');

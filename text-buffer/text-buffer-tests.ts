@@ -1,4 +1,4 @@
-/// <reference path="./text-buffer.d.ts" />
+
 
 declare var Point: TextBuffer.IPointStatic;
 
