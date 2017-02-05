@@ -196,9 +196,9 @@ configuration = {
 };
 
 configuration = {
-  resolve: {
-    root: __dirname
-  }
+    resolve: {
+        root: __dirname
+    }
 };
 
 rule = {
@@ -289,12 +289,12 @@ plugin = new webpack.optimize.UglifyJsPlugin({
     }
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
-  sourceMap: false,
-  comments: true,
-  beautify: true,
-  test: 'foo',
-  exclude: /node_modules/,
-  include: 'test'
+    sourceMap: false,
+    comments: true,
+    beautify: true,
+    test: 'foo',
+    exclude: /node_modules/,
+    include: 'test'
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
     mangle: {
@@ -302,9 +302,9 @@ plugin = new webpack.optimize.UglifyJsPlugin({
     }
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
-  comments: function(astNode: any, comment: any) {
-    return false;
-  }
+    comments: function(astNode: any, comment: any) {
+        return false;
+    }
 });
 plugin = new webpack.optimize.CommonsChunkPlugin(options);
 plugin = new CommonsChunkPlugin({
@@ -383,7 +383,7 @@ plugin = new webpack.NoErrorsPlugin();
 plugin = new webpack.NoEmitOnErrorsPlugin();
 plugin = new webpack.WatchIgnorePlugin(paths);
 plugin = new webpack.LoaderOptionsPlugin({
-  debug: true
+    debug: true
 });
 
 //
@@ -412,19 +412,19 @@ compiler.watch({ // watch options:
     // pass a number to set the polling interval
 }, function(err, stats) {
     // ...
-  });
+});
 // or
 compiler.watch({ // watch options:
     ignored: 'foo/**/*'
 }, function(err, stats) {
     // ...
-  });
+});
 // or
 compiler.watch({ // watch options:
     ignored: /node_modules/
 }, function(err, stats) {
     // ...
-  });
+});
 
 declare function handleFatalError(err: Error): void;
 declare function handleSoftErrors(errs: string[]): void;
@@ -438,26 +438,26 @@ webpack({
         return handleFatalError(err);
     var jsonStats = stats.toJson();
     var jsonStatsWithAllOptions = stats.toJson({
-      assets: true,
-      assetsSort: "field",
-      cached: true,
-      children: true,
-      chunks: true,
-      chunkModules: true,
-      chunkOrigins: true,
-      chunksSort: "field",
-      context: "../src/",
-      errors: true,
-      errorDetails: true,
-      hash: true,
-      modules: true,
-      modulesSort: "field",
-      publicPath: true,
-      reasons: true,
-      source: true,
-      timings: true,
-      version: true,
-      warnings: true
+        assets: true,
+        assetsSort: "field",
+        cached: true,
+        children: true,
+        chunks: true,
+        chunkModules: true,
+        chunkOrigins: true,
+        chunksSort: "field",
+        context: "../src/",
+        errors: true,
+        errorDetails: true,
+        hash: true,
+        modules: true,
+        modulesSort: "field",
+        publicPath: true,
+        reasons: true,
+        source: true,
+        timings: true,
+        version: true,
+        warnings: true
     });
     if(jsonStats.errors.length > 0)
         return handleSoftErrors(jsonStats.errors);
@@ -491,51 +491,51 @@ rule = {
 }
 
 configuration = {
-	module: {
-		rules: [
-			{ oneOf: [
-				{
-					test: {
-						and: [
-							/a.\.js$/,
-							/b\.js$/
-						]
-					},
-					loader: "./loader?first"
-				},
-				{
-					test: [
-						require.resolve("./a"),
-						require.resolve("./c"),
-					],
-					issuer: require.resolve("./b"),
-					use: [
-						"./loader?second-1",
-						{
-							loader: "./loader",
-							options: "second-2"
-						},
-						{
-							loader: "./loader",
-							options: {
-								get: function() { return "second-3"; }
-							}
-						}
-					]
-				},
-				{
-					test: {
-						or: [
-							require.resolve("./a"),
-							require.resolve("./c"),
-						]
-					},
-					loader: "./loader",
-					options: "third"
-				}
-			]}
-		]
-	}
+    module: {
+        rules: [
+            { oneOf: [
+                {
+                    test: {
+                        and: [
+                            /a.\.js$/,
+                            /b\.js$/
+                        ]
+                    },
+                    loader: "./loader?first"
+                },
+                {
+                    test: [
+                        require.resolve("./a"),
+                        require.resolve("./c"),
+                    ],
+                    issuer: require.resolve("./b"),
+                    use: [
+                        "./loader?second-1",
+                        {
+                            loader: "./loader",
+                            options: "second-2"
+                        },
+                        {
+                            loader: "./loader",
+                            options: {
+                                get: function() { return "second-3"; }
+                            }
+                        }
+                    ]
+                },
+                {
+                    test: {
+                        or: [
+                            require.resolve("./a"),
+                            require.resolve("./c"),
+                        ]
+                    },
+                    loader: "./loader",
+                    options: "third"
+                }
+            ]}
+        ]
+    }
 }
 
 const resolve: webpack.Resolve = {
@@ -543,35 +543,35 @@ const resolve: webpack.Resolve = {
 }
 
 const performance: webpack.PerformanceOptions = {
-	hints: 'error',
-	maxEntrypointSize: 400000,
-	maxAssetSize: 100000,
-	assetFilter: function(assetFilename) {
-		return assetFilename.endsWith('.js');
-	},
+    hints: 'error',
+    maxEntrypointSize: 400000,
+    maxAssetSize: 100000,
+    assetFilter: function(assetFilename) {
+        return assetFilename.endsWith('.js');
+    },
 };
 
 configuration = {
-	performance,
+    performance,
 };
 
 function loader(this: webpack.loader.LoaderContext, source: string, sourcemap: string): void {
-  this.cacheable();
+    this.cacheable();
 
-  this.async();
+    this.async();
 
-  this.addDependency('');
+    this.addDependency('');
 
-  this.resolve('context', 'request', ( err: Error, result: string) => {});
+    this.resolve('context', 'request', ( err: Error, result: string) => {});
 
-  this.emitError('wraning');
+    this.emitError('wraning');
 
-  this.callback(null, source);
+    this.callback(null, source);
 }
 
 module loader {
-  export const raw: boolean = true;
-  export const pitch = (remainingRequest: string, precedingRequest: string, data: any) => {};
+    export const raw: boolean = true;
+    export const pitch = (remainingRequest: string, precedingRequest: string, data: any) => {};
 }
 const loaderRef: webpack.loader.Loader = loader;
 console.log(loaderRef.raw === true);
