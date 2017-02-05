@@ -472,7 +472,7 @@ declare namespace webpack {
         apply(thisArg: Webpack, ...args: any[]): void;
     }
 
-    type UglifyCommentFunction = (astNode: any, comment: any) => boolean
+    type UglifyCommentFunction = (astNode: any, comment: any) => boolean;
 
     interface UglifyPluginOptions extends UglifyJS.MinifyOptions {
         beautify?: boolean;
@@ -810,7 +810,7 @@ declare namespace webpack {
             data?: any;
 
 
-            callback: loaderCallback | void;
+            callback: loaderCallback | undefined;
 
 
             /**
@@ -861,7 +861,7 @@ declare namespace webpack {
              * The resource file.
              * In the example: "/abc/resource.js"
              */
-            resourcePath: string
+            resourcePath: string;
 
             /**
              * The query of the resource.
@@ -898,14 +898,14 @@ declare namespace webpack {
              * @param request
              * @param callback
              */
-            resolve(context: string, request: string, callback: (err: Error, result: string) => void): any
+            resolve(context: string, request: string, callback: (err: Error, result: string) => void): any;
 
             /**
              * Resolve a request like a require expression.
              * @param context
              * @param request
              */
-            resolveSync(context: string, request: string): string
+            resolveSync(context: string, request: string): string;
 
 
             /**
@@ -928,7 +928,7 @@ declare namespace webpack {
              * Add a directory as dependency of the loader result.
              * @param directory
              */
-            addContextDependency(directory: string): void
+            addContextDependency(directory: string): void;
 
             /**
              * Remove all dependencies of the loader result. Even initial dependencies and these of other loaders. Consider using pitch.
@@ -991,7 +991,7 @@ declare namespace webpack {
              * @param content
              * @param sourceMap
              */
-            emitFile(name: string, content: Buffer|String, sourceMap: any): void
+            emitFile(name: string, content: Buffer|string, sourceMap: any): void;
 
 
             /**
