@@ -781,9 +781,12 @@ declare module "orientjs" {
         }
 
         interface QueryOptions {
-            mode?: "s" | "a" | "l",
-            fetchPlan?: number,
-            limit?: number,
+            params?:any;
+            mode?: "s" | "a" | "l";
+            fetchPlan?: any;
+            limit?: number;
+             token?:any;
+             class?:string;
             language?: "SQL" | "Javascript"
         }
 
@@ -970,6 +973,11 @@ declare module "orientjs" {
  */
             let(params?: any): Statement;
             let(name: string, value: string | Statement): Statement;
+/** Create a transactional query with if.
+ *
+ * @return {Query} The query instance.
+ */
+            if(condition: SqlExpression, ...statements: Statement[]): Statement;
             /**
  * Escape the given input.
  *
