@@ -26,8 +26,10 @@ const map = {
 
 const result1:any = envToObject(map);
 const result2:any = envToObject(map, {
-    'my-custom-type': (str: string, opts: any) => {
-        let foo: any = JSON.parse(str);
-        return foo;
+    parsers: {
+        'my-custom-type': (str: string, opts: any) => {
+            let foo: any = JSON.parse(str);
+            return foo;
+        }
     }
 });

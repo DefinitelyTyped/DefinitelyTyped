@@ -29,7 +29,11 @@ declare namespace env {
     export interface Parsers {
         [parserName: string]: (str: string, opts: any) => any;
     }
+
+    export interface Options {
+        parsers: Parsers;
+    }
 }
 
-declare  function env(map: env.Mappings, parsers?: env.Parsers): any;
+declare  function env(map: env.Mappings, options?: env.Options): any;
 export = env;
