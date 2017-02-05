@@ -2,9 +2,11 @@
 // Project: http://mongoosejs.com/
 // Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="mongodb" />
 /// <reference types="node" />
+
 
 /*
  * Guidelines for maintaining these definitions:
