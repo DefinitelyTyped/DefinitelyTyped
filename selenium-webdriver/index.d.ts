@@ -981,6 +981,27 @@ export namespace promise {
      */
     constructor(resolver: (resolve: IFulfilledCallback<T>, reject: IRejectedCallback) => void, opt_flow?: ControlFlow);
 
+      //region Static Methods
+
+      /**
+       * Creates a promise that is immediately resolved with the given value.
+       *
+       * @param {T=} opt_value The value to resolve.
+       * @return {!ManagedPromise<T>} A promise resolved with the given value.
+       * @template T
+       */
+      static resolve<T>(opt_value?: T): Promise<T>;
+
+      /**
+       * Creates a promise that is immediately rejected with the given reason.
+       *
+       * @param {*=} opt_reason The rejection reason.
+       * @return {!ManagedPromise<?>} A new rejected promise.
+       */
+      static reject(opt_reason?: any): Promise<never>;
+
+      //endregion
+
     // region Methods
 
     /**
@@ -1292,7 +1313,11 @@ export class Condition<T> {
  *
  * @extends {Condition<!(WebElement|IThenable<!WebElement>)>}
  */
-export class WebElementCondition extends Condition<WebElement> { }
+export class WebElementCondition extends Condition<WebElement> {
+  // add an unused private member so the compiler treats this
+  // class distinct from other Conditions
+  private _nominal: void;
+}
 
 export namespace until {
 
@@ -1316,7 +1341,7 @@ export namespace until {
    *     The frame identifier.
    * @return {!Condition<boolean>} A new condition.
    */
-  function ableToSwitchToFrame(frame: number | WebElement | By | ((webdriver: WebDriver) => WebElement)): Condition<boolean>;
+  function ableToSwitchToFrame(frame: number | WebElement | By | ((webdriver: WebDriver) => WebElement) | ByHash): Condition<boolean>;
 
   /**
    * Creates a condition that waits for an alert to be opened. Upon success, the
@@ -1387,7 +1412,7 @@ export namespace until {
    * @param {!(By|Function)} locator The locator to use.
    * @return {!WebElementCondition} The new condition.
    */
-  function elementLocated(locator: By | Function): WebElementCondition;
+  function elementLocated(locator: Locator): WebElementCondition;
 
   /**
    * Creates a condition that will wait for the given element's
@@ -1434,7 +1459,7 @@ export namespace until {
    * @return {!Condition.<!Array.<!WebElement>>} The new
    *     condition.
    */
-  function elementsLocated(locator: By | Function): Condition<WebElement[]>;
+  function elementsLocated(locator: Locator): Condition<WebElement[]>;
 
   /**
    * Creates a condition that will wait for the given element to become stale. An
@@ -2521,6 +2546,8 @@ type ByHash = { className: string } |
   { partialLinkText: string } |
   { tagName: string } |
   { xpath: string };
+
+  type Locator = By | Function | ByHash;
 
 /**
  * Common webdriver capability keys.
@@ -3925,20 +3952,18 @@ export class WebDriver {
    *     driver.wait(started, 5 * 1000, 'Server should start within 5 seconds');
    *     driver.get(getServerUrl());
    *
-   * @param {!(promise.Promise<T>|
-   *           Condition<T>|
-   *           function(!WebDriver): T)} condition The condition to
+   * @param {!WebElementCondition} condition The condition to
    *     wait on, defined as a promise, condition object, or  a function to
    *     evaluate as a condition.
    * @param {number=} opt_timeout How long to wait for the condition to be true.
    * @param {string=} opt_message An optional message to use if the wait times
    *     out.
-   * @return {!promise.Promise<T>} A promise that will be fulfilled
+   * @return {!WebElementPromise} A promise that will be fulfilled
    *     with the first truthy value returned by the condition function, or
    *     rejected if the condition times out.
    * @template T
    */
-  wait<T>(condition: promise.Promise<T> | Condition<T> | ((driver: WebDriver) => T) | Function, opt_timeout?: number, opt_message?: string): promise.Promise<T>;
+  wait(condition: webdriver.WebElementCondition, opt_timeout?: number, opt_message?: string): WebElementPromise;
 
   /**
    * Schedules a command to wait for a condition to hold. The condition may be
@@ -3977,18 +4002,20 @@ export class WebDriver {
    *     driver.wait(started, 5 * 1000, 'Server should start within 5 seconds');
    *     driver.get(getServerUrl());
    *
-   * @param {!WebElementCondition} condition The condition to
+   * @param {!(promise.Promise<T>|
+   *           Condition<T>|
+   *           function(!WebDriver): T)} condition The condition to
    *     wait on, defined as a promise, condition object, or  a function to
    *     evaluate as a condition.
    * @param {number=} opt_timeout How long to wait for the condition to be true.
    * @param {string=} opt_message An optional message to use if the wait times
    *     out.
-   * @return {!WebElementPromise} A promise that will be fulfilled
+   * @return {!promise.Promise<T>} A promise that will be fulfilled
    *     with the first truthy value returned by the condition function, or
    *     rejected if the condition times out.
    * @template T
    */
-  wait<T>(condition: WebElementCondition, opt_timeout?: number, opt_message?: string): WebElementPromise;
+  wait<T>(condition: promise.Promise<T> | Condition<T> | ((driver: WebDriver) => T | Promise<T>) | Function, opt_timeout?: number, opt_message?: string): promise.Promise<T>;
 
   /**
    * Schedules a command to make the driver sleep for the given amount of time.
@@ -4087,7 +4114,7 @@ export class WebDriver {
    *     commands against the located element. If the element is not found, the
    *     element will be invalidated and all scheduled commands aborted.
    */
-  findElement(locator: By | Function): WebElementPromise;
+  findElement(locator: Locator): WebElementPromise;
 
   /**
    * Schedule a command to search for multiple elements on the page.
@@ -4096,7 +4123,7 @@ export class WebDriver {
    * @return {!promise.Promise.<!Array.<!WebElement>>} A
    *     promise that will resolve to an array of WebElements.
    */
-  findElements(locator: By | Function): promise.Promise<WebElement[]>;
+  findElements(locator: Locator): promise.Promise<WebElement[]>;
 
   /**
    * Schedule a command to take a screenshot. The driver makes a best effort to
@@ -4414,7 +4441,7 @@ interface IWebElementFinders {
    *     commands against the located element. If the element is not found, the
    *     element will be invalidated and all scheduled commands aborted.
    */
-  findElement(locator: By | Function): WebElementPromise;
+  findElement(locator: Locator): WebElementPromise;
 
   /**
    * Schedules a command to find all of the descendants of this element that
@@ -4425,7 +4452,7 @@ interface IWebElementFinders {
    * @return {!promise.Promise.<!Array.<!WebElement>>} A
    *     promise that will resolve to an array of WebElements.
    */
-  findElements(locator: By | Function): promise.Promise<WebElement[]>;
+  findElements(locator: Locator): promise.Promise<WebElement[]>;
 }
 
 /**
@@ -4560,7 +4587,7 @@ export class WebElement implements Serializable<IWebElementId> {
    *     commands against the located element. If the element is not found, the
    *     element will be invalidated and all scheduled commands aborted.
    */
-  findElement(locator: By | Function): WebElementPromise;
+  findElement(locator: Locator): WebElementPromise;
 
   /**
    * Schedules a command to find all of the descendants of this element that
@@ -4571,7 +4598,7 @@ export class WebElement implements Serializable<IWebElementId> {
    * @return {!promise.Promise<!Array<!WebElement>>} A
    *     promise that will resolve to an array of WebElements.
    */
-  findElements(locator: By | Function): promise.Promise<WebElement[]>;
+  findElements(locator: Locator): promise.Promise<WebElement[]>;
 
   /**
    * Schedules a command to click on this element.

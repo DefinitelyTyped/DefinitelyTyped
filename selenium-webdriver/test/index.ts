@@ -587,6 +587,7 @@ function TestWebDriver() {
     var voidPromise: webdriver.promise.Promise<void>;
     var stringPromise: webdriver.promise.Promise<string>;
     var booleanPromise: webdriver.promise.Promise<boolean>;
+    var webElementPromise: webdriver.WebElementPromise;
 
     var actions: webdriver.ActionSequence = driver.actions();
     var touchActions: webdriver.TouchSequence = driver.touchActions();
@@ -646,10 +647,14 @@ function TestWebDriver() {
     booleanPromise = driver.wait(booleanPromise);
     booleanPromise = driver.wait(booleanCondition);
     booleanPromise = driver.wait((driver: webdriver.WebDriver) => true);
-    let conditionFunction: Function; // tslint:disable-line:prefer-const
+    booleanPromise = driver.wait((driver: webdriver.WebDriver) => Promise.resolve(true));
+    booleanPromise = driver.wait((driver: webdriver.WebDriver) => webdriver.promise.Promise.resolve(true));
     booleanPromise = driver.wait(conditionFunction);
     booleanPromise = driver.wait(booleanPromise, 123);
     booleanPromise = driver.wait(booleanPromise, 123, 'Message');
+    let webElementCondition: webdriver.WebElementCondition;
+    webElementPromise = driver.wait(webElementCondition);
+    voidPromise = driver.wait(webElementCondition).click();
 
     driver = webdriver.WebDriver.attachToSession(executor, 'ABC');
     driver = webdriver.WebDriver.createSession(executor, webdriver.Capabilities.android());
@@ -679,7 +684,8 @@ function TestWebElement() {
     voidPromise = element.click();
 
     element = element.findElement(webdriver.By.id('ABC'));
-    element.findElements(webdriver.By.className('ABC')).then((elements: webdriver.WebElement[]) => {});
+    element = element.findElement({id: 'ABC'});
+    element.findElements({className: 'ABC'}).then((elements: webdriver.WebElement[]) => { });
 
     stringPromise = element.getAttribute('class');
     stringPromise = element.getCssValue('display');
