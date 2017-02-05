@@ -518,8 +518,10 @@ function TestWebDriverOptions() {
 
     promise = options.deleteAllCookies();
     promise = options.deleteCookie('name');
-    options.getCookie('name').then((cookies: webdriver.IWebDriverOptionsCookie) => {});
-    options.getCookies().then((cookies: webdriver.IWebDriverOptionsCookie[]) => {});
+    options.getCookie('name').then(function (cookie: webdriver.IWebDriverCookie) {
+        var expiry: number = cookie.expiry;
+     });
+    options.getCookies().then(function (cookies: webdriver.IWebDriverCookie[]) { });
 
     var logs: webdriver.Logs = options.logs();
     var timeouts: webdriver.Timeouts = options.timeouts();
