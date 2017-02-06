@@ -1,10 +1,10 @@
-/// <reference path="request.d.ts" />
 
 import request = require('request');
 import http = require('http');
 import stream = require('stream');
-import formData = require('form-data');
+import urlModule = require('url');
 import fs = require('fs');
+import FormData = require('form-data');
 
 var value: any;
 var str: string;
@@ -21,7 +21,7 @@ var headers: {[key: string]: string};
 var agent: http.Agent;
 var write: stream.Writable;
 var req: request.Request;
-var form1: formData.FormData;
+var form1: FormData;
 
 var bodyArr: request.RequestPart[] = [{
 	body: value
@@ -92,7 +92,7 @@ var options: request.Options = {
 	qs: obj,
 	json: value,
 	multipart: value,
-	agent: new http.Agent(),  
+	agent: new http.Agent(),
 	agentOptions: value,
 	agentClass: value,
 	forever: value,
@@ -203,6 +203,13 @@ req = request.del(uri, callback);
 req = request.del(options);
 req = request.del(options, callback);
 
+req = request.delete(uri);
+req = request.delete(uri, options);
+req = request.delete(uri, options, callback);
+req = request.delete(uri, callback);
+req = request.delete(options);
+req = request.delete(options, callback);
+
 req = request.forever(value, value);
 jar = request.jar();
 cookie = request.cookie(str);
@@ -243,14 +250,14 @@ request
     console.log(response.headers['content-type']); // 'image/png'
   })
   .pipe(request.put('http://mysite.com/img.png'));
-  
+
 request
   .get('http://mysite.com/doodle.png')
   .on('error', function(err: any) {
     console.log(err);
   })
   .pipe(fs.createWriteStream('doodle.png'));
-  
+
 http.createServer(function (req, resp) {
   if (req.url === '/doodle.png') {
     if (req.method === 'PUT') {
@@ -362,7 +369,7 @@ request({
     }
     console.log('Upload successful!  Server responded with:', body);
   });
-  
+
 request.get('http://some.server.com/').auth('username', 'password', false);
 // or
 request.get('http://some.server.com/', {
@@ -378,6 +385,12 @@ request.get('http://some.server.com/').auth(null, null, true, 'bearerToken');
 request.get('http://some.server.com/', {
   'auth': {
     'bearer': 'bearerToken'
+  }
+});
+// or
+request.get('http://some.server.com/', {
+  'auth': {
+    'bearer': () => 'bearerToken'
   }
 });
 
@@ -452,8 +465,8 @@ request.post({url:url, oauth:oauth}, function (e, r, body) {
         , token_secret: perm_data.oauth_token_secret
         };
     var url = 'https://api.twitter.com/1.1/users/show.json';
-    var query = { 
-      screen_name: perm_data.screen_name, 
+    var query = {
+      screen_name: perm_data.screen_name,
       user_id: perm_data.user_id
     };
     request.get({url:url, oauth:oauth, qs:query, json:true}, function (e, r, user) {
@@ -540,7 +553,7 @@ request({
       }
     }
   });
-  
+
 //requests using baseRequest() will set the 'x-token' header
 var baseRequest = request.defaults({
   headers: {'x-token': 'my-token'}
@@ -560,6 +573,7 @@ request.patch(url);
 request.post(url);
 request.head(url);
 request.del(url);
+request.delete(url);
 request.get(url);
 request.cookie('key1=value1');
 request.jar();
@@ -593,7 +607,7 @@ var rand = Math.floor(Math.random()*100000000).toString();
       }
     }
   );
-  
+
 request(
     { method: 'GET'
     , uri: 'http://www.google.com'
@@ -615,7 +629,7 @@ request(
       console.log('received ' + data.length + ' bytes of compressed data')
     })
   });
-  
+
 var requestWithJar = request.defaults({jar: true})
 requestWithJar('http://www.google.com', function () {
   requestWithJar('http://images.google.com');
@@ -662,3 +676,12 @@ request(
   .on('data', function(data: Buffer | string) { })
   .on('error', function(e: Error) { })
   .on('complete', function(resp: http.IncomingMessage, body?: string | Buffer) { });
+
+// options.url / options.uri can be the Url object
+request.get({
+  url: urlModule.parse('http://example.com')
+});
+
+request.get({
+  uri: urlModule.parse('http://example.com')
+});

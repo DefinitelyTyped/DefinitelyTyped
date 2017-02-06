@@ -1,5 +1,3 @@
-/// <reference path="flake-idgen.d.ts"/>
-
 // require flake-idgen
 import FlakeId = require('flake-idgen');
 let flakeIdGen1 = new FlakeId({datacenter: 9, worker: 7});

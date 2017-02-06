@@ -1,5 +1,5 @@
 // QUnit Tests for Bootbox 4.4.0
-/// <reference path="bootbox.d.ts" />
+
 
 bootbox.alert("Are we ok?");
 bootbox.alert("Are we ok with callback?", function () {

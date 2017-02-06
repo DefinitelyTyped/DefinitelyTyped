@@ -1,5 +1,5 @@
-/// <reference path="../auth0/auth0.d.ts" />
-/// <reference path="auth0.widget.d.ts" />
+/// <reference types="auth0-js/v7" />
+
 
 var widget: Auth0WidgetStatic = new Auth0Widget({
     domain: 'mine.auth0.com',

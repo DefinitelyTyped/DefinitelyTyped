@@ -1,5 +1,5 @@
-/// <reference path="../cordova/cordova.d.ts" />
-/// <reference path="./cordova-ionic.d.ts" />
+/// <reference types="cordova" />
+
 
 // Keyboard
 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);

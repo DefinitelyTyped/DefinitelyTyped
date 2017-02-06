@@ -1,4 +1,3 @@
-﻿/// <reference path="tmp.d.ts" />
 import tmp = require('tmp');
 
 tmp.file((err, path, fd, cleanupCallback) => {

@@ -1,4 +1,4 @@
-/// <reference path="jsnox.d.ts" />
+
 import React = require('react');
 import jsnox = require('jsnox');
 var $ = jsnox(React);
@@ -15,7 +15,7 @@ var Person = React.createClass<PersonProps, {}>({
 
 var PersonTag = React.createFactory(Person);
 
-var clickHandler: React.MouseEventHandler
+var clickHandler: React.MouseEventHandler<{}>;
 
 // Tests with spec string
 function spec_string () {

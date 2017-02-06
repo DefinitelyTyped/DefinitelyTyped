@@ -1,5 +1,5 @@
-/// <reference path="../node/node.d.ts" />
-/// <reference path="when.d.ts" />
+/// <reference types="node" />
+
 
 import fs = require('fs');
 import dns = require('dns');
@@ -94,6 +94,26 @@ var joinedPromise: when.Promise<number[]> = when.join(when(1), when(2), when(3))
 /* when.all(arr) */
 when.all<number[]>([when(1), when(2), when(3)]).then(results => {
 	return results.reduce((r, x) => r + x, 0);
+});
+
+/* when.map(arr, fn) */
+when.map<number[]>([when(1), 2, 3], (num: number, index: number) => num * index).then((results) => {
+	return results.reduce((r, x) => r + x, 0);
+});
+
+/* when.reduce(arr, reduceFunc, initialValue) */
+when.reduce<number>([when(1), 2, 3], (reduction: number, value: number) => {
+	return reduction += value;
+}, 0).then((result: number) => {
+	return result;
+});
+
+/* when.reduceRight(arr, reduceFunc, initialValue) */
+when.reduceRight<number>([when(1), 2, 3], (reduction: number, value: number) => {
+	return when(value)
+	.then((v) => reduction += v);
+}, 0).then((result: number) => {
+	return result;
 });
 
 /* when.settle(arr) */

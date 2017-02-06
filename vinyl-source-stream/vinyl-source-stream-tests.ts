@@ -1,5 +1,3 @@
-/// <reference path="./vinyl-source-stream.d.ts"/>
-/// <reference path="../gulp/gulp.d.ts"/>
 import gulp = require("gulp");
 import vinylSourceStream = require("vinyl-source-stream");
 

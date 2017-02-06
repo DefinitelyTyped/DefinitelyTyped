@@ -1,8 +1,8 @@
-/// <reference path="../koa/koa.d.ts" />
-/// <reference path="koa-mount.d.ts" />
+
+
 
 import * as Koa from "koa";
-import mount = require("koa-mount");
+import * as mount from "koa-mount";
 
 const a = new Koa();
 
