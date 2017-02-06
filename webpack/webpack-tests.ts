@@ -524,7 +524,7 @@ const resolve: webpack.Resolve = {
     cachePredicate: 'boo' // why does this test _not_ fail!?
 }
 
-const performance: webpack.PerformanceOptions = {
+const performance: webpack.Options.Performance = {
     hints: 'error',
     maxEntrypointSize: 400000,
     maxAssetSize: 100000,
