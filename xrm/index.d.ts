@@ -1,6 +1,6 @@
-// Type definitions for Microsoft Dynamics xRM API v8.0
+// Type definitions for Microsoft Dynamics xRM API v8.2
 // Project: http://www.microsoft.com/en-us/download/details.aspx?id=44567
-// Definitions by: David Berry <https://github.com/6ix4our/>, Matt Ngan <https://github.com/mattngan/>, Markus Mauch <https://github.com/markusmauch/>, Daryl LaBar <https://github.com/daryllabar>
+// Definitions by: David Berry <https://github.com/6ix4our/>, Matt Ngan <https://github.com/mattngan/>, Markus Mauch <https://github.com/markusmauch/>, Daryl LaBar <https://github.com/daryllabar>, Tully H <https://github.com/clownwilleatme>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Xrm: Xrm.XrmStatic;
@@ -93,7 +93,7 @@ declare namespace Xrm
              * Gets a control matching controlName.
              *
              * @tparam  T   A Control type
-             * @param   {string}    controlName Name of the control.
+             * @param   {string}    controlName    Name of the control.
              *
              * @return  The control.
              */
@@ -102,12 +102,22 @@ declare namespace Xrm
             /**
              * Gets a control matching controlName.
              *
-             * @param   {string}    controlName Name of the control.
+             * @param   {string}    controlName   Name of the control.
              *
              * @return  The control.
              */
             getControl( controlName: string ): Page.Control;
 
+            /**
+             * Gets a control by index.
+             *
+             * @tparam  T   A Control type
+             * @param   {number}    index   The control index.
+             *
+             * @return  The control.
+             */
+            getControl<T extends Page.Control>( index: number ): T;
+            
             /**
              * Gets a control by index.
              *
@@ -166,11 +176,10 @@ declare namespace Xrm
              * @param   {OpenParameters}    parameters          (Optional) A dictionary object that passes extra query string
              *                                                  parameters to the form. Invalid query string parameters will cause an
              *                                                  error.
+             * @return  {Async.XrmPromise} Returns an asynchronous promise.
              */
-            openQuickCreate(
-                entityLogicalName: string,
-                createFromEntity?: Page.LookupValue,
-                parameters?: Utility.OpenParameters ): Async.XrmPromise;
+            openQuickCreate( entityLogicalName: string, createFromEntity?: Page.LookupValue, parameters?: Utility.OpenParameters ):
+                             Async.XrmPromise<Async.QuickCreateSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
 
             /**
              * Opens an entity form.
@@ -205,16 +214,194 @@ declare namespace Xrm
              */
             openWebResource( webResourceName: string, webResourceData?: string, width?: number, height?: number ): Window;
         }
+
+        /**
+          * Provides methods to create and manage records in the mobile clients (for phones tablets).
+          */
+        Mobile: {
+            /**
+              * Provides methods to create and manage records in the mobile clients while working in the offline mode.
+              *
+              * @see {@link https://msdn.microsoft.com/en-us/library/mt787123.aspx} for details.
+              */
+            offline: {
+                /**
+                  * Returns whether an entity is offline enabled.
+                  *
+                  * @param    {string}    entityType    The logical name of the entity.
+                  *
+                  * @return   {boolean}   True if the entity is offline enabled; otherwise False.
+                  */
+                isOfflineEnabled( entityType: string ): boolean;
+
+                /**
+                  * Creates an entity record in mobile clients while working in the offline mode.
+                  *
+                  * @param    {string}    entityType    The logical name of the entity.
+                  * @param    {Object}    data          A dictionary object containing key : value pairs for the record to create.
+                  *
+                  * @return   {Async.XrmPromise}        Returns an asynchronous promise.
+                  *
+                  * @remarks  You cannot create intersect and activity party entities.
+                  *           Only the following attribute types are supported in offline mode: BigInt
+                  *                                                                             Boolean
+                  *                                                                             Customer
+                  *                                                                             DateTime
+                  *                                                                             Decimal
+                  *                                                                             Double
+                  *                                                                             EntityName
+                  *                                                                             Integer
+                  *                                                                             Lookup
+                  *                                                                             Memo
+                  *                                                                             Money
+                  *                                                                             Owner
+                  *                                                                             Picklist
+                  *                                                                             String
+                  *                                                                             State
+                  *                                                                             Status
+                  *                                                                             UniqueIdentifier
+                  */
+                createRecord( entityType: string, data: { [attributeName: string]: any } ): Async.XrmPromise<Async.OfflineOperationSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
+                
+                /**
+                  * Retrieves an entity record in mobile clients while working in the offline mode.
+                  *
+                  * @param    {string}    entityType    The logical name of the entity.
+                  * @param    {string}    id            GUID of the record to retrieve.
+                  * @param    {string}    options       (Optional) OData system query options to retrieve your data. Supports $select and $expand
+                  *                                     Example: ?$select=name&$expand=primarycontactid($select=contactid,fullname)
+                  *
+                  * @return   {Async.XrmPromise} Returns an asynchronous promise.
+                  *
+                  * @remarks  Only $select option can be specified within $expand.
+                  *           Only the following attribute types are supported in offline mode: BigInt
+                  *                                                                             Boolean
+                  *                                                                             Customer
+                  *                                                                             DateTime
+                  *                                                                             Decimal
+                  *                                                                             Double
+                  *                                                                             EntityName
+                  *                                                                             Integer
+                  *                                                                             Lookup
+                  *                                                                             Memo
+                  *                                                                             Money
+                  *                                                                             Owner
+                  *                                                                             Picklist
+                  *                                                                             String
+                  *                                                                             State
+                  *                                                                             Status
+                  *                                                                             UniqueIdentifier
+                  */
+                retrieveRecord( entityType: string, id: string, options: string ): Async.XrmPromise<Async.OfflineOperationSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
+
+                /**
+                  * Retrieves a collection of entity records in mobile clients while working in the offline mode.
+                  *
+                  * @param    {string}    entityType    The logical name of the entity.
+                  * @param    {string}    options       (Optional) The logical name of the enti
+                  * @param    {string}    maxPageSize   (Optional) A positive number to indicates the number of entity records to be returned per page.
+                  *                                     If you do not specify this parameter, the default value is passed as 5000.
+                  *                                     If the number of records being retrieved is more than maxPageSize, an @odata.nextLink property
+                  *                                     will be returned, and you can use the value of the @odata.nextLink property with a new GET
+                  *                                     request to return next set of records.
+                  *
+                  * @return   {Async.XrmPromise} Returns an asynchronous promise.
+                  *
+                  * @remarks  A maximum of 5000 related records can be retrieved when using $expand.
+                  *           Only $select option can be specified within $expand.
+                  *           $skip query option is not supported.
+                  *           Only the following attribute types are supported in offline mode: BigInt
+                  *                                                                             Boolean
+                  *                                                                             Customer
+                  *                                                                             DateTime
+                  *                                                                             Decimal
+                  *                                                                             Double
+                  *                                                                             EntityName
+                  *                                                                             Integer
+                  *                                                                             Lookup
+                  *                                                                             Memo
+                  *                                                                             Money
+                  *                                                                             Owner
+                  *                                                                             Picklist
+                  *                                                                             String
+                  *                                                                             State
+                  *                                                                             Status
+                  *                                                                             UniqueIdentifier
+                  */
+                retrieveMultipleRecords( entityType: string, options: string, maxPageSize: number ): Async.XrmPromise<Async.OfflineRetrieveMultipleSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
+
+                /**
+                  * Updates an entity record in mobile clients while working in the offline mode.
+                  *
+                  * @param    {string}    entityType    The logical name of the entity.
+                  * @param    {string}    id            GUID of the record to update.
+                  * @param    {Object}    data          A dictionary object containing key : value pairs for the record to update.
+                  *
+                  * @return   {Async.XrmPromise} Returns an asynchronous promise.
+                  *
+                  * @remarks  You cannot update intersect and activity party entities.
+                  *            Only the following attribute types are supported in offline mode: BigInt
+                  *                                                                              Boolean
+                  *                                                                              Customer
+                  *                                                                              DateTime
+                  *                                                                              Decimal
+                  *                                                                              Double
+                  *                                                                              EntityName
+                  *                                                                              Integer
+                  *                                                                              Lookup
+                  *                                                                              Memo
+                  *                                                                              Money
+                  *                                                                              Owner
+                  *                                                                              Picklist
+                  *                                                                              String
+                  *                                                                              State
+                  *                                                                              Status
+                  *                                                                              UniqueIdentifier
+                  */
+                updateRecord( entityType: string, id: string, data: { [attributeName: string]: any } ): Async.XrmPromise<Async.OfflineOperationSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
+
+                /**
+                  * Deletes an entity record in mobile clients while working in the offline mode.
+                  *
+                  * @param    {string}    entityType    The logical name of the entity.
+                  * @param    {string}    id            GUID of the record to delete.
+                  *
+                  * @return   {Async.XrmPromise} Returns an asynchronous promise.
+                  *
+                  * @remarks  You cannot delete intersect and activity party entities.
+                  */
+                deleteRecord( entityType: string, id: string ): Async.XrmPromise<Async.OfflineOperationSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
+            }
+        }
+        
+        /**
+          * Provides methods to display a web page in the side pane of web client.
+          *
+          * @see {@link https://msdn.microsoft.com/en-us/library/mt790281.aspx} for details.
+          */
+        Panel: {
+            /**
+             * Displays the web page represented by a URL in the static area in the side pane, which appears on all pages in the web client.
+             *
+             * @param    {string}    url    URL of the page to be loaded in the side pane static area.
+             * @param    {string}    url    Title of the side pane static area.
+             *
+             * @remarks  This method is only supported for the web client.
+             */
+            LoadPanel( url: string, title: string ): void;
+        }
     }
 
     /**
      * Client Types for Xrm.Page.context.getClient().
      */
     export type Client = "Web" | "Outlook" | "Mobile";
+    
     /**
      * Client States for Xrm.Page.context.getClientState().
      */
     export type ClientState = "Online" | "Offline";
+    
     /**
      * Themes for Xrm.Page.context.getCurrentTheme().
      */
@@ -254,6 +441,7 @@ declare namespace Xrm
          * Gets client's base URL for Dynamics CRM
          *
          * @return  The client's base URL
+         *
          * @remarks For Dynamics CRM On-Premises:               http(s)://server/org
          *          For Dynamics CRM Online:                    https://org.crm.dynamics.com
          *          For Dynamics CRM for Outlook (Offline):     http://localhost:2525
@@ -355,6 +543,20 @@ declare namespace Xrm
     }
 
     /**
+     * Defines save options to control how appointment, recurring appointment, or service activity records are processed.
+     * 
+     * @see {@link https://msdn.microsoft.com/en-us/library/dn481607.aspx#Anchor_2} for details.
+     */
+    interface SaveOptions
+    {
+        /**
+          * Indicates whether to use the Book or Reschedule messages rather than the Create or Update messages.
+          * Applicable to appointment, recurring appointment, or service activity records.
+          */
+          UseSchedulingEngine?: boolean;
+    }
+    
+    /**
      * Interface for the Xrm.Page.data object.
      */
     export interface Data
@@ -364,16 +566,25 @@ declare namespace Xrm
          *
          * @param   {boolean}   save    true to save the record, after the refresh.
          *
-         * @return  An Async.XrmPromise.
+         * @return  {Async.XrmPromise} Returns an asynchronous promise.
          */
-        refresh( save: boolean ): Async.XrmPromise;
+        refresh( save: boolean ): Async.XrmPromise<Async.SuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
 
         /**
          * Asynchronously saves the record.
          *
-         * @return  An Async.XrmPromise.
+         * @return  {Async.XrmPromise} Returns an asynchronous promise.
          */
-        save(): Async.XrmPromise;
+        save(): Async.XrmPromise<Async.SuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
+                
+        /**
+          * Asynchronously saves the record  with the option to set callback functions to be executed after the save operation is completed.
+          *
+          * @param   {saveOptions}   saveOptions    Options to control how appointment, recurring appointment, or service activity records are processed.
+          *
+          * @return  {Async.XrmPromise} Returns an asynchronous promise.
+          */
+        save( saveOptions: SaveOptions ): Async.XrmPromise<Async.SuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
 
         /**
          * The record context of the form.
@@ -394,11 +605,27 @@ declare namespace Xrm
     export interface Ui
     {
         /**
+          * Displays a form level notification. Any number of notifications can be displayed and will remain until removed using clearFormNotification.
+          * The height of the notification area is limited so each new message will be added to the top.
+          *
+          * @param   {string}                            message     The text of the notification message.
+          * @param   {Page.ui.FormNotificationLevel}     level    The level of the notification which defines how the message will be displayed, such as the icon.
+          * @param   {string}                            uniqueId    Unique identifier for the notification which is used with clearFormNotification to remove the notification.
+          *
+          * @return  true if it succeeds, otherwise false.
+          *
+          * @remarks     Values for level are:    ERROR   Notification will use the system error icon.
+          *                                       WARNING Notification will use the system warning icon.
+          *                                       INFO    Notification will use the system info icon.
+          */
+        setFormNotification( message: string, level: Page.ui.FormNotificationLevel | string, uniqueId: string ): boolean;
+    
+        /**
          * Clears the form notification described by uniqueId.
          *
          * @param   {string}    uniqueId    Unique identifier.
          *
-         * @return  true if it succeeds, otherwise false.
+         * @return  True if it succeeds, otherwise false.
          */
         clearFormNotification( uniqueId: string ): boolean;
 
@@ -441,14 +668,15 @@ declare namespace Xrm
         getViewPortWidth(): number;
 
         /**
-         * Re-evaluates the ribbon's configured EnableRules
+         * Re-evaluates the ribbon's configured EnableRules.
          *
          * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
          */
         refreshRibbon(): void;
 
-        setFormNotification(message: string, level: Page.ui.FormNotificationLevel | string, uniqueId: string ): boolean;
-
+        /**
+          * The business process flow API, used to interact with the business process flow control in a form.
+          */
         process: Page.ui.ProcessManager;
 
         /**
@@ -474,6 +702,11 @@ declare namespace Xrm
          * A reference to the collection of tabs on the form.
          */
         tabs: Collection.ItemCollection<Page.Tab>;
+        
+        /**
+          * A collection of all the quick view controls on a form using the new form rendering engine (also called "turbo forms").
+          */
+        quickForms: Collection.ItemCollection<Page.ui.QuickForm>;
     }
 
     /**
@@ -482,37 +715,114 @@ declare namespace Xrm
     export module Async
     {
         /**
-         * Object passed to ErrorCallbackDelegate
-         */
-        export interface ErrorCallbackObject
-        {
-            errorCode: number;
-            message: string;
-        }
-        
-        export interface SuccessCallbackObject
-        { 
-            savedEntityReference: Page.LookupValue;
-        }
-
-        /**
          * Called when the operation is successful.
-         * Currently, only the Xrm.Utility.openQuickCreate successCallback
-         * is passed a parameter so an optional parameter for it is included
          */
-        export type SuccessCallbackDelegate = (object?: SuccessCallbackObject ) => void;
-
+        export type SuccessCallbackDelegate = () => void;
+        
         /**
          * Called when the operation fails.
          *
-         * @param   {ErrorCallbackObject}    error   The error object         
+         * @param   {ErrorCallbackObject}    error   The error object.
          */
         export type ErrorCallbackDelegate = ( error: ErrorCallbackObject ) => void;
 
         /**
-         * Interface for Xrm.Page.data promises.
+         * Called when the Xrm.Utility.openQuickCreate operation is successful and a new record has been created.
+         *
+         * @param   {OpenQuickCreateSuccessCallbackObject}    record   An object which contains a lookup value which identifies the record which has been created.
+         *
+         * @see {Xrm.Utility.openQuickCreate}
          */
-        export interface XrmPromise
+        export type QuickCreateSuccessCallbackDelegate = ( record: OpenQuickCreateSuccessCallbackObject ) => void;
+        
+        /**
+         * Called when the offline operation is successful.
+         *
+         * @param   {OfflineOperationSuccessCallbackObject}    record   The record returned from the operation.
+         *
+         * @see {Xrm.Mobile.offline}
+         */
+        export type OfflineOperationSuccessCallbackDelegate = ( record: OfflineOperationSuccessCallbackObject ) => void;
+
+        /**
+         * Called when the offline retrieve multiple operation is successful.
+         *
+         * @param   {OfflineRetrieveMultipleSuccessCallbackDelegate}    resultSet   The dictionary of records retrieved from the operation.
+         *
+         * @see {Xrm.Mobile.offline.retrieveMultipleRecords}
+         */
+        export type OfflineRetrieveMultipleSuccessCallbackDelegate = (resultSet: { [key: string]: any }[]) => void;
+
+        /**
+         * Called when the operation fails.
+         *
+         * @param   {OfflineErrorCallbackObject}    error   The error object.
+         *
+         * @see {Xrm.Mobile.offline}
+         */
+        export type OfflineErrorCallbackDelegate = (error: OfflineErrorCallbackObject) => void;
+
+
+        /**
+         * Object passed to ErrorCallbackDelegate.
+         */
+        export interface ErrorCallbackObject
+        {
+            /**
+              * The error code.
+              */
+            errorCode: number;
+
+            /**
+              * An error message describing the issue.
+              */
+            message: string;
+        }
+
+        /**
+         * Object passed to QuickCreateSuccessCallbackDelegate.
+         */
+        export interface OpenQuickCreateSuccessCallbackObject
+        {
+            /**
+              * A lookup value which identifies the record which has been created.
+              */
+            savedEntityReference: Page.LookupValue;
+        }
+
+        /**
+         * Object passed to OfflineOperationSuccessCallbackDelegate;
+         */
+        export interface OfflineOperationSuccessCallbackObject
+        {
+            /**
+              * GUID of the record;
+              */
+            id: string;
+            /**
+              * Logical name of the entity.
+              */
+            logicalName: string;
+        }
+        
+        /**
+         * Object passed to OfflineErrorCallbackDelegate.
+         */
+        export interface OfflineErrorCallbackObject extends ErrorCallbackObject
+        {
+            /**
+              * An internal error message that might contain additional details about the issue.
+              */
+            debugMessage: string;
+        }
+
+        /**
+         * Interface for asynchronous promises used in Xrm.Page.data and Xrm.Utility.openQuickCreate.
+         *
+         * @tparam  TSuccessCallback   Generic success callback parameter.
+         * @tparam  TErrorCallback     Generic error callback parameter.
+         */
+        export interface XrmPromise<TSuccessCallback, TErrorCallback>
         {
             /**
              * A basic 'then' promise.
@@ -520,7 +830,7 @@ declare namespace Xrm
              * @param   {SuccessCallbackDelegate}   successCallback   The success callback.
              * @param   {ErrorCallbackDelegate}     errorCallback     The error callback.
              */
-            then( successCallback: SuccessCallbackDelegate, errorCallback: ErrorCallbackDelegate ): void;
+            then( successCallback: TSuccessCallback, errorCallback: TErrorCallback ): void;
         }
     }
 
@@ -633,19 +943,57 @@ declare namespace Xrm
          * Requirement Level for Xrm.Page.Attribute.getRequiredLevel() and Xrm.Page.Attribute.setRequiredLevel().
          */
         export type RequirementLevel = "none" | "recommended" | "required";
+        
         /**
          * Save Modes for Xrm.Page.Entity.save().
          */
         export type SaveMode = "saveandclose" | "saveandnew";
+        
         /**
          * Status for Xrm.Page.Stage.getStatus().
          */
         export type Status = "active" | "inactive";
+        
         /**
          * Submit Mode for Xrm.Page.Attribute.getSubmitMode() and Xrm.Page.Attribute.setSubmitMode().
          */
         export type SubmitMode = "always" | "dirty" | "never";
+        
+        /**
+         * Control types for Xrm.Page.Control.getControlType().
+         */
+        export type ControlType = "standard" | "iframe" | "lookup" | "optionset" | "subgrid" | "webresource" | "notes" | "timercontrol" | "kbsearch" | "quickform";
 
+        /**
+         * Date attribute formats for Xrm.Page.Attribute.getFormat(), used by DateAttribute.
+         */
+        export type DateAttributeFormat = "date" | "datetime";
+
+        /**
+         * Integer attribute formats for Xrm.Page.Attribute.getFormat(), used by NumberAttribute.
+         */
+        export type IntegerAttributeFormat = "duration" | "none";
+
+        /**
+         * OptionSet attribute formats for Xrm.Page.Attribute.getFormat(), used by OptionSetAttribute.
+         */
+        export type OptionSetAttributeFormat = "language" | "timezone";
+
+        /**
+         * String attribute formats for Xrm.Page.Attribute.getFormat(), used by StringAttribute.
+         */
+        export type StringAttributeFormat = "email" | "phone" | "text" | "textarea" | "tickersymbol" | "url";
+
+        /**
+         * Attribute types for Xrm.ui.ProcessMonitor Xrm.Page.Attribute.setDisplayState().
+         */
+        export type AttributeType = "boolean" | "datetime" | "decimal" | "double" | "integer" | "lookup" | "memo" | "money" | "optionset" | "string";
+
+        /**
+         * Attribute formats for Xrm.Page.Attribute.getFormat().
+         */
+        export type AttributeFormat = DateAttributeFormat | IntegerAttributeFormat | OptionSetAttributeFormat | StringAttributeFormat;
+        
         /**
          * Interface for a CRM Business Process Flow instance.
          */
@@ -836,9 +1184,9 @@ declare namespace Xrm
         }
 
         /**
-         * Base interface for UI elements.
+         * Interface for UI elements with labels.
          */
-        export interface UiElement
+        export interface UiLabelElement
         {
             /**
              * Gets the label.
@@ -846,21 +1194,33 @@ declare namespace Xrm
              * @return  The label.
              */
             getLabel(): string;
-
-            /**
-             * Gets the visibility state.
-             *
-             * @return  true if the tab is visible, otherwise false.
-             */
-            getVisible(): boolean;
-
+            
             /**
              * Sets the label.
              *
              * @param   {string}    label   The label.
              */
             setLabel( label: string ): void;
+        }
 
+        /**
+         * Interface for UI elements which can have the visibility value read.
+         */
+        export interface UiCanGetVisibleElement
+        {
+            /**
+             * Gets the visibility state.
+             *
+             * @return  true if the tab is visible, otherwise false.
+             */
+            getVisible(): boolean;
+        }
+        
+        /**
+         * Base interface for standard UI elements.
+         */
+        export interface UiStandardElement extends UiCanGetVisibleElement, UiLabelElement
+        {
             /**
              * Sets the visibility state.
              *
@@ -879,15 +1239,44 @@ declare namespace Xrm
              */
             setFocus(): void;
         }
+        
+        /**
+          * Interface for controls which methods provide immediate feedback or take actions as user types in a control.
+          * Contains methods which can be used to perform data validations in a control even before the user commits (saves) the value in a form.
+          */
+        export interface UiKeyPressable
+        {
+            /**
+             * Use this to add a function as an event handler for the keypress event so that the function is called when you type a character in the specific text or number field.
+             * For a sample JavaScript code that uses the addOnKeyPress method to configure the auto-completion experience, see Sample: Auto-complete in CRM controls.
+             *
+             * @param   {ContextSensitiveHandler}  handler The function reference.
+             */
+            addOnKeyPress( handler: ContextSensitiveHandler ): void;
+
+            /**
+             * Use this to manually fire an event handler that you created for a specific text or number field to be executed on the keypress event.
+             */
+            fireOnKeyPress(): void;
+
+            /**
+             * Use this to remove an event handler for a text or number field that you added using addOnKeyPress.
+             *
+             * Remarks:  If an anonymous function is set using addOnKeyPress, it can’t be removed using this method.
+             * @param   {ContextSensitiveHandler}  handler The function reference.
+             */
+            removeOnKeyPress( handler: ContextSensitiveHandler ): void;
+        }
 
         /**
          * Interface for Result value of AutoCompleteResultSet
          */
-        export interface AutoCompleteResult {
+        export interface AutoCompleteResult
+        {
             /**
              * The Identifier
              */
-            id: string|number;
+            id: string | number;
 
             /**
              * Url of the icon to display
@@ -903,7 +1292,8 @@ declare namespace Xrm
         /**
          * Interface for command of AutoCompleteResultSet.  This is displayed at the bottom of the auto complete view
          */
-        export interface AutoCompleteCommand {
+        export interface AutoCompleteCommand
+        {
             /**
              * The Identifier
              */
@@ -928,7 +1318,8 @@ declare namespace Xrm
         /**
          * Interface for showAutoComplete argument
          */
-        export interface AutoCompleteResultSet {
+        export interface AutoCompleteResultSet
+        {
             /**
              * Results to show
              */
@@ -983,17 +1374,17 @@ declare namespace Xrm
         export interface Privilege
         {
             /**
-             * true if the user can read.
+             * True if the user can read.
              */
             canRead: boolean;
 
             /**
-             * true if the user can update.
+             * True if the user can update.
              */
             canUpdate: boolean;
 
             /**
-             * true if the user can create.
+             * True if the user can create.
              */
             canCreate: boolean;
         }
@@ -1032,7 +1423,7 @@ declare namespace Xrm
              *                               string
              */
             getAttributeType(): string;
-
+            
             /**
              * Gets the attribute format.
              *
@@ -1053,7 +1444,7 @@ declare namespace Xrm
              *                               timezone       (optionset)
              *                               url            (string)
              */
-            getFormat(): string;
+            getFormat(): AttributeFormat;
 
             /**
              * Gets a boolean value indicating whether this Attribute has unsaved changes.
@@ -1111,7 +1502,7 @@ declare namespace Xrm
              *
              * @param   {string}    requirementLevel    The requirement level, as either "none", "required", or "recommended"
              */
-            setRequiredLevel(requirementLevel: RequirementLevel | string): void;
+            setRequiredLevel( requirementLevel: RequirementLevel | string ): void;
 
             /**
              * Sets the submit mode.
@@ -1120,12 +1511,26 @@ declare namespace Xrm
              *
              * @remarks The default value is "dirty"
              */
-            setSubmitMode(submitMode: SubmitMode | string): void;
+            setSubmitMode( submitMode: SubmitMode | string ): void;
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
              */
             controls: Collection.ItemCollection<Control>;
+                        
+            /**
+             * Gets the value.
+             *
+             * @return  The value.
+             */
+            getValue(): any;
+
+            /**
+             * Sets the value.
+             *
+             * @param   {any}    value   The value.
+             */
+            setValue( value: any ): void;
         }
 
         /**
@@ -1135,6 +1540,16 @@ declare namespace Xrm
          */
         export interface NumberAttribute extends Attribute
         {
+            /**
+             * Gets the attribute format.
+             *
+             * @return  The format of the attribute.
+             *
+             * @remarks Values returned are: duration
+             *                               none
+             */
+            getFormat(): IntegerAttributeFormat;
+        
             /**
              * Gets the maximum value allowed.
              *
@@ -1171,6 +1586,11 @@ declare namespace Xrm
              * @remarks Attributes on Quick Create Forms will not save values set with this method.
              */
             setValue( value: number ): void;
+            
+            /**
+             * A collection of all the controls on the form that interface with this attribute.
+             */
+            controls: Collection.ItemCollection<NumberControl>;
         }
 
         /**
@@ -1180,6 +1600,20 @@ declare namespace Xrm
          */
         export interface StringAttribute extends Attribute
         {
+            /**
+             * Gets the attribute format.
+             *
+             * @return  The format of the attribute.
+             *
+             * @remarks Values returned are: email
+             *                               phone
+             *                               text
+             *                               textarea
+             *                               tickersymbol
+             *                               url
+             */
+            getFormat(): StringAttributeFormat;
+        
             /**
              * Gets maximum length allowed.
              *
@@ -1206,6 +1640,11 @@ declare namespace Xrm
              *              with this method.
              */
             setValue( value: string ): void;
+
+            /**
+             * A collection of all the controls on the form that interface with this attribute.
+             */
+            controls: Collection.ItemCollection<StringControl>;
         }
 
         /**
@@ -1219,7 +1658,8 @@ declare namespace Xrm
              * Gets the initial value of the attribute.
              *
              * @return  The initial value.
-             * @remarks Valid for optionset and boolean attribute types
+             *
+             * @remarks Valid for OptionSet and boolean attribute types
              */
             getInitialValue(): number | boolean;
         }
@@ -1256,6 +1696,16 @@ declare namespace Xrm
         export interface DateAttribute extends Attribute
         {
             /**
+             * Gets the attribute format.
+             *
+             * @return  The format of the attribute.
+             *
+             * @remarks Values returned are: date
+             *                               datetime
+             */
+            getFormat(): DateAttributeFormat;
+        
+            /**
              * Gets the value.
              *
              * @return  The value.
@@ -1270,6 +1720,11 @@ declare namespace Xrm
              * @remarks  Attributes on Quick Create Forms will not save values set with this method.
              */
             setValue( value: Date ): void;
+            
+            /**
+             * A collection of all the controls on the form that interface with this attribute.
+             */
+            controls: Collection.ItemCollection<DateControl>;
         }
 
         /**
@@ -1279,6 +1734,16 @@ declare namespace Xrm
          */
         export interface OptionSetAttribute extends EnumAttribute
         {
+            /**
+             * Gets the attribute format.
+             *
+             * @return  The format of the attribute.
+             *
+             * @remarks Values returned are: language
+             *                               timezone
+             */
+            getFormat(): OptionSetAttributeFormat;
+        
             /**
              * Gets the option matching a value.
              *
@@ -1336,6 +1801,11 @@ declare namespace Xrm
              *              with this method.
              */
             setValue( value: number ): void;
+            
+            /**
+             * A collection of all the controls on the form that interface with this attribute.
+             */
+            controls: Collection.ItemCollection<OptionSetControl>;
         }
 
         /**
@@ -1367,6 +1837,11 @@ declare namespace Xrm
              * @remarks Attributes on Quick Create Forms will not save values set with this method.
              */
             setValue( value: LookupValue[] ): void;
+            
+            /**
+             * A collection of all the controls on the form that interface with this attribute.
+             */
+            controls: Collection.ItemCollection<LookupControl>;
         }
 
         /**
@@ -1464,6 +1939,7 @@ declare namespace Xrm
              * Gets save mode, as an integer.
              *
              * @return  The save mode.
+             *
              * @remarks Values returned are: 1      Save
              *                               2      Save and Close
              *                               59     Save and New
@@ -1488,6 +1964,7 @@ declare namespace Xrm
 
             /**
              * Prevents the save operation from being submitted to the server.
+             *
              * @remarks All remaining "on save" handlers will continue execution.
              */
             preventDefault(): void;
@@ -1631,6 +2108,7 @@ declare namespace Xrm
              * Called when process change methods have completed.
              *
              * @param       {string}    status  The result of the process change operation.
+             *
              * @remarks     Values returned are: success        (The operation succeeded.)
              *                                   crossEntity    (The previous stage is for a different entity.)
              *                                   beginning      (The active stage is the first stage of the active path.)
@@ -1645,29 +2123,19 @@ declare namespace Xrm
              */
             export type ProcessDictionary = { [index: string]: string };
         }
-
+                
         /**
          * Interface for Xrm.Page.ui controls.
          *
          * @sa  UiElement
          */
-        export interface Control extends UiElement, UiFocusable
+        export interface Control extends UiLabelElement, UiCanGetVisibleElement
         {
             /**
-             * Clears the notification identified by uniqueId.
-             *
-             * @param   {string}    uniqueId    (Optional) Unique identifier.
-             *
-             * @return  true if it succeeds, false if it fails.
-             *
-             * @remarks If the uniqueId parameter is not used, the current notification shown will be removed.
-             */
-            clearNotification( uniqueId?: string ): boolean;
-
-            /**
-             * Gets the control's type.
+             * Gets the controls type.
              *
              * @return  The control type.
+             *
              * @remarks Values returned are: standard
              *                               iframe
              *                               lookup
@@ -1677,16 +2145,12 @@ declare namespace Xrm
              *                               notes
              *                               timercontrol
              *                               kbsearch (CRM Online Only, use parature.d.ts)
+             *                               quickform (see ui.QuickForm)
+             *                               customcontrol: <namespace>.<name> (A custom control for mobile phone and tablet clients).
+             *                               customsubgrid: <namespace>.<name> (A custom dataset control for mobile phone and tablet clients).
              */
-            getControlType(): string;
-
-            /**
-             * Gets a boolean value, indicating whether the control is disabled.
-             *
-             * @return  true if it is disabled, otherwise false.
-             */
-            getDisabled(): boolean;
-
+            getControlType(): ControlType | string;
+            
             /**
              * Gets the name of the control on the form.
              *
@@ -1711,7 +2175,33 @@ declare namespace Xrm
              * @return  The parent Section.
              */
             getParent(): Section;
-
+        }
+        
+        /**
+         * Interface for a standard control.
+         *
+         * @sa  Control
+         */
+        export interface StandardControl extends Control, UiStandardElement, UiFocusable
+        {
+            /**
+             * Clears the notification identified by uniqueId.
+             *
+             * @param   {string}    uniqueId    (Optional) Unique identifier.
+             *
+             * @return  true if it succeeds, false if it fails.
+             *
+             * @remarks If the uniqueId parameter is not used, the current notification shown will be removed.
+             */
+            clearNotification( uniqueId?: string ): boolean;
+            
+            /**
+             * Gets a boolean value, indicating whether the control is disabled.
+             *
+             * @return  true if it is disabled, otherwise false.
+             */
+            getDisabled(): boolean;
+            
             /**
              * Sets the state of the control to either enabled, or disabled.
              *
@@ -1731,15 +2221,7 @@ declare namespace Xrm
              *              appears next to the control. Tapping on the icon will display the message.
              */
             setNotification( message: string, uniqueId: string ): boolean;
-        }
 
-        /**
-         * Interface for a standard control.
-         *
-         * @sa  Control
-         */
-        export interface StandardControl extends Control
-        {
             /**
              * Gets the control's bound attribute.
              *
@@ -1756,28 +2238,17 @@ declare namespace Xrm
              */
             getAttribute(): Attribute;
         }
-
+        
         /**
-         * Interace for Auto Lookup Control
-         * This is not an Entity Lookup, but a control that supports AutoComplete/KeyPress Events (Text)
-         * NOTE * This interface is not supported for CRM mobile clients (phones or tablets) and the interactive service hub.  It is only available for Updated entities.
+         * Interface for Auto Lookup Control.
+         * This is not an Entity Lookup, but a control that supports AutoComplete / KeyPress Events (Text or Number)
+         *
+         * @remarks This interface is not supported for CRM mobile clients (phones or tablets) and the interactive service hub.  It is only available for Updated entities.
          * 
          * @sa  StandardControl
          */
-        export interface AutoLookupControl extends StandardControl {
-            /**
-             * Use this to add a function as an event handler for the keypress event so that the function is called when you type a character in the specific text or number field.
-             * For a sample JavaScript code that uses the addOnKeyPress method to configure the auto-completion experience, see Sample: Auto-complete in CRM controls.
-             *
-             * @param   {ContextSensitiveHandler}  handler The function reference.
-             */
-            addOnKeyPress(handler: ContextSensitiveHandler): void;
-
-            /**
-             * Use this to manually fire an event handler that you created for a specific text or number field to be executed on the keypress event.
-             */
-            fireOnKeyPress(): void;
-
+        export interface AutoLookupControl extends StandardControl, UiKeyPressable
+        {
             /**
              * Gets the latest value in a control as the user types characters in a specific text or number field.
              * This method helps you to build interactive experiences by validating data and alerting users as they type characters in a control.
@@ -1790,21 +2261,43 @@ declare namespace Xrm
              * Hides the auto-completion drop-down list configured for a specific text field
              */
             hideAutoComplete(): void;
-
-            /**
-             * Use this to remove an event handler for a text or number field that you added using addOnKeyPress.
-             *
-             * Remarks:  If an anonymous function is set using addOnKeyPress, it can’t be removed using this method.
-             * @param   {ContextSensitiveHandler}  handler The function reference.
-             */
-            removeOnKeyPress(handler: ContextSensitiveHandler): void;
-
+            
             /**
              * Shows upt to 10 matching strings in a drop-down list as users press keys to type charactrer in a specific text field.
              * On selecting an item in the drop-down list, the value in the text field changes to the selected item, the drop-down list disappears, and the OnChange event for the text field is invoked
              * @param resultSet 
              */
             showAutoComplete(resultSet: AutoCompleteResultSet): void;
+        }
+
+        /**
+         * Interface for a String control.
+         *
+         * @sa  StandardControl
+         */
+        export interface StringControl extends AutoLookupControl
+        {
+            /**
+             * Gets the control's bound attribute.
+             *
+             * @return  The attribute.
+             */
+            getAttribute(): StringAttribute;
+        }
+
+        /**
+         * Interface for a Number control.
+         *
+         * @sa  StandardControl
+         */
+        export interface NumberControl extends AutoLookupControl
+        {
+            /**
+             * Gets the control's bound attribute.
+             *
+             * @return  The attribute.
+             */
+            getAttribute(): NumberAttribute;
         }
 
         /**
@@ -2110,7 +2603,7 @@ declare namespace Xrm
          * @sa  UiElement
          * @sa  UiFocusable
          */
-        export interface Tab extends UiElement, UiFocusable
+        export interface Tab extends UiStandardElement, UiFocusable
         {
             /**
              * Gets display state of the tab.
@@ -2151,7 +2644,7 @@ declare namespace Xrm
          *
          * @sa  UiElement
          */
-        export interface Section extends UiElement
+        export interface Section extends UiStandardElement
         {
             /**
              * Gets the name of the section.
@@ -2183,14 +2676,14 @@ declare namespace Xrm
              */
             export type FormNotificationLevel = "ERROR" | "INFO" | "WARNING";
 
-                /**
+            /**
              * Display States for Xrm.ui.ProcessMonitor.setDisplayState().
-                 */
+             */
             export type DisplayState = "collapsed" | "expanded";
 
-                /**
+            /**
              * Interface for Xrm.Page.ui.process API
-                 */
+             */
             export interface ProcessManager
             {
                 /**
@@ -2198,7 +2691,7 @@ declare namespace Xrm
                  *
                  * @param   {string}    displayState   Display state of the process flow control, as either "expanded" or "collapsed"
                  */
-                setDisplayState(displayState: ui.DisplayState ): void;
+                setDisplayState( displayState: ui.DisplayState ): void;
 
                 /**
                  * Sets the visibility state.
@@ -2330,7 +2823,7 @@ declare namespace Xrm
             }
 
             /**
-             * Interface for a view selector item.  This object contains data that identifies a view. Use this as a parameter to
+             * Interface for a view selector item. This object contains data that identifies a view. Use this as a parameter to
              * the ViewSelector.setCurrentView method.
              */
             export interface ViewSelectorItem
@@ -2342,6 +2835,93 @@ declare namespace Xrm
                  */
                 getEntityReference(): LookupValue;
             }
+
+            /**
+              * Interface for a quick view control instance on a form.
+              *
+              * @see {@link https://msdn.microsoft.com/en-us/library/mt736908.aspx#bkmk_isLoaded} for details.
+              */
+            export interface QuickForm extends Control, UiLabelElement, UiCanGetVisibleElement
+            {
+                /**
+                 * Gets the constituent controls in a quick view control.
+                 *
+                 * @return  An array of controls.
+                 *
+                 * @remarks Constituent controls in a quick view control are read only.
+                 */
+                getControl(): Page.Control[];
+
+                /**
+                 * Gets the constituent controls in a quick view control.
+                 *
+                 * @tparam  T   A Control type
+                 * @param   {string}    controlName    Name of the control.
+                 *
+                 * @return  The control.
+                 *
+                 * @remarks Constituent controls in a quick view control are read only.
+                 */
+                getControl<T extends Page.Control>( controlName: string ): T;
+
+                /**
+                 * Gets the constituent controls in a quick view control.
+                 *
+                 * @param   {string}    controlName    Name of the control.
+                 *
+                 * @return  The control.
+                 *
+                 * @remarks Constituent controls in a quick view control are read only.
+                 */
+                getControl( controlName: string ): Page.Control;
+                
+                /**
+                 * Gets a control by index.
+                 *
+                 * @tparam  T   A Control type
+                 * @param   {number}    index   The control index.
+                 *
+                 * @return  The control.
+                 *
+                 * @remarks Constituent controls in a quick view control are read only.
+                 */
+                getControl<T extends Page.Control>( index: number ): T;
+            
+                /**
+                 * Gets a control by index.
+                 *
+                 * @param   {number}    index   The control index.
+                 *
+                 * @return  The control.
+                 *
+                 * @remarks Constituent controls in a quick view control are read only.
+                 */
+                getControl( index: number ): Page.Control;
+
+                /**
+                  * Gets the controls type.
+                  *
+                  * @return  Returns a string value that categorizes quick view controls.
+                  */
+                getControlType(): "quickform";
+
+                /**
+                  * Returns whether the data binding for the constituent controls in a quick view control is complete.
+                  *
+                  * @return   True is the data binding for a constituent control is complete, otherwise false.
+                  *           because the quick view form that the control is bound to may not have loaded completely.
+                  *           As a result, using the getAttribute or any data-related methods on a constituent control might not work.
+                  *           The isLoaded method for the quick view control helps determine the data binding status for constituent controls in a quick view control.
+                  *
+                  *  @remarks The data binding for the constituent controls in a quick view control may not be complete during the main form OnLoad event
+                  */
+                isLoaded(): boolean;
+
+                /**
+                  * Refreshes the data displayed in a quick view control.
+                  */
+                refresh(): void;
+            }
         }
 
         /**
@@ -2350,7 +2930,7 @@ declare namespace Xrm
          * @sa  UiElement
          * @sa  UiFocusable
          */
-        export interface NavigationItem extends UiElement, UiFocusable
+        export interface NavigationItem extends UiStandardElement, UiFocusable
         {
             /**
              * Gets the name of the item.
@@ -2427,11 +3007,13 @@ declare namespace Xrm
         /**
          * Command Bar Display options for Xrm.Url.FormOpenParameters.cmdbar, Xrm.Url.ViewOpenParameters.cmdbar, and Xrm.Utility.FormOpenParameters.cmdbar.
          */
+        
         export type CmdBarDisplay = "true" | "false";
         /**
          * Navigation Bar Display options for Xrm.Url.FormOpenParameters.navbar, Xrm.Url.ViewOpenParameters.navbar, and Xrm.Utility.FormOpenParameters.navbar.
          */
         export type NavBarDisplay = "entity" | "off" | "on";
+        
         /**
          * Report Open Action options for Xrm.Url.ReportOpenParameters.actions.
          */
