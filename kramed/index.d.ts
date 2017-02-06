@@ -1,4 +1,4 @@
-// Type definitions for Kramed
+// Type definitions for Kramed 0.5
 // Project: https://github.com/GitbookIO/kramed
 // Definitions by: Matthew Wilkes <https://github.com/tonicblue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,7 +11,7 @@ interface KramedStatic {
      * @param callback Function called when the kramdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    (src: string, callback: Function): string;
+    (src: string, callback: () => void): string;
 
     /**
      * Compiles kramdown to HTML.
@@ -21,7 +21,7 @@ interface KramedStatic {
      * @param callback Function called when the kramdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    (src: string, options?: KramedOptions, callback?: Function): string;
+    (src: string, options?: KramedOptions, callback?: () => void): string;
 
     /**
      * @param src String of kramdown source to be compiled
@@ -36,7 +36,7 @@ interface KramedStatic {
      * @param callback Function called when the kramdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    parse(src: string, callback: Function): string;
+    parse(src: string, callback: () => void): string;
 
     /**
      * Compiles kramdown to HTML.
@@ -46,7 +46,7 @@ interface KramedStatic {
      * @param callback Function called when the kramdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    parse(src: string, options?: KramedOptions, callback?: Function): string;
+    parse(src: string, options?: KramedOptions, callback?: () => void): string;
 
     /**
      * @param options Hash of options
@@ -62,11 +62,11 @@ interface KramedStatic {
 
     Renderer: {
         new(): KramedRenderer;
-    }
+    };
 
     Parser: {
         new(options: KramedOptions): KramedParser;
-    }
+    };
 }
 
 interface KramedRenderer {
@@ -95,7 +95,7 @@ interface KramedRenderer {
 }
 
 interface KramedParser {
-    parse(source: any[]): string
+    parse(source: any[]): string;
 }
 
 interface KramedOptions {
@@ -144,7 +144,7 @@ interface KramedOptions {
     /**
      * A function to highlight code blocks. The function takes three arguments: code, lang, and callback.
      */
-    highlight? (code: string, lang: string, callback?: Function): string;
+    highlight?(code: string, lang: string, callback?: () => void): string;
 
     /**
      * Set the prefix for code block classes.
@@ -157,8 +157,6 @@ interface KramedOptions {
     smartypants?: boolean;
 }
 
-declare module "kramed" {
-    export = kramed;
-}
+export = kramed;
 
 declare var kramed: KramedStatic;
