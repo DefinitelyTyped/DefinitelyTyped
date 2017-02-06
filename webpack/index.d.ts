@@ -492,7 +492,7 @@ declare namespace webpack {
         /**
          * dependencies namespace
          */
-        dependencies: Dependencies;
+        dependencies: {};
         /**
          * Replace resources that matches resourceRegExp with newResource.
          * If newResource is relative, it is resolve relative to the previous resource.
@@ -611,13 +611,6 @@ declare namespace webpack {
          * As an option modules that are not common in these chunks can be moved up the chunk tree to the parents.
          */
         AggressiveMergingPlugin: optimize.AggressiveMergingPluginStatic;
-    }
-
-    interface Dependencies {
-        /**
-         * Support Labeled Modules.
-         */
-        LabeledModulesPlugin: dependencies.LabeledModulesPluginStatic;
     }
 
     interface DirectoryDescriptionFilePluginStatic {
@@ -1041,9 +1034,6 @@ declare namespace webpack {
     }
 
     namespace dependencies {
-        interface LabeledModulesPluginStatic {
-            new (): Plugin;
-        }
     }
 
     namespace compiler {
