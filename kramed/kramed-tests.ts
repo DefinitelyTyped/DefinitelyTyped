@@ -1,6 +1,5 @@
 
-
-import * as kramed from 'kramed';
+import { KramedOptions, kramed, KramedParser, KramedStatic, KramedRenderer } from 'kramed';
 
 var options: KramedOptions = {
     gfm: true,

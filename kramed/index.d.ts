@@ -3,7 +3,7 @@
 // Definitions by: Matthew Wilkes <https://github.com/tonicblue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface KramedStatic {
+export interface KramedStatic {
     /**
      * Compiles kramdown to HTML.
      *
@@ -69,7 +69,7 @@ interface KramedStatic {
     };
 }
 
-interface KramedRenderer {
+export interface KramedRenderer {
     code(code: string, language: string): string;
     blockquote(quote: string): string;
     html(html: string): string;
@@ -94,11 +94,11 @@ interface KramedRenderer {
     text(text: string): string;
 }
 
-interface KramedParser {
+export interface KramedParser {
     parse(source: any[]): string;
 }
 
-interface KramedOptions {
+export interface KramedOptions {
     /**
      * Type: object Default: new Renderer()
      *
@@ -157,6 +157,4 @@ interface KramedOptions {
     smartypants?: boolean;
 }
 
-export = kramed;
-
-declare var kramed: KramedStatic;
+export declare var kramed: KramedStatic;
