@@ -6,10 +6,8 @@
 import * as angular from 'angular';
 
 declare module 'angular' {
-    
-    export namespace oauth2 {
-
-        interface IOAuthConfig {
+     export namespace oauth2 {
+         interface OAuthConfig {
             baseUrl: string;
             clientId: string;
             clientSecret?: string;
@@ -17,33 +15,33 @@ declare module 'angular' {
             revokePath?: string;
         }
 
-        interface IOAuthProvider {
-            configure(params: IOAuthConfig): IOAuthConfig;
+        interface OAuthProvider {
+            configure(params: OAuthConfig): OAuthConfig;
         }
 
-        interface IData {
+        interface Data {
             username: string;
             password: string;
         }
 
-        interface IOAuth {
+        interface OAuth {
             isAuthenticated(): boolean;
-            getAccessToken(data: IData, options?: any): angular.IPromise<string>;
-            getRefreshToken(data?: IData, options?: any): angular.IPromise<string>;
-            revokeToken(data?: IData, options?: any): angular.IPromise<string>;
+            getAccessToken(data: Data, options?: any): angular.IPromise<string>;
+            getRefreshToken(data?: Data, options?: any): angular.IPromise<string>;
+            revokeToken(data?: Data, options?: any): angular.IPromise<string>;
         }
 
-        interface IOAuthTokenConfig {
+        interface OAuthTokenConfig {
             name: string;
             options: any;
         }
 
-        interface IOAuthTokenOptions {
+        interface OAuthTokenOptions {
             secure: boolean;
         }
 
-        interface IOAuthTokenProvider {
-            configure(params: IOAuthTokenConfig): IOAuthTokenConfig;
+        interface OAuthTokenProvider {
+            configure(params: OAuthTokenConfig): OAuthTokenConfig;
         }
 
     }
