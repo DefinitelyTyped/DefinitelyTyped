@@ -383,6 +383,9 @@ declare module "mongoose" {
      * If connecting to multiple mongos servers, set the mongos option to true.
      */
     mongos?: boolean;
+
+    /** sets the underlying driver's promise library (see http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html) */
+    promiseLibrary?: any;
   }
 
   interface ConnectionOptions extends
