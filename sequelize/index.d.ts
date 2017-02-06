@@ -5219,6 +5219,12 @@ declare namespace sequelize {
          */
         transactionType?: string;
 
+        /**
+         * Print query execution time in milliseconds when logging SQL.
+         *
+         * Defaults to false
+         */
+        benchmark?: boolean;
     }
 
     /**
