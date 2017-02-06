@@ -66,7 +66,7 @@ declare namespace webpack {
         /** Stats options for logging  */
         stats?: compiler.StatsToStringOptions;
         /** Performance options */
-        performance?: PerformanceOptions;
+        performance?: Options.Performance;
     }
 
     interface Entry {
@@ -467,6 +467,29 @@ declare namespace webpack {
         oneOf: Rule[];
     }
     type Rule = LoaderRule | UseRule | RulesRule | OneOfRule;
+
+    namespace Options {
+        interface Performance {
+            /** This property allows webpack to control what files are used to calculate performance hints. */
+            assetFilter?(assetFilename: string): boolean;
+            /**
+             * Turns hints on/off. In addition, tells webpack to throw either an error or a warning when hints are
+             * found. This property is set to "warning" by default.
+             */
+            hints?: 'warning' | 'error' | boolean;
+            /**
+             * An asset is any emitted file from webpack. This option controls when webpack emits a performance hint
+             * based on individual asset size. The default value is 250000 (bytes).
+             */
+            maxAssetSize?: number;
+            /**
+             * An entrypoint represents all assets that would be utilized during initial load time for a specific entry.
+             * This option controls when webpack should emit performance hints based on the maximum entrypoint size.
+             * The default value is 250000 (bytes).
+             */
+            maxEntrypointSize?: number;
+        }
+    }
 
     interface Plugin extends tapable.Plugin {
         apply(thisArg: Webpack, ...args: any[]): void;
@@ -1102,24 +1125,8 @@ declare namespace webpack {
         type CompilerCallback = (err: Error, stats: Stats) => void;
     }
 
-    interface PerformanceOptions {
-        /**
-         * Turns hints on/off. In addition, tells webpack to throw either an error or a warning when hints are found. This property is set to "warning" by default.
-         */
-        hints?: boolean | 'error' | 'warning';
-        /**
-         * An entrypoint represents all assets that would be utilized during initial load time for a specific entry. This option controls when webpack should emit performance hints based on the maximum entrypoint size. The default value is 250000 (bytes).
-         */
-        maxEntrypointSize?: number;
-        /**
-         * An asset is any emitted file from webpack. This option controls when webpack emits a performance hint based on individual asset size. The default value is 250000 (bytes).
-         */
-        maxAssetSize?: number;
-        /**
-         * This property allows webpack to control what files are used to calculate performance hints.
-         */
-        assetFilter?: (assetFilename: string) => boolean;
-    }
+    /** @deprecated use webpack.Options.Performance */
+    type PerformanceOptions = webpack.Options.Performance;
 }
 
 declare var webpack: webpack.Webpack;
