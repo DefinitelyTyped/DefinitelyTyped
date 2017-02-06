@@ -1,7 +1,7 @@
-interface FusionCharts {
-    type: string;
-}
 
-declare var zune: (H: FusionCharts) => FusionCharts;
+import { FusionChartStatic } from "fusioncharts";
+
+declare var zune: (H: FusionChartStatic) => FusionChartStatic;
 export = zune;
 export as namespace zune;
+

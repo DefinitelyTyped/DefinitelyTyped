@@ -1,7 +1,7 @@
-interface FusionCharts {
-    type: string;
-}
 
-declare var gantt: (H: FusionCharts) => FusionCharts;
+import { FusionChartStatic } from "fusioncharts";
+
+declare var gantt: (H: FusionChartStatic) => FusionChartStatic;
 export = gantt;
 export as namespace gantt;
+

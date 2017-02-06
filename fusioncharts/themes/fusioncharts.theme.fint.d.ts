@@ -1,7 +1,7 @@
-interface FusionCharts {
-    type: string;
-}
 
-declare var fint: (H: FusionCharts) => FusionCharts;
+import { FusionChartStatic } from "fusioncharts";
+
+declare var fint: (H: FusionChartStatic) => FusionChartStatic;
 export = fint;
 export as namespace fint;
+

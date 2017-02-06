@@ -1,7 +1,7 @@
-interface FusionCharts {
-    type: string;
-}
 
-declare var maps: (H: FusionCharts) => FusionCharts;
+import { FusionChartStatic } from "fusioncharts";
+
+declare var maps: (H: FusionChartStatic) => FusionChartStatic;
 export = maps;
 export as namespace maps;
+
