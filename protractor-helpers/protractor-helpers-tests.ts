@@ -1,6 +1,7 @@
 /// <reference types="jasmine" />
 
 import helpers = require('protractor-helpers');
+import * as webdriver from 'selenium-webdriver';
 
 declare var $$: any, $: any, by: any, element: any; // ??
 
