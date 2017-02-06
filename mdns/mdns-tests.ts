@@ -2,20 +2,20 @@
  * Created by stefansteinhart on 30.01.15.
  */
 
-/// <reference path="mdns.d.ts" />
 
-var mdns = require('mdns')
 
-var ad:MDNS.Advertisement = mdns.createAdvertisement(mdns.tcp('http'), 4321);
+import mdns = require('mdns')
+
+var ad:mdns.Advertisement = mdns.createAdvertisement(mdns.tcp('http'), 4321);
 
 ad.start();
 
 var browser = mdns.createBrowser(mdns.tcp('http'));
 
-browser.on('serviceUp', function(service:MDNS.Service) {
+browser.on('serviceUp', function(service:mdns.Service) {
     console.log("service up: ", service);
 });
-browser.on('serviceDown', function(service:MDNS.Service) {
+browser.on('serviceDown', function(service:mdns.Service) {
     console.log("service down: ", service);
 });
 
@@ -32,7 +32,7 @@ var txt_record = {
     , chunky: true
     , strips: 5
 };
-var ad:MDNS.Advertisement = mdns.createAdvertisement(mdns.tcp('http'), 4321, {txtRecord: txt_record});
+var ad:mdns.Advertisement = mdns.createAdvertisement(mdns.tcp('http'), 4321, {txtRecord: txt_record});
 
 var sequence = [
     mdns.rst.DNSServiceResolve()
@@ -41,7 +41,7 @@ var sequence = [
 
 var browser = mdns.createBrowser(mdns.tcp('http'), {resolverSequence: sequence});
 
-interface HammerTimeService extends MDNS.Service {
+interface HammerTimeService extends mdns.Service {
     hammerTime:Date;
 }
 
@@ -60,7 +60,7 @@ function MCHammer(options:any) {
 var browser = mdns.createBrowser( mdns.tcp('http')
     , { networkInterface: mdns.loopbackInterface()});
 
-var ad:MDNS.Advertisement;
+var ad:mdns.Advertisement;
 
 function createAdvertisement() {
     try {
@@ -72,7 +72,7 @@ function createAdvertisement() {
     }
 }
 
-function handleError(error:MDNS.DnsSdError) {
+function handleError(error:mdns.DnsSdError) {
     switch (error.errorCode) {
         case mdns.kDNSServiceErr_Unknown:
             console.warn(error);

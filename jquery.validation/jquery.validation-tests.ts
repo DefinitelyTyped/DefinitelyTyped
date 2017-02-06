@@ -1,6 +1,6 @@
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="../jquery.form/jquery.form.d.ts"/>
-/// <reference path="jquery.validation.d.ts" />
+/// <reference types="jquery"/>
+/// <reference types="jquery.form"/>
+
 
 function test_validate() {
     $("#commentForm").validate();
@@ -208,6 +208,7 @@ function test_methods() {
         $("#myform").submit();
         $("#myinput").attr(rules);
     });
+    $("#myform").validate().checkForm();
     $("#myform").validate().form();
     $("#myform").validate().element("#myselect");
     $("#myform").validate().element($("#myselect"));

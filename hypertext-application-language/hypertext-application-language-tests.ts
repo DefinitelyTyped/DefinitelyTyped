@@ -1,5 +1,3 @@
-﻿/// <reference path="hypertext-application-language.d.ts"/>
-
 // Link object
 
 // Fields format:

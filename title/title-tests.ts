@@ -1,4 +1,3 @@
-/// <reference path="./title.d.ts"/>
 import title = require("title");
 
 var document = {title: "original"};

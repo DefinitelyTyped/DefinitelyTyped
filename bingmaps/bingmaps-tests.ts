@@ -1,4 +1,3 @@
-﻿/// <reference path="Microsoft.Maps.d.ts"/>
 /// <reference path="Microsoft.Maps.AdvancedShapes.d.ts"/>
 /// <reference path="Microsoft.Maps.Directions.d.ts"/>
 /// <reference path="Microsoft.Maps.Search.d.ts"/>

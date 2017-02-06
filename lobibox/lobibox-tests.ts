@@ -1,8 +1,7 @@
 /**
  * Created by itboy on 11/22/2015.
  */
-    ///<reference path="lobibox.d.ts"/>
-    ///<reference path="../jquery/jquery.d.ts"/>
+///<reference types="jquery"/>
 
 
     //Run test : LobiboxTest.test() after window load event

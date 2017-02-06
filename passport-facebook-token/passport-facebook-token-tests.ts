@@ -1,4 +1,4 @@
-/// <reference path='./passport-facebook-token.d.ts' />
+
 import passport = require('passport');
 import facebook = require('passport-facebook-token');
 

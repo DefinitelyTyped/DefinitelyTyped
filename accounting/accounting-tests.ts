@@ -1,5 +1,3 @@
-﻿/// <reference path="accounting.d.ts"/>
-
 // formatMoney
 
 // Default usage:

@@ -1,4 +1,4 @@
-/// <reference path="line-reader.d.ts" />
+
 
 import lineReader = require('line-reader');
 
