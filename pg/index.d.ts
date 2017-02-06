@@ -130,4 +130,4 @@ export declare class Events extends events.EventEmitter {
 
 export const types: typeof pgTypes;
 
-
+export const defaults: Defaults & ClientConfig;
