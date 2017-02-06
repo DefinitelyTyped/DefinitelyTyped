@@ -4015,7 +4015,7 @@ export class WebDriver {
    *     rejected if the condition times out.
    * @template T
    */
-  wait<T>(condition: promise.Promise<T> | Condition<T> | ((driver: WebDriver) => T | Promise<T>) | Function, opt_timeout?: number, opt_message?: string): promise.Promise<T>;
+  wait<T>(condition: PromiseLike<T> | Condition<T> | ((driver: WebDriver) => T | PromiseLike<T>) | Function, opt_timeout?: number, opt_message?: string): promise.Promise<T>;
 
   /**
    * Schedules a command to make the driver sleep for the given amount of time.
