@@ -810,7 +810,7 @@ declare namespace webpack {
             data?: any;
 
 
-            callback: loaderCallback | undefined;
+            callback: loaderCallback;
 
 
             /**
