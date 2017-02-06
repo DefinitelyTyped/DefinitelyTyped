@@ -7,6 +7,7 @@ var conString = "postgres://username:password@localhost/database";
 pg.types.setTypeParser(20, (val) => Number(val));
 
 // Client pooling
+pg.defaults.ssl = true;
 pg.connect(conString, (err, client, done) => {
     if (err) {
         return console.error("Error fetching client from pool", err);
