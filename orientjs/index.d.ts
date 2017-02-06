@@ -89,7 +89,7 @@ declare module "orientjs" {
             function Manager(config: MigrationManagerConfig): void;
             interface Migration {
                 name: string;
-                Server: Server;
+                server: Server;
                 db: Db;
                 configure(config?: any): void;
                 up(): Promise<any>;
@@ -106,7 +106,7 @@ declare module "orientjs" {
                 constructor(config?: MigrationManagerConfig);
 
                 name: string;
-                Server: Server;
+                server: Server;
                 db: Db;
                 dir: string;
                 className: string;
