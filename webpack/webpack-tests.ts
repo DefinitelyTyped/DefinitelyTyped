@@ -345,7 +345,6 @@ plugin = new CommonsChunkPlugin({
     // (3 children must share the module before it's separated)
 });
 plugin = new webpack.optimize.AggressiveMergingPlugin(options);
-plugin = new webpack.dependencies.LabeledModulesPlugin();
 plugin = new webpack.DefinePlugin(definitions);
 plugin = new webpack.DefinePlugin({
     VERSION: JSON.stringify("5fa3b9"),
