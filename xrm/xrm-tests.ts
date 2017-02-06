@@ -75,7 +75,8 @@ Xrm.Utility.openQuickCreate("account").then(( object ) => { if (object) alert( `
 
 /// Make all controls visible.
 
-Xrm.Page.ui.controls.forEach(( control ) => { control.setVisible( true ); });
+// Xrm.Page.ui.controls.forEach(( control ) => { control.setVisible( true ); }); // No longer works
+Xrm.Page.ui.controls.forEach((control: Xrm.Page.StandardControl) => { control.setVisible(true); }); // Must cast to StandardControl
 
 /// Make all tabs and sections visible.
 
@@ -163,6 +164,30 @@ autoCompleteControl.fireOnKeyPress();
 autoCompleteControl.removeOnKeyPress(() => {});
 autoCompleteControl.showAutoComplete(resultSet);
 autoCompleteControl.hideAutoComplete();
+
+
+
+/// Demonstrate v8.2 quick form controls
+
+const quickForm = Xrm.Page.ui.quickForms.get(0);
+quickForm.getControlType(); // == "quickform"
+quickForm.getName();
+quickForm.getParent();
+quickForm.getVisible(); // From UiCanSetVisibleElement
+quickForm.getLabel(); // From UiLabelElement
+quickForm.setLabel("Label"); // From UiLabelElement
+quickForm.refresh();
+
+// Get standard control
+const ctrl = Xrm.Page.getControl<Xrm.Page.StandardControl>("controlName");
+ctrl.getControlType()
+ctrl.getName();
+ctrl.getParent();
+ctrl.getLabel();
+ctrl.setLabel("Label name");
+ctrl.getVisible();
+ctrl.setVisible(true);
+
 
 
 
