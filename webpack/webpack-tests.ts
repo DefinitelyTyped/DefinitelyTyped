@@ -217,7 +217,8 @@ declare var require: any;
 declare var path: any;
 configuration = {
     plugins: [
-        function() {
+        /** @todo `this` should be typed as webpack.compiler.Compiler (which should be webpack.Compiler), not webpack.Webpack */
+        function(this: any) {
             this.plugin("done", function(stats: any) {
                 require("fs").writeFileSync(
                     path.join(__dirname, "...", "stats.json"),
