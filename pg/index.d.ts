@@ -96,11 +96,10 @@ export declare class Client extends events.EventEmitter {
     end(callback?: (err: Error) => void): void;
     release(): void;
 
-    query(queryText: string): Promise<QueryResult>;
+    query(queryTextOrConfig: string | QueryConfig): Promise<QueryResult>;
     query(queryText: string, values: any[]): Promise<QueryResult>;
 
-    query(queryText: string, callback?: (err: Error, result: QueryResult) => void): Query;
-    query(config: QueryConfig, callback?: (err: Error, result: QueryResult) => void): Query;
+    query(queryTextOrConfig: string | QueryConfig, callback?: (err: Error, result: QueryResult) => void): Query;
     query(queryText: string, values: any[], callback?: (err: Error, result: QueryResult) => void): Query;
 
     copyFrom(queryText: string): stream.Writable;
