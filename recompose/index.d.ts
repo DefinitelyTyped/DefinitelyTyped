@@ -103,7 +103,7 @@ declare module 'recompose' {
     export function branch<TOutter>(
         test: predicate<TOutter>,
         trueEnhancer: InferableComponentEnhancer,
-        falseEnhancer: InferableComponentEnhancer
+        falseEnhancer?: InferableComponentEnhancer
     ): ComponentEnhancer<any, TOutter>;
 
     // renderComponent: https://github.com/acdlite/recompose/blob/master/docs/API.md#renderComponent
