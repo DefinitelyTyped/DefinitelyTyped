@@ -247,6 +247,10 @@ declare namespace ReactSelectClass {
          */
         onInputChange?: (inputValue: string) => void;
         /**
+         * onInputKeyDown handler: function (keyboardEvent) {}
+         */
+        onInputKeyDown?: (event: KeyboardEvent) => void;
+        /**
          * fires when the menu is scrolled to the bottom; can be used to paginate options
          */
         onMenuScrollToBottom?: () => void;
