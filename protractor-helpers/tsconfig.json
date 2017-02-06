@@ -9,9 +9,6 @@
         "strictNullChecks": false,
         "baseUrl": "../",
         "types": [],
-        "paths": {
-            "selenium-webdriver": ["selenium-webdriver/v2"]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
