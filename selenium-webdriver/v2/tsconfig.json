@@ -7,10 +7,14 @@
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": false,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+          "selenium-webdriver": ["selenium-webdriver/v2"],
+          "selenium-webdriver/*": ["selenium-webdriver/v2/*"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

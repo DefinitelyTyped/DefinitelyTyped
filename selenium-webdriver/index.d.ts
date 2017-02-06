@@ -2547,7 +2547,7 @@ type ByHash = { className: string } |
   { tagName: string } |
   { xpath: string };
 
-  type Locator = By | Function | ByHash;
+  export type Locator = By | Function | ByHash;
 
 /**
  * Common webdriver capability keys.

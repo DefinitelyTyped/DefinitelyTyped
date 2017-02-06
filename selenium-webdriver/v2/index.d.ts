@@ -2668,6 +2668,8 @@ declare namespace webdriver {
     { tagName: string } |
     { xpath: string };
 
+  export type Locator = By | Function | ByHash;
+
   /**
    * Common webdriver capability keys.
    * @enum {string}
