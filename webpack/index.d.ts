@@ -46,7 +46,7 @@ declare namespace webpack {
         cache?: boolean | any;
         /** Enter watch mode, which rebuilds on file change. */
         watch?: boolean;
-        watchOptions?: WatchOptions;
+        watchOptions?: Options.WatchOptions;
         /** Switch loaders to debug mode. */
         debug?: boolean;
         /** Can be used to configure the behaviour of webpack-dev-server when the webpack config is passed to webpack-dev-server CLI. */
@@ -324,14 +324,8 @@ declare namespace webpack {
 
     type ExternalsFunctionElement = (context: any, request: any, callback: (error: any, result: any) => void) => any;
 
-    interface WatchOptions {
-        /** Delay the rebuilt after the first change. Value is a time in ms. */
-        aggregateTimeout?: number;
-        /** For some systems, watching many file systems can result in a lot of CPU or memory usage. It is possible to exclude a huge folder like node_modules. It is also possible to use anymatch patterns. */
-        ignored?: RegExp | string;
-        /** true: use polling, number: use polling with specified interval */
-        poll?: boolean | number;
-    }
+    /** @deprecated use webpack.Compiler.WatchOptions */
+    type WatchOptions = webpack.Compiler.WatchOptions;
 
     interface Node {
         console?: boolean;
@@ -488,6 +482,26 @@ declare namespace webpack {
              * The default value is 250000 (bytes).
              */
             maxEntrypointSize?: number;
+        }
+        type WatchOptions = Compiler.WatchOptions;
+    }
+
+    namespace Compiler {
+        interface WatchOptions {
+            /**
+             * Add a delay before rebuilding once the first file changed. This allows webpack to aggregate any other
+             * changes made during this time period into one rebuild.
+             * Pass a value in milliseconds. Default: 300.
+             */
+            aggregateTimeout?: number;
+            /**
+             * For some systems, watching many file systems can result in a lot of CPU or memory usage.
+             * It is possible to exclude a huge folder like node_modules.
+             * It is also possible to use anymatch patterns.
+             */
+            ignored?: string | RegExp;
+            /** Turn on polling by passing true, or specifying a poll interval in milliseconds. */
+            poll?: boolean | number;
         }
     }
 
@@ -1043,7 +1057,7 @@ declare namespace webpack {
              * Builds the bundle(s) then starts the watcher, which rebuilds bundles whenever their source files change.
              * Returns a Watching instance. Note: since this will automatically run an initial build, so you only need to run watch (and not run).
              */
-            watch(watchOptions: WatchOptions, handler: CompilerCallback): Watching;
+            watch(watchOptions: webpack.Compiler.WatchOptions, handler: CompilerCallback): Watching;
             //TODO: below are some of the undocumented properties. needs typings
             outputFileSystem: any;
             name: string;
@@ -1054,14 +1068,8 @@ declare namespace webpack {
             close(callback: () => void): void;
         }
 
-        interface WatchOptions {
-            /** After a change the watcher waits that time (in milliseconds) for more changes. Default: 300. */
-            aggregateTimeout?: number;
-            /** For some systems, watching many file systems can result in a lot of CPU or memory usage. It is possible to exclude a huge folder like node_modules. It is also possible to use anymatch patterns. */
-            ignored?: RegExp | string;
-            /** The watcher uses polling instead of native watchers. true uses the default interval, a number specifies a interval in milliseconds. Default: undefined (automatic). */
-            poll?: number | boolean;
-        }
+        /** @deprecated use webpack.Compiler.WatchOptions */
+        type WatchOptions = webpack.Compiler.WatchOptions;
 
         interface Stats {
             /** Returns true if there were errors while compiling */
