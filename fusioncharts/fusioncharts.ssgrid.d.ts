@@ -1,7 +1,7 @@
-interface FusionCharts {
-    type: string;
-}
 
-declare var ssgrid: (H: FusionCharts) => FusionCharts;
+import { FusionChartStatic } from "fusioncharts";
+
+declare var ssgrid: (H: FusionChartStatic) => FusionChartStatic;
 export = ssgrid;
 export as namespace ssgrid;
+

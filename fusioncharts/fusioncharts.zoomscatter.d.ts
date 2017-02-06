@@ -1,7 +1,7 @@
-interface FusionCharts {
-    type: string;
-}
 
-declare var zoomscatter: (H: FusionCharts) => FusionCharts;
+import { FusionChartStatic } from "fusioncharts";
+
+declare var zoomscatter: (H: FusionChartStatic) => FusionChartStatic;
 export = zoomscatter;
 export as namespace zoomscatter;
+
