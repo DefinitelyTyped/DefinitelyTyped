@@ -16,7 +16,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "body-parser-tests.ts"
+        "index.d.ts"
     ]
 }
