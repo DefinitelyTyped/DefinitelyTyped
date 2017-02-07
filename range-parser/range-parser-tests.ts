@@ -5,5 +5,7 @@ console.assert(RangeParser(200, `bytes=500-20`) === RangeParser.Result.unsatisif
 
 const range = RangeParser(1000, `bytes=0-499`);
 
-console.assert(range.type === `bytes`);
-console.assert(range.length === 1);
+if (typeof range !== 'number') {
+    console.assert(range.type === `bytes`);
+    console.assert(range.length === 1);
+}
