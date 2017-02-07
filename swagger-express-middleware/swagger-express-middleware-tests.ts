@@ -1,5 +1,3 @@
-/// <reference path="swagger-express-middleware.d.ts" />
-
 import * as express from "express";
 import * as SwaggerExpressMiddleware from "swagger-express-middleware";
 
@@ -27,9 +25,9 @@ SwaggerExpressMiddleware("PetStore.yaml", app, (err: any, middleware: SwaggerExp
         },
         raw:{
            inflate:false,
-           limit:100 
+           limit:100
         }
-        
+
     }
 
     app.use(

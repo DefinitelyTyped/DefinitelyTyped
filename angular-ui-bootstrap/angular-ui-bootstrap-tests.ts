@@ -1,4 +1,4 @@
-/// <reference path="angular-ui-bootstrap.d.ts" />
+
 
 var testApp = angular.module('testApp');
 
@@ -7,6 +7,7 @@ testApp.config((
     $buttonConfig: ng.ui.bootstrap.IButtonConfig,
     $datepickerConfig: ng.ui.bootstrap.IDatepickerConfig,
     $datepickerPopupConfig: ng.ui.bootstrap.IDatepickerPopupConfig,
+    $dropdownConfig: ng.ui.bootstrap.IDropdownConfig,
     $modalProvider: ng.ui.bootstrap.IModalProvider,
     $paginationConfig: ng.ui.bootstrap.IPaginationConfig,
     $pagerConfig: ng.ui.bootstrap.IPagerConfig,
@@ -38,6 +39,7 @@ testApp.config((
     $datepickerConfig.formatMonth = 'M';
     $datepickerConfig.formatMonthTitle = 'yy';
     $datepickerConfig.formatYear = 'y';
+    $datepickerConfig.initDate = '1389586124979';
     $datepickerConfig.maxDate = '1389586124979';
     $datepickerConfig.maxMode = 'month';
     $datepickerConfig.minDate = '1389586124979';
@@ -46,13 +48,18 @@ testApp.config((
     $datepickerConfig.showWeeks = false;
     $datepickerConfig.startingDay = 1;
     $datepickerConfig.yearRange = 10;
-
-
+    $datepickerConfig.monthColumns = 3;
+    $datepickerConfig.yearColumns = 9;
+    $datepickerConfig.yearRows = 6;
+    $datepickerConfig.ngModelOptions.allowInvalid = false;
+    $datepickerConfig.ngModelOptions.timezone = "EST";
+    $datepickerConfig.ngModelOptions.updateOn = "click";
 
 
     /**
      * $datepickerPopupConfig tests
      */
+    $datepickerPopupConfig.altInputFormats = ["mm/dd/YYYY", "mm-dd-YY"];
     $datepickerPopupConfig.appendToBody = true;
     $datepickerPopupConfig.currentText = 'Select Today';
     $datepickerPopupConfig.clearText = 'Reset Selection';
@@ -62,8 +69,18 @@ testApp.config((
     $datepickerPopupConfig.datepickerPopupTemplateUrl = 'template.html';
     $datepickerPopupConfig.datepickerTemplateUrl = 'template.html';
     $datepickerPopupConfig.html5Types.date = 'MM-dd-yyyy';
+    $datepickerPopupConfig.html5Types['datetime-local'] = 'yyyy-MM-ddTHH:mm:ss.sss';
+    $datepickerPopupConfig.html5Types.month = 'yyyy-MM';
     $datepickerPopupConfig.onOpenFocus = false;
     $datepickerPopupConfig.showButtonBar = false;
+    $datepickerPopupConfig.placement = "auto bottom left";
+
+
+    /**
+     * $dropdownConfig tests
+     */
+    $dropdownConfig.appendToOpenClass = "some-thing";
+    $dropdownConfig.openClass = "show";
 
 
     /**
@@ -76,6 +93,7 @@ testApp.config((
      * $paginationConfig tests
      */
     $paginationConfig.boundaryLinks = true;
+    $paginationConfig.boundaryLinkNumbers = true;
     $paginationConfig.directionLinks = false;
     $paginationConfig.firstText = 'First Page';
     $paginationConfig.itemsPerPage = 25;
@@ -87,6 +105,7 @@ testApp.config((
     $paginationConfig.rotate = false;
     $paginationConfig.templateUrl = 'template.html';
     $paginationConfig.totalItems = 13;
+    $paginationConfig.forceEllipses = true;
 
 
     /**
@@ -120,11 +139,14 @@ testApp.config((
     $timepickerConfig.hourStep = 2;
     $timepickerConfig.meridians = ['-AM-', '-PM-'];
     $timepickerConfig.minuteStep = 5;
+    $timepickerConfig.secondStep = 5;
     $timepickerConfig.mousewheel = false;
     $timepickerConfig.readonlyInput = true;
     $timepickerConfig.showMeridian = false;
     $timepickerConfig.arrowkeys = false;
     $timepickerConfig.showSpinners = false;
+    $timepickerConfig.showSeconds = true;
+    $timepickerConfig.templateUrl = "template.html";
 
     /**
      * $tooltipProvider tests
@@ -154,6 +176,8 @@ testApp.controller('TestCtrl', (
      * test the $modal service
      */
     var modalInstance = $modal.open({
+        ariaLabelledBy: "label",
+        ariaDescribedBy: "description",
         animation: false,
         backdrop: 'static',
         backdropClass: 'modal-backdrop-test',

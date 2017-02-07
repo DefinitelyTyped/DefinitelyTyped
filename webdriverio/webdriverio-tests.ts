@@ -1,20 +1,18 @@
-/// <reference path="webdriverio.d.ts" />
-/// <reference path="../mocha/mocha.d.ts" />
-/// <reference path="../chai/chai.d.ts" />
+
+/// <reference types="mocha" />
+/// <reference types="chai" />
 
 import {assert} from "chai";
 
 describe("webdriver.io page", function() {
 
-    it("should have the right title - the good old callback way", function(done) {
-
-        browser
-            .url("/")
-            .getTitle(function(err, title) {
-                assert.equal(err, undefined);
-                assert.equal(title, "WebdriverIO - Selenium 2.0 javascript bindings for nodejs");
-            })
-            .call(done);
+    it("should have the right title - the good old callback way", function() {
+        assert.equal(
+            browser
+                .url("/")
+                .getTitle(),
+            "WebdriverIO - Selenium 2.0 javascript bindings for nodejs"
+        );
 
     });
 
@@ -41,27 +39,28 @@ describe("my webdriverio tests", function(){
         client.init(done);
     });
 
-    it("Github test",function(done) {
-        client
-            .url("https://github.com/")
-            .getElementSize(".header-logo-wordmark", function(err: any, result: webdriverio.Size) {
-                assert.equal(undefined, err);
-                assert.strictEqual(result.height, 26);
-                assert.strictEqual(result.width, 89);
-            })
-            .getTitle(function(err: any, title: string) {
-                assert.equal(undefined, err);
-                assert.strictEqual(title,"GitHub · Where software is built");
-            })
-            .getCssProperty("a[href='/plans']", "color", function(err: any, result: webdriverio.CssProperty){
-                assert.equal(undefined, err);
-                assert.strictEqual(result.value, "rgba(64,120,192,1)");
-            })
-            .call(done);
+    it("Github test",function() {
+        client.url("https://github.com/");
+
+        var elementSize = client.getElementSize(".header-logo-wordmark");
+
+        var foo = client.getElementSize('div');
+
+        assert.isNumber(elementSize.height);
+        assert.isNumber(elementSize.width);
+        assert.strictEqual(elementSize.height, 26);
+        assert.strictEqual(elementSize.width, 89);
+
+        var title = client.getTitle();
+        assert.isString(title);
+        assert.strictEqual(title, "GitHub · Where software is built");
+
+        var cssProperty = client.getCssProperty("a[href='/plans']", "color");
+        assert.strictEqual(cssProperty.value, "rgba(64,120,192,1)");
     });
 
-    after(function(done) {
-        client.end(done);
+    after(function() {
+        client.end();
     });
 });
 

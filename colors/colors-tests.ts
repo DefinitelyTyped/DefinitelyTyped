@@ -1,11 +1,21 @@
-
-///<reference path="colors.d.ts" />
-
 import colors = require("colors");
+import { zalgo } from "colors/safe";
 
-console.log(colors.black.underline('test'));
-console.log(colors.rainbow.black.blue.gray('test'));
-console.log(colors.random.reset.bgWhite.dim('test'));
-console.log('test'.black.underline);
-console.log('test'.rainbow.black.blue.gray);
-console.log('test'.random.reset.bgWhite.dim);
+let str: string;
+
+str = zalgo("");
+
+colors.enabled = true;
+
+str = colors.black.underline('test');
+str = colors.rainbow.black.blue.gray('test');
+str = colors.random.reset.bgWhite.dim('test');
+str = colors.random.reset.bgWhite.strip('test');
+str = 'test'.black.underline;
+str = 'test'.rainbow.black.blue.gray;
+str = 'test'.random.reset.bgWhite.dim;
+str = 'test'.random.reset.bgWhite.dim.stripColors;
+
+colors.enabled = false;
+
+str = colors.black.underline('test');

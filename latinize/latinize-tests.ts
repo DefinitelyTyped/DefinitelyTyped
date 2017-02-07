@@ -1,4 +1,4 @@
-/// <reference path="latinize.d.ts" />
+
 
 import latinize = require('latinize');
 

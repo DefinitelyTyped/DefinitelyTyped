@@ -1,4 +1,3 @@
-/// <reference path="path-exists.d.ts" />
 
 import pathExists = require("path-exists");
 

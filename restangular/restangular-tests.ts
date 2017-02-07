@@ -1,5 +1,5 @@
-/// <reference path="restangular.d.ts" />
-
+import restangular = require("restangular");
+import * as angular from 'angular';
 
 var myApp = angular.module('testModule');
 

@@ -1,7 +1,3 @@
-
-/// <reference path="../express/express.d.ts" />
-/// <reference path="./express-useragent.d.ts" />
-
 import express = require("express");
 import useragent = require("express-useragent");
 

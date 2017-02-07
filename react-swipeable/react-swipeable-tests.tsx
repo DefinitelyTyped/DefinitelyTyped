@@ -1,9 +1,6 @@
-/// <reference path="../react/react.d.ts" />
-/// <reference path="react-swipeable.d.ts" />
-
 import Swipeable = require('react-swipeable');
 import React = require('react');
- 
+
 var SampleComponent = React.createClass({
   render: function () {
     return (
@@ -18,7 +15,8 @@ var SampleComponent = React.createClass({
         onSwipedDown={this.swipedDown}
         onSwipedLeft={this.swipedLeft}
         onSwiped={this.handleSwipeAction}
-        preventDefaultTouchmoveEvent={false}>
+        preventDefaultTouchmoveEvent={false}
+        nodeName={"swipe"}>
         <div>
           This element can be swiped
         </div>

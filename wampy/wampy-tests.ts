@@ -1,46 +1,50 @@
-/// <reference path="wampy.d.ts" />
-/// <reference path="../node/node.d.ts" />
 
-import Wampy from 'wampy';
+/// <reference types="node" />
 
-var ws = new Wampy('http://wamp.router.url', {realm: 'WAMPRealm'});
+import * as Wampy from 'wampy';
+
+let ws = new Wampy('http://wamp.router.url', {realm: 'WAMPRealm'});
 
 ws.options();
 
 ws.options({
     reconnectInterval: 1000,
     maxRetries: 999,
-    onConnect: function () { console.log('Yahoo! We are online!'); },
-    onClose: function () { console.log('See you next time!'); },
-    onError: function () { console.log('Breakdown happened'); },
-    onReconnect: function () { console.log('Reconnecting...'); }
+    onConnect: () => console.log('Yahoo! We are online!'),
+    onClose: () => console.log('See you next time!'),
+    onError: () => console.log('Breakdown happened'),
+    onReconnect: () => console.log('Reconnecting...'),
+    onReconnectSuccess: () => console.log('Successfully reconnected!')
 });
 
 ws.connect();
 ws.connect('/my-socket-path');
 ws.connect('wss://socket.server.com:5000/ws');
-var id: number = ws.getSessionId();
+
+let id: number = ws.getSessionId();
+
 ws.disconnect();
 ws.abort();
 
-ws.subscribe('system.monitor.update', function (data) {
+ws.subscribe('system.monitor.update', (args: any[], kwargs: any) => {
         console.log('Received system.monitor.update event!');
     })
-    .subscribe('client.message', function (data) {
+    .subscribe('client.message', function (args: any[], kwargs: any) {
         console.log('Received client.message event!');
     });
 
-var f1 = function () { console.log('Subscribe processing!'); };
+let f1 = () => console.log('Subscribe processing!');
+
 ws.unsubscribe('subscribed.topic', f1);
 
 ws.unsubscribe('chat.message.received');
 
 ws.call('get.server.time', null, {
-    onSuccess: function (stime) {
+    onSuccess: (args: any[], kwargs: any) => {
         console.log('RPC successfully called');
-        console.log('Server time is ' + stime);
+        console.log('Server time is ' + kwargs);
     },
-    onError: function (err) {
+    onError: (err: string, details: any, args: any[], kwargs: any) => {
         console.log('RPC call failed with error ' + err);
     }
 });
@@ -53,67 +57,48 @@ ws.publish('chat.message.received', 'user message');
 ws.publish('chat.message.received', ['user message1', 'user message2']);
 ws.publish('user.modified', { field1: 'field1', field2: true, field3: 123 });
 ws.publish('user.modified', { field1: 'field1', field2: true, field3: 123 }, {
-  onSuccess: function () { console.log('User successfully modified'); }
+  onSuccess: () => console.log('User successfully modified')
 });
 ws.publish('user.modified', { field1: 'field1', field2: true, field3: 123 }, {
-  onSuccess: function () { console.log('User successfully modified'); },
-  onError: function (err) { console.log('User modification failed', err); }
+  onSuccess: () => console.log('User successfully modified'),
+  onError: (err: string, details: any) => console.log('User modification failed', err)
 });
 ws.publish('chat.message.received', ['Private message'], null, { eligible: 123456789 });
 
-ws.call('server.time', null, function (data) { console.log('Server time is ' + data[0]); });
+ws.call('server.time', null, (args: any[], kwargs: any) => console.log('Server time is ' + args[0]));
 
 ws.call('start.migration', null, {
-    onSuccess: function (data) {
-        console.log('RPC successfully called');
-    },
-    onError: function (err) {
-        console.log('RPC call failed!',err);
-    }
+    onSuccess: (args: any[], kwargs: any) => console.log('RPC successfully called'),
+    onError: (err: string, details: any, args: any[], kwargs: any) => console.log('RPC call failed!',err)
 });
 
 ws.call('restore.backup', { backupFile: 'backup.zip' }, {
-    onSuccess: function (data) {
-        console.log('Backup successfully restored');
-    },
-    onError: function (err) {
-        console.log('Restore failed!',err);
-    }
+    onSuccess: (args: any[], kwargs: any) => console.log('Backup successfully restored'),
+    onError: (err: string, details: any, args: any[], kwargs: any) => console.log('Restore failed!',err)
 });
 
 ws.call('start.migration', null, {
-    onSuccess: function (data) {
-        console.log('RPC successfully called');
-    },
-    onError: function (err) {
-        console.log('RPC call failed!',err);
-    }
+    onSuccess: (args: any[], kwargs: any) => console.log('RPC successfully called'),
+    onError: (err: string, details: any, args: any[], kwargs: any) => console.log('RPC call failed!',err)
 });
-var status = ws.getOpStatus();
+
+let status = ws.getOpStatus();
 
 ws.cancel(status.reqId);
 
-var sqrt_f = function (x: number) { return x*x; };
+let sqrt_f = (x: number, y: any) => [{}, x*x];
 
 ws.register('sqrt.value', sqrt_f);
 
 ws.register('sqrt.value', {
     rpc: sqrt_f,
-    onSuccess: function (data) {
-        console.log('RPC successfully registered');
-    },
-    onError: function (err) {
-        console.log('RPC registration failed!',err);
-    }
+    onSuccess: (data: any) => console.log('RPC successfully registered'),
+    onError: (err: string, details: any) => console.log('RPC registration failed!',err)
 });
 
 ws.unregister('sqrt.value');
 
 ws.unregister('sqrt.value', {
-    onSuccess: function (data) {
-        console.log('RPC successfully unregistered');
-    },
-    onError: function (err) {
-        console.log('RPC unregistration failed!',err);
-    }
+    onSuccess: (data: any) => console.log('RPC successfully unregistered'),
+    onError: (err: string, details: any) => console.log('RPC unregistration failed!', err)
 });

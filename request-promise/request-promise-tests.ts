@@ -1,13 +1,12 @@
-/// <reference path="request-promise.d.ts" />
 
 import rp = require('request-promise');
-import nodeRequest = require('request');
+import errors = require('request-promise/errors');
 
 rp('http://www.google.com')
     .then(console.dir)
     .catch(console.error);
 
-var options: nodeRequest.Options = {
+var options: rp.Options = {
     uri : 'http://posttestserver.com/post.php',
     method : 'POST',
     json: true,
@@ -18,7 +17,45 @@ rp(options)
     .then(console.dir)
     .catch(console.error);
 
-// --> Displays length of response from server after post
+rp('http://google.com').finally(() => {});
+
+// This works:
+rp('http://google.com').then(console.dir);
+rp('http://google.com').catch(console.error);
+rp('http://google.com').then(console.dir, console.error);
+
+// This works as well since additional methods are only used AFTER the FIRST call in the chain:
+
+// todo: Fix BlueBird 3.0 definition to include 'spread'
+//rp('http://google.com').then(console.dir).spread(console.dir);
+
+// todo: Fix BlueBird 3.0 definition to include 'error'
+//rp('http://google.com').catch(console.error).error(console.error);
+
+// Use .promise() in these cases:
+// todo: Fix BlueBird 3.0 definition to include 'bind'
+//rp('http://google.com').promise().bind(this).then(console.dir);
+
+rp({ uri: 'http://google.com', resolveWithFullResponse: true }).then((response) => {});
+rp({ uri: 'http://google.com', simple: false }).catch((reason) => {});
+
+// todo: fix to make sure this works with BlueBird 3.0
+/* rp({
+    uri: 'http://google.com',
+    transform: (body: any, response: http.IncomingMessage, resolveWithFullResponse: boolean): any => {
+        throw new Error('Transform failed!');
+    }
+}).catch(errors.StatusCodeError, (reason: errors.StatusCodeError) => {
+    // The server responded with a status codes other than 2xx.
+    // Check reason.statusCode
+}).catch(errors.RequestError, (reason: errors.RequestError) => {
+    // The request failed due to technical reasons.
+    // reason.cause is the Error object Request would pass into a callback.
+}).catch(errors.TransformError, (reason: errors.TransformError) => {
+    console.log(reason.cause.message); // => Transform failed!
+    // reason.response is the original response for which the transform operation failed
+}); */
+
 
 //Defaults tests
 (() => {
@@ -98,7 +135,7 @@ http.createServer(function (req, resp) {
 });
 
 var resp: http.ServerResponse;
-var req: nodeRequest.Request;
+var req: rp.RequestPromise;
 req.pipe(request('http://mysite.com/doodle.png')).pipe(resp);
 
 var r = request;
