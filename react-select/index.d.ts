@@ -273,6 +273,10 @@ declare namespace ReactSelectClass {
          */
         openOnFocus?: boolean;
         /**
+         * className to add to each option component
+         */
+        optionClassName?: string;
+        /**
          * option component to render in dropdown
          */
         optionComponent?: React.ComponentClass<any>;
