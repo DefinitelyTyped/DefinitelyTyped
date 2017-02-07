@@ -277,7 +277,7 @@ declare namespace Xrm
     /**
      * Interface for the xRM application context.
      */
-    interface Context
+    export interface Context
     {
         /**
          * The client's context instance.
@@ -394,7 +394,7 @@ declare namespace Xrm
      * 
      * @see {@link https://msdn.microsoft.com/en-us/library/dn481607.aspx#Anchor_2} for details.
      */
-    interface SaveOptions
+    export interface SaveOptions
     {
         /**
           * Indicates whether to use the Book or Reschedule messages rather than the Create or Update messages.
