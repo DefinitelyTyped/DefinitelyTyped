@@ -32,6 +32,3 @@ StatelessComponent2.defaultProps = {
         </text>
     </g>
 </svg>;
-
-const CustomComponent = (props: { flag: boolean }) => props.flag ? React.createElement('div') : null;
-const UseComponent2 = (f: boolean) => <CustomComponent flag={f} />;
