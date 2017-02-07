@@ -1,137 +1,45 @@
-// Type definitions for body-parser
+// Type definitions for body-parser 1.16
 // Project: http://expressjs.com
-// Definitions by: Santi Albo <https://github.com/santialbo/>, VILIC VANE <https://vilic.info>, Jonathan Häberle <https://github.com/dreampulse/>
+// Definitions by: Santi Albo <https://github.com/santialbo/>, VILIC VANE <https://vilic.info>, Jonathan Häberle <https://github.com/dreampulse/>, Tomasz Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import { Request, RequestHandler, Response } from 'express';
 
+// for docs go to https://github.com/expressjs/body-parser/tree/1.16.0#body-parser
 
-
-import * as express from "express";
-
-/**
- * bodyParser: use individual json/urlencoded middlewares
- * @deprecated
- */
-
-declare function bodyParser(options?: {
-    /**
-     * if deflated bodies will be inflated. (default: true)
-     */
-    inflate?: boolean;
-    /**
-     * maximum request body size. (default: '100kb')
-     */
-    limit?: any;
-    /**
-     * function to verify body content, the parsing can be aborted by throwing an error.
-     */
-    verify?: (req: express.Request, res: express.Response, buf: Buffer, encoding: string) => void;
-    /**
-     * only parse objects and arrays. (default: true)
-     */
-    strict?: boolean;
-    /**
-     * passed to JSON.parse().
-     */
-    reviver?: (key: string, value: any) => any;
-    /**
-     * parse extended syntax with the qs module. (default: true)
-     */
-    extended?: boolean;
-}): express.RequestHandler;
+// @deprecated
+declare function bodyParser(options?: bodyParser.OptionsJson | bodyParser.OptionsText | bodyParser.OptionsUrlencoded): RequestHandler;
 
 declare namespace bodyParser {
-    export function json(options?: {
-        /**
-         * if deflated bodies will be inflated. (default: true)
-         */
+
+    export interface Options {
         inflate?: boolean;
-        /**
-         * maximum request body size. (default: '100kb')
-         */
-        limit?: any;
-        /**
-         * request content-type to parse, passed directly to the type-is library. (default: 'json')
-         */
-        type?: any;
-        /**
-         * function to verify body content, the parsing can be aborted by throwing an error.
-         */
-        verify?: (req: express.Request, res: express.Response, buf: Buffer, encoding: string) => void;
-        /**
-         * only parse objects and arrays. (default: true)
-         */
+        limit?: number | string;
+        type?: string | ((req: Request) => any);
+        verify?: (req: Request, res: Response, buf: Buffer, encoding: string) => void;
+    }
+
+    export interface OptionsJson extends Options {
+        reviever?: (key: string, value: any) => any;
         strict?: boolean;
-        /**
-         * passed to JSON.parse().
-         */
-        reviver?: (key: string, value: any) => any;
-    }): express.RequestHandler;
+    }
 
-    export function raw(options?: {
-        /**
-         * if deflated bodies will be inflated. (default: true)
-         */
-        inflate?: boolean;
-        /**
-         * maximum request body size. (default: '100kb')
-         */
-        limit?: any;
-        /**
-         * request content-type to parse, passed directly to the type-is library. (default: 'application/octet-stream')
-         */
-        type?: any;
-        /**
-         * function to verify body content, the parsing can be aborted by throwing an error.
-         */
-        verify?: (req: express.Request, res: express.Response, buf: Buffer, encoding: string) => void;
-    }): express.RequestHandler;
-
-    export function text(options?: {
-        /**
-         * if deflated bodies will be inflated. (default: true)
-         */
-        inflate?: boolean;
-        /**
-         * maximum request body size. (default: '100kb')
-         */
-        limit?: any;
-        /**
-         * request content-type to parse, passed directly to the type-is library. (default: 'text/plain')
-         */
-        type?: any;
-        /**
-         * function to verify body content, the parsing can be aborted by throwing an error.
-         */
-        verify?: (req: express.Request, res: express.Response, buf: Buffer, encoding: string) => void;
-        /**
-         * the default charset to parse as, if not specified in content-type. (default: 'utf-8')
-         */
+    export interface OptionsText extends Options {
         defaultCharset?: string;
-    }): express.RequestHandler;
+    }
 
-    export function urlencoded(options: {
-        /**
-         * if deflated bodies will be inflated. (default: true)
-         */
-        inflate?: boolean;
-        /**
-         * maximum request body size. (default: '100kb')
-         */
-        limit?: any;
-        /**
-         * request content-type to parse, passed directly to the type-is library. (default: 'urlencoded')
-         */
-        type?: any;
-        /**
-         * function to verify body content, the parsing can be aborted by throwing an error.
-         */
-        verify?: (req: express.Request, res: express.Response, buf: Buffer, encoding: string) => void;
-        /**
-         * parse extended syntax with the qs module.
-         */
-        extended: boolean;
-    }): express.RequestHandler;
+    export interface OptionsUrlencoded extends Options {
+        extended?: boolean;
+        parameterLimit?: number;
+    }
+
+    export function json(options?: OptionsJson): RequestHandler;
+
+    export function raw(options?: Options): RequestHandler;
+
+    export function text(options?: OptionsText): RequestHandler;
+
+    export function urlencoded(options: OptionsUrlencoded): RequestHandler;
 }
 
 export = bodyParser;
