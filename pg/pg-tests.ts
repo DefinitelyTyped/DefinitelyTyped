@@ -4,7 +4,7 @@ import * as pg from "pg";
 var conString = "postgres://username:password@localhost/database";
 
 // https://github.com/brianc/node-pg-types
-pg.types.setTypeParser(20, (val) => Number(val));
+pg.types.setTypeParser(20, val => Number(val));
 
 // Client pooling
 pg.defaults.ssl = true;
@@ -28,7 +28,7 @@ pg.connect(conString, (err, client, done) => {
 
 // Simple
 var client = new pg.Client(conString);
-client.connect((err) => {
+client.connect(err => {
     if (err) {
         return console.error("Could not connect to postgres", err);
     }
@@ -57,11 +57,11 @@ var config = {
 };
 var pool = new pg.Pool(config);
 
-pool.connect(function(err, client, done) {
+pool.connect((err, client, done) => {
   if(err) {
     return console.error('error fetching client from pool', err);
   }
-  client.query('SELECT $1::int AS number', ['1'], function(err, result) {
+  client.query('SELECT $1::int AS number', ['1'], (err, result) => {
     done();
 
     if(err) {
@@ -71,6 +71,6 @@ pool.connect(function(err, client, done) {
   });
 });
 
-pool.on('error', function (err, client) {
+pool.on('error', (err, client) => {
   console.error('idle client error', err.message, err.stack)
 })
