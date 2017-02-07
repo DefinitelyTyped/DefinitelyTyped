@@ -2,7 +2,7 @@
 // Project: https://github.com/orientechnologies/orientjs
 // Definitions by: [Saeed Tabrizi] <https://github.com/saeedtabrizi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Last Update  : 3-2-2017 
+// Last Update  : 7-2-2017 
 // Compatible with Orientdb >= 2.2.15 features 
 // Developed with love in www.nowcando.com
 
@@ -86,7 +86,9 @@ declare module "orientjs" {
                 className?: string
             };
 
-            function Manager(config: MigrationManagerConfig): void;
+             class Manager extends MigrationManager{
+                    constructor (config: MigrationManagerConfig);
+            }
             interface Migration {
                 name: string;
                 server: Server;
@@ -253,8 +255,9 @@ declare module "orientjs" {
             readonly?: boolean;
             notNull?: boolean;
             collate?: string;
-            linkedClass?: Class;
-            regexp?: RegExp;
+            linkedClass?: string;
+            linkedType?: string;
+            regexp?: RegExp | string;
             min?: number;
             max?: number;
             custom?: {
@@ -270,8 +273,9 @@ declare module "orientjs" {
             readonly?: boolean;
             notNull?: boolean;
             collate?: string;
-            linkedClass?: Class;
-            regexp?: RegExp;
+            linkedClass?: string;
+            linkedType?: string;
+            regexp?: RegExp | string;
             min?: number;
             max?: number;
             custom?: {
@@ -289,10 +293,14 @@ declare module "orientjs" {
             readonly?: boolean;
             notNull?: boolean;
             collate?: string;
-            linkedClass?: Class;
-            regexp?: RegExp;
+            linkedClass?: string;
+            linkedType?: string;
+            regexp?: RegExp | string;
             min?: number;
             max?: number;
+            custom?: {
+                fields?: CustomField[]
+            }
 
             configure(config?: any): void;
             reload(): Promise<Property>;
@@ -365,9 +373,7 @@ declare module "orientjs" {
  * @param  {Integer} offset     The offset to start returning records from.
  * @promise {Object[]}          An array of records in the class.
  */
-            find(attributes: any, limit
-                ?
-                : number, offset?: number): Promise<Record[]>;
+            find(attributes: any, limit ?: number, offset?: number): Promise<Record[]>;
             /**
  * Create a record for this class.
  *
@@ -692,6 +698,7 @@ declare module "orientjs" {
             let(name: string, value: Statement): Statement;
             lock(param: any): Statement;
 
+            if(condition: SqlExpression, statements: Statement[]): Statement;
             if(condition: SqlExpression, ...statements: Statement[]): Statement;
             rollback(param?: any): Statement;
             sleep(ms?: number): Statement;
@@ -977,6 +984,11 @@ declare module "orientjs" {
  *
  * @return {Query} The query instance.
  */
+            if(condition: SqlExpression, statements: Statement[]): Statement;
+            /** Create a transactional query with if.
+ *
+ * @return {Query} The query instance.
+ */
             if(condition: SqlExpression, ...statements: Statement[]): Statement;
             /**
  * Escape the given input.
@@ -1166,6 +1178,8 @@ declare module "orientjs" {
             name: string;
             type?: string;
             storage?: string;
+            username?: string;
+            password?: string;
         }
 
         interface OrientJs extends Server { }
