@@ -1,6 +1,6 @@
-// Type definitions for FusionCharts 3.11.2
+// Type definitions for fusioncharts 3.11
 // Project: http://www.fusioncharts.com
-// Definitions by: Shivaraj KV <https://github.com/shivarajkv>
+// Definitions by: Rohit Kumar <https://github.com/rohitkr>, Shivaraj KV <https://github.com/shivarajkv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -136,9 +136,9 @@ declare namespace FusionCharts {
 
         outputTo(callback: (message: any) => any): void;
 
-        enable(state:any,outputTo?:(message: any) =>any,outputFormat?:any):void
+        enable(state: any, outputTo?: (message: any) => any, outputFormat?: any): void;
 
-        enableFirebugLite():any;
+        enableFirebugLite(): any;
     }
 
     interface FusionCharts {
@@ -154,7 +154,7 @@ declare namespace FusionCharts {
 
         configureLink(param: {} | any[], level?: number): void;
 
-        setChartAttribute(attributes: ChartObject | String, value?: string): void;
+        setChartAttribute(attributes: ChartObject | string, value?: string): void;
 
         getChartAttribute(attribute?: string | string[]): ChartObject;
 
@@ -273,7 +273,7 @@ declare namespace FusionCharts {
 
         formatNumber(num: number, type?: string, config?: {}): Element;
 
-        setCurrentRenderer(name: string): void
+        setCurrentRenderer(name: string): void;
 
         getCurrentRenderer(): string;
 
@@ -285,7 +285,7 @@ declare namespace FusionCharts {
 
         options: {};
 
-        debugger:Debugger;
+        debugger: Debugger;
 
 
     }

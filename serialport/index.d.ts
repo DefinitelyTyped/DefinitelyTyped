@@ -1,24 +1,24 @@
-// Type definitions for serialport 4.0.1
+// Type definitions for serialport 4.0
 // Project: https://github.com/EmergingTechnologyAdvisors/node-serialport
 // Definitions by: Jeremy Foster <https://github.com/codefoster>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'serialport' {
     class SerialPort {
-        constructor(path: string, options?: Object, openImmediately?: boolean, callback?: (err: string) => void)
-        isOpen: boolean;
+        constructor(path: string, options?: Object, openImmediately?: boolean, callback?: (err: any) => void)
+        isOpen(): boolean;
         on(event: string, callback?: (data?: any) => void): void;
-        open(callback?: () => void): void;
-        write(buffer: any, callback?: (err: string, bytesWritten: number) => void): void
+        open(callback?: (err: any) => void): void;
+        write(buffer: any, callback?: (err: any, bytesWritten: number) => void): void
         pause(): void;
         resume(): void;
         disconnected(err: Error): void;
-        close(callback?: (err:any) => void): void;
-        flush(callback?: (err:any) => void): void;
-        set(options: SerialPort.setOptions, callback: () => void): void;
-        drain(callback?: (err:any) => void): void;
-        update(options: SerialPort.updateOptions, callback?: () => void): void;
-        static list(callback: (err: string, ports: SerialPort.portConfig[]) => void): void;
+        close(callback?: (err: any) => void): void;
+        flush(callback?: (err: any) => void): void;
+        set(options: SerialPort.setOptions, callback: (err: any) => void): void;
+        drain(callback?: (err: any) => void): void;
+        update(options: SerialPort.updateOptions, callback?: (err: any) => void): void;
+        static list(callback: (err: any, ports: SerialPort.portConfig[]) => void): void;
         static parsers: {
             readline: (delimiter: string) => void,
             raw: (emitter: any, buffer: string) => void
@@ -49,5 +49,5 @@ declare module 'serialport' {
         }
     }
 
-    export = SerialPort
+    export = SerialPort;
 }
