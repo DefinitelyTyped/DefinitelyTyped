@@ -1196,6 +1196,7 @@ export interface Cursor extends Readable {
     stream(options?: { transform?: Function }): Cursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#toArray
     toArray(): Promise<any[]>;
+    toArray<T>(): Promise<T[]>;
     toArray(callback: MongoCallback<any[]>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#unshift
     unshift(stream: Buffer | string): void;
