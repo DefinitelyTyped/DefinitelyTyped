@@ -25,7 +25,6 @@ class NumCoercible {
     }
 }
 
-
 class MixedObject {
 
     public num: number;
@@ -40,18 +39,23 @@ class MixedObject {
         this.date = date;
     }
 }
+
 let num: number;
-let str: string;
-let numeric: NumCoercible;
 let date: Date;
-let extentNum: [number, number];
-let extentStr: [string, string];
-let extentNumeric: [NumCoercible, NumCoercible];
-let extentDateMixed: [d3Array.Primitive, d3Array.Primitive];
-let extentMixed: [d3Array.Primitive | NumCoercible, d3Array.Primitive | NumCoercible];
-let extentDate: [Date, Date];
+
+let numOrUndefined: number | undefined;
+let strOrUndefined: string | undefined;
+let numericOrUndefined: NumCoercible | undefined;
+let dateOrUndefined: Date | undefined;
+let numOrUndefinedExtent: [number, number] | [undefined, undefined];
+let strOrUndefinedExtent: [string, string] | [undefined, undefined];
+let numericOrUndefinedExtent: [NumCoercible, NumCoercible] | [undefined, undefined];
+let dateMixedOrUndefined: [Date , Date] | [undefined, undefined];
+let mixedOrUndefinedExtent: [d3Array.Primitive | NumCoercible, d3Array.Primitive | NumCoercible] | [undefined, undefined];
+let dateOrUndefinedExtent: [Date, Date] | [undefined, undefined];
 
 let numbersArray = [10, 20, 30, 40, 50];
+let numbersOrUndefinedArray = [10, 20, undefined, 40, 50];
 let stringyNumbersArray = ['10', '20', '30', '40', '50'];
 let numericArray = [new NumCoercible(10), new NumCoercible(20), new NumCoercible(30), new NumCoercible(40), new NumCoercible(50)];
 let dateArray = [new Date(2016, 6, 1), new Date(2016, 7, 30), new Date(2015, 3, 15)];
@@ -62,7 +66,27 @@ let mixedObjectArray = [
     new MixedObject(40, new Date(2014, 3, 15)),
     new MixedObject(50, new Date(2017, 4, 15))
 ];
+let mixedObjectOrUndefinedArray = [...mixedObjectArray, undefined]
 
+function accessorMixedObjectToNum(datum: MixedObject, index: number, array: Array<MixedObject>): number {
+    return datum.num;
+}
+
+function accessorMixedObjectToStr(datum: MixedObject, index: number, array: Array<MixedObject>): string {
+    return datum.str;
+}
+
+function accessorMixedObjectToNumeric(datum: MixedObject, index: number, array: Array<MixedObject>): NumCoercible {
+    return datum.numeric;
+}
+
+function accessorMixedObjectToDate(datum: MixedObject, index: number, array: Array<MixedObject>): Date {
+    return datum.date;
+}
+
+function accessorMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: Array<MixedObject | undefined>): number | undefined {
+    return datum ? datum.num : undefined;
+}
 
 // -----------------------------------------------------------------------------
 // Test Statistics
@@ -72,186 +96,103 @@ let mixedObjectArray = [
 
 // without accessors
 
-num = d3Array.max(numbersArray);
-str = d3Array.max(stringyNumbersArray);
-numeric = d3Array.max(numericArray);
-date = d3Array.max(dateArray);
+numOrUndefined = d3Array.max(numbersArray);
+strOrUndefined = d3Array.max(stringyNumbersArray);
+numericOrUndefined = d3Array.max(numericArray);
+dateOrUndefined = d3Array.max(dateArray);
 
 // with accessors
 
-num = d3Array.max(mixedObjectArray, function (datum, index, array) {
-    let d: MixedObject = datum;
-    let i: number = index;
-    let arr: Array<MixedObject> = array;
-    return datum.num;
-});
-
-str = d3Array.max(mixedObjectArray, function (datum, index, array) {
-    let d: MixedObject = datum;
-    let i: number = index;
-    let arr: Array<MixedObject> = array;
-    return datum.str;
-});
-
-numeric = d3Array.max(mixedObjectArray, function (datum, index, array) {
-    let d: MixedObject = datum;
-    let i: number = index;
-    let arr: Array<MixedObject> = array;
-    return datum.numeric;
-});
-
-date = d3Array.max(mixedObjectArray, function (datum, index, array) {
-    let d: MixedObject = datum;
-    let i: number = index;
-    let arr: Array<MixedObject> = array;
-    return datum.date;
-});
+numOrUndefined = d3Array.max(mixedObjectArray, accessorMixedObjectToNum);
+strOrUndefined = d3Array.max(mixedObjectArray, accessorMixedObjectToStr);
+numericOrUndefined = d3Array.max(mixedObjectArray, accessorMixedObjectToNumeric);
+dateOrUndefined = d3Array.max(mixedObjectArray, accessorMixedObjectToDate);
 
 // min() -----------------------------------------------------------------------
 
 // without accessors
 
-num = d3Array.min(numbersArray);
-str = d3Array.min(stringyNumbersArray);
-numeric = d3Array.min(numericArray);
-date = d3Array.min(dateArray);
+numOrUndefined = d3Array.min(numbersArray);
+strOrUndefined = d3Array.min(stringyNumbersArray);
+numericOrUndefined = d3Array.min(numericArray);
+dateOrUndefined = d3Array.min(dateArray);
 
 // with accessors
 
-num = d3Array.min(mixedObjectArray, function (datum, index, array) {
-    let d: MixedObject = datum;
-    let i: number = index;
-    let arr: Array<MixedObject> = array;
-    return datum.num;
-});
-
-str = d3Array.min(mixedObjectArray, function (datum, index, array) {
-    let d: MixedObject = datum;
-    let i: number = index;
-    let arr: Array<MixedObject> = array;
-    return datum.str;
-});
-
-numeric = d3Array.min(mixedObjectArray, function (datum, index, array) {
-    let d: MixedObject = datum;
-    let i: number = index;
-    let arr: Array<MixedObject> = array;
-    return datum.numeric;
-});
-
-date = d3Array.min(mixedObjectArray, function (datum, index, array) {
-    let d: MixedObject = datum;
-    let i: number = index;
-    let arr: Array<MixedObject> = array;
-    return datum.date;
-});
+numOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToNum);
+strOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToStr);
+numericOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToNumeric);
+dateOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToDate);
 
 // extent() --------------------------------------------------------------------
 
 // without accessors
 
-extentNum = d3Array.extent(numbersArray);
-extentStr = d3Array.extent(stringyNumbersArray);
-extentNumeric = d3Array.extent(numericArray);
-extentDate = d3Array.extent(dateArray);
-extentMixed = d3Array.extent<NumCoercible>([new NumCoercible(10), 13, '12', true]);
+numOrUndefinedExtent = d3Array.extent(numbersArray);
+strOrUndefinedExtent = d3Array.extent(stringyNumbersArray);
+numericOrUndefinedExtent = d3Array.extent(numericArray);
+dateOrUndefinedExtent = d3Array.extent(dateArray);
 
 // with accessors
 
-extentNum = d3Array.extent(mixedObjectArray, function (datum, index, array) {
-    let d: MixedObject = datum;
-    let i: number = index;
-    let arr: Array<MixedObject> = array;
-    return datum.num;
-});
-
-extentStr = d3Array.extent(mixedObjectArray, function (datum, index, array) {
-    let d: MixedObject = datum;
-    let i: number = index;
-    let arr: Array<MixedObject> = array;
-    return datum.str;
-});
-
-extentMixed = d3Array.extent(mixedObjectArray, function (datum, index, array) {
-    let d: MixedObject = datum;
-    let i: number = index;
-    let arr: Array<MixedObject> = array;
-    return datum.numeric;
-});
-
-extentDateMixed = d3Array.extent(mixedObjectArray, function (datum, index, array) {
-    let d: MixedObject = datum;
-    let i: number = index;
-    let arr: Array<MixedObject> = array;
-    return datum.date;
-});
+numOrUndefinedExtent = d3Array.extent(mixedObjectArray, accessorMixedObjectToNum);
+strOrUndefinedExtent = d3Array.extent(mixedObjectArray, accessorMixedObjectToStr);
+mixedOrUndefinedExtent = d3Array.extent(mixedObjectArray, accessorMixedObjectToNumeric);
+dateMixedOrUndefined = d3Array.extent(mixedObjectArray, accessorMixedObjectToDate);
 
 // mean() ----------------------------------------------------------------------
 
-num = d3Array.mean(numbersArray);
+numOrUndefined = d3Array.mean(numbersArray);
+numOrUndefined = d3Array.mean(numericArray);
+numOrUndefined = d3Array.mean(numbersOrUndefinedArray);
 
-num = d3Array.mean(mixedObjectArray, function (datum, index, array) {
-    let d: MixedObject = datum;
-    let i: number = index;
-    let arr: Array<MixedObject> = array;
-    return datum.num;
-});
+numOrUndefined = d3Array.mean(mixedObjectArray, accessorMixedObjectToNum);
+numOrUndefined = d3Array.mean(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
 
 // median() --------------------------------------------------------------------
 
-num = d3Array.median(numbersArray);
+numOrUndefined = d3Array.median(numbersArray);
+numOrUndefined = d3Array.median(numericArray);
+numOrUndefined = d3Array.median(numbersOrUndefinedArray);
 
-num = d3Array.median(mixedObjectArray, function (datum, index, array) {
-    let d: MixedObject = datum;
-    let i: number = index;
-    let arr: Array<MixedObject> = array;
-    return datum.num;
-});
+numOrUndefined = d3Array.median(mixedObjectArray, accessorMixedObjectToNum);
+numOrUndefined = d3Array.median(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
 
 // quantile() ------------------------------------------------------------------
 
-num = d3Array.quantile(numbersArray, 0.5);
+numOrUndefined = d3Array.quantile(numbersArray, 0.5);
+numOrUndefined = d3Array.quantile(numericArray, 0.5);
+numOrUndefined = d3Array.quantile(numbersOrUndefinedArray, 0.5);
 
-num = d3Array.quantile(mixedObjectArray, 0.5, function (datum, index, array) {
-    let d: MixedObject = datum;
-    let i: number = index;
-    let arr: Array<MixedObject> = array;
-    return datum.num;
-});
+numOrUndefined = d3Array.quantile(mixedObjectArray, 0.5, accessorMixedObjectToNum);
+numOrUndefined = d3Array.quantile(mixedObjectOrUndefinedArray, 0.5, accessorMixedObjectToNumOrUndefined);
 
 // sum() -----------------------------------------------------------------------
 
+numOrUndefined = d3Array.sum(numbersArray);
+numOrUndefined = d3Array.sum(numericArray);
+numOrUndefined = d3Array.sum(numbersOrUndefinedArray);
 
-num = d3Array.sum(numbersArray);
-
-num = d3Array.sum(mixedObjectArray, function (datum, index, array) {
-    let d: MixedObject = datum;
-    let i: number = index;
-    let arr: Array<MixedObject> = array;
-    return datum.num;
-});
+numOrUndefined = d3Array.sum(mixedObjectArray, accessorMixedObjectToNum);
+numOrUndefined = d3Array.sum(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
 
 // deviation() -----------------------------------------------------------------
 
-num = d3Array.deviation(numbersArray);
+numOrUndefined = d3Array.deviation(numbersArray);
+numOrUndefined = d3Array.deviation(numericArray);
+numOrUndefined = d3Array.deviation(numbersOrUndefinedArray);
 
-num = d3Array.deviation(mixedObjectArray, function (datum, index, array) {
-    let d: MixedObject = datum;
-    let i: number = index;
-    let arr: Array<MixedObject> = array;
-    return datum.num;
-});
+numOrUndefined = d3Array.deviation(mixedObjectArray, accessorMixedObjectToNum);
+numOrUndefined = d3Array.deviation(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
 
 // variance() ------------------------------------------------------------------
 
-num = d3Array.variance(numbersArray);
+numOrUndefined = d3Array.variance(numbersArray);
+numOrUndefined = d3Array.variance(numericArray);
+numOrUndefined = d3Array.variance(numbersOrUndefinedArray);
 
-num = d3Array.variance(mixedObjectArray, function (datum, index, array) {
-    let d: MixedObject = datum;
-    let i: number = index;
-    let arr: Array<MixedObject> = array;
-    return datum.num;
-});
+numOrUndefined = d3Array.variance(mixedObjectArray, accessorMixedObjectToNum);
+numOrUndefined = d3Array.variance(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
 
 // -----------------------------------------------------------------------------
 // Test Searching Arrays
@@ -259,8 +200,18 @@ num = d3Array.variance(mixedObjectArray, function (datum, index, array) {
 
 // scan() ----------------------------------------------------------------------
 
-num = d3Array.scan(mixedObjectArray, function (a, b) {
-    return a.num - b.num; // a and b are of type MixedObject
+numOrUndefined = d3Array.scan(numbersArray)
+
+numOrUndefined = d3Array.scan(mixedObjectArray, function (a, b) {
+    let aElem: MixedObject = a;
+    let bElem: MixedObject = b;
+    return a.num - b.num;
+});
+
+numOrUndefined = d3Array.scan(mixedObjectOrUndefinedArray, function (a, b) {
+    let aElem: MixedObject | undefined = a;
+    let bElem: MixedObject | undefined = b;
+    return a && b ? a.num - b.num : NaN;
 });
 
 // bisectLeft() ----------------------------------------------------------------
@@ -334,12 +285,14 @@ num = mixedObjectDateBisectorObject.right(mixedObjectArray, new Date(2015, 3, 14
 
 // ascending() -----------------------------------------------------------------
 
+num = d3Array.ascending(undefined, 20);
 num = d3Array.ascending(10, 20);
 num = d3Array.ascending('10', '20');
 num = d3Array.ascending(new Date(2016, 6, 13), new Date(2016, 6, 14));
 
 // descending() ----------------------------------------------------------------
 
+num = d3Array.descending(undefined, 20);
 num = d3Array.descending(10, 20);
 num = d3Array.descending('10', '20');
 num = d3Array.descending(new Date(2016, 6, 13), new Date(2016, 6, 14));
@@ -364,12 +317,11 @@ let testArrays: MixedObject[][] = [
     ]
 ];
 
-
 let mergedArray: MixedObject[];
 
 mergedArray = d3Array.merge(testArrays); // inferred type
 mergedArray = d3Array.merge<MixedObject>(testArrays); // explicit type
-// mergedArray = d3.merge<MixedObject>([[10, 40, 30], [15, 30]]); // fails, type mismatch
+// mergedArray = d3Array.merge<MixedObject>([[10, 40, 30], [15, 30]]); // fails, type mismatch
 
 // pairs() ---------------------------------------------------------------------
 
