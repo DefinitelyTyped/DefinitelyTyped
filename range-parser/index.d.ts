@@ -3,7 +3,7 @@
 // Definitions by: Tomek Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare const RangeParser: RangeParser.RangeParser;
+declare function RangeParser(size: number, str: string, options?: RangeParser.Options): RangeParser.Result | RangeParser.Ranges;
 
 declare namespace RangeParser {
     export interface Ranges extends Array<Range> {
@@ -20,7 +20,6 @@ declare namespace RangeParser {
         invaild = -2,
         unsatisifiable = -1,
     }
-    export type RangeParser = (size: number, str: string, options?: Options) => Result | Ranges;
 }
 
 export = RangeParser;
