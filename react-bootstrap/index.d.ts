@@ -606,6 +606,7 @@ declare namespace ReactBootstrap {
         position?: string;
         tabWidth?: any; // TODO: Add more specific type
         unmountOnExit?: boolean;
+        justified?: boolean;
     }
     type Tabs = React.ClassicComponent<TabsProps, {}>;
     var Tabs: React.ClassicComponentClass<TabsProps>;

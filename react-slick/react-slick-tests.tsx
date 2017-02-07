@@ -10,7 +10,8 @@ class SliderTest extends React.Component<React.Props<{}>, {}> {
       slidesToShow: 8,
       slidesToScroll: 1,
       draggable: false,
-      infinite: false
+      infinite: false,
+      prevArrow: <a href="#">link</a>
     };
 
     return (

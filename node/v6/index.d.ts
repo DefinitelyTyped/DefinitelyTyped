@@ -1368,6 +1368,8 @@ declare module "repl" {
         defineCommand(keyword: string, cmd: Function | { help: string, action: Function }): void;
         displayPrompt(preserveCursor?: boolean): void;
 
+        context: any;
+    
         /**
          * events.EventEmitter
          * 1. exit
