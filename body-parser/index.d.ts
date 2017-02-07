@@ -3,6 +3,8 @@
 // Definitions by: Santi Albo <https://github.com/santialbo/>, VILIC VANE <https://vilic.info>, Jonathan Häberle <https://github.com/dreampulse/>, Tomasz Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 import { Request, RequestHandler, Response } from 'express';
 
 // for docs go to https://github.com/expressjs/body-parser/tree/1.16.0#body-parser
