@@ -1,4 +1,4 @@
-/// <reference path="underscore.d.ts" />
+
 
 declare var $: any;
 
@@ -166,6 +166,8 @@ _.some({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase());
 
 _.contains([1, 2, 3], 3);
 
+_.contains([1, 2, 3], 3, 1);
+
 _.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
 
 var stooges = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }];
@@ -240,6 +242,10 @@ _.object([['moe', 30], ['larry', 40], ['curly', 50]]);
 _.indexOf([1, 2, 3], 2);
 _.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
 _.sortedIndex([10, 20, 30, 40, 50], 35);
+_.findIndex([1, 2, 3, 1, 2, 3], num => num % 2 === 0);
+_.findIndex([{a: 'a'}, {a: 'b'}], {a: 'b'});
+_.findLastIndex([1, 2, 3, 1, 2, 3], num => num % 2 === 0);
+_.findLastIndex([{ a: 'a' }, { a: 'b' }], { a: 'b' });
 _.range(10);
 _.range(1, 11);
 _.range(0, 30, 5);
@@ -274,10 +280,12 @@ _.defer(function () { alert('deferred'); });
 var updatePosition = (param:string) => alert('updating position... Param: ' + param);
 var throttled = _.throttle(updatePosition, 100);
 $(window).scroll(throttled);
+throttled.cancel();
 
 var calculateLayout = (param:string) => alert('calculating layout... Param: ' + param);
 var lazyLayout = _.debounce(calculateLayout, 300);
 $(window).resize(lazyLayout);
+lazyLayout.cancel();
 
 var createApplication = (param:string) => alert('creating application... Param: ' + param);
 var initialize = _.once(createApplication);
@@ -402,6 +410,7 @@ function useBoolean(arg: Boolean) {};
 function useDate(arg: Date) {};
 function useRegExp(arg: RegExp) {};
 function useArray<T>(arg: T[]) {};
+function useSymbol(arg: symbol) {};
 
 var guardedType: {};
 if(_.isElement(guardedType)) useElement(guardedType);
@@ -415,6 +424,7 @@ if(_.isNumber(guardedType)) useNumber(guardedType);
 if(_.isBoolean(guardedType)) useBoolean(guardedType);
 if(_.isDate(guardedType)) useDate(guardedType);
 if(_.isRegExp(guardedType)) useRegExp(guardedType);
+if(_.isSymbol(guardedType)) useSymbol(guardedType);
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
@@ -501,6 +511,12 @@ function chain_tests() {
 	var firstVal: number = _.chain([1, 2, 3])
 		.first()
 		.value();
+
+    let numberObjects = [{property: 'odd', value: 1}, {property: 'even', value: 2}, {property: 'even', value: 0}];
+    let evenAndOddGroupedNumbers = _.chain(numberObjects)
+        .groupBy('property')
+        .mapObject((objects: any) => _.pluck(objects, 'value'))
+        .value(); // { odd: [1], even: [0, 2] }
 }
 
 var obj: { [k: string] : number } = {

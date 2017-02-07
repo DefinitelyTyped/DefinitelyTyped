@@ -1,5 +1,5 @@
-/// <reference path="gulp-debug.d.ts" />
-/// <reference path="../gulp/gulp.d.ts" />
+
+
 
 import * as gulp from 'gulp';
 import * as debug from 'gulp-debug';

@@ -1,5 +1,3 @@
-///<reference path="blissfuljs.d.ts" />
-
 function test_overview() {
     /*Bliss includes several static methods (on the Bliss or $ object). For example, to copy all properties of an object onto another object, you would
     call $.extend():*/

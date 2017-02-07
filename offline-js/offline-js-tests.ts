@@ -1,5 +1,5 @@
 // Test file for offline-js.
-/// <reference path="offline-js.d.ts" />
+
 
 Offline.options = {
     checkOnLoad: false,

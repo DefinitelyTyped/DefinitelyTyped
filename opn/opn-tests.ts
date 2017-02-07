@@ -1,4 +1,4 @@
-/// <reference path="opn.d.ts" />
+
 
 import * as opn from "opn";
 

@@ -1,4 +1,4 @@
-/// <reference path="dagre-d3.d.ts"/>
+
 namespace DagreD3Tests {
     const gDagre = new dagreD3.graphlib.Graph();
     const graph = gDagre.graph();
@@ -11,8 +11,12 @@ namespace DagreD3Tests {
 
     predecessors["a"] = graph.predecessors("a");
     successors["a"] = graph.successors("a");
+    graph.transition = (selection: d3.Selection<any>) => {
+        return d3.transition();
+    };
 
     const render = new dagreD3.render();
     const svg = d3.select("svg");
+    render.arrows()["arrowType"] = (parent: d3.Selection<any>, id: string, edge: dagre.Edge, type: string) => {};
     render(svg, graph);
 }

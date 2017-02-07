@@ -1,13 +1,9 @@
-/// <reference path="../angularjs/angular.d.ts" />
-/// <reference path="ngstorage.d.ts" />
+/// <reference types="angular"/>
+
+import {IStorageService, IStorageProvider} from "ngstorage";
 
 var app: any;
-
-app.controller('LocalCtrl', function ($localStorage: angular.storage.IStorageService) {
-
-    $localStorage.set('MyKey', 'value');
-
-    $localStorage.get('MyKey');
+app.controller('LocalCtrl', function ($localStorage: IStorageService) {
 
     $localStorage.$default({
         counter: 1
@@ -16,17 +12,15 @@ app.controller('LocalCtrl', function ($localStorage: angular.storage.IStorageSer
     $localStorage.$reset({
         counter: 1
     });
-    
+
     $localStorage.$reset();
 
     $localStorage.$apply();
+
+    $localStorage.$sync();
 });
 
-app.controller('SessionCtrl', function ($sessionStorage: angular.storage.IStorageService) {
-
-    $sessionStorage.set('MyKey', 'value');
-
-    $sessionStorage.get('MyKey');
+app.controller('SessionCtrl', function ($sessionStorage: IStorageService) {
 
     $sessionStorage.$default({
         counter: 1
@@ -35,47 +29,50 @@ app.controller('SessionCtrl', function ($sessionStorage: angular.storage.IStorag
     $sessionStorage.$reset({
         counter: 1
     });
-    
+
     $sessionStorage.$reset();
 
     $sessionStorage.$apply();
+
+    $sessionStorage.$sync();
 });
 
-app.config(['$localStorageProvider', function ($localStorageProvider: angular.storage.IStorageProvider) {
-        $localStorageProvider.setKeyPrefix('NewPrefix');
+app.config(['$localStorageProvider', function ($localStorageProvider: IStorageProvider) {
 
-        $localStorageProvider.get('MyKey');
+    $localStorageProvider.setKeyPrefix('NewPrefix');
 
-        $localStorageProvider.set('MyKey', { counter: 'value' });
+    $localStorageProvider.get('MyKey');
 
-        var mySerializer = function (value:any):string {
-            return value.toString();
-        };
+    $localStorageProvider.set('MyKey', {counter: 'value'});
 
-        var myDeserializer = function (value:string):any {
-            return value;
-        };
+    var mySerializer = function (value: any): string {
+        return value.toString();
+    };
 
-        $localStorageProvider.setSerializer(mySerializer);
-        $localStorageProvider.setDeserializer(myDeserializer);
-    }
-]).config(['$sessionStorageProvider', function ($sessionStorageProvider: angular.storage.IStorageProvider) {
+    var myDeserializer = function (value: string): any {
+        return value;
+    };
 
-        $sessionStorageProvider.setKeyPrefix('NewPrefix');
+    $localStorageProvider.setSerializer(mySerializer);
+    $localStorageProvider.setDeserializer(myDeserializer);
+}
+]).config(['$sessionStorageProvider', function ($sessionStorageProvider: IStorageProvider) {
 
-        $sessionStorageProvider.get('MyKey');
+    $sessionStorageProvider.setKeyPrefix('NewPrefix');
 
-        $sessionStorageProvider.set('MyKey', { counter: 'value' });
+    $sessionStorageProvider.get('MyKey');
 
-        var mySerializer = function (value:any):string {
-            return value.toString();
-        };
+    $sessionStorageProvider.set('MyKey', {counter: 'value'});
 
-        var myDeserializer = function (value:string):any {
-            return value;
-        };
+    var mySerializer = function (value: any): string {
+        return value.toString();
+    };
 
-        $sessionStorageProvider.setSerializer(mySerializer);
-        $sessionStorageProvider.setDeserializer(myDeserializer);
-    }
+    var myDeserializer = function (value: string): any {
+        return value;
+    };
+
+    $sessionStorageProvider.setSerializer(mySerializer);
+    $sessionStorageProvider.setDeserializer(myDeserializer);
+}
 ]);
