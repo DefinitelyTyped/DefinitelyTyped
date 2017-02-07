@@ -1,4 +1,4 @@
-// Type definitions for Recompose v0.20.2
+// Type definitions for Recompose v0.20.3
 // Project: https://github.com/acdlite/recompose
 // Definitions by: Iskander Sierra <https://github.com/iskandersierra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -103,7 +103,7 @@ declare module 'recompose' {
     export function branch<TOutter>(
         test: predicate<TOutter>,
         trueEnhancer: InferableComponentEnhancer,
-        falseEnhancer: InferableComponentEnhancer
+        falseEnhancer?: InferableComponentEnhancer
     ): ComponentEnhancer<any, TOutter>;
 
     // renderComponent: https://github.com/acdlite/recompose/blob/master/docs/API.md#renderComponent

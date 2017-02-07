@@ -1,6 +1,6 @@
-// Type definitions for yargs 6.5.0
+// Type definitions for yargs 6.6.0
 // Project: https://github.com/chevex/yargs
-// Definitions by: Martin Poelstra <https://github.com/poelstra>, Mizunashi Mana <https://github.com/mizunashi-mana>, Jeffery Grajkowski <https://github.com/pushplay>
+// Definitions by: Martin Poelstra <https://github.com/poelstra>, Mizunashi Mana <https://github.com/mizunashi-mana>, Jeffery Grajkowski <https://github.com/pushplay>, Jeff Kenney <https://github.com/jeffkenney>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace yargs {
@@ -28,6 +28,9 @@ declare namespace yargs {
         default(key: string, value: any, description?: string): Argv;
         default(defaults: { [key: string]: any }, description?: string): Argv;
 
+        /**
+         * @deprecated since version 6.6.0
+         */
         demand(key: string, msg: string): Argv;
         demand(key: string, required?: boolean): Argv;
         demand(keys: string[], msg: string): Argv;
@@ -36,6 +39,15 @@ declare namespace yargs {
         demand(positionals: number, msg: string): Argv;
         demand(positionals: number, max: number, msg?: string): Argv;
 
+        demandCommand(min: number, minMsg?: string): Argv;
+        demandCommand(min: number, max?: number, minMsg?: string, maxMsg?: string): Argv;
+
+        demandOption(key: string | string[], msg?: string): Argv;
+        demandOption(key: string | string[], demand?: boolean): Argv;
+
+        /**
+         * @deprecated since version 6.6.0
+         */
         require(key: string, msg: string): Argv;
         require(key: string, required: boolean): Argv;
         require(keys: number[], msg: string): Argv;
@@ -43,6 +55,9 @@ declare namespace yargs {
         require(positionals: number, required: boolean): Argv;
         require(positionals: number, msg: string): Argv;
 
+        /**
+         * @deprecated since version 6.6.0
+         */
         required(key: string, msg: string): Argv;
         required(key: string, required: boolean): Argv;
         required(keys: number[], msg: string): Argv;
@@ -103,6 +118,9 @@ declare namespace yargs {
         config(key: string, parseFn: (configPath: string) => Object): Argv;
         config(keys: string[], parseFn: (configPath: string) => Object): Argv;
 
+        conflicts(key: string, value: string): Argv;
+        conflicts(conflicts: { [key: string]: string }): Argv;
+
         wrap(columns: number): Argv;
 
         strict(): Argv;
@@ -147,7 +165,7 @@ declare namespace yargs {
 
         fail(func: (msg: string, err: Error) => any): Argv;
 
-        coerce<T, U>(key: string|string[], func: (arg: T) => U): Argv;
+        coerce<T, U>(key: string | string[], func: (arg: T) => U): Argv;
         coerce<T, U>(opts: { [key: string]: (arg: T) => U; }): Argv;
 
         getCompletion(args: string[], done: (completions: string[]) => void): Argv;
@@ -186,7 +204,9 @@ declare namespace yargs {
         count?: boolean;
         default?: any;
         defaultDescription?: string;
+        /** @deprecated since version 6.6.0 */
         demand?: boolean | string;
+        demandOption?: boolean | string;
         desc?: string;
         describe?: string;
         description?: string;

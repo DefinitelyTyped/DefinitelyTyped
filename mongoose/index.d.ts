@@ -1,6 +1,6 @@
 // Type definitions for Mongoose 4.7.0
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>
+// Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>, sindrenm <https://github.com/sindrenm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -996,10 +996,12 @@ declare module "mongoose" {
      * call execPopulate(). Passing the same path a second time will overwrite
      * the previous path options. See Model.populate() for explaination of options.
      * @param path The path to populate or an options object
+     * @param names The properties to fetch from the populated document
      * @param callback When passed, population is invoked
      */
     populate(callback: (err: any, res: this) => void): this;
     populate(path: string, callback?: (err: any, res: this) => void): this;
+    populate(path: string, names: string, callback?: (err: any, res: this) => void): this;
     populate(options: ModelPopulateOptions | ModelPopulateOptions[], callback?: (err: any, res: this) => void): this;
 
     /** Gets _id(s) used during population of the given path. If the path was not populated, undefined is returned. */

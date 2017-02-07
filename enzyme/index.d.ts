@@ -329,7 +329,7 @@ interface CommonWrapper<P, S> {
      * @param fn A callback to be run for every node in the collection. Should expect a ShallowWrapper as the first
      *              argument, and will be run with a context of the original instance.
      */
-    forEach(fn: (wrapper: this) => any): this;
+    forEach(fn: (wrapper: this, index: number) => any): this;
 
     /**
      * Maps the current array of nodes to another array. Each node is passed in as a ShallowWrapper to the map
@@ -339,7 +339,7 @@ interface CommonWrapper<P, S> {
      *              to the returned array. Should expect a ShallowWrapper as the first argument, and will be run
      *              with a context of the original instance.
      */
-    map<V>(fn: (wrapper: this) => V): V[];
+    map<V>(fn: (wrapper: this, index: number) => V): V[];
 
     /**
      * Applies the provided reducing function to every node in the wrapper to reduce to a single value. Each node
