@@ -75,7 +75,7 @@ declare namespace ReactDayPicker {
         toMonth?: Date;
         localeUtils?: LocaleUtils;
         locale?: string;
-        captionElement?: React.ReactElement<CaptionElementProps> | null;
+        captionElement?: React.ReactElement<CaptionElementProps>;
         onDayClick?: (e: React.SyntheticEvent<{}>, day: Date, modifiers: DayModifiers) => any;
         onDayTouchTap?: (e: React.SyntheticEvent<{}>, day: Date, modifiers: DayModifiers) => any;
         onDayMouseEnter?: (e: React.SyntheticEvent<{}>, day: Date, modifiers: DayModifiers) => any;

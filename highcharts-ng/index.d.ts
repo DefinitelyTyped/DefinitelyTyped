@@ -35,6 +35,8 @@ declare global {
         };
         //function (optional) - setup some logic for the chart
         func?: (chart: ChartObject) => void;
+        //no data text (optional) to show if all series are empty
+        noData?: string;
     }
 
     //Instantiated Chart

@@ -99,6 +99,7 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
             className: "test-select",
             key: "1",
             options: options,
+            optionClassName: 'test-select-option',
             optionRenderer: optionRenderer,
             autofocus: true,
             autosize: true,

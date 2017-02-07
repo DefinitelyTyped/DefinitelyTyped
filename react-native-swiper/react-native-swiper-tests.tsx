@@ -18,7 +18,7 @@ class SwiperTest extends React.Component<IProperties, IState> {
     super(props);
   }
 
-  public render(): React.ReactElement<any> | null {
+  public render(): React.ReactElement<any> {
     return (
       <Swiper
         style={styles.wrapper}>
