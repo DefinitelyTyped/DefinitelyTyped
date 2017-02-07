@@ -1,4 +1,4 @@
-// Type definitions for dropkickjs v2.1.9
+// Type definitions for dropkickjs v2.1
 // Project: http://dropkickjs.com/
 // Definitions by: Dmitry Pesterev <https://github.com/VorobeY1326/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,9 +9,9 @@ interface DropkickOptions {
     length?: number;
     mobile?: boolean;
     multiple?: boolean;
-    options?: Array<string>;
+    options?: string[];
     selectedIndex?: number;
-    selectedOptions?: Array<string>;
+    selectedOptions?: string[];
     value?: string;
 
     change?: () => void;
@@ -21,8 +21,7 @@ interface DropkickOptions {
 }
 
 declare class Dropkick {
-    constructor(id: string, options?: DropkickOptions);
-    constructor(element: HTMLElement, options?: DropkickOptions);
+    constructor(id: string|HTMLElement, options?: DropkickOptions);
 
     add(value: string | Node, before?: number | string): void;
     close(): void;
@@ -36,7 +35,7 @@ declare class Dropkick {
     refresh(): void;
     remove(index: number): void;
     reset(clear?: boolean): void;
-    search(string: string, mode?: string): Array<string>;
+    search(string: string, mode?: string): string[];
     select(element: number|string, selectDisabled?: boolean): Node;
     selectOne(element: number, selectDisabled?: boolean): Node;
 
@@ -45,8 +44,8 @@ declare class Dropkick {
     length: number;
     mobile: boolean;
     multiple: boolean;
-    options: Array<string>;
+    options: string[];
     selectedIndex: number;
-    selectedOptions: Array<string>;
+    selectedOptions: string[];
     value: string;
 }
