@@ -3,6 +3,8 @@
 /target
 /typings
 
+output/
+
 # Logs
 logs
 *.log

@@ -4,7 +4,7 @@ module.exports = {
     extensions: ["", ".webpack.js", ".web.js", ".js", ".ts", ".tsx"]
   },
   output: {
-    path: '/',
+    path: './output/',
     filename: 'bundle.js'
   },
   module: {
