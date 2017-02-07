@@ -310,9 +310,9 @@ declare module "rethinkdb" {
     }
 
     interface UpdateOptions {
-        nonAtomic?: boolean | false;
+        nonAtomic?: boolean;
         durability?: 'hard' | 'soft';
-        returnChanges?: boolean | false;
+        returnChanges?: boolean;
     }
 
     interface WriteResult {
