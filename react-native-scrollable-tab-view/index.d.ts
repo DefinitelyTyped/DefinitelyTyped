@@ -37,9 +37,9 @@ export interface renderTabBarProperties {
 interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
 
   /**
-   * tabBarPosition (String) Defaults to "top".
+   * tabBarPosition (String) Defaults to "top". 
    * "bottom" to position the tab bar below content.
-   * "overlayTop" or "overlayBottom" for a semitransparent tab bar that overlays content. Custom
+   * "overlayTop" or "overlayBottom" for a semitransparent tab bar that overlays content. Custom 
    * tab bars must consume a style prop on their outer element to support this feature: style={this.props.style}.
    */
   tabBarPosition?: 'top' | 'bottom' | 'overlayTop' | 'overlayBottom';
@@ -50,27 +50,27 @@ interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
   initialPage?: number;
 
   /**
-   * (Integer) - set selected tab(can be buggy see
+   * (Integer) - set selected tab(can be buggy see 
    * https://github.com/skv-headless/react-native-scrollable-tab-view/issues/126
    */
   page?: number;
 
   /**
-   * onChangeTab (Function) - function to call when tab changes, should accept 1 argument which is
-   * an Object containing two keys: i: the index of the tab that is selected, ref: the ref of the
+   * onChangeTab (Function) - function to call when tab changes, should accept 1 argument which is 
+   * an Object containing two keys: i: the index of the tab that is selected, ref: the ref of the 
    * tab that is selected
    */
   onChangeTab?: (value: onChangeTabProperties) => void;
 
   /**
-   * onScroll (Function) - function to call when the pages are sliding,
+   * onScroll (Function) - function to call when the pages are sliding, 
    * should accept 1 argument which is an Float number representing the page position in the slide frame.
    */
   onScroll?: (value: number) => void;
 
   /**
    * renderTabBar (Function:ReactComponent) - accept 1 argument props and should return a component
-   * to use as the tab bar. The component has goToPage, tabs, activeTab and ref added to the props,
+   * to use as the tab bar. The component has goToPage, tabs, activeTab and ref added to the props, 
    * and should implement setAnimationValue to be able to animate itself along with the tab content.
    * You can manually pass the props to the TabBar component.
    */
@@ -82,7 +82,7 @@ interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
   style?: ViewStyle;
 
   /**
-   * contentProps (Object) - props that are applied to root ScrollView/ViewPagerAndroid.
+   * contentProps (Object) - props that are applied to root ScrollView/ViewPagerAndroid. 
    * Note that overriding defaults set by the library may break functionality; see the source for details.
    */
   contentProps?: React.ScrollViewProperties;
@@ -98,7 +98,7 @@ interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
   locked?: boolean;
 
   /**
-   * prerenderingSiblingsNumber (Integer) - pre-render nearby # sibling, Infinity === render all
+   * prerenderingSiblingsNumber (Integer) - pre-render nearby # sibling, Infinity === render all 
    * the siblings, default to 0 === render current page.
    */
   prerenderingSiblingsNumber?: number;
