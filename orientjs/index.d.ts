@@ -2,7 +2,7 @@
 // Project: https://github.com/orientechnologies/orientjs
 // Definitions by: [Saeed Tabrizi] <https://github.com/saeedtabrizi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Last Update  : 3-2-2017 
+// Last Update  : 7-2-2017 
 // Compatible with Orientdb >= 2.2.15 features 
 // Developed with love in www.nowcando.com
 
