@@ -516,10 +516,6 @@ declare namespace webpack {
          */
         PrefetchPlugin: PrefetchPluginStatic;
         /**
-         * Apply a plugin (or array of plugins) to one or more resolvers (as specified in types).
-         */
-        ResolverPlugin: ResolverPluginStatic;
-        /**
          * Adds a banner to the top of each generated chunk.
          */
         BannerPlugin: BannerPluginStatic;
@@ -613,10 +609,6 @@ declare namespace webpack {
         AggressiveMergingPlugin: optimize.AggressiveMergingPluginStatic;
     }
 
-    interface DirectoryDescriptionFilePluginStatic {
-        new (file: string, files: string[]): Plugin;
-    }
-
     interface NormalModuleReplacementPluginStatic {
         new (resourceRegExp: any, newResource: any): Plugin;
     }
@@ -633,21 +625,6 @@ declare namespace webpack {
         // tslint:disable-next-line:unified-signatures
         new (context: any, request: any): Plugin;
         new (request: any): Plugin;
-    }
-
-    interface ResolverPluginStatic {
-        new (plugins: Plugin[], files?: string[]): Plugin;
-        DirectoryDescriptionFilePlugin: DirectoryDescriptionFilePluginStatic;
-        /**
-         * This plugin will append a path to the module directory to find a match,
-         * which can be useful if you have a module which has an incorrect “main” entry in its package.json/bower.json etc (e.g. "main": "Gruntfile.js").
-         * You can use this plugin as a special case to load the correct file for this module. Example:
-         */
-        FileAppendPlugin: FileAppendPluginStatic;
-    }
-
-    interface FileAppendPluginStatic {
-        new (files: string[]): Plugin;
     }
 
     interface BannerPluginStatic {
