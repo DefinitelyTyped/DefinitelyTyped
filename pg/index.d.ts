@@ -100,6 +100,7 @@ export declare class Client extends events.EventEmitter {
     on(event: "drain", listener: () => void): this;
     on(event: "error", listener: (err: Error) => void): this;
     on(event: "notification" | "notice", listener: (message: any) => void): this;
+    on(event: "end", listener: () => void): this;
 }
 
 export declare class Query extends events.EventEmitter {
