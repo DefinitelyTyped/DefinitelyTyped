@@ -33,18 +33,6 @@ rule = {
 };
 
 //
-// https://webpack.github.io/docs/using-plugins.html
-//
-
-configuration = {
-    plugins: [
-        new webpack.ResolverPlugin([
-            new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
-        ], ["normal", "loader"])
-    ]
-};
-
-//
 // http://webpack.github.io/docs/tutorials/getting-started/
 //
 
@@ -268,14 +256,6 @@ plugin = new webpack.IgnorePlugin(requestRegExp, contextRegExp);
 
 plugin = new webpack.PrefetchPlugin(context, request);
 plugin = new webpack.PrefetchPlugin(request);
-plugin = new webpack.ResolverPlugin(plugins, types);
-plugin = new webpack.ResolverPlugin(plugins);
-plugin = new webpack.ResolverPlugin([
-    new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
-], ["normal", "loader"]);
-plugin = new webpack.ResolverPlugin([
-    new webpack.ResolverPlugin.FileAppendPlugin(['/dist/compiled-moduled.js'])
-]);
 plugin = new webpack.BannerPlugin(banner, options);
 plugin = new webpack.optimize.DedupePlugin();
 plugin = new webpack.optimize.LimitChunkCountPlugin(options);
