@@ -1,4 +1,5 @@
 import * as Realm from 'realm';
+import { ListView } from 'realm/react-native';
 
 // schema test
 const personSchema = {
@@ -97,3 +98,6 @@ const users = Realm.Sync.User.all;
 
 // access control test
 const managementRealm = user.openManagementRealm();
+
+// ListView test
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
