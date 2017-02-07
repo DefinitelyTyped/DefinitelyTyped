@@ -36,7 +36,7 @@ passport.serializeUser<TestUser, number>((user, done) => {
   if (user.id > 0) {
     done(null, user.id);
   } else {
-    done(new Error('user ID is invalid'))
+    done(new Error('user ID is invalid'));
   }
 });
 passport.deserializeUser((id, done) => {
