@@ -61,8 +61,6 @@ declare namespace WebTorrent {
         readonly progress: number;
 
         readonly ratio: number;
-
-        readonly name: string;
     }
 
     export interface Torrent extends NodeJS.EventEmitter {
@@ -97,6 +95,8 @@ declare namespace WebTorrent {
         readonly path: string;
 
         readonly ready: boolean;
+
+        readonly name: string;
 
         destroy(cb?: (err: Error | string) => void): void;
 
