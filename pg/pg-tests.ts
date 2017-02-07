@@ -43,6 +43,7 @@ client.connect((err) => {
     });
     return null;
 });
+client.on('end', () => console.log("Client was disconnected."));
 
 // client pooling
 
