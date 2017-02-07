@@ -1002,7 +1002,6 @@ declare namespace webpack {
             new (options?: UglifyPluginOptions): Plugin;
         }
         interface CommonsChunkPluginStatic {
-            new (chunkName: string, filenames?: string | string[]): Plugin;
             new (options?: any): Plugin;
         }
         interface AggressiveMergingPluginStatic {
