@@ -124,15 +124,15 @@ Xrm.Page.ui.setFormNotification("Test", level, "uniqueId");
 /// Demonstrate Requirement Level and Submit Mode both via string parameters and String Literal Types
 
 let requirementLevel: Xrm.Page.RequirementLevel = "none";
-let requirementLevelString = "none";
+const requirementLevelString = "none";
 let submitMode: Xrm.Page.SubmitMode = "always";
-let submitModeString = "always";
+const submitModeString = "always";
 
 let attribute = Xrm.Page.getAttribute<Xrm.Page.LookupAttribute>("customerid");
 attribute.setSubmitMode(submitMode);
-attribute.setSubmitMode(submitMode);
+attribute.setSubmitMode(submitModeString); // Works if the string is a const
 attribute.setRequiredLevel(requirementLevel);
-attribute.setRequiredLevel(requirementLevelString);
+attribute.setRequiredLevel(requirementLevelString); // Works if the string is a const
 
 /// Demonstrate v8 AutoComplete
 
