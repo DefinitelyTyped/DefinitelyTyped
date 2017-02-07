@@ -2,6 +2,7 @@
 // Project: https://github.com/JamieMason/Jasmine-Matchers
 // Definitions by: UserPixel <https://github.com/UserPixel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="jasmine" />
 
