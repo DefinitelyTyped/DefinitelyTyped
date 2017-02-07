@@ -1587,7 +1587,8 @@ declare namespace DataTables {
     }
 
     interface FunctionColumnData {
-        (row: any, t: string, s: any, meta: CellMetaSettings): void;
+        (row: any, t: 'set', s: any, meta: CellMetaSettings): void;
+        (row: any, t: 'display' | 'sort' | 'filter' | 'type', s: undefined, meta: CellMetaSettings): any;
     }
 
     interface ObjectColumnData {
