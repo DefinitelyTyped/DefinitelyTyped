@@ -1134,7 +1134,6 @@ export interface Cursor<T> extends Readable {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#batchSize
     batchSize(value: number): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#clone
-    // https://github.com/christkv/mongodb-core/blob/2.0/lib/cursor.js#L333
     clone(): Cursor<T>; // still returns the same type
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#close
     close(): Promise<CursorResult>;
@@ -1226,7 +1225,6 @@ export interface EndCallback {
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#~resultCallback
 export type AggregationCursorResult = any | void;
-// TODO: change to generic version
 //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html
 export interface AggregationCursor<T> extends Readable {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#batchSize
