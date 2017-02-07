@@ -78,7 +78,7 @@ declare namespace webpack {
         /** Add additional plugins to the compiler. */
         plugins?: Plugin[];
         /** Stats options for logging  */
-        stats?: compiler.StatsToStringOptions;
+        stats?: Options.Stats;
         /** Performance options */
         performance?: Options.Performance;
     }
@@ -494,6 +494,7 @@ declare namespace webpack {
              */
             maxEntrypointSize?: number;
         }
+        type Stats = webpack.Stats.ToStringOptions;
         type WatchOptions = ICompiler.WatchOptions;
     }
 
@@ -504,7 +505,7 @@ declare namespace webpack {
     }
 
     namespace ICompiler {
-        type Handler = (err: Error, stats: compiler.Stats) => void;
+        type Handler = (err: Error, stats: Stats) => void;
 
         interface WatchOptions {
             /**
@@ -573,6 +574,79 @@ declare namespace webpack {
 
     abstract class Plugin implements Tapable.Plugin {
         apply(compiler: Compiler): void;
+    }
+
+    abstract class Stats {
+        /** Returns true if there were errors while compiling. */
+        hasErrors(): boolean;
+        /** Returns true if there were warnings while compiling. */
+        hasWarnings(): boolean;
+        /** Returns compilation information as a JSON object. */
+        toJson(options?: Stats.ToJsonOptions): any;
+        /** Returns a formatted string of the compilation information (similar to CLI output). */
+        toString(options?: Stats.ToStringOptions): string;
+    }
+
+    namespace Stats {
+        type Preset
+            = boolean
+            | 'errors-only'
+            | 'minimal'
+            | 'none'
+            | 'normal'
+            | 'verbose';
+
+        interface ToJsonOptionsObject {
+            /** Add asset Information */
+            assets?: boolean;
+            /** Sort assets by a field */
+            assetsSort?: string;
+            /** Add information about cached (not built) modules */
+            cached?: boolean;
+            /** Add children information */
+            children?: boolean;
+            /** Add built modules information to chunk information */
+            chunkModules?: boolean;
+            /** Add the origins of chunks and chunk merging info */
+            chunkOrigins?: boolean;
+            /** Add chunk information (setting this to `false` allows for a less verbose output) */
+            chunks?: boolean;
+            /** Sort the chunks by a field */
+            chunksSort?: string;
+            /** Context directory for request shortening */
+            context?: string;
+            /** Add details to errors (like resolving log) */
+            errorDetails?: boolean;
+            /** Add errors */
+            errors?: boolean;
+            /** Add the hash of the compilation */
+            hash?: boolean;
+            /** Add built modules information */
+            modules?: boolean;
+            /** Sort the modules by a field */
+            modulesSort?: string;
+            /** Add public path information */
+            publicPath?: boolean;
+            /** Add information about the reasons why modules are included */
+            reasons?: boolean;
+            /** Add the source code of modules */
+            source?: boolean;
+            /** Add timing information */
+            timings?: boolean;
+            /** Add webpack version information */
+            version?: boolean;
+            /** Add warnings */
+            warnings?: boolean;
+        }
+
+        type ToJsonOptions = Preset | ToJsonOptionsObject;
+
+        interface ToStringOptionsObject extends ToJsonOptionsObject {
+            /** `webpack --colors` equivalent */
+            colors?: boolean;
+        }
+
+        type ToStringOptions = Preset | ToStringOptionsObject;
     }
 
     /**
@@ -1000,6 +1074,7 @@ declare namespace webpack {
         }
     }
 
+    /** @deprecated */
     namespace compiler {
         /** @deprecated use webpack.Compiler */
         type Compiler = webpack.Compiler;
@@ -1010,64 +1085,14 @@ declare namespace webpack {
         /** @deprecated use webpack.Compiler.WatchOptions */
         type WatchOptions = webpack.Compiler.WatchOptions;
 
-        interface Stats {
-            /** Returns true if there were errors while compiling */
-            hasErrors(): boolean;
-            /** Returns true if there were warnings while compiling. */
-            hasWarnings(): boolean;
-            /** Return information as json object */
-            toJson(options?: StatsOptions): any; //TODO: type this
-            /** Returns a formatted string of the result. */
-            toString(options?: StatsToStringOptions): string;
-        }
+        /** @deprecated use webpack.Stats */
+        type Stats = webpack.Stats;
 
-        interface StatsOptions {
-            /** Add asset Information */
-            assets?: boolean;
-            /** Sort assets by a field */
-            assetsSort?: string;
-            /** Add information about cached (not built) modules */
-            cached?: boolean;
-            /** Add children information */
-            children?: boolean;
-            /** Add chunk information (setting this to `false` allows for a less verbose output) */
-            chunks?: boolean;
-            /** Add built modules information to chunk information */
-            chunkModules?: boolean;
-            /** Add the origins of chunks and chunk merging info */
-            chunkOrigins?: boolean;
-            /** Sort the chunks by a field */
-            chunksSort?: string;
-            /** Context directory for request shortening */
-            context?: string;
-            /** Add errors */
-            errors?: boolean;
-            /** Add details to errors (like resolving log) */
-            errorDetails?: boolean;
-            /** Add the hash of the compilation */
-            hash?: boolean;
-            /** Add built modules information */
-            modules?: boolean;
-            /** Sort the modules by a field */
-            modulesSort?: string;
-            /** Add public path information */
-            publicPath?: boolean;
-            /** Add information about the reasons why modules are included */
-            reasons?: boolean;
-            /** Add the source code of modules */
-            source?: boolean;
-            /** Add timing information */
-            timings?: boolean;
-            /** Add webpack version information */
-            version?: boolean;
-            /** Add warnings */
-            warnings?: boolean;
-        }
+        /** @deprecated use webpack.Stats.ToJsonOptions */
+        type StatsOptions = webpack.Stats.ToJsonOptions;
 
-        interface StatsToStringOptions extends StatsOptions {
-            /** With console colors */
-            colors?: boolean;
-        }
+        /** @deprecated use webpack.Stats.ToStringOptions */
+        type StatsToStringOptions = webpack.Stats.ToStringOptions;
 
         /** @deprecated use webpack.Compiler.Handler */
         type CompilerCallback = webpack.Compiler.Handler;
