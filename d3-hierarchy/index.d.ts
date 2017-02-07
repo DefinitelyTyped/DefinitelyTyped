@@ -1,7 +1,9 @@
-// Type definitions for D3JS d3-hierarchy module v1.0.2
+// Type definitions for D3JS d3-hierarchy module 1.1
 // Project: https://github.com/d3/d3-hierarchy/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// Last module patch version validated against: 1.1.1
 
 // -----------------------------------------------------------------------
 // Hierarchy
@@ -20,7 +22,7 @@ export interface HierarchyNode<Datum> {
     parent: HierarchyNode<Datum> | null;
     children?: Array<HierarchyNode<Datum>>;
     /**
-     * Aggregated numeric value as calculated by sum(value),
+     * Aggregated numeric value as calculated by sum(value) or count(),
      * if previously invoked.
      */
     readonly value?: number;
@@ -35,6 +37,7 @@ export interface HierarchyNode<Datum> {
     path(target: HierarchyNode<Datum>): Array<HierarchyNode<Datum>>;
     links(): Array<HierarchyLink<Datum>>;
     sum(value: (d: Datum) => number): this;
+    count(): this;
     sort(compare: (a: HierarchyNode<Datum>, b: HierarchyNode<Datum>) => number): this;
     each(func: (node: HierarchyNode<Datum>) => void): this;
     eachAfter(func: (node: HierarchyNode<Datum>) => void): this;
@@ -43,7 +46,7 @@ export interface HierarchyNode<Datum> {
 }
 
 
-export function hierarchy<Datum>(data: Datum, children?: (d: Datum) => (Array<Datum> | null)): HierarchyNode<Datum>;
+export function hierarchy<Datum>(data: Datum, children?: (d: Datum) => (Datum[] | null)): HierarchyNode<Datum>;
 
 // -----------------------------------------------------------------------
 // Stratify
@@ -53,11 +56,11 @@ export function hierarchy<Datum>(data: Datum, children?: (d: Datum) => (Array<Da
 
 
 export interface StratifyOperator<Datum> {
-    (data: Array<Datum>): HierarchyNode<Datum>;
-    id(): (d: Datum, i: number, data: Array<Datum>) => (string | null | '' | undefined);
-    id(id: (d: Datum, i?: number, data?: Array<Datum>) => (string | null | '' | undefined)): this;
-    parentId(): (d: Datum, i: number, data: Array<Datum>) => (string | null | '' | undefined);
-    parentId(parentId: (d: Datum, i?: number, data?: Array<Datum>) => (string | null | '' | undefined)): this;
+    (data: Datum[]): HierarchyNode<Datum>;
+    id(): (d: Datum, i: number, data: Datum[]) => (string | null | '' | undefined);
+    id(id: (d: Datum, i?: number, data?: Datum[]) => (string | null | '' | undefined)): this;
+    parentId(): (d: Datum, i: number, data: Datum[]) => (string | null | '' | undefined);
+    parentId(parentId: (d: Datum, i?: number, data?: Datum[]) => (string | null | '' | undefined)): this;
 }
 
 export function stratify<Datum>(): StratifyOperator<Datum>;
@@ -80,7 +83,7 @@ export interface HierarchyPointNode<Datum> {
     parent: HierarchyPointNode<Datum> | null;
     children?: Array<HierarchyPointNode<Datum>>;
     /**
-     * Aggregated numeric value as calculated by sum(value),
+     * Aggregated numeric value as calculated by sum(value) or count(),
      * if previously invoked.
      */
     readonly value?: number;
@@ -95,6 +98,7 @@ export interface HierarchyPointNode<Datum> {
     path(target: HierarchyPointNode<Datum>): Array<HierarchyPointNode<Datum>>;
     links(): Array<HierarchyPointLink<Datum>>;
     sum(value: (d: Datum) => number): this;
+    count(): this;
     sort(compare: (a: HierarchyPointNode<Datum>, b: HierarchyPointNode<Datum>) => number): this;
     each(func: (node: HierarchyPointNode<Datum>) => void): this;
     eachAfter(func: (node: HierarchyPointNode<Datum>) => void): this;
@@ -150,7 +154,7 @@ export interface HierarchyRectangularNode<Datum> {
     parent: HierarchyRectangularNode<Datum> | null;
     children?: Array<HierarchyRectangularNode<Datum>>;
     /**
-     * Aggregated numeric value as calculated by sum(value),
+     * Aggregated numeric value as calculated by sum(value) or count(),
      * if previously invoked.
      */
     readonly value?: number;
@@ -165,6 +169,7 @@ export interface HierarchyRectangularNode<Datum> {
     path(target: HierarchyRectangularNode<Datum>): Array<HierarchyRectangularNode<Datum>>;
     links(): Array<HierarchyRectangularLink<Datum>>;
     sum(value: (d: Datum) => number): this;
+    count(): this;
     sort(compare: (a: HierarchyRectangularNode<Datum>, b: HierarchyRectangularNode<Datum>) => number): this;
     each(func: (node: HierarchyRectangularNode<Datum>) => void): this;
     eachAfter(func: (node: HierarchyRectangularNode<Datum>) => void): this;
@@ -258,7 +263,7 @@ export interface HierarchyCircularNode<Datum> {
     parent: HierarchyCircularNode<Datum> | null;
     children?: Array<HierarchyCircularNode<Datum>>;
     /**
-     * Aggregated numeric value as calculated by sum(value),
+     * Aggregated numeric value as calculated by sum(value) or count(),
      * if previously invoked.
      */
     readonly value?: number;
@@ -273,6 +278,7 @@ export interface HierarchyCircularNode<Datum> {
     path(target: HierarchyCircularNode<Datum>): Array<HierarchyCircularNode<Datum>>;
     links(): Array<HierarchyCircularLink<Datum>>;
     sum(value: (d: Datum) => number): this;
+    count(): this;
     sort(compare: (a: HierarchyCircularNode<Datum>, b: HierarchyCircularNode<Datum>) => number): this;
     each(func: (node: HierarchyCircularNode<Datum>) => void): this;
     eachAfter(func: (node: HierarchyCircularNode<Datum>) => void): this;
@@ -310,6 +316,6 @@ export interface PackCircle {
 // For invocation of packEnclose the x and y coordinates are mandatory. It seems easier to just comment
 // on the mandatory nature, then to create separate interfaces and having to deal with recasting.
 
-export function packSiblings<Datum extends PackCircle>(circles: Array<Datum>): Array<Datum>;
+export function packSiblings<Datum extends PackCircle>(circles: Datum[]): Datum[];
 
-export function packEnclose<Datum extends PackCircle>(circles: Array<Datum>): { r: number, x: number, y: number };
+export function packEnclose<Datum extends PackCircle>(circles: Datum[]): { r: number, x: number, y: number };

@@ -293,6 +293,12 @@
             "typingsPackageName": "redux-saga",
             "sourceRepoURL": "https://github.com/redux-saga/redux-saga",
             "asOfVersion": "0.10.5"
+        },
+        {
+            "libraryName": "axios",
+            "typingsPackageName": "axios",
+            "sourceRepoURL": "https://github.com/mzabriskie/axios",
+            "asOfVersion": "0.14.0"
         }
     ]
 }

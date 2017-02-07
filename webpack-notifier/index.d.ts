@@ -3,21 +3,23 @@
 // Definitions by: Benjamin Lim <https://github.com/bumbleblym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin, Webpack } from 'webpack';
+import { Plugin } from 'webpack';
 
 export = WebpackNotifierPlugin;
 
-declare class WebpackNotifierPlugin implements Plugin {
-    constructor(options?: WebpackNotifierPlugin.Config);
-    apply(thisArg: Webpack, ...args: any[]): void;
+declare class WebpackNotifierPlugin extends Plugin {
+	constructor(options?: WebpackNotifierPlugin.Options);
 }
 
 declare namespace WebpackNotifierPlugin {
-    export interface Config {
-        title?: string;
-        contentImage?: string;
-        excludeWarnings?: boolean;
-        alwaysNotify?: boolean;
-        skipFirstNotification?: boolean;
-    }
+	interface Options {
+		alwaysNotify?: boolean;
+		contentImage?: string;
+		excludeWarnings?: boolean;
+		skipFirstNotification?: boolean;
+		title?: string;
+	}
+
+	/** @deprecated use Options */
+	type Config = Options;
 }
