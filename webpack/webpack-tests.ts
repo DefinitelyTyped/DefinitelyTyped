@@ -62,7 +62,10 @@ configuration = {
         filename: "bundle.js"
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
+        new webpack.optimize.CommonsChunkPlugin({
+            name: "vendor",
+            filename: "vendor.bundle.js",
+        }),
     ]
 };
 
@@ -126,10 +129,6 @@ configuration = {
     output: {
         filename: "[name].js"
     },
-    plugins: [
-        new CommonsChunkPlugin("admin-commons.js", ["ap1", "ap2"]),
-        new CommonsChunkPlugin("commons.js", ["p1", "p2", "admin-commons.js"])
-    ]
 };
 // <script>s required:
 // page1.html: commons.js, p1.js
@@ -145,7 +144,10 @@ configuration = {
         commons: "./entry-for-the-commons-chunk"
     },
     plugins: [
-        new CommonsChunkPlugin("commons", "commons.js")
+        new CommonsChunkPlugin({
+            name: "commons",
+            filename: "commons.js",
+        }),
     ]
 };
 
