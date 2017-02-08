@@ -2361,7 +2361,7 @@ declare namespace React {
         speed?: number | string;
         spreadMethod?: string;
         startOffset?: number | string;
-        stdDeviation?: number | string
+        stdDeviation?: number | string;
         stemh?: number | string;
         stemv?: number | string;
         stitchTiles?: number | string;
