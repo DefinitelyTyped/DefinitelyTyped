@@ -125,6 +125,13 @@ hierarchyRootNode = hierarchyRootNode.sum(function (d) { return d.val; });
 
 num = hierarchyRootNode.value;
 
+// count() and value ----------------------------------------------------------
+
+hierarchyRootNode = hierarchyRootNode.count();
+
+num = hierarchyRootNode.value;
+
+
 // sort ---------------------------------------------------------------------
 
 hierarchyRootNode = hierarchyRootNode.sort(function (a, b) {
@@ -304,6 +311,12 @@ hierarchyPointNode = pointLink.target;
 // sum() and value ----------------------------------------------------------
 
 clusterRootNode = clusterRootNode.sum(function (d) { return d.val; });
+
+num = clusterRootNode.value;
+
+// count() and value ----------------------------------------------------------
+
+clusterRootNode = clusterRootNode.count();
 
 num = clusterRootNode.value;
 
@@ -584,6 +597,11 @@ treemapRootNode = treemapRootNode.sum(function (d) { return d.val; });
 
 num = treemapRootNode.value;
 
+// count() and value ----------------------------------------------------------
+
+treemapRootNode = treemapRootNode.count();
+
+num = treemapRootNode.value;
 // sort ---------------------------------------------------------------------
 
 treemapRootNode = treemapRootNode.sort(function (a, b) {
@@ -766,6 +784,11 @@ packRootNode = packRootNode.sum(function (d) { return d.val; });
 
 num = packRootNode.value;
 
+// count() and value ----------------------------------------------------------
+
+packRootNode = packRootNode.count();
+
+num = packRootNode.value;
 // sort ---------------------------------------------------------------------
 
 packRootNode = packRootNode.sort(function (a, b) {

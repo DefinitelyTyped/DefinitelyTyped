@@ -1,20 +1,28 @@
-import * as React from 'react';
-import Router from './Router';
-import * as H from 'history';
+import { ComponentClass, ClassAttributes } from "react";
+import { LocationState } from "history";
+import {
+    EnterHook,
+    ChangeHook,
+    LeaveHook,
+    RouteComponent,
+    RouteComponents,
+    RouterState
+} from "react-router";
 
-declare const self: self.IndexRoute;
-type self = self.IndexRoute;
-export default self;
+type ComponentCallback = (err: any, component: RouteComponent) => void;
+type ComponentsCallback = (err: any, components: RouteComponents) => void;
 
-declare namespace self {
-    interface IndexRouteProps extends React.Props<IndexRoute> {
-        component?: Router.RouteComponent;
-        components?: Router.RouteComponents;
-        getComponent?: (location: H.Location, cb: (error: any, component?: Router.RouteComponent) => void) => void;
-        getComponents?: (location: H.Location, cb: (error: any, components?: Router.RouteComponents) => void) => void;
-        onEnter?: Router.EnterHook;
-        onLeave?: Router.LeaveHook;
-    }
-    interface IndexRoute extends React.ComponentClass<IndexRouteProps> { }
-    interface IndexRouteElement extends React.ReactElement<IndexRouteProps> { }
+export interface IndexRouteProps {
+    component?: RouteComponent;
+    components?: RouteComponents;
+    getComponent?(nextState: RouterState, callback: ComponentCallback): void;
+    getComponents?(nextState: RouterState, callback: ComponentsCallback): void;
+    onEnter?: EnterHook;
+    onChange?: ChangeHook;
+    onLeave?: LeaveHook;
 }
+
+type IndexRoute = ComponentClass<IndexRouteProps>;
+declare const IndexRoute: IndexRoute;
+
+export default IndexRoute;

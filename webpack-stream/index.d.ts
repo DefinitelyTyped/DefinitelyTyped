@@ -1,48 +1,26 @@
-// Type definitions for webpack-stream v3.2.0
+// Type definitions for webpack-stream 3.2
 // Project: https://github.com/shama/webpack-stream
-// Definitions by: Ian Clanton-Thuon <https://github.com/iclanton>
+// Definitions by: Ian Clanton-Thuon <https://github.com/iclanton>, Benjamin Lim <https://github.com/bumbleblym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="webpack" />
 ///<reference types="node" />
 
-declare module "webpack-stream" {
-  import webpack = require("webpack");
+import * as webpack from 'webpack';
 
-  interface WebpackStreamStatic {
-    /**
-     * Run webpack with the default configuration.
-     */
-    (): NodeJS.ReadWriteStream;
+export = webpackStream;
 
-    /**
-     * Run webpack with the specified configuration.
-     *
-     * @param {config} Webpack configuration
-     */
-    (config: webpack.Configuration): NodeJS.ReadWriteStream;
+/**
+ * Run webpack with the specified configuration and webpack instance
+ *
+ * @param {webpack.Configuration} config - Webpack configuration
+ * @param {webpack} wp - A webpack object
+ * @param {webpack.Compiler.Handler} callback - A callback with the webpack stats and error objects.
+ */
+declare function webpackStream(
+	config?: webpack.Configuration,
+	wp?: typeof webpack,
+	callback?: webpack.Compiler.Handler,
+): NodeJS.ReadWriteStream;
 
-    /**
-     * Run webpack with the specified configuration and webpack instance
-     *
-     * @param {config} Webpack configuration
-     * @param {webpack} A webpack object
-     */
-    (config: webpack.Configuration, webpack: webpack.Webpack): NodeJS.ReadWriteStream;
-
-    /**
-     * Run webpack with the specified configuration and webpack instance
-     *
-     * @param {config} Webpack configuration
-     * @param {webpack} A webpack object
-     * @param {callback} A callback with the webpack stats and error objects.
-     */
-    (config: webpack.Configuration,
-     webpack: webpack.Webpack,
-     callback?: (err: Error, stats: webpack.compiler.Stats) => void): NodeJS.ReadWriteStream;
-  }
-
-  var webpackStream: WebpackStreamStatic;
-
-  export = webpackStream;
+declare namespace webpackStream {
 }
