@@ -2,6 +2,7 @@
 // Project: https://github.com/clauderic/react-sortable-hoc
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 declare module 'react-sortable-hoc' {
     import React = require('react');

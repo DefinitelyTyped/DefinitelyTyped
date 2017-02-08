@@ -1,5 +1,3 @@
-/// <reference types="d3" />
-
 namespace nvd3_test_tooltip {
     var width = 500,
         height = 20;

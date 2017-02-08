@@ -2,6 +2,7 @@
 // Project: https://github.com/gaearon/redux-devtools-log-monitor
 // Definitions by: Petryshyn Sergii <https://github.com/mc-petry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as React from 'react'
 import {ColorScheme} from 'base16'

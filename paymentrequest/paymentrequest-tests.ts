@@ -3,7 +3,7 @@
 /// Code examples derived from
 /// https://developers.google.com/web/fundamentals/discovery-and-monetization/payment-request/
 
-function makeRequest() {
+async function makeRequest() {
     if (!window.PaymentRequest) {
         return Promise.reject(new Error("PaymentRequest not available"))
     }
@@ -31,10 +31,12 @@ function makeRequest() {
         }
     }
 
-    const options = {
+    const options: PaymentOptions = {
         requestShipping: true,
         requestPayerEmail: true,
-        requestPayerPhone: true
+        requestPayerPhone: true,
+        requestPayerName: true,
+        shippingType: 'delivery'
     }
 
     const request = new window.PaymentRequest(methodData, details, options)
@@ -72,7 +74,12 @@ function makeRequest() {
 		})(details, request.shippingAddress));
 	})
 
-    return request.show()
+    let canMakePayment = await request.canMakePayment()
+    if (canMakePayment) {
+        return request.show()
+    } else {
+        throw 'can not make payment on this environment.'
+    }
 }
 
 async function processPayment(): Promise<PaymentResponse> {

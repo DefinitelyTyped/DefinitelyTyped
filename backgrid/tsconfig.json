@@ -2,6 +2,10 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": false,
         "noImplicitThis": true,
         "strictNullChecks": false,

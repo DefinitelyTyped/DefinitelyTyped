@@ -62,6 +62,7 @@ declare class XMLElementOrXMLNode {
     declaration(version: string, encoding: string, standalone: boolean): XMLElementOrXMLNode;
     doctype(pubID: string, sysID: string): XMLDocType;
     up(): XMLElementOrXMLNode;
+    importDocument(input: XMLElementOrXMLNode): XMLElementOrXMLNode;
     root(): XMLElementOrXMLNode;
     document(): any;
     end(options?: Object): string;

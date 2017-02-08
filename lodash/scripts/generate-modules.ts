@@ -1,15 +1,123 @@
-// Usage: ts-node generate-modules
+// Usage: ts-node generate-modules.ts
 
 /// <reference types="node" />
 
 import * as fs from "fs";
+import { get, STATUS_CODES } from "http";
+import * as path from "path";
 
-for (const module of allModuleNames()) {
-    if (!fs.existsSync(module)) {
-        fs.mkdirSync(module);
+main().catch(console.error);
+
+async function main() {
+    const all = new Set(allModuleNames());
+    const notOnNpm = new Set(modulesNotOnNpm());
+    for (const n of notOnNpm) {
+        if (!all.has(n)) {
+            throw new Error(n);
+        }
     }
-    fs.writeFileSync(`${module}/index.d.ts`, `import { ${module} } from "../index";\nexport = ${module};`);
+
+    for (const module of all) {
+        console.log(module);
+
+        // Generate local module
+        const localDir = path.join("..", module);
+        ensureDir(localDir);
+        fs.writeFileSync(path.join(localDir, "index.d.ts"), `import { ${module} } from "../index";\nexport = ${module};`);
+
+        // Generate non-local module
+        if (!notOnNpm.has(module)) {
+            const dir = path.join("..", "..", `lodash.${module.toLowerCase()}`);
+            ensureDir(dir);
+            fs.writeFileSync(path.join(dir, "index.d.ts"), await globalDefinitionText(module));
+            fs.writeFileSync(path.join(dir, "tsconfig.json"), tsconfig());
+            fs.writeFileSync(path.join(dir, "tslint.json"), tslint());
+        }
+    }
 }
+
+function ensureDir(dir: string) {
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+    }
+}
+
+async function globalDefinitionText(moduleName: string): Promise<string> {
+    const fullName = "lodash." + moduleName;
+    const url = `http://registry.npmjs.org/${fullName.toLowerCase()}`;
+    const npmInfo = JSON.parse(await loadString(url));
+    const fullVersion = npmInfo["dist-tags"].latest;
+    const majorMinor = fullVersion.split(".").slice(0, 2).join(".");
+
+    return `
+// Type definitions for ${fullName} ${majorMinor}
+// Project: http://lodash.com/
+// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
+
+import { ${moduleName} } from "lodash";
+export = ${moduleName};
+`.trim() + "\n";
+}
+
+function tsconfig() {
+    return JSON.stringify({
+        "files": [
+            "index.d.ts"
+        ],
+        "compilerOptions": {
+            "module": "commonjs",
+            "target": "es6",
+            "noImplicitAny": true,
+            "noImplicitThis": true,
+            "strictNullChecks": false,
+            "baseUrl": "../",
+            "typeRoots": [
+                "../"
+            ],
+            "types": [],
+            "noEmit": true,
+            "forceConsistentCasingInFileNames": true
+        }
+    }, undefined, 4);
+}
+
+function tslint() {
+    return JSON.stringify({
+        "extends": "../tslint.json"
+    }, undefined, 4);
+}
+
+
+function loadString(url: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+        get(url, (res) => {
+            if (res.statusCode !== 200) {
+                return reject(new Error(`HTTP Error ${res.statusCode}: ${STATUS_CODES[res.statusCode || 500]} for ${url}`))
+            }
+            let rawData = ""
+            res.on("data", chunk => rawData += chunk)
+            res.on("end", () => resolve(rawData))
+        }).on("error", e => reject(e))
+    })
+}
+
+function modulesNotOnNpm() {
+    return [
+        "chain",
+        "each",
+        "eachRight",
+        "extend",
+        "extendWith",
+        "noConflict",
+        "runInContext",
+        "tap",
+        "thru",
+    ];
+}
+
+// Note: "fb" is not a usual module, so it is made by hand.
 
 function allModuleNames() {
     return [
@@ -66,7 +174,6 @@ function allModuleNames() {
         "every",
         "extend",
         "extendWith",
-        "fb",
         "fill",
         "filter",
         "find",

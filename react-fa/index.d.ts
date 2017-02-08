@@ -2,6 +2,7 @@
 // Project: https://github.com/andreypopp/react-fa
 // Definitions by: Frank Laub <https://github.com/flaub>, Pat Sissons <http://github.com/patsissons>, Karol Janyst <http://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import { Component, ComponentClass, HTMLProps, StatelessComponent } from "react";
 
