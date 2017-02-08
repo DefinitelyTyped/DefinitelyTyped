@@ -1998,7 +1998,7 @@ declare namespace THREE {
         mimeType: MimeType;
         path: string;
         responseType: string;
-        withCredentials: string
+        withCredentials: string;
 
         load(url: string, onLoad?: (responseText: string) => void, onProgress?: (request: ProgressEvent) => void, onError?:(event: ErrorEvent) => void): any;
         setMimeType(mimeType: MimeType): FileLoader;
