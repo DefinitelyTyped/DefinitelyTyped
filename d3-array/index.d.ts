@@ -199,7 +199,7 @@ export function permute<T>(array: { [key: number]: T }, keys: number[]): T[];
 /**
  * Given the specified object, return an array corresponding to the list of property names in 'keys'.
  */
-export function permute<T, K extends keyof T>(object: T, keys: K[]): T[K][];
+export function permute<T>(object: { [key: string]: T }, keys: string[]): T[];
 
 /**
  * Generates a 0-based numeric sequence. The output range does not include 'stop'.
