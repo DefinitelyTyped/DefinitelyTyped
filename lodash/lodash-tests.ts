@@ -7446,10 +7446,10 @@ namespace TestIsUndefined {
 // _.isWeakMap
 namespace TestIsWeakMap {
     {
-        let value: number|WeakMap<string, number>;
+        let value: number|WeakMapES5<string, number>;
 
         if (_.isWeakMap<string, number>(value)) {
-            let result: WeakMap<string, number> = value;
+            let result: WeakMapES5<string, number> = value;
         }
         else {
             let result: number = value;
