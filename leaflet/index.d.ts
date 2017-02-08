@@ -1478,10 +1478,6 @@ declare namespace L {
 
         options?: DivIconOptions;
     }
-        riseOffset?: number;
-
-        options?: DivIconOptions;
-    }
 
     export class Marker extends Layer {
         constructor(latlng: LatLngExpression, options?: MarkerOptions);
