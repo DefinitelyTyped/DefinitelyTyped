@@ -1,4 +1,4 @@
-// Type definitions for rc-tree v1.4
+// Type definitions for rc-tree 1.4
 // Project: https://github.com/react-component/tree
 // Definitions by: John Reilly <https://github.com/johnnyreilly/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
