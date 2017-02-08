@@ -427,6 +427,23 @@ L.Control.include({});
 L.Control.mergeOptions({});
 L.Control.addInitHook(() => {});
 
+let icon = L.divIcon({
+    className: 'css-icon',
+    html: '<i id="marker_icon'" class="marker"></i>',
+    iconSize: [32, 32],
+    iconAnchor: [0, 24],
+    popupAnchor: [0, -36]
+}); 
+
+// Icon > DefaultIcon > DivDicon
+// Option object should be nullable
+L.marker([2,2], { icon: icon })
+	.bindPopup("Hello Leaflet"); //string should be possible 
+
+// it should be possible to define the default path without casting
+// (<any> L.Icon.Default)
+L.Icon.Default.imagePath = "/any/valid/uri/or/path"; 
+
 export class MyNewControl extends L.Control {
 	constructor() {
 		super({
