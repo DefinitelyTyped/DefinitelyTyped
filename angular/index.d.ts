@@ -1505,18 +1505,6 @@ declare namespace angular {
     }
 
     interface IHttpPromise<T> extends IPromise<IHttpPromiseCallbackArg<T>> {
-        /**
-         * The $http legacy promise methods success and error have been deprecated. Use the standard then method instead.
-         * If $httpProvider.useLegacyPromiseExtensions is set to false then these methods will throw $http/legacy error.
-         * @deprecated
-         */
-        success?(callback: IHttpPromiseCallback<T>): IHttpPromise<T>;
-        /**
-         * The $http legacy promise methods success and error have been deprecated. Use the standard then method instead.
-         * If $httpProvider.useLegacyPromiseExtensions is set to false then these methods will throw $http/legacy error.
-         * @deprecated
-         */
-        error?(callback: IHttpPromiseCallback<any>): IHttpPromise<T>;
     }
 
     // See the jsdoc for transformData() at https://github.com/angular/angular.js/blob/master/src/ng/http.js#L228
