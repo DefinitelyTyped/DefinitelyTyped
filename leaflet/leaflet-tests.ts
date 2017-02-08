@@ -434,3 +434,9 @@ export class MyNewControl extends L.Control {
 		});
 	}
 }
+
+L.marker([1, 2], {
+	icon: L.icon({
+		iconUrl: 'my-icon.png'
+	})
+}).bindPopup('<p>Hi</p>');
