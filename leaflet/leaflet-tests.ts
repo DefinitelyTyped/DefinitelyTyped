@@ -429,7 +429,7 @@ L.Control.addInitHook(() => {});
 
 let icon = L.divIcon({
     className: 'css-icon',
-    html: '<i id="marker_icon'" class="marker"></i>',
+    html: '<i id="marker_icon" class="marker"></i>',
     iconSize: [32, 32],
     iconAnchor: [0, 24],
     popupAnchor: [0, -36]
