@@ -1,6 +1,6 @@
 // Type definitions for react-select v1.0.0
 // Project: https://github.com/JedWatson/react-select
-// Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet/>, Gilad Gray <https://github.com/giladgray/>, Izaak Baker <https://github.com/iebaker/>, Tadas Dailyda <https://github.com/skirsdeda/>, Mark Vujevits <https://github.com/vujevits/>
+// Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet/>, Gilad Gray <https://github.com/giladgray/>, Izaak Baker <https://github.com/iebaker/>, Tadas Dailyda <https://github.com/skirsdeda/>, Mark Vujevits <https://github.com/vujevits/>, Mike Deverell <https://github.com/devrelm/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -247,6 +247,10 @@ declare namespace ReactSelectClass {
          */
         onInputChange?: (inputValue: string) => void;
         /**
+         * onInputKeyDown handler: function (keyboardEvent) {}
+         */
+        onInputKeyDown?: (event: KeyboardEvent) => void;
+        /**
          * fires when the menu is scrolled to the bottom; can be used to paginate options
          */
         onMenuScrollToBottom?: () => void;
@@ -268,6 +272,10 @@ declare namespace ReactSelectClass {
          * @default false
          */
         openOnFocus?: boolean;
+        /**
+         * className to add to each option component
+         */
+        optionClassName?: string;
         /**
          * option component to render in dropdown
          */

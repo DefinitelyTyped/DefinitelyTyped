@@ -5,6 +5,7 @@
 
 // <reference types="node"/>
 // <reference types="chai" />
+import tv4 = require('tv4');
 
 declare global {
 	namespace Chai {
@@ -15,6 +16,10 @@ declare global {
 
 		export interface LanguageChains {
 			jsonSchema(schema: any, msg?: string): void;
+		}
+
+		export interface ChaiStatic {
+			tv4: tv4.TV4;
 		}
 	}
 }

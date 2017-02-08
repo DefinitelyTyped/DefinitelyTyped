@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.js 1.0.2
+// Type definitions for Leaflet.js 1.0
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,6 +7,19 @@
 
 type NativeMouseEvent = MouseEvent;
 type NativeKeyboardEvent = KeyboardEvent;
+
+// Import to avoid conflicts with the GeoJSON class of leaflet
+import GeoJSONFeature = GeoJSON.Feature;
+import GeoJSONLineString = GeoJSON.LineString;
+import GeoJSONMultiLineString = GeoJSON.MultiLineString;
+import GeoJSONPolygon = GeoJSON.Polygon;
+import GeoJSONMultiPolygon = GeoJSON.MultiPolygon;
+import GeoJSONFeatureCollection = GeoJSON.FeatureCollection;
+import GeoJSONGeometryObject = GeoJSON.GeometryObject;
+import GeoJSONGeometryCollection = GeoJSON.GeometryCollection;
+import GeoJSONPoint = GeoJSON.Point;
+import GeoJSONMultiPoint = GeoJSON.MultiPoint;
+import GeoJSONGeoJsonObject = GeoJSON.GeoJsonObject;
 
 declare namespace L {
     export class Class {
@@ -25,43 +38,37 @@ declare namespace L {
     }
 
     export namespace LineUtil {
-        export function simplify(points: Array<Point>, tolerance: number): Array<Point>;
+        export function simplify(points: PointExpression[], tolerance: number): Point[];
 
-        export function simplify(points: Array<PointTuple>, tolerance: number): Array<Point>;
+        export function pointToSegmentDistance(p: PointExpression, p1: PointExpression, p2: PointExpression): number;
 
-        export function pointToSegmentDistance(p: Point, p1: Point, p2: Point): number;
-
-        export function pointToSegmentDistance(p: PointTuple, p1: PointTuple, p2: PointTuple): number;
-
-        export function closestPointOnSegment(p: Point, p1: Point, p2: Point): Point;
-
-        export function closestPointOnSegment(p: PointTuple, p1: PointTuple, p2: PointTuple): Point;
+        export function closestPointOnSegment(p: PointExpression, p1: PointExpression, p2: PointExpression): Point;
     }
 
     export namespace PolyUtil {
-        export function clipPolygon(points: Array<Point>, bounds: Bounds, round?: boolean): Array<Point>;
-
-        export function clipPolygon(points: Array<PointTuple>, bounds: BoundsLiteral, round?: boolean): Array<Point>;
+        export function clipPolygon(points: PointExpression[], bounds: BoundsExpression, round?: boolean): Point[];
     }
 
     export class DomUtil {
-        static get(id: string): HTMLElement;
-        static get(id: HTMLElement): HTMLElement;
+        /**
+         * Get Element by its ID or with the given HTML-Element
+         */
+        static get(element: string | HTMLElement): HTMLElement;
         static getStyle(el: HTMLElement, styleAttrib: string): string;
-        static create(tagName: String, className?: String, container?: HTMLElement): HTMLElement;
-        static remove(el: HTMLElement):void;
-        static empty(el: HTMLElement):void;
-        static toFront(el: HTMLElement):void;
-        static toBack(el: HTMLElement):void;
-        static hasClass(el: HTMLElement, name: String): Boolean;
-        static addClass(el: HTMLElement, name: String):void;
-        static removeClass(el: HTMLElement, name: String):void;
-        static setClass(el: HTMLElement, name: String):void;
-        static getClass(el: HTMLElement): String;
-        static setOpacity(el: HTMLElement, opacity: Number):void;
-        static testProp(props: String[]): String|boolean/*=false*/;
-        static setTransform(el: HTMLElement, offset: Point, scale?: Number):void;
-        static setPosition(el: HTMLElement, position: Point):void;
+        static create(tagName: string, className?: string, container?: HTMLElement): HTMLElement;
+        static remove(el: HTMLElement): void;
+        static empty(el: HTMLElement): void;
+        static toFront(el: HTMLElement): void;
+        static toBack(el: HTMLElement): void;
+        static hasClass(el: HTMLElement, name: string): boolean;
+        static addClass(el: HTMLElement, name: string): void;
+        static removeClass(el: HTMLElement, name: string): void;
+        static setClass(el: HTMLElement, name: string): void;
+        static getClass(el: HTMLElement): string;
+        static setOpacity(el: HTMLElement, opacity: number): void;
+        static testProp(props: string[]): string | boolean/*=false*/;
+        static setTransform(el: HTMLElement, offset: Point, scale?: number): void;
+        static setPosition(el: HTMLElement, position: Point): void;
         static getPosition(el: HTMLElement): Point;
         static disableTextSelection(): void;
         static enableTextSelection(): void;
@@ -71,7 +78,7 @@ declare namespace L {
         static restoreOutline(): void;
     }
 
-    export interface CRS {
+    export abstract class CRS {
         latLngToPoint(latlng: LatLngExpression, zoom: number): Point;
         pointToLatLng(point: PointExpression, zoom: number): LatLng;
         project(latlng: LatLngExpression): Point;
@@ -109,7 +116,9 @@ declare namespace L {
         export const SphericalMercator: Projection;
     }
 
-    export interface LatLng {
+    export class LatLng {
+        constructor(latitude: number, longitude: number, altitude?: number);
+        constructor(coords: LatLngTuple | [number, number, number] | LatLngLiteral | {lat: number, lng: number, alt?: number});
         equals(otherLatLng: LatLngExpression, maxMargin?: number): boolean;
         toString(): string;
         distanceTo(otherLatLng: LatLngExpression): number;
@@ -132,17 +141,12 @@ declare namespace L {
 
     export function latLng(latitude: number, longitude: number, altitude?: number): LatLng;
 
-    export function latLng(coords: LatLngTuple): LatLng;
+    export function latLng(coords: LatLngTuple | [number, number, number] | LatLngLiteral | {lat: number, lng: number, alt?: number}): LatLng;
 
-    export function latLng(coords: [number, number, number]): LatLng;
-
-    export function latLng(coords: LatLngLiteral): LatLng;
-
-    export function latLng(coords: {lat: number, lng: number, alt: number}): LatLng;
-
-    export interface LatLngBounds {
-        extend(latlng: LatLngExpression): this;
-        extend(otherBounds: LatLngBoundsExpression): this;
+    export class LatLngBounds {
+        constructor(southWest: LatLngExpression, northEast: LatLngExpression);
+        constructor(latlngs: LatLngBoundsLiteral);
+        extend(latlngOrBounds: LatLngExpression | LatLngBoundsExpression): this;
         pad(bufferRatio: number): LatLngBounds; // does this modify the current instance or does it return a new one?
         getCenter(): LatLng;
         getSouthWest(): LatLng;
@@ -153,8 +157,7 @@ declare namespace L {
         getSouth(): number;
         getEast(): number;
         getNorth(): number;
-        contains(otherBounds: LatLngBoundsExpression): boolean;
-        contains(latlng: LatLngExpression): boolean;
+        contains(otherBoundsOrLatLng: LatLngBoundsExpression | LatLngExpression): boolean;
         intersects(otherBounds: LatLngBoundsExpression): boolean;
         overlaps(otherBounds: BoundsExpression): boolean; // investigate if this is really bounds and not latlngbounds
         toBBoxString(): string;
@@ -162,7 +165,7 @@ declare namespace L {
         isValid(): boolean;
     }
 
-    export type LatLngBoundsLiteral = Array<LatLngTuple>;
+    export type LatLngBoundsLiteral = LatLngTuple[]; // Must be [LatLngTuple, LatLngTuple], cant't change because Map.setMaxBounds
 
     type LatLngBoundsExpression = LatLngBounds | LatLngBoundsLiteral;
 
@@ -172,7 +175,9 @@ declare namespace L {
 
     export type PointTuple = [number, number];
 
-    export interface Point {
+    export class Point {
+        constructor(x: number, y: number, round?: boolean);
+        constructor(coords: PointTuple | {x: number, y: number});
         clone(): Point;
         add(otherPoint: PointExpression): Point; // investigate if this mutates or returns a new instance
         subtract(otherPoint: PointExpression): Point;
@@ -195,20 +200,19 @@ declare namespace L {
 
     export function point(x: number, y: number, round?: boolean): Point;
 
-    export function point(coords: PointTuple): Point;
+    export function point(coords: PointTuple | {x: number, y: number}): Point;
 
-    export function point(coords: {x: number, y: number}): Point;
+    export type BoundsLiteral = [PointTuple, PointTuple];
 
-    export type BoundsLiteral = Array<PointTuple>;
-
-    export interface Bounds {
+    export class Bounds {
+        constructor(topLeft: PointExpression, bottomRight: PointExpression);
+        constructor(points: Point[] | BoundsLiteral);
         extend(point: PointExpression): this;
         getCenter(round?: boolean): Point;
         getBottomLeft(): Point;
         getTopRight(): Point;
         getSize(): Point;
-        contains(otherBounds: BoundsExpression): boolean;
-        contains(point: PointExpression): boolean;
+        contains(pointOrBounds: BoundsExpression | PointExpression): boolean;
         intersects(otherBounds: BoundsExpression): boolean;
         overlaps(otherBounds: BoundsExpression): boolean;
 
@@ -220,13 +224,13 @@ declare namespace L {
 
     export function bounds(topLeft: PointExpression, bottomRight: PointExpression): Bounds;
 
-    export function bounds(points: Array<Point>): Bounds;
-
-    export function bounds(points: BoundsLiteral): Bounds;
+    export function bounds(points: Point[] | BoundsLiteral): Bounds;
 
     export type EventHandlerFn = (event: Event) => void;
 
-    export type EventHandlerFnMap = {[type: string]: EventHandlerFn};
+    export interface EventHandlerFnMap {
+        [type: string]: EventHandlerFn;
+    }
 
     /**
      * A set of methods shared between event-powered classes (like Map and Marker).
@@ -248,6 +252,7 @@ declare namespace L {
          */
         on(eventMap: EventHandlerFnMap): this;
 
+        /* tslint:disable:unified-signatures */ // With an eventMap there are no additional arguments allowed
         /**
          * Removes a previously added listener function. If no function is specified,
          * it will remove all the listeners of that particular event from the object.
@@ -260,7 +265,7 @@ declare namespace L {
          * Removes a set of type/listener pairs.
          */
         off(eventMap: EventHandlerFnMap): this;
-
+        /* tslint:enable */
         /**
          * Removes all listeners to all events on the object.
          */
@@ -401,35 +406,23 @@ declare namespace L {
         getPane(name?: string): HTMLElement;
 
         // Popup methods
-        bindPopup(content: string, options?: PopupOptions): this;
-        bindPopup(content: HTMLElement, options?: PopupOptions): this;
-        bindPopup(content: (layer: Layer) => Content, options?: PopupOptions): this;
-        bindPopup(content: Popup): this;
+        bindPopup(content: (layer: Layer) => Content | Content | Popup, options?: PopupOptions): this;
         unbindPopup(): this;
-        openPopup(): this;
-        openPopup(latlng: LatLngExpression): this;
+        openPopup(latlng?: LatLngExpression): this;
         closePopup(): this;
         togglePopup(): this;
         isPopupOpen(): boolean;
-        setPopupContent(content: string): this;
-        setPopupContent(content: HTMLElement): this;
-        setPopupContent(content: Popup): this;
+        setPopupContent(content: Content | Popup): this;
         getPopup(): Popup;
 
         // Tooltip methods
-        bindTooltip(content: string, options?: TooltipOptions): this;
-        bindTooltip(content: HTMLElement, options?: TooltipOptions): this;
-        bindTooltip(content: (layer: Layer) => Content, options?: TooltipOptions): this;
-        bindTooltip(content: Tooltip, options?: TooltipOptions): this;
+        bindTooltip(content: (layer: Layer) => Content | Tooltip | Content, options?: TooltipOptions): this;
         unbindTooltip(): this;
-        openTooltip(): this;
-        openTooltip(latlng: LatLngExpression): this;
+        openTooltip(latlng?: LatLngExpression): this;
         closeTooltip(): this;
         toggleTooltip(): this;
         isTooltipOpen(): boolean;
-        setTooltipContent(content: string): this;
-        setTooltipContent(content: HTMLElement): this;
-        setTooltipContent(content: Tooltip): this;
+        setTooltipContent(content: Content | Tooltip): this;
         getTooltip(): Tooltip;
 
         // Extension methods
@@ -457,7 +450,8 @@ declare namespace L {
         keepBuffer?: number;
     }
 
-    export interface GridLayer extends Layer {
+    export class GridLayer extends Layer {
+        constructor(options?: GridLayerOptions);
         bringToFront(): this;
         bringToBack(): this;
         getAttribution(): string;
@@ -475,7 +469,8 @@ declare namespace L {
         minZoom?: number;
         maxZoom?: number;
         maxNativeZoom?: number;
-        subdomains?: string | Array<string>;
+        minNativeZoom?: number;
+        subdomains?: string | string[];
         errorTileUrl?: string;
         zoomOffset?: number;
         tms?: boolean;
@@ -485,11 +480,24 @@ declare namespace L {
         [name: string]: any;
     }
 
-    export interface TileLayer extends GridLayer {
+    export class TileLayer extends GridLayer {
+        constructor(urlTemplate: string, options?: TileLayerOptions);
         setUrl(url: string, noRedraw?: boolean): this;
+
+        options: TileLayerOptions;
     }
 
     export function tileLayer(urlTemplate: string, options?: TileLayerOptions): TileLayer;
+
+    export namespace TileLayer {
+        export class WMS extends TileLayer {
+            constructor(baseUrl: string, options: WMSOptions);
+            setParams(params: WMSParams, noRedraw?: boolean): this;
+
+            wmsParams: WMSParams;
+            options: WMSOptions;
+        }
+    }
 
     export interface WMSOptions extends TileLayerOptions {
         layers: string;
@@ -501,12 +509,20 @@ declare namespace L {
         uppercase?: boolean;
     }
 
-    export interface WMS extends TileLayer {
-        setParams(params: any, noRedraw?: boolean): this;
+    export interface WMSParams {
+        format?: string;
+        layers: string;
+        request?: string;
+        service?: string;
+        styles?: string;
+        version?: string;
+        transparent?: boolean;
+        width?: number;
+        height?: number;
     }
 
     export namespace tileLayer {
-        export function wms(baseUrl: string, options?: WMSOptions): WMS;
+        export function wms(baseUrl: string, options?: WMSOptions): TileLayer.WMS;
     }
 
     export interface ImageOverlayOptions extends LayerOptions {
@@ -517,7 +533,8 @@ declare namespace L {
         crossOrigin?: boolean;
     }
 
-    export interface ImageOverlay extends Layer {
+    export class ImageOverlay extends Layer {
+        constructor(imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions);
         setOpacity(opacity: number): this;
         bringToFront(): this;
         bringToBack(): this;
@@ -531,6 +548,8 @@ declare namespace L {
 
         /** Get the img element that represents the ImageOverlay on the map */
         getElement(): HTMLImageElement;
+
+        options: ImageOverlayOptions;
     }
 
     export function imageOverlay(imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions): ImageOverlay;
@@ -558,11 +577,14 @@ declare namespace L {
         className?: string;
     }
 
-    export interface Path extends Layer {
+    export abstract class Path extends Layer {
         redraw(): this;
         setStyle(style: PathOptions): this;
         bringToFront(): this;
         bringToBack(): this;
+        getElement(): HTMLElement;
+
+        options: PathOptions;
     }
 
     export interface PolylineOptions extends PathOptions {
@@ -570,32 +592,37 @@ declare namespace L {
         noClip?: boolean;
     }
 
-    interface InternalPolyline extends Path {
-        getLatLngs(): Array<LatLng>;
-        setLatLngs(latlngs: Array<LatLngExpression>): this;
+    class InternalPolyline extends Path {
+        getLatLngs(): LatLng[];
+        setLatLngs(latlngs: LatLngExpression[]): this;
         isEmpty(): boolean;
         getCenter(): LatLng;
         getBounds(): LatLngBounds;
-        addLatLng(latlng: LatLngExpression): this;
-        addLatLng(latlng: Array<LatLngExpression>): this; // these three overloads aren't explicitly noted in the docs
+        addLatLng(latlng: LatLngExpression | LatLngExpression[]): this;
+
+        options: PolylineOptions;
     }
 
-    export interface Polyline extends InternalPolyline {
-        toGeoJSON(): GeoJSON.LineString | GeoJSON.MultiLineString;
+    export class Polyline extends InternalPolyline {
+        constructor(latlngs: LatLngExpression[], options?: PolylineOptions);
+        toGeoJSON(): GeoJSONFeature<GeoJSONLineString | GeoJSONMultiLineString>;
+
+        feature: GeoJSONFeature<GeoJSONLineString | GeoJSONMultiLineString>;
     }
 
-    export function polyline(latlngs: Array<LatLngExpression>, options?: PolylineOptions): Polyline;
-    export function polyline(latlngs: Array<Array<LatLngExpression>>, options?: PolylineOptions): Polyline;
+    export function polyline(latlngs: LatLngExpression[], options?: PolylineOptions): Polyline;
 
-    export interface Polygon extends InternalPolyline {
-        toGeoJSON(): GeoJSON.Polygon | GeoJSON.MultiPolygon;
+    export class Polygon extends InternalPolyline {
+        constructor(latlngs: LatLngExpression[], options?: PolylineOptions);
+        toGeoJSON(): GeoJSONFeature<GeoJSONPolygon | GeoJSONMultiPolygon>;
+
+        feature: GeoJSONFeature<GeoJSONPolygon | GeoJSONMultiPolygon>;
     }
 
-    export function polygon(latlngs: Array<LatLngExpression>, options?: PolylineOptions): Polygon;
+    export function polygon(latlngs: LatLngExpression[], options?: PolylineOptions): Polygon;
 
-    export function polygon(latlngs: Array<Array<LatLngExpression>>, options?: PolylineOptions): Polygon;
-
-    export interface Rectangle extends Polygon {
+    export class Rectangle extends Polygon {
+        constructor(latLngBounds: LatLngBoundsExpression, options?: PolylineOptions);
         setBounds(latLngBounds: LatLngBoundsExpression): this;
     }
 
@@ -605,48 +632,50 @@ declare namespace L {
         radius?: number;
     }
 
-    export interface CircleMarker extends Path {
-        toGeoJSON(): GeoJSON.Point;
+    export class CircleMarker extends Path {
+        constructor(latlng: LatLngExpression, options?: CircleMarkerOptions);
+        toGeoJSON(): GeoJSONFeature<GeoJSONPoint>;
         setLatLng(latLng: LatLngExpression): this;
         getLatLng(): LatLng;
         setRadius(radius: number): this;
         getRadius(): number;
+
+        options: CircleMarkerOptions;
+        feature: GeoJSONFeature<GeoJSONPoint>;
     }
 
     export function circleMarker(latlng: LatLngExpression, options?: CircleMarkerOptions): CircleMarker;
 
-    export interface CircleOptions extends PathOptions {
-        radius?: number;
-    }
-
-    export interface Circle extends CircleMarker {
-        setRadius(radius: number): this;
-        getRadius(): number;
+    export class Circle extends CircleMarker {
+        constructor(latlng: LatLngExpression, options?: CircleMarkerOptions);
+        constructor(latlng: LatLngExpression, radius: number, options?: CircleMarkerOptions); // deprecated!
         getBounds(): LatLngBounds;
     }
 
-    export function circle(latlng: LatLngExpression, options?: CircleOptions): Circle;
-    export function circle(latlng: LatLngExpression, radius: number, options?: CircleOptions): Circle;
+    export function circle(latlng: LatLngExpression, options?: CircleMarkerOptions): Circle;
+    export function circle(latlng: LatLngExpression, radius: number, options?: CircleMarkerOptions): Circle; // deprecated!
 
     export interface RendererOptions extends LayerOptions {
         padding?: number;
     }
 
-    export interface Renderer extends Layer {}
+    export class Renderer extends Layer {
+        constructor(options?: RendererOptions);
 
-    export interface SVG extends Renderer {}
+        options: RendererOptions;
+    }
+
+    export class SVG extends Renderer {}
 
     export namespace SVG {
         export function create(name: string): SVGElement;
 
-        export function pointsToPath(rings: Array<Point>, close: boolean): string;
-
-        export function pointsToPath(rings: Array<PointTuple>, close: boolean): string;
+        export function pointsToPath(rings: PointExpression[], close: boolean): string;
     }
 
     export function svg(options?: RendererOptions): SVG;
 
-    export interface Canvas extends Renderer {}
+    export class Canvas extends Renderer {}
 
     export function canvas(options?: RendererOptions): Canvas;
 
@@ -655,11 +684,12 @@ declare namespace L {
      * If you add it to the map, any layers added or removed from the group will be
      * added/removed on the map as well. Extends Layer.
      */
-    export interface LayerGroup extends Layer {
+    export class LayerGroup extends Layer {
+        constructor(layers: Layer[]);
         /**
-         * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection).
+         * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection, GeoJSONFeatureCollection or Multipoint).
          */
-        toGeoJSON(): GeoJSON.GeometryCollection;
+        toGeoJSON(): GeoJSONFeatureCollection<GeoJSONGeometryObject> | GeoJSONFeature<GeoJSONGeometryCollection | GeoJSONMultiPoint>;
 
         /**
          * Adds the given layer to the group.
@@ -667,14 +697,9 @@ declare namespace L {
         addLayer(layer: Layer): this;
 
         /**
-         * Removes the given layer from the group.
+         * Removes the layer with the given internal ID or the given layer from the group.
          */
-        removeLayer(layer: Layer): this;
-
-        /**
-         * Removes the layer with the given internal ID from the group.
-         */
-        removeLayer(id: number): this;
+        removeLayer(layer: number | Layer): this;
 
         /**
          * Returns true if the given layer is currently added to the group.
@@ -690,7 +715,7 @@ declare namespace L {
          * Calls methodName on every layer contained in this group, passing any additional parameters.
          * Has no effect if the layers contained do not implement methodName.
          */
-        invoke(methodName: string, ...params: Array<any>): this;
+        invoke(methodName: string, ...params: any[]): this;
 
         /**
          * Iterates over the layers of the group,
@@ -706,7 +731,7 @@ declare namespace L {
         /**
          * Returns an array of all the layers added to the group.
          */
-        getLayers(): Array<Layer>;
+        getLayers(): Layer[];
 
         /**
          * Calls setZIndex on every layer contained in this group, passing the z-index.
@@ -717,18 +742,20 @@ declare namespace L {
          * Returns the internal ID for a layer
          */
         getLayerId(layer: Layer): number;
+
+        feature: GeoJSONFeatureCollection<GeoJSONGeometryObject> | GeoJSONFeature<GeoJSONGeometryCollection | GeoJSONMultiPoint>;
     }
 
     /**
      * Create a layer group, optionally given an initial set of layers.
      */
-    export function layerGroup(layers: Array<Layer>): LayerGroup;
+    export function layerGroup(layers: Layer[]): LayerGroup;
 
     /**
      * Extended LayerGroup that also has mouse events (propagated from
      * members of the group) and a shared bindPopup method.
      */
-    export interface FeatureGroup extends LayerGroup {
+    export class FeatureGroup extends LayerGroup {
         /**
          * Sets the given path options to each layer of the group that has a setStyle method.
          */
@@ -754,9 +781,9 @@ declare namespace L {
     /**
      * Create a feature group, optionally given an initial set of layers.
      */
-    export function featureGroup(layers?: Array<Layer>): FeatureGroup;
+    export function featureGroup(layers?: Layer[]): FeatureGroup;
 
-    type StyleFunction = (feature: GeoJSON.Feature<GeoJSON.GeometryObject>) => PathOptions;
+    type StyleFunction = (feature: GeoJSONFeature<GeoJSONGeometryObject>) => PathOptions;
 
     export interface GeoJSONOptions extends LayerOptions {
         /**
@@ -772,7 +799,7 @@ declare namespace L {
          * }
          * ```
          */
-        pointToLayer?: (geoJsonPoint: GeoJSON.Feature<GeoJSON.Point>, latlng: LatLng) => Layer; // should import GeoJSON typings
+        pointToLayer?: (geoJsonPoint: GeoJSONFeature<GeoJSONPoint>, latlng: LatLng) => Layer; // should import GeoJSON typings
 
         /**
          * A Function defining the Path options for styling GeoJSON lines and polygons,
@@ -798,7 +825,7 @@ declare namespace L {
          * function (feature, layer) {}
          * ```
          */
-        onEachFeature?: (feature: GeoJSON.Feature<GeoJSON.GeometryObject>, layer: Layer) => void;
+        onEachFeature?: (feature: GeoJSONFeature<GeoJSONGeometryObject>, layer: Layer) => void;
 
         /**
          * A Function that will be used to decide whether to show a feature or not.
@@ -811,7 +838,7 @@ declare namespace L {
          * }
          * ```
          */
-        filter?: (geoJsonFeature: GeoJSON.Feature<GeoJSON.GeometryObject>) => boolean;
+        filter?: (geoJsonFeature: GeoJSONFeature<GeoJSONGeometryObject>) => boolean;
 
         /**
          * A Function that will be used for converting GeoJSON coordinates to LatLngs.
@@ -820,12 +847,16 @@ declare namespace L {
         coordsToLatLng?: (coords: [number, number] | [number, number, number]) => LatLng; // check if LatLng has an altitude property
     }
 
-    export class GeoJSON {
+    /**
+     * Represents a GeoJSON object or an array of GeoJSON objects.
+     * Allows you to parse GeoJSON data and display it on the map. Extends FeatureGroup.
+     */
+    export class GeoJSON extends FeatureGroup {
         /**
          * Creates a Layer from a given GeoJSON feature. Can use a custom pointToLayer
          * and/or coordsToLatLng functions if provided as options.
          */
-        static geometryToLayer(featureData: GeoJSON.Feature<GeoJSON.GeometryObject>, options?: GeoJSONOptions): Layer;
+        static geometryToLayer(featureData: GeoJSONFeature<GeoJSONGeometryObject>, options?: GeoJSONOptions): Layer;
 
         /**
          * Creates a LatLng object from an array of 2 numbers (longitude, latitude) or
@@ -849,7 +880,6 @@ declare namespace L {
          */
         static latLngToCoords(latlng: LatLng): [number, number, number]; // A three tuple can be assigned to a two or three tuple
 
-
         /**
          * Reverse of coordsToLatLngs closed determines whether the first point should be
          * appended to the end of the array to close the feature, only used when levelsDeep is 0.
@@ -860,21 +890,13 @@ declare namespace L {
         /**
          * Normalize GeoJSON geometries/features into GeoJSON features.
          */
-        static asFeature(geojson: GeoJSON.GeometryObject): GeoJSON.Feature<GeoJSON.GeometryObject>;
+        static asFeature(geojson: GeoJSONFeature<GeoJSONGeometryObject> | GeoJSONGeometryObject): GeoJSONFeature<GeoJSONGeometryObject>;
 
-        static asFeature(geojson: GeoJSON.Feature<GeoJSON.GeometryObject>): GeoJSON.Feature<GeoJSON.GeometryObject>;
-
-    }
-
-    /**
-     * Represents a GeoJSON object or an array of GeoJSON objects.
-     * Allows you to parse GeoJSON data and display it on the map. Extends FeatureGroup.
-     */
-    export interface GeoJSON extends FeatureGroup {
+        constructor(geojson?: GeoJSONGeoJsonObject, options?: GeoJSONOptions)
         /**
          * Adds a GeoJSON object to the layer.
          */
-        addData(data: GeoJSON.GeoJsonObject): Layer;
+        addData(data: GeoJSONGeoJsonObject): Layer;
 
         /**
          * Resets the given vector layer's style to the original GeoJSON style,
@@ -887,6 +909,8 @@ declare namespace L {
          */
         setStyle(style: StyleFunction): this;
 
+        options: GeoJSONOptions;
+
     }
 
     /**
@@ -896,7 +920,7 @@ declare namespace L {
      * map (you can alternatively add it later with addData method) and
      * an options object.
      */
-    export function geoJSON(geojson?: GeoJSON.GeoJsonObject, options?: GeoJSONOptions): GeoJSON;
+    export function geoJSON(geojson?: GeoJSONGeoJsonObject, options?: GeoJSONOptions): GeoJSON;
 
     type Zoom = boolean | 'center';
 
@@ -922,7 +946,7 @@ declare namespace L {
         zoom?: number;
         minZoom?: number;
         maxZoom?: number;
-        layers?: Array<Layer>;
+        layers?: Layer[];
         maxBounds?: LatLngBoundsExpression;
         renderer?: Renderer;
 
@@ -964,7 +988,7 @@ declare namespace L {
     }
 
     export class Control extends Class {
-        constructor (options?: ControlOptions);
+        constructor(options?: ControlOptions);
         getPosition(): ControlPosition;
         setPosition(position: ControlPosition): this;
         getContainer(): HTMLElement;
@@ -974,6 +998,8 @@ declare namespace L {
         // Extension methods
         onAdd(map: Map): HTMLElement;
         onRemove(map: Map): void;
+
+        options: ControlOptions;
     }
 
     export namespace Control {
@@ -984,16 +1010,21 @@ declare namespace L {
             zoomOutTitle?: string;
         }
 
-        export interface Zoom extends Control {}
+        export class Zoom extends Control {
+            constructor(options?: ZoomOptions);
+            options: ZoomOptions;
+        }
 
         export interface AttributionOptions extends ControlOptions {
             prefix?: string | boolean;
         }
 
-        export interface Attribution extends Control {
+        export class Attribution extends Control {
+            constructor(options?: AttributionOptions);
             setPrefix(prefix: string): this;
             addAttribution(text: string): this;
             removeAttribution(text: string): this;
+            options: AttributionOptions;
         }
 
         export interface LayersOptions extends ControlOptions {
@@ -1002,12 +1033,18 @@ declare namespace L {
             hideSingleBase?: boolean;
         }
 
-        export interface Layers extends Control {
+        interface LayersObject {
+            [name: string]: Layer;
+        }
+
+        export class Layers extends Control {
+            constructor(baseLayers?: LayersObject, overlays?: LayersObject, options?: Control.LayersOptions);
             addBaseLayer(layer: Layer, name: string): this;
             addOverlay(layer: Layer, name: string): this;
             removeLayer(layer: Layer): this;
             expand(): this;
             collapse(): this;
+            options: LayersOptions;
         }
 
         export interface ScaleOptions extends ControlOptions {
@@ -1017,17 +1054,18 @@ declare namespace L {
             updateWhenIdle?: boolean;
         }
 
-        export interface Scale extends Control {}
+        export class Scale extends Control {
+            constructor(options?: Control.ScaleOptions);
+            options: ScaleOptions;
+        }
     }
 
     export namespace control {
-        export function zoom(options: Control.ZoomOptions): Control.Zoom;
+        export function zoom(options?: Control.ZoomOptions): Control.Zoom;
 
-        export function attribution(options: Control.AttributionOptions): Control.Attribution;
+        export function attribution(options?: Control.AttributionOptions): Control.Attribution;
 
-        type LayersObject = {[name: string]: Layer};
-
-        export function layers(baseLayers?: LayersObject, overlays?: LayersObject, options?: Control.LayersOptions): Control.Layers;
+        export function layers(baseLayers?: Control.LayersObject, overlays?: Control.LayersObject, options?: Control.LayersOptions): Control.Layers;
 
         export function scale(options?: Control.ScaleOptions): Control.Scale;
     }
@@ -1055,19 +1093,20 @@ declare namespace L {
 
     type Content = string | HTMLElement;
 
-    export interface Popup extends Layer {
+    export class Popup extends Layer {
+        constructor(options?: PopupOptions, source?: Layer);
         getLatLng(): LatLng;
         setLatLng(latlng: LatLngExpression): this;
         getContent(): Content;
-        setContent(htmlContent: string): this;
-        setContent(htmlContent: HTMLElement): this;
-        setContent(htmlContent: (source: Layer) => Content): this;
-        getElement(): Content;
+        setContent(htmlContent: (source: Layer) => Content | Content): this;
+        getElement(): HTMLElement;
         update(): void;
         isOpen(): boolean;
         bringToFront(): this;
         bringToBack(): this;
         openOn(map: Map): this;
+
+        options: PopupOptions;
     }
 
     export function popup(options?: PopupOptions, source?: Layer): Popup;
@@ -1084,7 +1123,21 @@ declare namespace L {
         opacity?: number;
     }
 
-    export interface Tooltip extends Layer {}
+    export class Tooltip extends Layer {
+        constructor(options?: TooltipOptions, source?: Layer);
+        setOpacity(val: number): void;
+        getLatLng(): LatLng;
+        setLatLng(latlng: LatLngExpression): this;
+        getContent(): Content;
+        setContent(htmlContent: (source: Layer) => Content | Content): this;
+        getElement(): HTMLElement;
+        update(): void;
+        isOpen(): boolean;
+        bringToFront(): this;
+        bringToBack(): this;
+
+        options: TooltipOptions;
+    }
 
     export function tooltip(options?: TooltipOptions, source?: Layer): Tooltip;
 
@@ -1099,7 +1152,9 @@ declare namespace L {
         noMoveStart?: boolean;
     }
 
+    /* tslint:disable:no-empty-interface */ // This is not empty, it extends two interfaces into one...
     export interface ZoomPanOptions extends ZoomOptions, PanOptions {}
+    /* tslint:enable */
 
     export interface FitBoundsOptions extends ZoomOptions, PanOptions {
         paddingTopLeft?: PointExpression;
@@ -1117,7 +1172,8 @@ declare namespace L {
         enableHighAccuracy?: boolean;
     }
 
-    export interface Handler {
+    export class Handler extends Class {
+        constructor(map: Map);
         enable(): this;
         disable(): this;
         enabled(): boolean;
@@ -1207,13 +1263,13 @@ declare namespace L {
     }
 
     export namespace DomEvent {
-        export function on(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: any): typeof DomEvent;
+        export function on(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
-        export function on(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: any): typeof DomEvent;
+        export function on(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
 
-        export function off(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: any): typeof DomEvent;
+        export function off(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
-        export function off(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: any): typeof DomEvent;
+        export function off(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
 
         export function stopPropagation(ev: Event): typeof DomEvent;
 
@@ -1229,13 +1285,13 @@ declare namespace L {
 
         export function getWheelDelta(ev: Event): number;
 
-        export function addListener(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: any): typeof DomEvent;
+        export function addListener(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
-        export function addListener(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: any): typeof DomEvent;
+        export function addListener(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
 
-        export function removeListener(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: any): typeof DomEvent;
+        export function removeListener(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
-        export function removeListener(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: any): typeof DomEvent;
+        export function removeListener(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
     }
 
     interface DefaultMapPanes {
@@ -1248,7 +1304,8 @@ declare namespace L {
         popupPane: HTMLElement;
     }
 
-    export interface Map extends Evented {
+    export class Map extends Evented {
+        constructor(element: string | HTMLElement, options?: MapOptions);
         getRenderer(layer: Path): Renderer;
 
         // Methods for layers and controls
@@ -1259,12 +1316,10 @@ declare namespace L {
         hasLayer(layer: Layer): boolean;
         eachLayer(fn: (layer: Layer) => void, context?: any): this;
         openPopup(popup: Popup): this;
-        openPopup(content: string, latlng: LatLngExpression, options?: PopupOptions): this;
-        openPopup(content: HTMLElement, latlng: LatLngExpression, options?: PopupOptions): this;
+        openPopup(content: Content, latlng: LatLngExpression, options?: PopupOptions): this;
         closePopup(popup?: Popup): this;
         openTooltip(tooltip: Tooltip): this;
-        openTooltip(content: string, latlng: LatLngExpression, options?: TooltipOptions): this;
-        openTooltip(content: HTMLElement, latlng: LatLngExpression, options?: TooltipOptions): this;
+        openTooltip(content: Content, latlng: LatLngExpression, options?: TooltipOptions): this;
         closeTooltip(tooltip?: Tooltip): this;
 
         // Methods for modifying map state
@@ -1272,8 +1327,7 @@ declare namespace L {
         setZoom(zoom: number, options?: ZoomPanOptions): this;
         zoomIn(delta?: number, options?: ZoomOptions): this;
         zoomOut(delta?: number, options?: ZoomOptions): this;
-        setZoomAround(latlng: LatLngExpression, zoom: number, options?: ZoomOptions): this;
-        setZoomAround(offset: Point, zoom: number, options?: ZoomOptions): this;
+        setZoomAround(position: Point | LatLngExpression, zoom: number, options?: ZoomOptions): this;
         fitBounds(bounds: LatLngBoundsExpression, options?: FitBoundsOptions): this;
         fitWorld(options?: FitBoundsOptions): this;
         panTo(latlng: LatLngExpression, options?: PanOptions): this;
@@ -1282,8 +1336,10 @@ declare namespace L {
         setMinZoom(zoom: number): this;
         setMaxZoom(zoom: number): this;
         panInsideBounds(bounds: LatLngBoundsExpression, options?: PanOptions): this;
-        invalidateSize(options: ZoomPanOptions): this;
-        invalidateSize(animate: boolean): this;
+        /**
+         * Boolean for animate or advanced ZoomPanOptions
+         */
+        invalidateSize(options?: boolean | ZoomPanOptions): this;
         stop(): this;
         flyTo(latlng: LatLngExpression, zoom?: number, options?: ZoomPanOptions): this;
         flyToBounds(bounds: LatLngBoundsExpression, options?: FitBoundsOptions): this;
@@ -1292,8 +1348,10 @@ declare namespace L {
         addHandler(name: string, HandlerClass: () => Handler): this; // HandlerClass is actually a constructor function, is this the right way?
         remove(): this;
         createPane(name: string, container?: HTMLElement): HTMLElement;
-        getPane(pane: string): HTMLElement;
-        getPane(pane: HTMLElement): HTMLElement;
+        /**
+         * Name of the pane or the pane as HTML-Element
+         */
+        getPane(pane: string | HTMLElement): HTMLElement;
         getPanes(): {[name: string]: HTMLElement} & DefaultMapPanes;
         getContainer(): HTMLElement;
         whenReady(fn: () => void, context?: any): this;
@@ -1321,7 +1379,6 @@ declare namespace L {
         distance(latlng1: LatLngExpression, latlng2: LatLngExpression): number;
         containerPointToLayerPoint(point: PointExpression): Point;
         layerPointToContainerPoint(point: PointExpression): Point;
-        layerPointToContainerPoint(point: PointTuple): Point;
         latLngToContainerPoint(latlng: LatLngExpression): Point;
         mouseEventToContainerPoint(ev: MouseEvent): Point;
         mouseEventToLayerPoint(ev: MouseEvent): Point;
@@ -1339,11 +1396,14 @@ declare namespace L {
         scrollWheelZoom: Handler;
         tap: Handler;
         touchZoom: Handler;
+
+        options: MapOptions;
     }
 
-    export function map(id: string, options?: MapOptions): Map;
-
-    export function map(el: HTMLElement, options?: MapOptions): Map;
+    /**
+     * ID of a HTML-Element as string or the HTML-ELement itself
+     */
+    export function map(element: string | HTMLElement, options?: MapOptions): Map;
 
     export interface IconOptions extends LayerOptions {
         iconUrl: string;
@@ -1358,22 +1418,18 @@ declare namespace L {
         className?: string;
     }
 
-    export interface Icon extends Layer {
-        createIcon(oldIcon?: HTMLElement): HTMLElement;
-        createShadow(oldIcon?: HTMLElement): HTMLElement;
-    }
-
-    export interface IconDefault extends Icon {
-        imagePath: string;
-    }
-
-    export class Icon {
+    class InternalIcon extends Layer {
         constructor(options: IconOptions);
+        createIcon(oldIcon?: HTMLElement): HTMLElement;
+    }
+
+    export class Icon extends InternalIcon {
+        createShadow(oldIcon?: HTMLElement): HTMLElement;
+        options: IconOptions;
     }
 
     export namespace Icon {
-        export class Default extends Icon {
-            constructor(options?: IconOptions);
+        export class Default extends InternalIcon {
             imagePath: string;
         }
     }
@@ -1389,8 +1445,9 @@ declare namespace L {
         className?: string;
     }
 
-    export class DivIcon extends Icon {
+    export class DivIcon extends InternalIcon {
         constructor(options?: DivIconOptions);
+        options: DivIconOptions;
     }
 
     export function divIcon(options?: DivIconOptions): DivIcon;
@@ -1406,6 +1463,8 @@ declare namespace L {
         opacity?: number;
         riseOnHover?: boolean;
         riseOffset?: number;
+
+        options: DivIconOptions;
     }
 
     export class Marker extends Layer {
@@ -1415,9 +1474,10 @@ declare namespace L {
         setZIndexOffset(offset: number): this;
         setIcon(icon: Icon): this;
         setOpacity(opacity: number): this;
-        getElement(): Element;
+        getElement(): HTMLElement;
 
         // Properties
+        options: MarkerOptions;
         dragging: Handler;
     }
 
@@ -1452,6 +1512,7 @@ declare namespace L {
         export const vml: boolean;
         export const svg: boolean;
     }
+
 }
 
 declare module 'leaflet' {

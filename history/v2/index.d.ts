@@ -127,7 +127,7 @@ export interface Module {
     };
 }
 
-export { default as createBrowserHistory } from "./lib/createBrowserHistory";
+export { default as createHistory } from "./lib/createBrowserHistory";
 export { default as createHashHistory } from "./lib/createHashHistory";
 export { default as createMemoryHistory } from "./lib/createMemoryHistory";
 export { default as createLocation } from "./lib/createLocation";

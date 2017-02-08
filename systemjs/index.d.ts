@@ -1,4 +1,4 @@
-// Type definitions for SystemJS 0.19.29
+// Type definitions for SystemJS 0.20.5
 // Project: https://github.com/systemjs/systemjs
 // Definitions by: Ludovic HENIN <https://github.com/ludohenin/>, Nathan Walker <https://github.com/NathanWalker/>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -29,7 +29,7 @@ declare namespace SystemJSLoader {
      */
     type Transpiler = "plugin-traceur" | "plugin-babel" | "plugin-typescript" | "traceur" | "babel" | "typescript" | boolean;
 
-    type ConfigMap = PackageList<string>;
+    type ConfigMap = PackageList<string | PackageList<string>>;
 
     type ConfigMeta = PackageList<MetaConfig>;
 
@@ -257,7 +257,7 @@ declare namespace SystemJSLoader {
         /**
          * This represents the System base class, which can be extended or reinstantiated to create a custom System instance.
          */
-        constructor: new () => System;
+        constructor: new() => System;
 
         /**
          * Deletes a module from the registry by normalized name.
@@ -271,6 +271,11 @@ declare namespace SystemJSLoader {
         get<TModule>(moduleName: string): TModule;
 
         /**
+         * Returns a clone of the internal SystemJS configuration in use.
+         */
+        getConfig(): Config
+
+        /**
          * Returns whether a given module exists in the registry by normalized module name.
          */
         has(moduleName: string): boolean;
@@ -281,6 +286,12 @@ declare namespace SystemJSLoader {
          */
         import(moduleName: string, normalizedParentName?: string): Promise<any>;
         import<TModule>(moduleName: string, normalizedParentName?: string): Promise<TModule>;
+
+        /**
+         * Given any object, returns true if the object is either a SystemJS module or native JavaScript module object, and false otherwise.
+         * Useful for interop scenarios.
+         */
+        isModule(object: any): boolean;
 
         /**
          * Given a plain JavaScript object, return an equivalent Module object.
@@ -320,7 +331,6 @@ declare namespace SystemJSLoader {
          */
         loads: PackageList<any>;
     }
-
 }
 
 declare var SystemJS: SystemJSLoader.System;
