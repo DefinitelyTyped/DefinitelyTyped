@@ -109,11 +109,6 @@ namespace HttpAndRegularPromiseTests {
 
     function someController($scope: SomeControllerScope, $http: ng.IHttpService, $q: ng.IQService) {
         $http.get<ExpectedResponse>('http://somewhere/some/resource')
-            .success((data: ExpectedResponse) => {
-                $scope.person = data;
-            });
-
-        $http.get<ExpectedResponse>('http://somewhere/some/resource')
             .then((response: ng.IHttpPromiseCallbackArg<ExpectedResponse>) => {
                 // typing lost, so something like
                 // var i: number = response.data
@@ -156,21 +151,6 @@ namespace HttpAndRegularPromiseTests {
             $scope.nothing = 'really nothing';
         });
     }
-
-    // Test that we can pass around a type-checked success/error Promise Callback
-    function anotherController($scope: SomeControllerScope, $http: ng.IHttpService, $q: ng.IQService) {
-        function buildFooData(): ng.IRequestShortcutConfig {
-            return {};
-        }
-
-        function doFoo(callback: ng.IHttpPromiseCallback<ExpectedResponse>) {
-            $http
-                .get<ExpectedResponse>('/foo', buildFooData())
-                .success(callback);
-        };
-
-        doFoo((data: any) => console.log(data));
-    };
 }
 
 // Test for AngularJS Syntax
@@ -441,10 +421,10 @@ httpFoo.then((x) => {
     x.toFixed();
 });
 
-httpFoo.success((data, status, headers, config) => {
-    const h = headers('test');
+httpFoo.then((response: ng.IHttpPromiseCallbackArg<any>) => {
+    const h = response.headers('test');
     h.charAt(0);
-    const hs = headers();
+    const hs = response.headers();
     hs['content-type'].charAt(1);
 });
 
