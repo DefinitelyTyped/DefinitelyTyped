@@ -1,4 +1,4 @@
-// Type definitions for auth0 v2.4
+// Type definitions for auth0 2.4
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -342,8 +342,8 @@ export class ManagementClient {
   getBlacklistedTokens(): Promise<any>;
   getBlacklistedTokens(cb?: (err: Error, data: any) => void): void;
 
-  getBlacklistedTokens(token: Token): Promise<any>;
-  getBlacklistedTokens(token: Token, cb: (err: Error, data: any) => void): void;
+  blacklistToken(token: Token): Promise<any>;
+  blacklistToken(token: Token, cb: (err: Error, data: any) => void): void;
 
 
   // Providers
@@ -364,8 +364,8 @@ export class ManagementClient {
   getActiveUsersCount(): Promise<any>;
   getActiveUsersCount(cb?: (err: Error, data: any) => void): void;
 
-  getActiveUsersCount(data: StatsParams): Promise<any>;
-  getActiveUsersCount(data: StatsParams, cb: (err: Error, data: any) => void): void;
+  getDailyStats(data: StatsParams): Promise<any>;
+  getDailyStats(data: StatsParams, cb: (err: Error, data: any) => void): void;
 
 
   // Tenant
