@@ -406,7 +406,7 @@ declare namespace L {
         getPane(name?: string): HTMLElement;
 
         // Popup methods
-        bindPopup(content: (layer: Layer) => Content | Content | Popup, options?: PopupOptions): this;
+        bindPopup(content: string | HTMLElement | Popup | ((layer: Layer) => Content), options?: PopupOptions): this;
         unbindPopup(): this;
         openPopup(latlng?: LatLngExpression): this;
         closePopup(): this;
@@ -1418,26 +1418,38 @@ declare namespace L {
         className?: string;
     }
 
-    class InternalIcon extends Layer {
+    export interface IconOptions extends LayerOptions {
+        iconUrl: string;
+        iconRetinaUrl?: string;
+        iconSize?: PointExpression;
+        iconAnchor?: PointExpression;
+        popupAnchor?: PointExpression;
+        shadowUrl?: string;
+        shadowRetinaUrl?: string;
+        shadowSize?: PointExpression;
+        shadowAnchor?: PointExpression;
+        className?: string;
+    }
+
+    class Icon extends Layer {
+        static Default: IconDefaultSettings;
         constructor(options: IconOptions);
         createIcon(oldIcon?: HTMLElement): HTMLElement;
     }
+    
+    export class IconDefaultSettings extends Icon {
+        imagePath: string;
+    }
 
-    export class Icon extends InternalIcon {
+    export class DefaultIcon extends Icon {
         createShadow(oldIcon?: HTMLElement): HTMLElement;
         options: IconOptions;
     }
 
-    export namespace Icon {
-        export class Default extends InternalIcon {
-            imagePath: string;
-        }
-    }
-
-    export function icon(options: IconOptions): Icon;
+    export function icon(options: IconOptions): DefaultIcon;
 
     export interface DivIconOptions extends LayerOptions {
-        html?: string;
+        html?: boolean | string;
         bgPos?: PointExpression;
         iconSize?: PointExpression;
         iconAnchor?: PointExpression;
@@ -1445,7 +1457,7 @@ declare namespace L {
         className?: string;
     }
 
-    export class DivIcon extends InternalIcon {
+    export class DivIcon extends Icon {
         constructor(options?: DivIconOptions);
         options: DivIconOptions;
     }
@@ -1464,7 +1476,11 @@ declare namespace L {
         riseOnHover?: boolean;
         riseOffset?: number;
 
-        options: DivIconOptions;
+        options?: DivIconOptions;
+    }
+        riseOffset?: number;
+
+        options?: DivIconOptions;
     }
 
     export class Marker extends Layer {
