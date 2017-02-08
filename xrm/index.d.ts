@@ -136,7 +136,7 @@ declare namespace Xrm
              * @return  An array of control.
              */
             getControl( delegateFunction: Collection.MatchingDelegate<Page.Control> ): Page.Control[];
-        }
+        };
 
         /**
          * Provides a container for useful functions not directly related to the current page.
@@ -214,18 +214,18 @@ declare namespace Xrm
              *                                              formid
              */
             openWebResource( webResourceName: string, webResourceData?: string, width?: number, height?: number ): Window;
-        }
+        };
 
         /**
-          * Provides methods to create and manage records in the mobile clients (for phones tablets).
-          */
+         * Provides methods to create and manage records in the mobile clients (for phones tablets).
+         */
         Mobile: Mobile;
 
         /**
-          * Provides methods to display a web page in the side pane of web client.
-          *
-          * @see {@link https://msdn.microsoft.com/en-us/library/mt790281.aspx} for details.
-          */
+         * Provides methods to display a web page in the side pane of web client.
+         *
+         * @see {@link https://msdn.microsoft.com/en-us/library/mt790281.aspx} for details.
+         */
         Panel: {
             /**
              * Displays the web page represented by a URL in the static area in the side pane, which appears on all pages in the web client.
@@ -235,8 +235,8 @@ declare namespace Xrm
              *
              * @remarks  This method is only supported for the web client.
              */
-            LoadPanel( url: string, title: string ): void;
-        }
+            LoadPanel(url: string, title: string): void;
+        };
     }
 
     /**
@@ -397,10 +397,10 @@ declare namespace Xrm
     export interface SaveOptions
     {
         /**
-          * Indicates whether to use the Book or Reschedule messages rather than the Create or Update messages.
-          * Applicable to appointment, recurring appointment, or service activity records.
-          */
-          UseSchedulingEngine?: boolean;
+         * Indicates whether to use the Book or Reschedule messages rather than the Create or Update messages.
+         * Applicable to appointment, recurring appointment, or service activity records.
+         */
+        UseSchedulingEngine?: boolean;
     }
     
     /**
@@ -425,12 +425,12 @@ declare namespace Xrm
         save(): Async.XrmPromise<Async.SuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
                 
         /**
-          * Asynchronously saves the record  with the option to set callback functions to be executed after the save operation is completed.
-          *
-          * @param   {saveOptions}   saveOptions    Options to control how appointment, recurring appointment, or service activity records are processed.
-          *
-          * @return  {Async.XrmPromise} Returns an asynchronous promise.
-          */
+         * Asynchronously saves the record  with the option to set callback functions to be executed after the save operation is completed.
+         *
+         * @param   {saveOptions}   saveOptions    Options to control how appointment, recurring appointment, or service activity records are processed.
+         *
+         * @return  {Async.XrmPromise} Returns an asynchronous promise.
+         */
         save( saveOptions: SaveOptions ): Async.XrmPromise<Async.SuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
 
         /**
@@ -452,19 +452,18 @@ declare namespace Xrm
     export interface Ui
     {
         /**
-          * Displays a form level notification. Any number of notifications can be displayed and will remain until removed using clearFormNotification.
-          * The height of the notification area is limited so each new message will be added to the top.
-          *
-          * @param   {string}                            message     The text of the notification message.
-          * @param   {Page.ui.FormNotificationLevel}     level    The level of the notification which defines how the message will be displayed, such as the icon.
-          * @param   {string}                            uniqueId    Unique identifier for the notification which is used with clearFormNotification to remove the notification.
-          *
-          * @return  true if it succeeds, otherwise false.
-          *
-          * @remarks     Values for level are:    ERROR   Notification will use the system error icon.
-          *                                       WARNING Notification will use the system warning icon.
-          *                                       INFO    Notification will use the system info icon.
-          */
+         * Displays a form level notification. Any number of notifications can be displayed and will remain until removed using clearFormNotification.
+         * The height of the notification area is limited so each new message will be added to the top.
+         *
+         * @param   {string}                            message     The text of the notification message.
+         * @param   {Page.ui.FormNotificationLevel}     level    The level of the notification which defines how the message will be displayed, such as the icon.
+         * @param   {string}                            uniqueId    Unique identifier for the notification which is used with clearFormNotification to remove the notification.
+         *
+         * @return  true if it succeeds, otherwise false.
+         *
+         * @remarks     Values for level are:    ERROR   Notification will use the system error icon.          *                                       WARNING Notification will use the system warning icon.
+         *                                       INFO    Notification will use the system info icon.
+         */
         setFormNotification( message: string, level: Page.ui.FormNotificationLevel, uniqueId: string ): boolean;
     
         /**
@@ -522,8 +521,8 @@ declare namespace Xrm
         refreshRibbon(): void;
 
         /**
-          * The business process flow API, used to interact with the business process flow control in a form.
-          */
+         * The business process flow API, used to interact with the business process flow control in a form.
+         */
         process: Page.ui.ProcessManager;
 
         /**
@@ -551,8 +550,8 @@ declare namespace Xrm
         tabs: Collection.ItemCollection<Page.Tab>;
         
         /**
-          * A collection of all the quick view controls on a form using the new form rendering engine (also called "turbo forms").
-          */
+         * A collection of all the quick view controls on a form using the new form rendering engine (also called "turbo forms").
+         */
         quickForms: Collection.ItemCollection<Page.ui.QuickForm>;
     }
 
@@ -562,10 +561,10 @@ declare namespace Xrm
     export interface Mobile
     {
         /**
-          * Provides methods to create and manage records in the mobile clients while working in the offline mode.
-          *
-          * @see {@link https://msdn.microsoft.com/en-us/library/mt787123.aspx} for details.
-          */
+         * Provides methods to create and manage records in the mobile clients while working in the offline mode.
+         *
+         * @see {@link https://msdn.microsoft.com/en-us/library/mt787123.aspx} for details.
+         */
         offline: MobileOffline;
     }
 
@@ -577,150 +576,98 @@ declare namespace Xrm
     export interface MobileOffline
     {
         /**
-          * Returns whether an entity is offline enabled.
-          *
-          * @param    {string}    entityType    The logical name of the entity.
-          *
-          * @return   {boolean}   True if the entity is offline enabled; otherwise False.
-          */
+         * Returns whether an entity is offline enabled.
+         *
+         * @param    {string}    entityType    The logical name of the entity.
+         *
+         * @return   {boolean}   True if the entity is offline enabled; otherwise False.
+         */
         isOfflineEnabled( entityType: string ): boolean;
 
         /**
-          * Creates an entity record in mobile clients while working in the offline mode.
-          *
-          * @param    {string}    entityType    The logical name of the entity.
-          * @param    {Object}    data          A dictionary object containing key : value pairs for the record to create.
-          *
-          * @return   {Async.XrmPromise}        Returns an asynchronous promise.
-          *
-          * @remarks  You cannot create intersect and activity party entities.
-          *           Only the following attribute types are supported in offline mode: BigInt
-          *                                                                             Boolean
-          *                                                                             Customer
-          *                                                                             DateTime
-          *                                                                             Decimal
-          *                                                                             Double
-          *                                                                             EntityName
-          *                                                                             Integer
-          *                                                                             Lookup
-          *                                                                             Memo
-          *                                                                             Money
-          *                                                                             Owner
-          *                                                                             Picklist
-          *                                                                             String
-          *                                                                             State
-          *                                                                             Status
-          *                                                                             UniqueIdentifier
-          */
+         * Creates an entity record in mobile clients while working in the offline mode.
+         *
+         * @param    {string}    entityType    The logical name of the entity.
+         * @param    {Object}    data          A dictionary object containing key : value pairs for the record to create.
+         *
+         * @return   {Async.XrmPromise}        Returns an asynchronous promise.
+         *
+         * @remarks  You cannot create intersect and activity party entities.
+         *           Only the following attribute types are supported in offline mode:
+         *             BigInt, Boolean, Customer, DateTime, Decimal, Double, EntityName
+         *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State
+         *             Status, UniqueIdentifier
+         */
         createRecord( entityType: string, data: { [attributeName: string]: any } ): Async.XrmPromise<Async.OfflineOperationSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
 
         /**
-          * Retrieves an entity record in mobile clients while working in the offline mode.
-          *
-          * @param    {string}    entityType    The logical name of the entity.
-          * @param    {string}    id            GUID of the record to retrieve.
-          * @param    {string}    options       (Optional) OData system query options to retrieve your data. Supports $select and $expand
-          *                                     Example: ?$select=name&$expand=primarycontactid($select=contactid,fullname)
-          *
-          * @return   {Async.XrmPromise} Returns an asynchronous promise.
-          *
-          * @remarks  Only $select option can be specified within $expand.
-          *           Only the following attribute types are supported in offline mode: BigInt
-          *                                                                             Boolean
-          *                                                                             Customer
-          *                                                                             DateTime
-          *                                                                             Decimal
-          *                                                                             Double
-          *                                                                             EntityName
-          *                                                                             Integer
-          *                                                                             Lookup
-          *                                                                             Memo
-          *                                                                             Money
-          *                                                                             Owner
-          *                                                                             Picklist
-          *                                                                             String
-          *                                                                             State
-          *                                                                             Status
-          *                                                                             UniqueIdentifier
-          */
+         * Retrieves an entity record in mobile clients while working in the offline mode.
+         *
+         * @param    {string}    entityType    The logical name of the entity.
+         * @param    {string}    id            GUID of the record to retrieve.
+         * @param    {string}    options       (Optional) OData system query options to retrieve your data. Supports $select and $expand
+         *                                     Example: ?$select=name&$expand=primarycontactid($select=contactid,fullname)
+         *
+         * @return   {Async.XrmPromise} Returns an asynchronous promise.
+         *
+         * @remarks  Only $select option can be specified within $expand.
+         *           Only the following attribute types are supported in offline mode:
+         *             BigInt, Boolean, Customer, DateTime, Decimal, Double, EntityName
+         *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State
+         *             Status, UniqueIdentifier
+         */
         retrieveRecord( entityType: string, id: string, options: string ): Async.XrmPromise<Async.OfflineOperationSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
 
         /**
-          * Retrieves a collection of entity records in mobile clients while working in the offline mode.
-          *
-          * @param    {string}    entityType    The logical name of the entity.
-          * @param    {string}    options       (Optional) The logical name of the enti
-          * @param    {string}    maxPageSize   (Optional) A positive number to indicates the number of entity records to be returned per page.
-          *                                     If you do not specify this parameter, the default value is passed as 5000.
-          *                                     If the number of records being retrieved is more than maxPageSize, an @odata.nextLink property
-          *                                     will be returned, and you can use the value of the @odata.nextLink property with a new GET
-          *                                     request to return next set of records.
-          *
-          * @return   {Async.XrmPromise} Returns an asynchronous promise.
-          *
-          * @remarks  A maximum of 5000 related records can be retrieved when using $expand.
-          *           Only $select option can be specified within $expand.
-          *           $skip query option is not supported.
-          *           Only the following attribute types are supported in offline mode: BigInt
-          *                                                                             Boolean
-          *                                                                             Customer
-          *                                                                             DateTime
-          *                                                                             Decimal
-          *                                                                             Double
-          *                                                                             EntityName
-          *                                                                             Integer
-          *                                                                             Lookup
-          *                                                                             Memo
-          *                                                                             Money
-          *                                                                             Owner
-          *                                                                             Picklist
-          *                                                                             String
-          *                                                                             State
-          *                                                                             Status
-          *                                                                             UniqueIdentifier
-          */
+         * Retrieves a collection of entity records in mobile clients while working in the offline mode.
+         *
+         * @param    {string}    entityType    The logical name of the entity.
+         * @param    {string}    options       (Optional) The logical name of the enti
+         * @param    {string}    maxPageSize   (Optional) A positive number to indicates the number of entity records to be returned per page.
+         *                                     If you do not specify this parameter, the default value is passed as 5000.
+         *                                     If the number of records being retrieved is more than maxPageSize, an @odata.nextLink property
+         *                                     will be returned, and you can use the value of the @odata.nextLink property with a new GET
+         *                                     request to return next set of records.
+         *
+         * @return   {Async.XrmPromise} Returns an asynchronous promise.
+         *
+         * @remarks  A maximum of 5000 related records can be retrieved when using $expand.
+         *           Only $select option can be specified within $expand.
+         *           $skip query option is not supported.
+         *           Only the following attribute types are supported in offline mode:
+         *             BigInt, Boolean, Customer, DateTime, Decimal, Double, EntityName
+         *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State
+         *             Status, UniqueIdentifier
+         */
         retrieveMultipleRecords( entityType: string, options: string, maxPageSize: number ): Async.XrmPromise<Async.OfflineRetrieveMultipleSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
 
         /**
-          * Updates an entity record in mobile clients while working in the offline mode.
-          *
-          * @param    {string}    entityType    The logical name of the entity.
-          * @param    {string}    id            GUID of the record to update.
-          * @param    {Object}    data          A dictionary object containing key : value pairs for the record to update.
-          *
-          * @return   {Async.XrmPromise} Returns an asynchronous promise.
-          *
-          * @remarks  You cannot update intersect and activity party entities.
-          *           Only the following attribute types are supported in offline mode: BigInt
-          *                                                                             Boolean
-          *                                                                             Customer
-          *                                                                             DateTime
-          *                                                                             Decimal
-          *                                                                             Double
-          *                                                                             EntityName
-          *                                                                             Integer
-          *                                                                             Lookup
-          *                                                                             Memo
-          *                                                                             Money
-          *                                                                             Owner
-          *                                                                             Picklist
-          *                                                                             String
-          *                                                                             State
-          *                                                                             Status
-          *                                                                             UniqueIdentifier
-          */
+         * Updates an entity record in mobile clients while working in the offline mode.
+         *
+         * @param    {string}    entityType    The logical name of the entity.
+         * @param    {string}    id            GUID of the record to update.
+         * @param    {Object}    data          A dictionary object containing key : value pairs for the record to update.
+         *
+         * @return   {Async.XrmPromise} Returns an asynchronous promise.
+         *
+         * @remarks  You cannot update intersect and activity party entities.
+         *           Only the following attribute types are supported in offline mode:
+         *             BigInt, Boolean, Customer, DateTime, Decimal, Double, EntityName
+         *             Integer, Lookup, Memo, Money, Owner, Picklist, String, State
+         *             Status, UniqueIdentifier
+         */
         updateRecord( entityType: string, id: string, data: { [attributeName: string]: any } ): Async.XrmPromise<Async.OfflineOperationSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
 
         /**
-          * Deletes an entity record in mobile clients while working in the offline mode.
-          *
-          * @param    {string}    entityType    The logical name of the entity.
-          * @param    {string}    id            GUID of the record to delete.
-          *
-          * @return   {Async.XrmPromise} Returns an asynchronous promise.
-          *
-          * @remarks  You cannot delete intersect and activity party entities.
-          */
+         * Deletes an entity record in mobile clients while working in the offline mode.
+         *
+         * @param    {string}    entityType    The logical name of the entity.
+         * @param    {string}    id            GUID of the record to delete.
+         *
+         * @return   {Async.XrmPromise} Returns an asynchronous promise.
+         *
+         * @remarks  You cannot delete intersect and activity party entities.
+         */
         deleteRecord( entityType: string, id: string ): Async.XrmPromise<Async.OfflineOperationSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
     }
 
@@ -777,20 +724,19 @@ declare namespace Xrm
          */
         export type OfflineErrorCallbackDelegate = (error: OfflineErrorCallbackObject) => void;
 
-
         /**
          * Object passed to ErrorCallbackDelegate.
          */
         export interface ErrorCallbackObject
         {
             /**
-              * The error code.
-              */
+             * The error code.
+             */
             errorCode: number;
 
             /**
-              * An error message describing the issue.
-              */
+             * An error message describing the issue.
+             */
             message: string;
         }
 
@@ -800,8 +746,8 @@ declare namespace Xrm
         export interface OpenQuickCreateSuccessCallbackObject
         {
             /**
-              * A lookup value which identifies the record which has been created.
-              */
+             * A lookup value which identifies the record which has been created.
+             */
             savedEntityReference: Page.LookupValue;
         }
 
@@ -811,12 +757,13 @@ declare namespace Xrm
         export interface OfflineOperationSuccessCallbackObject
         {
             /**
-              * GUID of the record;
-              */
+             * GUID of the record;
+             */
             id: string;
+
             /**
-              * Logical name of the entity.
-              */
+             * Logical name of the entity.
+             */
             logicalName: string;
         }
         
@@ -826,8 +773,8 @@ declare namespace Xrm
         export interface OfflineErrorCallbackObject extends ErrorCallbackObject
         {
             /**
-              * An internal error message that might contain additional details about the issue.
-              */
+             * An internal error message that might contain additional details about the issue.
+             */
             debugMessage: string;
         }
 
@@ -889,10 +836,10 @@ declare namespace Xrm
         }
 
         /**
-          * Interface for an item collection.
-          *
-          * @tparam  T   Generic type parameter.
-          */
+         * Interface for an item collection.
+         *
+         * @tparam  T   Generic type parameter.
+         */
         export interface ItemCollection<T>
         {
             /**
@@ -973,11 +920,16 @@ declare namespace Xrm
          * Submit Mode for Xrm.Page.Attribute.getSubmitMode() and Xrm.Page.Attribute.setSubmitMode().
          */
         export type SubmitMode = "always" | "dirty" | "never";
+
+        /**
+         * Control type for Xrm.Page.ui.QuickForm.getControlType().
+         */
+        export type ControlQuickFormType = "quickform";
         
         /**
          * Control types for Xrm.Page.Control.getControlType().
          */
-        export type ControlType = "standard" | "iframe" | "lookup" | "optionset" | "subgrid" | "webresource" | "notes" | "timercontrol" | "kbsearch" | "quickform";
+        export type ControlType = "standard" | "iframe" | "lookup" | "optionset" | "subgrid" | "webresource" | "notes" | "timercontrol" | "kbsearch" | ControlQuickFormType;
 
         /**
          * Date attribute formats for Xrm.Page.Attribute.getFormat(), used by DateAttribute.
@@ -1015,12 +967,12 @@ declare namespace Xrm
         export interface Process
         {
             /**
-            * Returns the unique identifier of the process.
-            *
-            * @return The identifier for this process, in GUID format.
-            *
-            * @remarks  Example: "{825CB223-A651-DF11-AA8B-00155DBA3804}".
-            */
+             * Returns the unique identifier of the process.
+             *
+             * @return The identifier for this process, in GUID format.
+             *
+             * @remarks  Example: "{825CB223-A651-DF11-AA8B-00155DBA3804}".
+             */
             getId(): string;
 
             /**
@@ -1256,9 +1208,9 @@ declare namespace Xrm
         }
         
         /**
-          * Interface for controls which methods provide immediate feedback or take actions as user types in a control.
-          * Contains methods which can be used to perform data validations in a control even before the user commits (saves) the value in a form.
-          */
+         * Interface for controls which methods provide immediate feedback or take actions as user types in a control.
+         * Contains methods which can be used to perform data validations in a control even before the user commits (saves) the value in a form.
+         */
         export interface UiKeyPressable
         {
             /**
@@ -2253,7 +2205,7 @@ declare namespace Xrm
              */
             getAttribute(): Attribute;
         }
-        
+
         /**
          * Interface for Auto Lookup Control.
          * This is not an Entity Lookup, but a control that supports AutoComplete / KeyPress Events (Text or Number)
@@ -2852,10 +2804,10 @@ declare namespace Xrm
             }
 
             /**
-              * Interface for a quick view control instance on a form.
-              *
-              * @see {@link https://msdn.microsoft.com/en-us/library/mt736908.aspx#bkmk_isLoaded} for details.
-              */
+             * Interface for a quick view control instance on a form.
+             *
+             * @see {@link https://msdn.microsoft.com/en-us/library/mt736908.aspx#bkmk_isLoaded} for details.
+             */
             export interface QuickForm extends Control, UiLabelElement, UiCanGetVisibleElement
             {
                 /**
@@ -2914,27 +2866,27 @@ declare namespace Xrm
                 getControl( index: number ): Page.Control;
 
                 /**
-                  * Gets the controls type.
-                  *
-                  * @return  Returns a string value that categorizes quick view controls.
-                  */
-                getControlType(): "quickform";
+                 * Gets the controls type.
+                 *
+                 * @return  Returns a string value that categorizes quick view controls.
+                 */
+                getControlType(): ControlQuickFormType;
 
                 /**
-                  * Returns whether the data binding for the constituent controls in a quick view control is complete.
-                  *
-                  * @return   True is the data binding for a constituent control is complete, otherwise false.
-                  *           because the quick view form that the control is bound to may not have loaded completely.
-                  *           As a result, using the getAttribute or any data-related methods on a constituent control might not work.
-                  *           The isLoaded method for the quick view control helps determine the data binding status for constituent controls in a quick view control.
-                  *
-                  *  @remarks The data binding for the constituent controls in a quick view control may not be complete during the main form OnLoad event
-                  */
+                 * Returns whether the data binding for the constituent controls in a quick view control is complete.
+                 *
+                 * @return   True is the data binding for a constituent control is complete, otherwise false.
+                 *           because the quick view form that the control is bound to may not have loaded completely.
+                 *           As a result, using the getAttribute or any data-related methods on a constituent control might not work.
+                 *           The isLoaded method for the quick view control helps determine the data binding status for constituent controls in a quick view control.
+                 *
+                 *  @remarks The data binding for the constituent controls in a quick view control may not be complete during the main form OnLoad event
+                 */
                 isLoaded(): boolean;
 
                 /**
-                  * Refreshes the data displayed in a quick view control.
-                  */
+                 * Refreshes the data displayed in a quick view control.
+                 */
                 refresh(): void;
             }
         }
