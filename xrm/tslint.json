@@ -15,7 +15,6 @@
     "align": [ true, "parameters", "statements" ],
     "jsdoc-format": true,
     "no-consecutive-blank-lines": true,
-    "space-before-function-paren": [ true, "always" ],
     "typedef-whitespace": [
       true,
       {
