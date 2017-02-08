@@ -3,8 +3,6 @@
 // Definitions by: David Berry <https://github.com/6ix4our/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 declare namespace Xrm.Page
 {
     /**
