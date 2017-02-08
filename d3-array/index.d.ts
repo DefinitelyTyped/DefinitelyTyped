@@ -1,7 +1,9 @@
-// Type definitions for D3JS d3-array module v1.0.1
+// Type definitions for D3JS d3-array module 1.0
 // Project: https://github.com/d3/d3-array
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// Last module patch version validated against: 1.0.2
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -90,25 +92,25 @@ export function extent<T, U extends Numeric>(array: T[], accessor: (datum: T, in
 /**
  * Return the mean of an array of numbers
  */
-export function mean<T extends Numeric>(array: (T |  undefined)[]): number | undefined;
+export function mean<T extends Numeric>(array: Array<T |  undefined>): number | undefined;
 export function mean<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number | undefined): number | undefined;
 
 /**
  * Return the median of an array of numbers
  */
-export function median<T extends Numeric>(array: (T |  undefined)[]): number | undefined;
+export function median<T extends Numeric>(array: Array<T |  undefined>): number | undefined;
 export function median<T>(array: T[], accessor: (element: T, i: number, array: T[]) => number | undefined): number | undefined;
 
 /**
  * Returns the p-quantile of an array of numbers
  */
-export function quantile<T extends Numeric>(array: (T |  undefined)[], p: number): number | undefined;
+export function quantile<T extends Numeric>(array: Array<T |  undefined>, p: number): number | undefined;
 export function quantile<T>(array: T[], p: number, accessor: (element: T, i: number, array: T[]) => number | undefined): number | undefined;
 
 /**
  * Compute the sum of an array of numbers.
  */
-export function sum<T extends Numeric>(array: (T |  undefined)[]): number;
+export function sum<T extends Numeric>(array: Array<T |  undefined>): number;
 
 /**
  * Compute the sum of an array, using the given accessor to convert values to numbers.
@@ -118,7 +120,7 @@ export function sum<T>(array: T[], accessor: (datum: T, index: number, array: T[
 /**
  * Compute the standard deviation, defined as the square root of the bias-corrected variance, of the given array of numbers.
  */
-export function deviation<T extends Numeric>(array: (T |  undefined)[]): number | undefined;
+export function deviation<T extends Numeric>(array: Array<T |  undefined>): number | undefined;
 
 /**
  * Compute the standard deviation, defined as the square root of the bias-corrected variance, of the given array,
@@ -129,7 +131,7 @@ export function deviation<T>(array: T[], accessor: (datum: T, index: number, arr
 /**
  * Compute an unbiased estimator of the population variance of the given array of numbers.
  */
-export function variance<T extends Numeric>(array: (T |  undefined)[]): number | undefined;
+export function variance<T extends Numeric>(array: Array<T |  undefined>): number | undefined;
 
 /**
  * Compute an unbiased estimator of the population variance of the given array,
