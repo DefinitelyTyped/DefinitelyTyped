@@ -23,3 +23,15 @@ const fontWeightStyleTest = <div style={fontWeightStyle} />;
 
 const justifyContentStyle: React.CSSProperties = { justifyContent: 'space-around' };
 const justifyContentStyleTest = <div style={justifyContentStyle} />;
+
+
+// SVG specific style attribute declarations
+
+const fillOpacityStyle: React.CSSProperties = { fillOpacity: 0.3 };
+const fillOpacityStyleTest = <svg style={fillOpacityStyle} />;
+
+const strokeOpacityStyle: React.CSSProperties = { strokeOpacity: 0.3 };
+const strokeOpacityStyleTest = <svg style={strokeOpacityStyle} />;
+
+const strokeWidthStyle: React.CSSProperties = { strokeWidth: '10px' };
+const strokeWidthStyleTest = <svg style={strokeWidthStyle} />;

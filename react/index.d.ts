@@ -614,6 +614,9 @@ declare namespace React {
     // See CSS 3 <percentage> type https://drafts.csswg.org/css-values-3/#percentages
     type CSSPercentage = string;
 
+    // See CSS 3 <length> type https://drafts.csswg.org/css-values-3/#lengths
+    type CSSLength = number | string;
+
     // This interface is not complete. Only properties accepting
     // unitless numbers are listed here (see CSSProperty.js in React)
     interface CSSProperties {
@@ -1060,6 +1063,7 @@ declare namespace React {
 
         /**
          * SVG: Specifies the opacity of the color or the content the current object is filled with.
+         * See SVG 1.1 https://www.w3.org/TR/SVG/painting.html#FillOpacityProperty
          */
         fillOpacity?: CSSWideKeyword | number;
 
@@ -1161,7 +1165,7 @@ declare namespace React {
         fontSize?: CSSWideKeyword |
                    "xx-small" | "x-small" | "small" | "medium" | "large" | "x-large" | "xx-large" |
                    "larger" | "smaller" |
-                   number | CSSPercentage;
+                   CSSLength | CSSPercentage;
 
         /**
          * The font-size-adjust property adjusts the font-size of the fallback fonts defined with font-family, so that the x-height is the same no matter what font is used. This preserves the readability of the text when fallback happens.
@@ -1322,7 +1326,7 @@ declare namespace React {
          * Specifies the height of an inline block level element.
          * See CSS 2.1 line-height property https://www.w3.org/TR/CSS21/visudet.html#propdef-line-height
          */
-        lineHeight?: CSSWideKeyword | number | CSSPercentage;
+        lineHeight?: CSSWideKeyword | "normal" | number | CSSLength | CSSPercentage;
 
         /**
          * Shorthand property that sets the list-style-type, list-style-position and list-style-image properties in one declaration.
@@ -1649,13 +1653,15 @@ declare namespace React {
 
         /**
          * SVG: Specifies the opacity of the outline on the current object.
+         * See SVG 1.1 https://www.w3.org/TR/SVG/painting.html#StrokeOpacityProperty
          */
         strokeOpacity?: CSSWideKeyword | number;
 
         /**
          * SVG: Specifies the width of the outline on the current object.
+         * See SVG 1.1 https://www.w3.org/TR/SVG/painting.html#StrokeWidthProperty
          */
-        strokeWidth?: CSSWideKeyword | number;
+        strokeWidth?: CSSWideKeyword | CSSPercentage | CSSLength;
 
         /**
          * The tab-size CSS property is used to customise the width of a tab (U+0009) character.
