@@ -776,7 +776,8 @@ declare namespace React {
         borderCollapse?: CSSWideKeyword | any;
 
         /**
-         * The CSS border-color property sets the color of an element's four borders. This property can have from one to four values, made up of the elementary properties:     •       border-top-color
+         * The CSS border-color property sets the color of an element's four borders. This property can have from one to four values, made up of the elementary properties:
+         *      •       border-top-color
          *      •       border-right-color
          *      •       border-bottom-color
          *      •       border-left-color The default color is the currentColor of each of these values.
