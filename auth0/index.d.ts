@@ -1,8 +1,6 @@
-// Type definitions for auth0 v2.4.0
+// Type definitions for auth0 v2.4
 // Project: https://github.com/auth0/node-auth0
-// Definitions by: Wilson Hobbs <https://github.com/wbhob>
-// Find an issue? Email wilsonhobbs1@gmail.com
-// Based on definitions by: Seth Westphal <https://github.com/westy92>
+// Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as Promise from 'bluebird';
@@ -12,8 +10,8 @@ export interface ManagementClientOptions {
   domain?: string;
 }
 
-export type UserMetadata = {};
-export type AppMetadata = {};
+export interface UserMetadata { }
+export interface AppMetadata { }
 
 export interface UserData {
   connection: string;
@@ -78,11 +76,6 @@ export interface AuthenticationClientOptions {
   domain: string;
 }
 
-export interface RequestChangePasswordEmailData {
-  connection: string;
-  email: string;
-}
-
 interface Environment {
   name: string;
   version: string;
@@ -97,7 +90,7 @@ export interface ClientInfo {
 
 export interface RequestEmailOptions {
   email: string;
-  authParams: {}
+  authParams: {};
 }
 
 export interface RequestSMSOptions {
@@ -192,9 +185,6 @@ export interface EmailVerificationTicketOptions {
 
 export class AuthenticationClient {
   constructor(options: AuthenticationClientOptions);
-  requestChangePasswordEmail(data: RequestChangePasswordEmailData): Promise<string>;
-  requestChangePasswordEmail(data: RequestChangePasswordEmailData, cb: (err: Error, message: string) => void): void;
-
   getClientInfo(): ClientInfo;
 
   requestMagicLink(data: RequestEmailOptions): Promise<any>;
@@ -353,7 +343,7 @@ export class ManagementClient {
   getBlacklistedTokens(cb?: (err: Error, data: any) => void): void;
 
   getBlacklistedTokens(token: Token): Promise<any>;
-  getBlacklistedTokens(token: Token, cb?: (err: Error, data: any) => void): void;
+  getBlacklistedTokens(token: Token, cb: (err: Error, data: any) => void): void;
 
 
   // Providers
@@ -361,7 +351,7 @@ export class ManagementClient {
   getEmailProvider(cb?: (err: Error, data: any) => void): void;
 
   configureEmailProvider(data: Data): Promise<any>;
-  configureEmailProvider(data: Data, cb?: (err: Error, data: any) => void): void;
+  configureEmailProvider(data: Data, cb: (err: Error, data: any) => void): void;
 
   deleteEmailProvider(): Promise<any>;
   deleteEmailProvider(cb?: (err: Error, data: any) => void): void;
@@ -375,7 +365,7 @@ export class ManagementClient {
   getActiveUsersCount(cb?: (err: Error, data: any) => void): void;
 
   getActiveUsersCount(data: StatsParams): Promise<any>;
-  getActiveUsersCount(data: StatsParams, cb?: (err: Error, data: any) => void): void;
+  getActiveUsersCount(data: StatsParams, cb: (err: Error, data: any) => void): void;
 
 
   // Tenant
