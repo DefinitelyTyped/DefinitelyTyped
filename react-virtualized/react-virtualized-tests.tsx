@@ -19,7 +19,9 @@ import {
     InfiniteLoader,
     ScrollSync,
     WindowScroller,
-    List
+    List,
+    Column,
+    Table,
 } from "react-virtualized";
 
 /*
@@ -124,6 +126,35 @@ function ListTest() {
             rowCount={list.length}
             rowRenderer={({ index, isScrolling }) => list[index]}
             />,
+        document.getElementById('example')
+    );
+}
+
+function TableTest() {
+    const list = [
+        { name: 'Brian Vaughn', description: 'Software engineer' }
+        // And so on...
+    ];
+    ReactDOM.render(
+        <Table
+            width={300}
+            height={300}
+            headerHeight={20}
+            rowHeight={30}
+            rowCount={list.length}
+            rowGetter={({ index }) => list[index]}
+        >
+            <Column
+                label='Name'
+                dataKey='name'
+                width={100}
+            />
+            <Column
+                width={200}
+                label='Description'
+                dataKey='description'
+            />
+        </Table>,
         document.getElementById('example')
     );
 }

@@ -2,6 +2,7 @@
 // Project: https://github.com/gaearon/react-hot-loader
 // Definitions by: Jacek Jagiello <https://github.com/jacekjagiello/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as React from "react"
 

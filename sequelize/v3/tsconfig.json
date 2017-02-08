@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": false,
@@ -11,7 +13,9 @@
         ],
         "types": [],
         "paths": {
-            "sequelize": ["sequelize/v3"]
+            "sequelize": [
+                "sequelize/v3"
+            ]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

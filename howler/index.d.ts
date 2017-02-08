@@ -66,7 +66,7 @@ interface Howl {
     rate(idOrSetRate: number): this | number;
     rate(rate: number, id: number): this;
 
-    seek(seek?: number, id?: number): this;
+    seek(seek?: number, id?: number): this | number;
     loop(loop?: boolean, id?: number): this;
     playing(id?: number): boolean;
     duration(id?: number): number;

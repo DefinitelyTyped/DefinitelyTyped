@@ -1,11 +1,11 @@
-﻿
-function test_application() {
+﻿function test_application() {
 	let application: fin.OpenFinApplication;
     // constructor
 	application = new fin.desktop.Application({
 		url: "application.html",
 		uuid: "74BED629-2D8E-4141-8582-73E364BDFA74",
 		name: "Application Name",
+		plugins: false,
 		mainWindowOptions: {
 			defaultHeight: 600,
 			defaultWidth: 800,
@@ -288,6 +288,12 @@ function test_system() {
 	fin.desktop.System.getEnvironmentVariable("APPDATA", function (variable) {
 		console.log("this is the APPDATA value", variable);
 	});
+	// getHostSpecs
+	fin.desktop.System.getHostSpecs(function (info) {
+		console.log(info);
+	}, function (error) {
+		console.log('There was an error:', error);
+	});
 	// getLog
 	fin.desktop.System.getLog('debug-2015-01-08-22-27-53.log', function (log) {
 		console.log(log);
@@ -442,7 +448,7 @@ function test_system() {
 	}, function (err) {
 		console.log("failure: " + err);
 	});
-	// terminateExternalProcess	
+	// terminateExternalProcess
 	fin.desktop.System.launchExternalProcess({
 		// notepad is in the system’s PATH
 		path: "notepad",

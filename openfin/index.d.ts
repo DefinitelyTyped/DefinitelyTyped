@@ -1,11 +1,10 @@
-// Type definitions for OpenFin API 15.0
+// Type definitions for OpenFin API 16.0
 // Project: https://openfin.co/
 // Definitions by: Chris Barker <https://github.com/chrisbarker/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// based on v6.49.15.18
+// based on v6.49.16.16
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean
-
 
 /**
  * JavaScript API
@@ -22,19 +21,15 @@ declare namespace fin {
 
 	interface OpenFinDesktop {
 		main(f: () => any): void;
-		Application: OpenFinApplication;
-		ExternalApp: OpenFinExternalApplication;
+		Application: OpenFinApplicationStatic;
+		ExternalApp: OpenFinExternalApplicationStatic;
 		InterApplicationBus: OpenFinInterApplicationBus;
-		Notification: OpenFinNotification;
+		Notification: OpenFinNotificationStatic;
 		System: OpenFinSystem;
-		Window: OpenFinWindow;
+		Window: OpenFinWindowStatic;
 	}
 
-	/**
-	 * Application
-	 * An object representing an application.Allows the developer to create, execute, show / close an application as well as listen to application events.
-	 */
-	interface OpenFinApplication {
+	interface OpenFinApplicationStatic {
 		/**
 		 * Creates a new Application.
 		 * An object representing an application. Allows the developer to create, execute, show/close an application as well as listen to application events.
@@ -48,6 +43,13 @@ declare namespace fin {
 		 * Returns an Application object that represents an existing application.
 		 */
 		wrap(uuid: string): OpenFinApplication;
+	}
+
+	/**
+	 * Application
+	 * An object representing an application.Allows the developer to create, execute, show / close an application as well as listen to application events.
+	 */
+	interface OpenFinApplication {
 		/**
 		 * Returns an instance of the main Window of the application
 		 */
@@ -155,9 +157,25 @@ declare namespace fin {
 	}
 
 	interface ApplicationOptions {
-		url?: string;
-		uuid?: string;
+		/**
+		 * The name of the application.
+		 */
 		name?: string;
+		/**
+		 * The url to the application.
+		 */
+		url?: string;
+		/**
+		 * The UUID of the application, unique within the set of all other applications running in the OpenFin Runtime. name and uuid must match.
+		 */
+		uuid?: string;
+		/**
+		 * Enable Flash at the application level. Default: false.
+		 */
+		plugins?: boolean;
+		/**
+		 * The options of the main window of the application.
+		 */
 		mainWindowOptions?: WindowOptions;
 	}
 
@@ -341,15 +359,17 @@ declare namespace fin {
 		writeText(data: string, type: string | null, callback?: () => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 	}
 
+	interface OpenFinExternalApplicationStatic {
+		/**
+		 * Returns an External Application object that represents an existing external application.
+		 */
+		wrap(uuid: string): OpenFinExternalApplication;
+	}
 	/**
 	 * ExternalApplication
 	 * An object representing an application. Allows the developer to create, execute, show and close an application, as well as listen to application events.
 	 */
 	interface OpenFinExternalApplication {
-		/**
-		 * Returns an External Application object that represents an existing external application.
-		 */
-		wrap(uuid: string): OpenFinExternalApplication;
 		/**
 		 * Registers an event listener on the specified event.
 		 */
@@ -402,19 +422,22 @@ declare namespace fin {
 		unsubscribe(senderUuid: string, topic: string, listener: (message: any, uuid: string, name: string) => void, callback?: () => void, errorCallback?: (reason: string) => void): void;
 	}
 
-	/**
-	 * Notification
-	 * Notification represents a window on OpenFin Runtime which is shown briefly to the user on the bottom-right corner of the primary monitor. A notification is typically used to alert the user of some important event which requires his or her attention. Notifications are a child or your application that are controlled by the runtime.
-	 */
-	interface OpenFinNotification {
+	interface OpenFinNotificationStatic {
 		/**
-		 * 
+		 * ctor
 		 */
 		new (options: NotificationOptions, callback?: () => void, errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): OpenFinNotification;
 		/**
 		 * Gets an instance of the current notification. For use within a notification window to close the window or send a message back to its parent application.
 		 */
 		getCurrent(): OpenFinNotification;
+	}
+
+	/**
+	 * Notification
+	 * Notification represents a window on OpenFin Runtime which is shown briefly to the user on the bottom-right corner of the primary monitor. A notification is typically used to alert the user of some important event which requires his or her attention. Notifications are a child or your application that are controlled by the runtime.
+	 */
+	interface OpenFinNotification {
 		/**
 		 * Closes the notification.
 		 */
@@ -525,6 +548,10 @@ declare namespace fin {
 		 * Gets the value of a given environment variable on the computer on which the runtime is installed.
 		 */
 		getEnvironmentVariable(envVar: string, callback?: (variable: string) => void, errorCallback?: (reason: string) => void): void;
+		/**
+		 * Retrieves system information.
+		 */
+		getHostSpecs(callback?: (info: HostSpecInfo) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Retrieves the contents of the log with the specified filename.
 		 */
@@ -669,6 +696,64 @@ declare namespace fin {
 		 */
 		left?: number;
 	}
+
+	interface HostSpecInfo {
+		/**
+		 * "x86" for 32-bit or "x86_64" for 64-bit
+		 */
+		arch: string;
+		/**
+		 * Same payload as Node's os.cpus()
+		 */
+		cpus: NodeCpuInfo[];
+		/**
+		 *
+		 */
+		gpu: {
+			/**
+			 * Graphics card name
+			 */
+			name: string;
+		};
+		/**
+		 * Same payload as Node's os.totalmem()
+		 */
+		memory: number;
+		/**
+		 * OS name and version/edition
+		 */
+		name: string;
+	}
+
+	interface NodeCpuInfo {
+        model: string;
+		/**
+		 * in MHz
+		 */
+        speed: number;
+        times: {
+			/**
+			 * The number of milliseconds the CPU has spent in user mode.
+			 */
+            user: number;
+			/**
+			 * The number of milliseconds the CPU has spent in nice mode.
+			 */
+            nice: number;
+			/**
+			 * The number of milliseconds the CPU has spent in sys mode.
+			 */
+            sys: number;
+			/**
+			 * The number of milliseconds the CPU has spent in idle mode.
+			 */
+            idle: number;
+			/**
+			 * The number of milliseconds the CPU has spent in irq mode.
+			 */
+            irq: number;
+        };
+    }
 
 	interface LogInfo {
 		/**
@@ -834,11 +919,7 @@ declare namespace fin {
 		}) => void;
 	}
 
-	/**
-	 * Window
-	 * A basic window that wraps a native HTML window. Provides more fine-grained control over the window state such as the ability to minimize, maximize, restore, etc. By default a window does not show upon instantiation; instead the window's show() method must be invoked manually. The new window appears in the same process as the parent window.
-	 */
-	interface OpenFinWindow {
+	interface OpenFinWindowStatic {
 		/**
 		 * Class: Window
 		 * 
@@ -853,14 +934,25 @@ declare namespace fin {
 		 */
 		new (options: WindowOptions, callback?: (successObj: { httpResponseCode: number }) => void, errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): OpenFinWindow;
 		/**
-		 * Name of window
-		 */
-		name: string;
-		/**
 		 * Returns an instance of the current window.
 		 * @returns {OpenFinWindow} Current window
 		 */
 		getCurrent(): OpenFinWindow;
+		/**
+		 * Returns a Window object that wraps an existing window.
+		 */
+		wrap(appUuid: string, windowName: string): OpenFinWindow;
+	}
+
+	/**
+	 * Window
+	 * A basic window that wraps a native HTML window. Provides more fine-grained control over the window state such as the ability to minimize, maximize, restore, etc. By default a window does not show upon instantiation; instead the window's show() method must be invoked manually. The new window appears in the same process as the parent window.
+	 */
+	interface OpenFinWindow {
+		/**
+		 * Name of window
+		 */
+		name: string;
 		/**
 		 * Returns the native JavaScript "window" object for the window. This method can only be used by the parent application or the window itself, otherwise it will return undefined. The same Single-Origin-Policy (SOP) rules apply for child windows created by window.open(url) in that the contents of the window object are only accessible if the URL has the same origin as the invoking window. See example below. Also, will not work with fin.desktop.Window objects created with fin.desktop.Window.wrap().
 		 * @returns {Window} Native window
@@ -875,10 +967,6 @@ declare namespace fin {
 		 * Gets the parent window.
 		 */
 		getParentWindow(): OpenFinWindow;
-		/**
-		 * Returns a Window object that wraps an existing window.
-		 */
-		wrap(appUuid: string, windowName: string): OpenFinWindow;
 		/**
 		 * Registers an event listener on the specified event.
 		 */

@@ -1,13 +1,12 @@
 
+import Validator = require('z-schema');
 
-import ZSchema = require('z-schema');
-
-var options = {
+var options: Validator.Options = {
   noTypeless: true,
   forceItems: true,
 };
 
-var validator = new ZSchema(options);
+var validator: Validator = new Validator(options);
 var json: any = {
     foo: 'bar',
 };
@@ -31,5 +30,5 @@ validator.validate(json, schema, function (err: any, valid: boolean) {
     }
 });
 
-var error = validator.getLastError();
-var errors = validator.getLastErrors();
+var error: Validator.SchemaError = validator.getLastError();
+var errors: Validator.SchemaErrorDetail[] = validator.getLastErrors();

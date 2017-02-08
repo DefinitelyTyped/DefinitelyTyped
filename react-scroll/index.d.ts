@@ -2,6 +2,7 @@
 // Project: https://github.com/fisshy/react-scroll
 // Definitions by: Ioannis Kokkinidis <www.github.com/sudoplz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as React from 'react';
 

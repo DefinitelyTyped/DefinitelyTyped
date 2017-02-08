@@ -1,17 +1,33 @@
 // Type definitions for webpack 2.2
 // Project: https://github.com/webpack/webpack
-// Definitions by: Qubo <https://github.com/tkqubo>, Matt Lewis <https://github.com/mattlewis92>, Benjamin Lim <https://github.com/bumbleblym>
+// Definitions by: Qubo <https://github.com/tkqubo>, Matt Lewis <https://github.com/mattlewis92>, Benjamin Lim <https://github.com/bumbleblym>, Boris Cherny <https://github.com/bcherny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
+import * as Tapable from 'tapable';
 import * as UglifyJS from 'uglify-js';
-import * as tapable from 'tapable';
+
+export = webpack;
+
+declare function webpack(
+    options: webpack.Configuration,
+    handler: webpack.Compiler.Handler
+): webpack.Compiler.Watching | webpack.Compiler;
+declare function webpack(options?: webpack.Configuration): webpack.Compiler;
+
+declare function webpack(
+    options: webpack.Configuration[],
+    handler: webpack.MultiCompiler.Handler
+): webpack.MultiWatching | webpack.MultiCompiler;
+declare function webpack(options: webpack.Configuration[]): webpack.MultiCompiler;
 
 declare namespace webpack {
     interface Configuration {
         context?: string;
         entry?: string | string[] | Entry;
-        /** Choose a developer tool to enhance debugging. */
-        devtool?: string;
+        /** Choose a style of source mapping to enhance the debugging process. These values can affect build and rebuild speed dramatically. */
+        devtool?: 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map' | 'source-map' | 'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | '@eval' | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' | '@cheap-module-source-map' | '@eval-source-map' | '@source-map' | '@nosources-source-map' | '@hidden-source-map' | '@nosources-source-map' | '#eval' | '#inline-source-map' | '#cheap-eval-source-map' | '#cheap-source-map' | '#cheap-module-eval-source-map' | '#cheap-module-source-map' | '#eval-source-map' | '#source-map' | '#nosources-source-map' | '#hidden-source-map' | '#nosources-source-map' | '#@eval' | '#@inline-source-map' | '#@cheap-eval-source-map' | '#@cheap-source-map' | '#@cheap-module-eval-source-map' | '#@cheap-module-source-map' | '#@eval-source-map' | '#@source-map' | '#@nosources-source-map' | '#@hidden-source-map' | '#@nosources-source-map' | boolean;
         /** Options affecting the output. */
         output?: Output;
         /** Options affecting the normal modules (NormalModuleFactory) */
@@ -44,7 +60,7 @@ declare namespace webpack {
         cache?: boolean | any;
         /** Enter watch mode, which rebuilds on file change. */
         watch?: boolean;
-        watchOptions?: WatchOptions;
+        watchOptions?: Options.WatchOptions;
         /** Switch loaders to debug mode. */
         debug?: boolean;
         /** Can be used to configure the behaviour of webpack-dev-server when the webpack config is passed to webpack-dev-server CLI. */
@@ -62,9 +78,9 @@ declare namespace webpack {
         /** Add additional plugins to the compiler. */
         plugins?: Plugin[];
         /** Stats options for logging  */
-        stats?: compiler.StatsToStringOptions;
+        stats?: Options.Stats;
         /** Performance options */
-        performance?: PerformanceOptions;
+        performance?: Options.Performance;
     }
 
     interface Entry {
@@ -322,13 +338,6 @@ declare namespace webpack {
 
     type ExternalsFunctionElement = (context: any, request: any, callback: (error: any, result: any) => void) => any;
 
-    interface WatchOptions {
-        /** Delay the rebuilt after the first change. Value is a time in ms. */
-        aggregateTimeout?: number;
-        /** true: use polling, number: use polling with specified interval */
-        poll?: boolean | number;
-    }
-
     interface Node {
         console?: boolean;
         global?: boolean;
@@ -464,408 +473,641 @@ declare namespace webpack {
     }
     type Rule = LoaderRule | UseRule | RulesRule | OneOfRule;
 
-    interface Plugin extends tapable.Plugin {
-        apply(thisArg: Webpack, ...args: any[]): void;
+    namespace Options {
+        interface Performance {
+            /** This property allows webpack to control what files are used to calculate performance hints. */
+            assetFilter?(assetFilename: string): boolean;
+            /**
+             * Turns hints on/off. In addition, tells webpack to throw either an error or a warning when hints are
+             * found. This property is set to "warning" by default.
+             */
+            hints?: 'warning' | 'error' | boolean;
+            /**
+             * An asset is any emitted file from webpack. This option controls when webpack emits a performance hint
+             * based on individual asset size. The default value is 250000 (bytes).
+             */
+            maxAssetSize?: number;
+            /**
+             * An entrypoint represents all assets that would be utilized during initial load time for a specific entry.
+             * This option controls when webpack should emit performance hints based on the maximum entrypoint size.
+             * The default value is 250000 (bytes).
+             */
+            maxEntrypointSize?: number;
+        }
+        type Stats = webpack.Stats.ToStringOptions;
+        type WatchOptions = ICompiler.WatchOptions;
     }
 
-    interface Webpack {
-        (config: Configuration, callback?: compiler.CompilerCallback): compiler.Compiler;
-        /**
-         * optimize namespace
-         */
-        optimize: Optimize;
-        /**
-         * dependencies namespace
-         */
-        dependencies: Dependencies;
-        /**
-         * Replace resources that matches resourceRegExp with newResource.
-         * If newResource is relative, it is resolve relative to the previous resource.
-         * If newResource is a function, it is expected to overwrite the ‘request’ attribute of the supplied object.
-         */
-        NormalModuleReplacementPlugin: NormalModuleReplacementPluginStatic;
-        /**
-         * Replaces the default resource, recursive flag or regExp generated by parsing with newContentResource,
-         * newContentRecursive resp. newContextRegExp if the resource (directory) matches resourceRegExp.
-         * If newContentResource is relative, it is resolve relative to the previous resource.
-         * If newContentResource is a function, it is expected to overwrite the ‘request’ attribute of the supplied object.
-         */
-        ContextReplacementPlugin: ContextReplacementPluginStatic;
-        /**
-         * Don’t generate modules for requests matching the provided RegExp.
-         */
-        IgnorePlugin: IgnorePluginStatic;
-        /**
-         * A request for a normal module, which is resolved and built even before a require to it occurs.
-         * This can boost performance. Try to profile the build first to determine clever prefetching points.
-         */
-        PrefetchPlugin: PrefetchPluginStatic;
-        /**
-         * Apply a plugin (or array of plugins) to one or more resolvers (as specified in types).
-         */
-        ResolverPlugin: ResolverPluginStatic;
-        /**
-         * Adds a banner to the top of each generated chunk.
-         */
-        BannerPlugin: BannerPluginStatic;
-        /**
-         * Define free variables. Useful for having development builds with debug logging or adding global constants.
-         */
-        DefinePlugin: DefinePluginStatic;
-        /**
-         * Automatically loaded modules.
-         * Module (value) is loaded when the identifier (key) is used as free variable in a module.
-         * The identifier is filled with the exports of the loaded module.
-         */
-        ProvidePlugin: ProvidePluginStatic;
-        /**
-         * Adds SourceMaps for assets.
-         */
-        SourceMapDevToolPlugin: SourceMapDevToolPluginStatic;
-        /**
-         * Adds SourceMaps for assets, but wrapped inside eval statements.
-         * Much faster incremental build speed, but harder to debug.
-         */
-        EvalSourceMapDevToolPlugin: EvalSourceMapDevToolPluginStatic;
-        /**
-         * Enables Hot Module Replacement. (This requires records data if not in dev-server mode, recordsPath)
-         * Generates Hot Update Chunks of each chunk in the records.
-         * It also enables the API and makes __webpack_hash__ available in the bundle.
-         */
-        HotModuleReplacementPlugin: HotModuleReplacementPluginStatic;
-        /**
-         * Adds useful free vars to the bundle.
-         */
-        ExtendedAPIPlugin: ExtendedAPIPluginStatic;
-        /**
-         * When there are errors while compiling this plugin skips the emitting phase (and recording phase),
-         * so there are no assets emitted that include errors. The emitted flag in the stats is false for all assets.
-         */
-        NoEmitOnErrorsPlugin: NoEmitOnErrorsPluginStatic;
-        /**
-         * Alias for NoEmitOnErrorsPlugin
-         * @deprecated
-         */
-        NoErrorsPlugin: NoEmitOnErrorsPluginStatic;
-        /**
-         * Does not watch specified files matching provided paths or RegExps.
-         */
-        WatchIgnorePlugin: WatchIgnorePluginStatic;
-        /**
-         * Uses the module name as the module id inside the bundle, instead of a number.
-         * Helps with debugging, but increases bundle size.
-         */
-        NamedModulesPlugin: NamedModulesPluginStatic;
-        /**
-         * Some loaders need context information and read them from the configuration.
-         * This need to be passed via loader options in the long-term. See loader documentation for relevant options.
-         * To keep compatibility with old loaders, these options can be passed via this plugin.
-         */
-        LoaderOptionsPlugin: LoaderOptionsPluginStatic;
+    // tslint:disable-next-line:interface-name
+    interface ICompiler {
+        run(handler: ICompiler.Handler): void;
+        watch(watchOptions: ICompiler.WatchOptions, handler: ICompiler.Handler): Watching;
     }
 
-    interface Optimize {
-        /**
-         * Search for equal or similar files and deduplicate them in the output.
-         * This comes with some overhead for the entry chunk, but can reduce file size effectively.
-         * This is experimental and may crash, because of some missing implementations. (Report an issue)
-         */
-        DedupePlugin: optimize.DedupePluginStatic;
-        /**
-         * Limit the chunk count to a defined value. Chunks are merged until it fits.
-         */
-        LimitChunkCountPlugin: optimize.LimitChunkCountPluginStatic;
-        /**
-         * Merge small chunks that are lower than this min size (in chars). Size is approximated.
-         */
-        MinChunkSizePlugin: optimize.MinChunkSizePluginStatic;
-        /**
-         * Assign the module and chunk ids by occurrence count. Ids that are used often get lower (shorter) ids.
-         * This make ids predictable, reduces to total file size and is recommended.
-         */
-        // TODO: This is a typo, and will be removed in Webpack 2.
-        OccurenceOrderPlugin: optimize.OccurenceOrderPluginStatic;
-        OccurrenceOrderPlugin: optimize.OccurenceOrderPluginStatic;
-        /**
-         * Minimize all JavaScript output of chunks. Loaders are switched into minimizing mode.
-         * You can pass an object containing UglifyJs options.
-         */
-        UglifyJsPlugin: optimize.UglifyJsPluginStatic;
-        CommonsChunkPlugin: optimize.CommonsChunkPluginStatic;
-        /**
-         * A plugin for a more aggressive chunk merging strategy.
-         * Even similar chunks are merged if the total size is reduced enough.
-         * As an option modules that are not common in these chunks can be moved up the chunk tree to the parents.
-         */
-        AggressiveMergingPlugin: optimize.AggressiveMergingPluginStatic;
+    namespace ICompiler {
+        type Handler = (err: Error, stats: Stats) => void;
+
+        interface WatchOptions {
+            /**
+             * Add a delay before rebuilding once the first file changed. This allows webpack to aggregate any other
+             * changes made during this time period into one rebuild.
+             * Pass a value in milliseconds. Default: 300.
+             */
+            aggregateTimeout?: number;
+            /**
+             * For some systems, watching many file systems can result in a lot of CPU or memory usage.
+             * It is possible to exclude a huge folder like node_modules.
+             * It is also possible to use anymatch patterns.
+             */
+            ignored?: string | RegExp;
+            /** Turn on polling by passing true, or specifying a poll interval in milliseconds. */
+            poll?: boolean | number;
+        }
     }
 
-    interface Dependencies {
-        /**
-         * Support Labeled Modules.
-         */
-        LabeledModulesPlugin: dependencies.LabeledModulesPluginStatic;
+    interface Watching {
+        close(callback: () => void): void;
+        invalidate(): void;
     }
 
-    interface DirectoryDescriptionFilePluginStatic {
-        new (file: string, files: string[]): Plugin;
+    class Compiler extends Tapable implements ICompiler {
+        constructor();
+
+        name: string;
+        options: Configuration;
+        outputFileSystem: any;
+        run(handler: Compiler.Handler): void;
+        watch(watchOptions: Compiler.WatchOptions, handler: Compiler.Handler): Compiler.Watching;
     }
 
-    interface NormalModuleReplacementPluginStatic {
-        new (resourceRegExp: any, newResource: any): Plugin;
+    namespace Compiler {
+        type Handler = ICompiler.Handler;
+        type WatchOptions = ICompiler.WatchOptions;
+
+        class Watching implements webpack.Watching {
+            constructor(compiler: Compiler, watchOptions: Watching.WatchOptions, handler: Watching.Handler);
+
+            close(callback: () => void): void;
+            invalidate(): void;
+        }
+
+        namespace Watching {
+            type WatchOptions = ICompiler.WatchOptions;
+            type Handler = ICompiler.Handler;
+        }
     }
 
-    interface ContextReplacementPluginStatic {
-        new (resourceRegExp: any, newContentResource?: any, newContentRecursive?: any, newContentRegExp?: any): Plugin;
+    abstract class MultiCompiler implements ICompiler {
+        run(handler: MultiCompiler.Handler): void;
+        watch(watchOptions: MultiCompiler.WatchOptions, handler: MultiCompiler.Handler): MultiWatching;
     }
 
-    interface IgnorePluginStatic {
-        new (requestRegExp: any, contextRegExp?: any): Plugin;
+    namespace MultiCompiler {
+        type Handler = ICompiler.Handler;
+        type WatchOptions = ICompiler.WatchOptions;
     }
 
-    interface PrefetchPluginStatic {
+    abstract class MultiWatching implements Watching {
+        close(callback: () => void): void;
+        invalidate(): void;
+    }
+
+    abstract class Plugin implements Tapable.Plugin {
+        apply(compiler: Compiler): void;
+    }
+
+    abstract class Stats {
+        /** Returns true if there were errors while compiling. */
+        hasErrors(): boolean;
+        /** Returns true if there were warnings while compiling. */
+        hasWarnings(): boolean;
+        /** Returns compilation information as a JSON object. */
+        toJson(options?: Stats.ToJsonOptions): any;
+        /** Returns a formatted string of the compilation information (similar to CLI output). */
+        toString(options?: Stats.ToStringOptions): string;
+    }
+
+    namespace Stats {
+        type Preset
+            = boolean
+            | 'errors-only'
+            | 'minimal'
+            | 'none'
+            | 'normal'
+            | 'verbose';
+
+        interface ToJsonOptionsObject {
+            /** Add asset Information */
+            assets?: boolean;
+            /** Sort assets by a field */
+            assetsSort?: string;
+            /** Add information about cached (not built) modules */
+            cached?: boolean;
+            /** Add children information */
+            children?: boolean;
+            /** Add built modules information to chunk information */
+            chunkModules?: boolean;
+            /** Add the origins of chunks and chunk merging info */
+            chunkOrigins?: boolean;
+            /** Add chunk information (setting this to `false` allows for a less verbose output) */
+            chunks?: boolean;
+            /** Sort the chunks by a field */
+            chunksSort?: string;
+            /** Context directory for request shortening */
+            context?: string;
+            /** Add details to errors (like resolving log) */
+            errorDetails?: boolean;
+            /** Add errors */
+            errors?: boolean;
+            /** Add the hash of the compilation */
+            hash?: boolean;
+            /** Add built modules information */
+            modules?: boolean;
+            /** Sort the modules by a field */
+            modulesSort?: string;
+            /** Add public path information */
+            publicPath?: boolean;
+            /** Add information about the reasons why modules are included */
+            reasons?: boolean;
+            /** Add the source code of modules */
+            source?: boolean;
+            /** Add timing information */
+            timings?: boolean;
+            /** Add webpack version information */
+            version?: boolean;
+            /** Add warnings */
+            warnings?: boolean;
+        }
+
+        type ToJsonOptions = Preset | ToJsonOptionsObject;
+
+        interface ToStringOptionsObject extends ToJsonOptionsObject {
+            /** `webpack --colors` equivalent */
+            colors?: boolean;
+        }
+
+        type ToStringOptions = Preset | ToStringOptionsObject;
+    }
+
+    /**
+     * Plugins
+     */
+
+    class BannerPlugin extends Plugin {
+        constructor(banner: any, options: any);
+    }
+
+    class ContextReplacementPlugin extends Plugin {
+        constructor(resourceRegExp: any, newContentResource?: any, newContentRecursive?: any, newContentRegExp?: any);
+    }
+
+    class DefinePlugin extends Plugin {
+        constructor(definitions: {[key: string]: any});
+    }
+
+    class EvalSourceMapDevToolPlugin extends Plugin {
+        constructor(options?: false | string | EvalSourceMapDevToolPlugin.Options);
+    }
+
+    namespace EvalSourceMapDevToolPlugin {
+        interface Options {
+            append?: false | string;
+            columns?: boolean;
+            lineToLine?: boolean | {
+                exclude?: Condition | Condition[];
+                include?: Condition | Condition[];
+                test?: Condition | Condition[];
+            };
+            module?: boolean;
+            moduleFilenameTemplate?: string;
+            sourceRoot?: string;
+        }
+    }
+
+    class ExtendedAPIPlugin extends Plugin {
+        constructor();
+    }
+
+    class HotModuleReplacementPlugin extends Plugin {
+        constructor(options?: any);
+    }
+
+    class IgnorePlugin extends Plugin {
+        constructor(requestRegExp: any, contextRegExp?: any);
+    }
+
+    class LoaderOptionsPlugin extends Plugin {
+        constructor(options: any);
+    }
+
+    class NamedModulesPlugin extends Plugin {
+        constructor();
+    }
+
+    class NoEmitOnErrorsPlugin extends Plugin {
+        constructor();
+    }
+
+    /** @deprecated use webpack.NoEmitOnErrorsPlugin */
+    class NoErrorsPlugin extends Plugin {
+        constructor();
+    }
+
+    class NormalModuleReplacementPlugin extends Plugin {
+        constructor(resourceRegExp: any, newResource: any);
+    }
+
+    class PrefetchPlugin extends Plugin {
         // tslint:disable-next-line:unified-signatures
-        new (context: any, request: any): Plugin;
-        new (request: any): Plugin;
+        constructor(context: any, request: any);
+        constructor(request: any);
     }
 
-    interface ResolverPluginStatic {
-        new (plugins: Plugin[], files?: string[]): Plugin;
-        DirectoryDescriptionFilePlugin: DirectoryDescriptionFilePluginStatic;
-        /**
-         * This plugin will append a path to the module directory to find a match,
-         * which can be useful if you have a module which has an incorrect “main” entry in its package.json/bower.json etc (e.g. "main": "Gruntfile.js").
-         * You can use this plugin as a special case to load the correct file for this module. Example:
-         */
-        FileAppendPlugin: FileAppendPluginStatic;
+    class ProvidePlugin extends Plugin {
+        constructor(definitions: {[key: string]: any});
     }
 
-    interface FileAppendPluginStatic {
-        new (files: string[]): Plugin;
+    class SourceMapDevToolPlugin extends Plugin {
+        constructor(options?: null | false | string | SourceMapDevToolPlugin.Options);
     }
 
-    interface BannerPluginStatic {
-        new (banner: any, options: any): Plugin;
-    }
-
-    interface DefinePluginStatic {
-        new (definitions: {[key: string]: any}): Plugin;
-    }
-
-    interface ProvidePluginStatic {
-        new (definitions: {[key: string]: any}): Plugin;
-    }
-
-    interface SourceMapDevToolPluginStatic {
-        // if string | false | null, maps to the filename option
-        new (options?: string | false | null | SourceMapDevToolPluginOptions): Plugin;
-    }
-
-    interface SourceMapDevToolPluginOptions {
-        // output filename pattern (false/null to append)
-        filename?: string | false | null;
-        // source map comment pattern (false to not append)
-        append?: false | string;
-        // template for the module filename inside the source map
-        moduleFilenameTemplate?: string;
-        // fallback used when the moduleFilenameTemplate produces a collision
-        fallbackModuleFilenameTemplate?: string;
-        // test/include/exclude files
-        test?: Condition | Condition[];
-        include?: Condition | Condition[];
-        exclude?: Condition | Condition[];
-        // whether to include the footer comment with source information
-        noSources?: boolean;
-        // the source map sourceRoot ("The URL root from which all sources are relative.")
-        sourceRoot?: string | null;
-        // whether to generate per-module source map
-        module?: boolean;
-        // whether to include column information in the source map
-        columns?: boolean;
-        // whether to preserve line numbers between source and source map
-        lineToLine?: boolean | {
-            test?: Condition | Condition[];
-            include?: Condition | Condition[];
+    namespace SourceMapDevToolPlugin {
+        /** @todo extend EvalSourceMapDevToolPlugin.Options */
+        interface Options {
+            append?: false | string;
+            columns?: boolean;
             exclude?: Condition | Condition[];
-        };
-    }
-
-    interface EvalSourceMapDevToolPluginStatic {
-        // if string | false, maps to the append option
-        new (options?: string | false | EvalSourceMapDevToolPluginOptions): Plugin;
-    }
-
-    interface EvalSourceMapDevToolPluginOptions {
-        append?: false | string;
-        moduleFilenameTemplate?: string;
-        sourceRoot?: string;
-        module?: boolean;
-        columns?: boolean;
-        lineToLine?: boolean | {
-            test?: Condition | Condition[];
+            fallbackModuleFilenameTemplate?: string;
+            filename?: null | false | string;
             include?: Condition | Condition[];
-            exclude?: Condition | Condition[];
-        };
+            lineToLine?: boolean | {
+                exclude?: Condition | Condition[];
+                include?: Condition | Condition[];
+                test?: Condition | Condition[];
+            };
+            module?: boolean;
+            moduleFilenameTemplate?: string;
+            noSources?: boolean;
+            sourceRoot?: null | string;
+            test?: Condition | Condition[];
+        }
     }
 
-    interface HotModuleReplacementPluginStatic {
-        new (options?: any): Plugin;
-    }
-
-    interface ExtendedAPIPluginStatic {
-        new (): Plugin;
-    }
-
-    interface NoEmitOnErrorsPluginStatic {
-        new (): Plugin;
-    }
-
-    interface WatchIgnorePluginStatic {
-        new (paths: RegExp[]): Plugin;
-    }
-
-    interface NamedModulesPluginStatic {
-        new (): Plugin;
-    }
-
-    interface LoaderOptionsPluginStatic {
-        new (options: any): Plugin;
+    class WatchIgnorePlugin extends Plugin {
+        constructor(paths: RegExp[]);
     }
 
     namespace optimize {
-        interface DedupePluginStatic {
-            new (): Plugin;
+        class AggressiveMergingPlugin extends Plugin {
+            constructor(options: any);
         }
-        interface LimitChunkCountPluginStatic {
-            new (options: any): Plugin;
+
+        class CommonsChunkPlugin extends Plugin {
+            constructor(options?: any);
         }
-        interface MinChunkSizePluginStatic {
-            new (options: any): Plugin;
+
+        /** @deprecated */
+        class DedupePlugin extends Plugin {
+            constructor();
         }
-        interface OccurenceOrderPluginStatic {
-            new (preferEntry: boolean): Plugin;
+
+        class LimitChunkCountPlugin extends Plugin {
+            constructor(options: any);
         }
-        interface UglifyJsPluginStatic {
-            new (options?: UglifyJS.MinifyOptions): Plugin;
+
+        class MinChunkSizePlugin extends Plugin {
+            constructor(options: any);
         }
-        interface CommonsChunkPluginStatic {
-            new (chunkName: string, filenames?: string | string[]): Plugin;
-            new (options?: any): Plugin;
+
+        class OccurrenceOrderPlugin extends Plugin {
+            constructor(preferEntry: boolean);
         }
-        interface AggressiveMergingPluginStatic {
-            new (options: any): Plugin;
+
+        class UglifyJsPlugin extends Plugin {
+            constructor(options?: UglifyJsPlugin.Options);
+        }
+
+        namespace UglifyJsPlugin {
+            type CommentFilter = (astNode: any, comment: any) => boolean;
+
+            interface Options extends UglifyJS.MinifyOptions {
+                beautify?: boolean;
+                comments?: boolean | RegExp | CommentFilter;
+                exclude?: Condition | Condition[];
+                include?: Condition | Condition[];
+                sourceMap?: boolean;
+                test?: Condition | Condition[];
+            }
         }
     }
 
     namespace dependencies {
-        interface LabeledModulesPluginStatic {
-            new (): Plugin;
-        }
     }
 
-    namespace compiler {
-        interface Compiler {
-            /** Builds the bundle(s). */
-            run(callback: CompilerCallback): void;
+    namespace loader {
+
+        interface Loader extends Function {
+            (this: LoaderContext, source: string | Buffer, sourceMap: string | Buffer): string | Buffer | void | undefined;
+
             /**
-             * Builds the bundle(s) then starts the watcher, which rebuilds bundles whenever their source files change.
-             * Returns a Watching instance. Note: since this will automatically run an initial build, so you only need to run watch (and not run).
+             * The order of chained loaders are always called from right to left.
+             * But, in some cases, loaders do not care about the results of the previous loader or the resource.
+             * They only care for metadata. The pitch method on the loaders is called from left to right before the loaders are called (from right to left).
+             * If a loader delivers a result in the pitch method the process turns around and skips the remaining loaders,
+             * continuing with the calls to the more left loaders. data can be passed between pitch and normal call.
+             * @param remainingRequest
+             * @param precedingRequest
+             * @param data
              */
-            watch(watchOptions: WatchOptions, handler: CompilerCallback): Watching;
-            //TODO: below are some of the undocumented properties. needs typings
-            outputFileSystem: any;
-            name: string;
-            options: Configuration;
+            pitch?(remainingRequest: string, precedingRequest: string, data: any): any | undefined;
+
+            /**
+             * By default, the resource file is treated as utf-8 string and passed as String to the loader.
+             * By setting raw to true the loader is passed the raw Buffer.
+             * Every loader is allowed to deliver its result as String or as Buffer.
+             * The compiler converts them between loaders.
+             */
+            raw?: boolean;
         }
 
-        interface Watching {
-            close(callback: () => void): void;
-        }
+        type loaderCallback = (err: Error | undefined | null, content?: string | Buffer, sourceMap?: string | Buffer) => void;
 
-        interface WatchOptions {
-            /** After a change the watcher waits that time (in milliseconds) for more changes. Default: 300. */
-            aggregateTimeout?: number;
-            /** The watcher uses polling instead of native watchers. true uses the default interval, a number specifies a interval in milliseconds. Default: undefined (automatic). */
-            poll?: number | boolean;
-        }
+        interface LoaderContext {
+            /**
+             * Loader API version. Currently 2.
+             * This is useful for providing backwards compatibility.
+             * Using the version you can specify custom logic or fallbacks for breaking changes.
+             */
+            version: string;
 
-        interface Stats {
-            /** Returns true if there were errors while compiling */
-            hasErrors(): boolean;
-            /** Returns true if there were warnings while compiling. */
-            hasWarnings(): boolean;
-            /** Return information as json object */
-            toJson(options?: StatsOptions): any; //TODO: type this
-            /** Returns a formatted string of the result. */
-            toString(options?: StatsToStringOptions): string;
-        }
 
-        interface StatsOptions {
-            /** context directory for request shortening */
-            context?: boolean;
-            /** add the hash of the compilation */
-            hash?: boolean;
-            /** add webpack version information */
-            version?: boolean;
-            /** add timing information */
-            timings?: boolean;
-            /** add assets information */
-            assets?: boolean;
-            /** add chunk information */
-            chunks?: boolean;
-            /** add built modules information to chunk information */
-            chunkModules?: boolean;
-            /** add built modules information */
-            modules?: boolean;
-            /** add children information */
-            children?: boolean;
-            /** add also information about cached (not built) modules */
-            cached?: boolean;
-            /** add information about the reasons why modules are included */
-            reasons?: boolean;
-            /** add the source code of modules */
-            source?: boolean;
-            /** add details to errors (like resolving log) */
-            errorDetails?: boolean;
-            /** add the origins of chunks and chunk merging info */
-            chunkOrigins?: boolean;
-            /** sort the modules by that field */
-            modulesSort?: string;
-            /** sort the chunks by that field */
-            chunksSort?: string;
-            /** sort the assets by that field */
-            assetsSort?: string;
-        }
+            /**
+             *  The directory of the module. Can be used as context for resolving other stuff.
+             *  In the example: /abc because resource.js is in this directory
+             */
+            context: string;
 
-        interface StatsToStringOptions extends StatsOptions {
-            /** With console colors */
-            colors?: boolean;
-        }
 
-        type CompilerCallback = (err: Error, stats: Stats) => void;
+            /**
+             * The resolved request string.
+             * In the example: "/abc/loader1.js?xyz!/abc/node_modules/loader2/index.js!/abc/resource.js?rrr"
+             */
+            request: string;
+
+
+            /**
+             *  A string or any object. The query of the request for the current loader.
+             */
+            query: any;
+
+
+            /**
+             * A data object shared between the pitch and the normal phase.
+             */
+            data?: any;
+
+
+            callback: loaderCallback;
+
+
+            /**
+             * Make this loader async.
+             */
+            async(): loaderCallback | undefined;
+
+            /**
+             *  Make this loader result cacheable. By default it's not cacheable.
+             *  A cacheable loader must have a deterministic result, when inputs and dependencies haven't changed.
+             *  This means the loader shouldn't have other dependencies than specified with this.addDependency.
+             *  Most loaders are deterministic and cacheable.
+             */
+            cacheable(flag?: boolean): void;
+
+            /**
+             * loaders = [{request: string, path: string, query: string, module: function}]
+             * An array of all the loaders. It is writeable in the pitch phase.
+             * In the example:
+             * [
+             *   { request: "/abc/loader1.js?xyz",
+             *     path: "/abc/loader1.js",
+             *     query: "?xyz",
+             *     module: [Function]
+             *   },
+             *   { request: "/abc/node_modules/loader2/index.js",
+             *     path: "/abc/node_modules/loader2/index.js",
+             *     query: "",
+             *     module: [Function]
+             *   }
+             * ]
+             */
+            loaders: any[];
+
+            /**
+             * The index in the loaders array of the current loader.
+             * In the example: in loader1: 0, in loader2: 1
+             */
+            loaderIndex: number;
+
+            /**
+             * The resource part of the request, including query.
+             * In the example: "/abc/resource.js?rrr"
+             */
+            resource: string;
+
+            /**
+             * The resource file.
+             * In the example: "/abc/resource.js"
+             */
+            resourcePath: string;
+
+            /**
+             * The query of the resource.
+             * In the example: "?rrr"
+             */
+            resourceQuery: string;
+
+            /**
+             * Emit a warning.
+             * @param message
+             */
+            emitWarning(message: string): void;
+
+            /**
+             * Emit a error.
+             * @param message
+             */
+            emitError(message: string): void;
+
+            /**
+             * Execute some code fragment like a module.
+             *
+             * Don't use require(this.resourcePath), use this function to make loaders chainable!
+             *
+             * @param code
+             * @param filename
+             */
+            exec(code: string, filename: string): any;
+
+
+            /**
+             * Resolve a request like a require expression.
+             * @param context
+             * @param request
+             * @param callback
+             */
+            resolve(context: string, request: string, callback: (err: Error, result: string) => void): any;
+
+            /**
+             * Resolve a request like a require expression.
+             * @param context
+             * @param request
+             */
+            resolveSync(context: string, request: string): string;
+
+
+            /**
+             * Adds a file as dependency of the loader result in order to make them watchable.
+             * For example, html-loader uses this technique as it finds src and src-set attributes.
+             * Then, it sets the url's for those attributes as dependencies of the html file that is parsed.
+             * @param file
+             */
+            addDependency(file: string): void;
+
+            /**
+             * Adds a file as dependency of the loader result in order to make them watchable.
+             * For example, html-loader uses this technique as it finds src and src-set attributes.
+             * Then, it sets the url's for those attributes as dependencies of the html file that is parsed.
+             * @param file
+             */
+            dependency(file: string): void;
+
+            /**
+             * Add a directory as dependency of the loader result.
+             * @param directory
+             */
+            addContextDependency(directory: string): void;
+
+            /**
+             * Remove all dependencies of the loader result. Even initial dependencies and these of other loaders. Consider using pitch.
+             */
+            clearDependencies(): void;
+
+
+            /**
+             * Pass values to the next loader.
+             * If you know what your result exports if executed as module, set this value here (as a only element array).
+             */
+            value: any;
+
+            /**
+             * Passed from the last loader.
+             * If you would execute the input argument as module, consider reading this variable for a shortcut (for performance).
+             */
+            inputValue: any;
+
+            /**
+             * The options passed to the Compiler.
+             */
+            options: any;
+
+            /**
+             * A boolean flag. It is set when in debug mode.
+             */
+            debug: boolean;
+
+            /**
+             * Should the result be minimized.
+             */
+            minimize: boolean;
+
+            /**
+             * Should a SourceMap be generated.
+             */
+            sourceMap: boolean;
+
+
+            /**
+             * Target of compilation. Passed from configuration options.
+             * Example values: "web", "node"
+             */
+            target: 'web' | 'node' | string;
+
+            /**
+             * This boolean is set to true when this is compiled by webpack.
+             *
+             * Loaders were originally designed to also work as Babel transforms.
+             * Therefore if you write a loader that works for both, you can use this property to know if
+             * there is access to additional loaderContext and webpack features.
+             */
+            webpack: boolean;
+
+
+            /**
+             * Emit a file. This is webpack-specific.
+             * @param name
+             * @param content
+             * @param sourceMap
+             */
+            emitFile(name: string, content: Buffer|string, sourceMap: any): void;
+
+
+            /**
+             * Access to the compilation's inputFileSystem property.
+             */
+            fs: any;
+
+            /**
+             * Hacky access to the Compilation object of webpack.
+             */
+            _compilation: any;
+
+            /**
+             * Hacky access to the Compiler object of webpack.
+             */
+            _compiler: Compiler;
+
+
+            /**
+             * Hacky access to the Module object being loaded.
+             */
+            _module: any;
+        }
     }
 
-    interface PerformanceOptions {
-        /**
-         * Turns hints on/off. In addition, tells webpack to throw either an error or a warning when hints are found. This property is set to "warning" by default.
-         */
-        hints?: boolean | 'error' | 'warning';
-        /**
-         * An entrypoint represents all assets that would be utilized during initial load time for a specific entry. This option controls when webpack should emit performance hints based on the maximum entrypoint size. The default value is 250000 (bytes).
-         */
-        maxEntryPointSize?: number;
-        /**
-         * An asset is any emitted file from webpack. This option controls when webpack emits a performance hint based on individual asset size. The default value is 250000 (bytes).
-         */
-        maxAssetSize?: number;
-        /**
-         * This property allows webpack to control what files are used to calculate performance hints.
-         */
-        assetFilter?: (assetFilename: string) => boolean;
+    /** @deprecated */
+    namespace compiler {
+        /** @deprecated use webpack.Compiler */
+        type Compiler = webpack.Compiler;
+
+        /** @deprecated use webpack.Compiler.Watching */
+        type Watching = webpack.Compiler.Watching;
+
+        /** @deprecated use webpack.Compiler.WatchOptions */
+        type WatchOptions = webpack.Compiler.WatchOptions;
+
+        /** @deprecated use webpack.Stats */
+        type Stats = webpack.Stats;
+
+        /** @deprecated use webpack.Stats.ToJsonOptions */
+        type StatsOptions = webpack.Stats.ToJsonOptions;
+
+        /** @deprecated use webpack.Stats.ToStringOptions */
+        type StatsToStringOptions = webpack.Stats.ToStringOptions;
+
+        /** @deprecated use webpack.Compiler.Handler */
+        type CompilerCallback = webpack.Compiler.Handler;
     }
+
+    /** @deprecated use webpack.Options.Performance */
+    type PerformanceOptions = webpack.Options.Performance;
+    /** @deprecated use webpack.Options.WatchOptions */
+    type WatchOptions = webpack.Options.WatchOptions;
+    /** @deprecated use webpack.EvalSourceMapDevToolPlugin.Options */
+    type EvalSourceMapDevToolPluginOptions = webpack.EvalSourceMapDevToolPlugin.Options;
+    /** @deprecated use webpack.SourceMapDevToolPlugin.Options */
+    type SourceMapDevToolPluginOptions = webpack.SourceMapDevToolPlugin.Options;
+    /** @deprecated use webpack.optimize.UglifyJsPlugin.CommentFilter */
+    type UglifyCommentFunction = webpack.optimize.UglifyJsPlugin.CommentFilter;
+    /** @deprecated use webpack.optimize.UglifyJsPlugin.Options */
+    type UglifyPluginOptions = webpack.optimize.UglifyJsPlugin.Options;
 }
-
-declare var webpack: webpack.Webpack;
-
-//export default webpack;
-export = webpack;

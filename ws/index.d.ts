@@ -107,14 +107,6 @@ declare namespace WebSocket {
         memLevel?: number;
     }
 
-    export interface IPerMessageDeflateOptions {
-        serverNoContextTakeover?: boolean;
-        clientNoContextTakeover?: boolean;
-        serverMaxWindowBits?: number;
-        clientMaxWindowBits?: number;
-        memLevel?: number;
-    }
-
     export interface IServerOptions {
         host?: string;
         port?: number;
