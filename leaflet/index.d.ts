@@ -1464,7 +1464,7 @@ declare namespace L {
         riseOnHover?: boolean;
         riseOffset?: number;
 
-        options: DivIconOptions;
+        options?: DivIconOptions;
     }
 
     export class Marker extends Layer {
