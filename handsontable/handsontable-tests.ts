@@ -281,6 +281,10 @@ function test_HandsontableMethods() {
   hot.setDataAtRowProp(123, 'foo', 'foo', 'foo');
   hot.spliceCol(123, 123, 123, 'foo');
   hot.spliceRow(123, 123, 123, 'foo');
+  hot.toPhysicalRow(123);
+  hot.toPhysicalColumn(123);
+  hot.toVisualRow(123);
+  hot.toVisualColumn(123);
   hot.unlisten();
   hot.updateSettings({}, true);
   hot.validateCells(function() {});
@@ -288,4 +292,10 @@ function test_HandsontableMethods() {
   Handsontable.renderers.NumericRenderer(hot, new HTMLTableDataCellElement(), 0, 0, "prop", 1.235, {});
   Handsontable.renderers.TextRenderer(hot, new HTMLTableDataCellElement(), 0, 0, "prop", 1.235, {});
   Handsontable.Dom.addEvent(new HTMLElement(), "eventName", () => {});
+}
+
+class MyCustomHotPlugin extends Handsontable.plugins.BasePlugin {
+  isEnabled() : boolean {
+     return !!this.hot.getSettings().manualRowMove;
+  }
 }
