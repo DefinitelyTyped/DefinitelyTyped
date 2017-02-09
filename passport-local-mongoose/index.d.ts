@@ -20,8 +20,8 @@ declare module 'mongoose' {
     authenticate(): (username: string, password: string, cb: (err: any, res: T, error: any) => void) => void;
     serializeUser(): (user: PassportLocalModel<T>, cb: (err: any) => void) => void;
     deserializeUser(): (username: string, cb: (err: any) => void) => void;
-    register(user: T, password: string, cb: (err: any) => void): void;
-    findByUsername(username: string, selectHashSaltFields: boolean, cb: (err: any) => void): any;
+    register(user: T, password: string, cb: (err: any, account: any) => void): void;
+    findByUsername(username: string, selectHashSaltFields: boolean, cb: (err: any, account: any) => void): any;
     createStrategy(): passportLocal.Strategy;
   }
 
