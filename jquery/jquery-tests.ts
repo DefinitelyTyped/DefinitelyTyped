@@ -1827,13 +1827,6 @@ function test_fx() {
 }
 
 function test_get() {
-    var elems: Element[] = $('div').get();
-    var divs: HTMLDivElement[] = $('div').get<HTMLDivElement>();
-
-    var elem: Element = $('div').get(2);
-    var div: HTMLDivElement = $('div').get<HTMLDivElement>(2);
-    $('div').get<HTMLDivElement>(0).noWrap = true;
-
     $.get('ajax/test.html', function (data) {
         $('.result').html(data);
         alert('Load was performed.');
@@ -2625,11 +2618,6 @@ function test_unique() {
     var unique: HTMLDivElement[];
     unique = jQuery.unique(divs);
     unique = jQuery.unique<HTMLDivElement>(divs);
-}
-
-function test_toArray() {
-    var elems: Element[] = $('div').toArray();
-    var divs: HTMLDivElement[] = $('div').toArray<HTMLDivElement>();
 }
 
 function test_jQuery() {
