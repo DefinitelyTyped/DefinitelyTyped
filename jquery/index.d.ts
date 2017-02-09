@@ -3248,7 +3248,7 @@ interface JQuery {
      * @name toArray
      * @see {@link https://api.jquery.com/toArray/}
      */
-    toArray<T extends HTMLElement>(): T[];
+    toArray(): HTMLElement[];
 
     /**
      * Remove the parents of the set of matched elements from the DOM, leaving the matched elements in their place.
@@ -3315,13 +3315,13 @@ interface JQuery {
      * @param index A zero-based integer indicating which element to retrieve.
      * @see {@link https://api.jquery.com/get/#get-index}
      */
-    get<T extends HTMLElement>(index: number): T;
+    get(index: number): HTMLElement;
     /**
      * Retrieve the elements matched by the jQuery object.
      * @alias toArray
      * @see {@link https://api.jquery.com/get/#get}
      */
-    get<T extends HTMLElement>(): T[];
+    get(): HTMLElement[];
 
     /**
      * Search for a given element from among the matched elements.
