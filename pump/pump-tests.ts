@@ -21,7 +21,7 @@ let rsClosed = false;
 let callbackCalled = false;
 
 function check() {
-    if (wsClosed && rsClosed && callbackCalled) process.exit(0);
+    if (wsClosed && rsClosed && callbackCalled) console.log(`pump finished`);
 }
 
 ws.on('close', () => {
@@ -46,3 +46,7 @@ setTimeout(() => {
 setTimeout(() => {
     throw new Error('timeout');
 }, 5000);
+
+pump(createReadStream('/dev/random'), toHex(), createWriteStream('/dev/null'));
+
+pump([createReadStream('/dev/random'), toHex(), createWriteStream('/dev/null')]);
