@@ -237,3 +237,17 @@ client.stats({ limit: 50 }, function(err, statsPage) {        // statsPage as Pa
 // Fetching the Ably service time
 
 client.time({}, function(err, time) {}); // time is in ms since epoch
+
+// Getting decoded Message objects from JSON
+var messages = Ably.Realtime.Message.fromEncodedArray([{ id: 'foo' }]);
+console.log(messages[0].id);
+
+var message = Ably.Rest.Message.fromEncoded({ id: 'foo' });
+console.log(message.id);
+
+// Getting decoded PresenceMessage objects from JSON
+var presenceMessages = Ably.Realtime.PresenceMessage.fromEncodedArray([{ id: 'foo' }]);
+console.log(presenceMessages[0].action);
+
+var presenceMessage = Ably.Rest.PresenceMessage.fromEncoded({ id: 'foo' });
+console.log(presenceMessage.action);

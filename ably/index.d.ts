@@ -295,6 +295,8 @@ declare namespace ablyLib {
   type realtimePresenceGetCallback = (error: ErrorInfo, messages: PresenceMessage[]) => void;
   type tokenDetailsCallback = (error: ErrorInfo, Results: TokenDetails) => void;
   type tokenRequestCallback = (error: ErrorInfo, Results: TokenRequest) => void;
+  type fromEncoded<T> = (JsonObject: any, channelOptions?: ChannelOptions) => T;
+  type fromEncodedArray<T> = (JsonArray: any[], channelOptions?: ChannelOptions) => T[];
 
   // Internal Classes
   class EventEmitter<T> {
@@ -358,8 +360,8 @@ declare namespace ablyLib {
 
   class Message {
     constructor();
-    fromEncoded: (JsonObject: string, channelOptions: ChannelOptions) => Message;
-    fromEncodedArray: (JsonArray: string, channelOptions: ChannelOptions) => Message[];
+    static fromEncoded: fromEncoded<Message>;
+    static fromEncodedArray: fromEncodedArray<Message>;
     clientId: string;
     connectionId: string;
     data: any;
@@ -370,9 +372,15 @@ declare namespace ablyLib {
     timestamp: number;
   }
 
+  interface MessageStatic {
+    fromEncoded: fromEncoded<Message>;
+    fromEncodedArray: fromEncodedArray<Message>;
+  }
+
   class PresenceMessage {
-    fromEncoded: (JsonObject: any, channelOptions?: ChannelOptions) => PresenceMessage;
-    fromEncodedArray: (JsonArray: any[], channelOptions?: ChannelOptions) => PresenceMessage[];
+    constructor();
+    static fromEncoded: fromEncoded<PresenceMessage>;
+    static fromEncodedArray: fromEncodedArray<PresenceMessage>;
     action: PresenceAction;
     clientId: string;
     connectionId: string;
@@ -380,6 +388,11 @@ declare namespace ablyLib {
     encoding: string;
     id: string;
     timestamp: number;
+  }
+
+  interface PresenceMessageStatic {
+    fromEncoded: fromEncoded<PresenceMessage>;
+    fromEncodedArray: fromEncodedArray<PresenceMessage>;
   }
 
   interface Crypto {
@@ -432,6 +445,8 @@ declare namespace ablyLib {
 export declare class Rest {
   constructor(options: ablyLib.ClientOptions | string);
   static Crypto: ablyLib.Crypto;
+  static Message: ablyLib.MessageStatic;
+  static PresenceMessage: ablyLib.PresenceMessageStatic;
   auth: ablyLib.Auth;
   channels: ablyLib.Channels<ablyLib.Channel>;
   request: (method: string, path: string, params?: any, body?: any[] | any, headers?: any, callback?: (error: ablyLib.ErrorInfo, response: ablyLib.HttpPaginatedResponse) => void) => void;
@@ -442,6 +457,8 @@ export declare class Rest {
 export declare class Realtime {
   constructor(options: ablyLib.ClientOptions | string);
   static Crypto: ablyLib.Crypto;
+  static Message: ablyLib.MessageStatic;
+  static PresenceMessage: ablyLib.PresenceMessageStatic;
   auth: ablyLib.Auth;
   channels: ablyLib.Channels<ablyLib.RealtimeChannel>;
   clientId: string;
