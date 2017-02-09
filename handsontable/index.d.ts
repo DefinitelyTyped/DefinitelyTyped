@@ -1,4 +1,4 @@
-// Type definitions for Handsontable 0.24.3
+// Type definitions for Handsontable 0.30
 // Project: https://handsontable.com/
 // Definitions by: Handsoncode sp. z o.o. <http://handsoncode.net/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped\
@@ -280,10 +280,10 @@ declare namespace ht {
     setDataAtRowProp(row: number|any[], prop: string, value: string, source?: string): void;
     spliceCol(col: number, index: number, amount: number, elements?: any): void;
     spliceRow(row: number, index: number, amount: number, elements?: any): void;
-    toPhysicalRow(row : number) : number;
-    toPhysicalColumn(column : number) : number;
-    toVisualRow(row : number) : number;
-    toVisualColumn(column : number) : number;
+    toPhysicalRow(row: number): number;
+    toPhysicalColumn(column: number): number;
+    toVisualRow(row: number): number;
+    toVisualColumn(column: number): number;
     unlisten(): void;
     updateSettings(settings: Object, init?: boolean): void;
     validateCells(callback: Function): void;
@@ -311,7 +311,7 @@ declare namespace ht {
         editor?: string | EditorConstructor;
         selectOptions?: any[];
         width?: number;
-    
+
     }
 
     interface CellProperties {
@@ -332,85 +332,85 @@ declare namespace ht {
 
     // so that you can write custom plugins in typescript
     interface BasePlugin {
-        init() : void;
-        enablePlugin() : void;
-        disablePlugin() : void;
-        addHook(name: string, callback: Function) : void;
-        removeHooks(name: string) : void;
-        clearHooks() : void;
-        callOnPluginsReady(callback : Function) : void;
-        updatePlugin() : void;
-        destroy() : void;
+        init(): void;
+        enablePlugin(): void;
+        disablePlugin(): void;
+        addHook(name: string, callback: Function): void;
+        removeHooks(name: string): void;
+        clearHooks(): void;
+        callOnPluginsReady(callback: Function): void;
+        updatePlugin(): void;
+        destroy(): void;
         enabled: boolean;
         hot: Methods;
     }
 
     interface PluginConstructor {
-        new (hotInstance: Methods) : BasePlugin;
+        new (hotInstance: Methods): BasePlugin;
     }
 
     interface ContextMenuPluginConstructor extends PluginConstructor {
-        SEPARATOR : string;
+        SEPARATOR: string;
     }
 
     interface Plugins {
-        AutoColumnSize : PluginConstructor;
-        AutoRowSizeAutoRowSize : PluginConstructor;
-        BasePlugin : PluginConstructor;
-        BindRowsWithHeaders : PluginConstructor;
+        AutoColumnSize: PluginConstructor;
+        AutoRowSizeAutoRowSize: PluginConstructor;
+        BasePlugin: PluginConstructor;
+        BindRowsWithHeaders: PluginConstructor;
         CollapsibleColumns: PluginConstructor;
-        ColumnSorting : PluginConstructor;
-        ColumnSummary : PluginConstructor;
-        Comments : PluginConstructor;
-        ContextMenu : ContextMenuPluginConstructor;
-        ContextMenuCopyPaste : PluginConstructor;
-        DragToScroll :  PluginConstructor
-        DropdownMenu :  PluginConstructor;
-        ExportFile :  PluginConstructor;
-        Filters :  PluginConstructor;
-        Formulas :  PluginConstructor;
-        GanttChart :  PluginConstructor;
-        HeaderTooltips :  PluginConstructor;
-        HiddenColumns :  PluginConstructor;
-        HiddenRows :  PluginConstructor;
-        ManualColumnFreeze :  PluginConstructor;
-        ManualColumnMove :  PluginConstructor;
-        ManualColumnResize :  PluginConstructor;
-        ManualRowMove :  PluginConstructor;
-        ManualRowResize :  PluginConstructor;
-        MultipleSelectionHandles :  PluginConstructor;
-        NestedHeaders :  PluginConstructor;
-        NestedRows :  PluginConstructor;
-        ObserveChanges :  PluginConstructor;
-        TouchScroll :  PluginConstructor;
-        TrimRows :  PluginConstructor;
-        registerPlugin(pluginName : string, PluginClass: PluginConstructor) : void;
+        ColumnSorting: PluginConstructor;
+        ColumnSummary: PluginConstructor;
+        Comments: PluginConstructor;
+        ContextMenu: ContextMenuPluginConstructor;
+        ContextMenuCopyPaste: PluginConstructor;
+        DragToScroll: PluginConstructor;
+        DropdownMenu: PluginConstructor;
+        ExportFile: PluginConstructor;
+        Filters: PluginConstructor;
+        Formulas: PluginConstructor;
+        GanttChart: PluginConstructor;
+        HeaderTooltips: PluginConstructor;
+        HiddenColumns: PluginConstructor;
+        HiddenRows: PluginConstructor;
+        ManualColumnFreeze: PluginConstructor;
+        ManualColumnMove: PluginConstructor;
+        ManualColumnResize: PluginConstructor;
+        ManualRowMove: PluginConstructor;
+        ManualRowResize: PluginConstructor;
+        MultipleSelectionHandles: PluginConstructor;
+        NestedHeaders: PluginConstructor;
+        NestedRows: PluginConstructor;
+        ObserveChanges: PluginConstructor;
+        TouchScroll: PluginConstructor;
+        TrimRows: PluginConstructor;
+        registerPlugin(pluginName: string, PluginClass: PluginConstructor): void;
     }
-    
+
     interface Hooks {
-        register(key: string) : void;
-        run(instace: ht.Methods, hookName: string, key?: any, value?: any) : any;
+        register(key: string): void;
+        run(instace: ht.Methods, hookName: string, key?: any, value?: any): any;
     }
 
     interface Dom {
         addEvent(element: HTMLElement, eventName: string, callback: Function): void;
-        addClass(element: HTMLElement, className: string | string[]) : void;
-        removeClass(element: HTMLElement, className: string | string[]) : void;
-        offset(element: HTMLElement) : any;
-        getWindowScrollLeft() : number;
-        getWindowScrollTop() : number;
-        outerHeight(element: HTMLElement) : number;
-        hasClass(element: HTMLElement, className: string) : boolean | undefined;
+        addClass(element: HTMLElement, className: string | string[]): void;
+        removeClass(element: HTMLElement, className: string | string[]): void;
+        offset(element: HTMLElement): any;
+        getWindowScrollLeft(): number;
+        getWindowScrollTop(): number;
+        outerHeight(element: HTMLElement): number;
+        hasClass(element: HTMLElement, className: string): boolean | undefined;
     }
 
     interface ArrayMapper {
-        clearMap() : void;
-        getIndexByValue(value: any) : number;
-        getValueByIndex(index: number) : any;
-        insertItems(index: number, amount?: number) : number[];
-        removeItems(index: number | Array<number>, amount?: number) : number[];
-        unshiftItems(index : number | Array<number>, amount?: number) : void;
-        shiftItems(index: number, amount?: number) : void;
+        clearMap(): void;
+        getIndexByValue(value: any): number;
+        getValueByIndex(index: number): any;
+        insertItems(index: number, amount?: number): number[];
+        removeItems(index: number | number[], amount?: number): number[];
+        unshiftItems(index: number | number[], amount?: number): void;
+        shiftItems(index: number, amount?: number): void;
     }
 
     interface Utils {
@@ -418,60 +418,54 @@ declare namespace ht {
     }
 
     interface Helper {
-        arrayFilter(array: Array<any>, predicate: Function) : Array<any>;
-        arrayEach(array: Array<any>, predicate: Function) : void;
-        arrayMap(array: Array<any>, predicate: Function) : Array<any>;
-        arrayReduce(array: Array<any>, predicate: Function, initialValue?: any) : any;
-        objectEach(obj: any, predicate: Function) : void;
-        rangeEach(rangeFrom: number, rangeTo: number | Function, iteratee?: Function) : void;
-        mixin(Base: any, ...mixins : any[]) : void;
-        isNumeric(number: any) : boolean;
-        createSpreadsheetData(rows: number, columns: number) : any;
+        arrayFilter(array: any[], predicate: Function): any[];
+        arrayEach(array: any[], predicate: Function): void;
+        arrayMap(array: any[], predicate: Function): any[];
+        arrayReduce(array: any[], predicate: Function, initialValue?: any): any;
+        objectEach(obj: any, predicate: Function): void;
+        rangeEach(rangeFrom: number, rangeTo: number | Function, iteratee?: Function): void;
+        mixin(Base: any, ...mixins: any[]): void;
+        isNumeric(number: any): boolean;
+        createSpreadsheetData(rows: number, columns: number): any;
     }
 
-    interface CellRenderer {
-        (
+    type CellRenderer = (
             instance: Methods,
             td: HTMLTableCellElement,
             row: number,
             col: number,
             prop: string,
             value: any,
-            cellProperties: any) : void
-    }
+            cellProperties: any) => void;
 
     interface Editor {
-        open() : void;
+        open(): void;
     }
 
     interface EditorConstructor {
-        new (instance : Methods) : Editor;
+        new (instance: Methods): Editor;
     }
 
     interface Editors {
-        TextEditor : EditorConstructor;
+        TextEditor: EditorConstructor;
     }
 
-    interface Validator {
-        (value: string, callback: (condition: boolean) => void) : void;
-    }
+    type Validator = (value: string, callback: (condition: boolean) => void) => void;
 
     interface Renderers {
-        TextRenderer : CellRenderer;
-        NumericRenderer : CellRenderer;
-        AutocompleteRenderer : CellRenderer;
+        TextRenderer: CellRenderer;
+        NumericRenderer: CellRenderer;
+        AutocompleteRenderer: CellRenderer;
     }
 
-    interface AsyncAutocompleteSourceFunction {
-        (query : string, process: (values : any[]) => void) : void;
-    }
+    type AsyncAutocompleteSourceFunction = (query: string, process: (values: any[]) => void) => void;
 
     interface AutocompleteColumn extends ColumnProperties {
         source?: any[] | AsyncAutocompleteSourceFunction;
         strict?: boolean;
         trimDropdown?: boolean;
     }
-    
+
     interface DateColumn extends ColumnProperties {
         dateFormat?: string;
         correctFormat?: boolean;
@@ -494,9 +488,7 @@ declare namespace ht {
         label?: CheckboxColumnLabel;
     }
 
-    interface CellMetaFunction {
-        (row: number, column: number, prop: string) : void;
-    }
+    type CellMetaFunction = (row: number, column: number, prop: string) => void;
 
     type DropdownColumn = AutocompleteColumn;
 }
@@ -515,7 +507,7 @@ declare var Handsontable: {
 
 declare module "handsontable" {
     export var Handsontable: {
-      new (element: Element, options: ht.Options): ht.Methods;   
+      new (element: Element, options: ht.Options): ht.Methods;
       plugins: ht.Plugins;
       hooks: ht.Hooks;
       Dom: ht.Dom;
