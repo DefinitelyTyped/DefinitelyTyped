@@ -27,15 +27,16 @@ export interface ExpandData {
 export interface CheckData {
     checked: boolean;
     checkedNodes: TreeNode[];
+    halfCheckedKeys: string[];
     node: TreeNode;
-    event: Event;
+    event: "check";
 }
 
 export interface SelectData {
     selected: boolean;
     selectedNodes: TreeNode[];
     node: TreeNode;
-    event: Event;
+    event: "select";
 }
 
 
