@@ -118,7 +118,7 @@ declare namespace L {
 
     export class LatLng {
         constructor(latitude: number, longitude: number, altitude?: number);
-        constructor(coords: LatLngTuple | [number, number, number] | LatLngLiteral | {lat: number, lng: number, alt?: number});
+        constructor(coords: LatLngTuple | [number, number, number] | LatLngLiteral | { lat: number, lng: number, alt?: number });
         equals(otherLatLng: LatLngExpression, maxMargin?: number): boolean;
         toString(): string;
         distanceTo(otherLatLng: LatLngExpression): number;
@@ -141,7 +141,7 @@ declare namespace L {
 
     export function latLng(latitude: number, longitude: number, altitude?: number): LatLng;
 
-    export function latLng(coords: LatLngTuple | [number, number, number] | LatLngLiteral | {lat: number, lng: number, alt?: number}): LatLng;
+    export function latLng(coords: LatLngTuple | [number, number, number] | LatLngLiteral | { lat: number, lng: number, alt?: number }): LatLng;
 
     export class LatLngBounds {
         constructor(southWest: LatLngExpression, northEast: LatLngExpression);
@@ -177,7 +177,7 @@ declare namespace L {
 
     export class Point {
         constructor(x: number, y: number, round?: boolean);
-        constructor(coords: PointTuple | {x: number, y: number});
+        constructor(coords: PointTuple | { x: number, y: number });
         clone(): Point;
         add(otherPoint: PointExpression): Point; // investigate if this mutates or returns a new instance
         subtract(otherPoint: PointExpression): Point;
@@ -200,7 +200,7 @@ declare namespace L {
 
     export function point(x: number, y: number, round?: boolean): Point;
 
-    export function point(coords: PointTuple | {x: number, y: number}): Point;
+    export function point(coords: PointTuple | { x: number, y: number }): Point;
 
     export type BoundsLiteral = [PointTuple, PointTuple];
 
@@ -406,7 +406,7 @@ declare namespace L {
         getPane(name?: string): HTMLElement;
 
         // Popup methods
-        bindPopup(content: (layer: Layer) => Content | Content | Popup, options?: PopupOptions): this;
+        bindPopup(content: string | HTMLElement | Popup | ((layer: Layer) => Content), options?: PopupOptions): this;
         unbindPopup(): this;
         openPopup(latlng?: LatLngExpression): this;
         closePopup(): this;
@@ -428,7 +428,7 @@ declare namespace L {
         // Extension methods
         onAdd(map: Map): this;
         onRemove(map: Map): this;
-        getEvents(): {[name: string]: (event: Event) => void};
+        getEvents(): { [name: string]: (event: Event) => void };
         getAttribution(): string;
         beforeAdd(map: Map): this;
     }
@@ -665,7 +665,7 @@ declare namespace L {
         options: RendererOptions;
     }
 
-    export class SVG extends Renderer {}
+    export class SVG extends Renderer { }
 
     export namespace SVG {
         export function create(name: string): SVGElement;
@@ -675,7 +675,7 @@ declare namespace L {
 
     export function svg(options?: RendererOptions): SVG;
 
-    export class Canvas extends Renderer {}
+    export class Canvas extends Renderer { }
 
     export function canvas(options?: RendererOptions): Canvas;
 
@@ -1153,7 +1153,7 @@ declare namespace L {
     }
 
     /* tslint:disable:no-empty-interface */ // This is not empty, it extends two interfaces into one...
-    export interface ZoomPanOptions extends ZoomOptions, PanOptions {}
+    export interface ZoomPanOptions extends ZoomOptions, PanOptions { }
     /* tslint:enable */
 
     export interface FitBoundsOptions extends ZoomOptions, PanOptions {
@@ -1265,11 +1265,11 @@ declare namespace L {
     export namespace DomEvent {
         export function on(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
-        export function on(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
+        export function on(el: HTMLElement, eventMap: { [eventName: string]: EventHandlerFn }, context?: any): typeof DomEvent;
 
         export function off(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
-        export function off(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
+        export function off(el: HTMLElement, eventMap: { [eventName: string]: EventHandlerFn }, context?: any): typeof DomEvent;
 
         export function stopPropagation(ev: Event): typeof DomEvent;
 
@@ -1287,11 +1287,11 @@ declare namespace L {
 
         export function addListener(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
-        export function addListener(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
+        export function addListener(el: HTMLElement, eventMap: { [eventName: string]: EventHandlerFn }, context?: any): typeof DomEvent;
 
         export function removeListener(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
-        export function removeListener(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
+        export function removeListener(el: HTMLElement, eventMap: { [eventName: string]: EventHandlerFn }, context?: any): typeof DomEvent;
     }
 
     interface DefaultMapPanes {
@@ -1352,7 +1352,7 @@ declare namespace L {
          * Name of the pane or the pane as HTML-Element
          */
         getPane(pane: string | HTMLElement): HTMLElement;
-        getPanes(): {[name: string]: HTMLElement} & DefaultMapPanes;
+        getPanes(): { [name: string]: HTMLElement } & DefaultMapPanes;
         getContainer(): HTMLElement;
         whenReady(fn: () => void, context?: any): this;
 
@@ -1418,26 +1418,38 @@ declare namespace L {
         className?: string;
     }
 
-    class InternalIcon extends Layer {
+    export interface IconOptions extends LayerOptions {
+        iconUrl: string;
+        iconRetinaUrl?: string;
+        iconSize?: PointExpression;
+        iconAnchor?: PointExpression;
+        popupAnchor?: PointExpression;
+        shadowUrl?: string;
+        shadowRetinaUrl?: string;
+        shadowSize?: PointExpression;
+        shadowAnchor?: PointExpression;
+        className?: string;
+    }
+
+    class Icon extends Layer {
+        static Default: IconDefaultSettings;
         constructor(options: IconOptions);
         createIcon(oldIcon?: HTMLElement): HTMLElement;
     }
 
-    export class Icon extends InternalIcon {
+    export class IconDefaultSettings extends Icon {
+        imagePath: string;
+    }
+
+    export class DefaultIcon extends Icon {
         createShadow(oldIcon?: HTMLElement): HTMLElement;
         options: IconOptions;
     }
 
-    export namespace Icon {
-        export class Default extends InternalIcon {
-            imagePath: string;
-        }
-    }
-
-    export function icon(options: IconOptions): Icon;
+    export function icon(options: IconOptions): DefaultIcon;
 
     export interface DivIconOptions extends LayerOptions {
-        html?: string;
+        html?: boolean | string;
         bgPos?: PointExpression;
         iconSize?: PointExpression;
         iconAnchor?: PointExpression;
@@ -1445,7 +1457,7 @@ declare namespace L {
         className?: string;
     }
 
-    export class DivIcon extends InternalIcon {
+    export class DivIcon extends Icon {
         constructor(options?: DivIconOptions);
         options: DivIconOptions;
     }
@@ -1464,7 +1476,7 @@ declare namespace L {
         riseOnHover?: boolean;
         riseOffset?: number;
 
-        options: DivIconOptions;
+        options?: DivIconOptions;
     }
 
     export class Marker extends Layer {
