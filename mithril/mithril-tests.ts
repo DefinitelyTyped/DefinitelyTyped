@@ -5,7 +5,7 @@
 ;(function() {
 
 	// define a component
-	var Greeter: Mithril.Component<any, any> = {
+	var Greeter: Mithril.Component<{}, any> = {
 		view: function(vnode) {
 			return m("div", vnode.attrs, ["Hello ", vnode.children])
 		}
@@ -53,7 +53,7 @@
 })
 
 ;(function() {
-	var ComponentWithDynamicState: Mithril.Component<{data: string}, {text: string}> = {
+	var ComponentWithDynamicState: Mithril.Component<{data?: string}, {text: string}> = {
 		oninit: function(vnode) {
 			vnode.state.data = vnode.attrs.text
 		},
@@ -66,7 +66,7 @@
 })
 
 ;(function() {
-	var ComponentUsingThis: Mithril.Component<{data: string}, {text: string}> = {
+	var ComponentUsingThis: Mithril.Component<{data?: string}, {text: string}> = {
 		oninit: function(vnode) {
 			this.data = vnode.attrs.text
 		},
@@ -83,7 +83,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 ;(function() {
-	var Fader: Mithril.Component<any, any> = {
+	var Fader: Mithril.Component<{}, {}> = {
 		onbeforeremove: function(vnode) {
 			vnode.dom.classList.add("fade-out")
 			return new Promise(function(resolve) {
@@ -120,7 +120,7 @@
 		}
 	}
 	
-	var Form: Mithril.Component<{term: string}, {term: string}> = {
+	var Form: Mithril.Component<{}, {term: string}> = {
 		oninit: function(vnode) {
 			state.term = vnode.attrs.term || "" // populated from the `history.state` property if the user presses the back button
 		},
@@ -132,7 +132,7 @@
 		}
 	}
 	
-	var Layout: Mithril.Component<any, any> = {
+	var Layout: Mithril.Component<{}, {}> = {
 		view: function(vnode) {
 			return m(".layout", vnode.children)
 		}

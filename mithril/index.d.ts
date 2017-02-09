@@ -455,6 +455,14 @@ declare namespace Mithril {
 		 */
 		onremove?: (this: State, vnode: Vnode<State, Attrs>) => any;
 	}
+	
+	interface ComponentMethods<State, Attrs> extends LifeCycle<State, Attrs> {
+		
+		/**
+		* Creates a view out of virtual elements.
+		*/
+		view(this: State, vnode: Vnode<State, Attrs>): Children;
+	}
 
 	/**
 	 * Components are a mechanism to encapsulate parts of a view to make code
@@ -464,14 +472,8 @@ declare namespace Mithril {
 	 *
 	 * @see m
 	 */
-	interface Component<State, Attrs> extends LifeCycle<State, Attrs> {
-
-		/**
-		* Creates a view out of virtual elements.
-		*/
-		view(this: State, vnode: Vnode<State, Attrs>): Children;
-	}
-
+	type Component<State, Attrs> = ComponentMethods<State, Attrs> & State;
+	
 	interface JSONPOptions {
 		
 		/**
