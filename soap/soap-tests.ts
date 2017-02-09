@@ -14,18 +14,28 @@ soap.createClient(url, wsdlOptions, function(err: any, client: soap.Client) {
     client.setSecurity(new soap.ClientSSLSecurity('/path/to/key', '/path/to/cert', '/path/to/ca', defaults));
     client.setSecurity(new soap.ClientSSLSecurity('/path/to/key', '/path/to/cert', defaults));
     client.setSecurity(new soap.ClientSSLSecurity('/path/to/key', '/path/to/cert', '/path/to/ca'));
-    client.addSoapHeader({});
     client.setEndpoint('http://localhost');
-    client['create']({ name: 'value' }, function(err, result) {
+    client.describe();
+    client.addBodyAttribute({});
+    client.addHttpHeader('test', true);
+    client.addSoapHeader({});
+    client.changeSoapHeader(0, {});
+    client.clearBodyAttributes();
+    client.clearHttpHeaders();
+    client.clearSoapHeaders();
+    client.getBodyAttributes();
+    client.getHttpHeaders();
+    client.getSoapHeaders();
+    client.setSOAPAction('action');
+    client['create']({ name: 'value' }, function(err: any, result: any) {
         // result is an object
     });
-    client['create']({ name: 'value' }, function(err, result) {
+    client['create']({ name: 'value' }, function(err: any, result: any) {
         // result is an object
     }, {});
     client.on('request', function(obj: any) {
         //obj is an object
     });
-    client.describe();
 });
 
 var myService = {
