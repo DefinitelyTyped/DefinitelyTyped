@@ -151,7 +151,7 @@ declare namespace gapi.auth2 {
     /**
      * Get the response object from the user's auth session.
      */
-    getAuthResponse(): AuthResponse;
+    getAuthResponse(includeAuthorizationData?: boolean): AuthResponse;
 
     /**
      * Returns true if the user granted the specified scopes.
