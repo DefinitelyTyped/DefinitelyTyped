@@ -1,4 +1,4 @@
-// Type definitions for Mithril
+// Type definitions for Mithril 1.0.0
 // Project: http://lhorie.github.io/mithril/
 // Definitions by: Leo Horie <https://github.com/lhorie>, Chris Bowdon <https://github.com/cbowdon>, András Parditka <https://github.com/andraaspar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
