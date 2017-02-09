@@ -58,6 +58,7 @@ Materialize.toast($toastContent, 5000);
 var tooltipHtml = '<a class="btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>';
 $(tooltipHtml).tooltip();
 $(tooltipHtml).tooltip({ delay: 100 });
+$(tooltipHtml).tooltip({ delay: 100, tooltip: 'tooltip', position: 'bottom', html: false });
 $(tooltipHtml).tooltip('remove');
 
 // DropDown
