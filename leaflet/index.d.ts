@@ -406,7 +406,7 @@ declare namespace L {
         getPane(name?: string): HTMLElement;
 
         // Popup methods
-        bindPopup(content: (layer: Layer) => Content | Content | Popup, options?: PopupOptions): this;
+        bindPopup(content: ((layer: Layer) => Content) | Content | Popup, options?: PopupOptions): this;
         unbindPopup(): this;
         openPopup(latlng?: LatLngExpression): this;
         closePopup(): this;
@@ -416,7 +416,7 @@ declare namespace L {
         getPopup(): Popup;
 
         // Tooltip methods
-        bindTooltip(content: (layer: Layer) => Content | Tooltip | Content, options?: TooltipOptions): this;
+        bindTooltip(content: ((layer: Layer) => Content) | Tooltip | Content, options?: TooltipOptions): this;
         unbindTooltip(): this;
         openTooltip(latlng?: LatLngExpression): this;
         closeTooltip(): this;
@@ -1098,7 +1098,7 @@ declare namespace L {
         getLatLng(): LatLng;
         setLatLng(latlng: LatLngExpression): this;
         getContent(): Content;
-        setContent(htmlContent: (source: Layer) => Content | Content): this;
+        setContent(htmlContent: ((source: Layer) => Content) | Content): this;
         getElement(): HTMLElement;
         update(): void;
         isOpen(): boolean;
@@ -1129,7 +1129,7 @@ declare namespace L {
         getLatLng(): LatLng;
         setLatLng(latlng: LatLngExpression): this;
         getContent(): Content;
-        setContent(htmlContent: (source: Layer) => Content | Content): this;
+        setContent(htmlContent: ((source: Layer) => Content) | Content): this;
         getElement(): HTMLElement;
         update(): void;
         isOpen(): boolean;
@@ -1464,7 +1464,7 @@ declare namespace L {
         riseOnHover?: boolean;
         riseOffset?: number;
 
-        options: DivIconOptions;
+        options?: DivIconOptions;
     }
 
     export class Marker extends Layer {
