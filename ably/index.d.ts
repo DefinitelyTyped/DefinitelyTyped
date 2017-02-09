@@ -1,4 +1,4 @@
-// Type definitions for Ably Realtime and Rest client library v0.9.0
+// Type definitions for Ably Realtime and Rest client library 0.9
 // Project: https://www.ably.io/
 // Definitions by: Ably <https://github.com/ably/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -101,7 +101,7 @@ declare interface ClientOptions extends AuthOptions {
 
   restHost?: string;
   realtimeHost?: string;
-  fallbackHosts?: Array<string>;
+  fallbackHosts?: string[];
 
   /**
    * Can be used to explicitly recover a connection.
@@ -128,7 +128,7 @@ declare interface AuthOptions {
    * The role of the callback is to either generate a signed TokenRequest which may then be submitted automatically
    * by the library to the Ably REST API requestToken; or to provide a valid token in as a TokenDetails object.
    **/
-  authCallback?: (data: TokenParams,callback: (error: ErrorInfo | string, tokenRequestOrDetails: TokenDetails | TokenRequest | string) => void) => void;
+  authCallback?: (data: TokenParams, callback: (error: ErrorInfo | string, tokenRequestOrDetails: TokenDetails | TokenRequest | string) => void) => void;
   authHeaders?: { [index: string]: string };
   authMethod?: HTTPMethods;
   authParams?: { [index: string]: string };
@@ -197,10 +197,10 @@ declare interface StatsConnectionTypes {
 }
 
 declare interface StatsMessageTraffic {
-  all: StatsMessageTypes,
-  realtime: StatsMessageTypes,
-  rest: StatsMessageTypes,
-  webhook: StatsMessageTypes
+  all: StatsMessageTypes;
+  realtime: StatsMessageTypes;
+  rest: StatsMessageTypes;
+  webhook: StatsMessageTypes;
 }
 
 declare interface TokenDetails {
@@ -249,7 +249,7 @@ declare interface RealtimePresenceHistoryParams {
   end?: number;
   direction?: string;
   limit?: number;
-  untilAttach?: boolean
+  untilAttach?: boolean;
 }
 
 declare interface LogInfo {
@@ -262,7 +262,7 @@ declare interface LogInfo {
   /**
    * A function to handle each line of log output. If handler is not specified, console.log is used.
    **/
-  handler?: (...args: Array<string>) => void;
+  handler?: (...args: any[]) => void;
 }
 
 declare interface ChannelEvent {
@@ -291,9 +291,9 @@ type errorCallback = (error: ErrorInfo) => void;
 type channelEventCallback = (channelEvent: ChannelEvent, changeStateChange: ChannelStateChange) => void;
 type connectionEventCallback = (connectionEvent: ConnectionEvent, connectionStateChange: ConnectionStateChange) => void;
 type timeCallback = (error: ErrorInfo, time: number) => void;
-type realtimePresenceGetCallback = (error: ErrorInfo, messages: Array<PresenceMessage>) => void;
-type tokenDetailsCallback = (error: ErrorInfo, Results: TokenDetails) => void
-type tokenRequestCallback = (error: ErrorInfo, Results: TokenRequest) => void
+type realtimePresenceGetCallback = (error: ErrorInfo, messages: PresenceMessage[]) => void;
+type tokenDetailsCallback = (error: ErrorInfo, Results: TokenDetails) => void;
+type tokenRequestCallback = (error: ErrorInfo, Results: TokenRequest) => void;
 
 // Internal Classes
 declare class EventEmitter<T> {
@@ -342,12 +342,12 @@ declare class RealtimeChannel extends EventEmitter<channelEventCallback> {
   state: ChannelState;
   presence: RealtimePresence;
   attach: (callback?: standardCallback) => void;
-  detach:(callback?: standardCallback) => void;
+  detach: (callback?: standardCallback) => void;
   history: (paramsOrCallback?: RealtimePresenceHistoryParams | paginatedResultCallback<Message>, callback?: paginatedResultCallback<Message>) => void;
   subscribe: (eventOrCallback: messageCallback<Message> | string, listener?: messageCallback<Message>) => void;
   unsubscribe: (eventOrCallback?: messageCallback<Message> | string, listener?: messageCallback<Message>) => void;
   publish: (messagesOrName: any, messageDataOrCallback?: errorCallback | any, callback?: errorCallback) => void;
-  setOptions: (options: Object, callback?: errorCallback) => void;
+  setOptions: (options: any, callback?: errorCallback) => void;
 }
 
 declare class Channels<T> {
@@ -358,7 +358,7 @@ declare class Channels<T> {
 declare class Message {
   constructor();
   fromEncoded: (JsonObject: string, channelOptions: ChannelOptions) => Message;
-  fromEncodedArray: (JsonArray: string, channelOptions: ChannelOptions) => Array<Message>;
+  fromEncodedArray: (JsonArray: string, channelOptions: ChannelOptions) => Message[];
   clientId: string;
   connectionId: string;
   data: any;
@@ -371,7 +371,7 @@ declare class Message {
 
 declare class PresenceMessage {
   fromEncoded: (JsonObject: any, channelOptions?: ChannelOptions) => PresenceMessage;
-  fromEncodedArray: (JsonArray: Array<any>, channelOptions?: ChannelOptions) => Array<PresenceMessage>;
+  fromEncodedArray: (JsonArray: any[], channelOptions?: ChannelOptions) => PresenceMessage[];
   action: PresenceAction;
   clientId: string;
   connectionId: string;
@@ -390,9 +390,9 @@ declare class Rest {
   static Crypto: Crypto;
   auth: Auth;
   channels: Channels<Channel>;
-  request: (method: string, path: string, params?: any, body?: Array<any> | any, headers?: any, callback?: (error: ErrorInfo, response: HttpPaginatedResponse) => void) => void;
+  request: (method: string, path: string, params?: any, body?: any[] | any, headers?: any, callback?: (error: ErrorInfo, response: HttpPaginatedResponse) => void) => void;
   stats: (paramsOrCallback?: paginatedResultCallback<Stats> | any, callback?: paginatedResultCallback<Stats>) => void;
-  time: (paramsOrCallback?: timeCallback | Object, callback?: timeCallback) => void;
+  time: (paramsOrCallback?: timeCallback | any, callback?: timeCallback) => void;
 }
 
 declare class Realtime {
@@ -402,7 +402,7 @@ declare class Realtime {
   channels: Channels<RealtimeChannel>;
   clientId: string;
   connection: Connection;
-  request: (method: string, path: string, params?: any, body?: Array<any> | any, headers?: any, callback?: (error: ErrorInfo, response: HttpPaginatedResponse) => void) => void;
+  request: (method: string, path: string, params?: any, body?: any[] | any, headers?: any, callback?: (error: ErrorInfo, response: HttpPaginatedResponse) => void) => void;
   stats: (paramsOrCallback?: paginatedResultCallback<Stats> | any, callback?: paginatedResultCallback<Stats>) => void;
   close: () => void;
   connect: () => void;
@@ -434,7 +434,7 @@ declare class Stats {
 }
 
 declare class PaginatedResult<T> {
-  items: Array<T>;
+  items: T[];
   first: (results: paginatedResultCallback<T>) => void;
   next: (results: paginatedResultCallback<T>) => void;
   current: (results: paginatedResultCallback<T>) => void;
@@ -443,7 +443,7 @@ declare class PaginatedResult<T> {
 }
 
 declare class HttpPaginatedResponse extends PaginatedResult<any> {
-  items: Array<string>;
+  items: string[];
   statusCode: number;
   success: boolean;
   errorCode: number;
