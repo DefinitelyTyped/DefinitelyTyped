@@ -9,7 +9,7 @@
   "main": "griddle-react.d.ts",
   "scripts": {
     "test": "tsc",
-    "server": "webpack-dev-server"
+    "start": "webpack-dev-server"
   },
   "author": "",
   "license": "MIT",
