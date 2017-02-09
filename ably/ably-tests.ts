@@ -1,8 +1,8 @@
-/// <reference path="index.d.ts"/>
+import * as Ably from 'ably';
 
 const ApiKey = 'appId.keyId:secret';
-const client = new Realtime(ApiKey);
-const restClient = new Rest(ApiKey);
+const client = new Ably.Realtime(ApiKey);
+const restClient = new Ably.Rest(ApiKey);
 
 // Connection
 // Successful connection:
@@ -114,7 +114,7 @@ channel.history({ start: Date.now()-10000, end: Date.now(), limit: 100, directio
 
 // Generate a random 256-bit key for demonstration purposes (in
 // practice you need to create one and distribute it to clients yourselves)
-Realtime.Crypto.generateRandomKey(function(err, key) {
+Ably.Realtime.Crypto.generateRandomKey(function(err, key) {
     var channel = client.channels.get('channelName', { cipher: { key: key } });
 
     channel.subscribe(function(message) {
@@ -203,7 +203,7 @@ client.auth.requestToken(function(err, tokenDetails) {
   // see https://www.ably.io/documentation/rest/authentication/#token-details for its properties
 
   // Now we have the token, we can send it to someone who can instantiate a client with it:
-  var clientUsingToken = new Realtime(tokenDetails.token);
+  var clientUsingToken = new Ably.Realtime(tokenDetails.token);
 });
 
 // requestToken can take two optional params
