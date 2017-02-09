@@ -1,8 +1,8 @@
-import * as Ably from 'ably';
+/// <reference path="index.d.ts"/>
 
 const ApiKey = 'appId.keyId:secret';
-const client = Ably.Realtime;
-const restClient = Ably.Rest;
+const client = new Realtime(ApiKey);
+const restClient = new Rest(ApiKey);
 
 // Connection
 // Successful connection:
@@ -70,8 +70,8 @@ channel.history({ start: Date.now()-10000, end: Date.now(), limit: 100, directio
 // Presence on a channel
 // Getting presence:
 
-channel.presence.get(function(err, presenceSet) {
-  presenceSet;                                     // array of PresenceMessages
+channel.presence.get(function(presenceSet) {
+  presenceSet; // array of PresenceMessages
 });
 
 // Note that presence#get on a realtime channel does not return a PaginatedResult, as the library maintains a local copy of the presence set.
@@ -86,7 +86,7 @@ channel.presence.update('new status', function(err) {
   // my presence data is updated
 });
 
-channel.presence.leave(function(err) {
+channel.presence.leave(null, function(err) {
   // I've left the presence set
 });
 
@@ -114,7 +114,7 @@ channel.history({ start: Date.now()-10000, end: Date.now(), limit: 100, directio
 
 // Generate a random 256-bit key for demonstration purposes (in
 // practice you need to create one and distribute it to clients yourselves)
-Ably.Realtime.Crypto.generateRandomKey(function(err, key) {
+Realtime.Crypto.generateRandomKey(function(err, key) {
     var channel = client.channels.get('channelName', { cipher: { key: key } });
 
     channel.subscribe(function(message) {
@@ -123,7 +123,7 @@ Ably.Realtime.Crypto.generateRandomKey(function(err, key) {
     });
 
     channel.publish('name is not encrypted', 'sensitive data is encrypted');
-})
+});
 
 // You can also change the key on an existing channel using setOptions (which takes a callback which is called after the new encryption settings have taken effect):
 
@@ -133,15 +133,15 @@ channel.setOptions({cipher: {key: '<KEY>'}}, function() {
 
 // Using the REST API
 
-var channel = restClient.channels.get('test');
+var restChannel = restClient.channels.get('test');
 
 // Publishing to a channel
 
 // Publish a single message with name and data
-channel.publish('greeting', 'Hello World!');
+restChannel.publish('greeting', 'Hello World!');
 
 // Optionally, you can use a callback to be notified of success or failure
-channel.publish('greeting', 'Hello World!', function(err) {
+restChannel.publish('greeting', 'Hello World!', function(err) {
   if(err) {
     console.log('publish failed with error ' + err);
   } else {
@@ -150,11 +150,11 @@ channel.publish('greeting', 'Hello World!', function(err) {
 })
 
 // Publish several messages at once
-channel.publish([{name: 'greeting', data: 'Hello World!'}], function() {});
+restChannel.publish([{name: 'greeting', data: 'Hello World!'}], function() {});
 
 // Querying the History
 
-channel.history(function(err, messagesPage) {
+restChannel.history(function(err, messagesPage) {
   messagesPage;                                    // PaginatedResult
   messagesPage.items;                              // array of Message
   messagesPage.items[0].data;                      // payload for first message
@@ -165,11 +165,11 @@ channel.history(function(err, messagesPage) {
 });
 
 // Can optionally take an options param, see https://www.ably.io/documentation/rest-api/#message-history
-channel.history({ start: Date.now()-10000, end: Date.now(), limit: 100, direction: 'forwards' }, function(err, messagesPage) {});
+restChannel.history({ start: Date.now()-10000, end: Date.now(), limit: 100, direction: 'forwards' }, function(err, messagesPage) {});
 
 // Presence on a channel
 
-channel.presence.get(function(err, presencePage) { // PaginatedResult
+restChannel.presence.get(function(err, presencePage) { // PaginatedResult
   presencePage.items;                              // array of PresenceMessage
   presencePage.items[0].data;                      // payload for first message
   presencePage.items.length;                       // number of messages in the current page of members
@@ -180,7 +180,7 @@ channel.presence.get(function(err, presencePage) { // PaginatedResult
 
 // Querying the Presence History
 
-channel.presence.history(function(err, messagesPage) { // PaginatedResult
+restChannel.presence.history(function(err, messagesPage) { // PaginatedResult
   messagesPage.items;                              // array of PresenceMessage
   messagesPage.items[0].data;                      // payload for first message
   messagesPage.items.length;                       // number of messages in the current page of history
@@ -190,7 +190,7 @@ channel.presence.history(function(err, messagesPage) { // PaginatedResult
 });
 
 // Can optionally take an options param, see https://www.ably.io/documentation/rest-api/#message-history
-channel.history({ start: Date.now()-10000, end: Date.now(), limit: 100, direction: 'forwards' }, function(err, messagesPage) {});
+restChannel.history({ start: Date.now()-10000, end: Date.now(), limit: 100, direction: 'forwards' }, function(err, messagesPage) {});
 
 
 // Generate Token and Token Request
@@ -203,7 +203,7 @@ client.auth.requestToken(function(err, tokenDetails) {
   // see https://www.ably.io/documentation/rest/authentication/#token-details for its properties
 
   // Now we have the token, we can send it to someone who can instantiate a client with it:
-  var clientUsingToken = new Ably.Realtime(tokenDetails.token);
+  var clientUsingToken = new Realtime(tokenDetails.token);
 });
 
 // requestToken can take two optional params
@@ -225,10 +225,10 @@ client.auth.createTokenRequest({}, {}, function(err, tokenRequest) { });
 
 // Fetching your application's stats
 
-client.stats(function(err, statsPage) {        // statsPage as PaginatedResult
+client.stats({ limit: 50 }, function(err, statsPage) {        // statsPage as PaginatedResult
   statsPage.items;                              // array of Stats
-  statsPage.items[0].data;                      // payload for first message
-  statsPage.items.length;                       // number of messages in the current page of history
+  statsPage.items[0].inbound.rest.messages.count; // total messages published over REST
+  statsPage.items.length;                       // number of stats in the current page of history
   statsPage.hasNext();                          // true if there are further pages
   statsPage.isLast();                           // true if this page is the last page
   statsPage.next(function(nextPage) {});  // retrieves the next page as PaginatedResult
@@ -236,4 +236,4 @@ client.stats(function(err, statsPage) {        // statsPage as PaginatedResult
 
 // Fetching the Ably service time
 
-client.time(function(err, time) {}); // time is in ms since epoch
+client.time({}, function(err, time) {}); // time is in ms since epoch
