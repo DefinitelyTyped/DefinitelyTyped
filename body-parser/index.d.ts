@@ -1,6 +1,6 @@
 // Type definitions for body-parser 1.16
-// Project: http://expressjs.com
-// Definitions by: Santi Albo <https://github.com/santialbo/>, VILIC VANE <https://vilic.info>, Jonathan Häberle <https://github.com/dreampulse/>, Tomasz Łaziuk <https://github.com/tlaziuk>
+// Project: https://github.com/expressjs/body-parser
+// Definitions by: Santi Albo <https://github.com/santialbo>, Vilic Vane <https://github.com/vilic>, Jonathan Häberle <https://github.com/dreampulse>, Tomasz Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
