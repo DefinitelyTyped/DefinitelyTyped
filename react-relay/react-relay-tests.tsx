@@ -45,12 +45,17 @@ export default class AddTweetMutation extends Relay.Mutation<Props, Response> {
 interface ArtworkProps {
     artwork: {
         title: string
-    }
+    },
+    relay: Relay.RelayProp,
 }
 
 class Artwork extends React.Component<ArtworkProps, null> {
     render() {
-        return <p>{this.props.artwork.title}</p>
+        return (
+            <a href={`/artworks/${this.props.relay.variables.artworkID}`}>
+                {this.props.artwork.title}
+            </a>
+        )
     }
 }
 
@@ -66,6 +71,15 @@ const ArtworkContainer = Relay.createContainer(Artwork, {
 
 class StubbedArtwork extends React.Component<null, null> {
     render() {
-        return <ArtworkContainer artwork={{ title: "CHAMPAGNE FORMICA FLAG" }} />
+        const props = {
+            artwork: { title: "CHAMPAGNE FORMICA FLAG" },
+            relay: {
+                variables: {
+                    artworkID: "champagne-formica-flag",
+                },
+                setVariables: () => {},
+            }
+        }
+        return <ArtworkContainer {...props} />
     }
 }
