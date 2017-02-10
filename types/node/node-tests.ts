@@ -1597,7 +1597,38 @@ namespace os_tests {
 
         result = os.constants.signals.SIGHUP;
         result = os.constants.signals.SIGINT;
+        result = os.constants.signals.SIGQUIT;
+        result = os.constants.signals.SIGILL;
+        result = os.constants.signals.SIGTRAP;
+        result = os.constants.signals.SIGABRT;
+        result = os.constants.signals.SIGIOT;
+        result = os.constants.signals.SIGBUS;
+        result = os.constants.signals.SIGFPE;
         result = os.constants.signals.SIGKILL;
+        result = os.constants.signals.SIGUSR1;
+        result = os.constants.signals.SIGSEGV;
+        result = os.constants.signals.SIGUSR2;
+        result = os.constants.signals.SIGPIPE;
+        result = os.constants.signals.SIGALRM;
+        result = os.constants.signals.SIGTERM;
+        result = os.constants.signals.SIGCHLD;
+        result = os.constants.signals.SIGSTKFLT;
+        result = os.constants.signals.SIGCONT;
+        result = os.constants.signals.SIGSTOP;
+        result = os.constants.signals.SIGTSTP;
+        result = os.constants.signals.SIGTTIN;
+        result = os.constants.signals.SIGTTOU;
+        result = os.constants.signals.SIGURG;
+        result = os.constants.signals.SIGXCPU;
+        result = os.constants.signals.SIGXFSZ;
+        result = os.constants.signals.SIGVTALRM;
+        result = os.constants.signals.SIGPROF;
+        result = os.constants.signals.SIGWINCH;
+        result = os.constants.signals.SIGIO;
+        result = os.constants.signals.SIGPOLL;
+        result = os.constants.signals.SIGPWR;
+        result = os.constants.signals.SIGSYS;
+        result = os.constants.signals.SIGUNUSED;
     }
 
     {
@@ -1682,45 +1713,6 @@ namespace os_tests {
         result = os.constants.errno.ETXTBSY;
         result = os.constants.errno.EWOULDBLOCK;
         result = os.constants.errno.EXDEV;
-    }
-
-    {
-        let result: number;
-
-        result = os.constants.signals.SIGHUP;
-        result = os.constants.signals.SIGINT;
-        result = os.constants.signals.SIGQUIT;
-        result = os.constants.signals.SIGILL;
-        result = os.constants.signals.SIGTRAP;
-        result = os.constants.signals.SIGABRT;
-        result = os.constants.signals.SIGIOT;
-        result = os.constants.signals.SIGBUS;
-        result = os.constants.signals.SIGFPE;
-        result = os.constants.signals.SIGKILL;
-        result = os.constants.signals.SIGUSR1;
-        result = os.constants.signals.SIGSEGV;
-        result = os.constants.signals.SIGUSR2;
-        result = os.constants.signals.SIGPIPE;
-        result = os.constants.signals.SIGALRM;
-        result = os.constants.signals.SIGTERM;
-        result = os.constants.signals.SIGCHLD;
-        result = os.constants.signals.SIGSTKFLT;
-        result = os.constants.signals.SIGCONT;
-        result = os.constants.signals.SIGSTOP;
-        result = os.constants.signals.SIGTSTP;
-        result = os.constants.signals.SIGTTIN;
-        result = os.constants.signals.SIGTTOU;
-        result = os.constants.signals.SIGURG;
-        result = os.constants.signals.SIGXCPU;
-        result = os.constants.signals.SIGXFSZ;
-        result = os.constants.signals.SIGVTALRM;
-        result = os.constants.signals.SIGPROF;
-        result = os.constants.signals.SIGWINCH;
-        result = os.constants.signals.SIGIO;
-        result = os.constants.signals.SIGPOLL;
-        result = os.constants.signals.SIGPWR;
-        result = os.constants.signals.SIGSYS;
-        result = os.constants.signals.SIGUNUSED;
     }
 }
 
