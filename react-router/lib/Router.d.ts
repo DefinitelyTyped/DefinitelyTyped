@@ -90,6 +90,7 @@ export interface RouteComponentProps<P, R> {
     params: P & R;
     route: PlainRoute;
     router: InjectedRouter;
+    routes: PlainRoute[];
     routeParams: R;
 }
 
