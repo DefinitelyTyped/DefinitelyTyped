@@ -93,10 +93,12 @@ class NotFound extends React.Component<{}, {}> {
 
 }
 
+interface UsersProps extends RouteComponentProps<{}, {}> { }
 
-class Users extends React.Component<{}, {}> {
+class Users extends React.Component<UsersProps, {}> {
 
 	render() {
+                const { location, params, routes, routes, router, routeParams } = this.props;
 		return <div>
 			This is a user list
 		</div>
