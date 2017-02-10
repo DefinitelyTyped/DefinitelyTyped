@@ -623,11 +623,8 @@ export interface Collection {
     /** @deprecated */
     find(query: Object, fields?: Object, skip?: number, limit?: number, timeout?: number): Cursor<any>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOne
-    /** @deprecated use find().limit(1).next(function(err, doc){}) */
     findOne(filter: Object, callback: MongoCallback<any>): void;
-    /** @deprecated use find().limit(1).next(function(err, doc){}) */
     findOne(filter: Object, options?: FindOneOptions): Promise<any>;
-    /** @deprecated use find().limit(1).next(function(err, doc){}) */
     findOne(filter: Object, options: FindOneOptions, callback: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOneAndDelete
     findOneAndDelete(filter: Object, callback: MongoCallback<FindAndModifyWriteOpResultObject>): void;
