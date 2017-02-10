@@ -808,7 +808,7 @@ declare namespace chrome.contentSettings {
          * @param callback If you specify the callback parameter, it should be a function that looks like this:
          * function() {...};
          */
-        set(details: SetDetails, callback?: () => void): void;
+        set(details: SetDetails<T>, callback?: () => void): void;
         /**
          * @param callback The callback parameter should be a function that looks like this:
          * function(array of ResourceIdentifier resourceIdentifiers) {...};
