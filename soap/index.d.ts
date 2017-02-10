@@ -33,7 +33,7 @@ export interface Client extends events.EventEmitter {
     getHttpHeaders(): any[];
     getSoapHeaders(): any[];
     setEndpoint(endpoint: string): void;
-    setSOAPAction(action: any): void;
+    setSOAPAction(action: string): void;
     setSecurity(s: Security): void;
 }
 
