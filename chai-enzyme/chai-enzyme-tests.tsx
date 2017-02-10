@@ -35,6 +35,7 @@ expect(wrapper).to.have.ref("test");
 expect(wrapper).to.be.selected();
 expect(wrapper).to.have.tagName("div");
 expect(wrapper).to.have.text("");
+expect(wrapper).to.have.Type(Test);
 expect(wrapper).to.have.value("test");
 expect(wrapper).to.have.attr("test", "test");
 expect(wrapper).to.have.data("test", "Test");
