@@ -715,6 +715,101 @@ declare namespace chrome.browsingData {
 }
 
 ////////////////////
+// Certificate Provider
+////////////////////
+/**
+ * Use this API to expose certificates to the platform which can use these certificates for TLS authentications.
+ * Availability: Since Chrome 46.
+ * Permissions: "certificateProvider"
+ * Important: This API works only on Chrome OS.
+ */
+declare namespace chrome.certificateProvider {
+    type Hash = "MD5_SHA1" | "SHA1" | "SHA256" | "SHA384" | "SHA512";
+
+    /** The types of errors that can be presented to the user through the requestPin function. */
+    type PinRequestErrorType = "INVALID_PIN" | "INVALID_PUK" | "MAX_ATTEMPTS_EXCEEDED" | "UNKNOWN_ERROR";
+
+    interface CertificateInfo {
+        /** Must be the DER encoding of a X.509 certificate. Currently, only certificates of RSA keys are supported. */
+        certificate: ArrayBuffer;
+        /** Must be set to all hashes supported for this certificate. This extension will only be asked for signatures of digests calculated with one of these hash algorithms. This should be in order of decreasing hash preference. */
+        supportedHashes: Hash[];
+    }
+
+    interface SignRequest {
+        /**
+         * Since Chrome 57. Warning: this is the current Beta channel.
+         * The unique ID to be used by the extension should it need to call a method that requires it, e.g. requestPin.
+         */
+        signRequestId: number;
+        /** The digest that must be signed. */
+        digest: ArrayBuffer;
+        /** Refers to the hash algorithm that was used to create digest. */
+        hash: Hash;
+        /** The DER encoding of a X.509 certificate. The extension must sign digest using the associated private key. */
+        certificate: ArrayBuffer;
+    }
+
+    interface RequestPinDetails {
+        /** The ID given by Chrome in SignRequest. */
+        signRequestId: number;
+        /** Optional. The type of code requested. Default is PIN. */
+        requestType?: "PIN" | "PUK";
+        /** Optional. The error template displayed to the user. This should be set if the previous request failed, to notify the user of the failure reason.  */
+        errorType?: PinRequestErrorType;
+        /** Optional. The number of attempts left. This is provided so that any UI can present this information to the user. Chrome is not expected to enforce this, instead stopPinRequest should be called by the extension with errorType = MAX_ATTEMPTS_EXCEEDED when the number of pin requests is exceeded. */
+        attemptsLeft?: number;
+    }
+
+    interface RequestPinCallbackDetails {
+        /** Optional. The code provided by the user. Empty if user closed the dialog or some other error occurred.  */
+        userInput?: string;
+    }
+
+    /**
+     * Since Chrome 57. Warning: this is the current Beta channel.
+     * Requests the PIN from the user. Only one ongoing request at a time is allowed. The requests issued while another flow is ongoing are rejected. It's the extension's responsibility to try again later if another flow is in progress.
+     * @param details Contains the details about the requested dialog.
+     * @param callback Is called when the dialog is resolved with the user input, or when the dialog request finishes unsuccessfully (e.g. the dialog was canceled by the user or was not allowed to be shown).
+     * The callback parameter should be a function that looks like this:
+     * function(object details) {...};
+     */
+    export function requestPin(details: RequestPinDetails, callback: (details?: RequestPinCallbackDetails) => void): void;
+
+    interface StopPinRequestDetails {
+        /** The ID given by Chrome in SignRequest. */
+        signRequestId: number;
+        /** Optional. The error template. If present it is displayed to user. Intended to contain the reason for stopping the flow if it was caused by an error, e.g. MAX_ATTEMPTS_EXCEEDED. */
+        errorType?: PinRequestErrorType;
+    }
+
+    /**
+     * Since Chrome 57. Warning: this is the current Beta channel.
+     * Stops the pin request started by the requestPin function.
+     * @param details Contains the details about the reason for stopping the request flow.
+     * @param callback To be used by Chrome to send to the extension the status from their request to close PIN dialog for user.
+     * The callback parameter should be a function that looks like this:
+     * function() {...};
+     */
+    export function stopPinRequest(details: StopPinRequestDetails, callback: () => void): void;
+
+    interface CertificatesRequestedEvent extends chrome.events.Event<(reportCallback: (certificates: CertificateInfo[]) => void) => void> { }
+
+    interface SignDigestRequestedEvent extends chrome.events.Event<(request: SignRequest, reportCallback: (signature?: ArrayBuffer) => void) => void> { }
+
+    /**
+     * Since Chrome 47.
+     * This event fires every time the browser requests the current list of certificates provided by this extension. The extension must call reportCallback exactly once with the current list of certificates.
+     */
+    var onCertificatesRequested: CertificatesRequestedEvent;
+
+    /** 
+     * This event fires every time the browser needs to sign a message using a certificate provided by this extension in reply to an onCertificatesRequested event. The extension must sign the data in request using the appropriate algorithm and private key and return it by calling reportCallback. reportCallback must be called exactly once.
+     */
+    var onSignDigestRequested: SignDigestRequestedEvent;
+}
+
+////////////////////
 // Commands
 ////////////////////
 /**
