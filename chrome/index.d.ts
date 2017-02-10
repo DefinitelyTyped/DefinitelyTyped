@@ -1130,6 +1130,9 @@ declare namespace chrome.contextMenus {
  * Permissions:  "cookies", host permissions
  */
 declare namespace chrome.cookies {
+    /** A cookie's 'SameSite' state (https://tools.ietf.org/html/draft-west-first-party-cookies). 'no_restriction' corresponds to a cookie set without a 'SameSite' attribute, 'lax' to 'SameSite=Lax', and 'strict' to 'SameSite=Strict'. */
+    type SameSiteStatus = "no_restriction" | "lax" | "strict";
+
     /** Represents information about an HTTP cookie. */
     interface Cookie {
         /** The domain of the cookie (e.g. "www.google.com", "example.com"). */
@@ -1152,6 +1155,11 @@ declare namespace chrome.cookies {
         httpOnly: boolean;
         /** True if the cookie is marked as Secure (i.e. its scope is limited to secure channels, typically HTTPS). */
         secure: boolean;
+        /**
+         * Since Chrome 51.
+         * The cookie's same-site status (i.e. whether the cookie is sent with cross-site requests).
+         */
+        sameSite: SameSiteStatus;
     }
 
     /** Represents a cookie store in the browser. An incognito mode window, for instance, uses a separate cookie store from a non-incognito window. */
@@ -1161,6 +1169,9 @@ declare namespace chrome.cookies {
         /** Identifiers of all the browser tabs that share this cookie store. */
         tabIds: number[];
     }
+
+    /** The underlying reason behind the cookie's change. If a cookie was inserted, or removed via an explicit call to "chrome.cookies.remove", "cause" will be "explicit". If a cookie was automatically removed due to expiry, "cause" will be "expired". If a cookie was removed due to being overwritten with an already-expired expiration date, "cause" will be set to "expired_overwrite". If a cookie was automatically removed due to garbage collection, "cause" will be "evicted". If a cookie was automatically removed due to a "set" call that overwrote it, "cause" will be "overwrite". Plan your response accordingly. */
+    type OnChangedCause = "evicted" | "expired" | "explicit" | "expired_overwrite" | "overwrite";
 
     interface GetAllDetails {
         /** Optional. Restricts the retrieved cookies to those whose domains match or are subdomains of this one.  */
@@ -1198,12 +1209,29 @@ declare namespace chrome.cookies {
         httpOnly?: boolean;
         /** Optional. Whether the cookie should be marked as Secure. Defaults to false.  */
         secure?: boolean;
+        /**
+         * Since Chrome 51.
+         * The cookie's same-site status: defaults to 'no_restriction'.
+         */
+        sameSite?: SameSiteStatus;
     }
 
-    interface Details {
+    interface GetDetails {
+        /** The name of the cookie to retrieve. */
         name: string;
+        /** The URL with which the cookie to retrieve is associated. This argument may be a full URL, in which case any data following the URL path (e.g. the query string) is simply ignored. If host permissions for this URL are not specified in the manifest file, the API call will fail. */
         url: string;
+        /** The ID of the cookie store in which to look for the cookie. By default, the current execution context's cookie store will be used. */
         storeId?: string;
+    }
+
+    interface RemoveCallbackDetails {
+        /** The URL associated with the cookie that's been removed. */
+        url: string;
+        /** The name of the cookie that's been removed. */
+        name: string;
+        /** The ID of the cookie store from which the cookie was removed.  */
+        storeId: string;
     }
 
     interface CookieChangeInfo {
@@ -1215,7 +1243,7 @@ declare namespace chrome.cookies {
          * Since Chrome 12.
          * The underlying reason behind the cookie's change.
          */
-        cause: string;
+        cause: OnChangedCause;
     }
 
     interface CookieChangedEvent extends chrome.events.Event<(changeInfo: CookieChangeInfo) => void> {}
@@ -1242,22 +1270,23 @@ declare namespace chrome.cookies {
      * function( Cookie cookie) {...};
      * Optional parameter cookie: Contains details about the cookie that's been set. If setting failed for any reason, this will be "null", and "chrome.runtime.lastError" will be set.
      */
-    export function set(details: SetDetails, callback?: (cookie: Cookie | null) => void): void;
+    export function set(details: SetDetails, callback?: (cookie?: Cookie) => void): void;
     /**
      * Deletes a cookie by name.
      * @param details Information to identify the cookie to remove.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function(object details) {...};
+     * Optional parameter details: Contains details about the cookie that's been removed. If removal failed for any reason, this will be "null", and "chrome.runtime.lastError" will be set.
      */
-    export function remove(details: Details, callback?: (details: Details) => void): void;
+    export function remove(details: GetDetails, callback?: (details?: RemoveCallbackDetails) => void): void;
     /**
      * Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
      * @param details Details to identify the cookie being retrieved.
      * @param callback The callback parameter should be a function that looks like this:
      * function( Cookie cookie) {...};
-     * Parameter cookie: Contains details about the cookie. This parameter is null if no such cookie was found.
+     * Optional parameter cookie: Contains details about the cookie. This parameter is null if no such cookie was found.
      */
-    export function get(details: Details, callback: (cookie: Cookie | null) => void): void;
+    export function get(details: GetDetails, callback: (cookie?: Cookie) => void): void;
 
     /** Fired when a cookie is set or removed. As a special case, note that updating a cookie's properties is implemented as a two step process: the cookie to be updated is first removed entirely, generating a notification with "cause" of "overwrite" . Afterwards, a new cookie is written with the updated values, generating a second notification with "cause" "explicit". */
     var onChanged: CookieChangedEvent;
