@@ -956,7 +956,7 @@ declare namespace chrome.contextMenus {
         selectionText?: string;
         /**
          * Optional.
-          * Since Chrome 35.
+         * Since Chrome 35.
          * A flag indicating the state of a checkbox or radio item after it is clicked.
          */
         checked?: boolean;
@@ -964,10 +964,10 @@ declare namespace chrome.contextMenus {
          * Since Chrome 35.
          * The ID of the menu item that was clicked.
          */
-        menuItemId: any;
+        menuItemId: number | string;
         /**
          * Optional.
-          * Since Chrome 35.
+         * Since Chrome 35.
          * The URL of the frame of the element where the context menu was clicked, if it was in a frame.
          */
         frameUrl?: string;
@@ -978,13 +978,13 @@ declare namespace chrome.contextMenus {
         editable: boolean;
         /**
          * Optional.
-          * Since Chrome 35.
+         * Since Chrome 35.
          * One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
          */
         mediaType?: 'image' | 'video' | 'audio';
         /**
          * Optional.
-          * Since Chrome 35.
+         * Since Chrome 35.
          * A flag indicating the state of a checkbox or radio item before it was clicked.
          */
         wasChecked?: boolean;
@@ -995,22 +995,28 @@ declare namespace chrome.contextMenus {
         pageUrl: string;
         /**
          * Optional.
-          * Since Chrome 35.
+         * Since Chrome 35.
          * If the element is a link, the URL it points to.
          */
         linkUrl?: string;
         /**
          * Optional.
-          * Since Chrome 35.
+         * Since Chrome 35.
          * The parent ID, if any, for the item clicked.
          */
-        parentMenuItemId?: any;
+        parentMenuItemId?: number | string;
         /**
          * Optional.
-          * Since Chrome 35.
+         * Since Chrome 35.
          * Will be present for elements with a 'src' URL.
          */
         srcUrl?: string;
+        /**
+         * Optional.
+         * Since Chrome 35.
+         * The ID of the frame of the element where the context menu was clicked, if it was in a frame.
+         */
+        frameId?: number;
     }
 
     interface CreateProperties {
@@ -1024,7 +1030,7 @@ declare namespace chrome.contextMenus {
         contexts?: ContextType[];
         /**
          * Optional.
-          * Since Chrome 20.
+         * Since Chrome 20.
          * Whether this context menu item is enabled or disabled. Defaults to true.
          */
         enabled?: boolean;
@@ -1032,7 +1038,7 @@ declare namespace chrome.contextMenus {
         targetUrlPatterns?: string[];
         /**
          * Optional.
-          * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead, they should register a listener for chrome.contextMenus.onClicked.
+         * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead, they should register a listener for chrome.contextMenus.onClicked.
          * @param info Information sent when a context menu item is clicked.
          * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
          */
@@ -1043,24 +1049,10 @@ declare namespace chrome.contextMenus {
         type?: ItemType;
         /**
          * Optional.
-          * Since Chrome 21.
+         * Since Chrome 21.
          * The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension.
          */
         id?: string;
-    }
-
-    interface UpdateProperties {
-        documentUrlPatterns?: string[];
-        checked?: boolean;
-        title?: string;
-        contexts?: string[];
-        /** Optional. Since Chrome 20.  */
-        enabled?: boolean;
-        targetUrlPatterns?: string[];
-        onclick?: Function;
-        /** Optional. Note: You cannot change an item to be a child of one of its own descendants.  */
-        parentId?: any;
-        type?: string;
     }
 
     interface MenuClickedEvent extends chrome.events.Event<(info: OnClickData, tab?: chrome.tabs.Tab) => void> {}
@@ -1093,16 +1085,7 @@ declare namespace chrome.contextMenus {
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
-    export function update(id: string, updateProperties: UpdateProperties, callback?: () => void): void;
-    /**
-     * Updates a previously created context menu item.
-     * @param id The ID of the item to update.
-     * @param updateProperties The properties to update. Accepts the same values as the create function.
-     * @param callback Called when the context menu has been updated.
-     * If you specify the callback parameter, it should be a function that looks like this:
-     * function() {...};
-     */
-    export function update(id: number, updateProperties: UpdateProperties, callback?: () => void): void;
+    export function update(id: string | number, updateProperties: CreateProperties, callback?: () => void): void;
     /**
      * Removes a context menu item.
      * @param menuItemId The ID of the context menu item to remove.
@@ -1110,15 +1093,7 @@ declare namespace chrome.contextMenus {
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
-    export function remove(menuItemId: string, callback?: () => void): void;
-    /**
-     * Removes a context menu item.
-     * @param menuItemId The ID of the context menu item to remove.
-     * @param callback Called when the context menu has been removed.
-     * If you specify the callback parameter, it should be a function that looks like this:
-     * function() {...};
-     */
-    export function remove(menuItemId: number, callback?: () => void): void;
+    export function remove(menuItemId: string | number, callback?: () => void): void;
 
     /**
      * Since Chrome 21.
