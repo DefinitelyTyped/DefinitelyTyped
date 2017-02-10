@@ -18,7 +18,8 @@ import {
 	Link,
 	RouterContext,
 	LinkProps,
-	RedirectFunction
+	RedirectFunction,
+	RouteComponentProps
 } from "react-router";
 
 const NavLink = (props: LinkProps) => (
@@ -98,7 +99,7 @@ interface UsersProps extends RouteComponentProps<{}, {}> { }
 class Users extends React.Component<UsersProps, {}> {
 
 	render() {
-                const { location, params, routes, routes, router, routeParams } = this.props;
+                const { location, params, route, routes, router, routeParams } = this.props;
 		return <div>
 			This is a user list
 		</div>
