@@ -926,6 +926,28 @@ declare namespace chrome.contentSettings {
      * The primary URL is the URL of the top-level frame. The secondary URL is not used.
      */
     var automaticDownloads: ContentSetting<AllowBlockAskContentSettingsType>;
+    /**
+     * Since Chrome 46.
+     * Whether to allow sites to access the microphone. One of
+     * • allow: Allow sites to access the microphone,
+     * • block: Don't allow sites to access the microphone,
+     * • ask: Ask when a site wants to access the microphone.
+     * Default is ask.
+     * The primary URL is the URL of the document which requested microphone access. The secondary URL is not used.
+     * NOTE: The 'allow' setting is not valid if both patterns are ''.
+     */
+    var microphone: ContentSetting<AllowBlockAskContentSettingsType>;
+    /**
+     * Since Chrome 46.
+     * Whether to allow sites to access the camera. One of
+     * • allow: Allow sites to access the camera,
+     * • block: Don't allow sites to access the camera,
+     * • ask: Ask when a site wants to access the camera.
+     * Default is ask.
+     * The primary URL is the URL of the document which requested camera access. The secondary URL is not used.
+     * NOTE: The 'allow' setting is not valid if both patterns are ''.
+     */
+    var camera: ContentSetting<AllowBlockAskContentSettingsType>;
 }
 
 ////////////////////
