@@ -2,6 +2,7 @@
 // Project: https://github.com/uxebu/jasmine-matchers
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /*
 Typings 2013 Bart van der Schoor
