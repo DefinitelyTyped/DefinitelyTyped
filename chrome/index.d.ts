@@ -74,6 +74,7 @@ declare namespace chrome.accessibilityFeatures {
     interface AccessibilityFeaturesSetting {
         /**
          * Gets the value of a setting.
+         * Permissions: "accessibilityFeatures.read"
          * @param details Which setting to consider.
          * @param callback The callback parameter should be a function that looks like this:
          * function(object details) {...};
@@ -81,6 +82,7 @@ declare namespace chrome.accessibilityFeatures {
         get(details: AccessibilityFeaturesGetArg, callback: (details: AccessibilityFeaturesCallbackArg) => void): void;
         /**
          * Sets the value of a setting.
+         * Permissions: "accessibilityFeatures.modify"
          * @param details Which setting to change.
          * @param callback Called at the completion of the set operation.
          * If you specify the callback parameter, it should be a function that looks like this:
@@ -89,6 +91,7 @@ declare namespace chrome.accessibilityFeatures {
         set(details: AccessibilityFeaturesSetArg, callback?: () => void): void;
         /**
          * Clears the setting, restoring any default value.
+         * Permissions: "accessibilityFeatures.modify"
          * @param details Which setting to clear.
          * @param callback Called at the completion of the clear operation.
          * If you specify the callback parameter, it should be a function that looks like this:
@@ -97,13 +100,75 @@ declare namespace chrome.accessibilityFeatures {
         clear(details: AccessibilityFeaturesClearArg, callback?: () => void): void;
     }
 
+    /**
+     * Spoken feedback (text-to-speech).
+     * ChromeOS only.
+     */
     var spokenFeedback: AccessibilityFeaturesSetting;
+    /**
+     * Enlarged cursor.
+     * ChromeOS only.
+     */
     var largeCursor: AccessibilityFeaturesSetting;
+    /**
+     * Sticky modifier keys (like shift or alt).
+     * ChromeOS only.
+     */
     var stickyKeys: AccessibilityFeaturesSetting;
+    /**
+     * High contrast rendering mode.
+     * ChromeOS only.
+     */
     var highContrast: AccessibilityFeaturesSetting;
+    /**
+     * Full screen magnification.
+     * ChromeOS only.
+     */
     var screenMagnifier: AccessibilityFeaturesSetting;
+    /**
+     * Auto mouse click after mouse stops moving.
+     * ChromeOS only.
+     */
     var autoclick: AccessibilityFeaturesSetting;
+    /**
+     * Virtual on-screen keyboard.
+     * ChromeOS only.
+     */
     var virtualKeyboard: AccessibilityFeaturesSetting;
+    /**
+     * Since Chrome 51.
+     * Caret highlighting.
+     * ChromeOS only.
+     */
+    var caretHighlight: AccessibilityFeaturesSetting;
+    /**
+     * Since Chrome 51.
+     * Cursor highlighting.
+     * ChromeOS only.
+     */
+    var cursorHighlight: AccessibilityFeaturesSetting;
+    /**
+     * Since Chrome 51.
+     * Focus highlighting.
+     * ChromeOS only.
+     */
+    var focusHighlight: AccessibilityFeaturesSetting;
+    /**
+     * Since Chrome 51.
+     * Select-to-speak.
+     * ChromeOS only.
+     */
+    var selectToSpeak: AccessibilityFeaturesSetting;
+    /**
+     * Since Chrome 51.
+     * Switch access.
+     * ChromeOS only.
+     */
+    var switchAccess: AccessibilityFeaturesSetting;
+    /**
+     * Since Chrome 42.
+     * ChromeOS only.
+     */
     var animationPolicy: AccessibilityFeaturesSetting;
 }
 
