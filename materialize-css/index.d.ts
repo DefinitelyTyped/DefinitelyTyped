@@ -171,7 +171,6 @@ declare namespace Materialize {
          * Set the width of the carousel.
          * Default: false
          */
-
         fullWidth?: boolean;
         /**
          * Set to true to show indicators. 
