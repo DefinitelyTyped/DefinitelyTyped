@@ -17,7 +17,8 @@ import {
 	InjectedRouter,
 	Link,
 	RouterContext,
-	LinkProps
+	LinkProps,
+	RedirectFunction
 } from "react-router";
 
 const NavLink = (props: LinkProps) => (
