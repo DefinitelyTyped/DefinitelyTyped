@@ -767,11 +767,11 @@ declare namespace chrome.contentSettings {
         scope?: Scope;
     }
 
-    interface SetDetails {
+    interface SetDetails<T> {
         /** Optional. The resource identifier for the content type.  */
         resourceIdentifier?: ResourceIdentifier;
         /** The setting applied by this rule. See the description of the individual ContentSetting objects for the possible values. */
-        setting: any;
+        setting: T;
         /** Optional. The pattern for the secondary URL. Defaults to matching all URLs. For details on the format of a pattern, see Content Setting Patterns.  */
         secondaryPattern?: string;
         /** Optional. Where to set the setting (default: regular).  */
@@ -791,12 +791,12 @@ declare namespace chrome.contentSettings {
         primaryUrl: string;
     }
 
-    interface ReturnedDetails {
+    interface ReturnedDetails<T> {
         /** The content setting. See the description of the individual ContentSetting objects for the possible values. */
-        setting: any;
+        setting: T;
     }
 
-    interface ContentSetting {
+    interface ContentSetting<T> {
         /**
          * Clear all content setting rules set by this extension.
          * @param callback If you specify the callback parameter, it should be a function that looks like this:
@@ -820,7 +820,7 @@ declare namespace chrome.contentSettings {
          * @param callback The callback parameter should be a function that looks like this:
          * function(object details) {...};
          */
-        get(details: GetDetails, callback: (details: ReturnedDetails) => void): void;
+        get(details: GetDetails, callback: (details: ReturnedDetails<T>) => void): void;
     }
 
     /** The only content type using resource identifiers is contentSettings.plugins. For more information, see Resource Identifiers. */
@@ -831,106 +831,101 @@ declare namespace chrome.contentSettings {
         description?: string;
     }
 
+    type AllowContentSettingType = "allow";
+    type AllowBlockContentSettingType = AllowContentSettingType | "block";
+    type AllowBlockAskContentSettingsType = AllowBlockContentSettingType | "ask";
+
     /**
      * Whether to allow cookies and other local data to be set by websites. One of
-     * allow: Accept cookies,
-     * block: Block cookies,
-     * session_only: Accept cookies only for the current session.
+     * • allow: Accept cookies,
+     * • block: Block cookies,
+     * • session_only: Accept cookies only for the current session.
      * Default is allow.
      * The primary URL is the URL representing the cookie origin. The secondary URL is the URL of the top-level frame.
      */
-    var cookies: ContentSetting;
+    var cookies: ContentSetting<AllowBlockContentSettingType | "session_only">;
     /**
      * Whether to allow sites to show pop-ups. One of
-     * allow: Allow sites to show pop-ups,
-     * block: Don't allow sites to show pop-ups.
+     * • allow: Allow sites to show pop-ups,
+     * • block: Don't allow sites to show pop-ups.
      * Default is block.
      * The primary URL is the URL of the top-level frame. The secondary URL is not used.
      */
-    var popups: ContentSetting;
+    var popups: ContentSetting<AllowBlockContentSettingType>;
     /**
      * Whether to run JavaScript. One of
-     * allow: Run JavaScript,
-     * block: Don't run JavaScript.
+     * • allow: Run JavaScript,
+     * • block: Don't run JavaScript.
      * Default is allow.
      * The primary URL is the URL of the top-level frame. The secondary URL is not used.
      */
-    var javascript: ContentSetting;
+    var javascript: ContentSetting<AllowBlockContentSettingType>;
     /**
      * Whether to allow sites to show desktop notifications. One of
-     * allow: Allow sites to show desktop notifications,
-     * block: Don't allow sites to show desktop notifications,
-     * ask: Ask when a site wants to show desktop notifications.
+     * • allow: Allow sites to show desktop notifications,
+     * • block: Don't allow sites to show desktop notifications,
+     * • ask: Ask when a site wants to show desktop notifications.
      * Default is ask.
      * The primary URL is the URL of the document which wants to show the notification. The secondary URL is not used.
      */
-    var notifications: ContentSetting;
+    var notifications: ContentSetting<AllowBlockAskContentSettingsType>;
     /**
      * Whether to run plugins. One of
-     * allow: Run plugins automatically,
-     * block: Don't run plugins automatically,
-     * detect_important_content: Only run automatically those plugins that are detected as the website's main content.
+     * • allow: Run plugins automatically,
+     * • block: Don't run plugins automatically,
+     * • detect_important_content: Only run automatically those plugins that are detected as the website's main content.
      * Default is allow.
      * The primary URL is the URL of the top-level frame. The secondary URL is not used.
      */
-    var plugins: ContentSetting;
+    var plugins: ContentSetting<AllowBlockContentSettingType | "detect_important_content">;
     /**
      * Whether to show images. One of
-     * allow: Show images,
-     * block: Don't show images.
+     * • allow: Show images,
+     * • block: Don't show images.
      * Default is allow.
      * The primary URL is the URL of the top-level frame. The secondary URL is the URL of the image.
      */
-    var images: ContentSetting;
+    var images: ContentSetting<AllowBlockContentSettingType>;
     /**
      * Since Chrome 42.
      * Whether to allow Geolocation. One of
-     * allow: Allow sites to track your physical location,
-     * block: Don't allow sites to track your physical location,
-     * ask: Ask before allowing sites to track your physical location.
+     * • allow: Allow sites to track your physical location,
+     * • block: Don't allow sites to track your physical location,
+     * • ask: Ask before allowing sites to track your physical location.
      * Default is ask.
      * The primary URL is the URL of the document which requested location data. The secondary URL is the URL of the top-level frame (which may or may not differ from the requesting URL).
      */
-    var location: ContentSetting;
+    var location: ContentSetting<AllowBlockAskContentSettingsType>;
     /**
      * Since Chrome 42.
-     * Whether to allow sites to toggle the fullscreen mode. One of
-     * allow: Allow sites to toggle the fullscreen mode,
-     * ask: Ask when a site wants to toggle the fullscreen mode.
-     * Default is ask.
-     * The primary URL is the URL of the document which requested to toggle the fullscreen mode. The secondary URL is the URL of the top-level frame (which may or may not differ from the requesting URL).
+     * @deprecated No longer has any effect. Fullscreen permission is now automatically granted for all sites. Value is always allow.
      */
-    var fullscreen: ContentSetting;
+    var fullscreen: ContentSetting<AllowContentSettingType>;
     /**
      * Since Chrome 42.
-     * Whether to allow sites to disable the mouse cursor. One of
-     * allow: Allow sites to disable the mouse cursor,
-     * block: Don't allow sites to disable the mouse cursor,
-     * ask: Ask when a site wants to disable the mouse cursor.
-     * Default is ask.
-     * The primary URL is the URL of the top-level frame. The secondary URL is not used.
+     * @deprecated No longer has any effect. Mouse lock permission is now automatically granted for all sites. Value is always allow.
      */
-    var mouselock: ContentSetting;
+    var mouselock: ContentSetting<AllowContentSettingType>;
     /**
      * Since Chrome 42.
      * Whether to allow sites to run plugins unsandboxed. One of
-     * allow: Allow sites to run plugins unsandboxed,
-     * block: Don't allow sites to run plugins unsandboxed,
-     * ask: Ask when a site wants to run a plugin unsandboxed.
+     * • allow: Allow sites to run plugins unsandboxed,
+     * • block: Don't allow sites to run plugins unsandboxed,
+     * • ask: Ask when a site wants to run a plugin unsandboxed.
      * Default is ask.
      * The primary URL is the URL of the top-level frame. The secondary URL is not used.
      */
-    var unsandboxedPlugins: ContentSetting;
+    var unsandboxedPlugins: ContentSetting<AllowBlockAskContentSettingsType>;
     /**
      * Since Chrome 42.
      * Whether to allow sites to download multiple files automatically. One of
-     * allow: Allow sites to download multiple files automatically,
-     * block: Don't allow sites to download multiple files automatically,
-     * ask: Ask when a site wants to download files automatically after the first file.
+     * • allow: Allow sites to download multiple files automatically,
+     * • block: Don't allow sites to download multiple files automatically,
+     * • ask: Ask when a site wants to download files automatically after the first file.
      * Default is ask.
      * The primary URL is the URL of the top-level frame. The secondary URL is not used.
      */
-    var automaticDownloads: ContentSetting;
+    var automaticDownloads: ContentSetting<AllowBlockAskContentSettingsType>;
 }
 
 ////////////////////
