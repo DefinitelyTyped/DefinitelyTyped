@@ -1,6 +1,6 @@
 // Type definitions for three.js 0.83
 // Project: http://mrdoob.github.com/three.js/
-// Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>, Florent Poujol <https://github.com/florentpoujol>, SereznoKot <https://github.com/SereznoKot>, HouChunlei <https://github.com/omni360>
+// Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>, Florent Poujol <https://github.com/florentpoujol>, SereznoKot <https://github.com/SereznoKot>, HouChunlei <https://github.com/omni360>, Ivo <https://github.com/ivoisbelongtous>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="detector.d.ts" />
@@ -6415,13 +6415,13 @@ declare namespace THREE {
     }
 
     export interface TextGeometryParameters {
-        font: Font;
-        size: number;
-        height: number;
-        curveSegments: number;
-        bevelEnabled: boolean;
-        bevelThickness: number;
-        bevelSize: number;
+        font?: Font;
+        size?: number;
+        height?: number;
+        curveSegments?: number;
+        bevelEnabled?: boolean;
+        bevelThickness?: number;
+        bevelSize?: number;
     }
 
     export class TextGeometry extends ExtrudeGeometry {
