@@ -126,7 +126,7 @@ export class Binding {
     identifier: t.Identifier;
     scope: Scope;
     path: NodePath<Node>;
-    kind: 'var' | 'let' | 'const';
+    kind: 'var' | 'let' | 'const' | 'module';
     referenced: boolean;
     references: number;
     referencePaths: NodePath<Node>[];
