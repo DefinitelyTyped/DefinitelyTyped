@@ -8,6 +8,7 @@
 declare namespace THREE {
     class FirstPersonControls {
         constructor(object: Camera, domElement?: HTMLElement);
+
         object: THREE.Object3D;
         target: THREE.Vector3;
         domElement: HTMLCanvasElement | HTMLDocument;
@@ -38,7 +39,9 @@ declare namespace THREE {
         moveRight: boolean;
         freeze: boolean;
         mouseDragOn: boolean;
+
         update(delta: number): void;
+
         dispose(): void;
     }
 }

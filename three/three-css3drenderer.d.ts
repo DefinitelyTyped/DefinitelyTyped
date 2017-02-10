@@ -7,7 +7,6 @@
 // https://github.com/mrdoob/three.js/issues/4783
 
 
-
 declare namespace THREE {
     class CSS3DObject extends Object3D {
         constructor(element: any);
@@ -24,9 +23,10 @@ declare namespace THREE {
     class CSS3DRenderer {
         constructor();
 
-        domElement:HTMLElement;
+        domElement: HTMLElement;
 
         setSize(width: number, height: number): void;
+
         render(scene: THREE.Scene, camera: THREE.Camera): void;
     }
 }

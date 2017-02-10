@@ -1,11 +1,9 @@
-// Type definitions for pg 6.1.0
+// Type definitions for pg 6.1
 // Project: https://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <http://pspeter3.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="pg-types" />
-
 
 import events = require("events");
 import stream = require("stream");
@@ -63,44 +61,38 @@ export interface ResultBuilder extends QueryResult {
 }
 
 export declare class Pool extends events.EventEmitter {
-
-    constructor();
-
     // `new Pool('pg://user@localhost/mydb')` is not allowed.
     // But it passes type check because of issue:
     // https://github.com/Microsoft/TypeScript/issues/7485
-    constructor(config: PoolConfig);
+    constructor(config?: PoolConfig);
 
     connect(): Promise<Client>;
     connect(callback: (err: Error, client: Client, done: () => void) => void): void;
 
     end(): Promise<void>;
 
-    query(queryText: string): Promise<QueryResult>;
-    query(queryText: string, values: any[]): Promise<QueryResult>;
+    query(queryText: string, values?: any[]): Promise<QueryResult>;
 
     query(queryText: string, callback: (err: Error, result: QueryResult) => void): void;
     query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): void;
 
-    public on(event: "error", listener: (err: Error, client: Client) => void): this;
-    public on(event: "connect", listener: (client: Client) => void): this;
-    public on(event: "acquire", listener: (client: Client) => void): this;
-    public on(event: string, listener: Function): this;
+    on(event: "error", listener: (err: Error, client: Client) => void): this;
+    on(event: "connect" | "acquire", listener: (client: Client) => void): this;
 }
 
 export declare class Client extends events.EventEmitter {
     constructor(connection: string);
     constructor(config: ClientConfig);
 
-    connect(callback?: (err:Error) => void): void;
+    connect(callback?: (err: Error) => void): void;
     end(callback?: (err: Error) => void): void;
     release(): void;
 
     query(queryTextOrConfig: string | QueryConfig): Promise<QueryResult>;
     query(queryText: string, values: any[]): Promise<QueryResult>;
 
-    query(queryTextOrConfig: string | QueryConfig, callback?: (err: Error, result: QueryResult) => void): Query;
-    query(queryText: string, values: any[], callback?: (err: Error, result: QueryResult) => void): Query;
+    query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
+    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
 
     copyFrom(queryText: string): stream.Writable;
     copyTo(queryText: string): stream.Readable;
@@ -108,25 +100,22 @@ export declare class Client extends events.EventEmitter {
     pauseDrain(): void;
     resumeDrain(): void;
 
-    public on(event: "drain", listener: () => void): this;
-    public on(event: "error", listener: (err: Error) => void): this;
-    public on(event: "notification", listener: (message: any) => void): this;
-    public on(event: "notice", listener: (message: any) => void): this;
-    public on(event: string, listener: Function): this;
+    on(event: "drain", listener: () => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "notification" | "notice", listener: (message: any) => void): this;
+    on(event: "end", listener: () => void): this;
 }
 
 export declare class Query extends events.EventEmitter {
-    public on(event: "row", listener: (row: any, result?: ResultBuilder) => void): this;
-    public on(event: "error", listener: (err: Error) => void): this;
-    public on(event: "end", listener: (result: ResultBuilder) => void): this;
-    public on(event: string, listener: Function): this;
+    on(event: "row", listener: (row: any, result?: ResultBuilder) => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "end", listener: (result: ResultBuilder) => void): this;
 }
 
 export declare class Events extends events.EventEmitter {
-    public on(event: "error", listener: (err: Error, client: Client) => void): this;
-    public on(event: string, listener: Function): this;
+    on(event: "error", listener: (err: Error, client: Client) => void): this;
 }
 
 export const types: typeof pgTypes;
 
-
+export const defaults: Defaults & ClientConfig;

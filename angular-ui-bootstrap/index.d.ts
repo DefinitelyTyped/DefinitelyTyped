@@ -161,7 +161,7 @@ declare module 'angular' {
 
             /**
              * Defines the initial date, when no model value is specified.
-             * 
+             *
              * @default null
              */
             initDate?: any;
@@ -834,11 +834,18 @@ declare module 'angular' {
             animation?: boolean;
 
             /**
-             * For how long should the user have to have the mouse over the element before the tooltip shows (in milliseconds)?
+             * Popup delay in milliseconds until it opens.
              *
              * @default 0
              */
             popupDelay?: number;
+
+            /**
+             * For how long should the tooltip remain open after the close trigger event?
+             *
+             * @default 0
+             */
+            popupCloseDelay?: number;
 
             /**
              * Should the tooltip be appended to `$body` instead of the parent element?

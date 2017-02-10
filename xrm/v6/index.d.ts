@@ -210,10 +210,10 @@ declare namespace Xrm
         }
 
         /**
-          * Interface for an item collection.
-          *
-          * @tparam  T   Generic type parameter.
-          */
+         * Interface for an item collection.
+         *
+         * @tparam  T   Generic type parameter.
+         */
         export interface ItemCollection<T>
         {
             /**
