@@ -1,14 +1,14 @@
-import WebpackNotifierPlugin = require('webpack-notifier');
 import { Plugin } from 'webpack';
+import * as WebpackNotifierPlugin from 'webpack-notifier';
 
-const configs: Array<WebpackNotifierPlugin.Config> = [
-    {
-        title: 'Webpack',
-        contentImage: 'logo.png',
-        excludeWarnings: true,
-        alwaysNotify: true,
-        skipFirstNotification: true,
-    },
+const optionsArray: WebpackNotifierPlugin.Options[] = [
+	{
+		title: 'Webpack',
+		contentImage: 'logo.png',
+		excludeWarnings: true,
+		alwaysNotify: true,
+		skipFirstNotification: true,
+	},
 ];
 
-const plugins: Array<Plugin> = configs.map(config => new WebpackNotifierPlugin(config));
+const plugins: Plugin[] = optionsArray.map(options => new WebpackNotifierPlugin(options));

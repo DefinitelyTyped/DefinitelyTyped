@@ -18,7 +18,8 @@ JL.setOptions({
 		defaultAjaxUrl: '/jsnlog.logger',
 		clientIP: '0.0.0.0',
 		requestId: 'a reuest id',
-		defaultBeforeSend: null
+		defaultBeforeSend: null,
+		serialize: (obj) => JSON.stringify(obj)
 });
 
 // ----------------------------------------------------------

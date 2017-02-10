@@ -71,7 +71,7 @@ declare namespace Chart {
     }
 
     export interface ChartPoint {
-        x?: number;
+        x?: number | string | Date;
         y?: number;
     }
 

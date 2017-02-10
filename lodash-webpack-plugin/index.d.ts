@@ -3,17 +3,16 @@
 // Definitions by: Benjamin Lim <https://github.com/bumbleblym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin, Webpack } from 'webpack';
+import { Plugin } from 'webpack';
 
 export = LodashModuleReplacementPlugin;
 
-declare class LodashModuleReplacementPlugin implements Plugin {
+declare class LodashModuleReplacementPlugin extends Plugin {
 	constructor(options?: LodashModuleReplacementPlugin.Options);
-	apply(thisArg: Webpack, ...args: any[]): void;
 }
 
 declare namespace LodashModuleReplacementPlugin {
-	export interface Options {
+	interface Options {
 		caching?: boolean;
 		chaining?: boolean;
 		cloning?: boolean;

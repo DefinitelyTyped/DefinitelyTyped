@@ -1255,6 +1255,16 @@ declare namespace angular {
         debugInfoEnabled(enabled: boolean): ICompileProvider;
 
         /**
+         * Call this method to enable/disable whether directive controllers are assigned bindings before calling the controller's constructor.
+         * If enabled (true), the compiler assigns the value of each of the bindings to the properties of the controller object before the constructor of this object is called.
+         * If disabled (false), the compiler calls the constructor first before assigning bindings.
+         * Defaults to false.
+         * See: https://docs.angularjs.org/api/ng/provider/$compileProvider#preAssignBindingsEnabled
+         */
+        preAssignBindingsEnabled(): boolean;
+        preAssignBindingsEnabled(enabled: boolean): ICompileProvider;
+
+        /**
          * Sets the number of times $onChanges hooks can trigger new changes before giving up and assuming that the model is unstable.
          * Increasing the TTL could have performance implications, so you should not change it without proper justification.
          * Default: 10.
