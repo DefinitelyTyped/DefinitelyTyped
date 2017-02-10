@@ -755,15 +755,16 @@ declare namespace chrome.commands {
  * Permissions:  "contentSettings"
  */
 declare namespace chrome.contentSettings {
+    /**
+     * The scope of the ContentSetting. One of
+     * • regular: setting for regular profile (which is inherited by the incognito profile if not overridden elsewhere),
+     * • incognito_session_only: setting for incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular settings).
+     */
+    type Scope = "regular" | "incognito_session_only";
+
     interface ClearDetails {
-        /**
-         * Optional.
-          * Where to clear the setting (default: regular).
-         * The scope of the ContentSetting. One of
-         * * regular: setting for regular profile (which is inherited by the incognito profile if not overridden elsewhere),
-         * * incognito_session_only: setting for incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular settings).
-         */
-        scope?: string;
+        /** Optional. Where to clear the setting (default: regular). */
+        scope?: Scope;
     }
 
     interface SetDetails {
@@ -774,7 +775,7 @@ declare namespace chrome.contentSettings {
         /** Optional. The pattern for the secondary URL. Defaults to matching all URLs. For details on the format of a pattern, see Content Setting Patterns.  */
         secondaryPattern?: string;
         /** Optional. Where to set the setting (default: regular).  */
-        scope?: string;
+        scope?: Scope;
         /** The pattern for the primary URL. For details on the format of a pattern, see Content Setting Patterns. */
         primaryPattern: string;
     }
