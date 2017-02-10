@@ -33,6 +33,7 @@ export {
     RoutePattern,
     RouterProps,
     RouterState,
+    RedirectFunction,
     StringifyQuery,
     Query
 } from "react-router/lib/Router";

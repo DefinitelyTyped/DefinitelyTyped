@@ -689,7 +689,7 @@ declare namespace L {
         /**
          * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection, GeoJSONFeatureCollection or Multipoint).
          */
-        toGeoJSON(): GeoJSONFeatureCollection<GeoJSONGeometryObject> | GeoJSONFeature<GeoJSONGeometryCollection | GeoJSONMultiPoint>;
+        toGeoJSON(): GeoJSONFeatureCollection<GeoJSONGeometryObject> | GeoJSONFeature<GeoJSONMultiPoint> | GeoJSONGeometryCollection;
 
         /**
          * Adds the given layer to the group.
@@ -743,7 +743,7 @@ declare namespace L {
          */
         getLayerId(layer: Layer): number;
 
-        feature: GeoJSONFeatureCollection<GeoJSONGeometryObject> | GeoJSONFeature<GeoJSONGeometryCollection | GeoJSONMultiPoint>;
+        feature: GeoJSONFeatureCollection<GeoJSONGeometryObject> | GeoJSONFeature<GeoJSONMultiPoint> | GeoJSONGeometryCollection;
     }
 
     /**
