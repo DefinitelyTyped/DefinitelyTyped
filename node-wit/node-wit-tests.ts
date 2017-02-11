@@ -23,9 +23,7 @@ var wit = new Wit({
 wit.message("what is the weather in London?", {}).then((res) => {
     console.log(res._text);
 
-    for (let entity of res.entities) {
-        console.log(entity.value + ": " + entity.confidence * 100 + "%");
-    }
+    console.log(res.entities);
 
 }).catch((err) => {
     console.log(err);
