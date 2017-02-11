@@ -1,18 +1,17 @@
-// Type definitions for Knex.js
+// Type definitions for Knex 0.12
 // Project: https://github.com/tgriesser/knex
-// Definitions by: Qubo <https://github.com/tkQubo>
+// Definitions by: Qubo <https://github.com/tkQubo>, Nospamas <https://github.com/nospamas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-/// <reference types="bluebird" />
 /// <reference types="node" />
 
 import events = require("events");
 import Promise = require("bluebird");
 
-type Callback = Function;
-type Client = Function;
-type Value = string | number | boolean | Date | Array<string> | Array<number> | Array<Date> | Array<boolean> | Buffer | Knex.Raw;
+type GenericCallback<T> = (err: any, result?: T) => any;
+type ResultCallback<T> = (result?: T) => void;
+type Value = string | number | boolean | Date | string[] | number[] | Date[] | boolean[] | Buffer | Knex.Raw;
 type ColumnName = string | Knex.Raw | Knex.QueryBuilder;
 type TableName = string | Knex.Raw | Knex.QueryBuilder;
 
@@ -23,7 +22,8 @@ interface Knex extends Knex.QueryInterface {
 
     raw: Knex.RawBuilder;
     transaction: <R>(transactionScope: ((trx: Knex.Transaction) => void)) => Promise<any>;
-    destroy(callback: Function): void;
+    // TODO: no examples of this in the docs, maybe better type info?
+    destroy(callback: (...args: any[]) =>  any): void;
     destroy(): Promise<void>;
 
     schema: Knex.SchemaBuilder;
@@ -32,7 +32,10 @@ interface Knex extends Knex.QueryInterface {
     migrate: Knex.Migrator;
     seed: any;
     fn: Knex.FunctionHelper;
-    on(eventName: string, callback: Function): Knex.QueryBuilder;
+    // TODO: these are the same functions on the querybuilder interface, find a way to de-dupe
+    on(event: 'query', callback: ResultCallback<any>): Knex.QueryBuilder;
+    on(event: 'query-error', callback: GenericCallback<any>): Knex.QueryBuilder;
+    on(event: 'query-response', callback: (response: any, obj: any, builder: Knex.QueryBuilder) => void): Knex.QueryBuilder;
 }
 
 declare function Knex(config: Knex.Config): Knex;
@@ -105,7 +108,7 @@ declare namespace Knex {
 
         // Union
         union: Union;
-        unionAll(callback: Function): QueryBuilder;
+        unionAll: Union;
 
         // Having
         having: Having;
@@ -155,18 +158,19 @@ declare namespace Knex {
     interface Select extends ColumnNameQueryBuilder {
     }
 
-    interface Table {
-        (tableName: string): QueryBuilder;
-        (callback: Function): QueryBuilder;
-    }
+    type TableCallback = (this: QueryBuilder) => any;
+
+    type Table = (tableNameOrCallback: string | TableCallback) => QueryBuilder;
 
     interface Distinct extends ColumnNameQueryBuilder {
     }
 
+    type JoinFunction = (this: JoinClause) => void;
+
     interface Join {
         (raw: Raw): QueryBuilder;
-        (tableName: string, columns: { [key: string]: string | Raw }): QueryBuilder;
-        (tableName: string, callback: Function): QueryBuilder;
+        (tableName: string, columns: {[key: string]: string | Raw}): QueryBuilder;
+        (tableName: string, callback: JoinFunction): QueryBuilder;
         (tableName: TableName, raw: Raw): QueryBuilder;
         (tableName: TableName, column1: string, column2: string): QueryBuilder;
         (tableName: TableName, column1: string, raw: Raw): QueryBuilder;
@@ -175,24 +179,24 @@ declare namespace Knex {
 
     interface JoinClause {
         on(raw: Raw): JoinClause;
-        on(callback: Function): JoinClause;
-        on(columns: { [key: string]: string | Raw }): JoinClause;
+        on(callback: JoinFunction): JoinClause;
+        on(columns: {[key: string]: string | Raw}): JoinClause;
         on(column1: string, column2: string): JoinClause;
         on(column1: string, raw: Raw): JoinClause;
         on(column1: string, operator: string, column2: string): JoinClause;
         andOn(raw: Raw): JoinClause;
-        andOn(callback: Function): JoinClause;
-        andOn(columns: { [key: string]: string | Raw }): JoinClause;
+        andOn(callback: JoinFunction): JoinClause;
+        andOn(columns: {[key: string]: string | Raw}): JoinClause;
         andOn(column1: string, column2: string): JoinClause;
         andOn(column1: string, raw: Raw): JoinClause;
         andOn(column1: string, operator: string, column2: string): JoinClause;
         orOn(raw: Raw): JoinClause;
-        orOn(callback: Function): JoinClause;
-        orOn(columns: { [key: string]: string | Raw }): JoinClause;
+        orOn(callback: JoinFunction): JoinClause;
+        orOn(columns: {[key: string]: string | Raw}): JoinClause;
         orOn(column1: string, column2: string): JoinClause;
         orOn(column1: string, raw: Raw): JoinClause;
         orOn(column1: string, operator: string, column2: string): JoinClause;
-        using(column: string | string[] | Raw | { [key: string]: string | Raw }): JoinClause;
+        using(column: string | string[] | Raw | {[key: string]: string | Raw}): JoinClause;
         type(type: string): JoinClause;
     }
 
@@ -200,10 +204,15 @@ declare namespace Knex {
         (tableName: string, binding?: Value): QueryBuilder;
     }
 
+
+    // additional info: http://knexjs.org/#Builder-wheres
+
+    // http://knexjs.org/#Builder-where
+    // http://knexjs.org/#Builder-whereNot
     interface Where extends WhereRaw, WhereWrapped, WhereNull {
         (raw: Raw): QueryBuilder;
         (callback: (queryBuilder: QueryBuilder) => any): QueryBuilder;
-        (object: Object): QueryBuilder;
+        (object: {}): QueryBuilder;
         (columnName: string, value: Value): QueryBuilder;
         (columnName: string, operator: string, value: Value): QueryBuilder;
         (columnName: string, operator: string, query: QueryBuilder): QueryBuilder;
@@ -213,8 +222,10 @@ declare namespace Knex {
         (condition: boolean): QueryBuilder;
     }
 
+    type  WhereCallback = (this: QueryBuilder) => any;
+
     interface WhereWrapped {
-        (callback: Function): QueryBuilder;
+        (callback: WhereCallback): QueryBuilder;
     }
 
     interface WhereNull {
@@ -222,9 +233,7 @@ declare namespace Knex {
     }
 
     interface WhereIn {
-        (columnName: string, values: Value[]): QueryBuilder;
-        (columnName: string, callback: Function): QueryBuilder;
-        (columnName: string, query: QueryBuilder): QueryBuilder;
+        (columnName: string, arrayCallbackBuilder: Value[] | WhereCallback | QueryBuilder): QueryBuilder;
     }
 
     interface WhereBetween {
@@ -232,8 +241,7 @@ declare namespace Knex {
     }
 
     interface WhereExists {
-        (callback: Function): QueryBuilder;
-        (query: QueryBuilder): QueryBuilder;
+        (queryOrCallback: WhereCallback | QueryBuilder): QueryBuilder;
     }
 
     interface WhereNull {
@@ -251,10 +259,12 @@ declare namespace Knex {
         (columnName: string, direction?: string): QueryBuilder;
     }
 
+    type UnionFunction = (this: QueryBuilder) => void;
+
     interface Union {
-        (callback: Function, wrap?: boolean): QueryBuilder;
-        (callbacks: Function[], wrap?: boolean): QueryBuilder;
-        (...callbacks: Function[]): QueryBuilder;
+        (callback: UnionFunction | UnionFunction[], wrap?: boolean): QueryBuilder;
+        (...callbacks: UnionFunction[]): QueryBuilder;
+        // no way to specifiy this siganiture in the current typescript version
         // (...callbacks: Function[], wrap?: boolean): QueryInterface;
     }
 
@@ -284,8 +294,7 @@ declare namespace Knex {
     interface RawBuilder {
         (value: Value): Raw;
         (sql: string, ...bindings: Value[]): Raw;
-        (sql: string, bindings: Value[]): Raw;
-        (sql: string, bindings: Object): Raw;
+        (sql: string, bindings: Value[] | {}): Raw;
     }
 
     //
@@ -303,8 +312,11 @@ declare namespace Knex {
         forShare(): QueryBuilder;
 
         toSQL(): Sql;
+        // callback type depends on the event listened for http://knexjs.org/#events
+        on(event: 'query', callback: ResultCallback<any>): QueryBuilder;
+        on(event: 'query-error', callback: GenericCallback<any>): QueryBuilder;
+        on(event: 'query-response', callback: (response: any, obj: any, builder: QueryBuilder) => void): QueryBuilder;
 
-        on(event: string, callback: Function): QueryBuilder;
     }
 
     interface Sql {
@@ -324,7 +336,8 @@ declare namespace Knex {
         stream(options?: any, callback?: (builder: QueryBuilder) => any): QueryBuilder;
         stream(callback?: (builder: QueryBuilder) => any): QueryBuilder;
         pipe(writable: any): QueryBuilder;
-        exec(callback: Function): QueryBuilder;
+        // from bluebird, deprecated, use asCallback
+        exec(callback: GenericCallback<any>): QueryBuilder;
     }
 
     interface Transaction extends QueryBuilder {
@@ -546,12 +559,15 @@ declare namespace Knex {
         debug?: boolean;
     }
 
+    // types from generic-pool library ^2.4.2, types do not exist at current time of writing
+    // some of these are any types for current convenience
     interface PoolConfig {
         name?: string;
-        create?: Function;
-        afterCreate?: Function;
-        destroy?: Function;
-        beforeDestroy?: Function;
+        create?: GenericCallback<any>;
+        afterCreate?: (connection: any, callback?: GenericCallback<any>) => any;
+        destroy?: (resource: any) => void;
+        // deprecated
+        beforeDestroy?: (connection: any, callback?: GenericCallback<any>) => any;
         min?: number;
         max?: number;
         refreshIdle?: boolean;
@@ -559,7 +575,7 @@ declare namespace Knex {
         reapIntervalMillis?: number;
         returnToHead?: boolean;
         priorityRange?: number;
-        validate?: Function;
+        validate?: (connection: any) => boolean;
         log?: boolean;
     }
 
