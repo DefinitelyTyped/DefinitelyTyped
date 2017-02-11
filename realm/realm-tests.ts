@@ -1,4 +1,5 @@
 import * as Realm from 'realm';
+import { ListView } from 'realm/react-native';
 
 // schema test
 const personSchema = {
@@ -15,7 +16,7 @@ const personSchema = {
 const key = new Int8Array(64);
 
 // constructor test
-let realm = new Realm({
+const realm = new Realm({
     schema: [personSchema],
     encryptionKey: key
 });
@@ -59,3 +60,44 @@ realm.removeAllListeners();
 allPerson.find((person: any) => {
     return person.name === 'Jack';
 });
+
+const currentVersion = Realm.schemaVersion(Realm.defaultPath);
+
+// username/password authentication
+Realm.Sync.User.register('http://localhost:9080', 'username@example.com', 'p@s$w0rd', (error, user) => { /* ... */ });
+
+Realm.Sync.User.login('http://localhost.com:9080', 'username@example.com', 'p@s$w0rd', (error, user) => {
+
+    const todoSchema = {
+        name: 'Todo',
+        primaryKey: 'id',
+        properties: {
+            id: 'int',
+            task: 'string',
+        }
+    };
+
+    // sync test
+    const realm = new Realm({
+        schema: [todoSchema],
+        sync: { user, url: 'realm://localhost:9080/~/todos' }
+    });
+
+    // session test
+    const session = realm.syncSession;
+    const sessionUrl = session.config.url;
+});
+
+// facebook authentication
+const fbAccessToken = 'acc3ssT0ken...';
+Realm.Sync.User.registerWithProvider('http://localhost:9080', 'facebook', fbAccessToken, (error, user) => { /* ... */ });
+
+// user test
+const user = Realm.Sync.User.current;
+const users = Realm.Sync.User.all;
+
+// access control test
+const managementRealm = user.openManagementRealm();
+
+// ListView test
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});

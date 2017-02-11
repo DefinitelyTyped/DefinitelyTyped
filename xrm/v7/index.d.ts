@@ -125,7 +125,7 @@ declare namespace Xrm
              * @return  An array of control.
              */
             getControl( delegateFunction: Collection.MatchingDelegate<Page.Control> ): Page.Control[];
-        }
+        };
 
         /**
          * Provides a container for useful functions not directly related to the current page.
@@ -207,7 +207,7 @@ declare namespace Xrm
              *                                              formid
              */
             openWebResource( webResourceName: string, webResourceData?: string, width?: number, height?: number ): Window;
-        }
+        };
     }
 
     /**
@@ -552,10 +552,10 @@ declare namespace Xrm
         }
 
         /**
-          * Interface for an item collection.
-          *
-          * @tparam  T   Generic type parameter.
-          */
+         * Interface for an item collection.
+         *
+         * @tparam  T   Generic type parameter.
+         */
         export interface ItemCollection<T>
         {
             /**
@@ -640,12 +640,12 @@ declare namespace Xrm
         export interface Process
         {
             /**
-            * Returns the unique identifier of the process.
-            *
-            * @return The identifier for this process, in GUID format.
-            *
-            * @remarks  Example: "{825CB223-A651-DF11-AA8B-00155DBA3804}".
-            */
+             * Returns the unique identifier of the process.
+             *
+             * @return The identifier for this process, in GUID format.
+             *
+             * @remarks  Example: "{825CB223-A651-DF11-AA8B-00155DBA3804}".
+             */
             getId(): string;
 
             /**
