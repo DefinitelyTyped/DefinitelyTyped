@@ -94,7 +94,7 @@ export interface IpOptions {
 export type GuidVersions = 'uuidv1' | 'uuidv2' | 'uuidv3' | 'uuidv4' | 'uuidv5'
 
 export interface GuidOptions {
-    version: GuidVersions[]
+    version: GuidVersions[] | GuidVersions
 }
 
 export interface UriOptions {
