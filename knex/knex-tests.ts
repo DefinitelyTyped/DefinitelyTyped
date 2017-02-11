@@ -455,7 +455,9 @@ var tableName: string;
 var columnName: string;
 knex.schema.hasColumn(tableName, columnName);
 
-knex.schema.dropTableIfExists('users');
+knex.schema
+    .dropTableIfExists('users')
+    .dropTableIfExists('other');
 
 knex.schema.table('users', function (table) {
   table.dropColumn('name');
