@@ -20,7 +20,6 @@ export class ClientSSLSecurity implements Security {
 }
 
 export interface Client extends events.EventEmitter {
-    [method: string]: any;
     addBodyAttribute(bodyAttribute: any, name?: string, namespace?: string, xmlns?: string): void;
     addHttpHeader(name: string, value: any): void;
     addSoapHeader(soapHeader: any, name?: string, namespace?: string, xmlns?: string): number;
@@ -35,6 +34,7 @@ export interface Client extends events.EventEmitter {
     setEndpoint(endpoint: string): void;
     setSOAPAction(action: string): void;
     setSecurity(s: Security): void;
+    [method: string]: (args: any, callback: (err: any, result: any) => void, options?: any, extraHeaders?: any) => void;
 }
 
 export interface Server extends events.EventEmitter {
