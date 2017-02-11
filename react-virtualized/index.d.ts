@@ -23,7 +23,7 @@ declare module "react-virtualized" {
         onScroll?: (info: { clientHeight: number, scrollHeight: number, scrollTop: number }) => void;
         overscanRowCount?: number;
         rowHeight: number | ((info: { index: number }) => number);
-        rowRenderer: (info: { index: number, isScrolling: boolean }) => React.ReactNode;
+        rowRenderer: (info: { index: number, isScrolling?: boolean, key: any, style: string }) => React.ReactNode;
         rowClassName?: string | ((info: { index: number }) => string);
         rowCount: number;
         rowStyle?: React.CSSProperties | ((info: { index: number }) => React.CSSProperties);
@@ -61,7 +61,7 @@ declare module "react-virtualized" {
         onScroll?: (info: { clientHeight: number, scrollHeight: number, scrollTop: number }) => void;
         overscanRowCount?: number;
         rowHeight: number | ((info: { index: number }) => number);
-        rowRenderer: (info: { index: number, isScrolling: boolean }) => React.ReactNode;
+        rowRenderer: (info: { index: number, isScrolling?: boolean, key: any, style: string }) => React.ReactNode;
         rowCount: number;
         scrollToAlignment?: string;
         scrollToIndex?: number;
@@ -120,7 +120,7 @@ declare module "react-virtualized" {
         rowCount: number;
         rowGetter?: (info: { index: number }) => any;
         rowHeight: number | ((info: { index: number }) => number);
-        rowRenderer?: (info: { index: number, isScrolling: boolean }) => React.ReactNode;
+        rowRenderer?: (info: { index: number, isScrolling?: boolean, key: any, style: string }) => React.ReactNode;
         rowStyle?: React.CSSProperties | ((info: { index: number }) => React.CSSProperties);
         scrollToAlignment?: string;
         scrollToIndex?: number;
