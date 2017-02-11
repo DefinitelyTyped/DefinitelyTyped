@@ -1119,7 +1119,7 @@ export interface WriteOpResult {
 export type CursorResult = any | void | boolean;
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html
-export interface Cursor<T> extends Readable {
+export class Cursor<T> extends Readable {
 
     sortValue: string;
     timeout: boolean;
