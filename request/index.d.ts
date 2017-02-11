@@ -143,6 +143,7 @@ declare namespace request {
 
 	export interface RequestResponse extends http.IncomingMessage {
 		request: Options;
+		body: any;
 	}
 
     export interface HttpArchiveRequest {
