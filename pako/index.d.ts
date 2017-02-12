@@ -1,6 +1,6 @@
-// Type definitions for pako 0.2.8
+// Type definitions for pako 0.1.4
 // Project: https://github.com/nodeca/pako
-// Definitions by: Denis Cappellin <http://github.com/cappellin>
+// Definitions by: Denis Cappellin <https://github.com/cappellin>, Caleb Eggensperger <https://github.com/calebegg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Pako;
