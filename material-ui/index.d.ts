@@ -130,6 +130,7 @@ declare namespace __MaterialUI {
             accent2Color?: string;
             accent3Color?: string;
             textColor?: string;
+            secondaryTextColor?: string;
             alternateTextColor?: string;
             canvasColor?: string;
             borderColor?: string;
