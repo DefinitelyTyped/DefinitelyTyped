@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import moment from "moment";
 import * as React from "react";
+import moment from "moment";
 
 export = ReactDates;
 
