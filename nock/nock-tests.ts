@@ -22,6 +22,9 @@ inst = scope.head(str);
 inst = scope.get(str);
 inst = scope.get(str, data);
 
+inst = scope.options(str);
+inst = scope.options(str, data);
+
 inst = scope.patch(str);
 inst = scope.patch(str, str);
 inst = scope.patch(str, obj);

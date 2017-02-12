@@ -48,6 +48,7 @@ declare namespace nock {
         patch: InterceptFunction;
         merge: InterceptFunction;
         delete: InterceptFunction;
+        options: InterceptFunction;
 
         intercept: (
             uri: string | RegExp | { (uri: string): boolean; },
