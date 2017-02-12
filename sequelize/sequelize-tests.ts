@@ -1,6 +1,5 @@
-/// <reference path="sequelize.d.ts" />
-
 import Sequelize = require("sequelize");
+import Promise = require('bluebird');
 
 //
 //  Fixtures
@@ -716,6 +715,12 @@ User.beforeFindAfterOptions( 'myHook', function( options ) {} );
 User.afterFind( function( user ) {} );
 User.afterFind( 'myHook', function( user ) {} );
 
+User.beforeSync( function( options ) {} );
+User.beforeSync( 'myHook', function( options ) {} );
+
+User.afterSync( function( options ) {} );
+User.afterSync( 'myHook', function( options ) {} );
+
 s.beforeDefine( function( attributes, options ) {} );
 s.beforeDefine( 'myHook', function( attributes, options ) {} );
 
@@ -727,6 +732,12 @@ s.beforeInit( 'myHook', function( attributes, options ) {} );
 
 s.afterInit( function( model ) {} );
 s.afterInit( 'myHook', function( model ) {} );
+
+s.beforeBulkSync( function( options ) {} );
+s.beforeBulkSync( 'myHook', function( options ) {} );
+
+s.afterBulkSync( function( options ) {} );
+s.afterBulkSync( 'myHook', function( options ) {} );
 
 s.define( 'User', {}, {
     hooks : {
@@ -841,6 +852,10 @@ User.schema( 'special' ).create( { age : 3 }, { logging : function(  ) {} } );
 
 User.getTableName();
 
+User.addScope('lowAccess', { where : { parent_id : 2 } });
+User.addScope('lowAccess', function() { } );
+User.addScope('lowAccess', { where : { parent_id : 2 } }, { override: true });
+
 User.scope( 'lowAccess' ).count();
 User.scope( { where : { parent_id : 2 } } );
 
@@ -884,6 +899,12 @@ User.findAll( { include : [User], order : [['id', 'ASC NULLS LAST'], [User, 'id'
 User.findAll( { include : [{ model : User, where : { title : 'DoDat' }, include : [{ model : User }] }] } );
 User.findAll( { attributes: ['username', 'data']});
 User.findAll( { attributes: {include: ['username', 'data']} });
+User.findAll( { attributes: [['username', 'user_name'], ['email', 'user_email']] });
+User.findAll( { attributes: [s.fn('count', Sequelize.col('*'))] });
+User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']] });
+User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']], group: ['sex'] });
+User.findAll( { attributes: [s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER')] });
+User.findAll( { attributes: [[s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER'), 'count']] });
 
 User.findById( 'a string' );
 
@@ -952,22 +973,23 @@ User.create( { title : 'Chair', creator : { first_name : 'Matt', last_name : 'Ha
 User.create( { id : 1, title : 'e', Tags : [{ id : 1, name : 'c' }, { id : 2, name : 'd' }] }, { include : [User] } );
 User.create( { id : 'My own ID!' } ).then( ( i ) => i.isNewRecord );
 
-User.findOrInitialize( { where : { username : 'foo' } } ).then( ( p ) => p );
-User.findOrInitialize( { where : { username : 'foo' }, transaction : t } );
-User.findOrInitialize( { where : { username : 'foo' }, defaults : { foo : 'asd' }, transaction : t } );
+let findOrRetVal: Promise<[AnyInstance, boolean]>;
+findOrRetVal = User.findOrInitialize( { where : { username : 'foo' } } );
+findOrRetVal = User.findOrInitialize( { where : { username : 'foo' }, transaction : t } );
+findOrRetVal = User.findOrInitialize( { where : { username : 'foo' }, defaults : { foo : 'asd' }, transaction : t } );
 
-User.findOrCreate( { where : { a : 'b' }, defaults : { json : { a : { b : 'c' }, d : [1, 2, 3] } } } );
-User.findOrCreate( { where : { a : 'b' }, defaults : { json : 'a', data : 'b' } } );
+findOrRetVal = User.findOrCreate( { where : { a : 'b' }, defaults : { json : { a : { b : 'c' }, d : [1, 2, 3] } } } );
+findOrRetVal = User.findOrCreate( { where : { a : 'b' }, defaults : { json : 'a', data : 'b' } } );
 /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 User.findOrCreate( { where : { a : 'b' }, transaction : t, lock : t.LOCK.UPDATE } );
  */
-User.findOrCreate( { where : { a : 'b' }, logging : function(  ) { } } );
-User.findOrCreate( { where : { username : 'Username' }, defaults : { data : 'some data' }, transaction : t } );
-User.findOrCreate( { where : { objectId : 'asdasdasd' }, defaults : { username : 'gottlieb' } } );
-User.findOrCreate( { where : { id : undefined }, defaults : { name : Math.random().toString() } } );
-User.findOrCreate( { where : { email : 'unique.email.@d.com', companyId : Math.floor( Math.random() * 5 ) } } );
-User.findOrCreate( { where : { objectId : 1 }, defaults : { bool : false } } );
-User.findOrCreate( { where : 'c', defaults : {} } );
+findOrRetVal = User.findOrCreate( { where : { a : 'b' }, logging : function(  ) { } } );
+findOrRetVal = User.findOrCreate( { where : { username : 'Username' }, defaults : { data : 'some data' }, transaction : t } );
+findOrRetVal = User.findOrCreate( { where : { objectId : 'asdasdasd' }, defaults : { username : 'gottlieb' } } );
+findOrRetVal = User.findOrCreate( { where : { id : undefined }, defaults : { name : Math.random().toString() } } );
+findOrRetVal = User.findOrCreate( { where : { email : 'unique.email.@d.com', companyId : Math.floor( Math.random() * 5 ) } } );
+findOrRetVal = User.findOrCreate( { where : { objectId : 1 }, defaults : { bool : false } } );
+findOrRetVal = User.findOrCreate( { where : 'c', defaults : {} } );
 
 User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) } );
 
@@ -1122,7 +1144,6 @@ s.model( 'pp' );
 s.query( '', { raw : true } );
 s.query( '' );
 s.query( '' ).then( function( res ) {} );
-s.query( '' ).spread( function(  ) {}, function( b ) {} );
 s.query( { query : 'select ? as foo, ? as bar', values : [1, 2] }, { raw : true, replacements : [1, 2] } );
 s.query( '', { raw : true, nest : false } );
 s.query( 'select ? as foo, ? as bar', { type : this.sequelize.QueryTypes.SELECT, replacements : [1, 2] } );

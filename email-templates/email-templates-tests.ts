@@ -1,9 +1,8 @@
-///<reference path="email-templates.d.ts"/>
-
 import EmailTemplates = require('email-templates');
 
 var EmailTemplate = EmailTemplates.EmailTemplate;
 var template = new EmailTemplate("./");
+var templateWithOptions = new EmailTemplate('./', {sassOptions: {}, juiceOptions: {}});
 var users = [
     {
         email: 'pappa.pizza@spaghetti.com',

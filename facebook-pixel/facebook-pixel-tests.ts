@@ -1,4 +1,4 @@
-/// <reference path="facebook-pixel.d.ts" />
+
 
 fbq('init', '<FB_PIXEL_ID>');
 fbq('track', 'PageView');

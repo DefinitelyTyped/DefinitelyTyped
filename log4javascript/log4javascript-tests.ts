@@ -1,8 +1,15 @@
-﻿/// <reference path="./log4javascript.d.ts" />
+
 
 function aSimpleLoggingMessageString() {
 	var log = log4javascript.getDefaultLogger();
 	log.info("Hello World");
+}
+
+function compareLogLevelsAndLog() {
+    var log = log4javascript.getDefaultLogger();
+    if (log4javascript.Level.INFO.isGreaterOrEqual(log.getLevel())) {
+        log.log(log4javascript.Level.INFO, ["Info"]);
+    }
 }
 
 function loggingAnErrorWithAMessage() {

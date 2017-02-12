@@ -1,5 +1,3 @@
-///<reference path='angular-bootstrap-lightbox.d.ts'/>
-
 var imageList:angular.bootstrap.lightbox.ILightboxImageInfo[] = [];
 imageList.push({
 	url: 'url1',

@@ -1,5 +1,5 @@
-/// <reference path="gulp-jspm.d.ts" />
-/// <reference path="../gulp/gulp.d.ts" />
+
+
 
 import * as gulp from 'gulp';
 import * as gulpJspm from 'gulp-jspm';
