@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-day-picker-tests.tsx"
+        "react-dates-tests.tsx"
     ]
 }
