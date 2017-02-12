@@ -5,7 +5,7 @@
 // TypeScript Version: 2.1
 
 import * as React from "react";
-import moment from "moment";
+import * as moment from "moment";
 
 export = ReactDates;
 
