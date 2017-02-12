@@ -1,5 +1,5 @@
-﻿/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="gridstack.d.ts" />
+/// <reference types="jquery"/>
+
 
 
 // Type definitions for Gridstack
@@ -12,9 +12,9 @@ var options = <IGridstackOptions> {
 };
 var gridstack:GridStack = $(document).gridstack(options);
 
-gridstack.add_widget("test", 1, 2, 3, 4, true);
-gridstack.batch_update();
-gridstack.cell_height();;
-gridstack.cell_height(2);
-gridstack.cell_width();
-gridstack.get_cell_from_pixel(<MousePosition>{ left:20, top: 20 });
+gridstack.addWidget("test", 1, 2, 3, 4, true);
+gridstack.batchUpdate();
+gridstack.cellHeight();;
+gridstack.cellHeight(2);
+gridstack.cellWidth();
+gridstack.getCellFromPixel(<MousePosition>{ left:20, top: 20 });

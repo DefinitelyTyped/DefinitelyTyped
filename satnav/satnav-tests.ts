@@ -1,4 +1,4 @@
-/// <reference path="satnav.d.ts" />
+
 Satnav({})
 .navigate({
     path: 'product/{required}/?{optional}',

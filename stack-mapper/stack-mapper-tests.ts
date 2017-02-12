@@ -1,5 +1,3 @@
-﻿/// <reference path="stack-mapper.d.ts" />
-
 import stackMapper = require("stack-mapper");
 
 var map: any = {};

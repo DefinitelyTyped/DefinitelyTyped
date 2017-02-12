@@ -1,26 +1,24 @@
-/// <reference path="./geojson.d.ts" />
-
-var featureCollection: GeoJSON.FeatureCollection<any> =  {
+let featureCollection: GeoJSON.FeatureCollection<any> =  {
     type: "FeatureCollection",
-    features: [   
-        { 
+    features: [
+        {
             type: "Feature",
             geometry: {
-                type: "Point", 
+                type: "Point",
                 coordinates: [102.0, 0.5]
             },
             properties: {
                 prop0: "value0"
             }
         },
-        { 
+        {
             type: "Feature",
             geometry: {
                 type: "LineString",
                 coordinates: [
-                    [102.0, 0.0], 
-                    [103.0, 1.0], 
-                    [104.0, 0.0], 
+                    [102.0, 0.0],
+                    [103.0, 1.0],
+                    [104.0, 0.0],
                     [105.0, 1.0]
                 ]
             },
@@ -29,7 +27,7 @@ var featureCollection: GeoJSON.FeatureCollection<any> =  {
                 prop1: 0.0
             }
         },
-        { 
+        {
             type: "Feature",
             geometry: {
                 type: "Polygon",
@@ -52,9 +50,9 @@ var featureCollection: GeoJSON.FeatureCollection<any> =  {
             type: "proj4"
         }
     }
-}
+};
 
-var feature: GeoJSON.Feature<GeoJSON.Polygon> = {
+let featureWithPolygon: GeoJSON.Feature<GeoJSON.Polygon> = {
     type: "Feature",
     bbox: [-180.0, -90.0, 180.0, 90.0],
     geometry: {
@@ -67,24 +65,29 @@ var feature: GeoJSON.Feature<GeoJSON.Polygon> = {
 };
 
 
-var point: GeoJSON.Point = { 
+let point: GeoJSON.Point = {
 	type: "Point",
 	coordinates: [100.0, 0.0]
 };
 
-var lineString: GeoJSON.LineString = {
+
+// This type is commonly used in the turf package
+let pointCoordinates: number[] = point.coordinates;
+
+
+let lineString: GeoJSON.LineString = {
 	type: "LineString",
 	coordinates: [ [100.0, 0.0], [101.0, 1.0] ]
 };
 
-var polygon: GeoJSON.Polygon = { 
+let polygon: GeoJSON.Polygon = {
     type: "Polygon",
     coordinates: [
         [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ]
     ]
 };
 
-var polygonWithHole: GeoJSON.Polygon = { 
+let polygonWithHole: GeoJSON.Polygon = {
     type: "Polygon",
     coordinates: [
         [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ],
@@ -92,12 +95,12 @@ var polygonWithHole: GeoJSON.Polygon = {
     ]
 };
 
-var multiPoint: GeoJSON.MultiPoint = {
+let multiPoint: GeoJSON.MultiPoint = {
     type: "MultiPoint",
     coordinates: [ [100.0, 0.0], [101.0, 1.0] ]
 };
 
-var multiLineString: GeoJSON.MultiLineString = { 
+let multiLineString: GeoJSON.MultiLineString = {
     type: "MultiLineString",
     coordinates: [
         [ [100.0, 0.0], [101.0, 1.0] ],
@@ -105,25 +108,103 @@ var multiLineString: GeoJSON.MultiLineString = {
     ]
 };
 
-var multiPolygon: GeoJSON.MultiPolygon = { 
+let multiPolygon: GeoJSON.MultiPolygon = {
     type: "MultiPolygon",
     coordinates: [
         [[[102.0, 2.0], [103.0, 2.0], [103.0, 3.0], [102.0, 3.0], [102.0, 2.0]]],
         [[[100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0]],
          [[100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8], [100.2, 0.2]]]
     ]
-}
+};
 
-var geometryCollection: GeoJSON.GeometryCollection = { 
+let geometryCollection: GeoJSON.GeometryCollection = {
     type: "GeometryCollection",
     "geometries": [
-        { 
+        {
             type: "Point",
             coordinates: [100.0, 0.0]
         },
-        { 
+        {
             type: "LineString",
             coordinates: [ [101.0, 0.0], [102.0, 1.0] ]
         }
     ]
-}
+};
+
+let feature: GeoJSON.Feature<GeoJSON.GeometryObject> = {
+    type: "Feature",
+    geometry: lineString,
+    properties: null
+};
+feature = {
+    type: "Feature",
+    geometry: polygon,
+    properties: null
+};
+feature = {
+    type: "Feature",
+    geometry: polygonWithHole,
+    properties: null
+};
+feature = {
+    type: "Feature",
+    geometry: multiPoint,
+    properties: null
+};
+feature = {
+    type: "Feature",
+    geometry: multiLineString,
+    properties: null
+};
+feature = {
+    type: "Feature",
+    geometry: multiPolygon,
+    properties: null
+};
+feature = {
+    type: "Feature",
+    geometry: geometryCollection,
+    properties: null
+};
+
+featureCollection = {
+    type: "FeatureCollection",
+    features: [
+        {
+            type: "Feature",
+            geometry: lineString,
+            properties: {test: 'OK'}
+        }, {
+            type: "Feature",
+            geometry: polygon,
+            properties: {test: 'OK'}
+        }, {
+            type: "Feature",
+            geometry: polygonWithHole,
+            properties: {test: 'OK'}
+        }, {
+            type: "Feature",
+            geometry: multiPoint,
+            properties: {test: 'OK'}
+        }, {
+            type: "Feature",
+            geometry: multiLineString,
+            properties: {test: 'OK'}
+        }, {
+            type: "Feature",
+            geometry: multiPolygon,
+            properties: {test: 'OK'}
+        }, {
+            type: "Feature",
+            geometry: geometryCollection,
+            properties: {test: 'OK'}
+        }
+    ],
+    crs: {
+        type: "link",
+        properties: {
+            href: "http://example.com/crs/42",
+            type: "proj4"
+        }
+    }
+};

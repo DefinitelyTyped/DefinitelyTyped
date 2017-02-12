@@ -1,13 +1,12 @@
-/// <reference path="z-schema.d.ts" />
 
-import ZSchema = require('z-schema');
+import Validator = require('z-schema');
 
-var options: ZSchema.Options = {
+var options: Validator.Options = {
   noTypeless: true,
   forceItems: true,
 };
 
-var validator: ZSchema.Validator = new ZSchema(options);
+var validator: Validator = new Validator(options);
 var json: any = {
     foo: 'bar',
 };
@@ -21,6 +20,7 @@ var schema: any = {
     },
 };
 
+validator.validateSchema(schema);
 validator.validate(json, schema);
 validator.validate(json, schema, function (err: any, valid: boolean) {
     if (err) {
@@ -30,5 +30,5 @@ validator.validate(json, schema, function (err: any, valid: boolean) {
     }
 });
 
-var error: ZSchema.SchemaError = validator.getLastError();
-var errors: ZSchema.SchemaError[] = validator.getLastErrors();
+var error: Validator.SchemaError = validator.getLastError();
+var errors: Validator.SchemaErrorDetail[] = validator.getLastErrors();

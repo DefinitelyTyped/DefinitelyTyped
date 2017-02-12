@@ -1,4 +1,3 @@
-/// <reference path="inline-css.d.ts" />
 
 import inlineCss = require('inline-css');
 

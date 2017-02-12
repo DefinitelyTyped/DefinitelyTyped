@@ -1,14 +1,16 @@
-﻿/// <reference path="jsnlog.d.ts" />
+
 
 // ----------------------------------------------------------
 // JL
 
+var offLevel: number = JL.getOffLevel();
 var traceLevel: number = JL.getTraceLevel();
 var debugLevel: number = JL.getDebugLevel();
 var infoLevel: number = JL.getInfoLevel();
 var warnLevel: number = JL.getWarnLevel();
 var errorLevel: number = JL.getErrorLevel();
 var fatalLevel: number = JL.getFatalLevel();
+var allLevel: number = JL.getAllLevel();
 
 JL.setOptions({
 		enabled: true,
@@ -16,13 +18,19 @@ JL.setOptions({
 		defaultAjaxUrl: '/jsnlog.logger',
 		clientIP: '0.0.0.0',
 		requestId: 'a reuest id',
-		defaultBeforeSend: null
+		defaultBeforeSend: null,
+		serialize: (obj) => JSON.stringify(obj)
 });
+
+// ----------------------------------------------------------
+// Exception
+
+var e = new JL.Exception("i is too small!");
 
 // ----------------------------------------------------------
 // Ajax Appender
 
-var ajaxAppender1: JSNLog.JSNLogAjaxAppender = JL.createAjaxAppender('ajaxAppender');
+var ajaxAppender1: JL.JSNLogAjaxAppender = JL.createAjaxAppender('ajaxAppender');
 
 ajaxAppender1.setOptions({
 		level: 5000,
@@ -40,7 +48,7 @@ ajaxAppender1.setOptions({
 // ----------------------------------------------------------
 // Console Appender
 
-var consoleAppender1: JSNLog.JSNLogConsoleAppender = JL.createConsoleAppender('consoleAppender');
+var consoleAppender1: JL.JSNLogConsoleAppender = JL.createConsoleAppender('consoleAppender');
 
 consoleAppender1.setOptions({
 		level: 5000,
@@ -57,7 +65,7 @@ consoleAppender1.setOptions({
 // ----------------------------------------------------------
 // Loggers
 
-var logger1: JSNLog.JSNLogLogger = JL('mylogger');
+var logger1: JL.JSNLogLogger = JL('mylogger');
 
 var exception = {};
 

@@ -1,4 +1,4 @@
-/// <reference path="jsuri.d.ts" />
+
 
 function test_createUri() {
   var uri = new jsuri.Uri('http://user:pass@www.test.com:81/index.html?q=books#fragment');

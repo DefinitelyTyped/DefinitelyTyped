@@ -1,4 +1,3 @@
-/// <reference path="debounce.d.ts" />
 
 import debounce from "debounce";
 

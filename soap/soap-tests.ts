@@ -1,4 +1,3 @@
-/// <reference path="soap.d.ts" />
 
 import * as soap from 'soap';
 import * as events from 'events';
@@ -9,9 +8,14 @@ const url = 'http://example.com/wsdl?wsdl';
 const wsdlOptions = { name: 'value' };
 
 soap.createClient(url, wsdlOptions, function(err: any, client: soap.Client) {
-    let securityOptions = { 'hasTimeStamp': false };
+    let securityOptions = { hasTimeStamp: false };
     client.setSecurity(new soap.WSSecurity('user', 'password', securityOptions));
+    let defaults = {rejectUnauthorized: false};
+    client.setSecurity(new soap.ClientSSLSecurity('/path/to/key', '/path/to/cert', '/path/to/ca', defaults));
+    client.setSecurity(new soap.ClientSSLSecurity('/path/to/key', '/path/to/cert', defaults));
+    client.setSecurity(new soap.ClientSSLSecurity('/path/to/key', '/path/to/cert', '/path/to/ca'));
     client.addSoapHeader({});
+    client.setEndpoint('http://localhost');
     client['create']({ name: 'value' }, function(err, result) {
         // result is an object
     });
@@ -21,6 +25,7 @@ soap.createClient(url, wsdlOptions, function(err: any, client: soap.Client) {
     client.on('request', function(obj: any) {
         //obj is an object
     });
+    client.describe();
 });
 
 var myService = {
@@ -31,23 +36,23 @@ var myService = {
                       name: args.name
                   };
               },
- 
-              // This is how to define an asynchronous function. 
+
+              // This is how to define an asynchronous function.
               MyAsyncFunction: function(args: any, callback: any) {
-                  // do some work 
+                  // do some work
                   callback({
                       name: args.name
                   });
               },
- 
-              // This is how to receive incoming headers 
+
+              // This is how to receive incoming headers
               HeadersAwareFunction: function(args: any, cb: any, headers: any) {
                   return {
                       name: headers.Token
                   };
               },
- 
-              // You can also inspect the original `req` 
+
+              // You can also inspect the original `req`
               reallyDeatailedFunction: function(args: any, cb: any, headers: any, req: any) {
                   console.log('SOAP `reallyDeatailedFunction` request from ' + req.connection.remoteAddress);
                   return {
@@ -57,11 +62,11 @@ var myService = {
           }
       }
   };
- 
+
 var xml = fs.readFileSync('myservice.wsdl', 'utf8'),
     server = http.createServer(function(request,response) {
         response.end("404: Not Found: " + request.url);
     });
- 
+
 server.listen(8000);
 soap.listen(server, '/wsdl', myService, xml);
