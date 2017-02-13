@@ -1,4 +1,4 @@
-import { CreateHistory } from '../index';
+import { CreateHistory } from "history";
 
 declare const createBrowserHistory: CreateHistory<any, any>;
 

@@ -1,4 +1,4 @@
-import { CreateHistory, History } from '../index';
+import { CreateHistory, History } from "history";
 
 export interface MemoryHistoryOptions {
     entries?: string | [string];
