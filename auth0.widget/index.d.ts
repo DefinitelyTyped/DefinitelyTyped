@@ -5,7 +5,6 @@
 
 /// <reference types="auth0-js/v7" />
 
-
 interface Auth0WidgetStatic {
     new(params: Auth0Constructor): Auth0WidgetStatic;
 

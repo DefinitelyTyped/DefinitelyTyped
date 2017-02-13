@@ -1,4 +1,4 @@
-// Type definitions for Auth0.js v7.x
+// Type definitions for Auth0.js 7.0
 // Project: https://github.com/auth0/auth0.js
 // Definitions by: Robert McLaws <https://github.com/advancedrei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,20 +13,20 @@ interface Window {
 interface Auth0Static {
 
     new(options: Auth0ClientOptions): Auth0Static;
-    changePassword(options: any, callback?: Function): void;
+    changePassword(options: any, callback?: (error?: Auth0Error, valid?: any) => void): void;
     decodeJwt(jwt: string): any;
     login(options: any, callback: (error?: Auth0Error, profile?: Auth0UserProfile, id_token?: string, access_token?: string, state?: string) => any): void;
     loginWithPopup(options: Auth0LoginOptions, callback: (error?: Auth0Error, profile?: Auth0UserProfile, id_token?: string, access_token?: string, state?: string) => any): void;
     loginWithResourceOwner(options: Auth0LoginOptions, callback: (error?: Auth0Error, profile?: Auth0UserProfile, id_token?: string, access_token?: string, state?: any) => any): void;
     loginWithUsernamePassword(options: Auth0LoginOptions, callback: (error?: Auth0Error, profile?: Auth0UserProfile, id_token?: string, access_token?: string, state?: string) => any): void;
     logout(query: string): void;
-    getConnections(callback?: Function): void;
+    getConnections(callback?: (error?: Auth0Error, valid?: any) => void): void;
     refreshToken(refreshToken: string, callback: (error?: Auth0Error, delegationResult?: Auth0DelegationToken) => any): void;
     getDelegationToken(options: any, callback: (error?: Auth0Error, delegationResult?: Auth0DelegationToken) => any): void;
-    getProfile(id_token: string, callback?: Function): Auth0UserProfile;
-    getSSOData(withActiveDirectories: any, callback?: Function): void;
+    getProfile(id_token: string, callback?: (error?: Auth0Error, valid?: any) => void): Auth0UserProfile;
+    getSSOData(withActiveDirectories: any, callback?: (error?: Auth0Error, valid?: any) => void): void;
     parseHash(hash: string): Auth0DecodedHash;
-    signup(options: Auth0SignupOptions, callback: Function): void;
+    signup(options: Auth0SignupOptions, callback: (error?: Auth0Error, valid?: any) => void): void;
     validateUser(options: any, callback: (error?: Auth0Error, valid?: any) => any): void;
 }
 
@@ -132,5 +132,5 @@ interface Auth0DelegationToken {
 declare const Auth0: Auth0Static;
 
 declare module "auth0-js" {
-    export = Auth0
+    export = Auth0;
 }
