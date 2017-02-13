@@ -31,6 +31,7 @@ interface IStrategyOption {
     scopeSeparator?: string;
     enableProof?: boolean;
     profileFields?: string[];
+    passReqToCallback?: boolean;
 }
 
 declare class Strategy implements passport.Strategy {
