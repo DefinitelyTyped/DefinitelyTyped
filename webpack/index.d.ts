@@ -654,7 +654,14 @@ declare namespace webpack {
      */
 
     class BannerPlugin extends Plugin {
-        constructor(banner: any, options: any);
+        constructor(options: {
+          banner: string,
+          raw?: boolean,
+          entryOnly?: boolean,
+          test?: string | RegExp | Array<string | RegExp>,
+          include?: string | RegExp | Array<string | RegExp>,
+          exclude?: string | RegExp | Array<string | RegExp>
+        });
     }
 
     class ContextReplacementPlugin extends Plugin {
