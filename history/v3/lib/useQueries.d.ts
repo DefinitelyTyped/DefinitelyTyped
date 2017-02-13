@@ -1,4 +1,4 @@
-import { CreateHistory, Href, LocationState, Path, Pathname, Query } from '../index';
+import { CreateHistory, Href, LocationState, Path, Pathname, Query } from "history";
 
 export interface HistoryQueries {
     pushState(state: LocationState, pathname: Pathname, query?: Query): void;

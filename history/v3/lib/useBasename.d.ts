@@ -1,4 +1,4 @@
-import { CreateHistory, HistoryOptions } from "../index";
+import { CreateHistory, HistoryOptions } from "history";
 
 export type Basename = string;
 

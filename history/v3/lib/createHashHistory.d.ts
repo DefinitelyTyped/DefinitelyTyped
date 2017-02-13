@@ -1,4 +1,4 @@
-import { CreateHistory } from '../index';
+import { CreateHistory } from "history";
 
 declare const createHashHistory: CreateHistory<any, any>;
 

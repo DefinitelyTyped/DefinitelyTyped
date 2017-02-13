@@ -1,4 +1,4 @@
-import { BeforeUnloadHook, CreateHistory } from "../index";
+import { BeforeUnloadHook, CreateHistory } from "history";
 
 export interface HistoryBeforeUnload {
     listenBeforeUnload(hook: BeforeUnloadHook): () => void;
