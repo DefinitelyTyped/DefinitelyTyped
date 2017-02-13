@@ -63,7 +63,7 @@ declare namespace Mithril {
 		*/
 		<State, Attrs>(
 			component: Component<State, Attrs>,
-			attributes: Attrs,
+			attributes: Attrs & {key?: string | number},
 			...args: Children[]
 		): Vnode<State, Attrs>;
 
