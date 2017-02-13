@@ -9,6 +9,7 @@ import {
 	hashHistory,
 	match,
 	createMemoryHistory,
+	useRouterHistory,
 	withRouter,
 	routerShape,
 	Router,
@@ -21,6 +22,9 @@ import {
 	RedirectFunction,
 	RouteComponentProps
 } from "react-router";
+import { createHistory } from "history";
+
+const routerHistory = useRouterHistory(createHistory)({ basename: "/test" })
 
 const NavLink = (props: LinkProps) => (
 	<Link {...props} activeClassName="active" />

@@ -1,5 +1,5 @@
-import { History } from "history";
-import { Basename, LocationDescriptor, ParseQueryString, RouteConfig, StringifyQuery } from "react-router";
+import { Basename, History, LocationDescriptor } from "history";
+import { ParseQueryString, RouteConfig, StringifyQuery } from "react-router";
 
 interface MatchArgs {
     routes: RouteConfig;
