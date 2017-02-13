@@ -68,6 +68,7 @@ declare class Base extends EventEmitter {
     appname: string;
     config: Base.Storage;
     fs: Base.MemFsEditor;
+    options: {};
     log(message?: string, context?: any): void;
 
     argument(name: string, config: Base.ArgumentConfig): this;
