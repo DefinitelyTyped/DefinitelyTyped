@@ -2,6 +2,7 @@
 // Project: https://github.com/SeleniumHQ/selenium/tree/master/javascript/node/selenium-webdriver
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>, Yuki Kokubun <https://github.com/Kuniwak>, Craig Nishina <https://github.com/cnishina>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as chrome from './chrome';
 import * as edge from './edge';
