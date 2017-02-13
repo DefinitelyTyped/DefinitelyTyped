@@ -17,7 +17,7 @@ declare namespace Pako {
 		to?: 'string';
 	}
 
-  export interface InflateOptions {
+	export interface InflateOptions {
 		windowBits?: number;
 		raw?: boolean;
 		to?: 'string';
