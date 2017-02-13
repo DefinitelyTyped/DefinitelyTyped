@@ -1,20 +1,19 @@
 import { Component, ComponentClass, ClassAttributes, ReactNode, StatelessComponent } from "react";
 import {
     Action,
-    Hash,
     History,
     Href,
+    Location,
+    LocationDescriptor,
     LocationKey,
     LocationState,
     Path,
     Pathname,
+    Query,
     Search
 } from "history";
 import { PlainRoute } from "react-router";
 
-/* Replacement from old history definitions */
-export type Basename = string;
-export type Query = any;
 export interface Params {
     [key: string]: string;
 }
@@ -35,24 +34,6 @@ export type EnterHook = (nextState: RouterState, replace: RedirectFunction, call
 export type LeaveHook = (prevState: RouterState) => any;
 export type ChangeHook = (prevState: RouterState, nextState: RouterState, replace: RedirectFunction, callback?: AnyFunction) => any;
 export type RouteHook = (nextLocation?: Location) => any;
-
-export interface Location {
-    pathname: Pathname;
-    search: Search;
-    query: Query;
-    state: LocationState;
-    action: Action;
-    key: LocationKey;
-}
-
-export interface LocationDescriptorObject {
-    pathname?: Pathname;
-    query?: Query;
-    hash?: Hash;
-    state?: LocationState;
-}
-
-export type LocationDescriptor = Path | LocationDescriptorObject;
 
 export interface RedirectFunction {
     (location: LocationDescriptor): void;
