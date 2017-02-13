@@ -10,6 +10,10 @@ import * as events from 'events';
 interface Security {
 }
 
+export interface SoapMethod {
+  (args: any, callback: (err: any, result: any) => void, options?: any, extraHeaders?: any): void;
+}
+
 export class WSSecurity implements Security {
     constructor(username: string, password: string, options?: any);
 }
@@ -34,7 +38,7 @@ export interface Client extends events.EventEmitter {
     setEndpoint(endpoint: string): void;
     setSOAPAction(action: string): void;
     setSecurity(s: Security): void;
-    [method: string]: (args: any, callback: (err: any, result: any) => void, options?: any, extraHeaders?: any) => void;
+    [method: string]: SoapMethod | Function;
 }
 
 export interface Server extends events.EventEmitter {

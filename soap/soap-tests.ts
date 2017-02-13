@@ -1,4 +1,3 @@
-
 import * as soap from 'soap';
 import * as events from 'events';
 import * as fs from "fs";
@@ -27,10 +26,10 @@ soap.createClient(url, wsdlOptions, function(err: any, client: soap.Client) {
     client.getHttpHeaders();
     client.getSoapHeaders();
     client.setSOAPAction('action');
-    client['create']({ name: 'value' }, function(err: any, result: any) {
+    (client['create'] as soap.SoapMethod)({ name: 'value' }, function(err: any, result: any) {
         // result is an object
     });
-    client['create']({ name: 'value' }, function(err: any, result: any) {
+    (client['create'] as soap.SoapMethod)({ name: 'value' }, function(err: any, result: any) {
         // result is an object
     }, {});
     client.on('request', function(obj: any) {
