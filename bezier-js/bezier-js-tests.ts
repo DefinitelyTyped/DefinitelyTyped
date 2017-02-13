@@ -10,7 +10,7 @@ function test() {
     var utils = bezier.getUtils();
     var line: BezierJs.Line = { p1: { x: 0, y: 0 }, p2: { x: 1, y: 1 } };
     var abc: BezierJs.ABC = { A: null, B: null, C: null };
-    var arc: BezierJs.Arc = { e: 0, s: 0, x: 0, y: 0, r: 1 };
+    var arc: BezierJs.Arc = { e: 0, s: 0, x: 0, y: 0, r: 1, interval:{ start: 0, end: 1 } };
     var bbox: BezierJs.BBox = bezier.bbox();
     var closest: BezierJs.Closest = { mdist: 1, mpos: 0 };
     var inflection: BezierJs.Inflection = { values: null, x: [0], y: [0], z: [0] };
