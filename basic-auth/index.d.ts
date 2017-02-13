@@ -3,9 +3,9 @@
 // Definitions by: Clément Bourgeois <https://github.com/moonpyk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as Express from 'express';
+import * as http from 'http';
 
-declare function auth(req: Express.Request): auth.BasicAuthResult;
+declare function auth(req: http.IncomingMessage): auth.BasicAuthResult;
 
 declare namespace auth {
     interface BasicAuthResult {
