@@ -204,7 +204,7 @@ declare module 'iscroll' {
        *
        * Default: 'circular'
        */
-      bounceEasing?: EasingOptions|'quadratic'|'cicular'|'back'|'bounce'|'elastic';
+      bounceEasing?: EasingOptions|'quadratic'|'circular'|'back'|'bounce'|'elastic';
 
       /**
        * Duration in millisecond of the bounce animation.
@@ -473,8 +473,6 @@ declare module 'iscroll' {
       // New in IScroll 5?
       /** @deprecated */
       resizeIndicator?: boolean;
-      /** @deprecated */
-      interactiveScrollbars?: boolean;
       /** @deprecated */
       releaseScroll?: boolean;
       /** @deprecated */
