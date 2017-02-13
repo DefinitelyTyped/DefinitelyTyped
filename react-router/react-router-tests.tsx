@@ -22,9 +22,24 @@ import {
 	RedirectFunction,
 	RouteComponentProps
 } from "react-router";
-import { createHistory } from "history";
+import { createHistory, History } from "history";
 
 const routerHistory = useRouterHistory(createHistory)({ basename: "/test" })
+
+interface CustomHistory {
+	test(): void;
+}
+
+type CombinedHistory = History & CustomHistory
+
+function createCustomHistory(history: History): CombinedHistory {
+	return {
+		...history,
+		test() {}
+	} as CombinedHistory
+}
+const customHistory = createCustomHistory(browserHistory)
+
 
 const NavLink = (props: LinkProps) => (
 	<Link {...props} activeClassName="active" />
@@ -119,6 +134,18 @@ ReactDOM.render((
 			<Route path="users" component={Users}/>
 			<Route path="*" component={NotFound}/>
 		</Route>
+	</Router>
+), document.body)
+
+ReactDOM.render((
+	<Router history={ routerHistory }>
+		<Route path="/" component={Master} />
+	</Router>
+), document.body)
+
+ReactDOM.render((
+	<Router history={ customHistory }>
+		<Route path="/" component={Master} />
 	</Router>
 ), document.body)
 
