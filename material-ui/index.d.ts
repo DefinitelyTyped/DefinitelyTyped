@@ -533,7 +533,7 @@ declare namespace __MaterialUI {
         type cornersAndCenter = 'bottom-center' | 'bottom-left' | 'bottom-right' | 'top-center' | 'top-left' | 'top-right';
     }
 
-    interface AutoCompleteProps<DataItem> {
+    interface AutoCompleteProps<DataItem> extends TextFieldProps {
         anchorOrigin?: propTypes.origin;
         animated?: boolean;
         animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
