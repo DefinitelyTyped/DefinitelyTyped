@@ -604,7 +604,7 @@ declare namespace Meteor {
 	function setTimeout(func: Function, delay: number): number;
 	var settings: { public: {[id:string]: any}, private: {[id:string]: any}, [id:string]: any};
 	function startup(func: Function): void;
-	function status(): Meteor.StatusEnum;
+	function status(): DDP.DDPStatus;
 	function subscribe(name: string, ...args: any[]): Meteor.SubscriptionHandle;
 	function user(): Meteor.User;
 	function userId(): string;
