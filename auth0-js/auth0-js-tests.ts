@@ -1,4 +1,4 @@
-/// <reference types="auth0-js" />
+import 'auth0-js';
 
 let webAuth = new auth0.WebAuth({
     domain: 'mine.auth0.com',

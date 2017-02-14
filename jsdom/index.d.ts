@@ -89,7 +89,7 @@ export interface DocumentWithParentWindow extends Document {
  *					equivalent to what a browser will give if you open up an empty .html file.
  * @param options	see the explanation of the config object above.
  */
-export declare function jsdom(markup: string, config?: Config): DocumentWithParentWindow;
+export declare function jsdom(markup?: string, config?: Config): DocumentWithParentWindow;
 
 /**
  * Before creating any documents, you can modify the defaults for all future documents:
