@@ -87,7 +87,7 @@ export class Event {
 
     setPriority(priority: any): void;
 
-    static PRIORITY: {
+    static readonly PRIORITY: {
         HIGH: string;
         LOW: string;
         NORMAL: string;
