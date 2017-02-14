@@ -74,6 +74,6 @@ export { default as useBeforeUnload, HistoryBeforeUnload } from "history/lib/use
 export { default as useQueries, HistoryQueries } from "history/lib/useQueries";
 
 import * as Actions from "history/lib/actions";
-export { Actions }
+export { Actions };
 
-export { locationsAreEqual } from "history/lib/LocationUtils"
+export { locationsAreEqual } from "history/lib/LocationUtils";
