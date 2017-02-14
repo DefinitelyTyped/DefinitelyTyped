@@ -1,9 +1,9 @@
-// Type definitions for jquery-toastmessage-plugin v0.2.0
+// Type definitions for jquery-toastmessage-plugin 0.2
 // Project: https://github.com/akquinet/jquery-toastmessage-plugin
 // Definitions by: Joe Skeen <https://github.com/joeskeen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/index.d.ts" />
+/// <reference types="jquery" />
 
 declare interface JQuery {
     toastmessage: JQueryToastmessage.ToastmessageStatic;
@@ -29,7 +29,7 @@ declare namespace JQueryToastmessage {
     interface ToastOptions {
         /** in effect duration in miliseconds @default 600 */
         inEffectDuration?: number;
-        /** 
+        /**
          * time in miliseconds before the item has to disappear @default 3000 */
         stayTime?: number;
         /** content of the item @default '' */
@@ -38,7 +38,7 @@ declare namespace JQueryToastmessage {
         sticky?: boolean;
         /** the type of toast @default 'notice' */
         type?: ToastType;
-        /** 
+        /**
          * Position of the toast container holding different toast.
          * Position can be set only once at the very first call,
          * changing the position after the first call does nothing
