@@ -12,3 +12,7 @@ import { Highcharts } from "highcharts";
      }
  }
 
+declare var Highmaps: Highcharts.Static;
+export = Highmaps;
+export as namespace Highcharts;
+
