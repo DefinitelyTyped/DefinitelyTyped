@@ -1,4 +1,4 @@
-// Type definitions for GeoJSON Format Specification
+// Type definitions for GeoJSON Format Specification Revision 1.0
 // Project: http://geojson.org/
 // Definitions by: Jacob Bruun <https://github.com/cobster/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,8 +8,7 @@ declare namespace GeoJSON {
     /***
     * http://geojson.org/geojson-spec.html#geojson-objects
     */
-    export interface GeoJsonObject
-    {
+    export interface GeoJsonObject {
         type: string;
         bbox?: number[];
         crs?: CoordinateReferenceSystem;
@@ -18,116 +17,107 @@ declare namespace GeoJSON {
     /***
     * http://geojson.org/geojson-spec.html#positions
     */
-    export type Position = number[]
+    export type Position = number[];
 
     /***
     * http://geojson.org/geojson-spec.html#geometry-objects
     */
-    export interface GeometryObject extends GeoJsonObject
-    {
-        coordinates: any
+    interface DirectGeometryObject extends GeoJsonObject {
+        coordinates: Position[][][] | Position[][] | Position[] | Position;
     }
+    /**
+     * GeometryObject supports geometry collection as well
+     */
+    export type GeometryObject = DirectGeometryObject | GeometryCollection;
 
     /***
     * http://geojson.org/geojson-spec.html#point
     */
-    export interface Point extends GeometryObject
-    {
-        type: 'Point'
-        coordinates: Position
+    export interface Point extends DirectGeometryObject {
+        type: 'Point';
+        coordinates: Position;
     }
 
     /***
     * http://geojson.org/geojson-spec.html#multipoint
     */
-    export interface MultiPoint extends GeometryObject
-    {
-        type: 'MultiPoint'
-        coordinates: Position[]
+    export interface MultiPoint extends DirectGeometryObject {
+        type: 'MultiPoint';
+        coordinates: Position[];
     }
 
     /***
     * http://geojson.org/geojson-spec.html#linestring
     */
-    export interface LineString extends GeometryObject
-    {
-        type: 'LineString'
-        coordinates: Position[]
+    export interface LineString extends DirectGeometryObject {
+        type: 'LineString';
+        coordinates: Position[];
     }
 
     /***
     * http://geojson.org/geojson-spec.html#multilinestring
     */
-    export interface MultiLineString extends GeometryObject
-    {
-        type: 'MultiLineString'
-        coordinates: Position[][]
+    export interface MultiLineString extends DirectGeometryObject {
+        type: 'MultiLineString';
+        coordinates: Position[][];
     }
 
     /***
     * http://geojson.org/geojson-spec.html#polygon
     */
-    export interface Polygon extends GeometryObject
-    {
-        type: 'Polygon'
-        coordinates: Position[][]
+    export interface Polygon extends DirectGeometryObject {
+        type: 'Polygon';
+        coordinates: Position[][];
     }
 
     /***
     * http://geojson.org/geojson-spec.html#multipolygon
     */
-    export interface MultiPolygon extends GeometryObject
-    {
-        type: 'MultiPolygon'
-        coordinates: Position[][][]
+    export interface MultiPolygon extends DirectGeometryObject {
+        type: 'MultiPolygon';
+        coordinates: Position[][][];
     }
 
     /***
     * http://geojson.org/geojson-spec.html#geometry-collection
     */
-    export interface GeometryCollection extends GeoJsonObject
-    {
-        type: 'GeometryCollection'
+    export interface GeometryCollection extends GeoJsonObject {
+        type: 'GeometryCollection';
         geometries: GeometryObject[];
     }
 
     /***
     * http://geojson.org/geojson-spec.html#feature-objects
     */
-    export interface Feature<T extends GeometryObject> extends GeoJsonObject
-    {
-        type: 'Feature'
+    export interface Feature<T extends GeometryObject> extends GeoJsonObject {
+        type: 'Feature';
         geometry: T;
-        properties: any;
+        properties: {} | null;
         id?: string;
     }
 
     /***
     * http://geojson.org/geojson-spec.html#feature-collection-objects
     */
-    export interface FeatureCollection<T extends GeometryObject> extends GeoJsonObject
-    {
-        type: 'FeatureCollection'
-        features: Feature<T>[];
+    export interface FeatureCollection<T extends GeometryObject> extends GeoJsonObject {
+        type: 'FeatureCollection';
+        features: Array<Feature<T>>;
     }
 
     /***
     * http://geojson.org/geojson-spec.html#coordinate-reference-system-objects
     */
-    export interface CoordinateReferenceSystem
-    {
+    export interface CoordinateReferenceSystem {
         type: string;
         properties: any;
     }
 
-    export interface NamedCoordinateReferenceSystem extends CoordinateReferenceSystem
-    {
-        properties: { name: string }
+    export interface NamedCoordinateReferenceSystem extends CoordinateReferenceSystem {
+        properties: { name: string };
     }
 
-    export interface LinkedCoordinateReferenceSystem extends CoordinateReferenceSystem
-    {
-        properties: { href: string; type: string }
+    export interface LinkedCoordinateReferenceSystem extends CoordinateReferenceSystem {
+        properties: { href: string; type: string };
     }
 }
 

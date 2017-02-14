@@ -702,6 +702,13 @@ declare namespace Highcharts {
          */
         reversed?: boolean;
         /**
+         * If true, the first series in a stack will be drawn on top in a positive, non-reversed Y axis. If false, the first series is in the base of the stack.
+         * Only used for yAxis
+         * @default true
+         * @since 3.0.10
+         */
+        reversedStacks?: boolean;
+        /**
          * Whether to show the axis line and title when the axis has no data.
          * @default true
          * @since 1.1
