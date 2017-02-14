@@ -7659,6 +7659,10 @@ declare module "react" {
          * Custom style applied to the card.
          */
         cardStyle?: ViewStyle
+	/**
+	 * Custom style interpolator for the card.
+	 */
+	cardStyleInterpolator?: (props: NavigationSceneRendererProps) => ViewStyle;
         /**
          * Direction of the cards movement. Value could be `horizontal` or
          * `vertical`. Default value is `horizontal`.
