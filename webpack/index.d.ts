@@ -654,14 +654,14 @@ declare namespace webpack {
      */
 
     class BannerPlugin extends Plugin {
-        constructor(options?: BannerPlugin.Options | string);
+        constructor(options: string | BannerPlugin.Options);
     }
 
     namespace BannerPlugin {
         type Filter = string | RegExp;
-        
+
         interface Options {
-            banner?: string;
+            banner: string;
             entryOnly?: boolean;
             exclude?: Filter | Filter[];
             include?: Filter | Filter[];
