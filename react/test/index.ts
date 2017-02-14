@@ -172,9 +172,9 @@ var classicFactory: React.ClassicFactory<Props> =
 var classicFactoryElement: React.ClassicElement<Props> =
     classicFactory(props);
 
-var domFactory: React.DOMFactory<React.DOMAttributes<{}>, Element> =
+var domFactory: React.DOMFactory<React.DOMAttributes<Element>, Element> =
     React.createFactory("foo");
-var domFactoryElement: React.DOMElement<React.DOMAttributes<{}>, Element> =
+var domFactoryElement: React.DOMElement<React.DOMAttributes<Element>, Element> =
     domFactory();
 
 // React.createElement

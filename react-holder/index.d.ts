@@ -8,7 +8,7 @@
 
 import * as React from "react";
 
-interface ReactHolderProp extends React.HTMLAttributes<ReactHolder> {
+interface ReactHolderProp extends React.HTMLAttributes<HTMLElement> {
     width: string | number;
     height: string | number;
     updateOnResize: boolean;

@@ -431,16 +431,16 @@ declare namespace React {
         ref?: Ref<T>;
     }
 
-    interface HTMLProps<T> extends HTMLAttributes<T>, ClassAttributes<T> {
+    interface HTMLProps<T extends HTMLElement> extends HTMLAttributes<T>, ClassAttributes<T> {
     }
 
     interface ChangeTargetHTMLProps<T extends HTMLElement> extends ChangeTargetHTMLAttributes<T>, ClassAttributes<T> {
     }
 
-    interface SVGProps<T> extends SVGAttributes<T>, ClassAttributes<T> {
+    interface SVGProps<T extends SVGElement> extends SVGAttributes<T>, ClassAttributes<T> {
     }
 
-    interface DOMAttributes<T> {
+    interface DOMAttributes<T extends Element> {
         children?: ReactNode;
         dangerouslySetInnerHTML?: {
             __html: string;
@@ -2038,7 +2038,7 @@ declare namespace React {
         [propertyName: string]: any;
     }
 
-    interface HTMLAttributes<T> extends DOMAttributes<T> {
+    interface HTMLAttributes<T extends HTMLElement> extends DOMAttributes<T> {
         // React-specific Attributes
         defaultChecked?: boolean;
         defaultValue?: string | string[];
@@ -2204,7 +2204,7 @@ declare namespace React {
     //   - "number | string"
     //   - "string"
     //   - union of string literals
-    interface SVGAttributes<T> extends DOMAttributes<T> {
+    interface SVGAttributes<T extends SVGElement> extends DOMAttributes<T> {
         // Attributes which also defined in HTMLAttributes
         // See comment in SVGDOMPropertyConfig.js
         className?: string;

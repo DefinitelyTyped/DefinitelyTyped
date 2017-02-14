@@ -8,7 +8,7 @@ import { Component, ComponentClass, HTMLProps, StatelessComponent } from "react"
 
 // fake intermediate interface to remove typing on size, as the typing
 // is overrided by react-fa
-interface SizeOverrideHTMLProps<T> extends HTMLProps<T> {
+interface SizeOverrideHTMLProps<T extends HTMLElement> extends HTMLProps<T> {
     size?: any;
 }
 
@@ -19,7 +19,7 @@ export type IconStackSize = "1x" | "2x";
 
 type CustomComponent = string | ComponentClass<any> | StatelessComponent<any>;
 
-export interface IconProps extends SizeOverrideHTMLProps<Icon> {
+export interface IconProps extends SizeOverrideHTMLProps<HTMLElement> {
     name: string;
     size?: IconSize;
     spin?: boolean;
@@ -35,7 +35,7 @@ export interface IconProps extends SizeOverrideHTMLProps<Icon> {
 export type Icon = Component<IconProps, any>;
 export const Icon: ComponentClass<IconProps>;
 
-export interface IconStackProps extends SizeOverrideHTMLProps<IconStack> {
+export interface IconStackProps extends SizeOverrideHTMLProps<HTMLElement> {
     size?: IconSize;
     children?: IconProps[];
 }

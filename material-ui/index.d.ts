@@ -621,13 +621,13 @@ declare namespace __MaterialUI {
         focusRippleOpacity?: number;
         href?: string;
         keyboardFocused?: boolean;
-        onBlur?: React.FocusEventHandler<{}>;
-        onFocus?: React.FocusEventHandler<{}>;
-        onKeyboardFocus?: (e: React.FocusEvent<{}>, isKeyboardFocused: boolean) => void;
-        onKeyDown?: React.KeyboardEventHandler<{}>;
-        onKeyUp?: React.KeyboardEventHandler<{}>;
+        onBlur?: React.FocusEventHandler<T>;
+        onFocus?: React.FocusEventHandler<T>;
+        onKeyboardFocus?: (e: React.FocusEvent<T>, isKeyboardFocused: boolean) => void;
+        onKeyDown?: React.KeyboardEventHandler<T>;
+        onKeyUp?: React.KeyboardEventHandler<T>;
         onTouchTap?: TouchTapEventHandler;
-        onClick?: React.MouseEventHandler<{}>;
+        onClick?: React.MouseEventHandler<T>;
         style?: React.CSSProperties;
         tabIndex?: number;
         target?: string;
@@ -637,7 +637,7 @@ declare namespace __MaterialUI {
         containerElement?: React.ReactNode | string;
     }
 
-    interface EnhancedButtonProps extends React.HTMLAttributes<{}>, SharedEnhancedButtonProps<EnhancedButton> {
+    interface EnhancedButtonProps extends React.HTMLAttributes<HTMLElement>, SharedEnhancedButtonProps<HTMLElement> {
         // container element, <button/>, or <span/>(if disabled link) is the element that get the 'other' properties
         containerElement?: React.ReactNode | string;
         disabled?: boolean;
@@ -645,7 +645,7 @@ declare namespace __MaterialUI {
     export class EnhancedButton extends React.Component<EnhancedButtonProps, {}> {
     }
 
-    interface FlatButtonProps extends React.DOMAttributes<{}>, SharedEnhancedButtonProps<FlatButton> {
+    interface FlatButtonProps extends React.DOMAttributes<HTMLElement>, SharedEnhancedButtonProps<HTMLElement> {
         // <EnhancedButton/> is the element that get the 'other' properties
         backgroundColor?: string;
         disabled?: boolean;
@@ -696,7 +696,7 @@ declare namespace __MaterialUI {
     export class RaisedButton extends React.Component<RaisedButtonProps, {}> {
     }
 
-    interface FloatingActionButtonProps extends React.HTMLAttributes<{}>, SharedEnhancedButtonProps<FloatingActionButton> {
+    interface FloatingActionButtonProps extends React.HTMLAttributes<HTMLElement>, SharedEnhancedButtonProps<HTMLElement> {
         // <EnhancedButton/> is the element that get the 'other' properties
         backgroundColor?: string;
         className?: string;
@@ -718,7 +718,7 @@ declare namespace __MaterialUI {
     export class FloatingActionButton extends React.Component<FloatingActionButtonProps, {}> {
     }
 
-    interface IconButtonProps extends React.HTMLAttributes<{}>, SharedEnhancedButtonProps<IconButton> {
+    interface IconButtonProps extends React.HTMLAttributes<HTMLElement>, SharedEnhancedButtonProps<HTMLElement> {
         // <EnhancedButton/> is the element that get the 'other' properties
         className?: string;
         disableTouchRipple?: boolean;
@@ -945,7 +945,7 @@ declare namespace __MaterialUI {
         ref?: string;
         text: string;
     }
-    interface DialogProps extends React.DOMAttributes<{}>, React.Props<Dialog> {
+    interface DialogProps extends React.DOMAttributes<HTMLElement>, React.Props<Dialog> {
         actions?: Array<DialogAction | React.ReactElement<any>>;
         /** @deprecated use a custom `actions` property instead */
         actionFocus?: string;
@@ -1025,7 +1025,7 @@ declare namespace __MaterialUI {
         }
     }
 
-    interface FontIconProps extends React.HTMLAttributes<{}>, React.Props<FontIcon> {
+    interface FontIconProps extends React.HTMLAttributes<HTMLElement>, React.Props<FontIcon> {
         // <span/> is the element that get the 'other' properties
         color?: string;
         hoverColor?: string;
@@ -1036,7 +1036,7 @@ declare namespace __MaterialUI {
     export class FontIcon extends React.Component<FontIconProps, {}> {
     }
 
-    interface SvgIconProps extends React.SVGAttributes<{}>, React.Props<SvgIcon> {
+    interface SvgIconProps extends React.SVGAttributes<SVGElement>, React.Props<SvgIcon> {
         // <svg/> is the element that get the 'other' properties
         color?: string;
         hoverColor?: string;
@@ -1213,7 +1213,7 @@ declare namespace __MaterialUI {
     export class Overlay extends React.Component<OverlayProps, {}> {
     }
 
-    interface PaperProps extends React.HTMLAttributes<{}>, React.Props<Paper> {
+    interface PaperProps extends React.HTMLAttributes<HTMLElement>, React.Props<Paper> {
         circle?: boolean;
         rounded?: boolean;
         style?: React.CSSProperties;
@@ -1363,7 +1363,7 @@ declare namespace __MaterialUI {
     namespace Switches {
 
         // what's not commonly overridden by Checkbox, RadioButton, or Toggle
-        interface CommonEnhancedSwitchProps<T> extends React.HTMLAttributes<{}>, React.Props<T> {
+        interface CommonEnhancedSwitchProps<T> extends React.HTMLAttributes<HTMLElement>, React.Props<T> {
         }
 
         interface EnhancedSwitchProps extends CommonEnhancedSwitchProps<EnhancedSwitch> {
@@ -1877,7 +1877,7 @@ declare namespace __MaterialUI {
         export class ToolbarSeparator extends React.Component<ToolbarSeparatorProps, {}> {
         }
 
-        interface ToolbarTitleProps extends React.HTMLAttributes<{}>, React.Props<ToolbarTitle> {
+        interface ToolbarTitleProps extends React.HTMLAttributes<HTMLElement>, React.Props<ToolbarTitle> {
             className?: string;
             style?: React.CSSProperties;
             text?: string;

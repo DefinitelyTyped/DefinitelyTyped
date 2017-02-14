@@ -174,7 +174,7 @@ declare namespace __ReactMDL {
         [key: string]: any;
     }
     // DOMAttributes (minus 'onClick', 'onChange')
-    interface MDLDOMAttributes<T> {
+    interface MDLDOMAttributes<T extends Element> {
         // DOMAttributes (minus onClick)
         children?: React.ReactNode;
         dangerouslySetInnerHTML?: {
@@ -328,7 +328,7 @@ declare namespace __ReactMDL {
     }
     class Checkbox extends __MDLComponent<CheckboxProps> { }
 
-    interface UndecoratedTableProps extends __MDLClassProps, MDLHTMLAttributes, React.DOMAttributes<UndecoratedTable>, ShadowedComponent {
+    interface UndecoratedTableProps extends __MDLClassProps, MDLHTMLAttributes, React.DOMAttributes<HTMLElement>, ShadowedComponent {
         rows: Array<any>;
         rowKeyColumn?: string;
 
@@ -340,7 +340,7 @@ declare namespace __ReactMDL {
         selectable?: boolean;
         onSelectionChanged?: (row: any) => any;
     }
-    interface TableHeaderProps extends __MDLClassProps, MDLHTMLAttributes, MDLDOMAttributes<TableHeader> {
+    interface TableHeaderProps extends __MDLClassProps, MDLHTMLAttributes, MDLDOMAttributes<HTMLElement> {
         name: string;
         title?: string;
         cellFormatter?: (value: any, row: any, index: number) => React.ReactNode;
@@ -440,21 +440,21 @@ declare namespace __ReactMDL {
     class Navigation extends __MDLComponent<NavigationProps> { }
     class Spacer extends __MDLBasicComponent { }
 
-    interface FooterProps extends MDLHTMLAttributes, React.DOMAttributes<Footer> {
+    interface FooterProps extends MDLHTMLAttributes, React.DOMAttributes<HTMLElement> {
         size?: string;
 
         title?: string;
     }
-    interface FooterDropDownSectionProps extends MDLHTMLAttributes, React.DOMAttributes<FooterDropDownSection> {
+    interface FooterDropDownSectionProps extends MDLHTMLAttributes, React.DOMAttributes<HTMLElement> {
         size?: string;
         title: React.ReactNode;
     }
-    interface FooterLinkListProps extends MDLHTMLAttributes, React.DOMAttributes<FooterLinkList> {
+    interface FooterLinkListProps extends MDLHTMLAttributes, React.DOMAttributes<HTMLElement> {
         size?: string;
 
         title?: string;
     }
-    interface FooterSectionProps extends MDLHTMLAttributes, React.DOMAttributes<FooterSection> {
+    interface FooterSectionProps extends MDLHTMLAttributes, React.DOMAttributes<HTMLElement> {
         size?: string;
         type?: string;
         logo?: React.ReactNode;
@@ -473,7 +473,7 @@ declare namespace __ReactMDL {
     interface ListItemActionProps extends __MDLOtherProps {
         info?: string;
     }
-    interface ListItemContentProps extends MDLHTMLAttributes, React.DOMAttributes<ListItemContent> {
+    interface ListItemContentProps extends MDLHTMLAttributes, React.DOMAttributes<HTMLElement> {
         avatar?: string | JSX.Element;
         icon?: string | JSX.Element;
         subtitle?: React.ReactNode;
@@ -502,30 +502,30 @@ declare namespace __ReactMDL {
     class ProgressBar extends __MDLComponent<ProgressBarProps> { }
 
 
-    interface RadioProps extends MDLHTMLAttributes, React.DOMAttributes<Radio>, RippleComponent {
+    interface RadioProps extends MDLHTMLAttributes, React.DOMAttributes<HTMLElement>, RippleComponent {
         value: string | number;
         checked?: boolean;
         disabled?: boolean;
         name?: string;
-        onChange?: React.FormEventHandler<Radio>;
+        onChange?: React.FormEventHandler<HTMLElement>;
         label?: string;
     }
-    interface RadioGroupProps extends MDLHTMLAttributes, React.DOMAttributes<RadioGroup> {
+    interface RadioGroupProps extends MDLHTMLAttributes, React.DOMAttributes<HTMLElement> {
         name: string;
         value: string | number;
         childContainer?: string;
         container?: string;
-        onChange?: React.FormEventHandler<RadioGroup>;
+        onChange?: React.FormEventHandler<HTMLElement>;
         label?: string;
     }
     class Radio extends __MDLComponent<RadioProps> { }
     class RadioGroup extends __MDLComponent<RadioGroupProps> { }
 
 
-    interface SliderProps extends MDLHTMLAttributes, React.DOMAttributes<Slider> {
+    interface SliderProps extends MDLHTMLAttributes, React.DOMAttributes<HTMLElement> {
         max: number;
         min: number;
-        onChange?: React.FormEventHandler<Slider>;
+        onChange?: React.FormEventHandler<HTMLElement>;
         value?: number;
     }
     class Slider extends __MDLComponent<SliderProps> { }
@@ -561,7 +561,7 @@ declare namespace __ReactMDL {
         onTabClick?: (tabId: number) => any;
         tabId?: number;
     }
-    interface TabBarProps extends MDLHTMLAttributes, MDLDOMAttributes<TabBar> {
+    interface TabBarProps extends MDLHTMLAttributes, MDLDOMAttributes<HTMLElement> {
         cssPrefix: string;
         activeTab?: number;
         onChange?: (tabId: number) => any;
@@ -570,7 +570,7 @@ declare namespace __ReactMDL {
         title?: string;
         onClick?: React.MouseEventHandler<TabBar>;
     }
-    interface TabsProps extends MDLHTMLAttributes, MDLDOMAttributes<Tabs> {
+    interface TabsProps extends MDLHTMLAttributes, MDLDOMAttributes<HTMLElement> {
         activeTab?: number;
         onChange?: (tabId: number) => any;
         tabBarProps?: TabBarProps;
@@ -584,7 +584,7 @@ declare namespace __ReactMDL {
     class Tabs extends __MDLComponent<TabsProps> { }
 
 
-    interface TextfieldProps extends MDLHTMLAttributes, React.DOMAttributes<Textfield> {
+    interface TextfieldProps extends MDLHTMLAttributes, React.DOMAttributes<HTMLElement> {
         label: string;
         disabled?: boolean;
         error?: React.ReactNode;
@@ -594,7 +594,7 @@ declare namespace __ReactMDL {
         id?: string;
         inputClassName?: string;
         maxRows?: number;
-        onChange?: React.FormEventHandler<Textfield>;
+        onChange?: React.FormEventHandler<HTMLElement>;
         pattern?: string;
         required?: boolean;
         rows?: number;
@@ -606,7 +606,7 @@ declare namespace __ReactMDL {
     class Textfield extends __MDLComponent<TextfieldProps> { }
 
 
-    interface TooltipProps extends MDLHTMLAttributes, React.DOMAttributes<Tooltip> {
+    interface TooltipProps extends MDLHTMLAttributes, React.DOMAttributes<HTMLElement> {
         label: React.ReactNode;
         large?: boolean;
         position?: string;

@@ -18,7 +18,7 @@ declare module "react-custom-scrollbars" {
         scrollTop: number;
     }
 
-    export interface ScrollbarProps extends React.HTMLProps<Scrollbars> {
+    export interface ScrollbarProps extends React.HTMLProps<HTMLElement> {
         onScroll?: React.UIEventHandler<any>;
         onScrollFrame?: (values: positionValues) => void;
         onScrollStart?: () => void;
