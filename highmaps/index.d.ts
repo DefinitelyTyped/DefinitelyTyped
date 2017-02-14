@@ -6487,14 +6487,14 @@ declare namespace Highmaps {
 
 declare global {
     interface JQuery {
-        highcharts(): Highmaps.ChartObject;
+        highmaps(): Highmaps.ChartObject;
         /**
          * Creates a new Highmaps.Chart for the current JQuery selector; usually
          * a div selected by $('#container')
          * @param {Options} options Options for this chart
          * @return current {JQuery} selector the current JQuery selector
          **/
-        highcharts(options: Highmaps.Options): JQuery;
+        highmaps(options: Highmaps.Options): JQuery;
         /**
          * Creates a new Highmaps.Chart for the current JQuery selector; usually
          * a div selected by $('#container')
@@ -6502,7 +6502,7 @@ declare global {
          * @param callback Callback function used to manipulate the constructed chart instance
          * @return current {JQuery} selector the current JQuery selector
          **/
-        highcharts(options: Highmaps.Options, callback: (chart: Highmaps.ChartObject) => void): JQuery;
+        highmaps(options: Highmaps.Options, callback: (chart: Highmaps.ChartObject) => void): JQuery;
     }
 }
 
