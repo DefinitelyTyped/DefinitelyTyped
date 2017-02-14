@@ -258,8 +258,9 @@ plugin = new webpack.IgnorePlugin(requestRegExp, contextRegExp);
 plugin = new webpack.PrefetchPlugin(context, request);
 plugin = new webpack.PrefetchPlugin(request);
 plugin = new webpack.BannerPlugin('banner');
-plugin = new webpack.BannerPlugin();
-plugin = new webpack.BannerPlugin({});
+plugin = new webpack.BannerPlugin({
+    banner: 'banner'
+});
 plugin = new webpack.BannerPlugin({
     banner: 'banner',
     entryOnly: true,
