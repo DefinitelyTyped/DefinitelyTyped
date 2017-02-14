@@ -293,6 +293,12 @@
             "typingsPackageName": "redux-saga",
             "sourceRepoURL": "https://github.com/redux-saga/redux-saga",
             "asOfVersion": "0.10.5"
+        },
+        {
+            "libraryName": "redux-persist",
+            "typingsPackageName": "redux-persist",
+            "sourceRepoURL": "https://github.com/rt2zz/redux-persist",
+            "asOfVersion": "4.3.1"
         }
     ]
 }

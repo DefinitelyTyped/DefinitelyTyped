@@ -1,13 +1,15 @@
 import { createStore, Reducer, Store } from "redux"
-import { createPersistor, Persistor, PersistTransformer } from "redux-persist"
+import { createPersistor, Transform } from "redux-persist"
 import { EncryptorConfig } from "redux-persist-transform-encrypt"
-import * as createEncryptor from "redux-persist-transform-encrypt"
+import createEncryptor from "redux-persist-transform-encrypt"
+import createAsyncEncryptor from "redux-persist-transform-encrypt/async"
 
-const reducer: Reducer<any> = (state: any, action: any) => ({})
+const reducer: Reducer<any> = (state: any, action: any) => ({ state, action })
 
 const config: EncryptorConfig = { secretKey : "foo" }
-const encryptor: PersistTransformer = createEncryptor(config)
+const encryptor: Transform<any, any> = createEncryptor(config)
+const asyncEncryptor: Transform<any, any> = createAsyncEncryptor(config)
 
 const store: Store<any> = createStore(reducer)
 
-const persistor: Persistor = createPersistor(store, { transforms : [encryptor] })
+createPersistor(store, { transforms : [encryptor, asyncEncryptor] })

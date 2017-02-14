@@ -3,7 +3,7 @@
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { PersistConfig, PersistTransformer } from "redux-persist";
+import { PersistorConfig, Transform } from "redux-persist";
 
 export = createCompressor;
-declare function createCompressor (config?: PersistConfig): PersistTransformer;
+declare function createCompressor<State, Raw>(config?: PersistorConfig): Transform<State, Raw>;
