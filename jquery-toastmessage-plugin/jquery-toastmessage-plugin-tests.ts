@@ -49,7 +49,7 @@ $().toastmessage({
                             // changing the position after the first call does nothing
   closeText:         '',    // text which will be shown as close button,
                             // set to '' when you want to introduce an image via css
-  close:            null    // callback function when the toastmessage is closed
+  close:            undefined    // callback function when the toastmessage is closed
 });
 
 /* code examples from tests */
