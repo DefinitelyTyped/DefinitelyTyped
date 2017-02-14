@@ -16,7 +16,7 @@
       closeOnClick: false
   });
 
-  var buttons = $("#yesno button").click(function(this: JQuery, e) {
+  var buttons = $("#yesno button").click(function(this: JQuery, e: JQueryEventObject) {
  
       // get user input
       var yes = buttons.index(this) === 0;
@@ -36,7 +36,7 @@ $(".my_overlay_trigger").overlay({
     // ... the rest of the configuration properties
 });
 
-$("#prompt form").submit(function(this: JQuery, e) {
+$("#prompt form").submit(function(this: JQuery, e: JQueryEventObject) {
  
       // close the overlay
       triggers.eq(1).overlay<JQueryTools.overlay.Overlay>().close();
@@ -123,7 +123,7 @@ $(function() {
     ];
  
     // setup triggers
-    $("button[rel]").each(function(this: JQuery, i) {
+    $("button[rel]").each(function(this: JQuery, i: number) {
  
         $(this).overlay({
  
