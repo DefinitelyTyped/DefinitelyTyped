@@ -528,7 +528,7 @@ declare namespace ReactBootstrap {
 
     // <Navbar.Toggle />
     interface NavbarToggleProps {
-        onClick?: React.MouseEventHandler<{}>;
+        onClick?: React.MouseEventHandler<HTMLButtonElement>;
     }
     type NavbarToggle = React.ClassicComponent<NavbarToggleProps, {}>;
     var NavbarToggle: React.ClassicComponentClass<NavbarToggleProps>;
@@ -536,7 +536,7 @@ declare namespace ReactBootstrap {
     // <Navbar.Link />
     interface NavbarLinkProps {
         href: string;
-        onClick?: React.MouseEventHandler<{}>;
+        onClick?: React.MouseEventHandler<HTMLAnchorElement>;
     }
     type NavbarLink = React.ClassicComponent<NavbarLinkProps, {}>;
     const NavbarLink: React.ClassicComponentClass<NavbarLinkProps>;
