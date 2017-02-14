@@ -3,7 +3,6 @@
 // Definitions by: Jack Hsu <https://github.com/jaysoo>, Alex Gorbatchev <https://github.com/alexgorbatchev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace ReduxActions;
 
 // FSA-compliant action.
 // See: https://github.com/acdlite/flux-standard-action
