@@ -29,6 +29,11 @@ declare namespace ReactSelectClass {
          * @default true
          */
         clearableValue?: boolean;
+        /**
+         * Do not allow this option to be selected
+         * @default false
+         */
+        disabled?: boolean;
     }
 
     export interface MenuRendererProps {

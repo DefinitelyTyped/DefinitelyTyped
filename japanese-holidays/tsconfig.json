@@ -1,16 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6",
-            "dom"
-        ],
         "target": "es6",
-        "jsx": "react",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "allowSyntheticDefaultImports": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -21,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-facebook-login-tests.tsx"
+        "japanese-holidays-tests.ts"
     ]
 }

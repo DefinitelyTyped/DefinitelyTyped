@@ -371,13 +371,13 @@ declare namespace React {
         deltaZ: number;
     }
 
-    interface AnimationEvent extends SyntheticEvent<{}> {
+    interface AnimationEvent<T> extends SyntheticEvent<T> {
         animationName: string;
         pseudoElement: string;
         elapsedTime: number;
     }
 
-    interface TransitionEvent extends SyntheticEvent<{}> {
+    interface TransitionEvent<T> extends SyntheticEvent<T> {
         propertyName: string;
         pseudoElement: string;
         elapsedTime: number;
@@ -404,8 +404,8 @@ declare namespace React {
     type TouchEventHandler<T> = EventHandler<TouchEvent<T>>;
     type UIEventHandler<T> = EventHandler<UIEvent<T>>;
     type WheelEventHandler<T> = EventHandler<WheelEvent<T>>;
-    type AnimationEventHandler = EventHandler<AnimationEvent>;
-    type TransitionEventHandler = EventHandler<TransitionEvent>;
+    type AnimationEventHandler<T> = EventHandler<AnimationEvent<T>>;
+    type TransitionEventHandler<T> = EventHandler<TransitionEvent<T>>;
 
     //
     // Props / DOM Attributes
@@ -597,16 +597,16 @@ declare namespace React {
         onWheelCapture?: WheelEventHandler<T>;
 
         // Animation Events
-        onAnimationStart?: AnimationEventHandler;
-        onAnimationStartCapture?: AnimationEventHandler;
-        onAnimationEnd?: AnimationEventHandler;
-        onAnimationEndCapture?: AnimationEventHandler;
-        onAnimationIteration?: AnimationEventHandler;
-        onAnimationIterationCapture?: AnimationEventHandler;
+        onAnimationStart?: AnimationEventHandler<T>;
+        onAnimationStartCapture?: AnimationEventHandler<T>;
+        onAnimationEnd?: AnimationEventHandler<T>;
+        onAnimationEndCapture?: AnimationEventHandler<T>;
+        onAnimationIteration?: AnimationEventHandler<T>;
+        onAnimationIterationCapture?: AnimationEventHandler<T>;
 
         // Transition Events
-        onTransitionEnd?: TransitionEventHandler;
-        onTransitionEndCapture?: TransitionEventHandler;
+        onTransitionEnd?: TransitionEventHandler<T>;
+        onTransitionEndCapture?: TransitionEventHandler<T>;
     }
 
     // See CSS 3 CSS-wide keywords https://www.w3.org/TR/css3-values/#common-keywords
