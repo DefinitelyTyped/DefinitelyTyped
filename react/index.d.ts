@@ -437,7 +437,7 @@ declare namespace React {
     interface ChangeTargetHTMLProps<T extends HTMLElement> extends ChangeTargetHTMLAttributes<T>, ClassAttributes<T> {
     }
 
-    interface SVGProps extends SVGAttributes<SVGElement>, ClassAttributes<SVGElement> {
+    interface SVGProps<T> extends SVGAttributes<T>, ClassAttributes<T> {
     }
 
     interface DOMAttributes<T> {
@@ -2810,60 +2810,60 @@ declare global {
             wbr: React.HTMLProps<HTMLElement>;
 
             // SVG
-            svg: React.SVGProps;
+            svg: React.SVGProps<SVGSVGElement>;
 
-            circle: React.SVGProps;
-            clipPath: React.SVGProps;
-            defs: React.SVGProps;
-            desc: React.SVGProps;
-            ellipse: React.SVGProps;
-            feBlend: React.SVGProps;
-            feColorMatrix: React.SVGProps;
-            feComponentTransfer: React.SVGProps;
-            feComposite: React.SVGProps;
-            feConvolveMatrix: React.SVGProps;
-            feDiffuseLighting: React.SVGProps;
-            feDisplacementMap: React.SVGProps;
-            feDistantLight: React.SVGProps;
-            feFlood: React.SVGProps;
-            feFuncA: React.SVGProps;
-            feFuncB: React.SVGProps;
-            feFuncG: React.SVGProps;
-            feFuncR: React.SVGProps;
-            feGaussianBlur: React.SVGProps;
-            feImage: React.SVGProps;
-            feMerge: React.SVGProps;
-            feMergeNode: React.SVGProps;
-            feMorphology: React.SVGProps;
-            feOffset: React.SVGProps;
-            fePointLight: React.SVGProps;
-            feSpecularLighting: React.SVGProps;
-            feSpotLight: React.SVGProps;
-            feTile: React.SVGProps;
-            feTurbulence: React.SVGProps;
-            filter: React.SVGProps;
-            foreignObject: React.SVGProps;
-            g: React.SVGProps;
-            image: React.SVGProps;
-            line: React.SVGProps;
-            linearGradient: React.SVGProps;
-            marker: React.SVGProps;
-            mask: React.SVGProps;
-            metadata: React.SVGProps;
-            path: React.SVGProps;
-            pattern: React.SVGProps;
-            polygon: React.SVGProps;
-            polyline: React.SVGProps;
-            radialGradient: React.SVGProps;
-            rect: React.SVGProps;
-            stop: React.SVGProps;
-            switch: React.SVGProps;
-            symbol: React.SVGProps;
-            text: React.SVGProps;
-            textPath: React.SVGProps;
-            tspan: React.SVGProps;
-            use: React.SVGProps;
-            view: React.SVGProps;
+            circle: React.SVGProps<SVGCircleElement>;
+            clipPath: React.SVGProps<SVGClipPathElement>;
+            defs: React.SVGProps<SVGDefsElement>;
+            desc: React.SVGProps<SVGDescElement>;
+            ellipse: React.SVGProps<SVGEllipseElement>;
+            feBlend: React.SVGProps<SVGFEBlendElement>;
+            feColorMatrix: React.SVGProps<SVGFEColorMatrixElement>;
+            feComponentTransfer: React.SVGProps<SVGFEComponentTransferElement>;
+            feComposite: React.SVGProps<SVGFECompositeElement>;
+            feConvolveMatrix: React.SVGProps<SVGFEConvolveMatrixElement>;
+            feDiffuseLighting: React.SVGProps<SVGFEDiffuseLightingElement>;
+            feDisplacementMap: React.SVGProps<SVGFEDisplacementMapElement>;
+            feDistantLight: React.SVGProps<SVGFEDistantLightElement>;
+            feFlood: React.SVGProps<SVGFEFloodElement>;
+            feFuncA: React.SVGProps<SVGFEFuncAElement>;
+            feFuncB: React.SVGProps<SVGFEFuncBElement>;
+            feFuncG: React.SVGProps<SVGFEFuncGElement>;
+            feFuncR: React.SVGProps<SVGFEFuncRElement>;
+            feGaussianBlur: React.SVGProps<SVGFEGaussianBlurElement>;
+            feImage: React.SVGProps<SVGFEImageElement>;
+            feMerge: React.SVGProps<SVGFEMergeElement>;
+            feMergeNode: React.SVGProps<SVGFEMergeNodeElement>;
+            feMorphology: React.SVGProps<SVGFEMorphologyElement>;
+            feOffset: React.SVGProps<SVGFEOffsetElement>;
+            fePointLight: React.SVGProps<SVGFEPointLightElement>;
+            feSpecularLighting: React.SVGProps<SVGFESpecularLightingElement>;
+            feSpotLight: React.SVGProps<SVGFESpotLightElement>;
+            feTile: React.SVGProps<SVGFETileElement>;
+            feTurbulence: React.SVGProps<SVGFETurbulenceElement>;
+            filter: React.SVGProps<SVGFilterElement>;
+            foreignObject: React.SVGProps<SVGForeignObjectElement>;
+            g: React.SVGProps<SVGGElement>;
+            image: React.SVGProps<SVGImageElement>;
+            line: React.SVGProps<SVGLineElement>;
+            linearGradient: React.SVGProps<SVGLinearGradientElement>;
+            marker: React.SVGProps<SVGMarkerElement>;
+            mask: React.SVGProps<SVGMaskElement>;
+            metadata: React.SVGProps<SVGMetadataElement>;
+            path: React.SVGProps<SVGPathElement>;
+            pattern: React.SVGProps<SVGPatternElement>;
+            polygon: React.SVGProps<SVGPolygonElement>;
+            polyline: React.SVGProps<SVGPolylineElement>;
+            radialGradient: React.SVGProps<SVGRadialGradientElement>;
+            rect: React.SVGProps<SVGRectElement>;
+            stop: React.SVGProps<SVGStopElement>;
+            switch: React.SVGProps<SVGSwitchElement>;
+            symbol: React.SVGProps<SVGSymbolElement>;
+            text: React.SVGProps<SVGTextElement>;
+            textPath: React.SVGProps<SVGTextPathElement>;
+            tspan: React.SVGProps<SVGTSpanElement>;
+            use: React.SVGProps<SVGUseElement>;
+            view: React.SVGProps<SVGViewElement>;
         }
     }
 }
