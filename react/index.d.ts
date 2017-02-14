@@ -2203,7 +2203,25 @@ declare namespace React {
     //   - "number | string"
     //   - "string"
     //   - union of string literals
-    interface SVGAttributes<T> extends HTMLAttributes<T> {
+    interface SVGAttributes<T> extends DOMAttributes<T> {
+        // Attributes which also defined in HTMLAttributes
+        // See comment in SVGDOMPropertyConfig.js
+        className?: string;
+        color?: string;
+        height?: number | string;
+        id?: string;
+        lang?: string;
+        max?: number | string;
+        media?: string;
+        method?: string;
+        min?: number | string;
+        name?: string;
+        style?: CSSProperties;
+        target?: string;
+        type?: string;
+        width?: number | string;
+
+        // SVG Specific attributes
         accentHeight?: number | string;
         accumulate?: "none" | "sum";
         additive?: "replace" | "sum";
@@ -2396,7 +2414,6 @@ declare namespace React {
         textRendering?: number | string;
         to?: number | string;
         transform?: string;
-        type?: string;
         u1?: number | string;
         u2?: number | string;
         underlinePosition?: number | string;

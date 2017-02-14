@@ -341,6 +341,9 @@ React.DOM.svg({
     xmlns: "http://www.w3.org/2000/svg"
 },
     React.DOM.rect({
+        className: 'foobar',
+        id: 'foo',
+        color: 'black',
         x: 22,
         y: 10,
         width: 4,
