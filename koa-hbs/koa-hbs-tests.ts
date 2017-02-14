@@ -9,7 +9,7 @@ app.use(hbs.middleware({
 }));
 
 app.use(async (ctx, next) => {
-    await this.render('index', {
+    await ctx.render('index', {
         title: 'Hello World!'
     });
 });
