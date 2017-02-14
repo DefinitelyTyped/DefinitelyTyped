@@ -199,6 +199,16 @@ describe('Assymetric matchers', function () {
         }));
 
         expect.assertions(4);
+
+        interface Test {
+            a: number;
+            b: string;
+        }
+
+        const test: Test = {
+            a: expect.any(Number),
+            b: expect.anything()
+        }
     });
 });
 
