@@ -120,6 +120,7 @@ declare namespace Mocha {
     interface IHookCallbackContext {
         skip(): void;
         timeout(ms: number): void;
+        [index: string]: any;
     }
 
 
@@ -128,6 +129,7 @@ declare namespace Mocha {
         timeout(ms: number): void;
         retries(n: number): void;
         slow(ms: number): void;
+        [index: string]: any;
     }
 
     /** Partial interface for Mocha's `Runnable` class. */

@@ -106,6 +106,7 @@ declare module 'angular' {
             onComplete?: Function;
             onRemoving?: Function;
             skipHide?: boolean;
+            multiple?: boolean;
             fullscreen?: boolean; // default: false
         }
 

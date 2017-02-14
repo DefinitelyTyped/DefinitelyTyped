@@ -1,4 +1,4 @@
-// Type definitions for cordova.plugins.diagnostic v3.3.0
+// Type definitions for cordova.plugins.diagnostic v3.4.x
 // Project: https://github.com/dpa99c/cordova-diagnostic-plugin
 // Definitions by: Dave Alden <https://github.com/dpa99c/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -54,6 +54,14 @@ interface Diagnostic {
      * @type {Object}
      */
     bluetoothState?: any;
+
+
+    /**
+     * ANDROID ONLY
+     * Constants for the various NFC power states.
+     * @type {Object}
+     */
+    NFCState?: any;
 
 
     /**
@@ -164,8 +172,8 @@ interface Diagnostic {
 
     /**
      * ANDROID and iOS ONLY
-     * Returns true if the device setting for location is on.
-     * On Android this returns true if Location Mode is switched on.
+     * Returns true if the device setting for location is on. 
+     * On Android this returns true if Location Mode is switched on. 
      * On iOS this returns true if Location Services is switched on.
      * @param successCallback
      * @param errorCallback
@@ -565,6 +573,93 @@ interface Diagnostic {
     hasBluetoothLEPeripheralSupport?: (
         successCallback: (supported: boolean) => void,
         errorCallback: (error: string) => void
+    ) => void;
+
+    /**
+     * ANDROID ONLY
+     * Checks if the application is authorized to use external storage.
+     * @param successCallback
+     * @param errorCallback
+     */
+    isExternalStorageAuthorized?: (
+        successCallback: (authorized: boolean) => void,
+        errorCallback: (error: string) => void
+    ) => void;
+
+    /**
+     * ANDROID ONLY
+     * Returns the authorisation status for runtime permission to use the external storage.
+     * @param successCallback
+     * @param errorCallback
+     */
+    getExternalStorageAuthorizationStatus?: (
+        successCallback: (status: string) => void,
+        errorCallback: (error: string) => void
+    ) => void;
+
+    /**
+     * ANDROID ONLY
+     * Requests authorisation for runtime permission to use the external storage.
+     * @param successCallback
+     * @param errorCallback
+     */
+    requestExternalStorageAuthorization?: (
+        successCallback: (status: string) => void,
+        errorCallback: (error: string) => void
+    ) => void;
+
+    /**
+     * ANDROID ONLY
+     * Returns details of external SD card(s): absolute path, is writable, free space
+     * @param successCallback
+     * @param errorCallback
+     */
+    getExternalSdCardDetails?: (
+        successCallback: (status: any) => void,
+        errorCallback: (error: string) => void
+    ) => void;
+
+    /**
+     * ANDROID ONLY
+     * Checks if NFC hardware is present on device.
+     * @param successCallback
+     * @param errorCallback
+     */
+    isNFCPresent?: (
+        successCallback: (present: boolean) => void,
+        errorCallback: (error: string) => void
+    ) => void;
+
+    /**
+     * ANDROID ONLY
+     * Checks if the device setting for NFC is switched on.
+     * @param successCallback
+     * @param errorCallback
+     */
+    isNFCEnabled?: (
+        successCallback: (present: boolean) => void,
+        errorCallback: (error: string) => void
+    ) => void;
+
+    /**
+     * ANDROID ONLY
+     *  Checks if NFC is available to the app.
+     * @param successCallback
+     * @param errorCallback
+     */
+    isNFCAvailable?: (
+        successCallback: (present: boolean) => void,
+        errorCallback: (error: string) => void
+    ) => void;
+
+    /**
+     * ANDROID ONLY
+     * Registers a function to be called when a change in NFC state occurs.
+     * Pass in a falsey value to de-register the currently registered function.
+     * @param successCallback
+     */
+    registerNFCStateChangeHandler?: (
+        successCallback: (state: string) => void
     ) => void;
 
     /**
