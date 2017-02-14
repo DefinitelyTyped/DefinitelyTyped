@@ -45,11 +45,11 @@ interface IStrategyOptionWithRequest {
 }
 
 interface VerifyFunction {
-    (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void): void;
+    (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void): void;
 }
 
 interface VerifyFunctionWithRequest {
-    (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void): void;
+    (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void): void;
 }
 
 declare class Strategy implements passport.Strategy {
