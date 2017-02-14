@@ -269,6 +269,8 @@ export class Vector {
 export class Matrix {
 
     T: Matrix;
+    
+    shape: number[];
 
     /**
      * @method constructor

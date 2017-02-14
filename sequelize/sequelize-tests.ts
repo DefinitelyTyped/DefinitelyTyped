@@ -977,6 +977,7 @@ let findOrRetVal: Promise<[AnyInstance, boolean]>;
 findOrRetVal = User.findOrInitialize( { where : { username : 'foo' } } );
 findOrRetVal = User.findOrInitialize( { where : { username : 'foo' }, transaction : t } );
 findOrRetVal = User.findOrInitialize( { where : { username : 'foo' }, defaults : { foo : 'asd' }, transaction : t } );
+findOrRetVal = User.findOrInitialize( { where : { username : 'foo' }, defaults : { foo : 'asd' }, paranoid : false } );
 
 findOrRetVal = User.findOrCreate( { where : { a : 'b' }, defaults : { json : { a : { b : 'c' }, d : [1, 2, 3] } } } );
 findOrRetVal = User.findOrCreate( { where : { a : 'b' }, defaults : { json : 'a', data : 'b' } } );
@@ -989,7 +990,6 @@ findOrRetVal = User.findOrCreate( { where : { objectId : 'asdasdasd' }, defaults
 findOrRetVal = User.findOrCreate( { where : { id : undefined }, defaults : { name : Math.random().toString() } } );
 findOrRetVal = User.findOrCreate( { where : { email : 'unique.email.@d.com', companyId : Math.floor( Math.random() * 5 ) } } );
 findOrRetVal = User.findOrCreate( { where : { objectId : 1 }, defaults : { bool : false } } );
-findOrRetVal = User.findOrCreate( { where : 'c', defaults : {} } );
 
 User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) } );
 
