@@ -1406,7 +1406,7 @@ declare namespace L {
     export function map(element: string | HTMLElement, options?: MapOptions): Map;
 
     export interface IconOptions extends LayerOptions {
-        iconUrl: string;
+        iconUrl?: string;
         iconRetinaUrl?: string;
         iconSize?: PointExpression;
         iconAnchor?: PointExpression;
@@ -1424,7 +1424,7 @@ declare namespace L {
     }
 
     export class Icon extends InternalIcon {
-        createShadow(oldIcon?: HTMLElement): HTMLElement;
+        createShadow?(oldIcon?: HTMLElement): HTMLElement;
         options: IconOptions;
     }
 
