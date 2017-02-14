@@ -34,28 +34,28 @@ interface IStrategyOption {
 }
 
 interface IStrategyOptionWithRequest {
-	clientID: string;
-	clientSecret: string;
-	callbackURL: string;
-				
-	scopeSeparator?: string;
-	enableProof?: boolean;
-	profileFields?: string[];
-	passReqToCallback: boolean;
+    clientID: string;
+    clientSecret: string;
+    callbackURL: string;
+
+    scopeSeparator?: string;
+    enableProof?: boolean;
+    profileFields?: string[];
+    passReqToCallback: boolean;
 }
 
 interface VerifyFunction {
-	(accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void): void;
+    (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void): void;
 }
 
 interface VerifyFunctionWithRequest {
-	(req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void): void;
+    (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void): void;
 }
 
 declare class Strategy implements passport.Strategy {
     constructor(options: IStrategyOptionWithRequest, verify: VerifyFunctionWithRequest);
-	constructor(options: IStrategyOption, verify: VerifyFunction);
+    constructor(options: IStrategyOption, verify: VerifyFunction);
     
-	name: string;
+    name: string;
     authenticate: (req: express.Request, options?: Object) => void;
 }
