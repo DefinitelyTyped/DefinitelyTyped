@@ -325,6 +325,9 @@ var htmlAttr: React.HTMLProps<HTMLElement> = {
         event.preventDefault();
         event.stopPropagation();
     },
+    onAnimationStart: event => {
+        console.log(event.currentTarget.className);
+    },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
     }
