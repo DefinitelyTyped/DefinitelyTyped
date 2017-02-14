@@ -13,7 +13,9 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "noUnusedParameters": true,
+        "noUnusedLocals": true
     },
     "files": [
         "index.d.ts",
