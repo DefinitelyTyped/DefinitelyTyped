@@ -1,6 +1,10 @@
 // Type definitions for vis.js 4.17
 // Project: https://github.com/almende/vis
-// Definitions by: Michaël Bitard <https://github.com/MichaelBitard>, Adrian Caballero <https://github.com/adripanico>, Severin <https://github.com/seveves>, kaktus40 <https://github.com/kaktus40>, Matthieu Maitre <https://github.com/mmaitre314>
+// Definitions by: Michaël Bitard <https://github.com/MichaelBitard>
+//                 Adrian Caballero <https://github.com/adripanico>
+//                 Severin <https://github.com/seveves>
+//                 kaktus40 <https://github.com/kaktus40>
+//                 Matthieu Maitre <https://github.com/mmaitre314>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type IdType = string | number;

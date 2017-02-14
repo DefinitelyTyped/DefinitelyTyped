@@ -5,17 +5,17 @@ import * as Hapi from "hapi";
 import * as restify from "restify";
 import * as sails from "sails.io.js";
 
-let config: SwaggerNodeRunner.Config = {
+const config: SwaggerNodeRunner.Config = {
     appRoot: __dirname
 };
 
 // Express middleware
-let expressApp = express();
+const expressApp = express();
 SwaggerNodeRunner.create(config, (err, runner) => {
     if (err) {
         throw err; // or handle error
     }
-    let expressMiddleware = runner.expressMiddleware();
+    const expressMiddleware = runner.expressMiddleware();
     expressMiddleware.register(expressApp);
 
     const port = process.env.PORT || 10010;
@@ -23,14 +23,14 @@ SwaggerNodeRunner.create(config, (err, runner) => {
 });
 
 
-//Connect middleware
-let connectApp = connect();
+// Connect middleware
+const connectApp = connect();
 SwaggerNodeRunner.create(config, (err, runner) => {
   if (err) { throw err; }
 
-  let conncetMiddleware = runner.connectMiddleware();
+  const connectMiddleware = runner.connectMiddleware();
 
-  conncetMiddleware.register(connectApp);
+  connectMiddleware.register(connectApp);
   var port = process.env.PORT || 10010;
   connectApp.listen(port);
 });
@@ -40,16 +40,16 @@ SwaggerNodeRunner.create(config, (err, runner) => {
 SwaggerNodeRunner.create(config, (err, runner) => {
   if (err) { throw err; }
 
-  let sailsMw = runner.sailsMiddleware();
-  if(typeof sailsMw.chain !== 'function' || !sailsMw.runner) {
+  const sailsMw = runner.sailsMiddleware();
+  if (typeof sailsMw.chain !== 'function' || !sailsMw.runner) {
       // do nothing
   }
 });
 
 
-//Hapi Middleware
+// Hapi Middleware
 var hapiapp = new Hapi.Server();
-SwaggerNodeRunner.create(config, function(err, runner) {
+SwaggerNodeRunner.create(config, (err, runner) => {
   if (err) { throw err; }
 
   var port = process.env.PORT || 10010;
@@ -57,15 +57,15 @@ SwaggerNodeRunner.create(config, function(err, runner) {
 //   hapiapp.address = function() {
 //     return { port };
 //   };
-  let hapiMiddleware = runner.hapiMiddleware();
+  const hapiMiddleware = runner.hapiMiddleware();
 
   if (hapiMiddleware.config.swagger !== undefined) {
-    let appRootFromMw = hapiMiddleware.config.swagger.appRoot;
+    const appRootFromMw = hapiMiddleware.config.swagger.appRoot;
   }
 
-  let pluginAttributes = hapiMiddleware.plugin.register.attributes.name + hapiMiddleware.plugin.register.attributes.version;
+  const pluginAttributes = hapiMiddleware.plugin.register.attributes.name + hapiMiddleware.plugin.register.attributes.version;
 
-  hapiapp.register(hapiMiddleware.plugin, function(err) {
+  hapiapp.register(hapiMiddleware.plugin, err => {
     if (err) { return console.error("Failed to load plugin:", err); }
     // stat app etc..
   });
@@ -73,25 +73,25 @@ SwaggerNodeRunner.create(config, function(err, runner) {
 
 
 // Restify Middelware
-let app = restify.createServer();
-SwaggerNodeRunner.create(config, function(err, runner) {
+const app = restify.createServer();
+SwaggerNodeRunner.create(config, (err, runner) => {
   if (err) { throw err; }
 
-  let restifyMiddelware = runner.restifyMiddleware()
+  const restifyMiddelware = runner.restifyMiddleware();
 
   restifyMiddelware.register(app);
 
-  let port = process.env.PORT || 10010;
+  const port = process.env.PORT || 10010;
   app.listen(port);
 });
 
 
-let swaggerSecurityHandlerCb = (err: Error) => {
-    //do nothing
+const swaggerSecurityHandlerCb = (err: Error) => {
+    // do nothing
 };
 
 
-let configComplex: SwaggerNodeRunner.Config = {
+const configComplex: SwaggerNodeRunner.Config = {
     appRoot: __dirname,
     configDir: "some/directory",
     controllersDirs: ["some/directory"],
@@ -101,7 +101,7 @@ let configComplex: SwaggerNodeRunner.Config = {
     swaggerSecurityHandlers: {
         // did not manage to research the typings of first 3 arguments
         someHandlerName: ({}, {}, {}, swaggerSecurityHandlerCb) => {
-            //do nothing
+            // do nothing
         }
     },
     validateResponse: true

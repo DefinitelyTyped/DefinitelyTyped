@@ -119,7 +119,7 @@ let multiPolygon: GeoJSON.MultiPolygon = {
 
 let geometryCollection: GeoJSON.GeometryCollection = {
     type: "GeometryCollection",
-    "geometries": [
+    geometries: [
         {
             type: "Point",
             coordinates: [100.0, 0.0]

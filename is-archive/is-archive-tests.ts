@@ -1,7 +1,7 @@
 import isArchive = require('is-archive');
 
 isArchive('src/unicorn.zip');
-//=> true
+// => true
 
 isArchive('src/unicorn.txt');
-//=> false
+// => false
