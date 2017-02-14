@@ -1,5 +1,5 @@
 /// <reference types="jasmine" />
-import Qty from "js-quantities";
+import * as Qty from "js-quantities";
 
 // From project readme
 
