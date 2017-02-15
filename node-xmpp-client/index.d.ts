@@ -13,7 +13,7 @@ export declare class Client {
 
     disconnect(): void;
 
-    on(event: string, c: (err: any, r: any) => any): void;
+    on(event: string, c: (e: any, d: any) => any): void;
 
     send(stanza: any): void;
 }
