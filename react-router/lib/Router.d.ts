@@ -37,7 +37,7 @@ export type ChangeHook = (prevState: RouterState, nextState: RouterState, replac
 export type RouteHook = (nextLocation?: Location) => any;
 
 export interface Location {
-    patname: Pathname;
+    pathname: Pathname;
     search: Search;
     query: Query;
     state: LocationState;
@@ -90,6 +90,7 @@ export interface RouteComponentProps<P, R> {
     params: P & R;
     route: PlainRoute;
     router: InjectedRouter;
+    routes: PlainRoute[];
     routeParams: R;
 }
 

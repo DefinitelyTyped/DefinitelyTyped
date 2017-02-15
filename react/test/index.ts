@@ -325,6 +325,9 @@ var htmlAttr: React.HTMLProps<HTMLElement> = {
         event.preventDefault();
         event.stopPropagation();
     },
+    onAnimationStart: event => {
+        console.log(event.currentTarget.className);
+    },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
     }
@@ -689,3 +692,18 @@ type InputChangeEvent = React.ChangeEvent<HTMLInputElement>;
 type InputFormEvent = React.FormEvent<HTMLInputElement>;
 const changeEvent:InputChangeEvent = undefined as any;
 const formEvent:InputFormEvent = changeEvent;
+
+// defaultProps should be optional of props
+{
+    interface ComponentProps {
+        prop1: string;
+        prop2: string;
+        prop3?: string;
+    }
+    class ComponentWithDefaultProps extends React.Component<ComponentProps, void> {
+        static defaultProps = {
+            prop3: "default value",
+        };
+    }
+    const VariableWithAClass: React.ComponentClass<ComponentProps> = ComponentWithDefaultProps;
+}

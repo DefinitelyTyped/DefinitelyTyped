@@ -33,6 +33,8 @@ declare module "react-dropzone" {
         name?: string, // name attribute for the input tag
         maxSize?: number,
         minSize?: number
+
+        onFileDialogCancel?: () => void;
     }
 
     let Dropzone: React.ClassicComponentClass<DropzoneProps>;

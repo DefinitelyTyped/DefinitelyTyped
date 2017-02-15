@@ -52,7 +52,6 @@ client.add(magnetURI, {}, function(torrent) {
 
     torrent.on('wire', function(wire, addr) {
         console.log('connected to peer with address ' + addr);
-        wire.use();
     });
 });
 
