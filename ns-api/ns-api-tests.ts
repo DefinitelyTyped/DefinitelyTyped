@@ -1,5 +1,7 @@
 import * as NsApi from "ns-api";
 
+declare var console: { log(msg: any): string };
+
 let ns: NsApi = NsApi({
     username: "",
     password: "",
