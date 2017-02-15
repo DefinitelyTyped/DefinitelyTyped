@@ -26,6 +26,15 @@ function test_signIn(){
   });
 }
 
+function test_signInOptionsBuild(){
+  var options = new gapi.auth2.SigninOptionsBuilder();
+  options.setAppPackageName('com.example.app');
+  options.setFetchBasicProfile(true);
+  options.setPrompt('select_account');
+  options.setScope('profile').setScope('email');
+  gapi.auth2.getAuthInstance().signIn(options);
+}
+
 function test_getAuthResponse(){
   var user = gapi.auth2.getAuthInstance().currentUser.get();
   var authResponse = user.getAuthResponse();
