@@ -8,11 +8,10 @@ let client = new Client({
 client.connect();
 
 client.on('online', function () {
-    console.log('online')
 });
 
 client.on('stanza', function (stanza) {
-    console.log('Incoming stanza: ', stanza.toString())
+    let _ = stanza;
 });
 
 let stanza = new Client.Stanza('chat', {})
