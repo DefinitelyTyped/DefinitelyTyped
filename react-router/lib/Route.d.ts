@@ -20,12 +20,12 @@ declare const Route: Route;
 
 export default Route;
 
-type RouteCallback = (err: any, route: PlainRoute) => void;
-type RoutesCallback = (err: any, routesArray: PlainRoute[]) => void;
+type RouteCallback = (err: any, route: PlainRoute) => undefined;
+type RoutesCallback = (err: any, routesArray: PlainRoute[]) => undefined;
 
 export interface PlainRoute extends RouteProps {
     childRoutes?: PlainRoute[];
-    getChildRoutes?(partialNextState: LocationState, callback: RoutesCallback): void;
+    getChildRoutes?(partialNextState: LocationState, callback: RoutesCallback): undefined;
     indexRoute?: PlainRoute;
-    getIndexRoute?(partialNextState: LocationState, callback: RouteCallback): void;
+    getIndexRoute?(partialNextState: LocationState, callback: RouteCallback): undefined;
 }
