@@ -24,7 +24,7 @@ function test_fetchUrlWithOptions() {
 		cache: 'default',
 		redirect: 'manual'
 	};
-	handlePromise(window.fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions));
+	handlePromise(fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions));
 }
 
 function test_fetchUrlWithHeadersObject() {
@@ -34,11 +34,11 @@ function test_fetchUrlWithHeadersObject() {
 			'Content-Type': 'application/json'
 		}
 	};
-	handlePromise(window.fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions));
+	handlePromise(fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions));
 }
 
 function test_fetchUrl() {
-	handlePromise(window.fetch("http://www.andlabs.net/html5/uCOR.php"));
+	handlePromise(fetch("http://www.andlabs.net/html5/uCOR.php"));
 }
 
 function test_fetchUrlWithRequestObject() {
@@ -49,7 +49,7 @@ function test_fetchUrlWithRequestObject() {
 		}
 	};
 	var request: Request = new Request("http://www.andlabs.net/html5/uCOR.php", requestOptions);
-	handlePromise(window.fetch(request));
+	handlePromise(fetch(request));
 }
 
 function test_globalFetchVar() {

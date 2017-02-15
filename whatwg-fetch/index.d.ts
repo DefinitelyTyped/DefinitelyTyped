@@ -5,10 +5,7 @@
 
 /// <reference types="whatwg-streams" />
 
-interface Window {
-    fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
-}
-declare let fetch: typeof window.fetch;
+declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 
 declare type HeadersInit = Headers | string[][] | { [key: string]: string };
 declare class Headers {
