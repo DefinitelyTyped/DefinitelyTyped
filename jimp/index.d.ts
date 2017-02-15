@@ -15,17 +15,17 @@ declare namespace jimp {
 
 	// Used in font info provided by parse-bmfont-ascii
 	type FontBoolean = 0 | 1;
-	type FontChar = {
-		id: number,
-		x: number,
-		y: number,
-		weight: number,
-		height: number,
-		xoffset: number,
-		yoffset: number,
-		xadvance: number,
-		page: number,
-		chnl: number
+	interface FontChar {
+		id: number;
+		x: number;
+		y: number;
+		weight: number;
+		height: number;
+		xoffset: number;
+		yoffset: number;
+		xadvance: number;
+		page: number;
+		chnl: number;
 	}
 	type Font = {
 		common: {lineHeight: number, base: number, scaleW: number, scaleH: number, pages: number, packed: number},
@@ -42,8 +42,8 @@ declare namespace jimp {
 			padding: [number, number, number, number],
 			spacing: [number, number]
 		},
-		kernings: Object,
-		pages: Array<JIMP>,
+		kernings: any,
+		pages: JIMP[],
 		chars: {
 			[char: number]: FontChar,
 			[char: string]: FontChar
@@ -65,7 +65,7 @@ declare namespace jimp {
 		setPixelColor(hex: number, x: number, y: number): void;
 
 		/* Save */
-		write(path: string, callback?: Callback<void>): void;
+		write(path: string, callback?: Callback<undefined>): void;
 		getBase64(mine: FileMINE, callback?: Callback<string>): void;
 		getBuffer(mine: FileMINE, callback?: Callback<Buffer>): void;
 
