@@ -357,7 +357,7 @@ declare namespace Draft {
              *   - "props": Props to be passed into the React component that will be used.
              */
             interface DraftDecorator {
-                strategy: (block: ContentBlock, callback: (start: number, end: number) => void) => void;
+                strategy: (block: ContentBlock, callback: (start: number, end: number) => void, contentState: ContentState) => void;
                 component: Function;
                 props?: Object;
             }
@@ -564,6 +564,9 @@ declare namespace Draft {
             import DraftBlockType = Draft.Model.Constants.DraftBlockType;
             import DraftDecoratorType = Draft.Model.Decorators.DraftDecoratorType;
 
+            import DraftEntityType = Draft.Model.Entity.DraftEntityType;
+            import DraftEntityMutability = Draft.Model.Entity.DraftEntityMutability;
+
             type DraftInlineStyle = Immutable.OrderedSet<string>;
             type BlockMap = Immutable.OrderedMap<string, Draft.Model.ImmutableData.ContentBlock>;
 
@@ -700,6 +703,9 @@ declare namespace Draft {
             class ContentState extends Record {
                 static createFromBlockArray(blocks: Array<ContentBlock>): ContentState;
                 static createFromText(text: string, delimiter?: string): ContentState;
+
+                createEntity(type: DraftEntityType, mutability: DraftEntityMutability, data?: Object): ContentState;
+                getEntity(key: string): EntityInstance;
 
                 getBlockMap(): BlockMap;
                 getSelectionBefore(): SelectionState;
