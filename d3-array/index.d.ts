@@ -13,7 +13,7 @@
 /**
  * Administrivia: JavaScript primitive types and Date
  */
-export type Primitive = number | string | boolean | Date | undefined;
+export type Primitive = number | string | boolean | Date;
 
 /**
  * Administrivia: anything with a valueOf(): number method is comparable, so we allow it in numeric operations
@@ -40,12 +40,12 @@ export function max<T extends Numeric>(array: T[]): T | undefined;
 /**
  * Return the maximum value in the array using natural order and a projection function to map values to strings.
  */
-export function max<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => string): string | undefined;
+export function max<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => string | undefined | null): string | undefined;
 
 /**
  * Return the maximum value in the array using natural order and a projection function to map values to easily-sorted values.
  */
-export function max<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U): U | undefined;
+export function max<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U | undefined | null): U | undefined;
 
 /**
  * Return the minimum value in the array using natural order.
@@ -60,12 +60,12 @@ export function min<T extends Numeric>(array: T[]): T | undefined;
 /**
  * Return the minimum value in the array using natural order.
  */
-export function min<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => string): string | undefined;
+export function min<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => string | undefined | null): string | undefined;
 
 /**
  * Return the minimum value in the array using natural order.
  */
-export function min<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U): U | undefined;
+export function min<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U | undefined | null): U | undefined;
 
 
 
@@ -82,62 +82,62 @@ export function extent<T extends Numeric>(array: T[]): [T, T] | [undefined, unde
 /**
  * Return the min and max simultaneously.
  */
-export function extent<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => string): [string, string] | [undefined, undefined];
+export function extent<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => string | undefined | null): [string, string] | [undefined, undefined];
 
 /**
  * Return the min and max simultaneously.
  */
-export function extent<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U): [U, U] | [undefined, undefined];
+export function extent<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U | undefined | null): [U, U] | [undefined, undefined];
 
 /**
  * Return the mean of an array of numbers
  */
-export function mean<T extends Numeric>(array: Array<T |  undefined>): number | undefined;
-export function mean<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number | undefined): number | undefined;
+export function mean<T extends Numeric>(array: Array<T | undefined | null>): number | undefined;
+export function mean<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number | undefined | null): number | undefined;
 
 /**
  * Return the median of an array of numbers
  */
-export function median<T extends Numeric>(array: Array<T |  undefined>): number | undefined;
-export function median<T>(array: T[], accessor: (element: T, i: number, array: T[]) => number | undefined): number | undefined;
+export function median<T extends Numeric>(array: Array<T | undefined | null>): number | undefined;
+export function median<T>(array: T[], accessor: (element: T, i: number, array: T[]) => number | undefined | null): number | undefined;
 
 /**
  * Returns the p-quantile of an array of numbers
  */
-export function quantile<T extends Numeric>(array: Array<T |  undefined>, p: number): number | undefined;
-export function quantile<T>(array: T[], p: number, accessor: (element: T, i: number, array: T[]) => number | undefined): number | undefined;
+export function quantile<T extends Numeric>(array: Array<T | undefined | null>, p: number): number | undefined;
+export function quantile<T>(array: T[], p: number, accessor: (element: T, i: number, array: T[]) => number | undefined | null): number | undefined;
 
 /**
  * Compute the sum of an array of numbers.
  */
-export function sum<T extends Numeric>(array: Array<T |  undefined>): number;
+export function sum<T extends Numeric>(array: Array<T | undefined | null>): number;
 
 /**
  * Compute the sum of an array, using the given accessor to convert values to numbers.
  */
-export function sum<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number | undefined): number;
+export function sum<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number | undefined | null): number;
 
 /**
  * Compute the standard deviation, defined as the square root of the bias-corrected variance, of the given array of numbers.
  */
-export function deviation<T extends Numeric>(array: Array<T |  undefined>): number | undefined;
+export function deviation<T extends Numeric>(array: Array<T | undefined | null>): number | undefined;
 
 /**
  * Compute the standard deviation, defined as the square root of the bias-corrected variance, of the given array,
  * using the given accessor to convert values to numbers.
  */
-export function deviation<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number | undefined): number | undefined;
+export function deviation<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number | undefined | null): number | undefined;
 
 /**
  * Compute an unbiased estimator of the population variance of the given array of numbers.
  */
-export function variance<T extends Numeric>(array: Array<T |  undefined>): number | undefined;
+export function variance<T extends Numeric>(array: Array<T | undefined | null>): number | undefined;
 
 /**
  * Compute an unbiased estimator of the population variance of the given array,
  * using the given accessor to convert values to numbers.
  */
-export function variance<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number | undefined): number | undefined;
+export function variance<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number | undefined | null): number | undefined;
 
 
 // --------------------------------------------------------------------------------------
@@ -169,16 +169,16 @@ export function bisector<T, U>(accessor: (x: T) => U): Bisector<T, U>;
 /**
  * Compares two primitive values for sorting (in ascending order).
  */
-export function ascending(a: Primitive, b: Primitive): number;
+export function ascending(a: Primitive | undefined, b: Primitive | undefined): number;
 
 // NB. this is limited to primitive values due to D3's use of the <, >, and >= operators. Results get weird for object instances.
 /**
  * Compares two primitive values for sorting (in ascending order).
  */
-export function descending(a: Primitive, b: Primitive): number;
+export function descending(a: Primitive | undefined, b: Primitive | undefined): number;
 
 // --------------------------------------------------------------------------------------
-// Transforming  Arrays
+// Transforming Arrays
 // --------------------------------------------------------------------------------------
 
 
