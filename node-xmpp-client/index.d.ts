@@ -19,6 +19,8 @@ export declare class Client {
 }
 
 interface Stanza extends Element {
+    // This has to be used for the static class initializer new Client.Stanza(..). If there is a better way feel free to
+    // contribute.
     // tslint:disable-next-line
     new(name: string, attr: any): Stanza;
     from: string;
