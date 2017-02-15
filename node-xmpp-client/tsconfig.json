@@ -1,0 +1,13 @@
+{
+  "files": [
+    "index.d.ts",
+    "node-xmpp-client-tests.ts"
+  ],
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true
+  },
+  "exclude": [
+  ]
+}
