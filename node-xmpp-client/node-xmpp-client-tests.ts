@@ -5,6 +5,8 @@ let client = new Client({
     password: 'password'
 });
 
+client.connect();
+
 client.on('online', function () {
     console.log('online')
 });
@@ -16,6 +18,6 @@ client.on('stanza', function (stanza) {
 let stanza = new Client.Stanza('chat', {})
     .c('show').t('chat').up()
     .c('status').t('message');
-this.client.send(stanza);
+client.send(stanza);
 
-client.end();
+client.disconnect();

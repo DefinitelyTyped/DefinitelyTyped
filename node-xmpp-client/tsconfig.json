@@ -1,13 +1,15 @@
 {
-  "files": [
-    "index.d.ts",
-    "node-xmpp-client-tests.ts"
-  ],
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
-    "sourceMap": true
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "exclude": [
+  "files": [
+    "index.d.ts",
+    "node-xmpp-client-tests.ts"
   ]
 }
