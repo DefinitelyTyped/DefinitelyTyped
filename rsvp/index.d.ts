@@ -1,5 +1,5 @@
 // Type definitions for RSVP 3.3.3
-// Project: github.com/tildeio/rsvp.js 3.3.3
+// Project: https://github.com/tildeio/rsvp.js
 // Definitions by: Taylor Brown <https://github.com/Taytay>, Mikael Kohlmyr <https://github.com/mkohlmyr>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
