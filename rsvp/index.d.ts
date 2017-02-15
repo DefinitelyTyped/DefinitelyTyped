@@ -1,6 +1,6 @@
-// Type definitions for RSVP 3.0.9
-// Project: github.com/tildeio/rsvp.js 3.0.9
-// Definitions by: Taylor Brown <https://github.com/Taytay>
+// Type definitions for RSVP 3.3.3
+// Project: github.com/tildeio/rsvp.js 3.3.3
+// Definitions by: Taylor Brown <https://github.com/Taytay>, Mikael Kohlmyr <https://github.com/mkohlmyr>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // Some of this file was taken from the type definitions for es6-promise https://github.com/borisyankov/DefinitelyTyped/blob/master/es6-promise/es6-promise.d.ts
@@ -220,8 +220,8 @@ declare module RSVP {
      * having to remember the initial order like you would with all().
      *
      */
-    export function hash<T>(promises: Thenable<T>[]): Promise<T[]>;
-    export function hash<T>(promises: any[]): Promise<T[]>;
+    export function hash<T>(promises: { [key: string]: Thenable<T> }): Promise<{ [key: string]: T }>;
+    export function hash<T>(promises: { [key: string]: any }): Promise<{ [key: string]: T }>;
 
     /**
      `RSVP.map` is similar to JavaScript's native `map` method, except that it
