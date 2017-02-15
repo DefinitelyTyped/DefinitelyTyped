@@ -34,7 +34,7 @@ declare namespace gapi.auth2 {
     signIn(options?: {
       app_package_name?: string;
       fetch_basic_profile?: boolean;
-      prompt?: boolean;
+      prompt?: string;
       scope?: string;
     }, optionBuilder?: SigninOptionsBuilder): any;
 
@@ -62,7 +62,7 @@ declare namespace gapi.auth2 {
     attachClickHandler(container: any, options: {
       app_package_name?: string;
       fetch_basic_profile?: boolean;
-      prompt?: boolean;
+      prompt?: string;
       scope?: string;
     }, onsuccess: (googleUser: GoogleUser) => any, onfailure: (reason: string) => any): any;
   }
@@ -167,7 +167,7 @@ declare namespace gapi.auth2 {
     signIn(options?: {
       app_package_name?: string;
       fetch_basic_profile?: boolean;
-      prompt?: boolean;
+      prompt?: string;
       scope?: string;
     }, optionBuilder?: SigninOptionsBuilder): any;
 
@@ -177,7 +177,7 @@ declare namespace gapi.auth2 {
     grant(options?: {
       app_package_name?: string;
       fetch_basic_profile?: boolean;
-      prompt?: boolean;
+      prompt?: string;
       scope?: string;
     }, optionBuilder?: SigninOptionsBuilder): any;
 

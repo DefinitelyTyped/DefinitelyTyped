@@ -19,6 +19,13 @@ function test_getAuthInstance(){
   var auth = gapi.auth2.getAuthInstance();
 }
 
+function test_signIn(){
+  gapi.auth2.getAuthInstance().signIn({
+    scope: 'email profile',
+    prompt: 'content'
+  });
+}
+
 function test_getAuthResponse(){
   var user = gapi.auth2.getAuthInstance().currentUser.get();
   var authResponse = user.getAuthResponse();
