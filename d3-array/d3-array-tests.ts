@@ -55,7 +55,7 @@ let mixedOrUndefinedExtent: [d3Array.Primitive | NumCoercible, d3Array.Primitive
 let dateOrUndefinedExtent: [Date, Date] | [undefined, undefined];
 
 let numbersArray = [10, 20, 30, 40, 50];
-let numbersOrUndefinedArray = [10, 20, undefined, 40, 50];
+let numbersOrUndefinedArray = [10, 20, undefined, null, 40, 50];
 let stringyNumbersArray = ['10', '20', '30', '40', '50'];
 let numericArray = [new NumCoercible(10), new NumCoercible(20), new NumCoercible(30), new NumCoercible(40), new NumCoercible(50)];
 let dateArray = [new Date(2016, 6, 1), new Date(2016, 7, 30), new Date(2015, 3, 15)];
@@ -84,8 +84,12 @@ function accessorMixedObjectToDate(datum: MixedObject, index: number, array: Arr
     return datum.date;
 }
 
-function accessorMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: Array<MixedObject | undefined>): number | undefined {
+function accessorMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: Array<MixedObject | undefined>): number | undefined | null {
     return datum ? datum.num : undefined;
+}
+
+function accessorMixedObjectToStrOrUndefined(datum: MixedObject | undefined, index: number, array: Array<MixedObject>): string | undefined | null {
+    return datum ? datum.str : undefined;
 }
 
 // -----------------------------------------------------------------------------
@@ -107,6 +111,8 @@ numOrUndefined = d3Array.max(mixedObjectArray, accessorMixedObjectToNum);
 strOrUndefined = d3Array.max(mixedObjectArray, accessorMixedObjectToStr);
 numericOrUndefined = d3Array.max(mixedObjectArray, accessorMixedObjectToNumeric);
 dateOrUndefined = d3Array.max(mixedObjectArray, accessorMixedObjectToDate);
+numOrUndefined = d3Array.max(mixedObjectArray, accessorMixedObjectToNumOrUndefined);
+strOrUndefined = d3Array.max(mixedObjectArray, accessorMixedObjectToStrOrUndefined);
 
 // min() -----------------------------------------------------------------------
 
@@ -123,6 +129,8 @@ numOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToNum);
 strOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToStr);
 numericOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToNumeric);
 dateOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToDate);
+numOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToNumOrUndefined);
+strOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToStrOrUndefined);
 
 // extent() --------------------------------------------------------------------
 
@@ -139,6 +147,8 @@ numOrUndefinedExtent = d3Array.extent(mixedObjectArray, accessorMixedObjectToNum
 strOrUndefinedExtent = d3Array.extent(mixedObjectArray, accessorMixedObjectToStr);
 mixedOrUndefinedExtent = d3Array.extent(mixedObjectArray, accessorMixedObjectToNumeric);
 dateMixedOrUndefined = d3Array.extent(mixedObjectArray, accessorMixedObjectToDate);
+numOrUndefinedExtent = d3Array.extent(mixedObjectArray, accessorMixedObjectToNumOrUndefined);
+strOrUndefinedExtent = d3Array.extent(mixedObjectArray, accessorMixedObjectToStrOrUndefined);
 
 // mean() ----------------------------------------------------------------------
 
