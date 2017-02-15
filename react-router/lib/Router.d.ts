@@ -36,8 +36,8 @@ export type ChangeHook = (prevState: RouterState, nextState: RouterState, replac
 export type RouteHook = (nextLocation?: Location) => any;
 
 export interface RedirectFunction {
-    (location: LocationDescriptor): void;
-    (state: LocationState, pathname: Pathname | Path, query?: Query): void;
+    (location: LocationDescriptor): undefined;
+    (state: LocationState, pathname: Pathname | Path, query?: Query): undefined;
 }
 
 export interface RouterState {
@@ -47,11 +47,11 @@ export interface RouterState {
     components: RouteComponent[];
 }
 
-type LocationFunction = (location: LocationDescriptor) => void;
-type GoFunction = (n: number) => void;
-type NavigateFunction = () => void;
+type LocationFunction = (location: LocationDescriptor) => undefined;
+type GoFunction = (n: number) => undefined;
+type NavigateFunction = () => undefined;
 type ActiveFunction = (location: LocationDescriptor, indexOnly?: boolean) => boolean;
-type LeaveHookFunction = (route: any, callback: RouteHook) => void;
+type LeaveHookFunction = (route: any, callback: RouteHook) => undefined;
 type CreatePartFunction<Part> = (path: Path, query?: any) => Part;
 
 export interface InjectedRouter {

@@ -51,7 +51,7 @@ export interface SyncHistoryWithStoreOptions {
 }
 
 export interface HistoryUnsubscribe {
-    unsubscribe(): void;
+    unsubscribe(): undefined;
 }
 
 export function routerReducer(state?: RouterState, action?: Action): RouterState;
