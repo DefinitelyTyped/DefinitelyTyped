@@ -1,5 +1,7 @@
 import * as Ably from 'ably';
 
+declare var console: { log(message: any): void };
+
 const ApiKey = 'appId.keyId:secret';
 const client = new Ably.Realtime(ApiKey);
 const restClient = new Ably.Rest(ApiKey);

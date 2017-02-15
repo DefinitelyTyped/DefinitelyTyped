@@ -1,5 +1,7 @@
 import * as RangeParser from 'range-parser';
 
+declare var console: { assert(b: boolean): void };
+
 console.assert(RangeParser(200, `malformed`) === RangeParser.Result.invaild);
 console.assert(RangeParser(200, `bytes=500-20`) === RangeParser.Result.unsatisifiable);
 
