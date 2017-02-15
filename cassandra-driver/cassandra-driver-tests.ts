@@ -10,7 +10,6 @@ client.execute(query, ['guy'], function(err: any, result: any) {
   console.log('got user profile with email ' + result.rows[0].email);
 });
 
-async function promiseInterface() {
-  const result = await client.execute(query, ['guy'])
-  console.log('got user profile with email ' + result.rows[0].email);
-}
+var result = client.execute(query, ['guy'])
+  .then((result) =>
+        console.log('got user profile with email ' + result.first().get('email')));

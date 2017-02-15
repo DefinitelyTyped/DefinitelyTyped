@@ -505,15 +505,22 @@ export interface Client extends events.EventEmitter {
   keyspace: string;
   metadata: metadata.Metadata;
 
-  batch(queries: Array<string> | Array<{ query: string, params?: any }>, options?: QueryOptions, callback: ResultCallback): void;
-  batch(queries: Array<string> | Array<{ query: string, params?: any }>, options?: QueryOptions): Promise<ResultSet>;
+  batch(queries: Array<string> | Array<{ query: string, params?: any }>, options: QueryOptions, callback: ResultCallback): void;
+  batch(queries: Array<string> | Array<{ query: string, params?: any }>, callback: ResultCallback): void;
+  batch(queries: Array<string> | Array<{ query: string, params?: any }>, options?: QueryOptions): Promise<types.ResultSet>;
   connect(callback: Callback): void;
   connect(): Promise<void>;
   eachRow(query: string, params?: any, options?: QueryOptions, rowCallback?: Callback, callback?: Callback): void;
-  execute(query: string, params?: any, options?: QueryOptions, callback: ResultCallback): void;
-  execute(query: string, params?: any, options?: QueryOptions): Promise<ResultSet>;
+  execute(query: string, params: any, options: QueryOptions, callback: ResultCallback): void;
+  execute(query: string, options: QueryOptions, callback: ResultCallback): void;
+  execute(query: string, params: any, callback: ResultCallback): void;
+  execute(query: string, callback: ResultCallback): void;
+  execute(query: string, params: any, options: QueryOptions): Promise<types.ResultSet>;
+  execute(query: string, options: QueryOptions): Promise<types.ResultSet>;
+  execute(query: string, params?: any): Promise<types.ResultSet>;
+  execute(query: string): Promise<types.ResultSet>;
   getReplicas(keyspace: string, token: Buffer): Array<any>; // TODO: Should this be a more explicit return?
-  shutdown(callback?: Callback): void;
+  shutdown(callback: Callback): void;
   shutdown(): Promise<void>;
   stream(query: string, params?: any, options?: QueryOptions, callback?: Callback): NodeJS.ReadableStream;
 }
