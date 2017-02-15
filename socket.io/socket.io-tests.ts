@@ -143,3 +143,14 @@ function testUsingItJustAsACrossBrowserWebSocket() {
         socket.on('disconnect', function () { });
     });
 }
+
+function testClosingServerWithCallback() {
+    var io = socketIO.listen(80);
+    io.close(function() {
+    });
+}
+
+function testClosingServerWithoutCallback() {
+    var io = socketIO.listen(80);
+    io.close();
+}
