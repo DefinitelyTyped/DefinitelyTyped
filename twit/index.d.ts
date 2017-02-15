@@ -241,6 +241,8 @@ declare module 'twit' {
       id?: string,
       slug?: string,
       status?: string,
+
+      user_id: string;
     }
     export interface PromiseResponse {
       data: Response,
