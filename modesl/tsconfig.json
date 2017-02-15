@@ -1,10 +1,8 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6",
-            "dom"
-        ],
+        "target": "es6",
+        "lib": ["es6"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -18,6 +16,6 @@
     },
     "files": [
         "index.d.ts",
-        "dropkickjs-tests.ts"
+        "modesl-tests.ts"
     ]
 }
