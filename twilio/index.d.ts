@@ -10,9 +10,7 @@ import Express = require("express");
 import Http = require("http");
 import Q = require("q");
 
-declare interface twilio {
-  (sid?: string, tkn?: string, options?: twilio.ClientOptions): twilio.RestClient;
-}
+declare function twilio(sid?: string, tkn?: string, options?: twilio.ClientOptions): twilio.RestClient;
 
 declare namespace twilio {
 
