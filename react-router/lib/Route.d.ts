@@ -20,8 +20,8 @@ declare const Route: Route;
 
 export default Route;
 
-type RouteCallback = (err: any, route: PlainRoute) => undefined;
-type RoutesCallback = (err: any, routesArray: PlainRoute[]) => undefined;
+type RouteCallback = (err: any, route: PlainRoute) => any;
+type RoutesCallback = (err: any, routesArray: PlainRoute[]) => any;
 
 export interface PlainRoute extends RouteProps {
     childRoutes?: PlainRoute[];

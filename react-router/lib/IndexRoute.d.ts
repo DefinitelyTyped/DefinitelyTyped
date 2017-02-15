@@ -9,8 +9,8 @@ import {
     RouterState
 } from "react-router";
 
-type ComponentCallback = (err: any, component: RouteComponent) => undefined;
-type ComponentsCallback = (err: any, components: RouteComponents) => undefined;
+type ComponentCallback = (err: any, component: RouteComponent) => any;
+type ComponentsCallback = (err: any, components: RouteComponents) => any;
 
 export interface IndexRouteProps {
     component?: RouteComponent;

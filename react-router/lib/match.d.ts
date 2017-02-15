@@ -18,6 +18,6 @@ interface MatchHistoryArgs extends MatchArgs {
     history: History;
 }
 
-export type MatchCallback = (error: any, redirectLocation: Location, renderProps: any) => undefined;
+export type MatchCallback = (error: any, redirectLocation: Location, renderProps: any) => any;
 
 export default function match(args: MatchLocationArgs | MatchHistoryArgs, cb: MatchCallback): undefined;

@@ -27,7 +27,7 @@ import { createHistory, History } from "history";
 const routerHistory = useRouterHistory(createHistory)({ basename: "/test" })
 
 interface CustomHistory {
-	test(): void;
+	test(): undefined;
 }
 
 type CombinedHistory = History & CustomHistory

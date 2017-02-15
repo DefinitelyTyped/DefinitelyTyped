@@ -47,11 +47,11 @@ export interface RouterState {
     components: RouteComponent[];
 }
 
-type LocationFunction = (location: LocationDescriptor) => undefined;
-type GoFunction = (n: number) => undefined;
-type NavigateFunction = () => undefined;
+type LocationFunction = (location: LocationDescriptor) => any;
+type GoFunction = (n: number) => any;
+type NavigateFunction = () => any;
 type ActiveFunction = (location: LocationDescriptor, indexOnly?: boolean) => boolean;
-type LeaveHookFunction = (route: any, callback: RouteHook) => undefined;
+type LeaveHookFunction = (route: any, callback: RouteHook) => any;
 type CreatePartFunction<Part> = (path: Path, query?: any) => Part;
 
 export interface InjectedRouter {

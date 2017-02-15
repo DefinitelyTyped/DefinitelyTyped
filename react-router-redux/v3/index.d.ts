@@ -19,11 +19,11 @@ export const goForward: GoBackAction;
 export const routeActions: RouteActions;
 
 export type LocationDescriptor = History.LocationDescriptor;
-export type PushAction = (nextLocation: LocationDescriptor) => undefined;
-export type ReplaceAction = (nextLocation: LocationDescriptor) => undefined;
-export type GoAction = (n: number) => undefined;
-export type GoForwardAction = () => undefined;
-export type GoBackAction = () => undefined;
+export type PushAction = (nextLocation: LocationDescriptor) => any;
+export type ReplaceAction = (nextLocation: LocationDescriptor) => any;
+export type GoAction = (n: number) => any;
+export type GoForwardAction = () => any;
+export type GoBackAction = () => any;
 
 export interface RouteActions {
     push: PushAction;
