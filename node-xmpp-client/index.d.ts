@@ -1,4 +1,4 @@
-// Type definitions for Node Xmpp Client 3.1.3
+// Type definitions for node-xmpp-client 3.1
 // Project: https://github.com/node-xmpp/node-xmpp/tree/master/packages/node-xmpp-client/
 // Definitions by: PJakcson <https://github.com/PJakcson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,9 +9,6 @@ export declare class Client {
 
     constructor(options: XmppOptions);
 
-    /**
-     * Connect to Xmpp-Server
-     */
     connect(): void;
 
     disconnect(): void;
@@ -19,11 +16,10 @@ export declare class Client {
     on(event: string, c: (err: any, r: any) => any): void;
 
     send(stanza: any): void;
-
-    end(): void;
 }
 
 interface Stanza extends Element {
+    // tslint:disable-next-line
     new(name: string, attr: any): Stanza;
     from: string;
     to: string;
@@ -68,6 +64,6 @@ interface XmppOptions {
 }
 
 interface Bosh {
-    url?: string
-    prebind?: (error, data) => void;
+    url?: string;
+    prebind?: (error: any, data: any) => void;
 }
