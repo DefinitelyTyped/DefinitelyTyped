@@ -1,5 +1,3 @@
-/// <reference path="he.d.ts" />
-
 import he = require('he');
 
 function main() {

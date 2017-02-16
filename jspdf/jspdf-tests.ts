@@ -1,4 +1,4 @@
-/// <reference path="jspdf.d.ts" />
+
 
 // From: https://mrrio.github.io/jsPDF/examples/basic.html
 

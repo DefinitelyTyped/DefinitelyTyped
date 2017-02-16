@@ -1,5 +1,3 @@
-/// <reference path="fullpage.js.d.ts" />
-
 function test_public_methods() {
     $(() => {
         $('#fullpage').fullpage({

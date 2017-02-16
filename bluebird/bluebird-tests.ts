@@ -1,5 +1,3 @@
-///<reference path="bluebird.d.ts"/>
-
 // Tests by: Bart van der Schoor <https://github.com/Bartvds>
 
 // Note: replicate changes to all overloads in both definition and test file
@@ -799,7 +797,6 @@ fooProm = Promise.race(fooArr);
 
 //TODO expand tests to overloads
 fooArrProm = Promise.some(fooThenArrThen, num);
-fooArrProm = Promise.some(fooArrThen, num);
 fooArrProm = Promise.some(fooThenArr, num);
 fooArrProm = Promise.some(fooArr, num);
 

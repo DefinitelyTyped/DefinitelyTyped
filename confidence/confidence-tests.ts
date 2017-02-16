@@ -1,4 +1,3 @@
-/// <reference path="confidence.d.ts" />
 
 import Confidence = require('confidence');
 

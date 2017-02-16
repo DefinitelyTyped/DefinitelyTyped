@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Tests taken from documentation samples.
 
-/// <reference path="serialport.d.ts" />
-
 import * as SerialPort from 'serialport';
 
 function test_basic_connect() {

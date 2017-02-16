@@ -1,4 +1,4 @@
-/// <reference path="velocity-animate.d.ts" />
+
 
 function basics_arguments() {
 	var $el: JQuery;
@@ -23,6 +23,7 @@ function basics_arguments() {
 	$el.velocity({ top: 50 }, 1000, "swing");
 	$el.velocity({ top: 50 }, "swing");
 	$el.velocity({ top: 50 }, 1000, function() { alert("Hi"); });
+	$.Velocity.mock = 1;
 
 	$el.velocity({
 		properties: { opacity: 1 },

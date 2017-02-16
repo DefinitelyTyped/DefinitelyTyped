@@ -1,5 +1,5 @@
-/// <reference path="archiver.d.ts" />
-/// <reference path="../node/node.d.ts" />
+
+/// <reference types="node" />
 
 import Archiver = require('archiver');
 import FS = require('fs');
@@ -12,7 +12,6 @@ var readStream = FS.createReadStream('./archiver.d.ts');
 archiver.pipe(writeStream);
 archiver.append(readStream, {name: 'archiver.d.ts'});
 archiver.finalize();
-
 
 archiver.directory('./path', './someOtherPath');
 archiver.directory('./path', { name: "testName"} );

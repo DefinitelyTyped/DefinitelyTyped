@@ -1,5 +1,3 @@
-/// <reference path="./react-flex.d.ts" />
-
 import { Flex, Item } from "react-flex";
 import * as React from "react";
 

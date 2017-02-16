@@ -1,5 +1,3 @@
-/// <reference path="./angular-ui-router-uib-modal.d.ts" />
-
 angular.module("test", [
 	"ui.bootstrap",
 	"ui.router",

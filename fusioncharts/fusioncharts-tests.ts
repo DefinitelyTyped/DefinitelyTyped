@@ -1,4 +1,4 @@
-/// <reference path="fusioncharts.d.ts" />
+import * as FusionCharts from "fusioncharts";
 
 FusionCharts.addEventListener('ready',(eventObject)=>{
     eventObject.stopPropagation();

@@ -1,5 +1,3 @@
-/// <reference path="react-syntax-highlighter.d.ts" />
-
 import * as React from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/styles';
@@ -16,5 +14,5 @@ function highlighter(): JSX.Element {
     }
 }
 `;
-  return <SyntaxHighlighter language='javascript' style={docco}>{codeString}</SyntaxHighlighter>;  
+  return <SyntaxHighlighter language='javascript' style={docco}>{codeString}</SyntaxHighlighter>;
 }

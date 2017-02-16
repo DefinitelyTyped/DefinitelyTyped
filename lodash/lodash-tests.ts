@@ -1,5 +1,3 @@
-/// <reference path="lodash.d.ts" />
-
 declare var $: any, jQuery: any;
 
 interface IFoodOrganic {
@@ -3532,49 +3530,49 @@ namespace TestEvery {
         result = _.every<SampleObject>(array, listIterator);
         result = _.every<SampleObject>(array, 'a');
         result = _.every<SampleObject>(array, ['a', 42]);
-        result = _.every<{a: number}, SampleObject>(array, {a: 42});
+        result = _.every<SampleObject>(array, {a: 42});
 
         result = _.every<SampleObject>(list);
         result = _.every<SampleObject>(list, listIterator);
         result = _.every<SampleObject>(list, 'a');
         result = _.every<SampleObject>(list, ['a', 42]);
-        result = _.every<{a: number}, SampleObject>(list, {a: 42});
+        result = _.every<SampleObject>(list, {a: 42});
 
         result = _.every<SampleObject>(dictionary);
         result = _.every<SampleObject>(dictionary, dictionaryIterator);
         result = _.every<SampleObject>(dictionary, 'a');
         result = _.every<SampleObject>(dictionary, ['a', 42]);
-        result = _.every<{a: number}, SampleObject>(dictionary, {a: 42});
+        result = _.every<SampleObject>(dictionary, {a: 42});
 
         result = _.every<SampleObject>(numericDictionary);
         result = _.every<SampleObject>(numericDictionary, numericDictionaryIterator);
         result = _.every<SampleObject>(numericDictionary, 'a');
         result = _.every<SampleObject>(numericDictionary, ['a', 42]);
-        result = _.every<{a: number}, SampleObject>(numericDictionary, {a: 42});
+        result = _.every<SampleObject>(numericDictionary, {a: 42});
 
         result = _(array).every();
         result = _(array).every(listIterator);
         result = _(array).every('a');
         result = _(array).every(['a', 42]);
-        result = _(array).every<{a: number}>({a: 42});
+        result = _(array).every({a: 42});
 
         result = _(list).every<SampleObject>();
         result = _(list).every<SampleObject>(listIterator);
         result = _(list).every('a');
         result = _(list).every(['a', 42]);
-        result = _(list).every<{a: number}>({a: 42});
+        result = _(list).every({a: 42});
 
         result = _(dictionary).every<SampleObject>();
         result = _(dictionary).every<SampleObject>(dictionaryIterator);
         result = _(dictionary).every('a');
         result = _(dictionary).every(['a', 42]);
-        result = _(dictionary).every<{a: number}>({a: 42});
+        result = _(dictionary).every({a: 42});
 
         result = _(numericDictionary).every<SampleObject>();
         result = _(numericDictionary).every<SampleObject>(numericDictionaryIterator);
         result = _(numericDictionary).every('a');
         result = _(numericDictionary).every(['a', 42]);
-        result = _(numericDictionary).every<{a: number}>({a: 42});
+        result = _(numericDictionary).every({a: 42});
     }
 
     {
@@ -3584,19 +3582,19 @@ namespace TestEvery {
         result = _(array).chain().every(listIterator);
         result = _(array).chain().every('a');
         result = _(array).chain().every(['a', 42]);
-        result = _(array).chain().every<{a: number}>({a: 42});
+        result = _(array).chain().every({a: 42});
 
         result = _(list).chain().every<SampleObject>();
         result = _(list).chain().every<SampleObject>(listIterator);
         result = _(list).chain().every('a');
         result = _(list).chain().every(['a', 42]);
-        result = _(list).chain().every<{a: number}>({a: 42});
+        result = _(list).chain().every<SampleObject>({a: 42});
 
         result = _(dictionary).chain().every<SampleObject>();
         result = _(dictionary).chain().every<SampleObject>(dictionaryIterator);
         result = _(dictionary).chain().every('a');
         result = _(dictionary).chain().every(['a', 42]);
-        result = _(dictionary).chain().every<{a: number}>({a: 42});
+        result = _(dictionary).chain().every<SampleObject>({a: 42});
 
         result = _(numericDictionary).chain().every<SampleObject>();
         result = _(numericDictionary).chain().every<SampleObject>(numericDictionaryIterator);
@@ -3627,15 +3625,15 @@ namespace TestFilter {
 
         result = _.filter<TResult>(array, listIterator);
         result = _.filter<TResult>(array, '');
-        result = _.filter<{a: number}, TResult>(array, {a: 42});
+        result = _.filter<TResult>(array, {a: 42});
 
         result = _.filter<TResult>(list, listIterator);
         result = _.filter<TResult>(list, '');
-        result = _.filter<{a: number}, TResult>(list, {a: 42});
+        result = _.filter<TResult>(list, {a: 42});
 
         result = _.filter<TResult>(dictionary, dictionaryIterator);
         result = _.filter<TResult>(dictionary, '');
-        result = _.filter<{a: number}, TResult>(dictionary, {a: 42});
+        result = _.filter<TResult>(dictionary, {a: 42});
     }
 
     {
@@ -3649,15 +3647,15 @@ namespace TestFilter {
 
         result = _(array).filter(listIterator);
         result = _(array).filter('');
-        result = _(array).filter<{a: number}>({a: 42});
+        result = _(array).filter({a: 42});
 
         result = _(list).filter<TResult>(listIterator);
         result = _(list).filter<TResult>('');
-        result = _(list).filter<{a: number}, TResult>({a: 42});
+        result = _(list).filter<TResult>({a: 42});
 
         result = _(dictionary).filter<TResult>(dictionaryIterator);
         result = _(dictionary).filter<TResult>('');
-        result = _(dictionary).filter<{a: number}, TResult>({a: 42});
+        result = _(dictionary).filter<TResult>({a: 42});
     }
 
     {
@@ -3671,15 +3669,15 @@ namespace TestFilter {
 
         result = _(array).chain().filter(listIterator);
         result = _(array).chain().filter('');
-        result = _(array).chain().filter<{a: number}>({a: 42});
+        result = _(array).chain().filter({a: 42});
 
         result = _(list).chain().filter<TResult>(listIterator);
         result = _(list).chain().filter<TResult>('');
-        result = _(list).chain().filter<{a: number}, TResult>({a: 42});
+        result = _(list).chain().filter<TResult>({a: 42});
 
         result = _(dictionary).chain().filter<TResult>(dictionaryIterator);
         result = _(dictionary).chain().filter<TResult>('');
-        result = _(dictionary).chain().filter<{a: number}, TResult>({a: 42});
+        result = _(dictionary).chain().filter<TResult>({a: 42});
     }
 }
 
@@ -3699,48 +3697,48 @@ namespace TestFind {
     result = _.find<TResult>(array, listIterator, 1);
     result = _.find<TResult>(array, '');
     result = _.find<TResult>(array, '', 1);
-    result = _.find<{a: number}, TResult>(array, {a: 42});
-    result = _.find<{a: number}, TResult>(array, {a: 42}, 1);
+    result = _.find<TResult>(array, {a: 42});
+    result = _.find<TResult>(array, {a: 42}, 1);
 
     result = _.find<TResult>(list);
     result = _.find<TResult>(list, listIterator);
     result = _.find<TResult>(list, listIterator, 1);
     result = _.find<TResult>(list, '');
     result = _.find<TResult>(list, '', 1);
-    result = _.find<{a: number}, TResult>(list, {a: 42});
-    result = _.find<{a: number}, TResult>(list, {a: 42}, 1);
+    result = _.find<TResult>(list, {a: 42});
+    result = _.find<TResult>(list, {a: 42}, 1);
 
     result = _.find<TResult>(dictionary);
     result = _.find<TResult>(dictionary, dictionaryIterator);
     result = _.find<TResult>(dictionary, dictionaryIterator, 1);
     result = _.find<TResult>(dictionary, '');
     result = _.find<TResult>(dictionary, '', 1);
-    result = _.find<{a: number}, TResult>(dictionary, {a: 42});
-    result = _.find<{a: number}, TResult>(dictionary, {a: 42}, 1);
+    result = _.find<TResult>(dictionary, {a: 42});
+    result = _.find<TResult>(dictionary, {a: 42}, 1);
 
     result = _(array).find();
     result = _(array).find(listIterator);
     result = _(array).find(listIterator, 1);
     result = _(array).find('');
     result = _(array).find('', 1);
-    result = _(array).find<{a: number}>({a: 42});
-    result = _(array).find<{a: number}>({a: 42}, 1);
+    result = _(array).find({a: 42});
+    result = _(array).find({a: 42}, 1);
 
     result = _(list).find<TResult>();
     result = _(list).find<TResult>(listIterator);
     result = _(list).find<TResult>(listIterator, 1);
     result = _(list).find<TResult>('');
     result = _(list).find<TResult>('', 1);
-    result = _(list).find<{a: number}, TResult>({a: 42});
-    result = _(list).find<{a: number}, TResult>({a: 42}, 1);
+    result = _(list).find<TResult>({a: 42});
+    result = _(list).find<TResult>({a: 42}, 1);
 
     result = _(dictionary).find<TResult>();
     result = _(dictionary).find<TResult>(dictionaryIterator);
     result = _(dictionary).find<TResult>(dictionaryIterator, 1);
     result = _(dictionary).find<TResult>('');
     result = _(dictionary).find<TResult>('', 1);
-    result = _(dictionary).find<{a: number}, TResult>({a: 42});
-    result = _(dictionary).find<{a: number}, TResult>({a: 42}, 1);
+    result = _(dictionary).find<TResult>({a: 42});
+    result = _(dictionary).find<TResult>({a: 42}, 1);
 }
 
 result = <number>_.findLast([1, 2, 3, 4], function (num) {
@@ -5016,25 +5014,25 @@ namespace TestSome {
         result = _.some<SampleObject>(array, listIterator);
         result = _.some<SampleObject>(array, 'a');
         result = _.some<SampleObject>(array, ['a', 42]);
-        result = _.some<{a: number}, SampleObject>(array, {a: 42});
+        result = _.some<SampleObject>(array, {a: 42});
 
         result = _.some<SampleObject>(list);
         result = _.some<SampleObject>(list, listIterator);
         result = _.some<SampleObject>(list, 'a');
         result = _.some<SampleObject>(list, ['a', 42]);
-        result = _.some<{a: number}, SampleObject>(list, {a: 42});
+        result = _.some<SampleObject>(list, {a: 42});
 
         result = _.some<SampleObject>(dictionary);
         result = _.some<SampleObject>(dictionary, dictionaryIterator);
         result = _.some<SampleObject>(dictionary, 'a');
         result = _.some<SampleObject>(dictionary, ['a', 42]);
-        result = _.some<{a: number}, SampleObject>(dictionary, {a: 42});
+        result = _.some<SampleObject>(dictionary, {a: 42});
 
         result = _.some<SampleObject>(numericDictionary);
         result = _.some<SampleObject>(numericDictionary, numericDictionaryIterator);
         result = _.some<SampleObject>(numericDictionary, 'a');
         result = _.some<SampleObject>(numericDictionary, ['a', 42]);
-        result = _.some<{a: number}, SampleObject>(numericDictionary, {a: 42});
+        result = _.some<SampleObject>(numericDictionary, {a: 42});
 
         result = _.some(sampleObject);
         result = _.some(sampleObject, objectIterator);
@@ -5046,31 +5044,31 @@ namespace TestSome {
         result = _(array).some(listIterator);
         result = _(array).some('a');
         result = _(array).some(['a', 42]);
-        result = _(array).some<{a: number}>({a: 42});
+        result = _(array).some({a: 42});
 
         result = _(list).some<SampleObject>();
         result = _(list).some<SampleObject>(listIterator);
         result = _(list).some('a');
         result = _(list).some(['a', 42]);
-        result = _(list).some<{a: number}>({a: 42});
+        result = _(list).some<SampleObject>({a: 42});
 
         result = _(dictionary).some<SampleObject>();
         result = _(dictionary).some<SampleObject>(dictionaryIterator);
         result = _(dictionary).some('a');
         result = _(dictionary).some(['a', 42]);
-        result = _(dictionary).some<{a: number}>({a: 42});
+        result = _(dictionary).some<SampleObject>({a: 42});
 
         result = _(numericDictionary).some<SampleObject>();
         result = _(numericDictionary).some<SampleObject>(numericDictionaryIterator);
         result = _(numericDictionary).some('a');
         result = _(numericDictionary).some(['a', 42]);
-        result = _(numericDictionary).some<{a: number}>({a: 42});
+        result = _(numericDictionary).some<SampleObject>({a: 42});
 
         result = _(sampleObject).some();
         result = _(sampleObject).some(objectIterator);
         result = _(sampleObject).some('a');
         result = _(sampleObject).some(['a', 42]);
-        result = _(sampleObject).some<{a: number}>({a: 42});
+        result = _(sampleObject).some<SampleObject>({a: 42});
     }
 
     {
@@ -5080,31 +5078,31 @@ namespace TestSome {
         result = _(array).chain().some(listIterator);
         result = _(array).chain().some('a');
         result = _(array).chain().some(['a', 42]);
-        result = _(array).chain().some<{a: number}>({a: 42});
+        result = _(array).chain().some({a: 42});
 
         result = _(list).chain().some<SampleObject>();
         result = _(list).chain().some<SampleObject>(listIterator);
         result = _(list).chain().some('a');
         result = _(list).chain().some(['a', 42]);
-        result = _(list).chain().some<{a: number}>({a: 42});
+        result = _(list).chain().some<SampleObject>({a: 42});
 
         result = _(dictionary).chain().some<SampleObject>();
         result = _(dictionary).chain().some<SampleObject>(dictionaryIterator);
         result = _(dictionary).chain().some('a');
         result = _(dictionary).chain().some(['a', 42]);
-        result = _(dictionary).chain().some<{a: number}>({a: 42});
+        result = _(dictionary).chain().some<SampleObject>({a: 42});
 
         result = _(numericDictionary).chain().some<SampleObject>();
         result = _(numericDictionary).chain().some<SampleObject>(numericDictionaryIterator);
         result = _(numericDictionary).chain().some('a');
         result = _(numericDictionary).chain().some(['a', 42]);
-        result = _(numericDictionary).chain().some<{a: number}>({a: 42});
+        result = _(numericDictionary).chain().some<SampleObject>({a: 42});
 
         result = _(sampleObject).chain().some();
         result = _(sampleObject).chain().some(objectIterator);
         result = _(sampleObject).chain().some('a');
         result = _(sampleObject).chain().some(['a', 42]);
-        result = _(sampleObject).chain().some<{a: number}>({a: 42});
+        result = _(sampleObject).chain().some<TResult>({a: 42});
     }
 }
 
@@ -6490,6 +6488,18 @@ namespace TestCloneWith {
     }
 }
 
+// _.conforms
+namespace TestConforms {
+    let result: boolean = _.conforms({foo: (v: string) => false})({foo: "foo"});
+    let result2: boolean = _.conforms({})({foo: "foo"});
+}
+
+// _.conformsTo
+namespace TestConformsTo {
+    let result: boolean = _.conformsTo({foo: "foo"}, {foo: (v: string) => false});
+    let result2: boolean = _.conformsTo({}, {foo: (v: string) => false});
+}
+
 // _.eq
 namespace TestEq {
     let customizer: (value: any, other: any, indexOrKey?: number|string) => boolean;
@@ -6896,7 +6906,9 @@ namespace TestIsError {
     }
 
     {
-        class CustomError extends Error {}
+        class CustomError extends Error {
+            custom: string
+        }
 
         let value: number|CustomError;
 
@@ -8600,128 +8612,128 @@ namespace TestDefaults {
   interface S4 { d: number };
   interface S5 { e: number };
 
-  let obj: Obj;
-  let s1: S1;
-  let s2: S2;
-  let s3: S3;
-  let s4: S4;
-  let s5: S5;
+    let obj: Obj;
+    let s1: S1;
+    let s2: S2;
+    let s3: S3;
+    let s4: S4;
+    let s5: S5;
 
-  {
-    let result: Obj;
+    {
+        let result: Obj;
 
     result = _.defaults(obj);
-  }
+    }
 
-  {
+    {
     let result: { a: string };
 
     result = _.defaults(obj, s1);
-  }
+    }
 
-  {
+    {
     let result: { a: string, b: number };
 
     result = _.defaults(obj, s1, s2);
-  }
+    }
 
-  {
+    {
     let result: { a: string, b: number, c: number };
 
     result = _.defaults(obj, s1, s2, s3);
-  }
+    }
 
-  {
+    {
     let result: { a: string, b: number, c: number, d: number };
 
     result = _.defaults(obj, s1, s2, s3, s4);
-  }
+    }
 
-  {
+    {
     let result: { a: string, b: number, c: number, d: number, e: number };
 
     result = _.defaults<{ a: string, b: number, c: number, d: number, e: number }>(obj, s1, s2, s3, s4, s5);
-  }
+    }
 
-  {
-    let result: _.LoDashImplicitObjectWrapper<Obj>;
+    {
+        let result: _.LoDashImplicitObjectWrapper<Obj>;
 
-    result = _(obj).defaults();
-  }
+        result = _(obj).defaults();
+    }
 
-  {
+    {
     let result: _.LoDashImplicitObjectWrapper<{ a: string }>;
 
     result = _(obj).defaults(s1);
-  }
+    }
 
-  {
+    {
     let result: _.LoDashImplicitObjectWrapper<{ a: string, b: number }>;
 
     result = _(obj).defaults(s1, s2);
-  }
+    }
 
-  {
+    {
     let result: _.LoDashImplicitObjectWrapper<{ a: string, b: number, c: number }>;
 
     result = _(obj).defaults(s1, s2, s3);
-  }
+    }
 
-  {
+    {
     let result: _.LoDashImplicitObjectWrapper<{ a: string, b: number, c: number, d: number }>;
 
     result = _(obj).defaults(s1, s2, s3, s4);
-  }
+    }
 
-  {
+    {
     let result: _.LoDashImplicitObjectWrapper<{ a: string, b: number, c: number, d: number, e: number }>;
 
     result = _(obj).defaults<{ a: string, b: number, c: number, d: number, e: number }>(s1, s2, s3, s4, s5);
-  }
+    }
 
-  {
-    let result: _.LoDashExplicitObjectWrapper<Obj>;
+    {
+        let result: _.LoDashExplicitObjectWrapper<Obj>;
 
-    result = _(obj).chain().defaults();
-  }
+        result = _(obj).chain().defaults();
+    }
 
-  {
+    {
     let result: _.LoDashExplicitObjectWrapper<{ a: string }>;
 
     result = _(obj).chain().defaults(s1);
-  }
+    }
 
-  {
+    {
     let result: _.LoDashExplicitObjectWrapper<{ a: string, b: number }>;
 
     result = _(obj).chain().defaults(s1, s2);
-  }
+    }
 
-  {
+    {
     let result: _.LoDashExplicitObjectWrapper<{ a: string, b: number, c: number }>;
 
     result = _(obj).chain().defaults(s1, s2, s3);
-  }
+    }
 
-  {
+    {
     let result: _.LoDashExplicitObjectWrapper<{ a: string, b: number, c: number, d: number }>;
 
     result = _(obj).chain().defaults(s1, s2, s3, s4);
-  }
+    }
 
-  {
+    {
     let result: _.LoDashExplicitObjectWrapper<{ a: string, b: number, c: number, d: number, e: number }>;
 
     result = _(obj).chain().defaults<{ a: string, b: number, c: number, d: number, e: number }>(s1, s2, s3, s4, s5);
-  }
+    }
 }
 
 //_.defaultsDeep
 interface DefaultsDeepResult {
-  user: {
-    name: string;
-    age: number;
-  }
+    user: {
+        name: string;
+        age: number;
+    }
 }
 var TestDefaultsDeepObject = { 'user': { 'name': 'barney' } };
 var TestDefaultsDeepSource = { 'user': { 'name': 'fred', 'age': 36 } };
@@ -10342,31 +10354,131 @@ namespace TestUpdate {
 
 // _.values
 namespace TestValues {
-    let object: _.Dictionary<TResult>;
+    type SampleObject = {a: {}};
 
     {
-        let result: TResult[];
+        let result: any[];
 
-        result = _.values(object);
+        result = _.values();
+        result = _.values(123);
+        result = _.values(true);
+        result = _.values(null);
     }
 
     {
-        let result: TResult[];
+        let result: string[];
 
-        // Without this type hint, this will fail to compile, as expected.
-        result = _.values<TResult>(new Object);
+        result = _.values('hi');
+        result = _.values(['h', 'i']);
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
+        let result: number[];
 
-        result = _(object).values<TResult>();
+        result = _.values([1, 2]);
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
+        let result: boolean[];
 
-        result = _(object).chain().values<TResult>();
+        result = _.values([true, false]);
+    }
+
+    {
+        let dict: _.Dictionary<SampleObject>;
+        let numDict: _.NumericDictionary<SampleObject>;
+        let list: _.List<SampleObject>;
+        let object: {a: SampleObject};
+        let result: SampleObject[];
+
+        result = _.values(dict);
+        result = _.values(numDict);
+        result = _.values(list);
+        result = _.values<SampleObject>(object);
+    }
+
+    // Implicit wrapper
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<any>;
+
+        result = _(123).values();
+        result = _(true).values();
+        result = _(null).values();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _('hi').values();
+        result = _(['h', 'i']).values();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<number>;
+
+        result = _([1, 2]).values();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<boolean>;
+
+        result = _([true, false]).values();
+    }
+
+    {
+        let dict: _.Dictionary<SampleObject>;
+        let numDict: _.NumericDictionary<SampleObject>;
+        let list: _.List<SampleObject>;
+        let object: {a: SampleObject};
+        let result: _.LoDashImplicitArrayWrapper<SampleObject>;
+
+        result = _(dict).values<SampleObject>();
+        result = _(numDict).values<SampleObject>();
+        result = _(list).values<SampleObject>();
+        result = _(object).values<SampleObject>();
+    }
+
+    // Explicit wrapper
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<any>;
+
+        result = _(123).chain().values();
+        result = _(true).chain().values();
+        result = _(null).chain().values();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _('hi').chain().values<string>();
+        result = _(['h', 'i']).chain().values();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<number>;
+
+        result = _([1, 2]).chain().values();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<boolean>;
+
+        result = _([true, false]).chain().values();
+    }
+
+    {
+        let dict: _.Dictionary<SampleObject>;
+        let numDict: _.NumericDictionary<SampleObject>;
+        let list: _.List<SampleObject>;
+        let object: {a: SampleObject};
+        let result: _.LoDashExplicitArrayWrapper<SampleObject>;
+
+        result = _(dict).chain().values<SampleObject>();
+        result = _(numDict).chain().values<SampleObject>();
+        result = _(list).chain().values<SampleObject>();
+        result = _(object).chain().values<SampleObject>();
     }
 }
 
@@ -11853,6 +11965,106 @@ namespace TestRangeRight {
     result = _({}).runInContext();
 }
 
+// _.stubArray
+{
+    {
+        let result: any[];
+
+        result = _.stubArray();
+        result = _(any).stubArray();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<any>;
+
+        result = _('a').chain().stubArray();
+        result = _([1]).chain().stubArray();
+        result = _<string>([]).chain().stubArray();
+        result = _({}).chain().stubArray();
+        result = _(any).chain().stubArray();
+    }
+}
+
+// _.stubFalse
+{
+    {
+        let result: boolean;
+
+        result = _.stubFalse();
+        result = _(any).stubFalse();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _('a').chain().stubFalse();
+        result = _([1]).chain().stubFalse();
+        result = _<string>([]).chain().stubFalse();
+        result = _({}).chain().stubFalse();
+        result = _(any).chain().stubFalse();
+    }
+}
+
+// _.stubObject
+{
+    {
+        let result: Object;
+
+        result = _.stubObject();
+        result = _(any).stubObject();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<Object>;
+
+        result = _('a').chain().stubObject();
+        result = _([1]).chain().stubObject();
+        result = _<string>([]).chain().stubObject();
+        result = _({}).chain().stubObject();
+        result = _(any).chain().stubObject();
+    }
+}
+
+// _.stubString
+{
+    {
+        let result: string;
+
+        result = _.stubString();
+        result = _(any).stubString();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('a').chain().stubString();
+        result = _([1]).chain().stubString();
+        result = _<string>([]).chain().stubString();
+        result = _({}).chain().stubString();
+        result = _(any).chain().stubString();
+    }
+}
+
+// _.stubTrue
+{
+    {
+        let result: boolean;
+
+        result = _.stubTrue();
+        result = _(any).stubTrue();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _('a').chain().stubTrue();
+        result = _([1]).chain().stubTrue();
+        result = _<string>([]).chain().stubTrue();
+        result = _({}).chain().stubTrue();
+        result = _(any).chain().stubTrue();
+    }
+}
+
 // _.times
 namespace TestTimes {
     let iteratee: (num: number) => TResult;
@@ -12041,579 +12253,4 @@ result = <_.TemplateSettings>_.templateSettings;
     res_2__ = _.partialRight(func4, 42,     _, true, 100);
     res1___ = _.partialRight(func4,     "foo", true, 100);
     res____ = _.partialRight(func4, 42, "foo", true, 100);
-}
-
-/***************************
- *  method_modules_tests   *
- ***************************/
-
-import afterFunc = require("lodash.after");
-import aryFunc = require("lodash.ary");
-import assignFunc = require("lodash.assign");
-import assignInFunc = require("lodash.assignIn");
-import assignInWithFunc = require("lodash.assignInWith");
-import assignWithFunc = require("lodash.assignWith");
-import atFunc = require("lodash.at");
-import beforeFunc = require("lodash.before");
-import bindFunc = require("lodash.bind");
-import bindAllFunc = require("lodash.bindAll");
-import bindKeyFunc = require("lodash.bindKey");
-import castArrayFunc = require("lodash.castArray");
-import chainFunc = require("lodash.chain");
-import chunkFunc = require("lodash.chunk");
-import compactFunc = require("lodash.compact");
-import concatFunc = require("lodash.concat");
-import constantFunc = require("lodash.constant");
-import countByFunc = require("lodash.countBy");
-import createFunc = require("lodash.create");
-import curryFunc = require("lodash.curry");
-import curryRightFunc = require("lodash.curryRight");
-import debounceFunc = require("lodash.debounce");
-import defaultsFunc = require("lodash.defaults");
-import defaultsDeepFunc = require("lodash.defaultsDeep");
-import deferFunc = require("lodash.defer");
-import delayFunc = require("lodash.delay");
-import differenceFunc = require("lodash.difference");
-import differenceByFunc = require("lodash.differenceBy");
-import differenceWithFunc = require("lodash.differenceWith");
-import dropFunc = require("lodash.drop");
-import dropRightFunc = require("lodash.dropRight");
-import dropRightWhileFunc = require("lodash.dropRightWhile");
-import dropWhileFunc = require("lodash.dropWhile");
-import fillFunc = require("lodash.fill");
-import filterFunc = require("lodash.filter");
-import flatMapFunc = require("lodash.flatMap");
-import flattenFunc = require("lodash.flatten");
-import flattenDeepFunc = require("lodash.flattenDeep");
-import flattenDepthFunc = require("lodash.flattenDepth");
-import flipFunc = require("lodash.flip");
-import flowFunc = require("lodash.flow");
-import flowRightFunc = require("lodash.flowRight");
-import fromPairsFunc = require("lodash.fromPairs");
-import functionsFunc = require("lodash.functions");
-import functionsInFunc = require("lodash.functionsIn");
-import groupByFunc = require("lodash.groupBy");
-import initialFunc = require("lodash.initial");
-import intersectionFunc = require("lodash.intersection");
-import intersectionByFunc = require("lodash.intersectionBy");
-import intersectionWithFunc = require("lodash.intersectionWith");
-import invertFunc = require("lodash.invert");
-import invertByFunc = require("lodash.invertBy");
-import invokeMapFunc = require("lodash.invokeMap");
-import iterateeFunc = require("lodash.iteratee");
-import keyByFunc = require("lodash.keyBy");
-import keysFunc = require("lodash.keys");
-import keysInFunc = require("lodash.keysIn");
-import mapFunc = require("lodash.map");
-import mapKeysFunc = require("lodash.mapKeys");
-import mapValuesFunc = require("lodash.mapValues");
-import matchesFunc = require("lodash.matches");
-import matchesPropertyFunc = require("lodash.matchesProperty");
-import memoizeFunc = require("lodash.memoize");
-import mergeFunc = require("lodash.merge");
-import mergeWithFunc = require("lodash.mergeWith");
-import methodFunc = require("lodash.method");
-import methodOfFunc = require("lodash.methodOf");
-import mixinFunc = require("lodash.mixin");
-import negateFunc = require("lodash.negate");
-import nthArgFunc = require("lodash.nthArg");
-import omitFunc = require("lodash.omit");
-import omitByFunc = require("lodash.omitBy");
-import onceFunc = require("lodash.once");
-import orderByFunc = require("lodash.orderBy");
-import overFunc = require("lodash.over");
-import overArgsFunc = require("lodash.overArgs");
-import overEveryFunc = require("lodash.overEvery");
-import overSomeFunc = require("lodash.overSome");
-import partialFunc = require("lodash.partial");
-import partialRightFunc = require("lodash.partialRight");
-import partitionFunc = require("lodash.partition");
-import pickFunc = require("lodash.pick");
-import pickByFunc = require("lodash.pickBy");
-import propertyFunc = require("lodash.property");
-import propertyOfFunc = require("lodash.propertyOf");
-import pullFunc = require("lodash.pull");
-import pullAllFunc = require("lodash.pullAll");
-import pullAllByFunc = require("lodash.pullAllBy");
-import pullAtFunc = require("lodash.pullAt");
-import rangeFunc = require("lodash.range");
-import rangeRightFunc = require("lodash.rangeRight");
-import reargFunc = require("lodash.rearg");
-import rejectFunc = require("lodash.reject");
-import removeFunc = require("lodash.remove");
-import restFunc = require("lodash.rest");
-import reverseFunc = require("lodash.reverse");
-import sampleSizeFunc = require("lodash.sampleSize");
-import setFunc = require("lodash.set");
-import setWithFunc = require("lodash.setWith");
-import shuffleFunc = require("lodash.shuffle");
-import sliceFunc = require("lodash.slice");
-import sortByFunc = require("lodash.sortBy");
-import sortedUniqFunc = require("lodash.sortedUniq");
-import sortedUniqByFunc = require("lodash.sortedUniqBy");
-import splitFunc = require("lodash.split");
-import spreadFunc = require("lodash.spread");
-import tailFunc = require("lodash.tail");
-import takeFunc = require("lodash.take");
-import takeRightFunc = require("lodash.takeRight");
-import takeRightWhileFunc = require("lodash.takeRightWhile");
-import takeWhileFunc = require("lodash.takeWhile");
-import tapFunc = require("lodash.tap");
-import throttleFunc = require("lodash.throttle");
-import thruFunc = require("lodash.thru");
-import toArrayFunc = require("lodash.toArray");
-import toPairsFunc = require("lodash.toPairs");
-import toPairsInFunc = require("lodash.toPairsIn");
-import toPathFunc = require("lodash.toPath");
-import toPlainObjectFunc = require("lodash.toPlainObject");
-import transformFunc = require("lodash.transform");
-import unaryFunc = require("lodash.unary");
-import unionFunc = require("lodash.union");
-import unionByFunc = require("lodash.unionBy");
-import unionWithFunc = require("lodash.unionWith");
-import uniqFunc = require("lodash.uniq");
-import uniqByFunc = require("lodash.uniqBy");
-import uniqWithFunc = require("lodash.uniqWith");
-import unsetFunc = require("lodash.unset");
-import unzipFunc = require("lodash.unzip");
-import unzipWithFunc = require("lodash.unzipWith");
-import updateFunc = require("lodash.update");
-import valuesFunc = require("lodash.values");
-import valuesInFunc = require("lodash.valuesIn");
-import withoutFunc = require("lodash.without");
-import wordsFunc = require("lodash.words");
-import wrapFunc = require("lodash.wrap");
-import xorFunc = require("lodash.xor");
-import xorByFunc = require("lodash.xorBy");
-import xorWithFunc = require("lodash.xorWith");
-import zipFunc = require("lodash.zip");
-import zipObjectFunc = require("lodash.zipObject");
-import zipWithFunc = require("lodash.zipWith");
-import extendFunc = require("lodash.extend");
-import extendWithFunc = require("lodash.extendWith");
-import addFunc = require("lodash.add");
-import attemptFunc = require("lodash.attempt");
-import camelCaseFunc = require("lodash.camelCase");
-import capitalizeFunc = require("lodash.capitalize");
-import ceilFunc = require("lodash.ceil");
-import clampFunc = require("lodash.clamp");
-import cloneFunc = require("lodash.clone");
-import cloneDeepFunc = require("lodash.cloneDeep");
-import cloneDeepWithFunc = require("lodash.cloneDeepWith");
-import cloneWithFunc = require("lodash.cloneWith");
-import deburrFunc = require("lodash.deburr");
-import endsWithFunc = require("lodash.endsWith");
-import eqFunc = require("lodash.eq");
-import escapeFunc = require("lodash.escape");
-import escapeRegExpFunc = require("lodash.escapeRegExp");
-import everyFunc = require("lodash.every");
-import findFunc = require("lodash.find");
-import findIndexFunc = require("lodash.findIndex");
-import findKeyFunc = require("lodash.findKey");
-import findLastFunc = require("lodash.findLast");
-import findLastIndexFunc = require("lodash.findLastIndex");
-import findLastKeyFunc = require("lodash.findLastKey");
-import floorFunc = require("lodash.floor");
-import forEachFunc = require("lodash.forEach");
-import forEachRightFunc = require("lodash.forEachRight");
-import forInFunc = require("lodash.forIn");
-import forInRightFunc = require("lodash.forInRight");
-import forOwnFunc = require("lodash.forOwn");
-import forOwnRightFunc = require("lodash.forOwnRight");
-import getFunc = require("lodash.get");
-import gtFunc = require("lodash.gt");
-import gteFunc = require("lodash.gte");
-import hasFunc = require("lodash.has");
-import hasInFunc = require("lodash.hasIn");
-import headFunc = require("lodash.head");
-import identityFunc = require("lodash.identity");
-import includesFunc = require("lodash.includes");
-import indexOfFunc = require("lodash.indexOf");
-import inRangeFunc = require("lodash.inRange");
-import invokeFunc = require("lodash.invoke");
-import isArgumentsFunc = require("lodash.isArguments");
-import isArrayFunc = require("lodash.isArray");
-import isArrayBufferFunc = require("lodash.isArrayBuffer");
-import isArrayLikeFunc = require("lodash.isArrayLike");
-import isArrayLikeObjectFunc = require("lodash.isArrayLikeObject");
-import isBooleanFunc = require("lodash.isBoolean");
-import isBufferFunc = require("lodash.isBuffer");
-import isDateFunc = require("lodash.isDate");
-import isElementFunc = require("lodash.isElement");
-import isEmptyFunc = require("lodash.isEmpty");
-import isEqualFunc = require("lodash.isEqual");
-import isEqualWithFunc = require("lodash.isEqualWith");
-import isErrorFunc = require("lodash.isError");
-import isFiniteFunc = require("lodash.isFinite");
-import isFunctionFunc = require("lodash.isFunction");
-import isIntegerFunc = require("lodash.isInteger");
-import isLengthFunc = require("lodash.isLength");
-import isMapFunc = require("lodash.isMap");
-import isMatchFunc = require("lodash.isMatch");
-import isMatchWithFunc = require("lodash.isMatchWith");
-import isNaNFunc = require("lodash.isNaN");
-import isNativeFunc = require("lodash.isNative");
-import isNilFunc = require("lodash.isNil");
-import isNullFunc = require("lodash.isNull");
-import isNumberFunc = require("lodash.isNumber");
-import isObjectFunc = require("lodash.isObject");
-import isObjectLikeFunc = require("lodash.isObjectLike");
-import isPlainObjectFunc = require("lodash.isPlainObject");
-import isRegExpFunc = require("lodash.isRegExp");
-import isSafeIntegerFunc = require("lodash.isSafeInteger");
-import isSetFunc = require("lodash.isSet");
-import isStringFunc = require("lodash.isString");
-import isSymbolFunc = require("lodash.isSymbol");
-import isTypedArrayFunc = require("lodash.isTypedArray");
-import isUndefinedFunc = require("lodash.isUndefined");
-import isWeakMapFunc = require("lodash.isWeakMap");
-import isWeakSetFunc = require("lodash.isWeakSet");
-import joinFunc = require("lodash.join");
-import kebabCaseFunc = require("lodash.kebabCase");
-import lastFunc = require("lodash.last");
-import lastIndexOfFunc = require("lodash.lastIndexOf");
-import lowerCaseFunc = require("lodash.lowerCase");
-import lowerFirstFunc = require("lodash.lowerFirst");
-import ltFunc = require("lodash.lt");
-import lteFunc = require("lodash.lte");
-import maxFunc = require("lodash.max");
-import maxByFunc = require("lodash.maxBy");
-import meanFunc = require("lodash.mean");
-import minFunc = require("lodash.min");
-import minByFunc = require("lodash.minBy");
-import noConflictFunc = require("lodash.noConflict");
-import noopFunc = require("lodash.noop");
-import nowFunc = require("lodash.now");
-import padFunc = require("lodash.pad");
-import padEndFunc = require("lodash.padEnd");
-import padStartFunc = require("lodash.padStart");
-import parseIntFunc = require("lodash.parseInt");
-import randomFunc = require("lodash.random");
-import reduceFunc = require("lodash.reduce");
-import reduceRightFunc = require("lodash.reduceRight");
-import repeatFunc = require("lodash.repeat");
-import replaceFunc = require("lodash.replace");
-import resultFunc = require("lodash.result");
-import roundFunc = require("lodash.round");
-import runInContextFunc = require("lodash.runInContext");
-import sampleFunc = require("lodash.sample");
-import sizeFunc = require("lodash.size");
-import snakeCaseFunc = require("lodash.snakeCase");
-import someFunc = require("lodash.some");
-import sortedIndexFunc = require("lodash.sortedIndex");
-import sortedIndexByFunc = require("lodash.sortedIndexBy");
-import sortedIndexOfFunc = require("lodash.sortedIndexOf");
-import sortedLastIndexFunc = require("lodash.sortedLastIndex");
-import sortedLastIndexByFunc = require("lodash.sortedLastIndexBy");
-import sortedLastIndexOfFunc = require("lodash.sortedLastIndexOf");
-import startCaseFunc = require("lodash.startCase");
-import startsWithFunc = require("lodash.startsWith");
-import subtractFunc = require("lodash.subtract");
-import sumFunc = require("lodash.sum");
-import sumByFunc = require("lodash.sumBy");
-import templateFunc = require("lodash.template");
-import timesFunc = require("lodash.times");
-import toIntegerFunc = require("lodash.toInteger");
-import toLengthFunc = require("lodash.toLength");
-import toLowerFunc = require("lodash.toLower");
-import toNumberFunc = require("lodash.toNumber");
-import toSafeIntegerFunc = require("lodash.toSafeInteger");
-import toStringFunc = require("lodash.toString");
-import toUpperFunc = require("lodash.toUpper");
-import trimFunc = require("lodash.trim");
-import trimEndFunc = require("lodash.trimEnd");
-import trimStartFunc = require("lodash.trimStart");
-import truncateFunc = require("lodash.truncate");
-import unescapeFunc = require("lodash.unescape");
-import uniqueIdFunc = require("lodash.uniqueId");
-import upperCaseFunc = require("lodash.upperCase");
-import upperFirstFunc = require("lodash.upperFirst");
-import eachFunc = require("lodash.each");
-import eachRightFunc = require("lodash.eachRight");
-import firstFunc = require("lodash.first");
-namespace method_modules_tests {
-    _.after = afterFunc;
-    _.ary = aryFunc;
-    _.assign = assignFunc;
-    _.assignIn = assignInFunc;
-    _.assignInWith = assignInWithFunc;
-    _.assignWith = assignWithFunc;
-    _.at = atFunc;
-    _.before = beforeFunc;
-    _.bind = bindFunc;
-    _.bindAll = bindAllFunc;
-    _.bindKey = bindKeyFunc;
-    _.castArray = castArrayFunc;
-    _.chain = chainFunc;
-    _.chunk = chunkFunc;
-    _.compact = compactFunc;
-    _.concat = concatFunc;
-    _.constant = constantFunc;
-    _.countBy = countByFunc;
-    _.create = createFunc;
-    _.curry = curryFunc;
-    _.curryRight = curryRightFunc;
-    _.debounce = debounceFunc;
-    _.defaults = defaultsFunc;
-    _.defaultsDeep = defaultsDeepFunc;
-    _.defer = deferFunc;
-    _.delay = delayFunc;
-    _.difference = differenceFunc;
-    _.differenceBy = differenceByFunc;
-    _.differenceWith = differenceWithFunc;
-    _.drop = dropFunc;
-    _.dropRight = dropRightFunc;
-    _.dropRightWhile = dropRightWhileFunc;
-    _.dropWhile = dropWhileFunc;
-    _.fill = fillFunc;
-    _.filter = filterFunc;
-    _.flatMap = flatMapFunc;
-    _.flatten = flattenFunc;
-    _.flattenDeep = flattenDeepFunc;
-    _.flattenDepth = flattenDepthFunc;
-    _.flip = flipFunc;
-    _.flow = flowFunc;
-    _.flowRight = flowRightFunc;
-    _.fromPairs = fromPairsFunc;
-    _.functions = functionsFunc;
-    _.functionsIn = functionsInFunc;
-    _.groupBy = groupByFunc;
-    _.initial = initialFunc;
-    _.intersection = intersectionFunc;
-    _.intersectionBy = intersectionByFunc;
-    _.intersectionWith = intersectionWithFunc;
-    _.invert = invertFunc;
-    _.invertBy = invertByFunc;
-    _.invokeMap = invokeMapFunc;
-    _.iteratee = iterateeFunc;
-    _.keyBy = keyByFunc;
-    _.keys = keysFunc;
-    _.keysIn = keysInFunc;
-    _.map = mapFunc;
-    _.mapKeys = mapKeysFunc;
-    _.mapValues = mapValuesFunc;
-    _.matches = matchesFunc;
-    _.matchesProperty = matchesPropertyFunc;
-    _.memoize = memoizeFunc;
-    _.merge = mergeFunc;
-    _.mergeWith = mergeWithFunc;
-    _.method = methodFunc;
-    _.methodOf = methodOfFunc;
-    _.mixin = mixinFunc;
-    _.negate = negateFunc;
-    _.nthArg = nthArgFunc;
-    _.omit = omitFunc;
-    _.omitBy = omitByFunc;
-    _.once = onceFunc;
-    _.orderBy = orderByFunc;
-    _.over = overFunc;
-    _.overArgs = overArgsFunc;
-    _.overEvery = overEveryFunc;
-    _.overSome = overSomeFunc;
-    _.partial = partialFunc;
-    _.partialRight = partialRightFunc;
-    _.partition = partitionFunc;
-    _.pick = pickFunc;
-    _.pickBy = pickByFunc;
-    _.property = propertyFunc;
-    _.propertyOf = propertyOfFunc;
-    _.pull = pullFunc;
-    _.pullAll = pullAllFunc;
-    _.pullAllBy = pullAllByFunc;
-    _.pullAt = pullAtFunc;
-    _.range = rangeFunc;
-    _.rangeRight = rangeRightFunc;
-    _.rearg = reargFunc;
-    _.reject = rejectFunc;
-    _.remove = removeFunc;
-    _.rest = restFunc;
-    _.reverse = reverseFunc;
-    _.sampleSize = sampleSizeFunc;
-    _.set = setFunc;
-    _.setWith = setWithFunc;
-    _.shuffle = shuffleFunc;
-    _.slice = sliceFunc;
-    _.sortBy = sortByFunc;
-    _.sortedUniq = sortedUniqFunc;
-    _.sortedUniqBy = sortedUniqByFunc;
-    _.split = splitFunc;
-    _.spread = spreadFunc;
-    _.tail = tailFunc;
-    _.take = takeFunc;
-    _.takeRight = takeRightFunc;
-    _.takeRightWhile = takeRightWhileFunc;
-    _.takeWhile = takeWhileFunc;
-    _.tap = tapFunc;
-    _.throttle = throttleFunc;
-    _.thru = thruFunc;
-    _.toArray = toArrayFunc;
-    _.toPairs = toPairsFunc;
-    _.toPairsIn = toPairsInFunc;
-    _.toPath = toPathFunc;
-    _.toPlainObject = toPlainObjectFunc;
-    _.transform = transformFunc;
-    _.unary = unaryFunc;
-    _.union = unionFunc;
-    _.unionBy = unionByFunc;
-    _.unionWith = unionWithFunc;
-    _.uniq = uniqFunc;
-    _.uniqBy = uniqByFunc;
-    _.uniqWith = uniqWithFunc;
-    _.unset = unsetFunc;
-    _.unzip = unzipFunc;
-    _.unzipWith = unzipWithFunc;
-    _.update = updateFunc;
-    _.values = valuesFunc;
-    _.valuesIn = valuesInFunc;
-    _.without = withoutFunc;
-    _.words = wordsFunc;
-    _.wrap = wrapFunc;
-    _.xor = xorFunc;
-    _.xorBy = xorByFunc;
-    _.xorWith = xorWithFunc;
-    _.zip = zipFunc;
-    _.zipObject = zipObjectFunc;
-    _.zipWith = zipWithFunc;
-    _.extend = extendFunc;
-    _.extendWith = extendWithFunc;
-    _.add = addFunc;
-    _.attempt = attemptFunc;
-    _.camelCase = camelCaseFunc;
-    _.capitalize = capitalizeFunc;
-    _.ceil = ceilFunc;
-    _.clamp = clampFunc;
-    _.clone = cloneFunc;
-    _.cloneDeep = cloneDeepFunc;
-    _.cloneDeepWith = cloneDeepWithFunc;
-    _.cloneWith = cloneWithFunc;
-    _.deburr = deburrFunc;
-    _.endsWith = endsWithFunc;
-    _.eq = eqFunc;
-    _.escape = escapeFunc;
-    _.escapeRegExp = escapeRegExpFunc;
-    _.every = everyFunc;
-    _.find = findFunc;
-    _.findIndex = findIndexFunc;
-    _.findKey = findKeyFunc;
-    _.findLast = findLastFunc;
-    _.findLastIndex = findLastIndexFunc;
-    _.findLastKey = findLastKeyFunc;
-    _.floor = floorFunc;
-    _.forEach = forEachFunc;
-    _.forEachRight = forEachRightFunc;
-    _.forIn = forInFunc;
-    _.forInRight = forInRightFunc;
-    _.forOwn = forOwnFunc;
-    _.forOwnRight = forOwnRightFunc;
-    _.get = getFunc;
-    _.gt = gtFunc;
-    _.gte = gteFunc;
-    _.has = hasFunc;
-    _.hasIn = hasInFunc;
-    _.head = headFunc;
-    _.identity = identityFunc;
-    _.includes = includesFunc;
-    _.indexOf = indexOfFunc;
-    _.inRange = inRangeFunc;
-    _.invoke = invokeFunc;
-    _.isArguments = isArgumentsFunc;
-    _.isArray = isArrayFunc;
-    _.isArrayBuffer = isArrayBufferFunc;
-    _.isArrayLike = isArrayLikeFunc;
-    _.isArrayLikeObject = isArrayLikeObjectFunc;
-    _.isBoolean = isBooleanFunc;
-    _.isBuffer = isBufferFunc;
-    _.isDate = isDateFunc;
-    _.isElement = isElementFunc;
-    _.isEmpty = isEmptyFunc;
-    _.isEqual = isEqualFunc;
-    _.isEqualWith = isEqualWithFunc;
-    _.isError = isErrorFunc;
-    _.isFinite = isFiniteFunc;
-    _.isFunction = isFunctionFunc;
-    _.isInteger = isIntegerFunc;
-    _.isLength = isLengthFunc;
-    _.isMap = isMapFunc;
-    _.isMatch = isMatchFunc;
-    _.isMatchWith = isMatchWithFunc;
-    _.isNaN = isNaNFunc;
-    _.isNative = isNativeFunc;
-    _.isNil = isNilFunc;
-    _.isNull = isNullFunc;
-    _.isNumber = isNumberFunc;
-    _.isObject = isObjectFunc;
-    _.isObjectLike = isObjectLikeFunc;
-    _.isPlainObject = isPlainObjectFunc;
-    _.isRegExp = isRegExpFunc;
-    _.isSafeInteger = isSafeIntegerFunc;
-    _.isSet = isSetFunc;
-    _.isString = isStringFunc;
-    _.isSymbol = isSymbolFunc;
-    _.isTypedArray = isTypedArrayFunc;
-    _.isUndefined = isUndefinedFunc;
-    _.isWeakMap = isWeakMapFunc;
-    _.isWeakSet = isWeakSetFunc;
-    _.join = joinFunc;
-    _.kebabCase = kebabCaseFunc;
-    _.last = lastFunc;
-    _.lastIndexOf = lastIndexOfFunc;
-    _.lowerCase = lowerCaseFunc;
-    _.lowerFirst = lowerFirstFunc;
-    _.lt = ltFunc;
-    _.lte = lteFunc;
-    _.max = maxFunc;
-    _.maxBy = maxByFunc;
-    _.mean = meanFunc;
-    _.min = minFunc;
-    _.minBy = minByFunc;
-    _.noConflict = noConflictFunc;
-    _.noop = noopFunc;
-    _.now = nowFunc;
-    _.pad = padFunc;
-    _.padEnd = padEndFunc;
-    _.padStart = padStartFunc;
-    _.parseInt = parseIntFunc;
-    _.random = randomFunc;
-    _.reduce = reduceFunc;
-    _.reduceRight = reduceRightFunc;
-    _.repeat = repeatFunc;
-    _.replace = replaceFunc;
-    _.result = resultFunc;
-    _.round = roundFunc;
-    _.runInContext = runInContextFunc;
-    _.sample = sampleFunc;
-    _.size = sizeFunc;
-    _.snakeCase = snakeCaseFunc;
-    _.some = someFunc;
-    _.sortedIndex = sortedIndexFunc;
-    _.sortedIndexBy = sortedIndexByFunc;
-    _.sortedIndexOf = sortedIndexOfFunc;
-    _.sortedLastIndex = sortedLastIndexFunc;
-    _.sortedLastIndexBy = sortedLastIndexByFunc;
-    _.sortedLastIndexOf = sortedLastIndexOfFunc;
-    _.startCase = startCaseFunc;
-    _.startsWith = startsWithFunc;
-    _.subtract = subtractFunc;
-    _.sum = sumFunc;
-    _.sumBy = sumByFunc;
-    _.template = templateFunc;
-    _.times = timesFunc;
-    _.toInteger = toIntegerFunc;
-    _.toLength = toLengthFunc;
-    _.toLower = toLowerFunc;
-    _.toNumber = toNumberFunc;
-    _.toSafeInteger = toSafeIntegerFunc;
-    _.toString = toStringFunc;
-    _.toUpper = toUpperFunc;
-    _.trim = trimFunc;
-    _.trimEnd = trimEndFunc;
-    _.trimStart = trimStartFunc;
-    _.truncate = truncateFunc;
-    _.unescape = unescapeFunc;
-    _.uniqueId = uniqueIdFunc;
-    _.upperCase = upperCaseFunc;
-    _.upperFirst = upperFirstFunc;
-    _.each = eachFunc;
-    _.eachRight = eachRightFunc;
-    _.first = firstFunc;
 }

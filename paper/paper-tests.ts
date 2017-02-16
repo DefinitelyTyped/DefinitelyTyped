@@ -1,5 +1,3 @@
-/// <reference path="paper.d.ts" />
-
 import paper = require('paper');
 
 var canvas = document.createElement('canvas')

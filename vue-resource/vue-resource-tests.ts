@@ -1,4 +1,4 @@
-/// <reference path="./vue-resource.d.ts" />
+
 
 Vue.http.options.root = '/root';
 Vue.http.headers.common['Authorization'] = 'Basic YXBpOnBhc3N3b3Jk';

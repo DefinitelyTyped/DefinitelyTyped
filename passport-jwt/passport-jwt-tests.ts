@@ -1,5 +1,5 @@
-/// <reference path="passport-jwt.d.ts" />
-/// <reference path="../passport/passport.d.ts" />
+
+/// <reference types="passport" />
 'use strict';
 
 import {Strategy as JwtStrategy, ExtractJwt, StrategyOptions} from 'passport-jwt';

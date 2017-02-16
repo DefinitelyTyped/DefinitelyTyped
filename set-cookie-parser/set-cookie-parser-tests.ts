@@ -1,6 +1,3 @@
-/// <reference path="./set-cookie-parser.d.ts" />
-/// <reference path="../node/node.d.ts" />
-
 import * as assert from "assert";
 import * as http from "http";
 import * as setCookie from "set-cookie-parser";

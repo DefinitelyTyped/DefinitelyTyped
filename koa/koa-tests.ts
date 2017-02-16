@@ -1,4 +1,4 @@
-/// <reference path="koa.d.ts" />
+
 import * as Koa from "koa";
 
 const app = new Koa();

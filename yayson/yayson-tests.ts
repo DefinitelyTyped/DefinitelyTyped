@@ -1,5 +1,3 @@
-/// <reference path="yayson.d.ts" />
-
 import * as Yayson from "yayson";
 
 const yayson = Yayson({ adapter: 'default' }) || Yayson({ adapter: 'sequelize' }) || Yayson();
@@ -19,7 +17,7 @@ function test_store() {
   store.sync({ any: 'thing' }).toString();
 
   store.find('mytype', '1234').toString();
-  <[]> store.findAll('mytype');
+  <[string]> store.findAll('mytype');
 
   store.remove('mytype', '1234');
   store.remove('mytype');
@@ -40,8 +38,8 @@ function test_presenter_static() {
   Presenter.render({}).toString();
   Presenter.render({}, { meta: {} }).toString();
 
-  <[]> Presenter.render([]);
-  <[]> Presenter.render([], { meta: {} });
+  <[string]> Presenter.render([]);
+  <[string]> Presenter.render([], { meta: {} });
 
   const promiseNum: PromiseLike<number> = null;
 
@@ -58,8 +56,8 @@ function test_presenter_instance() {
   presenter.render({}).toString();
   presenter.render({}, { meta: {} }).toString();
 
-  <[]> presenter.render([]);
-  <[]> presenter.render([], { meta: {} });
+  <[string]> presenter.render([]);
+  <[string]> presenter.render([], { meta: {} });
 
   const promiseNum: PromiseLike<number> = null;
 

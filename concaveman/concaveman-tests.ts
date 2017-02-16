@@ -1,4 +1,3 @@
-/// <reference path="./concaveman.d.ts" />
 import * as concaveman from 'concaveman';
 
 var points = [[10, 20], [30, 12.5]];

@@ -1,34 +1,56 @@
-/// <reference path="bcrypt.d.ts" />
 
 import bcrypt = require("bcrypt");
 
-var num: number;
-var str: string;
-var bool: boolean;
+let num: number;
+let str: string;
+let bool: boolean;
+let error: Error;
 
 str = bcrypt.genSaltSync();
 str = bcrypt.genSaltSync(num);
 
-bcrypt.genSalt(function (err: Error, salt: string): void {
-  str = salt;
-});
-bcrypt.genSalt(num, function (err: Error, salt: string): void {
-  str = salt;
-});
+bcrypt.genSalt(num, (err: Error, salt: string): void => { error = err; str = salt; })
+      .then(salt => str = salt)
+      .catch(err => error = err);
+
+bcrypt.genSalt(num)
+      .then(salt => str = salt)
+      .catch(err => error = err);
+
+bcrypt.genSalt((err: Error, salt: string): void => { error = err; str = salt; })
+      .then(salt => str = salt)
+      .catch(err => error = err);
+
+bcrypt.genSalt()
+      .then(salt => str = salt)
+      .catch(err => error = err);
+
 
 str = bcrypt.hashSync(str, str);
 str = bcrypt.hashSync(str, num);
 
-bcrypt.hash(str, str, function (err: Error, encrypted: string):void {
-  str = encrypted;
-})
-bcrypt.hash(str, num, function (err: Error, encrypted: string): void {
-  str = encrypted;
-});
+bcrypt.hash(str, str, (err: Error, encrypted: string):void => { str = encrypted; })
+      .then(encrypted => str = encrypted)
+      .catch(err => error = err);
+bcrypt.hash(str, str)
+      .then(encrypted => str = encrypted)
+      .catch(err => error = err);
+
+bcrypt.hash(str, num, (err: Error, encrypted: string): void => { str = encrypted; })
+      .then(encrypted => str = encrypted)
+      .catch(err => error = err);
+bcrypt.hash(str, num)
+      .then(encrypted => str = encrypted)
+      .catch(err => error = err);
+
 
 bool = bcrypt.compareSync(str, str);
-bcrypt.compare(str, str, function (err: Error, same: boolean): void {
-  bool = same;
-});
+
+bcrypt.compare(str, str, (err: Error, same: boolean): void => { bool = same; })
+      .then(same => bool = same)
+      .catch(err => error = err);
+bcrypt.compare(str, str)
+      .then(same => bool = same)
+      .catch(err => error = err);
 
 num = bcrypt.getRounds(str);

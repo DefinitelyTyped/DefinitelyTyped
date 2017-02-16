@@ -1,7 +1,7 @@
-/// <reference path="toastr.d.ts" />
+
 
 function test_basic() {
-    var t = [];
+    var t: any[] = [];
     t.push(toastr.info('Are you the 6 fingered man?'));
     t.push(toastr.warning('My name is Inigo Montoya. You Killed my father, prepare to die!'));
     t.push(toastr.success('Have fun storming the castle!', 'Miracle Max Says'));
@@ -20,7 +20,7 @@ function test_basic() {
 function test_fromdemo() {
     var i = -1,
         toastCount = 0,
-        $toastlast,
+        $toastlast: any,
         getMessage = function () {
             var msgs = ['My name is Inigo Montoya. You killed my father. Prepare to die!',
                 '<div><input class="input-small" value="textbox"/>&nbsp;<a href="http://johnpapa.net" target="_blank">This is a hyperlink</a></div><div><button type="button" id="okBtn" class="btn btn-primary">Close me</button><button type="button" id="surpriseBtn" class="btn" style="margin: 0 8px 0 8px">Surprise me</button></div>',

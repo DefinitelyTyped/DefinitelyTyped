@@ -1,5 +1,3 @@
-/// <reference path="ldclient-js.d.ts" />
-
 // Implicitly calls LDClient#identify
 const ldClient = LDClient.initialize(
     'ENV KEY',
@@ -27,6 +25,6 @@ function changeCallback(changes: LaunchDarkly.LDFlagChangeset) {
 
 ldClient.on('change', changeCallback);
 
-document.getElementById('disable-change-tracking').addEventListener('click', () => {
+document.getElementById('disable-change-tracking')!.addEventListener('click', () => {
     ldClient.off('change', changeCallback);
 });

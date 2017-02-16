@@ -1,6 +1,3 @@
-/// <reference path="../react/react-dom.d.ts" />
-/// <reference path="./react-bytesize-icons.d.ts" />
-
 import * as React from 'react';
 import {render} from 'react-dom';
 import {Activity, External, Export} from 'react-bytesize-icons';

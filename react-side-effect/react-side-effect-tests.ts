@@ -1,5 +1,3 @@
-/// <reference path="react-side-effect.d.ts" />
-
 import * as React from "react";
 import * as withSideEffect from "react-side-effect";
 

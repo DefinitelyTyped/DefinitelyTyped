@@ -1,5 +1,3 @@
-/// <reference path="node-schedule.d.ts"/>
-
 import nodeSchedule = require("node-schedule");
 
 /**

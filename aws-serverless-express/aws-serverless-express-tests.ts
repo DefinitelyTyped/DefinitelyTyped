@@ -1,5 +1,4 @@
-/// <reference path="./aws-serverless-express.d.ts" />
-/// <reference path="../express/express.d.ts"/>
+/// <reference types="express"/>
 
 import * as awsServerlessExpress from 'aws-serverless-express';
 import * as express from 'express';

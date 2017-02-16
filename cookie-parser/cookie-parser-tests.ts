@@ -1,4 +1,3 @@
-/// <reference path="cookie-parser.d.ts" />
 
 import express = require('express');
 import cookieParser = require('cookie-parser');

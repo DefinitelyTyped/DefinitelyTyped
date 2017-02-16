@@ -1,5 +1,4 @@
-/// <reference path="react-ga.d.ts" />
-/// <reference path="../jasmine/jasmine.d.ts" />
+/// <reference types="jasmine" />
 
 describe("Testing react-ga initialize object", () => {
     it("Able to initialize react-ga object", () => {

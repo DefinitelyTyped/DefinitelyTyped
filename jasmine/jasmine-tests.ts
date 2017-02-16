@@ -1,5 +1,3 @@
-/// <reference path="jasmine.d.ts" />
-
 // tests based on http://jasmine.github.io/2.2/introduction.html
 
 describe("A suite", function () {
@@ -874,6 +872,14 @@ var customMatchers: jasmine.CustomMatcherFactories = {
     }
 };
 // add the custom matchers to interface jasmine.Matchers via TypeScript declaration merging
+// if your test files import or export anything, you'll want to use:
+// declare global {
+//     namespace jasmine {
+//         interface Matchers {
+//             ...
+//         }
+//     }
+// }
 declare namespace jasmine {
     interface Matchers {
         toBeGoofy(expected?: any): boolean;
@@ -928,7 +934,7 @@ var myReporter: jasmine.CustomReporter = {
         }
         console.log(result.passedExpectations.length);
     },
-      
+
     suiteDone: function (result: jasmine.CustomReporterResult) {
         console.log('Suite: ' + result.description + ' was ' + result.status);
         for (var i = 0; i < result.failedExpectations.length; i++) {
@@ -937,28 +943,13 @@ var myReporter: jasmine.CustomReporter = {
         }
     },
 
-    jasmineDone: function() {
+    jasmineDone: function(runDetails: jasmine.RunDetails) {
         console.log('Finished suite');
+        console.log('Random:', runDetails.order.random);
     }
 };
 
 jasmine.getEnv().addReporter(myReporter);
-
-// test for custom reporter which return ES6 Promise in jasmineDone():
-var myShortReporter: jasmine.CustomReporter = {
-    jasmineDone: function() {
-        return new Promise<void>(function(resolve, reject) {  
-            setTimeout(() => resolve(), 10000);
-        });
-    }
-}
-
-var jasmineDoneResolved: Promise<void> = myShortReporter.jasmineDone();
-jasmineDoneResolved.then(() => {
-    console.log("[ShortReporter] : jasmineDone Resolved");
-});
-
-jasmine.getEnv().addReporter(myShortReporter);
 
 describe("Randomize Tests", function() {
 	it("should allow randomization of the order of tests", function() {
@@ -992,7 +983,7 @@ describe("Randomize Tests", function() {
     var currentWindowOnload = window.onload;
     window.onload = function () {
         if (currentWindowOnload) {
-            currentWindowOnload(null);
+            (<any>currentWindowOnload)(null);
         }
         htmlReporter.initialize();
         env.execute();

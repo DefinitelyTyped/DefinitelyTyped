@@ -1,5 +1,3 @@
-/// <reference path="./rethinkdb.d.ts"/>
-
 import * as r from "rethinkdb";
 
 function errorAndCursorCallback(err: Error, cursor: r.Cursor): void {}

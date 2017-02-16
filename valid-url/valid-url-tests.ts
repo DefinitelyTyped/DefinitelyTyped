@@ -1,5 +1,3 @@
-/// <reference path="valid-url.d.ts"/>
-
 import validUrl = require('valid-url');
 
 function testIsUri() {

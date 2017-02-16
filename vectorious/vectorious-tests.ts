@@ -1,6 +1,4 @@
-/// <reference path="vectorious.d.ts" />
-
-import { Matrix, Vector } from './vectorious';
+import { Matrix, Vector } from 'vectorious';
 
 let vector: Vector;
 let num: number;
@@ -9,7 +7,7 @@ let str: string;
 let numberArray: number[];
 
 function testMatrix () {
-    
+
     const a = new Matrix([[1, 2, 3], [1, 2, 3], [1, 2, 3]]);
     const b = new Matrix([[1, 2, 3], [1, 2, 3], [1, 2, 3]]);
 
@@ -59,7 +57,7 @@ function testMatrix () {
 }
 
 function testVector () {
-    
+
     const a = new Vector([1, 2, 3]);
     const b = new Vector([4, 5, 6]);
 

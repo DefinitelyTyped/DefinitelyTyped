@@ -4,8 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Tests taken from documentation samples.
 
-///<reference path="../node/node.d.ts" />
-///<reference path="../shelljs/shelljs.d.ts" />
+///<reference types="node" />
 
 import shell = require("shelljs");
 
@@ -87,22 +86,22 @@ var testPath = shell.env["path"];
 
 import child = require("child_process");
 
-var version = shell.exec("node --version").output;
+var version = shell.exec("node --version").stdout;
 
 var version2 = <shell.ExecOutputReturnValue>shell.exec("node --version", { async: false });
-var output = version2.output;
+var output = version2.stdout;
 
 var asyncVersion3 = <child.ChildProcess>shell.exec("node --version", { async: true });
 var pid = asyncVersion3.pid;
 
-shell.exec("node --version", { silent: true }, function (code, output) {
-    var version = output;
+shell.exec("node --version", { silent: true }, function (code, stdout, stderr) {
+    var version = stdout;
 });
-shell.exec("node --version", { silent: true, async: true }, function (code, output) {
-    var version = output;
+shell.exec("node --version", { silent: true, async: true, cwd: '/usr/local/bin' }, function (code, stdout, stderr) {
+    var version = stdout;
 });
-shell.exec("node --version", function (code, output) {
-    var version = output;
+shell.exec("node --version", function (code, stdout, stderr) {
+    var version = stdout;
 });
 shell.exec("node --version", function (code: number) {
     var num: number = code;

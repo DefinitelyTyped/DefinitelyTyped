@@ -1,6 +1,3 @@
-/// <reference path="../react/react.d.ts" />
-/// <reference path="./react-modal.d.ts"/>
-
 import * as React from "react";
 import * as ReactModal from 'react-modal';
 

@@ -1,4 +1,5 @@
-/// <reference path="navigation.d.ts" />
+import Navigation = require("navigation");
+
 
 namespace NavigationTests {
 	// History Manager

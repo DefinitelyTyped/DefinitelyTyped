@@ -1,6 +1,3 @@
-/// <reference path="../node/node.d.ts" />
-/// <reference path="./musicmetadata.d.ts" />
-
 import * as fs from "fs";
 import * as mm from "musicmetadata";
 

@@ -1,5 +1,3 @@
-/// <reference path="resumablejs.d.ts" />
-
 import { Resumable, ResumableFile } from 'resumablejs';
 
 let resumable: Resumable = new Resumable({chunkSize: 123});
