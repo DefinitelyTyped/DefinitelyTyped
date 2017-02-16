@@ -299,6 +299,12 @@
             "typingsPackageName": "redux-persist",
             "sourceRepoURL": "https://github.com/rt2zz/redux-persist",
             "asOfVersion": "4.3.1"
+        },
+        {
+            "libraryName": "redux-persist-transform-compress",
+            "typingsPackageName": "redux-persist-transform-compress",
+            "sourceRepoURL": "https://github.com/rt2zz/redux-persist-transform-compress",
+            "asOfVersion": "4.2.0"
         }
     ]
 }
