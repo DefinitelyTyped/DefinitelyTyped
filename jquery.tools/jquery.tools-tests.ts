@@ -29,7 +29,7 @@
 $(".my_overlay_trigger").overlay({
     // one configuration property
     mask: {
-      color: '#ccc'  
+      color: '#ccc'
     },
     // another property
     top: 50

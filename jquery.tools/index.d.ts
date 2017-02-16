@@ -62,7 +62,7 @@ declare namespace JQueryTools {
              * uses an effect called "default" which is a simple show/hide effect.
              * @default 'default'
              */
-            effect?: 'default' | string;
+            effect?: string;
             /**
              * since 1.2.0. whether overlay stays in the same position while the screen
              * is scrolled. This is the default behaviour for all browsers except IE6
@@ -117,7 +117,7 @@ declare namespace JQueryTools {
              * is vertically centered. Percentage values work consistently at different screen resolutions.
              * @default '10%'
              */
-            top?: 'center' | string | number;
+            top?: string | number;
 
             /**
              * before the overlay is displayed. The overlay has already been positioned at the
