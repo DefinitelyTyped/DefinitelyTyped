@@ -17,7 +17,7 @@ interface BluetoothRequestDeviceFilter {
 
 interface RequestDeviceOptions {
 	filters: BluetoothRequestDeviceFilter[];
-	optionalServices?: number[];
+	optionalServices?: BluetoothServiceUUID[];
 	acceptAllDevices?: boolean;
 }
 
