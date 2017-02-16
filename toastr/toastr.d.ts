@@ -174,17 +174,23 @@ interface Toastr {
 		(): void;
 		/**
 		* Clear specific toast
-		* 
+		*
 		* @param toast Toast to clear
 		*/
 		(toast: JQuery): void;
 	        /**
 		* Clear specific toast
-		* 
+		*
 		* @param toast Toast to clear
 		* @param clearOptions force clearing a toast, ignoring focus
 		*/
         	(toast: JQuery, clearOptions: { force: boolean }): void;
+	};
+	/**
+	* Removes all toasts (without animation)
+	*/
+	remove: {
+		(): void;
 	};
 	/**
 	* Create an error toast
@@ -207,7 +213,7 @@ interface Toastr {
 	*/
 	warning: ToastrDisplayMethod;
 	/**
-	* Get toastr version 
+	* Get toastr version
 	*/
 	version: string;
 }

@@ -113,6 +113,7 @@ Your package should have this structure:
 | index.d.ts | This contains the typings for the package. |
 | foo-tests.ts | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
 | tsconfig.json | This allows you to run `tsc` within the package. |
+| tslint.json | Enables linting. |
 
 Generate these by running `npm run new-package -- new-package-name`.
 
@@ -130,7 +131,7 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 * `interface X {}`: An empty interface is essentially the `{}` type: it places no constraints on an object.
 * `interface IFoo {}`: Don't add `I` to the front of an interface name.
 * `interface Foo { new(): Foo; }`:
-    This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }
+    This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
 * `const Class: { new(): IClass; }`:
     Prefer to use a class declaration `class Class { constructor(); }` instead of a new-able constant.
 * `namespace foo {}`:
