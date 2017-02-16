@@ -7956,6 +7956,30 @@ declare module "react" {
          */
         cropImage( uri: string, cropData: ImageCropData, success: (uri: string) => void, failure: (error: Object) => void ): void
     }
+				  
+    export interface ARTShapeProps {
+        d: string,
+        strokeWidth: number,
+        strokeDash?: number,
+        stroke: string
+    }
+
+    export interface ARTSurfaceProps {
+        style: ViewStyle,
+        width: number,
+        height: number
+    }
+
+    export interface ShapeStatic extends React.ComponentClass<ARTShapeProps> {
+    }
+
+    export interface SurfaceStatic extends React.ComponentClass<ARTSurfaceProps> {
+    }
+
+    export interface ARTStatic {
+	Shape: ShapeStatic,
+	Surface: SurfaceStatic	
+    }
 
     //////////////////////////////////////////////////////////////////////////
     //
@@ -7965,6 +7989,8 @@ declare module "react" {
 
     // TODO: The following components need to be added
     // - [ ] ART
+    export var ART: ARTStatic
+    export type ART = ARTStatic
 
     export var ActivityIndicator: ActivityIndicatorStatic
     export type ActivityIndicator = ActivityIndicatorStatic
