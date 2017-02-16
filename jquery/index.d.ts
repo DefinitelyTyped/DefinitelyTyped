@@ -1143,7 +1143,7 @@ interface JQueryStatic {
      * @param message The message to send out.
      * @see {@link https://api.jquery.com/jQuery.error/}
      */
-    error(message: string): JQuery;
+    error(message: any): JQuery;
 
     expr: any;
     fn: any;  //TODO: Decide how we want to type this
