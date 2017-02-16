@@ -7,6 +7,12 @@ var myCodeMirror2: CodeMirror.Editor = CodeMirror(document.body, {
     mode: "javascript"
 });
 
+var range = myCodeMirror2.findWordAt(CodeMirror.Pos(0, 2));
+var anchor = range.anchor;
+var head = range.head;
+var from = range.from();
+var to = range.to();
+
 var myTextArea: HTMLTextAreaElement;
 var myCodeMirror3: CodeMirror.Editor = CodeMirror(function (elt) {
     myTextArea.parentNode.replaceChild(elt, myTextArea);

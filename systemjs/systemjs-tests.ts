@@ -1,14 +1,12 @@
+import SystemJS = require('systemjs');
 
-
-import System = require('systemjs');
-
-System.config({
+SystemJS.config({
     baseURL: '/app'
 });
 
-System.import('main.js');
+SystemJS.import('main.js');
 
-System.config({
+SystemJS.config({
     // or 'traceur' or 'typescript' 
     transpiler: 'babel',
     // or traceurOptions or typescriptOptions 
@@ -18,22 +16,33 @@ System.config({
 });
 
 
-System.config({
+SystemJS.config({
     map: {
         traceur: 'path/to/traceur.js'
     }
 });
 
-System.transpiler = 'traceur';
+SystemJS.config({
+  map: {
+    'local/package': {
+      x: 'vendor/x.js'
+    },
+    'another/package': {
+      x: 'vendor/y.js'
+    }
+  }
+});
+
+SystemJS.transpiler = 'traceur';
 
 
 // loads './app.js' from the current directory 
-System.import('./app.js').then(function (m) {
+SystemJS.import('./app.js').then(function (m) {
     console.log(m);
 });
 
-System.import('lodash').then(function (_) {
+SystemJS.import('lodash').then(function (_) {
     console.log(_);
 });
 
-const clonedSystemJS = new System.constructor();
+const clonedSystemJSJS = new SystemJS.constructor();

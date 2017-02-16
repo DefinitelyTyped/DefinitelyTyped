@@ -130,6 +130,7 @@ declare namespace __MaterialUI {
             accent2Color?: string;
             accent3Color?: string;
             textColor?: string;
+            secondaryTextColor?: string;
             alternateTextColor?: string;
             canvasColor?: string;
             borderColor?: string;
@@ -453,7 +454,10 @@ declare namespace __MaterialUI {
         var lightBaseTheme: RawTheme;
         var darkBaseTheme: RawTheme;
 
-        export function muiThemeable<TComponent extends React.Component<P, S>, P, S>(): (component: TComponent) => TComponent;
+        export function muiThemeable(): <
+            TComponent extends React.ComponentClass<P> | React.StatelessComponent<P>,
+            P extends {muiTheme?: MuiTheme}
+        >(component: TComponent) => TComponent;
 
         interface MuiThemeProviderProps {
             muiTheme?: Styles.MuiTheme;
@@ -1735,6 +1739,7 @@ declare namespace __MaterialUI {
         }
 
         interface TabProps extends SharedEnhancedButtonProps<Tab> {
+            buttonStyle?: React.CSSProperties;
             className?: string;
             icon?: React.ReactNode;
             label?: React.ReactNode;

@@ -8,6 +8,7 @@
 /// <reference types="enzyme" />
 /// <reference types="chai" />
 /// <reference types="react" />
+/// <reference types="cheerio" />
 
 declare namespace Chai {
     type EnzymeSelector = string | React.StatelessComponent<any> | React.ComponentClass<any> | { [key: string]: any };
@@ -143,9 +144,9 @@ declare namespace Chai {
 }
 
 declare module "chai-enzyme" {
-    import { ShallowWrapper, ReactWrapper, CheerioWrapper } from "enzyme";
+    import { ShallowWrapper, ReactWrapper } from "enzyme";
 
-    type DebugWrapper = ShallowWrapper<any,any> | CheerioWrapper<any, any> | ReactWrapper<any, any>;
+    type DebugWrapper = ShallowWrapper<any,any> | Cheerio | ReactWrapper<any, any>;
     function chaiEnzyMe(wrapper?: (debugWrapper: DebugWrapper) => string): (chai: any) => void;
 
     module chaiEnzyMe {
