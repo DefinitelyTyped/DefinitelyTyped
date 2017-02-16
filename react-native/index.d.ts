@@ -7956,6 +7956,10 @@ declare module "react" {
          */
         cropImage( uri: string, cropData: ImageCropData, success: (uri: string) => void, failure: (error: Object) => void ): void
     }
+				  
+    export interface KeyboardStatic extends NativeEventEmitter {
+        dismiss: ()=>void
+    }
 
     //////////////////////////////////////////////////////////////////////////
     //
@@ -8145,7 +8149,7 @@ declare module "react" {
     export var IntentAndroid: IntentAndroidStatic
     export type IntentAndroid = IntentAndroidStatic
 
-    export var Keyboard: NativeEventEmitter
+    export var Keyboard: KeyboardStatic
 
     export var KeyboardAvoidingView: KeyboardAvoidingViewStatic
     export type KeyboardAvoidingView = KeyboardAvoidingViewStatic
