@@ -1,4 +1,4 @@
-﻿/*
+/*
 Examples from the spec:
 https://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html#examples-recognition
 */

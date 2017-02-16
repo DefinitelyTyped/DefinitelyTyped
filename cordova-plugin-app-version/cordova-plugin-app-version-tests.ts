@@ -1,4 +1,4 @@
-﻿/// <reference types="cordova" />
+/// <reference types="cordova" />
 
 cordova.getAppVersion.getAppName()
 	.then(appName=> {

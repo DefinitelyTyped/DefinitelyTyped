@@ -1864,12 +1864,7 @@ declare namespace Electron {
 		/**
 		 * Writes data to the clipboard.
 		 */
-		write(data: {
-			text?: string;
-			rtf?: string;
-			html?: string;
-			image?: NativeImage;
-		}, type?: ClipboardType): void;
+		write(data: { text: string; bookmark?: string; } | { rtf: string; } | { html: string; } | { image: NativeImage; }, type?: ClipboardType): void;
 		/**
 		 * @returns An Object containing title and url keys representing the bookmark in the clipboard.
 		 *
@@ -2784,7 +2779,7 @@ declare namespace Electron {
 		 * The protocol scheme in the form ‘scheme:’. Currently supported values are ‘http:’ or ‘https:’.
 		 * Defaults to ‘http:’.
 		 */
-		Protocol?: 'http:' | 'https:';
+		protocol?: 'http:' | 'https:';
 		/**
 		 * The server host provided as a concatenation of the hostname and the port number ‘hostname:port’.
 		 */

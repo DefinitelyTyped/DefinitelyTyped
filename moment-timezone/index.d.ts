@@ -1,14 +1,14 @@
-// Type definitions for moment-timezone.js 0.2.5
+// Type definitions for moment-timezone.js 0.2
 // Project: http://momentjs.com/timezone/
 // Definitions by: Michel Salib <https://github.com/michelsalib>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as moment from 'moment';
 
-export as namespace MomentTimezone;
+// require("moment-timezone") === require("moment")
 export = moment;
 
-declare namespace MomentTimezone {
+declare module "moment" {
     interface MomentZone {
         name: string;
         abbrs: string[];
@@ -17,7 +17,7 @@ declare namespace MomentTimezone {
 
         abbr(timestamp: number): string;
         offset(timestamp: number): number;
-        parse(timestamp: number): number
+        parse(timestamp: number): number;
     }
 
     interface MomentTimezone {
@@ -32,7 +32,7 @@ declare namespace MomentTimezone {
         (date: string, format: moment.MomentFormatSpecification, language: string, strict: boolean, timezone: string): moment.Moment;
         (date: Date, timezone: string): moment.Moment;
         (date: moment.Moment, timezone: string): moment.Moment;
-        (date: Object, timezone: string): moment.Moment;
+        (date: any, timezone: string): moment.Moment;
 
         zone(timezone: string): MomentZone;
 
@@ -54,9 +54,6 @@ declare namespace MomentTimezone {
         setDefault(timezone: string): void;
     }
 
-}
-
-declare module "moment" {
     interface Moment {
         tz(): string;
         tz(timezone: string): Moment;
@@ -64,5 +61,5 @@ declare module "moment" {
         zoneName(): string;
     }
 
-    const tz: MomentTimezone.MomentTimezone;
+    const tz: MomentTimezone;
 }

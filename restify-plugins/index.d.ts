@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import {RequestHandler, Server, Request, Response, Route} from 'restify';
-import * as bunyan from 'bunyan';
+import Logger = require('bunyan');
 
 //*************** This module includes the follow pre plugins, which are intended to be used prior to the routing of a request:
 
@@ -15,7 +15,7 @@ export namespace pre {
   function context(): RequestHandler;
 
   /**
-   * 
+   *
    */
   function dedupeSlashes(): RequestHandler;
 
@@ -56,7 +56,7 @@ interface AuditLoggerOptions {
   /**
    * Bunyan logger
    */
-  log: bunyan.Logger;
+  log: Logger;
 
   /**
    * Restify server. If passed in, causes server to emit 'auditlog' event after audit logs are flushed
@@ -74,7 +74,7 @@ interface AuditLoggerOptions {
   printLog?: boolean;
 
   /**
-   * 
+   *
    */
   body?: boolean;
 }
@@ -165,12 +165,12 @@ interface BodyParserOptions {
   rejectUnknown?: boolean;
 
   /**
-   * 
+   *
    */
   reviver?: any;
 
   /**
-   * 
+   *
    */
   maxFieldsSize?: number;
 }
@@ -192,7 +192,7 @@ interface UrlEncodedBodyParser {
 
 /**
  * Parse the HTTP request body IFF the contentType is application/x-www-form-urlencoded.
- * 
+ *
  * If req.params already contains a given key, that key is skipped and an
  * error is logged.
  */
@@ -287,7 +287,7 @@ interface RequestLogger {
 
 /**
  * Adds timers for each handler in your request chain
- * 
+ *
  * `options.properties` properties to pass to bunyan's `log.child()` method
  */
 export function requestLogger(options?: RequestLogger): RequestHandler;
@@ -341,7 +341,7 @@ interface MetricsCallback {
   err: Error;
 
   /**
-   * 
+   *
    */
   metrics: MetricsCallbackOptions;
 
@@ -380,7 +380,7 @@ interface MetricsCallbackOptions {
 
   /**
    * If this value is set, err will be a corresponding `RequestCloseError` or `RequestAbortedError`.
-   * 
+   *
    * If connectionState is either 'close' or 'aborted', then the statusCode is not applicable since the connection was severed before a response was written.
    */
   connectionState: TMetricsCallback;
@@ -395,7 +395,7 @@ interface MetricsReturns {
 
 /**
  * Listens to the server's after event and emits information about that request (5.x compatible only).
- * 
+ *
  * ```
  * server.on('after', plugins.metrics( (err, metrics) =>
  * {
@@ -407,7 +407,7 @@ export function metrics(opts: {server: Server}, callback: (options: MetricsCallb
 
 /**
  * Parse the client's request for an OAUTH2 access tokensTable
- * 
+ *
  * Subsequent handlers will see `req.oauth2`, which looks like:
  * ```
  * {
@@ -441,7 +441,7 @@ interface RequestExpiryOptions {
 
 /**
  * A request expiry will use headers to tell if the incoming request has expired or not.
- * 
+ *
  * There are two options for this plugin:
  *   1. Absolute Time
  *     * Time in Milliseconds since the Epoch when this request should be considered expired

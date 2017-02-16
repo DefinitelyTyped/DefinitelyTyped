@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": false,
@@ -25,6 +27,8 @@
         "remote.d.ts",
         "safari.d.ts",
         "testing.d.ts",
-        "selenium-webdriver-tests.ts"
+        "test/index.ts",
+        "test/chrome.ts",
+        "test/firefox.ts"
     ]
 }

@@ -1,4 +1,4 @@
-﻿import later = require("later");
+import later = require("later");
 
 namespace LaterTest_DefineSchedule {
 

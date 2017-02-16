@@ -1,4 +1,4 @@
-﻿
+
 
 function aSimpleLoggingMessageString() {
 	var log = log4javascript.getDefaultLogger();

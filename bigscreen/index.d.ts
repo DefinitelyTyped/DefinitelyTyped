@@ -3,24 +3,16 @@
 // Definitions by: Douglas Eichelberger <https://github.com/dduugg/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface BigScreenStatic {
-    // Properties
-    element: Element;
-    enabled: boolean;
+export as namespace BigScreen;
 
-    // Methods
-    exit(): void;
-    onchange(element: Element): void;
-    onenter(element: Element): void;
-    onerror(element: Element, reason: string): void;
-    onexit(): void;
-    request(element: Element, onEnter?: (element: Element) => void, onExit?: () => void, onError?: (element: Element, reason: string) => void): void;
-    toggle(element: Element, onEnter?: (element: Element) => void, onExit?: () => void, onError?: (element: Element, reason: string) => void): void;
-    videoEnabled(video: HTMLVideoElement): boolean;
-}
+export const element: Element;
+export const enabled: boolean;
 
-declare var bigscreen: BigScreenStatic;
-
-declare module "bigscreen" {
-    export = bigscreen;
-}
+export function exit(): void;
+export function onchange(element: Element): void;
+export function onenter(element: Element): void;
+export function onerror(element: Element, reason: string): void;
+export function onexit(): void;
+export function request(element: Element, onEnter?: (element: Element) => void, onExit?: () => void, onError?: (element: Element, reason: string) => void): void;
+export function toggle(element?: Element, onEnter?: (element: Element) => void, onExit?: () => void, onError?: (element: Element, reason: string) => void): void;
+export function videoEnabled(video: HTMLVideoElement): boolean;

@@ -1,19 +1,14 @@
-// Type definitions for koa v3.0.0
+// Type definitions for koa-compose 3.2
 // Project: https://github.com/koajs/compose
 // Definitions by: jKey Lu <https://github.com/jkeylu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare function compose(middleware: compose.Middleware[]): compose.ComposedMiddleware;
+declare function compose<T>(middleware: Array<compose.Middleware<T>>): compose.ComposedMiddleware<T>;
 
 declare namespace compose {
-    interface Middleware {
-        (context: any, next?: () => Promise<void>): Promise<any>;
-    }
-
-    interface ComposedMiddleware {
-        (context: any): Promise<void>;
-    }
+    type Middleware<T> = (context: T, next: () => Promise<any>) => any;
+    type ComposedMiddleware<T> = (context: T, next?: Middleware<T>) => Promise<void>;
 }
 
 export = compose;

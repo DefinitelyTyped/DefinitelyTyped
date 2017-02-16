@@ -29,6 +29,8 @@ function test_containSubset() {
     });
 
     obj.should.containSubset({ a: 'b' });
+
+    assert.containSubset(obj, { a: 'b' });
 }
 
 function test_notContainSubset() {
@@ -52,6 +54,7 @@ function test_arrayContainSubset() {
 
     expect(list).to.containSubset([{a:'a',  b: 'b'}]);
     list.should.containSubset([{a:'a',  b: 'b'}]);
+    assert.containSubset(list, [{a:'a',  b: 'b'}]);
 }
 
 function test_arrayNotContainSubset() {

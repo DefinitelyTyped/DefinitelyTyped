@@ -69,6 +69,7 @@ declare namespace PDFKit.Mixins {
     }
 
     interface PDFFont<TDocument> {
+        font(buffer: Buffer): TDocument;
         font(src: string, family?: string, size?: number): TDocument;
         fontSize(size: number): TDocument;
         currentLineHeight(includeGap?: boolean): number;
@@ -108,7 +109,7 @@ declare namespace PDFKit.Mixins {
         /** The amount in PDF points (72 per inch) to indent each paragraph of text */
         indent?: number;
         /** the amount of space between each paragraph of text */
-        paragrahGap?: number;
+        paragraphGap?: number;
         /** the amount of space between each line of text */
         lineGap?: number;
         /** the amount of space between each word in the text */
@@ -230,7 +231,7 @@ declare namespace PDFKit {
         compress?: boolean;
         info?: DocumentInfo;
         autoFirstPage?: boolean;
-        size?: number[];
+        size?: number[]|string;
         margin?: number;
         margins?: { top: number; left: number; bottom: number; right: number };
         layout?: "portrait" | "landscape";

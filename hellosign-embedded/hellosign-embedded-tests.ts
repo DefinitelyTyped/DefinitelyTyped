@@ -1,4 +1,4 @@
-﻿HelloSign.init('abc123');
+HelloSign.init('abc123');
 
 // some options
 HelloSign.open({

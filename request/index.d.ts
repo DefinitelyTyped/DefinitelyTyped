@@ -91,6 +91,8 @@ declare namespace request {
         qsStringifyOptions?: any;
         qsParseOptions?: any;
         json?: any;
+        jsonReviver?: (key: string, value: any) => any;
+        jsonReplacer?: (key: string, value: any) => any;
         multipart?: RequestPart[] | Multipart;
         agent?: http.Agent | https.Agent;
         agentOptions?: any;
@@ -225,7 +227,7 @@ declare namespace request {
         pass?: string;
         password?: string;
         sendImmediately?: boolean;
-        bearer?: string;
+        bearer?: string | (() => string);
     }
 
     export interface OAuthOptions {

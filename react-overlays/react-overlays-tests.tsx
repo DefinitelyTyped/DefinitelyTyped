@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {Transition, Portal, Modal, Position, Overlay, Affix, AutoAffix} from "react-overlays";
-import * as RootCloseWrapper from "react-overlays/lib/RootCloseWrapper"; 
+import * as RootCloseWrapper from "react-overlays/lib/RootCloseWrapper";
 
 function testTransition() {
   return (
@@ -34,8 +34,8 @@ class TestRootCloseWrapper extends React.Component<{}, {}> {
   handleRootClose = () => { };
   render() {
     return (
-      <RootCloseWrapper onRootClose={this.handleRootClose} 
-                        disabled={false} 
+      <RootCloseWrapper onRootClose={this.handleRootClose}
+                        disabled={false}
                         event="click">
         <div>Test</div>
       </RootCloseWrapper>

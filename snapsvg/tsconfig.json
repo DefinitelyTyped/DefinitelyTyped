@@ -1,9 +1,12 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
-        "noImplicitThis": true,
+        "noImplicitThis": false,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
@@ -15,6 +18,8 @@
     },
     "files": [
         "index.d.ts",
-        "snapsvg-tests.ts"
+        "test/1.ts",
+        "test/2.ts",
+        "test/3.ts"
     ]
 }

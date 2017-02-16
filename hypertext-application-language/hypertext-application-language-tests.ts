@@ -1,4 +1,4 @@
-﻿// Link object
+// Link object
 
 // Fields format:
 var link:Hal.Link = {

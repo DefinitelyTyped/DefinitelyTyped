@@ -3,7 +3,7 @@
 // Definitions by: Marc Climent <https://github.com/mcliment>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="d3"/>
+import * as d3 from "d3";
 
 export = c3;
 export as namespace c3;
@@ -247,6 +247,15 @@ declare namespace c3 {
              * Set width of gauge chart.
              */
             width?: number;
+        };
+
+        spline?: {
+            interpolation?: {
+                /**
+                 * Set custom spline interpolation
+                 */
+                type?: 'linear' | 'linear-closed' | 'basis' | 'basis-open' | 'basis-closed' | 'bundle' | 'cardinal' | 'cardinal-open' | 'cardinal-closed' | 'monotone';
+            };
         };
     }
 

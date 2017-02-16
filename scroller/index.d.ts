@@ -21,7 +21,7 @@ interface ScrollerOptions {
 
 interface ScrollValues {
     left: number;
-    top: number;    
+    top: number;
 }
 
 interface ScrollValuesWithZoom extends ScrollValues {
@@ -47,4 +47,12 @@ declare class Scroller {
     doTouchStart(touches: any[], timeStamp: number): void;
     doTouchMove(touches: any[], timeStamp: number, scale?: number): void;
     doTouchEnd(timeStamp: number): void;
+}
+
+declare class EasyScroller  {
+    constructor (content: any, options: ScrollerOptions);
+
+    render(): void;
+    reflow(): void;
+    bindEvents(): void;
 }

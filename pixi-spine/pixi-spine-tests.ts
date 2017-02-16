@@ -1,4 +1,4 @@
-﻿/// <reference types="pixi.js" />
+/// <reference types="pixi.js" />
 /// <reference types="pixi-spine" />
 
 namespace Spine {

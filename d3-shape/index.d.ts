@@ -1610,7 +1610,7 @@ export interface CurveGeneratorLineOnly {
  * A factory for curve generators addressing only lines, but not areas.
  */
 // This is a base interface to be extended, hence the suppression of the warning
-// tslint:disable-next-line:functional-interfaces
+// tslint:disable-next-line:callable-types
 export interface CurveFactoryLineOnly {
     /**
      * Returns a "lines only" curve generator which renders to the specified context.
@@ -1646,7 +1646,7 @@ export interface CurveGenerator extends CurveGeneratorLineOnly {
  * A factory for curve generators addressing both lines and areas.
  */
 // This is a base interface to be extended, hence the suppression of the warning
-// tslint:disable-next-line:functional-interfaces
+// tslint:disable-next-line:callable-types
 export interface CurveFactory {
     /**
      * Returns a curve generator which renders to the specified context.

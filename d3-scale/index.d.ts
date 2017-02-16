@@ -18,7 +18,7 @@ import { CountableTimeInterval, TimeInterval } from 'd3-time';
  * The second generic corresponds to the data type of the return type of the interpolator.
  */
 // This is a base interface to be extended, hence the suppression of the warning
-// tslint:disable-next-line:functional-interfaces
+// tslint:disable-next-line:callable-types
 export interface InterpolatorFactory<T, U> {
     /**
      * Construct a new interpolator function, based on the provided interpolation boundaries.

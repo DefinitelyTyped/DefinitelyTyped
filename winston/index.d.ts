@@ -1,4 +1,4 @@
-// Type definitions for winston
+// Type definitions for winston v2.2.0
 // Project: https://github.com/flatiron/winston
 // Definitions by: bonnici <https://github.com/bonnici>, Peter Harris <https://github.com/codeanimal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,10 +6,6 @@
 // Imported from: https://github.com/soywiz/typescript-node-definitions/winston.d.ts
 
 /// <reference types="node" />
-
-///******************
-///  Winston v2.2.x
-///******************
 
 import {Agent} from 'http';
 

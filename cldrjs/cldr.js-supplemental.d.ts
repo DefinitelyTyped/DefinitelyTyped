@@ -5,7 +5,9 @@
 
 // The definition file for supplemental module.
 
-declare namespace cldr {
+import * as cldr from "cldrjs";
+
+declare module "cldrjs" {
     interface TimeDataStatic {
         allowed(): string;
         preferred(): string;

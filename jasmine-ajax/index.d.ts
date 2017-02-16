@@ -20,6 +20,7 @@ interface JasmineAjaxRequest extends XMLHttpRequest {
 	password: string;
 	requestHeaders: { [key: string]: string };
 	overriddenMimeType: string;
+	data: () => string;
 
 	respondWith(response: JasmineAjaxResponse): void;
 }

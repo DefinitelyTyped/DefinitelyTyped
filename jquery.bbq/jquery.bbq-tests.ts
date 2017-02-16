@@ -1,5 +1,4 @@
-/// <reference path="../qunit/qunit-1.16.d.ts" />
-
+/// <reference types="qunit/v1" />
 
 // ************** Tests to jquery JQueryParam interface
 var myObject = {

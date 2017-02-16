@@ -1,4 +1,4 @@
-﻿import http = require('http')
+import http = require('http')
 import onHeaders = require('on-headers')
 
 http.createServer(onRequest)

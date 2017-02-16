@@ -1,4 +1,4 @@
-import gs = require('./');
+import gs = require('glob-stream');
 
 var read: NodeJS.ReadableStream;
 

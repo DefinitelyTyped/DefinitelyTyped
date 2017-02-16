@@ -24,6 +24,11 @@ interface MyCaptionProps extends ReactDayPicker.CaptionElementProps { }
 class Caption extends React.Component<MyCaptionProps, {}> {
     render() {
         const { date, locale, localeUtils, onClick } = this.props;
+
+        if (!date || !localeUtils || typeof locale === 'undefined') {
+            return null
+        }
+
         return (
             <div className="DayPicker-Caption" onClick={ onClick }>
               { localeUtils.formatMonthTitle(date, locale) }

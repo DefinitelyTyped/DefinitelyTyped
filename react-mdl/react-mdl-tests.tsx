@@ -1,4 +1,4 @@
-﻿// Test file for react-mdl Definition file
+// Test file for react-mdl Definition file
 
 
 import * as React from 'react';

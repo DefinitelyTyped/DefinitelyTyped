@@ -1,4 +1,4 @@
-﻿
+
 /// <reference types="jasmine" />
 
 all("A data driven test is a suite with multiple specs",

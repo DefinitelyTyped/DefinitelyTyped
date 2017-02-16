@@ -2,6 +2,7 @@
 // Project: https://github.com/onefinestay/react-daterange-picker
 // Definitions by: UNCOVER TRUTH Inc. <https://github.com/uncovertruth/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as React from "react";
 import * as moment from "moment-range";

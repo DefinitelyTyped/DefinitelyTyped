@@ -2,7 +2,9 @@
     "compilerOptions": {
         "module": "commonjs",
         "moduleResolution": "node",
-        "target": "es6",
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -16,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "msgpack5-test.ts"
+        "msgpack5-tests.ts"
     ]
 }

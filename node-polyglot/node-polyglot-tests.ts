@@ -5,6 +5,22 @@ function instantiatePolyglot(): void {
 	var polyglot = new Polyglot();
 	var phrasedPolyglot = new Polyglot({phrases: {"hello": "Hello"}});
 	var localePolyglot = new Polyglot({locale: "fr"});
+	var allowMissingPolyglot = new Polyglot({
+		phrases: {"hello": "Hello"},
+		allowMissing: true
+	});
+	var onMissingKeySimplePolyglot = new Polyglot({
+		phrases: {"hello": "Hello"},
+		onMissingKey: (key: string): string => {
+			return 'ouups!';
+		}
+	});
+	var onMissingKeyComplexPolyglot = new Polyglot({
+		phrases: {"hello": "Hello"},
+		onMissingKey: (key: string, options: Polyglot.InterpolationOptions, locale: string): string => {
+			return 'ouups!';
+		}
+	});
 }
 
 function translate(): void {

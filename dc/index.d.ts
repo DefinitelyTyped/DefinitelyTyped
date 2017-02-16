@@ -5,10 +5,15 @@
 
 // this makes only sense together with d3 and crossfilter so you need the d3.d.ts and crossfilter.d.ts files
 
-///<reference types="d3" />
 ///<reference types="crossfilter" />
 
-declare namespace DC {
+import * as d3 from "d3";
+
+export = dc;
+declare var dc: dc.Base;
+export as namespace dc;
+
+declare namespace dc {
     // helper for get/set situation
     export interface IGetSet<T, V> {
         (): T;
@@ -452,8 +457,3 @@ declare namespace DC {
     }
 }
 
-declare var dc: DC.Base;
-
-declare module 'dc' {
-    export = dc;
-}

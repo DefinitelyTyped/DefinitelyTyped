@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Created by using code samples from https://github.com/sendgrid/sendgrid-nodejs#usage
  */
 

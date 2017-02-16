@@ -91,6 +91,12 @@ var options: request.Options = {
 	aws: aws,
 	qs: obj,
 	json: value,
+	jsonReviver: (key: string, value: any) => {
+
+	},
+	jsonReplacer: (key: string, value: any) => {
+
+	},
 	multipart: value,
 	agent: new http.Agent(),
 	agentOptions: value,
@@ -385,6 +391,12 @@ request.get('http://some.server.com/').auth(null, null, true, 'bearerToken');
 request.get('http://some.server.com/', {
   'auth': {
     'bearer': 'bearerToken'
+  }
+});
+// or
+request.get('http://some.server.com/', {
+  'auth': {
+    'bearer': () => 'bearerToken'
   }
 });
 

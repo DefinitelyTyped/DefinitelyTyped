@@ -1,40 +1,35 @@
-// Type definitions for parse-torrent
+// Type definitions for parse-torrent 5.8
 // Project: https://github.com/feross/parse-torrent
-// Definitions by: Bazyli Brzóska <https://invent.life>
+// Definitions by: Bazyli Brzóska <https://github.com/niieani>, Tomasz Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
-declare var ParseTorrent:ParseTorrent.StaticInstance;
-export = ParseTorrent;
+import * as MagnetUri from 'magnet-uri';
+import * as ParseTorrentFile from 'parse-torrent-file';
+
+declare const ParseTorrent: ParseTorrent.ParseTorrent;
 
 declare namespace ParseTorrent {
-  export interface ParsedTorrent {
-    infoHash:string;
-    xt?:string;
-    info?: { length:number, name:Buffer, 'piece length':number, pieces:Buffer };
-    infoBuffer?:Buffer;
-    name?:string;
-    private?:boolean;
-    created?:Date;
-    comment?:string;
-    announce?:Array<string>;
-    urlList?:Array<string>;
-    files?:Array<{path:string, name:string, length: number, offset:number}>;
-    length?:number;
-    pieceLength?:number;
-    lastPieceLength?:number;
-    pieces?:Array<string>;
-  }
 
-  interface StaticInstance {
-    (magnetUriOrInfoHash:string):ParsedTorrent;
-    (torrentFileOrInfoHash:Buffer):{ info:ParsedTorrent };
+    interface ParseTorrent {
+        (torrent: string): MagnetUri.Instance;
+        (torrent: Buffer): MagnetUri.Instance | ParseTorrentFile.Instance;
+        (torrent: Instance | MagnetUri.Instance | ParseTorrentFile.Instance): Instance;
 
-    toMagnetURI(parsedTorrent:ParsedTorrent):string;
-    toTorrentFile(parsedTorrent:{ info:ParsedTorrent }):Buffer;
+        toMagnetURI: typeof MagnetUri.encode;
+        toTorrentFile: typeof ParseTorrentFile.encode;
 
-    remote(remoteURLorLocalTorrentPath:string, onTorrentCallback?:(err:Error, parsedTorrent:ParsedTorrent)=>void):void;
-    remote(torrentBlob:Blob, onTorrentCallback?:(err:Error, parsedTorrent:ParsedTorrent)=>void):void;
-  }
+        remote(torrent: string | Buffer | Instance | MagnetUri.Instance | ParseTorrentFile.Instance | Blob, cb?: (err: Error, torrent?: Instance) => void): void;
+    }
+
+    export interface Instance extends MagnetUri.Instance, ParseTorrentFile.Instance {
+        infoHash: string;
+        name?: string;
+        announce?: string[];
+        urlList?: string[];
+    }
+
 }
+
+export = ParseTorrent;

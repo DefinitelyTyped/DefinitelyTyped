@@ -1,4 +1,4 @@
-﻿/**
+/**
 * Test suite created by Maxime LUCE <https://github.com/SomaticIT>
 *
 * Created by using code samples from https://github.com/npm/npm#using-npm-programmatically.

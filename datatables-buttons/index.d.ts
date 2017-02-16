@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery" />
-/// <reference types="jquery.dataTables"/>
+/// <reference types="jquery.datatables"/>
 
 declare namespace DataTables {
     export interface Settings {

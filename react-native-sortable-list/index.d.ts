@@ -2,8 +2,10 @@
 // Project: https://github.com/gitim/react-native-sortable-list
 // Definitions by: Michael Sivolobov <https://github.com/sivolobov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as React from 'react';
+import { ViewStyle } from 'react-native';
 
 type DataKey = string | number;
 
@@ -42,12 +44,12 @@ interface SortableListProps {
     /**
      * style of HOC
      */
-    style?: React.ViewStyle
+    style?: ViewStyle
 
     /**
      * these styles will be applied to the inner scroll view content container
      */
-    contentContainerStyle?: React.ViewStyle
+    contentContainerStyle?: ViewStyle
 
     /**
      * when false, rows are not sortable. The default value is true.

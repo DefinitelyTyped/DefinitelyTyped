@@ -223,13 +223,9 @@ type CredentialBodyType = FormData|URLSearchParams;
 declare class PasswordCredential extends SiteBoundCredential {
     /**
      * @see {@link https://www.w3.org/TR/credential-management-1/#dom-passwordcredential-passwordcredential-data}
-     */
-    constructor(data: PasswordCredentialData);
-
-    /**
      * @see {@link https://www.w3.org/TR/credential-management-1/#dom-passwordcredential-passwordcredential}
      */
-    constructor(form: HTMLFormElement);
+    constructor(data: PasswordCredentialData | HTMLFormElement);
 
     readonly type: 'password';
 

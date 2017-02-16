@@ -3,6 +3,10 @@
 // Definitions by: Oleksii Trekhleb <https://ua.linkedin.com/in/trekhleb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = elasticjs;
+
+export as namespace elasticjs;
+
 declare module elasticjs {
 
   export interface Facet {}
@@ -6761,7 +6765,7 @@ declare module elasticjs {
     /*
      Allows you to set a specified filter on this request object.
      */
-    filter(filter: Object): Request;
+    filter(filter: Filter): Request;
 
     /*
      A search result set could be very large (think Google). Setting the

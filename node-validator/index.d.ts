@@ -32,7 +32,7 @@ declare namespace Validator {
     interface IsObjectValidator extends Validatable {
         withRequired: (name: String, validator: Validatable) => IsObjectValidator,
         withOptional: (name: String, validator: Validatable) => IsObjectValidator,
-        custom: (customValidator: Validatable) => IsObjectValidator,
+        withCustom: (customValidator: ValidateFn) => IsObjectValidator,
         validate: ValidateFn
     }
 

@@ -1,5 +1,5 @@
-import * as webdriver from "./index";
-import * as remote from "./remote";
+import * as webdriver from './index';
+import * as remote from './remote';
 
 declare namespace opera {
     /**
@@ -101,9 +101,9 @@ declare namespace opera {
 
         /**
          * Add additional command line arguments to use when launching the Opera
-         * browser.  Each argument may be specified with or without the "--" prefix
-         * (e.g. "--foo" and "foo"). Arguments with an associated value should be
-         * delimited by an "=": "foo=bar".
+         * browser.  Each argument may be specified with or without the '--' prefix
+         * (e.g. '--foo' and 'foo'). Arguments with an associated value should be
+         * delimited by an '=': 'foo=bar'.
          * @param {...(string|!Array.<string>)} var_args The arguments to add.
          * @return {!Options} A self reference.
          */

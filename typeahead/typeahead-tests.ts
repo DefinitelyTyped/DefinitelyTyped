@@ -1,4 +1,4 @@
-﻿/// <reference types="jquery"/>
+/// <reference types="jquery"/>
 
 function test_typeahead() {
     var options: Twitter.Typeahead.Options = {};

@@ -1,12 +1,11 @@
 {
-    "files": [
-        "index.d.ts",
-        "cldr.js-event-tests.ts"
-    ],
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
-        "noImplicitAny": true,
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": false,
         "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
@@ -16,5 +15,12 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "cldr.js-supplemental.d.ts",
+        "test/index.ts",
+        "test/event.ts",
+        "test/supplemental.ts"
+    ]
 }

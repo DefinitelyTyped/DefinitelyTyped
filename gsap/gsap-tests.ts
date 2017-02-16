@@ -1,4 +1,4 @@
-﻿
+
 
 var tween = TweenLite
     .to(document.getElementById('some-div'), 1, {

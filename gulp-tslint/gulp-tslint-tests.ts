@@ -1,6 +1,6 @@
 import * as gulp from 'gulp';
 import * as tslint from 'gulp-tslint';
-import vinyl = require('../vinyl');
+import vinyl = require('vinyl');
 
 // Taken from gulp-tslint README https://github.com/panuhorsmalahti/gulp-tslint/blob/master/README.md
 

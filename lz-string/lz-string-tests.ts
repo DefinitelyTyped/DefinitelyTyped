@@ -1,4 +1,4 @@
-﻿
+
 
 var input = "Someting to compress";
 var encoded: string;

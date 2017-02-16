@@ -318,6 +318,8 @@ declare namespace polymer {
   interface PolymerStatic {
     Settings: Settings;
 
+    isInstance(element: string): boolean;
+    Base: Base;
     dom: DomApiStatic;
 
     (prototype: Base | { new (): Base }): webcomponents.CustomElementConstructor;
@@ -332,4 +334,3 @@ declare namespace polymer {
 }
 
 declare var Polymer: polymer.PolymerStatic;
-

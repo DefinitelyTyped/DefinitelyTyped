@@ -1,4 +1,4 @@
-﻿
+
 
 function initializeCDT(): poly2tri.SweepContext {
     var contour = [

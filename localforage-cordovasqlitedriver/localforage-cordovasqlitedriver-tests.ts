@@ -1,4 +1,4 @@
-﻿
+
 declare var cordovaSQLiteDriver: LocalForageDriver;
 
 () => {

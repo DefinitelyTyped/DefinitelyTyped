@@ -1,4 +1,4 @@
-import express = require("../express");
+import express = require("express");
 import ExpressBrute = require("express-brute");
 import MongoStore = require("express-brute-mongo");
 import mongodb = require("mongodb");

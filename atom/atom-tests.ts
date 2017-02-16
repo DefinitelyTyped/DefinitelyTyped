@@ -7,6 +7,8 @@ import _atom = require("atom");
 import PathWatcher = require("pathwatcher");
 var File = PathWatcher.File;
 
+const jq: JQuery = $("selector");
+
 class SampleView extends _atom.ScrollView {
 
 	editorId:string;
@@ -33,11 +35,6 @@ class SampleView extends _atom.ScrollView {
 		}
 	}
 
-	get jq():JQuery {
-		// dirty hack
-		return <any>this;
-	}
-
 	serialize() {
 		return {
 			deserializer: 'SampleView',
@@ -52,9 +49,9 @@ class SampleView extends _atom.ScrollView {
 	resolveEditor(editorId:string) {
 		var resolve = ()=> {
 			if (this.editor) {
-				this.jq.trigger("title-changed");
+				jq.trigger("title-changed");
 			} else {
-				var view = this.jq.parents('.pane').view();
+				var view = jq.parents('.pane').view();
 				if (view) {
 					view.destroyItem(this);
 				}

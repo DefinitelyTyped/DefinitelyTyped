@@ -5,7 +5,9 @@
 
 // See docs https://codemirror.net/doc/manual.html#addon_show-hint
 
-declare namespace CodeMirror {
+import * as CodeMirror from "codemirror";
+
+declare module "codemirror" {
     var commands: any;
 
     /** Provides a framework for showing autocompletion hints. Defines editor.showHint, which takes an optional
@@ -14,7 +16,7 @@ declare namespace CodeMirror {
     and return a {list, from, to} object, where list is an array of strings or objects (the completions), and
     from and to give the start and end of the token that is being completed as {line, ch} objects. An optional
     selectedHint property (an integer) can be added to the completion object to control the initially selected hint. */
-    function showHint(cm: CodeMirror.Doc, hinter?: (doc: CodeMirror.Doc) => Hints, options?: ShowHintOptions): void;
+    function showHint(cm: CodeMirror.Doc, hinter?: HintFunction, options?: ShowHintOptions): void;
 
     interface Hints {
         from: Position;
@@ -45,9 +47,18 @@ declare namespace CodeMirror {
         showHint: (options: ShowHintOptions) => void;
     }
 
+    interface HintFunction {
+        (doc: CodeMirror.Doc): Hints;
+    }
+
+    interface AsyncHintFunction {
+        (doc: CodeMirror.Doc, callback: (hints: Hints) => any): any;
+        async?: boolean;
+    }
+
     interface ShowHintOptions {
         completeSingle: boolean;
-        hint: (doc: CodeMirror.Doc) => Hints;
+        hint: HintFunction | AsyncHintFunction;
     }
 
     /** The Handle used to interact with the autocomplete dialog box.*/

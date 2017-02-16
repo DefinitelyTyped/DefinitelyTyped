@@ -1,4 +1,4 @@
-import speakeasy = require('speakeasy');
+import * as speakeasy from 'speakeasy';
 
 speakeasy.generate_key({length: 20, google_auth_qr: true});
 
@@ -22,3 +22,19 @@ speakeasy.totp({key: 'secret', time: 159183717});
 
 // use a initial time.
 speakeasy.totp({key: 'secret', initial_time: 4182881485});
+
+speakeasy.generateSecret({
+    length: 3,
+    name: 'testName',
+    qr_codes: true,
+    google_auth_qr: true,
+    otpauth_url: true,
+    symbols: true
+});
+
+speakeasy.generateSecretASCII(5, true);
+
+speakeasy.otpauthURL({
+    secret: 'otpauthURLSecret',
+    label: 'otpauthURLLength'
+});

@@ -1,4 +1,4 @@
-import Waterline = require(".");
+import Waterline = require("waterline");
 const waterline = new Waterline();
 const userCollection = Waterline.Collection.extend({
     identity: "user",
