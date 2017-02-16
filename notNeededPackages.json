@@ -295,6 +295,18 @@
             "asOfVersion": "0.10.5"
         },
         {
+            "libraryName": "axios",
+            "typingsPackageName": "axios",
+            "sourceRepoURL": "https://github.com/mzabriskie/axios",
+            "asOfVersion": "0.14.0"
+        },
+        {
+            "libraryName": "gaea-model",
+            "typingsPackageName": "gaea-model",
+            "sourceRepoURL": "https://github.com/ascoders/gaea-model",
+            "asOfVersion": "0.0.0"
+        },
+	{
             "libraryName": "redux-persist",
             "typingsPackageName": "redux-persist",
             "sourceRepoURL": "https://github.com/rt2zz/redux-persist",

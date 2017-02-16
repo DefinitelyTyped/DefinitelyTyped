@@ -1,6 +1,6 @@
-// Type definitions for needle 0.7.8
+// Type definitions for needle 1.4
 // Project: https://github.com/tomas/needle
-// Definitions by: San Chen <https://github.com/bigsan>
+// Definitions by: San Chen <https://github.com/bigsan>, Niklas Mollenhauer <https://github.com/nikeee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -8,85 +8,111 @@
 declare module "needle" {
     import * as http from 'http';
     import * as Buffer from 'buffer';
-    module Needle {        
+    import * as https from 'https';
+    namespace Needle {
         interface NeedleResponse extends http.IncomingMessage {
             body: any;
             raw: Buffer;
             bytes: number;
         }
 
-        interface ReadableStream extends NodeJS.ReadableStream {
+        type ReadableStream = NodeJS.ReadableStream;
+
+        type NeedleCallback = (error: Error, response: NeedleResponse, body: any) => void;
+
+        interface Cookies {
+            [name: string]: any;
         }
 
-        interface Callback {
-                (error: Error, response: NeedleResponse, body: any): void;
-        }
+        type NeedleOptions = RequestOptions & ResponseOptions & RedirectOptions & https.RequestOptions;
 
         interface RequestOptions {
+            open_timeout?: number;
+            read_timeout?: number;
+            /**
+             * Alias for open_timeout
+             */
             timeout?: number;
-            follow?: number;
+
             follow_max?: number;
+            /**
+             * Alias for follow_max
+             */
+            follow?: number;
+
             multipart?: boolean;
+            agent?: http.Agent | boolean;
             proxy?: string;
-            agent?: string;
-                headers?: Object;
-            auth?: string; // auto | digest | basic (default)
+            headers?: {};
+            auth?: "auto" | "digest" | "basic";
             json?: boolean;
 
             // These properties are overwritten by those in the 'headers' field
+            cookies?: Cookies;
             compressed?: boolean;
-            cookies?: { [name: string]: any; };
             // Overwritten if present in the URI
             username?: string;
             password?: string;
+            accept?: string;
+            connection?: string;
+            user_agent?: string;
         }
 
         interface ResponseOptions {
+            decode_response?: boolean;
+            /**
+             * Alias for decode_response
+             */
             decode?: boolean;
+            parse_response?: boolean;
+            /**
+             * Alias for parse_response
+             */
             parse?: boolean;
-            output?: any;
+
+            parse_cookies?: boolean;
+            output?: string;
         }
 
-        interface TLSOptions {
-            pfx?: any;
-            key?: any;
-            passphrase?: string;
-            cert?: any;
-            ca?: any;
-            ciphers?: any;
-            rejectUnauthorized?: boolean;
-            secureProtocol?: any;
+        interface RedirectOptions {
+            follow_set_cookie?: boolean;
+            follow_set_referer?: boolean;
+            follow_keep_method?: boolean;
+            follow_if_same_host?: boolean;
+            follow_if_same_protocol?: boolean;
         }
+
+        interface KeyValue {
+            [key: string]: any;
+        }
+
+        type BodyData = Buffer | KeyValue | NodeJS.ReadableStream | string | null;
 
         interface NeedleStatic {
-            defaults(options?: any): void;
+            defaults(options: NeedleOptions): void;
 
-            head(url: string): ReadableStream;
-            head(url: string, callback?: Callback): ReadableStream;
-            head(url: string, options?: RequestOptions, callback?: Callback): ReadableStream;
+            head(url: string, callback?: NeedleCallback): ReadableStream;
+            head(url: string, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
 
-            get(url: string): ReadableStream;
-            get(url: string, callback?: Callback): ReadableStream;
-            get(url: string, options?: RequestOptions, callback?: Callback): ReadableStream;
+            get(url: string, callback?: NeedleCallback): ReadableStream;
+            get(url: string, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
 
-            post(url: string, data: any): ReadableStream;
-            post(url: string, data: any, callback?: Callback): ReadableStream;
-            post(url: string, data: any, options?: RequestOptions, callback?: Callback): ReadableStream;
+            post(url: string, data: BodyData, callback?: NeedleCallback): ReadableStream;
+            post(url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
 
-            put(url: string, data: any): ReadableStream;
-            put(url: string, data: any, callback?: Callback): ReadableStream;
-            put(url: string, data: any, options?: RequestOptions, callback?: Callback): ReadableStream;
+            put(url: string, data: BodyData, callback?: NeedleCallback): ReadableStream;
+            put(url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
 
-            delete(url: string, data: any): ReadableStream;
-            delete(url: string, data: any, callback?: Callback): ReadableStream;
-            delete(url: string, data: any, options?: RequestOptions, callback?: Callback): ReadableStream;
+            patch(url: string, data: BodyData, callback?: NeedleCallback): ReadableStream;
+            patch(url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
 
-            request(method: string, url: string, data: any): ReadableStream;
-            request(method: string, url: string, data: any, callback?: Callback): ReadableStream;
-            request(method: string, url: string, data: any, options?: RequestOptions, callback?: Callback): ReadableStream;
+            delete(url: string, data: BodyData, callback?: NeedleCallback): ReadableStream;
+            delete(url: string, data: BodyData, options?: NeedleOptions, callback ?: NeedleCallback): ReadableStream;
+
+            request(method: string, url: string, data: BodyData, callback?: NeedleCallback): ReadableStream;
+            request(method: string, url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
         }
     }
-
-    var needle: Needle.NeedleStatic;
+    const needle: Needle.NeedleStatic;
     export = needle;
 }
