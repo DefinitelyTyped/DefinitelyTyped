@@ -97,7 +97,7 @@ var pid = asyncVersion3.pid;
 shell.exec("node --version", { silent: true }, function (code, stdout, stderr) {
     var version = stdout;
 });
-shell.exec("node --version", { silent: true, async: true }, function (code, stdout, stderr) {
+shell.exec("node --version", { silent: true, async: true, cwd: '/usr/local/bin' }, function (code, stdout, stderr) {
     var version = stdout;
 });
 shell.exec("node --version", function (code, stdout, stderr) {
