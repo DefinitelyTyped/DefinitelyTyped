@@ -4368,26 +4368,12 @@ declare namespace webdriver {
     isDisplayed(): webdriver.promise.Promise<boolean>;
 
     /**
-     * Schedules a command to retrieve the outer HTML of this element.
-     * @return {!webdriver.promise.Promise} A promise that will be resolved with
-     *     the element's outer HTML.
-     */
-    getOuterHtml(): webdriver.promise.Promise<string>;
-
-    /**
      * @return {!webdriver.promise.Promise.<webdriver.WebElement.Id>} A promise
      *     that resolves to this element's JSON representation as defined by the
      *     WebDriver wire protocol.
      * @see http://code.google.com/p/selenium/wiki/JsonWireProtocol
      */
     getId(): webdriver.promise.Promise<IWebElementId>;
-
-    /**
-     * Schedules a command to retrieve the inner HTML of this element.
-     * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-     *     element's inner HTML.
-     */
-    getInnerHtml(): webdriver.promise.Promise<string>;
 
     //endregion
   }
@@ -4817,20 +4803,6 @@ declare namespace webdriver {
      *     resolved to the screenshot as a base-64 encoded PNG.
      */
     takeScreenshot(opt_scroll?: boolean): webdriver.promise.Promise<string>;
-
-    /**
-     * Schedules a command to retrieve the outer HTML of this element.
-     * @return {!webdriver.promise.Promise.<string>} A promise that will be
-     *     resolved with the element's outer HTML.
-     */
-    getOuterHtml(): webdriver.promise.Promise<string>;
-
-    /**
-     * Schedules a command to retrieve the inner HTML of this element.
-     * @return {!webdriver.promise.Promise} A promise that will be resolved with the
-     *     element's inner HTML.
-     */
-    getInnerHtml(): webdriver.promise.Promise<string>;
 
     /** @override */
     serialize(): webdriver.promise.Promise<IWebElementId>;
