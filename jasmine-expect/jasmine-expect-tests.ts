@@ -873,9 +873,11 @@ describe('toHaveArrayOfSize', function() {
   describeToHaveArrayX('toHaveArrayOfSize', function() {
     describe('when number of expected items does not match', function() {
       it('should deny', function() {
-        expect({
+        var xpToFail = <any>expect;
+        xpToFail({
           memberName: ''
         }).not.toHaveArrayOfSize('memberName');
+
         expect({
           memberName: ['bar']
         }).not.toHaveArrayOfSize('memberName', 0);
@@ -1872,40 +1874,6 @@ describe('toHaveWholeNumber', function() {
         expect({
           memberName: 0.1
         }).not.toHaveWholeNumber('memberName');
-      });
-    });
-  });
-});
-
-describe('toImplement', function() {
-  describe('when invoked', function() {
-    describe('when subject IS an Object containing all of the supplied members', function() {
-      it('should confirm', function() {
-        expect({
-          a: 1,
-          b: 2
-        }).toImplement({
-          a: 1,
-          b: 2
-        });
-        expect({
-          a: 1,
-          b: 2
-        }).toImplement({
-          a: 1
-        });
-      });
-    });
-    describe('when subject is NOT an Object containing all of the supplied members', function() {
-      it('should deny', function() {
-        expect({
-          a: 1
-        }).not.toImplement({
-          c: 3
-        });
-        expect(null).not.toImplement({
-          a: 1
-        });
       });
     });
   });

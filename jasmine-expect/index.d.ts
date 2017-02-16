@@ -13,7 +13,7 @@ declare namespace jasmine {
         toBeArrayOfBooleans(): boolean;
         toBeArrayOfNumbers(): boolean;
         toBeArrayOfObjects(): boolean;
-        toBeArrayOfSize(): boolean;
+        toBeArrayOfSize(size: number): boolean;
         toBeArrayOfStrings(): boolean;
         toBeEmptyArray(): boolean;
         toBeNonEmptyArray(): boolean;
@@ -50,14 +50,14 @@ declare namespace jasmine {
         toBeHtmlString(): boolean;
         toBeIso8601(): boolean;
         toBeJsonString(): boolean;
-        toBeLongerThan(): boolean;
+        toBeLongerThan(string: string): boolean;
         toBeNonEmptyString(): boolean;
-        toBeSameLengthAs(): boolean;
-        toBeShorterThan(): boolean;
+        toBeSameLengthAs(string: string): boolean;
+        toBeShorterThan(string: string): boolean;
         toBeString(): boolean;
         toBeWhitespace(): boolean;
-        toEndWith(): boolean;
-        toStartWith(): boolean;
+        toEndWith(string: string): boolean;
+        toStartWith(string: string): boolean;
 
         // Objects
         toBeEmptyObject(): boolean;
