@@ -152,8 +152,8 @@ declare namespace Phonon {
         close(): void;
     }
     interface PhononIndicatorComponent extends PhononDialogComponent {
-      open(): void;
-      close(): void;
+        open(): void;
+        close(): void;
     }
     interface PhononNotifComponent {
         setColor(color: PhononColor): PhononNotifComponent;
@@ -184,20 +184,20 @@ declare namespace Phonon {
 }
 
 interface Document {
-  on(event: string, callback: (event: Phonon.PhononCustomWindowEvent) => void, useCapture?: boolean): void;
-  off(event: string, callback: (event: Phonon.PhononCustomWindowEvent) => void, useCapture?: boolean): void;
+    on(event: string, callback: (event: Phonon.PhononCustomWindowEvent) => void, useCapture?: boolean): void;
+    off(event: string, callback: (event: Phonon.PhononCustomWindowEvent) => void, useCapture?: boolean): void;
 }
 interface Window {
-  on(event: string, callback: (event: Phonon.PhononCustomWindowEvent) => void, useCapture?: boolean): void;
-  off(event: string, callback: (event: Phonon.PhononCustomWindowEvent) => void, useCapture?: boolean): void;
+    on(event: string, callback: (event: Phonon.PhononCustomWindowEvent) => void, useCapture?: boolean): void;
+    off(event: string, callback: (event: Phonon.PhononCustomWindowEvent) => void, useCapture?: boolean): void;
 }
 interface Element {
-  on(event: string, callback: (event: any) => void, useCapture?: boolean): void;
-  off(event: string, callback: (event: any) => void, useCapture?: boolean): void;
+    on(event: string, callback: (event: any) => void, useCapture?: boolean): void;
+    off(event: string, callback: (event: any) => void, useCapture?: boolean): void;
 }
 interface NodeList {
-  on(event: string, callback: (event: any) => void, useCapture?: boolean): void;
-  off(event: string, callback: (event: any) => void, useCapture?: boolean): void;
+    on(event: string, callback: (event: any) => void, useCapture?: boolean): void;
+    off(event: string, callback: (event: any) => void, useCapture?: boolean): void;
 }
 
 declare const phonon: Phonon.Phonon;
