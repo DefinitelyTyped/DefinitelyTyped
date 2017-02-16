@@ -1,7 +1,3 @@
-/// <reference path="./bwip-js.d.ts" />
-/// <reference path="../node/node.d.ts" />
-'use strict';
-
 import * as bwipjs from 'bwip-js';
 import * as http from 'http';
 import * as fs from 'fs';
@@ -13,7 +9,7 @@ bwipjs.loadFont('Inconsolata', 108,
 http.createServer(function(req, res) {
     // If the url does not begin /?bcid= then 404.  Otherwise, we end up
     // returning 400 on requests like favicon.ico.
-    if (req.url.indexOf('/?bcid=') != 0) {
+    if (req.url!.indexOf('/?bcid=') != 0) {
         res.writeHead(404, { 'Content-Type':'text/plain' });
         res.end('BWIPJS: Unknown request format.', 'utf8');
     } else {

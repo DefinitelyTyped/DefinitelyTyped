@@ -1,6 +1,6 @@
-/// <reference path="babel-traverse.d.ts" />
-/// <reference path="../babel-types/babel-types.d.ts" />
-/// <reference path="../babylon/babylon.d.ts" />
+
+/// <reference types="babel-types" />
+/// <reference types="babylon" />
 
 
 import * as babylon from "babylon";
@@ -108,4 +108,17 @@ const v1: Visitor = {
         path.scope.rename("n", "x");
         path.scope.rename("n");
     }
+};
+
+// Binding.kind
+const BindingKindTest: Visitor  = {
+    Identifier(path) {
+        const kind = path.scope.getBinding("str").kind;
+        kind === 'module';
+        kind === 'const';
+        kind === 'let';
+        kind === 'var';
+        // The following should fail when uncommented
+        // kind === 'anythingElse';
+    },
 };

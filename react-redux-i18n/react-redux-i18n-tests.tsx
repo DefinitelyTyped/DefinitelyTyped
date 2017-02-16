@@ -1,5 +1,3 @@
-/// <reference path="./react-redux-i18n.d.ts"/>
-
 import * as React from "react";
 import * as I18n from "react-redux-i18n";
 

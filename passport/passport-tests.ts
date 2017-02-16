@@ -1,9 +1,6 @@
-/// <reference path="passport.d.ts" />
-/// <reference path="../express/express.d.ts" />
-/// <reference path="../express-session/express-session.d.ts" />
-
-import express = require('express');
-import passport = require('passport');
+import * as passport from 'passport';
+import * as express from 'express';
+import 'express-session';
 
 class TestStrategy implements passport.Strategy {
   public name: string = 'test';
@@ -28,10 +25,32 @@ const newFramework:passport.Framework = {
 };
 passport.use(new TestStrategy());
 passport.framework(newFramework);
-passport.serializeUser((user, done) => { });
-passport.serializeUser<string, number>((user, done) => { });
-passport.deserializeUser((id, done) => { });
-passport.deserializeUser<string, number>((id, done) => { });
+
+interface TestUser {
+  id: number;
+}
+passport.serializeUser((user: TestUser, done: (err: any, id?: number) => void) => {
+  done(null, user.id);
+});
+passport.serializeUser<TestUser, number>((user, done) => {
+  if (user.id > 0) {
+    done(null, user.id);
+  } else {
+    done(new Error('user ID is invalid'));
+  }
+});
+passport.deserializeUser((id, done) => {
+  done(null, {id});
+});
+passport.deserializeUser<TestUser, number>((id, done) => {
+  const fetchUser = (id: number): Promise<TestUser> => {
+    return Promise.reject(new Error(`user not found: ${id}`));
+  };
+
+  fetchUser(id)
+    .then((user) => done(null, user))
+    .catch((err) => done(err));
+});
 
 passport.use(new TestStrategy())
   .unuse('test')
@@ -55,7 +74,9 @@ app.post('/login', function (req, res, next) {
   passport.authenticate('local', function (err: any, user: { username: string; }, info: { message: string; }) {
     if (err) { return next(err) }
     if (!user) {
-      req.session['error'] = info.message;
+      if (req.session) {
+        req.session['error'] = info.message;
+      }
       return res.redirect('/login')
     }
     req.logIn(user, function (err) {
@@ -83,14 +104,14 @@ function authSetting(): void {
   };
 
   app.get('/auth/facebook',
-    passport.authenticate('facebook'));
+      passport.authenticate('facebook'));
   app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', authOption), successCallback);
+      passport.authenticate('facebook', authOption), successCallback);
 
   app.get('/auth/twitter',
-    passport.authenticate('twitter'));
+      passport.authenticate('twitter'));
   app.get('/auth/twitter/callback',
-    passport.authenticate('twitter', authOption));
+      passport.authenticate('twitter', authOption));
 
   app.get('/auth/google',
     passport.authenticate('google', {
@@ -98,7 +119,7 @@ function authSetting(): void {
       ['https://www.googleapis.com/auth/userinfo.profile']
     }));
   app.get('/auth/google/callback',
-    passport.authenticate('google', authOption), successCallback);
+      passport.authenticate('google', authOption), successCallback);
 
 }
 
@@ -109,3 +130,8 @@ function ensureAuthenticated(req: express.Request, res: express.Response, next: 
   }
 }
 
+const passportInstance: passport.Passport = new passport.Passport()
+passportInstance.use(new TestStrategy())
+
+const authenticator: passport.Passport = new passport.Authenticator()
+authenticator.use(new TestStrategy())

@@ -3,9 +3,6 @@
 // Definitions by: Andre Luiz dos Santos <https://github.com/andre-luiz-dos-santos/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="rx-node.d.ts" />
-
 {
 	var source = Rx.Observable.return(42);
 	var emitter = RxNode.toEventEmitter(source, 'data');

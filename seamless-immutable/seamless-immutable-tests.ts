@@ -1,4 +1,3 @@
-/// <reference path="seamless-immutable.d.ts" />
 import SI = require("seamless-immutable");
 
 // Immutable instance method test

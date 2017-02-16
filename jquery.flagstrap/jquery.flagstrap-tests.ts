@@ -1,5 +1,5 @@
-///<reference path="../jquery/jquery.d.ts" />
-///<reference path="jquery.flagstrap.d.ts" />
+///<reference types="jquery" />
+///<reference types="jquery.flagstrap" />
 
 class TestObject {
     

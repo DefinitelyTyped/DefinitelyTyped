@@ -1,6 +1,5 @@
-/// <reference path="sequelize.d.ts" />
-
 import Sequelize = require("sequelize");
+import Promise = require('bluebird');
 
 //
 //  Fixtures
@@ -716,6 +715,12 @@ User.beforeFindAfterOptions( 'myHook', function( options ) {} );
 User.afterFind( function( user ) {} );
 User.afterFind( 'myHook', function( user ) {} );
 
+User.beforeSync( function( options ) {} );
+User.beforeSync( 'myHook', function( options ) {} );
+
+User.afterSync( function( options ) {} );
+User.afterSync( 'myHook', function( options ) {} );
+
 s.beforeDefine( function( attributes, options ) {} );
 s.beforeDefine( 'myHook', function( attributes, options ) {} );
 
@@ -727,6 +732,12 @@ s.beforeInit( 'myHook', function( attributes, options ) {} );
 
 s.afterInit( function( model ) {} );
 s.afterInit( 'myHook', function( model ) {} );
+
+s.beforeBulkSync( function( options ) {} );
+s.beforeBulkSync( 'myHook', function( options ) {} );
+
+s.afterBulkSync( function( options ) {} );
+s.afterBulkSync( 'myHook', function( options ) {} );
 
 s.define( 'User', {}, {
     hooks : {
@@ -966,6 +977,7 @@ let findOrRetVal: Promise<[AnyInstance, boolean]>;
 findOrRetVal = User.findOrInitialize( { where : { username : 'foo' } } );
 findOrRetVal = User.findOrInitialize( { where : { username : 'foo' }, transaction : t } );
 findOrRetVal = User.findOrInitialize( { where : { username : 'foo' }, defaults : { foo : 'asd' }, transaction : t } );
+findOrRetVal = User.findOrInitialize( { where : { username : 'foo' }, defaults : { foo : 'asd' }, paranoid : false } );
 
 findOrRetVal = User.findOrCreate( { where : { a : 'b' }, defaults : { json : { a : { b : 'c' }, d : [1, 2, 3] } } } );
 findOrRetVal = User.findOrCreate( { where : { a : 'b' }, defaults : { json : 'a', data : 'b' } } );
@@ -978,7 +990,6 @@ findOrRetVal = User.findOrCreate( { where : { objectId : 'asdasdasd' }, defaults
 findOrRetVal = User.findOrCreate( { where : { id : undefined }, defaults : { name : Math.random().toString() } } );
 findOrRetVal = User.findOrCreate( { where : { email : 'unique.email.@d.com', companyId : Math.floor( Math.random() * 5 ) } } );
 findOrRetVal = User.findOrCreate( { where : { objectId : 1 }, defaults : { bool : false } } );
-findOrRetVal = User.findOrCreate( { where : 'c', defaults : {} } );
 
 User.upsert( { id : 42, username : 'doe', foo : s.fn( 'upper', 'mixedCase2' ) } );
 
@@ -1133,7 +1144,6 @@ s.model( 'pp' );
 s.query( '', { raw : true } );
 s.query( '' );
 s.query( '' ).then( function( res ) {} );
-s.query( '' ).spread( function(  ) {}, function( b ) {} );
 s.query( { query : 'select ? as foo, ? as bar', values : [1, 2] }, { raw : true, replacements : [1, 2] } );
 s.query( '', { raw : true, nest : false } );
 s.query( 'select ? as foo, ? as bar', { type : this.sequelize.QueryTypes.SELECT, replacements : [1, 2] } );

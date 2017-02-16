@@ -1,5 +1,3 @@
-/// <reference path="xterm.d.ts" />
-
 import * as Terminal from 'xterm';
 
 declare var fetch: any;

@@ -1,4 +1,3 @@
-/// <reference path="winston.d.ts" />
 
 import winston = require('winston');
 
@@ -77,15 +76,15 @@ winston.exitOnError = bool;
 winston.log(str, str);
 winston.log(str, str, metadata);
 winston.log(str, str, metadata, metadata, metadata);
-winston.silly(str);
-winston.silly(str, metadata);
-winston.silly(str, metadata, metadata, metadata);
+winston.silly(str, str);
+winston.silly(str, str, metadata);
+winston.silly(str, str, metadata, metadata, metadata);
 winston.debug(str);
 winston.debug(str, metadata);
 winston.debug(str, metadata, metadata, metadata);
-winston.verbose(str);
-winston.verbose(str, metadata);
-winston.verbose(str, metadata, metadata, metadata);
+winston.verbose(str, str);
+winston.verbose(str, str, metadata);
+winston.verbose(str, str, metadata, metadata, metadata);
 winston.info(str);
 winston.info(str, metadata);
 winston.info(str, metadata, metadata, metadata);
@@ -272,3 +271,25 @@ var logger: winston.LoggerInstance = new (winston.Logger)({
 
 /* Reconfigure logger */
 logger.configure({ level: 'silly' });
+
+winston.default.warn("Don't export reserved words in JavaScript!");
+
+winston.default.setLevels(winston.config.syslog.levels);
+winston.addColors(winston.config.syslog.colors);
+winston.default.emerg('syslog!');
+
+// module augment for custom level log
+// https://github.com/winstonjs/winston#using-custom-logging-levels
+// https://github.com/Microsoft/TypeScript/issues/7545
+declare module 'winston' {
+  interface LoggerInstance {
+    yay: winston.LeveledLogMethod;
+  }
+}
+const customLevelLogger = new winston.Logger({
+  levels: {yay: 0, haha: 1, hoho: 2},
+  transports: [
+    new (winston.transports.Console)()
+  ]
+});
+customLevelLogger.yay('yay!');

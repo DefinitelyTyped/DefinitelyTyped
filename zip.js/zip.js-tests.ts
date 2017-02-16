@@ -1,4 +1,4 @@
-/// <reference path="zip.js.d.ts" />
+
 
 // create the blob object storing the data to compress
 var blob: Blob = new Blob([ "Lorem ipsum dolor sit amet, consectetuer adipiscing elit..." ], {

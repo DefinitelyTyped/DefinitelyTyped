@@ -1,5 +1,3 @@
-/// <reference path="xmlrpc.d.ts" />
-
 import * as xmlrpc from 'xmlrpc';
 
 const serverOpts = {

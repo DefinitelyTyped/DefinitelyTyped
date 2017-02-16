@@ -1,12 +1,9 @@
-/// <reference path="react-daterange-picker.d.ts" />
-/// <reference path="../react/react-global.d.ts" />
-
 // Test app from https://github.com/onefinestay/react-daterange-picker/blob/master/example/index.jsx
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as moment from 'moment';
-import 'moment-range';
-import * as DateRangePicker from 'react-daterange-picker';
+import * as moment from 'moment-range';
+import DateRangePicker from "react-daterange-picker";
+import * as ReactDateRangePicker from "react-daterange-picker";
 
 interface AppProps extends ReactDateRangePicker.Props {
 }

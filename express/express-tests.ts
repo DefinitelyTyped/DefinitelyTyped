@@ -1,7 +1,5 @@
-/// <reference path="express.d.ts" />
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 import * as express from 'express';
-
 
 namespace express_tests {
 
@@ -11,28 +9,27 @@ namespace express_tests {
     app.engine('html', require('ejs').renderFile);
 
     express.static.mime.define({
-        'application/fx': ['fx']
+	'application/fx': ['fx']
     });
     app.use('/static', express.static(__dirname + '/public'));
 
     // simple logger
     app.use(function(req, res, next) {
-        console.log('%s %s', req.method, req.url);
-        next();
+    console.log('%s %s', req.method, req.url);
+    next();
     });
 
     app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
-        console.error(err);
-        next(err);
+    console.error(err);
+    next(err);
     });
 
 
     app.get('/', function(req, res) {
-        res.send('hello world');
+    res.send('hello world');
     });
 
-    const router = express.Router();
-
+    const router = express.Router({ caseSensitive: true, mergeParams: true, strict: true });
 
     const pathStr: string = 'test';
     const pathRE: RegExp = /test/;
@@ -53,40 +50,40 @@ namespace express_tests {
 
     router.use((req, res, next) => { next(); })
     router.route('/users')
-        .get((req, res, next) => {
-            let types: string[] = req.accepts();
-            let type: string | boolean = req.accepts('json');
-            type = req.accepts(['json', 'text']);
-            type = req.accepts('json', 'text');
+    .get((req, res, next) => {
+        let types: string[] = req.accepts();
+        let type: string | boolean = req.accepts('json');
+        type = req.accepts(['json', 'text']);
+        type = req.accepts('json', 'text');
 
-            let charsets: string[] = req.acceptsCharsets();
-            let charset: string | boolean = req.acceptsCharsets('utf-8');
-            charset = req.acceptsCharsets(['utf-8', 'utf-16']);
-            charset = req.acceptsCharsets('utf-8', 'utf-16');
+        let charsets: string[] = req.acceptsCharsets();
+        let charset: string | boolean = req.acceptsCharsets('utf-8');
+        charset = req.acceptsCharsets(['utf-8', 'utf-16']);
+        charset = req.acceptsCharsets('utf-8', 'utf-16');
 
-            let encodings: string[] = req.acceptsEncodings();
-            let encoding: string | boolean = req.acceptsEncodings('gzip');
-            encoding = req.acceptsEncodings(['gzip', 'deflate']);
-            encoding = req.acceptsEncodings('gzip', 'deflate');
+        let encodings: string[] = req.acceptsEncodings();
+        let encoding: string | boolean = req.acceptsEncodings('gzip');
+        encoding = req.acceptsEncodings(['gzip', 'deflate']);
+        encoding = req.acceptsEncodings('gzip', 'deflate');
 
-            let languages: string[] = req.acceptsLanguages();
-            let language: string | boolean = req.acceptsLanguages('en');
-            language = req.acceptsLanguages(['en', 'ja']);
-            language = req.acceptsLanguages('en', 'ja');
+        let languages: string[] = req.acceptsLanguages();
+        let language: string | boolean = req.acceptsLanguages('en');
+        language = req.acceptsLanguages(['en', 'ja']);
+        language = req.acceptsLanguages('en', 'ja');
 
-            res.send(req.query['token']);
-        });
+        res.send(req.query['token']);
+    });
 
     router.get('/user/:id', function(req, res, next) {
-        if (req.params.id == 0) next('route');
-        else next();
+    if (req.params.id == 0) next('route');
+    else next();
     }, function(req, res, next) {
-        res.render('regular');
+    res.render('regular');
     });
 
     app.use((req, res, next) => {
-        // hacky trick, router is just a handler
-        router(req, res, next);
+    // hacky trick, router is just a handler
+    router(req, res, next);
     });
 
     app.use(router);

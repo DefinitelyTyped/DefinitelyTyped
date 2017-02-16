@@ -1,4 +1,4 @@
-/// <reference path="msgpack.d.ts" />
+
 
 var packed = msgpack.pack("");
 msgpack.unpack(packed);

@@ -3,8 +3,8 @@
  * By Louis Grignon
  */
 
-/// <reference path="../jasmine/jasmine.d.ts" />
-/// <reference path="jasmine-ajax.d.ts" />
+/// <reference types="jasmine" />
+
 
 declare function getJasmineRequireObj();
 
@@ -889,7 +889,7 @@ describe("Jasmine Mock Ajax (for toplevel)", function() {
 				client.send();
 
 				request = mockAjax.requests.mostRecent();
-				response = { status: 200, statusText: "OK", contentType: "text/html", responseText: "OK!" };
+				response = { status: 200, statusText: "OK", contentType: "text/html", responseText: "OK!", responseType: "json" };
 				request.respondWith(response);
 
 				sharedContext.responseCallback = success;
@@ -1102,7 +1102,7 @@ describe("Jasmine Mock Ajax (for toplevel)", function() {
 				client.send();
 
 				request = mockAjax.requests.mostRecent();
-				response = { status: 0, statusText: "ABORT", responseText: '{"foo": "whoops!"}' };
+				response = { status: 0, statusText: "ABORT", responseText: '{"foo": "whoops!"}', responseType: "json"};
 				request.respondWith(response);
 
 				sharedContext.responseCallback = error;
@@ -1138,7 +1138,7 @@ describe("Jasmine Mock Ajax (for toplevel)", function() {
 			client.send();
 
 			request = mockAjax.requests.mostRecent();
-			response = { status: 500, statusText: "SERVER ERROR", contentType: "text/html", responseText: "(._){" };
+			response = { status: 500, statusText: "SERVER ERROR", contentType: "text/html", responseText: "(._){",responseType: "json"};
 			request.respondWith(response);
 
 			sharedContext.responseCallback = error;
@@ -1175,7 +1175,7 @@ describe("Jasmine Mock Ajax (for toplevel)", function() {
 			client.send();
 
 			request = mockAjax.requests.mostRecent();
-			response = { contentType: "text/html", response: "(._){response", responseText: "(._){", responseType: "text" };
+			response = { contentType: "text/html", response: "(._){response", responseText: "(._){", responseType: "text",  status: 200, statusText: 'OK' };
 			request.responseTimeout(response);
 
 			sharedContext.responseCallback = error;

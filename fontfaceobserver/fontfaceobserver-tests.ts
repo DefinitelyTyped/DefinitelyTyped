@@ -1,5 +1,3 @@
-/// <reference path="fontfaceobserver.d.ts" />
-
 function test1() {
   var font = new FontFaceObserver('My Family', {
     weight: 400

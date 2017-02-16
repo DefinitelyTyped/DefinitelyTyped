@@ -1,4 +1,3 @@
-/// <reference path="uritemplate.d.ts" />
 
 import { UriTemplate } from 'uritemplate';
 
@@ -14,7 +13,7 @@ function test_uritemplate() {
         pageNumber: 8
     });
 
-    // import module check 
+    // import module check
     var expectedUrl = 'http://localhost/categories/shoes?sort=price&pageNumber=8';
     if (expectedUrl != url) {
         throw `Expected ${expectedUrl}, got ${url}`;

@@ -1,9 +1,7 @@
-/// <reference path='knex.d.ts' />
-
-/// <reference path='../lodash/lodash-3.10.d.ts' />
-
-import * as Knex from 'knex';
-import * as _ from 'lodash';
+"use strict";
+import Knex = require('knex');
+import Promise = require('bluebird');
+import _ = require('lodash');
 
 // Initializing the Library
 var knex = Knex({
@@ -33,6 +31,19 @@ var knex = Knex({
     user     : 'your_database_user',
     password : 'your_database_password',
     db       : 'myapp_test'
+  }
+});
+
+// Mysql configuration
+var knex = Knex({
+  debug: true,
+  client: 'mysql',
+  connection: {
+    host     : '127.0.0.1',
+    user     : 'your_database_user',
+    password : 'your_database_password',
+    db       : 'myapp_test',
+    trace: false
   }
 });
 
@@ -340,7 +351,7 @@ knex('accounts').where('userid', '=', 1).decrement('balance', 5);
 
 knex('accounts').truncate();
 
-knex.table('users').pluck('id').then(function(ids) {
+knex.table('users').first('id').then(function(ids) {
   console.log(ids);
 });
 
@@ -380,7 +391,7 @@ knex.transaction(function(trx) {
 
 // Using trx as a transaction object:
 knex.transaction(function(trx) {
-  
+
   trx.raw('')
 
   var info: any;
@@ -422,6 +433,7 @@ knex.schema.createTable('users', function (table) {
   table.enu('favorite_color', ['red', 'blue', 'green']);
   table.timestamps();
   table.timestamp('created_at').defaultTo(knex.fn.now());
+  table.timestamps(true, true);
 });
 
 knex.schema.renameTable('users', 'old_users');
@@ -499,7 +511,7 @@ knex.select('name').from('users')
   .limit(10)
   .offset(x)
   .then(function(rows: any) {
-    return _.pluck(rows, 'name');
+    return _.map(rows, 'name');
   })
   .then(function(names: any) {
     return knex.select('id').from('nicknames').whereIn('nickname', names);
@@ -578,7 +590,7 @@ knex.select('name').from('users')
   .offset(x)
   .exec(function(err: any, rows: any[]) {
     if (err) return console.error(err);
-    knex.select('id').from('nicknames').whereIn('nickname', _.pluck(rows, 'name'))
+    knex.select('id').from('nicknames').whereIn('nickname', _.map(rows, 'name') as any)
       .exec(function(err: any, rows: any[]) {
         if (err) return console.error(err);
         console.log(rows);

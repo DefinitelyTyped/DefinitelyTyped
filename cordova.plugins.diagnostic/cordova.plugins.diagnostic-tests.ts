@@ -1,6 +1,4 @@
-﻿/// <reference path='../cordova/cordova.d.ts'  />
-/// <reference path="cordova.plugins.diagnostic.d.ts" />
-
+/// <reference types="cordova-plugin-device" />
 
 cordova.plugins.diagnostic.isLocationAvailable(function(available){
     console.log("Location is " + (available ? "available" : "not available"));
@@ -531,4 +529,56 @@ cordova.plugins.diagnostic.requestAndCheckMotionAuthorization(function(status){
     console.log("Motion authorization is " +status);
 }, function(error){
     console.error(error);
+});
+
+cordova.plugins.diagnostic.isExternalStorageAuthorized(function(authorized){
+    console.log("Location authorization is " + (authorized ? "authorized" : "unauthorized"));
+}, function(error){
+    console.error("The following error occurred: "+error);
+});
+
+cordova.plugins.diagnostic.getExternalStorageAuthorizationStatus(function(status){
+    if(status === cordova.plugins.diagnostic.permissionStatus.GRANTED){
+        console.log("External storage authorization allowed");
+    }
+}, function(error){
+    console.error("The following error occurred: "+error);
+});
+
+cordova.plugins.diagnostic.requestExternalStorageAuthorization(function(status){
+    if(status === cordova.plugins.diagnostic.permissionStatus.GRANTED){
+        console.log("External storage authorization allowed");
+    }
+}, function(error){
+    console.error(error);
+});
+
+cordova.plugins.diagnostic.getExternalSdCardDetails(function(details){
+    console.log("External SD card details: " + JSON.stringify(details));
+}, function(error){
+    console.error(error);
+});
+
+cordova.plugins.diagnostic.isNFCPresent(function(present){
+    console.log("NFC hardware is " + (present ? "present" : "absent"));
+}, function(error){
+    console.error("The following error occurred: "+error);
+});
+
+cordova.plugins.diagnostic.isNFCEnabled(function(enabled){
+    console.log("NFC is " + (enabled ? "enabled" : "disabled"));
+}, function(error){
+    console.error("The following error occurred: "+error);
+});
+
+cordova.plugins.diagnostic.isNFCAvailable(function(available){
+    console.log("NFC is " + (available ? "available" : "not available"));
+}, function(error){
+    console.error("The following error occurred: "+error);
+});
+
+cordova.plugins.diagnostic.registerNFCStateChangeHandler(function(state){
+    if(state === cordova.plugins.diagnostic.NFCState.POWERED_ON){
+        console.log("NFC is ready to use");
+    }
 });

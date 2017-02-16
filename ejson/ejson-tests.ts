@@ -1,8 +1,6 @@
-/// <reference path="./ejson.d.ts" />
-
 import {
-  clone as importedClone, 
-  parse as importedParse, 
+  clone as importedClone,
+  parse as importedParse,
   stringify as importedStringify,
   toJSONValue as importedToJSONValue,
   fromJSONValue as importedFromJSONValue,

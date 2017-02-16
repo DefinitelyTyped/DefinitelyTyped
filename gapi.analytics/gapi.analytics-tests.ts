@@ -1,11 +1,8 @@
 // Type definitions for Google Analytics API
 
-/// <reference path="../gapi/gapi.d.ts" />
-/// <reference path="./gapi.analytics.d.ts" />
-
 function test_namespace() {
 	var analytics : boolean = gapi.client.analytics instanceof Object;
-	
+
 	var provisioning : boolean = gapi.client.analytics.provisioning.createAccountTicket instanceof Function;
 	analytics = analytics && provisioning;
 
@@ -61,6 +58,6 @@ function test_namespace() {
 
 	var metadata : boolean = gapi.client.analytics.metadata.column.list instanceof Function;
 	analytics = analytics && metadata;
-	
+
 	return analytics;
 }

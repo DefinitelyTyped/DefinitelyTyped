@@ -3,7 +3,7 @@
 // Definitions by: Derek Cicerone <https://github.com/derekcicerone/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="SlickGrid.d.ts" />
+
 
 declare namespace Slick {
     class RowSelectionModel<T extends SlickData, E> extends SelectionModel<T, E> {

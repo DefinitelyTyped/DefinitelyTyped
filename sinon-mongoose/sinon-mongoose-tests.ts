@@ -1,4 +1,5 @@
-/// <reference path="sinon-mongoose.d.ts"/>
+/// <reference types="sinon"/>
+
 function testChain() {
     sinon.stub().chain('exec');
 }

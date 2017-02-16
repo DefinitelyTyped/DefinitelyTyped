@@ -1,4 +1,4 @@
-/// <reference path="phonegap-plugin-push.d.ts" />
+
 
 function test() {
 	let options: PhonegapPluginPush.InitOptions = {

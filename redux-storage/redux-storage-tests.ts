@@ -1,6 +1,3 @@
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="./redux-storage.d.ts" />
-
 import { Action, createStore, applyMiddleware } from "redux";
 import { reducer, createMiddleware, createLoader } from "redux-storage";
 import reduxStorageImmutableMerger from "redux-storage-merger-immutablejs";

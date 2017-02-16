@@ -1,12 +1,13 @@
-///<reference path='../react/react.d.ts' />
-///<reference path='../react/react-dom.d.ts' />
-///<reference path='../react-tap-event-plugin/react-tap-event-plugin.d.ts' />
-///<reference path='material-ui.d.ts' />
+/// <reference types="react" />
+/// <reference types="react-dom" />
+/// <reference types="react-tap-event-plugin" />
+/// <reference types="material-ui" />
 
 import * as React from 'react';
 import {Component, PropTypes} from 'react';
 import * as ReactDOM from 'react-dom';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {muiThemeable} from 'material-ui/styles/muiThemeable';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import {MuiTheme} from 'material-ui/styles';
@@ -49,6 +50,7 @@ import {Menu} from 'material-ui/Menu';
 import {Popover, PopoverAnimationVertical} from 'material-ui/Popover';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import {Step, Stepper, StepLabel, StepContent, StepButton} from 'material-ui/Stepper';
+import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import {
     Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter
 } from 'material-ui/Table';
@@ -109,148 +111,148 @@ import injectTapEventPlugin = require('react-tap-event-plugin');
 injectTapEventPlugin();
 
 function handleTouchTap() {
-    alert('onTouchTap triggered on the title component');
+  alert('onTouchTap triggered on the title component');
 }
 
 const styles = {
-    title: {
-        cursor: 'pointer',
-    },
-    exampleImageInput: {
-        cursor: 'pointer',
-        position: 'absolute',
-        top: 0,
-        bottom: 0,
-        right: 0,
-        left: 0,
-        width: '100%',
-        opacity: 0,
-    },
-    button: {
-        margin: 12,
-    },
-    chip: {
-        margin: 4
-    },
-    smallIcon: {
-        width: 36,
-        height: 36,
-    },
-    mediumIcon: {
-        width: 48,
-        height: 48,
-    },
-    largeIcon: {
-        width: 60,
-        height: 60,
-    },
-    small: {
-        width: 72,
-        height: 72,
-        padding: 16,
-    },
-    medium: {
-        width: 96,
-        height: 96,
-        padding: 24,
-    },
-    large: {
-        width: 120,
-        height: 120,
-        padding: 30,
-    },
-    radioButton: {
-        marginTop: 16,
-    },
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-around',
-    },
-    gridList: {
-        width: 500,
-        height: 500,
-        overflowY: 'auto',
-        marginBottom: 24,
-    },
-    paper: {
-        display: 'inline-block',
-        float: 'left',
-        margin: '16px 32px 16px 0',
-    },
-    rightIcon: {
-        textAlign: 'center',
-        lineHeight: '24px',
-    },
-    customWidth: {
-        width: 200,
-    },
-    h3: {
-        marginTop: 20,
-        fontWeight: 400,
-    },
-    block: {
-        display: 'flex',
-        maxWidth: 250,
-    },
-    block2: {
-        margin: 10,
-    },
-    container: {
-        position: 'relative',
-    },
-    refresh: {
-        display: 'inline-block',
-        position: 'relative',
-    },
-    checkbox: {
-        marginBottom: 16,
-    },
-    toggle: {
-        marginBottom: 16,
-    },
-    propContainer: {
-        width: 200,
-        overflow: 'hidden',
-        margin: '20px auto 0',
-    },
-    propToggleHeader: {
-        margin: '20px auto 10px',
-    },
-    headline: {
-        fontSize: 24,
-        paddingTop: 16,
-        marginBottom: 12,
-        fontWeight: 400,
-    },
-    errorStyle: {
-        color: orange500,
-    },
-    underlineStyle: {
-        borderColor: orange500,
-    },
-    floatingLabelStyle: {
-        color: orange500,
-    },
-    floatingLabelFocusStyle: {
-        color: blue500,
-    },
+  title: {
+    cursor: 'pointer',
+  },
+  exampleImageInput: {
+    cursor: 'pointer',
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    width: '100%',
+    opacity: 0,
+  },
+  button: {
+    margin: 12,
+  },
+  chip: {
+    margin: 4
+  },
+  smallIcon: {
+    width: 36,
+    height: 36,
+  },
+  mediumIcon: {
+    width: 48,
+    height: 48,
+  },
+  largeIcon: {
+    width: 60,
+    height: 60,
+  },
+  small: {
+    width: 72,
+    height: 72,
+    padding: 16,
+  },
+  medium: {
+    width: 96,
+    height: 96,
+    padding: 24,
+  },
+  large: {
+    width: 120,
+    height: 120,
+    padding: 30,
+  },
+  radioButton: {
+    marginTop: 16,
+  },
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around' as 'space-around',
+  },
+  gridList: {
+    width: 500,
+    height: 500,
+    overflowY: 'auto',
+    marginBottom: 24,
+  },
+  paper: {
+    display: 'inline-block',
+    float: 'left',
+    margin: '16px 32px 16px 0',
+  },
+  rightIcon: {
+    textAlign: 'center',
+    lineHeight: '24px',
+  },
+  customWidth: {
+    width: 200,
+  },
+  h3: {
+    marginTop: 20,
+    fontWeight: 400 as 400,
+  },
+  block: {
+    display: 'flex',
+    maxWidth: 250,
+  },
+  block2: {
+    margin: 10,
+  },
+  container: {
+    position: 'relative',
+  },
+  refresh: {
+    display: 'inline-block',
+    position: 'relative',
+  },
+  checkbox: {
+    marginBottom: 16,
+  },
+  toggle: {
+    marginBottom: 16,
+  },
+  propContainer: {
+    width: 200,
+    overflow: 'hidden',
+    margin: '20px auto 0',
+  },
+  propToggleHeader: {
+    margin: '20px auto 10px',
+  },
+  headline: {
+    fontSize: 24,
+    paddingTop: 16,
+    marginBottom: 12,
+    fontWeight: 400 as 400,
+  },
+  errorStyle: {
+    color: orange500,
+  },
+  underlineStyle: {
+    borderColor: orange500,
+  },
+  floatingLabelStyle: {
+    color: orange500,
+  },
+  floatingLabelFocusStyle: {
+    color: blue500,
+  },
 };
 
 const style = {
-    marginRight: 20,
-    marginLeft: 20,
-    display: 'inline-block',
-    margin: '16px 32px 16px 0',
+  marginRight: 20,
+  marginLeft: 20,
+  display: 'inline-block',
+  margin: '16px 32px 16px 0',
 };
 
 const customContentStyle = {
-    width: '100%',
-    maxWidth: 'none',
+  width: '100%',
+  maxWidth: 'none',
 };
 
 const iconStyles = {
-    marginRight: 24,
+  marginRight: 24,
 };
 
 // "http://www.material-ui.com/#/customization/themes"
@@ -259,107 +261,136 @@ const iconStyles = {
 // and then update the keys for each component that depends on it.
 // More on Colors: http://www.material-ui.com/#/customization/colors
 const muiTheme = getMuiTheme({
-    palette: {
-        textColor: cyan500,
-    },
-    appBar: {
-        height: 50,
-    },
+  palette: {
+    textColor: cyan500,
+  },
+  appBar: {
+    height: 50,
+  },
 });
 
 const darkMuiTheme = getMuiTheme(darkBaseTheme);
 
 const lightBaseTheme = {
-    spacing: {
-        iconSize: 24,
-        desktopGutter: 24,
-        desktopGutterMore: 32,
-        desktopGutterLess: 16,
-        desktopGutterMini: 8,
-        desktopKeylineIncrement: 64,
-        desktopDropDownMenuItemHeight: 32,
-        desktopDropDownMenuFontSize: 15,
-        desktopDrawerMenuItemHeight: 48,
-        desktopSubheaderHeight: 48,
-        desktopToolbarHeight: 56,
-    },
-    fontFamily: 'Roboto, sans-serif',
-    palette: {
-        primary1Color: cyan500,
-        primary2Color: cyan700,
-        primary3Color: grey400,
-        accent1Color: pinkA200,
-        accent2Color: grey100,
-        accent3Color: grey500,
-        textColor: darkBlack,
-        alternateTextColor: white,
-        canvasColor: white,
-        borderColor: grey300,
-        disabledColor: fade(darkBlack, 0.3),
-        pickerHeaderColor: cyan500,
-        clockCircleColor: fade(darkBlack, 0.07),
-        shadowColor: fullBlack,
-    },
+  spacing: {
+    iconSize: 24,
+    desktopGutter: 24,
+    desktopGutterMore: 32,
+    desktopGutterLess: 16,
+    desktopGutterMini: 8,
+    desktopKeylineIncrement: 64,
+    desktopDropDownMenuItemHeight: 32,
+    desktopDropDownMenuFontSize: 15,
+    desktopDrawerMenuItemHeight: 48,
+    desktopSubheaderHeight: 48,
+    desktopToolbarHeight: 56,
+  },
+  fontFamily: 'Roboto, sans-serif',
+  palette: {
+    primary1Color: cyan500,
+    primary2Color: cyan700,
+    primary3Color: grey400,
+    accent1Color: pinkA200,
+    accent2Color: grey100,
+    accent3Color: grey500,
+    textColor: darkBlack,
+    alternateTextColor: white,
+    canvasColor: white,
+    borderColor: grey300,
+    disabledColor: fade(darkBlack, 0.3),
+    pickerHeaderColor: cyan500,
+    clockCircleColor: fade(darkBlack, 0.07),
+    shadowColor: fullBlack,
+  },
 };
 
 const lightMuiTheme = getMuiTheme(lightBaseTheme);
 
 
 class DeepDownTheTree extends React.Component<{} & {muiTheme: MuiTheme}, {}> {
-    static propTypes: React.ValidationMap<any> = {
-        muiTheme: React.PropTypes.object.isRequired,
-    };
+  static propTypes: React.ValidationMap<any> = {
+    muiTheme: React.PropTypes.object.isRequired,
+  };
 
-    render() {
-        return (
-            <span style={{color: this.props.muiTheme.palette.textColor}}>
+  render() {
+    return (
+      <span style={{color: this.props.muiTheme.palette.textColor}}>
         Hello World!
       </span>
-        );
-    }
+    );
+  }
 }
+
+
+const MuiThemeableFunction = muiThemeable()((props: {label: string, muiTheme?: MuiTheme}) => {
+  return (
+      <span style={{color: props.muiTheme.palette.textColor}}>
+        Applied the Theme to functional component: {props.label}.
+      </span>
+  );
+});
+
+@muiThemeable()
+class MuiThemeableClass extends React.Component<{label: string} & {muiTheme?: MuiTheme}, {}> {
+  render() {
+    return (
+      <span style={{color: this.props.muiTheme.palette.textColor}}>
+        Applied the Theme to class component decorated: {this.props.label}.
+      </span>
+    );
+  }
+}
+
+const MuiThemeableContainer = (props: {}) => (
+  <MuiThemeProvider muiTheme={getMuiTheme()}>
+    <div>
+      <MuiThemeableFunction label='Hello'/>
+      <MuiThemeableClass label='Hello'/>
+    </div>
+  </MuiThemeProvider>
+);
 
 
 // "http://www.material-ui.com/#/customization/inline-styles"
 const InlineStylesCheckbox = () => (
-    <Checkbox
-        id="checkboxId1"
-        name="checkboxName1"
-        value="checkboxValue1"
-        label="went for a run today"
-        style={{
+  <Checkbox
+    id="checkboxId1"
+    name="checkboxName1"
+    value="checkboxValue1"
+    label="went for a run today"
+    style={{
       width: '50%',
       margin: '0 auto'
     }}
-        iconStyle={{
+    iconStyle={{
       fill: '#FF4081'
     }}
-    />
+  />
 );
 
 
 // "http://www.material-ui.com/#/components/app-bar"
 const AppBarExampleIcon = () => (
-    <AppBar
-        title="Title"
-        iconClassNameRight="muidocs-icon-navigation-expand-more"
-    />
+  <AppBar
+    title="Title"
+    iconClassNameRight="muidocs-icon-navigation-expand-more"
+  />
 );
 
 const AppBarExampleIconButton = () => (
-    <AppBar
-        title={<span style={styles.title}>Title</span>}
-        onTitleTouchTap={handleTouchTap}
-        iconElementLeft={<IconButton><NavigationClose /></IconButton>}
-        iconElementRight={<FlatButton label="Save" />}
-    />
+  <AppBar
+    title={<span style={styles.title}>Title</span>}
+    onTitleTouchTap={handleTouchTap}
+    iconElementLeft={<IconButton><NavigationClose /></IconButton>}
+    iconElementRight={<FlatButton label="Save" />}
+  />
 );
 
 const AppBarExampleIconMenu = () => (
-    <AppBar
-        title="Title"
-        iconElementLeft={<IconButton><NavigationClose /></IconButton>}
-        iconElementRight={
+  <AppBar
+    title="Title"
+    iconElementLeft={<IconButton><NavigationClose /></IconButton>}
+    iconElementRight={
       <IconMenu
         iconButtonElement={
           <IconButton><MoreVertIcon /></IconButton>
@@ -372,192 +403,208 @@ const AppBarExampleIconMenu = () => (
         <MenuItem primaryText="Sign out" />
       </IconMenu>
     }
-    />
+  />
 );
 
 // "http://www.material-ui.com/#/components/auto-complete"
 export class AutoCompleteExampleSimple extends React.Component<{}, {dataSource: string[]}> {
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            dataSource: [],
-        };
-    }
-
-    handleUpdateInput = (value) => {
-        this.setState({
-            dataSource: [
-                value,
-                value + value,
-                value + value + value,
-            ],
-        });
+    this.state = {
+      dataSource: [],
     };
+  }
 
-    render() {
-        return (
-            <div>
-                <AutoComplete
-                    hintText="Type anything"
-                    dataSource={this.state.dataSource}
-                    onUpdateInput={this.handleUpdateInput}
-                />
-                <AutoComplete
-                    hintText="Type anything"
-                    dataSource={this.state.dataSource}
-                    onUpdateInput={this.handleUpdateInput}
-                    floatingLabelText="Full width"
-                    fullWidth={true}
+  handleUpdateInput = (value) => {
+    this.setState({
+      dataSource: [
+        value,
+        value + value,
+        value + value + value,
+      ],
+    });
+  }
+
+  dataSourceConfig = {
+    text: 'textKey',
+    value: 'valueKey',
+  };
+
+  render() {
+    return (
+      <div>
+        <AutoComplete
+          hintText="Type anything"
+          dataSource={this.state.dataSource}
+          onUpdateInput={this.handleUpdateInput}
+        />
+        <AutoComplete
+          hintText="Type anything"
+          dataSource={this.state.dataSource}
+          onUpdateInput={this.handleUpdateInput}
+          floatingLabelText="Full width"
+          fullWidth={true}
                     popoverProps={{
             animated: true
           }}
-                />
-            </div>
-        );
-    }
+        />
+        <AutoComplete
+          hintText="Type anything"
+          dataSource={[
+            {
+              textKey: 'hello',
+              valueKey: 'world',
+            },
+          ]}
+          dataSourceConfig={this.dataSourceConfig}
+          onUpdateInput={this.handleUpdateInput}
+        />
+      </div>
+    );
+  }
 }
 
 const dataSource1 = [
-    {
-        text: 'text-value1',
-        value: (
-            <MenuItem
-                primaryText="text-value1"
-                secondaryText="&#9786;"
-            />
-        ),
-    },
-    {
-        text: 'text-value2',
-        value: (
-            <MenuItem
-                primaryText="text-value2"
-                secondaryText="&#9786;"
-            />
-        ),
-    },
+  {
+    text: 'text-value1',
+    value: (
+      <MenuItem
+        primaryText="text-value1"
+        secondaryText="&#9786;"
+      />
+    ),
+  },
+  {
+    text: 'text-value2',
+    value: (
+      <MenuItem
+        primaryText="text-value2"
+        secondaryText="&#9786;"
+      />
+    ),
+  },
 ];
 
 const dataSource2 = ['12345', '23456', '34567'];
 
 const dataSource3 = [
-    {text: 'Some Text', value: 'someFirstValue'},
-    {text: 'Some Text', value: 'someSecondValue'},
+  {text: 'Some Text', value: 'someFirstValue'},
+  {text: 'Some Text', value: 'someSecondValue'},
 ];
 
 const AutoCompleteExampleNoFilter = () => (
-    <div>
-        <AutoComplete
-            hintText="text-value data"
-            filter={AutoComplete.noFilter}
-            dataSource={dataSource1}
-        /><br />
-        <AutoComplete
-            floatingLabelText="showAllItems"
-            filter={AutoComplete.noFilter}
-            openOnFocus={true}
-            dataSource={dataSource2}
-        /><br />
-        <AutoComplete
-            floatingLabelText="Same text, different values"
-            filter={AutoComplete.noFilter}
-            openOnFocus={true}
-            dataSource={dataSource3}
-        />
-    </div>
+  <div>
+    <AutoComplete
+      hintText="text-value data"
+      filter={AutoComplete.noFilter}
+      dataSource={dataSource1}
+    /><br />
+    <AutoComplete
+      floatingLabelText="showAllItems"
+      filter={AutoComplete.noFilter}
+      openOnFocus={true}
+      dataSource={dataSource2}
+    /><br />
+    <AutoComplete
+      floatingLabelText="Same text, different values"
+      filter={AutoComplete.noFilter}
+      openOnFocus={true}
+      dataSource={dataSource3}
+    />
+  </div>
 );
 
 const colors = [
-    'Red',
-    'Orange',
-    'Yellow',
-    'Green',
-    'Blue',
-    'Purple',
-    'Black',
-    'White',
+  'Red',
+  'Orange',
+  'Yellow',
+  'Green',
+  'Blue',
+  'Purple',
+  'Black',
+  'White',
 ];
 
 const fruit = [
-    'Apple', 'Apricot', 'Avocado',
-    'Banana', 'Bilberry', 'Blackberry', 'Blackcurrant', 'Blueberry',
-    'Boysenberry', 'Blood Orange',
-    'Cantaloupe', 'Currant', 'Cherry', 'Cherimoya', 'Cloudberry',
-    'Coconut', 'Cranberry', 'Clementine',
-    'Damson', 'Date', 'Dragonfruit', 'Durian',
-    'Elderberry',
-    'Feijoa', 'Fig',
-    'Goji berry', 'Gooseberry', 'Grape', 'Grapefruit', 'Guava',
-    'Honeydew', 'Huckleberry',
-    'Jabouticaba', 'Jackfruit', 'Jambul', 'Jujube', 'Juniper berry',
-    'Kiwi fruit', 'Kumquat',
-    'Lemon', 'Lime', 'Loquat', 'Lychee',
-    'Nectarine',
-    'Mango', 'Marion berry', 'Melon', 'Miracle fruit', 'Mulberry', 'Mandarine',
-    'Olive', 'Orange',
-    'Papaya', 'Passionfruit', 'Peach', 'Pear', 'Persimmon', 'Physalis', 'Plum', 'Pineapple',
-    'Pumpkin', 'Pomegranate', 'Pomelo', 'Purple Mangosteen',
-    'Quince',
-    'Raspberry', 'Raisin', 'Rambutan', 'Redcurrant',
-    'Salal berry', 'Satsuma', 'Star fruit', 'Strawberry', 'Squash', 'Salmonberry',
-    'Tamarillo', 'Tamarind', 'Tomato', 'Tangerine',
-    'Ugli fruit',
-    'Watermelon',
+  'Apple', 'Apricot', 'Avocado',
+  'Banana', 'Bilberry', 'Blackberry', 'Blackcurrant', 'Blueberry',
+  'Boysenberry', 'Blood Orange',
+  'Cantaloupe', 'Currant', 'Cherry', 'Cherimoya', 'Cloudberry',
+  'Coconut', 'Cranberry', 'Clementine',
+  'Damson', 'Date', 'Dragonfruit', 'Durian',
+  'Elderberry',
+  'Feijoa', 'Fig',
+  'Goji berry', 'Gooseberry', 'Grape', 'Grapefruit', 'Guava',
+  'Honeydew', 'Huckleberry',
+  'Jabouticaba', 'Jackfruit', 'Jambul', 'Jujube', 'Juniper berry',
+  'Kiwi fruit', 'Kumquat',
+  'Lemon', 'Lime', 'Loquat', 'Lychee',
+  'Nectarine',
+  'Mango', 'Marion berry', 'Melon', 'Miracle fruit', 'Mulberry', 'Mandarine',
+  'Olive', 'Orange',
+  'Papaya', 'Passionfruit', 'Peach', 'Pear', 'Persimmon', 'Physalis', 'Plum', 'Pineapple',
+  'Pumpkin', 'Pomegranate', 'Pomelo', 'Purple Mangosteen',
+  'Quince',
+  'Raspberry', 'Raisin', 'Rambutan', 'Redcurrant',
+  'Salal berry', 'Satsuma', 'Star fruit', 'Strawberry', 'Squash', 'Salmonberry',
+  'Tamarillo', 'Tamarind', 'Tomato', 'Tangerine',
+  'Ugli fruit',
+  'Watermelon',
 ];
 
 const AutoCompleteExampleFilters = () => (
-    <div>
-        <AutoComplete
-            floatingLabelText="Type 'r', case insensitive"
-            filter={AutoComplete.caseInsensitiveFilter}
-            dataSource={colors}
-        />
-        <br />
-        <AutoComplete
-            floatingLabelText="Type 'peah', fuzzy search"
-            filter={AutoComplete.fuzzyFilter}
-            dataSource={fruit}
-            maxSearchResults={5}
-        />
-    </div>
+  <div>
+    <AutoComplete
+      floatingLabelText="Type 'r', case insensitive"
+      filter={AutoComplete.caseInsensitiveFilter}
+      dataSource={colors}
+    />
+    <br />
+    <AutoComplete
+      floatingLabelText="Type 'peah', fuzzy search"
+      filter={AutoComplete.fuzzyFilter}
+      dataSource={fruit}
+      maxSearchResults={5}
+    />
+  </div>
 );
 
 // "http://www.material-ui.com/#/components/avatar"
 const AvatarExampleSimple = () => (
-    <List>
-        <ListItem
-            disabled={true}
-            leftAvatar={
+  <List>
+    <ListItem
+      disabled={true}
+      leftAvatar={
         <Avatar src="images/uxceo-128.jpg" />
       }
-        >
-            Image Avatar
-        </ListItem>
-        <ListItem
-            disabled={true}
-            leftAvatar={
+    >
+      Image Avatar
+    </ListItem>
+    <ListItem
+      disabled={true}
+      leftAvatar={
         <Avatar
           src="images/uxceo-128.jpg"
           size={30}
           style={style}
         />
       }
-        >
-            Image Avatar with custom size
-        </ListItem>
-        <ListItem
-            disabled={true}
-            leftAvatar={
+    >
+      Image Avatar with custom size
+    </ListItem>
+    <ListItem
+      disabled={true}
+      leftAvatar={
         <Avatar icon={<FontIcon className="muidocs-icon-communication-voicemail" />} />
       }
-        >
-            FontIcon Avatar
-        </ListItem>
-        <ListItem
-            disabled={true}
-            leftAvatar={
+    >
+      FontIcon Avatar
+    </ListItem>
+    <ListItem
+      disabled={true}
+      leftAvatar={
         <Avatar
           icon={<FontIcon className="muidocs-icon-communication-voicemail" />}
           color={blue300}
@@ -566,20 +613,20 @@ const AvatarExampleSimple = () => (
           style={style}
         />
       }
-        >
-            FontIcon Avatar with custom colors and size
-        </ListItem>
-        <ListItem
-            disabled={true}
-            leftAvatar={
+    >
+      FontIcon Avatar with custom colors and size
+    </ListItem>
+    <ListItem
+      disabled={true}
+      leftAvatar={
         <Avatar icon={<FileFolder />} />
       }
-        >
-            SvgIcon Avatar
-        </ListItem>
-        <ListItem
-            disabled={true}
-            leftAvatar={
+    >
+      SvgIcon Avatar
+    </ListItem>
+    <ListItem
+      disabled={true}
+      leftAvatar={
         <Avatar
           icon={<FileFolder />}
           color={orange200}
@@ -588,18 +635,18 @@ const AvatarExampleSimple = () => (
           style={style}
         />
       }
-        >
-            SvgIcon Avatar with custom colors and size
-        </ListItem>
-        <ListItem
-            disabled={true}
-            leftAvatar={<Avatar>A</Avatar>}
-        >
-            Letter Avatar
-        </ListItem>
-        <ListItem
-            disabled={true}
-            leftAvatar={
+    >
+      SvgIcon Avatar with custom colors and size
+    </ListItem>
+    <ListItem
+      disabled={true}
+      leftAvatar={<Avatar>A</Avatar>}
+    >
+      Letter Avatar
+    </ListItem>
+    <ListItem
+      disabled={true}
+      leftAvatar={
         <Avatar
           color={deepOrange300}
           backgroundColor={purple500}
@@ -609,1269 +656,1269 @@ const AvatarExampleSimple = () => (
           A
         </Avatar>
       }
-        >
-            Letter Avatar with custom colors and size
-        </ListItem>
-    </List>
+    >
+      Letter Avatar with custom colors and size
+    </ListItem>
+  </List>
 );
 
 
 // "http://www.material-ui.com/#/components/badge"
 const BadgeExampleSimple = () => (
-    <div>
-        <Badge
-            badgeContent={4}
-            primary={true}
-        >
-            <NotificationsIcon />
-        </Badge>
-        <Badge
-            badgeContent={10}
-            secondary={true}
-            badgeStyle={{top: 12, right: 12}}
-        >
-            <IconButton tooltip="Notifications">
-                <NotificationsIcon />
-            </IconButton>
-        </Badge>
-    </div>
+  <div>
+    <Badge
+      badgeContent={4}
+      primary={true}
+    >
+      <NotificationsIcon />
+    </Badge>
+    <Badge
+      badgeContent={10}
+      secondary={true}
+      badgeStyle={{top: 12, right: 12}}
+    >
+      <IconButton tooltip="Notifications">
+        <NotificationsIcon />
+      </IconButton>
+    </Badge>
+  </div>
 );
 
 const BadgeExampleContent = () => (
-    <div>
-        <Badge
-            badgeContent={<IconButton tooltip="Backup"><UploadIcon /></IconButton>}
-        >
-            <FolderIcon />
-        </Badge>
-        <Badge
-            badgeContent="&copy;"
-            badgeStyle={{fontSize: 20}}
-        >
-            Company Name
-        </Badge>
-    </div>
+  <div>
+    <Badge
+      badgeContent={<IconButton tooltip="Backup"><UploadIcon /></IconButton>}
+    >
+      <FolderIcon />
+    </Badge>
+    <Badge
+      badgeContent="&copy;"
+      badgeStyle={{fontSize: 20}}
+    >
+      Company Name
+    </Badge>
+  </div>
 );
 
 
 // "http://www.material-ui.com/#/components/flat-button"
 const FlatButtonExampleSimple = () => (
-    <div>
+  <div>
         <FlatButton label="Default"/>
         <FlatButton label="Primary" primary={true}/>
         <FlatButton label="Secondary" secondary={true}/>
         <FlatButton label="Disabled" disabled={true}/>
-    </div>
+  </div>
 );
 
 const FlatButtonExampleComplex = () => (
-    <div>
-        <FlatButton label="Choose an Image" labelPosition="before">
+  <div>
+    <FlatButton label="Choose an Image" labelPosition="before">
             <input type="file" style={styles.exampleImageInput}/>
-        </FlatButton>
+    </FlatButton>
 
-        <FlatButton
-            label={<span>Label before</span>}
-            labelPosition="before"
-            primary={true}
-            style={styles.button}
-            icon={<ActionAndroid />}
-        />
+    <FlatButton
+      label={<span>Label before</span>}
+      labelPosition="before"
+      primary={true}
+      style={styles.button}
+      icon={<ActionAndroid />}
+    />
 
-        <FlatButton
-            label="GitHub Link"
-            href="https://github.com/callemall/material-ui"
-            secondary={true}
-            icon={<FontIcon className="muidocs-icon-custom-github" />}
-        />
+    <FlatButton
+      label="GitHub Link"
+      href="https://github.com/callemall/material-ui"
+      secondary={true}
+      icon={<FontIcon className="muidocs-icon-custom-github" />}
+    />
 
-    </div>
+  </div>
 );
 
 const FlatButtonExampleIcon = () => (
-    <div>
-        <FlatButton
-            icon={<ActionAndroid />}
-            style={style}
-        />
-        <FlatButton
-            backgroundColor="#a4c639"
-            hoverColor="#8AA62F"
-            icon={<ActionAndroid color={fullWhite} />}
-            style={style}
-        />
-        <FlatButton
-            href="https://github.com/callemall/material-ui"
-            secondary={true}
-            icon={<FontIcon className="muidocs-icon-custom-github" />}
-            style={style}
-        />
-    </div>
+  <div>
+    <FlatButton
+      icon={<ActionAndroid />}
+      style={style}
+    />
+    <FlatButton
+      backgroundColor="#a4c639"
+      hoverColor="#8AA62F"
+      icon={<ActionAndroid color={fullWhite} />}
+      style={style}
+    />
+    <FlatButton
+      href="https://github.com/callemall/material-ui"
+      secondary={true}
+      icon={<FontIcon className="muidocs-icon-custom-github" />}
+      style={style}
+    />
+  </div>
 );
 
 
 // "http://www.material-ui.com/#/components/raised-button"
 const RaisedButtonExampleSimple = () => (
-    <div>
+  <div>
         <RaisedButton label="Default" style={style}/>
         <RaisedButton label="Primary" primary={true} style={style}/>
         <RaisedButton label="Secondary" secondary={true} style={style}/>
         <RaisedButton label="Disabled" disabled={true} style={style}/>
-    </div>
+  </div>
 );
 
 const RaisedButtonExampleComplex = () => (
-    <div>
-        <RaisedButton
-            label="Choose an Image"
-            labelPosition="before"
-            style={styles.button}
-        >
+  <div>
+    <RaisedButton
+      label="Choose an Image"
+      labelPosition="before"
+      style={styles.button}
+    >
             <input type="file" style={styles.exampleImageInput}/>
-        </RaisedButton>
-        <RaisedButton
+    </RaisedButton>
+    <RaisedButton
             buttonStyle={styles.button}
-            label={<span>Label before</span>}
-            labelPosition="before"
-            primary={true}
-            icon={<ActionAndroid />}
-        />
-        <RaisedButton
-            label="Github Link"
-            href="https://github.com/callemall/material-ui"
-            secondary={true}
-            style={styles.button}
-            icon={<FontIcon className="muidocs-icon-custom-github" />}
-        />
-    </div>
+      label={<span>Label before</span>}
+      labelPosition="before"
+      primary={true}
+      icon={<ActionAndroid />}
+    />
+    <RaisedButton
+      label="Github Link"
+      href="https://github.com/callemall/material-ui"
+      secondary={true}
+      style={styles.button}
+      icon={<FontIcon className="muidocs-icon-custom-github" />}
+    />
+  </div>
 );
 
 const RaisedButtonExampleIcon = () => (
-    <div>
-        <RaisedButton
-            icon={<ActionAndroid />}
-            style={style}
-        />
-        <RaisedButton
-            backgroundColor="#a4c639"
-            icon={<ActionAndroid color={fullWhite} />}
-            style={style}
-        />
-        <RaisedButton
-            href="https://github.com/callemall/material-ui"
-            secondary={true}
-            icon={<FontIcon className="muidocs-icon-custom-github" />}
-            style={style}
-        />
-    </div>
+  <div>
+    <RaisedButton
+      icon={<ActionAndroid />}
+      style={style}
+    />
+    <RaisedButton
+      backgroundColor="#a4c639"
+      icon={<ActionAndroid color={fullWhite} />}
+      style={style}
+    />
+    <RaisedButton
+      href="https://github.com/callemall/material-ui"
+      secondary={true}
+      icon={<FontIcon className="muidocs-icon-custom-github" />}
+      style={style}
+    />
+  </div>
 );
 
 
 // "http://www.material-ui.com/#/components/floating-action-button"
 const FloatingActionButtonExampleSimple = () => (
-    <div>
-        <FloatingActionButton style={style}>
-            <ContentAdd />
-        </FloatingActionButton>
+  <div>
+    <FloatingActionButton style={style}>
+      <ContentAdd />
+    </FloatingActionButton>
 
-        <FloatingActionButton mini={true} style={style}>
-            <ContentAdd />
-        </FloatingActionButton>
+    <FloatingActionButton mini={true} style={style}>
+      <ContentAdd />
+    </FloatingActionButton>
 
-        <FloatingActionButton secondary={true} style={style}>
-            <ContentAdd />
-        </FloatingActionButton>
+    <FloatingActionButton secondary={true} style={style}>
+      <ContentAdd />
+    </FloatingActionButton>
 
-        <FloatingActionButton mini={true} secondary={true} style={style}>
-            <ContentAdd />
-        </FloatingActionButton>
+    <FloatingActionButton mini={true} secondary={true} style={style}>
+      <ContentAdd />
+    </FloatingActionButton>
 
-        <FloatingActionButton disabled={true} style={style}>
-            <ContentAdd />
-        </FloatingActionButton>
+    <FloatingActionButton disabled={true} style={style}>
+      <ContentAdd />
+    </FloatingActionButton>
 
-        <FloatingActionButton mini={true} disabled={true} style={style}>
-            <ContentAdd />
-        </FloatingActionButton>
-    </div>
+    <FloatingActionButton mini={true} disabled={true} style={style}>
+      <ContentAdd />
+    </FloatingActionButton>
+  </div>
 );
 
 
 // "http://www.material-ui.com/#/components/icon-button"
 const IconButtonExampleSimple = () => (
-    <div>
+  <div>
         <IconButton iconClassName="muidocs-icon-custom-github"/>
         <IconButton iconClassName="muidocs-icon-custom-github" disabled={true}/>
-    </div>
+  </div>
 );
 
 const IconButtonExampleComplex = () => (
-    <div>
-        <IconButton tooltip="Font Icon">
+  <div>
+    <IconButton tooltip="Font Icon">
             <FontIcon className="muidocs-icon-action-home"/>
-        </IconButton>
+    </IconButton>
 
-        <IconButton tooltip="SVG Icon">
-            <ActionHome />
-        </IconButton>
+    <IconButton tooltip="SVG Icon">
+      <ActionHome />
+    </IconButton>
 
-        <IconButton
-            iconClassName="material-icons"
-            tooltip="Ligature"
-        >
-            home
-        </IconButton>
-    </div>
+    <IconButton
+      iconClassName="material-icons"
+      tooltip="Ligature"
+    >
+      home
+    </IconButton>
+  </div>
 );
 
 const IconButtonExampleSize = () => (
-    <div>
-        <IconButton>
-            <ActionHome />
-        </IconButton>
+  <div>
+    <IconButton>
+      <ActionHome />
+    </IconButton>
 
-        <IconButton
-            iconStyle={styles.smallIcon}
-            style={styles.small}
-        >
-            <ActionHome />
-        </IconButton>
+    <IconButton
+      iconStyle={styles.smallIcon}
+      style={styles.small}
+    >
+      <ActionHome />
+    </IconButton>
 
-        <IconButton
-            iconStyle={styles.mediumIcon}
-            style={styles.medium}
-        >
-            <ActionHome />
-        </IconButton>
+    <IconButton
+      iconStyle={styles.mediumIcon}
+      style={styles.medium}
+    >
+      <ActionHome />
+    </IconButton>
 
-        <IconButton
-            iconStyle={styles.largeIcon}
-            style={styles.large}
-        >
-            <ActionHome />
-        </IconButton>
-    </div>
+    <IconButton
+      iconStyle={styles.largeIcon}
+      style={styles.large}
+    >
+      <ActionHome />
+    </IconButton>
+  </div>
 );
 
 const IconButtonExampleTooltip = () => (
-    <div>
-        <IconButton
-            iconClassName="muidocs-icon-custom-github" tooltip="bottom-right"
-            tooltipPosition="bottom-right"
-        />
-        <IconButton
-            iconClassName="muidocs-icon-custom-github" tooltip="bottom-center"
-            tooltipPosition="bottom-center"
-        />
-        <IconButton
-            iconClassName="muidocs-icon-custom-github" tooltip="bottom-left"
-            tooltipPosition="bottom-left"
-        />
-        <IconButton
-            iconClassName="muidocs-icon-custom-github" tooltip="top-right"
-            tooltipPosition="top-right"
-        />
-        <IconButton
-            iconClassName="muidocs-icon-custom-github" tooltip="top-center"
-            tooltipPosition="top-center"
-        />
-        <IconButton
-            iconClassName="muidocs-icon-custom-github" tooltip="top-left"
-            tooltipPosition="top-left"
-        />
-    </div>
+  <div>
+    <IconButton
+      iconClassName="muidocs-icon-custom-github" tooltip="bottom-right"
+      tooltipPosition="bottom-right"
+    />
+    <IconButton
+      iconClassName="muidocs-icon-custom-github" tooltip="bottom-center"
+      tooltipPosition="bottom-center"
+    />
+    <IconButton
+      iconClassName="muidocs-icon-custom-github" tooltip="bottom-left"
+      tooltipPosition="bottom-left"
+    />
+    <IconButton
+      iconClassName="muidocs-icon-custom-github" tooltip="top-right"
+      tooltipPosition="top-right"
+    />
+    <IconButton
+      iconClassName="muidocs-icon-custom-github" tooltip="top-center"
+      tooltipPosition="top-center"
+    />
+    <IconButton
+      iconClassName="muidocs-icon-custom-github" tooltip="top-left"
+      tooltipPosition="top-left"
+    />
+  </div>
 );
 
 const IconButtonExampleTouch = () => (
-    <div>
-        <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right">
-            <ActionGrade />
-        </IconButton>
-        <IconButton tooltip="bottom-center" touch={true} tooltipPosition="bottom-center">
-            <ActionGrade />
-        </IconButton>
-        <IconButton tooltip="bottom-left" touch={true} tooltipPosition="bottom-left">
-            <ActionGrade />
-        </IconButton>
-        <IconButton tooltip="top-right" touch={true} tooltipPosition="top-right">
-            <ActionGrade />
-        </IconButton>
-        <IconButton tooltip="top-center" touch={true} tooltipPosition="top-center">
-            <ActionGrade />
-        </IconButton>
-        <IconButton tooltip="top-left" touch={true} tooltipPosition="top-left">
-            <ActionGrade />
-        </IconButton>
-    </div>
+  <div>
+    <IconButton tooltip="bottom-right" touch={true} tooltipPosition="bottom-right">
+      <ActionGrade />
+    </IconButton>
+    <IconButton tooltip="bottom-center" touch={true} tooltipPosition="bottom-center">
+      <ActionGrade />
+    </IconButton>
+    <IconButton tooltip="bottom-left" touch={true} tooltipPosition="bottom-left">
+      <ActionGrade />
+    </IconButton>
+    <IconButton tooltip="top-right" touch={true} tooltipPosition="top-right">
+      <ActionGrade />
+    </IconButton>
+    <IconButton tooltip="top-center" touch={true} tooltipPosition="top-center">
+      <ActionGrade />
+    </IconButton>
+    <IconButton tooltip="top-left" touch={true} tooltipPosition="top-left">
+      <ActionGrade />
+    </IconButton>
+  </div>
 );
 
 
 // "http://www.material-ui.com/#/components/card"
 const CardExampleWithAvatar = () => (
-    <Card>
-        <CardHeader
-            title="URL Avatar"
-            subtitle="Subtitle"
-            avatar="http://lorempixel.com/100/100/nature/"
-        />
-        <CardMedia
-            overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
-        >
+  <Card>
+    <CardHeader
+      title="URL Avatar"
+      subtitle="Subtitle"
+      avatar="http://lorempixel.com/100/100/nature/"
+    />
+    <CardMedia
+      overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
+    >
             <img src="http://lorempixel.com/600/337/nature/"/>
-        </CardMedia>
+    </CardMedia>
         <CardTitle title="Card title" subtitle="Card subtitle"/>
-        <CardText>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    <CardText>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
       Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
       Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-        </CardText>
-        <CardActions>
+    </CardText>
+    <CardActions>
             <FlatButton label="Action1"/>
             <FlatButton label="Action2"/>
-        </CardActions>
-    </Card>
+    </CardActions>
+  </Card>
 );
 
 const CardExampleWithoutAvatar = () => (
-    <Card>
-        <CardHeader
-            title="Without Avatar"
-            subtitle="Subtitle"
-            actAsExpander={true}
-            showExpandableButton={true}
-        />
-        <CardText expandable={true}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  <Card>
+    <CardHeader
+      title="Without Avatar"
+      subtitle="Subtitle"
+      actAsExpander={true}
+      showExpandableButton={true}
+    />
+    <CardText expandable={true}>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
       Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
       Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-        </CardText>
-        <CardActions expandable={true}>
+    </CardText>
+    <CardActions expandable={true}>
             <FlatButton label="Action1"/>
             <FlatButton label="Action2"/>
-        </CardActions>
-    </Card>
+    </CardActions>
+  </Card>
 );
 
 class CardExampleControlled extends React.Component<{}, {expanded: boolean}> {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            expanded: false,
-        };
-    }
-
-    handleExpandChange = (expanded) => {
-        this.setState({expanded: expanded});
+  constructor(props) {
+    super(props);
+    this.state = {
+      expanded: false,
     };
+  }
 
-    handleToggle = (event, toggle) => {
-        this.setState({expanded: toggle});
-    };
+  handleExpandChange = (expanded) => {
+    this.setState({expanded});
+  }
 
-    handleExpand = () => {
-        this.setState({expanded: true});
-    };
+  handleToggle = (event, toggle) => {
+    this.setState({expanded: toggle});
+  }
 
-    handleReduce = () => {
-        this.setState({expanded: false});
-    };
+  handleExpand = () => {
+    this.setState({expanded: true});
+  }
 
-    render() {
-        return (
-            <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
-                <CardHeader
-                    title="URL Avatar"
-                    subtitle="Subtitle"
-                    avatar="http://lorempixel.com/100/100/nature/"
-                    actAsExpander={true}
-                    showExpandableButton={true}
-                />
-                <CardText>
-                    <Toggle
-                        toggled={this.state.expanded}
-                        onToggle={this.handleToggle}
-                        labelPosition="right"
-                        label="This toggle controls the expanded state of the component."
-                    />
-                </CardText>
-                <CardMedia
-                    expandable={true}
-                    overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
-                >
+  handleReduce = () => {
+    this.setState({expanded: false});
+  }
+
+  render() {
+    return (
+      <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
+        <CardHeader
+          title="URL Avatar"
+          subtitle="Subtitle"
+          avatar="http://lorempixel.com/100/100/nature/"
+          actAsExpander={true}
+          showExpandableButton={true}
+        />
+        <CardText>
+          <Toggle
+            toggled={this.state.expanded}
+            onToggle={this.handleToggle}
+            labelPosition="right"
+            label="This toggle controls the expanded state of the component."
+          />
+        </CardText>
+        <CardMedia
+          expandable={true}
+          overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
+        >
                     <img src="http://lorempixel.com/600/337/nature/"/>
-                </CardMedia>
+        </CardMedia>
                 <CardTitle title="Card title" subtitle="Card subtitle" expandable={true}/>
-                <CardText expandable={true}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        <CardText expandable={true}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
           Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
           Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-                </CardText>
-                <CardActions>
+        </CardText>
+        <CardActions>
                     <FlatButton label="Expand" onTouchTap={this.handleExpand}/>
                     <FlatButton label="Reduce" onTouchTap={this.handleReduce}/>
-                </CardActions>
-            </Card>
-        );
-    }
+        </CardActions>
+      </Card>
+    );
+  }
 }
 
 // "http://www.material-ui.com/#/components/chip"
 const ChipExampleSimple = () => (
-    <div>
-        <Chip>Basic Chip</Chip>
-        <Chip backgroundColor={blue300}>Blue Background</Chip>
-        <Chip labelColor={blue500}>Blue Label Color</Chip>
-        <Chip><Avatar size={32} color={blue300} backgroundColor={indigo900}>UI</Avatar> Avatar</Chip>
-        <Chip style={styles.chip}>Styled</Chip>
-    </div>
+  <div>
+    <Chip>Basic Chip</Chip>
+    <Chip backgroundColor={blue300}>Blue Background</Chip>
+    <Chip labelColor={blue500}>Blue Label Color</Chip>
+    <Chip><Avatar size={32} color={blue300} backgroundColor={indigo900}>UI</Avatar> Avatar</Chip>
+    <Chip style={styles.chip}>Styled</Chip>
+  </div>
 );
 
 class ChipExampleComplex extends React.Component<{}, {}> {
-    handleRequestDelete = () => {
-        alert('You clicked the delete button.');
-    }
+  handleRequestDelete = () => {
+    alert('You clicked the delete button.');
+  }
 
-    handleTouchTap = () => {
-        alert('You clicked the Chip.');
-    }
+  handleTouchTap = () => {
+    alert('You clicked the Chip.');
+  }
 
-    render() {
-        return (
-            <div>
-                <Chip onTouchTap={this.handleTouchTap} onRequestDelete={this.handleRequestDelete}>Click Me</Chip>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <Chip onTouchTap={this.handleTouchTap} onRequestDelete={this.handleRequestDelete}>Click Me</Chip>
+      </div>
+    );
+  }
 }
 
 
 // "http://www.material-ui.com/#/components/date-picker"
 const DatePickerExampleSimple = () => (
-    <div>
+  <div>
         <DatePicker hintText="Portrait Dialog"/>
         <DatePicker hintText="Landscape Dialog" mode="landscape"/>
         <DatePicker hintText="Dialog Disabled" disabled={true}/>
-    </div>
+  </div>
 );
 
 const DatePickerExampleInline = () => (
-    <div>
+  <div>
         <DatePicker hintText="Portrait Inline Dialog" container="inline"/>
         <DatePicker hintText="Landscape Inline Dialog" container="inline" mode="landscape"/>
-    </div>
+  </div>
 );
 
 const optionsStyle = {
-    maxWidth: 255,
-    marginRight: 'auto',
+  maxWidth: 255,
+  marginRight: 'auto',
 };
 
 interface DatePickerExampleToggleState {
-    minDate?: Date;
-    maxDate?: Date;
-    autoOk?: boolean;
-    disableYearSelection?: boolean;
+  minDate?: Date;
+  maxDate?: Date;
+  autoOk?: boolean;
+  disableYearSelection?: boolean;
 }
 
 class DatePickerExampleToggle extends React.Component<{}, DatePickerExampleToggleState> {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        const minDate = new Date();
-        const maxDate = new Date();
-        minDate.setFullYear(minDate.getFullYear() - 1);
-        minDate.setHours(0, 0, 0, 0);
-        maxDate.setFullYear(maxDate.getFullYear() + 1);
-        maxDate.setHours(0, 0, 0, 0);
+    const minDate = new Date();
+    const maxDate = new Date();
+    minDate.setFullYear(minDate.getFullYear() - 1);
+    minDate.setHours(0, 0, 0, 0);
+    maxDate.setFullYear(maxDate.getFullYear() + 1);
+    maxDate.setHours(0, 0, 0, 0);
 
-        this.state = {
-            minDate: minDate,
-            maxDate: maxDate,
-            autoOk: false,
-            disableYearSelection: false,
-        };
-    }
-
-    handleChangeMinDate = (event, date) => {
-        this.setState({
-            minDate: date,
-        });
+    this.state = {
+      minDate,
+      maxDate,
+      autoOk: false,
+      disableYearSelection: false,
     };
+  }
 
-    handleChangeMaxDate = (event, date) => {
-        this.setState({
-            maxDate: date,
-        });
-    };
+  handleChangeMinDate = (event, date) => {
+    this.setState({
+      minDate: date,
+    });
+  }
 
-    handleToggle = (event, toggled) => {
-        this.setState({
-            [event.target.name]: toggled,
-        });
-    };
+  handleChangeMaxDate = (event, date) => {
+    this.setState({
+      maxDate: date,
+    });
+  }
 
-    render() {
-        return (
-            <div>
-                <DatePicker
-                    floatingLabelText="Ranged Date Picker"
-                    autoOk={this.state.autoOk}
-                    minDate={this.state.minDate}
-                    maxDate={this.state.maxDate}
-                    disableYearSelection={this.state.disableYearSelection}
-                />
-                <div style={optionsStyle}>
-                    <DatePicker
-                        onChange={this.handleChangeMinDate}
-                        autoOk={this.state.autoOk}
-                        floatingLabelText="Min Date"
-                        defaultDate={this.state.minDate}
-                        disableYearSelection={this.state.disableYearSelection}
-                    />
-                    <DatePicker
-                        onChange={this.handleChangeMaxDate}
-                        autoOk={this.state.autoOk}
-                        floatingLabelText="Max Date"
-                        defaultDate={this.state.maxDate}
-                        disableYearSelection={this.state.disableYearSelection}
-                    />
-                    <Toggle
-                        name="autoOk"
-                        value="autoOk"
-                        label="Auto Ok"
-                        toggled={this.state.autoOk}
-                        onToggle={this.handleToggle}
-                    />
-                    <Toggle
-                        name="disableYearSelection"
-                        value="disableYearSelection"
-                        label="Disable Year Selection"
-                        toggled={this.state.disableYearSelection}
-                        onToggle={this.handleToggle}
-                    />
-                </div>
-            </div>
-        );
-    }
+  handleToggle = (event, toggled) => {
+    this.setState({
+      [event.target.name]: toggled,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <DatePicker
+          floatingLabelText="Ranged Date Picker"
+          autoOk={this.state.autoOk}
+          minDate={this.state.minDate}
+          maxDate={this.state.maxDate}
+          disableYearSelection={this.state.disableYearSelection}
+        />
+        <div style={optionsStyle}>
+          <DatePicker
+            onChange={this.handleChangeMinDate}
+            autoOk={this.state.autoOk}
+            floatingLabelText="Min Date"
+            defaultDate={this.state.minDate}
+            disableYearSelection={this.state.disableYearSelection}
+          />
+          <DatePicker
+            onChange={this.handleChangeMaxDate}
+            autoOk={this.state.autoOk}
+            floatingLabelText="Max Date"
+            defaultDate={this.state.maxDate}
+            disableYearSelection={this.state.disableYearSelection}
+          />
+          <Toggle
+            name="autoOk"
+            value="autoOk"
+            label="Auto Ok"
+            toggled={this.state.autoOk}
+            onToggle={this.handleToggle}
+          />
+          <Toggle
+            name="disableYearSelection"
+            value="disableYearSelection"
+            label="Disable Year Selection"
+            toggled={this.state.disableYearSelection}
+            onToggle={this.handleToggle}
+          />
+        </div>
+      </div>
+    );
+  }
 }
 
 class DatePickerExampleControlled extends React.Component<{}, {controlledDate?: Date}> {
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            controlledDate: null,
-        };
-    }
-
-    handleChange = (event, date) => {
-        this.setState({
-            controlledDate: date,
-        });
+    this.state = {
+      controlledDate: null,
     };
+  }
 
-    render() {
-        return (
-            <DatePicker
-                hintText="Controlled Date Input"
-                value={this.state.controlledDate}
-                onChange={this.handleChange}
-            />
-        );
-    }
+  handleChange = (event, date) => {
+    this.setState({
+      controlledDate: date,
+    });
+  }
+
+  render() {
+    return (
+      <DatePicker
+        hintText="Controlled Date Input"
+        value={this.state.controlledDate}
+        onChange={this.handleChange}
+      />
+    );
+  }
 }
 
 function disableWeekends(date) {
-    return date.getDay() === 0 || date.getDay() === 6;
+  return date.getDay() === 0 || date.getDay() === 6;
 }
 function disableRandomDates() {
-    return Math.random() > 0.7;
+  return Math.random() > 0.7;
 }
 const DatePickerExampleDisableDates = () => (
-    <div>
+  <div>
         <DatePicker hintText="Weekends Disabled" shouldDisableDate={disableWeekends}/>
         <DatePicker hintText="Random Dates Disabled" shouldDisableDate={disableRandomDates}/>
-    </div>
+  </div>
 );
 
 let DateTimeFormat = new Intl.DateTimeFormat('fr');
 const DatePickerExampleInternational = () => (
-    <div>
-        <DatePicker
-            hintText="fr locale"
-            DateTimeFormat={DateTimeFormat}
-            okLabel="OK"
-            cancelLabel="Annuler"
-            locale="fr"
-        />
-        <DatePicker
-            hintText="en-US locale"
-            locale="en-US"
-            firstDayOfWeek={0}
-        />
-        <DatePicker
-            hintText="Custom date format"
-            firstDayOfWeek={0}
-            formatDate={new Intl.DateTimeFormat('en-US', {
+  <div>
+    <DatePicker
+      hintText="fr locale"
+      DateTimeFormat={DateTimeFormat}
+      okLabel="OK"
+      cancelLabel="Annuler"
+      locale="fr"
+    />
+    <DatePicker
+      hintText="en-US locale"
+      locale="en-US"
+      firstDayOfWeek={0}
+    />
+    <DatePicker
+      hintText="Custom date format"
+      firstDayOfWeek={0}
+      formatDate={new Intl.DateTimeFormat('en-US', {
         day: 'numeric',
         month: 'long',
         year: 'numeric',
       }).format}
-        />
-    </div>
+    />
+  </div>
 );
 
 
 // "http://material-ui.com/#/components/dialog"
 class DialogExampleSimple extends React.Component<{}, {open?: boolean}> {
-    state = {
-        open: false,
-    };
+  state = {
+    open: false,
+  };
 
-    handleOpen = () => {
-        this.setState({open: true});
-    };
+  handleOpen = () => {
+    this.setState({open: true});
+  }
 
-    handleClose = () => {
-        this.setState({open: false});
-    };
+  handleClose = () => {
+    this.setState({open: false});
+  }
 
-    render() {
-        const actions = [
-            <FlatButton
-                label="Cancel"
-                primary={true}
-                onTouchTap={this.handleClose}
-            />,
-            <FlatButton
-                label="Submit"
-                primary={true}
-                keyboardFocused={true}
-                onTouchTap={this.handleClose}
-            />,
-        ];
+  render() {
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleClose}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.handleClose}
+      />,
+    ];
 
-        return (
-            <div>
+    return (
+      <div>
                 <RaisedButton label="Dialog" onTouchTap={this.handleOpen}/>
-                <Dialog
-                    title="Dialog With Actions"
-                    actions={actions}
-                    modal={false}
-                    open={this.state.open}
-                    onRequestClose={this.handleClose}
-                >
-                    The actions in this window were passed in as an array of React objects.
-                </Dialog>
-            </div>
-        );
-    }
+        <Dialog
+          title="Dialog With Actions"
+          actions={actions}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+        >
+          The actions in this window were passed in as an array of React objects.
+        </Dialog>
+      </div>
+    );
+  }
 }
 
 class DialogExampleModal extends React.Component<{}, {open?: boolean}> {
-    state = {
-        open: false,
-    };
+  state = {
+    open: false,
+  };
 
-    handleOpen = () => {
-        this.setState({open: true});
-    };
+  handleOpen = () => {
+    this.setState({open: true});
+  }
 
-    handleClose = () => {
-        this.setState({open: false});
-    };
+  handleClose = () => {
+    this.setState({open: false});
+  }
 
-    render() {
-        const actions = [
-            <FlatButton
-                label="Cancel"
-                primary={true}
-                onTouchTap={this.handleClose}
-            />,
-            <FlatButton
-                label="Submit"
-                primary={true}
-                disabled={true}
-                onTouchTap={this.handleClose}
-            />,
-        ];
+  render() {
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleClose}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        disabled={true}
+        onTouchTap={this.handleClose}
+      />,
+    ];
 
-        return (
-            <div>
+    return (
+      <div>
                 <RaisedButton label="Modal Dialog" onTouchTap={this.handleOpen}/>
-                <Dialog
-                    title="Dialog With Actions"
-                    actions={actions}
-                    modal={true}
-                    open={this.state.open}
-                >
-                    Only actions can close this dialog.
-                </Dialog>
-            </div>
-        );
-    }
+        <Dialog
+          title="Dialog With Actions"
+          actions={actions}
+          modal={true}
+          open={this.state.open}
+        >
+          Only actions can close this dialog.
+        </Dialog>
+      </div>
+    );
+  }
 }
 
 class DialogExampleCustomWidth extends React.Component<{}, {open?: boolean}> {
-    state = {
-        open: false,
-    };
+  state = {
+    open: false,
+  };
 
-    handleOpen = () => {
-        this.setState({open: true});
-    };
+  handleOpen = () => {
+    this.setState({open: true});
+  }
 
-    handleClose = () => {
-        this.setState({open: false});
-    };
+  handleClose = () => {
+    this.setState({open: false});
+  }
 
-    render() {
-        const actions = [
-            <FlatButton
-                label="Cancel"
-                primary={true}
-                onTouchTap={this.handleClose}
-            />,
-            <FlatButton
-                label="Submit"
-                primary={true}
-                onTouchTap={this.handleClose}
-            />,
-        ];
+  render() {
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleClose}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        onTouchTap={this.handleClose}
+      />,
+    ];
 
-        return (
-            <div>
+    return (
+      <div>
                 <RaisedButton label="Dialog With Custom Width" onTouchTap={this.handleOpen}/>
-                <Dialog
-                    title="Dialog With Custom Width"
-                    actions={actions}
-                    modal={true}
-                    contentStyle={customContentStyle}
-                    open={this.state.open}
-                >
-                    This dialog spans the entire width of the screen.
-                </Dialog>
-            </div>
-        );
-    }
+        <Dialog
+          title="Dialog With Custom Width"
+          actions={actions}
+          modal={true}
+          contentStyle={customContentStyle}
+          open={this.state.open}
+        >
+          This dialog spans the entire width of the screen.
+        </Dialog>
+      </div>
+    );
+  }
 }
 
 class DialogExampleDialogDatePicker extends React.Component<{}, {open?: boolean}> {
-    state = {
-        open: false,
-    };
+  state = {
+    open: false,
+  };
 
-    handleOpen = () => {
-        this.setState({open: true});
-    };
+  handleOpen = () => {
+    this.setState({open: true});
+  }
 
-    handleClose = () => {
-        this.setState({open: false});
-    };
+  handleClose = () => {
+    this.setState({open: false});
+  }
 
-    render() {
-        const actions = [
-            <FlatButton
-                label="Ok"
-                primary={true}
-                keyboardFocused={true}
-                onTouchTap={this.handleClose}
-            />,
-        ];
+  render() {
+    const actions = [
+      <FlatButton
+        label="Ok"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.handleClose}
+      />,
+    ];
 
-        return (
-            <div>
+    return (
+      <div>
                 <RaisedButton label="Dialog With Date Picker" onTouchTap={this.handleOpen}/>
-                <Dialog
-                    title="Dialog With Date Picker"
-                    actions={actions}
-                    modal={false}
-                    open={this.state.open}
-                    onRequestClose={this.handleClose}
-                >
-                    Open a Date Picker dialog from within a dialog.
+        <Dialog
+          title="Dialog With Date Picker"
+          actions={actions}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+        >
+          Open a Date Picker dialog from within a dialog.
                     <DatePicker hintText="Date Picker"/>
-                </Dialog>
-            </div>
-        );
-    }
+        </Dialog>
+      </div>
+    );
+  }
 }
 
 class DialogExampleScrollable extends React.Component<{}, {open?: boolean}> {
-    state = {
-        open: false,
-    };
+  state = {
+    open: false,
+  };
 
-    handleOpen = () => {
-        this.setState({open: true});
-    };
+  handleOpen = () => {
+    this.setState({open: true});
+  }
 
-    handleClose = () => {
-        this.setState({open: false});
-    };
+  handleClose = () => {
+    this.setState({open: false});
+  }
 
-    render() {
-        const actions = [
-            <FlatButton
-                label="Cancel"
-                primary={true}
-                onTouchTap={this.handleClose}
-            />,
-            <FlatButton
-                label="Submit"
-                primary={true}
-                keyboardFocused={true}
-                onTouchTap={this.handleClose}
-            />,
-        ];
+  render() {
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleClose}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.handleClose}
+      />,
+    ];
 
-        const radios = [];
-        for (let i = 0; i < 30; i++) {
-            radios.push(
-                <RadioButton
-                    key={i}
-                    value={`value${i + 1}`}
-                    label={`Option ${i + 1}`}
-                    style={styles.radioButton}
-                />
-            );
-        }
-
-        return (
-            <div>
-                <RaisedButton label="Scrollable Dialog" onTouchTap={this.handleOpen}/>
-                <Dialog
-                    title="Scrollable Dialog"
-                    actions={actions}
-                    modal={false}
-                    open={this.state.open}
-                    onRequestClose={this.handleClose}
-                    autoScrollBodyContent={true}
-                >
-                    <RadioButtonGroup name="shipSpeed" defaultSelected="not_light">
-                        {radios}
-                    </RadioButtonGroup>
-                </Dialog>
-            </div>
-        );
+    const radios = [];
+    for (let i = 0; i < 30; i++) {
+      radios.push(
+        <RadioButton
+          key={i}
+          value={`value${i + 1}`}
+          label={`Option ${i + 1}`}
+          style={styles.radioButton}
+        />
+      );
     }
+
+    return (
+      <div>
+                <RaisedButton label="Scrollable Dialog" onTouchTap={this.handleOpen}/>
+        <Dialog
+          title="Scrollable Dialog"
+          actions={actions}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+          autoScrollBodyContent={true}
+        >
+          <RadioButtonGroup name="shipSpeed" defaultSelected="not_light">
+            {radios}
+          </RadioButtonGroup>
+        </Dialog>
+      </div>
+    );
+  }
 }
 
 class DialogExampleAlert extends React.Component<{}, {open?: boolean}> {
-    state = {
-        open: false,
-    };
+  state = {
+    open: false,
+  };
 
-    handleOpen = () => {
-        this.setState({open: true});
-    };
+  handleOpen = () => {
+    this.setState({open: true});
+  }
 
-    handleClose = () => {
-        this.setState({open: false});
-    };
+  handleClose = () => {
+    this.setState({open: false});
+  }
 
-    render() {
-        const actions = [
-            <FlatButton
-                label="Cancel"
-                primary={true}
-                onTouchTap={this.handleClose}
-            />,
-            <FlatButton
-                label="Discard"
-                primary={true}
-                onTouchTap={this.handleClose}
-            />,
-        ];
+  render() {
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleClose}
+      />,
+      <FlatButton
+        label="Discard"
+        primary={true}
+        onTouchTap={this.handleClose}
+      />,
+    ];
 
-        return (
-            <div>
+    return (
+      <div>
                 <RaisedButton label="Alert" onTouchTap={this.handleOpen}/>
-                <Dialog
-                    actions={actions}
-                    modal={false}
-                    open={this.state.open}
-                    onRequestClose={this.handleClose}
-                >
-                    Discard draft?
-                </Dialog>
-            </div>
-        );
-    }
+        <Dialog
+          actions={actions}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+        >
+          Discard draft?
+        </Dialog>
+      </div>
+    );
+  }
 }
 
 
 // "http://www.material-ui.com/#/components/divider"
 const DividerExampleForm = () => (
-    <Paper zDepth={2}>
+  <Paper zDepth={2}>
         <TextField hintText="First name" style={style} underlineShow={false}/>
-        <Divider />
+    <Divider />
         <TextField hintText="Middle name" style={style} underlineShow={false}/>
-        <Divider />
+    <Divider />
         <TextField hintText="Last name" style={style} underlineShow={false}/>
-        <Divider />
+    <Divider />
         <TextField hintText="Email address" style={style} underlineShow={false}/>
-        <Divider />
-    </Paper>
+    <Divider />
+  </Paper>
 );
 
 const DividerExampleList = () => (
-    <Paper height={250}>
-        <List>
+  <Paper height={250}>
+    <List>
             <ListItem insetChildren={true} primaryText="Janet Perkins Bennet"/>
             <ListItem insetChildren={true} primaryText="Peter Carlsson"/>
-        </List>
+    </List>
         <Divider inset={true}/>
-        <List>
+    <List>
             <ListItem insetChildren={true} primaryText="Aaron Bennet"/>
             <ListItem insetChildren={true} primaryText="Abbey Christensen"/>
-        </List>
-    </Paper>
+    </List>
+  </Paper>
 );
 
 const DividerExampleMenu = () => (
-    <Menu desktop={true} style={style}>
+  <Menu desktop={true} style={style}>
         <MenuItem primaryText="Settings"/>
         <MenuItem primaryText="Help &amp; feedback"/>
-        <Divider />
+    <Divider />
         <MenuItem primaryText="Sign out"/>
-    </Menu>
+  </Menu>
 );
 
 
 // "http://www.material-ui.com/#/components/drawer"
 class DrawerSimpleExample extends React.Component<{}, {open?: boolean}> {
 
-    constructor(props) {
-        super(props);
-        this.state = {open: false};
-    }
+  constructor(props) {
+    super(props);
+    this.state = {open: false};
+  }
 
-    handleToggle = () => this.setState({open: !this.state.open});
+  handleToggle = () => this.setState({open: !this.state.open});
 
-    render() {
-        return (
-            <div>
-                <RaisedButton
-                    label="Toggle Drawer"
-                    onTouchTap={this.handleToggle}
-                />
-                <Drawer open={this.state.open}>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item 2</MenuItem>
-                </Drawer>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <RaisedButton
+          label="Toggle Drawer"
+          onTouchTap={this.handleToggle}
+        />
+        <Drawer open={this.state.open}>
+          <MenuItem>Menu Item</MenuItem>
+          <MenuItem>Menu Item 2</MenuItem>
+        </Drawer>
+      </div>
+    );
+  }
 }
 
 class DrawerUndockedExample extends React.Component<{}, {open?: boolean}> {
 
-    constructor(props) {
-        super(props);
-        this.state = {open: false};
-    }
+  constructor(props) {
+    super(props);
+    this.state = {open: false};
+  }
 
-    handleToggle = () => this.setState({open: !this.state.open});
+  handleToggle = () => this.setState({open: !this.state.open});
 
-    handleClose = () => this.setState({open: false});
+  handleClose = () => this.setState({open: false});
 
-    render() {
-        return (
-            <div>
-                <RaisedButton
-                    label="Open Drawer"
-                    onTouchTap={this.handleToggle}
-                />
-                <Drawer
-                    docked={false}
-                    width={200}
-                    open={this.state.open}
-                    onRequestChange={(open) => this.setState({open})}
-                >
-                    <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
-                    <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
-                </Drawer>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <RaisedButton
+          label="Open Drawer"
+          onTouchTap={this.handleToggle}
+        />
+        <Drawer
+          docked={false}
+          width={200}
+          open={this.state.open}
+          onRequestChange={(open) => this.setState({open})}
+        >
+          <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
+          <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
+        </Drawer>
+      </div>
+    );
+  }
 }
 
 class DrawerOpenRightExample extends React.Component<{}, {open?: boolean}> {
 
-    constructor(props) {
-        super(props);
-        this.state = {open: false};
-    }
+  constructor(props) {
+    super(props);
+    this.state = {open: false};
+  }
 
-    handleToggle = () => this.setState({open: !this.state.open});
+  handleToggle = () => this.setState({open: !this.state.open});
 
-    render() {
-        return (
-            <div>
-                <RaisedButton
-                    label="Toggle Drawer"
-                    onTouchTap={this.handleToggle}
-                />
+  render() {
+    return (
+      <div>
+        <RaisedButton
+          label="Toggle Drawer"
+          onTouchTap={this.handleToggle}
+        />
                 <Drawer width={200} openSecondary={true} open={this.state.open}>
                     <AppBar title="AppBar"/>
-                </Drawer>
-            </div>
-        );
-    }
+        </Drawer>
+      </div>
+    );
+  }
 }
 
 
 // "http://www.material-ui.com/#/components/grid-list"
 const tilesData: {img: string, title: string, author: string, featured?: boolean}[] = [
-    {
-        img: 'images/grid-list/00-52-29-429_640.jpg',
-        title: 'Breakfast',
-        author: 'jill111',
-        featured: true,
-    },
-    {
-        img: 'images/grid-list/burger-827309_640.jpg',
-        title: 'Tasty burger',
-        author: 'pashminu',
-    },
-    {
-        img: 'images/grid-list/camera-813814_640.jpg',
-        title: 'Camera',
-        author: 'Danson67',
-    },
-    {
-        img: 'images/grid-list/morning-819362_640.jpg',
-        title: 'Morning',
-        author: 'fancycrave1',
-    },
-    {
-        img: 'images/grid-list/hats-829509_640.jpg',
-        title: 'Hats',
-        author: 'Hans',
-    },
-    {
-        img: 'images/grid-list/honey-823614_640.jpg',
-        title: 'Honey',
-        author: 'fancycravel',
-    },
-    {
-        img: 'images/grid-list/vegetables-790022_640.jpg',
-        title: 'Vegetables',
-        author: 'jill111',
-    },
-    {
-        img: 'images/grid-list/water-plant-821293_640.jpg',
-        title: 'Water plant',
-        author: 'BkrmadtyaKarki',
-    },
+  {
+    img: 'images/grid-list/00-52-29-429_640.jpg',
+    title: 'Breakfast',
+    author: 'jill111',
+    featured: true,
+  },
+  {
+    img: 'images/grid-list/burger-827309_640.jpg',
+    title: 'Tasty burger',
+    author: 'pashminu',
+  },
+  {
+    img: 'images/grid-list/camera-813814_640.jpg',
+    title: 'Camera',
+    author: 'Danson67',
+  },
+  {
+    img: 'images/grid-list/morning-819362_640.jpg',
+    title: 'Morning',
+    author: 'fancycrave1',
+  },
+  {
+    img: 'images/grid-list/hats-829509_640.jpg',
+    title: 'Hats',
+    author: 'Hans',
+  },
+  {
+    img: 'images/grid-list/honey-823614_640.jpg',
+    title: 'Honey',
+    author: 'fancycravel',
+  },
+  {
+    img: 'images/grid-list/vegetables-790022_640.jpg',
+    title: 'Vegetables',
+    author: 'jill111',
+  },
+  {
+    img: 'images/grid-list/water-plant-821293_640.jpg',
+    title: 'Water plant',
+    author: 'BkrmadtyaKarki',
+  },
 ];
 
 const GridListExampleSimple = () => (
-    <div style={styles.root}>
-        <GridList
-            cellHeight={200}
-            style={styles.gridList}
+  <div style={styles.root}>
+    <GridList
+      cellHeight={200}
+      style={styles.gridList}
+    >
+      <Subheader>December</Subheader>
+      {tilesData.map((tile) => (
+        <GridTile
+          key={tile.img}
+          title={tile.title}
+          subtitle={<span>by <b>{tile.author}</b></span>}
+          actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
         >
-            <Subheader>December</Subheader>
-            {tilesData.map((tile) => (
-                <GridTile
-                    key={tile.img}
-                    title={tile.title}
-                    subtitle={<span>by <b>{tile.author}</b></span>}
-                    actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
-                >
                     <img src={tile.img}/>
-                </GridTile>
-            ))}
-        </GridList>
-    </div>
+        </GridTile>
+      ))}
+    </GridList>
+  </div>
 );
 
 const GridListExampleComplex = () => (
-    <div style={styles.root}>
-        <GridList
-            cols={2}
-            cellHeight={200}
-            padding={1}
-            style={styles.gridList}
+  <div style={styles.root}>
+    <GridList
+      cols={2}
+      cellHeight={200}
+      padding={1}
+      style={styles.gridList}
+    >
+      {tilesData.map((tile) => (
+        <GridTile
+          key={tile.img}
+          title={tile.title}
+          actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
+          actionPosition="left"
+          titlePosition="top"
+          titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
+          cols={tile.featured ? 2 : 1}
+          rows={tile.featured ? 2 : 1}
         >
-            {tilesData.map((tile) => (
-                <GridTile
-                    key={tile.img}
-                    title={tile.title}
-                    actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
-                    actionPosition="left"
-                    titlePosition="top"
-                    titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
-                    cols={tile.featured ? 2 : 1}
-                    rows={tile.featured ? 2 : 1}
-                >
                     <img src={tile.img}/>
-                </GridTile>
-            ))}
-        </GridList>
-    </div>
+        </GridTile>
+      ))}
+    </GridList>
+  </div>
 );
 
 
 // "http://www.material-ui.com/#/components/font-icon"
 const FontIconExampleSimple = () => (
-    <div>
-        <FontIcon
-            className="muidocs-icon-action-home"
-            style={iconStyles}
-        />
+  <div>
+    <FontIcon
+      className="muidocs-icon-action-home"
+      style={iconStyles}
+    />
 
-        <FontIcon
-            className="muidocs-icon-action-home"
-            style={iconStyles}
-            color={blue500}
-        />
+    <FontIcon
+      className="muidocs-icon-action-home"
+      style={iconStyles}
+      color={blue500}
+    />
 
-        <FontIcon
-            className="muidocs-icon-action-home"
-            style={iconStyles}
-            color={red500}
-            hoverColor={greenA200}
-        />
-    </div>
+    <FontIcon
+      className="muidocs-icon-action-home"
+      style={iconStyles}
+      color={red500}
+      hoverColor={greenA200}
+    />
+  </div>
 );
 
 const FontIconExampleIcons = () => (
-    <div>
-        <FontIcon className="material-icons" style={iconStyles}>home</FontIcon>
-        <FontIcon className="material-icons" style={iconStyles} color={red500}>flight_takeoff</FontIcon>
-        <FontIcon className="material-icons" style={iconStyles} color={yellow500}>cloud_download</FontIcon>
-        <FontIcon className="material-icons" style={iconStyles} color={blue500}>videogame_asset</FontIcon>
-    </div>
+  <div>
+    <FontIcon className="material-icons" style={iconStyles}>home</FontIcon>
+    <FontIcon className="material-icons" style={iconStyles} color={red500}>flight_takeoff</FontIcon>
+    <FontIcon className="material-icons" style={iconStyles} color={yellow500}>cloud_download</FontIcon>
+    <FontIcon className="material-icons" style={iconStyles} color={blue500}>videogame_asset</FontIcon>
+  </div>
 );
 
 
 // "http://www.material-ui.com/#/components/svg-icon"
 const HomeIcon = (props) => (
-    <SvgIcon {...props}>
+  <SvgIcon {...props}>
         <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-    </SvgIcon>
+  </SvgIcon>
 );
 
 const SvgIconExampleSimple = () => (
-    <div>
+  <div>
         <HomeIcon style={iconStyles}/>
         <HomeIcon style={iconStyles} color={blue500}/>
         <HomeIcon style={iconStyles} color={red500} hoverColor={greenA200}/>
-    </div>
+  </div>
 );
 
 const SvgIconExampleIcons = () => (
-    <div>
+  <div>
         <ActionHome style={iconStyles}/>
         <ActionFlightTakeoff style={iconStyles} color={red500}/>
         <FileCloudDownload style={iconStyles} color={yellow500}/>
         <HardwareVideogameAsset style={iconStyles} color={blue500}/>
-    </div>
+  </div>
 );
 
 
 // "http://material-ui.com/#/components/lists"
 const ListExampleSimple = () => (
-    <Paper>
-        <List>
+  <Paper>
+    <List>
             <ListItem primaryText="Inbox" leftIcon={<ContentInbox />}/>
             <ListItem primaryText="Starred" leftIcon={<ActionGrade />}/>
             <ListItem primaryText="Sent mail" leftIcon={<ContentSend />}/>
             <ListItem primaryText="Drafts" leftIcon={<ContentDrafts />}/>
             <ListItem primaryText="Inbox" leftIcon={<ContentInbox />}/>
-        </List>
-        <Divider />
-        <List>
+    </List>
+    <Divider />
+    <List>
             <ListItem primaryText="All mail" rightIcon={<ActionInfo />}/>
             <ListItem primaryText="Trash" rightIcon={<ActionInfo />}/>
             <ListItem primaryText="Spam" rightIcon={<ActionInfo />}/>
             <ListItem primaryText="Follow up" rightIcon={<ActionInfo />}/>
-        </List>
-    </Paper>
+    </List>
+  </Paper>
 );
 
 const ListExampleChat = () => (
-    <Paper>
-        <List>
-            <Subheader>Recent chats</Subheader>
-            <ListItem
-                primaryText="Brendan Lim"
-                leftAvatar={<Avatar src="images/ok-128.jpg" />}
-                rightIcon={<CommunicationChatBubble />}
-            />
-            <ListItem
-                primaryText="Eric Hoffman"
-                leftAvatar={<Avatar src="images/kolage-128.jpg" />}
-                rightIcon={<CommunicationChatBubble />}
-            />
-            <ListItem
-                primaryText="Grace Ng"
-                leftAvatar={<Avatar src="images/uxceo-128.jpg" />}
-                rightIcon={<CommunicationChatBubble />}
-            />
-            <ListItem
-                primaryText="Kerem Suer"
-                leftAvatar={<Avatar src="images/kerem-128.jpg" />}
-                rightIcon={<CommunicationChatBubble />}
-            />
-            <ListItem
-                primaryText="Raquel Parrado"
-                leftAvatar={<Avatar src="images/raquelromanp-128.jpg" />}
-                rightIcon={<CommunicationChatBubble />}
-            />
-        </List>
-        <Divider />
-        <List>
-            <Subheader>Previous chats</Subheader>
-            <ListItem
-                primaryText="Chelsea Otakan"
-                leftAvatar={<Avatar src="images/chexee-128.jpg" />}
-            />
-            <ListItem
-                primaryText="James Anderson"
-                leftAvatar={<Avatar src="images/jsa-128.jpg" />}
-            />
-        </List>
-    </Paper>
+  <Paper>
+    <List>
+      <Subheader>Recent chats</Subheader>
+      <ListItem
+        primaryText="Brendan Lim"
+        leftAvatar={<Avatar src="images/ok-128.jpg" />}
+        rightIcon={<CommunicationChatBubble />}
+      />
+      <ListItem
+        primaryText="Eric Hoffman"
+        leftAvatar={<Avatar src="images/kolage-128.jpg" />}
+        rightIcon={<CommunicationChatBubble />}
+      />
+      <ListItem
+        primaryText="Grace Ng"
+        leftAvatar={<Avatar src="images/uxceo-128.jpg" />}
+        rightIcon={<CommunicationChatBubble />}
+      />
+      <ListItem
+        primaryText="Kerem Suer"
+        leftAvatar={<Avatar src="images/kerem-128.jpg" />}
+        rightIcon={<CommunicationChatBubble />}
+      />
+      <ListItem
+        primaryText="Raquel Parrado"
+        leftAvatar={<Avatar src="images/raquelromanp-128.jpg" />}
+        rightIcon={<CommunicationChatBubble />}
+      />
+    </List>
+    <Divider />
+    <List>
+      <Subheader>Previous chats</Subheader>
+      <ListItem
+        primaryText="Chelsea Otakan"
+        leftAvatar={<Avatar src="images/chexee-128.jpg" />}
+      />
+      <ListItem
+        primaryText="James Anderson"
+        leftAvatar={<Avatar src="images/jsa-128.jpg" />}
+      />
+    </List>
+  </Paper>
 );
 
 const ListExampleContacts = () => (
-    <Paper>
-        <List>
-            <ListItem
-                primaryText="Chelsea Otakan"
-                leftIcon={<ActionGrade color={pinkA200} />}
-                rightAvatar={<Avatar src="images/chexee-128.jpg" />}
-            />
-            <ListItem
-                primaryText="Eric Hoffman"
-                insetChildren={true}
-                rightAvatar={<Avatar src="images/kolage-128.jpg" />}
-            />
-            <ListItem
-                primaryText="James Anderson"
-                insetChildren={true}
-                rightAvatar={<Avatar src="images/jsa-128.jpg" />}
-            />
-            <ListItem
-                primaryText="Kerem Suer"
-                insetChildren={true}
-                rightAvatar={<Avatar src="images/kerem-128.jpg" />}
-            />
-        </List>
+  <Paper>
+    <List>
+      <ListItem
+        primaryText="Chelsea Otakan"
+        leftIcon={<ActionGrade color={pinkA200} />}
+        rightAvatar={<Avatar src="images/chexee-128.jpg" />}
+      />
+      <ListItem
+        primaryText="Eric Hoffman"
+        insetChildren={true}
+        rightAvatar={<Avatar src="images/kolage-128.jpg" />}
+      />
+      <ListItem
+        primaryText="James Anderson"
+        insetChildren={true}
+        rightAvatar={<Avatar src="images/jsa-128.jpg" />}
+      />
+      <ListItem
+        primaryText="Kerem Suer"
+        insetChildren={true}
+        rightAvatar={<Avatar src="images/kerem-128.jpg" />}
+      />
+    </List>
         <Divider inset={true}/>
-        <List>
-            <ListItem
-                primaryText="Adelle Charles"
-                leftAvatar={
+    <List>
+      <ListItem
+        primaryText="Adelle Charles"
+        leftAvatar={
           <Avatar
             color={pinkA200} backgroundColor={transparent}
             style={{left: 8}}
@@ -1879,82 +1926,82 @@ const ListExampleContacts = () => (
             A
           </Avatar>
         }
-                rightAvatar={<Avatar src="images/adellecharles-128.jpg" />}
-            />
-            <ListItem
-                primaryText="Adham Dannaway"
-                insetChildren={true}
-                rightAvatar={<Avatar src="images/adhamdannaway-128.jpg" />}
-            />
-            <ListItem
-                primaryText="Allison Grayce"
-                insetChildren={true}
-                rightAvatar={<Avatar src="images/allisongrayce-128.jpg" />}
-            />
-            <ListItem
-                primaryText="Angel Ceballos"
-                insetChildren={true}
-                rightAvatar={<Avatar src="images/angelceballos-128.jpg" />}
-            />
-        </List>
-    </Paper>
+        rightAvatar={<Avatar src="images/adellecharles-128.jpg" />}
+      />
+      <ListItem
+        primaryText="Adham Dannaway"
+        insetChildren={true}
+        rightAvatar={<Avatar src="images/adhamdannaway-128.jpg" />}
+      />
+      <ListItem
+        primaryText="Allison Grayce"
+        insetChildren={true}
+        rightAvatar={<Avatar src="images/allisongrayce-128.jpg" />}
+      />
+      <ListItem
+        primaryText="Angel Ceballos"
+        insetChildren={true}
+        rightAvatar={<Avatar src="images/angelceballos-128.jpg" />}
+      />
+    </List>
+  </Paper>
 );
 
 const ListExampleFolder = () => (
-    <Paper>
-        <List>
-            <Subheader inset={true}>Folders</Subheader>
-            <ListItem
-                leftAvatar={<Avatar icon={<FileFolder />} />}
-                rightIcon={<ActionInfo />}
-                primaryText="Photos"
-                secondaryText="Jan 9, 2014"
-            />
-            <ListItem
-                leftAvatar={<Avatar icon={<FileFolder />} />}
-                rightIcon={<ActionInfo />}
-                primaryText="Recipes"
-                secondaryText="Jan 17, 2014"
-            />
-            <ListItem
-                leftAvatar={<Avatar icon={<FileFolder />} />}
-                rightIcon={<ActionInfo />}
-                primaryText="Work"
-                secondaryText="Jan 28, 2014"
-            />
-        </List>
+  <Paper>
+    <List>
+      <Subheader inset={true}>Folders</Subheader>
+      <ListItem
+        leftAvatar={<Avatar icon={<FileFolder />} />}
+        rightIcon={<ActionInfo />}
+        primaryText="Photos"
+        secondaryText="Jan 9, 2014"
+      />
+      <ListItem
+        leftAvatar={<Avatar icon={<FileFolder />} />}
+        rightIcon={<ActionInfo />}
+        primaryText="Recipes"
+        secondaryText="Jan 17, 2014"
+      />
+      <ListItem
+        leftAvatar={<Avatar icon={<FileFolder />} />}
+        rightIcon={<ActionInfo />}
+        primaryText="Work"
+        secondaryText="Jan 28, 2014"
+      />
+    </List>
         <Divider inset={true}/>
-        <List>
-            <Subheader inset={true}>Files</Subheader>
-            <ListItem
-                leftAvatar={<Avatar icon={<ActionAssignment />} backgroundColor={blue500} />}
-                rightIcon={<ActionInfo />}
-                primaryText="Vacation itinerary"
-                secondaryText="Jan 20, 2014"
-            />
-            <ListItem
-                leftAvatar={<Avatar icon={<EditorInsertChart />} backgroundColor={yellow600} />}
-                rightIcon={<ActionInfo />}
-                primaryText="Kitchen remodel"
-                secondaryText="Jan 10, 2014"
-            />
-        </List>
-    </Paper>
+    <List>
+      <Subheader inset={true}>Files</Subheader>
+      <ListItem
+        leftAvatar={<Avatar icon={<ActionAssignment />} backgroundColor={blue500} />}
+        rightIcon={<ActionInfo />}
+        primaryText="Vacation itinerary"
+        secondaryText="Jan 20, 2014"
+      />
+      <ListItem
+        leftAvatar={<Avatar icon={<EditorInsertChart />} backgroundColor={yellow600} />}
+        rightIcon={<ActionInfo />}
+        primaryText="Kitchen remodel"
+        secondaryText="Jan 10, 2014"
+      />
+    </List>
+  </Paper>
 );
 
 const ListExampleNested = () => (
-    <Paper>
-        <List>
-            <Subheader>Nested List Items</Subheader>
+  <Paper>
+    <List>
+      <Subheader>Nested List Items</Subheader>
             <ListItem primaryText="Sent mail" leftIcon={<ContentSend />}/>
             <ListItem primaryText="Drafts" leftIcon={<ContentDrafts />}/>
-            <ListItem
-                primaryText="Inbox"
-                leftIcon={<ContentInbox />}
-                initiallyOpen={true}
+      <ListItem
+        primaryText="Inbox"
+        leftIcon={<ContentInbox />}
+        initiallyOpen={true}
                 open={true}
-                primaryTogglesNestedList={true}
-                nestedItems={[
+        primaryTogglesNestedList={true}
+        nestedItems={[
           <ListItem
             key={1}
             primaryText="Starred"
@@ -1970,458 +2017,458 @@ const ListExampleNested = () => (
             ]}
           />,
         ]}
-            />
-        </List>
-    </Paper>
+      />
+    </List>
+  </Paper>
 );
 
 const ListExampleSettings = () => (
-    <div>
-        <Paper>
-            <List>
-                <Subheader>General</Subheader>
-                <ListItem
-                    primaryText="Profile photo"
-                    secondaryText="Change your Google+ profile photo"
-                />
-                <ListItem
-                    primaryText="Show your status"
-                    secondaryText="Your status is visible to everyone you use with"
-                />
-            </List>
-            <Divider />
-            <List>
-                <Subheader>Hangout Notifications</Subheader>
-                <ListItem
-                    leftCheckbox={<Checkbox />}
-                    primaryText="Notifications"
-                    secondaryText="Allow notifications"
-                />
-                <ListItem
-                    leftCheckbox={<Checkbox />}
-                    primaryText="Sounds"
-                    secondaryText="Hangouts message"
-                />
-                <ListItem
-                    leftCheckbox={<Checkbox />}
-                    primaryText="Video sounds"
-                    secondaryText="Hangouts video call"
-                />
-            </List>
-        </Paper>
-        <Paper>
-            <List>
-                <ListItem
-                    primaryText="When calls and notifications arrive"
-                    secondaryText="Always interrupt"
-                />
-            </List>
-            <Divider />
-            <List>
-                <Subheader>Priority Interruptions</Subheader>
+  <div>
+    <Paper>
+      <List>
+        <Subheader>General</Subheader>
+        <ListItem
+          primaryText="Profile photo"
+          secondaryText="Change your Google+ profile photo"
+        />
+        <ListItem
+          primaryText="Show your status"
+          secondaryText="Your status is visible to everyone you use with"
+        />
+      </List>
+      <Divider />
+      <List>
+        <Subheader>Hangout Notifications</Subheader>
+        <ListItem
+          leftCheckbox={<Checkbox />}
+          primaryText="Notifications"
+          secondaryText="Allow notifications"
+        />
+        <ListItem
+          leftCheckbox={<Checkbox />}
+          primaryText="Sounds"
+          secondaryText="Hangouts message"
+        />
+        <ListItem
+          leftCheckbox={<Checkbox />}
+          primaryText="Video sounds"
+          secondaryText="Hangouts video call"
+        />
+      </List>
+    </Paper>
+    <Paper>
+      <List>
+        <ListItem
+          primaryText="When calls and notifications arrive"
+          secondaryText="Always interrupt"
+        />
+      </List>
+      <Divider />
+      <List>
+        <Subheader>Priority Interruptions</Subheader>
                 <ListItem primaryText="Events and reminders" rightToggle={<Toggle />}/>
                 <ListItem primaryText="Calls" rightToggle={<Toggle />}/>
                 <ListItem primaryText="Messages" rightToggle={<Toggle />}/>
-            </List>
-            <Divider />
-            <List>
-                <Subheader>Hangout Notifications</Subheader>
+      </List>
+      <Divider />
+      <List>
+        <Subheader>Hangout Notifications</Subheader>
                 <ListItem primaryText="Notifications" leftCheckbox={<Checkbox />}/>
                 <ListItem primaryText="Sounds" leftCheckbox={<Checkbox />}/>
                 <ListItem primaryText="Video sounds" leftCheckbox={<Checkbox />}/>
-            </List>
-        </Paper>
-    </div>
+      </List>
+    </Paper>
+  </div>
 );
 
 const ListExamplePhone = () => (
-    <Paper>
-        <List>
-            <ListItem
-                leftIcon={<CommunicationCall color={indigo500} />}
-                rightIcon={<CommunicationChatBubble />}
-                primaryText="(650) 555 - 1234"
-                secondaryText="Mobile"
-            />
-            <ListItem
-                insetChildren={true}
-                rightIcon={<CommunicationChatBubble />}
-                primaryText="(323) 555 - 6789"
-                secondaryText="Work"
-            />
-        </List>
+  <Paper>
+    <List>
+      <ListItem
+        leftIcon={<CommunicationCall color={indigo500} />}
+        rightIcon={<CommunicationChatBubble />}
+        primaryText="(650) 555 - 1234"
+        secondaryText="Mobile"
+      />
+      <ListItem
+        insetChildren={true}
+        rightIcon={<CommunicationChatBubble />}
+        primaryText="(323) 555 - 6789"
+        secondaryText="Work"
+      />
+    </List>
         <Divider inset={true}/>
-        <List>
-            <ListItem
-                leftIcon={<CommunicationEmail color={indigo500} />}
-                primaryText="aliconnors@example.com"
-                secondaryText="Personal"
-            />
-            <ListItem
-                insetChildren={true}
-                primaryText="ali_connors@example.com"
-                secondaryText="Work"
-            />
-        </List>
-    </Paper>
+    <List>
+      <ListItem
+        leftIcon={<CommunicationEmail color={indigo500} />}
+        primaryText="aliconnors@example.com"
+        secondaryText="Personal"
+      />
+      <ListItem
+        insetChildren={true}
+        primaryText="ali_connors@example.com"
+        secondaryText="Work"
+      />
+    </List>
+  </Paper>
 );
 
 const iconButtonElement = (
-    <IconButton
-        touch={true}
-        tooltip="more"
-        tooltipPosition="bottom-left"
-    >
+  <IconButton
+    touch={true}
+    tooltip="more"
+    tooltipPosition="bottom-left"
+  >
         <MoreVertIcon color={grey400}/>
-    </IconButton>
+  </IconButton>
 );
 
 const rightIconMenu = (
-    <IconMenu iconButtonElement={iconButtonElement}>
-        <MenuItem>Reply</MenuItem>
-        <MenuItem>Forward</MenuItem>
-        <MenuItem>Delete</MenuItem>
-    </IconMenu>
+  <IconMenu iconButtonElement={iconButtonElement}>
+    <MenuItem>Reply</MenuItem>
+    <MenuItem>Forward</MenuItem>
+    <MenuItem>Delete</MenuItem>
+  </IconMenu>
 );
 
 const ListExampleMessages = () => (
-    <div>
-        <Paper>
-            <List>
-                <Subheader>Today</Subheader>
-                <ListItem
-                    leftAvatar={<Avatar src="images/ok-128.jpg" />}
-                    primaryText="Brunch this weekend?"
-                    secondaryText={
+  <div>
+    <Paper>
+      <List>
+        <Subheader>Today</Subheader>
+        <ListItem
+          leftAvatar={<Avatar src="images/ok-128.jpg" />}
+          primaryText="Brunch this weekend?"
+          secondaryText={
             <p>
               <span style={{color: darkBlack}}>Brendan Lim</span> --
               I&apos;ll be in your neighborhood doing errands this weekend. Do you want to grab brunch?
             </p>
           }
-                    secondaryTextLines={2}
-                />
+          secondaryTextLines={2}
+        />
                 <Divider inset={true}/>
-                <ListItem
-                    leftAvatar={<Avatar src="images/kolage-128.jpg" />}
-                    primaryText={
+        <ListItem
+          leftAvatar={<Avatar src="images/kolage-128.jpg" />}
+          primaryText={
             <p>Summer BBQ&nbsp;&nbsp;<span style={{color: lightBlack}}>4</span></p>
           }
-                    secondaryText={
+          secondaryText={
             <p>
               <span style={{color: darkBlack}}>to me, Scott, Jennifer</span> --
               Wish I could come, but I&apos;m out of town this weekend.
             </p>
           }
-                    secondaryTextLines={2}
-                />
+          secondaryTextLines={2}
+        />
                 <Divider inset={true}/>
-                <ListItem
-                    leftAvatar={<Avatar src="images/uxceo-128.jpg" />}
-                    primaryText="Oui oui"
-                    secondaryText={
+        <ListItem
+          leftAvatar={<Avatar src="images/uxceo-128.jpg" />}
+          primaryText="Oui oui"
+          secondaryText={
             <p>
               <span style={{color: darkBlack}}>Grace Ng</span> --
               Do you have Paris recommendations? Have you ever been?
             </p>
           }
-                    secondaryTextLines={2}
-                />
+          secondaryTextLines={2}
+        />
                 <Divider inset={true}/>
-                <ListItem
-                    leftAvatar={<Avatar src="images/kerem-128.jpg" />}
-                    primaryText="Birdthday gift"
-                    secondaryText={
+        <ListItem
+          leftAvatar={<Avatar src="images/kerem-128.jpg" />}
+          primaryText="Birdthday gift"
+          secondaryText={
             <p>
               <span style={{color: darkBlack}}>Kerem Suer</span> --
               Do you have any ideas what we can get Heidi for her birthday? How about a pony?
             </p>
           }
-                    secondaryTextLines={2}
-                />
+          secondaryTextLines={2}
+        />
                 <Divider inset={true}/>
-                <ListItem
-                    leftAvatar={<Avatar src="images/raquelromanp-128.jpg" />}
-                    primaryText="Recipe to try"
-                    secondaryText={
+        <ListItem
+          leftAvatar={<Avatar src="images/raquelromanp-128.jpg" />}
+          primaryText="Recipe to try"
+          secondaryText={
             <p>
               <span style={{color: darkBlack}}>Raquel Parrado</span> --
               We should eat this: grated squash. Corn and tomatillo tacos.
             </p>
           }
-                    secondaryTextLines={2}
-                />
-            </List>
-        </Paper>
-        <Paper>
-            <List>
-                <Subheader>Today</Subheader>
-                <ListItem
-                    leftAvatar={<Avatar src="images/ok-128.jpg" />}
-                    rightIconButton={rightIconMenu}
-                    primaryText="Brendan Lim"
-                    secondaryText={
+          secondaryTextLines={2}
+        />
+      </List>
+    </Paper>
+    <Paper>
+      <List>
+        <Subheader>Today</Subheader>
+        <ListItem
+          leftAvatar={<Avatar src="images/ok-128.jpg" />}
+          rightIconButton={rightIconMenu}
+          primaryText="Brendan Lim"
+          secondaryText={
             <p>
               <span style={{color: darkBlack}}>Brunch this weekend?</span><br />
               I&apos;ll be in your neighborhood doing errands this weekend. Do you want to grab brunch?
             </p>
           }
-                    secondaryTextLines={2}
-                />
+          secondaryTextLines={2}
+        />
                 <Divider inset={true}/>
-                <ListItem
-                    leftAvatar={<Avatar src="images/kolage-128.jpg" />}
-                    rightIconButton={rightIconMenu}
-                    primaryText="me, Scott, Jennifer"
-                    secondaryText={
+        <ListItem
+          leftAvatar={<Avatar src="images/kolage-128.jpg" />}
+          rightIconButton={rightIconMenu}
+          primaryText="me, Scott, Jennifer"
+          secondaryText={
             <p>
               <span style={{color: darkBlack}}>Summer BBQ</span><br />
               Wish I could come, but I&apos;m out of town this weekend.
             </p>
           }
-                    secondaryTextLines={2}
-                />
+          secondaryTextLines={2}
+        />
                 <Divider inset={true}/>
-                <ListItem
-                    leftAvatar={<Avatar src="images/uxceo-128.jpg" />}
-                    rightIconButton={rightIconMenu}
-                    primaryText="Grace Ng"
-                    secondaryText={
+        <ListItem
+          leftAvatar={<Avatar src="images/uxceo-128.jpg" />}
+          rightIconButton={rightIconMenu}
+          primaryText="Grace Ng"
+          secondaryText={
             <p>
               <span style={{color: darkBlack}}>Oui oui</span><br />
               Do you have any Paris recs? Have you ever been?
             </p>
           }
-                    secondaryTextLines={2}
-                />
+          secondaryTextLines={2}
+        />
                 <Divider inset={true}/>
-                <ListItem
-                    leftAvatar={<Avatar src="images/kerem-128.jpg" />}
-                    rightIconButton={rightIconMenu}
-                    primaryText="Kerem Suer"
-                    secondaryText={
+        <ListItem
+          leftAvatar={<Avatar src="images/kerem-128.jpg" />}
+          rightIconButton={rightIconMenu}
+          primaryText="Kerem Suer"
+          secondaryText={
             <p>
               <span style={{color: darkBlack}}>Birthday gift</span><br />
               Do you have any ideas what we can get Heidi for her birthday? How about a pony?
             </p>
           }
-                    secondaryTextLines={2}
-                />
+          secondaryTextLines={2}
+        />
                 <Divider inset={true}/>
-                <ListItem
-                    leftAvatar={<Avatar src="images/raquelromanp-128.jpg" />}
-                    rightIconButton={rightIconMenu}
-                    primaryText="Raquel Parrado"
-                    secondaryText={
+        <ListItem
+          leftAvatar={<Avatar src="images/raquelromanp-128.jpg" />}
+          rightIconButton={rightIconMenu}
+          primaryText="Raquel Parrado"
+          secondaryText={
             <p>
               <span style={{color: darkBlack}}>Recipe to try</span><br />
               We should eat this: grated squash. Corn and tomatillo tacos.
             </p>
           }
-                    secondaryTextLines={2}
-                />
-            </List>
-        </Paper>
-    </div>
+          secondaryTextLines={2}
+        />
+      </List>
+    </Paper>
+  </div>
 );
 
 function wrapState(ComposedComponent: React.ComponentClass<__MaterialUI.List.SelectableProps>) {
-    return class SelectableList extends Component<{defaultValue: number}, {selectedIndex: number}> {
-        static propTypes = {
-            children: PropTypes.node.isRequired,
-            defaultValue: PropTypes.number.isRequired,
-        };
-
-        componentWillMount() {
-            this.setState({
-                selectedIndex: this.props.defaultValue,
-            });
-        }
-
-        handleRequestChange = (event, index) => {
-            this.setState({
-                selectedIndex: index,
-            });
-        };
-
-        render() {
-            return (
-                <ComposedComponent
-                    value={this.state.selectedIndex}
-                    onChange={this.handleRequestChange}
-                >
-                    {this.props.children}
-                </ComposedComponent>
-            );
-        }
+  return class SelectableList extends Component<{defaultValue: number}, {selectedIndex: number}> {
+    static propTypes = {
+      children: PropTypes.node.isRequired,
+      defaultValue: PropTypes.number.isRequired,
     };
+
+    componentWillMount() {
+      this.setState({
+        selectedIndex: this.props.defaultValue,
+      });
+    }
+
+    handleRequestChange = (event, index) => {
+      this.setState({
+        selectedIndex: index,
+      });
+    }
+
+    render() {
+      return (
+        <ComposedComponent
+          value={this.state.selectedIndex}
+          onChange={this.handleRequestChange}
+        >
+          {this.props.children}
+        </ComposedComponent>
+      );
+    }
+  };
 }
 
 let SelectableList = wrapState(makeSelectable(List));
 
 const ListExampleSelectable = () => (
-    <Paper>
-        <SelectableList defaultValue={3}>
-            <Subheader>Selectable Contacts</Subheader>
-            <ListItem
-                value={1}
-                primaryText="Brendan Lim"
-                leftAvatar={<Avatar src="images/ok-128.jpg" />}
-                nestedItems={[
+  <Paper>
+    <SelectableList defaultValue={3}>
+      <Subheader>Selectable Contacts</Subheader>
+      <ListItem
+        value={1}
+        primaryText="Brendan Lim"
+        leftAvatar={<Avatar src="images/ok-128.jpg" />}
+        nestedItems={[
           <ListItem
             value={2}
             primaryText="Grace Ng"
             leftAvatar={<Avatar src="images/uxceo-128.jpg" />}
           />,
         ]}
-            />
-            <ListItem
-                value={3}
-                primaryText="Kerem Suer"
-                leftAvatar={<Avatar src="images/kerem-128.jpg" />}
-            />
-            <ListItem
-                value={4}
-                primaryText="Eric Hoffman"
-                leftAvatar={<Avatar src="images/kolage-128.jpg" />}
-            />
-            <ListItem
-                value={5}
-                primaryText="Raquel Parrado"
-                leftAvatar={<Avatar src="images/raquelromanp-128.jpg" />}
-            />
-        </SelectableList>
-    </Paper>
+      />
+      <ListItem
+        value={3}
+        primaryText="Kerem Suer"
+        leftAvatar={<Avatar src="images/kerem-128.jpg" />}
+      />
+      <ListItem
+        value={4}
+        primaryText="Eric Hoffman"
+        leftAvatar={<Avatar src="images/kolage-128.jpg" />}
+      />
+      <ListItem
+        value={5}
+        primaryText="Raquel Parrado"
+        leftAvatar={<Avatar src="images/raquelromanp-128.jpg" />}
+      />
+    </SelectableList>
+  </Paper>
 );
 
 
 // "http://www.material-ui.com/#/components/menu"
 const MenuExampleSimple = () => (
-    <div>
-        <Paper style={style}>
-            <Menu>
+  <div>
+    <Paper style={style}>
+      <Menu>
                 <MenuItem primaryText="Maps"/>
                 <MenuItem primaryText="Books"/>
                 <MenuItem primaryText="Flights"/>
                 <MenuItem primaryText="Apps"/>
-            </Menu>
-        </Paper>
-        <Paper style={style}>
-            <Menu>
+      </Menu>
+    </Paper>
+    <Paper style={style}>
+      <Menu>
                 <MenuItem primaryText="Refresh"/>
                 <MenuItem primaryText="Help &amp; feedback"/>
                 <MenuItem primaryText="Settings"/>
                 <MenuItem primaryText="Sign out"/>
-            </Menu>
-        </Paper>
-    </div>
+      </Menu>
+    </Paper>
+  </div>
 );
 
 const MenuExampleDisable = () => (
-    <div>
-        <Paper style={style}>
-            <Menu desktop={true}>
+  <div>
+    <Paper style={style}>
+      <Menu desktop={true}>
                 <MenuItem primaryText="Back"/>
                 <MenuItem primaryText="Forward" disabled={true}/>
-                <Divider />
+        <Divider />
                 <MenuItem primaryText="Recently closed" disabled={true}/>
                 <MenuItem primaryText="Google" disabled={true}/>
                 <MenuItem primaryText="YouTube"/>
-            </Menu>
-        </Paper>
-        <Paper style={style}>
-            <Menu desktop={true}>
+      </Menu>
+    </Paper>
+    <Paper style={style}>
+      <Menu desktop={true}>
                 <MenuItem primaryText="Undo"/>
                 <MenuItem primaryText="Redo" disabled={true}/>
-                <Divider />
+        <Divider />
                 <MenuItem primaryText="Cut" disabled={true}/>
                 <MenuItem primaryText="Copy" disabled={true}/>
                 <MenuItem primaryText="Paste"/>
-            </Menu>
-        </Paper>
-    </div>
+      </Menu>
+    </Paper>
+  </div>
 );
 
 const MenuExampleIcons = () => (
-    <div>
-        <Paper style={styles.paper}>
-            <Menu>
+  <div>
+    <Paper style={styles.paper}>
+      <Menu>
                 <MenuItem primaryText="Preview" leftIcon={<RemoveRedEye />}/>
                 <MenuItem primaryText="Share" leftIcon={<PersonAdd />}/>
                 <MenuItem primaryText="Get links" leftIcon={<ContentLink />}/>
-                <Divider />
+        <Divider />
                 <MenuItem primaryText="Make a copy" leftIcon={<ContentCopy />}/>
                 <MenuItem primaryText="Download" leftIcon={<Download />}/>
-                <Divider />
+        <Divider />
                 <MenuItem primaryText="Remove" leftIcon={<Delete />}/>
-            </Menu>
-        </Paper>
-        <Paper style={styles.paper}>
-            <Menu>
+      </Menu>
+    </Paper>
+    <Paper style={styles.paper}>
+      <Menu>
                 <MenuItem primaryText="Clear Config"/>
                 <MenuItem primaryText="New Config" rightIcon={<PersonAdd />}/>
                 <MenuItem primaryText="Project" rightIcon={<FontIcon className="material-icons">settings</FontIcon>}/>
-                <MenuItem
-                    primaryText="Workspace"
-                    rightIcon={
+        <MenuItem
+          primaryText="Workspace"
+          rightIcon={
             <FontIcon className="material-icons" style={{color: '#559'}}>settings</FontIcon>
           }
-                />
+        />
                 <MenuItem primaryText="Paragraph" rightIcon={<b style={styles.rightIcon}>¶</b>}/>
                 <MenuItem primaryText="Section" rightIcon={<b style={styles.rightIcon}>§</b>}/>
-            </Menu>
-        </Paper>
-    </div>
+      </Menu>
+    </Paper>
+  </div>
 );
 
 const MenuExampleSecondary = () => (
-    <div>
-        <Paper style={style}>
-            <Menu desktop={true} width={256}>
+  <div>
+    <Paper style={style}>
+      <Menu desktop={true} width={256}>
                 <MenuItem primaryText="Bold" secondaryText="&#8984;B"/>
                 <MenuItem primaryText="Italic" secondaryText="&#8984;I"/>
                 <MenuItem primaryText="Underline" secondaryText="&#8984;U"/>
                 <MenuItem primaryText="Strikethrough" secondaryText="Alt+Shift+5"/>
                 <MenuItem primaryText="Superscript" secondaryText="&#8984;."/>
                 <MenuItem primaryText="Subscript" secondaryText="&#8984;,"/>
-                <Divider />
+        <Divider />
                 <MenuItem primaryText="Paragraph styles" rightIcon={<ArrowDropRight />}/>
                 <MenuItem primaryText="Align" rightIcon={<ArrowDropRight />}/>
                 <MenuItem primaryText="Line spacing" rightIcon={<ArrowDropRight />}/>
                 <MenuItem primaryText="Numbered list" rightIcon={<ArrowDropRight />}/>
                 <MenuItem primaryText="List options" rightIcon={<ArrowDropRight />}/>
-                <Divider />
+        <Divider />
                 <MenuItem primaryText="Clear formatting" secondaryText="&#8984;/"/>
-            </Menu>
-        </Paper>
-        <Paper style={style}>
-            <Menu desktop={true} width={256}>
+      </Menu>
+    </Paper>
+    <Paper style={style}>
+      <Menu desktop={true} width={256}>
                 <MenuItem primaryText="Open" secondaryText="Cmd + O"/>
                 <MenuItem primaryText="Paste in place" secondaryText="Shift + V"/>
                 <MenuItem primaryText="Research" secondaryText="Opt + Shift + Cmd + I"/>
-            </Menu>
-        </Paper>
-        <Paper style={style}>
-            <Menu desktop={true} width={256}>
+      </Menu>
+    </Paper>
+    <Paper style={style}>
+      <Menu desktop={true} width={256}>
                 <MenuItem primaryText="Open" secondaryText="&#8984;O"/>
                 <MenuItem primaryText="Paste in place" secondaryText="&#8679;&#8984;V"/>
                 <MenuItem primaryText="Research" secondaryText="&#8997;&#8679;&#8984;I"/>
-            </Menu>
-        </Paper>
-    </div>
+      </Menu>
+    </Paper>
+  </div>
 );
 
 const MenuExampleNested = () => (
-    <div>
-        <Paper style={style}>
-            <Menu desktop={true} width={320}>
+  <div>
+    <Paper style={style}>
+      <Menu desktop={true} width={320}>
                 <MenuItem primaryText="Single" insetChildren={true}/>
                 <MenuItem primaryText="1.15" insetChildren={true}/>
                 <MenuItem primaryText="Double" insetChildren={true}/>
-                <MenuItem
-                    primaryText="Custom: 1.2"
-                    checked={true}
-                    rightIcon={<ArrowDropRight />}
-                    menuItems={[
+        <MenuItem
+          primaryText="Custom: 1.2"
+          checked={true}
+          rightIcon={<ArrowDropRight />}
+          menuItems={[
             <MenuItem
               primaryText="Show"
               rightIcon={<ArrowDropRight />}
@@ -2436,160 +2483,160 @@ const MenuExampleNested = () => (
             <MenuItem primaryText="Page breaks" insetChildren={true} />,
             <MenuItem primaryText="Rules" checked={true} />,
           ]}
-                />
-                <Divider />
+        />
+        <Divider />
                 <MenuItem primaryText="Add space before paragraph"/>
                 <MenuItem primaryText="Add space after paragraph"/>
-                <Divider />
+        <Divider />
                 <MenuItem primaryText="Custom spacing..."/>
-            </Menu>
-        </Paper>
-    </div>
+      </Menu>
+    </Paper>
+  </div>
 );
 
 
 // "http://www.material-ui.com/#/components/icon-menu"
 const IconMenuExampleSimple = () => (
-    <div>
-        <IconMenu
-            animated={true}
-            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-            anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-            targetOrigin={{horizontal: 'left', vertical: 'top'}}
-        >
+  <div>
+    <IconMenu
+      animated={true}
+      iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+      anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+      targetOrigin={{horizontal: 'left', vertical: 'top'}}
+    >
             <MenuItem primaryText="Refresh"/>
             <MenuItem primaryText="Send feedback"/>
             <MenuItem primaryText="Settings"/>
             <MenuItem primaryText="Help"/>
             <MenuItem primaryText="Sign out"/>
-        </IconMenu>
-        <IconMenu
-            animated={false}
-            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-            targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
-        >
+    </IconMenu>
+    <IconMenu
+      animated={false}
+      iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+      anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+      targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
+    >
             <MenuItem primaryText="Refresh"/>
             <MenuItem primaryText="Send feedback"/>
             <MenuItem primaryText="Settings"/>
             <MenuItem primaryText="Help"/>
             <MenuItem primaryText="Sign out"/>
-        </IconMenu>
-        <IconMenu
-            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-            anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-            targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
-        >
+    </IconMenu>
+    <IconMenu
+      iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+      anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+      targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
+    >
             <MenuItem primaryText="Refresh"/>
             <MenuItem primaryText="Send feedback"/>
             <MenuItem primaryText="Settings"/>
             <MenuItem primaryText="Help"/>
             <MenuItem primaryText="Sign out"/>
-        </IconMenu>
-        <IconMenu
-            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-            targetOrigin={{horizontal: 'right', vertical: 'top'}}
-        >
+    </IconMenu>
+    <IconMenu
+      iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+      anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+      targetOrigin={{horizontal: 'right', vertical: 'top'}}
+    >
             <MenuItem primaryText="Refresh"/>
             <MenuItem primaryText="Send feedback"/>
             <MenuItem primaryText="Settings"/>
             <MenuItem primaryText="Help"/>
             <MenuItem primaryText="Sign out"/>
-        </IconMenu>
-    </div>
+    </IconMenu>
+  </div>
 );
 
 interface IconMenuExampleControlledState {
-    valueSingle?: string;
-    valueMultiple?: string[];
-    openMenu?: boolean;
+  valueSingle?: string;
+  valueMultiple?: string[];
+  openMenu?: boolean;
 }
 
 class IconMenuExampleControlled extends React.Component<{}, IconMenuExampleControlledState> {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            valueSingle: '3',
-            valueMultiple: ['3', '5'],
-        };
-    }
-
-    handleChangeSingle = (event, value) => {
-        this.setState({
-            valueSingle: value,
-        });
+    this.state = {
+      valueSingle: '3',
+      valueMultiple: ['3', '5'],
     };
+  }
 
-    handleChangeMultiple = (event, value) => {
-        this.setState({
-            valueMultiple: value,
-        });
-    };
+  handleChangeSingle = (event, value) => {
+    this.setState({
+      valueSingle: value,
+    });
+  }
 
-    handleOpenMenu = () => {
-        this.setState({
-            openMenu: true,
-        });
-    }
+  handleChangeMultiple = (event, value) => {
+    this.setState({
+      valueMultiple: value,
+    });
+  }
 
-    handleOnRequestChange = (value) => {
-        this.setState({
-            openMenu: value,
-        });
-    }
+  handleOpenMenu = () => {
+    this.setState({
+      openMenu: true,
+    });
+  }
 
-    render() {
-        return (
-            <div>
-                <IconMenu
-                    iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                    onChange={this.handleChangeSingle}
-                    value={this.state.valueSingle}
-                >
+  handleOnRequestChange = (value) => {
+    this.setState({
+      openMenu: value,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <IconMenu
+          iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+          onChange={this.handleChangeSingle}
+          value={this.state.valueSingle}
+        >
                     <MenuItem value="1" primaryText="Refresh"/>
                     <MenuItem value="2" primaryText="Send feedback"/>
                     <MenuItem value="3" primaryText="Settings"/>
                     <MenuItem value="4" primaryText="Help"/>
                     <MenuItem value="5" primaryText="Sign out"/>
-                </IconMenu>
-                <IconMenu
-                    iconButtonElement={<IconButton><ContentFilter /></IconButton>}
-                    onChange={this.handleChangeMultiple}
-                    value={this.state.valueMultiple}
-                    multiple={true}
-                >
+        </IconMenu>
+        <IconMenu
+          iconButtonElement={<IconButton><ContentFilter /></IconButton>}
+          onChange={this.handleChangeMultiple}
+          value={this.state.valueMultiple}
+          multiple={true}
+        >
                     <MenuItem value="1" primaryText="Blu-ray"/>
                     <MenuItem value="2" primaryText="Cassette"/>
                     <MenuItem value="3" primaryText="CD"/>
                     <MenuItem value="4" primaryText="DVD Audio"/>
                     <MenuItem value="5" primaryText="Hybrid SACD"/>
                     <MenuItem value="6" primaryText="Vinyl"/>
-                </IconMenu>
-                <IconMenu
-                    iconButtonElement={<IconButton><FileFileDownload /></IconButton>}
-                    open={this.state.openMenu}
-                    onRequestChange={this.handleOnRequestChange}
-                >
+        </IconMenu>
+        <IconMenu
+          iconButtonElement={<IconButton><FileFileDownload /></IconButton>}
+          open={this.state.openMenu}
+          onRequestChange={this.handleOnRequestChange}
+        >
                     <MenuItem value="1" primaryText="Windows App"/>
                     <MenuItem value="2" primaryText="Mac App"/>
                     <MenuItem value="3" primaryText="Android App"/>
                     <MenuItem value="4" primaryText="iOS App"/>
-                </IconMenu>
+        </IconMenu>
                 <RaisedButton onTouchTap={this.handleOpenMenu} label="Downloads"/>
-            </div>
-        );
-    }
+      </div>
+    );
+  }
 }
 
 const IconMenuExampleScrollable = () => (
-    <IconMenu
-        iconButtonElement={<IconButton><MapsPlace /></IconButton>}
-        anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-        targetOrigin={{horizontal: 'left', vertical: 'top'}}
-        maxHeight={272}
-    >
+  <IconMenu
+    iconButtonElement={<IconButton><MapsPlace /></IconButton>}
+    anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+    targetOrigin={{horizontal: 'left', vertical: 'top'}}
+    maxHeight={272}
+  >
         <MenuItem value="AL" primaryText="Alabama"/>
         <MenuItem value="AK" primaryText="Alaska"/>
         <MenuItem value="AZ" primaryText="Arizona"/>
@@ -2641,106 +2688,106 @@ const IconMenuExampleScrollable = () => (
         <MenuItem value="WV" primaryText="West Virginia"/>
         <MenuItem value="WI" primaryText="Wisconsin"/>
         <MenuItem value="WY" primaryText="Wyoming"/>
-    </IconMenu>
+  </IconMenu>
 );
 
 const IconMenuExampleNested = () => (
-    <div>
-        <IconMenu
-            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-            anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-            targetOrigin={{horizontal: 'left', vertical: 'top'}}
-        >
-            <MenuItem
-                primaryText="Copy &amp; Paste"
-                rightIcon={<ArrowDropRight />}
-                menuItems={[
+  <div>
+    <IconMenu
+      iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+      anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+      targetOrigin={{horizontal: 'left', vertical: 'top'}}
+    >
+      <MenuItem
+        primaryText="Copy &amp; Paste"
+        rightIcon={<ArrowDropRight />}
+        menuItems={[
           <MenuItem primaryText="Cut" />,
           <MenuItem primaryText="Copy" />,
           <Divider />,
           <MenuItem primaryText="Paste" />,
         ]}
-            />
+      />
 
-            <MenuItem
-                primaryText="Case Tools"
-                rightIcon={<ArrowDropRight />}
-                menuItems={[
+      <MenuItem
+        primaryText="Case Tools"
+        rightIcon={<ArrowDropRight />}
+        menuItems={[
           <MenuItem primaryText="UPPERCASE" />,
           <MenuItem primaryText="lowercase" />,
           <MenuItem primaryText="CamelCase" />,
           <MenuItem primaryText="Propercase" />,
         ]}
-            />
-            <Divider />
+      />
+      <Divider />
             <MenuItem primaryText="Download" leftIcon={<Download />}/>
-            <Divider />
+      <Divider />
             <MenuItem value="Del" primaryText="Delete"/>
 
-        </IconMenu>
-    </div>
+    </IconMenu>
+  </div>
 );
 
 
 // "http://www.material-ui.com/#/components/dropdown-menu"
 class DropDownMenuSimpleExample extends React.Component<{}, {value?: number}> {
 
-    constructor(props) {
-        super(props);
-        this.state = {value: 1};
-    }
+  constructor(props) {
+    super(props);
+    this.state = {value: 1};
+  }
 
-    handleChange = (event, index, value) => this.setState({value});
+  handleChange = (event, index, value) => this.setState({value});
 
-    render() {
-        return (
-            <div>
-                <DropDownMenu animated={false} value={this.state.value} onChange={this.handleChange}>
+  render() {
+    return (
+      <div>
+        <DropDownMenu animated={false} value={this.state.value} onChange={this.handleChange}>
                     <MenuItem value={1} primaryText="Never"/>
                     <MenuItem value={2} primaryText="Every Night"/>
                     <MenuItem value={3} primaryText="Weeknights"/>
                     <MenuItem value={4} primaryText="Weekends"/>
                     <MenuItem value={5} primaryText="Weekly"/>
-                </DropDownMenu>
-                <br />
-                <DropDownMenu
-                    animated={true}
-                    value={this.state.value}
-                    onChange={this.handleChange}
-                    style={styles.customWidth}
-                    autoWidth={false}
-                >
+        </DropDownMenu>
+        <br />
+        <DropDownMenu
+          animated={true}
+          value={this.state.value}
+          onChange={this.handleChange}
+          style={styles.customWidth}
+          autoWidth={false}
+        >
                     <MenuItem value={1} primaryText="Custom width"/>
                     <MenuItem value={2} primaryText="Every Night"/>
                     <MenuItem value={3} primaryText="Weeknights"/>
                     <MenuItem value={4} primaryText="Weekends"/>
                     <MenuItem value={5} primaryText="Weekly"/>
-                </DropDownMenu>
-            </div>
-        );
-    }
+        </DropDownMenu>
+      </div>
+    );
+  }
 }
 
 class DropDownMenuOpenImmediateExample extends React.Component<{}, {value?: number}> {
 
-    constructor(props) {
-        super(props);
-        this.state = {value: 2};
-    }
+  constructor(props) {
+    super(props);
+    this.state = {value: 2};
+  }
 
-    handleChange = (event, index, value) => this.setState({value});
+  handleChange = (event, index, value) => this.setState({value});
 
-    render() {
-        return (
-            <DropDownMenu value={this.state.value} onChange={this.handleChange} openImmediately={true}>
+  render() {
+    return (
+      <DropDownMenu value={this.state.value} onChange={this.handleChange} openImmediately={true}>
                 <MenuItem value={1} primaryText="Never"/>
                 <MenuItem value={2} primaryText="Every Night"/>
                 <MenuItem value={3} primaryText="Weeknights"/>
                 <MenuItem value={4} primaryText="Weekends"/>
                 <MenuItem value={5} primaryText="Weekly"/>
-            </DropDownMenu>
-        );
-    }
+      </DropDownMenu>
+    );
+  }
 }
 
 const items: React.ReactElement<__MaterialUI.Menus.MenuItemProps>[] = [];
@@ -2750,387 +2797,387 @@ for (let i = 0; i < 100; i++) {
 
 class DropDownMenuLongMenuExample extends React.Component<{}, {value?: number}> {
 
-    constructor(props) {
-        super(props);
-        this.state = {value: 10};
-    }
+  constructor(props) {
+    super(props);
+    this.state = {value: 10};
+  }
 
-    handleChange = (event, index, value) => this.setState({value});
+  handleChange = (event, index, value) => this.setState({value});
 
-    render() {
-        return (
-            <DropDownMenu maxHeight={300} value={this.state.value} onChange={this.handleChange}>
-                {items}
-            </DropDownMenu>
-        );
-    }
+  render() {
+    return (
+      <DropDownMenu maxHeight={300} value={this.state.value} onChange={this.handleChange}>
+        {items}
+      </DropDownMenu>
+    );
+  }
 }
 
 class DropDownMenuLabeledExample extends React.Component<{}, {value?: number}> {
 
-    constructor(props) {
-        super(props);
-        this.state = {value: 2};
-    }
+  constructor(props) {
+    super(props);
+    this.state = {value: 2};
+  }
 
-    handleChange = (event, index, value) => this.setState({value});
+  handleChange = (event, index, value) => this.setState({value});
 
-    render() {
-        return (
-            <DropDownMenu value={this.state.value} onChange={this.handleChange}>
+  render() {
+    return (
+      <DropDownMenu value={this.state.value} onChange={this.handleChange}>
                 <MenuItem value={1} label="5 am - 12 pm" primaryText="Morning"/>
                 <MenuItem value={2} label="12 pm - 5 pm" primaryText="Afternoon"/>
                 <MenuItem value={3} label="5 pm - 9 pm" primaryText="Evening"/>
                 <MenuItem value={4} label="9 pm - 5 am" primaryText="Night"/>
-            </DropDownMenu>
-        );
-    }
+      </DropDownMenu>
+    );
+  }
 }
 
 
 // "http://material-ui.com/#/components/paper"
 const PaperExampleSimple = () => (
-    <div>
+  <div>
         <Paper style={style} zDepth={1}/>
         <Paper style={style} zDepth={2}/>
         <Paper style={style} zDepth={3}/>
         <Paper style={style} zDepth={4}/>
         <Paper style={style} zDepth={5}/>
-    </div>
+  </div>
 );
 
 const PaperExampleRounded = () => (
-    <div>
+  <div>
         <Paper style={style} zDepth={1} rounded={false}/>
         <Paper style={style} zDepth={2} rounded={false}/>
         <Paper style={style} zDepth={3} rounded={false}/>
         <Paper style={style} zDepth={4} rounded={false}/>
         <Paper style={style} zDepth={5} rounded={false}/>
-    </div>
+  </div>
 );
 
 const PaperExampleCircle = () => (
-    <div>
+  <div>
         <Paper style={style} zDepth={1} circle={true}/>
         <Paper style={style} zDepth={2} circle={true}/>
         <Paper style={style} zDepth={3} circle={true}/>
         <Paper style={style} zDepth={4} circle={true}/>
         <Paper style={style} zDepth={5} circle={true}/>
-    </div>
+  </div>
 );
 
 
 // "http://www.material-ui.com/#/components/popover"
 class PopoverExampleSimple extends React.Component<{}, {open?: boolean, anchorEl?: React.ReactInstance}> {
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            open: false,
-        };
-    }
-
-    handleTouchTap = (event) => {
-        // This prevents ghost click.
-        event.preventDefault();
-
-        this.setState({
-            open: true,
-            anchorEl: event.currentTarget,
-        });
+    this.state = {
+      open: false,
     };
+  }
 
-    handleRequestClose = () => {
-        this.setState({
-            open: false,
-        });
-    };
+  handleTouchTap = (event) => {
+    // This prevents ghost click.
+    event.preventDefault();
 
-    render() {
-        return (
-            <div>
-                <RaisedButton
-                    onTouchTap={this.handleTouchTap}
-                    label="Click me"
-                />
-                <Popover
-                    open={this.state.open}
-                    anchorEl={this.state.anchorEl}
-                    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                    targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                    onRequestClose={this.handleRequestClose}
-                >
-                    <Menu>
+    this.setState({
+      open: true,
+      anchorEl: event.currentTarget,
+    });
+  }
+
+  handleRequestClose = () => {
+    this.setState({
+      open: false,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <RaisedButton
+          onTouchTap={this.handleTouchTap}
+          label="Click me"
+        />
+        <Popover
+          open={this.state.open}
+          anchorEl={this.state.anchorEl}
+          anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+          targetOrigin={{horizontal: 'left', vertical: 'top'}}
+          onRequestClose={this.handleRequestClose}
+        >
+          <Menu>
                         <MenuItem primaryText="Refresh"/>
                         <MenuItem primaryText="Help &amp; feedback"/>
                         <MenuItem primaryText="Settings"/>
                         <MenuItem primaryText="Sign out"/>
-                    </Menu>
-                </Popover>
-            </div>
-        );
-    }
+          </Menu>
+        </Popover>
+      </div>
+    );
+  }
 }
 
 class PopoverExampleAnimation extends React.Component<{}, {open?: boolean, anchorEl?: React.ReactInstance}> {
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            open: false,
-        };
-    }
-
-    handleTouchTap = (event) => {
-        // This prevents ghost click.
-        event.preventDefault();
-        this.setState({
-            open: true,
-            anchorEl: event.currentTarget,
-        });
+    this.state = {
+      open: false,
     };
+  }
 
-    handleRequestClose = () => {
-        this.setState({
-            open: false,
-        });
-    };
+  handleTouchTap = (event) => {
+    // This prevents ghost click.
+    event.preventDefault();
+    this.setState({
+      open: true,
+      anchorEl: event.currentTarget,
+    });
+  }
 
-    render() {
-        return (
-            <div>
-                <RaisedButton
-                    onTouchTap={this.handleTouchTap}
-                    label="Click me"
-                />
-                <Popover
-                    open={this.state.open}
-                    anchorEl={this.state.anchorEl}
-                    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                    targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                    onRequestClose={this.handleRequestClose}
-                    animation={PopoverAnimationVertical}
-                >
-                    <Menu>
+  handleRequestClose = () => {
+    this.setState({
+      open: false,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <RaisedButton
+          onTouchTap={this.handleTouchTap}
+          label="Click me"
+        />
+        <Popover
+          open={this.state.open}
+          anchorEl={this.state.anchorEl}
+          anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+          targetOrigin={{horizontal: 'left', vertical: 'top'}}
+          onRequestClose={this.handleRequestClose}
+          animation={PopoverAnimationVertical}
+        >
+          <Menu>
                         <MenuItem primaryText="Refresh"/>
                         <MenuItem primaryText="Help &amp; feedback"/>
                         <MenuItem primaryText="Settings"/>
                         <MenuItem primaryText="Sign out"/>
-                    </Menu>
-                </Popover>
-            </div>
-        );
-    }
+          </Menu>
+        </Popover>
+      </div>
+    );
+  }
 }
 
 interface PopoverExampleConfigurableState {
-    open?: boolean;
-    anchorOrigin?: __MaterialUI.propTypes.origin;
-    targetOrigin?: __MaterialUI.propTypes.origin;
-    anchorEl?: React.ReactInstance;
+  open?: boolean;
+  anchorOrigin?: __MaterialUI.propTypes.origin;
+  targetOrigin?: __MaterialUI.propTypes.origin;
+  anchorEl?: React.ReactInstance;
 }
 
 class PopoverExampleConfigurable extends React.Component<{}, PopoverExampleConfigurableState> {
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            open: false,
-            anchorOrigin: {
-                horizontal: 'left',
-                vertical: 'bottom',
-            },
-            targetOrigin: {
-                horizontal: 'left',
-                vertical: 'top',
-            },
-        };
-    }
-
-    handleTouchTap = (event) => {
-        // This prevents ghost click.
-        event.preventDefault();
-        this.setState({
-            open: true,
-            anchorEl: event.currentTarget,
-        });
+    this.state = {
+      open: false,
+      anchorOrigin: {
+        horizontal: 'left',
+        vertical: 'bottom',
+      },
+      targetOrigin: {
+        horizontal: 'left',
+        vertical: 'top',
+      },
     };
+  }
 
-    handleRequestClose = () => {
-        this.setState({
-            open: false,
-        });
-    };
+  handleTouchTap = (event) => {
+    // This prevents ghost click.
+    event.preventDefault();
+    this.setState({
+      open: true,
+      anchorEl: event.currentTarget,
+    });
+  }
 
-    setAnchor = (positionElement, position) => {
-        const {anchorOrigin} = this.state;
-        anchorOrigin[positionElement] = position;
+  handleRequestClose = () => {
+    this.setState({
+      open: false,
+    });
+  }
 
-        this.setState({
-            anchorOrigin: anchorOrigin,
-        });
-    };
+  setAnchor = (positionElement, position) => {
+    const {anchorOrigin} = this.state;
+    anchorOrigin[positionElement] = position;
 
-    setTarget = (positionElement, position) => {
-        const {targetOrigin} = this.state;
-        targetOrigin[positionElement] = position;
+    this.setState({
+      anchorOrigin
+    });
+  }
 
-        this.setState({
-            targetOrigin: targetOrigin,
-        });
-    };
+  setTarget = (positionElement, position) => {
+    const {targetOrigin} = this.state;
+    targetOrigin[positionElement] = position;
 
-    render() {
-        return (
-            <div>
-                <RaisedButton
-                    onTouchTap={this.handleTouchTap}
-                    label="Click me"
-                />
-                <h3 style={styles.h3}>Current Settings</h3>
-                <pre>
+    this.setState({
+      targetOrigin
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <RaisedButton
+          onTouchTap={this.handleTouchTap}
+          label="Click me"
+        />
+        <h3 style={styles.h3}>Current Settings</h3>
+        <pre>
           anchorOrigin: {JSON.stringify(this.state.anchorOrigin)}
-                    <br />
+          <br />
           targetOrigin: {JSON.stringify(this.state.targetOrigin)}
         </pre>
-                <h3 style={styles.h3}>Position Options</h3>
-                <p>Use the settings below to toggle the positioning of the popovers above</p>
-                <h3 style={styles.h3}>Anchor Origin</h3>
-                <div style={styles.block}>
-                    <div style={styles.block2}>
-                        <span>Vertical</span>
-                        <RadioButton
-                            onClick={this.setAnchor.bind(this, 'vertical', 'top')}
-                            label="Top" checked={this.state.anchorOrigin.vertical === 'top'}
-                        />
-                        <RadioButton
-                            onClick={this.setAnchor.bind(this, 'vertical', 'center')}
-                            label="Center" checked={this.state.anchorOrigin.vertical === 'center'}
-                        />
-                        <RadioButton
-                            onClick={this.setAnchor.bind(this, 'vertical', 'bottom')}
-                            label="Bottom" checked={this.state.anchorOrigin.vertical === 'bottom'}
-                        />
-                    </div>
-                    <div style={styles.block2}>
-                        <span>Horizontal</span>
-                        <RadioButton
-                            onClick={this.setAnchor.bind(this, 'horizontal', 'left')}
-                            label="Left" checked={this.state.anchorOrigin.horizontal === 'left'}
-                        />
-                        <RadioButton
-                            onClick={this.setAnchor.bind(this, 'horizontal', 'middle')}
-                            label="Middle" checked={this.state.anchorOrigin.horizontal === 'middle'}
-                        />
-                        <RadioButton
-                            onClick={this.setAnchor.bind(this, 'horizontal', 'right')}
-                            label="Right" checked={this.state.anchorOrigin.horizontal === 'right'}
-                        />
-                    </div>
-                </div>
-                <h3 style={styles.h3}>Target Origin</h3>
-                <div style={styles.block}>
-                    <div style={styles.block2}>
-                        <span>Vertical</span>
-                        <RadioButton
-                            onClick={this.setTarget.bind(this, 'vertical', 'top')}
-                            label="Top" checked={this.state.targetOrigin.vertical === 'top'}
-                        />
-                        <RadioButton
-                            onClick={this.setTarget.bind(this, 'vertical', 'center')}
-                            label="Center" checked={this.state.targetOrigin.vertical === 'center'}
-                        />
-                        <RadioButton
-                            onClick={this.setTarget.bind(this, 'vertical', 'bottom')}
-                            label="Bottom" checked={this.state.targetOrigin.vertical === 'bottom'}
-                        />
-                    </div>
-                    <div style={styles.block2}>
-                        <span>Horizontal</span>
-                        <RadioButton
-                            onClick={this.setTarget.bind(this, 'horizontal', 'left')}
-                            label="Left" checked={this.state.targetOrigin.horizontal === 'left'}
-                        />
-                        <RadioButton
-                            onClick={this.setTarget.bind(this, 'horizontal', 'middle')}
-                            label="Middle" checked={this.state.targetOrigin.horizontal === 'middle'}
-                        />
-                        <RadioButton
-                            onClick={this.setTarget.bind(this, 'horizontal', 'right')}
-                            label="Right" checked={this.state.targetOrigin.horizontal === 'right'}
-                        />
-                    </div>
-                </div>
-                <Popover
-                    open={this.state.open}
-                    anchorEl={this.state.anchorEl}
-                    anchorOrigin={this.state.anchorOrigin}
-                    targetOrigin={this.state.targetOrigin}
-                    onRequestClose={this.handleRequestClose}
-                >
-                    <Menu>
+        <h3 style={styles.h3}>Position Options</h3>
+        <p>Use the settings below to toggle the positioning of the popovers above</p>
+        <h3 style={styles.h3}>Anchor Origin</h3>
+        <div style={styles.block}>
+          <div style={styles.block2}>
+            <span>Vertical</span>
+            <RadioButton
+              onClick={this.setAnchor.bind(this, 'vertical', 'top')}
+              label="Top" checked={this.state.anchorOrigin.vertical === 'top'}
+            />
+            <RadioButton
+              onClick={this.setAnchor.bind(this, 'vertical', 'center')}
+              label="Center" checked={this.state.anchorOrigin.vertical === 'center'}
+            />
+            <RadioButton
+              onClick={this.setAnchor.bind(this, 'vertical', 'bottom')}
+              label="Bottom" checked={this.state.anchorOrigin.vertical === 'bottom'}
+            />
+          </div>
+          <div style={styles.block2}>
+            <span>Horizontal</span>
+            <RadioButton
+              onClick={this.setAnchor.bind(this, 'horizontal', 'left')}
+              label="Left" checked={this.state.anchorOrigin.horizontal === 'left'}
+            />
+            <RadioButton
+              onClick={this.setAnchor.bind(this, 'horizontal', 'middle')}
+              label="Middle" checked={this.state.anchorOrigin.horizontal === 'middle'}
+            />
+            <RadioButton
+              onClick={this.setAnchor.bind(this, 'horizontal', 'right')}
+              label="Right" checked={this.state.anchorOrigin.horizontal === 'right'}
+            />
+          </div>
+        </div>
+        <h3 style={styles.h3}>Target Origin</h3>
+        <div style={styles.block}>
+          <div style={styles.block2}>
+            <span>Vertical</span>
+            <RadioButton
+              onClick={this.setTarget.bind(this, 'vertical', 'top')}
+              label="Top" checked={this.state.targetOrigin.vertical === 'top'}
+            />
+            <RadioButton
+              onClick={this.setTarget.bind(this, 'vertical', 'center')}
+              label="Center" checked={this.state.targetOrigin.vertical === 'center'}
+            />
+            <RadioButton
+              onClick={this.setTarget.bind(this, 'vertical', 'bottom')}
+              label="Bottom" checked={this.state.targetOrigin.vertical === 'bottom'}
+            />
+          </div>
+          <div style={styles.block2}>
+            <span>Horizontal</span>
+            <RadioButton
+              onClick={this.setTarget.bind(this, 'horizontal', 'left')}
+              label="Left" checked={this.state.targetOrigin.horizontal === 'left'}
+            />
+            <RadioButton
+              onClick={this.setTarget.bind(this, 'horizontal', 'middle')}
+              label="Middle" checked={this.state.targetOrigin.horizontal === 'middle'}
+            />
+            <RadioButton
+              onClick={this.setTarget.bind(this, 'horizontal', 'right')}
+              label="Right" checked={this.state.targetOrigin.horizontal === 'right'}
+            />
+          </div>
+        </div>
+        <Popover
+          open={this.state.open}
+          anchorEl={this.state.anchorEl}
+          anchorOrigin={this.state.anchorOrigin}
+          targetOrigin={this.state.targetOrigin}
+          onRequestClose={this.handleRequestClose}
+        >
+          <Menu>
                         <MenuItem primaryText="Refresh"/>
                         <MenuItem primaryText="Help &amp; feedback"/>
                         <MenuItem primaryText="Settings"/>
                         <MenuItem primaryText="Sign out"/>
-                    </Menu>
-                </Popover>
-            </div>
-        );
-    }
+          </Menu>
+        </Popover>
+      </div>
+    );
+  }
 }
 
 
 // "http://www.material-ui.com/#/components/circular-progress"
 const CircularProgressExampleSimple = () => (
-    <div>
-        <CircularProgress />
+  <div>
+    <CircularProgress />
         <CircularProgress size={1.5}/>
         <CircularProgress size={2} thickness={1.5}/>
-    </div>
+  </div>
 );
 
 class CircularProgressExampleDeterminate extends React.Component<{}, {completed?: number}> {
-    private timer: number;
+  private timer: number;
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            completed: 0,
-        };
+    this.state = {
+      completed: 0,
+    };
+  }
+
+  componentDidMount() {
+    this.timer = setTimeout(() => this.progress(5), 1000);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  }
+
+  progress(completed) {
+    if (completed > 100) {
+      this.setState({completed: 100});
+    } else {
+      this.setState({completed});
+      const diff = Math.random() * 10;
+      this.timer = setTimeout(() => this.progress(completed + diff), 1000);
     }
+  }
 
-    componentDidMount() {
-        this.timer = setTimeout(() => this.progress(5), 1000);
-    }
-
-    componentWillUnmount() {
-        clearTimeout(this.timer);
-    }
-
-    progress(completed) {
-        if (completed > 100) {
-            this.setState({completed: 100});
-        } else {
-            this.setState({completed});
-            const diff = Math.random() * 10;
-            this.timer = setTimeout(() => this.progress(completed + diff), 1000);
-        }
-    }
-
-    render() {
-        return (
-            <div>
+  render() {
+    return (
+      <div>
                 <CircularProgress mode="determinate" value={this.state.completed}/>
                 <CircularProgress mode="determinate" value={this.state.completed} size={1.5}/>
                 <CircularProgress mode="determinate" value={this.state.completed} size={2}/>
-            </div>
-        );
-    }
+      </div>
+    );
+  }
 }
 
 
@@ -3140,194 +3187,194 @@ const LinearProgressExampleSimple = () => (
 );
 
 class LinearProgressExampleDeterminate extends React.Component<{}, {completed?: number}> {
-    private timer: number;
+  private timer: number;
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            completed: 0,
-        };
+    this.state = {
+      completed: 0,
+    };
+  }
+
+  componentDidMount() {
+    this.timer = setTimeout(() => this.progress(5), 1000);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  }
+
+  progress(completed) {
+    if (completed > 100) {
+      this.setState({completed: 100});
+    } else {
+      this.setState({completed});
+      const diff = Math.random() * 10;
+      this.timer = setTimeout(() => this.progress(completed + diff), 1000);
     }
+  }
 
-    componentDidMount() {
-        this.timer = setTimeout(() => this.progress(5), 1000);
-    }
-
-    componentWillUnmount() {
-        clearTimeout(this.timer);
-    }
-
-    progress(completed) {
-        if (completed > 100) {
-            this.setState({completed: 100});
-        } else {
-            this.setState({completed});
-            const diff = Math.random() * 10;
-            this.timer = setTimeout(() => this.progress(completed + diff), 1000);
-        }
-    }
-
-    render() {
-        return (
+  render() {
+    return (
             <LinearProgress mode="determinate" value={this.state.completed}/>
-        );
-    }
+    );
+  }
 }
 
 
 // "http://www.material-ui.com/#/components/refresh-indicator"
 const RefreshIndicatorExampleSimple = () => (
-    <div style={styles.container}>
-        <RefreshIndicator
-            percentage={30}
-            size={40}
-            left={10}
-            top={0}
-            status="ready"
-            style={styles.refresh}
-        />
-        <RefreshIndicator
-            percentage={60}
-            size={50}
-            left={65}
-            top={0}
-            status="ready"
-            style={styles.refresh}
-        />
-        <RefreshIndicator
-            percentage={80}
-            size={60}
-            left={120}
-            top={0}
-            color={"red"}
-            status="ready"
-            style={styles.refresh}
-        />
-        <RefreshIndicator
-            percentage={100}
-            size={70}
-            left={175}
-            top={0}
-            color={"red"} // Overridden by percentage={100}
-            status="ready"
-            style={styles.refresh}
-        />
-    </div>
+  <div style={styles.container}>
+    <RefreshIndicator
+      percentage={30}
+      size={40}
+      left={10}
+      top={0}
+      status="ready"
+      style={styles.refresh}
+    />
+    <RefreshIndicator
+      percentage={60}
+      size={50}
+      left={65}
+      top={0}
+      status="ready"
+      style={styles.refresh}
+    />
+    <RefreshIndicator
+      percentage={80}
+      size={60}
+      left={120}
+      top={0}
+      color={"red"}
+      status="ready"
+      style={styles.refresh}
+    />
+    <RefreshIndicator
+      percentage={100}
+      size={70}
+      left={175}
+      top={0}
+      color={"red"} // Overridden by percentage={100}
+      status="ready"
+      style={styles.refresh}
+    />
+  </div>
 );
 
 const RefreshIndicatorExampleLoading = () => (
-    <div style={styles.container}>
-        <RefreshIndicator
-            size={40}
-            left={10}
-            top={0}
-            status="loading"
-            style={styles.refresh}
-        />
-        <RefreshIndicator
-            size={50}
-            left={70}
-            top={0}
-            loadingColor={"#FF9800"}
-            status="loading"
-            style={styles.refresh}
-        />
-    </div>
+  <div style={styles.container}>
+    <RefreshIndicator
+      size={40}
+      left={10}
+      top={0}
+      status="loading"
+      style={styles.refresh}
+    />
+    <RefreshIndicator
+      size={50}
+      left={70}
+      top={0}
+      loadingColor={"#FF9800"}
+      status="loading"
+      style={styles.refresh}
+    />
+  </div>
 );
 
 
 // "http://www.material-ui.com/#/components/select-field"
 class SelectFieldExampleSimple extends React.Component<{}, {value?: number}> {
 
-    constructor(props) {
-        super(props);
-        this.state = {value: 1};
-    }
+  constructor(props) {
+    super(props);
+    this.state = {value: 1};
+  }
 
-    handleChange = (event, index, value) => this.setState({value});
+  handleChange = (event, index, value) => this.setState({value});
 
-    render() {
-        return (
-            <div>
-                <SelectField value={this.state.value} onChange={this.handleChange}>
+  render() {
+    return (
+      <div>
+        <SelectField value={this.state.value} onChange={this.handleChange}>
                     <MenuItem value={1} primaryText="Never"/>
                     <MenuItem value={2} primaryText="Every Night"/>
                     <MenuItem value={3} primaryText="Weeknights"/>
                     <MenuItem value={4} primaryText="Weekends"/>
                     <MenuItem value={5} primaryText="Weekly"/>
-                </SelectField>
-                <br />
-                <SelectField value={1} disabled={true}>
+        </SelectField>
+        <br />
+        <SelectField value={1} disabled={true}>
                     <MenuItem value={1} primaryText="Disabled"/>
                     <MenuItem value={2} primaryText="Every Night"/>
-                </SelectField>
-                <br />
-                <SelectField
-                    value={this.state.value}
-                    onChange={this.handleChange}
-                    style={styles.customWidth}
-                >
+        </SelectField>
+        <br />
+        <SelectField
+          value={this.state.value}
+          onChange={this.handleChange}
+          style={styles.customWidth}
+        >
                     <MenuItem value={1} primaryText="Custom width"/>
                     <MenuItem value={2} primaryText="Every Night"/>
                     <MenuItem value={3} primaryText="Weeknights"/>
                     <MenuItem value={4} primaryText="Weekends"/>
                     <MenuItem value={5} primaryText="Weekly"/>
-                </SelectField>
-                <br />
-                <SelectField
-                    value={this.state.value}
-                    onChange={this.handleChange}
-                    autoWidth={true}
-                >
+        </SelectField>
+        <br />
+        <SelectField
+          value={this.state.value}
+          onChange={this.handleChange}
+          autoWidth={true}
+        >
                     <MenuItem value={1} primaryText="Auto width"/>
                     <MenuItem value={2} primaryText="Every Night"/>
                     <MenuItem value={3} primaryText="Weeknights"/>
                     <MenuItem value={4} primaryText="Weekends"/>
                     <MenuItem value={5} primaryText="Weekly"/>
-                </SelectField>
-            </div>
-        );
-    }
+        </SelectField>
+      </div>
+    );
+  }
 }
 
 class SelectFieldLongMenuExample extends React.Component<{}, {value?: number}> {
 
-    constructor(props) {
-        super(props);
-        this.state = {value: 10};
-    }
+  constructor(props) {
+    super(props);
+    this.state = {value: 10};
+  }
 
-    handleChange = (event, index, value) => this.setState({value});
+  handleChange = (event, index, value) => this.setState({value});
 
-    render() {
-        return (
-            <SelectField maxHeight={300} value={this.state.value} onChange={this.handleChange}>
-                {items}
-            </SelectField>
-        );
-    }
+  render() {
+    return (
+      <SelectField maxHeight={300} value={this.state.value} onChange={this.handleChange}>
+        {items}
+      </SelectField>
+    );
+  }
 }
 
 class SelectFieldExampleCustomLabel extends React.Component<{}, {value?: number}> {
 
-    constructor(props) {
-        super(props);
-        this.state = {value: 1};
-    }
+  constructor(props) {
+    super(props);
+    this.state = {value: 1};
+  }
 
-    handleChange = (event, index, value) => this.setState({value});
+  handleChange = (event, index, value) => this.setState({value});
 
-    render() {
-        return (
-            <SelectField value={this.state.value} onChange={this.handleChange}>
+  render() {
+    return (
+      <SelectField value={this.state.value} onChange={this.handleChange}>
                 <MenuItem value={1} label="5 am - 12 pm" primaryText="Morning"/>
                 <MenuItem value={2} label="12 pm - 5 pm" primaryText="Afternoon"/>
                 <MenuItem value={3} label="5 pm - 9 pm" primaryText="Evening"/>
                 <MenuItem value={4} label="9 pm - 5 am" primaryText="Night"/>
-            </SelectField>
-        );
-    }
+      </SelectField>
+    );
+  }
 }
 
 const itemsPeriod = [
@@ -3340,91 +3387,91 @@ const itemsPeriod = [
 
 export default class SelectFieldExampleFloatingLabel extends React.Component<{}, {value?: number}> {
 
-    constructor(props) {
-        super(props);
-        this.state = {value: null};
-    }
+  constructor(props) {
+    super(props);
+    this.state = {value: null};
+  }
 
-    handleChange = (event, index, value) => this.setState({value});
+  handleChange = (event, index, value) => this.setState({value});
 
-    render() {
-        return (
-            <div>
-                <SelectField
-                    value={this.state.value}
-                    onChange={this.handleChange}
-                    floatingLabelText="Floating Label Text"
-                >
-                    {itemsPeriod}
-                </SelectField>
-                <br />
-                <SelectField
-                    value={this.state.value}
-                    onChange={this.handleChange}
-                    floatingLabelFixed={true}
-                    floatingLabelText="Styled Floating Label Text"
-                    floatingLabelStyle={{color: 'red'}}
-                >
-                    {itemsPeriod}
-                </SelectField>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <SelectField
+          value={this.state.value}
+          onChange={this.handleChange}
+          floatingLabelText="Floating Label Text"
+        >
+          {itemsPeriod}
+        </SelectField>
+        <br />
+        <SelectField
+          value={this.state.value}
+          onChange={this.handleChange}
+          floatingLabelFixed={true}
+          floatingLabelText="Styled Floating Label Text"
+          floatingLabelStyle={{color: 'red'}}
+        >
+          {itemsPeriod}
+        </SelectField>
+      </div>
+    );
+  }
 }
 
 class SelectFieldExampleError extends React.Component<{}, {value?: number}> {
 
-    constructor(props) {
-        super(props);
-        this.state = {value: null};
-    }
+  constructor(props) {
+    super(props);
+    this.state = {value: null};
+  }
 
-    handleChange = (event, index, value) => this.setState({value});
+  handleChange = (event, index, value) => this.setState({value});
 
-    render() {
-        const {value} = this.state;
+  render() {
+    const {value} = this.state;
 
-        const night = value === 2 || value === 3;
+    const night = value === 2 || value === 3;
 
-        return (
-            <div>
-                <SelectField
-                    value={value}
-                    onChange={this.handleChange}
-                    errorText={!night && 'Should be Night'}
-                >
-                    {itemsPeriod}
-                </SelectField>
-                <br />
-                <SelectField
-                    value={value}
-                    onChange={this.handleChange}
-                    errorText={night && 'Should not be Night (Custom error style)'}
-                    errorStyle={{color: 'orange'}}
-                >
-                    {itemsPeriod}
-                </SelectField>
-            </div>
-        );
-    }
+    return (
+      <div>
+        <SelectField
+          value={value}
+          onChange={this.handleChange}
+          errorText={!night && 'Should be Night'}
+        >
+          {itemsPeriod}
+        </SelectField>
+        <br />
+        <SelectField
+          value={value}
+          onChange={this.handleChange}
+          errorText={night && 'Should not be Night (Custom error style)'}
+          errorStyle={{color: 'orange'}}
+        >
+          {itemsPeriod}
+        </SelectField>
+      </div>
+    );
+  }
 }
 
 
 // "http://www.material-ui.com/#/components/slider"
 const SliderExampleSimple = () => (
-    <div>
-        <Slider />
+  <div>
+    <Slider />
         <Slider defaultValue={0.5}/>
         <Slider defaultValue={1}/>
-    </div>
+  </div>
 );
 
 const SliderExampleDisabled = () => (
-    <div>
+  <div>
         <Slider disabled={true}/>
         <Slider disabled={true} value={0.5}/>
         <Slider disabled={true} value={1}/>
-    </div>
+  </div>
 );
 
 const SliderExampleStep = () => (
@@ -3433,870 +3480,870 @@ const SliderExampleStep = () => (
 
 class SliderExampleControlled extends React.Component<{}, {firstSlider?: number, secondSlider?: number}> {
 
-    state = {
-        firstSlider: 0.5,
-        secondSlider: 50,
-    }
+  state = {
+    firstSlider: 0.5,
+    secondSlider: 50,
+  };
 
-    handleFirstSlider(event, value) {
-        this.setState({firstSlider: value});
-    }
+  handleFirstSlider(event, value) {
+    this.setState({firstSlider: value});
+  }
 
-    handleSecondSlider(event, value) {
-        this.setState({secondSlider: value});
-    }
+  handleSecondSlider(event, value) {
+    this.setState({secondSlider: value});
+  }
 
-    render() {
-        return (
-            <div>
-                <Slider
-                    defaultValue={0.5}
-                    value={this.state.firstSlider}
-                    onChange={this.handleFirstSlider.bind(this)}
-                />
-                <p>
-                    <span>{'The value of this slider is: '}</span>
-                    <span>{this.state.firstSlider}</span>
-                    <span>{' from a range of 0 to 1 inclusive'}</span>
-                </p>
-                <Slider
-                    min={0}
-                    max={100}
-                    step={1}
-                    defaultValue={50}
-                    value={this.state.secondSlider}
-                    onChange={this.handleSecondSlider.bind(this)}
-                />
-                <p>
-                    <span>{'The value of this slider is: '}</span>
-                    <span>{this.state.secondSlider}</span>
-                    <span>{' from a range of 0 to 100 inclusive'}</span>
-                </p>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <Slider
+          defaultValue={0.5}
+          value={this.state.firstSlider}
+          onChange={this.handleFirstSlider.bind(this)}
+        />
+        <p>
+          <span>{'The value of this slider is: '}</span>
+          <span>{this.state.firstSlider}</span>
+          <span>{' from a range of 0 to 1 inclusive'}</span>
+        </p>
+        <Slider
+          min={0}
+          max={100}
+          step={1}
+          defaultValue={50}
+          value={this.state.secondSlider}
+          onChange={this.handleSecondSlider.bind(this)}
+        />
+        <p>
+          <span>{'The value of this slider is: '}</span>
+          <span>{this.state.secondSlider}</span>
+          <span>{' from a range of 0 to 100 inclusive'}</span>
+        </p>
+      </div>
+    );
+  }
 }
 
 
 // "http://www.material-ui.com/#/components/checkbox"
 const CheckboxExampleSimple = () => (
-    <div style={styles.block}>
-        <Checkbox
-            label="Simple"
-            style={styles.checkbox}
-        />
-        <Checkbox
-            label="Checked by default"
-            defaultChecked={true}
-            style={styles.checkbox}
-        />
-        <Checkbox
-            checkedIcon={<ActionFavorite />}
-            uncheckedIcon={<ActionFavoriteBorder />}
-            label="Custom icon"
-            style={styles.checkbox}
-        />
-        <Checkbox
-            label="Disabled unchecked"
-            disabled={true}
-            style={styles.checkbox}
-        />
-        <Checkbox
-            label="Disabled checked"
-            checked={true}
-            disabled={true}
-            style={styles.checkbox}
-        />
-        <Checkbox
-            label="Label on the left"
-            labelPosition="left"
-            style={styles.checkbox}
-        />
-    </div>
+  <div style={styles.block}>
+    <Checkbox
+      label="Simple"
+      style={styles.checkbox}
+    />
+    <Checkbox
+      label="Checked by default"
+      defaultChecked={true}
+      style={styles.checkbox}
+    />
+    <Checkbox
+      checkedIcon={<ActionFavorite />}
+      uncheckedIcon={<ActionFavoriteBorder />}
+      label="Custom icon"
+      style={styles.checkbox}
+    />
+    <Checkbox
+      label="Disabled unchecked"
+      disabled={true}
+      style={styles.checkbox}
+    />
+    <Checkbox
+      label="Disabled checked"
+      checked={true}
+      disabled={true}
+      style={styles.checkbox}
+    />
+    <Checkbox
+      label="Label on the left"
+      labelPosition="left"
+      style={styles.checkbox}
+    />
+  </div>
 );
 
 
 // "http://www.material-ui.com/#/components/radio-button"
 const RadioButtonExampleSimple = () => (
-    <div>
-        <RadioButtonGroup name="shipSpeed" defaultSelected="not_light">
-            <RadioButton
-                value="light"
-                label="Simple"
-                style={styles.radioButton}
-            />
-            <RadioButton
-                value="not_light"
-                label="Selected by default"
-                style={styles.radioButton}
-            />
-            <RadioButton
-                value="ludicrous"
-                label="Custom icon"
-                checkedIcon={<ActionFavorite />}
-                uncheckedIcon={<ActionFavoriteBorder />}
-                style={styles.radioButton}
-            />
-        </RadioButtonGroup>
-        <RadioButtonGroup name="shipName" defaultSelected="community">
-            <RadioButton
-                value="enterprise"
-                label="Disabled unchecked"
-                disabled={true}
-                style={styles.radioButton}
-            />
-            <RadioButton
-                value="community"
-                label="Disabled checked"
-                disabled={true}
-                style={styles.radioButton}
-            />
-        </RadioButtonGroup>
-        <RadioButtonGroup name="notRight" labelPosition="left" style={styles.block}>
-            <RadioButton
-                value="reverse"
-                label="Label on the left"
-                style={styles.radioButton}
-            />
-        </RadioButtonGroup>
-    </div>
+  <div>
+    <RadioButtonGroup name="shipSpeed" defaultSelected="not_light">
+      <RadioButton
+        value="light"
+        label="Simple"
+        style={styles.radioButton}
+      />
+      <RadioButton
+        value="not_light"
+        label="Selected by default"
+        style={styles.radioButton}
+      />
+      <RadioButton
+        value="ludicrous"
+        label="Custom icon"
+        checkedIcon={<ActionFavorite />}
+        uncheckedIcon={<ActionFavoriteBorder />}
+        style={styles.radioButton}
+      />
+    </RadioButtonGroup>
+    <RadioButtonGroup name="shipName" defaultSelected="community">
+      <RadioButton
+        value="enterprise"
+        label="Disabled unchecked"
+        disabled={true}
+        style={styles.radioButton}
+      />
+      <RadioButton
+        value="community"
+        label="Disabled checked"
+        disabled={true}
+        style={styles.radioButton}
+      />
+    </RadioButtonGroup>
+    <RadioButtonGroup name="notRight" labelPosition="left" style={styles.block}>
+      <RadioButton
+        value="reverse"
+        label="Label on the left"
+        style={styles.radioButton}
+      />
+    </RadioButtonGroup>
+  </div>
 );
 
 
 // "http://www.material-ui.com/#/components/toggle"
 const ToggleExampleSimple = () => (
-    <div style={styles.block}>
-        <Toggle
-            label="Simple"
-            style={styles.toggle}
-        />
-        <Toggle
-            label="Toggled by default"
-            defaultToggled={true}
-            style={styles.toggle}
-        />
-        <Toggle
-            label="Disabled"
-            disabled={true}
-            style={styles.toggle}
-        />
-        <Toggle
-            label="Label on the right"
-            labelPosition="right"
-            style={styles.toggle}
-            thumbTwitchedStyle={styles.toggle}
-            trackTwitchedStyle={styles.toggle}
-        />
-    </div>
+  <div style={styles.block}>
+    <Toggle
+      label="Simple"
+      style={styles.toggle}
+    />
+    <Toggle
+      label="Toggled by default"
+      defaultToggled={true}
+      style={styles.toggle}
+    />
+    <Toggle
+      label="Disabled"
+      disabled={true}
+      style={styles.toggle}
+    />
+    <Toggle
+      label="Label on the right"
+      labelPosition="right"
+      style={styles.toggle}
+      thumbSwitchedStyle={styles.toggle}
+      trackSwitchedStyle={styles.toggle}
+    />
+  </div>
 );
 
 
 // "http://material-ui.com/#/components/snackbar"
 class SnackbarExampleSimple extends React.Component<{}, {open?: boolean}> {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            open: false,
-        };
-    }
-
-    handleTouchTap = () => {
-        this.setState({
-            open: true,
-        });
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
     };
+  }
 
-    handleRequestClose = () => {
-        this.setState({
-            open: false,
-        });
-    };
+  handleTouchTap = () => {
+    this.setState({
+      open: true,
+    });
+  }
 
-    render() {
-        return (
-            <div>
-                <RaisedButton
-                    onTouchTap={this.handleTouchTap}
-                    label="Add to my calendar"
-                />
-                <Snackbar
-                    open={this.state.open}
-                    message="Event added to your calendar"
-                    autoHideDuration={4000}
-                    onRequestClose={this.handleRequestClose}
+  handleRequestClose = () => {
+    this.setState({
+      open: false,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <RaisedButton
+          onTouchTap={this.handleTouchTap}
+          label="Add to my calendar"
+        />
+        <Snackbar
+          open={this.state.open}
+          message="Event added to your calendar"
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose}
                     contentStyle={{margin: 16}}
-                />
-            </div>
-        );
-    }
+        />
+      </div>
+    );
+  }
 }
 
 class SnackbarExampleAction extends React.Component<{}, {open?: boolean, autoHideDuration?: number, message?: string}> {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            autoHideDuration: 4000,
-            message: 'Event added to your calendar',
-            open: false,
-        };
-    }
-
-    handleTouchTap = () => {
-        this.setState({
-            open: true,
-        });
+  constructor(props) {
+    super(props);
+    this.state = {
+      autoHideDuration: 4000,
+      message: 'Event added to your calendar',
+      open: false,
     };
+  }
 
-    handleActionTouchTap = () => {
-        this.setState({
-            open: false,
-        });
-        alert('Event removed from your calendar.');
-    };
+  handleTouchTap = () => {
+    this.setState({
+      open: true,
+    });
+  }
 
-    handleChangeDuration = (event) => {
-        const value = event.target.value;
-        this.setState({
-            autoHideDuration: value.length > 0 ? parseInt(value) : 0,
-        });
-    };
+  handleActionTouchTap = () => {
+    this.setState({
+      open: false,
+    });
+    alert('Event removed from your calendar.');
+  }
 
-    handleRequestClose = () => {
-        this.setState({
-            open: false,
-        });
-    };
+  handleChangeDuration = (event) => {
+    const value = event.target.value;
+    this.setState({
+      autoHideDuration: value.length > 0 ? parseInt(value, 10) : 0,
+    });
+  }
 
-    render() {
-        return (
-            <div>
-                <RaisedButton
-                    onTouchTap={this.handleTouchTap}
-                    label="Add to my calendar"
-                />
-                <br />
-                <TextField
-                    floatingLabelText="Auto Hide Duration in ms"
-                    value={this.state.autoHideDuration}
-                    onChange={this.handleChangeDuration}
-                />
-                <Snackbar
-                    open={this.state.open}
-                    message={this.state.message}
-                    action="undo"
-                    autoHideDuration={this.state.autoHideDuration}
-                    onActionTouchTap={this.handleActionTouchTap}
-                    onRequestClose={this.handleRequestClose}
-                />
-            </div>
-        );
-    }
+  handleRequestClose = () => {
+    this.setState({
+      open: false,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <RaisedButton
+          onTouchTap={this.handleTouchTap}
+          label="Add to my calendar"
+        />
+        <br />
+        <TextField
+          floatingLabelText="Auto Hide Duration in ms"
+          value={this.state.autoHideDuration}
+          onChange={this.handleChangeDuration}
+        />
+        <Snackbar
+          open={this.state.open}
+          message={this.state.message}
+          action="undo"
+          autoHideDuration={this.state.autoHideDuration}
+          onActionTouchTap={this.handleActionTouchTap}
+          onRequestClose={this.handleRequestClose}
+        />
+      </div>
+    );
+  }
 }
 
 class SnackbarExampleTwice extends React.Component<{}, {open?: boolean, message?: string}> {
 
-    private timer: number;
+  private timer: number;
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            message: 'Event 1 added to your calendar',
-            open: false,
-        };
-        this.timer = undefined;
-    }
-
-    componentWillUnMount() {
-        clearTimeout(this.timer);
-    }
-
-    handleTouchTap = () => {
-        this.setState({
-            open: true,
-        });
-
-        this.timer = setTimeout(() => {
-            this.setState({
-                message: `Event ${Math.round(Math.random() * 100)} added to your calendar`,
-            });
-        }, 1500);
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: 'Event 1 added to your calendar',
+      open: false,
     };
+    this.timer = undefined;
+  }
 
-    handleRequestClose = () => {
-        this.setState({
-            open: false,
-        });
-    };
+  componentWillUnMount() {
+    clearTimeout(this.timer);
+  }
 
-    render() {
-        return (
-            <div>
-                <RaisedButton
-                    onTouchTap={this.handleTouchTap}
-                    label="Add to my calendar two times"
-                />
-                <Snackbar
-                    open={this.state.open}
-                    message={this.state.message}
-                    action="undo"
-                    autoHideDuration={3000}
-                    onRequestClose={this.handleRequestClose}
-                />
-            </div>
-        );
-    }
+  handleTouchTap = () => {
+    this.setState({
+      open: true,
+    });
+
+    this.timer = setTimeout(() => {
+      this.setState({
+        message: `Event ${Math.round(Math.random() * 100)} added to your calendar`,
+      });
+    }, 1500);
+  }
+
+  handleRequestClose = () => {
+    this.setState({
+      open: false,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <RaisedButton
+          onTouchTap={this.handleTouchTap}
+          label="Add to my calendar two times"
+        />
+        <Snackbar
+          open={this.state.open}
+          message={this.state.message}
+          action="undo"
+          autoHideDuration={3000}
+          onRequestClose={this.handleRequestClose}
+        />
+      </div>
+    );
+  }
 }
 
 
 // "http://www.material-ui.com/#/components/stepper"
 class HorizontalLinearStepper extends React.Component<{}, {stepIndex?: number, finished?: boolean}> {
 
-    state = {
-        finished: false,
-        stepIndex: 0,
-    };
+  state = {
+    finished: false,
+    stepIndex: 0,
+  };
 
-    handleNext = () => {
-        const {stepIndex} = this.state;
-        this.setState({
-            stepIndex: stepIndex + 1,
-            finished: stepIndex >= 2,
-        });
-    };
+  handleNext = () => {
+    const {stepIndex} = this.state;
+    this.setState({
+      stepIndex: stepIndex + 1,
+      finished: stepIndex >= 2,
+    });
+  }
 
-    handlePrev = () => {
-        const {stepIndex} = this.state;
-        if (stepIndex > 0) {
-            this.setState({stepIndex: stepIndex - 1});
-        }
-    };
-
-    getStepContent(stepIndex) {
-        switch (stepIndex) {
-            case 0:
-                return 'Select campaign settings...';
-            case 1:
-                return 'What is an ad group anyways?';
-            case 2:
-                return 'This is the bit I really care about!';
-            default:
-                return 'You\'re a long way from home sonny jim!';
-        }
+  handlePrev = () => {
+    const {stepIndex} = this.state;
+    if (stepIndex > 0) {
+      this.setState({stepIndex: stepIndex - 1});
     }
+  }
 
-    render() {
-        const {finished, stepIndex} = this.state;
-        const contentStyle = {margin: '0 16px'};
+  getStepContent(stepIndex) {
+    switch (stepIndex) {
+      case 0:
+        return 'Select campaign settings...';
+      case 1:
+        return 'What is an ad group anyways?';
+      case 2:
+        return 'This is the bit I really care about!';
+      default:
+        return 'You\'re a long way from home sonny jim!';
+    }
+  }
 
-        return (
-            <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
-                <Stepper activeStep={stepIndex}>
-                    <Step>
-                        <StepLabel>Select campaign settings</StepLabel>
-                    </Step>
-                    <Step>
-                        <StepLabel>Create an ad group</StepLabel>
-                    </Step>
-                    <Step>
-                        <StepLabel>Create an ad</StepLabel>
-                    </Step>
-                </Stepper>
-                <div style={contentStyle}>
-                    {finished ? (
-                        <p>
-                            <a
-                                href="#"
-                                onClick={(event) => {
+  render() {
+    const {finished, stepIndex} = this.state;
+    const contentStyle = {margin: '0 16px'};
+
+    return (
+      <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
+        <Stepper activeStep={stepIndex}>
+          <Step>
+            <StepLabel>Select campaign settings</StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>Create an ad group</StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>Create an ad</StepLabel>
+          </Step>
+        </Stepper>
+        <div style={contentStyle}>
+          {finished ? (
+            <p>
+              <a
+                href="#"
+                onClick={(event) => {
                   event.preventDefault();
                   this.setState({stepIndex: 0, finished: false});
                 }}
-                            >
-                                Click here
-                            </a> to reset the example.
-                        </p>
-                    ) : (
-                        <div>
-                            <p>{this.getStepContent(stepIndex)}</p>
-                            <div style={{marginTop: 12}}>
-                                <FlatButton
-                                    label="Back"
-                                    disabled={stepIndex === 0}
-                                    onTouchTap={this.handlePrev}
-                                    style={{marginRight: 12}}
-                                />
-                                <RaisedButton
-                                    label={stepIndex === 2 ? 'Finish' : 'Next'}
-                                    primary={true}
-                                    onTouchTap={this.handleNext}
-                                />
-                            </div>
-                        </div>
-                    )}
-                </div>
+              >
+                Click here
+              </a> to reset the example.
+            </p>
+          ) : (
+            <div>
+              <p>{this.getStepContent(stepIndex)}</p>
+              <div style={{marginTop: 12}}>
+                <FlatButton
+                  label="Back"
+                  disabled={stepIndex === 0}
+                  onTouchTap={this.handlePrev}
+                  style={{marginRight: 12}}
+                />
+                <RaisedButton
+                  label={stepIndex === 2 ? 'Finish' : 'Next'}
+                  primary={true}
+                  onTouchTap={this.handleNext}
+                />
+              </div>
             </div>
-        );
-    }
+          )}
+        </div>
+      </div>
+    );
+  }
 }
 
 class VerticalLinearStepper extends React.Component<{}, {stepIndex?: number, finished?: boolean}> {
 
-    state = {
-        finished: false,
-        stepIndex: 0,
-    };
+  state = {
+    finished: false,
+    stepIndex: 0,
+  };
 
-    handleNext = () => {
-        const {stepIndex} = this.state;
-        this.setState({
-            stepIndex: stepIndex + 1,
-            finished: stepIndex >= 2,
-        });
-    };
+  handleNext = () => {
+    const {stepIndex} = this.state;
+    this.setState({
+      stepIndex: stepIndex + 1,
+      finished: stepIndex >= 2,
+    });
+  }
 
-    handlePrev = () => {
-        const {stepIndex} = this.state;
-        if (stepIndex > 0) {
-            this.setState({stepIndex: stepIndex - 1});
-        }
-    };
-
-    renderStepActions(step) {
-        const {stepIndex} = this.state;
-
-        return (
-            <div style={{margin: '12px 0'}}>
-                <RaisedButton
-                    label={stepIndex === 2 ? 'Finish' : 'Next'}
-                    disableTouchRipple={true}
-                    disableFocusRipple={true}
-                    primary={true}
-                    onTouchTap={this.handleNext}
-                    style={{marginRight: 12}}
-                />
-                {step > 0 && (
-                    <FlatButton
-                        label="Back"
-                        disabled={stepIndex === 0}
-                        disableTouchRipple={true}
-                        disableFocusRipple={true}
-                        onTouchTap={this.handlePrev}
-                    />
-                )}
-            </div>
-        );
+  handlePrev = () => {
+    const {stepIndex} = this.state;
+    if (stepIndex > 0) {
+      this.setState({stepIndex: stepIndex - 1});
     }
+  }
 
-    render() {
-        const {finished, stepIndex} = this.state;
+  renderStepActions(step) {
+    const {stepIndex} = this.state;
 
-        return (
-            <div style={{width: 380, height: 400, margin: 'auto'}}>
-                <Stepper activeStep={stepIndex} orientation="vertical">
-                    <Step>
-                        <StepLabel>Select campaign settings</StepLabel>
-                        <StepContent>
-                            <p>
-                                For each ad campaign that you create, you can control how much
+    return (
+      <div style={{margin: '12px 0'}}>
+        <RaisedButton
+          label={stepIndex === 2 ? 'Finish' : 'Next'}
+          disableTouchRipple={true}
+          disableFocusRipple={true}
+          primary={true}
+          onTouchTap={this.handleNext}
+          style={{marginRight: 12}}
+        />
+        {step > 0 && (
+          <FlatButton
+            label="Back"
+            disabled={stepIndex === 0}
+            disableTouchRipple={true}
+            disableFocusRipple={true}
+            onTouchTap={this.handlePrev}
+          />
+        )}
+      </div>
+    );
+  }
+
+  render() {
+    const {finished, stepIndex} = this.state;
+
+    return (
+      <div style={{width: 380, height: 400, margin: 'auto'}}>
+        <Stepper activeStep={stepIndex} orientation="vertical">
+          <Step>
+            <StepLabel>Select campaign settings</StepLabel>
+            <StepContent>
+              <p>
+                For each ad campaign that you create, you can control how much
                 you're willing to spend on clicks and conversions, which networks
                 and geographical locations you want your ads to show on, and more.
-                            </p>
-                            {this.renderStepActions(0)}
-                        </StepContent>
-                    </Step>
-                    <Step>
-                        <StepLabel>Create an ad group</StepLabel>
-                        <StepContent>
-                            <p>An ad group contains one or more ads which target a shared set of keywords.</p>
-                            {this.renderStepActions(1)}
-                        </StepContent>
-                    </Step>
-                    <Step>
-                        <StepLabel>Create an ad</StepLabel>
-                        <StepContent>
-                            <p>
-                                Try out different ad text to see what brings in the most customers,
+              </p>
+              {this.renderStepActions(0)}
+            </StepContent>
+          </Step>
+          <Step>
+            <StepLabel>Create an ad group</StepLabel>
+            <StepContent>
+              <p>An ad group contains one or more ads which target a shared set of keywords.</p>
+              {this.renderStepActions(1)}
+            </StepContent>
+          </Step>
+          <Step>
+            <StepLabel>Create an ad</StepLabel>
+            <StepContent>
+              <p>
+                Try out different ad text to see what brings in the most customers,
                 and learn how to enhance your ads using features like ad extensions.
                 If you run into any problems with your ads, find out how to tell if
                 they're running and how to resolve approval issues.
-                            </p>
-                            {this.renderStepActions(2)}
-                        </StepContent>
-                    </Step>
-                </Stepper>
-                {finished && (
-                    <p style={{margin: '20px 0', textAlign: 'center'}}>
-                        <a
-                            href="#"
-                            onClick={(event) => {
+              </p>
+              {this.renderStepActions(2)}
+            </StepContent>
+          </Step>
+        </Stepper>
+        {finished && (
+          <p style={{margin: '20px 0', textAlign: 'center'}}>
+            <a
+              href="#"
+              onClick={(event) => {
                 event.preventDefault();
                 this.setState({stepIndex: 0, finished: false});
               }}
-                        >
-                            Click here
-                        </a> to reset the example.
-                    </p>
-                )}
-            </div>
-        );
-    }
+            >
+              Click here
+            </a> to reset the example.
+          </p>
+        )}
+      </div>
+    );
+  }
 }
 
 class HorizontalNonLinearStepper extends React.Component<{}, {stepIndex?: number}> {
 
-    state = {
-        stepIndex: 0,
-    };
+  state = {
+    stepIndex: 0,
+  };
 
-    handleNext = () => {
-        const {stepIndex} = this.state;
-        if (stepIndex < 2) {
-            this.setState({stepIndex: stepIndex + 1});
-        }
-    };
-
-    handlePrev = () => {
-        const {stepIndex} = this.state;
-        if (stepIndex > 0) {
-            this.setState({stepIndex: stepIndex - 1});
-        }
-    };
-
-    getStepContent(stepIndex) {
-        switch (stepIndex) {
-            case 0:
-                return 'Select campaign settings...';
-            case 1:
-                return 'What is an ad group anyways?';
-            case 2:
-                return 'This is the bit I really care about!';
-            default:
-                return 'You\'re a long way from home sonny jim!';
-        }
+  handleNext = () => {
+    const {stepIndex} = this.state;
+    if (stepIndex < 2) {
+      this.setState({stepIndex: stepIndex + 1});
     }
+  }
 
-    render() {
-        const {stepIndex} = this.state;
-        const contentStyle = {margin: '0 16px'};
-
-        return (
-            <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
-                <Stepper linear={false} activeStep={stepIndex}>
-                    <Step>
-                        <StepButton onClick={() => this.setState({stepIndex: 0})}>
-                            Select campaign settings
-                        </StepButton>
-                    </Step>
-                    <Step>
-                        <StepButton onClick={() => this.setState({stepIndex: 1})}>
-                            Create an ad group
-                        </StepButton>
-                    </Step>
-                    <Step>
-                        <StepButton onClick={() => this.setState({stepIndex: 2})}>
-                            Create an ad
-                        </StepButton>
-                    </Step>
-                </Stepper>
-                <div style={contentStyle}>
-                    <p>{this.getStepContent(stepIndex)}</p>
-                    <div style={{marginTop: 12}}>
-                        <FlatButton
-                            label="Back"
-                            disabled={stepIndex === 0}
-                            onTouchTap={this.handlePrev}
-                            style={{marginRight: 12}}
-                        />
-                        <RaisedButton
-                            label="Next"
-                            disabled={stepIndex === 2}
-                            primary={true}
-                            onTouchTap={this.handleNext}
-                        />
-                    </div>
-                </div>
-            </div>
-        );
+  handlePrev = () => {
+    const {stepIndex} = this.state;
+    if (stepIndex > 0) {
+      this.setState({stepIndex: stepIndex - 1});
     }
+  }
+
+  getStepContent(stepIndex) {
+    switch (stepIndex) {
+      case 0:
+        return 'Select campaign settings...';
+      case 1:
+        return 'What is an ad group anyways?';
+      case 2:
+        return 'This is the bit I really care about!';
+      default:
+        return 'You\'re a long way from home sonny jim!';
+    }
+  }
+
+  render() {
+    const {stepIndex} = this.state;
+    const contentStyle = {margin: '0 16px'};
+
+    return (
+      <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
+        <Stepper linear={false} activeStep={stepIndex}>
+          <Step>
+            <StepButton onClick={() => this.setState({stepIndex: 0})}>
+              Select campaign settings
+            </StepButton>
+          </Step>
+          <Step>
+            <StepButton onClick={() => this.setState({stepIndex: 1})}>
+              Create an ad group
+            </StepButton>
+          </Step>
+          <Step>
+            <StepButton onClick={() => this.setState({stepIndex: 2})}>
+              Create an ad
+            </StepButton>
+          </Step>
+        </Stepper>
+        <div style={contentStyle}>
+          <p>{this.getStepContent(stepIndex)}</p>
+          <div style={{marginTop: 12}}>
+            <FlatButton
+              label="Back"
+              disabled={stepIndex === 0}
+              onTouchTap={this.handlePrev}
+              style={{marginRight: 12}}
+            />
+            <RaisedButton
+              label="Next"
+              disabled={stepIndex === 2}
+              primary={true}
+              onTouchTap={this.handleNext}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 class VerticalNonLinear extends React.Component<{}, {stepIndex?: number}> {
 
-    state = {
-        stepIndex: 0,
-    };
+  state = {
+    stepIndex: 0,
+  };
 
-    handleNext = () => {
-        const {stepIndex} = this.state;
-        if (stepIndex < 2) {
-            this.setState({stepIndex: stepIndex + 1});
-        }
-    };
-
-    handlePrev = () => {
-        const {stepIndex} = this.state;
-        if (stepIndex > 0) {
-            this.setState({stepIndex: stepIndex - 1});
-        }
-    };
-
-    renderStepActions(step) {
-        return (
-            <div style={{margin: '12px 0'}}>
-                <RaisedButton
-                    label="Next"
-                    disableTouchRipple={true}
-                    disableFocusRipple={true}
-                    primary={true}
-                    onTouchTap={this.handleNext}
-                    style={{marginRight: 12}}
-                />
-                {step > 0 && (
-                    <FlatButton
-                        label="Back"
-                        disableTouchRipple={true}
-                        disableFocusRipple={true}
-                        onTouchTap={this.handlePrev}
-                    />
-                )}
-            </div>
-        );
+  handleNext = () => {
+    const {stepIndex} = this.state;
+    if (stepIndex < 2) {
+      this.setState({stepIndex: stepIndex + 1});
     }
+  }
 
-    render() {
-        const {stepIndex} = this.state;
+  handlePrev = () => {
+    const {stepIndex} = this.state;
+    if (stepIndex > 0) {
+      this.setState({stepIndex: stepIndex - 1});
+    }
+  }
 
-        return (
-            <div style={{width: 380, height: 400, margin: 'auto'}}>
-                <Stepper
-                    activeStep={stepIndex}
-                    linear={false}
-                    orientation="vertical"
-                >
-                    <Step>
-                        <StepButton onClick={() => this.setState({stepIndex: 0})}>
-                            Select campaign settings
-                        </StepButton>
-                        <StepContent>
-                            <p>
-                                For each ad campaign that you create, you can control how much
+  renderStepActions(step) {
+    return (
+      <div style={{margin: '12px 0'}}>
+        <RaisedButton
+          label="Next"
+          disableTouchRipple={true}
+          disableFocusRipple={true}
+          primary={true}
+          onTouchTap={this.handleNext}
+          style={{marginRight: 12}}
+        />
+        {step > 0 && (
+          <FlatButton
+            label="Back"
+            disableTouchRipple={true}
+            disableFocusRipple={true}
+            onTouchTap={this.handlePrev}
+          />
+        )}
+      </div>
+    );
+  }
+
+  render() {
+    const {stepIndex} = this.state;
+
+    return (
+      <div style={{width: 380, height: 400, margin: 'auto'}}>
+        <Stepper
+          activeStep={stepIndex}
+          linear={false}
+          orientation="vertical"
+        >
+          <Step>
+            <StepButton onClick={() => this.setState({stepIndex: 0})}>
+              Select campaign settings
+            </StepButton>
+            <StepContent>
+              <p>
+                For each ad campaign that you create, you can control how much
                 you're willing to spend on clicks and conversions, which networks
                 and geographical locations you want your ads to show on, and more.
-                            </p>
-                            {this.renderStepActions(0)}
-                        </StepContent>
-                    </Step>
-                    <Step>
-                        <StepButton onClick={() => this.setState({stepIndex: 1})}>
-                            Create an ad group
-                        </StepButton>
-                        <StepContent>
-                            <p>An ad group contains one or more ads which target a shared set of keywords.</p>
-                            {this.renderStepActions(1)}
-                        </StepContent>
-                    </Step>
-                    <Step>
-                        <StepButton onClick={() => this.setState({stepIndex: 2})}>
-                            Create an ad
-                        </StepButton>
-                        <StepContent>
-                            <p>
-                                Try out different ad text to see what brings in the most customers,
+              </p>
+              {this.renderStepActions(0)}
+            </StepContent>
+          </Step>
+          <Step>
+            <StepButton onClick={() => this.setState({stepIndex: 1})}>
+              Create an ad group
+            </StepButton>
+            <StepContent>
+              <p>An ad group contains one or more ads which target a shared set of keywords.</p>
+              {this.renderStepActions(1)}
+            </StepContent>
+          </Step>
+          <Step>
+            <StepButton onClick={() => this.setState({stepIndex: 2})}>
+              Create an ad
+            </StepButton>
+            <StepContent>
+              <p>
+                Try out different ad text to see what brings in the most customers,
                 and learn how to enhance your ads using features like ad extensions.
                 If you run into any problems with your ads, find out how to tell if
                 they're running and how to resolve approval issues.
-                            </p>
-                            {this.renderStepActions(2)}
-                        </StepContent>
-                    </Step>
-                </Stepper>
-            </div>
-        );
-    }
+              </p>
+              {this.renderStepActions(2)}
+            </StepContent>
+          </Step>
+        </Stepper>
+      </div>
+    );
+  }
 }
 
 const getStyles = () => {
-    return {
-        root: {
-            width: '100%',
-            maxWidth: 700,
-            margin: 'auto',
-        },
-        content: {
-            margin: '0 16px',
-        },
-        actions: {
-            marginTop: 12,
-        },
-        backButton: {
-            marginRight: 12,
-        },
-    };
+  return {
+    root: {
+      width: '100%',
+      maxWidth: 700,
+      margin: 'auto',
+    },
+    content: {
+      margin: '0 16px',
+    },
+    actions: {
+      marginTop: 12,
+    },
+    backButton: {
+      marginRight: 12,
+    },
+  };
 };
 
 class GranularControlStepper extends React.Component<{}, {stepIndex?: number, visited?: number[]}> {
 
-    state = {
-        stepIndex: null,
-        visited: [],
-    };
+  state = {
+    stepIndex: null,
+    visited: [],
+  };
 
-    componentWillMount() {
-        const {stepIndex, visited} = this.state;
-        this.setState({visited: visited.concat(stepIndex)});
+  componentWillMount() {
+    const {stepIndex, visited} = this.state;
+    this.setState({visited: visited.concat(stepIndex)});
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    const {stepIndex, visited} = nextState;
+    if (visited.indexOf(stepIndex) === -1) {
+      this.setState({visited: visited.concat(stepIndex)});
     }
+  }
 
-    componentWillUpdate(nextProps, nextState) {
-        const {stepIndex, visited} = nextState;
-        if (visited.indexOf(stepIndex) === -1) {
-            this.setState({visited: visited.concat(stepIndex)});
-        }
+  handleNext = () => {
+    const {stepIndex} = this.state;
+    if (stepIndex < 2) {
+      this.setState({stepIndex: stepIndex + 1});
     }
+  }
 
-    handleNext = () => {
-        const {stepIndex} = this.state;
-        if (stepIndex < 2) {
-            this.setState({stepIndex: stepIndex + 1});
-        }
-    };
-
-    handlePrev = () => {
-        const {stepIndex} = this.state;
-        if (stepIndex > 0) {
-            this.setState({stepIndex: stepIndex - 1});
-        }
-    };
-
-    getStepContent(stepIndex) {
-        switch (stepIndex) {
-            case 0:
-                return 'Select campaign settings...';
-            case 1:
-                return 'What is an ad group anyways?';
-            case 2:
-                return 'This is the bit I really care about!';
-            default:
-                return 'Click a step to get started.';
-        }
+  handlePrev = () => {
+    const {stepIndex} = this.state;
+    if (stepIndex > 0) {
+      this.setState({stepIndex: stepIndex - 1});
     }
+  }
 
-    render() {
-        const {stepIndex, visited} = this.state;
-        const styles = getStyles();
+  getStepContent(stepIndex) {
+    switch (stepIndex) {
+      case 0:
+        return 'Select campaign settings...';
+      case 1:
+        return 'What is an ad group anyways?';
+      case 2:
+        return 'This is the bit I really care about!';
+      default:
+        return 'Click a step to get started.';
+    }
+  }
 
-        return (
-            <div style={styles.root}>
-                <p>
-                    <a
-                        href="#"
-                        onClick={(event) => {
+  render() {
+    const {stepIndex, visited} = this.state;
+    const styles = getStyles();
+
+    return (
+      <div style={styles.root}>
+        <p>
+          <a
+            href="#"
+            onClick={(event) => {
               event.preventDefault();
               this.setState({stepIndex: null, visited: []});
             }}
-                    >
-                        Click here
-                    </a> to reset the example.
-                </p>
-                <Stepper linear={false}>
-                    <Step completed={visited.indexOf(0) !== -1} active={stepIndex === 0}>
-                        <StepButton onClick={() => this.setState({stepIndex: 0})}>
-                            Select campaign settings
-                        </StepButton>
-                    </Step>
-                    <Step completed={visited.indexOf(1) !== -1} active={stepIndex === 1}>
-                        <StepButton onClick={() => this.setState({stepIndex: 1})}>
-                            Create an ad group
-                        </StepButton>
-                    </Step>
-                    <Step completed={visited.indexOf(2) !== -1} active={stepIndex === 2}>
-                        <StepButton onClick={() => this.setState({stepIndex: 2})}>
-                            Create an ad
-                        </StepButton>
-                    </Step>
-                </Stepper>
-                <div style={styles.content}>
-                    <p>{this.getStepContent(stepIndex)}</p>
-                    {stepIndex !== null && (
-                        <div style={styles.actions}>
-                            <FlatButton
-                                label="Back"
-                                disabled={stepIndex === 0}
-                                onTouchTap={this.handlePrev}
-                                style={styles.backButton}
-                            />
-                            <RaisedButton
-                                label="Next"
-                                primary={true}
-                                onTouchTap={this.handleNext}
-                            />
-                        </div>
-                    )}
-                </div>
+          >
+            Click here
+          </a> to reset the example.
+        </p>
+        <Stepper linear={false}>
+          <Step completed={visited.indexOf(0) !== -1} active={stepIndex === 0}>
+            <StepButton onClick={() => this.setState({stepIndex: 0})}>
+              Select campaign settings
+            </StepButton>
+          </Step>
+          <Step completed={visited.indexOf(1) !== -1} active={stepIndex === 1}>
+            <StepButton onClick={() => this.setState({stepIndex: 1})}>
+              Create an ad group
+            </StepButton>
+          </Step>
+          <Step completed={visited.indexOf(2) !== -1} active={stepIndex === 2}>
+            <StepButton onClick={() => this.setState({stepIndex: 2})}>
+              Create an ad
+            </StepButton>
+          </Step>
+        </Stepper>
+        <div style={styles.content}>
+          <p>{this.getStepContent(stepIndex)}</p>
+          {stepIndex !== null && (
+            <div style={styles.actions}>
+              <FlatButton
+                label="Back"
+                disabled={stepIndex === 0}
+                onTouchTap={this.handlePrev}
+                style={styles.backButton}
+              />
+              <RaisedButton
+                label="Next"
+                primary={true}
+                onTouchTap={this.handleNext}
+              />
             </div>
-        );
-    }
+          )}
+        </div>
+      </div>
+    );
+  }
 }
 
 class CustomIcon extends React.Component<{}, {stepIndex?: number}> {
 
-    state = {
-        stepIndex: 0,
-    };
+  state = {
+    stepIndex: 0,
+  };
 
-    handleNext = () => {
-        const {stepIndex} = this.state;
-        if (stepIndex < 2) {
-            this.setState({stepIndex: stepIndex + 1});
-        }
-    };
-
-    handlePrev = () => {
-        const {stepIndex} = this.state;
-        if (stepIndex > 0) {
-            this.setState({stepIndex: stepIndex - 1});
-        }
-    };
-
-    getStepContent(stepIndex) {
-        switch (stepIndex) {
-            case 0:
-                return 'Select campaign settings...';
-            case 1:
-                return 'What is an ad group anyways?';
-            case 2:
-                return 'This is the bit I really care about!';
-            default:
-                return 'You\'re a long way from home sonny jim!';
-        }
+  handleNext = () => {
+    const {stepIndex} = this.state;
+    if (stepIndex < 2) {
+      this.setState({stepIndex: stepIndex + 1});
     }
+  }
 
-    render() {
-        return (
-            <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
-                <Stepper linear={false}>
-                    <Step completed={false}>
-                        <StepLabel>
-                            Select campaign settings
-                        </StepLabel>
-                    </Step>
-                    <Step completed={false}>
-                        <StepLabel
-                            icon={<WarningIcon color={red500} />}
-                            style={{color: red500}}
-                        >
-                            Create an ad group
-                        </StepLabel>
-                    </Step>
-                    <Step completed={false}>
-                        <StepLabel>
-                            Create an ad
-                        </StepLabel>
-                    </Step>
-                </Stepper>
-            </div>
-        );
+  handlePrev = () => {
+    const {stepIndex} = this.state;
+    if (stepIndex > 0) {
+      this.setState({stepIndex: stepIndex - 1});
     }
+  }
+
+  getStepContent(stepIndex) {
+    switch (stepIndex) {
+      case 0:
+        return 'Select campaign settings...';
+      case 1:
+        return 'What is an ad group anyways?';
+      case 2:
+        return 'This is the bit I really care about!';
+      default:
+        return 'You\'re a long way from home sonny jim!';
+    }
+  }
+
+  render() {
+    return (
+      <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
+        <Stepper linear={false}>
+          <Step completed={false}>
+            <StepLabel>
+              Select campaign settings
+            </StepLabel>
+          </Step>
+          <Step completed={false}>
+            <StepLabel
+              icon={<WarningIcon color={red500} />}
+              style={{color: red500}}
+            >
+              Create an ad group
+            </StepLabel>
+          </Step>
+          <Step completed={false}>
+            <StepLabel>
+              Create an ad
+            </StepLabel>
+          </Step>
+        </Stepper>
+      </div>
+    );
+  }
 }
 
 
@@ -4305,587 +4352,587 @@ class CustomIcon extends React.Component<{}, {stepIndex?: number}> {
 
 // "http://www.material-ui.com/#/components/table"
 const TableExampleSimple = () => (
-    <Table>
-        <TableHeader>
-            <TableRow>
-                <TableHeaderColumn>ID</TableHeaderColumn>
-                <TableHeaderColumn>Name</TableHeaderColumn>
-                <TableHeaderColumn>Status</TableHeaderColumn>
-            </TableRow>
-        </TableHeader>
-        <TableBody>
-            <TableRow>
-                <TableRowColumn>1</TableRowColumn>
-                <TableRowColumn>John Smith</TableRowColumn>
-                <TableRowColumn>Employed</TableRowColumn>
-            </TableRow>
-            <TableRow>
-                <TableRowColumn>2</TableRowColumn>
-                <TableRowColumn>Randal White</TableRowColumn>
-                <TableRowColumn>Unemployed</TableRowColumn>
-            </TableRow>
-            <TableRow>
-                <TableRowColumn>3</TableRowColumn>
-                <TableRowColumn>Stephanie Sanders</TableRowColumn>
-                <TableRowColumn>Employed</TableRowColumn>
-            </TableRow>
-            <TableRow>
-                <TableRowColumn>4</TableRowColumn>
-                <TableRowColumn>Steve Brown</TableRowColumn>
-                <TableRowColumn>Employed</TableRowColumn>
-            </TableRow>
-        </TableBody>
-    </Table>
+  <Table>
+    <TableHeader>
+      <TableRow>
+        <TableHeaderColumn>ID</TableHeaderColumn>
+        <TableHeaderColumn>Name</TableHeaderColumn>
+        <TableHeaderColumn>Status</TableHeaderColumn>
+      </TableRow>
+    </TableHeader>
+    <TableBody>
+      <TableRow>
+        <TableRowColumn>1</TableRowColumn>
+        <TableRowColumn>John Smith</TableRowColumn>
+        <TableRowColumn>Employed</TableRowColumn>
+      </TableRow>
+      <TableRow>
+        <TableRowColumn>2</TableRowColumn>
+        <TableRowColumn>Randal White</TableRowColumn>
+        <TableRowColumn>Unemployed</TableRowColumn>
+      </TableRow>
+      <TableRow>
+        <TableRowColumn>3</TableRowColumn>
+        <TableRowColumn>Stephanie Sanders</TableRowColumn>
+        <TableRowColumn>Employed</TableRowColumn>
+      </TableRow>
+      <TableRow>
+        <TableRowColumn>4</TableRowColumn>
+        <TableRowColumn>Steve Brown</TableRowColumn>
+        <TableRowColumn>Employed</TableRowColumn>
+      </TableRow>
+    </TableBody>
+  </Table>
 );
 
 const tableData: {name: string, status: string, selected?: boolean}[] = [
-    {
-        name: 'John Smith',
-        status: 'Employed',
-        selected: true,
-    },
-    {
-        name: 'Randal White',
-        status: 'Unemployed',
-    },
-    {
-        name: 'Stephanie Sanders',
-        status: 'Employed',
-        selected: true,
-    },
-    {
-        name: 'Steve Brown',
-        status: 'Employed',
-    },
-    {
-        name: 'Joyce Whitten',
-        status: 'Employed',
-    },
-    {
-        name: 'Samuel Roberts',
-        status: 'Employed',
-    },
-    {
-        name: 'Adam Moore',
-        status: 'Employed',
-    },
+  {
+    name: 'John Smith',
+    status: 'Employed',
+    selected: true,
+  },
+  {
+    name: 'Randal White',
+    status: 'Unemployed',
+  },
+  {
+    name: 'Stephanie Sanders',
+    status: 'Employed',
+    selected: true,
+  },
+  {
+    name: 'Steve Brown',
+    status: 'Employed',
+  },
+  {
+    name: 'Joyce Whitten',
+    status: 'Employed',
+  },
+  {
+    name: 'Samuel Roberts',
+    status: 'Employed',
+  },
+  {
+    name: 'Adam Moore',
+    status: 'Employed',
+  },
 ];
 
 interface TableExampleComplexState {
-    fixedHeader?: boolean,
-    fixedFooter?: boolean,
-    stripedRows?: boolean,
-    showRowHover?: boolean,
-    selectable?: boolean,
-    multiSelectable?: boolean,
-    enableSelectAll?: boolean,
-    deselectOnClickaway?: boolean,
-    showCheckboxes?: boolean,
-    height?: string,
+  fixedHeader?: boolean;
+  fixedFooter?: boolean;
+  stripedRows?: boolean;
+  showRowHover?: boolean;
+  selectable?: boolean;
+  multiSelectable?: boolean;
+  enableSelectAll?: boolean;
+  deselectOnClickaway?: boolean;
+  showCheckboxes?: boolean;
+  height?: string;
 }
 
 class TableExampleComplex extends React.Component<{}, TableExampleComplexState> {
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            fixedHeader: true,
-            fixedFooter: true,
-            stripedRows: false,
-            showRowHover: false,
-            selectable: true,
-            multiSelectable: false,
-            enableSelectAll: false,
-            deselectOnClickaway: true,
-            showCheckboxes: true,
-            height: '300px',
-        };
-    }
-
-    handleToggle = (event, toggled) => {
-        this.setState({
-            [event.target.name]: toggled,
-        });
+    this.state = {
+      fixedHeader: true,
+      fixedFooter: true,
+      stripedRows: false,
+      showRowHover: false,
+      selectable: true,
+      multiSelectable: false,
+      enableSelectAll: false,
+      deselectOnClickaway: true,
+      showCheckboxes: true,
+      height: '300px',
     };
+  }
 
-    handleChange = (event) => {
-        this.setState({height: event.target.value});
-    };
+  handleToggle = (event, toggled) => {
+    this.setState({
+      [event.target.name]: toggled,
+    });
+  }
 
-    render() {
-        return (
-            <div>
-                <Table
-                    height={this.state.height}
-                    fixedHeader={this.state.fixedHeader}
-                    fixedFooter={this.state.fixedFooter}
-                    selectable={this.state.selectable}
-                    multiSelectable={this.state.multiSelectable}
-                >
-                    <TableHeader
-                        displaySelectAll={this.state.showCheckboxes}
-                        adjustForCheckbox={this.state.showCheckboxes}
-                        enableSelectAll={this.state.enableSelectAll}
-                    >
-                        <TableRow>
-                            <TableHeaderColumn colSpan={3} tooltip="Super Header" style={{textAlign: 'center'}}>
-                                Super Header
-                            </TableHeaderColumn>
-                        </TableRow>
-                        <TableRow>
-                            <TableHeaderColumn tooltip="The ID">ID</TableHeaderColumn>
-                            <TableHeaderColumn tooltip="The Name">Name</TableHeaderColumn>
-                            <TableHeaderColumn tooltip="The Status">Status</TableHeaderColumn>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody
-                        displayRowCheckbox={this.state.showCheckboxes}
-                        deselectOnClickaway={this.state.deselectOnClickaway}
-                        showRowHover={this.state.showRowHover}
-                        stripedRows={this.state.stripedRows}
-                    >
+  handleChange = (event) => {
+    this.setState({height: event.target.value});
+  }
+
+  render() {
+    return (
+      <div>
+        <Table
+          height={this.state.height}
+          fixedHeader={this.state.fixedHeader}
+          fixedFooter={this.state.fixedFooter}
+          selectable={this.state.selectable}
+          multiSelectable={this.state.multiSelectable}
+        >
+          <TableHeader
+            displaySelectAll={this.state.showCheckboxes}
+            adjustForCheckbox={this.state.showCheckboxes}
+            enableSelectAll={this.state.enableSelectAll}
+          >
+            <TableRow>
+              <TableHeaderColumn colSpan={3} tooltip="Super Header" style={{textAlign: 'center'}}>
+                Super Header
+              </TableHeaderColumn>
+            </TableRow>
+            <TableRow>
+              <TableHeaderColumn tooltip="The ID">ID</TableHeaderColumn>
+              <TableHeaderColumn tooltip="The Name">Name</TableHeaderColumn>
+              <TableHeaderColumn tooltip="The Status">Status</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody
+            displayRowCheckbox={this.state.showCheckboxes}
+            deselectOnClickaway={this.state.deselectOnClickaway}
+            showRowHover={this.state.showRowHover}
+            stripedRows={this.state.stripedRows}
+          >
                         {tableData.map((row, index) => (
-                            <TableRow key={index} selected={row.selected}>
-                                <TableRowColumn>{index}</TableRowColumn>
-                                <TableRowColumn>{row.name}</TableRowColumn>
-                                <TableRowColumn>{row.status}</TableRowColumn>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                    <TableFooter
-                        adjustForCheckbox={this.state.showCheckboxes}
-                    >
-                        <TableRow>
-                            <TableRowColumn>ID</TableRowColumn>
-                            <TableRowColumn>Name</TableRowColumn>
-                            <TableRowColumn>Status</TableRowColumn>
-                        </TableRow>
-                        <TableRow>
-                            <TableRowColumn colSpan={3} style={{textAlign: 'center'}}>
-                                Super Footer
-                            </TableRowColumn>
-                        </TableRow>
-                    </TableFooter>
-                </Table>
+              <TableRow key={index} selected={row.selected}>
+                <TableRowColumn>{index}</TableRowColumn>
+                <TableRowColumn>{row.name}</TableRowColumn>
+                <TableRowColumn>{row.status}</TableRowColumn>
+              </TableRow>
+              ))}
+          </TableBody>
+          <TableFooter
+            adjustForCheckbox={this.state.showCheckboxes}
+          >
+            <TableRow>
+              <TableRowColumn>ID</TableRowColumn>
+              <TableRowColumn>Name</TableRowColumn>
+              <TableRowColumn>Status</TableRowColumn>
+            </TableRow>
+            <TableRow>
+              <TableRowColumn colSpan={3} style={{textAlign: 'center'}}>
+                Super Footer
+              </TableRowColumn>
+            </TableRow>
+          </TableFooter>
+        </Table>
 
-                <div style={styles.propContainer}>
-                    <h3>Table Properties</h3>
-                    <TextField
-                        floatingLabelText="Table Body Height"
-                        defaultValue={this.state.height}
-                        onChange={this.handleChange}
-                    />
-                    <Toggle
-                        name="fixedHeader"
-                        label="Fixed Header"
-                        onToggle={this.handleToggle}
-                        defaultToggled={this.state.fixedHeader}
-                    />
-                    <Toggle
-                        name="fixedFooter"
-                        label="Fixed Footer"
-                        onToggle={this.handleToggle}
-                        defaultToggled={this.state.fixedFooter}
-                    />
-                    <Toggle
-                        name="selectable"
-                        label="Selectable"
-                        onToggle={this.handleToggle}
-                        defaultToggled={this.state.selectable}
-                    />
-                    <Toggle
-                        name="multiSelectable"
-                        label="Multi-Selectable"
-                        onToggle={this.handleToggle}
-                        defaultToggled={this.state.multiSelectable}
-                    />
-                    <Toggle
-                        name="enableSelectAll"
-                        label="Enable Select All"
-                        onToggle={this.handleToggle}
-                        defaultToggled={this.state.enableSelectAll}
-                    />
-                    <h3 style={styles.propToggleHeader}>TableBody Properties</h3>
-                    <Toggle
-                        name="deselectOnClickaway"
-                        label="Deselect On Clickaway"
-                        onToggle={this.handleToggle}
-                        defaultToggled={this.state.deselectOnClickaway}
-                    />
-                    <Toggle
-                        name="stripedRows"
-                        label="Stripe Rows"
-                        onToggle={this.handleToggle}
-                        defaultToggled={this.state.stripedRows}
-                    />
-                    <Toggle
-                        name="showRowHover"
-                        label="Show Row Hover"
-                        onToggle={this.handleToggle}
-                        defaultToggled={this.state.showRowHover}
-                    />
-                    <h3 style={styles.propToggleHeader}>Multiple Properties</h3>
-                    <Toggle
-                        name="showCheckboxes"
-                        label="Show Checkboxes"
-                        onToggle={this.handleToggle}
-                        defaultToggled={this.state.showCheckboxes}
-                    />
-                </div>
-            </div>
-        );
-    }
+        <div style={styles.propContainer}>
+          <h3>Table Properties</h3>
+          <TextField
+            floatingLabelText="Table Body Height"
+            defaultValue={this.state.height}
+            onChange={this.handleChange}
+          />
+          <Toggle
+            name="fixedHeader"
+            label="Fixed Header"
+            onToggle={this.handleToggle}
+            defaultToggled={this.state.fixedHeader}
+          />
+          <Toggle
+            name="fixedFooter"
+            label="Fixed Footer"
+            onToggle={this.handleToggle}
+            defaultToggled={this.state.fixedFooter}
+          />
+          <Toggle
+            name="selectable"
+            label="Selectable"
+            onToggle={this.handleToggle}
+            defaultToggled={this.state.selectable}
+          />
+          <Toggle
+            name="multiSelectable"
+            label="Multi-Selectable"
+            onToggle={this.handleToggle}
+            defaultToggled={this.state.multiSelectable}
+          />
+          <Toggle
+            name="enableSelectAll"
+            label="Enable Select All"
+            onToggle={this.handleToggle}
+            defaultToggled={this.state.enableSelectAll}
+          />
+          <h3 style={styles.propToggleHeader}>TableBody Properties</h3>
+          <Toggle
+            name="deselectOnClickaway"
+            label="Deselect On Clickaway"
+            onToggle={this.handleToggle}
+            defaultToggled={this.state.deselectOnClickaway}
+          />
+          <Toggle
+            name="stripedRows"
+            label="Stripe Rows"
+            onToggle={this.handleToggle}
+            defaultToggled={this.state.stripedRows}
+          />
+          <Toggle
+            name="showRowHover"
+            label="Show Row Hover"
+            onToggle={this.handleToggle}
+            defaultToggled={this.state.showRowHover}
+          />
+          <h3 style={styles.propToggleHeader}>Multiple Properties</h3>
+          <Toggle
+            name="showCheckboxes"
+            label="Show Checkboxes"
+            onToggle={this.handleToggle}
+            defaultToggled={this.state.showCheckboxes}
+          />
+        </div>
+      </div>
+    );
+  }
 }
 
 // "http://www.material-ui.com/#/components/tabs"
 function handleActive(tab) {
-    alert(`A tab with this value property ${tab.props.value} was activated.`);
+  alert(`A tab with this value property ${tab.props.value} was activated.`);
 }
 
 const TabsExampleSimple = () => (
-    <Tabs>
+  <Tabs>
         <Tab label="Item One">
-            <div>
-                <h2 style={styles.headline}>Tab One</h2>
-                <p>
-                    This is an example tab.
-                </p>
-                <p>
-                    You can put any sort of HTML or react component in here. It even keeps the component state!
-                </p>
+      <div>
+        <h2 style={styles.headline}>Tab One</h2>
+        <p>
+          This is an example tab.
+        </p>
+        <p>
+          You can put any sort of HTML or react component in here. It even keeps the component state!
+        </p>
                 <Slider name="slider0" defaultValue={0.5}/>
-            </div>
-        </Tab>
+      </div>
+    </Tab>
         <Tab label="Item Two">
-            <div>
-                <h2 style={styles.headline}>Tab Two</h2>
-                <p>
-                    This is another example tab.
-                </p>
-            </div>
-        </Tab>
-        <Tab
-            label="onActive"
-            value="/home"
-            onActive={handleActive}
-        >
-            <div>
-                <h2 style={styles.headline}>Tab Three</h2>
-                <p>
-                    This is a third example tab.
-                </p>
-            </div>
-        </Tab>
-    </Tabs>
+      <div>
+        <h2 style={styles.headline}>Tab Two</h2>
+        <p>
+          This is another example tab.
+        </p>
+      </div>
+    </Tab>
+    <Tab
+      label="onActive"
+      value="/home"
+      onActive={handleActive}
+    >
+      <div>
+        <h2 style={styles.headline}>Tab Three</h2>
+        <p>
+          This is a third example tab.
+        </p>
+      </div>
+    </Tab>
+  </Tabs>
 );
 
 class TabsExampleControlled extends React.Component<{}, {value?: string}> {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: 'a',
-        };
-    }
-
-    handleChange = (value) => {
-        this.setState({
-            value: value,
-        });
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 'a',
     };
+  }
 
-    render() {
-        return (
-            <Tabs
-                value={this.state.value}
-                onChange={this.handleChange}
-            >
+  handleChange = (value) => {
+    this.setState({
+      value
+    });
+  }
+
+  render() {
+    return (
+      <Tabs
+        value={this.state.value}
+        onChange={this.handleChange}
+      >
                 <Tab label="Tab A" value="a">
-                    <div>
-                        <h2 style={styles.headline}>Controllable Tab A</h2>
-                        <p>
-                            Tabs are also controllable if you want to programmatically pass them their values.
+          <div>
+            <h2 style={styles.headline}>Controllable Tab A</h2>
+            <p>
+              Tabs are also controllable if you want to programmatically pass them their values.
               This allows for more functionality in Tabs such as not
               having any Tab selected or assigning them different values.
-                        </p>
-                    </div>
-                </Tab>
-                <Tab label="Tab B" value="b">
-                    <div>
-                        <h2 style={styles.headline}>Controllable Tab B</h2>
-                        <p>
-                            This is another example of a controllable tab. Remember, if you
+            </p>
+          </div>
+        </Tab>
+        <Tab label="Tab B" value="b">
+          <div>
+            <h2 style={styles.headline}>Controllable Tab B</h2>
+            <p>
+              This is another example of a controllable tab. Remember, if you
               use controllable Tabs, you need to give all of your tabs values or else
               you wont be able to select them.
-                        </p>
-                    </div>
-                </Tab>
-            </Tabs>
-        );
-    }
+            </p>
+          </div>
+        </Tab>
+      </Tabs>
+    );
+  }
 }
 
 const TabsExampleIcon = () => (
-    <Tabs>
+  <Tabs>
         <Tab icon={<FontIcon className="muidocs-icon-action-home" />}/>
         <Tab icon={<ActionFlightTakeoff />}/>
         <Tab icon={<FontIcon className="material-icons">favorite</FontIcon>}/>
-    </Tabs>
+  </Tabs>
 );
 
 const TabsExampleIconText = () => (
-    <Tabs>
-        <Tab
-            icon={<FontIcon className="material-icons">phone</FontIcon>}
-            label="RECENTS"
-        />
-        <Tab
-            icon={<FontIcon className="material-icons">favorite</FontIcon>}
-            label="FAVORITES"
-        />
-        <Tab
-            icon={<MapsPersonPin />}
-            label="NEARBY"
-        />
-    </Tabs>
+  <Tabs>
+    <Tab
+      icon={<FontIcon className="material-icons">phone</FontIcon>}
+      label="RECENTS"
+    />
+    <Tab
+      icon={<FontIcon className="material-icons">favorite</FontIcon>}
+      label="FAVORITES"
+    />
+    <Tab
+      icon={<MapsPersonPin />}
+      label="NEARBY"
+    />
+  </Tabs>
 );
 
 
 // "http://www.material-ui.com/#/components/text-field"
 const TextFieldExampleSimple = () => (
-    <div>
-        <TextField
-            hintText="Hint Text"
-        /><br />
-        <br />
-        <TextField
-            hintText="The hint text can be as long as you want, it will wrap."
-        /><br />
-        <TextField
-            id="text-field-default"
-            defaultValue="Default Value"
-        /><br />
-        <TextField
-            hintText="Hint Text"
-            floatingLabelText="Floating Label Text"
-        /><br />
-        <TextField
-            hintText="Hint Text"
-            floatingLabelText="Fixed Floating Label Text"
-            floatingLabelFixed={true}
-        /><br />
-        <TextField
-            hintText="Password Field"
-            floatingLabelText="Password"
-            type="password"
-        /><br />
-        <TextField
-            hintText="MultiLine with rows: 2 and rowsMax: 4"
-            multiLine={true}
-            rows={2}
-            rowsMax={4}
-        /><br />
-        <TextField
-            hintText="Message Field"
-            floatingLabelText="MultiLine and FloatingLabel"
-            multiLine={true}
-            rows={2}
-        /><br />
-        <TextField
-            hintText="Full width"
-            fullWidth={true}
-        />
-    </div>
+  <div>
+    <TextField
+      hintText="Hint Text"
+    /><br />
+    <br />
+    <TextField
+      hintText="The hint text can be as long as you want, it will wrap."
+    /><br />
+    <TextField
+      id="text-field-default"
+      defaultValue="Default Value"
+    /><br />
+    <TextField
+      hintText="Hint Text"
+      floatingLabelText="Floating Label Text"
+    /><br />
+    <TextField
+      hintText="Hint Text"
+      floatingLabelText="Fixed Floating Label Text"
+      floatingLabelFixed={true}
+    /><br />
+    <TextField
+      hintText="Password Field"
+      floatingLabelText="Password"
+      type="password"
+    /><br />
+    <TextField
+      hintText="MultiLine with rows: 2 and rowsMax: 4"
+      multiLine={true}
+      rows={2}
+      rowsMax={4}
+    /><br />
+    <TextField
+      hintText="Message Field"
+      floatingLabelText="MultiLine and FloatingLabel"
+      multiLine={true}
+      rows={2}
+    /><br />
+    <TextField
+      hintText="Full width"
+      fullWidth={true}
+    />
+  </div>
 );
 
 const TextFieldExampleError = () => (
-    <div>
-        <TextField
-            hintText="Hint Text"
-            errorText="This field is required"
-        /><br />
-        <TextField
-            hintText="Hint Text"
-            errorText="The error text can be as long as you want, it will wrap."
-        /><br />
-        <TextField
-            hintText="Hint Text"
-            errorText="This field is required"
-            floatingLabelText="Floating Label Text"
-        /><br />
-        <TextField
-            hintText="Message Field"
-            errorText="This field is required."
-            floatingLabelText="MultiLine and FloatingLabel"
-            multiLine={true}
-            rows={2}
-        /><br />
-    </div>
+  <div>
+    <TextField
+      hintText="Hint Text"
+      errorText="This field is required"
+    /><br />
+    <TextField
+      hintText="Hint Text"
+      errorText="The error text can be as long as you want, it will wrap."
+    /><br />
+    <TextField
+      hintText="Hint Text"
+      errorText="This field is required"
+      floatingLabelText="Floating Label Text"
+    /><br />
+    <TextField
+      hintText="Message Field"
+      errorText="This field is required."
+      floatingLabelText="MultiLine and FloatingLabel"
+      multiLine={true}
+      rows={2}
+    /><br />
+  </div>
 );
 
 const TextFieldExampleCustomize = () => (
-    <div>
-        <TextField
-            hintText="Styled Hint Text"
-            hintStyle={styles.errorStyle}
-        /><br />
-        <TextField
-            hintText="Custom error color"
-            errorText="This field is required."
-            errorStyle={styles.errorStyle}
-        /><br />
-        <TextField
-            hintText="Custom Underline Color"
-            underlineStyle={styles.underlineStyle}
-        /><br />
-        <TextField
-            hintText="Custom Underline Focus Color"
-            underlineFocusStyle={styles.underlineStyle}
-        /><br />
-        <TextField
-            floatingLabelText="Styled Floating Label Text"
-            floatingLabelStyle={styles.floatingLabelStyle}
-            floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-        />
-    </div>
+  <div>
+    <TextField
+      hintText="Styled Hint Text"
+      hintStyle={styles.errorStyle}
+    /><br />
+    <TextField
+      hintText="Custom error color"
+      errorText="This field is required."
+      errorStyle={styles.errorStyle}
+    /><br />
+    <TextField
+      hintText="Custom Underline Color"
+      underlineStyle={styles.underlineStyle}
+    /><br />
+    <TextField
+      hintText="Custom Underline Focus Color"
+      underlineFocusStyle={styles.underlineStyle}
+    /><br />
+    <TextField
+      floatingLabelText="Styled Floating Label Text"
+      floatingLabelStyle={styles.floatingLabelStyle}
+      floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+    />
+  </div>
 );
 
 const TextFieldExampleDisabled = () => (
-    <div>
-        <TextField
-            disabled={true}
-            hintText="Disabled Hint Text"
-        /><br />
-        <TextField
-            disabled={true}
-            id="text-field-disabled"
-            defaultValue="Disabled Value"
-        /><br />
-        <TextField
-            disabled={true}
-            hintText="Disabled Hint Text"
-            floatingLabelText="Floating Label Text"
-        /><br />
-        <TextField
-            disabled={true}
-            hintText="Disabled Hint Text"
-            defaultValue="Disabled With Floating Label"
-            floatingLabelText="Floating Label Text"
-        />
-    </div>
+  <div>
+    <TextField
+      disabled={true}
+      hintText="Disabled Hint Text"
+    /><br />
+    <TextField
+      disabled={true}
+      id="text-field-disabled"
+      defaultValue="Disabled Value"
+    /><br />
+    <TextField
+      disabled={true}
+      hintText="Disabled Hint Text"
+      floatingLabelText="Floating Label Text"
+    /><br />
+    <TextField
+      disabled={true}
+      hintText="Disabled Hint Text"
+      defaultValue="Disabled With Floating Label"
+      floatingLabelText="Floating Label Text"
+    />
+  </div>
 );
 
 class TextFieldExampleControlled extends React.Component<{}, {value?: string}> {
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            value: 'Property Value',
-        };
-    }
-
-    handleChange = (event) => {
-        this.setState({
-            value: event.target.value,
-        });
+    this.state = {
+      value: 'Property Value',
     };
+  }
 
-    render() {
-        return (
-            <div>
-                <TextField
-                    id="text-field-controlled"
-                    value={this.state.value}
-                    onChange={this.handleChange}
-                />
-            </div>
-        );
-    }
+  handleChange = (event) => {
+    this.setState({
+      value: event.target.value,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <TextField
+          id="text-field-controlled"
+          value={this.state.value}
+          onChange={this.handleChange}
+        />
+      </div>
+    );
+  }
 }
 
 // "http://www.material-ui.com/#/components/time-picker"
 const TimePickerExampleSimple = () => (
-    <div>
-        <TimePicker
-            hintText="12hr Format"
-        />
-        <TimePicker
-            format="24hr"
-            hintText="24hr Format"
-        />
-        <TimePicker
-            disabled={true}
-            format="24hr"
-            hintText="Disabled TimePicker"
-        />
-    </div>
+  <div>
+    <TimePicker
+      hintText="12hr Format"
+    />
+    <TimePicker
+      format="24hr"
+      hintText="24hr Format"
+    />
+    <TimePicker
+      disabled={true}
+      format="24hr"
+      hintText="Disabled TimePicker"
+    />
+  </div>
 );
 
 class TimePickerExampleComplex extends React.Component<{}, {value24?: Date, value12?: Date}> {
 
-    constructor(props) {
-        super(props);
-        this.state = {value24: null, value12: null};
-    }
+  constructor(props) {
+    super(props);
+    this.state = {value24: null, value12: null};
+  }
 
-    handleChangeTimePicker24 = (event, date) => {
-        this.setState({value24: date});
-    };
+  handleChangeTimePicker24 = (event, date) => {
+    this.setState({value24: date});
+  }
 
-    handleChangeTimePicker12 = (event, date) => {
-        this.setState({value12: date});
-    };
+  handleChangeTimePicker12 = (event, date) => {
+    this.setState({value12: date});
+  }
 
-    render() {
-        return (
-            <div>
-                <TimePicker
-                    format="ampm"
-                    hintText="12hr Format"
-                    value={this.state.value12}
-                    onChange={this.handleChangeTimePicker12}
-                />
-                <TimePicker
-                    format="24hr"
-                    hintText="24hr Format"
-                    value={this.state.value24}
-                    onChange={this.handleChangeTimePicker24}
-                />
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <TimePicker
+          format="ampm"
+          hintText="12hr Format"
+          value={this.state.value12}
+          onChange={this.handleChangeTimePicker12}
+        />
+        <TimePicker
+          format="24hr"
+          hintText="24hr Format"
+          value={this.state.value24}
+          onChange={this.handleChangeTimePicker24}
+        />
+      </div>
+    );
+  }
 }
 
 const TimePickerInternational = () => (
-    <div>
-        <TimePicker
-            hintText="Custom Labels"
-            okLabel="确定"
-            cancelLabel="取消"
-        />
-    </div>
+  <div>
+    <TimePicker
+      hintText="Custom Labels"
+      okLabel="确定"
+      cancelLabel="取消"
+    />
+  </div>
 );
 
 
 // "http://www.material-ui.com/#/components/toolbar"
 class ToolbarExamplesSimple extends React.Component<{}, {value?: number}> {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: 3,
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 3,
+    };
+  }
 
-    handleChange = (event, index, value) => this.setState({value});
+  handleChange = (event, index, value) => this.setState({value});
 
-    render() {
-        return (
-            <Toolbar>
-                <ToolbarGroup firstChild={true}>
-                    <DropDownMenu value={this.state.value} onChange={this.handleChange}>
+  render() {
+    return (
+      <Toolbar>
+        <ToolbarGroup firstChild={true}>
+          <DropDownMenu value={this.state.value} onChange={this.handleChange}>
                         <MenuItem value={1} primaryText="All Broadcasts"/>
                         <MenuItem value={2} primaryText="All Voice"/>
                         <MenuItem value={3} primaryText="All Text"/>
@@ -4893,31 +4940,47 @@ class ToolbarExamplesSimple extends React.Component<{}, {value?: number}> {
                         <MenuItem value={5} primaryText="Complete Text"/>
                         <MenuItem value={6} primaryText="Active Voice"/>
                         <MenuItem value={7} primaryText="Active Text"/>
-                    </DropDownMenu>
-                </ToolbarGroup>
-                <ToolbarGroup>
+          </DropDownMenu>
+        </ToolbarGroup>
+        <ToolbarGroup>
                     <ToolbarTitle text="Options"/>
                     <FontIcon className="muidocs-icon-custom-sort"/>
-                    <ToolbarSeparator />
+          <ToolbarSeparator />
                     <RaisedButton label="Create Broadcast" primary={true}/>
-                    <IconMenu
-                        iconButtonElement={
+          <IconMenu
+            iconButtonElement={
               <IconButton touch={true}>
                 <NavigationExpandMoreIcon />
               </IconButton>
             }
-                    >
+          >
                         <MenuItem primaryText="Download"/>
                         <MenuItem primaryText="More Info"/>
-                    </IconMenu>
-                </ToolbarGroup>
-            </Toolbar>
-        );
-    }
+          </IconMenu>
+        </ToolbarGroup>
+      </Toolbar>
+    );
+  }
 }
 
 const componentWithWidth = withWidth()(ToolbarExamplesSimple);
 
+class BottomNavigationExample extends React.Component<{}, {
+  index?: number
+}> {
+  constructor() {
+    super()
+    this.state = {
+      index: 0
+    };
+  }
+  render() {
+    return <BottomNavigation selectedIndex={this.state.index}>
+      <BottomNavigationItem label='0' icon={<ActionHome/>} onTouchTap={() => this.setState({index: 0})}/>
+      <BottomNavigationItem label='1' icon={<ActionInfo/>} onTouchTap={() => this.setState({index: 1})}/>
+    </BottomNavigation>;
+  }
+}
 
 interface MaterialUiTestsState {
 }
@@ -4925,17 +4988,17 @@ interface MaterialUiTestsState {
 class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> {
 
     render() {
-        return (
-            <MuiThemeProvider muiTheme={getMuiTheme()}>
+    return (
+      <MuiThemeProvider muiTheme={getMuiTheme()}>
                 <AppBar title="My AppBar"/>
 
-            </MuiThemeProvider>
-        );
-    }
+      </MuiThemeProvider>
+    );
+  }
 }
 
 // "http://www.material-ui.com/#/get-started/usage"
 ReactDOM.render(
-    <MaterialUiTests />,
-    document.getElementById('app')
+  <MaterialUiTests />,
+  document.getElementById('app')
 );

@@ -1,5 +1,4 @@
-/// <reference path="../node/node.d.ts" />
-/// <reference path="inquirer.d.ts" />
+/// <reference types="node" />
 
 import inquirer = require('inquirer');
 

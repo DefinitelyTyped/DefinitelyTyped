@@ -1,5 +1,3 @@
-///<reference path="react-dnd.d.ts" />
-///<reference path="react-dnd-html5-backend.d.ts" />
 ///<reference path="react-dnd-test-backend.d.ts" />
 "use strict";
 
