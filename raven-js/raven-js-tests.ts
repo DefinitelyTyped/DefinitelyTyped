@@ -59,3 +59,7 @@ RavenJS.showReportDialog({
 RavenJS.setTagsContext({ key: "value" });
 
 RavenJS.setExtraContext({ foo: "bar" });
+
+RavenJS.captureBreadcrumb({ message: 'message' });
+RavenJS.captureBreadcrumb({ category: 'category', message: 'message' });
+RavenJS.captureBreadcrumb({ category: 'category', message: 'message', data: { id: '42' }, level: 'level' });
