@@ -478,34 +478,34 @@ declare namespace joint {
 
         namespace basic {
             class Generic extends dia.Element {
-                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object)
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
             }
             interface RectAttrs extends dia.TextAttrs {
                 rect?: ShapeAttrs;
             }
             class Rect extends Generic {
-                constructor(attributes?: GenericAttributes<RectAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<RectAttrs>, options?: Object);
             }
             class Text extends Generic {
-                constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object);
             }
             interface CircleAttrs extends dia.TextAttrs {
                 circle?: ShapeAttrs;
             }
             class Circle extends Generic {
-                constructor(attributes?: GenericAttributes<CircleAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<CircleAttrs>, options?: Object);
             }
             interface EllipseAttrs extends dia.TextAttrs {
                 ellipse?: ShapeAttrs;
             }
             class Ellipse extends Generic {
-                constructor(attributes?: GenericAttributes<EllipseAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<EllipseAttrs>, options?: Object);
             }
             interface PolygonAttrs extends dia.TextAttrs {
                 polygon?: ShapeAttrs;
             }
             class Polygon extends Generic {
-                constructor(attributes?: GenericAttributes<PolygonAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<PolygonAttrs>, options?: Object);
             }
             interface PolylineAttrs extends dia.TextAttrs {
                 polyline?: ShapeAttrs;
@@ -513,25 +513,25 @@ declare namespace joint {
             class Polyline extends Generic {
             }
             class Image extends Generic {
-                constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object);
             }
             interface PathAttrs extends dia.TextAttrs {
                 path?: ShapeAttrs;
             }
             class Path extends Generic {
-                constructor(attributes?: GenericAttributes<PathAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<PathAttrs>, options?: Object);
             }
             interface RhombusAttrs extends dia.TextAttrs {
-                path?: ShapeAttrs
+                path?: ShapeAttrs;
             }
             class Rhombus extends Generic {
-                constructor(attributes?: GenericAttributes<RhombusAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<RhombusAttrs>, options?: Object);
             }
             interface TextBlockAttrs extends dia.TextAttrs {
                 rect?: ShapeAttrs;
             }
             class TextBlock extends Generic {
-                constructor(attributes?: GenericAttributes<TextBlockAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<TextBlockAttrs>, options?: Object);
                 updateSize(cell: dia.Cell, size: dia.Size): void;
                 updateContent(cell: dia.Cell, content: string): void;
             }
@@ -572,14 +572,14 @@ declare namespace joint {
             }
             class Model extends basic.Generic {
                 constructor(attributes?: ModelAttributes, options?: Object);
-                changeInGroup(properties: any, opt?: Object): boolean;
-                changeOutGroup(properties: any, opt?: Object): boolean;
-                createPortItem(group: string, port: string): Object;
-                createPortItems(group: string, ports: string[]): Object[];
-                addOutPort(port: string, opt?: Object): this;
-                addInPort(port: string, opt?: Object): this;
-                removeOutPort(port: string, opt?: Object): this;
-                removeInPort(port: string, opt?: Object): this;
+                changeInGroup(properties: any, opt?: any): boolean;
+                changeOutGroup(properties: any, opt?: any): boolean;
+                createPortItem(group: string, port: string): any;
+                createPortItems(group: string, ports: string[]): any[];
+                addOutPort(port: string, opt?: any): this;
+                addInPort(port: string, opt?: any): this;
+                removeOutPort(port: string, opt?: any): this;
+                removeInPort(port: string, opt?: any): this;
             }
             class Coupled extends Model {
             }
@@ -591,20 +591,20 @@ declare namespace joint {
 
         namespace erd {
             class Entity extends basic.Generic {
-               constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object)
+		constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object);
             }
             class WeakEntity extends Entity {
             }
             class Relationship extends dia.Element {
-                constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object);
             }
             class IdentifyingRelationship extends Relationship {
             }
             interface AttributeAttrs extends dia.TextAttrs {
-                ellipse?: ShapeAttrs
+                ellipse?: ShapeAttrs;
             }
             class Attribute extends dia.Element {
-                constructor(attributes?: GenericAttributes<AttributeAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<AttributeAttrs>, options?: Object);
             }
             class Multivalued extends Attribute {
             }
@@ -615,13 +615,13 @@ declare namespace joint {
             class Normal extends Attribute {
             }
             interface ISAAttrs extends dia.Element {
-                polygon?: ShapeAttrs
+                polygon?: ShapeAttrs;
             }
             class ISA extends dia.Element {
-                constructor(attributes?: GenericAttributes<ISAAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<ISAAttrs>, options?: Object);
             }
             class Line extends dia.Link {
-                cardinality(value: string | number): void
+                cardinality(value: string | number): void;
             }
         }
 
@@ -629,7 +629,7 @@ declare namespace joint {
             class State extends basic.Circle {
             }
             class StartState extends dia.Element {
-                constructor(attributes?: GenericAttributes<basic.CircleAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<basic.CircleAttrs>, options?: Object);
             }
             class EndState extends dia.Element {
             }
@@ -652,7 +652,7 @@ declare namespace joint {
                 circle?: LogicAttrs;
             }
             class Gate extends basic.Generic {
-                constructor(attributes?: GenericAttributes<IOAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<IOAttrs>, options?: Object);
             }
             class IO extends Gate {
             }
@@ -671,35 +671,35 @@ declare namespace joint {
                 image?: Image;
             }
             class Repeater extends Gate11 {
-                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object);
                 operation(input: any): any;
             }
             class Note extends Gate11 {
-                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object);
                 operation(input: any): boolean;
             }
             class Or extends Gate21 {
-                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object);
                 operation(input1: any, input2: any): boolean;
             }
             class And extends Gate21 {
-                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object);
                 operation(input1: any, input2: any): boolean;
             }
             class Nor extends Gate21 {
-                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object);
                 operation(input1: any, input2: any): boolean;
             }
             class Nand extends Gate21 {
-                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object);
                 operation(input1: any, input2: any): boolean;
             }
             class Xor extends Gate21 {
-                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object);
                 operation(input1: any, input2: any): boolean;
             }
             class Xnor extends Gate21 {
-                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object);
                 operation(input1: any, input2: any): boolean;
             }
             interface WireArgs extends dia.LinkAttributes {
@@ -707,17 +707,17 @@ declare namespace joint {
                 connector?: Object;
             }
             class Wire extends dia.Link {
-                constructor(attributes?: WireArgs, options?: Object)
+                constructor(attributes?: WireArgs, options?: Object);
             }
         }
 
         namespace org {
             interface MemberAttrs {
-                rect?: ShapeAttrs
-                image?: ShapeAttrs
+                rect?: ShapeAttrs;
+                image?: ShapeAttrs;
             }
             class Member extends dia.Element {
-                constructor(attributes?: GenericAttributes<MemberAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<MemberAttrs>, options?: Object);
             }
             class Arrow extends dia.Link {
             }
@@ -730,7 +730,7 @@ declare namespace joint {
                 renderTokens(): void;
             }
             class Transition extends basic.Generic {
-                constructor(attributes?: GenericAttributes<basic.RectAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<basic.RectAttrs>, options?: Object);
             }
             class Link extends dia.Link {
             }
@@ -743,7 +743,7 @@ declare namespace joint {
                 methods: string[];
             }
             class Class extends basic.Generic {
-                constructor(attributes?: ClassAttributes, options?: Object)
+                constructor(attributes?: ClassAttributes, options?: Object);
                 getClassName(): string[];
                 updateRectangles(): void;
             }
@@ -768,7 +768,7 @@ declare namespace joint {
             class Association extends dia.Link {
             }
             interface StateAttributes extends GenericAttributes<ShapeAttrs> {
-                events?: string[]
+                events?: string[];
             }
             class State extends basic.Generic {
                 updateName(): void;
