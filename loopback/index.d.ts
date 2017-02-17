@@ -1262,7 +1262,7 @@ declare namespace l {
              * @param {Array} model First model instance that matches the filter or null if none found
              */
 
-            static findOne(filter?: {fields: string|any|any[]; include: string|any|any[]; order: string; skip: number; where: any; }, callback?: (err: Error, model: any[]) => void): void;
+            static findOne(filter?: {fields?: string|any|any[]; include?: string|any|any[]; order?: string; skip?: number; where?: any; }, callback?: (err: Error, model: any) => void): void;
 
             /**
              * Finds one record matching the optional filter object. If not found, creates
