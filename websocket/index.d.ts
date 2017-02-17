@@ -1,6 +1,7 @@
 // Type definitions for websocket
 // Project: https://github.com/theturtle32/WebSocket-Node
-// Definitions by: Paul Loyd <https://github.com/loyd>
+// Definitions by: Paul Loyd <https://github.com/loyd>,
+//                 Kay Schecker <https://github.com/flynetworks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -534,6 +535,13 @@ export interface IClientConfig extends IConfig {
      * @default 8MiB
      */
     maxReceivedMessageSize?: number;
+
+    /**
+     * Options to pass to https.request if connecting via TLS.
+     * See Node's HTTPS documentation
+     * @see https://nodejs.org/api/https.html#https_https_request_options_callback
+     */
+    tlsOptions?: https.RequestOptions;
 }
 
 declare class client extends events.EventEmitter {
