@@ -91,7 +91,11 @@ export interface RedisClient extends NodeJS.EventEmitter {
     offline_queue: any[];
     server_info: ServerInfo;
 
-    end(): void;
+    /**
+     * client.end() without the flush parameter set to true should
+     * NOT be used in production!
+     */
+    end(flush?: boolean): void;
     unref(): void;
 
     /**
