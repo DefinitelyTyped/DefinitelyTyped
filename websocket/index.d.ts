@@ -9,6 +9,7 @@
 
 import events = require('events');
 import http = require('http');
+import https = require('https');
 import net = require('net');
 import url = require('url');
 
