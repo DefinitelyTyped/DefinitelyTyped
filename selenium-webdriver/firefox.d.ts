@@ -262,7 +262,7 @@ export class Driver extends webdriver.WebDriver {
          *     configured to use the legacy FirefoxDriver from the Selenium project.
          * @return {!Driver} A new driver instance.
      */
-    static createSession(opt_config?: Options | webdriver.CreateSessionCapabilities, opt_executor?: http.Executor | remote.DriverService, opt_flow?: webdriver.promise.ControlFlow): Driver;
+    static createSession(opt_config?: Options | webdriver.Capabilities, opt_executor?: http.Executor | remote.DriverService, opt_flow?: webdriver.promise.ControlFlow): Driver;
 
 
     /**
