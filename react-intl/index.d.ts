@@ -14,7 +14,7 @@ declare namespace ReactIntl {
         pluralRuleFunction?: (n: number, ord: boolean) => string;
     }
 
-    function injectIntl<T extends React.ComponentClass<InjectedIntlProps> | React.StatelessComponent<InjectedIntlProps>>(component: T): T;
+    function injectIntl<T>(component: React.ComponentClass<InjectedIntlProps & T> | React.StatelessComponent<InjectedIntlProps & T>): React.ComponentClass<T> | React.StatelessComponent<T>;
 
     function addLocaleData(data: Locale[] | Locale): void;
 
@@ -47,7 +47,7 @@ declare namespace ReactIntl {
     }
 
     interface InjectedIntlProps {
-        intl?: InjectedIntl
+        intl: InjectedIntl
     }
 
     namespace IntlComponent {
