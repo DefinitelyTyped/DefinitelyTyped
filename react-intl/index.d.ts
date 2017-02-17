@@ -1,4 +1,4 @@
-// Type definitions for react-intl 2.2.0
+// Type definitions for react-intl 2.2.1
 // Project: http://formatjs.io/react/
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>, Christian Droulers <https://github.com/cdroulers>, Fedor Nezhivoi <https://github.com/gyzerok>, Till Wolff <https://github.com/tillwolff> 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
