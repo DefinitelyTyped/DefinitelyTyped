@@ -1420,109 +1420,118 @@ declare namespace Office {
 ////////////////////////////////////////////////////////////////
 
 
-declare namespace Office.MailboxEnums {
-    export enum BodyType {
-        /**
-         * The body is in HTML format
-         */
-        Html,
-        /**
-         * The body is in text format
-         */
-        text
-    }
-    export enum EntityType {
-        /**
-         * Specifies that the entity is a meeting suggestion
-         */
-        MeetingSuggestion,
-        /**
-         * Specifies that the entity is a task suggestion
-         */
-        TaskSuggestion,
-        /**
-         * Specifies that the entity is a postal address
-         */
-        Address,
-        /**
-         * Specifies that the entity is SMTP email address
-         */
-        EmailAddress,
-        /**
-         * Specifies that the entity is an Internet URL
-         */
-        Url,
-        /**
-         * Specifies that the entity is US phone number
-         */
-        PhoneNumber,
-        /**
-         * Specifies that the entity is a contact
-         */
-        Contact
-    }
-    export enum ItemType {
-        /**
-         * A meeting request, response, or cancellation
-         */
-        Message,
-        /**
-         * Specifies an appointment item
-         */
-        Appointment
-    }
-    export enum ResponseType {
-        /**
-         * There has been no response from the attendee
-         */
-        None,
-        /**
-         * The attendee is the meeting organizer
-         */
-        Organizer,
-        /**
-         * The meeting request was tentatively accepted by the attendee
-         */
-        Tentative,
-        /**
-         * The meeting request was accepted by the attendee
-         */
-        Accepted,
-        /**
-         * The meeting request was declined by the attendee
-         */
-        Declined
-    }
-    export enum RecipientType {
-        /**
-         * Specifies that the recipient is not one of the other recipient types
-         */
-        Other,
-        /**
-         * Specifies that the recipient is a distribution list containing a list of email addresses
-         */
-        DistributionList,
-        /**
-         * Specifies that the recipient is an SMTP email address that is on the Exchange server
-         */
-        User,
-        /**
-         * Specifies that the recipient is an SMTP email address that is not on the Exchange server
-         */
-        ExternalUser
-    }
-    export enum AttachmentType {
-        /**
-         * The attachment is a file
-         */
-        File,
-        /**
-         * The attachment is an Exchange item
-         */
-        Item
-    }
-}
 declare namespace Office {
+    export module MailboxEnums {
+        export enum AttachmentType {
+            /**
+             * The attachment is a file
+             */
+            File,
+            /**
+             * The attachment is an Exchange item
+             */
+            Item
+        }
+        export enum EntityType {
+            /**
+             * Specifies that the entity is a meeting suggestion
+             */
+            MeetingSuggestion,
+            /**
+             * Specifies that the entity is a task suggestion
+             */
+            TaskSuggestion,
+            /**
+             * Specifies that the entity is a postal address
+             */
+            Address,
+            /**
+             * Specifies that the entity is SMTP email address
+             */
+            EmailAddress,
+            /**
+             * Specifies that the entity is an Internet URL
+             */
+            Url,
+            /**
+             * Specifies that the entity is US phone number
+             */
+            PhoneNumber,
+            /**
+             * Specifies that the entity is a contact
+             */
+            Contact
+        }
+        export enum ItemNotificationMessageType {
+            /**
+             * The notificationMessage is a progress indicator.
+             */
+            ProgressIndicator,
+            /**
+             * The notificationMessage is an informational message.
+             */
+            InformationalMessage,
+            /**
+             * The notificationMessage is an error message.
+             */
+            ErrorMessage
+        }
+        export enum ItemType {
+            /**
+             * A meeting request, response, or cancellation
+             */
+            Message,
+            /**
+             * Specifies an appointment item
+             */
+            Appointment
+        }
+        export enum ResponseType {
+            /**
+             * There has been no response from the attendee
+             */
+            None,
+            /**
+             * The attendee is the meeting organizer
+             */
+            Organizer,
+            /**
+             * The meeting request was tentatively accepted by the attendee
+             */
+            Tentative,
+            /**
+             * The meeting request was accepted by the attendee
+             */
+            Accepted,
+            /**
+             * The meeting request was declined by the attendee
+             */
+            Declined
+        }
+        export enum RecipientType {
+            /**
+             * Specifies that the recipient is not one of the other recipient types
+             */
+            Other,
+            /**
+             * Specifies that the recipient is a distribution list containing a list of email addresses
+             */
+            DistributionList,
+            /**
+             * Specifies that the recipient is an SMTP email address that is on the Exchange server
+             */
+            User,
+            /**
+             * Specifies that the recipient is an SMTP email address that is not on the Exchange server
+             */
+            ExternalUser
+        }
+        export enum RestVersion {
+            v1_0,
+            v2_0,
+            Beta
+        }
+    }
     export module Types {
         export interface ItemRead extends Office.Item {
             subject: any;
@@ -1746,6 +1755,16 @@ declare namespace Office {
             function toItemCompose(item: Office.Item): Office.Types.ItemCompose;
             function toItemRead(item: Office.Item): Office.Types.ItemRead;
         }
+    }
+    export enum SourceProperty {
+        /**
+         * The source of the data is from the body of the message.
+         */
+        Body,
+        /**
+         * The source of the data is from the subject of the message.
+         */
+        Subject
     }
     export interface AttachmentDetails {
         attachmentType: Office.MailboxEnums.AttachmentType;
@@ -2092,7 +2111,7 @@ declare module OfficeExtension {
         requestHeaders: { [name: string]: string };
 
         /** Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties. */
-        load(object: ClientObject, option?: string | string[]| LoadOption): void;
+        load(object: ClientObject, option?: string | string[] | LoadOption): void;
 
         /**
         * Queues up a command to recursively load the specified properties of the object and its navigation properties.
