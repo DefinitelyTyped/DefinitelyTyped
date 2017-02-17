@@ -1,4 +1,4 @@
-// Type definitions for revalidate 1.1.0
+// Type definitions for revalidate 1.1
 // Project: https://github.com/jfairbank/revalidate
 // Definitions by: alex3165 <https://github.com/alex3165>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,58 +12,56 @@
 
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-declare namespace Revalidate {
-    export type CombineValidatorsOptions = {
-        serializeValues?: (values: any) => Object,
-    };
-
-    export type Config = {
-        field?: any,
-        message?: string,
-    };
-
-    export type ComposeConfig = Config & {
-        multiple?: boolean,
-    };
-
-    export type ParsedField = {
-        isArray: boolean,
-        baseName: string,
-        fullName: string,
-    };
-
-    export type MessageCreator = ((field: any) => any) | string;
-    export type ValidatorImpl = (message: any) => (value: any, allValues?: Object) => any;
-    export type Comparer = (a: any, b: any) => boolean;
-
-    export type ConfiguredValidator = (value?: any, allValues?: Object) => any;
-    export type UnconfiguredValidator = (config?: string | Config, value?: any, allValues?: Object) => any;
-    export type ConfiguredCombinedValidator = (value?: any, allValues?: any) => any;
-
-    export type CurryableValidator = (config?: string | Config) => ConfiguredValidator;
-    export type ComposedCurryableValidator = (config?: string | ComposeConfig) => ConfiguredValidator;
-
-    export type ConfigurableValidator = UnconfiguredValidator & CurryableValidator;
-
-    export type Validator = ConfiguredValidator & UnconfiguredValidator;
-
-    export function createValidator(curriedDefinition: ValidatorImpl, defaultMessageCreator?: MessageCreator): ConfigurableValidator;
-    export function composeValidators(firstValidator: Validator | Object, ...validators: Array<Validator>): ComposedCurryableValidator;
-    export function combineValidators(validators: Object, options?: CombineValidatorsOptions): ConfiguredCombinedValidator;
-
-    export function hasLengthBetween(min: number, max: number): ConfigurableValidator;
-    export function hasLengthGreaterThan(min: number): ConfigurableValidator;
-    export function hasLengthLessThan(max: number): ConfigurableValidator;
-
-    export function isAlphabetic(config?: string | Config, value?: any, allValues?: Object): ConfiguredValidator | any;
-    export function isAlphaNumeric(config?: string | Config, value?: any, allValues?: Object): ConfiguredValidator | any;
-    export function isNumeric(config?: string | Config, value?: any, allValues?: Object): ConfiguredValidator | any;
-    export function isOneOf(config?: string | Config, value?: any, allValues?: Object): ConfiguredValidator | any;
-    export function isRequired(config?: string | Config, value?: any, allValues?: Object): ConfiguredValidator | any;
-    export function isRequiredIf(config?: string | Config, value?: any, allValues?: Object): ConfiguredValidator | any;
-
-    export function matchesField(otherField: string, otherFieldLabel: string): ConfigurableValidator;
-    export function matchesPattern(regex: RegExp): ConfigurableValidator;
+export interface CombineValidatorsOptions {
+    serializeValues?: (values: any) => any;
 }
 
-export = Revalidate;
+export interface Config {
+    field?: any;
+    message?: string;
+}
+
+interface Multiple {
+    multiple?: boolean;
+}
+
+export type ComposeConfig = Config & Multiple;
+
+export interface ParsedField {
+    isArray: boolean;
+    baseName: string;
+    fullName: string;
+}
+
+export type MessageCreator = ((field: any) => any) | string;
+export type ValidatorImpl = (message: any) => (value: any, allValues?: any) => any;
+export type Comparer = (a: any, b: any) => boolean;
+
+export type ConfiguredValidator = (value?: any, allValues?: any) => any;
+export type UnconfiguredValidator = (config?: string | Config, value?: any, allValues?: any) => any;
+export type ConfiguredCombinedValidator = (value?: any, allValues?: any) => any;
+
+export type CurryableValidator = (config?: string | Config) => ConfiguredValidator;
+export type ComposedCurryableValidator = (config?: string | ComposeConfig) => ConfiguredValidator;
+
+export type ConfigurableValidator = UnconfiguredValidator & CurryableValidator;
+
+export type Validator = ConfiguredValidator & UnconfiguredValidator;
+
+export function createValidator(curriedDefinition: ValidatorImpl, defaultMessageCreator?: MessageCreator): ConfigurableValidator;
+export function composeValidators(firstValidator: Validator | any, ...validators: Validator[]): ComposedCurryableValidator;
+export function combineValidators(validators: any, options?: CombineValidatorsOptions): ConfiguredCombinedValidator;
+
+export function hasLengthBetween(min: number, max: number): ConfigurableValidator;
+export function hasLengthGreaterThan(min: number): ConfigurableValidator;
+export function hasLengthLessThan(max: number): ConfigurableValidator;
+
+export function isAlphabetic(config?: string | Config, value?: any, allValues?: any): ConfiguredValidator | any;
+export function isAlphaNumeric(config?: string | Config, value?: any, allValues?: any): ConfiguredValidator | any;
+export function isNumeric(config?: string | Config, value?: any, allValues?: any): ConfiguredValidator | any;
+export function isOneOf(config?: string | Config, value?: any, allValues?: any): ConfiguredValidator | any;
+export function isRequired(config?: string | Config, value?: any, allValues?: any): ConfiguredValidator | any;
+export function isRequiredIf(config?: string | Config, value?: any, allValues?: any): ConfiguredValidator | any;
+
+export function matchesField(otherField: string, otherFieldLabel: string): ConfigurableValidator;
+export function matchesPattern(regex: RegExp): ConfigurableValidator;
