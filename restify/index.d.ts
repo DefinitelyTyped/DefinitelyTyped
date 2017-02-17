@@ -449,6 +449,7 @@ interface Server extends http.Server {
 }
 
 interface ServerOptions {
+    ca?: string;
     certificate?: string;
     key?: string;
     formatters?: Object;
