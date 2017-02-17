@@ -245,7 +245,7 @@ declare namespace l {
              * @header app.middleware(name, handler
              */
 
-            middleware(name: string, paths?: any[]|string|RegExp, handler?: () => void): any;
+            middleware(name: string, paths?: any[]|string|RegExp, handler?: core.Handler): any;
       }
 
       // interface CookieOptions extends core.CookieOptions { }
@@ -1060,7 +1060,7 @@ declare namespace l {
        * @class PersistedModel
        */
 
-      class PersistedModel {
+      class PersistedModel extends Model {
 
             /**
              * Apply an update list
@@ -1714,7 +1714,7 @@ declare namespace l {
             created: Date;
 
             /** Extends the `Model.settings` object. */
-            settings: { http: { path: string }; acls: ACL, accessTokenIdLength: number};
+            settings: { http: { path: string }; acls: ACL[], accessTokenIdLength: number};
 
             /**
              * Create a cryptographically random access token id
@@ -1811,7 +1811,7 @@ declare namespace l {
             principalId: string;
 
             /** settings Extends the `Model.settings` object. */
-            settings: { http: { path: string }; acls: ACL, defaultPermission: 'DENY'};
+            settings: { http: { path: string }; acls: ACL[], defaultPermission: 'DENY'};
 
             /**
              * Check if the request has the permission to access.
@@ -2098,7 +2098,7 @@ declare namespace l {
              * settings.ignoreErrors By default, when changes are rectified, an error will throw an exception.
              * However, if this setting is true, then errors will not throw exceptions.
              */
-            settings: { http: { path: string }; acls: ACL; hashAlgorithm: string; ignoreErrors: boolean; };
+            settings: { http: { path: string }; acls: ACL[]; hashAlgorithm: string; ignoreErrors: boolean; };
 
             /**
              * Are both changes deletes?
@@ -2771,7 +2771,7 @@ declare namespace l {
              * settings.saltWorkFactor The `bcrypt` salt work factor. Default is `10`.
              * settings.caseSensitiveEmail Enable case sensitive email.
              */
-            settings: { http: { path: string }; acls: ACL; emailVerificationRequired: boolean; ttl: number; maxTTL: number; realmRequired: boolean; realmDelimiter: string; resetPasswordTokenTTL: number; saltWorkFactor: number; caseSensitiveEmail: boolean; };
+            settings: { http: { path: string }; acls: ACL[]; emailVerificationRequired: boolean; ttl: number; maxTTL: number; realmRequired: boolean; realmDelimiter: string; resetPasswordTokenTTL: number; saltWorkFactor: number; caseSensitiveEmail: boolean; };
 
             /**
              * Confirm the user's identity
