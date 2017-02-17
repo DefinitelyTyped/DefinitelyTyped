@@ -52,6 +52,7 @@ declare namespace Office {
         contentLanguage: string;
         displayLanguage: string;
         license: string;
+        officeTheme: OfficeTheme;
         touchEnabled: boolean;
         ui: UI;
         requirements: {
@@ -111,7 +112,12 @@ declare namespace Office {
          */
         xFrameDenySafe?: boolean,
     }
-
+    export interface OfficeTheme {
+        bodyBackgroundColor: string;
+        bodyForegroundColor: string;
+        controlBackgroundColor: string;
+        controlForgroundColor: string;
+    }
     /**
      * Dialog object returned as part of the displayDialogAsync callback. The object exposes methods for registering event handlers and closing the dialog
      */
@@ -1572,6 +1578,16 @@ declare namespace Office {
         resources: EmailAddressDetails;
         start: Date;
     }
+    export interface AppointmentForm {
+        requiredAttendees: Array<string> | Array<EmailAddressDetails>;
+        optionalAttendees: Array<string> | Array<EmailAddressDetails>;
+        start: Date;
+        end: Date;
+        location: string;
+        resources: Array<string>;
+        subject: string;
+        body: string;
+    }
     export interface AttachmentDetails {
         attachmentType: Office.MailboxEnums.AttachmentType;
         contentType: string;
@@ -1603,6 +1619,13 @@ declare namespace Office {
          */
         prependAsync(data: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
+         * Replaces the entire body with the specified text.
+         * @param data The string that will replace the existing body. The string is limited to 1,000,000 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback the optional method to call when the body is replaced
+         */
+        setAsync(data: string, options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
          * Replaces the selection in the body with the specified text
          * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
          * @param options Any optional parameters or state data passed to the method
@@ -1611,13 +1634,12 @@ declare namespace Office {
         setSelectedDataAsync(data: string, options?: any, callback?: (result: AsyncResult) => void): void;
     }
     export interface Contact {
-        personName: string;
+        addresses: Array<string>;
         businessName: string;
-        phoneNumbers: PhoneNumber[];
-        emailAddresses: string[];
-        urls: string[];
-        addresses: string[];
-        contactString: string;
+        emailAddresses: Array<string>;
+        personName: string;
+        phoneNumbers: Array<PhoneNumber>;
+        urls: Array<string>;
     }
     export interface Context {
         mailbox: Mailbox;
@@ -1659,17 +1681,17 @@ declare namespace Office {
         recipientType: Office.MailboxEnums.RecipientType;
     }
     export interface EmailUser {
-        name: string;
-        userId: string;
+        displayName: string;
+        emailAddress: string;
     }
     export interface Entities {
-        addresses: string[];
-        taskSuggestions: string[];
-        meetingSuggestions: MeetingSuggestion[];
-        emailAddresses: string[];
-        urls: string[];
-        phoneNumbers: PhoneNumber[];
-        contacts: Contact[];
+        addresses: Array<string>;
+        contacts: Array<Contact>;
+        emailAddresses: Array<string>;
+        meetingSuggestions: Array<MeetingSuggestion>;
+        phoneNumbers: Array<PhoneNumber>;
+        taskSuggestions: Array<string>;
+        urls: Array<string>;
     }
     export interface Item {
         body: Body;
@@ -1746,14 +1768,14 @@ declare namespace Office {
          *  OR
          * An object that contains body or attachment data and a callback function
          */
-        displayReplyAllForm(formData: string | FormData): void;
+        displayReplyAllForm(formData: string | ReplyFormData): void;
         /**
          * Displays a reply form that includes only the sender of the selected message
          * @param formData A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB 
          *  OR
          * An object that contains body or attachment data and a callback function
          */
-        displayReplyForm(formData: string | FormData): void;
+        displayReplyForm(formData: string | ReplyFormData): void;
         /**
          * Gets an array of entities found in an message
          */
@@ -1777,6 +1799,16 @@ declare namespace Office {
          */
         getRegExMatchesByName(name: string): Array<string>;
     }
+    export interface LocalClientTime {
+        month: number;
+        date: number;
+        year: number;
+        hours: number;
+        minutes: number;
+        seconds: number;
+        milliseconds: number;
+        timezoneOffset: number;
+    }
     export interface Location {
         /**
          * Begins an asynchronous request for the location of an appointment
@@ -1798,37 +1830,42 @@ declare namespace Office {
         item: Item;
         userProfile: UserProfile;
         /**
+         * Converts an item ID formatted for REST into EWS format.
+         * @param itemId An item ID formatted for the Outlook REST APIs
+         * @param restVersion A value indicating the version of the Outlook REST API used to retrieve the item ID
+         */
+        convertToEwsId(itemId: string, restVersion: Office.MailboxEnums.RestVersion): string;
+        /**
          * Gets a Date object from a dictionary containing time information
          * @param timeValue A Date object
          */
-        convertToLocalClientTime(timeValue: Date): any;
+        convertToLocalClientTime(timeValue: Date): LocalClientTime;
+        /**
+         * Converts an item ID formatted for EWS into REST format.
+         * @param itemId An item ID formatted for the Outlook EWS APIs
+         * @param restVersion A value indicating the version of the Outlook REST API that the converted ID will be used with
+         */
+        convertToRestId(itemId: string, restVersion: Office.MailboxEnums.RestVersion): string;
         /**
          * Gets a dictionary containing time information in local client time
          * @param input A dictionary containing a date. The dictionary should contain the following fields: year, month, date, hours, minutes, seconds, time zone, time zone offset
          */
-        convertToUtcClientTime(input: any): Date;
+        convertToUtcClientTime(input: LocalClientTime): Date;
         /**
          * Displays an existing calendar appointment
          * @param itemId The Exchange Web Services (EWS) identifier for an existing calendar appointment
          */
-        displayAppointmentForm(itemId: any): void;
+        displayAppointmentForm(itemId: string): void;
         /**
          * Displays an existing message
          * @param itemId The Exchange Web Services (EWS) identifier for an existing message
          */
-        displayMessageForm(itemId: any): void;
+        displayMessageForm(itemId: string): void;
         /**
          * Displays a form for creating a new calendar appointment
-         * @param requiredAttendees An array of strings containing the email addresses or an array containing an EmailAddressDetails object for each of the required attendees for the appointment. The array is limited to a maximum of 100 entries
-         * @param optionalAttendees An array of strings containing the email addresses or an array containing an EmailAddressDetails object for each of the optional attendees for the appointment. The array is limited to a maximum of 100 entries
-         * @param start A Date object specifying the start date and time of the appointment
-         * @param end A Date object specifying the end date and time of the appointment
-         * @param location A string containing the location of the appointment. The string is limited to a maximum of 255 characters
-         * @param resources An array of strings containing the resources required for the appointment. The array is limited to a maximum of 100 entries
-         * @param subject A string containing the subject of the appointment. The string is limited to a maximum of 255 characters
-         * @param body The body of the appointment message. The body content is limited to a maximum size of 32 KB
+         * @param parameters A dictionary of parameters describing the new appointment.
          */
-        displayNewAppointmentForm(requiredAttendees: any, optionalAttendees: any, start: Date, end: Date, location: string, resources: string[], subject: string, body: string): void;
+        displayNewAppointmentForm(parameters?: AppointmentForm): void;
         /**
          * Displays a new message form
          * WARNING: This api is not officially released, and may not work on all platforms
@@ -1870,20 +1907,13 @@ declare namespace Office {
         sender: EmailAddressDetails;
         to: Array<EmailAddressDetails>;
     }
-    export interface MeetingRequest extends Message {
-        start: Date;
-        end: Date;
-        location: string;
-        optionalAttendees: EmailAddressDetails[];
-        requiredAttendees: EmailAddressDetails[];
-    }
     export interface MeetingSuggestion {
-        meetingString: string;
-        attendees: EmailAddressDetails[];
+        attendees: Array<EmailUser>;
+        end: string;
         location: string;
+        meetingstring: string;
+        start: string;
         subject: string;
-        start: Date;
-        end: Date;
     }
     export interface NotificationMessage {
         type: Office.MailboxEnums.ItemNotificationMessageType;
@@ -1934,7 +1964,7 @@ declare namespace Office {
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        addAsync(recipients: any, options?: any, callback?: (result: AsyncResult) => void): void;
+        addAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Begins an asynchronous request to get the recipient list for an appointment or message
          * @param options Any optional parameters or state data passed to the method
@@ -1947,7 +1977,18 @@ declare namespace Office {
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        setAsync(recipients: any, options?: any, callback?: (result: AsyncResult) => void): void;
+        setAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, options?: any, callback?: (result: AsyncResult) => void): void;
+    }
+    export interface ReplyFormAttachment {
+        type: string;
+        name: string;
+        url?: string;
+        itemId?: string;
+    }
+    export interface ReplyFormData {
+        htmlBody: string;
+        attachments: Array<ReplyFormAttachment>;
+        callback: (result: AsyncResult) => void;
     }
     export interface RoamingSettings {
         /**
@@ -1988,7 +2029,7 @@ declare namespace Office {
         setAsync(data: string, options?: any, callback?: (result: AsyncResult) => void): void;
     }
     export interface TaskSuggestion {
-        assignees: EmailUser[];
+        assignees: Array<EmailUser>;
         taskString: string;
     }
     export interface Time {
