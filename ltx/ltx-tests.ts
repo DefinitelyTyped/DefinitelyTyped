@@ -4,10 +4,10 @@ ltx.parse('<document/>');
 
 let p = new ltx.Parser();
 
-p.on('tree', function (ignored) {
+p.on('tree', function (ignored: any) {
 });
 
-p.on('error', function (ignored) {
+p.on('error', function (ignored: any) {
 });
 
 
