@@ -1,5 +1,6 @@
 ﻿/* tslint:disable */
 
+
 // Type definitions for ej.web.all 15.1.33
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion/>
