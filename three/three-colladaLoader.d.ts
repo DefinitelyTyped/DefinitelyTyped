@@ -1,7 +1,7 @@
 // Type definitions for three.js (ColladaLoader2.js)
 // NOTE :   These typings are for the loader named ColladaLoader2.js
 //          supplied by the npm package @types/three 0.81.
-// Definitions by: Emilio Rivera
+// Definitions by: Brandon Roberge
 
 declare namespace THREE {
     export class ColladaModel {
