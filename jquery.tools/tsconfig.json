@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "later-tests.ts"
+        "jquery.tools-tests.ts"
     ]
 }
