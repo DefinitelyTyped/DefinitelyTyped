@@ -1,4 +1,4 @@
-﻿{
+{
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
