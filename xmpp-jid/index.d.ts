@@ -5,9 +5,9 @@
 // TypeScript Version: 2.1
 import {JID} from './lib/JID';
 
-export declare function createJID(local: string, domain: string, resource: string);
+export declare function createJID(local: string, domain: string, resource: string): JID;
 
 export {JID} from './lib/JID';
 
-export declare function equal(a: JID, b: JID);
-export declare function is(a: any);
+export declare function equal(a: JID, b: JID): boolean;
+export declare function is(a: any): boolean;
