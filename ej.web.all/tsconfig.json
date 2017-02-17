@@ -1,4 +1,4 @@
-{
+﻿{
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
@@ -6,8 +6,8 @@
             "dom"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": false,
-        "strictNullChecks": false,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
