@@ -1,8 +1,8 @@
-﻿/// <reference types="jquery" />
+/// <reference types="jquery" />
 /// <reference types="ej.web.all" />
 
 
- 
+/* tslint:disable */
 
 module AccordionComponent {
     $(function () {
