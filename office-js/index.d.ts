@@ -1532,228 +1532,16 @@ declare namespace Office {
             Beta
         }
     }
-    export module Types {
-        export interface ItemRead extends Office.Item {
-            subject: any;
-            /**
-             * Displays a reply form that includes the sender and all the recipients of the selected message
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-             */
-            displayReplyAllForm(htmlBody: string): void;
-            /**
-             * Displays a reply form that includes only the sender of the selected message
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-             */
-            displayReplyForm(htmlBody: string): void;
-            /**
-             * Gets an array of entities found in an message
-             */
-            getEntities(): Office.Entities;
-            /**
-             * Gets an array of entities of the specified entity type found in an message
-             * @param entityType One of the EntityType enumeration values
-             */
-            getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
-            /**
-             * Returns well-known entities that pass the named filter defined in the manifest XML file
-             * @param name  A TableData object with the headers and rows
-             */
-            getFilteredEntitiesByName(name: string): Office.Entities;
-            /**
-             * Returns string values in the currently selected message object that match the regular expressions defined in the manifest XML file
-             */
-            getRegExMatches(): string[];
-            /**
-             * Returns string values that match the named regular expression defined in the manifest XML file
-             */
-            getRegExMatchesByName(name: string): string[];
-        }
-        export interface ItemCompose extends Office.Item {
-            body: Office.Body;
-            subject: any;
-            /**
-             * Adds a file to a message as an attachment
-             * @param uri The URI that provides the location of the file to attach to the message. The maximum length is 2048 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
-            /**
-             * Adds an Exchange item, such as a message, as an attachment to the message
-             * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
-            /**
-             * Removes an attachment from a message
-             * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
-        }
-        export interface MessageCompose extends Office.Message {
-            attachments: Office.AttachmentDetails[];
-            body: Office.Body;
-            bcc: Office.Recipients;
-            cc: Office.Recipients;
-            subject: Office.Subject;
-            to: Office.Recipients;
-            /**
-             * Adds a file to a message as an attachment
-             * @param uri The URI that provides the location of the file to attach to the message. The maximum length is 2048 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
-            /**
-             * Adds an Exchange item, such as a message, as an attachment to the message
-             * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
-            /**
-             * Removes an attachment from a message
-             * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
-        }
-        export interface MessageRead extends Office.Message {
-            cc: Office.EmailAddressDetails[];
-            from: Office.EmailAddressDetails;
-            internetMessageId: string;
-            normalizedSubject: string;
-            sender: Office.EmailAddressDetails;
-            subject: string;
-            to: Office.EmailAddressDetails;
-            /**
-             * Displays a reply form that includes the sender and all the recipients of the selected message
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-             */
-            displayReplyAllForm(htmlBody: string): void;
-            /**
-             * Displays a reply form that includes only the sender of the selected message
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-             */
-            displayReplyForm(htmlBody: string): void;
-            /**
-             * Gets an array of entities found in an message
-             */
-            getEntities(): Office.Entities;
-            /**
-             * Gets an array of entities of the specified entity type found in an message
-             * @param entityType One of the EntityType enumeration values
-             */
-            getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
-            /**
-             * Returns well-known entities that pass the named filter defined in the manifest XML file
-             * @param name  A TableData object with the headers and rows
-             */
-            getFilteredEntitiesByName(name: string): Office.Entities;
-            /**
-             * Returns string values in the currently selected message object that match the regular expressions defined in the manifest XML file
-             */
-            getRegExMatches(): string[];
-            /**
-             * Returns string values that match the named regular expression defined in the manifest XML file
-             */
-            getRegExMatchesByName(name: string): string[];
-        }
-        export interface AppointmentCompose extends Office.Appointment {
-            body: Office.Body;
-            end: Office.Time;
-            location: Office.Location;
-            optionalAttendees: Office.Recipients;
-            requiredAttendees: Office.Recipients;
-            start: Office.Time;
-            subject: Office.Subject;
-            /**
-             * Adds a file to an appointment as an attachment
-             * @param uri The URI that provides the location of the file to attach to the appointment. The maximum length is 2048 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
-            /**
-             * Adds an Exchange item, such as a message, as an attachment to the appointment
-             * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
-            /**
-             * Removes an attachment from a appointment
-             * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
-             */
-            removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
-        }
-        export interface AppointmentRead extends Office.Appointment {
-            attachments: Office.AttachmentDetails[];
-            end: Date;
-            location: string;
-            normalizedSubject: string;
-            optionalAttendees: Office.EmailAddressDetails;
-            organizer: Office.EmailAddressDetails;
-            requiredAttendees: Office.EmailAddressDetails;
-            resources: string[];
-            start: Date;
-            subject: string;
-            /**
-             * Displays a reply form that includes the organizer and all the attendees of the selected appointment item
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-             */
-            displayReplyAllForm(htmlBody: string): void;
-            /**
-             * Displays a reply form that includes only the organizer of the selected appointment item
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-             */
-            displayReplyForm(htmlBody: string): void;
-            /**
-             * Gets an array of entities found in an appointment
-             */
-            getEntities(): Office.Entities;
-            /**
-             * Gets an array of entities of the specified entity type found in an appointment
-             * @param entityType One of the EntityType enumeration values
-             */
-            getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
-            /**
-             * Returns well-known entities that pass the named filter defined in the manifest XML file
-             * @param name  A TableData object with the headers and rows
-             */
-            getFilteredEntitiesByName(name: string): Office.Entities;
-            /**
-             * Returns string values in the currently selected appointment object that match the regular expressions defined in the manifest XML file
-             */
-            getRegExMatches(): string[];
-            /**
-             * Returns string values that match the named regular expression defined in the manifest XML file
-             */
-            getRegExMatchesByName(name: string): string[];
-        }
-    }
     export module cast {
         export module item {
-            function toAppointmentCompose(item: Office.Item): Office.Types.AppointmentCompose;
-            function toAppointmentRead(item: Office.Item): Office.Types.AppointmentRead;
+            function toAppointmentCompose(item: Office.Item): Office.AppointmentCompose;
+            function toAppointmentRead(item: Office.Item): Office.AppointmentRead;
             function toAppointment(item: Office.Item): Office.Appointment;
-            function toMessageCompose(item: Office.Item): Office.Types.MessageCompose;
-            function toMessageRead(item: Office.Item): Office.Types.MessageRead;
+            function toMessageCompose(item: Office.Item): Office.MessageCompose;
+            function toMessageRead(item: Office.Item): Office.MessageRead;
             function toMessage(item: Office.Item): Office.Message;
-            function toItemCompose(item: Office.Item): Office.Types.ItemCompose;
-            function toItemRead(item: Office.Item): Office.Types.ItemRead;
+            function toItemCompose(item: Office.Item): Office.ItemCompose;
+            function toItemRead(item: Office.Item): Office.ItemRead;
         }
     }
     export enum SourceProperty {
@@ -1849,7 +1637,145 @@ declare namespace Office {
          */
         loadCustomPropertiesAsync(callback?: (result: AsyncResult) => void, userContext?: any): void;
     }
+    export interface ItemCompose extends Item {
+        body: Body;
+        subject: any;
+        /**
+         * Adds a file to a message as an attachment
+         * @param uri The URI that provides the location of the file to attach to the message. The maximum length is 2048 characters
+         * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional callback method
+         */
+        addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Adds an Exchange item, such as a message, as an attachment to the message
+         * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
+         * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional callback method
+         */
+        addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Removes an attachment from a message
+         * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional callback method
+         */
+        removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
+    }
+    export interface ItemRead extends Item {
+        subject: any;
+        /**
+         * Displays a reply form that includes the sender and all the recipients of the selected message
+         * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+         */
+        displayReplyAllForm(htmlBody: string): void;
+        /**
+         * Displays a reply form that includes only the sender of the selected message
+         * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+         */
+        displayReplyForm(htmlBody: string): void;
+        /**
+         * Gets an array of entities found in an message
+         */
+        getEntities(): Entities;
+        /**
+         * Gets an array of entities of the specified entity type found in an message
+         * @param entityType One of the EntityType enumeration values
+         */
+        getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Entities;
+        /**
+         * Returns well-known entities that pass the named filter defined in the manifest XML file
+         * @param name  A TableData object with the headers and rows
+         */
+        getFilteredEntitiesByName(name: string): Entities;
+        /**
+         * Returns string values in the currently selected message object that match the regular expressions defined in the manifest XML file
+         */
+        getRegExMatches(): string[];
+        /**
+         * Returns string values that match the named regular expression defined in the manifest XML file
+         */
+        getRegExMatchesByName(name: string): string[];
+    }
     export interface Appointment extends Item {
+    }
+    export interface AppointmentCompose extends Appointment {
+        body: Body;
+        end: Time;
+        location: Location;
+        optionalAttendees: Recipients;
+        requiredAttendees: Recipients;
+        start: Time;
+        subject: Subject;
+        /**
+         * Adds a file to an appointment as an attachment
+         * @param uri The URI that provides the location of the file to attach to the appointment. The maximum length is 2048 characters
+         * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional callback method
+         */
+        addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Adds an Exchange item, such as a message, as an attachment to the appointment
+         * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
+         * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional callback method
+         */
+        addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Removes an attachment from a appointment
+         * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional callback method
+         */
+        removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
+    }
+    export interface AppointmentRead extends Appointment {
+        attachments: AttachmentDetails[];
+        end: Date;
+        location: string;
+        normalizedSubject: string;
+        optionalAttendees: EmailAddressDetails;
+        organizer: EmailAddressDetails;
+        requiredAttendees: EmailAddressDetails;
+        resources: string[];
+        start: Date;
+        subject: string;
+        /**
+         * Displays a reply form that includes the organizer and all the attendees of the selected appointment item
+         * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+         */
+        displayReplyAllForm(htmlBody: string): void;
+        /**
+         * Displays a reply form that includes only the organizer of the selected appointment item
+         * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+         */
+        displayReplyForm(htmlBody: string): void;
+        /**
+         * Gets an array of entities found in an appointment
+         */
+        getEntities(): Entities;
+        /**
+         * Gets an array of entities of the specified entity type found in an appointment
+         * @param entityType One of the EntityType enumeration values
+         */
+        getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Entities;
+        /**
+         * Returns well-known entities that pass the named filter defined in the manifest XML file
+         * @param name  A TableData object with the headers and rows
+         */
+        getFilteredEntitiesByName(name: string): Entities;
+        /**
+         * Returns string values in the currently selected appointment object that match the regular expressions defined in the manifest XML file
+         */
+        getRegExMatches(): string[];
+        /**
+         * Returns string values that match the named regular expression defined in the manifest XML file
+         */
+        getRegExMatchesByName(name: string): string[];
     }
     export interface Body {
         /**
@@ -1961,6 +1887,78 @@ declare namespace Office {
     }
     export interface Message extends Item {
         conversationId: string;
+    }
+    export interface MessageCompose extends Message {
+        attachments: AttachmentDetails[];
+        body: Body;
+        bcc: Recipients;
+        cc: Recipients;
+        subject: Subject;
+        to: Recipients;
+        /**
+         * Adds a file to a message as an attachment
+         * @param uri The URI that provides the location of the file to attach to the message. The maximum length is 2048 characters
+         * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional callback method
+         */
+        addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Adds an Exchange item, such as a message, as an attachment to the message
+         * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
+         * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional callback method
+         */
+        addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Removes an attachment from a message
+         * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional callback method
+         */
+        removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
+    }
+    export interface MessageRead extends Message {
+        cc: EmailAddressDetails[];
+        from: EmailAddressDetails;
+        internetMessageId: string;
+        normalizedSubject: string;
+        sender: EmailAddressDetails;
+        subject: string;
+        to: EmailAddressDetails;
+        /**
+         * Displays a reply form that includes the sender and all the recipients of the selected message
+         * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+         */
+        displayReplyAllForm(htmlBody: string): void;
+        /**
+         * Displays a reply form that includes only the sender of the selected message
+         * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+         */
+        displayReplyForm(htmlBody: string): void;
+        /**
+         * Gets an array of entities found in an message
+         */
+        getEntities(): Entities;
+        /**
+         * Gets an array of entities of the specified entity type found in an message
+         * @param entityType One of the EntityType enumeration values
+         */
+        getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Entities;
+        /**
+         * Returns well-known entities that pass the named filter defined in the manifest XML file
+         * @param name  A TableData object with the headers and rows
+         */
+        getFilteredEntitiesByName(name: string): Entities;
+        /**
+         * Returns string values in the currently selected message object that match the regular expressions defined in the manifest XML file
+         */
+        getRegExMatches(): string[];
+        /**
+         * Returns string values that match the named regular expression defined in the manifest XML file
+         */
+        getRegExMatchesByName(name: string): string[];
     }
     export interface MeetingRequest extends Message {
         start: Date;
