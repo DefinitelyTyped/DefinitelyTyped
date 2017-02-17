@@ -1,7 +1,4 @@
-/* tslint:disable */
-
-
-// Type definitions for ej.web.all 15.1.33
+﻿// Type definitions for ej.web.all 15.1.33
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,6 +14,9 @@
 *  licensing@syncfusion.com. Any infringement will be prosecuted under
 *  applicable laws. 
 */
+
+/* tslint:disable */
+
 declare module ej {
 	
 	var dataUtil: dataUtil;
