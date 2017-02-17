@@ -15,7 +15,7 @@
 *  applicable laws. 
 */
 
-
+/* tslint:disabled */
 
 declare module ej {
 	
