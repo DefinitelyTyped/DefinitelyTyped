@@ -1,4 +1,4 @@
-﻿/* tslint:disable */
+/* tslint:disable */
 
 
 // Type definitions for ej.web.all 15.1.33
