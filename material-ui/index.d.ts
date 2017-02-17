@@ -130,6 +130,7 @@ declare namespace __MaterialUI {
             accent2Color?: string;
             accent3Color?: string;
             textColor?: string;
+            secondaryTextColor?: string;
             alternateTextColor?: string;
             canvasColor?: string;
             borderColor?: string;
@@ -1738,6 +1739,7 @@ declare namespace __MaterialUI {
         }
 
         interface TabProps extends SharedEnhancedButtonProps<Tab> {
+            buttonStyle?: React.CSSProperties;
             className?: string;
             icon?: React.ReactNode;
             label?: React.ReactNode;

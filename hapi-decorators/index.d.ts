@@ -5,7 +5,7 @@
 
 import * as hapi from 'hapi';
 interface ControllerStatic {
-    new (): Controller;
+    new (...args: any[]): Controller;
 }
 export interface Controller {
     baseUrl: string;

@@ -1,4 +1,5 @@
-/// <reference types="auth0-js/v7" />
+import 'auth0-js';
+
 var auth0 = new Auth0({
     domain: 'mine.auth0.com',
     clientID: 'dsa7d77dsa7d7',
