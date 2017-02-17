@@ -12,7 +12,7 @@
         "typeRoots": [
             "../"
         ],
-        "types": ["jquery"],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
