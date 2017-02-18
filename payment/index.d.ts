@@ -37,7 +37,7 @@ interface Fns {
      * * laser
      * * unionpay
      * * elo
-     * 
+     *
      * The function will return null if the card type can't be determined.
      */
     cardType(cardNumber: string): string;

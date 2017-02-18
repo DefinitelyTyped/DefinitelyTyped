@@ -528,6 +528,7 @@ declare namespace ReactBootstrap {
 
     // <Navbar.Toggle />
     interface NavbarToggleProps {
+        onClick?: React.MouseEventHandler<HTMLButtonElement>;
     }
     type NavbarToggle = React.ClassicComponent<NavbarToggleProps, {}>;
     var NavbarToggle: React.ClassicComponentClass<NavbarToggleProps>;
@@ -535,7 +536,7 @@ declare namespace ReactBootstrap {
     // <Navbar.Link />
     interface NavbarLinkProps {
         href: string;
-        onClick?: React.MouseEventHandler<{}>;
+        onClick?: React.MouseEventHandler<HTMLAnchorElement>;
     }
     type NavbarLink = React.ClassicComponent<NavbarLinkProps, {}>;
     const NavbarLink: React.ClassicComponentClass<NavbarLinkProps>;
@@ -606,6 +607,7 @@ declare namespace ReactBootstrap {
         position?: string;
         tabWidth?: any; // TODO: Add more specific type
         unmountOnExit?: boolean;
+        justified?: boolean;
     }
     type Tabs = React.ClassicComponent<TabsProps, {}>;
     var Tabs: React.ClassicComponentClass<TabsProps>;
@@ -614,7 +616,7 @@ declare namespace ReactBootstrap {
     interface TabProps extends React.HTMLProps<Tab> {
         animation?: boolean;
         'aria-labelledby'?:string;
-        bsClass?:string; 
+        bsClass?:string;
         eventKey?: any; // TODO: Add more specific type
         onEnter?: Function;
         onEntered?: Function;
@@ -765,7 +767,7 @@ declare namespace ReactBootstrap {
     interface GridProps extends React.HTMLProps<Grid> {
         componentClass?: React.ReactType;
         fluid?: boolean;
-        bsClass?: string;        
+        bsClass?: string;
     }
     type Grid = React.ClassicComponent<GridProps, {}>;
     var Grid: React.ClassicComponentClass<GridProps>;

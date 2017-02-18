@@ -18307,7 +18307,7 @@ declare namespace kendo.ooxml {
         cells?: WorkbookSheetRowCell[];
         index?: number;
         height?: number;
-        type?: "header" | "footer" | "groupHeader" | "groupFooter" | "data";
+        type?: "header" | "footer" | "group-header" | "group-footer" | "data";
     }
 
     interface WorkbookSheet {

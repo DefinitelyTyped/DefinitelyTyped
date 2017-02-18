@@ -3,9 +3,8 @@
 // Definitions by: Konstantin Burkalev <https://github.com/KSDaemon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
-interface WampyOptions {
+interface WampyOptions
+{
     autoReconnect?: boolean;
     reconnectInterval?: number;
     maxRetries?: number;
@@ -23,82 +22,95 @@ interface WampyOptions {
     msgpackCoder?: any;
 }
 
-interface WampyOpStatus {
+interface WampyOpStatus
+{
     code: number;
     description: string;
     reqId?: number;
 }
 
-interface SuccessErrorCallbacksHash {
+interface SuccessErrorCallbacksHash
+{
     onSuccess?: (data: any) => void;
-    onError?: (err: string) => void;
+    onError?: (err: string, details: any) => void;
 }
 
-interface SubscribeCallbacksHash extends SuccessErrorCallbacksHash {
-    onEvent: (data: any) => void;
+interface SubscribeCallbacksHash extends SuccessErrorCallbacksHash
+{
+    onEvent: (args: any[], kwargs: any) => void;
 }
 
-interface RegisterCallbacksHash extends SuccessErrorCallbacksHash {
+interface RegisterCallbacksHash extends SuccessErrorCallbacksHash
+{
     rpc: (data: any, options: any) => any[];
 }
 
-interface CallSuccessErrorCallbacksHash {
-    onSuccess: (data: any) => any;
-    onError?: (err: string) => void;
+interface CallSuccessErrorCallbacksHash
+{
+    onSuccess: (args: any[], kwargs: any) => any;
+    onError?: (err: string, details: any, args: any[], kwargs: any) => void;
 }
 
-interface AdvancedOptions {
+interface AdvancedOptions
+{
     exclude?: number | number[];
     eligible?: number | number[];
     exclude_me?: boolean;
     disclose_me?: boolean;
 }
 
-interface PublishAdvancedOptions extends AdvancedOptions {
+interface PublishAdvancedOptions extends AdvancedOptions
+{
     exclude_authid?: string | string[];
     exclude_authrole?: string | string[];
     eligible_authid?: string | string[];
     eligible_authrole?: string | string[];
 }
 
-interface CallAdvancedOptions {
+interface CallAdvancedOptions
+{
     disclose_me?: boolean;
     receive_progress?: boolean;
     timeout?: number;
 }
 
-interface CancelAdvancedOptions {
+interface CancelAdvancedOptions
+{
     mode?: "skip" | "kill" | "killnowait";
 }
 
-interface Wampy {
+interface Wampy
+{
+    new (url?: string, options?: WampyOptions): Wampy;
     options(opts?: WampyOptions): WampyOptions | Wampy;
     getOpStatus(): WampyOpStatus;
     getSessionId(): number;
     connect(url?: string): Wampy;
     disconnect(): Wampy;
     abort(): Wampy;
-    subscribe(topicURI: string, callbacks: (((data: any) => void) | SubscribeCallbacksHash)): Wampy;
-    unsubscribe(topicURI: string, callbacks?: (((data: any) => void) | SubscribeCallbacksHash)): Wampy;
+    subscribe(topicURI: string, callbacks: (((args: any[], kwargs: any) => void) | SubscribeCallbacksHash)): Wampy;
+    unsubscribe(topicURI: string, callbacks?: (((args: any[], kwargs: any) => void) | SubscribeCallbacksHash)): Wampy;
     publish(topicURI: string,
-        payload?: any,
-        callbacks?: SuccessErrorCallbacksHash,
-        advancedOptions?: PublishAdvancedOptions): Wampy;
+            payload?: any,
+            callbacks?: SuccessErrorCallbacksHash,
+            advancedOptions?: PublishAdvancedOptions): Wampy;
     call(topicURI: string,
-        payload?: any,
-        callbacks?: (((data: any) => void) | CallSuccessErrorCallbacksHash),
-        advancedOptions?: CallAdvancedOptions): Wampy;
+         payload?: any,
+         callbacks?: (((args: any[], kwargs: any) => void) | CallSuccessErrorCallbacksHash),
+         advancedOptions?: CallAdvancedOptions): Wampy;
     cancel(reqId: number,
-        callbacks?: ((() => void) | SuccessErrorCallbacksHash),
-        advancedOptions?: CancelAdvancedOptions): Wampy;
+           callbacks?: ((() => void) | SuccessErrorCallbacksHash),
+           advancedOptions?: CancelAdvancedOptions): Wampy;
     register(topicURI: string, callbacks: (((data: any, options: any) => any[]) | RegisterCallbacksHash)): Wampy;
     unregister(topicURI: string, callbacks?: ((() => void) | SuccessErrorCallbacksHash)): Wampy;
 }
 
-interface WampyInstance {
-    new (url?: string, options?: WampyOptions): Wampy;
+declare var wampy: Wampy;
+
+declare module 'wampy'
+{
+    export = wampy;
 }
 
-declare var wampy: WampyInstance;
 
-export default wampy;
+

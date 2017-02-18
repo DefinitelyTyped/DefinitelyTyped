@@ -154,6 +154,10 @@ interface ProcedureMeta extends AbstractMeta {
     body: string;
 }
 
+/** Represents the meta data for a user-defined function. */
+interface UserDefinedFunctionMeta extends AbstractMeta {
+}
+
 /** Represents the meta data for a trigger. */
 interface TriggerMeta extends AbstractMeta {
     body: string;
@@ -178,6 +182,13 @@ export interface AuthOptions {
 export interface Procedure extends UniqueId {
 
     /** The function representing the stored procedure. */
+    body(...params: any[]): void;
+}
+
+/** Represents a DocumentDB user-defined function. */
+export interface UserDefinedFunction extends UniqueId {
+
+    /** The function representing the user-defined function. */
     body(...params: any[]): void;
 }
 
@@ -291,6 +302,19 @@ export declare class DocumentClient {
     public createStoredProcedure(collectionLink: string, procedure: Procedure, options: RequestOptions, callback: RequestCallback<ProcedureMeta>): void;
 
     /**
+     * Create a UserDefinedFunction.
+     * <p>
+     * DocumentDB supports JavaScript UDFs which can be used inside queries, stored procedures and triggers. <br>
+     * For additional details, refer to the server-side JavaScript API documentation.
+     * </p>
+     * @param collectionLink    - The self-link of the collection.
+     * @param udf               - Represents the body of the userDefinedFunction.
+     * @param [options]         - The request options.
+     * @param callback          - The callback for the request.
+     */
+    public createUserDefinedFunction(collectionLink: string, udf: UserDefinedFunction, options: RequestOptions, callback: RequestCallback<UserDefinedFunctionMeta>): void;
+
+    /**
      * Create a trigger.
      * <p>
      * DocumentDB supports pre and post triggers defined in JavaScript to be executed on creates, updates and deletes. <br>
@@ -348,6 +372,15 @@ export declare class DocumentClient {
      * @returns                 - An instance of queryIterator to handle reading feed.
      */
     public queryStoredProcedures(collectionLink: string, query: string | SqlQuerySpec): QueryIterator<ProcedureMeta>;
+
+    /**
+     * Query the user-defined functions for the collection.
+     * @param collectionLink    - The self-link of the collection.
+     * @param query             - A SQL query string.
+     * @param [options]         - Represents the feed options.
+     * @returns                 - An instance of queryIterator to handle reading feed.
+     */
+    public queryUserDefinedFunctions(collectionLink: string, query: string | SqlQuerySpec, options?: FeedOptions): QueryIterator<UserDefinedFunctionMeta>;
 
     /**
     * Query the documents for the collection.
