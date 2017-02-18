@@ -83,4 +83,4 @@ interface MsgPackCallbackResult {
 declare var msgpack: MsgPackStatic;
 
 export = msgpack;
-export as namespacei msgpack;
+export as namespace msgpack;
