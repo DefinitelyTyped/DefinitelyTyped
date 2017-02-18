@@ -21,29 +21,39 @@ inst = scope.head(str);
 
 inst = scope.get(str);
 inst = scope.get(str, data);
+inst = scope.get(str, data, options);
+
+inst = scope.options(str);
+inst = scope.options(str, data);
+inst = scope.options(str, data, options);
 
 inst = scope.patch(str);
 inst = scope.patch(str, str);
 inst = scope.patch(str, obj);
+inst = scope.patch(str, obj, options);
 inst = scope.patch(str, regex);
 
 inst = scope.post(str);
 inst = scope.post(str, data);
+inst = scope.post(str, data, options);
 inst = scope.post(str, obj);
 inst = scope.post(str, regex);
 
 inst = scope.put(str);
 inst = scope.put(str, data);
+inst = scope.put(str, data, options);
 inst = scope.put(str, obj);
 inst = scope.put(str, regex);
 
 inst = scope.delete(str);
 inst = scope.delete(str, data);
+inst = scope.delete(str, data, options);
 inst = scope.delete(str, obj);
 inst = scope.delete(str, regex);
 
 inst = scope.merge(str);
 inst = scope.merge(str, data);
+inst = scope.merge(str, data, options);
 inst = scope.merge(str, obj);
 inst = scope.merge(str, regex);
 

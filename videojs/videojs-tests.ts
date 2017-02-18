@@ -1,9 +1,10 @@
 // Tests for Video.js API
 
+import * as videojs from 'videojs';
 
 videojs("example_video_1").ready(function(){
 
-	var myPlayer:VideoJSPlayer = this;
+	var myPlayer: videojs.Player = this;
 
 	// EXAMPLE: Start playing the video.
 	myPlayer.play();
@@ -57,17 +58,35 @@ videojs("example_video_1").ready(function(){
 
 	myPlayer.height(480);
 
-	myPlayer.size(640,480);
+	myPlayer.size(640, 480);
 
 	myPlayer.requestFullScreen();
 
 	myPlayer.cancelFullScreen();
 
+	testEvents(myPlayer);
+});
 
-	var myFunc = function(){
-		var myPlayer: VideoJSPlayer = this;
+function testEvents(myPlayer: videojs.Player) {
+	const myFunc = function() {
+		const myPlayer: videojs.Player = this;
 		// Do something when the event is fired
 	};
-	//myPlayer.addEvent("volumechange", myFunc);
-	//myPlayer.removeEvent("volumechange", myFunc);
-});
+	myPlayer.on("error", myFunc);
+	// Removes the specified listener only.
+	myPlayer.off("error", myFunc);
+
+
+	const myFuncWithArg = function(e: Event) {
+		const myPlayer: videojs.Player = this;
+		// Do something when the event is fired
+	};
+	myPlayer.on("volumechange", myFuncWithArg);
+	// Removes all listeners for the given event type.
+	myPlayer.off("volumechange");
+
+
+	myPlayer.on("loadeddata", function() { /* Some handler. */ });
+	// Removes all listeners.
+	myPlayer.off();
+}

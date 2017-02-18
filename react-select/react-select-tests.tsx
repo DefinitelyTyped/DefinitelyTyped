@@ -99,6 +99,7 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
             className: "test-select",
             key: "1",
             options: options,
+            optionClassName: 'test-select-option',
             optionRenderer: optionRenderer,
             autofocus: true,
             autosize: true,
@@ -139,7 +140,15 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
 class SelectWithStringValueTest extends React.Component<React.Props<{}>, {}> {
 
     render() {
-        const options: Option[] = [{ label: "Foo", value: "bar" }];
+        const options: Option[] = [{
+            label: "Foo",
+            value: "bar",
+        }, {
+            label: "Foo2",
+            value: "bar2",
+            clearableValue: false,
+            disabled: true
+        }];
         const onChange = (value: any) => console.log(value);
 
         const selectProps: ReactSelectProps = {

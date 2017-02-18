@@ -2,7 +2,8 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -17,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "react-native/index.d.ts",
         "realm-tests.ts"
     ]
 }

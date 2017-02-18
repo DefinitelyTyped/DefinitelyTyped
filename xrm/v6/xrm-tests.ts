@@ -1,13 +1,12 @@
 
-
 function _getContext()
 {
-    var errorMessage = "Context is not available.";
-    if ( typeof GetGlobalContext != "undefined" )
+    const errorMessage = "Context is not available.";
+    if ( typeof GetGlobalContext !== "undefined" )
     { return GetGlobalContext(); }
     else
     {
-        if ( typeof Xrm != "undefined" )
+        if ( typeof Xrm !== "undefined" )
         {
             return Xrm.Page.context;
         }
@@ -15,21 +14,21 @@ function _getContext()
     }
 }
 
-var crmContext = _getContext();
+const crmContext = _getContext();
 
-var grids = Xrm.Page.getControl(( control ) =>
+const grids = Xrm.Page.getControl(( control ) =>
 {
     return control.getControlType() === "subgrid";
 });
 
-var selectedGridReferences: Xrm.Page.LookupValue[] = [];
+const selectedGridReferences: Xrm.Page.LookupValue[] = [];
 
 grids.forEach(( gridControl: Xrm.Page.GridControl ) =>
 {
     gridControl.refresh();
 });
 
-var lookupAttribute = Xrm.Page.getControl<Xrm.Page.LookupControl>( "customerid" );
+const lookupAttribute = Xrm.Page.getControl<Xrm.Page.LookupControl>( "customerid" );
 
 lookupAttribute.addCustomFilter( `<filter type="and">
     <condition attribute="address1_city" operator="eq" value="Redmond" />
@@ -37,7 +36,7 @@ lookupAttribute.addCustomFilter( `<filter type="and">
 
 lookupAttribute.addPreSearch(() => { alert( "A search was performed." ); });
 
-var lookupValues = lookupAttribute.getAttribute().getValue();
+const lookupValues = lookupAttribute.getAttribute().getValue();
 
 if ( lookupValues !== null )
     if ( !lookupValues[0].id || !lookupValues[0].entityType )
@@ -57,7 +56,7 @@ Xrm.Page.ui.tabs.forEach(( tab ) =>
 
 Xrm.Page.data.entity.addOnSave(( context ) =>
 {
-    var eventArgs = context.getEventArgs();
+    const eventArgs = context.getEventArgs();
 
     if ( eventArgs.getSaveMode() === Xrm.Page.SaveMode.AutoSave || eventArgs.getSaveMode() === Xrm.Page.SaveMode.SaveAndClose )
         eventArgs.preventDefault();

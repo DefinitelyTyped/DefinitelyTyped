@@ -39,3 +39,18 @@ class TestController implements Controller {
 const server = new hapi.Server();
 
 server.route(new TestController().routes());
+
+@controller('/test')
+class SimpleTestController implements Controller {
+
+    foo: string;
+
+    constructor(foo: string) {
+        this.foo = foo;
+    }
+
+    baseUrl: string;
+    routes: () => hapi.IRouteConfiguration[];
+}
+
+server.route(new SimpleTestController('bar').routes());
