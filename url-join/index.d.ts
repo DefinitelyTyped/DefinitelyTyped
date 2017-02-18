@@ -1,6 +1,6 @@
 // Type definitions for url-join v0.8.3
 // Project: https://github.com/jfromaniello/url-join
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
+// Definitions by: Rogier Schouten <https://github.com/rogierschouten>, Mike Deverell <https://github.com/devrelm>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /**
