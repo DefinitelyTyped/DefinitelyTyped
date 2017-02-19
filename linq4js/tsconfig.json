@@ -9,7 +9,6 @@
         "noImplicitReturns": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "alwaysStrict": true,
         "target": "es6",
         "baseUrl": "../",
         "typeRoots": [
