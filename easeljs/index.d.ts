@@ -735,6 +735,7 @@ declare namespace createjs {
         intersection(rect: Rectangle): Rectangle;
         intersects(rect: Rectangle): boolean;
         isEmpty(): boolean;
+        pad(top: number, left: number, bottom: number, right: number): Rectangle;
         setValues(x?: number, y?: number, width?: number, height?: number): Rectangle;
         toString(): string;
         union(rect: Rectangle): Rectangle;
