@@ -16,6 +16,9 @@
             "../"
         ],
         "types": [],
+		"lib":[
+			"es6"
+		],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     }
