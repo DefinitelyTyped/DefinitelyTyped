@@ -1,4 +1,4 @@
-import * as linq from "linq4js";
+import "linq4js";
 
 let array: Array<string> = ["test", "test2", "test3", "test4", "test5"];
 
