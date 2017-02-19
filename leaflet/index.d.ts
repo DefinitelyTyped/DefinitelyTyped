@@ -1527,7 +1527,7 @@ declare namespace L {
     export namespace Util {
         export function extend(dest: {}, src?: {}): {};
         export function create(proto: {}, properties?: {}): {};
-        export function bind(fn: () => void, ...obj: {}[]): () => void;
+        export function bind(fn: () => void, ...obj: Array<{}>): () => void;
         export function stamp(obj: {}): number;
         export function throttle(fn: () => void, time: number, context: {}): () => void;
         export function wrapNum(num: number, range: number[], includeMax?: boolean): number;
