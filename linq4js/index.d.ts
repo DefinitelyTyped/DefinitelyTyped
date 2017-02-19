@@ -1,4 +1,4 @@
-// Type definitions for Linq4JS 2.0.3
+// Type definitions for Linq4JS 2.0
 // Project: https://github.com/morrisjdev/Linq4JS
 // Definitions by: Morris Janatzek <https://github.com/morrisjdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,12 +17,12 @@ declare namespace Linq4JS {
     }
 }
 interface Array<T> {
-    Order: Array<Linq4JS.OrderEntry>;
+    Order: Linq4JS.OrderEntry[];
     GroupValue: any;
     /**
      * Creates a copy of the array
      */
-    Clone(): Array<T>;
+    Clone(): T[];
     /**
      * Gets the index of the first item found by a filter
      * @param filter A function (or function-string) that returns a boolean when matching element was found
@@ -42,65 +42,65 @@ interface Array<T> {
      * Executes a method for each item in the array
      * @param action A function (or function-string) that gets executed for each element. If it returns false the loop stops.
      */
-    ForEach(action: ((item: T, index?: number) => boolean | any) | string): Array<T>;
+    ForEach(action: ((item: T, index?: number) => boolean | any) | string): T[];
     /**
      * Updates an object in the array
      * @param object The object to update
      * @param primaryKeySelector A selector-function (or function-string) to define a property to indentify object in array
      */
-    Update(object: T, primaryKeySelector?: ((item: T) => any) | string): Array<T>;
+    Update(object: T, primaryKeySelector?: ((item: T) => any) | string): T[];
     /**
      * Updates objects in the array
      * @param objects The array of objects to update
      * @param primaryKeySelector A selector-function (or function-string) to define a property to indentify object in array
      */
-    UpdateRange(objects: Array<T>, primaryKeySelector?: ((item: T) => any) | string): Array<T>;
+    UpdateRange(objects: T[], primaryKeySelector?: ((item: T) => any) | string): T[];
     /**
      * Removes an object from the array
      * @param object The object to remove
      * @param primaryKeySelector A selector-function (or function-string) to define a property to indentify object in array
      */
-    Remove(object: T, primaryKeySelector?: ((item: T) => any) | string): Array<T>;
+    Remove(object: T, primaryKeySelector?: ((item: T) => any) | string): T[];
     /**
      * Removes objects from the array
      * @param objects The array of objects to remove
      * @param primaryKeySelector A selector-function (or function-string) to define a property to indentify object in array
      */
-    RemoveRange(objects: Array<T>, primaryKeySelector?: ((item: T) => any) | string): Array<T>;
+    RemoveRange(objects: T[], primaryKeySelector?: ((item: T) => any) | string): T[];
     /**
      * Adds an object to the array
      * @param object The object to add
      * @param generateId Auto-generate a property to identify object in later processes
      */
-    Add(object: T, generateId?: boolean): Array<T>;
+    Add(object: T, generateId?: boolean): T[];
     /**
      * Adds objects to the array
      * @param objects The array of objects to add
      */
-    AddRange(objects: Array<T>, generateId?: boolean): Array<T>;
+    AddRange(objects: T[], generateId?: boolean): T[];
     /**
      * Inserts an entry at a specific position
      * @param object The object to insert
      * @param index The position to insert
      */
-    Insert(object: T, index: number): Array<T>;
+    Insert(object: T, index: number): T[];
     /**
      * Searches for all items in array that match the given filter
      * @param filter A function (or function-string) that returns a boolean when matching element was found
      */
-    Where(filter: ((item: T, index?: number) => boolean) | string): Array<T>;
+    Where(filter: ((item: T, index?: number) => boolean) | string): T[];
     /**
      * Takes items in a specific range
      * @param start The start position
      * @param length The number of elements to take
      */
-    Range(start: number, length: number): Array<T>;
+    Range(start: number, length: number): T[];
     /**
      * Repeats an object in the array
      * @param object The object to repeat
      * @param count The count of repeats
      */
-    Repeat(object: T, count: number): Array<T>;
+    Repeat(object: T, count: number): T[];
     /**
      * Returns the length of the array
      * @param filter If set the function returns count of elements matched by the condition
@@ -145,39 +145,39 @@ interface Array<T> {
      * Limits the number of entries taken
      * @param count The count of elements taken
      */
-    Take(count: number): Array<T>;
+    Take(count: number): T[];
     /**
      * Takes entries as long as a condition is true
      * @param condition The condition-function (or function-string) that returns a boolean. All elements until a false gets created are taken
      * @param initial A initial-function (or function-string) that gets executed once at the start of the loop
      * @param after A function that gets executed after every element-iteration after the condition-function was evaluated
      */
-    TakeWhile(condition: ((item: T, storage?: any) => boolean) | string, initial?: ((storage: any) => void) | string, after?: ((item: T, storage: any) => void) | string): Array<T>;
+    TakeWhile(condition: ((item: T, storage?: any) => boolean) | string, initial?: ((storage: any) => void) | string, after?: ((item: T, storage: any) => void) | string): T[];
     /**
      * Skips entries
      * @param count The count of elements skipped
      */
-    Skip(count: number): Array<T>;
+    Skip(count: number): T[];
     /**
      * Orders array by property or value in ascending direction
      * @param valueSelector The selector-function (or function-string) that selects the property for sorting
      */
-    OrderBy(valueSelector: ((item: T) => any) | string): Array<T>;
+    OrderBy(valueSelector: ((item: T) => any) | string): T[];
     /**
      * Orders array by additional properties in ascending direction in combination with OrderBy/OrderByDescending
      * @param valueSelector The selector-function (or function-string) that selects the property for sorting
      */
-    ThenBy(valueSelector: ((item: T) => any) | string): Array<T>;
+    ThenBy(valueSelector: ((item: T) => any) | string): T[];
     /**
      * Orders array by property or value in descending direction
      * @param valueSelector The selector-function (or function-string) that selects the property for sorting
      */
-    OrderByDescending(valueSelector: ((item: T) => any) | string): Array<T>;
+    OrderByDescending(valueSelector: ((item: T) => any) | string): T[];
     /**
      * Orders array by additional properties in descending direction in combination with OrderBy/OrderByDescending
      * @param valueSelector The selector-function (or function-string) that selects the property for sorting
      */
-    ThenByDescending(valueSelector: ((item: T) => any) | string): Array<T>;
+    ThenByDescending(valueSelector: ((item: T) => any) | string): T[];
     /**
      * Returns the smallest element in array
      * @param valueSelector The selector-function (or function-string) that selects the property for comparison
@@ -192,18 +192,18 @@ interface Array<T> {
      * Groups array by property
      * @param selector The selector-function (or function-string) that selects the property for grouping
      */
-    GroupBy(selector: ((item: T) => any) | string): Array<Array<T>>;
+    GroupBy(selector: ((item: T) => any) | string): T[][];
     /**
      * Moves an item from one index to another
      * @param oldIndex The current position of the item
      * @param newIndex The new position of the item
      */
-    Move(oldIndex: number, newIndex: number): Array<T>;
+    Move(oldIndex: number, newIndex: number): T[];
     /**
      * Makes all values unique
      * @param valueSelector A selector-function (or function-string) to select property for comparison and distinction
      */
-    Distinct(valueSelector?: ((item: T) => any) | string): Array<T>;
+    Distinct(valueSelector?: ((item: T) => any) | string): T[];
     /**
      * Tests if array contains specific object
      * @param object The object to test for
@@ -213,12 +213,12 @@ interface Array<T> {
      * Combines two arrays
      * @param array The array to combine
      */
-    Concat(array: Array<T>): Array<T>;
+    Concat(array: T[]): T[];
     /**
      * Combines two arrays but only applies values that are in both arrays
      * @param array The array to combine
      */
-    Intersect(array: Array<T>): Array<T>;
+    Intersect(array: T[]): T[];
     /**
      * Joins the entries by a given char
      * @param character The character for joining
@@ -234,7 +234,7 @@ interface Array<T> {
     /**
      * Reverses the array
      */
-    Reverse(): Array<T>;
+    Reverse(): T[];
     /**
      * Computes the average of the elements
      * @param selector A selector-function (or function-string) to select property for average computing
@@ -251,27 +251,24 @@ interface Array<T> {
      * Compares to sequences of objects
      * @param array The array to compare
      */
-    SequenceEqual(array: Array<T>): boolean;
+    SequenceEqual(array: T[]): boolean;
     /**
      * Combines the entries of two arrays using a custom function
      * @param array The array to combine
      * @param result The function (or function-string) to combine elements
      */
-    Zip<T, X>(array: Array<X>, result: ((first: T, second: X) => any) | string): Array<any>;
+    Zip<T, X>(array: X[], result: ((first: T, second: X) => any) | string): any[];
     /**
      * Combines two arrays without duplicates
      * @param array The array to combine
      */
-    Union(array: Array<T>): Array<T>;
+    Union(array: T[]): T[];
     /**
      * Converts the array to a dictionary
      * @param keySelector The selector-function (or function-string) to select property for key
      * @param valueSelector A selector-function (or function-string) to select property for value
      */
     ToDictionary(keySelector: ((item: T) => any) | string, valueSelector?: ((item: T) => any) | string): any;
-}
-declare module "linq4js" {
-    export = Linq4JS;
 }
 declare namespace Linq4JS {
     class OrderEntry {
