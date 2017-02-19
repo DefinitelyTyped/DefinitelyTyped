@@ -93,7 +93,7 @@ declare namespace jimp {
 			}>): JimpImage;
 
 		convolution(matrix: number[][]): JimpImage;
-		scan(x: number, y: number, width: number, height: number, callback?: (this: JimpImage, x?: number, y?: number, idx?: number) => void): JimpImage;
+		scan(x: number, y: number, width: number, height: number, callback?: (this: JimpImage, x: number, y: number, idx: number) => void): JimpImage;
 
 		/* Low level data */
 		bitmap: {data: Buffer, readonly width: number, readonly height: number};
