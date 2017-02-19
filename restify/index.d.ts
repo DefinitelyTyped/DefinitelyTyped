@@ -300,6 +300,7 @@ interface HandlerTiming {
 interface Response extends http.ServerResponse {
     header: (key: string, value?: any) => any;
     cache: (type?: any, options?: Object) => any;
+    noCache: () => any;
     status: (code: number) => any;
     send: (status?: any, body?: any, headers?: { [header: string]: string }) => any;
     json: (status?: any, body?: any, headers?: { [header: string]: string }) => any;
@@ -448,6 +449,7 @@ interface Server extends http.Server {
 }
 
 interface ServerOptions {
+    ca?: string;
     certificate?: string;
     key?: string;
     formatters?: Object;
