@@ -1524,6 +1524,26 @@ declare namespace L {
         export const svg: boolean;
     }
 
+    export namespace Util {
+        export function extend(dest: Object, src?: Object): Object;
+        export function create(proto: Object, properties?: Object): Object;
+        export function bind(fn: Function, ...obj: Object[]): Function;
+        export function stamp(obj: Object): Number;
+        export function throttle(fn: Function, time: Number, context: Object): Function;
+        export function wrapNum(num: Number, range: Number[], includeMax?: Boolean): Number;
+        export function falseFn(): Function;
+        export function formatNum(num: Number, digits?: Number): Number;
+        export function trim(str: String): String;
+        export function splitWords(str: String): String[];
+        export function setOptions(obj: Object, options: Object): Object;
+        export function getParamString(obj: Object, existingUrl?: String, uppercase?: Boolean): String;
+        export function template(str: String, data: Object): String;
+        export function isArray(obj: Object): Boolean;
+        export function indexOf(array: any[], el: Object): Number;
+        export function requestAnimFrame(fn: Function, context?: Object, immediate?: Boolean): Number;
+        export function cancelAnimFrame(id: Number): undefined;
+        export const emptyImageUrl: String;
+    }
 }
 
 declare module 'leaflet' {
