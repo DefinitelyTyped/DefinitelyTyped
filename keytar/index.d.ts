@@ -1,4 +1,4 @@
-// Type definitions for keytar 3.0.0
+// Type definitions for keytar 3.0.2
 // Project: http://atom.github.io/node-keytar/
 // Definitions by: Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
