@@ -80,6 +80,8 @@ declare namespace v {
         reverseGrapheme(subject?: string): string;
         slugify(subject?: string): string;
         splice(subject?: string, start?: number, deleteCount?: number, toAdd?: string): string;
+        tr(subject?: string, from?: string, to?: string): string;
+        tr(subject?: string, from?: { [key: string]: string }): string;
         trim(subject?: string, whitespace?: string): string;
         trimLeft(subject?: string, whitespace?: string): string;
         trimRight(subject?: string, whitespace?: string): string;
@@ -177,6 +179,8 @@ declare namespace v {
         reverseGrapheme(): Chain;
         slugify(): Chain;
         splice(start?: number, deleteCount?: number, toAdd?: string): Chain;
+        tr(from?: string, to?: string): Chain;
+        tr(from?: { [key: string]: string }): Chain;
         trim(whitespace?: string): Chain;
         trimLeft(whitespace?: string): Chain;
         trimRight(whitespace?: string): Chain;
@@ -270,6 +274,8 @@ declare namespace v {
         reverseGrapheme(): ExplicitChain<string>;
         slugify(): ExplicitChain<string>;
         splice(start?: number, deleteCount?: number, toAdd?: string): ExplicitChain<string>;
+        tr(from?: string, to?: string): ExplicitChain<string>;
+        tr(from?: { [key: string]: string }): ExplicitChain<string>;
         trim(whitespace?: string): ExplicitChain<string>;
         trimLeft(whitespace?: string): ExplicitChain<string>;
         trimRight(whitespace?: string): ExplicitChain<string>;
