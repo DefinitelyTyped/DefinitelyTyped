@@ -214,6 +214,23 @@ str = v.splice('new year', 0);
 str = v.splice('new year', 0, 4);
 str = v.splice('new year', 0, 3, 'happy');
 
+str = v.tr();
+str = v.tr('hello', 'el', 'ip');
+str = v.tr('Yes. The fire rises.', {
+    'Yes': 'Awesome',
+    'fire': 'flame'
+})
+str = v('hello').tr('el', 'ip').value();
+str = v('Yes. The fire rises.').tr({
+    'Yes': 'Awesome',
+    'fire': 'flame'
+}).value();
+str = v.chain('hello').tr('el', 'ip').value();
+str = v.chain('Yes. The fire rises.').tr({
+    'Yes': 'Awesome',
+    'fire': 'flame'
+}).value();
+
 str = v.trim();
 str = v.trim(' Mother nature ');
 str = v.trim('--Earth--', '-');
