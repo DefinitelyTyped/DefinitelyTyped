@@ -31,9 +31,9 @@ export declare function addPassword(service: string, account: string, password: 
  * @param service The string service name.
  * @param account The string account name.
  *
- * @returns the string password or null on failures.
+ * @returns true on success, false on failure
  */
-export declare function deletePassword(service: string, account: string): string | null;
+export declare function deletePassword(service: string, account: string): boolean;
 
 /**
  * Replace the password for the service and account in the keychain.
