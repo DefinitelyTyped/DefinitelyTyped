@@ -1,13 +1,22 @@
 {
-	"compilerOptions": {
-		"module": "commonjs",
-		"target": "es5",
-		"noImplicitAny": true,
-		"noImplicitThis": true,
-		"strictNullChecks": true,
-		"sourceMap": false
-	},
-	"files": [
-		"index.d.ts"
-	]
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es5"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "massive-tests.ts"
+    ]
 }
