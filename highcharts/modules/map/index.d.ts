@@ -10,4 +10,5 @@ declare module 'highcharts' {
         mapChart(renderTo: string | HTMLElement, options: any, callback?: (chart: any) => void): any;
     }
 }
+export as namespace Static;
 
