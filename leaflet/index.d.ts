@@ -1525,24 +1525,25 @@ declare namespace L {
     }
 
     export namespace Util {
-        export function extend(dest: {}, src?: {}): {};
-        export function create(proto: {}, properties?: {}): {};
-        export function bind(fn: () => void, ...obj: Array<{}>): () => void;
-        export function stamp(obj: {}): number;
-        export function throttle(fn: () => void, time: number, context: {}): () => void;
+        export function extend(dest: any, src?: any): any;
+        export function create(proto: any, properties?: any): any;
+        export function bind(fn: () => void, ...obj: any[]): () => void;
+        export function stamp(obj: any): number;
+        export function throttle(fn: () => void, time: number, context: any): () => void;
         export function wrapNum(num: number, range: number[], includeMax?: boolean): number;
-        export function falseFn(): () => void;
+        export function falseFn(): () => false;
         export function formatNum(num: number, digits?: number): number;
         export function trim(str: string): string;
         export function splitWords(str: string): string[];
-        export function setOptions(obj: {}, options: {}): {};
-        export function getParamString(obj: {}, existingUrl?: string, uppercase?: boolean): string;
-        export function template(str: string, data: {}): string;
-        export function isArray(obj: {}): boolean;
-        export function indexOf(array: any[], el: {}): number;
-        export function requestAnimFrame(fn: () => void, context?: {}, immediate?: boolean): number;
-        export function cancelAnimFrame(id: number): undefined;
-        export const emptyImageUrl: string;
+        export function setOptions(obj: any, options: any): any;
+        export function getParamString(obj: any, existingUrl?: string, uppercase?: boolean): string;
+        export function template(str: string, data: any): string;
+        export function isArray(obj: any): boolean;
+        export function indexOf(array: any[], el: any): number;
+        export function requestAnimFrame(fn: () => void, context?: any, immediate?: boolean): number;
+        export function cancelAnimFrame(id: number): void;
+        export let lastId: string;
+        export let emptyImageUrl: string;
     }
 }
 
