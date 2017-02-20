@@ -27,6 +27,7 @@ declare namespace v {
         kebabCase(subject?: string): string;
         lowerCase(subject?: string): string;
         snakeCase(subject?: string): string;
+        swapCase(subject?: string): string;
         titleCase(subject?: string, ignoreWords?: string[]): string;
         upperCase(subject?: string): string;
 
@@ -126,6 +127,7 @@ declare namespace v {
         kebabCase(): Chain;
         lowerCase(): Chain;
         snakeCase(): Chain;
+        swapCase(): Chain;
         titleCase(ignoreWordsopt?: string[]): Chain;
         upperCase(): Chain;
 
@@ -221,6 +223,7 @@ declare namespace v {
         kebabCase(): ExplicitChain<string>;
         lowerCase(): ExplicitChain<string>;
         snakeCase(): ExplicitChain<string>;
+        swapCase(): ExplicitChain<string>;
         titleCase(ignoreWordsopt?: string[]): ExplicitChain<string>;
         upperCase(): ExplicitChain<string>;
 
