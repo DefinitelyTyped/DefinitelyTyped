@@ -1,17 +1,12 @@
-/// <reference path="../mocha/mocha.d.ts" />
-/// <reference path="../should/should.d.ts" />
-
-/// <reference path="../rimraf/rimraf.d.ts" />
-
-/// <reference path="./vinyl-fs.d.ts" />
-
+/// <reference types="mocha" />
+/// <reference types="should" />
 
 // from src
 
-import vfs = require('vinyl-fs');
+import * as vfs from 'vinyl-fs';
 
-import path = require('path');
-import fs = require('fs'); // require('graceful-fs');
+import * as path from 'path';
+import * as fs from 'fs'; // require('graceful-fs');
 
 // import bufEqual = require('buffer-equal');
 declare var bufEqual: any;
@@ -21,8 +16,8 @@ import File = require('vinyl');
 // var spies = require('./spy');
 declare var spies: any;
 
-import should = require('should');
-require('mocha');
+import * as should from 'should';
+import 'mocha';
 
 declare var gulp: any;
 declare var bufferStream: any;
@@ -215,7 +210,7 @@ import rimraf = require('rimraf');
 // var File = require('vinyl');
 
 // var should = require('should');
-require('mocha');
+// require('mocha');
 
 var wipeOut = function (cb: any) {
    rimraf(path.join(__dirname, "./out-fixtures/"), cb);
@@ -379,7 +374,7 @@ describe('dest stream', function () {
          cwd: __dirname,
          path: inputPath,
          contents: expectedContents,
-         stat: <fs.Stats>{
+         stat: <fs.Stats> {
             mode: expectedMode
          }
       });
@@ -420,7 +415,7 @@ describe('dest stream', function () {
          cwd: __dirname,
          path: inputPath,
          contents: contentStream,
-         stat: <fs.Stats>{
+         stat: <fs.Stats> {
             mode: expectedMode
          }
       });
@@ -463,10 +458,8 @@ describe('dest stream', function () {
          cwd: __dirname,
          path: inputPath,
          contents: null,
-         stat: <fs.Stats>{
-            isDirectory: function () {
-               return true;
-            },
+         stat: <fs.Stats> {
+            isDirectory: () => true,
             mode: expectedMode
          }
       });
@@ -508,7 +501,7 @@ describe('dest stream', function () {
 
       stream1.on('data', function (file: any) {
          file.path.should.equal(inputPath1);
-      })
+      });
 
       stream1.pipe(rename).pipe(stream2);
       stream2.on('data', function (file: any) {
@@ -524,11 +517,11 @@ describe('dest stream', function () {
          path: inputPath1,
          cwd: __dirname,
          contents: content
-      })
+      });
 
       stream1.write(file);
       stream1.end();
-   })
+   });
 
 });
 
@@ -713,7 +706,7 @@ describe('symlink stream', function () {
          cwd: __dirname,
          path: inputPath,
          contents: expectedContents,
-         stat: <fs.Stats>{
+         stat: <fs.Stats> {
             mode: expectedMode
          }
       });
@@ -754,7 +747,7 @@ describe('symlink stream', function () {
          cwd: __dirname,
          path: inputPath,
          contents: contentStream,
-         stat: <fs.Stats>{
+         stat: <fs.Stats> {
             mode: expectedMode
          }
       });
@@ -797,10 +790,8 @@ describe('symlink stream', function () {
          cwd: __dirname,
          path: inputPath,
          contents: null,
-         stat: <fs.Stats>{
-            isDirectory: function () {
-               return true;
-            },
+         stat: <fs.Stats> {
+            isDirectory: () => true,
             mode: expectedMode
          }
       });
@@ -874,7 +865,7 @@ describe('symlink stream', function () {
          cwd: __dirname,
          path: inputPath,
          contents: expectedContents,
-         stat: <fs.Stats>{
+         stat: <fs.Stats> {
             mode: expectedMode
          }
       });
@@ -883,7 +874,7 @@ describe('symlink stream', function () {
       fs.chmodSync(expectedBase, 0);
 
       var stream = vfs.symlink('./out-fixtures/', { cwd: __dirname });
-      stream.on('error', function (err:any) {
+      stream.on('error', function (err: any) {
          err.code.should.equal('EACCES');
          done();
       });
@@ -919,5 +910,5 @@ describe('symlink stream', function () {
       var file = new File(options);
       File.isVinyl(file).should.equal(true);
       File.isVinyl(options).should.equal(false);
-   })
+   });
 });

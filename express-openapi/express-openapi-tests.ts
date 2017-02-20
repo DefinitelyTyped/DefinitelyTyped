@@ -1,5 +1,4 @@
-/// <reference path="../express/express.d.ts" />
-/// <reference path="express-openapi.d.ts" />
+
 
 import express = require('express');
 import openapi = require('express-openapi');

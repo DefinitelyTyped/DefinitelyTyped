@@ -1,25 +1,30 @@
-# React v0.14.4 Type Definitions
-
-This directory contains type definitions for the following React packages:
-- `react`
-- `react-addons-create-fragment`
-- `react-addons-css-transition-group`
-- `react-addons-linked-state-mixin`
-- `react-addons-perf`
-- `react-addons-pure-render-mixin`
-- `react-addons-shallow-compare`
-- `react-addons-test-utils`
-- `react-addons-transition-group`
-- `react-addons-update`
-- `react-dom`
-
-## Getting Started
-If you are using modules you should use `react.d.ts`, `react-dom.d.ts` or any of the `react-addons-*.d.ts` definition files. If `React` is in your global namespace, you should use `react-global.d.ts`.
-
 ## Known Problems & Workarounds
 
-### **The type of `setState` is incorrect.**
-The `setState(state)` method on `React.Component<P, S>` takes an object with a subset of the properties on `S`, but there's no way to express this in TypeScript currently. The workaround is simple: make all properties on `S` optional. There are a number of [proposals](https://github.com/Microsoft/TypeScript/issues/2710) on [ways](https://github.com/Microsoft/TypeScript/issues/4889) to [solve](https://github.com/Microsoft/TypeScript/issues/7355) this problem, but nothing seems to have been approved yet.
+### **The type of `setState` is will be overly strict prior to TS 2.1.5**
+Starting with TypeScript 2.1, its more correct than it used to be, with a caveat: optional parameters on state interfaces are no longer valid. This issue is corrected in 2.1.5 (and beyond) and thus `Pick<S, K>` becomes ideal.
+
+```ts
+interface FooState {
+    bar: string;
+    foo?: string;
+}
+
+const defaultFooState: FooState = {
+    bar: "Hi",
+    foo: undefined,
+};
+
+class Foo extends React.Component<{}, FooState> {
+    public doStuff() {
+        this.setState(defaultFooState);
+    }
+}
+```
+
+Prior to 2.1.5, this code will produce an error. The other way the types could be written (using `Partial<>` instead of `Pick<>`) would allow for you to set `undefined` to a parameter that is not allowed
+to be `undefined`, which could lead to bugs. Users who want to keep optional state parameters should continue to use the hack of `setState({...} as any);` in versions prior to 2.1.5.
+
+(This caveat should be dropped after no later than March 2017, maybe sooner.)
   
 ### **The type of `cloneElement` is incorrect.**
 This is similar to the `setState` problem, in that `cloneElement(element, props)` should should accept a `props` object with a subset of the properties on `element.props`. There is an additional complication, however—React attributes, such as `key` and `ref`, should also be accepted in `props`, but should not exist on `element.props`. The "correct" way to model this, then, is with
@@ -54,7 +59,7 @@ React.cloneElement(element, <{ isDisabled?: boolean } & React.Attributes>{
 This problem manifests itself in two ways. It should be fixed in [TypeScript 2.0](https://github.com/Microsoft/TypeScript/pull/6118).
 
   - You might expect `componentDidUpdate(prevProps, prevState)` to have `prevProps` and `prevState` contextually typed as `P` and `S` respectively, but currently that is not the case. You must explicitly type-annotate both arguments.
-  
+
   - You may get a cryptic error message when either `React.createElement` or `React.createFactory` doesn't recognize the `type` argument that you passed in as a valid `React.Component` subclass, because you overrode one of the static or instance members with a type that's not compatible with the superclass property's type. For example, with the following code:
     ```ts
     import * as React from "react";

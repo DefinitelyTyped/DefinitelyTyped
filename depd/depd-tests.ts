@@ -1,5 +1,3 @@
-﻿/// <reference path="./depd.d.ts"/>
-
 import depd = require('depd');
 
 var deprecate = depd("depd-tests");

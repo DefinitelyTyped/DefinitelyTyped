@@ -1,5 +1,3 @@
-/// <reference path="keypress.d.ts"/>
-
 namespace KeypressComboTests {
     var listener = new window.keypress.Listener();
 

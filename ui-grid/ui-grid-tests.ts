@@ -1,5 +1,5 @@
-/// <reference path="ui-grid.d.ts" />
-/// <reference path="../angularjs/angular.d.ts" />
+import * as ng from 'angular';
+import uiGrid = require("ui-grid");
 
 interface IMyEntity {
     name: string;
@@ -33,16 +33,21 @@ columnDef.filter = {
     condition: 2,
     term: 'yes',
     placeholder: 'testing',
+    ariaLabel: 'testing',
     noTerm: false,
     flags: {
         caseSensitive: true
     },
     type: 1,
     selectOptions: [{value: 4, label: 'test'}],
-    disableCancelButton: false
+    disableCancelFilterButton: false
 };
 columnDef.filter.condition = (searchTerm: string, cellValue: any, row: uiGrid.IGridRow, column: uiGrid.IGridColumn): boolean => {
     return true;
+};
+// the condition function does not need to declare all the parameters
+columnDef.filter.condition = (searchTerm: string, cellValue: any): boolean => {
+    return false;
 };
 columnDef.filterCellFiltered = false;
 columnDef.filterHeaderTemplate = '<div blah="test"></div>';
@@ -88,7 +93,7 @@ columnDef.sort = {
     priority: 1
 };
 columnDef.sortCellFiltered = false;
-columnDef.sortingAlgorithm = (a: any, b: any) => {
+columnDef.sortingAlgorithm = (a: any, b: any, rowA: uiGrid.IGridRowOf<IMyEntity>, rowB: uiGrid.IGridRowOf<IMyEntity>, direction: string) => {
     return -1;
 };
 columnDef.suppressRemoveSort = false;
@@ -107,7 +112,7 @@ gridApi.core.clearAllFilters(true);
 gridApi.core.addToGridMenu(gridInstance, [menuItem]);
 gridApi.core.getVisibleRows(gridInstance);
 gridApi.core.handleWindowResize();
-gridApi.core.queueGridRefresh()
+gridApi.core.queueGridRefresh();
 gridApi.core.queueRefresh();
 gridApi.core.registerColumnsProcessor(colProcessor, 100);
 
@@ -118,7 +123,9 @@ var gridOptions: uiGrid.IGridOptionsOf<IMyEntity> = {
             console.log(row.entity.name);
         })
     }
-}
+};
+gridOptions.isRowSelectable = () => true;
+
 interface IAnotherEntity {
     anObject: string
 }

@@ -1,5 +1,5 @@
-/// <reference path="gulp-coffeelint.d.ts" />
-/// <reference path="../gulp/gulp.d.ts" />
+
+
 
 import coffeelint = require('gulp-coffeelint');
 import gulp = require('gulp');

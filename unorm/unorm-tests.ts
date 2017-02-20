@@ -1,4 +1,4 @@
-/// <reference path="unorm.d.ts" />
+
 import unorm = require("unorm");
 
 function listNormalizations(raw: string) {

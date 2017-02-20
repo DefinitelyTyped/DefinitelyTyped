@@ -1,6 +1,3 @@
-/// <reference path="./rc-tooltip.d.ts" />
-/// <reference path="../react/react-dom.d.ts" />
-
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as Tooltip from 'rc-tooltip';
@@ -30,6 +27,17 @@ ReactDOM.render(
         arrowContent={<div className="arrow"/>}
         getTooltipContainer={() => document.querySelector('.foo')}
         destroyTooltipOnHide
+    >
+        <a href='#'>hover</a>
+    </Tooltip>,
+    document.querySelector('.another-app')
+);
+
+ReactDOM.render(
+    <Tooltip
+        placement="bottomRight"
+        trigger={['click', 'focus']}
+        overlay={() => <span>tooltip</span>}
     >
         <a href='#'>hover</a>
     </Tooltip>,

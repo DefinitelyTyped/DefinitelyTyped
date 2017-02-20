@@ -1,13 +1,11 @@
-﻿// Type definitions for minilog v2
+// Type definitions for minilog v2
 // Project: https://github.com/mixu/minilog
 // Definitions by: Guido <http://guido.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="minilog.d.ts"/>
-
 
 //Following are example snippets from mixu.net/minilog
-
+import Minilog = require("minilog");
 var log = Minilog('app');
 Minilog.enable();
 

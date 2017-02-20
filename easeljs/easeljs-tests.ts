@@ -1,4 +1,4 @@
-/// <reference path="easeljs.d.ts" />
+
 
 var stage: any;
 var myContext2D: any;
