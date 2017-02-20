@@ -38,9 +38,12 @@ interface IdTextPair {
 }
 
 interface Select2Options {
+    amdBase?: string;
+    amdLanguageBase?: string;
     width?: string;
     dropdownAutoWidth?: boolean;
     minimumInputLength?: number;
+    maximumInputLength?: number;
     minimumResultsForSearch?: number;
     maximumSelectionSize?: number;
     placeholder?: string | IdTextPair;
@@ -81,6 +84,9 @@ interface Select2Options {
     language?: string | string[] | {};
     selectOnClose?: boolean;
     sorter?: (data: any[]) => any[];
+    dropdownParent?: JQuery;
+    debug?: boolean;
+    dropdownAdapter?: any;
 }
 
 interface Select2JQueryEventObject extends JQueryEventObject {
@@ -191,4 +197,19 @@ interface JQuery {
     select2(method: string): any;
     select2(method: string, value: any, trigger?: boolean): any;
     select2(options: Select2Options): JQuery;
+}
+
+declare class Select2 {
+    constructor(element: JQuery, options: Select2Options);
+    focus(): void;
+    destroy(): void;
+    on(event: string, callback: Function): void;
+    selection: any;
+    dropdown: any;
+    results: any;
+    $container: JQuery;
+    $dropdown: JQuery;
+    $selection: JQuery;
+    $results: JQuery;
+    options: {options: Select2Options};
 }
