@@ -1,4 +1,4 @@
-// Type definitions for Voca 1.2
+// Type definitions for Voca 1.3
 // Project: https://vocajs.com/
 // Definitions by: Pine Mizune <https://github.com/pine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
