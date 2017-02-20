@@ -5600,20 +5600,9 @@ declare module ol {
         }
 
         /**
-         * @classdesc
-         * Events emitted by {@link ol.interaction.Select} instances are instances of
-         * this type.
-         *
-         * @param {string} type The event type.
-         * @param {Array.<ol.Feature>} selected Selected features.
-         * @param {Array.<ol.Feature>} deselected Deselected features.
-         * @param {ol.MapBrowserEvent} mapBrowserEvent Associated
-         *     {@link ol.MapBrowserEvent}.
-         * @implements {oli.SelectEvent}
-         * @extends {ol.events.Event}
-         * @constructor
+         * @namespace ol.interaction.Select
          */
-        class SelectEvent extends ol.events.Event {
+        module Select {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.Select} instances are instances of
@@ -5628,28 +5617,45 @@ declare module ol {
              * @extends {ol.events.Event}
              * @constructor
              */
-            constructor(type: string, selected: ol.Feature[], deselected: ol.Feature[], mapBrowserEvent: ol.MapBrowserEvent);
-
-            /**
-             * Selected features array.
-             * @type {Array.<ol.Feature>}
-             * @api
-             */
-            selected: ol.Feature[];
-
-            /**
-             * Deselected features array.
-             * @type {Array.<ol.Feature>}
-             * @api
-             */
-            deselected: ol.Feature[];
-
-            /**
-             * Associated {@link ol.MapBrowserEvent}.
-             * @type {ol.MapBrowserEvent}
-             * @api
-             */
-            mapBrowserEvent: ol.MapBrowserEvent;
+            class Event extends ol.events.Event {
+                /**
+                 * @classdesc
+                 * Events emitted by {@link ol.interaction.Select} instances are instances of
+                 * this type.
+                 *
+                 * @param {string} type The event type.
+                 * @param {Array.<ol.Feature>} selected Selected features.
+                 * @param {Array.<ol.Feature>} deselected Deselected features.
+                 * @param {ol.MapBrowserEvent} mapBrowserEvent Associated
+                 *     {@link ol.MapBrowserEvent}.
+                 * @implements {oli.SelectEvent}
+                 * @extends {ol.events.Event}
+                 * @constructor
+                 */
+                constructor(type: string, selected: ol.Feature[], deselected: ol.Feature[], mapBrowserEvent: ol.MapBrowserEvent);
+    
+                /**
+                 * Selected features array.
+                 * @type {Array.<ol.Feature>}
+                 * @api
+                 */
+                selected: ol.Feature[];
+    
+                /**
+                 * Deselected features array.
+                 * @type {Array.<ol.Feature>}
+                 * @api
+                 */
+                deselected: ol.Feature[];
+    
+                /**
+                 * Associated {@link ol.MapBrowserEvent}.
+                 * @type {ol.MapBrowserEvent}
+                 * @api
+                 */
+                mapBrowserEvent: ol.MapBrowserEvent;
+    
+            }
 
         }
 
