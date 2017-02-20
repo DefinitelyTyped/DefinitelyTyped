@@ -7,6 +7,7 @@
 /// <reference types="mongodb" />
 /// <reference types="node" />
 
+
 /*
  * Guidelines for maintaining these definitions:
  * - If you spot an error here or there, please submit a PR.
@@ -2162,6 +2163,11 @@ declare module "mongoose" {
      * @param fields the field(s) to unwind
      */
     unwind(...fields: string[]): this;
+    /**
+     * Appends new custom $unwind operator(s) to this aggregate pipeline
+     * new in mongodb 3.2
+     */
+    unwind(...opts: { path: string, includeArrayIndex?: string, preserveNullAndEmptyArrays?: boolean }[]): this;
   }
 
   /*

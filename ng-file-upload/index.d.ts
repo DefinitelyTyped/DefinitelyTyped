@@ -41,7 +41,11 @@ declare module 'angular' {
              * Validate error name: minDuration
              * @type {(number|string)}
              */
-            ngfMinDuration: number | string;
+            ngfMinDuration?: number | string;
+            /**
+             * Validate error name: minSize
+             * @type {(number|string)}
+             */
             ngfMinSize?: number | string;
             /**
              * Validate error name: minRatio

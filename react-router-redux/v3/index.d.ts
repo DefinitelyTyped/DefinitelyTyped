@@ -19,11 +19,11 @@ export const goForward: GoBackAction;
 export const routeActions: RouteActions;
 
 export type LocationDescriptor = History.LocationDescriptor;
-export type PushAction = (nextLocation: LocationDescriptor) => void;
-export type ReplaceAction = (nextLocation: LocationDescriptor) => void;
-export type GoAction = (n: number) => void;
-export type GoForwardAction = () => void;
-export type GoBackAction = () => void;
+export type PushAction = (nextLocation: LocationDescriptor) => any;
+export type ReplaceAction = (nextLocation: LocationDescriptor) => any;
+export type GoAction = (n: number) => any;
+export type GoForwardAction = () => any;
+export type GoBackAction = () => any;
 
 export interface RouteActions {
     push: PushAction;
@@ -34,11 +34,9 @@ export interface RouteActions {
 }
 
 export interface HistoryMiddleware extends Redux.Middleware {
-    listenForReplays(store: Redux.Store<any>, selectLocationState?: Function): void;
-    unsubscribe(): void;
+    listenForReplays(store: Redux.Store<any>, selectLocationState?: Function): undefined;
+    unsubscribe(): undefined;
 }
 
 export function routeReducer(state?: any, options?: any): Redux.Reducer<any>;
 export function syncHistory(history: History.History): HistoryMiddleware;
-
-

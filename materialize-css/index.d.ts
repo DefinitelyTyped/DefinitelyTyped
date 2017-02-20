@@ -1,6 +1,6 @@
-// Type definitions for materialize-css v0.97.5
+// Type definitions for materialize-css v0.98.0
 // Project: http://materializecss.com/
-// Definitions by: Erik Lieben <https://github.com/eriklieben>, Leon Yu <https://github.com/leonyu>
+// Definitions by: Erik Lieben <https://github.com/eriklieben>, Leon Yu <https://github.com/leonyu>, Sukhdeep Singh <https://github.com/SinghSukhdeep>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery" />
@@ -15,7 +15,7 @@ declare namespace Materialize {
         /**
         * A setting that changes the collapsible behavior to expandable instead of the default accordion style
         */
-        accordion: boolean;
+        accordion?: boolean;
 
         /**
          * Callback for Collapsible section close.
@@ -34,7 +34,23 @@ declare namespace Materialize {
         /**
         * The delay before the tooltip shows (in milliseconds)
         */
-        delay:number;
+        delay: number;
+        /**
+         * Tooltip text. Can use custom HTML if you set the html option
+         */
+        tooltip?: string;
+        /**
+         * Set the direction of the tooltip. 'top', 'right', 'bottom', 'left'. 
+         * 
+         * (Default: 'bottom')
+         */
+        position?: string;
+        /**
+         * Allow custom html inside the tooltip. 
+         * 
+         * (Default: false)
+         */
+        html?: boolean;
     }
 
     /**
@@ -46,43 +62,49 @@ declare namespace Materialize {
          * The duration of the transition enter in milliseconds.
          * Default: 300
          */
-        inDuration?:number;
+        inDuration?: number;
 
         /**
          * The duration of the transition out in milliseconds.
          * Default: 225
          */
-        outDuration?:number;
+        outDuration?: number;
 
-        // TODO: constrain_width
+
         /**
          * If true, constrainWidth to the size of the dropdown activator.
          * Default: true
          */
-        constrain_width?:boolean;
+        constrainWidth?: boolean;
         /**
          * If true, the dropdown will open on hover.
          * Default: false
          */
-        hover?:boolean;
+        hover?: boolean;
 
         /**
          * This defines the spacing from the aligned edge.
          * Default: 0
          */
-        gutter?:number;
+        gutter?: number;
 
         /**
          * If true, the dropdown will show below the activator.
          * Default: false
          */
-        belowOrigin?:boolean;
+        belowOrigin?: boolean;
 
         /**
          * Defines the edge the menu is aligned to.
          * Default: 'left'
          */
-        alignment?:string;
+        alignment?: string;
+        /**
+         * If true, stops the event propagating from the dropdown origin click handler.
+         * 
+         * Default: false
+         */
+        stopPropagation?: boolean
     }
 
     /**
@@ -120,10 +142,10 @@ declare namespace Materialize {
      */
     interface CarouselOptions {
         /**
-         * Transition time.
+         * Transition duration in milliseconds
          * Default: 200
          */
-        time_constant?: number;
+        duration?: number;
 
         /**
          * Perspective zoom. If 0, all items are the same size.
@@ -147,13 +169,25 @@ declare namespace Materialize {
          * Set the width of the carousel.
          * Default: false
          */
-        full_width?: boolean;
+        fullWidth?: boolean;
+        /**
+         * Set to true to show indicators. 
+         * 
+         * Default: false
+         */
+        indicators?: boolean;
+        /**
+         * Don't wrap around and cycle through items.
+         * 
+         * Default: false
+         */
+        noWrap?: boolean;
     }
 
     /**
-     * The lean modal options
+     * The modal options
      */
-    interface LeanModalOptions {
+    interface ModalOptions {
 
         /**
          * Modal can be dismissed by clicking outside of the modal.
@@ -171,13 +205,23 @@ declare namespace Materialize {
          * Transition in duration.
          * Default: 300
          */
-        in_duration?: number;
+        inDuration?: number;
 
         /**
          * Transition out duration.
          * Default: 200
          */
-        out_duration?: number;
+        outDuration?: number;
+        /**
+         * Starting top style attribute
+         * Default: `4%`
+         */
+        startingTop?: string;
+        /**
+         * Ending top style attribute
+         * Default : `10%`
+         */
+        endingTop?: string;
 
         /**
          * Callback for Modal open.
@@ -201,19 +245,19 @@ declare namespace Materialize {
          * The distance in pixels from the top of the page where the element becomes fixed.
          * Default: 0
          */
-        top?:number;
+        top?: number;
 
         /**
          * The distance in pixels from the top of the page where the elements stops being fixed.
          * Default: Infinity
          */
-        bottom?:number;
+        bottom?: number;
 
         /**
          * The offset from the top the element will be fixed at.
          * Default: 0
          */
-        offset?:number;
+        offset?: number;
     }
 
     /**
@@ -273,44 +317,97 @@ declare namespace Materialize {
          * It will only be called once.
          * Example: 'console.log("hello, world!")';
          */
-        callback?: string;
+        callback?: Function;
     }
 
+    interface TabOptions {
         /**
+         * Execute a callback function when the tab is changed. 
+         * 
+         * The callback provides a parameter which refers to the current tab being shown.
+         */
+        onShow?: Function;
+
+        /**
+         * Set to true to enable swipeable tabs. This also uses the responsiveThreshold option.
+         * 
+         * Default: false
+         */
+        swipeable?: boolean;
+
+        /**
+         * The maximum width of the screen, in pixels, where the swipeable functionality initializes.
+         * 
+         * Default: Infinity
+         */
+        responsiveThreshold?: number;
+    }
+
+    interface ChipDataObject {
+        tag: string,
+        image?: string,
+        id?: number
+    }
+
+    interface ChipOptions {
+        /**
+         * Set the chip data 
+         */
+        data?: Materialize.ChipDataObject[];
+        /**
+         * Set first placeholder when there are no tags
+         */
+        placeholder?: string;
+        /**
+         * Set second placeholder when adding additional tags.
+         */
+        secondaryPlaceholder?: string;
+        /**
+         * Set autocomplete data.
+         */
+        autocompleteData?: any;
+        /**
+         * Set autocomplete limit.
+         */
+        autocompleteLimit?: number;
+    }
+
+
+    /**
      * The Materialize object
      */
     interface Materialize {
 
         /**
-        * Displays a toast message on screen
-        *
-        * @name message The message to display on screen
-        * @name displayLength The duration in milliseconds to display the message on screen
-        * @name className The className to use to format the message to display
-        * @name completeCallback Callback function to call when the messages completes/hides.
-        */
-        toast(message:string|JQuery, displayLength:number, className?:string, completeCallback?:Function): void;
+         * Displays a toast message on screen
+         *
+         * @name message The message to display on screen
+         * @name displayLength The duration in milliseconds to display the message on screen
+         * @name className The className to use to format the message to display
+         * @name completeCallback Callback function to call when the messages completes/hides.
+         */
+        toast(message: string | JQuery, displayLength: number, className?: string, completeCallback?: Function): void;
 
         /**
          * Fires an event when the page is scrolled to a certain area
          *
          * @name options optional parameter with scroll fire options
          */
-        scrollFire(options?:ScrollFireOptions): void;
+        scrollFire(options?: ScrollFireOptions): void;
 
         /**
          * A staggered reveal effect for any UL Tag with list items
          *
          * @name selector the selector for the list to show in staggered fasion
          */
-        showStaggeredList(selector:string): void;
+        showStaggeredList(selector: string): void;
 
         /**
          * Fade in images. It also animates grayscale and brightness to give it a unique effect.
          *
          * @name selector the selector for the image to fade in
          */
-        fadeInImage(selector:string): void;
+        fadeInImage(selector: string): void;
 
         /**
          * Update all text field to reinitialize all the Materialize labels on the page if dynamically adding inputs
@@ -319,7 +416,7 @@ declare namespace Materialize {
     }
 }
 
-declare var Materialize : Materialize.Materialize;
+declare var Materialize: Materialize.Materialize;
 
 interface JQuery {
 
@@ -365,7 +462,7 @@ interface JQuery {
      *
      * @name options the tooltip options or the string "remove" to remove the tooltip function
      */
-    tooltip(options?: Materialize.TooltipOptions|string): JQuery;
+    tooltip(options?: Materialize.TooltipOptions | string): JQuery;
 
     /**
      * Add a dropdown list to any button.
@@ -414,28 +511,32 @@ interface JQuery {
      *
      * @name method the methods to pause, start, move to next and move to previous slide.
      */
-    carousel(method: string, count: [number]): JQuery;
+    carousel(method: string, count?: number): JQuery;
 
     /**
-     *  Modal for dialog boxes, confirmation messages, or other content that can be called up.
+     * Modal for dialog boxes, confirmation messages, or other content that can be called up.
+     * 
+     * For Initialization.
+     */
+    modal(): JQuery;
+
+    /**
+     * Modal for dialog boxes, confirmation messages, or other content that can be called up.
+     * 
+     * For opening and closing modals programatically.
+     * 
+     * @name string action action to do (`open` or `close)
+     */
+    modal(action: string): void;
+
+    /**
+     * Modal for dialog boxes, confirmation messages, or other content that can be called up.
+     * 
+     * To customize the behaviour of a modal
      *
      * @name options the lean modal options
      */
-    leanModal(options?: Materialize.LeanModalOptions): JQuery;
-
-    /**
-     * Open a modal programatically
-     *
-     * @name options the lean modal options
-     */
-    openModal(options?: Materialize.LeanModalOptions): void;
-
-    /**
-     * Close a modal programatically
-     *
-     * @name options the lean modal options
-     */
-    closeModal(options?: Materialize.LeanModalOptions): void;
+    modal(options: Materialize.ModalOptions): void;
 
     /**
      * Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.
@@ -461,12 +562,33 @@ interface JQuery {
      *
      * @params methodOrOptions the slide navigation options or a string with "show" to reveal or "hide" to hide the menu
      */
-    sideNav(methodOrOptions?: Materialize.SideNavOptions|string): void;
+    sideNav(methodOrOptions?: Materialize.SideNavOptions | string): void;
 
     /**
      * Programmatically trigger the tab change event
      *
      * @name method, the method to call (always "select_tab") and a param containing the id of the tab to open
      */
-    tabs(method?:string, tab?:string): JQuery;
+    tabs(method?: string, tab?: string): JQuery;
+
+    /**
+     * Tab Initialization with options
+     *
+     * @name TabOptions options jQuery plugin options
+     */
+    tabs(options?: Materialize.TabOptions): JQuery;
+
+    /**
+     * Chip Initialization
+     * 
+     * @name ChipOptions options Material chip options
+     */
+    material_chip(options?: Materialize.ChipOptions): JQuery;
+
+    /**
+     * To access chip data
+     * 
+     * @name string method name of the method to invoke
+     */
+    material_chip(method: string): Materialize.ChipDataObject[] | Materialize.ChipDataObject;
 }

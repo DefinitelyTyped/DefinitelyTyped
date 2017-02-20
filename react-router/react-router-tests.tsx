@@ -9,6 +9,7 @@ import {
 	hashHistory,
 	match,
 	createMemoryHistory,
+	useRouterHistory,
 	withRouter,
 	routerShape,
 	Router,
@@ -17,8 +18,28 @@ import {
 	InjectedRouter,
 	Link,
 	RouterContext,
-	LinkProps
+	LinkProps,
+	RedirectFunction,
+	RouteComponentProps
 } from "react-router";
+import { createHistory, History } from "history";
+
+const routerHistory = useRouterHistory(createHistory)({ basename: "/test" })
+
+interface CustomHistory {
+	test(): undefined;
+}
+
+type CombinedHistory = History & CustomHistory
+
+function createCustomHistory(history: History): CombinedHistory {
+	return {
+		...history,
+		test() {}
+	} as CombinedHistory
+}
+const customHistory = createCustomHistory(browserHistory)
+
 
 const NavLink = (props: LinkProps) => (
 	<Link {...props} activeClassName="active" />
@@ -92,10 +113,12 @@ class NotFound extends React.Component<{}, {}> {
 
 }
 
+interface UsersProps extends RouteComponentProps<{}, {}> { }
 
-class Users extends React.Component<{}, {}> {
+class Users extends React.Component<UsersProps, {}> {
 
 	render() {
+                const { location, params, route, routes, router, routeParams } = this.props;
 		return <div>
 			This is a user list
 		</div>
@@ -111,6 +134,18 @@ ReactDOM.render((
 			<Route path="users" component={Users}/>
 			<Route path="*" component={NotFound}/>
 		</Route>
+	</Router>
+), document.body)
+
+ReactDOM.render((
+	<Router history={ routerHistory }>
+		<Route path="/" component={Master} />
+	</Router>
+), document.body)
+
+ReactDOM.render((
+	<Router history={ customHistory }>
+		<Route path="/" component={Master} />
 	</Router>
 ), document.body)
 
