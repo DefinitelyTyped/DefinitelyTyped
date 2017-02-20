@@ -1,20 +1,19 @@
 import { Component, ComponentClass, ClassAttributes, ReactNode, StatelessComponent } from "react";
 import {
     Action,
-    Hash,
     History,
     Href,
+    Location,
+    LocationDescriptor,
     LocationKey,
     LocationState,
     Path,
     Pathname,
+    Query,
     Search
 } from "history";
 import { PlainRoute } from "react-router";
 
-/* Replacement from old history definitions */
-export type Basename = string;
-export type Query = any;
 export interface Params {
     [key: string]: string;
 }
@@ -36,27 +35,9 @@ export type LeaveHook = (prevState: RouterState) => any;
 export type ChangeHook = (prevState: RouterState, nextState: RouterState, replace: RedirectFunction, callback?: AnyFunction) => any;
 export type RouteHook = (nextLocation?: Location) => any;
 
-export interface Location {
-    pathname: Pathname;
-    search: Search;
-    query: Query;
-    state: LocationState;
-    action: Action;
-    key: LocationKey;
-}
-
-export interface LocationDescriptorObject {
-    pathname?: Pathname;
-    query?: Query;
-    hash?: Hash;
-    state?: LocationState;
-}
-
-export type LocationDescriptor = Path | LocationDescriptorObject;
-
 export interface RedirectFunction {
-    (location: LocationDescriptor): void;
-    (state: LocationState, pathname: Pathname | Path, query?: Query): void;
+    (location: LocationDescriptor): undefined;
+    (state: LocationState, pathname: Pathname | Path, query?: Query): undefined;
 }
 
 export interface RouterState {
@@ -66,11 +47,11 @@ export interface RouterState {
     components: RouteComponent[];
 }
 
-type LocationFunction = (location: LocationDescriptor) => void;
-type GoFunction = (n: number) => void;
-type NavigateFunction = () => void;
+type LocationFunction = (location: LocationDescriptor) => any;
+type GoFunction = (n: number) => any;
+type NavigateFunction = () => any;
 type ActiveFunction = (location: LocationDescriptor, indexOnly?: boolean) => boolean;
-type LeaveHookFunction = (route: any, callback: RouteHook) => void;
+type LeaveHookFunction = (route: any, callback: RouteHook) => any;
 type CreatePartFunction<Part> = (path: Path, query?: any) => Part;
 
 export interface InjectedRouter {
@@ -90,6 +71,7 @@ export interface RouteComponentProps<P, R> {
     params: P & R;
     route: PlainRoute;
     router: InjectedRouter;
+    routes: PlainRoute[];
     routeParams: R;
 }
 

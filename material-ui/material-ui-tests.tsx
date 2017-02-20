@@ -167,8 +167,8 @@ const styles = {
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
-  } as React.CSSProperties,
+    justifyContent: 'space-around' as 'space-around',
+  },
   gridList: {
     width: 500,
     height: 500,
@@ -189,7 +189,7 @@ const styles = {
   },
   h3: {
     marginTop: 20,
-    fontWeight: 400,
+    fontWeight: 400 as 400,
   },
   block: {
     display: 'flex',
@@ -223,7 +223,7 @@ const styles = {
     fontSize: 24,
     paddingTop: 16,
     marginBottom: 12,
-    fontWeight: 400,
+    fontWeight: 400 as 400,
   },
   errorStyle: {
     color: orange500,
@@ -425,7 +425,7 @@ export class AutoCompleteExampleSimple extends React.Component<{}, {dataSource: 
         value + value + value,
       ],
     });
-  };
+  }
 
   dataSourceConfig = {
     text: 'textKey',
@@ -1011,20 +1011,20 @@ class CardExampleControlled extends React.Component<{}, {expanded: boolean}> {
   }
 
   handleExpandChange = (expanded) => {
-    this.setState({expanded: expanded});
-  };
+    this.setState({expanded});
+  }
 
   handleToggle = (event, toggle) => {
     this.setState({expanded: toggle});
-  };
+  }
 
   handleExpand = () => {
     this.setState({expanded: true});
-  };
+  }
 
   handleReduce = () => {
     this.setState({expanded: false});
-  };
+  }
 
   render() {
     return (
@@ -1136,8 +1136,8 @@ class DatePickerExampleToggle extends React.Component<{}, DatePickerExampleToggl
     maxDate.setHours(0, 0, 0, 0);
 
     this.state = {
-      minDate: minDate,
-      maxDate: maxDate,
+      minDate,
+      maxDate,
       autoOk: false,
       disableYearSelection: false,
     };
@@ -1147,19 +1147,19 @@ class DatePickerExampleToggle extends React.Component<{}, DatePickerExampleToggl
     this.setState({
       minDate: date,
     });
-  };
+  }
 
   handleChangeMaxDate = (event, date) => {
     this.setState({
       maxDate: date,
     });
-  };
+  }
 
   handleToggle = (event, toggled) => {
     this.setState({
       [event.target.name]: toggled,
     });
-  };
+  }
 
   render() {
     return (
@@ -1220,7 +1220,7 @@ class DatePickerExampleControlled extends React.Component<{}, {controlledDate?: 
     this.setState({
       controlledDate: date,
     });
-  };
+  }
 
   render() {
     return (
@@ -1282,11 +1282,11 @@ class DialogExampleSimple extends React.Component<{}, {open?: boolean}> {
 
   handleOpen = () => {
     this.setState({open: true});
-  };
+  }
 
   handleClose = () => {
     this.setState({open: false});
-  };
+  }
 
   render() {
     const actions = [
@@ -1327,11 +1327,11 @@ class DialogExampleModal extends React.Component<{}, {open?: boolean}> {
 
   handleOpen = () => {
     this.setState({open: true});
-  };
+  }
 
   handleClose = () => {
     this.setState({open: false});
-  };
+  }
 
   render() {
     const actions = [
@@ -1371,11 +1371,11 @@ class DialogExampleCustomWidth extends React.Component<{}, {open?: boolean}> {
 
   handleOpen = () => {
     this.setState({open: true});
-  };
+  }
 
   handleClose = () => {
     this.setState({open: false});
-  };
+  }
 
   render() {
     const actions = [
@@ -1415,11 +1415,11 @@ class DialogExampleDialogDatePicker extends React.Component<{}, {open?: boolean}
 
   handleOpen = () => {
     this.setState({open: true});
-  };
+  }
 
   handleClose = () => {
     this.setState({open: false});
-  };
+  }
 
   render() {
     const actions = [
@@ -1456,11 +1456,11 @@ class DialogExampleScrollable extends React.Component<{}, {open?: boolean}> {
 
   handleOpen = () => {
     this.setState({open: true});
-  };
+  }
 
   handleClose = () => {
     this.setState({open: false});
-  };
+  }
 
   render() {
     const actions = [
@@ -1516,11 +1516,11 @@ class DialogExampleAlert extends React.Component<{}, {open?: boolean}> {
 
   handleOpen = () => {
     this.setState({open: true});
-  };
+  }
 
   handleClose = () => {
     this.setState({open: false});
-  };
+  }
 
   render() {
     const actions = [
@@ -2288,7 +2288,7 @@ function wrapState(ComposedComponent: React.ComponentClass<__MaterialUI.List.Sel
       this.setState({
         selectedIndex: index,
       });
-    };
+    }
 
     render() {
       return (
@@ -2567,13 +2567,13 @@ class IconMenuExampleControlled extends React.Component<{}, IconMenuExampleContr
     this.setState({
       valueSingle: value,
     });
-  };
+  }
 
   handleChangeMultiple = (event, value) => {
     this.setState({
       valueMultiple: value,
     });
-  };
+  }
 
   handleOpenMenu = () => {
     this.setState({
@@ -2886,13 +2886,13 @@ class PopoverExampleSimple extends React.Component<{}, {open?: boolean, anchorEl
       open: true,
       anchorEl: event.currentTarget,
     });
-  };
+  }
 
   handleRequestClose = () => {
     this.setState({
       open: false,
     });
-  };
+  }
 
   render() {
     return (
@@ -2937,13 +2937,13 @@ class PopoverExampleAnimation extends React.Component<{}, {open?: boolean, ancho
       open: true,
       anchorEl: event.currentTarget,
     });
-  };
+  }
 
   handleRequestClose = () => {
     this.setState({
       open: false,
     });
-  };
+  }
 
   render() {
     return (
@@ -3004,31 +3004,31 @@ class PopoverExampleConfigurable extends React.Component<{}, PopoverExampleConfi
       open: true,
       anchorEl: event.currentTarget,
     });
-  };
+  }
 
   handleRequestClose = () => {
     this.setState({
       open: false,
     });
-  };
+  }
 
   setAnchor = (positionElement, position) => {
     const {anchorOrigin} = this.state;
     anchorOrigin[positionElement] = position;
 
     this.setState({
-      anchorOrigin: anchorOrigin,
+      anchorOrigin
     });
-  };
+  }
 
   setTarget = (positionElement, position) => {
     const {targetOrigin} = this.state;
     targetOrigin[positionElement] = position;
 
     this.setState({
-      targetOrigin: targetOrigin,
+      targetOrigin
     });
-  };
+  }
 
   render() {
     return (
@@ -3483,7 +3483,7 @@ class SliderExampleControlled extends React.Component<{}, {firstSlider?: number,
   state = {
     firstSlider: 0.5,
     secondSlider: 50,
-  }
+  };
 
   handleFirstSlider(event, value) {
     this.setState({firstSlider: value});
@@ -3652,13 +3652,13 @@ class SnackbarExampleSimple extends React.Component<{}, {open?: boolean}> {
     this.setState({
       open: true,
     });
-  };
+  }
 
   handleRequestClose = () => {
     this.setState({
       open: false,
     });
-  };
+  }
 
   render() {
     return (
@@ -3694,27 +3694,27 @@ class SnackbarExampleAction extends React.Component<{}, {open?: boolean, autoHid
     this.setState({
       open: true,
     });
-  };
+  }
 
   handleActionTouchTap = () => {
     this.setState({
       open: false,
     });
     alert('Event removed from your calendar.');
-  };
+  }
 
   handleChangeDuration = (event) => {
     const value = event.target.value;
     this.setState({
-      autoHideDuration: value.length > 0 ? parseInt(value) : 0,
+      autoHideDuration: value.length > 0 ? parseInt(value, 10) : 0,
     });
-  };
+  }
 
   handleRequestClose = () => {
     this.setState({
       open: false,
     });
-  };
+  }
 
   render() {
     return (
@@ -3769,13 +3769,13 @@ class SnackbarExampleTwice extends React.Component<{}, {open?: boolean, message?
         message: `Event ${Math.round(Math.random() * 100)} added to your calendar`,
       });
     }, 1500);
-  };
+  }
 
   handleRequestClose = () => {
     this.setState({
       open: false,
     });
-  };
+  }
 
   render() {
     return (
@@ -3811,14 +3811,14 @@ class HorizontalLinearStepper extends React.Component<{}, {stepIndex?: number, f
       stepIndex: stepIndex + 1,
       finished: stepIndex >= 2,
     });
-  };
+  }
 
   handlePrev = () => {
     const {stepIndex} = this.state;
     if (stepIndex > 0) {
       this.setState({stepIndex: stepIndex - 1});
     }
-  };
+  }
 
   getStepContent(stepIndex) {
     switch (stepIndex) {
@@ -3900,14 +3900,14 @@ class VerticalLinearStepper extends React.Component<{}, {stepIndex?: number, fin
       stepIndex: stepIndex + 1,
       finished: stepIndex >= 2,
     });
-  };
+  }
 
   handlePrev = () => {
     const {stepIndex} = this.state;
     if (stepIndex > 0) {
       this.setState({stepIndex: stepIndex - 1});
     }
-  };
+  }
 
   renderStepActions(step) {
     const {stepIndex} = this.state;
@@ -4001,14 +4001,14 @@ class HorizontalNonLinearStepper extends React.Component<{}, {stepIndex?: number
     if (stepIndex < 2) {
       this.setState({stepIndex: stepIndex + 1});
     }
-  };
+  }
 
   handlePrev = () => {
     const {stepIndex} = this.state;
     if (stepIndex > 0) {
       this.setState({stepIndex: stepIndex - 1});
     }
-  };
+  }
 
   getStepContent(stepIndex) {
     switch (stepIndex) {
@@ -4079,14 +4079,14 @@ class VerticalNonLinear extends React.Component<{}, {stepIndex?: number}> {
     if (stepIndex < 2) {
       this.setState({stepIndex: stepIndex + 1});
     }
-  };
+  }
 
   handlePrev = () => {
     const {stepIndex} = this.state;
     if (stepIndex > 0) {
       this.setState({stepIndex: stepIndex - 1});
     }
-  };
+  }
 
   renderStepActions(step) {
     return (
@@ -4206,14 +4206,14 @@ class GranularControlStepper extends React.Component<{}, {stepIndex?: number, vi
     if (stepIndex < 2) {
       this.setState({stepIndex: stepIndex + 1});
     }
-  };
+  }
 
   handlePrev = () => {
     const {stepIndex} = this.state;
     if (stepIndex > 0) {
       this.setState({stepIndex: stepIndex - 1});
     }
-  };
+  }
 
   getStepContent(stepIndex) {
     switch (stepIndex) {
@@ -4296,14 +4296,14 @@ class CustomIcon extends React.Component<{}, {stepIndex?: number}> {
     if (stepIndex < 2) {
       this.setState({stepIndex: stepIndex + 1});
     }
-  };
+  }
 
   handlePrev = () => {
     const {stepIndex} = this.state;
     if (stepIndex > 0) {
       this.setState({stepIndex: stepIndex - 1});
     }
-  };
+  }
 
   getStepContent(stepIndex) {
     switch (stepIndex) {
@@ -4419,16 +4419,16 @@ const tableData: {name: string, status: string, selected?: boolean}[] = [
 ];
 
 interface TableExampleComplexState {
-  fixedHeader?: boolean,
-  fixedFooter?: boolean,
-  stripedRows?: boolean,
-  showRowHover?: boolean,
-  selectable?: boolean,
-  multiSelectable?: boolean,
-  enableSelectAll?: boolean,
-  deselectOnClickaway?: boolean,
-  showCheckboxes?: boolean,
-  height?: string,
+  fixedHeader?: boolean;
+  fixedFooter?: boolean;
+  stripedRows?: boolean;
+  showRowHover?: boolean;
+  selectable?: boolean;
+  multiSelectable?: boolean;
+  enableSelectAll?: boolean;
+  deselectOnClickaway?: boolean;
+  showCheckboxes?: boolean;
+  height?: string;
 }
 
 class TableExampleComplex extends React.Component<{}, TableExampleComplexState> {
@@ -4454,11 +4454,11 @@ class TableExampleComplex extends React.Component<{}, TableExampleComplexState> 
     this.setState({
       [event.target.name]: toggled,
     });
-  };
+  }
 
   handleChange = (event) => {
     this.setState({height: event.target.value});
-  };
+  }
 
   render() {
     return (
@@ -4638,9 +4638,9 @@ class TabsExampleControlled extends React.Component<{}, {value?: string}> {
 
   handleChange = (value) => {
     this.setState({
-      value: value,
+      value
     });
-  };
+  }
 
   render() {
     return (
@@ -4837,7 +4837,7 @@ class TextFieldExampleControlled extends React.Component<{}, {value?: string}> {
     this.setState({
       value: event.target.value,
     });
-  };
+  }
 
   render() {
     return (
@@ -4879,11 +4879,11 @@ class TimePickerExampleComplex extends React.Component<{}, {value24?: Date, valu
 
   handleChangeTimePicker24 = (event, date) => {
     this.setState({value24: date});
-  };
+  }
 
   handleChangeTimePicker12 = (event, date) => {
     this.setState({value12: date});
-  };
+  }
 
   render() {
     return (
@@ -4978,7 +4978,7 @@ class BottomNavigationExample extends React.Component<{}, {
     return <BottomNavigation selectedIndex={this.state.index}>
       <BottomNavigationItem label='0' icon={<ActionHome/>} onTouchTap={() => this.setState({index: 0})}/>
       <BottomNavigationItem label='1' icon={<ActionInfo/>} onTouchTap={() => this.setState({index: 1})}/>
-    </BottomNavigation>
+    </BottomNavigation>;
   }
 }
 

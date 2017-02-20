@@ -759,7 +759,10 @@ declare namespace webpack {
 
     namespace optimize {
         class AggressiveMergingPlugin extends Plugin {
-            constructor(options: any);
+            constructor(options?: {
+                minSize?: number;
+                maxSize?: number;
+            });
         }
 
         class CommonsChunkPlugin extends Plugin {

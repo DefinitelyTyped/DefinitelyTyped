@@ -404,21 +404,28 @@ class MyMarker extends L.Marker {
 		super([12, 13]);
 	}
 }
+
 class MyLayer extends L.Layer {
 	constructor() {
 		super();
 	}
 }
+
 class MyIcon extends L.Icon {
 	constructor() {
 		super({iconUrl: 'icon.png'});
 	}
 }
+
 class MyDivIcon extends L.DivIcon {
 	constructor() {
 		super();
 	}
 }
+
+const divIcon = L.divIcon({html: ''});
+let defaultIcon = new L.Icon.Default();
+defaultIcon = new L.Icon.Default({imagePath: 'apath'});
 
 let myControlClass = L.Control.extend({});
 let myControl = new myControlClass();
@@ -434,3 +441,9 @@ export class MyNewControl extends L.Control {
 		});
 	}
 }
+
+L.marker([1, 2], {
+	icon: L.icon({
+		iconUrl: 'my-icon.png'
+	})
+}).bindPopup('<p>Hi</p>');

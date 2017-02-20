@@ -29,3 +29,8 @@ var hidden1: any = config.util.makeHidden({}, "");
 var hidden2: any = config.util.makeHidden({}, "", "");
 
 var env: string = config.util.getEnv("");
+
+var configSources: config.IConfigSource[] = config.util.getConfigSources();
+var configSource: config.IConfigSource = configSources[0];
+var configSourceName: string = configSource.name;
+var configSourceOriginal: string | undefined = configSource.original;

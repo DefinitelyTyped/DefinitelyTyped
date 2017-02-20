@@ -1,6 +1,6 @@
 // Type definitions for Chrome extension development
 // Project: http://developer.chrome.com/extensions/
-// Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>
+// Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>, sreimer15 <https://github.com/sreimer15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="filesystem" />
@@ -7062,13 +7062,12 @@ declare namespace chrome.webNavigation {
         transitionQualifiers: string[];
     }
 
-    interface WebNavigationEventFilter {
-        /** Conditions that the URL being navigated to must satisfy. The 'schemes' and 'ports' fields of UrlFilter are ignored for this event. */
-        url: chrome.events.UrlFilter[];
+    interface WebNavigationRequestFilter extends chrome.webRequest.RequestFilter {
+        /** fulfills the webRequest.RequestFilter interface even though it is under web navigation **/
     }
 
     interface WebNavigationEvent<T extends WebNavigationCallbackDetails> extends chrome.events.Event<(details: T) => void> {
-        addListener(callback: (details: T) => void, filters?: WebNavigationEventFilter): void;
+        addListener(callback: (details: T) => void, filters?: WebNavigationRequestFilter): void;
     }
 
     interface WebNavigationFramedEvent extends WebNavigationEvent<WebNavigationFramedCallbackDetails> {}
@@ -7178,7 +7177,8 @@ declare namespace chrome.webRequest {
          */
         types?: string[];
         /** A list of URLs or URL patterns. Requests that cannot match any of the URLs will be filtered out. */
-        urls: string[];
+        urls: string[] | RegExp[] | "<all_urls>";
+ 
         /** Optional. */
         windowId?: number;
     }

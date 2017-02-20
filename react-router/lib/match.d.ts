@@ -1,5 +1,5 @@
-import { History } from "history";
-import { Basename, LocationDescriptor, ParseQueryString, RouteConfig, StringifyQuery } from "react-router";
+import { Basename, History, LocationDescriptor } from "history";
+import { ParseQueryString, RouteConfig, StringifyQuery } from "react-router";
 
 interface MatchArgs {
     routes: RouteConfig;
@@ -18,7 +18,6 @@ interface MatchHistoryArgs extends MatchArgs {
     history: History;
 }
 
-export type MatchCallback = (error: any, redirectLocation: Location, renderProps: any) => void;
+export type MatchCallback = (error: any, redirectLocation: Location, renderProps: any) => any;
 
-export default function match(args: MatchLocationArgs | MatchHistoryArgs, cb: MatchCallback): void;
-
+export default function match(args: MatchLocationArgs | MatchHistoryArgs, cb: MatchCallback): undefined;

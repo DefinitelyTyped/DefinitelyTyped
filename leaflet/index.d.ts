@@ -406,7 +406,7 @@ declare namespace L {
         getPane(name?: string): HTMLElement;
 
         // Popup methods
-        bindPopup(content: (layer: Layer) => Content | Content | Popup, options?: PopupOptions): this;
+        bindPopup(content: ((layer: Layer) => Content) | Content | Popup, options?: PopupOptions): this;
         unbindPopup(): this;
         openPopup(latlng?: LatLngExpression): this;
         closePopup(): this;
@@ -416,7 +416,7 @@ declare namespace L {
         getPopup(): Popup;
 
         // Tooltip methods
-        bindTooltip(content: (layer: Layer) => Content | Tooltip | Content, options?: TooltipOptions): this;
+        bindTooltip(content: ((layer: Layer) => Content) | Tooltip | Content, options?: TooltipOptions): this;
         unbindTooltip(): this;
         openTooltip(latlng?: LatLngExpression): this;
         closeTooltip(): this;
@@ -689,7 +689,7 @@ declare namespace L {
         /**
          * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection, GeoJSONFeatureCollection or Multipoint).
          */
-        toGeoJSON(): GeoJSONFeatureCollection<GeoJSONGeometryObject> | GeoJSONFeature<GeoJSONGeometryCollection | GeoJSONMultiPoint>;
+        toGeoJSON(): GeoJSONFeatureCollection<GeoJSONGeometryObject> | GeoJSONFeature<GeoJSONMultiPoint> | GeoJSONGeometryCollection;
 
         /**
          * Adds the given layer to the group.
@@ -743,7 +743,7 @@ declare namespace L {
          */
         getLayerId(layer: Layer): number;
 
-        feature: GeoJSONFeatureCollection<GeoJSONGeometryObject> | GeoJSONFeature<GeoJSONGeometryCollection | GeoJSONMultiPoint>;
+        feature: GeoJSONFeatureCollection<GeoJSONGeometryObject> | GeoJSONFeature<GeoJSONMultiPoint> | GeoJSONGeometryCollection;
     }
 
     /**
@@ -1098,7 +1098,7 @@ declare namespace L {
         getLatLng(): LatLng;
         setLatLng(latlng: LatLngExpression): this;
         getContent(): Content;
-        setContent(htmlContent: (source: Layer) => Content | Content): this;
+        setContent(htmlContent: ((source: Layer) => Content) | Content): this;
         getElement(): HTMLElement;
         update(): void;
         isOpen(): boolean;
@@ -1129,7 +1129,7 @@ declare namespace L {
         getLatLng(): LatLng;
         setLatLng(latlng: LatLngExpression): this;
         getContent(): Content;
-        setContent(htmlContent: (source: Layer) => Content | Content): this;
+        setContent(htmlContent: ((source: Layer) => Content) | Content): this;
         getElement(): HTMLElement;
         update(): void;
         isOpen(): boolean;
@@ -1405,8 +1405,8 @@ declare namespace L {
      */
     export function map(element: string | HTMLElement, options?: MapOptions): Map;
 
-    export interface IconOptions extends LayerOptions {
-        iconUrl: string;
+    interface BaseIconOptions extends LayerOptions {
+        iconUrl?: string;
         iconRetinaUrl?: string;
         iconSize?: PointExpression;
         iconAnchor?: PointExpression;
@@ -1418,25 +1418,38 @@ declare namespace L {
         className?: string;
     }
 
-    class InternalIcon extends Layer {
-        constructor(options: IconOptions);
-        createIcon(oldIcon?: HTMLElement): HTMLElement;
+    export interface IconOptions extends BaseIconOptions {
+        iconUrl: string;
     }
 
-    export class Icon extends InternalIcon {
+    // This class does not exist in reality, it's just a way to provide
+    // options of more specific types in the sub classes
+    class BaseIcon extends Layer {
+        createIcon(oldIcon?: HTMLElement): HTMLElement;
         createShadow(oldIcon?: HTMLElement): HTMLElement;
+        options: BaseIconOptions;
+    }
+
+    export class Icon extends BaseIcon {
+        constructor(options: IconOptions);
         options: IconOptions;
     }
 
     export namespace Icon {
-        export class Default extends InternalIcon {
-            imagePath: string;
+        export interface DefaultIconOptions extends BaseIconOptions {
+            imagePath?: string;
+        }
+
+        export class Default extends BaseIcon {
+            static imagePath?: string;
+            constructor(options?: DefaultIconOptions);
+            options: DefaultIconOptions;
         }
     }
 
     export function icon(options: IconOptions): Icon;
 
-    export interface DivIconOptions extends LayerOptions {
+    export interface DivIconOptions extends BaseIconOptions {
         html?: string;
         bgPos?: PointExpression;
         iconSize?: PointExpression;
@@ -1445,7 +1458,7 @@ declare namespace L {
         className?: string;
     }
 
-    export class DivIcon extends InternalIcon {
+    export class DivIcon extends BaseIcon {
         constructor(options?: DivIconOptions);
         options: DivIconOptions;
     }
@@ -1463,8 +1476,6 @@ declare namespace L {
         opacity?: number;
         riseOnHover?: boolean;
         riseOffset?: number;
-
-        options: DivIconOptions;
     }
 
     export class Marker extends Layer {

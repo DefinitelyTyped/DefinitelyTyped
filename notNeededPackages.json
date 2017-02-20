@@ -299,6 +299,12 @@
             "typingsPackageName": "axios",
             "sourceRepoURL": "https://github.com/mzabriskie/axios",
             "asOfVersion": "0.14.0"
+        },
+        {
+            "libraryName": "gaea-model",
+            "typingsPackageName": "gaea-model",
+            "sourceRepoURL": "https://github.com/ascoders/gaea-model",
+            "asOfVersion": "0.0.0"
         }
     ]
 }
