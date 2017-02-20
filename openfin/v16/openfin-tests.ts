@@ -1,6 +1,6 @@
 ﻿function test_application() {
 	let application: fin.OpenFinApplication;
-	// constructor
+    // constructor
 	application = new fin.desktop.Application({
 		url: "application.html",
 		uuid: "74BED629-2D8E-4141-8582-73E364BDFA74",
@@ -68,10 +68,6 @@
 		console.log("Desktop shortcut is enabled: ", config.desktop);
 		console.log("Start Menu shortcut is enabled: ", config.startMenu);
 		console.log("System Startup shortcut is enabled: ", config.systemStartup);
-	});
-	// getInfo
-	application.getInfo(info => {
-		console.log(`Launch mode: ${info.launchMode}`);
 	});
 	// isRunning
 	application.isRunning(function (running) {
