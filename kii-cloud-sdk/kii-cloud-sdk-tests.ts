@@ -96,4 +96,8 @@ function main() {
             var isOnline: boolean = thing.isOnline();
             var onlineStatusModifiedAt: Date = thing.getOnlineStatusModifiedAt();
         });
+
+    var error = KiiErrorParser.parse("");
+
+    error.code.toLowerCase();
 }

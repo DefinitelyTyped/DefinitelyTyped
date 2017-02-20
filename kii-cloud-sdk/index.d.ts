@@ -1,4 +1,4 @@
-// Type definitions for Kii Cloud SDK v2.4.6
+// Type definitions for Kii Cloud SDK v2.4.9
 // Project: http://en.kii.com/
 // Definitions by: Kii Consortium <http://jp.kii.com/consortium/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,6 +10,9 @@ declare namespace KiiCloud {
         KiiACLBucketActionDropBucket,
         KiiACLObjectActionRead,
         KiiACLObjectActionWrite,
+        KiiACLBucketActionReadObjects,
+        KiiACLSubscribeToTopic,
+        KiiACLSendMessageToTopic,
     }
 
     export enum KiiSite {
@@ -44,7 +47,7 @@ declare namespace KiiCloud {
     } | {
         oauth_token: string,
         oauth_token_secret: string
-    }
+    };
 
     interface KiiSocialAccountInfo {
         createdAt: number;
@@ -193,6 +196,12 @@ declare namespace KiiCloud {
         portSSL: number;
         portWS: number;
         portWSS: number;
+    }
+
+    interface KiiError {
+        status: number;
+        code: string;
+        message: string;
     }
 
     /**
@@ -2174,6 +2183,9 @@ declare namespace KiiCloud {
 
         /**
          * Create a KiiClause with the OR operator concatenating multiple KiiClause objects
+         * <br><br>
+         * <b>Note:</b>
+         * Query performance will be worse as the number of objects in bucket increases, so we recommend you avoid the OR clause if possible.
          *
          * @param A variable-length list of KiiClause objects to concatenate
          *
@@ -2181,6 +2193,16 @@ declare namespace KiiCloud {
          *     KiiClause clause = KiiClause.or(clause1, clause2, clause3, . . .)
          */
         static or(...A: KiiClause[]): KiiClause;
+
+        /**
+         * Create a KiiClause with the NOT operator concatenating a KiiClause object
+         * <br><br>
+         * <b>Note:</b>
+         * Query performance will be worse as the number of objects in bucket increases, so we recommend you avoid the NOT clause if possible.
+         *
+         * @param clause KiiClause object to negate
+         */
+        static not(clause: KiiClause): KiiClause;
 
         /**
          * Create an expression of the form (key == value)
@@ -2303,6 +2325,44 @@ declare namespace KiiCloud {
          *             <li>northEast or southWest is not a reference of KiiGeoPoint.</li>
          */
         static geoBox(key: string, northEast: KiiGeoPoint, southWest: KiiGeoPoint): KiiClause;
+
+        /**
+         * Create an expression to returns all entities that have a specified field and type.
+         *
+         * @param key name of the specified field.
+         * @param fieldType The type of the content of the field. The type of the content of the field must be provided, possible values are "STRING", "INTEGER", "DECIMAL" and "BOOLEAN".
+         */
+        static hasField(key: string, fieldType: string): KiiClause;
+    }
+
+    /**
+     * A Parser for error string or error object returned by SDK.
+     */
+    export class KiiErrorParser {
+        /**
+         * Parse an error string or error object returned by SDK.
+         *
+         * @param error An error string or error object
+         *
+         * @return return parsed error object.
+         *
+         * @example
+         *     var err = KiiErrorParser.parse(errorString);
+         *     var httpStatus = err.status;
+         *     if (httpStatus == 0) {
+         *         // NetworkError
+         *     } else if (httpStatus == -1) {
+         *         // Error is not related the http error. eg. argument error, illegal state error, etc.
+         *     } else if (httpStatus == -2) {
+         *         // Unknown error is detected.
+         *         // Please confirm that you are using the latest version of SDK.
+         *     } else if (httpStatus >= 400 && httpStatus < 600) {
+         *         // Http error
+         *     }
+         *     var errorCode = err.code;
+         *     var errorMessage = err.message;
+         */
+        static parse<T extends string | Error>(error: T): KiiError;
     }
 
     /**
@@ -3074,6 +3134,33 @@ declare namespace KiiCloud {
          *     var score = obj.get("score");
          */
         get<T>(key: string): T;
+
+        /**
+         * Gets the array object that contains all keys of custom field.
+         * The array of keys from local cache will be returned.
+         * To get the latest array of keys from cloud, calling refresh() is necessary prior calling this method.
+         * The returned array object does not include reserved keys such as _created, _modified, etc.
+         *
+         * @return keys An array of all keys of custom field.
+         *
+         * @example
+         *     var obj = . . .; // a KiiObject
+         *     for(var key of obj.keys()) {
+         *     }
+         */
+        getKeys(): string[];
+
+        /**
+         * Removes a pair of key/value from this object.
+         * This pair is also removed from server when saveAllFields() is succeeded.
+         *
+         * @param key The key to be removed
+         *
+         * @example
+         *     var obj = . . .; // a KiiObject
+         *     obj.remove("score");
+         */
+        remove(key: string): void;
 
         /**
          * Set Geo point to this object with the specified key.
@@ -7136,7 +7223,12 @@ declare namespace KiiCloud {
          * @param userIdentifier should be valid email address,
          *   global phone number or user identifier obtained by {@link #getID}.
          * @param notificationMethod specify the destination of message include link
-         *   of resetting password. must be "EMAIL" or "SMS".
+         *   of resetting password. must one of "EMAIL", "SMS" or "SMS_PIN".
+         *   - "EMAIL": Send email include link URL to reset password or password.
+         *   (Contents are depends on 'Password Reset Flow' setting in app's
+         *   Security settings.)
+         *   - "SMS" : Send SMS include link URL to reset password.
+         *   - "SMS_PIN" : Send SMS include PIN Code for reset password.
          *   different type of identifier and destination can be used
          *   as long as user have verified email, phone.
          *   (ex. User registers both email and phone. Identifier is email and
@@ -7175,6 +7267,55 @@ declare namespace KiiCloud {
          *     );
          */
         static resetPasswordWithNotificationMethod(userIdentifier: string, notificationMethod: string, callbacks?: { success(): any; failure(errString: string): any; }): Promise<void>;
+
+        /**
+         * Reset password with the PIN code in receipt SMS
+         * After {@link KiiUser.resetPasswordWithNotificationMethod} is called with
+         * "SMS_PIN", SMS includes the PIN code will be sent to the user's phone.
+         * User can request the new password for login with the PIN code.
+         * Need to call method for authentication after the new password is determined.
+         *
+         * @param userIdentifier should be valid email address,
+         *   global phone number or user identifier obtained by {@link #getID}.
+         * @param pinCode Received PIN code.
+         * @param newPassword New password for login.
+         *   If the 'Password Reset Flow' in app's security setting is set to
+         *   'Generate password', it would be ignored and null can be passed.
+         *   In this case, new password is generated on Kii Cloud and sent to user's
+         *   phone. Otherwise valid password is required.
+         * @param callbacks object includes callback functions.
+         *
+         * @return return promise object.
+         *   <ul>
+         *     <li>fulfill callback function: function(). No parameter used.</li>
+         *     <li>reject callback function: function(error). error is an Error instance.
+         *       <ul>
+         *         <li>error.message</li>
+         *       </ul>
+         *     </li>
+         *   </ul>
+         *
+         * @example
+         *     // Example using callback
+         *     KiiUser.completeResetPassword("john.doe@kii.com", "new-password", "223789",
+         *     {
+         *         success: function() {
+         *             // Succeeded.
+         *         },
+         *         failure: function(error) {
+         *             // Handle error here.
+         *         }
+         *     });
+         *
+         *     // Example using Promise
+         *     KiiUser.completeResetPassword(
+         *         "john.doe@kii.com", "new-password", "223789").then(function() {
+         *             // Succeeded.
+         *         }).catch(function(error) {
+         *             // Handle error here.
+         *         });
+         */
+        static completeResetPassword(userIdentifier: string, pinCode: string, newPassword?: string, callbacks?: { success(): any; failure(error: Error): any; }): Promise<void>;
 
         /**
          * Verify the current user's phone number
@@ -8098,6 +8239,7 @@ import KiiAnyAuthenticatedUser = KiiCloud.KiiAnyAuthenticatedUser;
 import KiiAppAdminContext = KiiCloud.KiiAppAdminContext;
 import KiiBucket = KiiCloud.KiiBucket;
 import KiiClause = KiiCloud.KiiClause;
+import KiiErrorParser = KiiCloud.KiiErrorParser;
 import KiiGeoPoint = KiiCloud.KiiGeoPoint;
 import KiiGroup = KiiCloud.KiiGroup;
 import KiiObject = KiiCloud.KiiObject;
