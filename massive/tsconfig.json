@@ -1,11 +1,13 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "es5",
-    "noImplicitAny": true,
-    "sourceMap": false
-  },
-  "files": [
-    "index.d.ts"
-  ]
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "es5",
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"strictNullChecks": true,
+		"sourceMap": false
+	},
+	"files": [
+		"index.d.ts"
+	]
 }
