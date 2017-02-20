@@ -12,7 +12,7 @@
  *
  * @returns the string password or null on failures.
  */
-export declare function getPassword(service: string, account: string): string;
+export declare function getPassword(service: string, account: string): string | null;
 
 /**
  * Add the password for the service and account to the keychain.
@@ -33,7 +33,7 @@ export declare function addPassword(service: string, account: string, password: 
  *
  * @returns the string password or null on failures.
  */
-export declare function deletePassword(service: string, account: string): string;
+export declare function deletePassword(service: string, account: string): string | null;
 
 /**
  * Replace the password for the service and account in the keychain.
@@ -56,4 +56,4 @@ export declare function replacePassword(service: string, account: string, passwo
  *
  * @returns the string password or null on failures.
  */
-export declare function findPassword(service: string): string;
+export declare function findPassword(service: string): string | null;
