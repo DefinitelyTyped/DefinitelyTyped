@@ -124,7 +124,7 @@ function ListTest() {
             height={300}
             rowHeight={30}
             rowCount={list.length}
-            rowRenderer={({ index, isScrolling }) => list[index]}
+            rowRenderer={({ index, isScrolling, key, style }) => list[index]}
             />,
         document.getElementById('example')
     );
