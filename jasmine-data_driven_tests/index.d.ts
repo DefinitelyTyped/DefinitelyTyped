@@ -5,3 +5,5 @@
 
 declare function all(description: string, dataset: any[], assertion: (...args: any[]) => void): void;
 declare function xall(description: string, dataset: any[], assertion: (...args: any[]) => void): void;
+declare function using(description: string, dataset: any[], assertion: (...args: any[]) => void): void;
+declare function xusing(description: string, dataset: any[], assertion: (...args: any[]) => void): void;
