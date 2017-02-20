@@ -23,6 +23,11 @@ str = v.decapitalize('Sun');
 str = v.kebabCase('goodbye blue sky');
 str = v.lowerCase('Green');
 str = v.snakeCase('learning to fly');
+
+str = v.swapCase('learning to fly');
+str = v('learning to fly').swapCase().value();
+str = v.chain('learning to fly').swapCase().value();
+
 str = v.titleCase('learning to fly');
 str = v.titleCase('another brick in the wall', ['in', 'the']);
 str = v.upperCase('school');
