@@ -322,13 +322,13 @@ declare namespace SystemJSLoader {
         /**
          * Resolves module name to normalized URL.
          */
-        resolve(moduleName: string): Promise<string>;
+        resolve(moduleName: string, parentName?: string): Promise<string>;
 
         /**
          * Resolves module name to normalized URL.
          * Synchronous alternative to `SystemJS.resolve`.
          */
-        resolveSync(moduleName: string): string;
+        resolveSync(moduleName: string, parentName?: string): string;
     
         /**
          * In CommonJS environments, SystemJS will substitute the global require as needed by the module format being
