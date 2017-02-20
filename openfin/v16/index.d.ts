@@ -1,9 +1,9 @@
-// Type definitions for OpenFin API 17.0
+// Type definitions for OpenFin API 16.0
 // Project: https://openfin.co/
 // Definitions by: Chris Barker <https://github.com/chrisbarker/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// based on v6.49.17.14
+// based on v6.49.16.16
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean
 
 /**
@@ -63,7 +63,7 @@ declare namespace fin {
 		 */
 		close(force?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Retrieves an array of wrapped fin.desktop.Windows for each of the applicationï¿½s child windows.
+		 * Retrieves an array of wrapped fin.desktop.Windows for each of the application’s child windows.
 		 */
 		getChildWindows(callback?: (children: OpenFinWindow[]) => void, errorCallback?: (reason: string) => void): void;
 		/**
@@ -83,10 +83,6 @@ declare namespace fin {
 		 */
 		getShortcuts(callback?: (config: ShortCutConfig) => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Retrieves information about the application.
-		 */
-		getInfo(callback?: (info: LaunchInfo) => void, errorCallback?: (reason: string) => void): void;
-		/**
 		 * Determines if the application is currently running.
 		 */
 		isRunning(callback?: (running: boolean) => void, errorCallback?: (reason: string) => void): void;
@@ -99,7 +95,7 @@ declare namespace fin {
 		 */
 		removeEventListener(type: OpenFinApplicationEventType, previouslyRegisteredListener: (event: ApplicationBaseEvent | TrayIconClickedEvent | WindowEvent | WindowAlertRequestedEvent | WindowAuthRequested | WindowNavigationRejectedEvent | WindowEndLoadEvent) => any, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Removes the applicationï¿½s icon from the tray.
+		 * Removes the application’s icon from the tray.
 		 */
 		removeTrayIcon(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
@@ -189,13 +185,10 @@ declare namespace fin {
 		 */
 		accelerator?: {
 			devtools?: boolean,
-			zoom?: boolean,
-			reload?: boolean,
-			reloadIgnoreCache?: boolean,
+			zoom?: boolean
 		};
 		/**
 		 * A flag to always position the window at the top of the window stack. Default: false.
-		 * Updatable
 		 */
 		alwaysOnTop?: boolean;
 		/**
@@ -204,12 +197,10 @@ declare namespace fin {
 		autoShow?: boolean;
 		/**
 		 * A flag to show the context menu when right-clicking on a window. Gives access to the Developer Console for the Window. Default: true
-		 * Updatable
 		 */
 		contextMenu?: boolean;
 		/**
 		 * This defines and applies rounded corners for a frameless window. Default for both width and height: 0.
-		 * Updatable
 		 */
 		cornerRounding?: {
 			width?: number;
@@ -241,37 +232,30 @@ declare namespace fin {
 		defaultLeft?: number;
 		/**
 		 * A flag to show the frame. Default: true.
-		 * Updatable
 		 */
 		frame?: boolean;
 		/**
 		 * A flag to allow a window to be hidden when the close button is clicked.Default: false.
-		 * Updatable
 		 */
 		hideOnClose?: boolean;
 		/**
 		 * A URL for the icon to be shown in the window title bar and the taskbar.Default: The parent application's applicationIcon.
-		 * Updatable
 		 */
 		icon?: string;
 		/**
 		 * The maximum height of a window.Will default to the OS defined value if set to - 1. Default: -1.
-		 * Updatable
 		 */
 		maxHeight?: number;
 		/**
 		 * A flag that lets the window be maximized.Default: true.
-		 * Updatable
 		 */
 		maximizable?: boolean;
 		/**
 		 * The maximum width of a window.Will default to the OS defined value if set to - 1. Default: -1.
-		 * Updatable
 		 */
 		maxWidth?: number;
 		/**
 		 * The minimum height of a window.Default: 0.
-		 * Updatable
 		 */
 		minHeight?: number;
 		/**
@@ -288,17 +272,14 @@ declare namespace fin {
 		name?: string;
 		/**
 		 * A flag that specifies how transparent the window will be.This value is clamped between 0.0 and 1.0.Default: 1.0.
-		 * Updatable
 		 */
 		opacity?: number;
 		/**
 		 * A flag to drop to allow the user to resize the window.Default: true.
-		 * Updatable
 		 */
 		resizable?: boolean;
 		/**
 		 * Defines a region in pixels that will respond to user mouse interaction for resizing a frameless window.
-		 * Updatable
 		 */
 		resizeRegion?: {
 			/**
@@ -1008,7 +989,7 @@ declare namespace fin {
 		bringToFront(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Closes the window.
-		 * @param {force} Close will be prevented from closing when force is false and ï¿½close-requestedï¿½ has been subscribed to for applicationï¿½s main window.
+		 * @param {force} Close will be prevented from closing when force is false and ‘close-requested’ has been subscribed to for application’s main window.
 		 */
 		close(force?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
@@ -1028,7 +1009,7 @@ declare namespace fin {
 		 */
 		enableFrame(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Flashes the windowï¿½s frame and taskbar icon until the window is activated.
+		 * Flashes the window’s frame and taskbar icon until the window is activated.
 		 */
 		flash(options?: any, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
@@ -1125,7 +1106,7 @@ declare namespace fin {
 		setZoomLevel(level: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Shows the window if it is hidden.
-		 * @param {force} Show will be prevented from closing when force is false and ï¿½show-requestedï¿½ has been subscribed to for applicationï¿½s main window.
+		 * @param {force} Show will be prevented from closing when force is false and ‘show-requested’ has been subscribed to for application’s main window.
 		 */
 		show(force?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
@@ -1517,16 +1498,6 @@ declare namespace fin {
 		| "unknown";
 		topic: "system";
 		type: "session-changed";
-	}
-
-	interface LaunchInfo {
-		launchMode: "fin-protocol"
-		| "fins-protocol"
-		| "shortcut"
-		| "command-line"
-		| "adapter"
-		| "other"
-		| string;
 	}
 
 	type OpenFinTweenType = "linear"
