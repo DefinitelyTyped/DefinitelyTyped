@@ -4,4 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = isArray;
-declare function isArray(val?: any): val is Array<any>;
+declare function isArray(val?: any): val is any[];
