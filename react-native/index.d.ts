@@ -5527,12 +5527,18 @@ declare module "react" {
         keyboardDismissMode?: string
 
         /**
-         * When false tapping outside of the focused text input when the keyboard
-         * is up dismisses the keyboard. When true the scroll view will not catch
-         * taps and the keyboard will not dismiss automatically. The default value
-         * is false.
+         * Determines when the keyboard should stay visible after a tap.
+         *   - 'never' (the default), tapping outside of the focused text input when
+         *     the keyboard is up dismisses the keyboard. When this happens, children
+         *     won't receive the tap.
+         *   - 'always', the keyboard will not dismiss automatically, and the scroll
+         *     view will not catch taps, but children of the scroll view can catch taps.
+         *   - 'handled', the keyboard will not dismiss automatically when the tap was
+         *     handled by a children, (or captured by an ancestor).
+         *   - false, deprecated, use 'never' instead
+         *   - true, deprecated, use 'always' instead
          */
-        keyboardShouldPersistTaps?: boolean
+        keyboardShouldPersistTaps?: 'always'|'never'|'handled'|boolean
 
         /**
          * Fires at most once per frame during scrolling.
