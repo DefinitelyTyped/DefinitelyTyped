@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "modules/map/index.d.ts",
         "modules/boost.d.ts",
         "modules/exporting.d.ts",
         "modules/no-data-to-display.d.ts",
