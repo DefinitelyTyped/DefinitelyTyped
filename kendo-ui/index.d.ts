@@ -18495,7 +18495,8 @@ declare namespace kendo.ooxml {
     interface WorkbookSheetRow {
         cells?: WorkbookSheetRowCell[];
         index?: number;
-        height?: number;
+        height?: number;      
+        type?: "header" | "footer" | "group-header" | "group-footer" | "data";
     }
 
     interface WorkbookSheet {
@@ -18752,16 +18753,6 @@ declare namespace kendo.dataviz.geometry {
         setHeight(value: number): kendo.geometry.Size;
 
     }
-
-    interface SizeOptions {
-        name?: string;
-    }
-    interface SizeEvent {
-        sender: Size;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
 
     class Transformation extends Observable {
 

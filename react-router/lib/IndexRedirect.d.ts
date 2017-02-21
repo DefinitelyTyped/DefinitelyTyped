@@ -1,17 +1,13 @@
-import Router from './Router';
-import * as React from 'react';
-import * as H from 'history';
+import { ComponentClass, ClassAttributes } from "react";
+import { RoutePattern } from "react-router";
+import { Query } from "history";
 
-declare const self: self.IndexRedirect;
-type self = self.IndexRedirect;
-export default self;
-
-declare namespace self {
-	interface IndexRedirectProps extends React.Props<self> {
-	    to: Router.RoutePattern;
-	    query?: H.Query;
-	    state?: H.LocationState;
-	}
-	interface IndexRedirectElement extends React.ReactElement<IndexRedirectProps> { }
-	interface IndexRedirect extends React.ComponentClass<self.IndexRedirectProps> { }
+export interface IndexRedirectProps extends ClassAttributes<any> {
+	to: RoutePattern;
+	query?: Query;
 }
+
+type IndexRedirect = ComponentClass<IndexRedirectProps>;
+declare const IndexRedirect: IndexRedirect;
+
+export default IndexRedirect;

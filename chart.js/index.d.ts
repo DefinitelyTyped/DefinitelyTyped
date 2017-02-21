@@ -71,7 +71,7 @@ declare namespace Chart {
     }
 
     export interface ChartPoint {
-        x?: number;
+        x?: number | string | Date;
         y?: number;
     }
 
@@ -103,6 +103,7 @@ declare namespace Chart {
         animation?: ChartAnimationOptions;
         elements?: ChartElementsOptions;
         scales?: ChartScales;
+        cutoutPercentage?: number;
     }
 
     export interface ChartFontOptions {

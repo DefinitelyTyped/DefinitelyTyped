@@ -11,12 +11,23 @@ latLng = L.latLng({lat: 12, lng: 13, alt: 0});
 latLng = L.latLng(latLngTuple);
 latLng = L.latLng([12, 13, 0]);
 
+latLng = new L.LatLng(12, 13);
+latLng = new L.LatLng(12, 13, 0);
+latLng = new L.LatLng(latLngLiteral);
+latLng = new L.LatLng({lat: 12, lng: 13, alt: 0});
+latLng = new L.LatLng(latLngTuple);
+latLng = new L.LatLng([12, 13, 0]);
+
 const latLngBoundsLiteral: L.LatLngBoundsLiteral = [[12, 13], latLngTuple];
 
 let latLngBounds: L.LatLngBounds;
 latLngBounds = L.latLngBounds(latLng, latLng);
 latLngBounds = L.latLngBounds(latLngLiteral, latLngLiteral);
 latLngBounds = L.latLngBounds(latLngTuple, latLngTuple);
+
+latLngBounds = new L.LatLngBounds(latLng, latLng);
+latLngBounds = new L.LatLngBounds(latLngLiteral, latLngLiteral);
+latLngBounds = new L.LatLngBounds(latLngTuple, latLngTuple);
 
 const pointTuple: L.PointTuple = [0, 0];
 
@@ -25,6 +36,11 @@ point = L.point(12, 13);
 point = L.point(12, 13, true);
 point = L.point(pointTuple);
 point = L.point({x: 12, y: 13});
+
+point = new L.Point(12, 13);
+point = new L.Point(12, 13, true);
+point = new L.Point(pointTuple);
+point = new L.Point({x: 12, y: 13});
 
 let distance: number;
 point.distanceTo(point);
@@ -43,6 +59,11 @@ bounds = L.bounds(point, point);
 bounds = L.bounds(pointTuple, pointTuple);
 bounds = L.bounds([point, point]);
 bounds = L.bounds(boundsLiteral);
+
+bounds = new L.Bounds(point, point);
+bounds = new L.Bounds(pointTuple, pointTuple);
+bounds = new L.Bounds([point, point]);
+bounds = new L.Bounds(boundsLiteral);
 
 let points: Array<L.Point>;
 points = L.LineUtil.simplify([point, point], 1);
@@ -143,6 +164,10 @@ map = L.map('foo', mapOptions);
 map = L.map(htmlElement);
 map = L.map(htmlElement, mapOptions);
 
+map = new L.Map('foo', mapOptions);
+map = new L.Map(htmlElement);
+map = new L.Map(htmlElement, mapOptions);
+
 let doesItHaveLayer: boolean;
 doesItHaveLayer = map.hasLayer(L.tileLayer(''));
 
@@ -229,6 +254,10 @@ let tileLayer: L.TileLayer;
 tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
 tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', tileLayerOptions);
 tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
+
+tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
+tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', tileLayerOptions);
+tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
 
 let eventHandler = () => {};
 let domEvent: Event = {} as Event;
@@ -375,21 +404,28 @@ class MyMarker extends L.Marker {
 		super([12, 13]);
 	}
 }
+
 class MyLayer extends L.Layer {
 	constructor() {
 		super();
 	}
 }
+
 class MyIcon extends L.Icon {
 	constructor() {
 		super({iconUrl: 'icon.png'});
 	}
 }
+
 class MyDivIcon extends L.DivIcon {
 	constructor() {
 		super();
 	}
 }
+
+const divIcon = L.divIcon({html: ''});
+let defaultIcon = new L.Icon.Default();
+defaultIcon = new L.Icon.Default({imagePath: 'apath'});
 
 let myControlClass = L.Control.extend({});
 let myControl = new myControlClass();
@@ -405,3 +441,9 @@ export class MyNewControl extends L.Control {
 		});
 	}
 }
+
+L.marker([1, 2], {
+	icon: L.icon({
+		iconUrl: 'my-icon.png'
+	})
+}).bindPopup('<p>Hi</p>');

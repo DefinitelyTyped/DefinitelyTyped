@@ -1,22 +1,60 @@
-import * as React from "react"
-import * as ReactDOM from "react-dom"
-import {renderToString} from "react-dom/server";
+import * as React from "react";
+import { Component, ValidationMap } from "react";
+import * as ReactDOM from "react-dom";
+import { renderToString } from "react-dom/server";
 
-import { applyRouterMiddleware, browserHistory, hashHistory, match, createMemoryHistory, withRouter, routerShape, Router, Route, IndexRoute, InjectedRouter, Link, RouterOnContext, RouterContext, LinkProps} from "react-router";
+import {
+	applyRouterMiddleware,
+	browserHistory,
+	hashHistory,
+	match,
+	createMemoryHistory,
+	useRouterHistory,
+	withRouter,
+	routerShape,
+	Router,
+	Route,
+	IndexRoute,
+	InjectedRouter,
+	Link,
+	RouterContext,
+	LinkProps,
+	RedirectFunction,
+	RouteComponentProps
+} from "react-router";
+import { createHistory, History } from "history";
+
+const routerHistory = useRouterHistory(createHistory)({ basename: "/test" })
+
+interface CustomHistory {
+	test(): undefined;
+}
+
+type CombinedHistory = History & CustomHistory
+
+function createCustomHistory(history: History): CombinedHistory {
+	return {
+		...history,
+		test() {}
+	} as CombinedHistory
+}
+const customHistory = createCustomHistory(browserHistory)
+
 
 const NavLink = (props: LinkProps) => (
 	<Link {...props} activeClassName="active" />
 )
 
 interface MasterContext {
-	router: RouterOnContext;
+	router: InjectedRouter;
 }
 
-class Master extends React.Component<React.Props<{}>, {}> {
+class Master extends Component<any, any> {
 
-	static contextTypes: React.ValidationMap<any> = {
-		router: routerShape
+	static contextTypes: ValidationMap<any> = {
+		"router": routerShape
 	};
+
 	context: MasterContext;
 
 	navigate() {
@@ -75,10 +113,12 @@ class NotFound extends React.Component<{}, {}> {
 
 }
 
+interface UsersProps extends RouteComponentProps<{}, {}> { }
 
-class Users extends React.Component<{}, {}> {
+class Users extends React.Component<UsersProps, {}> {
 
 	render() {
+                const { location, params, route, routes, router, routeParams } = this.props;
 		return <div>
 			This is a user list
 		</div>
@@ -97,6 +137,18 @@ ReactDOM.render((
 	</Router>
 ), document.body)
 
+ReactDOM.render((
+	<Router history={ routerHistory }>
+		<Route path="/" component={Master} />
+	</Router>
+), document.body)
+
+ReactDOM.render((
+	<Router history={ customHistory }>
+		<Route path="/" component={Master} />
+	</Router>
+), document.body)
+
 
 const history = createMemoryHistory("baseurl");
 const routes = (
@@ -106,7 +158,11 @@ const routes = (
 	</Route>
 );
 
-match({history, routes, location: "baseurl"}, (error, redirectLocation, renderProps) => {
+match({ routes, location: "baseurl" }, (error, redirectLocation, renderProps) => {
+	renderToString(<RouterContext {...renderProps} />);
+});
+
+match({ history, routes }, (error, redirectLocation, renderProps) => {
 	renderToString(<RouterContext {...renderProps} />);
 });
 

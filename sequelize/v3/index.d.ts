@@ -2,6 +2,7 @@
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
@@ -3818,8 +3819,8 @@ declare namespace sequelize {
          * Find a row that matches the query, or build (but don't save) the row if none is found.
          * The successfull result of the promise will be (instance, initialized) - Make sure to use .spread()
          */
-        findOrInitialize(options: FindOrInitializeOptions<TAttributes>): Promise<TInstance>;
-        findOrBuild(options: FindOrInitializeOptions<TAttributes>): Promise<TInstance>;
+        findOrInitialize(options: FindOrInitializeOptions<TAttributes>): Promise<[TInstance, boolean]>;
+        findOrBuild(options: FindOrInitializeOptions<TAttributes>): Promise<[TInstance, boolean]>;
 
         /**
          * Find a row that matches the query, or build and save the row if none is found
@@ -3832,13 +3833,13 @@ declare namespace sequelize {
          * an instance of sequelize.TimeoutError will be thrown instead. If a transaction is created, a savepoint
          * will be created instead, and any unique constraint violation will be handled internally.
          */
-        findOrCreate(options: FindOrInitializeOptions<TAttributes>): Promise<TInstance>;
+        findOrCreate(options: FindOrInitializeOptions<TAttributes>): Promise<[TInstance, boolean]>;
 
         /**
              * A more performant findOrCreate that will not work under a transaction (at least not in postgres)
              * Will execute a find call, if empty then attempt to create, if unique constraint then attempt to find again
              */
-        findCreateFind(options: FindCreateFindOptions<TAttributes>): Promise<TInstance>;
+        findCreateFind(options: FindCreateFindOptions<TAttributes>): Promise<[TInstance, boolean]>;
 
         /**
  * Insert or update a single row. An update will be executed if a row which matches the supplied values on

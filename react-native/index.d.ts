@@ -2,6 +2,7 @@
 // Project: https://github.com/facebook/react-native
 // Definitions by: Needs A Maintainer <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -1894,7 +1895,12 @@ declare module "react" {
          * Used on Android only, controls whether DOM Storage is enabled
          * or not android
          */
-        domStorageEnabled?: boolean
+        domStorageEnabled?: boolean,
+
+        /**
+         * Sets the user-agent for the WebView.
+         */
+        userAgent?: string
     }
 
     export interface WebViewIOSLoadRequestEvent {
@@ -2044,7 +2050,7 @@ declare module "react" {
         /**
          * Invoked when window.postMessage is called from WebView.
          */
-	onMessage?: ( event: NativeSyntheticEvent<WebViewMessageEventData> ) => void
+	    onMessage?: ( event: NativeSyntheticEvent<WebViewMessageEventData> ) => void
 
         /**
          * Function that is invoked when the `WebView` loading starts or ends.
@@ -2100,6 +2106,11 @@ declare module "react" {
          * Go forward one page in the webview's history.
          */
         goForward: () => void
+
+	/**
+	 * Post a message to the WebView in the form of a string.
+	 */
+	postMessage: (message: string) => void
 
         /**
          * Reloads the current page.
@@ -7648,6 +7659,10 @@ declare module "react" {
          * Custom style applied to the card.
          */
         cardStyle?: ViewStyle
+	/**
+	 * Custom style interpolator for the card.
+	 */
+	cardStyleInterpolator?: (props: NavigationSceneRendererProps) => ViewStyle;
         /**
          * Direction of the cards movement. Value could be `horizontal` or
          * `vertical`. Default value is `horizontal`.
