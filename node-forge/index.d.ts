@@ -269,6 +269,7 @@ declare module "node-forge" {
             getBagsByLocalKeyId: (localKeyId: string, bagType: string) => Bag[]
         }
 
-        function pkcs12FromAsn1(obj:any, strictOrPassword: boolean|string, password?: string) : Pkcs12Pfx;
+        function pkcs12FromAsn1(obj:any, strict?: boolean, password?: string) : Pkcs12Pfx;
+        function pkcs12FromAsn1(obj:any, password?: string) : Pkcs12Pfx;
     }
 }
