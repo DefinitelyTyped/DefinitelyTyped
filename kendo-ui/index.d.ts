@@ -18738,7 +18738,7 @@ declare namespace kendo.dataviz.geometry {
         options: SizeOptions;
 
         width: number;
-        height: number;
+        height: number;SizeOptions
 
 
         static create(width: number, height: number): kendo.geometry.Size;
@@ -18752,6 +18752,10 @@ declare namespace kendo.dataviz.geometry {
         setWidth(value: number): kendo.geometry.Size;
         setHeight(value: number): kendo.geometry.Size;
 
+    }
+    
+    interface SizeOptions {
+        name?: string;
     }
 
     class Transformation extends Observable {
