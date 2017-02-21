@@ -19,6 +19,10 @@ interface Profile extends passport.Profile {
     _json: any;
 }
 
+export interface AuthenticateOptions extends passport.AuthenticateOptions {
+    authType?: string;
+}
+
 interface IStrategyOption {
     clientID: string;
     clientSecret: string;
@@ -27,6 +31,7 @@ interface IStrategyOption {
     scopeSeparator?: string;
     enableProof?: boolean;
     profileFields?: string[];
+    passReqToCallback?: boolean;
 }
 
 declare class Strategy implements passport.Strategy {

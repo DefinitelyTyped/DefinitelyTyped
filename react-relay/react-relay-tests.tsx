@@ -41,3 +41,45 @@ export default class AddTweetMutation extends Relay.Mutation<Props, Response> {
         return this.props
     }
 }
+
+interface ArtworkProps {
+    artwork: {
+        title: string
+    },
+    relay: Relay.RelayProp,
+}
+
+class Artwork extends React.Component<ArtworkProps, null> {
+    render() {
+        return (
+            <a href={`/artworks/${this.props.relay.variables.artworkID}`}>
+                {this.props.artwork.title}
+            </a>
+        )
+    }
+}
+
+const ArtworkContainer = Relay.createContainer(Artwork, {
+    fragments: {
+        artwork: () => Relay.QL`
+            fragment on Artwork {
+                title
+            }
+        `
+    }
+})
+
+class StubbedArtwork extends React.Component<null, null> {
+    render() {
+        const props = {
+            artwork: { title: "CHAMPAGNE FORMICA FLAG" },
+            relay: {
+                variables: {
+                    artworkID: "champagne-formica-flag",
+                },
+                setVariables: () => {},
+            }
+        }
+        return <ArtworkContainer {...props} />
+    }
+}

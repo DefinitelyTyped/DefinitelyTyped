@@ -4,22 +4,25 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-
 declare namespace THREE {
 
-  class EditorControls extends EventDispatcher {
+    class EditorControls extends EventDispatcher {
 
-    constructor(object: Camera, domElement?:HTMLElement);
+        constructor(object: Camera, domElement?: HTMLElement);
 
-    enabled: boolean;
-    center: THREE.Vector3;
+        enabled: boolean;
+        center: THREE.Vector3;
 
-    focus(target: THREE.Object3D, frame: boolean): void;
-    pan(delta: THREE.Vector3): void;
-    zoom(delta: THREE.Vector3): void;
-    rotate(delta: THREE.Vector3): void;
-    dispose(): void;
+        focus(target: THREE.Object3D, frame: boolean): void;
 
-  }
+        pan(delta: THREE.Vector3): void;
+
+        zoom(delta: THREE.Vector3): void;
+
+        rotate(delta: THREE.Vector3): void;
+
+        dispose(): void;
+
+    }
 
 }

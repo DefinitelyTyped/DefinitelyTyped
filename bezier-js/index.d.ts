@@ -51,6 +51,7 @@ declare namespace BezierJs {
         e: number;
         r: number;
         s: number;
+        interval: { start: number; end: number; };
     }
     interface Shape {
         startcap: BezierCap;

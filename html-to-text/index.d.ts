@@ -39,7 +39,7 @@ interface HtmlToTextOptions {
      * Defines after how many chars a line break should follow in p elements.
      * Set to null or false to disable word-wrapping. Default: 80
      */
-    wordwrap?: number;
+    wordwrap?: number | false | null;
 
     /**
      *  Allows to select certain tables by the class or id attribute from the HTML

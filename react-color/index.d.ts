@@ -2,6 +2,7 @@
 // Project: https://casesandberg.github.io/react-color/
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 ///<reference types="react" />
 

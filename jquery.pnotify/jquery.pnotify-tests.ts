@@ -243,5 +243,24 @@ function test_pnotify() {
         animation: 'show'
     });
 
+    new PNotify({
+        title: 'Custom styling',
+        text: 'Test all custom styling properties',
+        styling: {
+            container: "alert",
+            notice: "alert-warning",
+            notice_icon: "fa fa-exclamation-circle",
+            info: "alert-info",
+            info_icon: "fa fa-info",
+            success: "alert-success",
+            success_icon: "fa fa-check",
+            error: "alert-danger",
+            error_icon: "fa fa-warning",
+            closer: "fa fa-times",
+            pin_up: "fa fa-pause",
+            pin_down: "fa fa-play"
+        }
+    });
+
     PNotify.removeAll();
 }
