@@ -52,3 +52,44 @@ describe("A suite", () => {
         }
     );
 });
+
+using("Using instead of all when you would like to have the equivalent of multiple define statements",
+    ['a', 'b', 'c'],
+    (value: string) => {
+        let forbiddenValue;
+        //with 'using' we can have beforeEach blocks
+        beforeEach( ()=>{ 
+            forbiddenValue ='d';
+        });
+
+        it("should not be forbiddenValue",()=>{
+            expect(value).not.toBe(forbiddenValue);
+        });
+    }
+);
+
+xusing("disable tests",
+    ['a', 'b', 'c'],
+    (value: string) => {
+        it("the test should fail but it is disabled",()=>{
+            expect(false).toBeTruthy();
+        });
+    }
+);
+
+using("level 1",
+    const catesianProduct:string[] = ['a1','a2', 'b1','b2'];
+    ['a', 'b'],
+    (level1: string) => {
+        using("level 2",
+            [1,2],
+            (level2: number)=>{
+                const val = `${level1}${level2}`;
+                it(" should combine level1 and level2",()=>{
+                    expect(catesianProduct).toContain(val);
+                });
+                });
+    });
+
+    }
+);
