@@ -47,6 +47,13 @@ declare module "bull" {
              * @returns {Promise} A promise that resolves when the job is scheduled for retry.
              */
             retry(): Promise<void>;
+
+            /**
+             * Returns a promise the resolves when the job has been finished.
+             * TODO: Add a watchdog to check if the job has finished periodically.
+             * since pubsub does not give any guarantees.
+             */
+            finished(): Promise<void>;
         }
 
         export interface Backoff {
