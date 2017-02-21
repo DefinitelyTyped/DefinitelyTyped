@@ -18738,7 +18738,7 @@ declare namespace kendo.dataviz.geometry {
         options: SizeOptions;
 
         width: number;
-        height: number;SizeOptions
+        height: number;
 
 
         static create(width: number, height: number): kendo.geometry.Size;
