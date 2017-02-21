@@ -447,3 +447,13 @@ L.marker([1, 2], {
 		iconUrl: 'my-icon.png'
 	})
 }).bindPopup('<p>Hi</p>');
+
+L.marker([1, 2], {
+	icon: L.divIcon({
+		className: 'my-icon-class'
+	})
+}).setIcon(L.icon({
+	iconUrl: 'my-icon.png'
+})).setIcon(L.divIcon({
+	className: 'my-div-icon'
+}));;

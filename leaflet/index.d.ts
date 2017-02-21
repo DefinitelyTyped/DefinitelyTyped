@@ -1466,7 +1466,7 @@ declare namespace L {
     export function divIcon(options?: DivIconOptions): DivIcon;
 
     export interface MarkerOptions extends InteractiveLayerOptions {
-        icon?: Icon;
+        icon?: Icon | DivIcon;
         clickable?: boolean;
         draggable?: boolean;
         keyboard?: boolean;
@@ -1483,7 +1483,7 @@ declare namespace L {
         getLatLng(): LatLng;
         setLatLng(latlng: LatLngExpression): this;
         setZIndexOffset(offset: number): this;
-        setIcon(icon: Icon): this;
+        setIcon(icon: Icon | DivIcon): this;
         setOpacity(opacity: number): this;
         getElement(): HTMLElement;
 
