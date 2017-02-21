@@ -2146,6 +2146,7 @@ declare namespace React {
         shape?: string;
         size?: number;
         sizes?: string;
+        slot?: string;
         span?: number;
         spellCheck?: boolean;
         src?: string;
