@@ -351,7 +351,7 @@ declare namespace L {
 	}
 
 	namespace GeometryUtil {
-		
+
 		/**
 		 * Returns the area of a polygon drawn with leaflet.draw
 		 */
