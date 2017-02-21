@@ -1,6 +1,6 @@
-// Type definitions for bull 1.0.0
+// Type definitions for bull 2.1.2
 // Project: https://github.com/OptimalBits/bull
-// Definitions by: Bruno Grieder <https://github.com/bgrieder>
+// Definitions by: Bruno Grieder <https://github.com/bgrieder>, Cameron Crothers <https://github.com/JProgrammer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="redis" />
