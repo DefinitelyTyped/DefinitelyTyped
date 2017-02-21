@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.37
+// Type definitions for react-native 0.40
 // Project: https://github.com/facebook/react-native
 // Definitions by: Needs A Maintainer <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -5532,7 +5532,7 @@ declare module "react" {
          * taps and the keyboard will not dismiss automatically. The default value
          * is false.
          */
-        keyboardShouldPersistTaps?: boolean
+        keyboardShouldPersistTaps?: boolean|'always'|'never'|'handled'
 
         /**
          * Fires at most once per frame during scrolling.
