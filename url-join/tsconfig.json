@@ -18,6 +18,5 @@
     "files": [
         "index.d.ts",
         "url-join-tests.ts",
-        "url-join-import-star-tests.ts"
     ]
 }
