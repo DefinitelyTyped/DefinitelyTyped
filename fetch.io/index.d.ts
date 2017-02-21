@@ -38,42 +38,87 @@
 
       constructor(method: TMethod, url: TUrl, options: Options)
 
+      /**
+       * HTTP delete method
+       */
       delete: (url: TUrl) => this;
 
+      /**
+       * HTTP get method
+       */
       get: (url: TUrl) => this;
 
+      /**
+       * HTTP head method
+       */
       head: (url: TUrl) => this;
 
+      /**
+       * HTTP options method
+       */
       options: (url: TUrl) => this;
 
+      /**
+       * HTTP post method
+       */
       post: (url: TUrl) => this;
 
+      /**
+       * HTTP put method
+       */
       put: (url: TUrl) => this;
 
+      /**
+       * Set Options
+       */
       config(key: string, value: any): this
 
       config(opts: {[key: string]: any}): this
 
+      /**
+       * Set Header
+       */
       set(key: string, value: any): this
 
       set(opts: {[key: string]: any}): this
 
+      /**
+       * Set Content-Type
+       */
       type(type: 'json' | 'form' | 'urlencoded'): this
 
+      /**
+       * Add query string
+       */
       query(object: {[key: string]: any}): this
 
+      /**
+       * Send data
+       */
       send(data: {[key: string]: any}): this
 
+      /**
+       * ppend formData
+       */
       append(key: string, value: string): this
 
+      /**
+       * Get Response directly
+       */
       then(resolve: (value?: Response) => void, reject?: (reason?: any) => void): Promise<any>
 
       then<T>(resolve: (value?: Response) => void, reject?: (reason?: any) => void): Promise<T>
 
+      /**
+       * Make Response to JSON
+       */
       json(strict?: boolean): Promise<any>
 
       json<T>(strict?: boolean): Promise<T>
 
+      /**
+       * Make Response to string
+       */
       text(): Promise<string>
 
       text<T>(): Promise<T>
