@@ -307,8 +307,8 @@ declare namespace fin {
 			size?: number;
 			/**
 			 * The size in pixels of an additional
-			 * square resizable region located at the 
-			 * bottom right corner of a 
+			 * square resizable region located at the
+			 * bottom right corner of a
 			 * frameless window. (Default: 4)
 			 */
 			bottomRightCorner?: number;
@@ -941,11 +941,11 @@ declare namespace fin {
 	interface OpenFinWindowStatic {
 		/**
 		 * Class: Window
-		 * 
+		 *
 		 * new Window(options, callbackopt, errorCallbackopt)
-		 * 
+		 *
 		 * Creates a new OpenFin Window
-		 * 
+		 *
 		 * A basic window that wraps a native HTML window. Provides more fine-grained control over the window state such as the ability to minimize, maximize, restore, etc. By default a window does not show upon instantiation; instead the window's show() method must be invoked manually. The new window appears in the same process as the parent window.
 		 * @param {any} options - The options of the window
 		 * @param {Function} [callback] - Called if the window creation was successful
@@ -982,7 +982,7 @@ declare namespace fin {
 		 * @returns {OpenFinApplication} Parent application
 		 */
 		getParentApplication(): OpenFinApplication;
-		/** 
+		/**
 		 * Gets the parent window.
 		 */
 		getParentWindow(): OpenFinWindow;
