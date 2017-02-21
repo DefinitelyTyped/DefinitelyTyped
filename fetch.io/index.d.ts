@@ -1,52 +1,54 @@
-// Type definitions for fetch.io v3.1.4
+// Type definitions for fetch.io 3.1
 // Project: https://github.com/haoxins/fetch.io
 // Definitions by: newraina <https://github.com/newraina>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-  type TUrl = string
+/// <reference types="whatwg-fetch" />
 
-  type TMethod = 'delete' | 'get' | 'head' | 'options' | 'post' | 'put'
+  type TUrl = string;
 
-  interface IQuery {
-    [key: string]: number | boolean | string
+  type TMethod = 'delete' | 'get' | 'head' | 'options' | 'post' | 'put';
+
+  interface Query {
+    [key: string]: number | boolean | string;
   }
 
-  interface IHeader {
-    [key: string]: string
+  interface Header {
+    [key: string]: string;
   }
 
-  interface IOptions extends RequestInit {
+  interface Options extends RequestInit {
 
-    prefix?: string
+    prefix?: string;
 
-    query?: IQuery
+    query?: Query;
 
-    header?: IHeader
+    header?: Header;
 
-    beforeRequest?(url: TUrl, body: BodyInit): boolean
+    beforeRequest?(url: TUrl, body: BodyInit): boolean;
 
-    afterResponse?(res: Response): void
+    afterResponse?(res: Response): void;
 
-    afterJSON?(body: any): void
+    afterJSON?(body: any): void;
   }
 
   declare namespace FetchIo {
 
     class Request {
 
-      constructor(method: TMethod, url: TUrl, options: IOptions)
+      constructor(method: TMethod, url: TUrl, options: Options)
 
-      delete: (url: TUrl) => this
+      delete: (url: TUrl) => this;
 
-      get: (url: TUrl) => this
+      get: (url: TUrl) => this;
 
-      head: (url: TUrl) => this
+      head: (url: TUrl) => this;
 
-      options: (url: TUrl) => this
+      options: (url: TUrl) => this;
 
-      post: (url: TUrl) => this
+      post: (url: TUrl) => this;
 
-      put: (url: TUrl) => this
+      put: (url: TUrl) => this;
 
       config(key: string, value: any): this
 
@@ -78,8 +80,8 @@
     }
 
   class Fetch extends Request {
-    constructor(options?: IOptions)
+    constructor(options?: Options)
   }
 }
 
-export = FetchIo.Fetch
+export = FetchIo.Fetch;
