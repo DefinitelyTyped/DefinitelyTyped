@@ -63,7 +63,7 @@ declare namespace fin {
 		 */
 		close(force?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Retrieves an array of wrapped fin.desktop.Windows for each of the application’s child windows.
+		 * Retrieves an array of wrapped fin.desktop.Windows for each of the applicationï¿½s child windows.
 		 */
 		getChildWindows(callback?: (children: OpenFinWindow[]) => void, errorCallback?: (reason: string) => void): void;
 		/**
@@ -95,7 +95,7 @@ declare namespace fin {
 		 */
 		removeEventListener(type: OpenFinApplicationEventType, previouslyRegisteredListener: (event: ApplicationBaseEvent | TrayIconClickedEvent | WindowEvent | WindowAlertRequestedEvent | WindowAuthRequested | WindowNavigationRejectedEvent | WindowEndLoadEvent) => any, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Removes the application’s icon from the tray.
+		 * Removes the applicationï¿½s icon from the tray.
 		 */
 		removeTrayIcon(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
@@ -288,8 +288,8 @@ declare namespace fin {
 			size?: number;
 			/**
 			 * The size in pixels of an additional
-			 * square resizable region located at the 
-			 * bottom right corner of a 
+			 * square resizable region located at the
+			 * bottom right corner of a
 			 * frameless window. (Default: 4)
 			 */
 			bottomRightCorner?: number;
@@ -922,11 +922,11 @@ declare namespace fin {
 	interface OpenFinWindowStatic {
 		/**
 		 * Class: Window
-		 * 
+		 *
 		 * new Window(options, callbackopt, errorCallbackopt)
-		 * 
+		 *
 		 * Creates a new OpenFin Window
-		 * 
+		 *
 		 * A basic window that wraps a native HTML window. Provides more fine-grained control over the window state such as the ability to minimize, maximize, restore, etc. By default a window does not show upon instantiation; instead the window's show() method must be invoked manually. The new window appears in the same process as the parent window.
 		 * @param {any} options - The options of the window
 		 * @param {Function} [callback] - Called if the window creation was successful
@@ -963,7 +963,7 @@ declare namespace fin {
 		 * @returns {OpenFinApplication} Parent application
 		 */
 		getParentApplication(): OpenFinApplication;
-		/** 
+		/**
 		 * Gets the parent window.
 		 */
 		getParentWindow(): OpenFinWindow;
@@ -989,7 +989,7 @@ declare namespace fin {
 		bringToFront(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Closes the window.
-		 * @param {force} Close will be prevented from closing when force is false and ‘close-requested’ has been subscribed to for application’s main window.
+		 * @param {force} Close will be prevented from closing when force is false and ï¿½close-requestedï¿½ has been subscribed to for applicationï¿½s main window.
 		 */
 		close(force?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
@@ -1009,7 +1009,7 @@ declare namespace fin {
 		 */
 		enableFrame(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Flashes the window’s frame and taskbar icon until the window is activated.
+		 * Flashes the windowï¿½s frame and taskbar icon until the window is activated.
 		 */
 		flash(options?: any, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
@@ -1106,7 +1106,7 @@ declare namespace fin {
 		setZoomLevel(level: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Shows the window if it is hidden.
-		 * @param {force} Show will be prevented from closing when force is false and ‘show-requested’ has been subscribed to for application’s main window.
+		 * @param {force} Show will be prevented from closing when force is false and ï¿½show-requestedï¿½ has been subscribed to for applicationï¿½s main window.
 		 */
 		show(force?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
