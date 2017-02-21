@@ -37,10 +37,14 @@ var drawControl = new L.Control.Draw({
 });
 map.addControl(drawControl);
 
-map.on('draw:created', function (e: any) {
+map.on('draw:created', function(e: any) {
     var drawEvent = (e as L.DrawEvents.Created);
     var type = drawEvent.layerType,
         layer = drawEvent.layer;
 
     drawnItems.addLayer(layer);
 });
+
+let examplePolygon: L.LatLngLiteral[] = [{lng: 0, lat: 0}, {lng: 10, lat: 0}, {lng: 10, lat: 10}, {lng: 0, lat: 10}, {lng: 0, lat: 0}];
+let examplePolygonArea: number = L.GeometryUtil.geodesicArea(examplePolygon);
+L.GeometryUtil.readableArea(examplePolygonArea, true);
