@@ -31,7 +31,7 @@ namespace basics {
             this.bunny.position.x = 200;
             this.bunny.position.y = 150;
 
-            //add it to the stage
+            // add it to the stage
             this.stage.addChild(this.bunny);
 
             this.animate();
@@ -76,10 +76,10 @@ namespace basics {
             this.sprite.on('mousedown', this.onDown, this);
             this.sprite.on('touchstart', this.onDown, this);
 
-            //add it to the stage
+            // add it to the stage
             this.stage.addChild(this.sprite);
 
-            //start animatng
+            // start animatng
             this.animate();
 
         }
@@ -126,17 +126,13 @@ namespace basics {
             this.stage.addChild(this.container);
 
             for (var j = 0; j < 5; j++) {
-
                 for (var i = 0; i < 5; i++) {
-
                     var bunny: PIXI.Sprite = PIXI.Sprite.fromImage('../../_assets/basics/bunny.png');
                     bunny.x = 40 * i;
                     bunny.y = 40 * j;
                     this.container.addChild(bunny);
-
-                };
-
-            };
+                }
+            }
 
             /*
              * All the bunnies are added to the container with the addChild method
@@ -226,7 +222,7 @@ namespace basics {
                     type: '1f',
                     value: 0
                 }
-            })
+            });
         }
 
     }
@@ -324,18 +320,14 @@ namespace basics {
             this.stage.addChild(this.container);
 
             for (var j = 0; j < 5; j++) {
-
                 for (var i = 0; i < 5; i++) {
-
                     var bunny: PIXI.Sprite = PIXI.Sprite.fromImage('../../_assets/basics/bunny.png');
                     bunny.x = 40 * i;
                     bunny.y = 40 * j;
                     bunny.rotation = Math.random() * (Math.PI * 2);
                     this.container.addChild(bunny);
-
-                };
-
-            };
+                }
+            }
 
             this.renderTexture = PIXI.RenderTexture.create(300, 200, PIXI.SCALE_MODES.LINEAR, 0.1);
 
@@ -354,7 +346,7 @@ namespace basics {
 
         private animate = (): void => {
 
-            this.renderer.render(this.container, this.renderTexture)
+            this.renderer.render(this.container, this.renderTexture);
 
             requestAnimationFrame(this.animate);
 
@@ -422,7 +414,7 @@ namespace basics {
 
             this.movie.rotation += 0.01;
 
-            //render the stage container
+            // render the stage container
             this.renderer.render(this.stage);
 
             requestAnimationFrame(this.animate);
@@ -533,7 +525,7 @@ namespace basics {
 
             for (var i = 0; i < 25; i++) {
                 this.points.push(new PIXI.Point(i * this.ropeLength, 0));
-            };
+            }
 
             this.strip = new PIXI.mesh.Rope(PIXI.Texture.fromImage('../../_assets/snake.png'), this.points);
             this.strip.position.x = -40;
@@ -545,7 +537,7 @@ namespace basics {
             this.graphics.y = this.strip.y;
             this.stage.addChild(this.graphics);
 
-            //start animating
+            // start animating
             this.animate();
 
         }
@@ -554,16 +546,13 @@ namespace basics {
 
             this.count += 0.1;
 
-            //make the snake
+            // make the snake
             for (var i = 0; i < this.points.length; i++) {
-
                 this.points[i].y = Math.sin((i * 0.5) + this.count) * 30;
-
                 this.points[i].x = i * this.ropeLength + Math.cos((i * 0.3) + this.count) * 20;
+            }
 
-            };
-
-            //render the stage
+            // render the stage
             this.renderer.render(this.stage);
 
             this.renderPoints();
@@ -573,7 +562,6 @@ namespace basics {
         }
 
         private renderPoints(): void {
-
             this.graphics.clear();
 
             this.graphics.lineStyle(2, 0xffc2c2);
@@ -581,14 +569,13 @@ namespace basics {
 
             for (var i = 1; i < this.points.length; i++) {
                 this.graphics.lineTo(this.points[i].x, this.points[i].y);
-            };
+            }
 
             for (var i = 1; i < this.points.length; i++) {
                 this.graphics.beginFill(0xff0022);
                 this.graphics.drawCircle(this.points[i].x, this.points[i].y, 10);
                 this.graphics.endFill();
-            };
-
+            }
         }
 
     }
@@ -617,7 +604,7 @@ namespace basics {
             // create the root of the scene graph
             this.stage = new PIXI.Container();
 
-            //create a texture from an image path
+            // create a texture from an image path
             this.texture = PIXI.Texture.fromImage('../../_assets/p2.jpeg');
 
             /* create a tiling sprite ...
@@ -674,10 +661,10 @@ namespace basics {
             // create the root of the scene graph
             this.stage = new PIXI.Container();
 
-            //create a video texture from a path
+            // create a video texture from a path
             this.texture = PIXI.Texture.fromVideo('../../_assets/testVideo.mp4');
 
-            //create a new sprite using the video texture (yes it's that easy)
+            // create a new sprite using the video texture (yes it's that easy)
             this.videoSprite = new PIXI.Sprite(this.texture);
             this.videoSprite.width = this.renderer.width;
             this.videoSprite.height = this.renderer.height;
@@ -691,7 +678,7 @@ namespace basics {
 
         private animate = (): void => {
 
-            //render the stage
+            // render the stage
             this.renderer.render(this.stage);
 
             requestAnimationFrame(this.animate);
@@ -872,9 +859,7 @@ namespace demos {
         private animate = (): void => {
 
             // iterate through the sprites and update their position
-            for (var i = 0; i < this.maggots.length; i++) {
-
-                var dude = this.maggots[i];
+            for (const dude of this.maggots) {
                 dude.scale.y = 0.95 + Math.sin(this.tick + dude.offset) * 0.05;
                 dude.direction += dude.turningSpeed * 0.01;
                 dude.position.x += Math.sin(dude.direction) * (dude.speed * dude.scale.y);
@@ -884,15 +869,13 @@ namespace demos {
                 // wrap the maggots
                 if (dude.position.x < this.dudeBounds.x) {
                     dude.position.x += this.dudeBounds.width;
-                }
-                else if (dude.position.x > this.dudeBounds.x + this.dudeBounds.width) {
+                } else if (dude.position.x > this.dudeBounds.x + this.dudeBounds.width) {
                     dude.position.x -= this.dudeBounds.width;
                 }
 
                 if (dude.position.y < this.dudeBounds.y) {
                     dude.position.y += this.dudeBounds.height;
-                }
-                else if (dude.position.y > this.dudeBounds.y + this.dudeBounds.height) {
+                } else if (dude.position.y > this.dudeBounds.y + this.dudeBounds.height) {
                     dude.position.y -= this.dudeBounds.height;
                 }
             }
@@ -1012,9 +995,7 @@ namespace demos {
         private animate = (): void => {
 
             // iterate through the dudes and update the positions
-            for (var i = 0; i < this.dudeArray.length; i++) {
-
-                var dude = this.dudeArray[i];
+            for (const dude of this.dudeArray) {
                 dude.direction += dude.turningSpeed * 0.01;
                 dude.position.x += Math.sin(dude.direction) * dude.speed;
                 dude.position.y += Math.cos(dude.direction) * dude.speed;
@@ -1023,15 +1004,13 @@ namespace demos {
                 // wrap the dudes by testing their bounds...
                 if (dude.position.x < this.dudeBounds.x) {
                     dude.position.x += this.dudeBounds.width;
-                }
-                else if (dude.position.x > this.dudeBounds.x + this.dudeBounds.width) {
+                } else if (dude.position.x > this.dudeBounds.x + this.dudeBounds.width) {
                     dude.position.x -= this.dudeBounds.width;
                 }
 
                 if (dude.position.y < this.dudeBounds.y) {
                     dude.position.y += this.dudeBounds.height;
-                }
-                else if (dude.position.y > this.dudeBounds.y + this.dudeBounds.height) {
+                } else if (dude.position.y > this.dudeBounds.y + this.dudeBounds.height) {
                     dude.position.y -= this.dudeBounds.height;
                 }
             }
@@ -1117,11 +1096,11 @@ namespace demos {
 
             this.alienContainer.cacheAsBitmap = !this.alienContainer.cacheAsBitmap;
 
-            //feel free to play with what's below
-            //var sprite = new PIXI.Sprite(this.alienContainer.generateTexture());
-            //this.stage.addChild(sprite);
-            //sprite.position.x = Math.random() * 800;
-            //sprite.position.y = Math.random() * 600;
+            // feel free to play with what's below
+            // var sprite = new PIXI.Sprite(this.alienContainer.generateTexture());
+            // this.stage.addChild(sprite);
+            // sprite.position.x = Math.random() * 800;
+            // sprite.position.y = Math.random() * 600;
 
         }
 
@@ -1189,7 +1168,7 @@ namespace demos {
 
     export class DraggableBunny extends PIXI.Sprite {
 
-        //todo I dont know what event.data is at this time
+        // todo I dont know what event.data is at this time
         private data: any;
 
         private dragging: boolean;
@@ -1239,7 +1218,7 @@ namespace demos {
 
         private onDragEnd = (event: PIXI.interaction.InteractionEvent): void => {
 
-            //set interactiondata to null
+            // set interactiondata to null
             this.data = null;
             this.alpha = 1;
             this.dragging = false;
@@ -1276,7 +1255,7 @@ namespace demos {
             // create the root of the scene graph
             this.stage = new PIXI.Container();
 
-            //create a texture from an image
+            // create a texture from an image
             this.texture = PIXI.Texture.fromImage('../../_assets/bunny.png');
 
             for (var i = 0; i < 10; i++) {
@@ -1567,10 +1546,10 @@ namespace demos {
                 .on('mouseover', this.onButtonOver)
 
             // set the mouseout callback...
-                .on('mouseout', this.onButtonOut)
+                .on('mouseout', this.onButtonOut);
 
             // you can also listen to click and tap events :
-            //.on('click', this.noop)
+            // .on('click', this.noop)
 
         }
 
@@ -1588,8 +1567,7 @@ namespace demos {
 
             if (this.isOver) {
                 this.texture = this.textureButtonOver;
-            }
-            else {
+            } else {
                 this.texture = this.textureButton;
             }
         }
@@ -1754,8 +1732,7 @@ namespace demos {
 
             if (!this.container.mask) {
                 this.container.mask = this.thing;
-            }
-            else {
+            } else {
                 this.container.mask = null;
             }
         }
@@ -1927,9 +1904,8 @@ namespace demos {
 
         private animate = (): void => {
 
-            for (var i = 0; i < this.items.length; i++) {
+            for (const item of this.items) {
                 // rotate each item
-                var item = this.items[i];
                 item.rotation += 0.1;
             }
 
@@ -2161,7 +2137,7 @@ namespace demos {
 
             this.bol = false;
 
-            //an image path
+            // an image path
             this.texture = PIXI.Texture.fromImage('../../_assets/flowerTop.png');
 
             // create a second texture
@@ -2187,8 +2163,7 @@ namespace demos {
 
                 if (this.bol) {
                     this.dude.texture = this.secondTexture;
-                }
-                else {
+                } else {
                     this.dude.texture = this.texture;
                 }
             });
@@ -2290,9 +2265,7 @@ namespace demos {
         private animate = (): void => {
 
             // iterate through the dudes and update their position
-            for (var i = 0; i < this.aliens.length; i++) {
-
-                var dude = this.aliens[i];
+            for (const dude of this.aliens) {
                 dude.direction += dude.turningSpeed * 0.01;
                 dude.position.x += Math.sin(dude.direction) * dude.speed;
                 dude.position.y += Math.cos(dude.direction) * dude.speed;
@@ -2301,15 +2274,13 @@ namespace demos {
                 // wrap the dudes by testing their bounds...
                 if (dude.position.x < this.dudeBounds.x) {
                     dude.position.x += this.dudeBounds.width;
-                }
-                else if (dude.position.x > this.dudeBounds.x + this.dudeBounds.width) {
+                } else if (dude.position.x > this.dudeBounds.x + this.dudeBounds.width) {
                     dude.position.x -= this.dudeBounds.width;
                 }
 
                 if (dude.position.y < this.dudeBounds.y) {
                     dude.position.y += this.dudeBounds.height;
-                }
-                else if (dude.position.y > this.dudeBounds.y + this.dudeBounds.height) {
+                } else if (dude.position.y > this.dudeBounds.y + this.dudeBounds.height) {
                     dude.position.y -= this.dudeBounds.height;
                 }
 
@@ -2439,7 +2410,7 @@ namespace filters {
 
             this.count = 0;
 
-            //nimate
+            // nimate
             this.animate();
 
         }
@@ -2572,15 +2543,13 @@ namespace filters {
             this.ring.position.x = eventData.data.global.x - 25;
             this.ring.position.y = eventData.data.global.y;
 
-        };
+        }
 
         private animate = (): void => {
 
             this.count += 0.05;
 
-            for (var i = 0; i < this.maggots.length; i++) {
-                var maggot = this.maggots[i];
-
+            for (const maggot of this.maggots) {
                 maggot.direction += maggot.turnSpeed * 0.01;
                 maggot.position.x += Math.sin(maggot.direction) * maggot.speed;
                 maggot.position.y += Math.cos(maggot.direction) * maggot.speed;
@@ -2592,15 +2561,13 @@ namespace filters {
                 // wrap the maggots around as the crawl
                 if (maggot.position.x < this.bounds.x) {
                     maggot.position.x += this.bounds.width;
-                }
-                else if (maggot.position.x > this.bounds.x + this.bounds.width) {
+                } else if (maggot.position.x > this.bounds.x + this.bounds.width) {
                     maggot.position.x -= this.bounds.width;
                 }
 
                 if (maggot.position.y < this.bounds.y) {
                     maggot.position.y += this.bounds.height;
-                }
-                else if (maggot.position.y > this.bounds.y + this.bounds.height) {
+                } else if (maggot.position.y > this.bounds.y + this.bounds.height) {
                     maggot.position.y -= this.bounds.height;
                 }
             }
@@ -2609,7 +2576,7 @@ namespace filters {
 
             requestAnimationFrame(this.animate);
 
-        };
+        }
 
     }
 
@@ -2713,7 +2680,7 @@ namespace filters {
 
             this.stage.addChild(this.help);
 
-            //nimate
+            // animate
             this.animate();
 
         }
@@ -2724,8 +2691,7 @@ namespace filters {
 
             if (!this.switchy) {
                 this.stage.filters = [this.filter];
-            }
-            else {
+            } else {
                 this.stage.filters = null;
             }
 
