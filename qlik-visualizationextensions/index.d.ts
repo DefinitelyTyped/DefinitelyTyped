@@ -395,27 +395,27 @@ declare namespace BackendAPI {
         /**
          * Minimum value.
          */
-        qMin: number,
+        qMin: number;
 
         /**
          * Maximum value.
          */
-        qMax: number,
+        qMax: number;
 
         /**
          * Is continuous axis used.
          */
-        qContinuousAxes: boolean,
+        qContinuousAxes: boolean;
 
         /**
          * Is a cyclic dimension used.
          */
-        qIsCyclic: boolean,
+        qIsCyclic: boolean;
 
         /**
          * Corresponds to the label of the dimension that is selected.
          */
-        qFallbackTitle: string
+        qFallbackTitle: string;
     }
 
     interface INxStateCounts {
@@ -2152,7 +2152,7 @@ declare namespace ExtensionAPI {
 
 
     interface IExtensionModel {
-       
+
     }
 
     interface IExtensionComponent {
@@ -2184,7 +2184,7 @@ declare namespace ExtensionAPI {
 
     interface IExtension {
         definition?: IDefinition;
-        paint?: ($element: HTMLElement, layout? : any) => void;
+        paint?: ($element: HTMLElement, layout?: any) => void;
         initialProperties?: IInitialProperties;
         template?: string;
         controller?: any;
@@ -2412,7 +2412,6 @@ interface IQVAngular {
     //provider(name: string, serviceProviderConstructor: ng.IServiceProviderClass): void;
 }
 
-declare module "qvangular"
-{
+declare module "qvangular" {
     var e: IQVAngular; export = e;
 }
