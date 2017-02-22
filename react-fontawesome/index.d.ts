@@ -27,7 +27,6 @@ declare module "react-fontawesome" {
     size?: FontAwesomeSize,
     spin?: boolean,
     stack?: FontAwesomeStack,
-    style?: React.CSSProperties,
     tag?: string
   }
 
