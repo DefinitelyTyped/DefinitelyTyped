@@ -329,6 +329,12 @@
             "typingsPackageName": "fine-uploader",
             "sourceRepoURL": "http://fineuploader.com/",
             "asOfVersion": "5.14.0"
+        },
+        {
+            "libraryName": "mobservable",
+            "typingsPackageName": "mobservable",
+            "sourceRepoURL": "github.com/mweststrate/mobservable",
+            "asOfVersion": "1.2.5"
         }
     ]
 }
