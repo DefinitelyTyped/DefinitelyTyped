@@ -1,4 +1,4 @@
-// Type definitions for jmespath 0.15.0
+// Type definitions for jmespath 0.15
 // Project: https://github.com/jmespath/jmespath.js
 // Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
