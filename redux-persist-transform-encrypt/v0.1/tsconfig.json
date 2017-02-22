@@ -10,7 +10,7 @@
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
-        ].
+        ],
         "paths": {
           "redux-persist-transform-encrypt": ["redux-persist-transform-encrypt/v0.1"]
         },
