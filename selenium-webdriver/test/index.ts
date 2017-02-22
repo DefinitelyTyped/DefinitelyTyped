@@ -28,7 +28,7 @@ function TestBuilder() {
     builder = builder.setEnableNativeEvents(true);
     builder = builder.setFirefoxOptions(new firefox.Options());
     builder = builder.setLoggingPrefs(new webdriver.logging.Preferences());
-    builder = builder.setLoggingPrefs({ 'key': 'value' });
+    builder = builder.setLoggingPrefs({ key: 'value' });
     builder = builder.setProxy({ proxyType: 'type' });
     builder = builder.setScrollBehavior(1);
     builder = builder.usingServer('http://someserver');
@@ -89,7 +89,7 @@ function TestActionSequence() {
     sequence = sequence.sendKeys('A', 'B', 'C');
     sequence = sequence.sendKeys('A', webdriver.Key.NULL);
 
-    sequence.perform().then(function () { });
+    sequence.perform().then(() => {});
 }
 
 function TestTouchSequence() {
@@ -111,7 +111,7 @@ function TestTouchSequence() {
     sequence = sequence.flick({ xspeed: 100, yspeed: 100 });
     sequence = sequence.flickElement(element, { x: 100, y: 100 }, 100);
 
-    sequence.perform().then(function () { });
+    sequence.perform().then(() => {});
 }
 
 function TestAlert() {
@@ -121,10 +121,10 @@ function TestAlert() {
 
     var alert: webdriver.Alert = driver.switchTo().alert();
 
-    alert.accept().then(function () { });
-    alert.dismiss().then(function () { });
-    alert.getText().then(function (text: string) { });
-    alert.sendKeys('ABC').then(function () { });
+    alert.accept().then(() => {});
+    alert.dismiss().then(() => {});
+    alert.getText().then((text: string) => {});
+    alert.sendKeys('ABC').then(() => {});
 }
 
 function TestBrowser() {
@@ -164,7 +164,7 @@ function TestCapabilities() {
     capabilities = capabilities.set(webdriver.Capability.VERSION, { abc: 'def' });
     capabilities = capabilities.set(webdriver.Capability.VERSION, null);
     capabilities = capabilities.setLoggingPrefs(new webdriver.logging.Preferences());
-    capabilities = capabilities.setLoggingPrefs({ 'key': 'value' });
+    capabilities = capabilities.setLoggingPrefs({ key: 'value' });
     capabilities = capabilities.setProxy({ proxyType: 'Type' });
     capabilities = capabilities.setEnableNativeEvents(true);
     capabilities = capabilities.setScrollBehavior(1);
@@ -328,7 +328,7 @@ function TestCommandName() {
 function TestEventEmitter() {
     var emitter: webdriver.EventEmitter = new webdriver.EventEmitter();
 
-    var callback = function (a: number, b: number, c: number) { };
+    var callback = (a: number, b: number, c: number) => {};
 
     emitter = emitter.addListener('ABC', callback);
     emitter = emitter.addListener('ABC', callback, this);
@@ -453,7 +453,7 @@ function TestBy() {
     locatorHash = { tagName: 'tag' };
     locatorHash = { xpath: 'xpath' };
 
-    webdriver.By.js('script', 1, 2, 3)(driver).then(function (abc: number) { });
+    webdriver.By.js('script', 1, 2, 3)(driver).then((abc: number) => {});
 }
 
 function TestSession() {
@@ -470,11 +470,11 @@ function TestSession() {
 }
 
 function TestUnhandledAlertError() {
-    var someFunc = function (error: webdriver.UnhandledAlertError) {
+    var someFunc = (error: webdriver.UnhandledAlertError) => {
         var baseError: Error = error;
         var str: string = error.getAlertText();
         str = error.toString();
-    }
+    };
 }
 
 function TestWebDriverFileDetector() {
@@ -484,7 +484,7 @@ function TestWebDriverFileDetector() {
 
     var fileDetector: webdriver.FileDetector = new webdriver.FileDetector();
 
-    fileDetector.handleFile(driver, 'path/to/file').then(function (path: string) { });
+    fileDetector.handleFile(driver, 'path/to/file').then((path: string) => {});
 }
 
 function TestWebDriverLogs() {
@@ -494,8 +494,8 @@ function TestWebDriverLogs() {
 
     var logs: webdriver.Logs = new webdriver.Logs(driver);
 
-    logs.get(webdriver.logging.Type.BROWSER).then(function (entries: webdriver.logging.Entry[]) { });;
-    logs.getAvailableLogTypes().then(function (types: string[]) { });
+    logs.get(webdriver.logging.Type.BROWSER).then((entries: webdriver.logging.Entry[]) => {});
+    logs.getAvailableLogTypes().then((types: string[]) => {});
 }
 
 function TestWebDriverNavigation() {
@@ -505,10 +505,10 @@ function TestWebDriverNavigation() {
 
     var navigation: webdriver.Navigation = new webdriver.Navigation(driver);
 
-    navigation.back().then(function () { });
-    navigation.forward().then(function () { });
-    navigation.refresh().then(function () { });
-    navigation.to('http://google.com').then(function () { });
+    navigation.back().then(() => {});
+    navigation.forward().then(() => {});
+    navigation.refresh().then(() => {});
+    navigation.to('http://google.com').then(() => {});
 }
 
 function TestWebDriverOptions() {
@@ -529,8 +529,8 @@ function TestWebDriverOptions() {
 
     promise = options.deleteAllCookies();
     promise = options.deleteCookie('name');
-    options.getCookie('name').then(function (cookies: webdriver.IWebDriverOptionsCookie) { });
-    options.getCookies().then(function (cookies: webdriver.IWebDriverOptionsCookie[]) { });
+    options.getCookie('name').then((cookies: webdriver.IWebDriverOptionsCookie) => {});
+    options.getCookies().then((cookies: webdriver.IWebDriverOptionsCookie[]) => {});
 
     var logs: webdriver.Logs = options.logs();
     var timeouts: webdriver.Timeouts = options.timeouts();
@@ -600,10 +600,10 @@ function TestWebDriver() {
     var touchActions: webdriver.TouchSequence = driver.touchActions();
 
     // call
-    stringPromise = driver.call<string>(function () { return 'value'; });
-    stringPromise = driver.call<string>(function () { return stringPromise; });
-    stringPromise = driver.call<string>(function () { var d: any = this; return 'value'; }, driver);
-    stringPromise = driver.call<string>(function (a: number) { return 'value'; }, driver, 1);
+    stringPromise = driver.call<string>(() => 'value');
+    stringPromise = driver.call<string>(() => stringPromise);
+    stringPromise = driver.call<string>(() => { var d: any = this; return 'value'; }, driver);
+    stringPromise = driver.call<string>((a: number) => 'value', driver, 1);
 
     voidPromise = driver.close();
     flow = driver.controlFlow();
@@ -611,14 +611,14 @@ function TestWebDriver() {
     // executeAsyncScript
     stringPromise = driver.executeAsyncScript<string>('function(){}');
     stringPromise = driver.executeAsyncScript<string>('function(){}', 1, 2, 3);
-    stringPromise = driver.executeAsyncScript<string>(function () { });
-    stringPromise = driver.executeAsyncScript<string>(function (a: number) { }, 1);
+    stringPromise = driver.executeAsyncScript<string>(() => {});
+    stringPromise = driver.executeAsyncScript<string>((a: number) => {}, 1);
 
     // executeScript
     stringPromise = driver.executeScript<string>('function(){}');
     stringPromise = driver.executeScript<string>('function(){}', 1, 2, 3);
-    stringPromise = driver.executeScript<string>(function () { });
-    stringPromise = driver.executeScript<string>(function (a: number) { }, 1);
+    stringPromise = driver.executeScript<string>(() => {});
+    stringPromise = driver.executeScript<string>((a: number) => {}, 1);
 
     // findElement
     var element: webdriver.WebElement;
@@ -626,15 +626,15 @@ function TestWebDriver() {
     element = driver.findElement(webdriver.By.js('function(){}'));
 
     // findElements
-    driver.findElements(webdriver.By.className('ABC')).then(function (elements: webdriver.WebElement[]) { });
-    driver.findElements(webdriver.By.js('function(){}')).then(function (elements: webdriver.WebElement[]) { });
+    driver.findElements(webdriver.By.className('ABC')).then((elements: webdriver.WebElement[]) => {});
+    driver.findElements(webdriver.By.js('function(){}')).then((elements: webdriver.WebElement[]) => {});
 
     voidPromise = driver.get('http://www.google.com');
-    driver.getAllWindowHandles().then(function (handles: string[]) { });
-    driver.getCapabilities().then(function (caps: webdriver.Capabilities) { });
+    driver.getAllWindowHandles().then((handles: string[]) => {});
+    driver.getCapabilities().then((caps: webdriver.Capabilities) => {});
     stringPromise = driver.getCurrentUrl();
-    stringPromise = driver.getPageSource()
-    driver.getSession().then(function (session: webdriver.Session) { });;
+    stringPromise = driver.getPageSource();
+    driver.getSession().then((session: webdriver.Session) => {});
     stringPromise = driver.getTitle();
     stringPromise = driver.getWindowHandle();
 
@@ -656,8 +656,8 @@ function TestWebDriver() {
     var booleanCondition: webdriver.until.Condition<boolean>;
     booleanPromise = driver.wait(booleanPromise);
     booleanPromise = driver.wait(booleanCondition);
-    booleanPromise = driver.wait(function (driver: webdriver.WebDriver) { return true; });
-    let conditionFunction: Function;
+    booleanPromise = driver.wait((driver: webdriver.WebDriver) => true);
+    let conditionFunction: Function; // tslint:disable-line:prefer-const
     booleanPromise = driver.wait(conditionFunction);
     booleanPromise = driver.wait(booleanPromise, 123);
     booleanPromise = driver.wait(booleanPromise, 123, 'Message');
@@ -690,16 +690,16 @@ function TestWebElement() {
     voidPromise = element.click();
 
     element = element.findElement(webdriver.By.id('ABC'));
-    element.findElements(webdriver.By.className('ABC')).then(function (elements: webdriver.WebElement[]) { });
+    element.findElements(webdriver.By.className('ABC')).then((elements: webdriver.WebElement[]) => {});
     booleanPromise = element.isElementPresent(webdriver.By.className('ABC'));
 
     stringPromise = element.getAttribute('class');
     stringPromise = element.getCssValue('display');
     driver = element.getDriver();
     stringPromise = element.getInnerHtml();
-    element.getLocation().then(function (location: webdriver.ILocation) { });
+    element.getLocation().then((location: webdriver.ILocation) => {});
     stringPromise = element.getOuterHtml();
-    element.getSize().then(function (size: webdriver.ISize) { });
+    element.getSize().then((size: webdriver.ISize) => {});
     stringPromise = element.getTagName();
     stringPromise = element.getText();
     booleanPromise = element.isDisplayed();
@@ -711,9 +711,9 @@ function TestWebElement() {
     voidPromise = element.sendKeys(stringPromise, stringPromise, stringPromise);
     voidPromise = element.sendKeys('A', 1, webdriver.Key.BACK_SPACE, stringPromise);
     voidPromise = element.submit();
-    element.getId().then(function (id: string) { });
-    element.getRawId().then(function (id: string) { });
-    element.serialize().then(function (id: webdriver.IWebElementId) { });
+    element.getId().then((id: string) => {});
+    element.getRawId().then((id: string) => {});
+    element.serialize().then((id: webdriver.IWebElementId) => {});
 
     booleanPromise = webdriver.WebElement.equals(element, new webdriver.WebElement(driver, 'elementId'));
 }
@@ -731,13 +731,13 @@ function TestWebElementPromise() {
     var bool: boolean = elementPromise.isPending();
 
     elementPromise.then();
-    elementPromise.then(function (element: webdriver.WebElement) { });
-    elementPromise.then(function (element: webdriver.WebElement) { }, function (error: any) { });
-    elementPromise.then(function (element: webdriver.WebElement) { return 'foo'; }, function (error: any) { }).then(function (result: string) { });
+    elementPromise.then((element: webdriver.WebElement) => {});
+    elementPromise.then((element: webdriver.WebElement) => {}, (error: any) => {});
+    elementPromise.then((element: webdriver.WebElement) => 'foo', (error: any) => {}).then((result: string) => {});
 
-    elementPromise.thenCatch(function (error: any) { }).then(function (value: any) { });
+    elementPromise.thenCatch((error: any) => {}).then((value: any) => {});
 
-    elementPromise.thenFinally(function () { });
+    elementPromise.thenFinally(() => {});
 }
 
 function TestLogging() {
@@ -794,52 +794,51 @@ function TestPromiseModule() {
     var booleanPromise: webdriver.promise.Promise<boolean>;
     var voidPromise: webdriver.promise.Promise<void>;
 
-    webdriver.promise.all([stringPromise]).then(function (values: string[]) { });
+    webdriver.promise.all([stringPromise]).then((values: string[]) => {});
 
-    webdriver.promise.asap('abc', function (value: any) { return true; });
-    webdriver.promise.asap('abc', function (value: any) { }, function (err: any) { return 'ABC'; });
+    webdriver.promise.asap('abc', (value: any) => true);
+    webdriver.promise.asap('abc', (value: any) => {}, (err: any) => 'ABC');
 
-    stringPromise = webdriver.promise.checkedNodeCall<string>(function (err: any, value: any) { return 'abc'; });
+    stringPromise = webdriver.promise.checkedNodeCall<string>((err: any, value: any) => 'abc');
 
-    webdriver.promise.consume(function () {
+    webdriver.promise.consume(() => {
         return 5;
-    }).then(function (value: number) { });
-    webdriver.promise.consume(function () {
+    }).then((value: number) => {});
+    webdriver.promise.consume(() => {
         return 5;
-    }, this).then(function (value: number) { });
-    webdriver.promise.consume(function (a: number, b: number, c: number) {
-        return 5;
-    }, this, 1, 2, 3).then(function (value: number) { });
+    }, this).then((value: number) => {});
+    webdriver.promise.consume((a: number, b: number, c: number) => 5, this, 1, 2, 3)
+        .then((value: number) => {});
 
-    var numbersPromise: webdriver.promise.Promise<number[]> = webdriver.promise.filter([1, 2, 3], function (element: number, type: any, index: number, arr: number[]) {
+    var numbersPromise: webdriver.promise.Promise<number[]> = webdriver.promise.filter([1, 2, 3], (element: number, type: any, index: number, arr: number[]) => {
         return true;
     });
-    numbersPromise = webdriver.promise.filter([1, 2, 3], function (element: number, type: any, index: number, arr: number[]) {
+    numbersPromise = webdriver.promise.filter([1, 2, 3], (element: number, type: any, index: number, arr: number[]) => {
         return true;
     }, this);
-    numbersPromise = webdriver.promise.filter(numbersPromise, function (element: number, type: any, index: number, arr: number[]) {
+    numbersPromise = webdriver.promise.filter(numbersPromise, (element: number, type: any, index: number, arr: number[]) => {
         return true;
     });
-    numbersPromise = webdriver.promise.filter(numbersPromise, function (element: number, type: any, index: number, arr: number[]) {
+    numbersPromise = webdriver.promise.filter(numbersPromise, (element: number, type: any, index: number, arr: number[]) => {
         return true;
     }, this);
 
-    numbersPromise = webdriver.promise.map([1, 2, 3], function (el: number, type: any, index: number, arr: number[]) {
+    numbersPromise = webdriver.promise.map([1, 2, 3], (el: number, type: any, index: number, arr: number[]) => {
         return true;
     });
-    numbersPromise = webdriver.promise.map([1, 2, 3], function (el: number, type: any, index: number, arr: number[]) {
+    numbersPromise = webdriver.promise.map([1, 2, 3], (el: number, type: any, index: number, arr: number[]) => {
         return true;
     }, this);
-    numbersPromise = webdriver.promise.map(numbersPromise, function (el: number, type: any, index: number, arr: number[]) {
+    numbersPromise = webdriver.promise.map(numbersPromise, (el: number, type: any, index: number, arr: number[]) => {
         return true;
     });
-    numbersPromise = webdriver.promise.map(numbersPromise, function (el: number, type: any, index: number, arr: number[]) {
+    numbersPromise = webdriver.promise.map(numbersPromise, (el: number, type: any, index: number, arr: number[]) => {
         return true;
     }, this);
 
     var flow: webdriver.promise.ControlFlow = webdriver.promise.controlFlow();
 
-    stringPromise = webdriver.promise.createFlow<string>(function (newFlow: webdriver.promise.ControlFlow) { return 'ABC' });
+    stringPromise = webdriver.promise.createFlow<string>((newFlow: webdriver.promise.ControlFlow) => 'ABC');
 
     var deferred: webdriver.promise.Deferred<string>;
     deferred = webdriver.promise.defer();
@@ -857,14 +856,14 @@ function TestPromiseModule() {
 
     stringPromise = webdriver.promise.fullyResolved('abc');
 
-    var bool: boolean = webdriver.promise.isGenerator(function () { });
+    var bool: boolean = webdriver.promise.isGenerator(() => {});
     var isPromise: boolean = webdriver.promise.isPromise('ABC');
 
     stringPromise = webdriver.promise.rejected('{a: 123}');
 
     webdriver.promise.setDefaultFlow(new webdriver.promise.ControlFlow());
 
-    numberPromise = webdriver.promise.when('abc', function (value: any) { return 123; }, function (err: Error) { return 123; });
+    numberPromise = webdriver.promise.when('abc', (value: any) => 123, (err: Error) => 123);
 }
 
 function TestUntilModule() {
@@ -872,7 +871,7 @@ function TestUntilModule() {
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
-    var conditionB: webdriver.until.Condition<boolean> = new webdriver.until.Condition<boolean>('message', function (driver: webdriver.WebDriver) { return true; });
+    var conditionB: webdriver.until.Condition<boolean> = new webdriver.until.Condition<boolean>('message', (driver: webdriver.WebDriver) => true);
     var conditionBBase: webdriver.until.Condition<boolean> = conditionB;
     var conditionWebElement: webdriver.until.Condition<webdriver.WebElement>;
     var conditionWebElements: webdriver.until.Condition<webdriver.WebElement[]>;
@@ -912,9 +911,9 @@ function TestControlFlow() {
     eventType = webdriver.promise.ControlFlow.EventType.UNCAUGHT_EXCEPTION;
 
     var stringPromise: webdriver.promise.Promise<string>;
-    stringPromise = flow.execute(function () { return 'value'; });
-    stringPromise = flow.execute(function () { return stringPromise; });
-    stringPromise = flow.execute(function () { return stringPromise; }, 'Description');
+    stringPromise = flow.execute(() => 'value');
+    stringPromise = flow.execute(() => stringPromise);
+    stringPromise = flow.execute(() => stringPromise, 'Description');
 
     var schedule: string;
     schedule = flow.toString();
@@ -928,9 +927,9 @@ function TestControlFlow() {
 
     stringPromise = flow.wait(stringPromise);
 
-    voidPromise = flow.wait<void>(function () { return true; });
-    voidPromise = flow.wait<void>(function () { return true; }, 123);
-    voidPromise = flow.wait<void>(function () { return stringPromise; }, 123, 'Timeout Message');
+    voidPromise = flow.wait<void>(() => true);
+    voidPromise = flow.wait<void>(() => true, 123);
+    voidPromise = flow.wait<void>(() => stringPromise, 123, 'Timeout Message');
 }
 
 function TestDeferred() {
@@ -952,28 +951,22 @@ function TestDeferred() {
 function TestPromiseClass() {
     var controlFlow: webdriver.promise.ControlFlow;
     var promise: webdriver.promise.Promise<string>;
-    promise = new webdriver.promise.Promise<string>(function (
-        resolve: (value: string) => void,
-        reject: () => void) { });
-    promise = new webdriver.promise.Promise<string>(function (
-        resolve: (value: webdriver.promise.Promise<string>) => void,
-        reject: () => void) { });
-    promise = new webdriver.promise.Promise<string>(function (
-        resolve: (value: string) => void,
-        reject: () => void) { }, controlFlow);
+    promise = new webdriver.promise.Promise<string>((resolve: (value: string) => void, reject: () => void) => {});
+    promise = new webdriver.promise.Promise<string>((resolve: (value: webdriver.promise.Promise<string>) => void, reject: () => void) => {});
+    promise = new webdriver.promise.Promise<string>((resolve: (value: string) => void, reject: () => void) => {}, controlFlow);
 
     promise.cancel('Abort');
 
     var isPending: boolean = promise.isPending();
 
     promise = promise.then();
-    promise = promise.then(function (a: string) { return 'cde'; });
-    promise = promise.then(function (a: string) { return 'cde'; }, function (e: any) { });
-    promise = promise.then(function (a: string) { return 'cde'; }, function (e: any) { return 123; });
+    promise = promise.then((a: string) => 'cde');
+    promise = promise.then((a: string) => 'cde', (e: any) => {});
+    promise = promise.then((a: string) => 'cde', (e: any) => 123);
 
-    promise = promise.thenCatch(function (error: any) { });
+    promise = promise.thenCatch((error: any) => {});
 
-    promise.thenFinally(function () { });
+    promise.thenFinally(() => {});
 }
 
 function TestThenableClass() {
@@ -985,13 +978,13 @@ function TestThenableClass() {
 
     var isPending: boolean = thenable.isPending();
 
-    thenable = thenable.then(function (a: string) { return 'cde'; });
-    thenable = thenable.then(function (a: string) { return 'cde'; }, function (e: any) { });
-    thenable = thenable.then(function (a: string) { return 'cde'; }, function (e: any) { return 123; });
+    thenable = thenable.then((a: string) => 'cde');
+    thenable = thenable.then((a: string) => 'cde', (e: any) => {});
+    thenable = thenable.then((a: string) => 'cde', (e: any) => 123);
 
-    thenable = thenable.thenCatch(function (error: any) { });
+    thenable = thenable.thenCatch((error: any) => {});
 
-    thenable.thenFinally(function () { });
+    thenable.thenFinally(() => {});
 }
 
 function TestErrorCode() {
@@ -1029,29 +1022,29 @@ async function TestAsyncAwaitable() {
 }
 
 function TestTestingModule() {
-    testing.before(function () {
+    testing.before(() => {
     });
 
-    testing.beforeEach(function () {
+    testing.beforeEach(() => {
     });
 
-    testing.describe('My test suite', function () {
-        testing.it('My test', function () {
+    testing.describe('My test suite', () => {
+        testing.it('My test', () => {
         });
 
-        testing.iit('My exclusive test.', function () {
+        testing.iit('My exclusive test.', () => {
         });
 
     });
 
-    testing.xdescribe('My disabled suite', function () {
-        testing.xit('My disabled test.', function () {
+    testing.xdescribe('My disabled suite', () => {
+        testing.xit('My disabled test.', () => {
         });
     });
 
-    testing.after(function () {
+    testing.after(() => {
     });
 
-    testing.afterEach(function () {
+    testing.afterEach(() => {
     });
 }
