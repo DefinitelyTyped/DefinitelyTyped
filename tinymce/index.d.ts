@@ -7,8 +7,8 @@
 
 declare namespace TinyMCE {
   export interface Observable {
-    off(name?: string, callback?: void): any;
-    on(name: string, callback: () => void): any;
+    off(name?: string, callback?: void): void;
+    on(name: string, callback: () => void): void;
     fire(name: string, args?: any, bubble?: boolean): Event;
   }
 
@@ -22,7 +22,7 @@ declare namespace TinyMCE {
     dom: DOMUtils;
     notificationManager: NotificationManager;
     focus(): void;
-    getContent(args?: Object): string;
+    getContent(args?: any): string;
     isDirty(): boolean;
     insertContent(content: string, args?: any): any;
     setContent(content: string, args?: any): any;
@@ -35,7 +35,7 @@ declare namespace TinyMCE {
     queryCommandSupported(cmd: string): boolean;
     getBody(): Element;
     setDirty(dirty: boolean): void;
-    on(eventName: String, handler: Function): void;
+    on(eventName: string, handler: () => void): void;
     addShortcut(pattern: string, desc: string, cmdFunc: string, scope?: any ): boolean;
     addButton(name: string, settings: any): void;
     addMenuItem(name: string, settings: any): void;
@@ -47,12 +47,12 @@ declare namespace TinyMCE {
     remove(name: string): any;
     apply(name: string): any;
     toggle(name: string): any;
-    match(name: string, vars?: Object, node?: Node): boolean;
-    matchAll(names: [string], vars?: Object): [string];
+    match(name: string, vars?: any, node?: Node): boolean;
+    matchAll(names: [string], vars?: any): [string];
   }
 
   export interface UndoManager {
-    transact(callback: Function): any;
+    transact(callback: () => void): any;
     undo(): any;
     redo(): any;
     hasRedo(): boolean;
@@ -63,9 +63,9 @@ declare namespace TinyMCE {
     DOM: any;
     getParent(n: Node, s: string): Node;
     setStyle(n: any, na: string, v: string): void;
-    select(pattern: string, scope ?: Element): Array<Element>;
+    select(pattern: string, scope ?: Element): Element[];
     getAttrib(elm: string, name: string, defaultVal ?: string): string;
-    isEmpty(elements: Object): boolean;
+    isEmpty(elements: any): boolean;
   }
 
   export interface NotificationManager {
@@ -80,7 +80,7 @@ declare namespace TinyMCE {
   }
 
   export interface Collection {
-
+    active():Collection;
   }
 
   export interface Container {
@@ -89,7 +89,7 @@ declare namespace TinyMCE {
   }
 
   export interface Tooltip {
-
+    repaint(): void;
   }
 
   export interface Control {
@@ -101,7 +101,7 @@ declare namespace TinyMCE {
     visible(state ?: boolean): boolean;
     disabled(state: boolean): boolean;
     active(state: boolean): boolean;
-    on(name: string, callback: Function): Control;
+    on(name: string, callback: () => void): Control;
     parent(parent ?: any): Control;
     settings: any;
     text(text: string): void;
@@ -125,8 +125,8 @@ declare namespace TinyMCE {
   }
 
   export interface Tools {
-    grep(array: any, f: Function): any;
-    each(o: Object, cb: Function, s?: Object): void;
+    grep(array: any, f: () => void): any;
+    each(o: Object, cb: () => void, s?: any): void;
   }
 
   export interface UI {
@@ -140,7 +140,7 @@ declare namespace TinyMCE {
   }
 
   export interface Selection {
-    getContent(args?: Object): string;
+    getContent(args?: any): string;
     getNode(): any;
     getRng(): Range;
     collapse(toStart?: boolean): any;

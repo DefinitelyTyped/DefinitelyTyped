@@ -770,7 +770,7 @@ declare namespace Marionette {
         /**
          * View implements a destroy method, which is called by the region managers automatically. As part of the implementation.
          */
-        destroy(...args: any[]): void;
+        destroy(...args: any[]): View<TModel>;
 
         /**
          * In several cases you need to access ui elements inside the view to
