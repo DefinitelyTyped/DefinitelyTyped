@@ -2,7 +2,7 @@
 // Project: http://lodash.com/
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 /**
 ### 4.0.0 Changelog (https://github.com/lodash/lodash/wiki/Changelog)
@@ -19446,5 +19446,5 @@ declare global {
     interface Set<T> { }
     interface Map<K, V> { }
     interface WeakSet<T> { }
-    interface WeakMap<K, V> { }
+    interface WeakMap<K extends object, V> { }
 }
