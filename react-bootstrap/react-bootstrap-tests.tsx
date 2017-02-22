@@ -528,7 +528,7 @@ export class ReactBootstrapTest extends Component<any, any> {
                       <Navbar.Brand>
                         <a href="#">React-Bootstrap</a>
                       </Navbar.Brand>
-                      <Navbar.Toggle />
+                      <Navbar.Toggle onClick={ () => {} } />
                     </Navbar.Header>
                     <Navbar.Collapse>
                       <Nav>
@@ -1218,7 +1218,7 @@ export class ReactBootstrapTest extends Component<any, any> {
                         </FormGroup>
                     </form>
                 </div>
-                
+
                 <div style={style}>
                   <Form>
                         <FormGroup controlId="formBasicText">
@@ -1227,7 +1227,7 @@ export class ReactBootstrapTest extends Component<any, any> {
                       <FormControl.Feedback />
                       <HelpBlock>Help block message.</HelpBlock>
                     </FormGroup>
-                    
+
                     <FormGroup>
                       <Checkbox name="checkbox" inline>1</Checkbox>
                       {' '}

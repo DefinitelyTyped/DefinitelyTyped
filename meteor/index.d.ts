@@ -428,6 +428,7 @@ declare namespace Accounts {
 	function onCreateUser(func: Function): void;
 	function validateLoginAttempt(cb: (params: Accounts.IValidateLoginAttemptCbOpts) => boolean): { stop: () => void };
 	function validateNewUser(func: Function): boolean;
+	function _hashPassword(password: string): { digest: string; algorithm: string; };
 }
 
 declare namespace App {

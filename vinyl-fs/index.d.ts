@@ -1,25 +1,26 @@
-// Type definitions for vinyl-fs
+// Type definitions for vinyl-fs 2.4
 // Project: https://github.com/wearefractal/vinyl-fs
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="vinyl" />
-/// <reference types="glob-stream" />
 
 declare global {
    namespace NodeJS {
       interface WritableStream {
-         write(buffer: any/* Vinyl.File */, cb?: Function): boolean;
+         write(buffer: any/* Vinyl.File */, cb?: (err?: Error) => void): boolean;
       }
    }
 }
 
-import _events = require("events");
-import File = require("vinyl");
-import globStream = require("glob-stream");
+import * as _events from 'events';
+import * as File from 'vinyl';
+import * as globStream from 'glob-stream';
 
-interface ISrcOptions extends globStream.Options {
+interface SrcOptions extends globStream.Options {
+   /** Prevents stream from emitting an error when file not found. */
+   allowEmpty?: boolean;
+
    /** Specifies the working directory the folder is relative to */
    cwd?: string;
 
@@ -62,7 +63,7 @@ interface ISrcOptions extends globStream.Options {
 * fs.src(['!b*.js', '*.js']) would not exclude any files, but this would: fs.src(['*.js', '!b*.js'])
 * @param opt Options Vinyl source options, changes the way the files are read, found, or stored in the vinyl stream
 */
-declare function src(globs: string|string[], opt?: ISrcOptions): NodeJS.ReadWriteStream;
+declare function src(globs: string|string[], opt?: SrcOptions): NodeJS.ReadWriteStream;
 
 /**
 * This is just a glob-watcher
@@ -80,7 +81,7 @@ declare function watch(globs: string|string[], cb?: (outEvt: { type: any; path: 
 * Globs are executed in order, so negations should follow positive globs
 * fs.src(['!b*.js', '*.js']) would not exclude any files, but this would: fs.src(['*.js', '!b*.js'])
 */
-declare function watch(globs: string|string[], opt?: { interval?: number; debounceDelay?: number; cwd?: string; maxListeners?: Function; }, cb?: (outEvt: { type: any; path: any; old: any; }) => void): _events.EventEmitter;
+declare function watch(globs: string|string[], opt?: { interval?: number; debounceDelay?: number; cwd?: string; maxListeners?: () => number; }, cb?: (outEvt: { type: any; path: any; old: any; }) => void): _events.EventEmitter;
 
 /**
 * On write the stream will save the vinyl File to disk at the folder/cwd specified.

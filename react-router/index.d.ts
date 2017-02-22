@@ -4,27 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-/* Replacement from old history definitions */
-export interface HistoryOptions {
-    getCurrentLocation?(): Location;
-    getUserConfirmation?(message: string, callback: (result: boolean) => void): void;
-    pushLocation?(nextLocation: Location): void;
-    replaceLocation?(nextLocation: Location): void;
-    go?(n: number): void;
-    keyLength?: number;
-}
-
-export type CreateHistory<T> = (options?: HistoryOptions) => T;
-export type CreateHistoryEnhancer<T> = (createHistory: CreateHistory<T>) => CreateHistory<T>;
-
 export {
-    Basename,
     ChangeHook,
     EnterHook,
     InjectedRouter,
     LeaveHook,
-    Location,
-    LocationDescriptor,
     ParseQueryString,
     RouteComponent,
     RouteComponents,
@@ -34,8 +18,7 @@ export {
     RouterProps,
     RouterState,
     RedirectFunction,
-    StringifyQuery,
-    Query
+    StringifyQuery
 } from "react-router/lib/Router";
 export { LinkProps } from "react-router/lib/Link";
 export { IndexLinkProps } from "react-router/lib/IndexLink";
