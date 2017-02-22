@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { createBrowserHistory } from 'history';
+import { createHistory } from 'history';
 import {
     syncHistoryWithStore,
     routerReducer,
@@ -15,7 +15,7 @@ import {
 const reducer = combineReducers({ routing: routerReducer });
 
 // Apply the middleware to the store
-const browserHistory = createBrowserHistory()
+const browserHistory = createHistory()
 const middleware = routerMiddleware(browserHistory);
 const store = createStore(
     reducer,

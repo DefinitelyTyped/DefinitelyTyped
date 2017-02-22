@@ -457,3 +457,24 @@ L.marker([1, 2], {
 })).setIcon(L.divIcon({
 	className: 'my-div-icon'
 }));;
+
+
+L.Util.extend({});
+L.Util.create({});
+L.Util.bind(() => {}, {});
+L.Util.stamp({});
+L.Util.throttle(() => {}, 123, {});
+L.Util.wrapNum(123, []);
+L.Util.falseFn();
+L.Util.formatNum(123);
+L.Util.trim('word   ');
+L.Util.splitWords('word word');
+L.Util.setOptions({}, {});
+L.Util.getParamString({});
+L.Util.template('template', {});
+L.Util.isArray({});
+L.Util.indexOf([], {});
+L.Util.requestAnimFrame(() => {});
+L.Util.cancelAnimFrame(1);
+L.Util.emptyImageUrl;
+
