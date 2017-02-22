@@ -5,11 +5,12 @@
 
 /// <reference types="node" />
 
-
+import {Buffer} from 'buffer';
 import * as events from 'events';
 import * as http from 'http';
 import * as https from 'https';
 import * as net from 'net';
+import * as stream from 'stream';
 
 declare class WebSocket extends events.EventEmitter {
     static CONNECTING: number;
@@ -150,6 +151,16 @@ declare namespace WebSocket {
         addListener(event: 'connection', cb: (client: WebSocket) => void): this;
         addListener(event: string, listener: () => void): this;
     }
+
+    export interface UwsHttp {
+        createServer(requestListener?: (request: http.IncomingMessage, response: http.ServerResponse) => void): http.Server;
+        // any to avoid express definitions
+        getExpressApp(express: any): any;
+        getResponsePrototype(): http.ServerResponse;
+        getRequestPrototype(): http.IncomingMessage;
+    }
+
+    export const http: UwsHttp;
 
     export function createServer(options?: IServerOptions,
         connectionListener?: (client: WebSocket) => void): Server;
