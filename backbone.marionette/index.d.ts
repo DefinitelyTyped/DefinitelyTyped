@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as Backbone from 'backbone';
+import * as Radio from '../backbone.radio';
 
 export as namespace Marionette;
 export = Marionette;
@@ -22,8 +23,6 @@ declare module 'backbone' {
         findByIndex(index: number): TView;
         findByCid(cid: string): TView;
         remove(view: TView): void;
-        call(method: any): void;
-        apply(method: any, args?: any[]): void;
 
         //mixins from Collection (copied from Backbone's Collection declaration)
 
@@ -180,6 +179,27 @@ declare namespace Marionette {
      * backbone conventions and utilities like initialize and Backbone.Events.
      */
     class Object extends Backbone.Events {
+
+        /**
+         * Defines the Radio channel that will be used for the requests and/or events
+         */
+        channelName: string;
+
+        /**
+         * Returns a Radio.Channel instance using 'channelName'
+         */
+        getChannel(): Backbone.Radio.Channel;
+
+        /**
+         * Defines an events hash with the events to be listened and its respective handlers
+         */
+        radioEvents: any;
+
+        /**
+         * Defines an events hash with the requests to be replied and its respective handlers
+         */
+        radioRequests: any;
+
         /**
          * Initialize is called immediately after the Object has been instantiated,
          * and is invoked with the same arguments that the constructor received.
@@ -772,12 +792,37 @@ declare namespace Marionette {
         triggerMethod(name: string, ...args: any[]): any;
 
         /**
-         * Called on the view instance when the view has been rendered and
-         * displayed. This event can be used to react to when a view has been
-         * shown via a region. A common use case for the onShow method is to
-         * use it to add children views.
+         * Item views will serialize a model or collection, by default, by calling
+         * .toJSON on either the model or collection. If both a model and
+         * collection are attached to an item view, the model will be used as the
+         * data source. The results of the data serialization will be passed to
+         * the template that is rendered.
+         *
+         * If you need custom serialization for your data, you can provide a serializeData
+         * method on your view. It must return a valid JSON object, as if you had
+         * called .toJSON on a model or collection.
          */
-        onShow(): void;
+        serializeData(): any;
+
+        /**
+         * Renders the view. It is unwise to override the render method of any
+         * Marionette view. Instead, you should use the onBeforeRender and
+         * onRender callbacks to layer in additional functionality to the
+         * rendering of your view.
+         */
+        render(): any;
+
+        /**
+         * Triggered before an ItemView is rendered.
+         */
+        onBeforeRender(): void;
+
+        /**
+         * Triggered after the view has been rendered. You can implement this in
+         * your view to provide custom code for dealing with the view's el after
+         * it has been rendered.
+         */
+        onRender(): void;
 
         /**
          * Triggered just after the view has been destroyed.
@@ -814,49 +859,65 @@ declare namespace Marionette {
         isDestroyed: boolean;
         supportsRenderLifecycle: boolean;
         supportsDestroyLifecycle: boolean;
-    }
-
-    /**
-     * An ItemView is a view that represents a single item. That item may be
-     * a Backbone.Model or may be a Backbone.Collection. Whichever it is though,
-     * it will be treated as a single item.
-     */
-    class ItemView<TModel extends Backbone.Model> extends View<TModel> {
-
-        constructor(options?: Backbone.ViewOptions<TModel>);
 
         /**
-         * Item views will serialize a model or collection, by default, by calling
-         * .toJSON on either the model or collection. If both a model and
-         * collection are attached to an item view, the model will be used as the
-         * data source. The results of the data serialization will be passed to
-         * the template that is rendered.
-         *
-         * If you need custom serialization for your data, you can provide a serializeData
-         * method on your view. It must return a valid JSON object, as if you had
-         * called .toJSON on a model or collection.
+         * If you have the need to replace the Region with a region class of your
+         * own implementation, you can specify an alternate class to use with this
+         * property.
          */
-        serializeData(): any;
+        regionClass: any;
 
         /**
-         * Renders the view. It is unwise to override the render method of any
-         * Marionette view. Instead, you should use the onBeforeRender and
-         * onRender callbacks to layer in additional functionality to the
-         * rendering of your view.
-         */
-        render(): ItemView<TModel>;
+         * Regions hash or a method returning the regions hash that maps
+         * regions/selectors to methods on your View.
+         **/
+        regions(): any;
+
+        /** Adds a region to the layout view. */
+        addRegion(name: string, definition: any): Region;
 
         /**
-         * Triggered before an ItemView is rendered.
+         * Add multiple regions as a {name: definition, name2: def2} object literal.
          */
-        onBeforeRender(): void;
+        addRegions(regions: any): any;
+
+        /** Returns a region from the layout view */
+        getRegion(name: string): Region;
 
         /**
-         * Triggered after the view has been rendered. You can implement this in
-         * your view to provide custom code for dealing with the view's el after
-         * it has been rendered.
+         * Removes the region with the specified name.
+         * @param name the name of the region to remove.
          */
-        onRender(): void;
+        removeRegion(name: string): Region;
+
+        /** Enable easy overriding of the default `RegionManager`
+         * for customized region interactions and business specific
+         * view logic for better control over single regions.
+         */
+        getRegionManager(): RegionManager;
+
+        /**
+         * Show a view into the region specified by `regionName`.
+         */
+        showChildView(regionName: string, view: any, options?: RegionShowOptions): void;
+
+        /**
+         * Get the current view that is shown in the region specified by
+         * `regionName`.
+         */
+        getChildView(regionName: string): Backbone.View<TModel>;
+
+        /**
+         * Returns all regions from the layout view. The results contains an
+         * Object hash that has `string`s as keys and `Region`s as values.
+         */
+        getRegions(): {[key: string]: Region};
+
+        /**
+         * You can customize the event prefix for events that are forwarded through
+         * the layout view with this property.
+         */
+        childViewEventPrefix: string;
     }
 
 
@@ -928,12 +989,12 @@ declare namespace Marionette {
         childViewEventPrefix: string;
 
         /**
-         * You can specify a childEvents hash or method which allows you to
-         * capture all bubbling childEvents without having to manually set bindings.
+         * You can specify a childViewEvents hash or method which allows you to
+         * capture all bubbling childViewEvents without having to manually set bindings.
          * The keys of the hash can either be a function or a string that is the
          * name of a method on the collection view.
          */
-        childEvents: any;
+        childViewEvents: any;
 
         /**
          * When a collection has no children, and you need to render a view other than
@@ -1034,36 +1095,8 @@ declare namespace Marionette {
          */
         attachHtml(collectionView: CollectionView<TModel, TView>, childView: TView, index: number): void;
 
-        /**
-         * The value returned by this method is the ChildView class that will be
-         * instantiated when a Model needs to be initially rendered. This method
-         * also gives you the ability to customize per Model ChildViews.
-         */
-        getChildView<M extends Backbone.Model>(item: M): new (...args:any[]) => TView;
-
-        /**
-         * If you need the emptyView's class chosen dynamically, specify
-         * getEmptyView.
-         */
-        getEmptyView(): any;
-
         /** Serialize a collection by serializing each of its models. */
         serializeCollection(): any;
-
-        /**
-         * Attaches the content of a given view.
-        * This method can be overridden to optimize rendering,
-        * or to render in a non standard way.
-        *
-        * For example, using `innerHTML` instead of `$el.html`
-        *
-        * @example
-        * attachElContent: function(html) {
-        *   this.el.innerHTML = html;
-        *   return this;
-        * }
-        */
-        attachElContent(html: string): ItemView<TModel>;
 
         /**
          * Reorder DOM after sorting. When your element's rendering
@@ -1130,165 +1163,6 @@ declare namespace Marionette {
          * instance has been deleted or removed from the collection.
          */
         onRemoveChild(childView: TView): void;
-    }
-
-    /**
-     * A CompositeView extends from CollectionView to be used as a composite view
-     * for scenarios where it should represent both a branch and leaf in a tree
-     * structure, or for scenarios where a collection needs to be rendered within
-     * a wrapper template.
-     */
-    class CompositeView<TModel extends Backbone.Model, TView extends View<Backbone.Model>> extends CollectionView<TModel, TView> {
-
-        constructor(options?: CollectionViewOptions<TModel>);
-
-        /**
-         * Each childView will be rendered using the childView's template. The
-         * CompositeView's template is rendered and the childView's templates are
-         * added to this.
-         */
-        childView: new (...args:any[]) => TView;
-
-        /**
-         * By default the composite view uses the same attachHtml method that the
-         * collection view provides. This means the view will call jQuery's
-         * .append to move the HTML contents from the child view instance in to
-         * the collection view's el.
-         * This is typically not very useful as a composite view will usually render
-         * a container DOM element in which the child views should be placed.
-         * This can be either a string or a function returning a string.
-         */
-        childViewContainer: any;
-
-        /**
-        * Renders the view.
-        */
-        render(): CompositeView<TModel, TView>;
-
-        /**
-         * Invoked before the model has been rendered
-         */
-        onBeforeRenderTemplate(): void;
-
-        /**
-         * Invoked after the model has been rendered.
-         */
-        onRenderTemplate(): void;
-
-        /**
-         * Invoked before the collection of models is rendered
-         */
-        onBeforeRenderCollection(): void;
-
-        /**
-         * Invoked after the collection of models has been rendered
-         */
-        onRenderCollection(): void;
-    }
-
-    interface LayoutViewOptions<TModel extends Backbone.Model> extends Backbone.ViewOptions<TModel> {
-        /**
-         * The LayoutView takes an additional parameter where you can pass the regions as option on creation.
-         */
-        regions?:any;
-
-        /**
-         * This option removes the layoutView from the DOM before destroying the
-         * children preventing repaints as each option is removed. However, it
-         * makes it difficult to do close animations for a child view (false by
-         * default)
-         */
-        destroyImmediate?: boolean;
-    }
-
-    /**
-     * A LayoutView is a hybrid of an ItemView and a collection of Region objects.
-     * They are ideal for rendering application layouts with multiple sub-regions
-     * managed by specified region managers.
-     * A layoutView can also act as a composite-view to aggregate multiple views
-     * and sub-application areas of the screen allowing applications to attach
-     * multiple region managers to dynamically rendered HTML.
-     * You can create complex views by nesting layoutView managers within Regions.
-     */
-    class LayoutView<TModel extends Backbone.Model> extends ItemView<TModel> {
-        /**
-         * If you have the need to replace the Region with a region class of your
-         * own implementation, you can specify an alternate class to use with this
-         * property.
-         */
-        regionClass: any;
-
-        /**
-         * Constructor.
-         * A hash that can contain a regions hash that allows you to specify regions per
-         * LayoutView instance.
-         */
-        constructor(options?: LayoutViewOptions<TModel>);
-
-        /**
-         * Handle destroying regions, and then destroy the view itself.
-         */
-        destroy(): LayoutView<TModel>;
-
-        /**
-         * Regions hash or a method returning the regions hash that maps
-         * regions/selectors to methods on your View.
-         **/
-        regions(): any;
-
-        /** Adds a region to the layout view. */
-        addRegion(name: string, definition: any): Region;
-
-        /**
-         * Add multiple regions as a {name: definition, name2: def2} object literal.
-         */
-        addRegions(regions: any): any;
-
-        /** Returns a region from the layout view */
-        getRegion(name: string): Region;
-
-        /**
-         * Renders the view. It will use the existing region objects the first
-         * time it is called. Subsequent calls will destroy the views that the
-         * regions are showing and then reset the `el` for the regions to the
-         * newly rendered DOM elements.
-         */
-        render(): LayoutView<TModel>;
-
-        /**
-         * Removes the region with the specified name.
-         * @param name the name of the region to remove.
-         */
-        removeRegion(name: string): Region;
-
-        /** Enable easy overriding of the default `RegionManager`
-          * for customized region interactions and business specific
-          * view logic for better control over single regions.
-          */
-        getRegionManager(): RegionManager;
-
-        /**
-         * Show a view into the region specified by `regionName`.
-         */
-        showChildView(regionName: string, view: any, options?: RegionShowOptions): void;
-
-        /**
-         * Get the current view that is shown in the region specified by
-         * `regionName`.
-         */
-        getChildView(regionName: string): Backbone.View<TModel>;
-
-        /**
-         * Returns all regions from the layout view. The results contains an
-         * Object hash that has `string`s as keys and `Region`s as values.
-         */
-        getRegions(): {[key: string]: Region};
-
-        /**
-         * You can customize the event prefix for events that are forwarded through
-         * the layout view with this property.
-         */
-        childViewEventPrefix: string;
     }
 
     interface AppRouterOptions extends Backbone.RouterOptions {
@@ -1437,7 +1311,7 @@ declare namespace Marionette {
 
         options: any;
 
-		/**
+        /**
          * Behaviors can have their own ui hash, which will be mixed into the ui
          * hash of its associated View instance. ui elements defined on either the
          * Behavior or the View will be made available within events and triggers.

@@ -7,37 +7,169 @@
 
 declare namespace TinyMCE {
   export interface Observable {
-    off: (name?: string, callback?: () => void) => any;
-    on: (name: string, callback: () => void) => any;
-    fire: (name: string, args?: any, bubble?: boolean) => Event;
+    off(name?: string, callback?: void): any;
+    on(name: string, callback: () => void): any;
+    fire(name: string, args?: any, bubble?: boolean): Event;
   }
 
   export interface Editor extends Observable {
-    destroy: (automatic: boolean) => void;
-    remove: () => void;
-    hide: () => void;
-    show: () => void;
-    getContent: (args?: any) => string;
-    setContent: (content: string, args?: any) => string;
-    focus: (skip_focus?: boolean) => void;
+    $: any;
+    iframeElement: string;
+    selection: Selection;
     undoManager: UndoManager;
-    settings: any;
-    getDoc: () => Document;
-    editorUpload: any;
+    formatter: Formatter;
+    shortcuts: Shortcuts;
+    dom: DOMUtils;
+    notificationManager: NotificationManager;
+    focus(): void;
+    getContent(args?: Object): string;
+    isDirty(): boolean;
+    insertContent(content: string, args?: any): any;
+    setContent(content: string, args?: any): any;
+    reset(): any;
+    execCommand(command: string, ui?: boolean, value?: any, args?: any): boolean;
+    remove(): any;
+    destroy(state?: boolean): void;
+    getElement(): Element;
+    getDoc(): Document;
+    queryCommandSupported(cmd: string): boolean;
+    getBody(): Element;
+    setDirty(dirty: boolean): void;
+    on(eventName: String, handler: Function): void;
+    addShortcut(pattern: string, desc: string, cmdFunc: string, scope?: any ): boolean;
+    addButton(name: string, settings: any): void;
+    addMenuItem(name: string, settings: any): void;
+    menuItems: any;
+    initialized: boolean;
+  }
+
+  export interface Formatter {
+    remove(name: string): any;
+    apply(name: string): any;
+    toggle(name: string): any;
+    match(name: string, vars?: Object, node?: Node): boolean;
+    matchAll(names: [string], vars?: Object): [string];
   }
 
   export interface UndoManager {
-    undo: () => any;
-    clear: () => void;
-    hasUndo: () => boolean;
+    transact(callback: Function): any;
+    undo(): any;
+    redo(): any;
+    hasRedo(): boolean;
+    hasUndo(): boolean;
+  }
+
+  export interface DOMUtils {
+    DOM: any;
+    getParent(n: Node, s: string): Node;
+    setStyle(n: any, na: string, v: string): void;
+    select(pattern: string, scope ?: Element): Array<Element>;
+    getAttrib(elm: string, name: string, defaultVal ?: string): string;
+    isEmpty(elements: Object): boolean;
+  }
+
+  export interface NotificationManager {
+    getNotifications(): any[];
+    open(args: any): any;
+    close(): any;
+  }
+
+  export interface Shortcuts {
+    addShortcut(pattern: string, desc: string, cmdFunc: string, scope?: any): boolean;
+    remove(pattern: string): boolean;
+  }
+
+  export interface Collection {
+
+  }
+
+  export interface Container {
+    add(items: any): Collection;
+    items(): Collection;
+  }
+
+  export interface Tooltip {
+
+  }
+
+  export interface Control {
+    renderTo(node?: Node): void;
+    innerHtml(html: string): Control;
+    $el: any;
+    show(): void;
+    hide(): void;
+    visible(state ?: boolean): boolean;
+    disabled(state: boolean): boolean;
+    active(state: boolean): boolean;
+    on(name: string, callback: Function): Control;
+    parent(parent ?: any): Control;
+    settings: any;
+    text(text: string): void;
+    tooltip(): Tooltip;
+  }
+
+  export interface Moveable {
+    moveRel(elm: Node, rel: string): Control;
+  }
+
+  export interface FloatPanel extends Control, Moveable {
+
+  }
+
+  export interface Menu extends FloatPanel, Control, Container {
+
+  }
+
+  export interface Factory {
+    create(settings: any): Control;
+  }
+
+  export interface Tools {
+    grep(array: any, f: Function): any;
+    each(o: Object, cb: Function, s?: Object): void;
+  }
+
+  export interface UI {
+    Factory: Factory;
+    Control: Control;
+    FloatPanel: FloatPanel;
+  }
+
+  export interface util {
+    Tools: Tools;
+  }
+
+  export interface Selection {
+    getContent(args?: Object): string;
+    getNode(): any;
+    getRng(): Range;
+    collapse(toStart?: boolean): any;
+    select(node: any, body: boolean): any;
+    getStart(): any;
+    getEnd(real ?: boolean): void;
+    selectorChanged(selector: string, handler: any): void;
+    getSel(): any;
+  }
+
+  export interface FocusManager {
+    isEditorUIElement(elm: Node): boolean;
+  }
+
+  export interface UI {
+    Factory: Factory;
+    Control: Control;
+    FloatPanel: FloatPanel;
   }
 
   export interface Static extends Observable {
-    init: (settings: any) => void;
-    execCommand: (c: string, u: boolean, v: string) => boolean;
+    init(settings: any): void;
+    execCommand(c: string, u: boolean, v: string): boolean;
     activeEditor: Editor;
-    get: (id: string) => Editor;
-    triggerSave: () => void;
+    FocusManager: FocusManager;
+    get(id: string): Editor;
+    triggerSave(): void;
+    ui: UI;
+    util: util;
   }
 }
 
