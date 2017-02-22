@@ -11,9 +11,9 @@ declare namespace Linq4JS {
 }
 declare namespace Linq4JS {
     class Helper {
-        static ConvertStringFunction: (functionString: string) => any;
-        static ConvertFunction: <T>(testFunction: any) => T;
-        static OrderCompareFunction: <T>(valueSelector: (item: T) => any, a: T, b: T, invert: boolean) => number;
+        private static ConvertStringFunction(functionString);
+        static ConvertFunction<T>(testFunction: string | T): T;
+        static OrderCompareFunction<T>(valueSelector: (item: T) => any, a: T, b: T, invert: boolean): number;
     }
 }
 interface Array<T> {
@@ -148,7 +148,7 @@ interface Array<T> {
     Take(count: number): T[];
     /**
      * Takes entries as long as a condition is true
-     * @param condition The condition-function (or function-string) that returns a boolean. All elements until a false gets created are taken
+     * @param condition The condition-function (or function-string) that returns a boolean. All elements until a false gets thrown are taken
      * @param initial A initial-function (or function-string) that gets executed once at the start of the loop
      * @param after A function that gets executed after every element-iteration after the condition-function was evaluated
      */
