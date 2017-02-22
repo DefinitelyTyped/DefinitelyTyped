@@ -5,12 +5,10 @@
 
 /// <reference types="node" />
 
-import {Buffer} from 'buffer';
 import * as events from 'events';
 import * as http from 'http';
 import * as https from 'https';
 import * as net from 'net';
-import * as stream from 'stream';
 
 declare class WebSocket extends events.EventEmitter {
     static CONNECTING: number;
