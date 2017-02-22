@@ -7,7 +7,7 @@ import { Static } from 'highcharts';
 
 declare module 'highcharts' {
     export interface Static {
-        mapChart(renderTo: string | HTMLElement, options: any, callback?: (chart: any) => void): any;
+        mapChart(renderTo: string | HTMLElement, options: Options, callback?: (chart: ChartObject) => void): ChartObject;
     }
 }
 
