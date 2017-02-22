@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as Backbone from 'backbone';
-import * as Radio from '../backbone.radio';
+import * as Radio from 'backbone.radio';
 
 export as namespace Marionette;
 export = Marionette;
