@@ -7,7 +7,7 @@
 
 declare namespace TinyMCE {
   export interface Observable {
-    off(name?: string, callback?: void): void;
+    off(name?: string, callback ?: () => void): void;
     on(name: string, callback: () => void): void;
     fire(name: string, args?: any, bubble?: boolean): Event;
   }
@@ -80,7 +80,7 @@ declare namespace TinyMCE {
   }
 
   export interface Collection {
-    active():Collection;
+    active(): Collection;
   }
 
   export interface Container {
@@ -126,7 +126,7 @@ declare namespace TinyMCE {
 
   export interface Tools {
     grep(array: any, f: () => void): any;
-    each(o: Object, cb: () => void, s?: any): void;
+    each(o: any, cb: () => void, s?: any): void;
   }
 
   export interface UI {
