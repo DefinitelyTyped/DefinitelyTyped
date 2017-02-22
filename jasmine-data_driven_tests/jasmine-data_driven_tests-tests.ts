@@ -56,7 +56,7 @@ describe("A suite", () => {
 using("Using instead of all when you would like to have the equivalent of multiple define statements",
     ['a', 'b', 'c'],
     (value: string) =>{
-        let forbiddenValue;
+        let forbiddenValue:string;
         //with 'using' we can have beforeEach blocks
         beforeEach(() =>{
             forbiddenValue = 'd';
@@ -77,18 +77,19 @@ xusing("disable tests",
     }
 );
 
-using("level 1",
+using("level 1", // brace start
     ['a', 'b'],
-    (level1: string) =>{
+    (level1: string) =>{ // brace level 1
         const catesianProduct: string[] = ['a1', 'a2', 'b1', 'b2'];
 
-        using("level 2",
+        using("level 2", // brace level 2
             [1, 2],
-            (level2: number) =>{
+            (level2: number) =>{ // curly level 2
                 const val = `${level1}${level2}`;
 
                 it(" should combine level1 and level2", () =>{
                     expect(catesianProduct).toContain(val);
                 });
-            });
-});
+            }); // curly level 2  | brace level 2
+    } // matching brace level 1
+); // brace start
