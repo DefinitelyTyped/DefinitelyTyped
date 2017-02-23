@@ -62,8 +62,8 @@ interface DataItem {
 }
 
 interface PointItem extends DataItem {
-  x: string,
-  y: number
+  x: string;
+  y: number;
 }
 
 
@@ -606,7 +606,7 @@ interface Graph2dDataAxisOption {
 
 interface Graph2dDrawPointsOption {
   enabled?: boolean;
-  onRender?:  () => boolean; // TODO
+  onRender?: () => boolean; // TODO
   size?: number;
   style: Graph2dDrawPointsStyle;
 }
