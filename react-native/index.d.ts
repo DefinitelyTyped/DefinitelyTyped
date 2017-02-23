@@ -7960,7 +7960,7 @@ declare module "react" {
     export interface ARTShapeProps {
         d: string,
         strokeWidth: number,
-        strokeDash?: number,
+        strokeDash?: number[],
         stroke: string
     }
 
