@@ -6,6 +6,9 @@
 
 /// <reference types="backbone" />
 
+declare module "jointjs" {
+    export = joint;
+}
 
 declare namespace joint {
     export var g: any;
