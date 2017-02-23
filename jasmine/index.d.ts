@@ -49,7 +49,7 @@ declare namespace jasmine {
     function any(aclass: any): Any;
     function anything(): Any;
     function arrayContaining(sample: any[]): ArrayContaining;
-    function objectContaining(sample: any): ObjectContaining;
+    function objectContaining<T>(sample: Partial<T>): ObjectContaining<T>;
     function createSpy(name: string, originalFn?: Function): Spy;
     function createSpyObj(baseName: string, methodNames: any[]): any;
     function createSpyObj<T>(baseName: string, methodNames: any[]): T;
@@ -82,8 +82,8 @@ declare namespace jasmine {
         jasmineToString(): string;
     }
 
-    interface ObjectContaining {
-        new (sample: any): any;
+    interface ObjectContaining<T> {
+        new (sample: Partial<T>): T;
 
         jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
         jasmineToString(): string;

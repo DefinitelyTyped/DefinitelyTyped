@@ -663,7 +663,12 @@ describe("jasmine.any", function () {
 });
 
 describe("jasmine.objectContaining", function () {
-    var foo: any;
+    interface fooType {
+        a:number;
+        b:number;
+        bar:string;
+    }
+    var foo: fooType;
 
     beforeEach(function () {
         foo = {
@@ -674,11 +679,11 @@ describe("jasmine.objectContaining", function () {
     });
 
     it("matches objects with the expect key/value pairs", function () {
-        expect(foo).toEqual(jasmine.objectContaining({
+        expect(foo).toEqual(jasmine.objectContaining<fooType>({
             bar: "baz"
         }));
-        expect(foo).not.toEqual(jasmine.objectContaining({
-            c: 37
+        expect(foo).not.toEqual(jasmine.objectContaining<fooType>({
+            a: 37
         }));
     });
 
