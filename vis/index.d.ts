@@ -81,7 +81,7 @@ interface DataGroupOptions {
   drawPoints?: Graph2dDrawPointsOption | (() => void); // TODO
   excludeFromLegend?: boolean;
   interpolation?: boolean | InterpolationOptions;
-  shaded?: Graph2dShadedOption
+  shaded?: Graph2dShadedOption;
   style?: string;
   yAxisOrientation?: RightLeftEnumType;
 }
