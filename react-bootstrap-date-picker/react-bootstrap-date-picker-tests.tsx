@@ -1,14 +1,13 @@
-import * as React from "react"
-import { DropdownMenu } from "react-bootstrap"
-import * as DatePicker from "react-bootstrap-date-picker"
+import * as React from "react";
+import { DropdownMenu } from "react-bootstrap";
+import * as DatePicker from "react-bootstrap-date-picker";
 
 const Custom: React.StatelessComponent<{}> = () => {
     return (<div />);
-}
+};
 
 class Test extends React.Component<{}, {}> {
-
-    public render () {
+    render() {
         return (
             <DatePicker autoFocus={ false }
                         onChange={ (value: string, c: string) => {} }
@@ -26,7 +25,6 @@ class Test extends React.Component<{}, {}> {
                         showTodayButton={ true }
                         todayButtonLabel="Today"
                         customControl={ Custom } />
-        )
+        );
     }
-
 }

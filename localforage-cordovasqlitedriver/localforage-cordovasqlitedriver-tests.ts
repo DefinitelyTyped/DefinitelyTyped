@@ -26,30 +26,30 @@ declare var cordovaSQLiteDriver: LocalForageDriver;
         var newValue: string = value;
     });
 
-    cordovaSQLiteDriver.keys((err: any, keys: Array<string>) => {
+    cordovaSQLiteDriver.keys((err: any, keys: string[]) => {
         var newError: any = err;
-        var newArray: Array<string> = keys;
+        var newArray: string[] = keys;
     });
 
-    cordovaSQLiteDriver.getItem("key",(err: any, str: string) => {
+    cordovaSQLiteDriver.getItem("key", (err: any, str: string) => {
         var newError: any = err;
-        var newStr: string = str
+        var newStr: string = str;
     });
 
     cordovaSQLiteDriver.setItem("key", "value", (err: any, str: string) => {
         var newError: any = err;
-        var newStr: string = str
+        var newStr: string = str;
     });
 
     cordovaSQLiteDriver.setItem("key", "value", (str: string) => {
         var newStr: string = str;
     });
 
-    cordovaSQLiteDriver.removeItem("key",(err: any) => {
+    cordovaSQLiteDriver.removeItem("key", (err: any) => {
         var newError: any = err;
     });
 
     cordovaSQLiteDriver.removeItem("key", (err: any) => {
         var newError: any = err;
     });
-}
+};

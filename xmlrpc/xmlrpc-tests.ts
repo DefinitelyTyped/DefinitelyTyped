@@ -23,4 +23,14 @@ const server = xmlrpc.createServer(serverOpts, () => {
     client.methodCall('hello', ['world'], (err, val) => {
         console.log(val);
     });
+
+    class Value extends xmlrpc.CustomType {
+        constructor(value: any) {
+            super(value);
+            this.tagName = 'Value';
+        }
+    }
+    client.methodCall('hello', [new Value('custom_string_value')], (err, val) => {
+        console.log(val);
+    });
 });

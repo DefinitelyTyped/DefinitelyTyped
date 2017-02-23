@@ -2,21 +2,21 @@ import VKBeautify from 'vkbeautify';
 
 /*
  * Beautifying
- *  
+ *
  * vkbeautify.xml(text [,indent_pattern]);
  * vkbeautify.json(text [,indent_pattern]);
  * vkbeautify.css(text [,indent_pattern]);
  * vkbeautify.sql(text [,indent_pattern]);
- * 
+ *
  * @text - String; text to beatufy;
  * @indent_pattern - Integer | String;
  *         Integer:  number of white spaces;
  *         String:   character string to visualize indentation ( can also be a set of white spaces )
  */
 
-let exampleContent = "here-be-xml-json-css-or-sql-content-that-is-about-to-get-formatted";
+const exampleContent = "here-be-xml-json-css-or-sql-content-that-is-about-to-get-formatted";
 
-//xml
+// xml
 function xmlWithDefault() {
     VKBeautify.xml(exampleContent);
 }
@@ -29,7 +29,7 @@ function xmlWithStringPattern() {
     VKBeautify.xml(exampleContent, '   ');
 }
 
-//json
+// json
 function jsonWithDefault() {
     VKBeautify.json(exampleContent);
 }
@@ -42,7 +42,7 @@ function jsonWithStringPattern() {
     VKBeautify.json(exampleContent, '   ');
 }
 
-//css
+// css
 function cssWithDefault() {
     VKBeautify.css(exampleContent);
 }
@@ -55,7 +55,7 @@ function cssWithStringPattern() {
     VKBeautify.css(exampleContent, '   ');
 }
 
-//sql
+// sql
 function sqlWithDefault() {
     VKBeautify.sql(exampleContent);
 }
@@ -71,18 +71,18 @@ function sqlWithStringPattern() {
 
 /*
  * Minifying
- * 
+ *
  * vkbeautify.xmlmin(text [,preserve_comments]);
  * vkbeautify.jsonmin(text);
  * vkbeautify.cssmin(text [,preserve_comments]);
  * vkbeautify.sqlmin(text);
- * 
+ *
  * @text - String; text to minify;
  * @preserve_comments - Bool; [optional];
  *         Set this flag to true to prevent removing comments from @text ( minxml and mincss functions only. )
  */
 
-//xml
+// xml
 function xmlminWithDefault() {
     VKBeautify.xmlmin(exampleContent);
 }
@@ -95,12 +95,12 @@ function xmlminAndRemoveComments() {
     VKBeautify.xmlmin(exampleContent, false);
 }
 
-//json
+// json
 function jsonmin() {
     VKBeautify.jsonmin(exampleContent);
 }
 
-//css
+// css
 function cssminWithDefault() {
     VKBeautify.cssmin(exampleContent);
 }
@@ -113,7 +113,7 @@ function cssminAndRemoveComments() {
     VKBeautify.cssmin(exampleContent, false);
 }
 
-//sql
+// sql
 function sqlmin() {
     VKBeautify.sqlmin(exampleContent);
 }
