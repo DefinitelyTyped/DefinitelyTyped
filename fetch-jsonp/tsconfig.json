@@ -3,6 +3,7 @@
     "baseUrl": "../",
     "typeRoots": ["../"],
     "types": [],
+    "module": "commonjs",
     "lib": ["es6", "dom"],
     "noUnusedLocals": true,
     "noUnusedParameters": true,
