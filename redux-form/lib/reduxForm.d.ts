@@ -30,7 +30,7 @@ export interface Config<FormData extends DataShape, P, S> {
      * the name of your form and the key to where your form's state will be
      * mounted under the redux-form reducer
      */
-    form: string;
+    form?: string;
 
     /**
      * An adapter function that will render a component based on a string component
