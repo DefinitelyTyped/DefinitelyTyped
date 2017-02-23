@@ -938,6 +938,7 @@ export interface GeoPath<This, DatumObject extends GeoPermissibleObjects> {
     /**
      * Returns the projected planar length (typically in pixels) for the specified GeoJSON object.
      * Point and MultiPoint features have zero length. For Polygon and MultiPolygon features, this method computes the summed length of all rings.
+     *
      * This method observes any clipping performed by the projection.
      *
      * @param object GeoJSON object to measure.
