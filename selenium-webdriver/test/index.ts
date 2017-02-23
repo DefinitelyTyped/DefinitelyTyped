@@ -696,9 +696,7 @@ function TestWebElement() {
     stringPromise = element.getAttribute('class');
     stringPromise = element.getCssValue('display');
     driver = element.getDriver();
-    stringPromise = element.getInnerHtml();
     element.getLocation().then(function (location: webdriver.ILocation) { });
-    stringPromise = element.getOuterHtml();
     element.getSize().then(function (size: webdriver.ISize) { });
     stringPromise = element.getTagName();
     stringPromise = element.getText();
