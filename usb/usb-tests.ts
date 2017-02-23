@@ -81,7 +81,7 @@ inEndpoint.direction = "in";
 inEndpoint.transferType = 1;
 inEndpoint.timeout = 1;
 inEndpoint.descriptor = endpointDesc;
-const xferInEndpoint: usb.InEndpoint = inEndpoint.transfer(1, (error: string, data: Buffer) => { return inEndpoint; });
+const xferInEndpoint: usb.InEndpoint = inEndpoint.transfer(1, (error: string, data: Buffer) => inEndpoint);
 inEndpoint.startPoll(1, 1);
 inEndpoint.stopPoll(() => null);
 
@@ -95,7 +95,7 @@ outEndpoint.transferWithZLP(new Buffer([]), (error: string) => null);
 
 const findByDevice: usb.Device = usb.findByIds(1, 1);
 usb.on("hey", (device: usb.Device) => null);
-const deviceList: Array<usb.Device> = usb.getDeviceList();
+const deviceList: usb.Device[] = usb.getDeviceList();
 usb.setDebugLevel(1);
 
 const CHECK_LIBUSB_CLASS_PER_INTERFACE: number = usb.LIBUSB_CLASS_PER_INTERFACE;

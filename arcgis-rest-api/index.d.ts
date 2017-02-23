@@ -135,7 +135,8 @@ export type esriGeometryType = "esriGeometryPoint" | "esriGeometryMultipoint" | 
 export type Color = [number, number, number, number];
 export type SimpleMarkerSymbolStyle = "esriSMSCircle" | "esriSMSCross" | "esriSMSDiamond" | "esriSMSSquare" | "esriSMSX" | "esriSMSTriangle";
 export type SimpleLineSymbolStyle = "esriSLSDash" | "esriSLSDashDot" | "esriSLSDashDotDot" | "esriSLSDot" | "esriSLSNull" | "esriSLSSolid";
-export type SimpleFillSymbolStyle = "esriSFSBackwardDiagonal" | "esriSFSCross" | "esriSFSDiagonalCross" | "esriSFSForwardDiagonal" | "esriSFSHorizontal" | "esriSFSNull" | "esriSFSSolid" | "esriSFSVertical";
+export type SimpleFillSymbolStyle =
+    "esriSFSBackwardDiagonal" | "esriSFSCross" | "esriSFSDiagonalCross" | "esriSFSForwardDiagonal" | "esriSFSHorizontal" | "esriSFSNull" | "esriSFSSolid" | "esriSFSVertical";
 export type SymbolType = "esriSLS" | "esriSMS" | "esriSFS" | "esriPMS" | "esriPFS" | "esriTS";
 
 export interface Symbol {
@@ -168,12 +169,12 @@ export interface SimpleFillSymbol extends Symbol {
     "type": "esriSFS";
     "style"?: SimpleFillSymbolStyle;
     "color"?: Color;
-    "outline"?: SimpleLineSymbol; //if outline has been specified
+    "outline"?: SimpleLineSymbol; // if outline has been specified
 }
 
 export interface PictureSourced {
-    "url"?: string; //Relative URL for static layers and full URL for dynamic layers. Access relative URL using http://<mapservice-url>/<layerId1>/images/<imageUrl11>
-    "imageData"?: string; //"<base64EncodedImageData>";
+    "url"?: string; // Relative URL for static layers and full URL for dynamic layers. Access relative URL using http://<mapservice-url>/<layerId1>/images/<imageUrl11>
+    "imageData"?: string; // "<base64EncodedImageData>";
     "contentType"?: string;
     "width"?: number;
     "height"?: number;
@@ -189,14 +190,14 @@ export interface PictureMarkerSymbol extends MarkerSymbol, PictureSourced {
 
 export interface PictureFillSymbol extends Symbol, PictureSourced {
     "type": "esriPFS";
-    "outline"?: SimpleLineSymbol; //if outline has been specified
+    "outline"?: SimpleLineSymbol; // if outline has been specified
     "xscale"?: number;
     "yscale"?: number;
 }
 
 export interface Font {
-    "family"?: string; //"<fontFamily>";
-    "size"?: number; //<fontSize>;
+    "family"?: string; // "<fontFamily>";
+    "size"?: number; // <fontSize>;
     "style"?: "italic" | "normal" | "oblique";
     "weight"?: "bold" | "bolder" | "lighter" | "normal";
     "decoration"?: "line-through" | "underline" | "none";
@@ -215,5 +216,5 @@ export interface TextSymbol extends MarkerSymbol {
     "rightToLeft"?: boolean;
     "kerning"?: boolean;
     "font"?: Font;
-    "text"?: string; //only applicable when specified as a client-side graphic.
+    "text"?: string; // only applicable when specified as a client-side graphic.
 }
