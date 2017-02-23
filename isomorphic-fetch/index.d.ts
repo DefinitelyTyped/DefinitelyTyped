@@ -21,6 +21,14 @@ declare var Headers: {
     new(init?: any): Headers;
 }
 
+interface Blob {
+    readonly size: number;
+    readonly type: string;
+    msClose(): void;
+    msDetachStream(): any;
+    slice(start?: number, end?: number, contentType?: string): Blob;
+}
+
 interface Body {
     readonly bodyUsed: boolean;
     arrayBuffer(): Promise<ArrayBuffer>;
