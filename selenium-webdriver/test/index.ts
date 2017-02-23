@@ -716,9 +716,6 @@ function TestWebElementPromise() {
 
     var elementPromise: webdriver.WebElementPromise = driver.findElement(webdriver.By.id('id'));
 
-    elementPromise.cancel();
-    elementPromise.cancel('reason');
-
     elementPromise.then();
     elementPromise.then((element: webdriver.WebElement) => {});
     elementPromise.then((element: webdriver.WebElement) => {}, (error: any) => {});
@@ -942,8 +939,6 @@ function TestPromiseClass() {
     promise = new webdriver.promise.Promise<string>((resolve: (value: string) => void, reject: () => void) => {});
     promise = new webdriver.promise.Promise<string>((resolve: (value: webdriver.promise.Promise<string>) => void, reject: () => void) => {});
     promise = new webdriver.promise.Promise<string>((resolve: (value: string) => void, reject: () => void) => {}, controlFlow);
-
-    promise.cancel('Abort');
 
     promise = promise.then();
     promise = promise.then((a: string) => 'cde');

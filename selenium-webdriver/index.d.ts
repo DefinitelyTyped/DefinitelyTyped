@@ -1005,15 +1005,6 @@ export namespace promise {
     // region Methods
 
     /**
-     * Cancels the computation of this promise's value, rejecting the promise in the
-     * process.
-     * @param {*} reason The reason this promise is being cancelled. If not an
-     *     {@code Error}, one will be created using the value's string
-     *     representation.
-     */
-    cancel(opt_reason?: string | Error): void;
-
-    /**
      * Registers listeners for when this instance is resolved. This function most
      * overridden by subtypes.
      *
@@ -2052,15 +2043,6 @@ export class AlertPromise extends Alert implements promise.IThenable<Alert> {
   constructor(driver: WebDriver, alert: promise.Promise<Alert>);
 
   // region Methods
-
-  /**
-   * Cancels the computation of this promise's value, rejecting the promise in the
-   * process.
-   * @param {*} reason The reason this promise is being cancelled. If not an
-   *     {@code Error}, one will be created using the value's string
-   *     representation.
-   */
-  cancel(opt_reason?: string | Error): void;
 
   /**
    * Registers listeners for when this instance is resolved. This function most
@@ -4828,15 +4810,6 @@ export class WebElementPromise extends WebElement implements promise.IThenable<W
    *     that will resolve to the promised element.
    */
   constructor(driver: WebDriver, el: promise.Promise<WebElement>);
-
-  /**
-   * Cancels the computation of this promise's value, rejecting the promise in the
-   * process. This method is a no-op if the promise has alreayd been resolved.
-   *
-   * @param {string=} opt_reason The reason this promise is being cancelled.
-   */
-  cancel(opt_reason?: string): void;
-
 
   /**
    * Registers listeners for when this instance is resolved.
