@@ -1787,6 +1787,7 @@ declare namespace __MaterialUI {
         underlineShow?: boolean;
         underlineStyle?: React.CSSProperties;
         value?: string | number;
+        autoFocus?: boolean;
     }
     export class TextField extends React.Component<TextFieldProps, {}> {
         blur(): void;
