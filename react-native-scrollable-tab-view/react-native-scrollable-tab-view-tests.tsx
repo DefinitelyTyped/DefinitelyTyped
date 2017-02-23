@@ -10,27 +10,24 @@ interface MyTextProperties extends React.Props<MyText> {
   text: string;
 }
 class MyText extends React.Component<MyTextProperties, {}> {
-  public constructor(props: MyTextProperties) {
+  constructor(props: MyTextProperties) {
     super(props);
   }
 
-  public render(): JSX.Element {
+  render(): JSX.Element {
     return(
       <Text>this.props.text</Text>
     );
   }
 }
 
-interface ScrollableTabViewDemoProperties {
+class ScrollableTabViewDemo extends React.Component<{}, {}> {
 
-}
-class ScrollableTabViewDemo extends React.Component<ScrollableTabViewDemoProperties, {}> {
-  
-  public constructor(props: ScrollableTabViewDemo) {
+  constructor(props: ScrollableTabViewDemo) {
     super(props);
   }
-  
-  public render(): JSX.Element {
+
+  render(): JSX.Element {
     return (
       <ScrollableTabView>
         <MyText tabLabel='t1' text='t1'></MyText>

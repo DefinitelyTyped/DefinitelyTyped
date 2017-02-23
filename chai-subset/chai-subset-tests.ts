@@ -8,7 +8,7 @@ var expect = chai.expect;
 var assert = chai.assert;
 
 function test_containSubset() {
-    var obj: Object = {
+    var obj = {
         a: 'b',
         c: 'd',
         e: {
@@ -34,7 +34,7 @@ function test_containSubset() {
 }
 
 function test_notContainSubset() {
-    var obj: Object = {
+    var obj = {
         a: 'b',
         c: 'd',
         e: {
@@ -50,16 +50,16 @@ function test_notContainSubset() {
 }
 
 function test_arrayContainSubset() {
-    var list: Array<Object> = [{a: 'a', b: 'b'}, {v: 'f', d: {z: 'g'}} ];
+    var list = [{a: 'a', b: 'b'}, {v: 'f', d: {z: 'g'}} ];
 
-    expect(list).to.containSubset([{a:'a',  b: 'b'}]);
-    list.should.containSubset([{a:'a',  b: 'b'}]);
-    assert.containSubset(list, [{a:'a',  b: 'b'}]);
+    expect(list).to.containSubset([{a: 'a',  b: 'b'}]);
+    list.should.containSubset([{a: 'a',  b: 'b'}]);
+    assert.containSubset(list, [{a: 'a',  b: 'b'}]);
 }
 
 function test_arrayNotContainSubset() {
-    var list: Array<Object> = [{a: 'a', b: 'b'}, {v: 'f', d: {z: 'g'}} ];
+    var list = [{a: 'a', b: 'b'}, {v: 'f', d: {z: 'g'}} ];
 
-    expect(list).not.to.containSubset([{a:'a', b: 'bd'}]);
-    list.should.not.containSubset([{a:'a', b: 'bd'}]);
+    expect(list).not.to.containSubset([{a: 'a', b: 'bd'}]);
+    list.should.not.containSubset([{a: 'a', b: 'bd'}]);
 }

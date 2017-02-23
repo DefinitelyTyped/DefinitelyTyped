@@ -31,7 +31,7 @@ YUI.add('algo-sha1-test', function (Y) {
             Y.Assert.areEqual('761c457bf73b14d27e9e9265c46f4b4dda11f940', C.SHA1('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789').toString());
         },
 
-        testVector7: function () {
+        testVector7() {
             Y.Assert.areEqual('50abf5706a150990a08b2c5ea40fa0e585554732', C.SHA1('12345678901234567890123456789012345678901234567890123456789012345678901234567890').toString());
         },
 

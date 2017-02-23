@@ -1,4 +1,4 @@
-// Type definitions for wu.js v2.1.0
+// Type definitions for wu.js 2.1
 // Project: https://fitzgen.github.io/wu.js/
 // Definitions by: phiresky <https://github.com/phiresky/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@ declare namespace Wu {
 	export interface WuStatic {
 		<T>(iterable: Iterable<T>): WuIterable<T>;
 		// only static
-		chain<T>(...iters: Iterable<T>[]): WuIterable<T>;
+		chain<T>(...iters: Array<Iterable<T>>): WuIterable<T>;
 		count(start?: number, step?: number): WuIterable<number>;
 		curryable<T>(fun: (...x: any[]) => T, expected?: number): any;
 		entries<T>(obj: { [i: string]: T }): WuIterable<[string, T]>;
@@ -24,7 +24,6 @@ declare namespace Wu {
 		cycle<T>(iter: Iterable<T>): Iterable<T>;
 		chunk<T>(n: number, iter: Iterable<T>): WuIterable<T[]>;
 		concatMap<T, U>(fn: (t: T) => Iterable<U>, iter: Iterable<T>): WuIterable<U>;
-		dropWhile<T>(fn: Filter<T>, iter: Iterable<T>): WuIterable<T>;
 		enumerate<T>(iter: Iterable<T>): Iterable<[number, T]>;
 		every<T>(fn: Filter<T>, iter: Iterable<T>): boolean;
 		filter<T>(fn: Filter<T>, iter: Iterable<T>): WuIterable<T>;
@@ -60,8 +59,8 @@ declare namespace Wu {
 		zipLongest<T, U>(iter2: Iterable<T>, iter: Iterable<U>): WuIterable<[T, U]>;
 		zipWith: any;
 		unzip: any;
-		tee<T>(iter: Iterable<T>): WuIterable<T>[];
-		tee<T>(n: number, iter: Iterable<T>): WuIterable<T>[];
+		tee<T>(iter: Iterable<T>): Array<WuIterable<T>>;
+		tee<T>(n: number, iter: Iterable<T>): Array<WuIterable<T>>;
 	}
 	export interface WuIterable<T> extends IterableIterator<T> {
 		// generated from section "copied to WuIterable" above via
@@ -74,13 +73,11 @@ declare namespace Wu {
 		cycle(): Iterable<T>;
 		chunk(n: number): WuIterable<T[]>;
 		concatMap<U>(fn: (t: T) => Iterable<U>): WuIterable<U>;
-		dropWhile(fn: Filter<T>): WuIterable<T>;
 		enumerate(): Iterable<[number, T]>;
 		every(fn: Filter<T>): boolean;
 		filter(fn: Filter<T>): WuIterable<T>;
 		find(fn: Filter<T>): T;
-		flatten(): WuIterable<any>;
-		flatten(shallow: boolean): WuIterable<any>;
+		flatten(shallow?: boolean): WuIterable<any>;
 		forEach(fn: Consumer<T>): void;
 		has(t: T): boolean;
 		// invoke<T, U>(name:string, ...t:T[], iter: Iterable<(t:T)=>U>): WuIterable<U>;
@@ -88,18 +85,12 @@ declare namespace Wu {
 		map<U>(fn: (t: T) => U): WuIterable<U>;
 		// pluck<T>(attribute:string, iter: Iterable<{[attribute]: T}>): WuIterable<T>;
 		pluck(attribute: string): WuIterable<any>;
-		reduce(fn: (a: T, b: T) => T): T;
-		reduce(fn: (a: T, b: T) => T, initial: T): T;
-		reduce<U>(fn: (a: U, b: T) => U): U;
-		reduce<U>(fn: (a: U, b: T) => U, initial: U): U;
-		reductions(fn: (a: T, b: T) => T): WuIterable<T>;
-		reductions(fn: (a: T, b: T) => T, initial: T): WuIterable<T>;
-		reductions<U>(fn: (a: U, b: T) => U): WuIterable<U>;
-		reductions<U>(fn: (a: U, b: T) => U, initial: U): WuIterable<U>;
+		reduce(fn: (a: T, b: T) => T, initial?: T): T;
+		reduce<U>(fn: (a: U, b: T) => U, initial?: U): U;
+		reductions(fn: (a: T, b: T) => T, initial?: T): WuIterable<T>;
+		reductions<U>(fn: (a: U, b: T) => U, initial?: U): WuIterable<U>;
 		reject(fn: Filter<T>): WuIterable<T>;
-		slice(): WuIterable<T>;
-		slice(start: number): WuIterable<T>;
-		slice(start: number, stop: number): WuIterable<T>;
+		slice(start?: number, stop?: number): WuIterable<T>;
 		some(fn: Filter<T>): boolean;
 		spreadMap(fn: (...x: any[]) => T, iter: Iterable<any[]>): WuIterable<T>;
 		take(n: number): WuIterable<T>;
@@ -110,8 +101,7 @@ declare namespace Wu {
 		zipLongest<U>(iter2: Iterable<T>): WuIterable<[T, U]>;
 		zipWith: any;
 		unzip: any;
-		tee(): WuIterable<T>[];
-		tee(n: number): WuIterable<T>[];
+		tee(n?: number): Array<WuIterable<T>>;
 	}
 }
 declare var wu: Wu.WuStatic;

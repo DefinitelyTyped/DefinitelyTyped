@@ -5,7 +5,7 @@ export class Test extends React.Component<any, any> {
     render() {
         const json = {
             foo: "bar"
-        }
+        };
 
         return (
             <div>
