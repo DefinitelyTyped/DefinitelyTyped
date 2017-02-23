@@ -36,6 +36,7 @@ interface DoneFn extends Function {
     fail: (message?: Error|string) => void;
 }
 
+declare function spyOn(object: any, method: string): jasmine.Spy;
 declare function spyOn<T>(object: T, method: keyof T): jasmine.Spy;
 
 declare function runs(asyncMethod: Function): void;
