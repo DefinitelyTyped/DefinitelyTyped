@@ -1005,17 +1005,17 @@ export namespace promise {
     // region Methods
 
     /**
-     * Registers listeners for when this instance is resolved. This function most
-     * overridden by subtypes.
+     * Registers listeners for when this instance is resolved.
      *
-     * @param opt_callback The function to call if this promise is
-     *     successfully resolved. The function should expect a single argument: the
-     *     promise's resolved value.
-     * @param opt_errback The function to call if this promise is
-     *     rejected. The function should expect a single argument: the rejection
-     *     reason.
-     * @return A new promise which will be resolved
-     *     with the result of the invoked callback.
+     * @param {?(function(T): (R|IThenable<R>))=} opt_callback The
+     *     function to call if this promise is successfully resolved. The function
+     *     should expect a single argument: the promise's resolved value.
+     * @param {?(function(*): (R|IThenable<R>))=} opt_errback
+     *     The function to call if this promise is rejected. The function should
+     *     expect a single argument: the rejection reason.
+     * @return {!Thenable<R>} A new promise which will be resolved with the result
+     *     of the invoked callback.
+     * @template R
      */
     then<R>(opt_callback?: (value: T) => IThenable<R> | R, opt_errback?: (error: any) => any): Promise<R>;
 
@@ -1042,7 +1042,7 @@ export namespace promise {
      *     resolved with the result of the invoked callback.
      * @template R
      */
-    catch<R>(errback: Function): Promise<R>;
+    catch<R>(errback: (err: any) => R | IThenable<R>): Promise<R>;
 
 
     // endregion
