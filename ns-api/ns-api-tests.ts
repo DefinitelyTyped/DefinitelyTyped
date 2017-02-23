@@ -2,14 +2,14 @@ import * as NsApi from "ns-api";
 
 declare var console: { log(msg: any): string };
 
-let ns: NsApi = NsApi({
+const ns: NsApi = NsApi({
     username: "",
     password: "",
     timeout: 1500
 });
 
-ns.vertrektijden("", (err: any, data: Object) => {
-    if(err) {
+ns.vertrektijden("", (err, data) => {
+    if (err) {
         console.log(err);
     } else {
         console.log(data);
@@ -17,40 +17,40 @@ ns.vertrektijden("", (err: any, data: Object) => {
 });
 
 // Get travel advise
-ns.reisadvies ({}, (err: any, data: Object) => {
-    if(err) {
+ns.reisadvies ({}, (err, data) => {
+    if (err) {
         console.log(err);
     } else {
         console.log(data);
     }
 });
 
-ns.prijzen({}, (err: any, data: Object) => {
-    if(err) {
+ns.prijzen({}, (err, data) => {
+    if (err) {
         console.log(err);
     } else {
         console.log(data);
     }
 });
 
-ns.stations("code", (err: any, data: Object) => {
-    if(err) {
+ns.stations("code", (err, data) => {
+    if (err) {
         console.log(err);
     } else {
         console.log(data);
     }
 });
 
-ns.stations((err: any, data: Object) => {
-    if(err) {
+ns.stations((err, data) => {
+    if (err) {
         console.log(err);
     } else {
         console.log(data);
     }
 });
 
-ns.storingen({}, (err: any, data: Object) => {
-    if(err) {
+ns.storingen({}, (err, data) => {
+    if (err) {
         console.log(err);
     } else {
         console.log(data);

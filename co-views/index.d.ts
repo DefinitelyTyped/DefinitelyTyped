@@ -1,50 +1,44 @@
-// Type definitions for co-views v2.1
+// Type definitions for co-views 2.1
 // Project: https://github.com/tj/co-views/
 // Definitions by: devlee <https://github.com/devlee/>, Joshua DeVinney <https://github.com/geoffreak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace CoViews {
-
-    /**
-     * Pass views `dir` and `opts` to return a render function.
-     */
-    export interface Views {
-        (dir?: string, opts?: CoViewsOptions): { (view: string, locals?: Object): any }
-    }
-
-    export interface CoViewsOptions {
+    export interface Options {
+        /**
+         * default extname
+         */
+        ext?: string;
 
         /**
          * default extname
          */
-        ext?: string,
-
-        /**
-         * default extname
-         */
-        default?: string,
+        default?: string;
 
         /**
          * engine map
          */
-        map?: Object,
+        map?: Object;
 
         /**
          * proxy partials
          */
-        partials?: Object,
+        partials?: Object;
 
         /**
          * cache compiled templates
          */
-        cache?: boolean,
+        cache?: boolean;
 
         /**
          * common locals data
          */
-        locals?: Object
+        locals?: Object;
     }
 }
 
-declare var CoViews: CoViews.Views;
+/**
+ * Pass views `dir` and `opts` to return a render function.
+ */
+declare function CoViews(dir?: string, opts?: CoViews.Options): (view: string, locals?: Object) => any;
 export = CoViews;

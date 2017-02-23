@@ -1,13 +1,11 @@
-/// <reference path="index.d.ts"/>
-
-//constructor
+// constructor
 var constructorNoOptions = new Dropkick('#my-select');
 var constructorNoOptions2 = new Dropkick(new HTMLSelectElement());
 var constructorOptions = new Dropkick('#my-select', {});
 var constructorOptions2 = new Dropkick(new HTMLSelectElement(), {});
 
-//options
-var options : DropkickOptions = {
+// options
+var options: DropkickOptions = {
     disabled: true,
     form: new HTMLFormElement(),
     length: 1,
@@ -21,12 +19,12 @@ var options : DropkickOptions = {
     close() { },
     open() { },
     initialize: () => { }
-}
+};
 var withFullOptions = new Dropkick('#test', options);
 
 var dk = new Dropkick('#test');
 
-//fields (same as options)
+// fields (same as options)
 var o1 = dk.disabled;
 var o2 = dk.form;
 var o3 = dk.length;
@@ -37,7 +35,7 @@ var o7 = dk.selectedIndex;
 var o8 = dk.selectedOptions;
 var o9 = dk.value;
 
-//methods
+// methods
 dk.add('new');
 dk.add(new HTMLSelectElement());
 dk.add('new', 'old');
@@ -75,11 +73,11 @@ var node4 = dk.select(4, true);
 var node5 = dk.selectOne(4);
 var node6 = dk.selectOne(4, true);
 
-//real life example
+// real life example
 var fieldValue = '';
-var selectOptions : DropkickOptions = {
+var selectOptions: DropkickOptions = {
     open(this: Dropkick) {
-        const optionsList = (<any>this).data.elem.lastChild; //undocumented but useful data field
+        const optionsList = (<any> this).data.elem.lastChild; // undocumented but useful data field
         if (optionsList.scrollWidth > optionsList.offsetWidth) {
             optionsList.style.width = optionsList.scrollWidth + 25 + 'px';
         }

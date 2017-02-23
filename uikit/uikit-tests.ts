@@ -2,7 +2,7 @@ function testDropdown() {
     UIkit.dropdown("#parent");
     UIkit.dropdown($("#parent"));
 
-    let options: UIkit.DropdownOptions = {
+    const options: UIkit.DropdownOptions = {
         pos: 'bottom-center',
         mode: 'click',
         remaintime: 150,
@@ -24,7 +24,7 @@ function testDropdown() {
 function testModal() {
     UIkit.modal.alert("Attention!");
 
-    let options: UIkit.ModalOptions = {
+    const options: UIkit.ModalOptions = {
         keyboard: true,
         bgclose: true,
         minScrollHeight: 150,
@@ -37,7 +37,7 @@ function testModal() {
     UIkit.modal.confirm("Are you sure?", () => {}, () => {}, {});
     UIkit.modal.confirm("Are you sure?", () => {}, {});
 
-    UIkit.modal.prompt("Name:", 'value', function (newvalue:string) {
+    UIkit.modal.prompt("Name:", 'value', (newvalue: string) => {
         // will be executed on submit.
     });
     var modal = UIkit.modal.blockUI("Any content...");
@@ -62,11 +62,11 @@ function testLightBox() {
     var element = "#group";
     var lightbox = UIkit.lightbox(element, {/* options */});
     var lightbox2 = UIkit.lightbox.create([
-        {source: 'http://url/to/video.mp4', 'type': 'video'},
-        {'source': 'http://url/to/image.jpg', 'type': 'image'}
+        {source: 'http://url/to/video.mp4', type: 'video'},
+        {source: 'http://url/to/image.jpg', type: 'image'}
     ]);
     lightbox2.show();
-    var lightbox3 = UIkit.lightbox(element)
+    var lightbox3 = UIkit.lightbox(element);
 }
 
 function testAutoComplete() {
@@ -83,20 +83,20 @@ function testHtmlEditor() {
 }
 
 function testSlider() {
-    var slider = UIkit.slider("element", {})
+    var slider = UIkit.slider("element", {});
 }
 function testSlideSet() {
-    var slideset = UIkit.slideset("element", {})
+    var slideset = UIkit.slideset("element", {});
 }
 function testSlideShow() {
-    var slideshow = UIkit.slideshow("element", {})
+    var slideshow = UIkit.slideshow("element", {});
 }
 
 function testParallax() {
-    var parallax = UIkit.parallax("element", {})
+    var parallax = UIkit.parallax("element", {});
 }
 function testAccordion() {
-    var accordion = UIkit.accordion("element", {})
+    var accordion = UIkit.accordion("element", {});
 }
 
 
@@ -121,7 +121,7 @@ function testNotify() {
 
 
 function testSearch() {
-    var search = UIkit.search("element", {})
+    var search = UIkit.search("element", {});
 }
 
 function testNestable() {
@@ -134,15 +134,15 @@ function testStick() {
     var sticky = UIkit.sticky('element', {});
 }
 function testTimePicker() {
-    var timepicker = UIkit.timepicker('element', {})
+    var timepicker = UIkit.timepicker('element', {});
 }
 
 function testTooltip() {
-    var tooltip = UIkit.tooltip('element', {})
+    var tooltip = UIkit.tooltip('element', {});
 }
 
 function testUpload() {
-    $(function(){
+    $(() => {
 
         var progressbar = $("#progressbar"),
             bar         = progressbar.find('.uk-progress-bar'),
@@ -152,25 +152,25 @@ function testUpload() {
 
                 allow : '*.(jpg|jpeg|gif|png)', // allow only images
 
-                loadstart: function() {
+                loadstart() {
                     bar.css("width", "0%").text("0%");
                     progressbar.removeClass("uk-hidden");
                 },
 
-                progress: function(percent: number) {
+                progress(percent: number) {
                     percent = Math.ceil(percent);
-                    bar.css("width", percent+"%").text(percent+"%");
+                    bar.css("width", percent + "%").text(percent + "%");
                 },
 
-                allcomplete: function(response: any) {
+                allcomplete(response: any) {
 
                     bar.css("width", "100%").text("100%");
 
-                    setTimeout(function(){
+                    setTimeout(() => {
                         progressbar.addClass("uk-hidden");
                     }, 250);
 
-                    alert("Upload Completed")
+                    alert("Upload Completed");
                 }
             };
 
@@ -185,15 +185,15 @@ function testUpload() {
 
         allow: '*.(jpg|jpeg|gif|png)', // allow only images
 
-        loadstart: function () {
+        loadstart: () => {
 
         },
 
-        progress: function (percent:number) {
+        progress: (percent: number) => {
 
         },
 
-        allcomplete: function (response:any) {
+        allcomplete: (response: any) => {
 
         }
     });
@@ -203,15 +203,15 @@ function testUpload() {
 
         allow: '*.(jpg|jpeg|gif|png)', // allow only images
 
-        loadstart: function () {
+        loadstart: () => {
 
         },
 
-        progress: function (percent:number) {
+        progress: (percent: number) => {
 
         },
 
-        allcomplete: function (response:any) {
+        allcomplete: (response: any) => {
         }
     });
 

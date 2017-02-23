@@ -86,7 +86,12 @@ interface Client extends EventEmitter {
     create(path: string, callback: (error: Error | Exception, path: string) => void): void;
     create(path: string, dataOrAclsOrmode1: Buffer | ACL[] | number, callback: (error: Error | Exception, path: string) => void): void;
     create(path: string, dataOrAclsOrmode1: Buffer | ACL[] | number, dataOrAclsOrmode2: Buffer | ACL[] | number, callback: (error: Error | Exception, path: string) => void): void;
-    create(path: string, dataOrAclsOrmode1: Buffer | ACL[] | number, dataOrAclsOrmode2: Buffer | ACL[] | number, dataOrAclsOrmode3: Buffer | ACL[] | number, callback: (error: Error | Exception, path: string) => void): void;
+    create(
+        path: string,
+        dataOrAclsOrmode1: Buffer | ACL[] | number,
+        dataOrAclsOrmode2: Buffer | ACL[] | number,
+        dataOrAclsOrmode3: Buffer | ACL[] | number,
+        callback: (error: Error | Exception, path: string) => void): void;
     remove(path: string, callback: (error: Error | Exception) => void): void;
     remove(path: string, version: number, callback: (error: Error | Exception) => void): void;
     exists(path: string, callback: (error: Error | Exception, stat: Stat) => void): void;
@@ -104,7 +109,12 @@ interface Client extends EventEmitter {
     mkdirp(path: string, callback: (error: Error | Exception, path: string) => void): void;
     mkdirp(path: string, dataOrAclsOrmode1: Buffer | ACL[] | number, callback: (error: Error | Exception, path: string) => void): void;
     mkdirp(path: string, dataOrAclsOrmode1: Buffer | ACL[] | number, dataOrAclsOrmode2: Buffer | ACL[] | number, callback: (error: Error | Exception, path: string) => void): void;
-    mkdirp(path: string, dataOrAclsOrmode1: Buffer | ACL[] | number, dataOrAclsOrmode2: Buffer | ACL[] | number, dataOrAclsOrmode3: Buffer | ACL[] | number, callback: (error: Error | Exception, path: string) => void): void;
+    mkdirp(
+        path: string,
+        dataOrAclsOrmode1: Buffer | ACL[] | number,
+        dataOrAclsOrmode2: Buffer | ACL[] | number,
+        dataOrAclsOrmode3: Buffer | ACL[] | number,
+        callback: (error: Error | Exception, path: string) => void): void;
     addAuthInfo(scheme: string, auth: Buffer): void;
     getState(): State;
     getSessionId(): Buffer;

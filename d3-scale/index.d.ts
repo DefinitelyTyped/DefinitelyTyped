@@ -501,8 +501,10 @@ export interface ScaleLogarithmic<Range, Output> extends ScaleContinuousNumeric<
     /**
      * Returns a number format function suitable for displaying a tick value, automatically computing the appropriate precision based on the fixed interval between tick values.
      *
-     * The specified count typically has the same value as the count that is used to generate the tick values. If there are too many ticks, the formatter may return the empty string for some of the tick labels;
-     * however, note that the ticks are still shown. To disable filtering, specify a count of Infinity. When specifying a count, you may also provide a format specifier or format function.
+     * The specified count typically has the same value as the count that is used to generate the tick values.
+     * If there are too many ticks, the formatter may return the empty string for some of the tick labels;
+     * however, note that the ticks are still shown.
+     * To disable filtering, specify a count of Infinity. When specifying a count, you may also provide a format specifier or format function.
      * For example, to get a tick formatter that will display 20 ticks of a currency, say log.tickFormat(20, "$,f").
      * If the specifier does not have a defined precision, the precision will be set automatically by the scale, returning the appropriate format.
      * This provides a convenient way of specifying a format whose precision will be automatically set by the scale.
@@ -1271,8 +1273,10 @@ export function scaleQuantize<Range>(): ScaleQuantize<Range>;
 // -------------------------------------------------------------------------------
 
 /**
- * Quantile scales map a sampled input domain to a discrete range. The domain is considered continuous and thus the scale will accept any reasonable input value;
- * however, the domain is specified as a discrete set of sample values. The number of values in (the cardinality of) the output range determines the number of quantiles that will be computed from the domain.
+ * Quantile scales map a sampled input domain to a discrete range.
+ * The domain is considered continuous and thus the scale will accept any reasonable input value;
+ * however, the domain is specified as a discrete set of sample values.
+ * The number of values in (the cardinality of) the output range determines the number of quantiles that will be computed from the domain.
  * To compute the quantiles, the domain is sorted, and treated as a population of discrete values; see d3-array’s quantile.
  *
  * The generic correponds to the data type of range elements.
@@ -1358,7 +1362,8 @@ export function scaleQuantile<Range>(): ScaleQuantile<Range>;
  * Threshold scales are similar to quantize scales, except they allow you to map arbitrary subsets of the domain to discrete values in the range.
  * The input domain is still continuous, and divided into slices based on a set of threshold values.
  *
- * If the number of values in the scale’s range is N+1, the number of values in the scale’s domain must be N. If there are fewer than N elements in the domain, the additional values in the range are ignored.
+ * If the number of values in the scale’s range is N+1, the number of values in the scale’s domain must be N.
+ * If there are fewer than N elements in the domain, the additional values in the range are ignored.
  * If there are more than N elements in the domain, the scale may return undefined for some inputs.
  *
  * The first generic corresponds to the data type of domain values.
