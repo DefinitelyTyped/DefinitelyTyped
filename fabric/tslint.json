@@ -2,7 +2,7 @@
     "extends": "../tslint.json",
     "rules": {
         "adjacent-overload-signatures": false,
-        "forbidden-types": false,
+        "ban-types": false,
         "interface-name": false,
         "no-empty-interface": false,
         "unified-signatures": false
