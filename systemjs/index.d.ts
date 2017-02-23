@@ -27,7 +27,7 @@ declare namespace SystemJSLoader {
      * Represents a module name for System.import that must resolve to either Traceur, Babel or TypeScript.
      * When set to traceur, babel or typescript, loading will be automatically configured as far as possible.
      */
-    type Transpiler = "plugin-traceur" | "plugin-babel" | "plugin-typescript" | "traceur" | "babel" | "typescript" | boolean;
+    type Transpiler = "plugin-traceur" | "plugin-babel" | "plugin-typescript" | "traceur" | "babel" | "typescript" | false;
 
     type ConfigMap = PackageList<string | PackageList<string>>;
 
@@ -225,7 +225,23 @@ declare namespace SystemJSLoader {
          * Sets the TypeScript transpiler options.
          */
         //TODO: Import Typescript.CompilerOptions
-        typescriptOptions?: any;
+        typescriptOptions?: {
+            /**
+             * A boolean flag which instructs the plugin to load configuration from "tsconfig.json".
+             * To override the location of the file set this option to the path of the configuration file,
+             * which will be resolved using normal SystemJS resolution.
+             * Note: This setting is specific to plugin-typescript.
+             */
+            tsconfig?: boolean | string,
+            /**
+             * A flag which controls whether the files are type-checked or simply transpiled.
+             * Set this option to "strict" to have the builds fail when compiler errors are encountered.
+             * Note: The strict option only affects builds and bundles via the SystemJS or JSPM Builder.
+             * Note: This setting is specific to plugin-typescript.
+             */
+            typeCheck?: boolean | "strict",
+            [key: string]: any
+        };
     }
 
     interface SystemJSSystemFields {
