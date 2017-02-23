@@ -1,5 +1,7 @@
 import * as swagger from "swagger-schema-official";
 
+// tslint:disable:max-line-length
+
 const apiExample: swagger.Spec = {
   "swagger": "2.0",
   "info": {

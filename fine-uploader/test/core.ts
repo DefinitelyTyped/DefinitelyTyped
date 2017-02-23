@@ -1,11 +1,9 @@
-/// <reference path="../index.d.ts" />
-
 function testCore() {
-    let button: HTMLElement = new HTMLButtonElement()
+    const button: HTMLElement = new HTMLButtonElement();
 
-    let config: qq.BasicOptions = {
+    const config: qq.BasicOptions = {
         autoUpload: true,
-        button: button,
+        button,
         debug: true,
         disableCancelForFormUploads: true,
         formatFileName: (rawFileName: string) => {
@@ -15,5 +13,5 @@ function testCore() {
         multiple: true
     };
 
-    let uploader = new qq.FineUploaderBasic(config);
+    const uploader = new qq.FineUploaderBasic(config);
 }

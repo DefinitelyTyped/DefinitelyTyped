@@ -169,9 +169,7 @@ If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. 
 
 (To indicate that a lint rule truly does not apply, use `// tslint:disable:rule-name` or better, `//tslint:disable-next-line:rule-name`.)
 
-Only `.d.ts` files are linted.
 Test the linter by running `npm run lint -- package-name`. Do not use a globally installed tslint.
-
 
 ## FAQ
 

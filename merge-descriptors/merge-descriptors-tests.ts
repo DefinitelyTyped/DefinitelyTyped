@@ -6,7 +6,7 @@ function testAssertion(condition: boolean, errorMessage: string) {
     }
 }
 
-interface IMergedObject {
+interface MergedObject {
     InSrc?: string;
     name: string;
     InTarget: string;
@@ -17,9 +17,9 @@ var src = {
     get name(): string {
         return 'from src name';
     }
-}
+};
 
-var target: IMergedObject = { name: 'my target name', InTarget: 'target' };
+var target: MergedObject = { name: 'my target name', InTarget: 'target' };
 
 var target2 = mixin(target, src, true);
 
@@ -30,5 +30,5 @@ testAssertion(target.name === 'from src name', "[redfine]=true, source member wi
 testAssertion(target.InTarget === 'target', "overwrite do not affect members only in [destination]");
 testAssertion(target['InSrc'] === 'src', "members from [source] must be copied to [destination]");
 
-var nameProperty:PropertyDescriptor = Object.getOwnPropertyDescriptor(target, "name");
+var nameProperty: PropertyDescriptor = Object.getOwnPropertyDescriptor(target, "name");
 testAssertion(nameProperty.set === undefined, "member descriptor must be overwritten");
