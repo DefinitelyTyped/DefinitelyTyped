@@ -12,13 +12,11 @@ export = ReactModal;
 
 declare namespace ReactModal {
     export interface Styles {
-        style?: {
-            content?: {
-                [key: string]: any;
-            };
-            overlay?: {
-                [key: string]: any;
-            };
+        content?: {
+            [key: string]: any;
+        };
+        overlay?: {
+            [key: string]: any;
         };
     }
 
