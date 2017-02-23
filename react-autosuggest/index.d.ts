@@ -1,11 +1,8 @@
 /* tslint:disable:dt-header */
-// Type definitions for react-autosuggest 7.0 Project:
-// http://react-autosuggest.js.org/ Definitions by: Nicolas Schmitt
-// <https://github.com/nicolas-schmitt>, Philip Ottesen
-// <https://github.com/pjo256>, Robert Essig <https://github.com/robessog>,
-// Terry Bayne <https://github.com/tbayne>
-// Definitions:
-// https://github.com/DefinitelyTyped/DefinitelyTyped TypeScript Version: 2.1
+// Type definitions for react-autosuggest 7.0 
+// Project: http://react-autosuggest.js.org/ 
+// Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>, Philip Ottesen <https://github.com/pjo256>, Robert Essig <https://github.com/robessog>, Terry Bayne <https://github.com/tbayne>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped TypeScript Version: 2.1
 
 import * as React from 'react';
 declare class Autosuggest extends React.Component <any, any> {}
