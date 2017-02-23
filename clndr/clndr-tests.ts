@@ -71,6 +71,12 @@ const options: Clndr.ClndrOptions = {
 
 const myCalendar = $('.parent-element').clndr(options);
 
+myCalendar.options.constraints = {
+    startDate: '2017-12-22',
+    endDate: '2018-01-09'
+};
+myCalendar.render();
+
 myCalendar
     .forward()
     .back()
