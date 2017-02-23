@@ -33,6 +33,7 @@ declare namespace Materialize {
     interface TooltipOptions {
         /**
         * The delay before the tooltip shows (in milliseconds)
+        * Default: 350
         */
         delay: number;
         /**
@@ -70,12 +71,12 @@ declare namespace Materialize {
          */
         outDuration?: number;
 
-
         /**
          * If true, constrainWidth to the size of the dropdown activator.
          * Default: true
          */
         constrainWidth?: boolean;
+
         /**
          * If true, the dropdown will open on hover.
          * Default: false
@@ -99,6 +100,7 @@ declare namespace Materialize {
          * Default: 'left'
          */
         alignment?: string;
+
         /**
          * If true, stops the event propagating from the dropdown origin click handler.
          * 
@@ -212,14 +214,14 @@ declare namespace Materialize {
          * Default: 200
          */
         outDuration?: number;
+
         /**
          * Starting top style attribute
-         * Default: `4%`
          */
         startingTop?: string;
+
         /**
          * Ending top style attribute
-         * Default : `10%`
          */
         endingTop?: string;
 
