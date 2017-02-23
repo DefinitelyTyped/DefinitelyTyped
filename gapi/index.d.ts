@@ -38,7 +38,7 @@ declare namespace gapi {
     /**
      * Pragmatically initialize gapi class member.
      */
-    export function load(object: string, fn: any): any;
+    export function load(apiName: string, callback: () => void): void;
 
 }
 
