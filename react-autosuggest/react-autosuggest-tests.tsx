@@ -15,8 +15,7 @@ function escapeRegexCharacters(str : string) : string {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-export class ReactAutosuggestBasicTest extends React.Component < any,
-any > {
+export class ReactAutosuggestBasicTest extends React.Component <any, any> {
     // region Fields
     static languages : Language[] = [
         {
@@ -102,7 +101,7 @@ any > {
             theme={theme}/>;
     }
 
-    protected onSuggestionsSelected(event : React.FormEvent < any >, data : Autosuggest.SuggestionSelectedEventData < Language >) : void {
+    protected onSuggestionsSelected(event : React.FormEvent <any>, data : Autosuggest.SuggestionSelectedEventData < Language >) : void {
         alert(`Selected language is ${data.suggestion.name} (${data.suggestion.year}).`);
     }
 
@@ -110,17 +109,17 @@ any > {
         return <span>{suggestion.name}</span>;
     }
     // endregion region Event handlers
-    protected onChange(event : React.FormEvent < any >, {newValue, method} : any) : void {
+    protected onChange(event : React.FormEvent <any>, {newValue, method} : any) : void {
         this.setState({value: newValue});
     }
 
-    protected onSuggestionsFetchRequested({value} : any) : void {
+    protected onSuggestionsFetchRequested({value}: any) : void {
         this.setState({
             suggestions: this.getSuggestions(value)
         });
     }
     // endregion region Helper methods
-    protected getSuggestions(value : string) : Language[] {
+    protected getSuggestions(value: string) : Language[] {
         const escapedValue = escapeRegexCharacters(value.trim());
 
         if (escapedValue === '') {
@@ -134,7 +133,7 @@ any > {
             .filter(language => regex.test(language.name));
     }
 
-    protected getSuggestionValue(suggestion : Language) : string {return suggestion.name;}
+    protected getSuggestionValue(suggestion: Language) : string {return suggestion.name;}
     // endregion
 }
 
@@ -253,7 +252,7 @@ any > {
             inputProps={inputProps}/>;
     }
 
-    protected onSuggestionSelected(event : React.FormEvent < any >, data : Autosuggest.SuggestionSelectedEventData < Language >) : void {
+    protected onSuggestionSelected(event : React.FormEvent <any>, data : Autosuggest.SuggestionSelectedEventData < Language >) : void {
         const language = data.suggestion as Language;
 
         alert(`Selected language is ${language.name} (${language.year}).`);
@@ -267,7 +266,7 @@ any > {
         return <strong>{section.title}</strong>;
     }
     // endregion region Event handlers
-    protected onChange(event : React.FormEvent < any >, {newValue, method} : any) : void {
+    protected onChange(event : React.FormEvent <any>, {newValue, method} : any) : void {
         this.setState({value: newValue});
     }
 
@@ -394,7 +393,7 @@ any > {
         </span>;
     }
     // endregion region Event handlers
-    protected onChange(event : React.FormEvent < any >, {newValue, method} : any) : void {
+    protected onChange(event : React.FormEvent <any>, {newValue, method} : any) : void {
         this.setState({value: newValue});
     }
 

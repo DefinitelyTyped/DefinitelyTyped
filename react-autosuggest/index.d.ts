@@ -33,7 +33,7 @@ declare namespace Autosuggest {
     focusedSuggestion: any;
   }
 
-  interface InputProps extends React.HTMLAttributes < any > {
+  interface InputProps extends React.HTMLAttributes <any> {
     value: string;
     onChange: (event: React.FormEvent <any>, params?: ChangeEvent) => void;
     onBlur?: (event: React.FormEvent <any>, params?: BlurEvent) => void;
@@ -65,7 +65,7 @@ declare namespace Autosuggest {
     getSuggestionValue: (suggestion: any) => any;
     renderSuggestion: (suggestion: any, inputValues: InputValues) => JSX.Element;
     inputProps: InputProps;
-    onSuggestionSelected?: (event: React.FormEvent < any >, data: SuggestionSelectedEventData < any >) => void;
+    onSuggestionSelected?: (event: React.FormEvent <any>, data: SuggestionSelectedEventData <any>) => void;
     shouldRenderSuggestions?: (value: string) => boolean;
     alwaysRenderSuggestions?: boolean;
     focusFirstSuggestion?: boolean;
