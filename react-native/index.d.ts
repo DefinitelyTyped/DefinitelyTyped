@@ -7977,8 +7977,12 @@ declare module "react" {
     }
 
     export interface ARTStatic {
-	Shape: ShapeStatic,
-	Surface: SurfaceStatic	
+	      Shape: ShapeStatic,
+	      Surface: SurfaceStatic	
+    }
+                                  
+    export interface KeyboardStatic extends NativeEventEmitter {
+        dismiss: ()=>void
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -8171,7 +8175,7 @@ declare module "react" {
     export var IntentAndroid: IntentAndroidStatic
     export type IntentAndroid = IntentAndroidStatic
 
-    export var Keyboard: NativeEventEmitter
+    export var Keyboard: KeyboardStatic
 
     export var KeyboardAvoidingView: KeyboardAvoidingViewStatic
     export type KeyboardAvoidingView = KeyboardAvoidingViewStatic
