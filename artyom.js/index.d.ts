@@ -403,7 +403,7 @@ declare namespace Artyom {
 
         /**
          * Says a random quote and returns it's object.
-         * @param data 
+         * @param data
          */
         sayRandom(data: any): any;
 
@@ -423,14 +423,14 @@ declare namespace Artyom {
         artyomHey(): any;
 
         /**
-         * This function will return the webkitSpeechRecognition object used by artyom retrieve it only to debug on it or get some 
+         * This function will return the webkitSpeechRecognition object used by artyom retrieve it only to debug on it or get some
          * values, do not make changes directly.
          */
         getNativeApi(): any;
 
         /**
          * This function returns a boolean according to the SpeechRecognition status if artyom is listening, will return true.
-         * Note: This is not a feature of SpeechRecognition, therefore this value hangs on the fiability of the onStart and onEnd 
+         * Note: This is not a feature of SpeechRecognition, therefore this value hangs on the fiability of the onStart and onEnd
          * events of the SpeechRecognition
          * @returns {Boolean}
          */
@@ -438,14 +438,14 @@ declare namespace Artyom {
 
         /**
          * This function returns a boolean according to the speechSynthesis status if artyom is speaking, will return true.
-         * Note: This is not a feature of speechSynthesis, therefore this value hangs on the fiability of the onStart and onEnd 
+         * Note: This is not a feature of speechSynthesis, therefore this value hangs on the fiability of the onStart and onEnd
          * events of the speechSynthesis.
          * @returns {Boolean}
          */
         isSpeaking(): boolean;
 
         /**
-         * The SpeechSynthesisUtterance objects are stored in the artyom_garbage_collector variable to prevent the wrong behaviour 
+         * The SpeechSynthesisUtterance objects are stored in the artyom_garbage_collector variable to prevent the wrong behaviour
          * of artyom.say. Use this method to clear all spoken SpeechSynthesisUtterance unused objects.
          * @returns {Boolean}
          */
@@ -487,7 +487,7 @@ declare namespace Artyom {
         getVersion(): string;
 
         /**
-         * Add commands like an artisan. If you use artyom for simple 
+         * Add commands like an artisan. If you use artyom for simple
          * tasks then probably you don't like to write a lot to achieve it.
          * Use the artisan syntax to write less, but with the same accuracy.
          * @disclaimer Not a promise-based implementation, just syntax.
@@ -508,6 +508,6 @@ declare namespace Artyom {
 
 }
 
-//tslint:disable-next-line:export-just-namespace
+// tslint:disable-next-line:export-just-namespace
 export = Artyom;
 export as namespace Artyom;

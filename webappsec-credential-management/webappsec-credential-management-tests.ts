@@ -70,7 +70,7 @@ function passwordPostSignInConfirmation() {
         if (navigator.credentials) {
             e.preventDefault();
 
-            let formElem = (e.target as HTMLFormElement);
+            const formElem = (e.target as HTMLFormElement);
             var c = new PasswordCredential(formElem);
             fetch(formElem.action, {method: 'POST', credentials: c}).then(r => {
                 if (r.status === 200) {

@@ -27,8 +27,8 @@ interface ReachOptions {
 
 // Object
 
-/** 
- * Clone an object or an array. 
+/**
+ * Clone an object or an array.
  */
 export function clone<T>(obj: T): T;
 
