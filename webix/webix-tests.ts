@@ -94,7 +94,7 @@ var next = webix.protoUI({
 		webix.message("test");
 		return 1;
 	}
-}, webix.ui.list, webix.EditAbility);
+}, webix.ui.list, webix.EditAbility, webix.EventSystem);
 
 //test method of new UI
 var my = <myUI>webix.ui({
