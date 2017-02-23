@@ -1,6 +1,6 @@
 // Type definitions for keytar 3.0.2
 // Project: http://atom.github.io/node-keytar/
-// Definitions by: Milan Burda <https://github.com/miniak/>
+// Definitions by: Milan Burda <https://github.com/miniak/>, Brendan Forster <https://github.com/shiftkey/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
