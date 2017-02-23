@@ -1,4 +1,4 @@
-﻿// Type definitions for qlik-visualizationextensions
+// Type definitions for qlik-visualizationextensions 3.2
 // Project: http://help.qlik.com/en-US/sense-developer/3.2/Subsystems/Extensions/Content/extensions-introduction.htm
 // Definitions by: Konrad Mattheis <https://github.com/konne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -791,7 +791,7 @@ declare namespace BackendAPI {
 		 * @param {array} qPages - An array of request page objects.
 		 * @param {number} qZoomFactor - Zoom factor.
 		 * If set to -1, the Qlik engine decides of the zoom factor.
-		 * If qReductionMode is D1 or S, the zoom factor is 2ⁿ. If the zoom factor is 5, the data are reduced by a factor 32.
+		 * If qReductionMode is D1 or S, the zoom factor is 2n. If the zoom factor is 5, the data are reduced by a factor 32.
 		 * If qReductionMode is C, the zoom factor defines the number of centroids.
 		 * @param {string} qReductionMode - Reduction mode.Can be:
 		 *        # N for no data reduction.
