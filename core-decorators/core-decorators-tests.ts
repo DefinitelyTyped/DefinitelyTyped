@@ -17,8 +17,8 @@ class Person {
     }
 }
 
-let person = new Person();
-let { getPerson, getPersonAgain } = person;
+const person = new Person();
+const { getPerson, getPersonAgain } = person;
 
 getPerson() === person;
 
@@ -81,7 +81,7 @@ class Person2 {
     facepalmHarder() {}
 }
 
-let person2 = new Person2();
+const person2 = new Person2();
 
 person2.facepalm();
 // DEPRECATION Person#facepalm: This function will be removed in future versions.
@@ -144,7 +144,7 @@ class Person3 {
     }
 }
 
-let person3 = new Person3();
+const person3 = new Person3();
 
 person3.facepalmWithoutWarning();
 // no warning is logged
@@ -242,7 +242,7 @@ editor.hugeBuffer;
 // already initialized and equals our buffer, so
 // createHugeBuffer() is not called again
 
-//TODO: For @mixin, I don't know how we can make it work for TypeScript...
+// TODO: For @mixin, I don't know how we can make it work for TypeScript...
 //
 // @mixin (alias: @mixins)
 //
@@ -265,7 +265,7 @@ const FlyMixin = {
 @mixin(SingerMixin, FlyMixin)
 class Bird {
     singMatingCall() {
-        //TODO: For @mixin, I don't know how we can make it work for TypeScript...
+        // TODO: For @mixin, I don't know how we can make it work for TypeScript...
         // this.sing('tweet tweet');
     }
 }
@@ -280,10 +280,10 @@ bird.singMatingCall();
 
 import { time } from 'core-decorators';
 
-let myConsole = {
-    time: function(label: string) { /* custom time() method */ },
-    timeEnd: function(label: string) { /* custom timeEnd method */ },
-    log: function(str: any) { /* custom log method */ }
+const myConsole = {
+    time(label: string) { /* custom time() method */ },
+    timeEnd(label: string) { /* custom timeEnd method */ },
+    log(str: any) { /* custom log method */ }
 };
 
 class Bird2 {

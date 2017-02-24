@@ -16,10 +16,11 @@ interface StoreJSStatic {
 	getAll(): any;
 	serialize(value: any): string;
 	deserialize(value: string): any;
+	forEach(command: (key: string, value: any) => void): void;
 }
 
 declare var store: StoreJSStatic;
 declare module 'store' {
-  export = store;
+	export = store;
 }
 

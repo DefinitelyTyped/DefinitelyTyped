@@ -14,6 +14,10 @@ export as namespace Clndr;
  */
 export interface ClndrInstance {
     /**
+     * Get clndr options
+     */
+    options: ClndrOptions;
+    /**
      * Go to the next month
      */
     forward(): this;
@@ -55,6 +59,10 @@ export interface ClndrInstance {
      * calendar.
      */
     removeEvents(filter: (event: any) => boolean): this;
+    /**
+     * Re-render of the calendar.
+     */
+    render(): void;
     /**
      * Destroy the clndr instance. This will empty the DOM node containing the
      * calendar.

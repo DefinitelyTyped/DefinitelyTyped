@@ -7,6 +7,6 @@ const sidebarStyle: SidebarStyles = {
     content: { width: "300px" }
 };
 
-let sidebar1 = <Sidebar docked={true} open={true} sidebar={sidebar} styles={sidebarStyle}>
+const sidebar1 = <Sidebar docked={true} open={true} sidebar={sidebar} styles={sidebarStyle}>
                     <h1>Content</h1>
                 </Sidebar>;

@@ -11,4 +11,8 @@ import {
   KeycloakResponseType
 } from 'keycloak-js';
 
-let keycloak = Keycloak();
+import * as KeycloakAuthorization from 'keycloak-js/keycloak-authz';
+import { KeycloakAuthorizationPromise } from 'keycloak-js/keycloak-authz';
+
+const keycloak = Keycloak();
+const keycloakAuthz = KeycloakAuthorization(keycloak);

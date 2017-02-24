@@ -10,18 +10,21 @@
         "strictNullChecks": false,
         "jsx": "preserve",
         "baseUrl": "../",
-        "paths": {
-            "history": ["history/v2"]
-        },
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "history": ["history/v3"],
+            "history/*": ["history/v3/*"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
+        "lib/IndexLinkContainer.d.ts",
+        "lib/LinkContainer.d.ts",
         "react-router-bootstrap-tests.tsx"
     ]
 }

@@ -2,6 +2,7 @@
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
@@ -3318,38 +3319,25 @@ declare namespace sequelize {
     /**
      * Options for Model.findOrInitialize method
      */
-    interface FindOrInitializeOptions<TAttributes> extends LoggingOptions {
-
-        /**
-         * A hash of search attributes.
-         */
-        where: string | WhereOptions;
+    interface FindOrInitializeOptions<TAttributes> extends FindOptions {
 
         /**
          * Default values to use if building a new instance
          */
         defaults?: TAttributes;
 
-        /**
-         * Transaction to run query under
-         */
-        transaction?: Transaction;
     }
 
     /**
-         * Options for Model.findOrInitialize method
+     * Options for Model.findOrInitialize method
      */
-    interface FindCreateFindOptions<TAttributes> {
+    interface FindCreateFindOptions<TAttributes> extends FindOptions {
 
         /**
-             * A hash of search attributes.
-         */
-        where: string | WhereOptions;
-
-        /**
-             * Default values to use if building a new instance
+         * Default values to use if building a new instance
          */
         defaults?: TAttributes;
+
     }
 
     /**

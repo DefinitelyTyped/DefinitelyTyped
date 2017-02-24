@@ -17,12 +17,12 @@ var cb5 = new Clipboard('.btn', {
 
 cb1.destroy();
 
-cb2.on('success', function(e) {
+cb2.on('success', e => {
     console.info('Action:', e.action);
     console.info('Text:', e.text);
     console.info('Trigger:', e.trigger);
 
     e.clearSelection();
 });
-cb2.on('error', function(e) { });
+cb2.on('error', e => { });
 

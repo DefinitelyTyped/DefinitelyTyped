@@ -10,6 +10,10 @@ import * as events from 'events';
 interface Security {
 }
 
+export interface SoapMethod {
+  (args: any, callback: (err: any, result: any) => void, options?: any, extraHeaders?: any): void;
+}
+
 export class WSSecurity implements Security {
     constructor(username: string, password: string, options?: any);
 }
@@ -19,12 +23,22 @@ export class ClientSSLSecurity implements Security {
     constructor(key: Buffer | string, cert: Buffer | string, defaults?: any);
 }
 
-interface Client extends events.EventEmitter {
-    setSecurity(s: Security): void;
-    [method: string]: (args: any, fn: (err: any, result: any) => void, options?: any, extraHeaders?: any) => void;
-    addSoapHeader(headJSON: any): void;
-    setEndpoint(endpoint: string): void;
+export interface Client extends events.EventEmitter {
+    addBodyAttribute(bodyAttribute: any, name?: string, namespace?: string, xmlns?: string): void;
+    addHttpHeader(name: string, value: any): void;
+    addSoapHeader(soapHeader: any, name?: string, namespace?: string, xmlns?: string): number;
+    changeSoapHeader(index: number, soapHeader: any, name?: string, namespace?: string, xmlns?: string): void;
+    clearBodyAttributes(): void;
+    clearHttpHeaders(): void;
+    clearSoapHeaders(): void;
     describe(): any;
+    getBodyAttributes(): any[];
+    getHttpHeaders(): any[];
+    getSoapHeaders(): any[];
+    setEndpoint(endpoint: string): void;
+    setSOAPAction(action: string): void;
+    setSecurity(s: Security): void;
+    [method: string]: SoapMethod | Function;
 }
 
 export interface Server extends events.EventEmitter {

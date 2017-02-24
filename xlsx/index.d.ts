@@ -143,7 +143,7 @@ export interface IUtils {
         range?: any;
         header?: "A"|number|string[];
     }):T[];
-    sheet_to_csv(worksheet: IWorkSheet):any;
+    sheet_to_csv(worksheet: IWorkSheet, options?: { FS: string, RS: string }): string;
     sheet_to_formulae(worksheet: IWorkSheet):any;
     encode_cell(cell: ICell): any;
     encode_range(s: ICell, e: ICell): any;

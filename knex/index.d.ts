@@ -2,11 +2,13 @@
 // Project: https://github.com/tgriesser/knex
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="bluebird" />
 /// <reference types="node" />
 
-import * as events from "events";
+import events = require("events");
+import Promise = require("bluebird");
 
 type Callback = Function;
 type Client = Function;
@@ -382,6 +384,7 @@ declare namespace Knex {
         dropForeign(columnNames: string[], foreignKeyName?: string): TableBuilder;
         dropUnique(columnNames: string[], indexName?: string): TableBuilder;
         dropPrimary(constraintName?: string): TableBuilder;
+        dropIndex(columnNames: string[], indexName?: string): TableBuilder;
     }
 
     interface CreateTableBuilder extends TableBuilder {

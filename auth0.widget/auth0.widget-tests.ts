@@ -1,5 +1,4 @@
-/// <reference types="auth0-js" />
-
+import 'auth0-js/v7';
 
 var widget: Auth0WidgetStatic = new Auth0Widget({
     domain: 'mine.auth0.com',

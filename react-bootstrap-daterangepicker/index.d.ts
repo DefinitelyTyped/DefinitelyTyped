@@ -2,14 +2,16 @@
 // Project: https://github.com/skratchdot/react-bootstrap-daterangepicker
 // Definitions by: Ian Ker-Seymer <https://github.com/ianks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="react" />
-/// <reference types="bootstrap-datepicker" />
+/// <reference types="daterangepicker" />
 
 declare namespace ReactBootstrapDaterangepicker {
+
     export interface EventHandler { (event?: any, picker?: any): any; }
 
-    export interface Props extends DatepickerOptions {
+    export interface Props extends  daterangepicker.Settings{
         onShow?: EventHandler;
         onHide?: EventHandler;
         onShowCalendar?: EventHandler;
