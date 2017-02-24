@@ -8,7 +8,9 @@
 declare namespace stringify {
     interface StringifyOpts {
         /**
-         * List of fields, applied when transform returns an object, order matters, read the transformer documentation for additionnal information, columns are auto discovered when the user write object, see the "header" option on how to print columns names on the first line.
+         * List of fields, applied when transform returns an object.
+         * Order matters, read the transformer documentation for additionnal information,
+         * columns are auto discovered when the user write object, see the "header" option on how to print columns names on the first line.
          */
         columns?: string[];
         /**
@@ -28,7 +30,8 @@ declare namespace stringify {
          */
         header?: boolean;
         /**
-         * String used to delimit record rows or a special value; special values are 'auto', 'unix', 'mac', 'windows', 'unicode'; defaults to 'auto' (discovered in source or 'unix' if no source is specified).
+         * String used to delimit record rows or a special value;
+         * special values are 'auto', 'unix', 'mac', 'windows', 'unicode'; defaults to 'auto' (discovered in source or 'unix' if no source is specified).
          */
         lineBreaks?: string;
         /**
@@ -48,7 +51,8 @@ declare namespace stringify {
          */
         quotedString?: boolean;
         /**
-         * String used to delimit record rows or a special value; special values are 'auto', 'unix', 'mac', 'windows', 'unicode'; defaults to 'auto' (discovered in source or 'unix' if no source is specified).
+         * String used to delimit record rows or a special value;
+         * special values are 'auto', 'unix', 'mac', 'windows', 'unicode'; defaults to 'auto' (discovered in source or 'unix' if no source is specified).
          */
         rowDelimiter?: string;
 

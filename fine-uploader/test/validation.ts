@@ -1,5 +1,3 @@
-/// <reference path="../index.d.ts" />
-
 function validationTest() {
 
     const validationOptions: qq.ValidationOptions = {

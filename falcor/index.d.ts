@@ -35,7 +35,10 @@ export {
 /////////////////////////////////////////////////////
 
 /**
- * A DataSource is an interface which can be implemented to expose JSON Graph information to a Model. Every DataSource is associated with a single JSON Graph object. Models execute JSON Graph operations (get, set, and call) to retrieve values from the DataSource’s JSON Graph object. DataSources may retrieve JSON Graph information from anywhere, including device memory, a remote machine, or even a lazily-run computation.
+ * A DataSource is an interface which can be implemented to expose JSON Graph information to a Model.
+ * Every DataSource is associated with a single JSON Graph object.
+ * Models execute JSON Graph operations (get, set, and call) to retrieve values from the DataSource’s JSON Graph object.
+ * DataSources may retrieve JSON Graph information from anywhere, including device memory, a remote machine, or even a lazily-run computation.
  **/
 export abstract class DataSource {
 
@@ -83,12 +86,14 @@ type ModelOnChange = () => void;
 type ModelErrorSelector = (jsonGraphError: any) => any;
 
 /**
- * This function is invoked every time a value in the Model cache is about to be replaced with a new value. If the function returns true, the existing value is replaced with a new value and the version flag on all of the value's ancestors in the tree are incremented.
+ * This function is invoked every time a value in the Model cache is about to be replaced with a new value.
+ * If the function returns true, the existing value is replaced with a new value and the version flag on all of the value's ancestors in the tree are incremented.
  **/
 type ModelComparator = (existingValue: any, newValue: any) => boolean;
 
 /**
- * A Model object is used to execute commands against a {@link JSONGraph} object. {@link Model}s can work with a local JSONGraph cache, or it can work with a remote {@link JSONGraph} object through a {@link DataSource}.
+ * A Model object is used to execute commands against a {@link JSONGraph} object
+ * {@link Model}s can work with a local JSONGraph cache, or it can work with a remote {@link JSONGraph} object through a {@link DataSource}.
  **/
 export class Model {
     constructor(options?: ModelOptions);
@@ -100,7 +105,9 @@ export class Model {
     get<T>(...path: Array<string | PathSet>): ModelResponse<JSONEnvelope<T>>;
 
     /**
-     * Sets the value at one or more places in the JSONGraph model. The set method accepts one or more {@link PathValue}s, each of which is a combination of a location in the document and the value to place there.  In addition to accepting  {@link PathValue}s, the set method also returns the values after the set operation is complete.
+     * Sets the value at one or more places in the JSONGraph model.
+     * The set method accepts one or more {@link PathValue}s, each of which is a combination of a location in the document and the value to place there.
+     * In addition to accepting  {@link PathValue}s, the set method also returns the values after the set operation is complete.
      **/
     set(...args: PathValue[]): ModelResponse<JSONEnvelope<any>>;
     set<T>(...args: PathValue[]): ModelResponse<JSONEnvelope<T>>;
@@ -127,7 +134,9 @@ export class Model {
     invalidate(...path: PathSet[]): void;
 
     /**
-     * Returns a new {@link Model} bound to a location within the {@link JSONGraph}. The bound location is never a {@link Reference}: any {@link Reference}s encountered while resolving the bound {@link Path} are always replaced with the {@link Reference}s target value. For subsequent operations on the {@link Model}, all paths will be evaluated relative to the bound path. Deref allows you to:
+     * Returns a new {@link Model} bound to a location within the {@link JSONGraph}.
+     * The bound location is never a {@link Reference}: any {@link Reference}s encountered while resolving the bound {@link Path} are always replaced with the {@link Reference}s target value.
+     * For subsequent operations on the {@link Model}, all paths will be evaluated relative to the bound path. Deref allows you to:
      * - Expose only a fragment of the {@link JSONGraph} to components, rather than the entire graph
      * - Hide the location of a {@link JSONGraph} fragment from components
      * - Optimize for executing multiple operations and path looksup at/below the same location in the {@link JSONGraph}
@@ -162,7 +171,8 @@ export class Model {
     getVersion(path?: Path): number;
 
     /**
-     * Returns a clone of the {@link Model} that enables batching. Within the configured time period, paths for get operations are collected and sent to the {@link DataSource} in a batch. Batching can be more efficient if the {@link DataSource} access the network, potentially reducing the number of HTTP requests to the server.
+     * Returns a clone of the {@link Model} that enables batching. Within the configured time period, paths for get operations are collected and sent to the {@link DataSource} in a batch.
+     * Batching can be more efficient if the {@link DataSource} access the network, potentially reducing the number of HTTP requests to the server.
      **/
     batch(schedulerOrDelay?: number | Scheduler): Model;       // FIXME what's a valid type for scheduler?
 
@@ -172,7 +182,8 @@ export class Model {
     unbatch(): Model;
 
     /**
-     * Returns a clone of the {@link Model} that treats errors as values. Errors will be reported in the same callback used to report data. Errors will appear as objects in responses, rather than being sent to the {@link Observable~onErrorCallback} callback of the {@link ModelResponse}.
+     * Returns a clone of the {@link Model} that treats errors as values. Errors will be reported in the same callback used to report data.
+     * Errors will appear as objects in responses, rather than being sent to the {@link Observable~onErrorCallback} callback of the {@link ModelResponse}.
      **/
     treatErrorsAsValues(): Model;
 
@@ -182,12 +193,14 @@ export class Model {
     asDataSource(): DataSource;
 
     /**
-     * Returns a clone of the {@link Model} that boxes values returning the wrapper ({@link Atom}, {@link Reference}, or {@link Error}), rather than the value inside it. This allows any metadata attached to the wrapper to be inspected.
+     * Returns a clone of the {@link Model} that boxes values returning the wrapper ({@link Atom}, {@link Reference}, or {@link Error}), rather than the value inside it.
+     * This allows any metadata attached to the wrapper to be inspected.
      **/
     boxValues(): Model;
 
     /**
-     * Returns a clone of the {@link Model} that unboxes values, returning the value inside of the wrapper ({@link Atom}, {@link Reference}, or {@link Error}), rather than the wrapper itself. This is the default mode.
+     * Returns a clone of the {@link Model} that unboxes values, returning the value inside of the wrapper ({@link Atom}, {@link Reference}, or {@link Error}), rather than the wrapper itself.
+     * This is the default mode.
      **/
     unboxValues(): Model;
 
@@ -227,12 +240,17 @@ interface Thenable<T> {
 export class Observable<T>{
 
     /**
-     * The forEach method is a synonym for {@link Observable.prototype.subscribe} and triggers the execution of the Observable, causing the values within to be pushed to a callback. An Observable is like a pipe of water that is closed. When forEach is called, we open the valve and the values within are pushed at us.  These values can be received using either callbacks or an {@link Observer} object.
+     * The forEach method is a synonym for {@link Observable.prototype.subscribe} and triggers the execution of the Observable, causing the values within to be pushed to a callback.
+     * An Observable is like a pipe of water that is closed.
+     * When forEach is called, we open the valve and the values within are pushed at us.
+     * These values can be received using either callbacks or an {@link Observer} object.
      **/
     forEach(onNext?: ObservableOnNextCallback<T>, onError?: ObservableOnErrorCallback , onCompleted?: ObservableOnCompletedCallback ): Subscription;
 
     /**
-     * The subscribe method is a synonym for {@link Observable.prototype.forEach} and triggers the execution of the Observable, causing the values within to be pushed to a callback. An Observable is like a pipe of water that is closed. When forEach is called, we open the valve and the values within are pushed at us.  These values can be received using either callbacks or an {@link Observer} object.
+     * The subscribe method is a synonym for {@link Observable.prototype.forEach} and triggers the execution of the Observable, causing the values within to be pushed to a callback.
+     * An Observable is like a pipe of water that is closed.
+     * When forEach is called, we open the valve and the values within are pushed at us.  These values can be received using either callbacks or an {@link Observer} object.
      **/
     subscribe(onNext?: ObservableOnNextCallback<T>, onError?: ObservableOnErrorCallback , onCompleted?: ObservableOnCompletedCallback ): Subscription;
 }
@@ -243,12 +261,14 @@ export class Observable<T>{
 type ObservableOnNextCallback<T> = (value: T) => void;
 
 /**
- * This callback accepts an error that occurred while evaluating the operation underlying the {@link Observable} stream. When this callback is invoked, the {@link Observable} stream ends and no more values will be received by the {@link Observable~onNextCallback}.
+ * This callback accepts an error that occurred while evaluating the operation underlying the {@link Observable} stream.
+ * When this callback is invoked, the {@link Observable} stream ends and no more values will be received by the {@link Observable~onNextCallback}.
  **/
 type ObservableOnErrorCallback = (error: Error) => void;
 
 /**
- * This callback is invoked when the {@link Observable} stream ends. When this callback is invoked the {@link Observable} stream has ended, and therefore the {@link Observable~onNextCallback} will not receive any more values.
+ * This callback is invoked when the {@link Observable} stream ends.
+ * When this callback is invoked the {@link Observable} stream has ended, and therefore the {@link Observable~onNextCallback} will not receive any more values.
  **/
 type ObservableOnCompletedCallback = () => void;
 

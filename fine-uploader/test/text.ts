@@ -1,5 +1,3 @@
-/// <reference path="../index.d.ts" />
-
 function textTest() {
     const textOptions: qq.TextOptions = {
         defaultResponseError: "you have failed me for the last time",

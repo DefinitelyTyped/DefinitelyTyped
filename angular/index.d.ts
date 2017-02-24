@@ -27,7 +27,7 @@ import ng = angular;
 ///////////////////////////////////////////////////////////////////////////////
 declare namespace angular {
 
-    type Injectable<T extends Function> = T | (string | T)[];
+    type Injectable<T extends Function> = T | Array<string | T>;
 
     // not directly implemented, but ensures that constructed class implements $get
     interface IServiceProviderClass {
@@ -64,7 +64,7 @@ declare namespace angular {
          * @param config an object for defining configuration options for the application. The following keys are supported:
          *     - `strictDi`: disable automatic function annotation for the application. This is meant to assist in finding bugs which break minified code.
          */
-        bootstrap(element: string|Element|JQuery|Document, modules?: (string|Function|any[])[], config?: IAngularBootstrapConfig): auto.IInjectorService;
+        bootstrap(element: string|Element|JQuery|Document, modules?: Array<string|Function|any[]>, config?: IAngularBootstrapConfig): auto.IInjectorService;
 
         /**
          * Creates a deep copy of source, which should be an object or an array.
@@ -122,7 +122,7 @@ declare namespace angular {
         fromJson(json: string): any;
         identity<T>(arg?: T): T;
         injector(modules?: any[], strictDi?: boolean): auto.IInjectorService;
-        isArray(value: any): value is Array<any>;
+        isArray(value: any): value is any[];
         isDate(value: any): value is Date;
         isDefined(value: any): boolean;
         isElement(value: any): boolean;
@@ -411,8 +411,8 @@ declare namespace angular {
         $invalid: boolean;
     }
 
-    //Allows tuning how model updates are done.
-    //https://docs.angularjs.org/api/ng/directive/ngModelOptions
+    // Allows tuning how model updates are done.
+    // https://docs.angularjs.org/api/ng/directive/ngModelOptions
     interface INgModelOptions {
         updateOn?: string;
         debounce?: any;
@@ -514,7 +514,7 @@ declare namespace angular {
         $watchCollection<T>(watchExpression: (scope: IScope) => T, listener: (newValue: T, oldValue: T, scope: IScope) => any): () => void;
 
         $watchGroup(watchExpressions: any[], listener: (newValue: any, oldValue: any, scope: IScope) => any): () => void;
-        $watchGroup(watchExpressions: { (scope: IScope): any }[], listener: (newValue: any, oldValue: any, scope: IScope) => any): () => void;
+        $watchGroup(watchExpressions: Array<{ (scope: IScope): any }>, listener: (newValue: any, oldValue: any, scope: IScope) => any): () => void;
 
         $parent: IScope;
         $root: IRootScopeService;
@@ -662,9 +662,9 @@ declare namespace angular {
     }
 
     interface IFilterOrderByItem {
-        value: any,
-        type: string,
-        index: any
+        value: any;
+        type: string;
+        index: any;
     }
 
     interface IFilterOrderByComparatorFunc {
@@ -756,7 +756,7 @@ declare namespace angular {
          * @param comparator Function used to determine the relative order of value pairs.
          * @return An array containing the items from the specified collection, ordered by a comparator function based on the values computed using the expression predicate.
          */
-        <T>(array: T[], expression: string|((value: T) => any)|(((value: T) => any)|string)[], reverse?: boolean, comparator?: IFilterOrderByComparatorFunc): T[];
+        <T>(array: T[], expression: string|((value: T) => any)|Array<((value: T) => any)|string>, reverse?: boolean, comparator?: IFilterOrderByComparatorFunc): T[];
     }
 
     /**
@@ -1023,7 +1023,7 @@ declare namespace angular {
         all<T1, T2, T3, T4>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>, T3 | IPromise<T3>, T4 | IPromise <T4>]): IPromise<[T1, T2, T3, T4]>;
         all<T1, T2, T3>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>, T3 | IPromise<T3>]): IPromise<[T1, T2, T3]>;
         all<T1, T2>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>]): IPromise<[T1, T2]>;
-        all<TAll>(promises: IPromise<TAll>[]): IPromise<TAll[]>;
+        all<TAll>(promises: Array<IPromise<TAll>>): IPromise<TAll[]>;
         /**
          * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
          *
@@ -1044,13 +1044,14 @@ declare namespace angular {
          *
          * @param reason Constant, message, exception or an object representing the rejection reason.
          */
-        reject(reason?: any): IPromise<any>;
+        reject(reason?: any): IPromise<never>;
         /**
          * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
          *
          * @param value Value or a promise
          */
         resolve<T>(value: IPromise<T>|T): IPromise<T>;
+        resolve<T1, T2>(value: IPromise<T1>|T2): IPromise<T1|T2>;
         /**
          * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
          */
@@ -1061,7 +1062,10 @@ declare namespace angular {
          * @param value Value or a promise
          */
         when<T>(value: IPromise<T>|T): IPromise<T>;
-        when<TResult, T>(value: IPromise<T>|T, successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback?: (reason: any) => any, notifyCallback?: (state: any) => any): IPromise<TResult>;
+        when<T1, T2>(value: IPromise<T1>|T2): IPromise<T1|T2>;
+        when<TResult, T>(value: IPromise<T>|T, successCallback: (promiseValue: T) => IPromise<TResult>|TResult): IPromise<TResult>;
+        when<TResult, T>(value: T, successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback: null | undefined | ((reason: any) => any), notifyCallback?: (state: any) => any): IPromise<TResult>;
+        when<TResult, TResult2, T>(value: IPromise<T>, successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback: (reason: any) => TResult2 | IPromise<TResult2>, notifyCallback?: (state: any) => any): IPromise<TResult | TResult2>;
         /**
          * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
          */
@@ -1090,15 +1094,20 @@ declare namespace angular {
     interface IPromise<T> {
         /**
          * Regardless of when the promise was or will be resolved or rejected, then calls one of the success or error callbacks asynchronously as soon as the result is available. The callbacks are called with a single argument: the result or rejection reason. Additionally, the notify callback may be called zero or more times to provide a progress indication, before the promise is resolved or rejected.
-         * The successCallBack may return IPromise<void> for when a $q.reject() needs to be returned
+         * The successCallBack may return IPromise<never> for when a $q.reject() needs to be returned
          * This method returns a new promise which is resolved or rejected via the return value of the successCallback, errorCallback. It also notifies via the return value of the notifyCallback method. The promise can not be resolved or rejected from the notifyCallback method.
          */
-        then<TResult>(successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback?: (reason: any) => any, notifyCallback?: (state: any) => any): IPromise<TResult>;
+        then<TResult>(successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback?: null | undefined, notifyCallback?: (state: any) => any): IPromise<TResult>;
+        then<TResult1, TResult2>(successCallback: (promiseValue: T) => IPromise<TResult1>|TResult2, errorCallback?: null | undefined, notifyCallback?: (state: any) => any): IPromise<TResult1 | TResult2>;
+
+        then<TResult, TCatch>(successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback: (reason: any) => IPromise<TCatch>|TCatch, notifyCallback?: (state: any) => any): IPromise<TResult | TCatch>;
+        then<TResult1, TResult2, TCatch1, TCatch2>(successCallback: (promiseValue: T) => IPromise<TResult1>|TResult2, errorCallback: (reason: any) => IPromise<TCatch1>|TCatch2, notifyCallback?: (state: any) => any): IPromise<TResult1 | TResult2 | TCatch1 | TCatch2>;
 
         /**
          * Shorthand for promise.then(null, errorCallback)
          */
-        catch<TResult>(onRejected: (reason: any) => IPromise<TResult>|TResult): IPromise<TResult>;
+        catch<TCatch>(onRejected: (reason: any) => IPromise<TCatch>|TCatch): IPromise<T | TCatch>;
+        catch<TCatch1, TCatch2>(onRejected: (reason: any) => IPromise<TCatch1>|TCatch2): IPromise<T | TCatch1 | TCatch2>;
 
         /**
          * Allows you to observe either the fulfillment or rejection of a promise, but to do so without modifying the final value. This is useful to release resources or do some clean-up that needs to be done whether the promise was rejected or resolved. See the full specification for more information.
@@ -1183,7 +1192,7 @@ declare namespace angular {
              */
             size: number;
 
-            //...: any additional properties from the options object when creating the cache.
+            // ...: any additional properties from the options object when creating the cache.
         };
 
         /**
@@ -1246,6 +1255,16 @@ declare namespace angular {
         debugInfoEnabled(enabled: boolean): ICompileProvider;
 
         /**
+         * Call this method to enable/disable whether directive controllers are assigned bindings before calling the controller's constructor.
+         * If enabled (true), the compiler assigns the value of each of the bindings to the properties of the controller object before the constructor of this object is called.
+         * If disabled (false), the compiler calls the constructor first before assigning bindings.
+         * Defaults to false.
+         * See: https://docs.angularjs.org/api/ng/provider/$compileProvider#preAssignBindingsEnabled
+         */
+        preAssignBindingsEnabled(): boolean;
+        preAssignBindingsEnabled(enabled: boolean): ICompileProvider;
+
+        /**
          * Sets the number of times $onChanges hooks can trigger new changes before giving up and assuming that the model is unstable.
          * Increasing the TTL could have performance implications, so you should not change it without proper justification.
          * Default: 10.
@@ -1284,11 +1303,11 @@ declare namespace angular {
     }
 
     interface ITemplateLinkingFunctionOptions {
-        parentBoundTranscludeFn?: ITranscludeFunction,
+        parentBoundTranscludeFn?: ITranscludeFunction;
         transcludeControllers?: {
             [controller: string]: { instance: IController }
-        },
-        futureParentElement?: JQuery
+        };
+        futureParentElement?: JQuery;
     }
 
     /**
@@ -1486,18 +1505,6 @@ declare namespace angular {
     }
 
     interface IHttpPromise<T> extends IPromise<IHttpPromiseCallbackArg<T>> {
-        /**
-         * The $http legacy promise methods success and error have been deprecated. Use the standard then method instead.
-         * If $httpProvider.useLegacyPromiseExtensions is set to false then these methods will throw $http/legacy error.
-         * @deprecated
-         */
-        success?(callback: IHttpPromiseCallback<T>): IHttpPromise<T>;
-        /**
-         * The $http legacy promise methods success and error have been deprecated. Use the standard then method instead.
-         * If $httpProvider.useLegacyPromiseExtensions is set to false then these methods will throw $http/legacy error.
-         * @deprecated
-         */
-        error?(callback: IHttpPromiseCallback<any>): IHttpPromise<T>;
     }
 
     // See the jsdoc for transformData() at https://github.com/angular/angular.js/blob/master/src/ng/http.js#L228
@@ -1510,7 +1517,9 @@ declare namespace angular {
         (data: any, headersGetter: IHttpHeadersGetter, status: number): any;
     }
 
-    type HttpHeaderType = {[requestType: string]:string|((config:IRequestConfig) => string)};
+    interface HttpHeaderType {
+        [requestType: string]: string|((config: IRequestConfig) => string);
+    }
 
     interface IHttpRequestConfigHeaders {
         [requestType: string]: any;
@@ -1593,7 +1602,7 @@ declare namespace angular {
          * Register service factories (names or implementations) for interceptors which are called before and after
          * each request.
          */
-        interceptors: (string | Injectable<IHttpInterceptorFactory>)[];
+        interceptors: Array<string | Injectable<IHttpInterceptorFactory>>;
         useApplyAsync(): boolean;
         useApplyAsync(value: boolean): IHttpProvider;
 
@@ -1603,7 +1612,7 @@ declare namespace angular {
          * @returns {boolean|Object} If a value is specified, returns the $httpProvider for chaining.
          *    otherwise, returns the current configured value.
          */
-        useLegacyPromiseExtensions(value:boolean) : boolean | IHttpProvider;
+        useLegacyPromiseExtensions(value: boolean): boolean | IHttpProvider;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1687,16 +1696,15 @@ declare namespace angular {
         valueOf(value: any): any;
     }
 
-
     ///////////////////////////////////////////////////////////////////////////
     // SCEDelegateProvider
     // see http://docs.angularjs.org/api/ng.$sceDelegateProvider
     ///////////////////////////////////////////////////////////////////////////
     interface ISCEDelegateProvider extends IServiceProvider {
-        resourceUrlBlacklist(blacklist: any[]): void;
-        resourceUrlWhitelist(whitelist: any[]): void;
         resourceUrlBlacklist(): any[];
+        resourceUrlBlacklist(blacklist: any[]): void;
         resourceUrlWhitelist(): any[];
+        resourceUrlWhitelist(whitelist: any[]): void;
     }
 
     /**
@@ -1936,33 +1944,33 @@ declare namespace angular {
             annotate(fn: Function, strictDi?: boolean): string[];
             annotate(inlineAnnotatedFunction: any[]): string[];
             get<T>(name: string, caller?: string): T;
-            get(name: '$anchorScroll'): IAnchorScrollService
-            get(name: '$cacheFactory'): ICacheFactoryService
-            get(name: '$compile'): ICompileService
-            get(name: '$controller'): IControllerService
-            get(name: '$document'): IDocumentService
-            get(name: '$exceptionHandler'): IExceptionHandlerService
-            get(name: '$filter'): IFilterService
-            get(name: '$http'): IHttpService
-            get(name: '$httpBackend'): IHttpBackendService
-            get(name: '$httpParamSerializer'): IHttpParamSerializer
-            get(name: '$httpParamSerializerJQLike'): IHttpParamSerializer
-            get(name: '$interpolate'): IInterpolateService
-            get(name: '$interval'): IIntervalService
-            get(name: '$locale'): ILocaleService
-            get(name: '$location'): ILocationService
-            get(name: '$log'): ILogService
-            get(name: '$parse'): IParseService
-            get(name: '$q'): IQService
-            get(name: '$rootElement'): IRootElementService
-            get(name: '$rootScope'): IRootScopeService
-            get(name: '$sce'): ISCEService
-            get(name: '$sceDelegate'): ISCEDelegateService
-            get(name: '$templateCache'): ITemplateCacheService
-            get(name: '$templateRequest'): ITemplateRequestService
-            get(name: '$timeout'): ITimeoutService
-            get(name: '$window'): IWindowService
-            get<T>(name: '$xhrFactory'): IXhrFactory<T>
+            get(name: '$anchorScroll'): IAnchorScrollService;
+            get(name: '$cacheFactory'): ICacheFactoryService;
+            get(name: '$compile'): ICompileService;
+            get(name: '$controller'): IControllerService;
+            get(name: '$document'): IDocumentService;
+            get(name: '$exceptionHandler'): IExceptionHandlerService;
+            get(name: '$filter'): IFilterService;
+            get(name: '$http'): IHttpService;
+            get(name: '$httpBackend'): IHttpBackendService;
+            get(name: '$httpParamSerializer'): IHttpParamSerializer;
+            get(name: '$httpParamSerializerJQLike'): IHttpParamSerializer;
+            get(name: '$interpolate'): IInterpolateService;
+            get(name: '$interval'): IIntervalService;
+            get(name: '$locale'): ILocaleService;
+            get(name: '$location'): ILocationService;
+            get(name: '$log'): ILogService;
+            get(name: '$parse'): IParseService;
+            get(name: '$q'): IQService;
+            get(name: '$rootElement'): IRootElementService;
+            get(name: '$rootScope'): IRootScopeService;
+            get(name: '$sce'): ISCEService;
+            get(name: '$sceDelegate'): ISCEDelegateService;
+            get(name: '$templateCache'): ITemplateCacheService;
+            get(name: '$templateRequest'): ITemplateRequestService;
+            get(name: '$timeout'): ITimeoutService;
+            get(name: '$window'): IWindowService;
+            get<T>(name: '$xhrFactory'): IXhrFactory<T>;
             has(name: string): boolean;
             instantiate<T>(typeConstructor: Function, locals?: any): T;
             invoke(inlineAnnotatedFunction: any[]): any;
@@ -2027,7 +2035,7 @@ declare namespace angular {
 declare global {
     interface JQuery {
         // TODO: events, how to define?
-        //$destroy
+        // $destroy
 
         find(element: any): JQuery;
         find(obj: JQuery): JQuery;

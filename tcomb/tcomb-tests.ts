@@ -6,9 +6,11 @@
 
 // tests adapted from/for tcomb's test folder
 
+// tslint:disable:no-construct
+
 'use strict';
 import assert = require('assert');
-var t = <TComb.tcomb> require('../index');
+import t = require("tcomb");
 
 var Any = t.Any;
 var Nil = t.Nil;
@@ -38,11 +40,11 @@ var format = t.format;
 // setup
 //
 
-var ok = function (x:any) { assert.strictEqual(true, x); };
-var ko = function (x:any) { assert.strictEqual(false, x); };
+var ok = (x: any) => { assert.strictEqual(true, x); };
+var ko = (x: any) => { assert.strictEqual(false, x); };
 var eq = assert.deepEqual;
-var throwsWithMessage = function (f:any, message:any) {
-  assert.throws(f, function (err:any) {
+var throwsWithMessage = (f: any, message: any) => {
+  assert.throws(f, (err: any) => {
     ok(err instanceof Error);
     eq(err.message, message);
     return true;
@@ -50,30 +52,30 @@ var throwsWithMessage = function (f:any, message:any) {
 };
 var doesNotThrow = assert.doesNotThrow;
 
-var noop = function () {};
+var noop = () => {};
 var Point = struct({
   x: Num,
   y: Num
 });
 
-describe('update', function () {
+describe('update', () => {
 
   var update = t.update;
   var Tuple = tuple([Str, Num]);
   var List = list(Num);
   var Dict = dict(Str, Num);
 
-  it('should handle $set command', function () {
+  it('should handle $set command', () => {
     var instance = 1;
     var actual = update(instance, {$set: 2});
     eq(actual, 2);
     var instance2 = [1, 2, 3];
-    actual = update(instance2, {1: {'$set': 4}});
+    actual = update(instance2, {1: {$set: 4}});
     eq(instance2, [1, 2, 3]);
     eq(actual, [1, 4, 3]);
   });
 
-  it('$set and null value, fix #65', function () {
+  it('$set and null value, fix #65', () => {
     var NullStruct = struct({a: Num, b: maybe(Num)});
     var instance = new NullStruct({a: 1});
     var updated = update(instance, {b: {$set: 2}});
@@ -81,76 +83,74 @@ describe('update', function () {
     eq(updated, {a: 1, b: 2});
   });
 
-  it('should handle $apply command', function () {
-    var $apply = function (n:any) { return n + 1; };
+  it('should handle $apply command', () => {
+    var $apply = (n: any) => n + 1;
     var instance = 1;
-    var actual = update(instance, {$apply: $apply});
+    var actual = update(instance, {$apply});
     eq(actual, 2);
     var instance2 = [1, 2, 3];
-    actual = update(instance2, {1: {'$apply': $apply}});
+    actual = update(instance2, {1: {$apply}});
     eq(instance2, [1, 2, 3]);
     eq(actual, [1, 3, 3]);
   });
 
-  it('should handle $unshift command', function () {
-    var actual = update([1, 2, 3], {'$unshift': [4]});
+  it('should handle $unshift command', () => {
+    var actual = update([1, 2, 3], {$unshift: [4]});
     eq(actual, [4, 1, 2, 3]);
-    actual = update([1, 2, 3], {'$unshift': [4, 5]});
+    actual = update([1, 2, 3], {$unshift: [4, 5]});
     eq(actual, [4, 5, 1, 2, 3]);
-    actual = update([1, 2, 3], {'$unshift': [[4, 5]]});
+    actual = update([1, 2, 3], {$unshift: [[4, 5]]});
     eq(actual, [[4, 5], 1, 2, 3]);
   });
 
-  it('should handle $push command', function () {
-    var actual = update([1, 2, 3], {'$push': [4]});
+  it('should handle $push command', () => {
+    var actual = update([1, 2, 3], {$push: [4]});
     eq(actual, [1, 2, 3, 4]);
-    actual = update([1, 2, 3], {'$push': [4, 5]});
+    actual = update([1, 2, 3], {$push: [4, 5]});
     eq(actual, [1, 2, 3, 4, 5]);
-    actual = update([1, 2, 3], {'$push': [[4, 5]]});
+    actual = update([1, 2, 3], {$push: [[4, 5]]});
     eq(actual, [1, 2, 3, [4, 5]]);
   });
 
-  it('should handle $splice command', function () {
+  it('should handle $splice command', () => {
     var instance = [1, 2, {a: [12, 17, 15]}];
     var actual = update(instance, {2: {a: {$splice: [[1, 1, 13, 14]]}}});
     eq(instance, [1, 2, {a: [12, 17, 15]}]);
     eq(actual, [1, 2, {a: [12, 13, 14, 15]}]);
   });
 
-  it('should handle $remove command', function () {
+  it('should handle $remove command', () => {
     var instance = {a: 1, b: 2};
-    var actual = update(instance, {'$remove': ['a']});
+    var actual = update(instance, {$remove: ['a']});
     eq(instance, {a: 1, b: 2});
     eq(actual, {b: 2});
   });
 
-  it('should handle $swap command', function () {
+  it('should handle $swap command', () => {
     var instance = [1, 2, 3, 4];
-    var actual = update(instance, {'$swap': {from: 1, to: 2}});
+    var actual = update(instance, {$swap: {from: 1, to: 2}});
     eq(instance, [1, 2, 3, 4]);
     eq(actual, [1, 3, 2, 4]);
   });
 
-  describe('structs', function () {
+  describe('structs', () => {
 
     var instance = new Point({x: 0, y: 1});
 
-    it('should handle $set command', function () {
+    it('should handle $set command', () => {
       var updated = update(instance, {x: {$set: 1}});
       eq(instance, {x: 0, y: 1});
       eq(updated, {x: 1, y: 1});
     });
 
-    it('should handle $apply command', function () {
-      var updated = update(instance, {x: {$apply: function (x:any) {
-        return x + 2;
-      }}});
+    it('should handle $apply command', () => {
+      var updated = update(instance, {x: {$apply: (x: any) => x + 2}});
       eq(instance, {x: 0, y: 1});
       eq(updated, {x: 2, y: 1});
     });
 
-    it('should handle $merge command', function () {
-      var updated = update(instance, {'$merge': {x: 2, y: 2}});
+    it('should handle $merge command', () => {
+      var updated = update(instance, {$merge: {x: 2, y: 2}});
       eq(instance, {x: 0, y: 1});
       eq(updated, {x: 2, y: 2});
       var Nested = struct({
@@ -162,78 +162,78 @@ describe('update', function () {
         })
       });
       instance = new Nested({a: 1, b: {c: 2, d: 3, e: 4}});
-      updated = update(instance, {b: {'$merge': {c: 5, e: 6}}});
+      updated = update(instance, {b: {$merge: {c: 5, e: 6}}});
       eq(instance, {a: 1, b: {c: 2, d: 3, e: 4}});
       eq(updated, {a: 1, b: {c: 5, d: 3, e: 6}});
     });
 
   });
 
-  describe('tuples', function () {
+  describe('tuples', () => {
 
     var instance = Tuple(['a', 1]);
 
-    it('should handle $set command', function () {
+    it('should handle $set command', () => {
       var updated = update(instance, {0: {$set: 'b'}});
       eq(updated, ['b', 1]);
     });
 
   });
 
-  describe('lists', function () {
+  describe('lists', () => {
 
     var instance = List([1, 2, 3, 4]);
 
-    it('should handle $set command', function () {
+    it('should handle $set command', () => {
       var updated = update(instance, {2: {$set: 5}});
       eq(updated, [1, 2, 5, 4]);
     });
 
-    it('should handle $splice command', function () {
+    it('should handle $splice command', () => {
       var updated = update(instance, {$splice: [[1, 2, 5, 6]]});
       eq(updated, [1, 5, 6, 4]);
     });
 
-    it('should handle $concat command', function () {
+    it('should handle $concat command', () => {
       var updated = update(instance, {$push: [5]});
       eq(updated, [1, 2, 3, 4, 5]);
       updated = update(instance, {$push: [5, 6]});
       eq(updated, [1, 2, 3, 4, 5, 6]);
     });
 
-    it('should handle $prepend command', function () {
+    it('should handle $prepend command', () => {
       var updated = update(instance, {$unshift: [5]});
       eq(updated, [5, 1, 2, 3, 4]);
       updated = update(instance, {$unshift: [5, 6]});
       eq(updated, [5, 6, 1, 2, 3, 4]);
     });
 
-    it('should handle $swap command', function () {
+    it('should handle $swap command', () => {
       var updated = update(instance, {$swap: {from: 1, to: 2}});
       eq(updated, [1, 3, 2, 4]);
     });
 
   });
 
-  describe('dicts', function () {
+  describe('dicts', () => {
 
     var instance = Dict({a: 1, b: 2});
 
-    it('should handle $set command', function () {
+    it('should handle $set command', () => {
       var updated = update(instance, {a: {$set: 2}});
       eq(updated, {a: 2, b: 2});
     });
 
-    it('should handle $remove command', function () {
+    it('should handle $remove command', () => {
       var updated = update(instance, {$remove: ['a']});
       eq(updated, {b: 2});
     });
 
   });
 
-  describe('memory saving', function () {
+  describe('memory saving', () => {
 
-    it('should reuse members that are not updated', function () {
+    it('should reuse members that are not updated', () => {
       var Struct = struct({
         a: Num,
         b: Str,
@@ -244,7 +244,7 @@ describe('update', function () {
         a: 1,
         b: 'one',
         c: [1000, 1000000]
-      },{
+      }, {
         a: 2,
         b: 'two',
         c: [2000, 2000000]
@@ -262,9 +262,9 @@ describe('update', function () {
     });
   });
 
-  describe('all together now', function () {
+  describe('all together now', () => {
 
-    it('should handle mixed commands', function () {
+    it('should handle mixed commands', () => {
       var Struct = struct({
         a: Num,
         b: Tuple,
@@ -291,7 +291,7 @@ describe('update', function () {
       });
     });
 
-    it('should handle nested structures', function () {
+    it('should handle nested structures', () => {
       var Struct = struct({
         a: struct({
           b: tuple([
@@ -323,42 +323,42 @@ describe('update', function () {
 // assert
 //
 
-describe('assert', function () {
+describe('assert', () => {
 
   var assert = t.assert;
 
-  it('should nor throw when guard is true', function () {
+  it('should nor throw when guard is true', () => {
     assert(true);
   });
 
-  it('should throw a default message', function () {
-    throwsWithMessage(function () {
+  it('should throw a default message', () => {
+    throwsWithMessage(() => {
       assert(1 === 2 + 1);
     }, 'assert failed');
   });
 
-  it('should throw the specified message', function () {
-    throwsWithMessage(function () {
+  it('should throw the specified message', () => {
+    throwsWithMessage(() => {
       assert(1 === 2 + 1, 'my message');
     }, 'my message');
   });
 
-  it('should format the specified message', function () {
-    throwsWithMessage(function () {
+  it('should format the specified message', () => {
+    throwsWithMessage(() => {
       assert(1 === 2 + 1, '%s !== %s', 1, 2);
     }, '1 !== 2');
   });
 
-  it('should handle custom fail behaviour', function () {
+  it('should handle custom fail behaviour', () => {
     var fail = t.fail;
-    t.fail = function (message) {
+    t.fail = message => {
       try {
         throw new Error(message);
       } catch (e) {
         eq(e.message, 'report error');
       }
     };
-    doesNotThrow(function () {
+    doesNotThrow(() => {
       assert(1 === 2 + 1, 'report error');
     });
     t.fail = fail;
@@ -370,48 +370,48 @@ describe('assert', function () {
 // utils
 //
 
-describe('format(str, [...])', function () {
+describe('format(str, [...])', () => {
 
-  it('should format strings', function () {
+  it('should format strings', () => {
     eq(format('%s', 'a'), 'a');
     eq(format('%s', 2), '2');
     eq(format('%s === %s', 1, 1), '1 === 1');
   });
 
-  it('should format JSON', function () {
+  it('should format JSON', () => {
     eq(format('%j', {a: 1}), '{"a":1}');
   });
 
-  it('should handle undefined formatters', function () {
+  it('should handle undefined formatters', () => {
     eq(format('%o', 'a'), '%o a');
   });
 
-  it('should handle escaping %', function () {
+  it('should handle escaping %', () => {
     eq(format('%%s'), '%s');
   });
 
-  it('should not consume an argument with a single %', function () {
+  it('should not consume an argument with a single %', () => {
     eq(format('%s%', '100'), '100%');
   });
 
-  it('should handle less arguments than placeholders', function () {
+  it('should handle less arguments than placeholders', () => {
     eq(format('%s %s', 'a'), 'a %s');
   });
 
-  it('should handle more arguments than placeholders', function () {
+  it('should handle more arguments than placeholders', () => {
     eq(format('%s', 'a', 'b', 'c'), 'a b c');
   });
 
-  it('should be extensible', function () {
-    (<any>format).formatters.l = function (x:any) { return x.length; };
+  it('should be extensible', () => {
+    (<any> format).formatters.l = (x: any) => x.length;
     eq(format('%l', ['a', 'b', 'c']), '3');
   });
 
 });
 
-describe('mixin(x, y, [overwrite])', function () {
+describe('mixin(x, y, [overwrite])', () => {
 
-  it('should mix two objects', function () {
+  it('should mix two objects', () => {
     var o1 = {a: 1};
     var o2 = {b: 2};
     var o3 = mixin(o1, o2);
@@ -420,15 +420,15 @@ describe('mixin(x, y, [overwrite])', function () {
     eq(o3.b, 2);
   });
 
-  it('should throw if a property already exists', function () {
-    throwsWithMessage(function () {
+  it('should throw if a property already exists', () => {
+    throwsWithMessage(() => {
       var o1 = {a: 1};
       var o2 = {a: 2, b: 2};
       mixin(o1, o2);
     }, 'Cannot overwrite property a');
   });
 
-  it('should not throw if a property already exists but overwrite = true', function () {
+  it('should not throw if a property already exists but overwrite = true', () => {
     var o1 = {a: 1};
     var o2 = {a: 2, b: 2};
     var o3 = mixin(o1, o2, true);
@@ -436,38 +436,38 @@ describe('mixin(x, y, [overwrite])', function () {
     eq(o3.b, 2);
   });
 
-  it('should not mix prototype properties', function () {
+  it('should not mix prototype properties', () => {
     function F() {}
     F.prototype.method = noop;
-    var source = new (<any>F)();
+    var source = new (<any> F)();
     var target = {};
     mixin(target, source);
-    eq((<any>target).method, undefined);
+    eq((<any> target).method, undefined);
   });
 
 });
 
-describe('getFunctionName(f, [defaultName])', function () {
+describe('getFunctionName(f, [defaultName])', () => {
 
   var getFunctionName = t.getFunctionName;
 
-  it('should return the name of a named function', function () {
+  it('should return the name of a named function', () => {
     eq(getFunctionName(function myfunc(){}), 'myfunc');
   });
 
-  it('should return the value of `displayName` if specified', function () {
+  it('should return the value of `displayName` if specified', () => {
     var f = function myfunc(){};
-    (<any>f).displayName = 'mydisplayname';
+    (<any> f).displayName = 'mydisplayname';
     eq(getFunctionName(f), 'mydisplayname');
   });
 
-  it('should fallback on function arity if nothing is specified', function () {
-    eq(getFunctionName(function (a:any, b:any, c:any) { return a + b + c; }), '<function3>');
+  it('should fallback on function arity if nothing is specified', () => {
+    eq(getFunctionName((a: any, b: any, c: any) => a + b + c), '<function3>');
   });
 
 });
 
-describe('getTypeName(type)', function () {
+describe('getTypeName(type)', () => {
 
   var UnnamedStruct = struct({});
   var NamedStruct = struct({}, 'NamedStruct');
@@ -480,7 +480,7 @@ describe('getTypeName(type)', function () {
   var UnnamedTuple = tuple([Str, Num]);
   var NamedTuple = tuple([Str, Num], 'NamedTuple');
   var UnnamedSubtype = subtype(Str, function notEmpty(x) { return x !== ''; });
-  var NamedSubtype = subtype(Str, function (x) { return x !== ''; }, 'NamedSubtype');
+  var NamedSubtype = subtype(Str, x => x !== '', 'NamedSubtype');
   var UnnamedList = list(Str);
   var NamedList = list(Str, 'NamedList');
   var UnnamedDict = dict(Str, Str);
@@ -488,7 +488,7 @@ describe('getTypeName(type)', function () {
   var UnnamedFunc = func(Str, Str);
   var NamedFunc = func(Str, Str, 'NamedFunc');
 
-  it('should return the name of a named type', function () {
+  it('should return the name of a named type', () => {
     eq(getTypeName(NamedStruct), 'NamedStruct');
     eq(getTypeName(NamedUnion), 'NamedUnion');
     eq(getTypeName(NamedMaybe), 'NamedMaybe');
@@ -500,7 +500,7 @@ describe('getTypeName(type)', function () {
     eq(getTypeName(NamedFunc), 'NamedFunc');
   });
 
-  it('should return a meaningful name of a unnamed type', function () {
+  it('should return a meaningful name of a unnamed type', () => {
     eq(getTypeName(UnnamedStruct), '{}');
     eq(getTypeName(UnnamedUnion), 'Str | Num');
     eq(getTypeName(UnnamedMaybe), '?Str');
@@ -518,29 +518,27 @@ describe('getTypeName(type)', function () {
 // Any
 //
 
-describe('Any', function () {
+describe('Any', () => {
 
   var T = Any;
 
-  describe('constructor', function () {
+  describe('constructor', () => {
 
-    it('should behave like identity', function () {
+    it('should behave like identity', () => {
       eq(Any('a'), 'a');
     });
 
-    it('should throw if used with new', function () {
-      throwsWithMessage(function () {
-        /* jshint ignore:start */
-        var x = new   (<any>T)();
-        /* jshint ignore:end */
+    it('should throw if used with new', () => {
+      throwsWithMessage(() => {
+        var x = new (<any> T)();
       }, 'Operator `new` is forbidden for type `Any`');
     });
 
   });
 
-  describe('#is(x)', function () {
+  describe('#is(x)', () => {
 
-    it('should always return true', function () {
+    it('should always return true', () => {
       ok(T.is(null));
       ok(T.is(undefined));
       ok(T.is(0));
@@ -562,7 +560,7 @@ describe('Any', function () {
 // irreducible types
 //
 
-describe('irreducible types constructors', function () {
+describe('irreducible types constructors', () => {
 
   [
     {T: Nil, x: null},
@@ -575,19 +573,17 @@ describe('irreducible types constructors', function () {
     {T: Err, x: new Error()},
     {T: Re, x: /a/},
     {T: Dat, x: new Date()}
-  ].forEach(function (o) {
+  ].forEach(o => {
 
     var { T, x } = o;
 
-    it('should accept only valid values', function () {
-      eq((<any>T)(x), x);
+    it('should accept only valid values', () => {
+      eq((<any> T)(x), x);
     });
 
-    it('should throw if used with new', function () {
-      throwsWithMessage(function () {
-        /* jshint ignore:start */
-        var x = new (<any>T) ();
-        /* jshint ignore:end */
+    it('should throw if used with new', () => {
+      throwsWithMessage(() => {
+        var x = new (<any> T) ();
       }, 'Operator `new` is forbidden for type `' + getTypeName(T) + '`');
     });
 
@@ -595,16 +591,16 @@ describe('irreducible types constructors', function () {
 
 });
 
-describe('Nil', function () {
+describe('Nil', () => {
 
-  describe('#is(x)', function () {
+  describe('#is(x)', () => {
 
-    it('should return true when x is null or undefined', function () {
+    it('should return true when x is null or undefined', () => {
       ok(Nil.is(null));
       ok(Nil.is(undefined));
     });
 
-    it('should return false when x is neither null nor undefined', function () {
+    it('should return false when x is neither null nor undefined', () => {
       ko(Nil.is(0));
       ko(Nil.is(true));
       ko(Nil.is(''));
@@ -621,16 +617,16 @@ describe('Nil', function () {
 
 });
 
-describe('Bool', function () {
+describe('Bool', () => {
 
-  describe('#is(x)', function () {
+  describe('#is(x)', () => {
 
-    it('should return true when x is true or false', function () {
+    it('should return true when x is true or false', () => {
       ok(Bool.is(true));
       ok(Bool.is(false));
     });
 
-    it('should return false when x is neither true nor false', function () {
+    it('should return false when x is neither true nor false', () => {
       ko(Bool.is(null));
       ko(Bool.is(undefined));
       ko(Bool.is(0));
@@ -648,19 +644,17 @@ describe('Bool', function () {
 
 });
 
-describe('Num', function () {
+describe('Num', () => {
 
-  describe('#is(x)', function () {
+  describe('#is(x)', () => {
 
-    it('should return true when x is a number', function () {
+    it('should return true when x is a number', () => {
       ok(Num.is(0));
       ok(Num.is(1));
-      /* jshint ignore:start */
       ko(Num.is(new Number(1)));
-      /* jshint ignore:end */
     });
 
-    it('should return false when x is not a number', function () {
+    it('should return false when x is not a number', () => {
       ko(Num.is(NaN));
       ko(Num.is(Infinity));
       ko(Num.is(-Infinity));
@@ -681,19 +675,17 @@ describe('Num', function () {
 
 });
 
-describe('Str', function () {
+describe('Str', () => {
 
-  describe('#is(x)', function () {
+  describe('#is(x)', () => {
 
-    it('should return true when x is a string', function () {
+    it('should return true when x is a string', () => {
       ok(Str.is(''));
       ok(Str.is('a'));
-      /* jshint ignore:start */
       ko(Str.is(new String('a')));
-      /* jshint ignore:end */
     });
 
-    it('should return false when x is not a string', function () {
+    it('should return false when x is not a string', () => {
       ko(Str.is(NaN));
       ko(Str.is(Infinity));
       ko(Str.is(-Infinity));
@@ -714,15 +706,15 @@ describe('Str', function () {
 
 });
 
-describe('Arr', function () {
+describe('Arr', () => {
 
-  describe('#is(x)', function () {
+  describe('#is(x)', () => {
 
-    it('should return true when x is an array', function () {
+    it('should return true when x is an array', () => {
       ok(Arr.is([]));
     });
 
-    it('should return false when x is not an array', function () {
+    it('should return false when x is not an array', () => {
       ko(Arr.is(NaN));
       ko(Arr.is(Infinity));
       ko(Arr.is(-Infinity));
@@ -743,17 +735,17 @@ describe('Arr', function () {
 
 });
 
-describe('Obj', function () {
+describe('Obj', () => {
 
-  describe('#is(x)', function () {
+  describe('#is(x)', () => {
 
-    it('should return true when x is an object', function () {
+    it('should return true when x is an object', () => {
       function A() {}
       ok(Obj.is({}));
-      ok(Obj.is(new (<any>A)()));
+      ok(Obj.is(new (<any> A)()));
     });
 
-    it('should return false when x is not an object', function () {
+    it('should return false when x is not an object', () => {
       ko(Obj.is(null));
       ko(Obj.is(undefined));
       ko(Obj.is(0));
@@ -766,28 +758,24 @@ describe('Obj', function () {
 
 });
 
-describe('Func', function () {
+describe('Func', () => {
 
-  describe('#is(x)', function () {
+  describe('#is(x)', () => {
 
-    it('should return true when x is a function', function () {
+    it('should return true when x is a function', () => {
       ok(Func.is(noop));
-      /* jshint ignore:start */
       ok(Func.is(new Function()));
-      /* jshint ignore:end */
     });
 
-    it('should return false when x is not a function', function () {
+    it('should return false when x is not a function', () => {
       ko(Func.is(null));
       ko(Func.is(undefined));
       ko(Func.is(0));
       ko(Func.is(''));
       ko(Func.is([]));
-      /* jshint ignore:start */
       ko(Func.is(new String('1')));
       ko(Func.is(new Number(1)));
       ko(Func.is(new Boolean()));
-      /* jshint ignore:end */
       ko(Func.is(/a/));
       ko(Func.is(new RegExp('a')));
       ko(Func.is(new Error()));
@@ -798,25 +786,23 @@ describe('Func', function () {
 
 });
 
-describe('Err', function () {
+describe('Err', () => {
 
-  describe('#is(x)', function () {
+  describe('#is(x)', () => {
 
-    it('should return true when x is an error', function () {
+    it('should return true when x is an error', () => {
       ok(Err.is(new Error()));
     });
 
-    it('should return false when x is not an error', function () {
+    it('should return false when x is not an error', () => {
       ko(Err.is(null));
       ko(Err.is(undefined));
       ko(Err.is(0));
       ko(Err.is(''));
       ko(Err.is([]));
-      /* jshint ignore:start */
       ko(Err.is(new String('1')));
       ko(Err.is(new Number(1)));
       ko(Err.is(new Boolean()));
-      /* jshint ignore:end */
       ko(Err.is(/a/));
       ko(Err.is(new RegExp('a')));
       ko(Err.is(new Date()));
@@ -826,26 +812,24 @@ describe('Err', function () {
 
 });
 
-describe('Re', function () {
+describe('Re', () => {
 
-  describe('#is(x)', function () {
+  describe('#is(x)', () => {
 
-    it('should return true when x is a regexp', function () {
+    it('should return true when x is a regexp', () => {
       ok(Re.is(/a/));
       ok(Re.is(new RegExp('a')));
     });
 
-    it('should return false when x is not a regexp', function () {
+    it('should return false when x is not a regexp', () => {
       ko(Re.is(null));
       ko(Re.is(undefined));
       ko(Re.is(0));
       ko(Re.is(''));
       ko(Re.is([]));
-      /* jshint ignore:start */
       ko(Re.is(new String('1')));
       ko(Re.is(new Number(1)));
       ko(Re.is(new Boolean()));
-      /* jshint ignore:end */
       ko(Re.is(new Error()));
       ko(Re.is(new Date()));
     });
@@ -854,25 +838,23 @@ describe('Re', function () {
 
 });
 
-describe('Dat', function () {
+describe('Dat', () => {
 
-  describe('#is(x)', function () {
+  describe('#is(x)', () => {
 
-    it('should return true when x is a Dat', function () {
+    it('should return true when x is a Dat', () => {
       ok(Dat.is(new Date()));
     });
 
-    it('should return false when x is not a Dat', function () {
+    it('should return false when x is not a Dat', () => {
       ko(Dat.is(null));
       ko(Dat.is(undefined));
       ko(Dat.is(0));
       ko(Dat.is(''));
       ko(Dat.is([]));
-      /* jshint ignore:start */
       ko(Dat.is(new String('1')));
       ko(Dat.is(new Number(1)));
       ko(Dat.is(new Boolean()));
-      /* jshint ignore:end */
       ko(Dat.is(new Error()));
       ko(Dat.is(/a/));
       ko(Dat.is(new RegExp('a')));
@@ -886,30 +868,30 @@ describe('Dat', function () {
 // struct
 //
 
-describe('struct', function () {
+describe('struct', () => {
 
-  describe('combinator', function () {
+  describe('combinator', () => {
 
-    it('should throw if used with wrong arguments', function () {
+    it('should throw if used with wrong arguments', () => {
 
-      throwsWithMessage(function () {
-        (<any>struct)();
+      throwsWithMessage(() => {
+        (<any> struct)();
       }, 'Invalid argument `props` = `undefined` supplied to `struct` combinator');
 
-      throwsWithMessage(function () {
+      throwsWithMessage(() => {
         struct({a: null});
       }, 'Invalid argument `props` = `[object Object]` supplied to `struct` combinator');
 
-      throwsWithMessage(function () {
-        (<any>struct)({}, 1);
+      throwsWithMessage(() => {
+        (<any> struct)({}, 1);
       }, 'Invalid argument `name` = `1` supplied to `struct` combinator');
 
     });
 
   });
-  describe('constructor', function () {
+  describe('constructor', () => {
 
-    it('should be idempotent', function () {
+    it('should be idempotent', () => {
       var T = Point;
       var p1 = T({x: 0, y: 0});
       var p2 = T(p1);
@@ -918,29 +900,29 @@ describe('struct', function () {
       eq(p2 === p1, true);
     });
 
-    it('should accept only valid values', function () {
-      throwsWithMessage(function () {
+    it('should accept only valid values', () => {
+      throwsWithMessage(() => {
         Point(1);
       }, 'Invalid argument `value` = `1` supplied to struct type `{x: Num, y: Num}`');
     });
 
   });
 
-  describe('#is(x)', function () {
+  describe('#is(x)', () => {
 
-    it('should return true when x is an instance of the struct', function () {
+    it('should return true when x is an instance of the struct', () => {
       var p = new Point({ x: 1, y: 2 });
       ok(Point.is(p));
     });
 
   });
 
-  describe('#update()', function () {
+  describe('#update()', () => {
 
     var Type = struct({name: Str});
     var instance = new Type({name: 'Giulio'});
 
-    it('should return a new instance', function () {
+    it('should return a new instance', () => {
       var newInstance = Type.update(instance, {name: {$set: 'Canti'}});
       ok(Type.is(newInstance));
       eq( (<any> instance).name, 'Giulio');
@@ -949,31 +931,31 @@ describe('struct', function () {
 
   });
 
-  describe('#extend(props, [name])', function () {
+  describe('#extend(props, [name])', () => {
 
-    it('should extend an existing struct', function () {
+    it('should extend an existing struct', () => {
       var Point = struct({
         x: Num,
         y: Num
       }, 'Point');
       var Point3D = Point.extend({z: Num}, 'Point3D');
       eq(getTypeName(Point3D), 'Point3D');
-      eq((<any>Point3D).meta.props.x, Num);
-      eq((<any>Point3D).meta.props.y, Num);
-      eq((<any>Point3D).meta.props.z, Num);
+      eq((<any> Point3D).meta.props.x, Num);
+      eq((<any> Point3D).meta.props.y, Num);
+      eq((<any> Point3D).meta.props.z, Num);
     });
 
-    it('should handle an array as argument', function () {
+    it('should handle an array as argument', () => {
       var Type = struct({a: Str}, 'Type');
       var Mixin = [{b: Num, c: Bool}];
       var NewType = Type.extend(Mixin, 'NewType');
       eq(getTypeName(NewType), 'NewType');
-      eq((<any>NewType).meta.props.a, Str);
-      eq((<any>NewType).meta.props.b, Num);
-      eq((<any>NewType).meta.props.c, Bool);
+      eq((<any> NewType).meta.props.a, Str);
+      eq((<any> NewType).meta.props.b, Num);
+      eq((<any> NewType).meta.props.c, Bool);
     });
 
-    it('should handle a struct (or list of structs) as argument', function () {
+    it('should handle a struct (or list of structs) as argument', () => {
       var A = struct({a: Str}, 'A');
       var B = struct({b: Str}, 'B');
       var C = struct({c: Str}, 'C');
@@ -987,18 +969,20 @@ describe('struct', function () {
       });
     });
 
-    it('should support prototypal inheritance', function () {
+    it('should support prototypal inheritance', () => {
+      interface Rectangle { w: number; h: number; area(): number; };
       var Rectangle = struct({
         w: Num,
         h: Num
       }, 'Rectangle');
-      Rectangle.prototype.area = function () {
+      Rectangle.prototype.area = function(this: Rectangle) {
         return this.w * this.h;
       };
+      interface Cube extends Rectangle { l: number; }
       var Cube = Rectangle.extend({
         l: Num
       });
-      Cube.prototype.volume = function () {
+      Cube.prototype.volume = function(this: Cube) {
         return this.area() * this.l;
       };
 
@@ -1008,8 +992,8 @@ describe('struct', function () {
       assert('function' === typeof Cube.prototype.volume);
       assert(Cube.prototype.constructor === Cube);
 
-      var c = new Cube({w:2, h:2, l:2});
-      eq((<any>c).volume(), 8);
+      var c = new Cube({w: 2, h: 2, l: 2});
+      eq((<any> c).volume(), 8);
     });
 
   });
@@ -1020,46 +1004,44 @@ describe('struct', function () {
 // enums
 //
 
-describe('enums', function () {
+describe('enums', () => {
 
-  describe('combinator', function () {
+  describe('combinator', () => {
 
-    it('should throw if used with wrong arguments', function () {
+    it('should throw if used with wrong arguments', () => {
 
-      throwsWithMessage(function () {
-        (<any>enums)();
+      throwsWithMessage(() => {
+        (<any> enums)();
       }, 'Invalid argument `map` = `undefined` supplied to `enums` combinator');
 
-      throwsWithMessage(function () {
-        (<any>enums)({}, 1);
+      throwsWithMessage(() => {
+        (<any> enums)({}, 1);
       }, 'Invalid argument `name` = `1` supplied to `enums` combinator');
 
     });
 
   });
 
-  describe('constructor', function () {
+  describe('constructor', () => {
 
     var T = enums({a: 0}, 'T');
 
-    it('should throw if used with new', function () {
-      throwsWithMessage(function () {
-        /* jshint ignore:start */
-        var x = new (<any>T)('a');
-        /* jshint ignore:end */
+    it('should throw if used with new', () => {
+      throwsWithMessage(() => {
+        var x = new (<any> T)('a');
       }, 'Operator `new` is forbidden for type `T`');
     });
 
-    it('should accept only valid values', function () {
-      eq((<any>T)('a'), 'a');
-      throwsWithMessage(function () {
-        (<any>T)('b');
+    it('should accept only valid values', () => {
+      eq((<any> T)('a'), 'a');
+      throwsWithMessage(() => {
+        (<any> T)('b');
       }, 'Invalid argument `value` = `b` supplied to enums type `T`, expected one of ["a"]');
     });
 
   });
 
-  describe('#is(x)', function () {
+  describe('#is(x)', () => {
 
     var Direction = enums({
       North: 0,
@@ -1070,32 +1052,32 @@ describe('enums', function () {
       2.5: 'South-East'
     });
 
-    it('should return true when x is an instance of the enum', function () {
+    it('should return true when x is an instance of the enum', () => {
       ok(Direction.is('North'));
       ok(Direction.is(1));
       ok(Direction.is('1'));
       ok(Direction.is(2.5));
     });
 
-    it('should return false when x is not an instance of the enum', function () {
+    it('should return false when x is not an instance of the enum', () => {
       ko(Direction.is('North-East'));
       ko(Direction.is(2));
     });
 
   });
 
-  describe('#of(keys)', function () {
+  describe('#of(keys)', () => {
 
-    it('should return an enum', function () {
-      var Size = (<any>enums).of(['large', 'small', 1, 10.9]); ///!!!
+    it('should return an enum', () => {
+      var Size = (<any> enums).of(['large', 'small', 1, 10.9]); ///!!!
       ok(Size.meta.map.large === 'large');
       ok(Size.meta.map.small === 'small');
       ok(Size.meta.map['1'] === 1);
       ok(Size.meta.map[10.9] === 10.9);
     });
 
-    it('should handle a string', function () {
-      var Size = (<any>enums).of('large small 10');
+    it('should handle a string', () => {
+      var Size = (<any> enums).of('large small 10');
       ok(Size.meta.map.large === 'large');
       ok(Size.meta.map.small === 'small');
       ok(Size.meta.map['10'] === '10');
@@ -1110,7 +1092,7 @@ describe('enums', function () {
 // union
 //
 
-describe('union', function () {
+describe('union', () => {
 
   var Circle = struct({
     center: Point,
@@ -1124,81 +1106,79 @@ describe('union', function () {
 
   var Shape = union([Circle, Rectangle], 'Shape');
 
-  Shape.dispatch = function (values) {
+  Shape.dispatch = values => {
     assert(Obj.is(values));
     return values.hasOwnProperty('center') ?
       Circle :
       Rectangle;
   };
 
-  describe('combinator', function () {
+  describe('combinator', () => {
 
-    it('should throw if used with wrong arguments', function () {
+    it('should throw if used with wrong arguments', () => {
 
-      throwsWithMessage(function () {
-        (<any>union)();
+      throwsWithMessage(() => {
+        (<any> union)();
       }, 'Invalid argument `types` = `undefined` supplied to `union` combinator');
 
-      throwsWithMessage(function () {
+      throwsWithMessage(() => {
         union([]);
       }, 'Invalid argument `types` = `` supplied to `union` combinator, provide at least two types');
 
-      throwsWithMessage(function () {
+      throwsWithMessage(() => {
         union([Circle]);
       }, 'Invalid argument `types` = `Circle` supplied to `union` combinator, provide at least two types');
 
-      throwsWithMessage(function () {
-        (<any>union)([Circle, Point], 1);
+      throwsWithMessage(() => {
+        (<any> union)([Circle, Point], 1);
       }, 'Invalid argument `name` = `1` supplied to `union` combinator');
 
     });
 
   });
 
-  describe('constructor', function () {
+  describe('constructor', () => {
 
-    it('should throw when dispatch() is not implemented', function () {
-      throwsWithMessage(function () {
+    it('should throw when dispatch() is not implemented', () => {
+      throwsWithMessage(() => {
         var T = union([Str, Num], 'T');
         T.dispatch = null;
         T(1);
       }, 'Unimplemented `dispatch()` function for union type `T`');
     });
 
-    it('should have a default dispatch() implementation', function () {
+    it('should have a default dispatch() implementation', () => {
       var T = union([Str, Num], 'T');
       eq(T(1), 1);
     });
 
-    it('should throw when dispatch() does not return a type', function () {
-      throwsWithMessage(function () {
+    it('should throw when dispatch() does not return a type', () => {
+      throwsWithMessage(() => {
         var T = union([Str, Num], 'T');
         T(true);
       }, 'The `dispatch()` function of union type `T` returns no type constructor');
     });
 
-    it('should build instances when dispatch() is implemented', function () {
+    it('should build instances when dispatch() is implemented', () => {
       var circle = Shape({center: {x: 0, y: 0}, radius: 10});
       ok(Circle.is(circle));
     });
 
-    it('should throw if used with new and union types are not instantiables with new', function () {
-      throwsWithMessage(function () {
+    it('should throw if used with new and union types are not instantiables with new', () => {
+      throwsWithMessage(() => {
         var T = union([Str, Num], 'T');
-        T.dispatch = function () { return Str; };
-        /* jshint ignore:start */
+        T.dispatch = () => Str;
         var x = new T('a');
-        /* jshint ignore:end */
       }, 'Operator `new` is forbidden for type `T`');
     });
 
-    it('should not throw if used with new and union types are instantiables with new', function () {
-      doesNotThrow(function () {
+    it('should not throw if used with new and union types are instantiables with new', () => {
+      doesNotThrow(() => {
         Shape({center: {x: 0, y: 0}, radius: 10});
       });
     });
 
-    it('should be idempotent', function () {
+    it('should be idempotent', () => {
       var p1 = Shape({center: {x: 0, y: 0}, radius: 10});
       var p2 = Shape(p1);
       eq(Object.isFrozen(p1), true);
@@ -1208,9 +1188,9 @@ describe('union', function () {
 
   });
 
-  describe('#is(x)', function () {
+  describe('#is(x)', () => {
 
-    it('should return true when x is an instance of the union', function () {
+    it('should return true when x is an instance of the union', () => {
       var p = new Circle({center: { x: 0, y: 0 }, radius: 10});
       ok(Shape.is(p));
     });
@@ -1223,56 +1203,54 @@ describe('union', function () {
 // maybe
 //
 
-describe('maybe', function () {
+describe('maybe', () => {
 
-  describe('combinator', function () {
+  describe('combinator', () => {
 
-    it('should throw if used with wrong arguments', function () {
+    it('should throw if used with wrong arguments', () => {
 
-      throwsWithMessage(function () {
-        (<any>maybe)();
+      throwsWithMessage(() => {
+        (<any> maybe)();
       }, 'Invalid argument `type` = `undefined` supplied to `maybe` combinator');
 
-      throwsWithMessage(function () {
-        (<any>maybe)(Point, 1);
+      throwsWithMessage(() => {
+        (<any> maybe)(Point, 1);
       }, 'Invalid argument `name` = `1` supplied to `maybe` combinator');
 
     });
 
-    it('should be idempotent', function () {
+    it('should be idempotent', () => {
       var MaybeStr = maybe(Str);
       ok(maybe(MaybeStr) === MaybeStr);
     });
 
-    it('should be noop with Any', function () {
+    it('should be noop with Any', () => {
       ok(maybe(Any) === Any);
     });
 
-    it('should be noop with Nil', function () {
-      ok((<any>maybe)(Nil) === Nil);
+    it('should be noop with Nil', () => {
+      ok((<any> maybe)(Nil) === Nil);
     });
 
   });
 
-  describe('constructor', function () {
+  describe('constructor', () => {
 
-    it('should throw if used with new', function () {
-      throwsWithMessage(function () {
-        /* jshint ignore:start */
+    it('should throw if used with new', () => {
+      throwsWithMessage(() => {
         var T = maybe(Str, 'T');
-        var x = new (<any>T)();
-        /* jshint ignore:end */
+        var x = new (<any> T)();
       }, 'Operator `new` is forbidden for type `T`');
     });
 
-    it('should coerce values', function () {
+    it('should coerce values', () => {
       var T = maybe(Point);
       eq(T(null), null);
       eq(T(undefined), null);
       ok(Point.is(T({x: 0, y: 0})));
     });
 
-    it('should be idempotent', function () {
+    it('should be idempotent', () => {
       var T = maybe(Point);
       var p1 = T({x: 0, y: 0});
       var p2 = T(p1);
@@ -1283,9 +1261,9 @@ describe('maybe', function () {
 
   });
 
-  describe('#is(x)', function () {
+  describe('#is(x)', () => {
 
-    it('should return true when x is an instance of the maybe', function () {
+    it('should return true when x is an instance of the maybe', () => {
       var Radio = maybe(Str);
       ok(Radio.is('a'));
       ok(Radio.is(null));
@@ -1300,50 +1278,50 @@ describe('maybe', function () {
 // tuple
 //
 
-describe('tuple', function () {
+describe('tuple', () => {
 
   var Area = tuple([Num, Num], 'Area');
 
-  describe('combinator', function () {
+  describe('combinator', () => {
 
-    it('should throw if used with wrong arguments', function () {
+    it('should throw if used with wrong arguments', () => {
 
-      throwsWithMessage(function () {
-        (<any>tuple)();
+      throwsWithMessage(() => {
+        (<any> tuple)();
       }, 'Invalid argument `types` = `undefined` supplied to `tuple` combinator');
 
-      throwsWithMessage(function () {
-        (<any>tuple)([Point, Point], 1);
+      throwsWithMessage(() => {
+        (<any> tuple)([Point, Point], 1);
       }, 'Invalid argument `name` = `1` supplied to `tuple` combinator');
 
     });
 
   });
 
-  describe('constructor', function () {
+  describe('constructor', () => {
 
     var S = struct({}, 'S');
     var T = tuple([S, S], 'T');
 
-    it('should coerce values', function () {
+    it('should coerce values', () => {
       var t = T([{}, {}]);
       ok(S.is((<any> t)[0]));
       ok(S.is((<any> t)[1]));
     });
 
-    it('should accept only valid values', function () {
+    it('should accept only valid values', () => {
 
-      throwsWithMessage(function () {
+      throwsWithMessage(() => {
         T(1);
       }, 'Invalid argument `value` = `1` supplied to tuple type `T`, expected an `Arr` of length `2`');
 
-      throwsWithMessage(function () {
+      throwsWithMessage(() => {
         T([1, 1]);
       }, 'Invalid argument `value` = `1` supplied to struct type `S`');
 
     });
 
-    it('should be idempotent', function () {
+    it('should be idempotent', () => {
       var T = tuple([Str, Num]);
       var p1 = T(['a', 1]);
       var p2 = T(p1);
@@ -1354,30 +1332,30 @@ describe('tuple', function () {
 
   });
 
-  describe('#is(x)', function () {
+  describe('#is(x)', () => {
 
-    it('should return true when x is an instance of the tuple', function () {
+    it('should return true when x is an instance of the tuple', () => {
       ok(Area.is([1, 2]));
     });
 
-    it('should return false when x is not an instance of the tuple', function () {
+    it('should return false when x is not an instance of the tuple', () => {
       ko(Area.is([1]));
       ko(Area.is([1, 2, 3]));
       ko(Area.is([1, 'a']));
     });
 
-    it('should not depend on `this`', function () {
+    it('should not depend on `this`', () => {
       ok([[1, 2]].every(Area.is));
     });
 
   });
 
-  describe('#update()', function () {
+  describe('#update()', () => {
 
     var Type = tuple([Str, Num]);
     var instance = Type(['a', 1]);
 
-    it('should return a new instance', function () {
+    it('should return a new instance', () => {
       var newInstance = Type.update(instance, {0: {$set: 'b'}});
       assert(Type.is(newInstance));
       assert((<any> instance)[0] === 'a');
@@ -1392,47 +1370,47 @@ describe('tuple', function () {
 // list
 //
 
-describe('list', function () {
+describe('list', () => {
 
-  describe('combinator', function () {
+  describe('combinator', () => {
 
-    it('should throw if used with wrong arguments', function () {
+    it('should throw if used with wrong arguments', () => {
 
-      throwsWithMessage(function () {
-        (<any>list)();
+      throwsWithMessage(() => {
+        (<any> list)();
       }, 'Invalid argument `type` = `undefined` supplied to `list` combinator');
 
-      throwsWithMessage(function () {
-        (<any>list)(Point, 1);
+      throwsWithMessage(() => {
+        (<any> list)(Point, 1);
       }, 'Invalid argument `name` = `1` supplied to `list` combinator');
 
     });
 
   });
 
-  describe('constructor', function () {
+  describe('constructor', () => {
 
     var S = struct({}, 'S');
     var T = list(S, 'T');
 
-    it('should coerce values', function () {
+    it('should coerce values', () => {
       var t = T([{}]);
       ok(S.is((<any> t)[0]));
     });
 
-    it('should accept only valid values', function () {
+    it('should accept only valid values', () => {
 
-      throwsWithMessage(function () {
+      throwsWithMessage(() => {
         T(1);
       }, 'Invalid argument `value` = `1` supplied to list type `T`');
 
-      throwsWithMessage(function () {
+      throwsWithMessage(() => {
         T([1]);
       }, 'Invalid argument `value` = `1` supplied to struct type `S`');
 
     });
 
-    it('should be idempotent', function () {
+    it('should be idempotent', () => {
       var T = list(Num);
       var p1 = T([1, 2]);
       var p2 = T(p1);
@@ -1443,32 +1421,32 @@ describe('list', function () {
 
   });
 
-  describe('#is(x)', function () {
+  describe('#is(x)', () => {
 
     var Path = list(Point);
     var p1 = new Point({x: 0, y: 0});
     var p2 = new Point({x: 1, y: 1});
 
-    it('should return true when x is a list', function () {
+    it('should return true when x is a list', () => {
       ok(Path.is([p1, p2]));
     });
 
-    it('should not depend on `this`', function () {
+    it('should not depend on `this`', () => {
       ok([[p1, p2]].every(Path.is));
     });
 
   });
 
-  describe('#update()', function () {
+  describe('#update()', () => {
 
     var Type = list(Str);
     var instance = Type(['a', 'b']);
 
-    it('should return a new instance', function () {
-      var newInstance = Type.update(instance, {'$push': ['c']});
+    it('should return a new instance', () => {
+      var newInstance = Type.update(instance, {$push: ['c']});
       assert(Type.is(newInstance));
-      assert((<any>instance).length === 2);
-      assert((<any>newInstance).length === 3);
+      assert((<any> instance).length === 2);
+      assert((<any> newInstance).length === 3);
     });
 
   });
@@ -1479,80 +1457,76 @@ describe('list', function () {
 // subtype
 //
 
-describe('subtype', function () {
+describe('subtype', () => {
 
-  var True = function () { return true; };
+  var True = () => true;
 
-  describe('combinator', function () {
+  describe('combinator', () => {
 
-    it('should throw if used with wrong arguments', function () {
+    it('should throw if used with wrong arguments', () => {
 
-      throwsWithMessage(function () {
-        (<any>subtype)();
+      throwsWithMessage(() => {
+        (<any> subtype)();
       }, 'Invalid argument `type` = `undefined` supplied to `subtype` combinator');
 
-      throwsWithMessage(function () {
+      throwsWithMessage(() => {
         subtype(Point, null);
       }, 'Invalid argument `predicate` = `null` supplied to `subtype` combinator');
 
-      throwsWithMessage(function () {
-        (<any>subtype)(Point, True, 1);
+      throwsWithMessage(() => {
+        (<any> subtype)(Point, True, 1);
       }, 'Invalid argument `name` = `1` supplied to `subtype` combinator');
 
     });
 
   });
 
-  describe('constructor', function () {
+  describe('constructor', () => {
 
-    it('should throw if used with new and a type that is not instantiable with new', function () {
-      throwsWithMessage(function () {
-        /* jshint ignore:start */
-        var T = subtype(Str, function () { return true; }, 'T');
+    it('should throw if used with new and a type that is not instantiable with new', () => {
+      throwsWithMessage(() => {
+        var T = subtype(Str, () => true, 'T');
         var x = new(<any> T)();
-        /* jshint ignore:end */
       }, 'Operator `new` is forbidden for type `T`');
     });
 
-    it('should coerce values', function () {
-      var T = subtype(Point, function () { return true; });
+    it('should coerce values', () => {
+      var T = subtype(Point, () => true);
       var p = T({x: 0, y: 0});
       ok(Point.is(p));
     });
 
-    it('should accept only valid values', function () {
-      var predicate = function (p:any) { return p.x > 0; };
+    it('should accept only valid values', () => {
+      var predicate = (p: any) => p.x > 0;
       var T = subtype(Point, predicate, 'T');
-      throwsWithMessage(function () {
+      throwsWithMessage(() => {
         T({x: 0, y: 0});
       }, 'Invalid argument `value` = `[object Object]` supplied to subtype type `T`');
     });
 
   });
 
-  describe('#is(x)', function () {
+  describe('#is(x)', () => {
 
-    var Positive = subtype(Num, function (n) {
-      return n >= 0;
-    });
+    var Positive = subtype(Num, n => n >= 0);
 
-    it('should return true when x is a subtype', function () {
+    it('should return true when x is a subtype', () => {
       ok(Positive.is(1));
     });
 
-    it('should return false when x is not a subtype', function () {
+    it('should return false when x is not a subtype', () => {
       ko(Positive.is(-1));
     });
 
   });
 
-  describe('#update()', function () {
+  describe('#update()', () => {
 
-    var Type = subtype(Str, function (s) { return s.length > 2; });
+    var Type = subtype(Str, s => s.length > 2);
     var instance = Type('abc');
 
-    it('should return a new instance', function () {
-      var newInstance = Type.update(instance, {'$set': 'bca'});
+    it('should return a new instance', () => {
+      var newInstance = Type.update(instance, {$set: 'bca'});
       assert(Type.is(newInstance));
       eq(newInstance, 'bca');
     });
@@ -1565,58 +1539,56 @@ describe('subtype', function () {
 // dict
 //
 
-describe('dict', function () {
+describe('dict', () => {
 
-  describe('combinator', function () {
+  describe('combinator', () => {
 
-    it('should throw if used with wrong arguments', function () {
+    it('should throw if used with wrong arguments', () => {
 
-      throwsWithMessage(function () {
-        (<any>dict)();
+      throwsWithMessage(() => {
+        (<any> dict)();
       }, 'Invalid argument `domain` = `undefined` supplied to `dict` combinator');
 
-      throwsWithMessage(function () {
-        (<any>dict)(Str);
+      throwsWithMessage(() => {
+        (<any> dict)(Str);
       }, 'Invalid argument `codomain` = `undefined` supplied to `dict` combinator');
 
-      throwsWithMessage(function () {
-        (<any>dict)(Str, Point, 1);
+      throwsWithMessage(() => {
+        (<any> dict)(Str, Point, 1);
       }, 'Invalid argument `name` = `1` supplied to `dict` combinator');
 
     });
 
   });
 
-  describe('constructor', function () {
+  describe('constructor', () => {
 
     var S = struct({}, 'S');
-    var Domain = subtype(Str, function (x) {
-      return x !== 'forbidden';
-    }, 'Domain');
+    var Domain = subtype(Str, x => x !== 'forbidden', 'Domain');
     var T = dict(Domain, S, 'T');
 
-    it('should coerce values', function () {
+    it('should coerce values', () => {
       var t = T({a: {}});
-      ok(S.is((<any>t).a));
+      ok(S.is((<any> t).a));
     });
 
-    it('should accept only valid values', function () {
+    it('should accept only valid values', () => {
 
-      throwsWithMessage(function () {
+      throwsWithMessage(() => {
         T(1);
       }, 'Invalid argument `value` = `1` supplied to dict type `T`');
 
-      throwsWithMessage(function () {
+      throwsWithMessage(() => {
         T({a: 1});
       }, 'Invalid argument `value` = `1` supplied to struct type `S`');
 
-      throwsWithMessage(function () {
+      throwsWithMessage(() => {
         T({forbidden: {}});
       }, 'Invalid argument `value` = `forbidden` supplied to subtype type `Domain`');
 
     });
 
-    it('should be idempotent', function () {
+    it('should be idempotent', () => {
       var T = dict(Str, Str);
       var p1 = T({a: 'a', b: 'b'});
       var p2 = T(p1);
@@ -1627,32 +1599,32 @@ describe('dict', function () {
 
   });
 
-  describe('#is(x)', function () {
+  describe('#is(x)', () => {
 
     var T = dict(Str, Point);
     var p1 = new Point({x: 0, y: 0});
     var p2 = new Point({x: 1, y: 1});
 
-    it('should return true when x is a list', function () {
+    it('should return true when x is a list', () => {
       ok(T.is({a: p1, b: p2}));
     });
 
-    it('should not depend on `this`', function () {
+    it('should not depend on `this`', () => {
       ok([{a: p1, b: p2}].every(T.is));
     });
 
   });
 
-  describe('#update()', function () {
+  describe('#update()', () => {
 
     var Type = dict(Str, Str);
     var instance = Type({p1: 'a', p2: 'b'});
 
-    it('should return a new instance', function () {
+    it('should return a new instance', () => {
       var newInstance = Type.update(instance, {p2: {$set: 'c'}});
       ok(Type.is(newInstance));
-      eq((<any>instance).p2, 'b');
-      eq((<any>newInstance).p2, 'c');
+      eq((<any> instance).p2, 'b');
+      eq((<any> newInstance).p2, 'c');
     });
 
   });
@@ -1663,84 +1635,78 @@ describe('dict', function () {
 // func
 //
 
-describe('func', function () {
+describe('func', () => {
 
-  it('should handle a no types', function () {
+  it('should handle a no types', () => {
     var T = func([], Str);
     eq(T.meta.domain.length, 0);
-    var getGreeting = T.of(function () { return 'Hi'; });
+    var getGreeting = T.of(() => 'Hi');
     eq(getGreeting(), 'Hi');
   });
 
-  it('should handle a single type', function () {
+  it('should handle a single type', () => {
     var T = func(Num, Num);
     eq(T.meta.domain.length, 1);
     ok(T.meta.domain[0] === Num);
   });
 
-  it('should automatically instrument a function', function () {
+  it('should automatically instrument a function', () => {
     var T = func(Num, Num);
-    var f = function () { return 'hi'; };
+    var f = () => 'hi';
     ok(T.is(T(f)));
   });
 
-  describe('of', function () {
+  describe('of', () => {
 
-    it('should check the arguments', function () {
+    it('should check the arguments', () => {
 
       var T = func([Num, Num], Num);
-      var sum = T.of(function (a:any, b:any) {
-        return a + b;
-      });
+      var sum = T.of((a: any, b: any) => a + b);
       eq(sum(1, 2), 3);
 
-      throwsWithMessage(function () {
+      throwsWithMessage(() => {
         sum(1, 2, 3);
       }, 'Invalid argument `value` = `1,2,3` supplied to tuple type `[Num, Num]`, expected an `Arr` of length `2`');
 
-      throwsWithMessage(function () {
+      throwsWithMessage(() => {
         sum('a', 2);
       }, 'Invalid argument `value` = `a` supplied to irreducible type `Num`');
 
     });
 
-    it('should check the return value', function () {
+    it('should check the return value', () => {
 
       var T = func([Num, Num], Num);
-      var sum = T.of(function () {
+      var sum = T.of(() => {
         return 'a';
       });
 
-      throwsWithMessage(function () {
+      throwsWithMessage(() => {
         sum(1, 2);
       }, 'Invalid argument `value` = `a` supplied to irreducible type `Num`');
 
     });
 
-    it('should preserve `this`', function () {
+    it('should preserve `this`', () => {
       var o = {name: 'giulio'};
-      (<any>o).getTypeName = func([], Str).of(function () {
+      (<any> o).getTypeName = func([], Str).of(function(this: any) {
         return this.name;
       });
-      eq((<any>o).getTypeName(), 'giulio');
+      eq((<any> o).getTypeName(), 'giulio');
     });
 
-    it('should handle function types', function () {
+    it('should handle function types', () => {
       var A = func([Str], Str);
       var B = func([Str, A], Str);
 
-      var f = A.of(function (s:any) {
-        return s + '!';
-      });
-      var g = B.of(function (str:any, strAction:any) {
-        return strAction(str);
-      });
+      var f = A.of((s: any) => s + '!');
+      var g = B.of((str: any, strAction: any) => strAction(str));
 
       eq(g('hello', f), 'hello!');
     });
 
-    it('should be idempotent', function () {
-      var f = function (s:any) { return s; };
+    it('should be idempotent', () => {
+      var f = (s: any) => s;
       var g = func([Str], Str).of(f);
       var h = func([Str], Str).of(g);
       ok(h === g);
@@ -1748,13 +1714,11 @@ describe('func', function () {
 
   });
 
-  describe('currying', function () {
+  describe('currying', () => {
 
-    it('should curry functions', function () {
+    it('should curry functions', () => {
       var Type = func([Num, Num, Num], Num);
-      var sum = Type.of(function (a:any, b:any, c:any) {
-        return a + b + c;
-      });
+      var sum = Type.of((a: any, b: any, c: any) => a + b + c);
       eq(sum(1, 2, 3), 6);
       eq(sum(1, 2)(3), 6);
       eq(sum(1)(2, 3), 6);
@@ -1768,18 +1732,16 @@ describe('func', function () {
       ok(CurriedType.is(sum1));
     });
 
-    it('should throw if partial arguments are wrong', function () {
+    it('should throw if partial arguments are wrong', () => {
 
       var T = func([Num, Num], Num);
-      var sum = T.of(function (a:any, b:any) {
-        return a + b;
-      });
+      var sum = T.of((a: any, b: any) => a + b);
 
-      throwsWithMessage(function () {
+      throwsWithMessage(() => {
         sum('a');
       }, 'Invalid argument `value` = `a` supplied to irreducible type `Num`');
 
-      throwsWithMessage(function () {
+      throwsWithMessage(() => {
         var sum1 = sum(1);
         sum1('a');
       }, 'Invalid argument `value` = `a` supplied to irreducible type `Num`');

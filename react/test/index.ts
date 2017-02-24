@@ -317,6 +317,7 @@ var htmlAttr: React.HTMLProps<HTMLElement> = {
     children: children,
     className: "test-attr",
     style: divStyle,
+    slot: "HTMLComponent",
     onClick: (event: React.MouseEvent<{}>) => {
         event.preventDefault();
         event.stopPropagation();
@@ -324,6 +325,9 @@ var htmlAttr: React.HTMLProps<HTMLElement> = {
     onClickCapture: (event: React.MouseEvent<{}>) => {
         event.preventDefault();
         event.stopPropagation();
+    },
+    onAnimationStart: event => {
+        console.log(event.currentTarget.className);
     },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
@@ -660,20 +664,6 @@ React.createFactory(TransitionGroup)({ component: "div" });
 }
 
 //
-// React Component classes super spread arguments
-// --------------------------------------------------------------------------
-class ConstructorSpreadArgsComponent extends React.Component<{}, {}> {
-    constructor(...args: any[]) {
-        super(...args);
-    }
-}
-class ConstructorSpreadArgsPureComponent extends React.PureComponent<{}, {}> {
-    constructor(...args: any[]) {
-        super(...args);
-    }
-}
-
-//
 // The SyntheticEvent.target.value should be accessible for onChange
 // --------------------------------------------------------------------------
 class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
@@ -687,4 +677,34 @@ class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
       onChange: e => this.setState({value: e.target.value})
     });
   }
+}
+
+React.DOM.input({
+    onChange: event => {
+        // `event.target` is guaranteed to be HTMLInputElement
+        event.target.value;
+    }
+});
+
+// A ChangeEvent is a valid FormEvent (maintain compatibility with existing
+// event handlers)
+
+type InputChangeEvent = React.ChangeEvent<HTMLInputElement>;
+type InputFormEvent = React.FormEvent<HTMLInputElement>;
+const changeEvent:InputChangeEvent = undefined as any;
+const formEvent:InputFormEvent = changeEvent;
+
+// defaultProps should be optional of props
+{
+    interface ComponentProps {
+        prop1: string;
+        prop2: string;
+        prop3?: string;
+    }
+    class ComponentWithDefaultProps extends React.Component<ComponentProps, void> {
+        static defaultProps = {
+            prop3: "default value",
+        };
+    }
+    const VariableWithAClass: React.ComponentClass<ComponentProps> = ComponentWithDefaultProps;
 }

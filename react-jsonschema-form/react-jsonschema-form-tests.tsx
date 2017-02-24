@@ -57,15 +57,18 @@ interface IExampleState {
 }
 
 export class Example extends React.Component<any, IExampleState> {
-    constructor(props: any) {
-        super(props);
-        this.state.formData = {
+    public state: IExampleState = {
+        formData: {
             firstName: "Chuck",
             lastName: "Norris",
             age: 75,
             bio: "Roundhouse kicking asses since 1940",
             password: "noneed"
-        };
+        }
+    }
+
+    constructor(props: any) {
+        super(props);
     }
 
     public render() {

@@ -1,7 +1,7 @@
 import stream = require("stream");
 import duplexer2 = require("duplexer2");
 
-let writable = new stream.Writable({ objectMode: true }),
+const writable = new stream.Writable({ objectMode: true }),
     readable = new stream.Readable({ objectMode: true });
 
 writable.once("finish", () => {
@@ -10,7 +10,7 @@ writable.once("finish", () => {
   }, 500);
 });
 
-let duplex = duplexer2(writable, readable);
+const duplex = duplexer2(writable, readable);
 
 duplex.on("data", (e: any) => {
   console.log("got data", JSON.stringify(e));

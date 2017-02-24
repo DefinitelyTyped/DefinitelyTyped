@@ -4,7 +4,7 @@ var wit = new Wit({
     accessToken: "",
     actions: {
         send(request: WitRequest, response: WitResponse) {
-            return new Promise(function(resolve, reject) {
+            return new Promise((resolve, reject) => {
                 console.log(response.text);
                 console.log(request.entities);
                 return resolve();
@@ -23,9 +23,7 @@ var wit = new Wit({
 wit.message("what is the weather in London?", {}).then((res) => {
     console.log(res._text);
 
-    for (let entity of res.entities) {
-        console.log(entity.value + ": " + entity.confidence * 100 + "%");
-    }
+    console.log(res.entities);
 
 }).catch((err) => {
     console.log(err);

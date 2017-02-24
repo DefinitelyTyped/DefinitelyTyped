@@ -1,6 +1,6 @@
 // Type definitions for three.js 0.83
 // Project: http://mrdoob.github.com/three.js/
-// Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>, Florent Poujol <https://github.com/florentpoujol>, SereznoKot <https://github.com/SereznoKot>
+// Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>, Florent Poujol <https://github.com/florentpoujol>, SereznoKot <https://github.com/SereznoKot>, HouChunlei <https://github.com/omni360>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="detector.d.ts" />
@@ -20,6 +20,9 @@
 /// <reference path="three-transformcontrols.d.ts" />
 /// <reference path="three-vrcontrols.d.ts" />
 /// <reference path="three-vreffect.d.ts" />
+/// <reference path="three-ctmloader.d.ts" />
+/// <reference path="three-octree.d.ts" />
+/// <reference path="three-colladaLoader.d.ts" />
 
 declare namespace THREE {
     export const REVISION: string;
@@ -217,7 +220,7 @@ declare namespace THREE {
 
     // Triangle Draw modes
     export enum TrianglesDrawModes { }
-    export const TrianglesDrawModesMode: TrianglesDrawModes;
+    export const TrianglesDrawMode: TrianglesDrawModes;
     export const TriangleStripDrawMode: TrianglesDrawModes;
     export const TriangleFanDrawMode: TrianglesDrawModes;
 
@@ -1996,7 +1999,7 @@ declare namespace THREE {
         mimeType: MimeType;
         path: string;
         responseType: string;
-        withCredentials: string        
+        withCredentials: string;
 
         load(url: string, onLoad?: (responseText: string) => void, onProgress?: (request: ProgressEvent) => void, onError?:(event: ErrorEvent) => void): any;
         setMimeType(mimeType: MimeType): FileLoader;
@@ -3585,6 +3588,10 @@ declare namespace THREE {
 
     export class Spherical {
         constructor(radius?: number, phi?: number, theta?: number);
+
+        radius: number;
+        phi: number;
+        theta: number;
 
         set(radius: number, phi: number, theta: number): Spherical;
         clone(): this;

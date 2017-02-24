@@ -2,7 +2,7 @@
 // Project: https://github.com/okonet/react-dropzone
 // Definitions by: Mathieu Larouche Dube <https://github.com/matdube>, Ivo Jesus <https://github.com/LynxEyes>, Luís Rodrigues <https://github.com/goblindegook>
 // Definitions: https://github.com/Vooban/DefinitelyTyped
-
+// TypeScript Version: 2.1
 /// <reference types="react"/>
 
 declare module "react-dropzone" {
@@ -33,6 +33,8 @@ declare module "react-dropzone" {
         name?: string, // name attribute for the input tag
         maxSize?: number,
         minSize?: number
+
+        onFileDialogCancel?: () => void;
     }
 
     let Dropzone: React.ClassicComponentClass<DropzoneProps>;

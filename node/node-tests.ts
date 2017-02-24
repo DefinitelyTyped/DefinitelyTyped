@@ -24,6 +24,7 @@ import * as string_decoder from "string_decoder";
 import * as stream from "stream";
 import * as timers from "timers";
 import * as repl from "repl";
+import * as v8 from "v8";
 
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
@@ -441,7 +442,7 @@ namespace util_tests {
 function stream_readable_pipe_test() {
     var rs = fs.createReadStream(Buffer.from('file.txt'));
     var r = fs.createReadStream('file.txt');
-    var z = zlib.createGzip({ finishFlush: zlib.Z_FINISH });
+    var z = zlib.createGzip({ finishFlush: zlib.constants.Z_FINISH });
     var w = fs.createWriteStream('file.txt.gz');
 
     assert(typeof r.bytesRead === 'number');
@@ -846,7 +847,7 @@ namespace http_tests {
         request.setNoDelay(true);
         request.abort();
     }
-	
+
 	const options: http.RequestOptions = {
         timeout: 30000
 	};
@@ -1481,7 +1482,6 @@ namespace os_tests {
         result = os.endianness();
         result = os.hostname();
         result = os.type();
-        result = os.platform();
         result = os.arch();
         result = os.release();
         result = os.EOL;
@@ -1633,6 +1633,11 @@ namespace console_tests {
     {
         var _c: Console = console;
         _c = c;
+    }
+    {
+        var writeStream     = fs.createWriteStream('./index.d.ts');
+        var consoleInstance = new console.Console(writeStream)
+
     }
 }
 
@@ -2070,6 +2075,21 @@ namespace constants_tests {
     num = constants.POINT_CONVERSION_HYBRID
     str = constants.defaultCoreCipherList
     str = constants.defaultCipherList
+}
+
+
+////////////////////////////////////////////////////
+/// v8 tests : https://nodejs.org/api/v8.html
+////////////////////////////////////////////////////
+
+namespace v8_tests {
+
+    const heapStats = v8.getHeapStatistics();
+    const heapSpaceStats = v8.getHeapSpaceStatistics();
+    
+    const zapsGarbage: number = heapStats.does_zap_garbage;
+
+    v8.setFlagsFromString('--collect_maps');
 }
 
 ///////////////////////////////////////////////////////////

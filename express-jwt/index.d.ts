@@ -1,6 +1,6 @@
 // Type definitions for express-jwt
 // Project: https://www.npmjs.org/package/express-jwt
-// Definitions by: Wonshik Kim <https://github.com/wokim/>
+// Definitions by: Wonshik Kim <https://github.com/wokim/>, Kacper Polak <https://github.com/kacepe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import express = require('express');
@@ -35,5 +35,12 @@ declare namespace jwt {
     }
     export interface RequestHandler extends express.RequestHandler {
         unless?: typeof unless;
+    }
+}
+declare global {
+    namespace Express {
+        export interface Request {
+            user?: any
+        }
     }
 }

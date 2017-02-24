@@ -1355,6 +1355,12 @@ id(value: number|string): this;
         valueFormatter(func: (d: any) => string): this;
     }
 
+    interface SankeyNodeStyleOptions {
+        title?: any;
+        fillColor?: any;
+        strokeColor?: any;
+    }
+
 //#endregion
 
 //#region Charts
@@ -3274,6 +3280,58 @@ id(value: number|string): this;
 
     }
 
+    interface SankeyChart extends Chart {
+        /*Y-position of the middle of a node.*/
+        center(): number;
+        /*Y-position of the middle of a node.*/
+        center(value: (d: any) => any): this;
+
+        /*Formatting settings for nodes. */
+        format(): string;
+        /*Formatting settings for nodes. */
+        format(formatter: (d: any) => string): this;
+
+        /*The height the graph or component created inside the SVG should be made*/
+        height(): number;
+        /*The height the graph or component created inside the SVG should be made.*/
+        height(value: number): this;
+
+        /*Format annotation on links. */
+        linkTitle(): string;
+        /*Format annotation on links. */
+        linkTitle(formatter: (d: any) => string): this;
+
+        /* The padding of nodes.*/
+        nodePadding(): number;
+        /*The padding of nodes.*/
+        nodePadding(value: number): this;
+
+        /*Styling options for nodes. */
+        margin(): Margin;
+        /*Styling options for nodes. */
+        margin(value: Margin): this;
+
+        /* The width of nodes.*/
+        nodeWidth(): number;
+        /*The width of nodes.*/
+        nodeWidth(value: number): this;
+
+        /*Styling options for nodes. */
+        nodeStyle(): SankeyNodeStyleOptions;
+        /*Styling options for nodes. */
+        nodeStyle(value: SankeyNodeStyleOptions): this;
+
+        /* The width the graph or component created inside the SVG should be made*/
+        width(): number;
+        /*The width the graph or component created inside the SVG should be made.*/
+        width(value: number): this;
+
+        /*Units to be used. */
+        units(): string
+        /*Units to be used. */
+        units(value: string): this;
+    }
+
     interface StackedAreaChart extends StackedArea, Chart {
         stacked: StackedArea;
         legend: Legend;
@@ -3378,6 +3436,7 @@ id(value: number|string): this;
         parallelCoordinatesChart(): ParallelCoordinatesChart;
         pie(): Pie;
         pieChart(): PieChart;
+        sankeyChart(): SankeyChart;
         scatter(): Scatter;
         scatterChart(): ScatterChart;
         sparkline(): SparkLine;
