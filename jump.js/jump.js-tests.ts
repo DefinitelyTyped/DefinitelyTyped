@@ -1,6 +1,6 @@
 import jump = require('jump.js');
 
-const node = document.querySelector('.target');
+const node = document.querySelector('.target')!;
 jump(node);
 jump('.target');
 jump('.target', {
@@ -12,5 +12,5 @@ jump('.target', {
 });
 jump(100);
 jump(-100, {
-  callback: () => { console.log('Done!') }
+  callback: () => { console.log('Done!'); }
 });

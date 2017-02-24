@@ -26,7 +26,7 @@ export class Demo extends React.Component<Props, State> {
         };
     }
 
-    public static defaultProps: Props = {
+    static defaultProps: Props = {
         keys: ['0-0-0-0'],
     };
 
