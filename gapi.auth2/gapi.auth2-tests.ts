@@ -1,6 +1,6 @@
 
 
-function test_init(){
+function test_init() {
   var auth = gapi.auth2.init({
     client_id: 'my-id',
     cookie_policy: 'single_host_origin',
@@ -9,7 +9,7 @@ function test_init(){
   });
 }
 
-function test_getAuthInstance(){
+function test_getAuthInstance() {
   gapi.auth2.init({
     client_id: 'my-id',
     cookie_policy: 'single_host_origin',
@@ -19,14 +19,14 @@ function test_getAuthInstance(){
   var auth = gapi.auth2.getAuthInstance();
 }
 
-function test_signIn(){
+function test_signIn() {
   gapi.auth2.getAuthInstance().signIn({
     scope: 'email profile',
     prompt: 'content'
   });
 }
 
-function test_signInOptionsBuild(){
+function test_signInOptionsBuild() {
   var options = new gapi.auth2.SigninOptionsBuilder();
   options.setAppPackageName('com.example.app');
   options.setFetchBasicProfile(true);
@@ -35,13 +35,13 @@ function test_signInOptionsBuild(){
   gapi.auth2.getAuthInstance().signIn(options);
 }
 
-function test_getAuthResponse(){
+function test_getAuthResponse() {
   var user = gapi.auth2.getAuthInstance().currentUser.get();
   var authResponse = user.getAuthResponse();
   var authResponseWithAuth = user.getAuthResponse(true);
 }
 
-function test_render(){
+function test_render() {
   var success = (googleUser: gapi.auth2.GoogleUser): void => {
     console.log(googleUser);
   };
