@@ -1,7 +1,4 @@
-// Type definitions for Pixi.js 3.0
-// Project: https://github.com/GoodBoyDigital/pixi.js/
-// Definitions by: clark-stevenson <https://github.com/pixijs/pixi-typescript>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Pixi.js 3.0.11
 
 export = PIXI;
 export as namespace PIXI;
