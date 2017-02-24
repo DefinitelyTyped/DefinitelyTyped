@@ -21,7 +21,7 @@ myApp.run(["gridsterConfig", (gridsterConfig: angular.gridster.GridsterConfig) =
         gridsterConfig.floating = true;
         gridsterConfig.swapping = true;
         gridsterConfig.draggable = { enabled: true};
-        gridsterConfig.resizable = { enabled: true, 
+        gridsterConfig.resizable = { enabled: true,
                                      handles: ["n", "s", "e", "w", "ne", "se", "sw", "nw"]};
     }
 ]);

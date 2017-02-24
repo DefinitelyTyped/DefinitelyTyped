@@ -1,6 +1,7 @@
 import { ComponentClass, ClassAttributes } from "react";
-import { RoutePattern, Query } from "react-router";
+import { RoutePattern } from "react-router";
 import { IndexRedirectProps } from "react-router/lib/IndexRedirect";
+import { Query } from "history";
 
 export interface RedirectProps extends IndexRedirectProps {
     from: RoutePattern;

@@ -1,6 +1,7 @@
 {
-  "extends": "../tslint.json",
-  "rules": {
-    "no-single-declare-module": false
-  }
+    "extends": "../tslint.json",
+    "rules": {
+        "max-line-length": false,
+        "no-single-declare-module": false
+    }
 }

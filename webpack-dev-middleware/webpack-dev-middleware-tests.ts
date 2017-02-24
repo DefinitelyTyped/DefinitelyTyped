@@ -31,6 +31,6 @@ app.use(webpackDevMiddlewareInstance);
 
 webpackDevMiddlewareInstance.close();
 webpackDevMiddlewareInstance.invalidate();
-webpackDevMiddlewareInstance.waitUntilValid(function(){
+webpackDevMiddlewareInstance.waitUntilValid(() => {
 	console.log('Package is in a valid state');
 });

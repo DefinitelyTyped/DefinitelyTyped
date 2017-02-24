@@ -239,22 +239,22 @@ function dynamicSlides() {
         paginationClickable: true,
         spaceBetween: 30,
     });
-    document.querySelector('.prepend-2-slides').addEventListener('click', function (e) {
+    document.querySelector('.prepend-2-slides').addEventListener('click', e => {
         e.preventDefault();
         swiper.prependSlide([
             '<div class="swiper-slide">Slide ' + (--prependNumber) + '</div>',
             '<div class="swiper-slide">Slide ' + (--prependNumber) + '</div>'
         ]);
     });
-    document.querySelector('.prepend-slide').addEventListener('click', function (e) {
+    document.querySelector('.prepend-slide').addEventListener('click', e => {
         e.preventDefault();
         swiper.prependSlide('<div class="swiper-slide">Slide ' + (--prependNumber) + '</div>');
     });
-    document.querySelector('.append-slide').addEventListener('click', function (e) {
+    document.querySelector('.append-slide').addEventListener('click', e => {
         e.preventDefault();
         swiper.appendSlide('<div class="swiper-slide">Slide ' + (++appendNumber) + '</div>');
     });
-    document.querySelector('.append-2-slides').addEventListener('click', function (e) {
+    document.querySelector('.append-2-slides').addEventListener('click', e => {
         e.preventDefault();
         swiper.appendSlide([
             '<div class="swiper-slide">Slide ' + (++appendNumber) + '</div>',
@@ -269,14 +269,14 @@ function thumbsGalleryLoop() {
         prevButton: '.swiper-button-prev',
         spaceBetween: 10,
         loop: true,
-        loopedSlides: 5, //looped slides should be the same     
+        loopedSlides: 5, // looped slides should be the same
     });
     var galleryThumbs = new Swiper('.gallery-thumbs', {
         spaceBetween: 10,
         slidesPerView: 4,
         touchRatio: 0.2,
         loop: true,
-        loopedSlides: 5, //looped slides should be the same
+        loopedSlides: 5, // looped slides should be the same
         slideToClickedSlide: true
     });
     galleryTop.params.control = galleryThumbs;
@@ -365,7 +365,7 @@ function customPagination() {
     var swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
         paginationClickable: true,
-        paginationBulletRender: function (swiper, index, className) {
+        paginationBulletRender(swiper, index, className) {
             return '<span class="' + className + '">' + (index + 1) + '</span>';
         }
     });
@@ -388,41 +388,41 @@ function customPlugin() {
     /* ========
     Debugger plugin, simple demo plugin to console.log some of callbacks
     ======== */
-    Swiper.prototype.plugins.debugger = function (swiper: any, params: any) {
+    Swiper.prototype.plugins.debugger = (swiper: any, params: any) => {
         if (!params) return;
         // Need to return object with properties that names are the same as callbacks
         return {
-            onInit: function (swiper: any) {
+            onInit(swiper: any) {
                 console.log('onInit');
             },
-            onClick: function (swiper: any, e: any) {
+            onClick(swiper: any, e: any) {
                 console.log('onClick');
             },
-            onTap: function (swiper: any, e: any) {
+            onTap(swiper: any, e: any) {
                 console.log('onTap');
             },
-            onDoubleTap: function (swiper: any, e: any) {
+            onDoubleTap(swiper: any, e: any) {
                 console.log('onDoubleTap');
             },
-            onSliderMove: function (swiper: any, e: any) {
+            onSliderMove(swiper: any, e: any) {
                 console.log('onSliderMove');
             },
-            onSlideChangeStart: function (swiper: any) {
+            onSlideChangeStart(swiper: any) {
                 console.log('onSlideChangeStart');
             },
-            onSlideChangeEnd: function (swiper: any) {
+            onSlideChangeEnd(swiper: any) {
                 console.log('onSlideChangeEnd');
             },
-            onTransitionStart: function (swiper: any) {
+            onTransitionStart(swiper: any) {
                 console.log('onTransitionStart');
             },
-            onTransitionEnd: function (swiper: any) {
+            onTransitionEnd(swiper: any) {
                 console.log('onTransitionEnd');
             },
-            onReachBeginning: function (swiper: any) {
+            onReachBeginning(swiper: any) {
                 console.log('onReachBeginning');
             },
-            onReachEnd: function (swiper: any) {
+            onReachEnd(swiper: any) {
                 console.log('onReachEnd');
             }
         };
@@ -440,30 +440,30 @@ function scrollContainer() {
 }
 // 32-slideable-menu.html
 function slideableMenu() {
-    var toggleMenu = function () {
-        if (swiper.previousIndex == 0)
-            swiper.slidePrev()
+    var toggleMenu = () => {
+        if (swiper.previousIndex === 0)
+            swiper.slidePrev();
     }
         , menuButton = document.getElementsByClassName('menu-button')[0]
         , swiper = new Swiper('.swiper-container', {
             slidesPerView: 'auto'
             , initialSlide: 1
             , resistanceRatio: .00000000000001
-            , onSlideChangeStart: function (slider) {
-                if (slider.activeIndex == 0) {
-                    menuButton.classList.add('cross')
-                    menuButton.removeEventListener('click', toggleMenu, false)
+            , onSlideChangeStart: (slider) => {
+                if (slider.activeIndex === 0) {
+                    menuButton.classList.add('cross');
+                    menuButton.removeEventListener('click', toggleMenu, false);
                 } else
-                    menuButton.classList.remove('cross')
+                    menuButton.classList.remove('cross');
             }
-            , onSlideChangeEnd: function (slider) {
-                if (slider.activeIndex == 0)
-                    menuButton.removeEventListener('click', toggleMenu, false)
+            , onSlideChangeEnd: (slider) => {
+                if (slider.activeIndex === 0)
+                    menuButton.removeEventListener('click', toggleMenu, false);
                 else
-                    menuButton.addEventListener('click', toggleMenu, false)
+                    menuButton.addEventListener('click', toggleMenu, false);
             }
             , slideToClickedSlide: true
-        })
+        });
 }
 // 33-responsive-breakpoints.html
 function responsiveBreakpoints() {
@@ -499,7 +499,7 @@ function autoheight() {
         paginationClickable: true,
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev',
-        autoHeight: true, //enable auto height
+        autoHeight: true, // enable auto height
     });
 }
 // 35-effect-flip.html
