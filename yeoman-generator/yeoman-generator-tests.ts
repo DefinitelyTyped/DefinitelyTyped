@@ -1,3 +1,4 @@
+/* tslint:disable:no-empty */
 import yeoman = require('yeoman-generator');
 import { Questions, Answers } from 'inquirer';
 import { EventEmitter } from 'events';
