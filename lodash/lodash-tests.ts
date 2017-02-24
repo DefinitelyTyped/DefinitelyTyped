@@ -7436,10 +7436,10 @@ namespace TestIsUndefined {
 // _.isWeakMap
 namespace TestIsWeakMap {
     {
-        let value: number|WeakMap<string, number>;
+        let value: number|WeakMap<Object, number>;
 
-        if (_.isWeakMap<string, number>(value)) {
-            let result: WeakMap<string, number> = value;
+        if (_.isWeakMap<Object, number>(value)) {
+            let result: WeakMap<Object, number> = value;
         }
         else {
             let result: number = value;
