@@ -555,7 +555,7 @@ declare class Application extends EventEmitter {
     middleware: Application.Middleware[];
     subdomainOffset: number;
     env: string;
-    context: BaseContext;
+    context: Application.AppContext;
     request: BaseRequest;
     response: BaseResponse;
     silent: boolean;
@@ -642,7 +642,11 @@ declare namespace Application {
         request: Request;
     }
 
-    interface Context extends BaseContext {
+    interface AppContext extends BaseContext {
+        // this interface supposed to be augmented from userland code
+    }
+
+    interface Context extends AppContext {
         app: Application;
         request: Request;
         response: Response;
