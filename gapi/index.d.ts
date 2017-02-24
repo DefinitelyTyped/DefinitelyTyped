@@ -1,8 +1,8 @@
-// Type definitions for Google API Client
+// Type definitions for Google API Client 0.0
 // Project: https://code.google.com/p/google-api-javascript-client/
 // Definitions by: Frank M <https://github.com/sgtfrankieboy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.1
 
 /**
  * The OAuth 2.0 token object represents the OAuth 2.0 token and any associated data.
@@ -102,7 +102,7 @@ declare namespace gapi.auth {
         /**
          * A function in the global namespace, which is called when the sign-in button is rendered and also called after a sign-in flow completes.
          */
-        callback?: Function;
+        callback?: () => void;
         /**
          * If true, all previously granted scopes remain granted in each incremental request, for incremental authorization. The default value true is correct for most use cases; use false only if employing delegated auth, where you pass the bearer token to a less-trusted component with lower programmatic authority.
          */
@@ -127,6 +127,30 @@ declare namespace gapi.auth {
 }
 
 declare namespace gapi.client {
+    /**
+     * Initializes the JavaScript client with API key, OAuth client ID, scope, and API discovery document(s).
+     * If OAuth client ID and scope are provided, this function will load the gapi.auth2 module to perform OAuth.
+     * The gapi.client.init function can be run multiple times, such as to set up more APIs, to change API key, or initialize OAuth lazily.
+     */
+    export function init(args: {
+        /**
+         * The API Key to use.
+         */
+        apiKey?: string;
+        /**
+         * An array of discovery doc URLs or discovery doc JSON objects.
+         */
+        discoveryDocs?: string[];
+        /**
+         * The app's client ID, found and created in the Google Developers Console.
+         */
+        clientId?: string;
+        /**
+         * The scopes to request, as a space-delimited string.
+         */
+        scope?: string
+    }): Promise<void>;
+
     interface RequestOptions {
         /**
          * The URL to handle the request
@@ -188,10 +212,46 @@ declare namespace gapi.client {
      */
     export function setApiKey(apiKey: string): void;
 
+    interface HttpRequestFulfilled<T> {
+        result: T;
+        body: string;
+        headers?: any[];
+        status?: number;
+        statusText?: string;
+    }
+
+    interface HttpRequestRejected {
+        result: {
+            error: {
+                message: string;
+            }
+        };
+        body: string;
+        headers?: any[];
+        status?: number;
+        statusText?: string;
+    }
+
+    /**
+     * HttpRequest supports promises.
+     * See Google API Client JavaScript Using Promises https://developers.google.com/api-client-library/javascript/features/promises
+     *
+     * TODO This should be updated when TypeScript 2.3 is released
+     * See https://github.com/Microsoft/TypeScript/issues/12409
+     * See https://github.com/Microsoft/TypeScript/blob/65da012527937a3074c62655d60ee08fee809f7f/lib/lib.es5.d.ts#L1339
+     */
+     class HttpRequestPromise<T> {
+        then<TResult>(
+             opt_onFulfilled?: ((response: HttpRequestFulfilled<T>) => void) | null,
+             opt_onRejected?: ((reason: HttpRequestRejected) => void) | null,
+             opt_context?: any
+        ): Promise<TResult>;
+    }
+
     /**
      * An object encapsulating an HTTP request. This object is not instantiated directly, rather it is returned by gapi.client.request.
      */
-    export class HttpRequest<T> {
+    export class HttpRequest<T> extends HttpRequestPromise<T> {
         /**
          * Executes the request and runs the supplied callback on response.
          * @param callback The callback function which executes when the request succeeds or fails.
@@ -211,24 +271,8 @@ declare namespace gapi.client {
                 statusText: string;
             }
             ) => any): void;
-        /**
-         * HttpRequest supports promises.
-         */
-        then(success: (response: {
-                result: T;
-                body: string;
-                headers?: any[];
-                status?: number;
-                statusText?: string;
-            }) => void,
-            failure: (response: {
-                result: T;
-                body: string;
-                headers?: any[];
-                status?: number;
-                statusText?: string;
-            }) => void): void;
     }
+
     /**
      * Represents an HTTP Batch operation. Individual HTTP requests are added with the add method and the batch is executed using execute.
      */
