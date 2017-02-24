@@ -475,6 +475,13 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	This function taking one arguments: order which present the sort order currently.
 	*/
     caretRender?: Function;
+        /**
+ 	Give an Object like following to able to customize your own editing component.
+ 	This Object should contain these two property:
+    	    getElement(REQUIRED): Accept a callback function and take two arguments: onUpdate and props.
+    	    customEditorParameters: Another extra data for custom cell edit component.
+	 */
+    customEditor?: {getElement: (onUpdate: any, props: any) => ReactElement<any>, customEditorParameters?: Object} ;	
 	/**
 	To customize the column. This callback function should return a String or a React Component.
 	In addition, this function taking two argument: cell and row.
