@@ -76,20 +76,3 @@ xusing("disable tests",
         });
     }
 );
-
-using("level 1",
-    ['a', 'b'],
-    (level1: string) =>{ 
-        const catesianProduct: string[] = ['a1', 'a2', 'b1', 'b2'];
-
-        using("level 2", 
-            [1, 2],
-            (level2: number) =>{
-                const val = `${level1}${level2}`;
-
-                it(" should combine level1 and level2", () =>{
-                    expect(catesianProduct).toContain(val);
-                });
-            }); 
-    } 
-);
