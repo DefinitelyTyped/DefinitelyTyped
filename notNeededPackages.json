@@ -311,6 +311,6 @@
             "typingsPackageName": "pixi-spine",
             "sourceRepoURL": "https://github.com/pixijs/pixi-spine",
             "asOfVersion": "1.3.0"
-        },
+        }
     ]
 }
