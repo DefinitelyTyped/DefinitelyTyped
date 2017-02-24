@@ -1,5 +1,3 @@
-// Pixi.js 3.0.11 old definitions
-
 export = PIXI;
 export as namespace PIXI;
 
