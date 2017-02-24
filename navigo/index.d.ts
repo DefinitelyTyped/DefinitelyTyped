@@ -1,3 +1,8 @@
+// Type definitions for navigo 4.0
+// Project: https://github.com/krasimir/navigo
+// Definitions by: Adrian Ehrsam <https://github.com/aersamkull>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 interface NavigoHooks {
     before?: ((done: (suppress?: boolean) => void) => void);
     after?: () => void;
