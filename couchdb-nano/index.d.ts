@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 import { EventEmitter } from 'events';
-import * as request from 'request';
+import { Request, CoreOptions } from 'request';
 
 declare function nano(config: nano.Config | string): nano.Client;
 
@@ -44,42 +44,42 @@ declare namespace nano {
     }
 
     interface DatabaseAccessor {
-        create(name: string, callback?: Callback): void
-        get(name: string, callback?: Callback): void
-        destroy(name: string, callback?: Callback): void
-        list(callback?: Callback): void
-        compact(name: string, designname?: string, callback?: Callback): void
-        replicate(source: string, target: string, options?: object, callback?: Callback): void
-        changes(source: string, params?: object, callback?: Callback): void
-        follow(source: string, params?: FollowUpdatesParams, callback?: Callback): void
-        info(callback?: Callback): void
+        create(name: string, callback?: Callback): Request
+        get(name: string, callback?: Callback): Request
+        destroy(name: string, callback?: Callback): Request
+        list(callback?: Callback): Request
+        compact(name: string, designname?: string, callback?: Callback): Request
+        replicate(source: string, target: string, options?: object, callback?: Callback): Request
+        changes(source: string, params?: object, callback?: Callback): Request
+        follow(source: string, params?: FollowUpdatesParams, callback?: Callback): any
+        info(callback?: Callback): Request
     }
 
     interface MultipartAccessor {
-        insert(doc: object, attachments: object[], params: string | object, callback?: Callback): void
-        get(docname: string, params?: string | object, callback?: Callback): void
+        insert(doc: object, attachments: object[], params: string | object, callback?: Callback): Request
+        get(docname: string, params?: string | object, callback?: Callback): Request
     }
 
     interface AttachmentAccessor {
-        insert(docname: string, attname: string, att: any, contenttype: string, params?: object, callback?: Callback): void
-        get(docname: string, attname: string, params?: object, callback?: Callback): void
-        destroy(docname: string, attname: string, params?: object, callback?: Callback): void
+        insert(docname: string, attname: string, att: any, contenttype: string, params?: object, callback?: Callback): Request
+        get(docname: string, attname: string, params?: object, callback?: Callback): Request
+        destroy(docname: string, attname: string, params?: object, callback?: Callback): Request
     }
 
     interface DocumentAccessor {
-        insert(document: object, params?: string | object, callback?: Callback): void
-        destroy(docname: string, rev: string, callback?: Callback): void
-        get(docname: string, params?: object, callback?: Callback): void
-        head(docname: string, callback: Callback): void
-        copy(src_document: object, dst_document: object, options: object, callback?: Callback): void
-        bulk(docs: BulkModifyDocsWrapper, params?: object, callback?: Callback): void
-        fetch(docnames: BulkFetchDocsWrapper, params?: object, callback?: Callback): void
-        fetchRevs(docnames: BulkFetchDocsWrapper, params?: object, callback?: Callback): void
-        view(designname: string, viewname: string, params?: object, callback?: Callback): void
-        viewWithList(designname: string, viewname: string, listname: string, params?: object, callback?: Callback): void
-        show(designname: string, showname: string, doc_id: string, params?: object, callback?: Callback): void
-        atomic(designname: string, updatename: string, docname: string, body?: object, callback?: Callback): void
-        search(designname: string, searchname: string, params?: object, callback?: Callback): void
+        insert(document: object, params?: string | object, callback?: Callback): Request
+        destroy(docname: string, rev: string, callback?: Callback): Request
+        get(docname: string, params?: object, callback?: Callback): Request
+        head(docname: string, callback: Callback): Request
+        copy(src_document: object, dst_document: object, options: object, callback?: Callback): Request
+        bulk(docs: BulkModifyDocsWrapper, params?: object, callback?: Callback): Request
+        fetch(docnames: BulkFetchDocsWrapper, params?: object, callback?: Callback): Request
+        fetchRevs(docnames: BulkFetchDocsWrapper, params?: object, callback?: Callback): Request
+        view(designname: string, viewname: string, params?: object, callback?: Callback): Request
+        viewWithList(designname: string, viewname: string, listname: string, params?: object, callback?: Callback): Request
+        show(designname: string, showname: string, doc_id: string, params?: object, callback?: Callback): Request
+        atomic(designname: string, updatename: string, docname: string, body?: object, callback?: Callback): Request
+        search(designname: string, searchname: string, params?: object, callback?: Callback): Request
         multipart: MultipartAccessor
         attachment: AttachmentAccessor
     }
@@ -121,11 +121,14 @@ declare namespace nano {
     interface Client {
         db: DatabaseAccessor
         use(db: string): DocumentAccessor
+        auth(username: string, userpass: string, callback?: Function): Request
+        session(callback?: Callback): Request
+        uuids(num: number, callback: Function): Request
         request: RequestFunction
         relax: RequestFunction
         dinosaur: RequestFunction
         readonly config: ServerConfig
-        updates(params?: UpdatesParams, callback?: Callback): void
+        updates(params?: UpdatesParams, callback?: Callback): Request
         followUpdates(params?: object, callback?: Callback): EventEmitter
     }
 }
