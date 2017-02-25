@@ -1,4 +1,4 @@
-// Type definitions for React Notification System v0.2.11
+// Type definitions for React Notification System 0.2
 // Project: https://www.npmjs.com/package/react-notification-system
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>, Deividas Bakanas <https://github.com/DeividasBakanas>, Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,8 +10,7 @@ declare namespace NotificationSystem {
 
     export interface System extends React.Component<any, any> {
         addNotification(notification: Notification): Notification;
-        removeNotification(notification: Notification): void;
-        removeNotification(uid: number | string): void;
+        removeNotification(uidOrNotification: number | string | Notification): void;
         clearNotifications(): void;
     }
 

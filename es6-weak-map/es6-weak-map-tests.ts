@@ -2,7 +2,7 @@ import WeakMap = require('es6-weak-map');
 
 new WeakMap<{}, string>();
 
-var tuples: [number, string][] = [ [0, 'foo'], [1, 'bar'] ];
+var tuples: Array<[number, string]> = [ [0, 'foo'], [1, 'bar'] ];
 new WeakMap<number, string>(tuples);
 
 var map = new WeakMap<{}, string>();

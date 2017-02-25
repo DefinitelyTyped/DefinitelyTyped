@@ -13,7 +13,7 @@ const withOptions: Promise<string> = getRawBody(stream, {
 });
 
 getRawBody(stream, (err, res) => {
-    if(err) console.error(err);
+    if (err) console.error(err);
     else console.log(res);
 });
 
@@ -22,6 +22,6 @@ getRawBody(stream, {
     length: 1024,
     limit: 512
 }, (err, res) => {
-    if(err) console.error(err);
+    if (err) console.error(err);
     else console.log(res);
 });

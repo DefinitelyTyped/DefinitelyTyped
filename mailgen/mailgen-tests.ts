@@ -1,4 +1,4 @@
-import * as Mailgen from "mailgen"
+import * as Mailgen from "mailgen";
 
 const generator: Mailgen = new Mailgen({
     theme: "default",
@@ -8,7 +8,7 @@ const generator: Mailgen = new Mailgen({
             }
 });
 
-let content: Mailgen.Content = {
+const content: Mailgen.Content = {
     body: {
         name: "Hi",
         intro: "test",

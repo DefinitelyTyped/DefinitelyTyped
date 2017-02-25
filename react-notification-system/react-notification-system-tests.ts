@@ -1,6 +1,3 @@
-
-/// <reference types="react" />
-
 import React = require('react');
 import NotificationSystem = require('react-notification-system');
 
@@ -31,18 +28,18 @@ class MyComponent extends React.Component<any, any> {
     render() {
 
         var style = {
-            NotificationItem: { // Override the notification item 
-                DefaultStyle: { // Applied to every notification, regardless of the notification level 
+            NotificationItem: { // Override the notification item
+                DefaultStyle: { // Applied to every notification, regardless of the notification level
                     margin: '10px 5px 2px 1px'
                 },
 
-                success: { // Applied only to the success notification item 
+                success: { // Applied only to the success notification item
                     color: 'red'
                 }
             }
         };
 
-        var attributes: NotificationSystem.Attributes = {            
+        var attributes: NotificationSystem.Attributes = {
             style: {
                 Containers: {
                     DefaultStyle: {
@@ -55,7 +52,7 @@ class MyComponent extends React.Component<any, any> {
                     }
                 }
             }
-        };               
+        };
 
         return React.createElement(NotificationSystem, { title: "NotificationTitile", style: style, } as NotificationSystem.Attributes);
     }

@@ -1,5 +1,3 @@
-/// <reference path="../index.d.ts" />
-
 function resumeTest() {
     const resumeOptions: qq.ResumeOptions = {
         recordsExpireIn: 10,

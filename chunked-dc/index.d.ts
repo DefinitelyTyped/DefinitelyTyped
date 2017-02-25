@@ -1,4 +1,4 @@
-// Type definitions for chunked-dc v0.1.2
+// Type definitions for chunked-dc 0.1
 // Project: https://github.com/saltyrtc/chunked-dc-js
 // Definitions by: Danilo Bargen <https://github.com/dbrgn/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,7 +21,7 @@ declare namespace chunkedDc {
     }
 
     interface ChunkerStatic {
-        new(id: number, message: Uint8Array, chunkSize: number): Chunker
+        new(id: number, message: Uint8Array, chunkSize: number): Chunker;
     }
 
     /** unchunker.ts **/
@@ -35,14 +35,14 @@ declare namespace chunkedDc {
     }
 
     interface UnchunkerStatic {
-        new(): Unchunker
+        new(): Unchunker;
     }
 
     /** main.ts **/
 
     interface Standalone {
-        Chunker: ChunkerStatic,
-        Unchunker: UnchunkerStatic,
+        Chunker: ChunkerStatic;
+        Unchunker: UnchunkerStatic;
     }
 
 }
