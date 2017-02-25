@@ -1,5 +1,5 @@
 /// <reference types="jquery" />
-/// <reference types="jquery.dataTables" />
+/// <reference types="datatables.net" />
 
 
 $(document).ready(function () {
