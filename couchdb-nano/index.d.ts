@@ -1,6 +1,6 @@
-// Type definitions for abs 1.3
-// Project: https://github.com/IonicaBizau/node-abs
-// Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
+// Type definitions for nano 6.2.0
+// Project: https://github.com/apache/couchdb-nano
+// Definitions by: Tim Jacobi <https://github.com/timjacobi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EventEmitter } from 'events';
