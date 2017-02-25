@@ -77,14 +77,14 @@ declare namespace jest {
     function runTimersToTime(msToRun: number): typeof jest;
     /** Explicitly supplies the mock object that the module system should return for the specified module. */
     function setMock<T>(moduleName: string, moduleExports: T): typeof jest;
+    /** Creates a mock function similar to jest.fn but also tracks calls to object[methodName] */
+    function spyOn<T extends {}>(object: T, method: string): Mock<T>;
     /** Indicates that the module system should never return a mocked version of the specified module from require() (e.g. that it should always return the real module). */
     function unmock(moduleName: string): typeof jest;
     /** Instructs Jest to use fake versions of the standard timer functions. */
     function useFakeTimers(): typeof jest;
     /** Instructs Jest to use the real versions of the standard timer functions. */
     function useRealTimers(): typeof jest;
-    /** Creates a mock function similar to jest.fn but also tracks calls to object[methodName] */
-    function spyOn(object: any, method: string): typeof jest;
 
     interface MockOptions {
         virtual?: boolean;
