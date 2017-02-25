@@ -8336,6 +8336,16 @@ declare namespace ReactNative {
          */
         requestAnimationFrame(fn: () => void): void;
 
+        /**
+         * This contains the non-native `XMLHttpRequest` object, which you can use if you want to route network requests
+         * through DevTools (to trace them):
+         *
+         *   global.XMLHttpRequest = global.originalXMLHttpRequest;
+         *
+         * @see https://github.com/facebook/react-native/issues/934
+         */
+        originalXMLHttpRequest: Object;
+        XMLHttpRequest: Object;
     }
 
     //
