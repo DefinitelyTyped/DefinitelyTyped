@@ -1,3 +1,6 @@
+/// <reference types="jquery" />
+/// <reference types="datatables.net"/>
+
 $(document).ready(() => {
     var config: DataTables.Settings = {
         // FixedHeader extension options
