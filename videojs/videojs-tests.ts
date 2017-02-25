@@ -2,35 +2,32 @@
 
 import * as videojs from 'videojs';
 
-videojs("example_video_1").ready(function(){
-
-	var myPlayer: videojs.Player = this;
-
+videojs("example_video_1").ready(function() {
 	// EXAMPLE: Start playing the video.
-	myPlayer.play();
+	this.play();
 
-	myPlayer.pause();
+	this.pause();
 
-	var isPaused: boolean = myPlayer.paused();
-	var isPlaying: boolean = !myPlayer.paused();
+	var isPaused: boolean = this.paused();
+	var isPlaying: boolean = !this.paused();
 
-	myPlayer.src("http://www.example.com/path/to/video.mp4");
+	this.src("http://www.example.com/path/to/video.mp4");
 
-	myPlayer.src({ type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" });
+	this.src({ type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" });
 
-	myPlayer.src([
+	this.src([
 	  { type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" },
 	  { type: "video/webm", src: "http://www.example.com/path/to/video.webm" },
 	  { type: "video/ogg", src: "http://www.example.com/path/to/video.ogv" }
 	]);
 
-	var whereYouAt: number = myPlayer.currentTime();
+	var whereYouAt: number = this.currentTime();
 
-	myPlayer.currentTime(120); // 2 minutes into the video
+	this.currentTime(120); // 2 minutes into the video
 
-	var howLongIsThis: number = myPlayer.duration();
+	var howLongIsThis: number = this.duration();
 
-	var bufferedTimeRange: TimeRanges = myPlayer.buffered();
+	var bufferedTimeRange: TimeRanges = this.buffered();
 
 	// Number of different ranges of time have been buffered. Usually 1.
 	var numberOfRanges: number = bufferedTimeRange.length;
@@ -44,32 +41,29 @@ videojs("example_video_1").ready(function(){
 	// Length in seconds of the first time range
 	var firstRangeLength: number = firstRangeEnd - firstRangeStart;
 
-	var howMuchIsDownloaded: number = myPlayer.bufferedPercent();
+	var howMuchIsDownloaded: number = this.bufferedPercent();
 
-	var howLoudIsIt: number = myPlayer.volume();
+	var howLoudIsIt: number = this.volume();
 
-	myPlayer.volume(0.5); // Set volume to half
+	this.volume(0.5); // Set volume to half
 
-	var howWideIsIt: number = myPlayer.width();
+	var howWideIsIt: number = this.width();
 
-	myPlayer.width(640);
+	this.width(640);
 
-	var howTallIsIt: number = myPlayer.height();
+	var howTallIsIt: number = this.height();
 
-	myPlayer.height(480);
+	this.height(480);
 
-	myPlayer.size(640, 480);
+	this.size(640, 480);
 
-	myPlayer.requestFullScreen();
+	this.requestFullScreen();
 
-	myPlayer.cancelFullScreen();
-
-	testEvents(myPlayer);
+	testEvents(this);
 });
 
 function testEvents(myPlayer: videojs.Player) {
-	const myFunc = function() {
-		const myPlayer: videojs.Player = this;
+	const myFunc = function(this: videojs.Player) {
 		// Do something when the event is fired
 	};
 	myPlayer.on("error", myFunc);
@@ -77,16 +71,14 @@ function testEvents(myPlayer: videojs.Player) {
 	myPlayer.off("error", myFunc);
 
 
-	const myFuncWithArg = function(e: Event) {
-		const myPlayer: videojs.Player = this;
+	const myFuncWithArg = function(this: videojs.Player, e: Event) {
 		// Do something when the event is fired
 	};
 	myPlayer.on("volumechange", myFuncWithArg);
 	// Removes all listeners for the given event type.
 	myPlayer.off("volumechange");
 
-
-	myPlayer.on("loadeddata", function() { /* Some handler. */ });
+	myPlayer.on("loadeddata", () => { /* Some handler. */ });
 	// Removes all listeners.
 	myPlayer.off();
 }

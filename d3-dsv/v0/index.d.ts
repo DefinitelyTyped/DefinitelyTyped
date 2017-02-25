@@ -38,7 +38,12 @@ interface D3Dsv {
 		): TRow[];
 
 	/**
-	Parses the specified string, which is the contents of a CSV file, returning an array of arrays representing the parsed rows. The string is assumed to be RFC4180-compliant. Unlike the parse method, this method treats the header line as a standard row, and should be used whenever the CSV file does not contain a header. Each row is represented as an array rather than an object. Rows may have variable length. For example, consider the following CSV file:
+	Parses the specified string, which is the contents of a CSV file, returning an array of arrays representing the parsed rows.
+	The string is assumed to be RFC4180-compliant.
+	Unlike the parse method, this method treats the header line as a standard row, and should be used whenever the CSV file does not contain a header.
+	Each row is represented as an array rather than an object.
+	Rows may have variable length.
+	For example, consider the following CSV file:
 
 	1997,Ford,E350,2.34
 	2000,Mercury,Cougar,2.38
@@ -55,14 +60,20 @@ interface D3Dsv {
 		): TRow[];
 
 	/**
-	Converts the specified array of rows into comma-separated values format, returning a string. This operation is the reverse of parse. Each row will be separated by a newline (\n), and each column within each row will be separated by a comma (,). Values that contain either commas, double-quotes (") or newlines will be escaped using double-quotes.
+	Converts the specified array of rows into comma-separated values format, returning a string.
+	This operation is the reverse of parse.
+	Each row will be separated by a newline (\n), and each column within each row will be separated by a comma (,).
+	Values that contain either commas, double-quotes (") or newlines will be escaped using double-quotes.
 
-	Each row should be an object, and all object properties will be converted into fields. For greater control over which properties are converted, convert the rows into arrays containing only the properties that should be converted and use formatRows.
+	Each row should be an object, and all object properties will be converted into fields.
+	For greater control over which properties are converted, convert the rows into arrays containing only the properties that should be converted and use formatRows.
 	*/
 	format(rows: any[]): string;
 
 	/**
-	 Converts the specified array of rows into comma-separated values format, returning a string. This operation is the reverse of parseRows. Each row will be separated by a newline (\n), and each column within each row will be separated by a comma (,). Values that contain either commas, double-quotes (") or newlines will be escaped using double-quotes.
+	 Converts the specified array of rows into comma-separated values format, returning a string.
+	 This operation is the reverse of parseRows. Each row will be separated by a newline (\n), and each column within each row will be separated by a comma (,).
+	 Values that contain either commas, double-quotes (") or newlines will be escaped using double-quotes.
 	*/
 	formatRows(rows: any[]): string;
 }

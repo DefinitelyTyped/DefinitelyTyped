@@ -4,7 +4,7 @@ var wit = new Wit({
     accessToken: "",
     actions: {
         send(request: WitRequest, response: WitResponse) {
-            return new Promise(function(resolve, reject) {
+            return new Promise((resolve, reject) => {
                 console.log(response.text);
                 console.log(request.entities);
                 return resolve();
