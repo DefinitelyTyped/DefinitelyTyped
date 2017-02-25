@@ -93,7 +93,7 @@ declare namespace nano {
 
     interface Config {
         url: string
-        requestDefaults?: request.CoreOptions
+        requestDefaults?: CoreOptions
         log?(id: string, args: any): void
         parseUrl?: boolean
     }
