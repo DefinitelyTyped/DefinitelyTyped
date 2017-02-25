@@ -21,7 +21,7 @@ const fontStyleStyleTest = <div style={fontStyleStyle} />;
 const fontWeightStyle: React.CSSProperties = { fontWeight: 400 };
 const fontWeightStyleTest = <div style={fontWeightStyle} />;
 
-const justifyContentStyle: React.CSSProperties = { justifyContent: 'space-around' };
+const justifyContentStyle: React.CSSProperties = { justifyContent: 'space-evenly' };
 const justifyContentStyleTest = <div style={justifyContentStyle} />;
 
 
