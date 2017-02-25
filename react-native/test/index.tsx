@@ -11,11 +11,13 @@ The content of index.io.js could be something like
 For a list of complete Typescript examples: check https://github.com/bgrieder/RNTSExplorer
 */
 
-import * as React from 'react-native'
+import * as React from 'react'
 import {
     StyleSheet,
     Text,
+    TextStyle,
     View,
+    ViewStyle,
     AppState,
     AppStateIOS,
     ViewPagerAndroid,
@@ -43,9 +45,9 @@ BackAndroid.addEventListener("hardwareBackPress", () => {
 });
 
 interface LocalStyles {
-    container: React.ViewStyle;
-    welcome: React.TextStyle;
-    instructions: React.TextStyle;
+    container: ViewStyle;
+    welcome: TextStyle;
+    instructions: TextStyle;
 }
 
 var styles = StyleSheet.create<LocalStyles>(
@@ -77,17 +79,17 @@ const stylesAlt = StyleSheet.create(
             justifyContent:  'center',
             alignItems:      'center',
             backgroundColor: '#F5FCFF',
-        } as React.ViewStyle,
+        } as ViewStyle,
         welcome:   {
             fontSize:  20,
             textAlign: 'center',
             margin:    10,
-        } as React.TextStyle,
+        } as TextStyle,
         instructions: {
             textAlign:    'center',
             color:        '#333333',
             marginBottom: 5,
-        } as React.TextStyle
+        } as TextStyle
     }
 )
 
