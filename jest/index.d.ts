@@ -83,6 +83,8 @@ declare namespace jest {
     function useFakeTimers(): typeof jest;
     /** Instructs Jest to use the real versions of the standard timer functions. */
     function useRealTimers(): typeof jest;
+    /** Creates a mock function similar to jest.fn but also tracks calls to object[methodName] */
+    function spyOn(object: any, method: string): typeof jest;
 
     interface MockOptions {
         virtual?: boolean;
