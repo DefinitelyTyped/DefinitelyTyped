@@ -8314,6 +8314,8 @@ declare namespace ReactNative {
         extraConfig?: {nativeOnly?: any}
     ): React.ComponentClass<P>;
 
+    export function findNodeHandle(componentOrHandle: null | number | React.Component<any, any>): null | number;
+
     export function processColor(color: any): number;
 
     //////////////////////////////////////////////////////////////////////////
