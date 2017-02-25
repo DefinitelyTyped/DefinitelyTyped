@@ -6,7 +6,7 @@ var value: any;
 var key: string;
 var num: number;
 var bool: any;
-var object:Object;
+var object: any;
 
 cs.set(key, value);
 value = cs.get(key);

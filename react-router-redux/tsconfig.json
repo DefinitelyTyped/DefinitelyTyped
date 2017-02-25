@@ -12,6 +12,10 @@
         "typeRoots": [
           "../"
         ],
+        "paths": {
+          "history": ["history/v3"],
+          "history/*": ["history/v3/*"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

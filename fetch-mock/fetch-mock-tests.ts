@@ -24,14 +24,14 @@ fetchMock.calls().unmatched[0][0].toUpperCase();
 fetchMock.calls("http://test.com")[0][0].toUpperCase();
 (fetchMock.calls("http://test.com")[0][1] as RequestInit).body;
 
-let doneStatus: boolean = fetchMock.done();
-let doneStatusArguments: boolean = fetchMock.done("http://test.com");
+const doneStatus: boolean = fetchMock.done();
+const doneStatusArguments: boolean = fetchMock.done("http://test.com");
 
-let calledStatus: boolean = fetchMock.called();
-let calledStatusArguments = fetchMock.called("http://test.com");
+const calledStatus: boolean = fetchMock.called();
+const calledStatusArguments = fetchMock.called("http://test.com");
 
 (fetchMock.lastCall()[1] as RequestInit).body;
-let lastUrl: string = fetchMock.lastUrl();
+const lastUrl: string = fetchMock.lastUrl();
 fetchMock.lastOptions();
 
 fetchMock.get("http://test.com", 200);

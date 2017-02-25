@@ -1,4 +1,3 @@
-/// <reference path="index.d.ts" />
 import * as loopback from 'loopback';
 import * as cookieParser from 'cookie-parser';
 
@@ -13,7 +12,7 @@ class Server {
 
         this.app.use(cookieParser());
 
-        this.app.start = function() {
+        this.app.start = () => {
         // start the web server
         };
     }
