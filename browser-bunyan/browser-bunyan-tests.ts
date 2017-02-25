@@ -4,5 +4,5 @@ var log = bunyan.createLogger({
         name: 'play',
         serializers: bunyan.stdSerializers
 });
-log.debug({foo: 'bar'}, 'hi at debug')
-log.trace('hi at trace')
+log.debug({foo: 'bar'}, 'hi at debug');
+log.trace('hi at trace');

@@ -461,7 +461,8 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * the current index (i), and the current group (nodes), with this of the current DOM element.
      * This method can be used to invoke arbitrary code for each selected element, and is useful for creating a context to access parent and child data simultaneously.
      *
-     * @param func A function which is invoked for each selected element, being passed the current datum (d), the current index (i), and the current group (nodes), with this of the current DOM element.
+     * @param func A function which is invoked for each selected element,
+     *             being passed the current datum (d), the current index (i), and the current group (nodes), with this of the current DOM element.
      */
     each(func: ValueFn<GElement, Datum, void>): this;
 

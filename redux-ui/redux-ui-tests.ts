@@ -1,10 +1,10 @@
-import * as React from 'react'
-import * as Redux from 'redux'
-import ui, { ReduxUIProps, reducer } from 'redux-ui'
+import * as React from 'react';
+import * as Redux from 'redux';
+import ui, { ReduxUIProps, reducer } from 'redux-ui';
 
-type UIShape = {
+interface UIShape {
   s: string;
-};
+}
 
 @ui<UIShape>({
   key: 'Root',

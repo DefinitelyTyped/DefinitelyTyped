@@ -13,13 +13,13 @@ const credentials = {
 };
 
 // Initialize the OAuth2 Library
-//const oauth2 = require('simple-oauth2').create(credentials);
+// const oauth2 = require('simple-oauth2').create(credentials);
 import oauth2lib = require("simple-oauth2");
 const oauth2 = oauth2lib.create(credentials);
 
 
 // #Authorization Code flow
-(function () {
+(() => {
 
     // Authorization oauth2 URI
     const authorizationUri = oauth2.authorizationCode.authorizeURL({
@@ -29,7 +29,7 @@ const oauth2 = oauth2lib.create(credentials);
     });
 
     // Redirect example using Express (see http://expressjs.com/api.html#res.redirect)
-    //res.redirect(authorizationUri);
+    // res.redirect(authorizationUri);
 
     // Get the access token object (the authorization code is given from the previous step).
     const tokenConfig = {
@@ -60,7 +60,7 @@ const oauth2 = oauth2lib.create(credentials);
 
 
 // #Client Credentials Flow
-(function () {
+(() => {
     const tokenConfig = {};
 
     // Callbacks
@@ -88,12 +88,12 @@ const oauth2 = oauth2lib.create(credentials);
 
 
 // #Access Token object
-(function () {
+(() => {
     // Sample of a JSON access token (you got it through previous steps)
     const tokenObject = {
-        'access_token': '<access-token>',
-        'refresh_token': '<refresh-token>',
-        'expires_in': '7200'
+        access_token: '<access-token>',
+        refresh_token: '<refresh-token>',
+        expires_in: '7200'
     };
 
     // Create the access token wrapper
@@ -104,7 +104,7 @@ const oauth2 = oauth2lib.create(credentials);
         // Callbacks
         token.refresh((error, result) => {
             token = result;
-        })
+        });
 
         // Promises
         token.refresh()

@@ -8,7 +8,7 @@ function TestBinary() {
 
     binary.addArguments('A', 'B', 'C');
     var promise: webdriver.promise.Promise<void> = binary.kill();
-    binary.launch('profile').then(function (result: any) { });
+    binary.launch('profile').then((result: any) => {});
 }
 
 function TestFirefoxDriver() {
@@ -38,7 +38,7 @@ function TestFirefoxProfile() {
     var bool: boolean = profile.acceptUntrustedCerts();
     profile.addExtension('ext');
     bool = profile.assumeUntrustedCertIssuer();
-    profile.encode().then(function (prof: string) { });
+    profile.encode().then((prof: string) => {});
     var num: number = profile.getPort();
     var anything: any = profile.getPreference('key');
     bool = profile.nativeEventsEnabled();
