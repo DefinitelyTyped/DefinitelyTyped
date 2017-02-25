@@ -1,4 +1,4 @@
-// Type definitions for Jest 18.1.0
+// Type definitions for Jest 19.2.0
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>, Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -229,7 +229,7 @@ declare namespace jest {
         /** This ensures that a value matches the most recent snapshot. Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information. */
         toMatchSnapshot(snapshotName?: string): void;
         /** Used to test that a function throws when it is called. */
-        toThrow(): void;
+        toThrow(error?: string | Constructable | RegExp): void;
         /** If you want to test that a specific error is thrown inside a function. */
         toThrowError(error?: string | Constructable | RegExp): void;
         /** Used to test that a function throws a error matching the most recent snapshot when it is called. */
