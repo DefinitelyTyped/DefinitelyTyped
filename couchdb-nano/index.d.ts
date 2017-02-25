@@ -3,7 +3,6 @@
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
 import { EventEmitter } from 'events';
 import { Request, CoreOptions } from 'request';
 
