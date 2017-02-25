@@ -346,7 +346,7 @@ export class Kinesis {
 
   export module KINESIS {
     export interface Record {
-        Data: Buffer | string | Blob;
+        Data: any; // Buffer | string | Blob;
         PartitionKey: string;
         ExplicitHashKey?: string;
     }
