@@ -205,10 +205,13 @@ describe('Assymetric matchers', function () {
             b: string;
         }
 
+        // It's useful to create expected objects before the test call for refactoring purposes
+        // Assymetric matchers must return any in this case to constrain the required type
         const test: Test = {
             a: expect.any(Number),
             b: expect.anything()
         }
+        expect(callback).toHaveBeenCalledWith(test);
     });
 });
 
