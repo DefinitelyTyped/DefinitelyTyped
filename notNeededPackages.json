@@ -305,6 +305,12 @@
             "typingsPackageName": "gaea-model",
             "sourceRepoURL": "https://github.com/ascoders/gaea-model",
             "asOfVersion": "0.0.0"
+        },
+        {
+            "libraryName": "localforage",
+            "typingsPackageName": "localforage",
+            "sourceRepoURL": "https://github.com/localForage/localForage",
+            "asOfVersion": "0.0.34"
         }
     ]
 }
