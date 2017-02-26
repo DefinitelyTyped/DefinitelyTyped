@@ -65,13 +65,22 @@ mydb.view("alice", "by_id", { keys: ["foobar", "barfoo"], "include_docs": true }
 mydb.show("people", "singleDoc", "p_clemens", function (error: any, doc: any, rh: any) { });
 mydb.replicate("database_replica", function (error: any) { });
 
+/*
+ * Attachments
+ */
 mydb.attachment.insert("new", "att", "Hello World!", "text/plain", function (error: any, att: any) { });
 mydb.attachment.destroy("new", "att", { rev: "123" }, function (error, response) { });
 mydb.attachment.get("new_string", "att", function (error: any, helloWorld: any) { });
 
+/*
+ * Multipart
+ */
 mydb.multipart.insert({ "foo": "baz" }, [{}], "foobaz", function (error, foo) { });
 mydb.multipart.get("foobaz", function (error: any, foobaz: any, headers: any) { });
 
+/*
+ * Piping
+ */
 const rs = fs.createReadStream("");
 const is = mydb.attachment.insert("nodejs", "logo.png", null, "image/png");
 is.on("end", function () { });
