@@ -1,4 +1,4 @@
-// Type definitions for aurelia-knockout 2.0.x
+// Type definitions for aurelia-knockout 2.0
 // Project: https://github.com/code-chris/aurelia-knockout
 // Definitions by: Christian Kotzbauer <https://github.com/code-chris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
