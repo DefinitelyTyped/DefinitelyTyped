@@ -1,6 +1,6 @@
 // Type definitions for node-xml2js
 // Project: https://github.com/Leonidas-from-XIV/node-xml2js
-// Definitions by: Michel Salib <https://github.com/michelsalib>, Jason McNeil <https://github.com/jasonrm>, Christopher Currens <https://github.com/ccurrens>
+// Definitions by: Michel Salib <https://github.com/michelsalib>, Jason McNeil <https://github.com/jasonrm>, Christopher Currens <https://github.com/ccurrens>, Edward Hinkle <https://github.com/edwardhinkle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./processors.d.ts" />
