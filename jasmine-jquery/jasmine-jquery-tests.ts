@@ -4,8 +4,8 @@
 
 describe("Jasmine jQuery extension", () => {
     it("Adds jQuery matchers", () => {
-        expect($('<div id="some-id"></div>')).toBe('div');
-        expect($('<div id="some-id"></div>')).toBe('div#some-id');
+        expect($('<div id="some-id"></div>')).toBe($('div'));
+        expect($('<div id="some-id"></div>')).toBe($('div#some-id'));
         expect($('<input type="checkbox" checked="checked"/>')).toBeChecked();
         expect($('<div id="some-id"></div>')).toBeHidden();
         expect($('<div style="display: none; margin: 10px;"></div>')).toHaveCss({ display: "none", margin: "10px" });
