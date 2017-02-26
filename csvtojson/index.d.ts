@@ -1,4 +1,4 @@
-// Type definitions for csvtojson v1.1.4
+// Type definitions for csvtojson 1.1
 // Project: https://github.com/Keyang/node-csvtojson
 // Definitions by: Eric Byers <https://github.com/EricByers>, Wayne Carson <https://github.com/wcarson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,7 +12,7 @@ declare namespace csvtojson {
     /**
     * Stream options
     */
-    interface StreamOptions extends stream.TransformOptions { }
+    type StreamOptions = stream.TransformOptions;
 
     /**
     * Converter options
@@ -130,6 +130,11 @@ declare namespace csvtojson {
     type ParseResultHandler = (err: any, result: any) => void;
 
     /**
+     * Event names
+     */
+    type Event = 'csv' | 'data' | 'error' | 'record_parsed' | 'end' | 'end_parsed' | 'done' ;
+
+    /**
     * Event handler for "json" events.
     */
     type JsonEventHandler = (jsonObj: any, rowNumber: number) => void;
@@ -234,32 +239,33 @@ declare namespace csvtojson {
          * - end
          * - end_parsed
          * - done
-         * @param  {string}   event    name of event
+         * @param  {EventName}   event    name of event
          * @param  {Function} listener listener function
          * @return {this} returns this object for chaining
          */
-        on(event: string, listener: Function): this;
+        on(event: Event, listener: JsonEventHandler | CsvEventHanlder | DataEventHandler | ErrorEventHanlder
+            | RecordParsedEventHanlder | EndEventHanlder | EndParsedEventHanlder | DoneEventHanlder): Converter;
 
         /**
          * Transform objects after CSV parsing but before result being emitted or pushed downstream.
          * @param  {Function} callback transform function
          * @return {this} returns this object for chaining
          */
-        transf(callback: (jsonObj: any, csvRow: string[], rowNumber: number) => void): this;
+        transf(callback: (jsonObj: any, csvRow: string[], rowNumber: number) => void): Converter;
 
         /**
          * The function in preRawData will be called directly with the string from upper stream.
          * @param  {Function} callback callback function
          * @return {this} returns this object for chaining
          */
-        preRawData(callback: (csvRawData: string, cb: (newData: any) => void) => void): this;
+        preRawData(callback: (csvRawData: string, cb: (newData: any) => void) => void): Converter;
 
         /**
          * The function is called each time a file line being found in csv stream.
          * @param  {Function} callback callback function
          * @return {this} returns this object for chaining
          */
-        preFileLine(callback: (line: string, rowNumber: number) => string): this;
+        preFileLine(callback: (line: string, rowNumber: number) => string): Converter;
     }
 }
 
