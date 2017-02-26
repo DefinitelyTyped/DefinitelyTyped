@@ -2,6 +2,7 @@
 // Project: https://github.com/apache/couchdb-nano
 // Definitions by: Tim Jacobi <https://github.com/timjacobi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import { EventEmitter } from 'events';
 import { Request, CoreOptions } from 'request';
@@ -52,7 +53,7 @@ declare namespace nano {
     interface DocumentScope {
         readonly config: ServerConfig
         info(callback?: Callback): Request
-        replicate(target: string, options?: object, callback?: Callback): Request
+        replicate(target: string | DocumentScope, options?: object, callback?: Callback): Request
         compact(callback?: Callback): Request
         changes(params?: object, callback?: Callback): Request
         follow(params?: ScopedFollowUpdatesParams, callback?: Callback): any
