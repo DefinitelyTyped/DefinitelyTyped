@@ -70,7 +70,7 @@ declare namespace jasmine {
     function stringMatching(str: string): Any;
     function stringMatching(str: RegExp): Any;
 
-    function formatErrorMsg(domain: string, usage: string): (msg: string) => string
+    function formatErrorMsg(domain: string, usage: string): (msg: string) => string;
 
     interface Any {
 
@@ -124,18 +124,14 @@ declare namespace jasmine {
         withMock(func: () => void): void;
     }
 
-    interface CustomEqualityTester {
-        (first: any, second: any): boolean;
-    }
+    type CustomEqualityTester = (first: any, second: any) => boolean;
 
     interface CustomMatcher {
         compare<T>(actual: T, expected: T): CustomMatcherResult;
         compare(actual: any, expected: any): CustomMatcherResult;
     }
 
-    interface CustomMatcherFactory {
-        (util: MatchersUtil, customEqualityTesters: Array<CustomEqualityTester>): CustomMatcher;
-    }
+    type CustomMatcherFactory = (util: MatchersUtil, customEqualityTesters: CustomEqualityTester[]) => CustomMatcher;
 
     interface CustomMatcherFactories {
         [index: string]: CustomMatcherFactory;
@@ -147,9 +143,9 @@ declare namespace jasmine {
     }
 
     interface MatchersUtil {
-        equals(a: any, b: any, customTesters?: Array<CustomEqualityTester>): boolean;
-        contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: Array<CustomEqualityTester>): boolean;
-        buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: Array<any>): string;
+        equals(a: any, b: any, customTesters?: CustomEqualityTester[]): boolean;
+        contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: CustomEqualityTester[]): boolean;
+        buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: any[]): string;
     }
 
     interface Env {
@@ -390,18 +386,18 @@ declare namespace jasmine {
     }
 
     interface CustomReporterResult {
-        description: string,
-        failedExpectations?: FailedExpectation[],
-        fullName: string,
+        description: string;
+        failedExpectations?: FailedExpectation[];
+        fullName: string;
         id: string;
-        passedExpectations?: PassedExpectation[],
+        passedExpectations?: PassedExpectation[];
         pendingReason?: string;
         status?: string;
     }
 
     interface RunDetails {
         failedExpectations: ExpectationResult[];
-        order: jasmine.Order
+        order: jasmine.Order;
     }
 
     interface CustomReporter {
@@ -431,9 +427,7 @@ declare namespace jasmine {
         results(): NestedResults;
     }
 
-    interface SpecFunction {
-        (spec?: Spec): void;
-    }
+    type SpecFunction = (spec?: Spec) => void;
 
     interface SuiteOrSpec {
         id: number;
@@ -513,7 +507,7 @@ declare namespace jasmine {
         identity: string;
         and: SpyAnd;
         calls: Calls;
-        mostRecentCall: {args: any[];};
+        mostRecentCall: {args: any[]; };
         argsForCall: any[];
     }
 
@@ -574,7 +568,7 @@ declare namespace jasmine {
         finished: boolean;
         result: any;
         messages: any;
-        runDetails: RunDetails
+        runDetails: RunDetails;
 
         new (): any;
 
