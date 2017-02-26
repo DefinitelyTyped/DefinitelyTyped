@@ -7,6 +7,8 @@
 
 export = xml2js;
 
+import * as events from 'events'
+
 declare namespace xml2js {
     function parseString(xml: convertableToString, callback: (err: any, result: any) => void): void;
     function parseString(xml: convertableToString, options: OptionsV2, callback: (err: any, result: any) => void): void;
@@ -21,7 +23,7 @@ declare namespace xml2js {
         buildObject(rootObj: any): string;
     }
 
-    class Parser {
+    class Parser extends events.EventEmitter {
         constructor(options?: OptionsV2);
         parseString(str: convertableToString, cb?: Function): void;
         reset(): void;
