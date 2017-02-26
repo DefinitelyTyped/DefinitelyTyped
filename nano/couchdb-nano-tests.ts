@@ -1,4 +1,4 @@
-import * as nano from "couchdb-nano";
+import * as nano from "nano";
 import * as fs from 'fs';
 import * as path from 'path';
 
