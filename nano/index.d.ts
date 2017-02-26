@@ -16,6 +16,7 @@ declare module "nano" {
             requestDefaults?: CoreOptions
             log?(id: string, args: any): void
             parseUrl?: boolean
+            request?: Function
         }
 
         interface Callback {
