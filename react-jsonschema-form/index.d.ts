@@ -14,6 +14,7 @@ declare module "react-jsonschema-form" {
         widgets?: {};
         fields?: {};
         noValidate?: boolean;
+        noHtml5Validate?: boolean;
         showErrorList?: boolean;
         validate?: (formData: any, errors: any) => any;
         onChange?: (e: IChangeEvent) => any;
