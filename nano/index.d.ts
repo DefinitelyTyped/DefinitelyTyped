@@ -30,7 +30,7 @@ declare module "nano" {
             request: RequestFunction
             relax: RequestFunction
             dinosaur: RequestFunction
-            auth(username: string, userpass: string, callback?: Function): Request
+            auth(username: string, userpass: string, callback?: Callback): Request
             session(callback?: Callback): Request
             updates(params?: UpdatesParams, callback?: Callback): Request
             followUpdates(params?: object, callback?: Callback): EventEmitter
@@ -58,7 +58,7 @@ declare module "nano" {
             compact(callback?: Callback): Request
             changes(params?: object, callback?: Callback): Request
             follow(params?: DocumentScopeFollowUpdatesParams, callback?: Callback): any
-            auth(username: string, userpass: string, callback?: Function): Request
+            auth(username: string, userpass: string, callback?: Callback): Request
             session(callback?: Callback): Request
             insert(document: object, params?: string | object, callback?: Callback): Request
             get(docname: string, params?: object, callback?: Callback): Request
@@ -151,6 +151,6 @@ declare module "nano" {
             keys: string[]
         }
     }
-    
+
     export = nano
 }
