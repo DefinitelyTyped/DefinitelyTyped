@@ -1,7 +1,7 @@
 import isCompressed = require('is-compressed');
 
 isCompressed('src/unicorn.zip');
-//=> true
+// => true
 
 isCompressed('src/unicorn.txt');
-//=> false
+// => false

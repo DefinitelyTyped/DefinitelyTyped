@@ -93,7 +93,7 @@ class MyComponent2 extends React.Component<any, any> {
                 fields="name,email,picture"
                 callback={responseFacebook}
                 />
-        )
+        );
     }
 }
 

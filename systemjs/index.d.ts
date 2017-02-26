@@ -320,6 +320,17 @@ declare namespace SystemJSLoader {
         set(moduleName: string, module: any): void;
 
         /**
+         * Resolves module name to normalized URL.
+         */
+        resolve(moduleName: string, parentName?: string): Promise<string>;
+
+        /**
+         * Resolves module name to normalized URL.
+         * Synchronous alternative to `SystemJS.resolve`.
+         */
+        resolveSync(moduleName: string, parentName?: string): string;
+    
+        /**
          * In CommonJS environments, SystemJS will substitute the global require as needed by the module format being
          * loaded to ensure the correct detection paths in loaded code.
          * The CommonJS require can be recovered within these modules from System._nodeRequire.

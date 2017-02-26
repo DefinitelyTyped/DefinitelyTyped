@@ -3,8 +3,8 @@
 
 import * as angular from 'angular';
 import * as ng from 'angular';
-//code from http://sptypescript.codeplex.com/
-//BasicTasksJSOM.ts
+// code from http://sptypescript.codeplex.com/
+// BasicTasksJSOM.ts
 // Website tasks
 function retrieveWebsite(resultpanel: HTMLElement) {
     var clientContext = SP.ClientContext.get_current();
@@ -613,7 +613,7 @@ namespace CSR {
     }
 
 
-    //typescripttempltes.ts
+    // typescripttempltes.ts
     declare var Strings: any;
     export function getFieldValue(ctx: SPClientTemplates.RenderContext_Form, fieldName: string): any {
         if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
@@ -674,7 +674,7 @@ namespace CSR {
 
     export function getControl(schema: SPClientTemplates.FieldSchema_InForm): HTMLInputElement {
         var id = schema.Name + '_' + schema.Id + '_$' + schema.FieldType + 'Field';
-        //TODO: Handle different input types
+        // TODO: Handle different input types
         return $get(id) as HTMLInputElement;
     }
 
@@ -782,7 +782,7 @@ namespace CSR {
             return this.onPreRender((ctx: SPClientTemplates.RenderContext) => {
                 var ctxInView = ctx as SPClientTemplates.RenderContext_InView;
 
-                //ListSchema schma exists in Form and in View render context
+                // ListSchema schma exists in Form and in View render context
                 var fields = ctxInView.ListSchema.Field;
                 if (fields) {
                     for (var innerField of fields) {
@@ -798,7 +798,7 @@ namespace CSR {
             return this.onPostRender((ctx: SPClientTemplates.RenderContext) => {
                 var ctxInView = ctx as SPClientTemplates.RenderContext_InView;
 
-                //ListSchema schma exists in Form and in View render context
+                // ListSchema schma exists in Form and in View render context
                 var fields = ctxInView.ListSchema.Field;
                 if (fields) {
                     for (var innerField of fields) {
@@ -821,7 +821,7 @@ namespace CSR {
                     if (ctx.ControlMode === SPClientTemplates.ClientControlMode.View) {
                         var ctxInView = ctx as SPClientTemplates.RenderContext_InView;
                         if (ctxInView.inGridMode) {
-                            //TODO: Disable editing in grid mode
+                            // TODO: Disable editing in grid mode
 
                         }
 
@@ -869,7 +869,7 @@ namespace CSR {
                     var ctxInView = ctx as SPClientTemplates.RenderContext_InView;
 
                     if (ctxInView.inGridMode) {
-                        //TODO: Hide item in grid mode
+                        // TODO: Hide item in grid mode
                     } else {
                         ctxInView.ListSchema.Field.splice(ctxInView.ListSchema.Field.indexOf(schema), 1);
                     }
@@ -1014,7 +1014,7 @@ namespace CSR {
                     } else {
                         var ctx = SP.ClientContext.get_current();
                         var web = ctx.get_web();
-                        //TODO: Handle lookup to another web
+                        // TODO: Handle lookup to another web
                         var list = web.get_lists().getById(listId);
                         var item = list.getItemById(parseInt(value, 10));
                         var field = list.get_fields().getByInternalNameOrTitle(expressionParts.shift());
@@ -1059,7 +1059,7 @@ namespace CSR {
                     pendingLoads++;
 
                     var ctx = SP.ClientContext.get_current();
-                    //TODO: Handle lookup to another web
+                    // TODO: Handle lookup to another web
                     var web = ctx.get_web();
                     var listId = _schema.LookupListId;
                     var list = !listname ? web.get_lists().getById(listId) : web.get_lists().getByTitle(listname);
@@ -1070,7 +1070,7 @@ namespace CSR {
                         return dependencyValues[expr] ? dependencyValues[expr] : '';
                     });
 
-                    //TODO: Handle ShowField attribure
+                    // TODO: Handle ShowField attribure
                     if (predicate.substr(0, 5) === '<View') {
                         query.set_viewXml(predicate);
                     } else {
@@ -1266,22 +1266,22 @@ namespace CSR {
                             control: _textInputElt,
                         });
 
-                        //_autoFillControl.AutoFillMinTextLength = 2;
-                        //_autoFillControl.VisibleItemCount = 15;
-                        //_autoFillControl.AutoFillTimeout = 500;
+                        // _autoFillControl.AutoFillMinTextLength = 2;
+                        // _autoFillControl.VisibleItemCount = 15;
+                        // _autoFillControl.AutoFillTimeout = 500;
                     });
 
                 }
-                //function OnPopulate(targetElement: HTMLInputElement) {
+                // function OnPopulate(targetElement: HTMLInputElement) {
 
-                //}
+                // }
 
-                //function OnLookupValueChanged() {
+                // function OnLookupValueChanged() {
                 //    _myData.updateControlValue(_myData.fieldName, GetCurrentLookupValue());
-                //}
-                //function GetCurrentLookupValue() {
+                // }
+                // function GetCurrentLookupValue() {
                 //    return _valueStr;
-                //}
+                // }
                 function buildAutoFillControl() {
                     var result: string[] = [];
                     result.push('<div dir="' + STSHtmlEncode(_myData.fieldSchema.Direction) + '" style="position: relative;">');
@@ -1336,14 +1336,14 @@ namespace CSR {
                         query.set_queryText('contentclass:STS_ListItem ListID:{' + _schema.LookupListId + '} ' + value);
                         var selectProps = query.get_selectProperties();
                         selectProps.clear();
-                        //TODO: Handle ShowField attribute
+                        // TODO: Handle ShowField attribute
                         selectProps.add('Title');
                         selectProps.add('ListItemId');
                         var executor = new Search.SearchExecutor(ctx);
                         var result = executor.executeQuery(query);
                         ctx.executeQueryAsync(
                             () => {
-                                //TODO: Discover proper way to load collection
+                                // TODO: Discover proper way to load collection
                                 var tableCollection = new Search.ResultTableCollection();
                                 tableCollection.initPropertiesFromJson(result.get_value());
 
@@ -1711,7 +1711,7 @@ if (typeof SP === 'object' && SP && typeof SP.SOD === 'object' && SP.SOD) {
 }
 
 
-//mquery.ts
+// mquery.ts
 
 
 
@@ -1822,7 +1822,7 @@ m$.ready(() => {
 });
 
 
-//whoisapppart.ts
+// whoisapppart.ts
 
 
 namespace _ {
@@ -1842,7 +1842,7 @@ namespace _ {
         }
     });
 
-    //Load the people picker
+    // Load the people picker
     function loadPeoplePicker(peoplePickerElementId: string) {
         var schema: ISPClientPeoplePickerSchema = {
             PrincipalAccountType: "User",
@@ -1881,7 +1881,7 @@ namespace _ {
                 var properties = personProperties.get_userProfileProperties();
                 var messageText = "";
                 for (var key in properties) {
-                    if(properties.hasOwnProperty(key))
+                    if (properties.hasOwnProperty(key))
                         continue;
                     messageText += "<br />[" + key + "]: \"" + properties[key] + "\"";
                 }
@@ -1916,12 +1916,12 @@ namespace _ {
 
     function prepareVisual() {
         if (isIframe) {
-            //Create a Link element for the defaultcss.ashx resource
+            // Create a Link element for the defaultcss.ashx resource
             var linkElement = document.createElement('link');
             linkElement.setAttribute('rel', 'stylesheet');
             linkElement.setAttribute('href', spHostUrl + '/_layouts/15/defaultcss.ashx');
 
-            //Add the linkElement as a child to the head section of the html
+            // Add the linkElement as a child to the head section of the html
             document.head.appendChild(linkElement);
         } else {
 
@@ -1953,7 +1953,7 @@ namespace _ {
     }
 }
 
-//taxonomy
+// taxonomy
 namespace MySP {
 
     // Class
@@ -2261,7 +2261,7 @@ namespace _ {
 
 };
 
-//publishing.ts
+// publishing.ts
 // Variables used in various callbacks
 JSRequest.EnsureSetup();
 
@@ -2332,7 +2332,7 @@ function createPage(evt) {
     });
 }
 
-//likes
+// likes
 namespace SampleReputation {
 
     interface MyList extends SPClientTemplates.RenderContext_InView {
@@ -2428,7 +2428,7 @@ namespace SampleReputation {
 
 
 
-//code from https://github.com/gandjustas/SharePointAngularTS
+// code from https://github.com/gandjustas/SharePointAngularTS
 namespace App {
     "use strict";
     var app = angular.module("app", []);

@@ -1,6 +1,6 @@
 import * as Clndr from 'clndr';
 
-let options: Clndr.ClndrOptions = {
+const options: Clndr.ClndrOptions = {
     template: '',
     startWithMonth: "YYYY-MM-DD",
     weekOffset: 0,
@@ -25,21 +25,21 @@ let options: Clndr.ClndrOptions = {
         adjacentMonth: "adjacent-month",
     },
     clickEvents: {
-        click: function (target) { },
-        today: function (month) { },
-        nextMonth: function (month) { },
-        previousMonth: function (month) { },
-        onMonthChange: function (month) { },
-        nextYear: function (month) { },
-        previousYear: function (month) { },
-        onYearChange: function (month) { },
-        nextInterval: function (start, end) { },
-        previousInterval: function (start, end) { },
-        onIntervalChange: function (start, end) { }
+        click(target) { },
+        today(month) { },
+        nextMonth(month) { },
+        previousMonth(month) { },
+        onMonthChange(month) { },
+        nextYear(month) { },
+        previousYear(month) { },
+        onYearChange(month) { },
+        nextInterval(start, end) { },
+        previousInterval(start, end) { },
+        onIntervalChange(start, end) { }
     },
     useTouchEvents: false,
-    ready: function () { },
-    doneRendering: function () { },
+    ready() { },
+    doneRendering() { },
     events: [],
     dateParameter: 'date',
     multiDayEvents: {
@@ -59,7 +59,7 @@ let options: Clndr.ClndrOptions = {
         interval: 1
     },
     extras: { },
-    render: function (data) {
+    render(data) {
         return '<div class="html data as a string"></div>';
     },
     constraints: {
@@ -69,7 +69,13 @@ let options: Clndr.ClndrOptions = {
     moment: null
 };
 
-let myCalendar = $('.parent-element').clndr(options);
+const myCalendar = $('.parent-element').clndr(options);
+
+myCalendar.options.constraints = {
+    startDate: '2017-12-22',
+    endDate: '2018-01-09'
+};
+myCalendar.render();
 
 myCalendar
     .forward()
@@ -82,5 +88,5 @@ myCalendar
     .today()
     .setEvents([])
     .addEvents([])
-    .removeEvents(event => { return event.id === 'idToRemove'; })
+    .removeEvents(event => event.id === 'idToRemove')
     .destroy();

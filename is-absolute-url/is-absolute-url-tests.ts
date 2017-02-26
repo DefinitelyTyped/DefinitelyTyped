@@ -1,10 +1,10 @@
 import isAbsoluteUrl = require('is-absolute-url');
 
 isAbsoluteUrl('http://sindresorhus.com/foo/bar');
-//=> true
+// => true
 
 isAbsoluteUrl('//sindresorhus.com');
-//=> false
+// => false
 
 isAbsoluteUrl('foo/bar');
-//=> false
+// => false
