@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "wonder-frp-tests.ts"
+        "wonder.js-tests.ts"
     ]
 }

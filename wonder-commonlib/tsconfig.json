@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "es2015",
         "lib": [
             "es6",
             "dom"
