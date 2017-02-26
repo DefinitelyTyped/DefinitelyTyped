@@ -16,6 +16,10 @@ declare namespace nano {
         parseUrl?: boolean
     }
 
+    interface Callback {
+        (error: any, result: any, headers?: any): void
+    }
+
     interface ServerScope {
         readonly config: ServerConfig
         db: DatabaseScope
@@ -28,7 +32,7 @@ declare namespace nano {
         session(callback?: Callback): Request
         updates(params?: UpdatesParams, callback?: Callback): Request
         followUpdates(params?: object, callback?: Callback): EventEmitter
-        uuids(num: number, callback: Function): Request
+        uuids(num: number, callback: Callback): Request
     }
 
     interface DatabaseScope {
@@ -38,7 +42,7 @@ declare namespace nano {
         list(callback?: Callback): Request
         use(db: string): DocumentScope
         compact(name: string, designname?: string, callback?: Callback): Request
-        replicate(source: string, target: string, options?: object, callback?: Callback): Request
+        replicate(source: string | DocumentScope, target: string | DocumentScope, options?: object, callback?: Callback): Request
         changes(name: string, params?: object, callback?: Callback): Request
         follow(source: string, params?: FollowUpdatesParams, callback?: Callback): any
         followUpdates(params?: object, callback?: Callback): EventEmitter
@@ -51,13 +55,13 @@ declare namespace nano {
         replicate(target: string, options?: object, callback?: Callback): Request
         compact(callback?: Callback): Request
         changes(params?: object, callback?: Callback): Request
-        follow(params?: FollowUpdatesParams, callback?: Callback): any
+        follow(params?: ScopedFollowUpdatesParams, callback?: Callback): any
         auth(username: string, userpass: string, callback?: Function): Request
         session(callback?: Callback): Request
         insert(document: object, params?: string | object, callback?: Callback): Request
         get(docname: string, params?: object, callback?: Callback): Request
         head(docname: string, callback: Callback): Request
-        copy(src_document: object, dst_document: object, options: object, callback?: Callback): Request
+        copy(src_document: string, dst_document: string, options: object, callback?: Callback): Request
         destroy(docname: string, rev: string, callback?: Callback): Request
         bulk(docs: BulkModifyDocsWrapper, params?: object, callback?: Callback): Request
         list(params?: object, callback?: Callback): Request
@@ -92,21 +96,21 @@ declare namespace nano {
     }
 
     interface RequestFunction {
-        (options: RequestOptions, callback?: Callback): void
+        (options?: RequestOptions | string, callback?: Callback): void
     }
 
     interface RequestOptions {
-        db: string
-        method: string
-        path: string
-        doc: string
-        att: string
-        qs: any
-        content_type: string
-        headers: any
-        body: any
-        encoding: string
-        multipart: any[]
+        db?: string
+        method?: string
+        path?: string
+        doc?: string
+        att?: string
+        qs?: any
+        content_type?: string
+        headers?: any
+        body?: any
+        encoding?: string
+        multipart?: any[]
     }
 
     interface UpdatesParams {
@@ -115,22 +119,9 @@ declare namespace nano {
         heartbeat: boolean
     }
 
-    interface Callback {
-        (error: any, result: any): void
-    }
-
-    interface BulkModifyDocsWrapper {
-        docs: object[]
-    }
-
-    interface BulkFetchDocsWrapper {
-        keys: string[]
-    }
-
-    interface FollowUpdatesParams {
-        db: string
+    interface ScopedFollowUpdatesParams {
         inlucde_docs?: boolean
-        since?: number | "now"
+        since?: string
         heartbeat?: number
         feed?: "continuous"
         filter?: string | FollowUpdatesParamsFilterFunction
@@ -142,8 +133,20 @@ declare namespace nano {
         response_grace_time?: number
     }
 
+    interface FollowUpdatesParams extends ScopedFollowUpdatesParams {
+        db: string
+    }
+
     interface FollowUpdatesParamsFilterFunction {
         (doc: any, req: any): boolean
+    }
+
+    interface BulkModifyDocsWrapper {
+        docs: object[]
+    }
+
+    interface BulkFetchDocsWrapper {
+        keys: string[]
     }
 }
 
