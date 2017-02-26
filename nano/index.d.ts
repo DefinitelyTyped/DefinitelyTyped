@@ -5,8 +5,8 @@
 // TypeScript Version: 2.2
 
 declare module "nano" {
-    import { EventEmitter } from 'events';
-    import { Request, CoreOptions } from 'request';
+    import { EventEmitter } from "events";
+    import { Request, CoreOptions } from "request";
 
     function nano(config: nano.Configuration | string): nano.ServerScope | nano.DocumentScope;
 
