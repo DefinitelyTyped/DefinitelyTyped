@@ -12701,7 +12701,7 @@ declare namespace _ {
          * @param value The value to check.
          * @returns Returns true if value is correctly classified, else false.
          */
-        isWeakMap<K, V>(value?: any): value is WeakMap<K, V>;
+        isWeakMap<K, V>(value?: any): boolean;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -19446,5 +19446,4 @@ declare global {
     interface Set<T> { }
     interface Map<K, V> { }
     interface WeakSet<T> { }
-    interface WeakMap<K, V> { }
 }

@@ -23,9 +23,9 @@ declare class Request {
         method: string;
         path: string;
         params?: Params | FormData;
-    }): Promise<ResponseInterface>;
-    checkStatus(response: ResponseInterface): Promise<ResponseInterface>;
-    parseJSON<T>(response: ResponseInterface): Promise<T>;
+    }): Promise<Response>;
+    checkStatus(response: Response): Promise<Response>;
+    parseJSON<T>(response: Response): Promise<T>;
     private toFormData(params);
     private toQueryString(params);
     webAppBaseURL: string;
@@ -49,7 +49,7 @@ export class Backlog extends Request {
   putSpaceNotification(params: Option.Space.PutSpaceNotificationParams): Promise<any>;
   getSpaceDiskUsage(): Promise<any>;
   getSpaceIcon(): Promise<Entity.File.FileData>;
-  postSpaceAttachment(form: FormData): Promise<ResponseInterface>;
+  postSpaceAttachment(form: FormData): Promise<Response>;
   getUsers(): Promise<any>;
   getUser(userId: number): Promise<any>;
   postUser(params: Option.User.PostUserParams): Promise<any>;
@@ -656,7 +656,7 @@ export namespace Error {
     private _status;
     private _body;
     private _response;
-    constructor(name: BacklogErrorNameType, response: ResponseInterface, body?: {
+    constructor(name: BacklogErrorNameType, response: Response, body?: {
       errors: BacklogErrorMessage[];
     });
     name: BacklogErrorNameType;
@@ -665,20 +665,20 @@ export namespace Error {
     body: {
       errors: BacklogErrorMessage[];
     };
-    response: ResponseInterface;
+    response: Response;
   }
   export class BacklogApiError extends BacklogError {
-    constructor(response: ResponseInterface, body?: {
+    constructor(response: Response, body?: {
       errors: BacklogErrorMessage[];
     });
   }
   export class BacklogAuthError extends BacklogError {
-    constructor(response: ResponseInterface, body?: {
+    constructor(response: Response, body?: {
       errors: BacklogErrorMessage[];
     });
   }
   export class UnexpectedError extends BacklogError {
-    constructor(response: ResponseInterface);
+    constructor(response: Response);
   }
   export interface BacklogErrorMessage {
     message: string;

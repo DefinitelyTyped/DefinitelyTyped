@@ -4768,6 +4768,16 @@ declare namespace sequelize {
          */
         fields?: Array<string | { attribute: string, length: number, order: string, collate: string }>;
 
+        /**
+         * Method the index should use, for example 'gin' index.
+         */
+        using?: string;
+
+        /**
+         * Operator that should be used by gin index, see Built-in GIN Operator Classes
+         */
+        operator?: string;
+
     }
 
     /**

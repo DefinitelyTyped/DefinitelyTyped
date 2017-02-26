@@ -7,12 +7,9 @@
 // Javascript, whether the browser is playing the video through HTML5
 // video, Flash, or any other supported playback technologies.
 
-declare var videojs: videojsStatic;
+declare function videojs(id: any, options?: videojs.PlayerOptions, ready?: () => void): videojs.Player;
 export = videojs;
 export as namespace videojs;
-
-type videojsStatic =
-	(id: any, options?: videojs.PlayerOptions, ready?: () => void) => videojs.Player;
 
 declare namespace videojs {
 
@@ -53,7 +50,7 @@ declare namespace videojs {
 		size(width: number, height: number): Player;
 		requestFullScreen(): Player;
 		cancelFullScreen(): Player;
-		ready(callback: () => void ): Player;
+		ready(callback: (this: Player) => void ): Player;
 		on(eventName: string, callback: (eventObject: Event) => void ): void;
 		off(eventName?: string, callback?: (eventObject: Event) => void ): void;
 		dispose(): void;
