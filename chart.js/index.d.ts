@@ -3,6 +3,8 @@
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="jquery" />
+
 declare class Chart {
     static readonly Chart: typeof Chart;
     constructor(
