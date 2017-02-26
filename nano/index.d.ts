@@ -46,7 +46,7 @@ declare module "nano" {
             compact(name: string, designname?: string, callback?: Callback): Request
             replicate(source: string | DocumentScope, target: string | DocumentScope, options?: object, callback?: Callback): Request
             changes(name: string, params?: object, callback?: Callback): Request
-            follow(source: string, params?: DatabaseScopeFollowUpdatesParams, callback?: Callback): any
+            follow(source: string, params?: DatabaseScopeFollowUpdatesParams, callback?: Callback): void
             followUpdates(params?: object, callback?: Callback): EventEmitter
             updates(params?: UpdatesParams, callback?: Callback): Request
         }
@@ -57,7 +57,7 @@ declare module "nano" {
             replicate(target: string | DocumentScope, options?: object, callback?: Callback): Request
             compact(callback?: Callback): Request
             changes(params?: object, callback?: Callback): Request
-            follow(params?: DocumentScopeFollowUpdatesParams, callback?: Callback): any
+            follow(params?: DocumentScopeFollowUpdatesParams, callback?: Callback): void
             auth(username: string, userpass: string, callback?: Callback): Request
             session(callback?: Callback): Request
             insert(document: object, params?: string | object, callback?: Callback): Request
