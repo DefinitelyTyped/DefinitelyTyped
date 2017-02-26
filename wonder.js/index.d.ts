@@ -787,8 +787,8 @@ declare module 'wonder.js/dist/es2015/core/data/MainData' {
 }
 
 declare module 'wonder.js/dist/es2015/definition/typescript/decorator/cache' {
-    export function cacheGetter(judgeFunc: () => boolean, returnCacheValueFunc: () => any, setCacheFunc: (returnVal) => void): (target: any, name: any, descriptor: any) => any;
-    export function cache(judgeFunc: (...args) => boolean, returnCacheValueFunc: (...args) => any, setCacheFunc: (...returnVal) => void): (target: any, name: any, descriptor: any) => any;
+    export function cacheGetter(judgeFunc: () => boolean, returnCacheValueFunc: () => any, setCacheFunc: (returnVal: any) => void): (target: any, name: any, descriptor: any) => any;
+    export function cache(judgeFunc: any, returnCacheValueFunc: any, setCacheFunc: any): (target: any, name: any, descriptor: any) => any;
     export function cacheBufferForBufferContainer(): (target: any, name: any, descriptor: any) => any;
     export function cacheBufferForBufferContainerWithFuncParam(setDataNameFuncName: string): (target: any, name: any, descriptor: any) => any;
 }
