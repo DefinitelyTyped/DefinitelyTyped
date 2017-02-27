@@ -1,4 +1,4 @@
-// Type definitions for rc-slider v6.1.2
+// Type definitions for rc-slider 6.1
 // Project: https://github.com/react-component/slider
 // Definitions by: Marcinkus Mantas <https://github.com/mantasmarcinkus/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -28,13 +28,13 @@ declare namespace RcSliderClass {
          */
         max?: number;
         /**
-        * Marks on the slider. The key determines the position, and the value determines what will show. 
+        * Marks on the slider. The key determines the position, and the value determines what will show.
         * If you want to set the style of a specific mark point, the value should be an object which contains style and label properties.
         *  @default '{}' | {number: { style, label }}
         */
         marks?: Marks;
         /**
-        * Value to be added or subtracted on each step the slider makes. Must be greater than zero, and max - min should be evenly divisible by the step value. 
+        * Value to be added or subtracted on each step the slider makes. Must be greater than zero, and max - min should be evenly divisible by the step value.
         *  @default 1
         */
         step?: number;
@@ -112,7 +112,7 @@ declare namespace RcSliderClass {
          */
         value?: number[];
         /**
-         * Determine how many ranges to render, and multiple handles will be rendered (number + 1). 
+         * Determine how many ranges to render, and multiple handles will be rendered (number + 1).
          *  @default 1
          */
         count?: number;
@@ -147,7 +147,7 @@ declare namespace RcSliderClass {
 
 declare class RcSliderClass extends React.Component<RcSliderClass.SliderProps, {}> { }
 
-declare module RcSliderClass {
+declare namespace RcSliderClass {
     class Range extends React.Component<RcSliderClass.RangeProps, {}> { }
     class Handle extends React.Component<RcSliderClass.HandleProps, {}> { }
 }
