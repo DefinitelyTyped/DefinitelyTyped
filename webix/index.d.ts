@@ -212,7 +212,7 @@ function message(content:any):void;
 function modalbox(text:string, callback:WebixCallback):HTMLElement;
 function once(code:WebixCallback):void;
 function proto(target:any, ...mixins:any[]):any;
-function protoUI(target:any, view:any, mixins:any):any;
+function protoUI(target: any, ...mixins: any[]): any;
 function proxy(type:string, source:string):any;
 function ready(code:WebixCallback):void;
 function remote():void;
