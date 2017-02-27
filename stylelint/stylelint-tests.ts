@@ -1,6 +1,6 @@
-import { Options, lint, LintResult, PromiseResult } from "stylelint";
+import { LinterOptions, lint, LintResult, LinterResult } from "stylelint";
 
-const options: Options = {
+const options: LinterOptions = {
     code: "div { color: red }",
     files: ["**/**.scss"],
     formatter: "json",
@@ -10,7 +10,7 @@ const options: Options = {
     syntax: "scss"
 };
 
-lint(options).then((x: PromiseResult) => {
+lint(options).then((x: LinterResult) => {
     const err: boolean = x.errored;
     const output: string = x.output;
     const postcssResults: any[] = x.postcssResults;
