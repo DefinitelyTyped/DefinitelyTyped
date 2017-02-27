@@ -1549,10 +1549,10 @@ declare namespace Office {
             function toItemRead(item: Office.Item): Office.ItemRead;
         }
     }
-    export interface asyncContextOptions {
+    export interface AsyncContextOptions {
         asyncContext?: any;
     }
-    export interface coercionTypeOptions {
+    export interface CoercionTypeOptions {
         coercionType?: CoercionType;
     }
     export enum SourceProperty {
@@ -1608,35 +1608,35 @@ declare namespace Office {
          * @param options Any optional parameters or state data passed to the method
          * @param The optional method to call when the getAsync method returns
          */
-        getAsync(coercionType: CoercionType, options?: asyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        getAsync(coercionType: CoercionType, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /*
          * Gets a value that indicates whether the content is in HTML or text format
          * @param tableData  A TableData object with the headers and rows
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the getTypeAsync method returns
          */
-        getTypeAsync(options?: asyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        getTypeAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Adds the specified content to the beginning of the item body
          * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        prependAsync(data: string, options?: asyncContextOptions & coercionTypeOptions, callback?: (result: AsyncResult) => void): void;
+        prependAsync(data: string, options?: AsyncContextOptions & CoercionTypeOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Replaces the entire body with the specified text.
          * @param data The string that will replace the existing body. The string is limited to 1,000,000 characters
          * @param options Any optional parameters or state data passed to the method
          * @param callback the optional method to call when the body is replaced
          */
-        setAsync(data: string, options?: asyncContextOptions & coercionTypeOptions, callback?: (result: AsyncResult) => void): void;
+        setAsync(data: string, options?: AsyncContextOptions & CoercionTypeOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Replaces the selection in the body with the specified text
          * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        setSelectedDataAsync(data: string, options?: asyncContextOptions & coercionTypeOptions, callback?: (result: AsyncResult) => void): void;
+        setSelectedDataAsync(data: string, options?: AsyncContextOptions & CoercionTypeOptions, callback?: (result: AsyncResult) => void): void;
     }
     export interface Contact {
         addresses: Array<string>;
@@ -1718,7 +1718,7 @@ declare namespace Office {
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional callback method
          */
-        addFileAttachmentAsync(uri: string, attachmentName: string, options?: asyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        addFileAttachmentAsync(uri: string, attachmentName: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Adds an Exchange item, such as a message, as an attachment to the message
          * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
@@ -1726,7 +1726,7 @@ declare namespace Office {
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional callback method
          */
-        addItemAttachmentAsync(itemId: any, attachmentName: string, options?: asyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        addItemAttachmentAsync(itemId: any, attachmentName: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Closes the current item that is being composed
          * 
@@ -1742,25 +1742,25 @@ declare namespace Office {
          * If there is no selection but the cursor is in the body or the subject, the method returns null for the selected data. If a field other
          * than the body or subject is selected, the method returns the InvalidSelection error
          */
-        getSelectedDataAsync(coercionType: CoercionType, options?: asyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        getSelectedDataAsync(coercionType: CoercionType, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Removes an attachment from a message
          * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional callback method
          */
-        removeAttachmentAsync(attachmentIndex: string, options?: asyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        removeAttachmentAsync(attachmentIndex: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Asynchronously saves an item.
          * 
          * When invoked, this method saves the current message as a draft and returns the item id via the callback method. In Outlook Web App or 
          * Outlook in online mode, the item is saved to the server. In Outlook in cached mode, the item is saved to the local cache.
          */
-        saveAsync(options?: asyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        saveAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Asynchronously inserts data into the body or subject of a message.
          */
-        setSelectedDataAsync(data: string, options?: asyncContextOptions & coercionTypeOptions, callback?: (result: AsyncResult) => void): void;
+        setSelectedDataAsync(data: string, options?: AsyncContextOptions & CoercionTypeOptions, callback?: (result: AsyncResult) => void): void;
     }
     export interface ItemRead extends Item {
         itemClass: string;
@@ -1820,14 +1820,14 @@ declare namespace Office {
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        getAsync(options?: asyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        getAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Begins an asynchronous request to set the location of an appointment
          * @param data The location of the appointment. The string is limited to 255 characters
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the location is set
          */
-        setAsync(location: string, options?: asyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        setAsync(location: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
     }
     export interface Mailbox {
         diagnostics: Diagnostics;
@@ -1935,20 +1935,20 @@ declare namespace Office {
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional callback method
          */
-        addAsync(key: string, JSONmessage: NotificationMessageDetails, options?: asyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        addAsync(key: string, JSONmessage: NotificationMessageDetails, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Returns all keys and messages for an item.
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional callback method
          */
-        getAllAsync(options?: asyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        getAllAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Removes a notification message for an item.
          * @param key The key for the notification message to remove
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional callback method
          */
-        removeAsync(key: string, options?: asyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        removeAsync(key: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Replaces a notification message that has a given key with another message
          * @param key The key for the notification message to replace.
@@ -1956,7 +1956,7 @@ declare namespace Office {
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional callback method
          */
-        replaceAsync(key: string, JSONmessage: NotificationMessageDetails, options?: asyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        replaceAsync(key: string, JSONmessage: NotificationMessageDetails, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
     }
     export interface PhoneNumber {
         phoneString: string;
@@ -1970,20 +1970,20 @@ declare namespace Office {
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        addAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, options?: asyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        addAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Begins an asynchronous request to get the recipient list for an appointment or message
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        getAsync(options?: asyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        getAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Begins an asynchronous request to set the recipient list for an appointment or message
          * @param recipients The recipients to add to the recipients list
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        setAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, options?: asyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        setAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
     }
     export interface ReplyFormAttachment {
         type: string;
@@ -2025,14 +2025,14 @@ declare namespace Office {
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        getAsync(options?: asyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        getAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Begins an asynchronous call to set the subject of an appointment or message
          * @param data The subject of the appointment. The string is limited to 255 characters
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        setAsync(data: string, options?: asyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        setAsync(data: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
     }
     export interface TaskSuggestion {
         assignees: Array<EmailUser>;
@@ -2044,14 +2044,14 @@ declare namespace Office {
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        getAsync(options?: asyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        getAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Begins an asynchronous request to set the start or end time
          * @param dateTime A date-time object in Coordinated Universal Time (UTC)
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        setAsync(dateTime: Date, options?: asyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        setAsync(dateTime: Date, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
     }
     export interface UserProfile {
         displayName: string;
