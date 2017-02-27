@@ -1,6 +1,6 @@
 // Type definitions for webpack 2.2
 // Project: https://github.com/webpack/webpack
-// Definitions by: Qubo <https://github.com/tkqubo>, Matt Lewis <https://github.com/mattlewis92>, Benjamin Lim <https://github.com/bumbleblym>, Boris Cherny <https://github.com/bcherny>
+// Definitions by: Qubo <https://github.com/tkqubo>, Matt Lewis <https://github.com/mattlewis92>, Benjamin Lim <https://github.com/bumbleblym>, Boris Cherny <https://github.com/bcherny>, Anton Kandybo <https://github.com/dublicator>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -728,6 +728,10 @@ declare namespace webpack {
         // tslint:disable-next-line:unified-signatures
         constructor(context: any, request: any);
         constructor(request: any);
+    }
+
+    class ProgressPlugin extends Plugin {
+        constructor(options?: (percentage: number, msg: string) => void);
     }
 
     class ProvidePlugin extends Plugin {

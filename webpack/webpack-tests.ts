@@ -364,6 +364,7 @@ plugin = new webpack.WatchIgnorePlugin(paths);
 plugin = new webpack.LoaderOptionsPlugin({
     debug: true
 });
+plugin = new webpack.ProgressPlugin((percent: number, message: string) => {});
 
 //
 // http://webpack.github.io/docs/node.js-api.html
