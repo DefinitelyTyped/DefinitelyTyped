@@ -1,4 +1,4 @@
-// Type definitions for react-autosuggest 7.0
+// Type definitions for react-autosuggest 8.0
 // Project: http://react-autosuggest.js.org/
 // Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>, Philip Ottesen <https://github.com/pjo256>, Robert Essig <https://github.com/robessog>, Terry Bayne <https://github.com/tbayne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
