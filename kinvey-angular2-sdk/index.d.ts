@@ -72,7 +72,7 @@ declare namespace Kinvey {
   }
   class DataStore {
     static collection<T>(collection: string, type?: DataStoreType, options?: {}): T;
-    static clearCache(options?: {}): Promise<>;
+    static clearCache(options?: {}): Promise<Array<{}>>;
   }
   class NetworkStore {
     find(query?: Query, options?: {}): Rx.Observable<Array<{}>>;
