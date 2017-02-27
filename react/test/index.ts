@@ -317,6 +317,7 @@ var htmlAttr: React.HTMLProps<HTMLElement> = {
     children: children,
     className: "test-attr",
     style: divStyle,
+    slot: "HTMLComponent",
     onClick: (event: React.MouseEvent<{}>) => {
         event.preventDefault();
         event.stopPropagation();

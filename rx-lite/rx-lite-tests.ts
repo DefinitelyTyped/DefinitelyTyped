@@ -54,7 +54,7 @@ namespace Tests.Async {
 		p = p.then(x => x);
 		p = p.then(x => p);
 		p = p.then(undefined, reason => 10);
-		//p = p.then(undefined, reason => p);
+		// p = p.then(undefined, reason => p);
 
 		var ps: Rx.IPromise<string> = p.then(undefined, reason => "error");
 		ps = p.then(x => "");
@@ -77,17 +77,17 @@ function test_scan() {
 function test_concatAll() {
 	/* concatAll Example */
 	var source = Rx.Observable.range(0, 3)
-		.map(function (x) { return Rx.Observable.range(x, 3); })
+		.map(x => Rx.Observable.range(x, 3))
 		.concatAll();
 
 	var subscription = source.subscribe(
-		function (x) {
+		x => {
 			console.log('Next: %s', x);
 		},
-		function (err) {
+		err => {
 			console.log('Error: %s', err);
 		},
-		function () {
+		() => {
 			console.log('Completed');
 		});
 }
@@ -95,17 +95,17 @@ function test_concatAll() {
 function test_mergeAll() {
 	/* mergeAll example */
 	var source = Rx.Observable.range(0, 3)
-		.map(function (x) { return Rx.Observable.range(x, 3); })
+		.map(x => Rx.Observable.range(x, 3))
 		.mergeAll();
 
 	var subscription = source.subscribe(
-		function (x) {
+		x => {
 			console.log('Next: %s', x);
 		},
-		function (err) {
+		err => {
 			console.log('Error: %s', err);
 		},
-		function () {
+		() => {
 			console.log('Completed');
 		});
 
@@ -117,7 +117,7 @@ function test_publish() {
 
 	var source = interval
 		.take(2)
-		.doAction(function (x) {
+		.doAction(x => {
 			console.log('Side effect');
 		});
 
@@ -130,13 +130,13 @@ function test_publish() {
 
 	function createObserver(tag: string) {
 		return Rx.Observer.create(
-			function (x) {
+			x => {
 				console.log('Next: ' + tag + x);
 			},
-			function (err) {
+			err => {
 				console.log('Error: ' + err);
 			},
-			function () {
+			() => {
 				console.log('Completed');
 			});
 	}

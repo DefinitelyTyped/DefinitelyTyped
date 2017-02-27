@@ -1,13 +1,11 @@
-/// <reference path="../index.d.ts" />
-
 function requestTest() {
-    type CustomHeader = {
+    interface CustomHeader {
         customHeader: string;
-    };
+    }
 
-    type CustomParam = {
+    interface CustomParam {
         customParam: boolean;
-    };
+    }
 
     const requestOptions: qq.RequestOptions<CustomHeader, CustomParam> = {
         customHeaders: {

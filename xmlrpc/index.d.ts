@@ -84,6 +84,13 @@ declare module 'xmlrpc' {
             decodeIso8601(time: string): Date;
             encodeIso8601(date: Date): string;
         }
+
+        export class CustomType {
+            tagName: string;
+            raw: string;
+            constructor(raw: string);
+            serialize(xml: any): any; // XMLElementOrXMLNode declared by xmlbuilder
+        }
     }
 
     export = xmlrpc;

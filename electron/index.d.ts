@@ -1,6 +1,6 @@
 // Type definitions for Electron v1.4.8
 // Project: http://electron.atom.io/
-// Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>, aliib <https://github.com/aliib>
+// Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>, aliib <https://github.com/aliib>, Daniel Perez Alvarez <https://github.com/unindented>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -399,6 +399,20 @@ declare namespace Electron {
 		 */
 		disableHardwareAcceleration(): void;
 		/**
+		 * Sets the counter badge for current app. Setting the count to 0 will hide the badge.
+		 *
+		 * @returns True when the call succeeded, otherwise returns false.
+		 *
+		 * Note: This API is only available on macOS and Linux.
+		 */
+		setBadgeCount(count: number): boolean;
+		/**
+		 * @returns The current value displayed in the counter badge.
+		 *
+		 * Note: This API is only available on macOS and Linux.
+		 */
+		getBadgeCount(): number;
+		/**
 		 * @returns whether current desktop environment is Unity launcher. (Linux)
 		 *
 		 * Note: This API is only available on Linux.
@@ -505,20 +519,6 @@ declare namespace Electron {
 		 * Note: This API is only available on macOS.
 		 */
 		getBadge(): string;
-		/**
-		 * Sets the counter badge for current app. Setting the count to 0 will hide the badge.
-		 *
-		 * @returns True when the call succeeded, otherwise returns false.
-		 *
-		 * Note: This API is only available on macOS and Linux.
-		 */
-		setBadgeCount(count: number): boolean;
-		/**
-		 * @returns The current value displayed in the counter badge.
-		 *
-		 * Note: This API is only available on macOS and Linux.
-		 */
-		getBadgeCount(): number;
 		/**
 		 * Hides the dock icon.
 		 *

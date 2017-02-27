@@ -43,13 +43,13 @@ forwardConnectionArgs.first = 10;
 backwardConnectionArgs.before = "b";
 backwardConnectionArgs.last = 10;
 // connectionDefinitions returns a connectionType and its associated edgeType, given a node type.
-let resolve: GraphQLFieldResolver<any, any> = (source, args, context, info) => {
+const resolve: GraphQLFieldResolver<any, any> = (source, args, context, info) => {
     info.fieldName = "f";
 };
 const fields: GraphQLFieldConfigMap<any, any> = {};
 let t: GraphQLObjectType;
 let e: GraphQLObjectType;
-let def = connectionDefinitions({
+const def = connectionDefinitions({
     connectionFields: fields,
     edgeFields: fields,
     name: "N",
@@ -62,7 +62,8 @@ let def = connectionDefinitions({
 });
 t = def.connectionType;
 e = def.edgeType;
-// connectionFromArray is a helper method that takes an array and the arguments from connectionArgs, does pagination and filtering, and returns an object in the shape expected by a connectionType's resolve function.
+// connectionFromArray is a helper method that takes an array and the arguments from connectionArgs,
+// does pagination and filtering, and returns an object in the shape expected by a connectionType's resolve function.
 const conn = connectionFromArray([1, 2, 3], {
     after: "a",
     before: "b",
@@ -89,7 +90,7 @@ conn2.then((res) => {
 // cursorForObjectInConnection is a helper method that takes an array and a member object, and returns a cursor for use in the mutation payload.
 cursorForObjectInConnection(["a"], "b").toLowerCase();
 // An example usage of these methods from the test schema:
-let shipType: GraphQLObjectType = new GraphQLObjectType({
+const shipType: GraphQLObjectType = new GraphQLObjectType({
     name: "ShipType",
     fields: {},
 });
@@ -109,7 +110,8 @@ const factionType = new GraphQLObjectType({
     }),
 });
 // Object Identification
-// nodeDefinitions returns the Node interface that objects can implement, and returns the node root field to include on the query type. To implement this, it takes a function to resolve an ID to an object, and to determine the type of a given object.
+// nodeDefinitions returns the Node interface that objects can implement, and returns the node root field to include on the query type.
+// To implement this, it takes a function to resolve an ID to an object, and to determine the type of a given object.
 const resolver: GraphQLTypeResolver<any, any> = () => {
     return new GraphQLObjectType({
         name: "T",
@@ -170,7 +172,8 @@ const queryType = new GraphQLObjectType({
     })
 });
 // Mutations
-// mutationWithClientMutationId takes a name, input fields, output fields, and a mutation method to map from the input fields to the output fields, performing the mutation along the way. It then creates and returns a field configuration that can be used as a top-level field on the mutation type.
+// mutationWithClientMutationId takes a name, input fields, output fields, and a mutation method to map from the input fields to the output fields, performing the mutation along the way.
+// It then creates and returns a field configuration that can be used as a top-level field on the mutation type.
 const gifcm: GraphQLInputFieldConfigMap = {};
 const gfcm: GraphQLFieldConfigMap<any, any> = {};
 mutationWithClientMutationId({

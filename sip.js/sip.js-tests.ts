@@ -55,7 +55,7 @@ ua.stop();
 ua.register();
 ua = ua.register({ extraHeaders: [""] });
 
-ua.unregister()
+ua.unregister();
 ua.unregister({ extraHeaders: [""], all: true });
 
 const isConnected: boolean = ua.isConnected();
@@ -78,7 +78,7 @@ const inviteOptions: sipjs.InviteOptions = {
     rel100: "",
     inviteWithoutSdp: true,
     RTCConstraints: {}
-}
+};
 
 session = ua.invite("", inviteOptions);
 

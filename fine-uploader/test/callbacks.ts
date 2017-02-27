@@ -1,16 +1,14 @@
-/// <reference path="../index.d.ts" />
-
 class CallbacksTest {
     constructor(private opts: qq.CallbackOptions) {
 
     }
 
     testCallbacks() {
-        let opts = this.opts;
+        const opts = this.opts;
 
-        type CustomType = {
+        interface CustomType {
             myTypeOfClass: string;
-        };
+        }
 
         opts.onAutoRetry = (id, name, attemptNumber) => {};
 

@@ -1,20 +1,23 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "es6",
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "baseUrl": "../",
-    "typeRoots": [
-      "../"
-    ],
-    "types": [],
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "files": [
-    "index.d.ts",
-    "semantic-ui-tests.ts"
-  ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "semantic-ui-tests.ts"
+    ]
 }

@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts" />
-
 import { expect } from 'chai';
 import { assert } from 'chai';
 
@@ -44,14 +42,14 @@ const fruitSchema = {
     }
 };
 
-//bdd style
+// bdd style
 expect(goodApple).to.be.jsonSchema(fruitSchema);
 expect(badApple).to.not.be.jsonSchema(fruitSchema);
 
 goodApple.should.be.jsonSchema(fruitSchema);
 badApple.should.not.be.jsonSchema(fruitSchema);
 
-//tdd style
+// tdd style
 assert.jsonSchema(goodApple, fruitSchema);
 assert.notJsonSchema(badApple, fruitSchema);
 

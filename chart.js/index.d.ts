@@ -103,6 +103,7 @@ declare namespace Chart {
         animation?: ChartAnimationOptions;
         elements?: ChartElementsOptions;
         scales?: ChartScales;
+        cutoutPercentage?: number;
     }
 
     export interface ChartFontOptions {

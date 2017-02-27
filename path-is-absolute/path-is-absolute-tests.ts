@@ -2,22 +2,22 @@ import pathIsAbsolute = require('path-is-absolute');
 
 // Running on Linux
 pathIsAbsolute('/home/foo');
-//=> true
+// => true
 pathIsAbsolute('C:/Users/foo');
-//=> false
+// => false
 
 // Running on Windows
 pathIsAbsolute('C:/Users/foo');
-//=> true
+// => true
 pathIsAbsolute('/home/foo');
-//=> false
+// => false
 
 // Running on any OS
 pathIsAbsolute.posix('/home/foo');
-//=> true
+// => true
 pathIsAbsolute.posix('C:/Users/foo');
-//=> false
+// => false
 pathIsAbsolute.win32('C:/Users/foo');
-//=> true
+// => true
 pathIsAbsolute.win32('/home/foo');
-//=> false
+// => false

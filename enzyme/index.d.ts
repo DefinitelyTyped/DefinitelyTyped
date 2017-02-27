@@ -1,6 +1,10 @@
 // Type definitions for Enzyme 2.7
 // Project: https://github.com/airbnb/enzyme
-// Definitions by: Marian Palkus <https://github.com/MarianPalkus>, Cap3 <http://www.cap3.de>, Ivo Stratev <https://github.com/NoHomey>, Tom Crockett <https://github.com/pelotom>, jwbay <https://githb.com/jwbay>
+// Definitions by: Marian Palkus <https://github.com/MarianPalkus>
+//                 Cap3 <http://www.cap3.de>
+//                 Ivo Stratev <https://github.com/NoHomey>
+//                 Tom Crockett <https://github.com/pelotom>
+//                 jwbay <https://githb.com/jwbay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -435,7 +439,8 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
      *
      * The method is intentionally not "fluent" (in that it doesn't return this) because you should not be doing anything with this wrapper after this method is called.
      *
-     * Using the attachTo is not generally recommended unless it is absolutely necessary to test something. It is your responsibility to clean up after yourself at the end of the test if you do decide to use it, though.
+     * Using the attachTo is not generally recommended unless it is absolutely necessary to test something.
+     * It is your responsibility to clean up after yourself at the end of the test if you do decide to use it, though.
      */
     detach(): void;
 

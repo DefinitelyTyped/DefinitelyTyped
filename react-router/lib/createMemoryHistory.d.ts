@@ -1,6 +1,2 @@
-import { History } from "history";
-import { CreateHistory } from "react-router";
-
-declare const createMemoryHistory: CreateHistory<History>;
-
+import { default as createMemoryHistory } from "history/lib/createMemoryHistory";
 export default createMemoryHistory;
