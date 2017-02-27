@@ -3,7 +3,7 @@
 // Definitions by: Alan Agius <https://github.com/alan-agius4/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface Options {
+export interface LinterOptions {
     code?: string;
     codeFilename?: string;
     config?: JSON;
@@ -19,7 +19,7 @@ export interface Options {
     customSyntax?: string;
 }
 
-export interface PromiseResult {
+export interface LinterResult {
     errored: boolean;
     output: string;
     postcssResults: any[];
@@ -32,4 +32,4 @@ export interface LintResult {
     warnings: string[];
 }
 
-export function lint(options?: Options): Promise<PromiseResult>;
+export function lint(options?: LinterOptions): Promise<LinterResult>;
