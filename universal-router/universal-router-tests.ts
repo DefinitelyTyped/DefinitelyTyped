@@ -59,7 +59,7 @@ const routes5 = [
     async action(ctx: ActionContext, { username }: Params) {
       const waitable = async (name: string) => {
         console.log(`Welcome ${name}`);
-      }
+      };
       await waitable(username);
     }
   }

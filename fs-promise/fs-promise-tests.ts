@@ -34,8 +34,8 @@ async function test() {
     await fs.move(src, dst);
     await fs.outputFile(path, "test");
     await fs.outputFile(path, "test", writeOptions);
-    await fs.outputFile(path, new Buffer([1,2]));
-    await fs.outputFile(path, new Buffer([1,2]), writeOptions);
+    await fs.outputFile(path, new Buffer([1, 2]));
+    await fs.outputFile(path, new Buffer([1, 2]), writeOptions);
     await fs.outputJson(path, data);
     await fs.outputJson(path, data, writeJsonOptions);
     await fs.outputJSON(path, data, writeJsonOptions);
@@ -43,7 +43,7 @@ async function test() {
     json = await fs.readJson(path, readJsonOptions);
     json = await fs.readJSON(path, readJsonOptions);
     await fs.remove(path);
-    let dirs: string[] = await fs.walk(dir);
+    const dirs: string[] = await fs.walk(dir);
     await fs.writeJson(path, data);
     await fs.writeJson(path, data, writeJsonOptions);
     await fs.writeJSON(path, data, writeJsonOptions);

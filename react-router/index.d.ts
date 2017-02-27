@@ -1,30 +1,21 @@
 // Type definitions for react-router 3.0
 // Project: https://github.com/rackt/react-router
-// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>, Nathan Brown <https://github.com/ngbrown>, Alex Wendland <https://github.com/awendland>, Kostya Esmukov <https://github.com/KostyaEsmukov>, John Reilly <https://github.com/johnnyreilly>, Karol Janyst <https://github.com/LKay>
+// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>
+//                 Yuichi Murata <https://github.com/mrk21>
+//                 Václav Ostrožlík <https://github.com/vasek17>
+//                 Nathan Brown <https://github.com/ngbrown>
+//                 Alex Wendland <https://github.com/awendland>
+//                 Kostya Esmukov <https://github.com/KostyaEsmukov>
+//                 John Reilly <https://github.com/johnnyreilly>
+//                 Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-/* Replacement from old history definitions */
-export interface HistoryOptions {
-    getCurrentLocation?(): Location;
-    getUserConfirmation?(message: string, callback: (result: boolean) => void): void;
-    pushLocation?(nextLocation: Location): void;
-    replaceLocation?(nextLocation: Location): void;
-    go?(n: number): void;
-    keyLength?: number;
-}
-
-export type CreateHistory<T> = (options?: HistoryOptions) => T;
-export type CreateHistoryEnhancer<T> = (createHistory: CreateHistory<T>) => CreateHistory<T>;
-
 export {
-    Basename,
     ChangeHook,
     EnterHook,
     InjectedRouter,
     LeaveHook,
-    Location,
-    LocationDescriptor,
     ParseQueryString,
     RouteComponent,
     RouteComponents,
@@ -34,8 +25,7 @@ export {
     RouterProps,
     RouterState,
     RedirectFunction,
-    StringifyQuery,
-    Query
+    StringifyQuery
 } from "react-router/lib/Router";
 export { LinkProps } from "react-router/lib/Link";
 export { IndexLinkProps } from "react-router/lib/IndexLink";

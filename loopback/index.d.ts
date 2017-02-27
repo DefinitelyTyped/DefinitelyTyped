@@ -912,8 +912,15 @@ declare namespace l {
              * @param {any} SharedMethod object. See [here](apidocs.strongloop.com/strong-remoting/#sharedmethod).
              * @param {any} RelationDefinition object which includes relation `type`, `ModelConstructor` of `modelFrom`, `modelTo`, `keyFrom`, `keyTo` and more relation definitions
              */
-
-            static nestRemoting(relationName: string, pathName: string, filterMethod: string, paramName: string, getterName: string, hooks: boolean, options?: {}, filterCallback?: (SharedMethod: any, RelationDefinition: any) => void): void;
+            static nestRemoting(
+                  relationName: string,
+                  pathName: string,
+                  filterMethod: string,
+                  paramName: string,
+                  getterName: string,
+                  hooks: boolean,
+                  options?: {},
+                  filterCallback?: (SharedMethod: any, RelationDefinition: any) => void): void;
 
             /**
              * Enable remote invocation for the specified method.
@@ -1220,8 +1227,9 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {Array} models Model instances matching the filter, or null if none found
              */
-
-            static find(filter?: {fields?: string|any|any[]; include?: string|any|any[]; limit?: number; order?: string; skip?: number; where?: any; }, callback?: (err: Error, models: any[]) => void): void;
+            static find(
+                  filter?: {fields?: string|any|any[]; include?: string|any|any[]; limit?: number; order?: string; skip?: number; where?: any; },
+                  callback?: (err: Error, models: any[]) => void): void;
 
             /**
              * Find object by ID with an optional filter for include/fields
@@ -1295,7 +1303,17 @@ declare namespace l {
              * @param {boolean} created True if the instance matching the `where` filter was created
              */
 
-            static findOrCreate(data: any, filter?: {fields?: string|any|any[]; include?: string|any|any[]; limit?: number; order?: string; skip?: number; where?: any; }, callback?: (err: Error, instance: any, created: boolean) => void): void;
+            static findOrCreate(
+                  data: any,
+                  filter?: {
+                        fields?: string | any | any[];
+                        include?: string | any | any[];
+                        limit?: number;
+                        order?: string;
+                        skip?: number;
+                        where?: any;
+                  },
+                  callback?: (err: Error, instance: any, created: boolean) => void): void;
 
             /**
              * Get the `Change` model.
@@ -1676,8 +1694,17 @@ declare namespace l {
        * @property {string} [currentUserLiteral] string literal for the current user.
        * @header loopback.token([options])
        */
-
-      function token(options?: {cookies?: any[], headers?: any[], params?: any[], searchDefaultTokenKeys?: boolean, enableDoublecheck?: boolean, overwriteExistingToken?: boolean, model?: () => void|string, currentUserLiteral?: string}): void;
+      function token(
+            options?: {
+                  cookies?: any[],
+                  headers?: any[],
+                  params?: any[],
+                  searchDefaultTokenKeys?: boolean,
+                  enableDoublecheck?: boolean,
+                  overwriteExistingToken?: boolean,
+                  model?: () => void|string,
+                  currentUserLiteral?: string
+            }): void;
 
       /**
        * Convert any request not handled so far to a 404 error
@@ -2771,7 +2798,18 @@ declare namespace l {
              * settings.saltWorkFactor The `bcrypt` salt work factor. Default is `10`.
              * settings.caseSensitiveEmail Enable case sensitive email.
              */
-            settings: { http: { path: string }; acls: ACL; emailVerificationRequired: boolean; ttl: number; maxTTL: number; realmRequired: boolean; realmDelimiter: string; resetPasswordTokenTTL: number; saltWorkFactor: number; caseSensitiveEmail: boolean; };
+            settings: {
+                  http: { path: string };
+                  acls: ACL;
+                  emailVerificationRequired: boolean;
+                  ttl: number;
+                  maxTTL: number;
+                  realmRequired: boolean;
+                  realmDelimiter: string;
+                  resetPasswordTokenTTL: number;
+                  saltWorkFactor: number;
+                  caseSensitiveEmail: boolean;
+            };
 
             /**
              * Confirm the user's identity

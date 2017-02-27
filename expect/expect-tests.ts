@@ -1,12 +1,11 @@
 
 /// <reference types="mocha"" />
 
-import {Expectation, Extension, Spy, createSpy, isSpy, assert, spyOn, extend, restoreSpies}
-      from 'expect';
+import {Expectation, Extension, Spy, createSpy, isSpy, assert, spyOn, extend, restoreSpies} from 'expect';
 import * as expect from 'expect';
 
-describe('chaining assertions', function () {
-  it('should allow chaining for array-like applications', function () {
+describe('chaining assertions', () => {
+  it('should allow chaining for array-like applications', () => {
     expect([ 1, 2, 'foo', 3 ])
       .toExist()
       .toBeAn(Array)
@@ -14,7 +13,7 @@ describe('chaining assertions', function () {
       .toExclude('bar');
   });
 
-  it('should allow chaining for number checking', function () {
+  it('should allow chaining for number checking', () => {
     expect(3.14)
       .toExist()
       .toBeLessThan(4.2)
@@ -24,16 +23,16 @@ describe('chaining assertions', function () {
   });
 });
 
-describe('createSpy', function () {
-  describe('when given a function', function () {
-    it('returns a spy function', function () {
+describe('createSpy', () => {
+  describe('when given a function', () => {
+    it('returns a spy function', () => {
       const spy = createSpy(() => { return; });
       expect(spy).toBeA(Function);
     });
   });
 });
 
-describe('A spy', function () {
+describe('A spy', () => {
   let targetContext: any, targetArguments: any;
   const target = {
     method() {
@@ -49,7 +48,7 @@ describe('A spy', function () {
     targetContext = targetArguments = null;
   });
 
-  it('is a spy', function () {
+  it('is a spy', () => {
     expect(isSpy(spy)).toBe(true);
   });
 
@@ -59,15 +58,15 @@ describe('A spy', function () {
     expect(createSpy((a, b, c) => a * b * c).length).toBe(3);
   });
 
-  it('has a destroy method', function () {
+  it('has a destroy method', () => {
     expect(spy.destroy).toBeA(Function);
   });
 
-  it('has a restore method', function () {
+  it('has a restore method', () => {
     expect(spy.restore).toBeA(Function);
   });
 
-  it('has a reset method', function () {
+  it('has a reset method', () => {
     expect(spy.reset).toBeA(Function);
   });
 
@@ -78,90 +77,90 @@ describe('A spy', function () {
     expect(spy.calls.length).toEqual(0);
   });
 
-  it('knows how many times it has been called', function () {
+  it('knows how many times it has been called', () => {
     spy();
     spy();
     expect(spy.calls.length).toEqual(2);
   });
 
-  it('knows the arguments it was called with', function () {
+  it('knows the arguments it was called with', () => {
     spy(1, 2, 3);
     expect(spy).toHaveBeenCalledWith(1, 2, 3);
   });
 
-  describe('that calls some other function', function () {
+  describe('that calls some other function', () => {
     let otherContext: any, otherArguments: any;
     function otherFn() {
       otherContext = this;
       otherArguments = Array.prototype.slice.call(arguments, 0);
-    };
+    }
 
-    beforeEach(function () {
+    beforeEach(() => {
       spy.andCall(otherFn);
       otherContext = otherArguments = null;
     });
 
-    it('calls that function', function () {
+    it('calls that function', () => {
       spy();
       expect(otherContext).toNotBe(null);
     });
 
-    it('uses the correct context', function () {
+    it('uses the correct context', () => {
       const context = {};
       spy.call(context);
       expect(otherContext).toBe(context);
     });
 
-    it('passes the arguments through', function () {
+    it('passes the arguments through', () => {
       spy(1, 2, 3);
       expect(otherArguments).toEqual([ 1, 2, 3 ]);
     });
   });
 
-  describe('that calls through', function () {
-    beforeEach(function () {
+  describe('that calls through', () => {
+    beforeEach(() => {
       spy.andCallThrough();
     });
 
-    it('calls the original function', function () {
+    it('calls the original function', () => {
       spy();
       expect(targetContext).toNotBe(null);
     });
 
-    it('uses the correct context', function () {
+    it('uses the correct context', () => {
       const context = {};
       spy.call(context);
       expect(targetContext).toBe(context);
     });
 
-    it('passes the arguments through', function () {
+    it('passes the arguments through', () => {
       spy(1, 2, 3);
       expect(targetArguments).toEqual([ 1, 2, 3 ]);
     });
   });
 
-  describe('with a thrown value', function () {
-    beforeEach(function () {
+  describe('with a thrown value', () => {
+    beforeEach(() => {
       spy.andThrow('hello');
     });
 
-    it('throws the correct value', function () {
+    it('throws the correct value', () => {
       expect(spy).toThrow('hello');
     });
   });
 
-  describe('with a return value', function () {
-    beforeEach(function () {
+  describe('with a return value', () => {
+    beforeEach(() => {
       spy.andReturn('hello');
     });
 
-    it('returns the correct value', function () {
+    it('returns the correct value', () => {
       expect(spy()).toEqual('hello');
     });
   });
 });
 
-describe('expect.extend', function () {
+describe('expect.extend', () => {
   const ColorAssertions: Extension = {
     toBeAColor() {
       assert(
@@ -174,16 +173,16 @@ describe('expect.extend', function () {
 
   let assertSpy: Spy<{}>;
 
-  beforeEach(function () {
+  beforeEach(() => {
     extend(ColorAssertions);
     assertSpy = spyOn(expect, 'assert');
   });
 
-  afterEach(function () {
+  afterEach(() => {
     assertSpy.restore();
   });
 
-  it('works', function () {
+  it('works', () => {
     interface ColorExpectation<T> extends Expectation<T> {
       toBeAColor(): Expectation<T>;
     }
@@ -192,42 +191,42 @@ describe('expect.extend', function () {
   });
 });
 
-describe('restoreSpies', function () {
-  describe('with one spy', function () {
-    const original = function () { return; };
+describe('restoreSpies', () => {
+  describe('with one spy', () => {
+    const original = () => { return; };
     const target = { method: original };
 
-    beforeEach(function () {
+    beforeEach(() => {
       spyOn(target, 'method');
     });
 
-    it('works with spyOn()', function () {
+    it('works with spyOn()', () => {
       expect(target.method).toNotEqual(original);
       restoreSpies();
       expect(target.method).toEqual(original);
     });
 
-    it('is idempotent', function () {
+    it('is idempotent', () => {
       expect(target.method).toNotEqual(original);
       restoreSpies();
       restoreSpies();
       expect(target.method).toEqual(original);
     });
 
-    it('can work even on createSpy()', function () {
+    it('can work even on createSpy()', () => {
       createSpy(original);
       restoreSpies();
     });
   });
 
-  describe('with multiple spies', function () {
-    const originals = [ function () { return; }, function () { return; } ];
+  describe('with multiple spies', () => {
+    const originals = [ () => { return; }, () => { return; } ];
     const targets = [
       { method: originals[0] },
       { method: originals[1] }
     ];
 
-    it('still works', function () {
+    it('still works', () => {
       spyOn(targets[0], 'method');
       spyOn(targets[1], 'method');
 
@@ -242,119 +241,119 @@ describe('restoreSpies', function () {
   });
 });
 
-describe('A function that was spied on', function () {
+describe('A function that was spied on', () => {
   const video = {
     play(...args: any[]) { return; }
   };
 
   let spy: Spy<{}>;
 
-  beforeEach(function () {
+  beforeEach(() => {
     spy = spyOn(video, 'play');
     video.play('some', 'args');
   });
 
-  it('tracks the number of calls', function () {
+  it('tracks the number of calls', () => {
     expect(spy.calls.length).toEqual(1);
   });
 
-  it('tracks the context that was used', function () {
+  it('tracks the context that was used', () => {
     expect(spy.calls[0].context).toBe(video);
   });
 
-  it('tracks the arguments that were used', function () {
+  it('tracks the arguments that were used', () => {
     expect(spy.calls[0].arguments).toEqual([ 'some', 'args' ]);
   });
 
-  it('was called', function () {
+  it('was called', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it('was called with the correct args', function () {
+  it('was called with the correct args', () => {
     expect(spy).toHaveBeenCalledWith('some', 'args');
   });
 
-  it('can be restored', function () {
+  it('can be restored', () => {
     expect(video.play).toEqual(spy);
     spy.restore();
     expect(video.play).toNotEqual(spy);
   });
 });
 
-describe('A function that was spied on but not called', function () {
+describe('A function that was spied on but not called', () => {
   const video = {
-    play () { return; }
+    play() { return; }
   };
 
   let spy: Spy<{}>;
 
-  beforeEach(function () {
+  beforeEach(() => {
     spy = spyOn(video, 'play');
   });
 
-  it('number of calls to be zero', function () {
+  it('number of calls to be zero', () => {
     expect(spy.calls.length).toEqual(0);
   });
 
-  it('was not called', function () {
+  it('was not called', () => {
     expect(spy).toNotHaveBeenCalled();
   });
 });
 
-describe('toBeA', function () {
-  it('requires the value to be a function or string', function () {
-    expect(function () {
+describe('toBeA', () => {
+  it('requires the value to be a function or string', () => {
+    expect(() => {
       expect('actual').toBeA(4);
     }).toThrow(/must be a function or a string/);
   });
 
-  it('does not throw when the actual value is an instanceof the constructor', function () {
-    expect(function () {
+  it('does not throw when the actual value is an instanceof the constructor', () => {
+    expect(() => {
       expect(new Expectation('foo')).toBeA(Expectation);
     }).toNotThrow();
   });
 
-  it('throws when the actual value is not an instanceof the constructor', function () {
-    expect(function () {
+  it('throws when the actual value is not an instanceof the constructor', () => {
+    expect(() => {
       expect('actual').toBeA(Expectation);
     }).toThrow(/to be/);
   });
 
-  it('does not throw when the expected value is the typeof the actual value', function () {
-    expect(function () {
+  it('does not throw when the expected value is the typeof the actual value', () => {
+    expect(() => {
       expect(4).toBeA('number');
       expect(NaN).toBeA('number'); // hahaha
     }).toNotThrow();
   });
 
-  it('throws when the expected value is not the typeof the actual value', function () {
-    expect(function () {
+  it('throws when the expected value is not the typeof the actual value', () => {
+    expect(() => {
       expect('actual').toBeA('number');
     }).toThrow(/to be/);
   });
 
-  it('does not throw when the actual value is an array', function () {
-    expect(function () {
+  it('does not throw when the actual value is an array', () => {
+    expect(() => {
       expect([]).toBeAn('array');
     }).toNotThrow();
   });
 
-  it('throws when the actual value is not an array', function () {
-    expect(function () {
+  it('throws when the actual value is not an array', () => {
+    expect(() => {
       expect('actual').toBeAn('array');
     }).toThrow(/to be/);
   });
 });
 
-describe('toBeGreaterThan', function () {
-  it('does not throw when the actual value is greater than the expected value', function () {
-    expect(function () {
+describe('toBeGreaterThan', () => {
+  it('does not throw when the actual value is greater than the expected value', () => {
+    expect(() => {
       expect(3).toBeGreaterThan(2);
     }).toNotThrow();
   });
 
-  it('throws when the actual value is not greater than the expected value', function () {
-    expect(function () {
+  it('throws when the actual value is not greater than the expected value', () => {
+    expect(() => {
       expect(2).toBeGreaterThan(3);
     }).toThrow(/to be greater than/);
   });
@@ -380,15 +379,15 @@ describe('toBeGreaterThanOrEqualTo', () => {
   });
 });
 
-describe('toBeLessThan', function () {
-  it('does not throw when the actual value is less than the expected value', function () {
-    expect(function () {
+describe('toBeLessThan', () => {
+  it('does not throw when the actual value is less than the expected value', () => {
+    expect(() => {
       expect(2).toBeLessThan(3);
     }).toNotThrow();
   });
 
-  it('throws when the actual value is not less than the expected value', function () {
-    expect(function () {
+  it('throws when the actual value is not less than the expected value', () => {
+    expect(() => {
       expect(3).toBeLessThan(2);
     }).toThrow(/to be less than/);
   });
@@ -414,47 +413,47 @@ describe('toBeLessThanOrEqualTo', () => {
   });
 });
 
-describe('toBeTruthy', function () {
-  it('does not throw on truthy actual values', function () {
-    expect(function () {
+describe('toBeTruthy', () => {
+  it('does not throw on truthy actual values', () => {
+    expect(() => {
       expect(1).toBeTruthy();
       expect({ hello: 'world' }).toBeTruthy();
       expect([ 1, 2, 3 ]).toBeTruthy();
     }).toNotThrow();
   });
 
-  it('throws on falsy actual values', function () {
-    expect(function () {
+  it('throws on falsy actual values', () => {
+    expect(() => {
       expect(0).toBeTruthy();
     }).toThrow();
 
-    expect(function () {
+    expect(() => {
       expect(null).toBeTruthy();
     }).toThrow();
 
-    expect(function () {
+    expect(() => {
       expect(undefined).toBeTruthy();
     }).toThrow();
   });
 });
 
-describe('toBeFalsy', function () {
-  it('throws on truthy values', function () {
-    expect(function () {
+describe('toBeFalsy', () => {
+  it('throws on truthy values', () => {
+    expect(() => {
       expect(42).toBeFalsy();
     }).toThrow();
 
-    expect(function () {
+    expect(() => {
       expect({ foo: 'bar' }).toBeFalsy();
     }).toThrow();
 
-    expect(function () {
+    expect(() => {
       expect([]).toBeFalsy();
     }).toThrow();
   });
 
-  it('does not throw with falsy actual values', function () {
-    expect(function () {
+  it('does not throw with falsy actual values', () => {
+    expect(() => {
       expect(0).toBeFalsy();
       expect(null).toBeFalsy();
       expect(undefined).toBeFalsy();
@@ -462,20 +461,20 @@ describe('toBeFalsy', function () {
   });
 });
 
-describe('toEqual', function () {
-  it('works', function () {
-    expect(function () {
+describe('toEqual', () => {
+  it('works', () => {
+    expect(() => {
       expect('actual').toEqual('expected');
     }).toThrow(/Expected 'actual' to equal 'expected'/);
   });
 
-  it('works with objects that have the same keys in different order', function () {
+  it('works with objects that have the same keys in different order', () => {
     const a = { a: 'a', b: 'b', c: 'c' };
     const b = { b: 'b', c: 'c', a: 'a' };
     expect(a).toEqual(b);
   });
 
-  it('shows diff', function () {
+  it('shows diff', () => {
     try {
       expect('actual').toEqual('expected');
     } catch (err) {
@@ -486,21 +485,21 @@ describe('toEqual', function () {
   });
 });
 
-describe('toExclude', function () {
-  it('requires the actual value to be an array or string', function () {
-    expect(function () {
+describe('toExclude', () => {
+  it('requires the actual value to be an array or string', () => {
+    expect(() => {
       expect(1).toExclude(2);
     }).toThrow(/must be an array or a string/);
   });
 
-  it('does not throw when an array does not contain the expected value', function () {
-    expect(function () {
+  it('does not throw when an array does not contain the expected value', () => {
+    expect(() => {
       expect([ 1, 2, 3 ]).toExclude(4);
     }).toNotThrow();
   });
 
-  it('throws when an array contains the expected value', function () {
-    expect(function () {
+  it('throws when an array contains the expected value', () => {
+    expect(() => {
       expect([ 1, 2, 3 ]).toExclude(2);
     }).toThrow(/to exclude/);
   });
@@ -523,14 +522,14 @@ describe('toExclude', function () {
     }).toNotThrow();
   });
 
-  it('does not throw when an array does not contain the expected value', function () {
-    expect(function () {
+  it('does not throw when an array does not contain the expected value', () => {
+    expect(() => {
       expect('hello world').toExclude('goodbye');
     }).toNotThrow();
   });
 
-  it('throws when a string contains the expected value', function () {
-    expect(function () {
+  it('throws when a string contains the expected value', () => {
+    expect(() => {
       expect('hello world').toExclude('hello');
     }).toThrow(/to exclude/);
   });
@@ -592,47 +591,47 @@ describe('toExcludeKeys', () => {
   });
 });
 
-describe('toExist', function () {
-  it('does not throw on truthy actual values', function () {
-    expect(function () {
+describe('toExist', () => {
+  it('does not throw on truthy actual values', () => {
+    expect(() => {
       expect(1).toExist();
       expect({ hello: 'world' }).toExist();
       expect([ 1, 2, 3 ]).toExist();
     }).toNotThrow();
   });
 
-  it('throws on falsy actual values', function () {
-    expect(function () {
+  it('throws on falsy actual values', () => {
+    expect(() => {
       expect(0).toExist();
     }).toThrow();
 
-    expect(function () {
+    expect(() => {
       expect(null).toExist();
     }).toThrow();
 
-    expect(function () {
+    expect(() => {
       expect(undefined).toExist();
     }).toThrow();
   });
 });
 
-describe('toNotExist', function () {
-  it('throws on truthy values', function () {
-    expect(function () {
+describe('toNotExist', () => {
+  it('throws on truthy values', () => {
+    expect(() => {
       expect(42).toNotExist();
     }).toThrow();
 
-    expect(function () {
+    expect(() => {
       expect({ foo: 'bar' }).toNotExist();
     }).toThrow();
 
-    expect(function () {
+    expect(() => {
       expect([]).toNotExist();
     }).toThrow();
   });
 
-  it('does not throw with falsy actual values', function () {
-    expect(function () {
+  it('does not throw with falsy actual values', () => {
+    expect(() => {
       expect(0).toNotExist();
       expect(null).toNotExist();
       expect(undefined).toNotExist();
@@ -1037,11 +1036,11 @@ describe('toNotEqual', () => {
 
       expect(a).toNotEqual(b);
     });
-  };
+  }
 });
 
-describe('withArgs', function () {
-  const fn = function (arg1: any, arg2: any) {
+describe('withArgs', () => {
+  const fn = (arg1: any, arg2: any) => {
     if (arg1 === 'first' && typeof arg2 === 'undefined') {
       throw new Error('first arg found');
     }
@@ -1050,20 +1049,20 @@ describe('withArgs', function () {
     }
   };
 
-  it('invokes actual function with args', function () {
-    expect(function () {
+  it('invokes actual function with args', () => {
+    expect(() => {
       expect(fn).withArgs('first').toThrow(/first arg found/);
     }).toNotThrow();
   });
 
-  it('can be chained', function () {
-    expect(function () {
+  it('can be chained', () => {
+    expect(() => {
       expect(fn).withArgs('first').withArgs('second').toThrow(/both args found/);
     }).toNotThrow();
   });
 
-  it('throws when actual is not a function', function () {
-    expect(function () {
+  it('throws when actual is not a function', () => {
+    expect(() => {
       expect('not a function').withArgs('first');
     }).toThrow(/must be a function/);
   });
