@@ -20,8 +20,8 @@ interface Historyjs {
 
     enabled: boolean;
 
-    pushState(data: any, title: string, url: string, queue?: boolean);
-    replaceState(data: any, title: string, url: string, queue?: boolean);
+    pushState(data: any, title: string, url: string, queue?: boolean): boolean;
+    replaceState(data: any, title: string, url: string, queue?: boolean): boolean;
     getState(friendly?: boolean, create?: boolean): HistoryState;
     getStateId (passedState: HistoryState): string;
     getStateById (id: string): HistoryState;
@@ -47,13 +47,13 @@ interface Historyjs {
      * @return {Boolean}
      */
     setTitle (newState: HistoryState): boolean
-    clearQueue();
-    clearAllIntervals();
+    clearQueue(): Historyjs;
+    clearAllIntervals(): void;
     getRootUrl(): string;
 
     emulated: {
-        hashChange?;
-        pushState?;
+        hashChange?: any;
+        pushState?: any;
     }
 }
 
