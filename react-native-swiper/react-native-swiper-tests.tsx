@@ -7,18 +7,13 @@ import {
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 
-interface IProperties {
-}
 
-interface IState {
-}
-
-class SwiperTest extends React.Component<IProperties, IState> {
-  public constructor(props: IProperties) {
+class SwiperTest extends React.Component<{}, {}> {
+  constructor(props: {}) {
     super(props);
   }
 
-  public render(): React.ReactElement<any> {
+  render(): React.ReactElement<any> {
     return (
       <Swiper
         style={styles.wrapper}>

@@ -22,6 +22,7 @@
 /// <reference path="three-vreffect.d.ts" />
 /// <reference path="three-ctmloader.d.ts" />
 /// <reference path="three-octree.d.ts" />
+/// <reference path="three-colladaLoader.d.ts" />
 
 declare namespace THREE {
     export const REVISION: string;

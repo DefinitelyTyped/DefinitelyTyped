@@ -52,7 +52,7 @@ function TestServiceBuilder() {
     builder = builder.setUrlBasePath('path');
     builder = builder.setStdio('config');
     builder = builder.setStdio(['A', 'B']);
-    builder = builder.withEnvironment({ 'A': 'a', 'B': 'b' });
+    builder = builder.withEnvironment({ A: 'a', B: 'b' });
 }
 
 function TestChromeModule() {

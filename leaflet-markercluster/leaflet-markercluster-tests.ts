@@ -26,7 +26,7 @@ markerClusterGroupOptions = {
     },
     chunkedLoading: false,
     chunkDelay: 100
-}
+};
 
 let markerClusterGroup: L.MarkerClusterGroup;
 markerClusterGroup = L.markerClusterGroup();

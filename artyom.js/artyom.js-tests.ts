@@ -1,7 +1,7 @@
 import artyomjs = require('artyom.js');
 
 // Get an unique ArtyomJS instance
-let artyom = artyomjs.ArtyomBuilder.getInstance();
+const artyom = artyomjs.ArtyomBuilder.getInstance();
 
 // Add a command (not smart)
 artyom.addCommands({

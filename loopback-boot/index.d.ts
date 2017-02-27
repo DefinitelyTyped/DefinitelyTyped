@@ -75,7 +75,8 @@ import * as loopback from "loopback";
  *  The model-config.json file contains only configuration options like dataSource and extra relations.
  * To define a model, create a per-model JSON file in models/ directory.
  *
- * NOTE: Mixing bootLoopBackApp(app, bootConfig) and app.model(name, modelConfig) in multiple files may result in models being undefined due to race conditions. To avoid this when using bootLoopBackApp() make sure all models are passed as part of the models definition.
+ * NOTE: Mixing bootLoopBackApp(app, bootConfig) and app.model(name, modelConfig) in multiple files may result in models being undefined due to race conditions.
+ * To avoid this when using bootLoopBackApp() make sure all models are passed as part of the models definition.
  * Throws an error if the config object is not valid or if boot fails.
  *
  * @param {Loopback.LoopbackApplication} app LoopBack application created by loopback().

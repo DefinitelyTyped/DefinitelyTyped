@@ -1,6 +1,3 @@
-/// <reference path="index.d.ts" />
-/// <reference types="node" />
-
 let requirePeer = codependency.register(module), package: any;
     requirePeer = codependency.register(module, {index: ["dependencies", "devDependencies"]});
     requirePeer = codependency.get("some-middleware");

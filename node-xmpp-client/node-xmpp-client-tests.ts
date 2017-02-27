@@ -7,10 +7,9 @@ let client = new Client({
 
 client.connect();
 
-client.on('online', function () {
-});
+client.on('online', () => {});
 
-client.on('stanza', function (stanza) {
+client.on('stanza', stanza => {
     let _ = stanza;
 });
 

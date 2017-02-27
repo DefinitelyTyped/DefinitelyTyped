@@ -1758,9 +1758,15 @@ declare namespace google.maps {
     }
 
     export class TrafficLayer extends MVCObject {
-        constructor();
-        getMap(): void;
+        constructor(opts?: TrafficLayerOptions);
+        getMap(): Map;
         setMap(map: Map): void;
+        setOptions(options: TrafficLayerOptions): void;
+    }
+
+    export interface TrafficLayerOptions {
+        autoRefresh?: boolean;
+        map?: Map;
     }
 
     export class TransitLayer extends MVCObject {

@@ -1119,7 +1119,7 @@ export interface WriteOpResult {
 export type CursorResult = any | void | boolean;
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html
-export interface Cursor<T> extends Readable {
+export class Cursor<T> extends Readable {
 
     sortValue: string;
     timeout: boolean;
@@ -1223,7 +1223,7 @@ export interface EndCallback {
 //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#~resultCallback
 export type AggregationCursorResult = any | void;
 //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html
-export interface AggregationCursor<T> extends Readable {
+export class AggregationCursor<T> extends Readable {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#batchSize
     batchSize(value: number): AggregationCursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#clone
@@ -1275,7 +1275,7 @@ export interface AggregationCursor<T> extends Readable {
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html
-export interface CommandCursor extends Readable {
+export class CommandCursor extends Readable {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#batchSize
     batchSize(value: number): CommandCursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#clone

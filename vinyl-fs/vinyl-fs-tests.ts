@@ -1,6 +1,3 @@
-/// <reference types="mocha" />
-/// <reference types="should" />
-
 // from src
 
 import * as vfs from 'vinyl-fs';
@@ -22,16 +19,16 @@ import 'mocha';
 declare var gulp: any;
 declare var bufferStream: any;
 
-var dataWrap = function (fn: any) {
-   return function (data: any, enc: any, cb: any) {
+var dataWrap = (fn: any) => {
+   return (data: any, enc: any, cb: any) => {
       fn(data);
       cb();
    };
 };
 
-describe('source stream', function () {
+describe('source stream', () => {
 
-   it('should explode on invalid glob (empty)', function (done) {
+   it('should explode on invalid glob (empty)', done => {
       var stream: any;
       try {
          stream = gulp.src();
@@ -42,7 +39,7 @@ describe('source stream', function () {
       }
    });
 
-   it('should explode on invalid glob (number)', function (done) {
+   it('should explode on invalid glob (number)', done => {
       var stream: any;
       try {
          stream = gulp.src(123);
@@ -53,7 +50,7 @@ describe('source stream', function () {
       }
    });
 
-   it('should explode on invalid glob (empty array)', function (done) {
+   it('should explode on invalid glob (empty array)', done => {
       var stream: any;
       try {
          stream = gulp.src([]);
@@ -64,7 +61,7 @@ describe('source stream', function () {
       }
    });
 
-   it('should pass through writes', function (done) {
+   it('should pass through writes', done => {
       var expectedPath = path.join(__dirname, "./fixtures/test.coffee");
       var expectedContent = fs.readFileSync(expectedPath);
 
@@ -75,7 +72,7 @@ describe('source stream', function () {
          contents: expectedContent
       });
 
-      var onEnd = function () {
+      var onEnd = () => {
          buffered.length.should.equal(1);
          buffered[0].should.equal(expectedFile);
          bufEqual(buffered[0].contents, expectedContent).should.equal(true);
@@ -91,11 +88,11 @@ describe('source stream', function () {
       stream.end();
    });
 
-   it('should glob a file with default settings', function (done) {
+   it('should glob a file with default settings', done => {
       var expectedPath = path.join(__dirname, "./fixtures/test.coffee");
       var expectedContent = fs.readFileSync(expectedPath);
 
-      var onEnd = function () {
+      var onEnd = () => {
          buffered.length.should.equal(1);
          should.exist(buffered[0].stat);
          buffered[0].path.should.equal(expectedPath);
@@ -111,11 +108,11 @@ describe('source stream', function () {
       stream.pipe(bufferStream);
    });
 
-   it('should glob a file with default settings and relative cwd', function (done) {
+   it('should glob a file with default settings and relative cwd', done => {
       var expectedPath = path.join(__dirname, "./fixtures/test.coffee");
       var expectedContent = fs.readFileSync(expectedPath);
 
-      var onEnd = function () {
+      var onEnd = () => {
          buffered.length.should.equal(1);
          should.exist(buffered[0].stat);
          buffered[0].path.should.equal(expectedPath);
@@ -131,10 +128,10 @@ describe('source stream', function () {
       stream.pipe(bufferStream);
    });
 
-   it('should glob a directory with default settings', function (done) {
+   it('should glob a directory with default settings', done => {
       var expectedPath = path.join(__dirname, "./fixtures/wow");
 
-      var onEnd = function () {
+      var onEnd = () => {
          buffered.length.should.equal(1);
          buffered[0].path.should.equal(expectedPath);
          buffered[0].isNull().should.equal(true);
@@ -149,11 +146,11 @@ describe('source stream', function () {
       stream.pipe(bufferStream);
    });
 
-   it('should glob a file with with no contents', function (done) {
+   it('should glob a file with with no contents', done => {
       var expectedPath = path.join(__dirname, "./fixtures/test.coffee");
       var expectedContent = fs.readFileSync(expectedPath);
 
-      var onEnd = function () {
+      var onEnd = () => {
          buffered.length.should.equal(1);
          buffered[0].path.should.equal(expectedPath);
          buffered[0].isNull().should.equal(true);
@@ -168,22 +165,22 @@ describe('source stream', function () {
       stream.pipe(bufferStream);
    });
 
-   it('should glob a file with streaming contents', function (done) {
+   it('should glob a file with streaming contents', done => {
       var expectedPath = path.join(__dirname, "./fixtures/test.coffee");
       var expectedContent = fs.readFileSync(expectedPath);
 
-      var onEnd = function () {
+      var onEnd = () => {
          buffered.length.should.equal(1);
          should.exist(buffered[0].stat);
          buffered[0].path.should.equal(expectedPath);
          buffered[0].isStream().should.equal(true);
 
          var contentBuffer = new Buffer([]);
-         var contentBufferStream = through(dataWrap(function (data: any) {
+         var contentBufferStream = through(dataWrap((data: any) => {
             contentBuffer = Buffer.concat([contentBuffer, data]);
          }));
          buffered[0].contents.pipe(contentBufferStream);
-         buffered[0].contents.once('end', function () {
+         buffered[0].contents.once('end', () => {
             bufEqual(contentBuffer, expectedContent);
             done();
          });
@@ -212,26 +209,26 @@ import rimraf = require('rimraf');
 // var should = require('should');
 // require('mocha');
 
-var wipeOut = function (cb: any) {
+var wipeOut = (cb: any) => {
    rimraf(path.join(__dirname, "./out-fixtures/"), cb);
 };
 
-var dataWrap = function (fn: any) {
-   return function (data: any, enc: any, cb: any) {
+var dataWrap = (fn: any) => {
+   return (data: any, enc: any, cb: any) => {
       fn(data);
       cb();
    };
 };
 
-var realMode = function (n: any) {
+var realMode = (n: any) => {
    return n & parseInt("07777", 8);
 };
 
-describe('dest stream', function () {
+describe('dest stream', () => {
    beforeEach(wipeOut);
    afterEach(wipeOut);
 
-   it('should explode on invalid folder', function (done) {
+   it('should explode on invalid folder', done => {
       var stream: any;
       try {
          stream = gulp.dest();
@@ -242,7 +239,7 @@ describe('dest stream', function () {
       }
    });
 
-   it('should pass through writes with cwd', function (done) {
+   it('should pass through writes with cwd', done => {
       var inputPath = path.join(__dirname, "./fixtures/test.coffee");
 
       var expectedFile = new File({
@@ -252,7 +249,7 @@ describe('dest stream', function () {
          contents: null
       });
 
-      var onEnd = function () {
+      var onEnd = () => {
          buffered.length.should.equal(1);
          buffered[0].should.equal(expectedFile);
          done();
@@ -267,7 +264,7 @@ describe('dest stream', function () {
       stream.end();
    });
 
-   it('should pass through writes with default cwd', function (done) {
+   it('should pass through writes with default cwd', done => {
       var inputPath = path.join(__dirname, "./fixtures/test.coffee");
 
       var expectedFile = new File({
@@ -277,7 +274,7 @@ describe('dest stream', function () {
          contents: null
       });
 
-      var onEnd = function () {
+      var onEnd = () => {
          buffered.length.should.equal(1);
          buffered[0].should.equal(expectedFile);
          done();
@@ -292,7 +289,7 @@ describe('dest stream', function () {
       stream.end();
    });
 
-   it('should not write null files', function (done) {
+   it('should not write null files', done => {
       var inputPath = path.join(__dirname, "./fixtures/test.coffee");
       var inputBase = path.join(__dirname, "./fixtures/");
       var expectedPath = path.join(__dirname, "./out-fixtures/test.coffee");
@@ -306,7 +303,7 @@ describe('dest stream', function () {
          contents: null
       });
 
-      var onEnd = function () {
+      var onEnd = () => {
          buffered.length.should.equal(1);
          buffered[0].should.equal(expectedFile);
          buffered[0].cwd.should.equal(expectedCwd, 'cwd should have changed');
@@ -325,7 +322,7 @@ describe('dest stream', function () {
       stream.end();
    });
 
-   it('should write buffer files to the right folder with relative cwd', function (done) {
+   it('should write buffer files to the right folder with relative cwd', done => {
       var inputPath = path.join(__dirname, "./fixtures/test.coffee");
       var inputBase = path.join(__dirname, "./fixtures/");
       var expectedPath = path.join(__dirname, "./out-fixtures/test.coffee");
@@ -340,7 +337,7 @@ describe('dest stream', function () {
          contents: expectedContents
       });
 
-      var onEnd = function () {
+      var onEnd = () => {
          buffered.length.should.equal(1);
          buffered[0].should.equal(expectedFile);
          buffered[0].cwd.should.equal(expectedCwd, 'cwd should have changed');
@@ -360,7 +357,7 @@ describe('dest stream', function () {
       stream.end();
    });
 
-   it('should write buffer files to the right folder', function (done) {
+   it('should write buffer files to the right folder', done => {
       var inputPath = path.join(__dirname, "./fixtures/test.coffee");
       var inputBase = path.join(__dirname, "./fixtures/");
       var expectedPath = path.join(__dirname, "./out-fixtures/test.coffee");
@@ -379,7 +376,7 @@ describe('dest stream', function () {
          }
       });
 
-      var onEnd = function () {
+      var onEnd = () => {
          buffered.length.should.equal(1);
          buffered[0].should.equal(expectedFile);
          buffered[0].cwd.should.equal(expectedCwd, 'cwd should have changed');
@@ -400,7 +397,7 @@ describe('dest stream', function () {
       stream.end();
    });
 
-   it('should write streaming files to the right folder', function (done) {
+   it('should write streaming files to the right folder', done => {
       var inputPath = path.join(__dirname, "./fixtures/test.coffee");
       var inputBase = path.join(__dirname, "./fixtures/");
       var expectedPath = path.join(__dirname, "./out-fixtures/test.coffee");
@@ -420,7 +417,7 @@ describe('dest stream', function () {
          }
       });
 
-      var onEnd = function () {
+      var onEnd = () => {
          buffered.length.should.equal(1);
          buffered[0].should.equal(expectedFile);
          buffered[0].cwd.should.equal(expectedCwd, 'cwd should have changed');
@@ -438,14 +435,14 @@ describe('dest stream', function () {
       bufferStream = through.obj(dataWrap(buffered.push.bind(buffered)), onEnd);
       stream.pipe(bufferStream);
       stream.write(expectedFile);
-      setTimeout(function () {
+      setTimeout(() => {
          contentStream.write(expectedContents);
          contentStream.end();
       }, 100);
       stream.end();
    });
 
-   it('should write directories to the right folder', function (done) {
+   it('should write directories to the right folder', done => {
       var inputPath = path.join(__dirname, "./fixtures/test");
       var inputBase = path.join(__dirname, "./fixtures/");
       var expectedPath = path.join(__dirname, "./out-fixtures/test");
@@ -464,7 +461,7 @@ describe('dest stream', function () {
          }
       });
 
-      var onEnd = function () {
+      var onEnd = () => {
          buffered.length.should.equal(1);
          buffered[0].should.equal(expectedFile);
          buffered[0].cwd.should.equal(expectedCwd, 'cwd should have changed');
@@ -485,7 +482,7 @@ describe('dest stream', function () {
       stream.end();
    });
 
-   it('should allow piping multiple dests in streaming mode', function (done) {
+   it('should allow piping multiple dests in streaming mode', done => {
       var inputPath1 = path.join(__dirname, "./out-fixtures/multiple-first");
       var inputPath2 = path.join(__dirname, "./out-fixtures/multiple-second");
       var inputBase = path.join(__dirname, "./out-fixtures/");
@@ -493,20 +490,20 @@ describe('dest stream', function () {
       var stream1 = vfs.dest('./out-fixtures/', { cwd: __dirname });
       var stream2 = vfs.dest('./out-fixtures/', { cwd: __dirname });
       var content = fs.readFileSync(srcPath);
-      var rename = through.obj(function (file: any, _: any, next: any) {
+      var rename = through.obj((file: any, _: any, next: any) => {
          file.path = inputPath2;
          this.push(file);
          next();
       });
 
-      stream1.on('data', function (file: any) {
+      stream1.on('data', (file: any) => {
          file.path.should.equal(inputPath1);
       });
 
       stream1.pipe(rename).pipe(stream2);
-      stream2.on('data', function (file: any) {
+      stream2.on('data', (file: any) => {
          file.path.should.equal(inputPath2);
-      }).once('end', function () {
+      }).once('end', () => {
          fs.readFileSync(inputPath1, 'utf8').should.equal(content.toString());
          fs.readFileSync(inputPath2, 'utf8').should.equal(content.toString());
          done();
@@ -533,29 +530,29 @@ describe('dest stream', function () {
 var chmodSpy = spies.chmodSpy;
 var statSpy = spies.statSpy;
 
-var wipeOut = function (cb: any) {
+var wipeOut = (cb: any) => {
    rimraf(path.join(__dirname, './out-fixtures/'), cb);
    spies.setError('false');
    statSpy.reset();
    chmodSpy.reset();
 };
 
-var dataWrap = function (fn: any) {
-   return function (data: any, enc: any, cb: any) {
+var dataWrap = (fn: any) => {
+   return (data: any, enc: any, cb: any) => {
       fn(data);
       cb();
    };
 };
 
-var realMode = function (n: any) {
+var realMode = (n: any) => {
    return n & parseInt("07777", 8);
 };
 
-describe('symlink stream', function () {
+describe('symlink stream', () => {
    beforeEach(wipeOut);
    afterEach(wipeOut);
 
-   it('should explode on invalid folder', function (done: any) {
+   it('should explode on invalid folder', (done: any) => {
       var stream: any;
       try {
          stream = gulp.symlink();
@@ -566,7 +563,7 @@ describe('symlink stream', function () {
       }
    });
 
-   it('should pass through writes with cwd', function (done) {
+   it('should pass through writes with cwd', done => {
       var inputPath = path.join(__dirname, './fixtures/test.coffee');
 
       var expectedFile = new File({
@@ -576,7 +573,7 @@ describe('symlink stream', function () {
          contents: null
       });
 
-      var onEnd = function () {
+      var onEnd = () => {
          buffered.length.should.equal(1);
          buffered[0].should.equal(expectedFile);
          done();
@@ -591,7 +588,7 @@ describe('symlink stream', function () {
       stream.end();
    });
 
-   it('should pass through writes with default cwd', function (done) {
+   it('should pass through writes with default cwd', done => {
       var inputPath = path.join(__dirname, './fixtures/test.coffee');
 
       var expectedFile = new File({
@@ -601,7 +598,7 @@ describe('symlink stream', function () {
          contents: null
       });
 
-      var onEnd = function () {
+      var onEnd = () => {
          buffered.length.should.equal(1);
          buffered[0].should.equal(expectedFile);
          done();
@@ -616,7 +613,7 @@ describe('symlink stream', function () {
       stream.end();
    });
 
-   it('should make link to the right folder with relative cwd', function (done) {
+   it('should make link to the right folder with relative cwd', done => {
       var inputPath = path.join(__dirname, './fixtures/test.coffee');
       var inputBase = path.join(__dirname, './fixtures/');
       var expectedPath = path.join(__dirname, './out-fixtures/test.coffee');
@@ -631,7 +628,7 @@ describe('symlink stream', function () {
          contents: expectedContents
       });
 
-      var onEnd = function () {
+      var onEnd = () => {
          buffered.length.should.equal(1);
          buffered[0].should.equal(expectedFile);
          buffered[0].cwd.should.equal(__dirname, 'cwd should have changed');
@@ -652,7 +649,7 @@ describe('symlink stream', function () {
       stream.end();
    });
 
-   it('should write buffer files to the right folder with function and relative cwd', function (done) {
+   it('should write buffer files to the right folder with function and relative cwd', done => {
       var inputPath = path.join(__dirname, './fixtures/test.coffee');
       var inputBase = path.join(__dirname, './fixtures/');
       var expectedPath = path.join(__dirname, './out-fixtures/test.coffee');
@@ -667,7 +664,7 @@ describe('symlink stream', function () {
          contents: expectedContents
       });
 
-      var onEnd = function () {
+      var onEnd = () => {
          buffered.length.should.equal(1);
          buffered[0].should.equal(expectedFile);
          buffered[0].cwd.should.equal(__dirname, 'cwd should have changed');
@@ -679,7 +676,7 @@ describe('symlink stream', function () {
          done();
       };
 
-      var stream = vfs.symlink(function (file) {
+      var stream = vfs.symlink(file => {
          should.exist(file);
          file.should.equal(expectedFile);
          return './out-fixtures';
@@ -692,7 +689,7 @@ describe('symlink stream', function () {
       stream.end();
    });
 
-   it('should write buffer files to the right folder', function (done) {
+   it('should write buffer files to the right folder', done => {
       var inputPath = path.join(__dirname, './fixtures/test.coffee');
       var inputBase = path.join(__dirname, './fixtures/');
       var expectedPath = path.join(__dirname, './out-fixtures/test.coffee');
@@ -711,7 +708,7 @@ describe('symlink stream', function () {
          }
       });
 
-      var onEnd = function () {
+      var onEnd = () => {
          buffered.length.should.equal(1);
          buffered[0].should.equal(expectedFile);
          buffered[0].cwd.should.equal(__dirname, 'cwd should have changed');
@@ -732,7 +729,7 @@ describe('symlink stream', function () {
       stream.end();
    });
 
-   it('should write streaming files to the right folder', function (done) {
+   it('should write streaming files to the right folder', done => {
       var inputPath = path.join(__dirname, './fixtures/test.coffee');
       var inputBase = path.join(__dirname, './fixtures/');
       var expectedPath = path.join(__dirname, './out-fixtures/test.coffee');
@@ -752,7 +749,7 @@ describe('symlink stream', function () {
          }
       });
 
-      var onEnd = function () {
+      var onEnd = () => {
          buffered.length.should.equal(1);
          buffered[0].should.equal(expectedFile);
          buffered[0].cwd.should.equal(__dirname, 'cwd should have changed');
@@ -770,14 +767,14 @@ describe('symlink stream', function () {
       bufferStream = through.obj(dataWrap(buffered.push.bind(buffered)), onEnd);
       stream.pipe(bufferStream);
       stream.write(expectedFile);
-      setTimeout(function () {
+      setTimeout(() => {
          contentStream.write(expectedContents);
          contentStream.end();
       }, 100);
       stream.end();
    });
 
-   it('should write directories to the right folder', function (done) {
+   it('should write directories to the right folder', done => {
       var inputPath = path.join(__dirname, './fixtures/wow');
       var inputBase = path.join(__dirname, './fixtures/');
       var expectedPath = path.join(__dirname, './out-fixtures/wow');
@@ -796,7 +793,7 @@ describe('symlink stream', function () {
          }
       });
 
-      var onEnd = function () {
+      var onEnd = () => {
          buffered.length.should.equal(1);
          buffered[0].should.equal(expectedFile);
          buffered[0].cwd.should.equal(__dirname, 'cwd should have changed');
@@ -817,7 +814,7 @@ describe('symlink stream', function () {
       stream.end();
    });
 
-   it('should use different modes for files and directories', function (done) {
+   it('should use different modes for files and directories', done => {
       var inputBase = path.join(__dirname, './fixtures');
       var inputPath = path.join(__dirname, './fixtures/wow/suchempty');
       var expectedBase = path.join(__dirname, './out-fixtures/wow');
@@ -831,7 +828,7 @@ describe('symlink stream', function () {
          stat: fs.statSync(inputPath)
       });
 
-      var onEnd = function () {
+      var onEnd = () => {
          realMode(fs.lstatSync(expectedBase).mode).should.equal(expectedDirMode);
          realMode(buffered[0].stat.mode).should.equal(expectedFileMode);
          done();
@@ -851,7 +848,7 @@ describe('symlink stream', function () {
       stream.end();
    });
 
-   it('should report IO errors', function (done) {
+   it('should report IO errors', done => {
       var inputPath = path.join(__dirname, './fixtures/test.coffee');
       var inputBase = path.join(__dirname, './fixtures/');
       var expectedPath = path.join(__dirname, './out-fixtures/test.coffee');
@@ -874,19 +871,19 @@ describe('symlink stream', function () {
       fs.chmodSync(expectedBase, 0);
 
       var stream = vfs.symlink('./out-fixtures/', { cwd: __dirname });
-      stream.on('error', function (err: any) {
+      stream.on('error', (err: any) => {
          err.code.should.equal('EACCES');
          done();
       });
       stream.write(expectedFile);
    });
 
-   ['end', 'finish'].forEach(function (eventName) {
-      it('should emit ' + eventName + ' event', function (done) {
+   ['end', 'finish'].forEach(eventName => {
+      it('should emit ' + eventName + ' event', done => {
          var srcPath = path.join(__dirname, './fixtures/test.coffee');
          var stream = vfs.symlink('./out-fixtures/', { cwd: __dirname });
 
-         stream.on(eventName, function () {
+         stream.on(eventName, () => {
             done();
          });
 
@@ -900,7 +897,7 @@ describe('symlink stream', function () {
          stream.end();
       });
    });
-   it('should check if it"s a vinyl file', function () {
+   it('should check if it"s a vinyl file', () => {
       var srcPath = path.join(__dirname, './fixtures/test.coffee');
       var options = {
          path: srcPath,
