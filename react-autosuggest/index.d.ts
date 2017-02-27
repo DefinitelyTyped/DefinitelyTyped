@@ -4,10 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-/* tslint:disable:dt-header */
 
 import * as React from 'react';
-declare class Autosuggest extends React.Component <any, any> {}
+declare class Autosuggest extends React.Component<any, any> {}
 
 export = Autosuggest;
 
@@ -31,13 +30,13 @@ declare namespace Autosuggest {
     focusedSuggestion: any;
   }
 
-  interface InputProps extends React.HTMLAttributes <any> {
+  interface InputProps extends React.HTMLAttributes<any> {
     value: string;
-    onChange: (event: React.FormEvent <any>, params?: ChangeEvent) => void;
-    onBlur?: (event: React.FormEvent <any>, params?: BlurEvent) => void;
+    onChange: (event: React.FormEvent<any>, params?: ChangeEvent) => void;
+    onBlur?: (event: React.FormEvent<any>, params?: BlurEvent) => void;
   }
 
-  export interface SuggestionSelectedEventData <TSuggestion> {
+  export interface SuggestionSelectedEventData<TSuggestion> {
     method: 'click' | 'enter';
     sectionIndex: number | null;
     suggestion: TSuggestion;
@@ -56,14 +55,14 @@ declare namespace Autosuggest {
     suggestionsContainer?: string;
   }
 
-  interface AutosuggestProps extends React.Props < Autosuggest > {
+  interface AutosuggestProps extends React.Props<Autosuggest> {
     suggestions: any[];
     onSuggestionsFetchRequested: (request: SuggestionsFetchRequest) => void;
     onSuggestionsClearRequested?: () => void;
     getSuggestionValue: (suggestion: any) => any;
     renderSuggestion: (suggestion: any, inputValues: InputValues) => JSX.Element;
     inputProps: InputProps;
-    onSuggestionSelected?: (event: React.FormEvent <any>, data: SuggestionSelectedEventData <any>) => void;
+    onSuggestionSelected?: (event: React.FormEvent<any>, data: SuggestionSelectedEventData<any>) => void;
     shouldRenderSuggestions?: (value: string) => boolean;
     alwaysRenderSuggestions?: boolean;
     focusFirstSuggestion?: boolean;

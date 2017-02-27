@@ -1,7 +1,7 @@
 // region Imports
 import React = require('react');
 import ReactDOM = require('react-dom');
-import * as Autosuggest from 'react-autosuggest';
+import Autosuggest = require('react-autosuggest');
 // endregion
 
 interface Language {
@@ -15,7 +15,7 @@ function escapeRegexCharacters(str : string) : string {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-export class ReactAutosuggestBasicTest extends React.Component <any, any> {
+export class ReactAutosuggestBasicTest extends React.Component<any, any> {
     // region Fields
     static languages : Language[] = [
         {
@@ -101,7 +101,7 @@ export class ReactAutosuggestBasicTest extends React.Component <any, any> {
             theme={theme}/>;
     }
 
-    protected onSuggestionsSelected(event : React.FormEvent <any>, data : Autosuggest.SuggestionSelectedEventData < Language >) : void {
+    protected onSuggestionsSelected(event : React.FormEvent<any>, data : Autosuggest.SuggestionSelectedEventData<Language>) : void {
         alert(`Selected language is ${data.suggestion.name} (${data.suggestion.year}).`);
     }
 
@@ -109,7 +109,7 @@ export class ReactAutosuggestBasicTest extends React.Component <any, any> {
         return <span>{suggestion.name}</span>;
     }
     // endregion region Event handlers
-    protected onChange(event : React.FormEvent <any>, {newValue, method} : any) : void {
+    protected onChange(event : React.FormEvent<any>, {newValue, method} : any) : void {
         this.setState({value: newValue});
     }
 
@@ -138,15 +138,14 @@ export class ReactAutosuggestBasicTest extends React.Component <any, any> {
 }
 
 ReactDOM.render(
-    <ReactAutosuggestBasicTest/>, document.getElementById('app'));
+   <ReactAutosuggestBasicTest/>, document.getElementById('app'));
 
 interface LanguageGroup {
     title : string;
     languages : Language[];
 }
 
-export class ReactAutosuggestMultipleTest extends React.Component < any,
-any > {
+export class ReactAutosuggestMultipleTest extends React.Component<any,any> {
     // region Fields
     static languages : LanguageGroup[] = [
         {
@@ -252,7 +251,7 @@ any > {
             inputProps={inputProps}/>;
     }
 
-    protected onSuggestionSelected(event : React.FormEvent <any>, data : Autosuggest.SuggestionSelectedEventData < Language >) : void {
+    protected onSuggestionSelected(event : React.FormEvent<any>, data : Autosuggest.SuggestionSelectedEventData<Language>) : void {
         const language = data.suggestion as Language;
 
         alert(`Selected language is ${language.name} (${language.year}).`);
@@ -266,7 +265,7 @@ any > {
         return <strong>{section.title}</strong>;
     }
     // endregion region Event handlers
-    protected onChange(event : React.FormEvent <any>, {newValue, method} : any) : void {
+    protected onChange(event : React.FormEvent<any>, {newValue, method} : any) : void {
         this.setState({value: newValue});
     }
 
@@ -309,7 +308,7 @@ any > {
 }
 
 ReactDOM.render(
-    <ReactAutosuggestMultipleTest/>, document.getElementById('app'));
+   <ReactAutosuggestMultipleTest/>, document.getElementById('app'));
 
 interface Person {
     first : string;
@@ -317,8 +316,7 @@ interface Person {
     twitter : string;
 }
 
-export class ReactAutosuggestCustomTest extends React.Component < any,
-any > {
+export class ReactAutosuggestCustomTest extends React.Component<any,any> {
     // region Fields
     static people : Person[] = [
         {
@@ -359,7 +357,7 @@ any > {
                 .bind(this)
         };
 
-        return <Autosuggest
+        return<Autosuggest
             suggestions={suggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             getSuggestionValue={this.getSuggestionValue}
@@ -379,21 +377,21 @@ any > {
                 };
             });
 
-        return <span className={'suggestion-content ' + suggestion.twitter}>
-            <span className="name">
+        return<span className={'suggestion-content ' + suggestion.twitter}>
+           <span className="name">
                 {parts.map((part, index) => {
                     const className = part.highlight
                         ? 'highlight'
                         : undefined;
 
-                    return <span className={className} key={index}>{part.text}</span>;
+                    return<span className={className} key={index}>{part.text}</span>;
                 })
 }
-            </span>
-        </span>;
+           </span>
+       </span>;
     }
     // endregion region Event handlers
-    protected onChange(event : React.FormEvent <any>, {newValue, method} : any) : void {
+    protected onChange(event : React.FormEvent<any>, {newValue, method} : any) : void {
         this.setState({value: newValue});
     }
 
@@ -422,4 +420,4 @@ any > {
 }
 
 ReactDOM.render(
-    <ReactAutosuggestCustomTest/>, document.getElementById('app'));
+   <ReactAutosuggestCustomTest/>, document.getElementById('app'));
