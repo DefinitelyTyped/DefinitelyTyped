@@ -10,13 +10,13 @@ import * as stream from 'stream';
 declare namespace csvtojson {
 
     /**
-    * Stream options
-    */
+     * Stream options
+     */
     type StreamOptions = stream.TransformOptions;
 
     /**
-    * Converter options
-    */
+     * Converter options
+     */
     interface ConverterOptions {
 
         /**
@@ -125,58 +125,53 @@ declare namespace csvtojson {
     }
 
     /**
-    * Callback function for handling result of parse.
-    */
+     * Callback function for handling result of parse.
+     */
     type ParseResultHandler = (err: any, result: any) => void;
 
     /**
-     * Event names
+     * Event handler for "json" events.
      */
-    type Event = 'csv' | 'data' | 'error' | 'record_parsed' | 'end' | 'end_parsed' | 'done' ;
-
-    /**
-    * Event handler for "json" events.
-    */
     type JsonEventHandler = (jsonObj: any, rowNumber: number) => void;
 
     /**
-    * Event handler for "csv" events.
-    */
-    type CsvEventHanlder = (csvRow: string[], rowNumber: number) => void;
+     * Event handler for "csv" events.
+     */
+    type CsvEventHandler = (csvRow: string[], rowNumber: number) => void;
 
     /**
-    * Event handler for "data" events.
-    */
+     * Event handler for "data" events.
+     */
     type DataEventHandler = (data: any) => void;
 
     /**
-    * Event handler for "error" events.
-    */
-    type ErrorEventHanlder = (err: any) => void;
+     * Event handler for "error" events.
+     */
+    type ErrorEventHandler = (err: any) => void;
 
     /**
-    * Event handler for "record_parsed" events.
-    */
-    type RecordParsedEventHanlder = (jsonObj: any, csvRoe: string[], rowNumber: number) => void;
+     * Event handler for "record_parsed" events.
+     */
+    type RecordParsedEventHandler = (jsonObj: any, csvRoe: string[], rowNumber: number) => void;
 
     /**
-    * Event handler for "end" events.
-    */
-    type EndEventHanlder = () => void;
+     * Event handler for "end" events.
+     */
+    type EndEventHandler = () => void;
 
     /**
-    * Event handler for "end_parsed" events.
-    */
-    type EndParsedEventHanlder = (jsonObjArray: any[]) => void;
+     * Event handler for "end_parsed" events.
+     */
+    type EndParsedEventHandler = (jsonObjArray: any[]) => void;
 
     /**
-    * Event handler for "done" events.
-    */
-    type DoneEventHanlder = (err: any) => void;
+     * Event handler for "done" events.
+     */
+    type DoneEventHandler = (err: any) => void;
 
     /**
-    * Converts provided CSV input to  a JSON object.
-    */
+     * Converts provided CSV input to  a JSON object.
+     */
     class Converter extends stream.Transform {
 
         /**
@@ -191,7 +186,7 @@ declare namespace csvtojson {
          * @param {string} str the string to convert
          * @return {Converter} returns this object for chaining
          */
-        fromString(str: string): Converter
+        fromString(str: string): this
 
         /**
          * Reads in a CSV from a string.
@@ -205,7 +200,7 @@ declare namespace csvtojson {
          * @param {string} filePath the path to the CSV file
          * @return {Converter} returns this object for chaining
          */
-        fromFile(filePath: string): Converter
+        fromFile(filePath: string): this
 
         /**
          * Reads in a CSV from a file.
@@ -219,7 +214,7 @@ declare namespace csvtojson {
          * @param {Stream} stream the stream
          * @return {Converter} returns this object for chaining
          */
-        fromStream(stream: NodeJS.ReadableStream): Converter
+        fromStream(stream: NodeJS.ReadableStream): this
 
         /**
          * Reads in a CSV from a stream.
@@ -239,33 +234,34 @@ declare namespace csvtojson {
          * - end
          * - end_parsed
          * - done
-         * @param  {EventName}   event    name of event
+         * @param  {Event}   event    name of event
          * @param  {Function} listener listener function
          * @return {this} returns this object for chaining
          */
-        on(event: Event, listener: JsonEventHandler | CsvEventHanlder | DataEventHandler | ErrorEventHanlder
-            | RecordParsedEventHanlder | EndEventHanlder | EndParsedEventHanlder | DoneEventHanlder): Converter;
+        // tslint:disable-next-line:forbidden-types
+        on(event: string, listener: Function | JsonEventHandler | CsvEventHandler | DataEventHandler | ErrorEventHandler
+            | RecordParsedEventHandler | EndEventHandler | EndParsedEventHandler | DoneEventHandler): this;
 
         /**
          * Transform objects after CSV parsing but before result being emitted or pushed downstream.
          * @param  {Function} callback transform function
          * @return {this} returns this object for chaining
          */
-        transf(callback: (jsonObj: any, csvRow: string[], rowNumber: number) => void): Converter;
+        transf(callback: (jsonObj: any, csvRow: string[], rowNumber: number) => void): this;
 
         /**
          * The function in preRawData will be called directly with the string from upper stream.
          * @param  {Function} callback callback function
          * @return {this} returns this object for chaining
          */
-        preRawData(callback: (csvRawData: string, cb: (newData: any) => void) => void): Converter;
+        preRawData(callback: (csvRawData: string, cb: (newData: any) => void) => void): this;
 
         /**
          * The function is called each time a file line being found in csv stream.
          * @param  {Function} callback callback function
          * @return {this} returns this object for chaining
          */
-        preFileLine(callback: (line: string, rowNumber: number) => string): Converter;
+        preFileLine(callback: (line: string, rowNumber: number) => string): this;
     }
 }
 
