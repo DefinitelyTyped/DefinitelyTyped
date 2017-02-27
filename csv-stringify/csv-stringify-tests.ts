@@ -19,6 +19,6 @@ stream = stringify({ delimiter: "," });
 
 stream.write(["1", "2", "3"]);
 
-let transform: NodeJS.ReadWriteStream = stream;
+const transform: NodeJS.ReadWriteStream = stream;
 
 stream = stringify();

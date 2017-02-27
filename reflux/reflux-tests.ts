@@ -1,6 +1,3 @@
-
-/// <reference types="react" />
-
 import Reflux = require("reflux");
 import React = require("react");
 
@@ -15,7 +12,7 @@ var asyncActions = Reflux.createActions({
     fireBall: {asyncResult: true}
 });
 
-asyncActions.fireBall.listen(function () {
+asyncActions.fireBall.listen(function() {
     // Trigger async action
     setTimeout(() => this.completed(true), 1000);
 });
@@ -25,13 +22,12 @@ asyncActions.fireBall.listen(function () {
 var statusStore = Reflux.createStore({
 
     // Initial setup
-    init: function () {
-
+    init() {
         // Register statusUpdate action
         this.listenTo(asyncActions.fireBall, this.onFireBall);
     },
     // Callback
-    onFireBall: function (flag: boolean) {
+    onFireBall(flag: boolean) {
         var status = flag ? 'ONLINE' : 'OFFLINE';
 
         // Pass on to listeners
@@ -48,13 +44,13 @@ var action = Reflux.createAction();
 var actions = Reflux.createActions(["fireBall", "magicMissile"]);
 
 var Store = Reflux.createStore({
-    init: function () {
+    init() {
         this.listenToMany(actions);
     },
-    onFireBall: function () {
+    onFireBall() {
         // whoooosh!
     },
-    onMagicMissile: function () {
+    onMagicMissile() {
         // bzzzzapp!
     }
 });

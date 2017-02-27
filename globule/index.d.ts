@@ -61,22 +61,22 @@ interface GlobuleStatic {
      */
     find(pattern: string, pattern2: string, pattern3: string | string[], options?: FindOptions): string[];
 
-    /** 
+    /**
      * Given a set of source file paths, returns an array of src-dest file mapping objects
      */
     mapping(filepaths: string[], options?: MappingOptions): OneMapping[];
 
-    /** 
+    /**
      * Given a set of source file paths, returns an array of src-dest file mapping objects
      */
     mapping(options: MappingOptions): OneMapping[];
 
-    /** 
+    /**
      * Given a set of source file paths, returns an array of src-dest file mapping objects
      */
     mapping(filepaths: string[], filepaths2: string[], options?: MappingOptions): OneMapping[];
 
-    /** 
+    /**
      * Given a set of source file paths, returns an array of src-dest file mapping objects
      */
     mapping(filepaths: string[], filepaths2: string[], filepaths3: string[], options?: MappingOptions): OneMapping[];

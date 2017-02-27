@@ -1,6 +1,6 @@
 // Type definitions for React v15.0
 // Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>, Benoit Benezech <https://github.com/bbenezech>, Patricio Zavolinsky <https://github.com/pzavolinsky>
+// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>, Benoit Benezech <https://github.com/bbenezech>, Patricio Zavolinsky <https://github.com/pzavolinsky>, Digiguru <https://github.com/digiguru>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -1296,7 +1296,7 @@ declare namespace React {
          * along the main-axis of their container.
          * See CSS justify-content property https://www.w3.org/TR/css-flexbox-1/#justify-content-property
          */
-        justifyContent?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
+        justifyContent?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
 
         layoutGrid?: CSSWideKeyword | any;
 
@@ -2146,6 +2146,7 @@ declare namespace React {
         shape?: string;
         size?: number;
         sizes?: string;
+        slot?: string;
         span?: number;
         spellCheck?: boolean;
         src?: string;
@@ -2585,6 +2586,7 @@ declare namespace React {
 
         // SVG
         svg: SVGFactory;
+        animate: SVGFactory;
         circle: SVGFactory;
         defs: SVGFactory;
         ellipse: SVGFactory;
@@ -2812,6 +2814,7 @@ declare global {
             // SVG
             svg: React.SVGProps<SVGSVGElement>;
 
+            animate: React.SVGProps<SVGElement>; // TODO: It is SVGAnimateElement but is not in TypeScript's lib.dom.d.ts for now.
             circle: React.SVGProps<SVGCircleElement>;
             clipPath: React.SVGProps<SVGClipPathElement>;
             defs: React.SVGProps<SVGDefsElement>;

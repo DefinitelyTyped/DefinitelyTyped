@@ -3,22 +3,21 @@
 // Definitions by: Paul Isache <https://github.com/Paul-Isache>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace steed {
     interface Dictionary<T> { [key: string]: T; }
-    interface ErrorCallback<T> { (err?: T): void; }
+    type ErrorCallback<T> = (err?: T) => void;
 
-    interface SteedResultCallback<T, E> { (err: E, result: T): void; }
-    interface SteedResultArrayCallback<T, E> { (err: E, results: T[]): void; }
-    interface SteedResultObjectCallback<T, E> { (err: E, results: Dictionary<T>): void; }
+    type SteedResultCallback<T, E> = (err: E, result: T) => void;
+    type SteedResultArrayCallback<T, E> = (err: E, results: T[]) => void;
+    type SteedResultObjectCallback<T, E> = (err: E, results: Dictionary<T>) => void;
 
-    interface SteedWorker<T, E> { (task: T, callback: ErrorCallback<E>): void; }
-    interface SteedIterator<T, E> { (item: T, callback: ErrorCallback<E>): void; }
-    interface SteedResultIterator<T, R, E> { (item: T, callback: SteedResultCallback<R, E>): void; }
-    interface SteedFunction<T, E> { (callback: (err?: E, result?: T) => void): void; }
+    type SteedWorker<T, E> = (task: T, callback: ErrorCallback<E>) => void;
+    type SteedIterator<T, E> = (item: T, callback: ErrorCallback<E>) => void;
+    type SteedResultIterator<T, R, E> = (item: T, callback: SteedResultCallback<R, E>) => void;
+    type SteedFunction<T, E> = (callback: (err?: E, result?: T) => void) => void;
 
     interface SteedQueue<T> {
-        push<E>(task: T | T[], callback?: ErrorCallback<E> | SteedResultCallback<T, E>): void;
+        push<E>(task: T | T[], callback?: SteedResultCallback<T, E>): void;
         unshift<E>(task: T | T[], callback?: ErrorCallback<E>): void;
         pause(): void;
         resume(): void;

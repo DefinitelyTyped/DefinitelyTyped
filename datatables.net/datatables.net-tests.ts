@@ -43,10 +43,17 @@ $(document).ready(function () {
         sort: "asc"
     };
 
-    var colDataFunc: DataTables.FunctionColumnData = function (row, type, set, meta) {
+    var colDataFunc: DataTables.FunctionColumnData = (row: any, type: 'set' | 'display' | 'sort' | 'filter' | 'type', set: any, meta: DataTables.CellMetaSettings) => {
         meta.col;
         meta.row;
         meta.settings;
+        switch (type) {
+            case 'set':
+                row.value = set;
+                return;
+            default:
+                return row.value;
+        }
     };
 
     var colRenderObject: DataTables.ObjectColumnRender = {
@@ -276,7 +283,7 @@ $(document).ready(function () {
         bScrollbarLeft: true,
         bScrollOversize: true
     }
-    
+
     //#endregion
 
     //#region "Init"
@@ -901,7 +908,7 @@ $(document).ready(function () {
 
     //#region "Methods-Static"
 
-    // Variable is a stand-in for $.fn.dataTable. See extension of JQueryStatic at the top of jquery.dataTables.d.ts.
+    // Variable is a stand-in for $.fn.dataTable. See extension of JQueryStatic at the top of index.d.ts.
     var staticFn: DataTables.StaticFunctions;
 
     // With boolean parameter type, always returns DataTables.DataTable[].
