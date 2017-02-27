@@ -1,4 +1,4 @@
-/// <reference path='kinvey-angular2-sdk.d.ts' />
+/// <reference path='index.d.ts' />
 
 import Kinvey from 'kinvey-angular2-sdk';
 
