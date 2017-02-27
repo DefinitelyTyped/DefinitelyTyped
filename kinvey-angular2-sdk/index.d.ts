@@ -3,14 +3,12 @@
 // Definitions by: Thomas P. Conner <https://github.com/thomasconner/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ Module
- */
-export as namespace Kinvey;
-
-/*~ Module functions
- */
-export function init(options: any): any;
-export function initialize(options: any): PromiseLike<any>;
+// Kinvey namespace
+declare namespace Kinvey {
+  function init(options: any): any;
+  function initialize(options: any): PromiseLike<any>;
+}
+export default Kinvey;
 
 /*~ User namespace
  */

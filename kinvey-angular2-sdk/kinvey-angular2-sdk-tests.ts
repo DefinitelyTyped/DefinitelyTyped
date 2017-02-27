@@ -6,6 +6,6 @@ Kinvey.initialize({
   appKey: 'foo',
   appSecret: 'bar'
 })
-  .then(function(activeUser) {
+  .then(function(activeUser: any) {
     // ...
   });
