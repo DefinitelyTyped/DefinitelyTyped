@@ -10,7 +10,6 @@ import * as React from 'react';
 declare class Autosuggest extends React.Component <any, any> {}
 
 export = Autosuggest;
-export as namespace Autosuggest;
 
 declare namespace Autosuggest {
   interface SuggestionsFetchRequest {
