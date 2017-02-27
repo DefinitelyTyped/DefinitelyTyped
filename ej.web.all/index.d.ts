@@ -3,7 +3,7 @@
 // Definitions by: Syncfusion <https://github.com/syncfusion/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="jquery" />
+/// <reference types="../jquery" />
 
 /*!
 *  filename: ej.web.all.d.ts
@@ -2071,19 +2071,27 @@ export interface Model {
 }
 
 export interface ActionBeginEventArgs {
-   undefined;
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
 }
 
 export interface ActionSuccessEventArgs {
-   undefined;
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
 }
 
 export interface ActionCompleteEventArgs {
-   undefined;
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
 }
 
 export interface ActionFailureEventArgs {
-   undefined;
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
 }
 
 export interface ChangeEventArgs {
@@ -3299,19 +3307,27 @@ export interface Model {
 }
 
 export interface ActionBeginEventArgs {
-	undefined;
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
 }
 
 export interface ActionSuccessEventArgs {
-	undefined;
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
 }
 
 export interface ActionCompleteEventArgs {
-	undefined;
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
 }
 
 export interface ActionFailureEventArgs {
-	undefined;
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
 }
 
 export interface ActionBeforeSuccessEventArgs {
@@ -3872,7 +3888,9 @@ class Calculate {
 export namespace Calculate {
 
 export interface Model {
-	undefined;
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
 }
 }
 
@@ -8308,7 +8326,7 @@ export interface Model {
 	beforePopupHide?(e: BeforePopupHideEventArgs): void;
 
 	/** Fires the action before the popup is ready to be displayed. */
-	beforePopupShown(e: BeforePopupShownEventArgs): void;
+	beforePopupShown?(e: BeforePopupShownEventArgs): void;
 
 	/** Fires when the cascading happens between two DropDownList exactly after the value changes in the first dropdown and before filtering in the second Dropdown. */
 	cascade?(e: CascadeEventArgs): void;
@@ -16243,7 +16261,9 @@ export interface StopEventArgs {
 }
 
 export interface TooltipChangeEventArgs {
-	undefined;
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
 }
 }
 namespace slider {
@@ -55425,7 +55445,9 @@ export interface DrawQualitativeRangesEventArgs {
 }
 
 export interface LoadEventArgs {
-	undefined;
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
 }
 
 export interface CaptionSettingsFont {
@@ -58572,7 +58594,9 @@ export interface DropEventArgs {
 }
 
 export interface EditorFocusChangeEventArgs {
-	undefined;
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
 }
 
 export interface GroupChangeEventArgs {
@@ -64421,16 +64445,24 @@ export interface Model {
 }
 
 interface JQueryXHR {
-	undefined;
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
 }
 interface JQueryPromise<T> {
-	undefined;
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
 }
 interface JQueryDeferred<T> extends JQueryPromise<T> {
-	undefined;
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
 }
 interface JQueryParam {
-	undefined;
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
 }
 interface JQuery {
     data(key: any): any;
