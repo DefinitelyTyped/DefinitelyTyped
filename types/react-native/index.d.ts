@@ -4558,10 +4558,14 @@ export namespace StyleSheet {
 
     type Style = ViewStyle | TextStyle | ImageStyle
 
+    type NamedStyles<T> = {
+        [P in keyof T]: Style;
+    }
+
     /**
      * Creates a StyleSheet style reference from the given object.
      */
-    export function create<T>( styles: T ): T;
+    export function create<T extends NamedStyles<T>>( styles: T ): T;
 
     /**
      * Flattens an array of style objects, into one aggregated style object.
