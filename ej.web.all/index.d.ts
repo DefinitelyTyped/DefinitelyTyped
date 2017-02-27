@@ -1,4 +1,4 @@
-// Type definitions for ej.web.all 15.1.33
+﻿// Type definitions for ej.web.all 15.1.33
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,14 +12,10 @@
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
 *  licensing@syncfusion.com. Any infringement will be prosecuted under
-*  applicable laws. 
+*  applicable laws.
 */
-
-/* tslint:disabled */
-
-declare module ej {
-	
-	var dataUtil: dataUtil;
+declare namespace ej {
+	const dataUtil: dataUtil;
     function isMobile(): boolean;
     function isIOS(): boolean;
     function isAndroid(): boolean;
@@ -32,33 +28,33 @@ declare module ej {
     function isTouchDevice(): boolean;
     function addPrefix(style: string): string;
     function animationEndEvent(): string;
-    function blockDefaultActions(e: Object): void;
-    function buildTag(tag: string, innerHtml?: string, styles?: Object, attrs?: Object): JQuery;
+    function blockDefaultActions(e: any): void;
+    function buildTag(tag: string, innerHtml?: string, styles?: any, attrs?: any): JQuery;
     function cancelEvent(): string;
     function copyObject(): string;
-    function createObject(nameSpace: string, value: Object, initIn: any): JQuery;
+    function createObject(nameSpace: string, value: any, initIn: any): JQuery;
     function createObject(element: any, eventEmitter: any, model: any): any;
     function setCulture(culture: string): void;
-	function getObject<T>(element :string, model :any ): T;
-    function defineClass(className: string, constructor:any, proto: Object, replace: boolean): Object;
-    function destroyWidgets(element: Object): void;
+	function getObject<T>(element: string, model: any ): T;
+    function getObject(nameSpace: string, fromdata?: any): any;
+    function defineClass(className: string, constructor: any, proto: any, replace: boolean): any;
+    function destroyWidgets(element: any): void;
     function endEvent(): string;
-    function event(type: string, data: any, eventProp: Object): Object;
-    function getAndroidVersion(): Object;
-    function getAttrVal(ele: Object, val: string, option: Object): Object;
-    function getBooleanVal(ele: Object, val: string, option: Object): Object;
+    function event(type: string, data: any, eventProp: any): any;
+    function getAndroidVersion(): any;
+    function getAttrVal(ele: any, val: string, option: any): any;
+    function getBooleanVal(ele: any, val: string, option: any): any;
     function getClearString(): string;
-    function getDimension(element: Object, method: string): Object;
-    function getFontString(fontObj: Object): string;
+    function getDimension(element: any, method: string): any;
+    function getFontString(fontObj: any): string;
     function getFontStyle(style: string): string;
     function getMaxZindex(): number;
     function getNameSpace(className: string): string;
-    function getObject(nameSpace: string, fromdata?: any): Object;
-    function getOffset(ele: string): Object;
+    function getOffset(ele: string): any;
     function getRenderMode(): string;
-    function getScrollableParents(element: Object): void;
+    function getScrollableParents(element: any): void;
     function getTheme(): string;
-    function getZindexPartial(element: Object, popupEle: string): number;
+    function getZindexPartial(element: any, popupEle: string): number;
     function hasRenderMode(element: string): void;
     function hasStyle(prop: string): boolean;
     function hasTheme(element: string): string;
@@ -69,91 +65,90 @@ declare module ej {
     function isIOS7(): boolean;
     function isIOSWebView(): boolean;
     function isLowerAndroid(): boolean;
-    function isNullOrUndefined(value: Object): boolean;
+    function isNullOrUndefined(value: any): boolean;
     function isPlainObject(): JQuery;
     function isPortrait(): any;
     function isTablet(): boolean;
     function isWindowsWebView(): string;
-    function listenEvents(selectors:any, eventTypes: any, handlers: any, remove?: any, pluginObj?: any, disableMouse?: boolean): void;
-    function listenTouchEvent(selectors:any, eventTypes: any, handlers: any, remove?: any, pluginObj?: any, disableMouse?: boolean): void;
+    function listenEvents(selectors: any, eventTypes: any, handlers: any, remove?: any, pluginObj?: any, disableMouse?: boolean): void;
+    function listenTouchEvent(selectors: any, eventTypes: any, handlers: any, remove?: any, pluginObj?: any, disableMouse?: boolean): void;
     function logBase(val: string, base: string): number;
     function measureText(text: string, maxwidth: number, font: string): string;
     function moveEvent(): string;
     function print(element: string, printWindow: any): void;
-    function proxy(fn: Object, context?: string, arg?: string): any;
+    function proxy(fn: any, context?: string, arg?: string): any;
     function round(value: string, div: string, up: string): any;
-    function sendAjaxRequest(ajaxOptions: Object): void;
+    function sendAjaxRequest(ajaxOptions: any): void;
     function setCaretToPos(nput: string, pos1: string, pos2: string): void;
     function setRenderMode(element: string): void;
-    function setTheme(): Object;
+    function setTheme(): any;
     function startEvent(): string;
     function tapEvent(): string;
     function tapHoldEvent(): string;
-    function throwError(): Object;
-    function transitionEndEvent(): Object;
+    function throwError(): any;
+    function transitionEndEvent(): any;
     function userAgent(): boolean;
-    function widget(pluginName: string, className: string, proto: Object): Object;
-    function avg(json: Object, filedName: string): any;
+    function widget(pluginName: string, className: string, proto: any): any;
+    function avg(json: any, filedName: string): any;
     function getGuid(prefix: string): number;
-    function group(jsonArray: any, field: string, agg: string, level: number, groupDs: string): Object;
+    function group(jsonArray: any, field: string, agg: string, level: number, groupDs: string): any;
     function isJson(jsonData: string): string;
     function max(jsonArray: any, fieldName?: string, comparer?: string): any;
     function min(jsonArray: any, fieldName: string, comparer: string): any;
     function merge(first: string, second: string): any;
     function mergeshort(jsonArray: any, fieldName: string, comparer: string): any;
     function parseJson(jsonText: string): string;
-    function parseTable(table: number, headerOption: string, headerRowIndex: string): Object;
+    function parseTable(table: number, headerOption: string, headerRowIndex: string): any;
     function select(jsonArray: any, fields: string): any;
     function setTransition(): boolean;
     function sum(json: string, fieldName: string): string;
-    function swap(array: any, x: string, y: string): any; 
-    var cssUA: string;
-    var serverTimezoneOffset: number;
-    var transform: string;
-    var transformOrigin: string;
-    var transformStyle: string;
-    var transition: string;
-    var transitionDelay: string;
-    var transitionDuration: string;
-    var transitionProperty: string;
-    var transitionTimingFunction: string;
-	var template: any;
-	var util: {
+    function swap(array: any, x: string, y: string): any;
+    const cssUA: string;
+    const serverTimezoneOffset: number;
+    const transform: string;
+    const transformOrigin: string;
+    const transformStyle: string;
+    const transition: string;
+    const transitionDelay: string;
+    const transitionDuration: string;
+    const transitionProperty: string;
+    const transitionTimingFunction: string;
+	const template: any;
+	const util: {
         valueFunction(val: string): any;
-    }        
-    export module device {
+    };
+    export namespace device {
         function isAndroid(): boolean;
         function isIOS(): boolean;
         function isFlat(): boolean;
         function isIOS7(): boolean;
         function isWindows(): boolean;
     }
-    export module widget {
-        var autoInit: boolean;
-        var registeredInstances: Array<any>;
-        var registeredWidgets: Array<any>;
+    export namespace widget {
+        const autoInit: boolean;
+        const registeredInstances: any[];
+        const registeredWidgets: any[];
         function register(pluginName: string, className: string, prototype: any): void;
         function destroyAll(elements: Element): void;
         function init(element: Element): void;
-        function registerInstance(element: Element, pluginName: string, className: string, prototype: any):void;
-    } 
-	
+        function registerInstance(element: Element, pluginName: string, className: string, prototype: any): void;
+    }
 	interface browserInfoOptions {
 		name: string;
 		version: string;
-		culture: Object;
+		culture: any;
 		isMSPointerEnabled: boolean;
 	}
 	class WidgetBase {
         destroy(): void;
         element: JQuery;
-        setModel(options: Object, forceSet?: boolean):any;
-        option(prop?: Object, value?: Object, forceSet?: boolean): any;
-		_trigger(eventName?: string, eventProp?: Object): any;
+        setModel(options: any, forceSet?: boolean): any;
+        option(prop?: any, value?: any, forceSet?: boolean): any;
+		_trigger(eventName?: string, eventProp?: any): any;
         _on(element: JQuery, eventType?: string, handler?: (eventObject: JQueryEventObject) => any): any;
          _on(element: JQuery, eventType ?: string, selector ?: string, handler ?: (eventObject: JQueryEventObject) => any): any;
        _off(element: JQuery, eventName: string, handler ?: (eventObject: JQueryEventObject) => any): any;
-       _off(element: JQuery, eventType ?: string, selector ?: string, handler ?: (eventObject: JQueryEventObject) => any): any;     
+       _off(element: JQuery, eventType ?: string, selector ?: string, handler ?: (eventObject: JQueryEventObject) => any): any;
         persistState(): void;
         restoreState(silent: boolean): void;
     }
@@ -163,30 +158,30 @@ declare module ej {
         static fn: Widget;
         static extend(widget: Widget): any;
         register(pluginName: string, className: string, prototype: any): void;
-        destroyAll(elements: Element): void;      
-        model: any;     
+        destroyAll(elements: Element): void;
+        model: any;
     }
 
 
     interface BaseEvent {
         cancel: boolean;
-        type: string;       
+        type: string;
     }
     class DataManager {
-        constructor(dataSource?: any, query?: ej.Query, adaptor?: any); 
+        constructor(dataSource?: any, query?: ej.Query, adaptor?: any);
         setDefaultQuery(query: ej.Query): void;
         executeQuery(query?: ej.Query, done?: any, fail?: any, always?: any): JQueryPromise<any>;
         executeLocal(query?: ej.Query): ej.DataManager;
         saveChanges(changes?: Changes, key?: string, tableName?: string): JQueryDeferred<any>;
-        insert(data: Object, tableName?: string): JQueryPromise<any>;
-        remove(keyField: string, value: any, tableName?: string): Object;
-        update(keyField: string, value: any, tableName?: string): Object;
-    }    
+        insert(data: any, tableName?: string): JQueryPromise<any>;
+        remove(keyField: string, value: any, tableName?: string): any;
+        update(keyField: string, value: any, tableName?: string): any;
+    }
 
     class Query {
         constructor();
         static fn: Query;
-        static extend(prototype: Object): Query;
+        static extend(prototype: any): Query;
         key(field: string): ej.Query;
         using(dataManager: ej.DataManager): ej.Query;
         execute(dataManager: ej.DataManager, done: any, fail?: string, always?: string): any;
@@ -196,8 +191,8 @@ declare module ej {
         addParams(key: string, value: string): ej.Query;
         expand(tables: any): ej.Query;
         where(fieldName: string, operator: ej.FilterOperators, value: any, ignoreCase?: boolean): ej.Query;
-		where(predicate:ej.Predicate):ej.Query;
-        search(searchKey: any, fieldNames?:  any, operator?: string, ignoreCase?: boolean): ej.Query;
+		where(predicate: ej.Predicate): ej.Query;
+        search(searchKey: any, fieldNames?: any, operator?: string, ignoreCase?: boolean): ej.Query;
         sortBy(fieldName: string, comparer?: ej.SortOrder, isFromGroup?: boolean): ej.Query;
         sortByDesc(fieldName: string): ej.Query;
         group(fieldName: string): ej.Query;
@@ -208,17 +203,17 @@ declare module ej {
         hierarchy(query: ej.Query, selectorFn: any): ej.Query;
         foreignKey(key: string): ej.Query;
         requiresCount(): ej.Query;
-        range(start:number, end:number): ej.Query;
+        range(start: number, end: number): ej.Query;
     }
 
     class Adaptor {
         constructor(ds: any);
-        pvt: Object;
+        pvt: any;
         type: ej.Adaptor;
         options: AdaptorOptions;
         extend(overrides: any): ej.Adaptor;
-        processQuery(dm: ej.DataManager, query: ej.Query):any;
-        processResponse(data: Object, ds: any, query: ej.Query, xhr: JQueryXHR, request?: Object, changes?: Changes): Object;
+        processQuery(dm: ej.DataManager, query: ej.Query): any;
+        processResponse(data: any, ds: any, query: ej.Query, xhr: JQueryXHR, request?: any, changes?: Changes): any;
         convertToQueryString(req: any, query: ej.Query, dm: ej.DataManager): JQueryParam;
     }
 
@@ -238,18 +233,18 @@ declare module ej {
 
     class UrlAdaptor extends ej.Adaptor {
         constructor();
-        processQuery(dm: ej.DataManager, query: ej.Query, hierarchyFilters?: Object): {
-            type: string; url: string; ejPvtData: Object; contentType?: string; data?: Object;
+        processQuery(dm: ej.DataManager, query: ej.Query, hierarchyFilters?: any): {
+            type: string; url: string; ejPvtData: any; contentType?: string; data?: any;
         }
-        convertToQueryString(req: Object, query: ej.Query, dm: ej.DataManager): JQueryParam;
-        processResponse(data: Object, ds: any, query: ej.Query, xhr: JQueryXHR, request?: Object, changes?: Changes): Object;
+        convertToQueryString(req: any, query: ej.Query, dm: ej.DataManager): JQueryParam;
+        processResponse(data: any, ds: any, query: ej.Query, xhr: JQueryXHR, request?: any, changes?: Changes): any;
         onGroup(e: any): void;
         batchRequest(dm: ej.DataManager, changes: Changes, e: any): void;
-        beforeSend(dm: ej.DataManager, request: any, settings?:any): void;
-        insert(dm: ej.DataManager, data: Object, tableName: string): { url: string; data: any };
+        beforeSend(dm: ej.DataManager, request: any, settings?: any): void;
+        insert(dm: ej.DataManager, data: any, tableName: string): { url: string; data: any };
         remove(dm: ej.DataManager, keyField: string, value: any, tableName: string): { type: string; url: string; data?: any };
         update(dm: ej.DataManager, keyField: string, value: any, tableName: string): { type: string; url: string; data: any };
-        getFiltersFrom(data: Object, query: ej.Query): ej.Predicate;
+        getFiltersFrom(data: any, query: ej.Query): ej.Predicate;
     }
 
     class ODataAdaptor extends ej.UrlAdaptor {
@@ -258,26 +253,26 @@ declare module ej {
         onEachWhere(filter: any, requiresCast: boolean): any;
         onPredicate(pred: ej.Predicate, query: ej.Query, requiresCast: boolean): string;
         onComplexPredicate(pred: ej.Predicate, requiresCast: boolean): string;
-        onWhere(filters: Array<string>): string;
-        onEachSearch(e: Object): void;
-        onSearch(e: Object): string;
-        onEachSort(e: Object): string;
-        onSortBy(e: Object): string;
-        onGroup(e: Object): string;
-        onSelect(e: Object): string;
-        onCount(e: Object): string;
+        onWhere(filters: string[]): string;
+        onEachSearch(e: any): void;
+        onSearch(e: any): string;
+        onEachSort(e: any): string;
+        onSortBy(e: any): string;
+        onGroup(e: any): string;
+        onSelect(e: any): string;
+        onCount(e: any): string;
         beforeSend(dm: ej.DataManager, request: any, settings?: any): void;
-        processResponse(data: Object, ds: Object, query: ej.Query, xhr:any, request: any, changes: Changes): {
-            result: Object; count: number
+        processResponse(data: any, ds: any, query: ej.Query, xhr: any, request: any, changes: Changes): {
+            result: any; count: number
         };
-        convertToQueryString(req: Object, query: ej.Query, dm: ej.DataManager): JQueryParam;
-        insert(dm: ej.DataManager, data: Object, tableName: string): { url: string; data: Object; }
+        convertToQueryString(req: any, query: ej.Query, dm: ej.DataManager): JQueryParam;
+        insert(dm: ej.DataManager, data: any, tableName: string): { url: string; data: any; }
         remove(dm: ej.DataManager, keyField: string, value: any, tableName: string): { url: string; type: string; }
-        update(dm: ej.DataManager, keyField: string, value: any, tableName: string): { url: string; type: string; data: Object; accept: string; }
-        batchRequest(dm: ej.DataManager, changes: Changes, e: any): { url: string; type: string; data: Object; contentType: string; }
-        generateDeleteRequest(arr: Array<any>, e: any): string;
-        generateInsertRequest(arr: Array<any>, e: any): string;
-        generateUpdateRequest(arr: Array<any>, e: any): string;
+        update(dm: ej.DataManager, keyField: string, value: any, tableName: string): { url: string; type: string; data: any; accept: string; }
+        batchRequest(dm: ej.DataManager, changes: Changes, e: any): { url: string; type: string; data: any; contentType: string; }
+        generateDeleteRequest(arr: any[], e: any): string;
+        generateInsertRequest(arr: any[], e: any): string;
+        generateUpdateRequest(arr: any[], e: any): string;
     }
     interface UrlAdaptorOptions {
         requestType?: string;
@@ -298,28 +293,25 @@ declare module ej {
         changeSetContent?: string;
         batchChangeSetContentType?: string;
     }
-	
 	class WebApiAdaptor extends ej.ODataAdaptor {
         constructor();
-        insert(dm: ej.DataManager, data: Object, tableName?: string): { url: string; type: string; data: Object; }
-        remove(dm: ej.DataManager, value: any, keyField?: string, tableName?: string): { url: string; type: string; data: Object; }
-        update(dm: ej.DataManager, value: any, keyField?: string, tableName?: string): { url: string; type: string; data: Object; accept: string; }
-        processResponse(data: Object, ds: Object, query: ej.Query, xhr: any, request: any, changes: Changes): {
-            result: Object; count: number
+        insert(dm: ej.DataManager, data: any, tableName?: string): { url: string; type: string; data: any; }
+        remove(dm: ej.DataManager, value: any, keyField?: string, tableName?: string): { url: string; type: string; data: any; }
+        update(dm: ej.DataManager, value: any, keyField?: string, tableName?: string): { url: string; type: string; data: any; accept: string; }
+        processResponse(data: any, ds: any, query: ej.Query, xhr: any, request: any, changes: Changes): {
+            result: any; count: number
         };
     }
-	
     class ODataV4Adaptor extends ej.ODataAdaptor {
         constructor();
         options: ODataAdaptorOptions;
-        onCount(e: Object): string;
-        onEachSearch(e: Object): void;
-        onSearch(e: Object): string; 
+        onCount(e: any): string;
+        onEachSearch(e: any): void;
+        onSearch(e: any): string;
         beforeSend(dm: ej.DataManager, request: any, settings?: any): void;
-        processResponse(data: Object, ds: Object, query: ej.Query, xhr:any, request: any, changes: Changes): {
-            result: Object; count: number
+        processResponse(data: any, ds: any, query: ej.Query, xhr: any, request: any, changes: Changes): {
+            result: any; count: number
         };
-        
     }
     interface ODataAdaptorOptions {
         requestType?: string;
@@ -344,31 +336,31 @@ declare module ej {
 
     class JsonAdaptor extends ej.Adaptor {
         constructor();
-        processQuery(ds: Object, query: ej.Query): string;
-        batchRequest(dm: ej.DataManager, changes: Changes, e:any): Changes;
-        onWhere(ds: Object, e: any): any;
-        onSearch(ds: Object, e: any): any
-        onSortBy(ds: Object, e: any, query: ej.Query): Object;
-        onGroup(ds: Object, e: any, query: ej.Query): Object;
-        onPage(ds: Object, e: any, query: ej.Query): Object;
-        onRange(ds: Object, e: any): Object;
-        onTake(ds: Object, e: any): Object;
-        onSkip(ds: Object, e: any): Object;
-        onSelect(ds: Object, e: any): Object;
-        insert(dm: ej.DataManager, data: any): Object;
-        remove(dm: ej.DataManager, keyField: string, value:any, tableName: string): Object;
-        update(dm: ej.DataManager, keyField: string, value:any, tableName: string): Object;
+        processQuery(ds: any, query: ej.Query): string;
+        batchRequest(dm: ej.DataManager, changes: Changes, e: any): Changes;
+        onWhere(ds: any, e: any): any;
+        onSearch(ds: any, e: any): any
+        onSortBy(ds: any, e: any, query: ej.Query): any;
+        onGroup(ds: any, e: any, query: ej.Query): any;
+        onPage(ds: any, e: any, query: ej.Query): any;
+        onRange(ds: any, e: any): any;
+        onTake(ds: any, e: any): any;
+        onSkip(ds: any, e: any): any;
+        onSelect(ds: any, e: any): any;
+        insert(dm: ej.DataManager, data: any): any;
+        remove(dm: ej.DataManager, keyField: string, value: any, tableName: string): any;
+        update(dm: ej.DataManager, keyField: string, value: any, tableName: string): any;
     }
 	class remoteSaveAdaptor extends ej.UrlAdaptor {
         constructor();
         batchRequest(dm: ej.DataManager, changes: Changes, e: any): void;
         beforeSend(dm: ej.DataManager, request: any, settings?: any): void;
-        insert(dm: ej.DataManager, data: Object, tableName: string): { url: string; data: any };
+        insert(dm: ej.DataManager, data: any, tableName: string): { url: string; data: any };
         remove(dm: ej.DataManager, keyField: string, value: any, tableName: string): { type: string; url: string; data?: any };
         update(dm: ej.DataManager, keyField: string, value: any, tableName: string): { type: string; url: string; data: any };
     }
     class TableModel {
-        constructor(name: string, jsonArray: Array<any>, dataManager: ej.DataManager, modelComputed: any);
+        constructor(name: string, jsonArray: any[], dataManager: ej.DataManager, modelComputed: any);
         on(eventName: string, handler: any): void;
         off(eventName: string, handler: any): void;
         setDataManager(dataManager: DataManager): void;
@@ -379,15 +371,15 @@ declare module ej {
         remove(key: string): void;
         isDirty(): boolean;
         getChanges(): Changes;
-        toArray(): Array<any>;
-        setDirty(dirty:any, model:any): void;
+        toArray(): any[];
+        setDirty(dirty: any, model: any): void;
         get(index: number): void;
         length(): number;
         bindTo(element: any): void;
     }
     class Model {
         constructor(json: any, table: string, name: string);
-        formElements: Array<string>;
+        formElements: string[];
         computes(value: any): void;
         on(eventName: string, handler: any): void;
         off(eventName: string, handler: any): void;
@@ -403,17 +395,17 @@ declare module ej {
         unbind(element: any): void;
     }
     interface Changes {
-        changed?: Array<any>;
-        added?: Array<any>;
-        deleted?: Array<any>;
+        changed?: any[];
+        added?: any[];
+        deleted?: any[];
     }
     class Predicate {
 	    constructor();
         constructor(field: string, operator: ej.FilterOperators, value: any, ignoreCase: boolean);
-        and(field: string, operator: any, value:any, ignoreCase:boolean): ej.Predicate;
+        and(field: string, operator: any, value: any, ignoreCase: boolean): ej.Predicate;
         or(field: string, operator: any, value: any, ignoreCase: boolean): ej.Predicate;
-		or(predicate: Array<Object>): any;
-        validate(record: Object): boolean;
+		or(predicate: any[]): any;
+        validate(record: any): boolean;
         toJSON(): {
             isComplex: boolean;
             field: string;
@@ -424,17 +416,17 @@ declare module ej {
             predicates: any;
         };
     }
-    interface dataUtil { 
-        swap(array: Array<any>, x: number, y: number): void;
-        mergeSort(jsonArray: Array<any>, fieldName?: string, comparer?:any): Array<any>;
-        max(jsonArray: Array<any>, fieldName?: string, comparer?: string): Array<any>;
-        min(jsonArray: Array<any>, fieldName: string, comparer: string): Array<any>;
-        distinct(jsonArray: Array<any>, fieldName?: string, requiresCompleteRecord?:any): Array<any>;
-        sum(json:any, fieldName: string): number;
-        avg(json:any, fieldName: string): number;
-        select(jsonArray: Array<any>, fieldName: string, fields:string): Array<any>;
-        group(jsonArray: Array<any>, field: string, /* internal */ level: number): Array<any>;
-        parseTable(table: string, headerOption: ej.headerOption, headerRowIndex: number): Object;
+    interface dataUtil {
+        swap(array: any[], x: number, y: number): void;
+        mergeSort(jsonArray: any[], fieldName?: string, comparer?: any): any[];
+        max(jsonArray: any[], fieldName?: string, comparer?: string): any[];
+        min(jsonArray: any[], fieldName: string, comparer: string): any[];
+        distinct(jsonArray: any[], fieldName?: string, requiresCompleteRecord?: any): any[];
+        sum(json: any, fieldName: string): number;
+        avg(json: any, fieldName: string): number;
+        select(jsonArray: any[], fieldName: string, fields: string): any[];
+        group(jsonArray: any[], field: string, /* internal */ level: number): any[];
+        parseTable(table: string, headerOption: ej.headerOption, headerRowIndex: number): any;
     }
     interface AjaxSettings {
         type?: string;
@@ -494,8 +486,7 @@ declare module ej {
 		row,
 		tHead
 	}
-		
-	enum filterType{
+	enum filterType {
 		StartsWith,
 		Contains,
 		EndsWith,
@@ -506,33 +497,32 @@ declare module ej {
 		Equal,
 		NotEqual
 	}
-	enum Animation{
+	enum Animation {
 		Fade,
 		None,
 		Slide
-	} 
-	enum Type{
+	}
+	enum Type {
 		Overlay,
 		Slide
 	}
-	enum SortOrder{
+	enum SortOrder {
 		Ascending,
 		Descending
 	}
 class Draggable extends ej.Widget {
 	static fn: Draggable;
-	constructor(element: JQuery, options?: Draggable.Model);
-	constructor(element: Element, options?: Draggable.Model);
+	constructor(element: JQuery | Element, options?: Draggable.Model);
 	static Locale: any;
-	model:Draggable.Model;
-	defaults:Draggable.Model;
+	model: Draggable.Model;
+	defaults: Draggable.Model;
 
 	/** destroy in the draggable.
 	*   @returns {void}
 	*/
 	_destroy(): void;
 }
-export module Draggable{
+export namespace Draggable {
 
 export interface Model {
 
@@ -567,19 +557,19 @@ export interface Model {
 	scope?: string;
 
 	/** This event is triggered when dragging element is destroyed. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** This event is triggered when the mouse is moved during the dragging. */
-	drag? (e: DragEventArgs): void;
+	drag?(e: DragEventArgs): void;
 
 	/** Supply a callback function to handle the drag start event as an init option. */
-	dragStart? (e: DragStartEventArgs): void;
+	dragStart?(e: DragStartEventArgs): void;
 
 	/** This event is triggered when the mouse is moved during the dragging. */
-	dragStop? (e: DragStopEventArgs): void;
+	dragStop?(e: DragStopEventArgs): void;
 
 	/** This event is triggered when dragged. */
-	helper? (e: HelperEventArgs): void;
+	helper?(e: HelperEventArgs): void;
 }
 
 export interface DestroyEventArgs {
@@ -680,18 +670,17 @@ export interface HelperEventArgs {
 
 class Droppable extends ej.Widget {
 	static fn: Droppable;
-	constructor(element: JQuery, options?: Droppable.Model);
-	constructor(element: Element, options?: Droppable.Model);
+	constructor(element: JQuery | Element, options?: Droppable.Model);
 	static Locale: any;
-	model:Droppable.Model;
-	defaults:Droppable.Model;
+	model: Droppable.Model;
+	defaults: Droppable.Model;
 
 	/** destroy in the Droppable.
 	*   @returns {void}
 	*/
 	_destroy(): void;
 }
-export module Droppable{
+export namespace Droppable {
 
 export interface Model {
 
@@ -706,13 +695,13 @@ export interface Model {
 	scope?: string;
 
 	/** This event is triggered when the mouse up is moved during the dragging. */
-	drop? (e: DropEventArgs): void;
+	drop?(e: DropEventArgs): void;
 
 	/** This event is triggered when the mouse is moved out. */
-	out? (e: OutEventArgs): void;
+	out?(e: OutEventArgs): void;
 
 	/** This event is triggered when the mouse is moved over. */
-	over? (e: OverEventArgs): void;
+	over?(e: OverEventArgs): void;
 }
 
 export interface DropEventArgs {
@@ -775,18 +764,17 @@ export interface OverEventArgs {
 
 class Resizable extends ej.Widget {
 	static fn: Resizable;
-	constructor(element: JQuery, options?: Resizable.Model);
-	constructor(element: Element, options?: Resizable.Model);
+	constructor(element: JQuery | Element, options?: Resizable.Model);
 	static Locale: any;
-	model:Resizable.Model;
-	defaults:Resizable.Model;
+	model: Resizable.Model;
+	defaults: Resizable.Model;
 
 	/** destroy in the Resizable.
 	*   @returns {void}
 	*/
 	_destroy(): void;
 }
-export module Resizable{
+export namespace Resizable {
 
 export interface Model {
 
@@ -831,10 +819,10 @@ export interface Model {
 	scope?: string;
 
 	/** This event is triggered when the widget destroys. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** This event is triggered when resized. */
-	helper? (e: HelperEventArgs): void;
+	helper?(e: HelperEventArgs): void;
 }
 
 export interface DestroyEventArgs {
@@ -869,8 +857,8 @@ export interface HelperEventArgs {
 }
 
 
-		var globalize:globalize;
-		var cultures:culture;
+		const globalize: globalize;
+		const cultures: culture;
 		function addCulture(name: string, culture ?: any): void;
     	function preferredCulture(culture ?: string): culture;
     	function format(value: any, format: string, culture ?: string): string;
@@ -879,10 +867,10 @@ export interface HelperEventArgs {
     	function parseDate(value: string, format: string, culture ?: string): Date;
     	function getLocalizedConstants(controlName: string, culture ?: string): any;
 
-interface globalize {  
+interface globalize {
         addCulture(name: string, culture?: any): void;
         preferredCulture(culture?: string): culture;
-        format(value: any, format: string, culture?: string): string; 
+        format(value: any, format: string, culture?: string): string;
         parseInt(value: string, radix?: any, culture?: string): number;
         parseFloat(value: string, radix?: any, culture?: string): number;
         parseDate(value: string, format: string, culture?: string): Date;
@@ -898,22 +886,22 @@ interface globalize {
         calendars?: calendarsSettings;
     }
     interface formatSettings {
-        pattern: Array<string>;
+        pattern: string[];
         decimals: number;
-        groupSizes: Array<number>;
+        groupSizes: number[];
         percent: percentSettings;
         currency: currencySettings;
     }
     interface percentSettings {
-        pattern: Array<string>;
+        pattern: string[];
         decimals: number;
-        groupSizes: Array<number>;
+        groupSizes: number[];
         symbol: string;
     }
     interface currencySettings {
-        pattern: Array<string>;
+        pattern: string[];
         decimals: number;
-        groupSizes: Array<number>;
+        groupSizes: number[];
         symbol: string;
     }
     interface calendarsSettings {
@@ -923,19 +911,19 @@ interface globalize {
         firstDay: number;
         days: daySettings;
         months: monthSettings;
-        AM: Array<string>;
-        PM: Array<string>;
+        AM: string[];
+        PM: string[];
         twoDigitYearMax: number;
         patterns: patternSettings;
     }
     interface daySettings {
-        names: Array<string>;
-        namesAbbr: Array<string>;
-        namesShort: Array<string>;
+        names: string[];
+        namesAbbr: string[];
+        namesShort: string[];
     }
     interface monthSettings {
-        names: Array<string>;
-        namesAbbr: Array<string>;
+        names: string[];
+        namesAbbr: string[];
     }
     interface patternSettings {
         d: string;
@@ -947,14 +935,13 @@ interface globalize {
         M: string;
         Y: string;
         S: string;
-    } 
+    }
 class Scroller extends ej.Widget {
 	static fn: Scroller;
-	constructor(element: JQuery, options?: Scroller.Model);
-	constructor(element: Element, options?: Scroller.Model);
+	constructor(element: JQuery | Element, options?: Scroller.Model);
 	static Locale: any;
-	model:Scroller.Model;
-	defaults:Scroller.Model;
+	model: Scroller.Model;
+	defaults: Scroller.Model;
 
 	/** destroy the Scroller control, unbind the all ej control related events automatically and bring the control to pre-init state.
 	*   @returns {void}
@@ -1002,7 +989,7 @@ class Scroller extends ej.Widget {
 	*/
 	scrollY(pixel: number|string, disableAnimation: boolean, animationSpeed: number): void;
 }
-export module Scroller{
+export namespace Scroller {
 
 export interface Model {
 
@@ -1077,28 +1064,28 @@ export interface Model {
 	width?: number|string;
 
 	/** Fires when Scroller control is created. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when Scroller control is destroyed. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires when a thumb point is moved along the touch surface. */
-	thumbMove? (e: ThumbMoveEventArgs): void;
+	thumbMove?(e: ThumbMoveEventArgs): void;
 
 	/** Fires when a thumb point is placed on the touch surface. */
-	thumbStart? (e: ThumbStartEventArgs): void;
+	thumbStart?(e: ThumbStartEventArgs): void;
 
 	/** Fires when a thumb point is removed from the touch surface. */
-	thumbEnd? (e: ThumbEndEventArgs): void;
+	thumbEnd?(e: ThumbEndEventArgs): void;
 
 	/** It fires whenever the mouse wheel is rotated either in upwards or downwards. */
-	wheelMove? (e: WheelMoveEventArgs): void;
+	wheelMove?(e: WheelMoveEventArgs): void;
 
 	/** It will fire when mouse trackball has been start to wheel. */
-	wheelStart? (e: WheelStartEventArgs): void;
+	wheelStart?(e: WheelStartEventArgs): void;
 
 	/** It will fire when mouse trackball has been stop to wheel. */
-	wheelStop? (e: WheelStopEventArgs): void;
+	wheelStop?(e: WheelStopEventArgs): void;
 }
 
 export interface CreateEventArgs {
@@ -1256,11 +1243,10 @@ export interface WheelStopEventArgs {
 
 class Accordion extends ej.Widget {
 	static fn: Accordion;
-	constructor(element: JQuery, options?: Accordion.Model);
-	constructor(element: Element, options?: Accordion.Model);
+	constructor(element: JQuery | Element, options?: Accordion.Model);
 	static Locale: any;
-	model:Accordion.Model;
-	defaults:Accordion.Model;
+	model: Accordion.Model;
+	defaults: Accordion.Model;
 
 	/** AddItem method is used to add the panel in dynamically. It receives the following parameters
 	*   @param {string} specify the name of the header
@@ -1295,7 +1281,7 @@ class Accordion extends ej.Widget {
 	*   @param {Array<any>} index values to disable the panels
 	*   @returns {void}
 	*/
-	disableItems(index: Array<any>): void;
+	disableItems(index: any[]): void;
 
 	/** Enable the accordion widget includes all the headers and content panels.
 	*   @returns {void}
@@ -1306,7 +1292,7 @@ class Accordion extends ej.Widget {
 	*   @param {Array<any>} index values to enable the panels
 	*   @returns {void}
 	*/
-	enableItems(index: Array<any>): void;
+	enableItems(index: any[]): void;
 
 	/** To expand all the accordion widget items.
 	*   @returns {void}
@@ -1344,7 +1330,7 @@ class Accordion extends ej.Widget {
 	*/
 	show(): void;
 }
-export module Accordion{
+export namespace Accordion {
 
 export interface Model {
 
@@ -1356,7 +1342,7 @@ export interface Model {
 	/** Accordion headers can be expanded and collapsed on keyboard action.
 	*   @Default {true}
 	*/
-	allowKeyboardNavigation?: Boolean;
+	allowKeyboardNavigation?: boolean;
 
 	/** To set the Accordion headers Collapse Speed.
 	*   @Default {300}
@@ -1370,7 +1356,7 @@ export interface Model {
 
 	/** Sets the root CSS class for Accordion theme, which is used customize.
 	*/
-	cssClass?: String;
+	cssClass?: string;
 
 	/** Allows you to set the custom header Icon. It accepts two key values â€œheaderâ€, â€selectedHeaderâ€.
 	*   @Default {{ header: e-collapse, selectedHeader: e-expand }}
@@ -1385,12 +1371,12 @@ export interface Model {
 	/** Specifies the animation behavior in accordion.
 	*   @Default {true}
 	*/
-	enableAnimation?: Boolean;
+	enableAnimation?: boolean;
 
 	/** With this enabled property, you can enable or disable the Accordion.
 	*   @Default {true}
 	*/
-	enabled?: Boolean;
+	enabled?: boolean;
 
 	/** Used to enable the disabled items in accordion.
 	*   @Default {[]}
@@ -1400,22 +1386,22 @@ export interface Model {
 	/** Multiple content panels to activate at a time.
 	*   @Default {false}
 	*/
-	enableMultipleOpen?: Boolean;
+	enableMultipleOpen?: boolean;
 
 	/** Save current model value to browser cookies for maintaining states. When refreshing the accordion control page, the model value is applied from browser cookies or HTML 5local storage.
 	*   @Default {false}
 	*/
-	enablePersistence?: Boolean;
+	enablePersistence?: boolean;
 
 	/** Display headers and panel text from right-to-left.
 	*   @Default {false}
 	*/
-	enableRTL?: Boolean;
+	enableRTL?: boolean;
 
 	/** The events API binds the action for activating the accordion header. Users can activate the header by using mouse actions such as mouse-over, mouse-up, mouse-down, and soon.
 	*   @Default {click}
 	*/
-	events?: String;
+	events?: string;
 
 	/** To set the Accordion headers Expand Speed.
 	*   @Default {300}
@@ -1454,7 +1440,7 @@ export interface Model {
 	/** Used to determines the close button visibility an each accordion items. This close button helps to remove the accordion item from the control.
 	*   @Default {false}
 	*/
-	showCloseButton?: Boolean;
+	showCloseButton?: boolean;
 
 	/** Displays rounded corner borders on the Accordion control's panels and headers.
 	*   @Default {false}
@@ -1467,34 +1453,34 @@ export interface Model {
 	width?: number|string;
 
 	/** Triggered after a Accordion item is active or inactive. Argument values are activeIndex, activeHeader, inActiveHeader, inActiveIndex and current model value. */
-	activate? (e: ActivateEventArgs): void;
+	activate?(e: ActivateEventArgs): void;
 
 	/** Triggered before the AJAX content is loaded in a content panel. Arguments have location of the content (URL) and current model value. */
-	ajaxBeforeLoad? (e: AjaxBeforeLoadEventArgs): void;
+	ajaxBeforeLoad?(e: AjaxBeforeLoadEventArgs): void;
 
 	/** Triggered after AJAX load failed action. Arguments have URL, error message, and current model value. */
-	ajaxError? (e: AjaxErrorEventArgs): void;
+	ajaxError?(e: AjaxErrorEventArgs): void;
 
 	/** Triggered after the AJAX content loads. Arguments have current model values. */
-	ajaxLoad? (e: AjaxLoadEventArgs): void;
+	ajaxLoad?(e: AjaxLoadEventArgs): void;
 
 	/** Triggered after AJAX success action. Arguments have URL, content, and current model values. */
-	ajaxSuccess? (e: AjaxSuccessEventArgs): void;
+	ajaxSuccess?(e: AjaxSuccessEventArgs): void;
 
 	/** Triggered before a tab item is active. Arguments have active index and model values. */
-	beforeActivate? (e: BeforeActivateEventArgs): void;
+	beforeActivate?(e: BeforeActivateEventArgs): void;
 
 	/** Triggered after a Accordion item is active or inactive. Argument values are activeIndex, activeHeader, inActiveHeader, inActiveIndex and current model value. */
-	beforeInactivate? (e: BeforeInactivateEventArgs): void;
+	beforeInactivate?(e: BeforeInactivateEventArgs): void;
 
 	/** Triggered after Accordion control creation. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Triggered after Accordion control destroy. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Triggered after a Accordion item is active or inactive. Argument values are activeIndex, activeHeader, inActiveHeader, inActiveIndex and current model value. */
-	inActivate? (e: InActivateEventArgs): void;
+	inActivate?(e: InActivateEventArgs): void;
 }
 
 export interface ActivateEventArgs {
@@ -1719,15 +1705,15 @@ export interface AjaxSettings {
 
 	/** It specifies, whether to enable or disable asynchronous request.
 	*/
-	async?: Boolean;
+	async?: boolean;
 
 	/** It specifies the page will be cached in the web browser.
 	*/
-	cache?: Boolean;
+	cache?: boolean;
 
 	/** It specifies the type of data is send in the query string.
 	*/
-	contentType?: String;
+	contentType?: string;
 
 	/** It specifies the data as an object, will be passed in the query string.
 	*/
@@ -1735,25 +1721,25 @@ export interface AjaxSettings {
 
 	/** It specifies the type of data that you're expecting back from the response.
 	*/
-	dataType?: String;
+	dataType?: string;
 
 	/** It specifies the HTTP request type.
 	*/
-	type?: String;
+	type?: string;
 }
 
 export interface CustomIcon {
 
 	/** This class name set to collapsing header.
 	*/
-	header?: String;
+	header?: string;
 
 	/** This class name set to expanded (active) header.
 	*/
-	selectedHeader?: String;
+	selectedHeader?: string;
 }
 
-enum HeightAdjustMode{
+enum HeightAdjustMode {
 
 	///Height fit to the content in the panel
 	Content,
@@ -1769,11 +1755,10 @@ enum HeightAdjustMode{
 
 class Autocomplete extends ej.Widget {
 	static fn: Autocomplete;
-	constructor(element: JQuery, options?: Autocomplete.Model);
-	constructor(element: Element, options?: Autocomplete.Model);
+	constructor(element: JQuery | Element, options?: Autocomplete.Model);
 	static Locale: any;
-	model:Autocomplete.Model;
-	defaults:Autocomplete.Model;
+	model: Autocomplete.Model;
+	defaults: Autocomplete.Model;
 
 	/** Clears the text in the Autocomplete textbox.
 	*   @returns {void}
@@ -1832,7 +1817,7 @@ class Autocomplete extends ej.Widget {
 	*/
 	selectValueByText(Text: string): void;
 }
-export module Autocomplete{
+export namespace Autocomplete {
 
 export interface Model {
 
@@ -1874,7 +1859,7 @@ export interface Model {
 	/** The data source contains the list of data for the suggestions list. It can be a string array or JSON array.
 	*   @Default {null}
 	*/
-	dataSource?: any|Array<any>;
+	dataSource?: any|any[];
 
 	/** The time delay (in milliseconds) after which the suggestion popup will be shown.
 	*   @Default {200}
@@ -2049,52 +2034,56 @@ export interface Model {
 	width?: string;
 
 	/** Triggers when the AJAX requests Begins. */
-	actionBegin? (e: ActionBeginEventArgs): void;
+	actionBegin?(e: ActionBeginEventArgs): void;
 
 	/** Triggers when the data requested from AJAX will get successfully loaded in the Autocomplete widget. */
-	actionSuccess? (e: ActionSuccessEventArgs): void;
+	actionSuccess?(e: ActionSuccessEventArgs): void;
 
 	/** Triggers when the AJAX requests complete. The request may get failed or succeed. */
-	actionComplete? (e: ActionCompleteEventArgs): void;
+	actionComplete?(e: ActionCompleteEventArgs): void;
 
 	/** Triggers when the data requested from AJAX get failed. */
-	actionFailure? (e: ActionFailureEventArgs): void;
+	actionFailure?(e: ActionFailureEventArgs): void;
 
 	/** Triggers when the text box value is changed. */
-	change? (e: ChangeEventArgs): void;
+	change?(e: ChangeEventArgs): void;
 
 	/** Triggers after the suggestion popup is closed. */
-	close? (e: CloseEventArgs): void;
+	close?(e: CloseEventArgs): void;
 
 	/** Triggers when Autocomplete widget is created. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Triggers after the Autocomplete widget is destroyed. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Triggers after the autocomplete textbox is focused. */
-	focusIn? (e: FocusInEventArgs): void;
+	focusIn?(e: FocusInEventArgs): void;
 
 	/** Triggers after the Autocomplete textbox gets out of the focus. */
-	focusOut? (e: FocusOutEventArgs): void;
+	focusOut?(e: FocusOutEventArgs): void;
 
 	/** Triggers after the suggestion list is opened. */
-	open? (e: OpenEventArgs): void;
+	open?(e: OpenEventArgs): void;
 
 	/** Triggers when an item has been selected from the suggestion list. */
-	select? (e: SelectEventArgs): void;
+	select?(e: SelectEventArgs): void;
 }
 
 export interface ActionBeginEventArgs {
+   undefined;
 }
 
 export interface ActionSuccessEventArgs {
+   undefined;
 }
 
 export interface ActionCompleteEventArgs {
+   undefined;
 }
 
 export interface ActionFailureEventArgs {
+   undefined;
 }
 
 export interface ChangeEventArgs {
@@ -2296,7 +2285,7 @@ export interface MultiColumnSettingsColumn {
 	/** Gets or sets a value that indicates to align the text within the column. See textAlign
 	*   @Default {ej.TextAlign.Left}
 	*/
-	textAlign?:  ej.TextAlign|string;
+	textAlign?: ej.TextAlign|string;
 }
 
 export interface MultiColumnSettings {
@@ -2317,10 +2306,10 @@ export interface MultiColumnSettings {
 
 	/** Field and Header Text collections can be defined and customized through columns field.
 	*/
-	columns?: Array<MultiColumnSettingsColumn>;
+	columns?: MultiColumnSettingsColumn[];
 }
 
-enum Animation{
+enum Animation {
 
 	///Supports to animation type with none type only.
 	None,
@@ -2333,7 +2322,7 @@ enum Animation{
 }
 
 
-enum MultiSelectMode{
+enum MultiSelectMode {
 
 	///Multiple values are separated using a given special character.
 	Delimiter,
@@ -2343,7 +2332,7 @@ enum MultiSelectMode{
 }
 
 
-enum SortOrder{
+enum SortOrder {
 
 	///Items to be displayed in the suggestion list in ascending order.
 	Ascending,
@@ -2356,11 +2345,10 @@ enum SortOrder{
 
 class Button extends ej.Widget {
 	static fn: Button;
-	constructor(element: JQuery, options?: Button.Model);
-	constructor(element: Element, options?: Button.Model);
+	constructor(element: JQuery | Element, options?: Button.Model);
 	static Locale: any;
-	model:Button.Model;
-	defaults:Button.Model;
+	model: Button.Model;
+	defaults: Button.Model;
 
 	/** destroy the button widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
 	*   @returns {void}
@@ -2377,7 +2365,7 @@ class Button extends ej.Widget {
 	*/
 	enable(): void;
 }
-export module Button{
+export namespace Button {
 
 export interface Model {
 
@@ -2461,13 +2449,13 @@ export interface Model {
 	width?: string|number;
 
 	/** Fires when Button control is clicked successfully.Consider the scenario to perform any validation,modification of content or any other operations click on button,we can make use of this click event to achieve the scenario. */
-	click? (e: ClickEventArgs): void;
+	click?(e: ClickEventArgs): void;
 
 	/** Fires after Button control is created.If the user want to perform any operation after the button control creation then the user can make use of this create event. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when the button is destroyed successfully.If the user want to perform any operation after the destroy button control then the user can make use of this destroy event. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 }
 
 export interface ClickEventArgs {
@@ -2488,7 +2476,7 @@ export interface ClickEventArgs {
 	*/
 	status?: boolean;
 
-	/** return the event model for sever side processing. 
+	/** return the event model for sever side processing.
 	*/
 	e?: any;
 }
@@ -2523,8 +2511,7 @@ export interface DestroyEventArgs {
 	type?: string;
 }
 }
-enum ContentType
-{
+enum ContentType {
 //To display the text content only in button
 TextOnly,
 //To display the image only in button
@@ -2536,8 +2523,7 @@ TextAndImage,
 //Supports to display  image with both ends of the text
 ImageTextImage,
 }
-enum ImagePosition
-{
+enum ImagePosition {
 //support for aligning text in left and image in right
 ImageRight,
 //support for aligning text in right and image in left
@@ -2547,24 +2533,22 @@ ImageTop,
 //support for aligning text in top and image in bottom
 ImageBottom,
 }
-enum ButtonSize
-{
+enum ButtonSize {
 //Creates button with Built-in default size height, width specified
 Normal,
 //Creates button with Built-in mini size height, width specified
 Mini,
 //Creates button with Built-in small size height, width specified
 Small,
-//Creates button with Built-in medium size height, width specified 
+//Creates button with Built-in medium size height, width specified
 Medium,
-//Creates button with Built-in large size height, width specified 
+//Creates button with Built-in large size height, width specified
 Large,
 }
-enum ButtonType
-{
+enum ButtonType {
 //Creates button with Built-in button type specified
 Button,
-//Creates button with Built-in reset type specified 
+//Creates button with Built-in reset type specified
 Reset,
 //Creates button with Built-in submit type specified
 Submit,
@@ -2572,13 +2556,12 @@ Submit,
 
 class Captcha extends ej.Widget {
 	static fn: Captcha;
-	constructor(element: JQuery, options?: Captcha.Model);
-	constructor(element: Element, options?: Captcha.Model);
+	constructor(element: JQuery | Element, options?: Captcha.Model);
 	static Locale: any;
-	model:Captcha.Model;
-	defaults:Captcha.Model;
+	model: Captcha.Model;
+	defaults: Captcha.Model;
 }
-export module Captcha{
+export namespace Captcha {
 
 export interface Model {
 
@@ -2651,16 +2634,16 @@ export interface Model {
 	width?: number;
 
 	/** Fires when captcha refresh begins. */
-	refreshBegin? (e: RefreshBeginEventArgs): void;
+	refreshBegin?(e: RefreshBeginEventArgs): void;
 
 	/** Fires after captcha refresh completed. */
-	refreshComplete? (e: RefreshCompleteEventArgs): void;
+	refreshComplete?(e: RefreshCompleteEventArgs): void;
 
 	/** Fires when captcha refresh fails to load. */
-	refreshFailure? (e: RefreshFailureEventArgs): void;
+	refreshFailure?(e: RefreshFailureEventArgs): void;
 
 	/** Fires after captcha refresh succeeded. */
-	refreshSuccess? (e: RefreshSuccessEventArgs): void;
+	refreshSuccess?(e: RefreshSuccessEventArgs): void;
 }
 
 export interface RefreshBeginEventArgs {
@@ -2723,8 +2706,7 @@ export interface RefreshSuccessEventArgs {
 	type?: string;
 }
 }
-enum HatchStyle
-{
+enum HatchStyle {
 //Set background as None to Captcha
 None,
 //Set background as BackwardDiagonal to Captcha
@@ -2803,11 +2785,10 @@ ZigZag,
 
 class ListBox extends ej.Widget {
 	static fn: ListBox;
-	constructor(element: JQuery, options?: ListBox.Model);
-	constructor(element: Element, options?: ListBox.Model);
+	constructor(element: JQuery | Element, options?: ListBox.Model);
 	static Locale: any;
-	model:ListBox.Model;
-	defaults:ListBox.Model;
+	model: ListBox.Model;
+	defaults: ListBox.Model;
 
 	/** Adds a given list items in the ListBox widget at a specified index. It accepts two parameters.
 	*   @param {any|string} This can be a list item object (for JSON binding) or a string (for UL and LI rendering). Also we can the specify this as an array of list item object or an array of strings to add multiple items.
@@ -2921,7 +2902,7 @@ class ListBox extends ej.Widget {
 	*   @param {Array<any>} Data to merge in listbox.
 	*   @returns {void}
 	*/
-	mergeData(data: Array<any>): void;
+	mergeData(data: any[]): void;
 
 	/** Selects the next item based on the current selection.
 	*   @returns {void}
@@ -2950,7 +2931,7 @@ class ListBox extends ej.Widget {
 	removeSelectedItems(): void;
 
 	/** Removes a list item by using its text.
-	*   @param {string} Text of the listbox item to be removed. 
+	*   @param {string} Text of the listbox item to be removed.
 	*   @returns {void}
 	*/
 	removeItemByText(text: string): void;
@@ -2961,7 +2942,7 @@ class ListBox extends ej.Widget {
 	*/
 	removeItemByIndex(index: number): void;
 
-	/** 
+	/**
 	*   @returns {void}
 	*/
 	selectAll(): void;
@@ -3007,7 +2988,7 @@ class ListBox extends ej.Widget {
 	*/
 	uncheckItemsByIndices(indices: number[]|string): void;
 
-	/** 
+	/**
 	*   @returns {void}
 	*/
 	unselectAll(): void;
@@ -3057,13 +3038,13 @@ class ListBox extends ej.Widget {
 	*   @param {Array<any>} Values of the listbox items to be shown.
 	*   @returns {void}
 	*/
-	showItemsByValues(values: Array<any>): void;
+	showItemsByValues(values: any[]): void;
 
 	/** Hides the list item using its values.
 	*   @param {Array<any>} Values of the listbox items to be hidden.
 	*   @returns {void}
 	*/
-	hideItemsByValues(values: Array<any>): void;
+	hideItemsByValues(values: any[]): void;
 
 	/** Shows a hidden list item using its value.
 	*   @param {string} Value of the listbox item to be shown.
@@ -3089,7 +3070,7 @@ class ListBox extends ej.Widget {
 	*/
 	hideItemByIndex(index: number): void;
 
-	/** 
+	/**
 	*   @returns {void}
 	*/
 	show(): void;
@@ -3109,7 +3090,7 @@ class ListBox extends ej.Widget {
 	*/
 	showAllItems(): void;
 }
-export module ListBox{
+export namespace ListBox {
 
 export interface Model {
 
@@ -3146,7 +3127,7 @@ export interface Model {
 	/** Set of list items to be checked by default using its index. It works only when the showCheckbox property is set to true.
 	*   @Default {null}
 	*/
-	checkedIndices?: Array<any>;
+	checkedIndices?: any[];
 
 	/** The root class for the ListBox widget to customize the existing theme.
 	*   @Default {â€œâ€}
@@ -3230,7 +3211,7 @@ export interface Model {
 	/** The list items to be selected by default using its indices. To use this property allowMultiSelection should be enabled.
 	*   @Default {[]}
 	*/
-	selectedIndices?: Array<any>;
+	selectedIndices?: any[];
 
 	/** Enables/Disables the multi selection option with the help of checkbox control.
 	*   @Default {false}
@@ -3266,67 +3247,71 @@ export interface Model {
 	targetID?: string;
 
 	/** Triggers before the AJAX request begins to load data in the ListBox widget. */
-	actionBegin? (e: ActionBeginEventArgs): void;
+	actionBegin?(e: ActionBeginEventArgs): void;
 
 	/** Triggers after the data requested via AJAX is successfully loaded in the ListBox widget. */
-	actionSuccess? (e: ActionSuccessEventArgs): void;
+	actionSuccess?(e: ActionSuccessEventArgs): void;
 
 	/** Triggers when the AJAX requests complete. The request may get failed or succeed. */
-	actionComplete? (e: ActionCompleteEventArgs): void;
+	actionComplete?(e: ActionCompleteEventArgs): void;
 
 	/** Triggers when the data requested from AJAX get failed. */
-	actionFailure? (e: ActionFailureEventArgs): void;
+	actionFailure?(e: ActionFailureEventArgs): void;
 
 	/** Event will be triggered before the requested data via AJAX once loaded in successfully. */
-	actionBeforeSuccess? (e: ActionBeforeSuccessEventArgs): void;
+	actionBeforeSuccess?(e: ActionBeforeSuccessEventArgs): void;
 
 	/** Triggers when the item selection is changed. */
-	change? (e: ChangeEventArgs): void;
+	change?(e: ChangeEventArgs): void;
 
 	/** Triggers when the list item is checked or unchecked. */
-	checkChange? (e: CheckChangeEventArgs): void;
+	checkChange?(e: CheckChangeEventArgs): void;
 
 	/** Triggers when the ListBox widget is created successfully. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Triggers when the ListBox widget is destroyed successfully. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Triggers when focus the listbox items. */
-	focusIn? (e: FocusInEventArgs): void;
+	focusIn?(e: FocusInEventArgs): void;
 
 	/** Triggers when focus out from listbox items. */
-	focusOut? (e: FocusOutEventArgs): void;
+	focusOut?(e: FocusOutEventArgs): void;
 
 	/** Triggers when the list item is being dragged. */
-	itemDrag? (e: ItemDragEventArgs): void;
+	itemDrag?(e: ItemDragEventArgs): void;
 
 	/** Triggers when the list item is ready to be dragged. */
-	itemDragStart? (e: ItemDragStartEventArgs): void;
+	itemDragStart?(e: ItemDragStartEventArgs): void;
 
 	/** Triggers when the list item stops dragging. */
-	itemDragStop? (e: ItemDragStopEventArgs): void;
+	itemDragStop?(e: ItemDragStopEventArgs): void;
 
 	/** Triggers when the list item is dropped. */
-	itemDrop? (e: ItemDropEventArgs): void;
+	itemDrop?(e: ItemDropEventArgs): void;
 
 	/** Triggers when a list item gets selected. */
-	select? (e: SelectEventArgs): void;
+	select?(e: SelectEventArgs): void;
 
 	/** Triggers when a list item gets unselected. */
-	unselect? (e: UnselectEventArgs): void;
+	unselect?(e: UnselectEventArgs): void;
 }
 
 export interface ActionBeginEventArgs {
+	undefined;
 }
 
 export interface ActionSuccessEventArgs {
+	undefined;
 }
 
 export interface ActionCompleteEventArgs {
+	undefined;
 }
 
 export interface ActionFailureEventArgs {
+	undefined;
 }
 
 export interface ActionBeforeSuccessEventArgs {
@@ -3353,7 +3338,7 @@ export interface ActionBeforeSuccessEventArgs {
 
 	/** List of array object
 	*/
-	result?: Array<any>;
+	result?: any[];
 
 	/** ExecuteQuery object of DataManager
 	*/
@@ -3830,11 +3815,10 @@ export interface Fields {
 
 class Calculate {
 	static fn: Calculate;
-	constructor(element: JQuery, options?: Calculate.Model);
-	constructor(element: Element, options?: Calculate.Model);
+	constructor(element: JQuery | Element, options?: Calculate.Model);
 	static Locale: any;
-	model:Calculate.Model;
-	defaults:Calculate.Model;
+	model: Calculate.Model;
+	defaults: Calculate.Model;
 
 	/** Add the custom formulas with function in CalcEngine library
 	*   @param {string} pass the formula name
@@ -3885,19 +3869,19 @@ class Calculate {
 	*/
 	computeFormula(Formula: string): string;
 }
-export module Calculate{
+export namespace Calculate {
 
 export interface Model {
+	undefined;
 }
 }
 
 class CheckBox extends ej.Widget {
 	static fn: CheckBox;
-	constructor(element: JQuery, options?: CheckBox.Model);
-	constructor(element: Element, options?: CheckBox.Model);
+	constructor(element: JQuery | Element, options?: CheckBox.Model);
 	static Locale: any;
-	model:CheckBox.Model;
-	defaults:CheckBox.Model;
+	model: CheckBox.Model;
+	defaults: CheckBox.Model;
 
 	/** Destroy the CheckBox widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
 	*   @returns {void}
@@ -3919,7 +3903,7 @@ class CheckBox extends ej.Widget {
 	*/
 	isChecked(): boolean;
 }
-export module CheckBox{
+export namespace CheckBox {
 
 export interface Model {
 
@@ -4007,16 +3991,16 @@ export interface Model {
 	value?: string;
 
 	/** Fires before the CheckBox is going to changed its state successfully */
-	beforeChange? (e: BeforeChangeEventArgs): void;
+	beforeChange?(e: BeforeChangeEventArgs): void;
 
 	/** Fires when the CheckBox state is changed successfully */
-	change? (e: ChangeEventArgs): void;
+	change?(e: ChangeEventArgs): void;
 
 	/** Fires when the CheckBox state is created successfully */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when the CheckBox state is destroyed successfully */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 }
 
 export interface BeforeChangeEventArgs {
@@ -4099,8 +4083,7 @@ export interface DestroyEventArgs {
 	type?: string;
 }
 }
-enum CheckState
-{
+enum CheckState {
 //string
 Uncheck,
 //string
@@ -4108,8 +4091,7 @@ Check,
 //string
 Indeterminate,
 }
-enum CheckboxSize
-{
+enum CheckboxSize {
 //Displays the CheckBox in medium size
 Medium,
 //Displays the CheckBox in small size
@@ -4118,11 +4100,10 @@ Small,
 
 class ColorPicker extends ej.Widget {
 	static fn: ColorPicker;
-	constructor(element: JQuery, options?: ColorPicker.Model);
-	constructor(element: Element, options?: ColorPicker.Model);
+	constructor(element: JQuery | Element, options?: ColorPicker.Model);
 	static Locale: any;
-	model:ColorPicker.Model;
-	defaults:ColorPicker.Model;
+	model: ColorPicker.Model;
+	defaults: ColorPicker.Model;
 
 	/** Disables the color picker control
 	*   @returns {void}
@@ -4178,7 +4159,7 @@ class ColorPicker extends ej.Widget {
 	*/
 	show(): void;
 }
-export module ColorPicker{
+export namespace ColorPicker {
 
 export interface Model {
 
@@ -4204,7 +4185,7 @@ export interface Model {
 	/** This property allows to define the custom colors in the palette model.Custom palettes are created by passing a comma delimited string of HEX values or an array of colors.
 	*   @Default {empty}
 	*/
-	custom?: Array<any>;
+	custom?: any[];
 
 	/** This property allows to embed the popup in the order of DOM element flow . When we set the value as true, the color picker popup is always in visible state.
 	*   @Default {false}
@@ -4297,22 +4278,22 @@ export interface Model {
 	value?: string;
 
 	/** Fires after Color value has been changed successfully.If the user want to perform any operation after the color value changed then the user can make use of this change event. */
-	change? (e: ChangeEventArgs): void;
+	change?(e: ChangeEventArgs): void;
 
 	/** Fires after closing the color picker popup. */
-	close? (e: CloseEventArgs): void;
+	close?(e: CloseEventArgs): void;
 
 	/** Fires after Color picker control is created. If the user want to perform any operation after the color picker control creation then the user can make use of this create event. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires after Color picker control is destroyed. If the user want to perform any operation after the color picker control destroyed then the user can make use of this destroy event. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires after opening the color picker popup */
-	open? (e: OpenEventArgs): void;
+	open?(e: OpenEventArgs): void;
 
 	/** Fires after Color value has been selected successfully. If the user want to perform any operation after the color value selected then the user can make use of this select event. */
-	select? (e: SelectEventArgs): void;
+	select?(e: SelectEventArgs): void;
 }
 
 export interface ChangeEventArgs {
@@ -4495,7 +4476,7 @@ export interface TooltipText {
 	selectedcolor?: string;
 }
 
-enum ModelType{
+enum ModelType {
 
 	///support palette type mode in color picker.
 	Palette,
@@ -4505,7 +4486,7 @@ enum ModelType{
 }
 
 
-enum Palette{
+enum Palette {
 
 	///used to show the basic palette
 	BasicPalette,
@@ -4515,7 +4496,7 @@ enum Palette{
 }
 
 
-enum Presets{
+enum Presets {
 
 	///used to show the basic presets
 	Basic,
@@ -4552,9 +4533,8 @@ enum Presets{
 }
 
 }
-enum ButtonMode
-{
-//Displays the button in split mode 
+enum ButtonMode {
+//Displays the button in split mode
 Split,
 //Displays the button in Dropdown mode
 Dropdown,
@@ -4562,11 +4542,10 @@ Dropdown,
 
 class FileExplorer extends ej.Widget {
 	static fn: FileExplorer;
-	constructor(element: JQuery, options?: FileExplorer.Model);
-	constructor(element: Element, options?: FileExplorer.Model);
+	constructor(element: JQuery | Element, options?: FileExplorer.Model);
 	static Locale: any;
-	model:FileExplorer.Model;
-	defaults:FileExplorer.Model;
+	model: FileExplorer.Model;
+	defaults: FileExplorer.Model;
 
 	/** Refresh the size of FileExplorer control.
 	*   @returns {void}
@@ -4574,25 +4553,25 @@ class FileExplorer extends ej.Widget {
 	adjustSize(): void;
 
 	/** Disable the particular context menu item.
-	*   @param {string|HTMLElement} Id of the menu item/ Menu element to be disabled 
+	*   @param {string|HTMLElement} Id of the menu item/ Menu element to be disabled
 	*   @returns {void}
 	*/
 	disableMenuItem(item: string|HTMLElement): void;
 
 	/** Disable the particular toolbar item.
-	*   @param {string|HTMLElement} Id of the toolbar item/ Tool item element to be disabled 
+	*   @param {string|HTMLElement} Id of the toolbar item/ Tool item element to be disabled
 	*   @returns {void}
 	*/
 	disableToolbarItem(item: string|HTMLElement): void;
 
 	/** Enable the particular context menu item.
-	*   @param {string|HTMLElement} Id of the menu item/ Menu element to be Enabled 
+	*   @param {string|HTMLElement} Id of the menu item/ Menu element to be Enabled
 	*   @returns {void}
 	*/
 	enableMenuItem(item: string|HTMLElement): void;
 
 	/** Enable the particular toolbar item
-	*   @param {string|HTMLElement} Id of the tool item/ Tool item element to be Enabled 
+	*   @param {string|HTMLElement} Id of the tool item/ Tool item element to be Enabled
 	*   @returns {void}
 	*/
 	enableToolbarItem(item: string|HTMLElement): void;
@@ -4603,12 +4582,12 @@ class FileExplorer extends ej.Widget {
 	refresh(): void;
 
 	/** Remove the particular toolbar item.
-	*   @param {string|HTMLElement} Id of the tool item/ tool item element to be removed 
+	*   @param {string|HTMLElement} Id of the tool item/ tool item element to be removed
 	*   @returns {void}
 	*/
 	removeToolbarItem(item: string|HTMLElement): void;
 }
-export module FileExplorer{
+export namespace FileExplorer {
 
 export interface Model {
 
@@ -4732,7 +4711,7 @@ export interface Model {
 
 	/** The selectedItems is used to select the specified items (file, folder) of FileExplorer control.
 	*/
-	selectedItems?: string|Array<any>;
+	selectedItems?: string|any[];
 
 	/** Enables or disables the checkbox option in FileExplorer control.
 	*   @Default {true}
@@ -4777,7 +4756,7 @@ export interface Model {
 	/** The toolsList property is used to arrange the toolbar items in the FileExplorer control.
 	*   @Default {[layout, creation, navigation, addressBar, editing, copyPaste, sortBy, getProperties, searchBar]}
 	*/
-	toolsList?: Array<any>;
+	toolsList?: any[];
 
 	/** Gets or sets an object that indicates whether to customize the upload behavior in the FileExplorer.
 	*/
@@ -4789,91 +4768,91 @@ export interface Model {
 	width?: string|number;
 
 	/** Fires before the AJAX request is performed. */
-	beforeAjaxRequest? (e: BeforeAjaxRequestEventArgs): void;
+	beforeAjaxRequest?(e: BeforeAjaxRequestEventArgs): void;
 
 	/** Fires before downloading the files. */
-	beforeDownload? (e: BeforeDownloadEventArgs): void;
+	beforeDownload?(e: BeforeDownloadEventArgs): void;
 
 	/** Fires before getting a requested image from server. Also this event will be triggered when you have enabled thumbnail image compression option in FileExplorer.Using this event, you can customize the image compression size. */
-	beforeGetImage? (e: BeforeGetImageEventArgs): void;
+	beforeGetImage?(e: BeforeGetImageEventArgs): void;
 
 	/** Fires before files or folders open. */
-	beforeOpen? (e: BeforeOpenEventArgs): void;
+	beforeOpen?(e: BeforeOpenEventArgs): void;
 
 	/** Fires before uploading the files. */
-	beforeUpload? (e: BeforeUploadEventArgs): void;
+	beforeUpload?(e: BeforeUploadEventArgs): void;
 
 	/** Fires when FileExplorer control was created */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when file or folder is copied successfully. */
-	copy? (e: CopyEventArgs): void;
+	copy?(e: CopyEventArgs): void;
 
 	/** Fires when new folder is created successfully in file system. */
-	createFolder? (e: CreateFolderEventArgs): void;
+	createFolder?(e: CreateFolderEventArgs): void;
 
 	/** Fires when file or folder is cut successfully. */
-	cut? (e: CutEventArgs): void;
+	cut?(e: CutEventArgs): void;
 
 	/** Fires when the FileExplorer is destroyed successfully. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires when the files or directory has been started to drag over on the FileExplorer */
-	dragStart? (e: DragStartEventArgs): void;
+	dragStart?(e: DragStartEventArgs): void;
 
 	/** Fires when the files or directory is dragging over on the FileExplorer. */
-	drag? (e: DragEventArgs): void;
+	drag?(e: DragEventArgs): void;
 
 	/** Fires when the files or directory has been stopped to drag over on FileExplorer */
-	dragStop? (e: DragStopEventArgs): void;
+	dragStop?(e: DragStopEventArgs): void;
 
 	/** Fires when the files or directory is dropped to the target folder of FileExplorer */
-	drop? (e: DropEventArgs): void;
+	drop?(e: DropEventArgs): void;
 
 	/** Fires after loading the requested image from server. Using this event, you can get the details of loaded image. */
-	getImage? (e: GetImageEventArgs): void;
+	getImage?(e: GetImageEventArgs): void;
 
 	/** Fires when keydown in FileExplorer control. */
-	keydown? (e: KeydownEventArgs): void;
+	keydown?(e: KeydownEventArgs): void;
 
 	/** Fires when the file view type is changed. */
-	layoutChange? (e: LayoutChangeEventArgs): void;
+	layoutChange?(e: LayoutChangeEventArgs): void;
 
 	/** Fires when before the ContextMenu opening. */
-	menuBeforeOpen? (e: MenuBeforeOpenEventArgs): void;
+	menuBeforeOpen?(e: MenuBeforeOpenEventArgs): void;
 
 	/** Fires when click the ContextMenu item. */
-	menuClick? (e: MenuClickEventArgs): void;
+	menuClick?(e: MenuClickEventArgs): void;
 
 	/** Fires when ContextMenu is successfully opened. */
-	menuOpen? (e: MenuOpenEventArgs): void;
+	menuOpen?(e: MenuOpenEventArgs): void;
 
 	/** Fires when files are successfully opened. */
-	open? (e: OpenEventArgs): void;
+	open?(e: OpenEventArgs): void;
 
 	/** Fires when a file or folder is pasted successfully. */
-	paste? (e: PasteEventArgs): void;
+	paste?(e: PasteEventArgs): void;
 
 	/** Fires when file or folder is deleted successfully. */
-	remove? (e: RemoveEventArgs): void;
+	remove?(e: RemoveEventArgs): void;
 
 	/** Fires when resizing is performed for FileExplorer. */
-	resize? (e: ResizeEventArgs): void;
+	resize?(e: ResizeEventArgs): void;
 
 	/** Fires when resizing is started for FileExplorer. */
-	resizeStart? (e: ResizeStartEventArgs): void;
+	resizeStart?(e: ResizeStartEventArgs): void;
 
 	/** Fires this event when the resizing is stopped for FileExplorer. */
-	resizeStop? (e: ResizeStopEventArgs): void;
+	resizeStop?(e: ResizeStopEventArgs): void;
 
 	/** Fires when the items from grid view or tile view of FileExplorer control is selected. */
-	select? (e: SelectEventArgs): void;
+	select?(e: SelectEventArgs): void;
 
 	/** Triggered when refresh the template column elements in the grid view of FileExplorer control. */
-	templateRefresh? (e: TemplateRefreshEventArgs): void;
+	templateRefresh?(e: TemplateRefreshEventArgs): void;
 
 	/** Fires when the items from grid view or tile view or large icons view of FileExplorer control is unselected. */
-	unselect? (e: UnselectEventArgs): void;
+	unselect?(e: UnselectEventArgs): void;
 }
 
 export interface BeforeAjaxRequestEventArgs {
@@ -5335,7 +5314,7 @@ export interface MenuBeforeOpenEventArgs {
 
 	/** returns the dataSource of ContextMenu.
 	*/
-	dataSource?: Array<any>;
+	dataSource?: any[];
 
 	/** returns the element of ContextMenu.
 	*/
@@ -5669,7 +5648,7 @@ export interface ContextMenuSettings {
 	/** The customMenuFields property is used to define custom functionality for custom ContextMenu item's which are defined in items property.
 	*   @Default {[]}
 	*/
-	customMenuFields?: Array<any>;
+	customMenuFields?: any[];
 }
 
 export interface FilterSettings {
@@ -5705,7 +5684,7 @@ export interface GridSettings {
 	/** Gets or sets an object that indicates to render the grid with specified columns. You can use this property same as the column property in Grid control.
 	*   @Default {[{ field: name, headerText: Name, width: 30% }, { field: dateModified, headerText: Date Modified, width: 30% }, { field: type, headerText: Type, width: 15% }, { field: size, headerText: Size, width: 12%, textAlign: right, headerTextAlign: left }]}
 	*/
-	columns?: Array<any>;
+	columns?: any[];
 }
 
 export interface UploadSettings {
@@ -5726,12 +5705,12 @@ export interface UploadSettings {
 	autoUpload?: boolean;
 }
 
-enum layoutType{
+enum layoutType {
 
 	///Supports to display files in tile view
 	Tile,
 
-	///Supports to display files in grid view 
+	///Supports to display files in grid view
 	Grid,
 
 	///Supports to display files as large icons
@@ -5742,11 +5721,10 @@ enum layoutType{
 
 class DatePicker extends ej.Widget {
 	static fn: DatePicker;
-	constructor(element: JQuery, options?: DatePicker.Model);
-	constructor(element: Element, options?: DatePicker.Model);
+	constructor(element: JQuery | Element, options?: DatePicker.Model);
 	static Locale: any;
-	model:DatePicker.Model;
-	defaults:DatePicker.Model;
+	model: DatePicker.Model;
+	defaults: DatePicker.Model;
 
 	/** Disables the DatePicker control.
 	*   @returns {void}
@@ -5773,7 +5751,7 @@ class DatePicker extends ej.Widget {
 	*/
 	show(): void;
 }
-export module DatePicker{
+export namespace DatePicker {
 
 export interface Model {
 
@@ -5976,40 +5954,40 @@ export interface Model {
 	width?: string;
 
 	/** Fires before closing the DatePicker popup. */
-	beforeClose? (e: BeforeCloseEventArgs): void;
+	beforeClose?(e: BeforeCloseEventArgs): void;
 
 	/** Fires when each date is created in the DatePicker popup calendar. */
-	beforeDateCreate? (e: BeforeDateCreateEventArgs): void;
+	beforeDateCreate?(e: BeforeDateCreateEventArgs): void;
 
 	/** Fires before opening the DatePicker popup. */
-	beforeOpen? (e: BeforeOpenEventArgs): void;
+	beforeOpen?(e: BeforeOpenEventArgs): void;
 
 	/** Fires when the DatePicker input value is changed. */
-	change? (e: ChangeEventArgs): void;
+	change?(e: ChangeEventArgs): void;
 
 	/** Fires when DatePicker popup is closed. */
-	close? (e: CloseEventArgs): void;
+	close?(e: CloseEventArgs): void;
 
 	/** Fires when the DatePicker is created successfully. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when the DatePicker is destroyed successfully. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires when DatePicker input gets focus. */
-	focusIn? (e: FocusInEventArgs): void;
+	focusIn?(e: FocusInEventArgs): void;
 
 	/** Fires when DatePicker input loses the focus. */
-	focusOut? (e: FocusOutEventArgs): void;
+	focusOut?(e: FocusOutEventArgs): void;
 
 	/** Fires when calender view navigates to month/year/decade/century. */
-	navigate? (e: NavigateEventArgs): void;
+	navigate?(e: NavigateEventArgs): void;
 
 	/** Fires when DatePicker popup is opened. */
-	open? (e: OpenEventArgs): void;
+	open?(e: OpenEventArgs): void;
 
 	/** Fires when a date is selected from the DatePicker popup. */
-	select? (e: SelectEventArgs): void;
+	select?(e: SelectEventArgs): void;
 }
 
 export interface BeforeCloseEventArgs {
@@ -6315,7 +6293,7 @@ export interface Fields {
 	cssClass?: string;
 }
 
-enum Header{
+enum Header {
 
 	///Removes day header in DatePicker
 	None,
@@ -6328,7 +6306,7 @@ enum Header{
 }
 
 
-enum Level{
+enum Level {
 
 	///allow  navigation upto year level in  DatePicker
 	Year,
@@ -6341,12 +6319,12 @@ enum Level{
 }
 
 
-enum HighlightSection{
+enum HighlightSection {
 
-	///Highlight the week of the currently  selected date in DatePicker popup calendar  
+	///Highlight the week of the currently  selected date in DatePicker popup calendar
 	Week,
 
-	///Highlight the workdays in a currently  selected date's week in DatePicker popup calendar 
+	///Highlight the workdays in a currently  selected date's week in DatePicker popup calendar
 	WorkDays,
 
 	///Nothing will be highlighted, remove highlights from DatePicker popup calendar if already exists
@@ -6357,11 +6335,10 @@ enum HighlightSection{
 
 class DateTimePicker extends ej.Widget {
 	static fn: DateTimePicker;
-	constructor(element: JQuery, options?: DateTimePicker.Model);
-	constructor(element: Element, options?: DateTimePicker.Model);
+	constructor(element: JQuery | Element, options?: DateTimePicker.Model);
 	static Locale: any;
-	model:DateTimePicker.Model;
-	defaults:DateTimePicker.Model;
+	model: DateTimePicker.Model;
+	defaults: DateTimePicker.Model;
 
 	/** Disables the DateTimePicker control.
 	*   @returns {void}
@@ -6393,7 +6370,7 @@ class DateTimePicker extends ej.Widget {
 	*/
 	show(): void;
 }
-export module DateTimePicker{
+export namespace DateTimePicker {
 
 export interface Model {
 
@@ -6560,31 +6537,31 @@ export interface Model {
 	width?: string|number;
 
 	/** Fires before the datetime popup closed in the DateTimePicker. */
-	beforeClose? (e: BeforeCloseEventArgs): void;
+	beforeClose?(e: BeforeCloseEventArgs): void;
 
 	/** Fires before the datetime popup open in the DateTimePicker. */
-	beforeOpen? (e: BeforeOpenEventArgs): void;
+	beforeOpen?(e: BeforeOpenEventArgs): void;
 
 	/** Fires when the datetime value changed in the DateTimePicker textbox. */
-	change? (e: ChangeEventArgs): void;
+	change?(e: ChangeEventArgs): void;
 
 	/** Fires when DateTimePicker popup closes. */
-	close? (e: CloseEventArgs): void;
+	close?(e: CloseEventArgs): void;
 
 	/** Fires after DateTimePicker control is created. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when the DateTimePicker is destroyed successfully */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires when the focus-in happens in the DateTimePicker textbox. */
-	focusIn? (e: FocusInEventArgs): void;
+	focusIn?(e: FocusInEventArgs): void;
 
 	/** Fires when the focus-out happens in the DateTimePicker textbox. */
-	focusOut? (e: FocusOutEventArgs): void;
+	focusOut?(e: FocusOutEventArgs): void;
 
 	/** Fires when DateTimePicker popup opens. */
-	open? (e: OpenEventArgs): void;
+	open?(e: OpenEventArgs): void;
 }
 
 export interface BeforeCloseEventArgs {
@@ -6816,28 +6793,26 @@ export interface TimeDrillDown {
 	autoClose?: boolean;
 }
 }
-enum popupPosition
-{
+enum popupPosition {
 //Opens the DateTimePicker popup below to the DateTimePicker input box
 Bottom,
-//Opens the DateTimePicker popup above to the DateTimePicker input box 
+//Opens the DateTimePicker popup above to the DateTimePicker input box
 Top,
 }
 
 class DateRangePicker extends ej.Widget {
 	static fn: DateRangePicker;
-	constructor(element: JQuery, options?: DateRangePicker.Model);
-	constructor(element: Element, options?: DateRangePicker.Model);
+	constructor(element: JQuery | Element, options?: DateRangePicker.Model);
 	static Locale: any;
-	model:DateRangePicker.Model;
-	defaults:DateRangePicker.Model;
+	model: DateRangePicker.Model;
+	defaults: DateRangePicker.Model;
 
 	/** Add the preset ranges to DateRangePicker popup.
 	*   @param {string} Display name
 	*   @param {Array<any>} StartDate and endDate of range.
 	*   @returns {void}
 	*/
-	addRanges(label: string, range: Array<any>): void;
+	addRanges(label: string, range: any[]): void;
 
 	/** Clears the all ranges selections in DateRangePicker popup
 	*   @returns {void}
@@ -6874,7 +6849,7 @@ class DateRangePicker extends ej.Widget {
 	*/
 	setRange(): void;
 }
-export module DateRangePicker{
+export namespace DateRangePicker {
 
 export interface Model {
 
@@ -6968,28 +6943,28 @@ export interface Model {
 	width?: string|number;
 
 	/** Fires before closing the DateRangePicker popup. */
-	beforeClose? (e: BeforeCloseEventArgs): void;
+	beforeClose?(e: BeforeCloseEventArgs): void;
 
 	/** Fires before opening the DateRangePicker popup. */
-	beforeOpen? (e: BeforeOpenEventArgs): void;
+	beforeOpen?(e: BeforeOpenEventArgs): void;
 
 	/** Fires when the DateRangePicker values get changed. */
-	onChange? (e: OnChangeEventArgs): void;
+	onChange?(e: OnChangeEventArgs): void;
 
 	/** Fires when DateRangePicker popup is closed. */
-	close? (e: CloseEventArgs): void;
+	close?(e: CloseEventArgs): void;
 
 	/** Fires when the DateRangePicker is created successfully. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when the DateRangePicker is destroyed successfully. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires when DateRangePicker popup is opened. */
-	open? (e: OpenEventArgs): void;
+	open?(e: OpenEventArgs): void;
 
 	/** Fires when a date ranges is selected from the DateRangePicker popup. */
-	select? (e: SelectEventArgs): void;
+	select?(e: SelectEventArgs): void;
 }
 
 export interface BeforeCloseEventArgs {
@@ -7167,11 +7142,10 @@ export interface SelectEventArgs {
 
 class Dialog extends ej.Widget {
 	static fn: Dialog;
-	constructor(element: JQuery, options?: Dialog.Model);
-	constructor(element: Element, options?: Dialog.Model);
+	constructor(element: JQuery | Element, options?: Dialog.Model);
 	static Locale: any;
-	model:Dialog.Model;
-	defaults:Dialog.Model;
+	model: Dialog.Model;
+	defaults: Dialog.Model;
 
 	/** Closes the dialog widget dynamically.
 	*   @returns {any}
@@ -7250,7 +7224,7 @@ class Dialog extends ej.Widget {
 	*/
 	focus(): any;
 }
-export module Dialog{
+export namespace Dialog {
 
 export interface Model {
 
@@ -7319,7 +7293,7 @@ export interface Model {
 	*/
 	enableRTL?: boolean;
 
-	/** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to setÂ showHeaderÂ as true since the favicon will be displayed in the dialog header.
+	/** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to setÂ showHeaderÂ as true since the favicon will be displayed in the dialog header.
 	*/
 	faviconCSS?: string;
 
@@ -7401,58 +7375,58 @@ export interface Model {
 	footerTemplateId?: string;
 
 	/** This event is triggered before the dialog widgets gets open. */
-	beforeOpen? (e: BeforeOpenEventArgs): void;
+	beforeOpen?(e: BeforeOpenEventArgs): void;
 
 	/** This event is triggered whenever the AJAX request fails to retrieve the dialog content. */
-	ajaxError? (e: AjaxErrorEventArgs): void;
+	ajaxError?(e: AjaxErrorEventArgs): void;
 
 	/** This event is triggered whenever the AJAX request to retrieve the dialog content, gets succeed. */
-	ajaxSuccess? (e: AjaxSuccessEventArgs): void;
+	ajaxSuccess?(e: AjaxSuccessEventArgs): void;
 
 	/** This event is triggered before the dialog widgets get closed. */
-	beforeClose? (e: BeforeCloseEventArgs): void;
+	beforeClose?(e: BeforeCloseEventArgs): void;
 
 	/** This event is triggered after the dialog widget is closed. */
-	close? (e: CloseEventArgs): void;
+	close?(e: CloseEventArgs): void;
 
 	/** Triggered after the dialog content is loaded in DOM. */
-	contentLoad? (e: ContentLoadEventArgs): void;
+	contentLoad?(e: ContentLoadEventArgs): void;
 
 	/** Triggered after the dialog is created successfully */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Triggered after the dialog widget is destroyed successfully */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Triggered while the dialog is dragged. */
-	drag? (e: DragEventArgs): void;
+	drag?(e: DragEventArgs): void;
 
 	/** Triggered when the user starts dragging the dialog. */
-	dragStart? (e: DragStartEventArgs): void;
+	dragStart?(e: DragStartEventArgs): void;
 
 	/** Triggered when the user stops dragging the dialog. */
-	dragStop? (e: DragStopEventArgs): void;
+	dragStop?(e: DragStopEventArgs): void;
 
 	/** Triggered after the dialog is opened. */
-	open? (e: OpenEventArgs): void;
+	open?(e: OpenEventArgs): void;
 
 	/** Triggered while the dialog is resized. */
-	resize? (e: ResizeEventArgs): void;
+	resize?(e: ResizeEventArgs): void;
 
 	/** Triggered when the user starts resizing the dialog. */
-	resizeStart? (e: ResizeStartEventArgs): void;
+	resizeStart?(e: ResizeStartEventArgs): void;
 
 	/** Triggered when the user stops resizing the dialog. */
-	resizeStop? (e: ResizeStopEventArgs): void;
+	resizeStop?(e: ResizeStopEventArgs): void;
 
 	/** Triggered when the dialog content is expanded. */
-	expand? (e: ExpandEventArgs): void;
+	expand?(e: ExpandEventArgs): void;
 
 	/** Triggered when the dialog content is collapsed. */
-	collapse? (e: CollapseEventArgs): void;
+	collapse?(e: CollapseEventArgs): void;
 
 	/** Triggered when the custom action button clicked. */
-	actionButtonClick? (e: ActionButtonClickEventArgs): void;
+	actionButtonClick?(e: ActionButtonClickEventArgs): void;
 }
 
 export interface BeforeOpenEventArgs {
@@ -7827,11 +7801,10 @@ export interface AjaxSettings {
 
 class DocumentEditor extends ej.Widget {
 	static fn: DocumentEditor;
-	constructor(element: JQuery, options?: DocumentEditor.Model);
-	constructor(element: Element, options?: DocumentEditor.Model);
+	constructor(element: JQuery | Element, options?: DocumentEditor.Model);
 	static Locale: any;
-	model:DocumentEditor.Model;
-	defaults:DocumentEditor.Model;
+	model: DocumentEditor.Model;
+	defaults: DocumentEditor.Model;
 
 	/** Loads the document from specified path using web API provided by importUrl.
 	*   @param {string} Specifies the file path.
@@ -7876,7 +7849,7 @@ class DocumentEditor extends ej.Widget {
 	*/
 	find(text: string): void;
 }
-export module DocumentEditor{
+export namespace DocumentEditor {
 
 export interface Model {
 
@@ -7885,16 +7858,16 @@ export interface Model {
 	importExportSettings?: ImportExportSettings;
 
 	/** Triggers when the document changes. */
-	onDocumentChange? (e: OnDocumentChangeEventArgs): void;
+	onDocumentChange?(e: OnDocumentChangeEventArgs): void;
 
 	/** Triggers when the selection changes. */
-	onSelectionChange? (e: OnSelectionChangeEventArgs): void;
+	onSelectionChange?(e: OnSelectionChangeEventArgs): void;
 
 	/** Triggers when the zoom factor changes. */
-	onZoomFactorChange? (e: OnZoomFactorChangeEventArgs): void;
+	onZoomFactorChange?(e: OnZoomFactorChangeEventArgs): void;
 
 	/** Triggers when the hyperlink is clicked. */
-	onRequestNavigate? (e: OnRequestNavigateEventArgs): void;
+	onRequestNavigate?(e: OnRequestNavigateEventArgs): void;
 }
 
 export interface OnDocumentChangeEventArgs {
@@ -7971,17 +7944,16 @@ export interface ImportExportSettings {
 
 class DropDownList extends ej.Widget {
 	static fn: DropDownList;
-	constructor(element: JQuery, options?: DropDownList.Model);
-	constructor(element: Element, options?: DropDownList.Model);
+	constructor(element: JQuery | Element, options?: DropDownList.Model);
 	static Locale: any;
-	model:DropDownList.Model;
-	defaults:DropDownList.Model;
+	model: DropDownList.Model;
+	defaults: DropDownList.Model;
 
 	/** Adding a single item or an array of items into the DropDownList allows you to specify all the field attributes such as value, template, image URL, and HTML attributes for those items.
 	*   @param {any|Array<any>}  this parameter should have field attributes with respect to mapped field attributes and it's corresponding values to fields
 	*   @returns {void}
 	*/
-	addItem(data: any|Array<any>): void;
+	addItem(data: any|any[]): void;
 
 	/** This method is used to select all the items in the DropDownList.
 	*   @returns {void}
@@ -8007,7 +7979,7 @@ class DropDownList extends ej.Widget {
 	*   @param {string|number|Array<any>}  disable the given index list items
 	*   @returns {void}
 	*/
-	disableItemsByIndices(index: string|number|Array<any>): void;
+	disableItemsByIndices(index: string|number|any[]): void;
 
 	/** This property enables the DropDownList control.
 	*   @returns {void}
@@ -8018,13 +7990,13 @@ class DropDownList extends ej.Widget {
 	*   @param {string|number|Array<any>}  enable the given index list items if it's disabled
 	*   @returns {void}
 	*/
-	enableItemsByIndices(index: string|number|Array<any>): void;
+	enableItemsByIndices(index: string|number|any[]): void;
 
 	/** This method retrieves the items using given value.
 	*   @param {string|number|any}  Return the whole object of data based on given value
 	*   @returns {Array<any>}
 	*/
-	getItemDataByValue(value: string|number|any): Array<any>;
+	getItemDataByValue(value: string|number|any): any[];
 
 	/** This method is used to retrieve the items that are bound with the DropDownList.
 	*   @returns {any}
@@ -8034,7 +8006,7 @@ class DropDownList extends ej.Widget {
 	/** This method is used to get the selected items in the DropDownList.
 	*   @returns {Array<any>}
 	*/
-	getSelectedItem(): Array<any>;
+	getSelectedItem(): any[];
 
 	/** This method is used to retrieve the items value that are selected in the DropDownList.
 	*   @returns {string}
@@ -8050,19 +8022,19 @@ class DropDownList extends ej.Widget {
 	*   @param {string|number|Array<any>}  select the given index list items
 	*   @returns {void}
 	*/
-	selectItemsByIndices(index: string|number|Array<any>): void;
+	selectItemsByIndices(index: string|number|any[]): void;
 
 	/** This method is used to select an item in the DropDownList by using the given text value.
 	*   @param {string|number|Array<any>}  select the list items relates to given text
 	*   @returns {void}
 	*/
-	selectItemByText(index: string|number|Array<any>): void;
+	selectItemByText(index: string|number|any[]): void;
 
 	/** This method is used to select an item in the DropDownList by using the given value.
 	*   @param {string|number|Array<any>}  select the list items relates to given values
 	*   @returns {void}
 	*/
-	selectItemByValue(index: string|number|Array<any>): void;
+	selectItemByValue(index: string|number|any[]): void;
 
 	/** This method shows the DropDownList control with the suggestion popup.
 	*   @returns {void}
@@ -8078,21 +8050,21 @@ class DropDownList extends ej.Widget {
 	*   @param {string|number|Array<any>}  unselect the given index list items
 	*   @returns {void}
 	*/
-	unselectItemsByIndices(index: string|number|Array<any>): void;
+	unselectItemsByIndices(index: string|number|any[]): void;
 
 	/** This method is used to unselect an item in the DropDownList by using the given text value.
 	*   @param {string|number|Array<any>}  unselect the list items relates to given text
 	*   @returns {void}
 	*/
-	unselectItemByText(index: string|number|Array<any>): void;
+	unselectItemByText(index: string|number|any[]): void;
 
 	/** This method is used to unselect an item in the DropDownList by using the given value.
 	*   @param {string|number|Array<any>}  unselect the list items relates to given values
 	*   @returns {void}
 	*/
-	unselectItemByValue(index: string|number|Array<any>): void;
+	unselectItemByValue(index: string|number|any[]): void;
 }
-export module DropDownList{
+export namespace DropDownList {
 
 export interface Model {
 
@@ -8253,7 +8225,7 @@ export interface Model {
 	/** Specifies the selectedItems for the DropDownList.
 	*   @Default {[]}
 	*/
-	selectedIndices?: Array<any>;
+	selectedIndices?: any[];
 
 	/** Selects multiple items in the DropDownList with the help of the checkbox control. To achieve this, enable the showCheckbox option to true.
 	*   @Default {false}
@@ -8321,67 +8293,67 @@ export interface Model {
 	virtualScrollMode?: ej.VirtualScrollMode|string;
 
 	/** Fires the action before the XHR request. */
-	actionBegin? (e: ActionBeginEventArgs): void;
+	actionBegin?(e: ActionBeginEventArgs): void;
 
 	/** Fires the action when the list of items is bound to the DropDownList by xhr post calling */
-	actionComplete? (e: ActionCompleteEventArgs): void;
+	actionComplete?(e: ActionCompleteEventArgs): void;
 
 	/** Fires the action when the xhr post calling failed on remote data binding with the DropDownList control. */
-	actionFailure? (e: ActionFailureEventArgs): void;
+	actionFailure?(e: ActionFailureEventArgs): void;
 
 	/** Fires the action when the xhr post calling succeed on remote data binding with the DropDownList control */
-	actionSuccess? (e: ActionSuccessEventArgs): void;
+	actionSuccess?(e: ActionSuccessEventArgs): void;
 
 	/** Fires the action before the popup is ready to hide. */
-	beforePopupHide? (e: BeforePopupHideEventArgs): void;
+	beforePopupHide?(e: BeforePopupHideEventArgs): void;
 
 	/** Fires the action before the popup is ready to be displayed. */
-	beforePopupShown? (e: BeforePopupShownEventArgs): void;
+	beforePopupShown(e: BeforePopupShownEventArgs): void;
 
 	/** Fires when the cascading happens between two DropDownList exactly after the value changes in the first dropdown and before filtering in the second Dropdown. */
-	cascade? (e: CascadeEventArgs): void;
+	cascade?(e: CascadeEventArgs): void;
 
 	/** Fires the action when the DropDownList controlâ€™s value is changed. */
-	change? (e: ChangeEventArgs): void;
+	change?(e: ChangeEventArgs): void;
 
 	/** Fires the action when the list item checkbox value is changed. */
-	checkChange? (e: CheckChangeEventArgs): void;
+	checkChange?(e: CheckChangeEventArgs): void;
 
 	/** Fires the action once the DropDownList is created. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires the action when the list items is bound to the DropDownList. */
-	dataBound? (e: DataBoundEventArgs): void;
+	dataBound?(e: DataBoundEventArgs): void;
 
 	/** Fires the action when the DropDownList is destroyed. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires the action when the DropDownList is focused. */
-	focusIn? (e: FocusInEventArgs): void;
+	focusIn?(e: FocusInEventArgs): void;
 
 	/** Fires the action when the DropDownList is about to lose focus. */
-	focusOut? (e: FocusOutEventArgs): void;
+	focusOut?(e: FocusOutEventArgs): void;
 
 	/** Fires the action, once the popup is closed */
-	popupHide? (e: PopupHideEventArgs): void;
+	popupHide?(e: PopupHideEventArgs): void;
 
 	/** Fires the action, when the popup is resized. */
-	popupResize? (e: PopupResizeEventArgs): void;
+	popupResize?(e: PopupResizeEventArgs): void;
 
 	/** Fires the action, once the popup is opened. */
-	popupShown? (e: PopupShownEventArgs): void;
+	popupShown?(e: PopupShownEventArgs): void;
 
 	/** Fires the action, when resizing a popup starts. */
-	popupResizeStart? (e: PopupResizeStartEventArgs): void;
+	popupResizeStart?(e: PopupResizeStartEventArgs): void;
 
 	/** Fires the action, when the popup resizing is stopped. */
-	popupResizeStop? (e: PopupResizeStopEventArgs): void;
+	popupResizeStop?(e: PopupResizeStopEventArgs): void;
 
 	/** Fires the action before filtering the list items that starts in the DropDownList when the enableFilterSearch is enabled. */
-	search? (e: SearchEventArgs): void;
+	search?(e: SearchEventArgs): void;
 
 	/** Fires the action, when the list of item is selected. */
-	select? (e: SelectEventArgs): void;
+	select?(e: SelectEventArgs): void;
 }
 
 export interface ActionBeginEventArgs {
@@ -8413,11 +8385,11 @@ export interface ActionCompleteEventArgs {
 	*/
 	model?: any;
 
-	/** Returns the query for data retrieval 
+	/** Returns the query for data retrieval
 	*/
 	query?: any;
 
-	/** Returns the query for data retrieval from the Database 
+	/** Returns the query for data retrieval from the Database
 	*/
 	request?: any;
 
@@ -8427,7 +8399,7 @@ export interface ActionCompleteEventArgs {
 
 	/** Returns the number of items fetched from remote data
 	*/
-	result?: Array<any>;
+	result?: any[];
 
 	/** Returns the requested data
 	*/
@@ -8448,7 +8420,7 @@ export interface ActionFailureEventArgs {
 	*/
 	model?: any;
 
-	/** Returns the query for data retrieval 
+	/** Returns the query for data retrieval
 	*/
 	query?: any;
 
@@ -8471,11 +8443,11 @@ export interface ActionSuccessEventArgs {
 	*/
 	model?: any;
 
-	/** Returns the query for data retrieval 
+	/** Returns the query for data retrieval
 	*/
 	query?: any;
 
-	/** Returns the query for data retrieval from the Database 
+	/** Returns the query for data retrieval from the Database
 	*/
 	request?: any;
 
@@ -8485,7 +8457,7 @@ export interface ActionSuccessEventArgs {
 
 	/** Returns the number of items fetched from remote data
 	*/
-	result?: Array<any>;
+	result?: any[];
 
 	/** Returns the requested data
 	*/
@@ -8922,24 +8894,21 @@ export interface Fields {
 	value?: string;
 }
 }
-enum FilterType
-{
-//filter the data wherever contains search key 
+enum FilterType {
+//filter the data wherever contains search key
 Contains,
 //filter the data based on search key present at start position
 StartsWith,
 }
-enum MultiSelectMode
-{
-// can select only single item in DropDownList 
+enum MultiSelectMode {
+// can select only single item in DropDownList
 None,
 //can select multiple items and it's separated by delimiterChar
 Delimiter,
 // can select multiple items and it's show's like visual box in textbox
 VisualMode,
 }
-enum VirtualScrollMode
-{
+enum VirtualScrollMode {
 // The data is loaded only to the corresponding page (display items). When scrolling some other position, it enables the load on demand with the DropDownList.
 Normal,
 //The data items are loaded from the remote when scroll handle reaches the end of the scrollbar like infinity scrolling.
@@ -8948,11 +8917,10 @@ Continuous,
 
 class Tooltip extends ej.Widget {
 	static fn: Tooltip;
-	constructor(element: JQuery, options?: Tooltip.Model);
-	constructor(element: Element, options?: Tooltip.Model);
+	constructor(element: JQuery | Element, options?: Tooltip.Model);
 	static Locale: any;
-	model:Tooltip.Model;
-	defaults:Tooltip.Model;
+	model: Tooltip.Model;
+	defaults: Tooltip.Model;
 
 	/** Destroys the Tooltip control.
 	*   @returns {void}
@@ -8974,7 +8942,7 @@ class Tooltip extends ej.Widget {
 	*   @param {Function}  optional custom effect takes place when hiding the tooltip.
 	*   @returns {void}
 	*/
-	hide(effect?: string, func?: Function): void;
+	hide(effect?: string, func?: any): void;
 
 	/** Shows the Tooltip popup for the given target element with the specified effect.
 	*   @param {string} optional Determines the type of effect that takes place when showing the tooltip.
@@ -8982,9 +8950,9 @@ class Tooltip extends ej.Widget {
 	*   @param {JQuery} optional Tooltip will be shown for the given element
 	*   @returns {void}
 	*/
-	show(effect?: string, func?: Function, target?: JQuery): void;
+	show(effect?: string, func?: any, target?: JQuery): void;
 }
-export module Tooltip{
+export namespace Tooltip {
 
 export interface Model {
 
@@ -9087,31 +9055,31 @@ export interface Model {
 	width?: string|number;
 
 	/** This event is triggered before the Tooltip widget get closed. */
-	beforeClose? (e: BeforeCloseEventArgs): void;
+	beforeClose?(e: BeforeCloseEventArgs): void;
 
 	/** This event is triggered before the Tooltip widget gets open. */
-	beforeOpen? (e: BeforeOpenEventArgs): void;
+	beforeOpen?(e: BeforeOpenEventArgs): void;
 
 	/** Fires on clicking to the target element. */
-	click? (e: ClickEventArgs): void;
+	click?(e: ClickEventArgs): void;
 
 	/** This event is triggered after the Tooltip widget is closed. */
-	close? (e: CloseEventArgs): void;
+	close?(e: CloseEventArgs): void;
 
 	/** This event is triggered after the Tooltip is created successfully. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** This event is triggered after the Tooltip widget is destroyed successfully. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** This event is triggered while hovering the target element, when tooltip positioning relates to target element. */
-	hover? (e: HoverEventArgs): void;
+	hover?(e: HoverEventArgs): void;
 
 	/** This event is triggered after the Tooltip is opened. */
-	open? (e: OpenEventArgs): void;
+	open?(e: OpenEventArgs): void;
 
 	/** This event is triggered while hover the target element, when the tooltip positioning is relates to the mouse. */
-	tracking? (e: TrackingEventArgs): void;
+	tracking?(e: TrackingEventArgs): void;
 }
 
 export interface BeforeCloseEventArgs {
@@ -9327,7 +9295,7 @@ export interface Position {
 	stem?: PositionStem;
 }
 
-enum effect{
+enum effect {
 
 	///No animation takes place when showing/hiding the Tooltip
 	None,
@@ -9340,7 +9308,7 @@ enum effect{
 }
 
 
-enum Associate{
+enum Associate {
 
 	///Sets the position related to target element.
 	Target,
@@ -9359,7 +9327,7 @@ enum Associate{
 }
 
 
-enum CloseMode{
+enum CloseMode {
 
 	///Enables close button in Tooltip.
 	Sticky,
@@ -9372,7 +9340,7 @@ enum CloseMode{
 }
 
 
-enum Collision{
+enum Collision {
 
 	///Flips the Tooltip to the opposite side of the target, if collision is occurs.
 	Flip,
@@ -9388,7 +9356,7 @@ enum Collision{
 }
 
 
-enum Trigger{
+enum Trigger {
 
 	///The Tooltip to be shown when the target element is clicked.
 	Click,
@@ -9404,11 +9372,10 @@ enum Trigger{
 
 class Editor extends ej.Widget {
 	static fn: Editor;
-	constructor(element: JQuery, options?: Editor.Model);
-	constructor(element: Element, options?: Editor.Model);
+	constructor(element: JQuery | Element, options?: Editor.Model);
 	static Locale: any;
-	model:Editor.Model;
-	defaults:Editor.Model;
+	model: Editor.Model;
+	defaults: Editor.Model;
 
 	/** destroy the editor widgets all events are unbind automatically and bring the control to pre-init state.
 	*   @returns {void}
@@ -9431,15 +9398,15 @@ class Editor extends ej.Widget {
 	getValue(): number;
 }
 
- class NumericTextbox extends Editor{
+ class NumericTextbox extends Editor {
 }
 
- class CurrencyTextbox extends Editor{
+ class CurrencyTextbox extends Editor {
 }
 
- class PercentageTextbox extends Editor{
+ class PercentageTextbox extends Editor {
 }
-export module Editor{
+export namespace Editor {
 
 export interface Model {
 
@@ -9573,19 +9540,19 @@ export interface Model {
 	width?: string;
 
 	/** Fires after Editor control value is changed. */
-	change? (e: ChangeEventArgs): void;
+	change?(e: ChangeEventArgs): void;
 
 	/** Fires after Editor control is created. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when the Editor is destroyed successfully. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires after Editor control is focused. */
-	focusIn? (e: FocusInEventArgs): void;
+	focusIn?(e: FocusInEventArgs): void;
 
 	/** Fires after Editor control is loss the focus. */
-	focusOut? (e: FocusOutEventArgs): void;
+	focusOut?(e: FocusOutEventArgs): void;
 }
 
 export interface ChangeEventArgs {
@@ -9682,11 +9649,10 @@ export interface FocusOutEventArgs {
 
 class ListView extends ej.Widget {
 	static fn: ListView;
-	constructor(element: JQuery, options?: ListView.Model);
-	constructor(element: Element, options?: ListView.Model);
+	constructor(element: JQuery | Element, options?: ListView.Model);
 	static Locale: any;
-	model:ListView.Model;
-	defaults:ListView.Model;
+	model: ListView.Model;
+	defaults: ListView.Model;
 
 	/** To add item in the given index. If you have enabled grouping in ListView then you need to pass the corresponding group list title to add item in it.
 	*   @param {any} Specifies the item to be added in ListView
@@ -9743,12 +9709,12 @@ class ListView extends ej.Widget {
 	/** To get all the checked items.
 	*   @returns {Array<any>}
 	*/
-	getCheckedItems(): Array<any>;
+	getCheckedItems(): any[];
 
 	/** To get the text of all the checked items.
 	*   @returns {Array<any>}
 	*/
-	getCheckedItemsText(): Array<any>;
+	getCheckedItemsText(): any[];
 
 	/** To get the total item count.
 	*   @returns {number}
@@ -9835,7 +9801,7 @@ class ListView extends ej.Widget {
 	*/
 	unCheckItem(index: number): void;
 }
-export module ListView{
+export namespace ListView {
 
 export interface Model {
 
@@ -9847,7 +9813,7 @@ export interface Model {
 	/** Set the index values to be selected on initial loading. This works only when enableCheckMark is set true.
 	*   @Default {[]}
 	*/
-	checkedIndices?: Array<any>;
+	checkedIndices?: any[];
 
 	/** Sets the root class for ListView theme. This cssClass API helps to use custom skinning option for ListView control. By defining the root class using this API, we need to include this root class in CSS.
 	*/
@@ -9856,7 +9822,7 @@ export interface Model {
 	/** Contains the list of data for generating the ListView items.
 	*   @Default {[]}
 	*/
-	dataSource?: Array<any>;
+	dataSource?: any[];
 
 	/** Specifies whether to load AJAX content while selecting item.
 	*   @Default {false}
@@ -9895,7 +9861,7 @@ export interface Model {
 	/** Contains the array of items to be added in ListView.
 	*   @Default {[]}
 	*/
-	items?: Array<any>;
+	items?: any[];
 
 	/** Specifies the text of the back button in the header.
 	*   @Default {null}
@@ -9962,28 +9928,28 @@ export interface Model {
 	width?: string|number;
 
 	/** Event triggers before the AJAX request happens. */
-	ajaxBeforeLoad? (e: AjaxBeforeLoadEventArgs): void;
+	ajaxBeforeLoad?(e: AjaxBeforeLoadEventArgs): void;
 
 	/** Event triggers after the AJAX content loaded completely. */
-	ajaxComplete? (e: AjaxCompleteEventArgs): void;
+	ajaxComplete?(e: AjaxCompleteEventArgs): void;
 
 	/** Event triggers when the AJAX request failed. */
-	ajaxError? (e: AjaxErrorEventArgs): void;
+	ajaxError?(e: AjaxErrorEventArgs): void;
 
 	/** Event triggers after the AJAX content loaded successfully. */
-	ajaxSuccess? (e: AjaxSuccessEventArgs): void;
+	ajaxSuccess?(e: AjaxSuccessEventArgs): void;
 
 	/** Event triggers before the items loaded. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Event triggers after the items loaded. */
-	loadComplete? (e: LoadCompleteEventArgs): void;
+	loadComplete?(e: LoadCompleteEventArgs): void;
 
 	/** Event triggers when mouse down happens on the item. */
-	mouseDown? (e: MouseDownEventArgs): void;
+	mouseDown?(e: MouseDownEventArgs): void;
 
 	/** Event triggers when mouse up happens on the item. */
-	mouseUp? (e: MouseUpEventArgs): void;
+	mouseUp?(e: MouseUpEventArgs): void;
 }
 
 export interface AjaxBeforeLoadEventArgs {
@@ -10236,11 +10202,10 @@ export interface AjaxSettings {
 
 class MaskEdit extends ej.Widget {
 	static fn: MaskEdit;
-	constructor(element: JQuery, options?: MaskEdit.Model);
-	constructor(element: Element, options?: MaskEdit.Model);
+	constructor(element: JQuery | Element, options?: MaskEdit.Model);
 	static Locale: any;
-	model:MaskEdit.Model;
-	defaults:MaskEdit.Model;
+	model: MaskEdit.Model;
+	defaults: MaskEdit.Model;
 
 	/** To clear the text in mask edit textbox control.
 	*   @returns {void}
@@ -10267,7 +10232,7 @@ class MaskEdit extends ej.Widget {
 	*/
 	get_UnstrippedValue(): string;
 }
-export module MaskEdit{
+export namespace MaskEdit {
 
 export interface Model {
 
@@ -10371,34 +10336,34 @@ export interface Model {
 	width?: string;
 
 	/** Fires when value changed in mask edit textbox control. */
-	change? (e: ChangeEventArgs): void;
+	change?(e: ChangeEventArgs): void;
 
 	/** Fires after MaskEdit control is created. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when the MaskEdit is destroyed successfully. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires when focused in mask edit textbox control. */
-	focusIn? (e: FocusInEventArgs): void;
+	focusIn?(e: FocusInEventArgs): void;
 
 	/** Fires when focused out in mask edit textbox control. */
-	focusOut? (e: FocusOutEventArgs): void;
+	focusOut?(e: FocusOutEventArgs): void;
 
 	/** Fires when keydown in mask edit textbox control. */
-	keydown? (e: KeydownEventArgs): void;
+	keydown?(e: KeydownEventArgs): void;
 
 	/** Fires when key press in mask edit textbox control. */
-	keyPress? (e: KeyPressEventArgs): void;
+	keyPress?(e: KeyPressEventArgs): void;
 
 	/** Fires when keyup in mask edit textbox control. */
-	keyup? (e: KeyupEventArgs): void;
+	keyup?(e: KeyupEventArgs): void;
 
 	/** Fires when mouse out in mask edit textbox control. */
-	mouseOut? (e: MouseOutEventArgs): void;
+	mouseOut?(e: MouseOutEventArgs): void;
 
 	/** Fires when mouse over in mask edit textbox control. */
-	mouseOver? (e: MouseOverEventArgs): void;
+	mouseOver?(e: MouseOverEventArgs): void;
 }
 
 export interface ChangeEventArgs {
@@ -10615,15 +10580,13 @@ export interface MouseOverEventArgs {
 	unmaskedValue?: string;
 }
 }
-enum InputMode
-{
+enum InputMode {
 //string
 Password,
 //string
 Text,
 }
-enum TextAlign
-{
+enum TextAlign {
 //string
 Center,
 //string
@@ -10636,11 +10599,10 @@ Right,
 
 class Menu extends ej.Widget {
 	static fn: Menu;
-	constructor(element: JQuery, options?: Menu.Model);
-	constructor(element: Element, options?: Menu.Model);
+	constructor(element: JQuery | Element, options?: Menu.Model);
 	static Locale: any;
-	model:Menu.Model;
-	defaults:Menu.Model;
+	model: Menu.Model;
+	defaults: Menu.Model;
 
 	/** Disables the Menu control.
 	*   @returns {void}
@@ -10711,7 +10673,7 @@ class Menu extends ej.Widget {
 	*   @param {any|Array<any>} Selector of target node or Object of target node.
 	*   @returns {void}
 	*/
-	remove(target: any|Array<any>): void;
+	remove(target: any|any[]): void;
 
 	/** To show the Menu control.
 	*   @param {number} x co-ordinate position of context menu.
@@ -10727,7 +10689,7 @@ class Menu extends ej.Widget {
 	*/
 	showItems(): void;
 }
-export module Menu{
+export namespace Menu {
 
 export interface Model {
 
@@ -10846,37 +10808,37 @@ export interface Model {
 	overflowWidth?: string|number;
 
 	/** Fires before context menu gets open. */
-	beforeOpen? (e: BeforeOpenEventArgs): void;
+	beforeOpen?(e: BeforeOpenEventArgs): void;
 
 	/** Fires when mouse click on menu items. */
-	click? (e: ClickEventArgs): void;
+	click?(e: ClickEventArgs): void;
 
 	/** Fire when context menu on close. */
-	close? (e: CloseEventArgs): void;
+	close?(e: CloseEventArgs): void;
 
 	/** Fires when context menu on open. */
-	open? (e: OpenEventArgs): void;
+	open?(e: OpenEventArgs): void;
 
 	/** Fires to create menu items. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires to destroy menu items. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires when key down on menu items. */
-	keydown? (e: KeydownEventArgs): void;
+	keydown?(e: KeydownEventArgs): void;
 
 	/** Fires when mouse out from menu items. */
-	mouseout? (e: MouseoutEventArgs): void;
+	mouseout?(e: MouseoutEventArgs): void;
 
 	/** Fires when mouse over the Menu items. */
-	mouseover? (e: MouseoverEventArgs): void;
+	mouseover?(e: MouseoverEventArgs): void;
 
 	/** Fires when overflow popup menu opens. */
-	overflowOpen? (e: OverflowOpenEventArgs): void;
+	overflowOpen?(e: OverflowOpenEventArgs): void;
 
 	/** Fires when overflow popup menu closes. */
-	overflowClose? (e: OverflowCloseEventArgs): void;
+	overflowClose?(e: OverflowCloseEventArgs): void;
 }
 
 export interface BeforeOpenEventArgs {
@@ -11139,22 +11101,19 @@ export interface Fields {
 	url?: string;
 }
 }
-enum AnimationType
-{
+enum AnimationType {
 //string
 Default,
 //string
 None,
 }
-enum MenuType
-{
+enum MenuType {
 //string
 ContextMenu,
 //string
 NormalMenu,
 }
-enum Direction
-{
+enum Direction {
 //string
 Left,
 //string
@@ -11165,11 +11124,10 @@ Right,
 
 class Pager extends ej.Widget {
 	static fn: Pager;
-	constructor(element: JQuery, options?: Pager.Model);
-	constructor(element: Element, options?: Pager.Model);
+	constructor(element: JQuery | Element, options?: Pager.Model);
 	static Locale: any;
-	model:Pager.Model;
-	defaults:Pager.Model;
+	model: Pager.Model;
+	defaults: Pager.Model;
 
 	/** Send a paging request to specified page through the pager control.
 	*   @param {number} Specifies the index to be navigated
@@ -11182,7 +11140,7 @@ class Pager extends ej.Widget {
 	*/
 	refreshPager(): void;
 }
-export module Pager{
+export namespace Pager {
 
 export interface Model {
 
@@ -11245,7 +11203,7 @@ export interface Model {
 	showPageInfo?: boolean;
 
 	/** Triggered when pager numeric item is clicked in pager control. */
-	click? (e: ClickEventArgs): void;
+	click?(e: ClickEventArgs): void;
 }
 
 export interface ClickEventArgs {
@@ -11274,11 +11232,10 @@ export interface ClickEventArgs {
 
 class ProgressBar extends ej.Widget {
 	static fn: ProgressBar;
-	constructor(element: JQuery, options?: ProgressBar.Model);
-	constructor(element: Element, options?: ProgressBar.Model);
+	constructor(element: JQuery | Element, options?: ProgressBar.Model);
 	static Locale: any;
-	model:ProgressBar.Model;
-	defaults:ProgressBar.Model;
+	model: ProgressBar.Model;
+	defaults: ProgressBar.Model;
 
 	/** Destroy the progressbar widget
 	*   @returns {void}
@@ -11305,7 +11262,7 @@ class ProgressBar extends ej.Widget {
 	*/
 	getValue(): number;
 }
-export module ProgressBar{
+export namespace ProgressBar {
 
 export interface Model {
 
@@ -11375,19 +11332,19 @@ export interface Model {
 	width?: number|string;
 
 	/** Event triggers when the progress value changed */
-	change? (e: ChangeEventArgs): void;
+	change?(e: ChangeEventArgs): void;
 
 	/** Event triggers when the process completes (at 100%) */
-	complete? (e: CompleteEventArgs): void;
+	complete?(e: CompleteEventArgs): void;
 
 	/** Event triggers when the progressbar are created */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Event triggers when the progressbar are destroyed */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Event triggers when the process starts (from 0%) */
-	start? (e: StartEventArgs): void;
+	start?(e: StartEventArgs): void;
 }
 
 export interface ChangeEventArgs {
@@ -11492,11 +11449,10 @@ export interface StartEventArgs {
 
 class RadioButton extends ej.Widget {
 	static fn: RadioButton;
-	constructor(element: JQuery, options?: RadioButton.Model);
-	constructor(element: Element, options?: RadioButton.Model);
+	constructor(element: JQuery | Element, options?: RadioButton.Model);
 	static Locale: any;
-	model:RadioButton.Model;
-	defaults:RadioButton.Model;
+	model: RadioButton.Model;
+	defaults: RadioButton.Model;
 
 	/** To disable the RadioButton
 	*   @returns {void}
@@ -11508,7 +11464,7 @@ class RadioButton extends ej.Widget {
 	*/
 	enable(): void;
 }
-export module RadioButton{
+export namespace RadioButton {
 
 export interface Model {
 
@@ -11581,16 +11537,16 @@ export interface Model {
 	value?: string;
 
 	/** Fires before the RadioButton is going to changed its state successfully */
-	beforeChange? (e: BeforeChangeEventArgs): void;
+	beforeChange?(e: BeforeChangeEventArgs): void;
 
 	/** Fires when the RadioButton state is changed successfully */
-	change? (e: ChangeEventArgs): void;
+	change?(e: ChangeEventArgs): void;
 
 	/** Fires when the RadioButton created successfully */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when the RadioButton destroyed successfully */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 }
 
 export interface BeforeChangeEventArgs {
@@ -11669,8 +11625,7 @@ export interface DestroyEventArgs {
 	type?: string;
 }
 }
-enum RadioButtonSize
-{
+enum RadioButtonSize {
 //Shows small size radio button
 Small,
 //Shows medium size radio button
@@ -11679,11 +11634,10 @@ Medium,
 
 class Rating extends ej.Widget {
 	static fn: Rating;
-	constructor(element: JQuery, options?: Rating.Model);
-	constructor(element: Element, options?: Rating.Model);
+	constructor(element: JQuery | Element, options?: Rating.Model);
 	static Locale: any;
-	model:Rating.Model;
-	defaults:Rating.Model;
+	model: Rating.Model;
+	defaults: Rating.Model;
 
 	/** Destroy the Rating widget all events bound will be unbind automatically and bring the control to pre-init state.
 	*   @returns {void}
@@ -11721,7 +11675,7 @@ class Rating extends ej.Widget {
 	*/
 	show(): void;
 }
-export module Rating{
+export namespace Rating {
 
 export interface Model {
 
@@ -11810,22 +11764,22 @@ export interface Model {
 	width?: string;
 
 	/** Fires when Rating value changes. */
-	change? (e: ChangeEventArgs): void;
+	change?(e: ChangeEventArgs): void;
 
 	/** Fires when Rating control is clicked successfully. */
-	click? (e: ClickEventArgs): void;
+	click?(e: ClickEventArgs): void;
 
 	/** Fires when Rating control is created. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when Rating control is destroyed successfully. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires when mouse hover is removed from Rating control. */
-	mouseout? (e: MouseoutEventArgs): void;
+	mouseout?(e: MouseoutEventArgs): void;
 
 	/** Fires when mouse hovered over the Rating control. */
-	mouseover? (e: MouseoverEventArgs): void;
+	mouseover?(e: MouseoverEventArgs): void;
 }
 
 export interface ChangeEventArgs {
@@ -11954,7 +11908,7 @@ export interface MouseoverEventArgs {
 	index?: any;
 }
 
-enum Precision{
+enum Precision {
 
 	///string
 	Exact,
@@ -11970,11 +11924,10 @@ enum Precision{
 
 class Ribbon extends ej.Widget {
 	static fn: Ribbon;
-	constructor(element: JQuery, options?: Ribbon.Model);
-	constructor(element: Element, options?: Ribbon.Model);
+	constructor(element: JQuery | Element, options?: Ribbon.Model);
 	static Locale: any;
-	model:Ribbon.Model;
-	defaults:Ribbon.Model;
+	model: Ribbon.Model;
+	defaults: Ribbon.Model;
 
 	/** Adds contextual tab or contextual tab set dynamically in the ribbon control with contextual tabs object and index position. When index is null, ribbon contextual tab or contextual tab set is added at the last index.
 	*   @param {any} contextual tab or contextual tab set object.
@@ -11996,7 +11949,7 @@ class Ribbon extends ej.Widget {
 	*   @param {number} index of the ribbon tab,this is optional.
 	*   @returns {void}
 	*/
-	addTab(tabText: string, ribbonGroups: Array<any>, index?: number): void;
+	addTab(tabText: string, ribbonGroups: any[], index?: number): void;
 
 	/** Adds tab group dynamically in the ribbon control with given tab index, tab group object and group index position. When group index is null, ribbon group is added at the last index.
 	*   @param {number} ribbon tab index.
@@ -12040,7 +11993,7 @@ class Ribbon extends ej.Widget {
 	*   @param {number} index of the tab item.
 	*   @returns {String}
 	*/
-	getTabText(index: number): String;
+	getTabText(index: number): string;
 
 	/** Hides the given text tab in the ribbon control.
 	*   @param {string} text of the tab item.
@@ -12052,13 +12005,13 @@ class Ribbon extends ej.Widget {
 	*   @param {string} text of the tab item.
 	*   @returns {Boolean}
 	*/
-	isEnable(text: string): Boolean;
+	isEnable(text: string): boolean;
 
 	/** Checks whether the given text tab in the ribbon control is visible or not.
 	*   @param {string} text of the tab item.
 	*   @returns {Boolean}
 	*/
-	isVisible(text: string): Boolean;
+	isVisible(text: string): boolean;
 
 	/** Removes the given index tab item from the ribbon control.
 	*   @param {number} index of tab item.
@@ -12113,7 +12066,7 @@ class Ribbon extends ej.Widget {
 	*/
 	removeBackStageItem(index: number): void;
 }
-export module Ribbon{
+export namespace Ribbon {
 
 export interface Model {
 
@@ -12170,17 +12123,17 @@ export interface Model {
 	/** Specifies the contextual tabs and tab set to the ribbon control with the background color and border color. Refer to the tabs section for adding tabs into the contextual tab and contextual tab set.
 	*   @Default {Array}
 	*/
-	contextualTabs?: Array<ContextualTab>;
+	contextualTabs?: ContextualTab[];
 
 	/** Specifies the index or indexes to disable the given index tab or indexes tabs in the ribbon control.
 	*   @Default {0}
 	*/
-	disabledItemIndex?: Array<any>;
+	disabledItemIndex?: any[];
 
 	/** Specifies the index or indexes to enable the given index tab or indexes tabs in the ribbon control.
 	*   @Default {null}
 	*/
-	enabledItemIndex?: Array<any>;
+	enabledItemIndex?: any[];
 
 	/** Specifies the index of the ribbon tab to select the given index tab item in the ribbon control.
 	*   @Default {1}
@@ -12190,7 +12143,7 @@ export interface Model {
 	/** Specifies the tabs and its groups. Also specifies the control details that has to be placed in the tab area in the ribbon control.
 	*   @Default {Array}
 	*/
-	tabs?: Array<Tab>;
+	tabs?: Tab[];
 
 	/** Gets or sets a value that indicates whether to customizing the user interface (UI) as locale-specific in order to display regional data i.e. in a language and culture specific to a particular country or region and  it will need to use the user's preference.
 	*   @Default {en-US}
@@ -12203,55 +12156,55 @@ export interface Model {
 	width?: string|number;
 
 	/** Triggered before the ribbon tab item is removed. */
-	beforeTabRemove? (e: BeforeTabRemoveEventArgs): void;
+	beforeTabRemove?(e: BeforeTabRemoveEventArgs): void;
 
 	/** Triggered before the ribbon control is created. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Triggered before the ribbon control is destroyed. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Triggered when the control in the group is clicked successfully. */
-	groupClick? (e: GroupClickEventArgs): void;
+	groupClick?(e: GroupClickEventArgs): void;
 
 	/** Triggered when the group expander in the group is clicked successfully. */
-	groupExpand? (e: GroupExpandEventArgs): void;
+	groupExpand?(e: GroupExpandEventArgs): void;
 
 	/** Triggered when an item in the Gallery control is clicked successfully. */
-	galleryItemClick? (e: GalleryItemClickEventArgs): void;
+	galleryItemClick?(e: GalleryItemClickEventArgs): void;
 
 	/** Triggered when a tab or button in the backstage page is clicked successfully. */
-	backstageItemClick? (e: BackstageItemClickEventArgs): void;
+	backstageItemClick?(e: BackstageItemClickEventArgs): void;
 
 	/** Triggered when the ribbon control is collapsed. */
-	collapse? (e: CollapseEventArgs): void;
+	collapse?(e: CollapseEventArgs): void;
 
 	/** Triggered when the ribbon control is expanded. */
-	expand? (e: ExpandEventArgs): void;
+	expand?(e: ExpandEventArgs): void;
 
 	/** Triggered before the ribbon control is load. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Triggered after adding the new ribbon tab item. */
-	tabAdd? (e: TabAddEventArgs): void;
+	tabAdd?(e: TabAddEventArgs): void;
 
 	/** Triggered when tab is clicked successfully in the ribbon control. */
-	tabClick? (e: TabClickEventArgs): void;
+	tabClick?(e: TabClickEventArgs): void;
 
 	/** Triggered before the ribbon tab is created. */
-	tabCreate? (e: TabCreateEventArgs): void;
+	tabCreate?(e: TabCreateEventArgs): void;
 
 	/** Triggered after the tab item is removed from the ribbon control. */
-	tabRemove? (e: TabRemoveEventArgs): void;
+	tabRemove?(e: TabRemoveEventArgs): void;
 
 	/** Triggered after the ribbon tab item is selected in the ribbon control. */
-	tabSelect? (e: TabSelectEventArgs): void;
+	tabSelect?(e: TabSelectEventArgs): void;
 
 	/** Triggered when the expand/collapse button is clicked successfully . */
-	toggleButtonClick? (e: ToggleButtonClickEventArgs): void;
+	toggleButtonClick?(e: ToggleButtonClickEventArgs): void;
 
 	/** Triggered when the QAT menu item is clicked successfully . */
-	qatMenuItemClick? (e: QatMenuItemClickEventArgs): void;
+	qatMenuItemClick?(e: QatMenuItemClickEventArgs): void;
 }
 
 export interface BeforeTabRemoveEventArgs {
@@ -12675,7 +12628,7 @@ export interface ApplicationTabBackstageSettings {
 	/** Specifies the ribbon backstage page with its tab and button elements.
 	*   @Default {Array}
 	*/
-	pages?: Array<ApplicationTabBackstageSettingsPage>;
+	pages?: ApplicationTabBackstageSettingsPage[];
 
 	/** Specifies the width of backstage page header that contains tabs and buttons.
 	*   @Default {null}
@@ -12721,7 +12674,7 @@ export interface ContextualTab {
 	/** Specifies the tabs to present in the contextual tabs and tab set. Refer to the tabs section for adding tabs into the contextual tabs and tab set.
 	*   @Default {Array}
 	*/
-	tabs?: Array<any>;
+	tabs?: any[];
 }
 
 export interface TabsGroupsContentDefaults {
@@ -12856,7 +12809,7 @@ export interface TabsGroupsContentGroup {
 	/** Specifies the Syncfusion button and menu as gallery extra items.
 	*   @Default {Array}
 	*/
-	customGalleryItems?: Array<TabsGroupsContentGroupsCustomGalleryItem>;
+	customGalleryItems?: TabsGroupsContentGroupsCustomGalleryItem[];
 
 	/** Provides custom tooltip for button, split button, dropdown list, toggle button, custom controls in the sub groups. Text and HTML support are also provided for title and content.
 	*   @Default {Object}
@@ -12881,7 +12834,7 @@ export interface TabsGroupsContentGroup {
 	/** Defines each gallery content.
 	*   @Default {Array}
 	*/
-	galleryItems?: Array<TabsGroupsContentGroupsGalleryItem>;
+	galleryItems?: TabsGroupsContentGroupsGalleryItem[];
 
 	/** Specifies the Id for button, split button, dropdown list, toggle button, gallery, custom controls in the sub groups.
 	*   @Default {null}
@@ -12944,7 +12897,7 @@ export interface TabsGroupsContent {
 	/** Specifies the controls such as Syncfusion button, split button, dropdown list, toggle button, gallery, custom controls in the subgroup of the ribbon tab .
 	*   @Default {Array}
 	*/
-	groups?: Array<TabsGroupsContentGroup>;
+	groups?: TabsGroupsContentGroup[];
 }
 
 export interface TabsGroupsGroupExpanderSettings {
@@ -12970,7 +12923,7 @@ export interface TabsGroup {
 	/** Specifies the Syncfusion button, split button, dropdown list, toggle button, gallery, custom controls to the groups in the ribbon control.
 	*   @Default {Array}
 	*/
-	content?: Array<TabsGroupsContent>;
+	content?: TabsGroupsContent[];
 
 	/** Specifies the ID of custom items to be placed in the groups.
 	*   @Default {null}
@@ -13008,7 +12961,7 @@ export interface Tab {
 	/** Specifies single group or multiple groups and its contents to each tab in the ribbon control.
 	*   @Default {Array}
 	*/
-	groups?: Array<TabsGroup>;
+	groups?: TabsGroup[];
 
 	/** Specifies the ID for each tab's content panel.
 	*   @Default {null}
@@ -13021,7 +12974,7 @@ export interface Tab {
 	text?: string;
 }
 
-enum ItemType{
+enum ItemType {
 
 	///To render the button for ribbon backstage pageâ€™s contents
 	Button,
@@ -13031,7 +12984,7 @@ enum ItemType{
 }
 
 
-enum ApplicationTabType{
+enum ApplicationTabType {
 
 	///applicationTab display as menu
 	Menu,
@@ -13041,7 +12994,7 @@ enum ApplicationTabType{
 }
 
 
-enum AlignType{
+enum AlignType {
 
 	///To align the group content's in row
 	Rows,
@@ -13051,7 +13004,7 @@ enum AlignType{
 }
 
 
-enum CustomItemType{
+enum CustomItemType {
 
 	///Specifies the button type in customGalleryItems
 	Button,
@@ -13061,9 +13014,9 @@ enum CustomItemType{
 }
 
 
-enum QuickAccessMode{
+enum QuickAccessMode {
 
-	///Controls are hidden in Quick Access toolbar 
+	///Controls are hidden in Quick Access toolbar
 	None,
 
 	///Add controls in toolBar
@@ -13074,7 +13027,7 @@ enum QuickAccessMode{
 }
 
 
-enum Type{
+enum Type {
 
 	///Specifies the button control
 	Button,
@@ -13099,11 +13052,10 @@ enum Type{
 
 class Kanban extends ej.Widget {
 	static fn: Kanban;
-	constructor(element: JQuery, options?: Kanban.Model);
-	constructor(element: Element, options?: Kanban.Model);
+	constructor(element: JQuery | Element, options?: Kanban.Model);
 	static Locale: any;
-	model:Kanban.Model;
-	defaults:Kanban.Model;
+	model: Kanban.Model;
+	defaults: Kanban.Model;
 
 	/** Add or remove columns in Kanban columns collections.Default action is add.
 	*   @param {Array<any>|string} Pass array of columns or string of headerText to add/remove the column in Kanban
@@ -13111,7 +13063,7 @@ class Kanban extends ej.Widget {
 	*   @param {string} optional Pass add/remove action to be performed. By default "add" action will perform
 	*   @returns {void}
 	*/
-	columns(columndetails: Array<any>|string, keyvalue: Array<any>|string, action?: string): void;
+	columns(columndetails: any[]|string, keyvalue: any[]|string, action?: string): void;
 
 	/** Destroy the Kanban widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
 	*   @returns {void}
@@ -13122,7 +13074,7 @@ class Kanban extends ej.Widget {
 	*   @param {Array<any>} Pass new data source to the Kanban
 	*   @returns {void}
 	*/
-	dataSource(datasource: Array<any>): void;
+	dataSource(datasource: any[]): void;
 
 	/** toggleColumn based on the headerText in Kanban.
 	*   @param {any} Pass the header text of the column to get the corresponding column object
@@ -13131,7 +13083,7 @@ class Kanban extends ej.Widget {
 	toggleColumn(headerText: any): void;
 
 	/** Expand or collapse the card based on the state of target &quot;div&quot;
-	*   @param {string|number} Pass the id of card to be toggle 
+	*   @param {string|number} Pass the id of card to be toggle
 	*   @returns {void}
 	*/
 	toggleCard(key: string|number): void;
@@ -13139,7 +13091,7 @@ class Kanban extends ej.Widget {
 	/** Used for get the names of all the visible column name collections in Kanban.
 	*   @returns {Array<any>}
 	*/
-	getVisibleColumnNames(): Array<any>;
+	getVisibleColumnNames(): any[];
 
 	/** Get the scroller object of Kanban.
 	*   @returns {ej.Scroller}
@@ -13150,18 +13102,18 @@ class Kanban extends ej.Widget {
 	*   @param {string} Pass the header text of the column to get the corresponding column object
 	*   @returns {String}
 	*/
-	getColumnByHeaderText(headerText: string): String;
+	getColumnByHeaderText(headerText: string): string;
 
 	/** Get the table details based on the given header table in Kanban.
 	*   @returns {String}
 	*/
-	getHeaderTable(): String;
+	getHeaderTable(): string;
 
 	/** Hide columns from the Kanban based on the header text
 	*   @param {Array<any>|string} you can pass either array of header text of various columns or a header text of a column to hide
 	*   @returns {void}
 	*/
-	hideColumns(headerText: Array<any>|string): void;
+	hideColumns(headerText: any[]|string): void;
 
 	/** Print the Kanban Board
 	*   @returns {void}
@@ -13183,14 +13135,14 @@ class Kanban extends ej.Widget {
 	*   @param {Array<any>|string} You can pass either array of header text of various columns or a header text of a column to show
 	*   @returns {void}
 	*/
-	showColumns(headerText: Array<any>|string): void;
+	showColumns(headerText: any[]|string): void;
 
 	/** Update a card in Kanban control based on key and JSON data given.
 	*   @param {string} Pass the key field Name of the column
 	*   @param {Array<any>} Pass the edited JSON data of card need to be update.
 	*   @returns {void}
 	*/
-	updateCard(key: string, data: Array<any>): void;
+	updateCard(key: string, data: any[]): void;
 
 	KanbanSelection: Kanban.KanbanSelection;
 
@@ -13200,7 +13152,7 @@ class Kanban extends ej.Widget {
 
 	KanbanEdit: Kanban.KanbanEdit;
 }
-export module Kanban{
+export namespace Kanban {
 
 export interface KanbanSelection {
 
@@ -13260,7 +13212,7 @@ export interface KanbanEdit {
 	*   @param {Array<any>} Pass the edited JSON data of card need to be add.
 	*   @returns {void}
 	*/
-	addCard(primaryKey: string,card: Array<any>): void;
+	addCard(primaryKey: string, card: any[]): void;
 
 	/** Send a cancel request of add/edit card in Kanban when allowEditing/allowAdding is set as true.
 	*   @returns {void}
@@ -13289,7 +13241,7 @@ export interface KanbanEdit {
 	*   @param {any} Specify the validation rules for the field
 	*   @returns {void}
 	*/
-	setValidationToField(name: string,rules: any): void;
+	setValidationToField(name: string, rules: any): void;
 }
 
 export interface Model {
@@ -13357,7 +13309,7 @@ export interface Model {
 	/** Gets or sets an object that indicates to render the Kanban with specified columns.
 	*   @Default {Array}
 	*/
-	columns?: Array<Column>;
+	columns?: Column[];
 
 	/** Gets or sets an object that indicates whether to Customize the card settings.
 	*   @Default {Object}
@@ -13367,7 +13319,7 @@ export interface Model {
 	/** Gets or sets a value that indicates whether to add customToolbarItems within the toolbar to perform any action in the Kanban.
 	*   @Default {[]}
 	*/
-	customToolbarItems?: Array<CustomToolbarItem>;
+	customToolbarItems?: CustomToolbarItem[];
 
 	/** Gets or sets a value that indicates to render the Kanban with custom theme.
 	*/
@@ -13421,7 +13373,7 @@ export interface Model {
 	/** To customize the filtering behavior based on queries given.
 	*   @Default {Array}
 	*/
-	filterSettings?: Array<FilterSetting>;
+	filterSettings?: FilterSetting[];
 
 	/** ej Query to query database of Kanban.
 	*   @Default {null}
@@ -13451,7 +13403,7 @@ export interface Model {
 	/** Gets or sets an object that indicates to managing the collection of stacked header rows for the Kanban.
 	*   @Default {Array}
 	*/
-	stackedHeaderRows?: Array<StackedHeaderRow>;
+	stackedHeaderRows?: StackedHeaderRow[];
 
 	/** The tooltip allows to display card details in a tooltip while hovering on it.
 	*/
@@ -13460,7 +13412,7 @@ export interface Model {
 	/** Gets or sets an object that indicates to render the Kanban with specified workflows.
 	*   @Default {Array}
 	*/
-	workflows?: Array<Workflow>;
+	workflows?: Workflow[];
 
 	/** Gets or sets a value that indicates whether to customizing the user interface (UI) as locale-specific in order to display regional data i.e. in a language and culture specific to a particular country or region.
 	*   @Default {en-US}
@@ -13468,79 +13420,79 @@ export interface Model {
 	locale?: string;
 
 	/** Triggered for every Kanban action before its starts. */
-	actionBegin? (e: ActionBeginEventArgs): void;
+	actionBegin?(e: ActionBeginEventArgs): void;
 
 	/** Triggered for every Kanban action success event. */
-	actionComplete? (e: ActionCompleteEventArgs): void;
+	actionComplete?(e: ActionCompleteEventArgs): void;
 
 	/** Triggered for every Kanban action server failure event. */
-	actionFailure? (e: ActionFailureEventArgs): void;
+	actionFailure?(e: ActionFailureEventArgs): void;
 
 	/** Triggered before the task is going to be edited. */
-	beginEdit? (e: BeginEditEventArgs): void;
+	beginEdit?(e: BeginEditEventArgs): void;
 
 	/** Triggered before the card is going to be added */
-	beginAdd? (e: BeginAddEventArgs): void;
+	beginAdd?(e: BeginAddEventArgs): void;
 
 	/** Triggered before the card is selected. */
-	beforeCardSelect? (e: BeforeCardSelectEventArgs): void;
+	beforeCardSelect?(e: BeforeCardSelectEventArgs): void;
 
 	/** Trigger after the card is clicked. */
-	cardClick? (e: CardClickEventArgs): void;
+	cardClick?(e: CardClickEventArgs): void;
 
 	/** Triggered when the card is being dragged. */
-	cardDrag? (e: CardDragEventArgs): void;
+	cardDrag?(e: CardDragEventArgs): void;
 
 	/** Triggered when card dragging start. */
-	cardDragStart? (e: CardDragStartEventArgs): void;
+	cardDragStart?(e: CardDragStartEventArgs): void;
 
 	/** Triggered when card dragging stops. */
-	cardDragStop? (e: CardDragStopEventArgs): void;
+	cardDragStop?(e: CardDragStopEventArgs): void;
 
 	/** Triggered when the card is Dropped. */
-	cardDrop? (e: CardDropEventArgs): void;
+	cardDrop?(e: CardDropEventArgs): void;
 
 	/** Triggered after the card is selected. */
-	cardSelect? (e: CardSelectEventArgs): void;
+	cardSelect?(e: CardSelectEventArgs): void;
 
 	/** Triggered when card is double clicked. */
-	cardDoubleClick? (e: CardDoubleClickEventArgs): void;
+	cardDoubleClick?(e: CardDoubleClickEventArgs): void;
 
 	/** Triggered before the card is selected. */
-	cardSelecting? (e: CardSelectingEventArgs): void;
+	cardSelecting?(e: CardSelectingEventArgs): void;
 
 	/** Triggered when the Kanban is rendered completely */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Triggers after the cell is clicked. */
-	cellClick? (e: CellClickEventArgs): void;
+	cellClick?(e: CellClickEventArgs): void;
 
 	/** Triggered the Kanban is bound with data during initial rendering. */
-	dataBound? (e: DataBoundEventArgs): void;
+	dataBound?(e: DataBoundEventArgs): void;
 
 	/** Triggered when Kanban going to destroy. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Triggered after the card is deleted. */
-	endDelete? (e: EndDeleteEventArgs): void;
+	endDelete?(e: EndDeleteEventArgs): void;
 
 	/** Triggered after the card is edited. */
-	endEdit? (e: EndEditEventArgs): void;
+	endEdit?(e: EndEditEventArgs): void;
 
 	/** Triggers after the header is clicked. */
-	headerClick? (e: HeaderClickEventArgs): void;
+	headerClick?(e: HeaderClickEventArgs): void;
 
 	/** Triggered initial load. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Triggered when toolbar item is clicked in Kanban. */
-	toolbarClick? (e: ToolbarClickEventArgs): void;
+	toolbarClick?(e: ToolbarClickEventArgs): void;
 
 	/** Triggered every time a single card rendered request is made to access particular card information. */
-	queryCellInfo? (e: QueryCellInfoEventArgs): void;
+	queryCellInfo?(e: QueryCellInfoEventArgs): void;
 
 	/** Triggered before the context menu is opened. */
-	contextOpen? (e: ContextOpenEventArgs): void;
+	contextOpen?(e: ContextOpenEventArgs): void;
 }
 
 export interface ActionBeginEventArgs {
@@ -13750,7 +13702,7 @@ export interface BeforeCardSelectEventArgs {
 
 	/** Returns the previously select card indexes
 	*/
-	previousRowcellindex?: Array<any>;
+	previousRowcellindex?: any[];
 
 	/** Returns the Target item.
 	*/
@@ -13936,7 +13888,7 @@ export interface CardSelectEventArgs {
 
 	/** Returns the previously select card indexes
 	*/
-	previousRowcellindex?: Array<any>;
+	previousRowcellindex?: any[];
 
 	/** Returns the current item.
 	*/
@@ -13998,7 +13950,7 @@ export interface CardSelectingEventArgs {
 
 	/** Returns the previously rowcell is selecting card indexes
 	*/
-	previousRowcellindex?: Array<any>;
+	previousRowcellindex?: any[];
 
 	/** Returns the current item.
 	*/
@@ -14284,7 +14236,7 @@ export interface SwimlaneSettingsUnassignedGroup {
 	/** To set the user defined values which are need to categorized as unassigned category swim lane groups.
 	*   @Default {[null,undefined,]}
 	*/
-	keys?: Array<any>;
+	keys?: any[];
 }
 
 export interface SwimlaneSettings {
@@ -14333,17 +14285,17 @@ export interface ContextMenuSettings {
 	/** Gets or sets a value that indicates the list of items needs to be disable from default context menu items.
 	*   @Default {Array}
 	*/
-	disableDefaultItems?: Array<any>;
+	disableDefaultItems?: any[];
 
 	/** Its used to add specific default context menu items.
 	*   @Default {Array}
 	*/
-	menuItems?: Array<any>;
+	menuItems?: any[];
 
 	/** Gets or sets a value that indicates whether to add custom contextMenu items.
 	*   @Default {Array}
 	*/
-	customMenuItems?: Array<ContextMenuSettingsCustomMenuItem>;
+	customMenuItems?: ContextMenuSettingsCustomMenuItem[];
 }
 
 export interface ColumnsConstraints {
@@ -14496,7 +14448,7 @@ export interface EditSettings {
 	/** Get or sets an object that indicates whether to customize the editing fields of Kanban card.
 	*   @Default {Array}
 	*/
-	editItems?: Array<EditSettingsEditItem>;
+	editItems?: EditSettingsEditItem[];
 
 	/** This specifies the id of the template which is require to be edited using the External edit form.
 	*   @Default {null}
@@ -14593,7 +14545,7 @@ export interface SearchSettings {
 	/** To customize the fields the searching operation can be perform.
 	*   @Default {Array}
 	*/
-	fields?: Array<any>;
+	fields?: any[];
 
 	/** To customize the searching string.
 	*/
@@ -14628,7 +14580,7 @@ export interface StackedHeaderRow {
 	/** Gets or sets a value that indicates whether to add stacked header columns into the stacked header rows.
 	*   @Default {Array}
 	*/
-	stackedHeaderColumns?: Array<StackedHeaderRowsStackedHeaderColumn>;
+	stackedHeaderColumns?: StackedHeaderRowsStackedHeaderColumn[];
 }
 
 export interface TooltipSettings {
@@ -14657,7 +14609,7 @@ export interface Workflow {
 	allowedTransitions?: string;
 }
 
-enum Target{
+enum Target {
 
 	///Sets context menu to Kanban header
 	Header,
@@ -14673,7 +14625,7 @@ enum Target{
 }
 
 
-enum EditMode{
+enum EditMode {
 
 	///Creates Kanban with editMode as Dialog
 	Dialog,
@@ -14689,12 +14641,12 @@ enum EditMode{
 }
 
 
-enum EditingType{
+enum EditingType {
 
 	///Allows to set edit type as string edit type
 	String,
 
-	///Allows to set edit type as numeric edit type 
+	///Allows to set edit type as numeric edit type
 	Numeric,
 
 	///Allows to set edit type as drop down edit type
@@ -14714,7 +14666,7 @@ enum EditingType{
 }
 
 
-enum FormPosition{
+enum FormPosition {
 
 	///Form position is bottom.
 	Bottom,
@@ -14724,7 +14676,7 @@ enum FormPosition{
 }
 
 
-enum SelectionType{
+enum SelectionType {
 
 	///Support for Single selection in Kanban
 	Single,
@@ -14737,11 +14689,10 @@ enum SelectionType{
 
 class Rotator extends ej.Widget {
 	static fn: Rotator;
-	constructor(element: JQuery, options?: Rotator.Model);
-	constructor(element: Element, options?: Rotator.Model);
+	constructor(element: JQuery | Element, options?: Rotator.Model);
 	static Locale: any;
-	model:Rotator.Model;
-	defaults:Rotator.Model;
+	model: Rotator.Model;
+	defaults: Rotator.Model;
 
 	/** Disables the Rotator control.
 	*   @returns {void}
@@ -14791,7 +14742,7 @@ class Rotator extends ej.Widget {
 	*/
 	updateTemplateById(index: number, id: string): void;
 }
-export module Rotator{
+export namespace Rotator {
 
 export interface Model {
 
@@ -14934,7 +14885,7 @@ export interface Model {
 	/** The templateId enables to bind multiple customized template items in Rotator.
 	*   @Default {null}
 	*/
-	templateId?: Array<any>;
+	templateId?: any[];
 
 	/** Specifies the source for thumbnail elements.
 	*   @Default {null}
@@ -14942,25 +14893,25 @@ export interface Model {
 	thumbnailSourceID?: any;
 
 	/** This event is fired when the Rotator slides are changed. */
-	change? (e: ChangeEventArgs): void;
+	change?(e: ChangeEventArgs): void;
 
 	/** This event is fired when the Rotator control is initialized. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** This event is fired when the Rotator control is destroyed. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** This event is fired when a pager is clicked. */
-	pagerClick? (e: PagerClickEventArgs): void;
+	pagerClick?(e: PagerClickEventArgs): void;
 
 	/** This event is fired when enableAutoPlay is started. */
-	start? (e: StartEventArgs): void;
+	start?(e: StartEventArgs): void;
 
 	/** This event is fired when autoplay is stopped or paused. */
-	stop? (e: StopEventArgs): void;
+	stop?(e: StopEventArgs): void;
 
 	/** This event is fired when a thumbnail pager is clicked. */
-	thumbItemClick? (e: ThumbItemClickEventArgs): void;
+	thumbItemClick?(e: ThumbItemClickEventArgs): void;
 }
 
 export interface ChangeEventArgs {
@@ -15135,7 +15086,7 @@ export interface Fields {
 	url?: string;
 }
 
-enum PagerPosition{
+enum PagerPosition {
 
 	///string
 	BottomLeft,
@@ -15160,11 +15111,10 @@ enum PagerPosition{
 
 class RTE extends ej.Widget {
 	static fn: RTE;
-	constructor(element: JQuery, options?: RTE.Model);
-	constructor(element: Element, options?: RTE.Model);
+	constructor(element: JQuery | Element, options?: RTE.Model);
 	static Locale: any;
-	model:RTE.Model;
-	defaults:RTE.Model;
+	model: RTE.Model;
+	defaults: RTE.Model;
 
 	/** Returns the range object.
 	*   @returns {any}
@@ -15313,7 +15263,7 @@ class RTE extends ej.Widget {
 	*/
 	show(): void;
 }
-export module RTE{
+export namespace RTE {
 
 export interface Model {
 
@@ -15573,7 +15523,7 @@ export interface Model {
 	/** Specifies the list of groups and order of those groups displayed in the RTE toolbar.  The toolsList property is used to get the root group order and tools property is used to get the inner order of the corresponding groups displayed. When the value is not specified, it gets its default display order and tools.
 	*   @Default {[formatStyle, font, style, effects, alignment, lists, indenting, clipboard, doAction, clear, links, images, media, tables, casing,view, customTools,print,edit]}
 	*/
-	toolsList?: Array<any>;
+	toolsList?: any[];
 
 	/** Display the hints for the tools in the Toolbar.
 	*   @Default {{ associate: mouseenter, showShadow: true, position: { stem: { horizontal: left, vertical: top }  }, tip: { size: { width: 5, height: 5 }, isBalloon: false }}
@@ -15611,31 +15561,31 @@ export interface Model {
 	zoomStep?: string|number;
 
 	/** Fires when changed successfully. */
-	change? (e: ChangeEventArgs): void;
+	change?(e: ChangeEventArgs): void;
 
 	/** Fires when the RTE is created successfully */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when mouse click on menu items. */
-	contextMenuClick? (e: ContextMenuClickEventArgs): void;
+	contextMenuClick?(e: ContextMenuClickEventArgs): void;
 
 	/** Fires before the RTE is destroyed. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires when the commands are executed successfully. */
-	execute? (e: ExecuteEventArgs): void;
+	execute?(e: ExecuteEventArgs): void;
 
 	/** Fires when the keydown action is successful. */
-	keydown? (e: KeydownEventArgs): void;
+	keydown?(e: KeydownEventArgs): void;
 
 	/** Fires when the keyup action is successful. */
-	keyup? (e: KeyupEventArgs): void;
+	keyup?(e: KeyupEventArgs): void;
 
 	/** Fires before the RTE Edit area is rendered and after the toolbar is rendered. */
-	preRender? (e: PreRenderEventArgs): void;
+	preRender?(e: PreRenderEventArgs): void;
 
 	/** Fires when the text is selected in the text area */
-	select? (e: SelectEventArgs): void;
+	select?(e: SelectEventArgs): void;
 }
 
 export interface ChangeEventArgs {
@@ -15898,93 +15848,92 @@ export interface Tools {
 
 	/** Specifies the casing tools and the display order of this tool in the RTE toolbar.
 	*/
-	casing?: Array<any>;
+	casing?: any[];
 
 	/** Specifies the clear tools and the display order of this tool in the RTE toolbar.
 	*/
-	clear?: Array<any>;
+	clear?: any[];
 
 	/** Specifies the clipboard tools and the display order of this tool in the RTE toolbar.
 	*/
-	clipboard?: Array<any>;
+	clipboard?: any[];
 
 	/** Specifies the edit tools and the displays tool in the RTE toolbar.
 	*/
-	edit?: Array<any>;
+	edit?: any[];
 
 	/** Specifies the doAction tools and the display order of this tool in the RTE toolbar.
 	*/
-	doAction?: Array<any>;
+	doAction?: any[];
 
 	/** Specifies the effect of tools and the display order of this tool in RTE toolbar.
 	*/
-	effects?: Array<any>;
+	effects?: any[];
 
 	/** Specifies the font tools and the display order of this tool in the RTE toolbar.
 	*/
-	font?: Array<any>;
+	font?: any[];
 
 	/** Specifies the formatStyle tools and the display order of this tool in the RTE toolbar.
 	*/
-	formatStyle?: Array<any>;
+	formatStyle?: any[];
 
 	/** Specifies the image tools and the display order of this tool in the RTE toolbar.
 	*/
-	images?: Array<any>;
+	images?: any[];
 
 	/** Specifies the indent tools and the display order of this tool in the RTE toolbar.
 	*/
-	indenting?: Array<any>;
+	indenting?: any[];
 
 	/** Specifies the link tools and the display order of this tool in the RTE toolbar.
 	*/
-	links?: Array<any>;
+	links?: any[];
 
 	/** Specifies the list tools and the display order of this tool in the RTE toolbar.
 	*/
-	lists?: Array<any>;
+	lists?: any[];
 
 	/** Specifies the media tools and the display order of this tool in the RTE toolbar.
 	*/
-	media?: Array<any>;
+	media?: any[];
 
 	/** Specifies the style tools and the display order of this tool in the RTE toolbar.
 	*/
-	style?: Array<any>;
+	style?: any[];
 
 	/** Specifies the table tools and the display order of this tool in the RTE toolbar.
 	*/
-	tables?: Array<any>;
+	tables?: any[];
 
 	/** Specifies the view tools and the display order of this tool in the RTE toolbar.
 	*/
-	view?: Array<any>;
+	view?: any[];
 
 	/** Specifies the print tools and the display order of this tool in the RTE toolbar.
 	*/
-	print?: Array<any>;
+	print?: any[];
 
 	/** Specifies the importExport tools and the display order of this tool in the RTE toolbar.
 	*/
-	importExport?: Array<any>;
+	importExport?: any[];
 
 	/** Specifies the customOrderedList tools and the display order of this tool in the RTE toolbar.
 	*/
-	customOrderedList?: Array<ToolsCustomOrderedList>;
+	customOrderedList?: ToolsCustomOrderedList[];
 
 	/** Specifies the customUnOrderedList tools and the display order of this tool in the RTE toolbar.
 	*/
-	customUnorderedList?: Array<ToolsCustomUnorderedList>;
+	customUnorderedList?: ToolsCustomUnorderedList[];
 }
 }
 
 class Slider extends ej.Widget {
 	static fn: Slider;
-	constructor(element: JQuery, options?: Slider.Model);
-	constructor(element: Element, options?: Slider.Model);
+	constructor(element: JQuery | Element, options?: Slider.Model);
 	static Locale: any;
-	model:Slider.Model;
-	defaults:Slider.Model;
+	model: Slider.Model;
+	defaults: Slider.Model;
 
 	/** To disable the slider
 	*   @returns {void}
@@ -16006,7 +15955,7 @@ class Slider extends ej.Widget {
 	*/
 	setValue(): void;
 }
-export module Slider{
+export namespace Slider {
 
 export interface Model {
 
@@ -16122,7 +16071,7 @@ export interface Model {
 	/** Specifies the values of the range slider. But it's not applicable for default and minRange sliders. we can use value property for default and minRange sliders.
 	*   @Default {[minValue,maxValue]}
 	*/
-	values?: Array<any>;
+	values?: any[];
 
 	/** Specifies the width of the slider.
 	*   @Default {100%}
@@ -16130,25 +16079,25 @@ export interface Model {
 	width?: string;
 
 	/** Fires once Slider control value is changed successfully. */
-	change? (e: ChangeEventArgs): void;
+	change?(e: ChangeEventArgs): void;
 
 	/** Fires once Slider control has been created successfully. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when Slider control has been destroyed successfully. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires once Slider control is sliding successfully. */
-	slide? (e: SlideEventArgs): void;
+	slide?(e: SlideEventArgs): void;
 
 	/** Fires once Slider control is started successfully. */
-	start? (e: StartEventArgs): void;
+	start?(e: StartEventArgs): void;
 
 	/** Fires when Slider control is stopped successfully. */
-	stop? (e: StopEventArgs): void;
+	stop?(e: StopEventArgs): void;
 
 	/** Fires when display the custom tooltip */
-	tooltipChange? (e: TooltipChangeEventArgs): void;
+	tooltipChange?(e: TooltipChangeEventArgs): void;
 }
 
 export interface ChangeEventArgs {
@@ -16177,7 +16126,7 @@ export interface ChangeEventArgs {
 	*/
 	value?: number;
 
-	/** returns true if event triggered by interaction else returns false. 
+	/** returns true if event triggered by interaction else returns false.
 	*/
 	isInteraction?: boolean;
 }
@@ -16294,12 +16243,11 @@ export interface StopEventArgs {
 }
 
 export interface TooltipChangeEventArgs {
+	undefined;
 }
 }
-module slider
-{
-enum sliderType
-{
+namespace slider {
+enum sliderType {
 //Shows default slider
 Default,
 //Shows minRange slider
@@ -16311,11 +16259,10 @@ Range,
 
 class SplitButton extends ej.Widget {
 	static fn: SplitButton;
-	constructor(element: JQuery, options?: SplitButton.Model);
-	constructor(element: Element, options?: SplitButton.Model);
+	constructor(element: JQuery | Element, options?: SplitButton.Model);
 	static Locale: any;
-	model:SplitButton.Model;
-	defaults:SplitButton.Model;
+	model: SplitButton.Model;
+	defaults: SplitButton.Model;
 
 	/** Destroy the split button widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
 	*   @returns {void}
@@ -16342,7 +16289,7 @@ class SplitButton extends ej.Widget {
 	*/
 	show(): void;
 }
-export module SplitButton{
+export namespace SplitButton {
 
 export interface Model {
 
@@ -16422,31 +16369,31 @@ export interface Model {
 	width?: string|number;
 
 	/** Fires before menu of the split button control is opened. */
-	beforeOpen? (e: BeforeOpenEventArgs): void;
+	beforeOpen?(e: BeforeOpenEventArgs): void;
 
 	/** Fires when Button control is clicked successfully */
-	click? (e: ClickEventArgs): void;
+	click?(e: ClickEventArgs): void;
 
 	/** Fires before the list content of Button control is closed */
-	close? (e: CloseEventArgs): void;
+	close?(e: CloseEventArgs): void;
 
 	/** Fires after Split Button control is created. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when the Split Button is destroyed successfully */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires when a menu item is Hovered out successfully */
-	itemMouseOut? (e: ItemMouseOutEventArgs): void;
+	itemMouseOut?(e: ItemMouseOutEventArgs): void;
 
 	/** Fires when a menu item is Hovered in successfully */
-	itemMouseOver? (e: ItemMouseOverEventArgs): void;
+	itemMouseOver?(e: ItemMouseOverEventArgs): void;
 
 	/** Fires when a menu item is clicked successfully */
-	itemSelected? (e: ItemSelectedEventArgs): void;
+	itemSelected?(e: ItemSelectedEventArgs): void;
 
 	/** Fires before the list content of Button control is opened */
-	open? (e: OpenEventArgs): void;
+	open?(e: OpenEventArgs): void;
 }
 
 export interface BeforeOpenEventArgs {
@@ -16632,8 +16579,7 @@ export interface OpenEventArgs {
 	type?: string;
 }
 }
-enum ArrowPosition
-{
+enum ArrowPosition {
 //To set Left arrowPosition of the split button
 Left,
 //To set Right arrowPosition of the split button
@@ -16646,11 +16592,10 @@ Bottom,
 
 class Splitter extends ej.Widget {
 	static fn: Splitter;
-	constructor(element: JQuery, options?: Splitter.Model);
-	constructor(element: Element, options?: Splitter.Model);
+	constructor(element: JQuery | Element, options?: Splitter.Model);
 	static Locale: any;
-	model:Splitter.Model;
-	defaults:Splitter.Model;
+	model: Splitter.Model;
+	defaults: Splitter.Model;
 
 	/** To add a new pane to splitter control.
 	*   @param {string} content of pane.
@@ -16683,7 +16628,7 @@ class Splitter extends ej.Widget {
 	*/
 	removeItem(index: number): void;
 }
-export module Splitter{
+export namespace Splitter {
 
 export interface Model {
 
@@ -16735,7 +16680,7 @@ export interface Model {
 	/** Specify properties for each pane like paneSize, minSize, maxSize, collapsible, expandable, resizable.
 	*   @Default {[]}
 	*/
-	properties?: Array<any>;
+	properties?: any[];
 
 	/** Specify width for splitter control.
 	*   @Default {null}
@@ -16743,19 +16688,19 @@ export interface Model {
 	width?: string;
 
 	/** Fires before expanding / collapsing the split pane of splitter control. */
-	beforeExpandCollapse? (e: BeforeExpandCollapseEventArgs): void;
+	beforeExpandCollapse?(e: BeforeExpandCollapseEventArgs): void;
 
 	/** Fires when splitter control pane has been created. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when splitter control pane has been destroyed. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires when expand / collapse operation in splitter control pane has been performed successfully. */
-	expandCollapse? (e: ExpandCollapseEventArgs): void;
+	expandCollapse?(e: ExpandCollapseEventArgs): void;
 
 	/** Fires when resize in splitter control pane. */
-	resize? (e: ResizeEventArgs): void;
+	resize?(e: ResizeEventArgs): void;
 }
 
 export interface BeforeExpandCollapseEventArgs {
@@ -16872,11 +16817,10 @@ export interface ResizeEventArgs {
 
 class Tab extends ej.Widget {
 	static fn: Tab;
-	constructor(element: JQuery, options?: Tab.Model);
-	constructor(element: Element, options?: Tab.Model);
+	constructor(element: JQuery | Element, options?: Tab.Model);
 	static Locale: any;
-	model:Tab.Model;
-	defaults:Tab.Model;
+	model: Tab.Model;
+	defaults: Tab.Model;
 
 	/** Add new tab items with given name, URL and given index position, if index null itâ€™s add last item.
 	*   @param {string} URL name / tab id.
@@ -16931,7 +16875,7 @@ class Tab extends ej.Widget {
 	*/
 	showItem(index: number): void;
 }
-export module Tab{
+export namespace Tab {
 
 export interface Model {
 
@@ -17016,7 +16960,7 @@ export interface Model {
 	/** Specifies to hide a pane of Tab control.
 	*   @Default {[]}
 	*/
-	hiddenItemIndex?: Array<any>;
+	hiddenItemIndex?: any[];
 
 	/** Specifies the HTML Attributes of the Tab.
 	*   @Default {{}}
@@ -17054,37 +16998,37 @@ export interface Model {
 	width?: string|number;
 
 	/** Triggered after a tab item activated. */
-	itemActive? (e: ItemActiveEventArgs): void;
+	itemActive?(e: ItemActiveEventArgs): void;
 
 	/** Triggered before AJAX content has been loaded. */
-	ajaxBeforeLoad? (e: AjaxBeforeLoadEventArgs): void;
+	ajaxBeforeLoad?(e: AjaxBeforeLoadEventArgs): void;
 
 	/** Triggered if error occurs in AJAX request. */
-	ajaxError? (e: AjaxErrorEventArgs): void;
+	ajaxError?(e: AjaxErrorEventArgs): void;
 
 	/** Triggered after AJAX content load action. */
-	ajaxLoad? (e: AjaxLoadEventArgs): void;
+	ajaxLoad?(e: AjaxLoadEventArgs): void;
 
 	/** Triggered after a tab item activated. */
-	ajaxSuccess? (e: AjaxSuccessEventArgs): void;
+	ajaxSuccess?(e: AjaxSuccessEventArgs): void;
 
 	/** Triggered before a tab item activated. */
-	beforeActive? (e: BeforeActiveEventArgs): void;
+	beforeActive?(e: BeforeActiveEventArgs): void;
 
 	/** Triggered before a tab item remove. */
-	beforeItemRemove? (e: BeforeItemRemoveEventArgs): void;
+	beforeItemRemove?(e: BeforeItemRemoveEventArgs): void;
 
 	/** Triggered before a tab item Create. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Triggered before a tab item destroy. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Triggered after new tab item add */
-	itemAdd? (e: ItemAddEventArgs): void;
+	itemAdd?(e: ItemAddEventArgs): void;
 
 	/** Triggered after tab item removed. */
-	itemRemove? (e: ItemRemoveEventArgs): void;
+	itemRemove?(e: ItemRemoveEventArgs): void;
 }
 
 export interface ItemActiveEventArgs {
@@ -17409,12 +17353,12 @@ export interface AjaxSettings {
 	type?: string;
 }
 
-enum Position{
+enum Position {
 
 	///Tab headers display to top position
 	Top,
 
-	///Tab headers display to bottom position 
+	///Tab headers display to bottom position
 	Bottom,
 
 	///Tab headers display to left position.
@@ -17425,7 +17369,7 @@ enum Position{
 }
 
 
-enum HeightAdjustMode{
+enum HeightAdjustMode {
 
 	///string
 	None,
@@ -17444,11 +17388,10 @@ enum HeightAdjustMode{
 
 class TagCloud extends ej.Widget {
 	static fn: TagCloud;
-	constructor(element: JQuery, options?: TagCloud.Model);
-	constructor(element: Element, options?: TagCloud.Model);
+	constructor(element: JQuery | Element, options?: TagCloud.Model);
 	static Locale: any;
-	model:TagCloud.Model;
-	defaults:TagCloud.Model;
+	model: TagCloud.Model;
+	defaults: TagCloud.Model;
 
 	/** Inserts a new item into the TagCloud
 	*   @param {string} Insert new item into the TagCloud
@@ -17475,7 +17418,7 @@ class TagCloud extends ej.Widget {
 	*/
 	removeAt(position: number): void;
 }
-export module TagCloud{
+export namespace TagCloud {
 
 export interface Model {
 
@@ -17539,19 +17482,19 @@ export interface Model {
 	titleText?: string;
 
 	/** Event triggers when the TagCloud items are clicked */
-	click? (e: ClickEventArgs): void;
+	click?(e: ClickEventArgs): void;
 
 	/** Event triggers when the TagCloud are created */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Event triggers when the TagCloud are destroyed */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Event triggers when the cursor leaves out from a tag item */
-	mouseout? (e: MouseoutEventArgs): void;
+	mouseout?(e: MouseoutEventArgs): void;
 
 	/** Event triggers when the cursor hovers on a tag item */
-	mouseover? (e: MouseoverEventArgs): void;
+	mouseover?(e: MouseoverEventArgs): void;
 }
 
 export interface ClickEventArgs {
@@ -17672,8 +17615,7 @@ export interface Fields {
 	url?: string;
 }
 }
-enum Format
-{
+enum Format {
 //To render the TagCloud items in cloud format
 Cloud,
 //To render the TagCloud items in list format
@@ -17682,11 +17624,10 @@ List,
 
 class TimePicker extends ej.Widget {
 	static fn: TimePicker;
-	constructor(element: JQuery, options?: TimePicker.Model);
-	constructor(element: Element, options?: TimePicker.Model);
+	constructor(element: JQuery | Element, options?: TimePicker.Model);
 	static Locale: any;
-	model:TimePicker.Model;
-	defaults:TimePicker.Model;
+	model: TimePicker.Model;
+	defaults: TimePicker.Model;
 
 	/** Allows you to disable the TimePicker.
 	*   @returns {void}
@@ -17718,7 +17659,7 @@ class TimePicker extends ej.Widget {
 	*/
 	show(): void;
 }
-export module TimePicker{
+export namespace TimePicker {
 
 export interface Model {
 
@@ -17840,34 +17781,34 @@ export interface Model {
 	width?: string|number;
 
 	/** Fires when the time value changed in the TimePicker. */
-	beforeChange? (e: BeforeChangeEventArgs): void;
+	beforeChange?(e: BeforeChangeEventArgs): void;
 
 	/** Fires when the TimePicker popup before opened. */
-	beforeOpen? (e: BeforeOpenEventArgs): void;
+	beforeOpen?(e: BeforeOpenEventArgs): void;
 
 	/** Fires when the time value changed in the TimePicker. */
-	change? (e: ChangeEventArgs): void;
+	change?(e: ChangeEventArgs): void;
 
 	/** Fires when the TimePicker popup closed. */
-	close? (e: CloseEventArgs): void;
+	close?(e: CloseEventArgs): void;
 
 	/** Fires when create TimePicker successfully. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when the TimePicker is destroyed successfully. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires when the TimePicker control gets focus. */
-	focusIn? (e: FocusInEventArgs): void;
+	focusIn?(e: FocusInEventArgs): void;
 
 	/** Fires when the TimePicker control get lost focus. */
-	focusOut? (e: FocusOutEventArgs): void;
+	focusOut?(e: FocusOutEventArgs): void;
 
 	/** Fires when the TimePicker popup opened. */
-	open? (e: OpenEventArgs): void;
+	open?(e: OpenEventArgs): void;
 
 	/** Fires when the value is selected from the TimePicker dropdown list. */
-	select? (e: SelectEventArgs): void;
+	select?(e: SelectEventArgs): void;
 }
 
 export interface BeforeChangeEventArgs {
@@ -18087,11 +18028,10 @@ export interface SelectEventArgs {
 
 class ToggleButton extends ej.Widget {
 	static fn: ToggleButton;
-	constructor(element: JQuery, options?: ToggleButton.Model);
-	constructor(element: Element, options?: ToggleButton.Model);
+	constructor(element: JQuery | Element, options?: ToggleButton.Model);
 	static Locale: any;
-	model:ToggleButton.Model;
-	defaults:ToggleButton.Model;
+	model: ToggleButton.Model;
+	defaults: ToggleButton.Model;
 
 	/** Allows you to destroy the ToggleButton widget.
 	*   @returns {void}
@@ -18108,7 +18048,7 @@ class ToggleButton extends ej.Widget {
 	*/
 	enable(): void;
 }
-export module ToggleButton{
+export namespace ToggleButton {
 
 export interface Model {
 
@@ -18208,16 +18148,16 @@ export interface Model {
 	width?: number|string;
 
 	/** Fires when ToggleButton control state is changed successfully. */
-	change? (e: ChangeEventArgs): void;
+	change?(e: ChangeEventArgs): void;
 
 	/** Fires when ToggleButton control is clicked successfully. */
-	click? (e: ClickEventArgs): void;
+	click?(e: ClickEventArgs): void;
 
 	/** Fires when ToggleButton control is created successfully. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when ToggleButton control is destroyed successfully. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 }
 
 export interface ChangeEventArgs {
@@ -18295,11 +18235,10 @@ export interface DestroyEventArgs {
 
 class Toolbar extends ej.Widget {
 	static fn: Toolbar;
-	constructor(element: JQuery, options?: Toolbar.Model);
-	constructor(element: Element, options?: Toolbar.Model);
+	constructor(element: JQuery | Element, options?: Toolbar.Model);
 	static Locale: any;
-	model:Toolbar.Model;
-	defaults:Toolbar.Model;
+	model: Toolbar.Model;
+	defaults: Toolbar.Model;
 
 	/** Deselect the specified Toolbar item.
 	*   @param {any} The element need to be deselected
@@ -18386,7 +18325,7 @@ class Toolbar extends ej.Widget {
 	*/
 	show(): void;
 }
-export module Toolbar{
+export namespace Toolbar {
 
 export interface Model {
 
@@ -18402,7 +18341,7 @@ export interface Model {
 	/** Disables an Item or set of Items that are enabled in the Toolbar
 	*   @Default {[]}
 	*/
-	disabledItemIndices?: Array<any>;
+	disabledItemIndices?: any[];
 
 	/** Specifies the Toolbar control state.
 	*   @Default {true}
@@ -18412,7 +18351,7 @@ export interface Model {
 	/** Enables an Item or set of Items that are disabled in the Toolbar
 	*   @Default {[]}
 	*/
-	enabledItemIndices?: Array<any>;
+	enabledItemIndices?: any[];
 
 	/** Specifies enableRTL property to align the Toolbar control from right to left direction.
 	*   @Default {false}
@@ -18479,28 +18418,28 @@ export interface Model {
 	width?: number|string;
 
 	/** Fires after Toolbar control is clicked. */
-	click? (e: ClickEventArgs): void;
+	click?(e: ClickEventArgs): void;
 
 	/** Fires after Toolbar control is created. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires after Toolbar control is focused. */
-	focusOut? (e: FocusOutEventArgs): void;
+	focusOut?(e: FocusOutEventArgs): void;
 
 	/** Fires when the Toolbar is destroyed successfully. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires after Toolbar control item is hovered. */
-	itemHover? (e: ItemHoverEventArgs): void;
+	itemHover?(e: ItemHoverEventArgs): void;
 
 	/** Fires after mouse leave from Toolbar control item. */
-	itemLeave? (e: ItemLeaveEventArgs): void;
+	itemLeave?(e: ItemLeaveEventArgs): void;
 
 	/** Fires when the overflow popup of toolbar is opened. */
-	overflowOpen? (e: OverflowOpenEventArgs): void;
+	overflowOpen?(e: OverflowOpenEventArgs): void;
 
 	/** Fires when the overflow popup of toolbar is closed. */
-	overflowClose? (e: OverflowCloseEventArgs): void;
+	overflowClose?(e: OverflowCloseEventArgs): void;
 }
 
 export interface ClickEventArgs {
@@ -18761,7 +18700,7 @@ export interface Items {
 	template?: string;
 }
 
-enum ResponsiveType{
+enum ResponsiveType {
 
 	///To display the toolbar overflow items as popup
 	Popup,
@@ -18774,11 +18713,10 @@ enum ResponsiveType{
 
 class TreeView extends ej.Widget {
 	static fn: TreeView;
-	constructor(element: JQuery, options?: TreeView.Model);
-	constructor(element: Element, options?: TreeView.Model);
+	constructor(element: JQuery | Element, options?: TreeView.Model);
 	static Locale: any;
-	model:TreeView.Model;
-	defaults:TreeView.Model;
+	model: TreeView.Model;
+	defaults: TreeView.Model;
 
 	/** To add a Node or collection of nodes in TreeView. If target tree node is specified, then the given nodes are added as child of target tree node, otherwise nodes are added in TreeView.
 	*   @param {string|any} New node text or JSON object
@@ -18792,7 +18730,7 @@ class TreeView extends ej.Widget {
 	*   @param {string|any} ID of TreeView node/object of TreeView node
 	*   @returns {void}
 	*/
-	addNodes(collection: any|Array<any>, target: string|any): void;
+	addNodes(collection: any|any[], target: string|any): void;
 
 	/** To check all the nodes in TreeView.
 	*   @returns {void}
@@ -18803,7 +18741,7 @@ class TreeView extends ej.Widget {
 	*   @param {string|any|Array<any>} ID of TreeView node/object of TreeView node/collection of ID/object of TreeView nodes
 	*   @returns {void}
 	*/
-	checkNode(element: string|any|Array<any>): void;
+	checkNode(element: string|any|any[]): void;
 
 	/** This method is used to collapse all nodes in TreeView control. If you want to collapse all nodes up to the specific level in TreeView control then we need to pass levelUntil as argument to this method.
 	*   @param {number} TreeView nodes will collapse until the given level
@@ -18816,19 +18754,19 @@ class TreeView extends ej.Widget {
 	*   @param {string|any|Array<any>} ID of TreeView node|object of TreeView node/collection of ID/object of TreeView nodes
 	*   @returns {void}
 	*/
-	collapseNode(element: string|any|Array<any>): void;
+	collapseNode(element: string|any|any[]): void;
 
 	/** To disable the node in the TreeView.
 	*   @param {string|any|Array<any>} ID of TreeView node/object of TreeView node/collection of ID/object of TreeView nodes
 	*   @returns {void}
 	*/
-	disableNode(element: string|any|Array<any>): void;
+	disableNode(element: string|any|any[]): void;
 
 	/** To enable the node in the TreeView.
 	*   @param {string|any|Array<any>} ID of TreeView node/object of TreeView node/collection of ID/object of TreeView nodes
 	*   @returns {void}
 	*/
-	enableNode(element: string|any|Array<any>): void;
+	enableNode(element: string|any|any[]): void;
 
 	/** To ensure that the TreeView node is visible in the TreeView. This method is useful if we need select a TreeView node dynamically.
 	*   @param {string|any} ID of TreeView node/object of TreeView node
@@ -18847,7 +18785,7 @@ class TreeView extends ej.Widget {
 	*   @param {string|any|Array<any>} ID of TreeView node/object of TreeView node/collection of ID/object of TreeView nodes
 	*   @returns {void}
 	*/
-	expandNode(element: string|any|Array<any>): void;
+	expandNode(element: string|any|any[]): void;
 
 	/** To get currently checked nodes in TreeView.
 	*   @returns {any}
@@ -18857,14 +18795,14 @@ class TreeView extends ej.Widget {
 	/** To get currently checked nodes indexes in TreeView.
 	*   @returns {Array<any>}
 	*/
-	getCheckedNodesIndex(): Array<any>;
+	getCheckedNodesIndex(): any[];
 
 	/** This method is used to get immediate child nodes of a node in TreeView control. If you want to get the all child nodes include nested child nodes then we need to pass includeNestedChild as true along with element arguments to this method.
 	*   @param {string|any} ID of TreeView node/object of TreeView node
 	*   @param {boolean} Weather include nested child nodes of TreeView node
 	*   @returns {Array<any>}
 	*/
-	getChildren(element: string|any, includeNestedChild?: boolean): Array<any>;
+	getChildren(element: string|any, includeNestedChild?: boolean): any[];
 
 	/** To get number of nodes in TreeView.
 	*   @returns {number}
@@ -18879,7 +18817,7 @@ class TreeView extends ej.Widget {
 	/** To get currently expanded nodes indexes in TreeView.
 	*   @returns {Array<any>}
 	*/
-	getExpandedNodesIndex(): Array<any>;
+	getExpandedNodesIndex(): any[];
 
 	/** To get TreeView node by using index position in TreeView.
 	*   @param {number} Index position of TreeView node
@@ -18913,7 +18851,7 @@ class TreeView extends ej.Widget {
 	/** To get the currently selected nodes in TreeView.
 	*   @returns {Array<any>}
 	*/
-	getSelectedNodes(): Array<any>;
+	getSelectedNodes(): any[];
 
 	/** To get the index position of currently selected node in TreeView.
 	*   @returns {number}
@@ -18923,7 +18861,7 @@ class TreeView extends ej.Widget {
 	/** To get the index positions of currently selected nodes in TreeView.
 	*   @returns {Array<any>}
 	*/
-	getSelectedNodesIndex(): Array<any>;
+	getSelectedNodesIndex(): any[];
 
 	/** To get the text of a node in TreeView.
 	*   @param {string|any} ID of TreeView node/object of TreeView node
@@ -18935,7 +18873,7 @@ class TreeView extends ej.Widget {
 	*   @param {string|number} ID of TreeView node
 	*   @returns {Array<any>}
 	*/
-	getTreeData(id?: string|number): Array<any>;
+	getTreeData(id?: string|number): any[];
 
 	/** To get currently visible nodes in TreeView.
 	*   @returns {any}
@@ -18957,7 +18895,7 @@ class TreeView extends ej.Widget {
 	*   @param {string|any|Array<any>} ID of TreeView node/object of TreeView node/collection of ID/object of TreeView nodes
 	*   @returns {void}
 	*/
-	hideNode(element: string|any|Array<any>): void;
+	hideNode(element: string|any|any[]): void;
 
 	/** To add a Node or collection of nodes after the particular TreeView node.
 	*   @param {string|any} New node text or JSON object
@@ -19044,7 +18982,7 @@ class TreeView extends ej.Widget {
 	*   @param {string|any|Array<any>} ID of TreeView node/object of TreeView node/collection of ID/object of TreeView nodes
 	*   @returns {void}
 	*/
-	removeNode(element: string|any|Array<any>): void;
+	removeNode(element: string|any|any[]): void;
 
 	/** To select all the TreeView nodes when enable allowMultiSelection property.
 	*   @returns {void}
@@ -19055,7 +18993,7 @@ class TreeView extends ej.Widget {
 	*   @param {string|any|Array<any>} ID of TreeView node/object of TreeView node/ collection of ID/object of TreeView nodes
 	*   @returns {void}
 	*/
-	selectNode(element: string|any|Array<any>): void;
+	selectNode(element: string|any|any[]): void;
 
 	/** To show nodes in TreeView.
 	*   @returns {void}
@@ -19066,7 +19004,7 @@ class TreeView extends ej.Widget {
 	*   @param {string|any|Array<any>} ID of TreeView node/object of TreeView node/collection of ID/object of TreeView nodes
 	*   @returns {void}
 	*/
-	showNode(element: string|any|Array<any>): void;
+	showNode(element: string|any|any[]): void;
 
 	/** To uncheck all the nodes in TreeView.
 	*   @returns {void}
@@ -19077,7 +19015,7 @@ class TreeView extends ej.Widget {
 	*   @param {string|any|Array<any>} ID of TreeView node/object of TreeView node/collection of ID/object of TreeView nodes
 	*   @returns {void}
 	*/
-	uncheckNode(element: string|any|Array<any>): void;
+	uncheckNode(element: string|any|any[]): void;
 
 	/** To unselect all the TreeView nodes when enable allowMultiSelection property.
 	*   @returns {void}
@@ -19088,7 +19026,7 @@ class TreeView extends ej.Widget {
 	*   @param {string|any|Array<any>} ID of TreeView node/object of TreeView node/ collection of ID/object of TreeView nodes
 	*   @returns {void}
 	*/
-	unselectNode(element: string|any|Array<any>): void;
+	unselectNode(element: string|any|any[]): void;
 
 	/** To edit or update the text of the TreeView node.
 	*   @param {string|any} ID of TreeView node/object of TreeView node
@@ -19097,7 +19035,7 @@ class TreeView extends ej.Widget {
 	*/
 	updateText(target: string|any, newText: string): void;
 }
-export module TreeView{
+export namespace TreeView {
 
 export interface Model {
 
@@ -19149,7 +19087,7 @@ export interface Model {
 	/** Gets or sets a value that indicates the checkedNodes index collection as an array. The given array index position denotes the nodes, that are checked while rendering TreeView.
 	*   @Default {[]}
 	*/
-	checkedNodes?: Array<any>;
+	checkedNodes?: any[];
 
 	/** Sets the root CSS class for TreeView which allow us to customize the appearance.
 	*/
@@ -19183,7 +19121,7 @@ export interface Model {
 	/** Gets or sets a array of value that indicates the expandedNodes index collection as an array. The given array index position denotes the nodes, that are expanded while rendering TreeView.
 	*   @Default {[]}
 	*/
-	expandedNodes?: Array<any>;
+	expandedNodes?: any[];
 
 	/** Gets or sets a value that indicates the TreeView node can be expand or collapse by using the specified action.
 	*   @Default {dblclick}
@@ -19223,7 +19161,7 @@ export interface Model {
 	/** Gets or sets a value that indicates the selectedNodes index collection as an array. The given array index position denotes the nodes, that are selected while rendering TreeView.
 	*   @Default {[]}
 	*/
-	selectedNodes?: Array<any>;
+	selectedNodes?: any[];
 
 	/** Gets or sets a value that indicates whether to display or hide checkbox for all TreeView nodes.
 	*   @Default {false}
@@ -19245,100 +19183,100 @@ export interface Model {
 	width?: string|number;
 
 	/** Fires before adding node to TreeView. */
-	beforeAdd? (e: BeforeAddEventArgs): void;
+	beforeAdd?(e: BeforeAddEventArgs): void;
 
 	/** Fires before collapse a node. */
-	beforeCollapse? (e: BeforeCollapseEventArgs): void;
+	beforeCollapse?(e: BeforeCollapseEventArgs): void;
 
 	/** Fires before cut node in TreeView. */
-	beforeCut? (e: BeforeCutEventArgs): void;
+	beforeCut?(e: BeforeCutEventArgs): void;
 
 	/** Fires before deleting node in TreeView. */
-	beforeDelete? (e: BeforeDeleteEventArgs): void;
+	beforeDelete?(e: BeforeDeleteEventArgs): void;
 
 	/** Fires before editing the node in TreeView. */
-	beforeEdit? (e: BeforeEditEventArgs): void;
+	beforeEdit?(e: BeforeEditEventArgs): void;
 
 	/** Fires before expanding the node. */
-	beforeExpand? (e: BeforeExpandEventArgs): void;
+	beforeExpand?(e: BeforeExpandEventArgs): void;
 
 	/** Fires before loading nodes to TreeView. */
-	beforeLoad? (e: BeforeLoadEventArgs): void;
+	beforeLoad?(e: BeforeLoadEventArgs): void;
 
 	/** Fires before paste node in TreeView. */
-	beforePaste? (e: BeforePasteEventArgs): void;
+	beforePaste?(e: BeforePasteEventArgs): void;
 
 	/** Fires before selecting node in TreeView. */
-	beforeSelect? (e: BeforeSelectEventArgs): void;
+	beforeSelect?(e: BeforeSelectEventArgs): void;
 
 	/** Fires when TreeView created successfully. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when TreeView destroyed successfully. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires before nodeEdit Successful. */
-	inlineEditValidation? (e: InlineEditValidationEventArgs): void;
+	inlineEditValidation?(e: InlineEditValidationEventArgs): void;
 
 	/** Fires when key pressed successfully. */
-	keyPress? (e: KeyPressEventArgs): void;
+	keyPress?(e: KeyPressEventArgs): void;
 
 	/** Fires when data load fails. */
-	loadError? (e: LoadErrorEventArgs): void;
+	loadError?(e: LoadErrorEventArgs): void;
 
 	/** Fires when data loaded successfully. */
-	loadSuccess? (e: LoadSuccessEventArgs): void;
+	loadSuccess?(e: LoadSuccessEventArgs): void;
 
 	/** Fires once node added successfully. */
-	nodeAdd? (e: NodeAddEventArgs): void;
+	nodeAdd?(e: NodeAddEventArgs): void;
 
 	/** Fires once node checked successfully. */
-	nodeCheck? (e: NodeCheckEventArgs): void;
+	nodeCheck?(e: NodeCheckEventArgs): void;
 
 	/** Fires when node clicked successfully. */
-	nodeClick? (e: NodeClickEventArgs): void;
+	nodeClick?(e: NodeClickEventArgs): void;
 
 	/** Fires when node collapsed successfully. */
-	nodeCollapse? (e: NodeCollapseEventArgs): void;
+	nodeCollapse?(e: NodeCollapseEventArgs): void;
 
 	/** Fires when node cut successfully. */
-	nodeCut? (e: NodeCutEventArgs): void;
+	nodeCut?(e: NodeCutEventArgs): void;
 
 	/** Fires when node deleted successfully. */
-	nodeDelete? (e: NodeDeleteEventArgs): void;
+	nodeDelete?(e: NodeDeleteEventArgs): void;
 
 	/** Fires when node dragging. */
-	nodeDrag? (e: NodeDragEventArgs): void;
+	nodeDrag?(e: NodeDragEventArgs): void;
 
 	/** Fires once node drag start successfully. */
-	nodeDragStart? (e: NodeDragStartEventArgs): void;
+	nodeDragStart?(e: NodeDragStartEventArgs): void;
 
 	/** Fires before the dragged node to be dropped. */
-	nodeDragStop? (e: NodeDragStopEventArgs): void;
+	nodeDragStop?(e: NodeDragStopEventArgs): void;
 
 	/** Fires once node dropped successfully. */
-	nodeDropped? (e: NodeDroppedEventArgs): void;
+	nodeDropped?(e: NodeDroppedEventArgs): void;
 
 	/** Fires once node edited successfully. */
-	nodeEdit? (e: NodeEditEventArgs): void;
+	nodeEdit?(e: NodeEditEventArgs): void;
 
 	/** Fires once node expanded successfully. */
-	nodeExpand? (e: NodeExpandEventArgs): void;
+	nodeExpand?(e: NodeExpandEventArgs): void;
 
 	/** Fires once node pasted successfully. */
-	nodePaste? (e: NodePasteEventArgs): void;
+	nodePaste?(e: NodePasteEventArgs): void;
 
 	/** Fires when node selected successfully. */
-	nodeSelect? (e: NodeSelectEventArgs): void;
+	nodeSelect?(e: NodeSelectEventArgs): void;
 
 	/** Fires once node unchecked successfully. */
-	nodeUncheck? (e: NodeUncheckEventArgs): void;
+	nodeUncheck?(e: NodeUncheckEventArgs): void;
 
 	/** Fires once node unselected successfully. */
-	nodeUnselect? (e: NodeUnselectEventArgs): void;
+	nodeUnselect?(e: NodeUnselectEventArgs): void;
 
 	/** Fires when TreeView nodes are loaded successfully */
-	ready? (e: ReadyEventArgs): void;
+	ready?(e: ReadyEventArgs): void;
 }
 
 export interface BeforeAddEventArgs {
@@ -19402,7 +19340,7 @@ export interface BeforeCollapseEventArgs {
 	*/
 	parentId?: string;
 
-	/** returns the format asynchronous or synchronous 
+	/** returns the format asynchronous or synchronous
 	*/
 	async?: boolean;
 }
@@ -19474,7 +19412,7 @@ export interface BeforeDeleteEventArgs {
 
 	/** returns the currently removed nodes
 	*/
-	removedNodes?: Array<any>;
+	removedNodes?: any[];
 }
 
 export interface BeforeEditEventArgs {
@@ -19530,7 +19468,7 @@ export interface BeforeExpandEventArgs {
 	*/
 	parentId?: string;
 
-	/** returns the format asynchronous or synchronous 
+	/** returns the format asynchronous or synchronous
 	*/
 	async?: boolean;
 }
@@ -19829,11 +19767,11 @@ export interface NodeCheckEventArgs {
 
 	/** it returns the currently checked node name
 	*/
-	currentNode?: Array<any>;
+	currentNode?: any[];
 
 	/** it returns the currently checked and its child node details
 	*/
-	currentCheckedNodes?: Array<any>;
+	currentCheckedNodes?: any[];
 }
 
 export interface NodeClickEventArgs {
@@ -19901,7 +19839,7 @@ export interface NodeCollapseEventArgs {
 	*/
 	isChildLoaded?: boolean;
 
-	/** returns the format asynchronous or synchronous 
+	/** returns the format asynchronous or synchronous
 	*/
 	async?: boolean;
 }
@@ -19965,7 +19903,7 @@ export interface NodeDeleteEventArgs {
 
 	/** returns the currently removed nodes
 	*/
-	removedNodes?: Array<any>;
+	removedNodes?: any[];
 }
 
 export interface NodeDragEventArgs {
@@ -20205,7 +20143,7 @@ export interface NodeExpandEventArgs {
 	*/
 	parentId?: string;
 
-	/** returns the format asynchronous or synchronous 
+	/** returns the format asynchronous or synchronous
 	*/
 	async?: boolean;
 }
@@ -20265,7 +20203,7 @@ export interface NodeSelectEventArgs {
 
 	/** returns the current selected nodes index of TreeView
 	*/
-	selectedNodes?: Array<any>;
+	selectedNodes?: any[];
 
 	/** returns the value of the node
 	*/
@@ -20320,7 +20258,7 @@ export interface NodeUncheckEventArgs {
 
 	/** it returns currently unchecked node and its child node details.
 	*/
-	currentUncheckedNodes?: Array<any>;
+	currentUncheckedNodes?: any[];
 }
 
 export interface NodeUnselectEventArgs {
@@ -20347,7 +20285,7 @@ export interface NodeUnselectEventArgs {
 
 	/** returns the current selected nodes index of TreeView
 	*/
-	selectedNodes?: Array<any>;
+	selectedNodes?: any[];
 
 	/** returns the name of the event
 	*/
@@ -20453,8 +20391,7 @@ export interface SortSettings {
 	sortOrder?: ej.sortOrder|string;
 }
 }
-enum sortOrder
-{
+enum sortOrder {
 //Enum for Ascending sort order
 Ascending,
 //Enum for Descending sort order
@@ -20463,11 +20400,10 @@ Descending,
 
 class Uploadbox extends ej.Widget {
 	static fn: Uploadbox;
-	constructor(element: JQuery, options?: Uploadbox.Model);
-	constructor(element: Element, options?: Uploadbox.Model);
+	constructor(element: JQuery | Element, options?: Uploadbox.Model);
 	static Locale: any;
-	model:Uploadbox.Model;
-	defaults:Uploadbox.Model;
+	model: Uploadbox.Model;
+	defaults: Uploadbox.Model;
 
 	/** The destroy method destroys the control and brings the control to a pre-init state. All the events of the Upload control is bound by using this._on unbinds automatically.
 	*   @returns {void}
@@ -20489,7 +20425,7 @@ class Uploadbox extends ej.Widget {
 	*/
 	refresh(): void;
 }
-export module Uploadbox{
+export namespace Uploadbox {
 
 export interface Model {
 
@@ -20633,37 +20569,37 @@ export interface Model {
 	width?: string;
 
 	/** Fires when the upload progress beforeSend. */
-	beforeSend? (e: BeforeSendEventArgs): void;
+	beforeSend?(e: BeforeSendEventArgs): void;
 
 	/** Fires when the upload progress begins. */
-	begin? (e: BeginEventArgs): void;
+	begin?(e: BeginEventArgs): void;
 
 	/** Fires when the upload progress is cancelled. */
-	cancel? (e: CancelEventArgs): void;
+	cancel?(e: CancelEventArgs): void;
 
 	/** Fires when the file upload progress is completed. */
-	complete? (e: CompleteEventArgs): void;
+	complete?(e: CompleteEventArgs): void;
 
 	/** Fires when the file upload progress is succeeded. */
-	success? (e: SuccessEventArgs): void;
+	success?(e: SuccessEventArgs): void;
 
 	/** Fires when the Uploadbox control is created. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when the Uploadbox control is destroyed. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires when the Upload process ends in Error. */
-	error? (e: ErrorEventArgs): void;
+	error?(e: ErrorEventArgs): void;
 
 	/** Fires when the file is selected for upload successfully. */
-	fileSelect? (e: FileSelectEventArgs): void;
+	fileSelect?(e: FileSelectEventArgs): void;
 
 	/** Fires when the file is uploading. */
-	inProgress? (e: InProgressEventArgs): void;
+	inProgress?(e: InProgressEventArgs): void;
 
 	/** Fires when the uploaded file is removed successfully. */
-	remove? (e: RemoveEventArgs): void;
+	remove?(e: RemoveEventArgs): void;
 }
 
 export interface BeforeSendEventArgs {
@@ -20966,11 +20902,10 @@ export interface DialogText {
 
 class WaitingPopup extends ej.Widget {
 	static fn: WaitingPopup;
-	constructor(element: JQuery, options?: WaitingPopup.Model);
-	constructor(element: Element, options?: WaitingPopup.Model);
+	constructor(element: JQuery | Element, options?: WaitingPopup.Model);
 	static Locale: any;
-	model:WaitingPopup.Model;
-	defaults:WaitingPopup.Model;
+	model: WaitingPopup.Model;
+	defaults: WaitingPopup.Model;
 
 	/** To hide the waiting popup
 	*   @returns {void}
@@ -20987,7 +20922,7 @@ class WaitingPopup extends ej.Widget {
 	*/
 	show(): void;
 }
-export module WaitingPopup{
+export namespace WaitingPopup {
 
 export interface Model {
 
@@ -21032,10 +20967,10 @@ export interface Model {
 	text?: string;
 
 	/** Fires after Create WaitingPopup successfully */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires after Destroy WaitingPopup successfully */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 }
 
 export interface CreateEventArgs {
@@ -21071,29 +21006,28 @@ export interface DestroyEventArgs {
 
 class Grid extends ej.Widget {
 	static fn: Grid;
-	constructor(element: JQuery, options?: Grid.Model);
-	constructor(element: Element, options?: Grid.Model);
+	constructor(element: JQuery | Element, options?: Grid.Model);
 	static Locale: any;
-	model:Grid.Model;
-	defaults:Grid.Model;
+	model: Grid.Model;
+	defaults: Grid.Model;
 
 	/** Adds a grid model property which is to be ignored upon exporting.
-	*   @param {Array<any>} Pass the array of parameters which need to be ignored on exporting 
+	*   @param {Array<any>} Pass the array of parameters which need to be ignored on exporting
 	*   @returns {void}
 	*/
-	addIgnoreOnExport(propertyNames: Array<any>): void;
+	addIgnoreOnExport(propertyNames: any[]): void;
 
 	/** Add a new record in grid control when allowAdding is set as true.
 	*   @returns {void}
 	*/
-	addRecord(): void;
+	//addRecord(): void;
 
 	/** Add a new record in grid control when allowAdding is set as true.
 	*   @param {Array<any>} Pass the array of added Records
 	*   @param {Array<any>} optionalIf we pass serverChange as true, send post to server side for server action.
 	*   @returns {void}
 	*/
-	addRecord(data: Array<any>, serverChange?: Array<any>): void;
+	addRecord(data: any[], serverChange?: any[]): void;
 
 	/** Cancel the modified changes in grid control when edit mode is &quot;batch&quot;.
 	*   @returns {void}
@@ -21118,20 +21052,20 @@ class Grid extends ej.Widget {
 	/** It is used to clear all the cell selection.
 	*   @returns {Boolean}
 	*/
-	clearCellSelection(): Boolean;
+	clearCellSelection(): boolean;
 
 	/** It is used to clear specified cell selection based on the rowIndex and columnIndex provided.
 	*   @param {number} It is used to pass the row index of the cell
 	*   @param {number} It is used to pass the column index of the cell.
 	*   @returns {Boolean}
 	*/
-	clearCellSelection(rowIndex: number, columnIndex: number): Boolean;
+	clearCellSelection(rowIndex: number, columnIndex: number): boolean;
 
 	/** It is used to clear all the row selection or at specific row selection based on the index provided.
 	*   @param {number} optional If index of the column is specified then it will remove the selection from the particular column else it will clears all of the column selection
 	*   @returns {Boolean}
 	*/
-	clearColumnSelection(index?: number): Boolean;
+	clearColumnSelection(index?: number): boolean;
 
 	/** It is used to clear all the filtering done.
 	*   @param {string}  If field of the column is specified then it will clear the  particular filtering column
@@ -21148,7 +21082,7 @@ class Grid extends ej.Widget {
 	*   @param {number} optional If index of the row is specified then it will remove the selection from the particular row else it will clears all of the row selection
 	*   @returns {Boolean}
 	*/
-	clearSelection(index?: number): Boolean;
+	clearSelection(index?: number): boolean;
 
 	/** Clear the sorting from columns in the grid
 	*   @returns {void}
@@ -21170,21 +21104,21 @@ class Grid extends ej.Widget {
 	*   @param {string} optional Pass add/remove action to be performed. By default "add" action will perform
 	*   @returns {void}
 	*/
-	columns(columnDetails: Array<any>|string, action?: string): void;
+	columns(columnDetails: any[]|string, action?: string): void;
 
 	/** Refresh the grid with new data source
 	*   @param {Array<any>} Pass new data source to the grid
 	*   @param {boolean} optional When templateRefresh is set true, both header and contents get refreshed
 	*   @returns {void}
 	*/
-	dataSource(datasource: Array<any>, templateRefresh?: boolean): void;
+	dataSource(datasource: any[], templateRefresh?: boolean): void;
 
 	/** Delete a record in grid control when allowDeleting is set as true
 	*   @param {string} Pass the primary key field Name of the column
 	*   @param {Array<any>} Pass the JSON data of record need to be delete.
 	*   @returns {void}
 	*/
-	deleteRecord(fieldName: string, data: Array<any>): void;
+	deleteRecord(fieldName: string, data: any[]): void;
 
 	/** Destroy the grid widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
 	*   @returns {void}
@@ -21226,15 +21160,7 @@ class Grid extends ej.Widget {
 	*   @param {Array<any>} optionalPass the array of the gridIds to be filtered
 	*   @returns {void}
 	*/
-	export(action: string, serverEvent?: string, multipleExport?: boolean, gridIds?: Array<any>): void;
-
-	/** Export the grid content to excel, word or PDF document.
-	*   @param {string} Pass the controller action name corresponding to exporting
-	*   @param {string} optionalASP server event name corresponding to exporting
-	*   @param {boolean} optionalPass the multiple exporting value as true/false
-	*   @returns {void}
-	*/
-	export(action: string, serverEvent?: string, multipleExport?: boolean): void;
+	export(action: string, serverEvent?: string, multipleExport?: boolean, gridIds?: any[]): void;
 
 	/** Send a filtering request to filter one column in grid.
 	*   @param {Array<any>} Pass the field name of the column
@@ -21245,13 +21171,13 @@ class Grid extends ej.Widget {
 	*   @param {any} optionalactualFilterValue denote the filter object of current filtered columns.Pass the value to filtered in a column
 	*   @returns {void}
 	*/
-	filterColumn(fieldName: Array<any>, filterOperator: string, filterValue: string, predicate: string, matchcase?: boolean, actualFilterValue?: any): void;
+	filterColumn(fieldName: any[], filterOperator: string, filterValue: string, predicate: string, matchcase?: boolean, actualFilterValue?: any): void;
 
 	/** Send a filtering request to filter single or multiple column in grid.
 	*   @param {Array<any>} Pass array of filterColumn query for performing filter operation
 	*   @returns {void}
 	*/
-	filterColumn(filterQueries: Array<any>): void;
+	filterColumn(filterQueries: any[]): void;
 
 	/** Get the batch changes of edit, delete and add operations of grid.
 	*   @returns {any}
@@ -21284,7 +21210,7 @@ class Grid extends ej.Widget {
 	/** Get the list of field names from column collection in grid.
 	*   @returns {Array<any>}
 	*/
-	getColumnFieldNames(): Array<any>;
+	getColumnFieldNames(): any[];
 
 	/** Get the column index of the given field in grid.
 	*   @param {string} Pass the field name of the column to get the corresponding column index
@@ -21300,7 +21226,7 @@ class Grid extends ej.Widget {
 	/** Get the content table element of grid
 	*   @returns {Array<HTMLTableElement>}
 	*/
-	getContentTable(): Array<HTMLTableElement>;
+	getContentTable(): HTMLTableElement[];
 
 	/** Get the data of currently edited cell value in &quot;batch&quot; edit mode
 	*   @returns {any}
@@ -21315,13 +21241,13 @@ class Grid extends ej.Widget {
 	/** Get the current page data source of grid.
 	*   @returns {Array<any>}
 	*/
-	getCurrentViewData(): Array<any>;
+	getCurrentViewData(): any[];
 
 	/** Get the column field name from the given header text in grid.
 	*   @param {string} Pass header text of the column to get its corresponding field name
 	*   @returns {String}
 	*/
-	getFieldNameByHeaderText(headerText: string): String;
+	getFieldNameByHeaderText(headerText: string): string;
 
 	/** Get the filter bar of grid
 	*   @returns {HTMLElement}
@@ -21331,7 +21257,7 @@ class Grid extends ej.Widget {
 	/** Get the records filtered or searched in Grid
 	*   @returns {Array<any>}
 	*/
-	getFilteredRecords(): Array<any>;
+	getFilteredRecords(): any[];
 
 	/** Get the footer content of grid.
 	*   @returns {HTMLElement}
@@ -21357,12 +21283,12 @@ class Grid extends ej.Widget {
 	*   @param {string} Pass field name of the column to get its corresponding header text
 	*   @returns {String}
 	*/
-	getHeaderTextByFieldName(field: string): String;
+	getHeaderTextByFieldName(field: string): string;
 
 	/** Get the names of all the hidden column collections in grid.
 	*   @returns {Array<any>}
 	*/
-	getHiddenColumnNames(): Array<any>;
+	getHiddenColumnNames(): any[];
 
 	/** Get the row index based on the given tr element in grid.
 	*   @param {JQuery} Pass the tr element in grid content to get its row index
@@ -21378,7 +21304,7 @@ class Grid extends ej.Widget {
 	/** Get the names of primary key columns in Grid
 	*   @returns {Array<any>}
 	*/
-	getPrimaryKeyFieldNames(): Array<any>;
+	getPrimaryKeyFieldNames(): any[];
 
 	/** Get the rows(tr element) from the given from and to row index in grid
 	*   @param {number} Pass the from index from which the rows to be returned
@@ -21405,19 +21331,19 @@ class Grid extends ej.Widget {
 	/** Get the selected records details in grid.
 	*   @returns {Array<any>}
 	*/
-	getSelectedRecords(): Array<any>;
+	getSelectedRecords(): any[];
 
 	/** Get the calculated summary values of JSON data passed to it
 	*   @param {any} Pass Summary Column details
 	*   @param {any} Pass JSON Array for which its field values to be calculated
 	*   @returns {Number}
 	*/
-	getSummaryValues(summaryCol: any, summaryData: any): Number;
+	getSummaryValues(summaryCol: any, summaryData: any): number;
 
 	/** Get the names of all the visible column collections in grid
 	*   @returns {Array<any>}
 	*/
-	getVisibleColumnNames(): Array<any>;
+	getVisibleColumnNames(): any[];
 
 	/** Send a paging request to specified page in grid
 	*   @param {number} Pass the page index to perform paging at specified page index
@@ -21435,7 +21361,7 @@ class Grid extends ej.Widget {
 	*   @param {Array<any>|string} you can pass either array of header text of various columns or a header text of a column to hide
 	*   @returns {void}
 	*/
-	hideColumns(headerText: Array<any>|string): void;
+	hideColumns(headerText: any[]|string): void;
 
 	/** Print the grid control
 	*   @returns {void}
@@ -21472,7 +21398,7 @@ class Grid extends ej.Widget {
 	*   @param {Array<any>|string} Pass array of field names of the columns to remove a collection of sorted columns or pass a string of field name to remove a column from sorted column collections
 	*   @returns {void}
 	*/
-	removeSortedColumns(fieldName: Array<any>|string): void;
+	removeSortedColumns(fieldName: any[]|string): void;
 
 	/** Creates a grid control
 	*   @returns {void}
@@ -21506,10 +21432,10 @@ class Grid extends ej.Widget {
 	/** Save the particular edited cell in grid.
 	*   @returns {void}
 	*/
-	saveCell(): void;
+	//saveCell(): void;
 
 	/** We can prevent the client side cellSave event triggering by passing the preventSaveEvent argument as true.
-	*   @param {boolean} optionalIf we pass preventSaveEvent as true, it prevents the client side cellSave event triggering 
+	*   @param {boolean} optionalIf we pass preventSaveEvent as true, it prevents the client side cellSave event triggering
 	*   @returns {void}
 	*/
 	saveCell(preventSaveEvent: boolean): void;
@@ -21549,7 +21475,7 @@ class Grid extends ej.Widget {
 	*   @param {number} optionalIt is used to set the ending index of column for selecting columns.
 	*   @returns {Boolean}
 	*/
-	selectColumns(columnIndex: number, toIndex?: number): Boolean;
+	selectColumns(columnIndex: number, toIndex?: number): boolean;
 
 	/** Select rows in grid.
 	*   @param {number} It is used to set the starting index of row for selecting rows.
@@ -21564,13 +21490,13 @@ class Grid extends ej.Widget {
 	*   @param {any} optionalTarget element which is clicked.
 	*   @returns {void}
 	*/
-	selectRows(from: Array<any>|number, to: number, target?: any): void;
+	selectRows(from: any[]|number, to: number, target?: any): void;
 
 	/** Select rows in grid.
 	*   @param {Array<any>} Pass array of rowIndexes for selecting rows
 	*   @returns {void}
 	*/
-	selectRows(rowIndexes: Array<any>): void;
+	selectRows(rowIndexes: any[]): void;
 
 	/** Used to update a particular cell value.
 	*   @returns {void}
@@ -21602,7 +21528,7 @@ class Grid extends ej.Widget {
 	*   @param {Array<any>|string} you can pass either array of header text of various columns or a header text of a column to show
 	*   @returns {void}
 	*/
-	showColumns(headerText: Array<any>|string): void;
+	showColumns(headerText: any[]|string): void;
 
 	/** Send a sorting request in grid.
 	*   @param {string} Pass the field name of the column as columnName for which sorting have to be performed
@@ -21628,100 +21554,100 @@ class Grid extends ej.Widget {
 	*   @param {Array<any>} Pass the edited JSON data of record need to be update.
 	*   @returns {void}
 	*/
-	updateRecord(fieldName: string, data: Array<any>): void;
+	updateRecord(fieldName: string, data: any[]): void;
 
 	/** It adapts grid to its parent element or to the browsers window.
 	*   @returns {void}
 	*/
 	windowonresize(): void;
 }
-export module Grid{
+export namespace Grid {
 
 export interface Model {
 
 	/** Gets or sets a value that indicates whether to customizing cell based on our needs.
 	*   @Default {false}
 	*/
-	allowCellMerging?: Boolean;
+	allowCellMerging?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable dynamic grouping behavior. Grouping can be done by drag on drop desired columns to gridâ€™s GroupDropArea. This can be further customized through â€œgroupSettingsâ€ property.
 	*   @Default {false}
 	*/
-	allowGrouping?: Boolean;
+	allowGrouping?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable keyboard support for performing grid actions. selectionType â€“ Gets or sets a value that indicates whether to enable single row or multiple rows selection behavior in grid. Multiple selection can be done through by holding CTRL and clicking the grid rows
 	*   @Default {true}
 	*/
-	allowKeyboardNavigation?: Boolean;
+	allowKeyboardNavigation?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable dynamic filtering behavior on grid. Filtering can be used to limit the records displayed using required criteria and this can be further customized through â€œfilterSettingsâ€ property
 	*   @Default {false}
 	*/
-	allowFiltering?: Boolean;
+	allowFiltering?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable the dynamic sorting behavior on grid data. Sorting can be done through clicking on particular column header.
 	*   @Default {false}
 	*/
-	allowSorting?: Boolean;
+	allowSorting?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable multi columns sorting behavior in grid. Sort multiple columns by holding CTRL and click on the corresponding column header.
 	*   @Default {false}
 	*/
-	allowMultiSorting?: Boolean;
+	allowMultiSorting?: boolean;
 
 	/** This specifies the grid to show the paginated data. Also enables pager control at the bottom of grid for dynamic navigation through data source. Paging can be further customized through â€œpageSettingsâ€ property.
 	*   @Default {false}
 	*/
-	allowPaging?: Boolean;
+	allowPaging?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable the columns reordering behavior in the grid. Reordering can be done through by drag and drop the particular column from one index to another index within the grid.
 	*   @Default {false}
 	*/
-	allowReordering?: Boolean;
+	allowReordering?: boolean;
 
 	/** Gets or sets a value that indicates whether the column is non resizable. Column width is set automatically based on the content or header text which is large.
 	*   @Default {false}
 	*/
-	allowResizeToFit?: Boolean;
+	allowResizeToFit?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable dynamic resizable of columns. Resize the width of the columns by simply click and move the particular column header line
 	*   @Default {false}
 	*/
-	allowResizing?: Boolean;
+	allowResizing?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable the rows reordering in Grid and drag &amp; drop rows between multiple Grid.
 	*   @Default {false}
 	*/
-	allowRowDragAndDrop?: Boolean;
+	allowRowDragAndDrop?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable the scrollbar in the grid and view the records by scroll through the grid manually
 	*   @Default {false}
 	*/
-	allowScrolling?: Boolean;
+	allowScrolling?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable dynamic searching behavior in grid. Currently search box can be enabled through â€œtoolbarSettingsâ€
 	*   @Default {false}
 	*/
-	allowSearching?: Boolean;
+	allowSearching?: boolean;
 
 	/** Gets or sets a value that indicates whether user can select rows on grid. On enabling feature, selected row will be highlighted.
 	*   @Default {true}
 	*/
-	allowSelection?: Boolean;
+	allowSelection?: boolean;
 
 	/** Gets or sets a value that indicates whether the Content will wrap to the next line if the content exceeds the boundary of the Column Cells.
 	*   @Default {false}
 	*/
-	allowTextWrap?: Boolean;
+	allowTextWrap?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable the multiple exporting behavior on grid data.
 	*   @Default {false}
 	*/
-	allowMultipleExporting?: Boolean;
+	allowMultipleExporting?: boolean;
 
 	/** Gets or sets a value that indicates to define common width for all the columns in the grid.
 	*/
-	commonWidth?: Number;
+	commonWidth?: number;
 
 	/** Gets or sets a value that indicates to enable the visibility of the grid lines.
 	*   @Default {ej.Grid.GridLines.Both}
@@ -21741,7 +21667,7 @@ export interface Model {
 	/** Gets or sets an object that indicates to render the grid with specified columns
 	*   @Default {[]}
 	*/
-	columns?: Array<Column>;
+	columns?: Column[];
 
 	/** Gets or sets an object that indicates whether to customize the context menu behavior of the grid.
 	*/
@@ -21749,7 +21675,7 @@ export interface Model {
 
 	/** Gets or sets a value that indicates to render the grid with custom theme.
 	*/
-	cssClass?: String;
+	cssClass?: string;
 
 	/** Gets or sets the data to render the grid with records
 	*   @Default {null}
@@ -21759,7 +21685,7 @@ export interface Model {
 	/** Default Value:
 	*   @Default {null}
 	*/
-	detailsTemplate?: String;
+	detailsTemplate?: string;
 
 	/** Gets or sets an object that indicates whether to customize the editing behavior of the grid.
 	*/
@@ -21768,42 +21694,42 @@ export interface Model {
 	/** Gets or sets a value that indicates whether to enable the alternative rows differentiation in the grid records based on corresponding theme.
 	*   @Default {true}
 	*/
-	enableAltRow?: Boolean;
+	enableAltRow?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable the save action in the grid through row selection
 	*   @Default {true}
 	*/
-	enableAutoSaveOnSelectionChange?: Boolean;
+	enableAutoSaveOnSelectionChange?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable mouse over effect on the corresponding column header cell of the grid
 	*   @Default {false}
 	*/
-	enableHeaderHover?: Boolean;
+	enableHeaderHover?: boolean;
 
 	/** Gets or sets a value that indicates whether to persist the grid model state in page using applicable medium i.e., HTML5 localStorage or cookies
 	*   @Default {false}
 	*/
-	enablePersistence?: Boolean;
+	enablePersistence?: boolean;
 
 	/** Gets or sets a value that indicates whether the grid rows has to be rendered as detail view in mobile mode
 	*   @Default {false}
 	*/
-	enableResponsiveRow?: Boolean;
+	enableResponsiveRow?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable mouse over effect on corresponding grid row.
 	*   @Default {true}
 	*/
-	enableRowHover?: Boolean;
+	enableRowHover?: boolean;
 
 	/** Align content in the grid control from right to left by setting the property as true.
 	*   @Default {false}
 	*/
-	enableRTL?: Boolean;
+	enableRTL?: boolean;
 
 	/** To Disable the mouse swipe property as false.
 	*   @Default {true}
 	*/
-	enableTouch?: Boolean;
+	enableTouch?: boolean;
 
 	/** Act as mapper for the excel exporting URL.
 	*   @Default {ExportToExcel}
@@ -21831,7 +21757,7 @@ export interface Model {
 	/** Gets or sets a value that indicates whether the grid design has be to made responsive.
 	*   @Default {false}
 	*/
-	isResponsive?: Boolean;
+	isResponsive?: boolean;
 
 	/** This specifies to change the key in keyboard interaction to grid control
 	*   @Default {null}
@@ -21841,12 +21767,12 @@ export interface Model {
 	/** Gets or sets a value that indicates whether to customizing the user interface (UI) as locale-specific in order to display regional data i.e. in a language and culture specific to a particular country or region.
 	*   @Default {en-US}
 	*/
-	locale?: String;
+	locale?: string;
 
 	/** Gets or sets a value that indicates whether to set the minimum width of the responsive grid while isResponsive property is true and enableResponsiveRow property is set as false.
 	*   @Default {0}
 	*/
-	minWidth?: Number;
+	minWidth?: number;
 
 	/** Gets or sets an object that indicates whether to modify the pager default configuration.
 	*/
@@ -21864,7 +21790,7 @@ export interface Model {
 	/** Gets or sets a value that indicates to render the grid with template rows. The template row must be a table row. That table row must have the JavaScript render binding format ({{:columnName}}) then the grid data source binds the data to the corresponding table row of the template.
 	*   @Default {null}
 	*/
-	rowTemplate?: String;
+	rowTemplate?: string;
 
 	/** Gets or sets an object that indicates whether to customize the drag and drop behavior of the grid rows
 	*/
@@ -21877,17 +21803,17 @@ export interface Model {
 	/** Gets a value that indicates whether the grid model to hold multiple selected records . selectedRecords can be used to displayed hold the single or multiple selected records using â€œselectedRecordsâ€ property
 	*   @Default {null}
 	*/
-	selectedRecords?: Array<any>;
+	selectedRecords?: any[];
 
 	/** Gets or sets a value that indicates to select the row while initializing the grid
 	*   @Default {-1}
 	*/
-	selectedRowIndex?: Number;
+	selectedRowIndex?: number;
 
 	/** Gets or sets a value that indicates the selected rows in grid
 	*   @Default {[]}
 	*/
-	selectedRowIndices?: Array<any>;
+	selectedRowIndices?: any[];
 
 	/** This property is used to configure the selection behavior of the grid.
 	*/
@@ -21905,17 +21831,17 @@ export interface Model {
 	/** Default Value:
 	*   @Default {false}
 	*/
-	showColumnChooser?: Boolean;
+	showColumnChooser?: boolean;
 
 	/** Gets or sets a value that indicates stacked header should be shown on grid layout when the property â€œstackedHeaderRowsâ€ is set.
 	*   @Default {false}
 	*/
-	showStackedHeader?: Boolean;
+	showStackedHeader?: boolean;
 
 	/** Gets or sets a value that indicates summary rows should be shown on grid layout when the property â€œsummaryRowsâ€ is set
 	*   @Default {false}
 	*/
-	showSummary?: Boolean;
+	showSummary?: boolean;
 
 	/** Gets or sets a value that indicates whether to customize the sorting behavior of the grid.
 	*/
@@ -21924,12 +21850,12 @@ export interface Model {
 	/** Gets or sets an object that indicates to managing the collection of stacked header rows for the grid.
 	*   @Default {[]}
 	*/
-	stackedHeaderRows?: Array<StackedHeaderRow>;
+	stackedHeaderRows?: StackedHeaderRow[];
 
 	/** Gets or sets an object that indicates to managing the collection of summary rows for the grid.
 	*   @Default {[]}
 	*/
-	summaryRows?: Array<SummaryRow>;
+	summaryRows?: SummaryRow[];
 
 	/** Gets or sets an object that indicates whether to auto wrap the grid header or content or both
 	*/
@@ -21940,160 +21866,160 @@ export interface Model {
 	toolbarSettings?: ToolbarSettings;
 
 	/** Triggered for every grid action before its starts. */
-	actionBegin? (e: ActionBeginEventArgs): void;
+	actionBegin?(e: ActionBeginEventArgs): void;
 
 	/** Triggered for every grid action success event. */
-	actionComplete? (e: ActionCompleteEventArgs): void;
+	actionComplete?(e: ActionCompleteEventArgs): void;
 
 	/** Triggered for every grid action server failure event. */
-	actionFailure? (e: ActionFailureEventArgs): void;
+	actionFailure?(e: ActionFailureEventArgs): void;
 
 	/** Triggered when record batch add. */
-	batchAdd? (e: BatchAddEventArgs): void;
+	batchAdd?(e: BatchAddEventArgs): void;
 
 	/** Triggered when record batch delete. */
-	batchDelete? (e: BatchDeleteEventArgs): void;
+	batchDelete?(e: BatchDeleteEventArgs): void;
 
 	/** Triggered before the batch add. */
-	beforeBatchAdd? (e: BeforeBatchAddEventArgs): void;
+	beforeBatchAdd?(e: BeforeBatchAddEventArgs): void;
 
 	/** Triggered before the batch delete. */
-	beforeBatchDelete? (e: BeforeBatchDeleteEventArgs): void;
+	beforeBatchDelete?(e: BeforeBatchDeleteEventArgs): void;
 
 	/** Triggered before the batch save. */
-	beforeBatchSave? (e: BeforeBatchSaveEventArgs): void;
+	beforeBatchSave?(e: BeforeBatchSaveEventArgs): void;
 
 	/** Triggered before the record is going to be edited. */
-	beginEdit? (e: BeginEditEventArgs): void;
+	beginEdit?(e: BeginEditEventArgs): void;
 
 	/** Triggered when record cell edit. */
-	cellEdit? (e: CellEditEventArgs): void;
+	cellEdit?(e: CellEditEventArgs): void;
 
 	/** Triggered when record cell save. */
-	cellSave? (e: CellSaveEventArgs): void;
+	cellSave?(e: CellSaveEventArgs): void;
 
 	/** Triggered after the cell is selected. */
-	cellSelected? (e: CellSelectedEventArgs): void;
+	cellSelected?(e: CellSelectedEventArgs): void;
 
 	/** Triggered before the cell is going to be selected. */
-	cellSelecting? (e: CellSelectingEventArgs): void;
+	cellSelecting?(e: CellSelectingEventArgs): void;
 
 	/** Triggered after the cell is deselected. */
-	cellDeselected? (e: CellDeselectedEventArgs): void;
+	cellDeselected?(e: CellDeselectedEventArgs): void;
 
 	/** Triggered before the cell is going to be deselected. */
-	cellDeselecting? (e: CellDeselectingEventArgs): void;
+	cellDeselecting?(e: CellDeselectingEventArgs): void;
 
 	/** Triggered when the column is being dragged. */
-	columnDrag? (e: ColumnDragEventArgs): void;
+	columnDrag?(e: ColumnDragEventArgs): void;
 
 	/** Triggered when column dragging begins. */
-	columnDragStart? (e: ColumnDragStartEventArgs): void;
+	columnDragStart?(e: ColumnDragStartEventArgs): void;
 
 	/** Triggered when the column is dropped. */
-	columnDrop? (e: ColumnDropEventArgs): void;
+	columnDrop?(e: ColumnDropEventArgs): void;
 
 	/** Triggered when the row is being dragged. */
-	rowDrag? (e: RowDragEventArgs): void;
+	rowDrag?(e: RowDragEventArgs): void;
 
 	/** Triggered when row dragging begins. */
-	rowDragStart? (e: RowDragStartEventArgs): void;
+	rowDragStart?(e: RowDragStartEventArgs): void;
 
 	/** Triggered when the row is dropped. */
-	rowDrop? (e: RowDropEventArgs): void;
+	rowDrop?(e: RowDropEventArgs): void;
 
 	/** Triggered after the column is selected. */
-	columnSelected? (e: ColumnSelectedEventArgs): void;
+	columnSelected?(e: ColumnSelectedEventArgs): void;
 
 	/** Triggered before the column is going to be selected. */
-	columnSelecting? (e: ColumnSelectingEventArgs): void;
+	columnSelecting?(e: ColumnSelectingEventArgs): void;
 
 	/** Triggered after the column is deselected. */
-	columnDeselected? (e: ColumnDeselectedEventArgs): void;
+	columnDeselected?(e: ColumnDeselectedEventArgs): void;
 
 	/** Triggered before the column is going to be deselected. */
-	columnDeselecting? (e: ColumnDeselectingEventArgs): void;
+	columnDeselecting?(e: ColumnDeselectingEventArgs): void;
 
 	/** Triggered when context menu item is clicked */
-	contextClick? (e: ContextClickEventArgs): void;
+	contextClick?(e: ContextClickEventArgs): void;
 
 	/** Triggered before the context menu is opened. */
-	contextOpen? (e: ContextOpenEventArgs): void;
+	contextOpen?(e: ContextOpenEventArgs): void;
 
 	/** Triggered when the grid is rendered completely. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Triggered when the grid is bound with data during initial rendering. */
-	dataBound? (e: DataBoundEventArgs): void;
+	dataBound?(e: DataBoundEventArgs): void;
 
 	/** Triggered when grid going to destroy. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Triggered when detail template row is clicked to collapse. */
-	detailsCollapse? (e: DetailsCollapseEventArgs): void;
+	detailsCollapse?(e: DetailsCollapseEventArgs): void;
 
 	/** Triggered detail template row is initialized. */
-	detailsDataBound? (e: DetailsDataBoundEventArgs): void;
+	detailsDataBound?(e: DetailsDataBoundEventArgs): void;
 
 	/** Triggered when detail template row is clicked to expand. */
-	detailsExpand? (e: DetailsExpandEventArgs): void;
+	detailsExpand?(e: DetailsExpandEventArgs): void;
 
 	/** Triggered after the record is added. */
-	endAdd? (e: EndAddEventArgs): void;
+	endAdd?(e: EndAddEventArgs): void;
 
 	/** Triggered after the record is deleted. */
-	endDelete? (e: EndDeleteEventArgs): void;
+	endDelete?(e: EndDeleteEventArgs): void;
 
 	/** Triggered after the record is edited. */
-	endEdit? (e: EndEditEventArgs): void;
+	endEdit?(e: EndEditEventArgs): void;
 
 	/** Triggered initial load. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Triggered every time a request is made to access particular cell information, element and data. */
-	mergeCellInfo? (e: MergeCellInfoEventArgs): void;
+	mergeCellInfo?(e: MergeCellInfoEventArgs): void;
 
 	/** Triggered every time a request is made to access particular cell information, element and data. */
-	queryCellInfo? (e: QueryCellInfoEventArgs): void;
+	queryCellInfo?(e: QueryCellInfoEventArgs): void;
 
 	/** Triggered when record is clicked. */
-	recordClick? (e: RecordClickEventArgs): void;
+	recordClick?(e: RecordClickEventArgs): void;
 
 	/** Triggered when record is double clicked. */
-	recordDoubleClick? (e: RecordDoubleClickEventArgs): void;
+	recordDoubleClick?(e: RecordDoubleClickEventArgs): void;
 
 	/** Triggered after column resized. */
-	resized? (e: ResizedEventArgs): void;
+	resized?(e: ResizedEventArgs): void;
 
 	/** Triggered when column resize end. */
-	resizeEnd? (e: ResizeEndEventArgs): void;
+	resizeEnd?(e: ResizeEndEventArgs): void;
 
 	/** Triggered when column resize start. */
-	resizeStart? (e: ResizeStartEventArgs): void;
+	resizeStart?(e: ResizeStartEventArgs): void;
 
 	/** Triggered when right clicked on grid element. */
-	rightClick? (e: RightClickEventArgs): void;
+	rightClick?(e: RightClickEventArgs): void;
 
 	/** Triggered every time a request is made to access row information, element and data. */
-	rowDataBound? (e: RowDataBoundEventArgs): void;
+	rowDataBound?(e: RowDataBoundEventArgs): void;
 
 	/** Triggered after the row is selected. */
-	rowSelected? (e: RowSelectedEventArgs): void;
+	rowSelected?(e: RowSelectedEventArgs): void;
 
 	/** Triggered before the row is going to be selected. */
-	rowSelecting? (e: RowSelectingEventArgs): void;
+	rowSelecting?(e: RowSelectingEventArgs): void;
 
 	/** Triggered after the row is deselected. */
-	rowDeselected? (e: RowDeselectedEventArgs): void;
+	rowDeselected?(e: RowDeselectedEventArgs): void;
 
 	/** Triggered before the row is going to be deselected. */
-	rowDeselecting? (e: RowDeselectingEventArgs): void;
+	rowDeselecting?(e: RowDeselectingEventArgs): void;
 
 	/** Triggered when refresh the template column elements in the Grid. */
-	templateRefresh? (e: TemplateRefreshEventArgs): void;
+	templateRefresh?(e: TemplateRefreshEventArgs): void;
 
 	/** Triggered when toolbar item is clicked in grid. */
-	toolbarClick? (e: ToolbarClickEventArgs): void;
+	toolbarClick?(e: ToolbarClickEventArgs): void;
 }
 
 export interface ActionBeginEventArgs {
@@ -22705,7 +22631,7 @@ export interface CellSelectedEventArgs {
 
 	/** Returns the selected row cell index values.
 	*/
-	selectedRowCellIndex?: Array<any>;
+	selectedRowCellIndex?: any[];
 
 	/** Returns the cancel option value.
 	*/
@@ -23011,7 +22937,7 @@ export interface ColumnSelectedEventArgs {
 
 	/** Returns the selected columns values.
 	*/
-	selectedColumnsIndex?: Array<any>;
+	selectedColumnsIndex?: any[];
 
 	/** Returns the cancel option value.
 	*/
@@ -23391,15 +23317,15 @@ export interface MergeCellInfoEventArgs {
 
 	/** Method to merge Grid rows.
 	*/
-	rowMerge?: void;
+	rowMerge?: any;
 
 	/** Method to merge Grid columns.
 	*/
-	colMerge?: void;
+	colMerge?: any;
 
 	/** Method to merge Grid rows and columns.
 	*/
-	merge?: void;
+	merge?: any;
 
 	/** Returns the grid model.
 	*/
@@ -23937,36 +23863,36 @@ export interface Column {
 	/** Gets or sets a value that indicates whether to enable editing behavior for particular column.
 	*   @Default {true}
 	*/
-	allowEditing?: Boolean;
+	allowEditing?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable dynamic filtering behavior for particular column.
 	*   @Default {true}
 	*/
-	allowFiltering?: Boolean;
+	allowFiltering?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable dynamic grouping behavior for particular column.
 	*   @Default {true}
 	*/
-	allowGrouping?: Boolean;
+	allowGrouping?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable dynamic sorting behavior for particular column.
 	*   @Default {true}
 	*/
-	allowSorting?: Boolean;
+	allowSorting?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable dynamic resizable for particular column.
 	*   @Default {true}
 	*/
-	allowResizing?: Boolean;
+	allowResizing?: boolean;
 
 	/** Gets or sets an object that indicates to define a command column in the grid.
 	*   @Default {[]}
 	*/
-	commands?: Array<ColumnsCommand>;
+	commands?: ColumnsCommand[];
 
 	/** Gets or sets a value that indicates to provide custom CSS for an individual column.
 	*/
-	cssClass?: String;
+	cssClass?: string;
 
 	/** Gets or sets a value that indicates the attribute values to the td element of a particular column
 	*/
@@ -23975,21 +23901,21 @@ export interface Column {
 	/** Gets or sets a value that indicates to bind the external datasource to the particular column when column editType as dropdownedit and also it is used to bind the datasource to the foreign key column while editing the grid. //Where data is array of JSON objects of text and value for the drop-down and array of JSON objects for foreign key column.
 	*   @Default {null}
 	*/
-	dataSource?: Array<any>;
+	dataSource?: any[];
 
 	/** Gets or sets a value that indicates to display the specified default value while adding a new record to the grid
 	*/
-	defaultValue?: String|Number|Boolean|Date;
+	defaultValue?: string|number|boolean|Date;
 
 	/** Gets or sets a value that indicates to render the grid content and header with an HTML elements
 	*   @Default {false}
 	*/
-	disableHtmlEncode?: Boolean;
+	disableHtmlEncode?: boolean;
 
 	/** Gets or sets a value that indicates to display a column value as checkbox or string
 	*   @Default {true}
 	*/
-	displayAsCheckBox?: Boolean;
+	displayAsCheckBox?: boolean;
 
 	/** Gets or sets a value that indicates to customize ejNumericTextbox of an editable column. See editingType
 	*/
@@ -24008,11 +23934,11 @@ export interface Column {
 	/** Gets or sets a value that indicates to groups the column based on its column format.
 	*   @Default {false}
 	*/
-	enableGroupByFormat?: Boolean;
+	enableGroupByFormat?: boolean;
 
 	/** Gets or sets a value that indicates to display the columns in the grid mapping with column name of the dataSource.
 	*/
-	field?: String;
+	field?: string;
 
 	/** Gets or sets a template that customize the filter control from default . See filterBarTemplate
 	*   @Default {null}
@@ -24022,25 +23948,25 @@ export interface Column {
 	/** Gets or sets a value that indicates to define foreign key field name of the grid datasource.
 	*   @Default {null}
 	*/
-	foreignKeyField?: String;
+	foreignKeyField?: string;
 
 	/** Gets or sets a value that indicates to bind the field which is in foreign column datasource based on the foreignKeyField
 	*   @Default {null}
 	*/
-	foreignKeyValue?: String;
+	foreignKeyValue?: string;
 
 	/** Gets or sets a value that indicates the format for the text applied on the column
 	*/
-	format?: String;
+	format?: string;
 
 	/** Gets or sets a value that indicates to add the template within the header element of the particular column.
 	*   @Default {null}
 	*/
-	headerTemplateID?: String;
+	headerTemplateID?: string;
 
 	/** Gets or sets a value that indicates to display the title of that particular column.
 	*/
-	headerText?: String;
+	headerText?: string;
 
 	/** This defines the text alignment of a particular column header cell value. See headerTextAlign
 	*   @Default {null}
@@ -24050,37 +23976,37 @@ export interface Column {
 	/** You can use this property to freeze selected columns in grid at the time of scrolling.
 	*   @Default {false}
 	*/
-	isFrozen?: Boolean;
+	isFrozen?: boolean;
 
 	/** Gets or sets a value that indicates the column has an identity in the database.
 	*   @Default {false}
 	*/
-	isIdentity?: Boolean;
+	isIdentity?: boolean;
 
 	/** Gets or sets a value that indicates the column is act as a primary key(read-only) of the grid. The editing is performed based on the primary key column
 	*   @Default {false}
 	*/
-	isPrimaryKey?: Boolean;
+	isPrimaryKey?: boolean;
 
 	/** Gets or sets a value that indicates the order of Column that are to be hidden or visible when Grid element is in responsive mode and could not occupy all columns.
 	*   @Default {null}
 	*/
-	priority?: Number;
+	priority?: number;
 
 	/** Used to hide the particular column in column chooser by giving value as false.
 	*   @Default {true}
 	*/
-	showInColumnChooser?: Boolean;
+	showInColumnChooser?: boolean;
 
 	/** Gets or sets a value that indicates whether to enables column template for a particular column.
 	*   @Default {false}
 	*/
-	template?: Boolean|String;
+	template?: boolean|string;
 
 	/** Gets or sets a value that indicates to align the text within the column. See textAlign
 	*   @Default {ej.TextAlign.Left}
 	*/
-	textAlign?:  ej.TextAlign|string;
+	textAlign?: ej.TextAlign|string;
 
 	/** Sets the template for Tooltip in Grid Columns(both header and content)
 	*/
@@ -24088,7 +24014,7 @@ export interface Column {
 
 	/** Gets or sets a value that indicates to specify the data type of the specified columns.
 	*/
-	type?: String;
+	type?: string;
 
 	/** Gets or sets a value that indicates to define constraints for saving data to the database.
 	*/
@@ -24097,11 +24023,11 @@ export interface Column {
 	/** Gets or sets a value that indicates whether this column is visible in the grid.
 	*   @Default {true}
 	*/
-	visible?: Boolean;
+	visible?: boolean;
 
 	/** Gets or sets a value that indicates to define the width for a particular column in the grid.
 	*/
-	width?: Number;
+	width?: number;
 }
 
 export interface ContextMenuSettingsSubContextMenu {
@@ -24114,7 +24040,7 @@ export interface ContextMenuSettingsSubContextMenu {
 	/** Used to get or set the sub menu items to the custom context menu item.
 	*   @Default {[]}
 	*/
-	subMenu?: Array<any>;
+	subMenu?: any[];
 }
 
 export interface ContextMenuSettings {
@@ -24122,26 +24048,26 @@ export interface ContextMenuSettings {
 	/** Gets or sets a value that indicates whether to add the default context menu actions as a context menu items If enableContextMenu is true it will show all the items related to the target, if you want selected items from contextmenu you have to mention in the contextMenuItems
 	*   @Default {[]}
 	*/
-	contextMenuItems?: Array<any>;
+	contextMenuItems?: any[];
 
 	/** Gets or sets a value that indicates whether to add custom contextMenu items within the toolbar to perform any action in the grid
 	*   @Default {[]}
 	*/
-	customContextMenuItems?: Array<any>;
+	customContextMenuItems?: any[];
 
 	/** Gets or sets a value that indicates whether to enable the context menu action in the grid.
 	*   @Default {false}
 	*/
-	enableContextMenu?: Boolean;
+	enableContextMenu?: boolean;
 
 	/** Used to get or set the subMenu to the corresponding custom context menu item.
 	*/
-	subContextMenu?: Array<ContextMenuSettingsSubContextMenu>;
+	subContextMenu?: ContextMenuSettingsSubContextMenu[];
 
 	/** Gets or sets a value that indicates whether to disable the default context menu items in the grid.
 	*   @Default {false}
 	*/
-	disableDefaultItems?: Boolean;
+	disableDefaultItems?: boolean;
 }
 
 export interface EditSettings {
@@ -24149,27 +24075,27 @@ export interface EditSettings {
 	/** Gets or sets a value that indicates whether to enable insert action in the editing mode.
 	*   @Default {false}
 	*/
-	allowAdding?: Boolean;
+	allowAdding?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable the delete action in the editing mode.
 	*   @Default {false}
 	*/
-	allowDeleting?: Boolean;
+	allowDeleting?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable the edit action in the editing mode.
 	*   @Default {false}
 	*/
-	allowEditing?: Boolean;
+	allowEditing?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable the editing action while double click on the record
 	*   @Default {true}
 	*/
-	allowEditOnDblClick?: Boolean;
+	allowEditOnDblClick?: boolean;
 
 	/** This specifies the id of the template. This template can be used to display the data that you require to be edited using the Dialog Box
 	*   @Default {null}
 	*/
-	dialogEditorTemplateID?: String;
+	dialogEditorTemplateID?: string;
 
 	/** Gets or sets a value that indicates whether to define the mode of editing See editMode
 	*   @Default {ej.Grid.EditMode.Normal}
@@ -24179,7 +24105,7 @@ export interface EditSettings {
 	/** This specifies the id of the template. This template can be used to display the data that you require to be edited using the External edit form
 	*   @Default {null}
 	*/
-	externalFormTemplateID?: String;
+	externalFormTemplateID?: string;
 
 	/** This specifies to set the position of an External edit form either in the top-right or bottom-left of the grid
 	*   @Default {ej.Grid.FormPosition.BottomLeft}
@@ -24189,7 +24115,7 @@ export interface EditSettings {
 	/** This specifies the id of the template. This template can be used to display the data that you require to be edited using the Inline edit form
 	*   @Default {null}
 	*/
-	inlineFormTemplateID?: String;
+	inlineFormTemplateID?: string;
 
 	/** This specifies to set the position of an adding new row either in the top or bottom of the grid
 	*   @Default {ej.Grid.RowPosition.Top}
@@ -24199,22 +24125,22 @@ export interface EditSettings {
 	/** Gets or sets a value that indicates whether the confirm dialog has to be shown while saving or discarding the batch changes
 	*   @Default {true}
 	*/
-	showConfirmDialog?: Boolean;
+	showConfirmDialog?: boolean;
 
 	/** Gets or sets a value that indicates whether the confirm dialog has to be shown while deleting record
 	*   @Default {false}
 	*/
-	showDeleteConfirmDialog?: Boolean;
+	showDeleteConfirmDialog?: boolean;
 
 	/** Gets or sets a value that indicates whether the title for edit form is different from the primarykey column.
 	*   @Default {null}
 	*/
-	titleColumn?: String;
+	titleColumn?: string;
 
 	/** Gets or sets a value that indicates whether to display the add new form by default in the grid.
 	*   @Default {false}
 	*/
-	showAddNewRow?: Boolean;
+	showAddNewRow?: boolean;
 }
 
 export interface FilterSettingsFilteredColumn {
@@ -24241,7 +24167,7 @@ export interface FilterSettings {
 	/** Gets or sets a value that indicates to perform the filter operation with case sensitive in excel styled filter menu mode
 	*   @Default {false}
 	*/
-	enableCaseSensitivity?: Boolean;
+	enableCaseSensitivity?: boolean;
 
 	/** This specifies the grid to starts the filter action while typing in the filterBar or after pressing the enter key. based on the filterBarMode. See filterBarMode
 	*   @Default {ej.Grid.FilterBarMode.Immediate}
@@ -24251,7 +24177,7 @@ export interface FilterSettings {
 	/** Gets or sets a value that indicates whether to define the filtered columns details programmatically at initial load
 	*   @Default {[]}
 	*/
-	filteredColumns?: Array<FilterSettingsFilteredColumn>;
+	filteredColumns?: FilterSettingsFilteredColumn[];
 
 	/** This specifies the grid to show the filterBar or filterMenu to the grid records. See filterType
 	*   @Default {ej.Grid.FilterType.FilterBar}
@@ -24261,17 +24187,17 @@ export interface FilterSettings {
 	/** Gets or sets a value that indicates the maximum number of filter choices that can be showed in the excel styled filter menu.
 	*   @Default {1000}
 	*/
-	maxFilterChoices?: Number;
+	maxFilterChoices?: number;
 
 	/** This specifies the grid to show the filter text within the grid pager itself.
 	*   @Default {true}
 	*/
-	showFilterBarMessage?: Boolean;
+	showFilterBarMessage?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable the predicate options in the filtering menu
 	*   @Default {false}
 	*/
-	showPredicate?: Boolean;
+	showPredicate?: boolean;
 }
 
 export interface GroupSettings {
@@ -24279,37 +24205,37 @@ export interface GroupSettings {
 	/** Gets or sets a value that customize the group caption format.
 	*   @Default {null}
 	*/
-	captionFormat?: String;
+	captionFormat?: string;
 
 	/** Gets or sets a value that indicates whether to enable animation button option in the group drop area of the grid.
 	*   @Default {false}
 	*/
-	enableDropAreaAutoSizing?: Boolean;
+	enableDropAreaAutoSizing?: boolean;
 
 	/** Gets or sets a value that indicates whether to add grouped columns programmatically at initial load
 	*   @Default {[]}
 	*/
-	groupedColumns?: Array<any>;
+	groupedColumns?: any[];
 
 	/** Gets or sets a value that indicates whether to show the group drop area just above the column header. It can be used to avoid ungrouping the already grouped column using groupSettings.
 	*   @Default {true}
 	*/
-	showDropArea?: Boolean;
+	showDropArea?: boolean;
 
 	/** Gets or sets a value that indicates whether to hide the grouped columns from the grid
 	*   @Default {false}
 	*/
-	showGroupedColumn?: Boolean;
+	showGroupedColumn?: boolean;
 
 	/** Gets or sets a value that indicates whether to show the group button image(toggle button)in the column header and also in the grouped column in the group drop area . It can be used to group/ungroup the columns by click on the toggle button.
 	*   @Default {false}
 	*/
-	showToggleButton?: Boolean;
+	showToggleButton?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable the close button in the grouped column which is in the group drop area to ungroup the grouped column
 	*   @Default {false}
 	*/
-	showUngroupButton?: Boolean;
+	showUngroupButton?: boolean;
 }
 
 export interface PageSettings {
@@ -24317,47 +24243,47 @@ export interface PageSettings {
 	/** Gets or sets a value that indicates whether to define which page to display currently in the grid
 	*   @Default {1}
 	*/
-	currentPage?: Number;
+	currentPage?: number;
 
 	/** Gets or sets a value that indicates whether to pass the current page information as a query string along with the URL while navigating to other page.
 	*   @Default {false}
 	*/
-	enableQueryString?: Boolean;
+	enableQueryString?: boolean;
 
 	/** Gets or sets a value that indicates whether to enables pager template for the grid.
 	*   @Default {false}
 	*/
-	enableTemplates?: Boolean;
+	enableTemplates?: boolean;
 
 	/** Gets or sets a value that indicates whether to define the number of pages displayed in the pager for navigation
 	*   @Default {8}
 	*/
-	pageCount?: Number;
+	pageCount?: number;
 
 	/** Gets or sets a value that indicates whether to define the number of records displayed per page
 	*   @Default {12}
 	*/
-	pageSize?: Number;
+	pageSize?: number;
 
 	/** Gets or sets a value that indicates whether to enables default pager for the grid.
 	*   @Default {false}
 	*/
-	showDefaults?: Boolean;
+	showDefaults?: boolean;
 
 	/** Gets or sets a value that indicates to add the template as a pager template for grid.
 	*   @Default {null}
 	*/
-	template?: String;
+	template?: string;
 
 	/** Get the value of total number of pages in the grid. The totalPages value is calculated based on page size and total records of grid
 	*   @Default {null}
 	*/
-	totalPages?: Number;
+	totalPages?: number;
 
 	/** Get the value of total number of records which is bound to the grid. The totalRecordsCount value is calculated based on dataSource bound to the grid.
 	*   @Default {null}
 	*/
-	totalRecordsCount?: Number;
+	totalRecordsCount?: number;
 
 	/** Gets or sets a value that indicates whether to define the number of pages to print
 	*   @Default {ej.Grid.PrintMode.AllPages}
@@ -24418,12 +24344,12 @@ export interface SelectionSettings {
 	/** Gets or sets a value that indicates whether to enable the toggle selection behavior for row, cell and column.
 	*   @Default {false}
 	*/
-	enableToggle?: Boolean;
+	enableToggle?: boolean;
 
 	/** Gets or sets a value that indicates whether to add the default selection actions as a selection mode.See selectionMode
 	*   @Default {[row]}
 	*/
-	selectionMode?: Array<any>;
+	selectionMode?: any[];
 }
 
 export interface ScrollSettings {
@@ -24431,27 +24357,27 @@ export interface ScrollSettings {
 	/** This specify the grid to to view data that you require without buffering the entire load of a huge database
 	*   @Default {false}
 	*/
-	allowVirtualScrolling?: Boolean;
+	allowVirtualScrolling?: boolean;
 
 	/** This specify the grid to enable/disable touch control for scrolling.
 	*   @Default {true}
 	*/
-	enableTouchScroll?: Boolean;
+	enableTouchScroll?: boolean;
 
 	/** This specify the grid to freeze particular columns at the time of scrolling.
 	*   @Default {0}
 	*/
-	frozenColumns?: Number;
+	frozenColumns?: number;
 
 	/** This specify the grid to freeze particular rows at the time of scrolling.
 	*   @Default {0}
 	*/
-	frozenRows?: Number;
+	frozenRows?: number;
 
 	/** This specify the grid to show the vertical scroll bar, to scroll and view the grid contents.
 	*   @Default {0}
 	*/
-	height?: String|Number;
+	height?: string|number;
 
 	/** This is used to define the mode of virtual scrolling in grid. See virtualScrollMode
 	*   @Default {ej.Grid.VirtualScrollMode.Normal}
@@ -24461,35 +24387,35 @@ export interface ScrollSettings {
 	/** This is used to enable the enhanced virtual scrolling in Grid.
 	*   @Default {false}
 	*/
-	enableVirtualization?: Boolean;
+	enableVirtualization?: boolean;
 
 	/** This specify the grid to show the horizontal scroll bar, to scroll and view the grid contents
 	*   @Default {250}
 	*/
-	width?: String|Number;
+	width?: string|number;
 
 	/** This specify the scroll down pixel of mouse wheel, to scroll mouse wheel and view the grid contents.
 	*   @Default {57}
 	*/
-	scrollOneStepBy?: Number;
+	scrollOneStepBy?: number;
 }
 
 export interface SortSettingsSortedColumn {
 
 	/** Gets or sets a value that indicates whether to define the direction to sort the column.
 	*/
-	direction?: String;
+	direction?: string;
 
 	/** Gets or sets a value that indicates whether to define the field name of the column to be sort
 	*/
-	field?: String;
+	field?: string;
 }
 
 export interface SortSettings {
 
 	/** Gets or sets a value that indicates whether to define the direction and field to sort the column.
 	*/
-	sortedColumns?: Array<SortSettingsSortedColumn>;
+	sortedColumns?: SortSettingsSortedColumn[];
 }
 
 export interface StackedHeaderRowsStackedHeaderColumn {
@@ -24502,17 +24428,17 @@ export interface StackedHeaderRowsStackedHeaderColumn {
 	/** Gets or sets a value that indicates class to the corresponding stackedHeaderColumn.
 	*   @Default {null}
 	*/
-	cssClass?: String;
+	cssClass?: string;
 
 	/** Gets or sets a value that indicates the header text for the particular stacked header column.
 	*   @Default {null}
 	*/
-	headerText?: String;
+	headerText?: string;
 
 	/** Gets or sets a value that indicates the text alignment of the corresponding headerText.
 	*   @Default {ej.TextAlign.Left}
 	*/
-	textAlign?: String;
+	textAlign?: string;
 }
 
 export interface StackedHeaderRow {
@@ -24520,7 +24446,7 @@ export interface StackedHeaderRow {
 	/** Gets or sets a value that indicates whether to add stacked header columns into the stacked header rows
 	*   @Default {[]}
 	*/
-	stackedHeaderColumns?: Array<StackedHeaderRowsStackedHeaderColumn>;
+	stackedHeaderColumns?: StackedHeaderRowsStackedHeaderColumn[];
 }
 
 export interface SummaryRowsSummaryColumn {
@@ -24528,32 +24454,32 @@ export interface SummaryRowsSummaryColumn {
 	/** Gets or sets a value that indicates the text displayed in the summary column as a value
 	*   @Default {null}
 	*/
-	customSummaryValue?: String;
+	customSummaryValue?: string;
 
 	/** This specifies summary column used to perform the summary calculation
 	*   @Default {null}
 	*/
-	dataMember?: String;
+	dataMember?: string;
 
 	/** Gets or sets a value that indicates to define the target column at which to display the summary.
 	*   @Default {null}
 	*/
-	displayColumn?: String;
+	displayColumn?: string;
 
 	/** Gets or sets a value that indicates the format for the text applied on the column
 	*   @Default {null}
 	*/
-	format?: String;
+	format?: string;
 
 	/** Gets or sets a value that indicates the text displayed before the summary column value
 	*   @Default {null}
 	*/
-	prefix?: String;
+	prefix?: string;
 
 	/** Gets or sets a value that indicates the text displayed after the summary column value
 	*   @Default {null}
 	*/
-	suffix?: String;
+	suffix?: string;
 
 	/** Gets or sets a value that indicates the type of calculations to be performed for the corresponding summary column
 	*   @Default {[]}
@@ -24563,7 +24489,7 @@ export interface SummaryRowsSummaryColumn {
 	/** Gets or sets a value that indicates to add the template for the summary value of dataMember given.
 	*   @Default {null}
 	*/
-	template?: String;
+	template?: string;
 }
 
 export interface SummaryRow {
@@ -24571,31 +24497,31 @@ export interface SummaryRow {
 	/** Gets or sets a value that indicates whether to show the summary value within the group caption area for the corresponding summary column while grouping the column
 	*   @Default {false}
 	*/
-	showCaptionSummary?: Boolean;
+	showCaptionSummary?: boolean;
 
 	/** Gets or sets a value that indicates whether to show the group summary value for the corresponding summary column while grouping a column
 	*   @Default {false}
 	*/
-	showGroupSummary?: Boolean;
+	showGroupSummary?: boolean;
 
 	/** Gets or sets a value that indicates whether to show the total summary value the for the corresponding summary column. The summary row is added after the grid content.
 	*   @Default {true}
 	*/
-	showTotalSummary?: Boolean;
+	showTotalSummary?: boolean;
 
 	/** Gets or sets a value that indicates whether to add summary columns into the summary rows.
 	*   @Default {[]}
 	*/
-	summaryColumns?: Array<SummaryRowsSummaryColumn>;
+	summaryColumns?: SummaryRowsSummaryColumn[];
 
 	/** This specifies the grid to show the title for the summary rows.
 	*/
-	title?: String;
+	title?: string;
 
 	/** This specifies the grid to show the title of summary row in the specified column.
 	*   @Default {null}
 	*/
-	titleColumn?: String;
+	titleColumn?: string;
 }
 
 export interface TextWrapSettings {
@@ -24611,12 +24537,12 @@ export interface ToolbarSettings {
 	/** Gets or sets a value that indicates whether to add custom toolbar items within the toolbar to perform any action in the grid
 	*   @Default {[]}
 	*/
-	customToolbarItems?: Array<any>;
+	customToolbarItems?: any[];
 
 	/** Gets or sets a value that indicates whether to enable toolbar in the grid.
 	*   @Default {false}
 	*/
-	showToolbar?: Boolean;
+	showToolbar?: boolean;
 
 	/** Gets or sets a value that indicates whether to add the default editing actions as a toolbar items
 	*   @Default {[]}
@@ -24624,7 +24550,7 @@ export interface ToolbarSettings {
 	toolbarItems?: Array<ej.Grid.ToolBarItems|string>;
 }
 
-enum GridLines{
+enum GridLines {
 
 	///Displays both the horizontal and vertical grid lines.
 	Both,
@@ -24640,7 +24566,7 @@ enum GridLines{
 }
 
 
-enum ClipMode{
+enum ClipMode {
 
 	///Shows ellipsis for the overflown cell.
 	Ellipsis,
@@ -24653,7 +24579,7 @@ enum ClipMode{
 }
 
 
-enum ColumnLayout{
+enum ColumnLayout {
 
 	///Column layout is auto(based on width).
 	Auto,
@@ -24663,7 +24589,7 @@ enum ColumnLayout{
 }
 
 
-enum UnboundType{
+enum UnboundType {
 
 	///Unbound type is edit.
 	Edit,
@@ -24679,7 +24605,7 @@ enum UnboundType{
 }
 
 
-enum EditingType{
+enum EditingType {
 
 	///Specifies editing type as string edit.
 	String,
@@ -24701,7 +24627,7 @@ enum EditingType{
 }
 
 
-enum EditMode{
+enum EditMode {
 
 	///Edit mode is normal.
 	Normal,
@@ -24729,7 +24655,7 @@ enum EditMode{
 }
 
 
-enum FormPosition{
+enum FormPosition {
 
 	///Form position is bottomleft.
 	BottomLeft,
@@ -24739,7 +24665,7 @@ enum FormPosition{
 }
 
 
-enum RowPosition{
+enum RowPosition {
 
 	///Specifies position of add new row as top.
 	Top,
@@ -24749,7 +24675,7 @@ enum RowPosition{
 }
 
 
-enum FilterBarMode{
+enum FilterBarMode {
 
 	///Initiate filter operation on typing the filter query.
 	Immediate,
@@ -24759,7 +24685,7 @@ enum FilterBarMode{
 }
 
 
-enum FilterType{
+enum FilterType {
 
 	///Specifies the filter type as menu.
 	Menu,
@@ -24772,7 +24698,7 @@ enum FilterType{
 }
 
 
-enum PrintMode{
+enum PrintMode {
 
 	///Prints all pages.
 	AllPages,
@@ -24782,7 +24708,7 @@ enum PrintMode{
 }
 
 
-enum ResizeMode{
+enum ResizeMode {
 
 	///New column size will be adjusted by all other Columns
 	Normal,
@@ -24795,7 +24721,7 @@ enum ResizeMode{
 }
 
 
-enum SelectionType{
+enum SelectionType {
 
 	///Specifies the selection type as single.
 	Single,
@@ -24805,7 +24731,7 @@ enum SelectionType{
 }
 
 
-enum VirtualScrollMode{
+enum VirtualScrollMode {
 
 	///virtual scroll mode is normal.
 	Normal,
@@ -24815,7 +24741,7 @@ enum VirtualScrollMode{
 }
 
 
-enum SummaryType{
+enum SummaryType {
 
 	///Summary type is average.
 	Average,
@@ -24843,7 +24769,7 @@ enum SummaryType{
 }
 
 
-enum WrapMode{
+enum WrapMode {
 
 	///Auto wrap is applied for both content and header.
 	Both,
@@ -24856,7 +24782,7 @@ enum WrapMode{
 }
 
 
-enum ToolBarItems{
+enum ToolBarItems {
 
 	///Toolbar item is add.
 	Add,
@@ -24890,18 +24816,17 @@ enum ToolBarItems{
 
 class Sparkline extends ej.Widget {
 	static fn: Sparkline;
-	constructor(element: JQuery, options?: Sparkline.Model);
-	constructor(element: Element, options?: Sparkline.Model);
+	constructor(element: JQuery | Element, options?: Sparkline.Model);
 	static Locale: any;
-	model:Sparkline.Model;
-	defaults:Sparkline.Model;
+	model: Sparkline.Model;
+	defaults: Sparkline.Model;
 
 	/** Redraws the entire sparkline. You can call this method whenever you update, add or remove points from the data source or whenever you want to refresh the UI.
 	*   @returns {void}
 	*/
 	redraw(): void;
 }
-export module Sparkline{
+export namespace Sparkline {
 
 export interface Model {
 
@@ -25024,28 +24949,28 @@ export interface Model {
 	axisLineSettings?: AxisLineSettings;
 
 	/** Fires before loading the sparkline. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Fires after loaded the sparkline. */
-	loaded? (e: LoadedEventArgs): void;
+	loaded?(e: LoadedEventArgs): void;
 
 	/** Fires before rendering trackball tooltip. You can use this event to customize the text displayed in trackball tooltip. */
-	tooltipInitialize? (e: TooltipInitializeEventArgs): void;
+	tooltipInitialize?(e: TooltipInitializeEventArgs): void;
 
 	/** Fires before rendering a series. This event is fired for each series in Sparkline. */
-	seriesRendering? (e: SeriesRenderingEventArgs): void;
+	seriesRendering?(e: SeriesRenderingEventArgs): void;
 
 	/** Fires when mouse is moved over a point. */
-	pointRegionMouseMove? (e: PointRegionMouseMoveEventArgs): void;
+	pointRegionMouseMove?(e: PointRegionMouseMoveEventArgs): void;
 
 	/** Fires on clicking a point in sparkline. You can use this event to handle clicks made on points. */
-	pointRegionMouseClick? (e: PointRegionMouseClickEventArgs): void;
+	pointRegionMouseClick?(e: PointRegionMouseClickEventArgs): void;
 
 	/** Fires on moving mouse over the sparkline. */
-	sparklineMouseMove? (e: SparklineMouseMoveEventArgs): void;
+	sparklineMouseMove?(e: SparklineMouseMoveEventArgs): void;
 
 	/** Fires on moving mouse outside the sparkline. */
-	sparklineMouseLeave? (e: SparklineMouseLeaveEventArgs): void;
+	sparklineMouseLeave?(e: SparklineMouseLeaveEventArgs): void;
 }
 
 export interface LoadEventArgs {
@@ -25080,7 +25005,7 @@ export interface LoadedEventArgs {
 
 export interface TooltipInitializeEventArgs {
 
-	/** Set this option to true to cancel the event    
+	/** Set this option to true to cancel the event
 	*/
 	cancel?: boolean;
 
@@ -25204,7 +25129,7 @@ export interface PointRegionMouseClickEventArgs {
 
 export interface SparklineMouseMoveEventArgs {
 
-	/** Set this option to true to cancel the event    
+	/** Set this option to true to cancel the event
 	*/
 	cancel?: boolean;
 
@@ -25219,7 +25144,7 @@ export interface SparklineMouseMoveEventArgs {
 
 export interface SparklineMouseLeaveEventArgs {
 
-	/** Set this option to true to cancel the event    
+	/** Set this option to true to cancel the event
 	*/
 	cancel?: boolean;
 
@@ -25420,10 +25345,8 @@ export interface AxisLineSettings {
 	dashArray?: number;
 }
 }
-module Sparkline
-{
-enum Type
-{
+namespace Sparkline {
+enum Type {
 //string
 Area,
 //string
@@ -25436,10 +25359,8 @@ Pie,
 WinLoss,
 }
 }
-module Sparkline
-{
-enum Theme
-{
+namespace Sparkline {
+enum Theme {
 //string
 Azure,
 //string
@@ -25462,20 +25383,16 @@ GradientLight,
 GradientDark,
 }
 }
-module Sparkline
-{
-enum FontStyle
-{
+namespace Sparkline {
+enum FontStyle {
 //string
 Normal,
 //string
 Italic,
 }
 }
-module Sparkline
-{
-enum FontWeight
-{
+namespace Sparkline {
+enum FontWeight {
 //string
 Regular,
 //string
@@ -25487,11 +25404,10 @@ Lighter,
 
 class SunburstChart extends ej.Widget {
 	static fn: SunburstChart;
-	constructor(element: JQuery, options?: SunburstChart.Model);
-	constructor(element: Element, options?: SunburstChart.Model);
+	constructor(element: JQuery | Element, options?: SunburstChart.Model);
 	static Locale: any;
-	model:SunburstChart.Model;
-	defaults:SunburstChart.Model;
+	model: SunburstChart.Model;
+	defaults: SunburstChart.Model;
 
 	/** Redraws the entire sunburst. You can call this method whenever you update, add or remove points from the data source or whenever you want to refresh the UI.
 	*   @returns {void}
@@ -25503,7 +25419,7 @@ class SunburstChart extends ej.Widget {
 	*/
 	_destroy(): void;
 }
-export module SunburstChart{
+export namespace SunburstChart {
 
 export interface Model {
 
@@ -25611,7 +25527,7 @@ export interface Model {
 	/** Specify levels of sunburst for grouped visualization of data
 	*   @Default {[]}
 	*/
-	levels?: Array<Level>;
+	levels?: Level[];
 
 	/** Options to customize the legend items and legend title.
 	*/
@@ -25646,40 +25562,40 @@ export interface Model {
 	animationType?: ej.datavisualization.Sunburst.Animation|string;
 
 	/** Fires before loading. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Fires before rendering sunburst. */
-	preRender? (e: PreRenderEventArgs): void;
+	preRender?(e: PreRenderEventArgs): void;
 
 	/** Fires after rendering sunburst. */
-	loaded? (e: LoadedEventArgs): void;
+	loaded?(e: LoadedEventArgs): void;
 
 	/** Fires before rendering the datalabel */
-	dataLabelRendering? (e: DataLabelRenderingEventArgs): void;
+	dataLabelRendering?(e: DataLabelRenderingEventArgs): void;
 
 	/** Fires before rendering each segment */
-	segmentRendering? (e: SegmentRenderingEventArgs): void;
+	segmentRendering?(e: SegmentRenderingEventArgs): void;
 
 	/** Fires before rendering sunburst title. */
-	titleRendering? (e: TitleRenderingEventArgs): void;
+	titleRendering?(e: TitleRenderingEventArgs): void;
 
 	/** Fires during initialization of tooltip. */
-	tooltipInitialize? (e: TooltipInitializeEventArgs): void;
+	tooltipInitialize?(e: TooltipInitializeEventArgs): void;
 
 	/** Fires after clicking the point in sunburst */
-	pointRegionClick? (e: PointRegionClickEventArgs): void;
+	pointRegionClick?(e: PointRegionClickEventArgs): void;
 
 	/** Fires while moving the mouse over sunburst points */
-	pointRegionMousemove? (e: PointRegionMousemoveEventArgs): void;
+	pointRegionMousemove?(e: PointRegionMousemoveEventArgs): void;
 
 	/** Fires when clicking the point to perform drilldown. */
-	drillDownClick? (e: DrillDownClickEventArgs): void;
+	drillDownClick?(e: DrillDownClickEventArgs): void;
 
 	/** Fires when resetting drilldown points. */
-	drillDownBack? (e: DrillDownBackEventArgs): void;
+	drillDownBack?(e: DrillDownBackEventArgs): void;
 
 	/** Fires after resetting the sunburst points */
-	drillDownReset? (e: DrillDownResetEventArgs): void;
+	drillDownReset?(e: DrillDownResetEventArgs): void;
 }
 
 export interface LoadEventArgs {
@@ -26502,20 +26418,16 @@ export interface ZoomSettings {
 	toolbarVerticalAlignment?: ej.datavisualization.Sunburst.SunburstVerticalAlignment|string;
 }
 }
-module Sunburst
-{
-enum FontStyle
-{
+namespace Sunburst {
+enum FontStyle {
 //string
 Normal,
 //string
 Italic,
 }
 }
-module Sunburst
-{
-enum FontWeight
-{
+namespace Sunburst {
+enum FontWeight {
 //string
 Regular,
 //string
@@ -26524,20 +26436,16 @@ Bold,
 Lighter,
 }
 }
-module Sunburst
-{
-enum SunburstLabelRotationMode
-{
+namespace Sunburst {
+enum SunburstLabelRotationMode {
 //string
 Angle,
 //string
 Normal,
 }
 }
-module Sunburst
-{
-enum SunburstLabelOverflowMode
-{
+namespace Sunburst {
+enum SunburstLabelOverflowMode {
 //string
 Trim,
 //string
@@ -26546,10 +26454,8 @@ Hide,
 None,
 }
 }
-module Sunburst
-{
-enum SunburstAlignment
-{
+namespace Sunburst {
+enum SunburstAlignment {
 //string
 Center,
 //string
@@ -26558,10 +26464,8 @@ Near,
 Far,
 }
 }
-module Sunburst
-{
-enum SunburstHighlightMode
-{
+namespace Sunburst {
+enum SunburstHighlightMode {
 //string
 Point,
 //string
@@ -26572,20 +26476,16 @@ Child,
 All,
 }
 }
-module Sunburst
-{
-enum SunburstHighlightType
-{
+namespace Sunburst {
+enum SunburstHighlightType {
 //string
 Opacity,
 //string
 Color,
 }
 }
-module Sunburst
-{
-enum SunburstClickAction
-{
+namespace Sunburst {
+enum SunburstClickAction {
 //string
 None,
 //string
@@ -26594,10 +26494,8 @@ ToggleSegmentVisibility,
 ToggleSegmentSelection,
 }
 }
-module Sunburst
-{
-enum SunburstLegendPosition
-{
+namespace Sunburst {
+enum SunburstLegendPosition {
 //string
 Left,
 //string
@@ -26608,10 +26506,8 @@ Top,
 Bottom,
 }
 }
-module Sunburst
-{
-enum SunburstLegendShape
-{
+namespace Sunburst {
+enum SunburstLegendShape {
 //string
 Diamond,
 //string
@@ -26626,20 +26522,16 @@ Cross,
 Triangle,
 }
 }
-module Sunburst
-{
-enum SunburstTheme
-{
+namespace Sunburst {
+enum SunburstTheme {
 //string
 FlatLight,
 //string
 FlatDark,
 }
 }
-module Sunburst
-{
-enum SunburstHorizontalAlignment
-{
+namespace Sunburst {
+enum SunburstHorizontalAlignment {
 //string
 Center,
 //string
@@ -26648,10 +26540,8 @@ Left,
 Right,
 }
 }
-module Sunburst
-{
-enum SunburstVerticalAlignment
-{
+namespace Sunburst {
+enum SunburstVerticalAlignment {
 //string
 Top,
 //string
@@ -26660,10 +26550,8 @@ Bottom,
 Middle,
 }
 }
-module Sunburst
-{
-enum Animation
-{
+namespace Sunburst {
+enum Animation {
 //string
 Rotation,
 //string
@@ -26673,11 +26561,10 @@ FadeIn,
 
 class PivotGrid extends ej.Widget {
 	static fn: PivotGrid;
-	constructor(element: JQuery, options?: PivotGrid.Model);
-	constructor(element: Element, options?: PivotGrid.Model);
+	constructor(element: JQuery | Element, options?: PivotGrid.Model);
 	static Locale: any;
-	model:PivotGrid.Model;
-	defaults:PivotGrid.Model;
+	model: PivotGrid.Model;
+	defaults: PivotGrid.Model;
 
 	/** Performs an asynchronous HTTP (AJAX) request.
 	*   @returns {void}
@@ -26747,7 +26634,7 @@ class PivotGrid extends ej.Widget {
 	/** Returns the JSON records formed to render the control.
 	*   @returns {Array<any>}
 	*/
-	getJSONRecords(): Array<any>;
+	getJSONRecords(): any[];
 
 	/** Sets the JSON records formed to render the control.
 	*   @returns {void}
@@ -26764,7 +26651,7 @@ class PivotGrid extends ej.Widget {
 	*/
 	renderControlFromJSON(): void;
 }
-export module PivotGrid{
+export namespace PivotGrid {
 
 export interface Model {
 
@@ -26948,64 +26835,64 @@ export interface Model {
 	url?: string;
 
 	/** Triggers when it reaches client-side after any AJAX request. */
-	afterServiceInvoke? (e: AfterServiceInvokeEventArgs): void;
+	afterServiceInvoke?(e: AfterServiceInvokeEventArgs): void;
 
 	/** Triggers before any AJAX request is passed from PivotGrid to service methods. */
-	beforeServiceInvoke? (e: BeforeServiceInvokeEventArgs): void;
+	beforeServiceInvoke?(e: BeforeServiceInvokeEventArgs): void;
 
 	/** Triggers before Pivot Engine starts to populate. */
-	beforePivotEnginePopulate? (e: BeforePivotEnginePopulateEventArgs): void;
+	beforePivotEnginePopulate?(e: BeforePivotEnginePopulateEventArgs): void;
 
 	/** Triggers when double click action is performed over a cell. */
-	cellDoubleClick? (e: CellDoubleClickEventArgs): void;
+	cellDoubleClick?(e: CellDoubleClickEventArgs): void;
 
 	/** Triggers when right-click action is performed on a cell. */
-	cellContext? (e: CellContextEventArgs): void;
+	cellContext?(e: CellContextEventArgs): void;
 
 	/** Triggers when a specific range of value cells are selected. */
-	cellSelection? (e: CellSelectionEventArgs): void;
+	cellSelection?(e: CellSelectionEventArgs): void;
 
 	/** Triggers when the hyperlink of column header is clicked. */
-	columnHeaderHyperlinkClick? (e: ColumnHeaderHyperlinkClickEventArgs): void;
+	columnHeaderHyperlinkClick?(e: ColumnHeaderHyperlinkClickEventArgs): void;
 
 	/** Triggers after performing drill operation in PivotGrid. */
-	drillSuccess? (e: DrillSuccessEventArgs): void;
+	drillSuccess?(e: DrillSuccessEventArgs): void;
 
 	/** Triggers while clicking &quot;OK&quot; button in the drill-through dialog. */
-	drillThrough? (e: DrillThroughEventArgs): void;
+	drillThrough?(e: DrillThroughEventArgs): void;
 
 	/** Triggers when PivotGrid loading is initiated. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Triggers when PivotGrid widget completes all operations at client-side after any AJAX request. */
-	renderComplete? (e: RenderCompleteEventArgs): void;
+	renderComplete?(e: RenderCompleteEventArgs): void;
 
 	/** Triggers when any error occurred during AJAX request. */
-	renderFailure? (e: RenderFailureEventArgs): void;
+	renderFailure?(e: RenderFailureEventArgs): void;
 
 	/** Triggers when PivotGrid successfully reaches client-side after any AJAX request. */
-	renderSuccess? (e: RenderSuccessEventArgs): void;
+	renderSuccess?(e: RenderSuccessEventArgs): void;
 
 	/** Triggers when the hyperlink of row header is clicked. */
-	rowHeaderHyperlinkClick? (e: RowHeaderHyperlinkClickEventArgs): void;
+	rowHeaderHyperlinkClick?(e: RowHeaderHyperlinkClickEventArgs): void;
 
 	/** Triggers when the hyperlink of summary cell is clicked. */
-	summaryCellHyperlinkClick? (e: SummaryCellHyperlinkClickEventArgs): void;
+	summaryCellHyperlinkClick?(e: SummaryCellHyperlinkClickEventArgs): void;
 
 	/** Triggers when the hyperlink of value cell is clicked. */
-	valueCellHyperlinkClick? (e: ValueCellHyperlinkClickEventArgs): void;
+	valueCellHyperlinkClick?(e: ValueCellHyperlinkClickEventArgs): void;
 
 	/** Triggers before saving the current report to database. */
-	saveReport? (e: SaveReportEventArgs): void;
+	saveReport?(e: SaveReportEventArgs): void;
 
 	/** Triggers before loading a report from database. */
-	loadReport? (e: LoadReportEventArgs): void;
+	loadReport?(e: LoadReportEventArgs): void;
 
 	/** Triggers before performing exporting in pivot grid. */
-	beforeExport? (e: BeforeExportEventArgs): void;
+	beforeExport?(e: BeforeExportEventArgs): void;
 
 	/** Triggers before editing the cells. */
-	cellEdit? (e: CellEditEventArgs): void;
+	cellEdit?(e: CellEditEventArgs): void;
 }
 
 export interface AfterServiceInvokeEventArgs {
@@ -27049,7 +26936,7 @@ export interface CellDoubleClickEventArgs {
 
 	/** returns the JSON details of the double clicked cell.
 	*/
-	selectedData?: Array<any>;
+	selectedData?: any[];
 
 	/** returns the custom object bound with PivotGrid control.
 	*/
@@ -27281,7 +27168,7 @@ export interface CellEditEventArgs {
 
 	/** contains the array of cells selected for editing.
 	*/
-	editCellsInfo?: Array<any>;
+	editCellsInfo?: any[];
 }
 
 export interface DataSourceColumnsAdvancedFilter {
@@ -27310,7 +27197,7 @@ export interface DataSourceColumnsAdvancedFilter {
 
 	/** Allows the user to hold the filter operand values in advanced filtering.
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface DataSourceColumnsFilterItems {
@@ -27323,7 +27210,7 @@ export interface DataSourceColumnsFilterItems {
 	/** Contains the collection of items to be included/excluded among the field members.
 	*   @Default {[]}
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface DataSourceColumn {
@@ -27339,7 +27226,7 @@ export interface DataSourceColumn {
 	/** Allows the user to filter the report by default using advanced filtering (excel-like) option for OLAP data source in client-mode.
 	*   @Default {[]}
 	*/
-	advancedFilter?: Array<DataSourceColumnsAdvancedFilter>;
+	advancedFilter?: DataSourceColumnsAdvancedFilter[];
 
 	/** Allows the user to indicate whether the added item is a named set or not.
 	*   @Default {false}
@@ -27359,7 +27246,7 @@ export interface DataSourceColumn {
 	/** Contains the list of members need to be drilled down by default in the field.
 	*   @Default {[]}
 	*/
-	drilledItems?: Array<any>;
+	drilledItems?: any[];
 
 	/** Applies filter to the field members.
 	*   @Default {null}
@@ -27393,7 +27280,7 @@ export interface DataSourceRowsAdvancedFilter {
 
 	/** Allows the user to hold the filter operand values in advanced filtering.
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface DataSourceRowsFilterItems {
@@ -27406,7 +27293,7 @@ export interface DataSourceRowsFilterItems {
 	/** Contains the collection of items to be included/excluded among the field members.
 	*   @Default {[]}
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface DataSourceRow {
@@ -27422,7 +27309,7 @@ export interface DataSourceRow {
 	/** Allows the user to filter the report by default using advanced filtering (excel-like) option for OLAP data source in client-mode.
 	*   @Default {[]}
 	*/
-	advancedFilter?: Array<DataSourceRowsAdvancedFilter>;
+	advancedFilter?: DataSourceRowsAdvancedFilter[];
 
 	/** Allows the user to indicate whether the added item is a named set or not.
 	*   @Default {false}
@@ -27442,7 +27329,7 @@ export interface DataSourceRow {
 	/** Contains the list of members need to be drilled down by default in the field.
 	*   @Default {[]}
 	*/
-	drilledItems?: Array<any>;
+	drilledItems?: any[];
 
 	/** Applies filter to the field members.
 	*   @Default {null}
@@ -27470,7 +27357,7 @@ export interface DataSourceValue {
 	/** This holds the list of unique names of measures to bind them from the OLAP cube.
 	*   @Default {[]}
 	*/
-	measures?: Array<DataSourceValuesMeasure>;
+	measures?: DataSourceValuesMeasure[];
 
 	/** Allows to set the axis name to place the measures items.
 	*   @Default {rows}
@@ -27510,7 +27397,7 @@ export interface DataSourceFiltersFilterItems {
 	/** Contains the collection of items to be included/excluded among the field members.
 	*   @Default {[]}
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface DataSourceFilter {
@@ -27557,22 +27444,22 @@ export interface DataSource {
 	/** Lists out the items to be arranged in columns section of PivotGrid.
 	*   @Default {[]}
 	*/
-	columns?: Array<DataSourceColumn>;
+	columns?: DataSourceColumn[];
 
 	/** Lists out the items to be arranged in rows section of PivotGrid.
 	*   @Default {[]}
 	*/
-	rows?: Array<DataSourceRow>;
+	rows?: DataSourceRow[];
 
 	/** Lists out the items which supports calculation in PivotGrid.
 	*   @Default {[]}
 	*/
-	values?: Array<DataSourceValue>;
+	values?: DataSourceValue[];
 
 	/** Lists out the items which supports filtering of values without displaying the members in UI in PivotGrid.
 	*   @Default {[]}
 	*/
-	filters?: Array<DataSourceFilter>;
+	filters?: DataSourceFilter[];
 
 	/** Contains the respective cube name from OLAP database as string type.
 	*   @Default {â€œâ€}
@@ -27754,7 +27641,7 @@ export interface ServiceMethodSettings {
 	writeBack?: string;
 }
 
-enum Layout{
+enum Layout {
 
 	///To set normal summary layout in PivotGrid.
 	Normal,
@@ -27770,20 +27657,16 @@ enum Layout{
 }
 
 }
-module Pivot
-{
-enum AnalysisMode
-{
+namespace Pivot {
+enum AnalysisMode {
 //To bind an OLAP data source to PivotGrid.
 OLAP,
 //To bind a relational data source to PivotGrid.
 Pivot,
 }
 }
-module PivotAnalysis
-{
-enum SortOrder
-{
+namespace PivotAnalysis {
+enum SortOrder {
 //Sorts the members of the field in ascending order.
 Ascending,
 //Sorts the members of the field in descending order.
@@ -27792,20 +27675,16 @@ Descending,
 None,
 }
 }
-module PivotAnalysis
-{
-enum FilterType
-{
+namespace PivotAnalysis {
+enum FilterType {
 //Excludes the specified values among the members of the field.
 Exclude,
 //Includes the specified values alone among the members of the field.
 Include,
 }
 }
-module PivotAnalysis
-{
-enum SummaryType
-{
+namespace PivotAnalysis {
+enum SummaryType {
 //Calculates the summary as the total of all values.
 Sum,
 //Displays the average of all values as the summaries.
@@ -27818,10 +27697,8 @@ Min,
 Max,
 }
 }
-module Pivot
-{
-enum OperationalMode
-{
+namespace Pivot {
+enum OperationalMode {
 //To bind data source completely from client-side.
 ClientMode,
 //To bind data source completely from server-side.
@@ -27831,11 +27708,10 @@ ServerMode,
 
 class PivotSchemaDesigner extends ej.Widget {
 	static fn: PivotSchemaDesigner;
-	constructor(element: JQuery, options?: PivotSchemaDesigner.Model);
-	constructor(element: Element, options?: PivotSchemaDesigner.Model);
+	constructor(element: JQuery | Element, options?: PivotSchemaDesigner.Model);
 	static Locale: any;
-	model:PivotSchemaDesigner.Model;
-	defaults:PivotSchemaDesigner.Model;
+	model: PivotSchemaDesigner.Model;
+	defaults: PivotSchemaDesigner.Model;
 
 	/** Performs an asynchronous HTTP (AJAX) request.
 	*   @returns {void}
@@ -27847,7 +27723,7 @@ class PivotSchemaDesigner extends ej.Widget {
 	*/
 	refreshControl(): void;
 }
-export module PivotSchemaDesigner{
+export namespace PivotSchemaDesigner {
 
 export interface Model {
 
@@ -27917,13 +27793,13 @@ export interface Model {
 	layout?: ej.PivotSchemaDesigner.Layouts|string;
 
 	/** Triggers when it reaches client-side after any AJAX request. */
-	afterServiceInvoke? (e: AfterServiceInvokeEventArgs): void;
+	afterServiceInvoke?(e: AfterServiceInvokeEventArgs): void;
 
 	/** Triggers before any AJAX request is passed from PivotSchemaDesigner to service methods. */
-	beforeServiceInvoke? (e: BeforeServiceInvokeEventArgs): void;
+	beforeServiceInvoke?(e: BeforeServiceInvokeEventArgs): void;
 
 	/** Triggers when we start dragging any field from PivotSchemaDesigner. */
-	dragMove? (e: DragMoveEventArgs): void;
+	dragMove?(e: DragMoveEventArgs): void;
 }
 
 export interface AfterServiceInvokeEventArgs {
@@ -28021,7 +27897,7 @@ export interface ServiceMethod {
 	removeButton?: string;
 }
 
-enum Layouts{
+enum Layouts {
 
 	///To set the layout as same in the Excel.
 	Excel,
@@ -28037,18 +27913,17 @@ enum Layouts{
 
 class PivotPager extends ej.Widget {
 	static fn: PivotPager;
-	constructor(element: JQuery, options?: PivotPager.Model);
-	constructor(element: Element, options?: PivotPager.Model);
+	constructor(element: JQuery | Element, options?: PivotPager.Model);
 	static Locale: any;
-	model:PivotPager.Model;
-	defaults:PivotPager.Model;
+	model: PivotPager.Model;
+	defaults: PivotPager.Model;
 
 	/** This function initializes the page counts and page numbers for the PivotPager.
 	*   @returns {void}
 	*/
 	initPagerProperties(): void;
 }
-export module PivotPager{
+export namespace PivotPager {
 
 export interface Model {
 
@@ -28088,7 +27963,7 @@ export interface Model {
 	targetControlID?: string;
 }
 
-enum Mode{
+enum Mode {
 
 	///To set both categorical and series pager for paging.
 	Both,
@@ -28104,11 +27979,10 @@ enum Mode{
 
 class PivotChart extends ej.Widget {
 	static fn: PivotChart;
-	constructor(element: JQuery, options?: PivotChart.Model);
-	constructor(element: Element, options?: PivotChart.Model);
+	constructor(element: JQuery | Element, options?: PivotChart.Model);
 	static Locale: any;
-	model:PivotChart.Model;
-	defaults:PivotChart.Model;
+	model: PivotChart.Model;
+	defaults: PivotChart.Model;
 
 	/** Performs an asynchronous HTTP (AJAX) request.
 	*   @returns {void}
@@ -28148,7 +28022,7 @@ class PivotChart extends ej.Widget {
 	/** Returns the JSON records formed to render the control.
 	*   @returns {Array<any>}
 	*/
-	getJSONRecords(): Array<any>;
+	getJSONRecords(): any[];
 
 	/** Sets the JSON records to render the control.
 	*   @returns {void}
@@ -28158,7 +28032,7 @@ class PivotChart extends ej.Widget {
 	/** Returns the PivotEngine formed to render the control.
 	*   @returns {Array<any>}
 	*/
-	getPivotEngine(): Array<any>;
+	getPivotEngine(): any[];
 
 	/** Sets the PivotEngine required to render the control.
 	*   @returns {void}
@@ -28180,7 +28054,7 @@ class PivotChart extends ej.Widget {
 	*/
 	refreshPagedPivotChart(): void;
 }
-export module PivotChart{
+export namespace PivotChart {
 
 export interface Model {
 
@@ -28275,28 +28149,28 @@ export interface Model {
 	url?: string;
 
 	/** Triggers when PivotChart starts to render. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Triggers when it reaches client-side after any AJAX request. */
-	afterServiceInvoke? (e: AfterServiceInvokeEventArgs): void;
+	afterServiceInvoke?(e: AfterServiceInvokeEventArgs): void;
 
 	/** Triggers before any AJAX request is passed from PivotChart to service methods. */
-	beforeServiceInvoke? (e: BeforeServiceInvokeEventArgs): void;
+	beforeServiceInvoke?(e: BeforeServiceInvokeEventArgs): void;
 
 	/** Triggers on performing drill up/down in PivotChart control. */
-	drillSuccess? (e: DrillSuccessEventArgs): void;
+	drillSuccess?(e: DrillSuccessEventArgs): void;
 
 	/** Triggers when PivotChart widget completes all operations at client-side after any AJAX request. */
-	renderComplete? (e: RenderCompleteEventArgs): void;
+	renderComplete?(e: RenderCompleteEventArgs): void;
 
 	/** Triggers when any error occurred during AJAX request. */
-	renderFailure? (e: RenderFailureEventArgs): void;
+	renderFailure?(e: RenderFailureEventArgs): void;
 
 	/** Triggers when PivotChart successfully reaches client-side after any AJAX request. */
-	renderSuccess? (e: RenderSuccessEventArgs): void;
+	renderSuccess?(e: RenderSuccessEventArgs): void;
 
 	/** Triggers before performing exporting in pivot chart. */
-	beforeExport? (e: BeforeExportEventArgs): void;
+	beforeExport?(e: BeforeExportEventArgs): void;
 }
 
 export interface LoadEventArgs {
@@ -28441,7 +28315,7 @@ export interface DataSourceColumnsFilterItems {
 	/** Contains the collection of items to be included/excluded among the field members.
 	*   @Default {[]}
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface DataSourceColumn {
@@ -28480,7 +28354,7 @@ export interface DataSourceRowsFilterItems {
 	/** Contains the collection of items to be included/excluded among the field members.
 	*   @Default {[]}
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface DataSourceRow {
@@ -28529,7 +28403,7 @@ export interface DataSourceValue {
 	/** This holds the list of unique names of measures to bind them from the OLAP cube.
 	*   @Default {[]}
 	*/
-	measures?: Array<DataSourceValuesMeasure>;
+	measures?: DataSourceValuesMeasure[];
 
 	/** Allows to set the axis name to place the measures items.
 	*   @Default {rows}
@@ -28556,7 +28430,7 @@ export interface DataSourceFiltersFilterItems {
 	/** Contains the collection of items to be included/excluded among the field members.
 	*   @Default {[]}
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface DataSourceFilter {
@@ -28591,22 +28465,22 @@ export interface DataSource {
 	/** Lists out the items to be displayed as series of PivotChart.
 	*   @Default {[]}
 	*/
-	columns?: Array<DataSourceColumn>;
+	columns?: DataSourceColumn[];
 
 	/** Lists out the items to be displayed as segments of PivotChart.
 	*   @Default {[]}
 	*/
-	rows?: Array<DataSourceRow>;
+	rows?: DataSourceRow[];
 
 	/** Lists out the items supports calculation in PivotChart.
 	*   @Default {[]}
 	*/
-	values?: Array<DataSourceValue>;
+	values?: DataSourceValue[];
 
 	/** Lists out the items which supports filtering of values without displaying the members in UI in PivotChart.
 	*   @Default {[]}
 	*/
-	filters?: Array<DataSourceFilter>;
+	filters?: DataSourceFilter[];
 }
 
 export interface ServiceMethodSettings {
@@ -28632,7 +28506,7 @@ export interface ServiceMethodSettings {
 	paging?: string;
 }
 
-enum ChartTypes{
+enum ChartTypes {
 
 	///To render a Line type PivotChart.
 	Line,
@@ -28690,11 +28564,10 @@ enum ChartTypes{
 
 class PivotClient extends ej.Widget {
 	static fn: PivotClient;
-	constructor(element: JQuery, options?: PivotClient.Model);
-	constructor(element: Element, options?: PivotClient.Model);
+	constructor(element: JQuery | Element, options?: PivotClient.Model);
 	static Locale: any;
-	model:PivotClient.Model;
-	defaults:PivotClient.Model;
+	model: PivotClient.Model;
+	defaults: PivotClient.Model;
 
 	/** Performs an asynchronous HTTP (AJAX) request.
 	*   @returns {void}
@@ -28739,14 +28612,14 @@ class PivotClient extends ej.Widget {
 	/** Returns the JSON records formed to render the control.
 	*   @returns {Array<any>}
 	*/
-	getJSONRecords(): Array<any>;
+	getJSONRecords(): any[];
 
 	/** Sets the JSON records formed to render the control to a property.
 	*   @returns {void}
 	*/
 	setJSONRecords(): void;
 }
-export module PivotClient{
+export namespace PivotClient {
 
 export interface Model {
 
@@ -28869,40 +28742,40 @@ export interface Model {
 	url?: string;
 
 	/** Triggers when it reaches client-side after any AJAX request. */
-	afterServiceInvoke? (e: AfterServiceInvokeEventArgs): void;
+	afterServiceInvoke?(e: AfterServiceInvokeEventArgs): void;
 
 	/** Triggers before any AJAX request is passed from client-side to service methods. */
-	beforeServiceInvoke? (e: BeforeServiceInvokeEventArgs): void;
+	beforeServiceInvoke?(e: BeforeServiceInvokeEventArgs): void;
 
 	/** Triggers before saving the current collection of reports. */
-	saveReport? (e: SaveReportEventArgs): void;
+	saveReport?(e: SaveReportEventArgs): void;
 
 	/** Triggers before loading a saved collection of reports. */
-	loadReport? (e: LoadReportEventArgs): void;
+	loadReport?(e: LoadReportEventArgs): void;
 
 	/** Triggers before fetching the report collection from storage. */
-	fetchReport? (e: FetchReportEventArgs): void;
+	fetchReport?(e: FetchReportEventArgs): void;
 
 	/** Triggers before exporting the control. */
-	beforeExport? (e: BeforeExportEventArgs): void;
+	beforeExport?(e: BeforeExportEventArgs): void;
 
 	/** Triggers before rendering the PivotChart. */
-	chartLoad? (e: ChartLoadEventArgs): void;
+	chartLoad?(e: ChartLoadEventArgs): void;
 
 	/** Triggers before rendering the PivotTreeMap. */
-	treeMapLoad? (e: TreeMapLoadEventArgs): void;
+	treeMapLoad?(e: TreeMapLoadEventArgs): void;
 
 	/** Triggers while we initiate loading of the widget. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Triggers when PivotClient widget completes all operations at client-end after any AJAX request. */
-	renderComplete? (e: RenderCompleteEventArgs): void;
+	renderComplete?(e: RenderCompleteEventArgs): void;
 
 	/** Triggers when any error occurred during AJAX request. */
-	renderFailure? (e: RenderFailureEventArgs): void;
+	renderFailure?(e: RenderFailureEventArgs): void;
 
 	/** Triggers when PivotClient successfully completes rendering. */
-	renderSuccess? (e: RenderSuccessEventArgs): void;
+	renderSuccess?(e: RenderSuccessEventArgs): void;
 }
 
 export interface AfterServiceInvokeEventArgs {
@@ -29079,7 +28952,7 @@ export interface DataSourceColumnsAdvancedFilter {
 
 	/** Allows the user to hold the filter operand values in advanced filtering.
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface DataSourceColumnsFilterItems {
@@ -29092,7 +28965,7 @@ export interface DataSourceColumnsFilterItems {
 	/** Contains the collection of items to be included/excluded among the field members.
 	*   @Default {[]}
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface DataSourceColumn {
@@ -29108,7 +28981,7 @@ export interface DataSourceColumn {
 	/** Allows the user to filter the report by default using advanced filtering (excel-like) option for OLAP data source in client-mode.
 	*   @Default {[]}
 	*/
-	advancedFilter?: Array<DataSourceColumnsAdvancedFilter>;
+	advancedFilter?: DataSourceColumnsAdvancedFilter[];
 
 	/** Allows the user to indicate whether the added item is a named set or not.
 	*   @Default {false}
@@ -29128,7 +29001,7 @@ export interface DataSourceColumn {
 	/** Contains the list of members need to be drilled down by default in the field.
 	*   @Default {[]}
 	*/
-	drilledItems?: Array<any>;
+	drilledItems?: any[];
 
 	/** Applies filter to the field members.
 	*   @Default {null}
@@ -29162,7 +29035,7 @@ export interface DataSourceRowsAdvancedFilter {
 
 	/** Allows the user to hold the filter operand values in advanced filtering.
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface DataSourceRowsFilterItems {
@@ -29175,7 +29048,7 @@ export interface DataSourceRowsFilterItems {
 	/** Contains the collection of items to be included/excluded among the field members.
 	*   @Default {[]}
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface DataSourceRow {
@@ -29191,7 +29064,7 @@ export interface DataSourceRow {
 	/** Allows the user to filter the report by default using advanced filtering (excel-like) option for OLAP data source in client-mode.
 	*   @Default {[]}
 	*/
-	advancedFilter?: Array<DataSourceRowsAdvancedFilter>;
+	advancedFilter?: DataSourceRowsAdvancedFilter[];
 
 	/** Allows the user to indicate whether the added item is a named set or not.
 	*   @Default {false}
@@ -29211,7 +29084,7 @@ export interface DataSourceRow {
 	/** Contains the list of members need to be drilled down by default in the field.
 	*   @Default {[]}
 	*/
-	drilledItems?: Array<any>;
+	drilledItems?: any[];
 
 	/** Applies filter to the field members.
 	*   @Default {null}
@@ -29239,7 +29112,7 @@ export interface DataSourceValue {
 	/** This holds the list of unique names of measures to bind them from the OLAP cube.
 	*   @Default {[]}
 	*/
-	measures?: Array<DataSourceValuesMeasure>;
+	measures?: DataSourceValuesMeasure[];
 
 	/** Allows to set the axis name to place the measures items.
 	*   @Default {rows}
@@ -29279,7 +29152,7 @@ export interface DataSourceFiltersFilterItems {
 	/** Contains the collection of items to be included/excluded among the field members.
 	*   @Default {[]}
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface DataSourceFilter {
@@ -29326,22 +29199,22 @@ export interface DataSource {
 	/** Lists out the items to be arranged in columns section of PivotClient.
 	*   @Default {[]}
 	*/
-	columns?: Array<DataSourceColumn>;
+	columns?: DataSourceColumn[];
 
 	/** Lists out the items to be arranged in rows section of PivotClient.
 	*   @Default {[]}
 	*/
-	rows?: Array<DataSourceRow>;
+	rows?: DataSourceRow[];
 
 	/** Lists out the items which supports calculation in PivotClient.
 	*   @Default {[]}
 	*/
-	values?: Array<DataSourceValue>;
+	values?: DataSourceValue[];
 
 	/** Lists out the items which supports filtering of values without displaying the members in UI in PivotClient.
 	*   @Default {[]}
 	*/
-	filters?: Array<DataSourceFilter>;
+	filters?: DataSourceFilter[];
 
 	/** Contains the respective cube name from OLAP database as string type.
 	*   @Default {â€œâ€}
@@ -29494,7 +29367,7 @@ export interface ServiceMethodSettings {
 	paging?: string;
 }
 
-enum ClientExportMode{
+enum ClientExportMode {
 
 	///Exports both the PivotChart and PivotGrid on exporting.
 	ChartAndGrid,
@@ -29507,7 +29380,7 @@ enum ClientExportMode{
 }
 
 
-enum ControlPlacement{
+enum ControlPlacement {
 
 	///Displays PivotChart and PivotGrid widgets in separate tabs.
 	Tab,
@@ -29517,7 +29390,7 @@ enum ControlPlacement{
 }
 
 
-enum DefaultView{
+enum DefaultView {
 
 	///To set PivotChart as a default control in view.
 	Chart,
@@ -29527,7 +29400,7 @@ enum DefaultView{
 }
 
 
-enum DisplayMode{
+enum DisplayMode {
 
 	///To display only PivotChart widget.
 	ChartOnly,
@@ -29543,11 +29416,10 @@ enum DisplayMode{
 
 class PivotGauge extends ej.Widget {
 	static fn: PivotGauge;
-	constructor(element: JQuery, options?: PivotGauge.Model);
-	constructor(element: Element, options?: PivotGauge.Model);
+	constructor(element: JQuery | Element, options?: PivotGauge.Model);
 	static Locale: any;
-	model:PivotGauge.Model;
-	defaults:PivotGauge.Model;
+	model: PivotGauge.Model;
+	defaults: PivotGauge.Model;
 
 	/** Performs an asynchronous HTTP (AJAX) request.
 	*   @returns {void}
@@ -29582,7 +29454,7 @@ class PivotGauge extends ej.Widget {
 	/** Returns the JSON records formed to render the control.
 	*   @returns {Array<any>}
 	*/
-	getJSONRecords(): Array<any>;
+	getJSONRecords(): any[];
 
 	/** Sets the JSON records to render the control.
 	*   @returns {void}
@@ -29594,7 +29466,7 @@ class PivotGauge extends ej.Widget {
 	*/
 	getJSONData(): void;
 }
-export module PivotGauge{
+export namespace PivotGauge {
 
 export interface Model {
 
@@ -29684,25 +29556,25 @@ export interface Model {
 	operationalMode?: ej.Pivot.OperationalMode|string;
 
 	/** Triggers when it reaches client-side after any AJAX request. */
-	afterServiceInvoke? (e: AfterServiceInvokeEventArgs): void;
+	afterServiceInvoke?(e: AfterServiceInvokeEventArgs): void;
 
 	/** Triggers before any AJAX request is passed from PivotGauge to service methods. */
-	beforeServiceInvoke? (e: BeforeServiceInvokeEventArgs): void;
+	beforeServiceInvoke?(e: BeforeServiceInvokeEventArgs): void;
 
 	/** Triggers before populating the pivot engine on operating in client mode. */
-	beforePivotEnginePopulate? (e: BeforePivotEnginePopulateEventArgs): void;
+	beforePivotEnginePopulate?(e: BeforePivotEnginePopulateEventArgs): void;
 
 	/** Triggers when PivotGauge started loading at client-side. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Triggers when PivotGauge widget completes all operations at client-side after any AJAX request. */
-	renderComplete? (e: RenderCompleteEventArgs): void;
+	renderComplete?(e: RenderCompleteEventArgs): void;
 
 	/** Triggers when any error occurred during AJAX request. */
-	renderFailure? (e: RenderFailureEventArgs): void;
+	renderFailure?(e: RenderFailureEventArgs): void;
 
 	/** Triggers when PivotGauge successfully reaches client-side after any AJAX request. */
-	renderSuccess? (e: RenderSuccessEventArgs): void;
+	renderSuccess?(e: RenderSuccessEventArgs): void;
 }
 
 export interface AfterServiceInvokeEventArgs {
@@ -29800,7 +29672,7 @@ export interface DataSourceColumnsFilterItems {
 	/** Contains the collection of items to be included/excluded among the field members.
 	*   @Default {[]}
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface DataSourceColumn {
@@ -29825,7 +29697,7 @@ export interface DataSourceRowsFilterItems {
 	/** Contains the collection of items to be included/excluded among the field members.
 	*   @Default {[]}
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface DataSourceRow {
@@ -29860,7 +29732,7 @@ export interface DataSourceValue {
 	/** This holds the list of unique names of measures to bind them from the OLAP cube.
 	*   @Default {[]}
 	*/
-	measures?: Array<DataSourceValuesMeasure>;
+	measures?: DataSourceValuesMeasure[];
 
 	/** Allows to set the axis name to place the measures items.
 	*   @Default {rows}
@@ -29887,7 +29759,7 @@ export interface DataSourceFiltersFilterItems {
 	/** Contains the collection of items to be included/excluded among the field members.
 	*   @Default {[]}
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface DataSourceFilter {
@@ -29922,22 +29794,22 @@ export interface DataSource {
 	/** Lists out the items to bind in columns section.
 	*   @Default {[]}
 	*/
-	columns?: Array<DataSourceColumn>;
+	columns?: DataSourceColumn[];
 
 	/** Lists out the items to bind in rows section.
 	*   @Default {[]}
 	*/
-	rows?: Array<DataSourceRow>;
+	rows?: DataSourceRow[];
 
 	/** Lists out the items supports calculation in PivotGauge.
 	*   @Default {[]}
 	*/
-	values?: Array<DataSourceValue>;
+	values?: DataSourceValue[];
 
 	/** Lists out the items which supports filtering of values without displaying the members in UI in PivotGauge.
 	*   @Default {[]}
 	*/
-	filters?: Array<DataSourceFilter>;
+	filters?: DataSourceFilter[];
 }
 
 export interface LabelFormatSettings {
@@ -29969,7 +29841,7 @@ export interface ServiceMethodSettings {
 	initialize?: string;
 }
 
-enum NumberFormat{
+enum NumberFormat {
 
 	///To set default format for label values.
 	Default,
@@ -29997,11 +29869,10 @@ enum NumberFormat{
 
 class PivotTreeMap extends ej.Widget {
 	static fn: PivotTreeMap;
-	constructor(element: JQuery, options?: PivotTreeMap.Model);
-	constructor(element: Element, options?: PivotTreeMap.Model);
+	constructor(element: JQuery | Element, options?: PivotTreeMap.Model);
 	static Locale: any;
-	model:PivotTreeMap.Model;
-	defaults:PivotTreeMap.Model;
+	model: PivotTreeMap.Model;
+	defaults: PivotTreeMap.Model;
 
 	/** Performs an asynchronous HTTP (AJAX) request.
 	*   @returns {void}
@@ -30021,7 +29892,7 @@ class PivotTreeMap extends ej.Widget {
 	/** Returns the JSON records formed to render the control.
 	*   @returns {Array<any>}
 	*/
-	getJSONRecords(): Array<any>;
+	getJSONRecords(): any[];
 
 	/** Sets the JSON records to render the control.
 	*   @returns {void}
@@ -30043,7 +29914,7 @@ class PivotTreeMap extends ej.Widget {
 	*/
 	renderControlSuccess(): void;
 }
-export module PivotTreeMap{
+export namespace PivotTreeMap {
 
 export interface Model {
 
@@ -30088,28 +29959,28 @@ export interface Model {
 	url?: string;
 
 	/** Triggers when it reaches client-side after any AJAX request. */
-	afterServiceInvoke? (e: AfterServiceInvokeEventArgs): void;
+	afterServiceInvoke?(e: AfterServiceInvokeEventArgs): void;
 
 	/** Triggers before any AJAX request is passed from PivotTreeMap to service methods. */
-	beforeServiceInvoke? (e: BeforeServiceInvokeEventArgs): void;
+	beforeServiceInvoke?(e: BeforeServiceInvokeEventArgs): void;
 
 	/** Triggers when PivotTreeMap starts to render. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Triggers before populating the pivot engine from datasource. */
-	beforePivotEnginePopulate? (e: BeforePivotEnginePopulateEventArgs): void;
+	beforePivotEnginePopulate?(e: BeforePivotEnginePopulateEventArgs): void;
 
 	/** Triggers when drill up/down happens in PivotTreeMap control. And it returns the outer HTML of PivotTreeMap control. */
-	drillSuccess? (e: DrillSuccessEventArgs): void;
+	drillSuccess?(e: DrillSuccessEventArgs): void;
 
 	/** Triggers when PivotTreeMap widget completes all operations at client-side after any AJAX request. */
-	renderComplete? (e: RenderCompleteEventArgs): void;
+	renderComplete?(e: RenderCompleteEventArgs): void;
 
 	/** Triggers when any error occurred during AJAX request. */
-	renderFailure? (e: RenderFailureEventArgs): void;
+	renderFailure?(e: RenderFailureEventArgs): void;
 
 	/** Triggers when PivotTreeMap successfully reaches client-side after any AJAX request. */
-	renderSuccess? (e: RenderSuccessEventArgs): void;
+	renderSuccess?(e: RenderSuccessEventArgs): void;
 }
 
 export interface AfterServiceInvokeEventArgs {
@@ -30225,7 +30096,7 @@ export interface DataSourceColumnsFilterItems {
 	/** Contains the collection of items to be excluded among the field members.
 	*   @Default {[]}
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface DataSourceColumn {
@@ -30250,7 +30121,7 @@ export interface DataSourceRowsFilterItems {
 	/** Contains the collection of items to be excluded among the field members.
 	*   @Default {[]}
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface DataSourceRow {
@@ -30282,7 +30153,7 @@ export interface DataSourceValue {
 	/** This holds the list of unique names of measures to bind them from the OLAP cube.
 	*   @Default {[]}
 	*/
-	measures?: Array<DataSourceValuesMeasure>;
+	measures?: DataSourceValuesMeasure[];
 
 	/** Allows to set the axis name to place the measures items.
 	*   @Default {rows}
@@ -30295,7 +30166,7 @@ export interface DataSourceFiltersFilterItems {
 	/** Contains the collection of items to be excluded among the field members.
 	*   @Default {[]}
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface DataSourceFilter {
@@ -30330,22 +30201,22 @@ export interface DataSource {
 	/** Lists out the items to be displayed as series of PivotTreeMap.
 	*   @Default {[]}
 	*/
-	columns?: Array<DataSourceColumn>;
+	columns?: DataSourceColumn[];
 
 	/** Lists out the items to be displayed as segments of PivotTreeMap.
 	*   @Default {[]}
 	*/
-	rows?: Array<DataSourceRow>;
+	rows?: DataSourceRow[];
 
 	/** Lists out the items supports calculation in PivotTreeMap.
 	*   @Default {[]}
 	*/
-	values?: Array<DataSourceValue>;
+	values?: DataSourceValue[];
 
 	/** Lists out the items which supports filtering of values without displaying the members in UI in PivotTreeMap.
 	*   @Default {[]}
 	*/
-	filters?: Array<DataSourceFilter>;
+	filters?: DataSourceFilter[];
 }
 
 export interface ServiceMethodSettings {
@@ -30364,11 +30235,10 @@ export interface ServiceMethodSettings {
 
 class Schedule extends ej.Widget {
 	static fn: Schedule;
-	constructor(element: JQuery, options?: Schedule.Model);
-	constructor(element: Element, options?: Schedule.Model);
+	constructor(element: JQuery | Element, options?: Schedule.Model);
 	static Locale: any;
-	model:Schedule.Model;
-	defaults:Schedule.Model;
+	model: Schedule.Model;
+	defaults: Schedule.Model;
 
 	/** This method is used to delete the appointment based on the guid value or the appointment data passed to it.
 	*   @param {string|any} GUID value of an appointment element or an appointment object
@@ -30393,12 +30263,12 @@ class Schedule extends ej.Widget {
 	*   @param {Array<any>} Holds array of one or more conditional objects for filtering the appointments based on it.
 	*   @returns {Array<any>}
 	*/
-	filterAppointments(filterConditions: Array<any>): Array<any>;
+	filterAppointments(filterConditions: any[]): any[];
 
 	/** Gets the complete appointment list of Schedule control.
 	*   @returns {Array<any>}
 	*/
-	getAppointments(): Array<any>;
+	getAppointments(): any[];
 
 	/** Prints the entire Scheduler or a single appointment based on the appointment data passed as an argument to it. Simply calling the print() method, without passing any argument will print the entire Scheduler.
 	*   @param {any} Either accepts no arguments at all or else accepts an appointment object.
@@ -30435,7 +30305,7 @@ class Schedule extends ej.Widget {
 	*   @param {boolean} Defines the ignoreCase value for performing the search operation.
 	*   @returns {Array<any>}
 	*/
-	searchAppointments(searchString: any|string, field: string, operator: ej.FilterOperators|string, ignoreCase: boolean): Array<any>;
+	searchAppointments(searchString: any|string, field: string, operator: ej.FilterOperators|string, ignoreCase: boolean): any[];
 
 	/** Refreshes the entire Schedule control.
 	*   @returns {void}
@@ -30452,7 +30322,7 @@ class Schedule extends ej.Widget {
 	*/
 	notifyChanges(): void;
 }
-export module Schedule{
+export namespace Schedule {
 
 export interface Model {
 
@@ -30609,7 +30479,7 @@ export interface Model {
 	/** Holds all the options related to the resources settings of the Schedule. It is a collection of one or more resource objects, where the levels of resources are rendered on the Schedule based on the order of the resource data provided within this collection.
 	*   @Default {null}
 	*/
-	resources?: Array<Resource>;
+	resources?: Resource[];
 
 	/** When set to true, displays the all-day row cells on the Schedule.
 	*   @Default {true}
@@ -30663,7 +30533,7 @@ export interface Model {
 	/** Defines the view collection to be displayed on the Schedule. By default, it displays all the views namely, Day, Week, WorkWeek and Month.
 	*   @Default {[Day, Week, WorkWeek, Month, Agenda]}
 	*/
-	views?: Array<any>;
+	views?: any[];
 
 	/** Sets the width of the Schedule. Accepts both pixel and percentage values.
 	*   @Default {100%}
@@ -30687,7 +30557,7 @@ export interface Model {
 	/** Sets different day collection within workWeek view.
 	*   @Default {[Monday, Tuesday, Wednesday, Thursday, Friday]}
 	*/
-	workWeek?: Array<any>;
+	workWeek?: any[];
 
 	/** Allows to pop-up appointment details in a tooltip while hovering over the appointments.
 	*/
@@ -30736,94 +30606,94 @@ export interface Model {
 	blockoutSettings?: BlockoutSettings;
 
 	/** Triggers on the beginning of every action that starts within the Schedule. */
-	actionBegin? (e: ActionBeginEventArgs): void;
+	actionBegin?(e: ActionBeginEventArgs): void;
 
 	/** Triggers after the completion of every action within the Schedule. */
-	actionComplete? (e: ActionCompleteEventArgs): void;
+	actionComplete?(e: ActionCompleteEventArgs): void;
 
 	/** Triggers after an appointment is clicked. */
-	appointmentClick? (e: AppointmentClickEventArgs): void;
+	appointmentClick?(e: AppointmentClickEventArgs): void;
 
 	/** Triggers before the appointment is being removed from the Scheduler. */
-	beforeAppointmentRemove? (e: BeforeAppointmentRemoveEventArgs): void;
+	beforeAppointmentRemove?(e: BeforeAppointmentRemoveEventArgs): void;
 
 	/** Triggers before the edited appointment is being saved. */
-	beforeAppointmentChange? (e: BeforeAppointmentChangeEventArgs): void;
+	beforeAppointmentChange?(e: BeforeAppointmentChangeEventArgs): void;
 
 	/** Triggers on hovering the mouse over the appointments. */
-	appointmentHover? (e: AppointmentHoverEventArgs): void;
+	appointmentHover?(e: AppointmentHoverEventArgs): void;
 
 	/** Triggers before the new appointment gets saved. */
-	beforeAppointmentCreate? (e: BeforeAppointmentCreateEventArgs): void;
+	beforeAppointmentCreate?(e: BeforeAppointmentCreateEventArgs): void;
 
 	/** Triggers before the appointment window opens. */
-	appointmentWindowOpen? (e: AppointmentWindowOpenEventArgs): void;
+	appointmentWindowOpen?(e: AppointmentWindowOpenEventArgs): void;
 
 	/** Triggers before the context menu opens. */
-	beforeContextMenuOpen? (e: BeforeContextMenuOpenEventArgs): void;
+	beforeContextMenuOpen?(e: BeforeContextMenuOpenEventArgs): void;
 
 	/** Triggers after the cell is clicked. */
-	cellClick? (e: CellClickEventArgs): void;
+	cellClick?(e: CellClickEventArgs): void;
 
 	/** Triggers after the cell is clicked twice. */
-	cellDoubleClick? (e: CellDoubleClickEventArgs): void;
+	cellDoubleClick?(e: CellDoubleClickEventArgs): void;
 
 	/** Triggers on hovering the mouse overs the cells. */
-	cellHover? (e: CellHoverEventArgs): void;
+	cellHover?(e: CellHoverEventArgs): void;
 
 	/** Triggers when the Scheduler completely renders on the page. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Triggers when the Scheduler and all its sub-components gets destroyed. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Triggers while the appointment is being dragged over the work cells. */
-	drag? (e: DragEventArgs): void;
+	drag?(e: DragEventArgs): void;
 
 	/** Triggers when the appointment dragging begins. */
-	dragStart? (e: DragStartEventArgs): void;
+	dragStart?(e: DragStartEventArgs): void;
 
 	/** Triggers when the appointment is dropped. */
-	dragStop? (e: DragStopEventArgs): void;
+	dragStop?(e: DragStopEventArgs): void;
 
 	/** Triggers after the menu/sub-menu items within the context menu is clicked. */
-	menuItemClick? (e: MenuItemClickEventArgs): void;
+	menuItemClick?(e: MenuItemClickEventArgs): void;
 
 	/** Triggers after the Schedule view or date is navigated. */
-	navigation? (e: NavigationEventArgs): void;
+	navigation?(e: NavigationEventArgs): void;
 
 	/** Triggers every time before the elements of the scheduler such as work cells, time cells or header cells and so on renders or re-renders on a page. */
-	queryCellInfo? (e: QueryCellInfoEventArgs): void;
+	queryCellInfo?(e: QueryCellInfoEventArgs): void;
 
 	/** Triggers when the reminder is raised for an appointment based on the alertBefore value. */
-	reminder? (e: ReminderEventArgs): void;
+	reminder?(e: ReminderEventArgs): void;
 
 	/** Triggers while resizing the appointment. */
-	resize? (e: ResizeEventArgs): void;
+	resize?(e: ResizeEventArgs): void;
 
 	/** Triggers when the appointment resizing begins. */
-	resizeStart? (e: ResizeStartEventArgs): void;
+	resizeStart?(e: ResizeStartEventArgs): void;
 
 	/** Triggers when an appointment resizing stops. */
-	resizeStop? (e: ResizeStopEventArgs): void;
+	resizeStop?(e: ResizeStopEventArgs): void;
 
 	/** Triggers when the overflow button is clicked. */
-	overflowButtonClick? (e: OverflowButtonClickEventArgs): void;
+	overflowButtonClick?(e: OverflowButtonClickEventArgs): void;
 
 	/** Triggers while mouse hovering on the overflow button. */
-	overflowButtonHover? (e: OverflowButtonHoverEventArgs): void;
+	overflowButtonHover?(e: OverflowButtonHoverEventArgs): void;
 
 	/** Triggers when any of the keyboard keys are pressed. */
-	keyDown? (e: KeyDownEventArgs): void;
+	keyDown?(e: KeyDownEventArgs): void;
 
 	/** Triggers after the new appointment is saved. */
-	appointmentCreated? (e: AppointmentCreatedEventArgs): void;
+	appointmentCreated?(e: AppointmentCreatedEventArgs): void;
 
 	/** Triggers after an existing appointment is edited. */
-	appointmentChanged? (e: AppointmentChangedEventArgs): void;
+	appointmentChanged?(e: AppointmentChangedEventArgs): void;
 
 	/** Triggers after the appointment is deleted. */
-	appointmentRemoved? (e: AppointmentRemovedEventArgs): void;
+	appointmentRemoved?(e: AppointmentRemovedEventArgs): void;
 }
 
 export interface ActionBeginEventArgs {
@@ -31464,7 +31334,7 @@ export interface ResizeStopEventArgs {
 
 export interface OverflowButtonClickEventArgs {
 
-	/** Returns the object consisting of start time, end time and resource value of the underlying cell on which the clicked overflow button is present.  
+	/** Returns the object consisting of start time, end time and resource value of the underlying cell on which the clicked overflow button is present.
 	*/
 	object?: any;
 
@@ -31487,7 +31357,7 @@ export interface OverflowButtonClickEventArgs {
 
 export interface OverflowButtonHoverEventArgs {
 
-	/** Returns the object consisting of start time, end time and resource value of the underlying cell on which the overflow button is currently hovered.  
+	/** Returns the object consisting of start time, end time and resource value of the underlying cell on which the overflow button is currently hovered.
 	*/
 	object?: any;
 
@@ -31589,7 +31459,7 @@ export interface AppointmentSettings {
 	/** The dataSource option accepts either JSON object collection or DataManager (ej.DataManager) instance that contains Schedule appointments.
 	*   @Default {[]}
 	*/
-	dataSource?: any|Array<any>;
+	dataSource?: any|any[];
 
 	/** It holds either the ej.Query() object or simply the query string that retrieves the specified records from the table.
 	*   @Default {null}
@@ -31691,7 +31561,7 @@ export interface CategorizeSettings {
 
 	/** The dataSource option accepts either the JSON object collection or DataManager [ej.DataManager] instance that contains the categorize data.
 	*/
-	dataSource?: Array<any>|any;
+	dataSource?: any[]|any;
 
 	/** Binds id field name in the dataSource to id of category data.
 	*   @Default {id}
@@ -31718,11 +31588,11 @@ export interface ContextMenuSettingsMenuItems {
 
 	/** All the appointment related context menu items are grouped under this appointment menu collection.
 	*/
-	appointment?: Array<any>;
+	appointment?: any[];
 
 	/** All the Scheduler cell related context menu items are grouped under this cells menu item collection.
 	*/
-	cells?: Array<any>;
+	cells?: any[];
 }
 
 export interface ContextMenuSettings {
@@ -31741,7 +31611,7 @@ export interface Group {
 
 	/** Holds the array of resource names to be grouped on the Schedule.
 	*/
-	resources?: Array<any>;
+	resources?: any[];
 }
 
 export interface WorkHours {
@@ -31772,7 +31642,7 @@ export interface PrioritySettings {
 	/** The dataSource option can accept the JSON object collection that contains the priority related data.
 	*   @Default {{% highlight js%}[{ text: None, value: none },{ text: High, value: high },{ text: Medium, value: medium },{ text: Low, value: low }]{% endhighlight %}}
 	*/
-	dataSource?: any|Array<any>;
+	dataSource?: any|any[];
 
 	/** Binds text field name in the dataSource to prioritySettings text. These text gets listed out in priority field of the appointment window.
 	*   @Default {text}
@@ -31821,7 +31691,7 @@ export interface ResourcesResourceSettings {
 	/** The dataSource option accepts either JSON object collection or DataManager (ejDataManager) instance that contains the resources related data.
 	*   @Default {[]}
 	*/
-	dataSource?: any|Array<any>;
+	dataSource?: any|any[];
 
 	/** Binds text field name in the dataSource to resourceSettings text. These text gets listed out in resources field of the appointment window.
 	*   @Default {null}
@@ -31987,7 +31857,7 @@ export interface BlockoutSettings {
 	/** The dataSource option accepts either JSON object collection or DataManager (ej.DataManager) instance that contains Schedule block intervals.
 	*   @Default {[]}
 	*/
-	dataSource?: any|Array<any>;
+	dataSource?: any|any[];
 
 	/** It holds either the ej.Query() object or simply the query string that retrieves the specified records from the table.
 	*   @Default {null}
@@ -32040,7 +31910,7 @@ export interface BlockoutSettings {
 	customStyle?: string;
 }
 
-enum CurrentView{
+enum CurrentView {
 
 	///Sets currentView of the Scheduler as Day
 	Day,
@@ -32062,7 +31932,7 @@ enum CurrentView{
 }
 
 
-enum Orientation{
+enum Orientation {
 
 	///Set orientation as vertical to Scheduler
 	Vertical,
@@ -32072,7 +31942,7 @@ enum Orientation{
 }
 
 
-enum TimeMode{
+enum TimeMode {
 
 	///Sets 12 hour time mode to Scheduler
 	Hour12,
@@ -32085,16 +31955,15 @@ enum TimeMode{
 
 class RecurrenceEditor extends ej.Widget {
 	static fn: RecurrenceEditor;
-	constructor(element: JQuery, options?: RecurrenceEditor.Model);
-	constructor(element: Element, options?: RecurrenceEditor.Model);
+	constructor(element: JQuery | Element, options?: RecurrenceEditor.Model);
 	static Locale: any;
-	model:RecurrenceEditor.Model;
-	defaults:RecurrenceEditor.Model;
+	model: RecurrenceEditor.Model;
+	defaults: RecurrenceEditor.Model;
 
 	/** Generates the recurrence rule with the options selected within the Recurrence Editor.
 	*   @returns {String}
 	*/
-	getRecurrenceRule(): String;
+	getRecurrenceRule(): string;
 
 	/** Generates the collection of date, that lies within the selected recurrence start and end date for which the recurrence pattern applies.
 	*   @param {string} It refers the recurrence rule.
@@ -32110,14 +31979,14 @@ class RecurrenceEditor extends ej.Widget {
 	*/
 	recurrenceRuleSplit(recurrenceRule: string, exDate: any): any;
 }
-export module RecurrenceEditor{
+export namespace RecurrenceEditor {
 
 export interface Model {
 
 	/** Defines the collection of recurrence frequencies within Recurrence Editor such as Never, Daily, Weekly, Monthly, Yearly and Every Weekday.
 	*   @Default {[never, daily, weekly, monthly, yearly, everyweekday]}
 	*/
-	frequencies?: Array<any>;
+	frequencies?: any[];
 
 	/** Sets the starting day of the week.
 	*   @Default {null}
@@ -32168,7 +32037,7 @@ export interface Model {
 	cssClass?: string;
 
 	/** Triggers whenever any of the Recurrence Editor's value is changed. */
-	change? (e: ChangeEventArgs): void;
+	change?(e: ChangeEventArgs): void;
 }
 
 export interface ChangeEventArgs {
@@ -32193,11 +32062,10 @@ export interface ChangeEventArgs {
 
 class Gantt extends ej.Widget {
 	static fn: Gantt;
-	constructor(element: JQuery, options?: Gantt.Model);
-	constructor(element: Element, options?: Gantt.Model);
+	constructor(element: JQuery | Element, options?: Gantt.Model);
 	static Locale: any;
-	model:Gantt.Model;
-	defaults:Gantt.Model;
+	model: Gantt.Model;
+	defaults: Gantt.Model;
 
 	/** To add a new item in Gantt
 	*   @param {any} Item to add in Gantt row.
@@ -32211,7 +32079,7 @@ class Gantt extends ej.Widget {
 	*   @param {boolean} Defines that we need to preserve the previously selected cells of not
 	*   @returns {void}
 	*/
-	selectCells(Indexes: Array<any>, preservePreviousSelectedCell: boolean): void;
+	selectCells(Indexes: any[], preservePreviousSelectedCell: boolean): void;
 
 	/** Positions the splitter by the specified column index.
 	*   @param {number} Set the splitter position based on column index.
@@ -32299,14 +32167,14 @@ class Gantt extends ej.Widget {
 	*/
 	showColumn(headerText: string): void;
 }
-export module Gantt{
+export namespace Gantt {
 
 export interface Model {
 
 	/** Specifies the fields to be included in the add dialog in Gantt
 	*   @Default {[]}
 	*/
-	addDialogFields?: Array<any>;
+	addDialogFields?: any[];
 
 	/** Enables or disables the ability to resize column.
 	*   @Default {false}
@@ -32373,7 +32241,7 @@ export interface Model {
 	/** To Specify the column fields to be displayed in the dialog while inserting a column using column menu.
 	*   @Default {[]}
 	*/
-	columnDialogFields?: Array<any>;
+	columnDialogFields?: any[];
 
 	/** Specifies the background of connector lines in Gantt
 	*/
@@ -32400,7 +32268,7 @@ export interface Model {
 	/** Collection of data or hierarchical data to represent in Gantt
 	*   @Default {null}
 	*/
-	dataSource?: Array<any>;
+	dataSource?: any[];
 
 	/** Specifies the dateFormat for Gantt , given format is displayed in tooltip , Grid .
 	*   @Default {MM/dd/yyyy}
@@ -32419,7 +32287,7 @@ export interface Model {
 	/** Specifies the fields to be included in the edit dialog in Gantt
 	*   @Default {[]}
 	*/
-	editDialogFields?: Array<any>;
+	editDialogFields?: any[];
 
 	/** Enables or disables the responsiveness of Gantt
 	*   @Default {false}
@@ -32512,7 +32380,7 @@ export interface Model {
 	/** Collection of holidays with date, background and label information to be displayed in Gantt.
 	*   @Default {[]}
 	*/
-	holidays?: Array<any>;
+	holidays?: any[];
 
 	/** Specifies whether to include weekends while calculating the duration of a task.
 	*   @Default {true}
@@ -32643,7 +32511,7 @@ export interface Model {
 	/** Collection of data regarding resources involved in entire project
 	*   @Default {[]}
 	*/
-	resources?: Array<any>;
+	resources?: any[];
 
 	/** Specifies whether rounding off the day working time edits
 	*   @Default {true}
@@ -32710,7 +32578,7 @@ export interface Model {
 
 	/** Specifies the selected cell information on rendering Gantt.
 	*/
-	selectedCellIndexes?: Array<SelectedCellIndex>;
+	selectedCellIndexes?: SelectedCellIndex[];
 
 	/** Specifies the sorting options for Gantt.
 	*/
@@ -32728,7 +32596,7 @@ export interface Model {
 	/** Specifies the options for striplines
 	*   @Default {[]}
 	*/
-	stripLines?: Array<any>;
+	stripLines?: any[];
 
 	/** Specifies the background of the taskbar in Gantt
 	*/
@@ -32796,79 +32664,79 @@ export interface Model {
 	workingTimeScale?: ej.Gantt.workingTimeScale|string;
 
 	/** Triggered for every Gantt action before its starts. */
-	actionBegin? (e: ActionBeginEventArgs): void;
+	actionBegin?(e: ActionBeginEventArgs): void;
 
 	/** Triggered for every Gantt action success event. */
-	actionComplete? (e: ActionCompleteEventArgs): void;
+	actionComplete?(e: ActionCompleteEventArgs): void;
 
 	/** Triggered while enter the edit mode in the TreeGrid cell */
-	beginEdit? (e: BeginEditEventArgs): void;
+	beginEdit?(e: BeginEditEventArgs): void;
 
 	/** Triggered before selecting a cell */
-	cellSelecting? (e: CellSelectingEventArgs): void;
+	cellSelecting?(e: CellSelectingEventArgs): void;
 
 	/** Triggered after selected a cell */
-	cellSelected? (e: CellSelectedEventArgs): void;
+	cellSelected?(e: CellSelectedEventArgs): void;
 
 	/** Triggered while dragging a row in Gantt control */
-	rowDrag? (e: RowDragEventArgs): void;
+	rowDrag?(e: RowDragEventArgs): void;
 
 	/** Triggered while start to drag row in Gantt control */
-	rowDragStart? (e: RowDragStartEventArgs): void;
+	rowDragStart?(e: RowDragStartEventArgs): void;
 
 	/** Triggered while drop a row in Gantt control */
-	rowDragStop? (e: RowDragStopEventArgs): void;
+	rowDragStop?(e: RowDragStopEventArgs): void;
 
 	/** Triggered after collapsed the Gantt record */
-	collapsed? (e: CollapsedEventArgs): void;
+	collapsed?(e: CollapsedEventArgs): void;
 
 	/** Triggered while collapsing the Gantt record */
-	collapsing? (e: CollapsingEventArgs): void;
+	collapsing?(e: CollapsingEventArgs): void;
 
 	/** Triggered while Context Menu is rendered in Gantt control */
-	contextMenuOpen? (e: ContextMenuOpenEventArgs): void;
+	contextMenuOpen?(e: ContextMenuOpenEventArgs): void;
 
 	/** Triggered when Gantt is rendered completely. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Triggered after save the modified cellValue in Gantt. */
-	endEdit? (e: EndEditEventArgs): void;
+	endEdit?(e: EndEditEventArgs): void;
 
 	/** Triggered after expand the record */
-	expanded? (e: ExpandedEventArgs): void;
+	expanded?(e: ExpandedEventArgs): void;
 
 	/** Triggered while expanding the Gantt record */
-	expanding? (e: ExpandingEventArgs): void;
+	expanding?(e: ExpandingEventArgs): void;
 
 	/** Triggered while Gantt is loaded */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Triggered while rendering each cell in the TreeGrid */
-	queryCellInfo? (e: QueryCellInfoEventArgs): void;
+	queryCellInfo?(e: QueryCellInfoEventArgs): void;
 
 	/** Triggered while rendering each taskbar in the Gantt */
-	queryTaskbarInfo? (e: QueryTaskbarInfoEventArgs): void;
+	queryTaskbarInfo?(e: QueryTaskbarInfoEventArgs): void;
 
 	/** Triggered while rendering each row */
-	rowDataBound? (e: RowDataBoundEventArgs): void;
+	rowDataBound?(e: RowDataBoundEventArgs): void;
 
 	/** Triggered after the row is selected. */
-	rowSelected? (e: RowSelectedEventArgs): void;
+	rowSelected?(e: RowSelectedEventArgs): void;
 
 	/** Triggered before the row is going to be selected. */
-	rowSelecting? (e: RowSelectingEventArgs): void;
+	rowSelecting?(e: RowSelectingEventArgs): void;
 
 	/** Triggered after completing the editing operation in taskbar */
-	taskbarEdited? (e: TaskbarEditedEventArgs): void;
+	taskbarEdited?(e: TaskbarEditedEventArgs): void;
 
 	/** Triggered while editing the Gantt chart (dragging, resizing the taskbar ) */
-	taskbarEditing? (e: TaskbarEditingEventArgs): void;
+	taskbarEditing?(e: TaskbarEditingEventArgs): void;
 
 	/** Triggered when taskbar item is clicked in Gantt. */
-	taskbarClick? (e: TaskbarClickEventArgs): void;
+	taskbarClick?(e: TaskbarClickEventArgs): void;
 
 	/** Triggered when toolbar item is clicked in Gantt. */
-	toolbarClick? (e: ToolbarClickEventArgs): void;
+	toolbarClick?(e: ToolbarClickEventArgs): void;
 }
 
 export interface ActionBeginEventArgs {
@@ -33205,7 +33073,7 @@ export interface ContextMenuOpenEventArgs {
 
 	/** Returns the default context menu items to which we add custom items.
 	*/
-	contextMenuItems?: Array<any>;
+	contextMenuItems?: any[];
 
 	/** Returns the Gantt model.
 	*/
@@ -33564,7 +33432,7 @@ export interface DragTooltip {
 	/** Specifies the data source fields to be displayed in the drag tooltip.
 	*   @Default {[]}
 	*/
-	tooltipItems?: Array<any>;
+	tooltipItems?: any[];
 
 	/** Specifies the custom template for drag tooltip.
 	*   @Default {null}
@@ -33709,7 +33577,7 @@ export interface SortSettings {
 	/** Specifies the sorted columns for Gantt
 	*   @Default {[]}
 	*/
-	sortedColumns?: Array<any>;
+	sortedColumns?: any[];
 }
 
 export interface ToolbarSettings {
@@ -33722,10 +33590,10 @@ export interface ToolbarSettings {
 	/** Specifies the list of toolbar items to be rendered in Gantt toolbar
 	*   @Default {[]}
 	*/
-	toolbarItems?: Array<any>;
+	toolbarItems?: any[];
 }
 
-enum DurationUnit{
+enum DurationUnit {
 
 	///Sets the Duration Unit as day.
 	Day,
@@ -33738,7 +33606,7 @@ enum DurationUnit{
 }
 
 
-enum BeginEditAction{
+enum BeginEditAction {
 
 	///you can begin the editing at double click
 	DblClick,
@@ -33748,7 +33616,7 @@ enum BeginEditAction{
 }
 
 
-enum TaskType{
+enum TaskType {
 
 	///Resource unit remains constant while editing the work and duration values.
 	FixedUnit,
@@ -33761,7 +33629,7 @@ enum TaskType{
 }
 
 
-enum WorkUnit{
+enum WorkUnit {
 
 	///Displays the work involved in a task in days.
 	Day,
@@ -33774,7 +33642,7 @@ enum WorkUnit{
 }
 
 
-enum TaskSchedulingMode{
+enum TaskSchedulingMode {
 
 	///All the tasks in the project will be displayed in auto scheduled mode, where the tasks are scheduled automatically over non-working days and holidays.
 	Auto,
@@ -33787,7 +33655,7 @@ enum TaskSchedulingMode{
 }
 
 
-enum SelectionType{
+enum SelectionType {
 
 	///you can select a single row.
 	Single,
@@ -33797,7 +33665,7 @@ enum SelectionType{
 }
 
 
-enum minutesPerInterval{
+enum minutesPerInterval {
 
 	///Sets the interval automatically according with schedule start and end date.
 	Auto,
@@ -33816,7 +33684,7 @@ enum minutesPerInterval{
 }
 
 
-enum ScheduleHeaderType{
+enum ScheduleHeaderType {
 
 	///Sets year Schedule Mode.
 	Year,
@@ -33835,7 +33703,7 @@ enum ScheduleHeaderType{
 }
 
 
-enum TimescaleRoundMode{
+enum TimescaleRoundMode {
 
 	///The round-off value will be automatically calculated based on the data source values.
 	Auto,
@@ -33851,7 +33719,7 @@ enum TimescaleRoundMode{
 }
 
 
-enum SelectionMode{
+enum SelectionMode {
 
 	///you can select a row.
 	Row,
@@ -33861,7 +33729,7 @@ enum SelectionMode{
 }
 
 
-enum workingTimeScale{
+enum workingTimeScale {
 
 	///Sets eight hour timescale.
 	TimeScale8Hours,
@@ -33874,11 +33742,10 @@ enum workingTimeScale{
 
 class ReportViewer extends ej.Widget {
 	static fn: ReportViewer;
-	constructor(element: JQuery, options?: ReportViewer.Model);
-	constructor(element: Element, options?: ReportViewer.Model);
+	constructor(element: JQuery | Element, options?: ReportViewer.Model);
 	static Locale: any;
-	model:ReportViewer.Model;
-	defaults:ReportViewer.Model;
+	model: ReportViewer.Model;
+	defaults: ReportViewer.Model;
 
 	/** Export the report to the specified format.
 	*   @returns {void}
@@ -33950,19 +33817,19 @@ class ReportViewer extends ej.Widget {
 	*/
 	refresh(): void;
 }
-export module ReportViewer{
+export namespace ReportViewer {
 
 export interface Model {
 
 	/** Gets or sets the list of data sources for the RDLC report.
 	*   @Default {[]}
 	*/
-	dataSources?: Array<DataSource>;
+	dataSources?: DataSource[];
 
 	/** Enables or disables the page cache of report.
 	*   @Default {false}
 	*/
-	enablePageCache?: Boolean;
+	enablePageCache?: boolean;
 
 	/** Specifies the export settings.
 	*/
@@ -33971,12 +33838,12 @@ export interface Model {
 	/** When set to true, adapts the report layout to fit the screen size of devices on which it renders.
 	*   @Default {true}
 	*/
-	isResponsive?: Boolean;
+	isResponsive?: boolean;
 
 	/** Specifies the locale for report viewer.
 	*   @Default {en-US}
 	*/
-	locale?: String;
+	locale?: string;
 
 	/** Specifies the page settings.
 	*/
@@ -33985,12 +33852,12 @@ export interface Model {
 	/** Gets or sets the list of parameters associated with the report.
 	*   @Default {[]}
 	*/
-	parameters?: Array<Parameter>;
+	parameters?: Parameter[];
 
 	/** Enables and disables the print mode.
 	*   @Default {false}
 	*/
-	printMode?: Boolean;
+	printMode?: boolean;
 
 	/** Specifies the print option of the report.
 	*   @Default {ej.ReportViewer.PrintOptions.Default}
@@ -34010,17 +33877,17 @@ export interface Model {
 	/** Gets or sets the path of the report file.
 	*   @Default {empty}
 	*/
-	reportPath?: String;
+	reportPath?: string;
 
 	/** Gets or sets the reports server URL.
 	*   @Default {empty}
 	*/
-	reportServerUrl?: String;
+	reportServerUrl?: string;
 
 	/** Specifies the report Web API service URL.
 	*   @Default {empty}
 	*/
-	reportServiceUrl?: String;
+	reportServiceUrl?: string;
 
 	/** Specifies the toolbar settings.
 	*/
@@ -34029,31 +33896,31 @@ export interface Model {
 	/** Gets or sets the zoom factor for report viewer.
 	*   @Default {1}
 	*/
-	zoomFactor?: Number;
+	zoomFactor?: number;
 
 	/** Fires when the report viewer is destroyed successfully.If you want to perform any operation after destroying the reportviewer control,you can make use of the destroy event. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires during drill through action done in report.If you want to perform any operation when a drill through action is performed, you can make use of the drillThrough event. */
-	drillThrough? (e: DrillThroughEventArgs): void;
+	drillThrough?(e: DrillThroughEventArgs): void;
 
 	/** Fires before report rendering is completed.If you want to perform any operation before the rendering of report,you can make use of the renderingBegin event. */
-	renderingBegin? (e: RenderingBeginEventArgs): void;
+	renderingBegin?(e: RenderingBeginEventArgs): void;
 
 	/** Fires after report rendering completed.If you want to perform any operation after the rendering of report,you can make use of this renderingComplete event. */
-	renderingComplete? (e: RenderingCompleteEventArgs): void;
+	renderingComplete?(e: RenderingCompleteEventArgs): void;
 
 	/** Fires when any error occurred while rendering the report.If you want to perform any operation when an error occurs in the report, you can make use of the reportError event. */
-	reportError? (e: ReportErrorEventArgs): void;
+	reportError?(e: ReportErrorEventArgs): void;
 
 	/** Fires when the report is being exported.If you want to perform any operation before exporting of report, you can make use of the reportExport event. */
-	reportExport? (e: ReportExportEventArgs): void;
+	reportExport?(e: ReportExportEventArgs): void;
 
 	/** Fires when the report is loaded.If you want to perform any operation after the successful loading of report, you can make use of the reportLoaded event. */
-	reportLoaded? (e: ReportLoadedEventArgs): void;
+	reportLoaded?(e: ReportLoadedEventArgs): void;
 
 	/** Fires when click the View Report Button. */
-	viewReportClick? (e: ViewReportClickEventArgs): void;
+	viewReportClick?(e: ViewReportClickEventArgs): void;
 }
 
 export interface DestroyEventArgs {
@@ -34197,12 +34064,12 @@ export interface DataSource {
 	/** Gets or sets the name of the data source.
 	*   @Default {empty}
 	*/
-	name?: String;
+	name?: string;
 
 	/** Gets or sets the values of data source.
 	*   @Default {[]}
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface ExportSettings {
@@ -34241,27 +34108,27 @@ export interface Parameter {
 	/** Gets or sets the parameter labels.
 	*   @Default {null}
 	*/
-	labels?: Array<any>;
+	labels?: any[];
 
 	/** Gets or sets the name of the parameter.
 	*   @Default {empty}
 	*/
-	name?: String;
+	name?: string;
 
 	/** Gets or sets whether the parameter allows nullable value or not.
 	*   @Default {false}
 	*/
-	nullable?: Boolean;
+	nullable?: boolean;
 
 	/** Gets or sets the prompt message associated with the specified parameter.
 	*   @Default {empty}
 	*/
-	prompt?: String;
+	prompt?: string;
 
 	/** Gets or sets the parameter values.
 	*   @Default {[]}
 	*/
-	values?: Array<any>;
+	values?: any[];
 }
 
 export interface ToolbarSettings {
@@ -34269,7 +34136,7 @@ export interface ToolbarSettings {
 	/** Fires when user click on toolbar item in the toolbar.
 	*   @Default {empty}
 	*/
-	click?: String;
+	click?: string;
 
 	/** Specifies the toolbar items.
 	*   @Default {ej.ReportViewer.ToolbarItems.All}
@@ -34279,20 +34146,20 @@ export interface ToolbarSettings {
 	/** Shows or hides the toolbar.
 	*   @Default {true}
 	*/
-	showToolbar?: Boolean;
+	showToolbar?: boolean;
 
 	/** Shows or hides the tooltip of toolbar items.
 	*   @Default {true}
 	*/
-	showTooltip?: Boolean;
+	showTooltip?: boolean;
 
 	/** Specifies the toolbar template ID.
 	*   @Default {empty}
 	*/
-	templateId?: String;
+	templateId?: string;
 }
 
-enum ExportOptions{
+enum ExportOptions {
 
 	///Specifies the All property in ExportOptions to get all available options.
 	All,
@@ -34311,7 +34178,7 @@ enum ExportOptions{
 }
 
 
-enum ExcelFormats{
+enum ExcelFormats {
 
 	///Specifies the Excel97to2003 property in ExcelFormats to get specified version of exported format.
 	Excel97to2003,
@@ -34327,7 +34194,7 @@ enum ExcelFormats{
 }
 
 
-enum WordFormats{
+enum WordFormats {
 
 	///Specifies the Doc property in WordFormats to get specified version of exported format.
 	Doc,
@@ -34394,7 +34261,7 @@ enum WordFormats{
 }
 
 
-enum Orientation{
+enum Orientation {
 
 	///Specifies the Landscape property in pageSettings.orientation to get specified layout.
 	Landscape,
@@ -34404,7 +34271,7 @@ enum Orientation{
 }
 
 
-enum PaperSize{
+enum PaperSize {
 
 	///Specifies the A3 as value in pageSettings.paperSize to get specified size.
 	A3,
@@ -34441,7 +34308,7 @@ enum PaperSize{
 }
 
 
-enum PrintOptions{
+enum PrintOptions {
 
 	///Specifies the Default property in printOptions.
 	Default,
@@ -34454,7 +34321,7 @@ enum PrintOptions{
 }
 
 
-enum ProcessingMode{
+enum ProcessingMode {
 
 	///Specifies the Remote property in processingMode.
 	Remote,
@@ -34464,7 +34331,7 @@ enum ProcessingMode{
 }
 
 
-enum RenderMode{
+enum RenderMode {
 
 	///Specifies the Default property in RenderMode to get default output.
 	Default,
@@ -34477,7 +34344,7 @@ enum RenderMode{
 }
 
 
-enum ToolbarItems{
+enum ToolbarItems {
 
 	///Specifies the Print as value in ToolbarItems to get specified item.
 	Print,
@@ -34511,11 +34378,10 @@ enum ToolbarItems{
 
 class TreeGrid extends ej.Widget {
 	static fn: TreeGrid;
-	constructor(element: JQuery, options?: TreeGrid.Model);
-	constructor(element: Element, options?: TreeGrid.Model);
+	constructor(element: JQuery | Element, options?: TreeGrid.Model);
 	static Locale: any;
-	model:TreeGrid.Model;
-	defaults:TreeGrid.Model;
+	model: TreeGrid.Model;
+	defaults: TreeGrid.Model;
 
 	/** Add a new row in TreeGrid, while allowAdding is set to true
 	*   @param {any} Item to add in TreeGrid row.
@@ -34535,11 +34401,11 @@ class TreeGrid extends ej.Widget {
 	*   @param {boolean} Defines that we need to preserve the previously selected cells or not
 	*   @returns {void}
 	*/
-	selectCells(Indexes: Array<any>, preservePreviousSelectedCell: boolean): void;
+	selectCells(Indexes: any[], preservePreviousSelectedCell: boolean): void;
 
 	/** To rename a column with the specified name
 	*   @param {number} Index of the column to be renamed
-	*   @param {string} Header text of the column 
+	*   @param {string} Header text of the column
 	*   @returns {void}
 	*/
 	renameColumn(columnIndex: number, name: string): void;
@@ -34578,7 +34444,7 @@ class TreeGrid extends ej.Widget {
 	*   @param {any} Pass which data you want to show in tree grid
 	*   @returns {void}
 	*/
-	refresh(dataSource: Array<any>, query: any): void;
+	refresh(dataSource: any[], query: any): void;
 
 	/** Freeze all the columns preceding to the column specified by the field name.
 	*   @param {string} Freeze all Columns before this field column.
@@ -34624,7 +34490,7 @@ class TreeGrid extends ej.Widget {
 	*/
 	reorderColumn(fieldName: string, targetIndex: string): void;
 }
-export module TreeGrid{
+export namespace TreeGrid {
 
 export interface Model {
 
@@ -34683,12 +34549,12 @@ export interface Model {
 
 	/** Option for adding columns; each column has the option to bind to a field in the dataSource.
 	*/
-	columns?: Array<Column>;
+	columns?: Column[];
 
 	/** To Specify the column fields to be displayed in the dialog while inserting a column using column menu.
 	*   @Default {[]}
 	*/
-	columnDialogFields?: Array<any>;
+	columnDialogFields?: any[];
 
 	/** Options for displaying and customizing context menu items.
 	*/
@@ -34701,7 +34567,7 @@ export interface Model {
 	/** Specifies hierarchical or self-referential data to populate the TreeGrid.
 	*   @Default {null}
 	*/
-	dataSource?: Array<any>;
+	dataSource?: any[];
 
 	/** Specifies whether to wrap the header text when it is overflown i.e., when it exceeds the header width.
 	*   @Default {none}
@@ -34841,7 +34707,7 @@ export interface Model {
 	/** Specifies the summary row collection object to be displayed
 	*   @Default {[]}
 	*/
-	summaryRows?: Array<any>;
+	summaryRows?: any[];
 
 	/** Specifies whether to show tooltip when mouse is hovered on the cell.
 	*   @Default {true}
@@ -34871,88 +34737,88 @@ export interface Model {
 	treeColumnIndex?: number;
 
 	/** Triggered before every success event of TreeGrid action. */
-	actionBegin? (e: ActionBeginEventArgs): void;
+	actionBegin?(e: ActionBeginEventArgs): void;
 
 	/** Triggered for every TreeGrid action success event. */
-	actionComplete? (e: ActionCompleteEventArgs): void;
+	actionComplete?(e: ActionCompleteEventArgs): void;
 
 	/** Triggered while enter the edit mode in the TreeGrid cell */
-	beginEdit? (e: BeginEditEventArgs): void;
+	beginEdit?(e: BeginEditEventArgs): void;
 
 	/** Triggered after collapsed the TreeGrid record */
-	collapsed? (e: CollapsedEventArgs): void;
+	collapsed?(e: CollapsedEventArgs): void;
 
 	/** Triggered while collapsing the TreeGrid record */
-	collapsing? (e: CollapsingEventArgs): void;
+	collapsing?(e: CollapsingEventArgs): void;
 
 	/** Triggered while clicking a row, even when allowSelection property is disabled. */
-	recordClick? (e: RecordClickEventArgs): void;
+	recordClick?(e: RecordClickEventArgs): void;
 
 	/** Triggered  when you start to drag a column */
-	columnDragStart? (e: ColumnDragStartEventArgs): void;
+	columnDragStart?(e: ColumnDragStartEventArgs): void;
 
 	/** Triggered while dragging a column */
-	columnDrag? (e: ColumnDragEventArgs): void;
+	columnDrag?(e: ColumnDragEventArgs): void;
 
 	/** Triggered when a column is dropped */
-	columnDrop? (e: ColumnDropEventArgs): void;
+	columnDrop?(e: ColumnDropEventArgs): void;
 
 	/** Triggered after a column resized */
-	columnResized? (e: ColumnResizedEventArgs): void;
+	columnResized?(e: ColumnResizedEventArgs): void;
 
 	/** Triggered while start to resize a column */
-	columnResizeStart? (e: ColumnResizeStartEventArgs): void;
+	columnResizeStart?(e: ColumnResizeStartEventArgs): void;
 
 	/** Triggered when a column has been resized */
-	columnResizeEnd? (e: ColumnResizeEndEventArgs): void;
+	columnResizeEnd?(e: ColumnResizeEndEventArgs): void;
 
 	/** Triggered while Context Menu is rendered in TreeGrid control */
-	contextMenuOpen? (e: ContextMenuOpenEventArgs): void;
+	contextMenuOpen?(e: ContextMenuOpenEventArgs): void;
 
 	/** Triggered when TreeGrid is rendered completely */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Triggered after saved the modified cellValue in TreeGrid */
-	endEdit? (e: EndEditEventArgs): void;
+	endEdit?(e: EndEditEventArgs): void;
 
 	/** Triggered after expand the record */
-	expanded? (e: ExpandedEventArgs): void;
+	expanded?(e: ExpandedEventArgs): void;
 
 	/** Triggered while expanding the TreeGrid record */
-	expanding? (e: ExpandingEventArgs): void;
+	expanding?(e: ExpandingEventArgs): void;
 
 	/** Triggered while Treegrid is loaded */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Triggered while rendering each cell in the TreeGrid */
-	queryCellInfo? (e: QueryCellInfoEventArgs): void;
+	queryCellInfo?(e: QueryCellInfoEventArgs): void;
 
 	/** Triggered while rendering each row */
-	rowDataBound? (e: RowDataBoundEventArgs): void;
+	rowDataBound?(e: RowDataBoundEventArgs): void;
 
 	/** Triggered while dragging a row in TreeGrid control */
-	rowDrag? (e: RowDragEventArgs): void;
+	rowDrag?(e: RowDragEventArgs): void;
 
 	/** Triggered while start to drag row in TreeGrid control */
-	rowDragStart? (e: RowDragStartEventArgs): void;
+	rowDragStart?(e: RowDragStartEventArgs): void;
 
 	/** Triggered while drop a row in TreeGrid control */
-	rowDragStop? (e: RowDragStopEventArgs): void;
+	rowDragStop?(e: RowDragStopEventArgs): void;
 
 	/** Triggered before selecting a cell */
-	cellSelecting? (e: CellSelectingEventArgs): void;
+	cellSelecting?(e: CellSelectingEventArgs): void;
 
 	/** Triggered after selected a cell */
-	cellSelected? (e: CellSelectedEventArgs): void;
+	cellSelected?(e: CellSelectedEventArgs): void;
 
 	/** Triggered after the row is selected. */
-	rowSelected? (e: RowSelectedEventArgs): void;
+	rowSelected?(e: RowSelectedEventArgs): void;
 
 	/** Triggered before the row is going to be selected. */
-	rowSelecting? (e: RowSelectingEventArgs): void;
+	rowSelecting?(e: RowSelectingEventArgs): void;
 
 	/** Triggered when toolbar item is clicked in TreeGrid. */
-	toolbarClick? (e: ToolbarClickEventArgs): void;
+	toolbarClick?(e: ToolbarClickEventArgs): void;
 }
 
 export interface ActionBeginEventArgs {
@@ -35331,7 +35197,7 @@ export interface ContextMenuOpenEventArgs {
 
 	/** Returns the default context menu items to which we add custom items.
 	*/
-	contextMenuItems?: Array<any>;
+	contextMenuItems?: any[];
 
 	/** Returns the TreeGrid model.
 	*/
@@ -35799,11 +35665,11 @@ export interface Column {
 
 	/** Gets or sets a value for treegrid column width
 	*/
-	width?: Number;
+	width?: number;
 
 	/** Specifies the header template value for the column header
 	*/
-	headerTemplateID?: String;
+	headerTemplateID?: string;
 
 	/** Specifies the display format of a column
 	*   @Default {null}
@@ -35832,7 +35698,7 @@ export interface Column {
 
 	/** Specifies the template for the TreeGrid column
 	*/
-	templateID?: String;
+	templateID?: string;
 
 	/** Enables or disables the ability to edit a row or cell.
 	*   @Default {false}
@@ -35850,7 +35716,7 @@ export interface ContextMenuSettings {
 	/** Option for adding items to context menu.
 	*   @Default {[]}
 	*/
-	contextMenuItems?: Array<any>;
+	contextMenuItems?: any[];
 
 	/** Shows/hides the context menu.
 	*   @Default {false}
@@ -35868,7 +35734,7 @@ export interface DragTooltip {
 	/** Option to add field names whose corresponding values in the dragged row needs to be shown in the preview tooltip.
 	*   @Default {[]}
 	*/
-	tooltipItems?: Array<any>;
+	tooltipItems?: any[];
 
 	/** Custom template for that tooltip that is shown while dragging a row.
 	*   @Default {null}
@@ -35932,7 +35798,7 @@ export interface FilterSettings {
 	/** Specifies the column collection for filtering the TreeGrid content on initial load
 	*   @Default {[]}
 	*/
-	filteredColumns?: Array<any>;
+	filteredColumns?: any[];
 }
 
 export interface PageSettings {
@@ -36009,7 +35875,7 @@ export interface SortSettings {
 	/** Option to add columns based on which the rows have to be sorted recursively.
 	*   @Default {[]}
 	*/
-	sortedColumns?: Array<any>;
+	sortedColumns?: any[];
 }
 
 export interface ToolbarSettings {
@@ -36022,10 +35888,10 @@ export interface ToolbarSettings {
 	/** Specifies the list of toolbar items to be rendered in TreeGrid toolbar
 	*   @Default {[]}
 	*/
-	toolbarItems?: Array<any>;
+	toolbarItems?: any[];
 }
 
-enum EditingType{
+enum EditingType {
 
 	///It Specifies String edit type.
 	String,
@@ -36050,7 +35916,7 @@ enum EditingType{
 }
 
 
-enum BeginEditAction{
+enum BeginEditAction {
 
 	///you can begin the editing at double click
 	DblClick,
@@ -36060,7 +35926,7 @@ enum BeginEditAction{
 }
 
 
-enum EditMode{
+enum EditMode {
 
 	///you can edit a cell.
 	CellEditing,
@@ -36070,7 +35936,7 @@ enum EditMode{
 }
 
 
-enum RowPosition{
+enum RowPosition {
 
 	///you can add a new row at top.
 	Top,
@@ -36089,7 +35955,7 @@ enum RowPosition{
 }
 
 
-enum PageSizeMode{
+enum PageSizeMode {
 
 	///To count all the parent and child records.
 	All,
@@ -36099,7 +35965,7 @@ enum PageSizeMode{
 }
 
 
-enum SelectionMode{
+enum SelectionMode {
 
 	///you can select a row.
 	Row,
@@ -36109,7 +35975,7 @@ enum SelectionMode{
 }
 
 
-enum SelectionType{
+enum SelectionType {
 
 	///you can select a single row.
 	Single,
@@ -36125,11 +35991,10 @@ enum SelectionType{
 
 class GroupButton extends ej.Widget {
 	static fn: GroupButton;
-	constructor(element: JQuery, options?: GroupButton.Model);
-	constructor(element: Element, options?: GroupButton.Model);
+	constructor(element: JQuery | Element, options?: GroupButton.Model);
 	static Locale: any;
-	model:GroupButton.Model;
-	defaults:GroupButton.Model;
+	model: GroupButton.Model;
+	defaults: GroupButton.Model;
 
 	/** Remove the selection state of the specified the button element from the GroupButton
 	*   @param {JQuery} Specific button element
@@ -36213,7 +36078,7 @@ class GroupButton extends ej.Widget {
 	*/
 	showItem(element: JQuery): void;
 }
-export module GroupButton{
+export namespace GroupButton {
 
 export interface Model {
 
@@ -36286,19 +36151,19 @@ export interface Model {
 	width?: string|number;
 
 	/** Triggered before any button element in the GroupButton get selected. */
-	beforeSelect? (e: BeforeSelectEventArgs): void;
+	beforeSelect?(e: BeforeSelectEventArgs): void;
 
 	/** Fires after GroupButton control is created.If the user want to perform any operation after the button control creation then the user can make use of this create event. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when the GroupButton is destroyed successfully.If the user want to perform any operation after the destroy button control then the user can make use of this destroy event. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Triggered once the key is pressed, when the control is in focused state. */
-	keyPress? (e: KeyPressEventArgs): void;
+	keyPress?(e: KeyPressEventArgs): void;
 
 	/** Triggered when the button element get selected. */
-	select? (e: SelectEventArgs): void;
+	select?(e: SelectEventArgs): void;
 }
 
 export interface BeforeSelectEventArgs {
@@ -36448,21 +36313,19 @@ export interface SelectEventArgs {
 	status?: boolean;
 }
 }
-enum GroupButtonMode
-{
-//Sets the GroupButton to work as checkbox mode 
+enum GroupButtonMode {
+//Sets the GroupButton to work as checkbox mode
 CheckBox,
-//Sets the RadioButton to work as radio button mode  
+//Sets the RadioButton to work as radio button mode
 RadioButton,
 }
 
 class NavigationDrawer extends ej.Widget {
 	static fn: NavigationDrawer;
-	constructor(element: JQuery, options?: NavigationDrawer.Model);
-	constructor(element: Element, options?: NavigationDrawer.Model);
+	constructor(element: JQuery | Element, options?: NavigationDrawer.Model);
 	static Locale: any;
-	model:NavigationDrawer.Model;
-	defaults:NavigationDrawer.Model;
+	model: NavigationDrawer.Model;
+	defaults: NavigationDrawer.Model;
 
 	/** To close the navigation drawer control
 	*   @returns {void}
@@ -36484,7 +36347,7 @@ class NavigationDrawer extends ej.Widget {
 	*/
 	toggle(): void;
 }
-export module NavigationDrawer{
+export namespace NavigationDrawer {
 
 export interface Model {
 
@@ -36515,7 +36378,7 @@ export interface Model {
 	/** Specifies the listview items as an array of object.
 	*   @Default {[]}
 	*/
-	items?: Array<any>;
+	items?: any[];
 
 	/** Sets all the properties of listview to render in navigation drawer
 	*/
@@ -36546,22 +36409,22 @@ export interface Model {
 	isPaneOpen?: boolean;
 
 	/** Event triggers after the AJAX content loaded completely. */
-	ajaxComplete? (e: AjaxCompleteEventArgs): void;
+	ajaxComplete?(e: AjaxCompleteEventArgs): void;
 
 	/** Event triggers when the AJAX request failed. */
-	ajaxError? (e: AjaxErrorEventArgs): void;
+	ajaxError?(e: AjaxErrorEventArgs): void;
 
 	/** Event triggers after the AJAX content loaded successfully. */
-	ajaxSuccess? (e: AjaxSuccessEventArgs): void;
+	ajaxSuccess?(e: AjaxSuccessEventArgs): void;
 
 	/** Event triggers before the control gets closed. */
-	beforeClose? (e: BeforeCloseEventArgs): void;
+	beforeClose?(e: BeforeCloseEventArgs): void;
 
 	/** Event triggers when the control open. */
-	open? (e: OpenEventArgs): void;
+	open?(e: OpenEventArgs): void;
 
 	/** Event triggers when the Swipe happens. */
-	swipe? (e: SwipeEventArgs): void;
+	swipe?(e: SwipeEventArgs): void;
 }
 
 export interface AjaxCompleteEventArgs {
@@ -36700,11 +36563,10 @@ export interface AjaxSettings {
 
 class RadialMenu extends ej.Widget {
 	static fn: RadialMenu;
-	constructor(element: JQuery, options?: RadialMenu.Model);
-	constructor(element: Element, options?: RadialMenu.Model);
+	constructor(element: JQuery | Element, options?: RadialMenu.Model);
 	static Locale: any;
-	model:RadialMenu.Model;
-	defaults:RadialMenu.Model;
+	model: RadialMenu.Model;
+	defaults: RadialMenu.Model;
 
 	/** To hide the radialmenu
 	*   @returns {void}
@@ -36736,7 +36598,7 @@ class RadialMenu extends ej.Widget {
 	*   @param {Array<any>} Index of the Radialmenu to be enabled.
 	*   @returns {void}
 	*/
-	enableItemsByIndices(itemIndices: Array<any>): void;
+	enableItemsByIndices(itemIndices: any[]): void;
 
 	/** To disable menu item using index
 	*   @param {number} Index of the Radialmenu to be disabled.
@@ -36748,7 +36610,7 @@ class RadialMenu extends ej.Widget {
 	*   @param {Array<any>} items of the Radialmenu to disable.
 	*   @returns {void}
 	*/
-	disableItemsByIndices(itemIndices: Array<any>): void;
+	disableItemsByIndices(itemIndices: any[]): void;
 
 	/** To enable menu item using item text
 	*   @param {string} item of the Radialmenu item to enable.
@@ -36766,13 +36628,13 @@ class RadialMenu extends ej.Widget {
 	*   @param {Array<any>} items of the Radialmenu item to enable.
 	*   @returns {void}
 	*/
-	enableItems(items: Array<any>): void;
+	enableItems(items: any[]): void;
 
 	/** To disable menu items using item texts
 	*   @param {Array<any>} items of the Radialmenu item to disable.
 	*   @returns {void}
 	*/
-	disableItems(items: Array<any>): void;
+	disableItems(items: any[]): void;
 
 	/** To update menu item badge value
 	*   @param {number} The index value to add the given items at the specified index. If index is not specified, the given value will not be updated.
@@ -36793,7 +36655,7 @@ class RadialMenu extends ej.Widget {
 	*/
 	hideBadge(index: number): void;
 }
-export module RadialMenu{
+export namespace RadialMenu {
 
 export interface Model {
 
@@ -36819,7 +36681,7 @@ export interface Model {
 
 	/** Specify the items of radial menu
 	*/
-	items?: Array<Item>;
+	items?: Item[];
 
 	/** Specifies the radius of radial menu
 	*/
@@ -36834,13 +36696,13 @@ export interface Model {
 	position?: any;
 
 	/** Event triggers when we click an item. */
-	click? (e: ClickEventArgs): void;
+	click?(e: ClickEventArgs): void;
 
 	/** Event triggers when the menu is opened. */
-	open? (e: OpenEventArgs): void;
+	open?(e: OpenEventArgs): void;
 
 	/** Event triggers when the menu is closed. */
-	close? (e: CloseEventArgs): void;
+	close?(e: CloseEventArgs): void;
 }
 
 export interface ClickEventArgs {
@@ -36911,7 +36773,7 @@ export interface ItemsSliderSettings {
 
 	/** Specifies the sliderSettings ticks values of nested radial menu items.
 	*/
-	ticks?: Array<any>;
+	ticks?: any[];
 
 	/** Specifies the sliderSettings stroke Width value.
 	*/
@@ -36954,17 +36816,16 @@ export interface Item {
 
 	/** Specifies to add sub level items .
 	*/
-	items?: Array<any>;
+	items?: any[];
 }
 }
 
 class Tile extends ej.Widget {
 	static fn: Tile;
-	constructor(element: JQuery, options?: Tile.Model);
-	constructor(element: Element, options?: Tile.Model);
+	constructor(element: JQuery | Element, options?: Tile.Model);
 	static Locale: any;
-	model:Tile.Model;
-	defaults:Tile.Model;
+	model: Tile.Model;
+	defaults: Tile.Model;
 
 	/** Update the image template of tile item to another one.
 	*   @param {string} UpdateTemplate by using id
@@ -36973,7 +36834,7 @@ class Tile extends ej.Widget {
 	*/
 	updateTemplate(id: string, index: number): void;
 }
-export module Tile{
+export namespace Tile {
 
 export interface Model {
 
@@ -37021,7 +36882,7 @@ export interface Model {
 
 	/** Set the localization culture for Tile Widget.
 	*/
-	locale?: String;
+	locale?: string;
 
 	/** Section for liveTile specific functionalities.
 	*/
@@ -37053,10 +36914,10 @@ export interface Model {
 	backgroundColor?: string;
 
 	/** Event triggers when the mouseDown happens in the tile */
-	mouseDown? (e: MouseDownEventArgs): void;
+	mouseDown?(e: MouseDownEventArgs): void;
 
 	/** Event triggers when the mouseUp happens in the tile */
-	mouseUp? (e: MouseUpEventArgs): void;
+	mouseUp?(e: MouseUpEventArgs): void;
 }
 
 export interface MouseDownEventArgs {
@@ -37077,7 +36938,7 @@ export interface MouseDownEventArgs {
 	*/
 	text?: string;
 
-	/** returns the index of current tile item 
+	/** returns the index of current tile item
 	*/
 	index?: number;
 }
@@ -37100,7 +36961,7 @@ export interface MouseUpEventArgs {
 	*/
 	text?: boolean;
 
-	/** returns the index of current tile item 
+	/** returns the index of current tile item
 	*/
 	index?: number;
 }
@@ -37176,17 +37037,17 @@ export interface LiveTile {
 	/** Specifies liveTile images in CSS classes.
 	*   @Default {null}
 	*/
-	imageClass?: Array<any>;
+	imageClass?: any[];
 
 	/** Specifies liveTile images in templates.
 	*   @Default {null}
 	*/
-	imageTemplateId?: Array<any>;
+	imageTemplateId?: any[];
 
 	/** Specifies liveTile images in CSS classes.
 	*   @Default {null}
 	*/
-	imageUrl?: Array<any>;
+	imageUrl?: any[];
 
 	/** Specifies liveTile type for Tile. See orientation
 	*   @Default {flip}
@@ -37201,10 +37062,10 @@ export interface LiveTile {
 	/** Sets the text to each living tile
 	*   @Default {Null}
 	*/
-	text?: Array<any>;
+	text?: any[];
 }
 
-enum BadgePosition{
+enum BadgePosition {
 
 	///To set the topright position of tile badge
 	Topright,
@@ -37214,7 +37075,7 @@ enum BadgePosition{
 }
 
 
-enum CaptionAlignment{
+enum CaptionAlignment {
 
 	///To set the normal alignment of text in tile control
 	Normal,
@@ -37230,7 +37091,7 @@ enum CaptionAlignment{
 }
 
 
-enum CaptionPosition{
+enum CaptionPosition {
 
 	///To set the inner top position of the tile text
 	Innertop,
@@ -37243,7 +37104,7 @@ enum CaptionPosition{
 }
 
 
-enum ImagePosition{
+enum ImagePosition {
 
 	///To set the center position of tile image
 	Center,
@@ -37277,7 +37138,7 @@ enum ImagePosition{
 }
 
 
-enum liveTileType{
+enum liveTileType {
 
 	///To set flip type of liveTile for tile control
 	Flip,
@@ -37290,7 +37151,7 @@ enum liveTileType{
 }
 
 
-enum TileSize{
+enum TileSize {
 
 	///To set the medium size for tile control
 	Medium,
@@ -37309,11 +37170,10 @@ enum TileSize{
 
 class Signature extends ej.Widget {
 	static fn: Signature;
-	constructor(element: JQuery, options?: Signature.Model);
-	constructor(element: Element, options?: Signature.Model);
+	constructor(element: JQuery | Element, options?: Signature.Model);
 	static Locale: any;
-	model:Signature.Model;
-	defaults:Signature.Model;
+	model: Signature.Model;
+	defaults: Signature.Model;
 
 	/** Clears the strokes in the signature.
 	*   @returns {void}
@@ -37360,7 +37220,7 @@ class Signature extends ej.Widget {
 	*/
 	undo(): void;
 }
-export module Signature{
+export namespace Signature {
 
 export interface Model {
 
@@ -37418,16 +37278,16 @@ export interface Model {
 	width?: string;
 
 	/** Triggers when the stroke is changed. */
-	change? (e: ChangeEventArgs): void;
+	change?(e: ChangeEventArgs): void;
 
 	/** Triggered when the pointer is clicked or touched in the signature canvas. */
-	mouseDown? (e: MouseDownEventArgs): void;
+	mouseDown?(e: MouseDownEventArgs): void;
 
 	/** Triggered when the pointer is moved in the signature canvas. */
-	mouseMove? (e: MouseMoveEventArgs): void;
+	mouseMove?(e: MouseMoveEventArgs): void;
 
 	/** Triggered when the pointer is released after click or touch in the signature canvas. */
-	mouseUp? (e: MouseUpEventArgs): void;
+	mouseUp?(e: MouseUpEventArgs): void;
 }
 
 export interface ChangeEventArgs {
@@ -37506,7 +37366,7 @@ export interface MouseUpEventArgs {
 	value?: any;
 }
 
-enum SaveImageFormat{
+enum SaveImageFormat {
 
 	///To save the signature image with PNG format only.
 	PNG,
@@ -37525,11 +37385,10 @@ enum SaveImageFormat{
 
 class RadialSlider extends ej.Widget {
 	static fn: RadialSlider;
-	constructor(element: JQuery, options?: RadialSlider.Model);
-	constructor(element: Element, options?: RadialSlider.Model);
+	constructor(element: JQuery | Element, options?: RadialSlider.Model);
 	static Locale: any;
-	model:RadialSlider.Model;
-	defaults:RadialSlider.Model;
+	model: RadialSlider.Model;
+	defaults: RadialSlider.Model;
 
 	/** To show the radialslider
 	*   @returns {void}
@@ -37541,7 +37400,7 @@ class RadialSlider extends ej.Widget {
 	*/
 	hide(): void;
 }
-export module RadialSlider{
+export namespace RadialSlider {
 
 export interface Model {
 
@@ -37611,7 +37470,7 @@ export interface Model {
 
 	/** Specifies the ticks value of radial slider
 	*/
-	ticks?: Array<any>;
+	ticks?: any[];
 
 	/** Specifies the value of radial slider
 	*   @Default {10}
@@ -37619,142 +37478,142 @@ export interface Model {
 	value?: number;
 
 	/** Event triggers when the change occurs. */
-	change? (e: ChangeEventArgs): void;
+	change?(e: ChangeEventArgs): void;
 
 	/** Event triggers when the radial slider is created. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Event triggers when the mouse pointer is dragged over the radial slider. */
-	mouseover? (e: MouseoverEventArgs): void;
+	mouseover?(e: MouseoverEventArgs): void;
 
 	/** Event triggers when the Radial slider slides. */
-	slide? (e: SlideEventArgs): void;
+	slide?(e: SlideEventArgs): void;
 
 	/** Event triggers when the radial slider starts. */
-	start? (e: StartEventArgs): void;
+	start?(e: StartEventArgs): void;
 
 	/** Event triggers when the radial slider stops. */
-	stop? (e: StopEventArgs): void;
+	stop?(e: StopEventArgs): void;
 }
 
 export interface ChangeEventArgs {
 
-	/**  returns the Radialslider model 
+	/**  returns the Radialslider model
 	*/
 	model?: any;
 
-	/**  if the event should be canceled; otherwise, false. 
+	/**  if the event should be canceled; otherwise, false.
 	*/
 	cancel?: boolean;
 
-	/**  returns the initial value of Radial slider 
+	/**  returns the initial value of Radial slider
 	*/
 	oldValue?: number;
 
-	/**  returns the name of the event 
+	/**  returns the name of the event
 	*/
 	type?: string;
 
-	/**  returns the current value of the Radial slider 
+	/**  returns the current value of the Radial slider
 	*/
 	value?: number;
 }
 
 export interface CreateEventArgs {
 
-	/**  if the event should be canceled; otherwise, false. 
+	/**  if the event should be canceled; otherwise, false.
 	*/
 	cancel?: boolean;
 
-	/**  returns the Radialslider model 
+	/**  returns the Radialslider model
 	*/
 	model?: any;
 
-	/**  returns the name of the event 
+	/**  returns the name of the event
 	*/
 	type?: string;
 }
 
 export interface MouseoverEventArgs {
 
-	/**  if the event should be canceled; otherwise, false. 
+	/**  if the event should be canceled; otherwise, false.
 	*/
 	cancel?: boolean;
 
-	/**  returns the Radialslider model 
+	/**  returns the Radialslider model
 	*/
 	model?: any;
 
-	/**  returns the value selected 
+	/**  returns the value selected
 	*/
 	selectedValue?: number;
 
-	/**  returns the name of the event 
+	/**  returns the name of the event
 	*/
 	type?: string;
 
-	/**  returns the current value selected in Radial slider 
+	/**  returns the current value selected in Radial slider
 	*/
 	value?: number;
 }
 
 export interface SlideEventArgs {
 
-	/**  if the event should be canceled; otherwise, false. 
+	/**  if the event should be canceled; otherwise, false.
 	*/
 	cancel?: boolean;
 
-	/**  returns the Radialslider model 
+	/**  returns the Radialslider model
 	*/
 	model?: any;
 
-	/**  returns the value selected in Radial slider 
+	/**  returns the value selected in Radial slider
 	*/
 	selectedValue?: number;
 
-	/**  returns the name of the event 
+	/**  returns the name of the event
 	*/
 	type?: string;
 
-	/**  returns the currently selected value 
+	/**  returns the currently selected value
 	*/
 	value?: number;
 }
 
 export interface StartEventArgs {
 
-	/**  if the event should be canceled; otherwise, false. 
+	/**  if the event should be canceled; otherwise, false.
 	*/
 	cancel?: boolean;
 
-	/**  returns the Radialslider model 
+	/**  returns the Radialslider model
 	*/
 	model?: any;
 
-	/**  returns the name of the event 
+	/**  returns the name of the event
 	*/
 	type?: string;
 
-	/**  returns the current value selected in Radial slider 
+	/**  returns the current value selected in Radial slider
 	*/
 	value?: number;
 }
 
 export interface StopEventArgs {
 
-	/**  if the event should be canceled; otherwise, false. 
+	/**  if the event should be canceled; otherwise, false.
 	*/
 	cancel?: boolean;
 
-	/**  returns the Radialslider model 
+	/**  returns the Radialslider model
 	*/
 	model?: any;
 
-	/**  returns the name of the event 
+	/**  returns the name of the event
 	*/
 	type?: string;
 
-	/**  returns the current value selected in Radial slider 
+	/**  returns the current value selected in Radial slider
 	*/
 	value?: number;
 }
@@ -37762,11 +37621,10 @@ export interface StopEventArgs {
 
 class Spreadsheet extends ej.Widget {
 	static fn: Spreadsheet;
-	constructor(element: JQuery, options?: Spreadsheet.Model);
-	constructor(element: Element, options?: Spreadsheet.Model);
+	constructor(element: JQuery | Element, options?: Spreadsheet.Model);
 	static Locale: any;
-	model:Spreadsheet.Model;
-	defaults:Spreadsheet.Model;
+	model: Spreadsheet.Model;
+	defaults: Spreadsheet.Model;
 
 	/** This method is used to add custom formulas in Spreadsheet.
 	*   @param {string} Pass the name of the formula.
@@ -37781,28 +37639,28 @@ class Spreadsheet extends ej.Widget {
 	addNewSheet(): void;
 
 	/** It is used to clear all the data and format in the specified range of cells in Spreadsheet.
-	*   @param {string|Array<any>} Optional. If range is specified, then it will clear all content in the specified range else it will use the current selected range. 
+	*   @param {string|Array<any>} Optional. If range is specified, then it will clear all content in the specified range else it will use the current selected range.
 	*   @returns {void}
 	*/
-	clearAll(range?: string|Array<any>): void;
+	clearAll(range?: string|any[]): void;
 
 	/** This property is used to clear all the formats applied in the specified range in Spreadsheet.
-	*   @param {string|Array<any>} Optional. If range is specified, then it will clear all format in the specified range else it will use the current selected range. 
+	*   @param {string|Array<any>} Optional. If range is specified, then it will clear all format in the specified range else it will use the current selected range.
 	*   @returns {void}
 	*/
-	clearAllFormat(range?: string|Array<any>): void;
+	clearAllFormat(range?: string|any[]): void;
 
 	/** Used to clear the applied border in the specified range in Spreadsheet.
 	*   @param {string|Array<any>} Optional. If range is specified, then it will clear border in the specified range else it will use the current selected range.
 	*   @returns {void}
 	*/
-	clearBorder(range?: string|Array<any>): void;
+	clearBorder(range?: string|any[]): void;
 
 	/** This property is used to clear the contents in the specified range in Spreadsheet.
-	*   @param {string|Array<any>} Optional. If the range is specified, then it will clear the content in the specified range else it will use the current selected range. 
+	*   @param {string|Array<any>} Optional. If the range is specified, then it will clear the content in the specified range else it will use the current selected range.
 	*   @returns {void}
 	*/
-	clearContents(range?: string|Array<any>): void;
+	clearContents(range?: string|any[]): void;
 
 	/** This method is used to remove only the data in the range denoted by the specified range name.
 	*   @param {string} Pass the defined rangeSettings property name.
@@ -37811,15 +37669,15 @@ class Spreadsheet extends ej.Widget {
 	clearRange(rangeName: string): void;
 
 	/** It is used to remove data in the specified range of cells based on the defined property.
-	*   @param {Array<any>|string} Optional. If range is specified, it will clear data for the specified range else it will use the current selected range. 
-	*   @param {string} Optional. If property is specified, it will remove the specified property in the range else it will remove default properties 
+	*   @param {Array<any>|string} Optional. If range is specified, it will clear data for the specified range else it will use the current selected range.
+	*   @param {string} Optional. If property is specified, it will remove the specified property in the range else it will remove default properties
 	*   @param {any} Optional.
-	*   @param {boolean} Optional. pass {{'`true`' | markdownify}}, if you want to skip the hidden rows 
+	*   @param {boolean} Optional. pass {{'`true`' | markdownify}}, if you want to skip the hidden rows
 	*   @param {any} Optional. Pass the status to perform undo and redo operation.
 	*   @param {any} Optional. It specifies whether to skip element processing or not.
 	*   @returns {void}
 	*/
-	clearRangeData(range?: Array<any>|string, property?: string, cells?: any, skipHiddenRow?: boolean, status?: any, skipCell?: any): void;
+	clearRangeData(range?: any[]|string, property?: string, cells?: any, skipHiddenRow?: boolean, status?: any, skipCell?: any): void;
 
 	/** This method is used to clear undo and redo collections in the Spreadsheet.
 	*   @returns {void}
@@ -37873,7 +37731,7 @@ class Spreadsheet extends ej.Widget {
 	*   @param {Function} Pass the function that you want to perform range edit.
 	*   @returns {void}
 	*/
-	editRange(rangeName: string, fn: Function): void;
+	editRange(rangeName: string, fn: any): void;
 
 	/** This method is used to get the activation panel in the Spreadsheet.
 	*   @returns {HTMLElement}
@@ -37943,16 +37801,16 @@ class Spreadsheet extends ej.Widget {
 	getRange(range: string, sheetIdx: number, skipHiddenRow?: boolean): HTMLElement;
 
 	/** This method is used to get the data in specified range in Spreadsheet.
-	*   @param {any} Optional. Pass the range, property, sheetIdx, valueOnly in options. 
+	*   @param {any} Optional. Pass the range, property, sheetIdx, valueOnly in options.
 	*   @returns {Array<any>}
 	*/
-	getRangeData(options?: any): Array<any>;
+	getRangeData(options?: any): any[];
 
 	/** This method is used to get the range indices array based on the specified alpha range in Spreadsheet.
 	*   @param {string} Pass the alpha range that you want to get range indices.
 	*   @returns {Array<any>}
 	*/
-	getRangeIndices(range: string): Array<any>;
+	getRangeIndices(range: string): any[];
 
 	/** This method is used to get the sheet details based on the given sheet index in Spreadsheet.
 	*   @param {number} Pass the sheet index to get the sheet object.
@@ -37969,7 +37827,7 @@ class Spreadsheet extends ej.Widget {
 	/** This method is used to get all the sheets in workbook.
 	*   @returns {Array<any>}
 	*/
-	getSheets(): Array<any>;
+	getSheets(): any[];
 
 	/** This method is used to send a paging request to the specified sheet Index in the Spreadsheet.
 	*   @param {number} Pass the sheet index to perform paging at specified sheet index
@@ -38058,7 +37916,7 @@ class Spreadsheet extends ej.Widget {
 	*   @param {string} Optional. By default is {{'`true`' | markdownify}}. If it is {{'`false`' | markdownify}} locked cells are unlocked.
 	*   @returns {void}
 	*/
-	lockCells(range: string|Array<any>, isLocked?: string): void;
+	lockCells(range: string|any[], isLocked?: string): void;
 
 	/** This method is used to merge cells by across in the Spreadsheet.
 	*   @param {string} Optional. To pass the cell range or selected cells are process.
@@ -38072,7 +37930,7 @@ class Spreadsheet extends ej.Widget {
 	*   @param {boolean} Optional. If pass {{'`true`' | markdownify}} it does not show alert.
 	*   @returns {void}
 	*/
-	mergeCells(range?: string|Array<any>, alertStatus?: boolean): void;
+	mergeCells(range?: string|any[], alertStatus?: boolean): void;
 
 	/** This method is used to select a cell or range in the Spreadsheet.
 	*   @param {any} Pass the start cell to perform selection.
@@ -38125,7 +37983,7 @@ class Spreadsheet extends ej.Widget {
 	*   @param {string|Array<any>} Pass the range.
 	*   @returns {void}
 	*/
-	removeReadOnly(range?: string|Array<any>): void;
+	removeReadOnly(range?: string|any[]): void;
 
 	/** This method is used to save JSON data in Spreadsheet.
 	*   @returns {any}
@@ -38163,7 +38021,7 @@ class Spreadsheet extends ej.Widget {
 	*   @param {Array<any>|any} Pass the row index and height of the rows.
 	*   @returns {void}
 	*/
-	setHeightToRows(heightColl: Array<any>|any): void;
+	setHeightToRows(heightColl: any[]|any): void;
 
 	/** This method is used to set the hyperlink in selected cells of the current sheet.
 	*   @param {string|Array<any>} If range is specified, it will set the hyperlink in range of the cells.
@@ -38171,13 +38029,13 @@ class Spreadsheet extends ej.Widget {
 	*   @param {number} If we pass cellAddress then which sheet to be navigate in the applied link.
 	*   @returns {void}
 	*/
-	setHyperlink(range: string|Array<any>, link: any, sheetIdx: number): void;
+	setHyperlink(range: string|any[], link: any, sheetIdx: number): void;
 
 	/** This method is used to set the readonly option for the specified range.
 	*   @param {string|Array<any>} Pass the range.
 	*   @returns {void}
 	*/
-	setReadOnly(range?: string|Array<any>): void;
+	setReadOnly(range?: string|any[]): void;
 
 	/** This method is used to set the focus to the Spreadsheet.
 	*   @returns {void}
@@ -38188,7 +38046,7 @@ class Spreadsheet extends ej.Widget {
 	*   @param {Array<any>|any} Pass the column index and width of the columns.
 	*   @returns {void}
 	*/
-	setWidthToColumns(widthColl: Array<any>|any): void;
+	setWidthToColumns(widthColl: any[]|any): void;
 
 	/** This method is used to rename the active sheet.
 	*   @param {string} Pass the sheet name that you want to change the current active sheet name.
@@ -38265,14 +38123,14 @@ class Spreadsheet extends ej.Widget {
 	*   @param {Array<any>|string} Optional. If the range is specified, then it will update unwrap in the specified range else it will use the current selected range.
 	*   @returns {void}
 	*/
-	unWrapText(range?: Array<any>|string): void;
+	unWrapText(range?: any[]|string): void;
 
 	/** This method is used to update the data for the specified range of cells in the Spreadsheet.
 	*   @param {any} Pass the cells data that you want to update.
-	*   @param {Array<any>|string} Optional. If range is specified, it will update data for the specified range  else it will use the current selected range. 
+	*   @param {Array<any>|string} Optional. If range is specified, it will update data for the specified range  else it will use the current selected range.
 	*   @returns {void}
 	*/
-	updateData(data: any, range?: Array<any>|string): void;
+	updateData(data: any, range?: any[]|string): void;
 
 	/** This method is used to update the formula bar in the Spreadsheet.
 	*   @returns {void}
@@ -38298,13 +38156,13 @@ class Spreadsheet extends ej.Widget {
 	*   @param {any} Optional. It specifies whether to skip element processing or not.
 	*   @returns {void}
 	*/
-	updateUniqueData(data: any, range?: Array<any>|string, skipCell?: any): void;
+	updateUniqueData(data: any, range?: any[]|string, skipCell?: any): void;
 
 	/** This method is used to wrap the selected range of cells in the Spreadsheet.
 	*   @param {Array<any>|string} Optional. If the range is specified, then it will update wrap in the specified  range else it will use the current selected range.
 	*   @returns {void}
 	*/
-	wrapText(range?: Array<any>|string): void;
+	wrapText(range?: any[]|string): void;
 
 	XLCellType: Spreadsheet.XLCellType;
 
@@ -38355,7 +38213,7 @@ class Spreadsheet extends ej.Widget {
 
 	XLValidate: Spreadsheet.XLValidate;
 }
-export module Spreadsheet{
+export namespace Spreadsheet {
 
 export interface XLCellType {
 
@@ -38365,14 +38223,14 @@ export interface XLCellType {
 	*   @param {number} Optional. Pass sheet index.
 	*   @returns {void}
 	*/
-	addCellTypes(range: string,settings: any,sheetIdx: number): void;
+	addCellTypes(range: string, settings: any, sheetIdx: number): void;
 
 	/** This method is used to remove cell type from the specified range of cells in the Spreadsheet.
 	*   @param {string|Array<any>} Pass the range where you want remove cell type.
 	*   @param {number} Optional. Pass sheet index.
 	*   @returns {void}
 	*/
-	removeCellTypes(range: string|Array<any>,sheetIdx: number): void;
+	removeCellTypes(range: string|any[], sheetIdx: number): void;
 }
 
 export interface XLCFormat {
@@ -38382,14 +38240,14 @@ export interface XLCFormat {
 	*   @param {Array<any>|string} Optional. If range is specified, it will clear rules for the specified range else it will use the current selected range.
 	*   @returns {void}
 	*/
-	clearCF(isSelected: boolean,range: Array<any>|string): void;
+	clearCF(isSelected: boolean, range: any[]|string): void;
 
 	/** This method is used to get the applied conditional formatting rules as array of objects based on the specified row Index and column Index in the Spreadsheet.
 	*   @param {number} Pass the row index.
 	*   @param {number} Pass the column index.
 	*   @returns {Array<any>}
 	*/
-	getCFRule(rowIdx: number,colIdx: number): Array<any>;
+	getCFRule(rowIdx: number, colIdx: number): any[];
 
 	/** This method is used to set the conditional formatting rule in the Spreadsheet.
 	*   @param {any} Pass the rule to set.
@@ -38405,14 +38263,14 @@ export interface XLChart {
 	*   @param {ej.datavisualization.Chart.Theme} Pass the chart theme which want to update.
 	*   @returns {void}
 	*/
-	changeTheme(chartId: string,theme: ej.datavisualization.Chart.Theme): void;
+	changeTheme(chartId: string, theme: ej.datavisualization.Chart.Theme): void;
 
 	/** This method is used to change the type of the chart in the Spreadsheet.
 	*   @param {string} Pass the chart id.
 	*   @param {any} Pass the chart type.
 	*   @returns {void}
 	*/
-	changeType(chartId: string,option: any): void;
+	changeType(chartId: string, option: any): void;
 
 	/** This method is used to change the data range of the chart in the Spreadsheet.
 	*   @param {string} Pass the chart id.
@@ -38421,21 +38279,21 @@ export interface XLChart {
 	*   @param {string} Legend range of chart data.
 	*   @returns {void}
 	*/
-	changeDataRange(chartId: string,xRange: string,yRange: string,lRange: string): void;
+	changeDataRange(chartId: string, xRange: string, yRange: string, lRange: string): void;
 
 	/** This method is used to create a chart for specified range in Spreadsheet.
 	*   @param {string|Array<any>} Optional. If range is specified, it will create chart for the specified range else it will use the current selected range.
 	*   @param {any} Optional. To pass the type of chart and chart name.
 	*   @returns {void}
 	*/
-	createChart(range: string|Array<any>,options: any): void;
+	createChart(range: string|any[], options: any): void;
 
 	/** This method is used to refresh the chart in the Spreadsheet.
 	*   @param {string} To pass the chart Id.
 	*   @param {any} To pass the type of chart and chart name.
 	*   @returns {void}
 	*/
-	refreshChart(id: string,options: any): void;
+	refreshChart(id: string, options: any): void;
 
 	/** This method is used to resize the chart of specified id in the Spreadsheet.
 	*   @param {string} To pass the chart id.
@@ -38443,14 +38301,14 @@ export interface XLChart {
 	*   @param {number} To pass the width value.
 	*   @returns {void}
 	*/
-	resizeChart(id: string,height: number,width: number): void;
+	resizeChart(id: string, height: number, width: number): void;
 
 	/** This method is used to update the chart element, such as axes, titles, data labels, grid lines and legends in the Spreadsheet.
 	*   @param {string} Pass the chart id.
 	*   @param {ej.Spreadsheet.ChartProperties} Pass chart element value which you want to update.
 	*   @returns {void}
 	*/
-	updateChartElement(chartId: string,value: ej.Spreadsheet.ChartProperties): void;
+	updateChartElement(chartId: string, value: ej.Spreadsheet.ChartProperties): void;
 
 	/** This method is used switch row to columns and vice versa for chart in the Spreadsheet. So that the data is displayed in the chart the way you want.
 	*   @param {string} Pass the chart id.
@@ -38480,15 +38338,15 @@ export interface XLClipboard {
 export interface XLComment {
 
 	/** This method is used to delete the comment in the specified range in Spreadsheet.
-	*   @param {Array<any>|string} Optional. If range is specified, it will delete comments for the specified range else it will use the current selected range. 
+	*   @param {Array<any>|string} Optional. If range is specified, it will delete comments for the specified range else it will use the current selected range.
 	*   @param {number} Optional. If sheetIdx is specified, it will delete comment in specified sheet else it will use active sheet.
 	*   @param {boolean} Optional. Pass {{'`true`' | markdownify}}, if you want to skip the hidden rows data.
 	*   @returns {void}
 	*/
-	deleteComment(range: Array<any>|string,sheetIdx: number,skipHiddenRow: boolean): void;
+	deleteComment(range: any[]|string, sheetIdx: number, skipHiddenRow: boolean): void;
 
 	/** This method is used to edit the comment in the target Cell in Spreadsheet.
-	*   @param {any} Optional. Pass the row index and column index of the cell which contains comment. 
+	*   @param {any} Optional. Pass the row index and column index of the cell which contains comment.
 	*   @returns {void}
 	*/
 	editComment(targetCell: any): void;
@@ -38510,13 +38368,13 @@ export interface XLComment {
 	getComment(cell: HTMLElement): any;
 
 	/** This method is used to set new comment in Spreadsheet.
-	*   @param {string|Array<any>} Optional. If we pass the range comment will set in the range otherwise it will set with selected cells. 
+	*   @param {string|Array<any>} Optional. If we pass the range comment will set in the range otherwise it will set with selected cells.
 	*   @param {string} Optional. Pass the comment data.
-	*   @param {boolean} Optional. Pass {{'`true`' | markdownify}} to show comment in edit mode 
-	*   @param {boolean} Optional. Pass {{'`true`' | markdownify}} to show the user name 
+	*   @param {boolean} Optional. Pass {{'`true`' | markdownify}} to show comment in edit mode
+	*   @param {boolean} Optional. Pass {{'`true`' | markdownify}} to show the user name
 	*   @returns {void}
 	*/
-	setComment(range: string|Array<any>,data: string,showEditPanel: boolean,showUserName: boolean): void;
+	setComment(range: string|any[], data: string, showEditPanel: boolean, showUserName: boolean): void;
 
 	/** This method is used to show all the comments in the Spreadsheet.
 	*   @returns {void}
@@ -38538,35 +38396,35 @@ export interface XLCMenu {
 	*   @param {string} Specifies the type of operation to be performed
 	*   @returns {void}
 	*/
-	addItem(target: string,itemColl: Array<any>,operation: string): void;
+	addItem(target: string, itemColl: any[], operation: string): void;
 
 	/** This method is used to change data source in the context menu.
 	*   @param {string} Specifies the context menu type to bind the data source.
 	*   @param {Array<any>} Pass the data source to be binded
 	*   @returns {void}
 	*/
-	changeDataSource(target: string,data: Array<any>): void;
+	changeDataSource(target: string, data: any[]): void;
 
 	/** This method is used to disable the items in the context menu.
 	*   @param {string} Specifies the context menu type in which the item to be disabled.
 	*   @param {Array<any>} Specifies the Menu Item id collection to be disabled
 	*   @returns {void}
 	*/
-	disableItem(target: string,idxColl: Array<any>): void;
+	disableItem(target: string, idxColl: any[]): void;
 
 	/** This method is used to enable the items in the context menu.
 	*   @param {string} Specifies the context menu type in which the item to be enabled.
 	*   @param {Array<any>} Specifies the Menu Item id collection to be enabled
 	*   @returns {void}
 	*/
-	enableItem(target: string,idxColl: Array<any>): void;
+	enableItem(target: string, idxColl: any[]): void;
 
 	/** This method is used to remove the items in the context menu.
 	*   @param {string} Specifies the context menu type in which the item to be removed.
 	*   @param {Array<any>} Specifies the Menu Item id collection to be removed
 	*   @returns {void}
 	*/
-	removeItem(target: string,idxColl: Array<any>): void;
+	removeItem(target: string, idxColl: any[]): void;
 }
 
 export interface XLDragDrop {
@@ -38576,7 +38434,7 @@ export interface XLDragDrop {
 	*   @param {any|Array<any>} Pass the destination range to drop the dragged cells.
 	*   @returns {void}
 	*/
-	moveRangeTo(sourceRange: any|Array<any>,destinationRange: any|Array<any>): void;
+	moveRangeTo(sourceRange: any|any[], destinationRange: any|any[]): void;
 }
 
 export interface XLDragFill {
@@ -38618,7 +38476,7 @@ export interface XLEdit {
 	*   @param {boolean} Pass {{'`true`' | markdownify}}, if you want to maintain previous cell value.
 	*   @returns {void}
 	*/
-	editCell(rowIdx: number,colIdx: number,oldData: boolean): void;
+	editCell(rowIdx: number, colIdx: number, oldData: boolean): void;
 
 	/** This method is used to get the property value of particular cell, based on the row and column index in the Spreadsheet.
 	*   @param {number} Pass the row index to get the property value.
@@ -38627,7 +38485,7 @@ export interface XLEdit {
 	*   @param {number} Optional. Pass the index of the sheet.
 	*   @returns {any|string|Array<any>}
 	*/
-	getPropertyValue(rowIdx: number,colIdx: number,prop: string,sheetIdx: number): any|string|Array<any>;
+	getPropertyValue(rowIdx: number, colIdx: number, prop: string, sheetIdx: number): any|string|any[];
 
 	/** This method is used to get the property value in specified cell in Spreadsheet.
 	*   @param {HTMLElement} Pass the cell element to get property value.
@@ -38635,7 +38493,7 @@ export interface XLEdit {
 	*   @param {number} Pass the index of sheet.
 	*   @returns {any|string|Array<any>}
 	*/
-	getPropertyValueByElem(elem: HTMLElement,property: string,sheetIdx: number): any|string|Array<any>;
+	getPropertyValueByElem(elem: HTMLElement, property: string, sheetIdx: number): any|string|any[];
 
 	/** This method is used to save the edited cell value in the Spreadsheet.
 	*   @returns {void}
@@ -38647,22 +38505,22 @@ export interface XLEdit {
 	*   @param {string|number} Pass the cell value.
 	*   @returns {void}
 	*/
-	updateCell(cell: any,value: string|number): void;
+	updateCell(cell: any, value: string|number): void;
 
 	/** This method is used to update a particular cell value and its format in the Spreadsheet.
 	*   @param {any} Pass row index and column index of the cell.
 	*   @param {string|number} Pass the cell value.
-	*   @param {string} Pass the class name to update format. 
+	*   @param {string} Pass the class name to update format.
 	*   @param {number} Pass sheet index.
 	*   @returns {void}
 	*/
-	updateCellValue(cellIdx: any,val: string|number,formatClass: string,sheetIdx: number): void;
+	updateCellValue(cellIdx: any, val: string|number, formatClass: string, sheetIdx: number): void;
 }
 
 export interface XLExport {
 
 	/** This method is used to save the sheet data as Excel ,CSV or PDF document (.xls, .xlsx .csv, .pdf) in Spreadsheet.
-	*   @param {string} Pass the export type that you want. 
+	*   @param {string} Pass the export type that you want.
 	*   @returns {void}
 	*/
 	export(type: string): void;
@@ -38684,7 +38542,7 @@ export interface XLFilter {
 	*   @param {string|Array<any>} Pass the range of the selected cells.
 	*   @returns {void}
 	*/
-	filter(range: string|Array<any>): void;
+	filter(range: string|any[]): void;
 
 	/** This method is used to apply filter for the column by active cell's value in the Spreadsheet.
 	*   @returns {void}
@@ -38702,24 +38560,24 @@ export interface XLFormat {
 
 	/** This method is used to create a table for the selected range of cells in the Spreadsheet.
 	*   @param {any} Pass the table object.
-	*   @param {string|Array<any>} Optional. If the range is specified, then it will create table in the specified range else it will use the current selected range. 
+	*   @param {string|Array<any>} Optional. If the range is specified, then it will create table in the specified range else it will use the current selected range.
 	*   @returns {string}
 	*/
-	createTable(tableObject: any,range: string|Array<any>): string;
+	createTable(tableObject: any, range: string|any[]): string;
 
 	/** This method is used to set format style and values in a cell or range of cells.
 	*   @param {any} Pass the formatObject which contains style, type, format, groupSeparator and decimalPlaces.
 	*   @param {string} Pass the range to format cells.
 	*   @returns {void}
 	*/
-	format(formatObj: any,range: string): void;
+	format(formatObj: any, range: string): void;
 
 	/** This method is used to remove the style in the specified range.
 	*   @param {Array<any>|string} Pass the cell range .
 	*   @param {any} Optional. Pass the options for which the style gets removed.
 	*   @returns {void}
 	*/
-	removeStyle(range: Array<any>|string,options: any): void;
+	removeStyle(range: any[]|string, options: any): void;
 
 	/** This method is used to remove table with specified tableId in the Spreadsheet.
 	*   @param {number} Pass the tableId that you want to remove.
@@ -38732,21 +38590,21 @@ export interface XLFormat {
 	*   @param {string|Array<any>} Pass the range.
 	*   @returns {void}
 	*/
-	updateDecimalPlaces(type: string,range: string|Array<any>): void;
+	updateDecimalPlaces(type: string, range: string|any[]): void;
 
 	/** This method is used to update the format for the selected range of cells in the Spreadsheet.
 	*   @param {any} Pass the format object that you want to update.
-	*   @param {Array<any>} Optional. If the range is specified, then it will update format in the specified range else it will use the current selected range. 
+	*   @param {Array<any>} Optional. If the range is specified, then it will update format in the specified range else it will use the current selected range.
 	*   @returns {void}
 	*/
-	updateFormat(formatObj: any,range: Array<any>): void;
+	updateFormat(formatObj: any, range: any[]): void;
 
 	/** This method is used to update the unique format for selected range of cells in the Spreadsheet.
 	*   @param {string} Pass the unique format class.
 	*   @param {Array<any>} Optional. If the range is specified, then it will update format in the specified range else it will use the current selected range.
 	*   @returns {void}
 	*/
-	updateUniqueFormat(formatClass: string,range: Array<any>): void;
+	updateUniqueFormat(formatClass: string, range: any[]): void;
 }
 
 export interface XLFreeze {
@@ -38783,7 +38641,7 @@ export interface XLFreeze {
 export interface XLPivot {
 
 	/** This property is used to clear the pivot table list in Spreadsheet.
-	*   @param {string} Pass the name of the pivot table. 
+	*   @param {string} Pass the name of the pivot table.
 	*   @returns {void}
 	*/
 	clearPivotFieldList(pivotName: string): void;
@@ -38796,7 +38654,7 @@ export interface XLPivot {
 	*   @param {any} Pass the pivot range, sheet index, address and data source .
 	*   @returns {string}
 	*/
-	createPivotTable(range: string,location: string,name: string,settings: any,pvt: any): string;
+	createPivotTable(range: string, location: string, name: string, settings: any, pvt: any): string;
 
 	/** This method is used to delete the pivot table which is selected.
 	*   @param {string} Pass the name of the pivot table.
@@ -38809,7 +38667,7 @@ export interface XLPivot {
 	*   @param {number} Optional. Pass the index of the sheet.
 	*   @returns {void}
 	*/
-	refreshDataSource(name: string,sheetIdx: number): void;
+	refreshDataSource(name: string, sheetIdx: number): void;
 }
 
 export interface XLPrint {
@@ -38831,13 +38689,13 @@ export interface XLResize {
 	*   @param {Array<any>} Optional. Pass row index collection that you want to fit its height.
 	*   @returns {void}
 	*/
-	fitHeight(rowIndexes: Array<any>): void;
+	fitHeight(rowIndexes: any[]): void;
 
 	/** This method is used to fit the width of columns in the Spreadsheet.
 	*   @param {Array<any>} Optional. Pass column index collection that you want to fit its width.
 	*   @returns {void}
 	*/
-	fitWidth(colIndexes: Array<any>): void;
+	fitWidth(colIndexes: any[]): void;
 
 	/** This method is used to get the column width of the specified column index in the Spreadsheet.
 	*   @param {number} Pass the column index.
@@ -38856,14 +38714,14 @@ export interface XLResize {
 	*   @param {number} Pass the width value that you want to set.
 	*   @returns {void}
 	*/
-	setColWidth(colIdx: number,size: number): void;
+	setColWidth(colIdx: number, size: number): void;
 
 	/** This method is used to set the row height of the specified row index in the Spreadsheet.
 	*   @param {number} Pass the row index.
 	*   @param {number} Pass the height value that you want to set.
 	*   @returns {void}
 	*/
-	setRowHeight(rowIdx: number,size: number): void;
+	setRowHeight(rowIdx: number, size: number): void;
 }
 
 export interface XLRibbon {
@@ -38873,21 +38731,21 @@ export interface XLRibbon {
 	*   @param {number} pass the index of the item to be added in the backstage.
 	*   @returns {void}
 	*/
-	addBackStageItem(pageItem: any,index: number): void;
+	addBackStageItem(pageItem: any, index: number): void;
 
 	/** This method is used to dynamically add the contextual tabs in the ribbon.
 	*   @param {any} Specifies the contextual tab set object.
 	*   @param {number} pass the index of the contextual tab.
 	*   @returns {void}
 	*/
-	addContextualTabs(contextualTabSet: any,index: number): void;
+	addContextualTabs(contextualTabSet: any, index: number): void;
 
 	/** This method is used to dynamically add the menu item in the file menu.
 	*   @param {Array<any>} Specifies the item to be added
 	*   @param {number} pass the index of the menu item.
 	*   @returns {void}
 	*/
-	addMenuItem(item: Array<any>,index: number): void;
+	addMenuItem(item: any[], index: number): void;
 
 	/** This method is used to add a new name in the Spreadsheet name manager.
 	*   @param {string} Pass the name that you want to define in name manager.
@@ -38896,7 +38754,7 @@ export interface XLRibbon {
 	*   @param {number} Optional. Pass the sheet index.
 	*   @returns {void}
 	*/
-	addNamedRange(name: string,refersTo: string,comment: string,sheetIdx: number): void;
+	addNamedRange(name: string, refersTo: string, comment: string, sheetIdx: number): void;
 
 	/** This method is used to dynamically add the tab in the ribbon.
 	*   @param {Array<any>} Specifies the text to be displayed in the tab.
@@ -38904,7 +38762,7 @@ export interface XLRibbon {
 	*   @param {number} pass the index of the tab.
 	*   @returns {void}
 	*/
-	addTab(tabText: Array<any>,ribbonGroups: number,index: number): void;
+	addTab(tabText: any[], ribbonGroups: number, index: number): void;
 
 	/** This method is used to dynamically add the tab group in the ribbon.
 	*   @param {number} Specifies the ribbon tab index.
@@ -38912,14 +38770,14 @@ export interface XLRibbon {
 	*   @param {number} pass the index of the ribbon group.
 	*   @returns {void}
 	*/
-	addTabGroup(tabIndex: number,tabGroup: any,groupIndex: number): void;
+	addTabGroup(tabIndex: number, tabGroup: any, groupIndex: number): void;
 
 	/** This method is used to insert the few type (SUM, MAX, MIN, AVG, COUNT) of formulas in the selected range of cells in the Spreadsheet.
 	*   @param {string} To pass the type("SUM","MAX","MIN","AVG","COUNT").
 	*   @param {string|Array<any>} If range is specified, it will apply auto sum for the specified range else it will use the current selected range.
 	*   @returns {void}
 	*/
-	autoSum(type: string,range: string|Array<any>): void;
+	autoSum(type: string, range: string|any[]): void;
 
 	/** This method is used to hide the file menu in the ribbon tab.
 	*   @returns {void}
@@ -38949,14 +38807,14 @@ export interface XLRibbon {
 	*   @param {boolean} pass the boolean value to remove the tab from ribbon
 	*   @returns {void}
 	*/
-	removeTab(index: number,isRemoveMenu: boolean): void;
+	removeTab(index: number, isRemoveMenu: boolean): void;
 
 	/** This method is used to remove the tab group form ribbon in the spreadsheet.
 	*   @param {number} Specifies the index of the tab group to be removed from the ribbon.
 	*   @param {string} Specifies the text to be displayed in the tab group
 	*   @returns {void}
 	*/
-	removeTabGroup(tabIndex: number,groupText: string): void;
+	removeTabGroup(tabIndex: number, groupText: string): void;
 
 	/** This method is used to show the file menu in the ribbon tab.
 	*   @returns {void}
@@ -38968,7 +38826,7 @@ export interface XLRibbon {
 	*   @param {number} pass the index of the item to be updated
 	*   @returns {void}
 	*/
-	updateMenuItem(item: any,index: number): void;
+	updateMenuItem(item: any, index: number): void;
 
 	/** This method is used to update the ribbon icons in the Spreadsheet.
 	*   @returns {void}
@@ -38985,7 +38843,7 @@ export interface XLSearch {
 	*   @param {boolean} Pass {{'`true`' | markdownify}}, if you want to match with entire cell contents.
 	*   @returns {void}
 	*/
-	replaceAllByBook(findData: string,replaceData: string,isCSen: boolean,isEMatch: boolean): void;
+	replaceAllByBook(findData: string, replaceData: string, isCSen: boolean, isEMatch: boolean): void;
 
 	/** This method is used to find and replace all data by sheet in Spreadsheet.
 	*   @param {string} Pass the search data.
@@ -38994,7 +38852,7 @@ export interface XLSearch {
 	*   @param {boolean} Pass {{'`true`' | markdownify}}, if you want to match with entire cell contents.
 	*   @returns {void}
 	*/
-	replaceAllBySheet(findData: string,replaceData: string,isCSen: boolean,isEMatch: boolean): void;
+	replaceAllBySheet(findData: string, replaceData: string, isCSen: boolean, isEMatch: boolean): void;
 }
 
 export interface XLSelection {
@@ -39014,7 +38872,7 @@ export interface XLSelection {
 	*   @param {Array<any>|string} Optional. Pass range to refresh selection.
 	*   @returns {void}
 	*/
-	refreshSelection(range: Array<any>|string): void;
+	refreshSelection(range: any[]|string): void;
 
 	/** This method is used to select a single column in the Spreadsheet.
 	*   @param {number} Pass the column index value.
@@ -39027,7 +38885,7 @@ export interface XLSelection {
 	*   @param {number} Pass the column end index.
 	*   @returns {void}
 	*/
-	selectColumns(startIdx: number,endIdx: number): void;
+	selectColumns(startIdx: number, endIdx: number): void;
 
 	/** This method is used to select the specified range of cells in the Spreadsheet.
 	*   @param {string} Pass range which want to select.
@@ -39046,7 +38904,7 @@ export interface XLSelection {
 	*   @param {number} Pass the end row index.
 	*   @returns {void}
 	*/
-	selectRows(startIdx: number,endIdx: number): void;
+	selectRows(startIdx: number, endIdx: number): void;
 
 	/** This method is used to select all cells in active sheet.
 	*   @returns {void}
@@ -39065,7 +38923,7 @@ export interface XLShape {
 	*   @param {number} Optional. Pass the left of the image that you want to set.
 	*   @returns {string}
 	*/
-	setPicture(range: string,url: string,width: number,height: number,top: number,left: number): string;
+	setPicture(range: string, url: string, width: number, height: number, top: number, left: number): string;
 }
 
 export interface XLSort {
@@ -39076,7 +38934,7 @@ export interface XLSort {
 	*   @param {string} Pass the range
 	*   @returns {void}
 	*/
-	sortByColor(operation: string,color: any,range: string): void;
+	sortByColor(operation: string, color: any, range: string): void;
 
 	/** This method is used to sort a particular range of cells based on its values in the Spreadsheet.
 	*   @param {Array<any>|string} Pass the range to sort.
@@ -39084,32 +38942,32 @@ export interface XLSort {
 	*   @param {any} Pass the direction to sort (ascending or descending).
 	*   @returns {boolean}
 	*/
-	sortByRange(range: Array<any>|string,columnName: string,direction: any): boolean;
+	sortByRange(range: any[]|string, columnName: string, direction: any): boolean;
 }
 
 export interface XLValidate {
 
 	/** This method is used to apply data validation rules in a selected range of cells based on the defined condition in the Spreadsheet.
-	*   @param {string|Array<any>} If range is specified, it will apply rules for the specified range else it will use the current selected range. 
+	*   @param {string|Array<any>} If range is specified, it will apply rules for the specified range else it will use the current selected range.
 	*   @param {Array<any>} Pass the validation condition, value1 and value2.
 	*   @param {string} Pass the data type.
 	*   @param {boolean} Pass {{'`true`' | markdownify}} if you ignore blank values.
 	*   @param {boolean} Pass {{'`true`' | markdownify}} if you want to show an error alert.
 	*   @returns {void}
 	*/
-	applyDVRules(range: string|Array<any>,values: Array<any>,type: string,required: boolean,showErrorAlert: boolean): void;
+	applyDVRules(range: string|any[], values: any[], type: string, required: boolean, showErrorAlert: boolean): void;
 
 	/** This method is used to clear the applied validation rules in a specified range of cells in the Spreadsheet.
-	*   @param {string|Array<any>} Optional. If range is specified, it will clear rules for the specified range else it will use the current selected range. 
+	*   @param {string|Array<any>} Optional. If range is specified, it will clear rules for the specified range else it will use the current selected range.
 	*   @returns {void}
 	*/
-	clearDV(range: string|Array<any>): void;
+	clearDV(range: string|any[]): void;
 
 	/** This method is used to highlight invalid data in a specified range of cells in the Spreadsheet.
 	*   @param {string|Array<any>} Optional. If range is specified, it will clear rules for the specified range else it will use the current selected range.
 	*   @returns {void}
 	*/
-	highlightInvalidData(range: string|Array<any>): void;
+	highlightInvalidData(range: string|any[]): void;
 }
 
 export interface Model {
@@ -39309,7 +39167,7 @@ export interface Model {
 	/** Gets or sets a value that indicates custom formulas in Spreadsheet.
 	*   @Default {[]}
 	*/
-	customFormulas?: Array<any>;
+	customFormulas?: any[];
 
 	/** Gets or sets a value that indicates whether to enable or disable context menu in the Spreadsheet.
 	*   @Default {true}
@@ -39385,7 +39243,7 @@ export interface Model {
 
 	/** Gets or sets an object that indicates to customize the sheet behavior in Spreadsheet.
 	*/
-	sheets?: Array<Sheet>;
+	sheets?: Sheet[];
 
 	/** Gets or sets a value that indicates whether to show or hide pager in the Spreadsheet.
 	*   @Default {true}
@@ -39408,118 +39266,118 @@ export interface Model {
 	userName?: string;
 
 	/** Triggered for every action before its starts. */
-	actionBegin? (e: ActionBeginEventArgs): void;
+	actionBegin?(e: ActionBeginEventArgs): void;
 
 	/** Triggered for every action complete. */
-	actionComplete? (e: ActionCompleteEventArgs): void;
+	actionComplete?(e: ActionCompleteEventArgs): void;
 
 	/** Triggered when the auto fill operation begins. */
-	autoFillBegin? (e: AutoFillBeginEventArgs): void;
+	autoFillBegin?(e: AutoFillBeginEventArgs): void;
 
 	/** Triggered when the auto fill operation completes. */
-	autoFillComplete? (e: AutoFillCompleteEventArgs): void;
+	autoFillComplete?(e: AutoFillCompleteEventArgs): void;
 
 	/** Triggered before the batch save. */
-	beforeBatchSave? (e: BeforeBatchSaveEventArgs): void;
+	beforeBatchSave?(e: BeforeBatchSaveEventArgs): void;
 
 	/** Triggered before the cells to be formatted. */
-	beforeCellFormat? (e: BeforeCellFormatEventArgs): void;
+	beforeCellFormat?(e: BeforeCellFormatEventArgs): void;
 
 	/** Triggered before the cell selection. */
-	beforeCellSelect? (e: BeforeCellSelectEventArgs): void;
+	beforeCellSelect?(e: BeforeCellSelectEventArgs): void;
 
 	/** Triggered before the selected cells are dropped. */
-	beforeDrop? (e: BeforeDropEventArgs): void;
+	beforeDrop?(e: BeforeDropEventArgs): void;
 
 	/** Triggered while start to edit the comment. */
-	beforeEditComment? (e: BeforeEditCommentEventArgs): void;
+	beforeEditComment?(e: BeforeEditCommentEventArgs): void;
 
 	/** Triggered before the contextmenu is open. */
-	beforeOpen? (e: BeforeOpenEventArgs): void;
+	beforeOpen?(e: BeforeOpenEventArgs): void;
 
 	/** Triggered before the activation panel is open. */
-	beforePanelOpen? (e: BeforePanelOpenEventArgs): void;
+	beforePanelOpen?(e: BeforePanelOpenEventArgs): void;
 
 	/** Triggered when click on sheet cell. */
-	cellClick? (e: CellClickEventArgs): void;
+	cellClick?(e: CellClickEventArgs): void;
 
 	/** Triggered when the cell is edited. */
-	cellEdit? (e: CellEditEventArgs): void;
+	cellEdit?(e: CellEditEventArgs): void;
 
 	/** Triggered while cell is formatting. */
-	cellFormatting? (e: CellFormattingEventArgs): void;
+	cellFormatting?(e: CellFormattingEventArgs): void;
 
 	/** Triggered when mouse hover on cell in sheets. */
-	cellHover? (e: CellHoverEventArgs): void;
+	cellHover?(e: CellHoverEventArgs): void;
 
 	/** Triggered when save the edited cell. */
-	cellSave? (e: CellSaveEventArgs): void;
+	cellSave?(e: CellSaveEventArgs): void;
 
 	/** Triggered when the cell is selected. */
-	cellSelected? (e: CellSelectedEventArgs): void;
+	cellSelected?(e: CellSelectedEventArgs): void;
 
 	/** Triggered when click the contextmenu items. */
-	contextMenuClick? (e: ContextMenuClickEventArgs): void;
+	contextMenuClick?(e: ContextMenuClickEventArgs): void;
 
 	/** Triggered when the selected cells are being dragged. */
-	drag? (e: DragEventArgs): void;
+	drag?(e: DragEventArgs): void;
 
 	/** Triggered when you start to drag the picture or chart. */
-	dragShape? (e: DragShapeEventArgs): void;
+	dragShape?(e: DragShapeEventArgs): void;
 
 	/** Triggered when the selected cells are initiated to drag. */
-	dragStart? (e: DragStartEventArgs): void;
+	dragStart?(e: DragStartEventArgs): void;
 
 	/** Triggered when the selected cells are dropped. */
-	drop? (e: DropEventArgs): void;
+	drop?(e: DropEventArgs): void;
 
 	/** Triggered before the range editing starts. */
-	editRangeBegin? (e: EditRangeBeginEventArgs): void;
+	editRangeBegin?(e: EditRangeBeginEventArgs): void;
 
 	/** Triggered after range editing completes. */
-	editRangeComplete? (e: EditRangeCompleteEventArgs): void;
+	editRangeComplete?(e: EditRangeCompleteEventArgs): void;
 
 	/** Triggered when the key is pressed down. */
-	keyDown? (e: KeyDownEventArgs): void;
+	keyDown?(e: KeyDownEventArgs): void;
 
 	/** Triggered when the key is released. */
-	keyUp? (e: KeyUpEventArgs): void;
+	keyUp?(e: KeyUpEventArgs): void;
 
 	/** Triggered before the sheet is loaded. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Triggered after the sheet is loaded. */
-	loadComplete? (e: LoadCompleteEventArgs): void;
+	loadComplete?(e: LoadCompleteEventArgs): void;
 
 	/** Triggered every click of the menu item. */
-	menuClick? (e: MenuClickEventArgs): void;
+	menuClick?(e: MenuClickEventArgs): void;
 
 	/** Triggered when a file is imported. */
-	onImport? (e: OnImportEventArgs): void;
+	onImport?(e: OnImportEventArgs): void;
 
 	/** Triggered when import sheet is failed to open. */
-	openFailure? (e: OpenFailureEventArgs): void;
+	openFailure?(e: OpenFailureEventArgs): void;
 
 	/** Triggered when pager item is clicked in the Spreadsheet. */
-	pagerClick? (e: PagerClickEventArgs): void;
+	pagerClick?(e: PagerClickEventArgs): void;
 
 	/** Triggered when you start resizing the chart, picture, row and column. */
-	resizeStart? (e: ResizeStartEventArgs): void;
+	resizeStart?(e: ResizeStartEventArgs): void;
 
 	/** Triggered after end of resizing the chart, picture, row and column. */
-	resizeEnd? (e: ResizeEndEventArgs): void;
+	resizeEnd?(e: ResizeEndEventArgs): void;
 
 	/** Triggered when click on the ribbon. */
-	ribbonClick? (e: RibbonClickEventArgs): void;
+	ribbonClick?(e: RibbonClickEventArgs): void;
 
 	/** Triggered when the chart series rendering. */
-	seriesRendering? (e: SeriesRenderingEventArgs): void;
+	seriesRendering?(e: SeriesRenderingEventArgs): void;
 
 	/** Triggered when click the ribbon tab. */
-	tabClick? (e: TabClickEventArgs): void;
+	tabClick?(e: TabClickEventArgs): void;
 
 	/** Triggered when select the ribbon tab. */
-	tabSelect? (e: TabSelectEventArgs): void;
+	tabSelect?(e: TabSelectEventArgs): void;
 }
 
 export interface ActionBeginEventArgs {
@@ -39538,7 +39396,7 @@ export interface ActionBeginEventArgs {
 
 	/** Returns the cell range.
 	*/
-	range?: Array<any>;
+	range?: any[];
 
 	/** Returns the action format.
 	*/
@@ -39573,7 +39431,7 @@ export interface ActionCompleteEventArgs {
 
 	/** Returns the applied cell format object.
 	*/
-	selectedCell?: Array<any>|any;
+	selectedCell?: any[]|any;
 
 	/** Returns the sheet index.
 	*/
@@ -39596,7 +39454,7 @@ export interface AutoFillBeginEventArgs {
 
 	/** Returns auto fill begin cell range.
 	*/
-	dataRange?: Array<any>;
+	dataRange?: any[];
 
 	/** Returns which direction drag the auto fill.
 	*/
@@ -39604,7 +39462,7 @@ export interface AutoFillBeginEventArgs {
 
 	/** Returns fill cells range.
 	*/
-	fillRange?: Array<any>;
+	fillRange?: any[];
 
 	/** Returns the auto fill type.
 	*/
@@ -39631,7 +39489,7 @@ export interface AutoFillCompleteEventArgs {
 
 	/** Returns auto fill begin cell range.
 	*/
-	dataRange?: Array<any>;
+	dataRange?: any[];
 
 	/** Returns which direction to drag the auto fill.
 	*/
@@ -39639,7 +39497,7 @@ export interface AutoFillCompleteEventArgs {
 
 	/** Returns fill cells range.
 	*/
-	fillRange?: Array<any>;
+	fillRange?: any[];
 
 	/** Returns the auto fill type.
 	*/
@@ -39689,7 +39547,7 @@ export interface BeforeCellFormatEventArgs {
 
 	/** Returns the selected cells.
 	*/
-	cells?: Array<any>|any;
+	cells?: any[]|any;
 
 	/** Returns the Spreadsheet model.
 	*/
@@ -39708,11 +39566,11 @@ export interface BeforeCellSelectEventArgs {
 
 	/** Returns the previous cell range.
 	*/
-	prevRange?: Array<any>;
+	prevRange?: any[];
 
 	/** Returns the current cell range.
 	*/
-	currRange?: Array<any>;
+	currRange?: any[];
 
 	/** Returns the Spreadsheet model.
 	*/
@@ -40018,7 +39876,7 @@ export interface CellSelectedEventArgs {
 
 	/** Returns the selected range.
 	*/
-	selectedRange?: Array<any>;
+	selectedRange?: any[];
 
 	/** Returns the target element.
 	*/
@@ -40786,7 +40644,7 @@ export interface RibbonSettingsApplicationTabMenuSettings {
 	/** Specifies the data source to append in application tab.
 	*   @Default {[]}
 	*/
-	dataSource?: Array<any>;
+	dataSource?: any[];
 }
 
 export interface RibbonSettingsApplicationTab {
@@ -40875,7 +40733,7 @@ export interface SelectionSettings {
 
 export interface SheetsBorder {
 
-	/**  
+	/**
 	*/
 	type?: ej.Spreadsheet.BorderType|string;
 
@@ -40901,7 +40759,7 @@ export interface SheetsCFormatRule {
 	/** Specifies the inputs for conditional formatting in Spreadsheet.
 	*   @Default {[]}
 	*/
-	inputs?: Array<any>;
+	inputs?: any[];
 
 	/** Specifies the range for conditional formatting in Spreadsheet.
 	*/
@@ -41051,7 +40909,7 @@ export interface SheetsRow {
 	/** Specifies the cells of a row in Spreadsheet.
 	*   @Default {[]}
 	*/
-	cells?: Array<SheetsRowsCell>;
+	cells?: SheetsRowsCell[];
 
 	/** Gets or sets the index of a row in Spreadsheet.
 	*   @Default {0}
@@ -41064,12 +40922,12 @@ export interface Sheet {
 	/** Specifies the border for the cell in the Spreadsheet.
 	*   @Default {[]}
 	*/
-	border?: Array<SheetsBorder>;
+	border?: SheetsBorder[];
 
 	/** Specifies the conditional formatting for the range of cell in Spreadsheet.
 	*   @Default {[]}
 	*/
-	cFormatRule?: Array<SheetsCFormatRule>;
+	cFormatRule?: SheetsCFormatRule[];
 
 	/** Gets or sets a value that indicates to define column count in the Spreadsheet.
 	*   @Default {21}
@@ -41099,17 +40957,17 @@ export interface Sheet {
 	/** To hide the specified columns in Spreadsheet.
 	*   @Default {[]}
 	*/
-	hideColumns?: Array<any>;
+	hideColumns?: any[];
 
 	/** To hide the specified rows in Spreadsheet.
 	*   @Default {[]}
 	*/
-	hideRows?: Array<any>;
+	hideRows?: any[];
 
 	/** To merge specified ranges in Spreadsheet.
 	*   @Default {[]}
 	*/
-	mergeCells?: Array<any>;
+	mergeCells?: any[];
 
 	/** Specifies the primary key for the datasource in Spreadsheet.
 	*/
@@ -41123,7 +40981,7 @@ export interface Sheet {
 	/** Specifies single range or multiple range settings for a sheet in Spreadsheet.
 	*   @Default {[]}
 	*/
-	rangeSettings?: Array<SheetsRangeSetting>;
+	rangeSettings?: SheetsRangeSetting[];
 
 	/** Gets or sets a value that indicates to define row count in the Spreadsheet.
 	*   @Default {20}
@@ -41133,7 +40991,7 @@ export interface Sheet {
 	/** Specifies the rows for a sheet in Spreadsheet.
 	*   @Default {[]}
 	*/
-	rows?: Array<SheetsRow>;
+	rows?: SheetsRow[];
 
 	/** Gets or sets a value that indicates whether to show or hide grid lines in the Spreadsheet.
 	*   @Default {true}
@@ -41156,7 +41014,7 @@ export interface Sheet {
 	startCell?: string;
 }
 
-enum AutoFillOptions{
+enum AutoFillOptions {
 
 	///Specifies the CopyCells property in AutoFillOptions.
 	CopyCells,
@@ -41175,7 +41033,7 @@ enum AutoFillOptions{
 }
 
 
-enum scrollMode{
+enum scrollMode {
 
 	///To enable Infinite scroll mode for Spreadsheet.
 	Infinite,
@@ -41185,7 +41043,7 @@ enum scrollMode{
 }
 
 
-enum SelectionType{
+enum SelectionType {
 
 	///To select only Column in Spreadsheet.
 	Column,
@@ -41198,7 +41056,7 @@ enum SelectionType{
 }
 
 
-enum SelectionUnit{
+enum SelectionUnit {
 
 	///To enable Single selection in Spreadsheet
 	Single,
@@ -41211,7 +41069,7 @@ enum SelectionUnit{
 }
 
 
-enum BorderType{
+enum BorderType {
 
 	///To apply top border for the given range of cell.
 	Top,
@@ -41245,7 +41103,7 @@ enum BorderType{
 }
 
 
-enum CFormatRule{
+enum CFormatRule {
 
 	///To identify greater than values in the given range of cells.
 	GreaterThan,
@@ -41267,7 +41125,7 @@ enum CFormatRule{
 }
 
 
-enum CFormatHighlightColor{
+enum CFormatHighlightColor {
 
 	///Highlights red with dark red text color.
 	RedFillwithDarkRedText,
@@ -41286,7 +41144,7 @@ enum CFormatHighlightColor{
 }
 
 
-enum ChartProperties{
+enum ChartProperties {
 
 	///Specifies to make the data label center of the chart.
 	DataLabelCenter,
@@ -41359,11 +41217,10 @@ enum ChartProperties{
 
 class PdfViewer extends ej.Widget {
 	static fn: PdfViewer;
-	constructor(element: JQuery, options?: PdfViewer.Model);
-	constructor(element: Element, options?: PdfViewer.Model);
+	constructor(element: JQuery | Element, options?: PdfViewer.Model);
 	static Locale: any;
-	model:PdfViewer.Model;
-	defaults:PdfViewer.Model;
+	model: PdfViewer.Model;
+	defaults: PdfViewer.Model;
 
 	/** Loads the document with the filename and displays it in PDF viewer.
 	*   @param {string} File name to be loaded
@@ -41473,7 +41330,7 @@ class PdfViewer extends ej.Widget {
 	*/
 	unload(): void;
 }
-export module PdfViewer{
+export namespace PdfViewer {
 
 export interface Model {
 
@@ -41542,34 +41399,34 @@ export interface Model {
 	fileName?: string;
 
 	/** Triggers when the PDF document gets loaded and is ready to view in the Control. */
-	documentLoad? (e: DocumentLoadEventArgs): void;
+	documentLoad?(e: DocumentLoadEventArgs): void;
 
 	/** Triggers when there is change in current page number. */
-	pageChange? (e: PageChangeEventArgs): void;
+	pageChange?(e: PageChangeEventArgs): void;
 
 	/** Triggers when there is change in the magnification value. */
-	zoomChange? (e: ZoomChangeEventArgs): void;
+	zoomChange?(e: ZoomChangeEventArgs): void;
 
 	/** Triggers when hyperlink in the PDF Document is clicked */
-	hyperlinkClick? (e: HyperlinkClickEventArgs): void;
+	hyperlinkClick?(e: HyperlinkClickEventArgs): void;
 
 	/** Triggers before the printing starts. */
-	beforePrint? (e: BeforePrintEventArgs): void;
+	beforePrint?(e: BeforePrintEventArgs): void;
 
 	/** Triggers after the printing is completed. */
-	afterPrint? (e: AfterPrintEventArgs): void;
+	afterPrint?(e: AfterPrintEventArgs): void;
 
 	/** Triggers when the mouse click is performed over the page of the PDF document. */
-	pageClick? (e: PageClickEventArgs): void;
+	pageClick?(e: PageClickEventArgs): void;
 
 	/** Triggers when the client buffering process starts. */
-	bufferStart? (e: BufferStartEventArgs): void;
+	bufferStart?(e: BufferStartEventArgs): void;
 
 	/** Triggers when the client buffering process ends. */
-	bufferEnd? (e: BufferEndEventArgs): void;
+	bufferEnd?(e: BufferEndEventArgs): void;
 
 	/** Triggers when PDF viewer control is destroyed successfully. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 }
 
 export interface DocumentLoadEventArgs {
@@ -41784,7 +41641,7 @@ export interface ServerActionSettings {
 	download?: string;
 }
 
-enum ToolbarItems{
+enum ToolbarItems {
 
 	///Shows only magnification tools in the toolbar.
 	MagnificationTools,
@@ -41803,7 +41660,7 @@ enum ToolbarItems{
 }
 
 
-enum PdfService{
+enum PdfService {
 
 	///Denotes that the service is located in the local project
 	Local,
@@ -41813,9 +41670,9 @@ enum PdfService{
 }
 
 
-enum LinkTarget{
+enum LinkTarget {
 
-	///Opens the hyperlink in the same tab of the browser. 
+	///Opens the hyperlink in the same tab of the browser.
 	Default,
 
 	///Opens the hyperlink in a new tab of the browser.
@@ -41829,11 +41686,10 @@ enum LinkTarget{
 
 class SpellCheck extends ej.Widget {
 	static fn: SpellCheck;
-	constructor(element: JQuery, options?: SpellCheck.Model);
-	constructor(element: Element, options?: SpellCheck.Model);
+	constructor(element: JQuery | Element, options?: SpellCheck.Model);
 	static Locale: any;
-	model:SpellCheck.Model;
-	defaults:SpellCheck.Model;
+	model: SpellCheck.Model;
+	defaults: SpellCheck.Model;
 
 	/** Open the dialog to correct the spelling of the target content.
 	*   @returns {void}
@@ -41890,7 +41746,7 @@ class SpellCheck extends ej.Widget {
 	*/
 	addToDictionary(customWord: string): any;
 }
-export module SpellCheck{
+export namespace SpellCheck {
 
 export interface Model {
 
@@ -41916,7 +41772,7 @@ export interface Model {
 	/** To ignore the words from the error word consideration.
 	*   @Default {[]}
 	*/
-	ignoreWords?: Array<any>;
+	ignoreWords?: any[];
 
 	/** Holds all options related to the context menu settings of SpellCheck.
 	*/
@@ -41937,40 +41793,39 @@ export interface Model {
 	controlsToValidate?: string;
 
 	/** Triggers on the success of AJAX call request. */
-	actionSuccess? (e: ActionSuccessEventArgs): void;
+	actionSuccess?(e: ActionSuccessEventArgs): void;
 
 	/** Triggers on the AJAX call request beginning. */
-	actionBegin? (e: ActionBeginEventArgs): void;
+	actionBegin?(e: ActionBeginEventArgs): void;
 
 	/** Triggers when the AJAX call request failure. */
-	actionFailure? (e: ActionFailureEventArgs): void;
+	actionFailure?(e: ActionFailureEventArgs): void;
 
 	/** Triggers when the dialog mode spell check starting. */
-	start? (e: StartEventArgs): void;
+	start?(e: StartEventArgs): void;
 
 	/** Triggers when the spell check operations completed through dialog mode. */
-	complete? (e: CompleteEventArgs): void;
+	complete?(e: CompleteEventArgs): void;
 
 	/** Triggers before context menu opening. */
-	contextOpen? (e: ContextOpenEventArgs): void;
+	contextOpen?(e: ContextOpenEventArgs): void;
 
 	/** Triggers when the context menu item clicked. */
-	contextClick? (e: ContextClickEventArgs): void;
+	contextClick?(e: ContextClickEventArgs): void;
 
 	/** Triggers before the spell check dialog opens. */
-	dialogBeforeOpen? (e: DialogBeforeOpenEventArgs): void;
-
+	dialogBeforeOpen?(e: DialogBeforeOpenEventArgs): void;
 	/** Triggers after the spell check dialog opens. */
-	dialogOpen? (e: DialogOpenEventArgs): void;
+	dialogOpen?(e: DialogOpenEventArgs): void;
 
 	/** Triggers when the spell check dialog closed. */
-	dialogClose? (e: DialogCloseEventArgs): void;
+	dialogClose?(e: DialogCloseEventArgs): void;
 
 	/** Triggers when the spell check control performing the spell check operations such as ignore, ignoreAll, change, changeAll and addToDictionary. */
-	validating? (e: ValidatingEventArgs): void;
+	validating?(e: ValidatingEventArgs): void;
 
 	/** Triggers before loading the target HTML element text into the dialog sentence area. */
-	targetUpdating? (e: TargetUpdatingEventArgs): void;
+	targetUpdating?(e: TargetUpdatingEventArgs): void;
 }
 
 export interface ActionSuccessEventArgs {
@@ -42314,7 +42169,7 @@ export interface ContextMenuSettings {
 	/** Contains all the default context menu options that are applicable for SpellCheck. It also supports adding custom menu items. All the SpellCheck related context menu items are grouped under this menu collection.
 	*   @Default {{% highlight javascript %}[{ id: IgnoreAll, text: Ignore All },{ id: AddToDictionary, text: Add To Dictionary }]{% endhighlight %}}
 	*/
-	menuItems?: Array<any>;
+	menuItems?: any[];
 }
 
 export interface IgnoreSettings {
@@ -42352,15 +42207,13 @@ export interface IgnoreSettings {
 }
 
 }
-declare module ej.datavisualization {
-	
+declare namespace ej.datavisualization {
 class SymbolPalette extends ej.Widget {
 	static fn: SymbolPalette;
-	constructor(element: JQuery, options?: SymbolPalette.Model);
-	constructor(element: Element, options?: SymbolPalette.Model);
+	constructor(element: JQuery | Element, options?: SymbolPalette.Model);
 	static Locale: any;
-	model:SymbolPalette.Model;
-	defaults:SymbolPalette.Model;
+	model: SymbolPalette.Model;
+	defaults: SymbolPalette.Model;
 
 	/** Add items to Palettes at runtime
 	*   @param {string} name of the Palette
@@ -42376,7 +42229,7 @@ class SymbolPalette extends ej.Widget {
 	*/
 	removePaletteItem(paletteName: string, node: any): void;
 }
-export module SymbolPalette{
+export namespace SymbolPalette {
 
 export interface Model {
 
@@ -42422,7 +42275,7 @@ export interface Model {
 	/** An array of JSON objects, where each object represents a node/connector
 	*   @Default {[]}
 	*/
-	palettes?: Array<Palette>;
+	palettes?: Palette[];
 
 	/** Defines the preview height of the symbols
 	*   @Default {100}
@@ -42450,7 +42303,7 @@ export interface Model {
 	width?: number;
 
 	/** Triggers when a palette item is selected or unselected */
-	selectionChange? (e: SelectionChangeEventArgs): void;
+	selectionChange?(e: SelectionChangeEventArgs): void;
 }
 
 export interface SelectionChangeEventArgs {
@@ -42492,17 +42345,16 @@ export interface Palette {
 	/** Defines the palette items
 	*   @Default {[]}
 	*/
-	items?: Array<any>;
+	items?: any[];
 }
 }
 
 class LinearGauge extends ej.Widget {
 	static fn: LinearGauge;
-	constructor(element: JQuery, options?: LinearGauge.Model);
-	constructor(element: Element, options?: LinearGauge.Model);
+	constructor(element: JQuery | Element, options?: LinearGauge.Model);
 	static Locale: any;
-	model:LinearGauge.Model;
-	defaults:LinearGauge.Model;
+	model: LinearGauge.Model;
+	defaults: LinearGauge.Model;
 
 	/** destroy the linear gauge all events bound using this._on will be unbind automatically and bring the control to pre-init state.
 	*   @returns {void}
@@ -42919,7 +42771,7 @@ class LinearGauge extends ej.Widget {
 	*/
 	setTickYDistanceFromScale(): void;
 }
-export module LinearGauge{
+export namespace LinearGauge {
 
 export interface Model {
 
@@ -43006,7 +42858,7 @@ export interface Model {
 	/** Specifies the scales
 	*   @Default {null}
 	*/
-	scales?: Array<Scale>;
+	scales?: Scale[];
 
 	/** Specifies the theme for Linear gauge. See LinearGauge.Themes
 	*   @Default {flatlight}
@@ -43034,43 +42886,43 @@ export interface Model {
 	width?: number;
 
 	/** Triggers while the bar pointer are being drawn on the gauge. */
-	drawBarPointers? (e: DrawBarPointersEventArgs): void;
+	drawBarPointers?(e: DrawBarPointersEventArgs): void;
 
 	/** Triggers while the customLabel are being drawn on the gauge. */
-	drawCustomLabel? (e: DrawCustomLabelEventArgs): void;
+	drawCustomLabel?(e: DrawCustomLabelEventArgs): void;
 
 	/** Triggers while the Indicator are being drawn on the gauge. */
-	drawIndicators? (e: DrawIndicatorsEventArgs): void;
+	drawIndicators?(e: DrawIndicatorsEventArgs): void;
 
 	/** Triggers while the label are being drawn on the gauge. */
-	drawLabels? (e: DrawLabelsEventArgs): void;
+	drawLabels?(e: DrawLabelsEventArgs): void;
 
 	/** Triggers while the marker are being drawn on the gauge. */
-	drawMarkerPointers? (e: DrawMarkerPointersEventArgs): void;
+	drawMarkerPointers?(e: DrawMarkerPointersEventArgs): void;
 
 	/** Triggers while the range are being drawn on the gauge. */
-	drawRange? (e: DrawRangeEventArgs): void;
+	drawRange?(e: DrawRangeEventArgs): void;
 
 	/** Triggers while the ticks are being drawn on the gauge. */
-	drawTicks? (e: DrawTicksEventArgs): void;
+	drawTicks?(e: DrawTicksEventArgs): void;
 
 	/** Triggers when the gauge is initialized. */
-	init? (e: InitEventArgs): void;
+	init?(e: InitEventArgs): void;
 
 	/** Triggers while the gauge start to Load. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Triggers when the left mouse button is clicked. */
-	mouseClick? (e: MouseClickEventArgs): void;
+	mouseClick?(e: MouseClickEventArgs): void;
 
 	/** Triggers when clicking and dragging the mouse pointer over the gauge pointer. */
-	mouseClickMove? (e: MouseClickMoveEventArgs): void;
+	mouseClickMove?(e: MouseClickMoveEventArgs): void;
 
 	/** Triggers when the mouse click is released. */
-	mouseClickUp? (e: MouseClickUpEventArgs): void;
+	mouseClickUp?(e: MouseClickUpEventArgs): void;
 
 	/** Triggers while the rendering of the gauge completed. */
-	renderComplete? (e: RenderCompleteEventArgs): void;
+	renderComplete?(e: RenderCompleteEventArgs): void;
 }
 
 export interface DrawBarPointersEventArgs {
@@ -43938,7 +43790,7 @@ export interface ScalesIndicator {
 	/** Specifies the state ranges in bar indicators
 	*   @Default {Array}
 	*/
-	stateRanges?: Array<ScalesIndicatorsStateRange>;
+	stateRanges?: ScalesIndicatorsStateRange[];
 
 	/** Specifies the textLocation in bar indicators
 	*   @Default {null}
@@ -44250,7 +44102,7 @@ export interface Scale {
 	/** Specifies the scaleBar Gradient of bar pointer
 	*   @Default {Array}
 	*/
-	barPointers?: Array<ScalesBarPointer>;
+	barPointers?: ScalesBarPointer[];
 
 	/** Specifies the border of the Scale.
 	*   @Default {null}
@@ -44260,7 +44112,7 @@ export interface Scale {
 	/** Specifies the customLabel
 	*   @Default {Array}
 	*/
-	customLabels?: Array<ScalesCustomLabel>;
+	customLabels?: ScalesCustomLabel[];
 
 	/** Specifies the scale Direction of the Scale. See Directions
 	*   @Default {CounterClockwise}
@@ -44270,12 +44122,12 @@ export interface Scale {
 	/** Specifies the indicator
 	*   @Default {Array}
 	*/
-	indicators?: Array<ScalesIndicator>;
+	indicators?: ScalesIndicator[];
 
 	/** Specifies the labels.
 	*   @Default {Array}
 	*/
-	labels?: Array<ScalesLabel>;
+	labels?: ScalesLabel[];
 
 	/** Specifies the scaleBar Length.
 	*   @Default {290}
@@ -44290,7 +44142,7 @@ export interface Scale {
 	/** Specifies the markerPointers
 	*   @Default {Array}
 	*/
-	markerPointers?: Array<ScalesMarkerPointer>;
+	markerPointers?: ScalesMarkerPointer[];
 
 	/** Specifies the maximum of the Scale.
 	*   @Default {null}
@@ -44320,7 +44172,7 @@ export interface Scale {
 	/** Specifies the ranges in the tick.
 	*   @Default {Array}
 	*/
-	ranges?: Array<ScalesRange>;
+	ranges?: ScalesRange[];
 
 	/** Specifies the shadowOffset.
 	*   @Default {0}
@@ -44365,7 +44217,7 @@ export interface Scale {
 	/** Specifies the ticks in the scale.
 	*   @Default {Array}
 	*/
-	ticks?: Array<ScalesTick>;
+	ticks?: ScalesTick[];
 
 	/** Specifies the scaleBar type .See ScaleType
 	*   @Default {Rectangle}
@@ -44396,10 +44248,8 @@ export interface Tooltip {
 	templateID?: string;
 }
 }
-module LinearGauge
-{
-enum OuterCustomLabelPosition
-{
+namespace LinearGauge {
+enum OuterCustomLabelPosition {
 //string
 Left,
 //string
@@ -44410,10 +44260,8 @@ Top,
 Bottom,
 }
 }
-module LinearGauge
-{
-enum FontStyle
-{
+namespace LinearGauge {
+enum FontStyle {
 //string
 Bold,
 //string
@@ -44426,20 +44274,16 @@ Strikeout,
 Underline,
 }
 }
-module LinearGauge
-{
-enum Direction
-{
+namespace LinearGauge {
+enum Direction {
 //string
 Clockwise,
 //string
 CounterClockwise,
 }
 }
-module LinearGauge
-{
-enum IndicatorTypes
-{
+namespace LinearGauge {
+enum IndicatorTypes {
 //string
 Rectangle,
 //string
@@ -44450,10 +44294,8 @@ RoundedRectangle,
 Text,
 }
 }
-module LinearGauge
-{
-enum PointerPlacement
-{
+namespace LinearGauge {
+enum PointerPlacement {
 //string
 Near,
 //string
@@ -44462,30 +44304,24 @@ Far,
 Center,
 }
 }
-module LinearGauge
-{
-enum ScaleType
-{
+namespace LinearGauge {
+enum ScaleType {
 //string
 Major,
 //string
 Minor,
 }
 }
-module LinearGauge
-{
-enum UnitTextPlacement
-{
+namespace LinearGauge {
+enum UnitTextPlacement {
 //string
 Back,
 //string
 From,
 }
 }
-module LinearGauge
-{
-enum MarkerType
-{
+namespace LinearGauge {
+enum MarkerType {
 //string
 Rectangle,
 //string
@@ -44512,20 +44348,16 @@ Trapezoid,
 RoundedRectangle,
 }
 }
-module LinearGauge
-{
-enum TicksType
-{
+namespace LinearGauge {
+enum TicksType {
 //string
 Majorinterval,
 //string
 Minorinterval,
 }
 }
-module LinearGauge
-{
-enum Themes
-{
+namespace LinearGauge {
+enum Themes {
 //string
 FlatLight,
 //string
@@ -44535,11 +44367,10 @@ FlatDark,
 
 class CircularGauge extends ej.Widget {
 	static fn: CircularGauge;
-	constructor(element: JQuery, options?: CircularGauge.Model);
-	constructor(element: Element, options?: CircularGauge.Model);
+	constructor(element: JQuery | Element, options?: CircularGauge.Model);
 	static Locale: any;
-	model:CircularGauge.Model;
-	defaults:CircularGauge.Model;
+	model: CircularGauge.Model;
+	defaults: CircularGauge.Model;
 
 	/** destroy the circular gauge widget. all events bound using this._on will be unbind automatically and bring the control to pre-init state.
 	*   @returns {void}
@@ -44961,7 +44792,7 @@ class CircularGauge extends ej.Widget {
 	*/
 	setTickWidth(): void;
 }
-export module CircularGauge{
+export namespace CircularGauge {
 
 export interface Model {
 
@@ -45043,7 +44874,7 @@ export interface Model {
 	/** Specify the pointers, ticks, labels, indicators, ranges of circular gauge
 	*   @Default {null}
 	*/
-	scales?: Array<Scale>;
+	scales?: Scale[];
 
 	/** Specify the theme of circular gauge.
 	*   @Default {flatlight}
@@ -45066,40 +44897,40 @@ export interface Model {
 	width?: number;
 
 	/** Triggers while the custom labels are being drawn on the gauge. */
-	drawCustomLabel? (e: DrawCustomLabelEventArgs): void;
+	drawCustomLabel?(e: DrawCustomLabelEventArgs): void;
 
 	/** Triggers while the indicators are being started to drawn on the gauge. */
-	drawIndicators? (e: DrawIndicatorsEventArgs): void;
+	drawIndicators?(e: DrawIndicatorsEventArgs): void;
 
 	/** Triggers while the labels are being drawn on the gauge. */
-	drawLabels? (e: DrawLabelsEventArgs): void;
+	drawLabels?(e: DrawLabelsEventArgs): void;
 
 	/** Triggers while the pointer cap is being drawn on the gauge. */
-	drawPointerCap? (e: DrawPointerCapEventArgs): void;
+	drawPointerCap?(e: DrawPointerCapEventArgs): void;
 
 	/** Triggers while the pointers are being drawn on the gauge. */
-	drawPointers? (e: DrawPointersEventArgs): void;
+	drawPointers?(e: DrawPointersEventArgs): void;
 
 	/** Triggers when the ranges begin to be getting drawn on the gauge. */
-	drawRange? (e: DrawRangeEventArgs): void;
+	drawRange?(e: DrawRangeEventArgs): void;
 
 	/** Triggers while the ticks are being drawn on the gauge. */
-	drawTicks? (e: DrawTicksEventArgs): void;
+	drawTicks?(e: DrawTicksEventArgs): void;
 
 	/** Triggers while the gauge start to Load. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Triggers when the left mouse button is clicked. */
-	mouseClick? (e: MouseClickEventArgs): void;
+	mouseClick?(e: MouseClickEventArgs): void;
 
 	/** Triggers when clicking and dragging the mouse pointer over the gauge pointer. */
-	mouseClickMove? (e: MouseClickMoveEventArgs): void;
+	mouseClickMove?(e: MouseClickMoveEventArgs): void;
 
 	/** Triggers when the mouse click is released. */
-	mouseClickUp? (e: MouseClickUpEventArgs): void;
+	mouseClickUp?(e: MouseClickUpEventArgs): void;
 
 	/** Triggers when the rendering of the gauge is completed. */
-	renderComplete? (e: RenderCompleteEventArgs): void;
+	renderComplete?(e: RenderCompleteEventArgs): void;
 }
 
 export interface DrawCustomLabelEventArgs {
@@ -45820,7 +45651,7 @@ export interface ScalesIndicator {
 	/** Specify the various states of circular gauge
 	*   @Default {Array}
 	*/
-	stateRanges?: Array<ScalesIndicatorsStateRange>;
+	stateRanges?: ScalesIndicatorsStateRange[];
 
 	/** Specify indicator style of circular gauge. See IndicatorType
 	*   @Default {Circle}
@@ -46253,17 +46084,17 @@ export interface Scale {
 	/** Specify the custom labels for the scales.
 	*   @Default {Array}
 	*/
-	customLabels?: Array<ScalesCustomLabel>;
+	customLabels?: ScalesCustomLabel[];
 
 	/** Specify representing state of circular gauge
 	*   @Default {Array}
 	*/
-	indicators?: Array<ScalesIndicator>;
+	indicators?: ScalesIndicator[];
 
 	/** Specify the text values displayed in a meaningful manner alongside the ticks of circular gauge
 	*   @Default {Array}
 	*/
-	labels?: Array<ScalesLabel>;
+	labels?: ScalesLabel[];
 
 	/** Specify majorIntervalValue of circular gauge
 	*   @Default {10}
@@ -46298,7 +46129,7 @@ export interface Scale {
 	/** Specify pointers value of circular gauge
 	*   @Default {Array}
 	*/
-	pointers?: Array<ScalesPointer>;
+	pointers?: ScalesPointer[];
 
 	/** Specify scale radius of circular gauge
 	*   @Default {170}
@@ -46308,7 +46139,7 @@ export interface Scale {
 	/** Specify ranges value of circular gauge
 	*   @Default {Array}
 	*/
-	ranges?: Array<ScalesRange>;
+	ranges?: ScalesRange[];
 
 	/** Specify shadowOffset value of circular gauge
 	*   @Default {0}
@@ -46358,7 +46189,7 @@ export interface Scale {
 	/** Specify subGauge of circular gauge
 	*   @Default {Array}
 	*/
-	subGauges?: Array<ScalesSubGauge>;
+	subGauges?: ScalesSubGauge[];
 
 	/** Specify sweepAngle of circular gauge
 	*   @Default {310}
@@ -46368,7 +46199,7 @@ export interface Scale {
 	/** Specify ticks of circular gauge
 	*   @Default {Array}
 	*/
-	ticks?: Array<ScalesTick>;
+	ticks?: ScalesTick[];
 }
 
 export interface Tooltip {
@@ -46389,20 +46220,16 @@ export interface Tooltip {
 	templateID?: string;
 }
 }
-module CircularGauge
-{
-enum FrameType
-{
+namespace CircularGauge {
+enum FrameType {
 //string
 FullCircle,
 //string
 HalfCircle,
 }
 }
-module CircularGauge
-{
-enum gaugePosition
-{
+namespace CircularGauge {
+enum gaugePosition {
 //string
 TopLeft,
 //string
@@ -46423,10 +46250,8 @@ BottomRight,
 BottomCenter,
 }
 }
-module CircularGauge
-{
-enum CustomLabelPositionType
-{
+namespace CircularGauge {
+enum CustomLabelPositionType {
 //string
 Top,
 //string
@@ -46437,20 +46262,16 @@ Right,
 Left,
 }
 }
-module CircularGauge
-{
-enum Direction
-{
+namespace CircularGauge {
+enum Direction {
 //string
 Clockwise,
 //string
 CounterClockwise,
 }
 }
-module CircularGauge
-{
-enum IndicatorTypes
-{
+namespace CircularGauge {
+enum IndicatorTypes {
 //string
 Rectangle,
 //string
@@ -46463,40 +46284,32 @@ RoundedRectangle,
 Image,
 }
 }
-module CircularGauge
-{
-enum Placement
-{
+namespace CircularGauge {
+enum Placement {
 //string
 Near,
 //string
 Far,
 }
 }
-module CircularGauge
-{
-enum LabelType
-{
+namespace CircularGauge {
+enum LabelType {
 //string
 Major,
 //string
 Minor,
 }
 }
-module CircularGauge
-{
-enum UnitTextPlacement
-{
+namespace CircularGauge {
+enum UnitTextPlacement {
 //string
 Back,
 //string
 Front,
 }
 }
-module CircularGauge
-{
-enum MarkerType
-{
+namespace CircularGauge {
+enum MarkerType {
 //string
 Rectangle,
 //string
@@ -46523,10 +46336,8 @@ RoundedRectangle,
 Image,
 }
 }
-module CircularGauge
-{
-enum NeedleType
-{
+namespace CircularGauge {
+enum NeedleType {
 //string
 Triangle,
 //string
@@ -46539,10 +46350,8 @@ Image,
 Trapezoid,
 }
 }
-module CircularGauge
-{
-enum PointerType
-{
+namespace CircularGauge {
+enum PointerType {
 //string
 Needle,
 //string
@@ -46552,11 +46361,10 @@ Marker,
 
 class DigitalGauge extends ej.Widget {
 	static fn: DigitalGauge;
-	constructor(element: JQuery, options?: DigitalGauge.Model);
-	constructor(element: Element, options?: DigitalGauge.Model);
+	constructor(element: JQuery | Element, options?: DigitalGauge.Model);
 	static Locale: any;
-	model:DigitalGauge.Model;
-	defaults:DigitalGauge.Model;
+	model: DigitalGauge.Model;
+	defaults: DigitalGauge.Model;
 
 	/** To destroy the digital gauge
 	*   @returns {void}
@@ -46601,7 +46409,7 @@ class DigitalGauge extends ej.Widget {
 	*/
 	setValue(itemIndex: number, value: string): void;
 }
-export module DigitalGauge{
+export namespace DigitalGauge {
 
 export interface Model {
 
@@ -46623,7 +46431,7 @@ export interface Model {
 	/** Specifies the items for the DigitalGauge.
 	*   @Default {null}
 	*/
-	items?: Array<Item>;
+	items?: Item[];
 
 	/** Specifies the matrixSegmentData for the DigitalGauge.
 	*/
@@ -46649,16 +46457,16 @@ export interface Model {
 	width?: number;
 
 	/** Triggers when the gauge is initialized. */
-	init? (e: InitEventArgs): void;
+	init?(e: InitEventArgs): void;
 
 	/** Triggers when the gauge item rendering. */
-	itemRendering? (e: ItemRenderingEventArgs): void;
+	itemRendering?(e: ItemRenderingEventArgs): void;
 
 	/** Triggers when the gauge is start to load. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Triggers when the gauge render is completed. */
-	renderComplete? (e: RenderCompleteEventArgs): void;
+	renderComplete?(e: RenderCompleteEventArgs): void;
 }
 
 export interface InitEventArgs {
@@ -46937,10 +46745,8 @@ export interface Item {
 	value?: string;
 }
 }
-module DigitalGauge
-{
-enum CharacterType
-{
+namespace DigitalGauge {
+enum CharacterType {
 //string
 SevenSegment,
 //string
@@ -46953,10 +46759,8 @@ EightCrossEightDotMatrix,
 EightCrossEightSquareMatrix,
 }
 }
-module DigitalGauge
-{
-enum FontStyle
-{
+namespace DigitalGauge {
+enum FontStyle {
 //string
 Normal,
 //string
@@ -46972,11 +46776,10 @@ Strikeout,
 
 class Chart extends ej.Widget {
 	static fn: Chart;
-	constructor(element: JQuery, options?: Chart.Model);
-	constructor(element: Element, options?: Chart.Model);
+	constructor(element: JQuery | Element, options?: Chart.Model);
 	static Locale: any;
-	model:Chart.Model;
-	defaults:Chart.Model;
+	model: Chart.Model;
+	defaults: Chart.Model;
 
 	/** Animates the series and/or indicators in Chart. When parameter is not passed to this method, then all the series and indicators present in Chart are animated.
 	*   @param {any} If an array collection is passed as parameter, series and indicator objects passed in array collection are animated.ExampleIf a series or indicator object is passed to this method, then the specific series or indicator is animated.Example,
@@ -46997,13 +46800,13 @@ class Chart extends ej.Widget {
 	*/
 	redraw(): void;
 }
-export module Chart{
+export namespace Chart {
 
 export interface Model {
 
 	/** Options for adding and customizing annotations in Chart.
 	*/
-	annotations?: Array<Annotation>;
+	annotations?: Annotation[];
 
 	/** URL of the image to be used as chart background.
 	*   @Default {null}
@@ -47024,7 +46827,7 @@ export interface Model {
 
 	/** Options to split Chart into multiple plotting areas vertically. Each object in the collection represents a plotting area in Chart.
 	*/
-	columnDefinitions?: Array<ColumnDefinition>;
+	columnDefinitions?: ColumnDefinition[];
 
 	/** Options for configuring the properties of all the series. You can also override the options for specific series by using series collection.
 	*/
@@ -47061,7 +46864,7 @@ export interface Model {
 
 	/** Options to customize the technical indicators.
 	*/
-	indicators?: Array<Indicator>;
+	indicators?: Indicator[];
 
 	/** Controls whether Chart has to be responsive while resizing.
 	*   @Default {false}
@@ -47080,7 +46883,7 @@ export interface Model {
 	/** Palette is used to store the series fill color in array and apply the color to series collection in the order of series index.
 	*   @Default {null}
 	*/
-	palette?: Array<any>;
+	palette?: any[];
 
 	/** Options to customize the left, right, top and bottom margins of chart area.
 	*/
@@ -47097,7 +46900,7 @@ export interface Model {
 
 	/** To override x axis for particular series, create an axis object by providing unique name by using name property and add it to axes array. Then, assign the name to the seriesâ€™s xAxisName property to link both axis and series.
 	*/
-	axes?: Array<Axis>;
+	axes?: Axis[];
 
 	/** This is a vertical axis that contains options to configure axis. This is the primary y axis for all the series in series array. To override y axis for particular series, create an axis object by providing unique name by using name property and add it to axes array. Then, assign the name to the seriesâ€™s yAxisName property to link both axis and series.
 	*/
@@ -47110,11 +46913,11 @@ export interface Model {
 
 	/** Options to split Chart into multiple plotting areas horizontally. Each object in the collection represents a plotting area in Chart.
 	*/
-	rowDefinitions?: Array<RowDefinition>;
+	rowDefinitions?: RowDefinition[];
 
 	/** Specifies the properties used for customizing the series.
 	*/
-	series?: Array<Series>;
+	series?: Series[];
 
 	/** Controls whether data points has to be displayed side by side or along the depth of the axis.
 	*   @Default {false}
@@ -47149,115 +46952,115 @@ export interface Model {
 	zooming?: Zooming;
 
 	/** Fires after the series animation is completed. This event will be triggered for each series when animation is enabled. */
-	animationComplete? (e: AnimationCompleteEventArgs): void;
+	animationComplete?(e: AnimationCompleteEventArgs): void;
 
 	/** Fires before rendering the labels. This event is fired for each label in axis. You can use this event to add custom text to axis labels. */
-	axesLabelRendering? (e: AxesLabelRenderingEventArgs): void;
+	axesLabelRendering?(e: AxesLabelRenderingEventArgs): void;
 
 	/** Fires during the initialization of axis labels. */
-	axesLabelsInitialize? (e: AxesLabelsInitializeEventArgs): void;
+	axesLabelsInitialize?(e: AxesLabelsInitializeEventArgs): void;
 
 	/** Fires during axes range calculation. This event is fired for each axis present in Chart. You can use this event to customize axis range as required. */
-	axesRangeCalculate? (e: AxesRangeCalculateEventArgs): void;
+	axesRangeCalculate?(e: AxesRangeCalculateEventArgs): void;
 
 	/** Fires before rendering the axis title. This event is triggered for each axis with title. You can use this event to add custom text to axis title. */
-	axesTitleRendering? (e: AxesTitleRenderingEventArgs): void;
+	axesTitleRendering?(e: AxesTitleRenderingEventArgs): void;
 
 	/** Fires during the calculation of chart area bounds. You can use this event to customize the bounds of chart area. */
-	chartAreaBoundsCalculate? (e: ChartAreaBoundsCalculateEventArgs): void;
+	chartAreaBoundsCalculate?(e: ChartAreaBoundsCalculateEventArgs): void;
 
 	/** Fires after chart is created. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 
 	/** Fires when chart is destroyed completely. */
-	destroy? (e: DestroyEventArgs): void;
+	destroy?(e: DestroyEventArgs): void;
 
 	/** Fires before rendering the data labels. This event is triggered for each data label in the series. You can use this event to add custom text in data labels. */
-	displayTextRendering? (e: DisplayTextRenderingEventArgs): void;
+	displayTextRendering?(e: DisplayTextRenderingEventArgs): void;
 
 	/** Fires during the calculation of legend bounds. You can use this event to customize the bounds of legend. */
-	legendBoundsCalculate? (e: LegendBoundsCalculateEventArgs): void;
+	legendBoundsCalculate?(e: LegendBoundsCalculateEventArgs): void;
 
 	/** Fires on clicking the legend item. */
-	legendItemClick? (e: LegendItemClickEventArgs): void;
+	legendItemClick?(e: LegendItemClickEventArgs): void;
 
 	/** Fires when moving mouse over legend item. You can use this event for hit testing on legend items. */
-	legendItemMouseMove? (e: LegendItemMouseMoveEventArgs): void;
+	legendItemMouseMove?(e: LegendItemMouseMoveEventArgs): void;
 
 	/** Fires before rendering the legend item. This event is fired for each legend item in Chart. You can use this event to customize legend item shape or add custom text to legend item. */
-	legendItemRendering? (e: LegendItemRenderingEventArgs): void;
+	legendItemRendering?(e: LegendItemRenderingEventArgs): void;
 
 	/** Fires before loading the chart. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Fires after selected the data in chart. */
-	rangeSelected? (e: RangeSelectedEventArgs): void;
+	rangeSelected?(e: RangeSelectedEventArgs): void;
 
 	/** Fires on clicking a point in chart. You can use this event to handle clicks made on points. */
-	pointRegionClick? (e: PointRegionClickEventArgs): void;
+	pointRegionClick?(e: PointRegionClickEventArgs): void;
 
 	/** Fires when mouse is moved over a point. */
-	pointRegionMouseMove? (e: PointRegionMouseMoveEventArgs): void;
+	pointRegionMouseMove?(e: PointRegionMouseMoveEventArgs): void;
 
 	/** Fires before rendering chart. */
-	preRender? (e: PreRenderEventArgs): void;
+	preRender?(e: PreRenderEventArgs): void;
 
 	/** Fires after selecting a series. This event is triggered after selecting a series only if selection mode is series. */
-	seriesRegionClick? (e: SeriesRegionClickEventArgs): void;
+	seriesRegionClick?(e: SeriesRegionClickEventArgs): void;
 
 	/** Fires before rendering a series. This event is fired for each series in Chart. */
-	seriesRendering? (e: SeriesRenderingEventArgs): void;
+	seriesRendering?(e: SeriesRenderingEventArgs): void;
 
 	/** Fires before rendering the marker symbols. This event is triggered for each marker in Chart. */
-	symbolRendering? (e: SymbolRenderingEventArgs): void;
+	symbolRendering?(e: SymbolRenderingEventArgs): void;
 
 	/** Fires before rendering the Chart title. You can use this event to add custom text in Chart title. */
-	titleRendering? (e: TitleRenderingEventArgs): void;
+	titleRendering?(e: TitleRenderingEventArgs): void;
 
 	/** Fires before rendering the tooltip. This event is fired when tooltip is enabled and mouse is hovered on a Chart point. You can use this event to customize tooltip before rendering. */
-	toolTipInitialize? (e: ToolTipInitializeEventArgs): void;
+	toolTipInitialize?(e: ToolTipInitializeEventArgs): void;
 
 	/** Fires before rendering crosshair tooltip in axis. This event is fired for each axis with crosshair label enabled. You can use this event to customize crosshair label before rendering */
-	trackAxisToolTip? (e: TrackAxisToolTipEventArgs): void;
+	trackAxisToolTip?(e: TrackAxisToolTipEventArgs): void;
 
 	/** Fires before rendering trackball tooltip. This event is fired for each series in Chart because trackball tooltip is displayed for all the series. You can use this event to customize the text displayed in trackball tooltip. */
-	trackToolTip? (e: TrackToolTipEventArgs): void;
+	trackToolTip?(e: TrackToolTipEventArgs): void;
 
 	/** Fires, on clicking the axis label. */
-	axisLabelClick? (e: AxisLabelClickEventArgs): void;
+	axisLabelClick?(e: AxisLabelClickEventArgs): void;
 
 	/** Fires on moving mouse over the axis label. */
-	axisLabelMouseMove? (e: AxisLabelMouseMoveEventArgs): void;
+	axisLabelMouseMove?(e: AxisLabelMouseMoveEventArgs): void;
 
 	/** Fires, on the clicking the chart. */
-	chartClick? (e: ChartClickEventArgs): void;
+	chartClick?(e: ChartClickEventArgs): void;
 
 	/** Fires on moving mouse over the chart. */
-	chartMouseMove? (e: ChartMouseMoveEventArgs): void;
+	chartMouseMove?(e: ChartMouseMoveEventArgs): void;
 
 	/** Fires, on double clicking the chart. */
-	chartDoubleClick? (e: ChartDoubleClickEventArgs): void;
+	chartDoubleClick?(e: ChartDoubleClickEventArgs): void;
 
 	/** Fires on clicking the annotation. */
-	annotationClick? (e: AnnotationClickEventArgs): void;
+	annotationClick?(e: AnnotationClickEventArgs): void;
 
 	/** Fires, after the chart is resized. */
-	afterResize? (e: AfterResizeEventArgs): void;
+	afterResize?(e: AfterResizeEventArgs): void;
 
 	/** Fires, when chart size is changing. */
-	beforeResize? (e: BeforeResizeEventArgs): void;
+	beforeResize?(e: BeforeResizeEventArgs): void;
 
 	/** Fires, when error bar is rendering. */
-	errorBarRendering? (e: ErrorBarRenderingEventArgs): void;
+	errorBarRendering?(e: ErrorBarRenderingEventArgs): void;
 
 	/** Trigger, after the scrollbar position is changed. */
-	scrollChanged? (e: ScrollChangedEventArgs): void;
+	scrollChanged?(e: ScrollChangedEventArgs): void;
 
 	/** Event triggered when scroll starts */
-	scrollStart? (e: ScrollStartEventArgs): void;
+	scrollStart?(e: ScrollStartEventArgs): void;
 
 	/** Event triggered when scroll end */
-	scrollEnd? (e: ScrollEndEventArgs): void;
+	scrollEnd?(e: ScrollEndEventArgs): void;
 }
 
 export interface AnimationCompleteEventArgs {
@@ -47462,11 +47265,11 @@ export interface DisplayTextRenderingEventArgs {
 	*/
 	locationY?: number;
 
-	/** Index of the series in series Collection whose data label is being rendered 
+	/** Index of the series in series Collection whose data label is being rendered
 	*/
 	seriesIndex?: number;
 
-	/** Index of the point in series whose data label is being rendered 
+	/** Index of the point in series whose data label is being rendered
 	*/
 	pointIndex?: number;
 
@@ -47786,7 +47589,7 @@ export interface SeriesRenderingEventArgs {
 
 export interface SymbolRenderingEventArgs {
 
-	/** Set this option to true to cancel the event    
+	/** Set this option to true to cancel the event
 	*/
 	cancel?: boolean;
 
@@ -47809,7 +47612,7 @@ export interface SymbolRenderingEventArgs {
 
 export interface TitleRenderingEventArgs {
 
-	/** Set this option to true to cancel the event    
+	/** Set this option to true to cancel the event
 	*/
 	cancel?: boolean;
 
@@ -47836,7 +47639,7 @@ export interface TitleRenderingEventArgs {
 
 export interface ToolTipInitializeEventArgs {
 
-	/** Set this option to true to cancel the event    
+	/** Set this option to true to cancel the event
 	*/
 	cancel?: boolean;
 
@@ -47863,7 +47666,7 @@ export interface ToolTipInitializeEventArgs {
 
 export interface TrackAxisToolTipEventArgs {
 
-	/** Set this option to true to cancel the event    
+	/** Set this option to true to cancel the event
 	*/
 	cancel?: boolean;
 
@@ -47894,7 +47697,7 @@ export interface TrackAxisToolTipEventArgs {
 
 export interface TrackToolTipEventArgs {
 
-	/** Set this option to true to cancel the event    
+	/** Set this option to true to cancel the event
 	*/
 	cancel?: boolean;
 
@@ -47929,7 +47732,7 @@ export interface TrackToolTipEventArgs {
 
 export interface AxisLabelClickEventArgs {
 
-	/** Set this option to true to cancel the event    
+	/** Set this option to true to cancel the event
 	*/
 	cancel?: boolean;
 
@@ -47941,7 +47744,7 @@ export interface AxisLabelClickEventArgs {
 	*/
 	type?: string;
 
-	/** X and Y co-ordinate of the labels in chart area. 
+	/** X and Y co-ordinate of the labels in chart area.
 	*/
 	location?: any;
 
@@ -47960,7 +47763,7 @@ export interface AxisLabelClickEventArgs {
 
 export interface AxisLabelMouseMoveEventArgs {
 
-	/** Set this option to true to cancel the event    
+	/** Set this option to true to cancel the event
 	*/
 	cancel?: boolean;
 
@@ -47972,7 +47775,7 @@ export interface AxisLabelMouseMoveEventArgs {
 	*/
 	type?: string;
 
-	/** X and Y co-ordinate of the labels in chart area. 
+	/** X and Y co-ordinate of the labels in chart area.
 	*/
 	location?: any;
 
@@ -47991,7 +47794,7 @@ export interface AxisLabelMouseMoveEventArgs {
 
 export interface ChartClickEventArgs {
 
-	/** Set this option to true to cancel the event    
+	/** Set this option to true to cancel the event
 	*/
 	cancel?: boolean;
 
@@ -48003,30 +47806,30 @@ export interface ChartClickEventArgs {
 	*/
 	type?: string;
 
-	/** X and Y co-ordinate of the points with respect to chart area.  
+	/** X and Y co-ordinate of the points with respect to chart area.
 	*/
 	location?: any;
 
-	/** ID of the target element. 
+	/** ID of the target element.
 	*/
 	id?: string;
 
-	/** Width and height of the chart. 
+	/** Width and height of the chart.
 	*/
 	size?: any;
 
-	/** x-coordinate of the pointer, relative to the page 
+	/** x-coordinate of the pointer, relative to the page
 	*/
 	pageX?: number;
 
-	/** y-coordinate of the pointer, relative to the page 
+	/** y-coordinate of the pointer, relative to the page
 	*/
 	pageY?: number;
 }
 
 export interface ChartMouseMoveEventArgs {
 
-	/** Set this option to true to cancel the event    
+	/** Set this option to true to cancel the event
 	*/
 	cancel?: boolean;
 
@@ -48038,30 +47841,30 @@ export interface ChartMouseMoveEventArgs {
 	*/
 	type?: string;
 
-	/** X and Y co-ordinate of the points with respect to chart area.  
+	/** X and Y co-ordinate of the points with respect to chart area.
 	*/
 	location?: any;
 
-	/** ID of the target element. 
+	/** ID of the target element.
 	*/
 	id?: string;
 
-	/** Width and height of the chart. 
+	/** Width and height of the chart.
 	*/
 	size?: any;
 
-	/** x-coordinate of the pointer, relative to the page 
+	/** x-coordinate of the pointer, relative to the page
 	*/
 	pageX?: number;
 
-	/** y-coordinate of the pointer, relative to the page 
+	/** y-coordinate of the pointer, relative to the page
 	*/
 	pageY?: number;
 }
 
 export interface ChartDoubleClickEventArgs {
 
-	/** Set this option to true to cancel the event    
+	/** Set this option to true to cancel the event
 	*/
 	cancel?: boolean;
 
@@ -48073,30 +47876,30 @@ export interface ChartDoubleClickEventArgs {
 	*/
 	type?: string;
 
-	/** X and Y co-ordinate of the points with respect to chart area.  
+	/** X and Y co-ordinate of the points with respect to chart area.
 	*/
 	location?: any;
 
-	/** ID of the target element. 
+	/** ID of the target element.
 	*/
 	id?: string;
 
-	/** Width and height of the chart. 
+	/** Width and height of the chart.
 	*/
 	size?: any;
 
-	/** x-coordinate of the pointer, relative to the page 
+	/** x-coordinate of the pointer, relative to the page
 	*/
 	pageX?: number;
 
-	/** y-coordinate of the pointer, relative to the page 
+	/** y-coordinate of the pointer, relative to the page
 	*/
 	pageY?: number;
 }
 
 export interface AnnotationClickEventArgs {
 
-	/** Set this option to true to cancel the event    
+	/** Set this option to true to cancel the event
 	*/
 	cancel?: boolean;
 
@@ -48108,26 +47911,26 @@ export interface AnnotationClickEventArgs {
 	*/
 	type?: string;
 
-	/** X and Y co-ordinate of the annotation in chart area.  
+	/** X and Y co-ordinate of the annotation in chart area.
 	*/
 	location?: any;
 
-	/** Information about the annotation, like Coordinate unit, Region, content 
+	/** Information about the annotation, like Coordinate unit, Region, content
 	*/
 	contentData?: any;
 
-	/** x-coordinate of the pointer, relative to the page  
+	/** x-coordinate of the pointer, relative to the page
 	*/
 	pageX?: number;
 
-	/** y-coordinate of the pointer, relative to the page 
+	/** y-coordinate of the pointer, relative to the page
 	*/
 	pageY?: number;
 }
 
 export interface AfterResizeEventArgs {
 
-	/** Set this option to true to cancel the event    
+	/** Set this option to true to cancel the event
 	*/
 	cancel?: boolean;
 
@@ -48139,34 +47942,34 @@ export interface AfterResizeEventArgs {
 	*/
 	type?: string;
 
-	/** Chart width, after resize  
+	/** Chart width, after resize
 	*/
 	width?: number;
 
-	/** Chart height, after resize  
+	/** Chart height, after resize
 	*/
 	height?: number;
 
-	/** Chart width, before resize  
+	/** Chart width, before resize
 	*/
 	prevWidth?: number;
 
-	/** Chart height, before resize  
+	/** Chart height, before resize
 	*/
 	prevHeight?: number;
 
-	/** Chart width, when the chart was first rendered  
+	/** Chart width, when the chart was first rendered
 	*/
 	originalWidth?: number;
 
-	/** Chart height, when the chart was first rendered  
+	/** Chart height, when the chart was first rendered
 	*/
 	originalHeight?: number;
 }
 
 export interface BeforeResizeEventArgs {
 
-	/** Set this option to true to cancel the event    
+	/** Set this option to true to cancel the event
 	*/
 	cancel?: boolean;
 
@@ -48178,26 +47981,26 @@ export interface BeforeResizeEventArgs {
 	*/
 	type?: string;
 
-	/** Chart width, before resize  
+	/** Chart width, before resize
 	*/
 	currentWidth?: number;
 
-	/** Chart height, before resize  
+	/** Chart height, before resize
 	*/
 	currentHeight?: number;
 
-	/** Chart width, after resize   
+	/** Chart width, after resize
 	*/
 	newWidth?: number;
 
-	/** Chart height, after resize   
+	/** Chart height, after resize
 	*/
 	newHeight?: number;
 }
 
 export interface ErrorBarRenderingEventArgs {
 
-	/** Set this option to true to cancel the event    
+	/** Set this option to true to cancel the event
 	*/
 	cancel?: boolean;
 
@@ -48209,7 +48012,7 @@ export interface ErrorBarRenderingEventArgs {
 	*/
 	type?: string;
 
-	/** Error bar Object  
+	/** Error bar Object
 	*/
 	errorbar?: any;
 }
@@ -49490,7 +49293,7 @@ export interface CommonSeriesOptions {
 
 	/** Option to add the trendlines to chart.
 	*/
-	trendlines?: Array<CommonSeriesOptionsTrendline>;
+	trendlines?: CommonSeriesOptionsTrendline[];
 
 	/** Options for customizing the appearance of the series or data point while highlighting.
 	*/
@@ -50723,12 +50526,12 @@ export interface PrimaryXAxis {
 	/** Options for customizing the multi level labels.
 	*   @Default {[ ]}
 	*/
-	multiLevelLabels?: Array<PrimaryXAxisMultiLevelLabel>;
+	multiLevelLabels?: PrimaryXAxisMultiLevelLabel[];
 
 	/** Options for customizing the strip lines.
 	*   @Default {[ ]}
 	*/
-	stripLine?: Array<PrimaryXAxisStripLine>;
+	stripLine?: PrimaryXAxisStripLine[];
 
 	/** Specifies the position of the axis tick lines.
 	*   @Default {outside. See TickLinesPosition}
@@ -51398,12 +51201,12 @@ export interface Axis {
 	/** Options for customizing the multi level labels.
 	*   @Default {[ ]}
 	*/
-	multiLevelLabels?: Array<AxesMultiLevelLabel>;
+	multiLevelLabels?: AxesMultiLevelLabel[];
 
 	/** Options for customizing the strip lines.
 	*   @Default {[ ]}
 	*/
-	stripLine?: Array<AxesStripLine>;
+	stripLine?: AxesStripLine[];
 
 	/** Specifies the position of the axis tick lines.
 	*   @Default {outside. See TickLinesPosition}
@@ -52068,12 +51871,12 @@ export interface PrimaryYAxis {
 	/** Options for customizing the multi level labels.
 	*   @Default {[ ]}
 	*/
-	multiLevelLabels?: Array<PrimaryYAxisMultiLevelLabel>;
+	multiLevelLabels?: PrimaryYAxisMultiLevelLabel[];
 
 	/** Options for customizing the strip lines.
 	*   @Default {[ ]}
 	*/
-	stripLine?: Array<PrimaryYAxisStripLine>;
+	stripLine?: PrimaryYAxisStripLine[];
 
 	/** Specifies the position of the axis tick lines.
 	*   @Default {outside. See TickLinesPosition}
@@ -53363,7 +53166,7 @@ export interface Series {
 
 	/** Option to add data points; each point should have x and y property. Also, optionally, you can customize the points color, border, marker by using fill, border and marker options.
 	*/
-	points?: Array<SeriesPoint>;
+	points?: SeriesPoint[];
 
 	/** Specifies the mode of the pyramid series.
 	*   @Default {linear}
@@ -53460,7 +53263,7 @@ export interface Series {
 
 	/** Option to add trendlines to chart.
 	*/
-	trendlines?: Array<SeriesTrendline>;
+	trendlines?: SeriesTrendline[];
 
 	/** Options for customizing the appearance of the series or data point while highlighting.
 	*/
@@ -53675,13 +53478,11 @@ export interface Zooming {
 	/** To display user specified buttons in zooming toolbar.
 	*   @Default {[zoomIn, zoomOut, zoom, pan, reset]}
 	*/
-	toolbarItems?: Array<any>;
+	toolbarItems?: any[];
 }
 }
-module Chart
-{
-enum CoordinateUnit
-{
+namespace Chart {
+enum CoordinateUnit {
 //string
 None,
 //string
@@ -53690,10 +53491,8 @@ Pixels,
 Points,
 }
 }
-module Chart
-{
-enum HorizontalAlignment
-{
+namespace Chart {
+enum HorizontalAlignment {
 //string
 Left,
 //string
@@ -53702,20 +53501,16 @@ Right,
 Middle,
 }
 }
-module Chart
-{
-enum Region
-{
+namespace Chart {
+enum Region {
 //string
 Chart,
 //string
 Series,
 }
 }
-module Chart
-{
-enum VerticalAlignment
-{
+namespace Chart {
+enum VerticalAlignment {
 //string
 Top,
 //string
@@ -53724,10 +53519,8 @@ Bottom,
 Middle,
 }
 }
-module Chart
-{
-enum ExportingType
-{
+namespace Chart {
+enum ExportingType {
 //string
 PNG,
 //string
@@ -53742,50 +53535,40 @@ XLSX,
 SVG,
 }
 }
-module Chart
-{
-enum ExportingOrientation
-{
+namespace Chart {
+enum ExportingOrientation {
 //string
 Portrait,
 //string
 Landscape,
 }
 }
-module Chart
-{
-enum ExportingMode
-{
+namespace Chart {
+enum ExportingMode {
 //string
 ServerSide,
 //string
 ClientSide,
 }
 }
-module Chart
-{
-enum Unit
-{
+namespace Chart {
+enum Unit {
 //string
 Percentage,
 //string
 Pixel,
 }
 }
-module Chart
-{
-enum ColumnFacet
-{
+namespace Chart {
+enum ColumnFacet {
 //string
 Rectangle,
 //string
 Cylinder,
 }
 }
-module Chart
-{
-enum DrawType
-{
+namespace Chart {
+enum DrawType {
 //string
 Line,
 //string
@@ -53794,20 +53577,16 @@ Area,
 Column,
 }
 }
-module Chart
-{
-enum FontStyle
-{
+namespace Chart {
+enum FontStyle {
 //string
 Normal,
 //string
 Italic,
 }
 }
-module Chart
-{
-enum FontWeight
-{
+namespace Chart {
+enum FontWeight {
 //string
 Regular,
 //string
@@ -53816,10 +53595,8 @@ Bold,
 Lighter,
 }
 }
-module Chart
-{
-enum LabelPosition
-{
+namespace Chart {
+enum LabelPosition {
 //string
 Inside,
 //string
@@ -53828,10 +53605,8 @@ Outside,
 OutsideExtended,
 }
 }
-module Chart
-{
-enum boxPlotMode
-{
+namespace Chart {
+enum boxPlotMode {
 //string
 Exclusive,
 //string
@@ -53840,10 +53615,8 @@ Inclusive,
 Normal,
 }
 }
-module Chart
-{
-enum LineCap
-{
+namespace Chart {
+enum LineCap {
 //string
 Butt,
 //string
@@ -53852,10 +53625,8 @@ Round,
 Square,
 }
 }
-module Chart
-{
-enum LineJoin
-{
+namespace Chart {
+enum LineJoin {
 //string
 Round,
 //string
@@ -53864,20 +53635,16 @@ Bevel,
 Miter,
 }
 }
-module Chart
-{
-enum ConnectorLineType
-{
+namespace Chart {
+enum ConnectorLineType {
 //string
 Line,
 //string
 Bezier,
 }
 }
-module Chart
-{
-enum HorizontalTextAlignment
-{
+namespace Chart {
+enum HorizontalTextAlignment {
 //string
 Center,
 //string
@@ -53886,10 +53653,8 @@ Near,
 Far,
 }
 }
-module Chart
-{
-enum Shape
-{
+namespace Chart {
+enum Shape {
 //string
 None,
 //string
@@ -53930,10 +53695,8 @@ Image,
 SeriesType,
 }
 }
-module Chart
-{
-enum TextPosition
-{
+namespace Chart {
+enum TextPosition {
 //string
 Top,
 //string
@@ -53942,10 +53705,8 @@ Bottom,
 Middle,
 }
 }
-module Chart
-{
-enum VerticalTextAlignment
-{
+namespace Chart {
+enum VerticalTextAlignment {
 //string
 Center,
 //string
@@ -53954,20 +53715,16 @@ Near,
 Far,
 }
 }
-module Chart
-{
-enum PyramidMode
-{
+namespace Chart {
+enum PyramidMode {
 //string
 Linear,
 //string
 Surface,
 }
 }
-module Chart
-{
-enum Type
-{
+namespace Chart {
+enum Type {
 //string
 Area,
 //string
@@ -54024,10 +53781,8 @@ Radar,
 RangeArea,
 }
 }
-module Chart
-{
-enum EmptyPointMode
-{
+namespace Chart {
+enum EmptyPointMode {
 //string
 Gap,
 //string
@@ -54036,10 +53791,8 @@ Zero,
 Average,
 }
 }
-module Chart
-{
-enum ErrorBarType
-{
+namespace Chart {
+enum ErrorBarType {
 //string
 FixedValue,
 //string
@@ -54050,10 +53803,8 @@ StandardDeviation,
 StandardError,
 }
 }
-module Chart
-{
-enum ErrorBarMode
-{
+namespace Chart {
+enum ErrorBarMode {
 //string
 Both,
 //string
@@ -54062,10 +53813,8 @@ Vertical,
 Horizontal,
 }
 }
-module Chart
-{
-enum ErrorBarDirection
-{
+namespace Chart {
+enum ErrorBarDirection {
 //string
 Both,
 //string
@@ -54074,10 +53823,8 @@ Plus,
 Minus,
 }
 }
-module Chart
-{
-enum Mode
-{
+namespace Chart {
+enum Mode {
 //string
 Series,
 //string
@@ -54088,20 +53835,16 @@ Cluster,
 Range,
 }
 }
-module Chart
-{
-enum SelectionType
-{
+namespace Chart {
+enum SelectionType {
 //string
 Single,
 //string
 Multiple,
 }
 }
-module Chart
-{
-enum RangeType
-{
+namespace Chart {
+enum RangeType {
 //string
 XY,
 //string
@@ -54110,30 +53853,24 @@ X,
 Y,
 }
 }
-module Chart
-{
-enum CrosshairMode
-{
+namespace Chart {
+enum CrosshairMode {
 //string
 Float,
 //string
 Grouping,
 }
 }
-module Chart
-{
-enum CrosshairType
-{
+namespace Chart {
+enum CrosshairType {
 //string
 Crosshair,
 //string
 Trackball,
 }
 }
-module Chart
-{
-enum Alignment
-{
+namespace Chart {
+enum Alignment {
 //string
 Center,
 //string
@@ -54142,10 +53879,8 @@ Near,
 Far,
 }
 }
-module Chart
-{
-enum Position
-{
+namespace Chart {
+enum Position {
 //string
 Left,
 //string
@@ -54156,10 +53891,8 @@ Top,
 Bottom,
 }
 }
-module Chart
-{
-enum TextOverflow
-{
+namespace Chart {
+enum TextOverflow {
 //string
 None,
 //string
@@ -54170,20 +53903,16 @@ Wrap,
 WrapAndTrim,
 }
 }
-module Chart
-{
-enum LabelPlacement
-{
+namespace Chart {
+enum LabelPlacement {
 //string
 OnTicks,
 //string
 BetweenTicks,
 }
 }
-module Chart
-{
-enum EdgeLabelPlacement
-{
+namespace Chart {
+enum EdgeLabelPlacement {
 //string
 None,
 //string
@@ -54192,10 +53921,8 @@ Shift,
 Hide,
 }
 }
-module Chart
-{
-enum IntervalType
-{
+namespace Chart {
+enum IntervalType {
 //string
 Days,
 //string
@@ -54212,10 +53939,8 @@ Months,
 Years,
 }
 }
-module Chart
-{
-enum LabelIntersectAction
-{
+namespace Chart {
+enum LabelIntersectAction {
 //string
 None,
 //string
@@ -54234,10 +53959,8 @@ Hide,
 MultipleRows,
 }
 }
-module Chart
-{
-enum LabelAlignment
-{
+namespace Chart {
+enum LabelAlignment {
 //string
 Near,
 //string
@@ -54246,10 +53969,8 @@ Far,
 Center,
 }
 }
-module Chart
-{
-enum RangePadding
-{
+namespace Chart {
+enum RangePadding {
 //string
 Additional,
 //string
@@ -54260,10 +53981,8 @@ None,
 Round,
 }
 }
-module Chart
-{
-enum MultiLevelLabelsBorderType
-{
+namespace Chart {
+enum MultiLevelLabelsBorderType {
 //string
 Rectangle,
 //string
@@ -54276,10 +53995,8 @@ Brace,
 CurlyBrace,
 }
 }
-module Chart
-{
-enum TextAlignment
-{
+namespace Chart {
+enum TextAlignment {
 //string
 MiddleTop,
 //string
@@ -54288,30 +54005,24 @@ MiddleCenter,
 MiddleBottom,
 }
 }
-module Chart
-{
-enum ZIndex
-{
+namespace Chart {
+enum ZIndex {
 //string
 Inside,
 //string
 Over,
 }
 }
-module Chart
-{
-enum TickLinesPosition
-{
+namespace Chart {
+enum TickLinesPosition {
 //string
 Inside,
 //string
 Outside,
 }
 }
-module Chart
-{
-enum ValueType
-{
+namespace Chart {
+enum ValueType {
 //string
 Double,
 //string
@@ -54322,10 +54033,8 @@ DateTime,
 Logarithmic,
 }
 }
-module Chart
-{
-enum Theme
-{
+namespace Chart {
+enum Theme {
 //string
 Azure,
 //string
@@ -54351,18 +54060,17 @@ GradientDark,
 
 class RangeNavigator extends ej.Widget {
 	static fn: RangeNavigator;
-	constructor(element: JQuery, options?: RangeNavigator.Model);
-	constructor(element: Element, options?: RangeNavigator.Model);
+	constructor(element: JQuery | Element, options?: RangeNavigator.Model);
 	static Locale: any;
-	model:RangeNavigator.Model;
-	defaults:RangeNavigator.Model;
+	model: RangeNavigator.Model;
+	defaults: RangeNavigator.Model;
 
 	/** destroy the range navigator widget
 	*   @returns {void}
 	*/
 	_destroy(): void;
 }
-export module RangeNavigator{
+export namespace RangeNavigator {
 
 export interface Model {
 
@@ -54381,7 +54089,7 @@ export interface Model {
 
 	/** Specifies the properties used for customizing the range series.
 	*/
-	series?: Array<Series>;
+	series?: Series[];
 
 	/** Toggles the redrawing of chart on moving the sliders.
 	*   @Default {true}
@@ -54473,22 +54181,22 @@ export interface Model {
 	yName?: any;
 
 	/** Fires on load of range navigator. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Fires after range navigator is loaded. */
-	loaded? (e: LoadedEventArgs): void;
+	loaded?(e: LoadedEventArgs): void;
 
 	/** Fires on changing the range of range navigator. */
-	rangeChanged? (e: RangeChangedEventArgs): void;
+	rangeChanged?(e: RangeChangedEventArgs): void;
 
 	/** Fires on changing the scrollbar position of range navigator. */
-	scrollChanged? (e: ScrollChangedEventArgs): void;
+	scrollChanged?(e: ScrollChangedEventArgs): void;
 
 	/** Fires on when starting to change the scrollbar position of range navigator. */
-	scrollStart? (e: ScrollStartEventArgs): void;
+	scrollStart?(e: ScrollStartEventArgs): void;
 
 	/** Fires on changes ending the scrollbar position of range navigator. */
-	scrollEnd? (e: ScrollEndEventArgs): void;
+	scrollEnd?(e: ScrollEndEventArgs): void;
 }
 
 export interface LoadEventArgs {
@@ -55347,10 +55055,8 @@ export interface ValueAxisSettings {
 	visible?: boolean;
 }
 }
-module RangeNavigator
-{
-enum Type
-{
+namespace RangeNavigator {
+enum Type {
 //string
 Area,
 //string
@@ -55365,10 +55071,8 @@ SplineArea,
 StepLine,
 }
 }
-module RangeNavigator
-{
-enum IntervalType
-{
+namespace RangeNavigator {
+enum IntervalType {
 //string
 Years,
 //string
@@ -55385,30 +55089,24 @@ Hours,
 Minutes,
 }
 }
-module RangeNavigator
-{
-enum LabelPlacement
-{
+namespace RangeNavigator {
+enum LabelPlacement {
 //string
 Inside,
 //string
 Outside,
 }
 }
-module RangeNavigator
-{
-enum Position
-{
+namespace RangeNavigator {
+enum Position {
 //string
 Top,
 //string
 Bottom,
 }
 }
-module RangeNavigator
-{
-enum FontStyle
-{
+namespace RangeNavigator {
+enum FontStyle {
 //string
 Normal,
 //string
@@ -55417,20 +55115,16 @@ Bold,
 Italic,
 }
 }
-module RangeNavigator
-{
-enum FontWeight
-{
+namespace RangeNavigator {
+enum FontWeight {
 //string
 Regular,
 //string
 Lighter,
 }
 }
-module RangeNavigator
-{
-enum HorizontalAlignment
-{
+namespace RangeNavigator {
+enum HorizontalAlignment {
 //string
 Middle,
 //string
@@ -55439,10 +55133,8 @@ Left,
 Right,
 }
 }
-module RangeNavigator
-{
-enum RangePadding
-{
+namespace RangeNavigator {
+enum RangePadding {
 //string
 Additional,
 //string
@@ -55453,10 +55145,8 @@ None,
 Round,
 }
 }
-module RangeNavigator
-{
-enum ValueType
-{
+namespace RangeNavigator {
+enum ValueType {
 //string
 Numeric,
 //string
@@ -55466,11 +55156,10 @@ DateTime,
 
 class BulletGraph extends ej.Widget {
 	static fn: BulletGraph;
-	constructor(element: JQuery, options?: BulletGraph.Model);
-	constructor(element: Element, options?: BulletGraph.Model);
+	constructor(element: JQuery | Element, options?: BulletGraph.Model);
 	static Locale: any;
-	model:BulletGraph.Model;
-	defaults:BulletGraph.Model;
+	model: BulletGraph.Model;
+	defaults: BulletGraph.Model;
 
 	/** To destroy the bullet graph
 	*   @returns {void}
@@ -55492,7 +55181,7 @@ class BulletGraph extends ej.Widget {
 	*/
 	setFeatureMeasureBarValue(): void;
 }
-export module BulletGraph{
+export namespace BulletGraph {
 
 export interface Model {
 
@@ -55542,7 +55231,7 @@ export interface Model {
 
 	/** Contains property to customize the qualitative ranges.
 	*/
-	qualitativeRanges?: Array<QualitativeRange>;
+	qualitativeRanges?: QualitativeRange[];
 
 	/** Size of the qualitative range depends up on the specified value.
 	*   @Default {32}
@@ -55578,28 +55267,28 @@ export interface Model {
 	width?: number;
 
 	/** Fires on rendering the caption of bullet graph. */
-	drawCaption? (e: DrawCaptionEventArgs): void;
+	drawCaption?(e: DrawCaptionEventArgs): void;
 
 	/** Fires on rendering the category. */
-	drawCategory? (e: DrawCategoryEventArgs): void;
+	drawCategory?(e: DrawCategoryEventArgs): void;
 
 	/** Fires on rendering the comparative measure symbol. */
-	drawComparativeMeasureSymbol? (e: DrawComparativeMeasureSymbolEventArgs): void;
+	drawComparativeMeasureSymbol?(e: DrawComparativeMeasureSymbolEventArgs): void;
 
 	/** Fires on rendering the feature measure bar. */
-	drawFeatureMeasureBar? (e: DrawFeatureMeasureBarEventArgs): void;
+	drawFeatureMeasureBar?(e: DrawFeatureMeasureBarEventArgs): void;
 
 	/** Fires on rendering the indicator of bullet graph. */
-	drawIndicator? (e: DrawIndicatorEventArgs): void;
+	drawIndicator?(e: DrawIndicatorEventArgs): void;
 
 	/** Fires on rendering the labels. */
-	drawLabels? (e: DrawLabelsEventArgs): void;
+	drawLabels?(e: DrawLabelsEventArgs): void;
 
 	/** Fires on rendering the qualitative ranges. */
-	drawQualitativeRanges? (e: DrawQualitativeRangesEventArgs): void;
+	drawQualitativeRanges?(e: DrawQualitativeRangesEventArgs): void;
 
 	/** Fires on loading bullet graph. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 }
 
 export interface DrawCaptionEventArgs {
@@ -55736,6 +55425,7 @@ export interface DrawQualitativeRangesEventArgs {
 }
 
 export interface LoadEventArgs {
+	undefined;
 }
 
 export interface CaptionSettingsFont {
@@ -56299,7 +55989,7 @@ export interface QuantitativeScaleSettings {
 
 	/** Contains property to customize the featured measure.
 	*/
-	featureMeasures?: Array<QuantitativeScaleSettingsFeatureMeasure>;
+	featureMeasures?: QuantitativeScaleSettingsFeatureMeasure[];
 
 	/** Contains property to customize the fields.
 	*/
@@ -56375,10 +56065,8 @@ export interface TooltipSettings {
 	visible?: boolean;
 }
 }
-module BulletGraph
-{
-enum FontStyle
-{
+namespace BulletGraph {
+enum FontStyle {
 //string
 Normal,
 //string
@@ -56387,10 +56075,8 @@ Italic,
 Oblique,
 }
 }
-module BulletGraph
-{
-enum FontWeight
-{
+namespace BulletGraph {
+enum FontWeight {
 //string
 Normal,
 //string
@@ -56401,10 +56087,8 @@ Bolder,
 Lighter,
 }
 }
-module BulletGraph
-{
-enum TextAlignment
-{
+namespace BulletGraph {
+enum TextAlignment {
 //string
 Near,
 //string
@@ -56413,10 +56097,8 @@ Far,
 Center,
 }
 }
-module BulletGraph
-{
-enum TextAnchor
-{
+namespace BulletGraph {
+enum TextAnchor {
 //string
 Start,
 //string
@@ -56425,10 +56107,8 @@ Middle,
 End,
 }
 }
-module BulletGraph
-{
-enum TextPosition
-{
+namespace BulletGraph {
+enum TextPosition {
 //string
 Top,
 //string
@@ -56441,60 +56121,48 @@ Bottom,
 Float,
 }
 }
-module BulletGraph
-{
-enum FlowDirection
-{
+namespace BulletGraph {
+enum FlowDirection {
 //string
 Forward,
 //string
 Backward,
 }
 }
-module BulletGraph
-{
-enum Orientation
-{
+namespace BulletGraph {
+enum Orientation {
 //string
 Horizontal,
 //string
 Vertical,
 }
 }
-module BulletGraph
-{
-enum LabelPlacement
-{
+namespace BulletGraph {
+enum LabelPlacement {
 //string
 Inside,
 //string
 Outside,
 }
 }
-module BulletGraph
-{
-enum LabelPosition
-{
+namespace BulletGraph {
+enum LabelPosition {
 //string
 Above,
 //string
 Below,
 }
 }
-module BulletGraph
-{
-enum TickPlacement
-{
+namespace BulletGraph {
+enum TickPlacement {
 //string
 Inside,
 //string
 Outside,
 }
 }
-module BulletGraph
-{
-enum TickPosition
-{
+namespace BulletGraph {
+enum TickPosition {
 //string
 Below,
 //string
@@ -56506,11 +56174,10 @@ Cross,
 
 class Barcode extends ej.Widget {
 	static fn: Barcode;
-	constructor(element: JQuery, options?: Barcode.Model);
-	constructor(element: Element, options?: Barcode.Model);
+	constructor(element: JQuery | Element, options?: Barcode.Model);
 	static Locale: any;
-	model:Barcode.Model;
-	defaults:Barcode.Model;
+	model: Barcode.Model;
+	defaults: Barcode.Model;
 
 	/** To disable the barcode
 	*   @returns {void}
@@ -56522,7 +56189,7 @@ class Barcode extends ej.Widget {
 	*/
 	enable(): void;
 }
-export module Barcode{
+export namespace Barcode {
 
 export interface Model {
 
@@ -56583,7 +56250,7 @@ export interface Model {
 	xDimension?: number;
 
 	/** Fires after Barcode control is loaded. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 }
 
 export interface LoadEventArgs {
@@ -56628,10 +56295,8 @@ export interface QuietZone {
 	top?: number;
 }
 }
-module Barcode
-{
-enum SymbologyType
-{
+namespace Barcode {
+enum SymbologyType {
 //Represents the QR code
 QRBarcode,
 //Represents the Data Matrix barcode
@@ -56661,11 +56326,10 @@ Code128C,
 
 class Map extends ej.Widget {
 	static fn: Map;
-	constructor(element: JQuery, options?: Map.Model);
-	constructor(element: Element, options?: Map.Model);
+	constructor(element: JQuery | Element, options?: Map.Model);
 	static Locale: any;
-	model:Map.Model;
-	defaults:Map.Model;
+	model: Map.Model;
+	defaults: Map.Model;
 
 	/** Method for navigating to specific shape based on latitude, longitude and zoom level.
 	*   @param {number} Pass the latitude value for map
@@ -56704,7 +56368,7 @@ class Map extends ej.Widget {
 	*/
 	zoom(level: number, isAnimate: boolean): void;
 }
-export module Map{
+export namespace Map {
 
 export interface Model {
 
@@ -56753,31 +56417,31 @@ export interface Model {
 
 	/** Layer for holding the map shapes
 	*/
-	layers?: Array<Layer>;
+	layers?: Layer[];
 
 	/** Triggered on selecting the map markers. */
-	markerSelected? (e: MarkerSelectedEventArgs): void;
+	markerSelected?(e: MarkerSelectedEventArgs): void;
 
 	/** Triggers while leaving the hovered map shape */
-	mouseleave? (e: MouseleaveEventArgs): void;
+	mouseleave?(e: MouseleaveEventArgs): void;
 
 	/** Triggers while hovering the map shape. */
-	mouseover? (e: MouseoverEventArgs): void;
+	mouseover?(e: MouseoverEventArgs): void;
 
 	/** Triggers once map render completed. */
-	onRenderComplete? (e: OnRenderCompleteEventArgs): void;
+	onRenderComplete?(e: OnRenderCompleteEventArgs): void;
 
 	/** Triggers when map panning ends. */
-	panned? (e: PannedEventArgs): void;
+	panned?(e: PannedEventArgs): void;
 
 	/** Triggered on selecting the map shapes. */
-	shapeSelected? (e: ShapeSelectedEventArgs): void;
+	shapeSelected?(e: ShapeSelectedEventArgs): void;
 
 	/** Triggered when map is zoomed-in. */
-	zoomedIn? (e: ZoomedInEventArgs): void;
+	zoomedIn?(e: ZoomedInEventArgs): void;
 
 	/** Triggers when map is zoomed out. */
-	zoomedOut? (e: ZoomedOutEventArgs): void;
+	zoomedOut?(e: ZoomedOutEventArgs): void;
 }
 
 export interface MarkerSelectedEventArgs {
@@ -56919,7 +56583,7 @@ export interface LayersBubbleSettingsColorMappingsRangeColorMapping {
 
 	/** GradientColors in the bubble layer of map.
 	*/
-	gradientColors?: Array<any>;
+	gradientColors?: any[];
 
 	/** Color of the bubble layer.
 	*   @Default {null}
@@ -56932,7 +56596,7 @@ export interface LayersBubbleSettingsColorMappings {
 	/** Specifies the range colorMappings in the bubble layer.
 	*   @Default {null}
 	*/
-	rangeColorMapping?: Array<LayersBubbleSettingsColorMappingsRangeColorMapping>;
+	rangeColorMapping?: LayersBubbleSettingsColorMappingsRangeColorMapping[];
 }
 
 export interface LayersBubbleSettings {
@@ -56993,7 +56657,7 @@ export interface LayersLabelSettings {
 	/** enable or disable the enableSmartLabel property
 	*   @Default {false}
 	*/
-	enableSmartLabel?: Boolean;
+	enableSmartLabel?: boolean;
 
 	/** set the labelLength property
 	*   @Default {'2'}
@@ -57124,7 +56788,7 @@ export interface LayersShapeSettingsColorMappingsRangeColorMapping {
 	/** Specifies the gradientColors in the shape layer of map.
 	*   @Default {null}
 	*/
-	gradientColors?: Array<any>;
+	gradientColors?: any[];
 }
 
 export interface LayersShapeSettingsColorMappingsEqualColorMapping {
@@ -57145,12 +56809,12 @@ export interface LayersShapeSettingsColorMappings {
 	/** Specifies the range colorMappings in the shape layer of map.
 	*   @Default {null}
 	*/
-	rangeColorMapping?: Array<LayersShapeSettingsColorMappingsRangeColorMapping>;
+	rangeColorMapping?: LayersShapeSettingsColorMappingsRangeColorMapping[];
 
 	/** Specifies the equalColorMapping in the shape layer of map.
 	*   @Default {null}
 	*/
-	equalColorMapping?: Array<LayersShapeSettingsColorMappingsEqualColorMapping>;
+	equalColorMapping?: LayersShapeSettingsColorMappingsEqualColorMapping[];
 }
 
 export interface LayersShapeSettings {
@@ -57289,7 +56953,7 @@ export interface Layer {
 	/** Specify markers for shape layer.
 	*   @Default {[]}
 	*/
-	markers?: Array<any>;
+	markers?: any[];
 
 	/** Specifies the map marker template for map layer.
 	*   @Default {null}
@@ -57299,7 +56963,7 @@ export interface Layer {
 	/** Specify selectedMapShapes for shape layer
 	*   @Default {[]}
 	*/
-	selectedMapShapes?: Array<any>;
+	selectedMapShapes?: any[];
 
 	/** Specifies the selection mode of the map. Accepted selection mode values are Default and Multiple.
 	*   @Default {default}
@@ -57334,10 +56998,8 @@ export interface Layer {
 	urlTemplate?: string;
 }
 }
-module Map
-{
-enum Position
-{
+namespace Map {
+enum Position {
 //specifies the none position
 None,
 //specifies the topleft position
@@ -57360,20 +57022,16 @@ Bottomcenter,
 Bottomright,
 }
 }
-module Map
-{
-enum LabelOrientation
-{
+namespace Map {
+enum LabelOrientation {
 //specifies the horizontal position
 Horizontal,
 //specifies the vertical position
 Vertical,
 }
 }
-module Map
-{
-enum BingMapType
-{
+namespace Map {
+enum BingMapType {
 //specifies the aerial type
 Aerial,
 //specifies the aerialwithlabel type
@@ -57382,20 +57040,16 @@ Aerialwithlabel,
 Road,
 }
 }
-module Map
-{
-enum LabelSize
-{
+namespace Map {
+enum LabelSize {
 //specifies the fixed size
 Fixed,
 //specifies the default size
 Default,
 }
 }
-module Map
-{
-enum LayerType
-{
+namespace Map {
+enum LayerType {
 //specifies the geometry type
 Geometry,
 //specifies the osm type
@@ -57404,10 +57058,8 @@ Osm,
 Bing,
 }
 }
-module Map
-{
-enum DockPosition
-{
+namespace Map {
+enum DockPosition {
 //specifies the top position
 Top,
 //specifies the bottom position
@@ -57418,50 +57070,40 @@ Right,
 Left,
 }
 }
-module Map
-{
-enum LegendIcons
-{
+namespace Map {
+enum LegendIcons {
 //specifies the rectangle position
 Rectangle,
 //specifies the circle position
 Circle,
 }
 }
-module Map
-{
-enum Mode
-{
+namespace Map {
+enum Mode {
 //specifies the default mode
 Default,
 //specifies the interactive mode
 Interactive,
 }
 }
-module Map
-{
-enum LegendType
-{
+namespace Map {
+enum LegendType {
 //specifies the layers type
 Layers,
 //specifies the bubbles type
 Bubbles,
 }
 }
-module Map
-{
-enum SelectionMode
-{
+namespace Map {
+enum SelectionMode {
 //specifies the default position
 Default,
 //specifies the multiple position
 Multiple,
 }
 }
-module Map
-{
-enum ColorPalette
-{
+namespace Map {
+enum ColorPalette {
 //specifies the palette1 color
 Palette1,
 //specifies the palette2 color
@@ -57475,18 +57117,17 @@ Custompalette,
 
 class TreeMap extends ej.Widget {
 	static fn: TreeMap;
-	constructor(element: JQuery, options?: TreeMap.Model);
-	constructor(element: Element, options?: TreeMap.Model);
+	constructor(element: JQuery | Element, options?: TreeMap.Model);
 	static Locale: any;
-	model:TreeMap.Model;
-	defaults:TreeMap.Model;
+	model: TreeMap.Model;
+	defaults: TreeMap.Model;
 
 	/** Method to reload treemap with updated values.
 	*   @returns {void}
 	*/
 	refresh(): void;
 }
-export module TreeMap{
+export namespace TreeMap {
 
 export interface Model {
 
@@ -57575,7 +57216,7 @@ export interface Model {
 	/** Specifies the group color mapping of the treemap
 	*   @Default {[]}
 	*/
-	groupColorMapping?: Array<GroupColorMapping>;
+	groupColorMapping?: GroupColorMapping[];
 
 	/** Specifies the legend settings of the treemap
 	*/
@@ -57623,7 +57264,7 @@ export interface Model {
 	/** Specifies the rangeColorMapping settings of the treemap
 	*   @Default {[]}
 	*/
-	rangeColorMapping?: Array<RangeColorMapping>;
+	rangeColorMapping?: RangeColorMapping[];
 
 	/** Specifies the selection mode of treemap item. Accepted selection mode values are Default and Multiple.
 	*   @Default {default}
@@ -57657,12 +57298,12 @@ export interface Model {
 	/** Hold the treeMapItems to be displayed in treemap
 	*   @Default {[]}
 	*/
-	treeMapItems?: Array<any>;
+	treeMapItems?: any[];
 
 	/** Specify levels of treemap for grouped visualization of data
 	*   @Default {[]}
 	*/
-	levels?: Array<Level>;
+	levels?: Level[];
 
 	/** Specifies the weight value path of the treemap
 	*   @Default {null}
@@ -57670,7 +57311,7 @@ export interface Model {
 	weightValuePath?: string;
 
 	/** Triggers on treemap item selected. */
-	treeMapItemSelected? (e: TreeMapItemSelectedEventArgs): void;
+	treeMapItemSelected?(e: TreeMapItemSelectedEventArgs): void;
 }
 
 export interface TreeMapItemSelectedEventArgs {
@@ -57721,7 +57362,7 @@ export interface PaletteColorMapping {
 	/** Specifies the colors of the paletteColorMapping
 	*   @Default {[]}
 	*/
-	colors?: Array<any>;
+	colors?: any[];
 }
 
 export interface GroupColorMapping {
@@ -57840,7 +57481,7 @@ export interface RangeColorMapping {
 	/** specifies the gradient colors for th given range value
 	*   @Default {[]}
 	*/
-	gradientColors?: Array<any>;
+	gradientColors?: any[];
 
 	/** Specifies the from value for rangeColorMapping.
 	*   @Default {-1}
@@ -57930,10 +57571,8 @@ export interface Level {
 	showLabels?: boolean;
 }
 }
-module TreeMap
-{
-enum DockPosition
-{
+namespace TreeMap {
+enum DockPosition {
 //specifies the top position
 Top,
 //specifies the bottom position
@@ -57944,10 +57583,8 @@ Right,
 Left,
 }
 }
-module TreeMap
-{
-enum ItemsLayoutMode
-{
+namespace TreeMap {
+enum ItemsLayoutMode {
 //specifies the squarified as layout type position
 Squarified,
 //specifies the sliceanddicehorizontal as layout type position
@@ -57958,10 +57595,8 @@ Sliceanddicevertical,
 Sliceanddiceauto,
 }
 }
-module TreeMap
-{
-enum Position
-{
+namespace TreeMap {
+enum Position {
 //specifies the none position
 None,
 //specifies the topleft position
@@ -57984,30 +57619,24 @@ Bottomcenter,
 Bottomright,
 }
 }
-module TreeMap
-{
-enum VisibilityMode
-{
+namespace TreeMap {
+enum VisibilityMode {
 //specifies the visible mode
 Top,
 //specifies the hide on exceeded length mode
 Hideonexceededlength,
 }
 }
-module TreeMap
-{
-enum selectionMode
-{
+namespace TreeMap {
+enum selectionMode {
 //specifies the default mode
 Default,
 //specifies the multiple mode
 Multiple,
 }
 }
-module TreeMap
-{
-enum groupSelectionMode
-{
+namespace TreeMap {
+enum groupSelectionMode {
 //specifies the default mode
 Default,
 //specifies the multiple mode
@@ -58017,11 +57646,10 @@ Multiple,
 
 class Diagram extends ej.Widget {
 	static fn: Diagram;
-	constructor(element: JQuery, options?: Diagram.Model);
-	constructor(element: Element, options?: Diagram.Model);
+	constructor(element: JQuery | Element, options?: Diagram.Model);
 	static Locale: any;
-	model:Diagram.Model;
-	defaults:Diagram.Model;
+	model: Diagram.Model;
+	defaults: Diagram.Model;
 
 	/** Add nodes and connectors to diagram at runtime
 	*   @param {any} a JSON to define a node/connector or an array of nodes and connector
@@ -58055,7 +57683,7 @@ class Diagram extends ej.Widget {
 	*   @param {Array<any>} a collection of ports to be added to the specified node
 	*   @returns {void}
 	*/
-	addPorts(name: string, ports: Array<any>): void;
+	addPorts(name: string, ports: any[]): void;
 
 	/** Add the specified node to selection list
 	*   @param {any} the node to be selected
@@ -58336,12 +57964,12 @@ class Diagram extends ej.Widget {
 	upgrade(data: any): void;
 
 	/** Used to zoomIn/zoomOut diagram
-	*   @param {Diagram.Zoom} options to zoom the diagram(zoom factor, zoomIn/zoomOut)                
+	*   @param {Diagram.Zoom} options to zoom the diagram(zoom factor, zoomIn/zoomOut)
 	*   @returns {void}
 	*/
 	zoomTo(Zoom?: Diagram.Zoom): void;
 }
-export module Diagram{
+export namespace Diagram {
 
 export interface Options {
 
@@ -58384,7 +58012,7 @@ export interface Zoom {
 	*/
 	zoomCommand?: ej.datavisualization.Diagram.ZoomCommand;
 
-	/** Used to zoom-in or zoom-out the diagram based on the point.                            
+	/** Used to zoom-in or zoom-out the diagram based on the point.
 	*/
 	focusPoint?: ej.datavisualization.Diagram.ConnectorsSourcePoint;
 }
@@ -58412,7 +58040,7 @@ export interface Model {
 	/** A collection of JSON objects where each object represents a connector
 	*   @Default {[]}
 	*/
-	connectors?: Array<Connector>;
+	connectors?: Connector[];
 
 	/** Binds the custom JSON data with connector properties
 	*   @Default {null}
@@ -58478,7 +58106,7 @@ export interface Model {
 	/** Array of JSON objects where each object represents a node
 	*   @Default {[]}
 	*/
-	nodes?: Array<Node>;
+	nodes?: Node[];
 
 	/** Binds the custom JSON data with node properties
 	*   @Default {null}
@@ -58527,94 +58155,94 @@ export interface Model {
 	zoomFactor?: number;
 
 	/** Triggers When auto scroll is changed */
-	autoScrollChange? (e: AutoScrollChangeEventArgs): void;
+	autoScrollChange?(e: AutoScrollChangeEventArgs): void;
 
 	/** Triggers when a node, connector or diagram is clicked */
-	click? (e: ClickEventArgs): void;
+	click?(e: ClickEventArgs): void;
 
 	/** Triggers when the connection is changed */
-	connectionChange? (e: ConnectionChangeEventArgs): void;
+	connectionChange?(e: ConnectionChangeEventArgs): void;
 
 	/** Triggers when the connector collection is changed */
-	connectorCollectionChange? (e: ConnectorCollectionChangeEventArgs): void;
+	connectorCollectionChange?(e: ConnectorCollectionChangeEventArgs): void;
 
 	/** Triggers when the connectors' source point is changed */
-	connectorSourceChange? (e: ConnectorSourceChangeEventArgs): void;
+	connectorSourceChange?(e: ConnectorSourceChangeEventArgs): void;
 
 	/** Triggers when the connectors' target point is changed */
-	connectorTargetChange? (e: ConnectorTargetChangeEventArgs): void;
+	connectorTargetChange?(e: ConnectorTargetChangeEventArgs): void;
 
 	/** Triggers before opening the context menu */
-	contextMenuBeforeOpen? (e: ContextMenuBeforeOpenEventArgs): void;
+	contextMenuBeforeOpen?(e: ContextMenuBeforeOpenEventArgs): void;
 
 	/** Triggers when a context menu item is clicked */
-	contextMenuClick? (e: ContextMenuClickEventArgs): void;
+	contextMenuClick?(e: ContextMenuClickEventArgs): void;
 
 	/** Triggers when a node, connector or diagram model is clicked twice */
-	doubleClick? (e: DoubleClickEventArgs): void;
+	doubleClick?(e: DoubleClickEventArgs): void;
 
 	/** Triggers while dragging the elements in diagram */
-	drag? (e: DragEventArgs): void;
+	drag?(e: DragEventArgs): void;
 
 	/** Triggers when a symbol is dragged into diagram from symbol palette */
-	dragEnter? (e: DragEnterEventArgs): void;
+	dragEnter?(e: DragEnterEventArgs): void;
 
 	/** Triggers when a symbol is dragged outside of the diagram. */
-	dragLeave? (e: DragLeaveEventArgs): void;
+	dragLeave?(e: DragLeaveEventArgs): void;
 
 	/** Triggers when a symbol is dragged over diagram */
-	dragOver? (e: DragOverEventArgs): void;
+	dragOver?(e: DragOverEventArgs): void;
 
 	/** Triggers when a symbol is dragged and dropped from symbol palette to drawing area */
-	drop? (e: DropEventArgs): void;
+	drop?(e: DropEventArgs): void;
 
 	/** Triggers when editor got focus at the time of node's label or text node editing. */
-	editorFocusChange? (e: EditorFocusChangeEventArgs): void;
+	editorFocusChange?(e: EditorFocusChangeEventArgs): void;
 
 	/** Triggers when a child is added to or removed from a group */
-	groupChange? (e: GroupChangeEventArgs): void;
+	groupChange?(e: GroupChangeEventArgs): void;
 
 	/** Triggers when a change is reverted or restored(undo/redo) */
-	historyChange? (e: HistoryChangeEventArgs): void;
+	historyChange?(e: HistoryChangeEventArgs): void;
 
 	/** Triggers when a diagram element is clicked */
-	itemClick? (e: ItemClickEventArgs): void;
+	itemClick?(e: ItemClickEventArgs): void;
 
 	/** Triggers when mouse enters a node/connector */
-	mouseEnter? (e: MouseEnterEventArgs): void;
+	mouseEnter?(e: MouseEnterEventArgs): void;
 
 	/** Triggers when mouse leaves node/connector */
-	mouseLeave? (e: MouseLeaveEventArgs): void;
+	mouseLeave?(e: MouseLeaveEventArgs): void;
 
 	/** Triggers when mouse hovers over a node/connector */
-	mouseOver? (e: MouseOverEventArgs): void;
+	mouseOver?(e: MouseOverEventArgs): void;
 
 	/** Triggers when node collection is changed */
-	nodeCollectionChange? (e: NodeCollectionChangeEventArgs): void;
+	nodeCollectionChange?(e: NodeCollectionChangeEventArgs): void;
 
 	/** Triggers when the node properties(x, y,width and height alone) are changed using nudge commands or updateNode API. */
-	propertyChange? (e: PropertyChangeEventArgs): void;
+	propertyChange?(e: PropertyChangeEventArgs): void;
 
 	/** Triggers when the diagram elements are rotated */
-	rotationChange? (e: RotationChangeEventArgs): void;
+	rotationChange?(e: RotationChangeEventArgs): void;
 
 	/** Triggers when the diagram is zoomed or panned */
-	scrollChange? (e: ScrollChangeEventArgs): void;
+	scrollChange?(e: ScrollChangeEventArgs): void;
 
 	/** Triggers when a connector segment is edited */
-	segmentChange? (e: SegmentChangeEventArgs): void;
+	segmentChange?(e: SegmentChangeEventArgs): void;
 
 	/** Triggers when the selection is changed in diagram */
-	selectionChange? (e: SelectionChangeEventArgs): void;
+	selectionChange?(e: SelectionChangeEventArgs): void;
 
 	/** Triggers when a node is resized */
-	sizeChange? (e: SizeChangeEventArgs): void;
+	sizeChange?(e: SizeChangeEventArgs): void;
 
 	/** Triggers when label editing is ended */
-	textChange? (e: TextChangeEventArgs): void;
+	textChange?(e: TextChangeEventArgs): void;
 
 	/** Triggered when the diagram is rendered completely. */
-	create? (e: CreateEventArgs): void;
+	create?(e: CreateEventArgs): void;
 }
 
 export interface AutoScrollChangeEventArgs {
@@ -58944,6 +58572,7 @@ export interface DropEventArgs {
 }
 
 export interface EditorFocusChangeEventArgs {
+	undefined;
 }
 
 export interface GroupChangeEventArgs {
@@ -58973,11 +58602,11 @@ export interface HistoryChangeEventArgs {
 
 	/** An array of objects, where each object represents the changes made in last undo/redo. To explore how the changes are defined, refer [Undo Redo Changes](#undo-redo-changes)
 	*/
-	changes?: Array<any>;
+	changes?: any[];
 
 	/** A collection of objects that are changed in the last undo/redo
 	*/
-	Source?: Array<any>;
+	Source?: any[];
 
 	/** parameter returns the id of the diagram
 	*/
@@ -59187,15 +58816,15 @@ export interface SelectionChangeEventArgs {
 
 	/** parameter returns the collection of nodes and connectors that have to be removed from selection list
 	*/
-	oldItems?: Array<any>;
+	oldItems?: any[];
 
 	/** parameter returns the collection of nodes and connectors that have to be added to selection list
 	*/
-	newItems?: Array<any>;
+	newItems?: any[];
 
 	/** parameter returns the collection of nodes and connectors that will be selected after selection change
 	*/
-	selectedItems?: Array<any>;
+	selectedItems?: any[];
 
 	/** parameter to specify whether or not to cancel the selection change event
 	*/
@@ -59300,11 +58929,11 @@ export interface CommandManagerCommands {
 
 	/** A method that defines whether the command is executable at the moment or not.
 	*/
-	canExecute?: Function;
+	canExecute?: any;
 
 	/** A method that defines what to be executed when the key combination is recognized.
 	*/
-	execute?: Function;
+	execute?: any;
 
 	/** Defines a combination of keys and key modifiers, on recognition of which the command will be executed
 	*/
@@ -59724,7 +59353,7 @@ export interface Connector {
 	/** A collection of JSON objects where each object represents a label.
 	*   @Default {[]}
 	*/
-	labels?: Array<ConnectorsLabel>;
+	labels?: ConnectorsLabel[];
 
 	/** Sets the stroke color of the connector
 	*   @Default {black}
@@ -59786,7 +59415,7 @@ export interface Connector {
 	/** An array of JSON objects where each object represents a segment
 	*   @Default {[ { type:straight } ]}
 	*/
-	segments?: Array<ConnectorsSegment>;
+	segments?: ConnectorsSegment[];
 
 	/** Defines the role/meaning of the connector
 	*   @Default {null}
@@ -59878,7 +59507,7 @@ export interface ContextMenu {
 	/** Defines the collection of context menu items
 	*   @Default {[]}
 	*/
-	items?: Array<ContextMenuItem>;
+	items?: ContextMenuItem[];
 
 	/** To set whether to display the default context menu items or not
 	*   @Default {false}
@@ -59939,29 +59568,29 @@ export interface HistoryManager {
 
 	/** A method that takes a history entry as argument and returns whether the specific entry can be popped or not
 	*/
-	canPop?: Function;
+	canPop?: any;
 
 	/** A method that ends grouping the changes
 	*/
-	closeGroupAction?: Function;
+	closeGroupAction?: any;
 
 	/** A method that removes the history of a recent change made in diagram
 	*/
-	pop?: Function;
+	pop?: any;
 
 	/** A method that allows to track the custom changes made in diagram
 	*/
-	push?: Function;
+	push?: any;
 
 	/** Defines what should be happened while trying to restore a custom change
 	*   @Default {null}
 	*/
-	redo?: Function;
+	redo?: any;
 
 	/** The redoStack property is used to get the number of redo actions to be stored on the history manager. Its an read-only property and the collection should not be modified.
 	*   @Default {[]}
 	*/
-	redoStack?: Array<any>;
+	redoStack?: any[];
 
 	/** The stackLimit property used to restrict the undo and redo actions to a certain limit.
 	*   @Default {null}
@@ -59970,16 +59599,16 @@ export interface HistoryManager {
 
 	/** A method that starts to group the changes to revert/restore them in a single undo or redo
 	*/
-	startGroupAction?: Function;
+	startGroupAction?: any;
 
 	/** Defines what should be happened while trying to revert a custom change
 	*/
-	undo?: Function;
+	undo?: any;
 
 	/** The undoStack property is used to get the number of undo actions to be stored on the history manager. Its an read-only property and the collection should not be modified.
 	*   @Default {[]}
 	*/
-	undoStack?: Array<any>;
+	undoStack?: any[];
 }
 
 export interface Layout {
@@ -60099,12 +59728,12 @@ export interface NodesClass {
 	/** Defines the collection of attributes
 	*   @Default {[]}
 	*/
-	attributes?: Array<NodesClassAttribute>;
+	attributes?: NodesClassAttribute[];
 
 	/** Defines the collection of methods of a Class.
 	*   @Default {[]}
 	*/
-	methods?: Array<NodesClassMethod>;
+	methods?: NodesClassMethod[];
 }
 
 export interface NodesCollapseIcon {
@@ -60197,7 +59826,7 @@ export interface NodesEnumeration {
 	/** Defines the collection of enumeration members
 	*   @Default {[]}
 	*/
-	members?: Array<NodesEnumerationMember>;
+	members?: NodesEnumerationMember[];
 }
 
 export interface NodesExpandIcon {
@@ -60253,7 +59882,7 @@ export interface NodesGradientLinearGradient {
 	/** Defines the different colors and the region of color transitions
 	*   @Default {[]}
 	*/
-	stops?: Array<any>;
+	stops?: any[];
 
 	/** Defines the left most position(relative to node) of the rectangular region that needs to be painted
 	*   @Default {0}
@@ -60301,7 +59930,7 @@ export interface NodesGradientRadialGradient {
 	/** Defines the different colors and the region of color transitions.
 	*   @Default {[]}
 	*/
-	stops?: Array<any>;
+	stops?: any[];
 }
 
 export interface NodesGradientStop {
@@ -60367,12 +59996,12 @@ export interface NodesInterface {
 	/** Defines a collection of attributes of the interface
 	*   @Default {[]}
 	*/
-	attributes?: Array<NodesInterfaceAttribute>;
+	attributes?: NodesInterfaceAttribute[];
 
 	/** Defines the collection of public methods of an interface
 	*   @Default {[]}
 	*/
-	methods?: Array<NodesInterfaceMethod>;
+	methods?: NodesInterfaceMethod[];
 }
 
 export interface NodesLabel {
@@ -60526,7 +60155,7 @@ export interface NodesLane {
 	/** An array of objects where each object represents a child node of the lane
 	*   @Default {[]}
 	*/
-	children?: Array<any>;
+	children?: any[];
 
 	/** Defines the fill color of the lane
 	*   @Default {white}
@@ -60731,7 +60360,7 @@ export interface NodesSubProcess {
 
 	/** Defines the collection of events that need to be appended with BPMN Sub-Process
 	*/
-	events?: Array<any>;
+	events?: any[];
 
 	/** Defines the loop type of a sub process.
 	*   @Default {ej.datavisualization.Diagram.BPMNLoops.None}
@@ -60741,7 +60370,7 @@ export interface NodesSubProcess {
 	/** Defines the children for BPMN's SubProcess
 	*   @Default {[]}
 	*/
-	Processes?: Array<any>;
+	Processes?: any[];
 
 	/** Defines the type of the event trigger
 	*   @Default {ej.datavisualization.Diagram.BPMNTriggers.Message}
@@ -60816,7 +60445,7 @@ export interface Node {
 	/** Array of JSON objects where each object represents a child node/connector
 	*   @Default {[]}
 	*/
-	children?: Array<any>;
+	children?: any[];
 
 	/** Sets the type of UML classifier. Applicable, if the node is a UML Class Diagram shape.
 	*   @Default {ej.datavisualization.Diagram.ClassifierShapes.Class}
@@ -60916,7 +60545,7 @@ export interface Node {
 	/** A read only collection of the incoming connectors/edges of the node
 	*   @Default {[]}
 	*/
-	inEdges?: Array<any>;
+	inEdges?: any[];
 
 	/** Defines an interface in a UML Class Diagram
 	*   @Default {null}
@@ -60936,12 +60565,12 @@ export interface Node {
 	/** A collection of objects where each object represents a label
 	*   @Default {[]}
 	*/
-	labels?: Array<NodesLabel>;
+	labels?: NodesLabel[];
 
 	/** An array of objects where each object represents a lane. Applicable, if the node is a swimlane.
 	*   @Default {[]}
 	*/
-	lanes?: Array<NodesLane>;
+	lanes?: NodesLane[];
 
 	/** Defines the minimum space to be left between the bottom of parent bounds and the node. Applicable, if the parent is a container.
 	*   @Default {0}
@@ -61010,7 +60639,7 @@ export interface Node {
 	/** A read only collection of outgoing connectors/edges of the node
 	*   @Default {[]}
 	*/
-	outEdges?: Array<any>;
+	outEdges?: any[];
 
 	/** Defines the minimum padding value to be left between the bottom most position of a group and its children. Applicable, if the group is a container.
 	*   @Default {0}
@@ -61048,7 +60677,7 @@ export interface Node {
 	/** An array of objects, where each object represents a smaller region(phase) of a swimlane.
 	*   @Default {[]}
 	*/
-	phases?: Array<NodesPhase>;
+	phases?: NodesPhase[];
 
 	/** Sets the height of the phase headers
 	*   @Default {0}
@@ -61063,12 +60692,12 @@ export interface Node {
 	/** Defines a collection of points to draw a polygon. Applicable, if the shape is a polygon.
 	*   @Default {[]}
 	*/
-	points?: Array<any>;
+	points?: any[];
 
 	/** An array of objects where each object represents a port
 	*   @Default {[]}
 	*/
-	ports?: Array<NodesPort>;
+	ports?: NodesPort[];
 
 	/** Sets the angle to which the node should be rotated
 	*   @Default {0}
@@ -61296,7 +60925,7 @@ export interface SelectedItems {
 	/** A read only collection of the selected items
 	*   @Default {[]}
 	*/
-	children?: Array<any>;
+	children?: any[];
 
 	/** Controls the visibility of selector.
 	*   @Default {ej.datavisualization.Diagram.SelectorConstraints.All}
@@ -61336,7 +60965,7 @@ export interface SelectedItems {
 	/** A collection of frequently used commands that will be added around the selector
 	*   @Default {[]}
 	*/
-	userHandles?: Array<SelectedItemsUserHandle>;
+	userHandles?: SelectedItemsUserHandle[];
 
 	/** Sets the width of the selected items
 	*   @Default {0}
@@ -61358,12 +60987,12 @@ export interface SnapSettingsHorizontalGridLines {
 	/** A pattern of lines and gaps that defines a set of horizontal gridlines
 	*   @Default {[1.25, 18.75, 0.25, 19.75, 0.25, 19.75, 0.25, 19.75, 0.25, 19.75]}
 	*/
-	linesInterval?: Array<any>;
+	linesInterval?: any[];
 
 	/** Specifies a set of intervals to snap the objects
 	*   @Default {[20]}
 	*/
-	snapInterval?: Array<any>;
+	snapInterval?: any[];
 }
 
 export interface SnapSettingsVerticalGridLines {
@@ -61380,12 +61009,12 @@ export interface SnapSettingsVerticalGridLines {
 	/** A pattern of lines and gaps that defines a set of horizontal gridlines
 	*   @Default {[1.25, 18.75, 0.25, 19.75, 0.25, 19.75, 0.25, 19.75, 0.25, 19.75]}
 	*/
-	linesInterval?: Array<any>;
+	linesInterval?: any[];
 
 	/** Specifies a set of intervals to snap the objects
 	*   @Default {[20]}
 	*/
-	snapInterval?: Array<any>;
+	snapInterval?: any[];
 }
 
 export interface SnapSettings {
@@ -61452,13 +61081,11 @@ export interface Tooltip {
 	templateId?: string;
 }
 }
-module Diagram
-{
-enum ImageAlignment 
-{
+namespace Diagram {
+enum ImageAlignment  {
 //Scales the graphic content non-uniformly to the width and height of the diagram area
 None,
-//Used to align the image at the top left of diagram area 
+//Used to align the image at the top left of diagram area
 XMinYMin,
 //Used to align the image at the left center of diagram area
 XMinYMid,
@@ -61478,10 +61105,8 @@ XMaxYMid,
 XMaxYMax,
 }
 }
-module Diagram
-{
-enum BridgeDirection
-{
+namespace Diagram {
+enum BridgeDirection {
 //Used to set the direction of line bridges as left
 Left,
 //Used to set the direction of line bridges as right
@@ -61492,10 +61117,8 @@ Top,
 Bottom,
 }
 }
-module Diagram
-{
-enum Keys
-{
+namespace Diagram {
+enum Keys {
 //No key pressed.
 None,
 //The A key.
@@ -61588,10 +61211,8 @@ Tab,
 Enter,
 }
 }
-module Diagram
-{
-enum KeyModifiers
-{
+namespace Diagram {
+enum KeyModifiers {
 //No modifiers are pressed.
 None,
 //The ALT key.
@@ -61602,10 +61223,8 @@ Control,
 Shift,
 }
 }
-module Diagram
-{
-enum ConnectorConstraints
-{
+namespace Diagram {
+enum ConnectorConstraints {
 //Disable all connector Constraints
 None,
 //Enables connector to be selected
@@ -61634,10 +61253,8 @@ CrispEdges,
 Default,
 }
 }
-module Diagram
-{
-enum HorizontalAlignment
-{
+namespace Diagram {
+enum HorizontalAlignment {
 //Used to align text horizontally on left side of node/connector
 Left,
 //Used to align text horizontally on center of node/connector
@@ -61646,10 +61263,8 @@ Center,
 Right,
 }
 }
-module Diagram
-{
-enum Alignment
-{
+namespace Diagram {
+enum Alignment {
 //Used to align the label either top or left(before) of the connector segment
 Before,
 //Used to align the label at center of the connector segment
@@ -61658,20 +61273,16 @@ Center,
 After,
 }
 }
-module Diagram
-{
-enum LabelRelativeMode
-{
+namespace Diagram {
+enum LabelRelativeMode {
 //Sets the relativeMode as SegmentPath
 SegmentPath,
 //Sets the relativeMode as SegmentBounds
 SegmentBounds,
 }
 }
-module Diagram
-{
-enum Segments
-{
+namespace Diagram {
+enum Segments {
 //Used to specify the lines as Straight
 Straight,
 //Used to specify the lines as Orthogonal
@@ -61680,10 +61291,8 @@ Orthogonal,
 Bezier,
 }
 }
-module Diagram
-{
-enum ConnectorShapes
-{
+namespace Diagram {
+enum ConnectorShapes {
 //Used to specify connector type as BPMN
 BPMN,
 //Used to specify connector type as UMLClassifier
@@ -61692,22 +61301,18 @@ UMLClassifier,
 UMLActivity,
 }
 }
-module Diagram
-{
-enum BPMNFlows
-{
+namespace Diagram {
+enum BPMNFlows {
 //Used to specify the Sequence flow in a BPMN Process
 Sequence,
-//Used to specify the Association flow in a BPMN Process 
+//Used to specify the Association flow in a BPMN Process
 Association,
 //Used to specify the Message flow in a BPMN Process
 Message,
 }
 }
-module Diagram
-{
-enum AssociationFlows
-{
+namespace Diagram {
+enum AssociationFlows {
 //Used to notate default association in a BPMN Process
 Default,
 //Used to notate directional association in a BPMN Process
@@ -61716,10 +61321,8 @@ Directional,
 BiDirectional,
 }
 }
-module Diagram
-{
-enum BPMNMessageFlows
-{
+namespace Diagram {
+enum BPMNMessageFlows {
 //Used to notate the default message flow in a BPMN Process
 Default,
 //Used to notate the instantiating message flow in a BPMN Process
@@ -61728,10 +61331,8 @@ InitiatingMessage,
 NonInitiatingMessage,
 }
 }
-module Diagram
-{
-enum BPMNSequenceFlows
-{
+namespace Diagram {
+enum BPMNSequenceFlows {
 //Used to notate the normal sequence flow in a BPMN Process
 Normal,
 //Used to notate the conditional sequence flow in a BPMN Process
@@ -61740,10 +61341,8 @@ Conditional,
 Default,
 }
 }
-module Diagram
-{
-enum ClassifierShapes
-{
+namespace Diagram {
+enum ClassifierShapes {
 //Used to define a Class
 Class,
 //Used to define an Interface
@@ -61762,10 +61361,8 @@ Dependency,
 Inheritance,
 }
 }
-module Diagram
-{
-enum Multiplicity
-{
+namespace Diagram {
+enum Multiplicity {
 //Each entity instance is related to a single instance of another entity
 OneToOne,
 //An entity instance can be related to multiple instances of the other entities
@@ -61776,10 +61373,8 @@ ManyToOne,
 ManyToMany,
 }
 }
-module Diagram
-{
-enum UMLActivityFlow
-{
+namespace Diagram {
+enum UMLActivityFlow {
 //Defines a activity flow as Object in UML Activity Diagram
 Object,
 //Defines a activity flow as Control in UML Activity Diagram
@@ -61788,10 +61383,8 @@ Control,
 Exception,
 }
 }
-module Diagram
-{
-enum DecoratorShapes
-{
+namespace Diagram {
+enum DecoratorShapes {
 //Used to set decorator shape as none
 None,
 //Used to set decorator shape as Arrow
@@ -61806,10 +61399,8 @@ Diamond,
 Path,
 }
 }
-module Diagram
-{
-enum VerticalAlignment
-{
+namespace Diagram {
+enum VerticalAlignment {
 //Used to align text Vertically on left side of node/connector
 Top,
 //Used to align text Vertically on center of node/connector
@@ -61818,10 +61409,8 @@ Center,
 Bottom,
 }
 }
-module Diagram
-{
-enum DiagramConstraints
-{
+namespace Diagram {
+enum DiagramConstraints {
 //Disables all DiagramConstraints
 None,
 //Enables/Disables PageEditing
@@ -61844,20 +61433,16 @@ CrispEdges,
 Default,
 }
 }
-module Diagram
-{
-enum LabelRenderingMode
-{
+namespace Diagram {
+enum LabelRenderingMode {
 //Sets the labelRenderingMode as Html
 Html,
 //Sets the labelRenderingMode as Svg
 Svg,
 }
 }
-module Diagram
-{
-enum LayoutOrientations
-{
+namespace Diagram {
+enum LayoutOrientations {
 //Used to set LayoutOrientation from top to bottom
 TopToBottom,
 //Used to set LayoutOrientation from bottom to top
@@ -61868,10 +61453,8 @@ LeftToRight,
 RightToLeft,
 }
 }
-module Diagram
-{
-enum LayoutTypes
-{
+namespace Diagram {
+enum LayoutTypes {
 //Used not to set any specific layout
 None,
 //Used to set layout type as hierarchical layout
@@ -61880,10 +61463,8 @@ HierarchicalTree,
 OrganizationalChart,
 }
 }
-module Diagram
-{
-enum BPMNActivity
-{
+namespace Diagram {
+enum BPMNActivity {
 //Used to set BPMN Activity as None
 None,
 //Used to set BPMN Activity as Task
@@ -61892,10 +61473,8 @@ Task,
 SubProcess,
 }
 }
-module Diagram
-{
-enum BPMNAnnotationDirection
-{
+namespace Diagram {
+enum BPMNAnnotationDirection {
 //Used to set the direction of BPMN Annotation as left
 Left,
 //Used to set the direction of BPMN Annotation as right
@@ -61906,10 +61485,8 @@ Top,
 Bottom,
 }
 }
-module Diagram
-{
-enum IconShapes
-{
+namespace Diagram {
+enum IconShapes {
 //Used to set collapse icon shape as none
 None,
 //Used to set collapse icon shape as Arrow(Up/Down)
@@ -61926,10 +61503,8 @@ Template,
 Image,
 }
 }
-module Diagram
-{
-enum NodeConstraints
-{
+namespace Diagram {
+enum NodeConstraints {
 //Disable all node Constraints
 None,
 //Enables node to be selected
@@ -61976,20 +61551,16 @@ CrispEdges,
 Default,
 }
 }
-module Diagram
-{
-enum ContainerType
-{
+namespace Diagram {
+enum ContainerType {
 //Sets the container type as Canvas
 Canvas,
 //Sets the container type as Stack
 Stack,
 }
 }
-module Diagram
-{
-enum BPMNDataObjects
-{
+namespace Diagram {
+enum BPMNDataObjects {
 //Used to notate the Input type BPMN data object
 Input,
 //Used to notate the Output type BPMN data object
@@ -61998,10 +61569,8 @@ Output,
 None,
 }
 }
-module Diagram
-{
-enum BPMNEvents
-{
+namespace Diagram {
+enum BPMNEvents {
 //Used to set BPMN Event as Start
 Start,
 //Used to set BPMN Event as Intermediate
@@ -62016,10 +61585,8 @@ NonInterruptingIntermediate,
 ThrowingIntermediate,
 }
 }
-module Diagram
-{
-enum BPMNGateways
-{
+namespace Diagram {
+enum BPMNGateways {
 //Used to set BPMN Gateway as None
 None,
 //Used to set BPMN Gateway as Exclusive
@@ -62038,30 +61605,24 @@ ExclusiveEventBased,
 ParallelEventBased,
 }
 }
-module Diagram
-{
-enum LabelEditMode
-{
+namespace Diagram {
+enum LabelEditMode {
 //Used to set label edit mode as edit
 Edit,
 //Used to set label edit mode as view
 View,
 }
 }
-module Diagram
-{
-enum OverflowType
-{
+namespace Diagram {
+enum OverflowType {
 //Set overflow Type as ellipsis
 Ellipsis,
 //Set overflow Type  as Clip
 Clip,
 }
 }
-module Diagram
-{
-enum TextAlign
-{
+namespace Diagram {
+enum TextAlign {
 //Used to align text on left side of node/connector
 Left,
 //Used to align text on center of node/connector
@@ -62070,10 +61631,8 @@ Center,
 Right,
 }
 }
-module Diagram
-{
-enum TextDecorations
-{
+namespace Diagram {
+enum TextDecorations {
 //Used to set text decoration of the label as Underline
 Underline,
 //Used to set text decoration of the label as Overline
@@ -62084,10 +61643,8 @@ LineThrough,
 None,
 }
 }
-module Diagram
-{
-enum TextWrapping
-{
+namespace Diagram {
+enum TextWrapping {
 //Disables wrapping
 NoWrap,
 //Enables Line-break at normal word break points
@@ -62096,10 +61653,8 @@ Wrap,
 WrapWithOverflow,
 }
 }
-module Diagram
-{
-enum PortConstraints
-{
+namespace Diagram {
+enum PortConstraints {
 //Disable all constraints
 None,
 //Enables connections with connector
@@ -62108,10 +61663,8 @@ Connect,
 ConnectOnDrag,
 }
 }
-module Diagram
-{
-enum PortShapes
-{
+namespace Diagram {
+enum PortShapes {
 //Used to set port shape as X
 X,
 //Used to set port shape as Circle
@@ -62122,10 +61675,8 @@ Square,
 Path,
 }
 }
-module Diagram
-{
-enum PortVisibility
-{
+namespace Diagram {
+enum PortVisibility {
 //Set the port visibility as Visible
 Visible,
 //Set the port visibility as Hidden
@@ -62138,10 +61689,8 @@ Connect,
 Default,
 }
 }
-module Diagram
-{
-enum BasicShapes 
-{
+namespace Diagram {
+enum BasicShapes {
 //Used to specify node Shape as Rectangle
 Rectangle,
 //Used to specify node Shape as Ellipse
@@ -62172,10 +61721,8 @@ RightTriangle,
 Cylinder,
 }
 }
-module Diagram
-{
-enum FlowShapes 
-{
+namespace Diagram {
+enum FlowShapes {
 //Used to specify node Shape as Process
 Process,
 //Used to specify node Shape as Decision
@@ -62190,7 +61737,7 @@ Terminator,
 PaperTap,
 //Used to specify node Shape as DirectData
 DirectData,
-//Used to specify node Shape as SequentialData 
+//Used to specify node Shape as SequentialData
 SequentialData,
 //Used to specify node Shape as Sort
 Sort,
@@ -62220,14 +61767,12 @@ Annotation1,
 Annotation2,
 //Used to specify node Shape as Data
 Data,
-//Used to specify node Shape as Card 
+//Used to specify node Shape as Card
 Card,
 }
 }
-module Diagram
-{
-enum BPMNShapes 
-{
+namespace Diagram {
+enum BPMNShapes {
 //Used to specify node Shape as Event
 Event,
 //Used to specify node Shape as Gateway
@@ -62244,10 +61789,8 @@ Activity,
 Group,
 }
 }
-module Diagram
-{
-enum UMLActivityShapes
-{
+namespace Diagram {
+enum UMLActivityShapes {
 //Used to set UML ActivityShapes as Action
 Action,
 //Used to set UML ActivityShapes as Decision
@@ -62276,10 +61819,8 @@ StructuredNode,
 Note,
 }
 }
-module Diagram
-{
-enum BPMNBoundary
-{
+namespace Diagram {
+enum BPMNBoundary {
 //Used to set BPMN SubProcess's Boundary as Default
 Default,
 //Used to set BPMN SubProcess's Boundary as Call
@@ -62288,10 +61829,8 @@ Call,
 Event,
 }
 }
-module Diagram
-{
-enum BPMNLoops
-{
+namespace Diagram {
+enum BPMNLoops {
 //Used to set BPMN Activity's Loop as None
 None,
 //Used to set BPMN Activity's Loop as Standard
@@ -62302,10 +61841,8 @@ ParallelMultiInstance,
 SequenceMultiInstance,
 }
 }
-module Diagram
-{
-enum BPMNSubProcessTypes
-{
+namespace Diagram {
+enum BPMNSubProcessTypes {
 //Used to set BPMN SubProcess type as None
 None,
 //Used to set BPMN SubProcess type as Transaction
@@ -62314,10 +61851,8 @@ Transaction,
 Event,
 }
 }
-module Diagram
-{
-enum BPMNTasks
-{
+namespace Diagram {
+enum BPMNTasks {
 //Used to set BPMN Task Type as None
 None,
 //Used to set BPMN Task Type as Service
@@ -62340,10 +61875,8 @@ Script,
 Parallel,
 }
 }
-module Diagram
-{
-enum BPMNTriggers
-{
+namespace Diagram {
+enum BPMNTriggers {
 //Used to set Event Trigger as None
 None,
 //Used to set Event Trigger as Message
@@ -62372,10 +61905,8 @@ Termination,
 Cancel,
 }
 }
-module Diagram
-{
-enum Shapes
-{
+namespace Diagram {
+enum Shapes {
 //Used to specify node type as Text
 Text,
 //Used to specify node type as Image
@@ -62396,20 +61927,16 @@ UMLClassifier,
 UMLActivity,
 }
 }
-module Diagram
-{
-enum PageOrientations
-{
+namespace Diagram {
+enum PageOrientations {
 //Used to set orientation as Landscape
 Landscape,
 //Used to set orientation as portrait
 Portrait,
 }
 }
-module Diagram
-{
-enum ScrollLimit
-{
+namespace Diagram {
+enum ScrollLimit {
 //Used to set scrollLimit as Infinite
 Infinite,
 //Used to set scrollLimit as Diagram
@@ -62418,10 +61945,8 @@ Diagram,
 Limited,
 }
 }
-module Diagram
-{
-enum BoundaryConstraints
-{
+namespace Diagram {
+enum BoundaryConstraints {
 //Used to set boundaryConstraints as Infinite
 Infinite,
 //Used to set boundaryConstraints as Diagram
@@ -62430,10 +61955,8 @@ Diagram,
 Page,
 }
 }
-module Diagram
-{
-enum SelectorConstraints
-{
+namespace Diagram {
+enum SelectorConstraints {
 //Hides the selector
 None,
 //Sets the visibility of rotation handle as visible
@@ -62446,10 +61969,8 @@ UserHandles,
 All,
 }
 }
-module Diagram
-{
-enum UserHandlePositions 
-{
+namespace Diagram {
+enum UserHandlePositions {
 //Set the position of the userhandle as topleft
 TopLeft,
 //Set the position of the userhandle as topcenter
@@ -62468,10 +61989,8 @@ BottomCenter,
 BottomRight,
 }
 }
-module Diagram
-{
-enum SnapConstraints
-{
+namespace Diagram {
+enum SnapConstraints {
 //Enables node to be snapped to horizontal gridlines
 None,
 //Enables node to be snapped to vertical gridlines
@@ -62490,10 +62009,8 @@ ShowLines,
 All,
 }
 }
-module Diagram
-{
-enum Tool
-{
+namespace Diagram {
+enum Tool {
 //Disables all Tools
 None,
 //Enables/Disables SingleSelect tool
@@ -62508,20 +62025,16 @@ DrawOnce,
 ContinuesDraw,
 }
 }
-module Diagram
-{
-enum RelativeMode
-{
+namespace Diagram {
+enum RelativeMode {
 //Shows tooltip around the node
 Object,
 //Shows tooltip at the mouse position
 Mouse,
 }
 }
-module Diagram
-{
-enum ZoomCommand
-{
+namespace Diagram {
+enum ZoomCommand {
 //Used to zoom in the Diagram
 ZoomIn,
 //Used to zoom out the diagram
@@ -62531,13 +62044,12 @@ ZoomOut,
 
 class HeatMap extends ej.Widget {
 	static fn: HeatMap;
-	constructor(element: JQuery, options?: HeatMap.Model);
-	constructor(element: Element, options?: HeatMap.Model);
+	constructor(element: JQuery | Element, options?: HeatMap.Model);
 	static Locale: any;
-	model:HeatMap.Model;
-	defaults:HeatMap.Model;
+	model: HeatMap.Model;
+	defaults: HeatMap.Model;
 }
-export module HeatMap{
+export namespace HeatMap {
 
 export interface Model {
 
@@ -62593,7 +62105,7 @@ export interface Model {
 	/** Specifies the no of legends can sync with heat map.
 	*   @Default {[]}
 	*/
-	legendCollection?: Array<any>;
+	legendCollection?: any[];
 
 	/** Specifies the property and display value of the heat map column.
 	*   @Default {[]}
@@ -62603,19 +62115,19 @@ export interface Model {
 	/** Specifies the color values of the heat map column data.
 	*   @Default {[]}
 	*/
-	colorMappingCollection?: Array<ColorMappingCollection>;
+	colorMappingCollection?: ColorMappingCollection[];
 
 	/** Triggered when the mouse over on the cell. */
-	cellMouseOver? (e: CellMouseOverEventArgs): void;
+	cellMouseOver?(e: CellMouseOverEventArgs): void;
 
 	/** Triggered when the mouse over on the cell. */
-	cellMouseEnter? (e: CellMouseEnterEventArgs): void;
+	cellMouseEnter?(e: CellMouseEnterEventArgs): void;
 
 	/** Triggered when the mouse over on the cell. */
-	cellMouseLeave? (e: CellMouseLeaveEventArgs): void;
+	cellMouseLeave?(e: CellMouseLeaveEventArgs): void;
 
 	/** Triggered when the mouse over on the cell. */
-	cellSelected? (e: CellSelectedEventArgs): void;
+	cellSelected?(e: CellSelectedEventArgs): void;
 }
 
 export interface CellMouseOverEventArgs {
@@ -62887,7 +62399,7 @@ export interface ItemsMapping {
 	/** Specifies the property and display value of the collection of column.
 	*   @Default {[]}
 	*/
-	columnMapping?: Array<any>;
+	columnMapping?: any[];
 }
 
 export interface ColorMappingCollectionLabel {
@@ -62945,10 +62457,8 @@ export interface ColorMappingCollection {
 	label?: ColorMappingCollectionLabel;
 }
 }
-module HeatMap
-{
-enum Associate
-{
+namespace HeatMap {
+enum Associate {
 //Used to set the associate of tooltip as Target
 Target,
 //Used to set the associate of tooltip as MouseFollow
@@ -62957,10 +62467,8 @@ MouseFollow,
 MouseEnter,
 }
 }
-module HeatMap
-{
-enum Horizontal
-{
+namespace HeatMap {
+enum Horizontal {
 //Used to display the tooltip horizontally on left side of rows/columns
 Left,
 //Used to display the tooltip horizontally on center side of rows/columns
@@ -62969,10 +62477,8 @@ Center,
 Right,
 }
 }
-module HeatMap
-{
-enum Vertical
-{
+namespace HeatMap {
+enum Vertical {
 //Used to display the tooltip horizontally on left side of rows/columns
 Top,
 //Used to display the tooltip horizontally on center side of rows/columns
@@ -62981,20 +62487,16 @@ Center,
 Bottom,
 }
 }
-module HeatMap
-{
-enum Trigger
-{
+namespace HeatMap {
+enum Trigger {
 //Tooltip can be triggered on mouse hovers
 Hover,
 //Tooltip can be triggered on mouse click
 Click,
 }
 }
-module HeatMap
-{
-enum Effect
-{
+namespace HeatMap {
+enum Effect {
 //Sets tooltip animation as None
 None,
 //Sets tooltip animation as Fade
@@ -63003,21 +62505,17 @@ Fade,
 Slide,
 }
 }
-module HeatMap
-{
-enum CellVisibility
-{
-//Display the content of the cell              
+namespace HeatMap {
+enum CellVisibility {
+//Display the content of the cell
 Visible,
-//Hide the content of the cell  
+//Hide the content of the cell
 Hidden,
 }
 }
-module HeatMap
-{
-enum TextDecoration 
-{
-//Defines a line below the text            
+namespace HeatMap {
+enum TextDecoration {
+//Defines a line below the text
 Underline,
 //Defines a line above the text
 Overline,
@@ -63030,13 +62528,12 @@ None,
 
 class HeatMapLegend extends ej.Widget {
 	static fn: HeatMapLegend;
-	constructor(element: JQuery, options?: HeatMapLegend.Model);
-	constructor(element: Element, options?: HeatMapLegend.Model);
+	constructor(element: JQuery | Element, options?: HeatMapLegend.Model);
 	static Locale: any;
-	model:HeatMapLegend.Model;
-	defaults:HeatMapLegend.Model;
+	model: HeatMapLegend.Model;
+	defaults: HeatMapLegend.Model;
 }
-export module HeatMapLegend{
+export namespace HeatMapLegend {
 
 export interface Model {
 
@@ -63063,7 +62560,7 @@ export interface Model {
 	/** Specifies the color values of the column data.
 	*   @Default {[]}
 	*/
-	colorMappingCollection?: Array<ColorMappingCollection>;
+	colorMappingCollection?: ColorMappingCollection[];
 
 	/** Specifies the orientation of the heatmap legend
 	*   @Default {ej.HeatMap.LegendOrientation.Horizontal}
@@ -63131,41 +62628,36 @@ export interface ColorMappingCollection {
 	label?: ColorMappingCollectionLabel;
 }
 }
-module HeatMap
-{
-enum LegendOrientation
-{
-//Scales the graphic content non-uniformly to the width and height of the diagram area            
+namespace HeatMap {
+enum LegendOrientation {
+//Scales the graphic content non-uniformly to the width and height of the diagram area
 Horizontal,
-//Used to align the image at the top left of diagram area 
+//Used to align the image at the top left of diagram area
 Vertical,
 }
 }
-module HeatMap
-{
-enum LegendMode
-{
-//Scales the graphic content non-uniformly to the width and height of the diagram area            
+namespace HeatMap {
+enum LegendMode {
+//Scales the graphic content non-uniformly to the width and height of the diagram area
 Gradient,
-//Used to align the image at the top left of diagram area 
+//Used to align the image at the top left of diagram area
 List,
 }
 }
 
 class Sparkline extends ej.Widget {
 	static fn: Sparkline;
-	constructor(element: JQuery, options?: Sparkline.Model);
-	constructor(element: Element, options?: Sparkline.Model);
+	constructor(element: JQuery | Element, options?: Sparkline.Model);
 	static Locale: any;
-	model:Sparkline.Model;
-	defaults:Sparkline.Model;
+	model: Sparkline.Model;
+	defaults: Sparkline.Model;
 
 	/** Redraws the entire sparkline. You can call this method whenever you update, add or remove points from the data source or whenever you want to refresh the UI.
 	*   @returns {void}
 	*/
 	redraw(): void;
 }
-export module Sparkline{
+export namespace Sparkline {
 
 export interface Model {
 
@@ -63288,28 +62780,28 @@ export interface Model {
 	axisLineSettings?: AxisLineSettings;
 
 	/** Fires before loading the sparkline. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Fires after loaded the sparkline. */
-	loaded? (e: LoadedEventArgs): void;
+	loaded?(e: LoadedEventArgs): void;
 
 	/** Fires before rendering trackball tooltip. You can use this event to customize the text displayed in trackball tooltip. */
-	tooltipInitialize? (e: TooltipInitializeEventArgs): void;
+	tooltipInitialize?(e: TooltipInitializeEventArgs): void;
 
 	/** Fires before rendering a series. This event is fired for each series in Sparkline. */
-	seriesRendering? (e: SeriesRenderingEventArgs): void;
+	seriesRendering?(e: SeriesRenderingEventArgs): void;
 
 	/** Fires when mouse is moved over a point. */
-	pointRegionMouseMove? (e: PointRegionMouseMoveEventArgs): void;
+	pointRegionMouseMove?(e: PointRegionMouseMoveEventArgs): void;
 
 	/** Fires on clicking a point in sparkline. You can use this event to handle clicks made on points. */
-	pointRegionMouseClick? (e: PointRegionMouseClickEventArgs): void;
+	pointRegionMouseClick?(e: PointRegionMouseClickEventArgs): void;
 
 	/** Fires on moving mouse over the sparkline. */
-	sparklineMouseMove? (e: SparklineMouseMoveEventArgs): void;
+	sparklineMouseMove?(e: SparklineMouseMoveEventArgs): void;
 
 	/** Fires on moving mouse outside the sparkline. */
-	sparklineMouseLeave? (e: SparklineMouseLeaveEventArgs): void;
+	sparklineMouseLeave?(e: SparklineMouseLeaveEventArgs): void;
 }
 
 export interface LoadEventArgs {
@@ -63344,7 +62836,7 @@ export interface LoadedEventArgs {
 
 export interface TooltipInitializeEventArgs {
 
-	/** Set this option to true to cancel the event    
+	/** Set this option to true to cancel the event
 	*/
 	cancel?: boolean;
 
@@ -63468,7 +62960,7 @@ export interface PointRegionMouseClickEventArgs {
 
 export interface SparklineMouseMoveEventArgs {
 
-	/** Set this option to true to cancel the event    
+	/** Set this option to true to cancel the event
 	*/
 	cancel?: boolean;
 
@@ -63483,7 +62975,7 @@ export interface SparklineMouseMoveEventArgs {
 
 export interface SparklineMouseLeaveEventArgs {
 
-	/** Set this option to true to cancel the event    
+	/** Set this option to true to cancel the event
 	*/
 	cancel?: boolean;
 
@@ -63684,10 +63176,8 @@ export interface AxisLineSettings {
 	dashArray?: number;
 }
 }
-module Sparkline
-{
-enum Type
-{
+namespace Sparkline {
+enum Type {
 //string
 Area,
 //string
@@ -63700,10 +63190,8 @@ Pie,
 WinLoss,
 }
 }
-module Sparkline
-{
-enum Theme
-{
+namespace Sparkline {
+enum Theme {
 //string
 Azure,
 //string
@@ -63726,20 +63214,16 @@ GradientLight,
 GradientDark,
 }
 }
-module Sparkline
-{
-enum FontStyle
-{
+namespace Sparkline {
+enum FontStyle {
 //string
 Normal,
 //string
 Italic,
 }
 }
-module Sparkline
-{
-enum FontWeight
-{
+namespace Sparkline {
+enum FontWeight {
 //string
 Regular,
 //string
@@ -63751,11 +63235,10 @@ Lighter,
 
 class SunburstChart extends ej.Widget {
 	static fn: SunburstChart;
-	constructor(element: JQuery, options?: SunburstChart.Model);
-	constructor(element: Element, options?: SunburstChart.Model);
+	constructor(element: JQuery | Element, options?: SunburstChart.Model);
 	static Locale: any;
-	model:SunburstChart.Model;
-	defaults:SunburstChart.Model;
+	model: SunburstChart.Model;
+	defaults: SunburstChart.Model;
 
 	/** Redraws the entire sunburst. You can call this method whenever you update, add or remove points from the data source or whenever you want to refresh the UI.
 	*   @returns {void}
@@ -63767,7 +63250,7 @@ class SunburstChart extends ej.Widget {
 	*/
 	_destroy(): void;
 }
-export module SunburstChart{
+export namespace SunburstChart {
 
 export interface Model {
 
@@ -63875,7 +63358,7 @@ export interface Model {
 	/** Specify levels of sunburst for grouped visualization of data
 	*   @Default {[]}
 	*/
-	levels?: Array<Level>;
+	levels?: Level[];
 
 	/** Options to customize the legend items and legend title.
 	*/
@@ -63910,40 +63393,40 @@ export interface Model {
 	animationType?: ej.datavisualization.Sunburst.Animation|string;
 
 	/** Fires before loading. */
-	load? (e: LoadEventArgs): void;
+	load?(e: LoadEventArgs): void;
 
 	/** Fires before rendering sunburst. */
-	preRender? (e: PreRenderEventArgs): void;
+	preRender?(e: PreRenderEventArgs): void;
 
 	/** Fires after rendering sunburst. */
-	loaded? (e: LoadedEventArgs): void;
+	loaded?(e: LoadedEventArgs): void;
 
 	/** Fires before rendering the datalabel */
-	dataLabelRendering? (e: DataLabelRenderingEventArgs): void;
+	dataLabelRendering?(e: DataLabelRenderingEventArgs): void;
 
 	/** Fires before rendering each segment */
-	segmentRendering? (e: SegmentRenderingEventArgs): void;
+	segmentRendering?(e: SegmentRenderingEventArgs): void;
 
 	/** Fires before rendering sunburst title. */
-	titleRendering? (e: TitleRenderingEventArgs): void;
+	titleRendering?(e: TitleRenderingEventArgs): void;
 
 	/** Fires during initialization of tooltip. */
-	tooltipInitialize? (e: TooltipInitializeEventArgs): void;
+	tooltipInitialize?(e: TooltipInitializeEventArgs): void;
 
 	/** Fires after clicking the point in sunburst */
-	pointRegionClick? (e: PointRegionClickEventArgs): void;
+	pointRegionClick?(e: PointRegionClickEventArgs): void;
 
 	/** Fires while moving the mouse over sunburst points */
-	pointRegionMousemove? (e: PointRegionMousemoveEventArgs): void;
+	pointRegionMousemove?(e: PointRegionMousemoveEventArgs): void;
 
 	/** Fires when clicking the point to perform drilldown. */
-	drillDownClick? (e: DrillDownClickEventArgs): void;
+	drillDownClick?(e: DrillDownClickEventArgs): void;
 
 	/** Fires when resetting drilldown points. */
-	drillDownBack? (e: DrillDownBackEventArgs): void;
+	drillDownBack?(e: DrillDownBackEventArgs): void;
 
 	/** Fires after resetting the sunburst points */
-	drillDownReset? (e: DrillDownResetEventArgs): void;
+	drillDownReset?(e: DrillDownResetEventArgs): void;
 }
 
 export interface LoadEventArgs {
@@ -64766,20 +64249,16 @@ export interface ZoomSettings {
 	toolbarVerticalAlignment?: ej.datavisualization.Sunburst.SunburstVerticalAlignment|string;
 }
 }
-module Sunburst
-{
-enum FontStyle
-{
+namespace Sunburst {
+enum FontStyle {
 //string
 Normal,
 //string
 Italic,
 }
 }
-module Sunburst
-{
-enum FontWeight
-{
+namespace Sunburst {
+enum FontWeight {
 //string
 Regular,
 //string
@@ -64788,20 +64267,16 @@ Bold,
 Lighter,
 }
 }
-module Sunburst
-{
-enum SunburstLabelRotationMode
-{
+namespace Sunburst {
+enum SunburstLabelRotationMode {
 //string
 Angle,
 //string
 Normal,
 }
 }
-module Sunburst
-{
-enum SunburstLabelOverflowMode
-{
+namespace Sunburst {
+enum SunburstLabelOverflowMode {
 //string
 Trim,
 //string
@@ -64810,10 +64285,8 @@ Hide,
 None,
 }
 }
-module Sunburst
-{
-enum SunburstAlignment
-{
+namespace Sunburst {
+enum SunburstAlignment {
 //string
 Center,
 //string
@@ -64822,10 +64295,8 @@ Near,
 Far,
 }
 }
-module Sunburst
-{
-enum SunburstHighlightMode
-{
+namespace Sunburst {
+enum SunburstHighlightMode {
 //string
 Point,
 //string
@@ -64836,20 +64307,16 @@ Child,
 All,
 }
 }
-module Sunburst
-{
-enum SunburstHighlightType
-{
+namespace Sunburst {
+enum SunburstHighlightType {
 //string
 Opacity,
 //string
 Color,
 }
 }
-module Sunburst
-{
-enum SunburstClickAction
-{
+namespace Sunburst {
+enum SunburstClickAction {
 //string
 None,
 //string
@@ -64858,10 +64325,8 @@ ToggleSegmentVisibility,
 ToggleSegmentSelection,
 }
 }
-module Sunburst
-{
-enum SunburstLegendPosition
-{
+namespace Sunburst {
+enum SunburstLegendPosition {
 //string
 Left,
 //string
@@ -64872,10 +64337,8 @@ Top,
 Bottom,
 }
 }
-module Sunburst
-{
-enum SunburstLegendShape
-{
+namespace Sunburst {
+enum SunburstLegendShape {
 //string
 Diamond,
 //string
@@ -64890,20 +64353,16 @@ Cross,
 Triangle,
 }
 }
-module Sunburst
-{
-enum SunburstTheme
-{
+namespace Sunburst {
+enum SunburstTheme {
 //string
 FlatLight,
 //string
 FlatDark,
 }
 }
-module Sunburst
-{
-enum SunburstHorizontalAlignment
-{
+namespace Sunburst {
+enum SunburstHorizontalAlignment {
 //string
 Center,
 //string
@@ -64912,10 +64371,8 @@ Left,
 Right,
 }
 }
-module Sunburst
-{
-enum SunburstVerticalAlignment
-{
+namespace Sunburst {
+enum SunburstVerticalAlignment {
 //string
 Top,
 //string
@@ -64924,10 +64381,8 @@ Bottom,
 Middle,
 }
 }
-module Sunburst
-{
-enum Animation
-{
+namespace Sunburst {
+enum Animation {
 //string
 Rotation,
 //string
@@ -64937,13 +64392,12 @@ FadeIn,
 
 class Overview extends ej.Widget {
 	static fn: Overview;
-	constructor(element: JQuery, options?: Overview.Model);
-	constructor(element: Element, options?: Overview.Model);
+	constructor(element: JQuery | Element, options?: Overview.Model);
 	static Locale: any;
-	model:Overview.Model;
-	defaults:Overview.Model;
+	model: Overview.Model;
+	defaults: Overview.Model;
 }
-export module Overview{
+export namespace Overview {
 
 export interface Model {
 
@@ -64967,12 +64421,16 @@ export interface Model {
 }
 
 interface JQueryXHR {
+	undefined;
 }
 interface JQueryPromise<T> {
+	undefined;
 }
 interface JQueryDeferred<T> extends JQueryPromise<T> {
+	undefined;
 }
 interface JQueryParam {
+	undefined;
 }
 interface JQuery {
     data(key: any): any;
@@ -64982,413 +64440,332 @@ interface Window {
 }
 interface JQuery {
 
-ejAccordion(): JQuery;
 ejAccordion(options?: ej.Accordion.Model): JQuery;
 ejAccordion(memberName: any, value?: any, param?: any): any;
-data(key: "ejAccordion"): ej.Accordion;
 
-ejAutocomplete(): JQuery;
 ejAutocomplete(options?: ej.Autocomplete.Model): JQuery;
 ejAutocomplete(memberName: any, value?: any, param?: any): any;
-data(key: "ejAutocomplete"): ej.Autocomplete;
 
-ejBarcode(): JQuery;
 ejBarcode(options?: ej.datavisualization.Barcode.Model): JQuery;
 ejBarcode(memberName: any, value?: any, param?: any): any;
-data(key: "ejBarcode"): ej.datavisualization.Barcode;
 
-ejBulletGraph(): JQuery;
 ejBulletGraph(options?: ej.datavisualization.BulletGraph.Model): JQuery;
 ejBulletGraph(memberName: any, value?: any, param?: any): any;
-data(key: "ejBulletGraph"): ej.datavisualization.BulletGraph;
 
-ejButton(): JQuery;
 ejButton(options?: ej.Button.Model): JQuery;
 ejButton(memberName: any, value?: any, param?: any): any;
-data(key: "ejButton"): ej.Button;
 
-ejCaptcha(): JQuery;
 ejCaptcha(options?: ej.Captcha.Model): JQuery;
 ejCaptcha(memberName: any, value?: any, param?: any): any;
-data(key: "ejCaptcha"): ej.Captcha;
 
-ejChart(): JQuery;
 ejChart(options?: ej.datavisualization.Chart.Model): JQuery;
 ejChart(memberName: any, value?: any, param?: any): any;
-data(key: "ejChart"): ej.datavisualization.Chart;
 
-ejCheckBox(): JQuery;
 ejCheckBox(options?: ej.CheckBox.Model): JQuery;
 ejCheckBox(memberName: any, value?: any, param?: any): any;
-data(key: "ejCheckBox"): ej.CheckBox;
 
-ejCircularGauge(): JQuery;
 ejCircularGauge(options?: ej.datavisualization.CircularGauge.Model): JQuery;
 ejCircularGauge(memberName: any, value?: any, param?: any): any;
-data(key: "ejCircularGauge"): ej.datavisualization.CircularGauge;
 
-ejColorPicker(): JQuery;
 ejColorPicker(options?: ej.ColorPicker.Model): JQuery;
 ejColorPicker(memberName: any, value?: any, param?: any): any;
-data(key: "ejColorPicker"): ej.ColorPicker;
 
-ejDatePicker(): JQuery;
 ejDatePicker(options?: ej.DatePicker.Model): JQuery;
 ejDatePicker(memberName: any, value?: any, param?: any): any;
-data(key: "ejDatePicker"): ej.DatePicker;
 
-ejDateRangePicker(): JQuery;
 ejDateRangePicker(options?: ej.DateRangePicker.Model): JQuery;
 ejDateRangePicker(memberName: any, value?: any, param?: any): any;
-data(key: "ejDateRangePicker"): ej.DateRangePicker;
 
-ejDateTimePicker(): JQuery;
 ejDateTimePicker(options?: ej.DateTimePicker.Model): JQuery;
 ejDateTimePicker(memberName: any, value?: any, param?: any): any;
-data(key: "ejDateTimePicker"): ej.DateTimePicker;
 
-ejDiagram(): JQuery;
 ejDiagram(options?: ej.datavisualization.Diagram.Model): JQuery;
 ejDiagram(memberName: any, value?: any, param?: any): any;
-data(key: "ejDiagram"): ej.datavisualization.Diagram;
 
-ejDialog(): JQuery;
 ejDialog(options?: ej.Dialog.Model): JQuery;
 ejDialog(memberName: any, value?: any, param?: any): any;
-data(key: "ejDialog"): ej.Dialog;
 
-ejDigitalGauge(): JQuery;
 ejDigitalGauge(options?: ej.datavisualization.DigitalGauge.Model): JQuery;
 ejDigitalGauge(memberName: any, value?: any, param?: any): any;
-data(key: "ejDigitalGauge"): ej.datavisualization.DigitalGauge;
 
-ejDocumentEditor(): JQuery;
 ejDocumentEditor(options?: ej.DocumentEditor.Model): JQuery;
 ejDocumentEditor(memberName: any, value?: any, param?: any): any;
-data(key: "ejDocumentEditor"): ej.DocumentEditor;
 
-ejDraggable(): JQuery;
 ejDraggable(options?: ej.Draggable.Model): JQuery;
 ejDraggable(memberName: any, value?: any, param?: any): any;
-data(key: "ejDraggable"): ej.Draggable;
 
-ejDropDownList(): JQuery;
 ejDropDownList(options?: ej.DropDownList.Model): JQuery;
 ejDropDownList(memberName: any, value?: any, param?: any): any;
-data(key: "ejDropDownList"): ej.DropDownList;
 
-ejDroppable(): JQuery;
 ejDroppable(options?: ej.Droppable.Model): JQuery;
 ejDroppable(memberName: any, value?: any, param?: any): any;
-data(key: "ejDroppable"): ej.Droppable;
 
-ejFileExplorer(): JQuery;
 ejFileExplorer(options?: ej.FileExplorer.Model): JQuery;
 ejFileExplorer(memberName: any, value?: any, param?: any): any;
-data(key: "ejFileExplorer"): ej.FileExplorer;
 
-ejGantt(): JQuery;
 ejGantt(options?: ej.Gantt.Model): JQuery;
 ejGantt(memberName: any, value?: any, param?: any): any;
-data(key: "ejGantt"): ej.Gantt;
 
-ejGrid(): JQuery;
 ejGrid(options?: ej.Grid.Model): JQuery;
 ejGrid(memberName: any, value?: any, param?: any): any;
-data(key: "ejGrid"): ej.Grid;
 
-ejGroupButton(): JQuery;
 ejGroupButton(options?: ej.GroupButton.Model): JQuery;
 ejGroupButton(memberName: any, value?: any, param?: any): any;
-data(key: "ejGroupButton"): ej.GroupButton;
 
-ejHeatMap(): JQuery;
 ejHeatMap(options?: ej.datavisualization.HeatMap.Model): JQuery;
 ejHeatMap(memberName: any, value?: any, param?: any): any;
-data(key: "ejHeatMap"): ej.datavisualization.HeatMap;
 
-ejHeatMapLegend(): JQuery;
 ejHeatMapLegend(options?: ej.datavisualization.HeatMapLegend.Model): JQuery;
 ejHeatMapLegend(memberName: any, value?: any, param?: any): any;
-data(key: "ejHeatMapLegend"): ej.datavisualization.HeatMapLegend;
 
-ejKanban(): JQuery;
 ejKanban(options?: ej.Kanban.Model): JQuery;
 ejKanban(memberName: any, value?: any, param?: any): any;
-data(key: "ejKanban"): ej.Kanban;
 
-ejLinearGauge(): JQuery;
 ejLinearGauge(options?: ej.datavisualization.LinearGauge.Model): JQuery;
 ejLinearGauge(memberName: any, value?: any, param?: any): any;
-data(key: "ejLinearGauge"): ej.datavisualization.LinearGauge;
 
-ejListBox(): JQuery;
 ejListBox(options?: ej.ListBox.Model): JQuery;
 ejListBox(memberName: any, value?: any, param?: any): any;
-data(key: "ejListBox"): ej.ListBox;
 
-ejListView(): JQuery;
 ejListView(options?: ej.ListView.Model): JQuery;
 ejListView(memberName: any, value?: any, param?: any): any;
-data(key: "ejListView"): ej.ListView;
 
-ejMap(): JQuery;
 ejMap(options?: ej.datavisualization.Map.Model): JQuery;
 ejMap(memberName: any, value?: any, param?: any): any;
-data(key: "ejMap"): ej.datavisualization.Map;
 
-ejMaskEdit(): JQuery;
 ejMaskEdit(options?: ej.MaskEdit.Model): JQuery;
 ejMaskEdit(memberName: any, value?: any, param?: any): any;
-data(key: "ejMaskEdit"): ej.MaskEdit;
 
-ejMenu(): JQuery;
 ejMenu(options?: ej.Menu.Model): JQuery;
 ejMenu(memberName: any, value?: any, param?: any): any;
-data(key: "ejMenu"): ej.Menu;
 
-ejNavigationDrawer(): JQuery;
 ejNavigationDrawer(options?: ej.NavigationDrawer.Model): JQuery;
 ejNavigationDrawer(memberName: any, value?: any, param?: any): any;
-data(key: "ejNavigationDrawer"): ej.NavigationDrawer;
 
-ejOverview(): JQuery;
 ejOverview(options?: ej.datavisualization.Overview.Model): JQuery;
 ejOverview(memberName: any, value?: any, param?: any): any;
-data(key: "ejOverview"): ej.datavisualization.Overview;
 
-ejPager(): JQuery;
 ejPager(options?: ej.Pager.Model): JQuery;
 ejPager(memberName: any, value?: any, param?: any): any;
-data(key: "ejPager"): ej.Pager;
 
-ejPdfViewer(): JQuery;
 ejPdfViewer(options?: ej.PdfViewer.Model): JQuery;
 ejPdfViewer(memberName: any, value?: any, param?: any): any;
-data(key: "ejPdfViewer"): ej.PdfViewer;
 
-ejPivotChart(): JQuery;
 ejPivotChart(options?: ej.PivotChart.Model): JQuery;
 ejPivotChart(memberName: any, value?: any, param?: any): any;
-data(key: "ejPivotChart"): ej.PivotChart;
 
-ejPivotClient(): JQuery;
 ejPivotClient(options?: ej.PivotClient.Model): JQuery;
 ejPivotClient(memberName: any, value?: any, param?: any): any;
-data(key: "ejPivotClient"): ej.PivotClient;
 
-ejPivotGauge(): JQuery;
 ejPivotGauge(options?: ej.PivotGauge.Model): JQuery;
 ejPivotGauge(memberName: any, value?: any, param?: any): any;
-data(key: "ejPivotGauge"): ej.PivotGauge;
 
-ejPivotGrid(): JQuery;
 ejPivotGrid(options?: ej.PivotGrid.Model): JQuery;
 ejPivotGrid(memberName: any, value?: any, param?: any): any;
-data(key: "ejPivotGrid"): ej.PivotGrid;
 
-ejPivotPager(): JQuery;
 ejPivotPager(options?: ej.PivotPager.Model): JQuery;
 ejPivotPager(memberName: any, value?: any, param?: any): any;
-data(key: "ejPivotPager"): ej.PivotPager;
 
-ejPivotSchemaDesigner(): JQuery;
 ejPivotSchemaDesigner(options?: ej.PivotSchemaDesigner.Model): JQuery;
 ejPivotSchemaDesigner(memberName: any, value?: any, param?: any): any;
-data(key: "ejPivotSchemaDesigner"): ej.PivotSchemaDesigner;
 
-ejPivotTreeMap(): JQuery;
 ejPivotTreeMap(options?: ej.PivotTreeMap.Model): JQuery;
 ejPivotTreeMap(memberName: any, value?: any, param?: any): any;
-data(key: "ejPivotTreeMap"): ej.PivotTreeMap;
 
-ejProgressBar(): JQuery;
 ejProgressBar(options?: ej.ProgressBar.Model): JQuery;
 ejProgressBar(memberName: any, value?: any, param?: any): any;
-data(key: "ejProgressBar"): ej.ProgressBar;
 
-ejRadialMenu(): JQuery;
 ejRadialMenu(options?: ej.RadialMenu.Model): JQuery;
 ejRadialMenu(memberName: any, value?: any, param?: any): any;
-data(key: "ejRadialMenu"): ej.RadialMenu;
 
-ejRadialSlider(): JQuery;
 ejRadialSlider(options?: ej.RadialSlider.Model): JQuery;
 ejRadialSlider(memberName: any, value?: any, param?: any): any;
-data(key: "ejRadialSlider"): ej.RadialSlider;
 
-ejRadioButton(): JQuery;
 ejRadioButton(options?: ej.RadioButton.Model): JQuery;
 ejRadioButton(memberName: any, value?: any, param?: any): any;
-data(key: "ejRadioButton"): ej.RadioButton;
 
-ejRangeNavigator(): JQuery;
 ejRangeNavigator(options?: ej.datavisualization.RangeNavigator.Model): JQuery;
 ejRangeNavigator(memberName: any, value?: any, param?: any): any;
-data(key: "ejRangeNavigator"): ej.datavisualization.RangeNavigator;
 
-ejRating(): JQuery;
 ejRating(options?: ej.Rating.Model): JQuery;
 ejRating(memberName: any, value?: any, param?: any): any;
-data(key: "ejRating"): ej.Rating;
 
-ejRecurrenceEditor(): JQuery;
 ejRecurrenceEditor(options?: ej.RecurrenceEditor.Model): JQuery;
 ejRecurrenceEditor(memberName: any, value?: any, param?: any): any;
-data(key: "ejRecurrenceEditor"): ej.RecurrenceEditor;
 
-ejReportViewer(): JQuery;
 ejReportViewer(options?: ej.ReportViewer.Model): JQuery;
 ejReportViewer(memberName: any, value?: any, param?: any): any;
-data(key: "ejReportViewer"): ej.ReportViewer;
 
-ejResizable(): JQuery;
 ejResizable(options?: ej.Resizable.Model): JQuery;
 ejResizable(memberName: any, value?: any, param?: any): any;
-data(key: "ejResizable"): ej.Resizable;
 
-ejRibbon(): JQuery;
 ejRibbon(options?: ej.Ribbon.Model): JQuery;
 ejRibbon(memberName: any, value?: any, param?: any): any;
-data(key: "ejRibbon"): ej.Ribbon;
 
-ejRotator(): JQuery;
 ejRotator(options?: ej.Rotator.Model): JQuery;
 ejRotator(memberName: any, value?: any, param?: any): any;
-data(key: "ejRotator"): ej.Rotator;
 
-ejRTE(): JQuery;
 ejRTE(options?: ej.RTE.Model): JQuery;
 ejRTE(memberName: any, value?: any, param?: any): any;
-data(key: "ejRTE"): ej.RTE;
 
-ejSchedule(): JQuery;
 ejSchedule(options?: ej.Schedule.Model): JQuery;
 ejSchedule(memberName: any, value?: any, param?: any): any;
-data(key: "ejSchedule"): ej.Schedule;
 
-ejScroller(): JQuery;
 ejScroller(options?: ej.Scroller.Model): JQuery;
 ejScroller(memberName: any, value?: any, param?: any): any;
-data(key: "ejScroller"): ej.Scroller;
 
-ejSignature(): JQuery;
 ejSignature(options?: ej.Signature.Model): JQuery;
 ejSignature(memberName: any, value?: any, param?: any): any;
-data(key: "ejSignature"): ej.Signature;
 
-ejSlider(): JQuery;
 ejSlider(options?: ej.Slider.Model): JQuery;
 ejSlider(memberName: any, value?: any, param?: any): any;
-data(key: "ejSlider"): ej.Slider;
 
-ejSparkline(): JQuery;
 ejSparkline(options?: ej.datavisualization.Sparkline.Model): JQuery;
 ejSparkline(memberName: any, value?: any, param?: any): any;
-data(key: "ejSparkline"): ej.datavisualization.Sparkline;
 
-ejSpellCheck(): JQuery;
 ejSpellCheck(options?: ej.SpellCheck.Model): JQuery;
 ejSpellCheck(memberName: any, value?: any, param?: any): any;
-data(key: "ejSpellCheck"): ej.SpellCheck;
 
-ejSplitButton(): JQuery;
 ejSplitButton(options?: ej.SplitButton.Model): JQuery;
 ejSplitButton(memberName: any, value?: any, param?: any): any;
-data(key: "ejSplitButton"): ej.SplitButton;
 
-ejSplitter(): JQuery;
 ejSplitter(options?: ej.Splitter.Model): JQuery;
 ejSplitter(memberName: any, value?: any, param?: any): any;
-data(key: "ejSplitter"): ej.Splitter;
 
-ejSpreadsheet(): JQuery;
 ejSpreadsheet(options?: ej.Spreadsheet.Model): JQuery;
 ejSpreadsheet(memberName: any, value?: any, param?: any): any;
-data(key: "ejSpreadsheet"): ej.Spreadsheet;
 
-ejSunburstChart(): JQuery;
 ejSunburstChart(options?: ej.datavisualization.SunburstChart.Model): JQuery;
 ejSunburstChart(memberName: any, value?: any, param?: any): any;
-data(key: "ejSunburstChart"): ej.datavisualization.SunburstChart;
 
-ejSymbolPalette(): JQuery;
 ejSymbolPalette(options?: ej.datavisualization.SymbolPalette.Model): JQuery;
 ejSymbolPalette(memberName: any, value?: any, param?: any): any;
-data(key: "ejSymbolPalette"): ej.datavisualization.SymbolPalette;
 
-ejTab(): JQuery;
 ejTab(options?: ej.Tab.Model): JQuery;
 ejTab(memberName: any, value?: any, param?: any): any;
-data(key: "ejTab"): ej.Tab;
 
-ejTagCloud(): JQuery;
 ejTagCloud(options?: ej.TagCloud.Model): JQuery;
 ejTagCloud(memberName: any, value?: any, param?: any): any;
-data(key: "ejTagCloud"): ej.TagCloud;
 
-ejNumericTextbox(): JQuery;
 ejNumericTextbox(options?: ej.Editor.Model): JQuery;
 ejNumericTextbox(memberName: any, value?: any, param?: any): any;
-data(key: "ejNumericTextbox"): ej.NumericTextbox;
 
-ejCurrencyTextbox(): JQuery;
 ejCurrencyTextbox(options?: ej.Editor.Model): JQuery;
 ejCurrencyTextbox(memberName: any, value?: any, param?: any): any;
-data(key: "ejCurrencyTextbox"): ej.CurrencyTextbox;
 
-ejPercentageTextbox(): JQuery;
 ejPercentageTextbox(options?: ej.Editor.Model): JQuery;
 ejPercentageTextbox(memberName: any, value?: any, param?: any): any;
-data(key: "ejPercentageTextbox"): ej.PercentageTextbox;
 
-ejTile(): JQuery;
 ejTile(options?: ej.Tile.Model): JQuery;
 ejTile(memberName: any, value?: any, param?: any): any;
-data(key: "ejTile"): ej.Tile;
 
-ejTimePicker(): JQuery;
 ejTimePicker(options?: ej.TimePicker.Model): JQuery;
 ejTimePicker(memberName: any, value?: any, param?: any): any;
-data(key: "ejTimePicker"): ej.TimePicker;
 
-ejToggleButton(): JQuery;
 ejToggleButton(options?: ej.ToggleButton.Model): JQuery;
 ejToggleButton(memberName: any, value?: any, param?: any): any;
-data(key: "ejToggleButton"): ej.ToggleButton;
 
-ejToolbar(): JQuery;
 ejToolbar(options?: ej.Toolbar.Model): JQuery;
 ejToolbar(memberName: any, value?: any, param?: any): any;
-data(key: "ejToolbar"): ej.Toolbar;
 
-ejTooltip(): JQuery;
 ejTooltip(options?: ej.Tooltip.Model): JQuery;
 ejTooltip(memberName: any, value?: any, param?: any): any;
-data(key: "ejTooltip"): ej.Tooltip;
 
-ejTreeGrid(): JQuery;
 ejTreeGrid(options?: ej.TreeGrid.Model): JQuery;
 ejTreeGrid(memberName: any, value?: any, param?: any): any;
-data(key: "ejTreeGrid"): ej.TreeGrid;
 
-ejTreeMap(): JQuery;
 ejTreeMap(options?: ej.datavisualization.TreeMap.Model): JQuery;
 ejTreeMap(memberName: any, value?: any, param?: any): any;
-data(key: "ejTreeMap"): ej.datavisualization.TreeMap;
 
-ejTreeView(): JQuery;
 ejTreeView(options?: ej.TreeView.Model): JQuery;
 ejTreeView(memberName: any, value?: any, param?: any): any;
-data(key: "ejTreeView"): ej.TreeView;
 
-ejUploadbox(): JQuery;
 ejUploadbox(options?: ej.Uploadbox.Model): JQuery;
 ejUploadbox(memberName: any, value?: any, param?: any): any;
-data(key: "ejUploadbox"): ej.Uploadbox;
 
-ejWaitingPopup(): JQuery;
 ejWaitingPopup(options?: ej.WaitingPopup.Model): JQuery;
 ejWaitingPopup(memberName: any, value?: any, param?: any): any;
+
+data(key: "ejAccordion"): ej.Accordion;
+data(key: "ejAutocomplete"): ej.Autocomplete;
+data(key: "ejBarcode"): ej.datavisualization.Barcode;
+data(key: "ejBulletGraph"): ej.datavisualization.BulletGraph;
+data(key: "ejButton"): ej.Button;
+data(key: "ejCaptcha"): ej.Captcha;
+data(key: "ejChart"): ej.datavisualization.Chart;
+data(key: "ejCheckBox"): ej.CheckBox;
+data(key: "ejCircularGauge"): ej.datavisualization.CircularGauge;
+data(key: "ejColorPicker"): ej.ColorPicker;
+data(key: "ejDatePicker"): ej.DatePicker;
+data(key: "ejDateRangePicker"): ej.DateRangePicker;
+data(key: "ejDateTimePicker"): ej.DateTimePicker;
+data(key: "ejDiagram"): ej.datavisualization.Diagram;
+data(key: "ejDialog"): ej.Dialog;
+data(key: "ejDigitalGauge"): ej.datavisualization.DigitalGauge;
+data(key: "ejDocumentEditor"): ej.DocumentEditor;
+data(key: "ejDraggable"): ej.Draggable;
+data(key: "ejDropDownList"): ej.DropDownList;
+data(key: "ejDroppable"): ej.Droppable;
+data(key: "ejFileExplorer"): ej.FileExplorer;
+data(key: "ejGantt"): ej.Gantt;
+data(key: "ejGrid"): ej.Grid;
+data(key: "ejGroupButton"): ej.GroupButton;
+data(key: "ejHeatMap"): ej.datavisualization.HeatMap;
+data(key: "ejHeatMapLegend"): ej.datavisualization.HeatMapLegend;
+data(key: "ejKanban"): ej.Kanban;
+data(key: "ejLinearGauge"): ej.datavisualization.LinearGauge;
+data(key: "ejListBox"): ej.ListBox;
+data(key: "ejListView"): ej.ListView;
+data(key: "ejMap"): ej.datavisualization.Map;
+data(key: "ejMaskEdit"): ej.MaskEdit;
+data(key: "ejMenu"): ej.Menu;
+data(key: "ejNavigationDrawer"): ej.NavigationDrawer;
+data(key: "ejOverview"): ej.datavisualization.Overview;
+data(key: "ejPager"): ej.Pager;
+data(key: "ejPdfViewer"): ej.PdfViewer;
+data(key: "ejPivotChart"): ej.PivotChart;
+data(key: "ejPivotClient"): ej.PivotClient;
+data(key: "ejPivotGauge"): ej.PivotGauge;
+data(key: "ejPivotGrid"): ej.PivotGrid;
+data(key: "ejPivotPager"): ej.PivotPager;
+data(key: "ejPivotSchemaDesigner"): ej.PivotSchemaDesigner;
+data(key: "ejPivotTreeMap"): ej.PivotTreeMap;
+data(key: "ejProgressBar"): ej.ProgressBar;
+data(key: "ejRadialMenu"): ej.RadialMenu;
+data(key: "ejRadialSlider"): ej.RadialSlider;
+data(key: "ejRadioButton"): ej.RadioButton;
+data(key: "ejRangeNavigator"): ej.datavisualization.RangeNavigator;
+data(key: "ejRating"): ej.Rating;
+data(key: "ejRecurrenceEditor"): ej.RecurrenceEditor;
+data(key: "ejReportViewer"): ej.ReportViewer;
+data(key: "ejResizable"): ej.Resizable;
+data(key: "ejRibbon"): ej.Ribbon;
+data(key: "ejRotator"): ej.Rotator;
+data(key: "ejRTE"): ej.RTE;
+data(key: "ejSchedule"): ej.Schedule;
+data(key: "ejScroller"): ej.Scroller;
+data(key: "ejSignature"): ej.Signature;
+data(key: "ejSlider"): ej.Slider;
+data(key: "ejSparkline"): ej.datavisualization.Sparkline;
+data(key: "ejSpellCheck"): ej.SpellCheck;
+data(key: "ejSplitButton"): ej.SplitButton;
+data(key: "ejSplitter"): ej.Splitter;
+data(key: "ejSpreadsheet"): ej.Spreadsheet;
+data(key: "ejSunburstChart"): ej.datavisualization.SunburstChart;
+data(key: "ejSymbolPalette"): ej.datavisualization.SymbolPalette;
+data(key: "ejTab"): ej.Tab;
+data(key: "ejTagCloud"): ej.TagCloud;
+data(key: "ejNumericTextbox"): ej.NumericTextbox;
+data(key: "ejCurrencyTextbox"): ej.CurrencyTextbox;
+data(key: "ejPercentageTextbox"): ej.PercentageTextbox;
+data(key: "ejTile"): ej.Tile;
+data(key: "ejTimePicker"): ej.TimePicker;
+data(key: "ejToggleButton"): ej.ToggleButton;
+data(key: "ejToolbar"): ej.Toolbar;
+data(key: "ejTooltip"): ej.Tooltip;
+data(key: "ejTreeGrid"): ej.TreeGrid;
+data(key: "ejTreeMap"): ej.datavisualization.TreeMap;
+data(key: "ejTreeView"): ej.TreeView;
+data(key: "ejUploadbox"): ej.Uploadbox;
 data(key: "ejWaitingPopup"): ej.WaitingPopup;
 }
