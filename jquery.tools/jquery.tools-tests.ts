@@ -40,7 +40,7 @@ $("#prompt form").submit(function(this: JQuery, e: JQueryEventObject) {
  
       // close the overlay
       triggers.eq(1).overlay<JQueryTools.overlay.Overlay>().close();
-      //or more straightforward:
+      // or more straightforward:
       triggers.data('overlay').close();
  
       // get user input
@@ -53,7 +53,7 @@ $("#prompt form").submit(function(this: JQuery, e: JQueryEventObject) {
       return e.preventDefault();
   });
 
-$.tools.overlay.addEffect('', function() {}, function() {});
+$.tools.overlay.addEffect('', () => {}, () => {});
 
 /* custom effects */
 $.tools.overlay.addEffect("myEffect", function(position, done) {
@@ -101,8 +101,7 @@ $(function() {
         mask: 'darkred',
         effect: 'apple',
  
-        onBeforeLoad: function() {
- 
+        onBeforeLoad() {
             // grab wrapper element inside content
             var wrap = this.getOverlay().find(".contentWrap");
  
@@ -113,7 +112,7 @@ $(function() {
     });
 });
 
-$(function() {
+$(() => {
     // positions for each overlay
     var positions = [
         [0, 530],
@@ -169,7 +168,7 @@ $.tools.overlay.addEffect("drop", function(css, done) {
     /* closing animation */
 }, function(done) {
     this.getOverlay().animate(
-        {top:'-=55', opacity:0, width:'-=20'}, 300, 'drop',
+        { top: '-=55', opacity: 0, width: '-=20' }, 300, 'drop',
         function(this: JQuery) {
             $(this).hide();
             done.call(null);

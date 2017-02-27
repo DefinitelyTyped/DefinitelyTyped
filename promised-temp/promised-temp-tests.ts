@@ -9,8 +9,7 @@ function testCleanup() {
     temp.cleanup().then((result: boolean | Stats) => {
         if (typeof result === "boolean") {
             const x = result === true;
-        }
-        else {
+        } else {
             const { files, dirs } = result;
             files.toPrecision(4);
         }
