@@ -1,9 +1,9 @@
-// Type definitions for Stylelint 7.9.0
+// Type definitions for Stylelint 7.9
 // Project: https://github.com/stylelint/stylelint
 // Definitions by: Alan Agius <https://github.com/alan-agius4/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace stylelint {
+export declare namespace stylelint {
 
     interface Options {
         code?: string;
@@ -38,5 +38,4 @@ declare namespace stylelint {
 
 }
 
-export = stylelint;
 export as namespace stylelint;

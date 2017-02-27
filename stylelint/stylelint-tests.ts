@@ -8,7 +8,7 @@ const options: Options = {
     reportNeedlessDisables: true,
     ignorePath: true,
     syntax: "scss"
-}
+};
 
 lint(options).then((x: PromiseResult) => {
     const err: boolean = x.errored;
