@@ -1,7 +1,4 @@
-declare function describe(desc: string, f: () => void): void;
-declare function beforeEach(f: () => void): void;
-interface Expect<T> { not: this; toBe(other: T): void; }
-declare function expect<T>(value: T): Expect<T>;
+/// <reference types="jasmine" />
 
 all("A data driven test is a suite with multiple specs",
     ['a', 'b', 'c'],
