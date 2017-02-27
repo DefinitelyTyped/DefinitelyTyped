@@ -10,16 +10,14 @@ Kinvey.initialize({
     // ...
   });
 
-let user = new Kinvey.User();
-user.login('', '')
-  .then(function() {
-
+const user = new Kinvey.User();
+user.login('username', 'password')
+  .then(function(user) {
+    console.log(user);
   })
-  .catch((error: Kinvey.KinveyBaseError) => {
-    if (error instanceof Kinvey.KinveyError) {
-
-    }
-  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 // DataStore
 const store = Kinvey.DataStore.collection<Kinvey.SyncStore>('books', Kinvey.DataStoreType.Sync);

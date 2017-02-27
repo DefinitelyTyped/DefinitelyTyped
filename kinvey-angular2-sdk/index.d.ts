@@ -1,4 +1,4 @@
-// Type definitions for kinvey-angular2-sdk v3.4.1
+// Type definitions for kinvey-angular2-sdk 3.4
 // Project: https://github.com/Kinvey/angular2-sdk
 // Definitions by: Thomas P. Conner <https://github.com/thomasconner/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,7 +13,7 @@ declare namespace Kinvey {
 
   // Acl
   class Acl {
-    constructor(entity: Object)
+    constructor(entity: {})
     // get creator(): string;
     // get readers(): Array<string>;
     // get writers(): Array<string>;
@@ -22,34 +22,34 @@ declare namespace Kinvey {
     // set globallyReadable(gr: boolean);
     // set globallyWritable(gw: boolean);
     addReader(user: string): this;
-    addReaderGroup(group: Array<string>): this;
+    addReaderGroup(group: string[]): this;
     addWriter(user: string): this;
-    adddWriterGroup(group: Array<string>): this;
+    adddWriterGroup(group: string[]): this;
     isGloballyReadable(): boolean;
     isGloballyWritable(): boolean;
     removeReader(user: string): this;
-    removeReaderGroup(group: Array<string>): this;
+    removeReaderGroup(group: string[]): this;
     removeWriter(user: string): this;
-    removeWriterGroup(group: Array<string>): this;
-    toPlainObject(): Object;
+    removeWriterGroup(group: string[]): this;
+    toPlainObject(): {};
   }
 
   // Aggregation
   class Aggregation {
     constructor(options?: {
       query?: Query
-      initial?: Object
-      key?: Object
-      reduceFn?: Function
+      initial?: {}
+      key?: {}
+      reduceFn?: () => any
     })
     by(field: string): this;
     toJSON(): {
-      query: Object
-      initial: Object
-      key: Object
-      reduce: Function
-      reduceFn: Function
-      condition: Object
+      query: {}
+      initial: {}
+      key: {}
+      reduce: () => any
+      reduceFn: () => any
+      condition: {}
     };
     static count(field: string): Aggregation;
     static sum(field: string): Aggregation;
@@ -61,7 +61,7 @@ declare namespace Kinvey {
 
   // CustomEndpoint
   class CustomEndpoint {
-    static execute(endpoint: string, args: Object, options?: Object): Promise<any>
+    static execute(endpoint: string, args: {}, options?: {}): Promise<any>
   }
 
   // DataStore
@@ -71,85 +71,85 @@ declare namespace Kinvey {
     Sync
   }
   class DataStore {
-    static collection<T>(collection: string, type?: DataStoreType, options?: Object): T;
-    static clearCache(options?: Object): Promise<Array<Object>>;
+    static collection<T>(collection: string, type?: DataStoreType, options?: {}): T;
+    static clearCache(options?: {}): Promise<>;
   }
   class NetworkStore {
-    find(query?: Query, options?: Object): Rx.Observable<Array<Object>>;
-    findById(id: string, options?: Object): Rx.Observable<Object>;
-    group(aggregation: Aggregation, options?: Object): Rx.Observable<any>;
-    count(query?: Query, options?: Object): Rx.Observable<number>;
-    create(entities: Object|Array<Object>, options?: Object): Promise<Object|Array<Object>>;
-    update(entities: Object|Array<Object>, options?: Object): Promise<Object|Array<Object>>;
-    save(entity: Object|Array<Object>, options?: Object): Promise<Object|Array<Object>>;
-    remove(query?: Query, options?:Object): Promise<Array<Object>>;
-    removeById(id: string, options?: Object): Promise<Object>;
+    find(query?: Query, options?: {}): Rx.Observable<Array<{}>>;
+    findById(id: string, options?: {}): Rx.Observable<{}>;
+    group(aggregation: Aggregation, options?: {}): Rx.Observable<any>;
+    count(query?: Query, options?: {}): Rx.Observable<number>;
+    create(entities: {}|Array<{}>, options?: {}): Promise<{}|Array<{}>>;
+    update(entities: {}|Array<{}>, options?: {}): Promise<{}|Array<{}>>;
+    save(entity: {}|Array<{}>, options?: {}): Promise<{}|Array<{}>>;
+    remove(query?: Query, options?: {}): Promise<Array<{}>>;
+    removeById(id: string, options?: {}): Promise<{}>;
   }
   class CacheStore extends NetworkStore {
-    clear(query?: Query, options?: Object): Promise<Array<Object>>;
-    pendingSyncCount(query?: Query, options?: Object): Promise<number>;
-    pendingSyncEntities(query?: Query, options?: Object): Promise<Array<Object>>;
-    push(query?: Query, options?: Object): Promise<Array<Object>>;
-    pull(query?: Query, options?: Object): Promise<Array<Object>>;
-    sync(query?: Query, options?: Object): Promise<Object>;
-    clearSync(query?: Query, options?: Object): Promise<Array<Object>>;
+    clear(query?: Query, options?: {}): Promise<Array<{}>>;
+    pendingSyncCount(query?: Query, options?: {}): Promise<number>;
+    pendingSyncEntities(query?: Query, options?: {}): Promise<Array<{}>>;
+    push(query?: Query, options?: {}): Promise<Array<{}>>;
+    pull(query?: Query, options?: {}): Promise<Array<{}>>;
+    sync(query?: Query, options?: {}): Promise<{}>;
+    clearSync(query?: Query, options?: {}): Promise<Array<{}>>;
   }
   class SyncStore extends CacheStore {}
 
   // File
   class Files extends NetworkStore {
-    download(name: string, options?: Object): Promise<Object>;
-    downloadByUrl(url: string, options?: Object): Promise<Object>;
-    stream(name: string, options?: Object): Promise<Object>;
-    upload(file: Object, metadata?: Object, options?: Object): Promise<Object>;
+    download(name: string, options?: {}): Promise<{}>;
+    downloadByUrl(url: string, options?: {}): Promise<{}>;
+    stream(name: string, options?: {}): Promise<{}>;
+    upload(file: {}, metadata?: {}, options?: {}): Promise<{}>;
   }
 
   // Metadata
   class Metadata {
-    constructor(entity: Object);
+    constructor(entity: {});
     isLocal(): boolean;
-    toPlainObject(): Object;
+    toPlainObject(): {};
   }
 
   // Query
   class Query {
     constructor(options?: {
-      fields?: Array<any>
-      filter?: Object
+      fields?: any[]
+      filter?: {}
       sort?: string
       limit?: number
       skip?: number
     })
     isSupportedOffline(): boolean;
     equalTo(field: string, value: any): this;
-    contains(field: string, values: Array<any>): this;
-    containsAll(field: string, values: Array<any>): this;
+    contains(field: string, values: any[]): this;
+    containsAll(field: string, values: any[]): this;
     greaterThan(field: string, value: number|string): this;
     greaterThanOrEqualTo(field: string, value: number|string): this;
     lessThan(field: string, value: number|string): this;
     lessThanOrEqualTo(field: string, value: number|string): this;
     notEqualTo(field: string, value: any): this;
-    notContainedIn(field: string, values: Array<any>): this;
-    and(queries?: Object|Query|Array<Object>|Array<Query>): this;
-    nor(queries?: Object|Query|Array<Object>|Array<Query>): this;
-    or(queries?: Object|Query|Array<Object>|Array<Query>): this;
+    notContainedIn(field: string, values: any[]): this;
+    and(queries?: {}|Query|Array<{}>|Query[]): this;
+    nor(queries?: {}|Query|Array<{}>|Query[]): this;
+    or(queries?: {}|Query|Array<{}>|Query[]): this;
     exists(field: string, flag: boolean): this;
     mod(field: string, divisor: number, remainder: number): this;
-    matches(field: string, regExp: string|RegExp, options?: Object): this;
-    near(field: string, coord: Array<number>, maxDistance?: number): this;
+    matches(field: string, regExp: string|RegExp, options?: {}): this;
+    near(field: string, coord: number[], maxDistance?: number): this;
     withinBox(field: string, bottomLeftCoord: number, upperRightCoord: number): this;
-    withinPolygon(field: string, coords: Array<number>): this;
+    withinPolygon(field: string, coords: number[]): this;
     size(field: string, size: number): this;
     ascending(field: string): this;
     descending(field: string): this;
     toPlainObject(): {
-      fields: Array<any>
-      filter?: Object
+      fields: any[]
+      filter?: {}
       sort?: string
       limit?: number
       skip?: number
     }
-    toQueryString(): Object;
+    toQueryString(): {};
     toString(): string;
   }
 
@@ -159,39 +159,39 @@ declare namespace Kinvey {
     AuthorizationCodeAPI
   }
   class User {
-    constructor(data?: Object, options?: Object)
+    constructor(data?: {}, options?: {})
     isActive(): boolean;
     isEmailVerified(): boolean;
     static getActiveUser(client?: Client): User|null
     login(username: string, password: string): Promise<this>;
     static login(username: string, password: string): Promise<User>;
-    loginWithMIC(redirectUri: string, authorizationGrant?: AuthorizationGrant, options?: Object): Promise<this>;
-    static loginWithMIC(redirectUri: string, authorizationGrant?: AuthorizationGrant, options?: Object): Promise<User>;
-    logout(options?: Object): Promise<this>;
-    static logout(options?: Object): Promise<User|null>;
-    signup(data: Object, options?: Object): Promise<this>;
-    static signup(data: Object, options?: Object): Promise<User>;
-    update(data: Object, options?: Object): Promise<this>;
-    static update(data: Object, options?: Object): Promise<User|null>;
-    me(options?: Object): Promise<this>;
-    static me(options?: Object): Promise<User|null>;
-    static verifyEmail(username: string, options?: Object): Promise<Object>;
-    static forgotUsername(email: string, options?: Object): Promise<Object>;
-    static resetPassword(username: string, options?: Object): Promise<Object>;
-    static lookup(query?: Query, options?: Object): Rx.Observable<Array<Object>>;
-    static exists(username: string, options?: Object): Promise<boolean>;
-    static restore(id: string, options?: Object): Promise<Object>;
+    loginWithMIC(redirectUri: string, authorizationGrant?: AuthorizationGrant, options?: {}): Promise<this>;
+    static loginWithMIC(redirectUri: string, authorizationGrant?: AuthorizationGrant, options?: {}): Promise<User>;
+    logout(options?: {}): Promise<this>;
+    static logout(options?: {}): Promise<User|null>;
+    signup(data: {}, options?: {}): Promise<this>;
+    static signup(data: {}, options?: {}): Promise<User>;
+    update(data: {}, options?: {}): Promise<this>;
+    static update(data: {}, options?: {}): Promise<User|null>;
+    me(options?: {}): Promise<this>;
+    static me(options?: {}): Promise<User|null>;
+    static verifyEmail(username: string, options?: {}): Promise<{}>;
+    static forgotUsername(email: string, options?: {}): Promise<{}>;
+    static resetPassword(username: string, options?: {}): Promise<{}>;
+    static lookup(query?: Query, options?: {}): Rx.Observable<Array<{}>>;
+    static exists(username: string, options?: {}): Promise<boolean>;
+    static restore(id: string, options?: {}): Promise<{}>;
   }
 
   // Errors
   class KinveyBaseError {
-    name: string
-    message: string
-    debug: string
-    code: number
-    kinveyRequestId: string
-    stack: string
-    constructor(message: string, debug: string, code: number, kinveyRequestId: string)
+    name: string;
+    message: string;
+    debug: string;
+    code: number;
+    kinveyRequestId: string;
+    stack: string;
+    constructor(message: string, debug: string, code: number, kinveyRequestId: string);
   }
   class ActiveUserError extends KinveyBaseError {}
   class ApiVersionNotAvailableError extends KinveyBaseError {}
