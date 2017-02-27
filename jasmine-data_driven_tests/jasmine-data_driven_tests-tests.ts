@@ -52,3 +52,27 @@ describe("A suite", () => {
         }
     );
 });
+
+using("use using instead of all when you would like to have the equivalent of multiple define statements",
+    ['a', 'b', 'c'],
+    (value: string) =>{
+        let forbiddenValue:string;
+        //with 'using' we can have beforeEach blocks
+        beforeEach(() =>{
+            forbiddenValue = 'd';
+        });
+
+        it("should not be forbiddenValue", () =>{
+            expect(value).not.toBe(forbiddenValue);
+        });
+    }
+);
+
+xusing("disable tests",
+    ['a', 'b', 'c'],
+    (value: string) =>{
+        it("the test should fail but it is disabled", () =>{
+            expect(false).toBeTruthy();
+        });
+    }
+);
