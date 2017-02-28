@@ -9,6 +9,7 @@ export declare class Client {
     constructor(connectionString: string, clientId: string, options?: ZKOptions);
     close(callback?: Function): void;
     topicExists(topics: Array<string>, callback: Function): void;
+    refreshMetadata(topics: Array<string>, cb?: (error: any, data: any) => any): void;
 }
 
 export declare class Producer {
@@ -66,6 +67,8 @@ export declare class ConsumerGroup {
     close(force: boolean, cb: (error: any) => any): void;
 }
 
+export declare class KeyedPartitioner {}
+
 export declare class Offset {
     constructor(client: Client);
     on(eventName: string, cb: () => any): void;
@@ -96,7 +99,7 @@ export interface ZKOptions {
 export interface ProduceRequest {
     topic: string;
     messages: any; // Array<string> | Array<KeyedMessage> | string | KeyedMessage
-    key?: string;
+    key?: any;
     partition?: number;
     attributes?: number;
 }
