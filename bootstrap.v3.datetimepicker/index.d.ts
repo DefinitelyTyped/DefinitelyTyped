@@ -587,7 +587,7 @@ declare global {
 	    on(events: "dp.update", selector: string, handler: (eventobject: UpdateEvent) => any): JQuery;
 	    on(events: "dp.update", selector: string, data: any, handler?: (eventobject: UpdateEvent) => any): JQuery;
 
-	    off(events: "dp.update", handler: (eventobject: Event) => any): JQuery;
+	    off(events: "dp.update", handler: (eventobject: UpdateEvent) => any): JQuery;
 	    off(events: "dp.update", selector?: string, handler?: (eventobject: UpdateEvent) => any): JQuery;
 	}
 }
