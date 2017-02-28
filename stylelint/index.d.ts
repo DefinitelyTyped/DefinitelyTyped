@@ -28,8 +28,17 @@ export interface LinterResult {
 
 export interface LintResult {
     source: string;
-    ignored: boolean;
+    errored: boolean | undefined;
+    ignored: boolean | undefined;
     warnings: string[];
+    deprecations: string[];
+    invalidOptionWarnings: any[];
+}
+
+export namespace formatters {
+    function json(results: LintResult[]): string;
+    function string(results: LintResult[]): string;
+    function verbose(results: LintResult[]): string;
 }
 
 export function lint(options?: LinterOptions): Promise<LinterResult>;
