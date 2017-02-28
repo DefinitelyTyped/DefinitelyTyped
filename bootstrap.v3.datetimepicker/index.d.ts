@@ -1,4 +1,4 @@
-// Type definitions for Bootstrap 3 Datepicker v4.17
+// Type definitions for Bootstrap 3 Datepicker 4.17
 // Project: http://eonasdan.github.io/bootstrap-datetimepicker
 // Definitions by: Katona Péter <https://github.com/katonap>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -226,7 +226,7 @@ export interface Datetimepicker {
 	 */
 	minDate(date: moment.Moment | Date | string | boolean): void;
 	/**Returns the options.parseInputDate option */
-	parseInputDate(): Function;
+	parseInputDate(): (input: string) => moment.Moment;
 	/**Allows custom input formatting For example: the user can enter "yesterday"" or "30 days ago".
 	 * {@link http://eonasdan.github.io/bootstrap-datetimepicker/Functions/#parseinputdate}
 	 */
@@ -276,10 +276,12 @@ export interface Datetimepicker {
 	/**Returns the options.useCurrent option configuration */
 	useCurrent(): boolean | string;
 	/**Takes a boolean or string.
-	 * If a boolean true is passed and the components model moment is not set (either through setDate or through a valid value on the input element the component is attached to) then the first time the user opens the datetimepicker widget the value is initialized to the current moment of the action.
+	 * If a boolean true is passed and the components model moment is not set (either through setDate or through a valid value on the input element the component is attached to)
+	 * then the first time the user opens the datetimepicker widget the value is initialized to the current moment of the action.
 	 * If a false boolean is passed then no initialization happens on the input element.
 	 * You can select the granularity on the initialized moment by passing one of the following strings ("year", "month", "day", "hour", "minute") in the variable.
-	 * If for example you pass "day" to the useCurrent function and the input field is empty the first time the user opens the datetimepicker widget the input text will be initialized to the current datetime with day granularity (ie if currentTime = 2014-08-10 13:32:33 the input value will be initialized to 2014-08-10 00:00:00)
+	 * If for example you pass "day" to the useCurrent function and the input field is empty the first time the user opens the datetimepicker widget the input text will be
+	 * initialized to the current datetime with day granularity (ie if currentTime = 2014-08-10 13:32:33 the input value will be initialized to 2014-08-10 00:00:00)
 	 * Note: If the options.defaultDate is set or the input element the component is attached to has already a value that takes precedence and the functionality of useCurrent is not triggered!
 	 */
 	useCurrent(value: boolean | string): void;
@@ -558,12 +560,12 @@ export interface UpdateEvent extends JQueryEventObject {
 	viewDate: moment.Moment;
 }
 
+type EventName = "dp.show" | "dp.hide" | "dp.error";
 
 declare global {
 	interface JQuery {
 
-	    datetimepicker(): JQuery;
-	    datetimepicker(options: DatetimepickerOptions): JQuery;
+	    datetimepicker(options?: DatetimepickerOptions): JQuery;
 
 	    data(key: "DateTimePicker"): Datetimepicker;
 
@@ -574,30 +576,12 @@ declare global {
 	    off(events: "dp.change", handler: (eventobject: ChangeEvent) => any): JQuery;
 	    off(events: "dp.change", selector?: string, handler?: (eventobject: ChangeEvent) => any): JQuery;
 
+	    on(events: EventName , handler: (eventObject: Event) => any): JQuery;
+	    on(events: EventName, selector: string, handler: (eventobject: Event) => any): JQuery;
+	    on(events: EventName, selector: string, data: any, handler?: (eventobject: Event) => any): JQuery;
 
-	    on(events: "dp.show", handler: (eventObject: Event) => any): JQuery;
-	    on(events: "dp.show", selector: string, handler: (eventobject: Event) => any): JQuery;
-	    on(events: "dp.show", selector: string, data: any, handler?: (eventobject: Event) => any): JQuery;
-
-	    off(events: "dp.show", handler: (eventobject: Event) => any): JQuery;
-	    off(events: "dp.show", selector?: string, handler?: (eventobject: Event) => any): JQuery;
-
-
-	    on(events: "dp.hide", handler: (eventObject: Event) => any): JQuery;
-	    on(events: "dp.hide", selector: string, handler: (eventobject: Event) => any): JQuery;
-	    on(events: "dp.hide", selector: string, data: any, handler?: (eventobject: Event) => any): JQuery;
-
-	    off(events: "dp.hide", handler: (eventobject: Event) => any): JQuery;
-	    off(events: "dp.hide", selector?: string, handler?: (eventobject: Event) => any): JQuery;
-
-
-	    on(events: "dp.error", handler: (eventObject: Event) => any): JQuery;
-	    on(events: "dp.error", selector: string, handler: (eventobject: Event) => any): JQuery;
-	    on(events: "dp.error", selector: string, data: any, handler?: (eventobject: Event) => any): JQuery;
-
-	    off(events: "dp.error", handler: (eventobject: Event) => any): JQuery;
-	    off(events: "dp.error", selector?: string, handler?: (eventobject: Event) => any): JQuery;
-
+	    off(events: EventName, handler: (eventobject: Event) => any): JQuery;
+	    off(events: EventName, selector?: string, handler?: (eventobject: Event) => any): JQuery;
 
 	    on(events: "dp.update", handler: (eventObject: UpdateEvent) => any): JQuery;
 	    on(events: "dp.update", selector: string, handler: (eventobject: UpdateEvent) => any): JQuery;

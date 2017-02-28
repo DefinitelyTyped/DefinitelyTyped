@@ -12,11 +12,12 @@ function test_cases() {
 
     $('#datetimepicker').data("DateTimePicker").maxDate('2012-12-31');
 
-    var startDate = moment(new Date(2012, 1, 20));
-    var endDate = moment(new Date(2012, 1, 25));
+    let startDate = moment(new Date(2012, 1, 20));
+    const endDate = moment(new Date(2012, 1, 25));
+
     $('#datetimepicker2')
         .datetimepicker()
-        .on("dp.change", function(ev) {
+        .on("dp.change", ev => {
             if (ev.date.valueOf() > endDate.valueOf()) {
                 $('#alert').show().find('strong').text('The start date must be before the end date.');
             } else {
@@ -24,6 +25,12 @@ function test_cases() {
                 startDate = ev.date;
                 $('#date-start-display').text($('#date-start').data('date'));
             }
+        })
+        .on("dp.error", ev => {
+            console.log(`Error: ${ev.date.format('YYYY-MM-DD')}`);
+        })
+        .on("dp.update", ev => {
+            console.log(`Change: ${ev.change}, ${ev.viewDate.format('YYYY-MM-DD')}`);
         });
 }
 
