@@ -4,7 +4,7 @@ const a = new Float32Array(0);
 const n = 1;
 let res: number;
 
-function test () {
+function test() {
     // BLAS Level 1 Routines and Functions
     res = nblas.asum(a);
     nblas.axpy(a, a, n);
@@ -18,7 +18,7 @@ function test () {
     nblas.scal(a, n);
     nblas.swap(a, a);
     res = nblas.iamax(a);
-    //nblas.iamin(a);
+    // nblas.iamin(a);
 
     // BLAS Level 2 Routines
     nblas.gbmv(a, a, a, n, n, n, n, nblas.Trans);

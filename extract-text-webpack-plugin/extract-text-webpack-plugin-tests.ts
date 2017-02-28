@@ -58,7 +58,10 @@ configuration = {
 configuration = {
     // ...
     plugins: [
-        new optimize.CommonsChunkPlugin("commons", "commons.js"),
+        new optimize.CommonsChunkPlugin({
+            name: "commons",
+            filename: "commons.js",
+        }),
         new ExtractTextPlugin("[name].css")
     ]
 };

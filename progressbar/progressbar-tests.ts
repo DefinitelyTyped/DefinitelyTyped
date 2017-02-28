@@ -2,8 +2,8 @@ import { Progressbar, create } from 'progressbar';
 
 let str: string = '',
     progressbar: Progressbar,
-    num: number = 1,
-    fn: () => void = () => {};
+    num: number = 1;
+const fn: () => void = () => {};
 
 progressbar = create();
 progressbar = progressbar.step(str);

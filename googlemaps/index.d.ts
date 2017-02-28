@@ -784,7 +784,7 @@ declare namespace google.maps {
         open(map?: Map|StreetViewPanorama, anchor?: MVCObject): void;
         setContent(content: string|Node): void;
         setOptions(options: InfoWindowOptions): void;
-        setPosition(position: LatLng): void;
+        setPosition(position: LatLng|LatLngLiteral): void;
         setZIndex(zIndex: number): void;
     }
 
@@ -1758,9 +1758,15 @@ declare namespace google.maps {
     }
 
     export class TrafficLayer extends MVCObject {
-        constructor();
-        getMap(): void;
+        constructor(opts?: TrafficLayerOptions);
+        getMap(): Map;
         setMap(map: Map): void;
+        setOptions(options: TrafficLayerOptions): void;
+    }
+
+    export interface TrafficLayerOptions {
+        autoRefresh?: boolean;
+        map?: Map;
     }
 
     export class TransitLayer extends MVCObject {

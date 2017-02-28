@@ -19,6 +19,28 @@ function test_getAuthInstance(){
   var auth = gapi.auth2.getAuthInstance();
 }
 
+function test_signIn(){
+  gapi.auth2.getAuthInstance().signIn({
+    scope: 'email profile',
+    prompt: 'content'
+  });
+}
+
+function test_signInOptionsBuild(){
+  var options = new gapi.auth2.SigninOptionsBuilder();
+  options.setAppPackageName('com.example.app');
+  options.setFetchBasicProfile(true);
+  options.setPrompt('select_account');
+  options.setScope('profile').setScope('email');
+  gapi.auth2.getAuthInstance().signIn(options);
+}
+
+function test_getAuthResponse(){
+  var user = gapi.auth2.getAuthInstance().currentUser.get();
+  var authResponse = user.getAuthResponse();
+  var authResponseWithAuth = user.getAuthResponse(true);
+}
+
 function test_render(){
   var success = (googleUser: gapi.auth2.GoogleUser): void => {
     console.log(googleUser);

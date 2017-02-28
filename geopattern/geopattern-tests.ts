@@ -1,4 +1,3 @@
-/// <reference path="index.d.ts" />
 /// <reference types="jquery" />
 
 var pattern = GeoPattern.generate('GitHub');

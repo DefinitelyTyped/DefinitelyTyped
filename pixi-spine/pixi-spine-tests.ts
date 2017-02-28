@@ -1,5 +1,4 @@
-/// <reference types="pixi.js" />
-/// <reference types="pixi-spine" />
+import * as PIXI from "pixi.js";
 
 namespace Spine {
 
@@ -25,13 +24,13 @@ namespace Spine {
 
         private onAssetsLoaded = (loader: PIXI.loaders.Loader, res: any): void => {
 
-            //initiate the spine animation
+            // initiate the spine animation
             this.dragon = new PIXI.spine.Spine(res.dragon.spineData);
             this.dragon.skeleton.setToSetupPose();
             this.dragon.update(0);
             this.dragon.autoUpdate = false;
 
-            //create a container for the spin animation and add the animation to it
+            // create a container for the spin animation and add the animation to it
             var dragonCage: PIXI.Container = new PIXI.Container();
             dragonCage.addChild(this.dragon);
 
@@ -94,7 +93,7 @@ namespace Spine {
 
         private onAssetsLoaded = (loader: PIXI.loaders.Loader, res: any): void => {
 
-            //initiate the spine animation
+            // initiate the spine animation
             this.goblin = new PIXI.spine.Spine(res.goblins.spineData);
             this.goblin.skeleton.setSkinByName('goblin');
             this.goblin.skeleton.setSlotsToSetupPose();
@@ -270,7 +269,7 @@ namespace Spine {
 
             private onAssetsLoaded = (loader: PIXI.loaders.Loader, res: any): void => {
 
-                //initiate the spine animation
+                // initiate the spine animation
                 this.spineboy = new PIXI.spine.Spine(res.spineboy.spineData);
                 this.spineboy.position.x = this.renderer.width / 2;
                 this.spineboy.position.y = this.renderer.height;

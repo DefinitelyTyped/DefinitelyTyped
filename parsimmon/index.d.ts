@@ -1,6 +1,9 @@
 // Type definitions for Parsimmon 1.0
 // Project: https://github.com/jneen/parsimmon
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Mizunashi Mana <https://github.com/mizunashi-mana>, Boris Cherny <https://github.com/bcherny>, Benny van Reeven <https://github.com/bvanreeven>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
+//                 Mizunashi Mana <https://github.com/mizunashi-mana>
+//                 Boris Cherny <https://github.com/bcherny>
+//                 Benny van Reeven <https://github.com/bvanreeven>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

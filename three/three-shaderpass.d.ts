@@ -4,22 +4,21 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-
 declare namespace THREE {
-	export class ShaderPass {
-		constructor( shader: Shader, textureID?: string );
+    export class ShaderPass {
+        constructor(shader: Shader, textureID?: string);
 
-		textureID: string;
-		uniforms: any;
-		material: ShaderMaterial;
-		renderToScreen: boolean;
-		enabled: boolean;
-		needsSwap: boolean;
-		clear: boolean;
-		camera: Camera;
-		scene: Scene;
-		quad: Mesh;
+        textureID: string;
+        uniforms: any;
+        material: ShaderMaterial;
+        renderToScreen: boolean;
+        enabled: boolean;
+        needsSwap: boolean;
+        clear: boolean;
+        camera: Camera;
+        scene: Scene;
+        quad: Mesh;
 
-		render(renderer: WebGLRenderer, writeBuffer: WebGLRenderTarget, readBuffer: WebGLRenderTarget, delta: number): void;
-	}
+        render(renderer: WebGLRenderer, writeBuffer: WebGLRenderTarget, readBuffer: WebGLRenderTarget, delta: number): void;
+    }
 }

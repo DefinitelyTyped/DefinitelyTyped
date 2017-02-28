@@ -66,7 +66,8 @@ declare namespace Rx {
         publish<TResult>(selector: (source: ConnectableObservable<T>) => Observable<TResult>): Observable<TResult>;
         /**
         * Returns an observable sequence that shares a single subscription to the underlying sequence.
-        * This operator is a specialization of publish which creates a subscription when the number of observers goes from zero to one, then shares that subscription with all subsequent observers until the number of observers returns to zero, at which point the subscription is disposed.
+        * This operator is a specialization of publish which creates a subscription when the number of observers goes from zero to one,
+        * then shares that subscription with all subsequent observers until the number of observers returns to zero, at which point the subscription is disposed.
         *
         * @example
         * var res = source.share();
@@ -80,7 +81,8 @@ declare namespace Rx {
         publishValue<TResult>(selector: (source: ConnectableObservable<T>) => Observable<TResult>, initialValue: T): Observable<TResult>;
         /**
         * Returns an observable sequence that shares a single subscription to the underlying sequence and starts with an initialValue.
-        * This operator is a specialization of publishValue which creates a subscription when the number of observers goes from zero to one, then shares that subscription with all subsequent observers until the number of observers returns to zero, at which point the subscription is disposed.
+        * This operator is a specialization of publishValue which creates a subscription when the number of observers goes from zero to one,
+        * then shares that subscription with all subsequent observers until the number of observers returns to zero, at which point the subscription is disposed.
         *
         * @example
         * var res = source.shareValue(42);

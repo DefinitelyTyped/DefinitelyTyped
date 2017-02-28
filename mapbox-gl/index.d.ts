@@ -986,3 +986,7 @@ declare namespace mapboxgl {
 declare module 'mapbox-gl' {
 	export = mapboxgl;
 }
+
+declare module 'mapbox-gl/dist/mapbox-gl' {
+	export = mapboxgl;
+}

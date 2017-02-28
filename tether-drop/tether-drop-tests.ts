@@ -13,6 +13,7 @@ var d = new Drop({
     tetherOptions: {},
     remove: true,
     target: yellowBox,
+    beforeClose: () => true,
     content: greenBox
 });
 

@@ -23,7 +23,7 @@ import {
 } from 'react-leaflet';
 const { BaseLayer, Overlay } = LayersControl;
 
-///animate.js
+/// animate.js
 export class AnimateExample extends Component<any, any> {
     state = {
         animate: false,
@@ -32,18 +32,18 @@ export class AnimateExample extends Component<any, any> {
             lat: 51.505,
             lng: -0.09,
         },
-    }
+    };
 
     handleClick = (e: Leaflet.MouseEvent) => {
         this.setState({
             latlng: e.latlng,
-        })
+        });
     }
 
     toggleAnimate = () => {
         this.setState({
             animate: !this.state.animate,
-        })
+        });
     }
 
     render() {
@@ -53,7 +53,7 @@ export class AnimateExample extends Component<any, any> {
                     <span>You are here</span>
                 </Popup>
             </Marker>
-        ) : null
+        ) : null;
 
         return (
             <div style={{ textAlign: 'center' }}>
@@ -64,7 +64,7 @@ export class AnimateExample extends Component<any, any> {
                 <Map
                     animate={this.state.animate}
                     center={this.state.latlng}
-                    //TODO length={4}
+                    // TODO length={4}
                     onclick={this.handleClick}
                     ref='map'
                     zoom={13}>
@@ -75,31 +75,31 @@ export class AnimateExample extends Component<any, any> {
                     {marker}
                 </Map>
             </div>
-        )
+        );
     }
 }
 
-//bounds.js
+// bounds.js
 const outer: Array<[number, number]> = [
     [50.505, -29.09],
     [52.505, 29.09],
-]
+];
 const inner: Array<[number, number]> = [
     [49.505, -2.09],
     [53.505, 2.09],
-]
+];
 
 export class BoundsExample extends Component<any, any> {
     state = {
         bounds: outer,
-    }
+    };
 
     onClickInner = () => {
-        this.setState({ bounds: inner })
+        this.setState({ bounds: inner });
     }
 
     onClickOuter = () => {
-        this.setState({ bounds: outer })
+        this.setState({ bounds: outer });
     }
 
     render() {
@@ -120,14 +120,14 @@ export class BoundsExample extends Component<any, any> {
                     onclick={this.onClickInner}
                     />
             </Map>
-        )
+        );
     }
 }
 
-//custom-component.js
+// custom-component.js
 const SomeFn = (asd: string) => (
     asd + asd
-)
+);
 
 const MyPopupMarker = ({ children, position }: any) => (
     <Marker position={position}>
@@ -145,12 +145,12 @@ const MyPopupMarker = ({ children, position }: any) => (
 const MyMarkersList = ({ markers }: any) => {
     const items = markers.map(({ key, ...props }: any) => (
         <MyPopupMarker key={key} {...props} />
-    ))
-    return <div style={{ display: 'none' }}>{items}</div>
-}
+    ));
+    return <div style={{ display: 'none' }}>{items}</div>;
+};
 (MyMarkersList as any).propTypes = {
     markers: PropTypes.array.isRequired,
-}
+};
 
 export class CustomComponent extends Component<any, any> {
     state = {
@@ -160,13 +160,13 @@ export class CustomComponent extends Component<any, any> {
     };
 
     render() {
-        const center: [number, number] = [this.state.lat, this.state.lng]
+        const center: [number, number] = [this.state.lat, this.state.lng];
 
         const markers = [
             { key: 'marker1', position: [51.5, -0.1], children: 'My first popup' },
             { key: 'marker2', position: [51.51, -0.1], children: 'My second popup' },
             { key: 'marker3', position: [51.49, -0.05], children: 'My third popup' },
-        ]
+        ];
         return (
             <Map center={center} zoom={this.state.zoom}>
                 <TileLayer
@@ -175,11 +175,11 @@ export class CustomComponent extends Component<any, any> {
                     />
                 <MyMarkersList markers={markers} />
             </Map>
-        )
+        );
     }
 }
 
-//draggable-marker.js
+// draggable-marker.js
 export class DraggableExample extends Component<any, any> {
     state = {
         center: {
@@ -192,22 +192,22 @@ export class DraggableExample extends Component<any, any> {
         },
         zoom: 13,
         draggable: true,
-    }
+    };
 
     toggleDraggable = () => {
-        this.setState({ draggable: !this.state.draggable })
+        this.setState({ draggable: !this.state.draggable });
     }
 
     updatePosition = () => {
-        const { lat, lng } = (this.refs['marker'] as MarkerInstance).leafletElement.getLatLng()
+        const { lat, lng } = (this.refs['marker'] as MarkerInstance).leafletElement.getLatLng();
         this.setState({
             marker: { lat, lng },
-        })
+        });
     }
 
     render() {
-        const position: [number, number] = [this.state.center.lat, this.state.center.lng]
-        const markerPosition: [number, number] = [this.state.marker.lat, this.state.marker.lng]
+        const position: [number, number] = [this.state.center.lat, this.state.center.lng];
+        const markerPosition: [number, number] = [this.state.marker.lat, this.state.marker.lng];
 
         return (
             <Map center={position} zoom={this.state.zoom}>
@@ -227,11 +227,11 @@ export class DraggableExample extends Component<any, any> {
                     </Popup>
                 </Marker>
             </Map>
-        )
+        );
     }
 }
 
-//events.js
+// events.js
 export class EventsExample extends Component<any, any> {
     state = {
         hasLocation: false,
@@ -239,17 +239,17 @@ export class EventsExample extends Component<any, any> {
             lat: 51.505,
             lng: -0.09,
         },
-    }
+    };
 
     handleClick = () => {
-        (this.refs['map'] as MapInstance).leafletElement.locate()
+        (this.refs['map'] as MapInstance).leafletElement.locate();
     }
 
     handleLocationFound = (e: Leaflet.LocationEvent) => {
         this.setState({
             hasLocation: true,
             latlng: e.latlng,
-        })
+        });
     }
 
     render() {
@@ -259,12 +259,12 @@ export class EventsExample extends Component<any, any> {
                     <span>You are here</span>
                 </Popup>
             </Marker>
-        ) : null
+        ) : null;
 
         return (
             <Map
                 center={this.state.latlng}
-                //TODO length={4}
+                // TODO length={4}
                 onClick={this.handleClick}
                 onlocationfound={this.handleLocationFound}
                 ref='map'
@@ -275,18 +275,18 @@ export class EventsExample extends Component<any, any> {
                     />
                 {marker}
             </Map>
-        )
+        );
     }
 }
 
-//layers-control.js
+// layers-control.js
 export class LayersControlExample extends Component<any, any> {
     render() {
-        const center: [number, number] = [51.505, -0.09]
+        const center: [number, number] = [51.505, -0.09];
         const rectangle: Array<[number, number]> = [
             [51.49, -0.08],
             [51.5, -0.06],
-        ]
+        ];
 
         return (
             <Map center={center} zoom={13}>
@@ -330,18 +330,18 @@ export class LayersControlExample extends Component<any, any> {
                     </Overlay>
                 </LayersControl>
             </Map>
-        )
+        );
     }
 }
 
-//other-layers.js
+// other-layers.js
 export class OtherLayersExample extends Component<any, any> {
     render() {
-        const center: [number, number] = [51.505, -0.09]
+        const center: [number, number] = [51.505, -0.09];
         const rectangle: Array<[number, number]> = [
             [51.49, -0.08],
             [51.5, -0.06],
-        ]
+        ];
 
         return (
             <Map center={center} zoom={13}>
@@ -364,22 +364,22 @@ export class OtherLayersExample extends Component<any, any> {
                     <Rectangle bounds={rectangle} />
                 </FeatureGroup>
             </Map>
-        )
+        );
     }
 }
 
-//pane.js
+// pane.js
 export class PaneExample extends Component<any, any> {
     state = {
         render: true,
-    }
+    };
 
     componentDidMount() {
         setInterval(() => {
             this.setState({
                 render: !this.state.render,
-            })
-        }, 5000)
+            });
+        }, 5000);
     }
 
     render() {
@@ -401,20 +401,20 @@ export class PaneExample extends Component<any, any> {
                     </Pane>
                 </Pane>
             </Map>
-        )
+        );
     }
 }
 
-//simple.js
+// simple.js
 export class SimpleExample extends Component<any, any> {
     state = {
         lat: 51.505,
         lng: -0.09,
         zoom: 13,
-    }
+    };
 
     render() {
-        const position: [number, number] = [this.state.lat, this.state.lng]
+        const position: [number, number] = [this.state.lat, this.state.lng];
         return (
             <Map center={position} zoom={this.state.zoom}>
                 <TileLayer
@@ -427,36 +427,36 @@ export class SimpleExample extends Component<any, any> {
                     </Popup>
                 </Marker>
             </Map>
-        )
+        );
     }
 }
 
-//tooltip.js
+// tooltip.js
 export class TooltipExample extends Component<any, any> {
     state = {
         clicked: 0,
-    }
+    };
 
     onClickCircle = () => {
-        this.setState({ clicked: this.state.clicked + 1 })
+        this.setState({ clicked: this.state.clicked + 1 });
     }
 
     render() {
-        const center: [number, number] = [51.505, -0.09]
+        const center: [number, number] = [51.505, -0.09];
 
         const multiPolygon: Array<Array<[number, number]>> = [
             [[51.51, -0.12], [51.51, -0.13], [51.53, -0.13]],
             [[51.51, -0.05], [51.51, -0.07], [51.53, -0.07]],
-        ]
+        ];
 
         const rectangle: Array<[number, number]> = [
             [51.49, -0.08],
             [51.5, -0.06],
-        ]
+        ];
 
         const clickedText = this.state.clicked === 0
             ? 'Click this Circle to change the Tooltip text'
-            : `Circle click: ${this.state.clicked}`
+            : `Circle click: ${this.state.clicked}`;
 
         return (
             <Map center={center} zoom={13}>
@@ -485,41 +485,41 @@ export class TooltipExample extends Component<any, any> {
                     </Tooltip>
                 </Rectangle>
             </Map>
-        )
+        );
     }
 }
 
-//vector-layers.js
+// vector-layers.js
 export class VectorLayersExample extends Component<any, any> {
     render() {
-        const center: [number, number] = [51.505, -0.09]
+        const center: [number, number] = [51.505, -0.09];
 
         const polyline: Array<[number, number]> = [
             [51.505, -0.09],
             [51.51, -0.1],
             [51.51, -0.12],
-        ]
+        ];
 
         const multiPolyline: Array<Array<[number, number]>> = [
             [[51.5, -0.1], [51.5, -0.12], [51.52, -0.12]],
             [[51.5, -0.05], [51.5, -0.06], [51.52, -0.06]],
-        ]
+        ];
 
         const polygon: Array<[number, number]> = [
             [51.515, -0.09],
             [51.52, -0.1],
             [51.52, -0.12],
-        ]
+        ];
 
         const multiPolygon: Array<Array<[number, number]>> = [
             [[51.51, -0.12], [51.51, -0.13], [51.53, -0.13]],
             [[51.51, -0.05], [51.51, -0.07], [51.53, -0.07]],
-        ]
+        ];
 
         const rectangle: Array<[number, number]> = [
             [51.49, -0.08],
             [51.5, -0.06],
-        ]
+        ];
 
         return (
             <Map center={center} zoom={13}>
@@ -539,23 +539,23 @@ export class VectorLayersExample extends Component<any, any> {
                 <Polygon color='purple' positions={multiPolygon} />
                 <Rectangle bounds={rectangle} color='black' />
             </Map>
-        )
+        );
     }
 }
 
-//wms-tile-layer.js
+// wms-tile-layer.js
 export class WMSTileLayerExample extends Component<any, any> {
     state = {
         lat: 51.505,
         lng: -0.09,
         zoom: 5,
         bluemarble: false,
-    }
+    };
 
     onClick = () => {
         this.setState({
             bluemarble: !this.state.bluemarble,
-        })
+        });
     }
 
     render() {
@@ -573,11 +573,11 @@ export class WMSTileLayerExample extends Component<any, any> {
                     url='http://demo.opengeo.org/geoserver/ows?'
                     />
             </Map>
-        )
+        );
     }
 }
 
-//zoom-control.js
+// zoom-control.js
 const ZoomControlExample = () => (
     <Map center={[51.505, -0.09]} zoom={13} zoomControl={false}>
         <TileLayer
@@ -586,4 +586,4 @@ const ZoomControlExample = () => (
             />
         <ZoomControl position='topright' />
     </Map>
-)
+);
