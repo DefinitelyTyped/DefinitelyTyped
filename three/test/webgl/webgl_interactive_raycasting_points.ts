@@ -13,14 +13,14 @@
 
     if (!Detector.webgl) Detector.addGetWebGLMessage();
 
-    var renderer, scene, camera, stats;
-    var pointclouds;
-    var raycaster;
+    var renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.PerspectiveCamera, stats: Stats;
+    var pointclouds: THREE.Points[];
+    var raycaster: THREE.Raycaster;
     var mouse = new THREE.Vector2();
     var intersection = null;
     var spheres = [];
     var spheresIndex = 0;
-    var clock;
+    var clock: THREE.Clock;
 
     var threshold = 0.1;
     var pointSize = 0.05;
@@ -292,7 +292,7 @@
     function render() {
 
         camera.applyMatrix(rotateY);
-        camera.updateMatrixWorld();
+        camera.updateMatrixWorld(false);
 
         raycaster.setFromCamera(mouse, camera);
 

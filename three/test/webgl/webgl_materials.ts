@@ -9,10 +9,10 @@
 
     if (!Detector.webgl) Detector.addGetWebGLMessage();
 
-    var container, stats;
+    var container: HTMLDivElement, stats: Stats;
 
-    var camera, scene, renderer, objects;
-    var particleLight;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.WebGLRenderer, objects: THREE.Mesh[];
+    var particleLight: THREE.Mesh;
 
     var materials = [];
 
@@ -92,7 +92,7 @@
 
         objects = [];
 
-        var sphere, geometry: THREE.Geometry, material;
+        var sphere: THREE.Mesh, geometry: THREE.Geometry, material;
 
         for (var i = 0, l = materials.length; i < l; i++) {
 

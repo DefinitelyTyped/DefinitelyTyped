@@ -6,15 +6,15 @@
 () => {
     if (!Detector.webgl) Detector.addGetWebGLMessage();
 
-    var container, stats;
+    var container: HTMLDivElement, stats;
 
-    var camera, scene, renderer;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.WebGLRenderer;
 
     var geometry, objects;
 
     var mouseX = 0, mouseY = 0;
 
-    var mesh;
+    var mesh: THREE.Mesh;
     var windowHalfX = window.innerWidth / 2;
     var windowHalfY = window.innerHeight / 2;
 

@@ -5,11 +5,11 @@
 // https://github.com/mrdoob/three.js/blob/master/examples/canvas_interactive_cubes_tween.html
 
 () => {
-    var container, stats;
-    var camera, scene, renderer;
+    var container: HTMLDivElement, stats: Stats;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.CanvasRenderer;
 
-    var raycaster;
-    var mouse;
+    var raycaster: THREE.Raycaster;
+    var mouse: THREE.Vector2;
 
     init();
     animate();

@@ -128,8 +128,8 @@
         "Uuo", "Ununoctium", "(294)", 18, 7
     ];
 
-    var camera, scene, renderer;
-    var controls;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.CSS3DRenderer;
+    var controls: THREE.TrackballControls;
 
     var objects = [];
     var targets = { table: [], sphere: [], helix: [], grid: [] };

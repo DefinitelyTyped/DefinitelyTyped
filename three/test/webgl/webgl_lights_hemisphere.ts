@@ -10,9 +10,9 @@
 
     if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
-    var camera, scene, renderer, dirLight, hemiLight;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.WebGLRenderer, dirLight: THREE.DirectionalLight, hemiLight: THREE.HemisphereLight;
     var mixers = [];
-    var stats;
+    var stats: Stats;
 
     var clock = new THREE.Clock();
 

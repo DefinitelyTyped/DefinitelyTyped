@@ -5,10 +5,10 @@
 
 () => {
     // ------- variable definitions that does not exist in the original code. These are for typescript.
-    var container, stats;
+    var container: HTMLDivElement, stats: Stats;
 
-    var camera, scene, renderer, objects;
-    var pointLight;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.CanvasRenderer, objects: THREE.Mesh[];
+    var pointLight: THREE.PointLight;
 
     init();
     animate();

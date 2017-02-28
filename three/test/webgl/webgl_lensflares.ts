@@ -8,9 +8,9 @@
     var controls: any;
     // -------
 
-    var container, stats;
+    var container: HTMLDivElement, stats: Stats;
 
-    var camera, scene, renderer;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.WebGLRenderer;
 
     var clock = new THREE.Clock();
 
@@ -150,7 +150,7 @@
 
     function lensFlareUpdateCallback(object) {
 
-        var f, fl = object.lensFlares.length;
+        var f: number, fl = object.lensFlares.length;
         var flare;
         var vecX = -object.positionScreen.x * 2;
         var vecY = -object.positionScreen.y * 2;
